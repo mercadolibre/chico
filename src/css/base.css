@@ -1,0 +1,786 @@
+/*
+ * MELI Reset Sylesheet
+ * @autor: Eric Meyer
+ * @mod: 07/07/2010
+ *
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+abbr, article, aside, audio, bb, canvas, datagrid, 
+datalist, details, dialog, eventsource, figure, footer,
+header, hgroup, mark, menu, meter, nav, output,
+progress, section, time, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background: transparent;	
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+ * Global
+ * @autor: Leandro Linares
+ * @autor: Jesica Bertisch
+ * @mod: 05/07/2010
+ *
+ */
+
+body { 
+	background-color: #fff;
+	color: #333; 
+	font:13px/20px Arial, Helvetica, "Nimbus Sans L", sans-serif;
+	min-width:760px;
+	max-width:1200px;
+	margin:0 auto;
+	padding:0 10px; /* Impide que el layout se pegue con el borde del browser */
+}
+
+.o {
+	display:none;
+}
+
+/*
+ * Links
+ * @autor: Leandro Linares
+ * @mod: 02/07/2010
+ *
+ */
+
+a { 
+	color:#0637B3;
+	text-decoration: none;
+}
+a:active {
+	color: #00D;
+}
+a:visited{
+	color:#800080;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a img{
+	border:none;
+}
+
+/*
+ * Sprites
+ * @autor: All
+ * @mod: 30/06/2010
+ *
+ */
+
+.btn, .box, .cone, .ico { 
+	background-image: url(http://10.100.34.210:8080/content/assets/spr.png);
+}
+
+/*
+ * Typos
+ * @autor: Emiliano Quintana
+ * @mod: 24/09/2010
+ *
+ */
+
+p {
+	margin: 5px 0 10px;
+}
+
+p.table {
+	font-size:12px;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-weight:normal;
+	margin-top: 10px;
+}
+.box h1, .box h2, .box h3, .box h4, .box h5, .box h6 {
+	margin-top:0;
+}
+.typo {font-family:"Trebuchet MS", Verdana, "DejaVu Sans", sans-serif}
+
+/*Con Arial*/
+h1{font-size:20px}
+h2{font-size:18px}
+h3{font-size:16px}
+h5{font-size:11px}
+	
+/*Con Trebuchet*/
+h1.typo{font-size:20px}
+h2.typo{font-size:18px}
+h5.typo{font-size:13px}
+
+h1, h2, h3, h4, h5, h6 {
+
+}
+
+ul {
+	margin-top: 5px;
+}
+
+li {
+	padding: 0 5px 0 15px;
+}
+
+span.numeros {
+	letter-spacing:1px;
+}
+
+p.textoChico {
+	font-size:12px;
+	color:#666666;
+}
+
+p.disclaimer {
+	font-size:11px;
+	color: #999999;
+}
+
+p.congrats {
+	font-size:16px;
+}
+
+/* Tilde de mensaje felicitaciones */
+span.tilde {
+	background-image:url(tilde.png);
+	width:17px;
+	height:17px;
+	margin-right:5px;
+	display:inline-block;
+	vertical-align:text-top;
+}
+
+span.tildeChico {
+	background-image:url(tildeChico.png);
+	width:13px;
+	height:10px;
+	margin-right:5px;
+	display:inline-block;
+	vertical-align:inherit;
+}
+
+.auction{
+	color:#090!important;
+	font-weight:bold;
+}
+
+/*
+ * Price
+ * @autor: Jesica Bertisch
+ * @mod: 
+ *
+ */
+.price {
+	color: #900;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.price sup {
+	font-size: 10px;
+	vertical-align: text-top;
+}
+
+.price span{
+	color:#999;
+	font-size:13px;
+	font-weight:normal
+}
+
+/*
+ * Misc
+ * @autor: 
+ * @mod: 
+ *
+ */
+hr { 
+	border: none;
+	border-bottom: 1px dashed #ccc;
+}
+
+/*
+ * Buttons
+ * @autor: Natan Santolo
+ * @autor:Guille Paz
+ * @mod: 06/07/2010
+ *
+ */
+.btn {
+	background-repeat: repeat-x;
+	border: 1px solid transparent; 
+	cursor:pointer;
+	overflow: visible; 
+	padding: 3px 9px; 
+}
+
+.btn.primary, .btn.secondary {
+	background-color: #2338ac;
+	border: 1px solid #5B67B0; 
+	color: #fff; 
+}
+
+.btn.primary { 
+	background-position: 0 -169px;
+	font-size: 20px; 
+}
+
+.btn.secondary { 
+	background-position: 0 -173px;
+	font-weight: 700;
+}
+
+.btn.tertiary { 
+	font-size: 11px; 
+}
+
+.btn:focus {
+	background-color:#1e34d0;
+    background-position:0 -203px;
+	color:#E0F3FD;
+	outline:solid;
+	outline:outset;
+	outline:double;
+	outline-color:#BBD6DD;
+}
+
+.btn:hover { 
+	background-position:0 -203px;
+	border: 1px solid #333333
+}
+
+.btn.secondary:hover, 
+.btn.secondary:focus { 
+	background-position:0 -207px;
+}
+
+.btn:active {
+	background-position:0 -237px;
+	border: 1px solid #333333; 
+	outline:none;
+}
+
+.btn.secondary:active { 
+	background-position:0 -241px;
+}
+
+.btn.skin {
+	background-color: #d7e8fb;
+	background-position: 0 -271px;
+	border: 1px solid #bbd6dd;
+	color: #333;
+}
+
+.btn.skin:focus {
+	background-color: #d7e8fb;
+	background-position: 0 -271px;
+	border: 1px solid #60ADBA;
+	color:#60ADBA;
+	outline-color:#DFF3FD;
+}
+
+.btn.skin:hover { 
+	background-position: 0 -271px;
+	border: 1px solid #60ADBA;
+}
+
+.btn.skin:active {
+	background-position: 0 -296px;
+	border: 1px solid #60ADBA;
+	color: #333;
+	outline:none;
+}
+
+.btn:disabled, /* heredan todos los btns */
+.btn:disabled:hover,
+.btn:disabled:active { /* refuerzo los botones disabled */
+	background-color: #fff; 
+	background-position: 0 -320px; 
+	border: 1px solid #ccc;
+	color: #ccc;
+	cursor: not-allowed;  
+}
+
+.btn.close {
+	background-repeat:no-repeat;
+	background-position:right -120px;
+	background-color:transparent;
+	border:none;
+	cursor:pointer;
+	height:16px;
+	padding:0px;
+	position:absolute;
+	right:10px;
+	top:10px;
+	text-indent:-9999px;
+	width:16px;
+}
+
+.btn.close:hover, .close:focus{
+	background-position:right -136px;
+	border:none;
+}
+
+.btn.close:active{
+	background-position:right -152px;
+	outline:none;
+}
+
+/*
+ * Boxes
+ * @autor: 
+ * @mod: 
+ *
+ */
+
+.container {
+	border: none;
+	background: none;
+	margin: 10px 0;
+	padding: 10px;	
+}
+
+.box { 
+	border: 1px solid #afafaf;
+	margin: 10px 0;
+	padding: 10px;
+/*	position: relative;  this is really necesary ? */
+	background-position: 0 -522px;
+	background-repeat: repeat-x;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.container .box:first-child {
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.container .box {
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.actions { 
+	margin-top: 10px;
+	text-align: center
+}
+
+/*Titulo sobre box*/
+.box h2.typo{
+margin-bottom:10px;
+}
+
+/*
+ * Accordeon
+ * @autor: Guille Paz
+ * @autor: Fernando Martin
+ * @mod: 30/08/2010 by Natan Santolo
+ *
+ */
+
+.accordion li {
+	border-bottom:1px dashed #ccc;
+	padding:2px 0;
+	line-height:20px;
+}
+
+.accordion li.on .ico.arrow { 
+	background-position:0 -8px;
+}
+
+.accordion li a.on {
+	font-weight:bold;
+}
+
+.accordion ul {
+	margin:5px 0 5px 20px;
+}
+
+.accordion ul li {
+	border:none;
+}
+
+.ico.arrow { 
+	background:transparent url(http://10.100.34.210:8080/content/assets/categList.gif) no-repeat scroll 0 7px;
+	width:10px;
+	float:left;
+}	
+
+
+/*
+ * Tabs
+ * @autor: Guille Paz
+ * @mod: 20/09/2010 by Pato Blanc
+ *
+ */
+
+.article .tabs {
+	margin:10px 0;
+}
+
+.tabs .nav {
+	position:relative;
+	top:11px;
+	z-index:10;
+}
+
+.tabs .containerTabs {
+	margin-left:10px;
+}
+
+.tabs .containerTabs li {
+	cursor:pointer;
+	display:inline-block;
+	margin-right:0;
+}
+
+.tabs .containerTabs a {
+	border:1px solid #AFAFAF;
+	display:inline-block;
+	padding:3px 12px;
+	text-decoration:none;
+	color:#333333;
+	font-weight:bold;
+}
+
+.tabs .containerTabs a.selected {
+	border-bottom:1px solid #FFFFFF;
+}
+
+/*
+ * Dropdowns
+ * @autor: Lean Linares
+ * @autor: Natan Santolo
+ * @mod: 25/08/2010 by Pato Blanc
+ *
+ */
+
+.dropdown {
+	display:inline-block;
+	position:relative;
+}
+
+.dropWraper {
+	cursor:pointer;
+	height:19px;
+	line-height:19px;
+	padding:0px 26px 0px 7px;
+	position:relative;
+	z-index:700;
+}
+
+.dropdown.on .dropWraper {
+	z-index:900;
+}
+
+.dropContent {
+	background-color:#fff;
+	border:1px solid #74B5C5;
+	line-height:18px;
+	min-width:120px;
+	padding:10px;
+	position:absolute;
+	top:20px;
+	white-space:nowrap;
+	z-index:800;
+	display:none;
+}
+
+.dropdown.on .dropContent {
+	display:block;
+}
+
+.dropContent.move {
+	right:0;
+}
+
+.dropdown .ico.down, .dropdown.on .ico.down {
+	position:absolute;
+	right:5px;
+	top:3px;
+	vertical-align:bottom;
+}
+.dropdown .ico.down {
+	background:transparent url(http://10.100.34.210:8080/content/assets/arrowDown.png) 5px 5px no-repeat;
+}
+.dropdown.on .ico.down {
+	/*background:transparent url(http://10.100.34.210:8080/content/assets/arrowUp.png) 50% 48% no-repeat;*/
+}
+
+ul.dropContent {
+	padding:0;
+}
+
+ul.dropContent li {
+	display:block;
+	margin: 5px;
+}
+ul.dropContent li a {
+	color:#000;
+	text-decoration:none;
+	display:block;
+	height:25px;
+	line-height:25px;
+	padding:0 5px;
+}
+ul.dropContent li a:hover, ul.dropContent li a:focus {
+	background-color:#fefbd6;
+}
+.dropdown, .dropdown:hover, .dropdown.on, .dropdown.on .dropWraper { /* sprite para backgrounds */
+	background-image:url(http://10.100.34.210:8080/content/assets/spriteDrop.png);
+	background-repeat: repeat-x;
+}
+.dropdown{ /*reposo */
+	background-color:#cfe3f0;
+	background-position: 0 0;
+	border:1px solid #bcd5dc;
+} 
+.dropdown:hover{  /*over */
+	background-color:#cfe3f0;
+	background-position: 0 0;	
+	border:1px solid #60acb9;
+}
+.dropdown.on{  /* activo */
+	background-color:#74b5c5;
+	background-position: 0 -18px;	
+	border:none;
+}
+.dropdown.on .dropWraper {  /*activo y over en desplegable */
+	background-color:#74b5c5;
+	background-position: 0 -19px;	
+	border:1px solid #60acb9;
+	border-bottom:none;
+}
+.dropdown.on .dropWraper:hover { /*activo y over */
+	background:transparent;
+	border:1px solid #60acb9;
+} 
+
+/*
+ * Layer
+ * @autor: Valeria Airas
+ * @mod: 21/09/2010
+ *
+ */
+
+.layer {
+	display:none;
+	color:#6E6E6E;
+	width:280px;
+	background-color:#fff;
+	border:2px solid #A5A5A5;
+	position:absolute;
+	padding:5px;
+	text-align:left;
+	z-index:1;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	box-shadow:-2px 2px 5px #ccc;
+	-moz-box-shadow:-2px 2px 5px #ccc;
+	-webkit-box-shadow:-2px 2px 5px #ccc;
+	opacity:0.9;
+	-webkit-opacity:0.9;
+
+}
+
+.layer.show {    
+   display:block;
+   z-index:100;
+}
+
+.layer dt {
+	font-family:'Trebuchet MS';
+	font-size:15px;
+	font-weight:400;
+	border-bottom:1px solid #6e6e6e;
+	margin:2px 5px;
+	padding:5px;
+}
+
+.layer dt span {
+	width:16px;
+	height:10px;
+	text-indent:-9999px;
+}
+
+.layer dd {
+	margin:2px 3px;
+	padding:2px 5px;
+}
+
+.layer .cone {
+	background-position:0 -58px;
+	height:13px;
+	left:132px;
+	position:absolute;
+	top:-13px;
+	width:16px;
+}
+
+
+/*
+ * Tooltips
+ * @autor: Patricio Blanc
+ * @autor: Leandro Linares
+ * @mod: 15/09/2010
+ *
+ */
+
+.tooltip {
+	font-size: 11px;
+	display:block;
+	color:#333;
+/*	width:280px;*/
+	background-color:#faf5c8;
+	border:1px solid #a0a082;
+	position:absolute;
+	padding:0 5px 0 5px;
+	margin:0;
+	text-align:left;
+	z-index:1;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	box-shadow:-2px 2px 3px #ccc;
+	-moz-box-shadow:-2px 2px 3px #ccc;
+	-webkit-box-shadow:-2px 2px 3px #ccc;
+	opacity:0.9;
+	-webkit-opacity:0.9;
+}
+
+.tooltip .cone {
+	background-image: url(http://10.100.34.210:8080/content/assets/cone.png);
+	height:8px;
+	left:26px;
+	position:absolute;
+	top:-8px;
+	width:16px;
+}
+
+/*
+ * Modal Window
+ * @autor: Guillermo Paz
+ * @autor: Natan Santolo
+ * @mod: 29/06/2010
+ *
+ */
+
+
+.dimmer {
+	background-color:rgba(0,0,0,.5);
+	display:none;
+	height:100%;
+	left:0;
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:1000;
+}
+.modal {
+	background-color: #fff;
+	display:none;
+	position:fixed;
+	width:500px;
+	z-index:2000;
+}
+
+.modal h2 {
+	border-bottom:2px solid #cccccc;
+	padding-bottom:5px;
+}
+
+.modal .content {
+	overflow:auto;
+}
+
+/*
+ * Icons
+ * @autor: Leandro Linares
+ * @autor: Hernan Lucio
+ * @mod: 05/07/2010
+ *
+ */
+
+.ico{
+	display:block;
+	width:16px;
+	height:16px;
+	text-indent:999px;
+	overflow:hidden;
+	background-repeat:no-repeat;
+}
+
+.ico.help{
+	background-position:0 -426px;
+}
+
+.ico.attention{
+	background-position:0 -442px;
+}
+
+.ico.information{
+	background-position:0 -410px;
+}
+
+.ico.error{
+	background-position:0 -394px;
+}
+
+/*
+ * Transitions
+ * @autor: Natan Santolo
+ * @mod: 01/07/2010
+ *
+ */
+.loading {
+	background: #fff url(http://10.100.34.210:8080/content/assets/loading_small.gif);
+	width: 50px;
+	height: 50px;
+	margin: 20px auto;
+}
+
+
