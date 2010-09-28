@@ -8,25 +8,26 @@
 	<!--[if IE 6]><link type="text/css" rel="stylesheet" href="css/baseIE6.css"><![endif]-->
 	<!--[if IE 7]><link type="text/css" rel="stylesheet" href="css/baseIE7.css"><![endif]-->
 	<!--[if IE 8]><link type="text/css" rel="stylesheet" href="css/baseIE8.css"><![endif]-->	
+	<style>
+	</style>
 </head>
 <body>
 
-<div class="box">
-	<h1>MercadoLibre UI JavaScript SDK</h1>
-</div>
-
-<div class="container">
-	<div class="box">
+<div class="container clearfix">
+	<div class="header box">
+		<h1>MercadoLibre UI JavaScript SDK</h1>
+	</div>
+	<div class="article box">
 		<h2>Demo sheet</h2>
 		<h3>Ejemplo de Estilos y Componentes de UI</h3>
+		<img class="tip" alt="Un contenido en imágenes" src="http://img.mlstatic.com/org-img/HOMENHP/logo_ml.gif">
 	</div>
-	<div class="box">
+	<div class="aside box">
 		<h3>Probando múltiples cajas en un layour</h3>
 		<ul>
 			<li class="tip" title="Faltaría probar el crossbrowsing">Deberían denotarse automáticamente las demasías y calles.</li>
 			<li class="tip" title="Estoy ya esta funcionado bien.">Absorber el look and feel del estilo base.</li>
 			<li class="tip" title="Estamos en sintonía.">Funcionar en conjunto y en serpadao.</li>
-			<li><img class="tip" alt="Un contenido en imágenes" src="http://img.mlstatic.com/org-img/HOMENHP/logo_ml.gif"></li>
 		</ul>
 	</div>
 </div>
@@ -34,7 +35,7 @@
 <script src="http://10.100.34.210:8080/content/php/js.php?q=jquery,debugger"></script>
 <script src="/src/js/mlui.js"></script>
 <script>
-mlui.init();
+$(function(){ ui.init(); });
 </script>
 </body>
 </html>

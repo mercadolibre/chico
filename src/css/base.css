@@ -783,4 +783,36 @@ ul.dropContent li a:hover, ul.dropContent li a:focus {
 	margin: 20px auto;
 }
 
+/*
+ * Transitions
+ * @based: http://xyberneticos.com/index.php/2008/02/17/clearfix-css-hack/
+ * @mod: 01/07/2010
+ *
+ */
+
+/* slightly enhanced, universal clearfix hack */
+.clearfix:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+ }
+
+.clearfix {
+        display: inline-block;
+ }
+
+/* start commented backslash hack \*/
+
+* html .clearfix {
+        height: 1%;
+ }
+
+.clearfix {
+        display: block;
+}
+/* close commented backslash hack */
+
 

@@ -1,10 +1,10 @@
 ;(function($) { 
-
-window.mlui = {
+	
+window.ui = {
 	
 	init: function() {
 
-		$(".tip").each(function(i,e){ new mlui.Tooltip(e); });
+		$(".tip").each(function(i,e){ new ui.Tooltip(e); });
 
 	},
 	
@@ -18,7 +18,7 @@ window.mlui = {
 	 *	Private members
 	 */
 
-		var that = this;
+		var that = this; // Instance
 		
 		var jtip = $(tip); // JQuery(tip)
 				
@@ -27,7 +27,10 @@ window.mlui = {
 		var hideTimer;
 		var hideDelay=250;
 		
-		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ that.show(e); },showDelay); };
+		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ 
+				var event = $.Event("click");
+				jtip.trigger(event);
+			},showDelay); };
 		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ that.hide(e); },hideDelay); };
 		var clearTimer = function(t) { if (t) {	clearTimeout(t); } };
 		var clearTimers = function() { clearTimer(showTimer); clearTimer(hideTimer); };
@@ -43,14 +46,14 @@ window.mlui = {
 		var z = $("<span>").addClass("cone");
 		var h = $("<p>").addClass("tooltip").html(c).append(z);
 	
+		var getPosition = {
+				pageX:0,
+				pageY:0
+			}
+	
 		var setPosition = function(e){
-			
-			// tomar la posicion del mouse actual y no la que llega en el evento
-			var top = e.pageY;
-			var left = e.pageX;
-			h.css("position", "absolute");
-			h.css("top", (top+20)+"px");
-			h.css("left", (left-40)+"px");
+			getPosition.pageY = e.pageY;
+			getPosition.pageX = e.pageX;
 		}
 
 	/**
@@ -58,8 +61,10 @@ window.mlui = {
 	 */
 		this.show = function (e) {
 			e.stopPropagation(); e.preventDefault(); clearTimers();
-			setPosition(e);
 			$(".tooltip").remove();
+			h.css("position", "absolute");
+			h.css("top", (getPosition.pageY+20)+"px");
+			h.css("left", (getPosition.pageX-40)+"px");
 			h.appendTo("body");
 		}
 
@@ -71,8 +76,10 @@ window.mlui = {
 	/**
 	 *	First event
 	 */
-		jtip.bind("mouseover",setShowTimer)
-		    .bind("mouseout",setHideTimer);
+		jtip.bind("click",that.show)
+			.bind("mouseover",setShowTimer)
+		    .bind("mouseout",setHideTimer)
+		    .bind("mousemove",setPosition); // Pointer could be anywhere!
 		
 	}
 
