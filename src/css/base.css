@@ -439,86 +439,6 @@ margin-bottom:10px;
 	width: 29%;
 }
 
- 
- 
-
-/*
- * Accordeon
- * @autor: Guille Paz
- * @autor: Fernando Martin
- * @mod: 30/08/2010 by Natan Santolo
- *
- */
-
-.accordion li {
-	border-bottom:1px dashed #ccc;
-	padding:2px 0;
-	line-height:20px;
-}
-
-.accordion li.on .ico.arrow { 
-	background-position:0 -8px;
-}
-
-.accordion li a.on {
-	font-weight:bold;
-}
-
-.accordion ul {
-	margin:5px 0 5px 20px;
-}
-
-.accordion ul li {
-	border:none;
-}
-
-.ico.arrow { 
-	background:transparent url(http://10.100.34.210:8080/content/assets/categList.gif) no-repeat scroll 0 7px;
-	width:10px;
-	float:left;
-}	
-
-
-/*
- * Tabs
- * @autor: Guille Paz
- * @mod: 20/09/2010 by Pato Blanc
- *
- */
-
-.article .tabs {
-	margin:10px 0;
-}
-
-.tabs .nav {
-	position:relative;
-	top:11px;
-	z-index:10;
-}
-
-.tabs .containerTabs {
-	margin-left:10px;
-}
-
-.tabs .containerTabs li {
-	cursor:pointer;
-	display:inline-block;
-	margin-right:0;
-}
-
-.tabs .containerTabs a {
-	border:1px solid #AFAFAF;
-	display:inline-block;
-	padding:3px 12px;
-	text-decoration:none;
-	color:#333333;
-	font-weight:bold;
-}
-
-.tabs .containerTabs a.selected {
-	border-bottom:1px solid #FFFFFF;
-}
-
 /*
  * Dropdowns
  * @autor: Lean Linares
@@ -573,10 +493,10 @@ margin-bottom:10px;
 	vertical-align:bottom;
 }
 .dropdown .ico.down {
-	background:transparent url(http://10.100.34.210:8080/content/assets/arrowDown.png) 5px 5px no-repeat;
+	background:transparent url(../assets/arrowDown.png) 5px 5px no-repeat;
 }
 .dropdown.on .ico.down {
-	/*background:transparent url(http://10.100.34.210:8080/content/assets/arrowUp.png) 50% 48% no-repeat;*/
+	/*background:transparent url(../assets/arrowUp.png) 50% 48% no-repeat;*/
 }
 
 ul.dropContent {
@@ -599,7 +519,7 @@ ul.dropContent li a:hover, ul.dropContent li a:focus {
 	background-color:#fefbd6;
 }
 .dropdown, .dropdown:hover, .dropdown.on, .dropdown.on .dropWraper { /* sprite para backgrounds */
-	background-image:url(http://10.100.34.210:8080/content/assets/spriteDrop.png);
+	background-image:url(../assets/spriteDrop.png);
 	background-repeat: repeat-x;
 }
 .dropdown{ /*reposo */

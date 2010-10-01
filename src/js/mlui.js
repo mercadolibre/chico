@@ -1,4 +1,16 @@
-//;(function($) { 
+$.extend($.fn.disableTextSelect = function() {
+		return this.each(function(){
+		if($.browser.mozilla){//Firefox
+			$(this).css('MozUserSelect','none');
+		}else if($.browser.msie){//IE
+			$(this).bind('selectstart',function(){return false;});
+		}else{//Opera, etc.
+			$(this).mousedown(function(){return false;});
+		}
+	});
+});
+
+;(function($) { 
 	
 window.ui = {
 	
@@ -14,7 +26,14 @@ window.ui = {
 				new ui.Layer(e);
 			});
 		}
-		
+		if (conf.tabs) {
+			$(conf.tabs).each(function(i,e){
+				new ui.Tab(e);
+			});
+		}
+
+		if (conf.dropdown) $(".dropdown").each(function(i,e){ new ui.Drop(e);  });
+				
 		if (conf.tooltip) $(".tip").each(function(i,e){ new ui.Tooltip(e); });
 
 	},
@@ -22,6 +41,7 @@ window.ui = {
 	utils: {
 		body: $("body"),
 		window: $(window),
+		document: $(document),
 		dimmer: {
 			on:function() { 
 				$("<div>").css({"height":$(window).height(),"display":"block"}).appendTo("body").fadeIn().addClass("dimmer"); 
@@ -234,7 +254,7 @@ window.ui = {
 			event.stopPropagation();			
 			ui.utils.dimmer.on();			
 		// Creating stuff
-			var w = $("<div>").addClass("modal box allRounded gradient");
+			var w = $("<div>").addClass("modal box");
 			var close = $("<p>x</p>").addClass("btn").addClass("close").appendTo(w).bind("click",that.remove);
 		// Cheking properties
 			if (e.title) w.append("<h2>"+e.title+"</h2>");
@@ -266,10 +286,54 @@ window.ui = {
 		}
 		
 		t.bind("click",this.create);
-	}
+	},
+	
 
- 	
+/**
+ *  Drop Constructor
+ */
+	Drop: function(e) {
+
+		var that = this;
+		var status = false;
+	
+		var upAll = function(event,element) { $(dropdown.triggers).each(function(i,e){ if (element!=e) e.dropdown.up(event); }) };
+
+		// Wrap drops
+		$(e).children(":first").wrap("<div class=\"dropWraper\">");
+		var w = $(e).find(".dropWraper");
+			w.append("<span class=\"ico down\">&raquo;</span>");
+
+		var u = $(e).children(":first").next();
+			u.addClass("dropContent");
+
+		this.drop = function(event){
+			event.stopPropagation();
+			$('.dropWraper, .dropContent').disableTextSelect(); // no permite seleccionar el texto
+			if (status) { that.up(event); return; }
+			
+		//	upAll(event,e);
+			
+			if ((u.width()+event.pageX) > parseInt(ui.utils.window.width())) { u.addClass("move"); } else { u.removeClass("move"); }
+			$(e).addClass("on");
+			status = true;		
+			
+			u.bind("scroll",function(){ status = false; });
+			
+		};
+
+		this.up = function(event){ 
+			event.stopPropagation();
+			ui.utils.document.unbind("click");
+			$(e).removeClass("on"); 
+			status = false;
+		};
+
+		$(e).bind("mouseup",that.drop);
+			
+		ui.utils.document.bind("mouseup",that.up);
+	}
 
 }
 
-//})(jQuery);
+})(jQuery);

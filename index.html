@@ -8,7 +8,8 @@
 	<!--[if IE 6]><link type="text/css" rel="stylesheet" href="css/baseIE6.css"><![endif]-->
 	<!--[if IE 7]><link type="text/css" rel="stylesheet" href="css/baseIE7.css"><![endif]-->
 	<!--[if IE 8]><link type="text/css" rel="stylesheet" href="css/baseIE8.css"><![endif]-->	
-	<style>
+	<style type="text/css">
+
 	</style>
 </head>
 <body>
@@ -16,6 +17,16 @@
 <div class="container clearfix">
 	<div class="header box">
 		<h1>MercadoLibre UI JavaScript SDK</h1>
+		
+		<div class="dropdown">
+			<span>Productos</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</ul>			
+		</div>
 	</div>
 	<div class="article box">
 		<h2>Demo sheet</h2>
@@ -27,28 +38,29 @@
 		<div class="box">
 			<h3>Disparador de Layers</h3>
 			<ul>
-				<li class="algo">Deberían denotarse automáticamente las demasías y calles.</li>
-				<li class="medios">Absorber el look and feel del estilo base.</li>
-				<li class="rep">Funcionar en conjunto y en serpadao.</li>
+				<li class="algo">Demo con configuración de Layer con evento mouseover, muy simple.</li>
+				<li class="medios">Otra demo con la misma configuración anterior.</li>
+				<li class="rep">Esta demo muestra la configuración de un Layer con evento Click.</li>
 			</ul>
 		</div>
 		<div class="box">
 			<h3>Disparadores de modales</h3>
 			<ul>
-				<li class="ggl">Un link a Google.com.ar que levanta un modal.</li>
-				<li class="yah">Absorber el look and feel del estilo base.</li>
-				<li class="apl">Funcionar en conjunto y en serpadao.</li>
+				<li class="ggl">Una configuración de modal posible.</li>
+				<li class="yah">Otra configuración interesante de Modal.</li>
+				<li class="apl">La última instancia de modal configurada.</li>
 			</ul>
 		</div>
 	</div>
+	
+	
+
 </div>
 
-<script src="http://10.100.34.210:8080/content/php/js.php?q=jquery,debugger"></script>
+<script src="src/js/jquery.js"></script>
 <script src="src/js/mlui.js"></script>
 <script>
 $(function() { 
-
-function coso(e){  }
 
 var modals = [
 
@@ -87,7 +99,6 @@ var layers = [
 			body:"<h1>asdasdas</h1>",
 			actions:[
 				{label:'Otros medios de pago', href:'www.google.com.ar'},
-				{label:'Medios de pago offline', href:"www.yahoo.com.ar"}
 			]
 		}
 	},
@@ -102,14 +113,13 @@ var layers = [
 	
 ];
 
-
-
-	ui.init({
-		modal: modals,
-		layer: layers,
-		tooltip: true,
-		other: false
-		});
+ui.init({
+	modal: modals,
+	layer: layers,
+	tooltip: true,
+	dropdown: true,
+	other: false
+	});
 	
 });
 
