@@ -367,8 +367,8 @@ hr {
 
 /*
  * Boxes
- * @autor: 
- * @mod: 
+ * @autor: Natan Santolo
+ * @mod: 28/09/2010
  *
  */
 
@@ -381,7 +381,7 @@ hr {
 
 .box { 
 	border: 1px solid #afafaf;
-	margin: 10px 0;
+	margin: 0 0 10px 0;
 	padding: 10px;
 /*	position: relative;  this is really necesary ? */
 	background-position: 0 -522px;
@@ -391,7 +391,7 @@ hr {
 	-webkit-border-radius: 5px;
 }
 
-.container .box:first-child {
+.container > .box:first-child {
 	border-radius: 5px 5px 0 0;
 	-moz-border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
@@ -412,6 +412,35 @@ hr {
 .box h2.typo{
 margin-bottom:10px;
 }
+
+
+/*
+ * Simple Grid System
+ * @autor: Natan Santolo
+ * @mod: 28/09/2010
+ *
+ */
+
+
+.g5 > .box:first-child, .g3 > .box:first-child {
+	margin:0;
+}
+
+.g5 .box, .g3 .box {
+	float: left;
+	margin: auto;	
+}
+
+.g5 .box {
+	width: 48%;	
+}
+
+.g3 .box {
+	width: 29%;
+}
+
+ 
+ 
 
 /*
  * Accordeon
@@ -784,7 +813,7 @@ ul.dropContent li a:hover, ul.dropContent li a:focus {
 }
 
 /*
- * Transitions
+ * Clear Fix
  * @based: http://xyberneticos.com/index.php/2008/02/17/clearfix-css-hack/
  * @mod: 01/07/2010
  *
