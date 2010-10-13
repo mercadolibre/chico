@@ -1,0 +1,109 @@
+<!doctype html>
+<head>
+	<script></script>
+	<!--[if IE]><![endif]-->
+	<meta charset="utf-8">
+	<title>MercadoLibre UI JavaScript SDK</title>
+	<link rel="stylesheet" type="text/css" href="src/css/base.css" />
+	<!--[if IE 6]><link type="text/css" rel="stylesheet" href="css/baseIE6.css"><![endif]-->
+	<!--[if IE 7]><link type="text/css" rel="stylesheet" href="css/baseIE7.css"><![endif]-->
+	<!--[if IE 8]><link type="text/css" rel="stylesheet" href="css/baseIE8.css"><![endif]-->	
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+
+<div class="container clearfix">
+	<div class="header box">
+		<h1>MercadoLibre UI JavaScript SDK</h1>
+		
+		<div class="dropdown">
+			<span>Productos</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</ul>			
+		</div>
+	</div>
+	<div class="article box">
+		<h2>Demo sheet</h2>
+		<h3>Ejemplo de Estilos y Componentes de UI</h3>
+		<img class="tip" alt="MercadoLibre: El único!" src="http://img.mlstatic.com/org-img/HOMENHP/logo_ml.gif">
+		<img class="tip" alt="MercadoPago: El mejor!" src="http://www.mercadopago.com/org-img/MP3/logo_main225x52.jpg">
+	</div>
+	<div class="g5">
+		<div class="box">
+			<h3>Disparador de Layers</h3>
+			<ul>
+				<li class="algo">Demo con configuración de Layer con evento mouseover, muy simple.</li>
+				<li class="medios">Otra demo con la misma configuración anterior.</li>
+				<li class="rep">Esta demo muestra la configuración de un Layer con evento Click.</li>
+			</ul>
+		</div>
+		<div class="box">
+			<h3>Disparadores de modales</h3>
+			<ul>
+				<li class="ggl">Una configuración de modal posible.</li>
+				<li class="yah">Otra configuración interesante de Modal.</li>
+				<li class="apl">La última instancia de modal configurada.</li>
+			</ul>
+		</div>
+	</div>
+	
+	
+
+</div>
+
+<script src="src/js/jquery.js"></script>
+<script src="src/js/mlui2.js"></script>
+<script>
+$(function() { 
+
+	var modals = [
+        {
+            trigger:".ggl",
+            title:"Un titulo de prueba",
+            content:"<h1>modal window test content</h1><p>Contenido de prueba para modal</p>",
+            width:"500px",
+            height:"200px",
+            rounded:"no"
+        },
+        {
+            trigger:".yah",
+            title: "Obteniendo reputación...",
+            content:"<p>Contenido del modal</p>",
+            width:"300px",
+            height:"300px",
+            gradient:"no"
+        }                  
+    ];
+
+	var layers = [
+    	{
+	        trigger:".medios", 
+			content:{
+				head:"Medios de Pago",
+				body:"<h1>asdasdas</h1>",
+				actions:[
+					{label:'Otros medios de pago', href:'www.google.com.ar'},
+				]
+			}
+		}                  
+    ];
+
+	ui.init({
+		modal:modals,		    
+	    layer:layers,
+	    dropdown:true
+	    //tooltip:true
+	    
+	});
+	
+});
+
+</script>
+</body>
+</html>
