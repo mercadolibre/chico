@@ -58,7 +58,7 @@ window.ui = {
     		
     		// If component configuration is an array, each array. Else each DOM elements with component class
     		$( ($.isArray(o[x])) ? o[x] : '.' + x ).each(function(i,e){	    			
-    			 aTriggers.push(new component(e));
+    			 aTriggers.push(component(e));
     		});
 			
 			ui.instances[x] = aTriggers;
@@ -254,7 +254,7 @@ window.ui = {
 					height:((!e.height)|(parseInt(e.height)>=parseInt(ui.utils.window.height())))?parseInt(ui.utils.window.height())/2+"px":e.height};
 		};
 
-		this.create = function(event) {	
+		var create = function(event) {	
 			event.preventDefault();			
 			event.stopPropagation();			
 			ui.utils.dimmer.on();			
@@ -284,13 +284,15 @@ window.ui = {
 			w.appendTo("body").fadeIn("slow");
 		}
 
-		this.remove = function(event) {
+		var remove = function(event) {
 			$("div.modal").fadeOut("fast",function(){ $(this).remove(); });
 			ui.utils.window.unbind("resize");
 			ui.utils.dimmer.off();
 		}
 		
-		t.bind("click",this.create);
+		t.bind("click",create);
+		
+		return {create:create, remove:remove};
 	},
 	
 
