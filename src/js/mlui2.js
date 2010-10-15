@@ -67,179 +67,204 @@ window.ui = {
 	
 //TODO: Levantar title o alt de .tooltip y mostrarlo  	
 /**
- *	Tooltip Constructor
+ *	Helper Constructor
  */
-	Tooltip: function(tip) {
+	Tip: function(tip) {
 
 	/**
 	 *	Private members
 	 */
 
-		var that = this; // Instance
-		
 		var jtip = $(tip); // JQuery(tip)
-				
-		var showTimer;
-		var showDelay=500;
-		var hideTimer;
-		var hideDelay=250;
 		
-		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ that.show(e); },showDelay); };
-		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ that.hide(e); },hideDelay); };
+		var showTimer;		
+		var showDelay=0;
+		var hideTimer;		
+		var hideDelay=0;
+		
+		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ show(e); },showDelay); };
+		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ hide(e); },hideDelay); };
 		var clearTimer = function(t) { if (t) {	clearTimeout(t); } };
-		var clearTimers = function() { clearTimer(showTimer); clearTimer(hideTimer); };
+		var clearTimers = function() { clearTimer(showTimer); clearTimer(hideTimer); }
 
 	
 	/**
 	 *	Private tooltip content
 	 */	
 	
-		var c = jtip.attr("title")||jtip.attr("alt"); if (!c) { return };
+		var c = jtip.attr("title"); if (!c) return;
 				jtip.removeAttr("title");
 		
 		var z = $("<span>").addClass("cone");
 		var h = $("<p>").addClass("tooltip").html(c).append(z);
 	
-		var getPosition = {
-				pageX:0,
-				pageY:0
-			}
-	
-		var setPosition = function(e) {
-			getPosition.pageY = e.pageY;
-			getPosition.pageX = e.pageX;
-		}
+		var setPosition = function(e){
+			
+			var top = e.pageY;
+			var left = e.pageX;
+			
+			h.css("position", "absolute");
+			h.css("top", (top+25)+"px");
+			h.css("left", (left-32)+"px");
+		}	
 
 	/**
 	 *	Public members
 	 */
-		this.show = function (e) {
-			e.stopPropagation(); e.preventDefault(); clearTimers();
-			$(".tooltip").remove();
-			h.css("position", "absolute");
-			h.css("top", (getPosition.pageY+20)+"px");
-			h.css("left", (getPosition.pageX-40)+"px");
+		var show = function (e) {
+			e.stopPropagation(); e.preventDefault();
+			clearTimers();
+			$(".tooltip").hide();
+			setPosition(e);
 			h.appendTo("body");
+
 		}
 
-		this.hide = function (e) {
-			e.stopPropagation(); e.preventDefault(); clearTimers();
+		var hide = function (e) {
+			e.stopPropagation(); e.preventDefault();
+			clearTimers();
 			h.remove();
 		}
 	
-	/**
+	/**e
 	 *	First event
 	 */
-		jtip.bind("mouseover",setShowTimer)
-		    .bind("mouseout",setHideTimer)
-		    .bind("mousemove",setPosition); // I need to know where is the Pointer, could be anywhere!		
+		jtip.bind("mouseenter",setShowTimer)
+			.bind("mousemove", setPosition)
+		   	.bind("mouseout",setHideTimer);
+		
+		return {show:show,hide:hide}
 	},
 	
 
 /**
  *  Layer Constructor
  */
-		Layer: function(h) {
- 
+	Layer: function(h) {
+
 	/**
 	 *  Private members
 	 */
-		var that = this;
-		var click = (h.event)?true:false;
-	
-		var t = $(h.trigger);
-	
+		var t = h.trigger;	 
+	 	var timer;
+		var setTimer = function(e) { timer = setTimeout(function(e){ hide(e); }, 4000); };
+
 		var showTimer;
-		var showDelay=250;
+		var showDelay = 250;
 		var hideTimer;
-		var hideDelay=350;
-		
-		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ that.show(e); },showDelay); };
-		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ that.hide(e); },hideDelay); };
-		var clearTimer = function(t) { if (t) {	clearTimeout(t); } };
-		var clearTimers = function() { clearTimer(showTimer); clearTimer(hideTimer); }
+		var hideDelay = 350;
+
+		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ show(e); },showDelay); };
+		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ hide(e); },hideDelay); };
+		var clearTimer = function(t) { if (t) clearTimeout(t); };
+		var clearTimers = function() { clearTimer(timer); clearTimer(showTimer); clearTimer(hideTimer); }
 
 		var clearHelpers = function(e) { $(".layer").removeClass("show").remove(); }
+			
+	/**
+	 *  Private layer content
+	 */                         
+		var width = 280; // Webkit based browsers don't know the width... so HARDCODE! (need upgrade!)
+		var c = $('<div class="article layer">' + ((h.event === 'click') ? '<span class="btn close">x</span>' : '') + '<div class="cone"/></div>'); // Close button if event is click
 		
-     /**
-      *  Private layer content
-      */                         
-			var width = 280;  // Webkit based browsers don't know the width... so HARDCODE! (need upgrade!)
-			var c = $("<dl class=\"layer\"><span class=\"btn close\">x</span><div class=\"cone\" /></dl>");             
-
-			if (h.content.head) 
-				c.append("<dt>"+h.content.head+"</dt>");
-				c.append("<dd>"+h.content.body+"</dd>");
-			if (h.content.actions) {
-				c.append("<hr>");
-				$(h.content.actions).each(function(i,e){
-					c.append("<a href=\""+e.href+"\">"+e.label+"</a>");
+		// Content from DOM element
+		if(h.content && h.content.element){
+			c.append($(h.content.element).html());
+		// Content from ajax
+		}else if(h.ajax){
+			c.append($('<div class="loading"></div>'));
+			$.getJSON(h.ajax, function(data){
+                $('.layer div.loading').remove();
+                c.append(data);
+            });
+		// Content from parameters
+		}else{
+			// Head and body
+			if(h.content && h.content.head && h.content.body) $('<dl><dt>' + h.content.head + '</dt><dd>' + h.content.body + '</dd></dl>').appendTo(c);
+			// Body without head
+			if(h.content && h.content.body && !h.content.head) c.append(h.content.body);
+			// Actions
+			if(h.content && h.content.actions){
+				c.append('<hr>');
+				$.each(h.content.actions, function(i, e){
+					c.append('<a href="' + e.href + '">' + e.label + '</a>');
 				});
-			}
-
-			var setPosition = function(e) {
-				var top = (e.pageY+20);
-				var left = (e.pageX-width/2);
-				if (left<0) { c.find('.cone').css("left","10px"); left = e.pageX-10; }
-				if ((left+width) > ui.utils.window.width()) { left -= width/2; c.find('.cone').css("left","260px"); }
-				c.css('top',top+'px').css('left',left+'px');
 			};
- 
-       /**
-         *   Public members
-         */
-			this.show = function (e) {
-				e.stopPropagation(); e.preventDefault(); clearTimers();
-				clearHelpers(); setPosition(e);
-
-				if (click) {
-					t.unbind("click"); // Avoid the repetition
-				} else {
-					c.bind("mouseenter",function(e){ clearTimers(e); });
-					c.bind("mouseleave",function(e){ setHideTimer(e); });				
-				}
-
-				ui.utils.body.bind("click",function(e){ that.hide(e); });
-				
-				c.find('span').bind("click",function(e){ that.hide(e); });
-				c.appendTo("body").addClass("show");                                      
-			}
+		};
+	
+		var setPosition = function(){
+			var offset = $(t).offset();
 			
-			this.hide = function (e) {
-				e.stopPropagation(); e.preventDefault(); clearTimers();
-				if (e.target == t)  return;
-				
-				if (click) {
-					ui.utils.body.unbind("click");
-					t.bind("click",that.show); // Set the first event again
-				} else {
-					c.unbind("mouseenter");
-					c.unbind("mouseleave");
-				}
-
-				c.find('span').unbind("click");
-				c.removeClass("show").remove();
-			}
-        
-      /**
-		*  First event
-		*/
-			if (click) {
-				t.bind("click",that.show);
-			} else {
-				t.bind("mouseover",setShowTimer)
-				 .bind("mouseout",setHideTimer);
-			}
+			c.css({
+				top: (offset.top + $(t).height() + 5) + 'px', // Trigger bottom + 5 px
+				left: (offset.left + ($(t).width() / 2) - 20) + 'px' // Trigger middle - Cone middle
+			});
+		};
+		 
+	/**
+	 *   Public members
+	 */
+		var show = function(e){
+			e.stopPropagation(); e.preventDefault();
+			clearHelpers();
 			
-		},
-
+			// Click
+			if(h.event === 'click'){
+				c.find('.close').bind('click', hide);
+				$(t).bind('click', hide);
+				$(document).bind('click', hide);
+			// Hover
+			}else{
+				clearTimers();
+				c.bind('mouseenter', clearTimers)
+				 .bind('mouseleave', setHideTimer);
+			};
+			
+			// Create
+			setPosition();
+			c.bind('click', function(e){ e.stopPropagation(); }).appendTo($('body')).addClass('show');
+		};
+				
+		var hide = function (e){
+			e.stopPropagation(); e.preventDefault();
+			
+			// Click
+			if(h.event === 'click'){
+				c.find('.close').unbind('click');
+				$(t).unbind('click').bind('click', show); // Reset trigger click event
+				$(document).unbind('click');
+			// Hover
+			}else{
+				clearTimers();
+				c.unbind('mouseenter')
+				 .unbind('mouseleave');
+			};
+			
+			// Destroy
+			c.removeClass('show').remove();
+		};
+			    
+	/**
+	 *  First event
+	 */
+		// Click
+		if(h.event === 'click'){
+			$(t).css('cursor', 'pointer')
+				.bind('click',show);
+		// Hover
+		}else{
+			$(t).css('cursor', 'default')
+				.bind('mouseover', setShowTimer)
+				.bind('mouseout', setHideTimer);
+		};
+		return {show:show,hide:hide}
+	},
 
 /**
  *	Modal Constructor
  */
  	Modal: function(e) {
 		
-		var that = this;
 		var t = $(e.trigger);
 		
 		// Need to know if the trigger is a link or a form
@@ -260,7 +285,7 @@ window.ui = {
 			ui.utils.dimmer.on();			
 		// Creating stuff
 			var w = $("<div>").addClass("modal box");
-			var close = $("<p>x</p>").addClass("btn").addClass("close").appendTo(w).bind("click",that.remove);
+			var close = $("<p>x</p>").addClass("btn").addClass("close").appendTo(w).bind("click",remove);
 		// Cheking properties
 			if (e.title) w.append("<h2>"+e.title+"</h2>");
 			if (e.content) w.append(e.content);
@@ -300,8 +325,7 @@ window.ui = {
  *  Dropdown Constructor
  */
 	Dropdown: function(e) {
-		
-		var that = this;
+
 		var status = false;
 	
 		var upAll = function(event,element) { $(dropdown.triggers).each(function(i,e){ if (element!=e) e.dropdown.up(event); }) };
@@ -314,10 +338,10 @@ window.ui = {
 		var u = $(e).children(":first").next();
 			u.addClass("dropContent");
 
-		this.drop = function(event){
+		var drop = function(event){
 			event.stopPropagation();
 			$('.dropWraper, .dropContent').disableTextSelect(); // no permite seleccionar el texto
-			if (status) { that.up(event); return; }
+			if (status) { up(event); return; }
 			
 		//	upAll(event,e);
 			
@@ -329,16 +353,18 @@ window.ui = {
 			
 		};
 
-		this.up = function(event){ 
+		var up = function(event){ 
 			event.stopPropagation();
 			ui.utils.document.unbind("click");
 			$(e).removeClass("on"); 
 			status = false;
 		};
 
-		$(e).bind("mouseup",that.drop);
+		$(e).bind("mouseup",drop);
 			
-		ui.utils.document.bind("mouseup",that.up);
+		ui.utils.document.bind("mouseup",up);
+		
+		return {drop:drop,up:up}
 	}
 
 }

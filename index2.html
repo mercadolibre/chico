@@ -31,8 +31,8 @@
 	<div class="article box">
 		<h2>Demo sheet</h2>
 		<h3>Ejemplo de Estilos y Componentes de UI</h3>
-		<img class="tip" alt="MercadoLibre: El único!" src="http://img.mlstatic.com/org-img/HOMENHP/logo_ml.gif">
-		<img class="tip" alt="MercadoPago: El mejor!" src="http://www.mercadopago.com/org-img/MP3/logo_main225x52.jpg">
+		<img class="tip" title="MercadoLibre: El único!" alt="MercadoLibre: El único!" src="http://img.mlstatic.com/org-img/HOMENHP/logo_ml.gif">
+		<img class="tip" title="MercadoPago: El mejor!" alt="MercadoPago: El mejor!" src="http://www.mercadopago.com/org-img/MP3/logo_main225x52.jpg">
 	</div>
 	<div class="g5">
 		<div class="box">
@@ -78,7 +78,14 @@ $(function() {
             width:"300px",
             height:"300px",
             gradient:"no"
-        }                  
+        },
+		{
+            trigger:".apl",
+            title: "Obteniendo reputación...",
+            content:"<p>Contenido del modal</p>",
+            width:"500px",
+            height:"200px"
+        }                          
     ];
 
 	var layers = [
@@ -91,14 +98,35 @@ $(function() {
 					{label:'Otros medios de pago', href:'www.google.com.ar'},
 				]
 			}
-		}                  
+		},
+		{
+	        trigger:".algo", 
+			content:{
+				head:"Medios de Pago",
+				body:"<h1>asdasdas</h1>",
+				actions:[
+					{label:'Otros medios de pago', href:'www.google.com.ar'},
+				]
+			}
+		},
+		{
+	        trigger:".rep", 
+	        event:'click',
+			content:{
+				head:"Medios de Pago",
+				body:"<h1>asdasdas</h1>",
+				actions:[
+					{label:'Otros medios de pago', href:'www.google.com.ar'},
+				]
+			}
+		}		
     ];
 
 	ui.init({
 		modal:modals,		    
 	    layer:layers,
-	    dropdown:true
-	    //tooltip:true
+	    dropdown:true,
+	    tip:true
 	    
 	});
 	

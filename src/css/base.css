@@ -556,29 +556,29 @@ ul.dropContent li a:hover, ul.dropContent li a:focus {
  */
 
 .layer {
-	display:none;
+	display:block;
 	color:#6E6E6E;
 	width:280px;
+	padding:10px;
 	background-color:#fff;
-	border:2px solid #A5A5A5;
+	border:1px solid #b0b0b0;
 	position:absolute;
-	padding:5px;
 	text-align:left;
 	z-index:1;
 	border-radius:5px;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
-	box-shadow:-2px 2px 5px #ccc;
-	-moz-box-shadow:-2px 2px 5px #ccc;
-	-webkit-box-shadow:-2px 2px 5px #ccc;
-	opacity:0.9;
-	-webkit-opacity:0.9;
-
+	box-shadow:3px 2px 8px #9e9e9e;
+	-moz-box-shadow:3px 2px 8px #9e9e9e;
+	-webkit-box-shadow:3px 2px 8px #9e9e9e;
+	opacity:0.95;
+	-webkit-opacity:0.95;
 }
 
 .layer.show {    
    display:block;
    z-index:100;
+   cursor:default;
 }
 
 .layer dt {
@@ -586,8 +586,6 @@ ul.dropContent li a:hover, ul.dropContent li a:focus {
 	font-size:15px;
 	font-weight:400;
 	border-bottom:1px solid #6e6e6e;
-	margin:2px 5px;
-	padding:5px;
 }
 
 .layer dt span {
@@ -596,18 +594,18 @@ ul.dropContent li a:hover, ul.dropContent li a:focus {
 	text-indent:-9999px;
 }
 
-.layer dd {
-	margin:2px 3px;
-	padding:2px 5px;
+.layer .cone {
+	background-image: url('../assets/piquito_tooltip.png');
+	height:8px;
+	left:12px;
+	position:absolute;
+	top:-8px;
+	width:16px;
 }
 
-.layer .cone {
-	background-position:0 -58px;
-	height:13px;
-	left:132px;
-	position:absolute;
-	top:-13px;
-	width:16px;
+.layer .close{
+	top:5px;
+	right:5px;
 }
 
 
@@ -654,7 +652,7 @@ ul.dropContent li a:hover, ul.dropContent li a:focus {
  * Modal Window
  * @autor: Guillermo Paz
  * @autor: Natan Santolo
- * @mod: 29/06/2010
+ * @mod: 14/10/2010
  *
  */
 
@@ -669,17 +667,27 @@ ul.dropContent li a:hover, ul.dropContent li a:focus {
 	width:100%;
 	z-index:1000;
 }
+
 .modal {
 	background-color: #fff;
 	display:none;
 	position:fixed;
 	width:500px;
 	z-index:2000;
+	box-shadow: 3px 3px 3px #595959;
+   -webkit-box-shadow: 3px 3px 3px #595959;
+   -moz-box-shadow: 3px 3px 3px #595959;
+}
+
+.modal .content {
+	overflow:auto;
 }
 
 .modal h2 {
-	border-bottom:2px solid #cccccc;
+    font:20px "Trebuchet MS", Verdana, "DejaVu Sans", sans-serif;
+	border-bottom:1px solid #cccccc;
 	padding-bottom:5px;
+	margin-bottom:10px;
 }
 
 .modal .content {
