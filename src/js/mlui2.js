@@ -27,12 +27,10 @@ window.ui = {
 		} else { // each configuration
 			ui.create(conf);
 		}
-		
-		
 	    
 	},
 	
-	// $(window) vs. ui.utils.window ??!?!?!?!?
+// $(window) vs. ui.utils.window ??!?!?!?!?
 	utils: {
 		body: $("body"),
 		window: $(window),
@@ -54,9 +52,10 @@ window.ui = {
 	
     	for(var x in o ){
     		var aTriggers = [];		    		
-    		var component = eval('ui.'+ ucfirst(x));   
+    		//var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
+    		var component = ui[ucfirst(x)]; 
     		
-    		// If component configuration is an array, each array. Else each DOM elements with component class
+// If component configuration is an array, each array. Else each DOM elements with component class
     		$( ($.isArray(o[x])) ? o[x] : '.' + x ).each(function(i,e){	    			
     			 aTriggers.push(component(e));
     		});
@@ -194,7 +193,6 @@ window.ui = {
 	
 		var setPosition = function(){
 			var offset = $(t).offset();
-			
 			c.css({
 				top: (offset.top + $(t).height() + 5) + 'px', // Trigger bottom + 5 px
 				left: (offset.left + ($(t).width() / 2) - 20) + 'px' // Trigger middle - Cone middle
