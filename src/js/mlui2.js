@@ -42,7 +42,8 @@ window.ui = {
 			off:function() { 
 				$("div.dimmer").fadeOut("fast",function(){ $(this).remove(); }); 
 			}
-		}
+		},
+		constructor: function (S) { return S.charAt(0).toUpperCase() + S.substr(1); }
 		
 	},
 	
@@ -53,18 +54,20 @@ window.ui = {
     	for(var x in o ){
     		var aTriggers = [];		    		
     		//var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
-    		var component = ui[ucfirst(x)]; 
+    		var component = ui[ui.utils.constructor(x)]; 
     		
-// If component configuration is an array, each array. Else each DOM elements with component class
+			// If component configuration is an array, each array. Else each DOM elements with component class
     		$( ($.isArray(o[x])) ? o[x] : '.' + x ).each(function(i,e){	    			
     			 aTriggers.push(component(e));
     		});
 			
 			ui.instances[x] = aTriggers;
+			/*
+				OJO, aca estamos pisando la configuración de un componente, si se implementan varias configuraciones en distintos momentos se van a pisar las colecciones. ¿Es lo que queremos?
+			*/
     	};
 	},
 	
-//TODO: Levantar title o alt de .tooltip y mostrarlo  	
 /**
  *	Helper Constructor
  */
@@ -77,9 +80,9 @@ window.ui = {
 		var jtip = $(tip); // JQuery(tip)
 		
 		var showTimer;		
-		var showDelay=0;
+		var showDelay=300;
 		var hideTimer;		
-		var hideDelay=0;
+		var hideDelay=150;
 		
 		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ show(e); },showDelay); };
 		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ hide(e); },hideDelay); };
@@ -91,32 +94,34 @@ window.ui = {
 	 *	Private tooltip content
 	 */	
 	
-		var c = jtip.attr("title"); if (!c) return;
-				jtip.removeAttr("title");
+		var c = jtip.attr("title") || jtip.attr("alt"); 
+		
+		if (!c) return;
+		jtip.removeAttr("title");
 		
 		var z = $("<span>").addClass("cone");
 		var h = $("<p>").addClass("tooltip").html(c).append(z);
 	
-		var setPosition = function(e){
-			
-			var top = e.pageY;
-			var left = e.pageX;
-			
-			h.css("position", "absolute");
-			h.css("top", (top+25)+"px");
-			h.css("left", (left-32)+"px");
-		}	
-
+		var getPosition = {
+				pageX:0,
+				pageY:0
+			}
+	
+		var setPosition = function(e) {
+			getPosition.pageY = e.pageY;
+			getPosition.pageX = e.pageX;
+		}
 	/**
 	 *	Public members
 	 */
 		var show = function (e) {
 			e.stopPropagation(); e.preventDefault();
 			clearTimers();
-			$(".tooltip").hide();
-			setPosition(e);
+			$(".tooltip").remove();
+			h.css("position", "absolute");
+			h.css("top", (getPosition.pageY+20)+"px");
+			h.css("left", (getPosition.pageX-40)+"px");
 			h.appendTo("body");
-
 		}
 
 		var hide = function (e) {
@@ -125,7 +130,7 @@ window.ui = {
 			h.remove();
 		}
 	
-	/**e
+	/**
 	 *	First event
 	 */
 		jtip.bind("mouseenter",setShowTimer)
