@@ -43,7 +43,7 @@ window.ui = {
 				$("div.dimmer").fadeOut("fast",function(){ $(this).remove(); }); 
 			}
 		},
-		constructor: function (S) { return S.charAt(0).toUpperCase() + S.substr(1); }
+		upperCaseFirstLetter: function (S) { return S.charAt(0).toUpperCase() + S.substr(1); }
 		
 	},
 	
@@ -54,7 +54,7 @@ window.ui = {
     	for(var x in o ){
     		var aTriggers = [];		    		
     		//var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
-    		var component = ui[ui.utils.constructor(x)]; 
+    		var component = ui[ui.utils.upperCaseFirstLetter(x)]; 
     		
 			// If component configuration is an array, each array. Else each DOM elements with component class
     		$( ($.isArray(o[x])) ? o[x] : '.' + x ).each(function(i,e){	    			
