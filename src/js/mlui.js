@@ -1,36 +1,33 @@
-$.extend($.fn.disableTextSelect = function() {
-		return this.each(function(){
-		if($.browser.mozilla){//Firefox
-			$(this).css('MozUserSelect','none');
-		}else if($.browser.msie){//IE
-			$(this).bind('selectstart',function(){return false;});
-		}else{//Opera, etc.
-			$(this).mousedown(function(){return false;});
-		}
-	});
-});
-
-function ucfirst(str) {
-    //str += '';
-    var f = str.charAt(0).toUpperCase();
-    return f + str.substr(1);
-};
-
 ;(function($) { 
 	
 window.ui = {
-	
+
+/**
+ *	Factory Pattern
+ */	
+ 	instances: {},
+ 	
 	init: function(conf){
 		
-		if (typeof conf !== 'object') { 
+		if(typeof conf !== 'object'){
 			throw("UI: Can't start without a configuration."); return;
-		} else { // each configuration
-			ui.create(conf);
+		}else{
+			// Each configuration
+			for(var x in conf){
+	    		var component = ui[ui.utils.ucfirst(x)]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
+				
+				// If component configuration is an array, each array. Else each DOM elements with component class
+	    		$( ($.isArray(conf[x])) ? conf[x] : '.' + x ).each(function(i,e){
+		    		if(!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
+	    			ui.instances[x].push(component(e));
+	    		});
+	    	};
 		}
-	    
 	},
 	
-// $(window) vs. ui.utils.window ??!?!?!?!?
+/**
+ *	
+ */		
 	utils: {
 		body: $("body"),
 		window: $(window),
@@ -43,30 +40,9 @@ window.ui = {
 				$("div.dimmer").fadeOut("fast",function(){ $(this).remove(); }); 
 			}
 		},
-		upperCaseFirstLetter: function (S) { return S.charAt(0).toUpperCase() + S.substr(1); }
+		ucfirst: function (S) { return S.charAt(0).toUpperCase() + S.substr(1); }
 		
-	},
-	
-	instances: {},
-	
-	create: function(o) {				   
-	
-    	for(var x in o ){
-    		var aTriggers = [];		    		
-    		//var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
-    		var component = ui[ui.utils.upperCaseFirstLetter(x)]; 
-    		
-			// If component configuration is an array, each array. Else each DOM elements with component class
-    		$( ($.isArray(o[x])) ? o[x] : '.' + x ).each(function(i,e){	    			
-    			 aTriggers.push(component(e));
-    		});
-			
-			ui.instances[x] = aTriggers;
-			/*
-				OJO, aca estamos pisando la configuración de un componente, si se implementan varias configuraciones en distintos momentos se van a pisar las colecciones. ¿Es lo que queremos?
-			*/
-    	};
-	},
+	},	
 	
 /**
  *	Helper Constructor
@@ -343,7 +319,19 @@ window.ui = {
 
 		var drop = function(event){
 			event.stopPropagation();
-			$('.dropWraper, .dropContent').disableTextSelect(); // no permite seleccionar el texto
+			 // no permite seleccionar el texto
+			/*$.extend($.fn.disableTextSelect = function() {
+					return this.each(function(){
+					if($.browser.mozilla){//Firefox
+						$(this).css('MozUserSelect','none');
+					}else if($.browser.msie){//IE
+						$(this).bind('selectstart',function(){return false;});
+					}else{//Opera, etc.
+						$(this).mousedown(function(){return false;});
+					}
+				});
+			});
+			$('.dropWraper, .dropContent').disableTextSelect();*/
 			if (status) { up(event); return; }
 			
 		//	upAll(event,e);
