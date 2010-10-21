@@ -16,7 +16,7 @@
 
 <div class="container clearfix">
 	<div class="header box">
-		<h1>MercadoLibre UI JavaScript SDK</h1>
+		<h1 class="tip" title="Una caja de herramientas para gente con músculo!">MercadoLibre UI JavaScript SDK</h1>
 		
 		<div class="dropdown">
 			<span>Productos</span>
@@ -58,67 +58,76 @@
 </div>
 
 <script src="src/js/jquery.js"></script>
-<script src="src/js/mlui.js"></script>
+<script src="src/js/mlui2.js"></script>
 <script>
 $(function() { 
 
-var modals = [
+	var modals = [
+        {
+            trigger:".ggl",
+            title:"Un titulo de prueba",
+            content:"<h1>modal window test content</h1><p>Contenido de prueba para modal</p>",
+            width:"500px",
+            height:"200px",
+            rounded:"no"
+        },
+        {
+            trigger:".yah",
+            title: "Obteniendo reputación...",
+            content:"<p>Contenido del modal</p>",
+            width:"300px",
+            height:"300px",
+            gradient:"no"
+        },
+		{
+            trigger:".apl",
+            title: "Obteniendo reputación...",
+            content:"<p>Contenido del modal</p>",
+            width:"500px",
+            height:"200px"
+        }                          
+    ];
 
-	{
-		trigger:".ggl",
-		title:"Google",
-		content:"<h1>La primera de todas</h1><p>Gloria para esta ventan modal que es la primera en configurarse.</p>",
-	},
-	{
-		trigger:".yah",
-		title:"Ventana modal nro 2",
-		content:"<h1>Esta ventana representa la segunda ventana modal</h1><p>En la segunda, tenemos un titular de jerarquía 1 y un párrafo que describe los elemenots que marcan el contenido del modal.</p>",
-	},
-	{
-		trigger:".apl",
-		title:"Ventana modal nro 3",
-		content:"<h1>Esta ventana representa la segunda ventana modal</h1><p>En la segunda, tenemos un titular de jerarquía 1 y un párrafo que describe los elemenots que marcan el contenido del modal.</p>",
-	}
+	var layers = [
+    	{
+	        trigger:".medios", 
+			content:{
+				head:"Medios de Pago",
+				body:"<h1>asdasdas</h1>",
+				actions:[
+					{label:'Otros medios de pago', href:'www.google.com.ar'},
+				]
+			}
+		},
+		{
+	        trigger:".algo", 
+			content:{
+				head:"Medios de Pago",
+				body:"<h1>asdasdas</h1>",
+				actions:[
+					{label:'Otros medios de pago', href:'www.google.com.ar'},
+				]
+			}
+		},
+		{
+	        trigger:".rep", 
+	        event:'click',
+			content:{
+				head:"Medios de Pago",
+				body:"<h1>asdasdas</h1>",
+				actions:[
+					{label:'Otros medios de pago', href:'www.google.com.ar'},
+				]
+			}
+		}		
+    ];
 
-];
-
-var layers = [
-	{
-		trigger:".algo",
-		content:{
-			body:"<p>Un primer párrafo de contenid</p><h1>Contenido</h1><h2>asd</h2>",
-			actions:[
-				{label:'Ver más', href:'www.google.com.ar'}
-			]
-		}
-	},
-	{
-		trigger:".medios", 
-		content:{
-			head:"Medios de Pago",
-			body:"<h1>asdasdas</h1>",
-			actions:[
-				{label:'Otros medios de pago', href:'www.google.com.ar'},
-			]
-		}
-	},
-	{
-		trigger:".rep", 
-		event: "click",
-		content:{
-			head:"El nuevo sistema de reputación", 
-			body:"<h1>1123321321</h1>"
-		}
-	}
-	
-];
-
-ui.init({
-	modal: modals,
-	layer: layers,
-	tooltip: true,
-	dropdown: true,
-	other: false
+	ui.init({
+		modal:modals,		    
+	    layer:layers,
+	    dropdown:true,
+	    tip:true
+	    
 	});
 	
 });

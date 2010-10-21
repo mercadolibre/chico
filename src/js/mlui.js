@@ -10,34 +10,27 @@ $.extend($.fn.disableTextSelect = function() {
 	});
 });
 
+function ucfirst(str) {
+    //str += '';
+    var f = str.charAt(0).toUpperCase();
+    return f + str.substr(1);
+};
+
 ;(function($) { 
 	
 window.ui = {
 	
-	init: function(conf) {
+	init: function(conf){
 		
-		if (conf.modal) {
-			$(conf.modal).each(function(i,e){
-				new ui.Modal(e);
-			});	
+		if (typeof conf !== 'object') { 
+			throw("UI: Can't start without a configuration."); return;
+		} else { // each configuration
+			ui.create(conf);
 		}
-		if (conf.layer) {
-			$(conf.layer).each(function(i,e){
-				new ui.Layer(e);
-			});
-		}
-		if (conf.tabs) {
-			$(conf.tabs).each(function(i,e){
-				new ui.Tab(e);
-			});
-		}
-
-		if (conf.dropdown) $(".dropdown").each(function(i,e){ new ui.Drop(e);  });
-				
-		if (conf.tooltip) $(".tip").each(function(i,e){ new ui.Tooltip(e); });
-
+	    
 	},
 	
+// $(window) vs. ui.utils.window ??!?!?!?!?
 	utils: {
 		body: $("body"),
 		window: $(window),
@@ -49,48 +42,62 @@ window.ui = {
 			off:function() { 
 				$("div.dimmer").fadeOut("fast",function(){ $(this).remove(); }); 
 			}
-		}
+		},
+		upperCaseFirstLetter: function (S) { return S.charAt(0).toUpperCase() + S.substr(1); }
 		
 	},
 	
-	instances: {
-		
-	},
+	instances: {},
 	
-	create: function(o) {
+	create: function(o) {				   
+	
+    	for(var x in o ){
+    		var aTriggers = [];		    		
+    		//var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
+    		var component = ui[ui.utils.upperCaseFirstLetter(x)]; 
+    		
+			// If component configuration is an array, each array. Else each DOM elements with component class
+    		$( ($.isArray(o[x])) ? o[x] : '.' + x ).each(function(i,e){	    			
+    			 aTriggers.push(component(e));
+    		});
 			
+			ui.instances[x] = aTriggers;
+			/*
+				OJO, aca estamos pisando la configuración de un componente, si se implementan varias configuraciones en distintos momentos se van a pisar las colecciones. ¿Es lo que queremos?
+			*/
+    	};
 	},
 	
 /**
- *	Tooltip Constructor
+ *	Helper Constructor
  */
-	Tooltip: function(tip) {
+	Tip: function(tip) {
 
 	/**
 	 *	Private members
 	 */
 
-		var that = this; // Instance
-		
 		var jtip = $(tip); // JQuery(tip)
-				
-		var showTimer;
-		var showDelay=500;
-		var hideTimer;
-		var hideDelay=250;
 		
-		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ that.show(e); },showDelay); };
-		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ that.hide(e); },hideDelay); };
+		var showTimer;		
+		var showDelay=300;
+		var hideTimer;		
+		var hideDelay=150;
+		
+		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ show(e); },showDelay); };
+		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ hide(e); },hideDelay); };
 		var clearTimer = function(t) { if (t) {	clearTimeout(t); } };
-		var clearTimers = function() { clearTimer(showTimer); clearTimer(hideTimer); };
+		var clearTimers = function() { clearTimer(showTimer); clearTimer(hideTimer); }
 
 	
 	/**
 	 *	Private tooltip content
 	 */	
 	
-		var c = jtip.attr("title")||jtip.attr("alt"); if (!c) { return };
-				jtip.removeAttr("title");
+		var c = jtip.attr("title") || jtip.attr("alt"); 
+		
+		if (!c) return;
+		jtip.removeAttr("title");
 		
 		var z = $("<span>").addClass("cone");
 		var h = $("<p>").addClass("tooltip").html(c).append(z);
@@ -104,12 +111,12 @@ window.ui = {
 			getPosition.pageY = e.pageY;
 			getPosition.pageX = e.pageX;
 		}
-
 	/**
 	 *	Public members
 	 */
-		this.show = function (e) {
-			e.stopPropagation(); e.preventDefault(); clearTimers();
+		var show = function (e) {
+			e.stopPropagation(); e.preventDefault();
+			clearTimers();
 			$(".tooltip").remove();
 			h.css("position", "absolute");
 			h.css("top", (getPosition.pageY+20)+"px");
@@ -117,124 +124,150 @@ window.ui = {
 			h.appendTo("body");
 		}
 
-		this.hide = function (e) {
-			e.stopPropagation(); e.preventDefault(); clearTimers();
+		var hide = function (e) {
+			e.stopPropagation(); e.preventDefault();
+			clearTimers();
 			h.remove();
 		}
 	
 	/**
 	 *	First event
 	 */
-		jtip.bind("mouseover",setShowTimer)
-		    .bind("mouseout",setHideTimer)
-		    .bind("mousemove",setPosition); // I need to know where is the Pointer, could be anywhere!		
+		jtip.bind("mouseenter",setShowTimer)
+			.bind("mousemove", setPosition)
+		   	.bind("mouseout",setHideTimer);
+		
+		return {show:show,hide:hide}
 	},
 	
 
 /**
  *  Layer Constructor
  */
-		Layer: function(h) {
- 
+	Layer: function(h) {
+
 	/**
 	 *  Private members
 	 */
-		var that = this;
-		var click = (h.event)?true:false;
-	
-		var t = $(h.trigger);
-	
+		var t = h.trigger;	 
+	 	var timer;
+		var setTimer = function(e) { timer = setTimeout(function(e){ hide(e); }, 4000); };
+
 		var showTimer;
-		var showDelay=250;
+		var showDelay = 250;
 		var hideTimer;
-		var hideDelay=350;
-		
-		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ that.show(e); },showDelay); };
-		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ that.hide(e); },hideDelay); };
-		var clearTimer = function(t) { if (t) {	clearTimeout(t); } };
-		var clearTimers = function() { clearTimer(showTimer); clearTimer(hideTimer); }
+		var hideDelay = 350;
+
+		var setShowTimer = function(e) { clearTimers(); showTimer = setTimeout(function(t){ show(e); },showDelay); };
+		var setHideTimer = function(e) { clearTimers(); hideTimer = setTimeout(function(t){ hide(e); },hideDelay); };
+		var clearTimer = function(t) { if (t) clearTimeout(t); };
+		var clearTimers = function() { clearTimer(timer); clearTimer(showTimer); clearTimer(hideTimer); }
 
 		var clearHelpers = function(e) { $(".layer").removeClass("show").remove(); }
+			
+	/**
+	 *  Private layer content
+	 */                         
+		var width = 280; // Webkit based browsers don't know the width... so HARDCODE! (need upgrade!)
+		var c = $('<div class="article layer">' + ((h.event === 'click') ? '<span class="btn close">x</span>' : '') + '<div class="cone"/></div>'); // Close button if event is click
 		
-     /**
-      *  Private layer content
-      */                         
-			var width = 280;  // Webkit based browsers don't know the width... so HARDCODE! (need upgrade!)
-			var c = $("<dl class=\"layer\"><span class=\"btn close\">x</span><div class=\"cone\" /></dl>");             
-
-			if (h.content.head) 
-				c.append("<dt>"+h.content.head+"</dt>");
-				c.append("<dd>"+h.content.body+"</dd>");
-			if (h.content.actions) {
-				c.append("<hr>");
-				$(h.content.actions).each(function(i,e){
-					c.append("<a href=\""+e.href+"\">"+e.label+"</a>");
+		// Content from DOM element
+		if(h.content && h.content.element){
+			c.append($(h.content.element).html());
+		// Content from ajax
+		}else if(h.ajax){
+			c.append($('<div class="loading"></div>'));
+			$.getJSON(h.ajax, function(data){
+                $('.layer div.loading').remove();
+                c.append(data);
+            });
+		// Content from parameters
+		}else{
+			// Head and body
+			if(h.content && h.content.head && h.content.body) $('<dl><dt>' + h.content.head + '</dt><dd>' + h.content.body + '</dd></dl>').appendTo(c);
+			// Body without head
+			if(h.content && h.content.body && !h.content.head) c.append(h.content.body);
+			// Actions
+			if(h.content && h.content.actions){
+				c.append('<hr>');
+				$.each(h.content.actions, function(i, e){
+					c.append('<a href="' + e.href + '">' + e.label + '</a>');
 				});
-			}
-
-			var setPosition = function(e) {
-				var top = (e.pageY+20);
-				var left = (e.pageX-width/2);
-				if (left<0) { c.find('.cone').css("left","10px"); left = e.pageX-10; }
-				if ((left+width) > ui.utils.window.width()) { left -= width/2; c.find('.cone').css("left","260px"); }
-				c.css('top',top+'px').css('left',left+'px');
 			};
- 
-       /**
-         *   Public members
-         */
-			this.show = function (e) {
-				e.stopPropagation(); e.preventDefault(); clearTimers();
-				clearHelpers(); setPosition(e);
-
-				if (click) {
-					t.unbind("click"); // Avoid the repetition
-				} else {
-					c.bind("mouseenter",function(e){ clearTimers(e); });
-					c.bind("mouseleave",function(e){ setHideTimer(e); });				
-				}
-
-				ui.utils.body.bind("click",function(e){ that.hide(e); });
-				
-				c.find('span').bind("click",function(e){ that.hide(e); });
-				c.appendTo("body").addClass("show");                                      
-			}
+		};
+	
+		var setPosition = function(){
+			var offset = $(t).offset();
+			c.css({
+				top: (offset.top + $(t).height() + 5) + 'px', // Trigger bottom + 5 px
+				left: (offset.left + ($(t).width() / 2) - 20) + 'px' // Trigger middle - Cone middle
+			});
+		};
+		 
+	/**
+	 *   Public members
+	 */
+		var show = function(e){
+			e.stopPropagation(); e.preventDefault();
+			clearHelpers();
 			
-			this.hide = function (e) {
-				e.stopPropagation(); e.preventDefault(); clearTimers();
-				if (e.target == t)  return;
-				
-				if (click) {
-					ui.utils.body.unbind("click");
-					t.bind("click",that.show); // Set the first event again
-				} else {
-					c.unbind("mouseenter");
-					c.unbind("mouseleave");
-				}
-
-				c.find('span').unbind("click");
-				c.removeClass("show").remove();
-			}
-        
-      /**
-		*  First event
-		*/
-			if (click) {
-				t.bind("click",that.show);
-			} else {
-				t.bind("mouseover",setShowTimer)
-				 .bind("mouseout",setHideTimer);
-			}
+			// Click
+			if(h.event === 'click'){
+				c.find('.close').bind('click', hide);
+				$(t).bind('click', hide);
+				$(document).bind('click', hide);
+			// Hover
+			}else{
+				clearTimers();
+				c.bind('mouseenter', clearTimers)
+				 .bind('mouseleave', setHideTimer);
+			};
 			
-		},
-
+			// Create
+			setPosition();
+			c.bind('click', function(e){ e.stopPropagation(); }).appendTo($('body')).addClass('show');
+		};
+				
+		var hide = function (e){
+			e.stopPropagation(); e.preventDefault();
+			
+			// Click
+			if(h.event === 'click'){
+				c.find('.close').unbind('click');
+				$(t).unbind('click').bind('click', show); // Reset trigger click event
+				$(document).unbind('click');
+			// Hover
+			}else{
+				clearTimers();
+				c.unbind('mouseenter')
+				 .unbind('mouseleave');
+			};
+			
+			// Destroy
+			c.removeClass('show').remove();
+		};
+			    
+	/**
+	 *  First event
+	 */
+		// Click
+		if(h.event === 'click'){
+			$(t).css('cursor', 'pointer')
+				.bind('click',show);
+		// Hover
+		}else{
+			$(t).css('cursor', 'default')
+				.bind('mouseover', setShowTimer)
+				.bind('mouseout', setHideTimer);
+		};
+		return {show:show,hide:hide}
+	},
 
 /**
  *	Modal Constructor
  */
  	Modal: function(e) {
 		
-		var that = this;
 		var t = $(e.trigger);
 		
 		// Need to know if the trigger is a link or a form
@@ -249,13 +282,13 @@ window.ui = {
 					height:((!e.height)|(parseInt(e.height)>=parseInt(ui.utils.window.height())))?parseInt(ui.utils.window.height())/2+"px":e.height};
 		};
 
-		this.create = function(event) {	
+		var create = function(event) {	
 			event.preventDefault();			
 			event.stopPropagation();			
 			ui.utils.dimmer.on();			
 		// Creating stuff
 			var w = $("<div>").addClass("modal box");
-			var close = $("<p>x</p>").addClass("btn").addClass("close").appendTo(w).bind("click",that.remove);
+			var close = $("<p>x</p>").addClass("btn").addClass("close").appendTo(w).bind("click",remove);
 		// Cheking properties
 			if (e.title) w.append("<h2>"+e.title+"</h2>");
 			if (e.content) w.append(e.content);
@@ -279,22 +312,23 @@ window.ui = {
 			w.appendTo("body").fadeIn("slow");
 		}
 
-		this.remove = function(event) {
+		var remove = function(event) {
 			$("div.modal").fadeOut("fast",function(){ $(this).remove(); });
 			ui.utils.window.unbind("resize");
 			ui.utils.dimmer.off();
 		}
 		
-		t.bind("click",this.create);
+		t.bind("click",create);
+		
+		return {create:create, remove:remove};
 	},
 	
 
 /**
- *  Drop Constructor
+ *  Dropdown Constructor
  */
-	Drop: function(e) {
+	Dropdown: function(e) {
 
-		var that = this;
 		var status = false;
 	
 		var upAll = function(event,element) { $(dropdown.triggers).each(function(i,e){ if (element!=e) e.dropdown.up(event); }) };
@@ -307,10 +341,10 @@ window.ui = {
 		var u = $(e).children(":first").next();
 			u.addClass("dropContent");
 
-		this.drop = function(event){
+		var drop = function(event){
 			event.stopPropagation();
 			$('.dropWraper, .dropContent').disableTextSelect(); // no permite seleccionar el texto
-			if (status) { that.up(event); return; }
+			if (status) { up(event); return; }
 			
 		//	upAll(event,e);
 			
@@ -322,16 +356,18 @@ window.ui = {
 			
 		};
 
-		this.up = function(event){ 
+		var up = function(event){ 
 			event.stopPropagation();
 			ui.utils.document.unbind("click");
 			$(e).removeClass("on"); 
 			status = false;
 		};
 
-		$(e).bind("mouseup",that.drop);
+		$(e).bind("mouseup",drop);
 			
-		ui.utils.document.bind("mouseup",that.up);
+		ui.utils.document.bind("mouseup",up);
+		
+		return {drop:drop,up:up}
 	}
 
 }
