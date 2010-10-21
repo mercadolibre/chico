@@ -1,0 +1,59 @@
+/*
+ * Layer
+ * @autor: Valeria Airas
+ * @mod: 21/09/2010
+ *
+ */
+
+.layer {
+	display:block;
+	color:#6E6E6E;
+	width:280px;
+	padding:10px;
+	background-color:#fff;
+	border:1px solid #b0b0b0;
+	position:absolute;
+	text-align:left;
+	z-index:1;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	box-shadow:3px 2px 8px #9e9e9e;
+	-moz-box-shadow:3px 2px 8px #9e9e9e;
+	-webkit-box-shadow:3px 2px 8px #9e9e9e;
+	opacity:0.95;
+	-webkit-opacity:0.95;
+}
+
+.layer.show {    
+   display:block;
+   z-index:100;
+   cursor:default;
+}
+
+.layer dt {
+	font-family:'Trebuchet MS';
+	font-size:15px;
+	font-weight:400;
+	border-bottom:1px solid #6e6e6e;
+}
+
+.layer dt span {
+	width:16px;
+	height:10px;
+	text-indent:-9999px;
+}
+
+.layer .cone {
+	background-image: url('../assets/piquito_tooltip.png');
+	height:8px;
+	left:12px;
+	position:absolute;
+	top:-8px;
+	width:16px;
+}
+
+.layer .close{
+	top:5px;
+	right:5px;
+}

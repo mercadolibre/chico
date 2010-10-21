@@ -1,0 +1,57 @@
+/*
+ * Modal Window
+ * @autor: Guillermo Paz
+ * @autor: Natan Santolo
+ * @mod: 14/10/2010
+ *
+ */
+
+
+.dimmer {
+	background-color:rgba(0,0,0,.5);
+	display:none;
+	height:100%;
+	left:0;
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:1000;
+}
+
+.modal {
+	background-color: #fff;
+	display:none;
+	position:fixed;
+	width:500px;
+	z-index:2000;
+	box-shadow: 3px 3px 3px #595959;
+   -webkit-box-shadow: 3px 3px 3px #595959;
+   -moz-box-shadow: 3px 3px 3px #595959;
+}
+
+.modal .content {
+	overflow:auto;
+}
+
+.modal h2 {
+    font:20px "Trebuchet MS", Verdana, "DejaVu Sans", sans-serif;
+	border-bottom:1px solid #cccccc;
+	padding-bottom:5px;
+	margin-bottom:10px;
+}
+
+.modal .content {
+	overflow:auto;
+}
+
+.ie6 .dimmer { 
+	position:absolute;
+	width:102.5%;
+}
+.ie6 .dimmer,
+.ie8 .dimmer { 
+	background-color:#000000;
+	filter: alpha(opacity=50);
+}
+
+.ie6 .modal{position:absolute;}
