@@ -34,13 +34,15 @@ window.ui = {
 		document: $(document),
 		dimmer: {
 			on:function() { 
-				$("<div>").css({"height":$(window).height(),"display":"block"}).appendTo("body").fadeIn().addClass("dimmer"); 
+				$("<div>").css({"height":ui.utils.window.height(),"display":"block"}).appendTo("body").fadeIn().addClass("dimmer"); 
 			},
 			off:function() { 
 				$("div.dimmer").fadeOut("fast",function(){ $(this).remove(); }); 
 			}
 		},
-		ucfirst: function (S) { return S.charAt(0).toUpperCase() + S.substr(1); }
+		ucfirst: function (S) { 
+			return S.charAt(0).toUpperCase() + S.substr(1); 
+		}
 		
 	},	
 	
