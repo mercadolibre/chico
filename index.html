@@ -9,16 +9,17 @@
 
 	</style>
 </head>
-<body>
-<!--[if IE 6]><body class="ie6"><![endif]-->
-<!--[if IE 7]><body class="ie7"><![endif]-->
-<!--[if IE 8]><body class="ie8"><![endif]-->	
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->	
 
 <div class="container clearfix">
 	<div class="header box">
 		<h1 class="tip" title="Una caja de herramientas para gente con músculo!">MercadoLibre UI JavaScript SDK</h1>
 		
-		<div class="dropdown">
+		<div class="drop">
 			<span>Productos</span>
 			<ul>
 				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
@@ -38,27 +39,16 @@
 		<div class="box">
 			<h3>Disparador de Layers</h3>
 			<ul>
-				<li class="algo">Demo con configuración de Layer con evento mouseover, muy simple.</li>
-				<li class="medios">Otra demo con la misma configuración anterior.</li>
-				<li class="rep">Esta demo muestra la configuración de un Layer con evento Click.</li>
+				<li class="medios">Otra demo con la misma configuración anterior.</li>				
 			</ul>
 		</div>
 		<div class="box">
 			<h3>Disparadores de modales</h3>
 			<ul>
 				<li class="ggl">Una configuración de modal posible.</li>
-				<li class="yah">Otra configuración interesante de Modal.</li>
-				<li class="apl">La última instancia de modal configurada.</li>
 			</ul>
 		</div>
 	</div>
-	<div class="box">
-		<a class="testTrigger" href="http://www.google.com/">TEST</a>
-		<div class="testContent">balbalbalbalblal</div>
-	</div>
-	
-	
-
 </div>
 
 <script src="src/js/jquery.js"></script>
@@ -66,69 +56,9 @@
 <script>
 $(function() { 
 
-	/*var modals = [
-        {
-            trigger:".ggl",
-            title:"Un titulo de prueba",
-            content:"<h1>modal window test content</h1><p>Contenido de prueba para modal</p>",
-            width:"500px",
-            height:"200px",
-            rounded:"no"
-        },
-        {
-            trigger:".yah",
-            title: "Obteniendo reputación...",
-            content:"<p>Contenido del modal</p>",
-            width:"300px",
-            height:"300px",
-            gradient:"no"
-        },
+	var modals = [
 		{
-            trigger:".apl",
-            title: "Obteniendo reputación...",
-            content:"<p>Contenido del modal</p>",
-            width:"500px",
-            height:"200px"
-        }                          
-    ];*/
-
-	/*var layers = [
-    	{
-	        trigger:".medios", 
-			content:{
-				head:"Medios de Pago",
-				body:"<h1>asdasdas</h1>",
-				actions:[
-					{label:'Otros medios de pago', href:'www.google.com.ar'},
-				]
-			}
-		},
-		{
-	        trigger:".algo", 
-			content:{
-				head:"Medios de Pago",
-				body:"<h1>asdasdas</h1>",
-				actions:[
-					{label:'Otros medios de pago', href:'www.google.com.ar'},
-				]
-			}
-		},
-		{
-	        trigger:".rep", 
-	        event:'click',
-			content:{
-				head:"Medios de Pago",
-				body:"<h1>asdasdas</h1>",
-				actions:[
-					{label:'Otros medios de pago', href:'www.google.com.ar'},
-				]
-			}
-		}		
-    ];*/
-
-	var guille = [
-		{
-			trigger:'.testTrigger',
+			trigger:'.ggl',
 			content:{
 				type:'param',
 				data:'<h2>Titulo para modal</h2><p>Algun contenido que te guste!!!</p>'
@@ -138,7 +68,7 @@ $(function() {
 		}
 	];
 	
-	var lean = [
+	var layers = [
 		{
 			trigger:'.medios',
 			event:'click',
@@ -150,8 +80,8 @@ $(function() {
 	];
 	
 	ui.init({
-		modal:guille,		    
-	    layer:lean	    
+		modal:modals,		    
+	    layer:layers	    
 	});
 	
 });

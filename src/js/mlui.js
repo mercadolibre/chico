@@ -1,6 +1,11 @@
 ;(function($) { 
 	
 window.ui = {
+
+ 	instances: {},
+ 	
+	init: function(conf) { ui.factory.start(conf) },
+
 /**
  *	Factory Pattern
  *	@author 
@@ -9,25 +14,50 @@ window.ui = {
  *	@Contructor
  *	@return A collection of object instances
  */	
- 	instances: {},
+ 	factory: {
  	
-	init: function(conf){
-		
-		if(typeof conf !== 'object'){
-			throw('UI: Can\'t start without a configuration.'); return;
-		}else{
+		start: function(conf) {
+			
+			if(typeof conf !== 'object') {
+				throw("UI: Can't start without a configuration."); return;
+			}
+
+			ui.factory.conf = conf;
+
 			// Each configuration
-			for(var x in conf){
-				// ui[ui.utils.ucfirst(x)] = ui.comunicator({js: x.js}); //Do the magic
-	    		var component = ui[ui.utils.ucfirst(x)]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
-				
-				// If component configuration is an array, each array. Else each DOM elements with component class
-	    		$( ($.isArray(conf[x])) ? conf[x] : '.' + x ).each(function(i,e){
-		    		if(!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
-	    			e.name = x;
-	    			ui.instances[x].push(component(e));
-	    		});
-	    	};
+			for(var x in conf) {
+	    		ui.comunicator.getComponent(x,function(x){ ui.factory.configure(x); });
+	    	}
+ 		},
+ 		
+ 		configure: function(x) {
+ 			var component = ui[ui.utils.ucfirst(x)]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
+			// If component configuration is an array, each array. Else each DOM elements with component class
+			$( ($.isArray(ui.factory.conf[x])) ? ui.factory.conf[x] : '.' + x ).each(function(i,e){
+				if(!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
+				e.name = x;
+				ui.instances[x].push(component(e));
+			});
+ 		}
+ 		
+ 	},
+ /**
+ *  Comunicator Pattern
+ */
+	comunicator: {
+		getComponent: function(x,c) {	
+	
+			var link = document.createElement("link");
+				link.href="src/css/"+x+".css";
+				link.rel="stylesheet";
+				link.type="text/css";
+		    var head = document.getElementsByTagName("head")[0].appendChild(link);
+
+			var script = document.createElement("script");
+			    script.type = "text/javascript";
+			    script.src = "src/js/"+x+".js";
+			    script.onload = function(){ c(x) } // fire the callback
+		    document.body.insertBefore(script, document.body.firstChild);
 		}
 	},
 	
@@ -71,7 +101,7 @@ window.ui = {
 				switch(content.type.toLowerCase()){
 					case 'ajax': // data = url
 						var data;
-						if(content.data) else 
+						//if(content.data) else 
 						//return ui.comunicator({ url:content.data });
 						
 					break;
@@ -114,49 +144,6 @@ window.ui = {
 	},
 
 /**
- *	Modal window
- *	@author 
- *	@Contructor
- *	@return An interface object
- */	
-	Modal: function(conf){
-		var that = ui.Floats(); // Inheritance
-		if(conf.content.type == 'ajax') conf.content.data = $(conf.trigger).attr('href'); // Content from href/action		
-		
-		$(conf.trigger).bind('click', function(event){ 
-			ui.utils.dimmer.on();
-			that.show(event, conf)
-			that.createClose(conf); 
-		});
-		
-		return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
-	},
-	
-/**
- *	Context Layer
- *	@author 
- *	@Contructor
- *	@return An interface object
- */	
-	Layer: function(conf){
-		var that = ui.Floats(); // Inheritance
-		 
-		// Click
-		if(conf.event === 'click'){
-			$(conf.trigger).css('cursor', 'pointer')
-				.bind('click',function(event){
-					that.show(event, conf);
-					that.createClose(conf);					
-				});
-		// Hover
-		/*}else{
-			$(t).css('cursor', 'default')
-				.bind('mouseover', setShowTimer)
-				.bind('mouseout', setHideTimer);*/
-		};		
-	},
-
-/**
  *	Utilities
  *	@author 
  */		
@@ -179,7 +166,7 @@ window.ui = {
 			s += '';
 			return s.charAt(0).toUpperCase() + s.substr(1);
 		}
-	};	
+	}	
 };
 
 })(jQuery);
