@@ -15,9 +15,13 @@ ui.Layer = function(conf){
 				that.createClose(conf);					
 			});
 	// Hover
-	/*}else{
-		$(t).css('cursor', 'default')
-			.bind('mouseover', setShowTimer)
-			.bind('mouseout', setHideTimer);*/
+	}else{
+		$(conf.trigger).css('cursor', 'default')
+			.bind('mouseover', function(event){
+				that.show(event, conf);
+			})
+			.bind('mouseout', function(event){
+				that.hide(event, conf);
+			});
 	};		
 };

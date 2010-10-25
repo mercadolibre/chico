@@ -39,7 +39,8 @@
 		<div class="box">
 			<h3>Disparador de Layers</h3>
 			<ul>
-				<li class="medios">Otra demo con la misma configuración anterior.</li>				
+				<li><span class="layerClick">Layer ejecutado en el clic.</span></li>				
+				<li><span class="layerHover">Layer ejecutado en el hover.</span></li>
 			</ul>
 		</div>
 		<div class="box">
@@ -70,11 +71,18 @@ $(function() {
 	
 	var layers = [
 		{
-			trigger:'.medios',
+			trigger:'.layerClick',
 			event:'click',
 			content:{
 				type:'param',
-				data:'<h2>Titulo para Layer</h2><p>Algun contenido que te guste para el layer!!!</p>'				
+				data:'<h2>Layer ejecutado onClick</h2><ul><li>Se cierra con clic en el boton cerrar</li><li>Se cierra con clic fuera del layer.</li></ul></p>'
+			}
+		},
+		{
+			trigger:'.layerHover',
+			content:{
+				type:'param',
+				data:'<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
 			}
 		}
 	];
