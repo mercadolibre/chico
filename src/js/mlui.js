@@ -152,14 +152,14 @@ window.ui = {
 		window: $(window),
 		document: $(document),
 		dimmer: {
-			status: false,
+			//status: false,
 			on:function(){ 
-				$('<div>').bind('click', ui.utils.dimmer.off).addClass('dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
-				ui.utils.dimmer.status = true;
+				$('<div>')/*.bind('click', ui.utils.dimmer.off)*/.addClass('dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
+				//ui.utils.dimmer.status = true;
 			},
 			off:function(){
 				$('div.dimmer').fadeOut('fast', function(){ $(this).remove(); });
-				ui.utils.dimmer.status = false;
+				//ui.utils.dimmer.status = false;
 			}
 		},
 		ucfirst: function(s){
