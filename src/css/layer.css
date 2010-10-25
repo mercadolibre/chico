@@ -5,7 +5,7 @@
  *
  */
 
-.layer {
+.uiLayer {
 	display:block;
 	color:#6E6E6E;
 	width:280px;
@@ -25,26 +25,26 @@
 	-webkit-opacity:0.95;
 }
 
-.layer.show {    
+.uiLayer.show {    
    display:block;
    z-index:100;
    cursor:default;
 }
 
-.layer dt {
+.uiLayer dt {
 	font-family:'Trebuchet MS';
 	font-size:15px;
 	font-weight:400;
 	border-bottom:1px solid #6e6e6e;
 }
 
-.layer dt span {
+.uiLayer dt span {
 	width:16px;
 	height:10px;
 	text-indent:-9999px;
 }
 
-.layer .cone {
+.uiLayer .cone {
 	background-image: url('../assets/piquito_tooltip.png');
 	height:8px;
 	left:12px;
@@ -53,7 +53,7 @@
 	width:16px;
 }
 
-.layer .close{
+.uiLayer .close{
 	top:5px;
 	right:5px;
 }

@@ -18,7 +18,7 @@
 	z-index:1000;
 }
 
-.modal {
+.uiModal {
 	background-color: #fff;
 	display:none;
 	position:fixed;
@@ -29,18 +29,18 @@
    -moz-box-shadow: 3px 3px 3px #595959;
 }
 
-.modal .content {
+.uiModal .content {
 	overflow:auto;
 }
 
-.modal h2 {
+.uiModal h2 {
     font:20px "Trebuchet MS", Verdana, "DejaVu Sans", sans-serif;
 	border-bottom:1px solid #cccccc;
 	padding-bottom:5px;
 	margin-bottom:10px;
 }
 
-.modal .content {
+.uiModal .content {
 	overflow:auto;
 }
 
@@ -54,4 +54,4 @@
 	filter: alpha(opacity=50);
 }
 
-.ie6 .modal{position:absolute;}
+.ie6 .uiModal{position:absolute;}

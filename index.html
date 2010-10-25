@@ -32,8 +32,8 @@
 	<div class="article box">
 		<h2>Demo sheet</h2>
 		<h3>Ejemplo de Estilos y Componentes de UI</h3>
-		<img class="tip" alt="MercadoLibre: El único!" src="http://img.mlstatic.com/org-img/HOMENHP/logo_ml.gif">
-		<img class="tip" alt="MercadoPago: El mejor!" src="http://www.mercadopago.com/org-img/MP3/logo_main225x52.jpg">
+		<img class="tooltip" title="El único!" alt="MercadoLibre Logo" src="http://img.mlstatic.com/org-img/HOMENHP/logo_ml.gif">
+		<img class="tooltip" title="El mejor!" alt="MercadoPago Logo" src="http://www.mercadopago.com/org-img/MP3/logo_main225x52.jpg">
 	</div>
 	<div class="g5">
 		<div class="box">
@@ -89,7 +89,8 @@ $(function() {
 	
 	ui.init({
 		modal:modals,		    
-	    layer:layers	    
+	    layer:layers,
+	    tooltip:true   
 	});
 	
 });

@@ -6,7 +6,7 @@
  *
  */
 
-.tooltip {
+.uiTooltip {
 	font-size: 11px;
 	display:block;
 	color:#333;
@@ -28,7 +28,7 @@
 	-webkit-opacity:0.9;
 }
 
-.tooltip .cone {
+.uiTooltip .cone {
 	background-image: url(http://10.100.34.210:8080/content/assets/cone.png);
 	height:8px;
 	left:26px;

@@ -116,20 +116,21 @@ window.ui = {
 		};
 			
 		var create = function(conf){
-			return $('<div>').addClass('article '+conf.name).html(loadContent(conf.content)).hide().appendTo('body');
+			return $('<div>').addClass('article ui' + ui.utils.ucfirst(conf.name)).html(loadContent(conf.content)).hide().appendTo('body');
 		};
 		
-		that.createClose = function(conf){
+		var createClose = function(conf){
 			$('<p class="btn close">x</p>').bind('click', function(event){
 				if(ui.utils.dimmer.status) ui.utils.dimmer.off();
 				that.hide(event, conf);
-			}).prependTo($('.' + conf.name));
+			}).prependTo($('.ui' + ui.utils.ucfirst(conf.name)));
 		};
 		
 		that.show = function(event, conf){
 			prevent(event);
 			//clearTimers();			
 			var o = create(conf);
+			if(conf.closeButton) createClose(conf);
 			///ui.positioner()
 			o.fadeIn();
 		};
@@ -137,7 +138,7 @@ window.ui = {
 		that.hide = function(event, conf){
 			prevent(event);
 			//clearTimers();	
-			$('.' + conf.name).fadeOut('normal', function(event){ $(this).remove(); });
+			$('.ui' + ui.utils.ucfirst(conf.name)).fadeOut('normal', function(event){ $(this).remove(); });
 		};
 
 		return that;
