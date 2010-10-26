@@ -24,10 +24,10 @@ ui.Layer = function(conf){
 				that.show(event, conf);
 				
 				// Document events
-				$(document).bind('click', function(e){					
+				/*$(document).bind('click', function(e){
 					that.hide(e, conf);
 					$(document).unbind('click');
-				});
+				});*/
 			});
 	
 	// Hover
