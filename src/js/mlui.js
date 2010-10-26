@@ -41,6 +41,7 @@ window.ui = {
  		}
  		
  	},
+ 	
  /**
  *  Comunicator Pattern
  */
@@ -60,6 +61,48 @@ window.ui = {
 		    document.body.insertBefore(script, document.body.firstChild);
 		}
 	},
+	
+ /**
+ *  Positionator Pattern
+ */
+	positionator: {
+		// Vertical & horizontal alignment
+		center: function(element){			
+			var align = function(){
+				element.css({
+					left: (parseInt($(window).width())-element.width() ) /2,						
+					top: (parseInt($(window).height())-element.outerHeight() ) /2
+				})
+			};
+			align();		
+			$(window).bind('resize', align);
+		},
+		
+		// Layer, drop, mega-drop
+		drop: function(element, parent){
+			var os = parent.offset();
+			var align = function(){
+				element.css({
+					top: os.top+parent.outerHeight()+10,
+					left: os.left+(parent.outerWidth()/2)-20
+				});
+			};
+			align();			
+			$(window).bind('resize', align);
+		},
+		
+		// Tooltip
+		follow: function(element, parent){					
+			parent.bind('mousemove', function(event){
+				element.css({
+					top: event.pageY+20,
+					left: event.pageX-32
+				});
+			});
+
+		}
+	},
+	
 	
 /**
  *	Power Constructor Pattern
@@ -100,10 +143,7 @@ window.ui = {
 			}else{
 				switch(content.type.toLowerCase()){
 					case 'ajax': // data = url
-						var data;
-						//if(content.data) else 
-						//return ui.comunicator({ url:content.data });
-						
+						//ui.cominicator do the magic						
 					break;
 					case 'dom': // data = class, id, element
 						return $(content.data).html();
@@ -131,7 +171,7 @@ window.ui = {
 			//clearTimers();			
 			var o = create(conf);
 			if(conf.closeButton) createClose(conf);
-			///ui.positioner()
+			if(conf.align) ui.positionator[conf.align]($('.ui' + ui.utils.ucfirst(conf.name)), $(conf.trigger));
 			o.fadeIn();
 		};
 		

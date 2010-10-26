@@ -6,10 +6,13 @@
  */	
 ui.Layer = function(conf){
 	var that = ui.Floats(); // Inheritance
+	
+	// Global configuration
+	conf.align = 'drop';
 	 
 	// Click
 	if(conf.event === 'click'){
-		conf.closeButton = true;
+		conf.closeButton = true; // Local configuration
 		$(conf.trigger).css('cursor', 'pointer')
 			.bind('click',function(event){
 				// Clear helpers
@@ -19,7 +22,7 @@ ui.Layer = function(conf){
 	}else{
 		$(conf.trigger).css('cursor', 'default')
 			.bind('mouseover', function(event){
-				// Clear helpers						
+				// Clear helpers		
 				that.show(event, conf);
 			})
 			.bind('mouseout', function(event){
@@ -27,5 +30,5 @@ ui.Layer = function(conf){
 			});
 	};
 	
-	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};		
+	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};	
 };

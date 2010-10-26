@@ -6,20 +6,24 @@
  */	
 ui.Tooltip = function(element){
 	var that = ui.Floats(); // Inheritance
+	// Global configuration	
 	var conf = {
-		name:'tooltip',
-		content:{
-			type:'param',
+		trigger: element,
+		name: 'tooltip',
+		content: {
+			type: 'param',
 			data: element.title
-		}
+		},
+		align: 'drop'		
 	};
 			
 	$(element).css('cursor', 'default')
 		.bind('mouseover', function(event){
-			// Clear helpers						
+			$(this).removeAttr('title', '');
 			that.show(event, conf);
 		})
 		.bind('mouseout', function(event){
+			$(this).attr('title', conf.content.data);
 			that.hide(event, conf);
 		});
 		
