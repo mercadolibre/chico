@@ -1,56 +1,11 @@
-/*
- * Layer
- * @autor: Valeria Airas
- * @mod: 21/09/2010
- *
- */
-
 .uiLayer {
-	display:block;
-	color:#6E6E6E;
 	width:280px;
-	padding:10px;
-	background-color:#fff;
-	border:1px solid #b0b0b0;
+	background:none;
 	position:absolute;
-	text-align:left;
-	z-index:1;
-	border-radius:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	box-shadow:3px 2px 8px #9e9e9e;
-	-moz-box-shadow:3px 2px 8px #9e9e9e;
-	-webkit-box-shadow:3px 2px 8px #9e9e9e;
-	opacity:0.95;
-	-webkit-opacity:0.95;
-}
-
-.uiLayer.show {    
-   display:block;
-   z-index:100;
-   cursor:default;
-}
-
-.uiLayer dt {
-	font-family:'Trebuchet MS';
-	font-size:15px;
-	font-weight:400;
-	border-bottom:1px solid #6e6e6e;
-}
-
-.uiLayer dt span {
-	width:16px;
-	height:10px;
-	text-indent:-9999px;
 }
 
 .uiLayer .cone {
-	background-image: url('../assets/piquito_tooltip.png');
-	height:8px;
-	left:12px;
-	position:absolute;
-	top:-8px;
-	width:16px;
+	background-image: url('http://10.100.34.210:8080/content/assets/piquito_tooltip.png');
 }
 
 .uiLayer .close{

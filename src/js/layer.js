@@ -10,20 +10,32 @@ ui.Layer = function(conf){
 	// Global configuration
 	conf.align = 'drop';
 	conf.cone = true;
-	 
+	conf.classes = 'box';
+	
 	// Click
 	if(conf.event === 'click'){
-		conf.closeButton = true; // Local configuration
+		// Local configuration
+		conf.closeButton = true;
+		
+		// Trigger events
 		$(conf.trigger).css('cursor', 'pointer')
 			.bind('click',function(event){
-				// Clear helpers
-				that.show(event, conf);								
+				$('.uiLayer').remove(); // Clear all helpers
+				that.show(event, conf);
+				
+				// Document events
+				$(document).bind('click', function(event){
+					that.hide(event, conf);
+					$(document).unbind('click');
+				});
 			});
+	
 	// Hover
 	}else{
+		// Trigger events
 		$(conf.trigger).css('cursor', 'default')
 			.bind('mouseover', function(event){
-				// Clear helpers		
+				$('.uiLayer').remove(); // Clear all helpers
 				that.show(event, conf);
 			})
 			.bind('mouseout', function(event){
@@ -31,5 +43,5 @@ ui.Layer = function(conf){
 			});
 	};
 	
-	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};	
+	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
 };

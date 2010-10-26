@@ -1,38 +1,17 @@
-/*
- * Tooltips
- * @autor: Patricio Blanc
- * @autor: Leandro Linares
- * @mod: 15/09/2010
- *
- */
-
 .uiTooltip {
-	font-size: 11px;
-	display:block;
-	color:#333;
-/*	width:280px;*/
+	font-size:11px;
 	background-color:#faf5c8;
 	border:1px solid #a0a082;
 	position:absolute;
-	padding:0 5px 0 5px;
-	margin:0;
-	text-align:left;
-	z-index:1;
+	padding:0 5px;
 	border-radius:3px;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	box-shadow:-2px 2px 3px #ccc;
 	-moz-box-shadow:-2px 2px 3px #ccc;
 	-webkit-box-shadow:-2px 2px 3px #ccc;
-	opacity:0.9;
-	-webkit-opacity:0.9;
 }
 
 .uiTooltip .cone {
-	background-image: url(http://10.100.34.210:8080/content/assets/cone.png);
-	height:8px;
-	left:26px;
-	position:absolute;
-	top:-8px;
-	width:16px;
+	background-image: url('http://10.100.34.210:8080/content/assets/cone.png');
 }

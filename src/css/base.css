@@ -505,6 +505,14 @@ hr {
 	background-position:0 -394px;
 }
 
+.cone {
+	height:8px;
+	left:12px;
+	position:absolute;
+	top:-8px;
+	width:16px;
+}
+
 /*
  * Transitions
  * @autor: Natan Santolo
