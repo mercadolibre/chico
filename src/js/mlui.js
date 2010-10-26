@@ -174,9 +174,12 @@ window.ui = {
 			prevent(event);
 			//clearTimers();			
 			var element = create(conf);
+			//visual config
 			if(conf.closeButton) createClose(element, conf);
 			if(conf.cone) createCone(element);
 			if(conf.align) ui.positionator[conf.align](element, $(conf.trigger));
+			if(conf.classes) $(element).addClass(conf.classes);
+			
 			element.fadeIn();
 		};
 		
