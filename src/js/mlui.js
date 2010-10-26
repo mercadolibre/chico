@@ -168,7 +168,6 @@ window.ui = {
 		
 		var createCone = function(element){
 			$('<div class="cone"></div>').prependTo(element);
-			console.log(element);
 		};
 		
 		that.show = function(event, conf){
