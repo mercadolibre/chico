@@ -24,8 +24,8 @@ ui.Layer = function(conf){
 				that.show(event, conf);
 				
 				// Document events
-				$(document).bind('click', function(event){
-					that.hide(event, conf);
+				$(document).bind('click', function(e){					
+					that.hide(e, conf);
 					$(document).unbind('click');
 				});
 			});

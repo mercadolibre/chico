@@ -49,14 +49,14 @@ window.ui = {
 		getComponent: function(x,c) {	
 	
 			var link = document.createElement("link");
-				link.href="src/css/"+x+".css";
+				link.href="src/css/"+x+".css"; //esto debería ser absoluto
 				link.rel="stylesheet";
 				link.type="text/css";
 		    var head = document.getElementsByTagName("head")[0].appendChild(link);
 
 			var script = document.createElement("script");
-			    script.type = "text/javascript";
-			    script.src = "src/js/"+x+".js";
+			    script.type = "text/javascript";			    			   
+			    script.src = "src/js/"+x+".js"; //esto debería ser absoluto
 			    script.onload = function(){ c(x) } // fire the callback
 		    document.body.insertBefore(script, document.body.firstChild);
 		}

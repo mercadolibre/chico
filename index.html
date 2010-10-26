@@ -47,6 +47,11 @@
 			<h3>Disparadores de modales</h3>
 			<ul>
 				<li class="ggl">Una configuración de modal posible.</li>
+				<li>
+					<form action="http://www.google.com/">
+						<input type="submit" class="btn primary" id="comprar" value="Comprar">
+					</form>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -60,6 +65,15 @@ $(function() {
 	var modals = [
 		{
 			trigger:'.ggl',
+			content:{
+				type:'param',
+				data:'<h2>Titulo para modal</h2><p>Algun contenido que te guste!!!</p>'
+				
+
+			}
+		},
+		{
+			trigger:'#comprar',
 			content:{
 				type:'param',
 				data:'<h2>Titulo para modal</h2><p>Algun contenido que te guste!!!</p>'

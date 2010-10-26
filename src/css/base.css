@@ -128,7 +128,7 @@ a img{
  */
 
 
-/*p { this is really necesary ? 
+/*p { is this really necesary ?  
 	margin: 5px 0 10px;
 }*/
 
@@ -159,14 +159,15 @@ h1.typo { font-size:20px }
 h2.typo { font-size:18px }
 h5.typo { font-size:13px }
 
-ul {
+/*  
+ul { is this really necesary ? 
 	margin-top: 5px;
 }
 
-li {
+li { is this really necesary ? 
 	padding: 0 5px 0 15px;
 }
-
+*/
 span.numeros {
 	letter-spacing:1px;
 }
@@ -255,105 +256,101 @@ hr {
 }
 
 /*
- * Buttons
- * @autor: Natan Santolo
- * @autor:Guille Paz
- * @mod: 06/07/2010
+ * Buttons NEW 
+ * @autor: Jesica Bertisch
+ * @mod: 20/10/2010
  *
  */
+ 
+ 
 .btn {
 	background-repeat: repeat-x;
-	border: 1px solid transparent; 
+	background-color:#2C3176;
+	border: 1px solid #2C3176; 
 	cursor:pointer;
 	overflow: visible; 
-	padding: 3px 9px; 
-}
-
-.btn.primary, .btn.secondary {
-	background-color: #2338ac;
-	border: 1px solid #5B67B0; 
-	color: #fff; 
+	padding: 3px 9px;
+	color:#FFF;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 }
 
 .btn.primary { 
-	background-position: 0 -169px;
-	font-size: 20px; 
+	background-position:0 -522px;
+	font-size: 18px; 
 }
 
 .btn.secondary { 
-	background-position: 0 -173px;
-	font-weight: 700;
+	background-position:0 -193px;
 }
 
 .btn.tertiary { 
-	font-size: 11px; 
+	font-size: 11px;
+	padding:2px 4px;
 }
 
 .btn:focus {
-	background-color:#1e34d0;
-    background-position:0 -203px;
-	color:#E0F3FD;
-	outline:solid;
-	outline:outset;
-	outline:double;
-	outline-color:#BBD6DD;
+	-moz-box-shadow:0px 0px 5px #4055A5;
+	-webkit-box-shadow:0px 0px 5px #4055A5;
+	box-shadow:0px 0px 5px #4055A5;
 }
 
-.btn:hover { 
-	background-position:0 -203px;
-	border: 1px solid #333333
+.btn.primary:hover { 
+	background-position:0 -554px;
 }
 
-.btn.secondary:hover, 
-.btn.secondary:focus { 
-	background-position:0 -207px;
+.btn.secondary:hover { 
+	background-position:0 -218px;
 }
 
-.btn:active {
-	background-position:0 -237px;
-	border: 1px solid #333333; 
-	outline:none;
+.btn.primary:active {
+	background-position:0 -586px;
+	-moz-box-shadow:0px 0px 0px ;
+	-webkit-box-shadow:0px 0px 0px ;
+	box-shadow:0px 0px 0px ;
 }
 
 .btn.secondary:active { 
-	background-position:0 -241px;
+	background-position:0 -243px;
+	-moz-box-shadow:0px 0px 0px ;
+	-webkit-box-shadow:0px 0px 0px ;
+	box-shadow:0px 0px 0px ;
 }
 
 .btn.skin {
-	background-color: #d7e8fb;
-	background-position: 0 -271px;
-	border: 1px solid #bbd6dd;
-	color: #333;
+	background-position:0 -271px;
+	border: #79a8c7 1px solid;
+	color: #476274;
 }
 
 .btn.skin:focus {
-	background-color: #d7e8fb;
-	background-position: 0 -271px;
-	border: 1px solid #60ADBA;
-	color:#60ADBA;
-	outline-color:#DFF3FD;
+	-moz-box-shadow:0px 0px 5px #ADD7F3;
+	-webkit-box-shadow:0px 0px 5px #ADD7F3;
+	box-shadow:0px 0px 5px #ADD7F3;
 }
 
 .btn.skin:hover { 
-	background-position: 0 -271px;
-	border: 1px solid #60ADBA;
+	background-position:0 -296px;
 }
 
 .btn.skin:active {
-	background-position: 0 -296px;
-	border: 1px solid #60ADBA;
-	color: #333;
-	outline:none;
+	background-position:0 -321px;
+	-moz-box-shadow:0px 0px 0px ;
+	-webkit-box-shadow:0px 0px 0px ;
+	box-shadow:0px 0px 0px ;
 }
 
 .btn:disabled, /* heredan todos los btns */
 .btn:disabled:hover,
-.btn:disabled:active { /* refuerzo los botones disabled */
-	background-color: #fff; 
-	background-position: 0 -320px; 
-	border: 1px solid #ccc;
-	color: #ccc;
-	cursor: not-allowed;  
+.btn:disabled:active,
+.btn.disabled { /* refuerzo los botones disabled */
+	background-position:0 -618px;
+	border: #999 1px solid;
+	opacity: 0.3;
+	color: #f7f7f7;
+	text-shadow:none;
+	cursor: default;
 }
 
 .btn.close {
@@ -371,12 +368,12 @@ hr {
 	width:16px;
 }
 
-.btn.close:hover, .close:focus {
+.btn.close:hover, .close:focus{
 	background-position:right -136px;
 	border:none;
 }
 
-.btn.close:active {
+.btn.close:active{
 	background-position:right -152px;
 	outline:none;
 }
@@ -413,7 +410,7 @@ hr {
 	border: 1px solid #afafaf;
 	margin: 0 0 10px 0;
 	padding: 10px;
-/*	position: relative;  this is really necesary ? */
+	position: relative;  /*this is really necesary ? yes */
 	background-position: 0 -650px;
 	background-repeat: repeat-x;
 	background-color: #fff;
