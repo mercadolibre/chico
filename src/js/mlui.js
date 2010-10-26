@@ -159,20 +159,26 @@ window.ui = {
 			return $('<div>').addClass('article ui' + ui.utils.ucfirst(conf.name)).html(loadContent(conf.content)).hide().appendTo('body');
 		};
 		
-		var createClose = function(conf){
+		var createClose = function(element,conf){
 			$('<p class="btn close">x</p>').bind('click', function(event){
 				if(ui.utils.dimmer.status) ui.utils.dimmer.off();
 				that.hide(event, conf);
-			}).prependTo($('.ui' + ui.utils.ucfirst(conf.name)));
+			}).prependTo(element);			
+		};
+		
+		var createCone = function(element){
+			$('<div class="cone"></div>').prependTo(element);
+			console.log(element);
 		};
 		
 		that.show = function(event, conf){
 			prevent(event);
 			//clearTimers();			
-			var o = create(conf);
-			if(conf.closeButton) createClose(conf);
-			if(conf.align) ui.positionator[conf.align]($('.ui' + ui.utils.ucfirst(conf.name)), $(conf.trigger));
-			o.fadeIn();
+			var element = create(conf);
+			if(conf.closeButton) createClose(element, conf);
+			if(conf.cone) createCone(element);
+			if(conf.align) ui.positionator[conf.align](element, $(conf.trigger));
+			element.fadeIn();
 		};
 		
 		that.hide = function(event, conf){

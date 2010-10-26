@@ -9,6 +9,7 @@ ui.Layer = function(conf){
 	
 	// Global configuration
 	conf.align = 'drop';
+	conf.cone = true;
 	 
 	// Click
 	if(conf.event === 'click'){

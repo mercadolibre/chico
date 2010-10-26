@@ -14,7 +14,8 @@ ui.Tooltip = function(element){
 			type: 'param',
 			data: element.title
 		},
-		align: 'drop'		
+		align: 'drop',
+		cone: true		
 	};
 			
 	$(element).css('cursor', 'default')
