@@ -127,9 +127,10 @@ a img{
  *
  */
 
-p {
+
+/*p { this is really necesary ? 
 	margin: 5px 0 10px;
-}
+}*/
 
 p.table {
 	font-size:12px;
@@ -413,7 +414,7 @@ hr {
 	margin: 0 0 10px 0;
 	padding: 10px;
 /*	position: relative;  this is really necesary ? */
-	background-position: 0 -825px;
+	background-position: 0 -650px;
 	background-repeat: repeat-x;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
