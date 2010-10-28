@@ -70,7 +70,7 @@ window.ui = {
 		center: function(element){			
 			var align = function(){
 				element.css({
-					left: (parseInt($(window).width())-element.width() ) /2,						
+					left: (parseInt($(window).width())-element.outerWidth() ) /2,						
 					top: (parseInt($(window).height())-element.outerHeight() ) /2
 				})
 			};
