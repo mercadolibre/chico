@@ -1,0 +1,39 @@
+.tabNavigator {
+	margin:10px 0;
+}
+
+.tabNavigator ul {
+	position:relative;
+	top:1px;
+	z-index:10;
+	margin-left:10px;
+}
+
+.tabNavigator ul li {
+	cursor:pointer;
+	display:inline-block;
+	margin-right:0;
+}
+
+.tabNavigator .uiTrigger {
+	border:1px solid #AFAFAF;
+	display:inline-block;
+	padding:3px 12px;
+	text-decoration:none;
+	color:#333333;
+	-moz-border-radius:5px 5px 0 0;	
+}
+
+.tabNavigator .uiTrigger.on {
+	border-bottom:1px solid #FFFFFF;
+	font-weight:bold;
+	cursor:default;
+	background-position:0 -650px;
+	background-image:url('http://10.100.34.210/content/assets/spr.png');
+	background-repeat:repeat-x;		
+		
+}
+
+.tabNavigator .uiContent{
+ 	background-image:none;
+}

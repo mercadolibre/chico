@@ -1,0 +1,602 @@
+/*estructura*/
+/*LAYOUT*/
+.price sup{line-height:1em;}
+
+body {margin: 0 auto;padding:0 10px;}
+
+
+.min{min-height:235px;}
+.min2{min-height:80px;}
+
+.nav.path{height:15px;margin:10px 0;}
+.back{float:left;}
+.pathCategs{float:right;font-size:13px;}
+
+
+.shortDescription{border-width:1px 0 0 0;min-height:375px;}
+.shortDescription h1{float:right;left:350px;position:absolute;font-size:18px; font-weight: bold;}
+
+/*GALERIA VIP*/
+.figure{border:1px solid #CCCCCC;height:375px;overflow:hidden;padding:5px 0;position:relative;width:320px;float:left;}
+.figure.noImage{text-align:center;}
+.maskModal{overflow:hidden;position:relative;margin:0 auto;width:500px;height:445px;padding:25px 0;}
+.slider, .sliderModal{overflow: hidden;position: absolute;height: 317px;/* -webkit-transition:all 1s linear;-moz-transition:all 1s linear;-o-transition:all 1s linear; transition:all 1s linear; */}
+.sliderModal{height:500px;}
+
+/*.figure .slider img{cursor:pointer;position: relative;float:left;background:url("http://static.mlstatic.com/org-img/vip3/layer/loading_small.gif") no-repeat scroll center center transparent;height:320px;width:320px;}*/
+.figure .slider span.img{text-align:center;cursor:pointer;position: relative;float:left;background:url("http://static.mlstatic.com/org-img/vip3/layer/loading_small.gif") no-repeat scroll center center transparent;height:320px;width:320px;}
+
+.sliderModal div.imgModal{float:left;position:relative;text-align:center;height:500px;width:500px;background:url(http://static.mlstatic.com/org-img/vip3/layer/loading_small.gif) no-repeat center center;}
+
+#thumbs, #thumbsModal{border-top:1px solid #CCCCCC;bottom:0;height:52px;overflow:hidden;padding:5px 0;position:absolute;width:320px;}
+#thumbsModal{width:600px;text-align:center;}
+#thumbs img, #thumbsModal img{border:1px solid #FFFFFF;cursor:pointer;margin:5px;width:auto;display:inline;}
+#thumbs img:hover,#thumbsModal img:hover, #thumbs .selected, #thumbsModal .selected {border:1px solid #CCCCCC;}
+#thumbs .prev, #thumbs .next {cursor: pointer;height: 52px;width: 16px;text-indent: -9999px;position: absolute;top:5px;}
+#thumbs .prev {background: #fff url(../images/meli/component/gallery/arrow_left_over.gif) no-repeat right center;left: 0;z-index: 100;}
+#thumbs .next {background: #fff url(../images/meli/component/gallery/arrow_right_over.gif) no-repeat left center;right: 0;z-index: 100;}
+
+.modalGal .prev, .modalGal .next{position:absolute;top:0px; height:518px; width:17px;cursor:pointer}
+.modalGal .prev{background:url(../images/meli/component/gallery/left.gif) no-repeat left center;left:5px;}
+.modalGal .next{background:url(../images/meli/component/gallery/right.gif) no-repeat right center;right: 5px;}
+
+.spanVideo{top:0px; left:0px; width: 320px; height: 295px; cursor: pointer;position:absolute;}
+.modalGal .spanVideo{display:none;}
+.modalGal object{margin:65px 0 0 0;}
+/*End GALERIA VIP*/ 
+
+
+/*Info del ducto*/
+.shortDescription .section{padding:35px 0 0 340px;}
+dl.itemData {display:block;margin:10px 0 0 0;}
+dl.itemData dd.planInstall{overflow:hidden;}
+dl.itemData dt {float:left;line-height:15px; margin-top:3px;}
+dl.itemData dd {margin-bottom:5px;margin-left:95px;}
+dl.itemData dd p{display:inline;float:left;line-height:14px;margin-top:3px;}
+dl.itemData dd p a{font-size:13px; margin-right: 5px;}
+/*dl.itemData sup{vertical-align:top;}*/
+.productStatus, .finalDate{color:#999999;}
+.planInstall .article{background-color:#F2F6F6;padding:0px 5px;float:left;}
+.planInstall ul li {float: left; margin-top: 3px;}
+dl.itemData dd ul{display:inline; float:left;margin: 0px; }
+
+
+/* Info del producto MOT */
+h1.titles {color:#02588E; font-size:19px;  top:10px; font-weight:bold;line-height:1.2em;}
+dl.itemData.motors { border-top:1px dotted #ccc; line-height:14px; border-bottom:1px dotted #ccc; padding:5px 0 10px 0;}
+dl.itemData.motors dt { display:none;}
+dl.itemData.motors dd { margin:0; color:#333333; font-size:14px; margin:10px 0 0 10px;}
+dl.itemData.motors dd.placePrice {float:right;color:#900000; float:right; font-size:22px; margin:10px 5px 0 0;}
+dl.datosVendedor {display:inline-block; line-height:14px; font-size:14px; margin:20px 0 20px 0; text-align:left; width:auto;}
+dl.datosVendedor dt {color:#333333;float:left;font-size:13px;font-weight:normal;}
+dl.datosVendedor dd {margin:0 0 10px 95px; width:auto;}
+ul.compartir {line-height:11px;margin:0 0 0 95px !important;overflow:hidden;padding:0;text-align:left;}
+ul.compartir li {float:left; list-style-image:none; list-style-position:outside; list-style-type:none; padding:0 5px 0 0; margin:5px 5px 0 0;}
+ul.compartir li.first {border-right:1px solid #333;}
+ul.compartir li a {}
+/* End Info del producto MOT */
+
+/* TIPS MOT */
+div.tipsMot { overflow:hidden; font-size:11px;}
+div.tipsMot ul {}
+div.tipsMot ul li { width:48%; float:left;}
+div.tipsMot p {margin:0 0 0 -5px; font-weight:bold;}
+div.tipsMot p span.icoInf { background:url(http://static.mlstatic.com/org-img/GMP/icos.png)no-repeat 0 -16px; width:16px; height:16px; display:block; float:left; margin:3px 3px 0px 5px;text-indent: -31000px;}
+/* END TIPS MOT */
+
+
+
+/*Medios de Pago*/
+.payMethod {/*background:transparent url(http://static.mlstatic.com/org-img/GMP/logos_mla.gif) 0 0 no-repeat;*/ float:left;  margin:3px 0px 0px 5px;/*text-indent: -31000px;*/}
+.visa {background-position: 0 0px; height:16px;width:26px; }
+.master {background-position: -27px 0; height:16px;width:26px;  }
+.amex {background-position: -53px 0;height:16px; width:25px; }
+.argencard {background-position: -79px 0; height:16px; width:17px; }
+.naranja {background-position: -99px 0; height:16px; width:26px;  }
+.pagofacil {background-position: -126px 0; height:16px; width:16px;  }
+.rapipago {background-position: -143px 0; height:16px; width:42px; }
+/*End Medios de Pago*/
+
+/*Boton de compra*/
+.buy{margin:10px 0 0 95px;}
+.buyDisabled{background-color:#D3EFF4;display:inline-block;margin-top:10px;padding:3px 50px;text-align:center;}
+.bpp{font-size:11px;margin:5px 0 0 95px;display:block;}
+/*.buyConfirmation .article{margin: 10px 0pt 30px;}
+.buyConfirmation .itemData{margin: 15px 0pt 0px 20px;}
+.buyConfirmation .itemData dt{line-height: 22px;}
+.buyConfirmation .itemData dd{margin-left: 95px;}
+.buyConfirmation .itemData dd .price{display: block; float: none; font-size: 14px;}
+.buyConfirmation .itemData dd input{text-align: right;}
+.minOffer{font-size: 12px;}*/
+/*End BTN*/
+
+/* Termometro */
+.article.reputation {border-top:1px dashed #CCCCCC;margin:20px 0 0 0px;padding-top:10px;position:relative;}
+.article.reputation h3{font-size:14px; font-weight:bold; margin-bottom:10px;}
+.article.reputation dl.meter{display:inline-block;}
+.article.reputation dl.meter dt{font-size:13px; float:left; width:95px; line-height:27px;}
+.article.reputation dl.meter dd{display:inline-block; position:relative;}
+.article.reputation a{display:inline-block;left:245px;position:absolute;top:45px;}
+.article.reputation dl.meter dd.newSeller{margin-top:5px;font-weight:bold;}
+
+p.meter, p.meter .valueRep{background-image:url(../assets/termometro.png); background-repeat:no-repeat;}
+p.meter{background-position:center -15px;height:24px;position:relative;text-indent:-9999px;width:142px;}
+p.meter .valueRep{display:block; width:25px; height:23px; position:absolute; top:0;}
+
+
+.repDescrip{font-size:13px;line-height:20px;text-align:center;}
+.repDescrip span{background:url(http://static.mlstatic.com/org-img/GMP/spr.gif) no-repeat;display:block;height:18px;margin-top:5px;padding-right:20px;}
+.repDescrip span.mlL {background-position:right -41px;}
+.repDescrip span.mlG {background-position:right -26px;}
+.repDescrip span.mlP {background-position:right -9px;}
+
+.article.reputation dl.tooltip {display:none;}
+.tooltipCone{background-image:url(http://static.mlstatic.com/org-img/GMP/spr.gif);}
+.tooltipCone{background-position:0 -58px;height:13px;left:132px;position:absolute;top:-13px;width:16px;}
+
+.close {padding:0 9px; margin:0;background-position:right -120px;background-repeat:no-repeat;border:medium none;cursor:pointer;height:16px;position:absolute;right:10px;text-indent:-9999px;top:10px;z-index:500;}
+.close:hover{border:none;}
+
+p.rep0{background-position:center 9px;}
+p.rep0 span{display:none!important;}
+p.rep1 span{left:10px; background-position:-10px -39px;}
+p.rep2 span{left:34px; background-position:-34px -39px;}
+p.rep3 span{left:58px; background-position:-58px -39px;}
+p.rep4 span{left:82px; background-position:-82px -39px;}
+p.rep5 span{left:106px; background-position:-106px -39px;}
+/*End Termometro*/
+
+
+.section .details{clear:both;}
+.secondaryAction{border-top:1px solid #CCCCCC;font-size:12px;padding-top:5px;text-align:right;}
+.secondaryAction li{display:inline;}
+	
+/*Tabs*/
+.tabs ul.containerTabs li a {font-weight:normal;}
+.tabs ul.containerTabs li a.selected {font-weight:bold;cursor:default;}
+/*End Tabs*/
+
+
+
+/*Garantia*/
+.garanty h5{display:inline;}
+.garanty strong{font-weight:normal;}
+/*End Garantia*/
+
+
+/*Pagos y envios*/
+.pay, .send{border:none;}
+.pay h3, .send h3{font-size:14px;padding-bottom:10px;}
+.pay ul, .send ul{list-style:square;margin-left:25px;}
+.pay fieldset {border:1px solid #BFBFBF;margin:20px 0 10px 10px;padding:8px 5px;width:50%;}
+.pay fieldset legend {font-weight:bold;padding:0 5px;}
+.pay fieldset legend a{margin-left:5px;font-weight:normal;}
+.pay fieldset ul{list-style:none; margin:0 0 5px;float:left;}
+
+.pay fieldset .payTc {color:#127928;font-size:11px; clear:both;line-height:13px;margin-left:5px;}
+.pay fieldset .cft {color:#666666;font-size:11px;margin-left:5px;}
+.send{border-top:1px dashed #cccccc;}
+.infoSend{margin: 10px 10px 0;width: 50%;}
+.infoSend th, .infoSend td{padding: 5px;text-align:left;}
+.infoSend td{border: 1px solid #cccccc;}
+.infoSend .cost{text-align:right;}
+/*End Pagos y envios*/
+
+/*BuyProduct*/
+/*.buyProduct{float:right;margin-right:5%;position:relative;top:-75px;}*/
+#buyBoxContainer .section{height:108px;}
+.buyProduct{margin-right:5%;position:absolute;top:45px;right:0;}
+.buyProduct form.buy{text-align: center; margin:0;}
+.buyProduct form.buyDisable{margin:0;}
+.buyProduct ul{border:none;margin:0;padding:0;}
+/*End BuyProduct*/
+
+
+/*Aprende ML*/
+.learnMeli{width:48%;display:inline-block}
+.learnMeli li{padding:5px;}
+.learnMeli li:before{content:"- ";}
+.learnMeli li a{text-decoration:none;}
+.learnMeli li a:hover{text-decoration:underline;}
+
+/*More Items*/
+.itemsList {margin-left:25px;}
+.itemsList li{display:inline-block;padding:0  0 10px;margin:0 9px;position:relative;text-align:left;width:22%;}
+.itemsList li h3{height:28px;line-height:14px;overflow:hidden;position:relative;top:100px;}
+.itemsList li h3 a{font-size:11px;font-weight:normal;top:0px;}
+.itemsList li a.itemFigure{display:inline-block;position:relative;top:-22px;width:90px; height:90px;}
+.itemsList li .price  {font-size:14px;position:relative;top:10px;}
+.moreInfo  {text-align:right;font-size:11px;}
+
+
+/*---- PREGUNTAS Y RESPUESTAS ----*/
+.listQA li dl {background-image:url(http://static.mlstatic.com/org-img/GMP/spr.gif); background-position:0 -394px; background-repeat:repeat-x; overflow:hidden;}
+.listQA li dl dt {float:left; text-align:right; width:10%; padding:5px 0 5px 2%; border-top:1px dotted #ccc; clear:both; }
+.listQA li dl dt label {font-weight:bold;}
+.listQA li dl dt span { font-size:10px;}
+.listQA li dl dd {float:left;  padding:5px 2%; border-top:1px dotted #ccc; position:relative; width:84%;}
+.listQA li dl dd a {position:absolute; right:20px; top: 5px; font-size:11px;}
+.listQA li dl dd span {display:block;width:95%;}
+.formQA {margin:15px auto 5px; text-align:center;}
+
+/*Preguntas holdeadas*/
+.txt table{border:1px solid #e2321b;background-color:#fff7c6;width:380px;}
+.txt table td{padding:5px;line-height:15px;}
+.txt table td strong{left:5px;position:relative;top:-5px;}
+.listQA li dl .txt table a {font-size:12px;position:relative;right:0;top:0;}
+/*-END PREGUNTAS Y RESPUESTAS ----*/
+
+/* CALIFICACIONES */
+ol.califications {border-top:1px solid #ccc; overflow:hidden;}
+ol.califications li {border-bottom:1px solid #ccc;}
+ol.califications li dl {background-image:url(http://static.mlstatic.com/org-img/GMP/spr.gif); background-position:0 -394px; background-repeat:repeat-x; overflow:hidden; position:relative;}
+ol.califications li dl dt {border-bottom:1px dotted #CCCCCC; margin-left:55px; padding:5px; border-left:1px solid #CCCCCC;}
+ol.califications li dl dt span {display:none;}
+ol.califications li dl dd {}
+ol.califications li dl dd span {display:none;}
+ol.califications li dl dd.valueImg { float:left; position:relative; top:-10px; left:20px; }
+ol.califications li dl dd.userComment {margin-left:55px;padding:5px 5px 15px 5px; border-left:1px solid #CCCCCC;}
+ol.califications li dl dd.time {margin-left:55px;padding:5px; position:absolute; right:0; top:0;}
+p.moreCalifications {text-align:right; padding:5px 0;}
+/* END CALIFICATIONS */
+
+/* --FICHA TECNICA-- */
+.techData { padding:0; margin:15px 0 10px; position:relative;}
+.techData li { padding:5px; margin-top:-2px; border-bottom:1px dotted #ededed;}
+.techData li label { display:block;  color:#999; float:left; text-transform:capitalize; text-align:right; width:10%; margin-right:10px;}
+a.imp { position:absolute; right:0; margin-bottom:10px;}
+
+.more {text-align:right; margin-bottom:10px;}
+/* END FICHA TECNICA */
+
+/* MOT FICHA TECNICA */
+table.techDataMot {width:100%;border-bottom:1px solid #ccc; margin:5px 0 20px 0;}
+table.techDataMot tr {}
+table.techDataMot tr td { border-bottom:1px solid #ccc;  padding:5px; width:20%;}
+table.techDataMot tr th { width:13%; text-align:left; background-color:#F3F3F3; font-weight:normal; border-bottom:1px solid #ccc; padding:5px;}
+/* MOT EQUIPMENT, SECURITY, ETC */
+table.otherDataMot {width:100%; margin:5px 0 20px 0;}
+table.otherDataMot tr {}
+table.otherDataMot tr td {width:33%; text-align:left;}
+/* END MOT */
+
+
+/*MODALES*/
+
+/*Galeria modal*/
+/*modal*/
+.layerGal{position:fixed;top:0;left:0;height:100%;width:100%;display:none;background-color:rgba(0,0,0,.5);z-index:1000;}
+.box.modalGal{position:fixed;display:none;background-color: #fff;width:500px;z-index:1000;}
+
+/*modal2
+
+.layer2{position:fixed;top:0;left:0;height:100%;width:100%;display:none;background-color:rgba(0,0,0,.5);z-index:1000;}
+.modal2{position:absolute;display:none;background-color: #fff;width:500px;z-index:1000;}
+
+.modal2 h2{border-bottom:2px solid #cccccc;padding-bottom:5px;}*/
+.modalContent2.load{height:250px;}
+
+/*Preguntar*/
+.makeQuestion textarea {border:1px solid #CCCCCC;font-family:Arial,Helvetica,sans-serif;font-size:12px;height:80px;margin:0;overflow-y:auto;padding:0;width:99%;}
+.makeQuestion .follow{font-size:11px;}
+.makeQuestion .follow input{margin-top:5px;vertical-align:sub;}
+.makeQuestion ul {padding:0 0 15px 0; font-size:11px; line-height:16px;}
+.makeQuestion ul li.first {background:url(http://static.mlstatic.com/org-img/GMP/spr.png) no-repeat 0 -442px; padding-left:20px; font-weight:bold; margin-bottom:2px; margin-left:0; list-style-type:none;}
+.makeQuestion ul li {margin-left:35px; list-style-type:disc;}
+/*END MODALES*/
+
+/*Reutacion termometro*/
+.reputationInfo table{margin-bottom: 15px;}
+.reputationInfo .repDescrip{text-align: right; width: 100%; height: 56px; padding-right: 42px;}
+.reputationInfo .rep1{background: url(../images/meli/component/sellerdata/termometro_1_1.jpg) no-repeat scroll 86px bottom transparent;}
+.reputationInfo .rep2{background: url(../images/meli/component/sellerdata/termometro_2_1.jpg) no-repeat scroll 86px bottom transparent;}
+.reputationInfo .rep3{background: url(../images/meli/component/sellerdata/termometro_3_1.jpg) no-repeat scroll 86px bottom transparent;}
+.reputationInfo .rep4{background: url(../images/meli/component/sellerdata/termometro_4_1.jpg) no-repeat scroll 86px bottom transparent;}
+.reputationInfo .rep5{background: url(../images/meli/component/sellerdata/termometro_5_1.jpg) no-repeat scroll 86px bottom transparent;}
+
+.reputationInfo .repDescrip span{padding-right: 25px;}
+.reputationInfo table .title{text-align:right;width:160px;}
+.reputationInfo table td .meter{border-color:#CCCCCC;border-style:solid;border-width:0 1px;display:inline-block;padding:5px 0;text-align:center;width:39px;}
+.reputationInfo table td .meter.last{border-width: 0pt 1px 1px;}
+
+.reputationInfo table td .meter.rep1{margin-left:98px;}
+.reputationInfo table td .meter.rep2{margin-left:141px;}
+.reputationInfo table td .meter.rep3{margin-left:182px;}
+.reputationInfo table td .meter.rep4{margin-left:229px;}
+.reputationInfo table td .meter.rep5{margin-left:268px;}
+
+/*Sin termometro*/
+.reputationInfo .rep0{background: url(../images/meli/component/sellerdata/termometro_bn_g.png) no-repeat scroll 86px bottom transparent;}
+.reputationInfo h3.rep0{background-position:right top;font-size:13px;margin-top:20px;padding:40px 0 20px 25px;}
+.reputationInfo ul.box{margin: 0 25px 25px; padding: 0px 10px;}
+.reputationInfo ul.box li{margin:10px 0;}
+/*Sin termometro end*/
+/*End Reutacion termometro*/
+
+
+.description .disclaimer{font-size:11px; text-align:center; margin-bottom:10px;}
+#itemDescription.descripcion {overflow:auto;}
+
+
+/*** MESSAGES VIP ***/
+div.messagesVip {}
+div.messagesVip p {margin:0; padding:10px; text-align:center; overflow:hidden;}
+div.messagesVip p span.statusMessage {font-weight:bold;}
+div.messagesVip p span.statusOk { padding:10px 5px 10px 30px; background:url(http://www.mercadolibre.com.ar/org-img/vip3/iconTilde24.png)no-repeat 0 5px;}
+div.messagesVip p span.statusFail { padding:10px 5px 10px 30px; background:url(http://www.mercadolibre.com.ar/org-img/vip3/iconError24.png)no-repeat 0 5px;}
+div.messagesVip p span.explMessage {}
+div.messagesVip form {margin:10px 0 25px 0; text-align:center;}
+/*END MESSAGE VIP **/
+
+
+/**** CONTEXTO CI/SN ******/
+.contextCISN {width:; height:;}
+.contextCISN ol {margin:20px 0;}
+.contextCISN ol li {padding:5px 0;}
+.contextCISN ol li label {	display:block; clear:both; width:20%; text-align:right; float:left; margin-right:5px; position:relative; line-height:20px;}
+.contextCISN ol li input{vertical-align:middle;}
+.contextCISN ol li input.qty { width:30px;}
+.contextCISN ol li input.inpPrice { width:60px;}
+.contextCISN ol li .auxText {color:#666; font-size:11px;}
+.contextCISN ol li p.auxText {margin-left:110px;}
+.contextCISN ol li p.validationTip {color:#f00; font-size:11px; margin:2px 0 0 10.4%; padding:2px 0 2px 20px; background:url(http://www.mercadolibre.com.ar/org-img/vip3/iconError16.png)no-repeat;}
+/*END CONTEXTO CI/SN ******/
+
+/**** STATUS ********/
+.status { text-align:left; margin-bottom:-11px; background:#D3EFF4;}
+.status span { background:url(http://www.mercadolibre.com.ar/org-img/vip3/iconInfo24.png) no-repeat left; font-size:14px; font-weight:bold; padding:10px 10px 10px 29px;}
+/********************/
+
+/****DENUNCE + CAPTCHA ***/
+.denounceModal {}
+.denounceModal p.errorDenounce { color:#FF0000;  padding:5px; margin-top:10px;}
+.denounceModal p.errorDenounce span {margin-right:3px; float:left;}
+.denounceModal span.statusOk {display:block;margin-top:100px;text-align:center;padding:10px 5px 10px 30px;background:url(http://www.mercadolibre.com.ar/org-img/vip3/iconTilde24.png) no-repeat 160px 6px;}
+ul.captcha {margin:15px 0; padding:10px 0 10px 0; border-top:1px dotted #ccc; border-bottom:1px dotted #ccc;}
+ul.captcha li { text-align:left; padding-left:140px;}
+ul.captcha li.captchaTitle {padding:0 0 10px;}
+ul.captcha li.captchaImage {height:65px;}
+ul.captcha li.captchaImage img { border:5px solid #EDEDED; padding:2px;}
+ul.captcha li.captchaField {}
+ul.captcha p.errorCaptcha { color:#FF0000; margin:5px 0 0 0; padding:0; }
+ul.captcha p.errorCaptcha span { margin-right:3px; float:left;}
+
+/***********************/
+
+/* MODAL MEDIOS DE PAGO */
+.selPromo {min-width:200px;}
+.paymentMethods hr{clear:both;}
+.paymentMethods li{float:left;}
+.paymentMethods li.cuotes {clear:both;float:none}
+.cuotes table{margin:5px auto 0;text-align:left;width:100%}
+.cuotes table thead{background-color:#7F7F7F;color:#FFFFFF;font-size:12px;}
+.cuotes table thead th{padding:0 10px;}
+.cuotes table tbody tr{border-top:1px dotted #ccc;}
+.cuotes table tbody td{padding:5px 10px;}
+#Medios p{margin:15px 0;}
+.modal .buy{margin:0;text-align:center;}
+/*End MODAL MEDIOS DE PAGO */
+
+
+/*Slider*/
+.sliderComponent{height:200px;overflow:hidden;}
+.sliderComponent .itemsList li{width:202px; margin:0 10px;}
+.sliderComponent .sliderBox{height: 160px; margin: 0px 40px; overflow: hidden; position: relative;}
+.sliderComponent .sliderContent{position: absolute; margin:0; -webkit-transition:all 1s linear;-moz-transition:all 1s linear;-o-transition:all 1s linear; transition:all 1s linear;}
+
+.sliderComponent .next{position: absolute; cursor: pointer; text-indent: -500000px; overflow: hidden; display: block; height:57px; width:25px; background:url("http://img.mlstatic.com/org-img/vip3/sripteRel.gif?a") no-repeat scroll right 0px transparent; top: 85px; right: 10px;}
+.sliderComponent .next:hover{background-position:right -63px;}			
+
+
+.sliderComponent .prev{position: absolute; cursor: pointer; top: 85px; text-indent: -500000px; overflow: hidden; display: block; height:57px; width:25px; background:url("http://img.mlstatic.com/org-img/vip3/sripteRel.gif?a") no-repeat scroll left 0px transparent;}			
+.sliderComponent .prev:hover{background-position:left -63px;}
+/*End Slider*/
+
+/*Vip Free*/
+.freePay {margin:30px 310px 0 0;}
+.buyBoxFree{clear:both;}
+.bannerTop {margin: 0 auto;padding:5px 0 0;position:relative;text-align:center;width:764px;}
+.bannerTop h6{background:url("http://static.mlstatic.com/org-img/search2008/images/sprite.gif") no-repeat scroll center -205px transparent;height:50px;left:0;top:24px;position:absolute;text-indent:-9999px;width:17px;}
+.bannerMiddle {float: right;width: 300px;}
+.bannerMiddle h6{background: url("http://img.mlstatic.com/org-img/vip3/hd_mth_fl.gif") no-repeat scroll -6px 0 transparent;	text-indent: -9999px;width: 100%; height: 18px;}
+/*MCLICS*/
+#mclicsHeader{position:relative;}
+.MClics-Contenedor-header {margin:20px 0 0;}
+.MClics-Lista {line-height: 15px;}
+/*borrar esto*/
+.MClics-Contenedor-header {border:medium none;font-size:12px;margin-left:0;padding:0;position:relative;}
+.publi {background:url("http://static.mlstatic.com/org-img/search2008/images/sprite.gif") no-repeat scroll center -205px transparent;height:50px;left:-3px;position:absolute;top:7px;width:17px;}
+.MClics-Contenedor-header .publi {background-color:#FFFFFF;left:-4px;margin-top:6px;}
+ul.MClics-Lista {border-top:1px solid #CCCCCC; border-bottom:1px solid #CCCCCC; float:left;list-style:none outside none;margin:0;padding:5px 5px 5px 20px;}
+ul.MClics-Lista li {float:left;	margin-bottom:0;width:48%;}
+ul.MClics-Lista li.MClics-Separador {background:url("http://static.mlstatic.com/org-img/vip3/Motors/line.gif") no-repeat scroll right center transparent;float:left;height:50px;margin:0 11px 0 0;width:0.5%;}
+ul.MClics-Lista li a {display:inline-block;padding-bottom:3px;}
+.MClics-Titulo a, .MClics-Titulo, .col_titulo a {font-size:17px;font-weight:400;text-decoration:underline;}
+ul.MClics-Lista li span.MClics-Titulo {font-size:13px;}
+ul.MClics-Lista li span.MClics-Descripcion, ul.MClics-Lista li span.MClics-Url {font-size:11px;}
+.MClics-Descripcion, .MClics-Descripcion a, .MClics-Descripcion a:hover {color:#333333;text-decoration:none;}
+ul.MClics-Lista li a.MClics-Url {padding-bottom:0;text-decoration:none;}
+.MClics-Url, .MClics-Url a, .MClics-Url a:hover {color:#009900;font-size:11px;text-decoration:none;}
+/*end borrar esto*/
+/*End Vip Free*/
+
+/****** HISTORIAL OFERTAS *******/
+.auctionHistory {}
+.auctionHistory h2 {}
+.auctionHistory table { width:100%; margin:10px 0 20px 0;}
+.auctionHistory table tr td { padding:3px 0; border-bottom:1px solid #ccc;}
+.auctionHistory table thead {}
+.auctionHistory table thead tr {}
+.auctionHistory table thead tr th { text-align:left; border-bottom:2px solid #ccc; }
+.auctionHistory table thead tr th.widthTD { width:170px;}
+.auctionHistory table thead {}
+.auctionHistory table thead tr {}
+.auctionHistory table tbody {}
+.auctionHistory table tbody tr {}
+.auctionHistory table tbody tr td {}
+
+/***FIN HISTORIAL OFERTAS *******/
+
+/* REVIEWS(OPINIONES) */
+.onePoints, .oneMidPoints, .twoPoints, .twoMidPoints, .threePoints, .threeMidPoints, .fourPoints, .fourMidPoints, .fivePoints, .onePointsSmall, .oneMidPointsSmall, .twoPointsSmall, .twoMidPointsSmall, .threePointsSmall, .threeMidPointsSmall, .fourPointsSmall, .fourMidPointsSmall, .fivePointsSmall, .listReviews .review, .opinion .typo, .voteReview .question .btnYes,.voteReview .question .btnNo  {background-image: url(../images/reviews.png);background-repeat: no-repeat;}
+.onePoints, .oneMidPoints, .twoPoints, .twoMidPoints, .threePoints, .threeMidPoints, .fourPoints, .fourMidPoints, .fivePoints {display: block;height: 16px;width: 80px;text-indent: -9999px;}
+.onePointsSmall, .oneMidPointsSmall, .twoPointsSmall, .twoMidPointsSmall, .threePointsSmall, .threeMidPointsSmall,
+.fourPointsSmall, .fourMidPointsSmall, .fivePointsSmall {display: inline-block;margin: 0 4px 0 0;height: 12px;width: 63px;text-indent: -9999px;}
+.onePoints {background-position: 0 0;}
+.oneMidPoints {background-position: 0 -16px;}
+.twoPoints {background-position: 0 -32px;}
+.twoMidPoints {background-position: 0 -48px;}
+.threePoints {background-position: 0 -64px;}
+.threeMidPoints {background-position: 0 -80px;}
+.fourPoints {background-position: 0 -96px;}
+.fourMidPoints {background-position: 0 -112px;}
+.fivePoints {background-position: 0 -128px;}
+.onePointsSmall {background-position: 0 -144;}
+.oneMidPointsSmall {background-position: 0 -156px;}
+.twoPointsSmall {background-position: 0 -168px;}
+.twoMidPointsSmall {background-position: 0 -180px;}
+.threePointsSmall {background-position: 0 -192px;}
+.threeMidPointsSmall {background-position: 0 -204px;}
+.fourPointsSmall {background-position: 0 -216px;}
+.fourMidPointsSmall {background-position: 0 -228px;}
+.fivePointsSmall {background-position: 0 -240px;}
+.opinion .typo {background-position: 0 -276px;background-repeat: repeat-x;padding: 8px 10px;}
+.average {float: left;font-size: 12px;padding-left: 8px;	width: 25%;}
+.average  .threeMidPoints {display: block;}
+.average h3, .distributionScore h3 {margin: 0 0 10px;}
+.distributionScore {border-left: 1px solid #ccc;padding-left: 20px;margin-left: 25%;}
+.distributionScore th{font-size: 11px;font-weight: normal;text-align: left;vertical-align: middle;}
+.distributionScore td{font-weight: bold;padding: 0 15px;text-align: center;}
+.listReviews {margin: 20px 0 0;}
+.listReviews .review  {background-position: 0 -356px;background-repeat: repeat-x;border-top: 2px solid #8ec0cd;margin-bottom: 15px;padding: 5px;position: relative;}
+.listReviews .review h3 {color: #CB9105;font-size: 18px;padding: 10px 10px 10px 95px;}
+.review .points {border-right: 1px solid #ccc;padding-right: 5px;position: absolute;top: 17px;left: 5px;}
+.review .autor {	font-size: 11px;}
+.review .pros, .review .cons {float: left;margin-top: 10px;width: 48%;}
+.review .cons {border-left: 1px dotted #ccc;margin-left: 10px;padding-left: 15px;}
+.review .conclusion {clear: both;padding-top:10px;}
+.review .pros h4, .review .cons h4, .review .conclusion h4 {font-weight: bold;}
+.voteReview {background: #e7ecf2;margin: 10px 0 0;padding: 7px;}
+.voteReview .question {float: left;width: 310px;}
+.voteReview .question .btnYes,.voteReview .question .btnNo { background-position: 0 -253px;background-repeat: repeat-x;cursor: pointer;border: 1px solid #acacac;font-family: Arial,Helvetica,sans-serif;font-size: 15px;font-weight: bold; height: 22px;margin-left: 5px;width: 38px;padding: 0; }
+.voteReview .question .btnYes { color: #3D9800; }
+.voteReview .question .btnNo { color: #DD0000; }
+.voteReview .total {text-align: right;line-height:22px;}		
+.review .denounceOpinion {margin-top: 10px;text-align: right;}
+.review .denounceOpinion a {font-size: 11px;}
+
+/****** FIN REVIEWS(OPINIONES) *******/
+
+/* COMPARTIR */
+.listShare {float: left; padding: 15px;}
+.listShare li {float:left; margin:0 5px 20px 0; width:130px;}
+.listShare li a {background-image: url(http://img.mlstatic.com/org-img/vip3/Motors/SpriteRedSocial.gif);background-repeat: no-repeat; display: inline-block; height: 17px;padding-left: 25px;}
+.listShare li .facebook {background-position: 0 -20px;}
+.listShare li .twitter {background-position: 0 -157px;}
+.listShare li .sonico {background-position: 0 -120px;}
+.listShare li .myspace {background-position: 0 0;}
+.listShare li .google {background-position: 0 -60px;}
+.listShare li .digg {background-position: 0 -100px;}
+.listShare li .meneame {background-position: 0 -40px;}
+.listShare li .delicious {background-position: 0 -82px;}
+.listShare li .friend {background-position: 0 -138px;}
+
+
+.modal .mainFields label {margin-right:10px;width:25%;}
+.modal .helpTip, .validationTip {margin:0 0 0 28%;padding:0;}
+
+.captcha{margin-left:27%;}
+.modal .privacyPolicy  {border-top:1px dashed #CCCCCC;color:#666666;font-size:10px;line-height:17px;margin-top:15px;padding-top:3px;}
+/****** FIN COMPARTIR *******/
+
+/* DISCLAIMER */
+.disclaimer {padding: 5px; border: 1px solid #ededed;font-size: 9px; text-align: center; margin-top: 10px; margin-bottom: -10px;}
+/* DISCLAIMER */
+
+
+/* FINE TUNNING SEO */
+strong.normal {font-weight: normal;}
+strong.strongH2 { font-size: 20px; font-weight: normal;}
+h5.seoH5 {font-size: 20px; font-weight: normal; margin-bottom: 10px;}
+a.microSeo {color: #333; cursor: default;}
+a.microSeo:hover { text-decoration: none;}
+
+/* FINE TUNNING SEO */
+
+
+/* MENSAJES DE CONTINGENCIA */
+div.contingencia {border:1px solid #ededed; padding: 5px 5px 5px 30px; background: #FEFAD5 url(http://img.mlstatic.com/org-img/rp2/alert.gif)no-repeat 5px 5px; line-height: 16px;}
+div.contingencia a.contHref { position: static; font-size: 13px;}
+
+/* MENSAJES DE CONTINGENCIA */
+
+
+/************************ FOOTER ****************************
+p.https{margin:10px 0 0 20px;}
+p.https a{font-size:11px; background:url(../assets/ml/alert.gif) no-repeat; padding:1px 0 3px 23px; text-decoration:underline;}
+div.footer{font-size:11px; text-align:center; line-height:15px; margin:0 0 10px 0;}
+div.footer a{text-decoration:underline;}
+div.footer hr {border-bottom:1px solid #ccc;}
+.verisign {margin:0;text-align:right; }
+
+
+/*** MESSAGES VIP **
+div.messagesVip {}
+div.messagesVip h2 {padding:5px 0;}
+div.messagesVip p {margin:0; padding:10px; text-align:center; overflow:hidden;}
+.statusMessage {font-weight:bold;}
+.statusOk { padding:8px 5px 5px 30px; background:url(http://www.mercadolibre.com.ar/org-img/vip3/iconTilde24.png)no-repeat 0 5px;}
+.statusFail { padding:8px 5px 5px 30px; background:url(http://www.mercadolibre.com.ar/org-img/vip3/iconError24.png)no-repeat 0 5px;}
+.explMessage {}
+div.messagesVip form {margin:10px 0 25px 0; text-align:center;}
+div.messagesVip p.errorCaptcha { color:#FF0000; margin:5px 0 0 0; padding:0; text-align:left;}
+div.messagesVip p.errorCaptcha span {float:left; margin-right:3px;}
+div.messagesVip ul.captcha {margin:0;}
+div.messagesVip ul.captcha li { margin:0 auto; text-align:center; width:220px;}
+/**** MESSAGE VIP **/
+
+
+/*Carrousel*/
+.carousel {padding: 10px 40px;}
+.carousel h2.typo{margin-left:-30px;}
+.carousel .mask {overflow: hidden;position: relative;height:200px;margin-left:10px;}
+.carousel .mask ul {position: absolute;
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	-webkit-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
+.carousel .mask ul li{display: inline;float: left;margin-right: 20px;}
+.carousel .mask ul li .article {height:200px;position:relative;text-align:center;}
+.carousel .mask ul li .article a {display:inline-block;position:relative;top:-20px;}
+.carousel .mask ul li .article a img {padding:5px; width:90px;height:90px;}
+.carousel .mask ul li .article h3 {height:30px;line-height:15px;overflow:hidden;position:relative;text-align:left;top:115px;}
+.carousel .mask ul li .article h3 a {font-size:13px;font-weight:normal;top:0;}
+.carousel .mask ul li .article .price {position:relative;right:0;text-align:left;top:15px;}
+.carousel .prev, .carousel .next {
+	background-image: url("http://img.mlstatic.com/org-img/vip3/sripteRel.gif?a");
+	background-repeat: no-repeat;
+	cursor: pointer;
+	display: block;
+	text-indent: -9999px;
+	overflow: hidden;
+	height:57px;
+	width:25px;
+	position: absolute;
+	top: 90px;
+}
+.carousel .prev  {background-position: left 0px;left: 10px;}
+.carousel .prev:hover {background-position: left -63px;}
+.carousel .next {background-position: right 0px;right: 10px;}
+.carousel .next:hover {background-position: right -63px;}
+.carousel .disabled {background: none;cursor: default;}
+/*End Carrousel*/
+
+/*Mejora Progresiva*/
+.seeMore{margin:20px auto;font-size:16px;}
+
+.contentProgressive{margin:20px auto; width:600px;min-height:160px;}
+.contentProgressive #mytabs {border-width:1px 0 0;}
+.contentProgressive .mainFields label {margin-right:10px;text-align:left;width:34%;}    
+/*End Mejora Progresiva*/

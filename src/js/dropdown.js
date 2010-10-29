@@ -1,0 +1,33 @@
+/**
+ *	Dropdown
+ *	@author 
+ *	@Contructor
+ *	@return An interface object
+ */	
+ui.Dropdown = function(element){
+	var that = ui.Navigators(); // Inheritance	
+
+	// Global configuration
+	var trigger = $(element).children(':first');
+	var conf = {		 
+		name: 'dropdown',
+		trigger: trigger,
+		content:trigger.next()
+		//align: 'drop'		
+	};
+
+	// Events	
+	// Trigger
+	conf.trigger
+		.bind('click', function(event){
+			if(that.status){ that.hide(event, conf); return; };
+			that.show(event, conf);
+		})
+		.css('cursor','pointer')
+		.addClass('uiTrigger');
+	
+	// Content
+	conf.content.addClass('uiContent');
+
+	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
+};

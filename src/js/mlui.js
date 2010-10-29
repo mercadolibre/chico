@@ -36,7 +36,7 @@ window.ui = {
 			$( ($.isArray(ui.factory.conf[x])) ? ui.factory.conf[x] : '.' + x ).each(function(i,e){
 				if(!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
 				e.name = x;
-				ui.instances[x].push(component(e));
+				ui.instances[x].push(component(e,i));
 			});
  		}
  		
@@ -49,14 +49,14 @@ window.ui = {
 		getComponent: function(x,c) {	
 	
 			var link = document.createElement("link");
-				link.href="src/css/"+x+".css"; //esto debería ser absoluto
+				link.href="src/css/"+x+".css"; //TODO: esta url debería ser absoluta
 				link.rel="stylesheet";
 				link.type="text/css";
 		    var head = document.getElementsByTagName("head")[0].appendChild(link);
 
 			var script = document.createElement("script");
 			    script.type = "text/javascript";			    			   
-			    script.src = "src/js/"+x+".js"; //esto debería ser absoluto
+			    script.src = "src/js/"+x+".js"; //TODO: esta url debería ser absoluta
 			    script.onload = function(){ c(x) } // fire the callback
 		    document.body.insertBefore(script, document.body.firstChild);
 		}
@@ -88,7 +88,7 @@ window.ui = {
 				});
 			};
 			align();			
-			$(window).bind('resize', align);
+			$(window).bind('resize', align);			
 		},
 		
 		// Tooltip
@@ -113,9 +113,60 @@ window.ui = {
 	PowerConstructor: function(){
 		return {
 			/*comunicator:function(param){
-				ui.comunicator({content: param.uri});
+				//TODO: ui.comunicator({content: param.uri});
 			}*/
 		};
+	},
+
+/**
+ *	Navigator Components Constructor Pattern
+ *	@author 
+ *	@Contructor
+ *	@return   
+ */	
+	Navigators: function(){
+		var that = ui.PowerConstructor(); // Inheritance
+		
+		var prevent = function(event){
+			event.preventDefault();
+			event.stopPropagation();
+		};
+				
+		var loadContent = function(content){
+			if(typeof content !== 'object' || !content.type ){
+				throw('UI: "content" attribute error.'); return;
+			}else{
+				switch(content.type.toLowerCase()){
+					case 'ajax': // data = url
+						//ui.cominicator do the magic						
+					break;
+					case 'dom': // data = class, id, element
+						return $(content.data).html();
+					break;
+					case 'param': // html code
+						return content.data;
+					break;
+				};
+			};
+		};
+		
+		that.status = false;
+			
+		that.show = function(event, conf){
+			prevent(event);
+			that.status = true;
+			conf.trigger.addClass('on');
+			conf.content.show();
+		};
+		
+		that.hide = function(event, conf){
+			prevent(event);
+			that.status = false;
+			conf.trigger.removeClass('on');
+			conf.content.hide();
+		};		
+		
+		return that;
 	},
 
 /**
@@ -143,7 +194,7 @@ window.ui = {
 			}else{
 				switch(content.type.toLowerCase()){
 					case 'ajax': // data = url
-						//ui.cominicator do the magic						
+						//TODO: ui.cominicator do the magic						
 					break;
 					case 'dom': // data = class, id, element
 						return $(content.data).html();
@@ -161,7 +212,6 @@ window.ui = {
 		
 		var createClose = function(element,conf){
 			$('<p class="btn close">x</p>').bind('click', function(event){
-				if(ui.utils.dimmer.status) ui.utils.dimmer.off();
 				that.hide(event, conf);
 			}).prependTo(element);			
 		};
@@ -172,7 +222,7 @@ window.ui = {
 		
 		that.show = function(event, conf){
 			prevent(event);
-			//clearTimers();			
+			//TODO: clearTimers();			
 			var element = create(conf);
 			//visual config
 			if(conf.closeButton) createClose(element, conf);
@@ -185,7 +235,7 @@ window.ui = {
 		
 		that.hide = function(event, conf){
 			prevent(event);
-			//clearTimers();	
+			//TODO: clearTimers();	
 			$('.ui' + ui.utils.ucfirst(conf.name)).fadeOut('normal', function(event){ $(this).remove(); });
 		};
 
@@ -199,18 +249,7 @@ window.ui = {
 	utils: {
 		body: $('body'),
 		window: $(window),
-		document: $(document),
-		dimmer: {
-			status: false,
-			on:function(){ 
-				$('<div>')/*.bind('click', ui.utils.dimmer.off)*/.addClass('dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
-				ui.utils.dimmer.status = true;
-			},
-			off:function(){
-				$('div.dimmer').fadeOut('fast', function(){ $(this).remove(); });
-				ui.utils.dimmer.status = false;
-			}
-		},
+		document: $(document),		
 		ucfirst: function(s){
 			s += '';
 			return s.charAt(0).toUpperCase() + s.substr(1);

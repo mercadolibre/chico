@@ -1,0 +1,120 @@
+/*
+ * Dropdowns
+ * @autor: Lean Linares
+ * @autor: Natan Santolo
+ * @mod: 25/08/2010 by Pato Blanc
+ *
+ */
+
+.dropdown{position: relative;}
+
+.dropdown .uiTrigger {
+	display:inline-block;
+	-moz-border-radius:5px;
+}
+
+.dropdown .uiTrigger {
+	cursor:pointer;
+	height:19px;
+	line-height:19px;
+	padding:0px 26px 0px 7px;
+	z-index:700;
+}
+
+.dropdown .uiContent.on {
+	z-index:900;
+}
+
+.dropdown .uiContent {
+	background-color:#fff;
+	border:1px solid #74B5C5;
+	line-height:18px;
+	min-width:120px;
+	padding:10px;
+	position:absolute;
+	top:20px;
+	white-space:nowrap;
+	z-index:800;
+	display:none;
+}
+
+/*.dropdown .uiTrigger .ico.down, .dropdown .uiTrigger.on .ico.down {
+	position:absolute;
+	right:5px;
+	top:3px;
+	vertical-align:bottom;
+}
+.dropdown .uiTrigger .ico.down {
+	background:transparent url(../assets/spr.png) 0px -460px no-repeat;
+}
+.dropdown .uiTrigger.on .ico.down {
+	/*background:transparent url(../assets/arrowUp.png) 50% 48% no-repeat;
+}*/
+
+.dropdown ul.uiContent {
+	padding:0;
+}
+
+.dropdown ul.uiContent li {
+	display:block;
+	margin: 5px;
+}
+.dropdown ul.uiContent li a {
+	color:#000;
+	text-decoration:none;
+	display:block;
+	height:25px;
+	line-height:25px;
+	padding:0 5px;
+}
+.dropdown ul.uiContent li a:hover,.dropdown ul.uiContent li a:focus {
+	background-color:#fefbd6;
+}
+
+
+
+
+
+.dropdown .uiTrigger, .dropdown .uiTrigger:hover, .dropdown .uiTrigger.on, .dropdown .uiTrigger.on:hover { /* sprite para backgrounds */
+	background-image:url(../assets/spr.png);
+	background-repeat: repeat-x;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.dropdown .uiTrigger{ /*reposo */
+	background-color:#cfe3f0;
+	background-position: 0 -271px;
+	border:1px solid #79A8C7;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+} 
+
+.dropdown .uiTrigger:hover{  /*over */
+	background-color:#cfe3f0;
+	background-position: 0 -296px;	
+	border:1px solid #79A8C7;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.dropdown .uiTrigger.on{  /* activo */
+	background-position: 0 -321px;
+	background-color:#cfe3f0;
+	border:none;
+	-moz-border-radius:5px 5px 0 0;	
+	-webkit-border-radius:5px 5px 0 0;
+	border-radius:5px 5px 0 0;
+
+}
+.dropdown .uiTrigger.on:hover{  /*activo y over en desplegable */
+	background-color:#74b5c5;
+	background-position: 0 -321px;	
+	border:1px solid #79A8C7;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+	border-radius:5px 5px 0 0;
+}
