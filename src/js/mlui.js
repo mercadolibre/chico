@@ -26,7 +26,7 @@ window.ui = {
 
 			// Each configuration
 			for(var x in conf) {
-	    		ui.comunicator.getComponent(x,function(x){ ui.factory.configure(x); });
+	    		ui.communicator.getComponent(x,function(x){ ui.factory.configure(x); });
 	    	}
  		},
  		
@@ -43,10 +43,10 @@ window.ui = {
  	},
  	
  /**
- *  Comunicator Pattern
+ *  Communicator Pattern
  */
-	comunicator: {
-		getComponent: function(x,c) {	
+	communicator: {
+		getComponent: function(x,callback) {	
 	
 			var link = document.createElement("link");
 				link.href="src/css/"+x+".css"; //TODO: esta url debería ser absoluta
@@ -57,14 +57,19 @@ window.ui = {
 			var script = document.createElement("script");
 			    script.type = "text/javascript";			    			   
 			    script.src = "src/js/"+x+".js"; //TODO: esta url debería ser absoluta
-			    script.onload = function(){ c(x) } // fire the callback
+			    script.onload = function(){ callback(x) } // fire the callback
 		    document.body.insertBefore(script, document.body.firstChild);
 		}
 	},
 	
  /**
  *  Positionator Pattern
- */
+ *	@author 
+ *	@throws Object configuration
+ *	@Contructor
+ *	@return A collection of object instances
+ */	
+
 	positionator: {
 		// Vertical & horizontal alignment
 		center: function(element){			
@@ -112,8 +117,8 @@ window.ui = {
  */	
 	PowerConstructor: function(){
 		return {
-			/*comunicator:function(param){
-				//TODO: ui.comunicator({content: param.uri});
+			/*communicator:function(param){
+				//TODO: ui.communicator({content: param.uri});
 			}*/
 		};
 	},
