@@ -36,7 +36,8 @@ window.ui = {
 			$( ($.isArray(ui.factory.conf[x])) ? ui.factory.conf[x] : '.' + x ).each(function(i,e){
 				if(!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
 				e.name = x;
-				ui.instances[x].push(component(e,i));
+				e.instance = i;
+				ui.instances[x].push(component(e));
 			});
  		}
  		

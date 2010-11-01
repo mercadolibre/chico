@@ -4,22 +4,23 @@
  *	@Contructor
  *	@return An interface object
  */	
-ui.TabNavigator = function(element, index){		
-	var triggers = $(element).children(':first').find('a');	
-	var content = $(element).children(':first').next();
+ui.TabNavigator = function(conf){		
+	var triggers = $(conf.trigger).children(':first').find('a');	
+	var content = $(conf.trigger).children(':first').next();
 	var instances = [];	
 	
 	// Global configuration
+	$(conf.trigger).addClass('tabNavigator ' + (conf.orientation || 'horizontal'));
 	triggers.addClass('uiTrigger');
 	content.addClass('uiContent');
 	
-	// Starts (Mother is pregnant, and her children are born)
+	// Starts (Mother is pregnant, and her children born)
 	$.each(triggers, function(i,e){
-		instances.push(ui.Tab(i,e,index));
+		instances.push(ui.Tab(i,e,conf.instance));
 	});
 	
 	var show = function(event, tab){
-		ui.instances.tabNavigator[index].tabs[tab].shoot(event);
+		ui.instances.tabNavigator[conf.instance].tabs[tab].shoot(event);
 	};
 		
 	return { show: function(event, tab){ show(event, tab) }, tabs:instances };
@@ -34,6 +35,12 @@ $('h1').click(
 });
 */
 
+/**
+ *	Tab
+ *	@author 
+ *	@Contructor
+ *	@return An interface object
+ */	
 ui.Tab = function(index, element, parent){	
 	var that = ui.Navigators(); // Inheritance		
 	var display = element.href.split('#');
@@ -65,7 +72,7 @@ ui.Tab = function(index, element, parent){
 	$(element).bind('click', that.shoot).addClass('uiTrigger');
 		
 	// Content
-	that.conf.content.addClass('uiContent');
+	//that.conf.content.addClass('uiContent');
 	if(!that.status) that.conf.content.hide(); // Hide all falses
 	
 	return that;

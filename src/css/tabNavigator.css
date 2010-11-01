@@ -2,17 +2,27 @@
 	margin:10px 0;
 }
 
-.tabNavigator ul {
+.tabNavigator.horizontal ul {
 	position:relative;
 	top:1px;
 	z-index:10;
 	margin-left:10px;
 }
 
+.tabNavigator.vertical ul {
+	position:relative;
+	float:left;
+	z-index:1;
+	margin-top:10px;
+}
+
 .tabNavigator ul li {
 	cursor:pointer;
-	display:inline-block;
 	margin-right:0;
+}
+
+.tabNavigator.horizontal ul li {
+	display:inline-block;
 }
 
 .tabNavigator .uiTrigger {
@@ -21,11 +31,19 @@
 	padding:3px 12px;
 	text-decoration:none;
 	color:#333333;
+}
+
+.tabNavigator.horizontal .uiTrigger {
 	-moz-border-radius:5px 5px 0 0;	
 }
 
+.tabNavigator.vertical .uiTrigger {
+	-moz-border-radius:5px 0 0 5px;
+	width:75px;
+	margin-bottom:5px;
+}
+
 .tabNavigator .uiTrigger.on {
-	border-bottom:1px solid #FFFFFF;
 	font-weight:bold;
 	cursor:default;
 	background-position:0 -650px;
@@ -34,6 +52,18 @@
 		
 }
 
-.tabNavigator .uiContent{
+.tabNavigator.horizontal .uiTrigger.on {
+	border-bottom:1px solid #FFFFFF;				
+}
+
+.tabNavigator.vertical .uiTrigger.on {
+	border-right:1px solid #FFFFFF;				
+}
+
+.tabNavigator .uiContent .box{
  	background-image:none;
+}
+
+.tabNavigator.vertical .uiContent{
+ 	padding-left:100px;
 }
