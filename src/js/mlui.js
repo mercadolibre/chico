@@ -19,7 +19,7 @@ window.ui = {
 		start: function(conf) {
 			
 			if(typeof conf !== 'object') {
-				throw("UI: Can't start without a configuration."); return;
+				throw('UI: Can\'t start without a configuration.'); return;
 			}
 
 			ui.factory.conf = conf;
@@ -108,8 +108,7 @@ window.ui = {
 
 		}
 	},
-	
-	
+
 /**
  *	Power Constructor Pattern
  *	@author 
@@ -118,9 +117,36 @@ window.ui = {
  */	
 	PowerConstructor: function(){
 		return {
-			/*communicator:function(param){
-				//TODO: ui.communicator({content: param.uri});
-			}*/
+					
+			prevent: function(event){
+				event.preventDefault();
+				event.stopPropagation();
+			},
+			
+			loadContent: function(content){
+				if(typeof content !== 'object' || !content.type ){
+					throw('UI: "content" attribute error.'); return;
+				}else{
+
+					switch(content.type.toLowerCase()){
+						case 'ajax': // data = url
+							//TODO: ui.cominicator do the magic						
+						break;
+						case 'dom': // data = class, id, element
+							return $(content.data).html();
+						break;
+						case 'param': // html code
+							return content.data;
+						break;
+					};
+					
+				};
+			},			
+			
+			callbacks: function(conf, when){
+				if(conf.callbacks) conf.callbacks[when]();
+			}
+			
 		};
 	},
 
@@ -133,43 +159,24 @@ window.ui = {
 	Navigators: function(){
 		var that = ui.PowerConstructor(); // Inheritance
 		
-		var prevent = function(event){
-			event.preventDefault();
-			event.stopPropagation();
-		};
-				
-		var loadContent = function(content){
-			if(typeof content !== 'object' || !content.type ){
-				throw('UI: "content" attribute error.'); return;
-			}else{
-				switch(content.type.toLowerCase()){
-					case 'ajax': // data = url
-						//ui.cominicator do the magic						
-					break;
-					case 'dom': // data = class, id, element
-						return $(content.data).html();
-					break;
-					case 'param': // html code
-						return content.data;
-					break;
-				};
-			};
-		};
-		
 		that.status = false;
 			
 		that.show = function(event, conf){
-			prevent(event);
+			that.prevent(event);
 			that.status = true;
 			conf.trigger.addClass('on');
 			conf.content.show();
+			
+			that.callbacks(conf, 'show');
 		};
 		
 		that.hide = function(event, conf){
-			prevent(event);
+			that.prevent(event);
 			that.status = false;
 			conf.trigger.removeClass('on');
 			conf.content.hide();
+			
+			that.callbacks(conf, 'hide');
 		};		
 		
 		return that;
@@ -183,37 +190,10 @@ window.ui = {
  */	
 	Floats: function(){
 		var that = ui.PowerConstructor(); // Inheritance
-		
-		var prevent = function(event){
-			event.preventDefault();
-			event.stopPropagation();
-		};
 					
 		var clearTimers = function(){
 			clearTimeout(st);
 			clearTimeout(ht);
-		};
-		
-		var loadContent = function(content){
-			if(typeof content !== 'object' || !content.type ){
-				throw('UI: "content" attribute error.'); return;
-			}else{
-				switch(content.type.toLowerCase()){
-					case 'ajax': // data = url
-						//TODO: ui.cominicator do the magic						
-					break;
-					case 'dom': // data = class, id, element
-						return $(content.data).html();
-					break;
-					case 'param': // html code
-						return content.data;
-					break;
-				};
-			};
-		};
-			
-		var create = function(conf){
-			return $('<div>').addClass('article ui' + ui.utils.ucfirst(conf.name)).html(loadContent(conf.content)).hide().appendTo('body');
 		};
 		
 		var createClose = function(element,conf){
@@ -227,9 +207,9 @@ window.ui = {
 		};
 		
 		that.show = function(event, conf){
-			prevent(event);
+			that.prevent(event);
 			//TODO: clearTimers();			
-			var element = create(conf);
+			var element = $('<div>').addClass('article ui' + ui.utils.ucfirst(conf.name)).html(that.loadContent(conf.content)).hide().appendTo('body');
 			//visual config
 			if(conf.closeButton) createClose(element, conf);
 			if(conf.cone) createCone(element);
@@ -237,12 +217,14 @@ window.ui = {
 			if(conf.classes) $(element).addClass(conf.classes);
 			
 			element.fadeIn();
+			that.callbacks(conf, 'show');
 		};
 		
 		that.hide = function(event, conf){
-			prevent(event);
+			that.prevent(event);
 			//TODO: clearTimers();	
 			$('.ui' + ui.utils.ucfirst(conf.name)).fadeOut('normal', function(event){ $(this).remove(); });
+			that.callbacks(conf, 'hide');
 		};
 
 		return that;

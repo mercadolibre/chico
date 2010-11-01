@@ -24,7 +24,8 @@ ui.Dropdown = function(element){
 			that.show(event, conf);
 		})
 		.css('cursor','pointer')
-		.addClass('uiTrigger');
+		.addClass('uiTrigger')
+		.append('<span class="ico down">&raquo;</span>');
 	
 	// Content
 	conf.content.addClass('uiContent');

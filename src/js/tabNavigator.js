@@ -10,7 +10,8 @@ ui.TabNavigator = function(conf){
 	var instances = [];	
 	
 	// Global configuration
-	$(conf.trigger).addClass('tabNavigator ' + (conf.orientation || 'horizontal'));
+	$(conf.trigger).addClass('tabNavigator');
+	//$(conf.trigger).addClass('tabNavigator ' + (conf.orientation || 'horizontal'));
 	triggers.addClass('uiTrigger');
 	content.addClass('uiContent');
 	

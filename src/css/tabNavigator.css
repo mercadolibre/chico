@@ -2,7 +2,7 @@
 	margin:10px 0;
 }
 
-.tabNavigator.horizontal ul {
+.tabNavigator ul {
 	position:relative;
 	top:1px;
 	z-index:10;
@@ -21,7 +21,7 @@
 	margin-right:0;
 }
 
-.tabNavigator.horizontal ul li {
+.tabNavigator ul li {
 	display:inline-block;
 }
 
@@ -33,7 +33,7 @@
 	color:#333333;
 }
 
-.tabNavigator.horizontal .uiTrigger {
+.tabNavigator .uiTrigger {
 	-moz-border-radius:5px 5px 0 0;	
 }
 
@@ -52,7 +52,7 @@
 		
 }
 
-.tabNavigator.horizontal .uiTrigger.on {
+.tabNavigator .uiTrigger.on {
 	border-bottom:1px solid #FFFFFF;				
 }
 
