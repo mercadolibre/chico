@@ -1,6 +1,8 @@
 ;(function($) { 
 
-/** @namespace */
+/** 
+  * @namespace 
+  */
 window.ui = {
 
  	instances: {},
@@ -8,15 +10,16 @@ window.ui = {
 	init: function(conf) { ui.factory.start(conf) },
 
 /**
- *	Factory Pattern
- *	@author 
- *	@param {Object} conf This is an object parameter with components configuration
- *	@throws Object configuration
- *	@Contructor
- *	@return A collection of object instances
+ *	@static @class Factory
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
  	factory: {
- 	
+/**
+ *  @function start
+ *	@arguments conf {Object} This is an object parameter with components configuration
+ *	@return A collection of object instances
+ */ 	
 		start: function(conf) {
 			
 			if(typeof conf !== 'object') {
@@ -43,10 +46,17 @@ window.ui = {
  		
  	},
  	
- /**
- *  Communicator Pattern
- */
+/**
+ *  @static @class Communicator
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ */	
 	communicator: {
+/**
+ *  @function getComponent
+ *  @arguments x {String} Name of the component.
+ *  @arguments callback {Function} Callback when component is loaded.
+ */
 		getComponent: function(x,callback) {	
 			var link = document.createElement("link");
 				link.href="src/css/"+x+".css"; //TODO: esta url debería ser absoluta
@@ -62,12 +72,11 @@ window.ui = {
 		}
 	},
 	
- /**
- *  Positionator Pattern
- *	@author 
- *	@throws Object configuration
- *	@Contructor
- *	@return A collection of object instances
+/**
+ *  @static @class Positionator
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ *  @function 
  */	
 
 	positionator: {
@@ -110,7 +119,7 @@ window.ui = {
 
 /**
  *	Creates a new Object.
- *  @class Represent the abstract class of all ui objects.
+ *  @static @class Represent the abstract class of all ui objects.
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
@@ -150,8 +159,7 @@ window.ui = {
 	},
 
 /**
- *	Creates a new Navigators.
- *  @class Represent the abstract class of all navigators ui objects.
+ *  @static @class Navigators. Represent the abstract class of all navigators ui objects.
  *  @requires PowerConstructor
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
@@ -184,8 +192,7 @@ window.ui = {
 	},
 
 /**
- *	Creates a new Floats.
- *  @class Represent the abstract class of all floats ui objects.
+ *  @static @class Floats. Represent the abstract class of all floats ui objects.
  *  @requires PowerConstructor
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
@@ -234,7 +241,7 @@ window.ui = {
 	},
 
 /**
- *	Utilities.
+ *	@static Utils. Common usage functions.
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */		
@@ -243,7 +250,9 @@ window.ui = {
 		window: $(window),
 		document: $(document),
 		/**
-		 *  @returns {String} New String.
+		 *  @function
+		 *  @arguments {String}
+		 *  @returns {String} New String with uppercase the first character.
 		 */		
 		ucfirst: function(s) { return (s+"").charAt(0).toUpperCase() + s.substr(1); }
 	}	
