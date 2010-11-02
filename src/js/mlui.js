@@ -1,5 +1,6 @@
 ;(function($) { 
-	
+
+/** @namespace */
 window.ui = {
 
  	instances: {},
@@ -36,8 +37,7 @@ window.ui = {
 			$( ($.isArray(ui.factory.conf[x])) ? ui.factory.conf[x] : '.' + x ).each(function(i,e){
 				if(!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
 				e.name = x;
-				e.instance = i;
-				ui.instances[x].push(component(e));
+				ui.instances[x].push(component(e,i));
 			});
  		}
  		
@@ -48,7 +48,6 @@ window.ui = {
  */
 	communicator: {
 		getComponent: function(x,callback) {	
-	
 			var link = document.createElement("link");
 				link.href="src/css/"+x+".css"; //TODO: esta url debería ser absoluta
 				link.rel="stylesheet";
@@ -111,10 +110,10 @@ window.ui = {
 	
 	
 /**
- *	Power Constructor Pattern
- *	@author 
- *	@Contructor
- *	@return An interface object
+ *	Creates a new Object.
+ *  @class Represent the abstract class of all ui objects.
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
 	PowerConstructor: function(){
 		return {
@@ -125,10 +124,12 @@ window.ui = {
 	},
 
 /**
- *	Navigator Components Constructor Pattern
- *	@author 
- *	@Contructor
- *	@return   
+ *	Creates a new Navigators.
+ *  @class Represent the abstract class of all navigators ui objects.
+ *  @requires PowerConstructor
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ *  @returns {Object} New Navigators.
  */	
 	Navigators: function(){
 		var that = ui.PowerConstructor(); // Inheritance
@@ -176,10 +177,12 @@ window.ui = {
 	},
 
 /**
- *	Float Components Constructor Pattern
- *	@author 
- *	@Contructor
- *	@return   
+ *	Creates a new Floats.
+ *  @class Represent the abstract class of all floats ui objects.
+ *  @requires PowerConstructor
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ *  @returns {Object} New Floats.
  */	
 	Floats: function(){
 		var that = ui.PowerConstructor(); // Inheritance
@@ -249,17 +252,18 @@ window.ui = {
 	},
 
 /**
- *	Utilities
- *	@author 
+ *	Utilities.
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */		
 	utils: {
 		body: $('body'),
 		window: $(window),
-		document: $(document),		
-		ucfirst: function(s){
-			s += '';
-			return s.charAt(0).toUpperCase() + s.substr(1);
-		}
+		document: $(document),
+		/**
+		 *  @returns {String} New String.
+		 */		
+		ucfirst: function(s) { return (s+"").charAt(0).toUpperCase() + s.substr(1); }
 	}	
 };
 
