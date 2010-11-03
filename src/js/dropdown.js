@@ -21,7 +21,7 @@ ui.Dropdown = function(element){
 	conf.trigger
 		.bind('click', function(event){
 			if(that.status){ that.hide(event, conf); return; };
-			that.show(event, conf);
+			that.show(event, conf);						
 		})
 		.css('cursor','pointer')
 		.addClass('uiTrigger')

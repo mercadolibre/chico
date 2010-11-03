@@ -16,6 +16,12 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->	
 <h1 class="typo">MercadoLibre UI JavaScript SDK</h1>
 <div class="container clearfix">
+	<h1>Edit in place</h1>
+	<div class="box">
+		<p>Lorem ipsum dolor sit amet, <span class="edit1">consecteur</span> adipiscing elit. Donec sit amet purus in sapien luctus <span class="edit2">sodales</span>.</p>	
+	</div>
+	
+	<hr>
 	<h1>Dropdown</h1>
 	<div class="dropdown">
 		<span>Productos</span>
@@ -130,14 +136,24 @@ $(function() {
 				type:'ajax'
 			}*/
 		}
-	];	
+	];
+	
+	var edit = [
+		{
+			trigger:'.edit1'	
+		},
+		{
+			trigger:'.edit2'
+		}
+	];
 	
 	ui.init({
 		modal:modals,		    
 	    layer:layers,
 	    tooltip:true,
 	    dropdown:true,
-	    tabNavigator:tabnav
+	    tabNavigator:tabnav,
+	    editInPlace:edit
 	});
 	
 });

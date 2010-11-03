@@ -1,0 +1,20 @@
+.uiEditInPlace{
+	display:inline;
+	position:relative;
+	z-index:1;
+}
+.uiEditInPlace.uiTrigger{
+	cursor:pointer;
+	border:1px dotted #333;
+}
+
+.uiEditInPlace .uiContent{
+	background-color:#fff;
+	position:absolute;
+	top:-5px;
+	left:-4px;
+}
+
+.uiEditInPlace .uiTrigger.on{
+	border-color:'#fff';
+}

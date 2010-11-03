@@ -23,10 +23,14 @@ ui.Layer = function(conf){
 				$('.uiLayer').remove(); // Clear all helpers
 				that.show(event, conf);
 				
-				// Document events
-				/*$(document).bind('click', function(e){
-					that.hide(e, conf);
+				/*// Document events
+				$(document).bind('click', function(event){
+					that.hide(event, conf);
 					$(document).unbind('click');
+				});
+				
+				$('.uiLayer').bind('click', function(event){
+					that.prevent(event);
 				});*/
 			});
 	
