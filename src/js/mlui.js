@@ -1,5 +1,8 @@
 ;(function($) { 
-	
+
+/** 
+  * @namespace 
+  */
 window.ui = {
 
  	instances: {},
@@ -7,15 +10,16 @@ window.ui = {
 	init: function(conf) { ui.factory.start(conf) },
 
 /**
- *	Factory Pattern
- *	@author 
- *	@param {Object} conf This is an object parameter with components configuration
- *	@throws Object configuration
- *	@Contructor
- *	@return A collection of object instances
+ *	@static @class Factory
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
  	factory: {
- 	
+/**
+ *  @function start
+ *	@arguments conf {Object} This is an object parameter with components configuration
+ *	@return A collection of object instances
+ */ 	
 		start: function(conf) {
 			
 			if(typeof conf !== 'object') {
@@ -36,19 +40,24 @@ window.ui = {
 			$( ($.isArray(ui.factory.conf[x])) ? ui.factory.conf[x] : '.' + x ).each(function(i,e){
 				if(!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
 				e.name = x;
-				e.instance = i;
-				ui.instances[x].push(component(e));
+				ui.instances[x].push(component(e,i));
 			});
  		}
  		
  	},
  	
- /**
- *  Communicator Pattern
- */
+/**
+ *  @static @class Communicator
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ */	
 	communicator: {
+/**
+ *  @function getComponent
+ *  @arguments x {String} Name of the component.
+ *  @arguments callback {Function} Callback when component is loaded.
+ */
 		getComponent: function(x,callback) {	
-	
 			var link = document.createElement("link");
 				link.href="src/css/"+x+".css"; //TODO: esta url debería ser absoluta
 				link.rel="stylesheet";
@@ -63,12 +72,11 @@ window.ui = {
 		}
 	},
 	
- /**
- *  Positionator Pattern
- *	@author 
- *	@throws Object configuration
- *	@Contructor
- *	@return A collection of object instances
+/**
+ *  @static @class Positionator
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ *  @function 
  */	
 
 	positionator: {
@@ -110,10 +118,10 @@ window.ui = {
 	},
 
 /**
- *	Power Constructor Pattern
- *	@author 
- *	@Contructor
- *	@return An interface object
+ *	Creates a new Object.
+ *  @static @class Represent the abstract class of all ui objects.
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
 	PowerConstructor: function(){
 		return {
@@ -151,10 +159,11 @@ window.ui = {
 	},
 
 /**
- *	Navigator Components Constructor Pattern
- *	@author 
- *	@Contructor
- *	@return   
+ *  @static @class Navigators. Represent the abstract class of all navigators ui objects.
+ *  @requires PowerConstructor
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ *  @returns {Object} New Navigators.
  */	
 	Navigators: function(){
 		var that = ui.PowerConstructor(); // Inheritance
@@ -183,10 +192,11 @@ window.ui = {
 	},
 
 /**
- *	Float Components Constructor Pattern
- *	@author 
- *	@Contructor
- *	@return   
+ *  @static @class Floats. Represent the abstract class of all floats ui objects.
+ *  @requires PowerConstructor
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ *  @returns {Object} New Floats.
  */	
 	Floats: function(){
 		var that = ui.PowerConstructor(); // Inheritance
@@ -305,17 +315,20 @@ window.ui = {
 	},
 
 /**
- *	Utilities
- *	@author 
+ *	@static Utils. Common usage functions.
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */		
 	utils: {
 		body: $('body'),
 		window: $(window),
-		document: $(document),		
-		ucfirst: function(s){
-			s += '';
-			return s.charAt(0).toUpperCase() + s.substr(1);
-		}
+		document: $(document),
+		/**
+		 *  @function
+		 *  @arguments {String}
+		 *  @returns {String} New String with uppercase the first character.
+		 */		
+		ucfirst: function(s) { return (s+"").charAt(0).toUpperCase() + s.substr(1); }
 	}	
 };
 

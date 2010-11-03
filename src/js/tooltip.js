@@ -3,6 +3,7 @@
  *	@author 
  *	@Contructor
  *	@return An interface object
+ *  @memberOf ui.Floats
  */	
 ui.Tooltip = function(element){
 	var that = ui.Floats(); // Inheritance
