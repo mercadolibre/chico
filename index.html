@@ -87,6 +87,7 @@
 <script src="src/js/jquery.js"></script>
 <script src="src/js/mlui.js"></script>
 <script>
+	
 $(function() { 
 
 	var modals = [
@@ -144,11 +145,14 @@ $(function() {
 	ui.init({
 		modal:modals,		    
 	    layer:layers,
-	    tooltip:true,//y los callbacks?
+	 //   tooltip:true,//y los callbacks?
 	    dropdown:true,//y los callbacks?
 	    tabNavigator:true,//y los callbacks?
 	    editInPlace:edit
+	
 	});
+	
+	$(".tooltip").Tooltip();
 	
 });
 
