@@ -19,15 +19,17 @@ ui.Modal = function(conf){
 	};
 
 	// Content from href/action
-	if(conf.content.type.toLowerCase() === 'ajax') conf.content.data = $(conf.trigger).attr('href') || $(conf.trigger).parents('form').attr('action');
+	if(conf.content.type.toLowerCase() === 'ajax' && !conf.content.data) conf.content.data = $(conf.trigger).attr('href') || $(conf.trigger).parents('form').attr('action'); 
 
 	// Global configuration
+	conf.$trigger = $(conf.trigger);
 	conf.closeButton = true;
 	conf.align = 'center';
 	conf.classes = 'box';
-	
+
 	// Events
-	$(conf.trigger).css('cursor', 'pointer')
+	conf.$trigger
+		.css('cursor', 'pointer')
 		.bind('click', function(event){
 			dimmer.on();
 			that.show(event, conf);

@@ -8,16 +8,16 @@ ui.Dropdown = function(element){
 	var that = ui.Navigators(); // Inheritance
 
 	// Global configuration
-	var trigger = $(element).children(':first');
+	var $trigger = $(element).children(':first');
 	var conf = {
 		name: 'dropdown',
-		trigger: trigger,
-		htmlContent: trigger.next()
+		$trigger: $trigger,
+		$htmlContent: $trigger.next()
 	};
 
 	// Events
 	// Trigger
-	conf.trigger
+	conf.$trigger
 		.bind('click', function(event){
 			if(that.status){ that.hide(event, conf); return; };
 			that.show(event, conf);
@@ -27,7 +27,7 @@ ui.Dropdown = function(element){
 		.append('<span class="ico down">&raquo;</span>');
 	
 	// Content
-	conf.htmlContent.addClass('uiContent');
+	conf.$htmlContent.addClass('uiContent');
 
 	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
 };

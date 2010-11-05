@@ -11,7 +11,7 @@ ui.Tooltip = function(element){
 
 	// Global configuration
 	var conf = {
-		trigger: element,
+		$trigger: $(element),
 		name: 'tooltip',
 		content: {
 			type: 'param',
@@ -21,7 +21,7 @@ ui.Tooltip = function(element){
 		cone: true
 	};
 
-	$(element)
+	conf.$trigger
 		.css('cursor', 'default')
 		.bind('mouseover', function(event){
 			$(this).removeAttr('title', '');

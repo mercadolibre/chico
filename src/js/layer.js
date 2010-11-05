@@ -9,6 +9,7 @@ ui.Layer = function(conf){
 	var that = ui.Floats(); // Inheritance
 
 	// Global configuration
+	conf.$trigger = $(conf.trigger);
 	conf.align = 'drop';
 	conf.cone = true;
 	conf.classes = 'box';
@@ -19,7 +20,8 @@ ui.Layer = function(conf){
 		conf.closeButton = true;
 
 		// Trigger events
-		$(conf.trigger).css('cursor', 'pointer')
+		conf.$trigger
+			.css('cursor', 'pointer')
 			.bind('click',function(event){
 				$('.uiLayer').remove(); // Clear all helpers
 				that.show(event, conf);
@@ -38,7 +40,8 @@ ui.Layer = function(conf){
 	// Hover
 	}else{
 		// Trigger events
-		$(conf.trigger).css('cursor', 'default')
+		conf.$trigger
+			.css('cursor', 'default')
 			.bind('mouseover', function(event){
 				$('.uiLayer').remove(); // Clear all helpers
 				that.show(event, conf);

@@ -80,7 +80,7 @@ window.ui = {
  
 		getAjaxContent: function(conf){			
 			var result;			
-			conf.htmlContent.html('<div class="loading"></div>');
+			conf.$htmlContent.html('<div class="loading"></div>');
 			
 			$.ajax({
 				url: conf.content.data,
@@ -109,39 +109,38 @@ window.ui = {
 
 	positionator: {
 		// Vertical & horizontal alignment
-		center: function(element){
+		center: function(conf){
 			var align = function(){
-				element.css({
-					left: (parseInt($(window).width()) - element.outerWidth() ) /2,
-					top: (parseInt($(window).height()) - element.outerHeight() ) /2
+				conf.$htmlContent.css({
+					left: (parseInt(ui.utils.window.width()) - conf.$htmlContent.outerWidth() ) /2,
+					top: (parseInt(ui.utils.window.height()) - conf.$htmlContent.outerHeight() ) /2
 				})
 			};
 			align();
-			$(window).bind('resize', align);
+			ui.utils.window.bind('resize', align);
 		},
 		
 		// Layer, drop, mega-drop
-		drop: function(element, parent){
-			var os = parent.offset();
+		drop: function(conf){
+			var os = conf.$trigger.offset();
 			var align = function(){
-				element.css({
-					top: os.top+parent.outerHeight()+10,
-					left: os.left+(parent.outerWidth()/2)-20
+				conf.$htmlContent.css({
+					top: os.top + conf.$trigger.outerHeight() + 10,
+					left: os.left + (conf.$trigger.outerWidth() / 2) - 20
 				});
 			};
 			align();
-			$(window).bind('resize', align);
+			ui.utils.window.bind('resize', align);
 		},
 		
 		// Tooltip
-		follow: function(element, parent){
-			parent.bind('mousemove', function(event){
-				element.css({
-					top: event.pageY+20,
-					left: event.pageX-32
+		follow: function(conf){
+			conf.$trigger.bind('mousemove', function(event){
+				conf.$htmlContent.css({
+					top: event.pageY + 20,
+					left: event.pageX - 32
 				});
 			});
-
 		}
 	},
 
@@ -165,7 +164,6 @@ window.ui = {
 				if(typeof conf.content !== 'object' || !conf.content.type ){
 					throw('UI: "content" attribute error.'); return;
 				}else{
-				
 					switch(conf.content.type.toLowerCase()){
 						case 'ajax': // data = url
 							var result = ui.communicator.getAjaxContent(conf);
@@ -204,8 +202,8 @@ window.ui = {
 		that.show = function(event, conf){
 			that.prevent(event);
 			that.status = true;
-			conf.trigger.addClass('on');
-			conf.htmlContent.show();
+			conf.$trigger.addClass('on');
+			conf.$htmlContent.show();
 			
 			that.callbacks(conf, 'show');
 		};
@@ -213,8 +211,8 @@ window.ui = {
 		that.hide = function(event, conf){
 			that.prevent(event);
 			that.status = false;
-			conf.trigger.removeClass('on');
-			conf.htmlContent.hide();
+			conf.$trigger.removeClass('on');
+			conf.$htmlContent.hide();
 			
 			that.callbacks(conf, 'hide');
 		};		
@@ -237,28 +235,29 @@ window.ui = {
 			clearTimeout(ht);
 		};
 
-		var createClose = function(element,conf){
+		var createClose = function(conf){
 			$('<p class="btn close">x</p>').bind('click', function(event){
 				that.hide(event, conf);
-			}).prependTo(element);
+			}).prependTo(conf.$htmlContent);
 		};
 
-		var createCone = function(element){
-			$('<div class="cone"></div>').prependTo(element);
+		var createCone = function(conf){
+			$('<div class="cone"></div>').prependTo(conf.$htmlContent);
 		};
 
 		that.show = function(event, conf){
 			that.prevent(event);
 			//TODO: clearTimers();
-			var element = $('<div>').addClass('article ui' + ui.utils.ucfirst(conf.name)).html(that.loadContent(conf)).hide().appendTo('body');
+			conf.$htmlContent = $('<div>').addClass('article ui' + ui.utils.ucfirst(conf.name));
+			conf.$htmlContent.html(that.loadContent(conf)).hide().appendTo('body');
 
 			// Visual configuration
-			if(conf.closeButton) createClose(element, conf);
-			if(conf.cone) createCone(element);
-			if(conf.align) ui.positionator[conf.align](element, $(conf.trigger));
-			if(conf.classes) $(element).addClass(conf.classes);
+			if(conf.closeButton) createClose(conf);
+			if(conf.cone) createCone(conf);
+			if(conf.align) ui.positionator[conf.align](conf);
+			if(conf.classes) conf.$htmlContent.addClass(conf.classes);
 
-			element.fadeIn('normal', function(){ that.callbacks(conf, 'show'); });
+			conf.$htmlContent.fadeIn('normal', function(){ that.callbacks(conf, 'show'); });
 		};
 
 		that.hide = function(event, conf){
@@ -284,16 +283,16 @@ window.ui = {
 		that.show = function(event, conf){
 			that.prevent(event);
 			
-			//wrapper
-			$(conf.trigger).wrap( $('<div class="'+conf.classes+'">') );
-			wrapper = $(conf.trigger).parents('.'+conf.classes);
+			// wrapper
+			conf.$trigger.wrap( $('<div class="' + conf.classes + '">') );
+			wrapper = conf.$trigger.parents('.' + conf.classes);
 			wrapper
-				.append( $(conf.htmlContent).addClass('uiContent') )
+				.append( $(conf.$htmlContent).addClass('uiContent') )
 				.find('textarea')
 				.focus();
 					
 			// Trigger
-			$(conf.trigger)
+			conf.$trigger
 				.addClass('on')
 				.unbind('click');
 			
@@ -311,8 +310,8 @@ window.ui = {
 				})
 			};
 			
-			$(conf.trigger).next().find('textarea').html($(conf.trigger).html());
-			$(conf.trigger).removeClass(conf.classes);
+			conf.$trigger.next().find('textarea').html(conf.$trigger.html());
+			conf.$trigger.removeClass(conf.classes);
 			that.callbacks(conf, 'show');
 			
 		};
@@ -324,7 +323,7 @@ window.ui = {
 			wrapper.find('.uiContent').remove();
 			
 			// Trigger
-			$(conf.trigger)
+			conf.$trigger
 				.removeClass('on')
 				.addClass(conf.classes)
 				.unwrap()
@@ -338,7 +337,7 @@ window.ui = {
 		that.save = function(event, conf){
 			that.prevent(event);
 			// AJAX COMUNICATOR
-			$(conf.trigger).html( wrapper.find('textarea').val() );// callback edit in place
+			conf.$trigger.html( wrapper.find('textarea').val() );// callback edit in place
 			that.hide(event, conf);
 		};
 
@@ -359,7 +358,7 @@ window.ui = {
 		 *  @arguments {String}
 		 *  @returns {String} New String with uppercase the first character.
 		 */		
-		ucfirst: function(s) { return (s+"").charAt(0).toUpperCase() + s.substr(1); }
+		ucfirst: function(s) { return (s + '').charAt(0).toUpperCase() + s.substr(1); }
 	}	
 };
 

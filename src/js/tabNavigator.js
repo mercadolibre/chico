@@ -47,7 +47,7 @@ ui.Tab = function(index, element, parent){
 	// Global configuration
 	that.conf = {
 		name: 'tab',
-		trigger: $(element).addClass('uiTrigger')
+		$trigger: $(element).addClass('uiTrigger')
 	};
 
 	var results = function(){
@@ -65,20 +65,20 @@ ui.Tab = function(index, element, parent){
 			
 			// Create tabContent
 			var w = $('<div>').attr('id', 'uiTab' + index);
-				w.hide().appendTo( $(element).parents('.tabNavigator').find('.uiContent') );
+				w.hide().appendTo( that.conf.$trigger.parents('.tabNavigator').find('.uiContent') );
 			return w;
 		};
 	};
-	that.conf.htmlContent = results();
+	that.conf.$htmlContent = results();
 
 	// Open first tab by default
 	if(index == 0){
 		that.status = true;
-		that.conf.trigger.addClass('on');
+		that.conf.$trigger.addClass('on');
 	};
 
 	// Hide all closed tabs
-	if(!that.status) that.conf.htmlContent.hide();
+	if(!that.status) that.conf.$htmlContent.hide();
 
 	// Process show event
 	that.shoot = function(event){
@@ -92,14 +92,14 @@ ui.Tab = function(index, element, parent){
 		});
 
 		// Load my content if I'need an ajax request
-		if(that.conf.htmlContent.html() === '') that.conf.htmlContent.html( that.loadContent(that.conf) );
+		if(that.conf.$htmlContent.html() === '') that.conf.$htmlContent.html( that.loadContent(that.conf) );
 
 		// Show me
 		that.show(event, that.conf);
 	};
 
 	// Events
-	that.conf.trigger.bind('click', that.shoot);
+	that.conf.$trigger.bind('click', that.shoot);
 
 	return that;
 }
