@@ -188,6 +188,19 @@ window.ui = {
 	},
 
 /**
+ *  @static @class Sliders. Represent the abstract class of all slider ui objects.
+ *  @requires PowerConstructor
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ *  @returns {Object} New Sliders.
+ */	
+	Sliders: function(){
+		var that = ui.PowerConstructor(); // Inheritance
+		
+		return that;
+	},
+
+/**
  *  @static @class Navigators. Represent the abstract class of all navigators ui objects.
  *  @requires PowerConstructor
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>

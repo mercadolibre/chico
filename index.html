@@ -3,7 +3,7 @@
 	<script></script>
 	<!--[if IE]><![endif]-->
 	<meta charset="utf-8">
-	<title>MercadoLibre UI JavaScript SDK</title>
+	<title>Chico UI JavaScript SDK</title>
 	<link rel="stylesheet" type="text/css" href="src/css/base.css" />
 	<style type="text/css">			
 	h1{margin-bottom:10px;}
@@ -14,8 +14,25 @@
 <!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
 <!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->	
-<h1 class="typo">MercadoLibre UI JavaScript SDK</h1>
+<h1 class="typo">Chico UI JavaScript SDK</h1>
 <div class="container clearfix">
+	<h1>Carousel</h1>
+	<div class="box destacados">
+		<ul class="carousel">
+			<li>111111111111111111</li>
+			<li>222222222222222222</li>
+			<li>333333333333333333</li>
+			<li>444444444444444444</li>
+			<li>555555555555555555</li>
+			<li>666666666666666666</li>
+			<li>777777777777777777</li>
+			<li>888888888888888888</li>
+			<li>999999999999999999</li>
+			<li>101010101010101010</li>
+		</ul>	
+	</div>
+	
+	<hr>
 	<h1>Edit in place</h1>
 	<div class="box">
 		<p>Lorem ipsum dolor sit amet, <span class="edit1">consecteur</span> adipiscing elit. Donec sit amet purus in sapien luctus <span class="edit2">sodales</span>.</p>	
@@ -81,7 +98,6 @@
 			</li>
 		</ul>
 	</div>
-	
 </div>
 
 <script src="src/js/jquery.js"></script>
@@ -141,13 +157,21 @@ $(function() {
 		}
 	];
 	
+	var cars = [
+		{
+			trigger:'.destacados',
+			steps:1
+		}
+	];
+	
 	ui.init({
 		modal:modals,		    
 	    layer:layers,
 	    tooltip:true,//y los callbacks?
 	    dropdown:true,//y los callbacks?
 	    tabNavigator:true,//y los callbacks?
-	    editInPlace:edit
+	    editInPlace:edit,
+	    carousel:cars
 	});
 	
 });
