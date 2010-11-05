@@ -4,10 +4,12 @@
  *	@Contructor
  *	@return An interface object
  *  @memberOf ui.Floats
- */	
+ */
+
 ui.Tooltip = function(element){
 	var that = ui.Floats(); // Inheritance
-	// Global configuration	
+
+	// Global configuration
 	var conf = {
 		trigger: element,
 		name: 'tooltip',
@@ -16,10 +18,11 @@ ui.Tooltip = function(element){
 			data: element.title
 		},
 		align: 'drop',
-		cone: true		
+		cone: true
 	};
-			
-	$(element).css('cursor', 'default')
+
+	$(element)
+		.css('cursor', 'default')
 		.bind('mouseover', function(event){
 			$(this).removeAttr('title', '');
 			that.show(event, conf);
@@ -28,6 +31,6 @@ ui.Tooltip = function(element){
 			$(this).attr('title', conf.content.data);
 			that.hide(event, conf);
 		});
-		
+
 	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
 };

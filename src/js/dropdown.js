@@ -5,30 +5,29 @@
  *	@return An interface object
  */	
 ui.Dropdown = function(element){
-	var that = ui.Navigators(); // Inheritance	
+	var that = ui.Navigators(); // Inheritance
 
 	// Global configuration
 	var trigger = $(element).children(':first');
-	var conf = {		 
+	var conf = {
 		name: 'dropdown',
 		trigger: trigger,
-		content:trigger.next()
-		//align: 'drop'		
+		htmlContent: trigger.next()
 	};
 
-	// Events	
+	// Events
 	// Trigger
 	conf.trigger
 		.bind('click', function(event){
 			if(that.status){ that.hide(event, conf); return; };
-			that.show(event, conf);						
+			that.show(event, conf);
 		})
 		.css('cursor','pointer')
 		.addClass('uiTrigger')
 		.append('<span class="ico down">&raquo;</span>');
 	
 	// Content
-	conf.content.addClass('uiContent');
+	conf.htmlContent.addClass('uiContent');
 
 	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
 };
