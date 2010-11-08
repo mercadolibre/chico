@@ -14,16 +14,15 @@ ui.Carousel = function(conf){
 
 	// UL Width calculator
 	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + 20);
-
+	
 	// UL configuration
 	conf.$htmlContent
 		.wrap($('<div>').addClass('mask'))
 		.css('width', htmlContentWidth);
-
-
+		
 	// Mask Object	
 	var $mask = conf.$trigger.find('.mask');
-
+	
 	// Steps
 	var steps = ~~((conf.$trigger.width() - 100) / (conf.$htmlContent.children().outerWidth() + 20));
 
@@ -31,44 +30,44 @@ ui.Carousel = function(conf){
 	var moveTo = (conf.$htmlContent.children().outerWidth() + 20) * steps;
 
 	// Mask width
-	$mask.width( moveTo );
-
+	$mask.width( moveTo ).height( conf.$htmlContent.outerHeight() );
+	
+	var prev = function(event){
+		if(prevButton.css('display') === 'none') return; // For public
+		conf.$htmlContent.animate({left: (parseInt(conf.$htmlContent.css('left')) + moveTo) }, function(){			
+			if(parseInt(conf.$htmlContent.css('left')) >= parseInt($mask.css('left'))) prevButton.hide();
+			nextButton.show();
+		});
+	};
+	
+	var next = function(event){
+		if(nextButton.css('display') === 'none') return; // For public
+		conf.$htmlContent.animate({left: (parseInt(conf.$htmlContent.css('left')) - moveTo) }, function(){ 	
+			if(parseInt(conf.$htmlContent.css('left')) + htmlContentWidth <= parseInt($mask.css('left')) + $mask.width()) nextButton.hide();
+			prevButton.show();
+		});		
+	};
+	
 	// Create buttons
-	var prev = $('<p>')
+	var prevButton = $('<p>')
 		.html('Previous')
-		.addClass('prev')
-		//.css('top', conf.$htmlContent.offset().top)
-		.bind('click', function(event){
-			//alert('prev to ' + steps + ' more');
-			conf.$htmlContent.animate({left: (parseInt(conf.$htmlContent.css('left')) + moveTo) });			
-		})
-		//.hide();
+		.addClass('prev')	
+		.bind('click', prev)
+		.hide()
+		.css('top', (conf.$htmlContent.outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
 
-	var next = $('<p>')
+	var nextButton = $('<p>')
 		.html('Next')
 		.addClass('next')
-		.bind('click', function(event){
-			//alert('next to ' + steps + ' more');
-			conf.$htmlContent.animate({left: (parseInt(conf.$htmlContent.css('left')) - moveTo) });
-		})
-		//.hide();
+		.bind('click', next)
+		.hide()
+		.css('top', (conf.$htmlContent.outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
 
 	// Append buttons
-	conf.$trigger
-		.prepend(prev)
-		.append(next);
+	conf.$trigger.prepend(prevButton).append(nextButton);
 
-	// 1. Init buttons
 	// Si el ancho del UL es mayor que el de la mascara, muestra next
-	if(htmlContentWidth > $mask.width()) next.show();
-
-
-	/* Si la posicion del UL mas el ancho del UL
-	   (menos un cierto margen que es la mitad de un item)
-	   es menor al lado derecho de la mascara entonces oculto el boton
- 					if (parseInt(list.css('left'))+list.width()-(e.unitWidth/2)<parseInt($('.mask').css('left'))+$('.mask').width()) {
-	*/
-
-	//return { prev: function(event){ that.prev(event, conf); }, next: function(event){ that.next(event, conf); } }
-	return that;
+	if(htmlContentWidth > $mask.width()){ nextButton.show(); }
+	
+	return { nxt: function(event){ next(event)}, prv: function(event){ prev(event)} }
 };
