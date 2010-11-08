@@ -35,7 +35,7 @@ ui.Carousel = function(conf){
 	var prev = function(event){
 		if(prevButton.css('display') === 'none') return; // For public
 		conf.$htmlContent.animate({left: (parseInt(conf.$htmlContent.css('left')) + moveTo) }, function(){			
-			if(parseInt(conf.$htmlContent.css('left')) >= parseInt($mask.css('left'))) prevButton.hide();
+			if(parseInt(conf.$htmlContent.css('left')) >= 0) prevButton.hide();
 			nextButton.show();
 		});
 	};

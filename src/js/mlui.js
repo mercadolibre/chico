@@ -262,13 +262,13 @@ window.ui = {
 			if(conf.align) ui.positionator[conf.align](conf);
 			if(conf.classes) conf.$htmlContent.addClass(conf.classes);
 
-			conf.$htmlContent.fadeIn('normal', function(){ that.callbacks(conf, 'show'); });
+			conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
 		};
 
 		that.hide = function(event, conf){
 			that.prevent(event);
 			//TODO: clearTimers();
-			$('.ui' + ui.utils.ucfirst(conf.name)).fadeOut('normal', function(event){ $(this).remove(); });
+			$('.ui' + ui.utils.ucfirst(conf.name)).fadeOut('fast', function(event){ $(this).remove(); });
 			that.callbacks(conf, 'hide');
 		};
 
