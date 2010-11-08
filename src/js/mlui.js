@@ -1,4 +1,9 @@
 ;(function($) {
+	
+	
+$.fn.Tooltip = function(){
+  	ui.communicator.getComponent("tooltip",function(x){ ui.factory.configure(x); });
+}
 
 /** 
   * @namespace
@@ -20,7 +25,7 @@ window.ui = {
  *	@arguments conf {Object} This is an object parameter with components configuration
  *	@return A collection of object instances
  */ 	
-		start: function(conf) {
+		start: function(conf) {
 			
 			if(typeof conf !== 'object') {
 				throw('UI: Can\'t start without a configuration.'); return;
