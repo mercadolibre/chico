@@ -6,7 +6,7 @@
  */
 
 ui.Carousel = function(conf){
-	var that = ui.Sliders(); // Inheritance
+	var that = ui.PowerConstructor(); // Inheritance
 
 	// Global configuration
 	conf.$trigger = $(conf.trigger).addClass('uiCarousel');
@@ -51,7 +51,7 @@ ui.Carousel = function(conf){
 	// Create buttons
 	var prevButton = $('<p>')
 		.html('Previous')
-		.addClass('prev')	
+		.addClass('prev')
 		.bind('click', prev)
 		.hide()
 		.css('top', (conf.$htmlContent.outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
