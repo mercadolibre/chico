@@ -7,10 +7,11 @@
 
 ui.Carousel = function(conf){
 	var that = ui.PowerConstructor(); // Inheritance
+	var status = false;
 
 	// Global configuration
-	conf.$trigger = $(conf.trigger).addClass('uiCarousel');
-	conf.$htmlContent = $(conf.trigger).find('.carousel').addClass('uiContent');
+	conf.$trigger = $(conf.element).addClass('uiCarousel');
+	conf.$htmlContent = $(conf.element).find('.carousel').addClass('uiContent');
 
 	// UL Width calculator
 	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + 20);
@@ -33,26 +34,32 @@ ui.Carousel = function(conf){
 	$mask.width( moveTo ).height( conf.$htmlContent.outerHeight() );
 	
 	var prev = function(event){
-		if(prevButton.css('display') === 'none') return; // For public use
+		if(prevButton.css('display') === 'none' || status) return;
 		
 		var htmlContentPosition = conf.$htmlContent.position();
+		
+		status = true;
 		
 		conf.$htmlContent.animate({ left: htmlContentPosition.left + moveTo }, function(){
 			htmlContentPosition = conf.$htmlContent.position();			
 			if(htmlContentPosition.left >= 0) prevButton.hide();
 			nextButton.show();
+			status = false;
 		});
 	};
 	
 	var next = function(event){
-		if(nextButton.css('display') === 'none') return; // For public use
+		if(nextButton.css('display') === 'none' || status) return;
 		
 		var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
+		
+		status = true;
 		
 		conf.$htmlContent.animate({ left: htmlContentPosition.left - moveTo }, function(){
 			htmlContentPosition = conf.$htmlContent.position(); // Position after moving
 			if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) nextButton.hide();
 			prevButton.show();
+			status = false;
 		});		
 	};
 	

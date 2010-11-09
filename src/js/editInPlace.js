@@ -9,7 +9,7 @@ ui.EditInPlace = function(conf){
 	var that = ui.Editors(); // Inheritance
 
 	// Global configuration
-	conf.$trigger = $(conf.trigger);
+	conf.$trigger = $(conf.element);
 	conf.$htmlContent = '<div><textarea>'+ conf.$trigger.html() + '</textarea><p><input type="submit" value="Guardar" class="btn secondary skin"> <a href="#">Cancelar</a></p></div>';
 	conf.saveButton = true;
 	conf.closeButton = true;
@@ -17,7 +17,7 @@ ui.EditInPlace = function(conf){
 
 	// Events
 	conf.$trigger
-		.addClass(conf.classes+' uiTrigger')
+		.addClass(conf.classes + ' uiTrigger')
 		.bind('click', function(event){
 			that.show(event, conf);
 		});

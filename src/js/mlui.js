@@ -9,7 +9,7 @@ var ui = window.ui = {
  	
 	init: function() { 
             
-        var fns = "dropdown, editInPlace, layer, modal, tabNavigators, tooltip".split(", ");
+        var fns = "carousel, dropdown, editInPlace, layer, modal, tabNavigator, tooltip".split(", ");
         var tot = fns.length;
        
         for (var i=0; i<tot; i++) {
@@ -182,6 +182,7 @@ ui.positionator = {
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
 ui.PowerConstructor = function(){
+		
 		var that = this;
 		
 		return {

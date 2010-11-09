@@ -9,7 +9,7 @@ ui.Layer = function(conf){
 	var that = ui.Floats(); // Inheritance
 
 	// Global configuration
-	conf.$trigger = $(conf.trigger);
+	conf.$trigger = $(conf.element);
 	conf.align = 'drop';
 	conf.cone = true;
 	conf.classes = 'box';

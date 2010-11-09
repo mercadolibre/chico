@@ -5,18 +5,19 @@
  *	@return An interface object
  */
 
-ui.TabNavigator = function(element){
-	var $triggers = $('.tabNavigator').children(':first').find('a');
-	var $htmlContent = $('.tabNavigator').children(':first').next();
+ui.TabNavigator = function(conf){
+	var $triggers = $(conf.element).children(':first').find('a');
+	var $htmlContent = $(conf.element).children(':first').next();
 	var instances = [];
 
 	// Global configuration
+	$(conf.element).addClass('uiTabNavigator');
 	$triggers.addClass('uiTrigger');
 	$htmlContent.addClass('uiContent box');
 
 	// Starts (Mother is pregnant, and her children born)
 	$.each($triggers, function(i, e){
-		instances.push(ui.Tab(i, e, element.instance));
+		instances.push(ui.Tab(i, e, conf.id));
 	});
 
 	var show = function(event, tab){
@@ -42,7 +43,7 @@ ui.TabNavigator = function(element){
 ui.Tab = function(index, element, parent){
 	var that = ui.Navigators(); // Inheritance
 	var display = element.href.split('#');
-	var $tabContent = $(element).parents('.tabNavigator').find('#' + display[1]);
+	var $tabContent = $(element).parents('.uiTabNavigator').find('#' + display[1]);
 
 	// Global configuration
 	that.conf = {
@@ -65,7 +66,7 @@ ui.Tab = function(index, element, parent){
 			
 			// Create tabContent
 			var w = $('<div>').attr('id', 'uiTab' + index);
-				w.hide().appendTo( that.conf.$trigger.parents('.tabNavigator').find('.uiContent') );
+				w.hide().appendTo( that.conf.$trigger.parents('.uiTabNavigator').find('.uiContent') );
 			return w;
 		};
 	};

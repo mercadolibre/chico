@@ -8,12 +8,8 @@ ui.Dropdown = function(conf){
 	var that = ui.Navigators(); // Inheritance
 
 	// Global configuration
-	var $trigger = $(conf.element).children(':first');
-	var conf = {
-		name: 'dropdown',
-		$trigger: $trigger,
-		$htmlContent: $trigger.next()
-	};
+	conf.$trigger = $(conf.element).children(':first');
+	conf.$htmlContent = conf.$trigger.next();
 
 	// Events
 	// Trigger

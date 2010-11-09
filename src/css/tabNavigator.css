@@ -1,31 +1,31 @@
-.tabNavigator {
+.uiTabNavigator {
 	margin:10px 0;
 }
 
-.tabNavigator ul {
+.uiTabNavigator ul {
 	position:relative;
 	top:1px;
 	z-index:10;
 	margin-left:10px;
 }
 
-.tabNavigator.vertical ul {
+.uiTabNavigator.vertical ul {
 	position:relative;
 	float:left;
 	z-index:1;
 	margin-top:10px;
 }
 
-.tabNavigator ul li {
+.uiTabNavigator ul li {
 	cursor:pointer;
 	margin-right:0;
 }
 
-.tabNavigator ul li {
+.uiTabNavigator ul li {
 	display:inline-block;
 }
 
-.tabNavigator .uiTrigger {
+.uiTabNavigator .uiTrigger {
 	border:1px solid #AFAFAF;
 	display:inline-block;
 	padding:3px 12px;
@@ -33,17 +33,17 @@
 	color:#333333;
 }
 
-.tabNavigator .uiTrigger {
+.uiTabNavigator .uiTrigger {
 	-moz-border-radius:5px 5px 0 0;	
 }
 
-.tabNavigator.vertical .uiTrigger {
+.uiTabNavigator.vertical .uiTrigger {
 	-moz-border-radius:5px 0 0 5px;
 	width:75px;
 	margin-bottom:5px;
 }
 
-.tabNavigator .uiTrigger.on {
+.uiTabNavigator .uiTrigger.on {
 	font-weight:bold;
 	cursor:default;
 	background-position:0 -663px;
@@ -52,18 +52,18 @@
 		
 }
 
-.tabNavigator .uiTrigger.on {
+.uiTabNavigator .uiTrigger.on {
 	border-bottom:1px solid #FFFFFF;				
 }
 
-.tabNavigator.vertical .uiTrigger.on {
+.uiTabNavigator.vertical .uiTrigger.on {
 	border-right:1px solid #FFFFFF;				
 }
 
-.tabNavigator .box{
+.uiTabNavigator .box{
  	background-image:none;
 }
 
-.tabNavigator.vertical .uiContent{
+.uiTabNavigator.vertical .uiContent{
  	padding-left:100px;
 }
