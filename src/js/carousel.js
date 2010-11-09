@@ -33,17 +33,25 @@ ui.Carousel = function(conf){
 	$mask.width( moveTo ).height( conf.$htmlContent.outerHeight() );
 	
 	var prev = function(event){
-		if(prevButton.css('display') === 'none') return; // For public
-		conf.$htmlContent.animate({left: (parseInt(conf.$htmlContent.css('left')) + moveTo) }, function(){			
-			if(parseInt(conf.$htmlContent.css('left')) >= 0) prevButton.hide();
+		if(prevButton.css('display') === 'none') return; // For public use
+		
+		var htmlContentPosition = conf.$htmlContent.position();
+		
+		conf.$htmlContent.animate({ left: htmlContentPosition.left + moveTo }, function(){
+			htmlContentPosition = conf.$htmlContent.position();			
+			if(htmlContentPosition.left >= 0) prevButton.hide();
 			nextButton.show();
 		});
 	};
 	
 	var next = function(event){
-		if(nextButton.css('display') === 'none') return; // For public
-		conf.$htmlContent.animate({left: (parseInt(conf.$htmlContent.css('left')) - moveTo) }, function(){ 	
-			if(parseInt(conf.$htmlContent.css('left')) + htmlContentWidth <= parseInt($mask.css('left')) + $mask.width()) nextButton.hide();
+		if(nextButton.css('display') === 'none') return; // For public use
+		
+		var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
+		
+		conf.$htmlContent.animate({ left: htmlContentPosition.left - moveTo }, function(){
+			htmlContentPosition = conf.$htmlContent.position(); // Position after moving
+			if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) nextButton.hide();
 			prevButton.show();
 		});		
 	};
