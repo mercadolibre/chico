@@ -141,18 +141,13 @@ $(function() {
 			trigger:'.edit2'
 		}
 	];
+
+
 	
-	ui.init({
-		modal:modals,		    
-	    layer:layers,
-	 //   tooltip:true,//y los callbacks?
-	    dropdown:true,//y los callbacks?
-	    tabNavigator:true,//y los callbacks?
-	    editInPlace:edit
-	
-	});
-	
-	$(".tooltip").Tooltip();
+	$(".tooltip").tooltip();
+    $(".dropdown").dropdown();
+    
+    $(".edit1,.edit2").editInPlace(edit);
 	
 });
 

@@ -1,63 +1,89 @@
 ;(function($) {
-	
-	
-$.fn.Tooltip = function(){
-  	ui.communicator.getComponent("tooltip",function(x){ ui.factory.configure(x); });
-}
 
 /** 
   * @namespace
   */
-window.ui = {
+var ui = window.ui = {
 
  	instances: {},
  	
-	init: function(conf) { ui.factory.start(conf) },
+	init: function() { 
+            
+        var fns = "dropdown, editInPlace, layer, modal, tabNavigators, tooltip".split(", ");
+        var tot = fns.length;
+       
+        for (var i=0; i<tot; i++) {
+            ui.factory.configure(fns[i]);
+        }
+    },
+/**
+ *	@static Utils. Common usage functions.
+ *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
+ *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+ */		
+    utils: {
+		body: $('body'),
+		window: $(window),
+		document: $(document),
+		/**
+		 *  @function
+		 *  @arguments {String}
+		 *  @returns {String} New String with uppercase the first character.
+		 */		
+		ucfirst: function(s) { return (s + '').charAt(0).toUpperCase() + s.substr(1); 
+        }
+	}	
+
+ }
 
 /**
  *	@static @class Factory
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
- 	factory: {
-/**
- *  @function start
- *	@arguments conf {Object} This is an object parameter with components configuration
- *	@return A collection of object instances
- */ 	
-		start: function(conf) {
-			
-			if(typeof conf !== 'object') {
-				throw('UI: Can\'t start without a configuration.'); return;
-			}
 
-			ui.factory.conf = conf;
-
-			// Each configuration
-			for(var x in conf) {
-	    		ui.communicator.getComponent(x,function(x){ ui.factory.configure(x); });
-	    	}
- 		},
- 		
- 		configure: function(x) {
- 			var component = ui[ui.utils.ucfirst(x)]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval!
-			// If component configuration is an array, each array. Else each DOM elements with component class
-			$( ($.isArray(ui.factory.conf[x])) ? ui.factory.conf[x] : '.' + x ).each(function(i,e){
-				if(!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
-				e.name = x;
-				e.instance = i;
-				ui.instances[x].push(component(e));
-			});
- 		}
- 		
- 	},
+ui.factory = {
+    /**
+     *  @function configure
+     *	@arguments conf {Object} This is an object parameter with components configuration
+     *	@return A collection of object instances
+     */
+    configure: function(x){
+        var name = ui.utils.ucfirst(x);
+        var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
+        console.log(name + " processing...")
+        
+        $.fn[x] = function(conf) {
+            console.log(name + " created...")
+            conf = conf || {};
+            var that = this;
+            console.log(this);
+            // TODO: If component is already loaded, avoid downloading
+            ui.communicator.getComponent(x, function(){ // Send configuration to a component
+                if (!ui.instances[x]) 
+                    ui.instances[x] = []; // If component instances don't exists, create this like array
+                console.log("Configuring..."+that);
+                
+                that.each(function(i, e){
+                    console.log(conf);
+                    conf.name = x;
+                    conf.element = e;
+                    conf.id = i;
+                    // Invoko el constructor
+                    ui.instances[x].push(ui[name](conf));
+                    console.log(x + " invoking Constructor...")
+                });
+            });
+        }
+    }
+}
  	
 /**
  *  @static @class Communicator
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
-	communicator: {
+ui.communicator = {
 /**
  *  @function getComponent
  *  @arguments x {String} Name of the component.
@@ -102,8 +128,8 @@ window.ui = {
 			});
 			
 			return result;
-		},
-	},
+		}
+	}
 	
 /**
  *  @static @class Positionator
@@ -112,7 +138,7 @@ window.ui = {
  *  @function 
  */	
 
-	positionator: {
+ui.positionator = {
 		// Vertical & horizontal alignment
 		center: function(conf){
 			var align = function(){
@@ -147,15 +173,15 @@ window.ui = {
 				});
 			});
 		}
-	},
+	}
 
 /**
  *	Creates a new Object.
- *  @static @class Represent the abstract class of all ui objects.
+ *  Represent the abstract class of all ui objects.
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
-	PowerConstructor: function(){
+ui.PowerConstructor = function(){
 		var that = this;
 		
 		return {
@@ -190,7 +216,7 @@ window.ui = {
 			}
 			
 		};
-	},
+	}
 
 /**
  *  @static @class Navigators. Represent the abstract class of all navigators ui objects.
@@ -199,7 +225,7 @@ window.ui = {
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  *  @returns {Object} New Navigators.
  */	
-	Navigators: function(){
+ui.Navigators = function(){
 		var that = ui.PowerConstructor(); // Inheritance
 		
 		that.status = false;
@@ -223,7 +249,7 @@ window.ui = {
 		};		
 		
 		return that;
-	},
+	}
 
 /**
  *  @static @class Floats. Represent the abstract class of all floats ui objects.
@@ -232,7 +258,7 @@ window.ui = {
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  *  @returns {Object} New Floats.
  */
-	Floats: function(){
+ui.Floats = function(){
 		var that = ui.PowerConstructor(); // Inheritance
 
 		var clearTimers = function(){
@@ -273,7 +299,7 @@ window.ui = {
 		};
 
 		return that;
-	},
+	}
 	
 /**
  *	Editor Components Constructor Pattern
@@ -281,7 +307,7 @@ window.ui = {
  *	@Contructor
  *	@return
  */	
-	Editors: function(){
+ui.Editors = function(){
 		var that = ui.PowerConstructor(); // Inheritance
 		var wrapper;
 		
@@ -347,24 +373,8 @@ window.ui = {
 		};
 
 		return that;
-	},
-
-/**
- *	@static Utils. Common usage functions.
- *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
- *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
- */		
-	utils: {
-		body: $('body'),
-		window: $(window),
-		document: $(document),
-		/**
-		 *  @function
-		 *  @arguments {String}
-		 *  @returns {String} New String with uppercase the first character.
-		 */		
-		ucfirst: function(s) { return (s + '').charAt(0).toUpperCase() + s.substr(1); }
-	}	
-};
-
+	}
+    
+    ui.init();
+    
 })(jQuery);
