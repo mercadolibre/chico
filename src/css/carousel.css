@@ -1,0 +1,47 @@
+.uiCarousel{
+	overflow:hidden;
+}
+
+.uiCarousel .mask{
+	overflow: hidden;
+	position: relative;
+	margin:0 35px;
+}
+
+.uiCarousel .uiContent{
+	position:absolute;
+}
+
+.uiCarousel .uiContent li{
+	margin:0 10px;
+	float:left;
+}
+
+.uiCarousel .prev, .uiCarousel .next {
+	background-image: url('http://img.mlstatic.com/org-img/vip3/sripteRel.gif');
+	background-repeat: no-repeat;
+	cursor: pointer;
+	display: block;
+	text-indent: 999px;
+	overflow: hidden;
+	height:57px;
+	width:25px;
+	position: absolute;
+}
+.uiCarousel .prev{
+	background-position: left 0px;
+	left: 10px;
+}
+
+.uiCarousel .prev:hover{
+	background-position: left -63px;
+}
+
+.uiCarousel .next{
+	background-position: right 0px;
+	right: 10px;
+}
+
+.uiCarousel .next:hover{
+	background-position: right -63px;
+}

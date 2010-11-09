@@ -6,16 +6,16 @@
  *  @memberOf ui.Floats
  */
 
-ui.Tooltip = function(element){
+ui.Tooltip = function(conf){
 	var that = ui.Floats(); // Inheritance
 
 	// Global configuration
 	var conf = {
-		$trigger: $(element),
+		$trigger: $(conf.element),
 		name: 'tooltip',
 		content: {
 			type: 'param',
-			data: element.title
+			data: conf.element.title
 		},
 		align: 'drop',
 		cone: true

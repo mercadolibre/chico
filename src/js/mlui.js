@@ -62,10 +62,10 @@ ui.factory = {
             ui.communicator.getComponent(x, function(){ // Send configuration to a component
                 if (!ui.instances[x]) 
                     ui.instances[x] = []; // If component instances don't exists, create this like array
+                
                 console.log("Configuring..."+that);
                 
                 that.each(function(i, e){
-                    console.log(conf);
                     conf.name = x;
                     conf.element = e;
                     conf.id = i;
@@ -288,13 +288,13 @@ ui.Floats = function(){
 			if(conf.align) ui.positionator[conf.align](conf);
 			if(conf.classes) conf.$htmlContent.addClass(conf.classes);
 
-			conf.$htmlContent.fadeIn('normal', function(){ that.callbacks(conf, 'show'); });
+			conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
 		};
 
 		that.hide = function(event, conf){
 			that.prevent(event);
 			//TODO: clearTimers();
-			$('.ui' + ui.utils.ucfirst(conf.name)).fadeOut('normal', function(event){ $(this).remove(); });
+			$('.ui' + ui.utils.ucfirst(conf.name)).fadeOut('fast', function(event){ $(this).remove(); });
 			that.callbacks(conf, 'hide');
 		};
 

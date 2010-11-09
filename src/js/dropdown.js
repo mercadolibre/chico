@@ -4,11 +4,11 @@
  *	@Contructor
  *	@return An interface object
  */	
-ui.Dropdown = function(element){
+ui.Dropdown = function(conf){
 	var that = ui.Navigators(); // Inheritance
 
 	// Global configuration
-	var $trigger = $(element).children(':first');
+	var $trigger = $(conf.element).children(':first');
 	var conf = {
 		name: 'dropdown',
 		$trigger: $trigger,
