@@ -53,24 +53,28 @@ ui.factory = {
         var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
         console.log(name + " processing...")
         
-        $.fn[x] = function(conf) {
-            console.log(name + " created...")
-            conf = conf || {};
+        $.fn[x] = function(options) {
+
+            var options = options || {};
             var that = this;
-            console.log(this);
+
             // TODO: If component is already loaded, avoid downloading
             ui.communicator.getComponent(x, function(){ // Send configuration to a component
-                if (!ui.instances[x]) 
-                    ui.instances[x] = []; // If component instances don't exists, create this like array
                 
-                console.log("Configuring..."+that);
-                
+                if (!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
+                               
                 that.each(function(i, e){
-                    conf.name = x;
-                    conf.element = e;
-                    conf.id = i;
-                    // Invoko el constructor
+                    
+                    var conf = {};
+                        conf.name = x;
+                        conf.element = e ;
+                        conf.id = i;
+                    
+                    $.extend( conf , options );
+
+                    // Map the instance and Invoke the constructor
                     ui.instances[x].push(ui[name](conf));
+                    
                     console.log(x + " invoking Constructor...")
                 });
             });
