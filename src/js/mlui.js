@@ -51,7 +51,7 @@ ui.factory = {
     configure: function(x){
         var name = ui.utils.ucfirst(x);
         var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
-        console.log(name + " processing...")
+        // console.log(name + " processing...")
         
         $.fn[x] = function(options) {
 
@@ -75,7 +75,7 @@ ui.factory = {
                     // Map the instance and Invoke the constructor
                     ui.instances[x].push(ui[name](conf));
                     
-                    console.log(x + " invoking Constructor...")
+                    // console.log(x + " invoking Constructor...")
                 });
             });
         }
