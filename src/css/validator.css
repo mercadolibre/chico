@@ -1,0 +1,33 @@
+/* Forms */
+
+label input:focus, label textarea:focus{
+	border-width:2px;
+}
+
+.errorField {
+	border:2px solid #C62026;
+}
+
+.errorField:focus {
+	background:#ffefef;
+}
+
+/* Helper */
+
+.uiHelper {
+	background:#fbd9db url('http://10.100.34.210/content/assets/spr.png') 0 -388px  no-repeat;
+	border:1px solid #f7a9ae;
+	display:inline-block;
+	color:#600;
+	font-size:12px;
+	padding: 3px 4px 3px 25px;
+	max-width:220px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	position:absolute;
+}
+
+.uiHelper .cone {
+	background-image:url('../assets/cone_validation_top.png');
+}
