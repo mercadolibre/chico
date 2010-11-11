@@ -38,7 +38,7 @@ ui.Carousel = function(conf){
 	if(conf.arrows != false) $mask.css('marginLeft', margin);
 	
 	var prev = function(event){
-		//if(status) return;//prevButton.css('display') === 'none' limit public movement
+		if(status) return;//prevButton.css('display') === 'none' limit public movement
 		
 		var htmlContentPosition = conf.$htmlContent.position();
 		
@@ -53,7 +53,7 @@ ui.Carousel = function(conf){
 	};
 	
 	var next = function(event){
-		//if(status) return;//nextButton.css('display') === 'none' limit public movement
+		if(status) return;//nextButton.css('display') === 'none' limit public movement
 		
 		var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
 		
