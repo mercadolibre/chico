@@ -11,30 +11,34 @@ ui.Carousel = function(conf){
 
 	// Global configuration
 	conf.$trigger = $(conf.element).addClass('uiCarousel');
-	conf.$htmlContent = $(conf.element).find('.carousel').addClass('uiContent');
+	conf.$htmlContent = $(conf.element).find('.carousel').addClass('uiContent');//TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
 
 	// UL Width calculator
+	//conf.htmlElementMargin?
 	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + 20);
-	
+
 	// UL configuration
 	conf.$htmlContent
-		.wrap($('<div>').addClass('mask'))
+		.wrap($('<div>').addClass('mask'))//gracias al que esta abajo puedo leer el $mask.width()
 		.css('width', htmlContentWidth);
 		
 	// Mask Object	
 	var $mask = conf.$trigger.find('.mask');
-	
-	// Steps
-	var steps = ~~((conf.$trigger.width() - 100) / (conf.$htmlContent.children().outerWidth() + 20));
 
+	// Steps = (width - marginMask / elementWidth + elementMargin)
+	var steps = ~~( $mask.width() / (conf.$htmlContent.children().outerWidth() + 20));
+	steps = (steps==0) ? 1 : steps;
+	
 	// Move to... (steps in pixels)
 	var moveTo = (conf.$htmlContent.children().outerWidth() + 20) * steps;
 
-	// Mask width
-	$mask.width( moveTo ).height( conf.$htmlContent.outerHeight() );
+	// Mask configuration
+	var margin = ($mask.width()-moveTo)/2 +35;
+	$mask.width( moveTo ).height( conf.$htmlContent.outerHeight() ); 
+	if(conf.arrows != false) $mask.css('marginLeft', margin);
 	
 	var prev = function(event){
-		if(prevButton.css('display') === 'none' || status) return;
+		//if(status) return;//prevButton.css('display') === 'none' limit public movement
 		
 		var htmlContentPosition = conf.$htmlContent.position();
 		
@@ -49,7 +53,7 @@ ui.Carousel = function(conf){
 	};
 	
 	var next = function(event){
-		if(nextButton.css('display') === 'none' || status) return;
+		//if(status) return;//nextButton.css('display') === 'none' limit public movement
 		
 		var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
 		
@@ -77,12 +81,15 @@ ui.Carousel = function(conf){
 		.bind('click', next)
 		.hide()
 		.css('top', (conf.$htmlContent.outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
-
-	// Append buttons
-	conf.$trigger.prepend(prevButton).append(nextButton);
-
-	// Si el ancho del UL es mayor que el de la mascara, muestra next
-	if(htmlContentWidth > $mask.width()){ nextButton.show(); }
 	
+	
+	
+	if(conf.arrows != false) {
+		// Append buttons
+		conf.$trigger.prepend(prevButton).append(nextButton);
+		// Si el ancho del UL es mayor que el de la mascara, muestra next
+		if(htmlContentWidth > $mask.width()){ nextButton.show();}
+	};
+
 	return { nxt: function(event){ next(event)}, prv: function(event){ prev(event)} }
 };

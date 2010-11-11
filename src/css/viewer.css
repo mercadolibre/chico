@@ -1,0 +1,56 @@
+.uiViewer{
+	border:1px solid #CCCCCC;	
+	overflow:hidden;
+	padding:5px 0;
+	position:relative;
+	text-align:center;
+	width:340px;
+	height:380px;
+}
+
+.uiViewer .uiContent.uiCarousel .mask{
+	margin:0;
+}
+
+.uiViewer .uiContent.uiCarousel .carousel li{
+	height:320px;
+	width:320px;
+}
+
+.uiViewer .uiTriggers.uiCarousel{
+	border-top:1px solid #ccc;
+	padding-top:10px;
+	position:relative;
+}
+
+.uiViewer .uiTriggers.uiCarousel .mask{
+	margin:0 35px;
+}
+
+
+.uiViewer .uiTriggers.uiCarousel .carousel li{
+	height:42px;
+	margin:0 5px;
+	width:42px;
+}
+
+.uiViewer .uiTriggers.uiCarousel .carousel li a{
+	border:1px solid #FFFFFF;
+	display:block;
+	height:40px;
+	width:40px;
+}
+
+.uiViewer .uiTriggers.uiCarousel .carousel li a.on, .uiViewer .uiTriggers.uiCarousel .carousel li a:hover{
+	border:1px solid #CCC;
+}
+
+/*Modal*/
+
+.modalView{
+	width:500px;
+	height:500px;
+	text-align:center;
+}
+
+
