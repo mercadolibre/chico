@@ -25,16 +25,13 @@ ui.Layer = function(conf){
 			.bind('click',function(event){
 				$('.uiLayer').remove(); // Clear all helpers
 				that.show(event, conf);
-
-				/*// Document events
+				$('.uiLayer').bind('click', function(event){ event.stopPropagation() });
+				
+				// Document events
 				$(document).bind('click', function(event){
 					that.hide(event, conf);
 					$(document).unbind('click');
 				});
-				
-				$('.uiLayer').bind('click', function(event){
-					that.prevent(event);
-				});*/
 			});
 
 	// Hover

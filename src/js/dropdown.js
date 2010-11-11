@@ -9,14 +9,19 @@ ui.Dropdown = function(conf){
 
 	// Global configuration
 	conf.$trigger = $(conf.element).children(':first');
-	conf.$htmlContent = conf.$trigger.next();
-
+	conf.$htmlContent = conf.$trigger.next().bind('click', function(event){ event.stopPropagation() });
+	
 	// Events
-	// Trigger
 	conf.$trigger
 		.bind('click', function(event){
 			if(that.status){ that.hide(event, conf); return; };
 			that.show(event, conf);
+		
+			// Document events
+			$(document).bind('click', function(event){
+				that.hide(event, conf);
+				$(document).unbind('click');
+			});
 		})
 		.css('cursor','pointer')
 		.addClass('uiTrigger')
