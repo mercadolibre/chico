@@ -11,11 +11,11 @@ ui.Carousel = function(conf){
 
 	// Global configuration
 	conf.$trigger = $(conf.element).addClass('uiCarousel');
-	conf.$htmlContent = $(conf.element).find('.carousel').addClass('uiContent');//TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
+	conf.$htmlContent = $(conf.element).find('.carousel').addClass('uiContent'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
 
 	// UL Width calculator
-	//conf.htmlElementMargin?
-	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + 20); // TODO: 20 = margen seteado manualmente
+	var htmlElementMargin = ($.browser.msie && $.browser.version == '6.0') ? 40 : 20;
+	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + htmlElementMargin);
 
 	// UL configuration
 	conf.$htmlContent

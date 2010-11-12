@@ -22,8 +22,7 @@
 	background-repeat: no-repeat;
 	cursor: pointer;
 	display: block;
-	text-indent: 999px;
-	overflow: hidden;
+	text-indent: -9999px;
 	height:57px;
 	width:25px;
 	position: absolute;
@@ -44,4 +43,9 @@
 
 .uiCarousel .next:hover{
 	background-position: right -63px;
+}
+
+/* IE 6 */
+.ie6 .uiCarousel .next{
+	right:30px;
 }
