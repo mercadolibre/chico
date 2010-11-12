@@ -139,6 +139,7 @@
   height: 11px !important;
   font-size: 10px !important;
   z-index: 10 !important;
+  display:none !important;
 }
 .syntaxhighlighter .toolbar span.title {
   display: inline !important;
