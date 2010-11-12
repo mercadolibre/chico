@@ -1,2 +1,7 @@
+# OS or Editor folders
+.DS_Store
+.cache
 .project
-*DS_Store*
+.settings
+nbproject
+thumb.db
