@@ -20,15 +20,15 @@ ui.Tooltip = function(conf){
 		align: 'drop',
 		cone: true
 	};
-
+		
 	conf.$trigger
 		.css('cursor', 'default')
-		.bind('mouseover', function(event){
-			$(this).removeAttr('title', '');
+		.bind('mouseenter', function(event){
+			$(this).attr('title',''); // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 			that.show(event, conf);
 		})
-		.bind('mouseout', function(event){
-			$(this).attr('title', conf.content.data);
+		.bind('mouseleave', function(event){
+			$(this).attr('title',conf.content.data);
 			that.hide(event, conf);
 		});
 
