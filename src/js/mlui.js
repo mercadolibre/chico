@@ -53,9 +53,9 @@ ui.factory = {
         var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
         // console.log(name + " processing...")
         
-        $.fn[x] = function(options) {
-
+        $.fn[x] = function(options) {			
             var options = options || {};
+            if(typeof options !== 'object'){ alert('UI: ' + x + ' configuration error.'); return };
             var that = this;
 
             // TODO: If component is already loaded, avoid downloading
@@ -198,7 +198,7 @@ ui.PowerConstructor = function(){
 			
 			loadContent: function(conf){
 				if(typeof conf.content !== 'object' || !conf.content.type ){
-					throw('UI: "content" attribute error.'); return;
+					alert('UI: "content" attribute error.'); return;
 				}else{
 					switch(conf.content.type.toLowerCase()){
 						case 'ajax': // data = url
