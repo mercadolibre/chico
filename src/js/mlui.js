@@ -213,8 +213,8 @@ ui.factory = function(method, x) {
 	   ex. ui.get("component","tooltip",callback); ui.comm("get",{...}
 */
 
-ui.environment = "http://10.100.34.210:8080/content/chico/"+ ui.version + "/";
-//ui.environment = "";
+//ui.environment = "http://10.100.34.210:8080/content/chico/"+ ui.version + "/";
+ui.environment = "";
 
 ui.get = function(method, config, callback) {
 
