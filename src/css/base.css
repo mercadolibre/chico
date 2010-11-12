@@ -419,7 +419,7 @@ hr {
 	-webkit-border-radius: 5px;
 }
 
-.container > .box:first-child {
+.container > .box:first-of-type {
 	border-radius: 5px 5px 0 0;
 	-moz-border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;

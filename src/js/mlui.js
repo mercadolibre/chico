@@ -7,6 +7,8 @@ var ui = window.ui = {
 
     version: "0.4",
 
+	mode: "dev",
+
  	instances: {},
  	
 	init: function() { 
@@ -213,34 +215,54 @@ ui.factory = function(method, x) {
 	   ex. ui.get("component","tooltip",callback); ui.comm("get",{...}
 */
 
-//ui.environment = "http://10.100.34.210:8080/content/chico/"+ ui.version + "/";
-ui.environment = "";
+ui.environment = function (mode, config) {
+	
+	switch (mode) {
+	
+	case "pub":
+
+		return {
+			uri: "http://10.100.34.210:8080/content/chico/"+ ui.version + "/php/",
+			css: "css.php?q="+config,
+			js: "js.php?q="+config
+		}
+
+		break;
+	
+	case "dev":
+
+		return {
+			uri: "",
+			css: "src/css/"+config+".css",
+			js: "src/js/"+config+".js"
+		}
+
+		break;
+	
+	}
+	
+}
+
 
 ui.get = function(method, config, callback) {
 
     switch(method) {
 
-		case "mode": 
-		
-			return ui.environment.selected; 
-			
-			break;
-
     	case "component":
 
-			var url = ui.environment;
+			var url = ui.environment(ui.mode, config);
             
 	    	var head = document.getElementsByTagName("head")[0] || document.documentElement;
             
    			var link = document.createElement('link');
-	    		link.href = url + 'src/css/' + config + '.css'; // TODO: this should get a better solution
+	    		link.href = url.uri + url.css;
     	    	link.rel = 'stylesheet';
 	        	link.type = 'text/css';
                 
 		    	head.appendChild(link);
                 
 		   	var script = document.createElement("script");
-    			script.src = url + 'src/js/' + config + '.js'; // TODO: this should get a better solution
+    			script.src = url.uri + url.js;
                 
 			// Handle Script loading
 			var done = false;
