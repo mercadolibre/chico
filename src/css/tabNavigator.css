@@ -34,7 +34,10 @@
 }
 
 .uiTabNavigator .uiTrigger {
-	-moz-border-radius:5px 5px 0 0;	
+	border-radius:5px 5px 0 0;
+	-moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius:5px 5px 0 0;
+}	
 }
 
 .uiTabNavigator.vertical .uiTrigger {
@@ -62,6 +65,9 @@
 
 .uiTabNavigator .box{
  	background-image:none;
+ 	border-radius:0;
+ 	-moz-border-radius:0;
+	-webkit-border-radius:0;
 }
 
 .uiTabNavigator.vertical .uiContent{

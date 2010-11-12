@@ -73,5 +73,5 @@ SyntaxHighlighter.brushes.Xml = function()
 SyntaxHighlighter.brushes.Xml.prototype	= new SyntaxHighlighter.Highlighter();
 SyntaxHighlighter.brushes.Xml.aliases	= ['xml', 'xhtml', 'xslt', 'html'];
 
-SyntaxHighlighter.config.clipboardSwf = 'clipboard.swf';
+SyntaxHighlighter.config.clipboardSwf = '../assets/clipboard.swf';
 SyntaxHighlighter.all();
