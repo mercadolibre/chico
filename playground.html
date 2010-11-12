@@ -1,0 +1,175 @@
+<!doctype html>
+<head>
+	<script></script>
+	<!--[if IE]><![endif]-->
+	<meta charset="utf-8">
+	<title>Chico UI JavaScript SDK</title>
+	<link rel="stylesheet" type="text/css" href="src/css/base.css" />
+	<style>			
+		h1{
+			margin-bottom:10px;
+		}
+		
+		.carousel li{
+			height:120px;
+			width:120px;			
+		}
+	</style>
+</head>
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->	
+<h1 class="typo">Chico UI JavaScript SDK</h1>
+<div class="container clearfix">
+	<h1>Dropdown</h1>
+	<div class="dropdown">
+		<span>Productos</span>
+		<ul>
+			<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+			<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+			<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+			<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+		</ul>			
+	</div>
+	
+	<hr>
+	<h1>Tab Navigator Horizontal</h1>
+	<div class="pagos">
+		<ul>
+			<li><a href="#tab1">Tab1</a></li>
+			<li><a href="test.html">Tab2</a></li>
+			<li><a href="#tab3">Tab3</a></li>
+		</ul>
+		<div>
+			<div id="tab1">
+				<h3>Contenido del tab1</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+				<p>Nam neque lacus, laoreet et porta vitae, tincidunt ut quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce erat arcu, mattis sit amet dapibus id, ultrices ut dui. Sed ullamcorper augue ac felis dictum auctor. Nam id blandit urna. Vestibulum aliquet eros vestibulum massa laoreet non rutrum magna fermentum. In hac habitasse platea dictumst. Etiam purus mi, molestie id lacinia nec, pellentesque et eros. Aliquam erat volutpat. Ut metus libero, tempus at mattis auctor, laoreet vehicula neque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi viverra est sit amet sem auctor malesuada. Duis lacinia pharetra sodales. Donec at magna nec metus luctus vestibulum non tempus felis. Pellentesque a eleifend ante.</p>				
+			</div>
+			
+			<!--div id="tab2">
+				<h3>Contenido del tab2</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+			</div-->
+			
+			<div id="tab3">
+				<h3>Contenido del tab3</h3>				
+				<p>Nam neque lacus, laoreet et porta vitae, tincidunt ut quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce erat arcu, mattis sit amet dapibus id, ultrices ut dui. Sed ullamcorper augue ac felis dictum auctor. Nam id blandit urna. Vestibulum aliquet eros vestibulum massa laoreet non rutrum magna fermentum. In hac habitasse platea dictumst. Etiam purus mi, molestie id lacinia nec, pellentesque et eros. Aliquam erat volutpat. Ut metus libero, tempus at mattis auctor, laoreet vehicula neque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi viverra est sit amet sem auctor malesuada. Duis lacinia pharetra sodales. Donec at magna nec metus luctus vestibulum non tempus felis. Pellentesque a eleifend ante.</p>				
+			</div>
+		</div>
+	</div>
+	
+	<hr>
+	<h1>Tooltip</h1>
+	<img class="tooltip" title="Mal vendedor" alt="Mal vendedor" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/2.gif">
+	<img class="tooltip" title="Buen vendedor" alt="Buen vendedor" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+	
+	<hr>
+	<h1>Contextual Layer</h1>	
+	<p class="box"><span class="layerClick">Layer ejecutado en el clic.</span> | <span class="layerHover">Layer ejecutado en el hover.</span></p>				
+
+	<hr>
+	<h1>Modal Window</h1>
+	<div class="box">
+		<ul>
+			<li style="margin-bottom:10px;"><a href="http://www.mercadolibre.com.ar/" class="ggl">Ejecutar modal.</a></li>
+			<li>
+				<form action="test.html">
+					<input type="submit" class="btn primary" id="comprar" value="Comprar">
+				</form>
+			</li>
+		</ul>
+	</div>
+	
+	<hr>
+	<h1>Carousel</h1>
+	<div class="box destacados">
+		<ul class="carousel">
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_52438414_6623.jpg"></li>
+		</ul>	
+	</div>
+	
+	<hr>
+	<h1>Edit in place</h1>
+	<div class="box">
+		<p>Lorem ipsum dolor sit amet, <span class="edit1">consecteur</span> adipiscing elit. Donec sit amet purus in sapien luctus <span class="edit2">sodales</span>.</p>	
+	</div>
+
+</div>
+
+<script src="src/js/jquery.js"></script>
+<script src="src/js/mlui.js"></script>
+<script>
+	
+$(function() { 
+	
+	// Tooltip
+	$('.tooltip').tooltip();
+	
+	// Dropdown
+    $('.dropdown').dropdown();
+    
+    // Carousel
+    $('.destacados').carousel();
+    
+    // Edit in place
+    $('.edit1, .edit2').editInPlace();
+    
+    // Layer
+    $('.layerClick').layer({
+    	event: 'click',
+    	content: {
+    		type:'param',
+			data:'<h2>Layer ejecutado onClick</h2><ul><li>Se cierra con clic en el boton cerrar</li><li>Se cierra con clic fuera del layer.</li></ul></p>'
+    	}
+    });
+    $('.layerHover').layer({
+    	content: {
+			type:'param',
+			data:'<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
+		}
+    });
+    
+    // Modal
+    $('.ggl').modal({
+    	content: {
+			type:'param',
+			data:'<h2>Titulo para modal</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>'
+		}
+    });
+    $('#comprar').modal({
+    	content: { type:'ajax' },
+		callbacks:{                   
+            show:function(){ 
+            	$('.titleAjax').bind('click', function(){
+            		alert('Callback show: Done!');
+            	})
+             },
+            hide:function(){  }                         
+        }
+    });
+    
+    // Tab navigator
+    $('.pagos').tabNavigator();
+});
+
+</script>
+</body>
+</html>

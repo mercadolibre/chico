@@ -1,0 +1,20 @@
+h1, h2, .article{
+	margin-bottom:10px;
+}
+
+.section, .aside{
+	float:left;
+}
+
+.section{
+	width:60%;
+	margin-right:1%;
+}
+
+.aside{
+	width:39%;
+}
+
+hr{
+	clear:left;
+}
