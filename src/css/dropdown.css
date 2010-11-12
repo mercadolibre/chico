@@ -1,6 +1,6 @@
-.dropdown{position: relative;}
+.uiDropdown{position: relative;}
 
-.dropdown .uiTrigger, .dropdown .uiTrigger:hover, .dropdown .uiTrigger.on, .dropdown .uiTrigger.on:hover{ /* sprite para backgrounds */
+.uiDropdown .uiTrigger, .uiDropdown .uiTrigger:hover, .uiDropdown .uiTrigger.on, .uiDropdown .uiTrigger.on:hover{ /* sprite para backgrounds */
 	background-image:url('http://10.100.34.210/content/assets/spr.png');
 	background-repeat: repeat-x;
 	-moz-border-radius:5px;
@@ -8,7 +8,7 @@
 	border-radius:5px;
 }
 
-.dropdown .uiTrigger {
+.uiDropdown .uiTrigger {
 	display:inline-block;
 	cursor:pointer;
 	height:19px;
@@ -21,23 +21,23 @@
 	position:relative;
 }
 
-.dropdown .uiTrigger:hover{
+.uiDropdown .uiTrigger:hover{
 	background-position: 0 -296px;
 }
 
 
-.dropdown .uiTrigger.on, .dropdown .uiTrigger.on:hover{
+.uiDropdown .uiTrigger.on, .uiDropdown .uiTrigger.on:hover{
 	background-position: 0 -321px;
 	-moz-border-radius:5px 5px 0 0;
 	-webkit-border-radius:5px 5px 0 0;
 	border-radius:5px 5px 0 0;
 }
 
-.dropdown .uiTrigger.on .uiContent {
+.uiDropdown .uiTrigger.on .uiContent {
 	z-index:900;
 }
 
-.dropdown .uiContent {
+.uiDropdown .uiContent {
 	background-color:#fff;
 	border:1px solid #74B5C5;
 	line-height:18px;
@@ -50,25 +50,25 @@
 	display:none;
 }
 
-.dropdown .uiTrigger .ico.down, .dropdown .uiTrigger.on .ico.down {
+.uiDropdown .uiTrigger .ico.down, .uiDropdown .uiTrigger.on .ico.down {
 	position:absolute;
 	right:5px;
 	top:3px;
 	vertical-align:bottom;
 }
-.dropdown .uiTrigger .ico.down {
+.uiDropdown .uiTrigger .ico.down {
 	background:transparent url('http://10.100.34.210/content/assets/spr.png') 0px -460px no-repeat;
 }
 
-.dropdown ul.uiContent {
+.uiDropdown ul.uiContent {
 	padding:0;
 }
 
-.dropdown ul.uiContent li {
+.uiDropdown ul.uiContent li {
 	display:block;
 	margin: 5px;
 }
-.dropdown ul.uiContent li a {
+.uiDropdown ul.uiContent li a {
 	color:#000;
 	text-decoration:none;
 	display:block;
@@ -76,6 +76,6 @@
 	line-height:25px;
 	padding:0 5px;
 }
-.dropdown ul.uiContent li a:hover,.dropdown ul.uiContent li a:focus {
+.uiDropdown ul.uiContent li a:hover,.uiDropdown ul.uiContent li a:focus {
 	background-color:#fefbd6;
 }

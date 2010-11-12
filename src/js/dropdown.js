@@ -8,6 +8,7 @@ ui.Dropdown = function(conf){
 	var that = ui.Navigators(); // Inheritance
 
 	// Global configuration
+	$(conf.element).addClass('uiDropdown');
 	conf.$trigger = $(conf.element).children(':first');
 	conf.$htmlContent = conf.$trigger.next().bind('click', function(event){ event.stopPropagation() });
 	
