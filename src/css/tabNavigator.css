@@ -90,3 +90,7 @@
 	display:inline;
 	margin:0 2px;
 }
+
+.ie7 .box .uiTabNavigator ul{
+	top:1px;
+}
