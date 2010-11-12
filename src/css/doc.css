@@ -1,5 +1,15 @@
-h1, h2, .article{
+.carousel li{
+	width:120px;
+	height:120px;
+}
+
+h1, h2, .article.demo, .header{
 	margin-bottom:10px;
+}
+
+.article.demo{
+	clear:left;
+	overflow:hidden;
 }
 
 .section, .aside{
@@ -15,6 +25,18 @@ h1, h2, .article{
 	width:39%;
 }
 
-hr{
-	clear:left;
+.header{
+	position:relative;
+	border-bottom:1px solid #ccc;
+	padding:5px 0;
+}
+
+.header h1{
+	font-size:24px;
+}
+
+.header p{
+	position:absolute;
+	right:0;
+	top:15px;
 }

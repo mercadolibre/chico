@@ -16,33 +16,23 @@
 	<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 	
 		<div class="header">
-			<h1>Chico UI</h1>
+			<h1>Chico UI - Documentación</h1>
+			<p>Encontraste algún bug? <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportar bugs</a>.</p>
 		</div>
 		
-		<div class="article">
-			<h1>Tab Navigator</h1>
+		<div class="article demo">
+			<h1>Dropdown</h1>
 			<div class="section">
 				<div class="box">
 					<h2>Demo</h2>
-					<div class="demo">
+					<div class="demoDropdown">
+						<span>Sitios</span>
 						<ul>
-							<li><a href="#tab1">Tab1</a></li>
-							<li><a href="#tab2">Tab2</a></li>
-							<li><a href="#tab3">Tab3</a></li>
+							<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+							<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+							<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+							<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
 						</ul>
-						<div>
-							<div id="tab1">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-							</div>
-			
-							<div id="tab2">
-								<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
-							</div>
-					
-							<div id="tab3">
-								<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -54,35 +44,174 @@
 					<code>
 						<pre class="brush: xml">
 							<div class="foo">
+								<span>Title</span>
 								<ul>
-									<li><a href="#foo1">Tab1</a></li>
-									<li><a href="#foo2">Tab2</a></li>
-									<li><a href="#foo3">Tab3</a></li>
+									<li><a href="...">...</a></li>
+									<li><a href="...">...</a></li>
+									<li><a href="...">...</a></li>
+									<li><a href="...">...</a></li>
 								</ul>
-								<div>
-									<div id="foo1">...</div>
-									<div id="foo2">...</div>
-									<div id="foo3">...</div>
-								</div>
 							</div>
 						</pre>
 					</code>
 					<p>El Javascript para iniciarlo es:</p>
 					<code>
 						<pre class="brush: js;">
-							$('.foo').tabNavigator();
+							$('.foo').dropdown();
 						</pre>
 					</code>
 				</div>
 			</div>
 		</div>
 		
-		<div class="article">
+		<div class="article demo">
+			<h1>Tooltip</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<img class="demoTooltip" title="Buen vendedor" alt="Buen vendedor" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre class="brush: xml">
+							<element class="foo" title="Foobar">...</element>
+						</pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre class="brush: js;">
+							$('.foo').tooltip();
+						</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
+			<h1>Layer</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<span class="demoLayerOnclick">Layer ejecutado en el clic.</span> | <span class="demoLayerOnmouseover">Layer ejecutado en el hover.</span>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre class="brush: xml">
+							<element class="foo">...</element>
+						</pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre class="brush: js;">
+							$('.foo').layer();
+						</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
+			<h1>Modal window</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<a href="test.html" class="demoModal">Modal ejecutado en un link.</a></li>
+					<form action="test.html">
+						<input type="submit" class="btn secondary demoModal" value="Modal ejecutado en un botón">
+					</form>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre class="brush: xml">
+							<a href="Foobar" class="foo">...</a></li>
+							
+							ó
+							
+							<form action="Foobar">
+								<input class="Foobar" type="submit" value="..." class="btn secondary">
+							</form>
+						</pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre class="brush: js;">
+							$('.foo').modal();
+						</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
+			<h1>Carousel</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<div class="box demoCarousel">
+						<ul class="carousel">
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+							
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+							
+							<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+							<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+							<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+							<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre class="brush: xml">
+							<div class="foo">
+								<ul class="carousel">
+									<li>...</li>
+								</ul>
+							</div>
+						</pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre class="brush: js;">
+							$('.foo').carousel();
+						</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
 			<h1>Tab Navigator</h1>
 			<div class="section">
 				<div class="box">
 					<h2>Demo</h2>
-					<div class="demo">
+					<div class="demoTabNavigator">
 						<ul>
 							<li><a href="#tab1">Tab1</a></li>
 							<li><a href="#tab2">Tab2</a></li>
@@ -139,8 +268,16 @@
 		<script src="src/js/jquery.js"></script>
 		<script src="src/js/mlui.js"></script>
 		<script>
-			$('.demo').tabNavigator();
+			$('.demoDropdown').dropdown();
+			$('.demoCarousel').carousel();
+			$('.demoModal').modal({ content: { type: 'ajax' } });
+			$('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
+			$('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
+			$('.demoTooltip').tooltip();
+			$('.demoTabNavigator').tabNavigator();
 		</script>
 		
+		<!-- Organization -->
+		<script>$(window).bind('load', function(){ $('.article').each(function(i, e){ $(e).find('.section .box:first').height($(e).find('.aside .box:first').height()) }) });</script>
 	</body>
 </html>
