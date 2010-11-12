@@ -5,6 +5,8 @@
   */
 var ui = window.ui = {
 
+    version: "0.4",
+
  	instances: {},
  	
 	init: function() { 
@@ -13,7 +15,7 @@ var ui = window.ui = {
         var tot = fns.length;
        
         for (var i=0; i<tot; i++) {
-            ui.factory.configure(fns[i]);
+            ui.factory("configure",fns[i]);
         }
     },
 /**
@@ -35,6 +37,8 @@ var ui = window.ui = {
 	}	
 
  }
+ 
+
 
 /**
  *	@static @class Factory
@@ -44,11 +48,16 @@ var ui = window.ui = {
 
 ui.factory = {
     /**
+     * 
+     *     DEPRECATED
+     * 
+     * 
+     * 
      *  @function configure
      *	@arguments conf {Object} This is an object parameter with components configuration
      *	@return A collection of object instances
      */
-    configure: function(x){
+    configure: function(x) {
         var name = ui.utils.ucfirst(x);
         var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
         // console.log(name + " processing...")
@@ -89,6 +98,10 @@ ui.factory = {
  */	
 ui.communicator = {
 /**
+ * 
+ *     DEPRECATED
+ * 
+ * 
  *  @function getComponent
  *  @arguments x {String} Name of the component.
  *  @arguments callback {Function} Callback when component is loaded.
@@ -134,6 +147,162 @@ ui.communicator = {
 			return result;
 		}
 	}
+    
+
+ 
+ui.factory = function(method, x) {
+
+
+    /**
+     *  @function configure
+     *	@arguments conf {Object} This is an object parameter with components configuration
+     *	@return A collection of object instances
+     */
+    switch(method) {
+
+    	case "configure":
+
+        var name = ui.utils.ucfirst(x);
+        var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
+        if (component) return; // WIP: If component is already loaded, avoid downloading
+        
+        $.fn[x] = function(options) {
+
+            var that = this;
+            var options = options || {};
+            
+            if (typeof options !== 'object') { 
+                alert('UI: ' + x + ' configuration error.'); 
+                return 
+            };
+                        
+            ui.get("component", x, function(){ // Send configuration to a component
+                
+                if (!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
+                               
+                that.each(function(i, e){
+                    
+                    var conf = {};
+                        conf.name = x;
+                        conf.element = e ;
+                        conf.id = i;
+                    
+                    $.extend( conf , options );
+
+                    // Map the instance and Invoke the constructor
+                    ui.instances[x].push(ui[name](conf));
+                    
+                    // console.log(x + " invoking Constructor...")
+                });
+            });
+        }
+        
+        break;
+        
+        default:
+        
+        break;
+	}
+	
+}
+
+
+/**
+	 WIP: ui.get("method", x||conf, callback); 
+	   
+	   ex. ui.get("component","tooltip",callback); ui.comm("get",{...}
+*/
+
+ui.environment = "http://10.100.34.210:8080/content/chico/"+ ui.version + "/";
+//ui.environment = "";
+
+ui.get = function(method, config, callback) {
+
+    switch(method) {
+
+		case "mode": 
+		
+			return ui.environment.selected; 
+			
+			break;
+
+    	case "component":
+
+			var url = ui.environment;
+            
+	    	var head = document.getElementsByTagName("head")[0] || document.documentElement;
+            
+   			var link = document.createElement('link');
+	    		link.href = url + 'src/css/' + config + '.css'; // TODO: this should get a better solution
+    	    	link.rel = 'stylesheet';
+	        	link.type = 'text/css';
+                
+		    	head.appendChild(link);
+                
+		   	var script = document.createElement("script");
+    			script.src = url + 'src/js/' + config + '.js'; // TODO: this should get a better solution
+                
+			// Handle Script loading
+			var done = false;
+
+   			// Attach handlers for all browsers
+			script.onload = script.onreadystatechange = function() {
+	    
+	    	if ( !done && (!this.readyState || 
+    					this.readyState === "loaded" || this.readyState === "complete") ) {
+    					
+				done = true; 
+	   	
+		   		// Fire callback
+				callback(config);
+   		 	
+		   		// Handle memory leak in IE
+	   			script.onload = script.onreadystatechange = null;
+   			
+		   		if ( head && script.parentNode ) {
+	   				head.removeChild( script );
+	   			}
+			}
+			
+			return config;
+		};
+                
+		// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+		// This arises when a base node is used.
+		head.insertBefore( script, head.firstChild );
+    
+    	break;
+    
+   		case "content":
+   			
+			var result;			
+			
+			conf.$htmlContent.html('<div class="loading"></div>');
+			
+			$.ajax({
+				url: conf.content.data,
+				type: 'POST', // Because ajax.data is sent everytime
+				data: {'x':'x'},
+				cache: true,
+				async: false, // Because getAjaxContent function returnaba before success and error
+				success: function(data){
+					result = data;
+				},
+				error: function(data){				
+					result = false;
+				}
+			});
+			
+			return result;
+		
+			break;
+    
+        default:
+        
+       		break;        
+	}
+	
+}
 	
 /**
  *  @static @class Positionator
