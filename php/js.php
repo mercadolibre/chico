@@ -15,7 +15,7 @@ if (!$files) return;
 
 foreach ($files as $file) {
 
-	$js = file_get_contents("../src/js/".$file."/".$file.".js");
+	$js = file_get_contents("../src/js/".$file.".js");
 	$js = JSMin::minify($js);
 
 	$jsout.=$js;
