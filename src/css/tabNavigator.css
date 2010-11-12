@@ -29,8 +29,9 @@
 	border:1px solid #AFAFAF;
 	display:inline-block;
 	padding:3px 12px;
-	text-decoration:none;
-	color:#333333;
+	text-decoration:none !important;
+	color:#333333 !important;
+	background-color:#fff;
 }
 
 .uiTabNavigator .uiTrigger {
@@ -38,7 +39,6 @@
 	-moz-border-radius:5px 5px 0 0;
 	-webkit-border-radius:5px 5px 0 0;
 }	
-}
 
 .uiTabNavigator.vertical .uiTrigger {
 	-moz-border-radius:5px 0 0 5px;
@@ -72,4 +72,21 @@
 
 .uiTabNavigator.vertical .uiContent{
  	padding-left:100px;
+}
+
+/* IE 6 */
+.ie6 .uiTabNavigator ul li{
+	display:inline;
+	margin:0 2px;
+}
+
+/* IE 7 */
+.ie7 .uiTabNavigator ul{
+	position:relative;
+	top:2px;
+}
+
+.ie7 .uiTabNavigator ul li{
+	display:inline;
+	margin:0 2px;
 }

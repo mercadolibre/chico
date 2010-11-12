@@ -44,14 +44,29 @@
 	overflow:auto;
 }
 
-.ie6 .dimmer { 
-	position:absolute;
-	width:102.5%;
-}
-.ie6 .dimmer,
-.ie8 .dimmer { 
+/* IE6 */
+.ie6 .dimmer{
+	filter:alpha(opacity=50) !important;
 	background-color:#000000;
-	filter: alpha(opacity=50);
+	width:105.2%;
 }
 
-.ie6 .uiModal{position:absolute;}
+html .ie6  div.dimmer{
+	position:absolute;
+	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop);
+}
+
+.ie6 .uiModal{
+	position:absolute;
+}
+
+* html .ie6  div.uiModal{
+	position: absolute;
+	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop +((documentElement.clientHeight-this.clientHeight)/2 ) : document.body.scrollTop +((document.body.clientHeight-this.clientHeight)/2));
+}
+
+/* IE 7 */
+.ie7 .dimmer, .ie8 .dimmer{
+	background-color:#000;
+	filter: alpha(opacity=50) !important;
+}
