@@ -13,7 +13,7 @@ var ui = window.ui = {
  	
 	init: function() { 
             
-        var fns = "carousel, dropdown, editInPlace, layer, modal, tabNavigator, tooltip".split(", ");
+        var fns = "carousel, dropdown, editInPlace, layer, modal, tabNavigator, validator, tooltip".split(", ");
         var tot = fns.length;
        
         for (var i=0; i<tot; i++) {
@@ -407,7 +407,7 @@ ui.PowerConstructor = function(){
 				};
 			},			
 			
-			callbacks: function(conf, when){
+			callbacks: function(conf, when, handler){
 				if(conf.callbacks && conf.callbacks[when]) conf.callbacks[when]();
 			}
 			

@@ -5,75 +5,9 @@
  *	@return An interface object
  */
 
-/*
-<h1>Validator</h1>
-<div class="box">
-	<form action="http://www.google.com/" class="formulario">
-		<fieldset>
-			<ol>
-				<li>
-					<label class="required" for="w1">
-						<span>E-mail (REQUERIDO):</span>
-						<input type="email" id="w1">
-					</label>
-				</li>
-				<li>
-					<label for="w2">
-						<span>URL:</span>
-						<input type="url" id="w2">
-					</label>
-				</li>
-				<li>
-					<label for="w3">
-						<span>Numero:</span>
-						<input type="number" id="w3" min="20">
-					</label>
-				</li>
-				<li>
-					<label for="w4">
-						<span>Rango de números:</span>
-						<input type="range" id="w4" min="1" max="10">
-					</label>
-				</li>
-				<li>
-					<label for="w5">
-						<span>Rango de caracteres:</span>
-						<input type="text" id="w5">
-					</label>
-				</li>
-			</ol>
-		</fieldset>
-		<p><input type="submit" value="Submit" class="btn primary"></p>
-	</form>
-</div>
-*/
-
-/*$('.formulario').validator({
-	fields: {
-		'#w1': {
-			required: 'El email es obligatorio.',
-			email: 'El email esta mal escrito.'
-		},
-		
-		'#w2': {
-			url: 'La URL esta mal escrita.'
-		},
-		
-		'#w3': {
-			number: 'El precio debe ser un número.',
-			min: 'El precio debe ser mayor a 20.',
-		},
-		
-		'#w4': {
-			range: 'El rango debe ser un número entre 1 y 10.'
-		}
-	}
-});*/
-
-
 ui.Validator = function(conf){
 	var that = ui.PowerConstructor(); // Inheritance
-	var formStatus;
+	var formStatus = true;
 	var watchers = [];
 	
 	// Validations
@@ -89,53 +23,55 @@ ui.Validator = function(conf){
 		maxChars:	function(x, n){ return x.toString().length <= n }
 	};
 	
-	// Validate
+	// Validate TODO: Refactorizar y unificar switch
 	var validate = function($element, messages){
 		var value = $element.val();
+		var helper = watchers[messages.id].helper;
+		var required = !$element.parent().hasClass('required') && !validations.required(value);
 		
 		var error = function(msg){
-			// Status error
-			$element.addClass('errorField');
-			watchers[messages.helper].helper.show(msg);
+			if($element.hasClass('errorField')) helper.hide(); else $element.addClass('errorField'); // If error existed...
+			helper.show(msg);
 			return false;
 		};
 		
 		for(x in messages){
+			if(required) break; // Required validation
+			
 			switch(x){
-				case 'required':
-				case 'text':
-				case 'email':
-				case 'url':
+				case 'required': case 'text': case 'email': case 'url':
 					if(!validations[x](value)) return error(messages[x]);
 				break;
 				case 'number':
 					if(!validations.number(value)) return error(messages.number);
-					if(!validations.min(value)) return error(messages.min);
-					if(!validations.max(value)) return error(messages.max);
+					if($element.attr('min') && !validations.min(value, $element.attr('min'))) return error(messages.min);
+					if($element.attr('max') && !validations.max(value, $element.attr('max'))) return error(messages.max);
 				break;
 				case 'range':
-					if(!validations.min(value) || !validations.max(value)) return error(messages.range); // TODO: validar que sea numerico
+					if( // TODO: validar que sea numerico
+						($element.attr('min') && !validations.min(value, $element.attr('min'))) ||
+						($element.attr('max') && !validations.max(value, $element.attr('max')))
+					) return error(messages.range);
 				break;
 			};
 		};
 		
 		// Status ok
 		$element.removeClass('errorField');
-		watchers[messages.helper].helper.hide();
+		//if(!required) helper.hide();
 		return true;
 	};
 	
 	// Watcher Contructor
 	var Watcher = function($element, messages){
-		var watcherStatus = true;
-		$element.bind('blur', function(){ watcherStatus = validate($element, messages) }); // Watcher events
-		return { status: watcherStatus, helper: ui.Helper($element) }; // Public members
+		$element.bind('blur', function(){ watchers[messages.id].status = validate($element, messages) }); // Watcher events
+		return { status: true, helper: ui.Helper($element) }; // Public members
 	};
 	
-	// Create each field
+	// Create each Watcher
 	var index = 0;
 	for(x in conf.fields){
-		conf.fields[x].helper = index;
+		conf.fields[x].id = index;
 		watchers.push(Watcher($(x), conf.fields[x]));
 		index ++;
 	};
@@ -144,19 +80,26 @@ ui.Validator = function(conf){
 	var submit = function(event){
 		that.prevent(event);
 		
-		// magic (recorrer e.status como tabs)
-		for(x in watchers){
-			console.log(watchers[x].status);
-			// if alguno status false meter mensjae arriba
-		};
+		// Global validation
+		$('.uiValidator').remove();
+		formStatus = true;
+		$.each(watchers, function(i, e){ if(!e.status) formStatus = false; });
 		
-		// Callback
-		that.callbacks(conf, 'submit');
+		// General error
+		if(!formStatus){
+			$(conf.element).before('<p class="uiValidator"><span class="ico error">Error: </span> ' + conf.defaults.error + '</p>');
+		// General ok
+		}else{
+			$('.uiValidator').remove();
+			// Callback vs. submit
+			if(conf.callbacks && conf.callbacks.submit) conf.callbacks.submit(); else conf.element.submit(); // TODO: Refactor callbacks (maybe)
+		};
 	};
 	
 	// Form events
 	$(conf.element).bind('submit', submit);
-
+	
+	// Public members
 	return { submit: submit, watchers: watchers };
 };
 
@@ -174,7 +117,6 @@ ui.Helper = function($element){
 	// Global configuration
 	var conf = {
 		name: 'helper',
-        //id: i,
         $trigger: $element,
 		align: 'drop',
 		cone: true,
@@ -186,8 +128,7 @@ ui.Helper = function($element){
 	};
 	
 	var show = function(msg){
-		//hide(); TODO: Hacer que desaparezca si este tiene contenido
-		conf.content.data = msg;
+		conf.content.data = '<span class="ico error">Error: </span>' + msg;
 		that.show($.Event(), conf);
 	};
 	

@@ -14,13 +14,16 @@ label input:focus, label textarea:focus{
 
 /* Helper */
 
-.uiHelper {
-	background:#fbd9db url('http://10.100.34.210/content/assets/spr.png') 0 -388px  no-repeat;
+.uiHelper, .uiValidator{
+	background-color:#fbd9db;
 	border:1px solid #f7a9ae;
-	display:inline-block;
 	color:#600;
 	font-size:12px;
-	padding: 3px 4px 3px 25px;
+	padding:5px;
+}
+
+.uiHelper{
+	display:inline-block;
 	max-width:220px;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -28,6 +31,15 @@ label input:focus, label textarea:focus{
 	position:absolute;
 }
 
-.uiHelper .cone {
+.uiValidator{
+	margin-bottom:10px;
+}
+
+.uiHelper .cone{
 	background-image:url('../assets/cone_validation_top.png');
+}
+
+.uiHelper .ico.error, .uiValidator .ico.error{
+	float:left;
+	margin:2px 5px 0 0;
 }
