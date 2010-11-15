@@ -14,9 +14,9 @@ ui.Carousel = function(conf){
 	conf.$htmlContent = $(conf.element).find('.carousel').addClass('uiContent'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
 
 	// UL Width calculator
-	var htmlElementMargin = ($.browser.msie && $.browser.version == '6.0') ? 40 : 20;
+	var htmlElementMargin = ($.browser.msie && $.browser.version == '6.0') ? 21 : 20;//IE necesita 1px de más
 	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + htmlElementMargin);
-
+	
 	// UL configuration
 	conf.$htmlContent
 		.wrap($('<div>').addClass('mask'))//gracias al que esta abajo puedo leer el $mask.width()
@@ -51,6 +51,9 @@ ui.Carousel = function(conf){
 			status = false;
 		});
 	};
+	
+	//En IE6 al htmlContentWidth por algun motivo se le suma el doble del width de un elemento (li) y calcula mal el next()
+	if($.browser.msie && $.browser.version == '6.0') htmlContentWidth = htmlContentWidth - (conf.$htmlContent.children().outerWidth()*2);
 	
 	var next = function(event){
 		if(status) return;//nextButton.css('display') === 'none' limit public movement

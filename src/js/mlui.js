@@ -359,6 +359,19 @@ ui.positionator = {
 			ui.utils.window.bind('resize', align);
 		},
 		
+		// Helpers
+		right: function(conf){
+			var os = conf.$trigger.offset();		
+			var align = function(){
+				conf.$htmlContent.css({
+					top: ( os.top + (conf.$trigger.outerHeight() / 2 ) - (conf.$htmlContent.outerHeight() / 2) ),
+					left: os.left + conf.$trigger.outerWidth() + 10
+				});
+			};
+			align();
+			ui.utils.window.bind('resize', align);
+		},		
+		
 		// Tooltip
 		follow: function(conf){
 			conf.$trigger.bind('mousemove', function(event){
@@ -469,13 +482,13 @@ ui.Floats = function(){
 		};
 
 		var createCone = function(conf){
-			$('<div class="cone"></div>').prependTo(conf.$htmlContent);
+			$('<div class="cone' + ((conf.align) ? ' ' + conf.align : '')  + '"></div>').prependTo(conf.$htmlContent);
 		};
 
 		that.show = function(event, conf){
 			that.prevent(event);
 			//TODO: clearTimers();
-			conf.$htmlContent = $('<div>').addClass('article ui' + ui.utils.ucfirst(conf.name));
+			conf.$htmlContent = $('<div>').addClass('ui' + ui.utils.ucfirst(conf.name));
 			conf.$htmlContent.html(that.loadContent(conf)).hide().appendTo('body');
 
 			// Visual configuration
