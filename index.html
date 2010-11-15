@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="src/css/highlight.css">
 		<link rel="stylesheet" type="text/css" href="src/css/base.css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
+		<script src="src/js/jquery.js"></script>
 	</head>
 	
 	<!--[if lt IE 7 ]>
@@ -22,6 +23,23 @@
 		<div class="header">
 			<h1>Chico UI - Documentación</h1>
 			<p>Encontraste algún bug? <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportar bugs</a>.</p>
+		</div>
+		
+		<div class="box">
+			<h1>Dependencias</h1>
+			<p><strong>Para utilizar chico-UI son necesarias las siguientes dependencias que deben ir linkeadas en su código HTML (no es necesario descargarlas).</strong></p>						
+			<code>
+				<pre name="code" class="xml">
+					<!-- Esta es la versión del base.css que reemplaza al base que se este utilizando y no se encuentre en la carpeta chico. -->	
+					<link rel="stylesheet" type="text/css" href="http://10.100.34.210:8080/content/chico/0.4/src/css/base.css">
+				</pre>
+			</code>			
+			<code>
+				<pre name="code" class="xml">
+					<!-- Este javascript es el único que se necesita para inicializar los componentes del SDK. -->
+					<script src="http://10.100.34.210:8080/content/chico/0.4/src/js/mlui.js"></script>
+				</pre>
+			</code>
 		</div>
 		
 		<div class="article demo">
@@ -250,8 +268,7 @@
 			</div>
 		</div>
 		
-		<script src="src/js/highlight.js"></script>
-		<script src="src/js/jquery.js"></script>
+		<script src="src/js/highlight.js"></script>		
 		<script src="src/js/mlui.js"></script>
 		<script>
 			$('.demoDropdown').dropdown();
