@@ -17,7 +17,7 @@ ui.Validator = function(conf){
 		email:		function(x){ return x.match(/^([\w]+)(.[\w]+)*@([\w]+)(.[\w]{2,3}){1,2}$/) },
 		url:		function(x){ return x.match(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/) },
 		range:		function(x, n1, n2){ return validations.number(x) && validations.min(x, n1) && validations.max(x, n1, n2) },
-		required:	function(x){ return validations.minChars(x.trim(), 1); },
+		required:	function(x){ return validations.minChars($.trim(x), 1); },
 		min:		function(x, n){ return parseInt(x) >= n },
 		max:		function(x, n1, n2){ return parseInt(x) <= n2 },
 		minChars:	function(x, n){ return x.toString().length >= n },

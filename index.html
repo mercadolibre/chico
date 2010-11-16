@@ -6,6 +6,7 @@
 		<title>Chico UI - Documentación</title>
 		<link rel="stylesheet" type="text/css" href="src/css/highlight.css">
 		<link rel="stylesheet" type="text/css" href="src/css/base.css">
+		<link rel="stylesheet" type="text/css" href="src/css/forms.css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
 		<script src="src/js/jquery.js"></script>
 	</head>
@@ -31,6 +32,10 @@
 			<ul class="depend">
 				<li><p>Esta es la versión del base.css que reemplaza al base que se este utilizando y no se encuentre en la carpeta chico.</p>	
 					http://10.100.34.210:8080/content/chico/0.x.x/src/css/base.css
+				</li>
+				
+				<li><p>En caso de utilizar formularios, deben agregar los siguientes estilos.</p>	
+					http://10.100.34.210:8080/content/chico/0.x.x/src/css/forms.css
 				</li>
 					
 				<li>
@@ -283,6 +288,77 @@
 			</div>
 		</div>
 		
+		<div class="article demo">
+			<h1>Validator</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<form action="http://www.google.com/" class="demoValidator">
+						<fieldset>
+							<legend>Validadores disponibles</legend>
+							<p class="required">* Datos obligatorios</p>
+							<ol>
+								<li>
+									<label class="required" for="w1">
+										<span>E-mail:<em>*</em></span>
+										<input type="email" id="w1">
+									</label>
+								</li>
+								<li>
+									<label for="w2">
+										<span>URL:</span>
+										<input type="url" id="w2">
+									</label>
+								</li>
+								<li>
+									<label for="w3">
+										<span>Campo numérico:</span>
+										<input type="number" id="w3" min="20">
+									</label>
+								</li>
+								<li>
+									<label for="w4">
+										<span>Rango de números:</span>
+										<input type="range" id="w4" min="1" max="10">
+									</label>
+								</li>
+								<li>
+									<label class="disabled" for="w5">
+										<span>Rango de carac.:</span>
+										<input type="text" id="w5" disabled="disabled">
+									</label>
+								</li>
+							</ol>
+						</fieldset>
+						<p class="actions"><input type="submit" value="Submit" class="btn primary"></p>
+					</form>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<form action="..." class="foo">
+								<fieldset>
+									<label for="...">
+										<span>E-mail:</span>
+										<input type="email" id="...">
+									</label>
+								</fieldset>
+							</form>
+						</pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').validator();</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
 		<script src="src/js/highlight.js"></script>		
 		<script src="src/js/mlui.js"></script>
 		<script>
@@ -293,6 +369,37 @@
 			$('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
 			$('.demoTooltip').tooltip();
 			$('.demoTabNavigator').tabNavigator();
+			
+			// Validator
+			$('.demoValidator').validator({
+				fields: {
+					'#w1': {
+						required: 'El email es obligatorio.',
+						email: 'El email esta mal escrito.'
+					},
+		
+					'#w2': {
+						url: 'La URL esta mal escrita.'
+					},
+		
+					'#w3': {
+						number: 'El precio debe ser un número.',
+						min: 'El precio debe ser mayor a 20.'
+					},
+		
+					'#w4': {
+						range: 'El rango debe ser un número entre 1 y 10.'
+					}
+				},
+				defaults: {
+					error: 'Hay errores en el formulario.'
+				},
+				callbacks: {
+					submit: function(){
+						alert('callback');
+					}
+				}
+			});
 		</script>
 		
 		<!-- Organization -->

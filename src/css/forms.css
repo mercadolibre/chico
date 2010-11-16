@@ -1,20 +1,19 @@
 /* Module */
 form fieldset {
-	margin-top:10px;
+	margin-bottom:10px;
 }
 
 /* Title module */
 form fieldset legend {
 	color:#dc7b1c;
-	font-size:18px;
+	font-size:14px;
 	font-weight:bold;
-	font-family:'Trebuchet MS', sans-serif;
 }
 
 /* Required specification */
 form p.required {
 	color:#999;
-	font-size:12px;
+	font-size:11px;
 }
 
 /* Field wrapper */
@@ -27,10 +26,9 @@ form label {
 form label span {
 	text-align:right;
 	display:block;
-	width:220px;
+	width:120px;
 	margin-right:20px;
 	float:left;
-	font-size:14px;
 }
 
 /* Field label required */
@@ -45,9 +43,16 @@ form label.required span em {
 	right:-10px;
 }
 
+/* Field input */
+form label input {
+	border:1px solid #ccc;
+	padding:3px 0 3px 3px;
+};
+
 /* Field input focus */
 form label input:focus {
-	border:2px solid #4f94cd;
+	border-width:2px;
+	padding:2px 0 2px 2px;
 }
 
 /* Field input error */
@@ -62,6 +67,6 @@ form .disabled {
 
 /* Actions */
 form .actions {
-	margin-left:240px;
+	margin-left:140px;
 	text-align:left;
 }
