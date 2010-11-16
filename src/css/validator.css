@@ -20,7 +20,7 @@
 }
 
 .uiHelper .cone.right{
-	background-image:url('../assets/cone_validation_left.png');
+	background-image:url('http://10.100.34.210:8080/content/assets/cone_validation_left.png');
 	display:block;
 	height:22px;
 	left:-11px;
