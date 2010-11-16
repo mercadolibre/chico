@@ -131,11 +131,10 @@ ui.communicator = {
 		getAjaxContent: function(conf){			
 			var result;			
 			conf.$htmlContent.html('<div class="loading"></div>');
-			
 			$.ajax({
 				url: conf.content.data,
-				type: 'POST', // Because ajax.data is sent everytime
-				data: {'x':'x'},
+				type: conf.ajaxType, // 'POST', // Because ajax.data is sent everytime
+				data: conf.ajaxParams, // Default: send {'x':'x'},
 				cache: true,
 				async: false, // Because getAjaxContent function returnaba before success and error
 				success: function(data){
