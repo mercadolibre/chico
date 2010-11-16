@@ -40,3 +40,6 @@ h1, h2, .article.demo, .header{
 	right:0;
 	top:15px;
 }
+ul.depend{list-style:square; margin-left:20px;}
+ul.depend li{margin:10px 0;}
+code{font-size:;13px}

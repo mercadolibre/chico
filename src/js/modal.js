@@ -18,13 +18,13 @@ ui.Modal = function(conf){
 	var show = function(event){		
 		if(conf.content.type.toLowerCase() === 'ajax') setAjaxConfig();
 		dimmer.on();
-		that.show($.Event(), conf);
+		that.show(event, conf);
 		$('.close').bind('click', dimmer.off);
 	};
 	
-	var hide = function(){ 
+	var hide = function(event){ 
 		dimmer.off();
-		that.hide($.Event(), conf);
+		that.hide(event, conf);
 	};
 	
 	var setAjaxConfig = function(){
@@ -43,7 +43,7 @@ ui.Modal = function(conf){
 	// Dimmer
 	var dimmer = {
 		on:function(){
-			$('<div>').bind('click', function(event){ hide }).addClass('dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
+			$('<div>').bind('click', function(event){ hide(event) }).addClass('dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
 		},
 		off:function(){
 			$('div.dimmer').fadeOut('normal', function(){ $(this).remove(); });
@@ -54,8 +54,8 @@ ui.Modal = function(conf){
 	// Events
 	conf.$trigger
 		.css('cursor', 'pointer')
-		.bind('click', show);
+		.bind('click', function(event){ show(event) });
 		
 
-	return { show: show, hide: hide };
+	return { show: function(){ show($.Event()) }, hide: function(){ hide($.Event()) } };
 };
