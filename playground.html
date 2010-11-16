@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<title>Chico UI JavaScript SDK</title>
 	<link rel="stylesheet" type="text/css" href="src/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="src/css/forms.css" />
 	<style>			
 		h1{
 			margin-bottom:10px;
@@ -29,6 +30,50 @@
 
 <h1 class="typo">Chico UI JavaScript SDK</h1>
 <div class="container clearfix">
+	<h1>Validator</h1>
+	<div class="box">
+		<form action="http://www.google.com/" class="formulario">
+			<fieldset>
+				<legend>Validadores</legend>
+				<p class="required">* Datos obligatorios</p>
+				<ol>
+					<li>
+						<label class="required" for="w1">
+							<span>E-mail:<em>*</em></span>
+							<input type="email" id="w1">
+						</label>
+					</li>
+					<li>
+						<label for="w2">
+							<span>URL:</span>
+							<input type="url" id="w2">
+						</label>
+					</li>
+					<li>
+						<label for="w3">
+							<span>Campo numérico:</span>
+							<input type="number" id="w3" min="20">
+						</label>
+					</li>
+					<li>
+						<label for="w4">
+							<span>Rango de números:</span>
+							<input type="range" id="w4" min="1" max="10">
+						</label>
+					</li>
+					<li>
+						<label class="disabled" for="w5">
+							<span>Rango de caracteres:</span>
+							<input type="text" id="w5" disabled="disabled">
+						</label>
+					</li>
+				</ol>
+			</fieldset>
+			<p class="actions"><input type="submit" value="Submit" class="btn primary"></p>
+		</form>
+	</div>
+	
+	<hr>
 	<h1>Dropdown</h1>
 	<div class="dropdown">
 		<span>Productos</span>
@@ -179,7 +224,37 @@ $(function() {
    
     // Tab navigator
     $('.pagos').tabNavigator();
-
+    
+    // Validator
+    $('.formulario').validator({
+		fields: {
+			'#w1': {
+				required: 'El email es obligatorio.',
+				email: 'El email esta mal escrito.'
+			},
+		
+			'#w2': {
+				url: 'La URL esta mal escrita.'
+			},
+		
+			'#w3': {
+				number: 'El precio debe ser un número.',
+				min: 'El precio debe ser mayor a 20.'
+			},
+		
+			'#w4': {
+				range: 'El rango debe ser un número entre 1 y 10.'
+			}
+		},
+		defaults: {
+			error: 'Hay errores en el formulario.'
+		},
+		callbacks: {
+			submit: function(){
+				alert('callback');
+			}
+		}
+	});
 });
 
 </script>

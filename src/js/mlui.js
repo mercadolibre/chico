@@ -13,7 +13,7 @@ var ui = window.ui = {
  	
 	init: function() { 
             
-        var fns = "carousel, dropdown, editInPlace, layer, modal, tabNavigator, tooltip".split(", ");
+        var fns = "carousel, dropdown, editInPlace, layer, modal, tabNavigator, validator, tooltip".split(", ");
         var tot = fns.length;
        
         for (var i=0; i<tot; i++) {
@@ -382,7 +382,7 @@ ui.positionator = {
 			var os = conf.$trigger.offset();		
 			var align = function(){
 				conf.$htmlContent.css({
-					top: ( os.top + (conf.$trigger.outerHeight() / 2 ) - (conf.$htmlContent.outerHeight() / 2) ),
+					top: os.top + (conf.$trigger.outerHeight() / 2) - 11,
 					left: os.left + conf.$trigger.outerWidth() + 10
 				});
 			};
@@ -438,7 +438,7 @@ ui.PowerConstructor = function(){
 				};
 			},			
 			
-			callbacks: function(conf, when){
+			callbacks: function(conf, when, handler){
 				if(conf.callbacks && conf.callbacks[when]) conf.callbacks[when]();
 			}
 			

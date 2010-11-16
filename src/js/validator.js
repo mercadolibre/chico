@@ -5,75 +5,9 @@
  *	@return An interface object
  */
 
-/*
-<h1>Validator</h1>
-<div class="box">
-	<form action="http://www.google.com/" class="formulario">
-		<fieldset>
-			<ol>
-				<li>
-					<label class="required" for="w1">
-						<span>E-mail (REQUERIDO):</span>
-						<input type="email" id="w1">
-					</label>
-				</li>
-				<li>
-					<label for="w2">
-						<span>URL:</span>
-						<input type="url" id="w2">
-					</label>
-				</li>
-				<li>
-					<label for="w3">
-						<span>Numero:</span>
-						<input type="number" id="w3" min="20">
-					</label>
-				</li>
-				<li>
-					<label for="w4">
-						<span>Rango de números:</span>
-						<input type="range" id="w4" min="1" max="10">
-					</label>
-				</li>
-				<li>
-					<label for="w5">
-						<span>Rango de caracteres:</span>
-						<input type="text" id="w5">
-					</label>
-				</li>
-			</ol>
-		</fieldset>
-		<p><input type="submit" value="Submit" class="btn primary"></p>
-	</form>
-</div>
-*/
-
-/*$('.formulario').validator({
-	fields: {
-		'#w1': {
-			required: 'El email es obligatorio.',
-			email: 'El email esta mal escrito.'
-		},
-		
-		'#w2': {
-			url: 'La URL esta mal escrita.'
-		},
-		
-		'#w3': {
-			number: 'El precio debe ser un número.',
-			min: 'El precio debe ser mayor a 20.',
-		},
-		
-		'#w4': {
-			range: 'El rango debe ser un número entre 1 y 10.'
-		}
-	}
-});*/
-
-
 ui.Validator = function(conf){
 	var that = ui.PowerConstructor(); // Inheritance
-	var formStatus;
+	var formStatus = true;
 	var watchers = [];
 	
 	// Validations
@@ -82,81 +16,90 @@ ui.Validator = function(conf){
 		number:		function(x){ return x.match(/^\d+$/m) },
 		email:		function(x){ return x.match(/^([\w]+)(.[\w]+)*@([\w]+)(.[\w]{2,3}){1,2}$/) },
 		url:		function(x){ return x.match(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/) },
+		range:		function(x, n1, n2){ return validations.number(x) && validations.min(x, n1) && validations.max(x, n1, n2) },
 		required:	function(x){ return validations.minChars(x.trim(), 1); },
-		min:		function(x, n){ return parseInt(x) >= n }, // Only numbers
-		max:		function(x, n){ return parseInt(x) <= n },
+		min:		function(x, n){ return parseInt(x) >= n },
+		max:		function(x, n1, n2){ return parseInt(x) <= n2 },
 		minChars:	function(x, n){ return x.toString().length >= n },
 		maxChars:	function(x, n){ return x.toString().length <= n }
 	};
 	
 	// Validate
-	var validate = function($element, messages){
-		var value = $element.val();
+	var validate = function(id, $element, messages){
+		var helper = watchers[id].helper;
 		
-		var error = function(msg){
-			// Status error
-			$element.addClass('errorField');
-			watchers[messages.helper].helper.show(msg);
-			return false;
-		};
-		
-		for(x in messages){
-			switch(x){
-				case 'required':
-				case 'text':
-				case 'email':
-				case 'url':
-					if(!validations[x](value)) return error(messages[x]);
-				break;
-				case 'number':
-					if(!validations.number(value)) return error(messages.number);
-					if(!validations.min(value)) return error(messages.min);
-					if(!validations.max(value)) return error(messages.max);
-				break;
-				case 'range':
-					if(!validations.min(value) || !validations.max(value)) return error(messages.range); // TODO: validar que sea numerico
-				break;
+		for(var x in messages){
+			// Required validation (Si no es obligatorio y el campo esta vacio, esta todo ok)
+			if(!$element.parent().hasClass('required') && !validations.required($element.val())) break;
+			
+			// Status error (cut the flow)
+			if(!validations[x]($element.val(), $element.attr('min'), $element.attr('max'))){
+				$element.addClass('error');
+				if($('.helper' + id)) helper.hide();
+				helper.show(messages[x]); // TODO: HIDE antes de show solo si no se esta mostrando (se pisan los mensajes de errores del mismo campo)
+				return false;
 			};
 		};
 		
 		// Status ok
-		$element.removeClass('errorField');
-		watchers[messages.helper].helper.hide();
+		if($element.hasClass('error')){ // With previous error...
+			helper.hide();
+			$element.removeClass('error');
+		};
 		return true;
 	};
 	
 	// Watcher Contructor
-	var Watcher = function($element, messages){
-		var watcherStatus = true;
-		$element.bind('blur', function(){ watcherStatus = validate($element, messages) }); // Watcher events
-		return { status: watcherStatus, helper: ui.Helper($element) }; // Public members
+	var Watcher = function(id, $element, messages){
+		$element.bind('blur', function(){ watchers[id].status = validate(id, $element, messages) }); // Watcher events
+		return { status: true, helper: ui.Helper(id, $element) }; // Public members
 	};
 	
-	// Create each field
-	var index = 0;
-	for(x in conf.fields){
-		conf.fields[x].helper = index;
-		watchers.push(Watcher($(x), conf.fields[x]));
-		index ++;
+	// Create each Watcher TODO: Juntar con "Watcher Constructor" en 1 solo lugar
+	for(var x in conf.fields){
+		watchers.push(Watcher(watchers.length, $(x), conf.fields[x]));
 	};
 	
 	// Form submit
 	var submit = function(event){
 		that.prevent(event);
 		
-		// magic (recorrer e.status como tabs)
-		for(x in watchers){
-			console.log(watchers[x].status);
-			// if alguno status false meter mensjae arriba
+		// Reset form status
+		if(!formStatus){
+			$('.uiValidator').remove();
+			formStatus = true;
 		};
 		
-		// Callback
-		that.callbacks(conf, 'submit');
+		// Validate each field
+		var index = 0;
+		for(var x in conf.fields){
+			// Status error
+			if(!validate(index, $(x), conf.fields[x])){
+				formStatus = false;
+			// Status ok (Field error clean)
+			}else{
+				$(x).removeClass('error');
+				watchers[index].helper.hide();
+			};
+			index ++;
+		};
+		
+		// General error
+		if(!formStatus){
+			$(conf.element).before('<p class="uiValidator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
+			$('.uiHelper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) + $('.uiValidator').height() + 10); }); // TODO: temp solution
+		// General ok
+		}else{
+			$('.uiValidator').remove();
+			// Callback vs. submit
+			if(conf.callbacks && conf.callbacks.submit) conf.callbacks.submit(); else conf.element.submit();
+		};
 	};
 	
 	// Form events
 	$(conf.element).bind('submit', submit);
-
+	
+	// Public members
 	return { submit: submit, watchers: watchers };
 };
 
@@ -168,28 +111,28 @@ ui.Validator = function(conf){
  *	@return An interface object
  */
 
-ui.Helper = function($element){
+ui.Helper = function(id, $element){
 	var that = ui.Floats(); // Inheritance
 
 	// Global configuration
 	var conf = {
 		name: 'helper',
-        //id: i,
         $trigger: $element,
-		align: 'drop',
+		align: 'right',
 		cone: true,
-		content: { type: 'param' }
+		content: { type: 'param' },
+		classes: 'helper' + id
 	};
 	
 	var hide = function(){
-		that.hide($.Event(), conf);
+		$('.helper' + id).fadeOut('fast', function(event){ $(this).remove(); }); // TODO: refactor del hide (ocultar solamente el que esta activo)
+		that.callbacks(conf, 'hide');
 	};
 	
-	var show = function(msg){
-		//hide(); TODO: Hacer que desaparezca si este tiene contenido
-		conf.content.data = msg;
+	var show = function(text){
+		conf.content.data = '<span class="ico error">Error: </span>' + text;
 		that.show($.Event(), conf);
 	};
 	
-	return { show: function(msg){ show(msg) }, hide: hide };
+	return { show: function(text){ show(text) }, hide: hide };
 };
