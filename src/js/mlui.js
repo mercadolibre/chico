@@ -177,8 +177,8 @@ ui.factory = function(method, x) {
                 return 
             };
 	
-            ui.get("component", x, function(){ // Send configuration to a component
-                
+            ui.get("component", x, function(x){ // Send configuration to a component
+
                 if (!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
                                
                 that.each(function(i, e){
@@ -243,34 +243,39 @@ ui.environment = function (mode, config) {
 	
 }
 
-ui.sources = [];
+ui.sources = {};
 
 // nuevo communicator
 ui.get = function(method, config, callback) {
 
+	var url = ui.environment(ui.mode, config);
+    var src = url.uri + url.js;
+    var href = url.uri + url.css;
+  	var head = document.getElementsByTagName("head")[0] || document.documentElement;
+
     switch(method) {
 
     	case "component":
-    			
-			var url = ui.environment(ui.mode, config);
-            var src = url.uri + url.js;
-            var href = url.uri + url.css;
-            
-            var sources = ui.sources.join(" ");
-            if (sources.indexOf(src)>0) { return config; } else { ui.sources.push(src); }
-                        
-	    	var head = document.getElementsByTagName("head")[0] || document.documentElement;
-            
+    				    	                   
    			var link = document.createElement('link');
 	    		link.href = href;
     	    	link.rel = 'stylesheet';
 	        	link.type = 'text/css';
-                
-		    	head.appendChild(link);
-                
+                               
 		   	var script = document.createElement("script");
     			script.src = src;
-                
+			
+			// check if already exist this script
+			if (ui.sources[config]) {
+				ui.sources[config].callbacks.push(callback);
+				return config;
+			} else {
+				ui.sources[config] = {
+					script : script,
+					callbacks: [callback]
+				}	
+			}
+				
 			// Handle Script loading
 			var done = false;
 
@@ -280,25 +285,31 @@ ui.get = function(method, config, callback) {
 	    	if ( !done && (!this.readyState || 
     					this.readyState === "loaded" || this.readyState === "complete") ) {
     					
-				done = true; 
-	   	
-		   		// Fire callback
-				callback(config);   		 		
-				
-		   		// Handle memory leak in IE
-	   			script.onload = script.onreadystatechange = null;
-   			
-		   		if ( head && script.parentNode ) {
-	   				head.removeChild( script );
-	   			}
-			}
-			
-			return config;
-		};
+					done = true; 
+		   	
+			   		// Fire callbacks
+			   		var callbacks = ui.sources[config].callbacks;
+			   		var t = callbacks.length;
+			   		
+			   		for (var i=0;i<t;i++) {
+			   			callbacks[i](config);	
+			   		}
+					
+			   		// Handle memory leak in IE
+		   			script.onload = script.onreadystatechange = null;
+	   			
+			   		if ( head && script.parentNode ) {
+		   				head.removeChild( script );
+		   			}
+				}
+			};
                 
-		// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
-		// This arises when a base node is used.
-		head.insertBefore( script, head.firstChild );
+			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+			// This arises when a base node is used.
+			head.insertBefore( script, head.firstChild );
+	    	head.appendChild(link);
+
+	    	return config;
     
     	break;
     
