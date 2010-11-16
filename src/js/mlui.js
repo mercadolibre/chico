@@ -7,7 +7,7 @@ var ui = window.ui = {
 
     version: "0.4.1",
 
-	mode: "pub",
+	mode: "dev",
 
  	instances: {},
  	
@@ -287,7 +287,7 @@ ui.get = function(method, config, callback) {
     					
 					done = true; 
 		   	
-			   		// Fire callbacks
+			   		// Fire callbacks TODO marcar cuando se disparan
 			   		var callbacks = ui.sources[config].callbacks;
 			   		var t = callbacks.length;
 			   		
