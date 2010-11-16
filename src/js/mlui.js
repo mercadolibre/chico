@@ -364,7 +364,7 @@ ui.positionator = {
 			var os = conf.$trigger.offset();		
 			var align = function(){
 				conf.$htmlContent.css({
-					top: ( os.top + (conf.$trigger.outerHeight() / 2 ) - (conf.$htmlContent.outerHeight() / 2) ),
+					top: os.top + (conf.$trigger.outerHeight() / 2) - 11,
 					left: os.left + conf.$trigger.outerWidth() + 10
 				});
 			};

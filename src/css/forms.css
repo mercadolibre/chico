@@ -1,0 +1,67 @@
+/* Module */
+form fieldset {
+	margin-top:10px;
+}
+
+/* Title module */
+form fieldset legend {
+	color:#dc7b1c;
+	font-size:18px;
+	font-weight:bold;
+	font-family:'Trebuchet MS', sans-serif;
+}
+
+/* Required specification */
+form p.required {
+	color:#999;
+	font-size:12px;
+}
+
+/* Field wrapper */
+form label {
+	display:inline-block;
+	padding:5px 0;
+}
+
+/* Field label */
+form label span {
+	text-align:right;
+	display:block;
+	width:220px;
+	margin-right:20px;
+	float:left;
+	font-size:14px;
+}
+
+/* Field label required */
+form label.required span {
+	font-weight:bold;
+	position:relative;
+}
+
+/* Asterisk of field label required */
+form label.required span em {
+	position:absolute;
+	right:-10px;
+}
+
+/* Field input focus */
+form label input:focus {
+	border:2px solid #4f94cd;
+}
+
+/* Field input error */
+form label .error, form label .error:focus {
+	border:2px solid #C62026;
+}
+
+/* Wrapper disabled (Don't forget to add Disabled attribute to input element) */
+form .disabled {
+	color:#999;
+}
+
+/* Actions */
+form .actions {
+	margin-left:240px;
+	text-align:left;
+}

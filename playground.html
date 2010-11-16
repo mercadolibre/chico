@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<title>Chico UI JavaScript SDK</title>
 	<link rel="stylesheet" type="text/css" href="src/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="src/css/forms.css" />
 	<style>			
 		h1{
 			margin-bottom:10px;
@@ -33,10 +34,12 @@
 	<div class="box">
 		<form action="http://www.google.com/" class="formulario">
 			<fieldset>
+				<legend>Validadores</legend>
+				<p class="required">* Datos obligatorios</p>
 				<ol>
 					<li>
 						<label class="required" for="w1">
-							<span>E-mail (REQUERIDO):</span>
+							<span>E-mail:<em>*</em></span>
 							<input type="email" id="w1">
 						</label>
 					</li>
@@ -48,7 +51,7 @@
 					</li>
 					<li>
 						<label for="w3">
-							<span>Numero:</span>
+							<span>Campo numérico:</span>
 							<input type="number" id="w3" min="20">
 						</label>
 					</li>
@@ -59,14 +62,14 @@
 						</label>
 					</li>
 					<li>
-						<label for="w5">
+						<label class="disabled" for="w5">
 							<span>Rango de caracteres:</span>
-							<input type="text" id="w5">
+							<input type="text" id="w5" disabled="disabled">
 						</label>
 					</li>
 				</ol>
 			</fieldset>
-			<p><input type="submit" value="Submit" class="btn primary"></p>
+			<p class="actions"><input type="submit" value="Submit" class="btn primary"></p>
 		</form>
 	</div>
 	
