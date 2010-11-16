@@ -5,9 +5,9 @@
   */
 var ui = window.ui = {
 
-    version: "0.4",
+    version: "0.4.1",
 
-	mode: "dev",
+	mode: "pub",
 
  	instances: {},
  	
@@ -39,7 +39,7 @@ var ui = window.ui = {
 	}	
 
  }
- 
+
 
 
 /**
@@ -109,15 +109,16 @@ ui.communicator = {
  *  @arguments callback {Function} Callback when component is loaded.
  */
 		getComponent: function(x,callback){
+			alert("The -ui.communicator- is Deprecated, please refactor your functionality with the new -ui.get- component");
 			var link = document.createElement('link');
-				link.href = 'src/css/' + x + '.css'; // TODO: esta url debería ser absoluta
+				link.href = 'src/css/' + x + '.css'; // TODO: esta url deberÃ­a ser absoluta
 				link.rel = 'stylesheet';
 				link.type = 'text/css';
 			var head = document.getElementsByTagName('head')[0].appendChild(link);
 
 			var script = document.createElement('script');
 				script.type = 'text/javascript';
-				script.src = 'src/js/' + x + '.js'; // TODO: esta url debería ser absoluta
+				script.src = 'src/js/' + x + '.js'; // TODO: esta url deberÃ­a ser absoluta
 				script.onload = function(){ callback(x) } // fire the callback
 			document.body.insertBefore(script, document.body.firstChild);
 		},
@@ -149,9 +150,9 @@ ui.communicator = {
 			return result;
 		}
 	}
-    
-
+     
  
+
 ui.factory = function(method, x) {
 
 
@@ -166,8 +167,7 @@ ui.factory = function(method, x) {
 
         var name = ui.utils.ucfirst(x);
         var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
-        if (component) return; // WIP: If component is already loaded, avoid downloading
-        
+              
         $.fn[x] = function(options) {
 
             var that = this;
@@ -177,7 +177,7 @@ ui.factory = function(method, x) {
                 alert('UI: ' + x + ' configuration error.'); 
                 return 
             };
-                        
+	
             ui.get("component", x, function(){ // Send configuration to a component
                 
                 if (!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
@@ -196,6 +196,7 @@ ui.factory = function(method, x) {
                     
                     // console.log(x + " invoking Constructor...")
                 });
+                
             });
         }
         
@@ -243,26 +244,33 @@ ui.environment = function (mode, config) {
 	
 }
 
+ui.sources = [];
 
+// nuevo communicator
 ui.get = function(method, config, callback) {
 
     switch(method) {
 
     	case "component":
-
+    			
 			var url = ui.environment(ui.mode, config);
+            var src = url.uri + url.js;
+            var href = url.uri + url.css;
             
+            var sources = ui.sources.join(" ");
+            if (sources.indexOf(src)>0) { return config; } else { ui.sources.push(src); }
+                        
 	    	var head = document.getElementsByTagName("head")[0] || document.documentElement;
             
    			var link = document.createElement('link');
-	    		link.href = url.uri + url.css;
+	    		link.href = href;
     	    	link.rel = 'stylesheet';
 	        	link.type = 'text/css';
                 
 		    	head.appendChild(link);
                 
 		   	var script = document.createElement("script");
-    			script.src = url.uri + url.js;
+    			script.src = src;
                 
 			// Handle Script loading
 			var done = false;
@@ -276,8 +284,8 @@ ui.get = function(method, config, callback) {
 				done = true; 
 	   	
 		   		// Fire callback
-				callback(config);
-   		 	
+				callback(config);   		 		
+				
 		   		// Handle memory leak in IE
 	   			script.onload = script.onreadystatechange = null;
    			
