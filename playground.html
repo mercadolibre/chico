@@ -82,8 +82,13 @@
 		<ul>
 			<li style="margin-bottom:10px;"><a href="http://www.mercadolibre.com.ar/" class="ggl">Ejecutar modal.</a></li>
 			<li>
-				<form action="test.html">
+				<form action="test.html" method="post">
+					<input type="text" name="paramA">
+					<input type="text" name="paramB">
+					<input type="text" name="paramC">
+					<input type="hidden" name="step" value="next">
 					<input type="submit" class="btn primary" id="comprar" value="Comprar">
+				
 				</form>
 			</li>
 		</ul>
@@ -170,10 +175,11 @@ $(function() {
              },
             hide:function(){  }                         
         }
-    });
-    
+    });    
+   
     // Tab navigator
     $('.pagos').tabNavigator();
+
 });
 
 </script>

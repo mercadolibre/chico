@@ -25,22 +25,37 @@
 			<p>Encontraste algún bug? <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportar bugs</a>.</p>
 		</div>
 		
-		<!--<div class="box">
+		<div class="box">
 			<h1>Dependencias</h1>
 			<p><strong>Para utilizar chico-UI son necesarias las siguientes dependencias que deben ir linkeadas en su código HTML (no es necesario descargarlas).</strong></p>						
-			<code>
-				<pre name="code" class="xml">
-					Esta es la versión del base.css que reemplaza al base que se este utilizando y no se encuentre en la carpeta chico.	
-					<link rel="stylesheet" type="text/css" href="http://10.100.34.210:8080/content/chico/0.4/src/css/base.css">
-				</pre>
-			</code>			
-			<code>
-				<pre name="code" class="xml">
-					 Este javascript es el único que se necesita para inicializar los componentes del SDK.
-					<script src="http://10.100.34.210:8080/content/chico/0.4/src/js/mlui.js"></script>
-				</pre>
-			</code>
-		</div>-->
+			<ul class="depend">
+				<li><p>Esta es la versión del base.css que reemplaza al base que se este utilizando y no se encuentre en la carpeta chico.</p>	
+					http://10.100.34.210:8080/content/chico/0.x.x/src/css/base.css
+				</li>
+					
+				<li>
+					<p>Este javascript es el único que se necesita para inicializar los componentes del SDK.</p>
+					http://10.100.34.210:8080/content/chico/0.x.x/src/js/mlui.js
+				</li>
+					
+				<li>http://10.100.34.210:8080/content/chico/0.x.x/src/js/jquery.js</li>
+			</ul>				
+		</div>
+		
+		<div class="box">
+			<h1>Crossbrowsing</h1>
+				<code>
+					&lt;!--[if lt IE 7 ]&gt;<br>
+						&lt;body class="ie6"&gt;<br>
+						&lt;script src="src/js/dd_belatedpng.js"&gt;&lt;/script&gt;<br>
+						&lt;script&gt; DD_belatedPNG.fix('img, .ico'); //fix any &lt;img&gt; or .ico background-images &lt;/script&gt;<br>
+					&lt;![endif]--><br>
+					&lt;!--[if IE 7 ]&gt; &lt;body class="ie7"&gt; &lt;![endif]--&gt; <br>
+					&lt;!--[if IE 8 ]&gt; &lt;body class="ie8"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if IE 9 ]&gt; &lt;body class="ie9"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if (gt IE 9)|!(IE)]&gt; &lt;!--&gt; &lt;body&gt; &lt;!--&lt;![endif]--&gt;<br>
+				</code>
+		</div>
 		
 		<div class="article demo">
 			<h1>Dropdown</h1>
