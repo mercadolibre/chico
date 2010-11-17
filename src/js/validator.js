@@ -97,6 +97,7 @@ ui.Validator = function(conf){
 	};
 	
 	// Form events
+	$(conf.element).find('input[type=submit]').unbind('click');
 	$(conf.element).bind('submit', submit);
 	
 	// Public members

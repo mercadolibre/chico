@@ -32,7 +32,7 @@
 <div class="container clearfix">
 	<h1>Validator</h1>
 	<div class="box">
-		<form action="http://www.google.com/" class="formulario">
+		<form action="test.html" class="formulario">
 			<fieldset>
 				<legend>Validadores</legend>
 				<p class="required">* Datos obligatorios</p>
@@ -69,7 +69,7 @@
 					</li>
 				</ol>
 			</fieldset>
-			<p class="actions"><input type="submit" value="Submit" class="btn primary"></p>
+			<p class="actions"><input type="submit" value="Submit" id="validationModalTest" class="btn primary"></p>
 		</form>
 	</div>
 	
@@ -204,6 +204,8 @@ $(function() {
     });
     
     // Modal
+    $('#validationModalTest').modal({ content: { type:'ajax' } });
+    
     $('.ggl').modal({
     	content: {
 			type:'param',
@@ -220,7 +222,8 @@ $(function() {
              },
             hide:function(){  }                         
         }
-    });    
+    });
+ 	 
    
     // Tab navigator
     $('.pagos').tabNavigator();
@@ -251,7 +254,7 @@ $(function() {
 		},
 		callbacks: {
 			submit: function(){
-				alert('callback');
+				ui.instances.modal[0].show();
 			}
 		}
 	});
