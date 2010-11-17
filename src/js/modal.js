@@ -36,8 +36,8 @@ ui.Modal = function(conf){
 	var setAjaxConfig = function(){
 		// Content from href/action						
 		if(conf.content.data == '') alert('UI: Modal ajax configuration error.'); //TODO mejorar la expresion de vacio
-		conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'POST';
-		conf.ajaxParams.push(conf.$trigger.parents('form').serializeArray());
+		conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'POST';		
+		conf.ajaxParams = $.merge(conf.ajaxParams, conf.$trigger.parents('form').serializeArray());
 	};
 	
 	// Dimmer
