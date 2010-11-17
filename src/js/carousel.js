@@ -26,15 +26,15 @@ ui.Carousel = function(conf){
 	var $mask = conf.$trigger.find('.mask');
 
 	// Steps = (width - marginMask / elementWidth + elementMargin)
-	var steps = ~~( $mask.width() / (conf.$htmlContent.children().outerWidth() + 20));
-	steps = (steps==0) ? 1 : steps;
-	
+	var steps = ~~( (conf.$trigger.width() - 70) / (conf.$htmlContent.children().outerWidth() + 20));
+		steps = (steps == 0) ? 1 : steps;	
+
 	// Move to... (steps in pixels)
 	var moveTo = (conf.$htmlContent.children().outerWidth() + 20) * steps;
 
 	// Mask configuration
-	var margin = ($mask.width()-moveTo)/2 +35;
-	$mask.width( moveTo ).height( conf.$htmlContent.outerHeight() ); 
+	var margin = ($mask.width()-moveTo) / 2;
+	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() );
 	if(conf.arrows != false) $mask.css('marginLeft', margin);
 	
 	var prev = function(event){
@@ -76,14 +76,14 @@ ui.Carousel = function(conf){
 		.addClass('prev')
 		.bind('click', prev)
 		.hide()
-		.css('top', (conf.$htmlContent.outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
+		.css('top', (conf.$htmlContent.children().outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
 
 	var nextButton = $('<p>')
 		.html('Next')
 		.addClass('next')
 		.bind('click', next)
 		.hide()
-		.css('top', (conf.$htmlContent.outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
+		.css('top', (conf.$htmlContent.children().outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
 	
 	
 	
