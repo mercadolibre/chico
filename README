@@ -1,0 +1,99 @@
+#
+# Chico UI
+#
+
+## Versión estable
+Alpha 0.4.2, ver información sobre Estrenos al fondo del documento.
+
+## Reporte de bugs
+http://jira.ml.com/browse/UI
+
+## Brief
+Chico UI es un proyecto opensource que propone una solución de MercadoLibre que agrupa los Componentes y widgets desarrollados por GMP disponibles para usar. Su Diseño es simple y esta desarrollado con tecnologías abiertas de la web: HTML, JavaScript y CSS. Existe una demo en el cloud de MercadoLibre.
+Utiliza algunas características de HTML5 y CSS3, provee métodos de compatibilidad en navegadores de grado-c con jQuery y otros artilugios.
+
+## Estrenos
+
+Alpha 0.4.2
+16 de Noviembre
+
+Primer versión de componente validators.
+Se agregaron contenidos sobre extensiones.
+Se agrupo la información de instalación en un TabNavigator.
+TabNavigator CSS Selectors Bug Fix: modificaba todas las listas internas.
+Se agrega un espacio público para declarar componentes disponibles para facilitar la extención.
+Mejora en las estructuras de documentación.
+Minor Bug fixes.
+
+Alpha 0.4.1
+16 de Noviembre
+
+Nuevo mapa de recursos.
+Refactor de ui.get, evitamos la carga de recursos repetidos.
+Refactor de Modal, mejoramos la integración Ajax de modales con Formularios.
+Crossbrowsing de Carousel para IE6.
+Fixes varios para IE6 en presentación CSS.
+Actualización en la documentación: instrucciones de instalación.
+
+Alpha 0.4
+12 de Noviembre
+
+Crossbrowsing de css base y componentes.
+Bug del comunicator en IE6.
+Refactor del comunicator. Nueva sintaxis.
+Refactor del factory.
+Bug fix de dropdown y layer (No se cerraban haciendo clic afuera).
+Bug fix de tooltip (En IE se ejecutaba el title nativo del browser).
+Documentación en html + Highlight code.
+Bug fix carousel en IE.
+
+Alpha 0.3
+10 de Noviembre
+
+Communicator.
+Traer contenidos por Ajax. Actualizar Power Constructor.
+Crossbrowsing.
+Diferenciar las variables locales que contengan objetos de jQuery. Mejorar el output de errores (marcarlos con alerts).
+Slider (Generic class).
+Mejora: Cambio de sintaxis tipo jQuery: $(selector).componente(conf);
+Documentación. Página en la Wiki.
+Carrousel (Component).
+Release Alpha 3.
+Diseño del logo.
+
+Alpha 0.2
+4 de Noviembre
+
+Dimmer.
+Desligar de utils e integrar al componente Modal window.
+Navigators (Generic class) -> Clase para elementos de navegación.
+Es un esquema abstracto de componentes visuales que contienen interfaces de control (shoot).
+Component Dropdown, hereda Component -> Navigators.
+Ver definición en la wiki.
+Se compromete la funcionalidad básica: Mostrar contenido estático.
+Component Tabs Navigator, hereda Component -> Navigators.
+Ver definición en la wiki.
+Se compromete la funcionalidad básica: Mostrar contenido estático.
+Documentación del SDK en la wiki.
+Propuesta de Callbacks.
+Su responsabilidad es disparar avisos para la integración de componentes.
+JSDocs.
+
+Alpha 0.1
+28 de Octubre
+
+Component Creator -> Factory Pattern.
+Recibe una configuración JSON para un componente o más y dispara los procesos internos para obtener los recursos necesarios para construir los componentes.
+Component (Generic class) -> Power Constructor Pattern.
+Es un esquema abstracto de componente que contiene la interface mínima.
+Flotantes (Generic class) -> Clase para elementos flotantes. (Opcional)
+Es un esquema abstracto de componentes visuales que contiene interfaces de control (show/hide).
+Component Tooltip, hereda Component -> Floats.
+Ver definición en la wiki.
+Se compromete la funcionalidad básica: Mostrar contenido estático.
+Component Layer, hereda Component -> Floats.
+Ver definición en la wiki.
+Se compromete la funcionalidad básica: Mostrar contenido estático.
+CSS Base
+Reingeniería de condicionales. Condiciones según especificidad y class en el elemento <body>.
+Separar la arquitectura de estilos de componentes para el delivery del comunicator.
