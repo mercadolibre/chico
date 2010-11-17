@@ -40,6 +40,7 @@ h1, h2, .article.demo, .header{
 	right:0;
 	top:15px;
 }
-ul.depend{list-style:square; margin-left:20px;}
-ul.depend li{margin:10px 0;}
-code{font-size:;13px}
+
+div ul.depend{list-style:square; margin-left:20px;}
+div ul.depend li{margin:10px 0; display:block;}
+code{font-size:13px;}
