@@ -9,11 +9,13 @@ var ui = window.ui = {
 
 	mode: "dev",
 
+	components: "carousel dropdown editInPlace layer modal tabNavigator validator tooltip",
+
  	instances: {},
  	
 	init: function() { 
             
-        var fns = "carousel, dropdown, editInPlace, layer, modal, tabNavigator, validator, tooltip".split(", ");
+        var fns = ui.components.split(" ");
         var tot = fns.length;
        
         for (var i=0; i<tot; i++) {
