@@ -7,7 +7,7 @@ var ui = window.ui = {
 
     version: "0.4.2",
 
-	mode: "dev",
+	mode: "dev", // "dev" or "pub"
 
 	components: "carousel dropdown editInPlace layer modal tabNavigator validator tooltip",
 
