@@ -206,7 +206,7 @@
 					<h2>Demo</h2>
 					<a href="test.html" class="demoModal">Modal ejecutado en un link.</a></li>
 					<form action="test.html">
-						<input type="submit" class="btn secondary demoModal" value="Modal ejecutado en un botón">
+						<input type="submit" class="btn secondary demoModal2" value="Modal ejecutado en un botón">
 					</form>
 				</div>
 			</div>
@@ -411,6 +411,7 @@
 			$('.demoDropdown').dropdown();
 			$('.demoCarousel').carousel();
 			$('.demoModal').modal({ content: { type: 'ajax' } });
+			$('.demoModal2').modal({ content: { type: 'ajax' } });
 			$('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
 			$('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
 			$('.demoTooltip').tooltip();
