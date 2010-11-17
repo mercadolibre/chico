@@ -16,12 +16,9 @@
 	margin-top:10px;
 }
 
-.uiTabNavigator ul li {
+.uiTabNavigator > ul li {
 	cursor:pointer;
 	margin-right:0;
-}
-
-.uiTabNavigator ul li {
 	display:inline-block;
 }
 
