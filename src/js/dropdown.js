@@ -29,7 +29,10 @@ ui.Dropdown = function(conf){
 		.append('<span class="ico down">&raquo;</span>');
 	
 	// Content
-	conf.$htmlContent.addClass('uiContent');
+	conf.$htmlContent
+		.addClass('uiContent')
+		.find('a')
+			.bind('click', function(){ that.hide($.Event(), conf) });
 
 	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
 };
