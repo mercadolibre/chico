@@ -25,7 +25,7 @@ ui.Modal = function(conf){
 		if(conf.content.type.toLowerCase() === 'ajax' && conf.$trigger.attr('type') == 'submit') setAjaxConfig();
 		dimmer.on();
 		that.show(event, conf);
-		$('.close').bind('click', dimmer.off);		
+		$('.close').bind('click', hide);
 	};
 	
 	var hide = function(event){
