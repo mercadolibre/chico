@@ -15,8 +15,9 @@ ui.Modal = function(conf){
 	conf.classes = 'box';
 	
 	conf.ajaxType = 'POST';
-	conf.ajaxParams = [];
-	conf.ajaxParams.push({'x':'x'});//TODO refactor con el header de ajax
+	//conf.ajaxParams = [];
+	//conf.ajaxParams.push({'x':'x'});//TODO refactor con el header de ajax
+	conf.ajaxParams = 'x=x';//TODO refactor con el header de ajax
 			
 	
 	// Methods Privates
@@ -37,9 +38,11 @@ ui.Modal = function(conf){
 		// Content from href/action						
 		if(conf.content.data == '') alert('UI: Modal ajax configuration error.'); //TODO mejorar la expresion de vacio
 		conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'POST';		
-		conf.ajaxParams = $.merge(conf.ajaxParams, conf.$trigger.parents('form').serializeArray());
+		//conf.ajaxParams = $.merge(conf.ajaxParams, conf.$trigger.parents('form').serializeArray());
+		var serialized = conf.$trigger.parents('form').serialize();		
+		conf.ajaxParams = conf.ajaxParams + ((serialized != '') ? '&' + serialized : '');
 	};
-	
+		
 	// Dimmer
 	var dimmer = {
 		on:function(){
