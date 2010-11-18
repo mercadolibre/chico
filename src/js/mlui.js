@@ -14,7 +14,7 @@ var ui = window.ui = {
  	instances: {},
  	
 	init: function() { 
-            
+           
         var fns = ui.components.split(" ");
         var tot = fns.length;
        
@@ -165,12 +165,12 @@ ui.factory = function(method, x) {
     switch(method) {
 
     	case "configure":
-
+		
         var name = ui.utils.ucfirst(x);
         var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
               
         $.fn[x] = function(options) {
-
+			 
             var that = this;
             var options = options || {};
             
@@ -178,7 +178,7 @@ ui.factory = function(method, x) {
                 alert('UI: ' + x + ' configuration error.'); 
                 return 
             };
-	
+			
             ui.get("component", x, function(x){ // Send configuration to a component
 
                 if (!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
@@ -195,7 +195,7 @@ ui.factory = function(method, x) {
                     // Map the instance and Invoke the constructor
                     ui.instances[x].push(ui[name](conf));
                     
-                    // console.log(x + " invoking Constructor...")
+                    //console.log(x + " invoking Constructor...")
                 });
                 
             });
@@ -256,9 +256,9 @@ ui.get = function(method, config, callback) {
   	var head = document.getElementsByTagName("head")[0] || document.documentElement;
 
     switch(method) {
-
+		
     	case "component":
-    				    	                   
+
    			var link = document.createElement('link');
 	    		link.href = href;
     	    	link.rel = 'stylesheet';
@@ -268,14 +268,24 @@ ui.get = function(method, config, callback) {
     			script.src = src;
 			
 			// check if already exist this script
+			
 			if (ui.sources[config]) {
+				//console.log("Componente "+config+" ya existe pusheo el callback");
 				ui.sources[config].callbacks.push(callback);
+				if (ui.sources[config].ready) {
+					callback(config);
+					//console.log("Componente "+config+" ya listo disparo el callback");
+				}
 				return config;
+				
 			} else {
+					
+				//console.log("Creo componente "+config);
 				ui.sources[config] = {
 					script : script,
-					callbacks: [callback]
-				}	
+					callbacks: [callback],
+					ready: false
+				}				
 			}
 				
 			// Handle Script loading
@@ -289,6 +299,9 @@ ui.get = function(method, config, callback) {
     					
 					done = true; 
 		   	
+		   			// Compoonent ready to use
+					ui.sources[config].ready = true;
+		   	
 			   		// Fire callbacks TODO marcar cuando se disparan
 			   		var callbacks = ui.sources[config].callbacks;
 			   		var t = callbacks.length;
@@ -296,7 +309,8 @@ ui.get = function(method, config, callback) {
 			   		for (var i=0;i<t;i++) {
 			   			callbacks[i](config);	
 			   		}
-					
+
+										
 			   		// Handle memory leak in IE
 		   			script.onload = script.onreadystatechange = null;
 	   			
