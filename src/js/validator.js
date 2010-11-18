@@ -29,14 +29,17 @@ ui.Validator = function(conf){
 		var helper = watchers[id].helper;
 		
 		for(var x in messages){
-			// Required validation (Si no es obligatorio y el campo esta vacio, esta todo ok)
+			// Disabled validation
+			if($element.parent().hasClass('disabled') && $element.attr('disabled')) break;
+			
+			// Not required validation (Si no es obligatorio y el campo esta vacio, esta todo ok)
 			if(!$element.parent().hasClass('required') && !validations.required($element.val())) break;
 			
 			// Status error (cut the flow)
 			if(!validations[x]($element.val(), $element.attr('min'), $element.attr('max'))){
 				$element.addClass('error');
-				if($('.helper' + id)) helper.hide();
-				helper.show(messages[x]); // TODO: HIDE antes de show solo si no se esta mostrando (se pisan los mensajes de errores del mismo campo)
+				if($('.helper' + id)) helper.hide(); // TODO: refactor del hide del helper
+				helper.show(messages[x]);
 				return false;
 			};
 		};
@@ -51,7 +54,8 @@ ui.Validator = function(conf){
 	
 	// Watcher Contructor
 	var Watcher = function(id, $element, messages){
-		$element.bind('blur', function(){ watchers[id].status = validate(id, $element, messages) }); // Watcher events
+		// Blur feature canceled
+		//$element.bind('blur', function(){ watchers[id].status = validate(id, $element, messages) }); // Watcher events
 		return { status: true, helper: ui.Helper(id, $element) }; // Public members
 	};
 	
@@ -87,7 +91,7 @@ ui.Validator = function(conf){
 		// General error
 		if(!formStatus){
 			$(conf.element).before('<p class="uiValidator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
-			$('.uiHelper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) + $('.uiValidator').height() + 10); }); // TODO: temp solution
+			$('.uiHelper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) + $('.uiValidator').height() + 20); }); // TODO: temp solution
 		// General ok
 		}else{
 			$('.uiValidator').remove();

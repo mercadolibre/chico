@@ -62,9 +62,15 @@
 						</label>
 					</li>
 					<li>
-						<label class="disabled" for="w5">
+						<label class="required disabled" for="w5">
+							<span>Required disabled:<em>*</em></span>
+							<input type="text" id="w5" required="required" disabled="disabled">
+						</label>
+					</li>
+					<li>
+						<label class="disabled" for="w6">
 							<span>Rango de carac.:</span>
-							<input type="text" id="w5" disabled="disabled">
+							<input type="text" id="w6" disabled="disabled">
 						</label>
 					</li>
 				</ol>
@@ -245,18 +251,23 @@ $(function() {
 				required: 'El email es obligatorio.',
 				email: 'El email esta mal escrito.'
 			},
-		
+
 			'#w2': {
 				url: 'La URL esta mal escrita.'
 			},
-		
+
 			'#w3': {
 				number: 'El precio debe ser un número.',
-				min: 'El precio debe ser mayor a 20.'
+				min: 'El precio debe ser mayor a 20.',
+				max: 'El precio debe ser menor a 100.'
 			},
-		
+
 			'#w4': {
 				range: 'El rango debe ser un número entre 1 y 10.'
+			},
+			
+			'#w5': {
+				required: 'El campo es obligatorio.',
 			}
 		},
 		defaults: {
@@ -264,7 +275,7 @@ $(function() {
 		},
 		callbacks: {
 			submit: function(){
-				ui.instances.modal[0].show();
+				alert('callback');
 			}
 		}
 	});
