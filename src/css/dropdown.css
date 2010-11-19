@@ -16,7 +16,6 @@
 	height:19px;
 	line-height:19px;
 	padding:0px 26px 0px 7px;
-	z-index:700;
 	background-color:#cfe3f0;
 	background-position:0 -271px;
 	border:1px solid #79A8C7;
@@ -35,9 +34,9 @@
 	border-radius:5px 5px 0 0;
 }
 
-.uiDropdown .uiTrigger.on .uiContent {
+/*.uiDropdown .uiTrigger.on .uiContent {
 	z-index:900;
-}
+}*/
 
 .uiDropdown .uiContent {
 	background-color:#fff;
@@ -48,7 +47,6 @@
 	position:absolute;
 	top:20px;
 	white-space:nowrap;
-	z-index:800;
 	display:none;
 }
 
@@ -89,12 +87,10 @@
 
 .ie6 .uiDropdown, .ie6 .uiDropdown .uiContent{
 	width:0;
-	z-index:50;
 }
 
 /* IE 7 */
 .ie7 .uiDropdown .uiContent{
 	width:0;
 	left:0;
-	z-index:50;
 }

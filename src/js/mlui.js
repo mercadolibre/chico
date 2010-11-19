@@ -228,7 +228,7 @@ ui.get = function(method, config, callback) {
    			
 			var result;
 					
-			config.$htmlContent.html('<div class="loading"></div>');
+			
 			
 			$.ajax({
 				url: config.content.data,
@@ -416,17 +416,43 @@ ui.Floats = function(){
 
 		that.show = function(event, conf){
 			that.prevent(event);
+			
 			//TODO: clearTimers();
-			conf.$htmlContent = $('<div>').addClass('ui' + ui.utils.ucfirst(conf.name));
-			conf.$htmlContent.html(that.loadContent(conf)).hide().appendTo('body');
-
+			
 			// Visual configuration
-			if(conf.closeButton) createClose(conf);
-			if(conf.cone) createCone(conf);
-			if(conf.align) ui.positionator[conf.align](conf);
-			if(conf.classes) conf.$htmlContent.addClass(conf.classes);
+			var visualConfig = function(){
+				if(conf.closeButton) createClose(conf);
+				if(conf.cone) createCone(conf);
+				if(conf.align) ui.positionator[conf.align](conf);
+				if(conf.classes) conf.$htmlContent.addClass(conf.classes);
+			};
+			
+			conf.$htmlContent = $('<div>').addClass('ui' + ui.utils.ucfirst(conf.name));
+			
+			if(conf.content.type.toLowerCase() === 'ajax'){
+				conf.$htmlContent
+					.html('<div class="loading"></div>')
+					.hide()
+					.appendTo('body')
+					.fadeIn('fast');
+				
+				visualConfig();
+					
+				conf.$htmlContent.html(that.loadContent(conf));
 
-			conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
+				visualConfig();
+
+				that.callbacks(conf, 'show');
+			}else{
+				conf.$htmlContent
+					.html(that.loadContent(conf))
+					.hide()
+					.appendTo('body');
+				
+				visualConfig();
+				
+				conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
+			};
 		};
 
 		that.hide = function(event, conf){
