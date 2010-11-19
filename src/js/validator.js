@@ -10,6 +10,13 @@ ui.Validator = function(conf){
 	var formStatus = true;
 	var watchers = [];
 	
+	var removeValidatorError = function(){
+		$('.uiValidator').fadeOut('fast', function(){
+			$(this).remove();
+			$('.uiHelper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) - $('.uiValidator').height() - 20); }); // TODO: temp solution
+		});
+	};
+	
 	// Validations
 	var validations = {
 		text:		function(x){ return x.match(/^([a-zA-Z\s]+)$/m) },
@@ -25,7 +32,7 @@ ui.Validator = function(conf){
 	};
 	
 	// Validate
-	var validate = function(id, $element, messages){
+	var validate = function(id, $element, messages, event){
 		var helper = watchers[id].helper;
 		
 		for(var x in messages){
@@ -35,8 +42,9 @@ ui.Validator = function(conf){
 			// Not required validation (Si no es obligatorio y el campo esta vacio, esta todo ok)
 			if(!$element.parent().hasClass('required') && !validations.required($element.val())) break;
 			
-			// Status error (cut the flow)
+			// Status error (cut the flow if it's on submit)
 			if(!validations[x]($element.val(), $element.attr('min'), $element.attr('max'))){
+				if(event.type === 'blur') return false;
 				$element.addClass('error');
 				if($('.helper' + id)) helper.hide(); // TODO: refactor del hide del helper
 				helper.show(messages[x]);
@@ -49,13 +57,19 @@ ui.Validator = function(conf){
 			helper.hide();
 			$element.removeClass('error');
 		};
+		
+		if(event.type === 'submit') return true;
+		
+		// General error checker (only on blur)
+		formStatus = true; // Reset general status
+		$.each(watchers, function(i, e){ if(i != id && !e.status) formStatus = false }); // Check each watcher status except current watcher, because status is true
+		if(formStatus) removeValidatorError(); // Remove top helper if no errors
 		return true;
 	};
 	
 	// Watcher Contructor
 	var Watcher = function(id, $element, messages){
-		// Blur feature canceled
-		//$element.bind('blur', function(){ watchers[id].status = validate(id, $element, messages) }); // Watcher events
+		$element.bind('blur', function(event){ watchers[id].status = validate(id, $element, messages, event) }); // Watcher events
 		return { status: true, helper: ui.Helper(id, $element) }; // Public members
 	};
 	
@@ -70,7 +84,7 @@ ui.Validator = function(conf){
 		
 		// Reset form status
 		if(!formStatus){
-			$('.uiValidator').remove();
+			removeValidatorError();
 			formStatus = true;
 		};
 		
@@ -78,7 +92,7 @@ ui.Validator = function(conf){
 		var index = 0;
 		for(var x in conf.fields){
 			// Status error
-			if(!validate(index, $(x), conf.fields[x])){
+			if(!validate(index, $(x), conf.fields[x], event)){
 				formStatus = false;
 			// Status ok (Field error clean)
 			}else{
@@ -94,7 +108,7 @@ ui.Validator = function(conf){
 			$('.uiHelper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) + $('.uiValidator').height() + 20); }); // TODO: temp solution
 		// General ok
 		}else{
-			$('.uiValidator').remove();
+			removeValidatorError();
 			// Callback vs. submit
 			if(conf.callbacks && conf.callbacks.submit) conf.callbacks.submit(); else conf.element.submit();
 		};

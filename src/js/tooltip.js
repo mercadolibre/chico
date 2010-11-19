@@ -9,26 +9,22 @@
 ui.Tooltip = function(conf){
 	var that = ui.Floats(); // Inheritance
 
-	// Global configuration
-	var conf = {
-		$trigger: $(conf.element),
-		name: 'tooltip',
-		content: {
-			type: 'param',
-			data: conf.element.title
-		},
-		align: 'drop',
-		cone: true
+	conf.name = 'tooltip';
+	conf.align = 'drop';
+	conf.cone = true;
+	conf.content = {
+		type: 'param',
+		data: conf.element.title
 	};
 		
-	conf.$trigger
+	conf.$trigger = $(conf.element)
 		.css('cursor', 'default')
 		.bind('mouseenter', function(event){
-			$(this).attr('title',''); // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
+			$(this).attr('title', ''); // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 			that.show(event, conf);
 		})
 		.bind('mouseleave', function(event){
-			$(this).attr('title',conf.content.data);
+			$(this).attr('title', conf.content.data);
 			that.hide(event, conf);
 		});
 
