@@ -20,9 +20,11 @@ ui.Modal = function(conf){
 	
 	// Methods Privates
 	var show = function(event){
-		conf.content.data = conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action'); //Se pisaba esta variable porque tiene el mismo class pero content.data diferente. Ejmplo del Type param con contenido distintos pero la misma class (va a traer la del primero)
-		conf.ajaxParams = 'x=x';//TODO refactor con el header de ajax
-		if(conf.content.type.toLowerCase() === 'ajax' && conf.$trigger.attr('type') == 'submit') setAjaxConfig();
+		if(conf.content.type.toLowerCase() === 'ajax'){
+			conf.content.data = conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action'); //Se pisaba esta variable porque tiene el mismo class pero content.data diferente. Ejmplo del Type param con contenido distintos pero la misma class (va a traer la del primero)
+			conf.ajaxParams = 'x=x';//TODO refactor con el header de ajax
+			if(conf.$trigger.attr('type') == 'submit') setAjaxConfig();						
+		};
 		dimmer.on();
 		that.show(event, conf);
 		$('.close').bind('click', hide);

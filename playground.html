@@ -182,7 +182,6 @@
 	<div class="box">
 		<p>Lorem ipsum dolor sit amet, <span class="edit1">consecteur</span> adipiscing elit. Donec sit amet purus in sapien luctus <span class="edit2">sodales</span>.</p>	
 	</div>
-
 </div>
 
 <script src="src/js/jquery.js"></script>
@@ -207,8 +206,8 @@ $(function() {
     $('.layerClick').layer({
     	event: 'click',
     	content: {
-    		type:'param',
-			data:'<h2>Layer ejecutado onClick</h2><ul><li>Se cierra con clic en el boton cerrar</li><li>Se cierra con clic fuera del layer.</li></ul></p>'
+    		type:'ajax',
+			data:'test.html'
     	}
     });
     $('.layerHover').layer({
@@ -226,7 +225,14 @@ $(function() {
 			type:'param',
 			data:'<h2>Titulo para modal</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>'
 		}
-    });*/
+    })*/;
+    
+    $('#modalDOM').modal({
+    	content:{
+    		type:'dom',
+    		data:'#testDOM'
+    	}
+    });
     
     $('#comprar').modal({
     	content: { type:'ajax' },

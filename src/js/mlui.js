@@ -40,7 +40,7 @@ var ui = window.ui = {
         }
 	}	
 
- }
+}
 
 
 
@@ -49,111 +49,6 @@ var ui = window.ui = {
  *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
  *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
-
-ui.factory = {
-    /**
-     * 
-     *     DEPRECATED
-     * 
-     * 
-     * 
-     *  @function configure
-     *	@arguments conf {Object} This is an object parameter with components configuration
-     *	@return A collection of object instances
-     */
-    configure: function(x) {
-        var name = ui.utils.ucfirst(x);
-        var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
-        // console.log(name + " processing...")
-        
-        $.fn[x] = function(options) {			
-            var options = options || {};
-            if(typeof options !== 'object'){ alert('UI: ' + x + ' configuration error.'); return };
-            var that = this;
-
-            // TODO: If component is already loaded, avoid downloading
-            ui.communicator.getComponent(x, function(){ // Send configuration to a component
-                
-                if (!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
-                               
-                that.each(function(i, e){
-                    
-                    var conf = {};
-                        conf.name = x;
-                        conf.element = e ;
-                        conf.id = i;
-                    
-                    $.extend( conf , options );
-
-                    // Map the instance and Invoke the constructor
-                    ui.instances[x].push(ui[name](conf));
-                    
-                    // console.log(x + " invoking Constructor...")
-                });
-            });
-        }
-    }
-}
- 	
-/**
- *  @static @class Communicator
- *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
- *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
- */	
-ui.communicator = {
-/**
- * 
- *     DEPRECATED
- * 
- * 
- *  @function getComponent
- *  @arguments x {String} Name of the component.
- *  @arguments callback {Function} Callback when component is loaded.
- */
-		getComponent: function(x,callback){
-			alert("The -ui.communicator- is Deprecated, please refactor your functionality with the new -ui.get- component");
-			var link = document.createElement('link');
-				link.href = 'src/css/' + x + '.css'; // TODO: esta url deberÃ­a ser absoluta
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-			var head = document.getElementsByTagName('head')[0].appendChild(link);
-
-			var script = document.createElement('script');
-				script.type = 'text/javascript';
-				script.src = 'src/js/' + x + '.js'; // TODO: esta url deberÃ­a ser absoluta
-				script.onload = function(){ callback(x) } // fire the callback
-			document.body.insertBefore(script, document.body.firstChild);
-		},
-		
-/**
- *  @function getContent
- *  @arguments x {String} Name of the component.
- *  @arguments callback {Function} Callback when component is loaded.
- */		
- 
-		getAjaxContent: function(conf){			
-			var result;			
-			conf.$htmlContent.html('<div class="loading"></div>');
-			$.ajax({
-				url: conf.content.data,
-				type: conf.ajaxType, // 'POST', // Because ajax.data is sent everytime
-				data: conf.ajaxParams, // Default: send {'x':'x'},
-				cache: true,
-				async: false, // Because getAjaxContent function returnaba before success and error
-				success: function(data){
-					result = data;
-				},
-				error: function(data){				
-					result = false;
-				}
-			});
-			
-			return result;
-		}
-	}
-     
- 
-
 ui.factory = function(method, x) {
 
 
@@ -250,14 +145,14 @@ ui.sources = {};
 // nuevo communicator
 ui.get = function(method, config, callback) {
 
-	var url = ui.environment(ui.mode, config);
-    var src = url.uri + url.js;
-    var href = url.uri + url.css;
-  	var head = document.getElementsByTagName("head")[0] || document.documentElement;
-
     switch(method) {
-		
+
     	case "component":
+    	
+    		var url = ui.environment(ui.mode, config);
+		    var src = url.uri + url.js;
+		    var href = url.uri + url.css;
+		  	var head = document.getElementsByTagName("head")[0] || document.documentElement;
 
    			var link = document.createElement('link');
 	    		link.href = href;
@@ -331,20 +226,20 @@ ui.get = function(method, config, callback) {
     
    		case "content":
    			
-			var result;			
-			
-			conf.$htmlContent.html('<div class="loading"></div>');
+			var result;
+					
+			config.$htmlContent.html('<div class="loading"></div>');
 			
 			$.ajax({
-				url: conf.content.data,
-				type: 'POST', // Because ajax.data is sent everytime
-				data: {'x':'x'},
+				url: config.content.data,
+				type: config.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
+				data: config.ajaxParams || 'x=x', // Default: send {'x':'x'}, Solucion temporal por el modal
 				cache: true,
 				async: false, // Because getAjaxContent function returnaba before success and error
 				success: function(data){
 					result = data;
 				},
-				error: function(data){				
+				error: function(data){
 					result = false;
 				}
 			});
@@ -440,7 +335,7 @@ ui.PowerConstructor = function(){
 				}else{
 					switch(conf.content.type.toLowerCase()){
 						case 'ajax': // data = url
-							var result = ui.communicator.getAjaxContent(conf);
+							var result = ui.get('content', conf);
 							return result || '<p>Error on ajax call</p>';
 						break;
 						case 'dom': // data = class, id, element
