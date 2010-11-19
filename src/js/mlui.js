@@ -373,8 +373,8 @@ ui.positionator = {
 			var align = function(){
 				conf.$htmlContent.css({
 					left: (parseInt(ui.utils.window.width()) - conf.$htmlContent.outerWidth() ) /2,
-					top: (parseInt(ui.utils.window.height()) - conf.$htmlContent.outerHeight() ) /2
-				})
+					top: ($.browser.msie && $.browser.version == '6.0') ? '' : (parseInt(ui.utils.window.height()) - conf.$htmlContent.outerHeight() ) /2
+				});
 			};
 			align();
 			ui.utils.window.bind('resize', align);
