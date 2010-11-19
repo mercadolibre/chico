@@ -16,7 +16,6 @@
 	height:19px;
 	line-height:19px;
 	padding:0px 26px 0px 7px;
-	z-index:700;
 	background-color:#cfe3f0;
 	background-position:0 -271px;
 	border:1px solid #79A8C7;
@@ -48,7 +47,7 @@
 	position:absolute;
 	top:20px;
 	white-space:nowrap;
-	z-index:800;
+	z-index:100;
 	display:none;
 }
 
