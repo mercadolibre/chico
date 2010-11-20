@@ -17,12 +17,7 @@ var ui = window.ui = {
      
         ui.components = (window.components) ? ui.components+" "+window.components : ui.components ;
 
-        var fns = ui.components.split(" ");
-        var tot = fns.length;
-       
-        for (var i=0; i<tot; i++) {
-            ui.factory("configure",fns[i]);
-        }
+        ui.factory("create");
     },
 /**
  *	@static Utils. Common usage functions.
@@ -56,65 +51,80 @@ ui.factory = function(method, x, callback) {
      */
     switch(method) {
 
+        case "create":
+        
+            ui.get("all", ui.components, function(){
+                    
+                var fns = ui.components.split(" ");
+                var tot = fns.length;
+           
+                for (var i=0; i<tot; i++) {
+                    ui.factory("configure",fns[i]);
+                }
+                    
+            });
+            
+            break;
+
     	case "configure":
 
-        var results = [];		
-        var name = ui.utils.ucfirst(x);
-
-        // If component instances don't exists, create an empty array
-        if (!ui.instances[x]) ui.instances[x] = []; 
-        
-        var create = function(x) { 
+            var results = [];		
+            var name = ui.utils.ucfirst(x);
+    
+            // If component instances don't exists, create an empty array
+            if (!ui.instances[x]) ui.instances[x] = []; 
             
-            // Send configuration to a component trough options object
-            $.fn[x] = function(options) {
-    			 
-                var that = this;
-                var options = options || {};
+            var create = function(x) { 
                 
-                if (typeof options !== 'object') { 
-                    alert('UI: ' + x + ' configuration error.'); 
-                    return;
-                };		
-                                
-                that.each(function(i, e) {
+                // Send configuration to a component trough options object
+                $.fn[x] = function(options) {
+        			 
+                    var that = this;
+                    var options = options || {};
                     
-                    var conf = {};
-                        conf.name = x;
-                        conf.element = e ;
-                        conf.id = i;
+                    if (typeof options !== 'object') { 
+                        alert('UI: ' + x + ' configuration error.'); 
+                        return;
+                    };		
+                                    
+                    that.each(function(i, e) {
                         
-                    $.extend( conf , options );
-            
-                    // Create a component from his constructor
-                    var created = ui[name]( conf );
-                    
-                    // Save results to return the created components    
-                    results.push( created );
-                        
-                    // Map the instance
-                    ui.instances[x].push( created );
-                    
-                });
-                
-                // return the created components or component   
-                return ( results.length > 0 ) ? results : results[0];
-            }
-
-                // callback
-                if (callback) callback();
+                        var conf = {};
+                            conf.name = x;
+                            conf.element = e ;
+                            conf.id = i;
                             
-        } // end create function
-
-        if (ui.instances[x].script) {
-            // script already here, just create
-            create(x); console.log(x +"ya existe")
-        } else {
-            // get resurces and call create
-            ui.get("component", x, create);
-        }
-        
-        break;
+                        $.extend( conf , options );
+                
+                        // Create a component from his constructor
+                        var created = ui[name]( conf );
+                        
+                        // Save results to return the created components    
+                        results.push( created );
+                            
+                        // Map the instance
+                        ui.instances[x].push( created );
+                        
+                    });
+                    
+                    // return the created components or component   
+                    return ( results.length > 0 ) ? results : results[0];
+                }
+    
+                    // callback
+                    if (callback) callback();
+                                
+            } // end create function
+    
+            if (ui.instances[x].script) {
+                // script already here, just create
+                create(x);
+            } else {
+                // get resurces and call create
+                ui.get("component", x, create);
+            }
+            
+            break;
         
         default:
         
@@ -160,60 +170,9 @@ ui.environment = function (mode, config) {
 
 // nuevo communicator
 ui.get = function(method, x, callback) {
-
+    
     switch(method) {
 
-    	case "component":
-    	
-    		var url = ui.environment(ui.mode, x);
-		    var src = url.uri + url.js;
-		    var href = url.uri + url.css;
-		  	var head = document.getElementsByTagName("head")[0] || document.documentElement;
-
-   			var style = document.createElement('link');
-	    		style.href = href;
-    	    	style.rel = 'stylesheet';
-	        	style.type = 'text/css';
-                               
-		   	var script = document.createElement("script");
-    			script.src = src;
-				
-			// Handle Script loading
-			var done = false;
-
-   			// Attach handlers for all browsers
-			script.onload = script.onreadystatechange = function() {
-	    
-	    	if ( !done && (!this.readyState || 
-    					this.readyState === "loaded" || this.readyState === "complete") ) {
-    					
-					done = true; 
-                    
-                    // save the script and style reference on the instances map
-		   			ui.instances[x].script = script;
-		   			ui.instances[x].style = style;
-		   			
-		   			// fire callback
-		   	        callback(x);
-										
-			   		// Handle memory leak in IE
-		   			script.onload = script.onreadystatechange = null;
-	   			
-			   		if ( head && script.parentNode ) {
-		   				head.removeChild( script );
-		   			}
-				}
-			};
-                
-			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
-			// This arises when a base node is used.
-			head.insertBefore( script, head.firstChild );
-	    	head.appendChild( style );
-
-	    	return x;
-    
-    	break;
-    
    		case "content":
    			
 			var result;
@@ -237,8 +196,72 @@ ui.get = function(method, x, callback) {
 			return result;
 		
 			break;
-    
+        
+        case "all":
+            var c = x.split(" ");
+            var x = c.join(",");
+            ui.mode = "pub";
+            
+    	case "component":
+
+        	var url = ui.environment(ui.mode, x);
+            var src = url.uri + url.js;
+            var href = url.uri + url.css;
+
+   			var style = document.createElement('link');
+	    		style.href = href;
+    	    	style.rel = 'stylesheet';
+	        	style.type = 'text/css';
+                               
+		   	var script = document.createElement("script");
+    			script.src = src;
+                        
         default:
+
+            var head = document.getElementsByTagName("head")[0] || document.documentElement;
+
+			// Handle Script loading
+			var done = false;
+
+   			// Attach handlers for all browsers
+			script.onload = script.onreadystatechange = function() {
+	    
+	    	if ( !done && (!this.readyState || 
+    					this.readyState === "loaded" || this.readyState === "complete") ) {
+    					
+					done = true; 
+                    
+                    // save the script and style reference on the instances map
+                    if (method == "all") {
+                        for (var i=0;i<c.length;i++) {
+                            ui.instances[c[i]] = [];
+                            ui.instances[c[i]].script = script;
+                            ui.instances[c[i]].style = style;
+                        }
+                        
+                    } else {
+                        ui.instances[x].script = script;
+                        ui.instances[x].style = style;   
+                    }
+             
+		   			// fire callback
+		   	        callback(x);
+										
+			   		// Handle memory leak in IE
+		   			script.onload = script.onreadystatechange = null;
+	   			
+			   		if ( head && script.parentNode ) {
+		   				head.removeChild( script );
+		   			}
+				}
+			};
+                
+			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+			// This arises when a base node is used.
+			head.insertBefore( script, head.firstChild );
+	    	head.appendChild( style );
+
+	    	return x;
         
        		break;        
 	}

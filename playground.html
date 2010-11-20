@@ -185,6 +185,7 @@
 </div>
 
 <script>
+    // pre carga validator
 var components = "validator";
 </script>
 
@@ -200,13 +201,14 @@ $(function() {
 	// Dropdown
     $('.dropdown').dropdown();
     
-    
+    // post-carga carousel
     ui.factory("configure","carousel",function(){
         // Carousel
         $('.destacados').carousel();
         console.log("yeah");
     });
     
+    // post-carga edit-in-place
     ui.factory("configure","editInPlace",function(){
         // Edit in place
         $('.edit1, .edit2').editInPlace();
