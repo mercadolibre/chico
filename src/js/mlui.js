@@ -16,7 +16,7 @@ var ui = window.ui = {
 	init: function() { 
      
         ui.components = (window.components) ? ui.components+" "+window.components : ui.components ;
-console.log(ui.components)
+
         var fns = ui.components.split(" ");
         var tot = fns.length;
        
