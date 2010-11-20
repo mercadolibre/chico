@@ -2,6 +2,7 @@
 	width:280px;
 	background-image:none;
 	position:absolute;
+	z-index: 300;
 }
 
 .uiLayer .cone {
