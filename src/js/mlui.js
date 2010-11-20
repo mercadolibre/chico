@@ -9,12 +9,14 @@ var ui = window.ui = {
 
 	mode: "dev", // "dev" or "pub"
 
-	components: "carousel dropdown editInPlace layer modal tabNavigator validator tooltip",
+	components: "dropdown layer modal tabNavigator tooltip",
 
  	instances: {},
  	
 	init: function() { 
-           
+     
+        ui.components = (window.components) ? ui.components+" "+window.components : ui.components ;
+console.log(ui.components)
         var fns = ui.components.split(" ");
         var tot = fns.length;
        
@@ -24,8 +26,6 @@ var ui = window.ui = {
     },
 /**
  *	@static Utils. Common usage functions.
- *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
- *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */		
     utils: {
 		body: $('body'),
@@ -46,11 +46,8 @@ var ui = window.ui = {
 
 /**
  *	@static @class Factory
- *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
- *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
-ui.factory = function(method, x) {
-
+ui.factory = function(method, x, callback) {
 
     /**
      *  @function configure
@@ -60,40 +57,61 @@ ui.factory = function(method, x) {
     switch(method) {
 
     	case "configure":
-		
-        var name = ui.utils.ucfirst(x);
-        var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
-              
-        $.fn[x] = function(options) {
-			 
-            var that = this;
-            var options = options || {};
-            
-            if (typeof options !== 'object') { 
-                alert('UI: ' + x + ' configuration error.'); 
-                return 
-            };
-			
-            ui.get("component", x, function(x){ // Send configuration to a component
 
-                if (!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
-                               
-                that.each(function(i, e){
+        var results = [];		
+        var name = ui.utils.ucfirst(x);
+
+        // If component instances don't exists, create an empty array
+        if (!ui.instances[x]) ui.instances[x] = []; 
+        
+        var create = function(x) { 
+            
+            // Send configuration to a component trough options object
+            $.fn[x] = function(options) {
+    			 
+                var that = this;
+                var options = options || {};
+                
+                if (typeof options !== 'object') { 
+                    alert('UI: ' + x + ' configuration error.'); 
+                    return;
+                };		
+                                
+                that.each(function(i, e) {
                     
                     var conf = {};
                         conf.name = x;
                         conf.element = e ;
                         conf.id = i;
-                    
+                        
                     $.extend( conf , options );
-
-                    // Map the instance and Invoke the constructor
-                    ui.instances[x].push(ui[name](conf));
+            
+                    // Create a component from his constructor
+                    var created = ui[name]( conf );
                     
-                    //console.log(x + " invoking Constructor...")
+                    // Save results to return the created components    
+                    results.push( created );
+                        
+                    // Map the instance
+                    ui.instances[x].push( created );
+                    
                 });
                 
-            });
+                // return the created components or component   
+                return ( results.length > 0 ) ? results : results[0];
+            }
+
+                // callback
+                if (callback) callback();
+                            
+        } // end create function
+
+        if (ui.instances[x].script) {
+            // script already here, just create
+            create(x); console.log(x +"ya existe")
+        } else {
+            // get resurces and call create
+            ui.get("component", x, create);
         }
         
         break;
@@ -140,48 +158,25 @@ ui.environment = function (mode, config) {
 	
 }
 
-ui.sources = {};
-
 // nuevo communicator
-ui.get = function(method, config, callback) {
+ui.get = function(method, x, callback) {
 
     switch(method) {
 
     	case "component":
     	
-    		var url = ui.environment(ui.mode, config);
+    		var url = ui.environment(ui.mode, x);
 		    var src = url.uri + url.js;
 		    var href = url.uri + url.css;
 		  	var head = document.getElementsByTagName("head")[0] || document.documentElement;
 
-   			var link = document.createElement('link');
-	    		link.href = href;
-    	    	link.rel = 'stylesheet';
-	        	link.type = 'text/css';
+   			var style = document.createElement('link');
+	    		style.href = href;
+    	    	style.rel = 'stylesheet';
+	        	style.type = 'text/css';
                                
 		   	var script = document.createElement("script");
     			script.src = src;
-			
-			// check if already exist this script
-			
-			if (ui.sources[config]) {
-				//console.log("Componente "+config+" ya existe pusheo el callback");
-				ui.sources[config].callbacks.push(callback);
-				if (ui.sources[config].ready) {
-					callback(config);
-					//console.log("Componente "+config+" ya listo disparo el callback");
-				}
-				return config;
-				
-			} else {
-					
-				//console.log("Creo componente "+config);
-				ui.sources[config] = {
-					script : script,
-					callbacks: [callback],
-					ready: false
-				}				
-			}
 				
 			// Handle Script loading
 			var done = false;
@@ -193,18 +188,13 @@ ui.get = function(method, config, callback) {
     					this.readyState === "loaded" || this.readyState === "complete") ) {
     					
 					done = true; 
-		   	
-		   			// Compoonent ready to use
-					ui.sources[config].ready = true;
-		   	
-			   		// Fire callbacks TODO marcar cuando se disparan
-			   		var callbacks = ui.sources[config].callbacks;
-			   		var t = callbacks.length;
-			   		
-			   		for (var i=0;i<t;i++) {
-			   			callbacks[i](config);	
-			   		}
-
+                    
+                    // save the script and style reference on the instances map
+		   			ui.instances[x].script = script;
+		   			ui.instances[x].style = style;
+		   			
+		   			// fire callback
+		   	        callback(x);
 										
 			   		// Handle memory leak in IE
 		   			script.onload = script.onreadystatechange = null;
@@ -218,9 +208,9 @@ ui.get = function(method, config, callback) {
 			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
 			// This arises when a base node is used.
 			head.insertBefore( script, head.firstChild );
-	    	head.appendChild(link);
+	    	head.appendChild( style );
 
-	    	return config;
+	    	return x;
     
     	break;
     
@@ -228,12 +218,12 @@ ui.get = function(method, config, callback) {
    			
 			var result;
 					
-			config.$htmlContent.html('<div class="loading"></div>');
+			x.$htmlContent.html('<div class="loading"></div>');
 			
 			$.ajax({
-				url: config.content.data,
-				type: config.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
-				data: config.ajaxParams || 'x=x', // Default: send {'x':'x'}, Solucion temporal por el modal
+				url: x.content.data,
+				type: x.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
+				data: x.ajaxParams || 'x=x', // Default: send {'x':'x'}, Solucion temporal por el modal
 				cache: true,
 				async: false, // Because getAjaxContent function returnaba before success and error
 				success: function(data){
@@ -325,8 +315,10 @@ ui.PowerConstructor = function(){
 		return {
 					
 			prevent: function(event){
-				event.preventDefault();
-				event.stopPropagation();
+				if (event) {
+				    event.preventDefault();
+    				event.stopPropagation();
+    			}
 			},
 			
 			loadContent: function(conf){

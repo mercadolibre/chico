@@ -184,6 +184,10 @@
 	</div>
 </div>
 
+<script>
+var components = "validator";
+</script>
+
 <script src="src/js/jquery.js"></script>
 <script src="src/js/mlui.js"></script>
 <script>
@@ -196,11 +200,17 @@ $(function() {
 	// Dropdown
     $('.dropdown').dropdown();
     
-    // Carousel
-    $('.destacados').carousel();
     
-    // Edit in place
-    $('.edit1, .edit2').editInPlace();
+    ui.factory("configure","carousel",function(){
+        // Carousel
+        $('.destacados').carousel();
+        console.log("yeah");
+    });
+    
+    ui.factory("configure","editInPlace",function(){
+        // Edit in place
+        $('.edit1, .edit2').editInPlace();
+    });
     
     // Layer
     $('.layerClick').layer({
@@ -236,11 +246,21 @@ $(function() {
     
     $('#comprar').modal({
     	content: { type:'ajax' },
-		callbacks:{                   
-            show:function(){ 
-            	$('.titleAjax').bind('click', function(){
-            		alert('Callback show: Done!');
-            	})
+		callbacks: {                   
+            show: function() { 
+            	$('.titleAjax').modal({
+            	       content: { type: 'param', data:"<h1>Ha!</h1><p>modales dentro de modales <span class='carita'>:P</span></p>"},
+            	       callbacks: {
+            	           show: function() {
+            	              var a= $('.carita').layer({
+                                        	content: {
+                                    			type:'param',
+                                    			data:'<h2>Carita</h2><p>de un modal adentro de otro modal</p>'
+                                    		}
+                                        });                                  
+            	              }
+            	       }
+            	   });
              },
             hide:function(){  }                         
         }
