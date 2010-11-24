@@ -16,6 +16,15 @@
 			width:120px;			
 		}
 	</style>
+    <script>
+        // pre carga validator
+    var components = "validator";
+    </script>
+    
+    <script src="src/js/jquery.js"></script>
+    <script src="src/js/mlui.js"></script>
+    <script src="src/js/debugger.js"></script>
+
 </head>
 
 <!--[if lt IE 7 ]>
@@ -184,8 +193,6 @@
 	</div>
 </div>
 
-<script src="src/js/jquery.js"></script>
-<script src="src/js/mlui.js"></script>
 <script>
 	
 $(function() { 
@@ -196,11 +203,18 @@ $(function() {
 	// Dropdown
     $('.dropdown').dropdown();
     
-    // Carousel
-    $('.destacados').carousel();
+    // post-carga carousel
+    ui.factory("configure","carousel",function(){
+        // Carousel
+        $('.destacados').carousel();
+        console.log("yeah");
+    });
     
-    // Edit in place
-    $('.edit1, .edit2').editInPlace();
+    // post-carga edit-in-place
+    ui.factory("configure","editInPlace",function(){
+        // Edit in place
+        $('.edit1, .edit2').editInPlace();
+    });
     
     // Layer
     $('.layerClick').layer({
@@ -236,11 +250,21 @@ $(function() {
     
     $('#comprar').modal({
     	content: { type:'ajax' },
-		callbacks:{                   
-            show:function(){ 
-            	$('.titleAjax').bind('click', function(){
-            		alert('Callback show: Done!');
-            	})
+		callbacks: {                   
+            show: function() { 
+            	$('.titleAjax').modal({
+            	       content: { type: 'param', data:"<h1>Ha!</h1><p>modales dentro de modales <span class='carita'>:P</span></p>"},
+            	       callbacks: {
+            	           show: function() {
+            	              var a= $('.carita').layer({
+                                        	content: {
+                                    			type:'param',
+                                    			data:'<h2>Carita</h2><p>de un modal adentro de otro modal</p>'
+                                    		}
+                                        });                                  
+            	              }
+            	       }
+            	   });
              },
             hide:function(){  }                         
         }

@@ -9,33 +9,24 @@ var ui = window.ui = {
 
 	mode: "dev", // "dev" or "pub"
 
-	components: "carousel dropdown editInPlace layer modal tabNavigator validator tooltip",
+	components: "dropdown layer modal tabNavigator tooltip",
 
  	instances: {},
  	
 	init: function() { 
-           
-        var fns = ui.components.split(" ");
-        var tot = fns.length;
-       
-        for (var i=0; i<tot; i++) {
-            ui.factory("configure",fns[i]);
-        }
+     
+        ui.components = (window.components) ? ui.components+" "+window.components : ui.components ;
+
+        ui.factory("create");
+        
     },
 /**
  *	@static Utils. Common usage functions.
- *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
- *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */		
     utils: {
 		body: $('body'),
 		window: $(window),
-		document: $(document),
-		/**
-		 *  @function
-		 *  @arguments {String}
-		 *  @returns {String} New String with uppercase the first character.
-		 */		
+		document: $(document),	
 		ucfirst: function(s) { return (s + '').charAt(0).toUpperCase() + s.substr(1); 
         }
 	}	
@@ -46,11 +37,8 @@ var ui = window.ui = {
 
 /**
  *	@static @class Factory
- *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
- *	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
  */	
-ui.factory = function(method, x) {
-
+ui.factory = function(method, x, callback) {
 
     /**
      *  @function configure
@@ -59,48 +47,83 @@ ui.factory = function(method, x) {
      */
     switch(method) {
 
-    	case "configure":
-		
-        var name = ui.utils.ucfirst(x);
-        var component = ui[name]; //var component = eval('ui.'+ ucfirst(x));   // FUCK the eval
-              
-        $.fn[x] = function(options) {
-			 
-            var that = this;
-            var options = options || {};
-            
-            if (typeof options !== 'object') { 
-                alert('UI: ' + x + ' configuration error.'); 
-                return 
-            };
-			
-            ui.get("component", x, function(x){ // Send configuration to a component
-
-                if (!ui.instances[x]) ui.instances[x] = []; // If component instances don't exists, create this like array
-                               
-                that.each(function(i, e){
-                    
-                    var conf = {};
-                        conf.name = x;
-                        conf.element = e ;
-                        conf.id = i;
-                    
-                    $.extend( conf , options );
-
-                    // Map the instance and Invoke the constructor
-                    ui.instances[x].push(ui[name](conf));
-                    
-                    //console.log(x + " invoking Constructor...")
-                });
-                
-            });
-        }
+        case "create":
         
-        break;
+            ui.get("all", ui.components, function(){
+                    
+                var fns = ui.components.split(" ");
+                var tot = fns.length;
+                for (var i=0; i<tot; i++) {
+                    ui.factory("configure",fns[i]);
+                }
+                    
+            });
+            
+            break;
+
+    	case "configure":
+
+            var results = [];		
+            var name = ui.utils.ucfirst(x);
+    
+            // If component instances don't exists, create an empty array
+            if (!ui.instances[x]) ui.instances[x] = []; 
+            
+            var create = function(x) { 
+
+                // Send configuration to a component trough options object
+                $.fn[x] = function(options) {
+        		    
+                    var that = this;
+                    var options = options || {};
+                    
+                    if (typeof options !== 'object') { 
+                        alert('UI: ' + x + ' configuration error.'); 
+                        return;
+                    };		
+                                    
+                    that.each(function(i, e) {
+                        
+                        var conf = {};
+                            conf.name = x;
+                            conf.element = e ;
+                            conf.id = i;
+                            
+                        $.extend( conf , options );
+                
+                        // Create a component from his constructor
+                        var created = ui[name]( conf );
+                        
+                        // Save results to return the created components    
+                        results.push( created );
+                            
+                        // Map the instance
+                        ui.instances[x].push( created );
+                        
+                    });
+                    
+                    // return the created components or component   
+                    return ( results.length > 0 ) ? results : results[0];
+                }
+    
+                // callback
+                if (callback) callback();
+                                
+            } // end create function
+    
+            if (ui.instances[x].script) {
+                // script already here, just create
+                create(x);
+            } else {
+                // get resurces and call create
+                ui.get("component", x, create);
+            }
+            
+            break;
         
         default:
         
-        break;
+            break;
 	}
 	
 }
@@ -129,9 +152,9 @@ ui.environment = function (mode, config) {
 	case "dev":
 
 		return {
-			uri: "",
-			css: "src/css/"+config+".css",
-			js: "src/js/"+config+".js"
+			uri: "php/",
+			css: "css.php?q="+config,
+			js: "js.php?q="+config
 		}
 
 		break;
@@ -140,100 +163,21 @@ ui.environment = function (mode, config) {
 	
 }
 
-ui.sources = {};
-
 // nuevo communicator
-ui.get = function(method, config, callback) {
-
+ui.get = function(method, x, callback) {
+    
     switch(method) {
 
-    	case "component":
-    	
-    		var url = ui.environment(ui.mode, config);
-		    var src = url.uri + url.js;
-		    var href = url.uri + url.css;
-		  	var head = document.getElementsByTagName("head")[0] || document.documentElement;
-
-   			var link = document.createElement('link');
-	    		link.href = href;
-    	    	link.rel = 'stylesheet';
-	        	link.type = 'text/css';
-                               
-		   	var script = document.createElement("script");
-    			script.src = src;
-			
-			// check if already exist this script
-			
-			if (ui.sources[config]) {
-				//console.log("Componente "+config+" ya existe pusheo el callback");
-				ui.sources[config].callbacks.push(callback);
-				if (ui.sources[config].ready) {
-					callback(config);
-					//console.log("Componente "+config+" ya listo disparo el callback");
-				}
-				return config;
-				
-			} else {
-					
-				//console.log("Creo componente "+config);
-				ui.sources[config] = {
-					script : script,
-					callbacks: [callback],
-					ready: false
-				}				
-			}
-				
-			// Handle Script loading
-			var done = false;
-
-   			// Attach handlers for all browsers
-			script.onload = script.onreadystatechange = function() {
-	    
-	    	if ( !done && (!this.readyState || 
-    					this.readyState === "loaded" || this.readyState === "complete") ) {
-    					
-					done = true; 
-		   	
-		   			// Compoonent ready to use
-					ui.sources[config].ready = true;
-		   	
-			   		// Fire callbacks TODO marcar cuando se disparan
-			   		var callbacks = ui.sources[config].callbacks;
-			   		var t = callbacks.length;
-			   		
-			   		for (var i=0;i<t;i++) {
-			   			callbacks[i](config);	
-			   		}
-
-										
-			   		// Handle memory leak in IE
-		   			script.onload = script.onreadystatechange = null;
-	   			
-			   		if ( head && script.parentNode ) {
-		   				head.removeChild( script );
-		   			}
-				}
-			};
-                
-			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
-			// This arises when a base node is used.
-			head.insertBefore( script, head.firstChild );
-	    	head.appendChild(link);
-
-	    	return config;
-    
-    	break;
-    
    		case "content":
    			
 			var result;
 					
-			config.$htmlContent.html('<div class="loading"></div>');
+			x.$htmlContent.html('<div class="loading"></div>');
 			
 			$.ajax({
-				url: config.content.data,
-				type: config.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
-				data: config.ajaxParams || 'x=x', // Default: send {'x':'x'}, Solucion temporal por el modal
+				url: x.content.data,
+				type: x.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
+				data: x.ajaxParams || 'x=x', // Default: send {'x':'x'}, Solucion temporal por el modal
 				cache: true,
 				async: false, // Because getAjaxContent function returnaba before success and error
 				success: function(data){
@@ -247,8 +191,72 @@ ui.get = function(method, config, callback) {
 			return result;
 		
 			break;
-    
+        
+        case "all":
+        
+            var c = x.split(" ");
+            var x = c.join(",");
+           // ui.mode = "pub";
+            
+    	case "component":
+
+        	var url = ui.environment(ui.mode, x);
+            var src = url.uri + url.js;
+            var href = url.uri + url.css;
+
+   			var style = document.createElement('link');
+	    		style.href = href;
+    	    	style.rel = 'stylesheet';
+	        	style.type = 'text/css';
+                               
+		   	var script = document.createElement("script");
+    			script.src = src;
+                        
         default:
+
+            var head = document.getElementsByTagName("head")[0] || document.documentElement;
+
+			// Handle Script loading
+			var done = false;
+
+   			// Attach handlers for all browsers
+			script.onload = script.onreadystatechange = function() {
+	    
+	    	if ( !done && (!this.readyState || 
+    					this.readyState === "loaded" || this.readyState === "complete") ) {
+    					
+					done = true; 
+                    
+                    // save the script and style reference on the instances map
+                    if (method == "all") {
+                        for (var i=0;i<c.length;i++) {
+                            ui.instances[c[i]] = [];
+                            ui.instances[c[i]].script = script;
+                            ui.instances[c[i]].style = style;
+                        }
+                    } else {
+                        ui.instances[x].script = script;
+                        ui.instances[x].style = style;   
+                    }
+             
+		   			// fire callback
+		   	        callback(x);
+										
+			   		// Handle memory leak in IE
+		   			script.onload = script.onreadystatechange = null;
+	   			
+			   		if ( head && script.parentNode ) {
+		   				head.removeChild( script );
+		   			}
+				}
+			};
+                
+			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+			// This arises when a base node is used.
+			head.insertBefore( script, head.firstChild );
+	    	head.appendChild( style );
+
+	    	return x;
         
        		break;        
 	}
@@ -325,8 +333,10 @@ ui.PowerConstructor = function(){
 		return {
 					
 			prevent: function(event){
-				event.preventDefault();
-				event.stopPropagation();
+				if (event) {
+				    event.preventDefault();
+    				event.stopPropagation();
+    			}
 			},
 			
 			loadContent: function(conf){

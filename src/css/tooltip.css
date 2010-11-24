@@ -10,7 +10,7 @@
 	box-shadow:-2px 2px 3px #ccc;
 	-moz-box-shadow:-2px 2px 3px #ccc;
 	-webkit-box-shadow:-2px 2px 3px #ccc;
-	z-index:300;
+	z-index:400;
 }
 
 .uiTooltip .cone {
