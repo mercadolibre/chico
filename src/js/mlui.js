@@ -18,6 +18,7 @@ var ui = window.ui = {
         ui.components = (window.components) ? ui.components+" "+window.components : ui.components ;
 
         ui.factory("create");
+        
     },
 /**
  *	@static Utils. Common usage functions.
@@ -25,12 +26,7 @@ var ui = window.ui = {
     utils: {
 		body: $('body'),
 		window: $(window),
-		document: $(document),
-		/**
-		 *  @function
-		 *  @arguments {String}
-		 *  @returns {String} New String with uppercase the first character.
-		 */		
+		document: $(document),	
 		ucfirst: function(s) { return (s + '').charAt(0).toUpperCase() + s.substr(1); 
         }
 	}	
@@ -57,7 +53,6 @@ ui.factory = function(method, x, callback) {
                     
                 var fns = ui.components.split(" ");
                 var tot = fns.length;
-           
                 for (var i=0; i<tot; i++) {
                     ui.factory("configure",fns[i]);
                 }
@@ -75,10 +70,10 @@ ui.factory = function(method, x, callback) {
             if (!ui.instances[x]) ui.instances[x] = []; 
             
             var create = function(x) { 
-                
+
                 // Send configuration to a component trough options object
                 $.fn[x] = function(options) {
-        			 
+        		    
                     var that = this;
                     var options = options || {};
                     
@@ -111,8 +106,8 @@ ui.factory = function(method, x, callback) {
                     return ( results.length > 0 ) ? results : results[0];
                 }
     
-                    // callback
-                    if (callback) callback();
+                // callback
+                if (callback) callback();
                                 
             } // end create function
     
@@ -128,7 +123,7 @@ ui.factory = function(method, x, callback) {
         
         default:
         
-        break;
+            break;
 	}
 	
 }
@@ -157,9 +152,9 @@ ui.environment = function (mode, config) {
 	case "dev":
 
 		return {
-			uri: "",
-			css: "src/css/"+config+".css",
-			js: "src/js/"+config+".js"
+			uri: "php/",
+			css: "css.php?q="+config,
+			js: "js.php?q="+config
 		}
 
 		break;
@@ -198,9 +193,10 @@ ui.get = function(method, x, callback) {
 			break;
         
         case "all":
+        
             var c = x.split(" ");
             var x = c.join(",");
-            ui.mode = "pub";
+           // ui.mode = "pub";
             
     	case "component":
 
@@ -238,7 +234,6 @@ ui.get = function(method, x, callback) {
                             ui.instances[c[i]].script = script;
                             ui.instances[c[i]].style = style;
                         }
-                        
                     } else {
                         ui.instances[x].script = script;
                         ui.instances[x].style = style;   

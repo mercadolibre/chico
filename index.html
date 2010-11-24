@@ -9,7 +9,13 @@
 		<link rel="stylesheet" type="text/css" href="src/css/base.css">
 		<link rel="stylesheet" type="text/css" href="src/css/forms.css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
+        <script>
+            var components = "carousel validator";
+        </script>
 		<script src="src/js/jquery.js"></script>
+		<script src="src/js/mlui.js"></script>
+		<script src="src/js/debugger.js"></script>
+		<script src="src/js/highlight.js"></script>
 	</head>
 	
 	<!--[if lt IE 7 ]>
@@ -405,58 +411,60 @@
 			</div>
 		</div>
 	</div>
-        <script>
-            var components = "carousel validator";
-        </script>
-		<script src="src/js/highlight.js"></script>		
-		<script src="src/js/mlui.js"></script>
-		<script>
-			$('.demoDropdown').dropdown();
-			$('.demoCarousel').carousel();
-			$('.demoModal').modal({ content: { type: 'ajax' } });			
-			$('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
-			$('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
-			$('.demoTooltip').tooltip();
-			$('.demoTabNavigator,#chico-tabs').tabNavigator();
-			
-			// Validator
-			$('.demoValidator').validator({
-				fields: {
-					'#w1': {
-						required: 'El email es obligatorio.',
-						email: 'El email esta mal escrito.'
-					},
-		
-					'#w2': {
-						url: 'La URL esta mal escrita.'
-					},
-		
-					'#w3': {
-						number: 'El precio debe ser un número.',
-						min: 'El precio debe ser mayor a 20.',
-						max: 'El precio debe ser menor a 100.'
-					},
-		
-					'#w4': {
-						range: 'El rango debe ser un número entre 1 y 10.'
-					},
-					
-					'#w5': {
-						required: 'El campo es obligatorio.'
-					}
-				},
-				defaults: {
-					error: 'Hay errores en el formulario.'
-				},
-				callbacks: {
-					submit: function(){
-						alert('callback');
-					}
-				}
-			});
+	<!-- Organization -->
+	<script>
+	$(window).bind('load', function(){ 
+        
+        $('.article').each(function(i, e){ 
+            $(e).find('.section .box:first').height($(e).find('.aside .box:first').height()) 
+        });
+        
+        $("head title, .header h1").html($("head title").html()+" "+ui.version);
+
+        $('.demoDropdown').dropdown();
+        $('.demoCarousel').carousel();
+        $('.demoModal').modal({ content: { type: 'ajax' } });			
+        $('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
+        $('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
+        $('.demoTooltip').tooltip();
+        $('.demoTabNavigator,#chico-tabs').tabNavigator();
+        
+        // Validator
+        $('.demoValidator').validator({
+        	fields: {
+        		'#w1': {
+        			required: 'El email es obligatorio.',
+        			email: 'El email esta mal escrito.'
+        		},
+        
+        		'#w2': {
+        			url: 'La URL esta mal escrita.'
+        		},
+        
+        		'#w3': {
+        			number: 'El precio debe ser un número.',
+        			min: 'El precio debe ser mayor a 20.',
+        			max: 'El precio debe ser menor a 100.'
+        		},
+        
+        		'#w4': {
+        			range: 'El rango debe ser un número entre 1 y 10.'
+        		},
+        		
+        		'#w5': {
+        			required: 'El campo es obligatorio.'
+        		}
+        	},
+        	defaults: {
+        		error: 'Hay errores en el formulario.'
+        	},
+        	callbacks: {
+        		submit: function(){
+        			alert('callback');
+        		}
+        	}
+        });
+    });
 		</script>
-		
-		<!-- Organization -->
-		<script>$(window).bind('load', function(){ $('.article').each(function(i, e){ $(e).find('.section .box:first').height($(e).find('.aside .box:first').height()) }) });$("head title, .header h1").html($("head title").html()+" "+ui.version);</script>
 	</body>
 </html>
