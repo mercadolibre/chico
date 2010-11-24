@@ -53,114 +53,58 @@
 	    		data:'#testDOM'
 	    	}
 	    });
-
+					
+		$.fx.off = true;
+		
 		/**
 		 * 	Test Cases
 		 */
 
 		module('Modal Tests - Param content');
 						
-		test('Check for basic interaction', function(){
-			var dimmer = $('div').hasClass('dimmer');
-			var modal = $('div').hasClass('uiModal');
-						
-			ok( !dimmer , 'Dimmer shouldn\'t be create on DOM before click on trigger' );
-			ok( !modal , 'Modal shouldn\'t be create on DOM before click on trigger' );
+		test('Opens modal dialog', function(){
+			notExists('.dimmer');
+			notExists('.uiModal');
 			
-			//show
-			var $triggerClick = $('#testModal');
-				$triggerClick.trigger('click');
+			$('#testModal').click();
 			
-			dimmer = $('div').hasClass('dimmer');
-			modal = $('div').hasClass('uiModal');
+			exists('.dimmer');
+			exists('.uiModal');
 			
-			ok( dimmer , 'Dimmer should be create on DOM' );
-			ok( modal , 'Modal should be create on DOM' );
+			isVisible('.dimmer');
+			isVisible('.uiModal');
 			
-			equal( $('.dimmer').css('display') , 'block' , 'Dimmer should show on the screen' );
-			equal( $('.uiModal').css('display') , 'block' , 'Modal should show on the screen' );
-
-			//close
-			$('dimmer').trigger('click');
+			$('.dimmer').click();
 			
-			dimmerOpacity = $('.dimmer').css('opacity');
-			modalOpacity = $('.uiModal').css('opacity');
-			
-			equal( dimmerOpacity, 0 , 'Dimmer shouldn\'t exists on DOM after click on dimmer' );
-			equal( modalOpacity, 0 , 'Modal shouldn\'t exists on DOM after click on dimmer' );			
+			notExists('.dimmer');
+			notExists('.uiModal');
 		});
 
-		test('Check for the close button interaction', function(){					
-			var $triggerClick = $('#testModal');
-				$triggerClick.trigger('click');
+		test('Close modal dialog with close button', function(){					
+			$('#testModal').click();
 			
-			ok( $('.uiModal').find('p').hasClass('close') , 'Modal should have close button' );
+			exists('.uiModal .close');
 			
 			$('.close').trigger('click');
 			
-			dimmerOpacity = $('.dimmer').css('opacity');
-			modalOpacity = $('.uiModal').css('opacity');
+			notExists('.dimmer');
+			notExists('.uiModal');
 			
-			equal( dimmerOpacity, 0 , 'Dimmer shouldn\'t exists on DOM after click on close button' );
-			equal( modalOpacity, 0 , 'Modal shouldn\'t exists on DOM after click on close button' );
 		});
 		
 		test('Check for the modal content', function(){					
-			var $triggerClick = $('#testModal');
-				$triggerClick.trigger('click');
+			$('#testModal').click();
 			
-			ok( $('.uiModal').children().size() > 1 , 'Modal should have some content' );
+			hasContent('.uiModal', 'Lorem');
 			
 			$('.dimmer').trigger('click');
 		});
 		
 		
 		module('Modal Tests - DOM content');
-						
-		test('Check for basic interaction', function(){
-			var dimmer = $('div').hasClass('dimmer');
-			var modal = $('div').hasClass('uiModal');
-			
-			//show
-			var $triggerClick = $('#testModalDOM');
-				$triggerClick.trigger('click');
-			
-			dimmer = $('div').hasClass('dimmer');
-			modal = $('div').hasClass('uiModal');
-			
-			ok( dimmer , 'Dimmer should be create on DOM' );
-			ok( modal , 'Modal should be create on DOM' );
-			
-			equal( $('.dimmer').css('display') , 'block' , 'Dimmer should show on the screen' );
-			equal( $('.uiModal').css('display') , 'block' , 'Modal should show on the screen' );
-
-			//close
-			$('dimmer').trigger('click');
-			
-			dimmerOpacity = $('.dimmer').css('opacity');
-			modalOpacity = $('.uiModal').css('opacity');
-			
-			equal( dimmerOpacity, 0 , 'Dimmer shouldn\'t exists on DOM after click on dimmer' );
-			equal( modalOpacity, 0 , 'Modal shouldn\'t exists on DOM after click on dimmer' );			
-		});
-
-		test('Check for the close button interaction', function(){					
-			var $triggerClick = $('#testModalDOM');
-				$triggerClick.trigger('click');
-			
-			ok( $('.uiModal').find('p').hasClass('close') , 'Modal should have close button' );
-			
-			$('.close').trigger('click');
-			
-			dimmerOpacity = $('.dimmer').css('opacity');
-			modalOpacity = $('.uiModal').css('opacity');
-			
-			equal( dimmerOpacity, 0 , 'Dimmer shouldn\'t exists on DOM after click on close button' );
-			equal( modalOpacity, 0 , 'Modal shouldn\'t exists on DOM after click on close button' );
-		});
-		
 		test('Check for the modal content', function(){
-			equal( $('#testDOM').css('display') , 'none' , 'Content DOM should exists in DOM' );
+			exists('#testDOM');
+			isNotVisible('#testDOM');
 			
 		});
 

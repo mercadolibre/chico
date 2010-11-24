@@ -40,11 +40,14 @@
 		});
 		
 		$('.testLayerHover').layer({
-				content:{
-					type:'param',
-					data:'<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
-				}			
-			});
+			content:{
+				type:'param',
+				data:'<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
+			}			
+		});
+
+		
+		$.fx.off = true;
 
 		/**
 		 * 	Test Cases
@@ -54,77 +57,54 @@
 		module('Layer executed on click, Tests');		
 		
 		test('Check for basic interaction: show and hide component', function(){
-						
-			ok( !$('div').hasClass('uiLayer') , 'Layer shouldn\'t be create on DOM before click on trigger' );
-		
-			//show
-			var $triggerClick = $('.testLayerClick');
-				$triggerClick.trigger('click');				
-			ok( $('div').hasClass('uiLayer') , 'Layer should be create on DOM' );
-			equal( $('.uiLayer').css('display') , 'block' , 'Layer should show on the screen' );
-
-			//close
-			$('body').trigger('click');
-			layerOpacity = $('.uiLayer').css("opacity");
-			equal( layerOpacity, 0 , 'Layer shouldn\'t exists on DOM after click on body' );
-						
+			notExists('.uiLayer');
+			
+			$('.testLayerClick').click();
+			exists('.uiLayer');			
+			isVisible('.uiLayer');
+			
+			$('body').click();
+			notExists('.uiLayer');
+			
 		});
 		
 		test('Check for close button interaction', function(){
-			//show
-			var $triggerClick = $('.testLayerClick');
-				$triggerClick.trigger('click');				
-			ok( $('div').hasClass('uiLayer') , 'Layer should be create on DOM' );
-			equal( $('.uiLayer').css('display') , 'block' , 'Layer should show on the screen' );
+			$('.testLayerClick').click();
 			
-			//close btn
-			$('.close').trigger('click');
-			layerOpacity = $('.uiLayer').css("opacity");
-			equal( layerOpacity, 0 , 'Layer shouldn\'t exists on DOM after click on body' );
+			exists('.uiLayer .close');				
+			$('.uiLayer .close').click();
+			
+			notExists('.uiLayer');						
 		});
 		
 		test('Check for click content interaction', function(){
-			//show
-			var $triggerClick = $('.testLayerClick');
-				$triggerClick.trigger('click');				
-			$('.uiLayer').trigger('click');
-			equal( $('.uiLayer').css('display') , 'block' , 'Layer should continue to show on the screen after click on the content' );
+			$('.testLayerClick').click();
 			
-			//close
-			$('body').trigger('click');
-			equal( $('.uiLayer').css("opacity") , 0 , 'Layer shouldn\'t exists on DOM after click on body' );			
+			$('.uiLayer').click();
+			exists('.uiLayer');
+			
+			$('body').click();			
+
 		});
 		
 		test('Check for the right visual elements', function(){					
-			var $triggerClick = $('.testLayerClick');
-				$triggerClick.trigger('click');
-			ok( $('.uiLayer').find('p').hasClass('close') , 'Layer should have close button' );
-			ok( $('.uiLayer').find('div').hasClass('cone') , 'Layer should have cone icon' );
-			$('body').trigger('click');
+			$('.testLayerClick').click();
+			exists('.uiLayer .close');
+			exists('.uiLayer .cone');
+			$('body').click();
 		});
 		
 		
 		module('Layer execute on hover, Tests');
 		
 		test('Check for basic interaction', function(){			
-			//show
-			var $triggerHover = $('.testLayerHover');
-				$triggerHover.trigger('mouseover');				
-			ok( $('div').hasClass('uiLayer') , 'Layer should be create on DOM' );
-			equal( $('.uiLayer').css('display') , 'block' , 'Layer should show on the screen' );
+			notExists('.uiLayer');
 			
-			//close
-			$triggerHover.trigger('mouseout');	
-			equal( $('.uiLayer').css("opacity") , 0 , 'Layer shouldn\'t exists on DOM after click on body' );
+			$('.testLayerClick').mouseover();
+			exists('.uiLayer');			
+			isVisible('.uiLayer');
 			
-		});
-		
-		test('Check for basic interaction: show and hide component', function(){					
-			var $triggerHover = $('.testLayerHover');
-				$triggerHover.trigger('mouseover');
-			ok( !$('.uiLayer').find('p').hasClass('close') , 'Layer shouldn\'t have close button' );
-			ok( $('.uiLayer').find('div').hasClass('cone') , 'Layer should have cone icon' );
-			$triggerHover.trigger('mouseout');
+			$('body').click();			
 		});
 		
 	</script>
