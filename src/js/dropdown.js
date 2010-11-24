@@ -12,10 +12,14 @@ ui.Dropdown = function(conf){
 	conf.$trigger = $(conf.element).children(':first');
 	conf.$htmlContent = conf.$trigger.next().bind('click', function(event){ event.stopPropagation() });
 	
-	// Events
+	// Trigger
 	conf.$trigger
 		.bind('click', function(event){
 			if(that.status){ that.hide(event, conf); return; };
+			
+			// Reset all dropdowns
+			$(ui.instances.dropdown).each(function(i, e){ e.hide() });
+			
 			that.show(event, conf);
 		
 			// Document events
@@ -32,7 +36,11 @@ ui.Dropdown = function(conf){
 	conf.$htmlContent
 		.addClass('uiContent')
 		.find('a')
-			.bind('click', function(){ that.hide($.Event(), conf) });
+			.bind('click', function(){ hide($.Event()) });
+			
+	// Public members
+	var show = function(event){ that.show(event, conf); };
+	var hide = function(event){ that.hide(event, conf); };
 
-	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
+	return { show: function(){ show($.Event()) }, hide: function(){ hide($.Event()) } };
 };

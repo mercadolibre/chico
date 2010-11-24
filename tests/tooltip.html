@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Tooltip - TestCases</title>
+	<link href="../src/css/base.css" rel="stylesheet">
+	<link href="../src/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+	<h1>Chico-UI: Tooltip testcases</h1>
+
+	<img class="testTooltip" title="Buen vendedor" alt="Buen vendedor" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../src/js/jquery.js"></script>
+	<script src="../src/js/qunit.js"></script>
+	<script src="../src/js/mlui.js"></script>
+	<script>
+		$('.testTooltip').tooltip();
+
+		/**
+		 * 	Test Cases
+		 */
+
+		module('Tooltip Tests');
+
+		test('Check for the right trigger attributes', function(){
+			ok( $('.testTooltip').attr('title'), 'Trigger should have title attribute' );
+		});
+		
+		test('Check for basic interaction, show and hide component', function(){
+			$('.testTooltip').trigger('mouseover');
+			equal( $('div').hasClass('uiTooltip'), true, 'Tooltip should be exists in DOM' );
+			
+			$('.testTooltip').trigger('mouseout');
+			equal( $('.uiTooltip').css('opacity'), '0', 'Tooltip shouldn\'t be exists in DOM' );
+		});
+		
+	</script>
+
+</body>
+</html>

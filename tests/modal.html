@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Modal - TestCases</title>
+	<link href="../src/css/base.css" rel="stylesheet">
+	<link href="../src/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+	<h1>Chico-UI: Modal testcases</h1>
+		<h2>Contenido por parametro</h2>
+		<div class="box">
+			<form action="test.html" method="post">
+				<input type="submit" class="btn primary" id="testModal" value="Comprar">				
+			</form>
+		</div>
+		<h2>Contenido por DOM</h2>
+		<div class="box">
+			<form action="test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalDOM" value="Comprar">				
+			</form>
+		</div>
+	<br>
+	
+	<div id="testDOM" style="display:none">
+		<h2>Modal title DOM</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+	</div>
+	
+	<hr>
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../src/js/jquery.js"></script>
+	<script src="../src/js/qunit.js"></script>
+	<script src="../src/js/mlui.js"></script>
+	<script>
+
+		$('#testModal').modal({
+    		content: {
+				type:'param',
+				data:'<h2>Modal title</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>'
+			}
+    	});
+    
+	    $('#testModalDOM').modal({
+	    	content:{
+	    		type:'dom',
+	    		data:'#testDOM'
+	    	}
+	    });
+
+		/**
+		 * 	Test Cases
+		 */
+
+		module('Modal Tests - Param content');
+						
+		test('Check for basic interaction', function(){
+			var dimmer = $('div').hasClass('dimmer');
+			var modal = $('div').hasClass('uiModal');
+						
+			ok( !dimmer , 'Dimmer shouldn\'t be create on DOM before click on trigger' );
+			ok( !modal , 'Modal shouldn\'t be create on DOM before click on trigger' );
+			
+			//show
+			var $triggerClick = $('#testModal');
+				$triggerClick.trigger('click');
+			
+			dimmer = $('div').hasClass('dimmer');
+			modal = $('div').hasClass('uiModal');
+			
+			ok( dimmer , 'Dimmer should be create on DOM' );
+			ok( modal , 'Modal should be create on DOM' );
+			
+			equal( $('.dimmer').css('display') , 'block' , 'Dimmer should show on the screen' );
+			equal( $('.uiModal').css('display') , 'block' , 'Modal should show on the screen' );
+
+			//close
+			$('dimmer').trigger('click');
+			
+			dimmerOpacity = $('.dimmer').css('opacity');
+			modalOpacity = $('.uiModal').css('opacity');
+			
+			equal( dimmerOpacity, 0 , 'Dimmer shouldn\'t exists on DOM after click on dimmer' );
+			equal( modalOpacity, 0 , 'Modal shouldn\'t exists on DOM after click on dimmer' );			
+		});
+
+		test('Check for the close button interaction', function(){					
+			var $triggerClick = $('#testModal');
+				$triggerClick.trigger('click');
+			
+			ok( $('.uiModal').find('p').hasClass('close') , 'Modal should have close button' );
+			
+			$('.close').trigger('click');
+			
+			dimmerOpacity = $('.dimmer').css('opacity');
+			modalOpacity = $('.uiModal').css('opacity');
+			
+			equal( dimmerOpacity, 0 , 'Dimmer shouldn\'t exists on DOM after click on close button' );
+			equal( modalOpacity, 0 , 'Modal shouldn\'t exists on DOM after click on close button' );
+		});
+		
+		test('Check for the modal content', function(){					
+			var $triggerClick = $('#testModal');
+				$triggerClick.trigger('click');
+			
+			ok( $('.uiModal').children().size() > 1 , 'Modal should have some content' );
+			
+			$('.dimmer').trigger('click');
+		});
+		
+		
+		module('Modal Tests - DOM content');
+						
+		test('Check for basic interaction', function(){
+			var dimmer = $('div').hasClass('dimmer');
+			var modal = $('div').hasClass('uiModal');
+			
+			//show
+			var $triggerClick = $('#testModalDOM');
+				$triggerClick.trigger('click');
+			
+			dimmer = $('div').hasClass('dimmer');
+			modal = $('div').hasClass('uiModal');
+			
+			ok( dimmer , 'Dimmer should be create on DOM' );
+			ok( modal , 'Modal should be create on DOM' );
+			
+			equal( $('.dimmer').css('display') , 'block' , 'Dimmer should show on the screen' );
+			equal( $('.uiModal').css('display') , 'block' , 'Modal should show on the screen' );
+
+			//close
+			$('dimmer').trigger('click');
+			
+			dimmerOpacity = $('.dimmer').css('opacity');
+			modalOpacity = $('.uiModal').css('opacity');
+			
+			equal( dimmerOpacity, 0 , 'Dimmer shouldn\'t exists on DOM after click on dimmer' );
+			equal( modalOpacity, 0 , 'Modal shouldn\'t exists on DOM after click on dimmer' );			
+		});
+
+		test('Check for the close button interaction', function(){					
+			var $triggerClick = $('#testModalDOM');
+				$triggerClick.trigger('click');
+			
+			ok( $('.uiModal').find('p').hasClass('close') , 'Modal should have close button' );
+			
+			$('.close').trigger('click');
+			
+			dimmerOpacity = $('.dimmer').css('opacity');
+			modalOpacity = $('.uiModal').css('opacity');
+			
+			equal( dimmerOpacity, 0 , 'Dimmer shouldn\'t exists on DOM after click on close button' );
+			equal( modalOpacity, 0 , 'Modal shouldn\'t exists on DOM after click on close button' );
+		});
+		
+		test('Check for the modal content', function(){
+			equal( $('#testDOM').css('display') , 'none' , 'Content DOM should exists in DOM' );
+			
+		});
+
+		
+	</script>
+
+</body>
+</html>
+

@@ -1,129 +1,119 @@
 <!doctype html>
 <html>
 <head>
-<title>Tests</title>
-<script type="text/javascript" src="../src/js/jquery.js"></script>
-<script type="text/javascript" src="../src/js/qunit.js"></script>
-<script type="text/javascript" src="../src/js/mlui.js"></script>
-<link href="../src/css/base.css" rel="stylesheet" type="text/css">
-<link href="../src/css/qunit.css" rel="stylesheet" type="text/css">
+	<meta charset="utf-8">
+	<title>Dropdown - TestCases</title>
+	<link href="../src/css/base.css" rel="stylesheet">
+	<link href="../src/css/qunit.css" rel="stylesheet">
 </head>
 <body>
+	<h1>Chico-UI: Dropdown testcases</h1>
 
-<h1>Tests para Chico-UI</h1>
+	<div class="testDropdown">
+		<span>Buscadores</span>
+		<ul>
+			<li><a href="http://www.google.com.ar">Google</a></li>
+			<li><a href="http://www.yahoo.com.ar">Yahoo</a></li>
+			<li><a href="http://www.bing.com">Bing</a></li>	
+		</ul>
+	</div>
 
-<div class="search-nav">
-<span>Algo</span>
-<ul>
-	<li><a href="http://www.google.com.ar">Google</a></li>
-	<li><a href="http://www.yahoo.com.ar">Yahoo</a></li>
-	<li><a href="http://www.bing.com">Bing</a></li>	
-</ul>
+	<hr>
 
-<hr>
-
-</div>
 	<h1 id="qunit-header">QUnit Test Suite</h1>
 	<h2 id="qunit-banner"></h2>
 	<div id="qunit-testrunner-toolbar"></div>
 	<h2 id="qunit-userAgent"></h2>
 	<ol id="qunit-tests"></ol>
 	<div id="qunit-fixture">test markup</div>
-<script>
 
-var drop = $(".search-nav").dropdown();
+	<script src="../src/js/jquery.js"></script>
+	<script src="../src/js/qunit.js"></script>
+	<script src="../src/js/mlui.js"></script>
+	<script>
+		$('.testDropdown').dropdown();
 
+		/**
+		 * 	Test Cases
+		 */
 
-/**
- * Dropdown Test Cases
- */
+		module('Dropdown Tests');
 
-module("Dropdowns Tests");
+		var $trigger = $('.testDropdown').children(':first');
+		var $content = $trigger.next();
 
-test("Check for the right visual classes",function(){
+		test('Check for the right visual classes', function(){
+			ok( $('.testDropdown').hasClass('uiDropdown'), 'Wrapper should has class uiDropdown' );
+			ok( $trigger.hasClass('uiTrigger'), 'Trigger should has class uiTrigger' );
+			ok( $content.hasClass('uiContent'), 'Content should has class uiContent' );
+			ok( $trigger.find('span').hasClass('ico down'), 'Content should has an arrow icon' );
+		});
 
-	ok( $(".search-nav").hasClass("uiDropdown") , "Wrapper should has class uiDropdown");
-	ok( $(".search-nav").children(":first").hasClass("uiTrigger") , "Trigger should has class uiTrigger");
-	ok( $(".search-nav").children(":first").next().hasClass("uiContent") , "Content should has class uiContent");
-	
-});
+		test('Check for basic interaction, clicking on the component and body', function(){ // Check the display property of content
+			// State before click on trigger
+			equal( $content.css('display'), 'none', 'Content should be hide before click on trigger' );
 
-test("Check for basic interation, clicking on the component and body",function(){
+			// State after click on trigger
+			$trigger.trigger('click');
+			ok( $trigger.hasClass('on'), 'Trigger should be turned on after click it' );
+			equal( $content.css('display'), 'block', 'Content should be show after click on trigger' );
+			
+			// State after click on body
+			$('body').trigger('click');
+			ok( !$trigger.hasClass('on'), 'Trigger should be turned off after click it' );
+			equal( $content.css('display'), 'none', 'Content should be hide after click on body');	
+		});
+		
+		test('Check for basic interaction, clicking on the component and component again', function(){ // Check the display property of content
+			// State before click on trigger
+			equal( $content.css('display'), 'none', 'Content should be hide before click on trigger' );
 
-	// Check the display property
-	
-	// State before click trigger
-	var first_state = $(".search-nav").children(":first").next().css("display");
-	equal( first_state , "none" , "Content should be hide before click trigger");
+			// State after click on trigger
+			$trigger.trigger('click');
+			ok( $trigger.hasClass('on'), 'Trigger should be turned on after click it' );
+			equal( $content.css('display'), 'block', 'Content should be show after click on trigger' );
+			
+			// State after click on trigger
+			$trigger.trigger('click');
+			ok( !$trigger.hasClass('on'), 'Trigger should be turned off after click it' );
+			equal( $content.css('display'), 'none', 'Content should be hide after click on trigger');
+		});
+		
+		test('Check for advanced interaction, clicking on the component and link inside content', function(){ // Check the display property of content
+			// State before click on trigger
+			equal( $content.css('display'), 'none', 'Content should be hide before click on trigger' );
 
-	// State after click trigger
-	$(".search-nav").children(":first").trigger("click");
-	var actual = $(".search-nav").children(":first").next().css("display");
-	equal( actual , "block" , "Content should be show after click trigger");	
-	
-	$("body").trigger("click");
-	var final_state = $(".search-nav").children(":first").next().css("display");
-	equal( final_state , "none" , "Content should be hide after click body");	
-});
+			// State after click on trigger
+			$trigger.trigger('click');
+			ok( $trigger.hasClass('on'), 'Trigger should be turned on after click it' );
+			equal( $content.css('display'), 'block', 'Content should be show after click on trigger' );
+			
+			// State after click on link inside content
+			$content.find('a').trigger('click');
+			ok( !$trigger.hasClass('on'), 'Trigger should be turned off after click it' );
+			equal( $content.css('display'), 'none', 'Content should be hide after click on link inside content');
+		});
+		
+		test('Check for advanced interaction, clicking on the component and content (and click on body)', function(){ // Check the display property of content
+			// State before click on trigger
+			equal( $content.css('display'), 'none', 'Content should be hide before click on trigger' );
 
+			// State after click on trigger
+			$trigger.trigger('click');
+			ok( $trigger.hasClass('on'), 'Trigger should be turned on after click it' );
+			equal( $content.css('display'), 'block', 'Content should be show after click on trigger' );
+			
+			// State after click on link inside content
+			$content.trigger('click');
+			equal( $content.css('display'), 'block', 'Content shouldn\'t be hide after click on content' );
+			
+			// State after click on trigger
+			$('body').trigger('click');
+			ok( !$trigger.hasClass('on'), 'Trigger should be turned off after click it' );
+			equal( $content.css('display'), 'none', 'Content should be hide after click on body');	
+		});
 
-test("Check for basic interation, clicking on the component and component again",function(){
-
-	// Check the display property
-	
-	// State before click trigger
-	var first_state = $(".search-nav").children(":first").next().css("display");
-	equal( first_state , "none" , "Content should be hide before click trigger");
-
-	// State after click trigger
-	$(".search-nav").children(":first").trigger("click");
-	var actual = $(".search-nav").children(":first").next().css("display");
-	equal( actual , "block" , "Content should be show after click trigger");	
-	
-	$(".search-nav").children(":first").trigger("click");
-	var final_state = $(".search-nav").children(":first").next().css("display");
-	equal( final_state , "none" , "Content should be hide after click trigger again");	
-});
-
-test("Check for advanced interation, clicking on the component and content link",function(){
-
-	// Check the display property
-	
-	// State before click trigger
-	var first_state = $(".search-nav").children(":first").next().css("display");
-	equal( first_state , "none" , "Content should be hide before click trigger");
-
-	// State after click trigger
-	$(".search-nav").children(":first").trigger("click");
-	var actual = $(".search-nav").children(":first").next().css("display");
-	equal( actual , "block" , "Content should be show after click trigger");	
-	
-	$(".search-nav").find("a").trigger("click");
-	var final_state = $(".search-nav").children(":first").next().css("display");
-	equal( final_state , "none" , "Content should be hide after click on content link");	
-});
-
-test("Check for advanced interation, clicking on the component and content",function(){
-
-	// Check the display property
-	
-	// State before click trigger
-	var first_state = $(".search-nav").children(":first").next().css("display");
-	equal( first_state , "none" , "Content should be hide before click trigger");
-
-	// State after click trigger
-	$(".search-nav").children(":first").trigger("click");
-	var actual = $(".search-nav").children(":first").next().css("display");
-	equal( actual , "block" , "Content should be show after click trigger");	
-	
-	$(".search-nav").children(":first").next().trigger("click");
-	var final_state = $(".search-nav").children(":first").next().css("display");
-	equal( final_state , "block" , "Content shouldn't be hide after click on content");	
-});
-
-
-
-</script>
+	</script>
 
 </body>
 </html>
