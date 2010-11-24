@@ -23,25 +23,36 @@
 	<script src="../src/js/jquery.js"></script>
 	<script src="../src/js/qunit.js"></script>
 	<script src="../src/js/mlui.js"></script>
+	<script src="functions.js"></script>
 	<script>
 		$('.testTooltip').tooltip();
-
+		
+		$.fx.off = true;
+		
 		/**
 		 * 	Test Cases
 		 */
 
 		module('Tooltip Tests');
 
-		test('Check for the right trigger attributes', function(){
-			ok( $('.testTooltip').attr('title'), 'Trigger should have title attribute' );
+		test('Check for right trigger attributes', function(){
+			ok($('.testTooltip').attr('title'), 'Expected .testTooltip to has "title" attribute');
 		});
 		
-		test('Check for basic interaction, show and hide component', function(){
-			$('.testTooltip').trigger('mouseover');
-			equal( $('div').hasClass('uiTooltip'), true, 'Tooltip should be exists in DOM' );
+		test('Opens tooltip dialog', function(){
+			notExists('.uiTooltip');
 			
-			$('.testTooltip').trigger('mouseout');
-			equal( $('.uiTooltip').css('opacity'), '0', 'Tooltip shouldn\'t be exists in DOM' );
+			$('.testTooltip').mouseover();
+			
+			exists('.uiTooltip');
+		});
+		
+		test('Closes tooltip dialog', function(){
+			exists('.uiTooltip');
+			
+			$('.testTooltip').mouseout();
+			
+			notExists('.uiTooltip');
 		});
 		
 	</script>

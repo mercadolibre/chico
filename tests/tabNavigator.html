@@ -36,42 +36,44 @@
 	<script src="../src/js/mlui.js"></script>
 	<script>
 		$('.testTabs').tabNavigator();
+		
+		$.fx.off = true;
 
 		/**
 		 * 	Test Cases
 		 */
-
+		
 		module('TabNavigator without Ajax, Tests');
 		
-		var $triggers = $('.testTabs').children(':first').find('a');
-		var $contents = $('.testTabs').children(':first').next();
+		var $ul = $('.testTabs').children(':first');
+		var $triggers = $ul.find('a');
+		var $contents = $ul.next();
 
-		test('Check for the right visual classes', function(){
-			ok( $('.testTabs').hasClass('uiTabNavigator'), 'Wrapper should has class uiTabNavigator' );
-			ok( $triggers.hasClass('uiTrigger'), 'Triggers should has class uiTrigger' );
-			ok( $contents.hasClass('uiContent'), 'Content should has class uiContent' );
+		test('Check for right visual classes', function(){
+			hasClass('.testTabs', 'uiTabNavigator');
+			hasClass($triggers, 'uiTrigger');
+			hasClass($contents, 'uiContent');
 		});
 
-		test('Check for basic interaction, state before clicking', function(){
+		test('State before click', function(){
 			// Tabs state before click on any trigger
-			ok( $triggers.eq(0).hasClass('on'), 'First tab should be activated' );
-			ok( !$triggers.eq(1).hasClass('on'), 'Second tab shouldn\'t be activated' );
-			ok( !$triggers.eq(2).hasClass('on'), 'Third tab shouldn\'t be activated' );
+			hasClass($triggers.eq(0), 'on');
+			hasNotClass($triggers.eq(1), 'on');
+			hasNotClass($triggers.eq(2), 'on');
 
 			// Contents state before click on any trigger
-			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'block', 'Content asociated to first tab should be activated' );
+			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'block', 'Expected " + selector + " to be visible' );
 			equal( $contents.find( $triggers.eq(1).attr('href') ).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated' );
 			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'none', 'Content asociated to third tab shouldn\'t be activated' );
 		});
 		
-		test('Check for basic interaction, state after clicking second tab', function(){
-			// Click on second tab
-			$triggers.eq(1).trigger('click');
+		test('Click on second tab', function(){
+			$triggers.eq(1).click();
 			
 			// First & third tab not activated
-			ok( !$triggers.eq(0).hasClass('on'), 'First tab shouldn\'t be activated after click second tab' );
-			ok( $triggers.eq(1).hasClass('on'), 'Second tab should be activated after click it' );
-			ok( !$triggers.eq(2).hasClass('on'), 'Third tab shouldn\'t be activated after click second tab' );
+			hasNotClass($triggers.eq(0), 'on');
+			hasClass($triggers.eq(1), 'on');
+			hasNotClass($triggers.eq(2), 'on');
 
 			// Contents
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on second tab' );
@@ -79,19 +81,18 @@
 			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'none', 'Content asociated to third tab shouldn\'t be activated after click on second tab' );
 		});
 		
-		test('Check for basic interaction, state after clicking third tab', function(){
-			// Click on third tab
-			$triggers.eq(2).trigger('click');
+		test('Click on third tab', function(){
+			$triggers.eq(2).click();
 			
 			// First & second tab not activated
-			ok( !$triggers.eq(0).hasClass('on'), 'First tab shouldn\'t be activated after click third tab' );
-			ok( !$triggers.eq(1).hasClass('on'), 'Second tab shouldn\'t be activated after click third tab' );
-			ok( $triggers.eq(2).hasClass('on'), 'Third tab must be activated after click it' );
+			hasNotClass($triggers.eq(0), 'on');
+			hasNotClass($triggers.eq(1), 'on');
+			hasClass($triggers.eq(2), 'on');
 
 			// Contents
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on third tab' );
 			equal( $contents.find( $triggers.eq(1).attr('href') ).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated after click on third tab' );
-			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'block', 'Content asociated to third tab should be activated after click on third tab' );
+			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'block', 'Content asociated to thind tab sholud be activated after click on third tab' );
 		});
 		
 	</script>

@@ -30,8 +30,13 @@
 	<script src="../src/js/jquery.js"></script>
 	<script src="../src/js/qunit.js"></script>
 	<script src="../src/js/mlui.js"></script>
+	<script src="functions.js"></script>
 	<script>
-		$('.testDropdown').dropdown();
+		$(window).bind('load', function(){
+			$('.testDropdown').dropdown();
+		});
+		
+		$.fx.off = true;
 
 		/**
 		 * 	Test Cases
@@ -43,76 +48,56 @@
 		var $content = $trigger.next();
 
 		test('Check for the right visual classes', function(){
-			ok( $('.testDropdown').hasClass('uiDropdown'), 'Wrapper should has class uiDropdown' );
-			ok( $trigger.hasClass('uiTrigger'), 'Trigger should has class uiTrigger' );
-			ok( $content.hasClass('uiContent'), 'Content should has class uiContent' );
-			ok( $trigger.find('span').hasClass('ico down'), 'Content should has an arrow icon' );
+			hasClass('.testDropdown', 'uiDropdown');
+			hasClass($trigger, 'uiTrigger');
+			hasClass($content, 'uiContent');
+			hasClass($trigger.find('span'), 'ico down');
 		});
 
-		test('Check for basic interaction, clicking on the component and body', function(){ // Check the display property of content
-			// State before click on trigger
-			equal( $content.css('display'), 'none', 'Content should be hide before click on trigger' );
-
-			// State after click on trigger
-			$trigger.trigger('click');
-			ok( $trigger.hasClass('on'), 'Trigger should be turned on after click it' );
-			equal( $content.css('display'), 'block', 'Content should be show after click on trigger' );
+		test('Opens dropdown menu', function(){
+			isNotVisible($content);
 			
-			// State after click on body
-			$('body').trigger('click');
-			ok( !$trigger.hasClass('on'), 'Trigger should be turned off after click it' );
-			equal( $content.css('display'), 'none', 'Content should be hide after click on body');	
+			$trigger.click();
+			
+			isVisible($content);
+			hasClass($trigger, 'on');
 		});
 		
-		test('Check for basic interaction, clicking on the component and component again', function(){ // Check the display property of content
-			// State before click on trigger
-			equal( $content.css('display'), 'none', 'Content should be hide before click on trigger' );
-
-			// State after click on trigger
-			$trigger.trigger('click');
-			ok( $trigger.hasClass('on'), 'Trigger should be turned on after click it' );
-			equal( $content.css('display'), 'block', 'Content should be show after click on trigger' );
+		test('Closes dropdown menu, clicking on body', function(){
+			$trigger.click();
+			$('body').click();
 			
-			// State after click on trigger
-			$trigger.trigger('click');
-			ok( !$trigger.hasClass('on'), 'Trigger should be turned off after click it' );
-			equal( $content.css('display'), 'none', 'Content should be hide after click on trigger');
+			isNotVisible($content);
+			hasNotClass($trigger, 'on');
 		});
 		
-		test('Check for advanced interaction, clicking on the component and link inside content', function(){ // Check the display property of content
-			// State before click on trigger
-			equal( $content.css('display'), 'none', 'Content should be hide before click on trigger' );
-
-			// State after click on trigger
-			$trigger.trigger('click');
-			ok( $trigger.hasClass('on'), 'Trigger should be turned on after click it' );
-			equal( $content.css('display'), 'block', 'Content should be show after click on trigger' );
+		test('Closes dropdown menu, clicking on component trigger', function(){
+			$trigger.click();
+			$trigger.click();
 			
-			// State after click on link inside content
-			$content.find('a').trigger('click');
-			ok( !$trigger.hasClass('on'), 'Trigger should be turned off after click it' );
-			equal( $content.css('display'), 'none', 'Content should be hide after click on link inside content');
+			isNotVisible($content);
+			hasNotClass($trigger, 'on');
 		});
 		
-		test('Check for advanced interaction, clicking on the component and content (and click on body)', function(){ // Check the display property of content
-			// State before click on trigger
-			equal( $content.css('display'), 'none', 'Content should be hide before click on trigger' );
-
-			// State after click on trigger
-			$trigger.trigger('click');
-			ok( $trigger.hasClass('on'), 'Trigger should be turned on after click it' );
-			equal( $content.css('display'), 'block', 'Content should be show after click on trigger' );
+		test('Click inside content', function(){
+			$trigger.click();
+			$content.click();
 			
-			// State after click on link inside content
-			$content.trigger('click');
-			equal( $content.css('display'), 'block', 'Content shouldn\'t be hide after click on content' );
+			isVisible($content);
+			hasClass($trigger, 'on');
 			
-			// State after click on trigger
-			$('body').trigger('click');
-			ok( !$trigger.hasClass('on'), 'Trigger should be turned off after click it' );
-			equal( $content.css('display'), 'none', 'Content should be hide after click on body');	
+			$trigger.click();
 		});
-
+		
+		test('Click on content link', function(){
+			$trigger.click();
+			$content.find('a').click();
+			
+			isNotVisible($content);
+			hasNotClass($trigger, 'on');
+			
+			$trigger.click();
+		});
 	</script>
 
 </body>
