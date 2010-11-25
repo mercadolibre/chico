@@ -4,7 +4,8 @@
 	<!--[if IE]><![endif]-->
 	<meta charset="utf-8">
 	<title>Chico UI JavaScript SDK</title>
-	<link rel="stylesheet" type="text/css" href="src/css/chico.css" />
+	<link rel="stylesheet" type="text/css" href="src/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="src/css/forms.css" />
 	<style>			
 		h1{
 			margin-bottom:10px;
@@ -21,7 +22,7 @@
     </script>
     
     <script src="src/js/jquery.js"></script>
-    <script src="src/js/chico.js"></script>
+    <script src="src/js/mlui.js"></script>
 
 </head>
 
@@ -41,13 +42,14 @@
 	<div class="box">
 		<form action="test.html" class="formulario">
 			<fieldset>
-				<legend>Validadores</legend>
+				<legend>Validadores básicos</legend>
 				<p class="required">* Datos obligatorios</p>
 				<ol>
 					<li>
 						<label class="required" for="w1">
-							<span>E-mail:<em>*</em></span>
+							<span>E-mail: <em>*</em></span>
 							<input type="email" id="w1" required="required">
+							<p>Escribe una descripción corta y clara</p>
 						</label>
 					</li>
 					<li>
@@ -70,7 +72,7 @@
 					</li>
 					<li>
 						<label class="required disabled" for="w5">
-							<span>Required disabled:<em>*</em></span>
+							<span>Required disabled: <em>*</em></span>
 							<input type="text" id="w5" required="required" disabled="disabled">
 						</label>
 					</li>
@@ -82,6 +84,177 @@
 					</li>
 				</ol>
 			</fieldset>
+			
+			<fieldset>
+				<legend>Casos de uso de Selects</legend>
+				<ul>
+					<li>
+						<label for="pruebaSelect">
+							<span>Select:</span>
+							<select id="pruebaSelect">
+								<option value="-1">Selecciona algo...</option>
+								<option value="1">opcion 1</option>
+								<option value="2">opcion 2</option>
+								<option value="3">opcion 3</option>
+								<option value="4">opcion 4</option>
+							</select>
+						</label>
+					</li>
+					
+					<li>
+						<label for="pruebaSelect2" class="required">
+							<span>Select obl: <em>*</em></span>
+							<select id="pruebaSelect2" required="required">
+								<option value="-1">Selecciona algo...</option>
+								<option value="1">opcion 1</option>
+								<option value="2">opcion 2</option>
+								<option value="3">opcion 3</option>
+								<option value="4">opcion 4</option>
+							</select>
+						</label>
+					</li>
+					
+					<li>
+						<label for="pruebaSelect3" class="required disabled">
+							<span>Required & disabl.: <em>*</em></span>
+							<select id="pruebaSelect3" required="required" disabled="disabled">
+								<option value="-1">Selecciona algo...</option>
+								<option value="1">opcion 1</option>
+								<option value="2">opcion 2</option>
+								<option value="3">opcion 3</option>
+								<option value="4">opcion 4</option>
+							</select>
+						</label>
+					</li>
+					
+					<li>
+						<label for="pruebaSelect4" class="disabled">
+							<span>Select disabled:</span>
+							<select id="pruebaSelect4" disabled="disabled">
+								<option value="-1">Selecciona algo...</option>
+								<option value="1">opcion 1</option>
+								<option value="2">opcion 2</option>
+								<option value="3">opcion 3</option>
+								<option value="4">opcion 4</option>
+							</select>
+						</label>
+					</li>
+				</ul>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Legend de grupo</legend>
+				<h4 class="esta">dsjaidjsaoi:</h4>
+				<ul>
+					<li>
+						<label class="options" for="432">
+							<input type="checkbox" value="3" id="432" name="cantidad">
+							<span>Tres</span>
+						</label>
+					</li>
+					
+					<li>
+						<label class="options" for="433">
+							<input type="checkbox" value="4" id="433" name="cantidad">
+							<span>Cuatro</span>
+						</label>
+					</li>
+				</ul>
+			</fieldset>
+			
+			<fieldset>
+				<legend class="este required">Legend de grupo <em>*</em></legend>
+				<ul>
+					<li>
+						<label class="options" for="765">
+							<input type="checkbox" value="3" id="765" name="cantidad">
+							<span>Tres</span>
+						</label>
+					</li>
+					
+					<li>
+						<label class="options" for="654">
+							<input type="checkbox" value="4" id="654" name="cantidad">
+							<span>Cuatro</span>
+						</label>
+					</li>
+				</ul>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Legend de grupo</legend>
+				<h4 class="esto required">dsjaidjsaoi: <em>*</em></h4>
+				<ul>
+					<li>
+						<label class="options" for="123">
+							<input type="radio" value="3" id="123" name="cantidad">
+							<span>Tres</span>
+						</label>
+					</li>
+					
+					<li>
+						<label class="options" for="234">
+							<input type="radio" value="4" id="234" name="cantidad">
+							<span>Cuatro</span>
+						</label>
+					</li>
+				</ul>
+			</fieldset>
+			
+			<fieldset>
+				<legend class="estu">Legend de grupo</legend>
+				<ul>
+					<li>
+						<label class="options" for="345">
+							<input type="radio" value="3" id="345" name="cantidad">
+							<span>Tres</span>
+						</label>
+					</li>
+					
+					<li>
+						<label class="options" for="456">
+							<input type="radio" value="4" id="456" name="cantidad">
+							<span>Cuatro</span>
+						</label>
+					</li>
+				</ul>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Textarea</legend>
+				
+				<ul>
+					<li>
+						<label for="testTextarea1">
+							<span>Textarea:</span>
+							<textarea id="testTextarea1"></textarea>
+						</label>
+					</li>
+					
+					<li>
+						<label for="testTextarea2" class="required">
+							<span>Textarea obli: <em>*</em></span>
+							<textarea id="testTextarea2" required="required"></textarea>
+						</label>
+					</li>
+					
+					<li>
+						<label for="testTextarea3" class="required disabled">
+							<span>Oblig. + disab: <em>*</em></span>
+							<textarea id="testTextarea3" required="required" disabled="disabled"></textarea>
+						</label>
+					</li>
+					
+					<li>
+						<label for="testTextarea4" class="disabled">
+							<span>Textarea disabled:</span>
+							<textarea id="testTextarea4" disabled="disabled"></textarea>
+						</label>
+					</li>
+				</ul>
+				
+			</fieldset>
+			
 			<p class="actions"><input type="submit" value="Submit" id="validationModalTest" class="btn primary"></p>
 		</form>
 	</div>

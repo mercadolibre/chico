@@ -19,7 +19,6 @@ form p.required {
 /* Field wrapper */
 form label {
 	display:inline-block;
-	padding:5px 0;
 }
 
 /* Field label */
@@ -27,12 +26,13 @@ form label span {
 	text-align:right;
 	display:block;
 	width:120px;
-	margin-right:20px;
+	margin-right:15px;
 	float:left;
 }
 
 /* Field label required */
-form label.required span {
+form label.required span,
+form h4.required {
 	font-weight:bold;
 	position:relative;
 }
@@ -40,19 +40,19 @@ form label.required span {
 /* Asterisk of field label required */
 form label.required span em {
 	position:absolute;
-	right:-10px;
+	right:-8px;
 }
 
 /* Field input */
 form label input {
 	border:1px solid #ccc;
-	padding:3px 0 3px 3px;
+	padding:3px;
 };
 
 /* Field input focus */
 form label input:focus {
 	border-width:2px;
-	padding:2px 0 2px 2px;
+	padding:2px;
 }
 
 /* Field input error */
@@ -69,4 +69,18 @@ form .disabled {
 form .actions {
 	margin-left:140px;
 	text-align:left;
+}
+
+/* Options */
+form label.options {
+	margin:15px 0 0 20px;
+}
+
+form label.options span {
+	float:none;
+	text-align:left;
+}
+
+form label.options input {
+	float:left;
 }
