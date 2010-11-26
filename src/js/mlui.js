@@ -49,7 +49,7 @@ ui.factory = function(method, x, callback) {
 
         case "create":
         
-            ui.get("all", ui.components, function(){
+           // ui.get("all", ui.components, function(){
                     
                 var fns = ui.components.split(" ");
                 var tot = fns.length;
@@ -57,7 +57,7 @@ ui.factory = function(method, x, callback) {
                     ui.factory("configure",fns[i]);
                 }
                     
-            });
+            //});
             
             break;
 
@@ -103,7 +103,7 @@ ui.factory = function(method, x, callback) {
                     });
                     
                     // return the created components or component   
-                    return ( results.length > 0 ) ? results : results[0];
+                    return ( results.length > 1 ) ? results : results[0];
                 }
     
                 // callback
@@ -118,7 +118,7 @@ ui.factory = function(method, x, callback) {
                 // get resurces and call create
                 ui.get("component", x, create);
             }
-            
+                         
             break;
         
         default:
@@ -152,9 +152,9 @@ ui.environment = function (mode, config) {
 	case "dev":
 
 		return {
-			uri: "php/",
-			css: "css.php?q="+config,
-			js: "js.php?q="+config
+			uri: "src/",
+			css: "css/"+config+".css",
+			js: "js/"+config+".js"
 		}
 
 		break;
