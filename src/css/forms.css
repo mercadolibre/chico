@@ -1,13 +1,19 @@
 /* Module */
+form {
+	margin-bottom:10px;
+	line-height:13px;
+}
+
 form fieldset {
 	margin-bottom:10px;
 }
 
 /* Title module */
-form fieldset legend {
+form legend {
 	color:#dc7b1c;
 	font-size:14px;
 	font-weight:bold;
+	padding-bottom:15px;
 }
 
 /* Required specification */
@@ -17,22 +23,21 @@ form p.required {
 }
 
 /* Field wrapper */
-form label {
-	display:inline-block;
+form .fieldBox {
+	padding:3px 0;
 }
 
-/* Field label */
 form label span {
-	text-align:right;
 	display:block;
-	width:120px;
-	margin-right:15px;
 	float:left;
+	margin:5px 15px 5px 0;
+	padding:2px 0;
+	text-align:right;
+	width:120px;
 }
 
 /* Field label required */
-form label.required span,
-form h4.required {
+form label.required span {
 	font-weight:bold;
 	position:relative;
 }
@@ -41,46 +46,126 @@ form h4.required {
 form label.required span em {
 	position:absolute;
 	right:-8px;
+	top: 0px;
 }
 
-/* Field input */
-form label input {
-	border:1px solid #ccc;
+/* Fields */
+form label input, form label textarea {
+	border:1px solid #CCCCCC;
 	padding:3px;
-};
+	margin:5px 0;
+}
 
-/* Field input focus */
-form label input:focus {
-	border-width:2px;
+form label select {
+	margin:5px 0;
+}
+
+form label textarea {
+	height:125px;
+	width:350px;
+}
+
+/* Error */
+/* Field input error */
+form label .error{
+	border:1px solid #C62026;
+}
+
+/* Options */
+form .options .fieldBox{
+	margin: 0 0 15px 20px;
+	padding:0;
+}
+
+form .options h4{
+	margin-bottom:15px;
+}
+
+form .options.required h4{
+	font-weight:bold;
+}
+
+form .options label span {
+	display:inline;
+	float:none;
+	text-align:left;
+	width:auto;
+}
+
+form .options label input {
+	margin:0;
+	padding:0;
+	vertical-align:text-bottom;
+}
+
+/* Actions */
+form .actions {
+	margin-left:135px;
+	text-align:left;
+}
+
+form .actions a{
+	margin-left:15px;
+}
+
+/* Help */
+form .help{
+	color:#666666;
+	font-size:11px;
+	line-height:11px;
+	margin-left:135px;
+}
+
+/* Focus */
+form label input:focus, form label textarea:focus {
+	border:2px solid #666;
 	padding:2px;
 }
 
-/* Field input error */
-form label .error, form label .error:focus {
-	border:2px solid #C62026;
+form label select:focus{
+	box-shadow:2px #666;
+	-moz-box-shadow:2px #666;
+	-webkit-box-shadow:2px #666;
 }
 
+form label .error:focus {
+	border:1px solid #CC0000;
+	box-shadow:2px #CC0000;
+	-moz-box-shadow:2px #CC0000;
+	-webkit-box-shadow:2px #CC0000;
+}
+
+/* Vertical Form*/
+form.vertical .fieldBox {
+	padding:7px 0;
+}
+
+form.vertical label span {
+	float:none;
+	line-height:13px;
+	margin:0;
+	padding:0;
+	text-align:left;
+	width:auto;
+}
+
+
+form.vertical label.required span em {
+	position:relative;
+	left:0;
+	top: 0px;
+}
+
+form.vertical .help{
+	margin-left:0;
+}
+
+/* Disabled*/
 /* Wrapper disabled (Don't forget to add Disabled attribute to input element) */
 form .disabled {
 	color:#999;
 }
 
-/* Actions */
-form .actions {
-	margin-left:140px;
-	text-align:left;
-}
-
-/* Options */
-form label.options {
-	margin:15px 0 0 20px;
-}
-
-form label.options span {
-	float:none;
-	text-align:left;
-}
-
-form label.options input {
-	float:left;
+form .disabled input{
+	background-color:#F2F2F2;
 }
