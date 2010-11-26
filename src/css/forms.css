@@ -83,16 +83,19 @@ form .options.required h4{
 form .options label span {
 	display:inline;
 	float:none;
+	margin:0;
+	padding:0;
 	text-align:left;
 	width:auto;
+	vertical-align:baseline;
 }
 
 form .options label input {
+	border:medium none;
 	margin:0;
 	padding:0;
-	vertical-align:text-bottom;
-	border:none;
-}
+}	
+
 
 /* Actions */
 form .actions {
@@ -116,6 +119,11 @@ form .help{
 form label input:focus, form label textarea:focus {
 	border:2px solid #666;
 	padding:2px;
+}
+
+form .options label input:focus, form .options label textarea:focus {
+	border:none;
+	padding:0;
 }
 
 form label select:focus{
@@ -172,10 +180,15 @@ form .disabled input{
 }
 
 .ie6 form .help {
-	margin-left:138px;
+	margin-left:148px;
 }
 
 /* IE 8 */
 .ie8 form label input:focus, .ie8 form label textarea:focus {
 	border:3px solid #666;
+}
+
+.ie8 form .options label input:focus, .ie8 form .options label textarea:focus {
+	border:none;
+	padding:0;
 }
