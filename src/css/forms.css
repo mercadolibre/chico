@@ -1,9 +1,4 @@
 /* Module */
-form {
-	margin-bottom:10px;
-	line-height:13px;
-}
-
 form fieldset {
 	margin-bottom:10px;
 }
@@ -33,7 +28,7 @@ form label span {
 	margin:5px 15px 5px 0;
 	padding:2px 0;
 	text-align:right;
-	width:120px;
+	width:130px;
 }
 
 /* Field label required */
@@ -96,16 +91,17 @@ form .options label input {
 	margin:0;
 	padding:0;
 	vertical-align:text-bottom;
+	border:none;
 }
 
 /* Actions */
 form .actions {
-	margin-left:135px;
+	margin-left:145px;
 	text-align:left;
 }
 
-form .actions a{
-	margin-left:15px;
+form .actions .btn{
+	margin-right:15px;
 }
 
 /* Help */
@@ -113,7 +109,7 @@ form .help{
 	color:#666666;
 	font-size:11px;
 	line-height:11px;
-	margin-left:135px;
+	margin-left:145px;
 }
 
 /* Focus */
@@ -168,4 +164,18 @@ form .disabled {
 
 form .disabled input{
 	background-color:#F2F2F2;
+}
+
+/* IE 6  */
+.ie6 form .disabled {
+	border:none !important;
+}
+
+.ie6 form .help {
+	margin-left:138px;
+}
+
+/* IE 8 */
+.ie8 form label input:focus, .ie8 form label textarea:focus {
+	border:3px solid #666;
 }
