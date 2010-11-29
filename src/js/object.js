@@ -39,7 +39,7 @@ ui.object = function(){
 		},			
 		
 		callbacks: function(conf, when, handler){
-			if(conf.callbacks && conf.callbacks[when]) conf.callbacks[when]();
+			if(conf.callbacks && conf.callbacks[when]) conf.callbacks[when](conf);
 		}
 		
 	};
