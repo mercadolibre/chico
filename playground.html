@@ -45,38 +45,38 @@
 				<legend>Validadores básicos</legend>
 				<p class="required">* Datos obligatorios</p>
 				<ol>
-					<li>
+					<li class="fieldBox">
 						<label class="required" for="w1">
-							<span>E-mail: <em>*</em></span>
+							<span>E-mail: <em>*</em></span>													
 							<input type="email" id="w1" required="required">
-							<p>Escribe una descripción corta y clara</p>
 						</label>
+						<p class="help">Escribe una descripción corta y clara</p>
 					</li>
-					<li>
+					<li class="fieldBox">
 						<label for="w2">
 							<span>URL:</span>
 							<input type="url" id="w2">
 						</label>
 					</li>
-					<li>
+					<li class="fieldBox">
 						<label for="w3">
 							<span>Campo numérico:</span>
 							<input type="number" id="w3" min="20">
 						</label>
 					</li>
-					<li>
+					<li class="fieldBox">
 						<label for="w4">
 							<span>Rango de números:</span>
 							<input type="range" id="w4" min="1" max="10">
 						</label>
 					</li>
-					<li>
+					<li class="fieldBox">
 						<label class="required disabled" for="w5">
 							<span>Required disabled: <em>*</em></span>
 							<input type="text" id="w5" required="required" disabled="disabled">
 						</label>
 					</li>
-					<li>
+					<li class="fieldBox">
 						<label class="disabled" for="w6">
 							<span>Rango de carac.:</span>
 							<input type="text" id="w6" disabled="disabled">
@@ -88,7 +88,7 @@
 			<fieldset>
 				<legend>Casos de uso de Selects</legend>
 				<ul>
-					<li>
+					<li class="fieldBox">
 						<label for="pruebaSelect">
 							<span>Select:</span>
 							<select id="pruebaSelect">
@@ -101,7 +101,7 @@
 						</label>
 					</li>
 					
-					<li>
+					<li class="fieldBox">
 						<label for="pruebaSelect2" class="required">
 							<span>Select obl: <em>*</em></span>
 							<select id="pruebaSelect2" required="required">
@@ -114,7 +114,7 @@
 						</label>
 					</li>
 					
-					<li>
+					<li class="fieldBox">
 						<label for="pruebaSelect3" class="required disabled">
 							<span>Required & disabl.: <em>*</em></span>
 							<select id="pruebaSelect3" required="required" disabled="disabled">
@@ -127,7 +127,7 @@
 						</label>
 					</li>
 					
-					<li>
+					<li class="fieldBox">
 						<label for="pruebaSelect4" class="disabled">
 							<span>Select disabled:</span>
 							<select id="pruebaSelect4" disabled="disabled">
@@ -144,108 +144,116 @@
 			
 			<fieldset>
 				<legend>Legend de grupo</legend>
-				<h4 class="esta">dsjaidjsaoi:</h4>
-				<ul>
-					<li>
-						<label class="options" for="432">
-							<input type="checkbox" value="3" id="432" name="cantidad">
-							<span>Tres</span>
-						</label>
-					</li>
-					
-					<li>
-						<label class="options" for="433">
-							<input type="checkbox" value="4" id="433" name="cantidad">
-							<span>Cuatro</span>
-						</label>
-					</li>
-				</ul>
+				<div class="esta options">
+					<h4>dsjaidjsaoi:</h4>
+					<ul>
+						<li class="fieldBox">
+							<label for="432">
+								<input type="checkbox" value="3" id="432" name="cantidad">
+								<span>Tres</span>
+							</label>
+						</li>
+						
+						<li class="fieldBox">
+							<label for="433">
+								<input type="checkbox" value="4" id="433" name="cantidad">
+								<span>Cuatro</span>
+							</label>
+						</li>
+					</ul>
+				</div>
 			</fieldset>
 			
 			<fieldset>
-				<legend class="este required">Legend de grupo <em>*</em></legend>
-				<ul>
-					<li>
-						<label class="options" for="765">
-							<input type="checkbox" value="3" id="765" name="cantidad">
-							<span>Tres</span>
-						</label>
-					</li>
-					
-					<li>
-						<label class="options" for="654">
-							<input type="checkbox" value="4" id="654" name="cantidad">
-							<span>Cuatro</span>
-						</label>
-					</li>
-				</ul>
+				<legend>Legend de grupo <em>*</em></legend>
+				<div class="este options required">
+					<ul>
+						<li class="fieldBox">
+							<label for="765">
+								<input type="checkbox" value="3" id="765" name="cantidad2">
+								<span>Tres</span>
+							</label>
+						</li>
+						
+						<li class="fieldBox">
+							<label for="654">
+								<input type="checkbox" value="4" id="654" name="cantidad2">
+								<span>Cuatro</span>
+							</label>
+						</li>
+					</ul>
+				</div>
 			</fieldset>
 			
 			<fieldset>
 				<legend>Legend de grupo</legend>
-				<h4 class="esto required">dsjaidjsaoi: <em>*</em></h4>
-				<ul>
-					<li>
-						<label class="options" for="123">
-							<input type="radio" value="3" id="123" name="cantidad">
-							<span>Tres</span>
-						</label>
-					</li>
-					
-					<li>
-						<label class="options" for="234">
-							<input type="radio" value="4" id="234" name="cantidad">
-							<span>Cuatro</span>
-						</label>
-					</li>
-				</ul>
+				<div class="esto required options">
+					<h4>dsjaidjsaoi: <em>*</em></h4>
+					<ul>
+						<li class="fieldBox">
+							<label for="123">
+								<input type="radio" value="3" id="123" name="cantidad3">
+								<span>Tres</span>
+							</label>
+						</li>
+						
+						<li class="fieldBox">
+							<label for="234">
+								<input type="radio" value="4" id="234" name="cantidad3">
+								<span>Cuatro</span>
+							</label>
+						</li>
+					</ul>
+				</div>
 			</fieldset>
 			
 			<fieldset>
-				<legend class="estu">Legend de grupo</legend>
-				<ul>
-					<li>
-						<label class="options" for="345">
-							<input type="radio" value="3" id="345" name="cantidad">
-							<span>Tres</span>
-						</label>
-					</li>
-					
-					<li>
-						<label class="options" for="456">
-							<input type="radio" value="4" id="456" name="cantidad">
-							<span>Cuatro</span>
-						</label>
-					</li>
-				</ul>
+				<legend>Legend de grupo</legend>
+				<div class="estu options">
+					<ul>
+						<li class="fieldBox">
+							<label for="345">
+								<input type="radio" value="3" id="345" name="cantidad4">
+								<span>Tres</span>
+							</label>
+						</li>
+						
+						<li class="fieldBox">
+							<label for="456">
+								<input type="radio" value="4" id="456" name="cantidad4">
+								<span>Cuatro</span>
+							</label>
+						</li>
+					</ul>
+				</div>					
 			</fieldset>
 			
 			<fieldset>
 				<legend>Textarea</legend>
 				
 				<ul>
-					<li>
+					<li class="fieldBox">
 						<label for="testTextarea1">
 							<span>Textarea:</span>
 							<textarea id="testTextarea1"></textarea>
 						</label>
 					</li>
 					
-					<li>
+					<li class="fieldBox">
 						<label for="testTextarea2" class="required">
 							<span>Textarea obli: <em>*</em></span>
 							<textarea id="testTextarea2" required="required"></textarea>
 						</label>
 					</li>
 					
-					<li>
+					<li class="fieldBox">
 						<label for="testTextarea3" class="required disabled">
 							<span>Oblig. + disab: <em>*</em></span>
 							<textarea id="testTextarea3" required="required" disabled="disabled"></textarea>
 						</label>
 					</li>
 					
-					<li>
+					<li class="fieldBox">
 						<label for="testTextarea4" class="disabled">
 							<span>Textarea disabled:</span>
 							<textarea id="testTextarea4" disabled="disabled"></textarea>
@@ -255,7 +263,10 @@
 				
 			</fieldset>
 			
-			<p class="actions"><input type="submit" value="Submit" id="validationModalTest" class="btn primary"></p>
+			<p class="actions">
+				<input type="submit" value="Submit" id="validationModalTest" class="btn primary">
+				<a href="#">Cancelar</a>
+			</p>
 		</form>
 	</div>
 	
