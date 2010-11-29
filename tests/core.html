@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Chico-UI Core - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="../php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator">
+	<link href="../src/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+	<h1>Chico-UI Core test-cases</h1>
+    <hr />
+
+    <div id="test"></div>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+ 
+	<script src="../src/js/jquery.js"></script>
+	<script src="../src/js/qunit.js"></script>
+	<script src="../php/chico.php"></script>
+	<script src="functions.js"></script>
+	<script>
+			
+		$.fx.off = true;
+
+		/**
+		 * 	Test Cases
+		 */
+		
+
+    	module("Chico start-up, core configuration tests");
+    	
+    	test("Basic information",function(){
+    	   
+       	   ok(ui.version, "Expected to find a Version defined");
+    	   
+    	   ok((ui.mode=="dev"||ui.mode=="pub"), "Expected to find a mode defined: \"dev\" or \"pub\"");
+    	   
+           ok(ui.environment, "Expected to find a Environment configuration");
+
+    	});
+    	
+    	test("Check general configuration for components", function(){
+
+    	   ok(ui.internals, "Expected to find Internals components to load");
+    	   
+    	   ok(ui.components, "Expected to find Visual components to load");
+    	});
+    	
+    	test("Check for critical internals components",function(){
+    	       	
+           ok(ui.factory, "Expected to find a Factory module");
+           
+           ok(ui.get, "Expected to find a Get (Communicator) module");
+               	       	   
+    	});
+   
+       	module("Chico after start-up tests");
+       	
+       	test("Check for internal components instantiation",function(){
+       	    
+       	    $(ui.internals.split(", ")).each(function(i,e){
+       	        ok( ui[e] , "Expected to find "+e+" instantiation");
+       	    });
+       	    
+        });
+
+       	test("Check for visual components instantiation",function(){
+       	    
+       	    $(ui.components.split(", ")).each(function(i,e){
+       	        ok( ui[e] , "Expected to find "+e+" instantiation");
+       	    });
+       	    
+        });
+		
+	</script>
+
+</body>
+</html>
