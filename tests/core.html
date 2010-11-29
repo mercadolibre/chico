@@ -10,8 +10,8 @@
 	<h1>Chico-UI Core test-cases</h1>
     <hr />
 
-    <div id="test"></div>
-
+    <div id="test">modal</div>
+    
 	<h1 id="qunit-header">QUnit Test Suite</h1>
 	<h2 id="qunit-banner"></h2>
 	<div id="qunit-testrunner-toolbar"></div>
@@ -76,6 +76,30 @@
        	        ok( ui[e] , "Expected to find "+e+" instantiation");
        	    });
        	    
+        });
+        
+    	test("Check for visual components in the instances map",function(){
+       	    
+       	    $(ui.components.split(", ")).each(function(i,e){
+       	        ok( ui.instances[e] , "Expected to find "+e+" in the instances map");
+       	    });
+       	    
+        });
+
+        test("Basic component returns",function(){
+           
+            var test_modal = $("#test").modal({
+        		content: {
+    				type:'param',
+    				data:'<h2>Test Modal</h2><p>Usamos esta ventana modal para probar que la definición de un componente devuelve la instancia creada del mismo.</p>'
+    			}
+        	});
+        	
+        	alert(test_modal.hide());
+        	
+          	ok(typeof test_modal == "object", "Expected to find a Object in a component return");
+
+            
         });
 		
 	</script>
