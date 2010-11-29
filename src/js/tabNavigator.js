@@ -17,7 +17,7 @@ ui.tabNavigator = function(conf){
 
 	// Starts (Mother is pregnant, and her children born)
 	$.each($triggers, function(i, e){
-		instances.push(ui.tab(i, e, conf.id));
+		instances.push(ui.tab(i, e, conf));
 	});
 
 	var show = function(event, tab){
@@ -40,7 +40,7 @@ ui.tabNavigator = function(conf){
  *	@return An interface object
  */
 
-ui.tab = function(index, element, parent){
+ui.tab = function(index, element, conf){
 	var that = ui.navs(); // Inheritance
 	var display = element.href.split('#');
 	var $tabContent = $(element).parents('.uiTabNavigator').find('#' + display[1]);
@@ -48,7 +48,8 @@ ui.tab = function(index, element, parent){
 	// Global configuration
 	that.conf = {
 		name: 'tab',
-		$trigger: $(element).addClass('uiTrigger')
+		$trigger: $(element).addClass('uiTrigger'),
+		callbacks: conf.callbacks
 	};
 
 	var results = function(){
@@ -84,7 +85,7 @@ ui.tab = function(index, element, parent){
 	// Process show event
 	that.shoot = function(event){
 		that.prevent(event);
-		var tabs = ui.instances.tabNavigator[parent].tabs; // All my bros
+		var tabs = ui.instances.tabNavigator[conf.id].tabs; // All my bros
 		if(tabs[index].status) return; // Don't click me if I'm open
 
 		// Hide my open bro
