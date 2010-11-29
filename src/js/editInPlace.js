@@ -5,8 +5,8 @@
  *	@return An interface object
  */
 
-ui.EditInPlace = function(conf){
-	var that = ui.Editors(); // Inheritance
+ui.editInPlace = function(conf){
+	var that = ui.editors(); // Inheritance
 
 	// Global configuration
 	conf.$trigger = $(conf.element);

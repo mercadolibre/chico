@@ -5,8 +5,8 @@
  *	@return An interface object
  */
 
-ui.Modal = function(conf){
-	var that = ui.Floats(); // Inheritance
+ui.modal = function(conf){
+	var that = ui.floats(); // Inheritance
 	
 	// Global configuration
 	conf.$trigger = $(conf.element);

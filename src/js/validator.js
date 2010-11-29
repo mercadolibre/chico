@@ -5,8 +5,8 @@
  *	@return An interface object
  */
 
-ui.Validator = function(conf){
-	var that = ui.PowerConstructor(); // Inheritance
+ui.validator = function(conf){
+	var that = ui.object(); // Inheritance
 	var formStatus = true;
 	var watchers = [];
 	
@@ -70,7 +70,7 @@ ui.Validator = function(conf){
 	// Watcher Contructor
 	var Watcher = function(id, $element, messages){
 		$element.bind('blur', function(event){ watchers[id].status = validate(id, $element, messages, event) }); // Watcher events
-		return { status: true, helper: ui.Helper(id, $element) }; // Public members
+		return { status: true, helper: ui.helper(id, $element) }; // Public members
 	};
 	
 	// Create each Watcher TODO: Juntar con "Watcher Constructor" en 1 solo lugar
@@ -130,8 +130,8 @@ ui.Validator = function(conf){
  *	@return An interface object
  */
 
-ui.Helper = function(id, $element){
-	var that = ui.Floats(); // Inheritance
+ui.helper = function(id, $element){
+	var that = ui.floats(); // Inheritance
 
 	// Global configuration
 	var conf = {

@@ -6,8 +6,8 @@
  *  @memberOf ui.Floats
  */
 
-ui.Tooltip = function(conf){
-	var that = ui.Floats(); // Inheritance
+ui.tooltip = function(conf){
+	var that = ui.floats(); // Inheritance
 
 	conf.name = 'tooltip';
 	conf.align = 'drop';

@@ -5,8 +5,8 @@
  *	@return An interface object
  */
 
-ui.Carousel = function(conf){
-	var that = ui.PowerConstructor(); // Inheritance
+ui.carousel = function(conf){
+	var that = ui.object(); // Inheritance
 	var status = false;
 
 	// Global configuration

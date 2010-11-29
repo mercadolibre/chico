@@ -5,8 +5,8 @@
  *	@return An interface object
  */
 
-ui.Layer = function(conf){
-	var that = ui.Floats(); // Inheritance
+ui.layer = function(conf){
+	var that = ui.floats(); // Inheritance
 
 	// Global configuration
 	conf.$trigger = $(conf.element);

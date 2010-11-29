@@ -4,8 +4,8 @@
  *	@Contructor
  *	@return An interface object
  */	
-ui.Dropdown = function(conf){
-	var that = ui.Navigators(); // Inheritance
+ui.dropdown = function(conf){
+	var that = ui.navs(); // Inheritance
 
 	// Global configuration
 	$(conf.element).addClass('uiDropdown');

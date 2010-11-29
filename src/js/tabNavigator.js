@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.TabNavigator = function(conf){
+ui.tabNavigator = function(conf){
 	var $triggers = $(conf.element).children(':first').find('a');
 	var $htmlContent = $(conf.element).children(':first').next();
 	var instances = [];
@@ -17,7 +17,7 @@ ui.TabNavigator = function(conf){
 
 	// Starts (Mother is pregnant, and her children born)
 	$.each($triggers, function(i, e){
-		instances.push(ui.Tab(i, e, conf.id));
+		instances.push(ui.tab(i, e, conf.id));
 	});
 
 	var show = function(event, tab){
@@ -40,8 +40,8 @@ ui.TabNavigator = function(conf){
  *	@return An interface object
  */
 
-ui.Tab = function(index, element, parent){
-	var that = ui.Navigators(); // Inheritance
+ui.tab = function(index, element, parent){
+	var that = ui.navs(); // Inheritance
 	var display = element.href.split('#');
 	var $tabContent = $(element).parents('.uiTabNavigator').find('#' + display[1]);
 
