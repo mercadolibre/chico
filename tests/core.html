@@ -10,7 +10,7 @@
 	<h1>Chico-UI Core test-cases</h1>
     <hr />
 
-    <div id="test">modal</div>
+    <div id="test"></div>
     
 	<h1 id="qunit-header">QUnit Test Suite</h1>
 	<h2 id="qunit-banner"></h2>
@@ -94,9 +94,7 @@
     				data:'<h2>Test Modal</h2><p>Usamos esta ventana modal para probar que la definición de un componente devuelve la instancia creada del mismo.</p>'
     			}
         	});
-        	
-        	alert(test_modal.hide());
-        	
+        	        	
           	ok(typeof test_modal == "object", "Expected to find a Object in a component return");
 
             
