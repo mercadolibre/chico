@@ -18,10 +18,11 @@ if (!$files) return;
 foreach ($files as $file) {
 	
 	$css = file_get_contents("../src/css/".$file.".css");
-	$css = CssMin::minify($css);
 
 	$cssout.=$css;
 }
+
+$cssout = CssMin::minify($cssout);
 
 echo $cssout;
 
