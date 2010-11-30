@@ -12,7 +12,6 @@ ui.floats = function(){
 		clearTimeout(st);
 		clearTimeout(ht);
 	};
-	var visible = false;
 
 	var createClose = function(conf){
 		$('<p class="btn close">x</p>').bind('click', function(event){
@@ -26,6 +25,8 @@ ui.floats = function(){
 
 	that.show = function(event, conf){
 		that.prevent(event);
+		
+		if(conf.status) return
 		
 		var className = 'ui' + ui.utils.ucfirst(conf.name);
 		
@@ -51,11 +52,14 @@ ui.floats = function(){
 		if(conf.classes) conf.$htmlContent.addClass(conf.classes);			
 		
 		// Show
+		conf.status = true;
 		conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });			
 	};
 
 	that.hide = function(event, conf){
 		that.prevent(event);
+		
+		if(!conf.status) return;
 		
 		var className = 'ui' + ui.utils.ucfirst(conf.name);
 		
@@ -64,8 +68,11 @@ ui.floats = function(){
 			conf.$wrapper.find('.uiContent').unwrap().remove();
 		}else{
 			$('.' + className).fadeOut('fast', function(event){ $(this).remove(); });	
-		};			
-		that.callbacks(conf, 'hide');			
+		};
+		
+		// Hide
+		conf.status = false;
+		that.callbacks(conf, 'hide');
 	};
 
 	return that;

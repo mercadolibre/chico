@@ -17,6 +17,7 @@ ui.tooltip = function(conf){
 		data: conf.element.title
 	};	
 	conf.wrappeable = true;
+	conf.status = false;
 		
 	conf.$trigger = $(conf.element)
 		.css('cursor', 'default')

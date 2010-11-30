@@ -21,7 +21,7 @@
 
 /* IE 6 */
 .ie6 .uiLayer{
-	display:inline;
+	display:inline !important;
 	border:none;
 	z-index:1;
 }
@@ -33,7 +33,7 @@
 
 /* IE 7 */
 .ie7 .uiLayer{
-	display:inline;
+	display:inline !important;
 	border:none;
 	z-index:1;
 }

@@ -201,7 +201,8 @@ ui.helper = function(wconf){
 		cone: true,
 		content: { type: 'param' },
 		classes: 'helper' + wconf.id,
-		wrappeable: true
+		wrappeable: true,
+		status: false
 	};
 	
 	var hide = function(){

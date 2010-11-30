@@ -50,7 +50,7 @@
 
 /* IE 6 */
 .ie6 .uiHelper{
-	display:inline;
+	display:inline !important;
 	border:none;
 	z-index:1;
 }
@@ -62,7 +62,7 @@
 
 /* IE 7 */
 .ie7 .uiHelper{
-	display:inline;
+	display:inline !important;
 	border:none;
 	z-index:1;
 }
