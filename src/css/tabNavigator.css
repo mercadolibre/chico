@@ -91,3 +91,9 @@
 .ie7 .box .uiTabNavigator ul{
 	top:1px;
 }
+
+/* IE 8 */
+.ie8 .uiTabNavigator ul{
+	position:relative;
+	top:2px;
+}

@@ -10,9 +10,10 @@ ui.layer = function(conf){
 
 	// Global configuration
 	conf.$trigger = $(conf.element);
-	conf.align = 'drop';
+	conf.align = 'down';
 	conf.cone = true;
 	conf.classes = 'box';
+	conf.wrappeable = true;
 
 	// Click
 	if(conf.event === 'click'){
@@ -22,11 +23,10 @@ ui.layer = function(conf){
 		// Trigger events
 		conf.$trigger
 			.css('cursor', 'pointer')
-			.bind('click',function(event){
-				$('.uiLayer').remove(); // Clear all helpers
+			.bind('click',function(event){				
 				that.show(event, conf);
 				$('.uiLayer').bind('click', function(event){ event.stopPropagation() });
-				
+								
 				// Document events
 				$(document).bind('click', function(event){
 					that.hide(event, conf);
@@ -40,8 +40,7 @@ ui.layer = function(conf){
 		conf.$trigger
 			.css('cursor', 'default')
 			.bind('mouseover', function(event){
-				$('.uiLayer').remove(); // Clear all helpers
-				that.show(event, conf);
+				that.show(event, conf);				
 			})
 			.bind('mouseout', function(event){
 				that.hide(event, conf);

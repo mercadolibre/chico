@@ -1,4 +1,9 @@
-.uiHelper, .uiValidator{
+.uiHelper{
+	display:inline-block;
+	position:relative;
+}
+
+.uiHelper .uiContent, .uiValidator{
 	background-color:#fbd9db;
 	border:1px solid #f7a9ae;
 	color:#600;
@@ -6,7 +11,7 @@
 	padding:5px;
 }
 
-.uiHelper{
+.uiHelper .uiContent{
 	display:inline-block;
 	max-width:220px;
 	border-radius: 3px;
@@ -20,7 +25,7 @@
 	margin-bottom:10px;
 }
 
-.uiHelper .cone.right{
+.uiHelper .uiContent .cone.right{
 	background-image:url('http://10.100.34.210:8080/content/assets/cone_validation_left.png');
 	display:block;
 	height:22px;
@@ -30,7 +35,31 @@
 	width:11px;
 }
 
-.uiHelper .ico.error, .uiValidator .ico.error{
+.uiHelper .uiContent .ico.error, .uiValidator .ico.error{
 	float:left;
 	margin:2px 5px 0 0;
+}
+
+/* IE 6 */
+.ie6 .uiHelper{
+	display:inline;
+	border:none;
+	z-index:1;
+}
+
+.ie6 .uiHelper .uiTrigger{
+	display:inline-block;
+	border:none;
+}
+
+/* IE 7 */
+.ie7 .uiHelper{
+	display:inline;
+	border:none;
+	z-index:1;
+}
+
+.ie7 .uiHelper .uiTrigger{
+	display:inline-block;
+	border:none;
 }

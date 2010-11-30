@@ -13,7 +13,7 @@ ui.modal = function(conf){
 	conf.closeButton = true;
 	conf.align = 'center';
 	conf.classes = 'box';
-	
+	conf.wrappeable = false;
 	conf.ajaxType = 'POST';
 	
 			

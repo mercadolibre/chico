@@ -1,4 +1,9 @@
-.uiTooltip {
+.uiTooltip{
+	position:relative;
+	display:inline-block;	
+}
+
+.uiTooltip .uiContent{
 	font-size:11px;
 	background-color:#faf5c8;
 	border:1px solid #a0a082;
@@ -10,9 +15,32 @@
 	box-shadow:-2px 2px 3px #ccc;
 	-moz-box-shadow:-2px 2px 3px #ccc;
 	-webkit-box-shadow:-2px 2px 3px #ccc;
-	z-index:400;
 }
 
-.uiTooltip .cone {
+.uiTooltip .uiContent .cone {
 	background-image: url('http://10.100.34.210:8080/content/assets/cone.png');
+}
+
+/* IE 6 */
+.ie6 .uiTooltip{
+	display:inline;
+	border:none;
+	z-index:1;
+}
+
+.ie6 .uiTooltip .uiTrigger{
+	display:inline-block;
+	border:none;
+}
+
+/* IE 7 */
+.ie7 .uiTooltip{
+	display:inline;
+	border:none;
+	z-index:1;
+}
+
+.ie7 .uiTooltip .uiTrigger{
+	display:inline-block;
+	border:none;
 }

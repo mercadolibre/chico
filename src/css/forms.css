@@ -134,6 +134,7 @@ form label select:focus{
 
 form label .error:focus {
 	border:1px solid #CC0000;
+	padding:3px;
 	box-shadow:2px #CC0000;
 	-moz-box-shadow:2px #CC0000;
 	-webkit-box-shadow:2px #CC0000;

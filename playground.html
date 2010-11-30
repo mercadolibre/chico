@@ -311,7 +311,8 @@
 	
 	<hr>
 	<h1>Contextual Layer</h1>	
-	<p class="box"><span class="layerClick">Layer ejecutado en el clic.</span> | <span class="layerHover">Layer ejecutado en el hover.</span></p>				
+	<p class="box"><span class="layerClick">Layer ejecutado en el clic.</span> | <!--<span class="layerHover">Layer ejecutado en el hover.</span>--></p>
+	<p><img class="layerClick" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif"></p>
 
 	<hr>
 	<h1>Modal Window</h1>
@@ -449,8 +450,14 @@
  	 
    
     // Tab navigator
-    $('.pagos').tabNavigator();
-   
+    $('.pagos').tabNavigator({
+		callbacks: {
+			show: function(){
+				alert('callback');
+			}
+		} 
+	});
+
     // Validator
 	$('.formulario').validator({
 		fields: {
