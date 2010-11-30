@@ -336,44 +336,240 @@
 			<div class="section">
 				<div class="box">
 					<h2>Demo</h2>
-					<form action="http://www.google.com/" class="demoValidator">
+					<form action="test.html" class="formulario">
 						<fieldset>
-							<legend>Validadores disponibles</legend>
+							<legend>Validadores básicos</legend>
 							<p class="required">* Datos obligatorios</p>
 							<ol>
-								<li>
+								<li class="fieldBox">
 									<label class="required" for="w1">
-										<span>E-mail:<em>*</em></span>
+										<span>E-mail: <em>*</em></span>													
 										<input type="email" id="w1" required="required">
 									</label>
+									<p class="help">Escribe una descripción corta y clara</p>
 								</li>
-								<li>
+								<li class="fieldBox">
 									<label for="w2">
 										<span>URL:</span>
 										<input type="url" id="w2">
 									</label>
 								</li>
-								<li>
+								<li class="fieldBox">
 									<label for="w3">
 										<span>Campo numérico:</span>
-										<input type="number" id="w3" min="20" max="100">
+										<input type="number" id="w3" min="20">
 									</label>
 								</li>
-								<li>
+								<li class="fieldBox">
 									<label for="w4">
 										<span>Rango de números:</span>
 										<input type="range" id="w4" min="1" max="10">
 									</label>
 								</li>
-								<li>
+								<li class="fieldBox">
 									<label class="required disabled" for="w5">
-										<span>Required disabled:<em>*</em></span>
+										<span>Required disabled: <em>*</em></span>
 										<input type="text" id="w5" required="required" disabled="disabled">
+									</label>
+								</li>
+								<li class="fieldBox">
+									<label for="w6">
+										<span>Rango de carac.:</span>
+										<input type="text" id="w6">
 									</label>
 								</li>
 							</ol>
 						</fieldset>
-						<p class="actions"><input type="submit" value="Submit" class="btn primary"></p>
+			
+						<fieldset>
+							<legend>Casos de uso de Selects</legend>
+							<ul>
+								<li class="fieldBox">
+									<label for="pruebaSelect">
+										<span>Select:</span>
+										<select id="pruebaSelect">
+											<option value="-1">Selecciona algo...</option>
+											<option value="1">opcion 1</option>
+											<option value="2">opcion 2</option>
+											<option value="3">opcion 3</option>
+											<option value="4">opcion 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="pruebaSelect2" class="required">
+										<span>Select obl: <em>*</em></span>
+										<select id="pruebaSelect2" required="required">
+											<option value="-1">Selecciona algo...</option>
+											<option value="1">opcion 1</option>
+											<option value="2">opcion 2</option>
+											<option value="3">opcion 3</option>
+											<option value="4">opcion 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="pruebaSelect3" class="required disabled">
+										<span>Required & disabl.: <em>*</em></span>
+										<select id="pruebaSelect3" required="required" disabled="disabled">
+											<option value="-1">Selecciona algo...</option>
+											<option value="1">opcion 1</option>
+											<option value="2">opcion 2</option>
+											<option value="3">opcion 3</option>
+											<option value="4">opcion 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="pruebaSelect4" class="disabled">
+										<span>Select disabled:</span>
+										<select id="pruebaSelect4" disabled="disabled">
+											<option value="-1">Selecciona algo...</option>
+											<option value="1">opcion 1</option>
+											<option value="2">opcion 2</option>
+											<option value="3">opcion 3</option>
+											<option value="4">opcion 4</option>
+										</select>
+									</label>
+								</li>
+							</ul>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Legend de grupo</legend>
+							<div class="esta options">
+								<h4>dsjaidjsaoi:</h4>
+								<ul>
+									<li class="fieldBox">
+										<label for="432">
+											<input type="checkbox" value="3" id="432" name="cantidad">
+											<span>Tres</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="433">
+											<input type="checkbox" value="4" id="433" name="cantidad">
+											<span>Cuatro</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Legend de grupo <em>*</em></legend>
+							<div class="este options required">
+								<ul>
+									<li class="fieldBox">
+										<label for="765">
+											<input type="checkbox" value="3" id="765" name="cantidad2">
+											<span>Tres</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="654">
+											<input type="checkbox" value="4" id="654" name="cantidad2">
+											<span>Cuatro</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Legend de grupo</legend>
+							<div class="esto required options">
+								<h4>dsjaidjsaoi: <em>*</em></h4>
+								<ul>
+									<li class="fieldBox">
+										<label for="123">
+											<input type="radio" value="3" id="123" name="cantidad3">
+											<span>Tres</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="234">
+											<input type="radio" value="4" id="234" name="cantidad3">
+											<span>Cuatro</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Legend de grupo</legend>
+							<div class="estu options">
+								<ul>
+									<li class="fieldBox">
+										<label for="345">
+											<input type="radio" value="3" id="345" name="cantidad4">
+											<span>Tres</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="456">
+											<input type="radio" value="4" id="456" name="cantidad4">
+											<span>Cuatro</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<div class="tyc options required">
+							<label for="w19a">
+								<input type="checkbox" value="yes" id="w19a" name="tyc">
+								<span>He leído y acepto los Términos y Condiciones de servicio.</span>
+							</label>
+						</div>
+			
+						<fieldset>
+							<legend>Textarea</legend>
+				
+							<ul>
+								<li class="fieldBox">
+									<label for="testTextarea1">
+										<span>Textarea:</span>
+										<textarea id="testTextarea1"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="testTextarea2" class="required">
+										<span>Textarea obli: <em>*</em></span>
+										<textarea id="testTextarea2" required="required"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="testTextarea3" class="required disabled">
+										<span>Oblig. + disab: <em>*</em></span>
+										<textarea id="testTextarea3" required="required" disabled="disabled"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="testTextarea4" class="disabled">
+										<span>Textarea disabled:</span>
+										<textarea id="testTextarea4" disabled="disabled"></textarea>
+									</label>
+								</li>
+							</ul>
+				
+						</fieldset>
+			
+						<p class="actions">
+							<input type="submit" value="Submit" id="validationModalTest" class="btn primary">
+							<a href="#">Cancelar</a>
+						</p>
 					</form>
 				</div>
 			</div>
@@ -406,9 +602,9 @@
     <script src="src/js/highlight.js"></script>
 	<script>
        
-        $('.article').each(function(i, e){ 
+        /*$('.article').each(function(i, e){ 
             $(e).find('.section .box:first').height($(e).find('.aside .box:first').height()) 
-        });
+        });*/
         
         $("head title, .header h1").html($("head title").html()+" "+ui.version);
 
@@ -422,40 +618,76 @@
         $('.demoTabNavigator,#chico-tabs').tabNavigator();
         
         // Validator
-        $('.demoValidator').validator({
-        	fields: {
-        		'#w1': {
-        			required: 'El email es obligatorio.',
-        			email: 'El email esta mal escrito.'
-        		},
-        
-        		'#w2': {
-        			url: 'La URL esta mal escrita.'
-        		},
-        
-        		'#w3': {
-        			number: 'El precio debe ser un número.',
-        			min: 'El precio debe ser mayor a 20.',
-        			max: 'El precio debe ser menor a 100.'
-        		},
-        
-        		'#w4': {
-        			range: 'El rango debe ser un número entre 1 y 10.'
-        		},
-        		
-        		'#w5': {
-        			required: 'El campo es obligatorio.'
-        		}
-        	},
-        	defaults: {
-        		error: 'Hay errores en el formulario.'
-        	},
-        	callbacks: {
-        		submit: function(){
-        			alert('callback');
-        		}
-        	}
-        });
+        $('.formulario').validator({
+			fields: {
+				// Inputs
+				'#w1': {
+					required: 'El email es obligatorio.',
+					email: 'El email esta mal escrito.'
+				},
+
+				'#w2': {
+					url: 'La URL esta mal escrita.'
+				},
+
+				'#w3': {
+					number: 'El precio debe ser un número.',
+					min: 'El precio debe ser mayor a 20.'
+				},
+
+				'#w4': {
+					range: 'El rango debe ser un número entre 1 y 10.'
+				},
+			
+				'#w5': {
+					required: 'El campo es obligatorio.'
+				},
+				
+				'#w6': {
+					maxLength: [20, 'El campo debe tener menos de 20 caracteres.'],
+					minLength: [6, 'El campo debe tener más de 6 caracteres.']
+				},
+				
+				// Selects
+				'#pruebaSelect2': {
+					required: 'El campo es obligatorio.'
+				},
+
+				'#pruebaSelect3': {
+					required: 'El campo es obligatorio.'
+				},
+				
+				// Options
+				'.este': {
+					required: 'El campo es obligatorio.'
+				},
+				
+				'.esto': {
+					required: 'El campo es obligatorio.'
+				},
+				
+				'.tyc': {
+					required: 'El campo es obligatorio.'
+				},
+				
+				// Textareas
+				'#testTextarea2': {
+					required: 'El campo es obligatorio.'
+				},
+				
+				'#testTextarea3': {
+					required: 'El campo es obligatorio.'
+				}
+			},
+			defaults: {
+				error: 'Hay errores en el formulario.'
+			},
+			callbacks: {
+				submit: function(){
+					alert('callback');
+				}
+			}
+		});
 //});
 		</script>
 	</body>

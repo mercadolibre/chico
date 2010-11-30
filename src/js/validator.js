@@ -43,13 +43,13 @@ ui.validator = function(conf){
 		
 		switch(method){
 			case 'text':		return value.match(/^([a-zA-Z\s]+)$/m); break;
-			case 'number':		return value.match(/^\d+$/m); break;
+			case 'number':		return !isNaN(value);/*value.match(/^\d+$/m);*/ break;
 			case 'email':		return value.match(/^([\w]+)(.[\w]+)*@([\w]+)(.[\w]{2,3}){1,2}$/); break;
 			case 'url':			return value.match(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/); break;
 			case 'range':		return validations('number', wconf) && validations('min', wconf) && validations('max', wconf); break;
 			case 'required':	return (wconf.tagName == 'SELECT') ? value != -1 : $.trim(value).length > 0; break; // Select vs. input, options, textarea
-			case 'min':			return value >= wconf.$element.attr('min'); break;
-			case 'max':			return value <= wconf.$element.attr('max'); break;
+			case 'min':			return value >= parseInt(wconf.$element.attr('min')); break;
+			case 'max':			return value <= parseInt(wconf.$element.attr('max')); break;
 			case 'minLength':	return value.length >= parseInt(wconf.messages.minLength[0]); break;
 			case 'maxLength':	return value.length <= parseInt(wconf.messages.maxLength[0]); break;
 		};
@@ -96,9 +96,7 @@ ui.validator = function(conf){
 	
 	// Remove big helper
 	var removeValidation = function(){
-		$('.uiValidator').fadeOut('fast', function(){
-			$(this).remove();			
-		});
+		$('.uiValidator').fadeOut('fast', function(){ $(this).remove(); });
 	};
 
 	//console.log("Before bind events");
@@ -156,7 +154,7 @@ ui.validator = function(conf){
 		
 		// General error
 		if(!validation){
-			$(conf.element).before('<p class="uiValidator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');			
+			$(conf.element).before('<p class="uiValidator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
 		// General ok
 		}else{
 			removeValidation();
