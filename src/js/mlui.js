@@ -201,17 +201,21 @@ ui.get = function(method, x, callback) {
         
 	case "component":
 
-    	var url = ui.environment(ui.mode, x);
-        var src = url.uri + url.js;
-        var href = url.uri + url.css;
-    
-    
-    if (!internal) {
+        if (x.indexOf("http")==-1) {
+            var url = ui.environment(ui.mode, x);
+            var src = url.uri + url.js;
+            var href = url.uri + url.css;
+        } else {
+            var src = x;    
+        }
+
+        if (!internal) {
 		var style = document.createElement('link');
     		style.href = href;
 	    	style.rel = 'stylesheet';
         	style.type = 'text/css';
-    }                            
+        }
+        
 	   	var script = document.createElement("script");
 			script.src = src;
                     
