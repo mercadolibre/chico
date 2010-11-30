@@ -27,49 +27,45 @@ ui.floats = function(){
 	that.show = function(event, conf){
 		that.prevent(event);
 		
-		//TODO: clearTimers();
+		var className = 'ui' + ui.utils.ucfirst(conf.name);
 		
-		if(!visible) { //fucking bug on IE and Opera with .wrap()
-			var className = 'ui' + ui.utils.ucfirst(conf.name);
-			if(conf.wrappeable){
-				$('.' + className + ' .uiContent').unwrap().remove();				
-				conf.$trigger.wrap( $('<div class="' + className + '">') );
-				conf.$wrapper = conf.$trigger.parent();
-				conf.$trigger.addClass('uiTrigger');
-				conf.$htmlContent = $('<div class="uiContent">');				
-				conf.$htmlContent.html(that.loadContent(conf)).hide().appendTo('.' + className);
-				conf.$wrapper.css({height: parseInt(conf.$trigger.outerHeight()),width: parseInt(conf.$trigger.outerWidth())});				
-			}else{
-				conf.$htmlContent = $('<div class="' + className + '">');
-				conf.$htmlContent.html(that.loadContent(conf)).hide().appendTo('body');
-			};
-			
-
-			// Visual configuration
-			if(conf.closeButton) createClose(conf);
-			if(conf.cone) createCone(conf);
-			if(conf.align) ui.position[conf.align](conf);
-			if(conf.classes) conf.$htmlContent.addClass(conf.classes);			
-			conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });			
-			visible = true;
+		if(conf.wrappeable){		
+			conf.$trigger.addClass('uiTrigger');
+			conf.$htmlContent = $('<div class="uiContent">');
+			conf.$trigger.wrap( $('<div class="' + className + '">') );
+			conf.$wrapper = conf.$trigger.parent();
+			conf.$wrapper.css({
+				display: 'inline-block',
+				position: 'relative'
+			});			
+			conf.$htmlContent.html(that.loadContent(conf)).hide().appendTo( conf.$wrapper );
+		}else{
+			conf.$htmlContent = $('<div class="' + className + '">');
+			conf.$htmlContent.html(that.loadContent(conf)).hide().appendTo('body');
 		};
 
+		// Visual configuration
+		if(conf.closeButton) createClose(conf);
+		if(conf.cone) createCone(conf);
+		if(conf.align) ui.position[conf.align](conf);
+		if(conf.classes) conf.$htmlContent.addClass(conf.classes);			
+		
+		// Show
+		conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });			
 	};
 
 	that.hide = function(event, conf){
 		that.prevent(event);
-		//TODO: clearTimers();		
-		if( visible ){ //fucking bug on IE and Opera with .wrap()
-			var className = 'ui' + ui.utils.ucfirst(conf.name);
-			if(conf.wrappeable){				
-				conf.$wrapper.find('.uiTrigger').removeClass('uiTrigger');
-				conf.$wrapper.find('.uiContent').unwrap().remove();
-			}else{
-				$('.' + className).fadeOut('fast', function(event){ $(this).remove(); });	
-			};			
-			that.callbacks(conf, 'hide');			
-			visible = false;
-		};
+		
+		var className = 'ui' + ui.utils.ucfirst(conf.name);
+		
+		if(conf.wrappeable){				
+			conf.$wrapper.find('.uiTrigger').removeClass('uiTrigger');
+			conf.$wrapper.find('.uiContent').unwrap().remove();
+		}else{
+			$('.' + className).fadeOut('fast', function(event){ $(this).remove(); });	
+		};			
+		that.callbacks(conf, 'hide');			
 	};
 
 	return that;

@@ -61,10 +61,10 @@ ui.validator = function(conf){
 		// Each validation
 		for(var x in wconf.messages){
 			// Don't validate disabled elements
-			if(wconf.$element.parent().hasClass('disabled') && wconf.$element.attr('disabled')) break;
+			if(wconf.$element.parents('label').hasClass('disabled') && wconf.$element.attr('disabled')) break;
 			
 			// Don't validate not required elements (Si no es obligatorio y el campo esta vacio, esta todo ok)
-			if(!wconf.$element.parent().hasClass('required') && !validations('required', wconf)) break;
+			if(!wconf.$element.parents('label').hasClass('required') && !validations('required', wconf)) break;
 			
 			// Status error (cut the flow)
 			if(!validations(x, wconf)){
@@ -205,13 +205,15 @@ ui.helper = function(wconf){
 	};
 	
 	var hide = function(){
-		$('.helper' + wconf.id).fadeOut('fast', function(){ $(this).remove() }); // TODO: refactor del hide (ocultar solamente el que esta activo)
+//		$('.helper' + wconf.id).fadeOut('fast', function(){ $(this).remove() }); // TODO: refactor del hide (ocultar solamente el que esta activo)
+		wconf.$element.removeClass('uiTrigger');
+		$('.helper' + wconf.id).unwrap().remove();
 		that.callbacks(conf, 'hide');
 	};
 	
 	var show = function(text){
-		conf.content.data = '<span class="ico error">Error: </span>' + text;
-		that.show($.Event(), conf);
+		conf.content.data = '<span class="ico error">Error: </span>' + text;		
+		that.show($.Event(), conf);		
 	};
 
 	//console.log("Creating Helper for "+wconf.tagName);

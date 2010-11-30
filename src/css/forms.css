@@ -144,6 +144,10 @@ form label .error:focus {
 	-webkit-box-shadow:2px #CC0000;
 }
 
+form label select.error:focus{
+	padding:0px;
+}
+
 /* Vertical Form*/
 form.vertical .fieldBox {
 	padding:7px 0;

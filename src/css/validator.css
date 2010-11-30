@@ -13,7 +13,7 @@
 
 .uiHelper .uiContent{
 	display:inline-block;
-	max-width:220px;
+	width:160px;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -23,6 +23,10 @@
 
 .uiValidator{
 	margin-bottom:10px;
+}
+
+.uiHelper .uiContent span{
+	padding:0;
 }
 
 .uiHelper .uiContent .cone.right{
@@ -38,6 +42,10 @@
 .uiHelper .uiContent .ico.error, .uiValidator .ico.error{
 	float:left;
 	margin:2px 5px 0 0;
+}
+
+.uiHelper legend, .uiHelper h4, .uiHelper .options.uiTrigger{
+	display:inline;
 }
 
 /* IE 6 */
