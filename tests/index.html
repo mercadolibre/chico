@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Chico-UI Test Cases</title>
+	<link rel="stylesheet" type="text/css" href="../php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator">
+	<link href="../src/css/qunit.css" rel="stylesheet">
+	<script src="../src/js/jquery.js"></script>
+	<script src="../php/chico.php"></script>
+</head>
+<body>
+	<h1>Chico-UI Test Cases</h1>
+    <hr />
+	<div id="test-cases">
+		<ul>
+			<li><a href="#test-core">Core</a></li>
+			<li><a href="#test-dropdown">Dropdown</a></li>
+			<li><a href="#test-layer">Layer</a></li>
+			<li><a href="#test-modal">Modal</a></li>
+			<li><a href="#test-tabNavigator">Tab Navigator</a></li>
+			<li><a href="#test-tooltip">Tooltip</a></li>
+		</ul>
+		<div>
+			<div id="test-core"><iframe src="core.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe></div>
+			<div id="test-dropdown"><iframe src="dropdown.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%; display:none"></iframe></div>
+			<div id="test-layer"><iframe src="layer.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%; display:none"></iframe></div>
+			<div id="test-modal"><iframe src="modal.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%; display:none"></iframe></div>
+			<div id="test-tabNavigator"><iframe src="tabNavigator.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%; display:none"></iframe></div>
+			<div id="test-tooltip"><iframe src="tooltip.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%; display:none"></iframe></div>
+		</div>
+	</div>
+	
+    <script>
+	var getAvaibleHeight = function() {
+        var alto = 478;
+    	
+    	if (window.innerHeight) {
+           alto = window.innerHeight - 110;
+        } else {
+           if (document.body.clientHeight) {
+              	alto = document.body.clientHeight - 110;
+           }
+        }
+        
+        return alto;
+    }
+    
+    $("#test-cases").tabNavigator({
+        callbacks: {                   
+            show: function(x) {
+                x.$htmlContent.find("iframe").css({
+                   "display":"block",
+                   "height": getAvaibleHeight()+"px" 
+                });
+            },
+            hide: function() {
+            
+            }
+        }   
+	});
+
+    $("#test-core").find("iframe").css("height",getAvaibleHeight()+"px");
+            
+    </script>
+</body>
+</html>

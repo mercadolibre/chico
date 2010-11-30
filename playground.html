@@ -16,11 +16,6 @@
 			width:120px;			
 		}
 	</style>
-    <script>
-        // pre carga validator
-    var components = "validator";
-    </script>
-    
     <script src="src/js/jquery.js"></script>
     <script src="src/js/mlui.js"></script>
 
@@ -378,7 +373,7 @@
 
 <script>
 	
-$(function() { 
+//$(function() { 
 	
 	// Tooltip
 	$('.tooltip').tooltip();
@@ -393,11 +388,12 @@ $(function() {
     });
     
     // post-carga edit-in-place
+/*
     ui.factory("configure","editInPlace",function(){
         // Edit in place
         $('.edit1, .edit2').editInPlace();
     });
-    
+*/    
     // Layer
     $('.layerClick').layer({
     	event: 'click',
@@ -454,19 +450,18 @@ $(function() {
  	 
    
     // Tab navigator
-    $('.pagos').tabNavigator(
-    {
+    $('.pagos').tabNavigator({
 		callbacks: {
 			show: function(){
 				alert('callback');
 			}
 		} 
-	}
-    );
-    
+	});
+
     // Validator
-    $('.formulario').validator({
+	$('.formulario').validator({
 		fields: {
+			// Inputs
 			'#w1': {
 				required: 'El email es obligatorio.',
 				email: 'El email esta mal escrito.'
@@ -484,8 +479,44 @@ $(function() {
 			'#w4': {
 				range: 'El rango debe ser un número entre 1 y 10.'
 			},
-			
+		
 			'#w5': {
+				required: 'El campo es obligatorio.'
+			},
+			
+			'#w6': {
+				maxLength: [20, 'El campo debe tener menos de 20 caracteres.'],
+				minLength: [6, 'El campo debe tener más de 6 caracteres.']
+			},
+			
+			// Selects
+			'#pruebaSelect2': {
+				required: 'El campo es obligatorio.'
+			},
+
+			'#pruebaSelect3': {
+				required: 'El campo es obligatorio.'
+			},
+			
+			// Options
+			'.este': {
+				required: 'El campo es obligatorio.'
+			},
+			
+			'.esto': {
+				required: 'El campo es obligatorio.'
+			},
+			
+			'.tyc': {
+				required: 'El campo es obligatorio.'
+			},
+			
+			// Textareas
+			'#testTextarea2': {
+				required: 'El campo es obligatorio.'
+			},
+			
+			'#testTextarea3': {
 				required: 'El campo es obligatorio.'
 			}
 		},
@@ -498,7 +529,8 @@ $(function() {
 			}
 		}
 	});
-});
+
+
 
 </script>
 </body>
