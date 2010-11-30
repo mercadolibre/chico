@@ -62,7 +62,7 @@ ui.floats = function(){
 		if( visible ){ //fucking bug on IE and Opera with .wrap()
 			var className = 'ui' + ui.utils.ucfirst(conf.name);
 			if(conf.wrappeable){				
-				conf.$wrapper.find('.uiTrigger').removeClass();
+				conf.$wrapper.find('.uiTrigger').removeClass('uiTrigger');
 				conf.$wrapper.find('.uiContent').unwrap().remove();
 			}else{
 				$('.' + className).fadeOut('fast', function(event){ $(this).remove(); });	
