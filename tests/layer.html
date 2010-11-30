@@ -65,28 +65,38 @@
 			notExists('.uiLayer');
 			
 			$('.testLayerClick').click();
-			exists('.uiLayer');			
+			exists('.uiLayer');
+			exists('.uiLayer .uiTrigger');
+			exists('.uiLayer .uiContent');
+				
 			isVisible('.uiLayer');
+			isVisible('.uiLayer .uiTrigger');
+			isVisible('.uiLayer .uiContent');
 			
 			$('body').click();
 			notExists('.uiLayer');
-			
+			notExists('.uiLayer .uiTrigger');
+			notExists('.uiLayer .uiContent');			
 		});
 		
 		test('Check for close button interaction', function(){
 			$('.testLayerClick').click();
 			
-			exists('.uiLayer .close');				
+			exists('.uiLayer .uiContent .close');				
 			$('.uiLayer .close').click();
 			
-			notExists('.uiLayer');						
+			notExists('.uiLayer');
+			notExists('.uiLayer .uiTrigger');
+			notExists('.uiLayer .uiContent');						
 		});
 		
 		test('Check for click content interaction', function(){
 			$('.testLayerClick').click();
 			
-			$('.uiLayer').click();
+			$('.uiLayer .uiContent').click();
 			exists('.uiLayer');
+			exists('.uiLayer .uiTrigger');
+			exists('.uiLayer .uiContent');
 			
 			$('body').click();			
 
@@ -94,8 +104,8 @@
 		
 		test('Check for the right visual elements', function(){					
 			$('.testLayerClick').click();
-			exists('.uiLayer .close');
-			exists('.uiLayer .cone');
+			exists('.uiLayer .uiContent .close');
+			exists('.uiLayer .uiContent .cone');
 			$('body').click();
 		});
 		
@@ -106,11 +116,18 @@
 			notExists('.uiLayer');
 			
 			$('.testLayerHover').mouseover();
-			exists('.uiLayer');			
+			exists('.uiLayer');
+			exists('.uiLayer .uiTrigger');
+			exists('.uiLayer .uiContent');		
+			
 			isVisible('.uiLayer');
+			isVisible('.uiLayer .uiTrigger');
+			isVisible('.uiLayer .uiContent');
 			
 			$('.testLayerHover').mouseout();			
-			notExists('.uiLayer');			
+			notExists('.uiLayer');
+			notExists('.uiLayer .uiTrigger');
+			notExists('.uiLayer .uiContent');	
 		});
 		
 	</script>

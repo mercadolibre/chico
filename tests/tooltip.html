@@ -49,14 +49,20 @@
 			$('.testTooltip').mouseover();
 			
 			exists('.uiTooltip');
+			exists('.uiTooltip .uiTrigger');
+			exists('.uiTooltip .uiContent');
 		});
 		
 		test('Closes tooltip dialog', function(){
 			exists('.uiTooltip');
+			exists('.uiTooltip .uiTrigger');
+			exists('.uiTooltip .uiContent');
 			
 			$('.testTooltip').mouseout();
 			
 			notExists('.uiTooltip');
+			notExists('.uiTooltip .uiTrigger');
+			notExists('.uiTooltip .uiContent');
 		});
 		
 	</script>
