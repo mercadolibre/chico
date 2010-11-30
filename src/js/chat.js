@@ -1,0 +1,18 @@
+
+/**
+ *	Chat Component
+ *	@author Javier
+ *	@return empty object
+ */
+
+ui.chat = function(conf) {
+    
+   	var that = ui.object(); // Inheritance
+   	
+   	ui.get("internal","http://www.mercadolibre.com.ar/org-img/jsapi/chat/chatRBIScript.js",function(){
+   	    loadChat(conf.ruleGroupName, conf.id, conf.style, conf.template); 
+    });
+    
+    return conf;
+
+}
