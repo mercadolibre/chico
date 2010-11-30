@@ -62,8 +62,12 @@ form label textarea {
 
 /* Error */
 /* Field input error */
-form label .error{
+form label .error, form label .error{
 	border:1px solid #C62026;
+}
+
+form label .error.ico{
+	border:none;
 }
 
 /* Options */

@@ -12,7 +12,7 @@ ui.position = {
 		var align = function(){
 			conf.$htmlContent.css({
 				left: (parseInt(ui.utils.window.width()) - conf.$htmlContent.outerWidth() ) /2,
-				top: (ui.utils.body.hasClass('ie6')) ? '' : (parseInt(ui.utils.window.height()) - conf.$htmlContent.outerHeight() ) /2
+				top: (ui.utils.html.hasClass('ie6')) ? '' : (parseInt(ui.utils.window.height()) - conf.$htmlContent.outerHeight() ) /2
 			});
 		};
 		align();

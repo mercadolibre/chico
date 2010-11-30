@@ -97,8 +97,7 @@ ui.validator = function(conf){
 	// Remove big helper
 	var removeValidation = function(){
 		$('.uiValidator').fadeOut('fast', function(){
-			$(this).remove();
-			$('.uiHelper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) - $('.uiValidator').height() - 20); }); // TODO: temp solution
+			$(this).remove();			
 		});
 	};
 
@@ -157,8 +156,7 @@ ui.validator = function(conf){
 		
 		// General error
 		if(!validation){
-			$(conf.element).before('<p class="uiValidator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
-			$('.uiHelper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) + $('.uiValidator').height() + 20); }); // TODO: temp solution
+			$(conf.element).before('<p class="uiValidator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');			
 		// General ok
 		}else{
 			removeValidation();
