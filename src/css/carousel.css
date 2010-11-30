@@ -1,5 +1,6 @@
 .uiCarousel{
 	overflow:hidden;
+	position:relative;
 }
 
 .uiCarousel .mask{

@@ -140,7 +140,8 @@ ui.helper = function(id, $element){
 		align: 'right',
 		cone: true,
 		content: { type: 'param' },
-		classes: 'helper' + id
+		classes: 'helper' + id,
+		wrappeable: true
 	};
 	
 	var hide = function(){

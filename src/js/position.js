@@ -6,13 +6,13 @@
 *  @function 
 */	
 
-ui.positionator = {
+ui.position = {
 	// Vertical & horizontal alignment
 	center: function(conf){
 		var align = function(){
 			conf.$htmlContent.css({
 				left: (parseInt(ui.utils.window.width()) - conf.$htmlContent.outerWidth() ) /2,
-				top: ($.browser.msie && $.browser.version == '6.0') ? '' : (parseInt(ui.utils.window.height()) - conf.$htmlContent.outerHeight() ) /2
+				top: (ui.utils.body.hasClass('ie6')) ? '' : (parseInt(ui.utils.window.height()) - conf.$htmlContent.outerHeight() ) /2
 			});
 		};
 		align();
@@ -20,12 +20,11 @@ ui.positionator = {
 	},
 	
 	// Layer, drop, mega-drop
-	drop: function(conf){
-		var os = conf.$trigger.offset();
+	down: function(conf){
 		var align = function(){
 			conf.$htmlContent.css({
-				top: os.top + conf.$trigger.outerHeight() + 10,
-				left: os.left + (conf.$trigger.outerWidth() / 2) - 20
+				top: conf.$wrapper.outerHeight() + 10,
+				left: (conf.$wrapper.outerWidth() / 2) - 20
 			});
 		};
 		align();
@@ -33,12 +32,11 @@ ui.positionator = {
 	},
 	
 	// Helpers
-	right: function(conf){
-		var os = conf.$trigger.offset();		
+	right: function(conf){		
 		var align = function(){
 			conf.$htmlContent.css({
-				top: os.top + (conf.$trigger.outerHeight() / 2) - 11,
-				left: os.left + conf.$trigger.outerWidth() + 10
+				top: (conf.$wrapper.outerHeight() / 2) - 11,
+				left: conf.$wrapper.outerWidth() + 10
 			});
 		};
 		align();

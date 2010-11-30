@@ -82,6 +82,10 @@
 }
 
 /* IE 6 */
+.ie6 .uiDropdown{
+	z-index:100;
+}
+
 .ie6 .uiDropdown .uiTrigger{
 	display:inline;
 }
@@ -91,6 +95,11 @@
 }
 
 /* IE 7 */
+/* IE 6 */
+.ie7 .uiDropdown{
+	z-index:100;
+}
+
 .ie7 .uiDropdown .uiContent{
 	width:0;
 	left:0;

@@ -10,12 +10,13 @@ ui.tooltip = function(conf){
 	var that = ui.floats(); // Inheritance
 
 	conf.name = 'tooltip';
-	conf.align = 'drop';
+	conf.align = 'down';
 	conf.cone = true;
 	conf.content = {
 		type: 'param',
 		data: conf.element.title
-	};
+	};	
+	conf.wrappeable = true;
 		
 	conf.$trigger = $(conf.element)
 		.css('cursor', 'default')

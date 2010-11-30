@@ -1,15 +1,44 @@
-.uiLayer {
+.uiLayer{
+	position:relative;
+	display:inline-block;
+}
+
+.uiLayer .uiContent{
 	width:280px;
 	background-image:none;
 	position:absolute;
 	z-index: 300;
 }
 
-.uiLayer .cone {
+.uiLayer .uiContent .cone {
 	background-image: url('http://10.100.34.210:8080/content/assets/piquito_tooltip.png');
 }
 
-.uiLayer .close{
+.uiLayer .uiContent .close{
 	top:5px;
 	right:5px;
+}
+
+/* IE 6 */
+.ie6 .uiLayer{
+	display:inline;
+	border:none;
+	z-index:1;
+}
+
+.ie6 .uiLayer .uiTrigger{
+	display:inline-block;
+	border:none;
+}
+
+/* IE 7 */
+.ie7 .uiLayer{
+	display:inline;
+	border:none;
+	z-index:1;
+}
+
+.ie7 .uiLayer .uiTrigger{
+	display:inline-block;
+	border:none;
 }

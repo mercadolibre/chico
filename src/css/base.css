@@ -410,13 +410,17 @@ hr {
 	border: 1px solid #afafaf;
 	margin: 0 0 10px 0;
 	padding: 10px;
-	position: relative;  /*this is really necesary ? yes */
+	/*position: relative; Nos está trayendo algunos problemas de z-index en IE y al sacarla no afecta en nada*/
 	background-position: 0 -663px;
 	background-repeat: repeat-x;
 	background-color: #fff;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+}
+
+.ie6 .box{ 
+	z-index:1; /* Fix z-index property */
 }
 
 .container > .box:first-of-type {
