@@ -61,19 +61,23 @@
 				</ul>				
 			</div>
 			<div id="crossbrowsing">
-				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;body&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
-					<code>
-						&lt;!--[if lt IE 7 ]&gt;<br>
-							&lt;body class="ie6"&gt;<br>
-							&lt;script src="http://10.100.34.210:8080/content/chico/0.x.x/src/js/dd_belatedpng.js"&gt;&lt;/script&gt;<br>
-							&lt;script&gt; DD_belatedPNG.fix('img, .ico'); //fix any &lt;img&gt; or .ico background-images &lt;/script&gt;<br>
-						&lt;![endif]--><br>
-						&lt;!--[if IE 7 ]&gt; &lt;body class="ie7"&gt; &lt;![endif]--&gt; <br>
-						&lt;!--[if IE 8 ]&gt; &lt;body class="ie8"&gt; &lt;![endif]--&gt;<br>
-						&lt;!--[if IE 9 ]&gt; &lt;body class="ie9"&gt; &lt;![endif]--&gt;<br>
-						&lt;!--[if (gt IE 9)|!(IE)]&gt; &lt;!--&gt; &lt;body&gt; &lt;!--&lt;![endif]--&gt;<br>
-					</code>
-				</div>
+				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;html&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
+				<code>
+					&lt;!--[if lt IE 7 ]&gt; &lt;html lang="en" class="no-js ie6"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if IE 7 ]&gt; &lt;html lang="en" class="no-js ie7"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if IE 8 ]&gt; &lt;html lang="en" class="no-js ie8"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if IE 9 ]&gt; &lt;html lang="en" class="no-js ie9"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if (gt IE 9)|!(IE)]&gt; &lt;!--&gt; &lt;html lang="en" class="no-js"&gt; &lt;!--&lt;![endif]--&gt;<br>
+				</code><br>
+				
+				<p>Para aplicar transparencia a las imagenes PNG en <abbr title="Internet Explorer 6">IE 6</abbr>, es necesario agregar estas lineas antes de la etiqueta de cierre &lt;/head&gt;.</p><br>
+				<code>
+					&lt;!--[if lt IE 7 ]&gt;<br>
+						&lt;script src="http://10.100.34.210:8080/content/chico/0.x.x/src/js/dd_belatedpng.js"&gt;&lt;/script&gt;<br>
+						&lt;script&gt; DD_belatedPNG.fix('img, .ico'); //fix any &lt;img&gt; or .ico background-images &lt;/script&gt;<br>
+					&lt;![endif]--><br>
+				</code>
+			</div>
 			<div id="extensiones">
 			<p>Extender funcionalidades de Chico UI es sencillo y rápido. Todos los componentes visuales de Chico UI se definene en el namespace <strong>ui.*</strong> y heredan de un constructor genérico que posee la funcionalidad básica para integrarse con el <abbr title="Software Development Kit">SDK</abbr>. Para extender funcionalidad del constructor genérico o de cualquier otra familia de componentes utilizamos un patrón de <abbr title="Object Oriented Programing">OOP</abbr> muy ágil y sencillo presentado por Douglas Crockford llamado <strong>PowerConstructor</strong>.</p>
 			<p>Ejemplo componente <em>Foobar</em>:</p>
@@ -342,44 +346,274 @@
 			<div class="section">
 				<div class="box">
 					<h2>Demo</h2>
-					<form action="http://www.google.com/" class="demoValidator">
+					<form action="test.html" class="formulario">
 						<fieldset>
-							<legend>Validadores disponibles</legend>
+							<legend>Casos de uso de Input</legend>
 							<p class="required">* Datos obligatorios</p>
 							<ol>
-								<li>
-									<label class="required" for="w1">
-										<span>E-mail:<em>*</em></span>
-										<input type="email" id="w1" required="required">
+								<li class="fieldBox">
+									<label class="required" for="val_email">
+										<span>E-mail: <em>*</em></span>													
+										<input type="email" id="val_email" required="required">
 									</label>
+									<p class="help">Escribe una descripción corta y clara</p>
 								</li>
-								<li>
-									<label for="w2">
+								<li class="fieldBox">
+									<label for="val_url">
 										<span>URL:</span>
-										<input type="url" id="w2">
+										<input type="url" id="val_url">
 									</label>
 								</li>
-								<li>
-									<label for="w3">
+								<li class="fieldBox">
+									<label for="val_number">
 										<span>Campo numérico:</span>
-										<input type="number" id="w3" min="20" max="100">
+										<input type="number" id="val_number" min="20">
 									</label>
 								</li>
-								<li>
-									<label for="w4">
+								<li class="fieldBox">
+									<label for="val_range">
 										<span>Rango de números:</span>
-										<input type="range" id="w4" min="1" max="10">
+										<input type="range" id="val_range" min="1" max="10">
 									</label>
 								</li>
-								<li>
-									<label class="required disabled" for="w5">
-										<span>Required disabled:<em>*</em></span>
-										<input type="text" id="w5" required="required" disabled="disabled">
+								<li class="fieldBox">
+									<label class="required disabled" for="val_required_disabled">
+										<span>Required disabled: <em>*</em></span>
+										<input type="text" id="val_required_disabled" required="required" disabled="disabled">
+									</label>
+								</li>
+								<li class="fieldBox">
+									<label for="val_length">
+										<span>Caracteres:</span>
+										<input type="text" id="val_length">
 									</label>
 								</li>
 							</ol>
 						</fieldset>
-						<p class="actions"><input type="submit" value="Submit" class="btn primary"></p>
+			
+						<fieldset>
+							<legend>Casos de uso de Select</legend>
+							<ul>
+								<li class="fieldBox">
+									<label for="val_select1">
+										<span>Campo común:</span>
+										<select id="val_select1">
+											<option value="-1">Selecciona...</option>
+											<option value="1">Opción 1</option>
+											<option value="2">Opción 2</option>
+											<option value="3">Opción 3</option>
+											<option value="4">Opción 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_select2" class="required">
+										<span>Obligatorio: <em>*</em></span>
+										<select id="val_select2" required="required">
+											<option value="-1">Selecciona...</option>
+											<option value="1">Opción 1</option>
+											<option value="2">Opción 2</option>
+											<option value="3">Opción 3</option>
+											<option value="4">Opción 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_select3" class="required disabled">
+										<span>Required disabled: <em>*</em></span>
+										<select id="val_select3" required="required" disabled="disabled">
+											<option value="-1">Selecciona...</option>
+											<option value="1">Opción 1</option>
+											<option value="2">Opción 2</option>
+											<option value="3">Opción 3</option>
+											<option value="4">Opción 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_select4" class="disabled">
+										<span>Disabled:</span>
+										<select id="val_select4" disabled="disabled">
+											<option value="-1">Selecciona...</option>
+											<option value="1">Opción 1</option>
+											<option value="2">Opción 2</option>
+											<option value="3">Opción 3</option>
+											<option value="4">Opción 4</option>
+										</select>
+									</label>
+								</li>
+							</ul>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Checkbox</legend>
+							<div class="val_check1 options">
+								<h4>Label de grupo de checkboxes:</h4>
+								<ul>
+									<li class="fieldBox">
+										<label for="val_check1a">
+											<input type="checkbox" value="alpha" id="val_check1a" name="version1">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_check1b">
+											<input type="checkbox" value="beta" id="val_check1b" name="version1">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Legend de grupo obligatorio <em>*</em></legend>
+							<div class="val_check2 options required">
+								<ul>
+									<li class="fieldBox">
+										<label for="val_check2a">
+											<input type="checkbox" value="alpha" id="val_check2a" name="version2">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_check2b">
+											<input type="checkbox" value="beta" id="val_check2b" name="version2">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Legend de grupo de checkboxes</legend>
+							<div class="val_check3 required options">
+								<h4>Label de grupo obligatorio: <em>*</em></h4>
+								<ul>
+									<li class="fieldBox">
+										<label for="val_check3a">
+											<input type="radio" value="alpha" id="val_check3a" name="version3">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_check3b">
+											<input type="radio" value="beta" id="val_check3b" name="version3">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Radio buttons</legend>
+							<div class="val_radio1 options">
+								<ul>
+									<li class="fieldBox">
+										<label for="val_radio1a">
+											<input type="radio" value="alpha" id="val_radio1a" name="version4">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_radio1b">
+											<input type="radio" value="beta" id="val_radio1b" name="version4">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+						
+						<fieldset>
+							<legend>Radio buttons obligatorios <em>*</em></legend>
+							<div class="val_radio2 options required">
+								<ul>
+									<li class="fieldBox">
+										<label for="val_radio2a">
+											<input type="radio" value="alpha" id="val_radio2a" name="version5">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_radio2b">
+											<input type="radio" value="beta" id="val_radio2b" name="version5">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+						
+						<fieldset>
+							<legend>Legend de grupo de Radio buttons</legend>
+							<div class="val_radio3 options required">
+								<h4 class="required">Radio buttons obligarorios: <em>*</em></h4>
+								<ul>
+									<li class="fieldBox">
+										<label for="val_radio3a">
+											<input type="radio" value="alpha" id="val_radio3a" name="version6">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_radio3b">
+											<input type="radio" value="beta" id="val_radio3b" name="version6">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Textarea</legend>
+							<ul>
+								<li class="fieldBox">
+									<label for="val_textarea1">
+										<span>Textarea:</span>
+										<textarea id="val_textarea1"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_textarea2" class="required">
+										<span>Obligatorio: <em>*</em></span>
+										<textarea id="val_textarea2" required="required"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_textarea3" class="required disabled">
+										<span>Required disabled: <em>*</em></span>
+										<textarea id="val_textarea3" required="required" disabled="disabled"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_textarea4" class="disabled">
+										<span>Disabled:</span>
+										<textarea id="val_textarea4" disabled="disabled"></textarea>
+									</label>
+								</li>
+							</ul>
+						</fieldset>
+			
+						<p class="actions">
+							<input type="submit" value="Enviar" class="btn primary">
+							<a href="#">Cancelar</a>
+						</p>
 					</form>
 				</div>
 			</div>
@@ -387,15 +621,20 @@
 			<div class="aside">
 				<div class="box">
 					<h2>Sintaxis</h2>
-					<p>El HTML para utilizar este componente es:</p>
+					<p>El HTML básico para utilizar este componente es:</p>
 					<code>
 						<pre name="code" class="xml">
 							<form action="..." class="foo">
 								<fieldset>
-									<label for="...">
-										<span>E-mail:</span>
-										<input type="email" id="...">
-									</label>
+									<legend>...</legend>
+									<ul>
+										<li class="fieldBox">
+											<label for="Foobar">
+												<span>E-mail:</span>
+												<input type="email" id="Foobar">
+											</label>
+										</li>
+									</ul>
 								</fieldset>
 							</form>
 						</pre>
@@ -415,14 +654,13 @@
 	<!-- Organization -->
     <script src="src/js/highlight.js"></script>
 	<script>
-       
-        $('.article').each(function(i, e){ 
-            $(e).find('.section .box:first').height($(e).find('.aside .box:first').height()) 
-        });
-        
-        $("head title, .header h1").html($("head title").html()+" "+ui.version);
+		// Boxes alignment
+        $('.article').each(function(i, e){ var $first = $(e).find('.section .box:first'), $second = $(e).find('.aside .box:first'); if($first.height() < $second.height()) $first.height( $second.height() ); });
+		
+		// Automatic version
+        $('head title, .header h1').html($('head title').html() + ' ' + ui.version);
 
-//$(function(){
+		// Components
         $('.demoDropdown').dropdown();
         $('.demoCarousel').carousel();
         $('.demoModal').modal({ content: { type: 'ajax' } });			
@@ -432,54 +670,56 @@
         $('.demoTabNavigator,#chico-tabs').tabNavigator();
         
         // Validator
-        $('.demoValidator').validator({
-        	fields: {
-        		'#w1': {
-        			required: 'El email es obligatorio.',
-        			email: 'El email esta mal escrito.'
-        		},
-        
-        		'#w2': {
-        			url: 'La URL esta mal escrita.'
-        		},
-        
-        		'#w3': {
-        			number: 'El precio debe ser un número.',
-        			min: 'El precio debe ser mayor a 20.',
-        			max: 'El precio debe ser menor a 100.'
-        		},
-        
-        		'#w4': {
-        			range: 'El rango debe ser un número entre 1 y 10.'
-        		},
-        		
-        		'#w5': {
-        			required: 'El campo es obligatorio.'
-        		}
-        	},
-        	defaults: {
-        		error: 'Hay errores en el formulario.'
-        	},
-        	callbacks: {
-        		submit: function(){
-        			alert('callback');
-        		}
-        	}
-        });
-        
-//});
+		$('.formulario').validator({
+			fields: {
+				// Inputs
+				'#val_email':	{ required: 'El email es obligatorio.', email: 'El email esta mal escrito.' },
+				'#val_url':		{ url: 'La URL esta mal escrita.' },
+				'#val_number':	{ number: 'El precio debe ser un número.', min: 'El precio debe ser mayor a 20.' },
+				'#val_range':	{ range: 'El rango debe ser un número entre 1 y 10.' },
+				'#val_required_disabled': { required: 'El campo es obligatorio.' },
+				'#val_length':	{ maxLength: [20, 'El campo debe tener menos de 20 caracteres.'], minLength: [6, 'El campo debe tener más de 6 caracteres.'] },
+			
+				// Selects
+				'#val_select2':	{ required: 'El campo es obligatorio.' },
+				'#val_select3':	{ required: 'El campo es obligatorio.' },
+			
+				// Options
+				'.val_check2':	{ required: 'El campo es obligatorio.' },
+				'.val_check3':	{ required: 'El campo es obligatorio.' },
+				'.val_radio2':	{ required: 'El campo es obligatorio.' },
+				'.val_radio3':	{ required: 'El campo es obligatorio.' },
+			
+				// Textareas
+				'#val_textarea2': { required: 'El campo es obligatorio.' },
+				'#val_textarea3': { required: 'El campo es obligatorio.' }
+			},
+			defaults: {
+				error: 'Revisa los datos, por favor.'
+			},
+			callbacks: {
+				submit: function(){
+					alert('Callback');
+				}
+			}
+		});
+		
+		// Form submitted demo (DON'T COPY, ONLY FOR VALIDATORS EXAMPLE)
+		$('.formulario').submit();
+		
+		// Chat
+		var confChat = {
+			ruleGroupName: 'APP_PENDING_PAYMENTS',
+			divId: 'chat',
+			style: 'block',
+			template: '3'
+		};
 
-var confChat = {
-    ruleGroupName: 'APP_PENDING_PAYMENTS',
-    divId: 'chat',
-    style: 'block',
-    template: '3'
-}
+		ui.factory('configure', 'chat', function(){
+			$('.chat').chat(confChat);
+		});
 
-ui.factory("configure","chat",function(){
-    $(".chat").chat(confChat);
-});
-
-		</script>
+	</script>
+	
 	</body>
 </html>
