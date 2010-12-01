@@ -15,11 +15,10 @@ ui.validator = function(conf){
 
 		// Checkbox and radio button special config
 		if(wconf.$element.hasClass('options')){
-			wconf.tagName = 'OPTIONS';
-		
+			wconf.tag = 'OPTIONS';
 			if(wconf.$element.hasClass('required')) wconf.$element = ( // Required trigger (h4 or legend or element -helper will be fire from here-)
 				( (wconf.$element.find('h4').length > 0) ? wconf.$element.find('h4') : false ) || // if exists H4, get H4
-				( (wconf.$element.prev().get(0).tagName == 'LEGEND') ? wconf.$element.prev() : false ) || // if previous element is a legend tag, get previous element
+				( (wconf.$element.prev().attr('tagName') == 'LEGEND') ? wconf.$element.prev() : false ) || // if previous element is a legend tag, get previous element
 				wconf.$element // element
 			);
 		
@@ -47,7 +46,7 @@ ui.validator = function(conf){
 			case 'email':		return value.match(/^([\w]+)(.[\w]+)*@([\w]+)(.[\w]{2,3}){1,2}$/); break;
 			case 'url':			return value.match(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/); break;
 			case 'range':		return validations('number', wconf) && validations('min', wconf) && validations('max', wconf); break;
-			case 'required':	return (wconf.tagName == 'SELECT') ? value != -1 : $.trim(value).length > 0; break; // Select vs. input, options, textarea
+			case 'required':	return (wconf.tag == 'SELECT') ? value != -1 : $.trim(value).length > 0; break; // Select vs. input, options, textarea
 			case 'min':			return value >= parseInt(wconf.$element.attr('min')); break;
 			case 'max':			return value <= parseInt(wconf.$element.attr('max')); break;
 			case 'minLength':	return value.length >= parseInt(wconf.messages.minLength[0]); break;
@@ -119,13 +118,13 @@ ui.validator = function(conf){
 				var wconf = {
 					id: index,
 					$element: $(x),
-					tagName: $(x).get(0).tagName,
+					tag: $(x).attr('tagName'),
 					messages: conf.fields[x],
 					event: event
 				};
 				
 				// Error
-				if(!validate(wconf)){
+				if(!validate(wconf)){					
 					watchers[index].status = false;
 					validation = false;
 				// Ok (clean field error)
@@ -169,7 +168,7 @@ ui.validator = function(conf){
 		var wconf = {
 			id: watchers.length, // because length is: 0, 1, 2, 3...
 			$element: $(x),
-			tagName: $(x).get(0).tagName, // INPUT, SELECT, TEXTAREA, OPTIONS
+			tag: $(x).attr('tagName'), // INPUT, SELECT, TEXTAREA, OPTIONS
 			messages: conf.fields[x]
 		};
 	//	console.log(wconf);
@@ -214,7 +213,8 @@ ui.helper = function(wconf){
 	
 	var show = function(text){
 		conf.content.data = '<span class="ico error">Error: </span>' + text;		
-		that.show($.Event(), conf);		
+		that.show($.Event(), conf);
+		if(ui.utils.html.hasClass('ie7')) $('.helper' + wconf.id).parent().css('display','inline');
 	};
 
 	//console.log("Creating Helper for "+wconf.tagName);

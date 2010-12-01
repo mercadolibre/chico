@@ -10,6 +10,7 @@ form legend {
 	font-weight:bold;
 	padding-bottom:15px;
 }
+form h4 { font-size:13px; }
 
 /* Required specification */
 form p.required {
@@ -62,12 +63,12 @@ form label textarea {
 
 /* Error */
 /* Field input error */
-form label .error, form label .error{
-	border:1px solid #C62026;
+form label .error, form select .error{
+	border:1px solid #C62026 !important;
 }
 
 form label .error.ico{
-	border:none;
+	border:none !important;
 }
 
 /* Options */
@@ -144,7 +145,7 @@ form label .error:focus {
 	-webkit-box-shadow:2px #CC0000;
 }
 
-form label select.error:focus{
+form label select.error:focus{	
 	padding:0px;
 }
 
@@ -190,6 +191,30 @@ form .disabled input{
 
 .ie6 form .help {
 	margin-left:148px;
+}
+.ie6 form h4 { margin-left:10px; }
+
+/* IE 7*/
+
+.ie7 form {
+	position:relative;
+}
+
+.ie7 form .options{
+	position:relative;
+}
+
+.ie7 form .fieldBox{
+	position:relative;
+}
+
+.ie7 form h4 { 
+	margin-left:10px;
+	display:block;
+}
+
+.ie7 form .actions{
+	position:relative;
 }
 
 /* IE 8 */

@@ -410,7 +410,7 @@ hr {
 	border: 1px solid #afafaf;
 	margin: 0 0 10px 0;
 	padding: 10px;
-	/*position: relative; Nos está trayendo algunos problemas de z-index en IE y al sacarla no afecta en nada*/
+	/*position: relative; Nos estï¿½ trayendo algunos problemas de z-index en IE y al sacarla no afecta en nada*/
 	background-position: 0 -663px;
 	background-repeat: repeat-x;
 	background-color: #fff;
