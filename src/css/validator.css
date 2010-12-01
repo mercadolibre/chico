@@ -56,7 +56,7 @@
 }
 
 .ie6 .uiHelper .uiTrigger{
-	display:inline-block;
+	display:inline !important;
 	border:none;
 }
 
@@ -67,7 +67,7 @@
 	z-index:1;
 }
 
-.ie7 .uiHelper .uiTrigger{
-	display:inline-block;
+.ie7 .uiHelper .uiTrigger{	
 	border:none;
+	position:relative;
 }
