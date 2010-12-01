@@ -318,23 +318,24 @@ hr {
 	box-shadow:0px 0px 0px ;
 }
 
-.btn.skin {
+.btn.secondary.skin {
 	background-position:0 -271px;
-	border: #79a8c7 1px solid;
+	background-color:#C0DAEC;
+	border:1px solid #79a8c7;
 	color: #476274;
 }
 
-.btn.skin:focus {
+.btn.secondary.skin:focus {
 	-moz-box-shadow:0px 0px 5px #ADD7F3;
 	-webkit-box-shadow:0px 0px 5px #ADD7F3;
 	box-shadow:0px 0px 5px #ADD7F3;
 }
 
-.btn.skin:hover { 
+.btn.secondary.skin:hover { 
 	background-position:0 -296px;
 }
 
-.btn.skin:active {
+.btn.secondary.skin:active {
 	background-position:0 -321px;
 	-moz-box-shadow:0px 0px 0px ;
 	-webkit-box-shadow:0px 0px 0px ;
