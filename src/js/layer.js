@@ -14,7 +14,7 @@ ui.layer = function(conf){
 	conf.cone = true;
 	conf.classes = 'box';
 	conf.wrappeable = true;
-	conf.status = false;
+	conf.visible = false;
 
 	// Click
 	if(conf.event === 'click'){

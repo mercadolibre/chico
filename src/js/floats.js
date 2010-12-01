@@ -26,8 +26,7 @@ ui.floats = function(){
 	that.show = function(event, conf){
 		that.prevent(event);
 		
-		if(conf.status) return
-		
+		if(conf.visible) return		
 		var className = 'ui' + ui.utils.ucfirst(conf.name);
 		
 		if(conf.wrappeable){		
@@ -52,14 +51,14 @@ ui.floats = function(){
 		if(conf.classes) conf.$htmlContent.addClass(conf.classes);			
 		
 		// Show
-		conf.status = true;
+		conf.visible = true;
 		conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });			
 	};
 
 	that.hide = function(event, conf){
 		that.prevent(event);
 		
-		if(!conf.status) return;
+		if(!conf.visible) return;
 		
 		var className = 'ui' + ui.utils.ucfirst(conf.name);
 		
@@ -71,7 +70,7 @@ ui.floats = function(){
 		};
 		
 		// Hide
-		conf.status = false;
+		conf.visible = false;
 		that.callbacks(conf, 'hide');
 	};
 
