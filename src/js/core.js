@@ -7,16 +7,16 @@ var ui = window.ui = {
 
     mode: "dev", // "dev" or "pub"
 
-    components: "carousel, dropdown, layer, modal, tabNavigator, tooltip, validator",
+    components: "",
 
-    internals: "position, object, floats, navs",
+    internals: "",
 
     instances: {},
  	
     init: function() { 
 
         if (ui.mode=="dev") {
-            var fns = ui.internals.split(", ");
+            var fns = ui.internals.split(",");
             var tot = fns.length;
             for (var i=0; i<tot; i++) {
                 var x = fns[i]; 
@@ -59,7 +59,7 @@ ui.environment = function (mode, config) {
     case "dev":
     
     	return {
-    		uri: "src/",
+    		uri: "/src/",
     		css: "css/"+config+".css",
     		js: "js/"+config+".js"
     	}
@@ -86,7 +86,7 @@ ui.factory = function(method, x, callback) {
         // The method ui.get("all") DEPRECATED (???)
         //ui.get("all", ui.components, function(){});
         
-        var fns = ui.components.split(", ");
+        var fns = ui.components.split(",");
         var tot = fns.length;
         for (var i=0; i<tot; i++) {
             var x = fns[i]; 

@@ -24,7 +24,7 @@
  
 	<script src="../src/js/jquery.js"></script>
 	<script src="../src/js/qunit.js"></script>
-	<script src="../php/chico.php"></script>
+	<script src="../php/chico.php?get=modal&debug=true"></script>
 	<script src="functions.js"></script>
 
 <!-- #script -->
@@ -68,7 +68,7 @@
        	
        	test("Check for internal components instantiation",function(){
        	    
-       	    $(ui.internals.split(", ")).each(function(i,e){
+       	    $(ui.internals.split(",")).each(function(i,e){
        	        ok( ui[e] , "Expected to find "+e+" instantiation");
        	    });
        	    
@@ -76,7 +76,7 @@
 
        	test("Check for visual components instantiation",function(){
        	    
-       	    $(ui.components.split(", ")).each(function(i,e){
+       	    $(ui.components.split(",")).each(function(i,e){
        	        ok( ui[e] , "Expected to find "+e+" instantiation");
        	    });
        	    
@@ -84,7 +84,7 @@
         
     	test("Check for visual components in the instances map",function(){
        	    
-       	    $(ui.components.split(", ")).each(function(i,e){
+       	    $(ui.components.split(",")).each(function(i,e){
        	        ok( ui.instances[e] , "Expected to find "+e+" in the instances map");
        	    });
        	    

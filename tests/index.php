@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *    Chico-UI 
+ *    Unit Tests Packer-o-matic
+ */
+       $version = "0.1";
+       $autor = "Natan Santolo <natan.santolo@mercadolibre.com>";
+              
 // HTML Content Type
 header("Content-type: text/html");
 
@@ -12,11 +19,12 @@ $out .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"../php/css.php?q=base
 $out .=	"<link href=\"../src/css/qunit.css\" rel=\"stylesheet\">\n";
 $out .= "<script src=\"../src/js/jquery.js\"></script>\n";
 $out .= "<script src=\"../src/js/qunit.js\"></script>\n";
-$out .= "<script src=\"../php/chico.php\"></script>\n";
+$out .= "<script src=\"../php/chico.php?debug=true\"></script>\n";
 $out .= "<script src=\"functions.js\"></script>\n";
 $out .= "</head>\n";
 $out .= "<body>\n";
-$out .= "<h1>Chico Test Cases</h1>\n";
+$out .= "<h1>Chico-UI Unit Tests Packer-o-matic</h1>\n";
+$out .= "<h3>version ".$version." by ".$autor."</h3>\n";
 $out .= "<hr />\n";
 $out .= "<h1 id=\"qunit-header\">QUnit Test Suite</h1>\n<h2 id=\"qunit-banner\"></h2>\n<div id=\"qunit-testrunner-toolbar\"></div>\n<h2 id=\"qunit-userAgent\"></h2>\n<ol id=\"qunit-tests\"></ol>\n<div id=\"qunit-fixture\">test markup</div>\n";
 
