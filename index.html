@@ -6,15 +6,15 @@
 <!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
 	<head>
-		<script></script>		
+		<script></script>
 		<meta charset="utf-8">
 		<title>Chico UI</title>
     	<!--link rel="stylesheet" type="text/css" href="src/css/base.css" />
 	    <link rel="stylesheet" type="text/css" href="src/css/forms.css" /-->
 		<link rel="stylesheet" type="text/css" href="php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator">
-		<link rel="stylesheet" type="text/css" href="src/css/highlight.css">
+		<link rel="stylesheet" type="text/css" href="libs/css/highlight.css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
-		<script src="src/js/jquery.js"></script>
+		<script src="libs/js/jquery.js"></script>
 		<script src="php/chico.php"></script>
 		<!--script src="src/js/core.js"></script-->
 				
@@ -53,7 +53,7 @@
 						</li>
 						<li>
 						<p>jQuery:</p>
-					<strong>http://10.100.34.210:8080/content/chico/0.x.x/src/js/jquery.js</strong></li>
+					<strong>http://10.100.34.210:8080/content/chico/0.x.x/libs/js/jquery.js</strong></li>
 						<li>
 						<p>Este javascript es el único que se necesita para inicializar los componentes del SDK:</p>
 					<strong>http://10.100.34.210:8080/content/chico/0.x.x/src/js/core.js</strong>
@@ -63,6 +63,7 @@
 			<div id="crossbrowsing">
 				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;html&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
 				<code>
+					&lt;!--[if IE]&gt;&lt;![endif]--&gt;
 					&lt;!--[if lt IE 7 ]&gt; &lt;html lang="en" class="no-js ie6"&gt; &lt;![endif]--&gt;<br>
 					&lt;!--[if IE 7 ]&gt; &lt;html lang="en" class="no-js ie7"&gt; &lt;![endif]--&gt;<br>
 					&lt;!--[if IE 8 ]&gt; &lt;html lang="en" class="no-js ie8"&gt; &lt;![endif]--&gt;<br>
@@ -73,7 +74,7 @@
 				<p>Para aplicar transparencia a las imagenes PNG en <abbr title="Internet Explorer 6">IE 6</abbr>, es necesario agregar estas lineas antes de la etiqueta de cierre &lt;/head&gt;.</p><br>
 				<code>
 					&lt;!--[if lt IE 7 ]&gt;<br>
-						&lt;script src="http://10.100.34.210:8080/content/chico/0.x.x/src/js/dd_belatedpng.js"&gt;&lt;/script&gt;<br>
+						&lt;script src="http://10.100.34.210:8080/content/chico/0.x.x/libs/js/dd_belatedpng.js"&gt;&lt;/script&gt;<br>
 						&lt;script&gt; DD_belatedPNG.fix('img, .ico'); //fix any &lt;img&gt; or .ico background-images &lt;/script&gt;<br>
 					&lt;![endif]--><br>
 				</code>
@@ -655,7 +656,7 @@
 	</div>
 	
 	<!-- Organization -->
-    <script src="src/js/highlight.js"></script>
+    <script src="libs/js/highlight.js"></script>
 	<script>
 		// Boxes alignment
         $('.article').each(function(i, e){ var $first = $(e).find('.section .box:first'), $second = $(e).find('.aside .box:first'); if($first.height() < $second.height()) $first.height( $second.height() ); });
