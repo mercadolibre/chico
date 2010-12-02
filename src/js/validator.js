@@ -214,6 +214,7 @@ ui.helper = function(wconf){
 		conf.content.data = '<span class="ico error">Error: </span>' + text;		
 		that.show($.Event(), conf);
 		if(ui.utils.html.hasClass('ie7')) $('.helper' + wconf.id).parent().css('display','inline');
+		if(wconf.tag == 'INPUT') $('.helper' + wconf.id).parent().css({margin:0,padding:0});// FIX para que el padre de un input no tenga padding y margin 
 	};
 
 	return { show: function(text){ show(text) }, hide: hide };
