@@ -46,9 +46,7 @@ ui.floats = function(){
 				paddingRight: conf.$trigger.css('paddingRight'),
 				paddingLeft: conf.$trigger.css('paddingLeft'),
 				paddingBottom: conf.$trigger.css('paddingBottom')
-			});
-			
-			console.log(conf.$trigger.css('padding'));
+			});			
 			conf.$htmlContent.html(that.loadContent(conf)).hide().appendTo( conf.$wrapper );
 		}else{
 			conf.$htmlContent = $('<div class="' + className + '">');
