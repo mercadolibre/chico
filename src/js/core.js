@@ -115,23 +115,23 @@ ui.factory = function(method, x, callback) {
                 };		
                                 
                 that.each(function(i, e) {
-                    
+
                     var conf = {};
                         conf.name = x;
                         conf.element = e ;
                         conf.id = i;
-                        
+
                     $.extend( conf , options );
-            
+
                     // Create a component from his constructor
                     var created = ui[x]( conf );
-                    
+
                     // Save results to return the created components    
                     results.push( created );
-                        
+
                     // Map the instance
                     ui.instances[x].push( created );
-                    
+
                 });
                 
                 // return the created components or component   
