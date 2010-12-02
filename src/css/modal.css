@@ -51,7 +51,7 @@
 	width:105.2%;
 }
 
-html .ie6  div.dimmer{
+html.ie6  div.dimmer{
 	position:absolute;
 	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop);
 }
@@ -60,9 +60,10 @@ html .ie6  div.dimmer{
 	position:absolute;
 }
 
-* html .ie6  div.uiModal{
+* html.ie6  div.uiModal{
 	position: absolute;
 	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop +((documentElement.clientHeight-this.clientHeight)/2 ) : document.body.scrollTop +((document.body.clientHeight-this.clientHeight)/2));
+	z-index:150;
 }
 
 /* IE 7 */
