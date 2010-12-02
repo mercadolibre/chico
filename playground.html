@@ -11,7 +11,7 @@
 		<title>Chico UI</title>
 		<link rel="stylesheet" type="text/css" href="php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator">
 		<script src="libs/js/jquery.js"></script>
-		<script src="php/chico.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator&debug=true"></script>		
+		<script src="php/chico.php?get=dropdown,layer,modal,tabNavigator,tooltip,carousel,validator&debug=true"></script>		
 		<style>
 			.carousel li{
 				width:120px;
@@ -432,18 +432,6 @@
 			
 			// Form submitted demo (DON'T COPY, ONLY FOR VALIDATORS EXAMPLE)
 			$('.formulario').submit();
-			
-			// Chat
-			var confChat = {
-				ruleGroupName: 'APP_PENDING_PAYMENTS',
-				divId: 'chat',
-				style: 'block',
-				template: '3'
-			};
-	
-			ui.factory('configure', 'chat', function(){
-				$('.chat').chat(confChat);
-			});
 	
 		</script>
 	
