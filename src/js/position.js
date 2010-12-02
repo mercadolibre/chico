@@ -35,7 +35,7 @@ ui.position = {
 	right: function(conf){		
 		var align = function(){
 			conf.$htmlContent.css({
-				top: (conf.$wrapper.outerHeight() / 2) - 11,
+				top: (conf.$wrapper.height() / 2) - 11,
 				left: conf.$wrapper.outerWidth() + 13
 			});
 		};
