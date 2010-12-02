@@ -9,6 +9,9 @@ ui.validator = function(conf){
 	var that = ui.object(); // Inheritance
 	var validation = true;
 	var watchers = [];
+	
+	// 
+	$()
 
 	// Watcher constructor
 	var Watcher = function(wconf){
@@ -26,13 +29,12 @@ ui.validator = function(conf){
 		
 		// Input, select, textarea
 		}else{
-		//	console.log("Binding blur eventos to "+wconf.tagName);
 			wconf.$element.bind('blur', function(event){
 				wconf.event = event;
 				watchers[wconf.id].status = validate(wconf);
 			});
 		};
-	//	console.log("Creating Watcher");
+
 		return { status: true, helper: ui.helper( wconf ) };
 	};
 	
@@ -43,7 +45,7 @@ ui.validator = function(conf){
 		switch(method){
 			case 'text':		return value.match(/^([a-zA-Z\s]+)$/m); break;
 			case 'number':		return !isNaN(value);/*value.match(/^\d+$/m);*/ break;
-			case 'email':		return value.match(/^([\w]+)(.[\w]+)*@([\w]+)(.[\w]{2,3}){1,2}$/); break;
+			case 'email':		return value.match(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i); break;
 			case 'url':			return value.match(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/); break;
 			case 'range':		return validations('number', wconf) && validations('min', wconf) && validations('max', wconf); break;
 			case 'required':	return (wconf.tag == 'SELECT') ? value != -1 : $.trim(value).length > 0; break; // Select vs. input, options, textarea
@@ -56,7 +58,7 @@ ui.validator = function(conf){
 	
 	var validate = function(wconf){ // TODO: onBlur, si sigue con error tiene que validar otra vez
 		var helper = watchers[wconf.id].helper;
-//		console.log("Starting Validate function");
+
 		// Each validation
 		for(var x in wconf.messages){
 			// Don't validate disabled elements
@@ -98,7 +100,6 @@ ui.validator = function(conf){
 		$('.uiValidator').fadeOut('fast', function(){ $(this).remove(); });
 	};
 
-	//console.log("Before bind events");
 	// Form events
 	$(conf.element).find('input[type=submit]').unbind('click'); // Delete all click handlers asociated to submit button
 	$(conf.element).bind('submit', function(event){
@@ -171,13 +172,11 @@ ui.validator = function(conf){
 			tag: $(x).attr('tagName'), // INPUT, SELECT, TEXTAREA, OPTIONS
 			messages: conf.fields[x]
 		};
-	//	console.log(wconf);
+
 		watchers.push( Watcher( wconf ) );
 	};
-	
-//	console.log(watchers);
-	
-	// 5. Public members
+
+	// Public members
 	return { watchers: watchers };
 };
 
@@ -201,13 +200,13 @@ ui.helper = function(wconf){
 		content: { type: 'param' },
 		classes: 'helper' + wconf.id,
 		wrappeable: true,
-		status: false
+		visible: false
 	};
 	
 	var hide = function(){
-//		$('.helper' + wconf.id).fadeOut('fast', function(){ $(this).remove() }); // TODO: refactor del hide (ocultar solamente el que esta activo)
 		wconf.$element.removeClass('uiTrigger');
 		$('.helper' + wconf.id).unwrap().remove();
+		conf.visible = false;
 		that.callbacks(conf, 'hide');
 	};
 	
@@ -216,8 +215,6 @@ ui.helper = function(wconf){
 		that.show($.Event(), conf);
 		if(ui.utils.html.hasClass('ie7')) $('.helper' + wconf.id).parent().css('display','inline');
 	};
-
-	//console.log("Creating Helper for "+wconf.tagName);
 
 	return { show: function(text){ show(text) }, hide: hide };
 };
