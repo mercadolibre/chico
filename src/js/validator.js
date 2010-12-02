@@ -10,9 +10,10 @@ ui.validator = function(conf){
 	var validation = true;
 	var watchers = [];
 	
-	// 
-	$()
-
+	// Reset default events
+	$(conf.element).bind('submit', function(event){ that.prevent(event); });
+	$(conf.element).find('input[type=submit]').unbind('click'); // Delete all click handlers asociated to submit button
+	
 	// Watcher constructor
 	var Watcher = function(wconf){
 
@@ -101,7 +102,6 @@ ui.validator = function(conf){
 	};
 
 	// Form events
-	$(conf.element).find('input[type=submit]').unbind('click'); // Delete all click handlers asociated to submit button
 	$(conf.element).bind('submit', function(event){
 		that.prevent(event);
 		
