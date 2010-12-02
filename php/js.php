@@ -17,7 +17,7 @@ foreach ($files as $file) {
 
 	$js = file_get_contents("../src/js/".$file.".js");
 	
-	if ($file=="mlui") {
+	if ($file=="core") {
         $js = explode("ui.init();", $js);	   
 	    $js = $js[0];  
 	}
