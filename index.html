@@ -36,29 +36,29 @@
 
 		<div id="chico-tabs">
 			<ul>
-				<li><a href="#dependencias">Dependencias</a></li>
+				<li><a href="#dependencias">Recursos</a></li>
 				<li><a href="#crossbrowsing">Crossbrowsing</a></li>
 				<li><a href="#extensiones">Extensiones</a></li>
 			</ul>
 		<div>
 		<div>
 				<div id="dependencias">
-					<p>Para utilizar Chico UI son necesarias las siguientes dependencias que deben ir linkeadas en el código HTML. <strong>No es necesario descargarlas.</strong></p>						
-					<ul class="depend">
-						<li><p>Esta es la versión del base.css que reemplaza al base que se este utilizando y no se encuentre en la carpeta chico:</p>	
-					<strong>http://10.100.34.210:8080/content/chico/0.x.x/src/css/base.css</strong>
-						</li>
-						<li><p>En caso de utilizar formularios, deben agregar los siguientes estilos:</p>	
-					<strong>http://10.100.34.210:8080/content/chico/0.x.x/src/css/forms.css</strong>
-						</li>
-						<li>
-						<p>jQuery:</p>
-					<strong>http://10.100.34.210:8080/content/chico/0.x.x/libs/js/jquery.js</strong></li>
-						<li>
-						<p>Este javascript es el único que se necesita para inicializar los componentes del SDK:</p>
-					<strong>http://10.100.34.210:8080/content/chico/0.x.x/src/js/core.js</strong>
-						</li>	
-				</ul>				
+				    <h3>JavaScript</h3>
+					<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JavaScript. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/chico.php</strong></p>  
+					<p>El <em>Packer-o-matic</em> viene en varios sabores y puede recibir dos argumentos opcionales por query string:<p>
+					<dl class="depend">
+	       				<dt>?<strong>debug</strong>=true</dt>
+    					<dd><p>El parámetro <strong>debug</strong> con valor <em>true</em> le pide al packer que evite la minimización de recursos. Así se pueden ver todos los comentarios del SDK y permite encontrar problemas más facilmente. Por defecto el argument es <em>false</em>, está apagado.</dd>
+	       				<dt>?<strong>get</strong>=modal,layer</dt>
+	       				<dd>El parámetro <strong>get</strong> recibe como argumentos los componentes que queremos precompilar. Estos componentes van separados por coma (","). Por defecto el packer va a incluir el <em>core</em> de Chico-UI. Si el argumento no está definido, el packer entiende que queremos obtener y configurar todos los componentes del SDK.</dd>
+	       				<dt>?<strong>get</strong>=modal,layer&<strong>debug</strong>=true</dt>
+	       				<dd>Ambos argumentos pueden usarse juntos en una misma query string concatenando las instrucciones con el símbolo <em>&</em>.</dd>
+					</dl>
+					
+					<h3>Style sheets</h3>
+					<p>Existe un servicio básico para obtener un archivo CSS con los estilos correspondientes para los componentes. Todavía no tiene todas las mismas características que el Packer-o-matic. Recibe un argumento <strong>?q=</strong> con la lista de componentes que necesitamos separados por coma (","). Ejemplo:</p>
+					<p><strong>http://10.100.34.210:8080/content/chico/0.x.x/php/css.php?q=base,modal,layer</strong></p> 
+
 			</div>
 			<div id="crossbrowsing">
 				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;html&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
