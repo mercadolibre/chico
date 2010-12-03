@@ -60,10 +60,8 @@ foreach ($files as $file) {
     // get a file from source folder
 	$js = file_get_contents("../src/js/".$file.".js");
 	
-	// if the file is the core, remove the init instruction
+	// if the file is the core
 	if ($file=="core") {
-        $js = explode("ui.init();", $js);	   
-	    $js = $js[0];
 	    // configure components on the core
 	    $js = str_replace("internals: \"\",", "internals: \"".$internals."\",", $js);
 	    $js = str_replace("components: \"\",", "components: \"".$components."\",", $js);

@@ -35,37 +35,78 @@
 		 * 	Test Cases
 		 */
 		
-
-    	module("Chico start-up, core configuration tests");
+    	module("Chico ui.get");
     	
+        asyncTest("Get dojo library from google CDN using ui.get(component)", function() {
+            
+            ui.get({            
+                method: "component",
+                component: "dojo",
+                script: "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js",
+                callback: function(){
+                    ok(dojo,"Expected to find Dojo in the DOM. Get's Callbacks working fine baby ;)");
+                    start();
+                }
+            });
+    
+        });
+
+      	module("Chico factory");
+ 
+        test("Post-configure chat component through Factory", function(){            
+    		// Chat
+    		ui.factory({
+    		      component: "chat",
+    		      callback: createChat
+    	      });
+    	      
+    	    stop();  
+    	    
+            function createChat() {
+                $('.chat').chat({
+                    ruleGroupName: 'APP_PENDING_PAYMENTS',
+                    style: 'block',
+                    template: '3'
+                });
+
+                start();
+                ok( ui["chat"] , "Expected to find chat instantiation");
+
+            } 
+
+            ok( ui.instances["chat"] , "Expected to find chat in the instances map");
+            
+        });
+
+    	module("Chico Core");
+
     	test("Basic information",function(){
     	   
+    	   expect ( 3 );
+    	   
        	   ok(ui.version, "Expected to find a Version defined");
-    	   
-    	   ok((ui.mode=="dev"||ui.mode=="pub"), "Expected to find a mode defined: \"dev\" or \"pub\"");
-    	   
-           ok(ui.environment, "Expected to find a Environment configuration");
-
-    	});
-    	
-    	test("Check general configuration for components", function(){
 
     	   ok(ui.internals, "Expected to find Internals components to load");
     	   
     	   ok(ui.components, "Expected to find Visual components to load");
+
     	});
     	
     	test("Check for critical internals components",function(){
-    	       	
+
+            expect ( 2 );
+
            ok(ui.factory, "Expected to find a Factory module");
            
            ok(ui.get, "Expected to find a Get (Communicator) module");
                	       	   
     	});
    
-       	module("Chico after start-up tests");
+       	module("Chico components and internals");
        	
        	test("Check for internal components instantiation",function(){
+       	    
+       	    expect ( ui.internals.split(",").length );
        	    
        	    $(ui.internals.split(",")).each(function(i,e){
        	        ok( ui[e] , "Expected to find "+e+" instantiation");
@@ -74,6 +115,8 @@
         });
 
        	test("Check for visual components instantiation",function(){
+
+            expect ( ui.components.split(",").length );
        	    
        	    $(ui.components.split(",")).each(function(i,e){
        	        ok( ui[e] , "Expected to find "+e+" instantiation");
@@ -83,6 +126,8 @@
         
     	test("Check for visual components in the instances map",function(){
        	    
+       	    expect ( ui.components.split(",").length );
+       	    
        	    $(ui.components.split(",")).each(function(i,e){
        	        ok( ui.instances[e] , "Expected to find "+e+" in the instances map");
        	    });
@@ -90,6 +135,8 @@
         });
 
         test("Basic component returns",function(){
+           
+           expect ( 1 );
            
             var test_modal = $("#test").modal({
         		content: {
@@ -99,10 +146,9 @@
         	});
         	        	
           	ok(typeof test_modal == "object", "Expected to find a Object in a component return");
-
-            
+ 
         });
-		
+                 		
 	</script>
 
 </body>

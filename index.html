@@ -15,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="libs/css/highlight.css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
 		<script src="libs/js/jquery.js"></script>
-		<script src="php/chico.php"></script>
+		<script src="php/chico.php?debug=true"></script>
 		<!--script src="src/js/core.js"></script-->
 				
 		<!--[if lt IE 7 ]>
@@ -712,16 +712,18 @@
 		$('.formulario').submit();
 		
 		// Chat
-		var confChat = {
-			ruleGroupName: 'APP_PENDING_PAYMENTS',
-			divId: 'chat',
-			style: 'block',
-			template: '3'
-		};
-
-		ui.factory('configure', 'chat', function(){
-			$('.chat').chat(confChat);
-		});
+		ui.factory({
+		      component: "chat",
+		      callback: createChat
+	      });
+	      
+        function createChat() {
+           $('.chat').chat({
+               ruleGroupName: 'APP_PENDING_PAYMENTS',
+               style: 'block',
+               template: '3'
+           });
+        }
 
 	</script>
 	

@@ -3,9 +3,7 @@
   */
 var ui = window.ui = {
 
-    version: "0.4.3",
-
-    mode: "dev", // "dev" or "pub"
+    version: "0.4.4",
 
     components: "",
 
@@ -14,20 +12,14 @@ var ui = window.ui = {
     instances: {},
  	
     init: function() { 
-
-        if (ui.mode=="dev") {
-            var fns = ui.internals.split(",");
-            var tot = fns.length;
-            for (var i=0; i<tot; i++) {
-                var x = fns[i]; 
-                if (!ui[x]) ui.get("internal", x, function(){});
-            }
-        }
-        
-        ui.components = (window.components) ? ui.components+" "+window.components : ui.components ;
-               
-        ui.factory("create");
-        
+        // unmark the no-js flag on html tag
+        $("html").removeClass("no-js");
+        // check for pre-configured components
+        ui.components = (window.components) ? ui.components+","+window.components : ui.components ;
+        // check for pre-configured internals
+        ui.internals = (window.internals) ? ui.internals+","+window.internals : ui.internals ;
+        // iterate and create components               
+        $(ui.components.split(",")).each(function(i,e){ ui.factory({component:e}); });
     },
 /**
  *	@static Utils. Common usage functions.
@@ -42,129 +34,117 @@ var ui = window.ui = {
 	}
 }
 
-ui.environment = function (mode, config) {
-
-    switch (mode) {
-    
-    case "pub":
-    
-    	return {
-    		uri: "http://10.100.34.210:8080/content/chico/"+ ui.version + "/php/",
-    		css: "css.php?q="+config,
-    		js: "js.php?q="+config
-    	}
-    
-    	break;
-    
-    case "dev":
-    
-    	return {
-    		uri: "/src/",
-    		css: "css/"+config+".css",
-    		js: "js/"+config+".js"
-    	}
-    
-    	break;
-    
-    }
-}
-
 /**
-*	@static @class Factory
+*	Factory
 */	
-ui.factory = function(method, x, callback) {
+ui.factory = function(o) {
 
     /**
-    *  @function configure
-    *	@arguments conf {Object} This is an object parameter with components configuration
+    *   o {
+            component: "chat",
+            callback: function(){},
+            [script]: "http://..",
+            [style]: "http://..",
+            [callback]: function(){}    
+    *    }
+    *
     *	@return A collection of object instances
     */
-    switch(method) {
-
-    case "create":
-
-        // The method ui.get("all") DEPRECATED (???)
-        //ui.get("all", ui.components, function(){});
-        
-        var fns = ui.components.split(",");
-        var tot = fns.length;
-        for (var i=0; i<tot; i++) {
-            var x = fns[i]; 
-            ui.factory("configure",x);
-        }
     
-        break;
+    if (!o) { 
+        alert("Factory fatal error: Need and object {component:\"\"} to configure a component."); 
+        return;
+    };
 
-	case "configure":
+    if (!o.component) { 
+        alert("Factory fatal error: No component defined."); 
+        return;
+    };
 
-        // If component instances don't exists, create an empty array
-        if (!ui.instances[x]) ui.instances[x] = []; 
-        
-        var create = function(x) { 
+    var x = o.component;
 
-            // Send configuration to a component trough options object
-            $.fn[x] = function(options) {
+    // If component don't exists in the instances map create an empty array
+    if (!ui.instances[x]) {
+         ui.instances[x] = []; 
+    }
 
-                var results = [];			    
-                var that = this;
-                var options = options || {};
-                
-                if (typeof options !== 'object') { 
-                    alert('UI: ' + x + ' configuration error.'); 
-                    return;
-                };		
-                                
-                that.each(function(i, e) {
+    var create = function(x) { 
 
-                    var conf = {};
-                        conf.name = x;
-                        conf.element = e ;
-                        conf.id = i;
+        // Send configuration to a component trough options object
+        $.fn[x] = function( options ) {
 
-                    $.extend( conf , options );
-
-                    // Create a component from his constructor
-                    var created = ui[x]( conf );
-
-                    // Save results to return the created components    
-                    results.push( created );
-
-                    // Map the instance
-                    ui.instances[x].push( created );
-
-                });
-                
-                // return the created components or component   
-                return ( results.length > 1 ) ? results : results[0];
-            }
-
-            // callback
-            if (callback) callback();
+            var results = [];			    
+            var that = this;
+            var options = options || {};
+            
+            if (typeof options !== "object") { 
+                alert("Factory " + x + " configure error: Need a basic configuration."); 
+                return;
+            };		
                             
-        } // end create function
+            that.each( function(i, e) {
 
-        if (ui[x]) {
-            // script already here, just create
-            create(x);
-        } else {
-            // get resurces and call create
-            ui.get("component", x, create);
+                var conf = {};
+                    conf.name = x;
+                    conf.element = e ;
+                    conf.id = i;
+
+                $.extend( conf , options );
+
+                // Create a component from his constructor
+                var created = ui[x]( conf );
+
+                // Save results to return the created components    
+                results.push( created );
+
+                // Map the instance
+                ui.instances[x].push( created );
+
+            });
+            
+            // return the created components or component   
+            return ( results.length > 1 ) ? results : results[0];
         }
+
+        // if a callback is defined 
+        if ( o.callback ) { o.callback(); }
                         
-        break;
+    } // end create function
     
-    default:
-    
-        break;
+    if ( ui[o.component] ) {
+        // script already here, just create
+        create(o.component);
+        
+    } else {
+        // get resurces and call create
+        ui.get({
+            "method":"component",
+            "component":o.component,
+            "script": ( o.script )? o.script : "/src/js/"+o.component+".js",
+            "styles": ( o.style ) ? o.style : "/src/css/"+x+".css",
+            "callback":create
+        });
+        
+        //alert("UI: " + x + " configuration error. The component do not exists");
     }
 }
 
 /**
-*	@static @class Get
-*/
-ui.get = function(method, x, callback) {
-
-    switch(method) {
+ *  Get
+ */
+ 
+ui.get = function(o) {
+    /**
+    *   o {
+            method: "content"|"component",
+            component: "chat",
+            [script]: "http://..",
+            [style]: "http://..",
+            [callback]: function(){}
+    *    }
+    */
+    
+    switch(o.method) {
 
 	case "content":
 			
@@ -189,87 +169,51 @@ ui.get = function(method, x, callback) {
 		return result;
 	
 		break;
-    
-    case "all": // DEPRECATED (???)
-    
-        var c = x.split(" ");
-        var x = c.join(",");
-
-    case "internal":
-        
-        var internal = true;
         
 	case "component":
 
-        if (x.indexOf("http")==-1) {
-            var url = ui.environment(ui.mode, x);
-            var src = url.uri + url.js;
-            var href = url.uri + url.css;
-        } else {
-            var src = x;    
-        }
-
-        if (!internal) {
-		var style = document.createElement('link');
-    		style.href = href;
-	    	style.rel = 'stylesheet';
-        	style.type = 'text/css';
+        if ( o.style ) {
+    		var style = document.createElement('link');
+        		style.href = o.style;
+    	    	style.rel = 'stylesheet';
+            	style.type = 'text/css';
+            	
         }
         
-	   	var script = document.createElement("script");
-			script.src = src;
-                    
-    default:
-
+        if ( o.script ) {
+    	   	var script = document.createElement("script");
+    			script.src = o.script;
+        }
+        
         var head = document.getElementsByTagName("head")[0] || document.documentElement;
 
 		// Handle Script loading
 		var done = false;
 
-			// Attach handlers for all browsers
+		// Attach handlers for all browsers
 		script.onload = script.onreadystatechange = function() {
     
     	if ( !done && (!this.readyState || 
 					this.readyState === "loaded" || this.readyState === "complete") ) {
 					
-				done = true; 
-                
-                // save the script and style reference on the instances map
-                if (method == "all") { // DEPRECATED (???)
-                    for (var i=0;i<c.length;i++) {
-                        ui.instances[c[i]] = [];
-                        ui.instances[c[i]].script = script;
-                        ui.instances[c[i]].style = style;
-                    }
-                } 
-                
-                if (!internal) {
-                    ui.instances[x].script = script;
-                    ui.instances[x].style = style;   
-                }
+				done = true;
             
-	   			// fire callback
-	   	        if (callback) callback(x);
+	   			// if callback is defined call it
+	   	        if ( o.callback ) { o.callback( o.component ); }
 									
 		   		// Handle memory leak in IE
 	   			script.onload = script.onreadystatechange = null;
    			
-		   		if ( head && script.parentNode ) {
-	   				head.removeChild( script );
-	   			}
+		   		if ( head && script.parentNode ) { head.removeChild( script ); }
 			}
 		};
             
 		// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
 		// This arises when a base node is used.
-		head.insertBefore( script, head.firstChild );
-    	if (!internal) head.appendChild( style );
-
-    	return x;
+		if ( o.script ) { head.insertBefore( script, head.firstChild ); }
+		if ( o.style ) { head.appendChild( style ); }
     
 		break;        
     }
 
 }
-
-ui.init();
