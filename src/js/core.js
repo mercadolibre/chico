@@ -3,7 +3,7 @@
   */
 var ui = window.ui = {
 
-    version: "0.4.3",
+    version: "0.4.4",
 
     mode: "dev", // "dev" or "pub"
 
