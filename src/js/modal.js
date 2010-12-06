@@ -59,6 +59,17 @@ ui.modal = function(conf){
 		.css('cursor', 'pointer')
 		.bind('click', function(event){ show(event) });
 		
+    // create the publish object to be returned
 
-	return { show: function(){ show($.Event()) }, hide: function(){ hide($.Event()) } };
+    that.publish = {
+        uid: conf.id,
+        element: conf.element,
+        type: "ui.modal",
+        content: conf.content.data,
+        show: function(event){ show(event) },
+        hide: function(event){ hide(event) }
+    }
+
+	return that.publish;
+
 };

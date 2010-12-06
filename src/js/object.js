@@ -38,9 +38,13 @@ ui.object = function(){
 			};
 		},			
 		
-		callbacks: function(conf, when, handler){
+		callbacks: function(conf, when){
 			if(conf.callbacks && conf.callbacks[when]) conf.callbacks[when](conf);
-		}
+		},
+        
+        publish: { 
+            // The publish Object will be returned in all instanced component, all public methods and properties goes here.
+        } 
 		
 	};
 }

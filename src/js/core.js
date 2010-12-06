@@ -120,8 +120,8 @@ ui.factory = function(o) {
         ui.get({
             "method":"component",
             "component":o.component,
-            "script": ( o.script )? o.script : "/src/js/"+o.component+".js",
-            "styles": ( o.style ) ? o.style : "/src/css/"+x+".css",
+            "script": ( o.script )? o.script : "src/js/"+o.component+".js",
+            "styles": ( o.style ) ? o.style : "src/css/"+x+".css",
             "callback":create
         });
         

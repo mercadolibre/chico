@@ -27,7 +27,7 @@
 	<body>	
 	<div class="header">
 		<h1>Chico UI</h1>
-		<p><a href="tests/">Ver casos de prueba automáticos</a>. Encontraste algún bug? <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportar bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Colaborá en la Wiki</a>.</p>
+		<p><a href="tests/">Test Cases</a>. <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportá bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Chico-Wiki</a>.</p>
 	</div>
 	<div class="container">
 		<div class="box">
@@ -665,16 +665,16 @@
         $('head title, .header h1').html($('head title').html() + ' ' + ui.version);
 
 		// Components
-        $('.demoDropdown').dropdown();
-        $('.demoCarousel').carousel();
-        $('.demoModal').modal({ content: { type: 'ajax' } });			
-        $('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
-        $('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
-        $('.demoTooltip').tooltip();
-        $('.demoTabNavigator,#chico-tabs').tabNavigator();
+        var ui_drop = $('.demoDropdown').dropdown();
+        var ui_caro = $('.demoCarousel').carousel();
+        var ui_moda = $('.demoModal').modal({ content: { type: 'ajax' } });			
+        var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
+        var ui_layr = $('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
+        var ui_tool = $('.demoTooltip').tooltip();
+        var ui_tabs = $('.demoTabNavigator,#chico-tabs').tabNavigator();
         
         // Validator
-		$('.formulario').validator({
+		var ui_vali = $('.formulario').validator({
 			fields: {
 				// Inputs
 				'#val_email':	{ required: 'El email es obligatorio.', email: 'El email esta mal escrito.' },

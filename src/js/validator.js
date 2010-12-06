@@ -35,7 +35,7 @@ ui.validator = function(conf){
 				watchers[wconf.id].status = validate(wconf);
 			});
 		};
-
+    
 		return { status: true, helper: ui.helper( wconf ) };
 	};
 	
@@ -176,8 +176,17 @@ ui.validator = function(conf){
 		watchers.push( Watcher( wconf ) );
 	};
 
-	// Public members
-	return { watchers: watchers };
+	
+    // create the publish object to be returned
+
+    that.publish = {
+        uid: conf.id,
+        element: conf.element,
+        type: "ui.validator",
+        fields: watchers,
+        validate: function(event){ validate() }
+    }
+
 };
 
 

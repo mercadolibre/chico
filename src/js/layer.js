@@ -48,5 +48,17 @@ ui.layer = function(conf){
 			});
 	};
 
-	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
+    // create the publish object to be returned
+
+    that.publish = {
+        uid: conf.id,
+        element: conf.element,
+        type: "ui.layer",
+        content: conf.content.data,
+        show: function(event){ show(event, conf) },
+        hide: function(event){ hide(event, conf) }
+    }
+
+	return that.publish;
+    
 };
