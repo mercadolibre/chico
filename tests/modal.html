@@ -12,14 +12,21 @@
 	<h1>Chico-UI: Modal testcases</h1>
 		<h2>Contenido por parametro</h2>
 		<div class="box">
-			<form action="test.html" method="post">
+			<form action="../test.html" method="post">
 				<input type="submit" class="btn primary" id="testModal" value="Comprar">				
 			</form>
 		</div>
 		<h2>Contenido por DOM</h2>
 		<div class="box">
-			<form action="test.html" method="post">
+			<form action="../test.html" method="post">
 				<input type="submit" class="btn primary" id="testModalDOM" value="Comprar">				
+			</form>
+		</div>
+
+		<h2>Contenido por AJAX</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalAjax" value="Comprar">				
 			</form>
 		</div>
 	<br>
@@ -45,17 +52,23 @@
 <!-- #script -->
 	<script>
 
-		$('#testModal').modal({
+		var testModal = $('#testModal').modal({
     		content: {
 				type:'param',
 				data:'<h2>Modal title</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>'
 			}
     	});
     
-	    $('#testModalDOM').modal({
+	    var testModalDOM = $('#testModalDOM').modal({
 	    	content:{
 	    		type:'dom',
 	    		data:'#testDOM'
+	    	}
+	    });
+
+	    var testModalAjax = $('#testModalAjax').modal({
+	    	content:{
+	    		type:'ajax'
 	    	}
 	    });
 					
@@ -65,9 +78,50 @@
 		 * 	Test Cases
 		 */
 
-		module('Modal Tests - Param content');
+        module("Modal basics instance object");
+        
+        test("Basics for testModal", function(){
+
+            expect( 3 );
+
+       		ok( testModal.uid >= 0 , "Expected to find a defined content on the modal instance");
+       		
+    		ok( testModal.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
+    		
+    		ok( testModal.content != "", "Expected to find a defined content on the modal instance");
+
+        });
+
+        test("Basics for testModalDOM", function(){
+
+            expect( 4 );
+
+       		ok( testModalDOM.uid >= 0 , "Expected to find a number bigger than 0 on uid propertie");
+       		
+    		ok( testModalDOM.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
+    		
+    		ok( testModalDOM.content != "" , "Expected to find a defined content on the modal instance");
+
+    		ok( /\.|\#/.test(testModalDOM.content) , "Expected to find a CSS \"#id\" or \".class\" declaration on content attribute");
+
+        });
+
+        test("Basics for testModalAjax", function(){
+
+            expect( 3 );
+
+       		ok( testModalAjax.uid >= 0 , "Expected to find a defined content on the modal instance");
+       		
+    		ok( testModalAjax.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
+    		
+    		ok( testModalAjax.content != "" , "Expected to find a defined content on the modal instance");
+
+        });
+
+		module('Modal layout and interaction');
 						
-		test('Opens modal dialog', function(){
+		test('Opens basic modal dialog', function(){
+		  
 			notExists('.ui-dimmer');
 			notExists('.ui-modal');
 			
@@ -79,13 +133,19 @@
 			isVisible('.ui-dimmer');
 			isVisible('.ui-modal');
 			
-			$('.ui-dimmer').click();
-			
+		});			
+		
+		test("Close modal dialog", function() {
+
+			$('.ui-dimmer').click();		  
+
 			notExists('.ui-dimmer');
 			notExists('.ui-modal');
+			
 		});
 
-		test('Close modal dialog with close button', function(){					
+		test('Close modal dialog with close button', function(){
+		  					
 			$('#testModal').click();
 			
 			exists('.ui-modal .close');
@@ -96,24 +156,46 @@
 			notExists('.ui-modal');
 			
 		});
-		
-		test('Check for the modal content', function(){					
+
+		module('Modal content configurations');
+
+		test('STATIC content', function() {
+
 			$('#testModal').click();
+			
+			ok( testModal.content , "Expected to find a defined content on the modal instance");
 			
 			hasContent('.ui-modal', 'Lorem');
 			
 			$('.ui-dimmer').trigger('click');
+
 		});
-		
-		
-		module('Modal Tests - DOM content');
-		test('Check for the modal content', function(){
-			exists('#testDOM');
-			isNotVisible('#testDOM');
+				
+		test('DOM content', function(){
+			
+			$("#testModalDOM").click();
+
+			ok( testModal.content , "Expected to find a defined content on the modal instance");
+			
+			hasContent(".ui-modal", "Modal title DOM");
+
+			$('.ui-dimmer').trigger('click');
 			
 		});
 
-		
+				
+		test('AJAX content', function(){
+			
+			$("#testModalAjax").click();
+
+			ok( testModal.content , "Expected to find a defined content on the modal instance");
+			
+			hasContent(".ui-modal", "Titulo de contenido ajax");
+
+			$('.ui-dimmer').trigger('click');
+			
+		});
+				
 	</script>
 
 </body>
