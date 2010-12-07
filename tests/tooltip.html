@@ -44,25 +44,25 @@
 		});
 		
 		test('Opens tooltip dialog', function(){
-			notExists('.uiTooltip');
+			notExists('.ui-tooltip');
 			
 			$('.testTooltip').mouseover();
 			
-			exists('.uiTooltip');
-			exists('.uiTooltip .uiTrigger');
-			exists('.uiTooltip .uiContent');
+			exists('.ui-tooltip');
+			exists('.ui-tooltip-trigger');
+			exists('.ui-tooltip-content');
 		});
 		
 		test('Closes tooltip dialog', function(){
-			exists('.uiTooltip');
-			exists('.uiTooltip .uiTrigger');
-			exists('.uiTooltip .uiContent');
+			exists('.ui-tooltip');
+			exists('.ui-tooltip-trigger');
+			exists('.ui-tooltip-content');
 			
 			$('.testTooltip').mouseout();
 			
-			notExists('.uiTooltip');
-			notExists('.uiTooltip .uiTrigger');
-			notExists('.uiTooltip .uiContent');
+			notExists('.ui-tooltip');
+			notExists('.ui-tooltip-trigger');
+			notExists('.ui-tooltip-content');
 		});
 		
 	</script>
