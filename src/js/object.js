@@ -2,8 +2,6 @@
 /**
 *	Creates a new Object.
 *  Represent the abstract class of all ui objects.
-*	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
-*	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
 */	
 ui.object = function(){
 	
@@ -24,7 +22,7 @@ ui.object = function(){
 			}else{
 				switch(conf.content.type.toLowerCase()){
 					case 'ajax': // data = url
-						var result = ui.get('content', conf);
+						var result = ui.get({method:"content", conf:conf});
 						return result || '<p>Error on ajax call</p>';
 					break;
 					case 'dom': // data = class, id, element

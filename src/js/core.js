@@ -147,7 +147,8 @@ ui.get = function(o) {
 	case "content":
 			
 		var result;
-				
+        var x = o.conf;
+        
 		x.$htmlContent.html('<div class="loading"></div>');
 		
 		$.ajax({

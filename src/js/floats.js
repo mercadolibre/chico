@@ -1,9 +1,7 @@
 
 /**
 *  @static @class Floats. Represent the abstract class of all floats ui objects.
-*  @requires PowerConstructor
-*	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
-*	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
+*  @requires ui.object
 *  @returns {Object} New Floats.
 */
 ui.floats = function(){
