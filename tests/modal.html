@@ -68,41 +68,41 @@
 		module('Modal Tests - Param content');
 						
 		test('Opens modal dialog', function(){
-			notExists('.dimmer');
-			notExists('.uiModal');
+			notExists('.ui-dimmer');
+			notExists('.ui-modal');
 			
 			$('#testModal').click();
 			
-			exists('.dimmer');
-			exists('.uiModal');
+			exists('.ui-dimmer');
+			exists('.ui-modal');
 			
-			isVisible('.dimmer');
-			isVisible('.uiModal');
+			isVisible('.ui-dimmer');
+			isVisible('.ui-modal');
 			
-			$('.dimmer').click();
+			$('.ui-dimmer').click();
 			
-			notExists('.dimmer');
-			notExists('.uiModal');
+			notExists('.ui-dimmer');
+			notExists('.ui-modal');
 		});
 
 		test('Close modal dialog with close button', function(){					
 			$('#testModal').click();
 			
-			exists('.uiModal .close');
+			exists('.ui-modal .close');
 			
 			$('.close').trigger('click');
 			
-			notExists('.dimmer');
-			notExists('.uiModal');
+			notExists('.ui-dimmer');
+			notExists('.ui-modal');
 			
 		});
 		
 		test('Check for the modal content', function(){					
 			$('#testModal').click();
 			
-			hasContent('.uiModal', 'Lorem');
+			hasContent('.ui-modal', 'Lorem');
 			
-			$('.dimmer').trigger('click');
+			$('.ui-dimmer').trigger('click');
 		});
 		
 		

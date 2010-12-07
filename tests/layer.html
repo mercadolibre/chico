@@ -62,41 +62,41 @@
 		module('Layer executed on click, Tests');		
 		
 		test('Check for basic interaction: show and hide component', function(){
-			notExists('.uiLayer');
+			notExists('.ui-layer');
 			
 			$('.testLayerClick').click();
-			exists('.uiLayer');
-			exists('.uiLayer .uiTrigger');
-			exists('.uiLayer .uiContent');
+			exists('.ui-layer');
+			exists('.ui-layer-trigger');
+			exists('.ui-layer-content');
 				
-			isVisible('.uiLayer');
-			isVisible('.uiLayer .uiTrigger');
-			isVisible('.uiLayer .uiContent');
+			isVisible('.ui-layer');
+			isVisible('.ui-layer-trigger');
+			isVisible('.ui-layer-content');
 			
 			$('body').click();
-			notExists('.uiLayer');
-			notExists('.uiLayer .uiTrigger');
-			notExists('.uiLayer .uiContent');			
+			notExists('.ui-layer');
+			notExists('.ui-layer-trigger');
+			notExists('.ui-layer-content');			
 		});
 		
 		test('Check for close button interaction', function(){
 			$('.testLayerClick').click();
 			
-			exists('.uiLayer .uiContent .close');				
-			$('.uiLayer .close').click();
+			exists('.ui-layer-content .close');				
+			$('.ui-layer .close').click();
 			
-			notExists('.uiLayer');
-			notExists('.uiLayer .uiTrigger');
-			notExists('.uiLayer .uiContent');						
+			notExists('.ui-layer');
+			notExists('.ui-layer-trigger');
+			notExists('.ui-layer-content');						
 		});
 		
 		test('Check for click content interaction', function(){
 			$('.testLayerClick').click();
 			
 			$('.uiLayer .uiContent').click();
-			exists('.uiLayer');
-			exists('.uiLayer .uiTrigger');
-			exists('.uiLayer .uiContent');
+			exists('.ui-layer');
+			exists('.ui-layer-trigger');
+			exists('.ui-layer-content');
 			
 			$('body').click();			
 
@@ -104,8 +104,8 @@
 		
 		test('Check for the right visual elements', function(){					
 			$('.testLayerClick').click();
-			exists('.uiLayer .uiContent .close');
-			exists('.uiLayer .uiContent .cone');
+			exists('.ui-layer-content .close');
+			exists('.ui-layer-content .cone');
 			$('body').click();
 		});
 		
@@ -113,21 +113,21 @@
 		module('Layer execute on hover, Tests');
 		
 		test('Check for basic interaction', function(){			
-			notExists('.uiLayer');
+			notExists('.ui-layer');
 			
 			$('.testLayerHover').mouseover();
-			exists('.uiLayer');
-			exists('.uiLayer .uiTrigger');
-			exists('.uiLayer .uiContent');		
+			exists('.ui-layer');
+			exists('.ui-layer-trigger');
+			exists('.ui-layer-content');		
 			
-			isVisible('.uiLayer');
-			isVisible('.uiLayer .uiTrigger');
-			isVisible('.uiLayer .uiContent');
+			isVisible('.ui-layer');
+			isVisible('.ui-layer-trigger');
+			isVisible('.ui-layer-content');
 			
 			$('.testLayerHover').mouseout();			
-			notExists('.uiLayer');
-			notExists('.uiLayer .uiTrigger');
-			notExists('.uiLayer .uiContent');	
+			notExists('.ui-layer');
+			notExists('.ui-layer-trigger');
+			notExists('.ui-layer-content');	
 		});
 		
 	</script>
