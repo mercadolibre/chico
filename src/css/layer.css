@@ -1,44 +1,69 @@
-.uiLayer{
+.uiLayer {
 	position:relative;
 	display:inline-block;
 }
 
-.uiLayer .uiContent{
+.uiLayer .uiContent {
 	width:280px;
 	background-image:none;
 	position:absolute;
 	z-index: 300;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 }
+
+/* Cone */
 
 .uiLayer .uiContent .cone {
-	background-image: url('http://10.100.34.210:8080/content/assets/piquito_tooltip.png');
+	/*background: transparent url('../src/assets/layer.png') 0 0 no-repeat;*/
+	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGBJREFUeNpi/P//PwMusGHDBrBkQEAAI05FIAOw4fXr1/+HASgbqzqCmgkZQpRmfIYQrRmXISRpxmYIyZrRDSFLM7IhTAyUAoq9QJVApEo0UiUhUSUpk5qZGCnNzgABBgC5T97RHgVvpgAAAABJRU5ErkJggg==') 0 0 no-repeat;
+	display:block;
+	position:absolute;
 }
 
-.uiLayer .uiContent .close{
-	top:5px;
-	right:5px;
+.uiLayer .uiContent .cone.down,
+.uiLayer .uiContent .cone.top {
+	width:16px;
+	height:8px;
+	left:12px;
 }
 
-/* IE 6 */
-.ie6 .uiLayer{
+.uiLayer .uiContent .cone.down {
+	top:-8px;
+}
+
+.uiLayer .uiContent .cone.top {
+	background-position:0 -8px;
+	bottom:-8px;
+}
+
+.uiLayer .uiContent .cone.left,
+.uiLayer .uiContent .cone.right {
+	width:8px;
+	height:16px;
+	top:8px;
+}
+
+.uiLayer .uiContent .cone.left {
+	background-position:-8px 0;
+	right:-8px;
+}
+
+.uiLayer .uiContent .cone.right {
+	left:-8px;
+}
+
+/* IE 6, 7 */
+.ie6 .uiLayer,
+.ie7 .uiLayer {
 	display:inline !important;
 	border:none;
 	z-index:1;
 }
 
-.ie6 .uiLayer .uiTrigger{
-	display:inline-block;
-	border:none;
-}
-
-/* IE 7 */
-.ie7 .uiLayer{
-	display:inline !important;
-	border:none;
-	z-index:1;
-}
-
-.ie7 .uiLayer .uiTrigger{
+.ie6 .uiLayer .uiTrigger,
+.ie7 .uiLayer .uiTrigger {
 	display:inline-block;
 	border:none;
 }

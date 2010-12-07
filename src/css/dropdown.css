@@ -1,13 +1,16 @@
-.uiDropdown{
+.uiDropdown {
 	position: relative;
 }
 
-.uiDropdown .uiTrigger, .uiDropdown .uiTrigger:hover, .uiDropdown .uiTrigger.on, .uiDropdown .uiTrigger.on:hover{ /* sprite para backgrounds */
-	background-image:url('http://10.100.34.210/content/assets/spr.png');
+.uiDropdown .uiTrigger,
+.uiDropdown .uiTrigger:hover,
+.uiDropdown .uiTrigger.on,
+.uiDropdown .uiTrigger.on:hover { /* sprite para backgrounds */
+	background-image: url('../src/assets/base.png');
 	background-repeat: repeat-x;
+	border-radius:5px;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
-	border-radius:5px;
 }
 
 .uiDropdown .uiTrigger {
@@ -15,23 +18,23 @@
 	cursor:pointer;
 	height:19px;
 	line-height:19px;
-	padding:0px 26px 0px 7px;
+	padding:0px 21px 0px 7px;
 	background-color:#cfe3f0;
-	background-position:0 -271px;
+	background-position:0 -435px;
 	border:1px solid #79A8C7;
 	position:relative;
 }
 
-.uiDropdown .uiTrigger:hover{
-	background-position: 0 -296px;
+.uiDropdown .uiTrigger:hover {
+	background-position: 0 -460px;
 }
 
-
-.uiDropdown .uiTrigger.on, .uiDropdown .uiTrigger.on:hover{
-	background-position: 0 -321px;
+.uiDropdown .uiTrigger.on,
+.uiDropdown .uiTrigger.on:hover {
+	background-position: 0 -485px;
+	border-radius:5px 5px 0 0;
 	-moz-border-radius:5px 5px 0 0;
 	-webkit-border-radius:5px 5px 0 0;
-	border-radius:5px 5px 0 0;
 }
 
 /*.uiDropdown .uiTrigger.on .uiContent {
@@ -51,14 +54,18 @@
 	display:none;
 }
 
-.uiDropdown .uiTrigger .ico.down, .uiDropdown .uiTrigger.on .ico.down {
+.uiDropdown .uiTrigger .down,
+.uiDropdown .uiTrigger.on .down {
+	/*background:transparent url('../src/assets/dropdown.png') 0 0 no-repeat;*/
+	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAJCAYAAAD+WDajAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGxJREFUeNpiNDY2DmVgYJBkwATPWaCMiVgkwxhBJFD3OiAViCSx/uzZs0GMMB5QwTMZGRnJJ0+ePAdKSIHEmJBUB0pISDAgm4Asuf7FixdgGkUSaifISBBXEspnYIR6ZRU218K8ko9FkgEgwAAg4RyxqxmcfQAAAABJRU5ErkJggg==') 0 0 no-repeat;
+	display:block;
+	width:7px;
+	height:5px;
 	position:absolute;
-	right:5px;
-	top:3px;
-	vertical-align:bottom;
-}
-.uiDropdown .uiTrigger .ico.down {
-	background:transparent url('http://10.100.34.210/content/assets/spr.png') 0px -460px no-repeat;
+	right:7px;
+	top:7px;
+	line-height:5px;
+	text-indent:-9999px;
 }
 
 .uiDropdown ul.uiContent {
@@ -69,6 +76,7 @@
 	display:block;
 	margin: 5px;
 }
+
 .uiDropdown ul.uiContent li a {
 	color:#000;
 	text-decoration:none;
@@ -77,25 +85,27 @@
 	line-height:25px;
 	padding:0 5px;
 }
-.uiDropdown ul.uiContent li a:hover,.uiDropdown ul.uiContent li a:focus {
+
+.uiDropdown ul.uiContent li a:hover,
+.uiDropdown ul.uiContent li a:focus {
 	background-color:#fefbd6;
 }
 
 /* IE 6 */
-.ie6 .uiDropdown{
+.ie6 .uiDropdown {
 	z-index:100;
 }
 
-.ie6 .uiDropdown .uiTrigger{
+.ie6 .uiDropdown .uiTrigger {
 	display:inline;
 }
 
-.ie6 .uiDropdown, .ie6 .uiDropdown .uiContent{
+.ie6 .uiDropdown,
+.ie6 .uiDropdown .uiContent {
 	width:0;
 }
 
 /* IE 7 */
-/* IE 6 */
 .ie7 .uiDropdown{
 	z-index:100;
 }

@@ -30,7 +30,7 @@ ui.dropdown = function(conf){
 		})
 		.css('cursor','pointer')
 		.addClass('uiTrigger')
-		.append('<span class="ico down">&raquo;</span>');
+		.append('<span class="down">&raquo;</span>');
 	
 	// Content
 	conf.$htmlContent

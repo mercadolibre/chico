@@ -46,8 +46,8 @@
 .uiTabNavigator .uiTrigger.on {
 	font-weight:bold;
 	cursor:default;
-	background-position:0 -663px;
-	background-image:url('http://10.100.34.210/content/assets/spr.png');
+	background-position:0 -535px;
+	background-image:url('../src/assets/base.png');
 	background-repeat:repeat-x;		
 		
 }
