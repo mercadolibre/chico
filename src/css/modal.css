@@ -1,4 +1,4 @@
-.dimmer {
+.ui-dimmer {
 	background-color:rgba(0,0,0,.5);
 	display:none;
 	height:100%;
@@ -9,7 +9,7 @@
 	z-index:100;
 }
 
-.uiModal {
+.ui-modal {
 	background-color: #fff;
 	display:none;
 	position:fixed;
@@ -20,45 +20,45 @@
 	-moz-box-shadow: 3px 3px 3px #595959;
 }
 
-.uiModal .content {
+.ui-modal-content {
 	overflow:auto;
 }
 
-.uiModal h2 {
+.ui-modal h2 {
     font:20px "Trebuchet MS", Verdana, "DejaVu Sans", sans-serif;
 	border-bottom:1px solid #cccccc;
 	padding-bottom:5px;
 	margin-bottom:10px;
 }
 
-.uiModal .content {
+.ui-modal-content {
 	overflow:auto;
 }
 
 /* IE6 */
-.ie6 .dimmer {
+.ie6 .ui-dimmer {
 	filter:alpha(opacity=50) !important;
 	background-color:#000000;
 	width:105.2%;
 }
 
-html.ie6  div.dimmer {
+html.ie6  div.ui-dimmer {
 	position:absolute;
 	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop);
 }
 
-.ie6 .uiModal {
+.ie6 .ui-modal {
 	position:absolute;
 }
 
-* html.ie6  div.uiModal {
+* html.ie6  div.ui-modal {
 	position: absolute;
 	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop +((documentElement.clientHeight-this.clientHeight)/2 ) : document.body.scrollTop +((document.body.clientHeight-this.clientHeight)/2));
 	z-index:150;
 }
 
 /* IE 7 */
-.ie7 .dimmer, .ie8 .dimmer {
+.ie7 .ui-dimmer, .ie8 .ui-dimmer {
 	background-color:#000;
 	filter: alpha(opacity=50) !important;
 }

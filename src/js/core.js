@@ -28,9 +28,7 @@ var ui = window.ui = {
 		body: $('body'),
 		html: $('html'),
 		window: $(window),
-		document: $(document),	
-		ucfirst: function(s) { return (s + '').charAt(0).toUpperCase() + s.substr(1); 
-        }
+		document: $(document)
 	}
 }
 

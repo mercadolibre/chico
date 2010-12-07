@@ -29,12 +29,12 @@ ui.dropdown = function(conf){
 			});
 		})
 		.css('cursor','pointer')
-		.addClass('uiTrigger')
+		.addClass('ui-dropdown-trigger')
 		.append('<span class="down">&raquo;</span>');
 	
 	// Content
 	conf.$htmlContent
-		.addClass('uiContent')
+		.addClass('ui-dropdown-content')
 		.find('a')
 			.bind('click', function(){ hide($.Event()) });
 			
