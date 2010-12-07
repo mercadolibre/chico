@@ -13,15 +13,22 @@
 	-webkit-border-radius:5px;
 }
 
+h4{ font-size: 14px;
+font-weight: bold;
+margin-bottom: 10px;}
+
 .ui-dropdown-trigger {
-	display:inline-block;
-	cursor:pointer;
-	height:19px;
-	line-height:19px;
-	padding:0px 21px 0px 7px;
 	background-color:#cfe3f0;
 	background-position:0 -435px;
 	border:1px solid #79A8C7;
+	cursor:pointer;
+	display:inline-block;
+	font-size:13px;
+	font-weight:normal;
+	height:19px;
+	line-height:19px;
+	margin:0;
+	padding:0px 21px 0px 7px;
 	position:relative;
 }
 
