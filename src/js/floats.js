@@ -27,11 +27,11 @@ ui.floats = function(){
 		that.prevent(event);
 		
 		if(conf.visible) return		
-		var className = 'ui' + ui.utils.ucfirst(conf.name);
+		var className = 'ui-' + conf.name;
 		
 		if(conf.wrappeable){		
-			conf.$trigger.addClass('uiTrigger');
-			conf.$htmlContent = $('<div class="uiContent">');
+			conf.$trigger.addClass(className + '-trigger');
+			conf.$htmlContent = $('<div class="' + className + '-content">');
 			conf.$trigger.wrap( $('<div class="' + className + '">') );
 			conf.$wrapper = conf.$trigger.parent();
 			conf.$wrapper.css({
@@ -69,11 +69,11 @@ ui.floats = function(){
 		
 		if(!conf.visible) return;
 		
-		var className = 'ui' + ui.utils.ucfirst(conf.name);
+		var className = 'ui-' + conf.name;
 		
 		if(conf.wrappeable){				
-			conf.$wrapper.find('.uiTrigger').removeClass('uiTrigger');
-			conf.$wrapper.find('.uiContent').unwrap().remove();
+			conf.$wrapper.find('.' + className + '-trigger').removeClass(className + '-trigger');
+			conf.$wrapper.find('.' + className + '-content').unwrap().remove();
 		}else{
 			$('.' + className).fadeOut('fast', function(event){ $(this).remove(); });	
 		};
