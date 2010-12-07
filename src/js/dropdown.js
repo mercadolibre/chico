@@ -42,5 +42,17 @@ ui.dropdown = function(conf){
 	var show = function(event){ that.show(event, conf); };
 	var hide = function(event){ that.hide(event, conf); };
 
-	return { show: function(){ show($.Event()) }, hide: function(){ hide($.Event()) } };
+
+    // create the publish object to be returned
+
+    that.publish = {
+        uid: conf.id,
+        element: conf.element,
+        type: "ui.dropdown",
+        show: function(event){ show(event, conf) },
+        hide: function(event){ hide(event, conf) }
+    }
+
+	return that.publish;
+
 };

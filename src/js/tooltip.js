@@ -29,6 +29,17 @@ ui.tooltip = function(conf){
 			$(this).attr('title', conf.content.data);
 			that.hide(event, conf);
 		});
+    
+    // create the publish object to be returned
 
-	return { show: function(event){ that.show(event, conf) }, hide: function(event){ that.hide(event, conf) }};
+    that.publish = {
+        uid: conf.id,
+        element: conf.element,
+        type: "ui.layer",
+        content: conf.content.data,
+        show: function(event){ show(event, conf) },
+        hide: function(event){ hide(event, conf) }
+    }
+
+	return that.publish;
 };

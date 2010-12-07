@@ -94,5 +94,15 @@ ui.carousel = function(conf){
 		if(htmlContentWidth > $mask.width()){ nextButton.show();}
 	};
 
-	return { nxt: function(event){ next(event)}, prv: function(event){ prev(event)} }
+    // create the publish object to be returned
+
+    that.publish = {
+        uid: conf.id,
+        element: conf.element,
+        type: "ui.carousel",
+        next: function(event){ next(event) },
+        prev: function(event){ prev(event) }
+    }
+
+	return that.publish;
 };

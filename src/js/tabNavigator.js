@@ -6,6 +6,7 @@
  */
 
 ui.tabNavigator = function(conf){
+    var that = ui.object();
 	var $triggers = $(conf.element).children(':first').find('a');
 	var $htmlContent = $(conf.element).children(':first').next();
 	var instances = [];
@@ -29,7 +30,19 @@ ui.tabNavigator = function(conf){
 		});*/
 	};
 
-	return { show: function(event, tab){ show(event, tab) }, tabs: instances };
+    // create the publish object to be returned
+
+    that.publish = {
+        uid: conf.id,
+        element: conf.element,
+        type: "ui.tabNavigator",
+        tabs: instances,
+        show: function(event){ show(event, tab) },
+        hide: function(event){ hide(event, tab) }
+    }
+
+	return that.publish;
+
 };
 
 
