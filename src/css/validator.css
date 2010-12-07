@@ -1,9 +1,10 @@
-.uiHelper{
+.ui-helper {
 	display:inline-block;
 	position:relative;
 }
 
-.uiHelper .uiContent, .uiValidator{
+.ui-helper-content,
+.ui-validator {
 	background-color:#fbd9db;
 	border:1px solid #f7a9ae;
 	color:#600;
@@ -11,63 +12,92 @@
 	padding:5px;
 }
 
-.uiHelper .uiContent{
+.ui-helper-content {
 	display:inline-block;
 	width:160px;
+	position:absolute;
+	z-index:300;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	position:absolute;
-	z-index:300;
 }
 
-.uiValidator{
+.ui-validator {
 	margin-bottom:10px;
 }
 
-.uiHelper .uiContent span{
+.ui-helper-content span {
 	padding:0;
 }
 
-.uiHelper .uiContent .cone.right{
-	background-image:url('http://10.100.34.210:8080/content/assets/cone_validation_left.png');
-	display:block;
-	height:22px;
-	left:-11px;
-	position:absolute;
-	top:0;
-	width:11px;
-}
-
-.uiHelper .uiContent .ico.error, .uiValidator .ico.error{
+.ui-helper-content .ico.error,
+.ui-validator .ico.error {
 	float:left;
 	margin:2px 5px 0 0;
 }
 
-.uiHelper legend, .uiHelper h4, .uiHelper .options.uiTrigger{
+.ui-helper legend,
+.ui-helper h4,
+.ui-helper .options.ui-helper-trigger {
 	display:inline;
 }
 
-/* IE 6 */
-.ie6 .uiHelper{
+/* Cone */
+
+.ui-helper-content .cone {
+	/*background: transparent url('../src/assets/helper.png') 0 0 no-repeat;*/
+	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIxJREFUeNpi/P//PwMu8GPVerAkR1ggIy41TPg0sxjoMoAwzCCiDYBphgF8hjAR0kzIECZiNOMzhIlYzbgMYSJFMzZDGL+vXEeSZmTw58Jl3NFILGACJRKQSeTYDtLLBEtppBgC04wSC8QagqwZIx0QMgRdM9aUiMsQbJpx5gV0Q3BpBqcDSrMzQIABAIOjaGXvpybEAAAAAElFTkSuQmCC') 0 0 no-repeat;
+	display:block;
+	position:absolute;
+}
+
+.ui-helper-content .cone.down,
+.ui-helper-content .cone.top {
+	width:16px;
+	height:8px;
+	left:8px;
+}
+
+.ui-helper-content .cone.down {
+	top:-8px;
+}
+
+.ui-helper-content .cone.top {
+	background-position:0 -8px;
+	bottom:-8px;
+}
+
+.ui-helper-content .cone.left,
+.ui-helper-content .cone.right {
+	width:8px;
+	height:16px;
+	top:4px;
+}
+
+.ui-helper-content .cone.left {
+	background-position:-8px 0;
+	right:-8px;
+}
+
+.ui-helper-content .cone.right {
+	left:-8px;
+}
+
+/* IE 6, 7 */
+.ie6 .ui-helper,
+.ie7 .ui-helper {
 	display:inline !important;
 	border:none;
 	z-index:1;
 }
 
-.ie6 .uiHelper .uiTrigger{
+.ie6 .ui-helper-trigger {
 	display:inline !important;
 	border:none;
 }
 
 /* IE 7 */
-.ie7 .uiHelper{
-	display:inline !important;
-	border:none;
-	z-index:1;
-}
-
-.ie7 .uiHelper .uiTrigger{	
-	border:none;
+.ie7 .ui-helper-trigger {	
 	position:relative;
+	border:none;
 }

@@ -10,7 +10,10 @@ form legend {
 	font-weight:bold;
 	padding-bottom:15px;
 }
-form h4 { font-size:13px; }
+
+form h4 {
+	font-size:13px;
+}
 
 /* Required specification */
 form p.required {
@@ -192,10 +195,10 @@ form .disabled input{
 .ie6 form .help {
 	margin-left:148px;
 }
+
 .ie6 form h4 { margin-left:10px; }
 
 /* IE 7*/
-
 .ie7 form {
 	position:relative;
 }
@@ -218,11 +221,13 @@ form .disabled input{
 }
 
 /* IE 8 */
-.ie8 form label input:focus, .ie8 form label textarea:focus {
+.ie8 form label input:focus,
+.ie8 form label textarea:focus {
 	border:3px solid #666;
 }
 
-.ie8 form .options label input:focus, .ie8 form .options label textarea:focus {
+.ie8 form .options label input:focus,
+.ie8 form .options label textarea:focus {
 	border:none;
 	padding:0;
 }

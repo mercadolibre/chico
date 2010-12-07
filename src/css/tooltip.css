@@ -1,9 +1,9 @@
-.uiTooltip{
+.ui-tooltip {
 	position:relative;
 	display:inline-block;	
 }
 
-.uiTooltip .uiContent{
+.ui-tooltip-content {
 	font-size:11px;
 	background-color:#faf5c8;
 	border:1px solid #a0a082;
@@ -17,30 +17,57 @@
 	-webkit-box-shadow:-2px 2px 3px #ccc;
 }
 
-.uiTooltip .uiContent .cone {
-	background-image: url('http://10.100.34.210:8080/content/assets/cone.png');
+/* Cone */
+
+.ui-tooltip-content .cone {
+	/*background: transparent url('../src/assets/tooltip.png') 0 0 no-repeat;*/
+	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAI5JREFUeNpi/P//PwMusHBhM1gyPr6WEacikAHY8IIFTf+/fz8GxiA2LnUENRMyhAmbs8PDXTBcChKDeQkZMBGjGZ8hTMRqxmUIEymasRnCCAocUjQjg5Ur92AGIqmACZRIQCaRYztILxMspZFiCEwzSiwQawiyZox0QMgQdM048wIpSZnizMRIaXYGCDAAnboRyA5sXiYAAAAASUVORK5CYII=') 0 0 no-repeat;
+	display:block;
+	position:absolute;
 }
 
-/* IE 6 */
-.ie6 .uiTooltip{
+.ui-tooltip-content .cone.down,
+.ui-tooltip-content .cone.top {
+	width:16px;
+	height:8px;
+	left:12px;
+}
+
+.ui-tooltip-content .cone.down {
+	top:-8px;
+}
+
+.ui-tooltip-content .cone.top {
+	background-position:0 -8px;
+	bottom:-8px;
+}
+
+.ui-tooltip-content .cone.left,
+.ui-tooltip-content .cone.right {
+	width:8px;
+	height:16px;
+	top:2px;
+}
+
+.ui-tooltip-content .cone.left {
+	background-position:-8px 0;
+	right:-8px;
+}
+
+.ui-tooltip-content .cone.right {
+	left:-8px;
+}
+
+/* IE 6, 7 */
+.ie6 .ui-tooltip,
+.ie7 .ui-tooltip {
 	display:inline !important;
 	border:none;
 	z-index:1;
 }
 
-.ie6 .uiTooltip .uiTrigger{
-	display:inline-block;
-	border:none;
-}
-
-/* IE 7 */
-.ie7 .uiTooltip{
-	display:inline !important;
-	border:none;
-	z-index:1;
-}
-
-.ie7 .uiTooltip .uiTrigger{
+.ie6 .ui-tooltip-trigger,
+.ie7 .ui-tooltip-trigger {
 	display:inline-block;
 	border:none;
 }

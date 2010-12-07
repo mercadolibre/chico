@@ -8,7 +8,7 @@ ui.dropdown = function(conf){
 	var that = ui.navs(); // Inheritance
 
 	// Global configuration
-	$(conf.element).addClass('uiDropdown');
+	$(conf.element).addClass('ui-dropdown');
 	conf.$trigger = $(conf.element).children(':first');
 	conf.$htmlContent = conf.$trigger.next().bind('click', function(event){ event.stopPropagation() });
 	
@@ -29,12 +29,12 @@ ui.dropdown = function(conf){
 			});
 		})
 		.css('cursor','pointer')
-		.addClass('uiTrigger')
-		.append('<span class="ico down">&raquo;</span>');
+		.addClass('ui-dropdown-trigger')
+		.append('<span class="down">&raquo;</span>');
 	
 	// Content
 	conf.$htmlContent
-		.addClass('uiContent')
+		.addClass('ui-dropdown-content')
 		.find('a')
 			.bind('click', function(){ hide($.Event()) });
 			

@@ -46,10 +46,10 @@ ui.modal = function(conf){
 	// Dimmer
 	var dimmer = {
 		on:function(){
-			$('<div>').bind('click', function(event){ hide(event) }).addClass('dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
+			$('<div>').bind('click', function(event){ hide(event) }).addClass('ui-dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
 		},
 		off:function(){
-			$('div.dimmer').fadeOut('normal', function(){ $(this).remove(); });
+			$('div.ui-dimmer').fadeOut('normal', function(){ $(this).remove(); });
 		}
 	};
 	

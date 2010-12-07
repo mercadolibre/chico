@@ -10,8 +10,8 @@ ui.carousel = function(conf){
 	var status = false;
 
 	// Global configuration
-	conf.$trigger = $(conf.element).addClass('uiCarousel');
-	conf.$htmlContent = $(conf.element).find('.carousel').addClass('uiContent'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
+	conf.$trigger = $(conf.element).addClass('ui-carousel');
+	conf.$htmlContent = $(conf.element).find('.carousel').addClass('ui-carousel-content'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
 
 	// UL Width calculator
 	var htmlElementMargin = ($.browser.msie && $.browser.version == '6.0') ? 21 : 20;//IE necesita 1px de más
