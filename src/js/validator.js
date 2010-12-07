@@ -98,7 +98,7 @@ ui.validator = function(conf){
 	
 	// Remove big helper
 	var removeValidation = function(){
-		$('.uiValidator').fadeOut('fast', function(){ $(this).remove(); });
+		$('.ui-validator').fadeOut('fast', function(){ $(this).remove(); });
 	};
 
 	// Form events
@@ -154,7 +154,7 @@ ui.validator = function(conf){
 		
 		// General error
 		if(!validation){
-			$(conf.element).before('<p class="uiValidator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
+			$(conf.element).before('<p class="ui-validator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
 		// General ok
 		}else{
 			removeValidation();
@@ -213,7 +213,7 @@ ui.helper = function(wconf){
 	};
 	
 	var hide = function(){
-		wconf.$element.removeClass('uiTrigger');
+		wconf.$element.removeClass('ui-helper-trigger');
 		$('.helper' + wconf.id).unwrap().remove();
 		conf.visible = false;
 		that.callbacks(conf, 'hide');
