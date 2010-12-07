@@ -17,7 +17,7 @@ h4{ font-size: 14px;
 font-weight: bold;
 margin-bottom: 10px;}
 
-.ui-dropdown-trigger {
+.ui-dropdown .ui-dropdown-trigger {
 	background-color:#cfe3f0;
 	background-position:0 -435px;
 	border:1px solid #79A8C7;

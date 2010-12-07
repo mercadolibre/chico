@@ -144,7 +144,9 @@ h1, h2, h3, h4, h5, h6 {
 .box h1, .box h2, .box h3, 
 .box h4, .box h5, .box h6 {
 	margin-top:0;
+	margin-bottom:10px;
 }
+
 .typo {
 	font-family:"Trebuchet MS", Verdana, "DejaVu Sans", sans-serif
 }
@@ -207,9 +209,17 @@ span.tildeChico {
 	vertical-align:inherit;
 }*/
 
+.auction, .mercadoPago {
+	font-weight:bold;
+	font-style:normal;
+}
+
 .auction{
 	color:#090;
-	font-weight:bold;
+}
+
+.mercadoPago{
+	color:#36c;
 }
 
 /*
