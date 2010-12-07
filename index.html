@@ -14,7 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator">
 		<link rel="stylesheet" type="text/css" href="libs/css/highlight.css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
-		<script src="libs/js/jquery.js"></script>
+		<script src="libs/js/jquery-1.4.4.js"></script>
 		<script src="php/chico.php?debug=true"></script>
 		<!--script src="src/js/core.js"></script-->
 				
@@ -658,14 +658,24 @@
 	<!-- Organization -->
     <script src="libs/js/highlight.js"></script>
 	<script>
-		// Boxes alignment
-        $('.article').each(function(i, e){ var $first = $(e).find('.section .box:first'), $second = $(e).find('.aside .box:first'); if($first.height() < $second.height()) $first.height( $second.height() ); });
-		
-		// Automatic version
-        $('head title, .header h1').html($('head title').html() + ' ' + ui.version);
 
+		// Boxes alignment
+        $('.article').each(function(i, e){ 
+            var $first = $(e).find('.section .box:first');
+            var $second = $(e).find('.aside .box:first'); 
+            
+            if ( $first.height() < $second.height() ) { $first.height( $second.height() ); } 
+            
+        });
+
+		// Automatic version
+        var title = $('head title').html() + ' ' + ui.version;
+        document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
+        document.getElementsByTagName("h1")[0].innerHTML = title;
+ 
 		// Components
         var ui_drop = $('.demoDropdown').dropdown();
+
         var ui_caro = $('.demoCarousel').carousel();
         var ui_moda = $('.demoModal').modal({ content: { type: 'ajax' } });			
         var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
@@ -711,6 +721,7 @@
 		// Form submitted demo (DON'T COPY, ONLY FOR VALIDATORS EXAMPLE)
 		$('.formulario').submit();
 		
+
 		// Chat
 		ui.factory({
 		      component: "chat",
