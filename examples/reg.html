@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]--> <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]> <!--> <html lang="en" class="no-js"> <!--<![endif]-->
+	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">		
+		<title>MercadoLibre - Registración</title>
+		
+		<link rel="stylesheet" href="http://ui.ml.com/php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator" type="text/css" />		
+		
+		<link href="src/css/vip.css" type="text/css" rel="stylesheet">
+		<!--[if lt IE 7 ]>
+		<script src="http://10.100.34.210:8080/content/chico/0.x.x/libs/js/dd_belatedpng.js"></script>
+		<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+		<![endif]-->	
+	</head>
+
+	<body>
+		<div class="navMenu">
+			<p class="isoLogo">
+				<a href="http://www.mercadolibre.com.pa/" a="">
+					<span>MercadoLibre, donde compras y vendes de todo</span>
+				</a>
+			</p>
+			<div class="barAllMenu">
+			    <a class="homeAcces" href="http://www.mercadolibre.com.pa/">Inicio</a>
+				<ul class="accesBar">
+				
+					<li class="lastAcces"><a href="http://www.mercadolibre.com.pa/ayuda_home">Ayuda</a></li>
+				
+				    <li><a href="http://www.mercadolibre.com.pa/jm/myML">Mi MercadoLibre</a></li>
+				    <li><a href="http://www.mercadolibre.com.pa/jm/sell">Vender</a></li>
+				    <li><a href="http://www.mercadolibre.com.pa/jm/reg" target="_blank">Regístrate</a></li>
+				</ul>
+				<div class="menuBar allRounded box">
+					<input type="text" class="buscador" name="as_word" id="as_inner_word" maxlength="160" value="" onblur="javascript:setBlur()" onfocus="javascript:setFocus()">
+					<input type="submit" onclick="innerSearch();" value="Buscar" class="btn secondary">
+				</div>
+			</div>
+		</div>
+		
+		<div class="box">
+			<h2>Registración</h2>
+			<form action="test.html" class="signup">
+				<fieldset>
+					<legend>Datos de usuario</legend>
+					<p class="required">* Datos obligatorios</p>
+					<ol>
+						<li class="fieldBox">
+							<label class="required" for="val_nick">
+								<span>Apodo: <em>*</em></span>													
+								<input type="text" id="val_nick" required="required">
+								<p class="help">Con este apodo te identificarás en la comunidad de MercadoLibre.</p>
+							</label>
+						</li>
+						<li class="fieldBox">
+							<label class="required" for="val_pass">
+								<span>Clave: <em>*</em></span>													
+								<input type="password" id="val_pass" required="required">
+							</label>
+						</li>
+						<li class="fieldBox">
+							<label for="val_email">
+								<span>E-mail:</span>													
+								<input type="email" id="val_email">
+								<p class="help">Utilizaremos este e-mail para confirmar tu registración.</p>
+							</label>
+						</li>
+						<li class="fieldBox">
+							<label for="val_phone">
+								<span>Teléfono:</span>													
+								<input type="number" id="val_phone">
+							</label>
+						</li>
+						<li class="fieldBox">
+							<label for="val_country" class="required">
+								<span>País: <em>*</em></span>
+								<select id="val_country" required="required">
+									<option value="-1">Selecciona...</option>
+									<option value="ar">Argentina</option>
+									<option value="br">Brasil</option>
+									<option value="co">Colombia</option>
+									<option value="cl">Chile</option>
+									<option value="mx">México</option>
+								</select>
+							</label>
+						</li>
+						
+						<li class="fieldBox">
+							<label class="required" for="val_city">
+								<span>Ciudad: <em>*</em></span>													
+								<input type="text" id="val_city" required="required">
+							</label>
+						</li>
+					</ul>
+				</fieldset>
+				
+				<fieldset>
+					<legend>MercadoPago <em>*</em></legend>
+					<div class="val_check options required">
+						<p class="fieldBox">
+							<label for="val_check1b">
+								<input type="checkbox" value="mp" id="val_check1b" name="mpago">
+								<span>Quiero registrarme también en <em class="mercadoPago">MercadoPago</em>.</span>
+							</label>
+						</p>
+					</div>
+				</fieldset>
+				
+				<fieldset>
+					<legend>Novedades</legend>
+					<div class="val_check2 options">
+						<p class="fieldBox">
+							<label for="val_check2a">
+								<input type="checkbox" value="news" id="val_check2a" name="newsInfo">
+								<span>Acepto recibir mensajes con novedades e información de MercadoLibre.</span>
+							</label>
+						</p>
+					</div>
+				</fieldset>
+				
+				<p class="actions"><input type="submit" value="Continuar" class="btn primary"></p>
+			</form>
+		</div>
+
+		<script src="http://10.100.34.210:8080/content/chico/0.4.5/libs/js/jquery.js"></script>
+		<!--<script src="http://10.100.34.210:8080/content/chico/0.4.5/php/chico.php"></script>-->
+		<script src="http://ui.ml.com/php/chico.php"></script>
+		<script>
+			
+			/*var modal = $('.btn.primary').modal({
+				content: {
+					type: 'param',
+					data: '<h2>¡Felicitaciones!</h2><p>Dirígete a tu casilla de correo y activa tu cuenta desde el e-mail que te enviamos.</p><p class="actions"><input type="button" class="btn secondary closeModal" value="Aceptar"></p>'
+				}
+			});
+			
+			$('.signup').validator({
+				fields: {
+					'#val_nick':	{ required: 'El apodo es obligatorio.' },
+					'#val_pass':	{ required: 'La clave es obligatoria.', minLength: [6, 'Mínimo 6 caracteres.'] },
+					'#val_email':	{ email: 'El email esta mal escrito.' },
+					'#val_phone':	{ number: 'Introduce solo números.' },
+					'#val_country':	{ required: 'El país es obligatorio.' },
+					'#val_city':	{ required: 'La ciudad es obligatoria.' },
+					'.val_check':	{ required: 'El campo es obligatorio.' }
+				},
+				defaults: {
+					error: 'Revisa los datos, por favor.'
+				},
+				callbacks: {
+					submit: function(){
+						$('.btn.primary').attr('disabled', 'disabled').addClass('disabled');
+						modal.show();
+					}
+				}
+			});
+			
+			$('.mercadoPago').layer({
+				content: {
+					type: 'param',
+					data: '<p><strong>MercadoPago</strong> es un medio de pago y cobro a través de tarjeta de crédito, depósito diferenciado, transferencia en línea y cheque.</p>'
+				}
+			});*/
+						
+		</script>
+	</body>
+</html>
