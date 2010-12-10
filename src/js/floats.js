@@ -6,6 +6,7 @@
 */
 ui.floats = function(){
 	var that = ui.object(); // Inheritance	
+    
 	var clearTimers = function(){
 		clearTimeout(st);
 		clearTimeout(ht);

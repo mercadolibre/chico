@@ -51,6 +51,26 @@
 
         });
 
+        test("Tooltip chain methods", function(){
+            
+            expect ( 3 );
+            
+            var testTooltipOriginal = testTooltip;
+            
+            var chainShow = testTooltip.show();
+            
+            var chainHide = testTooltip.hide();
+
+            var chained = testTooltip.show().hide();
+             
+            ok ( chainShow === testTooltipOriginal, "Expected to return original instance object on show() method call");
+            
+            ok ( chainHide === testTooltipOriginal, "Expected to return original instance object on hide() method call");
+
+            ok ( chained === testTooltipOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+            
+        });
+
 		module('Tooltip layout and interaction');
 
 		test('Check for right trigger attributes', function(){

@@ -118,6 +118,27 @@
 
         });
 
+        test("Modal chain methods", function(){
+            
+            expect ( 3 );
+            
+            var testModalOriginal = testModal;
+            
+            var chainShow = testModal.show();
+            
+            var chainHide = testModal.hide();
+
+            var chained = testModal.show().hide();
+             
+            ok ( chainShow === testModalOriginal, "Expected to return original instance object on show() method call");
+            
+            ok ( chainHide === testModalOriginal, "Expected to return original instance object on hide() method call");
+
+            ok ( chained === testModalOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+            
+        });
+    
+
 		module('Modal layout and interaction');
 						
 		test('Opens basic modal dialog', function(){

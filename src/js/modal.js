@@ -15,7 +15,7 @@ ui.modal = function(conf){
 	conf.classes = 'box';
 	conf.wrappeable = false;
 	conf.ajaxType = 'POST';
-	
+	conf.publish = that.publish;
 			
 	
 	// Methods Privates
@@ -29,11 +29,17 @@ ui.modal = function(conf){
 		that.show(event, conf);
 		$('.ui-modal .btn.close, .closeModal').bind('click', hide);
 		conf.$trigger.blur();
+        
+        // return publish object
+        return conf.publish;        
 	};
 
 	var hide = function(event){
 		dimmer.off();
 		that.hide(event, conf);
+
+        // return publish object
+        return conf.publish;
 	};
 
 	var setAjaxConfig = function(){
@@ -47,7 +53,7 @@ ui.modal = function(conf){
 	// Dimmer
 	var dimmer = {
 		on:function(){
-			$('<div>').bind('click', function(event){ hide(event) }).addClass('ui-dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
+			$('<div>').bind('click', hide).addClass('ui-dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
 		},
 		off:function(){
 			$('div.ui-dimmer').fadeOut('normal', function(){ $(this).remove(); });
@@ -58,19 +64,16 @@ ui.modal = function(conf){
 	// Events
 	conf.$trigger
 		.css('cursor', 'pointer')
-		.bind('click', function(event){ show(event) });
+		.bind('click', show);
 		
-    // create the publish object to be returned
+        // create the publish object to be returned
+        conf.publish.uid = conf.id,
+        conf.publish.element = conf.element,
+        conf.publish.type = "ui.modal",
+        conf.publish.content = conf.content.data,
+        conf.publish.show = function(event){ return show(event) },
+        conf.publish.hide = function(event){ return hide(event) }
 
-    that.publish = {
-        uid: conf.id,
-        element: conf.element,
-        type: "ui.modal",
-        content: conf.content.data,
-        show: function(event){ show(event) },
-        hide: function(event){ hide(event) }
-    }
-
-	return that.publish;
+	return conf.publish;
 
 };

@@ -117,7 +117,27 @@
     		ok( testLayerAjax.content != undefined , "Expected to find a defined content on the layer instance");
 
         });
-        
+
+        test("Layer chain methods", function(){
+            
+            expect ( 3 );
+            
+            var testLayerOriginal = testLayerHover;
+            
+            var chainShow = testLayerHover.show();
+            
+            var chainHide = testLayerHover.hide();
+
+            var chained = testLayerHover.show().hide();
+             
+            ok ( chainShow === testLayerOriginal, "Expected to return original instance object on show() method call");
+            
+            ok ( chainHide === testLayerOriginal, "Expected to return original instance object on hide() method call");
+
+            ok ( chained === testLayerOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+            
+        });
+
         
 		module('Layer layout and interaction');		
 		
