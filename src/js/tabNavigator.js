@@ -6,7 +6,9 @@
  */
 
 ui.tabNavigator = function(conf){
+
     var that = ui.object();
+
 	var $triggers = $(conf.element).children(':first').find('a');
 	var $htmlContent = $(conf.element).children(':first').next();
 	var instances = [];

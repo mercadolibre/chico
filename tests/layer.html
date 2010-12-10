@@ -18,6 +18,15 @@
 	<p class="box">
 		<span class="testLayerHover">Layer ejecutado en el hover.</span>
 	</p>
+
+	<p class="box">
+		<span class="testLayerAjax">Layer con contenido por Ajax.</span>
+	</p>
+
+	<p class="box">
+		<span class="testLayerAjaxAbsolute">Layer con contenido por Ajax URL absoluta.</span>
+	</p>
+
 <!-- #body -->	
 	<br>
 	
@@ -36,7 +45,7 @@
 	
 <!-- #script -->
 	<script>
-		$('.testLayerClick').layer({
+		var testLayerClick = $('.testLayerClick').layer({
 			event: 'click',
 			content: {
 				type:'param',
@@ -44,27 +53,93 @@
 			}
 		});
 		
-		$('.testLayerHover').layer({
+		var testLayerHover = $('.testLayerHover').layer({
 			content:{
 				type:'param',
 				data:'<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
 			}			
 		});
 
+		var testLayerAjax = $(".testLayerAjax").layer({
+			content:{
+				type: "ajax",
+				data: "../test.html"
+			}			
+		});
+		
+		$(".testLayerAjaxAbsolute").layer({
+		      content:{
+		          type: "ajax",
+		          data: "http://www.google.com"
+              }
+		});
 		
 		$.fx.off = true;
 
 		/**
 		 * 	Test Cases
 		 */
+		 
+        module("Layer instance object");
 		
+        test("testLayerClick instance", function(){
 
-		module('Layer executed on click, Tests');		
+            expect( 3 );
+
+       		ok( testLayerClick.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+       		
+    		ok( testLayerClick.type == "ui.layer" , "Expected to find \"ui.layer\" as value of type attribute");
+    		
+    		ok( testLayerClick.content != undefined, "Expected to find a defined content on the layer instance");
+
+        });
+
+        test("testLayerHover instance", function(){
+
+            expect( 3 );
+
+       		ok( testLayerHover.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+       		
+    		ok( testLayerHover.type == "ui.layer" , "Expected to find \"ui.layer\" as value of type attribute");
+    		
+    		ok( testLayerHover.content != undefined, "Expected to find a defined content on the layer instance");
+
+        });
+
+        test("testLayerAjax instance", function(){
+
+            expect( 3 );
+
+       		ok( testLayerAjax.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+       		
+    		ok( testLayerAjax.type == "ui.layer" , "Expected to find \"ui.layer\" as value of type attribute");
+
+    		ok( testLayerAjax.content != undefined , "Expected to find a defined content on the layer instance");
+
+        });
+        
+        
+		module('Layer layout and interaction');		
 		
-		test('Check for basic interaction: show and hide component', function(){
+		test('Check for the right visual elements', function(){					
+		  
+            expect( 2 );
+		  
+			$('.testLayerClick').click();
+			
+			exists('.ui-layer-content .close');
+			exists('.ui-layer-content .cone');
+			
+			$('body').click();
+			
+		});
+		
+		test('Show and hide functions', function(){
+
 			notExists('.ui-layer');
 			
 			$('.testLayerClick').click();
+
 			exists('.ui-layer');
 			exists('.ui-layer-trigger');
 			exists('.ui-layer-content');
@@ -74,26 +149,33 @@
 			isVisible('.ui-layer-content');
 			
 			$('body').click();
+
 			notExists('.ui-layer');
 			notExists('.ui-layer-trigger');
-			notExists('.ui-layer-content');			
+			notExists('.ui-layer-content');
+				
 		});
 		
-		test('Check for close button interaction', function(){
+		test('Close button interaction', function(){
+		  
 			$('.testLayerClick').click();
 			
 			exists('.ui-layer-content .close');				
+		
 			$('.ui-layer .close').click();
 			
 			notExists('.ui-layer');
 			notExists('.ui-layer-trigger');
 			notExists('.ui-layer-content');						
+			
 		});
 		
 		test('Check for click content interaction', function(){
+		  
 			$('.testLayerClick').click();
 			
 			$('.uiLayer .uiContent').click();
+			
 			exists('.ui-layer');
 			exists('.ui-layer-trigger');
 			exists('.ui-layer-content');
@@ -102,17 +184,11 @@
 
 		});
 		
-		test('Check for the right visual elements', function(){					
-			$('.testLayerClick').click();
-			exists('.ui-layer-content .close');
-			exists('.ui-layer-content .cone');
-			$('body').click();
-		});
-		
 		
 		module('Layer execute on hover, Tests');
 		
-		test('Check for basic interaction', function(){			
+		test('Check for basic interaction', function(){
+		  		
 			notExists('.ui-layer');
 			
 			$('.testLayerHover').mouseover();

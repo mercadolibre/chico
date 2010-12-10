@@ -150,7 +150,7 @@ ui.get = function(o) {
         var x = o.conf;
         
 		x.$htmlContent.html('<div class="loading"></div>');
-		
+				
 		$.ajax({
 			url: x.content.data,
 			type: x.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
@@ -170,15 +170,15 @@ ui.get = function(o) {
 		break;
         
 	case "component":
-
+        
+        // ui.get: "Should I get a style?"
         if ( o.style ) {
     		var style = document.createElement('link');
         		style.href = o.style;
     	    	style.rel = 'stylesheet';
             	style.type = 'text/css';
-            	
         }
-        
+        // ui.get: "Should I get a script?"        
         if ( o.script ) {
     	   	var script = document.createElement("script");
     			script.src = o.script;

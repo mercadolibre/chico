@@ -35,7 +35,7 @@ ui.tooltip = function(conf){
     that.publish = {
         uid: conf.id,
         element: conf.element,
-        type: "ui.layer",
+        type: "ui.tooltip",
         content: conf.content.data,
         show: function(event){ show(event, conf) },
         hide: function(event){ hide(event, conf) }

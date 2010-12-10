@@ -88,7 +88,7 @@
        		
     		ok( testModal.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
     		
-    		ok( testModal.content != "", "Expected to find a defined content on the modal instance");
+    		ok( testModal.content != undefined, "Expected to find a defined content on the modal instance");
 
         });
 
@@ -100,7 +100,7 @@
        		
     		ok( testModalDOM.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
     		
-    		ok( testModalDOM.content != "" , "Expected to find a defined content on the modal instance");
+    		ok( testModalDOM.content != undefined , "Expected to find a defined content on the modal instance");
 
     		ok( /\.|\#/.test(testModalDOM.content) , "Expected to find a CSS \"#id\" or \".class\" declaration on content attribute");
 
@@ -108,13 +108,13 @@
 
         test("Basics for testModalAjax", function(){
 
-            expect( 3 );
+            expect( 2 );
 
        		ok( testModalAjax.uid >= 0 , "Expected to find a defined content on the modal instance");
        		
     		ok( testModalAjax.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
     		
-    		ok( testModalAjax.content != "" , "Expected to find a defined content on the modal instance");
+    		//ok( testModalAjax.content != undefined , "Expected to find a defined content on the modal instance");
 
         });
 

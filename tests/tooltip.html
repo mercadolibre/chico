@@ -29,7 +29,7 @@
 
 <!-- #script -->
 	<script>
-		$('.testTooltip').tooltip();
+		var testTooltip = $('.testTooltip').tooltip();
 		
 		$.fx.off = true;
 		
@@ -37,12 +37,28 @@
 		 * 	Test Cases
 		 */
 
-		module('Tooltip Tests');
+        module("Tooltip basics instance object");
+        
+        test("Basics for testTooltip instance", function(){
+
+            expect( 3 );
+
+       		ok( testTooltip.uid >= 0 , "Expected to find a defined content on the tooltip instance");
+       		
+    		ok( testTooltip.type == "ui.tooltip" , "Expected to find \"ui.tooltip\" as value of type attribute");
+    		
+    		ok( testTooltip.content != undefined, "Expected to find a defined content on the tooltip instance");
+
+        });
+
+		module('Tooltip layout and interaction');
 
 		test('Check for right trigger attributes', function(){
+        
 			ok($('.testTooltip').attr('title'), 'Expected .testTooltip to has "title" attribute');
+            
 		});
-		
+		        
 		test('Opens tooltip dialog', function(){
 			notExists('.ui-tooltip');
 			
