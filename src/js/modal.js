@@ -28,6 +28,7 @@ ui.modal = function(conf){
 		dimmer.on();
 		that.show(event, conf);
 		$('.ui-modal .btn.close, .closeModal').bind('click', hide);
+		conf.$trigger.blur();
 	};
 
 	var hide = function(event){
