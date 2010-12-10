@@ -186,6 +186,8 @@ ui.validator = function(conf){
         fields: watchers,
         validate: function(event){ validate() }
     }
+    
+    return that.publish;
 
 };
 
