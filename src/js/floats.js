@@ -33,7 +33,7 @@ ui.floats = function(){
 			conf.$trigger.wrap( $('<div class="' + className + '">') );
 			conf.$wrapper = conf.$trigger.parent();
 			conf.$wrapper.css({
-				display: 'inline-block',
+				display: conf.$trigger.css('display'),
 				position: 'relative',
 				/* jQuery don't support css shorthands on .css()*/
 				marginTop: conf.$trigger.css('marginTop'),
