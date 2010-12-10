@@ -2,7 +2,7 @@
 
 /**
  *    Chico-UI 
- *    Unit Tests Packer-o-matic
+ *    Unit Tests Packer-o-matic "Automatic papá"
  */
        $version = "0.1";
        $autor = "Natan Santolo <natan.santolo@mercadolibre.com>";

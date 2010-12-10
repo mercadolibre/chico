@@ -41,27 +41,44 @@
 
 <!-- #script -->
 	<script>
-		$('.testTabs').tabNavigator();
+		var testTabs = $('.testTabs').tabNavigator();
 		
 		$.fx.off = true;
 
 		/**
 		 * 	Test Cases
 		 */
-		
-		module('TabNavigator without Ajax, Tests');
-		
-		var $ul = $('.testTabs').children(':first');
-		var $triggers = $ul.find('a');
-		var $contents = $ul.next();
 
-		test('Check for right visual classes', function(){
+       module("TabNavigator instance object");
+		
+        test("testTabs instance", function(){
+
+            expect( 3 );
+
+       		ok( testTabs.uid >= 0 , "Expected to find a \"uid\" attribute on the tabnavigator instance");
+       		
+    		ok( testTabs.type == "ui.tabNavigator" , "Expected to find \"ui.tabNavigator\" as value of type attribute");
+    		  		
+    		ok( $.isArray(testTabs.tabs) && testTabs.tabs.length > 0 , "Expected to find an array of Tabs on the tabNavigator instance with more than 1 items on it");
+
+        });
+
+		module('TabNavigator layout and interaction');
+		
+			var $ul = $('.testTabs').children(':first');
+			var $triggers = $ul.find('a');
+			var $contents = $ul.next();
+
+		test('Check for right visual classes', function() {
+			
 			hasClass('.testTabs', 'ui-tabNavigator');
 			hasClass($triggers, 'ui-tabNavigator-trigger');
 			hasClass($contents, 'ui-tabNavigator-content');
+			
 		});
 
-		test('State before click', function(){
+		test('State before click', function() {
+			
 			// Tabs state before click on any trigger
 			hasClass($triggers.eq(0), 'on');
 			hasNotClass($triggers.eq(1), 'on');
@@ -71,9 +88,11 @@
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'block', 'Expected " + selector + " to be visible' );
 			equal( $contents.find( $triggers.eq(1).attr('href') ).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated' );
 			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'none', 'Content asociated to third tab shouldn\'t be activated' );
+		
 		});
 		
-		test('Click on second tab', function(){
+		test('Click on second tab', function() {
+			
 			$triggers.eq(1).click();
 			
 			// First & third tab not activated
@@ -85,9 +104,11 @@
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on second tab' );
 			equal( $contents.find( $triggers.eq(1).attr('href') ).css('display'), 'block', 'Content asociated to second tab sholud be activated after click on second tab' );
 			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'none', 'Content asociated to third tab shouldn\'t be activated after click on second tab' );
+		
 		});
 		
-		test('Click on third tab', function(){
+		test('Click on third tab', function() {
+		
 			$triggers.eq(2).click();
 			
 			// First & second tab not activated
@@ -99,6 +120,7 @@
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on third tab' );
 			equal( $contents.find( $triggers.eq(1).attr('href') ).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated after click on third tab' );
 			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'block', 'Content asociated to thind tab sholud be activated after click on third tab' );
+		
 		});
 		
 	</script>

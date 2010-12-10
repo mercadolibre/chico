@@ -36,8 +36,13 @@ ui.validator = function(conf){
 			});
 		};
     
-		return { status: true, helper: ui.helper( wconf ) };
-	};
+		return { 
+			status: true, 
+			helper: ui.helper( wconf ),
+			element: wconf.$element[0],
+			validate: function(){ validate(wconf) }
+		};
+ 	};
 	
 	// Validate
 	var validations = function(method, wconf){
@@ -186,6 +191,8 @@ ui.validator = function(conf){
         fields: watchers,
         validate: function(event){ validate() }
     }
+    
+    return that.publish;
 
 };
 

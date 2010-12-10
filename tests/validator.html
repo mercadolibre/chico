@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Modal - TestCases</title>
+	<title>Validator - TestCases</title>
 	<link rel="stylesheet" type="text/css" href="../php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
@@ -12,7 +12,7 @@
 	<h1>Chico-UI: Validator testcases</h1>
 	
 	<div class="box">
-		<form action="test.html" class="formulario">
+		<form action="../test.html" class="formulario">
 			<fieldset>
 				<legend>Validadores básicos</legend>
 				<p class="required">* Datos obligatorios</p>
@@ -265,7 +265,7 @@
 <!-- #script -->
 	<script>
 		// Validator
-		$('.formulario').validator({
+		var testValidator = $('.formulario').validator({
 			fields: {
 				// Inputs
 				'#w1': {
@@ -337,12 +337,46 @@
 		});
 	
 		$.fx.off = true;
-	
+		
 		/**
 		 * 	Test Cases
 		 */
+        
+        module("Validator basics instance object");
+        
+        test("Basics for testValidator instance", function(){
 
-		module('Validator, Tests');
+			expect( 5 + (testValidator.fields.length * 4) );
+
+       		ok( testValidator.uid >= 0 , "Expected to find a defined content on the validator instance");
+       		
+    		ok( testValidator.type == "ui.validator" , "Expected to find \"ui.validator\" as value of type attribute");
+
+			var form = document.getElementsByTagName("form")[0];		
+
+    		ok( testValidator.element === form , "Expected to find a element propiertie with an DOM reference");
+    		  		
+			ok( $.isFunction(testValidator.validate) , "Expected to find a validate method validator instance");
+
+ 			ok( $.isArray(testValidator.fields) && testValidator.fields.length > 0 , "Expected to find an array of fields on the validator instance with more than 1 items on it");
+
+			$(testValidator.fields).each(function(i,e){
+				
+				ok( typeof e.status == "boolean" , "Expected to find a boolean status on field number " + i);
+			
+				ok( $.isPlainObject(e.helper) , "Expected to find a helper object on field number " + i);	
+				
+				ok( $.isFunction(e.helper.show) , "Expected to find a show() method in the helper object");
+				
+				ok( $.isFunction(e.helper.hide) , "Expected to find a hide() method in the helper object");
+				
+			});
+
+        });
+        
+		module('Validator layout and interaction');
+
+		console.log(testValidator);
 
 		test('Submits form with error in all fields', function(){
 			$('#w1, #w2, #w3, #w4, #w6').val('abc');
