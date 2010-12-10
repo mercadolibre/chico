@@ -37,7 +37,7 @@
 <!-- #script -->
 	<script>
 
-		$('.testDropdown').dropdown();
+		var testDropdown = $('.testDropdown').dropdown();
 		
 		$.fx.off = true;
 
@@ -45,44 +45,65 @@
 		 * 	Test Cases
 		 */
 
-		module('Dropdown Tests');
+       module("Dropdown instance object");
+		
+        test("testDropdown instance", function() {
+
+            expect( 2 );
+
+       		ok( testDropdown.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+       		
+    		ok( testDropdown.type == "ui.dropdown" , "Expected to find \"ui.layer\" as value of type attribute");
+
+        });
+
+		module('Dropdown layout and interaction');
 
 		var $trigger = $('.testDropdown').children(':first');
 		var $content = $trigger.next();
 
-		test('Check for the right visual classes', function(){
+		test('Check for the right visual classes', function() {
+			
 			hasClass('.testDropdown', 'ui-dropdown');
 			hasClass($trigger, 'ui-dropdown-trigger');
 			hasClass($content, 'ui-dropdown-content');
 			hasClass($trigger.find('span'), 'down');
+			
 		});
 
-		test('Opens dropdown menu', function(){
+		test('Opens dropdown menu', function() {
+			
 			isNotVisible($content);
 			
 			$trigger.click();
 			
 			isVisible($content);
 			hasClass($trigger, 'on');
+			
 		});
 		
-		test('Closes dropdown menu, clicking on body', function(){
+		test('Closes dropdown menu, clicking on body', function() {
+			
 			$trigger.click();
 			$('body').click();
 			
 			isNotVisible($content);
 			hasNotClass($trigger, 'on');
+			
 		});
 		
-		test('Closes dropdown menu, clicking on component trigger', function(){
+		test('Closes dropdown menu, clicking on component trigger', function() {
+			
 			$trigger.click();
 			$trigger.click();
 			
 			isNotVisible($content);
 			hasNotClass($trigger, 'on');
+			
 		});
 		
-		test('Click inside content', function(){
+		test('Click inside content', function() {
+			
 			$trigger.click();
 			$content.click();
 			
@@ -90,9 +111,11 @@
 			hasClass($trigger, 'on');
 			
 			$trigger.click();
+			
 		});
 		
-		test('Click on content link', function(){
+		test('Click on content link', function() {
+			
 			$trigger.click();
 			$content.find('a').click();
 			
@@ -100,6 +123,8 @@
 			hasNotClass($trigger, 'on');
 			
 			$trigger.click();
+			$('body').click();
+			
 		});
 	</script>
 
