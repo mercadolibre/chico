@@ -57,6 +57,26 @@
 
         });
 
+        test("Dropdown chain methods", function(){
+            
+            expect ( 3 );
+            
+            var testDropdownOriginal = testDropdown;
+            
+            var chainShow = testDropdown.show();
+            
+            var chainHide = testDropdown.hide();
+
+            var chained = testDropdown.show().hide();
+             
+            ok ( chainShow === testDropdownOriginal, "Expected to return original instance object on show() method call");
+            
+            ok ( chainHide === testDropdownOriginal, "Expected to return original instance object on hide() method call");
+
+            ok ( chained === testDropdownOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+            
+        });
+
 		module('Dropdown layout and interaction');
 
 		var $trigger = $('.testDropdown').children(':first');

@@ -11,7 +11,25 @@ ui.dropdown = function(conf){
 	$(conf.element).addClass('ui-dropdown');
 	conf.$trigger = $(conf.element).children(':first');
 	conf.$htmlContent = conf.$trigger.next().bind('click', function(event){ event.stopPropagation() });
+    conf.publish = that.publish;
 	
+	// Methods
+	var show = function(event){ 
+
+        that.show(event, conf);
+
+        // return publish object
+        return conf.publish;  
+    };
+	
+    var hide = function(event){ 
+
+        that.hide(event, conf); 
+
+        // return publish object
+        return conf.publish; 
+    };
+    
 	// Trigger
 	conf.$trigger
 		.bind('click', function(event){
@@ -24,7 +42,8 @@ ui.dropdown = function(conf){
 		
 			// Document events
 			$(document).bind('click', function(event){
-				that.hide(event, conf);
+				//that.hide(event, conf);
+                hide(event);
 				$(document).unbind('click');
 			});
 		})
@@ -37,22 +56,14 @@ ui.dropdown = function(conf){
 		.addClass('ui-dropdown-content')
 		.find('a')
 			.bind('click', function(){ hide($.Event()) });
-			
-	// Public members
-	var show = function(event){ that.show(event, conf); };
-	var hide = function(event){ that.hide(event, conf); };
-
 
     // create the publish object to be returned
+        conf.publish.uid = conf.id,
+        conf.publish.element = conf.element,
+        conf.publish.type = "ui.dropdown",
+        conf.publish.show = function(event){ return show(event, conf) },
+        conf.publish.hide = function(event){ return hide(event, conf) }
 
-    that.publish = {
-        uid: conf.id,
-        element: conf.element,
-        type: "ui.dropdown",
-        show: function(event){ show(event, conf) },
-        hide: function(event){ hide(event, conf) }
-    }
-
-	return that.publish;
+	return conf.publish;
 
 };

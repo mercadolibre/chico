@@ -62,8 +62,20 @@
     		ok( $.isArray(testTabs.tabs) && testTabs.tabs.length > 0 , "Expected to find an array of Tabs on the tabNavigator instance with more than 1 items on it");
 
         });
-
-		module('TabNavigator layout and interaction');
+        
+        test("TabNavigator chain methods", function(){
+            
+            expect ( 1 );
+            
+            var testTabsOriginal = testTabs;
+            
+            var chainSelect = testTabs.select(0);
+             
+            ok ( chainSelect === testTabsOriginal , "Expected to return original instance object on select() method call");
+            
+        });
+        
+        module('TabNavigator layout and interaction');
 		
 			var $ul = $('.testTabs').children(':first');
 			var $triggers = $ul.find('a');
@@ -121,8 +133,9 @@
 			equal( $contents.find( $triggers.eq(1).attr('href') ).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated after click on third tab' );
 			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'block', 'Content asociated to thind tab sholud be activated after click on third tab' );
 		
+		    testTabs.select(0);
 		});
-		
+				
 	</script>
 
 </body>

@@ -8,6 +8,8 @@
 ui.tabNavigator = function(conf){
 
     var that = ui.object();
+    
+    conf.publish = that.publish;
 
 	var $triggers = $(conf.element).children(':first').find('a');
 	var $htmlContent = $(conf.element).children(':first').next();
@@ -24,27 +26,31 @@ ui.tabNavigator = function(conf){
 	});
 
 	var show = function(event, tab){
-		ui.instances.tabNavigator[conf.instance].tabs[tab].shoot(event);
-		/* The potato is ready!!
+		//ui.instances.tabNavigator[conf.instance].tabs[tab].shoot(event);
+		
+//        conf.publish.tabs[tab].shoot(event);
+        
+        instances[tab].shoot(event);
+        
+        /* The potato is ready!!
 		Use this to execute a specific tab on console (on h1 click)
 		$('h1').click(function(event){
 			ui.instances.tabNavigator[0].show(event, 2);
 		});*/
-	};
 
+        // return publish object
+        return conf.publish; 
+	};
+    
     // create the publish object to be returned
 
-    that.publish = {
-        uid: conf.id,
-        element: conf.element,
-        type: "ui.tabNavigator",
-        tabs: instances,
-        show: function(event){ show(event, tab) },
-        hide: function(event){ hide(event, tab) }
-    }
-
-	return that.publish;
-
+        conf.publish.uid = conf.id,
+        conf.publish.element = conf.element,
+        conf.publish.type = "ui.tabNavigator",
+        conf.publish.tabs = instances,
+        conf.publish.select = function(tab){ console.log("select "+tab); return show($.Event(), tab) }
+    
+	return conf.publish;
 };
 
 
@@ -68,12 +74,12 @@ ui.tab = function(index, element, conf){
 	};
 
 	var results = function(){
-		// If there are a tabContent...
-		if($tabContent.attr('id')){
-			return $tabContent; 
 		
-		// If tabContent doesn't exists
-		}else{
+        // If there are a tabContent...
+		if ( $tabContent.attr('id') ) {
+			return $tabContent; 		
+		// If tabContent doesn't exists        
+		} else {
 			// Set ajax configuration
 			that.conf.content = {
 				type: 'ajax',
