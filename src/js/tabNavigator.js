@@ -27,9 +27,7 @@ ui.tabNavigator = function(conf){
 
 	var show = function(event, tab){
 		//ui.instances.tabNavigator[conf.instance].tabs[tab].shoot(event);
-		
-//        conf.publish.tabs[tab].shoot(event);
-        
+		        
         instances[tab].shoot(event);
         
         /* The potato is ready!!

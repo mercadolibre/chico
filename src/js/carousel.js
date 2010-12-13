@@ -12,6 +12,7 @@ ui.carousel = function(conf){
 	// Global configuration
 	conf.$trigger = $(conf.element).addClass('ui-carousel');
 	conf.$htmlContent = $(conf.element).find('.carousel').addClass('ui-carousel-content'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
+    conf.publish = that.publish;
 
 	// UL Width calculator
 	var htmlElementMargin = ($.browser.msie && $.browser.version == '6.0') ? 21 : 20;//IE necesita 1px de más
@@ -37,7 +38,7 @@ ui.carousel = function(conf){
 	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() );
 	if(conf.arrows != false) $mask.css('marginLeft', margin);
 	
-	var prev = function(event){
+	var prev = function(event) {
 		if(status) return;//prevButton.css('display') === 'none' limit public movement
 		
 		var htmlContentPosition = conf.$htmlContent.position();
@@ -50,7 +51,10 @@ ui.carousel = function(conf){
 			nextButton.show();
 			status = false;
 		});
-	};
+        
+        // return publish object
+        return conf.publish;
+	}
 	
 	//En IE6 al htmlContentWidth por algun motivo se le suma el doble del width de un elemento (li) y calcula mal el next()
 	if($.browser.msie && $.browser.version == '6.0') htmlContentWidth = htmlContentWidth - (conf.$htmlContent.children().outerWidth()*2);
@@ -68,7 +72,10 @@ ui.carousel = function(conf){
 			prevButton.show();
 			status = false;
 		});		
-	};
+
+        // return publish object
+        return conf.publish;
+	}
 	
 	// Create buttons
 	var prevButton = $('<p>')
@@ -87,22 +94,20 @@ ui.carousel = function(conf){
 	
 	
 	
-	if(conf.arrows != false) {
+	if (conf.arrows != false) {
 		// Append buttons
 		conf.$trigger.prepend(prevButton).append(nextButton);
 		// Si el ancho del UL es mayor que el de la mascara, muestra next
 		if(htmlContentWidth > $mask.width()){ nextButton.show();}
-	};
+	}
 
     // create the publish object to be returned
 
-    that.publish = {
-        uid: conf.id,
-        element: conf.element,
-        type: "ui.carousel",
-        next: function(event){ next(event) },
-        prev: function(event){ prev(event) }
-    }
+        conf.publish.uid = conf.id;
+        conf.publish.element = conf.element;
+        conf.publish.type = "ui.carousel";
+        conf.publish.next = function(){ return next($.Event()); };
+        conf.publish.prev = function(){ return prev($.Event()); };
 
-	return that.publish;
-};
+	return conf.publish;
+}
