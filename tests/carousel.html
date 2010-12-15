@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Carousel - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="../php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator">
+	<link href="../src/css/doc.css" rel="stylesheet">
+	<link href="../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- #body -->
+	<h1>Chico-UI: Carousel testcases</h1>
+	<div class="box">
+		<h2>Carousel</h2>
+		<div class="box testCarousel">
+			<ul class="carousel">
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			</ul>
+		</div>
+	</div>
+
+<!-- #body -->
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../libs/js/jquery.js"></script>
+	<script src="../libs/js/qunit.js"></script>
+	<script src="../php/chico.php?get=carousel&debug=true"></script>
+	<script src="functions.js"></script>
+
+<!-- #script -->
+	<script>
+		var testCarousel = $('.testCarousel').carousel();
+		
+		$.fx.off = true;
+
+		/**
+		 * 	Test Cases
+		 */
+
+       module("Carousel instance object");
+		
+        test("testCarousel instance", function(){
+
+            expect( 4 );
+
+       		ok( testCarousel.uid >= 0 , "Expected to find a \"uid\" attribute on the Carousel instance");
+       		
+    		ok( testCarousel.type == "ui.carousel" , "Expected to find \"ui.carousel\" as value of type attribute");
+    		
+    		ok( $.isFunction(testCarousel.next) , "Expected to find a method called next()");
+    		
+    		ok( $.isFunction(testCarousel.prev) , "Expected to find a method called prev()");
+    		  		
+        });
+        
+        test("chain methods", function(){
+            
+            expect ( 1 );
+            
+            var testCarouselOriginal = testCarousel;
+            
+            var chainSelect = testCarousel.next().prev();
+             
+            ok ( chainSelect === testCarouselOriginal , "Expected to return original instance object on select() method call");
+            
+        });
+        
+	</script>
+
+</body>
+</html>
