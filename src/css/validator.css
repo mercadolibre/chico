@@ -1,9 +1,4 @@
-.ui-helper {
-	display:inline-block;
-	position:relative;
-}
-
-.ui-helper-content,
+.ui-helper,
 .ui-validator {
 	background-color:#fbd9db;
 	border:1px solid #f7a9ae;
@@ -12,7 +7,7 @@
 	padding:5px;
 }
 
-.ui-helper-content {
+.ui-helper {
 	display:inline-block;
 	width:160px;
 	position:absolute;
@@ -26,78 +21,59 @@
 	margin-bottom:10px;
 }
 
-.ui-helper-content span {
+.ui-helper span {
 	padding:0;
 }
 
-.ui-helper-content .ico.error,
+.ui-helper .ico.error,
 .ui-validator .ico.error {
 	float:left;
 	margin:2px 5px 0 0;
 }
 
-.ui-helper legend,
-.ui-helper h4,
-.ui-helper .options.ui-helper-trigger {
-	display:inline;
-}
-
 /* Cone */
 
-.ui-helper-content .cone {
+.ui-helper .cone {
 	/*background: transparent url('../src/assets/helper.png') 0 0 no-repeat;*/
 	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIxJREFUeNpi/P//PwMu8GPVerAkR1ggIy41TPg0sxjoMoAwzCCiDYBphgF8hjAR0kzIECZiNOMzhIlYzbgMYSJFMzZDGL+vXEeSZmTw58Jl3NFILGACJRKQSeTYDtLLBEtppBgC04wSC8QagqwZIx0QMgRdM9aUiMsQbJpx5gV0Q3BpBqcDSrMzQIABAIOjaGXvpybEAAAAAElFTkSuQmCC') 0 0 no-repeat;
 	display:block;
 	position:absolute;
 }
 
-.ui-helper-content .cone.down,
-.ui-helper-content .cone.top {
+.ui-helper.down .cone,
+.ui-helper.top .cone{
 	width:16px;
 	height:8px;
 	left:8px;
 }
 
-.ui-helper-content .cone.down {
+.ui-helper.down .cone {
 	top:-8px;
 }
 
-.ui-helper-content .cone.top {
+.ui-helper.top .cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }
 
-.ui-helper-content .cone.left,
-.ui-helper-content .cone.right {
+.ui-helper.left .cone,
+.ui-helper.right .cone {
 	width:8px;
 	height:16px;
 	top:4px;
 }
 
-.ui-helper-content .cone.left {
+.ui-helper.left .cone {
 	background-position:-8px 0;
 	right:-8px;
 }
 
-.ui-helper-content .cone.right {
+.ui-helper.right .cone {
 	left:-8px;
 }
 
 /* IE 6, 7 */
 .ie6 .ui-helper,
 .ie7 .ui-helper {
-	display:inline !important;
-	border:none;
 	z-index:1;
-}
-
-.ie6 .ui-helper-trigger {
-	display:inline !important;
-	border:none;
-}
-
-/* IE 7 */
-.ie7 .ui-helper-trigger {	
-	position:relative;
-	border:none;
 }

@@ -11,10 +11,11 @@ ui.modal = function(conf){
 	// Global configuration
 	conf.$trigger = $(conf.element);
 	conf.closeButton = true;
-	conf.align = 'center';
 	conf.classes = 'box';
-	conf.wrappeable = false;
 	conf.ajaxType = 'POST';
+	conf.position = {
+		fixed:true
+	};
 	conf.publish = that.publish;
 			
 	
@@ -41,6 +42,12 @@ ui.modal = function(conf){
         // return publish object
         return conf.publish;
 	};
+	
+	var position = function(event){
+		ui.positioner(conf.position);
+		
+		return conf.publish;
+	}
 
 	var setAjaxConfig = function(){
 		// Content from href/action						
@@ -53,7 +60,13 @@ ui.modal = function(conf){
 	// Dimmer
 	var dimmer = {
 		on:function(){
-			$('<div>').bind('click', hide).addClass('ui-dimmer').css({height:$(window).height(), display:'block'}).hide().appendTo('body').fadeIn();
+			$('<div>').bind('click', hide).addClass('ui-dimmer').css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++}).hide().appendTo('body').fadeIn();
+			/*ui.positioner({
+				element: $('.ui-dimmer'),
+				fixed: true,
+				points: 'lt lt'
+			});*/
+			//$('.ui-dimmer').fadeIn();
 		},
 		off:function(){
 			$('div.ui-dimmer').fadeOut('normal', function(){ $(this).remove(); });
@@ -72,7 +85,8 @@ ui.modal = function(conf){
         conf.publish.type = "ui.modal",
         conf.publish.content = conf.content.data,
         conf.publish.show = function(event){ return show(event) },
-        conf.publish.hide = function(event){ return hide(event) }
+        conf.publish.hide = function(event){ return hide(event) },
+        conf.publish.position = function(event){return position(event) }
 
 	return conf.publish;
 

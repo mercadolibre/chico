@@ -28,7 +28,8 @@ var ui = window.ui = {
 		body: $('body'),
 		html: $('html'),
 		window: $(window),
-		document: $(document)
+		document: $(document),
+		zIndex: 1000
 	}
 }
 

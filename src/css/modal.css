@@ -12,15 +12,12 @@
 .ui-modal {
 	background-color: #fff;
 	display:none;
-	position:fixed;
 	width:500px;
 	z-index:200;
+	position:absolute;
 	box-shadow: 3px 3px 3px #595959;
 	-webkit-box-shadow: 3px 3px 3px #595959;
 	-moz-box-shadow: 3px 3px 3px #595959;
-}
-
-.ui-modal-content {
 	overflow:auto;
 }
 
@@ -29,10 +26,6 @@
 	border-bottom:1px solid #cccccc;
 	padding-bottom:5px;
 	margin-bottom:10px;
-}
-
-.ui-modal-content {
-	overflow:auto;
 }
 
 /* IE6 */
@@ -47,13 +40,8 @@ html.ie6  div.ui-dimmer {
 	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop);
 }
 
-.ie6 .ui-modal {
-	position:absolute;
-}
 
 * html.ie6  div.ui-modal {
-	position: absolute;
-	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop +((documentElement.clientHeight-this.clientHeight)/2 ) : document.body.scrollTop +((document.body.clientHeight-this.clientHeight)/2));
 	z-index:150;
 }
 

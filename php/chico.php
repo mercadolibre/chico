@@ -31,11 +31,11 @@ $get = ( isset($_GET["get"]) ) ? $_GET["get"] : false ;
 // Components to delivery
 $components = "";
 // Necesary internals components
-$internals = "position,object,floats,navs";
+$internals = "position,positioner,object,floats,navs";
 
 if (!$get) { 
     // If no get defined, delivery everything
-    $components = "carousel,dropdown,layer,modal,tabNavigator,tooltip,validator";
+    $components = "carousel,dropdown,layer,modal,tabNavigator,tooltip,validator,positioner";
     $files = "core,".$internals.",".$components;
 } else {
     // If a get is defined remove "core" from it, will added later.

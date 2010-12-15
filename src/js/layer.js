@@ -10,11 +10,14 @@ ui.layer = function(conf){
 
 	// Global configuration
 	conf.$trigger = $(conf.element);
-	conf.align = 'down';
 	conf.cone = true;
 	conf.classes = 'box';
-	conf.wrappeable = true;
-	conf.visible = false;
+	conf.visible = false;	
+	conf.position = {
+   		context: conf.$trigger,
+        offset: "0 10",
+		points: "lt lb"
+    }
     conf.publish = that.publish;
 
 
@@ -24,7 +27,7 @@ ui.layer = function(conf){
 
         if (conf.event === "click") {
             
-            $('.uiLayer').bind('click', function(event){ event.stopPropagation() });
+            $('.ui-layer').bind('click', function(event){ event.stopPropagation() });
 								
             // Document events
             $(document).bind('click', function(event){
@@ -44,6 +47,12 @@ ui.layer = function(conf){
         // return publish object
         return conf.publish;
     }
+    
+    var position = function(event){
+		ui.positioner(conf.position);
+		
+		return conf.publish;
+	}
 
 	// Click
 	if(conf.event === 'click'){
@@ -71,7 +80,8 @@ ui.layer = function(conf){
         conf.publish.type = "ui.layer",
         conf.publish.content = conf.content.data,
         conf.publish.show = function(event){ return show(event, conf) },
-        conf.publish.hide = function(event){ return hide(event, conf) }
+        conf.publish.hide = function(event){ return hide(event, conf) },
+        conf.publish.position = function(event){return position(event) }
 
 	return conf.publish;
     

@@ -9,431 +9,734 @@
 		<script></script>
 		<meta charset="utf-8">
 		<title>Chico UI</title>
+    	<!--link rel="stylesheet" type="text/css" href="src/css/base.css" />
+	    <link rel="stylesheet" type="text/css" href="src/css/forms.css" /-->
 		<link rel="stylesheet" type="text/css" href="php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator">
-		<script src="libs/js/jquery.js"></script>
-		<script src="php/chico.php?get=dropdown,layer,modal,tabNavigator,tooltip,carousel,validator&debug=true"></script>		
-		<style>
-			.carousel li{
-				width:120px;
-				height:120px;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="libs/css/highlight.css">
+		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
+		<script src="libs/js/jquery-1.4.4.js"></script>
+		<script src="php/chico.php?debug=true"></script>
+		<!--script src="src/js/core.js"></script-->
+				
 		<!--[if lt IE 7 ]>
-			<script src="src/js/dd_belatedpng.js"></script>
+			<script src="libs/js/dd_belatedpng.js"></script>
 			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
 		<![endif]-->
 	</head>
 	
-	<body>		
-		<h1>Dropdown</h1>	
-		<div class="demoDropdown">
-			<span>Sitios</span>
-			<ul>
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-			</ul>
-		</div>
-		<hr>
-		
-		<h1>Tooltip</h1>
-		<img class="demoTooltip" title="Buen vendedor" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
-		<hr>
-		
-		<h1>Layer</h1>
+	<body>	
+	<div class="header">
+		<h1>Chico UI</h1>
+		<p><a href="tests/">Test Cases</a>. <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportá bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Chico-Wiki</a>.</p>
+	</div>
+	<div class="container">
 		<div class="box">
-			<span class="demoLayerOnclick">Layer ejecutado en el clic.</span> | <span class="demoLayerOnmouseover">Layer ejecutado en el hover.</span>
-		</div>
-		<hr>
-	
+		<h1>Instalación</h1>
+		<p>Para la instalación es necesario tener en cuenta las precarga de <a href="http://www.jquery.com">jQuery</a> como dependencia de la librería.</p>
 
-		<h1>Modal window</h1>
-		<div class="box">
-			<a href="test.html" class="demoModal">Modal ejecutado en un link.</a></li>
-			<form action="test.html">
-				<input type="submit" class="btn secondary demoModal" value="Modal ejecutado en un botón">
-			</form>
-		</div>
-		<hr>
-
-		<h1>Carousel</h1>
-		<div class="box demoCarousel">
-			<ul class="carousel">
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-			</ul>
-		</div>
-		<hr>
-		
-		<h1>Tab Navigator</h1>		
-		<div class="demoTabNavigator">
+		<div id="chico-tabs">
 			<ul>
-				<li><a href="#tab1">Tab1</a></li>
-				<li><a href="#tab2">Tab2</a></li>
-				<li><a href="#tab3">Tab3</a></li>
+				<li><a href="#dependencias">Recursos</a></li>
+				<li><a href="#crossbrowsing">Crossbrowsing</a></li>
+				<li><a href="#extensiones">Extensiones</a></li>
 			</ul>
-			<div>
-				<div id="tab1">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
+		<div>
+		<div>
+				<div id="dependencias">
+				    <h3>JavaScript</h3>
+					<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JavaScript. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/chico.php</strong>. <a href="http://10.100.34.210:8080/content/chico/0.4.3/php/chico.php">Ver packer-o-matic</a></p>  
+					<p>El <em>Packer-o-matic</em> viene en varios sabores y puede recibir dos argumentos opcionales por query string:<p>
+					<dl class="depend">
+	       				<dt>?<strong>debug</strong>=true</dt>
+    					<dd><p>El parámetro <strong>debug</strong> con valor <em>true</em> le pide al packer que evite la minimización de recursos. Así se pueden ver todos los comentarios del SDK y permite encontrar problemas más facilmente. Por defecto el argument es <em>false</em>, está apagado.</dd>
+	       				<dt>?<strong>get</strong>=modal,layer</dt>
+	       				<dd>El parámetro <strong>get</strong> recibe como argumentos los componentes que queremos precompilar. Estos componentes van separados por coma (","). Por defecto el packer va a incluir el <em>core</em> de Chico-UI. Si el argumento no está definido, el packer entiende que queremos obtener y configurar todos los componentes del SDK.</dd>
+	       				<dt>?<strong>get</strong>=modal,layer&<strong>debug</strong>=true</dt>
+	       				<dd>Ambos argumentos pueden usarse juntos en una misma query string concatenando las instrucciones con el símbolo <em>&</em>.</dd>
+					</dl>
+					
+					<h3>Style sheets</h3>
+					<p>Existe un servicio básico para obtener un archivo CSS con los estilos correspondientes para los componentes. Todavía no tiene todas las mismas características que el Packer-o-matic. Recibe un argumento <strong>?q=</strong> con la lista de componentes que necesitamos separados por coma (","). Ejemplo:</p>
+					<p><strong>http://10.100.34.210:8080/content/chico/0.x.x/php/css.php?q=base,modal,layer</strong>. <a href="http://10.100.34.210:8080/content/chico/0.4.3/php/css.php?q=base,forms">Ver servicio de css</a></p> 
 
-				<div id="tab2">
-					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
+			</div>
+			<div id="crossbrowsing">
+				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;html&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
+				<code>
+					&lt;!--[if IE]&gt;&lt;![endif]--&gt;
+					&lt;!--[if lt IE 7 ]&gt; &lt;html lang="en" class="no-js ie6"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if IE 7 ]&gt; &lt;html lang="en" class="no-js ie7"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if IE 8 ]&gt; &lt;html lang="en" class="no-js ie8"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if IE 9 ]&gt; &lt;html lang="en" class="no-js ie9"&gt; &lt;![endif]--&gt;<br>
+					&lt;!--[if (gt IE 9)|!(IE)]&gt; &lt;!--&gt; &lt;html lang="en" class="no-js"&gt; &lt;!--&lt;![endif]--&gt;<br>
+				</code><br>
+				
+				<p>Para aplicar transparencia a las imagenes PNG en <abbr title="Internet Explorer 6">IE 6</abbr>, es necesario agregar estas lineas antes de la etiqueta de cierre &lt;/head&gt;.</p><br>
+				<code>
+					&lt;!--[if lt IE 7 ]&gt;<br>
+						&lt;script src="http://10.100.34.210:8080/content/chico/0.x.x/libs/js/dd_belatedpng.js"&gt;&lt;/script&gt;<br>
+						&lt;script&gt; DD_belatedPNG.fix('img, .ico'); //fix any &lt;img&gt; or .ico background-images &lt;/script&gt;<br>
+					&lt;![endif]--><br>
+				</code>
+			</div>
+			<div id="extensiones">
+			<p>Extender funcionalidades de Chico UI es sencillo y rápido. Todos los componentes visuales de Chico UI se definene en el namespace <strong>ui.*</strong> y heredan de un constructor genérico que posee la funcionalidad básica para integrarse con el <abbr title="Software Development Kit">SDK</abbr>. Para extender funcionalidad del constructor genérico o de cualquier otra familia de componentes utilizamos un patrón de <abbr title="Object Oriented Programing">OOP</abbr> muy ágil y sencillo presentado por Douglas Crockford llamado <strong>PowerConstructor</strong>.</p>
+			<p>Ejemplo componente <em>Foobar</em>:</p>
+			<code>
+				<pre>
+			ui.Foobar = function(foo){	// Foobar Constructor
+				var data = foo;	// Datos privados
+				var that = ui.object(); // Defino la herencia
+					that.member = {}; // Miembros públicos
+					that.toString = function() { return "Foo Object"; }
+					return that; // Devuelvo el objeto creado
+			}
+			</pre>
+			</code>
+			<p>Para configurar el componente es necesario:</p>
+			<ol>
+				<li>Crear un archivo con el nombre del componente (ej: "Foobar.js") con el código y colocarlo en la ruta /src/js/. </li>
+				<li>Agregar las hojas de estilo en la ruta /src/css/ <em>con el mismo nombre de archivo</em>.</li>
+				<li>Agregar el nombre del componente a la lista de componentes disponibles en el núcleo del SDK.</li>
+			</ol>
+			<code>
+			<pre>
+			ui.components += "Foobar";
+			</pre>
+			</code>
+			<p>Ahora el componente esta listo para usarse:</p>
+			<code>
+			<pre>
+			$("div.foo").Foobar({data:"foo"});
+			</pre>
+			</code>
+			<p>Eso es todo ;)</p>
+			</div>
+			</div>
+		</div>
+	</div>
+	</div>
+		<div class="article demo">
+			<h1>Dropdown</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<div class="demoDropdown">
+						<span>Sitios</span>
+						<ul>
+							<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+							<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+							<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+							<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+						</ul>
+					</div>
 				</div>
+			</div>
 		
-				<div id="tab3">
-					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<div class="foo">
+								<span>Title</span>
+								<ul>
+									<li><a href="...">...</a></li>
+									<li><a href="...">...</a></li>
+									<li><a href="...">...</a></li>
+									<li><a href="...">...</a></li>
+								</ul>
+							</div></pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').dropdown();</pre>
+					</code>
 				</div>
 			</div>
 		</div>
-
-
-		<hr>
-
-		<h1>Validator</h1>
-		<div class="box">
-			<p><strong>Tipos de validación:</strong> E-mail, Url, Campo obligatorio, Campo numérico, Valor numérico mínimo, Valor numérico máximo, Rango de números, Cantidad mínima de caracteres, Cantidad máxima de caracteres.</p><br>
-			
-			<form action="test.html" class="formulario">
-				<fieldset>
-					<legend>Casos de uso de Input</legend>
-					<p class="required">* Datos obligatorios</p>
-					<ol>
-						<li class="fieldBox">
-							<label class="required" for="val_email">
-								<span>E-mail: <em>*</em></span>													
-								<input type="email" id="val_email" required="required">
-							</label>
-							<p class="help">Escribe una descripción corta y clara</p>
-						</li>
-						<li class="fieldBox">
-							<label for="val_url">
-								<span>URL:</span>
-								<input type="url" id="val_url">
-							</label>
-						</li>
-						<li class="fieldBox">
-							<label for="val_number">
-								<span>Campo numérico:</span>
-								<input type="number" id="val_number" min="20">
-							</label>
-						</li>
-						<li class="fieldBox">
-							<label for="val_range">
-								<span>Rango de números:</span>
-								<input type="range" id="val_range" min="1" max="10">
-							</label>
-						</li>
-						<li class="fieldBox">
-							<label class="required disabled" for="val_required_disabled">
-								<span>Required disabled: <em>*</em></span>
-								<input type="text" id="val_required_disabled" required="required" disabled="disabled">
-							</label>
-						</li>
-						<li class="fieldBox">
-							<label for="val_length">
-								<span>Caracteres:</span>
-								<input type="text" id="val_length">
-							</label>
-						</li>
-					</ol>
-				</fieldset>
-	
-				<fieldset>
-					<legend>Casos de uso de Select</legend>
-					<ul>
-						<li class="fieldBox">
-							<label for="val_select1">
-								<span>Campo común:</span>
-								<select id="val_select1">
-									<option value="-1">Selecciona...</option>
-									<option value="1">Opción 1</option>
-									<option value="2">Opción 2</option>
-									<option value="3">Opción 3</option>
-									<option value="4">Opción 4</option>
-								</select>
-							</label>
-						</li>
-			
-						<li class="fieldBox">
-							<label for="val_select2" class="required">
-								<span>Obligatorio: <em>*</em></span>
-								<select id="val_select2" required="required">
-									<option value="-1">Selecciona...</option>
-									<option value="1">Opción 1</option>
-									<option value="2">Opción 2</option>
-									<option value="3">Opción 3</option>
-									<option value="4">Opción 4</option>
-								</select>
-							</label>
-						</li>
-			
-						<li class="fieldBox">
-							<label for="val_select3" class="required disabled">
-								<span>Required disabled: <em>*</em></span>
-								<select id="val_select3" required="required" disabled="disabled">
-									<option value="-1">Selecciona...</option>
-									<option value="1">Opción 1</option>
-									<option value="2">Opción 2</option>
-									<option value="3">Opción 3</option>
-									<option value="4">Opción 4</option>
-								</select>
-							</label>
-						</li>
-			
-						<li class="fieldBox">
-							<label for="val_select4" class="disabled">
-								<span>Disabled:</span>
-								<select id="val_select4" disabled="disabled">
-									<option value="-1">Selecciona...</option>
-									<option value="1">Opción 1</option>
-									<option value="2">Opción 2</option>
-									<option value="3">Opción 3</option>
-									<option value="4">Opción 4</option>
-								</select>
-							</label>
-						</li>
-					</ul>
-				</fieldset>
-	
-				<fieldset>
-					<legend>Checkbox</legend>
-					<div class="val_check1 options">
-						<h4>Label de grupo de checkboxes:</h4>
-						<ul>
-							<li class="fieldBox">
-								<label for="val_check1a">
-									<input type="checkbox" value="alpha" id="val_check1a" name="version1">
-									<span>Alpha</span>
-								</label>
-							</li>
-				
-							<li class="fieldBox">
-								<label for="val_check1b">
-									<input type="checkbox" value="beta" id="val_check1b" name="version1">
-									<span>Beta</span>
-								</label>
-							</li>
-						</ul>
-					</div>
-				</fieldset>
-	
-				<fieldset>
-					<legend>Legend de grupo obligatorio <em>*</em></legend>
-					<div class="val_check2 options required">
-						<ul>
-							<li class="fieldBox">
-								<label for="val_check2a">
-									<input type="checkbox" value="alpha" id="val_check2a" name="version2">
-									<span>Alpha</span>
-								</label>
-							</li>
-				
-							<li class="fieldBox">
-								<label for="val_check2b">
-									<input type="checkbox" value="beta" id="val_check2b" name="version2">
-									<span>Beta</span>
-								</label>
-							</li>
-						</ul>
-					</div>
-				</fieldset>
-	
-				<fieldset>
-					<legend>Legend de grupo de checkboxes</legend>
-					<div class="val_check3 required options">
-						<h4>Label de grupo obligatorio: <em>*</em></h4>
-						<ul>
-							<li class="fieldBox">
-								<label for="val_check3a">
-									<input type="radio" value="alpha" id="val_check3a" name="version3">
-									<span>Alpha</span>
-								</label>
-							</li>
-				
-							<li class="fieldBox">
-								<label for="val_check3b">
-									<input type="radio" value="beta" id="val_check3b" name="version3">
-									<span>Beta</span>
-								</label>
-							</li>
-						</ul>
-					</div>
-				</fieldset>
-	
-				<fieldset>
-					<legend>Radio buttons</legend>
-					<div class="val_radio1 options">
-						<ul>
-							<li class="fieldBox">
-								<label for="val_radio1a">
-									<input type="radio" value="alpha" id="val_radio1a" name="version4">
-									<span>Alpha</span>
-								</label>
-							</li>
-				
-							<li class="fieldBox">
-								<label for="val_radio1b">
-									<input type="radio" value="beta" id="val_radio1b" name="version4">
-									<span>Beta</span>
-								</label>
-							</li>
-						</ul>
-					</div>
-				</fieldset>
-				
-				<fieldset>
-					<legend>Radio buttons obligatorios <em>*</em></legend>
-					<div class="val_radio2 options required">
-						<ul>
-							<li class="fieldBox">
-								<label for="val_radio2a">
-									<input type="radio" value="alpha" id="val_radio2a" name="version5">
-									<span>Alpha</span>
-								</label>
-							</li>
-				
-							<li class="fieldBox">
-								<label for="val_radio2b">
-									<input type="radio" value="beta" id="val_radio2b" name="version5">
-									<span>Beta</span>
-								</label>
-							</li>
-						</ul>
-					</div>
-				</fieldset>
-				
-				<fieldset>
-					<legend>Legend de grupo de Radio buttons</legend>
-					<div class="val_radio3 options required">
-						<h4 class="required">Radio buttons obligarorios: <em>*</em></h4>
-						<ul>
-							<li class="fieldBox">
-								<label for="val_radio3a">
-									<input type="radio" value="alpha" id="val_radio3a" name="version6">
-									<span>Alpha</span>
-								</label>
-							</li>
-				
-							<li class="fieldBox">
-								<label for="val_radio3b">
-									<input type="radio" value="beta" id="val_radio3b" name="version6">
-									<span>Beta</span>
-								</label>
-							</li>
-						</ul>
-					</div>
-				</fieldset>
-	
-				<fieldset>
-					<legend>Textarea</legend>
-					<ul>
-						<li class="fieldBox">
-							<label for="val_textarea1">
-								<span>Textarea:</span>
-								<textarea id="val_textarea1"></textarea>
-							</label>
-						</li>
-			
-						<li class="fieldBox">
-							<label for="val_textarea2" class="required">
-								<span>Obligatorio: <em>*</em></span>
-								<textarea id="val_textarea2" required="required"></textarea>
-							</label>
-						</li>
-			
-						<li class="fieldBox">
-							<label for="val_textarea3" class="required disabled">
-								<span>Required disabled: <em>*</em></span>
-								<textarea id="val_textarea3" required="required" disabled="disabled"></textarea>
-							</label>
-						</li>
-			
-						<li class="fieldBox">
-							<label for="val_textarea4" class="disabled">
-								<span>Disabled:</span>
-								<textarea id="val_textarea4" disabled="disabled"></textarea>
-							</label>
-						</li>
-					</ul>
-				</fieldset>
-	
-				<p class="actions">
-					<input type="submit" value="Enviar" class="btn primary">
-					<a href="#">Cancelar</a>
-				</p>
-			</form>
+		
+		<div class="article demo">
+			<h1>Tooltip</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<img class="demoTooltip" title="Buen vendedor" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<element class="foo" title="Foobar">...</element></pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').tooltip();</pre>
+					</code>
+				</div>
+			</div>
 		</div>
-		<hr>
-		<!-- Organization -->
-		<script>
-			// Boxes alignment
-	        $('.article').each(function(i, e){ var $first = $(e).find('.section .box:first'), $second = $(e).find('.aside .box:first'); if($first.height() < $second.height()) $first.height( $second.height() ); });
+		
+		<div class="article demo">
+			<h1>Layer</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<span class="demoLayerOnclick">Layer ejecutado en el clic.</span> | <span class="demoLayerOnmouseover">Layer ejecutado en el hover.</span>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<element class="foo">...</element></pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').layer();</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
+			<h1>Modal window</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<a href="test.html" class="demoModal">Modal ejecutado en un link.</a></li>
+					<form action="test.html">
+						<input type="submit" class="btn secondary demoModal" value="Modal ejecutado en un botón">
+					</form>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<a href="Foobar" class="foo">...</a></li>
+							
+							ó
+							
+							<form action="Foobar">
+								<input class="btn secondary foo" type="submit" value="...">
+							</form></pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').modal();</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
+			<h1>Carousel</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<div class="box demoCarousel">
+						<ul class="carousel">
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+							
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+							<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+							
+							<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+							<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+							<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+							<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<div class="foo">
+								<ul class="carousel">
+									<li>...</li>
+								</ul>
+							</div></pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').carousel();</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
+			<h1>Tab Navigator</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<div class="demoTabNavigator">
+						<ul>
+							<li><a href="#tab1">Tab1</a></li>
+							<li><a href="#tab2">Tab2</a></li>
+							<li><a href="#tab3">Tab3</a></li>
+						</ul>
+						<div>
+							<div id="tab1">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+							</div>
 			
-			// Automatic version
-	        $('head title, .header h1').html($('head title').html() + ' ' + ui.version);
+							<div id="tab2">
+								<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
+							</div>
+					
+							<div id="tab3">
+								<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<div class="foo">
+								<ul>
+									<li><a href="#foo1">Tab1</a></li>
+									<li><a href="#foo2">Tab2</a></li>
+									<li><a href="#foo3">Tab3</a></li>
+								</ul>
+								<div>
+									<div id="foo1">...</div>
+									<div id="foo2">...</div>
+									<div id="foo3">...</div>
+								</div>
+							</div></pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').tabNavigator();</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
+			<h1>Validator</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					
+					<p><strong>Tipos de validación:</strong> E-mail, Url, Campo obligatorio, Campo numérico, Valor numérico mínimo, Valor numérico máximo, Rango de números, Cantidad mínima de caracteres, Cantidad máxima de caracteres.</p><br>
+					
+					<form action="test.html" class="formulario">
+						<fieldset>
+							<legend>Casos de uso de Input</legend>
+							<p class="required">* Datos obligatorios</p>
+							<ol>
+								<li class="fieldBox">
+									<label class="required" for="val_email">
+										<span>E-mail: <em>*</em></span>													
+										<input type="email" id="val_email" required="required">
+									</label>
+									<p class="help">Escribe una descripción corta y clara</p>
+								</li>
+								<li class="fieldBox">
+									<label for="val_url">
+										<span>URL:</span>
+										<input type="url" id="val_url">
+									</label>
+								</li>
+								<li class="fieldBox">
+									<label for="val_number">
+										<span>Campo numérico:</span>
+										<input type="number" id="val_number" min="20">
+									</label>
+								</li>
+								<li class="fieldBox">
+									<label for="val_range">
+										<span>Rango de números:</span>
+										<input type="range" id="val_range" min="1" max="10">
+									</label>
+								</li>
+								<li class="fieldBox">
+									<label class="required disabled" for="val_required_disabled">
+										<span>Required disabled: <em>*</em></span>
+										<input type="text" id="val_required_disabled" required="required" disabled="disabled">
+									</label>
+								</li>
+								<li class="fieldBox">
+									<label for="val_length">
+										<span>Caracteres:</span>
+										<input type="text" id="val_length">
+									</label>
+								</li>
+							</ol>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Casos de uso de Select</legend>
+							<ul>
+								<li class="fieldBox">
+									<label for="val_select1">
+										<span>Campo común:</span>
+										<select id="val_select1">
+											<option value="-1">Selecciona...</option>
+											<option value="1">Opción 1</option>
+											<option value="2">Opción 2</option>
+											<option value="3">Opción 3</option>
+											<option value="4">Opción 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_select2" class="required">
+										<span>Obligatorio: <em>*</em></span>
+										<select id="val_select2" required="required">
+											<option value="-1">Selecciona...</option>
+											<option value="1">Opción 1</option>
+											<option value="2">Opción 2</option>
+											<option value="3">Opción 3</option>
+											<option value="4">Opción 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_select3" class="required disabled">
+										<span>Required disabled: <em>*</em></span>
+										<select id="val_select3" required="required" disabled="disabled">
+											<option value="-1">Selecciona...</option>
+											<option value="1">Opción 1</option>
+											<option value="2">Opción 2</option>
+											<option value="3">Opción 3</option>
+											<option value="4">Opción 4</option>
+										</select>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_select4" class="disabled">
+										<span>Disabled:</span>
+										<select id="val_select4" disabled="disabled">
+											<option value="-1">Selecciona...</option>
+											<option value="1">Opción 1</option>
+											<option value="2">Opción 2</option>
+											<option value="3">Opción 3</option>
+											<option value="4">Opción 4</option>
+										</select>
+									</label>
+								</li>
+							</ul>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Checkbox</legend>
+							<div class="val_check1 options">
+								<h4>Label de grupo de checkboxes:</h4>
+								<ul>
+									<li class="fieldBox">
+										<label for="val_check1a">
+											<input type="checkbox" value="alpha" id="val_check1a" name="version1">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_check1b">
+											<input type="checkbox" value="beta" id="val_check1b" name="version1">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Legend de grupo obligatorio <em>*</em></legend>
+							<div class="val_check2 options required">
+								<ul>
+									<li class="fieldBox">
+										<label for="val_check2a">
+											<input type="checkbox" value="alpha" id="val_check2a" name="version2">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_check2b">
+											<input type="checkbox" value="beta" id="val_check2b" name="version2">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Legend de grupo de checkboxes</legend>
+							<div class="val_check3 required options">
+								<h4>Label de grupo obligatorio: <em>*</em></h4>
+								<ul>
+									<li class="fieldBox">
+										<label for="val_check3a">
+											<input type="radio" value="alpha" id="val_check3a" name="version3">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_check3b">
+											<input type="radio" value="beta" id="val_check3b" name="version3">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Radio buttons</legend>
+							<div class="val_radio1 options">
+								<ul>
+									<li class="fieldBox">
+										<label for="val_radio1a">
+											<input type="radio" value="alpha" id="val_radio1a" name="version4">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_radio1b">
+											<input type="radio" value="beta" id="val_radio1b" name="version4">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+						
+						<fieldset>
+							<legend>Radio buttons obligatorios <em>*</em></legend>
+							<div class="val_radio2 options required">
+								<ul>
+									<li class="fieldBox">
+										<label for="val_radio2a">
+											<input type="radio" value="alpha" id="val_radio2a" name="version5">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_radio2b">
+											<input type="radio" value="beta" id="val_radio2b" name="version5">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+						
+						<fieldset>
+							<legend>Legend de grupo de Radio buttons</legend>
+							<div class="val_radio3 options required">
+								<h4 class="required">Radio buttons obligarorios: <em>*</em></h4>
+								<ul>
+									<li class="fieldBox">
+										<label for="val_radio3a">
+											<input type="radio" value="alpha" id="val_radio3a" name="version6">
+											<span>Alpha</span>
+										</label>
+									</li>
+						
+									<li class="fieldBox">
+										<label for="val_radio3b">
+											<input type="radio" value="beta" id="val_radio3b" name="version6">
+											<span>Beta</span>
+										</label>
+									</li>
+								</ul>
+							</div>
+						</fieldset>
+			
+						<fieldset>
+							<legend>Textarea</legend>
+							<ul>
+								<li class="fieldBox">
+									<label for="val_textarea1">
+										<span>Textarea:</span>
+										<textarea id="val_textarea1"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_textarea2" class="required">
+										<span>Obligatorio: <em>*</em></span>
+										<textarea id="val_textarea2" required="required"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_textarea3" class="required disabled">
+										<span>Required disabled: <em>*</em></span>
+										<textarea id="val_textarea3" required="required" disabled="disabled"></textarea>
+									</label>
+								</li>
+					
+								<li class="fieldBox">
+									<label for="val_textarea4" class="disabled">
+										<span>Disabled:</span>
+										<textarea id="val_textarea4" disabled="disabled"></textarea>
+									</label>
+								</li>
+							</ul>
+						</fieldset>
+			
+						<p class="actions">
+							<input type="submit" value="Enviar" class="btn primary">
+							<a href="#">Cancelar</a>
+						</p>
+					</form>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML básico para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<form action="..." class="foo">
+								<fieldset>
+									<legend>...</legend>
+									<ul>
+										<li class="fieldBox">
+											<label for="Foobar">
+												<span>E-mail:</span>
+												<input type="email" id="Foobar">
+											</label>
+										</li>
+									</ul>
+								</fieldset>
+							</form>
+						</pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').validator();</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+	</div>
 	
-			// Components
-	        $('.demoDropdown').dropdown();
-	        $('.demoCarousel').carousel();
-	        $('.demoModal').modal({ content: { type: 'ajax' } });			
-	        $('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
-	        $('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
-	        $('.demoTooltip').tooltip();
-	        $('.demoTabNavigator,#chico-tabs').tabNavigator();
-	        
-	        // Validator
-			$('.formulario').validator({
-				fields: {
-					// Inputs
-					'#val_email':	{ required: 'El email es obligatorio.', email: 'El email esta mal escrito.' },
-					'#val_url':		{ url: 'La URL esta mal escrita.' },
-					'#val_number':	{ number: 'El precio debe ser un número.', min: 'El precio debe ser mayor a 20.' },
-					'#val_range':	{ range: 'El rango debe ser un número entre 1 y 10.' },
-					'#val_required_disabled': { required: 'El campo es obligatorio.' },
-					'#val_length':	{ maxLength: [20, 'El campo debe tener menos de 20 caracteres.'], minLength: [6, 'El campo debe tener más de 6 caracteres.'] },
-				
-					// Selects
-					'#val_select2':	{ required: 'El campo es obligatorio.' },
-					'#val_select3':	{ required: 'El campo es obligatorio.' },
-				
-					// Options
-					'.val_check2':	{ required: 'El campo es obligatorio.' },
-					'.val_check3':	{ required: 'El campo es obligatorio.' },
-					'.val_radio2':	{ required: 'El campo es obligatorio.' },
-					'.val_radio3':	{ required: 'El campo es obligatorio.' },
-				
-					// Textareas
-					'#val_textarea2': { required: 'El campo es obligatorio.' },
-					'#val_textarea3': { required: 'El campo es obligatorio.' }
-				},
-				defaults: {
-					error: 'Revisa los datos, por favor.'
-				},
-				callbacks: {
-					submit: function(){
-						alert('Callback');
-					}
+	<div id="chat">
+	</div>
+	
+	<!-- Organization -->
+    <script src="libs/js/highlight.js"></script>
+	<script>
+
+		// Boxes alignment
+        $('.article').each(function(i, e){ 
+            var $first = $(e).find('.section .box:first');
+            var $second = $(e).find('.aside .box:first'); 
+            
+            if ( $first.height() < $second.height() ) { $first.height( $second.height() ); } 
+            
+        });
+
+		// Automatic version
+        var title = $('head title').html() + ' ' + ui.version;
+        document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
+        document.getElementsByTagName("h1")[0].innerHTML = title;
+ 
+		// Components
+        var ui_drop = $('.demoDropdown').dropdown();
+
+        var ui_caro = $('.demoCarousel').carousel();
+        var ui_moda = $('.demoModal').modal({ content: { type: 'ajax' } });			
+        var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
+        var ui_layr = $('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
+        var ui_tool = $('.demoTooltip').tooltip();
+        var ui_tabs = $('.demoTabNavigator,#chico-tabs').tabNavigator();
+        
+        // Validator
+		var ui_vali = $('.formulario').validator({
+			fields: {
+				// Inputs
+				'#val_email':	{ required: 'El email es obligatorio.', email: 'El email esta mal escrito.' },
+				'#val_url':		{ url: 'La URL esta mal escrita.' },
+				'#val_number':	{ number: 'El precio debe ser un número.', min: 'El precio debe ser mayor a 20.' },
+				'#val_range':	{ range: 'El rango debe ser un número entre 1 y 10.' },
+				'#val_required_disabled': { required: 'El campo es obligatorio.' },
+				'#val_length':	{ maxLength: [20, 'El campo debe tener menos de 20 caracteres.'], minLength: [6, 'El campo debe tener más de 6 caracteres.'] },
+			
+				// Selects
+				'#val_select2':	{ required: 'El campo es obligatorio.' },
+				'#val_select3':	{ required: 'El campo es obligatorio.' },
+			
+				// Options
+				'.val_check2':	{ required: 'El campo es obligatorio.' },
+				'.val_check3':	{ required: 'El campo es obligatorio.' },
+				'.val_radio2':	{ required: 'El campo es obligatorio.' },
+				'.val_radio3':	{ required: 'El campo es obligatorio.' },
+			
+				// Textareas
+				'#val_textarea2': { required: 'El campo es obligatorio.' },
+				'#val_textarea3': { required: 'El campo es obligatorio.' }
+			},
+			defaults: {
+				error: 'Revisa los datos, por favor.'
+			},
+			callbacks: {
+				submit: function(){
+					alert('Callback');
 				}
-			});
-			
-			// Form submitted demo (DON'T COPY, ONLY FOR VALIDATORS EXAMPLE)
-			$('.formulario').submit();
-	
-		</script>
+			}
+		});
+		
+		// Form submitted demo (DON'T COPY, ONLY FOR VALIDATORS EXAMPLE)
+		$('.formulario').submit();
+		
+
+		// Chat
+		ui.factory({
+		      component: "chat",
+		      callback: createChat
+	      });
+	      
+        function createChat() {
+           $('.chat').chat({
+               ruleGroupName: 'APP_PENDING_PAYMENTS',
+               style: 'block',
+               template: '3'
+           });
+        }
+
+	</script>
 	
 	</body>
 </html>

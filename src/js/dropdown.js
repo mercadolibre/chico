@@ -54,6 +54,7 @@ ui.dropdown = function(conf){
 	// Content
 	conf.$htmlContent
 		.addClass('ui-dropdown-content')
+		.css('z-index', ui.utils.zIndex++)
 		.find('a')
 			.bind('click', function(){ hide($.Event()) });
 

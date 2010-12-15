@@ -20,11 +20,21 @@ ui.validator = function(conf){
 		// Checkbox and radio button special config
 		if(wconf.$element.hasClass('options')){
 			wconf.tag = 'OPTIONS';
-			if(wconf.$element.hasClass('required')) wconf.$element = ( // Required trigger (h4 or legend or element -helper will be fire from here-)
-				( (wconf.$element.find('h4').length > 0) ? wconf.$element.find('h4') : false ) || // if exists H4, get H4
-				( (wconf.$element.prev().attr('tagName') == 'LEGEND') ? wconf.$element.prev() : false ) || // if previous element is a legend tag, get previous element
-				wconf.$element // element
-			);
+			if(wconf.$element.hasClass('required')){
+			
+				var getInlineTrigger = function(){
+					var h4 = wconf.$element.find('h4');
+					h4.wrapInner('<span>');
+					return h4.children();
+				};
+				
+				wconf.$element = ( // Required trigger (h4 or legend or element -helper will be fire from here-)
+					( (wconf.$element.find('h4').length > 0) ? getInlineTrigger() : false ) || // if exists H4, get H4
+					( (wconf.$element.prev().attr('tagName') == 'LEGEND') ? wconf.$element.prev() : false ) || // if previous element is a legend tag, get previous element
+					wconf.$element // element
+				);
+				
+			};
 		
 			// TODO: en el blur de los options tienen que validar que este ok
 		
@@ -104,6 +114,7 @@ ui.validator = function(conf){
 	// Remove big helper
 	var removeValidation = function(){
 		$('.ui-validator').fadeOut('fast', function(){ $(this).remove(); });
+		$('.ui-helper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) - $('.ui-validator').height() - 20); }); // TODO: temp solution
 	};
 
 	// Form events
@@ -160,6 +171,7 @@ ui.validator = function(conf){
 		// General error
 		if(!validation){
 			$(conf.element).before('<p class="ui-validator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
+			$('.ui-helper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) + $('.ui-validator').height() + 20); }); // TODO: temp solution
 		// General ok
 		}else{
 			removeValidation();
@@ -211,17 +223,19 @@ ui.helper = function(wconf){
 	var conf = {
 		name: 'helper',
         $trigger: wconf.$element,
-		align: 'right',
 		cone: true,
 		content: { type: 'param' },
 		classes: 'helper' + wconf.id,
-		wrappeable: true,
-		visible: false
+		visible: false,
+		position: {
+	   		context: wconf.$element,
+	        offset: "15 0",
+			points: "lt rt"
+	    }
 	};
 	
 	var hide = function(){
-		wconf.$element.removeClass('ui-helper-trigger');
-		$('.helper' + wconf.id).unwrap().remove();
+		$('.helper' + wconf.id).remove();
 		conf.visible = false;
 		that.callbacks(conf, 'hide');
 	};
@@ -229,8 +243,6 @@ ui.helper = function(wconf){
 	var show = function(text){
 		conf.content.data = '<span class="ico error">Error: </span>' + text;		
 		that.show($.Event(), conf);
-		if(ui.utils.html.hasClass('ie7')) $('.helper' + wconf.id).parent().css('display','inline');
-		if(wconf.tag == 'INPUT') $('.helper' + wconf.id).parent().css({margin:0,padding:0});// FIX para que el padre de un input no tenga padding y margin 
 	};
 
 	return { show: function(text){ show(text) }, hide: hide };
