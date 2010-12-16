@@ -52,13 +52,13 @@ $internals = "position,positioner,object,floats,navs";
 if (!$get) { 
     // If no get defined, delivery everything
     $components = "carousel,dropdown,layer,modal,tabNavigator,tooltip,validator";
-    $files = ($css) ? "core,".$components : "core,".$internals.",".$components ;
+    $files = ($css) ? "core,forms,".$components : "core,".$internals.",".$components ;
 
 } else {
     // If a get is defined remove "core" from it, will added later.
     //$components = (stripos($get,"core")===false) ? "core,".$internals.",".$get : $get;
     $get = str_replace("core","",$get);
-    $files = ($css) ? "core,".$get : "core,".$internals.",".$get ;
+    $files = ($css) ? "core,forms,".$get : "core,".$internals.",".$get ;
     $components = $get;
 }
 
