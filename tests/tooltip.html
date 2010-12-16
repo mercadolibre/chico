@@ -85,20 +85,14 @@
 			$('.testTooltip').mouseover();
 			
 			exists('.ui-tooltip');
-			exists('.ui-tooltip-trigger');
-			exists('.ui-tooltip-content');
 		});
 		
 		test('Closes tooltip dialog', function(){
 			exists('.ui-tooltip');
-			exists('.ui-tooltip-trigger');
-			exists('.ui-tooltip-content');
 			
 			$('.testTooltip').mouseout();
 			
 			notExists('.ui-tooltip');
-			notExists('.ui-tooltip-trigger');
-			notExists('.ui-tooltip-content');
 		});
 		
 	</script>

@@ -147,8 +147,8 @@
 		  
 			$('.testLayerClick').click();
 			
-			exists('.ui-layer-content .close');
-			exists('.ui-layer-content .cone');
+			exists('.ui-layer .close');
+			exists('.ui-layer .cone');
 			
 			$('body').click();
 			
@@ -161,18 +161,12 @@
 			$('.testLayerClick').click();
 
 			exists('.ui-layer');
-			exists('.ui-layer-trigger');
-			exists('.ui-layer-content');
 				
 			isVisible('.ui-layer');
-			isVisible('.ui-layer-trigger');
-			isVisible('.ui-layer-content');
 			
 			$('body').click();
 
 			notExists('.ui-layer');
-			notExists('.ui-layer-trigger');
-			notExists('.ui-layer-content');
 				
 		});
 		
@@ -180,13 +174,11 @@
 		  
 			$('.testLayerClick').click();
 			
-			exists('.ui-layer-content .close');				
+			exists('.ui-layer .close');				
 		
 			$('.ui-layer .close').click();
 			
-			notExists('.ui-layer');
-			notExists('.ui-layer-trigger');
-			notExists('.ui-layer-content');						
+			notExists('.ui-layer');				
 			
 		});
 		
@@ -194,11 +186,9 @@
 		  
 			$('.testLayerClick').click();
 			
-			$('.uiLayer .uiContent').click();
+			$('.ui-layer').click();
 			
 			exists('.ui-layer');
-			exists('.ui-layer-trigger');
-			exists('.ui-layer-content');
 			
 			$('body').click();			
 
@@ -213,17 +203,12 @@
 			
 			$('.testLayerHover').mouseover();
 			exists('.ui-layer');
-			exists('.ui-layer-trigger');
-			exists('.ui-layer-content');		
 			
 			isVisible('.ui-layer');
-			isVisible('.ui-layer-trigger');
-			isVisible('.ui-layer-content');
-			
+
 			$('.testLayerHover').mouseout();			
 			notExists('.ui-layer');
-			notExists('.ui-layer-trigger');
-			notExists('.ui-layer-content');	
+
 		});
 		
 	</script>
