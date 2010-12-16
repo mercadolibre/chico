@@ -72,6 +72,10 @@
 	margin:0 2px;
 }
 
+.ie6 .ui-tabNavigator ul li a:hover {
+	background-position:0 -535px;
+}
+
 /* IE 7 */
 .ie7 .ui-tabNavigator ul{
 	position:relative;
@@ -90,5 +94,5 @@
 /* IE 8 */
 .ie8 .ui-tabNavigator ul{
 	position:relative;
-	top:2px;
+	top:1px;
 }
