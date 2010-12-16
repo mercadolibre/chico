@@ -31,6 +31,15 @@ ui.positioner = function( o ) {
 	// Default parameters
 	if(!o.points) o.points = "cm cm";    
     if(!o.offset) o.offset = "0 0";
+    
+    // Class names
+    var classReferences = {
+		"lt lb": "down",
+		"lb lt": "top",
+		"rt rb": "down",
+		"rb rt": "top",
+		"lt rt": "right"
+	};
 	
 	// Offset parameter
     var splittedOffset = o.offset.split(" ");
@@ -50,10 +59,10 @@ ui.positioner = function( o ) {
 			viewport = window;
 			width = viewport.innerWidth;
 			height = viewport.innerHeight;
-			//alert( viewport.pageXOffset + ' ' + viewport.pageYOffset );
 			left = 0 + offset_left + viewport.pageXOffset;
 			top = 0 + offset_top + viewport.pageYOffset;
-			
+			bottom = height + viewport.pageYOffset;
+			right = width + viewport.pageXOffset;
 		
 		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
 		// older versions of IE - viewport = document.getElementsByTagName('body')[0];
@@ -61,35 +70,26 @@ ui.positioner = function( o ) {
 			viewport = document.documentElement;
 			width = viewport.clientWidth;
 			height = viewport.clientHeight;
-			//window.scrollLeft window.scrollTop
-			//alert( viewport.scrollLeft + ' ' + viewport.scrollTop );
 			left = 0 + offset_left + viewport.scrollLeft;
-			top = 0 + offset_top + viewport.scrollTop; 
+			top = 0 + offset_top + viewport.scrollTop;
+			bottom = height + viewport.scrollTop;
+			right = width + viewport.scrollLeft; 
 		}
-		
+
 		// Return viewport object
 		return {
 			element: viewport,			
 			left: left,
 			top: top,
+			bottom: bottom,
+			right: right,
 			width: width,
 			height: height
 		}
     };
-	
-	// Calculate and set position to element on context
-	var setPosition = function(points) {
-		// Separate points config
-        var splitted = points.split(" ");
-        
-        // Element points
-        var my_x = splitted[0].slice(0,1);
-        var my_y = splitted[0].slice(1,2);
-        
-        // Context points
-        var at_x = splitted[1].slice(0,1);
-        var at_y = splitted[1].slice(1,2);
-        
+    
+	// Calculate css left and top to element on context
+	var getPosition = function(unitPoints) {		     
 		// my_x and at_x values together
 		var xReferences = {
 			ll: context.left,
@@ -108,35 +108,73 @@ ui.positioner = function( o ) {
 			// TODO: tm, bb, bm, mt, mb
 		}
 		
-		var classReferences = {
-			"lt lb": "down",
-			"lb lt": "top",
-			"rt rb": "down",
-			"rb rt": "top",
-			"lt rt": "right"
+		var axis = {
+			left: xReferences[unitPoints.my_x + unitPoints.at_x],
+			top: yReferences[unitPoints.my_y + unitPoints.at_y]	
+		} 
 
-		}
-				
+		return axis;
+	};
+	
+	// Evaluate viewport spaces and set points
+	var calculatePoints = function(points, unitPoints){	
 		
-		// Check viewport limits
-		/*var reverseReferences = {
-			"l": "r",
-			"r": "l",
-			"t": "b",
-			"b": "t"
-		}*/
-		var cssLeft = xReferences[my_x + at_x];
-		var cssTop = yReferences[my_y + at_y];
-
+		// Default styles
+        var styles = getPosition(unitPoints);
+        	styles.direction = classReferences[points];
+        
+        // Check viewport limits
+		var viewport = getViewport();
 		
-		// Set element css position
+		// Down to top
+		if ( ( points == "lt lb" ) && ( (styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
+			unitPoints.my_y = "b";
+			unitPoints.at_y = "t";
+			
+			// New styles
+			styles = getPosition(unitPoints);
+			styles.direction = "top";
+			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+		};
+		
+		/*// Right to down
+		if ( (styles.left + element.outerWidth()) > viewport.right ) { // Element right > Viewport right
+			unitPoints.my_x = "l";
+			unitPoints.my_y = "t";
+			unitPoints.at_x = "l";
+			unitPoints.my_y = "t";
+			
+			// New styles
+			styles = getPosition(unitPoints);
+			styles.direction = "down";
+		};*/
+		
+		return styles;
+	};
+	
+	
+	// Set position to element on context
+	var setPosition = function(points) {
+		// Separate points config
+        var splitted = points.split(" ");
+        
+        var unitPoints = {
+        	my_x: splitted[0].slice(0,1),
+        	my_y: splitted[0].slice(1,2),
+        	at_x: splitted[1].slice(0,1),
+        	at_y: splitted[1].slice(1,2)
+        }
+        
+		var styles = calculatePoints(points, unitPoints);
+		
 		element
 			.css({
-				left: cssLeft,
-				top: cssTop
+				left: styles.left,
+				top: styles.top
 			})
-			.addClass( classReferences[points] );
-	};
+			.removeClass( "top left down right" )
+			.addClass( styles.direction );
+	};	
 	
 	// Get context object and set element position
     var initPosition = function(){
@@ -157,14 +195,14 @@ ui.positioner = function( o ) {
 			context = getViewport();
 	    };
 	    
-	    // Set element position
-	    setPosition(o.points);	    
+	    // Set element position	    
+	    setPosition(o.points);
+	    
     };
     
     // Init
     
     initPosition();    
-   	ui.utils.window.bind("resize", initPosition);
-   	if( o.fixed ) ui.utils.window.bind("scroll", initPosition);
+   	ui.utils.window.bind("resize scroll", initPosition);
    	return $(element);
 };
