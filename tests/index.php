@@ -15,7 +15,7 @@ $tests = "core, dropdown, layer, modal, tabNavigator, tooltip";
 $files = explode(", ", $tests);
 
 $out .= "<!doctype html>\n<html>\n<head>\n<title>Tests</title>\n";
-$out .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"../php/css.php?q=base,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator\">\n";
+$out .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"../php/css.php?q=core,forms,dropdown,layer,modal,tabNavigator,tooltip,carousel,validator\">\n";
 $out .=	"<link href=\"../libs/css/qunit.css\" rel=\"stylesheet\">\n";
 $out .= "<script src=\"../libs/js/jquery.js\"></script>\n";
 $out .= "<script src=\"../libs/js/qunit.js\"></script>\n";

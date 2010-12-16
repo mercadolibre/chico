@@ -1,5 +1,5 @@
-function exists(selector) {
-	ok($(selector).length > 0, "Expected to find " + selector);
+function exists(selector, context) {
+	ok($(selector, context).length > 0, "Expected to find " + selector);
 }
 
 function notExists(selector) {
