@@ -20,34 +20,34 @@
 	position:absolute;
 }
 
-.ch-layer.down .cone,
-.ch-layer.top .cone {
+.ch-layer.ch-down .cone,
+.ch-layer.ch-top .cone {
 	width:16px;
 	height:8px;
 	left:12px;
 }
 
-.ch-layer.down .cone {
+.ch-layer.ch-down .cone {
 	top:-8px;
 }
 
-.ch-layer.top .cone {
+.ch-layer.ch-top .cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }
 
-.ch-layer.left .cone,
-.ch-layer.right .cone {
+.ch-layer.ch-left .cone,
+.ch-layer.ch-right .cone {
 	width:8px;
 	height:16px;
 	top:8px;
 }
 
-.ch-layer.left .cone {
+.ch-layer.ch-left .cone {
 	background-position:-8px 0;
 	right:-8px;
 }
 
-.ch-layer.right .cone {
+.ch-layer.ch-right .cone {
 	left:-8px;
 }

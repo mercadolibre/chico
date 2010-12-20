@@ -40,35 +40,35 @@
 	position:absolute;
 }
 
-.ch-helper.down .cone,
-.ch-helper.top .cone{
+.ch-helper.ch-down .cone,
+.ch-helper.ch-top .cone{
 	width:16px;
 	height:8px;
 	left:8px;
 }
 
-.ch-helper.down .cone {
+.ch-helper.ch-down .cone {
 	top:-8px;
 }
 
-.ch-helper.top .cone {
+.ch-helper.ch-top .cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }
 
-.ch-helper.left .cone,
-.ch-helper.right .cone {
+.ch-helper.ch-left .cone,
+.ch-helper.ch-right .cone {
 	width:8px;
 	height:16px;
 	top:4px;
 }
 
-.ch-helper.left .cone {
+.ch-helper.ch-left .cone {
 	background-position:-8px 0;
 	right:-8px;
 }
 
-.ch-helper.right .cone {
+.ch-helper.ch-right .cone {
 	left:-8px;
 }
 

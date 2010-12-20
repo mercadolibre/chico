@@ -19,7 +19,7 @@ ui.floats = function(){
 	};
 
 	var createCone = function(conf){
-		$('<div class="cone' + ((conf.align) ? ' ' + conf.align : '')  + '"></div>').prependTo(conf.$htmlContent);
+		$('<div class="cone"></div>').prependTo(conf.$htmlContent);
 	};
 
 	that.show = function(event, conf){
