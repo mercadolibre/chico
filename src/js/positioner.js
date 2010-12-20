@@ -172,8 +172,8 @@ ui.positioner = function( o ) {
 				left: styles.left,
 				top: styles.top
 			})
-			.removeClass( "top left down right" )
-			.addClass( styles.direction );
+			.removeClass( "ch-top ch-left ch-down ch-right" )
+			.addClass( "ch-" + styles.direction );
 	};	
 	
 	// Get context object and set element position

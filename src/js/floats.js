@@ -19,14 +19,16 @@ ui.floats = function(){
 	};
 
 	var createCone = function(conf){
-		$('<div class="cone' + ((conf.align) ? ' ' + conf.align : '')  + '"></div>').prependTo(conf.$htmlContent);
+		$('<div class="cone"></div>').prependTo(conf.$htmlContent);
 	};
 
 	that.show = function(event, conf){
 		that.prevent(event);
+		
+		if(conf.visible) return;
+		
+		conf.$htmlContent = $('<div class="ch-' + conf.name + '">');
 
-		if(conf.visible) return;		
-		conf.$htmlContent = $('<div class="ui-' + conf.name + '">');		
 		conf.$htmlContent
 			.hide()
 			.css("z-index", ui.utils.zIndex++)

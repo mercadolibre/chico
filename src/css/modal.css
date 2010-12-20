@@ -1,4 +1,4 @@
-.ui-dimmer {
+.ch-dimmer {
 	background-color:rgba(0,0,0,.5);
 	display:none;
 	height:100%;
@@ -9,7 +9,7 @@
 	z-index:100;
 }
 
-.ui-modal {
+.ch-modal {
 	background-color: #fff;
 	display:none;
 	width:500px;
@@ -21,7 +21,7 @@
 	overflow:auto;
 }
 
-.ui-modal h2 {
+.ch-modal h2 {
     font:20px "Trebuchet MS", Verdana, "DejaVu Sans", sans-serif;
 	border-bottom:1px solid #cccccc;
 	padding-bottom:5px;
@@ -29,24 +29,24 @@
 }
 
 /* IE6 */
-.ie6 .ui-dimmer {
+.ie6 .ch-dimmer {
 	filter:alpha(opacity=50) !important;
 	background-color:#000000;
 	width:105.2%;
 }
 
-html.ie6  div.ui-dimmer {
+html.ie6  div.ch-dimmer {
 	position:absolute;
 	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop);
 }
 
 
-* html.ie6  div.ui-modal {
+* html.ie6  div.ch-modal {
 	z-index:150;
 }
 
 /* IE 7 */
-.ie7 .ui-dimmer, .ie8 .ui-dimmer {
+.ie7 .ch-dimmer, .ie8 .ch-dimmer {
 	background-color:#000;
 	filter: alpha(opacity=50) !important;
 }

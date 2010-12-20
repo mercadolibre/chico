@@ -16,9 +16,9 @@ ui.tabNavigator = function(conf){
 	var instances = [];
 
 	// Global configuration
-	$(conf.element).addClass('ui-tabNavigator');
-	$triggers.addClass('ui-tabNavigator-trigger');
-	$htmlContent.addClass('ui-tabNavigator-content box');
+	$(conf.element).addClass('ch-tabNavigator');
+	$triggers.addClass('ch-tabNavigator-trigger');
+	$htmlContent.addClass('ch-tabNavigator-content box');
 
 	// Starts (Mother is pregnant, and her children born)
 	$.each($triggers, function(i, e){
@@ -62,12 +62,12 @@ ui.tabNavigator = function(conf){
 ui.tab = function(index, element, conf){
 	var that = ui.navs(); // Inheritance
 	var display = element.href.split('#');
-	var $tabContent = $(element).parents('.ui-tabNavigator').find('#' + display[1]);
+	var $tabContent = $(element).parents('.ch-tabNavigator').find('#' + display[1]);
 
 	// Global configuration
 	that.conf = {
 		name: 'tab',
-		$trigger: $(element).addClass('ui-tabNavigator-trigger'),
+		$trigger: $(element).addClass('ch-tabNavigator-trigger'),
 		callbacks: conf.callbacks
 	};
 
@@ -82,8 +82,8 @@ ui.tab = function(index, element, conf){
 			that.conf.ajax = true;
 						
 			// Create tabContent
-			var w = $('<div>').attr('id', 'ui-tab' + index);
-				w.hide().appendTo( that.conf.$trigger.parents('.ui-tabNavigator').find('.ui-tabNavigator-content') );
+			var w = $('<div>').attr('id', 'ch-tab' + index);
+				w.hide().appendTo( that.conf.$trigger.parents('.ch-tabNavigator').find('.ch-tabNavigator-content') );
 			return w;
 		};
 	};

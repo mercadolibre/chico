@@ -113,8 +113,8 @@ ui.validator = function(conf){
 	
 	// Remove big helper
 	var removeValidation = function(){
-		$('.ui-validator').fadeOut('fast', function(){ $(this).remove(); });
-		$('.ui-helper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) - $('.ui-validator').height() - 20); }); // TODO: temp solution
+		$('.ch-validator').fadeOut('fast', function(){ $(this).remove(); });
+		$('.ch-helper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) - $('.ch-validator').height() - 20); }); // TODO: temp solution
 	};
 
 	// Form events
@@ -170,8 +170,8 @@ ui.validator = function(conf){
 		
 		// General error
 		if(!validation){
-			$(conf.element).before('<p class="ui-validator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
-			$('.ui-helper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) + $('.ui-validator').height() + 20); }); // TODO: temp solution
+			$(conf.element).before('<p class="ch-validator"><span class="ico error">Error: </span>' + conf.defaults.error + '</p>');
+			$('.ch-helper').each(function(i,e){ $(e).css('top', parseInt($(e).css('top')) + $('.ch-validator').height() + 20); }); // TODO: temp solution
 		// General ok
 		}else{
 			removeValidation();

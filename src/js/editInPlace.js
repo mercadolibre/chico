@@ -13,11 +13,11 @@ ui.editInPlace = function(conf){
 	conf.$htmlContent = '<div><textarea>'+ conf.$trigger.html() + '</textarea><p><input type="submit" value="Guardar" class="btn secondary skin"> <a href="#">Cancelar</a></p></div>';
 	conf.saveButton = true;
 	conf.closeButton = true;
-	conf.classes = 'ui-editInPlace';
+	conf.classes = 'ch-editInPlace';
 
 	// Events
 	conf.$trigger
-		.addClass(conf.classes + ' ui-editInPlace-trigger')
+		.addClass(conf.classes + ' ch-editInPlace-trigger')
 		.bind('click', function(event){
 			that.show(event, conf);
 		});

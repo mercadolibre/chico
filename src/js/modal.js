@@ -22,7 +22,7 @@ ui.modal = function(conf){
 	var show = function(event){
 		dimmer.on();
 		that.show(event, conf);
-		$('.ui-modal .btn.close, .closeModal').bind('click', hide);
+		$('.ch-modal .btn.close, .closeModal').bind('click', hide);
 		conf.$trigger.blur();
         
         // return publish object
@@ -47,16 +47,16 @@ ui.modal = function(conf){
 	// Dimmer
 	var dimmer = {
 		on:function(){
-			$('<div>').bind('click', hide).addClass('ui-dimmer').css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++}).hide().appendTo('body').fadeIn();
+			$('<div>').bind('click', hide).addClass('ch-dimmer').css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++}).hide().appendTo('body').fadeIn();
 			/*ui.positioner({
-				element: $('.ui-dimmer'),
+				element: $('.ch-dimmer'),
 				fixed: true,
 				points: 'lt lt'
 			});*/
-			//$('.ui-dimmer').fadeIn();
+			//$('.ch-dimmer').fadeIn();
 		},
 		off:function(){
-			$('div.ui-dimmer').fadeOut('normal', function(){ $(this).remove(); });
+			$('div.ch-dimmer').fadeOut('normal', function(){ $(this).remove(); });
 		}
 	};
 	

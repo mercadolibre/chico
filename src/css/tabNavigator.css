@@ -1,28 +1,28 @@
-.ui-tabNavigator {
+.ch-tabNavigator {
 	margin:10px 0;
 }
 
-.ui-tabNavigator ul {
+.ch-tabNavigator ul {
 	position:relative;
 	top:1px;
 	z-index:10;
 	margin-left:10px;
 }
 
-.ui-tabNavigator.vertical ul {
+.ch-tabNavigator.vertical ul {
 	position:relative;
 	float:left;
 	z-index:1;
 	margin-top:10px;
 }
 
-.ui-tabNavigator > ul li {
+.ch-tabNavigator > ul li {
 	cursor:pointer;
 	margin-right:0;
 	display:inline-block;
 }
 
-.ui-tabNavigator-trigger {
+.ch-tabNavigator-trigger {
 	border:1px solid #AFAFAF;
 	display:inline-block;
 	padding:3px 12px;
@@ -34,7 +34,7 @@
 	-webkit-border-radius:5px 5px 0 0;
 }	
 
-.ui-tabNavigator.vertical .ui-tabNavigator-trigger {
+.ch-tabNavigator.vertical .ch-tabNavigator-trigger {
 	border-radius:5px 0 0 5px;
 	-moz-border-radius:5px 0 0 5px;
 	-webkit-border-radius:5px 0 0 5px;
@@ -42,7 +42,7 @@
 	margin-bottom:5px;
 }
 
-.ui-tabNavigator .ui-tabNavigator-trigger.on {
+.ch-tabNavigator .ch-tabNavigator-trigger.on {
 	font-weight:bold;
 	cursor:default;
 	background-position:0 -535px;
@@ -51,48 +51,48 @@
 	border-bottom:1px solid #FFFFFF;				
 }
 
-.ui-tabNavigator.vertical .ui-tabNavigator-trigger.on {
+.ch-tabNavigator.vertical .ch-tabNavigator-trigger.on {
 	border-right:1px solid #FFFFFF;				
 }
 
-.ui-tabNavigator .box{
+.ch-tabNavigator .box{
  	background-image:none;
  	border-radius:0;
  	-moz-border-radius:0;
 	-webkit-border-radius:0;
 }
 
-.ui-tabNavigator.vertical .ui-tabNavigator-content{
+.ch-tabNavigator.vertical .ch-tabNavigator-content{
  	padding-left:100px;
 }
 
 /* IE 6 */
-.ie6 .ui-tabNavigator ul li{
+.ie6 .ch-tabNavigator ul li{
 	display:inline;
 	margin:0 2px;
 }
 
-.ie6 .ui-tabNavigator ul li a:hover {
+.ie6 .ch-tabNavigator ul li a:hover {
 	background-position:0 -535px;
 }
 
 /* IE 7 */
-.ie7 .ui-tabNavigator ul{
+.ie7 .ch-tabNavigator ul{
 	position:relative;
 	top:1px;
 }
 
-.ie7 .ui-tabNavigator ul li{
+.ie7 .ch-tabNavigator ul li{
 	display:inline;
 	margin:0 2px;
 }
 
-.ie7 .box .ui-tabNavigator ul{
+.ie7 .box .ch-tabNavigator ul{
 	top:1px;
 }
 
 /* IE 8 */
-.ie8 .ui-tabNavigator ul{
+.ie8 .ch-tabNavigator ul{
 	position:relative;
 	top:1px;
 }

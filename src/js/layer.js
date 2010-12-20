@@ -27,7 +27,7 @@ ui.layer = function(conf){
 
         if (conf.event === "click") {
             
-            $('.ui-layer').bind('click', function(event){ event.stopPropagation() });
+            $('.ch-layer').bind('click', function(event){ event.stopPropagation() });
 								
             // Document events
             $(document).bind('click', function(event){

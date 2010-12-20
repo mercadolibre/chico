@@ -10,8 +10,8 @@ ui.carousel = function(conf){
 	var status = false;
 
 	// Global configuration
-	conf.$trigger = $(conf.element).addClass('ui-carousel');
-	conf.$htmlContent = $(conf.element).find('.carousel').addClass('ui-carousel-content'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
+	conf.$trigger = $(conf.element).addClass('ch-carousel');
+	conf.$htmlContent = $(conf.element).find('.carousel').addClass('ch-carousel-content'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
     conf.publish = that.publish;
 
 	// UL Width calculator

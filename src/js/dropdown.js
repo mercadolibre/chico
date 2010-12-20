@@ -8,7 +8,7 @@ ui.dropdown = function(conf){
 	var that = ui.navs(); // Inheritance
 
 	// Global configuration
-	$(conf.element).addClass('ui-dropdown');
+	$(conf.element).addClass('ch-dropdown');
 	conf.$trigger = $(conf.element).children(':first');
 	conf.$htmlContent = conf.$trigger.next().bind('click', function(event){ event.stopPropagation() });
     conf.publish = that.publish;
@@ -48,12 +48,12 @@ ui.dropdown = function(conf){
 			});
 		})
 		.css('cursor','pointer')
-		.addClass('ui-dropdown-trigger')
+		.addClass('ch-dropdown-trigger')
 		.append('<span class="down">&raquo;</span>');
 	
 	// Content
 	conf.$htmlContent
-		.addClass('ui-dropdown-content')
+		.addClass('ch-dropdown-content')
 		.css('z-index', ui.utils.zIndex++)
 		.find('a')
 			.bind('click', function(){ hide($.Event()) });
