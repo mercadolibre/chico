@@ -46,7 +46,7 @@
 	font-weight:bold;
 	cursor:default;
 	background-position:0 -535px;
-	background-image:url('../src/assets/base.png');
+	background-image: url('../src/assets/base.png');
 	background-repeat:repeat-x;
 	border-bottom:1px solid #FFFFFF;				
 }
