@@ -79,11 +79,8 @@ ui.tab = function(index, element, conf){
 		// If tabContent doesn't exists        
 		} else {
 			// Set ajax configuration
-			that.conf.content = {
-				type: 'ajax',
-				data: element.href
-			};
-			
+			that.conf.ajax = true;
+						
 			// Create tabContent
 			var w = $('<div>').attr('id', 'ui-tab' + index);
 				w.hide().appendTo( that.conf.$trigger.parents('.ui-tabNavigator').find('.ui-tabNavigator-content') );
