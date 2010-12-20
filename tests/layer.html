@@ -147,8 +147,8 @@
 		  
 			$('.testLayerClick').click();
 			
-			exists('.ui-layer .close');
-			exists('.ui-layer .cone');
+			exists('.ch-layer .close');
+			exists('.ch-layer .cone');
 			
 			$('body').click();
 			
@@ -156,17 +156,17 @@
 		
 		test('Show and hide functions', function(){
 
-			notExists('.ui-layer');
+			notExists('.ch-layer');
 			
 			$('.testLayerClick').click();
 
-			exists('.ui-layer');
+			exists('.ch-layer');
 				
-			isVisible('.ui-layer');
+			isVisible('.ch-layer');
 			
 			$('body').click();
 
-			notExists('.ui-layer');
+			notExists('.ch-layer');
 				
 		});
 		
@@ -174,11 +174,11 @@
 		  
 			$('.testLayerClick').click();
 			
-			exists('.ui-layer .close');				
+			exists('.ch-layer .close');				
 		
-			$('.ui-layer .close').click();
+			$('.ch-layer .close').click();
 			
-			notExists('.ui-layer');				
+			notExists('.ch-layer');				
 			
 		});
 		
@@ -186,9 +186,9 @@
 		  
 			$('.testLayerClick').click();
 			
-			$('.ui-layer').click();
+			$('.ch-layer').click();
 			
-			exists('.ui-layer');
+			exists('.ch-layer');
 			
 			$('body').click();			
 
@@ -199,15 +199,15 @@
 		
 		test('Check for basic interaction', function(){
 		  		
-			notExists('.ui-layer');
+			notExists('.ch-layer');
 			
 			$('.testLayerHover').mouseover();
-			exists('.ui-layer');
+			exists('.ch-layer');
 			
-			isVisible('.ui-layer');
+			isVisible('.ch-layer');
 
 			$('.testLayerHover').mouseout();			
-			notExists('.ui-layer');
+			notExists('.ch-layer');
 
 		});
 		

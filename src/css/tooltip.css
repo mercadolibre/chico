@@ -1,4 +1,4 @@
-.ui-tooltip {
+.ch-tooltip {
 	font-size:11px;
 	background-color:#faf5c8;
 	border:1px solid #a0a082;
@@ -14,41 +14,41 @@
 
 /* Cone */
 
-.ui-tooltip .cone {
+.ch-tooltip .cone {
 	/*background: transparent url('../src/assets/tooltip.png') 0 0 no-repeat;*/
 	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAI5JREFUeNpi/P//PwMusHBhM1gyPr6WEacikAHY8IIFTf+/fz8GxiA2LnUENRMyhAmbs8PDXTBcChKDeQkZMBGjGZ8hTMRqxmUIEymasRnCCAocUjQjg5Ur92AGIqmACZRIQCaRYztILxMspZFiCEwzSiwQawiyZox0QMgQdM048wIpSZnizMRIaXYGCDAAnboRyA5sXiYAAAAASUVORK5CYII=') 0 0 no-repeat;
 	display:block;
 	position:absolute;
 }
 
-.ui-tooltip.down .cone,
-.ui-tooltip.top .cone {
+.ch-tooltip.down .cone,
+.ch-tooltip.top .cone {
 	width:16px;
 	height:8px;
 	left:12px;
 }
 
-.ui-tooltip.down .cone {
+.ch-tooltip.down .cone {
 	top:-8px;
 }
 
-.ui-tooltip.top .cone{
+.ch-tooltip.top .cone{
 	background-position:0 -8px;
 	bottom:-8px;
 }
 
-.ui-tooltip.left .cone,
-.ui-tooltip.right .cone {
+.ch-tooltip.left .cone,
+.ch-tooltip.right .cone {
 	width:8px;
 	height:16px;
 	top:2px;
 }
 
-.ui-tooltip.left .cone {
+.ch-tooltip.left .cone {
 	background-position:-8px 0;
 	right:-8px;
 }
 
-.ui-tooltip.right .cone {
+.ch-tooltip.right .cone {
 	left:-8px;
 }

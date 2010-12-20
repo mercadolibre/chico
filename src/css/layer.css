@@ -1,4 +1,4 @@
-.ui-layer {
+.ch-layer {
 	width:280px;
 	background-image:none;
 	position:absolute;
@@ -13,41 +13,41 @@
 
 /* Cone */
 
-.ui-layer .cone {
+.ch-layer .cone {
 	/*background: transparent url('../src/assets/layer.png') 0 0 no-repeat;*/
 	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGBJREFUeNpi/P//PwMusGHDBrBkQEAAI05FIAOw4fXr1/+HASgbqzqCmgkZQpRmfIYQrRmXISRpxmYIyZrRDSFLM7IhTAyUAoq9QJVApEo0UiUhUSUpk5qZGCnNzgABBgC5T97RHgVvpgAAAABJRU5ErkJggg==') 0 0 no-repeat;
 	display:block;
 	position:absolute;
 }
 
-.ui-layer.down .cone,
-.ui-layer.top .cone {
+.ch-layer.down .cone,
+.ch-layer.top .cone {
 	width:16px;
 	height:8px;
 	left:12px;
 }
 
-.ui-layer.down .cone {
+.ch-layer.down .cone {
 	top:-8px;
 }
 
-.ui-layer.top .cone {
+.ch-layer.top .cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }
 
-.ui-layer.left .cone,
-.ui-layer.right .cone {
+.ch-layer.left .cone,
+.ch-layer.right .cone {
 	width:8px;
 	height:16px;
 	top:8px;
 }
 
-.ui-layer.left .cone {
+.ch-layer.left .cone {
 	background-position:-8px 0;
 	right:-8px;
 }
 
-.ui-layer.right .cone {
+.ch-layer.right .cone {
 	left:-8px;
 }

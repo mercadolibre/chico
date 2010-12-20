@@ -80,19 +80,19 @@
 		});
 		        
 		test('Opens tooltip dialog', function(){
-			notExists('.ui-tooltip');
+			notExists('.ch-tooltip');
 			
 			$('.testTooltip').mouseover();
 			
-			exists('.ui-tooltip');
+			exists('.ch-tooltip');
 		});
 		
 		test('Closes tooltip dialog', function(){
-			exists('.ui-tooltip');
+			exists('.ch-tooltip');
 			
 			$('.testTooltip').mouseout();
 			
-			notExists('.ui-tooltip');
+			notExists('.ch-tooltip');
 		});
 		
 	</script>

@@ -143,25 +143,25 @@
 						
 		test('Opens basic modal dialog', function(){
 		  
-			notExists('.ui-dimmer');
-			notExists('.ui-modal');
+			notExists('.ch-dimmer');
+			notExists('.ch-modal');
 			
 			$('#testModal').click();
 			
-			exists('.ui-dimmer');
-			exists('.ui-modal');
+			exists('.ch-dimmer');
+			exists('.ch-modal');
 			
-			isVisible('.ui-dimmer');
-			isVisible('.ui-modal');
+			isVisible('.ch-dimmer');
+			isVisible('.ch-modal');
 			
 		});			
 		
 		test("Close modal dialog", function() {
 
-			$('.ui-dimmer').click();		  
+			$('.ch-dimmer').click();		  
 
-			notExists('.ui-dimmer');
-			notExists('.ui-modal');
+			notExists('.ch-dimmer');
+			notExists('.ch-modal');
 			
 		});
 
@@ -169,12 +169,12 @@
 		  					
 			$('#testModal').click();
 			
-			exists('.ui-modal .close');
+			exists('.ch-modal .close');
 			
 			$('.close').trigger('click');
 			
-			notExists('.ui-dimmer');
-			notExists('.ui-modal');
+			notExists('.ch-dimmer');
+			notExists('.ch-modal');
 			
 		});
 
@@ -186,9 +186,9 @@
 			
 			ok( testModal.content , "Expected to find a defined content on the modal instance");
 			
-			hasContent('.ui-modal', 'Lorem');
+			hasContent('.ch-modal', 'Lorem');
 			
-			$('.ui-dimmer').trigger('click');
+			$('.ch-dimmer').trigger('click');
 
 		});
 				
@@ -198,9 +198,9 @@
 
 			ok( testModal.content , "Expected to find a defined content on the modal instance");
 			
-			hasContent(".ui-modal", "Modal title DOM");
+			hasContent(".ch-modal", "Modal title DOM");
 
-			$('.ui-dimmer').trigger('click');
+			$('.ch-dimmer').trigger('click');
 			
 		});
 
@@ -211,9 +211,9 @@
 
 			ok( testModal.content , "Expected to find a defined content on the modal instance");
 			
-			hasContent(".ui-modal", "Titulo de contenido ajax");
+			hasContent(".ch-modal", "Titulo de contenido ajax");
 
-			$('.ui-dimmer').trigger('click');
+			$('.ch-dimmer').trigger('click');
 			
 		});
 				

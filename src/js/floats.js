@@ -27,7 +27,7 @@ ui.floats = function(){
 		
 		if(conf.visible) return		
 		
-		conf.$htmlContent = $('<div class="ui-' + conf.name + '">');
+		conf.$htmlContent = $('<div class="ch-' + conf.name + '">');
 		conf.$htmlContent
 			.html(that.loadContent(conf))
 			.hide()
