@@ -224,7 +224,6 @@ ui.helper = function(wconf){
 		name: 'helper',
         $trigger: wconf.$element,
 		cone: true,
-		content: { type: 'param' },
 		classes: 'helper' + wconf.id,
 		visible: false,
 		position: {
@@ -241,7 +240,7 @@ ui.helper = function(wconf){
 	};
 	
 	var show = function(text){
-		conf.content.data = '<span class="ico error">Error: </span>' + text;		
+		conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';		
 		that.show($.Event(), conf);
 	};
 

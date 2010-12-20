@@ -27,7 +27,7 @@
 	<body>	
 	<div class="header">
 		<h1>Chico UI</h1>
-		<p><a href="tests/">Test Cases</a>. <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportá bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Chico-Wiki</a>.</p>
+		<p><a href="tests/">Test Cases</a>. <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportá bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Chico-Wiki</a>. <a href="mailto:chico@mercadolibre.com">Contacto</a>.</p>
 	</div>
 	<div class="container">
 		<div class="box">
@@ -43,22 +43,23 @@
 		<div>
 		<div>
 				<div id="dependencias">
-				    <h3>JavaScript</h3>
-					<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JavaScript. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/chico.php</strong>. <a href="http://10.100.34.210:8080/content/chico/0.4.3/php/chico.php">Ver packer-o-matic</a></p>  
+				    <h3>JavaScript & Style sheets</h3>
+					<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JS o CSS. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/chico.php</strong>. <a href="php/chico.php">Ver packer-o-matic</a></p>  
 					<p>El <em>Packer-o-matic</em> viene en varios sabores y puede recibir dos argumentos opcionales por query string:<p>
 					<dl class="depend">
+					    <dt><strong>De fábrica</strong></dt>
+					    <dd>El packer-o-matic si no recibe ningún argumento devolverá un archivo JavaScript con todos los componentes disponibles minimizados.</dd>
+					    <dt>?<strong>css</strong>=true</dt>
+					    <dd><p>El parámetro <strong>css</strong> con valor <em>true</em> le pide al packer que devuelva en un archivo CSS los estilos de todos los componentes disponibles minimizados.</p></dd>
 	       				<dt>?<strong>debug</strong>=true</dt>
     					<dd><p>El parámetro <strong>debug</strong> con valor <em>true</em> le pide al packer que evite la minimización de recursos. Así se pueden ver todos los comentarios del SDK y permite encontrar problemas más facilmente. Por defecto el argument es <em>false</em>, está apagado.</dd>
 	       				<dt>?<strong>get</strong>=modal,layer</dt>
 	       				<dd>El parámetro <strong>get</strong> recibe como argumentos los componentes que queremos precompilar. Estos componentes van separados por coma (","). Por defecto el packer va a incluir el <em>core</em> de Chico-UI. Si el argumento no está definido, el packer entiende que queremos obtener y configurar todos los componentes del SDK.</dd>
+	       				<dt>?<strong>get</strong>=modal,layer&<strong>css</strong>=true</dt>
+	       				<dd>Podemos decirle al packer con el parámetro <strong>get</strong> y el parámetro <strong>css</strong> que nos devuelve ciertos estilos de componentes.</dd>
 	       				<dt>?<strong>get</strong>=modal,layer&<strong>debug</strong>=true</dt>
 	       				<dd>Ambos argumentos pueden usarse juntos en una misma query string concatenando las instrucciones con el símbolo <em>&</em>.</dd>
 					</dl>
-					
-					<h3>Style sheets</h3>
-					<p>Existe un servicio básico para obtener un archivo CSS con los estilos correspondientes para los componentes. Todavía no tiene todas las mismas características que el Packer-o-matic. Recibe un argumento <strong>?q=</strong> con la lista de componentes que necesitamos separados por coma (","). Ejemplo:</p>
-					<p><strong>http://10.100.34.210:8080/content/chico/0.x.x/php/css.php?q=base,modal,layer</strong>. <a href="http://10.100.34.210:8080/content/chico/0.4.3/php/css.php?q=base,forms">Ver servicio de css</a></p> 
-
 			</div>
 			<div id="crossbrowsing">
 				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;html&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
@@ -677,9 +678,9 @@
         var ui_drop = $('.demoDropdown').dropdown();
 
         var ui_caro = $('.demoCarousel').carousel();
-        var ui_moda = $('.demoModal').modal({ content: { type: 'ajax' } });			
-        var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: { type: 'param', data: '<p>foo</p>' } });
-        var ui_layr = $('.demoLayerOnmouseover').layer({ content: { type: 'param', data: '<p>foo</p>' } });
+        var ui_moda = $('.demoModal').modal({ ajax: true });			
+        var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foo</p>' });
+        var ui_layr = $('.demoLayerOnmouseover').layer({ content: '<p>foo</p>' });
         var ui_tool = $('.demoTooltip').tooltip();
         var ui_tabs = $('.demoTabNavigator,#chico-tabs').tabNavigator();
         

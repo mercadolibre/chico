@@ -12,7 +12,6 @@ ui.modal = function(conf){
 	conf.$trigger = $(conf.element);
 	conf.closeButton = true;
 	conf.classes = 'box';
-	conf.ajaxType = 'POST';
 	conf.position = {
 		fixed:true
 	};
@@ -21,11 +20,6 @@ ui.modal = function(conf){
 	
 	// Methods Privates
 	var show = function(event){
-		if(conf.content.type.toLowerCase() === 'ajax'){
-			conf.content.data = conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action'); //Se pisaba esta variable porque tiene el mismo class pero content.data diferente. Ejmplo del Type param con contenido distintos pero la misma class (va a traer la del primero)
-			conf.ajaxParams = 'x=x';//TODO refactor con el header de ajax
-			if(conf.$trigger.attr('type') == 'submit') setAjaxConfig();						
-		};
 		dimmer.on();
 		that.show(event, conf);
 		$('.ch-modal .btn.close, .closeModal').bind('click', hide);
@@ -46,16 +40,9 @@ ui.modal = function(conf){
 	var position = function(event){
 		ui.positioner(conf.position);
 		
+		// return publish object
 		return conf.publish;
 	}
-
-	var setAjaxConfig = function(){
-		// Content from href/action						
-		if(conf.content.data == '') alert('UI: Modal ajax configuration error.'); //TODO mejorar la expresion de vacio
-		conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'POST';
-		var serialized = conf.$trigger.parents('form').serialize();
-		conf.ajaxParams = conf.ajaxParams + ((serialized != '') ? '&' + serialized : '');
-	};
 
 	// Dimmer
 	var dimmer = {
@@ -83,7 +70,7 @@ ui.modal = function(conf){
         conf.publish.uid = conf.id,
         conf.publish.element = conf.element,
         conf.publish.type = "ui.modal",
-        conf.publish.content = conf.content.data,
+        conf.publish.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax),
         conf.publish.show = function(event){ return show(event) },
         conf.publish.hide = function(event){ return hide(event) },
         conf.publish.position = function(event){return position(event) }

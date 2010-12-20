@@ -25,15 +25,16 @@ ui.floats = function(){
 	that.show = function(event, conf){
 		that.prevent(event);
 		
-		if(conf.visible) return		
+		if(conf.visible) return;
 		
 		conf.$htmlContent = $('<div class="ch-' + conf.name + '">');
-		conf.$htmlContent
-			.html(that.loadContent(conf))
-			.hide()
-			.css('z-index', ui.utils.zIndex++)
-			.appendTo('body');
 
+		conf.$htmlContent
+			.hide()
+			.css("z-index", ui.utils.zIndex++)
+			.appendTo("body")
+			.html( that.loadContent(conf) );
+				
 		// Visual configuration
 		if(conf.closeButton) createClose(conf);
 		if(conf.cone) createCone(conf);
