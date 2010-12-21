@@ -158,11 +158,12 @@ ui.get = function(o) {
 			data: x.ajaxParams,
 			cache: true,
 			async: false, // Because getAjaxContent function returnaba before success and error
-			success: function(data){
+			success: function(data, textStatus, xhr){
 				result = data;
+				if(x.callbacks && x.callbacks.success) x.callbacks.success(data, textStatus, xhr);			
 			},
-			error: function(data){
-				result = false;
+			error: function(xhr, textStatus, errorThrown){
+				result = (x.callbacks && x.callbacks.error) ? x.callbacks.error(xhr, textStatus, errorThrown) : "<p>Error on ajax call</p>";
 			}
 		});
 			

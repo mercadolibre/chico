@@ -16,54 +16,54 @@ ui.object = function(){
 			}
 		},
 		
-		
 		/*
 		conf.content
-		conf.content: "selector css"
-		conf.content: "texto plano"
-		conf.content: "<tag>texto plano</tag>"
-		
+		conf.content: "selector css" || "<tag>texto plano</tag>" || "texto plano"	
 		conf.ajax
-		conf.ajax:true (levanta href o action)
-		conf.ajax: "http://www..."
+		conf.ajax:true (levanta href o action) || "http://www..." || "../test/test.html"
 		*/
-
 		loadContent: function(conf) {
-			
-			if ( (conf.ajax && conf.content) ) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };				
+			// Properties validation
+			if (conf.ajax && conf.content) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };
 
-			// selector css, html or string content
-			if ( !conf.ajax ) return ( $(conf.content).length > 0  ) ? $(conf.content).clone() : conf.content; 
-			
-			// ajax content
-			if ( conf.ajax === true ) {
+			// Returns css selector, html code or plain text as content
+			if (!conf.ajax) return ($(conf.content).length > 0) ? $(conf.content).clone().show() : conf.content;
+
+			// Return Ajax content from ajax:true
+			if (conf.ajax === true) {
 				
-				// set the ajaxUrl and params
-				conf.ajaxUrl = conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action'); //Se pisaba esta variable porque tiene el mismo class pero content.data diferente. Ejmplo del Type param con contenido distintos pero la misma class (va a traer la del primero)					
-				conf.ajaxParams = 'x=x';//TODO refactor con el header de ajax
+				// Load URL from href or form action
+				conf.ajaxUrl = conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action');
 				
-				// If trigger is a button of form
+				// Ajax parameters
+				conf.ajaxParams = 'x=x'; // TODO refactor con el header de ajax
+				
+				// If trigger is a form button...
 				if(conf.$trigger.attr('type') == 'submit'){
 					conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'POST';
 					var serialized = conf.$trigger.parents('form').serialize();
 					conf.ajaxParams = conf.ajaxParams + ((serialized != '') ? '&' + serialized : '');
 				};
-				
-				var result = ui.get({method:"content", conf:conf});
-				return result || '<p>Error on ajax call</p>';
 
-			} else if ( conf.ajax.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g) ) { // relatives and absolutes url regex
-				
-				//.match(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/)
-				conf.ajaxUrl = conf.ajax;				
-				var result = ui.get({method:"content", conf:conf});
-				return result || '<p>Error on ajax call</p>';
-				
-			}else{				
+				// Returns ajax results
+				return ui.get({method:"content", conf:conf}) || '<p>Error on ajax call</p>';
+
+			// Returns Ajax content from ajax:URL
+			} else if ( conf.ajax.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g) ) { // Relatives and absolutes url regex
+				// Set url
+				conf.ajaxUrl = conf.ajax;
+
+				// Ajax parameters
+				conf.ajaxParams = 'x=x'; // TODO refactor con el header de ajax
+
+				// Returns ajax results
+				return ui.get({method:"content", conf:conf});
+			
+			// Invalid Ajax parameter
+			} else {
 				alert('UI: "Ajax" attribute error.'); return;				
 			};
 
-			
 		},
 		
 		callbacks: function(conf, when){
@@ -72,7 +72,7 @@ ui.object = function(){
         
         publish: { 
             // The publish Object will be returned in all instanced component, all public methods and properties goes here.
-        } 
-		
+        }
+
 	};
 }
