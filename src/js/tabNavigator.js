@@ -17,6 +17,7 @@ ui.tabNavigator = function(conf){
 
 	// Global configuration
 	$(conf.element).addClass('ch-tabNavigator');
+	$(conf.element).children(':first').addClass('ch-tabNavigator-triggers');
 	$triggers.addClass('ch-tabNavigator-trigger');
 	$htmlContent.addClass('ch-tabNavigator-content box');
 

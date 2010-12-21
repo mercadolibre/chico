@@ -2,21 +2,21 @@
 	margin:10px 0;
 }
 
-.ch-tabNavigator ul {
+.ch-tabNavigator-triggers {
 	position:relative;
 	top:1px;
 	z-index:10;
 	margin-left:10px;
 }
 
-.ch-tabNavigator.vertical ul {
+.ch-tabNavigator.vertical .ch-tabNavigator-triggers {
 	position:relative;
 	float:left;
 	z-index:1;
 	margin-top:10px;
 }
 
-.ch-tabNavigator > ul li {
+.ch-tabNavigator > .ch-tabNavigator-triggers li {
 	cursor:pointer;
 	margin-right:0;
 	display:inline-block;
@@ -67,27 +67,27 @@
 }
 
 /* IE 6 */
-.ie6 .ch-tabNavigator ul li{
+.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li{
 	display:inline;
 	margin:0 2px;
 }
 
-.ie6 .ch-tabNavigator ul li a:hover {
+.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li a:hover {
 	background-position:0 -535px;
 }
 
 /* IE 7 */
-.ie7 .ch-tabNavigator ul{
+.ie7 .ch-tabNavigator-triggers{
 	position:relative;
 	top:1px;
 }
 
-.ie7 .ch-tabNavigator ul li{
+.ie7 .ch-tabNavigator-triggers li{
 	display:inline;
 	margin:0 2px;
 }
 
-.ie7 .box .ch-tabNavigator ul{
+.ie7 .box .ch-tabNavigator-triggers{
 	top:1px;
 }
 
