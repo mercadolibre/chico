@@ -116,7 +116,12 @@ a img{
  *
  */
 
-.btn, .box, .cone, .ico { 
+.btn, .box, .cone, .ico,
+.ch-dropdown-trigger,
+.ch-dropdown-trigger:hover,
+.ch-dropdown-trigger.on,
+.ch-dropdown-trigger.on:hover,
+.ch-tabNavigator .ch-tabNavigator-trigger.on { 
 	background-image: url('../src/assets/base.png');
 }
 
