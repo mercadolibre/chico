@@ -5,8 +5,8 @@
 .ch-dropdown-trigger,
 .ch-dropdown-trigger:hover,
 .ch-dropdown-trigger.on,
-.ch-dropdown-trigger.on:hover { /* sprite para backgrounds */
-	background-image: url('../src/assets/base.png');
+.ch-dropdown-trigger.on:hover { /* sprite para backgrounds 
+	background-image: url('../src/assets/base.png');*/
 	background-repeat: repeat-x;
 	border-radius:5px;
 	-moz-border-radius:5px;

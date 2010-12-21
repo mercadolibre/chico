@@ -80,30 +80,67 @@ class Packer {
     }
     
      /**
+     * @method encodeDataURI4IE
+     * @return content with data uri for IE Browsers
+     */    
+    private function encodeDataURI4IE($file, $src64) {
+      
+        $chunk .= "--_OYE_CHICO \n";
+        $chunk .= "Content-Location:$file \n";
+        $chunk .= "Content-Transfer-Encoding:base64 \n";        
+        $chunk .= "$src64 \n";
+        
+        return $chunk; 
+    
+    }
+    
+     /**
      * @method encodeDataURI
      * @return content with data uri
      */    
     private function encodeDataURI($source) {
         
-        // Splir the urls 
+        $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];        
+        // Split the urls 
         $exploded = explode("url('",$source);
-
         $begining = array_shift($exploded);
+        /*
+        // you know why        
+        $ieQuirks .= "/* \n";
+        $ieQuirks .= "Content-Type: multipart/related; boundary=\"_OYE_CHICO\" \n";
+        */
         // for each URL        
         foreach ($exploded as $value) {
             // chunk the URL
             $chunk = explode("');", $value);
             // detect the file
-            $file = $chunk[0];
+            $uri = $chunk[0];
             // get the file
-            $src =  file_get_contents($file);
+            $src =  file_get_contents($uri);
+            $file = explode("/assets/",$uri);
+            $file = explode(".",$file[1]);
+            $file = $file[0];
             // if fails avoid DataURI
             $src64 = base64_encode($src);
             // Return $data with DataURI or Sprites fallback
-            $data .= (!$src) ? "url('$file');".$chunk[1] : "url('data:image/png;base64,$src64');\n/*$file*/".$chunk[1];                            
+            $data .= (!$src) ? "url('$file');" : "url('data:image/png;base64,$src64');\n/*$file*/";
+            /* 
+                Create a IE workaround for this magic! ;)
+                TODO: Debug MHTML DataURI for IE
+            */
+            //$data .= "*background-image: url(mhtml:$url!$file);"; // this is for translate DataURI with MHTML
+            $data .= "*background-image: url('$uri');"; // Sorry Grade-C, make the request anyway
+            // add everything else
+            $data .= $chunk[1];
+            //$ieQuirks .= $this->encodeDataURI4IE($file, $src64);
+
         }
-        
-        $source = $begining.$data;
+        // Compile the ieQuirks for the MHTML DataURI workaround
+        //$ieQuirks .= "--_OYE_CHICO-- \n";
+        //$ieQuirks .= "*/ \n";
+        //$source .= $ieQuirks;
+
+        $source .= $begining.$data;
                 
         return $source;
     }
@@ -122,9 +159,9 @@ class Packer {
             
             // Get file content
            // $src = $this->getFile($file);
-                    $type = (!$this->css) ? "js" : "css" ;
-                    $uri = "../src/".$type."/".$file.".".$type;
-                    $src = file_get_contents($uri);
+                $type = (!$this->css) ? "js" : "css" ;
+                $uri = "../src/".$type."/".$file.".".$type;
+                $src = file_get_contents($uri);
                     
             // if the file is the js core
             if ((!$this->css) && ($file=="core")) {
@@ -139,11 +176,11 @@ class Packer {
         
          // If mode debug is on, avoid minimification
         $print = (!$this->debug) ? $this->minSource($source) : $source ;
-        // Convert Sprites into DataURI!!!
-        $print = ($this->datauri) ? $this->encodeDataURI($print) : $print ;
-
+        
         // Headers
         if ($this->css) {
+            // Convert Sprites into DataURI!!!
+            $print = ($this->datauri) ? $this->encodeDataURI($print) : $print ;
             header("Content-type: text/css");
         } else {
             header("Content-type: text/javascript");
@@ -160,7 +197,8 @@ class Packer {
         echo "  * based on:\n";
         echo "  * @package JSMin\n";
         echo "  * @package CssMin\n";
-        echo "  * @license http://opensource.org/licenses/mit-license.php MIT License\n";
+        echo "  * Stoyan Stefanov on DataURI: \n";
+        echo "  * http://www.phpied.com/data-urls-what-are-they-and-how-to-use/ \n";
         echo "  */\n";
         
         if ($this->css) {

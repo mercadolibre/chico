@@ -25,7 +25,8 @@ ui.tabNavigator = function(conf){
 	$.each($triggers, function(i, e){
 		instances.push(ui.tab(i, e, conf));
 	});
-
+    
+    // TODO: Normalizar las nomenclaturas de métodos, "show" debería ser "select"
 	var show = function(event, tab){
 		//ui.instances.tabNavigator[conf.instance].tabs[tab].shoot(event);
 		        
@@ -47,7 +48,7 @@ ui.tabNavigator = function(conf){
         conf.publish.element = conf.element,
         conf.publish.type = "ui.tabNavigator",
         conf.publish.tabs = instances,
-        conf.publish.select = function(tab){ console.log("select "+tab); return show($.Event(), tab) }
+        conf.publish.select = function(tab){ return show($.Event(), tab) }
     
 	return conf.publish;
 };
