@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Layer - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="../php/chico.php?css=true">
+	<link rel="stylesheet" type="text/css" href="../php/packer.php?css=true&get=layer">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
 <body>
@@ -47,31 +47,19 @@
 	<script>
 		var testLayerClick = $('.testLayerClick').layer({
 			event: 'click',
-			content: {
-				type:'param',
-				data:'<h2>Layer ejecutado onMouseClick</h2><ul><li>Se cierra clickeando en el trigger, en el body y en el close</li></ul></p>'
-			}
+			content: '<h2>Layer ejecutado onMouseClick</h2><ul><li>Se cierra clickeando en el trigger, en el body y en el close</li></ul></p>'
 		});
 		
 		var testLayerHover = $('.testLayerHover').layer({
-			content:{
-				type:'param',
-				data:'<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
-			}			
+			content: '<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
 		});
 
 		var testLayerAjax = $(".testLayerAjax").layer({
-			content:{
-				type: "ajax",
-				data: "../test.html"
-			}			
+			ajax: '../test.html'
 		});
 		
 		$(".testLayerAjaxAbsolute").layer({
-		      content:{
-		          type: "ajax",
-		          data: "http://www.google.com"
-              }
+			ajax: "http://www.google.com"
 		});
 		
 		$.fx.off = true;

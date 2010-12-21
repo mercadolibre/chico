@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Modal - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="../php/chico.php?css=true">
+	<link rel="stylesheet" type="text/css" href="../php/packer.php?css=true&get=modal">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
 <body>
@@ -53,23 +53,15 @@
 	<script>
 
 		var testModal = $('#testModal').modal({
-    		content: {
-				type:'param',
-				data:'<h2>Modal title</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>'
-			}
+    		content: '<h2>Modal title</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>'
     	});
     
 	    var testModalDOM = $('#testModalDOM').modal({
-	    	content:{
-	    		type:'dom',
-	    		data:'#testDOM'
-	    	}
+	    	content: '#testDOM'
 	    });
 
 	    var testModalAjax = $('#testModalAjax').modal({
-	    	content:{
-	    		type:'ajax'
-	    	}
+	    	ajax: true
 	    });
 					
 		$.fx.off = true;

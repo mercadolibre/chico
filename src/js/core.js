@@ -153,9 +153,9 @@ ui.get = function(o) {
 		x.$htmlContent.html('<div class="loading"></div>');
 				
 		$.ajax({
-			url: x.content.data,
+			url: x.ajaxUrl,
 			type: x.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
-			data: x.ajaxParams || 'x=x', // Default: send {'x':'x'}, Solucion temporal por el modal
+			data: x.ajaxParams,
 			cache: true,
 			async: false, // Because getAjaxContent function returnaba before success and error
 			success: function(data){
@@ -165,7 +165,7 @@ ui.get = function(o) {
 				result = false;
 			}
 		});
-		
+			
 		return result;
 	
 		break;

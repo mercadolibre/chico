@@ -14,8 +14,9 @@
 /* Cone */
 
 .ch-layer .cone {
-	/*background: transparent url('../src/assets/layer.png') 0 0 no-repeat;*/
-	background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGBJREFUeNpi/P//PwMusGHDBrBkQEAAI05FIAOw4fXr1/+HASgbqzqCmgkZQpRmfIYQrRmXISRpxmYIyZrRDSFLM7IhTAyUAoq9QJVApEo0UiUhUSUpk5qZGCnNzgABBgC5T97RHgVvpgAAAABJRU5ErkJggg==') 0 0 no-repeat;
+	background-color: transparent;
+	background-image: url('../src/assets/layer.png');
+	background-position: 0 0 no-repeat;
 	display:block;
 	position:absolute;
 }
