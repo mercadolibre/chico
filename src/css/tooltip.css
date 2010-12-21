@@ -2,6 +2,7 @@
 	font-size:11px;
 	background-color:#faf5c8;
 	border:1px solid #a0a082;
+	min-width:30px;
 	position:absolute;
 	padding:0 5px;
 	border-radius:3px;

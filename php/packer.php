@@ -18,6 +18,7 @@ class Packer {
     private $jquery;
     private $debug;
     private $get;
+    private $datauri;
     
     // files to load
     private $files;    
@@ -39,9 +40,10 @@ class Packer {
      */
     private function getQueryStringData() {
                 
-        $this->css = ( isset($_GET["css"]) ) ? $_GET["css"] : false ;
-        $this->jquery = ( isset($_GET["jquery"]) ) ? $_GET["jquery"] : false ;
-        $this->debug = ( isset($_GET["debug"]) ) ? $_GET["debug"] : false ;
+        $this->css = ( isset($_GET["css"]) ) ? $_GET["css"] : false ; // default css false 
+        $this->jquery = ( isset($_GET["jquery"]) ) ? $_GET["jquery"] : true ; // default jquery true
+        $this->debug = ( isset($_GET["debug"]) ) ? $_GET["debug"] : false ; // default debug false 
+        $this->datauri = ( isset($_GET["datauri"]) ) ? $_GET["datauri"] : true ; // default dataURI true
 
         // If a "get" is defined remove "core" from it, will added later.
         $this->get = ( isset($_GET["get"]) ) ? str_replace("core","", $_GET["get"] ) : false ;
@@ -76,6 +78,36 @@ class Packer {
     private function minSource($source) {
         return (!$this->css) ? JSMin::minify($source) : CssMin::minify($source) ;
     }
+    
+     /**
+     * @method encodeDataURI
+     * @return content with data uri
+     */    
+    private function encodeDataURI($source) {
+        
+        // Splir the urls 
+        $exploded = explode("url('",$source);
+
+        $begining = array_shift($exploded);
+        // for each URL        
+        foreach ($exploded as $value) {
+            // chunk the URL
+            $chunk = explode("');", $value);
+            // detect the file
+            $file = $chunk[0];
+            // get the file
+            $src =  file_get_contents($file);
+            // if fails avoid DataURI
+            $src64 = base64_encode($src);
+            // Return $data with DataURI or Sprites fallback
+            $data .= (!$src) ? "url('$file');".$chunk[1] : "url('data:image/png;base64,$src64');\n/*$file*/".$chunk[1];                            
+        }
+        
+        $source = $begining.$data;
+                
+        return $source;
+    }
+    
 
     /**
      * @method deliver print all the packed stuff
@@ -107,7 +139,8 @@ class Packer {
         
          // If mode debug is on, avoid minimification
         $print = (!$this->debug) ? $this->minSource($source) : $source ;
-
+        // Convert Sprites into DataURI!!!
+        $print = ($this->datauri) ? $this->encodeDataURI($print) : $print ;
 
         // Headers
         if ($this->css) {

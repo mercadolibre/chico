@@ -212,7 +212,7 @@ class CssMin
 			(
 			"remove-empty-blocks"			=> true,
 			"remove-empty-rulesets"			=> true,
-			"remove-last-semicolons"		=> true,
+			"remove-last-semicolons"		=> false,
 			"convert-css3-properties"		=> false,
 			"convert-color-values"			=> false,
 			"compress-color-values"			=> false,

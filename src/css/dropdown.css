@@ -64,7 +64,7 @@ margin-bottom: 10px;}
 .ch-dropdown-trigger .down,
 .ch-dropdown-trigger.on .down {
 	background-color: transparent;
-	background-image: url('../src/assets/dropdown.png')
+	background-image: url('../src/assets/dropdown.png');
 	background-position: 0 0 no-repeat;
 	display:block;
 	width:7px;
