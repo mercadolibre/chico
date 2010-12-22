@@ -29,7 +29,8 @@ var ui = window.ui = {
 		html: $('html'),
 		window: $(window),
 		document: $(document),
-		zIndex: 1000
+		zIndex: 1000,
+		index: 0 // global instantiation index
 	}
 }
 
@@ -86,18 +87,34 @@ ui.factory = function(o) {
                 var conf = {};
                     conf.name = x;
                     conf.element = e ;
-                    conf.id = i;
+                    conf.id = ui.utils.index++; // Global instantiation index
 
                 $.extend( conf , options );
 
                 // Create a component from his constructor
                 var created = ui[x]( conf );
 
-                // Save results to return the created components    
-                results.push( created );
+				/* 
+						MAPPING INSTANCES
+				
+				Internal interface for avoid mapping objects
+				{
+					exists:true,
+					object: {}
+				}
+				*/
 
-                // Map the instance
-                ui.instances[x].push( created );
+				if (created.exists) {				
+					// Avoid mapping objects that already exists
+					created = created.object;
+
+				} else {								
+			        // Map the instance
+			        ui.instances[x].push( created );   
+				}
+	            
+	            // Save results to return the created components    
+			    results.push( created );
 
             });
             
