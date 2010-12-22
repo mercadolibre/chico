@@ -14,7 +14,7 @@ class Packer {
     public $autor = "Natan Santolo <natan.santolo@mercadolibre.com>";
     
     // querystring data
-    private $css;
+    private $type;
     private $jquery;
     private $debug;
     private $get;
@@ -40,7 +40,7 @@ class Packer {
      */
     private function getQueryStringData() {
                 
-        $this->css = ( isset($_GET["css"]) ) ? $_GET["css"] : false ; // default css false 
+        $this->type = ( isset($_GET["type"]) ) ? $_GET["type"] : "js" ; // default type "js" 
         $this->jquery = ( isset($_GET["jquery"]) ) ? $_GET["jquery"] : true ; // default jquery true
         $this->debug = ( isset($_GET["debug"]) ) ? $_GET["debug"] : false ; // default debug false 
         $this->datauri = ( isset($_GET["datauri"]) ) ? $_GET["datauri"] : true ; // default dataURI true
@@ -53,7 +53,7 @@ class Packer {
         $this->components = trim($this->components,",");
 
         // Set files to process, for JS: "core, internals, components" CSS: "core, forms, components"
-        $this->files = (!$this->css) ? "core,".$this->internals.",".$this->components : "core,forms,".$this->components;
+        $this->files = ($this->type=="js") ? "core,".$this->internals.",".$this->components : "core,forms,".$this->components;
         $this->files = trim($this->files,",");
         
         // Convert files to an array
@@ -66,8 +66,7 @@ class Packer {
      * @return content of $file
      */
     private function getFile($file) {
-        $type = (!$this->css) ? "js" : "css" ;
-        $uri = "../src/".$type."/".$file.".".$type;
+        $uri = "../src/".$this->type."/".$file.".".$this->type;
         return file_get_contents($uri);
     }
     
@@ -76,7 +75,7 @@ class Packer {
      * @return minified content
      */    
     private function minSource($source) {
-        return (!$this->css) ? JSMin::minify($source) : CssMin::minify($source) ;
+        return ($this->type=="js") ? JSMin::minify($source) : CssMin::minify($source) ;
     }
     
      /**
@@ -158,13 +157,10 @@ class Packer {
             if ($file==""||$file==" ") continue;
             
             // Get file content
-           // $src = $this->getFile($file);
-                $type = (!$this->css) ? "js" : "css" ;
-                $uri = "../src/".$type."/".$file.".".$type;
-                $src = file_get_contents($uri);
+            $src = $this->getFile($file);
                     
             // if the file is the js core
-            if ((!$this->css) && ($file=="core")) {
+            if (($this->type=="js") && ($file=="core")) {
                 // configure components on the core js
                 $src = str_replace("internals: \"\",", "internals: \"".$this->internals."\",", $src);
                 $src = str_replace("components: \"\",", "components: \"".$this->components."\",", $src);
@@ -178,7 +174,7 @@ class Packer {
         $print = (!$this->debug) ? $this->minSource($source) : $source ;
         
         // Headers
-        if ($this->css) {
+        if ($this->type=="css") {
             // Convert Sprites into DataURI!!!
             $print = ($this->datauri) ? $this->encodeDataURI($print) : $print ;
             header("Content-type: text/css");
@@ -190,7 +186,7 @@ class Packer {
         echo "  * Chico-UI\n";
         echo "  * Packer-o-matic\n";
         echo "  * Like the pizza delivery service: \"Les than 100 milisecons delivery guarantee!\"\n";
-        echo "  * @components: ".( ($this->css) ? $this->components : implode(", ",$this->files) )."\n";
+        echo "  * @components: ".( ($this->type=="css") ? $this->components : implode(", ",$this->files) )."\n";
         echo "  * @version ".$this->version."\n";
         echo "  * @autor ".$this->autor."\n";
         echo "  *\n";
@@ -201,7 +197,7 @@ class Packer {
         echo "  * http://www.phpied.com/data-urls-what-are-they-and-how-to-use/ \n";
         echo "  */\n";
         
-        if ($this->css) {
+        if ($this->type=="css") {
             echo $print;
         } else {
             echo ";(function($){\n".$print."\nui.init();\n})(jQuery);"; // Add ui.init() instruction to the end
