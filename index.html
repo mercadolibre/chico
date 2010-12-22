@@ -11,11 +11,11 @@
 		<title>Chico UI</title>
     	<!--link rel="stylesheet" type="text/css" href="src/css/base.css" />
 	    <link rel="stylesheet" type="text/css" href="src/css/forms.css" /-->
-		<link rel="stylesheet" type="text/css" href="php/packer.php?css=true">
+		<link rel="stylesheet" type="text/css" href="php/packer.php?type=css">
 		<link rel="stylesheet" type="text/css" href="libs/css/highlight.css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
 		<script src="libs/js/jquery-1.4.4.js"></script>
-		<script src="php/chico.php?debug=true"></script>
+		<script src="php/packer.php?debug=true"></script>
 		<!--script src="src/js/core.js"></script-->
 				
 		<!--[if lt IE 7 ]>
@@ -49,13 +49,13 @@
 					<dl class="depend">
 					    <dt><strong>De fábrica</strong></dt>
 					    <dd>El packer-o-matic si no recibe ningún argumento devolverá un archivo JavaScript con todos los componentes disponibles minimizados.</dd>
-					    <dt>?<strong>css</strong>=true</dt>
-					    <dd><p>El parámetro <strong>css</strong> con valor <em>true</em> le pide al packer que devuelva en un archivo CSS los estilos de todos los componentes disponibles minimizados.</p></dd>
+					    <dt>?<strong>type</strong>=css</dt>
+					    <dd><p>El parámetro <strong>type</strong> con valor <em>css</em> le pide al packer que devuelva en un archivo CSS los estilos de todos los componentes disponibles minimizados.</p></dd>
 	       				<dt>?<strong>debug</strong>=true</dt>
     					<dd><p>El parámetro <strong>debug</strong> con valor <em>true</em> le pide al packer que evite la minimización de recursos. Así se pueden ver todos los comentarios del SDK y permite encontrar problemas más facilmente. Por defecto el argument es <em>false</em>, está apagado.</dd>
 	       				<dt>?<strong>get</strong>=modal,layer</dt>
 	       				<dd>El parámetro <strong>get</strong> recibe como argumentos los componentes que queremos precompilar. Estos componentes van separados por coma (","). Por defecto el packer va a incluir el <em>core</em> de Chico-UI. Si el argumento no está definido, el packer entiende que queremos obtener y configurar todos los componentes del SDK.</dd>
-	       				<dt>?<strong>get</strong>=modal,layer&<strong>css</strong>=true</dt>
+	       				<dt>?<strong>get</strong>=modal,layer&<strong>type</strong>=css</dt>
 	       				<dd>Podemos decirle al packer con el parámetro <strong>get</strong> y el parámetro <strong>css</strong> que nos devuelve ciertos estilos de componentes.</dd>
 	       				<dt>?<strong>get</strong>=modal,layer&<strong>debug</strong>=true</dt>
 	       				<dd>Ambos argumentos pueden usarse juntos en una misma query string concatenando las instrucciones con el símbolo <em>&</em>.</dd>
