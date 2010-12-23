@@ -21,6 +21,41 @@ ui.watcher = function(){
 		};
 	};*/
 	
+	
+	// Check chaining validations
+	(function(){
+		
+			
+		
+	});
+	
+	// And() Concatenate the validations on this Watcher return trigger element
+	that.and = function(conf) {
+	
+		return $(conf.element);
+	
+	};
+	
+	that.isEmpty = function(conf){
+
+		conf.tag = ($(conf.element).hasClass("options")) ? "OPTIONS" : conf.element.tagName;
+
+		switch(conf.tag){
+			case 'OPTIONS':
+				return $(conf.publish.element).find('input:checked').length == 0;
+			break;
+			
+			case 'SELECT':
+				return $(conf.publish.element).val() == -1; // TODO: Revisar el estandar de <select>
+			break;
+			
+			case 'INPUT':
+			case 'TEXTAREA':
+				return $.trim( $(conf.publish.element).val() ).length == 0;
+			break;
+		};
+	};
+	
 	// Collect validations
 	that.getValidations = function(conf){
 		var typesCollection = conf.types.split(",");
@@ -44,9 +79,10 @@ ui.watcher = function(){
 	
 	// Validation
 	that.validate = function(conf){
-		// Refresh field value
-		conf.value = $(conf.element).val();
-		
+		// Pre-validation: Don't validate disabled or not required elements
+		if($(conf.element).attr('disabled')) return;
+		if(conf.name != "required" && that.isEmpty(conf)) return;
+
 		// Validate each type of validation
 		for(var type in conf.validations){
 			// Status error (cut the flow)
