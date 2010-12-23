@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.controllers = function(conf){
+ui.controllers = function(){
 	var that = ui.object(); // Inheritance
 	
 	that.children = [];
