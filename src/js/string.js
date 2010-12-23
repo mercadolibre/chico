@@ -7,7 +7,10 @@
 
 ui.string = function(conf){
 	// Inheritance
-	var that = ui.watcher();
+	var that = ui.watcher();	
+	
+	// Get my parent
+	//that.parent = $(conf.element).parents("form")[0];
 	
 	// Watcher status
 	conf.status = true;
@@ -49,6 +52,7 @@ ui.string = function(conf){
 		
 		return regex[type];
 	};
+
 	
 	// Create the publish object to be returned
     conf.publish = {
@@ -58,11 +62,17 @@ ui.string = function(conf){
 		and: function(){ return $(conf.element); },
 		validations: conf.validations,
 		type: "ui.string",
+		reset: function(){
+			that.reset(conf);
+			return conf.publish;
+		},
 		validate: function(){
 			that.validate(conf);
 			return conf.publish;
 		}
 	};
 	
+	that.getPapa(conf); // Get my papa or set it
+		
 	return conf.publish;
 };

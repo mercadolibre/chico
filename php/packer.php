@@ -22,8 +22,8 @@ class Packer {
     
     // files to load
     private $files;    
-    private $components = "carousel,dropdown,layer,modal,tabNavigator,tooltip,validator,string,number,required,helper";
-    private $internals = "position,positioner,object,floats,navs,watcher";
+    private $components = "carousel,dropdown,layer,modal,tabNavigator,tooltip,validator,string,number,required,helper,forms";
+    private $internals = "position,positioner,object,floats,navs,watcher,controllers";
 
     /**
      * Constructor

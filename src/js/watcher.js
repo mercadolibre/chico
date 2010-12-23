@@ -21,6 +21,31 @@ ui.watcher = function(){
 		};
 	};*/
 	
+
+	that.parent;	
+	 // Get my papa or set it
+	that.getPapa = function(conf){
+		
+		if (ui.instances.forms.length > 0) {
+			
+			for(var i = 0, j = ui.instances.forms.length; i < j; i ++){
+				if(ui.instances.forms[i].element === $(conf.element).parents("form")[0]){
+					that.parent = ui.instances.forms[i]; // Get my papa
+					that.parent.children.push(conf.publish); // Add me to my papa
+				}
+			};
+			
+		} else {
+			
+			$(conf.element).parents("form").forms();
+			var last = (ui.instances.forms.length - 1);
+			that.parent = ui.instances.forms[last]; // Set my papa
+			that.parent.children.push(conf.publish); // Add me to my papa
+			
+			
+		};
+		
+	};
 	
 	// Check chaining validations
 	(function(){
@@ -54,6 +79,7 @@ ui.watcher = function(){
 				return $.trim( $(conf.publish.element).val() ).length == 0;
 			break;
 		};
+
 	};
 	
 	// Collect validations
@@ -76,7 +102,7 @@ ui.watcher = function(){
 	
 	// Helper
 	that.helper;
-	
+
 	// Validation
 	that.validate = function(conf){
 		// Pre-validation: Don't validate disabled or not required elements
@@ -91,7 +117,8 @@ ui.watcher = function(){
 				if(!conf.status) that.helper.hide(); // With previous error
 				that.helper.show( conf.messages[type] ); // Show helper with message
 				conf.status = false; // Status false
-				$(conf.element).bind("blur", function(){ that.validate(conf); }); // Add blur event only on error
+				conf.publish.status = false; // Public status false
+				$(conf.element).bind("blur", function(){ that.validate(conf); that.parent.validate(); }); // Add blur event only on error
 				return;
 			};
 		};
@@ -101,8 +128,18 @@ ui.watcher = function(){
 			$(conf.element).removeClass("error"); // Remove field error style
 			that.helper.hide(); // Hide helper
 			conf.status = true; // Status OK
+			conf.publish.status = true; // Public status OK
 			$(conf.element).unbind("blur"); // Remove blur event on status OK
 		};
+	};
+	
+	// Reset watcher
+	that.reset = function(conf){
+		conf.status = true; // Status OK
+		conf.publish.status = true; // Public status OK
+		$(conf.element).removeClass("error");
+		that.helper.hide(); // Hide helper
+		$(conf.element).unbind("blur"); // Remove blur event 
 	};
 		
 	return that;

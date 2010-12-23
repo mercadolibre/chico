@@ -626,7 +626,8 @@
 			
 						<p class="actions">
 							<input type="submit" value="Enviar" class="btn primary">
-							<a href="#">Cancelar</a>
+							<input type="reset" value="Cancelar" class="btn secondary">
+							<a href="#" class="resetForm">Cancelar</a>
 						</p>
 					</form>
 				</div>
@@ -694,6 +695,8 @@
         var ui_tabs = $('.demoTabNavigator,#chico-tabs').tabNavigator();
         
         // Validator
+            
+
         //var testString = $('#val_email').string({ email: true, minLength: 20 });
 		//var testReq = $('#val_email').required();
         
@@ -754,6 +757,7 @@
 		
 		
 		// New validator
+		//var uiForm = $('.formulario').forms();
 		var nv1 = $('#val_email').string({ email: true, minLength: 20 }).and().required();
 		var nv2 = $('#val_url').string({ url: true });
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
@@ -767,7 +771,7 @@
 		nv4.validate();
 		nv5.validate();
 		$(nv6).each(function(i, e){ e.validate(); });
-		
+		//uiForm.submit();
 		
 		
 		
