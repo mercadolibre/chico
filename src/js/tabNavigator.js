@@ -103,7 +103,8 @@ ui.tab = function(index, element, conf){
 	// Process show event
 	that.shoot = function(event){
 		that.prevent(event);
-		var tabs = ui.instances.tabNavigator[conf.id].tabs; // All my bros
+        
+		var tabs = conf.publish.tabs; //ui.instances.tabNavigator[conf.id].tabs; // All my bros
 		if(tabs[index].status) return; // Don't click me if I'm open
 
 		// Hide my open bro

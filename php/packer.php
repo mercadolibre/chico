@@ -67,7 +67,7 @@ class Packer {
      */
     private function getFile($file) {
         $uri = "../src/".$this->type."/".$file.".".$this->type;
-        return file_get_contents($uri);
+        return @file_get_contents($uri);
     }
     
     /**
@@ -139,9 +139,9 @@ class Packer {
         //$ieQuirks .= "*/ \n";
         //$source .= $ieQuirks;
 
-        $source .= $begining.$data;
+        $return .= $begining.$data;
                 
-        return $source;
+        return $return;
     }
     
 

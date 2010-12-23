@@ -19,6 +19,7 @@ ui.number = function(conf){
 	conf.validations = that.getValidations(conf);
 	
 	// Helper
+	conf.reference = $(conf.element);
 	that.helper = ui.helper(conf);
 	
 	// Messages map TODO: float

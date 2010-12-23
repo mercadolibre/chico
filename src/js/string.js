@@ -22,6 +22,7 @@ ui.string = function(conf){
 	conf.validations = that.getValidations(conf);
 	
 	// Helper
+	conf.reference = $(conf.element);
 	that.helper = ui.helper(conf);
 	
 	// Messages map TODO: uppercase, lowercase, varchar
@@ -44,7 +45,7 @@ ui.string = function(conf){
 		var regex = {
 			text:		value.match(/^([a-zA-Z\s]+)$/m),
 			email:		value.match(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i),
-			url:		value.match(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/),
+			url:		value.match(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/), // TODO: No tendria que soportar "www.algo" (sin .com)
 			minLength:	value.length >= parseInt(conf.validations.minLength),
 			maxLength:	value.length <= parseInt(conf.validations.maxLength)
 		};
