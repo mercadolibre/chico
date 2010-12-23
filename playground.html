@@ -15,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="libs/css/highlight.css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
 		<script src="libs/js/jquery-1.4.4.js"></script>
-		<script src="php/chico.php?debug=true"></script>
+		<script src="php/packer.php?debug=true"></script>
 		<!--script src="src/js/core.js"></script-->
 				
 		<!--[if lt IE 7 ]>
@@ -694,7 +694,25 @@
         var ui_tabs = $('.demoTabNavigator,#chico-tabs').tabNavigator();
         
         // Validator
-		var ui_vali = $('.formulario').validator({
+        var testString = $('#val_email').string({ email: true, minLength: 20 });
+		//var testReq = $('#val_email').required();
+        
+        /*var testNumber = $('#val_number').number({
+    		number: true,
+    		min: 20,
+    		max: 34,
+        	messages:{
+        		min: 'mensaje pisado de min!!!'
+        	}
+        });*/
+        
+        //var testString = $('#val_email').required({messages:{required:'blabla'}});
+        //var testSelect = $('#val_select2').required();
+        
+        /*var testString = $('#val_email').string({ email: true }).and().string({ minLength: true });
+        var testString2 = $('#val_email').string({ maxLength: true });
+        var testString3 = $('#val_url').string({ url: true });*/
+		/*var ui_vali = $('.formulario').validator({
 			fields: {
 				// Inputs
 				'#val_email':	{ required: 'El email es obligatorio.', email: 'El email esta mal escrito.' },
@@ -726,10 +744,10 @@
 					alert('Callback');
 				}
 			}
-		});
+		});*/
 		
 		// Form submitted demo (DON'T COPY, ONLY FOR VALIDATORS EXAMPLE)
-		$('.formulario').submit();
+		//$('.formulario').submit();
 		
 
 		// Chat
