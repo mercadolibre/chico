@@ -67,7 +67,7 @@ class Packer {
      */
     private function getFile($file) {
         $uri = "../src/".$this->type."/".$file.".".$this->type;
-        return file_get_contents($uri);
+        return @file_get_contents($uri);
     }
     
     /**
