@@ -34,6 +34,10 @@
 	-webkit-border-radius:5px 5px 0 0;
 }	
 
+.ch-tabNavigator-trigger:hover, .ch-tabNavigator-trigger:active {
+	background-color: #dedede;
+}
+
 .ch-tabNavigator.vertical .ch-tabNavigator-trigger {
 	border-radius:5px 0 0 5px;
 	-moz-border-radius:5px 0 0 5px;
