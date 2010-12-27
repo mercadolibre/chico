@@ -17,7 +17,11 @@ ui.number = function(conf){
 	
 	// Validation map
 	conf.validations = that.getValidations(conf);
-	
+
+	if (that.checkInstance(conf)) {
+	   return that;   
+	}	
+
 	// Helper
 	conf.reference = $(conf.element);
 	that.helper = ui.helper(conf);

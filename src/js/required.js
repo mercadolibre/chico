@@ -18,6 +18,11 @@ ui.required = function(conf){
 	conf.validations = {};
 	conf.validations.required = true;
 
+	if (that.checkInstance(conf)) {
+	   return that;   
+	}	
+
+
 	// CHECKBOX, RADIO
 	if($(conf.element).hasClass("options")){
 		// Helper reference from will be fired

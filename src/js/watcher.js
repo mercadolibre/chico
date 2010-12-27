@@ -19,12 +19,32 @@ ui.watcher = function(){
 				return { exists: true, object: ui.instances.string[i] };
 			};
 		};
-	};*/
+	};
 	
+	$(q).string().and().required();
+	
+	*/
+	
+	that.checkInstance = function(conf) {
+	    // Ya existen validaciones del mismo tipo
+	    var instance = ui.instances[conf.name];
+        if (instance.length>0) {
+            for(var i = 0, j = instance.length; i < j; i ++){
+                if(instance.element === conf.element){
+            	    // Mergeo con la instancia ya creada
+                    $.merge(instance.validations, conf.validations); 
+    				return { exists: true, object: instance };
+                }
+            }
+        }
+        
+        
+    };
 
 	that.parent;	
-	 // Get my papa or set it
-	that.getPapa = function(conf){
+
+	// Get my papa or set it
+	that.getPapa = function(conf){ // Cambiale el nombre por favor!!!
 		
 		if (ui.instances.forms.length > 0) {
 			
@@ -46,13 +66,6 @@ ui.watcher = function(){
 		};
 		
 	};
-	
-	// Check chaining validations
-	(function(){
-		
-			
-		
-	});
 	
 	// And() Concatenate the validations on this Watcher return trigger element
 	that.and = function(conf) {
