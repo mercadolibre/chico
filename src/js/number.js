@@ -54,11 +54,17 @@ ui.number = function(conf){
 		and: function(){ return $(conf.element); },
 		validations: conf.validations,
 		type: "ui.number",
+		reset: function(){
+			that.reset(conf);
+			return conf.publish;
+		},
 		validate: function(){
 			that.validate(conf);
 			return conf.publish;
 		}
 	};
+	
+	that.getParent(conf); // Get my parent or set it
 	
 	return conf.publish;
 };

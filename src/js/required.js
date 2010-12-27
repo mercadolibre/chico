@@ -57,11 +57,17 @@ ui.required = function(conf){
 		and: function(){ return $(conf.element); },
 		validations: conf.validations,
 		type: "ui.required",
+		reset: function(){
+			that.reset(conf);
+			return conf.publish;
+		},
 		validate: function(){
 			that.validate(conf);
 			return conf.publish;
 		}
 	};
+	
+	that.getParent(conf); // Get my parent or set it
 	
 	return conf.publish;
 };

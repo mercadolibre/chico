@@ -72,7 +72,7 @@ ui.string = function(conf){
 		}
 	};
 	
-	that.getPapa(conf); // Get my papa or set it
+	that.getParent(conf); // Get my parent or set it
 		
 	return conf.publish;
 };
