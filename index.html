@@ -694,45 +694,26 @@
         var ui_tool = $('.demoTooltip').tooltip();
         var ui_tabs = $('.demoTabNavigator,#chico-tabs').tabNavigator();
         
-        // Validator
-		var ui_vali = $('.formulario').validator({
-			fields: {
-				// Inputs
-				'#val_email':	{ required: 'El email es obligatorio.', email: 'El email esta mal escrito.' },
-				'#val_url':		{ url: 'La URL esta mal escrita.' },
-				'#val_number':	{ number: 'El precio debe ser un número.', min: 'El precio debe ser mayor a 20.' },
-				'#val_range':	{ range: 'El rango debe ser un número entre 1 y 10.' },
-				'#val_required_disabled': { required: 'El campo es obligatorio.' },
-				'#val_length':	{ maxLength: [20, 'El campo debe tener menos de 20 caracteres.'], minLength: [6, 'El campo debe tener más de 6 caracteres.'] },
-			
-				// Selects
-				'#val_select2':	{ required: 'El campo es obligatorio.' },
-				'#val_select3':	{ required: 'El campo es obligatorio.' },
-			
-				// Options
-				'.val_check2':	{ required: 'El campo es obligatorio.' },
-				'.val_check3':	{ required: 'El campo es obligatorio.' },
-				'.val_radio2':	{ required: 'El campo es obligatorio.' },
-				'.val_radio3':	{ required: 'El campo es obligatorio.' },
-			
-				// Textareas
-				'#val_textarea2': { required: 'El campo es obligatorio.' },
-				'#val_textarea3': { required: 'El campo es obligatorio.' }
-			},
-			defaults: {
-				error: 'Revisa los datos, por favor.'
-			},
-			callbacks: {
-				submit: function(){
-					alert('Callback');
-				}
-			}
-		});
+        // New validator
+		//var uiForm = $('.formulario').forms();
+		var nv1 = $('#val_email').string({ email: true }).and().string({ minLength: 20 }).and().required();
+		var nv2 = $('#val_url').string({ url: true });
+		var nv3 = $('#val_number').number({ number: true, min: 20 });
+		var nv4 = $('#val_range').number({ min: 1, max: 10 });
+		var nv5 = $('#val_length').string({ maxLength: 20, minLength: 6 });
+		var nv6 = $('#val_required_disabled, #val_select2, #val_select3, .val_check2, .val_check3, .val_radio2, .val_radio3, #val_textarea2, #val_textarea3').required();
+		
+		nv1.validate();
+		nv2.validate();
+		nv3.validate();
+		nv4.validate();
+		nv5.validate();
+		$(nv6).each(function(i, e){ e.validate(); });
+		//uiForm.submit();
 		
 		// Form submitted demo (DON'T COPY, ONLY FOR VALIDATORS EXAMPLE)
-		$('.formulario').submit();
+		//$('.formulario').submit();
 		
-
 		// Chat
 		ui.factory({
 		      component: "chat",

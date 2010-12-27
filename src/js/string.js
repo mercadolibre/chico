@@ -7,7 +7,7 @@
 
 ui.string = function(conf){
 	// Inheritance
-	var that = ui.watcher();	
+	var that = ui.watcher();
 	
 	// Get my parent
 	//that.parent = $(conf.element).parents("form")[0];
@@ -21,10 +21,13 @@ ui.string = function(conf){
 	// Validation map
 	conf.validations = that.getValidations(conf);
 	
+	if (that.checkInstance(conf)) {
+	   return that;   
+	}	
 	// Helper
 	conf.reference = $(conf.element);
 	that.helper = ui.helper(conf);
-	
+
 	// Messages map TODO: uppercase, lowercase, varchar
 	var messages = {
 		text:		"Usa sólo letras.",
@@ -72,7 +75,7 @@ ui.string = function(conf){
 		}
 	};
 	
-	that.getPapa(conf); // Get my papa or set it
+	that.getParent(conf); // Get my parent or set it
 		
 	return conf.publish;
 };

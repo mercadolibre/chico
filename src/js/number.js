@@ -17,7 +17,11 @@ ui.number = function(conf){
 	
 	// Validation map
 	conf.validations = that.getValidations(conf);
-	
+
+	if (that.checkInstance(conf)) {
+	   return that;   
+	}	
+
 	// Helper
 	conf.reference = $(conf.element);
 	that.helper = ui.helper(conf);
@@ -54,11 +58,17 @@ ui.number = function(conf){
 		and: function(){ return $(conf.element); },
 		validations: conf.validations,
 		type: "ui.number",
+		reset: function(){
+			that.reset(conf);
+			return conf.publish;
+		},
 		validate: function(){
 			that.validate(conf);
 			return conf.publish;
 		}
 	};
+	
+	that.getParent(conf); // Get my parent or set it
 	
 	return conf.publish;
 };

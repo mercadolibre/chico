@@ -18,6 +18,11 @@ ui.required = function(conf){
 	conf.validations = {};
 	conf.validations.required = true;
 
+	if (that.checkInstance(conf)) {
+	   return that;   
+	}	
+
+
 	// CHECKBOX, RADIO
 	if($(conf.element).hasClass("options")){
 		// Helper reference from will be fired
@@ -57,11 +62,17 @@ ui.required = function(conf){
 		and: function(){ return $(conf.element); },
 		validations: conf.validations,
 		type: "ui.required",
+		reset: function(){
+			that.reset(conf);
+			return conf.publish;
+		},
 		validate: function(){
 			that.validate(conf);
 			return conf.publish;
 		}
 	};
+	
+	that.getParent(conf); // Get my parent or set it
 	
 	return conf.publish;
 };

@@ -55,24 +55,35 @@ ui.forms = function(conf){
 
 
 	// Publics Methods
-	
-	var validate = function(event){
-		that.prevent(event);
-
+	var checkStatus = function(){
+		// Check status of my childrens
 		for(var i = 0, j = that.children.length; i < j; i ++){
 			// Status error (cut the flow)
-			if( !that.children[i].validate().status ){				
+			if( !that.children[i].status ){				
 				if (!status) removeError();				
 				createError();
 				status = false;
 				return;
 			};
 		};
+		
 		// Status OK (with previous error)
 		if (!status) {
 			removeError();
 			status = true;
-		};	
+		};
+	};
+	
+	var validate = function(event){
+		that.prevent(event);
+		
+		// Shoot validations
+		for(var i = 0, j = that.children.length; i < j; i ++){
+			that.children[i].validate()
+		};
+		
+		checkStatus();
+		
 		return conf.publish; // Return publish object
 	};
 
@@ -114,6 +125,7 @@ ui.forms = function(conf){
         type: "ui.forms",
         children: that.children,
 		validate: function(event){ return validate(event) },
+		checkStatus: function(event){ return checkStatus(event) },
 		submit: function(event){ return submit(event) },
 		clear: function(event){ return clear(event) }
     }
