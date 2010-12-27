@@ -1,0 +1,46 @@
+/*
+ * Grids
+ * @autor:
+ * @mod: 
+ *
+ */
+ 
+.ch-g25, 
+.ch-g33, 
+.ch-g50, 
+.ch-g66,
+.ch-g75, 
+.ch-g100,
+.ch-g25-left,
+.ch-g33-left,
+.ch-g50-left,
+.ch-g66-left,
+.ch-g75-left,
+.ch-g25-right,
+.ch-g33-right,
+.ch-g50-right,
+.ch-g66-right,
+.ch-g75-right {
+	float:left; 
+	display: inline-block; 
+	vertical-align: top;
+}
+
+.ch-g25 { width:23%; padding: 0 1%;}
+.ch-g33 { width:31.33%;padding: 0 1%; }
+.ch-g50 { width:48%;  padding: 0 1%;} 
+.ch-g66 { width:64.67%;padding: 0 1%;}
+.ch-g75 { width:73%; padding: 0 1%;}
+.ch-g100 { width:100%;padding:0;} /* is this necessary? */
+
+.ch-g25-left { width:24%; padding: 0 1% 0 0;}
+.ch-g33-left { width:32.33%;padding: 0 1% 0 0; }
+.ch-g50-left { width:49%;  padding: 0 1% 0 0;} 
+.ch-g66-left { width:65.67%;padding: 0 1% 0 0;}
+.ch-g75-left { width:74%; padding: 0 1% 0 0;}
+
+.ch-g25-right { width:24%; padding: 0 0 0 1%;}
+.ch-g33-right { width:32.33%;padding: 0 0 0 1%; }
+.ch-g50-right { width:49%;  padding: 0 0 0 1%;} 
+.ch-g66-right { width:65.67%;padding: 0 0 0 1%;}
+.ch-g75-right { width:74%; padding: 0 0 0 1%;}
