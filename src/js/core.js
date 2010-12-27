@@ -110,10 +110,24 @@ ui.factory = function(o) {
 
 				} else {								
 			        // Map the instance
-			        ui.instances[x].push( created );   
+			        ui.instances[x].push( created );
 				}
 	            
-	            // Save results to return the created components    
+	            // Save results to return the created components    	            		        
+		        for (var type in ui.instances) {
+
+		             for (var instance in ui.instances[type]) {
+
+		                 if (instance.element === created.element) {
+
+		                     results.push( instance );
+		                     
+		                 }
+		                 			                 
+		             }
+		         
+		        }
+
 			    results.push( created );
 
             });

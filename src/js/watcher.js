@@ -19,14 +19,32 @@ ui.watcher = function(){
 				return { exists: true, object: ui.instances.string[i] };
 			};
 		};
-	};*/
+	};
 	
+	$(q).string().and().required();
+	
+	*/
+	
+	that.checkInstance = function(conf) {
+	    // Ya existen validaciones del mismo tipo
+	    var instance = ui.instances[conf.name];
+        if (instance.length>0) {
+            for(var i = 0, j = instance.length; i < j; i ++){
+                if(instance.element === conf.element){
+            	    // Mergeo con la instancia ya creada
+                    $.merge(instance.validations, conf.validations); 
+    				return { exists: true, object: instance };
+                }
+            }
+        }
+        
+        
+    };
 
 	that.parent;	
-	
+
 	// Get my parent or set it
 	that.getParent = function(conf){
-
 		if (ui.instances.forms.length > 0) {
 			
 			for(var i = 0, j = ui.instances.forms.length; i < j; i ++){
@@ -46,13 +64,6 @@ ui.watcher = function(){
 		};
 		
 	};
-	
-	// Check chaining validations
-	(function(){
-		
-			
-		
-	});
 	
 	// And() Concatenate the validations on this Watcher return trigger element
 	that.and = function(conf) {
@@ -119,7 +130,7 @@ ui.watcher = function(){
 				that.helper.show( conf.messages[type] ); // Show helper with message
 				conf.status = false; // Status false
 				conf.publish.status = false; // Public status false
-				$(conf.element).bind( (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur", function(){ that.validate(conf); that.parent.validate(); }); // Add blur event only on error
+				$(conf.element).bind( (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur", function(){ that.validate(conf); that.parent.checkStatus(); }); // Add blur event only on error
 				return;
 			};
 		};
