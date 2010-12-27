@@ -7,13 +7,12 @@
 
 ui.tabNavigator = function(conf){
 
-    var that = ui.object();
+    var that = ui.controllers();
     
     conf.publish = that.publish;
 
 	var $triggers = $(conf.element).children(':first').find('a');
 	var $htmlContent = $(conf.element).children(':first').next();
-	var instances = [];
 
 	// Global configuration
 	$(conf.element).addClass('ch-tabNavigator');
@@ -23,14 +22,14 @@ ui.tabNavigator = function(conf){
 
 	// Starts (Mother is pregnant, and her children born)
 	$.each($triggers, function(i, e){
-		instances.push(ui.tab(i, e, conf));
+		that.children.push(ui.tab(i, e, conf));
 	});
     
     // TODO: Normalizar las nomenclaturas de métodos, "show" debería ser "select"
 	var show = function(event, tab){
 		//ui.instances.tabNavigator[conf.instance].tabs[tab].shoot(event);
 		        
-        instances[tab].shoot(event);
+        that.children[tab].shoot(event);
         
         /* The potato is ready!!
 		Use this to execute a specific tab on console (on h1 click)
@@ -47,7 +46,7 @@ ui.tabNavigator = function(conf){
         conf.publish.uid = conf.id,
         conf.publish.element = conf.element,
         conf.publish.type = "ui.tabNavigator",
-        conf.publish.tabs = instances,
+        conf.publish.tabs = that.children,
         conf.publish.select = function(tab){ return show($.Event(), tab) }
     
 	return conf.publish;
