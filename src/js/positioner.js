@@ -38,7 +38,8 @@ ui.positioner = function( o ) {
 		"lb lt": "top",
 		"rt rb": "down",
 		"rb rt": "top",
-		"lt rt": "right"
+		"lt rt": "right",
+		"cm cm": "center"
 	};
 	
 	// Offset parameter
