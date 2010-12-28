@@ -8,6 +8,7 @@
 ui.carousel = function(conf){
 	var that = ui.object(); // Inheritance
 	var status = false;
+	var page = 1;
 
 	// Global configuration
 	conf.$trigger = $(conf.element).addClass('ch-carousel');
@@ -36,7 +37,7 @@ ui.carousel = function(conf){
 	// Mask configuration
 	var margin = ($mask.width()-moveTo) / 2;
 	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() );
-	if(conf.arrows != false) $mask.css('marginLeft', margin);
+	//if(conf.arrows != false) $mask.css('marginLeft', margin);
 	
 	var prev = function(event) {
 		if(status) return;//prevButton.css('display') === 'none' limit public movement
@@ -51,6 +52,8 @@ ui.carousel = function(conf){
 			nextButton.show();
 			status = false;
 		});
+        
+        page--;
         
         // return publish object
         return conf.publish;
@@ -73,6 +76,8 @@ ui.carousel = function(conf){
 			status = false;
 		});		
 
+		page++;
+		
         // return publish object
         return conf.publish;
 	}
@@ -106,6 +111,8 @@ ui.carousel = function(conf){
         conf.publish.uid = conf.id;
         conf.publish.element = conf.element;
         conf.publish.type = "ui.carousel";
+        conf.publish.getSteps = function() { return steps; };
+        conf.publish.getPage = function() { return page; };
         conf.publish.next = function(){ return next($.Event()); };
         conf.publish.prev = function(){ return prev($.Event()); };
 

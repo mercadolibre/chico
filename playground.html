@@ -25,98 +25,41 @@
 	</head>
 	
 	<body>	
-	<div class="header">
-		<h1>Chico UI</h1>
-		<p><a href="tests/">Test Cases</a>. <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportá bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Chico-Wiki</a>. <a href="mailto:chico@mercadolibre.com">Contacto</a>.</p>
-	</div>
-	<div class="container">
-		<div class="box">
-		<h1>Instalación</h1>
-		<p>Para la instalación es necesario tener en cuenta las precarga de <a href="http://www.jquery.com">jQuery</a> como dependencia de la librería.</p>
-
-		<div id="chico-tabs">
+		<div class="viewerDemo">
 			<ul>
-				<li><a href="#dependencias">Recursos</a></li>
-				<li><a href="#crossbrowsing">Crossbrowsing</a></li>
-				<li><a href="#extensiones">Extensiones</a></li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=O" target="_blanc">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blanc">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blanc">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blanc">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blanc">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blanc">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
+					</a>
+				</li>			
 			</ul>
-		<div>
-		<div>
-				<div id="dependencias">
-				    <h3>JavaScript & Style sheets</h3>
-					<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JS o CSS. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/chico.php</strong>. <a href="php/chico.php">Ver packer-o-matic</a></p>  
-					<p>El <em>Packer-o-matic</em> viene en varios sabores y puede recibir dos argumentos opcionales por query string:<p>
-					<dl class="depend">
-					    <dt><strong>De fábrica</strong></dt>
-					    <dd>El packer-o-matic si no recibe ningún argumento devolverá un archivo JavaScript con todos los componentes disponibles minimizados.</dd>
-					    <dt>?<strong>css</strong>=true</dt>
-					    <dd><p>El parámetro <strong>css</strong> con valor <em>true</em> le pide al packer que devuelva en un archivo CSS los estilos de todos los componentes disponibles minimizados.</p></dd>
-	       				<dt>?<strong>debug</strong>=true</dt>
-    					<dd><p>El parámetro <strong>debug</strong> con valor <em>true</em> le pide al packer que evite la minimización de recursos. Así se pueden ver todos los comentarios del SDK y permite encontrar problemas más facilmente. Por defecto el argument es <em>false</em>, está apagado.</dd>
-	       				<dt>?<strong>get</strong>=modal,layer</dt>
-	       				<dd>El parámetro <strong>get</strong> recibe como argumentos los componentes que queremos precompilar. Estos componentes van separados por coma (","). Por defecto el packer va a incluir el <em>core</em> de Chico-UI. Si el argumento no está definido, el packer entiende que queremos obtener y configurar todos los componentes del SDK.</dd>
-	       				<dt>?<strong>get</strong>=modal,layer&<strong>css</strong>=true</dt>
-	       				<dd>Podemos decirle al packer con el parámetro <strong>get</strong> y el parámetro <strong>css</strong> que nos devuelve ciertos estilos de componentes.</dd>
-	       				<dt>?<strong>get</strong>=modal,layer&<strong>debug</strong>=true</dt>
-	       				<dd>Ambos argumentos pueden usarse juntos en una misma query string concatenando las instrucciones con el símbolo <em>&</em>.</dd>
-					</dl>
-			</div>
-			<div id="crossbrowsing">
-				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;html&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
-				<code>
-					&lt;!--[if IE]&gt;&lt;![endif]--&gt;
-					&lt;!--[if lt IE 7 ]&gt; &lt;html lang="en" class="no-js ie6"&gt; &lt;![endif]--&gt;<br>
-					&lt;!--[if IE 7 ]&gt; &lt;html lang="en" class="no-js ie7"&gt; &lt;![endif]--&gt;<br>
-					&lt;!--[if IE 8 ]&gt; &lt;html lang="en" class="no-js ie8"&gt; &lt;![endif]--&gt;<br>
-					&lt;!--[if IE 9 ]&gt; &lt;html lang="en" class="no-js ie9"&gt; &lt;![endif]--&gt;<br>
-					&lt;!--[if (gt IE 9)|!(IE)]&gt; &lt;!--&gt; &lt;html lang="en" class="no-js"&gt; &lt;!--&lt;![endif]--&gt;<br>
-				</code><br>
-				
-				<p>Para aplicar transparencia a las imagenes PNG en <abbr title="Internet Explorer 6">IE 6</abbr>, es necesario agregar estas lineas antes de la etiqueta de cierre &lt;/head&gt;.</p><br>
-				<code>
-					&lt;!--[if lt IE 7 ]&gt;<br>
-						&lt;script src="http://10.100.34.210:8080/content/chico/0.x.x/libs/js/dd_belatedpng.js"&gt;&lt;/script&gt;<br>
-						&lt;script&gt; DD_belatedPNG.fix('img, .ico'); //fix any &lt;img&gt; or .ico background-images &lt;/script&gt;<br>
-					&lt;![endif]--><br>
-				</code>
-			</div>
-			<div id="extensiones">
-			<p>Extender funcionalidades de Chico UI es sencillo y rápido. Todos los componentes visuales de Chico UI se definene en el namespace <strong>ui.*</strong> y heredan de un constructor genérico que posee la funcionalidad básica para integrarse con el <abbr title="Software Development Kit">SDK</abbr>. Para extender funcionalidad del constructor genérico o de cualquier otra familia de componentes utilizamos un patrón de <abbr title="Object Oriented Programing">OOP</abbr> muy ágil y sencillo presentado por Douglas Crockford llamado <strong>PowerConstructor</strong>.</p>
-			<p>Ejemplo componente <em>Foobar</em>:</p>
-			<code>
-				<pre>
-			ui.Foobar = function(foo){	// Foobar Constructor
-				var data = foo;	// Datos privados
-				var that = ui.object(); // Defino la herencia
-					that.member = {}; // Miembros públicos
-					that.toString = function() { return "Foo Object"; }
-					return that; // Devuelvo el objeto creado
-			}
-			</pre>
-			</code>
-			<p>Para configurar el componente es necesario:</p>
-			<ol>
-				<li>Crear un archivo con el nombre del componente (ej: "Foobar.js") con el código y colocarlo en la ruta /src/js/. </li>
-				<li>Agregar las hojas de estilo en la ruta /src/css/ <em>con el mismo nombre de archivo</em>.</li>
-				<li>Agregar el nombre del componente a la lista de componentes disponibles en el núcleo del SDK.</li>
-			</ol>
-			<code>
-			<pre>
-			ui.components += "Foobar";
-			</pre>
-			</code>
-			<p>Ahora el componente esta listo para usarse:</p>
-			<code>
-			<pre>
-			$("div.foo").Foobar({data:"foo"});
-			</pre>
-			</code>
-			<p>Eso es todo ;)</p>
-			</div>
-			</div>
+			
 		</div>
-	</div>
-	</div>
 		<div class="article demo">
 			<h1>Dropdown</h1>
 			<div class="section">
@@ -773,6 +716,7 @@
 		//$(nv6).each(function(i, e){ e.validate(); });
 		uiForm.submit();
 		
+		var uiViewer = $(".viewerDemo").viewer();
 		
 		
 		
