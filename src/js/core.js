@@ -3,7 +3,7 @@
   */
 var ui = window.ui = {
 
-    version: "0.4.6",
+    version: "0.4.7",
 
     components: "",
 
@@ -63,11 +63,6 @@ ui.factory = function(o) {
 
     var x = o.component;
 
-    // If component don't exists in the instances map create an empty array
-    if (!ui.instances[x]) {
-         ui.instances[x] = []; 
-    }
-
     var create = function(x) { 
 
         // Send configuration to a component trough options object
@@ -95,38 +90,25 @@ ui.factory = function(o) {
                 var created = ui[x]( conf );
 
 				/* 
-						MAPPING INSTANCES
+					MAPPING INSTANCES
 				
-				Internal interface for avoid mapping objects
-				{
-					exists:true,
-					object: {}
-				}
+    				Internal interface for avoid mapping objects
+    				{
+    					exists:true,
+    					object: {}
+    				}
 				*/
-
+			    if (created.type) {
+			        var type = created.type;		    
+                    // If component don't exists in the instances map create an empty array
+                    if (!ui.instances[type]) { ui.instances[type] = []; }
+                         ui.instances[type].push( created );
+			    }
+			    		
 				if (created.exists) {				
 					// Avoid mapping objects that already exists
 					created = created.object;
-
-				} else {								
-			        // Map the instance
-			        ui.instances[x].push( created );
-				}
-	            
-	            // Save results to return the created components    	            		        
-		        for (var type in ui.instances) {
-
-		             for (var instance in ui.instances[type]) {
-
-		                 if (instance.element === created.element) {
-
-		                     results.push( instance );
-		                     
-		                 }
-		                 			                 
-		             }
-		         
-		        }
+				}			
 
 			    results.push( created );
 

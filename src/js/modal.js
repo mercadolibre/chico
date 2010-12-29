@@ -69,7 +69,7 @@ ui.modal = function(conf){
         // create the publish object to be returned
         conf.publish.uid = conf.id,
         conf.publish.element = conf.element,
-        conf.publish.type = "ui.modal",
+        conf.publish.type = "modal",
         conf.publish.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax),
         conf.publish.show = function(event){ return show(event) },
         conf.publish.hide = function(event){ return hide(event) },

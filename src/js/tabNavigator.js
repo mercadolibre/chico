@@ -45,7 +45,7 @@ ui.tabNavigator = function(conf){
 
         conf.publish.uid = conf.id,
         conf.publish.element = conf.element,
-        conf.publish.type = "ui.tabNavigator",
+        conf.publish.type = "tabNavigator",
         conf.publish.tabs = that.children,
         conf.publish.select = function(tab){ return show($.Event(), tab) }
     

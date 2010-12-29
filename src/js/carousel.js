@@ -105,7 +105,7 @@ ui.carousel = function(conf){
 
         conf.publish.uid = conf.id;
         conf.publish.element = conf.element;
-        conf.publish.type = "ui.carousel";
+        conf.publish.type = "carousel";
         conf.publish.next = function(){ return next($.Event()); };
         conf.publish.prev = function(){ return prev($.Event()); };
 

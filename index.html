@@ -689,20 +689,34 @@
         	 	}
         	 }
         });			
+        
         var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foo</p>' });
         var ui_layr = $('.demoLayerOnmouseover').layer({ content: '<p>foo</p>' });
         var ui_tool = $('.demoTooltip').tooltip();
         var ui_tabs = $('.demoTabNavigator,#chico-tabs').tabNavigator();
         
+
 		// New validator
 		var uiForm = $('.formulario').forms();
-		var nv1 = $('#val_email').string({ email: true }).and().string({ minLength: 20 }).and().required();
+		var nv6 = $('#val_required_disabled, #val_select2, #val_select3, .val_check2, .val_check3, .val_radio2, .val_radio3, #val_textarea2, #val_textarea3').required();
+
+		var nv1 = $('#val_email').string({ email: true }).and().string({ minLength: 20 });
+		/*
+		var nv1 = $('#val_email').email().and().minLength(20).and().required();		
+		var nv1 = $('#val_email').required();
+		*/
+		
 		var nv2 = $('#val_url').string({ url: true });
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
 		var nv4 = $('#val_range').number({ min: 1, max: 10 });
 		var nv5 = $('#val_length').string({ maxLength: 20, minLength: 6 });
-		var nv6 = $('#val_required_disabled, #val_select2, #val_select3, .val_check2, .val_check3, .val_radio2, .val_radio3, #val_textarea2, #val_textarea3').required();
 		
+/*		nv1.validate();
+		nv2.validate();
+		nv3.validate();
+		nv4.validate();
+		nv5.validate();
+		$(nv6).each(function(i, e){ e.validate(); });	*/
 		uiForm.submit();
 
 		// Chat
@@ -718,6 +732,8 @@
                template: '3'
            });
         }
+        
+
 
 	</script>
 	

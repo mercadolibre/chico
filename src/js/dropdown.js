@@ -61,7 +61,7 @@ ui.dropdown = function(conf){
     // create the publish object to be returned
         conf.publish.uid = conf.id,
         conf.publish.element = conf.element,
-        conf.publish.type = "ui.dropdown",
+        conf.publish.type = "dropdown",
         conf.publish.show = function(event){ return show(event, conf) },
         conf.publish.hide = function(event){ return hide(event, conf) }
 
