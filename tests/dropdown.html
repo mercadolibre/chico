@@ -31,7 +31,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/chico.php?get=dropdown&debug=true"></script>
+	<script src="../php/packer.php?get=dropdown&debug=true"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
@@ -53,7 +53,7 @@
 
        		ok( testDropdown.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
-    		ok( testDropdown.type == "ui.dropdown" , "Expected to find \"ui.layer\" as value of type attribute");
+    		ok( testDropdown.type == "dropdown" , "Expected to find \"layer\" as value of type attribute");
 
         });
 

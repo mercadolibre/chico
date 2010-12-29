@@ -17,20 +17,27 @@ conf:{
 */
 
 ui.forms = function(conf){
-	// Validation	
-	if ($(conf.element).find(":submit").length == 0 || $(conf.element).attr('action') == "" ){ // Are there action and submit type?
-		 alert("UI: Error...");
+    
+	// Validation
+	// Are there action and submit type?
+	if ($(conf.element).find(":submit").length == 0 || $(conf.element).attr('action') == "" ){ 
+		 alert("Forms fatal error: The <input type=submit> is missing, or need to define a action attribute on the form tag.");
 		 return;
 	};
-		
+	
+	if (ui.instances.forms) {
+	
 	if(ui.instances.forms.length > 0){ // Is there forms in map instances?
 		for(var i = 0, j = ui.instances.forms.length; i < j; i ++){
 			if(ui.instances.forms[i].element === conf.element){
-				return { exists: true, object: ui.instances.forms[i] };
+				return { 
+                    exists: true, 
+                    object: ui.instances.forms[i]
+                };
 			};
 		};
 	};
-	
+	}
 	
 	// Start new forms
 	var that = ui.controllers(); // Inheritance
@@ -38,7 +45,7 @@ ui.forms = function(conf){
 
 	// patch exists because the components need a trigger
 	$(conf.element).bind('submit', function(event){ that.prevent(event); });
-	$(conf.element).find(":submit").unbind('click'); // Delete all click handlers asociated to submit button
+	$(conf.element).find(":submit").unbind('click'); // Delete all click handlers asociated to submit button >NATAN: Why?
 
 	// Create the Messages for General Error
 	if (!conf.messages) conf.messages = {};
@@ -79,7 +86,7 @@ ui.forms = function(conf){
 		
 		// Shoot validations
 		for(var i = 0, j = that.children.length; i < j; i ++){
-			that.children[i].validate()
+			that.children[i].validate();
 		};
 		
 		checkStatus();
@@ -122,7 +129,7 @@ ui.forms = function(conf){
     conf.publish = {
         uid: conf.id,
         element: conf.element,
-        type: "ui.forms",
+        type: "forms",
         children: that.children,
 		validate: function(event){ return validate(event) },
 		checkStatus: function(event){ return checkStatus(event) },

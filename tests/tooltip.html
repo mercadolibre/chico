@@ -24,7 +24,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/chico.php?get=tooltip&debug=true"></script>
+	<script src="../php/packer.php?get=tooltip&debug=true"></script>
 	<script src="functions.js"></script>
 
 <!-- #script -->
@@ -45,7 +45,7 @@
 
        		ok( testTooltip.uid >= 0 , "Expected to find a defined content on the tooltip instance");
        		
-    		ok( testTooltip.type == "ui.tooltip" , "Expected to find \"ui.tooltip\" as value of type attribute");
+    		ok( testTooltip.type == "tooltip" , "Expected to find \"tooltip\" as value of type attribute");
     		
     		ok( testTooltip.content != undefined, "Expected to find a defined content on the tooltip instance");
 

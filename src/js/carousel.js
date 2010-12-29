@@ -251,6 +251,7 @@ ui.carousel = function(conf){
 		});
 	}
 
+
     // Create the publish object to be returned
     conf.publish.uid = conf.id;
     conf.publish.element = conf.element;
@@ -260,6 +261,8 @@ ui.carousel = function(conf){
     conf.publish.select = function(item) { return select(item); };
     conf.publish.next = function(){ return buttons.next.move(1); };
     conf.publish.prev = function(){ return buttons.prev.move(1); };
+    
+    
 
 	return conf.publish;
 }
