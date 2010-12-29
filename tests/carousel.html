@@ -45,7 +45,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/chico.php?get=carousel&debug=true"></script>
+	<script src="../php/packer.php?get=carousel&debug=true"></script>
 	<script src="functions.js"></script>
 
 <!-- #script -->
@@ -66,7 +66,7 @@
 
        		ok( testCarousel.uid >= 0 , "Expected to find a \"uid\" attribute on the Carousel instance");
        		
-    		ok( testCarousel.type == "ui.carousel" , "Expected to find \"ui.carousel\" as value of type attribute");
+    		ok( testCarousel.type == "carousel" , "Expected to find \"carousel\" as value of type attribute");
     		
     		ok( $.isFunction(testCarousel.next) , "Expected to find a method called next()");
     		

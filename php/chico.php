@@ -47,7 +47,7 @@ if ($css) {
 // Components to delivery
 $components = "";
 // Necesary internals components
-$internals = "position,positioner,object,floats,navs";
+$internals = "position,positioner,object,floats,navs,controllers";
 
 if (!$get) { 
     // If no get defined, delivery everything

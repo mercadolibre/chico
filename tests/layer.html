@@ -40,7 +40,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/chico.php?get=layer&debug=true"></script>
+	<script src="../php/packer.php?get=layer&debug=true"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
@@ -76,7 +76,7 @@
 
        		ok( testLayerClick.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
-    		ok( testLayerClick.type == "ui.layer" , "Expected to find \"ui.layer\" as value of type attribute");
+    		ok( testLayerClick.type == "layer" , "Expected to find \"layer\" as value of type attribute");
     		
     		ok( testLayerClick.content != undefined, "Expected to find a defined content on the layer instance");
 
@@ -88,7 +88,7 @@
 
        		ok( testLayerHover.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
-    		ok( testLayerHover.type == "ui.layer" , "Expected to find \"ui.layer\" as value of type attribute");
+    		ok( testLayerHover.type == "layer" , "Expected to find \"layer\" as value of type attribute");
     		
     		ok( testLayerHover.content != undefined, "Expected to find a defined content on the layer instance");
 
@@ -100,7 +100,7 @@
 
        		ok( testLayerAjax.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
-    		ok( testLayerAjax.type == "ui.layer" , "Expected to find \"ui.layer\" as value of type attribute");
+    		ok( testLayerAjax.type == "layer" , "Expected to find \"layer\" as value of type attribute");
 
     		ok( testLayerAjax.content != undefined , "Expected to find a defined content on the layer instance");
 

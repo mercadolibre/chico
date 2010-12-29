@@ -36,7 +36,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/chico.php?get=tabNavigator&debug=true"></script>
+	<script src="../php/packer.php?get=tabNavigator&debug=true"></script>
 	<script src="functions.js"></script>
 
 <!-- #script -->
@@ -57,7 +57,7 @@
 
        		ok( testTabs.uid >= 0 , "Expected to find a \"uid\" attribute on the tabnavigator instance");
        		
-    		ok( testTabs.type == "ui.tabNavigator" , "Expected to find \"ui.tabNavigator\" as value of type attribute");
+    		ok( testTabs.type == "tabNavigator" , "Expected to find \"ui.tabNavigator\" as value of type attribute");
     		  		
     		ok( $.isArray(testTabs.tabs) && testTabs.tabs.length > 0 , "Expected to find an array of Tabs on the tabNavigator instance with more than 1 items on it");
 

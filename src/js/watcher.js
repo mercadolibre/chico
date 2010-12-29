@@ -174,9 +174,6 @@ ui.watcher = function(conf) {
         
 		// Validate each type of validation
 		for (var type in that.validations) {
-	        if (type==="minLength") { 
-                console.log("Value Length "+conf.element.value.length+" checkConditions: "+!conf.checkConditions(type));
-            }
 			// Status error (stop the flow)
 			if (!conf.checkConditions(type)) {
     			// Field error style

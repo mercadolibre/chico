@@ -723,10 +723,12 @@
 		ui.factory({
 		      component: "chat",
 		      callback: createChat
-	      });
-	      
+	    });
+	    
+	    var chat;
+	    
         function createChat() {
-           $('.chat').chat({
+           chat = $('#chat').chat({
                ruleGroupName: 'APP_PENDING_PAYMENTS',
                style: 'block',
                template: '3'

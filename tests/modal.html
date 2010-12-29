@@ -46,7 +46,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/chico.php?get=modal&debug=true"></script>
+	<script src="../php/packer.php?get=modal&debug=true"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
@@ -78,7 +78,7 @@
 
        		ok( testModal.uid >= 0 , "Expected to find a defined content on the modal instance");
        		
-    		ok( testModal.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
+    		ok( testModal.type == "modal" , "Expected to find \"modal\" as value of type attribute");
     		
     		ok( testModal.content != undefined, "Expected to find a defined content on the modal instance");
 
@@ -90,7 +90,7 @@
 
        		ok( testModalDOM.uid >= 0 , "Expected to find a number bigger than 0 on uid propertie");
        		
-    		ok( testModalDOM.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
+    		ok( testModalDOM.type == "modal" , "Expected to find \"modal\" as value of type attribute");
     		
     		ok( testModalDOM.content != undefined , "Expected to find a defined content on the modal instance");
 
@@ -104,7 +104,7 @@
 
        		ok( testModalAjax.uid >= 0 , "Expected to find a defined content on the modal instance");
        		
-    		ok( testModalAjax.type == "ui.modal" , "Expected to find \"ui.modal\" as value of type attribute");
+    		ok( testModalAjax.type == "modal" , "Expected to find \"modal\" as value of type attribute");
     		
     		//ok( testModalAjax.content != undefined , "Expected to find a defined content on the modal instance");
 

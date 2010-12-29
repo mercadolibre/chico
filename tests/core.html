@@ -13,6 +13,8 @@
     <hr />
 
     <div id="test"></div>
+
+
  <!-- #body -->   
 	<h1 id="qunit-header">QUnit Test Suite</h1>
 	<h2 id="qunit-banner"></h2>
@@ -21,9 +23,10 @@
 	<ol id="qunit-tests"></ol>
 	<div id="qunit-fixture">test markup</div>
 
+
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/chico.php?get=modal&debug=true"></script>
+	<script src="../php/packer.php?debug=true"></script>
 	<script src="functions.js"></script>
 
 <!-- #script -->
@@ -52,7 +55,9 @@
         });
 
       	module("Chico factory");
- 
+	    
+	    var chat = undefined;
+	    
         test("Post-configure chat component through Factory", function(){            
     		// Chat
     		ui.factory({
@@ -64,7 +69,8 @@
     	    stop();  
     	    
             function createChat() {
-                $('.chat').chat({
+
+                chat = $('#test').chat({
                     ruleGroupName: 'APP_PENDING_PAYMENTS',
                     style: 'block',
                     template: '3'
@@ -72,10 +78,9 @@
 
                 start();
                 ok( ui["chat"] , "Expected to find chat instantiation");
+                ok( ui.instances["chat"] , "Expected to find chat in the instances map");
 
             } 
-
-            ok( ui.instances["chat"] , "Expected to find chat in the instances map");
             
         });
 
@@ -121,16 +126,6 @@
        	    
        	    $(ui.components.split(",")).each(function(i,e){
        	        ok( ui[e] , "Expected to find "+e+" instantiation");
-       	    });
-       	    
-        });
-        
-    	test("Check for visual components in the instances map",function(){
-       	    
-       	    expect ( ui.components.split(",").length );
-       	    
-       	    $(ui.components.split(",")).each(function(i,e){
-       	        ok( ui.instances[e] , "Expected to find "+e+" in the instances map");
        	    });
        	    
         });

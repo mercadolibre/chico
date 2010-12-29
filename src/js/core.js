@@ -76,7 +76,7 @@ ui.factory = function(o) {
                 alert("Factory " + x + " configure error: Need a basic configuration."); 
                 return;
             };		
-                            
+
             that.each( function(i, e) {
 
                 var conf = {};
@@ -98,6 +98,7 @@ ui.factory = function(o) {
     					object: {}
     				}
 				*/
+
 			    if (created.type) {
 			        var type = created.type;		    
                     // If component don't exists in the instances map create an empty array
