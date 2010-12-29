@@ -1,3 +1,13 @@
+/* Sprite */
+.ch-carousel .prev,
+.ch-carousel .next,
+.ch-carousel .ch-pager li {
+	background-image: url('../src/assets/viewer.png');
+	background-repeat: no-repeat;
+	text-indent:-9999px;
+}
+
+/* Carousel */
 .ch-carousel{
 	overflow:hidden;
 	position:relative;
@@ -19,32 +29,52 @@
 	float:left;
 }
 
+/* Buttons */
 .ch-carousel .prev, .ch-carousel .next {
-	background-image: url('../src/assets/carousel.png');
-	background-repeat: no-repeat;
-	cursor: pointer;
 	display: block;
 	text-indent: -9999px;
-	height:57px;
-	width:24px;
+	height:22px;
+	width:12px;
 	position: absolute;
 }
+
 .ch-carousel .prev{
-	background-position: -46px 0;
+	background-position: -2px -73px;
 	left: 10px;
 }
 
-.ch-carousel .prev:hover{
-	background-position: 0 0;
+.ch-carousel .prev.on{
+	background-position: -2px -47px;
+	cursor:pointer;
 }
 
 .ch-carousel .next{
-	background-position: -69px 0;
+	background-position: -15px -73px;
 	right: 10px;
 }
 
-.ch-carousel .next:hover{
-	background-position: -23px 0;
+.ch-carousel .next.on{
+	background-position: -15px -47px;
+	cursor:pointer;
+}
+
+/* Pager */
+.ch-carousel .ch-pager {
+	position:absolute;
+	bottom:0;
+}
+
+.ch-carousel .ch-pager li{
+	float:left;
+	margin-right:10px;
+	width:10px;
+	height:10px;
+	background-position:-14px -101px;
+	cursor:pointer;
+}
+
+.ch-carousel .ch-pager li.on{
+	background-position:-2px -101px;
 }
 
 /* IE 6 */

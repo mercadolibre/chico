@@ -48,12 +48,17 @@ ui.carousel = function(conf){
 		
 		conf.$htmlContent.animate({ left: htmlContentPosition.left + moveTo }, function(){
 			htmlContentPosition = conf.$htmlContent.position();			
-			if(htmlContentPosition.left >= 0) prevButton.hide();
-			nextButton.show();
+			if(htmlContentPosition.left >= 0) buttons.prev.hide();
+			buttons.next.show();
 			status = false;
 		});
         
         page--;
+        
+        if (conf.pager) {
+			$(".ch-pager li").removeClass("on");
+			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
+		}
         
         // return publish object
         return conf.publish;
@@ -71,115 +76,190 @@ ui.carousel = function(conf){
 		
 		conf.$htmlContent.animate({ left: htmlContentPosition.left - moveTo }, function(){
 			htmlContentPosition = conf.$htmlContent.position(); // Position after moving
-			if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) nextButton.hide();
-			prevButton.show();
+			if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) buttons.next.hide();
+			buttons.prev.show();
 			status = false;
-		});		
+		});
 
 		page++;
+		
+		if (conf.pager) {
+			$(".ch-pager li").removeClass("on");
+			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
+		}
 		
         // return publish object
         return conf.publish;
 	}
 	
+	
+	
 	// Create buttons
-	var prevButton = $('<p>')
-		.html('Previous')
-		.addClass('prev')
-		.bind('click', prev)
-		.hide()
-		.css('top', (conf.$htmlContent.children().outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
+	var buttons = {};
+	
+	buttons.prev = {};
+	console.log($mask.parents(".box").length > 0);
+	buttons.prev.$element = $('<p class="prev">Previous</p>')
+		.bind('click', function(){ buttons.prev.move(1) })
+		.css('top', (conf.$htmlContent.children().outerHeight() - 22) / 2 + ( ($mask.parents(".box").length > 0) ? 10 : 0 )) // 22 = button height TODO: If there are a parent with class box, plus 10 px of padding
+	
+	buttons.prev.show = function(){
+		buttons.prev.$element
+			.addClass("on")
+			.bind('click', function(){ buttons.prev.move(1) })
+	};
+	
+	buttons.prev.hide = function(){
+		buttons.prev.$element
+			.removeClass("on")
+			.unbind('click')
+	};
+	
+	buttons.prev.move = function(distance){
+		if(status || conf.$htmlContent.position().left == 0) return;
+		
+		var htmlContentPosition = conf.$htmlContent.position();
+		
+		status = true;
+		
+		conf.$htmlContent.animate({ left: htmlContentPosition.left + (moveTo * distance) }, function(){
+			htmlContentPosition = conf.$htmlContent.position();			
+			if(htmlContentPosition.left >= 0) buttons.prev.hide();
+			buttons.next.show();
+			status = false;
+		});
+        
+        page -= distance;
+        
+        if (conf.pager) {
+			$(".ch-pager li").removeClass("on");
+			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
+		}
+        
+        // return publish object
+        return conf.publish;
+	};
+	
+	
+	
+	buttons.next = {};
+	
+	buttons.next.$element = $('<p class="next">Next</p>')
+		.bind('click', function(){ buttons.next.move(1) })
+		.css('top', (conf.$htmlContent.children().outerHeight() - 22) / 2 + ( ($mask.parents(".box").length > 0) ? 10 : 0 )) // 22 = button height TODO: If there are a parent with class box, plus 10 px of padding
+	
+	buttons.next.show = function(){
+		buttons.next.$element
+			.addClass("on")
+			.bind('click', function(){ buttons.next.move(1) })
+	};
+	
+	buttons.next.hide = function(){
+		buttons.next.$element
+			.removeClass("on")
+			.unbind('click')
+	};
+	
+	buttons.next.move = function(distance){
+		if(status || conf.$htmlContent.position().left + htmlContentWidth == $mask.width()) return;
+		
+		var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
+		
+		status = true;
+		
+		conf.$htmlContent.animate({ left: htmlContentPosition.left - (moveTo * distance) }, function(){
+			htmlContentPosition = conf.$htmlContent.position(); // Position after moving
+			if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) buttons.next.hide();
+			buttons.prev.show();
+			status = false;
+		});
 
-	var nextButton = $('<p>')
-		.html('Next')
-		.addClass('next')
-		.bind('click', next)
-		.hide()
-		.css('top', (conf.$htmlContent.children().outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
+		page += distance;
+		
+		if (conf.pager) {
+			$(".ch-pager li").removeClass("on");
+			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
+		}
+		
+        // return publish object
+        return conf.publish;
+	};
 	
 	
-	//TODO: refactorizar todo este metodo que se encarga de avanzar por páginas
+		
 	var select = function(item){
 		var itemPage = ~~(item / steps) + 1; // Page of "item"
-
-		if(itemPage > page){
-			var distance = itemPage - page; 
-			
-			if(status) return;//nextButton.css('display') === 'none' limit public movement
-			
-			var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
-			
-			status = true;
-			
-			conf.$htmlContent.animate({ left: htmlContentPosition.left - (moveTo * distance) }, function(){
-				htmlContentPosition = conf.$htmlContent.position(); // Position after moving
-				if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) nextButton.hide();
-				prevButton.show();
-				status = false;
-			});
-	
-			page += distance;
-			
-		}else if (itemPage < page){
-			var distance = page - itemPage;
-			
-			if(status) return;//prevButton.css('display') === 'none' limit public movement
 		
-			var htmlContentPosition = conf.$htmlContent.position();
-			
-			status = true;
-			
-			conf.$htmlContent.animate({ left: htmlContentPosition.left + (moveTo * distance) }, function(){
-				htmlContentPosition = conf.$htmlContent.position();			
-				if(htmlContentPosition.left >= 0) prevButton.hide();
-				nextButton.show();
-				status = false;
-			});
-	        
-	        page -= distance;
+		// Move right
+		if(itemPage > page){
+			buttons.next.move(itemPage - page);
+		// Move left
+		}else if(itemPage < page){
+	        buttons.prev.move(page - itemPage);
+		};
+		
+		if (conf.pager) {
+			$(".ch-pager li").removeClass("on");
+			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
 		}
 		
 		// return publish object
 	    return conf.publish;
 	};
 	
-	if (conf.arrows != false) {
-		// Append buttons
-		conf.$trigger.prepend(prevButton).append(nextButton);
-		// Si el ancho del UL es mayor que el de la mascara, muestra next
-		if(htmlContentWidth > $mask.width()){ nextButton.show();}
-	};
+	
+	
+	/**
+	 *	Buttons
+	 */
+	
+	// Append prev and next
+	conf.$trigger.prepend(buttons.prev.$element).append(buttons.next.$element);
+	
+	// Si el ancho del UL es mayor que el de la mascara, activa next
+	if(htmlContentWidth > $mask.width()){
+		buttons.next.show();
+	}
 	
 	// Pager
 	if (conf.pager) {
-		var totalPages = (conf.$htmlContent.children().size() / steps); 
-		var pager = $("<ul class=\"ch-pager\">")
+		var totalPages = Math.ceil(conf.$htmlContent.children().size() / steps); 
+		var list = $("<ul class=\"ch-pager\">");
+		var thumbs = [];
 		
-		// Create each mini page
-		var circle = [];
+		// Create each mini thumb
 		for(var i = 1, j = totalPages + 1; i < j; i += 1){
-			circle.push( "<li>" + i + "</li>");
+			thumbs.push( "<li>" + i + "</li>" );
 		};
+		list.append( thumbs.join("") );
 		
-		pager.append(circle.join(""));
+		// Create pager
+		conf.$trigger.append( list );
 		
-		conf.$trigger.append( pager );
+		// Position
+		var pager = $(".ch-pager");
+		var contextWidth = pager.parent().width();
+		var pagerWidth = pager.outerWidth();
 		
-		$(".ch-pager").children().each(function(i, e){
-			$(e).bind("click", function(){ select(i) });
+		pager.css('left', (contextWidth - pagerWidth) / 2);
+		
+		// Children functionality
+		pager.children().each(function(i, e){
+			$(e).bind("click", function(){
+				select(i);
+			});
 		});
 	}
 
-    // create the publish object to be returned
-
-        conf.publish.uid = conf.id;
-        conf.publish.element = conf.element;
-        conf.publish.type = "ui.carousel";
-        conf.publish.getSteps = function() { return steps; };
-        conf.publish.getPage = function() { return page; };
-        conf.publish.select = function(item) { return select(item) };
-        conf.publish.next = function(){ return next($.Event()); };
-        conf.publish.prev = function(){ return prev($.Event()); };
+    // Create the publish object to be returned
+    conf.publish.uid = conf.id;
+    conf.publish.element = conf.element;
+    conf.publish.type = "carousel";
+    conf.publish.getSteps = function() { return steps; };
+    conf.publish.getPage = function() { return page; };
+    conf.publish.select = function(item) { return select(item); };
+    conf.publish.next = function(){ return buttons.next.move(1); };
+    conf.publish.prev = function(){ return buttons.prev.move(1); };
 
 	return conf.publish;
 }
