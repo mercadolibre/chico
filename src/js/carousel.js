@@ -8,6 +8,7 @@
 ui.carousel = function(conf){
 	var that = ui.object(); // Inheritance
 	var status = false;
+	var page = 1;
 
 	// Global configuration
 	conf.$trigger = $(conf.element).addClass('ch-carousel');
@@ -36,7 +37,7 @@ ui.carousel = function(conf){
 	// Mask configuration
 	var margin = ($mask.width()-moveTo) / 2;
 	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() );
-	if(conf.arrows != false) $mask.css('marginLeft', margin);
+	//if(conf.arrows != false) $mask.css('marginLeft', margin);
 	
 	var prev = function(event) {
 		if(status) return;//prevButton.css('display') === 'none' limit public movement
@@ -51,6 +52,8 @@ ui.carousel = function(conf){
 			nextButton.show();
 			status = false;
 		});
+        
+        page--;
         
         // return publish object
         return conf.publish;
@@ -73,6 +76,8 @@ ui.carousel = function(conf){
 			status = false;
 		});		
 
+		page++;
+		
         // return publish object
         return conf.publish;
 	}
@@ -93,19 +98,87 @@ ui.carousel = function(conf){
 		.css('top', (conf.$htmlContent.children().outerHeight() - 57) / 2 + 10); // 57 = button height | 10 = box padding top
 	
 	
+	//TODO: refactorizar todo este metodo que se encarga de avanzar por páginas
+	var select = function(item){
+		var itemPage = ~~(item / steps) + 1; // Page of "item"
+
+		if(itemPage > page){
+			var distance = itemPage - page; 
+			
+			if(status) return;//nextButton.css('display') === 'none' limit public movement
+			
+			var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
+			
+			status = true;
+			
+			conf.$htmlContent.animate({ left: htmlContentPosition.left - (moveTo * distance) }, function(){
+				htmlContentPosition = conf.$htmlContent.position(); // Position after moving
+				if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) nextButton.hide();
+				prevButton.show();
+				status = false;
+			});
+	
+			page += distance;
+			
+		}else if (itemPage < page){
+			var distance = page - itemPage;
+			
+			if(status) return;//prevButton.css('display') === 'none' limit public movement
+		
+			var htmlContentPosition = conf.$htmlContent.position();
+			
+			status = true;
+			
+			conf.$htmlContent.animate({ left: htmlContentPosition.left + (moveTo * distance) }, function(){
+				htmlContentPosition = conf.$htmlContent.position();			
+				if(htmlContentPosition.left >= 0) prevButton.hide();
+				nextButton.show();
+				status = false;
+			});
+	        
+	        page -= distance;
+		}
+		
+		// return publish object
+	    return conf.publish;
+	};
 	
 	if (conf.arrows != false) {
 		// Append buttons
 		conf.$trigger.prepend(prevButton).append(nextButton);
 		// Si el ancho del UL es mayor que el de la mascara, muestra next
 		if(htmlContentWidth > $mask.width()){ nextButton.show();}
+	};
+	
+	// Pager
+	if (conf.pager) {
+		var totalPages = (conf.$htmlContent.children().size() / steps); 
+		var pager = $("<ul class=\"ch-pager\">")
+		
+		// Create each mini page
+		var circle = [];
+		for(var i = 1, j = totalPages + 1; i < j; i += 1){
+			circle.push( "<li>" + i + "</li>");
+		};
+		
+		pager.append(circle.join(""));
+		
+		conf.$trigger.append( pager );
+		
+		$(".ch-pager").children().each(function(i, e){
+			$(e).bind("click", function(){ select(i) });
+		});
 	}
 
     // create the publish object to be returned
 
         conf.publish.uid = conf.id;
         conf.publish.element = conf.element;
+
         conf.publish.type = "carousel";
+        conf.publish.getSteps = function() { return steps; };
+        conf.publish.getPage = function() { return page; };
+        conf.publish.select = function(item) { return select(item) };
         conf.publish.next = function(){ return next($.Event()); };
         conf.publish.prev = function(){ return prev($.Event()); };
 

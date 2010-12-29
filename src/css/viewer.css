@@ -1,56 +1,116 @@
-.uiViewer{
+.ch-viewer{
 	border:1px solid #CCCCCC;	
 	overflow:hidden;
-	padding:5px 0;
 	position:relative;
-	text-align:center;
 	width:340px;
 	height:380px;
 }
+.ch-lens{
+ 	background:red;
+    bottom:60px;
+    height:65px;
+    position:absolute;
+    right:10px;
+    width:65px;
+    display:none;
+}
 
-.uiViewer .uiContent.uiCarousel .mask{
+.ch-viewer-modal{
+	width:600px;
+}
+.ch-viewer-modal-content{
+	margin:20px 0;
+	width:600px;
+	height:500px;
+}
+
+.ch-viewer-modal .ch-carousel-content li{
+	width:500px;
+	height:500px;
+	position:relative;
+}
+
+.ch-viewer-modal .ch-carousel-content li a{
+	width:500px;
+	height:500px;
+	cursor:default;
+	display:block;	
+}
+
+.ch-viewer-modal .ch-carousel-content li a img{
+	position:absolute;
+}
+
+
+.ch-viewer-content{
+	position:absolute;
+}
+
+.ch-viewer-content li{
+	float:left;
+	margin:0 10px;
+}
+
+.ch-viewer-content li a{
+	display:block;
+}
+
+.ch-viewer-triggers{
+	margin-top:330px;
+}
+
+.ch-viewer .ch-viewer-triggers li,
+.ch-viewer-triggers a{
+	width:40px;
+	height:40px;
+}
+
+.ch-viewer-triggers a{
+	display:block;
+	border:1px solid #fff;
+}
+
+.ch-viewer-triggers a.on{
+	border:1px solid #ccc;
+}
+
+
+/*
+.ch-viewer .uiContent.uiCarousel .mask{
 	margin:0;
 }
 
-.uiViewer .uiContent.uiCarousel .carousel li{
+.ch-viewer .uiContent.uiCarousel .carousel li{
 	height:320px;
 	width:320px;
 }
 
-.uiViewer .uiTriggers.uiCarousel{
+.ch-viewer .uiTriggers.uiCarousel{
 	border-top:1px solid #ccc;
 	padding-top:10px;
 	position:relative;
 }
 
-.uiViewer .uiTriggers.uiCarousel .mask{
+.ch-viewer .uiTriggers.uiCarousel .mask{
 	margin:0 35px;
 }
 
 
-.uiViewer .uiTriggers.uiCarousel .carousel li{
+.ch-viewer .uiTriggers.uiCarousel .carousel li{
 	height:42px;
 	margin:0 5px;
 	width:42px;
 }
 
-.uiViewer .uiTriggers.uiCarousel .carousel li a{
+.ch-viewer .uiTriggers.uiCarousel .carousel li a{
 	border:1px solid #FFFFFF;
 	display:block;
 	height:40px;
 	width:40px;
 }
 
-.uiViewer .uiTriggers.uiCarousel .carousel li a.on, .uiViewer .uiTriggers.uiCarousel .carousel li a:hover{
+.ch-viewer .uiTriggers.uiCarousel .carousel li a.on, .uiViewer .uiTriggers.uiCarousel .carousel li a:hover{
 	border:1px solid #CCC;
-}
-
-/*Modal*/
-
-.modalView{
-	width:500px;
-	height:500px;
-	text-align:center;
-}
+}*/
 
 
