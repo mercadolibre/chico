@@ -22,12 +22,45 @@ ui.viewer = function(conf){
 	that.children = conf.$htmlContent.find("a");
 	// Children width
 	var itemWidth = $(that.children[0]).parent().outerWidth();
-	// Set content visual config
-	conf.$htmlContent
-		.css('width', that.children.length * itemWidth)
-		.addClass("ch-viewer-content");
+
+	
+	// Thumbnails wrapper
+	var $wrapper = $("<div>").addClass("ch-viewer-triggers");
+	// Clone image list
+	var triggers = $(conf.element).find("ul").clone().addClass("carousel");
+	var modalCarousel = $(conf.element).find("ul").clone().addClass("carousel");
+
 	// Content functionality
+	var caro;
+	var loadModalContent = function(){
+		$(".ch-viewer-modal-content").parent().addClass("ch-viewer-modal");
+		modalCarousel.find("img").each(function(i, e){
+			$(e).attr("src", $(e).attr("src").replace("v=V", "v=O"));
+			/*ui.positioner({ FUCK!
+		        element: $(e),
+		        context: $(e).parents("li")
+			});*/
+		});
+		
+		$(".ch-viewer-modal-content").html( modalCarousel );
+		caro = $(".ch-viewer-modal-content").carousel({ pager: true });
+		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
+		caro.select(selectedThumb);
+	};
+	
+	// Content functionality
+	var hideModalContent = function(){		
+		$("ch-viewer-modal").remove();
+		for(var i = 0, j = ui.instances.carousel.length; i < j; i ++){			
+			if(ui.instances.carousel[i].element === caro.element){
+				ui.instances.carousel.splice(i,1);
+				return;
+			} 
+		};		
+	};
+	
 	var modals = [];
+	
 	for(var i = 0, j = that.children.length; i < j; i ++){
 		modals.push(
 			$(that.children[i])
@@ -41,15 +74,22 @@ ui.viewer = function(conf){
 				})
 				// Instance modal
 				.modal({
-					content: "<img src=\"" + $(that.children[i]).find("img").attr("src").replace("v=V", "v=O") + "\">"
+					content: "<div class=\"ch-viewer-modal-content\">",
+					callbacks: {
+						show: loadModalContent,
+						hide: hideModalContent
+					}
 				})
+				
 		);
+		
 	};
+
+	// Set content visual config
+	conf.$htmlContent
+		.css('width', that.children.length * itemWidth)
+		.addClass("ch-viewer-content");
 	
-	// Thumbnails wrapper
-	var $wrapper = $("<div>").addClass("ch-viewer-triggers");
-	// Clone image list
-	var triggers = $(conf.element).children().clone().addClass("carousel");
 	// Create carousel structure
 	$(conf.element).append( $wrapper.append(triggers) );
 	// Thumbnails
@@ -64,7 +104,7 @@ ui.viewer = function(conf){
 			select(i);
 		});
 	});
-	// Init carousel
+	// Inits carousel
 	var thumbsCarousel = $(".ch-viewer-triggers").carousel(); // TODO: guardar el carrousel dentro del viewer
 	
 	// Methods
@@ -76,7 +116,7 @@ ui.viewer = function(conf){
 	};
 	
 	// Thumbnail functionality
-	var selectedThumb; // Item selected previously
+	var selectedThumb = 0; // Item selected previously
 	var select = function(item){
 		// Validation
 		if(item > that.children.length-1 || item < 0 || isNaN(item)){
@@ -107,6 +147,7 @@ ui.viewer = function(conf){
 		// Return public object
 		return conf.publish;
 	};
+	
 	
 	// Public object
     conf.publish = {

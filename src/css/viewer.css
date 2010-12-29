@@ -15,6 +15,33 @@
     display:none;
 }
 
+.ch-viewer-modal{
+	width:600px;
+}
+.ch-viewer-modal-content{
+	margin:20px 0;
+	width:600px;
+	height:500px;
+}
+
+.ch-viewer-modal .ch-carousel-content li{
+	width:500px;
+	height:500px;
+	position:relative;
+}
+
+.ch-viewer-modal .ch-carousel-content li a{
+	width:500px;
+	height:500px;
+	cursor:default;
+	display:block;	
+}
+
+.ch-viewer-modal .ch-carousel-content li a img{
+	position:absolute;
+}
+
+
 .ch-viewer-content{
 	position:absolute;
 }
