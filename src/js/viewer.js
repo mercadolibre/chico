@@ -7,94 +7,110 @@
 ui.viewer = function(conf){
 	var that = ui.controllers(); // Inheritance
 	
-	// Viewer container
-	$(conf.element)
-		// Add classname
-		.addClass("ch-viewer")
-		// Create magnifying glass
-		.append( $("<div class=\"ch-lens\">") );
-	// Get magnifying glass
-	var lens = $(conf.element).find(".ch-lens");
-	
-	// Display
-	conf.$htmlContent = $(conf.element).children(":first");
-	// Children
-	that.children = conf.$htmlContent.find("a");
-	// Children width
-	var itemWidth = $(that.children[0]).parent().outerWidth();
+	/**
+	 * 	Viewer
+	 */
+	var $viewer = $(conf.element);
+	$viewer.addClass("ch-viewer"); // Create magnifying glass
 
-	
-	// Thumbnails wrapper
-	var $wrapper = $("<div>").addClass("ch-viewer-triggers");
-	// Clone image list
-	var triggers = $(conf.element).find("ul").clone().addClass("carousel");
-	var modalCarousel = $(conf.element).find("ul").clone().addClass("carousel");
-
-	// Content functionality
-	var caro;
-	var loadModalContent = function(){
+	/**
+	 * 	Modal of Viewer
+	 */
+	var viewerModal = {};
+	viewerModal.carouselStruct = $(conf.element).find("ul").clone().addClass("carousel");	
+	viewerModal.carouselStruct.find("a").each(function(i, e){		
+		$(e).children().attr("src", $(e).attr("href"));
+		$(e).bind("click", function(event){
+			that.prevent(event);
+		});
+	});
+	viewerModal.showContent = function(){
 		$(".ch-viewer-modal-content").parent().addClass("ch-viewer-modal");
-		modalCarousel.find("img").each(function(i, e){
-			$(e).attr("src", $(e).attr("src").replace("v=V", "v=O"));
-			/*ui.positioner({ FUCK!
-		        element: $(e),
-		        context: $(e).parents("li")
-			});*/
+		$(".ch-viewer-modal-content").html( viewerModal.carouselStruct );
+		viewerModal.carousel = $(".ch-viewer-modal-content").carousel({ pager: true });
+		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
+		viewerModal.carousel.select(thumbnails.selected);
+		viewerModal.modal.position();
+		viewerModal.carouselStruct.find("a").each(function(i, e){			
 		});
 		
-		$(".ch-viewer-modal-content").html( modalCarousel );
-		caro = $(".ch-viewer-modal-content").carousel({ pager: true });
-		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
-		caro.select(selectedThumb);
 	};
-	
-	// Content functionality
-	var hideModalContent = function(){		
+	viewerModal.hideContent = function(){		
 		$("ch-viewer-modal").remove();
-		for(var i = 0, j = ui.instances.carousel.length; i < j; i ++){			
-			if(ui.instances.carousel[i].element === caro.element){
+		for(var i = 0, j = ui.instances.carousel.length; i < j; i ++){ // TODO pasar al object			
+			if(ui.instances.carousel[i].element === viewerModal.carousel.element){
 				ui.instances.carousel.splice(i,1);
 				return;
 			} 
 		};		
 	};
-	
-	var modals = [];
-	
-	for(var i = 0, j = that.children.length; i < j; i ++){
-		modals.push(
-			$(that.children[i])
-				// Show magnifying glass
-				.bind("mouseover", function(){
-					lens.fadeIn(400);
-				})
-				// Hide magnifying glass
-				.bind("mouseleave", function(){
-					lens.fadeOut(400);
-				})
-				// Instance modal
-				.modal({
-					content: "<div class=\"ch-viewer-modal-content\">",
-					callbacks: {
-						show: loadModalContent,
-						hide: hideModalContent
-					}
-				})
-				
-		);
+	viewerModal.modal = $("<a>").modal({ //TODO iniciar componentes sin trigger
+		content: "<div class=\"ch-viewer-modal-content\">",
+		callbacks: {
+			show: viewerModal.showContent,
+			hide: viewerModal.hideContent
+		}
+	});
 		
-	};
-
+	
+	/**
+	 * 	Showcase
+	 */
+	var showcase = {};
+	showcase.wrapper = $("<div>").addClass("ch-viewer-display");
+	showcase.display = $(conf.element).children(":first");
+	$viewer.append( showcase.wrapper.append( showcase.display ).append("<div class=\"ch-lens\">") );
+	
+	showcase.children = showcase.display.find("a");
+	showcase.itemWidth = $(showcase.children[0]).parent().outerWidth();
+	
+	showcase.lens = $viewer.find(".ch-lens") // Get magnifying glass
+	ui.positioner({
+        element: $(showcase.lens),
+        context: $(".ch-viewer li"),
+        offset: "-20px 0"
+	});	
+	showcase.lens.bind("click", function(event){
+		viewerModal.modal.show();
+	});
+	
+	showcase.wrapper
+		// Show magnifying glass
+		.bind("mouseover", function(){
+			showcase.lens.fadeIn(400);
+		})
+		// Hide magnifying glass
+		.bind("mouseleave", function(){
+			showcase.lens.fadeOut(400);
+		});
+	
 	// Set content visual config
-	conf.$htmlContent
-		.css('width', that.children.length * itemWidth)
-		.addClass("ch-viewer-content");
+	showcase.display
+		.css('width', showcase.children.length * showcase.itemWidth)
+		.addClass("ch-viewer-content")
+		
+	
+	// Showcase functionality
+	showcase.children.bind("click", function(event){
+		that.prevent(event);
+		viewerModal.modal.show();
+	});
+	
+	
+	/**
+	 * 	Thumbnails
+	 */
+	var thumbnails = {};
+	thumbnails.selected = 0;
+	thumbnails.wrapper = $("<div>").addClass("ch-viewer-triggers");
 	
 	// Create carousel structure
-	$(conf.element).append( $wrapper.append(triggers) );
-	// Thumbnails
-	var thumbnails = $wrapper.find("a");
-	thumbnails.find("img").each(function(i, e){
+	$viewer.append( thumbnails.wrapper.append( $viewer.find("ul").clone().addClass("carousel") ) );
+		 
+	thumbnails.children = thumbnails.wrapper.find("a");
+	
+	// Thumbnails behavior
+	thumbnails.children.find("img").each(function(i, e){
 		// Change image parameter (thumbnail size)
 		$(e).attr("src", $(e).attr("src").replace("v=V", "v=M"));
 		
@@ -105,44 +121,38 @@ ui.viewer = function(conf){
 		});
 	});
 	// Inits carousel
-	var thumbsCarousel = $(".ch-viewer-triggers").carousel(); // TODO: guardar el carrousel dentro del viewer
+	thumbnails.carousel = thumbnails.wrapper.carousel(); // TODO: guardar el carrousel dentro del viewer
 	
-	// Methods
-	// Show item modal
-	var zoom = function(item){
-		modals[item].show();
-		
-		return conf.publish; // Return public object
-	};
 	
-	// Thumbnail functionality
-	var selectedThumb = 0; // Item selected previously
+	/**
+	 * 	Methods
+	 */
 	var select = function(item){
 		// Validation
-		if(item > that.children.length-1 || item < 0 || isNaN(item)){
-			alert("Error: Expected to find a number between 0 and " + (that.children.length-1) + ".");
-			return;
+		if(item > showcase.children.length-1 || item < 0 || isNaN(item)){
+			alert("Error: Expected to find a number between 0 and " + (showcase.children.length - 1) + ".");
+			return conf.publish;
 		};
 		
-		var visibles = thumbsCarousel.getSteps(); // Items per page
-		var page = thumbsCarousel.getPage(); // Current page
+		var visibles = thumbnails.carousel.getSteps(); // Items per page
+		var page = thumbnails.carousel.getPage(); // Current page
 		var nextPage = ~~(item / visibles) + 1; // Page of "item"
 		
 		// Visual config		
-		$(thumbnails[selectedThumb]).removeClass("on");
-		$(thumbnails[item]).addClass("on");
+		$(thumbnails.children[thumbnails.selected]).removeClass("on");
+		$(thumbnails.children[item]).addClass("on");
 		
 		// Content movement
-		conf.$htmlContent.animate({ left: -item * itemWidth });// Reposition content
+		showcase.display.animate({ left: -item * showcase.itemWidth });// Reposition content
 		// Trigger movement
-		if (selectedThumb < visibles && item >= visibles && nextPage > page) {
-			thumbsCarousel.next();
-		}else if (selectedThumb >= visibles && item < visibles && nextPage < page ) {
-			thumbsCarousel.prev();
+		if (thumbnails.selected < visibles && item >= visibles && nextPage > page) {
+			thumbnails.carousel.next();
+		}else if (thumbnails.selected >= visibles && item < visibles && nextPage < page ) {
+			thumbnails.carousel.prev();
 		};
 		
 		// Selected
-		selectedThumb = item;
+		thumbnails.selected = item;
 		
 		// Return public object
 		return conf.publish;
@@ -153,10 +163,8 @@ ui.viewer = function(conf){
     conf.publish = {
 		uid: conf.id,
 		element: conf.element,
-		type: "ui.viewer",
-		children: that.children,
-		select: function(i){ return select(i); },
-		zoom: function(i){ return zoom(i); }
+		type: "viewer",
+		select: function(i){ return select(i); }
     }
 	
 	// Default behavior

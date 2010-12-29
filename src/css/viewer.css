@@ -7,12 +7,15 @@
 }
 .ch-lens{
  	background:red;
-    bottom:60px;
-    height:65px;
+    height:41px;
     position:absolute;
-    right:10px;
-    width:65px;
+    width:41px;
+    cursor:pointer;
     display:none;
+	background-image: url('../src/assets/viewer.png');
+	background-repeat: no-repeat;
+	background-position:-2px -1px;
+	
 }
 
 .ch-viewer-modal{
@@ -20,26 +23,25 @@
 }
 .ch-viewer-modal-content{
 	margin:20px 0;
-	width:600px;
 	height:500px;
 }
 
 .ch-viewer-modal .ch-carousel-content li{
 	width:500px;
 	height:500px;
-	position:relative;
 }
 
 .ch-viewer-modal .ch-carousel-content li a{
 	width:500px;
 	height:500px;
 	cursor:default;
-	display:block;	
+	display:block;
+	text-align:center;
 }
 
-.ch-viewer-modal .ch-carousel-content li a img{
+/*.ch-viewer-modal .ch-carousel-content li a img{
 	position:absolute;
-}
+}*/
 
 
 .ch-viewer-content{
