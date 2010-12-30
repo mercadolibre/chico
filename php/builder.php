@@ -17,7 +17,8 @@ class Builder {
 
     function __construct() {
         // Define URL
-        $url = "http://".$_SERVER["HTTP_HOST"]."/php/packer.php";
+		$url = $this->getURL();
+        $url = str_replace("builder","packer",$url);
         // Build JavaScript Source
         $this->build( $url , $this->src.'chico-min.js' );
         $this->build( $url.'?debug=true', $this->src.'chico.js' );
@@ -26,6 +27,17 @@ class Builder {
         $this->build( $url.'?type=css&debug=true', $this->src.'chico.css' );
 
         
+    }
+    
+    private function getURL() {
+		
+		$pageURL = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
+		if ($_SERVER["SERVER_PORT"] != "80") {
+		    $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+		} else {
+		    $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+		}
+		return $pageURL;
     }
     
     private function build( $url, $file ) {
