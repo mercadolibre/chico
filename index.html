@@ -289,6 +289,72 @@
 		</div>
 		
 		<div class="article demo">
+			<h1>Viewer</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<div class="demoViewer">
+						<ul>
+							<li>
+								<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=O" target="_blank">
+									<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=V">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank">
+									<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blank">
+									<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank">
+									<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blank">
+									<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
+								</a>
+							</li>
+							<li>
+								<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blank">
+									<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<div class="foo">
+								<ul>
+									<li>
+										<a href="url-of-big-size-image">
+											<img src="url-of-medium-size image" alt="...">
+										</a>
+									</li>
+								</ul>
+							</div></pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').viewer();</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
 			<h1>Tab Navigator</h1>
 			<div class="section">
 				<div class="box">
@@ -660,15 +726,6 @@
     <script src="libs/js/highlight.js"></script>
 	<script>
 
-		// Boxes alignment
-        $('.article').each(function(i, e){ 
-            var $first = $(e).find('.section .box:first');
-            var $second = $(e).find('.aside .box:first'); 
-            
-            if ( $first.height() < $second.height() ) { $first.height( $second.height() ); } 
-            
-        });
-
 		// Automatic version
         var title = $('head title').html() + ' ' + ui.version;
         document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
@@ -678,6 +735,9 @@
         var ui_drop = $('.demoDropdown').dropdown();
 
         var ui_caro = $('.demoCarousel').carousel();
+        
+        var ui_view = $('.demoViewer').viewer();
+        
         var ui_moda = $('.demoModal').modal({
         	 ajax: true,
         	 callbacks:{
