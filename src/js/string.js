@@ -1,12 +1,10 @@
 /**
- *	String validations
- *	@author
- *	@Contructor
+ *	@Interface String validations
  *	@return An interface object
  */
 
-ui.string = function(conf){
-	
+ui.string = function(conf) {
+
     /**
 	 *  Override Watcher Configuration
 	 */
@@ -40,14 +38,25 @@ ui.string = function(conf){
 		return regex[type];
 	};
     // Messages
-	conf.messages = {
+	conf.defaultMessages = {
 		text:		"Usa sólo letras.",
 		email:		"Usa el formato nombre@ejemplo.com.",
 		url:		"Usa el formato www.sitio.com.",
 		minLength:	"Ingresa al menos " + conf.minLength + " caracteres.",
 		maxLength:	"El máximo de caracteres es " + conf.maxLength + "."
 	};
-
+	
+	conf.messages = {}
+	
+    var types = conf.types.split(",");
+	for (var i = 0, j = types.length; i < j; i ++) {
+		for (var val in conf) {
+			if (types[i] == val) {
+				conf.messages[val] = conf.defaultMessages[val];
+			};
+		};
+	};
+	
     /**
 	 *  Extend Watcher
 	 */
@@ -58,3 +67,72 @@ ui.string = function(conf){
 	 */
     return that.publish;
 };
+
+
+/**
+ *	@Interface Email validations
+ *	@return An interface object
+ */
+ 
+ui.email = function(conf) {
+    
+    conf = conf || {};
+    
+    conf.email = true;
+
+    return ui.string(conf);
+    
+}
+
+ui.factory({ component: 'email' });
+
+/**
+ *	@Interface URL validations
+ *	@return An interface object
+ */
+ 
+ui.url = function(conf) {
+    
+    conf = conf || {};
+    
+    conf.url = true;
+
+    return ui.string(conf);
+    
+}
+
+ui.factory({ component: 'url' });
+
+/**
+ *	@Interface MinLength validations
+ *	@return An interface object
+ */
+ 
+ui.minLength = function(conf) {
+    
+    conf = conf || {};
+    
+    conf.minLength = conf.value;
+
+    return ui.string(conf);
+    
+}
+
+ui.factory({ component: 'minLength' });
+
+/**
+ *	@Interface MaxLength validations
+ *	@return An interface object
+ */
+ 
+ui.maxLength = function(conf) {
+    
+    conf = conf || {};
+    
+    conf.maxLength = conf.value;
+
+    return ui.string(conf);
+    
+}
+
+ui.factory({ component: 'maxLength' });

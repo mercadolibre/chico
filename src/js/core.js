@@ -71,11 +71,6 @@ ui.factory = function(o) {
             var results = [];			    
             var that = this;
             var options = options || {};
-            
-            if (typeof options !== "object") { 
-                alert("Factory " + x + " configure error: Need a basic configuration."); 
-                return;
-            };		
 
             that.each( function(i, e) {
 
@@ -83,8 +78,19 @@ ui.factory = function(o) {
                     conf.name = x;
                     conf.element = e ;
                     conf.id = ui.utils.index++; // Global instantiation index
-
-                $.extend( conf , options );
+                
+                // If argument is a number, join with the conf
+                if (typeof options === "number") {
+                    conf.value = options;
+                } else {
+                    // Check for an object
+                    if (typeof options !== "object") { 
+                        alert("Factory " + x + " configure error: Need a basic configuration."); 
+                        return;
+                    };
+                    // Extend conf with the options
+                    $.extend( conf , options );   
+                }
 
                 // Create a component from his constructor
                 var created = ui[x]( conf );

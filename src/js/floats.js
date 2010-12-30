@@ -1,9 +1,9 @@
-
 /**
-*  @static @class Floats. Represent the abstract class of all floats ui objects.
-*  @requires ui.object
-*  @returns {Object} New Floats.
-*/
+ *  @class Floats. Represent the abstract class of all floats UI-Objects.
+ *  @requires object.
+ *  @returns {Object} Floats.
+ */
+ 
 ui.floats = function(){
 	var that = ui.object(); // Inheritance	
     

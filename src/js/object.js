@@ -1,8 +1,8 @@
-
 /**
-*	Creates a new Object.
-*  Represent the abstract class of all ui objects.
-*/	
+ *  @class Object. Represent the abstract class of all ui objects.
+ *  @return {object} Object.
+ */	
+
 ui.object = function(){
 	
 	var that = this;

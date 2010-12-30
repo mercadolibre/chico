@@ -1,8 +1,7 @@
 /**
- *	Modal window
- *	@author
- *	@Contructor
- *	@return An interface object
+ *	@class Modal. Create and manage modal windows
+ *  @requires: floats.
+ *	@return Public Object.
  */
 
 ui.modal = function(conf){

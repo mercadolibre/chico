@@ -25,10 +25,21 @@ ui.number = function(conf){
 		return regex[type];
 	};
     // Messages
-	conf.messages = {
+	conf.defaultMessages = {
 		number:	"Usa sólo números.",
 		min:	"La cantidad mínima es " + conf.min + ".",
 		max:	"La cantidad máxima es " + conf.max + "."
+	};
+	
+	conf.messages = {}
+	
+    var types = conf.types.split(",");
+	for (var i = 0, j = types.length; i < j; i ++) {
+		for (var val in conf) {
+			if (types[i] == val) {
+				conf.messages[val] = conf.defaultMessages[val];
+			};
+		};
 	};
 	
     /**
@@ -41,3 +52,39 @@ ui.number = function(conf){
 	 */
 	return that.publish;
 };
+
+
+/**
+ *	@Interface Min validations
+ *	@return An interface object
+ */
+ 
+ui.min = function(conf) {
+    
+    conf = conf || {};
+    
+    conf.min = conf.value;
+
+    return ui.number(conf);
+    
+}
+
+ui.factory({ component: 'min' });
+
+/**
+ *	@Interface Max validations
+ *	@return An interface object
+ */
+ 
+ui.max = function(conf) {
+    
+    conf = conf || {};
+    
+    conf.max = conf.value;
+
+    return ui.number(conf);
+    
+}
+
+ui.factory({ component: 'max' });
+
