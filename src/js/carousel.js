@@ -98,7 +98,7 @@ ui.carousel = function(conf){
 	var buttons = {};
 	
 	buttons.prev = {};
-	console.log($mask.parents(".box").length > 0);
+	
 	buttons.prev.$element = $('<p class="prev">Previous</p>')
 		.bind('click', function(){ buttons.prev.move(1) })
 		.css('top', (conf.$htmlContent.children().outerHeight() - 22) / 2 + ( ($mask.parents(".box").length > 0) ? 10 : 0 )) // 22 = button height TODO: If there are a parent with class box, plus 10 px of padding
