@@ -27,7 +27,7 @@ ui.viewer = function(conf){
 	viewerModal.showContent = function(){
 		$(".ch-viewer-modal-content").parent().addClass("ch-viewer-modal");
 		$(".ch-viewer-modal-content").html( viewerModal.carouselStruct );
-		viewerModal.carousel = $(".ch-viewer-modal-content").carousel({ pager: true });
+		that.children[2] = viewerModal.carousel = $(".ch-viewer-modal-content").carousel({ pager: true });
 		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
 		viewerModal.carousel.select(thumbnails.selected);
 		viewerModal.modal.position();
@@ -44,7 +44,7 @@ ui.viewer = function(conf){
 			} 
 		};		
 	};
-	viewerModal.modal = $("<a>").modal({ //TODO iniciar componentes sin trigger
+	that.children[1] = viewerModal.modal = $("<a>").modal({ //TODO iniciar componentes sin trigger
 		content: "<div class=\"ch-viewer-modal-content\">",
 		callbacks: {
 			show: viewerModal.showContent,
@@ -121,7 +121,7 @@ ui.viewer = function(conf){
 		});
 	});
 	// Inits carousel
-	thumbnails.carousel = thumbnails.wrapper.carousel(); // TODO: guardar el carrousel dentro del viewer
+	that.children[0] = thumbnails.carousel = thumbnails.wrapper.carousel(); // TODO: guardar el carrousel dentro del viewer
 	
 	
 	/**
@@ -164,6 +164,7 @@ ui.viewer = function(conf){
 		uid: conf.id,
 		element: conf.element,
 		type: "viewer",
+		children: that.children,
 		select: function(i){ return select(i); }
     }
 	
