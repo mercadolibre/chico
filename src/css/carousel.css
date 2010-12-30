@@ -36,6 +36,7 @@
 	height:22px;
 	width:12px;
 	position: absolute;
+	cursor:default;
 }
 
 .ch-carousel .prev{

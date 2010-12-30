@@ -36,7 +36,7 @@ ui.carousel = function(conf){
 
 	// Mask configuration
 	var margin = ($mask.width()-moveTo) / 2;
-	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() );
+	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() + 2 ); // +2 for content with border
 	//if(conf.arrows != false) $mask.css('marginLeft', margin);
 	
 	var prev = function(event) {
@@ -101,7 +101,7 @@ ui.carousel = function(conf){
 	
 	buttons.prev.$element = $('<p class="prev">Previous</p>')
 		.bind('click', function(){ buttons.prev.move(1) })
-		.css('top', (conf.$htmlContent.children().outerHeight() - 22) / 2 + ( ($mask.parents(".box").length > 0) ? 10 : 0 )) // 22 = button height TODO: If there are a parent with class box, plus 10 px of padding
+		.css('top', (conf.$trigger.outerHeight() - 22) / 2) // 22 = button height
 	
 	buttons.prev.show = function(){
 		buttons.prev.$element
@@ -146,7 +146,7 @@ ui.carousel = function(conf){
 	
 	buttons.next.$element = $('<p class="next">Next</p>')
 		.bind('click', function(){ buttons.next.move(1) })
-		.css('top', (conf.$htmlContent.children().outerHeight() - 22) / 2 + ( ($mask.parents(".box").length > 0) ? 10 : 0 )) // 22 = button height TODO: If there are a parent with class box, plus 10 px of padding
+		.css('top', (conf.$trigger.outerHeight() - 22) / 2) // 22 = button height
 	
 	buttons.next.show = function(){
 		buttons.next.$element
