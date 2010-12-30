@@ -9,7 +9,7 @@ class Builder {
     public $version = "0.1";
     public $autor = "Natan Santolo <natan.santolo@mercadolibre.com>";
     
-    private $src = "../build";
+    private $src = "../build/";
     
     /**
      * Constructor
@@ -19,18 +19,18 @@ class Builder {
         // Define URL
         $url = "http://".$_SERVER["HTTP_HOST"]."/php/packer.php";
         // Build JavaScript Source
-        $this->build( $url , '../build/chico-min.js' );
-        $this->build( $url.'?debug=true', '../build/chico.js' );
+        $this->build( $url , $this->src.'chico-min.js' );
+        $this->build( $url.'?debug=true', $this->src.'chico.js' );
         // Build StyleSheet Source
-        $this->build( $url.'?type=css', '../build/chico-min.css' );
-        $this->build( $url.'?type=css&debug=true', '../build/chico.css' );
+        $this->build( $url.'?type=css', $this->src.'chico-min.css' );
+        $this->build( $url.'?type=css&debug=true', $this->src.'chico.css' );
 
         
     }
     
     private function build( $url, $file ) {
         
-         echo "<h2>".$file."</h2>";
+         echo "<h2><a href=\"$file\">".$file."</a></h2>";
          echo "<p>from: ".$url."</p>";
          // Get content from $url
          $curl = curl_init( $url );

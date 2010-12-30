@@ -144,6 +144,15 @@ class Packer {
         return $return;
     }
     
+    /**
+     * @method removeConsoles, is a method that removes all the "console.log" commands, is for Lean.
+     */
+    private function removeConsoles($print) {
+        
+        $print = str_replace("console.log", "//console.log", $print);
+        
+        return $print;
+    }
 
     /**
      * @method deliver return all the packed stuff
@@ -165,6 +174,10 @@ class Packer {
                 $src = str_replace("internals: \"\",", "internals: \"".$this->internals."\",", $src);
                 $src = str_replace("components: \"\",", "components: \"".$this->components."\",", $src);
             }
+        
+            
+            $src = str_replace("console.log", "//console.log", $src);
+
         
             // save the file
             $source.=$src;

@@ -28,6 +28,7 @@ var ui = window.ui = {
     instances: {},
  	
     init: function() { 
+        //console.log("Chico-UI: Init();");
         // unmark the no-js flag on html tag
         $("html").removeClass("no-js");
         // check for pre-configured components
@@ -96,7 +97,7 @@ ui.factory = function(o) {
                     conf.id = ui.utils.index++; // Global instantiation index
                 
                 // If argument is a number, join with the conf
-                if (typeof options === "number") {
+                if (typeof options === "number") {
                     conf.value = options;
                 } else {
                     // Check for an object

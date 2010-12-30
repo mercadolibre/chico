@@ -27,7 +27,7 @@
 	<body>	
 	<div class="header">
 		<h1>Chico UI</h1>
-		<p><a href="tests/">Test Cases</a>. <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportá bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Chico-Wiki</a>. <a href="mailto:chico@mercadolibre.com">Contacto</a>.</p>
+		<p><a href="php/builder.php">Build version</a>. <a href="tests/">Test Cases</a>. <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportá bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Chico-Wiki</a>. <a href="mailto:chico@mercadolibre.com">Contacto</a>.</p>
 	</div>
 	<div class="container">
 		<div class="box">
@@ -44,7 +44,7 @@
 		<div>
 				<div id="dependencias">
 				    <h3>JavaScript & Style sheets</h3>
-					<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JS o CSS. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/chico.php</strong>. <a href="php/chico.php">Ver packer-o-matic</a></p>  
+					<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JS o CSS. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/chico.php</strong>. <a href="php/packer.php">Ver packer-o-matic</a></p>  
 					<p>El <em>Packer-o-matic</em> viene en varios sabores y puede recibir dos argumentos opcionales por query string:<p>
 					<dl class="depend">
 					    <dt><strong>De fábrica</strong></dt>
@@ -745,7 +745,7 @@
 					return "<p>En este momento no podemos cargar el contenido. Intentalo más tarde.</p>";
         	 	},
         	 	success: function(data, textStatus, xhr){
-					console.log("Ajax con éxito.");
+					// Do something...
         	 	}
         	 }
         });			
