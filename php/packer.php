@@ -30,7 +30,7 @@ class Packer {
      */
 
     function __construct() {
-
+        
         $this->getQueryStringData();
         
     }
@@ -146,7 +146,7 @@ class Packer {
     
 
     /**
-     * @method deliver print all the packed stuff
+     * @method deliver return all the packed stuff
      */
     public function deliver() {
    
@@ -181,30 +181,40 @@ class Packer {
         } else {
             header("Content-type: text/javascript");
         }
+        
         // Make the deliver ;)
-        echo "/**\n";
-        echo "  * Chico-UI\n";
-        echo "  * Packer-o-matic\n";
-        echo "  * Like the pizza delivery service: \"Les than 100 milisecons delivery guarantee!\"\n";
-        echo "  * @components: ".( ($this->type=="css") ? $this->components : implode(", ",$this->files) )."\n";
-        echo "  * @version ".$this->version."\n";
-        echo "  * @autor ".$this->autor."\n";
-        echo "  *\n";
-        echo "  * based on:\n";
-        echo "  * @package JSMin\n";
-        echo "  * @package CssMin\n";
-        echo "  * Stoyan Stefanov on DataURI: \n";
-        echo "  * http://www.phpied.com/data-urls-what-are-they-and-how-to-use/ \n";
-        echo "  */\n";
+        $deliver = "";
+        $deliver .= "/**\n";
+        $deliver .= "  * Chico-UI\n";
+        $deliver .= "  * Packer-o-matic\n";
+        $deliver .= "  * Like the pizza delivery service: \"Les than 100 milisecons delivery guarantee!\"\n";
+        $deliver .= "  * @components: ".( ($this->type=="css") ? $this->components : implode(", ",$this->files) )."\n";
+        $deliver .= "  * @version ".$this->version."\n";
+        $deliver .= "  * @autor ".$this->autor."\n";
+        $deliver .= "  *\n";
+        $deliver .= "  * @based on:\n";
         
         if ($this->type=="css") {
-            echo $print;
+            $deliver .= "  * @package CssMin\n";
+            $deliver .= "  * @copyright Stoyan Stefanov on DataURI: \n";
+            $deliver .= "  * @link http://www.phpied.com/data-urls-what-are-they-and-how-to-use/ \n";
+            $deliver .= "  */\n";
+            $deliver .= $print;
         } else {
-            echo ";(function($){\n".$print."\nui.init();\n})(jQuery);"; // Add ui.init() instruction to the end
+            $deliver .= "  * @package JSMin\n";
+            $deliver .= "  * @author Ryan Grove <ryan@wonko.com> \n";
+            $deliver .= "  * @copyright 2002 Douglas Crockford <douglas@crockford.com> (jsmin.c) \n";
+            $deliver .= "  * @copyright 2008 Ryan Grove <ryan@wonko.com> (PHP port) \n";
+            $deliver .= "  * @link http://code.google.com/p/jsmin-php/ \n";
+            $deliver .= "  */\n";
+            $deliver .= ";(function($){\n".$print."\nui.init();\n})(jQuery);"; // Add ui.init() instruction to the end
         }
+        
+        return $deliver;
     }
 }
 
 $packer = new Packer();
-$packer->deliver();
+echo $packer->deliver();
+
 ?>
