@@ -107,7 +107,11 @@ ul.ch-dropdown-content li a:focus {
 .ie6 .ch-dropdown-trigger {
 	display:inline;
 }
-
+.ie6 .ch-dropdown .ch-dropdown-trigger.on,
+.ie6 .ch-dropdown .ch-dropdown-trigger.on:hover {
+	background-position: 0 -485px;
+	font-weight:normal;
+}
 .ie6 .ch-dropdown,
 .ie6 .ch-dropdown-content {
 	width:0;
