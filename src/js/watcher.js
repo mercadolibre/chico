@@ -219,7 +219,8 @@ ui.watcher = function(conf) {
 			break;
 			
 			case 'SELECT':
-				return $(conf.element).val() == -1; // TODO: Revisar el estandar de <select>
+			    var val = $(conf.element).val();
+				return val == -1 || val == null;
 			break;
 			
 			case 'INPUT':
