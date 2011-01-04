@@ -5,8 +5,17 @@
  *	@return An interface object
  */
 
-ui.layer = function(conf){
+ui.layer = function(conf) {
+    
 	var that = ui.floats(); // Inheritance
+
+    var showTime = conf.showTime || 300;
+    var hideTime = conf.hideTime || 300;
+    
+	var st, ht; // showTimer and hideTimer
+	var showTimer = function(e){ st = setTimeout(function(){ show(e) }, showTime)};
+	var hideTimer = function(e){ ht = setTimeout(function(){ hide(e) }, hideTime)};
+	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 	// Global configuration
 	conf.$trigger = $(conf.element);
@@ -20,42 +29,46 @@ ui.layer = function(conf){
     }
     conf.publish = that.publish;
 
+	var clearTimers = function() {
+		clearTimeout(st);
+		clearTimeout(ht);
+	};
 
     var show = function(event) {
-        
+
         that.show(event, conf);				
 
         if (conf.event === "click") {
             
             $('.ch-layer').bind('click', function(event){ event.stopPropagation() });
-								
+	
             // Document events
-            $(document).bind('click', function(event){
+            $(document).bind('click', function(event) {
                 that.hide(event, conf);
                 $(document).unbind('click');
             });
         }
-
+        
         // return publish object
         return conf.publish;    
     }
 
     var hide = function(event) {
-        
+
         that.hide(event, conf);
         
         // return publish object
         return conf.publish;
     }
     
-    var position = function(event){
+    var position = function(event) {
 		ui.positioner(conf.position);
 		
 		return conf.publish;
 	}
 
 	// Click
-	if(conf.event === 'click'){
+	if(conf.event === 'click') {
 		// Local configuration
 		conf.closeButton = true;
 
@@ -65,12 +78,12 @@ ui.layer = function(conf){
 			.bind('click',show);
 
 	// Hover
-	}else{
+	} else {
 		// Trigger events
 		conf.$trigger
 			.css('cursor', 'default')
-			.bind('mouseover', show)
-			.bind('mouseout', hide);
+			.bind('mouseover', showTimer)
+			.bind('mouseout', hideTimer);
 	};
 
     // create the publish object to be returned

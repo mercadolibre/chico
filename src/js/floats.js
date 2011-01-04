@@ -4,25 +4,21 @@
  *  @returns {Object} Floats.
  */
  
-ui.floats = function(){
-	var that = ui.object(); // Inheritance	
+ui.floats = function() {
     
-	var clearTimers = function(){
-		clearTimeout(st);
-		clearTimeout(ht);
-	};
+	var that = ui.object(); // Inheritance	
 
-	var createClose = function(conf){
-		$('<p class="btn close">x</p>').bind('click', function(event){
+	var createClose = function(conf) {
+		$('<p class="btn close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
 		}).prependTo(conf.$htmlContent);
 	};
 
-	var createCone = function(conf){
+	var createCone = function(conf) {
 		$('<div class="cone"></div>').prependTo(conf.$htmlContent);
 	};
 
-	that.show = function(event, conf){
+	that.show = function(event, conf) {
 		that.prevent(event);
 		
 		if(conf.visible) return;
