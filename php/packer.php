@@ -159,6 +159,8 @@ class Packer {
      */
     public function deliver() {
    
+        $source = "";
+        
         // For each component
         foreach ($this->files as $file) {
         
