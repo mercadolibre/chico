@@ -176,10 +176,11 @@ class Packer {
                 $src = str_replace("internals: \"\",", "internals: \"".$this->internals."\",", $src);
                 $src = str_replace("components: \"\",", "components: \"".$this->components."\",", $src);
             }
-        
 
-            $src = str_replace("console.log", "//console.log", $src);
-
+            // if debug mode is off avoid console.logs
+            if (!$this->debug) {
+                $src = str_replace("console.log", "//console.log", $src);
+            }
 
             // save the file
             $source.=$src;
