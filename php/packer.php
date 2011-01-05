@@ -98,7 +98,8 @@ class Packer {
      * @return content with data uri
      */    
     private function encodeDataURI($source) {
-        
+        $data = ""; 
+        $return = "";
         $url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];        
         // Split the urls 
         $exploded = explode("url('",$source);
@@ -192,7 +193,7 @@ class Packer {
         // Headers
         if ($this->type=="css") {
             // Convert Sprites into DataURI!!!
-            $print = ($this->datauri) ? $this->encodeDataURI($print) : $print ;
+            $print = ($this->datauri=="false") ? $this->encodeDataURI($print) : $print ;
             header("Content-type: text/css");
         } else {
             header("Content-type: text/javascript");
