@@ -208,6 +208,8 @@ ui.watcher = function(conf) {
 		$(conf.element).removeClass("error");
 		that.helper.hide(); // Hide helper
 		$(conf.element).unbind("blur"); // Remove blur event 
+
+		that.callbacks(conf, 'reset');
 	};
 	
 	// isEmpty Method
@@ -254,10 +256,12 @@ ui.watcher = function(conf) {
 		},
 		reset: function() {
 			that.reset(conf);
+    		that.callbacks(conf, 'reset');
 			return that.publish;
 		},
 		validate: function() {
 			that.validate(conf);
+    		that.callbacks(conf, 'validate');
 			return that.publish;
 		}
 	};
