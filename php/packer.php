@@ -11,7 +11,7 @@ class Packer {
  * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
  */   
     public $version = "0.4";
-    public $autor = "Natan Santolo <natan.santolo@mercadolibre.com>";
+	public $autor = "Chico Team <chico@mercadolibre.com>";
     
     // querystring data
     private $type;

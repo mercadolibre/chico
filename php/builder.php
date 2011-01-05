@@ -7,8 +7,8 @@ class Builder {
  * Builder
  */   
     public $version = "0.1";
-    public $autor = "Natan Santolo <natan.santolo@mercadolibre.com>";
-    
+	public $autor = "Chico Team <chico@mercadolibre.com>";
+	    
     private $src = "../build/";
     
     /**
