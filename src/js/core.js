@@ -12,7 +12,6 @@ var ui = window.ui = {
     instances: {},
  	
     init: function() { 
-        console.log("Chico-UI: Init();");
         // unmark the no-js flag on html tag
         $("html").removeClass("no-js");
         // check for pre-configured components
