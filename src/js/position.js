@@ -1,4 +1,6 @@
-
+/**
+ *      DEPRECATED
+ */
 /**
 *  @static @class Positionator
 *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>

@@ -1,7 +1,3 @@
-/**
- *      DEPRECATED
- */
-
 // @arg o == configuration
 ui.positioner = function( o ) {
 
