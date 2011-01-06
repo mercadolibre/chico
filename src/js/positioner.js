@@ -128,7 +128,7 @@ ui.positioner = function( o ) {
 		var viewport = getViewport();
 		
 		// Down to top
-		if ( ( points == "lt lb" ) && ( (styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
+		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
 			
@@ -138,17 +138,17 @@ ui.positioner = function( o ) {
 			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
 		};
 		
-		/*// Right to down
+		// Left to right
 		if ( (styles.left + element.outerWidth()) > viewport.right ) { // Element right > Viewport right
-			unitPoints.my_x = "l";
-			unitPoints.my_y = "t";
-			unitPoints.at_x = "l";
-			unitPoints.my_y = "t";
+			unitPoints.my_x = "r";
+			unitPoints.at_x = "r";
 			
 			// New styles
+			var current = styles.direction;
 			styles = getPosition(unitPoints);
-			styles.direction = "down";
-		};*/
+			styles.direction = current + "-right";
+			if(current == "top") styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+		};
 		
 		return styles;
 	};
@@ -173,7 +173,7 @@ ui.positioner = function( o ) {
 				left: styles.left,
 				top: styles.top
 			})
-			.removeClass( "ch-top ch-left ch-down ch-right" )
+			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right" )
 			.addClass( "ch-" + styles.direction );
 	};	
 	
@@ -198,7 +198,6 @@ ui.positioner = function( o ) {
 	    
 	    // Set element position	    
 	    setPosition(o.points);
-	    
     };
     
     // Init

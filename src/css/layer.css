@@ -11,6 +11,11 @@
 	-moz-box-shadow: 3px 3px 3px #999;
 }
 
+.ch-layer .close {
+	top:5px;
+	right:5px;
+}
+
 /* Cone */
 
 .ch-layer .cone {
@@ -51,4 +56,20 @@
 
 .ch-layer.ch-right .cone {
 	left:-8px;
+}
+
+.ch-layer.ch-down-right .cone,
+.ch-layer.ch-top-right .cone {
+	width:16px;
+	height:8px;
+	right:12px;
+}
+
+.ch-layer.ch-down-right .cone {
+	top:-8px;
+}
+
+.ch-layer.ch-top-right .cone {
+	background-position:0 -8px;
+	bottom:-8px;
 }
