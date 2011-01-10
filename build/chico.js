@@ -1124,6 +1124,9 @@ ui.carousel = function(conf){
 			$(".ch-pager li").removeClass("on");
 			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
 		}
+		
+		// Callback
+		that.callbacks(conf, 'prev');
         
         // return publish object
         return conf.publish;
@@ -1170,6 +1173,9 @@ ui.carousel = function(conf){
 			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
 		}
 		
+		// Callback
+		that.callbacks(conf, 'next');
+		
         // return publish object
         return conf.publish;
 	};
@@ -1191,6 +1197,9 @@ ui.carousel = function(conf){
 			$(".ch-pager li").removeClass("on");
 			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
 		}
+		
+		// Callback
+		that.callbacks(conf, 'select');
 		
 		// return publish object
 	    return conf.publish;
@@ -2253,7 +2262,7 @@ ui.viewer = function(conf){
 		});
 	});
 	// Inits carousel
-	that.children[0] = thumbnails.carousel = thumbnails.wrapper.carousel(); // TODO: guardar el carrousel dentro del viewer
+	that.children[0] = thumbnails.carousel = thumbnails.wrapper.carousel();
 	
 	
 	/**
@@ -2297,10 +2306,15 @@ ui.viewer = function(conf){
 		element: conf.element,
 		type: "viewer",
 		children: that.children,
-		select: function(i){ return select(i); }
+		select: function(i){
+			// Callback
+			that.callbacks(conf, 'select');
+			
+			return select(i);
+		}
     }
 	
-	// Default behavior
+	// Default behavior (Select first item and without callback)
 	select(0);
 	
 	return conf.publish;
