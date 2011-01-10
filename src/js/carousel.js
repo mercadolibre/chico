@@ -135,6 +135,9 @@ ui.carousel = function(conf){
 			$(".ch-pager li").removeClass("on");
 			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
 		}
+		
+		// Callback
+		that.callbacks(conf, 'prev');
         
         // return publish object
         return conf.publish;
@@ -181,6 +184,9 @@ ui.carousel = function(conf){
 			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
 		}
 		
+		// Callback
+		that.callbacks(conf, 'next');
+		
         // return publish object
         return conf.publish;
 	};
@@ -202,6 +208,9 @@ ui.carousel = function(conf){
 			$(".ch-pager li").removeClass("on");
 			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
 		}
+		
+		// Callback
+		that.callbacks(conf, 'select');
 		
 		// return publish object
 	    return conf.publish;
