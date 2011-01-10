@@ -4,7 +4,7 @@
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
   * @components: carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer
   * @version 0.4
-  * @autor Natan Santolo <natan.santolo@mercadolibre.com>
+  * @autor Chico Team <chico@mercadolibre.com>
   *
   * @based on:
   * @package CssMin
@@ -980,7 +980,11 @@ ul.ch-dropdown-content li a:focus {
 .ie6 .ch-dropdown-trigger {
 	display:inline;
 }
-
+.ie6 .ch-dropdown .ch-dropdown-trigger.on,
+.ie6 .ch-dropdown .ch-dropdown-trigger.on:hover {
+	background-position: 0 -485px;
+	font-weight:normal;
+}
 .ie6 .ch-dropdown,
 .ie6 .ch-dropdown-content {
 	width:0;
@@ -1006,6 +1010,11 @@ ul.ch-dropdown-content li a:focus {
 	box-shadow: 3px 3px 3px #999;
 	-webkit-box-shadow: 3px 3px 3px #999;
 	-moz-box-shadow: 3px 3px 3px #999;
+}
+
+.ch-layer .close {
+	top:5px;
+	right:5px;
 }
 
 /* Cone */
@@ -1049,6 +1058,22 @@ ul.ch-dropdown-content li a:focus {
 
 .ch-layer.ch-right .cone {
 	left:-8px;
+}
+
+.ch-layer.ch-down-right .cone,
+.ch-layer.ch-top-right .cone {
+	width:16px;
+	height:8px;
+	right:12px;
+}
+
+.ch-layer.ch-down-right .cone {
+	top:-8px;
+}
+
+.ch-layer.ch-top-right .cone {
+	background-position:0 -8px;
+	bottom:-8px;
 }
 .ch-dimmer {
 	background-color:rgba(0,0,0,.5);
@@ -1261,6 +1286,22 @@ html.ie6  div.ch-dimmer {
 
 .ch-tooltip.ch-right .cone {
 	left:-8px;
+}
+
+.ch-layer.ch-down-right .cone,
+.ch-layer.ch-top-right .cone {
+	width:16px;
+	height:8px;
+	right:12px;
+}
+
+.ch-layer.ch-down-right .cone {
+	top:-8px;
+}
+
+.ch-layer.ch-top-right .cone {
+	background-position:0 -8px;
+	bottom:-8px;
 }
 .ch-helper,
 .ch-validator {
