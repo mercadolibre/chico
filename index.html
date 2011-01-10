@@ -64,7 +64,7 @@
 			<div id="crossbrowsing">
 				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;html&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
 				<code>
-					&lt;!--[if IE]&gt;&lt;![endif]--&gt;
+					&lt;!--[if IE]&gt;&lt;![endif]--&gt;<br>
 					&lt;!--[if lt IE 7 ]&gt; &lt;html lang="en" class="no-js ie6"&gt; &lt;![endif]--&gt;<br>
 					&lt;!--[if IE 7 ]&gt; &lt;html lang="en" class="no-js ie7"&gt; &lt;![endif]--&gt;<br>
 					&lt;!--[if IE 8 ]&gt; &lt;html lang="en" class="no-js ie8"&gt; &lt;![endif]--&gt;<br>
@@ -778,14 +778,13 @@
     	var nv6 = $('#val_required_disabled, #val_select2, #val_select3, .val_check2, .val_check3, .val_radio2, .val_radio3, #val_textarea2, #val_textarea3').required();
 
         var m = $('#val_selectM').required();
-        
             m.validate();
         
 		// Submit form
 		uiForm.submit();
 
 		// Chat
-		ui.factory({
+		/*ui.factory({
 		      component: "chat",
 		      callback: createChat
 	    });
@@ -798,7 +797,7 @@
                style: 'block',
                template: '3'
            });
-        }        
+        }*/
 
 	</script>
 	
