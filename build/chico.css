@@ -1649,6 +1649,7 @@ form .disabled input{
 .ch-viewer-modal .ch-carousel-content li{
 	width:500px;
 	height:500px;
+	text-align:center;
 }
 
 .ch-viewer-modal .ch-carousel-content li a{
