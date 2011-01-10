@@ -429,29 +429,6 @@ hr {
 	display:inline-block;margin-bottom:5px;
 }
      
-/*
- * Simple Grid System
- * @autor: Natan Santolo
- * @mod: 28/09/2010
- *
- */
- 
-.g5 > .box:first-child, .g3 > .box:first-child {
-	margin:0;
-}
-
-.g5 .box, .g3 .box {
-	float: left;
-	margin: auto;	
-}
-
-.g5 .box {
-	width: 47.9%;	
-}
-
-.g3 .box {
-	width: 29%;
-}
 
 /**
  * Icons
