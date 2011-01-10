@@ -24,8 +24,8 @@ ui.layer = function(conf) {
 	conf.visible = false;	
 	conf.position = {
    		context: conf.$trigger,
-        offset: "0 10",
-		points: "lt lb"
+        offset: conf.offset || "0 10",
+		points: conf.points || "lt lb"
     }
     conf.publish = that.publish;
 
