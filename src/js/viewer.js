@@ -18,11 +18,9 @@ ui.viewer = function(conf){
 	 */
 	var viewerModal = {};
 	viewerModal.carouselStruct = $(conf.element).find("ul").clone().addClass("carousel");	
-	viewerModal.carouselStruct.find("a").each(function(i, e){		
-		$(e).children().attr("src", $(e).attr("href"));
-		$(e).bind("click", function(event){
-			that.prevent(event);
-		});
+	viewerModal.carouselStruct.find("img").each(function(i, e){
+		$(e).attr("src", $(e).parent().attr("href")) // Image source change
+			.unwrap(); // Link deletion
 	});
 	viewerModal.showContent = function(){
 		$(".ch-viewer-modal-content").parent().addClass("ch-viewer-modal");
