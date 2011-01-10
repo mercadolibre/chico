@@ -4,7 +4,7 @@
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
   * @components: core, position, positioner, object, floats, navs, controllers, watcher, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, required, helper, forms, viewer
   * @version 0.4
-  * @autor Natan Santolo <natan.santolo@mercadolibre.com>
+  * @autor Chico Team <chico@mercadolibre.com>
   *
   * @based on:
   * @package JSMin
@@ -19,7 +19,7 @@
   */
 var ui = window.ui = {
 
-    version: "0.4.7",
+    version: "0.4.8",
 
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer",
 
@@ -28,7 +28,6 @@ var ui = window.ui = {
     instances: {},
  	
     init: function() { 
-        //console.log("Chico-UI: Init();");
         // unmark the no-js flag on html tag
         $("html").removeClass("no-js");
         // check for pre-configured components
@@ -255,7 +254,9 @@ ui.get = function(o) {
     }
 
 }
-
+/**
+ *      DEPRECATED
+ */
 /**
 *  @static @class Positionator
 *	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
@@ -310,10 +311,6 @@ ui.position = {
 		});
 	}
 }
-/**
- *      DEPRECATED
- */
-
 // @arg o == configuration
 ui.positioner = function( o ) {
 
@@ -444,7 +441,7 @@ ui.positioner = function( o ) {
 		var viewport = getViewport();
 		
 		// Down to top
-		if ( ( points == "lt lb" ) && ( (styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
+		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
 			
@@ -454,17 +451,17 @@ ui.positioner = function( o ) {
 			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
 		};
 		
-		/*// Right to down
+		// Left to right
 		if ( (styles.left + element.outerWidth()) > viewport.right ) { // Element right > Viewport right
-			unitPoints.my_x = "l";
-			unitPoints.my_y = "t";
-			unitPoints.at_x = "l";
-			unitPoints.my_y = "t";
+			unitPoints.my_x = "r";
+			unitPoints.at_x = "r";
 			
 			// New styles
+			var current = styles.direction;
 			styles = getPosition(unitPoints);
-			styles.direction = "down";
-		};*/
+			styles.direction = current + "-right";
+			if(current == "top") styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+		};
 		
 		return styles;
 	};
@@ -489,7 +486,7 @@ ui.positioner = function( o ) {
 				left: styles.left,
 				top: styles.top
 			})
-			.removeClass( "ch-top ch-left ch-down ch-right" )
+			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right" )
 			.addClass( "ch-" + styles.direction );
 	};	
 	
@@ -514,7 +511,6 @@ ui.positioner = function( o ) {
 	    
 	    // Set element position	    
 	    setPosition(o.points);
-	    
     };
     
     // Init
@@ -606,25 +602,21 @@ ui.object = function(){
  *  @returns {Object} Floats.
  */
  
-ui.floats = function(){
-	var that = ui.object(); // Inheritance	
+ui.floats = function() {
     
-	var clearTimers = function(){
-		clearTimeout(st);
-		clearTimeout(ht);
-	};
+	var that = ui.object(); // Inheritance	
 
-	var createClose = function(conf){
-		$('<p class="btn close">x</p>').bind('click', function(event){
+	var createClose = function(conf) {
+		$('<p class="btn close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
 		}).prependTo(conf.$htmlContent);
 	};
 
-	var createCone = function(conf){
+	var createCone = function(conf) {
 		$('<div class="cone"></div>').prependTo(conf.$htmlContent);
 	};
 
-	that.show = function(event, conf){
+	that.show = function(event, conf) {
 		that.prevent(event);
 		
 		if(conf.visible) return;
@@ -920,6 +912,8 @@ ui.watcher = function(conf) {
 		$(conf.element).removeClass("error");
 		that.helper.hide(); // Hide helper
 		$(conf.element).unbind("blur"); // Remove blur event 
+
+		that.callbacks(conf, 'reset');
 	};
 	
 	// isEmpty Method
@@ -931,7 +925,8 @@ ui.watcher = function(conf) {
 			break;
 			
 			case 'SELECT':
-				return $(conf.element).val() == -1; // TODO: Revisar el estandar de <select>
+			    var val = $(conf.element).val();
+				return val == -1 || val == null;
 			break;
 			
 			case 'INPUT':
@@ -965,10 +960,12 @@ ui.watcher = function(conf) {
 		},
 		reset: function() {
 			that.reset(conf);
+    		that.callbacks(conf, 'reset');
 			return that.publish;
 		},
 		validate: function() {
 			that.validate(conf);
+    		that.callbacks(conf, 'validate');
 			return that.publish;
 		}
 	};
@@ -1335,8 +1332,17 @@ ui.dropdown = function(conf){
  *	@return An interface object
  */
 
-ui.layer = function(conf){
+ui.layer = function(conf) {
+    
 	var that = ui.floats(); // Inheritance
+
+    var showTime = conf.showTime || 300;
+    var hideTime = conf.hideTime || 300;
+    
+	var st, ht; // showTimer and hideTimer
+	var showTimer = function(e){ st = setTimeout(function(){ show(e) }, showTime)};
+	var hideTimer = function(e){ ht = setTimeout(function(){ hide(e) }, hideTime)};
+	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 	// Global configuration
 	conf.$trigger = $(conf.element);
@@ -1350,42 +1356,46 @@ ui.layer = function(conf){
     }
     conf.publish = that.publish;
 
+	var clearTimers = function() {
+		clearTimeout(st);
+		clearTimeout(ht);
+	};
 
     var show = function(event) {
-        
+
         that.show(event, conf);				
 
         if (conf.event === "click") {
             
             $('.ch-layer').bind('click', function(event){ event.stopPropagation() });
-								
+	
             // Document events
-            $(document).bind('click', function(event){
+            $(document).bind('click', function(event) {
                 that.hide(event, conf);
                 $(document).unbind('click');
             });
         }
-
+        
         // return publish object
         return conf.publish;    
     }
 
     var hide = function(event) {
-        
+
         that.hide(event, conf);
         
         // return publish object
         return conf.publish;
     }
     
-    var position = function(event){
+    var position = function(event) {
 		ui.positioner(conf.position);
 		
 		return conf.publish;
 	}
 
 	// Click
-	if(conf.event === 'click'){
+	if(conf.event === 'click') {
 		// Local configuration
 		conf.closeButton = true;
 
@@ -1395,12 +1405,12 @@ ui.layer = function(conf){
 			.bind('click',show);
 
 	// Hover
-	}else{
+	} else {
 		// Trigger events
 		conf.$trigger
 			.css('cursor', 'default')
-			.bind('mouseover', show)
-			.bind('mouseout', hide);
+			.bind('mouseover', showTimer)
+			.bind('mouseout', hideTimer);
 	};
 
     // create the publish object to be returned
@@ -1697,6 +1707,7 @@ ui.string = function(conf) {
 	conf.reference = $(conf.element);
 	// Conditions map TODO: uppercase, lowercase, varchar
 	/*
+	             Awful performance!!!!!!
 	       TODO: The regex object process all conditions, we need to refactor this pattern
               validation {
                   pattern: /w/
@@ -1714,7 +1725,8 @@ ui.string = function(conf) {
 		var regex = {
 			text:		(/^([a-zA-Z\s]+)$/m).test(value),
 			email:		(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i).test(value),
-			url:		(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/).test(value), // TODO: No tendria que soportar "www.algo" (sin .com)
+//			url:		(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/).test(value), 
+			url:        (/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/).test(value),
 			minLength:	value.length >= parseInt(that.validations.minLength),
 			maxLength:	value.length <= parseInt(that.validations.maxLength)
 		};
@@ -1724,7 +1736,7 @@ ui.string = function(conf) {
 	conf.defaultMessages = {
 		text:		"Usa sólo letras.",
 		email:		"Usa el formato nombre@ejemplo.com.",
-		url:		"Usa el formato www.sitio.com.",
+		url:		"Usa el formato http://www.sitio.com.",
 		minLength:	"Ingresa al menos " + conf.minLength + " caracteres.",
 		maxLength:	"El máximo de caracteres es " + conf.maxLength + "."
 	};
@@ -2140,11 +2152,9 @@ ui.viewer = function(conf){
 	 */
 	var viewerModal = {};
 	viewerModal.carouselStruct = $(conf.element).find("ul").clone().addClass("carousel");	
-	viewerModal.carouselStruct.find("a").each(function(i, e){		
-		$(e).children().attr("src", $(e).attr("href"));
-		$(e).bind("click", function(event){
-			that.prevent(event);
-		});
+	viewerModal.carouselStruct.find("img").each(function(i, e){
+		$(e).attr("src", $(e).parent().attr("href")) // Image source change
+			.unwrap(); // Link deletion
 	});
 	viewerModal.showContent = function(){
 		$(".ch-viewer-modal-content").parent().addClass("ch-viewer-modal");
@@ -2295,5 +2305,6 @@ ui.viewer = function(conf){
 	
 	return conf.publish;
 };
+
 ui.init();
 })(jQuery);
