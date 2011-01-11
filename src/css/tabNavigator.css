@@ -71,12 +71,20 @@
 }
 
 /* IE 6 */
+.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tabNavigator-trigger.on:hover {
+	background-position:0 -535px;
+}
+
 .ie6 .ch-tabNavigator .ch-tabNavigator-triggers li{
 	display:inline;
 	margin:0 2px;
 }
 
 .ie6 .ch-tabNavigator .ch-tabNavigator-triggers li a:hover {
+	background-color: #dedede;
+}
+
+.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tabNavigator-trigger.on:hover {
 	background-position:0 -535px;
 }
 
