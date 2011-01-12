@@ -7,19 +7,13 @@
 	top:1px;
 	z-index:10;
 	margin-left:10px;
-}
-
-.ch-tabNavigator.vertical .ch-tabNavigator-triggers {
-	position:relative;
-	float:left;
-	z-index:1;
-	margin-top:10px;
+	overflow:hidden;
 }
 
 .ch-tabNavigator > .ch-tabNavigator-triggers li {
 	cursor:pointer;
-	margin-right:0;
-	display:inline-block;
+	margin-right:5px;
+	float:left;
 }
 
 .ch-tabNavigator-trigger {
