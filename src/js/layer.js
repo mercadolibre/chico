@@ -13,8 +13,8 @@ ui.layer = function(conf) {
     var hideTime = conf.hideTime || 300;
     
 	var st, ht; // showTimer and hideTimer
-	var showTimer = function(e){ st = setTimeout(function(){ show(e) }, showTime)};
-	var hideTimer = function(e){ ht = setTimeout(function(){ hide(e) }, hideTime)};
+	var showTimer = function(event){ st = setTimeout(function(){ show(event) }, showTime) };
+	var hideTimer = function(event){ ht = setTimeout(function(){ hide(event) }, hideTime) };
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 	// Global configuration
@@ -29,13 +29,7 @@ ui.layer = function(conf) {
     }
     conf.publish = that.publish;
 
-	var clearTimers = function() {
-		clearTimeout(st);
-		clearTimeout(ht);
-	};
-
     var show = function(event) {
-
         that.show(event, conf);				
 
         if (conf.event === "click") {
@@ -49,22 +43,17 @@ ui.layer = function(conf) {
             });
         }
         
-        // return publish object
-        return conf.publish;    
+        return conf.publish; // Returns publish object
     }
 
     var hide = function(event) {
-
         that.hide(event, conf);
-        
-        // return publish object
-        return conf.publish;
+        return conf.publish; // Returns publish object
     }
     
-    var position = function(event) {
+    var position = function() {
 		ui.positioner(conf.position);
-		
-		return conf.publish;
+		return conf.publish; // Returns publish object
 	}
 
 	// Click
@@ -75,7 +64,7 @@ ui.layer = function(conf) {
 		// Trigger events
 		conf.$trigger
 			.css('cursor', 'pointer')
-			.bind('click',show);
+			.bind('click', show);
 
 	// Hover
 	} else {
@@ -86,15 +75,14 @@ ui.layer = function(conf) {
 			.bind('mouseout', hideTimer);
 	};
 
-    // create the publish object to be returned
-
-        conf.publish.uid = conf.id,
-        conf.publish.element = conf.element,
-        conf.publish.type = "layer",
-        conf.publish.content = (conf.content) ? conf.content : conf.ajax,
-        conf.publish.show = function(event){ return show(event, conf) },
-        conf.publish.hide = function(event){ return hide(event, conf) },
-        conf.publish.position = function(event){return position(event) }
+    // Create the publish object to be returned
+    conf.publish.uid = conf.id;
+    conf.publish.element = conf.element;
+    conf.publish.type = "layer";
+    conf.publish.content = (conf.content) ? conf.content : conf.ajax;
+    conf.publish.show = function(){ return show($.Event()) };
+    conf.publish.hide = function(){ return hide($.Event()) };
+    conf.publish.position = position;
 
 	return conf.publish;
     

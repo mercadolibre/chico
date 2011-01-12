@@ -10,7 +10,6 @@ ui.helper = function(conf){
 
 	// Global configuration
 	var _conf = {};
-	_conf.name = "helper";
 	_conf.$trigger = $(conf.element),
 	_conf.cone = true;
 	_conf.classes = "helper" + conf.id,

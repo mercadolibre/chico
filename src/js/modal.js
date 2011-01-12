@@ -15,37 +15,33 @@ ui.modal = function(conf){
 		fixed:true
 	};
 	conf.publish = that.publish;
-			
 	
-	// Methods Privates
+	
+	// Privated methods
 	var show = function(event){
 		dimmer.on();
 		that.show(event, conf);
 		$('.ch-modal .btn.close, .closeModal').bind('click', hide);
 		conf.$trigger.blur();
-        
-        // return publish object
-        return conf.publish;        
+
+        return conf.publish; // Returns publish object
 	};
 
 	var hide = function(event){
 		dimmer.off();
 		that.hide(event, conf);
-
-        // return publish object
-        return conf.publish;
+        return conf.publish; // Returns publish object
 	};
 	
-	var position = function(event){
+	var position = function(){
 		ui.positioner(conf.position);
-		
-		// return publish object
-		return conf.publish;
+		return conf.publish; // Returns publish object
 	}
+
 
 	// Dimmer
 	var dimmer = {
-		on:function(){
+		on: function(){
 			$('<div>').bind('click', hide).addClass('ch-dimmer').css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++}).hide().appendTo('body').fadeIn();
 			/*ui.positioner({
 				element: $('.ch-dimmer'),
@@ -54,7 +50,7 @@ ui.modal = function(conf){
 			});*/
 			//$('.ch-dimmer').fadeIn();
 		},
-		off:function(){
+		off: function(){
 			$('div.ch-dimmer').fadeOut('normal', function(){ $(this).remove(); });
 		}
 	};
@@ -65,14 +61,14 @@ ui.modal = function(conf){
 		.css('cursor', 'pointer')
 		.bind('click', show);
 		
-        // create the publish object to be returned
-        conf.publish.uid = conf.id,
-        conf.publish.element = conf.element,
-        conf.publish.type = "modal",
-        conf.publish.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax),
-        conf.publish.show = function(event){ return show(event) },
-        conf.publish.hide = function(event){ return hide(event) },
-        conf.publish.position = function(event){return position(event) }
+    // Create the publish object to be returned
+    conf.publish.uid = conf.id;
+    conf.publish.element = conf.element;
+    conf.publish.type = "modal";
+    conf.publish.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax);
+    conf.publish.show = function(){ return show($.Event()) };
+    conf.publish.hide = function(){ return hide($.Event()) };
+    conf.publish.position = position;
 
 	return conf.publish;
 
