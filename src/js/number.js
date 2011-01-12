@@ -15,7 +15,7 @@ ui.number = function(conf){
 	// Helper
 	conf.reference = $(conf.element);
 	// Conditions map TODO: float
-	conf.checkConditions = function(type){
+	/*conf.checkConditions = function(type){
 		var value = $(conf.element).val();
 		var regex = {
 			number:	!isNaN(value), // value.match(/^\d+$/m),
@@ -23,7 +23,14 @@ ui.number = function(conf){
 			max:	value <= parseInt(that.validations.max)
 		};
 		return regex[type];
-	};
+	};*/
+	
+    conf.conditions = {
+        number: { patt: /^\d+$/ },
+        min:    { expr: function(a,b) { return a >= b } },
+        max:    { expr: function(a,b) { return a <= b } },
+    };
+    
     // Messages
 	conf.defaultMessages = {
 		number:	"Usa sólo números.",
