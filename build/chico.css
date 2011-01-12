@@ -443,29 +443,6 @@ hr {
 	display:inline-block;margin-bottom:5px;
 }
      
-/*
- * Simple Grid System
- * @autor: Natan Santolo
- * @mod: 28/09/2010
- *
- */
- 
-.g5 > .box:first-child, .g3 > .box:first-child {
-	margin:0;
-}
-
-.g5 .box, .g3 .box {
-	float: left;
-	margin: auto;	
-}
-
-.g5 .box {
-	width: 47.9%;	
-}
-
-.g3 .box {
-	width: 29%;
-}
 
 /**
  * Icons
@@ -1136,19 +1113,13 @@ html.ie6  div.ch-dimmer {
 	top:1px;
 	z-index:10;
 	margin-left:10px;
-}
-
-.ch-tabNavigator.vertical .ch-tabNavigator-triggers {
-	position:relative;
-	float:left;
-	z-index:1;
-	margin-top:10px;
+	overflow:hidden;
 }
 
 .ch-tabNavigator > .ch-tabNavigator-triggers li {
 	cursor:pointer;
-	margin-right:0;
-	display:inline-block;
+	margin-right:5px;
+	float:left;
 }
 
 .ch-tabNavigator-trigger {
@@ -1201,12 +1172,20 @@ html.ie6  div.ch-dimmer {
 }
 
 /* IE 6 */
+.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tabNavigator-trigger.on:hover {
+	background-position:0 -535px;
+}
+
 .ie6 .ch-tabNavigator .ch-tabNavigator-triggers li{
 	display:inline;
 	margin:0 2px;
 }
 
 .ie6 .ch-tabNavigator .ch-tabNavigator-triggers li a:hover {
+	background-color: #dedede;
+}
+
+.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tabNavigator-trigger.on:hover {
 	background-position:0 -535px;
 }
 
