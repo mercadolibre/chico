@@ -6,7 +6,7 @@
 
 ui.modal = function(conf){
 	var that = ui.floats(); // Inheritance
-	
+
 	// Global configuration
 	conf.$trigger = $(conf.element);
 	conf.closeButton = true;
@@ -14,9 +14,12 @@ ui.modal = function(conf){
 	conf.position = {
 		fixed:true
 	};
+	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") ) conf.ajax = true; //Default
+
 	conf.publish = that.publish;
-			
-	
+
+
+
 	// Methods Privates
 	var show = function(event){
 		dimmer.on();
@@ -45,14 +48,8 @@ ui.modal = function(conf){
 
 	// Dimmer
 	var dimmer = {
-		on:function(){
+		on:function(){ //TODO: posicionar el dimmer con el positioner
 			$('<div>').bind('click', hide).addClass('ch-dimmer').css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++}).hide().appendTo('body').fadeIn();
-			/*ui.positioner({
-				element: $('.ch-dimmer'),
-				fixed: true,
-				points: 'lt lt'
-			});*/
-			//$('.ch-dimmer').fadeIn();
 		},
 		off:function(){
 			$('div.ch-dimmer').fadeOut('normal', function(){ $(this).remove(); });
