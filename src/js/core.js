@@ -10,10 +10,14 @@ var ui = window.ui = {
     internals: "",
 
     instances: {},
+    
+    features: {},
  	
     init: function() { 
         // unmark the no-js flag on html tag
         $("html").removeClass("no-js");
+        // check for browser support
+		ui.features = ui.support();
         // check for pre-configured components
         ui.components = (window.components) ? ui.components+","+window.components : ui.components ;
         // check for pre-configured internals
@@ -30,7 +34,7 @@ var ui = window.ui = {
 		window: $(window),
 		document: $(document),
 		zIndex: 1000,
-		index: 0 // global instantiation index
+		index: 0, // global instantiation index
 	}
 }
 
@@ -238,3 +242,25 @@ ui.get = function(o) {
     }
 
 }
+
+/**
+ *  Support
+ */
+ 
+ui.support = function() {
+	
+	// Based on: http://gist.github.com/373874
+	// Verify that CSS3 transition is supported (or any of its browser-specific implementations)
+	var transition = (function(){
+		var thisBody = document.body || document.documentElement;
+		var thisStyle = thisBody.style;
+
+		return thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.OTransition !== undefined || thisStyle.transition !== undefined;
+	})();
+	
+	return {
+		transition: transition
+		// gradient: gradient
+	};
+	
+};
