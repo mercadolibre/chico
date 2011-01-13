@@ -55,7 +55,7 @@ ui.tooltip = function(conf){
         conf.publish.content = conf.content,
         conf.publish.show = function(event){ return show(event, conf) },
         conf.publish.hide = function(event){ return hide(event, conf) },
-        conf.publish.position = function(event){return position(event) }
+        conf.publish.position = function(o){ return that.position(o, conf) };
         
 	return that.publish;
 };

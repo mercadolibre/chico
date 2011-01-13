@@ -88,14 +88,14 @@ ui.layer = function(conf) {
 
     // create the publish object to be returned
 
-        conf.publish.uid = conf.id,
-        conf.publish.element = conf.element,
-        conf.publish.type = "layer",
-        conf.publish.content = (conf.content) ? conf.content : conf.ajax,
-        conf.publish.show = function(event){ return show(event, conf) },
-        conf.publish.hide = function(event){ return hide(event, conf) },
-        conf.publish.position = function(event){return position(event) }
+        conf.publish.uid = conf.id;
+        conf.publish.element = conf.element;
+        conf.publish.type = "layer";
+        conf.publish.content = (conf.content) ? conf.content : conf.ajax;
+        conf.publish.show = function(event){ return show(event, conf) };
+        conf.publish.hide = function(event){ return hide(event, conf) };
+        conf.publish.position = function(o){ return that.position(o, conf) };
 
 	return conf.publish;
-    
+
 };

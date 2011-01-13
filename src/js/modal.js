@@ -69,7 +69,7 @@ ui.modal = function(conf){
         conf.publish.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax),
         conf.publish.show = function(event){ return show(event) },
         conf.publish.hide = function(event){ return hide(event) },
-        conf.publish.position = function(event){return position(event) }
+        conf.publish.position = function(o){ return that.position(o, conf) };
 
 	return conf.publish;
 
