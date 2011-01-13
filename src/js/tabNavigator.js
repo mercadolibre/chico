@@ -40,9 +40,6 @@ ui.tabNavigator = function(conf){
         // return publish object
         return conf.publish; 
 	};
-	
-	//Default: Open first tab in any case. TODO: remove $.Event()
-	show($.Event(), 0);
     
     // create the publish object to be returned
 	conf.publish.uid = conf.id;
@@ -51,6 +48,9 @@ ui.tabNavigator = function(conf){
 	conf.publish.tabs = that.children;
 	conf.publish.select = function(tab){ return show($.Event(), tab) };
     
+    //Default: Open first tab in any case.
+	show($.Event(), 0);
+	
 	return conf.publish;
 	
 };
