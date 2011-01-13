@@ -42,14 +42,17 @@ ui.tabNavigator = function(conf){
 	};
     
     // create the publish object to be returned
-
-        conf.publish.uid = conf.id,
-        conf.publish.element = conf.element,
-        conf.publish.type = "tabNavigator",
-        conf.publish.tabs = that.children,
-        conf.publish.select = function(tab){ return show($.Event(), tab) }
+	conf.publish.uid = conf.id;
+	conf.publish.element = conf.element;
+	conf.publish.type = "tabNavigator";
+	conf.publish.tabs = that.children;
+	conf.publish.select = function(tab){ return show($.Event(), tab) };
     
+    //Default: Open first tab in any case.
+	show($.Event(), 0);
+	
 	return conf.publish;
+	
 };
 
 
@@ -90,12 +93,6 @@ ui.tab = function(index, element, conf){
 	};
 	that.conf.$htmlContent = results();
 
-	// Open first tab by default
-	if(index == 0){
-		that.status = true;
-		that.conf.$trigger.addClass('on');
-	};
-
 	// Hide all closed tabs
 	if(!that.status) that.conf.$htmlContent.hide();
 
@@ -119,7 +116,8 @@ ui.tab = function(index, element, conf){
 	};
 
 	// Events
-	that.conf.$trigger.bind('click', that.shoot);
+	that.conf.$trigger.bind('click', that.shoot);		
+
 
 	return that;
 }

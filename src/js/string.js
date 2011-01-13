@@ -14,7 +14,7 @@ ui.string = function(conf) {
 	conf.reference = $(conf.element);
 	// Conditions map TODO: uppercase, lowercase, varchar
 	/*
-	             Awful performance!!!!!!
+           Awful performance!!!!!!
 	       TODO: The regex object process all conditions, we need to refactor this pattern
               validation {
                   pattern: /w/
@@ -26,7 +26,7 @@ ui.string = function(conf) {
                       value2: parseInt(conf.minLength)   
                   }
               };
-	*/
+	
 	conf.checkConditions = function(type){
 		var value = $(conf.element).val();
 		var regex = {
@@ -38,7 +38,16 @@ ui.string = function(conf) {
 			maxLength:	value.length <= parseInt(that.validations.maxLength)
 		};
 		return regex[type];
-	};
+	};*/
+	
+    conf.conditions = {
+        text:       { patt: /^([a-zA-Z\s]+)$/ },
+        email:      { patt: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/ },
+        url:        { patt: /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/ },
+        minLength:  { expr: function(a,b) { return a >= b } },
+        maxLength:  { expr: function(a,b) { return a <= b } }
+    }
+	
     // Messages
 	conf.defaultMessages = {
 		text:		"Usa sólo letras.",

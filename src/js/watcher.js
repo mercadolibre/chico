@@ -36,6 +36,8 @@ ui.watcher = function(conf) {
                 if (instance[i].element === conf.element) {
             	    // Mergeo Validations
                     $.extend(instance[i].validations, getValidations(conf));
+            	    // Mergeo Conditions
+                    $.extend(instance[i].conditions, getConditions(conf));
                     // Merge Messages
                     $.extend(instance[i].messages, getMessages(conf));
                     // Merge types
@@ -110,26 +112,37 @@ ui.watcher = function(conf) {
 			return ui.instances.forms[last]; // Set my parent
 		};
 	}
-		
-	// Collect validations
-	var getValidations = function(conf) {
-    	var collection = {};
-    	if (conf.types.indexOf("required") > -1 ) {
-	       collection = { required: true };
-	    } else {
-            var types = conf.types.split(",");
-        	for (var i = 0, j = types.length; i < j; i ++) {
-        		for (var val in conf) {
-        			if (types[i] == val) {
-        				collection[val] = conf[val];
-        				// TODO: eliminar conf[val]???
-        			};
-        		};
-        	};
-	    };
-		return collection;
-	};
-		
+    
+    // Collect validations
+    var getValidations = function(conf) {
+        var collection = {};
+        var types = conf.types.split(",");
+        for (var i = 0, j = types.length; i < j; i ++) {
+            for (var val in conf) {
+                if (types[i] == val) {
+                    collection[val] = conf[val];
+                    // TODO: eliminar conf[val]???
+                };
+            };
+        };
+        return collection;
+    };
+
+    // Collect conditions
+    var getConditions = function(conf) {
+        var collection = {};        
+        var types = conf.types.split(",");
+        for (var i = 0, j = types.length; i < j; i ++) {
+            for (var val in conf) {
+                if (types[i] == val) {
+                    collection[val] = conf.conditions[val];
+                    // TODO: eliminar conf[val]???
+                };
+            };
+        };
+        return collection;
+    };
+
 	// Get Messages
     var getMessages = function(conf) {	
     	// Configure messages by parameter (conf vs. default messages)
@@ -139,6 +152,23 @@ ui.watcher = function(conf) {
     	}
         return messages;
     };
+
+    // Evaluate Conditions
+    var evaluateConditions = function(condition, conf) {
+        
+        var value = $(conf.element).val();
+        var gotError = true;
+        
+        if (condition.patt) {
+            gotError = /condition.pattern/.test(value)
+        } else if (condition.expr) {
+            //gotError = condition.expr(value);
+        } else if (condition.func) {
+            gotError = eval(condition.func);
+        }
+        
+        return gotError;
+    }
 
 	/**
 	 *  @ Protected Members, Properties and Methods ;)
@@ -159,23 +189,43 @@ ui.watcher = function(conf) {
 	// Validations Map
 	that.validations = getValidations(conf);
 
+	// Conditions Map
+	that.conditions = getConditions(conf);
+
     // Messages
     that.messages = getMessages(conf);
-
-	// Helper
+    
+    // Helper
     that.helper = ui.helper(conf);
     
     // Validate Method
 	that.validate = function(conf) {
 		
-		// Pre-validation: Don't validate disabled or not required elements
+		// Pre-validation: Don't validate disabled or not required&empty elements
 		if ($(conf.element).attr('disabled')) { return; };
 		if (that.publish.types.indexOf("required") == -1 && that.isEmpty(conf)) { return; };
-        
-		// Validate each type of validation
+       
+        // Validate each type of validation
 		for (var type in that.validations) {
 			// Status error (stop the flow)
-			if (!conf.checkConditions(type)) {
+
+			var condition = that.conditions[type];
+            var value = $(conf.element).val();
+            var gotError = true;
+            
+            if (condition.patt) {
+                gotError = condition.patt.test(value)
+            };
+            
+            if (condition.expr) {
+                gotError = condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
+            };
+            
+            if (condition.func) {
+                gotError = !that.isEmpty(conf); //condition.func(value);
+            };
+                    
+			if (!gotError) {
     			// Field error style
 				$(conf.element).addClass("error");
 				// With previous error
@@ -184,9 +234,18 @@ ui.watcher = function(conf) {
 				that.helper.show( that.messages[type] ); 
 				// Status false
 				that.publish.status = that.status =  conf.status = false;
-				$(conf.element).bind( (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur", function() { that.validate(conf); that.parent.checkStatus(); }); // Add blur event only on error
-				return;
-			};    
+				
+				var revalidate = function() {
+                        that.validate(conf);
+                        that.parent.checkStatus();  // Check everthing?
+			    }
+			    
+				var event = (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur";
+				
+				$(conf.element).one(event, revalidate); // Add blur event only one time
+                    
+                return;
+			};
         };
 		
 		// Status OK (with previous error)
@@ -198,7 +257,7 @@ ui.watcher = function(conf) {
 			// Public status OK
 			that.publish.status = that.status =  conf.status = true; // Status OK
 			// Remove blur event on status OK
-			$(conf.element).unbind( (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur" ); 
+			$(conf.element).unbind( (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur" );
 		};
 	};
 	
@@ -208,7 +267,7 @@ ui.watcher = function(conf) {
 		$(conf.element).removeClass("error");
 		that.helper.hide(); // Hide helper
 		$(conf.element).unbind("blur"); // Remove blur event 
-
+		
 		that.callbacks(conf, 'reset');
 	};
 	
@@ -247,6 +306,7 @@ ui.watcher = function(conf) {
 		reference: that.reference,
 		parent: that.parent,
 		validations: that.validations,
+		conditions: that.conditions,
 		messages: that.messages,
 	/**
 	 *  @ Public Methods
@@ -261,12 +321,13 @@ ui.watcher = function(conf) {
 		},
 		validate: function() {
 			that.validate(conf);
-    		that.callbacks(conf, 'validate');
+                that.callbacks(conf, 'validate');
 			return that.publish;
 		}
 	};
 
-    // Run the instances checker        TODO: Maybe is better to check this on top to avoid all the process. 
+    // Run the instances checker        
+    // TODO: Maybe is better to check this on top to avoid all the process. 
     var check = checkInstance(conf);
     // If a match exists
     if (check) {

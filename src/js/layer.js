@@ -50,11 +50,6 @@ ui.layer = function(conf) {
         that.hide(event, conf);
         return conf.publish; // Returns publish object
     }
-    
-    var position = function() {
-		ui.positioner(conf.position);
-		return conf.publish; // Returns publish object
-	}
 
 	// Click
 	if(conf.event === 'click') {
@@ -82,8 +77,8 @@ ui.layer = function(conf) {
     conf.publish.content = (conf.content) ? conf.content : conf.ajax;
     conf.publish.show = function(){ return show($.Event()) };
     conf.publish.hide = function(){ return hide($.Event()) };
-    conf.publish.position = position;
+    conf.publish.position = function(o){ return that.position(o, conf) };
 
 	return conf.publish;
-    
+
 };

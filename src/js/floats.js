@@ -56,6 +56,35 @@ ui.floats = function() {
 		conf.visible = false;
 		that.callbacks(conf, 'hide');
 	};
+	
+	that.position = function(o, conf){
+		
+		switch(typeof o){
+			case "object":
+				conf.position.context = o.context || conf.position.context;
+				conf.position.points = o.points || conf.position.points;
+				conf.position.offset = o.offset || conf.position.offset;				
+				conf.position.fixed = o.fixed || conf.position.fixed;
+				
+				ui.positioner(conf.position);
+				return conf.publish;
+			break;
+			
+			case "string":
+				if(o!="refresh"){
+					alert("ChicoUI error: position() expected to find \"refresh\" parameter.");
+				};
+				
+				ui.positioner(conf.position);
+				return conf.publish;   			
+			break;
+			
+			case "undefined":
+				return conf.position;
+			break;
+		};
+		
+	};
 
 	return that;
 }

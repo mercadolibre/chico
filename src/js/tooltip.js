@@ -49,7 +49,7 @@ ui.tooltip = function(conf){
     conf.publish.content = conf.content;
     conf.publish.show = function(){ return show($.Event()) };
     conf.publish.hide = function(){ return hide($.Event()) };
-    conf.publish.position = position;
+    conf.publish.position = function(o){ return that.position(o, conf) };
         
 	return that.publish;
 };

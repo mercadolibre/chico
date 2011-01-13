@@ -751,7 +751,6 @@
         var ui_view = $('.demoViewer').viewer();
         
         var ui_moda = $('.demoModal').modal({
-        	 ajax: true,
         	 callbacks:{
         	 	error: function(xhr, textStatus, errorThrown){
 					return "<p>En este momento no podemos cargar el contenido. Intentalo más tarde.</p>";
@@ -770,7 +769,7 @@
 
 		// New validator
 		var uiForm = $('.formulario').forms();
-		var nv1 = $('#val_email').email().and().minLength(20).and().required();
+		var nv1 = $('#val_email').email().and().required().and().minLength(20);
 		var nv2 = $('#val_url').string({ url: true });
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
 		var nv4 = $('#val_range').number({ min: 1, max: 10 });
