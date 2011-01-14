@@ -30,15 +30,13 @@
 	width:500px;
 	height:500px;
 	text-align:center;
+	line-height:500px;
 }
 
-.ch-viewer-modal .ch-carousel-content li a{
-	width:500px;
-	height:500px;
-	cursor:default;
-	display:block;
-	text-align:center;
+.ch-viewer-modal .ch-carousel-content li img{
+	vertical-align:middle;
 }
+
 
 /*.ch-viewer-modal .ch-carousel-content li a img{
 	position:absolute;
@@ -47,6 +45,10 @@
 
 .ch-viewer-content{
 	position:absolute;
+	transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
 }
 
 .ch-viewer-content li{

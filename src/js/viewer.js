@@ -29,15 +29,15 @@ ui.viewer = function(conf){
 		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
 		viewerModal.carousel.select(thumbnails.selected);
 		viewerModal.modal.position();
-		viewerModal.carouselStruct.find("a").each(function(i, e){			
-		});
-		
 	};
-	viewerModal.hideContent = function(){		
+	viewerModal.hideContent = function(){
 		$("ch-viewer-modal").remove();
-		for(var i = 0, j = ui.instances.carousel.length; i < j; i ++){ // TODO pasar al object			
+		
+		viewerModal.carouselStruct.css("left", "0"); // Reset left of carousel in modal
+		
+		for(var i = 0, j = ui.instances.carousel.length; i < j; i += 1){ // TODO pasar al object			
 			if(ui.instances.carousel[i].element === viewerModal.carousel.element){
-				ui.instances.carousel.splice(i,1);
+				ui.instances.carousel.splice(i, 1);
 				return;
 			} 
 		};		
@@ -141,7 +141,13 @@ ui.viewer = function(conf){
 		$(thumbnails.children[item]).addClass("on");
 		
 		// Content movement
-		showcase.display.animate({ left: -item * showcase.itemWidth });// Reposition content
+		var movement = { left: -item * showcase.itemWidth };
+		if(ui.features.transition) { // Have CSS3 Transitions feature?
+			showcase.display.css(movement);
+		} else { // Ok, let JQuery do the magic...
+			showcase.display.animate(movement);
+		};
+		
 		// Trigger movement
 		if (thumbnails.selected < visibles && item >= visibles && nextPage > page) {
 			thumbnails.carousel.next();

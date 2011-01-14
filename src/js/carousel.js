@@ -16,7 +16,7 @@ ui.carousel = function(conf){
     conf.publish = that.publish;
 
 	// UL Width calculator
-	var htmlElementMargin = ($.browser.msie && $.browser.version == '6.0') ? 21 : 20;//IE necesita 1px de más
+	var htmlElementMargin = (ui.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
 	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + htmlElementMargin);
 	
 	// UL configuration
@@ -27,9 +27,10 @@ ui.carousel = function(conf){
 	// Mask Object	
 	var $mask = conf.$trigger.find('.mask');
 
-	// Steps = (width - marginMask / elementWidth + elementMargin)
+	// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
 	var steps = ~~( (conf.$trigger.width() - 70) / (conf.$htmlContent.children().outerWidth() + 20));
 		steps = (steps == 0) ? 1 : steps;	
+	var totalPages = Math.ceil(conf.$htmlContent.children().size() / steps);
 
 	// Move to... (steps in pixels)
 	var moveTo = (conf.$htmlContent.children().outerWidth() + 20) * steps;
@@ -39,169 +40,108 @@ ui.carousel = function(conf){
 	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() + 2 ); // +2 for content with border
 	//if(conf.arrows != false) $mask.css('marginLeft', margin);
 	
-	var prev = function(event) {
-		if(status) return;//prevButton.css('display') === 'none' limit public movement
-		
-		var htmlContentPosition = conf.$htmlContent.position();
-		
-		status = true;
-		
-		conf.$htmlContent.animate({ left: htmlContentPosition.left + moveTo }, function(){
-			htmlContentPosition = conf.$htmlContent.position();			
-			if(htmlContentPosition.left >= 0) buttons.prev.hide();
-			buttons.next.show();
-			status = false;
-		});
-        
-        page--;
-        
-        if (conf.pager) {
-			$(".ch-pager li").removeClass("on");
-			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
-		}
-        
-        // return publish object
-        return conf.publish;
-	}
-	
 	//En IE6 al htmlContentWidth por algun motivo se le suma el doble del width de un elemento (li) y calcula mal el next()
 	if($.browser.msie && $.browser.version == '6.0') htmlContentWidth = htmlContentWidth - (conf.$htmlContent.children().outerWidth()*2);
 	
-	var next = function(event){
-		if(status) return;//nextButton.css('display') === 'none' limit public movement
+	
+	// Buttons
+	var buttons = {
+		prev: {
+			$element: $('<p class="prev">Previous</p>').bind('click', function(){ move("prev", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
+			on: function(){ buttons.prev.$element.addClass("on")/*.bind('click', function(){ move("prev", 1) });*/ },
+			off: function(){ buttons.prev.$element.removeClass("on")/*.unbind('click');*/ }
+		},
+		next: {
+			$element: $('<p class="next">Next</p>').bind('click', function(){ move("next", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
+			on: function(){ buttons.next.$element.addClass("on")/*.bind('click', function(){ move("next", 1) });*/ },
+			off: function(){ buttons.next.$element.removeClass("on")/*.unbind('click');*/ }
+		}
+	};
+	
+	// Buttons behavior
+	conf.$trigger.prepend( buttons.prev.$element ).append( buttons.next.$element ); // Append prev and next buttons
+	if (htmlContentWidth > $mask.width()) buttons.next.on(); // Activate Next button if items amount is over carousel size
+	
+	
+	var move = function(direction, distance){
+		var movement;
 		
-		var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
-		
+		switch(direction){
+			case "prev":
+				// Validation
+				if(status || (page - distance) <= 0) return;
+				
+				// Next move
+				page -= distance;
+				
+				// Css object
+				movement = conf.$htmlContent.position().left + (moveTo * distance);
+				
+				// Buttons behavior
+				if(page == 1) buttons.prev.off();
+				buttons.next.on();
+			break;
+			case "next":
+				// Validation
+				if(status || (page + distance) > totalPages) return;
+				
+				// Next move
+				page += distance;
+				
+				// Css object
+				movement = conf.$htmlContent.position().left - (moveTo * distance);
+				
+				// Buttons behavior
+				if(page == totalPages) buttons.next.off();
+				buttons.prev.on();
+			break;
+		};
+				
+		// Status moving
 		status = true;
 		
-		conf.$htmlContent.animate({ left: htmlContentPosition.left - moveTo }, function(){
-			htmlContentPosition = conf.$htmlContent.position(); // Position after moving
-			if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) buttons.next.hide();
-			buttons.prev.show();
+		// Function executed after movement
+		var afterMove = function(){
 			status = false;
-		});
+			
+			// Pager behavior
+			if (conf.pager) {
+				$(".ch-pager li").removeClass("on");
+				$(".ch-pager li:nth-child(" + page + ")").addClass("on");
+			};
 
-		page++;
+			// Callbacks
+			that.callbacks(conf, direction);
+		};
 		
-		if (conf.pager) {
-			$(".ch-pager li").removeClass("on");
-			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
-		}
+		// Have CSS3 Transitions feature?
+		if (ui.features.transition) {
+			
+			// Css movement
+			conf.$htmlContent.css({ left: movement });
+			
+			// Callback
+			afterMove();
+			
+		// Ok, let JQuery do the magic...
+		} else {
+			conf.$htmlContent.animate({ left: movement }, afterMove);
+		};
 		
-        // return publish object
-        return conf.publish;
-	}
-	
-	
-	
-	// Create buttons
-	var buttons = {};
-	
-	buttons.prev = {};
-	
-	buttons.prev.$element = $('<p class="prev">Previous</p>')
-		.bind('click', function(){ buttons.prev.move(1) })
-		.css('top', (conf.$trigger.outerHeight() - 22) / 2) // 22 = button height
-	
-	buttons.prev.show = function(){
-		buttons.prev.$element
-			.addClass("on")
-			.bind('click', function(){ buttons.prev.move(1) })
-	};
-	
-	buttons.prev.hide = function(){
-		buttons.prev.$element
-			.removeClass("on")
-			.unbind('click')
-	};
-	
-	buttons.prev.move = function(distance){
-		if(status || conf.$htmlContent.position().left == 0) return;
-		
-		var htmlContentPosition = conf.$htmlContent.position();
-		
-		status = true;
-		
-		conf.$htmlContent.animate({ left: htmlContentPosition.left + (moveTo * distance) }, function(){
-			htmlContentPosition = conf.$htmlContent.position();			
-			if(htmlContentPosition.left >= 0) buttons.prev.hide();
-			buttons.next.show();
-			status = false;
-		});
-        
-        page -= distance;
-        
-        if (conf.pager) {
-			$(".ch-pager li").removeClass("on");
-			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
-		}
-		
-		// Callback
-		that.callbacks(conf, 'prev');
-        
-        // return publish object
-        return conf.publish;
+		// Returns publish object
+		return conf.publish;
 	};
 	
 	
-	
-	buttons.next = {};
-	
-	buttons.next.$element = $('<p class="next">Next</p>')
-		.bind('click', function(){ buttons.next.move(1) })
-		.css('top', (conf.$trigger.outerHeight() - 22) / 2) // 22 = button height
-	
-	buttons.next.show = function(){
-		buttons.next.$element
-			.addClass("on")
-			.bind('click', function(){ buttons.next.move(1) })
-	};
-	
-	buttons.next.hide = function(){
-		buttons.next.$element
-			.removeClass("on")
-			.unbind('click')
-	};
-	
-	buttons.next.move = function(distance){
-		if(status || conf.$htmlContent.position().left + htmlContentWidth == $mask.width()) return;
-		
-		var htmlContentPosition = conf.$htmlContent.position(); // Position before moving
-		
-		status = true;
-		
-		conf.$htmlContent.animate({ left: htmlContentPosition.left - (moveTo * distance) }, function(){
-			htmlContentPosition = conf.$htmlContent.position(); // Position after moving
-			if(htmlContentPosition.left + htmlContentWidth <= $mask.width()) buttons.next.hide();
-			buttons.prev.show();
-			status = false;
-		});
-
-		page += distance;
-		
-		if (conf.pager) {
-			$(".ch-pager li").removeClass("on");
-			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
-		}
-		
-		// Callback
-		that.callbacks(conf, 'next');
-		
-        // return publish object
-        return conf.publish;
-	};
-	
-	
-		
 	var select = function(item){
 		var itemPage = ~~(item / steps) + 1; // Page of "item"
 		
 		// Move right
 		if(itemPage > page){
-			buttons.next.move(itemPage - page);
+			move("next", itemPage - page);
 		// Move left
 		}else if(itemPage < page){
-	        buttons.prev.move(page - itemPage);
+	        move("prev", page - itemPage);
 		};
 		
 		if (conf.pager) {
@@ -217,28 +157,15 @@ ui.carousel = function(conf){
 	};
 	
 	
-	
-	/**
-	 *	Buttons
-	 */
-	
-	// Append prev and next
-	conf.$trigger.prepend(buttons.prev.$element).append(buttons.next.$element);
-	
-	// Si el ancho del UL es mayor que el de la mascara, activa next
-	if(htmlContentWidth > $mask.width()){
-		buttons.next.show();
-	}
-	
-	// Pager
-	if (conf.pager) {
-		var totalPages = Math.ceil(conf.$htmlContent.children().size() / steps); 
+	var pager = function(){
 		var list = $("<ul class=\"ch-pager\">");
 		var thumbs = [];
 		
 		// Create each mini thumb
 		for(var i = 1, j = totalPages + 1; i < j; i += 1){
-			thumbs.push( "<li>" + i + "</li>" );
+			thumbs.push("<li>");
+			thumbs.push(i);
+			thumbs.push("</li>");
 		};
 		list.append( thumbs.join("") );
 		
@@ -258,9 +185,12 @@ ui.carousel = function(conf){
 				select(i);
 			});
 		});
-	}
-
-
+	};
+	
+	// Create pager if it was configured
+	if (conf.pager) pager();
+	
+	
     // Create the publish object to be returned
     conf.publish.uid = conf.id;
     conf.publish.element = conf.element;
@@ -268,10 +198,8 @@ ui.carousel = function(conf){
     conf.publish.getSteps = function() { return steps; };
     conf.publish.getPage = function() { return page; };
     conf.publish.select = function(item) { return select(item); };
-    conf.publish.next = function(){ return buttons.next.move(1); };
-    conf.publish.prev = function(){ return buttons.prev.move(1); };
-    
-    
-
+    conf.publish.next = function(){ return move("next", 1); };
+    conf.publish.prev = function(){ return move("prev", 1); };
+ 
 	return conf.publish;
 }
