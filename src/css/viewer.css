@@ -6,7 +6,6 @@
 	height:380px;
 }
 .ch-lens{
- 	background:red;
     height:41px;
     position:absolute;
     width:41px;
@@ -75,47 +74,29 @@
 	border:1px solid #fff;
 }
 
-.ch-viewer-triggers a.on{
+.ch-viewer-triggers .ch-thumbnail-on{
 	border:1px solid #ccc;
 }
 
-
-/*
-.ch-viewer .uiContent.uiCarousel .mask{
-	margin:0;
+/* IE 6 */
+.ie6 .ch-viewer-modal-content{
+	top:20px;
 }
 
-.ch-viewer .uiContent.uiCarousel .carousel li{
-	height:320px;
-	width:320px;
-}
-
-.ch-viewer .uiTriggers.uiCarousel{
-	border-top:1px solid #ccc;
-	padding-top:10px;
-	position:relative;
-}
-
-.ch-viewer .uiTriggers.uiCarousel .mask{
-	margin:0 35px;
-}
-
-
-.ch-viewer .uiTriggers.uiCarousel .carousel li{
-	height:42px;
-	margin:0 5px;
-	width:42px;
-}
-
-.ch-viewer .uiTriggers.uiCarousel .carousel li a{
-	border:1px solid #FFFFFF;
-	display:block;
-	height:40px;
+.ie6 .ch-viewer .ch-viewer-triggers img{
 	width:40px;
+	height:40px;
 }
 
-.ch-viewer .uiTriggers.uiCarousel .carousel li a.on, .uiViewer .uiTriggers.uiCarousel .carousel li a:hover{
-	border:1px solid #CCC;
-}*/
+.ie6 .ch-viewer-triggers .prev{
+	left: -30px;
+}
 
+.ie6 .ch-viewer-triggers .next{
+	right: 10px;
+}
 
+/* IE 7 */
+.ie7 .ch-viewer-modal-content{
+	top:20px;
+}

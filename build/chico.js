@@ -1122,7 +1122,8 @@ ui.carousel = function(conf){
 
 	// UL Width calculator
 	var htmlElementMargin = (ui.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
-	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + htmlElementMargin);
+	var extraWidth = (ui.utils.html.hasClass("ie6")) ? conf.$htmlContent.children().outerWidth() : 0;
+	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + htmlElementMargin) + extraWidth;
 	
 	// UL configuration
 	conf.$htmlContent
@@ -1139,7 +1140,6 @@ ui.carousel = function(conf){
 
 	// Move to... (steps in pixels)
 	var moveTo = (conf.$htmlContent.children().outerWidth() + 20) * steps;
-
 	// Mask configuration
 	var margin = ($mask.width()-moveTo) / 2;
 	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() + 2 ); // +2 for content with border
@@ -1153,13 +1153,13 @@ ui.carousel = function(conf){
 	var buttons = {
 		prev: {
 			$element: $('<p class="prev">Previous</p>').bind('click', function(){ move("prev", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
-			on: function(){ buttons.prev.$element.addClass("on")/*.bind('click', function(){ move("prev", 1) });*/ },
-			off: function(){ buttons.prev.$element.removeClass("on")/*.unbind('click');*/ }
+			on: function(){ buttons.prev.$element.addClass("ch-prev-on") },
+			off: function(){ buttons.prev.$element.removeClass("ch-prev-on") }
 		},
 		next: {
 			$element: $('<p class="next">Next</p>').bind('click', function(){ move("next", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
-			on: function(){ buttons.next.$element.addClass("on")/*.bind('click', function(){ move("next", 1) });*/ },
-			off: function(){ buttons.next.$element.removeClass("on")/*.unbind('click');*/ }
+			on: function(){ buttons.next.$element.addClass("ch-next-on") },
+			off: function(){ buttons.next.$element.removeClass("ch-next-on") }
 		}
 	};
 	
@@ -1211,8 +1211,8 @@ ui.carousel = function(conf){
 			
 			// Pager behavior
 			if (conf.pager) {
-				$(".ch-pager li").removeClass("on");
-				$(".ch-pager li:nth-child(" + page + ")").addClass("on");
+				$(".ch-pager li").removeClass("ch-pager-on");
+				$(".ch-pager li:nth-child(" + page + ")").addClass("ch-pager-on");
 			};
 
 			// Callbacks
@@ -1250,8 +1250,8 @@ ui.carousel = function(conf){
 		};
 		
 		if (conf.pager) {
-			$(".ch-pager li").removeClass("on");
-			$(".ch-pager li:nth-child(" + page + ")").addClass("on");
+			$(".ch-pager li").removeClass("ch-pager-on");
+			$(".ch-pager li:nth-child(" + page + ")").addClass("ch-pager-on");
 		}
 		
 		// Callback
@@ -2277,8 +2277,9 @@ ui.viewer = function(conf){
 		});
 	
 	// Set content visual config
+	var extraWidth = (ui.utils.html.hasClass("ie6")) ? showcase.itemWidth : 0;
 	showcase.display
-		.css('width', showcase.children.length * showcase.itemWidth)
+		.css('width', (showcase.children.length * showcase.itemWidth) + extraWidth )
 		.addClass("ch-viewer-content")
 		
 	
@@ -2331,8 +2332,8 @@ ui.viewer = function(conf){
 		var nextPage = ~~(item / visibles) + 1; // Page of "item"
 		
 		// Visual config		
-		$(thumbnails.children[thumbnails.selected]).removeClass("on");
-		$(thumbnails.children[item]).addClass("on");
+		$(thumbnails.children[thumbnails.selected]).removeClass("ch-thumbnail-on");
+		$(thumbnails.children[item]).addClass("ch-thumbnail-on");
 		
 		// Content movement
 		var movement = { left: -item * showcase.itemWidth };

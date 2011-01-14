@@ -48,7 +48,7 @@
 	left: 10px;
 }
 
-.ch-carousel .prev.on{
+.ch-carousel .ch-prev-on{
 	background-position: -2px -47px;
 	cursor:pointer;
 }
@@ -58,7 +58,7 @@
 	right: 10px;
 }
 
-.ch-carousel .next.on{
+.ch-carousel .ch-next-on{
 	background-position: -15px -47px;
 	cursor:pointer;
 }
@@ -78,11 +78,11 @@
 	cursor:pointer;
 }
 
-.ch-carousel .ch-pager li.on{
+.ch-carousel .ch-pager .ch-pager-on{
 	background-position:-2px -101px;
 }
 
 /* IE 6 */
 .ie6 .ch-carousel .next{
-	right:30px;
+	right: 30px;
 }

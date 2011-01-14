@@ -83,8 +83,9 @@ ui.viewer = function(conf){
 		});
 	
 	// Set content visual config
+	var extraWidth = (ui.utils.html.hasClass("ie6")) ? showcase.itemWidth : 0;
 	showcase.display
-		.css('width', showcase.children.length * showcase.itemWidth)
+		.css('width', (showcase.children.length * showcase.itemWidth) + extraWidth )
 		.addClass("ch-viewer-content")
 		
 	
@@ -137,8 +138,8 @@ ui.viewer = function(conf){
 		var nextPage = ~~(item / visibles) + 1; // Page of "item"
 		
 		// Visual config		
-		$(thumbnails.children[thumbnails.selected]).removeClass("on");
-		$(thumbnails.children[item]).addClass("on");
+		$(thumbnails.children[thumbnails.selected]).removeClass("ch-thumbnail-on");
+		$(thumbnails.children[item]).addClass("ch-thumbnail-on");
 		
 		// Content movement
 		var movement = { left: -item * showcase.itemWidth };
