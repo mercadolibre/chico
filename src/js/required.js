@@ -20,7 +20,7 @@ ui.required = function(conf){
 	}
     */
     conf.conditions = {
-        required: { func:'!that.isEmpty'},
+        required: { func:'!that.isEmpty'}
     }
     
 	// Messages
