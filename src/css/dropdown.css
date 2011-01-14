@@ -49,7 +49,6 @@
 .ch-dropdown.ch-primary .ch-dropdown-trigger.on,
 .ch-dropdown.ch-primary .ch-dropdown-trigger.on:hover {
 	background-color:#cfe3f0;
-	/* background-image: url('../src/assets/base.png');  <--- At core.css (because Packer duplicate it) */
 	background-position:0 -435px;
 	background-repeat: repeat-x;
 	border:1px solid #79A8C7;
