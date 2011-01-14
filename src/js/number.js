@@ -28,7 +28,7 @@ ui.number = function(conf){
     conf.conditions = {
         number: { patt: /^\d+$/ },
         min:    { expr: function(a,b) { return a >= b } },
-        max:    { expr: function(a,b) { return a <= b } },
+        max:    { expr: function(a,b) { return a <= b } }
     };
     
     // Messages

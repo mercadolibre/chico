@@ -34,7 +34,7 @@ var ui = window.ui = {
 		window: $(window),
 		document: $(document),
 		zIndex: 1000,
-		index: 0, // global instantiation index
+		index: 0 // global instantiation index
 	}
 }
 
