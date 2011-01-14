@@ -84,6 +84,10 @@ form .options h4{
 	margin-bottom:15px;
 }
 
+form .options input {
+	border:none;
+}
+
 form .options.required h4{
 	font-weight:bold;
 }
