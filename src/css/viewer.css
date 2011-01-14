@@ -95,3 +95,8 @@
 .ie6 .ch-viewer-triggers .next{
 	right: 10px;
 }
+
+/* IE 7 */
+.ie7 .ch-viewer-modal-content{
+	top:20px;
+}
