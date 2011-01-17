@@ -32,9 +32,11 @@ ui.floats = function() {
 			.html( that.loadContent(conf) );
 				
 		// Visual configuration
-		if(conf.closeButton) createClose(conf);
-		if(conf.cone) createCone(conf);
-		if(conf.classes) conf.$htmlContent.addClass(conf.classes);	
+		if( conf.closeButton ) createClose(conf);
+		if( conf.cone ) createCone(conf);
+		if( conf.classes ) conf.$htmlContent.addClass(conf.classes);
+		if( conf.hasOwnProperty("width") ) conf.$htmlContent.css("width", conf.width);
+		if( conf.hasOwnProperty("height") ) conf.$htmlContent.css("height", conf.height);
 		
 		// Positioner
 		conf.position.element = conf.$htmlContent;

@@ -14,8 +14,7 @@ ui.modal = function(conf){
 	conf.position = {
 		fixed:true
 	};
-	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") ) conf.ajax = true; //Default
-
+	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") ) conf.ajax = true; //Default	
 	conf.publish = that.publish;
 	
 	// Privated methods
