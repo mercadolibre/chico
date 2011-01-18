@@ -22,11 +22,11 @@ ui.carousel = function(conf){
 	
 	// UL configuration
 	conf.$htmlContent
-		.wrap($('<div>').addClass('mask'))//gracias al que esta abajo puedo leer el $mask.width()
+		.wrap($('<div>').addClass('ch-mask'))//gracias al que esta abajo puedo leer el $mask.width()
 		.css('width', htmlContentWidth);
 		
 	// Mask Object	
-	var $mask = conf.$trigger.find('.mask');
+	var $mask = conf.$trigger.find('.ch-mask');
 
 	// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
 	var steps = ~~( (conf.$trigger.width() - 70) / (conf.$htmlContent.children().outerWidth() + 20));
@@ -47,12 +47,12 @@ ui.carousel = function(conf){
 	// Buttons
 	var buttons = {
 		prev: {
-			$element: $('<p class="prev">Previous</p>').bind('click', function(){ move("prev", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
+			$element: $('<p class="ch-prev">Previous</p>').bind('click', function(){ move("prev", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
 			on: function(){ buttons.prev.$element.addClass("ch-prev-on") },
 			off: function(){ buttons.prev.$element.removeClass("ch-prev-on") }
 		},
 		next: {
-			$element: $('<p class="next">Next</p>').bind('click', function(){ move("next", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
+			$element: $('<p class="ch-next">Next</p>').bind('click', function(){ move("next", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
 			on: function(){ buttons.next.$element.addClass("ch-next-on") },
 			off: function(){ buttons.next.$element.removeClass("ch-next-on") }
 		}

@@ -11,14 +11,14 @@
 	-moz-box-shadow: 3px 3px 3px #999;
 }
 
-.ch-layer .close {
+.ch-layer .ch-close {
 	top:5px;
 	right:5px;
 }
 
 /* Cone */
 
-.ch-layer .cone {
+.ch-layer .ch-cone {
 	background-color: transparent;
 	background-image: url('../src/assets/layer.png');
 	background-position: 0 0 no-repeat;
@@ -26,50 +26,50 @@
 	position:absolute;
 }
 
-.ch-layer.ch-down .cone,
-.ch-layer.ch-top .cone {
+.ch-layer.ch-down .ch-cone,
+.ch-layer.ch-top .ch-cone {
 	width:16px;
 	height:8px;
 	left:12px;
 }
 
-.ch-layer.ch-down .cone {
+.ch-layer.ch-down .ch-cone {
 	top:-8px;
 }
 
-.ch-layer.ch-top .cone {
+.ch-layer.ch-top .ch-cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }
 
-.ch-layer.ch-left .cone,
-.ch-layer.ch-right .cone {
+.ch-layer.ch-left .ch-cone,
+.ch-layer.ch-right .ch-cone {
 	width:8px;
 	height:16px;
 	top:8px;
 }
 
-.ch-layer.ch-left .cone {
+.ch-layer.ch-left .ch-cone {
 	background-position:-8px 0;
 	right:-8px;
 }
 
-.ch-layer.ch-right .cone {
+.ch-layer.ch-right .ch-cone {
 	left:-8px;
 }
 
-.ch-layer.ch-down-right .cone,
-.ch-layer.ch-top-right .cone {
+.ch-layer.ch-down-right .ch-cone,
+.ch-layer.ch-top-right .ch-cone {
 	width:16px;
 	height:8px;
 	right:12px;
 }
 
-.ch-layer.ch-down-right .cone {
+.ch-layer.ch-down-right .ch-cone {
 	top:-8px;
 }
 
-.ch-layer.ch-top-right .cone {
+.ch-layer.ch-top-right .ch-cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }

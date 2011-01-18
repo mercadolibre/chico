@@ -31,7 +31,7 @@ ui.dropdown = function(conf){
     var hide = function(event){
     	// Secondary behavior
 		if(skin == "secondary"){
-			$(conf.element).removeClass("on"); // Container OFF
+			$(conf.element).removeClass("ch-dropdown-on"); // Container OFF
 		};
         that.hide(event, conf); 
         return conf.publish; // Returns publish object
@@ -56,7 +56,7 @@ ui.dropdown = function(conf){
 			// Secondary behavior
 			if(skin == "secondary"){
 				conf.$trigger.css('z-index', ui.utils.zIndex++); // Z-index of trigger over content
-				$(conf.element).addClass("on"); // Container ON
+				$(conf.element).addClass("ch-dropdown-on"); // Container ON
 			};
 		
 			// Document events

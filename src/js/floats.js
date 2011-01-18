@@ -9,13 +9,13 @@ ui.floats = function() {
 	var that = ui.object(); // Inheritance	
 
 	var createClose = function(conf) {
-		$('<p class="btn close">x</p>').bind('click', function(event) {
+		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
 		}).prependTo(conf.$htmlContent);
 	};
 
 	var createCone = function(conf) {
-		$('<div class="cone"></div>').prependTo(conf.$htmlContent);
+		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContent);
 	};
 
 	that.show = function(event, conf) {

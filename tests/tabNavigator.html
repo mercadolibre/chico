@@ -92,9 +92,9 @@
 		test('State before click', function() {
 			
 			// Tabs state before click on any trigger
-			hasClass($triggers.eq(0), 'on');
-			hasNotClass($triggers.eq(1), 'on');
-			hasNotClass($triggers.eq(2), 'on');
+			hasClass($triggers.eq(0), 'ch-tab-on');
+			hasNotClass($triggers.eq(1), 'ch-tab-on');
+			hasNotClass($triggers.eq(2), 'ch-tab-on');
 
 			// Contents state before click on any trigger
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'block', 'Expected " + selector + " to be visible' );
@@ -108,9 +108,9 @@
 			$triggers.eq(1).click();
 			
 			// First & third tab not activated
-			hasNotClass($triggers.eq(0), 'on');
-			hasClass($triggers.eq(1), 'on');
-			hasNotClass($triggers.eq(2), 'on');
+			hasNotClass($triggers.eq(0), 'ch-tab-on');
+			hasClass($triggers.eq(1), 'ch-tab-on');
+			hasNotClass($triggers.eq(2), 'ch-tab-on');
 
 			// Contents
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on second tab' );
@@ -124,9 +124,9 @@
 			$triggers.eq(2).click();
 			
 			// First & second tab not activated
-			hasNotClass($triggers.eq(0), 'on');
-			hasNotClass($triggers.eq(1), 'on');
-			hasClass($triggers.eq(2), 'on');
+			hasNotClass($triggers.eq(0), 'ch-tab-on');
+			hasNotClass($triggers.eq(1), 'ch-tab-on');
+			hasClass($triggers.eq(2), 'ch-tab-on');
 
 			// Contents
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on third tab' );
