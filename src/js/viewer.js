@@ -44,6 +44,8 @@ ui.viewer = function(conf){
 	};
 	that.children[1] = viewerModal.modal = $("<a>").modal({ //TODO iniciar componentes sin trigger
 		content: "<div class=\"ch-viewer-modal-content\">",
+		width:600,
+		height:545,
 		callbacks: {
 			show: viewerModal.showContent,
 			hide: viewerModal.hideContent
