@@ -1,6 +1,6 @@
 /* Sprite */
-.ch-carousel .prev,
-.ch-carousel .next,
+.ch-carousel .ch-prev,
+.ch-carousel .ch-next,
 .ch-carousel .ch-pager li {
 	background-image: url('../src/assets/viewer.png');
 	background-repeat: no-repeat;
@@ -13,7 +13,7 @@
 	position:relative;
 }
 
-.ch-carousel .mask{
+.ch-carousel .ch-mask{
 	overflow: hidden;
 	position: relative;
 	margin:0 35px;
@@ -34,7 +34,7 @@
 }
 
 /* Buttons */
-.ch-carousel .prev, .ch-carousel .next {
+.ch-carousel .ch-prev, .ch-carousel .ch-next {
 	display: block;
 	text-indent: -9999px;
 	height:22px;
@@ -43,7 +43,7 @@
 	cursor:default;
 }
 
-.ch-carousel .prev{
+.ch-carousel .ch-prev{
 	background-position: -2px -73px;
 	left: 10px;
 }
@@ -53,7 +53,7 @@
 	cursor:pointer;
 }
 
-.ch-carousel .next{
+.ch-carousel .ch-next{
 	background-position: -15px -73px;
 	right: 10px;
 }
@@ -83,6 +83,6 @@
 }
 
 /* IE 6 */
-.ie6 .ch-carousel .next{
+.ie6 .ch-carousel .ch-next{
 	right: 30px;
 }

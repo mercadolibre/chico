@@ -33,7 +33,7 @@
 
 /* Cone */
 
-.ch-helper .cone {
+.ch-helper .ch-cone {
 	background-color: transparent;
 	background-image: url('../src/assets/helper.png');
 	background-position: 0 0 no-repeat;
@@ -41,35 +41,35 @@
 	position:absolute;
 }
 
-.ch-helper.ch-down .cone,
-.ch-helper.ch-top .cone{
+.ch-helper.ch-down .ch-cone,
+.ch-helper.ch-top .ch-cone{
 	width:16px;
 	height:8px;
 	left:8px;
 }
 
-.ch-helper.ch-down .cone {
+.ch-helper.ch-down .ch-cone {
 	top:-8px;
 }
 
-.ch-helper.ch-top .cone {
+.ch-helper.ch-top .ch-cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }
 
-.ch-helper.ch-left .cone,
+.ch-helper.ch-left .ch-cone,
 .ch-helper.ch-right .cone {
 	width:8px;
 	height:16px;
 	top:4px;
 }
 
-.ch-helper.ch-left .cone {
+.ch-helper.ch-left .ch-cone {
 	background-position:-8px 0;
 	right:-8px;
 }
 
-.ch-helper.ch-right .cone {
+.ch-helper.ch-right .ch-cone {
 	left:-8px;
 }
 

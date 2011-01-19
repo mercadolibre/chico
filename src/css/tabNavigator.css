@@ -40,7 +40,7 @@
 	margin-bottom:5px;
 }
 
-.ch-tabNavigator .ch-tabNavigator-trigger.on {
+.ch-tabNavigator .ch-tab-on {
 	font-weight:bold;
 	cursor:default;
 	background-position:0 -535px;
@@ -49,7 +49,7 @@
 	border-bottom:1px solid #FFFFFF;				
 }
 
-.ch-tabNavigator.vertical .ch-tabNavigator-trigger.on {
+.ch-tabNavigator.vertical .ch-tab-on {
 	border-right:1px solid #FFFFFF;				
 }
 
@@ -65,7 +65,7 @@
 }
 
 /* IE 6 */
-.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tabNavigator-trigger.on:hover {
+.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tab-on:hover {
 	background-position:0 -535px;
 }
 
@@ -78,7 +78,7 @@
 	background-color: #dedede;
 }
 
-.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tabNavigator-trigger.on:hover {
+.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tab-on:hover {
 	background-position:0 -535px;
 }
 

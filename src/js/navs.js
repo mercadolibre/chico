@@ -12,7 +12,7 @@ ui.navs = function(){
 	that.show = function(event, conf){
 		that.prevent(event);
 		that.status = true;
-		conf.$trigger.addClass('on');
+		conf.$trigger.addClass('ch-' + conf.name + '-on');
 		conf.$htmlContent.show();
 		
 		that.callbacks(conf, 'show');
@@ -21,7 +21,7 @@ ui.navs = function(){
 	that.hide = function(event, conf){
 		that.prevent(event);
 		that.status = false;
-		conf.$trigger.removeClass('on');
+		conf.$trigger.removeClass('ch-' + conf.name + '-on');
 		conf.$htmlContent.hide();
 		
 		that.callbacks(conf, 'hide');

@@ -98,7 +98,7 @@
 			$trigger.click();
 			
 			isVisible($content);
-			hasClass($trigger, 'on');
+			hasClass($trigger, 'ch-dropdown-on');
 			
 		});
 		
@@ -108,7 +108,7 @@
 			$('body').click();
 			
 			isNotVisible($content);
-			hasNotClass($trigger, 'on');
+			hasNotClass($trigger, 'ch-dropdown-on');
 			
 		});
 		
@@ -118,7 +118,7 @@
 			$trigger.click();
 			
 			isNotVisible($content);
-			hasNotClass($trigger, 'on');
+			hasNotClass($trigger, 'ch-dropdown-on');
 			
 		});
 		
@@ -128,7 +128,7 @@
 			$content.click();
 			
 			isVisible($content);
-			hasClass($trigger, 'on');
+			hasClass($trigger, 'ch-dropdown-on');
 			
 			$trigger.click();
 			
@@ -140,7 +140,7 @@
 			$content.find('a').click();
 			
 			isNotVisible($content);
-			hasNotClass($trigger, 'on');
+			hasNotClass($trigger, 'ch-dropdown-on');
 			
 			$trigger.click();
 			$('body').click();
