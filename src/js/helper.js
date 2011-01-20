@@ -31,5 +31,16 @@ ui.helper = function(conf){
 		that.show($.Event(), _conf);
 	};
 
-	return { show: function(text){ show(text) }, hide: hide };
+    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ 
+            that.position("refresh", _conf) 
+        });
+
+	return { 
+        show: function(text){ show(text) }, 
+        hide: hide,
+        position: function(o){ 
+            return that.position(o, _conf) 
+        }
+    };
+
 };

@@ -70,6 +70,7 @@ ui.forms = function(conf){
 				if (!status) removeError();				
 				createError();
 				status = false;
+                ui.utils.body.trigger(ui.events.CHANGE_LAYOUT);
 				return;
 			};
 		};
@@ -78,10 +79,14 @@ ui.forms = function(conf){
 		if (!status) {
 			removeError();
 			status = true;
+            ui.utils.body.trigger(ui.events.CHANGE_LAYOUT);
 		};
 	};
 	
 	var validate = function(event){
+    
+        that.callbacks(conf, 'beforeValidate');
+        
 		that.prevent(event);
 		
 		// Shoot validations
@@ -90,18 +95,26 @@ ui.forms = function(conf){
 		};
 		
 		checkStatus();
-		
+
+        that.callbacks(conf, 'afterValidate');
+        
 		return conf.publish; // Return publish object
 	};
 
 
 	var submit = function(event){
+
+        that.callbacks(conf, 'beforeSubmit');
+
 		that.prevent(event);
 		validate(event); // Validate start
 		if (status){ // Status OK	
 			if(conf.callbacks && conf.callbacks.submit) conf.callbacks.submit();
 			conf.element.submit();
 		};		
+
+        that.callbacks(conf, 'afterSubmit');
+        
 		return conf.publish; // Return publish object
 	};
 

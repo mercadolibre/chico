@@ -14,19 +14,9 @@ ui.number = function(conf){
 	conf.types = "number,min,max";
 	// Helper
 	conf.reference = $(conf.element);
-	// Conditions map TODO: float
-	/*conf.checkConditions = function(type){
-		var value = $(conf.element).val();
-		var regex = {
-			number:	!isNaN(value), // value.match(/^\d+$/m),
-			min:	value >= parseInt(that.validations.min),
-			max:	value <= parseInt(that.validations.max)
-		};
-		return regex[type];
-	};*/
-	
+	// Conditions map TODO: float	
     conf.conditions = {
-        number: { patt: /^\d+$/ },
+        number: { patt: /^([0-9\s]+)$/ },
         min:    { expr: function(a,b) { return a >= b } },
         max:    { expr: function(a,b) { return a <= b } }
     };
@@ -37,18 +27,19 @@ ui.number = function(conf){
 		min:	"La cantidad mínima es " + conf.min + ".",
 		max:	"La cantidad máxima es " + conf.max + "."
 	};
-	
-	conf.messages = {}
-	
-    var types = conf.types.split(",");
-	for (var i = 0, j = types.length; i < j; i ++) {
-		for (var val in conf) {
-			if (types[i] == val) {
-				conf.messages[val] = conf.defaultMessages[val];
-			};
-		};
-	};
-	
+
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { 
+        conf.messages.number = conf.msg; 
+        conf.msg = null; 
+    }
+
+    // $.number("message"); support
+    if (!conf.number&&!conf.min&&!conf.max){
+        conf.number = true;
+    }
+    
     /**
 	 *  Extend Watcher
 	 */
@@ -72,6 +63,10 @@ ui.min = function(conf) {
     
     conf.min = conf.value;
 
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { conf.messages.min = conf.msg; conf.msg = null; }
+    
     return ui.number(conf);
     
 }
@@ -89,6 +84,10 @@ ui.max = function(conf) {
     
     conf.max = conf.value;
 
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { conf.messages.max = conf.msg; conf.msg = null; }
+    
     return ui.number(conf);
     
 }
