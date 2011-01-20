@@ -1,0 +1,41 @@
+.ch-expando .ch-expando-trigger{
+	padding:0 0 0 16px;
+	color:#0637B3;
+	cursor:pointer;
+	background-position: 0 -1px;
+	background-image: url("../src/assets/expando.png");
+	background-repeat:no-repeat;
+}
+
+.ch-expando .ch-expando-trigger:active {
+	color: #00D;
+}
+
+.ch-expando .ch-expando-trigger:visited{
+	color:#800080;
+}
+
+.ch-expando .ch-expando-trigger:hover {
+	text-decoration: underline;
+	background-position: 0 -18px;
+}
+
+.ch-expando .ch-expando-trigger.ch-expando-on{
+	background-position: 0 -33px;
+}
+
+.ch-expando .ch-expando-content{
+	display:none;
+	margin:5px 0 0 16px;
+}
+
+/* IE 6 */
+.i6 .ch-expando .ch-expando-trigger{
+	font-size:13px;
+	text-decoration: underline;
+}
+
+/* IE 7 */
+.ie7 .ch-expando .ch-expando-trigger{
+	font-size:13px;
+}

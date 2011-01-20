@@ -45,24 +45,24 @@
 			</ul>
 		<div>
 		<div>
-				<div id="dependencias">
-				    <h3>JavaScript & Style sheets</h3>
-					<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JS o CSS. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/packer.php</strong>. <a href="php/packer.php">Ver packer-o-matic</a></p>  
-					<p>El <em>Packer-o-matic</em> viene en varios sabores y puede recibir dos argumentos opcionales por query string:<p>
-					<dl class="depend">
-					    <dt><strong>De fábrica</strong></dt>
-					    <dd>El packer-o-matic si no recibe ningún argumento devolverá un archivo JavaScript con todos los componentes disponibles minimizados.</dd>
-					    <dt>?<strong>type</strong>=css</dt>
-					    <dd><p>El parámetro <strong>type</strong> con valor <em>css</em> le pide al packer que devuelva en un archivo CSS los estilos de todos los componentes disponibles minimizados.</p></dd>
-	       				<dt>?<strong>debug</strong>=true</dt>
-    					<dd><p>El parámetro <strong>debug</strong> con valor <em>true</em> le pide al packer que evite la minimización de recursos. Así se pueden ver todos los comentarios del SDK y permite encontrar problemas más facilmente. Por defecto el argument es <em>false</em>, está apagado.</dd>
-	       				<dt>?<strong>get</strong>=modal,layer</dt>
-	       				<dd>El parámetro <strong>get</strong> recibe como argumentos los componentes que queremos precompilar. Estos componentes van separados por coma (","). Por defecto el packer va a incluir el <em>core</em> de Chico-UI. Si el argumento no está definido, el packer entiende que queremos obtener y configurar todos los componentes del SDK.</dd>
-	       				<dt>?<strong>get</strong>=modal,layer&<strong>type</strong>=css</dt>
-	       				<dd>Podemos decirle al packer con el parámetro <strong>get</strong> y el parámetro <strong>css</strong> que nos devuelve ciertos estilos de componentes.</dd>
-	       				<dt>?<strong>get</strong>=modal,layer&<strong>debug</strong>=true</dt>
-	       				<dd>Ambos argumentos pueden usarse juntos en una misma query string concatenando las instrucciones con el símbolo <em>&</em>.</dd>
-					</dl>
+			<div id="dependencias">
+			    <h3>JavaScript & Style sheets</h3>
+				<p>Para instalar Chico-UI existe un serivicio llamado <em>Packer-o-matic</em> que se encarga de precompilar los componentes en un archivo JS o CSS. Éste debe ir linkeado en el código HTML. Pueden optar por descargarlas y utilizar de forma estática en sus proyectos, o consumirlas directamente desde el cloud de meli: <strong>http://10.100.34.210:8080/content/chico/0.x.x/php/packer.php</strong>. <a href="php/packer.php">Ver packer-o-matic</a></p>  
+				<p>El <em>Packer-o-matic</em> viene en varios sabores y puede recibir dos argumentos opcionales por query string:<p>
+				<dl class="depend">
+				    <dt><strong>De fábrica</strong></dt>
+				    <dd>El packer-o-matic si no recibe ningún argumento devolverá un archivo JavaScript con todos los componentes disponibles minimizados.</dd>
+				    <dt>?<strong>type</strong>=css</dt>
+				    <dd><p>El parámetro <strong>type</strong> con valor <em>css</em> le pide al packer que devuelva en un archivo CSS los estilos de todos los componentes disponibles minimizados.</p></dd>
+       				<dt>?<strong>debug</strong>=true</dt>
+					<dd><p>El parámetro <strong>debug</strong> con valor <em>true</em> le pide al packer que evite la minimización de recursos. Así se pueden ver todos los comentarios del SDK y permite encontrar problemas más facilmente. Por defecto el argument es <em>false</em>, está apagado.</dd>
+       				<dt>?<strong>get</strong>=modal,layer</dt>
+       				<dd>El parámetro <strong>get</strong> recibe como argumentos los componentes que queremos precompilar. Estos componentes van separados por coma (","). Por defecto el packer va a incluir el <em>core</em> de Chico-UI. Si el argumento no está definido, el packer entiende que queremos obtener y configurar todos los componentes del SDK.</dd>
+       				<dt>?<strong>get</strong>=modal,layer&<strong>type</strong>=css</dt>
+       				<dd>Podemos decirle al packer con el parámetro <strong>get</strong> y el parámetro <strong>css</strong> que nos devuelve ciertos estilos de componentes.</dd>
+       				<dt>?<strong>get</strong>=modal,layer&<strong>debug</strong>=true</dt>
+       				<dd>Ambos argumentos pueden usarse juntos en una misma query string concatenando las instrucciones con el símbolo <em>&</em>.</dd>
+				</dl>
 			</div>
 			<div id="crossbrowsing">
 				<p>Para que los componentes del <abbr title="Software Development Kit">SDK</abbr> soporten crossbrowsing es necesario reemplazar el &lt;html&gt; por estas lineas para activar los modificadores de estilos para <abbr title="Internet Explorer">IE</abbr>.</strong> Estas moficaciones permiten ajustar automáticamente las diferencias más básicas entre los dispositivos.</p><br>
@@ -156,6 +156,42 @@
 					<p>El Javascript para iniciarlo es:</p>
 					<code>
 						<pre name="code" class="js">$('.foo').dropdown();</pre>
+					</code>
+				</div>
+			</div>
+		</div>
+		
+		<div class="article demo">
+			<h1>Expando</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<div class="demoExpando">
+						<h4>Lorem ipsum dolor sit amet</h4>
+						<div>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="aside">
+				<div class="box">
+					<h2>Sintaxis</h2>
+					<p>El HTML para utilizar este componente es:</p>
+					<code>
+						<pre name="code" class="xml">
+							<div class="foo">
+								<h4>Title</h4>
+								<div>
+									content
+								</div>
+							</div>
+						</pre>
+					</code>
+					<p>El Javascript para iniciarlo es:</p>
+					<code>
+						<pre name="code" class="js">$('.foo').expando();</pre>
 					</code>
 				</div>
 			</div>
@@ -755,6 +791,8 @@
  
 		// Components
         var ui_drop = $('.demoDropdown').dropdown();
+        
+        var ui_expa = $(".demoExpando").expando();
 
         var ui_caro = $('.demoCarousel').carousel();
         
@@ -800,6 +838,8 @@
         
 		// Submit form
 		uiForm.submit();
+		
+		
 
 		// Chat
 		$('#chat').chat('APP_PENDING_PAYMENTS');

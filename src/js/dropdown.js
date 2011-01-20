@@ -23,47 +23,53 @@ ui.dropdown = function(conf){
     conf.publish = that.publish;
 	
 	// Private methods
-	var show = function(event){ 
-        that.show(event, conf);
+	var show = function(event){
+		that.prevent(event);
+		// Toggle
+		if(that.status){
+			return hide();
+		};
+		
+		// Reset all dropdowns
+		$(ui.instances.dropdown).each(function(i, e){ e.hide() });
+		 
+        // Show menu
+		conf.$htmlContent.css('z-index', ui.utils.zIndex++);		
+		that.show(event, conf);
+		
+		// Secondary behavior
+		if(skin == "secondary"){
+			conf.$trigger.css('z-index', ui.utils.zIndex++); // Z-index of trigger over content
+			$(conf.element).addClass("ch-dropdown-on"); // Container ON
+		};
+	
+		// Document events
+		ui.utils.document.one('click', function(event){
+			that.prevent(event);
+            hide();
+		});
+		
         return conf.publish; // Returns publish object
     };
 	
     var hide = function(event){
+    	that.prevent(event);
+    	
     	// Secondary behavior
 		if(skin == "secondary"){
 			$(conf.element).removeClass("ch-dropdown-on"); // Container OFF
 		};
-        that.hide(event, conf); 
+        that.hide(event, conf);
+        
         return conf.publish; // Returns publish object
     };
     
 	// Trigger
 	conf.$trigger
 		.bind('click', function(event){
-			// Toggle
-			if(that.status){
-				hide(event);
-				return;
-			};
-			
-			// Reset all dropdowns
-			$(ui.instances.dropdown).each(function(i, e){ e.hide() });
-			
-			// Show menu
-			conf.$htmlContent.css('z-index', ui.utils.zIndex++);
-			that.show(event, conf);
-			
-			// Secondary behavior
-			if(skin == "secondary"){
-				conf.$trigger.css('z-index', ui.utils.zIndex++); // Z-index of trigger over content
-				$(conf.element).addClass("ch-dropdown-on"); // Container ON
-			};
-		
-			// Document events
-			ui.utils.document.bind('click', function(event){
-                hide($.Event());
-				ui.utils.document.unbind('click');
-			});
+			that.prevent(event);			
+			// Show dropdown
+			show();
 		})
 		.addClass('ch-dropdown-trigger')
 		.append('<span class="ch-down">&raquo;</span>');
@@ -74,15 +80,15 @@ ui.dropdown = function(conf){
 		.bind('click', function(event){ event.stopPropagation() })
 		.addClass('ch-dropdown-content')
 		// Close when click an option
-		.find('a').bind('click', function(){ hide($.Event()) });
+		.find('a').bind('click', function(){ hide() });
 	
 
     // Create the publish object to be returned
     conf.publish.uid = conf.id;
     conf.publish.element = conf.element;
     conf.publish.type = "dropdown";
-    conf.publish.show = function(){ return show($.Event()) };
-    conf.publish.hide = function(){ return hide($.Event()) };
+    conf.publish.show = function(){ return show() };
+    conf.publish.hide = function(){ return hide() };
 
 	return conf.publish;
 
