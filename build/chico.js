@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, position, positioner, object, floats, navs, controllers, watcher, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, required, helper, forms, viewer
+  * @components: core, positioner, object, floats, navs, controllers, watcher, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, required, helper, forms, viewer
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -23,7 +23,7 @@ var ui = window.ui = {
 
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer",
 
-    internals: "position,positioner,object,floats,navs,controllers,watcher",
+    internals: "positioner,object,floats,navs,controllers,watcher",
 
     instances: {},
     
@@ -51,7 +51,12 @@ var ui = window.ui = {
 		document: $(document),
 		zIndex: 1000,
 		index: 0 // global instantiation index
-	}
+	},
+    
+    events: {
+        CHANGE_LAYOUT: "changeLayout"
+    }
+    
 }
 
 /**
@@ -91,23 +96,30 @@ ui.factory = function(o) {
             var results = [];			    
             var that = this;
             var options = options || {};
+            // Could be more than one argument
+            var _arguments = arguments;
 
             that.each( function(i, e) {
 
                 var conf = {};
                     conf.name = x;
-                    conf.element = e ;
+                    conf.element = e;
                     conf.id = ui.utils.index++; // Global instantiation index
                 
                 // If argument is a number, join with the conf
                 if (typeof options === "number") {
                     conf.value = options;
-                } else {
-                    // Check for an object
-                    if (typeof options !== "object") { 
-                        alert("Factory " + x + " configure error: Need a basic configuration."); 
-                        return;
-                    };
+                    // Could come a messages as a second argument
+                    if (_arguments[1]) {
+                        conf.msg = _arguments[1];
+                    }
+                }
+                
+                if (typeof options === "string") { // This could be a message
+                    conf.msg = options;
+                }
+                
+                if (typeof options === "object") { 
                     // Extend conf with the options
                     $.extend( conf , options );   
                 }
@@ -131,9 +143,10 @@ ui.factory = function(o) {
                     if (!ui.instances[type]) { ui.instances[type] = []; }
                          ui.instances[type].push( created );
 			    }
-			    		
+                
+                // Avoid mapping objects that already exists
 				if (created.exists) {				
-					// Avoid mapping objects that already exists
+					// Return the inner object
 					created = created.object;
 				}			
 
@@ -280,63 +293,6 @@ ui.support = function() {
 	};
 	
 };
-/**
- *      DEPRECATED
- */
-/**
-*  @static @class Positionator
-*	@author <a href="mailto:leandro.linares@mercadolibre.com">Leandro Linares</a>
-*	@author <a href="mailto:guillermo.paz@mercadolibre.com">Guillermo Paz</a>
-*  @function 
-*/	
-
-ui.position = {
-	// Vertical & horizontal alignment
-	center: function(conf){
-		var align = function(){
-			conf.$htmlContent.css({
-				left: (parseInt(ui.utils.window.width()) - conf.$htmlContent.outerWidth() ) /2,
-				top: (ui.utils.html.hasClass('ie6')) ? '' : (parseInt(ui.utils.window.height()) - conf.$htmlContent.outerHeight() ) /2
-			});
-		};
-		align();
-		ui.utils.window.bind('resize', align);
-	},
-	
-	// Layer, drop, mega-drop
-	down: function(conf){
-		var align = function(){
-			conf.$htmlContent.css({
-				top: conf.$wrapper.outerHeight() + 10,
-				left: (conf.$wrapper.outerWidth() / 2) - 20
-			});
-		};
-		align();
-		ui.utils.window.bind('resize', align);
-	},
-	
-	// Helpers
-	right: function(conf){		
-		var align = function(){
-			conf.$htmlContent.css({
-				top: (conf.$wrapper.height() / 2) - 11,
-				left: conf.$wrapper.outerWidth() + 13
-			});
-		};
-		align();
-		ui.utils.window.bind('resize', align);
-	},		
-	
-	// Tooltip
-	follow: function(conf){
-		conf.$trigger.bind('mousemove', function(event){
-			conf.$htmlContent.css({
-				top: event.pageY + 20,
-				left: event.pageX - 32
-			});
-		});
-	}
-}
 // @arg o == configuration
 ui.positioner = function( o ) {
 
@@ -759,8 +715,6 @@ ui.controllers = function(){
 };
 /**
  *	Field validation Watcher
- *	@author 
- *	@Contructor
  *	@return An interface object
  */
 
@@ -798,7 +752,9 @@ ui.watcher = function(conf) {
             	    // Mergeo Conditions
                     $.extend(instance[i].conditions, getConditions(conf));
                     // Merge Messages
-                    $.extend(instance[i].messages, getMessages(conf));
+                    $.extend(instance[i].messages, conf.messages);
+                    // Merge Default Messages
+                    
                     // Merge types
             	    instance[i].types = mergeTypes(instance[i].types);
     				return { 
@@ -912,23 +868,6 @@ ui.watcher = function(conf) {
         return messages;
     };
 
-    // Evaluate Conditions
-    var evaluateConditions = function(condition, conf) {
-        
-        var value = $(conf.element).val();
-        var gotError = true;
-        
-        if (condition.patt) {
-            gotError = /condition.pattern/.test(value)
-        } else if (condition.expr) {
-            //gotError = condition.expr(value);
-        } else if (condition.func) {
-            gotError = eval(condition.func);
-        }
-        
-        return gotError;
-    }
-
 	/**
 	 *  @ Protected Members, Properties and Methods ;)
 	 */	
@@ -953,6 +892,9 @@ ui.watcher = function(conf) {
 
     // Messages
     that.messages = getMessages(conf);
+
+    // Default Messages
+    that.defaultMessages = conf.defaultMessages;
     
     // Helper
     that.helper = ui.helper(conf);
@@ -973,15 +915,15 @@ ui.watcher = function(conf) {
             var gotError = true;
             
             if (condition.patt) {
-                gotError = condition.patt.test(value)
+                gotError = condition.patt.test(value);
             };
             
             if (condition.expr) {
                 gotError = condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
             };
             
-            if (condition.func) {
-                gotError = !that.isEmpty(conf); //condition.func(value);
+            if (condition.func) {
+                gotError = !that.isEmpty(conf); //condition.func.apply(value);
             };
                     
 			if (!gotError) {
@@ -990,7 +932,7 @@ ui.watcher = function(conf) {
 				// With previous error
 				if (!conf.status) { that.helper.hide(); };
 				// Show helper with message
-				that.helper.show( that.messages[type] ); 
+				that.helper.show( (that.messages[type]) ? that.messages[type] : that.defaultMessages[type] ); 
 				// Status false
 				that.publish.status = that.status =  conf.status = false;
 				
@@ -1018,6 +960,8 @@ ui.watcher = function(conf) {
 			// Remove blur event on status OK
 			$(conf.element).unbind( (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur" );
 		};
+        
+        that.callbacks(conf, 'validate');
 	};
 	
 	// Reset Method
@@ -1075,14 +1019,15 @@ ui.watcher = function(conf) {
 		},
 		reset: function() {
 			that.reset(conf);
-    		that.callbacks(conf, 'reset');
 			return that.publish;
 		},
 		validate: function() {
 			that.validate(conf);
-                that.callbacks(conf, 'validate');
 			return that.publish;
-		}
+		},
+        refresh: function(){ 
+            return that.helper.position("refresh");
+        }
 	};
 
     // Run the instances checker        
@@ -1478,6 +1423,10 @@ ui.layer = function(conf) {
     conf.publish.hide = function(){ return hide($.Event()) };
     conf.publish.position = function(o){ return that.position(o, conf) };
 
+    // Fix: change layout problem
+    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
+
+
 	return conf.publish;
 
 };
@@ -1725,7 +1674,10 @@ ui.tooltip = function(conf){
     conf.publish.show = function(){ return show($.Event()) };
     conf.publish.hide = function(){ return hide($.Event()) };
     conf.publish.position = function(o){ return that.position(o, conf) };
-        
+
+    // Fix: change layout problem
+    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
+
 	return that.publish;
 };
 /**
@@ -1742,34 +1694,7 @@ ui.string = function(conf) {
 	conf.types = "text,email,url,minLength,maxLength";
 	// Redefine Helper's reference;
 	conf.reference = $(conf.element);
-	// Conditions map TODO: uppercase, lowercase, varchar
-	/*
-           Awful performance!!!!!!
-	       TODO: The regex object process all conditions, we need to refactor this pattern
-              validation {
-                  pattern: /w/
-              };
-              validation {
-                  expresion: {
-                      value1: value.length,
-                      operator: >=,
-                      value2: parseInt(conf.minLength)   
-                  }
-              };
-	
-	conf.checkConditions = function(type){
-		var value = $(conf.element).val();
-		var regex = {
-			text:		(/^([a-zA-Z\s]+)$/m).test(value),
-			email:		(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i).test(value),
-//			url:		(/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([\w]+)(.[\w]+){1,2}$/).test(value), 
-			url:        (/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/).test(value),
-			minLength:	value.length >= parseInt(that.validations.minLength),
-			maxLength:	value.length <= parseInt(that.validations.maxLength)
-		};
-		return regex[type];
-	};*/
-	
+	// Conditions map TODO: uppercase, lowercase, varchar	
     conf.conditions = {
         text:       { patt: /^([a-zA-Z\s]+)$/ },
         email:      { patt: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/ },
@@ -1787,17 +1712,18 @@ ui.string = function(conf) {
 		maxLength:	"El máximo de caracteres es " + conf.maxLength + "."
 	};
 	
-	conf.messages = {}
-	
-    var types = conf.types.split(",");
-	for (var i = 0, j = types.length; i < j; i ++) {
-		for (var val in conf) {
-			if (types[i] == val) {
-				conf.messages[val] = conf.defaultMessages[val];
-			};
-		};
-	};
-	
+	conf.messages = conf.messages || {};	
+
+    if (conf.msg) { 
+        conf.messages.string = conf.msg;
+        conf.msg = null; 
+    }
+    
+    // $.string("message"); support
+    if (!conf.text&&!conf.email&&!conf.url&&!conf.maxLength&&!conf.minLength){
+        conf.text = true;
+    }	
+    
     /**
 	 *  Extend Watcher
 	 */
@@ -1807,6 +1733,7 @@ ui.string = function(conf) {
 	 *  Public Object
 	 */
     return that.publish;
+    
 };
 
 
@@ -1818,8 +1745,14 @@ ui.string = function(conf) {
 ui.email = function(conf) {
     
     conf = conf || {};
-    
+
+    conf.type = "email";
+
     conf.email = true;
+
+	conf.messages = conf.messages || {};	
+
+    if (conf.msg) { conf.messages.email = conf.msg; conf.msg = null; }	
 
     return ui.string(conf);
     
@@ -1836,7 +1769,13 @@ ui.url = function(conf) {
     
     conf = conf || {};
     
+    conf.type = "url";
+    
     conf.url = true;
+    
+	conf.messages = conf.messages || {};	
+    
+    if (conf.msg) { conf.messages.url = conf.msg; conf.msg = null; }	
 
     return ui.string(conf);
     
@@ -1853,7 +1792,13 @@ ui.minLength = function(conf) {
     
     conf = conf || {};
     
+    conf.type = "minLength";
+    
     conf.minLength = conf.value;
+
+	conf.messages = conf.messages || {};	
+
+    if (conf.msg) { conf.messages.minLength = conf.msg; conf.msg = null; }	
 
     return ui.string(conf);
     
@@ -1870,7 +1815,13 @@ ui.maxLength = function(conf) {
     
     conf = conf || {};
     
+    conf.type = "maxLength";
+    
     conf.maxLength = conf.value;
+
+	conf.messages = conf.messages || {};	
+
+    if (conf.msg) { conf.messages.maxLength = conf.msg; conf.msg = null; }
 
     return ui.string(conf);
     
@@ -1893,19 +1844,9 @@ ui.number = function(conf){
 	conf.types = "number,min,max";
 	// Helper
 	conf.reference = $(conf.element);
-	// Conditions map TODO: float
-	/*conf.checkConditions = function(type){
-		var value = $(conf.element).val();
-		var regex = {
-			number:	!isNaN(value), // value.match(/^\d+$/m),
-			min:	value >= parseInt(that.validations.min),
-			max:	value <= parseInt(that.validations.max)
-		};
-		return regex[type];
-	};*/
-	
+	// Conditions map TODO: float	
     conf.conditions = {
-        number: { patt: /^\d+$/ },
+        number: { patt: /^([0-9\s]+)$/ },
         min:    { expr: function(a,b) { return a >= b } },
         max:    { expr: function(a,b) { return a <= b } }
     };
@@ -1916,18 +1857,19 @@ ui.number = function(conf){
 		min:	"La cantidad mínima es " + conf.min + ".",
 		max:	"La cantidad máxima es " + conf.max + "."
 	};
-	
-	conf.messages = {}
-	
-    var types = conf.types.split(",");
-	for (var i = 0, j = types.length; i < j; i ++) {
-		for (var val in conf) {
-			if (types[i] == val) {
-				conf.messages[val] = conf.defaultMessages[val];
-			};
-		};
-	};
-	
+
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { 
+        conf.messages.number = conf.msg; 
+        conf.msg = null; 
+    }
+
+    // $.number("message"); support
+    if (!conf.number&&!conf.min&&!conf.max){
+        conf.number = true;
+    }
+    
     /**
 	 *  Extend Watcher
 	 */
@@ -1951,6 +1893,10 @@ ui.min = function(conf) {
     
     conf.min = conf.value;
 
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { conf.messages.min = conf.msg; conf.msg = null; }
+    
     return ui.number(conf);
     
 }
@@ -1968,6 +1914,10 @@ ui.max = function(conf) {
     
     conf.max = conf.value;
 
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { conf.messages.max = conf.msg; conf.msg = null; }
+    
     return ui.number(conf);
     
 }
@@ -1991,21 +1941,18 @@ ui.required = function(conf){
 	conf.types = "required";
     // Define the conditions of this interface
 	// Conditions absorvs that.isEmpty in checkConditions for compatibility
-	/*conf.checkConditions = function(type) { // We recibe "type" arguemnt, but we don't care
-		return !that.isEmpty(conf);
-	}
-    */
     conf.conditions = {
         required: { func:'!that.isEmpty'}
     }
     
 	// Messages
-	conf.messages = {
+	conf.defaultMessages = {
 		required: "Campo requerido."
 	};	
 	
-    // Process Messages
-//    if (that.messages) that.messages = that.processMessages(conf);
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { conf.messages.required = conf.msg; conf.msg = null; }
 	
     /**
 	 *  Extend Watcher
@@ -2050,7 +1997,18 @@ ui.helper = function(conf){
 		that.show($.Event(), _conf);
 	};
 
-	return { show: function(text){ show(text) }, hide: hide };
+    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ 
+            that.position("refresh", _conf) 
+        });
+
+	return { 
+        show: function(text){ show(text) }, 
+        hide: hide,
+        position: function(o){ 
+            return that.position(o, _conf) 
+        }
+    };
+
 };
 /**
  *	Form Controller
@@ -2124,6 +2082,7 @@ ui.forms = function(conf){
 				if (!status) removeError();				
 				createError();
 				status = false;
+                ui.utils.body.trigger(ui.events.CHANGE_LAYOUT);
 				return;
 			};
 		};
@@ -2132,10 +2091,14 @@ ui.forms = function(conf){
 		if (!status) {
 			removeError();
 			status = true;
+            ui.utils.body.trigger(ui.events.CHANGE_LAYOUT);
 		};
 	};
 	
 	var validate = function(event){
+    
+        that.callbacks(conf, 'beforeValidate');
+        
 		that.prevent(event);
 		
 		// Shoot validations
@@ -2144,18 +2107,26 @@ ui.forms = function(conf){
 		};
 		
 		checkStatus();
-		
+
+        that.callbacks(conf, 'afterValidate');
+        
 		return conf.publish; // Return publish object
 	};
 
 
 	var submit = function(event){
+
+        that.callbacks(conf, 'beforeSubmit');
+
 		that.prevent(event);
 		validate(event); // Validate start
 		if (status){ // Status OK	
 			if(conf.callbacks && conf.callbacks.submit) conf.callbacks.submit();
 			conf.element.submit();
 		};		
+
+        that.callbacks(conf, 'afterSubmit');
+        
 		return conf.publish; // Return publish object
 	};
 

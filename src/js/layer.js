@@ -79,6 +79,10 @@ ui.layer = function(conf) {
     conf.publish.hide = function(){ return hide($.Event()) };
     conf.publish.position = function(o){ return that.position(o, conf) };
 
+    // Fix: change layout problem
+    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
+
+
 	return conf.publish;
 
 };

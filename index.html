@@ -17,7 +17,6 @@
 		<script src="libs/js/jquery-1.4.4.js"></script>
 		<script src="php/packer.php?debug=true"></script>
 		<!--script src="src/js/core.js"></script-->
-				
 		<!--[if lt IE 7 ]>
 			<script src="libs/js/dd_belatedpng.js"></script>
 			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
@@ -459,6 +458,13 @@
 							<p class="required">* Datos obligatorios</p>
 							<ol>
 								<li class="fieldBox">
+									<label class="required" for="val_title">
+										<span>Titulo: <em>*</em></span>													
+										<input type="email" id="val_title" required="required">
+									</label>
+									<p class="help">Escribe una descripción corta y clara</p>
+								</li>
+								<li class="fieldBox">
 									<label class="required" for="val_email">
 										<span>E-mail: <em>*</em></span>													
 										<input type="email" id="val_email" required="required">
@@ -807,7 +813,16 @@
 
 		// New validator
 		var uiForm = $('.formulario').forms();
-		var nv1 = $('#val_email').email().and().required().and().minLength(20);
+		
+		
+ 		var nv0 = $('#val_title')
+ 		             .required('<%= t9n.tr(s:"El título es obligatorio.")%>') 
+                     .and()
+                     .maxLength(60,'<%= t9n.tr(s:"El campo debe tener menos de 60 caracteres.")%>')
+                     .and()
+                     .minLength(3); //,'<%= t9n.tr(s:"El campo debe tener más de 3 caracteres.")%>');
+
+        var nv1 = $('#val_email').email().and().required().and().minLength(20);
 		var nv2 = $('#val_url').string({ url: true });
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
 		var nv4 = $('#val_range').number({ min: 1, max: 10 });

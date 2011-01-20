@@ -35,7 +35,12 @@ var ui = window.ui = {
 		document: $(document),
 		zIndex: 1000,
 		index: 0 // global instantiation index
-	}
+	},
+    
+    events: {
+        CHANGE_LAYOUT: "changeLayout"
+    }
+    
 }
 
 /**
@@ -75,23 +80,30 @@ ui.factory = function(o) {
             var results = [];			    
             var that = this;
             var options = options || {};
+            // Could be more than one argument
+            var _arguments = arguments;
 
             that.each( function(i, e) {
 
                 var conf = {};
                     conf.name = x;
-                    conf.element = e ;
+                    conf.element = e;
                     conf.id = ui.utils.index++; // Global instantiation index
                 
                 // If argument is a number, join with the conf
                 if (typeof options === "number") {
                     conf.value = options;
-                } else {
-                    // Check for an object
-                    if (typeof options !== "object") { 
-                        alert("Factory " + x + " configure error: Need a basic configuration."); 
-                        return;
-                    };
+                    // Could come a messages as a second argument
+                    if (_arguments[1]) {
+                        conf.msg = _arguments[1];
+                    }
+                }
+                
+                if (typeof options === "string") { // This could be a message
+                    conf.msg = options;
+                }
+                
+                if (typeof options === "object") { 
                     // Extend conf with the options
                     $.extend( conf , options );   
                 }
@@ -115,9 +127,10 @@ ui.factory = function(o) {
                     if (!ui.instances[type]) { ui.instances[type] = []; }
                          ui.instances[type].push( created );
 			    }
-			    		
+                
+                // Avoid mapping objects that already exists
 				if (created.exists) {				
-					// Avoid mapping objects that already exists
+					// Return the inner object
 					created = created.object;
 				}			
 

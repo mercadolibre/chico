@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
+	<title>Form - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="../build/chico-min.css">
+	<link href="../src/css/doc.css" rel="stylesheet">
+	<link href="../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- #body -->
+	<h1>Chico-UI: Form testcases</h1>
+	<div class="box">
+		<h2 class="t">Form: Campos Name, Email y Url.</h2>
+		<div class="box testForm">
+			<form action="test.html" id="demoform1">  
+				<fieldset>  
+					<legend>Form 1: Todos los campos solo requeridos</legend>  
+					<p class="required">* Datos obligatorios</p>  
+					<ol>  
+						<li class="fieldBox">  
+							<label>  
+								<span>Nombre: <em>*</em></span>                                                   
+								<input id="val_name1">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+						<li class="fieldBox">  
+							<label>  
+								<span>E-mail: <em>*</em></span>                                                   
+								<input id="val_email1">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+						<li class="fieldBox">  
+							<label>  
+								<span>URL: <em>*</em></span>                                                   
+								<input id="val_url1">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+					</ol>
+				</fieldset>  
+
+				<p class="actions">  
+					<input type="submit" value="Enviar" class="btn primary">  
+					<a href="#" class="resetForm">Cancelar</a>  
+				</p>  
+
+			</form>  
+		</div>
+		<div class="box testForm">
+			<form action="test.html" id="demoform2">  
+				<fieldset>  
+					<legend>Form 2: Ninguno de los campos requeridos, pero todos exigen tipo correcto de datos</legend>  
+					<p class="required">* Datos obligatorios</p>  
+					<ol>  
+						<li class="fieldBox">  
+							<label>  
+								<span>Nombre: <em>*</em></span>                                                   
+								<input id="val_name2">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+						<li class="fieldBox">  
+							<label>  
+								<span>E-mail: <em>*</em></span>                                                   
+								<input id="val_email2">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+						<li class="fieldBox">  
+							<label>  
+								<span>URL: <em>*</em></span>                                                   
+								<input id="val_url2">  
+							</label>  
+							<p class="help">Es obligatorio agregar "http://"?</p>  
+						</li>
+					</ol>
+				</fieldset>  
+
+				<p class="actions">  
+					<input type="submit" value="Enviar" class="btn primary">  
+					<a href="#" class="resetForm">Cancelar</a>  
+				</p>  
+
+			</form>  
+		</div>
+		<div class="box testForm">
+			<form action="test.html" id="demoform3">  
+				<fieldset>  
+					<legend>Form 3: Todos los campos requeridos y con el tipo correcto de datos</legend>  
+					<p class="required">* Datos obligatorios</p>  
+					<ol>  
+						<li class="fieldBox">  
+							<label>  
+								<span>Nombre: <em>*</em></span>                                                   
+								<input id="val_name3">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+						<li class="fieldBox">  
+							<label>  
+								<span>E-mail: <em>*</em></span>                                                   
+								<input id="val_email3">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+						<li class="fieldBox">  
+							<label>  
+								<span>URL: <em>*</em></span>                                                   
+								<input id="val_url3">  
+							</label>  
+							<p class="help">Es obligatorio agregar "http://"?</p>  
+						</li>
+					</ol>
+				</fieldset>  
+
+				<p class="actions">  
+					<input type="submit" value="Enviar" class="btn primary">  
+					<a href="#" class="resetForm">Cancelar</a>  
+				</p>  
+
+			</form>  
+		</div>
+		<div class="box testForm">
+			<form action="test.html" id="demoform4">  
+				<fieldset>  
+					<legend>Form 4: Todos los campos requeridos,con el tipo correcto de datos y restringidos  de 10 a 15 caracteres</legend>  
+					<p class="required">* Datos obligatorios</p>  
+					<ol>  
+						<li class="fieldBox">  
+							<label>  
+								<span>Nombre: <em>*</em></span>                                                   
+								<input id="val_name4">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+						<li class="fieldBox">  
+							<label>  
+								<span>E-mail: <em>*</em></span>                                                   
+								<input id="val_email4">  
+							</label>  
+							<p class="help">Escribe una descripción corta y clara</p>  
+						</li>
+						<li class="fieldBox">  
+							<label>  
+								<span>URL: <em>*</em></span>                                                   
+								<input id="val_url4">  
+							</label>  
+							<p class="help">Es obligatorio agregar "http://"?</p>  
+						</li>
+					</ol>
+				</fieldset>  
+
+				<p class="actions">  
+					<input type="submit" value="Enviar" class="btn primary">  
+					<a href="#" class="resetForm">Cancelar</a>  
+				</p>  
+
+			</form>  
+		</div>
+	</div>
+<br>
+	<div class="box">
+		<h2>Form: Selects.</h2>
+		<div class="box testForm">
+			<form action="test.html" id="demoform5">  
+				<fieldset>  
+					<legend>Form 5: Select múltiple requerido</legend>  
+					<p class="required">* Datos obligatorios</p>  
+					<ol>  
+						<li class="fieldBox"> 
+							<label for="val_select1"> 
+								<span>Campo múltiple:</span> 
+								<select id="val_select1" multiple="multiple" size="4"> 
+									<option value="1">Opción 1</option> 
+									<option value="2">Opción 2</option> 
+									<option value="3">Opción 3</option> 
+									<option value="4">Opción 4</option> 
+								</select> 
+							</label> 
+						</li>
+					</ol>
+				</fieldset>  
+
+				<p class="actions">  
+					<input type="submit" value="Enviar" class="btn primary">  
+					<a href="#" class="resetForm">Cancelar</a>  
+				</p>  
+
+			</form>  
+		</div>
+		<div class="box testForm">
+			<form action="test.html" id="demoform6">  
+				<fieldset>  
+					<legend>Form 6: Select requerido</legend>  
+					<p class="required">* Datos obligatorios</p>  
+					<ol>  
+						<li class="fieldBox"> 
+							<label for="val_select2"> 
+								<span>Campo común:</span> 
+								<select id="val_select2"> 
+									<option value="-1">Selecciona...</option> 
+									<option value="1">Opción 1</option> 
+									<option value="2">Opción 2</option> 
+									<option value="3">Opción 3</option> 
+									<option value="4">Opción 4</option> 
+								</select> 
+							</label> 
+						</li> 
+					</ol>
+				</fieldset>  
+
+				<p class="actions">  
+					<input type="submit" value="Enviar" class="btn primary">  
+					<a href="#" class="resetForm">Cancelar</a>  
+				</p>  
+
+			</form>  
+		</div>
+		
+	</div>
+<!-- #body -->
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../libs/js/jquery.js"></script>
+	<script src="../libs/js/qunit.js"></script>
+	<!--script src="../build/chico-min.js"></script-->
+	<script src="functions.js"></script>
+    <script src="../php/packer.php?debug=true"></script>
+
+<!-- #script -->
+	<script>
+        
+		$.fx.off = true;
+
+		var layer = $('.t').layer({
+			content: '<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
+		});
+
+			var form1 = $('#demoform1').forms();  
+            // Revisar string (object), conflicto cuando no recibe configuración.
+			var form1_val_name = $('#val_name1').string();
+            var form1_val_number = $('#val_email1').number();
+            $('#val_url1').url()
+
+			//
+			var form2 = $('#demoform2').forms();  
+			$('#val_name2').string({text:true});
+			$('#val_email2').email();
+			$('#val_url2').url();
+			//
+			var form3 = $('#demoform3').forms();  
+			$('#val_name3').string({text:true}).and().required();
+			$('#val_email3').email().and().required();
+			$('#val_url3').url().and().required();
+			//
+			var form4 = $('#demoform4').forms();  
+			$('#val_name4').string({text:true}).and().required().and().minLength(10).and().maxLength(15);
+			$('#val_email4').email().and().required().and().minLength(10).and().maxLength(15);
+			$('#val_url4').url().and().required().and().minLength(10).and().maxLength(15);
+			//
+			var form5 = $('#demoform5').forms();  
+			$('#val_select1').required();
+			//
+			var form6 = $('#demoform6').forms();  
+			$('#val_select2').required();
+
+    
+        module("Propiedades básicas de Forms");
+        
+        test("Se instancien correctamente el form1", function(){
+        
+            ok( form1 , "Esperamos que exista una instancia en form1" );
+            
+            equal( form1.type , "forms", "Esperamos que la instancia form1 tenga una propiedad type igual a \"forms\"" );
+            
+        });
+        
+        test("Checkeamos instancias de Watchers dentro de un form", function(){
+        
+            ok( form1_val_name , "Espero que exista una instancia form1_val_name");
+                        
+            deepEqual( form1_val_name.element , form1.children[0].element, "Espero que la instancia form1_val_name exista como children del form1");
+            
+        });
+        
+        test("Probamos la función validate", function(){
+        
+            ok( $.isFunction(form1_val_name.validate) , "Espero que form1_val_name tenga un metodo validate()" );
+            
+            // Forzamos el error 
+            $(form1_val_name.element).val(1);
+            form1_val_name.validate();
+            
+            // checkeamos que el elemento tenga class error
+            hasClass(form1_val_name.element , "error");
+            
+            // checkeamos que exista un helper
+            exists(".ch-helper");
+            
+            // Forzamos el exito
+            $(form1_val_name.element).val("a");
+            form1_val_name.validate();
+
+            // checkeamos que el elemento tenga class error
+            hasNotClass(form1_val_name.element , "error");
+            
+            // checkeamos que exista un helper
+            notExists(".ch-helper");
+
+            $(form1_val_name.element).val("");             
+        });
+
+
+	</script>
+
+</body>
+</html>

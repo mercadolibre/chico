@@ -1,7 +1,5 @@
 /**
  *	Field validation Watcher
- *	@author 
- *	@Contructor
  *	@return An interface object
  */
 
@@ -39,7 +37,9 @@ ui.watcher = function(conf) {
             	    // Mergeo Conditions
                     $.extend(instance[i].conditions, getConditions(conf));
                     // Merge Messages
-                    $.extend(instance[i].messages, getMessages(conf));
+                    $.extend(instance[i].messages, conf.messages);
+                    // Merge Default Messages
+                    
                     // Merge types
             	    instance[i].types = mergeTypes(instance[i].types);
     				return { 
@@ -153,23 +153,6 @@ ui.watcher = function(conf) {
         return messages;
     };
 
-    // Evaluate Conditions
-    var evaluateConditions = function(condition, conf) {
-        
-        var value = $(conf.element).val();
-        var gotError = true;
-        
-        if (condition.patt) {
-            gotError = /condition.pattern/.test(value)
-        } else if (condition.expr) {
-            //gotError = condition.expr(value);
-        } else if (condition.func) {
-            gotError = eval(condition.func);
-        }
-        
-        return gotError;
-    }
-
 	/**
 	 *  @ Protected Members, Properties and Methods ;)
 	 */	
@@ -194,6 +177,9 @@ ui.watcher = function(conf) {
 
     // Messages
     that.messages = getMessages(conf);
+
+    // Default Messages
+    that.defaultMessages = conf.defaultMessages;
     
     // Helper
     that.helper = ui.helper(conf);
@@ -214,15 +200,15 @@ ui.watcher = function(conf) {
             var gotError = true;
             
             if (condition.patt) {
-                gotError = condition.patt.test(value)
+                gotError = condition.patt.test(value);
             };
             
             if (condition.expr) {
                 gotError = condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
             };
             
-            if (condition.func) {
-                gotError = !that.isEmpty(conf); //condition.func(value);
+            if (condition.func) {
+                gotError = !that.isEmpty(conf); //condition.func.apply(value);
             };
                     
 			if (!gotError) {
@@ -231,7 +217,7 @@ ui.watcher = function(conf) {
 				// With previous error
 				if (!conf.status) { that.helper.hide(); };
 				// Show helper with message
-				that.helper.show( that.messages[type] ); 
+				that.helper.show( (that.messages[type]) ? that.messages[type] : that.defaultMessages[type] ); 
 				// Status false
 				that.publish.status = that.status =  conf.status = false;
 				
@@ -259,6 +245,8 @@ ui.watcher = function(conf) {
 			// Remove blur event on status OK
 			$(conf.element).unbind( (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur" );
 		};
+        
+        that.callbacks(conf, 'validate');
 	};
 	
 	// Reset Method
@@ -316,14 +304,15 @@ ui.watcher = function(conf) {
 		},
 		reset: function() {
 			that.reset(conf);
-    		that.callbacks(conf, 'reset');
 			return that.publish;
 		},
 		validate: function() {
 			that.validate(conf);
-                that.callbacks(conf, 'validate');
 			return that.publish;
-		}
+		},
+        refresh: function(){ 
+            return that.helper.position("refresh");
+        }
 	};
 
     // Run the instances checker        
