@@ -25,7 +25,22 @@
 	</head>
 	
 	<body>
+		<h1></h1>
 		
+		<h1>Expando</h1>
+		<div class="demoExpando">
+			<h4>Lorem ipsum dolor sit amet.</h4>
+			<div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+			</div>
+		</div>
+		
+		<div class="demoExpando1">
+			<h4>Lorem ipsum dolor.</h4>
+			<div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+			</div>
+		</div>
 		
 		<h1>Tab Navigator</h1>
 		<div class="section">
@@ -679,6 +694,10 @@
         var ui_layr = $('.demoLayerOnmouseover').layer({ content: '<p>foo</p>' });
         var ui_tool = $('.demoTooltip').tooltip();
         var ui_tabs = $('.demoTabNavigator, .demoTabNavigator2').tabNavigator();
+        
+        var ui_expa = $('.demoExpando').expando();
+        var ui_expa1 = $('.demoExpando1').expando({open: true });
+        
         
         // Validator
             
