@@ -5,8 +5,8 @@
 
 .ch-dropdown-trigger,
 .ch-dropdown-trigger:hover,
-.ch-dropdown-trigger.on,
-.ch-dropdown-trigger.on:hover {
+.ch-dropdown-on,
+.ch-dropdown-on:hover {
 	cursor:pointer;
 	display:inline-block;
 	font-size:13px;
@@ -17,7 +17,7 @@
 }
 
 .ch-dropdown-trigger .ch-down,
-.ch-dropdown-trigger.on .ch-down {
+.ch-dropdown-on .ch-down {
 	background-color: transparent;
 	background-image: url('../src/assets/dropdown.png');
 	background-position: 0 0;
@@ -46,8 +46,8 @@
 /* Primary skin (default) */
 .ch-dropdown.ch-primary .ch-dropdown-trigger,
 .ch-dropdown.ch-primary .ch-dropdown-trigger:hover,
-.ch-dropdown.ch-primary .ch-dropdown-trigger.on,
-.ch-dropdown.ch-primary .ch-dropdown-trigger.on:hover {
+.ch-dropdown.ch-primary .ch-dropdown-on,
+.ch-dropdown.ch-primary .ch-dropdown-on:hover {
 	background-color:#cfe3f0;
 	background-position:0 -435px;
 	background-repeat: repeat-x;
@@ -63,8 +63,8 @@
 	background-position: 0 -460px;
 }
 
-.ch-dropdown.ch-primary .ch-dropdown-trigger.on,
-.ch-dropdown.ch-primary .ch-dropdown-trigger.on:hover {
+.ch-dropdown.ch-primary .ch-dropdown-on,
+.ch-dropdown.ch-primary .ch-dropdown-on:hover {
 	background-position: 0 -485px;
 	border-radius:5px 5px 0 0;
 	-moz-border-radius:5px 5px 0 0;
@@ -72,7 +72,7 @@
 }
 
 .ch-dropdown.ch-primary .ch-dropdown-trigger .ch-down,
-.ch-dropdown.ch-primary .ch-dropdown-trigger.on .ch-down {
+.ch-dropdown.ch-primary .ch-dropdown-on .ch-down {
 	top:8px;
 }
 
@@ -104,12 +104,12 @@
 
 /* Secondary skin */
 .ch-dropdown.ch-secondary,
-.ch-dropdown.ch-secondary.on {
+.ch-dropdown.ch-secondary-on {
 	height:13px;
 	line-height:13px;
 }
 
-.ch-dropdown.ch-secondary.on {
+.ch-dropdown.ch-secondary-on {
 	box-shadow: 2px 2px 1px #888;
 	-moz-box-shadow: 2px 2px 1px #888;
 	-webkit-box-shadow: 2px 2px 1px #888;
@@ -117,8 +117,8 @@
 
 .ch-dropdown.ch-secondary .ch-dropdown-trigger,
 .ch-dropdown.ch-secondary .ch-dropdown-trigger:hover,
-.ch-dropdown.ch-secondary .ch-dropdown-trigger.on,
-.ch-dropdown.ch-secondary .ch-dropdown-trigger.on:hover {
+.ch-dropdown.ch-secondary .ch-dropdown-on,
+.ch-dropdown.ch-secondary .ch-dropdown-on:hover {
 	background-color:#fff;
 	background-image:none; /* Because sprite is in core.css, because Packer duplicate it */
 	border:1px solid #fff;
@@ -137,14 +137,14 @@
 	text-decoration: underline;
 }
 
-.ch-dropdown.ch-secondary .ch-dropdown-trigger.on,
-.ch-dropdown.ch-secondary .ch-dropdown-trigger.on:hover {
+.ch-dropdown.ch-secondary .ch-dropdown-on,
+.ch-dropdown.ch-secondary .ch-dropdown-on:hover {
 	border:1px solid #ccc;
 	border-width:0 1px;
 }
 
 .ch-dropdown.ch-secondary .ch-dropdown-trigger .ch-down,
-.ch-dropdown.ch-secondary .ch-dropdown-trigger.on .ch-down {
+.ch-dropdown.ch-secondary .ch-dropdown-on .ch-down {
 	top:4px;
 }
 
@@ -167,8 +167,8 @@
 .ie6 .ch-dropdown-trigger {
 	display:inline;
 }
-.ie6 .ch-dropdown.ch-primary .ch-dropdown-trigger.on,
-.ie6 .ch-dropdown.ch-primary .ch-dropdown-trigger.on:hover {
+.ie6 .ch-dropdown.ch-primary .ch-dropdown-on,
+.ie6 .ch-dropdown.ch-primary .ch-dropdown-on:hover {
 	background-image: url('../src/assets/base.png');
 	background-position: 0 -485px;
 }

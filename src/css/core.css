@@ -116,12 +116,12 @@ a img{
  *
  */
 
-.btn, .box, .cone, .ico,
+.btn, .box, .ch-cone, .ico,
 .ch-dropdown-trigger,
 .ch-dropdown-trigger:hover,
-.ch-dropdown-trigger.on,
-.ch-dropdown-trigger.on:hover,
-.ch-tabNavigator .ch-tabNavigator-trigger.on { 
+.ch-dropdown-on,
+.ch-dropdown-on:hover,
+.ch-tabNavigator .ch-tab-on { 
 	background-image: url('../src/assets/base.png');
 }
 
@@ -343,7 +343,7 @@ hr {
 
 /* Close */
 
-.btn.close {
+.btn.ch-close {
 	background-color:transparent;
 	background-repeat:no-repeat;
 	background-position:0 -184px;
@@ -358,17 +358,17 @@ hr {
 	width:16px;
 }
 
-.btn.close:hover, .btn.close:focus{
+.btn.ch-close:hover, .btn.ch-close:focus{
 	background-position:0 -200px;
 	border:none;
 }
 
-.btn.close:active{
+.btn.ch-close:active{
 	background-position:0 -216px;
 	outline:none;
 }
 
-.ie6 .btn.close {
+.ie6 .btn.ch-close {
 	line-height:16px;
 }
 

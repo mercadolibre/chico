@@ -15,7 +15,7 @@
 
 /* Cone */
 
-.ch-tooltip .cone {
+.ch-tooltip .ch-cone {
 	background-color: transparent;
 	background-image: url('../src/assets/tooltip.png');
 	background-position: 0 0 no-repeat;
@@ -23,50 +23,50 @@
 	position:absolute;
 }
 
-.ch-tooltip.ch-down .cone,
-.ch-tooltip.ch-top .cone {
+.ch-tooltip.ch-down .ch-cone,
+.ch-tooltip.ch-top .ch-cone {
 	width:16px;
 	height:8px;
 	left:12px;
 }
 
-.ch-tooltip.ch-down .cone {
+.ch-tooltip.ch-down .ch-cone {
 	top:-8px;
 }
 
-.ch-tooltip.ch-top .cone{
+.ch-tooltip.ch-top .ch-cone{
 	background-position:0 -8px;
 	bottom:-8px;
 }
 
-.ch-tooltip.ch-left .cone,
-.ch-tooltip.ch-right .cone {
+.ch-tooltip.ch-left .ch-cone,
+.ch-tooltip.ch-right .ch-cone {
 	width:8px;
 	height:16px;
 	top:2px;
 }
 
-.ch-tooltip.ch-left .cone {
+.ch-tooltip.ch-left .ch-cone {
 	background-position:-8px 0;
 	right:-8px;
 }
 
-.ch-tooltip.ch-right .cone {
+.ch-tooltip.ch-right .ch-cone {
 	left:-8px;
 }
 
-.ch-layer.ch-down-right .cone,
-.ch-layer.ch-top-right .cone {
+.ch-layer.ch-down-right .ch-cone,
+.ch-layer.ch-top-right .ch-cone {
 	width:16px;
 	height:8px;
 	right:12px;
 }
 
-.ch-layer.ch-down-right .cone {
+.ch-layer.ch-down-right .ch-cone {
 	top:-8px;
 }
 
-.ch-layer.ch-top-right .cone {
+.ch-layer.ch-top-right .ch-cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }

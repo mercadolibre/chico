@@ -14,15 +14,14 @@ ui.modal = function(conf){
 	conf.position = {
 		fixed:true
 	};
-	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") ) conf.ajax = true; //Default
-
+	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") ) conf.ajax = true; //Default	
 	conf.publish = that.publish;
 	
 	// Privated methods
 	var show = function(event){
 		dimmer.on();
 		that.show(event, conf);
-		$('.ch-modal .btn.close, .closeModal').bind('click', hide);
+		$('.ch-modal .btn.ch-close, .closeModal').bind('click', hide);
 		conf.$trigger.blur();
 
         return conf.publish; // Returns publish object

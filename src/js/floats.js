@@ -9,13 +9,13 @@ ui.floats = function() {
 	var that = ui.object(); // Inheritance	
 
 	var createClose = function(conf) {
-		$('<p class="btn close">x</p>').bind('click', function(event) {
+		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
 		}).prependTo(conf.$htmlContent);
 	};
 
 	var createCone = function(conf) {
-		$('<div class="cone"></div>').prependTo(conf.$htmlContent);
+		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContent);
 	};
 
 	that.show = function(event, conf) {
@@ -32,9 +32,11 @@ ui.floats = function() {
 			.html( that.loadContent(conf) );
 				
 		// Visual configuration
-		if(conf.closeButton) createClose(conf);
-		if(conf.cone) createCone(conf);
-		if(conf.classes) conf.$htmlContent.addClass(conf.classes);	
+		if( conf.closeButton ) createClose(conf);
+		if( conf.cone ) createCone(conf);
+		if( conf.classes ) conf.$htmlContent.addClass(conf.classes);
+		if( conf.hasOwnProperty("width") ) conf.$htmlContent.css("width", conf.width);
+		if( conf.hasOwnProperty("height") ) conf.$htmlContent.css("height", conf.height);
 		
 		// Positioner
 		conf.position.element = conf.$htmlContent;

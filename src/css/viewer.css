@@ -17,12 +17,8 @@
 	
 }
 
-.ch-viewer-modal{
-	width:600px;
-}
 .ch-viewer-modal-content{
 	margin:20px 0;
-	height:500px;
 }
 
 .ch-viewer-modal .ch-carousel-content li{
@@ -35,11 +31,6 @@
 .ch-viewer-modal .ch-carousel-content li img{
 	vertical-align:middle;
 }
-
-
-/*.ch-viewer-modal .ch-carousel-content li a img{
-	position:absolute;
-}*/
 
 
 .ch-viewer-content{

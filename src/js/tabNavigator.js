@@ -47,10 +47,19 @@ ui.tabNavigator = function(conf){
 	conf.publish.type = "tabNavigator";
 	conf.publish.tabs = that.children;
 	conf.publish.select = function(tab){ return show($.Event(), tab) };
-    
-    //Default: Open first tab in any case.
-	show($.Event(), 0);
-	
+      	
+		
+	//Default: Load hash tab or Open first tab
+    var hash = window.location.hash.replace( "#!", "" );
+	for( var i = that.children.length; i--; ){
+		if( that.children[i].conf.$htmlContent.attr("id") === hash ){
+			show($.Event(), i);
+			break;
+		} else {
+			show($.Event(), 0);		
+		};		  
+	};	
+
 	return conf.publish;
 	
 };
@@ -108,15 +117,21 @@ ui.tab = function(index, element, conf){
 			if(e.status) e.hide(event, e.conf);
 		});
 
-		// Load my content if I'need an ajax request
+		// Load my content if I'need an ajax request 
 		if(that.conf.$htmlContent.html() === '') that.conf.$htmlContent.html( that.loadContent(that.conf) );
 
 		// Show me
 		that.show(event, that.conf);
+		
 	};
 
-	// Events
-	that.conf.$trigger.bind('click', that.shoot);		
+	// Events	
+	that.conf.$trigger.bind('click', function(event){
+		that.shoot(event);
+		
+		//Change location hash
+		window.location.hash = "#!" + that.conf.$htmlContent.attr("id");
+	});
 
 
 	return that;
