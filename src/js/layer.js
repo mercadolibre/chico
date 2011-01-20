@@ -11,7 +11,7 @@ ui.layer = function(conf) {
 
     var showTime = conf.showTime || 300;
     var hideTime = conf.hideTime || 300;
-    
+
 	var st, ht; // showTimer and hideTimer
 	var showTimer = function(event){ st = setTimeout(function(){ show(event) }, showTime) };
 	var hideTimer = function(event){ ht = setTimeout(function(){ hide(event) }, hideTime) };
@@ -81,7 +81,6 @@ ui.layer = function(conf) {
 
     // Fix: change layout problem
     ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
-
 
 	return conf.publish;
 
