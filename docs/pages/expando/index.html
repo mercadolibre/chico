@@ -8,7 +8,7 @@
 	<head>
 		<script></script>
 		<meta charset="utf-8">
-		<title>Chico UI - <!-- #name --></title>
+		<title>Chico UI - Expando</title>
 		<link rel="stylesheet" href="../../build/chico-min-0.4.9.css">
 		<link rel="stylesheet" href="../../src/css/grid.css">
 		<link rel="stylesheet" href="../../src/css/pages.css">
@@ -59,7 +59,7 @@
 			<ul>
 	            <li><h3>Navs</h3></li>
 	            <li><a href="../dropdown">Dropdown</a></li>
-	            <li><a href="../expando">Expando</a></li>
+	            <li><strong>Expando</strong></li>
 			</ul>
 			<ul>
 				<li><h3>Sliders</h3></li>
@@ -82,21 +82,95 @@
 	
 	<div class="ch-g5-6">
 		<div class="rightcolumn">
-			<h2 class="ch-g1-2"><!-- #name --></h2>
+			<h2 class="ch-g1-2">Expando</h2>
 			<form action="https://github.com/mercadolibre/chico/issues" class="bugs ch-g1-2">
 				<label>
 					<input type="submit" value="Report a Bug" class="btn secondary">
 				</label>
 			</form>
 		
-			<!-- #demo -->
+			<div class="docTabs"><ul><li><a href="#demo">Demo</a></li> <li><a href="#sintax">Código fuente</a></li></ul><div><div id="demo"><h3>Demo</h3>
+
+	<div class="demoExpando">
+		<h4>Lorem ipsum dolor sit amet.</h4>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		</div>
+	</div>
+	
+	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre name="code" class="xml">
+
+	<div class="demoExpando">
+		<h4>Lorem ipsum dolor sit amet.</h4>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		</div>
+	</div>
+	
+	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">
+		$(".demoExpando").expando();
+	</pre></code></div></div></div>
 		
 			<div class="box use">
 				<h3>¿Cómo se usa?</h3>
-				<!-- #use -->
+				
+	<p>El objecto Expando es un componente que muestra más información a partir de un titular (h4). Puede recibir como argumento un objeto de propiedades para modificar su comportamiento por default y para los <em lang="en">callbacks</em>.</p>
+	<p>Ejemplo del objeto de configuración:</p>
+	<code>
+		<pre name="code" class="js">
+		{
+			open: true,
+			callbacks: {
+				show: function() {},
+				hide: function() {}
+			}
+		}
+		</pre>
+	</code>
+    <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
+	<code>
+		<pre name="code" class="js">
+        $("#Foobar").expando();
+		</pre>
+	</code>
+   
+	<p>Cada vez que se instancia un componente Expando, retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
+	<code>
+		<pre name="code" class="js">
+		var foo = $("#Foobar").expando();
+        
+		// returns
+		foo = {
+			uid: 121,                         //  Global number instance
+			element: HTMLInputElement,        //  Input DOM Interface
+			type: "expando ",                 //  Component Type
+			open: boolean,				  	  //  Default behavior
+			show(),						  	  //  Show dropdown
+			hide()						  	  //  Hide dropdown
+		}
+		</pre>
+	</code>
+
 			</div>
 	
-			<!-- #cases -->
+			<div class="box cases"><h3>Casos de uso</h3><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Iniciar un Expando expandido</h4>
+	
+	<div class="demoExpandoOpen">
+		<h4>Lorem ipsum dolor sit amet.</h4>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		</div>
+	</div>
+	
+	<p>Pasando como parámetro un objeto de configuración que tenga la propiedad <em>open</em> con el valor <em>true</em> se iniciará expandido por default.</p>
+	
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+		$(".demoExpandoOpen").expando({
+			open: true
+		});
+	</pre></code></div></div></div>
 		</div>
 	</div>
 	
@@ -110,6 +184,17 @@
         $('h1').html("Chico-UI ;) <span class=\"version\">alpha " + ui.version + "</span>"  );
 	</script>
 
-	<!-- #scripts -->
+	<script>
+		/* Demo */
+
+		$(".demoExpando").expando();
+	
+
+		/* Case 1 */
+
+		$(".demoExpandoOpen").expando({
+			open: true
+		});
+	</script>
 </body>
 </html>
