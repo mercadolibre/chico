@@ -2,8 +2,8 @@
 	padding:0 0 0 16px;
 	color:#0637B3;
 	cursor:pointer;
+	background-image: url('../src/assets/expando.png');
 	background-position: 0 -1px;
-	background-image: url("../src/assets/expando.png");
 	background-repeat:no-repeat;
 }
 

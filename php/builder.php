@@ -35,16 +35,20 @@ class Builder {
         echo "<h3>Building files from version ".$version." ...</h3>\n";
         echo "<ul>\n";
         // Build JavaScript Source
+        $this->build( $url , $this->src."chico.js" );
         $this->build( $url , $this->src."chico-min-".$version.".js" );
         $this->build( $url."?debug=true", $this->src."chico-".$version.".js" );        
         // Build StyleSheet Source
+        $this->build( $url."?type=css", $this->src."chico.css" );
         $this->build( $url."?type=css", $this->src."chico-min-".$version.".css" );
         $this->build( $url."?type=css&debug=true", $this->src."chico-".$version.".css" );       
         echo "</ul>\n";   
         echo "<ul>\n";           
         // For Docs
+        $this->build( $url , $this->doc."chico.js" );
         $this->build( $url , $this->doc."chico-min-".$version.".js" );
         $this->build( $url."?debug=true", $this->doc."chico-".$version.".js" );        
+        $this->build( $url."?type=css", $this->doc."chico.css" );
         $this->build( $url."?type=css", $this->doc."chico-min-".$version.".css" );
         $this->build( $url."?type=css&debug=true", $this->doc."chico-".$version.".css" );       
         echo "</ul>\n";

@@ -197,78 +197,80 @@ ui.get = function(o) {
     */
     
     switch(o.method) {
+		
+		case "content":
 
-	case "content":
+	        var x = o.conf;
+
+			//Set ajax config
+			//setTimeout(function(){		
+			$.ajax({
+				url: x.ajaxUrl,
+				type: x.ajaxType || 'GET',
+				data: x.ajaxParams,
+				cache: true,
+				async: true,
+				success: function(data, textStatus, xhr){
+					x.$htmlContent.html( data ).fadeIn('fast', function(){ 
+						if(x.callbacks && x.callbacks.contentLoad) x.callbacks.contentLoad(); 
+					});
+					if( x.position ) ui.positioner(x.position);
+				},
+				error: function(xhr, textStatus, errorThrown){
+					data = (x.callbacks && x.callbacks.contentError) ? x.callbacks.contentError(xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+					x.$htmlContent.html( data );
+					if( x.position ) ui.positioner(x.position);
+				}
+			});
+			//}, 25);
 			
-		var result;
-        var x = o.conf;
-        
-		x.$htmlContent.html('<div class="loading"></div>');
-				
-		$.ajax({
-			url: x.ajaxUrl,
-			type: x.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
-			data: x.ajaxParams,
-			cache: true,
-			async: false, // Because getAjaxContent function returnaba before success and error
-			success: function(data, textStatus, xhr){
-				result = data;
-				if(x.callbacks && x.callbacks.success) x.callbacks.success(data, textStatus, xhr);			
-			},
-			error: function(xhr, textStatus, errorThrown){
-				result = (x.callbacks && x.callbacks.error) ? x.callbacks.error(xhr, textStatus, errorThrown) : "<p>Error on ajax call</p>";
-			}
-		});
-			
-		return result;
-	
 		break;
-        
-	case "component":
-        
-        // ui.get: "Should I get a style?"
-        if ( o.style ) {
-    		var style = document.createElement('link');
-        		style.href = o.style;
-    	    	style.rel = 'stylesheet';
-            	style.type = 'text/css';
-        }
-        // ui.get: "Should I get a script?"        
-        if ( o.script ) {
-    	   	var script = document.createElement("script");
-    			script.src = o.script;
-        }
-        
-        var head = document.getElementsByTagName("head")[0] || document.documentElement;
-
-		// Handle Script loading
-		var done = false;
-
-		// Attach handlers for all browsers
-		script.onload = script.onreadystatechange = function() {
-    
-    	if ( !done && (!this.readyState || 
-					this.readyState === "loaded" || this.readyState === "complete") ) {
-					
-				done = true;
-            
-	   			// if callback is defined call it
-	   	        if ( o.callback ) { o.callback( o.component ); }
-									
-		   		// Handle memory leak in IE
-	   			script.onload = script.onreadystatechange = null;
-   			
-		   		if ( head && script.parentNode ) { head.removeChild( script ); }
-			}
-		};
-            
-		// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
-		// This arises when a base node is used.
-		if ( o.script ) { head.insertBefore( script, head.firstChild ); }
-		if ( o.style ) { head.appendChild( style ); }
-    
+	        
+		case "component":
+	        
+	        // ui.get: "Should I get a style?"
+	        if ( o.style ) {
+	    		var style = document.createElement('link');
+	        		style.href = o.style;
+	    	    	style.rel = 'stylesheet';
+	            	style.type = 'text/css';
+	        }
+	        // ui.get: "Should I get a script?"        
+	        if ( o.script ) {
+	    	   	var script = document.createElement("script");
+	    			script.src = o.script;
+	        }
+	        
+	        var head = document.getElementsByTagName("head")[0] || document.documentElement;
+	
+			// Handle Script loading
+			var done = false;
+	
+			// Attach handlers for all browsers
+			script.onload = script.onreadystatechange = function() {
+	    
+	    	if ( !done && (!this.readyState || 
+						this.readyState === "loaded" || this.readyState === "complete") ) {
+						
+					done = true;
+	            
+		   			// if callback is defined call it
+		   	        if ( o.callback ) { o.callback( o.component ); }
+										
+			   		// Handle memory leak in IE
+		   			script.onload = script.onreadystatechange = null;
+	   			
+			   		if ( head && script.parentNode ) { head.removeChild( script ); }
+				}
+			};
+	            
+			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+			// This arises when a base node is used.
+			if ( o.script ) { head.insertBefore( script, head.firstChild ); }
+			if ( o.style ) { head.appendChild( style ); }
+	    
 		break;        
-    }
+	}
 
 }
 
@@ -547,13 +549,9 @@ ui.object = function(){
 		*/
 		loadContent: function(conf) {
 			// Properties validation
-			if (conf.ajax && conf.content) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };
+			//if( conf.ajax && (conf.content || conf.msg) ) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };
 
-			// Returns css selector, html code or plain text as content
-			if (!conf.ajax) return ($(conf.content).length > 0) ? $(conf.content).clone().show() : conf.content;
-
-			// Return Ajax content from ajax:true
-			if (conf.ajax === true) {
+			if( conf.ajax === true){
 				
 				// Load URL from href or form action
 				conf.ajaxUrl = conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action');
@@ -563,28 +561,31 @@ ui.object = function(){
 				
 				// If trigger is a form button...
 				if(conf.$trigger.attr('type') == 'submit'){
-					conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'POST';
+					conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'GET';
 					var serialized = conf.$trigger.parents('form').serialize();
 					conf.ajaxParams = conf.ajaxParams + ((serialized != '') ? '&' + serialized : '');
 				};
 
 				// Returns ajax results
-				return ui.get({method:"content", conf:conf}) || '<p>Error on ajax call</p>';
-
-			// Returns Ajax content from ajax:URL
-			} else if ( conf.ajax.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g) ) { // Relatives and absolutes url regex
+				conf.$htmlContent.html('<div class="loading"></div>');
+				return ui.get({method:"content", conf:conf});
+				
+			}else if( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
 				// Set url
-				conf.ajaxUrl = conf.ajax;
+				conf.ajaxUrl = conf.ajax || conf.msg;
 
 				// Ajax parameters
 				conf.ajaxParams = 'x=x'; // TODO refactor con el header de ajax
 
 				// Returns ajax results
+				conf.$htmlContent.html('<div class="loading"></div>');
 				return ui.get({method:"content", conf:conf});
-			
-			// Invalid Ajax parameter
-			} else {
-				alert('UI: "Ajax" attribute error.'); return;				
+				
+			}else{
+				
+				var content = conf.content || conf.msg;
+				return ($(content).length > 0) ? $(content).clone().show() : content;
+				
 			};
 
 		},
@@ -603,7 +604,16 @@ ui.object = function(){
  *  @requires object.
  *  @returns {Object} Floats.
  */
- 
+/*
+
+callbacks:{
+	show:,
+	hide:,
+	contentLoad:,
+	contentError:
+}
+	
+*/ 
 ui.floats = function() {
     
 	var that = ui.object(); // Inheritance	
@@ -611,11 +621,11 @@ ui.floats = function() {
 	var createClose = function(conf) {
 		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
-		}).prependTo(conf.$htmlContent);
+		}).prependTo(conf.$htmlContentainer);
 	};
 
 	var createCone = function(conf) {
-		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContent);
+		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContentainer);
 	};
 
 	that.show = function(event, conf) {
@@ -623,28 +633,39 @@ ui.floats = function() {
 		
 		if(conf.visible) return;
 		
-		conf.$htmlContent = $('<div class="ch-' + conf.name + '">');
-
-		conf.$htmlContent
-			.hide()
-			.css("z-index", ui.utils.zIndex++)
-			.appendTo("body")
-			.html( that.loadContent(conf) );
-				
+		conf.$htmlContentainer = $('<div class="ch-' + conf.name + '"><div class="ch-'+conf.name+'-content"></div></div>');
+		conf.$htmlContent = conf.$htmlContentainer.find(".ch-"+conf.name+"-content");
+		
+	
 		// Visual configuration
 		if( conf.closeButton ) createClose(conf);
 		if( conf.cone ) createCone(conf);
-		if( conf.classes ) conf.$htmlContent.addClass(conf.classes);
-		if( conf.hasOwnProperty("width") ) conf.$htmlContent.css("width", conf.width);
-		if( conf.hasOwnProperty("height") ) conf.$htmlContent.css("height", conf.height);
+		if( conf.classes ) conf.$htmlContentainer.addClass(conf.classes);
+		if( conf.hasOwnProperty("width") ) conf.$htmlContentainer.css("width", conf.width);
+		if( conf.hasOwnProperty("height") ) conf.$htmlContentainer.css("height", conf.height);
 		
+		// Show
+		conf.$htmlContentainer
+			.hide()
+			.css("z-index", ui.utils.zIndex++)
+			.appendTo("body")
+			.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
+
+		//Load content
+		if( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
+			that.loadContent(conf);
+		}else{
+			conf.$htmlContent
+				.html( that.loadContent(conf) )
+				.fadeIn('fast', function(){ that.callbacks(conf, 'contentLoad'); });
+		};
+		
+		conf.visible = true;
+				
 		// Positioner
-		conf.position.element = conf.$htmlContent;
+		conf.position.element = conf.$htmlContentainer;
 		ui.positioner(conf.position);
 
-		// Show
-		conf.visible = true;
-		conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });			
 	};
 
 	that.hide = function(event, conf){
@@ -652,7 +673,7 @@ ui.floats = function() {
 		
 		if(!conf.visible) return;
 		
-		conf.$htmlContent.fadeOut('fast', function(event){ $(this).remove(); });	
+		conf.$htmlContentainer.fadeOut('fast', function(event){ $(this).remove(); });	
 		
 		// Hide
 		conf.visible = false;
@@ -1385,15 +1406,15 @@ ui.layer = function(conf) {
     var hideTime = conf.hideTime || 300;
 
 	var st, ht; // showTimer and hideTimer
-	var showTimer = function(event){ st = setTimeout(function(){ show(event) }, showTime) };
-	var hideTimer = function(event){ ht = setTimeout(function(){ hide(event) }, hideTime) };
+	var showTimer = function(event){ st = setTimeout(function(event){ show(event) }, showTime) };
+	var hideTimer = function(event){ ht = setTimeout(function(event){ hide(event) }, hideTime) };
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 	// Global configuration
 	conf.$trigger = $(conf.element);
 	conf.cone = true;
 	conf.classes = 'box';
-	conf.visible = false;	
+	conf.visible = false;
 	conf.position = {
    		context: conf.$trigger,
         offset: conf.offset || "0 10",
@@ -1402,16 +1423,16 @@ ui.layer = function(conf) {
     conf.publish = that.publish;
 
     var show = function(event) {
-        that.show(event, conf);				
+
+		that.show(event, conf);	
 
         if (conf.event === "click") {
-            
+
             $('.ch-layer').bind('click', function(event){ event.stopPropagation() });
-	
+
             // Document events
-            $(document).bind('click', function(event) {
+            $(document).one('click', function(event) {
                 that.hide(event, conf);
-                $(document).unbind('click');
             });
         }
         
@@ -1473,13 +1494,15 @@ ui.modal = function(conf){
 	conf.position = {
 		fixed:true
 	};
-	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") ) conf.ajax = true; //Default	
+	 
+	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) conf.ajax = true; //Default	
 	conf.publish = that.publish;
 	
 	// Privated methods
 	var show = function(event){
 		dimmer.on();
 		that.show(event, conf);
+		ui.positioner(conf.position);
 		$('.ch-modal .btn.ch-close, .closeModal').bind('click', hide);
 		conf.$trigger.blur();
 
