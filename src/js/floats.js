@@ -3,7 +3,16 @@
  *  @requires object.
  *  @returns {Object} Floats.
  */
- 
+/*
+
+callbacks:{
+	show:,
+	hide:,
+	contentLoad:,
+	contentError:
+}
+	
+*/ 
 ui.floats = function() {
     
 	var that = ui.object(); // Inheritance	
@@ -11,11 +20,11 @@ ui.floats = function() {
 	var createClose = function(conf) {
 		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
-		}).prependTo(conf.$htmlContent);
+		}).prependTo(conf.$htmlContentainer);
 	};
 
 	var createCone = function(conf) {
-		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContent);
+		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContentainer);
 	};
 
 	that.show = function(event, conf) {
@@ -23,28 +32,39 @@ ui.floats = function() {
 		
 		if(conf.visible) return;
 		
-		conf.$htmlContent = $('<div class="ch-' + conf.name + '">');
-
-		conf.$htmlContent
-			.hide()
-			.css("z-index", ui.utils.zIndex++)
-			.appendTo("body")
-			.html( that.loadContent(conf) );
-				
+		conf.$htmlContentainer = $('<div class="ch-' + conf.name + '"><div class="ch-'+conf.name+'-content"></div></div>');
+		conf.$htmlContent = conf.$htmlContentainer.find(".ch-"+conf.name+"-content");
+		
+	
 		// Visual configuration
 		if( conf.closeButton ) createClose(conf);
 		if( conf.cone ) createCone(conf);
-		if( conf.classes ) conf.$htmlContent.addClass(conf.classes);
-		if( conf.hasOwnProperty("width") ) conf.$htmlContent.css("width", conf.width);
-		if( conf.hasOwnProperty("height") ) conf.$htmlContent.css("height", conf.height);
+		if( conf.classes ) conf.$htmlContentainer.addClass(conf.classes);
+		if( conf.hasOwnProperty("width") ) conf.$htmlContentainer.css("width", conf.width);
+		if( conf.hasOwnProperty("height") ) conf.$htmlContentainer.css("height", conf.height);
 		
+		// Show
+		conf.$htmlContentainer
+			.hide()
+			.css("z-index", ui.utils.zIndex++)
+			.appendTo("body")
+			.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
+
+		//Load content
+		if( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
+			that.loadContent(conf);
+		}else{
+			conf.$htmlContent
+				.html( that.loadContent(conf) )
+				.fadeIn('fast', function(){ that.callbacks(conf, 'contentLoad'); });
+		};
+		
+		conf.visible = true;
+				
 		// Positioner
-		conf.position.element = conf.$htmlContent;
+		conf.position.element = conf.$htmlContentainer;
 		ui.positioner(conf.position);
 
-		// Show
-		conf.visible = true;
-		conf.$htmlContent.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });			
 	};
 
 	that.hide = function(event, conf){
@@ -52,7 +72,7 @@ ui.floats = function() {
 		
 		if(!conf.visible) return;
 		
-		conf.$htmlContent.fadeOut('fast', function(event){ $(this).remove(); });	
+		conf.$htmlContentainer.fadeOut('fast', function(event){ $(this).remove(); });	
 		
 		// Hide
 		conf.visible = false;

@@ -181,78 +181,80 @@ ui.get = function(o) {
     */
     
     switch(o.method) {
+		
+		case "content":
 
-	case "content":
+	        var x = o.conf;
+
+			//Set ajax config
+			//setTimeout(function(){		
+			$.ajax({
+				url: x.ajaxUrl,
+				type: x.ajaxType || 'GET',
+				data: x.ajaxParams,
+				cache: true,
+				async: true,
+				success: function(data, textStatus, xhr){
+					x.$htmlContent.html( data ).fadeIn('fast', function(){ 
+						if(x.callbacks && x.callbacks.contentLoad) x.callbacks.contentLoad(); 
+					});
+					if( x.position ) ui.positioner(x.position);
+				},
+				error: function(xhr, textStatus, errorThrown){
+					data = (x.callbacks && x.callbacks.contentError) ? x.callbacks.contentError(xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+					x.$htmlContent.html( data );
+					if( x.position ) ui.positioner(x.position);
+				}
+			});
+			//}, 25);
 			
-		var result;
-        var x = o.conf;
-        
-		x.$htmlContent.html('<div class="loading"></div>');
-				
-		$.ajax({
-			url: x.ajaxUrl,
-			type: x.ajaxType || 'POST', // Because ajax.data is sent everytime, Solucion temporal por el modal
-			data: x.ajaxParams,
-			cache: true,
-			async: false, // Because getAjaxContent function returnaba before success and error
-			success: function(data, textStatus, xhr){
-				result = data;
-				if(x.callbacks && x.callbacks.success) x.callbacks.success(data, textStatus, xhr);			
-			},
-			error: function(xhr, textStatus, errorThrown){
-				result = (x.callbacks && x.callbacks.error) ? x.callbacks.error(xhr, textStatus, errorThrown) : "<p>Error on ajax call</p>";
-			}
-		});
-			
-		return result;
-	
 		break;
-        
-	case "component":
-        
-        // ui.get: "Should I get a style?"
-        if ( o.style ) {
-    		var style = document.createElement('link');
-        		style.href = o.style;
-    	    	style.rel = 'stylesheet';
-            	style.type = 'text/css';
-        }
-        // ui.get: "Should I get a script?"        
-        if ( o.script ) {
-    	   	var script = document.createElement("script");
-    			script.src = o.script;
-        }
-        
-        var head = document.getElementsByTagName("head")[0] || document.documentElement;
-
-		// Handle Script loading
-		var done = false;
-
-		// Attach handlers for all browsers
-		script.onload = script.onreadystatechange = function() {
-    
-    	if ( !done && (!this.readyState || 
-					this.readyState === "loaded" || this.readyState === "complete") ) {
-					
-				done = true;
-            
-	   			// if callback is defined call it
-	   	        if ( o.callback ) { o.callback( o.component ); }
-									
-		   		// Handle memory leak in IE
-	   			script.onload = script.onreadystatechange = null;
-   			
-		   		if ( head && script.parentNode ) { head.removeChild( script ); }
-			}
-		};
-            
-		// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
-		// This arises when a base node is used.
-		if ( o.script ) { head.insertBefore( script, head.firstChild ); }
-		if ( o.style ) { head.appendChild( style ); }
-    
+	        
+		case "component":
+	        
+	        // ui.get: "Should I get a style?"
+	        if ( o.style ) {
+	    		var style = document.createElement('link');
+	        		style.href = o.style;
+	    	    	style.rel = 'stylesheet';
+	            	style.type = 'text/css';
+	        }
+	        // ui.get: "Should I get a script?"        
+	        if ( o.script ) {
+	    	   	var script = document.createElement("script");
+	    			script.src = o.script;
+	        }
+	        
+	        var head = document.getElementsByTagName("head")[0] || document.documentElement;
+	
+			// Handle Script loading
+			var done = false;
+	
+			// Attach handlers for all browsers
+			script.onload = script.onreadystatechange = function() {
+	    
+	    	if ( !done && (!this.readyState || 
+						this.readyState === "loaded" || this.readyState === "complete") ) {
+						
+					done = true;
+	            
+		   			// if callback is defined call it
+		   	        if ( o.callback ) { o.callback( o.component ); }
+										
+			   		// Handle memory leak in IE
+		   			script.onload = script.onreadystatechange = null;
+	   			
+			   		if ( head && script.parentNode ) { head.removeChild( script ); }
+				}
+			};
+	            
+			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+			// This arises when a base node is used.
+			if ( o.script ) { head.insertBefore( script, head.firstChild ); }
+			if ( o.style ) { head.appendChild( style ); }
+	    
 		break;        
-    }
+	}
 
 }
 

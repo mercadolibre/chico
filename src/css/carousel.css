@@ -86,3 +86,7 @@
 .ie6 .ch-carousel .ch-next{
 	right: 30px;
 }
+
+.ie6 .ch-carousel .ch-prev{
+	left: -15px;
+}

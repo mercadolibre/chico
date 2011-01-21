@@ -24,13 +24,9 @@ ui.object = function(){
 		*/
 		loadContent: function(conf) {
 			// Properties validation
-			if (conf.ajax && conf.content) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };
+			//if( conf.ajax && (conf.content || conf.msg) ) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };
 
-			// Returns css selector, html code or plain text as content
-			if (!conf.ajax) return ($(conf.content).length > 0) ? $(conf.content).clone().show() : conf.content;
-
-			// Return Ajax content from ajax:true
-			if (conf.ajax === true) {
+			if( conf.ajax === true){
 				
 				// Load URL from href or form action
 				conf.ajaxUrl = conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action');
@@ -40,28 +36,31 @@ ui.object = function(){
 				
 				// If trigger is a form button...
 				if(conf.$trigger.attr('type') == 'submit'){
-					conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'POST';
+					conf.ajaxType = conf.$trigger.parents('form').attr('method') || 'GET';
 					var serialized = conf.$trigger.parents('form').serialize();
 					conf.ajaxParams = conf.ajaxParams + ((serialized != '') ? '&' + serialized : '');
 				};
 
 				// Returns ajax results
-				return ui.get({method:"content", conf:conf}) || '<p>Error on ajax call</p>';
-
-			// Returns Ajax content from ajax:URL
-			} else if ( conf.ajax.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g) ) { // Relatives and absolutes url regex
+				conf.$htmlContent.html('<div class="loading"></div>');
+				return ui.get({method:"content", conf:conf});
+				
+			}else if( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
 				// Set url
-				conf.ajaxUrl = conf.ajax;
+				conf.ajaxUrl = conf.ajax || conf.msg;
 
 				// Ajax parameters
 				conf.ajaxParams = 'x=x'; // TODO refactor con el header de ajax
 
 				// Returns ajax results
+				conf.$htmlContent.html('<div class="loading"></div>');
 				return ui.get({method:"content", conf:conf});
-			
-			// Invalid Ajax parameter
-			} else {
-				alert('UI: "Ajax" attribute error.'); return;				
+				
+			}else{
+				
+				var content = conf.content || conf.msg;
+				return ($(content).length > 0) ? $(content).clone().show() : content;
+				
 			};
 
 		},
