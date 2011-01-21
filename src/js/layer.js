@@ -13,15 +13,15 @@ ui.layer = function(conf) {
     var hideTime = conf.hideTime || 300;
 
 	var st, ht; // showTimer and hideTimer
-	var showTimer = function(event){ st = setTimeout(function(){ show(event) }, showTime) };
-	var hideTimer = function(event){ ht = setTimeout(function(){ hide(event) }, hideTime) };
+	var showTimer = function(event){ st = setTimeout(function(event){ show(event) }, showTime) };
+	var hideTimer = function(event){ ht = setTimeout(function(event){ hide(event) }, hideTime) };
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 	// Global configuration
 	conf.$trigger = $(conf.element);
 	conf.cone = true;
 	conf.classes = 'box';
-	conf.visible = false;	
+	conf.visible = false;
 	conf.position = {
    		context: conf.$trigger,
         offset: conf.offset || "0 10",
@@ -30,16 +30,16 @@ ui.layer = function(conf) {
     conf.publish = that.publish;
 
     var show = function(event) {
-        that.show(event, conf);				
+
+		that.show(event, conf);	
 
         if (conf.event === "click") {
-            
+
             $('.ch-layer').bind('click', function(event){ event.stopPropagation() });
-	
+
             // Document events
-            $(document).bind('click', function(event) {
+            $(document).one('click', function(event) {
                 that.hide(event, conf);
-                $(document).unbind('click');
             });
         }
         

@@ -689,7 +689,18 @@
         var ui_drop = $('.demoDropdown').dropdown();
 
         var ui_caro = $('.demoCarousel').carousel();
-        var ui_moda = $('.demoModal').modal({width:350, height:500});		
+        var ui_moda = $('.demoModal').modal({ajax: "/test.html"});
+        /*var ui_moda = $('.demoModal').modal({
+        	width:350,
+        	height:400,
+        	//content: "<h2 class=\"lala\">LALALALALALAL</h2><p>contentcontenotndi sadkjsjhd hdkahdjk skdh ñdashd jksa h</p>",
+        	callbacks: {
+        		show: function(){ console.log("Se abre el modal") },
+        		contentLoad: function(){ $("h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
+        		contentError: function(){ console.log("Content Error") },
+        		hide: function(){ console.log("Se cierra el modal") }
+        	}
+        });*/
         var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foo</p>' });
         var ui_layr = $('.demoLayerOnmouseover').layer({ content: '<p>foo</p>' });
         var ui_tool = $('.demoTooltip').tooltip();

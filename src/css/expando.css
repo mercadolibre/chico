@@ -30,7 +30,7 @@
 }
 
 /* IE 6 */
-.i6 .ch-expando .ch-expando-trigger{
+.ie6 .ch-expando .ch-expando-trigger{
 	font-size:13px;
 	text-decoration: underline;
 }
