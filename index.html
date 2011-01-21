@@ -785,7 +785,7 @@
 	<script>
 
 		// Automatic version
-        var title = $('head title').html() + ' ' + ui.version;
+        var title = document.title + ' ' + ui.version;
         document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
         document.getElementsByTagName("h1")[0].innerHTML = title;
  
@@ -843,7 +843,13 @@
 
 		// Chat
 		$('#chat').chat('APP_PENDING_PAYMENTS');
-
+        
+		$('#chat').chat({
+            ruleGroupName: 'APP_PENDING_PAYMENTS',
+            style: "inline",
+            template: 2,
+            service: "http://www.mercadolistage.com.ar/org-img/jsapi/chat/chatRBIScript.js"
+        });
 
 	</script>
 	</body>
