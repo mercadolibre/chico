@@ -2,12 +2,12 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, positioner, object, floats, navs, controllers, watcher, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, required, helper, forms, viewer
+  * @components: core, positioner, object, floats, navs, controllers, watcher, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, required, helper, forms, viewer, chat, expando
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
   * @based on:
-  * @package JSMin
+  * JSMin
   * @author Ryan Grove <ryan@wonko.com> 
   * @copyright 2002 Douglas Crockford <douglas@crockford.com> (jsmin.c) 
   * @copyright 2008 Ryan Grove <ryan@wonko.com> (PHP port) 
@@ -21,7 +21,7 @@ var ui = window.ui = {
 
     version: "0.4.9",
 
-    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer",
+    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer,chat,expando",
 
     internals: "positioner,object,floats,navs,controllers,watcher",
 
@@ -295,7 +295,6 @@ ui.support = function() {
 };
 // @arg o == configuration
 ui.positioner = function( o ) {
-
 /*   References
      points: x, y 
          x values: center, left, right
@@ -322,6 +321,7 @@ ui.positioner = function( o ) {
     // Initial configuration
 	var element = $(o.element);
 	var context;
+	var viewport;
     
 	// Default parameters
 	if(!o.points) o.points = "cm cm";    
@@ -349,16 +349,21 @@ ui.positioner = function( o ) {
  		var height;
  		var left;
  		var top;
+ 		var pageX;
+ 		var pageY;
  				
 	 	// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
 		if (typeof window.innerWidth != "undefined") {
 			viewport = window;
 			width = viewport.innerWidth;
 			height = viewport.innerHeight;
-			left = 0 + offset_left + viewport.pageXOffset;
-			top = 0 + offset_top + viewport.pageYOffset;
-			bottom = height + viewport.pageYOffset;
-			right = width + viewport.pageXOffset;
+			pageX = viewport.pageXOffset;
+			pageY = viewport.pageYOffset;
+			
+			left = 0 + offset_left + pageX;
+			top = 0 + offset_top + pageY;
+			bottom = height + pageY;
+			right = width + pageX;
 		
 		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
 		// older versions of IE - viewport = document.getElementsByTagName('body')[0];
@@ -366,10 +371,13 @@ ui.positioner = function( o ) {
 			viewport = document.documentElement;
 			width = viewport.clientWidth;
 			height = viewport.clientHeight;
-			left = 0 + offset_left + viewport.scrollLeft;
-			top = 0 + offset_top + viewport.scrollTop;
-			bottom = height + viewport.scrollTop;
-			right = width + viewport.scrollLeft; 
+			pageX = viewport.scrollLeft;
+			pageY = viewport.scrollTop;
+			
+			left = 0 + offset_left + pageX;
+			top = 0 + offset_top + pageY;
+			bottom = height + pageY;
+			right = width + pageX; 
 		}
 
 		// Return viewport object
@@ -383,24 +391,33 @@ ui.positioner = function( o ) {
 			height: height
 		}
     };
-    
+ 	
 	// Calculate css left and top to element on context
 	var getPosition = function(unitPoints) {		     
 		// my_x and at_x values together
+		// cache properties 
+		var contextLeft = context.left;
+		var contextTop = context.top;
+		var contextWidth = context.width;
+		var contextHeight = context.height;
+		var elementWidth = element.outerWidth();
+		var elementHeight = element.outerHeight();
+		
+		
 		var xReferences = {
-			ll: context.left,
-			lr: context.left + context.width,
-			rr: context.left + context.width - element.outerWidth(),
-			cc: context.left + context.width/2 - element.outerWidth()/2
+			ll: contextLeft,
+			lr: contextLeft + contextWidth,
+			rr: contextLeft + contextWidth - elementWidth,
+			cc: contextLeft + contextWidth/2 - elementWidth/2
 			// TODO: lc, rl, rc, cl, cr
 		}
 		
 		// my_y and at_y values together
 		var yReferences = {
-			tt: context.top,
-			tb: context.top + context.height,
-			bt: context.top - element.outerHeight(),
-			mm: context.top + context.height/2 - element.outerHeight()/2
+			tt: contextTop,
+			tb: contextTop + contextHeight,
+			bt: contextTop - elementHeight,
+			mm: contextTop + contextHeight/2 - elementHeight/2
 			// TODO: tm, bb, bm, mt, mb
 		}
 		
@@ -418,19 +435,18 @@ ui.positioner = function( o ) {
 		// Default styles
         var styles = getPosition(unitPoints);
         	styles.direction = classReferences[points];
-        
         // Check viewport limits
-		var viewport = getViewport();
+		//var viewport = getViewport();
 		
 		// Down to top
 		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
-			
+
 			// New styles
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
-			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)			
 		};
 		
 		// Left to right
@@ -450,9 +466,9 @@ ui.positioner = function( o ) {
 	
 	
 	// Set position to element on context
-	var setPosition = function(points) {
+	var setPosition = function() {
 		// Separate points config
-        var splitted = points.split(" ");
+        var splitted = o.points.split(" ");
         
         var unitPoints = {
         	my_x: splitted[0].slice(0,1),
@@ -461,7 +477,7 @@ ui.positioner = function( o ) {
         	at_y: splitted[1].slice(1,2)
         }
         
-		var styles = calculatePoints(points, unitPoints);
+		var styles = calculatePoints(o.points, unitPoints);
 		
 		element
 			.css({
@@ -470,13 +486,12 @@ ui.positioner = function( o ) {
 			})
 			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right" )
 			.addClass( "ch-" + styles.direction );
+
 	};	
-	
-	// Get context object and set element position
-    var initPosition = function(){
-    	// Context by parameter
-    	if (o.context) {
-    		
+
+	// Get context
+	var getContext = function(){
+		if (o.context) {
 		    var contextOffset = o.context.offset();
 		    context = {
 		    	element: o.context,
@@ -485,20 +500,25 @@ ui.positioner = function( o ) {
 				width: o.context.outerWidth(),
 				height: o.context.outerHeight()
 		    };
-		    
 		// Viewport as context
-	    } else {
-			context = getViewport();
-	    };
-	    
-	    // Set element position	    
-	    setPosition(o.points);
+		} else {
+			context = viewport;
+		};
+		
+		return context;
+	};
+	
+	// Set element position on resize
+    var initPosition = function(){  	
+	    viewport = getViewport();
+	    context = getContext();
+	    setPosition();
     };
-    
-    // Init
-    
-    initPosition();    
-   	ui.utils.window.bind("resize scroll", initPosition);
+	
+	// Init
+	initPosition();
+	ui.utils.window.bind("resize scroll", initPosition);
+   	
    	return $(element);
 };
 /**
@@ -589,13 +609,13 @@ ui.floats = function() {
 	var that = ui.object(); // Inheritance	
 
 	var createClose = function(conf) {
-		$('<p class="btn close">x</p>').bind('click', function(event) {
+		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
 		}).prependTo(conf.$htmlContent);
 	};
 
 	var createCone = function(conf) {
-		$('<div class="cone"></div>').prependTo(conf.$htmlContent);
+		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContent);
 	};
 
 	that.show = function(event, conf) {
@@ -612,9 +632,11 @@ ui.floats = function() {
 			.html( that.loadContent(conf) );
 				
 		// Visual configuration
-		if(conf.closeButton) createClose(conf);
-		if(conf.cone) createCone(conf);
-		if(conf.classes) conf.$htmlContent.addClass(conf.classes);	
+		if( conf.closeButton ) createClose(conf);
+		if( conf.cone ) createCone(conf);
+		if( conf.classes ) conf.$htmlContent.addClass(conf.classes);
+		if( conf.hasOwnProperty("width") ) conf.$htmlContent.css("width", conf.width);
+		if( conf.hasOwnProperty("height") ) conf.$htmlContent.css("height", conf.height);
 		
 		// Positioner
 		conf.position.element = conf.$htmlContent;
@@ -682,7 +704,7 @@ ui.navs = function(){
 	that.show = function(event, conf){
 		that.prevent(event);
 		that.status = true;
-		conf.$trigger.addClass('on');
+		conf.$trigger.addClass('ch-' + conf.name + '-on');
 		conf.$htmlContent.show();
 		
 		that.callbacks(conf, 'show');
@@ -691,7 +713,7 @@ ui.navs = function(){
 	that.hide = function(event, conf){
 		that.prevent(event);
 		that.status = false;
-		conf.$trigger.removeClass('on');
+		conf.$trigger.removeClass('ch-' + conf.name + '-on');
 		conf.$htmlContent.hide();
 		
 		that.callbacks(conf, 'hide');
@@ -736,7 +758,7 @@ ui.watcher = function(conf) {
     var that = ui.object();
 
 	/**
-	 *  @ Private methods
+	 *  @Â Private methods
 	 */
     
 	/**
@@ -1072,11 +1094,11 @@ ui.carousel = function(conf){
 	
 	// UL configuration
 	conf.$htmlContent
-		.wrap($('<div>').addClass('mask'))//gracias al que esta abajo puedo leer el $mask.width()
+		.wrap($('<div>').addClass('ch-mask'))//gracias al que esta abajo puedo leer el $mask.width()
 		.css('width', htmlContentWidth);
 		
 	// Mask Object	
-	var $mask = conf.$trigger.find('.mask');
+	var $mask = conf.$trigger.find('.ch-mask');
 
 	// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
 	var steps = ~~( (conf.$trigger.width() - 70) / (conf.$htmlContent.children().outerWidth() + 20));
@@ -1097,12 +1119,12 @@ ui.carousel = function(conf){
 	// Buttons
 	var buttons = {
 		prev: {
-			$element: $('<p class="prev">Previous</p>').bind('click', function(){ move("prev", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
+			$element: $('<p class="ch-prev">Previous</p>').bind('click', function(){ move("prev", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
 			on: function(){ buttons.prev.$element.addClass("ch-prev-on") },
 			off: function(){ buttons.prev.$element.removeClass("ch-prev-on") }
 		},
 		next: {
-			$element: $('<p class="next">Next</p>').bind('click', function(){ move("next", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
+			$element: $('<p class="ch-next">Next</p>').bind('click', function(){ move("next", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
 			on: function(){ buttons.next.$element.addClass("ch-next-on") },
 			off: function(){ buttons.next.$element.removeClass("ch-next-on") }
 		}
@@ -1278,47 +1300,53 @@ ui.dropdown = function(conf){
     conf.publish = that.publish;
 	
 	// Private methods
-	var show = function(event){ 
-        that.show(event, conf);
+	var show = function(event){
+		that.prevent(event);
+		// Toggle
+		if(that.status){
+			return hide();
+		};
+		
+		// Reset all dropdowns
+		$(ui.instances.dropdown).each(function(i, e){ e.hide() });
+		 
+        // Show menu
+		conf.$htmlContent.css('z-index', ui.utils.zIndex++);		
+		that.show(event, conf);
+		
+		// Secondary behavior
+		if(skin == "secondary"){
+			conf.$trigger.css('z-index', ui.utils.zIndex++); // Z-index of trigger over content
+			$(conf.element).addClass("ch-dropdown-on"); // Container ON
+		};
+	
+		// Document events
+		ui.utils.document.one('click', function(event){
+			that.prevent(event);
+            hide();
+		});
+		
         return conf.publish; // Returns publish object
     };
 	
     var hide = function(event){
+    	that.prevent(event);
+    	
     	// Secondary behavior
 		if(skin == "secondary"){
-			$(conf.element).removeClass("on"); // Container OFF
+			$(conf.element).removeClass("ch-dropdown-on"); // Container OFF
 		};
-        that.hide(event, conf); 
+        that.hide(event, conf);
+        
         return conf.publish; // Returns publish object
     };
     
 	// Trigger
 	conf.$trigger
 		.bind('click', function(event){
-			// Toggle
-			if(that.status){
-				hide(event);
-				return;
-			};
-			
-			// Reset all dropdowns
-			$(ui.instances.dropdown).each(function(i, e){ e.hide() });
-			
-			// Show menu
-			conf.$htmlContent.css('z-index', ui.utils.zIndex++);
-			that.show(event, conf);
-			
-			// Secondary behavior
-			if(skin == "secondary"){
-				conf.$trigger.css('z-index', ui.utils.zIndex++); // Z-index of trigger over content
-				$(conf.element).addClass("on"); // Container ON
-			};
-		
-			// Document events
-			ui.utils.document.bind('click', function(event){
-                hide($.Event());
-				ui.utils.document.unbind('click');
-			});
+			that.prevent(event);			
+			// Show dropdown
+			show();
 		})
 		.addClass('ch-dropdown-trigger')
 		.append('<span class="ch-down">&raquo;</span>');
@@ -1329,15 +1357,15 @@ ui.dropdown = function(conf){
 		.bind('click', function(event){ event.stopPropagation() })
 		.addClass('ch-dropdown-content')
 		// Close when click an option
-		.find('a').bind('click', function(){ hide($.Event()) });
+		.find('a').bind('click', function(){ hide() });
 	
 
     // Create the publish object to be returned
     conf.publish.uid = conf.id;
     conf.publish.element = conf.element;
     conf.publish.type = "dropdown";
-    conf.publish.show = function(){ return show($.Event()) };
-    conf.publish.hide = function(){ return hide($.Event()) };
+    conf.publish.show = function(){ return show() };
+    conf.publish.hide = function(){ return hide() };
 
 	return conf.publish;
 
@@ -1355,7 +1383,7 @@ ui.layer = function(conf) {
 
     var showTime = conf.showTime || 300;
     var hideTime = conf.hideTime || 300;
-    
+
 	var st, ht; // showTimer and hideTimer
 	var showTimer = function(event){ st = setTimeout(function(){ show(event) }, showTime) };
 	var hideTimer = function(event){ ht = setTimeout(function(){ hide(event) }, hideTime) };
@@ -1426,7 +1454,6 @@ ui.layer = function(conf) {
     // Fix: change layout problem
     ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
 
-
 	return conf.publish;
 
 };
@@ -1446,15 +1473,14 @@ ui.modal = function(conf){
 	conf.position = {
 		fixed:true
 	};
-	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") ) conf.ajax = true; //Default
-
+	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") ) conf.ajax = true; //Default	
 	conf.publish = that.publish;
 	
 	// Privated methods
 	var show = function(event){
 		dimmer.on();
 		that.show(event, conf);
-		$('.ch-modal .btn.close, .closeModal').bind('click', hide);
+		$('.ch-modal .btn.ch-close, .closeModal').bind('click', hide);
 		conf.$trigger.blur();
 
         return conf.publish; // Returns publish object
@@ -1527,7 +1553,7 @@ ui.tabNavigator = function(conf){
 		that.children.push(ui.tab(i, e, conf));
 	});
     
-    // TODO: Normalizar las nomenclaturas de métodos, "show" debería ser "select"
+    // TODO: Normalizar las nomenclaturas de mÃ©todos, "show" deberÃ­a ser "select"
 	var show = function(event, tab){
 		//ui.instances.tabNavigator[conf.instance].tabs[tab].shoot(event);
 		        
@@ -1549,10 +1575,19 @@ ui.tabNavigator = function(conf){
 	conf.publish.type = "tabNavigator";
 	conf.publish.tabs = that.children;
 	conf.publish.select = function(tab){ return show($.Event(), tab) };
-    
-    //Default: Open first tab in any case.
-	show($.Event(), 0);
-	
+      	
+		
+	//Default: Load hash tab or Open first tab
+    var hash = window.location.hash.replace( "#!", "" );
+	for( var i = that.children.length; i--; ){
+		if( that.children[i].conf.$htmlContent.attr("id") === hash ){
+			show($.Event(), i);
+			break;
+		} else {
+			show($.Event(), 0);		
+		};		  
+	};	
+
 	return conf.publish;
 	
 };
@@ -1610,15 +1645,21 @@ ui.tab = function(index, element, conf){
 			if(e.status) e.hide(event, e.conf);
 		});
 
-		// Load my content if I'need an ajax request
+		// Load my content if I'need an ajax request 
 		if(that.conf.$htmlContent.html() === '') that.conf.$htmlContent.html( that.loadContent(that.conf) );
 
 		// Show me
 		that.show(event, that.conf);
+		
 	};
 
-	// Events
-	that.conf.$trigger.bind('click', that.shoot);		
+	// Events	
+	that.conf.$trigger.bind('click', function(event){
+		that.shoot(event);
+		
+		//Change location hash
+		window.location.hash = "#!" + that.conf.$htmlContent.attr("id");
+	});
 
 
 	return that;
@@ -1705,11 +1746,11 @@ ui.string = function(conf) {
 	
     // Messages
 	conf.defaultMessages = {
-		text:		"Usa sólo letras.",
+		text:		"Usa sÃ³lo letras.",
 		email:		"Usa el formato nombre@ejemplo.com.",
 		url:		"Usa el formato http://www.sitio.com.",
 		minLength:	"Ingresa al menos " + conf.minLength + " caracteres.",
-		maxLength:	"El máximo de caracteres es " + conf.maxLength + "."
+		maxLength:	"El mÃ¡ximo de caracteres es " + conf.maxLength + "."
 	};
 	
 	conf.messages = conf.messages || {};	
@@ -1853,9 +1894,9 @@ ui.number = function(conf){
     
     // Messages
 	conf.defaultMessages = {
-		number:	"Usa sólo números.",
-		min:	"La cantidad mínima es " + conf.min + ".",
-		max:	"La cantidad máxima es " + conf.max + "."
+		number:	"Usa sÃ³lo nÃºmeros.",
+		min:	"La cantidad mÃ­nima es " + conf.min + ".",
+		max:	"La cantidad mÃ¡xima es " + conf.max + "."
 	};
 
 	conf.messages = conf.messages || {};
@@ -2209,6 +2250,8 @@ ui.viewer = function(conf){
 	};
 	that.children[1] = viewerModal.modal = $("<a>").modal({ //TODO iniciar componentes sin trigger
 		content: "<div class=\"ch-viewer-modal-content\">",
+		width:600,
+		height:545,
 		callbacks: {
 			show: viewerModal.showContent,
 			hide: viewerModal.hideContent
@@ -2347,6 +2390,110 @@ ui.viewer = function(conf){
 	select(0);
 	
 	return conf.publish;
+};
+
+/**
+ *	Chat Component
+ *  $("#chat").chat({
+ *      ruleGroupName: "",
+ *      style: ["block"],
+ *      template: [1],
+ *      service: [http://www.mercadolibre.com.ar/org-img/jsapi/chat/chatRBIScript.js]
+ *  });
+ */
+
+ui.chat = function(conf) {
+    
+   	var that = ui.object(); // Inheritance
+
+    if (conf.msg) {
+        conf.ruleGroupName = conf.msg;
+    }
+
+    that.load = function() {
+        console.log(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1");
+        loadChat(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1"); 
+    }
+
+   	ui.get({
+   	    method: "component",
+   	    name: "chat",
+   	    script: conf.service||"http://www.mercadolibre.com.ar/org-img/jsapi/chat/chatRBIScript.js",
+   	    callback: function() {
+       	    that.load(); 
+        }
+   	});
+
+    that.publish = {
+    	uid: conf.id,
+		element: conf.element,
+        type: "chat"
+    }
+    
+    return that.publish;
+
+}/**
+ *	Expando
+ *	@author 
+ *	@Contructor
+ *	@return An interface object
+ */	
+ui.expando = function(conf){
+	var that = ui.navs(); // Inheritance
+
+	// Global configuration
+	$(conf.element).children(':first').wrapInner("<span class=\"ch-expando-trigger\"></span>");
+	$(conf.element).addClass('ch-expando');		
+	conf.$trigger = $(conf.element).find(".ch-expando-trigger");
+	conf.$htmlContent = conf.$trigger.parent().next();
+    conf.publish = that.publish;
+    conf.open = conf.open || false;
+	
+	// Private methods
+	var show = function(event){
+		// Toggle
+		if(that.status){
+			return hide();
+		};	
+		// Show
+        that.show(event, conf);
+        return conf.publish; // Returns publish object
+    };
+	
+    var hide = function(event){
+    	// Hide
+		that.hide(event, conf); 
+		return conf.publish; // Returns publish object
+    };
+    
+	// Trigger
+	conf.$trigger
+		.bind('click', function(event){
+			// Show menu
+			that.prevent(event);
+			show();
+		})
+		.addClass('ch-expando-trigger')
+		
+	// Content
+	conf.$htmlContent
+		.bind('click', function(event){ event.stopPropagation() })		
+		.addClass('ch-expando-content');
+
+	
+	// Change default behaivor (close)
+	if( conf.open ) show();
+	
+    // Create the publish object to be returned
+    conf.publish.uid = conf.id;
+    conf.publish.element = conf.element;
+    conf.publish.type = "expando";
+    conf.publish.open = conf.open;
+    conf.publish.show = function(){ return show() };
+    conf.publish.hide = function(){ return hide() };
+
+	return conf.publish;
+
 };
 
 ui.init();

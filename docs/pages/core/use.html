@@ -1,0 +1,57 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+	<script></script>
+	<meta charset="utf-8">
+	<title>Chico UI - Use Core</title>
+	<link rel="stylesheet" href="../../src/css/chico.css">
+</head>
+<body>
+	
+	<h1>Core.js</h1>
+	<p>El objecto Core define un <em lang="en">namespace</em> de nombre <strong>ui</strong> como módulo principal de Chico-UI. Este patrón permite alojar todos los componentes en un contexto para evitar colisiones de nombre con otras librerías. Además provee algunas propiedades globales que los componentes pueden acceder.</p>
+	<p>Algunas propiedades:</p>
+	<code>
+		<pre name="code" class="js">
+        ui.version      // return the version
+        ui.components   // return a string with all components
+        ui.internals    // return a string with all internal functions
+		</pre>
+	</code>
+    <p>Cada instancia de componentes visuales se guardan en un mapa interno que agrupa cada una por tipo de componente:</p>
+	<code>
+		<pre name="code" class="js">
+        ui.instances = {
+            layer: [ ... ],
+            modal: [ ... ]    
+        };
+		</pre>
+	</code>
+    <p>Esto nos permite recorrer multiples instancias de distintos tipos y ejecutar alguna acción en un grupo de componentes. Por ejemplo podría cerrar todos los componentes <a href="layer.html">Layer</a> en una simple iteración:</p>
+	<code>
+		<pre name="code" class="js">
+        $(ui.instances.layer).each(function(i,e){   // Iterate all layer instances
+            e.hide();                               // Hide each one of them
+        });
+		</pre>
+	</code>
+	<p>Además el Core posee un grupo de propiedades y métodos útiles para cualquier componente:</p>
+	<code>
+		<pre name="code" class="js">
+        ui.utils = {
+            window: object Window,          // Shortcut to the window object
+            document: object HTMLDocument   // Shortcut to the document object
+            body: object HTMLBodyElement    // Reference to the <body>
+            html: object HTMLHtmlElement    // Reference to the <html>
+            index: int,                     // Global index, increase with each new instance
+            zIndex: int                     // This propertie keeps the las z-index for floats       
+        }
+		</pre>
+	</code>	
+</body>
+</html>

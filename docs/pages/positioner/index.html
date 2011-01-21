@@ -1,0 +1,384 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+	<head>
+		<script></script>
+		<meta charset="utf-8">
+		<title>Chico UI - Positioner</title>
+		<link rel="stylesheet" href="../../build/chico-min-0.4.9.css">
+		<link rel="stylesheet" href="../../src/css/grid.css">
+		<link rel="stylesheet" href="../../src/css/pages.css">
+		<link rel="stylesheet" href="../../libs/css/highlight.css">
+		<!--[if lt IE 7 ]>
+			<script src="../../libs/js/dd_belatedpng.js"></script>
+			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+		<![endif]-->
+	</head>
+<body>	
+
+	<div class="header clearfix">
+		<h1 title="MercadoLibre's Visual Framework">Chico-UI ;)</h1>
+		<div class="iLike">
+			<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FChico-UI%2F189546681062056&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+		</div>
+		<ul>
+			<li><a href="../../">Home</a></li>
+			<li><strong>Docs</strong></li>
+			<li><a href="http://twitter.com/#!/chicoui">Twitter</a></li>
+            <li><a href="https://github.com/mercadolibre/chico/">Github</a></li>
+			<li><a href="https://github.com/mercadolibre/chico/archives/master">Download</a></li>
+			<li><a href="https://github.com/mercadolibre/chico/wiki">Wiki</a></li>
+			<li><a href="mailto:chico@mercadolibre.com">Give us feedback!</a></li>
+		</ul>
+	</div>
+    <hr />
+	<div class="ch-g1-6">
+		<div class="leftcolumn components">
+            <h3>Docs</h3>
+            <ul>
+                <li><a href="../install">How to install</a></li>
+                <li><a href="../css">Core.css</a></li>
+                <li><a href="../grid">Grid System</a></li>
+            </ul>
+			<ul>
+				<li><h3><a href="../core">Core.js</a></h3></li>
+        		<li><a href="../factory">Factory</a></li>
+	            <li><a href="../get">Get</a></li>
+	            <li><strong>Positioner</strong></li>
+			</ul>
+			<ul>
+				<li><h3>Floats</h3></li>
+	            <li><a href="../tooltip">Tooltip</a></li>
+	            <li><a href="../layer">Contextual Layer</a></li>
+	            <li><a href="../modal">Modal Window</a></li>
+			</ul>
+			<ul>
+	            <li><h3>Navs</h3></li>
+	            <li><a href="../dropdown">Dropdown</a></li>
+			</ul>
+			<ul>
+				<li><h3>Sliders</h3></li>
+        		<li><a href="../carousel">Carousel</a></li>
+			</ul>
+			<ul>
+			    <li><h3><a href="../watchers">Watchers</a></h3></li>
+	            <li><a href="../required">Required</a></li>
+	            <li><a href="../number">Number</a></li>
+	            <li><a href="../string">String</a></li>
+			</ul>
+			<ul>
+				<li><h3>Controllers</h3></li>
+	            <li><a href="../forms">Forms</a></li>
+	            <li><a href="../tabnavigator">Tab Navigator</a></li>
+	            <li><a href="../viewer">Viewer</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="ch-g5-6">
+		<div class="rightcolumn">
+			<h2 class="ch-g1-2">Positioner</h2>
+			<form action="https://github.com/mercadolibre/chico/issues" class="bugs ch-g1-2">
+				<label>
+					<input type="submit" value="Report a Bug" class="btn secondary">
+				</label>
+			</form>
+		
+			<div class="docTabs"><ul><li><a href="#demo">Demo</a></li> <li><a href="#sintax">Código fuente</a></li></ul><div><div id="demo"><h3>Demo</h3>
+	
+	<!-- First example -->
+	<div class="context" id="context1"></div>
+	<div class="element" id="element1"></div>
+	
+	<!-- Second example -->
+	<div class="context" id="context2"></div>
+	<div class="element" id="element2"></div>
+	
+	<!-- Only for this example -->
+	<div class="clearfix"></div>
+    
+	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre name="code" class="xml">
+	
+	<!-- First example -->
+	<div class="context" id="context1"></div>
+	<div class="element" id="element1"></div>
+	
+	<!-- Second example -->
+	<div class="context" id="context2"></div>
+	<div class="element" id="element2"></div>
+	
+	<!-- Only for this example -->
+	<div class="clearfix"></div>
+    
+	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">
+		// First example
+		ui.positioner({
+			element: $("#element1"),
+			context: $("#context1"),
+			points: "lt lb"				//  Element left-top axis equal to Context left-bottom axis
+		});
+	    
+		// Second example
+		ui.positioner({
+			element: $("#element2"),
+			context: $("#context2"),
+			points: "cm cm"				//  Element center-middle axis equal to Context center-middle axis
+		});
+	</pre></code></div></div></div>
+		
+			<div class="box use">
+				<h3>¿Cómo se usa?</h3>
+				
+	<p>El Positioner es un componente que tiene como función posicionar elementos con respecto a un contexto.</p>
+	<p>El contexto puede ser cualquier elemento del <abbr title="Document Object Model">DOM</abbr> o el area visible de la ventana del navegador (<em lang="en">viewport</em>).</p>
+	
+	<!--p><em>Pendiente de documentar: Inteligencia de posicionamiento en base al viewport.</p-->
+	
+	<p>Existen 2 maneras de utilizar el componente:</p>
+	<code>
+		<pre name="code" class="js">
+		ui.positioner();				//  Simple sintaxis
+		component.position();			//  Through component
+		</pre>
+	</code>
+		
+	<p>Ejemplo del objeto de configuración:</p>
+	<code>
+		<pre name="code" class="js">
+		{
+			element: $(element),		//  Element to be positioned
+			context: $(element),		//  Context from which the element is positioned. Default: viewport.
+			offset: string,				//  A string with X and Y coordinates (in pixels) separated by space (e.g.: "10 0").
+			points: string,				//  A string with element and context shared axis, separated by space (e.g.: "lt lb").
+			fixed: boolean				//  Scroll don't move the element.
+		}
+		</pre>
+	</code>
+	
+    <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
+	<code>
+		<pre name="code" class="js">
+        $("#Foobar").positioner({
+        	element: $(".element"),
+        	context: $(".context"),
+        	offset: "10 0",
+        	points: "cm cm"
+        });
+		</pre>
+	</code>	
+
+			</div>
+	
+			<div class="box cases"><h3>Casos de uso</h3><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Element left-top axis equal to Context left-bottom axis</h4>
+	
+    <div class="context" id="context3"></div>
+	<div class="element" id="element3"></div>
+
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	ui.positioner({
+		element: $("#element3"),
+		context: $("#context3"),
+		points: "lt lb"
+	});
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Element left-bottom axis equal to Context left-top axis</h4>
+	
+    <div class="context" id="context4"></div>
+	<div class="element" id="element4"></div>
+
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	ui.positioner({
+		element: $("#element4"),
+		context: $("#context4"),
+		points: "lb lt"
+	});
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Element right-top axis equal to Context right-bottom axis</h4>
+	
+    <div class="context" id="context5"></div>
+	<div class="element" id="element5"></div>
+
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	ui.positioner({
+		element: $("#element5"),
+		context: $("#context5"),
+		points: "rt rb"
+	});
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Element right-bottom axis equal to Context right-top axis</h4>
+	
+    <div class="context" id="context6"></div>
+	<div class="element" id="element6"></div>
+
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	ui.positioner({
+		element: $("#element6"),
+		context: $("#context6"),
+		points: "rb rt"
+	});
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Element left-medium axis equal to Context left-medium axis</h4>
+	
+    <div class="context" id="context7"></div>
+	<div class="element" id="element7"></div>
+
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	ui.positioner({
+		element: $("#element7"),
+		context: $("#context7"),
+		points: "lm lm"
+	});
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Element left-top axis equal to Context left-top axis</h4>
+	
+    <div class="context" id="context8"></div>
+	<div class="element" id="element8"></div>
+
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	ui.positioner({
+		element: $("#element8"),
+		context: $("#context8"),
+		points: "lt lt"
+	});
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Element center-medium axis equal to Context center-medium axis</h4>
+	
+    <div class="context" id="context9"></div>
+	<div class="element" id="element9"></div>
+
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	ui.positioner({
+		element: $("#element9"),
+		context: $("#context9"),
+		points: "cm cm"
+	});
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Element left-top axis equal to Context right-top axis</h4>
+	
+    <div class="context" id="context10"></div>
+	<div class="element" id="element10"></div>
+
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	ui.positioner({
+		element: $("#element10"),
+		context: $("#context10"),
+		points: "lt rt"
+	});
+	</pre></code></div></div></div>
+		</div>
+	</div>
+	
+	<p class="footer">Chico-UI, powered by <a href="http://www.mercadolibre.com">MercadoLibre</a>.</p>
+	
+	<script src="../../libs/js/highlight.js"></script>
+	<script src="../../libs/js/jquery.js"></script>
+	<script src="../../build/chico-min-0.4.9.js"></script>
+	<script>
+    	$(".docTabs").tabNavigator();
+        $('h1').html("Chico-UI ;) <span class=\"version\">alpha " + ui.version + "</span>"  );
+	</script>
+
+	<script>
+		/* Demo */
+
+		// First example
+		ui.positioner({
+			element: $("#element1"),
+			context: $("#context1"),
+			points: "lt lb"				//  Element left-top axis equal to Context left-bottom axis
+		});
+	    
+		// Second example
+		ui.positioner({
+			element: $("#element2"),
+			context: $("#context2"),
+			points: "cm cm"				//  Element center-middle axis equal to Context center-middle axis
+		});
+	
+
+		/* Case 1 */
+
+	ui.positioner({
+		element: $("#element3"),
+		context: $("#context3"),
+		points: "lt lb"
+	});
+	
+
+		/* Case 2 */
+
+	ui.positioner({
+		element: $("#element4"),
+		context: $("#context4"),
+		points: "lb lt"
+	});
+	
+
+		/* Case 3 */
+
+	ui.positioner({
+		element: $("#element5"),
+		context: $("#context5"),
+		points: "rt rb"
+	});
+	
+
+		/* Case 4 */
+
+	ui.positioner({
+		element: $("#element6"),
+		context: $("#context6"),
+		points: "rb rt"
+	});
+	
+
+		/* Case 5 */
+
+	ui.positioner({
+		element: $("#element7"),
+		context: $("#context7"),
+		points: "lm lm"
+	});
+	
+
+		/* Case 6 */
+
+	ui.positioner({
+		element: $("#element8"),
+		context: $("#context8"),
+		points: "lt lt"
+	});
+	
+
+		/* Case 7 */
+
+	ui.positioner({
+		element: $("#element9"),
+		context: $("#context9"),
+		points: "cm cm"
+	});
+	
+
+		/* Case 8 */
+
+	ui.positioner({
+		element: $("#element10"),
+		context: $("#context10"),
+		points: "lt rt"
+	});
+	</script>
+</body>
+</html>

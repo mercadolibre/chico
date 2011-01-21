@@ -1,0 +1,210 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+	<head>
+		<script></script>
+		<meta charset="utf-8">
+		<title>Chico UI - Carousel</title>
+		<link rel="stylesheet" href="../../build/chico-min-0.4.9.css">
+		<link rel="stylesheet" href="../../src/css/grid.css">
+		<link rel="stylesheet" href="../../src/css/pages.css">
+		<link rel="stylesheet" href="../../libs/css/highlight.css">
+		<!--[if lt IE 7 ]>
+			<script src="../../libs/js/dd_belatedpng.js"></script>
+			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+		<![endif]-->
+	</head>
+<body>	
+
+	<div class="header clearfix">
+		<h1 title="MercadoLibre's Visual Framework">Chico-UI ;)</h1>
+		<div class="iLike">
+			<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FChico-UI%2F189546681062056&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+		</div>
+		<ul>
+			<li><a href="../../">Home</a></li>
+			<li><strong>Docs</strong></li>
+			<li><a href="http://twitter.com/#!/chicoui">Twitter</a></li>
+            <li><a href="https://github.com/mercadolibre/chico/">Github</a></li>
+			<li><a href="https://github.com/mercadolibre/chico/archives/master">Download</a></li>
+			<li><a href="https://github.com/mercadolibre/chico/wiki">Wiki</a></li>
+			<li><a href="mailto:chico@mercadolibre.com">Give us feedback!</a></li>
+		</ul>
+	</div>
+    <hr />
+	<div class="ch-g1-6">
+		<div class="leftcolumn components">
+            <h3>Docs</h3>
+            <ul>
+                <li><a href="../install">How to install</a></li>
+                <li><a href="../css">Core.css</a></li>
+                <li><a href="../grid">Grid System</a></li>
+            </ul>
+			<ul>
+				<li><h3><a href="../core">Core.js</a></h3></li>
+        		<li><a href="../factory">Factory</a></li>
+	            <li><a href="../get">Get</a></li>
+	            <li><a href="../positioner">Positioner</a></li>
+			</ul>
+			<ul>
+				<li><h3>Floats</h3></li>
+	            <li><a href="../tooltip">Tooltip</a></li>
+	            <li><a href="../layer">Contextual Layer</a></li>
+	            <li><a href="../modal">Modal Window</a></li>
+			</ul>
+			<ul>
+	            <li><h3>Navs</h3></li>
+	            <li><a href="../dropdown">Dropdown</a></li>
+			</ul>
+			<ul>
+				<li><h3>Sliders</h3></li>
+        		<li><strong>Carousel</strong></li>
+			</ul>
+			<ul>
+			    <li><h3><a href="../watchers">Watchers</a></h3></li>
+	            <li><a href="../required">Required</a></li>
+	            <li><a href="../number">Number</a></li>
+	            <li><a href="../string">String</a></li>
+			</ul>
+			<ul>
+				<li><h3>Controllers</h3></li>
+	            <li><a href="../forms">Forms</a></li>
+	            <li><a href="../tabnavigator">Tab Navigator</a></li>
+	            <li><a href="../viewer">Viewer</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="ch-g5-6">
+		<div class="rightcolumn">
+			<h2 class="ch-g1-2">Carousel</h2>
+			<form action="https://github.com/mercadolibre/chico/issues" class="bugs ch-g1-2">
+				<label>
+					<input type="submit" value="Report a Bug" class="btn secondary">
+				</label>
+			</form>
+		
+			<div class="docTabs"><ul><li><a href="#demo">Demo</a></li> <li><a href="#sintax">Código fuente</a></li></ul><div><div id="demo"><h3>Demo</h3>
+	
+	<style>
+		/* Esto es necesario para que el componente haga los calculos necesarios */
+		.demoCarousel li {
+			width: 110px;
+			height: 110px;
+		}
+	</style>
+	
+	<div class="box demoCarousel">
+		<ul class="carousel">
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+
+		</ul>
+	</div>
+	
+	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre name="code" class="xml">
+	
+	<style>
+		/* Esto es necesario para que el componente haga los calculos necesarios */
+		.demoCarousel li {
+			width: 110px;
+			height: 110px;
+		}
+	</style>
+	
+	<div class="box demoCarousel">
+		<ul class="carousel">
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+
+		</ul>
+	</div>
+	
+	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">$('.demoCarousel').carousel();</pre></code></div></div></div>
+		
+			<div class="box use">
+				<h3>¿Cómo se usa?</h3>
+				
+	<p>El Carousel se crea a partir de agregarle funcionalidad a una lista de objetos, ya sean imágenes, texto, o ambos.</p>
+	<p>Para crear un Carousel, es necesario iniciarlo a traves de un contenedor, en el cual puede haber todo tipo de elementos, y una lista con la clase css "carousel". Es decir, que el Carousel puede convivir dentro de una caja junto con contenido de cualquier tipo.</p>
+	<p>El ancho y alto de los elementos &lt;li&gt; del Carousel debe ser especificado obligatoriamente por css.</p>
+	<p>Ejemplo del objeto de configuración:</p>
+	<code>
+		<pre name="code" class="js">
+		{
+			callbacks: {
+				next: function() {},
+				prev: function() {},
+				select: function() {}
+			}
+		}
+		</pre>
+	</code>
+	<p>Cada vez que se instancia un Carousel, éste retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
+	<code>
+		<pre name="code" class="js">
+        var foo = $('.demoCarousel').carousel(); // Same example
+        
+        // returns
+        foo = {
+            uid: 121,                         //  Global number instance
+            element: HTMLInputElement,        //  Input DOM Interface
+            type: "viewer",                   //  Component Type
+            getSteps()						  //  Returns items amount of each page
+            getPage()						  //  Returns actual page
+            select()                      	  //  Select an item
+            next()							  //  Move to next page
+            prev()							  //  Move to previous page
+        }
+		</pre>
+	</code>
+
+			</div>
+	
+			<!-- #cases -->
+		</div>
+	</div>
+	
+	<p class="footer">Chico-UI, powered by <a href="http://www.mercadolibre.com">MercadoLibre</a>.</p>
+	
+	<script src="../../libs/js/highlight.js"></script>
+	<script src="../../libs/js/jquery.js"></script>
+	<script src="../../build/chico-min-0.4.9.js"></script>
+	<script>
+    	$(".docTabs").tabNavigator();
+        $('h1').html("Chico-UI ;) <span class=\"version\">alpha " + ui.version + "</span>"  );
+	</script>
+
+	<script>
+		/* Demo */
+$('.demoCarousel').carousel();</script>
+</body>
+</html>

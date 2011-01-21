@@ -1,0 +1,45 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+	<script></script>
+	<meta charset="utf-8">
+	<title>Chico UI - Case modal</title>
+	<link rel="stylesheet" href="../../src/css/chico.css">
+	<link rel="stylesheet" href="../../src/css/grid.css">
+	<link rel="stylesheet" href="../../src/css/pages.css">
+	<link rel="stylesheet" href="../../libs/css/highlight.css">
+	<!--[if lt IE 7 ]>
+		<script src="libs/js/dd_belatedpng.js"></script>
+		<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+	<![endif]-->
+	<script src="../../libs/js/jquery.js"></script>
+	<script src="../../src/js/chico.js"></script>
+</head>
+<body>
+	
+	<h4>Modal ejecutado en el click de un botón cargando contenido por parametro: selector CSS.</h4>	
+	
+	<form action="../../../examples/ajax.html">
+		<input type="submit" class="btn secondary" id="modal_param1" value="Ejecutar Modal">
+	</form>
+
+	<div id="modalContent" style="display:none;">
+		<h2>Contenido cargado desde el div #modalContent</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+	</div>
+	
+	<script>
+		$("#modal_param1").modal(
+			{
+				content: "#modalContent"
+			}
+		);
+	</script>
+	
+</body>
+</html>

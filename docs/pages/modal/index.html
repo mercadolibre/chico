@@ -1,0 +1,311 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+	<head>
+		<script></script>
+		<meta charset="utf-8">
+		<title>Chico UI - Modal Window</title>
+		<link rel="stylesheet" href="../../build/chico-min-0.4.9.css">
+		<link rel="stylesheet" href="../../src/css/grid.css">
+		<link rel="stylesheet" href="../../src/css/pages.css">
+		<link rel="stylesheet" href="../../libs/css/highlight.css">
+		<!--[if lt IE 7 ]>
+			<script src="../../libs/js/dd_belatedpng.js"></script>
+			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+		<![endif]-->
+	</head>
+<body>	
+
+	<div class="header clearfix">
+		<h1 title="MercadoLibre's Visual Framework">Chico-UI ;)</h1>
+		<div class="iLike">
+			<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FChico-UI%2F189546681062056&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
+		</div>
+		<ul>
+			<li><a href="../../">Home</a></li>
+			<li><strong>Docs</strong></li>
+			<li><a href="http://twitter.com/#!/chicoui">Twitter</a></li>
+            <li><a href="https://github.com/mercadolibre/chico/">Github</a></li>
+			<li><a href="https://github.com/mercadolibre/chico/archives/master">Download</a></li>
+			<li><a href="https://github.com/mercadolibre/chico/wiki">Wiki</a></li>
+			<li><a href="mailto:chico@mercadolibre.com">Give us feedback!</a></li>
+		</ul>
+	</div>
+    <hr />
+	<div class="ch-g1-6">
+		<div class="leftcolumn components">
+            <h3>Docs</h3>
+            <ul>
+                <li><a href="../install">How to install</a></li>
+                <li><a href="../css">Core.css</a></li>
+                <li><a href="../grid">Grid System</a></li>
+            </ul>
+			<ul>
+				<li><h3><a href="../core">Core.js</a></h3></li>
+        		<li><a href="../factory">Factory</a></li>
+	            <li><a href="../get">Get</a></li>
+	            <li><a href="../positioner">Positioner</a></li>
+			</ul>
+			<ul>
+				<li><h3>Floats</h3></li>
+	            <li><a href="../tooltip">Tooltip</a></li>
+	            <li><a href="../layer">Contextual Layer</a></li>
+	            <li><strong>Modal Window</strong></li>
+			</ul>
+			<ul>
+	            <li><h3>Navs</h3></li>
+	            <li><a href="../dropdown">Dropdown</a></li>
+			</ul>
+			<ul>
+				<li><h3>Sliders</h3></li>
+        		<li><a href="../carousel">Carousel</a></li>
+			</ul>
+			<ul>
+			    <li><h3><a href="../watchers">Watchers</a></h3></li>
+	            <li><a href="../required">Required</a></li>
+	            <li><a href="../number">Number</a></li>
+	            <li><a href="../string">String</a></li>
+			</ul>
+			<ul>
+				<li><h3>Controllers</h3></li>
+	            <li><a href="../forms">Forms</a></li>
+	            <li><a href="../tabnavigator">Tab Navigator</a></li>
+	            <li><a href="../viewer">Viewer</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="ch-g5-6">
+		<div class="rightcolumn">
+			<h2 class="ch-g1-2">Modal Window</h2>
+			<form action="https://github.com/mercadolibre/chico/issues" class="bugs ch-g1-2">
+				<label>
+					<input type="submit" value="Report a Bug" class="btn secondary">
+				</label>
+			</form>
+		
+			<div class="docTabs"><ul><li><a href="#demo">Demo</a></li> <li><a href="#sintax">Código fuente</a></li></ul><div><div id="demo"><h3>Demo</h3>
+	
+	<a href="../../examples/ajax.html" class="demoModal">Modal ejecutado en un link.</a>
+		
+	<form action="../../examples/ajax.html">
+		<input type="submit" class="btn secondary demoModal" value="Modal ejecutado en un botón">
+	</form>
+	
+	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre name="code" class="xml">
+	
+	<a href="../../examples/ajax.html" class="demoModal">Modal ejecutado en un link.</a>
+		
+	<form action="../../examples/ajax.html">
+		<input type="submit" class="btn secondary demoModal" value="Modal ejecutado en un botón">
+	</form>
+	
+	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">
+		$(".demoModal").modal();		
+	</pre></code></div></div></div>
+		
+			<div class="box use">
+				<h3>¿Cómo se usa?</h3>
+				
+	<p>El modal es disparado por un link o botón del tipo submit (dentro de un form). Esto puede ser en el evento click, o bien, utilizando su método público.</p>
+	<p>Carga su contenido tanto por ajax como por parametro. Por defecto, lo hace por ajax tomando la url del elemento HTML que lo incia (en caso de que sea un link, levanta el href y si es un botón de tipo submit, levatan el action del form) o se le puede indicar una URL.</p>
+	<p>Por otra parte, el modal ofrece una clase de CSS <em>closeModal</em> la cual se la puede agregar a cualquier elemento HTML para que cierre el modal.</p>
+	<p>Ejemplo del objeto de configuración:</p>
+	<code>
+		<pre name="code" class="js">
+		{
+			content: string,
+			ajax: boolean | string,
+			callbacks: {
+				show: function() {},
+				hide: function() {}
+			}
+		}
+		</pre>
+	</code>
+    <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
+	<code>
+		<pre name="code" class="js">
+        $("#Foobar").modal();
+		</pre>
+	</code>
+   
+	<p>Cada vez que se instancia un componente Modal Window retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
+	<code>
+		<pre name="code" class="js">
+		var foo = $("#Foobar").modal();
+        
+		// returns
+		foo = {
+			uid: 121,                         //  Global number instance
+			element: HTMLInputElement,        //  Input DOM Interface
+			type: "modal",                    //  Component Type
+			content: string,				  //  Get content
+			position(),					  	  //  Get, set and refresh position
+			show(),						  	  //  Show modal
+			hide()						  	  //  Hide modal
+		}
+		</pre>
+	</code>
+	
+	<p>El método público position() puede ser utilizado para:</p>
+	<p>1. Obtener la configuración actual de posicionamiento.</p>
+	<code>
+		<pre name="code" class="js">
+		foo.position();						  //  Get position
+		</pre>
+	</code>
+	
+	<p>2. Actualizar la posición del elemento.</p>
+	<code>
+		<pre name="code" class="js">
+		foo.position("refresh");			  //  Refresh position
+		</pre>
+	</code>
+	
+	<p>3. Setear una nueva configuración para el <a href="../positioner">posicionamiento</a> del elemento.</p>
+	<code>
+		<pre name="code" class="js">
+		foo.position({ 						  //  Set new position			
+			context: $(element),
+			offset: string,
+			points: string,
+			fixed: boolean
+		});					
+		</pre>
+	</code>
+	
+
+			</div>
+	
+			<div class="box cases"><h3>Casos de uso</h3><div class="ch-g2-3"><div class="leftcolumn cases">
+
+	<h4>Modal ejecutado en el click de un link con ajax por default</h4>	
+	
+	<a href="../../../examples/ajax.html" class="modal_link">Ejecutar Modal.</a></li>	
+	
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+		$(".modal_link").modal();
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Modal ejecutado en el click de un botón con ajax, configurando una url.</h4>	
+	
+	<form action="http://www.mercadolibre.com">
+		<input type="submit" class="btn secondary" id="modal_btn" value="Ejecutar Modal">
+	</form>
+	
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+		$("#modal_btn").modal({
+			ajax: "./../../examples/ajax.html"
+		});
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Modal ejecutado en el click de un botón cargando contenido por parametro: selector CSS.</h4>	
+	
+	<form action="../../../examples/ajax.html">
+		<input type="submit" class="btn secondary" id="modal_param1" value="Ejecutar Modal">
+	</form>
+
+	<div id="modalContent" style="display:none;">
+		<h2>Contenido cargado desde el div #modalContent</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+	</div>
+	
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+		$("#modal_param1").modal(
+			{
+				content: "#modalContent"
+			}
+		);
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Modal ejecutado en el click de un botón cargando contenido por parametro: HTML.</h4>	
+	
+	<form action="../../../examples/ajax.html">
+		<input type="submit" class="btn secondary" id="modal_param2" value="Ejecutar Modal">
+	</form>
+	
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+		$("#modal_param2").modal(
+			{
+				content: "<h2>Contenido cargado por parametro HTML</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+			}
+		);
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Modal ejecutado en el click de un botón cargando contenido por parametro: Texto Plano.</h4>	
+	
+	<form action="../../../examples/ajax.html">
+		<input type="submit" class="btn secondary" id="modal_param3" value="Ejecutar Modal">
+	</form>
+	
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+		$("#modal_param3").modal(
+			{
+				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+			}
+		);
+	</pre></code></div></div></div>
+		</div>
+	</div>
+	
+	<p class="footer">Chico-UI, powered by <a href="http://www.mercadolibre.com">MercadoLibre</a>.</p>
+	
+	<script src="../../libs/js/highlight.js"></script>
+	<script src="../../libs/js/jquery.js"></script>
+	<script src="../../build/chico-min-0.4.9.js"></script>
+	<script>
+    	$(".docTabs").tabNavigator();
+        $('h1').html("Chico-UI ;) <span class=\"version\">alpha " + ui.version + "</span>"  );
+	</script>
+
+	<script>
+		/* Demo */
+
+		$(".demoModal").modal();		
+	
+
+		/* Case 1 */
+
+		$(".modal_link").modal();
+	
+
+		/* Case 2 */
+
+		$("#modal_btn").modal({
+			ajax: "./../../examples/ajax.html"
+		});
+	
+
+		/* Case 3 */
+
+		$("#modal_param1").modal(
+			{
+				content: "#modalContent"
+			}
+		);
+	
+
+		/* Case 4 */
+
+		$("#modal_param2").modal(
+			{
+				content: "<h2>Contenido cargado por parametro HTML</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+			}
+		);
+	
+
+		/* Case 5 */
+
+		$("#modal_param3").modal(
+			{
+				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+			}
+		);
+	</script>
+</body>
+</html>

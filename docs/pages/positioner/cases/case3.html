@@ -1,0 +1,39 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+	<script></script>
+	<meta charset="utf-8">
+	<title>Chico UI - Case Positioner</title>
+	<link rel="stylesheet" href="../../src/css/chico.css">
+	<link rel="stylesheet" href="../../src/css/grid.css">
+	<link rel="stylesheet" href="../../src/css/pages.css">
+	<link rel="stylesheet" href="../../libs/css/highlight.css">
+	<!--[if lt IE 7 ]>
+		<script src="libs/js/dd_belatedpng.js"></script>
+		<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+	<![endif]-->
+	<script src="../../libs/js/jquery.js"></script>
+	<script src="../../src/js/chico.js"></script>
+</head>
+<body>
+	
+	<h4>Element right-top axis equal to Context right-bottom axis</h4>
+	
+    <div class="context" id="context5"></div>
+	<div class="element" id="element5"></div>
+
+    <script>
+	ui.positioner({
+		element: $("#element5"),
+		context: $("#context5"),
+		points: "rt rb"
+	});
+	</script>
+	
+</body>
+</html>

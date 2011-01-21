@@ -1,0 +1,72 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+	<script></script>
+	<meta charset="utf-8">
+	<title>Chico UI - Use Number</title>
+	<link rel="stylesheet" href="../../src/css/chico.css">
+</head>
+<body>
+	
+	<h1>Number</h1>
+	<p>El objecto Number es una interface del objecto <a href="watchers.html" lang="en">Watchers</a> donde se pueden definir algunas validaciones preformateadas de tipos de dato numéricos. Recibe como argumento un objeto de propiedades que definen los tipos de validaciones y algunos aspecto de su comportamiento como los <em lang="en">callbacks</em>.</p>
+	</p>Ejemplo del objeto de configuración:<p>
+	<code>
+		<pre name="code" class="js">
+        {
+            number: boolean,
+            min: int,
+            max: int,
+            callbacks: {
+                validate: function() {},
+                reset: function() {}
+            }
+        }
+		</pre>
+	</code>
+    <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
+	<code>
+		<pre name="code" class="js">
+        $("#Foobar").number({ // Check a numberical range
+            min: 13,
+            max: 20
+        });
+		</pre>
+	</code>
+    <p>Además, el componente soporta algunos <em lang="en">shorthands</em> que se pueden concatenar con el método <strong lang="en">and()</strong> facilitando su instanciación con otras validaciones de distintos tipos, por ejemplo:
+	<code>
+		<pre name="code" class="js">
+        $("#Foobar").min(13).and().max(20); // Same example
+		</pre>
+	</code>
+	<p>Cada vez que se instancia un componente de la familia <a href="watchers.html" lang="en">Watchers</a> éste retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
+	<code>
+		<pre name="code" class="js">
+        var foo = $("#Foobar").email().and().maxLength(20); // Same example
+        
+        // returns
+        foo = {
+            uid: 121,                         //  Global number instance
+            element: HTMLInputElement,        //  Input DOM Interface
+            type: "watcher",                  //  Component Type
+            status: boolean,                  //  Status
+            reference: HTMLInputElement,      //  Positioner reference
+            parent: HTMLFormElement,          //  Form parent
+            validations: {                    //  Validation Map
+                min: 13,                  
+                max: 20                 
+            },
+            messages:{},                      //  Messages Map
+            and(),                            //  Concatenate method 
+            reset(),                          //  Reset the value
+            validate(),                       //  Execute the validations
+        }
+		</pre>
+	</code>	
+</body>
+</html>

@@ -52,8 +52,8 @@ class Packer {
         $this->components = (!$this->get) ? $this->components : $this->get;
         $this->components = trim($this->components,",");
 
-        // Set files to process, for JS: "core, internals, components" CSS: "core, forms, components"
-        $this->files = ($this->type=="js") ? "core,".$this->internals.",".$this->components : "core,forms,".$this->components;
+        // Set files to process, for JS: "core, internals, components" CSS: "core, components"
+        $this->files = ($this->type=="js") ? "core,".$this->internals.",".$this->components : "core,".$this->components;
         $this->files = trim($this->files,",");
         
         // Convert files to an array
@@ -227,7 +227,7 @@ class Packer {
             $deliver .= ";(function($){\n".$print."\nui.init();\n})(jQuery);"; // Add ui.init() instruction to the end
         }
         
-        return $deliver;
+        return utf8_encode($deliver);
     }
 }
 

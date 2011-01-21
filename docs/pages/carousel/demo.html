@@ -1,0 +1,56 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+	<script></script>
+	<meta charset="utf-8">
+	<title>Chico UI - Demo Carousel</title>
+	<link rel="stylesheet" href="../../src/css/chico.css">
+	<link rel="stylesheet" href="../../src/css/grid.css">
+	<link rel="stylesheet" href="../../src/css/pages.css">
+	<link rel="stylesheet" href="../../libs/css/highlight.css">
+	<!--[if lt IE 7 ]>
+		<script src="libs/js/dd_belatedpng.js"></script>
+		<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+	<![endif]-->
+	<script src="../../libs/js/jquery.js"></script>
+	<script src="../../src/js/chico.js"></script>
+</head>
+<body>
+	
+	<style>
+		/* Esto es necesario para que el componente haga los calculos necesarios */
+		.demoCarousel li {
+			width: 110px;
+			height: 110px;
+		}
+	</style>
+	
+	<div class="box demoCarousel">
+		<ul class="carousel">
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+			
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+
+		</ul>
+	</div>
+	
+	<script>$('.demoCarousel').carousel();</script>
+	
+</body>
+</html>
