@@ -107,6 +107,7 @@
 .ch-dropdown.ch-secondary-on {
 	height:13px;
 	line-height:13px;
+	padding:0px !important;
 }
 
 .ch-dropdown.ch-secondary-on {
