@@ -16,11 +16,11 @@ $files = explode(", ", $tests);
 $outScript = "";
 
 $out  = "<!doctype html>\n<html>\n<head>\n<title>Tests</title>\n";
-$out .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"../build/chico.css\">\n";
+$out .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"../php/packer.php?type=css\">\n";
 $out .=	"<link href=\"../libs/css/qunit.css\" rel=\"stylesheet\">\n";
 $out .= "<script src=\"../libs/js/jquery.js\"></script>\n";
 $out .= "<script src=\"../libs/js/qunit.js\"></script>\n";
-$out .= "<script src=\"../build/chico.js\"></script>\n";
+$out .= "<script src=\"../php/packer.php\"></script>\n";
 $out .= "<script src=\"functions.js\"></script>\n";
 $out .= "</head>\n";
 $out .= "<body>\n";
