@@ -22,7 +22,7 @@ class Packer {
     
     // files to load
     private $files;    
-    private $components = "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer,expando";
+    private $components = "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer,chat,expando";
     private $internals = "positioner,object,floats,navs,controllers,watcher";
 
     /**
@@ -212,13 +212,13 @@ class Packer {
         $deliver .= "  * @based on:\n";
         
         if ($this->type=="css") {
-            $deliver .= "  * @package CssMin\n";
+            $deliver .= "  * CssMin\n";
             $deliver .= "  * @copyright Stoyan Stefanov on DataURI: \n";
             $deliver .= "  * @link http://www.phpied.com/data-urls-what-are-they-and-how-to-use/ \n";
             $deliver .= "  */\n";
             $deliver .= $print;
         } else {
-            $deliver .= "  * @package JSMin\n";
+            $deliver .= "  * JSMin\n";
             $deliver .= "  * @author Ryan Grove <ryan@wonko.com> \n";
             $deliver .= "  * @copyright 2002 Douglas Crockford <douglas@crockford.com> (jsmin.c) \n";
             $deliver .= "  * @copyright 2008 Ryan Grove <ryan@wonko.com> (PHP port) \n";
