@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Dropdown - TestCases</title>
+	<title>Expando - TestCases</title>
 	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=expando">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
@@ -77,49 +77,49 @@
         
         module('Expando layout and interaction');
 
-		var $trigger =  $(".testExpando").children(":first").children();
-		var $content = $trigger.parent().next();
+		var $triggerExpando =  $(".testExpando").children(":first").children();
+		var $contentExpando = $triggerExpando.parent().next();
 		
 		test('Check for the right visual classes', function() {
 			
 			hasClass('.testExpando', 'ch-expando');
-			hasClass($trigger, 'ch-expando-trigger');
-			hasClass($content, 'ch-expando-content');
+			hasClass($triggerExpando, 'ch-expando-trigger');
+			hasClass($contentExpando, 'ch-expando-content');
 			
 		});
 		
 		test('Opens expando', function() {
 			
-			isNotVisible($content);
+			isNotVisible($contentExpando);
 			
-			$trigger.click();
+			$triggerExpando.click();
 			
-			isVisible($content);
-			hasClass($trigger, 'ch-expando-on');
+			isVisible($contentExpando);
+			hasClass($triggerExpando, 'ch-expando-on');
 			
-			$trigger.click();
+			$triggerExpando.click();
 			
 		});
 		
 		test('Closes expando, clicking on component trigger', function() {
 			
-			$trigger.click();
-			$trigger.click();
+			$triggerExpando.click();
+			$triggerExpando.click();
 			
-			isNotVisible($content);
-			hasNotClass($trigger, 'ch-expando-on');
+			isNotVisible($contentExpando);
+			hasNotClass($triggerExpando, 'ch-expando-on');
 			
 		});
 		
 		test('Click inside content', function() {
 			
-			$trigger.click();
-			$content.click();
+			$triggerExpando.click();
+			$contentExpando.click();
 			
-			isVisible($content);
-			hasClass($trigger, 'ch-expando-on');
+			isVisible($contentExpando);
+			hasClass($triggerExpando, 'ch-expando-on');
 			
-			$trigger.click();
+			$triggerExpando.click();
 			
 		});
 
