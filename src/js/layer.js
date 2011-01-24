@@ -13,8 +13,8 @@ ui.layer = function(conf) {
     var hideTime = conf.hideTime || 300;
 
 	var st, ht; // showTimer and hideTimer
-	var showTimer = function(event){ st = setTimeout(function(event){ show(event) }, showTime) };
-	var hideTimer = function(event){ ht = setTimeout(function(event){ hide(event) }, hideTime) };
+	var showTimer = function(event){ st = setTimeout(function(){ show($.Event()) }, showTime) };
+	var hideTimer = function(event){ ht = setTimeout(function(){ hide($.Event()) }, hideTime) };
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 	// Global configuration
@@ -30,7 +30,7 @@ ui.layer = function(conf) {
     conf.publish = that.publish;
 
     var show = function(event) {
-
+    			
 		that.show(event, conf);	
 
         if (conf.event === "click") {

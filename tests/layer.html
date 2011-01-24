@@ -51,7 +51,14 @@
 		});
 		
 		var testLayerHover = $('.testLayerHover').layer({
-			content: '<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>'
+			content: '<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>',
+			callback: {
+				show: function(){
+					start();					
+					exists('.ch-layer');						
+					isVisible('.ch-layer');
+				}
+			}
 		});
 
 		var testLayerAjax = $(".testLayerAjax").layer({
@@ -190,9 +197,7 @@
 			notExists('.ch-layer');
 			
 			$('.testLayerHover').mouseover();
-			exists('.ch-layer');
-			
-			isVisible('.ch-layer');
+			stop();
 
 			$('.testLayerHover').mouseout();			
 			notExists('.ch-layer');
