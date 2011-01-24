@@ -60,10 +60,7 @@
 	    	content: '#testDOM'
 	    });
 
-	    var testModalAjax = $('#testModalAjax').modal({
-	    	ajax: true
-	    });
-					
+	    var testModalAjax;					
 		$.fx.off = true;
 		
 		/**
@@ -71,44 +68,6 @@
 		 */
 
         module("Modal basics instance object");
-        
-        test("Basics for testModal", function(){
-
-            expect( 3 );
-
-       		ok( testModal.uid >= 0 , "Expected to find a defined content on the modal instance");
-       		
-    		ok( testModal.type == "modal" , "Expected to find \"modal\" as value of type attribute");
-    		
-    		ok( testModal.content != undefined, "Expected to find a defined content on the modal instance");
-
-        });
-
-        test("Basics for testModalDOM", function(){
-
-            expect( 4 );
-
-       		ok( testModalDOM.uid >= 0 , "Expected to find a number bigger than 0 on uid propertie");
-       		
-    		ok( testModalDOM.type == "modal" , "Expected to find \"modal\" as value of type attribute");
-    		
-    		ok( testModalDOM.content != undefined , "Expected to find a defined content on the modal instance");
-
-    		ok( /\.|\#/.test(testModalDOM.content) , "Expected to find a CSS \"#id\" or \".class\" declaration on content attribute");
-
-        });
-
-        test("Basics for testModalAjax", function(){
-
-            expect( 2 );
-
-       		ok( testModalAjax.uid >= 0 , "Expected to find a defined content on the modal instance");
-       		
-    		ok( testModalAjax.type == "modal" , "Expected to find \"modal\" as value of type attribute");
-    		
-    		//ok( testModalAjax.content != undefined , "Expected to find a defined content on the modal instance");
-
-        });
 
         test("Modal chain methods", function(){
             
@@ -198,17 +157,67 @@
 
 				
 		test('AJAX content', function(){
-			
+        
+            testModalAjax = $('#testModalAjax').modal({
+                ajax: true,
+                callbacks: { 
+                    contentLoad: function(){ 
+                        
+                        start();
+                        
+                        hasContent(".ch-modal-content h2", "Titulo de contenido ajax");
+
+                        $('.ch-dimmer').trigger('click');
+                        
+                    } 
+                }
+            });
+
 			$("#testModalAjax").click();
 
-			ok( testModal.content , "Expected to find a defined content on the modal instance");
-			
-			hasContent(".ch-modal", "Titulo de contenido ajax");
+			ok( testModalAjax.content , "Expected to find a defined content on the modal instance");
 
-			$('.ch-dimmer').trigger('click');
-			
+			stop();
 		});
-				
+        
+        test("Basics for testModal", function(){
+
+            expect( 3 );
+
+       		ok( testModal.uid >= 0 , "Expected to find a defined content on the modal instance");
+       		
+    		ok( testModal.type == "modal" , "Expected to find \"modal\" as value of type attribute");
+    		
+    		ok( testModal.content != undefined, "Expected to find a defined content on the modal instance");
+
+        });
+
+        test("Basics for testModalDOM", function(){
+
+            expect( 4 );
+
+       		ok( testModalDOM.uid >= 0 , "Expected to find a number bigger than 0 on uid propertie");
+       		
+    		ok( testModalDOM.type == "modal" , "Expected to find \"modal\" as value of type attribute");
+    		
+    		ok( testModalDOM.content != undefined , "Expected to find a defined content on the modal instance");
+
+    		ok( /\.|\#/.test(testModalDOM.content) , "Expected to find a CSS \"#id\" or \".class\" declaration on content attribute");
+
+        });
+
+        test("Basics for testModalAjax", function(){
+
+            expect( 3 );
+
+       		ok( testModalAjax.uid >= 0 , "Expected to find a defined content on the modal instance");
+       		
+    		ok( testModalAjax.type == "modal" , "Expected to find \"modal\" as value of type attribute");
+    		
+    		ok( testModalAjax.content != undefined , "Expected to find a defined content on the modal instance");
+
+        });
+        	
 	</script>
 
 </body>
