@@ -5,7 +5,7 @@
  *      ruleGroupName: "",
  *      style: ["block"],
  *      template: [1],
- *      service: [http://www.mercadolibre.com.ar/org-img/jsapi/chat/chatRBIScript.js]
+ *      environment: "1"|"2"|"3"
  *  });
  */
 
@@ -13,19 +13,26 @@ ui.chat = function(conf) {
     
    	var that = ui.object(); // Inheritance
 
+    var getDomain = function(n) {
+        switch (n) {
+            case "1": return "mercadolidesa.com.ar"; break;
+            case "2": return "mercadolistage.com.ar"; break;
+            case "3": return "mercadolibre.com.ar"; break;
+        }
+    }
+
     if (conf.msg) {
         conf.ruleGroupName = conf.msg;
     }
 
     that.load = function() {
-        console.log(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1");
-        loadChat(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1"); 
+        loadChatGZ(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1",conf.environment||"3"); 
     }
 
    	ui.get({
    	    method: "component",
    	    name: "chat",
-   	    script: conf.service||"http://www.mercadolibre.com.ar/org-img/jsapi/chat/chatRBIScript.js",
+   	    script: "http://www."+getDomain(conf.environment)+"/org-img/jsapi/chat/chatRBIScript.js",
    	    callback: function() {
        	    that.load(); 
         }

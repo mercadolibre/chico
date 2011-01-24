@@ -114,12 +114,14 @@
 				
 	<p>El modal es disparado por un link o botón del tipo submit (dentro de un form). Esto puede ser en el evento click, o bien, utilizando su método público.</p>
 	<p>Carga su contenido tanto por ajax como por parametro. Por defecto, lo hace por ajax tomando la url del elemento HTML que lo incia (en caso de que sea un link, levanta el href y si es un botón de tipo submit, levatan el action del form) o se le puede indicar una URL.</p>
-	<p>Por otra parte, el modal ofrece una clase de CSS <em>closeModal</em> la cual se la puede agregar a cualquier elemento HTML para que cierre el modal.</p>
+	<p>Por otra parte, el modal ofrece una clase de CSS <em>closeModal</em> la cual se la puede agregar a cualquier elemento HTML para que lo cierre.</p>
 	<p>Ejemplo del objeto de configuración:</p>
 	<code>
 		<pre name="code" class="js">
 		{
 			content: string,
+			width: number,
+			heitth: number,
 			ajax: boolean | string,
 			callbacks: {
 				show: function() {},
@@ -128,10 +130,30 @@
 		}
 		</pre>
 	</code>
-    <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
+    <p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
 	<code>
 		<pre name="code" class="js">
         $("#Foobar").modal();
+		</pre>
+	</code>
+	
+	<p>Pasandole un objecto de configuración:</p>
+	<code>
+		<pre name="code" class="js">
+        $("#Foobar").modal({
+        	content: "<p>Lorem...</p>",
+        	width: 350,
+        	height: 300
+        });
+		</pre>
+	</code>
+	
+	<p>Otra forma de iniciarlo es utilizando la siguiente sintaxis:</p>
+	<code>
+		<pre name="code" class="js">
+        $("#Foobar").modal("<p>Lorem...</p>");
+        o
+        $("#Foobar").modal("http://www.mercadolibre.com");
 		</pre>
 	</code>
    
@@ -238,7 +260,7 @@
 		);
 	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
 	
-	<h4>Modal ejecutado en el click de un botón cargando contenido por parametro: Texto Plano.</h4>	
+	<h4>Modal cargando contenido por parametro: Texto Plano, con un alto y ancho fijo.</h4>	
 	
 	<form action="../../../examples/ajax.html">
 		<input type="submit" class="btn secondary" id="modal_param3" value="Ejecutar Modal">
@@ -247,7 +269,9 @@
 	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
 		$("#modal_param3").modal(
 			{
-				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				width:350,
+				height:300
 			}
 		);
 	</pre></code></div></div></div>
@@ -304,7 +328,9 @@
 
 		$("#modal_param3").modal(
 			{
-				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				width:350,
+				height:300
 			}
 		);
 	</script>
