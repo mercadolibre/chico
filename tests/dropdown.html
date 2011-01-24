@@ -53,7 +53,7 @@
 
        		ok( testDropdown.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
-    		ok( testDropdown.type == "dropdown" , "Expected to find \"layer\" as value of type attribute");
+    		ok( testDropdown.type == "dropdown" , "Expected to find \"dropdown\" as value of type attribute");
 
         });
 
@@ -87,7 +87,7 @@
 			hasClass('.testDropdown', 'ch-dropdown');
 			hasClass($trigger, 'ch-dropdown-trigger');
 			hasClass($content, 'ch-dropdown-content');
-			hasClass($trigger.find('span'), 'down');
+			hasClass($trigger.find('span'), 'ch-down');
 			
 		});
 

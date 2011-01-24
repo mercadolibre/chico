@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dropdown - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=expando">
+	<link href="../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- #body -->
+	<h1>Chico-UI: Expando testcases</h1>
+    <hr />
+	<div class="testExpando">
+		<h4>Lorem ipsum dolor sit amet.</h4>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		</div>
+	</div>
+<!-- #body -->
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../libs/js/jquery.js"></script>
+	<script src="../libs/js/qunit.js"></script>
+	<script src="../php/packer.php?get=expando&debug=true"></script>
+	<script src="functions.js"></script>
+	
+<!-- #script -->
+	<script>
+
+		var testExpando = $('.testExpando').expando();
+		
+		$.fx.off = true;
+
+		/**
+		 * 	Test Cases
+		 */
+
+		module("Expando instance object");
+		
+		test("testExpando instance", function() {
+		
+		    expect( 2 );
+		
+			ok( testExpando.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+			
+			ok( testExpando.type == "expando" , "Expected to find \"expando\" as value of type attribute");
+		
+		});
+		
+		test("Expando chain methods", function(){
+            
+            expect ( 3 );
+            
+            var testExpandoOriginal = testExpando;
+            
+            var chainShow = testExpando.show();
+            
+            var chainHide = testExpando.hide();
+
+            var chained = testExpando.show().hide();
+             
+            ok ( chainShow === testExpandoOriginal, "Expected to return original instance object on show() method call");
+            
+            ok ( chainHide === testExpandoOriginal, "Expected to return original instance object on hide() method call");
+
+            ok ( chained === testExpandoOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+            
+        });
+        
+        module('Expando layout and interaction');
+
+		var $trigger =  $(".testExpando").children(":first").children();
+		var $content = $trigger.parent().next();
+		
+		test('Check for the right visual classes', function() {
+			
+			hasClass('.testExpando', 'ch-expando');
+			hasClass($trigger, 'ch-expando-trigger');
+			hasClass($content, 'ch-expando-content');
+			
+		});
+		
+		test('Opens expando', function() {
+			
+			isNotVisible($content);
+			
+			$trigger.click();
+			
+			isVisible($content);
+			hasClass($trigger, 'ch-expando-on');
+			
+			$trigger.click();
+			
+		});
+		
+		test('Closes expando, clicking on component trigger', function() {
+			
+			$trigger.click();
+			$trigger.click();
+			
+			isNotVisible($content);
+			hasNotClass($trigger, 'ch-expando-on');
+			
+		});
+		
+		test('Click inside content', function() {
+			
+			$trigger.click();
+			$content.click();
+			
+			isVisible($content);
+			hasClass($trigger, 'ch-expando-on');
+			
+			$trigger.click();
+			
+		});
+
+	</script>
+
+</body>
+</html>
