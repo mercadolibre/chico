@@ -139,7 +139,7 @@
 	
 	<!--p><em>Pendiente de documentar: Inteligencia de posicionamiento en base al viewport.</p-->
 	
-	<p>Existen 2 maneras de utilizar el componente:</p>
+	<p>Existen 2 maneras de utilizar el componente, como objeto global o desde una instancia de componente:</p>
 	<code>
 		<pre name="code" class="js">
 		ui.positioner();				//  Simple sintaxis
@@ -163,8 +163,18 @@
     <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
 	<code>
 		<pre name="code" class="js">
-        $("#Foobar").positioner({
-        	element: $(".element"),
+        $("#Foobar").position({
+        	context: $(".context"),
+        	offset: "10 0",
+        	points: "cm cm"
+        });
+		</pre>
+	</code>	
+	<p>ó desde el objecto público:</p>
+	<code>
+		<pre name="code" class="js">
+        ui.positioner({
+        	element: $("#Foobar"),
         	context: $(".context"),
         	offset: "10 0",
         	points: "cm cm"

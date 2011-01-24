@@ -172,7 +172,20 @@
 				<h3>¿Cómo se usa?</h3>
 				
 	<p>El componente Watcher es la clase que define a todos los componentes de validación. Se asocia a uno o más controles de formularios y se encarga agrupar las validaciones por cada uno.</p>
-	<p>Existen varias interfaces que permiten la utilización de los Watchers. Se dividen en 4 grupos: <a href="../string">String</a>, <a href="../number">Number</a>, <a href="../required">Required</a> y <a href="../custom">Custom</a>. Cada uno de ellos define internamente un Watcher con configuraciones especiales de validación</p>
+	<p>Cada instancia de Watcher posee una referencia directa con el elemento &lt;form&gt; padre. Cada elemento de formulario debería estar relacionado con una instancia del componente <a href="../forms">Forms</a> de la familia <strong>Controllers</strong>. De esta manera logramos una referencia circular desde un elemento de formulario, la instancia de Watcher, el elemento &lt;form&gt; y su instancia de <a href="../forms">Forms</a>.</p>
+	<p>Existen varias interfaces que permiten la utilización de los Watchers. Se dividen en 3 grupos: <a href="../string">String</a>, <a href="../number">Number</a> y <a href="../required">Required</a>. Cada uno de ellos define internamente un Watcher con configuraciones especiales de validación.</p>
+	<p>Lista de interfaces disponibles:</p>
+	<ul>
+	   <li><a href="../required">$.<strong>required</strong>()</a></li>
+    	<li><a href="../string">$.<strong>string</strong>()</a></li>
+    	<li><a href="../string#email">$.email()</a></li>
+    	<li><a href="../string#url">$.url()</a></li>
+    	<li><a href="../string#maxLength">$.maxLength()</a></li>
+    	<li><a href="../string#minLength">$.minLength()</a></li>
+    	<li><a href="../number">$.<strong>Number</strong>()</a></li>
+    	<li><a href="../number#max">$.max()</a></li>
+    	<li><a href="../number#min">$.min()</a></li>
+    </ul>
 	
 
 			</div>
