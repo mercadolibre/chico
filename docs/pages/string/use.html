@@ -14,7 +14,7 @@
 <body>
 	
 	<h1>String</h1>
-	<p>El objecto String es una interface del objecto <a href="watchers.html" lang="en">Watchers</a> donde se pueden definir algunas validaciones preformateadas de cadenas de caracteres. Recibe como argumento un objeto de propiedades que definen los tipos de validaciones y algunos aspecto de su comportamiento como los <em lang="en">callbacks</em>.</p>
+	<p>El objecto String es una interface del objecto <a href="../watchers" lang="en">Watchers</a> donde se pueden definir algunas validaciones preformateadas de cadenas de caracteres. Recibe como argumento un objeto de propiedades que definen los tipos de validaciones y algunos aspecto de su comportamiento como los <em lang="en">callbacks</em>.</p>
 	<p>Ejemplo del objeto de configuración:</p>
 	<code>
 		<pre name="code" class="js">
@@ -46,7 +46,16 @@
         $("#Foobar").email().and().maxLength(20); // Same example
 		</pre>
 	</code>
-	<p>Cada vez que se instancia un componente de la familia <a href="watchers.html" lang="en">Watchers</a> éste retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
+	<div class="box">
+	<p><span class="ico attention" style="float:left;margin:0 2px 0 0"></span> Existe un caso no soportado por este componente. Cuando se realiza una query al <abbr title="Document Object Model">DOM</abbr> de múltiples resultados, por ejemplo:</p>
+	<code>
+		<pre name="code" class="js">
+        $(".foobar").email().and().maxLength(20);
+		</pre>
+	</code>
+	<p>La selección <strong>".foobar"</strong> es una clase que puede estar repetida, si esa query me devuelve mas de un resultado, el <a href="../factory">Factory</a> object me va a devolver una <em>Collección</em> de resultados, por ende el método <strong>.and()</strong> queda obsoleto. Este caso puede llegar a ser soportado en próximas versiones de Chico-UI.</p>
+	</div>
+	<p>Cada vez que se instancia un componente de la familia <a href="../watchers" lang="en">Watchers</a> éste retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
 	<code>
 		<pre name="code" class="js">
         var foo = $("#Foobar").email().and().maxLength(20); // Same example
@@ -68,6 +77,31 @@
             reset(),                          //  Reset the value
             validate(),                       //  Execute the validations
         }
+		</pre>
+	</code>	
+	<h3>Algunas interfaces disponibles</h3>
+    <p><a name="email">Email</a>: Esta interface configura automáticamente una validación de email.</p>
+	<code>
+		<pre name="code" class="js">
+        var foo = $("#Foobar").email("This must be a valid email.");
+		</pre>
+	</code>	
+    <p><a name="url">URL</a>: Esta interface configura automáticamente una validación de url.</p>
+	<code>
+		<pre name="code" class="js">
+        var foo = $("#Foobar").url("This must be a valid url.");
+		</pre>
+	</code>	
+    <p><a name="maxLength">maxLength</a>: Esta interface configura automáticamente una validación de maxLength.</p>
+	<code>
+		<pre name="code" class="js">
+        var foo = $("#Foobar").maxLength(20, "There's too many characters, try 20 as max.");
+		</pre>
+	</code>	
+    <p><a name="minLength">minLength</a>: Esta interface configura automáticamente una validación de minLength.</p>
+	<code>
+		<pre name="code" class="js">
+        var foo = $("#Foobar").minLength(10, "You miss some characters, try 10 as minimum.");
 		</pre>
 	</code>	
 </body>
