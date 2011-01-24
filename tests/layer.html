@@ -52,11 +52,12 @@
 		
 		var testLayerHover = $('.testLayerHover').layer({
 			content: '<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>',
-			callback: {
+			callbacks: {
 				show: function(){
 					start();					
 					exists('.ch-layer');						
-					isVisible('.ch-layer');
+				
+					$('.testLayerHover').mouseout();
 				}
 			}
 		});
@@ -117,13 +118,13 @@
             
             expect ( 3 );
             
-            var testLayerOriginal = testLayerHover;
+            var testLayerOriginal = testLayerClick;
             
-            var chainShow = testLayerHover.show();
+            var chainShow = testLayerClick.show();
             
-            var chainHide = testLayerHover.hide();
+            var chainHide = testLayerClick.hide();
 
-            var chained = testLayerHover.show().hide();
+            var chained = testLayerClick.show().hide();
              
             ok ( chainShow === testLayerOriginal, "Expected to return original instance object on show() method call");
             
@@ -198,9 +199,6 @@
 			
 			$('.testLayerHover').mouseover();
 			stop();
-
-			$('.testLayerHover').mouseout();			
-			notExists('.ch-layer');
 
 		});
 		
