@@ -22,7 +22,7 @@
 </head>
 <body>
 	
-	<h4>Modal ejecutado en el click de un botón cargando contenido por parametro: Texto Plano.</h4>	
+	<h4>Modal cargando contenido por parametro: Texto Plano, con un alto y ancho fijo.</h4>	
 	
 	<form action="../../../examples/ajax.html">
 		<input type="submit" class="btn secondary" id="modal_param3" value="Ejecutar Modal">
@@ -31,7 +31,9 @@
 	<script>
 		$("#modal_param3").modal(
 			{
-				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+				width:350,
+				height:300
 			}
 		);
 	</script>
