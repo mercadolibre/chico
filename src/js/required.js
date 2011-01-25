@@ -16,7 +16,7 @@ ui.required = function(conf){
     // Define the conditions of this interface
 	// Conditions absorvs that.isEmpty in checkConditions for compatibility
     conf.conditions = {
-        required: { func:'!that.isEmpty'}
+        required: { func:'that.isEmpty' }
     }
     
 	// Messages
