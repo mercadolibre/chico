@@ -31,6 +31,10 @@
 		<h1>Chico-UI Showroom ;)</h1>
 		<p><a href="php/builder.php">Build version</a>. <a href="docs/pages/build/">Build docs</a>. <a href="tests/">Test Cases</a>. <a href="http://jira.ml.com/secure/CreateIssue.jspa?pid=10564&issuetype=1" target="_blank">Reportá bugs</a>. <a href="http://wiki.ml.com/display/ux/Chico-UI" target="_blank">Chico-Wiki</a>. <a href="mailto:chico@mercadolibre.com">Contacto</a>.</p>
 	</div>
+	<div class="box">
+	   <h3>Documentación</h3>
+	   <p>Está disponible la <a href="docs">documentación</a> en el cloud para consumo interno.</p>
+	</div>
 		<div class="article demo">
 			<h1>Dropdown</h1>
 			<div class="section">
@@ -750,6 +754,7 @@
 		// Submit form
 		uiForm.submit();
 		
+        $.modal("<h1>Modal</h1>").show();
 		
 
 		// Chat
@@ -758,8 +763,8 @@
 		$('#chat').chat({
             ruleGroupName: 'APP_PENDING_PAYMENTS',
             style: "inline",
-            template: 2,
-            service: "http://www.mercadolistage.com.ar/org-img/jsapi/chat/chatRBIScript.js"
+            template: "2",
+            environment: "1"
         });
 
 	</script>

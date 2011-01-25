@@ -19,7 +19,7 @@
   */
 var ui = window.ui = {
 
-    version: "0.5.0",
+    version: "0.5.1",
 
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer,chat,expando",
 
@@ -1406,8 +1406,8 @@ ui.layer = function(conf) {
     var hideTime = conf.hideTime || 300;
 
 	var st, ht; // showTimer and hideTimer
-	var showTimer = function(event){ st = setTimeout(function(event){ show(event) }, showTime) };
-	var hideTimer = function(event){ ht = setTimeout(function(event){ hide(event) }, hideTime) };
+	var showTimer = function(event){ st = setTimeout(function(){ show($.Event()) }, showTime) };
+	var hideTimer = function(event){ ht = setTimeout(function(){ hide($.Event()) }, hideTime) };
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 	// Global configuration
@@ -1423,7 +1423,7 @@ ui.layer = function(conf) {
     conf.publish = that.publish;
 
     var show = function(event) {
-
+    			
 		that.show(event, conf);	
 
         if (conf.event === "click") {
@@ -2006,7 +2006,7 @@ ui.required = function(conf){
     // Define the conditions of this interface
 	// Conditions absorvs that.isEmpty in checkConditions for compatibility
     conf.conditions = {
-        required: { func:'!that.isEmpty'}
+        required: { func:'that.isEmpty' }
     }
     
 	// Messages
@@ -2421,7 +2421,7 @@ ui.viewer = function(conf){
  *      ruleGroupName: "",
  *      style: ["block"],
  *      template: [1],
- *      service: [http://www.mercadolibre.com.ar/org-img/jsapi/chat/chatRBIScript.js]
+ *      environment: "1"|"2"|"3"
  *  });
  */
 
@@ -2429,19 +2429,26 @@ ui.chat = function(conf) {
     
    	var that = ui.object(); // Inheritance
 
+    var getDomain = function(n) {
+        switch (n) {
+            case "1": return "mercadolidesa.com.ar"; break;
+            case "2": return "mercadolistage.com.ar"; break;
+            case "3": return "mercadolibre.com.ar"; break;
+        }
+    }
+
     if (conf.msg) {
         conf.ruleGroupName = conf.msg;
     }
 
     that.load = function() {
-        console.log(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1");
-        loadChat(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1"); 
+        loadChatGZ(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1",conf.environment||"3"); 
     }
 
    	ui.get({
    	    method: "component",
    	    name: "chat",
-   	    script: conf.service||"http://www.mercadolibre.com.ar/org-img/jsapi/chat/chatRBIScript.js",
+   	    script: "http://www."+getDomain(conf.environment)+"/org-img/jsapi/chat/chatRBIScript.js",
    	    callback: function() {
        	    that.load(); 
         }

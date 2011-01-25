@@ -94,9 +94,19 @@
 			<div class="box use">
 				<h3>¿Cómo se usa?</h3>
 				
-    <p><span class="ico attention" style="float:left;margin:0 2px 0 0"></span> Nota: Todos los archivos mencionados en las instrucciones se encuentran disponibles en el código fuente del proyecto.<br />
-       Podés bajarlo desde la <a href="../">página de inicio</a>.</p>
-    <h3>Paso 1: <strong>Browser sniffing</strong></h3>
+    <h3>Paso 1: <strong>Minimized sources</strong></h3>
+    <p>Podés encontrar dentro de la carpeta <strong>/build/</strong> en los <a href="http://github.com/mercadolibre/chico/zipball/master">archivos fuentes</a> del proyecto o desde aquí: Version de <strong>desarrollo</strong> (<a href="../../build/chico-0.5.1.js">JavaScript</a>, <a href="../../build/chico-0.5.0.css">StyleSheet</a>) ó versión de <strong>producción</strong> (<a href="../../build/chico-min-0.5.0.js">JavaScript</a>, <a href="../../build/chico-min-0.5.1.css">StyleSheet</a>). Toma la versión que necesites y ubícala en los archivos fuentes de tu proyecto.</p>
+    <p>Carpeta <strong>/build/</strong> en los archivos fuentes de la librería:</p>
+	<code>
+		<pre name="code" class="xml">
+		 /build/
+		      chico-0.x.x.js          // dev
+		      chico-0.x.x.css
+		      chico-min-0.x.x.js      // prod
+		      chico-min-0.x.x.css
+		</pre>
+	</code>
+    <h3>Paso 2: <strong>Olfateando el navegador</strong></h3>
     <p>Para lograr crossbrowsing visual en la capa de estilos <abbr title="Cascade Style Sheet">CSS</abbr> se encuentran pre-definidos los arreglos necesarios para errores comunes. Es necesario agregar un atributo <em>class</em> al elemento <em>html</em>, para lograrlo utilizamos los comentarios condicionales para <abbr tile="Internet Explorer">IE</abbr>:
 	<code>
 		<pre name="code" class="xml">
@@ -111,7 +121,7 @@
 ...
 		</pre>
 	</code>
-    <h3>Paso 2: <strong>Dependencias</strong></h3>
+    <h3>Paso 3: <strong>Dependencias</strong></h3>
     <p>Gran parte de la funcionalidad del framework esta montada sobre la librería de <a href="http://www.jquery.com">jQuery</a>, por eso es necesario pre-cargar esta herramientas antes:</p>
 	<code>
 		<pre name="code" class="xml">
@@ -131,8 +141,8 @@
 ...
 		</pre>
 	</code>
-	<h3>Paso 3: <strong>Autoinstalación</strong></h3>
-	<p>Chico-UI autoinstala los componentes que tiene pre-seteados en el espacio <em>ui.components</em>, así que solo resta agregar los archivos fuentes:</p>
+	<h3>Paso 4: <strong>Autoinstalación</strong></h3>
+	<p>Chico-UI autoinstala los componentes que tiene pre-seteados en el espacio <em>ui.components</em>, así que solo resta agregar los archivos fuentes al documento:</p>
 	<code>
 		<pre name="code" class="xml">
 ...
