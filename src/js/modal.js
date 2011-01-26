@@ -15,7 +15,7 @@ ui.modal = function(conf){
 	conf.position = {
 		fixed:true
 	};
-	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : false ; //Default	
+	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : undefined ; //Default	
 
 /**
  *  Inheritance
