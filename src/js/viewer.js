@@ -59,30 +59,30 @@ ui.viewer = function(conf){
 	var showcase = {};
 	showcase.wrapper = $("<div>").addClass("ch-viewer-display");
 	showcase.display = $(conf.element).children(":first");
-	$viewer.append( showcase.wrapper.append( showcase.display ).append("<div class=\"ch-lens\">") );
+	$viewer.append( showcase.wrapper.append( showcase.display ) );
+	$viewer.append("<div class=\"ch-lens\">");
 	
 	showcase.children = showcase.display.find("a");
 	showcase.itemWidth = $(showcase.children[0]).parent().outerWidth();
 	
 	showcase.lens = $viewer.find(".ch-lens") // Get magnifying glass
 	ui.positioner({
-        element: $(showcase.lens),
-        context: $(".ch-viewer li"),
-        offset: "-20px 0"
+        element: showcase.lens,
+        context: showcase.wrapper
 	});	
 	showcase.lens.bind("click", function(event){
 		viewerModal.modal.show();
 	});
+
+	// Show magnifying glass
+	showcase.wrapper.bind("mouseover", function(){
+		showcase.lens.fadeIn(400);
+	});
 	
-	showcase.wrapper
-		// Show magnifying glass
-		.bind("mouseover", function(){
-			showcase.lens.fadeIn(400);
-		})
-		// Hide magnifying glass
-		.bind("mouseleave", function(){
-			showcase.lens.fadeOut(400);
-		});
+	// Hide magnifying glass
+	$viewer.bind("mouseleave", function(){
+		showcase.lens.fadeOut(400);
+	});
 	
 	// Set content visual config
 	var extraWidth = (ui.utils.html.hasClass("ie6")) ? showcase.itemWidth : 0;
@@ -107,7 +107,7 @@ ui.viewer = function(conf){
 	
 	// Create carousel structure
 	$viewer.append( thumbnails.wrapper.append( $viewer.find("ul").clone().addClass("carousel") ) );
-		 
+	 
 	thumbnails.children = thumbnails.wrapper.find("a");
 	
 	// Thumbnails behavior
@@ -123,7 +123,11 @@ ui.viewer = function(conf){
 	});
 	// Inits carousel
 	that.children[0] = thumbnails.carousel = thumbnails.wrapper.carousel();
-	
+		
+	// Hide magnifying glass
+	thumbnails.wrapper.bind("mouseenter", function(){
+		showcase.lens.fadeOut(400);
+	});
 	
 	/**
 	 * 	Methods

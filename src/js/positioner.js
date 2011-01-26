@@ -48,17 +48,12 @@ ui.positioner = function( o ) {
 	var offset_top = parseInt(splittedOffset[1]);
 	
     // Get viewport with your configuration - Crossbrowser
-	var getViewport = function() {
-    	var viewport;
-    	var width;
- 		var height;
- 		var left;
- 		var top;
- 		var pageX;
- 		var pageY;
- 				
-	 	// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
-		if (typeof window.innerWidth != "undefined") {
+    //Conditional Advance Loading method
+	var getViewport = (typeof window.innerWidth != "undefined") ?
+		// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight 	
+		function getViewport() {
+			var viewport, width, height, left, top, pageX, pageY;							
+			
 			viewport = window;
 			width = viewport.innerWidth;
 			height = viewport.innerHeight;
@@ -69,10 +64,23 @@ ui.positioner = function( o ) {
 			top = 0 + offset_top + pageY;
 			bottom = height + pageY;
 			right = width + pageX;
-		
+			
+			// Return viewport object
+			return {
+				element: viewport,			
+				left: 0 + offset_left + pageX,
+				top: 0 + offset_top + pageY,
+				bottom: height + pageY,
+				right: width + pageX,
+				width: width,
+				height: height
+			}
+		}:		
 		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
 		// older versions of IE - viewport = document.getElementsByTagName('body')[0];
-		} else if (typeof document.documentElement != "undefined" && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
+		function getViewport(){
+			var viewport, width, height, left, top, pageX, pageY;
+			
 			viewport = document.documentElement;
 			width = viewport.clientWidth;
 			height = viewport.clientHeight;
@@ -82,20 +90,20 @@ ui.positioner = function( o ) {
 			left = 0 + offset_left + pageX;
 			top = 0 + offset_top + pageY;
 			bottom = height + pageY;
-			right = width + pageX; 
-		}
+			right = width + pageX;
+			
+			// Return viewport object
+			return {
+				element: viewport,			
+				left: 0 + offset_left + pageX,
+				top: 0 + offset_top + pageY,
+				bottom: height + pageY,
+				right: width + pageX,
+				width: width,
+				height: height
+			}
+		};
 
-		// Return viewport object
-		return {
-			element: viewport,			
-			left: left,
-			top: top,
-			bottom: bottom,
-			right: right,
-			width: width,
-			height: height
-		}
-    };
  	
 	// Calculate css left and top to element on context
 	var getPosition = function(unitPoints) {		     
@@ -140,18 +148,28 @@ ui.positioner = function( o ) {
 		// Default styles
         var styles = getPosition(unitPoints);
         	styles.direction = classReferences[points];
-        // Check viewport limits
-		//var viewport = getViewport();
-		
+
+        // Check viewport limits	
 		// Down to top
 		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
-
-			// New styles
+			
+			//store old styles
+			stylesDown = styles;
+			
+			// New styles			 
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
-			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)			
+			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+			
+			// Top to Down - Default again 
+			if(styles.top < viewport.top){
+				unitPoints.my_y = "t";
+				unitPoints.at_y = "b";
+				styles = stylesDown;
+				styles.direction = "down";
+			};
 		};
 		
 		// Left to right
@@ -194,10 +212,11 @@ ui.positioner = function( o ) {
 
 	};	
 
-	// Get context
-	var getContext = function(){
-		if (o.context) {
-		    var contextOffset = o.context.offset();
+	// Get context	
+	//Conditional Advance Loading method
+	var getContext = (o.context) ?		
+		function getContext(){
+			var contextOffset = o.context.offset();
 		    context = {
 		    	element: o.context,
 				top: contextOffset.top + offset_top,
@@ -205,24 +224,37 @@ ui.positioner = function( o ) {
 				width: o.context.outerWidth(),
 				height: o.context.outerHeight()
 		    };
-		// Viewport as context
-		} else {
-			context = viewport;
+		    
+		    return context;
+		}:
+		function getContext(){
+			return viewport;
 		};
-		
-		return context;
-	};
-	
+
+
 	// Set element position on resize
     var initPosition = function(){  	
 	    viewport = getViewport();
 	    context = getContext();
 	    setPosition();
     };
-	
+
 	// Init
 	initPosition();
-	ui.utils.window.bind("resize scroll", initPosition);
-   	
-   	return $(element);
+	
+	// Scroll and resize events
+	//tested on IE = Magic, no lag!! 
+	var scrolled = false;	
+	ui.utils.window.bind("resize scroll", function() {
+		scrolled = true;		
+	});
+	setInterval(function() {
+	    if( !scrolled ) return;
+		scrolled = false;
+		initPosition();
+	    
+	}, 250);
+	
+
+	return $(element);
 };

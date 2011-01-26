@@ -1,10 +1,17 @@
 .ch-viewer{
 	border:1px solid #CCCCCC;	
-	overflow:hidden;
-	position:relative;
 	width:340px;
 	height:380px;
+	overflow:hidden;
 }
+
+.ch-viewer-display{
+	position:relative;
+	overflow:hidden;
+	width:340px;
+	height:320px;
+}
+
 .ch-lens{
     height:41px;
     position:absolute;
@@ -51,7 +58,7 @@
 }
 
 .ch-viewer-triggers{
-	margin-top:330px;
+	margin-top:10px;
 }
 
 .ch-viewer .ch-viewer-triggers li,
