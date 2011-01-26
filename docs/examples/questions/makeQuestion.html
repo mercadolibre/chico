@@ -1,0 +1,28 @@
+<div class="makeQuestion">
+	<h2 class="typo">Hacer una pregunta al vendedor</h2>
+	<ul>
+		<li class="first">Evita ser sancionado:
+		</li><li><strong>No ingreses datos de contacto.</strong> Recibirás los datos del vendedor al ofertar. </li>
+		<li><strong>No uses lenguaje vulgar.</strong> </li>
+		<li><strong>No ofertes ni preguntes por otro artículo. </strong></li>
+	</ul>
+	<form action="http://www.mercadolibre.com" method="post" id="form_quest">		
+		<fieldset>
+			<input type="hidden" name="itemId" id="itemId" value=""/>
+			<input type="hidden" name="enLaMira" id="enLaMira" value=""/>
+			<ul>
+				<li class="fieldBox">
+					<label class="required">
+						<textarea name="questionText" id="questionText" cols="60"></textarea>
+						<p class="help"><small>Quedan <span id="display">1000</span> caracteres disponibles.</small></p>
+					</label>
+				</li>
+			</ul>
+		</fieldset>
+		<!--<p class="follow"><label><input type="checkbox" value="Y" id="enLaMira" name="enLaMira">Seguir esta publicación desde Mi Cuenta.</label></p>-->
+		<p class="actions"><input type="submit" value="Preguntar" name="saveQuest" id="saveQuest" class="btn secondary saveQuest"> <a href="#" class="closeModal">Cancelar</a></p>			
+	</form>
+</div>
+
+
+
