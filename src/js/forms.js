@@ -101,16 +101,18 @@ ui.forms = function(conf){
 		return conf.publish; // Return publish object
 	};
 
-
 	var submit = function(event){
 
         that.callbacks(conf, 'beforeSubmit');
 
 		that.prevent(event);
+
 		validate(event); // Validate start
-		if (status){ // Status OK	
-			if(conf.callbacks && conf.callbacks.submit) conf.callbacks.submit();
-			conf.element.submit();
+		
+		if ( status ){ // Status OK
+			if ( that.callbacks(conf, 'submit') === false ) {
+				conf.element.submit();
+			}
 		};		
 
         that.callbacks(conf, 'afterSubmit');
@@ -143,10 +145,11 @@ ui.forms = function(conf){
         uid: conf.id,
         element: conf.element,
         type: "forms",
+		status: status,
         children: that.children,
 		validate: function(event){ return validate(event) },
-		checkStatus: function(event){ return checkStatus(event) },
 		submit: function(event){ return submit(event) },
+		checkStatus: function() { return checkStatus() },
 		clear: function(event){ return clear(event) }
     }
 

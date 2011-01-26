@@ -5,7 +5,7 @@
  */
 /*
 
-callbacks:{
+that.callbacks:{
 	show:,
 	hide:,
 	contentLoad:,

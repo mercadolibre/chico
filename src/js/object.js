@@ -62,13 +62,14 @@ ui.object = function(){
 				
 				var content = conf.content || conf.msg;
 				return ($(content).length > 0) ? $(content).clone().show() : content;
-				
 			};
 
 		},
-		
+
 		callbacks: function(conf, when){
-			if(conf.callbacks && conf.callbacks[when]) conf.callbacks[when](conf.publish);
+			if(conf.callbacks && conf.callbacks[when]) {
+				return conf.callbacks[when]();
+			}
 		},
         
         publish: { 
