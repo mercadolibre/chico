@@ -148,18 +148,28 @@ ui.positioner = function( o ) {
 		// Default styles
         var styles = getPosition(unitPoints);
         	styles.direction = classReferences[points];
-        // Check viewport limits
-		//var viewport = getViewport();
-		
+
+        // Check viewport limits	
 		// Down to top
 		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
-
-			// New styles
+			
+			//store old styles
+			stylesDown = styles;
+			
+			// New styles			 
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
-			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)			
+			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+			
+			// Top to Down - Default again 
+			if(styles.top < viewport.top){
+				unitPoints.my_y = "t";
+				unitPoints.at_y = "b";
+				styles = stylesDown;
+				styles.direction = "down";
+			};
 		};
 		
 		// Left to right
