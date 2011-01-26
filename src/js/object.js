@@ -5,6 +5,8 @@
 
 ui.object = function(){
 	
+	//constructor
+	
 	var that = this;
 	
 	return {

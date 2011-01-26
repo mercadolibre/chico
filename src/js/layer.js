@@ -6,17 +6,11 @@
  */
 
 ui.layer = function(conf) {
+
     
-	var that = ui.floats(); // Inheritance
-
-    var showTime = conf.showTime || 300;
-    var hideTime = conf.hideTime || 300;
-
-	var st, ht; // showTimer and hideTimer
-	var showTimer = function(event){ st = setTimeout(function(){ show($.Event()) }, showTime) };
-	var hideTimer = function(event){ ht = setTimeout(function(){ hide($.Event()) }, hideTime) };
-	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
-
+/**
+ *  Constructor
+ */
 	// Global configuration
 	conf.$trigger = $(conf.element);
 	conf.cone = true;
@@ -27,7 +21,22 @@ ui.layer = function(conf) {
         offset: conf.offset || "0 10",
 		points: conf.points || "lt lb"
     }
-    conf.publish = that.publish;
+ 
+/**
+ *  Inheritance
+ */
+	var that = ui.floats(conf);
+
+/**
+ *  Private Members
+ */
+    var showTime = conf.showTime || 300;
+    var hideTime = conf.hideTime || 300;
+
+	var st, ht; // showTimer and hideTimer
+	var showTimer = function(event){ st = setTimeout(function(){ show(event) }, showTime) };
+	var hideTimer = function(event){ ht = setTimeout(function(){ hide(event) }, hideTime) };
+	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
     var show = function(event) {
     			
@@ -42,15 +51,19 @@ ui.layer = function(conf) {
                 that.hide(event, conf);
             });
         }
-        
-        return conf.publish; // Returns publish object
     }
 
     var hide = function(event) {
         that.hide(event, conf);
-        return conf.publish; // Returns publish object
     }
 
+/**
+ *  Protected Members
+ */ 
+ 
+/**
+ *  Default event delegation
+ */	
 	// Click
 	if(conf.event === 'click') {
 		// Local configuration
@@ -70,18 +83,37 @@ ui.layer = function(conf) {
 			.bind('mouseout', hideTimer);
 	};
 
-    // Create the publish object to be returned
-    conf.publish.uid = conf.id;
-    conf.publish.element = conf.element;
-    conf.publish.type = "layer";
-    conf.publish.content = (conf.content) ? conf.content : conf.ajax;
-    conf.publish.show = function(){ return show($.Event()) };
-    conf.publish.hide = function(){ return hide($.Event()) };
-    conf.publish.position = function(o){ return that.position(o, conf) };
-
     // Fix: change layout problem
     ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
 
-	return conf.publish;
+/**
+ *  Expose propierties and methods
+ */	
+	that.publish = {
+	
+	/**
+	 *  @ Public Properties
+	 */
+    	uid: conf.id,
+		element: conf.element,
+		type: "layer",
+		content: (conf.content) ? conf.content : conf.ajax,
+	/**
+	 *  @ Public Methods
+	 */
+		show: function(){ 
+			showTimer();
+			return that.publish; // Returns publish object
+		},
+		hide: function(){ 
+			hideTimer();
+			return that.publish; // Returns publish object
+		},
+		position: function(o){ 
+			return that.position(o,conf) || that.publish;
+		}
+	}	 
+
+	return that.publish;
 
 };

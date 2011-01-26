@@ -1,46 +1,74 @@
 /**
  *	Helper
- *	@author
- *	@Contructor
- *	@return An interface object
  */
 
-ui.helper = function(conf){
-	var that = ui.floats(); // Inheritance
+ui.helper = function(parent){
 
-	// Global configuration
-	var _conf = {};
-	_conf.name = "helper";
-	_conf.$trigger = $(conf.element);
-	_conf.cone = true;
-	_conf.classes = "helper" + conf.id;
-	_conf.visible = false;
-	_conf.position = {};
-	_conf.position.context = conf.reference;
-	_conf.position.offset = "15 0";
-	_conf.position.points = "lt rt";
+/**
+ *  Constructor
+ */
+var conf = {};
+	conf.name = "helper";
+	conf.$trigger = $(parent.element);
+	conf.cone = true;
+	conf.classes = "helper" + parent.id;
+	conf.visible = false;
+	conf.position = {};
+	conf.position.context = parent.reference;
+	conf.position.offset = "15 0";
+	conf.position.points = "lt rt";
 
+/**
+ *  Inheritance
+ */
+
+	var that = ui.floats(conf); // Inheritance
+
+/**
+ *  Private Members
+ */
 	var hide = function(){
-		$('.helper' + conf.id).remove();
-		_conf.visible = false;
+		$('.helper' + parent.id).remove();
+		conf.visible = false;
 		that.callbacks(conf, 'hide');
 	};
 	
-	var show = function(text){
-		_conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';		
-		that.show($.Event(), _conf);
+	var show = function(txt){
+		conf.content = '<p><span class="ico error">Error: </span>' + txt + '</p>';		
+		that.show($.Event(), conf);
 	};
 
+/**
+ *  Protected Members
+ */ 
+ 
+/**
+ *  Default event delegation
+ */
     ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ 
-            that.position("refresh", _conf) 
+            that.position("refresh", conf) 
         });
 
-	return { 
-        show: function(text){ show(text) }, 
-        hide: hide,
-        position: function(o){ 
-            return that.position(o, _conf) 
-        }
-    };
-
+/**
+ *  Expose propierties and methods
+ */	
+	that.publish = {
+	
+	/**
+	 *  @ Public Properties
+	 */
+    	uid: conf.id,
+		element: conf.element,
+		type: "helper",
+	/**
+	 *  @ Public Methods
+	 */
+		show: function(txt) { show(txt); },
+		hide: hide,
+		position: function(o) {
+			return that.position(o,conf) || that.publish;
+		}
+	 };
+	 
+	 return that.publish;
 };
