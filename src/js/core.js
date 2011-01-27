@@ -41,13 +41,7 @@ var ui = window.ui = {
  */	
     events: {
         CHANGE_LAYOUT: "changeLayout"
-    },
-/**
- *	@static preload.
- */	
-	
- 
-    
+    }    
 }
 
 /**
