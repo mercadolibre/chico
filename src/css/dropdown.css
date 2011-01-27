@@ -170,8 +170,7 @@
 }
 .ie6 .ch-dropdown.ch-primary .ch-dropdown-on,
 .ie6 .ch-dropdown.ch-primary .ch-dropdown-on:hover {
-	background-image: url('../src/assets/base.png');
-	background-position: 0 -485px;
+	background: url("../src/assets/base.png") 0 -485px;
 }
 
 .ie6 .ch-dropdown,
