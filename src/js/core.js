@@ -42,13 +42,16 @@ var ui = window.ui = {
     events: {
         CHANGE_LAYOUT: "changeLayout"
     }    
-}
+};
+
+
+
 
 /**
  *	Pre-Load function
  */	
 
-ui.preload = function(arr) {
+ui.preload = function(arr) {
 
 	if (typeof arr === "string") {
 		arr = (arr.indexOf(",") > 0) ? arr.split(",") : [arr] ;
@@ -63,7 +66,7 @@ ui.preload = function(arr) {
 			h.appendChild(o);
 			h.removeChild(o); 
 	}       
-}
+};
 
 /**
 *	Factory
