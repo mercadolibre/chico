@@ -204,7 +204,7 @@ ui.watcher = function(conf) {
         // Validate each type of validation
 		for (var type in that.validations) {
 			// Status error (stop the flow)
-
+			
 			var condition = that.conditions[type];
             var value = $(conf.element).val();
             var gotError = true;
