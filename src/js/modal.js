@@ -10,7 +10,7 @@ ui.modal = function(conf){
  *  Constructor
  */
 	conf.$trigger = $(conf.element);
-	conf.closeButton = true;
+	conf.closeButton = (conf.name=="modal") ? true : false ;
 	conf.classes = 'box';
 	conf.position = {
 		fixed:true
@@ -27,12 +27,29 @@ ui.modal = function(conf){
  *  Private Members
  */
 
+	// Dimmer 2.0
+	// Dimmer object
+	var $dimmer = $('<div>')
+			.addClass('ch-dimmer')
+			.css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++})
+			.hide();
+
+	// Dimmer Controller
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
-			$('<div>').bind('click', hide).addClass('ch-dimmer').css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++}).hide().appendTo('body').fadeIn();
+			$dimmer
+				.appendTo('body')
+				.fadeIn();
+
+			if (conf.name=="modal") {
+				$dimmer.one("click",hide);
+			}
+			
 		},
 		off: function() {
-			$('div.ch-dimmer').fadeOut('normal', function(){ $(this).remove(); });
+			$dimmer.fadeOut('normal', function(){ 
+				$dimmer.detach(); 
+			});
 		}
 	};
 
@@ -71,7 +88,7 @@ ui.modal = function(conf){
 	 */
     	uid: conf.id,
 		element: conf.element,
-		type: "modal",
+		type: conf.name,
 		content: (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax ),
 	/**
 	 *  @ Public Methods
@@ -91,3 +108,29 @@ ui.modal = function(conf){
 	
 	return that.publish;
 };
+
+
+
+/**
+ *	@Interface Transition
+ *	@return An interface object
+ 
+
+var t = $("div").transition("Aguarde mientras transiosiono");
+	t.hide();
+ 
+ */
+ 
+ui.transition = function(conf) {
+    
+    conf = conf || {};
+	
+	conf.closeButton = false;
+	conf.msg = conf.msg || "Espere por favor...";
+	conf.content = "<div class=\"loading\"></div><p>"+conf.msg+"</p>";
+	
+    return ui.modal(conf);
+    
+}
+
+ui.factory({ component: 'transition' });

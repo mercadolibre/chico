@@ -47,7 +47,7 @@ ui.object = function(){
 				conf.$htmlContent.html('<div class="loading"></div>');
 				return ui.get({method:"content", conf:conf});
 				
-			}else if( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
+			} else if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
 				// Set url
 				conf.ajaxUrl = conf.ajax || conf.msg;
 
@@ -58,10 +58,9 @@ ui.object = function(){
 				conf.$htmlContent.html('<div class="loading"></div>');
 				return ui.get({method:"content", conf:conf});
 				
-			}else{
-				
-				var content = conf.content || conf.msg;
-				return ($(content).length > 0) ? $(content).clone().show() : content;
+			} else {
+				var content = conf.content || conf.msg;				
+				return ($(content).length > 0) ? $(content).clone().show() : content ;
 			};
 
 		},
