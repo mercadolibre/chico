@@ -55,7 +55,7 @@ ui.tooltip = function(conf) {
 		.bind('mouseleave', hide);
 
     // Fix: change layout problem
-    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
+    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
     
 /**
  *  Expose propierties and methods

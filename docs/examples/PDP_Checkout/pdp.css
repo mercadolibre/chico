@@ -1,0 +1,444 @@
+body {
+	margin-top: 50px;
+
+}
+.header, .footer {
+	margin: 20px 0;
+}
+.mainFooter{clear:both;margin-top:20px;}.mainFooter li{display:inline;}.mainFooter li.lastItem{border:none;float:right;}.mainFooter p{line-height:15px;font-size:11px;}
+
+/*--
+HEADER
+----------------------------*/
+.header {
+    overflow: hidden;
+    margin-bottom:20px;
+}
+
+p.isoLogo {
+    float: left;
+    position: relative;
+    top: 20px;
+    width: 190px;
+}
+
+.barAllMenu {
+    display: block;
+    overflow: hidden;
+}
+
+p.isoLogo a {
+    background: url("http://static.mlstatic.com/org-img/search2008/images/sp_log_bot.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 45px;
+    width: 170px;
+}
+p.isoLogo a span {
+    display: none;
+}
+a.homeAcces {
+    float: left;
+}
+ul.accesBar {
+    float: right;
+    margin: 0 0 5px;
+    padding: 0;
+}
+.menuBar {
+    background: url("http://static.mlstatic.com/org-img/search2008/images/bg_buscador.gif") repeat-x scroll 0 0 transparent;
+    clear: both;
+    margin: 0;
+    padding: 5px 5px 5px 8px;
+    width: auto;
+}
+
+ul.accesBar li.lastAcces {
+    border-right: medium none;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+ul.accesBar li {
+    border-right: 1px solid #999999;
+    float: right;
+    line-height: 13px;
+    margin: 5px 10px 0 0;
+    padding: 0 10px 0 0;
+}
+
+input.buscador {
+    margin-right: 5px;
+    width: 50%;
+}
+
+/*--
+LAYOUT
+----------------------------*/
+.product{
+	border-width:1px 0 0 0;
+	min-height: 400px; height: auto!important; height: 400px;
+	position: relative;
+}
+	.product .section {
+		padding: 0 0 0 350px;
+		position: relative;
+		z-index: 1;
+	}
+.none {
+	display: none;
+}
+
+/*--
+NAV
+----------------------------*/
+.nav {
+	height: 20px;
+	width: 100%;
+	margin: 0 0 15px;
+}
+	.nav ul li {
+		border-left: 1px solid #ccc;
+		display: inline;
+		float: left;
+		padding: 0 5px;
+	}
+	.nav ul li.first {
+		border: none;
+	}
+	
+/*--
+PRODUCT HEADER
+----------------------------*/
+.product h1{
+	display: inline-block;
+    font-size: 22px;
+    margin: 0 0 15px;
+    padding-left: 30px;
+}
+	
+	
+/*--
+PRODUCT HEADER
+----------------------------*/
+dl.itemData {
+	display:block;
+	padding: 10px 250px 0 0;
+}
+	dl.itemData dt {
+		float:left;
+		line-height:15px;
+	}
+	dl.itemData dd {
+		margin-bottom:5px;
+		margin-left:75px;
+	}
+		dl.itemData dd.total{
+			overflow:hidden;
+		}
+		dl.itemData  dd.no-title {
+			margin-left: 0;
+		}
+		dl.itemData dd p{
+			display:inline;
+			float:left;
+			line-height:14px;
+			margin-top:3px;
+		}
+			dl.itemData dd p a{
+				font-size:11px;
+			}
+		dl.itemData dd ul{
+			display:inline;
+			float:left;
+			margin: 0px;
+		}
+		dl.itemData sup{
+			padding-left:2px;
+			font-size:9px;
+			vertical-align:top;
+		}
+		dd.total ul li {
+			float: left; 
+			margin-top: 3px;
+		}
+	dl.sell-condition {
+		font-weight:bolder; 
+		padding:5px 250px 0 0;
+		height: 40px;
+		overflow: hidden;
+	}	
+
+	
+/*--
+HEADER OPINION
+----------------------------*/	
+.total-opinion {
+	margin: 0 0 10px;
+	padding-left: 350px;
+}
+
+/*--
+SIDEBAR
+----------------------------*/
+.product .sidebar {
+	border-left: 1px dotted #CCCCCC;
+	padding-left: 20px;
+	position: absolute;
+	top: 10px; right: 0;
+	width: 220px;
+}
+	.product .sidebar .article {
+		padding: 10px;
+	}	
+		.product .sidebar .bpp {
+			background: url(img/bpp.png) no-repeat 5px 15px;
+			border-top: 1px dotted #ccc;
+			padding-left: 45px;
+		}
+		
+/*--
+BT COMPRAR
+----------------------------*/
+.buy {
+	margin: 20px 0 40px;
+	padding: 0 250px 0 0;
+}
+	.buy a {
+		font-size: 14px;
+		margin-left: 5px;
+	}
+
+/*--
+VENDEDORES
+----------------------------*/
+.offers {
+	border-top: 1px solid #ccc;
+	padding: 10px 0 0;
+}
+	.offers .medal {
+		display: inline-block;
+		margin: 0;
+		text-indent: -9999px;
+	}
+	.offers ol li {
+		border-bottom: 1px dotted #ccc;
+		position: relative;
+		padding: 10px;
+	}
+	.offers dt {
+		display: none;
+	}
+	.offers .price {
+		position: absolute;
+		right: 10px;top:10px;
+	}
+	.offers .reputation, .offers .location {
+		display: inline;
+	}
+	.offers .location {
+		border-right: 1px solid #ccc;
+		margin-right: 5px;
+		padding-right: 10px;
+	}
+	.offers .article div {
+		padding: 5px 0 0;
+		text-align: right;
+	}
+
+
+	
+/*--
+MEDIOS DE PAGO
+----------------------------*/		
+.productStatus{color:#999999;}
+.payMethod {background:transparent url(http://static.mlstatic.com/org-img/GMP/logos_mla.gif) 0 0 no-repeat; float:left;  margin:3px 0px 0px 5px;text-indent: -31000px; }
+/*Medios de Pago*/
+.visa {background-position: 0 0px; height:16px;width:26px; }
+.master {background-position: -27px 0; height:16px;width:26px;  }
+.amex {background-position: -53px 0;height:16px; width:25px; }
+.argencard {background-position: -79px 0; height:16px; width:17px; }
+.naranja {background-position: -99px 0; height:16px; width:26px;  }
+.pagofacil {background-position: -126px 0; height:16px; width:16px;  }
+.rapipago {background-position: -143px 0; height:16px; width:42px; }
+
+/*--
+GALERIA VIP
+----------------------------*/
+.figure{border:1px solid #CCCCCC;height:330px;overflow:hidden;padding:5px 0;position:relative;width:320px;float:left;}
+.slider, .sliderModal{overflow: hidden;position: absolute;height: 317px;}
+.sliderModal{height:500px;}
+.figure .slider span.img{cursor:pointer;position: relative;float:left;background:url("http://static.mlstatic.com/org-img/vip3/layer/loading_small.gif") no-repeat scroll center center transparent;height:320px;width:320px;}
+.sliderModal div.imgModal{float:left;position:relative;text-align:center;height:500px;width:500px;background:url(http://static.mlstatic.com/org-img/vip3/layer/loading_small.gif) no-repeat center center;}
+
+/* --
+MORE ACTIONS 
+---------------------------*/
+.moreActions {overflow:hidden;padding:5px 0;position:absolute;top:350px;width:320px;float:left;z-index:1000;}
+.moreActions li { border-bottom:1px dotted #ccc; padding:5px 0;}
+/*SOCIALs*/
+.share { position: relative; top: 0px;}
+.share span {font-family: "Trebuchet MS",Verdana,"DejaVu Sans",sans-serif;font-size: 11px;font-weight: normal;margin: 0;}
+.share a {background-image: url("https://www.mercadolibre.com/org-img/share/mlShare_24x24.png");background-repeat: no-repeat;display: inline-block;height: 24px;outline: medium none;text-align: left;text-indent: -9999px;vertical-align: middle;width: 24px;}
+.share .addFacebook {background-position: 0 0;}
+.share .addTwitter { background-position: 0 -24px;}
+.share .addMail{background-position: 0 -72px; cursor: pointer;}
+
+/*--
+REPUTACION
+----------------------------*/
+.reputation { position:relative; }
+.reputation dl.meter { margin: 10px 0; }
+.reputation dl.meter dt{font-size:13px; float:left; width:95px; line-height:27px;}
+.reputation dl.meter dd{display:inline-block; position:relative;}
+.reputation a{display:inline-block;font-size:11px;left:5px;position:relative;top:-22px;}
+
+p.meter, p.meter .valueRep {background-image:url(img/termometro.png); background-repeat:no-repeat;}
+p.meter {background-position:center -15px;height:24px;position:relative;text-indent:-9999px;width:142px;}
+p.meter .valueRep{display:block; width:25px; height:23px; position:absolute; top:0;}
+
+.repDescrip{font-size:11px;line-height:20px;}
+.medal {background:url(http://static.mlstatic.com/org-img/GMP/spr.gif) no-repeat;cursor:pointer;display:block;height:18px;margin-top:5px;padding-left:20px;}
+.mlL {background-position: 0 -41px;}
+.mlG {background-position: 0 -26px;}
+.mlP {background-position: 0 -9px;}
+
+.reputation { margin-bottom:10px;}
+.reputation dl.tooltip {display:none;}
+.tooltipCone{background-image:url(http://static.mlstatic.com/org-img/GMP/spr.gif);}
+.tooltipCone{background-position:0 -58px;height:13px;left:132px;position:absolute;top:-13px;width:16px;}
+
+.close {padding:0 9px; margin:0;background-position:right -120px;background-repeat:no-repeat;border:medium none;cursor:pointer;height:16px;position:absolute;right:10px;text-indent:-9999px;top:10px;z-index:500;}
+.close:hover{border:none;}
+
+p.rep0 {background-position:center 9px;}
+p.rep0 span {display:none!important;}
+p.rep1 span {left:10px; background-position:-10px -39px;}
+p.rep2 span {left:34px; background-position:-34px -39px;}
+p.rep3 span {left:58px; background-position:-58px -39px;}
+p.rep4 span {left:82px; background-position:-82px -39px;}
+p.rep5 span {left:106px; background-position:-106px -39px;}
+
+/*--
+REVIEWS
+----------------------------*/
+.onePoints, .oneMidPoints, .twoPoints, .twoMidPoints, .threePoints, .threeMidPoints, .fourPoints, .fourMidPoints, .fivePoints, 
+.onePointsSmall, .oneMidPointsSmall, .twoPointsSmall, .twoMidPointsSmall, .threePointsSmall, .threeMidPointsSmall, .fourPointsSmall, .fourMidPointsSmall, .fivePointsSmall, .listReviews .review, .opinion .typo, .voteReview .question .btnYes,.voteReview .question .btnNo  {background-image: url(img/reviews.png);background-repeat: no-repeat;}
+.onePoints, .oneMidPoints, .twoPoints, .twoMidPoints, .threePoints, .threeMidPoints, .fourPoints, .fourMidPoints, .fivePoints {display: inline-block;height: 16px;width: 80px;text-indent: -9999px;}
+.onePointsSmall, .oneMidPointsSmall, .twoPointsSmall, .twoMidPointsSmall, .threePointsSmall, .threeMidPointsSmall,
+.fourPointsSmall, .fourMidPointsSmall, .fivePointsSmall {display: inline-block;margin-right: 2px;height: 12px;width: 63px;vertical-align: sub;text-indent: -9999px;}
+.onePoints {background-position: 0 0;}
+.oneMidPoints {background-position: 0 -16px;}
+.twoPoints {background-position: 0 -32px;}
+.twoMidPoints {background-position: 0 -48px;}
+.threePoints {background-position: 0 -64px;}
+.threeMidPoints {background-position: 0 -80px;}
+.fourPoints {background-position: 0 -96px;}
+.fourMidPoints {background-position: 0 -112px;}
+.fivePoints {background-position: 0 -128px;}
+.onePointsSmall {background-position: 0 -144;}
+.oneMidPointsSmall {background-position: 0 -156px;}
+.twoPointsSmall {background-position: 0 -168px;}
+.twoMidPointsSmall {background-position: 0 -180px;}
+.threePointsSmall {background-position: 0 -192px;}
+.threeMidPointsSmall {background-position: 0 -204px;}
+.fourPointsSmall {background-position: 0 -216px;}
+.fourMidPointsSmall {background-position: 0 -228px;}
+.fivePointsSmall {background-position: 0 -240px;}
+.opinion .typo {background-position: 0 -276px;background-repeat: repeat-x;padding: 8px 10px;}
+.average {float: left;font-size: 12px;padding-left: 8px;	width: 25%;}
+.average  .threeMidPoints {display: block;}
+.average h3, .distributionScore h3 {margin: 0 0 10px;}
+.distributionScore {border-left: 1px solid #ccc;padding-left: 20px;margin-left: 25%;}
+.distributionScore th{font-size: 11px;font-weight: normal;text-align: left;vertical-align: middle;}
+.distributionScore td{font-weight: bold;padding: 0 15px;text-align: center;}
+.listReviews {margin: 20px 0 0;}
+.listReviews .review  {background-position: 0 -356px;background-repeat: repeat-x;border-top: 2px solid #8ec0cd;margin-bottom: 15px;padding: 5px;position: relative;}
+.listReviews .review h3 {color: #CB9105;font-size: 18px;padding: 10px 10px 10px 95px;}
+.review .points {border-right: 1px solid #ccc;padding-right: 5px;position: absolute;top: 17px;left: 5px;}
+.review .autor {	font-size: 11px;}
+.review .pros, .review .cons {float: left;margin-top: 10px;width: 48%;}
+.review .cons {border-left: 1px dotted #ccc;margin-left: 10px;padding-left: 15px;}
+.review .conclusion {clear: both;}
+.review .pros h4, .review .cons h4, .review .conclusion h4 {font-weight: bold;}
+.voteReview {background: #e7ecf2;margin: 10px 0 0;padding: 7px;}
+.voteReview .question {float: left;width: 310px;}
+.voteReview .question .btnYes,.voteReview .question .btnNo { background-position: 0 -253px;background-repeat: repeat-x;cursor: pointer;border: 1px solid #acacac;font-family: Arial,Helvetica,sans-serif;font-size: 15px;font-weight: bold; height: 22px;margin-left: 5px;width: 38px;padding: 0; }
+.voteReview .question .btnYes { color: #3D9800; }
+.voteReview .question .btnNo { color: #DD0000; }
+.voteReview .total {text-align: right;}		
+.review .denounceOpinion {margin-top: 10px;text-align: right;}
+.review .denounceOpinion a {font-size: 11px;}
+
+/*--
+CAROUSEL
+----------------------------*/
+.demoCarousel { height: 165px; }
+.items-list {margin-left:25px;}
+.items-list li{ margin: 0 20px 0 0; }
+.items-list li h3{overflow:hidden;position:relative; top:95px; margin: 0;}
+.items-list li h3 a{font-size:14px;font-weight:normal; top:0px;}
+.items-list li a{display:inline-block;position:relative;top:-22px;}
+.items-list li .price  {font-size:14px;position:relative;top:0;}
+.moreInfo  {text-align:right;font-size:11px;}
+
+/* REPU EN LISTAS */
+.offers dd.user p { display:inline-block;}
+.offers dd.user p.meter, .offers  p.meter .valueRep {background-image:url(img/termometroSmall.png); background-repeat:no-repeat; display:inline-block;}
+.offers dd.user p.meter {background-position:center -10px;height:14px;position:relative;text-indent:-9999px;width:96px;}
+.offers dd.user p.meter .valueRep {display:block; width:16px; height:23px; position:absolute; top:-2px;}
+.offers dd.user p.rep0 {background-position:center 4px;}
+.offers dd.user p.rep0 span {display:none!important;}
+.offers dd.user p.rep1 span {left:10px; background-position:-9px -25px;}
+.offers dd.user p.rep2 span {left:25px; background-position:-24px -25px;}
+.offers dd.user p.rep3 span {left:40px; background-position:-38px -25px;}
+.offers dd.user p.rep4 span {left:54px; background-position:-53px -25px;}
+.offers dd.user p.rep5 span {left:70px; background-position:-68px -25px;}
+.offers dd.user .reputation { margin-bottom:10px;}
+.offers dd.user a { font-size:17px;}
+.offers dd.user p.repNo { font-size:15px;}
+
+div.bestSell { border-top:1px solid #ccc; padding: 10px 0 15px; }
+div.bestSell h3 { display:inline}
+div.drop { display: inline-block ; }
+.drop li { cursor: pointer; margin: 2px; padding: 3px; }
+.drop li:hover { background: #FF9; }
+
+/*--
+TABS
+----------------------------*/
+.tabs .article { min-height: 90px; }
+.tabs .loading { border: none; margin: 70px auto 50px; }
+
+/*--
+PROVISORIO
+----------------------------*/
+.next-comming { font-size: 13px; font-weight: bold; padding: 20px 0 40px; text-align: center; }
+
+/*--
+SEARCH PRODUCT
+----------------------------*/
+#principal { min-height: 460px; }
+#errorSearchProd {color: #F00;font-weight: bold; margin-left: 10px; }
+#conteiner {	display: none; }
+.wrap-load { margin: 250px auto 0;}
+
+/*--
+LAYER
+----------------------------*/
+.ch-layer { width: 471px; }
+
+/*--
+SHIPPING MODAL
+----------------------------*/
+.shipping .fieldBox .no-label { margin: 5px 0 5px 90px; }
+.shipping th { border-bottom: 1px dotted #ccc; font-weight: normal; font-size: 11px; padding: 2px 4px; text-align: left; }
+.shipping .form { padding: 5px; }
+.shipping .table-shipping { margin: 0 30px; width: 60%; }
+.shipping .table-shipping td { padding: 2px 4px; }
+.shipping .table-shipping input { margin: 0; vertical-align: middle; }
+.shipping .ship-price { text-align: right; }
+.shipping form label span { margin: 5px 10px 5px 0; width: 80px; }
+.shipping .final-actions { text-align: center; margin-top: 30px; }
+.shipping .final-actions input { margin-right: 10px;}
+form .actions { margin-left: 90px; }
+

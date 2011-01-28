@@ -12,18 +12,13 @@
 	<input id="a" value="a">
 	
 	<script>
-	$(function(){
-    	$("#a").blur(function(event){ alert("primer handler"); });
-	});
-	$(function(){
-    	$("#a").blur(function(event){ alert("segundo handler"); });
-	});
-	$(function(){
-    	$("#a").blur(function(event){ alert("tercer handler"); });
-	});
-	$(function(){
-    	$("#a").blur(function(event){ alert("cuarto handler"); });
-	});
+	
+	var events = {};
+	
+	events.GUILLE_EVENT = "guilleEvent";
+	
+	$("body").bind(events.GUILLE_EVENT,function(){ alert("Guille Event!!") });
+
 
 	</script>	
 

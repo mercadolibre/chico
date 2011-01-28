@@ -1,0 +1,353 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+	<head>
+		<script></script>
+		<meta charset="UTF-8">
+		<title>PDP</title>
+		
+		<link rel="stylesheet" type="text/css" href="0.4.7/chico-ui-all.css">
+		<link rel="stylesheet" type="text/css" href="pdp.css">
+        <link rel="stylesheet" type="text/css" href="recommendations/recommendations.css">
+				
+		<!--[if lt IE 7 ]>
+			<script src="libs/js/dd_belatedpng.js"></script>
+			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+		<![endif]-->
+
+	</head>
+	<body>
+
+		<div style='width:100%;background: #eee;border-bottom:2px solid #06C;position:absolute;top:0;left:0;padding: 10px 0;'>
+			<div style="max-width: 1200px; min-width: 760px;margin: 0 auto;padding: 0 10px;">
+				<span>Buscá un producto: </span>
+				<select id="conuntryProduct">
+					<option value="MLA">MLA</option>
+					<option value="MLB">MLB</option>
+					<option value="MLM">MLM</option>    
+				</select>
+				<input id="inputProduct" type="text" value="800768">
+				<input id="searchProduct" type="button" value="Buscar">
+				<span id="errorSearchProd"></span>
+			</div>
+        </div>
+		
+        <div class="wrap-load loading"></div>
+        
+        <div id="conteiner">
+		
+        <div class="header">
+			<p class="isoLogo">
+				<a href="http://www.mercadolibre.com.pa/" a="">
+					<span>MercadoLibre, donde compras y vendes de todo</span>
+				</a>
+			</p>
+			<div class="barAllMenu">
+			    <a class="homeAcces" href="http://www.mercadolibre.com.pa/">Inicio</a>
+				<ul class="accesBar">
+				
+					<li class="lastAcces"><a href="http://www.mercadolibre.com.pa/ayuda_home">Ayuda</a></li>
+				
+				    <li><a href="http://www.mercadolibre.com.pa/jm/myML">Mi MercadoLibre</a></li>
+				    <li><a href="http://www.mercadolibre.com.pa/jm/sell">Vender</a></li>
+				    <li><a href="reg.html" target="_blank">Regístrate</a></li>
+				</ul>
+				<div class="menuBar allRounded box">
+					<input type="text" class="buscador" name="as_word" id="as_inner_word" maxlength="160" value="" onBlur="javascript:setBlur()" onFocus="javascript:setFocus()">
+					<input type="submit" onClick="innerSearch();" value="Buscar" class="btn secondary">
+				</div>
+			</div>
+		</div>
+		
+		<div class="nav">
+			<ul>
+				<li class="first"><a href="#" title="Inicio">Inicio</a></li>
+				<li><strong>Ipod touch</strong></li>
+			</ul>
+		</div>
+		<div class="section product">
+			<h1 class="type"></h1>
+			<iframe frameborder="0" scrolling="no" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Farticulo.mercadolibre.com.ar%2FMLA-102956197-bolsa-de-dormir-para-adultos-linterna-9-led-de-regalo-_JM&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" style="border: medium none; overflow: hidden; width: 150px; display: inline-block; height: 26px; line-height: 70px; vertical-align: middle; margin: 0pt 0pt 0pt 10px;" allowtransparency="true"></iframe>
+			<!--  Galeria de imágenes -->  
+			<div class="figure gallery">
+				<div class="slider"><img src="" alt="Ipod"></div>
+			</div>
+            <ul class="moreActions">
+				<li><a id="publicItem" href="" title="Publicar">Quieres vender el tuyo?</a></li>
+				<li>
+					<div class="share">
+						<span>Compartelo:</span>
+						<a class="addFacebook" onClick="trackEvent('Vip','Share','Facebook'); window.open(this.href, 'sharer','toolbar=0,status=0,width=626,height=436'); return false;" target="_blank" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Farticulo.mercadolibre.com.ar%2FMLA-103839502-clorador-automatico-para-cloro-liquido-clorodrop-_JM">Facebook</a>
+						<input type="hidden" value="Clorador Automatico Para Cloro Liquido Clorodrop" name="itemTitle" id="itemTitle">
+						<a class="addTwitter" onClick="trackEvent('Vip','Share','Twitter'); window.open(this.href, 'sharer','toolbar=0,status=0,width=626,height=436'); return false;" target="_blank" href="http://twitter.com/share?url=http%3A%2F%2Farticulo.mercadolibre.com.ar%2FMLA-103839502-clorador-automatico-para-cloro-liquido-clorodrop-_JM&amp;text=Clorador+Automatico+Para+Cloro+Liquido+Clorodrop">Twitter</a>
+						<a class="addMail" onClick="sendMail('friend');trackEvent('Vip','Share','Email'); return false;">Mail</a>
+					</div>
+				</li>
+			</ul>
+			<!--  Total de opinoines -->  
+			<div class="total-opinion"><span class="threePoints">3 puntos</span> 170 opiniones</div>
+			<!-- Tabs de opciones --> 
+			
+			<div id="principal" class="section">
+				<div class="bestSell"> 
+                    <h3>Mejor oferta en:</h3>
+                    <div class="drop">
+                        <span>Capital Federal</span>
+                        <ul style="display:none;">
+                            <li id="TUxBUFpPTmFpbnRl">Interior de Buenos Aires</li>
+                        </ul>
+                    </div>
+					<!--select>
+						<option value="Capital Federal" selected="selected">Capital Federal</option>
+						<option value="Interior del pais">Interior del pais</option>
+					</select-->
+                </div>
+				<dl class="itemData">
+	                <dt>Precio:</dt>
+	                <dd>
+						<span id="principalPrice" class="price"></span>
+						
+						<select id="stock">
+							<!--option value="1" selected="selected">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option-->
+						</select><span> unidad/es</span>
+					</dd>
+					
+					<dt>Envío:</dt>
+	                <dd><span class="price">$ <strong class="shipping">0</strong><sup>00</sup></span> (Belgrano, CABA) <a class="link-modal" href="mod.html" title="Modificar">Modificar</a></dd>	
+	               	
+	               	<!-- Cuotas MP-->         
+	                <dt>Total:</dt>                        
+					<dd class="total">
+						<div class="article">
+							<p><span id="total" class="price"></span> o <span class="cuotes price"></span></p>
+							<ul>			
+								<li title="Visa" class="payMethod visa">Visa</li>
+								<li title="Master" class="payMethod master">Master</li>
+								<li title="Amex" class="payMethod amex">Amex</li>
+								<li title="Tarjeta Naranja" class="payMethod naranja">Tarjeta Naranja</li>
+							</ul>
+						</div>	
+					</dd>
+	                <!-- End Cuotas MP-->
+				</dl>
+                <dl class="sell-condition">                       
+	            	<dt class="none">Estado:</dt>
+	                <dd id="principalCondition" class="no-title"></dd>
+	                
+	               	<dt class="none">Garantía:</dt>
+	                <dd id="principalWarranty" class="no-title"></dd>
+	            </dl>
+				
+				<form method="post" action="check.html" class="buy">
+				    <input type="hidden" id="item" value="800768">
+				    <input type="hidden" id="quantity">
+					<input type="submit" value="Comprar" class="btn primary">
+					<a id="principalVip" target="_blank" href="#">mas informacion</a>
+				</form>
+				
+				<div class="sidebar">
+					<div class="reputation">
+						<h3>Vendedor destacado</h3>
+						<dl class="meter">
+							<dt style="display: none;">Reputación:</dt>
+							<dd>
+								<p class="repDescrip"></p>	
+								<p class="meter termometer meterLay"><span class="valueRep"></span></p>					
+							</dd>	                    
+						</dl>
+						<!--a class="rep" href="com/reputacionModal.html">Mas informacion</a-->
+						<p><strong id="percCalif"></strong> Calificaciones positivas<br>sobre <span id="quatyCalif"></span> operaciones</p>
+					</div>
+					<div class="article bpp">
+						<p>Tus compra están protegida<br> <a id="conditionsBpp" href="#" title="Ver condiciones">ver condiciones</a></p>
+					</div>
+				</div>
+				<div class="offers">
+					<h3>Otros vendedores</h3>
+					<div class="tabs">
+						<ul>
+							<li><a href="#news">Articulos nuevos</a></li>
+							<li><a href="#used">Articulos usados</a></li>
+						</ul>
+						<div>
+							<div id="news" class="article ">
+								<ol>
+									<!-- Articulos obtenidos desde la API de Search -->
+								</ol>
+								<div class="search-link"></div>
+							</div>
+							<div id="used" class="article">
+								<ol>
+									<!-- Articulos obtenidos desde la API de Search -->
+								</ol>
+								<div class="search-link"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section box data-sheet">
+			<h2 class="type">Ficha técnica</h2>
+			<p class="next-comming">Comming soon</p>
+		</div>
+		
+		<div class="section box opinion">
+			<h2>Opiniones</h2>
+			<p class="next-comming">Comming soon</p>
+			<!--div class="content opinion">
+
+				<div class="average">
+					<h3>Promedio</h3>
+					<p class="totalAvarage"><strong class="threeMidPoints">3.5 puntos</strong> de <strong>32 opiniones</strong></p>
+				</div>
+				
+				<div class="distributionScore">
+					<h3>Distribución del puntaje</h3>
+					<table>
+						<tbody>
+							<tr>
+								<th>Puntaje</th>
+								<td><span class="fivePoints">5 puntos</span></td>
+								<td><span class="fourPoints">4 puntos</span></td>
+								<td><span class="threePoints">3 puntos</span></td>
+								<td><span class="twoPoints">2 puntos</span></td>
+								<td><span class="onePoints">1 punto</span></td>
+							</tr>
+							<tr>
+								<th>Opiniones</th>
+								<td>40</td>
+								<td>25</td>
+								<td>5</td>
+								<td>0</td>
+								<td>0</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<ol class="listReviews">
+					< Aca va el bucle de todas las opiniones >
+					<li class="review">
+					
+						<h3>El "casi iPhone" mejor que nunca!</h3>
+						<p class="points fourPoints">Puntaje: 4 puntos</p>
+						<p class="autor">Autor: <strong>JUANMA</strong></p>
+						<div class="pros">
+							<h4>Pros:</h4>
+							<ul>
+								<li>- Buen reproductor de audio y video.</li>
+								<li>- Diseño bello y útil.</li>
+								<li>- Fácil de usar.</li>
+								<li>- Precio accesible.</li>
+							</ul>
+						</div>
+						<div class="cons">
+							<h4>Contras:</h4>
+							<ul>
+								<li>- Apple sólo acepta Apple: hay que instalar itunes, usar sus aplicaciones.</li>
+								<li>- No sirve como disco por USB.</li>
+								<li>- En Argentina no hay Itunes Store, no se puede comprar canciones.</li>
+								<li>- No es tan trucho como esperaba.</li>
+								<li>- No es tan trucho como esperaba.</li>
+							</ul>
+						</div>
+						
+						<div class="conclusion">
+							<h4>Conclusión:</h4>
+							<p>El Ipod es un buen reproductor / navegador. Hay que aguantarle sus manías a Apple, pero garantizan diseño, calidad y desempeño. Sí, hay que instalar Itunes en la computadora para usarlo, eso no es terrible. Tiene espacio para muchos programas; hay algunos gratis en el Appstore, y no hace falta tener tarjeta de crédito para bajarlos. Depende mucho de las redes WiFi, claro.</p>
+						</div>
+						
+						<form action="" method="get" class="voteReview allRounded">
+							<p class="question">
+								<strong>¿Te resultó útil esta opinión?</strong>
+								<input class="btnYes" type="button" value="Si" name="si">
+								<input class="btnNo" type="button" value="No" name="no">
+							</p>
+							<p class="total">
+								<strong>67</strong> de 68 usuarios <strong>votaron como útil esta opinión.</strong>
+							</p>
+						</form>
+						
+						<p class="denounceOpinion"><a href="#" title="Denunciar opinión">Denunciar opinión</a></p>
+						
+					</li>
+					
+				</ol>
+
+			</div-->
+			
+		</div>
+		
+		<!-- Componente de recomendaciones -->
+		<div id="recommendations"></div>
+		
+		<div class="footer mainFooter"> 
+			<ul> 
+			  <li><a href="http://www.mercadolibre.com.pa/panama/ml/org_theme.p_main?as_theme_id=NEW_SOBRE_ML">Sobre MercadoLibre</a> | </li> 
+		 
+			  <li><a href="http://www.mercadolibre.com.pa/panama/ml/p_loadhtml?as_menu=CSEG&amp;as_html_code=CSEG01">Centro de Seguridad</a> | </li> 
+			  <li><a href="http://www.mercadolibre.com.pa/sitemap.html">Mapa del Sitio</a> | </li> 
+		 
+			  <li><a href="http://www.mercadolibre.com">Ver otros países</a></li> 
+			</ul> 
+			 
+			<hr><p> 
+		  El uso de este sitio web implica la aceptación de los <a href="http://www.mercadolibre.com.pa/seguro_terminos.html" target="_blank">Términos y Condiciones</a> y de las <a href="http://www.mercadolibre.com.pa/org-img/html/MPA/seguro_privacidad.html" target="_blank">Políticas de Privacidad</a> de MercadoLibre S.R.L. <br> Copyright &copy; 1999-2010 MercadoLibre S.R.L.
+		  </p>	
+		  
+		</div>
+        
+        </div>
+		
+		<script src="jquery-1.4.4.js"></script>
+		<script src="0.4.7/chico-ui-all.js"></script>
+		<script src="pdp-0.3.js"></script>
+        <script src="recommendations/recommendations-0.1.9.js"></script>
+		<script>
+
+                // Get quantity data
+                
+                $("#stock").change(function(event){ 
+                    $("#quantity").val( $(this).val() );
+                    console.log( $("#quantity").val() );
+                });
+
+				pdp.init($('#conuntryProduct').val(), $('#inputProduct').val());
+				recommend.init($('#inputProduct').val(), $('#conuntryProduct').val(), function(){ carousel.init(recommend.carousels)});
+				$('#searchProduct').click(function(){
+					pdp.init($('#conuntryProduct').val(), $('#inputProduct').val());	
+					recommend.init($('#inputProduct').val(), $('#conuntryProduct').val(), function(){ carousel.init(recommend.carousels)});
+					$('.loading').css('display', 'block');
+					$('#conteiner').css('display', 'none');
+				});
+				
+				$('#inputProduct').keyup(function(e) {
+					if(e.keyCode == 13) {
+						pdp.init($('#conuntryProduct').val(), $('#inputProduct').val());
+						recommend.init($('#inputProduct').val(), $('#conuntryProduct').val(), function(){ carousel.init(recommend.carousels)});
+						$('.loading').css('display', 'block');
+						$('#conteiner').css('display', 'none');
+					}
+				});
+
+				/*var ui_caro = $('.demoCarousel').carousel();
+				var ui_caro = $('.demoCarousel').carousel();*/
+				var ui_tabs = $('.tabs').tabNavigator();
+				var ui_moda = $('.link-modal').modal({ ajax: true });
+				var ui_laye = $('.mlG').layer({ event: 'over', content: '<h4>MercadoLíder Gold</h4><p>Los MercadoLíderes Gold son grandes vendedores del sitio, distinguidos por tener una muy buena reputación.</p>' });
+				var ui_laye = $('.mlP').layer({ event: 'click', content: '<h4>MercadoLíder Platinum</h4><p>Los MercadoLíderes Platinum son los mejores vendedores del sitio, distinguidos por su excelente reputación.</p>' });
+				var ui_drop = $('.drop').dropdown();
+				var ui_laye = $('.meterLay').layer({ event: 'over', content: '<h2>Reputacion del Vendedor</h2><img src="img/repu.png"/>' });
+				
+		</script>
+			
+	</body>
+</html>

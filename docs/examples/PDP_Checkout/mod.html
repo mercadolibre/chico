@@ -1,0 +1,43 @@
+<div class="shipping">
+	<h2 class="titleAjax">Modificar envio</h2>
+	<form class="form" method="post" action="">
+		<fieldset>
+			<legend>Ubicacion</legend>
+			<ul>
+				<li class="fieldBox"><span class="no-label">Argentina (<a href="#" title="Cambiar">Cambiar</a>)</span></li>
+				<li class="fieldBox"><span class="no-label">Buenos Aires (<a href="#" title="Cambiar">Cambiar</a>)</span></li>
+				<li class="fieldBox"><select class="no-label"><option value="Belgrano">Belgrano</option><option selected="selected" value="Saavedra">Saavedra</option><option value="Liniers">Liniers</option></select></li>
+				<li class="fieldBox"><label><span>Calle:</span> <input type="text"></label></li>
+				<li class="fieldBox"><label><span>Numero:</span> <input type="text"></label></li>
+			</ul>
+			<p class="actions"><input class="btn secondary skin" type="submit" value="Calcular"></p>
+		</fieldset>
+		<fieldset>
+			<legend>Tabla de costos</legend>
+			<table class="table-shipping">
+				<thead>
+					<tr>
+						<th width="15"></th>
+						<th width="250">Medio</th>
+						<th class="ship-price" width="80">Costo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input id="correoArgentino" name="ship" type="radio"></td>
+						<td><label for="correoArgentino">Correo argentino</label></td>
+						<td class="ship-price">$ 35</td>
+					</tr>
+					<tr>
+						<td><input id="moto" name="ship" type="radio"></td>
+						<td><label for="moto">Moto</label></td>
+						<td class="ship-price">$ 25</td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>
+		<p class="final-actions"><input class="btn primary" type="submit" value="Aceptar"><a href="#">Cancelar</a></p>
+	
+	</form>
+	
+</div>

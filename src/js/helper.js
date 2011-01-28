@@ -45,8 +45,8 @@ var conf = {};
 /**
  *  Default event delegation
  */
-    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ 
-            that.position("refresh", conf) 
+    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ 
+            that.position("refresh", conf);
         });
 
 /**

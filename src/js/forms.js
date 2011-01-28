@@ -55,6 +55,9 @@ ui.forms = function(conf){
 	// General Error	
 	var createError = function(){ // Create
 		$(conf.element).before('<p class="ch-validator"><span class="ico error">Error: </span>' + conf.messages["general"] + '</p>');
+		
+		$("body").trigger(ui.events.CHANGE_LAYOUT);
+
 	};
 	var removeError = function(){ // Remove
 		$('.ch-validator').remove();
@@ -63,6 +66,9 @@ ui.forms = function(conf){
 
 	// Publics Methods
 	var checkStatus = function(){
+
+
+
 		// Check status of my childrens
 		for(var i = 0, j = that.children.length; i < j; i ++){
 			// Status error (cut the flow)
@@ -70,7 +76,6 @@ ui.forms = function(conf){
 				if (!status) removeError();				
 				createError();
 				status = false;
-                ui.utils.body.trigger(ui.events.CHANGE_LAYOUT);
 				return;
 			};
 		};
@@ -79,7 +84,6 @@ ui.forms = function(conf){
 		if (!status) {
 			removeError();
 			status = true;
-            ui.utils.body.trigger(ui.events.CHANGE_LAYOUT);
 		};
 	};
 	
