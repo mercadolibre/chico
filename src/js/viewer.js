@@ -19,13 +19,18 @@ ui.viewer = function(conf){
 	var viewerModal = {};
 	viewerModal.carouselStruct = $(conf.element).find("ul").clone().addClass("carousel");	
 	viewerModal.carouselStruct.find("img").each(function(i, e){
-		$(e).attr("src", $(e).parent().attr("href")) // Image source change
+		$(e).attr("src", "") // Image source change
 			.unwrap(); // Link deletion
 	});
 	viewerModal.showContent = function(){
 		$(".ch-viewer-modal-content").parent().addClass("ch-viewer-modal");
 		$(".ch-viewer-modal-content").html( viewerModal.carouselStruct );
+		$(".ch-viewer-modal-content img").each(function(i,e){
+			$(e).attr("src", bigImgs[i]);
+		});
+		
 		that.children[2] = viewerModal.carousel = $(".ch-viewer-modal-content").carousel({ pager: true });
+
 		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
 		viewerModal.carousel.select(thumbnails.selected);
 		viewerModal.modal.position();
@@ -186,6 +191,17 @@ ui.viewer = function(conf){
 	
 	// Default behavior (Select first item and without callback)
 	select(0);
+	
+		// Preload big imgs on document loaded
+	var bigImgs = [];
+	ui.utils.window.load(function(){
+		setTimeout(function(){			
+			showcase.children.each(function(i, e){
+				bigImgs.push( $(e).attr("href") ); // Image source change
+			});
+			ui.preload(bigImgs);
+		},250);
+	});
 	
 	return conf.publish;
 };
