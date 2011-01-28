@@ -101,10 +101,13 @@ input.buscador {
     padding: 8px 5px 6px 30px;
 }
 
+body {
+  max-width: 980px;
+}
+
 .ch-modal{width:600px;}
 .container {
-    margin: 55px auto 10px;
-    max-width: 980px;
+    margin: 10px auto;
 }
 .makeQuestion ul {
 	font-size:11px;
@@ -148,3 +151,26 @@ form .actions {
     margin-top: 0;
 }
 
+body > section {
+  margin: 20px 0;
+}
+
+#search form {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+#search form input {
+  font-size: 14px;
+}
+
+#search ul li {
+  width: 90px;
+  height: 90px;
+}
+
+#search .results {
+  padding: 20px 0;
+}
+
+section { display: block; }

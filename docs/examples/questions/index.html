@@ -11,54 +11,68 @@
 		<title>Questions Test</title>
 		<link rel="stylesheet" type="text/css" href="../../build/chico.css">
 		<link rel="stylesheet" type="text/css" href="../src/css/questions.css">
-				
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+		<script src="../../build/chico.js"></script>
+		<script src="http://sdk.mercadolibre.com/js/mercadolibre-0.0.4.js" charset="utf-8"></script>
+
 		<!--[if lt IE 7 ]>
 			<script src="../../libs/js/dd_belatedpng.js"></script>
 			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
 		<![endif]-->
 	</head>
-	
+
 	<body>
+    <section id="search">
+      <form action="#" method="get">
+        <input type="hidden" name="limit" value="20">
+        <input type="text" name="q" value="Item de prueba">
+				<input type="submit" class="btn secondary" value="Buscar">
+      </form>
+
+      <section class="results box">
+        <ul class="carousel">
+        </ul>
+      </section>
+    </section>
+
+    <!--
 		<div style='width:100%;background: #eee;border-bottom:2px solid #06C;position:absolute;top:0;left:0;padding: 10px 0;'>
 			<div style="max-width: 1200px; min-width: 760px;margin: 0 auto;padding: 0 10px;">
 				<span>Buscar preguntas: </span>
 				<select id="conuntryProduct">
 					<option value="MLA">MLA</option>
 					<option value="MLB">MLB</option>
-					<option value="MLM">MLM</option> 
+					<option value="MLM">MLM</option>
 				</select>
 				<input id="inputProduct" type="text" value="">
 				<input id="searchProduct" type="button" class="btn secondary" value="Buscar">
 				<span id="errorSearchProd"></span>
 			</div>
 		</div>
-	
-		<div class="container">
-			
-				<div id="chico-tabs" style="display:none">  
-					<ul>  
-						<li><a href="#preguntas">Preguntas al Vendedor</a></li>  
-					</ul>  
-					<div>  
+    -->
+
+    <section>
+
+				<div id="chico-tabs" style="display:none">
+					<ul>
+						<li><a href="#preguntas">Preguntas al Vendedor</a></li>
+					</ul>
+					<div>
 						<div id="preguntas">
-						                
+
 							<ol class="listQA">
-								
+
 							</ol>
 							<form action="makeQuestion.html" method="get" class="formQA" style="display:none">
 								<p><input type="submit" value="Hacer una pregunta al vendedor" class="btn secondary skin makeQuest"></p>
 							</form>
-						
-						</div>
-					</div>  
-				</div> 
-				
 
-		</div>
-		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-		<script src="../../build/chico.js"></script>
-		<script src="http://sdk.mercadolibre.com/js/mercadolibre-0.0.3.js"></script>
+						</div>
+					</div>
+				</div>
+
+		</section>
+
 		<script type="text/javascript">
 		/**
 		 *
@@ -66,20 +80,20 @@
 		 *
 		 */
 		var questions = {
-		
+
 			init:function(itemId){
 				$('#preguntas').addClass('loading');
 				MercadoLibre.get("/questions/search?item_id="+itemId, questions.printQuestions);
 			},
-		
+
 			errorQuestion:function(){
 				$('#preguntas').removeClass('loading');
 				$('.listQA').append('<li style="text-align:center; padding:10px 0;font-size:14px;">No pudimos cargar las preguntas. Prueba más tarde, por favor.</li>');
 			},
-		
+
 			printQuestions:function(data){
 				var that = this;
-		
+
 				this.getQuestions = function(data) {
 					var q = [];
 						$(data[2].questions).each(function(i,e){
@@ -87,27 +101,27 @@
 						});
 					return q.join('');
 				};
-		
+
 				this.getAnswer = function(e) {
 					if(e.answer != null){
 						return "<dl class=\"answer\"><dt class=\"title\">Respuesta:<span class=\"time\">"+that.formatDate(e.answer.date_created)+"</span></dt><dd class=\"txt\">"+e.answer.text+" <a href=\"#\">Denunciar</a></dd></dl>";
 					}
 					return '';
 				};
-				
+
 				this.formatDate = function(str){
 					var dateTime = str.split('T');
 					var date = dateTime[0].split('-');
 					var time = dateTime[1].split(':');
 					return date[2]+'/'+date[1]+'/'+date[0]+' '+time[0]+':'+time[1];
 				};
-		
+
 				$('.formQA').show();
 				$('#preguntas').removeClass('loading');
 				$('.listQA').append( that.getQuestions(data) );
-		
+
 			},
-			
+
 			makeAnswer:function(){
 				MercadoLibre.requireLogin(function() {
 		            MercadoLibre.post(
@@ -124,60 +138,60 @@
 		              }
 		            )
 		        });
-		
+
 			},
-			
+
 			errorSentAnswer:function(){
 				$('.boxB').removeClass('loading');
 				$('.boxB').empty();
 				$('.boxB').append('<div style="text-align:center; padding:20px 0;font-size:14px;">No pudimos enviar tu pregunta. Inténtalo más tarde.</div><div style="text-align: center;"><input type="button" name="button" onclick="javascript:top.close();" value="Cerrar" class="but_sec_1"></div>');
 			}
-		
+
 		};
-		
-		
-		
-		
+
+
+
+
 		/**
 		 *  Countdown component
 		 *
 		 *  @autor: Leandro Linares
-		 *  @autor: Guillermo Paz 
+		 *  @autor: Guillermo Paz
 		 *  @version: 1.1 (Next steps: Increase display font weight when count is "downing")
 		 *  @revision: 07/10/10
 		 *
 		 */
-		
+
 		var countdown = {
 		/**
 		 *	Configuration
 		 */
 			init: function(m) {
-				if (!$.isArray(m)) { 
+				if (!$.isArray(m)) {
 					throw("Countdown: Can't start without a configuration."); return;
 				} else { // each configuration
 					$(m).each(function(i,e){ countdown.make(e); });
 				}
 			},
-		
+
 		/**
 		 *	Map of elements and references in the DOM
-		 */	
+		 */
 			triggers: [],
-		
+
 		/**
 		 *	Build a reference of triggers and for each one of them construct a new Count()
 		 */
-			make: function(e){ 
+			make: function(e){
 				var indexPushed = countdown.triggers.push(e);
 				countdown.triggers[indexPushed-1].countdown = new countdown.Count(e);
 			},
-		
+
 		/**
 		 *  Count Constructor
 		 */
 			Count: function(e) {
-				
+
 				// Configuration
 				var that = this;
 				var t = $(e.trigger);
@@ -185,38 +199,38 @@
 				var maxLength = d.html();
 				d.html(maxLength - t.val().length); // if T have text on load
 				var lastLength = t.val().length;
-				
+
 				// Function
-				this.proccess = function(){		    
-					var len = t.val().length;		
+				this.proccess = function(){
+					var len = t.val().length;
 					var num = parseInt(d.html());
-					
+
 					// CountDown
 					if(len > lastLength && len <= maxLength){
-						d.html(num - (len - lastLength)); lastLength = len;				
+						d.html(num - (len - lastLength)); lastLength = len;
 					// CountUp
 					}else if(len < lastLength && len >= 0){
 						d.html(num - (len - lastLength)); lastLength = len;
 					// Limit
 					}else if(len > lastLength && len > maxLength){
 						t.val(t.val().substr(0, maxLength));
-					};			
+					};
 				};
-				
+
 				// Events
 				t.bind('keyup',that.proccess)
 				 .bind('keypress',that.proccess)
 				 .bind('paste', function(){ setTimeout(that.proccess, 0) });
 			}
-		};		
-		
-		
+		};
+
+
 			var form;
 			var valItemSite;
 			var valItemId;
 			var itemId;
-			
-			var ui_tabs = $("#chico-tabs").tabNavigator();			
+
+			var ui_tabs = $("#chico-tabs").tabNavigator();
 			var ui_modal = $(".makeQuest").modal({
 				callbacks:{
 					contentLoad: function(){
@@ -249,16 +263,44 @@
 					client_id: 421
 				});
 
-			    $("#searchProduct").bind("click", function(){
-					valItemSite = $("#conuntryProduct").val();
-					valItemId = $("#inputProduct").val();
-					itemId = valItemSite+valItemId;
+        $("#search form").submit(function() {
+          var $form = $(this);
+          var $ul = $("#search ul").empty();
+
+          MercadoLibre.get("/sites/MLA/search?" + $form.serialize(), function(response) {
+            var results = response[2].results;
+
+            for (var i = 0; i < results.length; i++) {
+              var item = results[i];
+
+              $ul.append(
+                "<li>" +
+                  "<a href='#' data-id='" + item.id + "'>" +
+                    "<img src='" + item.thumbnail + "' alt='" + item.title + "' width='90' height='90'>" +
+                  "</a>" +
+                "</li>"
+              );
+            }
+
+            $("#search .results").carousel();
+          });
+
+          return false;
+        });
+
+        $("#search ul").delegate("a", "click", function() {
 					$(".listQA").html("");
-					$('.formQA').hide();
+					$(".formQA").hide();
 					$("#chico-tabs").show();
-					questions.init(itemId);
-				});
-			});	
+
+          questions.init(this.getAttribute("data-id"));
+          return false;
+        });
+
+        if ($("#search input[name='q']").val().length > 0) {
+          $("#search form").submit();
+        }
+			});
 		</script>
 	</body>
 </html>
