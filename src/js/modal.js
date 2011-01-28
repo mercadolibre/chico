@@ -15,8 +15,8 @@ ui.modal = function(conf){
 	conf.position = {
 		fixed:true
 	};
-	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : undefined ; //Default	
-
+		
+	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default
 /**
  *  Inheritance
  */
@@ -57,7 +57,7 @@ ui.modal = function(conf){
 		dimmer.on();
 		that.show(event, conf);
 		ui.positioner(conf.position);
-		$('.ch-modal .btn.ch-close, .closeModal').bind('click', hide);
+		$('.ch-modal .btn.ch-close').one('click', hide);
 		conf.$trigger.blur();
 	};
 

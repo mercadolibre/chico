@@ -67,9 +67,9 @@ ui.floats = function(conf) {
 
 // Obtener contenido y cachearlo
     var getContent = function(conf) {
-	
+    			
     	if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ) {
-		
+			
     		that.loadContent(conf);
     	
 		} else {

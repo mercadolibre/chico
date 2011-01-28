@@ -29,9 +29,9 @@ ui.positioner = function( o ) {
 	var viewport;
     
 	// Default parameters
-	if(!o.points) o.points = "cm cm";    
+	if(!o.points) o.points = "cm cm"; // TODO change to ! o.hasOwnProperty("")
     if(!o.offset) o.offset = "0 0";
-    
+
     // Class names
     var classReferences = {
 		"lt lb": "down",
@@ -41,12 +41,12 @@ ui.positioner = function( o ) {
 		"lt rt": "right",
 		"cm cm": "center"
 	};
-	
+
 	// Offset parameter
     var splittedOffset = o.offset.split(" ");
    	var offset_left = parseInt(splittedOffset[0]);
 	var offset_top = parseInt(splittedOffset[1]);
-	
+
     // Get viewport with your configuration - Crossbrowser
     //Conditional Advance Loading method
 	var getViewport = (typeof window.innerWidth != "undefined") ?

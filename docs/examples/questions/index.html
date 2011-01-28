@@ -58,11 +58,10 @@
 		
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 		<script src="../../build/chico.js"></script>
-		<script src="http://sdk.mercadolibre.com/js/mercadolibre-0.0.2.js"></script>
+		<script src="http://sdk.mercadolibre.com/js/mercadolibre-0.0.3.js"></script>
 		<script type="text/javascript">
 		/**
 		 *
-
 		 *  @version: 0.1
 		 *
 		 */
@@ -221,10 +220,10 @@
 			var ui_modal = $(".makeQuest").modal({
 				callbacks:{
 					contentLoad: function(){
+						$('.closeModal').one('click', ui_modal.hide);
 						form = $("#form_quest").forms({
 							callbacks: {
-								beforeSubmit: function(event){
-									event.preventDefault();
+								submit: function(){
 									questions.makeAnswer();
 								}
 							}
