@@ -341,7 +341,7 @@ ui.cache = {
 	flush: function() {
 		delete ui.cache.map;
 		ui.cache.map = {};
-	}        
+	}
 };// @arg o == configuration
 ui.positioner = function( o ) {
 /*   References
@@ -1616,7 +1616,7 @@ ui.layer = function(conf) {
 	};
 
     // Fix: change layout problem
-    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
+    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
 
 /**
  *  Expose propierties and methods
@@ -1979,7 +1979,7 @@ ui.tooltip = function(conf) {
 		.bind('mouseleave', hide);
 
     // Fix: change layout problem
-    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
+    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
     
 /**
  *  Expose propierties and methods
@@ -2367,8 +2367,8 @@ var conf = {};
 /**
  *  Default event delegation
  */
-    ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ 
-            that.position("refresh", conf) 
+    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ 
+            that.position("refresh", conf);
         });
 
 /**
@@ -2451,6 +2451,9 @@ ui.forms = function(conf){
 	// General Error	
 	var createError = function(){ // Create
 		$(conf.element).before('<p class="ch-validator"><span class="ico error">Error: </span>' + conf.messages["general"] + '</p>');
+		
+		$("body").trigger(ui.events.CHANGE_LAYOUT);
+
 	};
 	var removeError = function(){ // Remove
 		$('.ch-validator').remove();
@@ -2459,6 +2462,9 @@ ui.forms = function(conf){
 
 	// Publics Methods
 	var checkStatus = function(){
+
+
+
 		// Check status of my childrens
 		for(var i = 0, j = that.children.length; i < j; i ++){
 			// Status error (cut the flow)
@@ -2466,7 +2472,6 @@ ui.forms = function(conf){
 				if (!status) removeError();				
 				createError();
 				status = false;
-                ui.utils.body.trigger(ui.events.CHANGE_LAYOUT);
 				return;
 			};
 		};
@@ -2475,7 +2480,6 @@ ui.forms = function(conf){
 		if (!status) {
 			removeError();
 			status = true;
-            ui.utils.body.trigger(ui.events.CHANGE_LAYOUT);
 		};
 	};
 	
@@ -2571,13 +2575,18 @@ ui.viewer = function(conf){
 	var viewerModal = {};
 	viewerModal.carouselStruct = $(conf.element).find("ul").clone().addClass("carousel");	
 	viewerModal.carouselStruct.find("img").each(function(i, e){
-		$(e).attr("src", $(e).parent().attr("href")) // Image source change
+		$(e).attr("src", "") // Image source change
 			.unwrap(); // Link deletion
 	});
 	viewerModal.showContent = function(){
 		$(".ch-viewer-modal-content").parent().addClass("ch-viewer-modal");
 		$(".ch-viewer-modal-content").html( viewerModal.carouselStruct );
+		$(".ch-viewer-modal-content img").each(function(i,e){
+			$(e).attr("src", bigImgs[i]);
+		});
+		
 		that.children[2] = viewerModal.carousel = $(".ch-viewer-modal-content").carousel({ pager: true });
+
 		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
 		viewerModal.carousel.select(thumbnails.selected);
 		viewerModal.modal.position();
@@ -2738,6 +2747,17 @@ ui.viewer = function(conf){
 	
 	// Default behavior (Select first item and without callback)
 	select(0);
+	
+	// Preload big imgs on document loaded
+	var bigImgs = [];
+	ui.utils.window.load(function(){
+		setTimeout(function(){			
+			showcase.children.each(function(i, e){
+				bigImgs.push( $(e).attr("href") ); // Image source change
+			});
+			ui.preload(bigImgs);
+		},250);
+	});
 	
 	return conf.publish;
 };
