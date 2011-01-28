@@ -284,6 +284,32 @@
 	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
         $('.c2').forms();
         $('#c2_edad').min(13);
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+	
+	<h4>Validando precio</h4>
+	
+	<form action="test.html" class="c2">
+    	<fieldset>
+    		<ol>
+    			<li class="fieldBox">
+    				<label for="c3_price">
+    					<span>Precio:</span>
+    					<input type="text" id="c3_price">
+    				</label>
+    				<p class="help">Ingresa un precio válido: 9,99</p>
+    			</li>
+    		</ul>
+    	</fieldset>
+    	        
+    	<p class="actions">
+    		<input type="submit" value="Enviar" class="btn primary">
+    		<a href="#">Cancelar</a>
+    	</p>
+    </form>
+	
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+        $('.c3').forms();
+        $('#c3_price').price("Este precio no es válido, usa un formato 9,99 o 9.99");
 	</pre></code></div></div></div>
 		</div>
 	</div>
@@ -316,6 +342,12 @@
 
         $('.c2').forms();
         $('#c2_edad').min(13);
+	
+
+		/* Case 3 */
+
+        $('.c3').forms();
+        $('#c3_price').price("Este precio no es válido, usa un formato 9,99 o 9.99");
 	</script>
 </body>
 </html>

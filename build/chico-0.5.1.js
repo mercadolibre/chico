@@ -52,12 +52,37 @@ var ui = window.ui = {
 		zIndex: 1000,
 		index: 0 // global instantiation index
 	},
-    
+/**
+ *	@const Event's Map.
+ */	
     events: {
         CHANGE_LAYOUT: "changeLayout"
-    }
-    
-}
+    }    
+};
+
+
+
+
+/**
+ *	Pre-Load function
+ */	
+
+ui.preload = function(arr) {
+
+	if (typeof arr === "string") {
+		arr = (arr.indexOf(",") > 0) ? arr.split(",") : [arr] ;
+	}
+
+	for (var i=0;i<arr.length;i++) {
+				
+		var o = document.createElement("object");
+			o.data = arr[i]; // URL
+			
+		var h = document.getElementsByTagName("head")[0];
+			h.appendChild(o);
+			h.removeChild(o); 
+	}       
+};
 
 /**
 *	Factory
@@ -295,7 +320,29 @@ ui.support = function() {
 	};
 	
 };
-// @arg o == configuration
+
+
+/**
+ *  Cache
+ */
+
+ui.cache = {
+	map: {},
+	add: function(url, data) {
+		ui.cache.map[url] = data;
+	},
+	get: function(url) {
+		return ui.cache.map[url];
+	},
+	rem: function(url) {
+		ui.cache.map[url] = null;
+		delete ui.cache.map[url];
+	},
+	flush: function() {
+		delete ui.cache.map;
+		ui.cache.map = {};
+	}        
+};// @arg o == configuration
 ui.positioner = function( o ) {
 /*   References
      points: x, y 
@@ -326,9 +373,9 @@ ui.positioner = function( o ) {
 	var viewport;
     
 	// Default parameters
-	if(!o.points) o.points = "cm cm";    
+	if(!o.points) o.points = "cm cm"; // TODO change to ! o.hasOwnProperty("")
     if(!o.offset) o.offset = "0 0";
-    
+
     // Class names
     var classReferences = {
 		"lt lb": "down",
@@ -338,24 +385,19 @@ ui.positioner = function( o ) {
 		"lt rt": "right",
 		"cm cm": "center"
 	};
-	
+
 	// Offset parameter
     var splittedOffset = o.offset.split(" ");
    	var offset_left = parseInt(splittedOffset[0]);
 	var offset_top = parseInt(splittedOffset[1]);
-	
+
     // Get viewport with your configuration - Crossbrowser
-	var getViewport = function() {
-    	var viewport;
-    	var width;
- 		var height;
- 		var left;
- 		var top;
- 		var pageX;
- 		var pageY;
- 				
-	 	// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
-		if (typeof window.innerWidth != "undefined") {
+    //Conditional Advance Loading method
+	var getViewport = (typeof window.innerWidth != "undefined") ?
+		// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight 	
+		function getViewport() {
+			var viewport, width, height, left, top, pageX, pageY;							
+			
 			viewport = window;
 			width = viewport.innerWidth;
 			height = viewport.innerHeight;
@@ -366,10 +408,23 @@ ui.positioner = function( o ) {
 			top = 0 + offset_top + pageY;
 			bottom = height + pageY;
 			right = width + pageX;
-		
+			
+			// Return viewport object
+			return {
+				element: viewport,			
+				left: 0 + offset_left + pageX,
+				top: 0 + offset_top + pageY,
+				bottom: height + pageY,
+				right: width + pageX,
+				width: width,
+				height: height
+			}
+		}:		
 		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
 		// older versions of IE - viewport = document.getElementsByTagName('body')[0];
-		} else if (typeof document.documentElement != "undefined" && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
+		function getViewport(){
+			var viewport, width, height, left, top, pageX, pageY;
+			
 			viewport = document.documentElement;
 			width = viewport.clientWidth;
 			height = viewport.clientHeight;
@@ -379,20 +434,20 @@ ui.positioner = function( o ) {
 			left = 0 + offset_left + pageX;
 			top = 0 + offset_top + pageY;
 			bottom = height + pageY;
-			right = width + pageX; 
-		}
+			right = width + pageX;
+			
+			// Return viewport object
+			return {
+				element: viewport,			
+				left: 0 + offset_left + pageX,
+				top: 0 + offset_top + pageY,
+				bottom: height + pageY,
+				right: width + pageX,
+				width: width,
+				height: height
+			}
+		};
 
-		// Return viewport object
-		return {
-			element: viewport,			
-			left: left,
-			top: top,
-			bottom: bottom,
-			right: right,
-			width: width,
-			height: height
-		}
-    };
  	
 	// Calculate css left and top to element on context
 	var getPosition = function(unitPoints) {		     
@@ -437,18 +492,28 @@ ui.positioner = function( o ) {
 		// Default styles
         var styles = getPosition(unitPoints);
         	styles.direction = classReferences[points];
-        // Check viewport limits
-		//var viewport = getViewport();
-		
+
+        // Check viewport limits	
 		// Down to top
 		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
-
-			// New styles
+			
+			//store old styles
+			stylesDown = styles;
+			
+			// New styles			 
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
-			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)			
+			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+			
+			// Top to Down - Default again 
+			if(styles.top < viewport.top){
+				unitPoints.my_y = "t";
+				unitPoints.at_y = "b";
+				styles = stylesDown;
+				styles.direction = "down";
+			};
 		};
 		
 		// Left to right
@@ -491,10 +556,11 @@ ui.positioner = function( o ) {
 
 	};	
 
-	// Get context
-	var getContext = function(){
-		if (o.context) {
-		    var contextOffset = o.context.offset();
+	// Get context	
+	//Conditional Advance Loading method
+	var getContext = (o.context) ?		
+		function getContext(){
+			var contextOffset = o.context.offset();
 		    context = {
 		    	element: o.context,
 				top: contextOffset.top + offset_top,
@@ -502,26 +568,39 @@ ui.positioner = function( o ) {
 				width: o.context.outerWidth(),
 				height: o.context.outerHeight()
 		    };
-		// Viewport as context
-		} else {
-			context = viewport;
+		    
+		    return context;
+		}:
+		function getContext(){
+			return viewport;
 		};
-		
-		return context;
-	};
-	
+
+
 	// Set element position on resize
     var initPosition = function(){  	
 	    viewport = getViewport();
 	    context = getContext();
 	    setPosition();
     };
-	
+
 	// Init
 	initPosition();
-	ui.utils.window.bind("resize scroll", initPosition);
-   	
-   	return $(element);
+	
+	// Scroll and resize events
+	//tested on IE = Magic, no lag!! 
+	var scrolled = false;	
+	ui.utils.window.bind("resize scroll", function() {
+		scrolled = true;		
+	});
+	setInterval(function() {
+	    if( !scrolled ) return;
+		scrolled = false;
+		initPosition();
+	    
+	}, 250);
+	
+
+	return $(element);
 };
 /**
  *  @class Object. Represent the abstract class of all ui objects.
@@ -529,6 +608,8 @@ ui.positioner = function( o ) {
  */	
 
 ui.object = function(){
+	
+	//constructor
 	
 	var that = this;
 	
@@ -570,7 +651,7 @@ ui.object = function(){
 				conf.$htmlContent.html('<div class="loading"></div>');
 				return ui.get({method:"content", conf:conf});
 				
-			}else if( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
+			} else if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
 				// Set url
 				conf.ajaxUrl = conf.ajax || conf.msg;
 
@@ -581,17 +662,17 @@ ui.object = function(){
 				conf.$htmlContent.html('<div class="loading"></div>');
 				return ui.get({method:"content", conf:conf});
 				
-			}else{
-				
-				var content = conf.content || conf.msg;
-				return ($(content).length > 0) ? $(content).clone().show() : content;
-				
+			} else {
+				var content = conf.content || conf.msg;				
+				return ($(content).length > 0) ? $(content).clone().show() : content ;
 			};
 
 		},
-		
+
 		callbacks: function(conf, when){
-			if(conf.callbacks && conf.callbacks[when]) conf.callbacks[when](conf.publish);
+			if(conf.callbacks && conf.callbacks[when]) {
+				return conf.callbacks[when]();
+			}
 		},
         
         publish: { 
@@ -606,18 +687,30 @@ ui.object = function(){
  */
 /*
 
-callbacks:{
+that.callbacks:{
 	show:,
 	hide:,
 	contentLoad:,
 	contentError:
-}
-	
-*/ 
-ui.floats = function() {
-    
-	var that = ui.object(); // Inheritance	
+}	
 
+*/
+
+ui.floats = function(conf) {
+
+/**
+ *  Constructor
+ */
+
+/**
+ *  Inheritance
+ */
+
+	var that = ui.object(conf); // Inheritance	
+    
+/**
+ *  Private Members
+ */
 	var createClose = function(conf) {
 		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
@@ -628,61 +721,93 @@ ui.floats = function() {
 		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContentainer);
 	};
 
-	that.show = function(event, conf) {
-		that.prevent(event);
+    var createLayout = function(conf) {
+
+        // Creo el layout del float
+    	conf.$htmlContentainer = $('<div class="ch-' + conf.name + '"><div class="ch-'+conf.name+'-content"></div></div>').appendTo("body").hide();
+    	conf.$htmlContent = conf.$htmlContentainer.find(".ch-"+conf.name+"-content");		
+
+		conf.position.element = conf.$htmlContentainer;		
 		
-		if(conf.visible) return;
-		
-		conf.$htmlContentainer = $('<div class="ch-' + conf.name + '"><div class="ch-'+conf.name+'-content"></div></div>');
-		conf.$htmlContent = conf.$htmlContentainer.find(".ch-"+conf.name+"-content");
-		
-	
-		// Visual configuration
+    	getContent(conf);
+    	
+    	// Visual configuration
 		if( conf.closeButton ) createClose(conf);
 		if( conf.cone ) createCone(conf);
 		if( conf.classes ) conf.$htmlContentainer.addClass(conf.classes);
 		if( conf.hasOwnProperty("width") ) conf.$htmlContentainer.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) conf.$htmlContentainer.css("height", conf.height);
-		
-		// Show
-		conf.$htmlContentainer
-			.hide()
-			.css("z-index", ui.utils.zIndex++)
-			.appendTo("body")
-			.fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
 
-		//Load content
-		if( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
-			that.loadContent(conf);
-		}else{
-			conf.$htmlContent
-				.html( that.loadContent(conf) )
-				.fadeIn('fast', function(){ that.callbacks(conf, 'contentLoad'); });
-		};
+		conf.$htmlContentainer
+    		.css("z-index", ui.utils.zIndex++)
+		    .fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
+		
+		ui.positioner(conf.position);
 		
 		conf.visible = true;
-				
-		// Positioner
-		conf.position.element = conf.$htmlContentainer;
-		ui.positioner(conf.position);
+    }
 
+// Obtener contenido y cachearlo
+    var getContent = function(conf) {
+    			
+    	if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ) {
+			
+    		that.loadContent(conf);
+    	
+		} else {
+		
+    		conf.$htmlContent
+    			.html( that.loadContent(conf) )
+    			.fadeIn('fast', function(){ that.callbacks(conf, 'contentLoad'); });
+    	};
+    }
+
+
+/**
+ *  Public Members
+ */
+ 
+	that.show = function(event, conf) {
+	
+		if (event) that.prevent(event);
+		
+		if(conf.visible) return;
+			
+		// Show if exist, else create
+		if (conf.$htmlContentainer) {
+    		conf.$htmlContentainer
+    		    .appendTo("body")
+    			.css("z-index", ui.utils.zIndex++)
+			    .fadeIn('fast', function(){ 
+					that.callbacks(conf, 'show'); 
+					conf.visible = true; 
+				});
+			ui.positioner(conf.position);
+			return;
+		}
+		
+		// If you reach here, create a float
+        createLayout(conf); 
 	};
 
-	that.hide = function(event, conf){
-		that.prevent(event);
+	that.hide = function(event, conf) {
+	
+		if (event) that.prevent(event);
 		
-		if(!conf.visible) return;
+		if (!conf.visible) return;
 		
-		conf.$htmlContentainer.fadeOut('fast', function(event){ $(this).remove(); });	
+		conf.$htmlContentainer.fadeOut('fast', function(event){ $(this).detach(); });	
 		
 		// Hide
 		conf.visible = false;
+
 		that.callbacks(conf, 'hide');
 	};
 	
 	that.position = function(o, conf){
 		
-		switch(typeof o){
+		switch(typeof o) {
+		 
 			case "object":
 				conf.position.context = o.context || conf.position.context;
 				conf.position.points = o.points || conf.position.points;
@@ -690,8 +815,8 @@ ui.floats = function() {
 				conf.position.fixed = o.fixed || conf.position.fixed;
 				
 				ui.positioner(conf.position);
-				return conf.publish;
-			break;
+//				return conf.publish;
+			    break;
 			
 			case "string":
 				if(o!="refresh"){
@@ -699,12 +824,12 @@ ui.floats = function() {
 				};
 				
 				ui.positioner(conf.position);
-				return conf.publish;   			
-			break;
+//				return conf.publish;   			
+			    break;
 			
 			case "undefined":
 				return conf.position;
-			break;
+		        break;
 		};
 		
 	};
@@ -797,7 +922,7 @@ ui.watcher = function(conf) {
                     // Merge Messages
                     $.extend(instance[i].messages, conf.messages);
                     // Merge Default Messages
-                    
+                    // TODO: ????? something
                     // Merge types
             	    instance[i].types = mergeTypes(instance[i].types);
     				return { 
@@ -911,12 +1036,21 @@ ui.watcher = function(conf) {
         return messages;
     };
 
+	// Revalidate
+	var revalidate = function() {
+		that.validate(conf);
+        that.parent.checkStatus();  // Check everthing?
+	}
+
 	/**
 	 *  @ Protected Members, Properties and Methods ;)
 	 */	
     
     // Status
 	that.status = true;
+	
+	// Enabled
+	that.enabled = true;
 	
 	// Types
 	that.types = conf.types;
@@ -948,11 +1082,12 @@ ui.watcher = function(conf) {
 		// Pre-validation: Don't validate disabled or not required&empty elements
 		if ($(conf.element).attr('disabled')) { return; };
 		if (that.publish.types.indexOf("required") == -1 && that.isEmpty(conf)) { return; };
-       
+
+		if (that.enabled) {
         // Validate each type of validation
 		for (var type in that.validations) {
 			// Status error (stop the flow)
-
+			
 			var condition = that.conditions[type];
             var value = $(conf.element).val();
             var gotError = true;
@@ -978,11 +1113,6 @@ ui.watcher = function(conf) {
 				that.helper.show( (that.messages[type]) ? that.messages[type] : that.defaultMessages[type] ); 
 				// Status false
 				that.publish.status = that.status =  conf.status = false;
-				
-				var revalidate = function() {
-                        that.validate(conf);
-                        that.parent.checkStatus();  // Check everthing?
-			    }
 			    
 				var event = (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur";
 				
@@ -990,10 +1120,11 @@ ui.watcher = function(conf) {
                     
                 return;
 			};
-        };
+        }; 
+		}; // Enabled
 		
 		// Status OK (with previous error)
-		if (!conf.status) {
+		if (!that.status||!that.enabled) {
 		    // Remove field error style
 			$(conf.element).removeClass("error"); 
             // Hide helper  
@@ -1068,9 +1199,17 @@ ui.watcher = function(conf) {
 			that.validate(conf);
 			return that.publish;
 		},
-        refresh: function(){ 
+        refresh: function() { 
             return that.helper.position("refresh");
-        }
+        },
+		enable: function() {
+			that.enabled = true;		
+			return that.publish;			
+		},
+		disable: function() {
+			that.enabled = false;
+			return that.publish;
+		}
 	};
 
     // Run the instances checker        
@@ -1399,17 +1538,11 @@ ui.dropdown = function(conf){
  */
 
 ui.layer = function(conf) {
+
     
-	var that = ui.floats(); // Inheritance
-
-    var showTime = conf.showTime || 300;
-    var hideTime = conf.hideTime || 300;
-
-	var st, ht; // showTimer and hideTimer
-	var showTimer = function(event){ st = setTimeout(function(){ show($.Event()) }, showTime) };
-	var hideTimer = function(event){ ht = setTimeout(function(){ hide($.Event()) }, hideTime) };
-	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
-
+/**
+ *  Constructor
+ */
 	// Global configuration
 	conf.$trigger = $(conf.element);
 	conf.cone = true;
@@ -1420,7 +1553,22 @@ ui.layer = function(conf) {
         offset: conf.offset || "0 10",
 		points: conf.points || "lt lb"
     }
-    conf.publish = that.publish;
+ 
+/**
+ *  Inheritance
+ */
+	var that = ui.floats(conf);
+
+/**
+ *  Private Members
+ */
+    var showTime = conf.showTime || 300;
+    var hideTime = conf.hideTime || 300;
+
+	var st, ht; // showTimer and hideTimer
+	var showTimer = function(event){ st = setTimeout(function(){ show(event) }, showTime) };
+	var hideTimer = function(event){ ht = setTimeout(function(){ hide(event) }, hideTime) };
+	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
     var show = function(event) {
     			
@@ -1435,15 +1583,19 @@ ui.layer = function(conf) {
                 that.hide(event, conf);
             });
         }
-        
-        return conf.publish; // Returns publish object
     }
 
     var hide = function(event) {
         that.hide(event, conf);
-        return conf.publish; // Returns publish object
     }
 
+/**
+ *  Protected Members
+ */ 
+ 
+/**
+ *  Default event delegation
+ */	
 	// Click
 	if(conf.event === 'click') {
 		// Local configuration
@@ -1463,19 +1615,38 @@ ui.layer = function(conf) {
 			.bind('mouseout', hideTimer);
 	};
 
-    // Create the publish object to be returned
-    conf.publish.uid = conf.id;
-    conf.publish.element = conf.element;
-    conf.publish.type = "layer";
-    conf.publish.content = (conf.content) ? conf.content : conf.ajax;
-    conf.publish.show = function(){ return show($.Event()) };
-    conf.publish.hide = function(){ return hide($.Event()) };
-    conf.publish.position = function(o){ return that.position(o, conf) };
-
     // Fix: change layout problem
     ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
 
-	return conf.publish;
+/**
+ *  Expose propierties and methods
+ */	
+	that.publish = {
+	
+	/**
+	 *  @ Public Properties
+	 */
+    	uid: conf.id,
+		element: conf.element,
+		type: "layer",
+		content: (conf.content) ? conf.content : conf.ajax,
+	/**
+	 *  @ Public Methods
+	 */
+		show: function(){ 
+			showTimer();
+			return that.publish; // Returns publish object
+		},
+		hide: function(){ 
+			hideTimer();
+			return that.publish; // Returns publish object
+		},
+		position: function(o){ 
+			return that.position(o,conf) || that.publish;
+		}
+	}	 
+
+	return that.publish;
 
 };
 /**
@@ -1485,70 +1656,135 @@ ui.layer = function(conf) {
  */
 
 ui.modal = function(conf){
-	var that = ui.floats(); // Inheritance
 
-	// Global configuration
+/**
+ *  Constructor
+ */
 	conf.$trigger = $(conf.element);
-	conf.closeButton = true;
+	conf.closeButton = (conf.name=="modal") ? true : false ;
 	conf.classes = 'box';
 	conf.position = {
 		fixed:true
 	};
-	 
-	if( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) conf.ajax = true; //Default	
-	conf.publish = that.publish;
-	
-	// Privated methods
-	var show = function(event){
+		
+	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default
+/**
+ *  Inheritance
+ */
+
+	var that = ui.floats(conf); // Inheritance	
+
+/**
+ *  Private Members
+ */
+
+	// Dimmer 2.0
+	// Dimmer object
+	var $dimmer = $('<div>')
+			.addClass('ch-dimmer')
+			.css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++})
+			.hide();
+
+	// Dimmer Controller
+	var dimmer = {
+		on: function() { //TODO: posicionar el dimmer con el positioner
+			$dimmer
+				.appendTo('body')
+				.fadeIn();
+
+			if (conf.name=="modal") {
+				$dimmer.one("click",hide);
+			}
+			
+		},
+		off: function() {
+			$dimmer.fadeOut('normal', function(){ 
+				$dimmer.detach(); 
+			});
+		}
+	};
+
+	var show = function(event) {
 		dimmer.on();
 		that.show(event, conf);
 		ui.positioner(conf.position);
-		$('.ch-modal .btn.ch-close, .closeModal').bind('click', hide);
+		$('.ch-modal .btn.ch-close').one('click', hide);
 		conf.$trigger.blur();
-
-        return conf.publish; // Returns publish object
 	};
 
-	var hide = function(event){
+	var hide = function(event) {
 		dimmer.off();
 		that.hide(event, conf);
-        return conf.publish; // Returns publish object
 	};
+
 	
-	var position = function(){
-		ui.positioner(conf.position);
-		return conf.publish; // Returns publish object
-	}
-
-
-	// Dimmer
-	var dimmer = {
-		on: function(){ //TODO: posicionar el dimmer con el positioner
-			$('<div>').bind('click', hide).addClass('ch-dimmer').css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++}).hide().appendTo('body').fadeIn();
-		},
-		off: function(){
-			$('div.ch-dimmer').fadeOut('normal', function(){ $(this).remove(); });
-		}
-	};
-	
-
-	// Events
+/**
+ *  Protected Members
+ */ 
+ 
+/**
+ *  Default event delegation
+ */	
 	conf.$trigger
 		.css('cursor', 'pointer')
 		.bind('click', show);
-	
-	
-    // Create the publish object to be returned
-    conf.publish.uid = conf.id;
-    conf.publish.element = conf.element;
-    conf.publish.type = "modal";
-    conf.publish.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax);
-    conf.publish.show = function(){ return show($.Event()) };
-    conf.publish.hide = function(){ return hide($.Event()) };
-    conf.publish.position = function(o){ return that.position(o, conf) };
 
-	return conf.publish;
+/**
+ *  Expose propierties and methods
+ */	
+	that.publish = {
+	
+	/**
+	 *  @ Public Properties
+	 */
+    	uid: conf.id,
+		element: conf.element,
+		type: conf.name,
+		content: (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax ),
+	/**
+	 *  @ Public Methods
+	 */
+	 	show: function() {
+			show();
+			return that.publish;
+		},
+		hide: function() {
+			hide();
+			return that.publish;
+		},
+		position: function(o) {
+			return that.position(o,conf) || that.publish;
+		}
+	};
+	
+	return that.publish;
 };
+
+
+
+/**
+ *	@Interface Transition
+ *	@return An interface object
+ 
+
+var t = $("div").transition("Aguarde mientras transiosiono");
+	t.hide();
+ 
+ */
+ 
+ui.transition = function(conf) {
+    
+    conf = conf || {};
+	
+	conf.closeButton = false;
+	conf.msg = conf.msg || "Espere por favor...";
+	conf.content = "<div class=\"loading\"></div><p>"+conf.msg+"</p>";
+	
+    return ui.modal(conf);
+    
+}
+
+ui.factory({ component: 'transition' });
 /**
  *	Tabs Navigator
  *	@author
@@ -1694,8 +1930,11 @@ ui.tab = function(index, element, conf){
  *  @memberOf ui.Floats
  */
 
-ui.tooltip = function(conf){
-	var that = ui.floats(); // Inheritance
+ui.tooltip = function(conf) {
+    
+/**
+ *  Constructor
+ */
 
 	conf.cone = true;
 	conf.content = conf.element.title;	
@@ -1705,42 +1944,70 @@ ui.tooltip = function(conf){
         offset: "0 10",
 		points: "lt lb"
     }
-	conf.publish = that.publish;
 
+/**
+ *  Inheritance
+ */
+ 
+	var that = ui.floats(conf); // Inheritance
+
+/**
+ *  Private Members
+ */
+ 
     var show = function(event) {
         $(conf.element).attr('title', ''); // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 		that.show(event, conf);
-        
-        return conf.publish; // Returns publish object
-    }
+	}
 	
     var hide = function(event) {
 		$(conf.element).attr('title', conf.content);
 		that.hide(event, conf);
-        return conf.publish; // Returns publish object
     }
     
-    var position = function(event){
-		ui.positioner(conf.position);
-		return conf.publish; // Returns publish object
-	}
-            	
+/**
+ *  Protected Members
+ */ 
+ 
+/**
+ *  Default event delegation
+ */	
+ 	
 	conf.$trigger = $(conf.element)
 		.css('cursor', 'default')
 		.bind('mouseenter', show)
 		.bind('mouseleave', hide);
-    
-    // Create the publish object to be returned
-    conf.publish.uid = conf.id;
-    conf.publish.element = conf.element;
-    conf.publish.type = "tooltip";
-    conf.publish.content = conf.content;
-    conf.publish.show = function(){ return show($.Event()) };
-    conf.publish.hide = function(){ return hide($.Event()) };
-    conf.publish.position = function(o){ return that.position(o, conf) };
 
     // Fix: change layout problem
     ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
+    
+/**
+ *  Expose propierties and methods
+ */	
+	that.publish = {
+	
+	/**
+	 *  @ Public Properties
+	 */
+    	uid: conf.id,
+		element: conf.element,
+		type: "tooltip",
+		content: conf.content,
+	/**
+	 *  @ Public Methods
+	 */
+		show: function() { 
+			show();
+			return that.publish; // Returns publish object
+		},
+		hide: function() { 
+			hide();
+			return that.publish; // Returns publish object
+		},
+		position: function(o) { 
+			return that.position(o,conf) || that.publish;
+		}
+	}
 
 	return that.publish;
 };
@@ -1905,21 +2172,25 @@ ui.number = function(conf){
 	 *  Override Watcher Configuration
 	 */
 	// Validation types
-	conf.types = "number,min,max";
+	conf.types = "number,min,max,price";
 	// Helper
 	conf.reference = $(conf.element);
 	// Conditions map TODO: float	
     conf.conditions = {
         number: { patt: /^([0-9\s]+)$/ },
         min:    { expr: function(a,b) { return a >= b } },
-        max:    { expr: function(a,b) { return a <= b } }
+        max:    { expr: function(a,b) { return a <= b } },
+		price:  { patt: /^(\d+)[.,]?(\d?\d?)$/ }
+		//price:  { patt: /^\d (\Z|[\.]\d )$/ }
+
     };
     
     // Messages
 	conf.defaultMessages = {
 		number:	"Usa sÃ³lo nÃºmeros.",
 		min:	"La cantidad mÃ­nima es " + conf.min + ".",
-		max:	"La cantidad mÃ¡xima es " + conf.max + "."
+		max:	"La cantidad mÃ¡xima es " + conf.max + ".",
+		price:  "El campo deberia ser un precio vÃ¡lido: 999,00"
 	};
 
 	conf.messages = conf.messages || {};
@@ -1930,7 +2201,7 @@ ui.number = function(conf){
     }
 
     // $.number("message"); support
-    if (!conf.number&&!conf.min&&!conf.max){
+    if (!conf.number&&!conf.min&&!conf.max&&!conf.price){
         conf.number = true;
     }
     
@@ -1988,6 +2259,27 @@ ui.max = function(conf) {
 
 ui.factory({ component: 'max' });
 
+
+/**
+ *	@Interface Price validations
+ *	@return An interface object
+ */
+ 
+ui.price = function(conf) {
+    
+    conf = conf || {};
+    
+    conf.price = true;
+
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { conf.messages.price = conf.msg; conf.msg = null; }
+    
+    return ui.number(conf);
+    
+}
+
+ui.factory({ component: 'price' });
 /**
  *	Required validations
  *  @Extends Watcher
@@ -2030,49 +2322,77 @@ ui.required = function(conf){
 };
 /**
  *	Helper
- *	@author
- *	@Contructor
- *	@return An interface object
  */
 
-ui.helper = function(conf){
-	var that = ui.floats(); // Inheritance
+ui.helper = function(parent){
 
-	// Global configuration
-	var _conf = {};
-	_conf.name = "helper";
-	_conf.$trigger = $(conf.element);
-	_conf.cone = true;
-	_conf.classes = "helper" + conf.id;
-	_conf.visible = false;
-	_conf.position = {};
-	_conf.position.context = conf.reference;
-	_conf.position.offset = "15 0";
-	_conf.position.points = "lt rt";
+/**
+ *  Constructor
+ */
+var conf = {};
+	conf.name = "helper";
+	conf.$trigger = $(parent.element);
+	conf.cone = true;
+	conf.classes = "helper" + parent.id;
+	conf.visible = false;
+	conf.position = {};
+	conf.position.context = parent.reference;
+	conf.position.offset = "15 0";
+	conf.position.points = "lt rt";
 
+/**
+ *  Inheritance
+ */
+
+	var that = ui.floats(conf); // Inheritance
+
+/**
+ *  Private Members
+ */
 	var hide = function(){
-		$('.helper' + conf.id).remove();
-		_conf.visible = false;
+		$('.helper' + parent.id).remove();
+		conf.visible = false;
 		that.callbacks(conf, 'hide');
 	};
 	
-	var show = function(text){
-		_conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';		
-		that.show($.Event(), _conf);
+	var show = function(txt){
+		conf.content = '<p><span class="ico error">Error: </span>' + txt + '</p>';		
+		that.show($.Event(), conf);
 	};
 
+/**
+ *  Protected Members
+ */ 
+ 
+/**
+ *  Default event delegation
+ */
     ui.utils.body.bind(ui.events.CHANGE_LAYOUT, function(){ 
-            that.position("refresh", _conf) 
+            that.position("refresh", conf) 
         });
 
-	return { 
-        show: function(text){ show(text) }, 
-        hide: hide,
-        position: function(o){ 
-            return that.position(o, _conf) 
-        }
-    };
-
+/**
+ *  Expose propierties and methods
+ */	
+	that.publish = {
+	
+	/**
+	 *  @ Public Properties
+	 */
+    	uid: conf.id,
+		element: conf.element,
+		type: "helper",
+	/**
+	 *  @ Public Methods
+	 */
+		show: function(txt) { show(txt); },
+		hide: hide,
+		position: function(o) {
+			return that.position(o,conf) || that.publish;
+		}
+	 };
+	 
+	 return that.publish;
 };
 /**
  *	Form Controller
@@ -2177,16 +2497,18 @@ ui.forms = function(conf){
 		return conf.publish; // Return publish object
 	};
 
-
 	var submit = function(event){
 
         that.callbacks(conf, 'beforeSubmit');
 
 		that.prevent(event);
+
 		validate(event); // Validate start
-		if (status){ // Status OK	
-			if(conf.callbacks && conf.callbacks.submit) conf.callbacks.submit();
-			conf.element.submit();
+		
+		if ( status ){ // Status OK
+			if ( that.callbacks(conf, 'submit') === false ) {
+				conf.element.submit();
+			}
 		};		
 
         that.callbacks(conf, 'afterSubmit');
@@ -2219,10 +2541,11 @@ ui.forms = function(conf){
         uid: conf.id,
         element: conf.element,
         type: "forms",
+		status: status,
         children: that.children,
 		validate: function(event){ return validate(event) },
-		checkStatus: function(event){ return checkStatus(event) },
 		submit: function(event){ return submit(event) },
+		checkStatus: function() { return checkStatus() },
 		clear: function(event){ return clear(event) }
     }
 
@@ -2288,30 +2611,30 @@ ui.viewer = function(conf){
 	var showcase = {};
 	showcase.wrapper = $("<div>").addClass("ch-viewer-display");
 	showcase.display = $(conf.element).children(":first");
-	$viewer.append( showcase.wrapper.append( showcase.display ).append("<div class=\"ch-lens\">") );
+	$viewer.append( showcase.wrapper.append( showcase.display ) );
+	$viewer.append("<div class=\"ch-lens\">");
 	
 	showcase.children = showcase.display.find("a");
 	showcase.itemWidth = $(showcase.children[0]).parent().outerWidth();
 	
 	showcase.lens = $viewer.find(".ch-lens") // Get magnifying glass
 	ui.positioner({
-        element: $(showcase.lens),
-        context: $(".ch-viewer li"),
-        offset: "-20px 0"
+        element: showcase.lens,
+        context: showcase.wrapper
 	});	
 	showcase.lens.bind("click", function(event){
 		viewerModal.modal.show();
 	});
+
+	// Show magnifying glass
+	showcase.wrapper.bind("mouseover", function(){
+		showcase.lens.fadeIn(400);
+	});
 	
-	showcase.wrapper
-		// Show magnifying glass
-		.bind("mouseover", function(){
-			showcase.lens.fadeIn(400);
-		})
-		// Hide magnifying glass
-		.bind("mouseleave", function(){
-			showcase.lens.fadeOut(400);
-		});
+	// Hide magnifying glass
+	$viewer.bind("mouseleave", function(){
+		showcase.lens.fadeOut(400);
+	});
 	
 	// Set content visual config
 	var extraWidth = (ui.utils.html.hasClass("ie6")) ? showcase.itemWidth : 0;
@@ -2336,7 +2659,7 @@ ui.viewer = function(conf){
 	
 	// Create carousel structure
 	$viewer.append( thumbnails.wrapper.append( $viewer.find("ul").clone().addClass("carousel") ) );
-		 
+	 
 	thumbnails.children = thumbnails.wrapper.find("a");
 	
 	// Thumbnails behavior
@@ -2352,7 +2675,11 @@ ui.viewer = function(conf){
 	});
 	// Inits carousel
 	that.children[0] = thumbnails.carousel = thumbnails.wrapper.carousel();
-	
+		
+	// Hide magnifying glass
+	thumbnails.wrapper.bind("mouseenter", function(){
+		showcase.lens.fadeOut(400);
+	});
 	
 	/**
 	 * 	Methods
