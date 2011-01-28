@@ -192,7 +192,7 @@ ui.viewer = function(conf){
 	// Default behavior (Select first item and without callback)
 	select(0);
 	
-		// Preload big imgs on document loaded
+	// Preload big imgs on document loaded
 	var bigImgs = [];
 	ui.utils.window.load(function(){
 		setTimeout(function(){			

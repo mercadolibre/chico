@@ -27,6 +27,17 @@
 	<body>
 		<h1></h1>
 		
+		<h1>Transition window</h1>
+		<div class="section">
+			<div class="box">
+				<h2>Demo</h2>
+				<a href="test.html" class="demoTransition1">Transition ejecutado en un link.</a></li>
+				<form action="test.html">
+					<input type="submit" class="btn secondary demoTransition2" value="Transition ejecutado en un botón">
+				</form>
+			</div>
+		</div>
+		
 		<h1>Expando</h1>
 		<div class="demoExpando">
 			<h4>Lorem ipsum dolor sit amet.</h4>
@@ -701,6 +712,10 @@
         		hide: function(){ console.log("Se cierra el modal") }
         	}
         });*/
+        
+        var ui_trans1 = $(".demoTransition1").transition("Espere mientras pruebo la transición. Gracias papi."); 
+        var ui_trans2 = $(".demoTransition2").transition(); 
+        
         var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foo</p>' });
         var ui_layr = $('.demoLayerOnmouseover').layer({ content: '<p>foo</p>' });
         var ui_tool = $('.demoTooltip').tooltip();

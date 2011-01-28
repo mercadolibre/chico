@@ -29,6 +29,21 @@
 				<input type="submit" class="btn primary" id="testModalAjax" value="Comprar">				
 			</form>
 		</div>
+		
+		
+		<h1>Chico-UI: Transition testcases</h1>
+		<h2>Contenido por parametro</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testTransition" value="Comprar">				
+			</form>
+		</div>
+		<h2>Contenido por DOM</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testTransition2" value="Comprar">				
+			</form>
+		</div>
 	<br>
 	
 	<div id="testDOM" style="display:none">
@@ -58,7 +73,11 @@
     
 	    var testModalDOM = $('#testModalDOM').modal({
 	    	content: '#testDOM'
-	    });
+	    });	    
+	    
+		var testTransition = $('#testTransition').transition();
+		
+		var testTransition2 = $('#testTransition2').transition("Aguarde mientras se valida el test.");
 
 	    var testModalAjax;					
 		$.fx.off = true;
@@ -217,6 +236,76 @@
     		ok( testModalAjax.content != undefined , "Expected to find a defined content on the modal instance");
 
         });
+        
+                
+        module("Transition basics instance object");
+		
+		test("Basics for transitions window", function(){
+
+            expect( 3 );
+
+       		ok( testTransition.uid >= 0 , "Expected to find a defined content on the transition instance");
+       		
+    		ok( testTransition.type == "transition" , "Expected to find \"transition\" as value of type attribute");
+    		
+    		ok( testTransition.content != undefined , "Expected to find a defined content on the transition instance");
+
+        });
+		
+		test("Transition chain methods", function(){
+            
+            expect ( 3 );
+            
+            var testTransitionOriginal = testTransition;
+            
+            var chainShow = testTransition.show();
+            
+            var chainHide = testTransition.hide();
+
+            var chained = testTransition.show().hide();
+             
+            ok ( chainShow === testTransitionOriginal, "Expected to return original instance object on show() method call");
+            
+            ok ( chainHide === testTransitionOriginal, "Expected to return original instance object on hide() method call");
+
+            ok ( chained === testTransitionOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+            
+        });
+        
+        
+        module('Transition layout and interaction');
+						
+		test('Opens basic transition window', function(){
+		  
+			notExists('.ch-dimmer');
+			notExists('.ch-transition');
+			
+			$('#testTransition').click();
+			
+			exists('.ch-dimmer');
+			exists('.ch-transition');
+			
+			isVisible('.ch-dimmer');
+			isVisible('.ch-transition');
+			
+			testTransition.hide();
+			
+		});
+		
+		test('Transition window without close button and dimmer close action', function(){
+		  					
+			$('#testTransition').click();
+			
+			notExists('.ch-modal .ch-close');
+			
+			$('.ch-dimmer').trigger('click');
+			
+			exists('.ch-dimmer');
+			exists('.ch-transition');
+			
+			testTransition.hide();
+			
+		});
         	
 	</script>
 

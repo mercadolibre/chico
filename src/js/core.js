@@ -325,5 +325,5 @@ ui.cache = {
 	flush: function() {
 		delete ui.cache.map;
 		ui.cache.map = {};
-	}        
+	}
 };
