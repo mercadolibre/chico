@@ -9,7 +9,11 @@
 	z-index:100;
 }
 
-.ch-modal {
+.ch-transition p {
+    text-align: center
+}
+
+.ch-modal, .ch-transition {
 	background-color: #fff;
 	display:none;
 	width:500px;
@@ -40,7 +44,7 @@ html.ie6  div.ch-dimmer {
 }
 
 
-* html.ie6  div.ch-modal {
+* html.ie6  div.ch-modal, div.ch-transition {
 	z-index:150;
 }
 

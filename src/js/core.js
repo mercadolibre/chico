@@ -36,12 +36,37 @@ var ui = window.ui = {
 		zIndex: 1000,
 		index: 0 // global instantiation index
 	},
-    
+/**
+ *	@const Event's Map.
+ */	
     events: {
         CHANGE_LAYOUT: "changeLayout"
-    }
-    
-}
+    }    
+};
+
+
+
+
+/**
+ *	Pre-Load function
+ */	
+
+ui.preload = function(arr) {
+
+	if (typeof arr === "string") {
+		arr = (arr.indexOf(",") > 0) ? arr.split(",") : [arr] ;
+	}
+
+	for (var i=0;i<arr.length;i++) {
+				
+		var o = document.createElement("object");
+			o.data = arr[i]; // URL
+			
+		var h = document.getElementsByTagName("head")[0];
+			h.appendChild(o);
+			h.removeChild(o); 
+	}       
+};
 
 /**
 *	Factory
@@ -278,4 +303,27 @@ ui.support = function() {
 		// gradient: gradient
 	};
 	
+};
+
+
+/**
+ *  Cache
+ */
+
+ui.cache = {
+	map: {},
+	add: function(url, data) {
+		ui.cache.map[url] = data;
+	},
+	get: function(url) {
+		return ui.cache.map[url];
+	},
+	rem: function(url) {
+		ui.cache.map[url] = null;
+		delete ui.cache.map[url];
+	},
+	flush: function() {
+		delete ui.cache.map;
+		ui.cache.map = {};
+	}        
 };

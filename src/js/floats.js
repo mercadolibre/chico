@@ -5,7 +5,7 @@
  */
 /*
 
-callbacks:{
+that.callbacks:{
 	show:,
 	hide:,
 	contentLoad:,
@@ -45,8 +45,7 @@ ui.floats = function(conf) {
     	conf.$htmlContentainer = $('<div class="ch-' + conf.name + '"><div class="ch-'+conf.name+'-content"></div></div>').appendTo("body").hide();
     	conf.$htmlContent = conf.$htmlContentainer.find(".ch-"+conf.name+"-content");		
 
-		conf.position.element = conf.$htmlContentainer;
-		ui.positioner(conf.position);
+		conf.position.element = conf.$htmlContentainer;		
 		
     	getContent(conf);
     	
@@ -60,7 +59,9 @@ ui.floats = function(conf) {
 		conf.$htmlContentainer
     		.css("z-index", ui.utils.zIndex++)
 		    .fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
-
+		
+		ui.positioner(conf.position);
+		
 		conf.visible = true;
     }
 
@@ -99,7 +100,7 @@ ui.floats = function(conf) {
 					that.callbacks(conf, 'show'); 
 					conf.visible = true; 
 				});
-
+			ui.positioner(conf.position);
 			return;
 		}
 		

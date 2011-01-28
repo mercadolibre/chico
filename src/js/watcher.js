@@ -39,7 +39,7 @@ ui.watcher = function(conf) {
                     // Merge Messages
                     $.extend(instance[i].messages, conf.messages);
                     // Merge Default Messages
-                    
+                    // TODO: ????? something
                     // Merge types
             	    instance[i].types = mergeTypes(instance[i].types);
     				return { 
@@ -153,12 +153,21 @@ ui.watcher = function(conf) {
         return messages;
     };
 
+	// Revalidate
+	var revalidate = function() {
+		that.validate(conf);
+        that.parent.checkStatus();  // Check everthing?
+	}
+
 	/**
 	 *  @ Protected Members, Properties and Methods ;)
 	 */	
     
     // Status
 	that.status = true;
+	
+	// Enabled
+	that.enabled = true;
 	
 	// Types
 	that.types = conf.types;
@@ -190,11 +199,12 @@ ui.watcher = function(conf) {
 		// Pre-validation: Don't validate disabled or not required&empty elements
 		if ($(conf.element).attr('disabled')) { return; };
 		if (that.publish.types.indexOf("required") == -1 && that.isEmpty(conf)) { return; };
-       
+
+		if (that.enabled) {
         // Validate each type of validation
 		for (var type in that.validations) {
 			// Status error (stop the flow)
-
+			
 			var condition = that.conditions[type];
             var value = $(conf.element).val();
             var gotError = true;
@@ -220,11 +230,6 @@ ui.watcher = function(conf) {
 				that.helper.show( (that.messages[type]) ? that.messages[type] : that.defaultMessages[type] ); 
 				// Status false
 				that.publish.status = that.status =  conf.status = false;
-				
-				var revalidate = function() {
-                        that.validate(conf);
-                        that.parent.checkStatus();  // Check everthing?
-			    }
 			    
 				var event = (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur";
 				
@@ -232,10 +237,11 @@ ui.watcher = function(conf) {
                     
                 return;
 			};
-        };
+        }; 
+		}; // Enabled
 		
 		// Status OK (with previous error)
-		if (!conf.status) {
+		if (!that.status||!that.enabled) {
 		    // Remove field error style
 			$(conf.element).removeClass("error"); 
             // Hide helper  
@@ -310,9 +316,17 @@ ui.watcher = function(conf) {
 			that.validate(conf);
 			return that.publish;
 		},
-        refresh: function(){ 
+        refresh: function() { 
             return that.helper.position("refresh");
-        }
+        },
+		enable: function() {
+			that.enabled = true;		
+			return that.publish;			
+		},
+		disable: function() {
+			that.enabled = false;
+			return that.publish;
+		}
 	};
 
     // Run the instances checker        
