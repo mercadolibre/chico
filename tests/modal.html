@@ -77,7 +77,7 @@
 	    
 		var testTransition = $('#testTransition').transition();
 		
-		var testTransition2 = $('#testTransition2').transition("Aguarde mientras se valida el test.");
+		var testTransition2 = $('#testTransition2').transition("Espere a que valide el test por favor...");
 
 	    var testModalAjax;					
 		$.fx.off = true;
@@ -237,6 +237,10 @@
 
         });
         
+        
+        
+        
+        /* TRANSITION TESTS */ 
                 
         module("Transition basics instance object");
 		
@@ -306,6 +310,18 @@
 			testTransition.hide();
 			
 		});
+		
+		module("Transition custom messages");
+		
+		test("Custom massages for transitions window", function(){
+
+            expect( 1 );
+
+			var msg = "<div class=\"loading\"></div><p>Espere a que valide el test por favor...</p>";
+
+       		ok( testTransition2.content ==  msg, "Expected to find a custom message on the transition content");
+
+        });
         	
 	</script>
 
