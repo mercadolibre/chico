@@ -9,7 +9,7 @@
 	<script></script>
 	<meta charset="utf-8">
 	<title>Chico UI - Demo Transition window</title>
-	<link rel="stylesheet" href="../../src/css/chico.css">
+	<link rel="stylesheet" href="../../build/chico.css">
 	<link rel="stylesheet" href="../../src/css/grid.css">
 	<link rel="stylesheet" href="../../src/css/pages.css">
 	<link rel="stylesheet" href="../../libs/css/highlight.css">
@@ -18,7 +18,7 @@
 		<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
 	<![endif]-->
 	<script src="../../libs/js/jquery.js"></script>
-	<script src="../../src/js/chico.js"></script>
+	<script src="../../build/chico.js"></script>
 </head>
 <body>
 	
@@ -27,7 +27,30 @@
 	</form>
 	
 	<script>
-		$(".demoTransition").transition();		
+		
+		var i = 0;
+		
+		var timer = function(){
+				
+			if (i >= 5) { 
+				
+				t_demo[0].hide();
+				
+				return; 
+			}
+					
+			i++;
+					
+			$(".ch-transition-content p").html("Cerrando en "+i+" segundos ...");
+				setTimeout(timer,1000);
+			}
+		
+		var t_demo = $(".demoTransition").transition({callbacks:{show:function() {
+				
+			setTimeout(timer,1000);
+				
+			}
+		}});
 	</script>
 
 </body>
