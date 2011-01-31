@@ -28,22 +28,32 @@
 	
 	<script>
 		
-		var i = 0;
+		var i = 5;
 		
 		var timer = function(){
 				
-			if (i >= 5) { 
+			if (i == 0) { 
 				
-				t_demo[0].hide();
+				
+				if ( t_demo[0] ){
+					 
+					t_demo[0].hide();
+					
+				} else {
+					
+					t_demo.hide();
+				}
+						
+				
+				i = 5;
 				
 				return; 
 			}
-					
-			i++;
-					
+							
 			$(".ch-transition-content p").html("Cerrando en "+i+" segundos ...");
-				setTimeout(timer,1000);
-			}
+			i--;
+			setTimeout(timer,1000);
+		}
 		
 		var t_demo = $(".demoTransition").transition({callbacks:{show:function() {
 				
