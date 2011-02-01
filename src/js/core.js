@@ -1,3 +1,4 @@
+var start = new Date().getTime();
 /** 
   * @namespace
   */
@@ -67,6 +68,9 @@ ui.preload = function(arr) {
 			h.removeChild(o); 
 	}       
 };
+
+
+
 
 /**
 *	Factory
@@ -327,3 +331,8 @@ ui.cache = {
 		ui.cache.map = {};
 	}
 };
+
+$(function() { // DOM Ready
+	var now = new Date().getTime();
+    ui.loadTime = now - start;
+});
