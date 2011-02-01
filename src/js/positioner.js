@@ -18,7 +18,7 @@ ui.positioner = function( o ) {
         [context]: $element | viewport
         [offset]: "x y" 
         [points]: "cm cm" // default
-        [fixed]: false // default
+        [hold]: false // default
         [draggable]: false // default
         
     } */
@@ -148,7 +148,10 @@ ui.positioner = function( o ) {
 		// Default styles
         var styles = getPosition(unitPoints);
         	styles.direction = classReferences[points];
-
+		
+		// Hold behavior
+		if (o.hold) return styles;
+		
         // Check viewport limits	
 		// Down to top
 		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
@@ -243,11 +246,13 @@ ui.positioner = function( o ) {
 	initPosition();
 	
 	// Scroll and resize events
-	//tested on IE = Magic, no lag!! 
+	// Tested on IE = Magic, no lag!! 
 	var scrolled = false;	
+	
 	ui.utils.window.bind("resize scroll", function() {
-		scrolled = true;		
+		scrolled = true;
 	});
+	
 	setInterval(function() {
 	    if( !scrolled ) return;
 		scrolled = false;

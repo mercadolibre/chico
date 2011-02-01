@@ -12,9 +12,6 @@ ui.modal = function(conf){
 	conf.$trigger = $(conf.element);
 	conf.closeButton = (conf.name=="modal") ? true : false ;
 	conf.classes = 'box';
-	conf.position = {
-		fixed:true
-	};
 		
 	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default
 /**

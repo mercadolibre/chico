@@ -30,33 +30,36 @@ ui.floats = function(conf) {
  *  Private Members
  */
 	var createClose = function(conf) {
-		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
+		$('<p class="btn ch-close">x</p>').one('click', function(event) {
 			that.hide(event, conf);
-		}).prependTo(conf.$htmlContentainer);
+		}).prependTo(conf.$container);
 	};
 
 	var createCone = function(conf) {
-		$('<div class="ch-cone"></div>').prependTo(conf.$htmlContentainer);
+		$('<div class="ch-cone"></div>').prependTo(conf.$container);
 	};
 
     var createLayout = function(conf) {
 
         // Creo el layout del float
-    	conf.$htmlContentainer = $('<div class="ch-' + conf.name + '"><div class="ch-'+conf.name+'-content"></div></div>').appendTo("body").hide();
-    	conf.$htmlContent = conf.$htmlContentainer.find(".ch-"+conf.name+"-content");		
-
-		conf.position.element = conf.$htmlContentainer;		
+    	conf.$container = $('<div class="ch-' + conf.name + '"><div class="ch-'+conf.name+'-content"></div></div>').appendTo("body").hide();
+    	conf.$htmlContent = conf.$container.find(".ch-"+conf.name+"-content");		
+		
+		conf.position = conf.position || {};
+		
+		conf.position.element = conf.$container;
+		conf.position.hold = conf.hold || false;
 		
     	getContent(conf);
     	
     	// Visual configuration
 		if( conf.closeButton ) createClose(conf);
 		if( conf.cone ) createCone(conf);
-		if( conf.classes ) conf.$htmlContentainer.addClass(conf.classes);
-		if( conf.hasOwnProperty("width") ) conf.$htmlContentainer.css("width", conf.width);
-		if( conf.hasOwnProperty("height") ) conf.$htmlContentainer.css("height", conf.height);
+		if( conf.classes ) conf.$container.addClass(conf.classes);
+		if( conf.hasOwnProperty("width") ) conf.$container.css("width", conf.width);
+		if( conf.hasOwnProperty("height") ) conf.$container.css("height", conf.height);
 
-		conf.$htmlContentainer
+		conf.$container
     		.css("z-index", ui.utils.zIndex++)
 		    .fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
 		
@@ -92,8 +95,8 @@ ui.floats = function(conf) {
 		if(conf.visible) return;
 			
 		// Show if exist, else create
-		if (conf.$htmlContentainer) {
-    		conf.$htmlContentainer
+		if (conf.$container) {
+    		conf.$container
     		    .appendTo("body")
     			.css("z-index", ui.utils.zIndex++)
 			    .fadeIn('fast', function(){ 
@@ -114,7 +117,7 @@ ui.floats = function(conf) {
 		
 		if (!conf.visible) return;
 		
-		conf.$htmlContentainer.fadeOut('fast', function(event){ $(this).detach(); });	
+		conf.$container.fadeOut('fast', function(event){ $(this).detach(); });	
 		
 		// Hide
 		conf.visible = false;

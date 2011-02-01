@@ -15,8 +15,8 @@ var conf = {};
 	conf.visible = false;
 	conf.position = {};
 	conf.position.context = parent.reference;
-	conf.position.offset = "15 0";
-	conf.position.points = "lt rt";
+	conf.position.offset = conf.offset || "15 0";
+	conf.position.points = conf.points || "lt rt";
 
 /**
  *  Inheritance

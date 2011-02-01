@@ -14,14 +14,13 @@ ui.layer = function(conf) {
 	// Global configuration
 	conf.$trigger = $(conf.element);
 	conf.cone = true;
-	conf.classes = 'box';
+	conf.classes = "box";
 	conf.visible = false;
-	conf.position = {
-   		context: conf.$trigger,
-        offset: conf.offset || "0 10",
-		points: conf.points || "lt lb"
-    }
- 
+	conf.position = {};
+	conf.position.context = conf.$trigger;
+	conf.position.offset = conf.offset || "0 10";
+	conf.position.points = conf.points || "lt lb";
+	
 /**
  *  Inheritance
  */

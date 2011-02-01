@@ -11,16 +11,14 @@ ui.tooltip = function(conf) {
 /**
  *  Constructor
  */
-
 	conf.cone = true;
 	conf.content = conf.element.title;	
 	conf.visible = false;
-   	conf.position = {
-   		context: $(conf.element),
-        offset: "0 10",
-		points: "lt lb"
-    }
-
+	conf.position = {};
+	conf.position.context = $(conf.element);
+	conf.position.offset = conf.offset || "0 10";
+	conf.position.points = conf.points || "lt lb";
+	
 /**
  *  Inheritance
  */
