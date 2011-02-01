@@ -175,19 +175,20 @@ ui.viewer = function(conf){
 	};
 	
 	
-	// Public object
-    conf.publish = {
-		uid: conf.id,
-		element: conf.element,
-		type: "viewer",
-		children: that.children,
-		select: function(i){
-			// Callback
-			that.callbacks(conf, 'select');
-			
-			return select(i);
-		}
-    }
+	// Create the publish object to be returned
+    conf.publish = that.publish;
+    
+    /**
+	 *  @ Public Properties
+	 */
+	conf.publish.uid = conf.uid;
+	conf.publish.element = conf.element;
+	conf.publish.type = conf.type;
+	conf.publish.children = that.children;
+	conf.publish.select = function(i) {
+		that.callbacks(conf, 'select'); // Callback
+		return select(i);
+	};
 	
 	// Default behavior (Select first item and without callback)
 	select(0);

@@ -10,8 +10,8 @@ ui.modal = function(conf){
  *  Constructor
  */
 	conf.$trigger = $(conf.element);
-	conf.closeButton = (conf.name=="modal") ? true : false ;
-	conf.classes = 'box';
+	conf.closeButton = (conf.type == "modal") ? true : false;
+	conf.classes = "box";
 		
 	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default
 /**
@@ -38,8 +38,8 @@ ui.modal = function(conf){
 				.appendTo('body')
 				.fadeIn();
 
-			if (conf.name=="modal") {
-				$dimmer.one("click",hide);
+			if (conf.type == "modal") {
+				$dimmer.one("click", hide);
 			}
 			
 		},
@@ -83,9 +83,9 @@ ui.modal = function(conf){
 	/**
 	 *  @ Public Properties
 	 */
-    	uid: conf.id,
+    	uid: conf.uid,
 		element: conf.element,
-		type: conf.name,
+		type: conf.type,
 		content: (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax ),
 	/**
 	 *  @ Public Methods

@@ -12,7 +12,6 @@ ui.expando = function(conf){
 	$(conf.element).addClass('ch-expando');		
 	conf.$trigger = $(conf.element).find(".ch-expando-trigger");
 	conf.$htmlContent = conf.$trigger.parent().next();
-    conf.publish = that.publish;
     conf.open = conf.open || false;
 	
 	// Private methods
@@ -50,11 +49,21 @@ ui.expando = function(conf){
 	// Change default behaivor (close)
 	if( conf.open ) show();
 	
+    
     // Create the publish object to be returned
-    conf.publish.uid = conf.id;
+    conf.publish = that.publish;
+    
+    /**
+	 *  @ Public Properties
+	 */
+    conf.publish.uid = conf.uid;
     conf.publish.element = conf.element;
-    conf.publish.type = "expando";
+	conf.publish.type = conf.type;
     conf.publish.open = conf.open;
+    
+    /**
+	 *  @ Public Methods
+	 */
     conf.publish.show = function(){ return show() };
     conf.publish.hide = function(){ return hide() };
 

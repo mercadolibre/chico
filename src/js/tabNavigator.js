@@ -7,11 +7,9 @@
 
 ui.tabNavigator = function(conf){
 
-    var that = ui.controllers();
+    var that = ui.controllers(); // Inheritance
     
-    conf.publish = that.publish;
-
-	var $triggers = $(conf.element).children(':first').find('a');
+    var $triggers = $(conf.element).children(':first').find('a');
 	var $htmlContent = $(conf.element).children(':first').next();
 
 	// Global configuration
@@ -41,11 +39,20 @@ ui.tabNavigator = function(conf){
         return conf.publish; 
 	};
     
-    // create the publish object to be returned
-	conf.publish.uid = conf.id;
+    // Create the publish object to be returned
+    conf.publish = that.publish;
+    
+    /**
+	 *  @ Public Properties
+	 */
+	conf.publish.uid = conf.uid;
 	conf.publish.element = conf.element;
-	conf.publish.type = "tabNavigator";
+	conf.publish.type = conf.type;
 	conf.publish.tabs = that.children;
+	
+	/**
+	 *  @ Public Methods
+	 */
 	conf.publish.select = function(tab){ return show($.Event(), tab) };
       	
 		
@@ -79,7 +86,7 @@ ui.tab = function(index, element, conf){
 
 	// Global configuration
 	that.conf = {
-		name: 'tab',
+		type: 'tab',
 		$trigger: $(element).addClass('ch-tabNavigator-trigger'),
 		callbacks: conf.callbacks
 	};

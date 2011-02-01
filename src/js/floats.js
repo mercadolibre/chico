@@ -42,11 +42,10 @@ ui.floats = function(conf) {
     var createLayout = function(conf) {
 
         // Creo el layout del float
-    	conf.$container = $('<div class="ch-' + conf.name + '"><div class="ch-'+conf.name+'-content"></div></div>').appendTo("body").hide();
-    	conf.$htmlContent = conf.$container.find(".ch-"+conf.name+"-content");		
+    	conf.$container = $("<div class=\"ch-" + conf.type + "\"><div class=\"ch-" + conf.type + "-content\"></div></div>").appendTo("body").hide();
+    	conf.$htmlContent = conf.$container.find(".ch-" + conf.type + "-content");
 		
 		conf.position = conf.position || {};
-		
 		conf.position.element = conf.$container;
 		conf.position.hold = conf.hold || false;
 		
@@ -140,7 +139,7 @@ ui.floats = function(conf) {
 			    break;
 			
 			case "string":
-				if(o!="refresh"){
+				if(o != "refresh"){
 					alert("ChicoUI error: position() expected to find \"refresh\" parameter.");
 				};
 				

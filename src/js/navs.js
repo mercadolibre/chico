@@ -12,19 +12,19 @@ ui.navs = function(){
 	that.show = function(event, conf){
 		that.prevent(event);
 		that.status = true;
-		conf.$trigger.addClass('ch-' + conf.name + '-on');
+		conf.$trigger.addClass("ch-" + conf.type + "-on");
 		conf.$htmlContent.show();
 		
-		that.callbacks(conf, 'show');
+		that.callbacks(conf, "show");
 	};
 	
 	that.hide = function(event, conf){
 		that.prevent(event);
 		that.status = false;
-		conf.$trigger.removeClass('ch-' + conf.name + '-on');
+		conf.$trigger.removeClass("ch-" + conf.type + "-on");
 		conf.$htmlContent.hide();
 		
-		that.callbacks(conf, 'hide');
+		that.callbacks(conf, "hide");
 	};		
 	
 	return that;

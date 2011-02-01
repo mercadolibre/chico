@@ -26,17 +26,16 @@ ui.forms = function(conf){
 	};
 	
 	if (ui.instances.forms) {
-	
-	if(ui.instances.forms.length > 0){ // Is there forms in map instances?
-		for(var i = 0, j = ui.instances.forms.length; i < j; i ++){
-			if(ui.instances.forms[i].element === conf.element){
-				return { 
-                    exists: true, 
-                    object: ui.instances.forms[i]
-                };
+		if(ui.instances.forms.length > 0){ // Is there forms in map instances?
+			for(var i = 0, j = ui.instances.forms.length; i < j; i ++){
+				if(ui.instances.forms[i].element === conf.element){
+					return { 
+		                exists: true, 
+		                object: ui.instances.forms[i]
+		            };
+				};
 			};
 		};
-	};
 	}
 	
 	// Start new forms
@@ -66,9 +65,6 @@ ui.forms = function(conf){
 
 	// Publics Methods
 	var checkStatus = function(){
-
-
-
 		// Check status of my childrens
 		for(var i = 0, j = that.children.length; i < j; i ++){
 			// Status error (cut the flow)
@@ -144,18 +140,25 @@ ui.forms = function(conf){
 	// Bind the reset
 	$(conf.element).find(":reset, .resetForm").bind('click', clear);
 	
-    // create the publish object to be returned
-    conf.publish = {
-        uid: conf.id,
-        element: conf.element,
-        type: "forms",
-		status: status,
-        children: that.children,
-		validate: function(event){ return validate(event) },
-		submit: function(event){ return submit(event) },
-		checkStatus: function() { return checkStatus() },
-		clear: function(event){ return clear(event) }
-    }
-
+    // Create the publish object to be returned
+	conf.publish = that.publish;
+	
+	/**
+	 *  @ Public Properties
+	 */
+	conf.publish.uid = conf.uid;
+	conf.publish.element = conf.element;
+	conf.publish.type = conf.type;
+	conf.publish.status = status;
+	conf.publish.children = that.children;
+	
+	/**
+	 *  @ Public Methods
+	 */
+	conf.publish.validate = validate;
+	conf.publish.submit = submit;
+	conf.publish.checkStatus = checkStatus;
+	conf.publish.clear = clear;
+	
 	return conf.publish;
 };
