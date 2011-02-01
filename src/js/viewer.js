@@ -102,7 +102,7 @@ ui.viewer = function(conf){
 		viewerModal.modal.show();
 	});
 	
-	
+
 	/**
 	 * 	Thumbnails
 	 */
@@ -113,18 +113,20 @@ ui.viewer = function(conf){
 	// Create carousel structure
 	$viewer.append( thumbnails.wrapper.append( $viewer.find("ul").clone().addClass("carousel") ) );
 	 
-	thumbnails.children = thumbnails.wrapper.find("a");
+	thumbnails.children = thumbnails.wrapper.find("img");
 	
 	// Thumbnails behavior
-	thumbnails.children.find("img").each(function(i, e){
+	thumbnails.children.each(function(i, e){
 		// Change image parameter (thumbnail size)
-		$(e).attr("src", $(e).attr("src").replace("v=V", "v=M"));
-		
-		// Thumbnail link click
-		$(e).parent().bind("click", function(event){
-			that.prevent(event);
-			select(i);
-		});
+		$(e)
+		     .attr("src", $(e).attr("src").replace("v=V", "v=M"))		
+         // Thumbnail link click
+		    .unwrap()
+		    .bind("click", function(event){
+            that.prevent(event);
+            select(i);
+		 });
+		 
 	});
 	// Inits carousel
 	that.children[0] = thumbnails.carousel = thumbnails.wrapper.carousel();
@@ -148,10 +150,10 @@ ui.viewer = function(conf){
 		var page = thumbnails.carousel.getPage(); // Current page
 		var nextPage = ~~(item / visibles) + 1; // Page of "item"
 		
-		// Visual config		
+		// Visual config
 		$(thumbnails.children[thumbnails.selected]).removeClass("ch-thumbnail-on");
 		$(thumbnails.children[item]).addClass("ch-thumbnail-on");
-		
+
 		// Content movement
 		var movement = { left: -item * showcase.itemWidth };
 		if(ui.features.transition) { // Have CSS3 Transitions feature?
@@ -173,7 +175,6 @@ ui.viewer = function(conf){
 		// Return public object
 		return conf.publish;
 	};
-	
 	
 	// Create the publish object to be returned
     conf.publish = that.publish;

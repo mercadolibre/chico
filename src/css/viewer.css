@@ -58,18 +58,18 @@
 }
 
 .ch-viewer-triggers{
-	margin-top:10px;
+  margin-top:10px;
 }
 
-.ch-viewer .ch-viewer-triggers li,
-.ch-viewer-triggers a{
+.ch-viewer .ch-viewer-triggers li{
 	width:40px;
 	height:40px;
 }
 
-.ch-viewer-triggers a{
+.ch-viewer-triggers img{
 	display:block;
-	border:1px solid #fff;
+	border:1px solid #fff
+	cursor:pointer;
 }
 
 .ch-viewer-triggers .ch-thumbnail-on{
