@@ -15,6 +15,22 @@
 	
 	<h1>Tab Navigator</h1>
 	<p>El Tab Navigator se crea a partir de agregarle funcionalidad a un conjunto de anclas.</p>
+	<p>Ejemplo del objeto de configuración:</p>
+	<code>
+		<pre name="code" class="js">
+		{
+			onSelect: function() {}			  // Callback executed on tab selection
+			onContentLoad: function() {},	  // Callback executed on content load success (ajax only)
+			onContentError: function() {}	  // Callback executed on content load fail (ajax only)		
+		}
+		</pre>
+	</code>
+	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+	<code>
+		<pre name="code" class="js">
+        $("#Foobar").tabNavigator();
+		</pre>
+	</code>
 	<p>Cada vez que se instancia un Tab Navigator, éste retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
 	<code>
 		<pre name="code" class="js">

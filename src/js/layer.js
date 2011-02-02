@@ -33,8 +33,8 @@ ui.layer = function(conf) {
     var hideTime = conf.hideTime || 300;
 
 	var st, ht; // showTimer and hideTimer
-	var showTimer = function(event){ st = setTimeout(function(){ show(event) }, showTime) };
-	var hideTimer = function(event){ ht = setTimeout(function(){ hide(event) }, hideTime) };
+	var showTimer = function(event){ st = setTimeout(function(event){ show() }, showTime) };
+	var hideTimer = function(event){ ht = setTimeout(function(event){ hide() }, hideTime) };
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
     var show = function(event) {

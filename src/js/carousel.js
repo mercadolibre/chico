@@ -111,7 +111,7 @@ ui.carousel = function(conf){
 			};
 
 			// Callbacks
-			that.callbacks(conf, direction);
+			that.callbacks(conf, "onMove");
 		};
 		
 		// Have CSS3 Transitions feature?
@@ -148,10 +148,7 @@ ui.carousel = function(conf){
 			$(".ch-pager li").removeClass("ch-pager-on");
 			$(".ch-pager li:nth-child(" + page + ")").addClass("ch-pager-on");
 		}
-		
-		// Callback
-		that.callbacks(conf, 'select');
-		
+			
 		// return publish object
 	    return conf.publish;
 	};
@@ -197,7 +194,7 @@ ui.carousel = function(conf){
     conf.publish.type = "carousel";
     conf.publish.getSteps = function() { return steps; };
     conf.publish.getPage = function() { return page; };
-    conf.publish.select = function(item) { return select(item); };
+    conf.publish.moveTo = function(item) { return select(item); };
     conf.publish.next = function(){ return move("next", 1); };
     conf.publish.prev = function(){ return move("prev", 1); };
  

@@ -32,7 +32,7 @@ ui.viewer = function(conf){
 		that.children[2] = viewerModal.carousel = $(".ch-viewer-modal-content").carousel({ pager: true });
 
 		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
-		viewerModal.carousel.select(thumbnails.selected);
+		viewerModal.carousel.moveTo(thumbnails.selected);
 		viewerModal.modal.position();
 	};
 	viewerModal.hideContent = function(){
@@ -51,10 +51,8 @@ ui.viewer = function(conf){
 		content: "<div class=\"ch-viewer-modal-content\">",
 		width:600,
 		height:545,
-		callbacks: {
-			show: viewerModal.showContent,
-			hide: viewerModal.hideContent
-		}
+		onShow: viewerModal.showContent,
+		onHide: viewerModal.hideContent
 	});
 		
 	
@@ -124,7 +122,7 @@ ui.viewer = function(conf){
 		    .unwrap()
 		    .bind("click", function(event){
             that.prevent(event);
-            select(i);
+            move(i);
 		 });
 		 
 	});
@@ -139,7 +137,7 @@ ui.viewer = function(conf){
 	/**
 	 * 	Methods
 	 */
-	var select = function(item){
+	var move = function(item){
 		// Validation
 		if(item > showcase.children.length-1 || item < 0 || isNaN(item)){
 			alert("Error: Expected to find a number between 0 and " + (showcase.children.length - 1) + ".");
@@ -179,20 +177,20 @@ ui.viewer = function(conf){
 	
 	// Public object
     conf.publish = {
-    uid: conf.id,
+    	uid: conf.id,
 		element: conf.element,
 		type: "viewer",
 		children: that.children,
-		select: function(i){
+		moveTo: function(i){
 			// Callback
-			that.callbacks(conf, 'select');
+			that.callbacks(conf, 'onMove');
 			
-			return select(i);
+			return move(i);
 		}
     }
 	
-	// Default behavior (Select first item and without callback)
-	select(0);
+	// Default behavior (Move to the first item and without callback)
+	move(0);
 	
 	// Preload big imgs on document loaded
 	var bigImgs = [];

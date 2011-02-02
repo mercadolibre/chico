@@ -15,7 +15,7 @@ ui.navs = function(){
 		conf.$trigger.addClass('ch-' + conf.name + '-on');
 		conf.$htmlContent.show();
 		
-		that.callbacks(conf, 'show');
+		that.callbacks(conf, 'onShow');
 	};
 	
 	that.hide = function(event, conf){
@@ -24,7 +24,7 @@ ui.navs = function(){
 		conf.$trigger.removeClass('ch-' + conf.name + '-on');
 		conf.$htmlContent.hide();
 		
-		that.callbacks(conf, 'hide');
+		that.callbacks(conf, 'onHide');
 	};		
 	
 	return that;

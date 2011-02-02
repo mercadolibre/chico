@@ -27,15 +27,8 @@ ui.tabNavigator = function(conf){
     
     // TODO: Normalizar las nomenclaturas de métodos, "show" debería ser "select"
 	var show = function(event, tab){
-		//ui.instances.tabNavigator[conf.instance].tabs[tab].shoot(event);
 		        
-        that.children[tab].shoot(event);
-        
-        /* The potato is ready!!
-		Use this to execute a specific tab on console (on h1 click)
-		$('h1').click(function(event){
-			ui.instances.tabNavigator[0].show(event, 2);
-		});*/
+        that.children[tab].shoot(event);                
 
         // return publish object
         return conf.publish; 
@@ -49,16 +42,18 @@ ui.tabNavigator = function(conf){
 	conf.publish.select = function(tab){ return show($.Event(), tab) };
       	
 		
-	//Default: Load hash tab or Open first tab
+	//Default: Load hash tab or Open first tab	
     var hash = window.location.hash.replace( "#!", "" );
+    var hashed = false;
 	for( var i = that.children.length; i--; ){
-		if( that.children[i].conf.$htmlContent.attr("id") === hash ){
+		if ( that.children[i].conf.$htmlContent.attr("id") === hash ) {
 			show($.Event(), i);
+			hashed = true;
 			break;
-		} else {
-			show($.Event(), 0);		
-		};		  
-	};	
+		};
+	};
+
+	if ( !hashed ) show($.Event(), 0); 
 
 	return conf.publish;
 	
@@ -80,8 +75,7 @@ ui.tab = function(index, element, conf){
 	// Global configuration
 	that.conf = {
 		name: 'tab',
-		$trigger: $(element).addClass('ch-tabNavigator-trigger'),
-		callbacks: conf.callbacks
+		$trigger: $(element).addClass('ch-tabNavigator-trigger')
 	};
 
 	var results = function(){
@@ -123,14 +117,17 @@ ui.tab = function(index, element, conf){
 		// Show me
 		that.show(event, that.conf);
 		
+		//Change location hash
+		window.location.hash = "#!" + that.conf.$htmlContent.attr("id");
+		
+		// Callback
+		that.callbacks(conf, "onSelect");
+		
 	};
 
 	// Events	
 	that.conf.$trigger.bind('click', function(event){
 		that.shoot(event);
-		
-		//Change location hash
-		window.location.hash = "#!" + that.conf.$htmlContent.attr("id");
 	});
 
 

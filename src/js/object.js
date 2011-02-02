@@ -65,10 +65,8 @@ ui.object = function(){
 
 		},
 
-		callbacks: function(conf, when){
-			if(conf.callbacks && conf.callbacks[when]) {
-				return conf.callbacks[when]();
-			}
+		callbacks: function(conf, when){			
+			if(conf[when]) return conf[when]();
 		},
         
         publish: { 

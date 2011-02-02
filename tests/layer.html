@@ -52,13 +52,11 @@
 		
 		var testLayerHover = $('.testLayerHover').layer({
 			content: '<h2>Layer ejecutado onMouseOver</h2><ul><li>Se cierra onMouseOut</li></ul></p>',
-			callbacks: {
-				show: function(){
-					start();					
-					exists('.ch-layer');						
-				
-					$('.testLayerHover').mouseout();
-				}
+			onShow: function(){
+				start();					
+				exists('.ch-layer');						
+			
+				$('.testLayerHover').mouseout();
 			}
 		});
 

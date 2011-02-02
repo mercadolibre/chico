@@ -753,14 +753,12 @@
         var ui_view = $('.demoViewer').viewer();
         
         var ui_moda = $('.demoModal').modal({
-        	 callbacks:{
-        	 	error: function(xhr, textStatus, errorThrown){
-					return "<p>En este momento no podemos cargar el contenido. Intentalo más tarde.</p>";
-        	 	},
-        	 	success: function(data, textStatus, xhr){
-					// Do something...
-        	 	}
-        	 }
+        	onContentError: function(xhr, textStatus, errorThrown){
+				return "<p>En este momento no podemos cargar el contenido. Intentalo más tarde.</p>";
+        	},
+       	 	onContentLoad: function(data, textStatus, xhr){
+				// Do something...
+        	}
         });
         
         var ui_trans1 = $(".demoTransition1").transition("Espere mientras pruebo la transición. Gracias papi."); 

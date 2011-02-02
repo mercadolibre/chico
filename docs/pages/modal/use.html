@@ -25,12 +25,10 @@
 			width: number,
 			height: number,
 			ajax: boolean | string,
-			callbacks: {
-				show: function() {},
-				hide: function() {},
-				contentLoad: function() {},
-				contentError: function() {}
-			}
+			onShow: function() {},			  // Callback executed on modal show
+			onHide: function() {},			  // Callback executed on modal hide
+			onContentLoad: function() {},	  // Callback executed on content load success (ajax includes)
+			onContentError: function() {}	  // Callback executed on content load fail (ajax only)
 		}
 		</pre>
 	</code>

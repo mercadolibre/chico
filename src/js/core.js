@@ -225,12 +225,12 @@ ui.get = function(o) {
 				async: true,
 				success: function(data, textStatus, xhr){
 					x.$htmlContent.html( data ).fadeIn('fast', function(){ 
-						if(x.callbacks && x.callbacks.contentLoad) x.callbacks.contentLoad(); 
+						if(x.onContentLoad) x.onContentLoad();
 					});
 					if( x.position ) ui.positioner(x.position);
 				},
 				error: function(xhr, textStatus, errorThrown){
-					data = (x.callbacks && x.callbacks.contentError) ? x.callbacks.contentError(xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+					data = (x.onContentError) ? x.onContentError(xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
 					x.$htmlContent.html( data );
 					if( x.position ) ui.positioner(x.position);
 				}

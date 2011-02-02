@@ -3,16 +3,6 @@
  *  @requires object.
  *  @returns {Object} Floats.
  */
-/*
-
-that.callbacks:{
-	show:,
-	hide:,
-	contentLoad:,
-	contentError:
-}	
-
-*/
 
 ui.floats = function(conf) {
 
@@ -61,14 +51,14 @@ ui.floats = function(conf) {
 
 		conf.$container
     		.css("z-index", ui.utils.zIndex++)
-		    .fadeIn('fast', function(){ that.callbacks(conf, 'show'); });
+		    .fadeIn('fast', function(){ that.callbacks(conf, 'onShow'); });
 		
 		ui.positioner(conf.position);
 		
 		conf.visible = true;
     }
 
-// Obtener contenido y cachearlo
+	// Obtener contenido y cachearlo
     var getContent = function(conf) {
     			
     	if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ) {
@@ -79,7 +69,7 @@ ui.floats = function(conf) {
 		
     		conf.$htmlContent
     			.html( that.loadContent(conf) )
-    			.fadeIn('fast', function(){ that.callbacks(conf, 'contentLoad'); });
+    			.fadeIn('fast', function(){ that.callbacks(conf, 'onContentLoad'); });
     	};
     }
 
@@ -100,7 +90,7 @@ ui.floats = function(conf) {
     		    .appendTo("body")
     			.css("z-index", ui.utils.zIndex++)
 			    .fadeIn('fast', function(){ 
-					that.callbacks(conf, 'show'); 
+					that.callbacks(conf, 'onShow'); 
 					conf.visible = true; 
 				});
 			ui.positioner(conf.position);
@@ -122,7 +112,7 @@ ui.floats = function(conf) {
 		// Hide
 		conf.visible = false;
 
-		that.callbacks(conf, 'hide');
+		that.callbacks(conf, 'onHide');
 	};
 	
 	that.position = function(o, conf){

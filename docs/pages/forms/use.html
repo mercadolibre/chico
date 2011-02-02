@@ -24,9 +24,9 @@
                  email: "Este no es un email válido, nabolin!",
                  numer: "Solo se permiten números"
             },
-			callbacks: {
-				submit: function() {}
-			}
+            beforeSubmit: function() {},	  // Callback executed before to submit
+			onSubmit: function() {},		  // Callback executed on submit
+			afterSubmit: function() {}		  // Callback executed after to submit
 		}
 		</pre>
 	</code>

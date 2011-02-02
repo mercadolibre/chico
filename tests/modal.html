@@ -179,8 +179,7 @@
         
             testModalAjax = $('#testModalAjax').modal({
                 ajax: true,
-                callbacks: { 
-                    contentLoad: function(){ 
+				onContentLoad: function(){ 
                         
                         start();
                         
@@ -188,7 +187,6 @@
 
                         $('.ch-dimmer').trigger('click');
                         
-                    } 
                 }
             });
 
