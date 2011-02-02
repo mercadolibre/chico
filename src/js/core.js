@@ -216,18 +216,22 @@ ui.get = function(o) {
 	        var x = o.conf;
 
 			//Set ajax config
-			//setTimeout(function(){		
+			//setTimeout(function(){
+			
 			$.ajax({
 				url: x.ajaxUrl,
 				type: x.ajaxType || 'GET',
 				data: x.ajaxParams,
 				cache: true,
 				async: true,
-				success: function(data, textStatus, xhr){
+				success: function(data, textStatus, xhr){					
 					x.$htmlContent.html( data ).fadeIn('fast', function(){ 
 						if(x.onContentLoad) x.onContentLoad();
 					});
 					if( x.position ) ui.positioner(x.position);
+					
+					// Data cached
+					ui.cache.add(x.ajaxUrl, data);
 				},
 				error: function(xhr, textStatus, errorThrown){
 					data = (x.onContentError) ? x.onContentError(xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
