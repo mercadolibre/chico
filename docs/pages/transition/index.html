@@ -149,13 +149,9 @@
 		{
 			content: string,
 			width: number,
-			heitth: number,
-			callbacks: {
-				show: function() {},
-				hide: function() {},
-				contentLoad: function() {},
-				contentError: function() {}
-			}
+			height: number,
+			onShow: function() {},			  // Callback executed on transition show
+			onHide: function() {}			  // Callback executed on transition hide
 		}
 		</pre>
 	</code>

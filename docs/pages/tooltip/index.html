@@ -110,10 +110,8 @@
 	<code>
 		<pre name="code" class="js">
 		{
-			callbacks: {
-				show: function() {},
-				hide: function() {}
-			},
+			onShow: function() {},			  // Callback executed on tooltip show
+			onHide: function() {},			  // Callback executed on tooltip hide
 			offset: string,					  // Positioner configuration. Default value "0 10".
 			points: string,					  // Positioner configuration. Default value "lt lb".
 			hold: boolean					  // Positioner configuration. Default value "false".

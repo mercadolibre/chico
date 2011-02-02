@@ -121,10 +121,8 @@
 		<pre name="code" class="js">
 		{
 			open: true,
-			callbacks: {
-				show: function() {},
-				hide: function() {}
-			}
+			onShow: function() {},			  // Callback executed on expando show
+			onHide: function() {}			  // Callback executed on expando hide
 		}
 		</pre>
 	</code>
@@ -144,10 +142,10 @@
 		foo = {
 			uid: 121,                         //  Global number instance
 			element: HTMLInputElement,        //  Input DOM Interface
-			type: "expando ",                 //  Component Type
+			type: "expando",                  //  Component Type
 			open: boolean,				  	  //  Default behavior
-			show(),						  	  //  Show dropdown
-			hide()						  	  //  Hide dropdown
+			show(),						  	  //  Show expando
+			hide()						  	  //  Hide expando
 		}
 		</pre>
 	</code>
