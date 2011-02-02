@@ -51,18 +51,18 @@ ui.forms = function(conf){
 	conf.messages["general"] = conf.messages["general"] || "Revisa los datos, por favor.";	
 
 
-	// General Error	
+	// General Error
+	var $error = $('<p class="ch-validator"><span class="ico error">Error: </span>' + conf.messages["general"] + '</p>');	
 	var createError = function(){ // Create
-		$(conf.element).before('<p class="ch-validator"><span class="ico error">Error: </span>' + conf.messages["general"] + '</p>');
-		
+		$(conf.element).before( $error );		
 		$("body").trigger(ui.events.CHANGE_LAYOUT);
 
 	};
 	var removeError = function(){ // Remove
-		$('.ch-validator').remove();
+		$error.detach();
+		$("body").trigger(ui.events.CHANGE_LAYOUT);
 	};
-
-
+	
 	// Publics Methods
 	var checkStatus = function(){
 		// Check status of my childrens
