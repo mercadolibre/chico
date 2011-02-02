@@ -292,9 +292,9 @@ ui.watcher = function(conf) {
 	/**
 	 *  @ Public Properties
 	 */
-    	uid: conf.id,
+    	uid: conf.uid,
 		element: conf.element,
-		type: "watcher",
+		type: conf.type,
 		types: that.types,
 		status: that.status,
 		reference: that.reference,

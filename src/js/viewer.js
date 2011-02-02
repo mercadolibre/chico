@@ -174,20 +174,21 @@ ui.viewer = function(conf){
 		return conf.publish;
 	};
 	
-	
-	// Public object
-    conf.publish = {
-    	uid: conf.id,
-		element: conf.element,
-		type: "viewer",
-		children: that.children,
-		moveTo: function(i){
-			// Callback
-			that.callbacks(conf, 'onMove');
-			
-			return move(i);
-		}
-    }
+	// Create the publish object to be returned
+    conf.publish = that.publish;
+    
+    /**
+	 *  @ Public Properties
+	 */
+	conf.publish.uid = conf.uid;
+	conf.publish.element = conf.element;
+	conf.publish.type = conf.type;
+	conf.publish.children = that.children;
+	conf.publish.moveTo = function(i) {
+		// Callback
+		that.callbacks(conf, 'onMove');
+		return move(i);
+	};
 	
 	// Default behavior (Move to the first item and without callback)
 	move(0);

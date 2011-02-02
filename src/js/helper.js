@@ -8,10 +8,10 @@ ui.helper = function(parent){
  *  Constructor
  */
 var conf = {};
-	conf.name = "helper";
+	conf.type = "helper";
 	conf.$trigger = $(parent.element);
 	conf.cone = true;
-	conf.classes = "helper" + parent.id;
+	conf.classes = "helper" + parent.uid;
 	conf.visible = false;
 	conf.position = {};
 	conf.position.context = parent.reference;
@@ -28,7 +28,7 @@ var conf = {};
  *  Private Members
  */
 	var hide = function(){
-		$('.helper' + parent.id).remove();
+		$('.helper' + parent.uid).remove();
 		conf.visible = false;
 		that.callbacks(conf, 'hide');
 	};
@@ -46,8 +46,8 @@ var conf = {};
  *  Default event delegation
  */
     $("body").bind(ui.events.CHANGE_LAYOUT, function(){ 
-            that.position("refresh", conf);
-        });
+        that.position("refresh", conf);
+    });
 
 /**
  *  Expose propierties and methods
@@ -57,9 +57,9 @@ var conf = {};
 	/**
 	 *  @ Public Properties
 	 */
-    	uid: conf.id,
+    	uid: conf.uid,
 		element: conf.element,
-		type: "helper",
+		type: conf.type,
 	/**
 	 *  @ Public Methods
 	 */

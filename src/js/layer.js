@@ -93,9 +93,9 @@ ui.layer = function(conf) {
 	/**
 	 *  @ Public Properties
 	 */
-    	uid: conf.id,
+    	uid: conf.uid,
 		element: conf.element,
-		type: "layer",
+		type: conf.type,
 		content: (conf.content) ? conf.content : conf.ajax,
 	/**
 	 *  @ Public Methods

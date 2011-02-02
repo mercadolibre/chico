@@ -20,7 +20,6 @@ ui.dropdown = function(conf){
 	// Global configuration
 	conf.$trigger = $(conf.element).children(':first');
 	conf.$htmlContent = conf.$trigger.next();
-    conf.publish = that.publish;
 	
 	// Private methods
 	var show = function(event){
@@ -84,9 +83,18 @@ ui.dropdown = function(conf){
 	
 
     // Create the publish object to be returned
-    conf.publish.uid = conf.id;
+    conf.publish = that.publish;
+    
+    /**
+	 *  @ Public Properties
+	 */
+    conf.publish.uid = conf.uid;
     conf.publish.element = conf.element;
-    conf.publish.type = "dropdown";
+    conf.publish.type = conf.type;
+    
+    /**
+	 *  @ Public Methods
+	 */
     conf.publish.show = function(){ return show() };
     conf.publish.hide = function(){ return hide() };
 

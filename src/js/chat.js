@@ -39,9 +39,9 @@ ui.chat = function(conf) {
    	});
 
     that.publish = {
-    	uid: conf.id,
+    	uid: conf.uid,
 		element: conf.element,
-        type: "chat"
+        type: conf.type
     }
     
     return that.publish;

@@ -63,9 +63,9 @@ ui.tooltip = function(conf) {
 	/**
 	 *  @ Public Properties
 	 */
-    	uid: conf.id,
+    	uid: conf.uid,
 		element: conf.element,
-		type: "tooltip",
+		type: conf.type,
 		content: conf.content,
 	/**
 	 *  @ Public Methods

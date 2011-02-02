@@ -115,9 +115,9 @@ ui.factory = function(o) {
             that.each( function(i, e) {
 
                 var conf = {};
-                    conf.name = x;
+                    conf.type = x;
                     conf.element = e;
-                    conf.id = ui.utils.index++; // Global instantiation index
+                    conf.uid = ui.utils.index += 1; // Global instantiation index
                 
                 // If argument is a number, join with the conf
                 if (typeof options === "number") {

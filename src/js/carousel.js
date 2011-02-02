@@ -13,7 +13,6 @@ ui.carousel = function(conf){
 	// Global configuration
 	conf.$trigger = $(conf.element).addClass('ch-carousel');
 	conf.$htmlContent = $(conf.element).find('.carousel').addClass('ch-carousel-content'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
-    conf.publish = that.publish;
 
 	// UL Width calculator
 	var htmlElementMargin = (ui.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
@@ -189,9 +188,18 @@ ui.carousel = function(conf){
 	
 	
     // Create the publish object to be returned
-    conf.publish.uid = conf.id;
+    conf.publish = that.publish;
+    
+    /**
+	 *  @ Public Properties
+	 */
+    conf.publish.uid = conf.uid;
     conf.publish.element = conf.element;
-    conf.publish.type = "carousel";
+    conf.publish.type = conf.type;
+    
+    /**
+	 *  @ Public Methods
+	 */
     conf.publish.getSteps = function() { return steps; };
     conf.publish.getPage = function() { return page; };
     conf.publish.moveTo = function(item) { return select(item); };
