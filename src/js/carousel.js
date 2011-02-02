@@ -132,15 +132,15 @@ ui.carousel = function(conf){
 	};
 	
 	
-	var select = function(item){
-		var itemPage = ~~(item / steps) + 1; // Page of "item"
+	var select = function(pageToGo){
+		//var itemPage = ~~(item / steps) + 1; // Page of "item"
 		
 		// Move right
-		if(itemPage > page){
-			move("next", itemPage - page);
+		if(pageToGo > page){
+			move("next", pageToGo - page);
 		// Move left
-		}else if(itemPage < page){
-	        move("prev", page - itemPage);
+		}else if(pageToGo < page){
+	        move("prev", page - pageToGo);
 		};
 		
 		if (conf.pager) {
@@ -202,7 +202,7 @@ ui.carousel = function(conf){
 	 */
     conf.publish.getSteps = function() { return steps; };
     conf.publish.getPage = function() { return page; };
-    conf.publish.moveTo = function(item) { return select(item); };
+    conf.publish.moveTo = function(page) { return select(page); };
     conf.publish.next = function(){ return move("next", 1); };
     conf.publish.prev = function(){ return move("prev", 1); };
  
