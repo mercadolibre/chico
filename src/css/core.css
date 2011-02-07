@@ -281,7 +281,7 @@ hr {
 	background-position:0 -232px;
 	font-size: 18px;
 	height:32px;
-	line-height:32px;
+	line-height:1em;
 }
 
 .btn.primary:hover { 
@@ -305,7 +305,7 @@ hr {
 .btn.secondary { 
 	background-position:0 -360px;
 	height:25px;
-	line-height:25px;
+	line-height:1em;
 }
 
 .btn.secondary:hover {
