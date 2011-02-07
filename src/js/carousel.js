@@ -176,9 +176,9 @@ ui.carousel = function(conf){
 		pager.css('left', (contextWidth - pagerWidth) / 2);
 		
 		// Children functionality
-		pager.children().each(function(i, e){
+		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
 			$(e).bind("click", function(){
-				select(i);
+				select(i+1);
 			});
 		});
 	};
