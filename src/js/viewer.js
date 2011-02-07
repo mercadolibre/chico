@@ -32,12 +32,12 @@ ui.viewer = function(conf){
 		that.children[2] = viewerModal.carousel = $(".ch-viewer-modal-content").carousel({ pager: true });
 
 		$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
-		viewerModal.carousel.moveTo(thumbnails.selected);
+		viewerModal.carousel.moveTo( thumbnails.selected );
 		viewerModal.modal.position();
 	};
 	viewerModal.hideContent = function(){
-		$("ch-viewer-modal").remove();
-		
+		$("ch-viewer-modal").remove(); // Remove carousel wrapper
+
 		viewerModal.carouselStruct.css("left", "0"); // Reset left of carousel in modal
 		
 		for(var i = 0, j = ui.instances.carousel.length; i < j; i += 1){ // TODO pasar al object			
@@ -45,7 +45,9 @@ ui.viewer = function(conf){
 				ui.instances.carousel.splice(i, 1);
 				return;
 			} 
-		};		
+		};
+		
+				
 	};
 	that.children[1] = viewerModal.modal = $("<a>").modal({ //TODO iniciar componentes sin trigger
 		content: "<div class=\"ch-viewer-modal-content\">",
@@ -105,7 +107,7 @@ ui.viewer = function(conf){
 	 * 	Thumbnails
 	 */
 	var thumbnails = {};
-	thumbnails.selected = 0;
+	thumbnails.selected = 1;
 	thumbnails.wrapper = $("<div>").addClass("ch-viewer-triggers");
 	
 	// Create carousel structure
@@ -117,12 +119,12 @@ ui.viewer = function(conf){
 	thumbnails.children.each(function(i, e){
 		// Change image parameter (thumbnail size)
 		$(e)
-		     .attr("src", $(e).attr("src").replace("v=V", "v=M"))		
-         // Thumbnail link click
+		     .attr("src", $(e).attr("src").replace("v=V", "v=M"))
 		    .unwrap()
+		    // Thumbnail link click
 		    .bind("click", function(event){
             that.prevent(event);
-            move(i);
+            move(i+1);
 		 });
 		 
 	});
@@ -139,21 +141,21 @@ ui.viewer = function(conf){
 	 */
 	var move = function(item){
 		// Validation
-		if(item > showcase.children.length-1 || item < 0 || isNaN(item)){
-			alert("Error: Expected to find a number between 0 and " + (showcase.children.length - 1) + ".");
+		if(item > showcase.children.length || item < 1 || isNaN(item)){
+			alert("Error: Expected to find a number between 1 and " + showcase.children.length + ".");
 			return conf.publish;
 		};
 		
 		var visibles = thumbnails.carousel.getSteps(); // Items per page
 		var page = thumbnails.carousel.getPage(); // Current page
-		var nextPage = ~~(item / visibles) + 1; // Page of "item"
-		
+		var nextPage = Math.ceil( item / visibles ); // Page of "item"
+
 		// Visual config
-		$(thumbnails.children[thumbnails.selected]).removeClass("ch-thumbnail-on");
-		$(thumbnails.children[item]).addClass("ch-thumbnail-on");
+		$(thumbnails.children[thumbnails.selected-1]).removeClass("ch-thumbnail-on"); // thumbnails.children[0] first children
+		$(thumbnails.children[item-1]).addClass("ch-thumbnail-on");
 
 		// Content movement
-		var movement = { left: -item * showcase.itemWidth };
+		var movement = { left: (-item+1) * showcase.itemWidth };
 		if(ui.features.transition) { // Have CSS3 Transitions feature?
 			showcase.display.css(movement);
 		} else { // Ok, let JQuery do the magic...
@@ -161,12 +163,8 @@ ui.viewer = function(conf){
 		};
 		
 		// Trigger movement
-		if (thumbnails.selected < visibles && item >= visibles && nextPage > page) {
-			thumbnails.carousel.next();
-		}else if (thumbnails.selected >= visibles && item < visibles && nextPage < page ) {
-			thumbnails.carousel.prev();
-		};
-		
+		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
+
 		// Selected
 		thumbnails.selected = item;
 		
@@ -191,7 +189,7 @@ ui.viewer = function(conf){
 	};
 	
 	// Default behavior (Move to the first item and without callback)
-	move(0);
+	move(1);
 	
 	// Preload big imgs on document loaded
 	var bigImgs = [];

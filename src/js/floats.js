@@ -89,8 +89,10 @@ ui.floats = function(conf) {
     		    .appendTo("body")
     			.css("z-index", ui.utils.zIndex++)
 			    .fadeIn('fast', function(){ 
-					that.callbacks(conf, 'onShow'); 
-					conf.visible = true; 
+					conf.visible = true;
+					
+					// Callback execute
+					that.callbacks(conf, 'onShow');
 				});
 			ui.positioner(conf.position);
 			return;
@@ -106,12 +108,14 @@ ui.floats = function(conf) {
 		
 		if (!conf.visible) return;
 		
-		conf.$container.fadeOut('fast', function(event){ $(this).detach(); });	
-		
-		// Hide
-		conf.visible = false;
+		conf.$container.fadeOut('fast', function(event){ 
+			$(this).detach(); 
+			conf.visible = false;
+			
+			// Callback execute
+			that.callbacks(conf, 'onHide');	
+		});
 
-		that.callbacks(conf, 'onHide');
 	};
 	
 	that.position = function(o, conf){
