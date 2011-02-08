@@ -110,9 +110,11 @@ ui.forms = function(conf){
 		validate(event); // Validate start
 		
 		if ( status ){ // Status OK
-			if ( that.callbacks(conf, 'onSubmit') === undefined ) {
+			if ( !conf.hasOwnProperty("onSubmit") ) {
 				conf.element.submit();
-			}
+			}else{
+				that.callbacks(conf, "onSubmit");
+			};
 		};		
 
         that.callbacks(conf, 'afterSubmit');
