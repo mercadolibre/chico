@@ -921,10 +921,10 @@ ui.watcher = function(conf) {
 	/**
 	 *  Check for instances with the same trigger
 	 */
-	var checkInstance = function(conf) {	
+	var checkInstance = function(conf) {
         var instance = ui.instances.watcher;
         if (instance&&instance.length>0) {
-            for (var i = 0, j = instance.length; i < j; i ++) {
+            for (var i = 0, j = instance.length; i < j; i ++) {                
                 if (instance[i].element === conf.element) {
             	    // Mergeo Validations
                     $.extend(instance[i].validations, getValidations(conf));
@@ -1121,7 +1121,7 @@ ui.watcher = function(conf) {
 				// With previous error
 				if (!conf.status) { that.helper.hide(); };
 				// Show helper with message
-				that.helper.show( (that.messages[type]) ? that.messages[type] : that.defaultMessages[type] ); 
+				that.helper.show( (that.messages[type]) ? that.messages[type] : that.parent.messages[type] ); 
 				// Status false
 				that.publish.status = that.status =  conf.status = false;
 			    
@@ -1188,7 +1188,7 @@ ui.watcher = function(conf) {
 	 */
     	uid: conf.uid,
 		element: conf.element,
-		type: conf.type,
+		type: "watcher", //conf.type, // Everything is a "watcher" type, no matter what interface is used
 		types: that.types,
 		status: that.status,
 		reference: that.reference,
@@ -1231,7 +1231,8 @@ ui.watcher = function(conf) {
         // Create a publish object and save the existing object
         // in the publish object to mantain compatibility
         var that = {};
-            that.publish = check;        
+            that.publish = check; 
+            console.log(check);      
         // ;) repleace that object with the repeated instance
     } else {
         // this is a new instance: "Come to papa!"
@@ -2427,7 +2428,7 @@ var conf = {};
 /*
 
 conf:{
-	[ messages ]: "algo que pisa lo de andentro",
+	[ messages ]: message map for each validation type,
 	[ callbacks ]: {
 		[ submit ]: function,
 		[ clear ]: function
@@ -2467,7 +2468,8 @@ ui.forms = function(conf){
 
 	// Create the Messages for General Error
 	if (!conf.messages) conf.messages = {};
-	conf.messages["general"] = conf.messages["general"] || "Revisa los datos, por favor.";	
+	
+	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
 
 
 	// General Error
@@ -2580,6 +2582,7 @@ ui.forms = function(conf){
 	conf.publish.submit = submit;
 	conf.publish.checkStatus = checkStatus;
 	conf.publish.clear = clear;
+	conf.publish.messages = conf.messages;
 	
 	return conf.publish;
 };

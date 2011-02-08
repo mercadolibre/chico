@@ -8,7 +8,7 @@
 	<head>
 		<script></script>
 		<meta charset="utf-8">
-		<title>Chico UI - Watchers (a.k.a. Validators)</title>
+		<title>Chico UI - Watchers</title>
 		<link rel="stylesheet" href="../../build/chico.css">
 		<link rel="stylesheet" href="../../src/css/grid.css">
 		<link rel="stylesheet" href="../../src/css/pages.css">
@@ -67,7 +67,7 @@
         		<li><a href="../carousel">Carousel</a></li>
 			</ul>
 			<ul>
-			    <li><h3><a href="../watchers">Watchers</a></h3></li>
+			    <li><h3><strong>Watchers</strong></h3></li>
 	            <li><a href="../required">Required</a></li>
 	            <li><a href="../number">Number</a></li>
 	            <li><a href="../string">String</a></li>
@@ -83,7 +83,7 @@
 	
 	<div class="ch-g5-6">
 		<div class="rightcolumn">
-			<h2 class="ch-g1-2">Watchers (a.k.a. Validators)</h2>
+			<h2 class="ch-g1-2">Watchers</h2>
 			<form action="https://github.com/mercadolibre/chico/issues" class="bugs ch-g1-2">
 				<label>
 					<input type="submit" value="Report a Bug" class="btn secondary">
@@ -164,14 +164,21 @@
     
 	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">
 		// Define a Form Controller
-		var form = $('.formulario').forms();
-		var email = $('#val_email').email().and().minLength(20).and().required();
+		var form = $('.formulario').forms({
+		    messages: {
+		        email: "Enter a valid email",
+		        minLength: "The value is to short",
+		        required: "This field is required"
+		    }
+		});
+		var email = $('#val_email').email().and().minLength(20,"Need 20 characters.").and().required();
     	var select = $('#val_select').required();
 	</pre></code></div></div></div>
 		
 			<div class="box use">
 				<h3>¿Cómo se usa?</h3>
 				
+	<h2>a.k.a. Validators</h2>
 	<p>El componente Watcher es la clase que define a todos los componentes de validación. Se asocia a uno o más controles de formularios y se encarga agrupar las validaciones por cada uno.</p>
 	<p>Cada instancia de Watcher posee una referencia directa con el elemento &lt;form&gt; padre. Cada elemento de formulario debería estar relacionado con una instancia del componente <a href="../forms">Forms</a> de la familia <strong>Controllers</strong>. De esta manera logramos una referencia circular desde un elemento de formulario, la instancia de Watcher, el elemento &lt;form&gt; y su instancia de <a href="../forms">Forms</a>.</p>
 	<p>Existen varias interfaces que permiten la utilización de los Watchers. Se dividen en 3 grupos: <a href="../string">String</a>, <a href="../number">Number</a> y <a href="../required">Required</a>. Cada uno de ellos define internamente un Watcher con configuraciones especiales de validación.</p>
@@ -210,8 +217,14 @@
 		/* Demo */
 
 		// Define a Form Controller
-		var form = $('.formulario').forms();
-		var email = $('#val_email').email().and().minLength(20).and().required();
+		var form = $('.formulario').forms({
+		    messages: {
+		        email: "Enter a valid email",
+		        minLength: "The value is to short",
+		        required: "This field is required"
+		    }
+		});
+		var email = $('#val_email').email().and().minLength(20,"Need 20 characters.").and().required();
     	var select = $('#val_select').required();
 	</script>
 </body>

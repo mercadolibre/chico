@@ -43,8 +43,14 @@
     
 	<script>
 		// Define a Form Controller
-		var form = $('.formulario').forms();
-		var email = $('#val_num').min(13).and().max(20).and().required();
+		var form = $('.formulario').forms({
+		    messages: {
+		        required: "Default message for required validation",
+		        min: "Default message for min validation",
+		        max: "Default message for max validation"
+		    }
+		});
+		var email = $('#val_num').min(13,"No less than 13.").and().max(20).and().required();
 	</script>
 	
 </body>

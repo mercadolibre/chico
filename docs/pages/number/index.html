@@ -134,8 +134,14 @@
     
 	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">
 		// Define a Form Controller
-		var form = $('.formulario').forms();
-		var email = $('#val_num').min(13).and().max(20).and().required();
+		var form = $('.formulario').forms({
+		    messages: {
+		        required: "Default message for required validation",
+		        min: "Default message for min validation",
+		        max: "Default message for max validation"
+		    }
+		});
+		var email = $('#val_num').min(13,"No less than 13.").and().max(20).and().required();
 	</pre></code></div></div></div>
 		
 			<div class="box use">
@@ -152,6 +158,11 @@
             callbacks: {
                 validate: function() {},
                 reset: function() {}
+            },
+            messages: {
+                number: string,
+                min: string,
+                max: string
             }
         }
 		</pre>
@@ -328,8 +339,14 @@
 		/* Demo */
 
 		// Define a Form Controller
-		var form = $('.formulario').forms();
-		var email = $('#val_num').min(13).and().max(20).and().required();
+		var form = $('.formulario').forms({
+		    messages: {
+		        required: "Default message for required validation",
+		        min: "Default message for min validation",
+		        max: "Default message for max validation"
+		    }
+		});
+		var email = $('#val_num').min(13,"No less than 13.").and().max(20).and().required();
 	
 
 		/* Case 1 */

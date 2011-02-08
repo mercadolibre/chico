@@ -49,7 +49,7 @@ ui.forms = function(conf){
 	// Create the Messages for General Error
 	if (!conf.messages) conf.messages = {};
 	
-	conf.messages["general"] = conf.messages["general"] || "Revisa los datos, por favor.";	
+	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
 
 
 	// General Error
