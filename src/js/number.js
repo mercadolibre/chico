@@ -24,14 +24,6 @@ ui.number = function(conf){
 
     };
     
-    // Messages
-	conf.defaultMessages = {
-		number:	"Usa sólo números.",
-		min:	"La cantidad mínima es " + conf.min + ".",
-		max:	"La cantidad máxima es " + conf.max + ".",
-		price:  "El campo deberia ser un precio válido: 999,00"
-	};
-
 	conf.messages = conf.messages || {};
 
     if (conf.msg) { 

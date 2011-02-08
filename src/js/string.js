@@ -21,15 +21,6 @@ ui.string = function(conf) {
         maxLength:  { expr: function(a,b) { return a <= b } }
     }
 	
-    // Messages
-	conf.defaultMessages = {
-		text:		"Usa sólo letras.",
-		email:		"Usa el formato nombre@ejemplo.com.",
-		url:		"Usa el formato http://www.sitio.com.",
-		minLength:	"Ingresa al menos " + conf.minLength + " caracteres.",
-		maxLength:	"El máximo de caracteres es " + conf.maxLength + "."
-	};
-	
 	conf.messages = conf.messages || {};	
 
     if (conf.msg) { 

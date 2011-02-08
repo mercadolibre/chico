@@ -1,24 +1,23 @@
 /**
- *	Required validations
+ *	Custom validations
  *  @Extends Watcher
  *	@Interface
  */
 
-ui.required = function(conf){
+ui.custom = function(conf){
 
     /**
 	 *  Override Watcher Configuration
 	 */
 	// Define the validation interface    
-    conf.required = true;
+    conf.custom = true;
 	// Add validation types
-	conf.types = "required";
+	conf.types = "custom";
     // Define the conditions of this interface
-	// Conditions absorvs that.isEmpty in checkConditions for compatibility
     conf.conditions = {
-        required: { func:'that.isEmpty' }
+        // I don't have conditions, you must tell me what to do
     }
-	
+    
 	conf.messages = conf.messages || {};
 
     if (conf.msg) { conf.messages.required = conf.msg; conf.msg = null; }
