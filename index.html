@@ -771,17 +771,23 @@
         
 
 		// New validator
-		var uiForm = $('.formulario').forms();
+		var uiForm = $('.formulario').forms({ messages: {
+		    required: "Mensaje por defecto requerido",
+		    email: "Mensaje email por defecto",
+		    maxLength: "Mensaje por defecto del max length",
+		    minLength: 'Mensaje por defecto del min length'
+		} });
 		
 		
  		var nv0 = $('#val_title')
- 		             .required('<%= t9n.tr(s:"El título es obligatorio.")%>') 
+                     .maxLength(10,'<%= t9n.tr(s:"El campo debe tener menos de 60 caracteres.")%>')
                      .and()
-                     .maxLength(60,'<%= t9n.tr(s:"El campo debe tener menos de 60 caracteres.")%>')
+                     .minLength(3) //,'<%= t9n.tr(s:"El campo debe tener más de 3 caracteres.")%>');
                      .and()
-                     .minLength(3); //,'<%= t9n.tr(s:"El campo debe tener más de 3 caracteres.")%>');
+                     .required('<%= t9n.tr(s:"El título es obligatorio.")%>'); 
+                     
 
-        var nv1 = $('#val_email').email().and().required().and().minLength(20);
+        var nv1 = $('#val_email').email("Por favor ingresa un email").and().required().and().minLength(20);
 		var nv2 = $('#val_url').string({ url: true });
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
 		var nv4 = $('#val_range').number({ min: 1, max: 10 });

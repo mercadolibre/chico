@@ -58,8 +58,14 @@
     
 	<script>
 		// Define a Form Controller
-		var form = $('.formulario').forms();
-		var email = $('#val_email').email().and().minLength(20).and().required();
+		var form = $('.formulario').forms({
+		    messages: {
+		        email: "Enter a valid email",
+		        minLength: "The value is to short",
+		        required: "This field is required"
+		    }
+		});
+		var email = $('#val_email').email().and().minLength(20,"Need 20 characters.").and().required();
     	var select = $('#val_select').required();
 	</script>
 	
