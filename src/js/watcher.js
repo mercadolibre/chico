@@ -27,10 +27,10 @@ ui.watcher = function(conf) {
 	/**
 	 *  Check for instances with the same trigger
 	 */
-	var checkInstance = function(conf) {	
+	var checkInstance = function(conf) {
         var instance = ui.instances.watcher;
         if (instance&&instance.length>0) {
-            for (var i = 0, j = instance.length; i < j; i ++) {
+            for (var i = 0, j = instance.length; i < j; i ++) {                
                 if (instance[i].element === conf.element) {
             	    // Mergeo Validations
                     $.extend(instance[i].validations, getValidations(conf));
@@ -294,7 +294,7 @@ ui.watcher = function(conf) {
 	 */
     	uid: conf.uid,
 		element: conf.element,
-		type: conf.type,
+		type: "watcher", //conf.type, // Everything is a "watcher" type, no matter what interface is used
 		types: that.types,
 		status: that.status,
 		reference: that.reference,
