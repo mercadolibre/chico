@@ -410,6 +410,13 @@
 							<p class="required">* Datos obligatorios</p>
 							<ol>
 								<li class="fieldBox">
+                                    <label class="required" for="val_custom">
+                                        <span>Custom field: <em>*</em></span>                                                 
+                                        <input type="email" id="val_custom" required="required">
+                                    </label>
+                                    <p class="help">Escribe una descripción corta y clara</p>
+                                </li>
+                                <li class="fieldBox">
 									<label class="required" for="val_title">
 										<span>Titulo: <em>*</em></span>													
 										<input type="email" id="val_title" required="required">
@@ -779,6 +786,17 @@
 		} });
 		
 		
+		var customVal = function(value) { // recibe the input value
+
+           if (value=="Chico-UI") {
+               return true; // return true if is OK
+           }
+           
+           return false; // return false otherwise
+        
+        }
+		
+		var nvC = $('#val_custom').custom(customVal,"Some custom validation message, value equals to: Chico-UI");
  		var nv0 = $('#val_title')
                      .maxLength(10,'<%= t9n.tr(s:"El campo debe tener menos de 60 caracteres.")%>')
                      .and()
