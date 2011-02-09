@@ -14,9 +14,8 @@ ui.required = function(conf){
 	// Add validation types
 	conf.types = "required";
     // Define the conditions of this interface
-	// Conditions absorvs that.isEmpty in checkConditions for compatibility
     conf.conditions = {
-        required: { func:'that.isEmpty' }
+        required: 'that.isEmpty' // This pattern is diferent
     }
 	
 	conf.messages = conf.messages || {};

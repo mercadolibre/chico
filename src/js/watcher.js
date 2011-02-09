@@ -208,6 +208,10 @@ ui.watcher = function(conf) {
 			var condition = that.conditions[type];
             var value = $(conf.element).val();
             var gotError = true;
+
+            if (type=="required") {
+                gotError = !that.isEmpty(conf);
+            };
             
             if (condition.patt) {
                 gotError = condition.patt.test(value);
@@ -217,8 +221,8 @@ ui.watcher = function(conf) {
                 gotError = condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
             };
             
-            if (condition.func) {
-                gotError = !that.isEmpty(conf); //condition.func.apply(value);
+            if (condition.func&&type!="required") {
+                gotError = condition.func.call(this, value); // Call validation function with 'this' as scope
             };
                     
 			if (!gotError) {
@@ -338,7 +342,6 @@ ui.watcher = function(conf) {
         // in the publish object to mantain compatibility
         var that = {};
             that.publish = check; 
-            console.log(check);      
         // ;) repleace that object with the repeated instance
     } else {
         // this is a new instance: "Come to papa!"

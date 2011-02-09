@@ -122,17 +122,21 @@ ui.factory = function(o) {
                 // If argument is a number, join with the conf
                 if (typeof options === "number") {
                     conf.value = options;
+                }
                     // Could come a messages as a second argument
                     if (_arguments[1]) {
                         conf.msg = _arguments[1];
                     }
-                }
-                
-                if (typeof options === "string") { // This could be a message
+                    
+                if (typeof options === "string") { // This could be a message   
                     conf.msg = options;
                 }
-                
-                if (typeof options === "object") { 
+
+                if (typeof options === "function") { // This is a condition for custom validation
+                    conf.lambda = options;
+                }
+                                    
+                if (typeof options === "object") { // This is a configuration object
                     // Extend conf with the options
                     $.extend( conf , options );   
                 }
