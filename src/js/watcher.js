@@ -227,7 +227,7 @@ ui.watcher = function(conf) {
 				// With previous error
 				if (!conf.status) { that.helper.hide(); };
 				// Show helper with message
-				that.helper.show( (that.messages[type]) ? that.messages[type] : that.defaultMessages[type] ); 
+				that.helper.show( (that.messages[type]) ? that.messages[type] : that.parent.messages[type] ); 
 				// Status false
 				that.publish.status = that.status =  conf.status = false;
 			    
@@ -337,7 +337,8 @@ ui.watcher = function(conf) {
         // Create a publish object and save the existing object
         // in the publish object to mantain compatibility
         var that = {};
-            that.publish = check;        
+            that.publish = check; 
+            console.log(check);      
         // ;) repleace that object with the repeated instance
     } else {
         // this is a new instance: "Come to papa!"

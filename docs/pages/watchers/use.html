@@ -13,7 +13,8 @@
 </head>
 <body>
 	
-	<h1>Watchers (a.k.a. Validators)</h1>
+	<h1>Watchers</h1>
+	<h2>a.k.a. Validators</h2>
 	<p>El componente Watcher es la clase que define a todos los componentes de validación. Se asocia a uno o más controles de formularios y se encarga agrupar las validaciones por cada uno.</p>
 	<p>Cada instancia de Watcher posee una referencia directa con el elemento &lt;form&gt; padre. Cada elemento de formulario debería estar relacionado con una instancia del componente <a href="../forms">Forms</a> de la familia <strong>Controllers</strong>. De esta manera logramos una referencia circular desde un elemento de formulario, la instancia de Watcher, el elemento &lt;form&gt; y su instancia de <a href="../forms">Forms</a>.</p>
 	<p>Existen varias interfaces que permiten la utilización de los Watchers. Se dividen en 3 grupos: <a href="../string">String</a>, <a href="../number">Number</a> y <a href="../required">Required</a>. Cada uno de ellos define internamente un Watcher con configuraciones especiales de validación.</p>

@@ -8,7 +8,7 @@
 /*
 
 conf:{
-	[ messages ]: "algo que pisa lo de andentro",
+	[ messages ]: message map for each validation type,
 	[ callbacks ]: {
 		[ submit ]: function,
 		[ clear ]: function
@@ -48,7 +48,8 @@ ui.forms = function(conf){
 
 	// Create the Messages for General Error
 	if (!conf.messages) conf.messages = {};
-	conf.messages["general"] = conf.messages["general"] || "Revisa los datos, por favor.";	
+	
+	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
 
 
 	// General Error
@@ -161,6 +162,7 @@ ui.forms = function(conf){
 	conf.publish.submit = submit;
 	conf.publish.checkStatus = checkStatus;
 	conf.publish.clear = clear;
+	conf.publish.messages = conf.messages;
 	
 	return conf.publish;
 };
