@@ -18,15 +18,14 @@ ui.codelighter = function() {
  *  Private Members
  */
 	
-	$("pre").each(function(i, e){
+	$("pre[name=code]").each(function(i, e){
 		
 		var child = {
 			snippet: e.innerHTML,
 			element: e,
 			uid: ui.utils.index += 1
 		};
-		
-		that.children.push( ui[e.className](child) );
+		that.children.push( ui["code" + e.className.toUpperCase()](child) );
 	});
 	
 
@@ -51,7 +50,7 @@ ui.codesnippet = function(conf){
  */
 	
 	conf.paintedSnippet = conf.snippet;
-	$(conf.element).addClass("ch-codelighter");
+	//$(conf.element).addClass("ch-codelighter");
 
 /**
  *  Inheritance: Create a symbolic link to myself and my direct parent
@@ -148,12 +147,16 @@ ui.codeJS = function(conf) {
 	conf.type = "codeJS";
 	
 	conf.brush = {
+		"$1 $2 $3": /(<)([a-z]|\/|.*?)(>)/g,
 		"<span class='ch-operator'>$&</span>": /(\+|\-|=|\*|&|\||\%|\!|\?)/g,
 		">": />amp;/g,
 		"<span class='ch-atom'>$&</span>": /(false|null|true|undefined)/g,		
 		"$1<span class='ch-keywords'>$2</span>$3": /(^|\s|\(|\{)(return|new|delete|throw|else|case|break|case|catch|const|continue|default|delete|do|else|finally|for|function|if|in|instanceof|new|switch|throw|try|typeof|var|void|while|with)(\s*)/g,
 		"<span class='ch-attrValue'>$&</span>": /(".+?")|[0-9]/g, // Attributes & numbers
-		"    ": /\t/g // Tab
+		"    ": /\t/g, // Tab
+		"<span class='ch-comment'>$&</span>": /(\/\*)\s*.*\s*(\*\/)/g, // Comments
+		"<span class='ch-comment'>$&</span>": /(\/\/)\s*.*\s*\n*/g // Comments
+		
 	};
 	
 	conf.snippet = conf.snippet || conf.element.innerHTML;

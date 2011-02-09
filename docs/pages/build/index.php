@@ -45,8 +45,8 @@ class DocBuilder {
     	$out = "<div class=\"docTabs\">";
     	$out.= "<ul><li><a href=\"#demo\">Demo</a></li> <li><a href=\"#sintax\">Código fuente</a></li></ul>";
     	$out.= "<div><div id=\"demo\"><h3>Demo</h3>".$demo[0]."</div>";
-    	$out.= "<div id=\"sintax\"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre class=\"codeXML\">".$demo[0]."</pre></code>";
-    	$out.= "<p>Para iniciar este ejemplo se utilizó:</p><code><pre class=\"codeJS\">".$demo[1]."</pre></code></div></div></div>";
+    	$out.= "<div id=\"sintax\"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre class=\"xml\" name=\"code\">".$demo[0]."</pre></code>";
+    	$out.= "<p>Para iniciar este ejemplo se utilizó:</p><code><pre class=\"js\" name=\"code\">".$demo[1]."</pre></code></div></div></div>";
     	
     	$html = str_replace("<!-- #demo -->", $out, $html);
     	
@@ -83,7 +83,7 @@ class DocBuilder {
 			
 			$self = "<div class=\"ch-g2-3\"><div class=\"leftcolumn cases\">".$data[0]."</div></div>";
 			$self.= "<div class=\"ch-g1-3\"><div class=\"rightcolumn\"><p>El Javascript para iniciarlo es:</p>";
-			$self.= "<code><pre class=\"codeJS\">".$data[1]."</pre></code></div></div>";
+			$self.= "<code><pre class=\"js\" name=\"code\">".$data[1]."</pre></code></div></div>";
 			
 			$this->scripts .= "\n\n\t\t/* Case ".($i + 1)." */\n".$data[1];
 			

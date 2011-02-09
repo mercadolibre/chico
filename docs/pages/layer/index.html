@@ -12,7 +12,6 @@
 		<link rel="stylesheet" href="../../build/chico.css">
 		<link rel="stylesheet" href="../../src/css/grid.css">
 		<link rel="stylesheet" href="../../src/css/pages.css">
-		<link rel="stylesheet" href="../../libs/css/highlight.css">
 		<!--[if lt IE 7 ]>
 			<script src="../../libs/js/dd_belatedpng.js"></script>
 			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
@@ -94,11 +93,11 @@
 
 	<span class="demoLayerOnmouseover">Layer ejecutado en el hover.</span>
 	
-	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre name="code" class="xml">
+	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre class="xml" name="code">
 
 	<span class="demoLayerOnmouseover">Layer ejecutado en el hover.</span>
 	
-	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">
+	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre class="js" name="code">
 		$(".demoLayerOnmouseover").layer({
 			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 		});	
@@ -189,7 +188,7 @@
 	
 	<span class="layerOnmouseover">Layer ejecutado en mouseover.</span>
 	
-	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		$(".layerOnmouseover").layer({
 			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 		});	
@@ -199,7 +198,7 @@
 	
 	<span class="layerOnclick">Layer ejecutado con click.</span>
 	
-	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		$(".layerOnclick").layer({
 			event: "click",
 			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
@@ -210,7 +209,7 @@
 	
 	<span class="layerOnclick2">Layer ejecutado con click.</span>
 	
-	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		var LayerNewPosition = $(".layerOnclick2").layer({
 			event: "click",
 			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
@@ -226,12 +225,12 @@
 	
 	<p class="footer">Chico-UI, powered by <a href="http://www.mercadolibre.com">MercadoLibre</a>.</p>
 	
-	<script src="../../libs/js/highlight.js"></script>
 	<script src="../../libs/js/jquery.js"></script>
 	<script src="../../build/chico.js"></script>
 	<script>
     	$(".docTabs").tabNavigator();
         $('h1').html("Chico-UI ;) <span class=\"version\">alpha " + ui.version + "</span>"  );
+        ui.codelighter();
 	</script>
 
 	<script>

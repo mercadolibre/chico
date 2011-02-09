@@ -12,7 +12,6 @@
 		<link rel="stylesheet" href="../../build/chico.css">
 		<link rel="stylesheet" href="../../src/css/grid.css">
 		<link rel="stylesheet" href="../../src/css/pages.css">
-		<link rel="stylesheet" href="../../libs/css/highlight.css">
 		<!--[if lt IE 7 ]>
 			<script src="../../libs/js/dd_belatedpng.js"></script>
 			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
@@ -98,7 +97,7 @@
 		<input type="submit" class="btn secondary demoModal" value="Modal ejecutado en un botón">
 	</form>
 	
-	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre name="code" class="xml">
+	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre class="xml" name="code">
 	
 	<a href="../../examples/ajax.html" class="demoModal">Modal ejecutado en un link.</a>
 		
@@ -106,7 +105,7 @@
 		<input type="submit" class="btn secondary demoModal" value="Modal ejecutado en un botón">
 	</form>
 	
-	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">
+	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre class="js" name="code">
 		$(".demoModal").modal();		
 	</pre></code></div></div></div>
 		
@@ -212,7 +211,7 @@
 	
 	<a href="../../../examples/ajax.html" class="modal_link">Ejecutar Modal.</a></li>	
 	
-	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		$(".modal_link").modal();
 	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
 	
@@ -222,7 +221,7 @@
 		<input type="submit" class="btn secondary" id="modal_btn" value="Ejecutar Modal">
 	</form>
 	
-	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		$("#modal_btn").modal({
 			ajax: "./../../examples/ajax.html"
 		});
@@ -239,7 +238,7 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
 	</div>
 	
-	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		$("#modal_param1").modal(
 			{
 				content: "#modalContent"
@@ -253,7 +252,7 @@
 		<input type="submit" class="btn secondary" id="modal_param2" value="Ejecutar Modal">
 	</form>
 	
-	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		$("#modal_param2").modal(
 			{
 				content: "<h2>Contenido cargado por parametro HTML</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
@@ -267,7 +266,7 @@
 		<input type="submit" class="btn secondary" id="modal_param3" value="Ejecutar Modal">
 	</form>
 	
-	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		$("#modal_param3").modal(
 			{
 				content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -281,12 +280,12 @@
 	
 	<p class="footer">Chico-UI, powered by <a href="http://www.mercadolibre.com">MercadoLibre</a>.</p>
 	
-	<script src="../../libs/js/highlight.js"></script>
 	<script src="../../libs/js/jquery.js"></script>
 	<script src="../../build/chico.js"></script>
 	<script>
     	$(".docTabs").tabNavigator();
         $('h1').html("Chico-UI ;) <span class=\"version\">alpha " + ui.version + "</span>"  );
+        ui.codelighter();
 	</script>
 
 	<script>
