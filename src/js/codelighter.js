@@ -51,6 +51,7 @@ ui.codesnippet = function(conf){
  */
 	
 	conf.paintedSnippet = conf.snippet;
+	$(conf.element).addClass("ch-codelighter");
 
 /**
  *  Inheritance: Create a symbolic link to myself and my direct parent
@@ -58,11 +59,12 @@ ui.codesnippet = function(conf){
 
 	var self = this;
 	var that = ui.object(); // TODO: that should be an Abstract Object
-
+	
+	
 /**
  *  Private Members
  */
- 
+ 	
 	conf.element.innerHTML = function() {
 		for (var x in conf.brush){
 			if (conf.brush[ x ].test(conf.paintedSnippet)) {
@@ -100,7 +102,7 @@ ui.codesnippet = function(conf){
  *	@return An interface object
  */
 
-ui.xml = function(conf) {
+ui.codeXML = function(conf) {
     
 /** 
  *  Constructor: Redefine or preset component's settings
@@ -108,24 +110,25 @@ ui.xml = function(conf) {
 	
 	conf = conf || {};
 	
-	conf.type = "xml";
+	conf.type = "codeXML";
 
 	conf.brush = {
 		"&lt;": /</g, // Menor
 		"&gt;": />/g , // Mayor
-		"<span class='comments'>$&</span>": /(\&lt;|&lt;)!--\s*.*?\s*--(\&gt;|&gt;)/g, // comments		
-		"<span class='attrName'>$&</span>": /(id|name|class|title|alt|value|type)=".*"/g, // Attributes name
-		"<span class='attrValue'>$&</span>": /".+?"/g, // Attributes
-		"<span class='tag'>$&</span>": /(&lt;([a-z]|\/).*?&gt;)/g // Tag		
+		"<span class='ch-comment'>$&</span>": /(\&lt;|&lt;)!--\s*.*?\s*--(\&gt;|&gt;)/g, // comments		
+		"<span class='ch-attrName'>$&</span>": /(id|name|class|title|alt|value|type|style|method|href|action|lang|dir|src|tabindex|usemap|data|rel|charset|encoding|size|selected|checked|placeholder|target|required|disabled|max|min|maxlength|accesskey)=".*"/g, // Attributes name
+		"<span class='ch-attrValue'>$&</span>": /".+?"/g, // Attributes
+		"<span class='ch-tag'>$&</span>": /(&lt;([a-z]|\/).*?&gt;)/g, // Tag
+		"    ": /\t/g // Tab
 	};
 	
 	conf.snippet = conf.snippet || conf.element.innerHTML;
     
     return ui.codesnippet(conf);   
     
-}
+};
 
-ui.factory({ component: 'xml' });
+ui.factory({ component: 'codeXML' });
 
 
 
@@ -134,7 +137,7 @@ ui.factory({ component: 'xml' });
  *	@return An interface object
  */
 
-ui.js = function(conf) {
+ui.codeJS = function(conf) {
     
 /** 
  *  Constructor: Redefine or preset component's settings
@@ -142,23 +145,24 @@ ui.js = function(conf) {
 	
 	conf = conf || {};
 	
-	conf.type = "js";
+	conf.type = "codeJS";
 	
 	conf.brush = {
-		"<span class='operators'>$&</span>": /(\+|\-|=|\*|&|\||\%|\!|\?)/g,
+		"<span class='ch-operator'>$&</span>": /(\+|\-|=|\*|&|\||\%|\!|\?)/g,
 		">": />amp;/g,
-		"<span class='atom'>$&</span>": /(false|null|true|undefined)/g,
-		"$1<span class='keywords'>$2</span>$3": /(\s)(return|new|delete|throw|else|case|break|case|catch|const|continue|default|delete|do|else|finally|for|function|if|in|instanceof|new|switch|throw|try|typeof|var|void|while|with)(\s*)/g,
-		"<span class='attrValue'>$&</span>": /".+?"/g // Attributes
+		"<span class='ch-atom'>$&</span>": /(false|null|true|undefined)/g,		
+		"$1<span class='ch-keywords'>$2</span>$3": /(^|\s|\(|\{)(return|new|delete|throw|else|case|break|case|catch|const|continue|default|delete|do|else|finally|for|function|if|in|instanceof|new|switch|throw|try|typeof|var|void|while|with)(\s*)/g,
+		"<span class='ch-attrValue'>$&</span>": /(".+?")|[0-9]/g, // Attributes & numbers
+		"    ": /\t/g // Tab
 	};
 	
 	conf.snippet = conf.snippet || conf.element.innerHTML;
     
     return ui.codesnippet(conf);
     
-}
+};
 
-ui.factory({ component: 'js' });
+ui.factory({ component: 'codeJS' });
 
 
 /**
@@ -166,7 +170,7 @@ ui.factory({ component: 'js' });
  *	@return An interface object
  */
 
-ui.css = function(conf) {
+ui.codeCSS = function(conf) {
     
 /** 
  *  Constructor: Redefine or preset component's settings
@@ -174,20 +178,22 @@ ui.css = function(conf) {
 	
 	conf = conf || {};
 	
-	conf.type = "css";
+	conf.type = "codeCSS";
 	
 	conf.brush = {
-		"<span class='comments'>$&</span>": /(\/\*)\s*.*\s*(\*\/)/g, // Comments
-		"<span class='attrName'>$&</span>": /(\w)\s*:".*"/g, // Attributes name
-		"<span class='selector'>$1$2</span>$3": /(#|\.)(\w+)({)/g, // Selectors
-		"$1<span class='properties'>$2</span>$3": /({|;|\s)(\w*-*\w*)(\s*:)/g, // Properties
-		"$1<span class='attrValue'>$2</span>$3": /(:)(.+?)(;)/g // Attributes
+		//"<span class='ch-selector'>$&</span>": /(a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdo|big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|command|datalist|dd|del|details|dfn|dir|div|dl|dt|em|embed|fieldset|figcaption|figure|font|footer|form|frame|frameset|h1> - <h6|head|header|hgroup|hr|html|i|iframe|img|input|ins|keygen|kbd|label|legend|li|link|map|mark|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|option|output|p|param|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|small|source|span|strike|strong|style|sub|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|title|tr|tt|u|ul|var|video|wbr|xmp)(\{*)/g, // Selectors
+		"<span class='ch-comment'>$&</span>": /(\/\*)\s*.*\s*(\*\/)/g, // Comments
+		"<span class='ch-attrName'>$&</span>": /(\w)\s*:".*"/g, // Attributes name
+		"<span class='ch-selector'>$1$2</span>$3": /(#|\.)(\w+)({)/g, // Selectors
+		"$1<span class='ch-property'>$2</span>$3": /({|;|\s)(\w*-*\w*)(\s*:)/g, // Properties
+		"$1<span class='ch-attrValue'>$2</span>$3": /(:)(.+?)(;)/g, // Attributes
+		"    ": /\t/g // Tab
 	};
 	
 	conf.snippet = conf.snippet || conf.element.innerHTML;
     
     return ui.codesnippet(conf);
     
-}
+};
 
-ui.factory({ component: 'css' });
+ui.factory({ component: 'codeCSS' });

@@ -4,7 +4,7 @@ var start = new Date().getTime();
   */
 var ui = window.ui = {
 
-    version: "0.5.2",
+    version: "0.5.3",
 
     components: "",
 
