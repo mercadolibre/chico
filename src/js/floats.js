@@ -20,7 +20,7 @@ ui.floats = function(conf) {
  *  Private Members
  */
 	var createClose = function(conf) {
-		$('<p class="btn ch-close">x</p>').one('click', function(event) {
+		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
 		}).prependTo(conf.$container);
 	};

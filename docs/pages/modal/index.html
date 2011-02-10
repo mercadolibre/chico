@@ -123,6 +123,7 @@
 			width: number,
 			height: number,
 			ajax: boolean | string,
+			cache: boolean,					  // Content cache
 			onShow: function() {},			  // Callback executed on modal show
 			onHide: function() {},			  // Callback executed on modal hide
 			onContentLoad: function() {},	  // Callback executed on content load success (ajax includes)
@@ -215,7 +216,7 @@
 		$(".modal_link").modal();
 	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
 	
-	<h4>Modal ejecutado en el click de un botón con ajax, configurando una url.</h4>	
+	<h4>Modal ejecutado en el click de un botón con ajax, configurando una url y desactivando el cache de contenido.</h4>	
 	
 	<form action="http://www.mercadolibre.com">
 		<input type="submit" class="btn secondary" id="modal_btn" value="Ejecutar Modal">
@@ -223,7 +224,8 @@
 	
 	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 		$("#modal_btn").modal({
-			ajax: "./../../examples/ajax.html"
+			ajax: "./../../examples/ajax.html",
+			cache: false
 		});
 	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
 	
@@ -302,7 +304,8 @@
 		/* Case 2 */
 
 		$("#modal_btn").modal({
-			ajax: "./../../examples/ajax.html"
+			ajax: "./../../examples/ajax.html",
+			cache: false
 		});
 	
 
