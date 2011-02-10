@@ -268,7 +268,9 @@ hr {
 
 .ie6 .btn.disabled,
 .ie7 .btn.disabled,
-.ie7 .btn.disabled:hover {
+.ie7 .btn.disabled:hover,
+.ie8 .btn.disabled,
+.ie8 .btn.disabled:hover, {
 	background-color:#FFFFFF;
 	background-position:0 -328px;
 	border:1px solid #CCCCCC;
