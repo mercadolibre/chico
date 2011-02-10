@@ -671,9 +671,10 @@ div p.keywords{color:darkorange;}
         });
         //var ui_moda = $('.demoModal').modal("/test.html");
         var ui_moda = $('.demoModal').modal({
-        	width:350,
-        	height:400,
-        	content: "<h2 class=\"lala\">LALALALALALAL</h2><p>contentcontenotndi sadkjsjhd hdkahdjk skdh ñdashd jksa h</p>",
+        	width: 350,
+        	height: 400,
+        	cache: false,
+        	//content: "<h2 class=\"lala\">LALALALALALAL</h2><p>contentcontenotndi sadkjsjhd hdkahdjk skdh ñdashd jksa h</p>",
         	onShow: function(){ console.log("Se abre el modal") },
         	onContentLoad: function(){ $("h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
         	onContentError: function(){ console.log("Content Error") },
