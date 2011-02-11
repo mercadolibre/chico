@@ -80,13 +80,13 @@
 		module('Dropdown layout and interaction');
 
 		var $trigger = $('.testDropdown').children(':first');
-		var $content = $trigger.next();
+		var $content = $('.testDropdown').next();
 
 		test('Check for the right visual classes', function() {
 			
 			hasClass('.testDropdown', 'ch-dropdown');
-			hasClass($trigger, 'ch-dropdown-trigger');
-			hasClass($content, 'ch-dropdown-content');
+			hasClass($trigger, 'ch-dropdown-trigger-primary');
+			hasClass($content, 'ch-dropdown-content-primary');
 			hasClass($trigger.find('span'), 'ch-down');
 			
 		});
