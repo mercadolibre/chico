@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, positioner, object, floats, navs, controllers, watcher, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, required, helper, forms, viewer, chat, expando, codelighter
+  * @components: core, positioner, object, floats, navs, controllers, watcher, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, forms, viewer, chat, expando, codelighter
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -22,7 +22,7 @@ var ui = window.ui = {
 
     version: "0.5.3",
 
-    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,required,helper,forms,viewer,chat,expando,codelighter",
+    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,forms,viewer,chat,expando,codelighter",
 
     internals: "positioner,object,floats,navs,controllers,watcher",
 
@@ -138,17 +138,21 @@ ui.factory = function(o) {
                 // If argument is a number, join with the conf
                 if (typeof options === "number") {
                     conf.value = options;
+                }
                     // Could come a messages as a second argument
                     if (_arguments[1]) {
                         conf.msg = _arguments[1];
                     }
-                }
-                
-                if (typeof options === "string") { // This could be a message
+                    
+                if (typeof options === "string") { // This could be a message   
                     conf.msg = options;
                 }
-                
-                if (typeof options === "object") { 
+
+                if (typeof options === "function") { // This is a condition for custom validation
+                    conf.lambda = options;
+                }
+                                    
+                if (typeof options === "object") { // This is a configuration object
                     // Extend conf with the options
                     $.extend( conf , options );   
                 }
@@ -241,13 +245,9 @@ ui.get = function(o) {
 				cache: true,
 				async: true,
 				success: function(data, textStatus, xhr){					
-					x.$htmlContent.html( data ).fadeIn('fast', function(){ 
-						if(x.onContentLoad) x.onContentLoad();
-					});
+					x.$htmlContent.html( data ); 
+					if(x.onContentLoad) x.onContentLoad();
 					if( x.position ) ui.positioner(x.position);
-					
-					// Data cached
-					ui.cache.add(x.ajaxUrl, data);
 				},
 				error: function(xhr, textStatus, errorThrown){
 					data = (x.onContentError) ? x.onContentError(xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
@@ -648,7 +648,7 @@ ui.object = function(){
 		conf.ajax:true (levanta href o action) || "http://www..." || "../test/test.html"
 		*/
 		loadContent: function(conf) {
-			// Properties validation
+			// TODO: Properties validation
 			//if( conf.ajax && (conf.content || conf.msg) ) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };
 
 			if( conf.ajax === true){
@@ -667,8 +667,9 @@ ui.object = function(){
 				};
 
 				// Returns ajax results
-				conf.$htmlContent.html('<div class="loading"></div>');
-				return ui.get({method:"content", conf:conf});
+				//conf.$htmlContent.html('<div class="loading"></div>');
+				ui.get({method:"content", conf:conf});
+				return '<div class="loading"></div>';
 				
 			} else if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
 				// Set url
@@ -678,11 +679,12 @@ ui.object = function(){
 				conf.ajaxParams = 'x=x'; // TODO refactor con el header de ajax
 
 				// Returns ajax results
-				conf.$htmlContent.html('<div class="loading"></div>');
-				return ui.get({method:"content", conf:conf});
+				//conf.$htmlContent.html('<div class="loading"></div>');
+				ui.get({method:"content", conf:conf});
+				return '<div class="loading"></div>';
 				
 			} else {
-				var content = conf.content || conf.msg;				
+				var content = conf.content || conf.msg;			
 				return ($(content).length > 0) ? $(content).clone().show() : content ;
 			};
 
@@ -719,7 +721,7 @@ ui.floats = function(conf) {
  *  Private Members
  */
 	var createClose = function(conf) {
-		$('<p class="btn ch-close">x</p>').one('click', function(event) {
+		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
 		}).prependTo(conf.$container);
 	};
@@ -736,9 +738,8 @@ ui.floats = function(conf) {
 		
 		conf.position = conf.position || {};
 		conf.position.element = conf.$container;
-		conf.position.hold = conf.hold || false;
-		
-    	getContent(conf);
+		conf.position.hold = conf.hold || false;		
+		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
     	
     	// Visual configuration
 		if( conf.closeButton ) createClose(conf);
@@ -747,30 +748,15 @@ ui.floats = function(conf) {
 		if( conf.hasOwnProperty("width") ) conf.$container.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) conf.$container.css("height", conf.height);
 
+		conf.$htmlContent.html( that.loadContent(conf) );
 		conf.$container
     		.css("z-index", ui.utils.zIndex++)
 		    .fadeIn('fast', function(){ that.callbacks(conf, 'onShow'); });
-		
+
 		ui.positioner(conf.position);
 		
 		conf.visible = true;
-    }
-
-	// Obtener contenido y cachearlo
-    var getContent = function(conf) {
-    			
-    	if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ) {
-			
-    		that.loadContent(conf);
-    	
-		} else {
-		
-    		conf.$htmlContent
-    			.html( that.loadContent(conf) )
-    			.fadeIn('fast', function(){ that.callbacks(conf, 'onContentLoad'); });
-    	};
-    }
-
+    };
 
 /**
  *  Public Members
@@ -778,12 +764,16 @@ ui.floats = function(conf) {
  
 	that.show = function(event, conf) {
 	
-		if (event) that.prevent(event);
+		if ( event ) that.prevent(event);
 		
-		if(conf.visible) return;
+		if ( conf.visible ) return;
+		
+		// Show if exist, else create		
+		if ( conf.$container ) {
 			
-		// Show if exist, else create
-		if (conf.$container) {
+			// If not cache... get content! 
+			if ( !conf.cache ) conf.$htmlContent.html( that.loadContent(conf) );
+						
     		conf.$container
     		    .appendTo("body")
     			.css("z-index", ui.utils.zIndex++)
@@ -793,9 +783,10 @@ ui.floats = function(conf) {
 					// Callback execute
 					that.callbacks(conf, 'onShow');
 				});
-			ui.positioner(conf.position);
+
+			ui.positioner(conf.position);			
 			return;
-		}
+		};
 		
 		// If you reach here, create a float
         createLayout(conf); 
@@ -828,7 +819,7 @@ ui.floats = function(conf) {
 				conf.position.fixed = o.fixed || conf.position.fixed;
 				
 				ui.positioner(conf.position);
-//				return conf.publish;
+				// return conf.publish;
 			    break;
 			
 			case "string":
@@ -837,7 +828,7 @@ ui.floats = function(conf) {
 				};
 				
 				ui.positioner(conf.position);
-//				return conf.publish;   			
+				// return conf.publish;   			
 			    break;
 			
 			case "undefined":
@@ -848,7 +839,7 @@ ui.floats = function(conf) {
 	};
 
 	return that;
-}
+};
 
 /**
 *  @static @class Navigators. Represent the abstract class of all navigators ui objects.
@@ -1102,6 +1093,10 @@ ui.watcher = function(conf) {
 			var condition = that.conditions[type];
             var value = $(conf.element).val();
             var gotError = true;
+
+            if (type=="required") {
+                gotError = !that.isEmpty(conf);
+            };
             
             if (condition.patt) {
                 gotError = condition.patt.test(value);
@@ -1111,8 +1106,8 @@ ui.watcher = function(conf) {
                 gotError = condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
             };
             
-            if (condition.func) {
-                gotError = !that.isEmpty(conf); //condition.func.apply(value);
+            if (condition.func&&type!="required") {
+                gotError = condition.func.call(this, value); // Call validation function with 'this' as scope
             };
                     
 			if (!gotError) {
@@ -1232,7 +1227,6 @@ ui.watcher = function(conf) {
         // in the publish object to mantain compatibility
         var that = {};
             that.publish = check; 
-            console.log(check);      
         // ;) repleace that object with the repeated instance
     } else {
         // this is a new instance: "Come to papa!"
@@ -1458,26 +1452,28 @@ ui.carousel = function(conf){
  *	@Contructor
  *	@return An interface object
  */	
-ui.dropdown = function(conf){
-	var that = ui.navs(); // Inheritance
 
-	var skin;
-	// Primary or secondary behavior
-	if($(conf.element).hasClass("ch-secondary")){
-		$(conf.element).addClass('ch-dropdown');
-		skin = "secondary";
-	}else{
-		$(conf.element).addClass("ch-dropdown ch-primary");
-		skin = "primary";
-	};
+ui.dropdown = function(conf){
+
+/** 
+ *  Constructor: Redefine or preset component's settings
+ */
+	var $container = $(conf.element).addClass("ch-dropdown");
+	var skin = ( $container.hasClass("ch-secondary") ) ? "secondary": "primary";
 	
-	// Global configuration
-	conf.$trigger = $(conf.element).children(':first');
-	conf.$htmlContent = conf.$trigger.next();
 	
-	// Private methods
+/**
+ *  Inheritance: Create a symbolic link to myself and my direct parent
+ */
+	var that = ui.navs();
+	
+	
+/**
+ *  Private Members
+ */
 	var show = function(event){
 		that.prevent(event);
+		
 		// Toggle
 		if(that.status){
 			return hide();
@@ -1492,17 +1488,14 @@ ui.dropdown = function(conf){
 		
 		// Secondary behavior
 		if(skin == "secondary"){
-			conf.$trigger.css('z-index', ui.utils.zIndex++); // Z-index of trigger over content
-			$(conf.element).addClass("ch-dropdown-on"); // Container ON
+			conf.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content
+			$container.addClass("ch-dropdown-on"); // Container ON
 		};
 	
 		// Document events
-		ui.utils.document.one('click', function(event){
-			that.prevent(event);
-            hide();
-		});
+		ui.utils.document.one('click', hide);
 		
-        return conf.publish; // Returns publish object
+        return that.publish; // Returns publish object
     };
 	
     var hide = function(event){
@@ -1510,49 +1503,67 @@ ui.dropdown = function(conf){
     	
     	// Secondary behavior
 		if(skin == "secondary"){
-			$(conf.element).removeClass("ch-dropdown-on"); // Container OFF
+			$container.removeClass("ch-dropdown-on"); // Container OFF
 		};
         that.hide(event, conf);
         
-        return conf.publish; // Returns publish object
+        return that.publish; // Returns publish object
     };
     
-	// Trigger
-	conf.$trigger
-		.bind('click', function(event){
-			that.prevent(event);			
-			// Show dropdown
-			show();
-		})
-		.addClass('ch-dropdown-trigger')
-		.append('<span class="ch-down">&raquo;</span>');
-	
+    
+    // Trigger
+	conf.$trigger = $container.children(":first")
+		.bind("click", show)
+		.addClass("ch-dropdown-trigger-" + skin)
+		.append("<span class=\"ch-down\"> &raquo;</span>");
 	
 	// Content
-	conf.$htmlContent
-		.bind('click', function(event){ event.stopPropagation() })
-		.addClass('ch-dropdown-content')
-		// Close when click an option
-		.find('a').bind('click', function(){ hide() });
+	conf.$htmlContent = conf.$trigger.next()
 	
+		// Prevent click on content (except links)
+		.bind("click", function(event){
+			event.stopPropagation()
+		})
+		
+		.addClass("ch-dropdown-content-" + skin)
+		
+		// Save on memory;
+		.detach();
+	
+	// Close dropdown after click an option (link)
+	conf.$htmlContent.find('a').one('click', function(){ hide(); });
+	
+	// Content position
+	ui.positioner({
+		context: conf.$trigger,
+		element: conf.$htmlContent,
+		points: "lt lb",
+		offset: "0 -1"
+	});
+	
+	// Put content out of container
+	$container.after( conf.$htmlContent );
 
-    // Create the publish object to be returned
-    conf.publish = that.publish;
+/**
+ *  Expose propierties and methods
+ */
+    that.publish = {
     
     /**
 	 *  @ Public Properties
 	 */
-    conf.publish.uid = conf.uid;
-    conf.publish.element = conf.element;
-    conf.publish.type = conf.type;
+    	uid: conf.uid,
+    	element: conf.element,
+    	type: conf.type,
     
     /**
 	 *  @ Public Methods
 	 */
-    conf.publish.show = function(){ return show() };
-    conf.publish.hide = function(){ return hide() };
+    	show: show,
+    	hide: hide
+    };
 
-	return conf.publish;
+	return that.publish;
 
 };
 /**
@@ -1703,7 +1714,7 @@ ui.modal = function(conf){
 	// Dimmer object
 	var $dimmer = $('<div>')
 			.addClass('ch-dimmer')
-			.css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++})
+			.css({height:$(window).height(), display:'block'})
 			.hide();
 
 	// Dimmer Controller
@@ -1711,6 +1722,7 @@ ui.modal = function(conf){
 		on: function() { //TODO: posicionar el dimmer con el positioner
 			$dimmer
 				.appendTo('body')
+				.css("z-index",ui.utils.zIndex++)
 				.fadeIn();
 
 			if (conf.type == "modal") {
@@ -2288,6 +2300,45 @@ ui.price = function(conf) {
 
 ui.factory({ component: 'price' });
 /**
+ *	Custom validations
+ *  @Extends Watcher
+ *	@Interface
+ */
+
+ui.custom = function(conf){
+    
+    if (!conf.lambda) {
+        alert("Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},\"Message\");");
+    }
+    
+    /**
+	 *  Override Watcher Configuration
+	 */
+	// Define the validation interface    
+    conf.custom = true;
+	// Add validation types
+	conf.types = "custom";
+    // Define the conditions of this interface
+    conf.conditions = {
+        // I don't have pre-conditions, comes within an argument 
+        custom: { func: conf.lambda }
+    }
+
+	conf.messages = conf.messages || {};
+
+    if (conf.msg) { conf.messages.custom = conf.msg; conf.msg = null; }
+	
+    /**
+	 *  Extend Watcher
+	 */
+ 	var that = ui.watcher(conf);
+
+    /**
+	 *  Public Object
+	 */
+	return that.publish;
+};
+/**
  *	Required validations
  *  @Extends Watcher
  *	@Interface
@@ -2303,9 +2354,8 @@ ui.required = function(conf){
 	// Add validation types
 	conf.types = "required";
     // Define the conditions of this interface
-	// Conditions absorvs that.isEmpty in checkConditions for compatibility
     conf.conditions = {
-        required: { func:'that.isEmpty' }
+        required: 'that.isEmpty' // This pattern is diferent
     }
 	
 	conf.messages = conf.messages || {};
@@ -2552,16 +2602,16 @@ ui.forms = function(conf){
 	conf.publish.type = conf.type;
 	conf.publish.status = status;
 	conf.publish.children = that.children;
+    conf.publish.messages = conf.messages;
 	
 	/**
 	 *  @ Public Methods
 	 */
 	conf.publish.validate = validate;
 	conf.publish.submit = submit;
-	conf.publish.checkStatus = checkStatus;
+	conf.publish.checkStatus = function() { checkStatus(); return conf.publish };
 	conf.publish.clear = clear;
-	conf.publish.messages = conf.messages;
-	
+		
 	return conf.publish;
 };
 /**
