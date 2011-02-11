@@ -117,10 +117,7 @@ a img{
  */
 
 .btn, .box, .ch-cone, .ico,
-.ch-dropdown-trigger,
-.ch-dropdown-trigger:hover,
-.ch-dropdown-on,
-.ch-dropdown-on:hover,
+.ch-dropdown-trigger-primary,
 .ch-tabNavigator .ch-tab-on { 
 	background-image: url('../src/assets/base.png');
 }
@@ -304,6 +301,7 @@ hr {
 
 .btn.secondary { 
 	background-position:0 -360px;
+	font-size:12px;
 	height:25px;
 	line-height:1em;
 }
@@ -328,6 +326,10 @@ hr {
 	background-color:#C0DAEC;
 	border:1px solid #79a8c7;
 	color: #476274;
+}
+
+.ie7 .btn.secondary.skin {
+	background-position:0 -436px;
 }
 
 .btn.secondary.skin:focus {
