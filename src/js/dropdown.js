@@ -4,26 +4,28 @@
  *	@Contructor
  *	@return An interface object
  */	
-ui.dropdown = function(conf){
-	var that = ui.navs(); // Inheritance
 
-	var skin;
-	// Primary or secondary behavior
-	if($(conf.element).hasClass("ch-secondary")){
-		$(conf.element).addClass('ch-dropdown');
-		skin = "secondary";
-	}else{
-		$(conf.element).addClass("ch-dropdown ch-primary");
-		skin = "primary";
-	};
+ui.dropdown = function(conf){
+
+/** 
+ *  Constructor: Redefine or preset component's settings
+ */
+	var $container = $(conf.element).addClass("ch-dropdown");
+	var skin = ( $container.hasClass("ch-secondary") ) ? "secondary": "primary";
 	
-	// Global configuration
-	conf.$trigger = $(conf.element).children(':first');
-	conf.$htmlContent = conf.$trigger.next();
 	
-	// Private methods
+/**
+ *  Inheritance: Create a symbolic link to myself and my direct parent
+ */
+	var that = ui.navs();
+	
+	
+/**
+ *  Private Members
+ */
 	var show = function(event){
 		that.prevent(event);
+		
 		// Toggle
 		if(that.status){
 			return hide();
@@ -38,17 +40,14 @@ ui.dropdown = function(conf){
 		
 		// Secondary behavior
 		if(skin == "secondary"){
-			conf.$trigger.css('z-index', ui.utils.zIndex++); // Z-index of trigger over content
-			$(conf.element).addClass("ch-dropdown-on"); // Container ON
+			conf.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content
+			$container.addClass("ch-dropdown-on"); // Container ON
 		};
 	
 		// Document events
-		ui.utils.document.one('click', function(event){
-			that.prevent(event);
-            hide();
-		});
+		ui.utils.document.one('click', hide);
 		
-        return conf.publish; // Returns publish object
+        return that.publish; // Returns publish object
     };
 	
     var hide = function(event){
@@ -56,48 +55,66 @@ ui.dropdown = function(conf){
     	
     	// Secondary behavior
 		if(skin == "secondary"){
-			$(conf.element).removeClass("ch-dropdown-on"); // Container OFF
+			$container.removeClass("ch-dropdown-on"); // Container OFF
 		};
         that.hide(event, conf);
         
-        return conf.publish; // Returns publish object
+        return that.publish; // Returns publish object
     };
     
-	// Trigger
-	conf.$trigger
-		.bind('click', function(event){
-			that.prevent(event);			
-			// Show dropdown
-			show();
-		})
-		.addClass('ch-dropdown-trigger')
-		.append('<span class="ch-down">&raquo;</span>');
-	
+    
+    // Trigger
+	conf.$trigger = $container.children(":first")
+		.bind("click", show)
+		.addClass("ch-dropdown-trigger-" + skin)
+		.append("<span class=\"ch-down\"> &raquo;</span>");
 	
 	// Content
-	conf.$htmlContent
-		.bind('click', function(event){ event.stopPropagation() })
-		.addClass('ch-dropdown-content')
-		// Close when click an option
-		.find('a').bind('click', function(){ hide() });
+	conf.$htmlContent = conf.$trigger.next()
 	
+		// Prevent click on content (except links)
+		.bind("click", function(event){
+			event.stopPropagation()
+		})
+		
+		.addClass("ch-dropdown-content-" + skin)
+		
+		// Save on memory;
+		.detach();
+	
+	// Close dropdown after click an option (link)
+	conf.$htmlContent.find('a').one('click', function(){ hide(); });
+	
+	// Content position
+	ui.positioner({
+		context: conf.$trigger,
+		element: conf.$htmlContent,
+		points: "lt lb",
+		offset: "0 -1"
+	});
+	
+	// Put content out of container
+	$container.after( conf.$htmlContent );
 
-    // Create the publish object to be returned
-    conf.publish = that.publish;
+/**
+ *  Expose propierties and methods
+ */
+    that.publish = {
     
     /**
 	 *  @ Public Properties
 	 */
-    conf.publish.uid = conf.uid;
-    conf.publish.element = conf.element;
-    conf.publish.type = conf.type;
+    	uid: conf.uid,
+    	element: conf.element,
+    	type: conf.type,
     
     /**
 	 *  @ Public Methods
 	 */
-    conf.publish.show = function(){ return show() };
-    conf.publish.hide = function(){ return hide() };
+    	show: show,
+    	hide: hide
+    };
 
-	return conf.publish;
+	return that.publish;
 
 };
