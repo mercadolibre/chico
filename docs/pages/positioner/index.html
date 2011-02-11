@@ -12,7 +12,6 @@
 		<link rel="stylesheet" href="../../build/chico.css">
 		<link rel="stylesheet" href="../../src/css/grid.css">
 		<link rel="stylesheet" href="../../src/css/pages.css">
-		<link rel="stylesheet" href="../../libs/css/highlight.css">
 		<!--[if lt IE 7 ]>
 			<script src="../../libs/js/dd_belatedpng.js"></script>
 			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
@@ -103,7 +102,7 @@
 	<!-- Only for this example -->
 	<div class="clearfix"></div>
     
-	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre name="code" class="xml">
+	</div><div id="sintax"><h3>Código fuente</h3><p>El marcado de este ejemplo es:</p><code><pre class="xml" name="code">
 	
 	<!-- First example -->
 	<div class="context" id="context1"></div>
@@ -116,7 +115,7 @@
 	<!-- Only for this example -->
 	<div class="clearfix"></div>
     
-	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre name="code" class="js">
+	</pre></code><p>Para iniciar este ejemplo se utilizó:</p><code><pre class="js" name="code">
 		// First example
 		ui.positioner({
 			element: $("#element1"),
@@ -192,7 +191,7 @@
     <div class="context" id="context3"></div>
 	<div class="element" id="element3"></div>
 
-    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 	ui.positioner({
 		element: $("#element3"),
 		context: $("#context3"),
@@ -205,7 +204,7 @@
     <div class="context" id="context4"></div>
 	<div class="element" id="element4"></div>
 
-    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 	ui.positioner({
 		element: $("#element4"),
 		context: $("#context4"),
@@ -218,7 +217,7 @@
     <div class="context" id="context5"></div>
 	<div class="element" id="element5"></div>
 
-    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 	ui.positioner({
 		element: $("#element5"),
 		context: $("#context5"),
@@ -231,7 +230,7 @@
     <div class="context" id="context6"></div>
 	<div class="element" id="element6"></div>
 
-    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 	ui.positioner({
 		element: $("#element6"),
 		context: $("#context6"),
@@ -244,7 +243,7 @@
     <div class="context" id="context7"></div>
 	<div class="element" id="element7"></div>
 
-    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 	ui.positioner({
 		element: $("#element7"),
 		context: $("#context7"),
@@ -257,7 +256,7 @@
     <div class="context" id="context8"></div>
 	<div class="element" id="element8"></div>
 
-    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 	ui.positioner({
 		element: $("#element8"),
 		context: $("#context8"),
@@ -270,7 +269,7 @@
     <div class="context" id="context9"></div>
 	<div class="element" id="element9"></div>
 
-    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 	ui.positioner({
 		element: $("#element9"),
 		context: $("#context9"),
@@ -283,7 +282,7 @@
     <div class="context" id="context10"></div>
 	<div class="element" id="element10"></div>
 
-    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre name="code" class="js">
+    </div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
 	ui.positioner({
 		element: $("#element10"),
 		context: $("#context10"),
@@ -295,12 +294,12 @@
 	
 	<p class="footer">Chico-UI, powered by <a href="http://www.mercadolibre.com">MercadoLibre</a>.</p>
 	
-	<script src="../../libs/js/highlight.js"></script>
 	<script src="../../libs/js/jquery.js"></script>
 	<script src="../../build/chico.js"></script>
 	<script>
     	$(".docTabs").tabNavigator();
         $('h1').html("Chico-UI ;) <span class=\"version\">alpha " + ui.version + "</span>"  );
+        ui.codelighter();
 	</script>
 
 	<script>

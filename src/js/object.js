@@ -25,7 +25,7 @@ ui.object = function(){
 		conf.ajax:true (levanta href o action) || "http://www..." || "../test/test.html"
 		*/
 		loadContent: function(conf) {
-			// Properties validation
+			// TODO: Properties validation
 			//if( conf.ajax && (conf.content || conf.msg) ) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };
 
 			if( conf.ajax === true){
@@ -44,8 +44,9 @@ ui.object = function(){
 				};
 
 				// Returns ajax results
-				conf.$htmlContent.html('<div class="loading"></div>');
-				return ui.get({method:"content", conf:conf});
+				//conf.$htmlContent.html('<div class="loading"></div>');
+				ui.get({method:"content", conf:conf});
+				return '<div class="loading"></div>';
 				
 			} else if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
 				// Set url
@@ -55,11 +56,12 @@ ui.object = function(){
 				conf.ajaxParams = 'x=x'; // TODO refactor con el header de ajax
 
 				// Returns ajax results
-				conf.$htmlContent.html('<div class="loading"></div>');
-				return ui.get({method:"content", conf:conf});
+				//conf.$htmlContent.html('<div class="loading"></div>');
+				ui.get({method:"content", conf:conf});
+				return '<div class="loading"></div>';
 				
 			} else {
-				var content = conf.content || conf.msg;				
+				var content = conf.content || conf.msg;			
 				return ($(content).length > 0) ? $(content).clone().show() : content ;
 			};
 

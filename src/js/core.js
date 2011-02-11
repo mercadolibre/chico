@@ -4,7 +4,7 @@ var start = new Date().getTime();
   */
 var ui = window.ui = {
 
-    version: "0.5.2",
+    version: "0.5.3",
 
     components: "",
 
@@ -229,13 +229,9 @@ ui.get = function(o) {
 				cache: true,
 				async: true,
 				success: function(data, textStatus, xhr){					
-					x.$htmlContent.html( data ).fadeIn('fast', function(){ 
-						if(x.onContentLoad) x.onContentLoad();
-					});
+					x.$htmlContent.html( data ); 
+					if(x.onContentLoad) x.onContentLoad();
 					if( x.position ) ui.positioner(x.position);
-					
-					// Data cached
-					ui.cache.add(x.ajaxUrl, data);
 				},
 				error: function(xhr, textStatus, errorThrown){
 					data = (x.onContentError) ? x.onContentError(xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";

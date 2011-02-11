@@ -154,15 +154,15 @@ ui.forms = function(conf){
 	conf.publish.type = conf.type;
 	conf.publish.status = status;
 	conf.publish.children = that.children;
+    conf.publish.messages = conf.messages;
 	
 	/**
 	 *  @ Public Methods
 	 */
 	conf.publish.validate = validate;
 	conf.publish.submit = submit;
-	conf.publish.checkStatus = checkStatus;
+	conf.publish.checkStatus = function() { checkStatus(); return conf.publish };
 	conf.publish.clear = clear;
-	conf.publish.messages = conf.messages;
-	
+		
 	return conf.publish;
 };

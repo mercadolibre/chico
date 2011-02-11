@@ -1,0 +1,36 @@
+/* Codelighter */
+pre {
+	font-family: Monospace, "Monotype Corsiva";
+ 	background-color:#F8F8F8;
+    border: 1px solid #CCCCCC;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 10px 0;
+    overflow: auto;
+    padding: 10px;
+}
+
+
+/*xml*/
+.ch-tag{color:darkviolet;}
+
+/*js*/
+.ch-keywords{color:darkred;}
+.ch-atom{color:darkviolet;}
+.ch-operator{color:darkviolet;}
+
+/*css*/
+.ch-selector{color:darkred;}
+.ch-property{color:darkviolet}
+
+
+.ch-attrName{color:black;}
+.ch-attrValue,
+.ch-attrValue .ch-keywords,
+.ch-attrValue .ch-comment{
+	color:blue;
+}
+.ch-comment, 
+.ch-comment .ch-keywords{
+	color:green
+}

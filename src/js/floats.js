@@ -20,7 +20,7 @@ ui.floats = function(conf) {
  *  Private Members
  */
 	var createClose = function(conf) {
-		$('<p class="btn ch-close">x</p>').one('click', function(event) {
+		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
 			that.hide(event, conf);
 		}).prependTo(conf.$container);
 	};
@@ -37,9 +37,8 @@ ui.floats = function(conf) {
 		
 		conf.position = conf.position || {};
 		conf.position.element = conf.$container;
-		conf.position.hold = conf.hold || false;
-		
-    	getContent(conf);
+		conf.position.hold = conf.hold || false;		
+		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
     	
     	// Visual configuration
 		if( conf.closeButton ) createClose(conf);
@@ -48,30 +47,15 @@ ui.floats = function(conf) {
 		if( conf.hasOwnProperty("width") ) conf.$container.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) conf.$container.css("height", conf.height);
 
+		conf.$htmlContent.html( that.loadContent(conf) );
 		conf.$container
     		.css("z-index", ui.utils.zIndex++)
 		    .fadeIn('fast', function(){ that.callbacks(conf, 'onShow'); });
-		
+
 		ui.positioner(conf.position);
 		
 		conf.visible = true;
-    }
-
-	// Obtener contenido y cachearlo
-    var getContent = function(conf) {
-    			
-    	if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ) {
-			
-    		that.loadContent(conf);
-    	
-		} else {
-		
-    		conf.$htmlContent
-    			.html( that.loadContent(conf) )
-    			.fadeIn('fast', function(){ that.callbacks(conf, 'onContentLoad'); });
-    	};
-    }
-
+    };
 
 /**
  *  Public Members
@@ -79,12 +63,16 @@ ui.floats = function(conf) {
  
 	that.show = function(event, conf) {
 	
-		if (event) that.prevent(event);
+		if ( event ) that.prevent(event);
 		
-		if(conf.visible) return;
+		if ( conf.visible ) return;
+		
+		// Show if exist, else create		
+		if ( conf.$container ) {
 			
-		// Show if exist, else create
-		if (conf.$container) {
+			// If not cache... get content! 
+			if ( !conf.cache ) conf.$htmlContent.html( that.loadContent(conf) );
+						
     		conf.$container
     		    .appendTo("body")
     			.css("z-index", ui.utils.zIndex++)
@@ -94,9 +82,10 @@ ui.floats = function(conf) {
 					// Callback execute
 					that.callbacks(conf, 'onShow');
 				});
-			ui.positioner(conf.position);
+
+			ui.positioner(conf.position);			
 			return;
-		}
+		};
 		
 		// If you reach here, create a float
         createLayout(conf); 
@@ -129,7 +118,7 @@ ui.floats = function(conf) {
 				conf.position.fixed = o.fixed || conf.position.fixed;
 				
 				ui.positioner(conf.position);
-//				return conf.publish;
+				// return conf.publish;
 			    break;
 			
 			case "string":
@@ -138,7 +127,7 @@ ui.floats = function(conf) {
 				};
 				
 				ui.positioner(conf.position);
-//				return conf.publish;   			
+				// return conf.publish;   			
 			    break;
 			
 			case "undefined":
@@ -149,4 +138,4 @@ ui.floats = function(conf) {
 	};
 
 	return that;
-}
+};

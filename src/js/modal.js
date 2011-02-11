@@ -28,7 +28,7 @@ ui.modal = function(conf){
 	// Dimmer object
 	var $dimmer = $('<div>')
 			.addClass('ch-dimmer')
-			.css({height:$(window).height(), display:'block', zIndex:ui.utils.zIndex++})
+			.css({height:$(window).height(), display:'block'})
 			.hide();
 
 	// Dimmer Controller
@@ -36,6 +36,7 @@ ui.modal = function(conf){
 		on: function() { //TODO: posicionar el dimmer con el positioner
 			$dimmer
 				.appendTo('body')
+				.css("z-index",ui.utils.zIndex++)
 				.fadeIn();
 
 			if (conf.type == "modal") {
