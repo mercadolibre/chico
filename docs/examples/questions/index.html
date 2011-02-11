@@ -232,28 +232,24 @@
 
 			var ui_tabs = $("#chico-tabs").tabNavigator();
 			var ui_modal = $(".makeQuest").modal({
-				callbacks:{
-					contentLoad: function(){
-						$('.closeModal').one('click', ui_modal.hide);
-						form = $("#form_quest").forms({
-							callbacks: {
-								submit: function(){
-									questions.makeAnswer();
-								}
-							}
-						});
+				onContentLoad: function(){
+					$('.closeModal').one('click', ui_modal.hide);
+					form = $("#form_quest").forms({
+						onSubmit: function(){
+							questions.makeAnswer();
+						}
+					});
 
-						$("#questionText").required();
-						countdown.init([
-							{
-								trigger: '#questionText',
-								display: '#display'
-							}
-						]);
-					},
-					hide: function(){
-						form.clear();
-					}
+					$("#questionText").required();
+					countdown.init([
+						{
+							trigger: '#questionText',
+							display: '#display'
+						}
+					]);
+				},
+				onHide: function(){
+					form.clear();
 				}
 			});
 
