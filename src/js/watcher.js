@@ -38,8 +38,6 @@ ui.watcher = function(conf) {
                     $.extend(instance[i].conditions, getConditions(conf));
                     // Merge Messages
                     $.extend(instance[i].messages, conf.messages);
-                    // Merge Default Messages
-                    // TODO: ????? something
                     // Merge types
             	    instance[i].types = mergeTypes(instance[i].types);
     				return { 

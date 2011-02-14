@@ -5,12 +5,12 @@
  *    Unit Tests Packer-o-matic "Automatic papá"
  */
        $version = "0.1";
-       $autor = "Natan Santolo <natan.santolo@mercadolibre.com>";
+       $autor = "Chico Team <chico@mercadolibre.com>";
               
 // HTML Content Type
 header("Content-type: text/html");
 
-$tests = "core, dropdown, expando, layer, modal, tabNavigator, tooltip, forms";
+$tests = "core, dropdown, expando, layer, modal, tabNavigator, tooltip, forms, watcher";
 $files = explode(", ", $tests);
 
 $outScript = "";
