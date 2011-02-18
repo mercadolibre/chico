@@ -97,7 +97,7 @@
 }
 
 /* IE 8 */
-.ie8 .ch-tabNavigator ul{
+.ie8 .ch-tabNavigator-triggers{
 	position:relative;
 	top:1px;
 }
