@@ -645,6 +645,41 @@ div p.keywords{color:darkorange;}
 	<div id="chat">
 
 	</div>
+	<div class="list-layer" style="display:none">
+		<div class="min-box pricing">
+			<p class="price"><span class="l-currency">$</span> <span class="l-price">250<sup>00</sup></span> <select class="stock"><option>casca</option><option>casca</option><option>casca</option><option>casca</option></select></p>
+			<p class="shipping"><span class="free-shipping">Gratis</span> a través de <span class="mail-sedex">Sedex</span></p>
+			<p class="total"><span class="price l-total-currency"></span> <span class="price l-total"><sup></sup></span> o 6 cuotas de <span class="price l-cuotes-currency"> </span> <span class="price l-cuotes"></span></p>
+			<ul class="cards">
+				<li title="Visa" class="payMethod visa">Visa</li>
+				<li title="Master" class="payMethod master">Master</li>
+				<li title="Amex" class="payMethod amex">Amex</li>
+				<li title="Tarjeta Naranja" class="payMethod naranja">Tarjeta Naranja</li>
+			</ul>
+		</div>
+		<p class="min-box condition">Artículo nuevo. Garantia: 90 dias conforme CDC.</p>
+		<div class="min-box seller">
+			<p><span title="MercadoLider Platinum" class="medal mlP" style="cursor: pointer;">MercadoLider Platinum</span></p>
+			<p class="meter termometer meterLay rep5"><span class="valueRep"></span></p>
+		</div>
+		<div class="min-box bpp">
+			<p>"Tu compra está 100% protegida.<br> <a title="Ver condiciones" href="http://www.mercadolibre.com.ar/jm/ml.faqs.framework.main.FaqsController?pageId=TUT&amp;faqId=2732&amp;categId=SEGPC" id="conditionsBpp">Ver condiciones</a>."</p>
+		</div>
+		<input type="submit" class="btn primary" value="Comprar">
+		<input type="text">
+		<textarea name="Name" rows="8" cols="40"></textarea>
+		<form>
+			<input type="submit" class="btn primary" value="Comprar">
+			<input type="text">
+			<textarea name="Name" rows="8" cols="40"></textarea>
+			<p class="min-box action"><input type="submit" class="btn primary" value="Comprar"></p>
+			<p class="min-box action"><input type="text"></p>
+			<p class="min-box action"><textarea name="Name" rows="8" cols="40"></textarea></p>
+			<p class="min-box action"><input type="radio" name="some_name" value="" id="some_name"/></p>
+			<p class="min-box action"><input type="checkbox" name="same" value="" id="ame"/></p>
+		</form>
+	</div>
+	
 	
 	<!-- Organization -->
 	<script>
@@ -667,7 +702,7 @@ div p.keywords{color:darkorange;}
         var ui_drop = $('.demoDropdown').dropdown();
 
         var ui_caro = $('.demoCarousel').carousel({
-        	onMove: function(){ console.log("Callback onMove OK!") }
+        	onMove: function(){ /*console.log("Callback onMove OK!")*/ }
         });
         //var ui_moda = $('.demoModal').modal("/test.html");
         var ui_moda = $('.demoModal').modal({
@@ -675,24 +710,24 @@ div p.keywords{color:darkorange;}
         	height: 400,
         	cache: false,
         	//content: "<h2 class=\"lala\">LALALALALALAL</h2><p>contentcontenotndi sadkjsjhd hdkahdjk skdh ñdashd jksa h</p>",
-        	onShow: function(){ console.log("Se abre el modal") },
+        	onShow: function(){ /*console.log("Se abre el modal")*/ },
         	onContentLoad: function(){ $("h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
-        	onContentError: function(){ console.log("Content Error") },
-        	onHide: function(){ console.log("Se cierra el modal") }
+        	onContentError: function(){ /*console.log("Content Error")*/ },
+        	onHide: function(){ /*console.log("Se cierra el modal")*/ }
         });
         
         var ui_trans1 = $(".demoTransition1").transition("Espere mientras pruebo la transición. Gracias papi."); 
         var ui_trans2 = $(".demoTransition2").transition(); 
         
         var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foo</p>' });
-        var ui_layr = $('.demoLayerOnmouseover').layer({ content: '<p>foo</p>' });
+        var ui_layr = $('.demoLayerOnmouseover').layer({ content: ".list-layer"/*"<p>asdsadas dsa dasd asd asdasd asd a</p><div style=\"margin-top:50px;width:50px;height:50px;\">asd <form><input /></form></div>"*/ });
         var ui_tool = $('.demoTooltip').tooltip();
         var ui_tabs = $('.demoTabNavigator').tabNavigator({
-        	onSelect: function(){ console.log("Callback onSelect OK!") }
+        	onSelect: function(){ /*console.log("Callback onSelect OK!")*/ }
         });
         
         var ui_tabs2 = $('.demoTabNavigator2').tabNavigator({
-        	onSelect: function(){ console.log("Callback2 onSelect OK!") }
+        	onSelect: function(){ /*console.log("Callback2 onSelect OK!")*/ }
         });
         
         var ui_expa = $('.demoExpando').expando();

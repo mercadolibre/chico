@@ -20,17 +20,18 @@ ui.layer = function(conf) {
 	conf.position.context = conf.$trigger;
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
-	
+
+
 /**
  *  Inheritance
  */
 	var that = ui.floats(conf);
-
+    
 /**
  *  Private Members
  */
-    var showTime = conf.showTime || 300;
-    var hideTime = conf.hideTime || 300;
+    var showTime = conf.showTime || 400;
+    var hideTime = conf.hideTime || 400;
 
 	var st, ht; // showTimer and hideTimer
 	var showTimer = function(event){ st = setTimeout(function(event){ show() }, showTime) };
@@ -38,19 +39,35 @@ ui.layer = function(conf) {
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
     var show = function(event) {
-    			
-		that.show(event, conf);	
-
-        if (conf.event === "click") {
-
-            $('.ch-layer').bind('click', function(event){ event.stopPropagation() });
-
+	
+		// Reset all layers
+		$.each(ui.instances.layer, function(i, e){ e.hide() });
+		
+		that.show(event, conf);
+		
+		conf.$container.bind('click', function(event){ event.stopPropagation() });
+        
+        // Click
+        if ( conf.event === "click" ) {	
             // Document events
             $(document).one('click', function(event) {
                 that.hide(event, conf);
             });
-        }
-    }
+            
+        // Hover
+        } else {      	
+        	clearTimers();    
+        	conf.$container
+        		.one("mouseenter", clearTimers)
+        		.bind("mouseleave", function(event){
+					var target = event.srcElement || event.target;
+					var relatedTarget = event.relatedTarget || event.toElement;
+					var relatedParent = relatedTarget.parentNode;
+					if ( target === relatedTarget || relatedParent === null || target.nodeName === "SELECT" ) return;
+					hideTimer();
+        		});
+        };	
+    };
 
     var hide = function(event) {
         that.hide(event, conf);
@@ -58,11 +75,11 @@ ui.layer = function(conf) {
 
 /**
  *  Protected Members
- */ 
- 
+ */
+
 /**
  *  Default event delegation
- */	
+ */
 	// Click
 	if(conf.event === 'click') {
 		// Local configuration
@@ -78,8 +95,8 @@ ui.layer = function(conf) {
 		// Trigger events
 		conf.$trigger
 			.css('cursor', 'default')
-			.bind('mouseover', showTimer)
-			.bind('mouseout', hideTimer);
+			.bind('mouseenter', show)
+			.bind('mouseleave', hideTimer);
 	};
 
     // Fix: change layout problem
@@ -89,7 +106,7 @@ ui.layer = function(conf) {
  *  Expose propierties and methods
  */	
 	that.publish = {
-	
+
 	/**
 	 *  @ Public Properties
 	 */
@@ -101,11 +118,12 @@ ui.layer = function(conf) {
 	 *  @ Public Methods
 	 */
 		show: function(){ 
-			showTimer();
+			show();
 			return that.publish; // Returns publish object
 		},
 		hide: function(){ 
-			hideTimer();
+			//hideTimer();
+			hide();
 			return that.publish; // Returns publish object
 		},
 		position: function(o){ 
