@@ -69,9 +69,18 @@
 /* Trigger Actived */
 .ch-dropdown-trigger-primary.ch-dropdown-on {
 	background-position: 0 -485px;
+}
+
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-down {
 	border-radius:3px 3px 0 0;
 	-moz-border-radius:3px 3px 0 0;
 	-webkit-border-radius:3px 3px 0 0;
+}
+
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-top {
+	border-radius:0 0 3px 3px;
+	-moz-border-radius:0 0 3px 3px;
+	-webkit-border-radius:0 0 3px 3px;
 }
 
 /* Trigger Down Icon */
