@@ -144,7 +144,8 @@ ui.positioner = function( o ) {
 
         // Check viewport limits	
 		// Down to top
-		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
+		console.log(parentRelative.top);
+		if ( (points == "lt lb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
 			
@@ -154,10 +155,10 @@ ui.positioner = function( o ) {
 			// New styles		 
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
-			styles.top -=  (2 * offset_top);
+			styles.top -= (2 * offset_top);
 		
 			// Top to Down - Default again 
-			if(styles.top < viewport.top){
+			if(styles.top + parentRelative.top < viewport.top){
 				unitPoints.my_y = "t";
 				unitPoints.at_y = "b";
 				styles = stylesDown;
@@ -166,7 +167,7 @@ ui.positioner = function( o ) {
 		};
 		
 		// Left to right
-		if ( (styles.left + element.outerWidth()) > viewport.right ) { // Element right > Viewport right
+		if ( (styles.left + parentRelative.left + element.outerWidth()) > viewport.right ) { // Element right > Viewport right
 			unitPoints.my_x = "r";
 			unitPoints.at_x = "r";
 			
