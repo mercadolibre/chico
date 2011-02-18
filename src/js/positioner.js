@@ -27,6 +27,7 @@ ui.positioner = function( o ) {
 	var element = $(o.element);
 	var context;
 	var viewport;
+	var parentRelative;
     
 	// Default parameters
 	if(!o.points) o.points = "cm cm"; // TODO change to ! o.hasOwnProperty("")
@@ -103,7 +104,7 @@ ui.positioner = function( o ) {
 				height: height
 			}
 		};
-
+	
  	
 	// Calculate css left and top to element on context
 	var getPosition = function(unitPoints) {		     
@@ -219,11 +220,13 @@ ui.positioner = function( o ) {
 	//Conditional Advance Loading method
 	var getContext = (o.context) ?		
 		function getContext(){
+			
 			var contextOffset = o.context.offset();
+		
 		    context = {
 		    	element: o.context,
-				top: contextOffset.top + offset_top,
-				left: contextOffset.left + offset_left,
+				top: contextOffset.top + offset_top - parentRelative.top,
+				left: contextOffset.left + offset_left - parentRelative.left,
 				width: o.context.outerWidth(),
 				height: o.context.outerHeight()
 		    };
@@ -233,9 +236,34 @@ ui.positioner = function( o ) {
 		function getContext(){
 			return viewport;
 		};
-
+	
+	
+	var getParentRelative = function(){
+		var relative = {};
+			relative.left = 0;
+			relative.top = 0;
+		
+		element.parents().each(function(i, e){
+			if ( $(e).css("position") != "relative" ) return;
+		
+			var borderLeft = ($(e).outerWidth() - $(e).width() - ( parseInt($(e).css("padding-left")) * 2 )) / 2;
+			
+			relative = $(e).offset();
+			relative.left -= offset_left - borderLeft;
+			relative.top -= offset_top;
+			
+			return false;
+		});
+		
+		return {
+			left: relative.left,
+			top: relative.top
+		};
+	};
+	
 
 	// Set element position on resize
+	
     var initPosition = function(){  	
 	    viewport = getViewport();
 	    context = getContext();
@@ -243,6 +271,7 @@ ui.positioner = function( o ) {
     };
 
 	// Init
+	parentRelative = getParentRelative();
 	initPosition();
 	
 	// Scroll and resize events
