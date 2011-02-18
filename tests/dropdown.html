@@ -11,13 +11,69 @@
 <!-- #body -->
 	<h1>Chico-UI: Dropdown testcases</h1>
     <hr />
-	<div class="testDropdown">
-		<span>Buscadores</span>
-		<ul>
-			<li><a href="http://www.google.com.ar">Google</a></li>
-			<li><a href="http://www.yahoo.com.ar">Yahoo</a></li>
-			<li><a href="http://www.bing.com">Bing</a></li>	
-		</ul>
+    <div class="box">
+		<div id="drop1" class="testDropdown">
+			<span>Primary Skin</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+
+			</ul>
+		</div>
+	</div>
+	<div class="box">
+		<div id="drop2" class="testDropdown ch-secondary">
+			<span>Secondary Skin</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+
+			</ul>
+		</div>
+	</div>
+	<div class="box">
+		<div id="drop3" class="testDropdown">
+			<span>Container not relative</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+
+			</ul>
+		</div>
+	</div>
+	
+	<div class="box" style="position:relative;">
+		<div id="drop4" class="testDropdown">
+			<span>First container relative</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+
+			</ul>
+		</div>
+	</div>
+	
+	<div class="box" style="position:relative;">
+		<div>
+			<div id="drop5" class="testDropdown">
+				<span>Any container relative</span>
+				<ul>
+					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+
+				</ul>
+			</div>
+		</div>
 	</div>
 <!-- #body -->
 	<hr>
@@ -45,29 +101,29 @@
 		 * 	Test Cases
 		 */
 
-       module("Dropdown instance object");
-		
-        test("testDropdown instance", function() {
+		module("Dropdown instance object");
 
-            expect( 2 );
+		test("testDropdown instance", function() {
 
-       		ok( testDropdown.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
-       		
-    		ok( testDropdown.type == "dropdown" , "Expected to find \"dropdown\" as value of type attribute");
+			expect( 2 );
 
-        });
+			ok( testDropdown[0].uid >= 0 , "Expected to find a \"uid\" attribute on the dropdown instance");
+
+			ok( testDropdown[0].type == "dropdown" , "Expected to find \"dropdown\" as value of type attribute");
+
+		});
 
         test("Dropdown chain methods", function(){
             
             expect ( 3 );
             
-            var testDropdownOriginal = testDropdown;
+            var testDropdownOriginal = testDropdown[0];
             
-            var chainShow = testDropdown.show();
+            var chainShow = testDropdown[0].show();
             
-            var chainHide = testDropdown.hide();
+            var chainHide = testDropdown[0].hide();
 
-            var chained = testDropdown.show().hide();
+            var chained = testDropdown[0].show().hide();
              
             ok ( chainShow === testDropdownOriginal, "Expected to return original instance object on show() method call");
             
@@ -77,12 +133,14 @@
             
         });
 
-		module('Dropdown layout and interaction');
+		module('Primary dropdown layout and interaction');
 
-		var $trigger = $('.testDropdown').children(':first');
-		var $content = $('.testDropdown').next();
+		var $trigger = $('#drop1').children(':first');
+		var $content = $('#drop1').next();
 
-		test('Check for the right visual classes', function() {
+		test('Check for the right visual classes on primary skin', function() {
+			
+			expect ( 4 );
 			
 			hasClass('.testDropdown', 'ch-dropdown');
 			hasClass($trigger, 'ch-dropdown-trigger-primary');
@@ -90,8 +148,10 @@
 			hasClass($trigger.find('span'), 'ch-down');
 			
 		});
-
+		
 		test('Opens dropdown menu', function() {
+			
+			expect ( 3 );
 			
 			isNotVisible($content);
 			
@@ -104,7 +164,8 @@
 		
 		test('Closes dropdown menu, clicking on body', function() {
 			
-			$trigger.click();
+			expect ( 2 );
+			
 			$('body').click();
 			
 			isNotVisible($content);
@@ -113,6 +174,8 @@
 		});
 		
 		test('Closes dropdown menu, clicking on component trigger', function() {
+			
+			expect ( 2 );
 			
 			$trigger.click();
 			$trigger.click();
@@ -123,6 +186,8 @@
 		});
 		
 		test('Click inside content', function() {
+			
+			expect ( 2 );
 			
 			$trigger.click();
 			$content.click();
@@ -136,16 +201,108 @@
 		
 		test('Click on content link', function() {
 			
+			expect ( 2 );
+			
 			$trigger.click();
 			$content.find('a').click();
 			
 			isNotVisible($content);
 			hasNotClass($trigger, 'ch-dropdown-on');
 			
-			$trigger.click();
-			$('body').click();
+		});
+		
+		
+		module('Secondary dropdown layout and interaction');
+		
+		var $trigger2 = $('#drop2').children(':first');
+		var $content2 = $('#drop2').next();
+		
+		test('Check for the right visual classes on secondary skin', function() {
+			
+			expect ( 5 );
+			
+			hasClass('#drop2', 'ch-dropdown');
+			hasClass('#drop2', 'ch-secondary');
+			hasClass($trigger2, 'ch-dropdown-trigger-secondary');
+			hasClass($content2, 'ch-dropdown-content-secondary');
+			hasClass($trigger2.find('span'), 'ch-down');
 			
 		});
+		
+		test('Opens dropdown menu', function() {
+			
+			expect ( 4 );
+			
+			isNotVisible($content2);
+			
+			$trigger2.click();
+			
+			isVisible($content2);
+			hasClass($trigger2, 'ch-dropdown-on');
+			hasClass('#drop2', 'ch-dropdown-on');
+		});
+		
+		test('Closes dropdown menu, clicking on body', function() {
+			
+			expect ( 3 );
+			
+			$('body').click();
+			
+			isNotVisible($content2);
+			hasNotClass($trigger2, 'ch-dropdown-on');
+			hasNotClass($('#drop2'), 'ch-dropdown-on');
+			
+		});
+		
+		test('Closes dropdown menu, clicking on component trigger', function() {
+			
+			expect ( 3 );
+			
+			$trigger2.click();
+			$trigger2.click();
+			
+			isNotVisible($content2);
+			hasNotClass($trigger, 'ch-dropdown-on');
+			hasNotClass($('#drop2'), 'ch-dropdown-on');
+			
+		});
+		
+		
+		module('Dropdown behavior with "relative" positioned containers');
+		
+		var $trigger3 = $('#drop3').children(':first');
+		var $content3 = $('#drop3').next();
+		
+		test('Position of content with not relative container', function() {
+			
+			expect ( 2 );
+			
+			equal( parseFloat($content3[0].style.left), $trigger3.offset().left, "Expected to find content left position = trigger left position");
+       		equal( parseFloat($content3[0].style.top), $trigger3.offset().top + $trigger3.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)");
+       	});
+       	
+       	var $trigger4 = $('#drop4').children(':first');
+		var $content4 = $('#drop4').next();
+		
+		test('Position of content with first container relative', function() {
+			
+			expect ( 2 );
+			
+			equal( parseFloat($content4[0].style.left), $trigger4.position().left + 10, "Expected to find content left position = trigger left position"); // 10 = padding
+       		equal( parseFloat($content4[0].style.top), $trigger4.position().top + 10 + $trigger4.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)");
+       	});
+       	
+       	var $trigger5 = $('#drop5').children(':first');
+		var $content5 = $('#drop5').next();
+		
+		test('Position of content with second container relative', function() {
+			
+			expect ( 2 );
+			
+			equal( parseFloat($content5[0].style.left), $trigger5.position().left + 10, "Expected to find content left position = trigger left position");
+       		equal( parseFloat($content5[0].style.top), $trigger5.position().top + 10 + $trigger5.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)");
+       	});
+
 	</script>
 
 </body>

@@ -13,7 +13,6 @@ ui.dropdown = function(conf){
 	var $container = $(conf.element).addClass("ch-dropdown");
 	var skin = ( $container.hasClass("ch-secondary") ) ? "secondary": "primary";
 	
-	
 /**
  *  Inheritance: Create a symbolic link to myself and my direct parent
  */
@@ -37,6 +36,7 @@ ui.dropdown = function(conf){
         // Show menu
 		conf.$htmlContent.css('z-index', ui.utils.zIndex++);		
 		that.show(event, conf);
+		that.position("refresh",conf);
 		
 		// Secondary behavior
 		if(skin == "secondary"){
@@ -85,16 +85,18 @@ ui.dropdown = function(conf){
 	// Close dropdown after click an option (link)
 	conf.$htmlContent.find('a').one('click', function(){ hide(); });
 	
+	// Put content out of container
+	$container.after( conf.$htmlContent );
+	
 	// Content position
-	ui.positioner({
+	conf.position = {
 		context: conf.$trigger,
 		element: conf.$htmlContent,
 		points: "lt lb",
 		offset: "0 -1"
-	});
+	};
 	
-	// Put content out of container
-	$container.after( conf.$htmlContent );
+	ui.positioner(conf.position);
 
 /**
  *  Expose propierties and methods
@@ -112,7 +114,10 @@ ui.dropdown = function(conf){
 	 *  @ Public Methods
 	 */
     	show: show,
-    	hide: hide
+    	hide: hide,
+    	position: function(o) {
+			return that.position(o,conf) || that.publish;
+		}
     };
 
 	return that.publish;

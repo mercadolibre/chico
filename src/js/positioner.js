@@ -29,9 +29,9 @@ ui.positioner = function( o ) {
 	var viewport;
 	var parentRelative;
     
-	// Default parameters
-	if(!o.points) o.points = "cm cm"; // TODO change to ! o.hasOwnProperty("")
-    if(!o.offset) o.offset = "0 0";
+	// Default parameters 
+    o.points = o.points || "cm cm";
+    o.offset = o.offset || "0 0";
 
     // Class names
     var classReferences = {
@@ -60,12 +60,7 @@ ui.positioner = function( o ) {
 			height = viewport.innerHeight;
 			pageX = viewport.pageXOffset;
 			pageY = viewport.pageYOffset;
-			
-			left = 0 + offset_left + pageX;
-			top = 0 + offset_top + pageY;
-			bottom = height + pageY;
-			right = width + pageX;
-			
+
 			// Return viewport object
 			return {
 				element: viewport,			
@@ -87,11 +82,6 @@ ui.positioner = function( o ) {
 			height = viewport.clientHeight;
 			pageX = viewport.scrollLeft;
 			pageY = viewport.scrollTop;
-			
-			left = 0 + offset_left + pageX;
-			top = 0 + offset_top + pageY;
-			bottom = height + pageY;
-			right = width + pageX;
 			
 			// Return viewport object
 			return {
@@ -144,15 +134,14 @@ ui.positioner = function( o ) {
 	};
 	
 	// Evaluate viewport spaces and set points
-	var calculatePoints = function(points, unitPoints){	
-		
+	var calculatePoints = function(points, unitPoints){					
 		// Default styles
         var styles = getPosition(unitPoints);
         	styles.direction = classReferences[points];
 		
 		// Hold behavior
 		if (o.hold) return styles;
-		
+
         // Check viewport limits	
 		// Down to top
 		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
@@ -162,11 +151,11 @@ ui.positioner = function( o ) {
 			//store old styles
 			stylesDown = styles;
 			
-			// New styles			 
+			// New styles		 
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
-			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
-			
+			styles.top -=  (2 * offset_top);
+		
 			// Top to Down - Default again 
 			if(styles.top < viewport.top){
 				unitPoints.my_y = "t";
@@ -184,9 +173,12 @@ ui.positioner = function( o ) {
 			// New styles
 			var current = styles.direction;
 			styles = getPosition(unitPoints);
-			styles.direction = current + "-right";
-			if(current == "top") styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+			styles.direction = current + "-right";						
+			styles.left -= (2 * offset_left);
+			if(current == "top") styles.top -= (2 * offset_top);
 		};
+		
+		
 		
 		return styles;
 	};
@@ -213,6 +205,12 @@ ui.positioner = function( o ) {
 			})
 			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right" )
 			.addClass( "ch-" + styles.direction );
+				
+		if ( context.hasOwnProperty("element") ){
+			context.element
+				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right" )
+				.addClass( "ch-" + styles.direction );
+		};
 
 	};	
 
@@ -264,14 +262,17 @@ ui.positioner = function( o ) {
 
 	// Set element position on resize
 	
-    var initPosition = function(){  	
+    var initPosition = function(){
+    	// Hidden behavior
+		if( element.css("display") === "none" ) return; 	
+		
 	    viewport = getViewport();
+	    parentRelative = getParentRelative();
 	    context = getContext();
 	    setPosition();
     };
 
-	// Init
-	parentRelative = getParentRelative();
+	// Init	
 	initPosition();
 	
 	// Scroll and resize events
@@ -284,7 +285,7 @@ ui.positioner = function( o ) {
 	
 	setInterval(function() {
 	    if( !scrolled ) return;
-		scrolled = false;
+		scrolled = false;	
 		initPosition();
 	    
 	}, 250);

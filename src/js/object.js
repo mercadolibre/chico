@@ -70,6 +70,36 @@ ui.object = function(){
 		callbacks: function(conf, when){			
 			if(conf[when]) return conf[when]();
 		},
+		
+		position: function(o, conf){
+		
+			switch(typeof o) {
+			 
+				case "object":
+					conf.position.context = o.context || conf.position.context;
+					conf.position.points = o.points || conf.position.points;
+					conf.position.offset = o.offset || conf.position.offset;				
+					conf.position.fixed = o.fixed || conf.position.fixed;
+				
+					ui.positioner(conf.position);
+					// return conf.publish;
+					break;
+			
+				case "string":
+					if(o != "refresh"){
+						alert("ChicoUI error: position() expected to find \"refresh\" parameter.");
+					};
+				
+					ui.positioner(conf.position);
+					// return conf.publish;   			
+					break;
+			
+				case "undefined":
+					return conf.position;
+				    break;
+			};
+		
+		},
         
         publish: { 
             // The publish Object will be returned in all instanced component, all public methods and properties goes here.
