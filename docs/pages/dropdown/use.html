@@ -18,32 +18,57 @@
 	<p>Ejemplo del objeto de configuración:</p>
 	<code>
 		<pre name="code" class="js">
-		{
-			onShow: function() {},			  // Callback executed on dropdown show
-			onHide: function() {}			  // Callback executed on dropdown hide
-		}
+{
+	onShow: function() {},			  // Callback executed on dropdown show
+	onHide: function() {}			  // Callback executed on dropdown hide
+}
 		</pre>
 	</code>
     <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
 	<code>
-		<pre name="code" class="js">
-        $("#Foobar").dropdown();
-		</pre>
+		<pre name="code" class="js">$("#Foobar").dropdown();</pre>
 	</code>
    
 	<p>Cada vez que se instancia un componente Dropdown, éste retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
 	<code>
 		<pre name="code" class="js">
-		var foo = $("#Foobar").dropdown();
-        
-		// returns
-		foo = {
-			uid: 121,                         //  Global number instance
-			element: HTMLInputElement,        //  Input DOM Interface
-			type: "dropdown",                 //  Component Type
-			show(),						  	  //  Show dropdown
-			hide()						  	  //  Hide dropdown
-		}
+var foo = $("#Foobar").dropdown();
+
+// returns
+foo = {
+	uid: 121,                         //  Global number instance
+	element: HTMLInputElement,        //  Input DOM Interface
+	position(),					  	  //  Get, set and refresh position
+	show(),						  	  //  Show dropdown
+	hide()						  	  //  Hide modal
+}
+		</pre>
+	</code>
+	
+	<p>El método público position() puede ser utilizado para:</p>
+	<p>1. Obtener la configuración actual de posicionamiento.</p>
+	<code>
+		<pre name="code" class="js">
+foo.position();						  //  Get position
+		</pre>
+	</code>
+	
+	<p>2. Actualizar la posición del elemento.</p>
+	<code>
+		<pre name="code" class="js">
+foo.position("refresh");			  //  Refresh position
+		</pre>
+	</code>
+	
+	<p>3. Setear una nueva configuración para el <a href="../positioner">posicionamiento</a> del elemento.</p>
+	<code>
+		<pre name="code" class="js">
+foo.position({ 						  //  Set new position			
+	context: $(element),
+	offset: string,
+	points: string,
+	fixed: boolean
+});
 		</pre>
 	</code>
 </body>
