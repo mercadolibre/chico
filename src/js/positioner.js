@@ -216,7 +216,7 @@ ui.positioner = function( o ) {
 			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
-		if ( context.hasOwnProperty("element") ){
+		if ( context.hasOwnProperty("element") && context.element !== ui.utils.window[0] ){
 			context.element
 				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );
