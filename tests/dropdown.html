@@ -50,7 +50,7 @@
 	
 	<div class="box" style="position:relative;">
 		<div id="drop4" class="testDropdown">
-			<span>First container relative</span>
+			<span>First relative container</span>
 			<ul>
 				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
@@ -64,7 +64,7 @@
 	<div class="box" style="position:relative;">
 		<div>
 			<div id="drop5" class="testDropdown">
-				<span>Any container relative</span>
+				<span>Any relative container</span>
 				<ul>
 					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
 					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
@@ -78,8 +78,8 @@
 	
 	<div class="box" style="position:relative;">
 		<div style="position:relative;">
-			<div id="drop5" class="testDropdown">
-				<span>Multiple container relative</span>
+			<div id="drop6" class="testDropdown">
+				<span>Multiple (2) containers relative</span>
 				<ul>
 					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
 					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
@@ -94,8 +94,8 @@
 	<div class="box" style="position:relative;">
 		<div style="position:relative;">
 			<div style="position:relative;">
-				<div id="drop5" class="testDropdown">
-					<span>Multiple (3) container relative</span>
+				<div id="drop7" class="testDropdown">
+					<span>Multiple (3+) containers relative</span>
 					<ul>
 						<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
 						<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
@@ -107,46 +107,25 @@
 			</div>
 		</div>
 	</div>
-	<div class="box" style="float:left;">
-		<div id="drop1" class="testDropdown">
-			<span>Primary Skin</span>
+	
+	<div class="box" style="overflow:hidden;">
+		<div id="drop8" class="testDropdown" style="float:right;">
+			<span>Right position</span>
 			<ul>
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadolibre.com">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id dui risus.</a></li>
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
 				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
 				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-
-			</ul>
-		</div>
 		
-		<div id="drop1" class="testDropdown ch-secondary">
-			<span>Primary Skin</span>
-			<ul>
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-
 			</ul>
 		</div>
 	</div>
 	
-	<div class="box" style="float:right;">
-		<div id="drop1" class="testDropdown">
-			<span>Primary Skin</span>
+	<div class="box" style="overflow:hidden;">
+		<div id="drop9" class="testDropdown ch-secondary" style="float:right;">
+			<span>Right position</span>
 			<ul>
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-		
-			</ul>
-		</div>
-		
-		<div id="drop1" class="testDropdown ch-secondary">
-			<span>Primary Skin</span>
-			<ul>
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadolibre.com">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id dui risus.</a></li>
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
 				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
 				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
@@ -179,7 +158,10 @@
 		/**
 		 * 	Test Cases
 		 */
-
+		
+		
+		// Dropdown 1
+		
 		module("Dropdown instance object");
 
 		test("testDropdown instance", function() {
@@ -291,6 +273,8 @@
 		});
 		
 		
+		// Dropdown 2
+		
 		module('Secondary dropdown layout and interaction');
 		
 		var $trigger2 = $('#drop2').children(':first');
@@ -347,6 +331,8 @@
 		});
 		
 		
+		// Dropdown 3
+		
 		module('Dropdown behavior with "relative" positioned containers');
 		
 		var $trigger3 = $('#drop3').children(':first');
@@ -356,30 +342,112 @@
 			
 			expect ( 2 );
 			
-			equal( parseFloat($content3[0].style.left), $trigger3.offset().left, "Expected to find content left position = trigger left position");
-       		equal( parseFloat($content3[0].style.top), $trigger3.offset().top + $trigger3.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)");
+			$trigger3.click();
+			
+			equal( $content3.offset().left, $trigger3.offset().left, "Expected to find content left position = trigger left position");
+       		equal( $content3.offset().top, $trigger3.offset().top + $trigger3.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
        	});
+       	
+       	
+       	// Dropdown 4
        	
        	var $trigger4 = $('#drop4').children(':first');
 		var $content4 = $('#drop4').next();
 		
-		test('Position of content with first container relative', function() {
+		test('Position of content with first relative container', function() {
 			
 			expect ( 2 );
 			
-			equal( parseFloat($content4[0].style.left), $trigger4.position().left + 10, "Expected to find content left position = trigger left position"); // 10 = padding
-       		equal( parseFloat($content4[0].style.top), $trigger4.position().top + 10 + $trigger4.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)");
+			$trigger4.click();
+			
+			equal( $content4.position().left, $trigger4.position().left + 10, "Expected to find content left position = trigger left position"); // 10 = padding
+       		equal( $content4.position().top, $trigger4.position().top + 10 + $trigger4.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 10 = padding | 1 = offset
        	});
+       	
+       	
+       	// Dropdown 5
        	
        	var $trigger5 = $('#drop5').children(':first');
 		var $content5 = $('#drop5').next();
 		
-		test('Position of content with second container relative', function() {
+		test('Position of content with second relative container', function() {
 			
 			expect ( 2 );
 			
-			equal( parseFloat($content5[0].style.left), $trigger5.position().left + 10, "Expected to find content left position = trigger left position");
-       		equal( parseFloat($content5[0].style.top), $trigger5.position().top + 10 + $trigger5.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)");
+			$trigger5.click();
+			
+			equal( $content5.position().left, $trigger5.position().left + 10, "Expected to find content left position = trigger left position"); // 10 = padding
+       		equal( $content5.position().top, $trigger5.position().top + 10 + $trigger5.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 10 = padding | 1 = border
+       	});
+       	
+       	
+       	// Dropdown 6
+       	
+       	var $trigger6 = $('#drop6').children(':first');
+		var $content6 = $('#drop6').next();
+		
+		test('Position of content with 2 relative containers', function() {
+			
+			expect ( 2 );
+			
+			$trigger6.click();
+			
+			equal( $content6.position().left, $trigger6.position().left, "Expected to find content left position = trigger left position");
+       		equal( $content6.position().top, $trigger6.position().top + $trigger6.outerHeight() - 2, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 2 = borders
+       	});
+       	
+       	
+       	// Dropdown 7
+       	
+       	var $trigger7 = $('#drop7').children(':first');
+		var $content7 = $('#drop7').next();
+		
+		test('Position of content with 3 relative containers', function() {
+			
+			expect ( 2 );
+			
+			$trigger7.click();
+			
+			equal( $content7.position().left, $trigger7.position().left, "Expected to find content left position = trigger left position");
+       		equal( $content7.position().top, $trigger7.position().top + $trigger7.outerHeight() - 2, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 2 = borders
+       	});
+       	
+       	
+       	module('Dropdown behavior with spaceless viewport');
+       	
+       	// Dropdown 8
+       	
+       	var $trigger8 = $('#drop8').children(':first');
+		var $content8 = $('#drop8').next();
+		
+		test('Position of content dropped to left on primary dropdown', function() {
+			
+			$trigger8.click();
+			
+			expect ( 2 );
+
+			equal( $content8.offset().left + $content8.outerWidth(), $trigger8.offset().left + $trigger8.outerWidth(), "Expected to find content right position = trigger right position");
+       		equal( $content8.offset().top, $trigger8.offset().top + $trigger8.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
+       		
+       		$trigger8.click();
+       	});
+       	
+       	
+       	// Dropdown 9
+       	
+       	var $trigger9 = $('#drop9').children(':first');
+		var $content9 = $('#drop9').next();
+		
+		test('Position of content dropped to left on secondary dropdown', function() {
+			
+			expect ( 2 );
+			
+			$trigger9.click();
+			
+			equal( $content9.offset().left + $content9.outerWidth(), $trigger9.offset().left + $trigger9.outerWidth(), "Expected to find content right position = trigger right position");
+       		equal( $content9.offset().top, $trigger9.offset().top + $trigger9.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
+       		
+       		$trigger9.click();
        	});
 
 	</script>

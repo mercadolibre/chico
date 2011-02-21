@@ -27,7 +27,6 @@ $out .= "<body>\n";
 $out .= "<h1>Chico-UI Unit Tests Packer-o-matic</h1>\n";
 $out .= "<h3>version ".$version." by ".$autor."</h3>\n";
 $out .= "<hr />\n";
-$out .= "<h1 id=\"qunit-header\">QUnit Test Suite</h1>\n<h2 id=\"qunit-banner\"></h2>\n<div id=\"qunit-testrunner-toolbar\"></div>\n<h2 id=\"qunit-userAgent\"></h2>\n<ol id=\"qunit-tests\"></ol>\n<div id=\"qunit-fixture\">test markup</div>\n";
 
 foreach ($files as $file) {
     	
@@ -43,6 +42,7 @@ foreach ($files as $file) {
 	$outScript .= $script[0];
 }
 
+$out .= "<h1 id=\"qunit-header\">QUnit Test Suite</h1>\n<h2 id=\"qunit-banner\"></h2>\n<div id=\"qunit-testrunner-toolbar\"></div>\n<h2 id=\"qunit-userAgent\"></h2>\n<ol id=\"qunit-tests\"></ol>\n<div id=\"qunit-fixture\">test markup</div>\n";
 $out .= $outScript;
 $out .= "</body>\n</html>";
 
