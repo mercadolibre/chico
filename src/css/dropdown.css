@@ -71,13 +71,15 @@
 	background-position: 0 -485px;
 }
 
-.ch-dropdown-trigger-primary.ch-dropdown-on.ch-down {
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-down,
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-down-right {
 	border-radius:3px 3px 0 0;
 	-moz-border-radius:3px 3px 0 0;
 	-webkit-border-radius:3px 3px 0 0;
 }
 
-.ch-dropdown-trigger-primary.ch-dropdown-on.ch-top {
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-top,
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-top-right {
 	border-radius:0 0 3px 3px;
 	-moz-border-radius:0 0 3px 3px;
 	-webkit-border-radius:0 0 3px 3px;

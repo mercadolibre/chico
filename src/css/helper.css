@@ -57,14 +57,14 @@
 	bottom:-8px;
 }
 
-.ch-helper.ch-left .ch-cone,
+.ch-helper.ch-right-right .ch-cone,
 .ch-helper.ch-right .ch-cone {
 	width:8px;
 	height:16px;
 	top:4px;
 }
 
-.ch-helper.ch-left .ch-cone {
+.ch-helper.ch-right-right .ch-cone {
 	background-position:-8px 0;
 	right:-8px;
 }

@@ -53,10 +53,10 @@ ui.positioner = function( o ) {
 	var getViewport = (typeof window.innerWidth != "undefined") ?
 		// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight 	
 		function getViewport() {
-			var viewport, width, height, left, top, pageX, pageY;							
+			var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;							
 			
 			viewport = window;
-			width = viewport.innerWidth;
+			width = viewport.innerWidth - scrollBar;
 			height = viewport.innerHeight;
 			pageX = viewport.pageXOffset;
 			pageY = viewport.pageYOffset;
@@ -64,7 +64,7 @@ ui.positioner = function( o ) {
 			// Return viewport object
 			return {
 				element: viewport,			
-				left: 0 + offset_left + pageX,
+				left: 0 + offset_left + pageX - scrollBar,
 				top: 0 + offset_top + pageY,
 				bottom: height + pageY,
 				right: width + pageX,
@@ -75,10 +75,10 @@ ui.positioner = function( o ) {
 		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
 		// older versions of IE - viewport = document.getElementsByTagName('body')[0];
 		function getViewport(){
-			var viewport, width, height, left, top, pageX, pageY;
+			var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;
 			
 			viewport = document.documentElement;
-			width = viewport.clientWidth;
+			width = viewport.clientWidth - scrollBar;
 			height = viewport.clientHeight;
 			pageX = viewport.scrollLeft;
 			pageY = viewport.scrollTop;
@@ -144,7 +144,6 @@ ui.positioner = function( o ) {
 
         // Check viewport limits	
 		// Down to top
-		console.log(parentRelative.top);
 		if ( (points == "lt lb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
@@ -171,12 +170,22 @@ ui.positioner = function( o ) {
 			unitPoints.my_x = "r";
 			unitPoints.at_x = "r";
 			
+			//store old styles
+			stylesLeft = styles;
+			
 			// New styles
 			var current = styles.direction;
 			styles = getPosition(unitPoints);
 			styles.direction = current + "-right";						
 			styles.left -= (2 * offset_left);
 			if(current == "top") styles.top -= (2 * offset_top);
+			
+			// Right to Left - Default again 
+			if(styles.left < viewport.left){
+				unitPoints.my_y = "l";
+				unitPoints.at_y = "l";
+				styles = stylesLeft;
+			};
 		};
 		
 		
@@ -204,12 +213,12 @@ ui.positioner = function( o ) {
 				left: styles.left,
 				top: styles.top
 			})
-			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right" )
+			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
 		if ( context.hasOwnProperty("element") ){
 			context.element
-				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right" )
+				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );
 		};
 
