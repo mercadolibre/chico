@@ -700,9 +700,20 @@ hr {
 /* Trigger Actived */
 .ch-dropdown-trigger-primary.ch-dropdown-on {
 	background-position: 0 -485px;
+}
+
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-down,
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-down-right {
 	border-radius:3px 3px 0 0;
 	-moz-border-radius:3px 3px 0 0;
 	-webkit-border-radius:3px 3px 0 0;
+}
+
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-top,
+.ch-dropdown-trigger-primary.ch-dropdown-on.ch-top-right {
+	border-radius:0 0 3px 3px;
+	-moz-border-radius:0 0 3px 3px;
+	-webkit-border-radius:0 0 3px 3px;
 }
 
 /* Trigger Down Icon */
@@ -785,7 +796,7 @@ hr {
 /* Content */
 .ch-dropdown-content-secondary {
 	border:1px solid #ccc;
-	padding: 5px 30px 5px 7px;
+	padding: 5px 30px 5px 10px;
 	box-shadow: 2px 2px 1px #888;
 	-moz-box-shadow: 2px 2px 1px #888;
 	-webkit-box-shadow: 2px 2px 1px #888;
@@ -1046,7 +1057,7 @@ html.ie6  div.ch-dimmer {
 }
 
 /* IE 8 */
-.ie8 .ch-tabNavigator ul{
+.ie8 .ch-tabNavigator-triggers{
 	position:relative;
 	top:1px;
 }
@@ -1183,14 +1194,14 @@ html.ie6  div.ch-dimmer {
 	bottom:-8px;
 }
 
-.ch-helper.ch-left .ch-cone,
+.ch-helper.ch-right-right .ch-cone,
 .ch-helper.ch-right .ch-cone {
 	width:8px;
 	height:16px;
 	top:4px;
 }
 
-.ch-helper.ch-left .ch-cone {
+.ch-helper.ch-right-right .ch-cone {
 	background-position:-8px 0;
 	right:-8px;
 }

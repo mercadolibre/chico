@@ -385,10 +385,11 @@ ui.positioner = function( o ) {
 	var element = $(o.element);
 	var context;
 	var viewport;
+	var parentRelative;
     
-	// Default parameters
-	if(!o.points) o.points = "cm cm"; // TODO change to ! o.hasOwnProperty("")
-    if(!o.offset) o.offset = "0 0";
+	// Default parameters 
+    o.points = o.points || "cm cm";
+    o.offset = o.offset || "0 0";
 
     // Class names
     var classReferences = {
@@ -410,23 +411,18 @@ ui.positioner = function( o ) {
 	var getViewport = (typeof window.innerWidth != "undefined") ?
 		// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight 	
 		function getViewport() {
-			var viewport, width, height, left, top, pageX, pageY;							
+			var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;							
 			
 			viewport = window;
-			width = viewport.innerWidth;
+			width = viewport.innerWidth - scrollBar;
 			height = viewport.innerHeight;
 			pageX = viewport.pageXOffset;
 			pageY = viewport.pageYOffset;
-			
-			left = 0 + offset_left + pageX;
-			top = 0 + offset_top + pageY;
-			bottom = height + pageY;
-			right = width + pageX;
-			
+
 			// Return viewport object
 			return {
 				element: viewport,			
-				left: 0 + offset_left + pageX,
+				left: 0 + offset_left + pageX - scrollBar,
 				top: 0 + offset_top + pageY,
 				bottom: height + pageY,
 				right: width + pageX,
@@ -437,18 +433,13 @@ ui.positioner = function( o ) {
 		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
 		// older versions of IE - viewport = document.getElementsByTagName('body')[0];
 		function getViewport(){
-			var viewport, width, height, left, top, pageX, pageY;
+			var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;
 			
 			viewport = document.documentElement;
-			width = viewport.clientWidth;
+			width = viewport.clientWidth - scrollBar;
 			height = viewport.clientHeight;
 			pageX = viewport.scrollLeft;
 			pageY = viewport.scrollTop;
-			
-			left = 0 + offset_left + pageX;
-			top = 0 + offset_top + pageY;
-			bottom = height + pageY;
-			right = width + pageX;
 			
 			// Return viewport object
 			return {
@@ -461,7 +452,7 @@ ui.positioner = function( o ) {
 				height: height
 			}
 		};
-
+	
  	
 	// Calculate css left and top to element on context
 	var getPosition = function(unitPoints) {		     
@@ -501,31 +492,30 @@ ui.positioner = function( o ) {
 	};
 	
 	// Evaluate viewport spaces and set points
-	var calculatePoints = function(points, unitPoints){	
-		
+	var calculatePoints = function(points, unitPoints){					
 		// Default styles
         var styles = getPosition(unitPoints);
         	styles.direction = classReferences[points];
 		
 		// Hold behavior
 		if (o.hold) return styles;
-		
+
         // Check viewport limits	
 		// Down to top
-		if ( (points == "lt lb") && ((styles.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
+		if ( (points == "lt lb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
 			
 			//store old styles
 			stylesDown = styles;
 			
-			// New styles			 
+			// New styles		 
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
-			styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
-			
+			styles.top -= (2 * offset_top);
+		
 			// Top to Down - Default again 
-			if(styles.top < viewport.top){
+			if(styles.top + parentRelative.top < viewport.top){
 				unitPoints.my_y = "t";
 				unitPoints.at_y = "b";
 				styles = stylesDown;
@@ -534,16 +524,29 @@ ui.positioner = function( o ) {
 		};
 		
 		// Left to right
-		if ( (styles.left + element.outerWidth()) > viewport.right ) { // Element right > Viewport right
+		if ( (styles.left + parentRelative.left + element.outerWidth()) > viewport.right ) { // Element right > Viewport right
 			unitPoints.my_x = "r";
 			unitPoints.at_x = "r";
+			
+			//store old styles
+			stylesLeft = styles;
 			
 			// New styles
 			var current = styles.direction;
 			styles = getPosition(unitPoints);
-			styles.direction = current + "-right";
-			if(current == "top") styles.top -= context.height; // TODO: Al recalcular toma al top del context como si fuese el bottom. (Solo en componentes. En los tests anda ok)
+			styles.direction = current + "-right";						
+			styles.left -= (2 * offset_left);
+			if(current == "top") styles.top -= (2 * offset_top);
+			
+			// Right to Left - Default again 
+			if(styles.left < viewport.left){
+				unitPoints.my_y = "l";
+				unitPoints.at_y = "l";
+				styles = stylesLeft;
+			};
 		};
+		
+		
 		
 		return styles;
 	};
@@ -568,8 +571,14 @@ ui.positioner = function( o ) {
 				left: styles.left,
 				top: styles.top
 			})
-			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right" )
+			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
+				
+		if ( context.hasOwnProperty("element") && context.element !== ui.utils.window[0] ){
+			context.element
+				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right ch-right-right" )
+				.addClass( "ch-" + styles.direction );
+		};
 
 	};	
 
@@ -577,11 +586,13 @@ ui.positioner = function( o ) {
 	//Conditional Advance Loading method
 	var getContext = (o.context) ?		
 		function getContext(){
+			
 			var contextOffset = o.context.offset();
+		
 		    context = {
 		    	element: o.context,
-				top: contextOffset.top + offset_top,
-				left: contextOffset.left + offset_left,
+				top: contextOffset.top + offset_top - parentRelative.top,
+				left: contextOffset.left + offset_left - parentRelative.left,
 				width: o.context.outerWidth(),
 				height: o.context.outerHeight()
 		    };
@@ -591,16 +602,45 @@ ui.positioner = function( o ) {
 		function getContext(){
 			return viewport;
 		};
-
+	
+	
+	var getParentRelative = function(){
+		var relative = {};
+			relative.left = 0;
+			relative.top = 0;
+		
+		element.parents().each(function(i, e){
+			if ( $(e).css("position") != "relative" ) return;
+		
+			var borderLeft = ($(e).outerWidth() - $(e).width() - ( parseInt($(e).css("padding-left")) * 2 )) / 2;
+			
+			relative = $(e).offset();
+			relative.left -= offset_left - borderLeft;
+			relative.top -= offset_top;
+			
+			return false;
+		});
+		
+		return {
+			left: relative.left,
+			top: relative.top
+		};
+	};
+	
 
 	// Set element position on resize
-    var initPosition = function(){  	
+	
+    var initPosition = function(){
+    	// Hidden behavior
+		if( element.css("display") === "none" ) return; 	
+		
 	    viewport = getViewport();
+	    parentRelative = getParentRelative();
 	    context = getContext();
 	    setPosition();
     };
 
-	// Init
+	// Init	
 	initPosition();
 	
 	// Scroll and resize events
@@ -613,7 +653,7 @@ ui.positioner = function( o ) {
 	
 	setInterval(function() {
 	    if( !scrolled ) return;
-		scrolled = false;
+		scrolled = false;	
 		initPosition();
 	    
 	}, 250);
@@ -693,13 +733,44 @@ ui.object = function(){
 		callbacks: function(conf, when){			
 			if(conf[when]) return conf[when]();
 		},
+		
+		position: function(o, conf){
+		
+			switch(typeof o) {
+			 
+				case "object":
+					conf.position.context = o.context || conf.position.context;
+					conf.position.points = o.points || conf.position.points;
+					conf.position.offset = o.offset || conf.position.offset;				
+					conf.position.fixed = o.fixed || conf.position.fixed;
+				
+					ui.positioner(conf.position);
+					// return conf.publish;
+					break;
+			
+				case "string":
+					if(o != "refresh"){
+						alert("ChicoUI error: position() expected to find \"refresh\" parameter.");
+					};
+				
+					ui.positioner(conf.position);
+					// return conf.publish;   			
+					break;
+			
+				case "undefined":
+					return conf.position;
+				    break;
+			};
+		
+		},
         
         publish: { 
             // The publish Object will be returned in all instanced component, all public methods and properties goes here.
         }
 
 	};
-}/**
+}
+/**
  *  @class Floats. Represent the abstract class of all floats UI-Objects.
  *  @requires object.
  *  @returns {Object} Floats.
@@ -807,37 +878,7 @@ ui.floats = function(conf) {
 		});
 
 	};
-	
-	that.position = function(o, conf){
 		
-		switch(typeof o) {
-		 
-			case "object":
-				conf.position.context = o.context || conf.position.context;
-				conf.position.points = o.points || conf.position.points;
-				conf.position.offset = o.offset || conf.position.offset;				
-				conf.position.fixed = o.fixed || conf.position.fixed;
-				
-				ui.positioner(conf.position);
-				// return conf.publish;
-			    break;
-			
-			case "string":
-				if(o != "refresh"){
-					alert("ChicoUI error: position() expected to find \"refresh\" parameter.");
-				};
-				
-				ui.positioner(conf.position);
-				// return conf.publish;   			
-			    break;
-			
-			case "undefined":
-				return conf.position;
-		        break;
-		};
-		
-	};
-
 	return that;
 };
 
@@ -923,8 +964,6 @@ ui.watcher = function(conf) {
                     $.extend(instance[i].conditions, getConditions(conf));
                     // Merge Messages
                     $.extend(instance[i].messages, conf.messages);
-                    // Merge Default Messages
-                    // TODO: ????? something
                     // Merge types
             	    instance[i].types = mergeTypes(instance[i].types);
     				return { 
@@ -1461,7 +1500,6 @@ ui.dropdown = function(conf){
 	var $container = $(conf.element).addClass("ch-dropdown");
 	var skin = ( $container.hasClass("ch-secondary") ) ? "secondary": "primary";
 	
-	
 /**
  *  Inheritance: Create a symbolic link to myself and my direct parent
  */
@@ -1485,6 +1523,7 @@ ui.dropdown = function(conf){
         // Show menu
 		conf.$htmlContent.css('z-index', ui.utils.zIndex++);		
 		that.show(event, conf);
+		that.position("refresh",conf);
 		
 		// Secondary behavior
 		if(skin == "secondary"){
@@ -1533,16 +1572,18 @@ ui.dropdown = function(conf){
 	// Close dropdown after click an option (link)
 	conf.$htmlContent.find('a').one('click', function(){ hide(); });
 	
+	// Put content out of container
+	$container.after( conf.$htmlContent );
+	
 	// Content position
-	ui.positioner({
+	conf.position = {
 		context: conf.$trigger,
 		element: conf.$htmlContent,
 		points: "lt lb",
 		offset: "0 -1"
-	});
+	};
 	
-	// Put content out of container
-	$container.after( conf.$htmlContent );
+	ui.positioner(conf.position);
 
 /**
  *  Expose propierties and methods
@@ -1560,7 +1601,10 @@ ui.dropdown = function(conf){
 	 *  @ Public Methods
 	 */
     	show: show,
-    	hide: hide
+    	hide: hide,
+    	position: function(o) {
+			return that.position(o,conf) || that.publish;
+		}
     };
 
 	return that.publish;
@@ -1588,17 +1632,18 @@ ui.layer = function(conf) {
 	conf.position.context = conf.$trigger;
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
-	
+
+
 /**
  *  Inheritance
  */
 	var that = ui.floats(conf);
-
+    
 /**
  *  Private Members
  */
-    var showTime = conf.showTime || 300;
-    var hideTime = conf.hideTime || 300;
+    var showTime = conf.showTime || 400;
+    var hideTime = conf.hideTime || 400;
 
 	var st, ht; // showTimer and hideTimer
 	var showTimer = function(event){ st = setTimeout(function(event){ show() }, showTime) };
@@ -1606,19 +1651,35 @@ ui.layer = function(conf) {
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
     var show = function(event) {
-    			
-		that.show(event, conf);	
-
-        if (conf.event === "click") {
-
-            $('.ch-layer').bind('click', function(event){ event.stopPropagation() });
-
+	
+		// Reset all layers
+		$.each(ui.instances.layer, function(i, e){ e.hide() });
+		
+		that.show(event, conf);
+		
+		conf.$container.bind('click', function(event){ event.stopPropagation() });
+        
+        // Click
+        if ( conf.event === "click" ) {	
             // Document events
             $(document).one('click', function(event) {
                 that.hide(event, conf);
             });
-        }
-    }
+            
+        // Hover
+        } else {      	
+        	clearTimers();    
+        	conf.$container
+        		.one("mouseenter", clearTimers)
+        		.bind("mouseleave", function(event){
+					var target = event.srcElement || event.target;
+					var relatedTarget = event.relatedTarget || event.toElement;
+					var relatedParent = relatedTarget.parentNode;
+					if ( target === relatedTarget || relatedParent === null || target.nodeName === "SELECT" ) return;
+					hideTimer();
+        		});
+        };	
+    };
 
     var hide = function(event) {
         that.hide(event, conf);
@@ -1626,11 +1687,11 @@ ui.layer = function(conf) {
 
 /**
  *  Protected Members
- */ 
- 
+ */
+
 /**
  *  Default event delegation
- */	
+ */
 	// Click
 	if(conf.event === 'click') {
 		// Local configuration
@@ -1646,8 +1707,8 @@ ui.layer = function(conf) {
 		// Trigger events
 		conf.$trigger
 			.css('cursor', 'default')
-			.bind('mouseover', showTimer)
-			.bind('mouseout', hideTimer);
+			.bind('mouseenter', show)
+			.bind('mouseleave', hideTimer);
 	};
 
     // Fix: change layout problem
@@ -1657,7 +1718,7 @@ ui.layer = function(conf) {
  *  Expose propierties and methods
  */	
 	that.publish = {
-	
+
 	/**
 	 *  @ Public Properties
 	 */
@@ -1669,11 +1730,12 @@ ui.layer = function(conf) {
 	 *  @ Public Methods
 	 */
 		show: function(){ 
-			showTimer();
+			show();
 			return that.publish; // Returns publish object
 		},
 		hide: function(){ 
-			hideTimer();
+			//hideTimer();
+			hide();
 			return that.publish; // Returns publish object
 		},
 		position: function(o){ 
