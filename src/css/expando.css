@@ -17,7 +17,7 @@
 
 .ch-expando .ch-expando-trigger:hover {
 	text-decoration: underline;
-	background-position: 0 -18px;
+	background-position: 1px -18px;
 }
 
 .ch-expando .ch-expando-trigger.ch-expando-on{
