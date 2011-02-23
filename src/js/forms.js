@@ -126,9 +126,15 @@ ui.forms = function(conf){
 
 	var clear = function(event){		
 		that.prevent(event);		
-		conf.element.reset(); // Reset html form
 		removeError();	
 		for(var i = 0, j = that.children.length; i < j; i ++) that.children[i].reset(); // Reset helpers		
+		return conf.publish; // Return publish object
+	};
+	
+	var reset = function(event){
+		clear();
+		conf.element.reset(); // Reset html form
+
 		return conf.publish; // Return publish object
 	};
 
@@ -141,7 +147,7 @@ ui.forms = function(conf){
 	});
 	
 	// Bind the reset
-	$(conf.element).find(":reset, .resetForm").bind('click', clear);
+	$(conf.element).find(":reset, .resetForm").bind('click', reset);
 	
     // Create the publish object to be returned
 	conf.publish = that.publish;
@@ -163,6 +169,7 @@ ui.forms = function(conf){
 	conf.publish.submit = submit;
 	conf.publish.checkStatus = function() { checkStatus(); return conf.publish };
 	conf.publish.clear = clear;
+	conf.publish.reset = reset;
 		
 	return conf.publish;
 };
