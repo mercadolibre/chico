@@ -19,10 +19,17 @@ ui.floats = function(conf) {
 /**
  *  Private Members
  */
-	var createClose = function(conf) {
-		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
-			that.hide(event, conf);
-		}).prependTo(conf.$container);
+	// parasito
+	var createClose = function() { 
+		$('<p>')
+			.addClass("btn ch-close")
+			.css("z-index",ui.utils.zIndex++)
+			.bind('click', function(event) {
+				that.hide(event, conf);
+			})
+			.prependTo(conf.$container);
+
+		return;
 	};
 
 	var createCone = function(conf) {

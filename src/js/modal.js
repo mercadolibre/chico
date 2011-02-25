@@ -40,7 +40,7 @@ ui.modal = function(conf){
 				.fadeIn();
 
 			if (conf.type == "modal") {
-				$dimmer.one("click", hide);
+				$dimmer.one("click", function(event){ hide(event) });
 			}
 			
 		},
@@ -54,8 +54,9 @@ ui.modal = function(conf){
 	var show = function(event) {
 		dimmer.on();
 		that.show(event, conf);
-		ui.positioner(conf.position);
-		$('.ch-modal .btn.ch-close').one('click', hide);
+		// Parasito
+		$(".btn.ch-close").one("click", dimmer.off);// and then continue propagation to that.hide()
+		ui.positioner(conf.position);		
 		conf.$trigger.blur();
 	};
 
