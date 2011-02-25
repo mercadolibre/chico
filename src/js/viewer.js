@@ -65,29 +65,25 @@ ui.viewer = function(conf){
 	showcase.wrapper = $("<div>").addClass("ch-viewer-display");
 	showcase.display = $(conf.element).children(":first");
 	$viewer.append( showcase.wrapper.append( showcase.display ) );
-	$viewer.append("<div class=\"ch-lens\">");
 	
-	showcase.children = showcase.display.find("a");
-	showcase.itemWidth = $(showcase.children[0]).parent().outerWidth();
-	
-	showcase.lens = $viewer.find(".ch-lens") // Get magnifying glass
+	// Magnifying glass
+	showcase.wrapper.append("<div class=\"ch-lens\">");
+	showcase.lens = showcase.wrapper.find(".ch-lens");
+	 
 	ui.positioner({
         element: showcase.lens,
         context: showcase.wrapper
-	});	
-	showcase.lens.bind("click", function(event){
-		viewerModal.modal.show();
 	});
+	showcase.lens
+		.hide()
+		.bind("click", viewerModal.modal.show);
 
-	// Show magnifying glass
-	showcase.wrapper.bind("mouseover", function(){
-		showcase.lens.fadeIn(400);
-	});
+	showcase.wrapper
+		.bind("mouseover", function(){ showcase.lens.fadeIn(400); }) // Show magnifying glass
+		.bind("mouseleave", function(){ showcase.lens.fadeOut(400); }); // Hide magnifying glass
 	
-	// Hide magnifying glass
-	$viewer.bind("mouseleave", function(){
-		showcase.lens.fadeOut(400);
-	});
+	showcase.children = showcase.display.find("a");
+	showcase.itemWidth = $(showcase.children[0]).parent().outerWidth();
 	
 	// Set content visual config
 	var extraWidth = (ui.utils.html.hasClass("ie6")) ? showcase.itemWidth : 0;

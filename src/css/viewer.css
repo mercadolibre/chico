@@ -17,7 +17,6 @@
     position:absolute;
     width:41px;
     cursor:pointer;
-    display:none;
 	background-image: url('../src/assets/viewer.png');
 	background-repeat: no-repeat;
 	background-position:-2px -1px;
