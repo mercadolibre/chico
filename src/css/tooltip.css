@@ -55,18 +55,18 @@
 	left:-8px;
 }
 
-.ch-layer.ch-down-right .ch-cone,
-.ch-layer.ch-top-right .ch-cone {
+.ch-tooltip.ch-down-right .ch-cone,
+.ch-tooltip.ch-top-right .ch-cone {
 	width:16px;
 	height:8px;
 	right:12px;
 }
 
-.ch-layer.ch-down-right .ch-cone {
+.ch-tooltip.ch-down-right .ch-cone {
 	top:-8px;
 }
 
-.ch-layer.ch-top-right .ch-cone {
+.ch-tooltip.ch-top-right .ch-cone {
 	background-position:0 -8px;
 	bottom:-8px;
 }
