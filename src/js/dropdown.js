@@ -31,7 +31,7 @@ ui.dropdown = function(conf){
 		};
 		
 		// Reset all dropdowns
-		$(ui.instances.dropdown).each(function(i, e){ e.hide() });
+		$(ui.instances.dropdown).each(function(i, e){ e.hide(); });
 		 
         // Show menu
 		conf.$htmlContent.css('z-index', ui.utils.zIndex++);		
