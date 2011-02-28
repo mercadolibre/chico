@@ -20,7 +20,7 @@ var start = new Date().getTime();
   */
 var ui = window.ui = {
 
-    version: "0.5.3",
+    version: "0.5.4",
 
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,forms,viewer,chat,expando,codelighter",
 
@@ -574,8 +574,8 @@ ui.positioner = function( o ) {
 			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
-		if ( context.hasOwnProperty("element") && context.element !== ui.utils.window[0] ){
-			context.element
+		if ( context.hasOwnProperty("element") && context.element !== ui.utils.window[0] ){			
+			$(context.element)
 				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );
 		};
@@ -791,10 +791,17 @@ ui.floats = function(conf) {
 /**
  *  Private Members
  */
-	var createClose = function(conf) {
-		$('<p class="btn ch-close">x</p>').bind('click', function(event) {
-			that.hide(event, conf);
-		}).prependTo(conf.$container);
+	// parasito
+	var createClose = function() { 
+		$('<p>')
+			.addClass("btn ch-close")
+			.css("z-index",ui.utils.zIndex++)
+			.bind('click', function(event) {
+				that.hide(event, conf);
+			})
+			.prependTo(conf.$container);
+
+		return;
 	};
 
 	var createCone = function(conf) {
@@ -870,11 +877,13 @@ ui.floats = function(conf) {
 		if (!conf.visible) return;
 		
 		conf.$container.fadeOut('fast', function(event){ 
-			$(this).detach(); 
+
 			conf.visible = false;
-			
+
 			// Callback execute
-			that.callbacks(conf, 'onHide');	
+			that.callbacks(conf, 'onHide');
+
+			$(this).detach();	
 		});
 
 	};
@@ -894,6 +903,9 @@ ui.navs = function(){
 		
 	that.show = function(event, conf){
 		that.prevent(event);
+		
+		if (that.status) return;
+		
 		that.status = true;
 		conf.$trigger.addClass("ch-" + conf.type + "-on");
 		conf.$htmlContent.show();	
@@ -902,6 +914,9 @@ ui.navs = function(){
 	
 	that.hide = function(event, conf){
 		that.prevent(event);
+		
+		if (!that.status) return;
+		
 		that.status = false;
 		conf.$trigger.removeClass("ch-" + conf.type + "-on");
 		conf.$htmlContent.hide();
@@ -1518,7 +1533,7 @@ ui.dropdown = function(conf){
 		};
 		
 		// Reset all dropdowns
-		$(ui.instances.dropdown).each(function(i, e){ e.hide() });
+		$(ui.instances.dropdown).each(function(i, e){ e.hide(); });
 		 
         // Show menu
 		conf.$htmlContent.css('z-index', ui.utils.zIndex++);		
@@ -1788,7 +1803,7 @@ ui.modal = function(conf){
 				.fadeIn();
 
 			if (conf.type == "modal") {
-				$dimmer.one("click", hide);
+				$dimmer.one("click", function(event){ hide(event) });
 			}
 			
 		},
@@ -1802,8 +1817,9 @@ ui.modal = function(conf){
 	var show = function(event) {
 		dimmer.on();
 		that.show(event, conf);
-		ui.positioner(conf.position);
-		$('.ch-modal .btn.ch-close').one('click', hide);
+		// Parasito
+		$(".btn.ch-close").one("click", dimmer.off);// and then continue propagation to that.hide()
+		ui.positioner(conf.position);		
 		conf.$trigger.blur();
 	};
 
@@ -2636,9 +2652,15 @@ ui.forms = function(conf){
 
 	var clear = function(event){		
 		that.prevent(event);		
-		conf.element.reset(); // Reset html form
 		removeError();	
 		for(var i = 0, j = that.children.length; i < j; i ++) that.children[i].reset(); // Reset helpers		
+		return conf.publish; // Return publish object
+	};
+	
+	var reset = function(event){
+		clear();
+		conf.element.reset(); // Reset html form
+
 		return conf.publish; // Return publish object
 	};
 
@@ -2651,7 +2673,7 @@ ui.forms = function(conf){
 	});
 	
 	// Bind the reset
-	$(conf.element).find(":reset, .resetForm").bind('click', clear);
+	$(conf.element).find(":reset").bind('click', reset);
 	
     // Create the publish object to be returned
 	conf.publish = that.publish;
@@ -2673,6 +2695,7 @@ ui.forms = function(conf){
 	conf.publish.submit = submit;
 	conf.publish.checkStatus = function() { checkStatus(); return conf.publish };
 	conf.publish.clear = clear;
+	conf.publish.reset = reset;
 		
 	return conf.publish;
 };
@@ -2743,29 +2766,25 @@ ui.viewer = function(conf){
 	showcase.wrapper = $("<div>").addClass("ch-viewer-display");
 	showcase.display = $(conf.element).children(":first");
 	$viewer.append( showcase.wrapper.append( showcase.display ) );
-	$viewer.append("<div class=\"ch-lens\">");
 	
-	showcase.children = showcase.display.find("a");
-	showcase.itemWidth = $(showcase.children[0]).parent().outerWidth();
-	
-	showcase.lens = $viewer.find(".ch-lens") // Get magnifying glass
+	// Magnifying glass
+	showcase.wrapper.append("<div class=\"ch-lens\">");
+	showcase.lens = showcase.wrapper.find(".ch-lens");
+	 
 	ui.positioner({
         element: showcase.lens,
         context: showcase.wrapper
-	});	
-	showcase.lens.bind("click", function(event){
-		viewerModal.modal.show();
 	});
+	showcase.lens
+		.hide()
+		.bind("click", viewerModal.modal.show);
 
-	// Show magnifying glass
-	showcase.wrapper.bind("mouseover", function(){
-		showcase.lens.fadeIn(400);
-	});
+	showcase.wrapper
+		.bind("mouseover", function(){ showcase.lens.fadeIn(400); }) // Show magnifying glass
+		.bind("mouseleave", function(){ showcase.lens.fadeOut(400); }); // Hide magnifying glass
 	
-	// Hide magnifying glass
-	$viewer.bind("mouseleave", function(){
-		showcase.lens.fadeOut(400);
-	});
+	showcase.children = showcase.display.find("a");
+	showcase.itemWidth = $(showcase.children[0]).parent().outerWidth();
 	
 	// Set content visual config
 	var extraWidth = (ui.utils.html.hasClass("ie6")) ? showcase.itemWidth : 0;

@@ -147,7 +147,7 @@ ui.forms = function(conf){
 	});
 	
 	// Bind the reset
-	$(conf.element).find(":reset, .resetForm").bind('click', reset);
+	$(conf.element).find(":reset").bind('click', reset);
 	
     // Create the publish object to be returned
 	conf.publish = that.publish;
