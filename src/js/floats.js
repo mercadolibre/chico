@@ -105,11 +105,13 @@ ui.floats = function(conf) {
 		if (!conf.visible) return;
 		
 		conf.$container.fadeOut('fast', function(event){ 
-			$(this).detach(); 
+
 			conf.visible = false;
-			
+
 			// Callback execute
-			that.callbacks(conf, 'onHide');	
+			that.callbacks(conf, 'onHide');
+
+			$(this).detach();	
 		});
 
 	};
