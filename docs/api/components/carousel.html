@@ -1,0 +1,168 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+        <script></script> <!-- Avoid script blocking -->
+        <meta charset="utf-8">
+        <title>Carousel</title>
+        <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../../src/css/grid.css">
+        <!--[if lt IE 7 ]>
+            <script src="../../libs/js/dd_belatedpng.js"></script>
+            <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+        <![endif]-->
+        <script src="../../../libs/js/jquery.js"></script>
+		<script src="../../../build/chico-min-0.5.5.js"></script>
+    <head>
+<body>
+
+
+
+<h1>Carousel</h1>
+
+<div class="sourceTabs">
+	<ul>
+		<li><a href="#demo">Demo</a></li>
+		<li><a href="#html">Html</a></li>
+		<li><a href="#css">Css</a></li>
+		<li><a href="#js">JavaScript</a></li>
+	</ul>
+	<div>
+		<div id="demo">
+			
+			<style>.demoCarousel li { width: 110px; height: 110px; }</style>
+			
+			<div class="box demoCarousel">
+				<ul class="carousel">
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="html">
+			<code>
+				<pre name="code" class="xml">
+<div class="box demoCarousel">
+	<ul class="carousel">
+		<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+
+		<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+
+		<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+		<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+		<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+		<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+	</ul>
+</div></pre>
+			</code>
+		</div>
+		
+		<div id="css">
+			<p>Para que el Carousel pueda realizar todos los cálculos internos, es necesario especificar vía css, el alto y ancho de los elementos de la lista:</p>
+			
+			<code>
+				<pre name="code" class="css">
+.demoCarousel li {
+	width: 110px;
+	height: 110px;
+}</pre>
+			</code>
+		</div>
+		
+		<div id="js">
+			<code>
+				<pre name="code" class="js">$(".demoCarousel").carousel();</pre>
+			</code>
+		</div>
+	</div>
+</div>
+
+<div class="box">
+	<h2>Cómo se usa</h2>
+	
+	<p>El Carousel se crea a partir de agregarle funcionalidad a una lista de objetos, ya sean imágenes, texto, o ambos.</p>
+	<p>Para crear un Carousel, es necesario iniciarlo a traves de un contenedor, en el cual puede haber todo tipo de elementos, y una lista con la clase css "carousel". Es decir, que el Carousel puede convivir dentro de una caja junto con contenido de cualquier tipo.</p>
+	<p>El ancho y alto de los elementos &lt;li&gt; del Carousel debe ser especificados obligatoriamente por css.</p>
+	
+	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+	
+	<code>
+		<pre name="code" class="js">$(".foo").carousel();</pre>
+	</code>
+	
+	<p>Objeto de configuración:</p>
+	
+	<code>
+		<pre name="code" class="js">
+{
+	onMove: function() {}			  // Callback executed after carousel movement
+}</pre>
+	</code>
+	
+	<p>Ejemplo:</p>
+	
+	<code>
+		<pre name="code" class="js">
+$(".foo").carousel({
+	onMove: function() {
+		// something
+	}
+});</pre>
+	</code>
+	   
+	<p>Cada vez que se instancia un componente Contextual Layer retorna un objecto público de control que nos brinda información sobre la instancia.</p>
+	
+	<code>
+		<pre name="code" class="js">
+var foo = $(".foo").carousel();
+
+// It returns
+foo = {
+    uid: 121,                        //  Global number instance
+    element: HTMLElement,	        //  DOM Interface
+    type: "carousel",                //  Component Type
+    getSteps(),					  //  Returns items amount of each page
+    getPage(),					   //  Returns actual page
+    moveTo(page),                    //  Select a page to move
+    next(),						  //  Move to next page
+    prev(),						  //  Move to previous page
+}</pre>
+	</code>
+</div>
+
+
+<script>
+	ui.codelighter();
+	
+	$(".sourceTabs").tabNavigator();
+	
+    $(".demoCarousel").carousel();
+</script>
+
+
+
+</body>
+</html>
