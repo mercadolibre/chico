@@ -5,13 +5,23 @@
 	<title>Tooltip - TestCases</title>
 	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=tooltip">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
+	<style>
+		body{ height:1000px; }
+	</style>
 </head>
 <body>
 
 <!-- #body -->
 	<h1>Chico-UI: Tooltip testcases</h1>
-
-	<img class="testTooltip" title="Buen vendedor" alt="Buen vendedor" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+	<hr>
+	
+	<div class="box"><img class="tool1" title="Good seller" alt="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif"></div>
+	
+	<div class="box" style="overflow:hidden;">
+		<img style="float:right;" class="tool2" title="Good seller, good seller, good seller, good seller, good seller, good seller, good seller, good seller, good seller, good seller." alt="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+	</div>
+	
+	<div class="box"><img class="tool3" title="Good seller" alt="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif"></div>
 
 	<hr>
 <!-- #body -->
@@ -29,72 +39,153 @@
 
 <!-- #script -->
 	<script>
-		var testTooltip = $('.testTooltip').tooltip();
-		
+		var tooltip1 = $('.tool1').tooltip();
+		var tooltip2 = $('.tool2').tooltip();
+		var tooltip3 = $('.tool3').tooltip({
+			onShow: function(){
+				$("body").addClass("onShow");
+			},
+			onHide: function(){
+				$("body").addClass("onHide");
+			}
+		});
+
 		$.fx.off = true;
-		
+
 		/**
 		 * 	Test Cases
 		 */
+		
+		module("Tooltip instance object");
+		
+        test("Layer public properties", function(){
 
-        module("Tooltip basics instance object");
+            expect( 4 );
+
+       		ok( tooltip1.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+       		
+    		ok( tooltip1.type == "tooltip" , "Expected to find \"tooltip\" as value of type attribute");
+    		
+    		ok( tooltip1.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		
+    		equal( tooltip1.content, $(".tool1").attr("title"), "Expected to find the tooltip \"title\" attribute on \"content\" property of tooltip instance");
+
+        });
         
-        test("Basics for testTooltip instance", function(){
+        test("Tooltip public methods", function(){
 
             expect( 3 );
-
-       		ok( testTooltip.uid >= 0 , "Expected to find a defined content on the tooltip instance");
-       		
-    		ok( testTooltip.type == "tooltip" , "Expected to find \"tooltip\" as value of type attribute");
     		
-    		ok( testTooltip.content != undefined, "Expected to find a defined content on the tooltip instance");
+    		ok( tooltip1.hasOwnProperty("position"), "Expected to find a \"position\" method" );
+    		
+    		ok( tooltip1.hasOwnProperty("show"), "Expected to find a \"show\" method" );
+    		
+    		ok( tooltip1.hasOwnProperty("hide"), "Expected to find a \"hide\" method" );
 
         });
 
         test("Tooltip chain methods", function(){
-            
-            expect ( 3 );
-            
-            var testTooltipOriginal = testTooltip;
-            
-            var chainShow = testTooltip.show();
-            
-            var chainHide = testTooltip.hide();
 
-            var chained = testTooltip.show().hide();
-             
+            expect ( 3 );
+
+            var testTooltipOriginal = tooltip1;
+
+            var chainShow = tooltip1.show();
+
+            var chainHide = tooltip1.hide();
+
+            var chained = tooltip1.show().hide();
+
             ok ( chainShow === testTooltipOriginal, "Expected to return original instance object on show() method call");
-            
+
             ok ( chainHide === testTooltipOriginal, "Expected to return original instance object on hide() method call");
 
             ok ( chained === testTooltipOriginal, "Expected to return original instance object on .show().hide() methods chained call");
-            
+
         });
+        
 
 		module('Tooltip layout and interaction');
+		
+		var $trigger = $('.tool1');
 
 		test('Check for right trigger attributes', function(){
-        
-			ok($('.testTooltip').attr('title'), 'Expected .testTooltip to has "title" attribute');
-            
+			
+			expect ( 1 );
+			
+			ok($trigger.attr('title'), 'Expected .testTooltip to has "title" attribute');
+
 		});
-		        
+
 		test('Opens tooltip dialog', function(){
+			
+			expect ( 2 );
+			
 			notExists('.ch-tooltip');
-			
-			$('.testTooltip').mouseover();
-			
+
+			$('.tool1').mouseenter();
+
 			exists('.ch-tooltip');
 		});
-		
+
 		test('Closes tooltip dialog', function(){
+			
+			expect ( 2 );
+			
 			exists('.ch-tooltip');
-			
-			$('.testTooltip').mouseout();
-			
+
+			$trigger.mouseleave();
+
 			notExists('.ch-tooltip');
 		});
+
+       	
+       	module('Tooltip behavior with spaceless viewport');
+       	
+       	var $trigger2 = $('.tool2');
 		
+		test('Position of Tooltip on right', function() {
+			
+			expect ( 1 );
+			
+			tooltip2.show();
+
+			var tool2 = $('.ch-tooltip');
+			
+			ok( tool2.offset().left < $trigger2.offset().left, "Expected to find tooltip left position < trigger left position");
+       		
+       		tooltip2.hide();
+       	});
+		
+		
+		module('Tooltip callbacks');
+		
+		var $trigger7 = $('.tool7');
+		
+		test('Tolltip callback on show', function() {
+			
+			expect ( 1 );
+			
+			tooltip3.show();
+			
+			hasClass("body", "onShow");
+			
+			$("body").removeClass("onShow");
+
+       	});
+       	
+       	test('Tolltip callback on hide', function() {
+       	
+       		expect ( 1 );
+       		
+			tooltip3.hide();
+			
+			hasClass("body", "onHide");
+			
+			$("body").removeClass("onHide");
+
+       	});
+
 	</script>
 
 </body>

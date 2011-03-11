@@ -2,41 +2,62 @@
  *	@Codelighter
  * 
  * ui.codelighter();
- * $(".xml").xml();
+ * $(".xml").codeXML();
  */
 
 ui.codelighter = function() {
-	
 /**
- *  Inheritance: Create a symbolic link to myself and my direct parent
+ *  Constructor
  */
+	var that = this;
+		
+/**
+ *  Inheritance
+ */
+
+    that = ui.controllers.call(that);
+    that.parent = ui.clon(that);
 	
-	var self = this;
-	var that = ui.controllers();
 	
 /**
  *  Private Members
  */
-	
-	$("pre[name=code]").each(function(i, e){
-		
-		var child = {
-			snippet: e.innerHTML,
-			element: e,
-			uid: ui.utils.index += 1
-		};
-		that.children.push( ui["code" + e.className.toUpperCase()](child) );
-	});
-	
 
 /**
- *  Expose propierties and methods
+ *  Protected Members
+ */ 
+
+/**
+ *  Public Members
  */
 	
-	//ui.instances.codelighter = that.children; // Create codeligther instance
+	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;	
+	that.public.children = that.children;	
+
+
+/**
+ *  Default event delegation
+ */	
+
+	$("pre[name=code]").each(function(i, e){
+		
+		var codesnippet = {};
+			codesnippet.uid = ui.utils.index += 1;
+			codesnippet.type = "codesnippet";
+			codesnippet.element = e;
+			codesnippet.snippet = e.innerHTML;			
+
+		that.children.push( ui["code" + e.className.toUpperCase()].call(codesnippet) );
+
+	});
+
+	ui.instances.codelighter = that.children; // Create codeligther instance
 	
-	return that.children;
+	return that;
 };
+
 
 
 /**
@@ -44,55 +65,59 @@ ui.codelighter = function() {
  */
  
 ui.codesnippet = function(conf){
-
-/** 
- *  Constructor: Redefine or preset component's settings
- */
-	
-	conf.paintedSnippet = conf.snippet;
-	//$(conf.element).addClass("ch-codelighter");
-
 /**
- *  Inheritance: Create a symbolic link to myself and my direct parent
+ *  Constructor
+ */
+	
+	var that = this;	
+	that.conf = conf;
+	
+		
+/**
+ *  Inheritance
  */
 
-	var self = this;
-	var that = ui.object(); // TODO: that should be an Abstract Object
-	
+    that = ui.object.call(that);
+    that.parent = ui.clon(that);
 	
 /**
  *  Private Members
  */
- 	
-	conf.element.innerHTML = function() {
+
+	var paint = function() {
 		for (var x in conf.brush){
-			if (conf.brush[ x ].test(conf.paintedSnippet)) {
-				conf.paintedSnippet = conf.paintedSnippet.replace(conf.brush[ x ], x);
+			if (conf.brush[ x ].test(that.paintedSnippet)) {
+				that.paintedSnippet = that.paintedSnippet.replace(conf.brush[ x ], x);
 			};
 		};
-		
-		return conf.paintedSnippet;
 
-	}();
-	
-	
-/**
- *  Expose propierties and methods
- */
-
-	that.publish = {
-	
-	/**
-	 *  @ Public Properties
-	 */
-
-		uid: conf.uid,
-		type: conf.type,
-		snippet: conf.snippet,
-		paintedSnippet: conf.paintedSnippet
+		return that.paintedSnippet;
 	};
+ 
+/**
+ *  Protected Members
+ */ 
+
+	that.paintedSnippet = that.snippet;	
+			
+/**
+ *  Public Members
+ */	
+
+	that.public = {};
+	that.public.uid = that.uid;
+	that.public.type = conf.type;
+	that.public.element = that.element;
+	that.public.snippet = that.snippet;
+	that.public.paintedSnippet = that.paintedSnippet;	
+
+/**
+ *  Default event delegation
+ */		 	
 	
-	return that.publish;
+	that.element.innerHTML = paint();
+	
+	return that;
 };
 
 
@@ -106,7 +131,7 @@ ui.codeXML = function(conf) {
 /** 
  *  Constructor: Redefine or preset component's settings
  */
-	
+
 	conf = conf || {};
 	
 	conf.type = "codeXML";
@@ -120,10 +145,10 @@ ui.codeXML = function(conf) {
 		"<span class='ch-tag'>$&</span>": /(&lt;([a-z]|\/).*?&gt;)/g, // Tag
 		"    ": /\t/g // Tab
 	};
-	
-	conf.snippet = conf.snippet || conf.element.innerHTML;
     
-    return ui.codesnippet(conf);   
+    this.snippet = this.snippet || this.element.innerHTML;
+    
+    return ui.codesnippet.call(this, conf);
     
 };
 
@@ -158,10 +183,10 @@ ui.codeJS = function(conf) {
 		"<span class='ch-comment'>$&</span>": /(\/\/)\s*.*\s*\n*/g // Comments
 		
 	};
-	
-	conf.snippet = conf.snippet || conf.element.innerHTML;
+	    
+    this.snippet = this.snippet || this.element.innerHTML;
     
-    return ui.codesnippet(conf);
+    return ui.codesnippet.call(this, conf);
     
 };
 
@@ -193,9 +218,9 @@ ui.codeCSS = function(conf) {
 		"    ": /\t/g // Tab
 	};
 	
-	conf.snippet = conf.snippet || conf.element.innerHTML;
-    
-    return ui.codesnippet(conf);
+	this.snippet = this.snippet || this.element.innerHTML;
+	
+    return ui.codesnippet.call(this, conf);
     
 };
 

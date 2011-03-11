@@ -133,6 +133,20 @@
 			</ul>
 		</div>
 	</div>
+	
+	<div class="box">
+		<div id="drop10" class="ch-primary">
+			<span>Callbacks</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id dui risus.</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+		
+			</ul>
+		</div>
+	</div>
+	
 <!-- #body -->
 	<hr style="clear:both;">
 
@@ -152,6 +166,15 @@
 	<script>
 
 		var testDropdown = $('.testDropdown').dropdown();
+		var testDropdown2 = $('#drop10').dropdown({
+			onShow: function(){
+				$("body").addClass("onShow");
+	        },
+
+	        onHide: function(){
+				$("body").addClass("onHide");
+	        }
+		});
 		
 		$.fx.off = true;
 
@@ -161,19 +184,32 @@
 		
 		
 		// Dropdown 1
+		module("Layer instance object");
 		
-		module("Dropdown instance object");
+        test("Dropdown public properties", function(){
 
-		test("testDropdown instance", function() {
+            expect( 3 );
 
-			expect( 2 );
+       		ok( testDropdown[0].uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+       		
+    		ok( testDropdown[0].type == "dropdown" , "Expected to find \"dropdown\" as value of type attribute");
+    		
+    		ok( testDropdown[0].hasOwnProperty("element"), "Expected to find an \"element\" property" );
 
-			ok( testDropdown[0].uid >= 0 , "Expected to find a \"uid\" attribute on the dropdown instance");
+        });
+        
+        test("Dropdown public methods", function(){
 
-			ok( testDropdown[0].type == "dropdown" , "Expected to find \"dropdown\" as value of type attribute");
+            expect( 3 );
+    		
+    		ok( testDropdown[0].hasOwnProperty("position"), "Expected to find a \"position\" method" );
+    		
+    		ok( testDropdown[0].hasOwnProperty("show"), "Expected to find a \"show\" method" );
+    		
+    		ok( testDropdown[0].hasOwnProperty("hide"), "Expected to find a \"hide\" method" );
 
-		});
-
+        });
+        
         test("Dropdown chain methods", function(){
             
             expect ( 3 );
@@ -335,12 +371,12 @@
 		
 		module('Dropdown behavior with "relative" positioned containers');
 		
-		var $trigger3 = $('#drop3').children(':first');
-		var $content3 = $('#drop3').next();
-		
 		test('Position of content with not relative container', function() {
 			
 			expect ( 2 );
+			
+			var $trigger3 = $('#drop3').children(':first');
+			var $content3 = $('#drop3').next();
 			
 			$trigger3.click();
 			
@@ -351,12 +387,12 @@
        	
        	// Dropdown 4
        	
-       	var $trigger4 = $('#drop4').children(':first');
-		var $content4 = $('#drop4').next();
-		
-		test('Position of content with first relative container', function() {
+       	test('Position of content with first relative container', function() {
 			
 			expect ( 2 );
+			
+			var $trigger4 = $('#drop4').children(':first');
+			var $content4 = $('#drop4').next();
 			
 			$trigger4.click();
 			
@@ -367,12 +403,12 @@
        	
        	// Dropdown 5
        	
-       	var $trigger5 = $('#drop5').children(':first');
-		var $content5 = $('#drop5').next();
-		
-		test('Position of content with second relative container', function() {
+       	test('Position of content with second relative container', function() {
 			
 			expect ( 2 );
+			
+			var $trigger5 = $('#drop5').children(':first');
+			var $content5 = $('#drop5').next();
 			
 			$trigger5.click();
 			
@@ -383,12 +419,12 @@
        	
        	// Dropdown 6
        	
-       	var $trigger6 = $('#drop6').children(':first');
-		var $content6 = $('#drop6').next();
-		
-		test('Position of content with 2 relative containers', function() {
+       	test('Position of content with 2 relative containers', function() {
 			
 			expect ( 2 );
+			
+			var $trigger6 = $('#drop6').children(':first');
+			var $content6 = $('#drop6').next();
 			
 			$trigger6.click();
 			
@@ -399,12 +435,12 @@
        	
        	// Dropdown 7
        	
-       	var $trigger7 = $('#drop7').children(':first');
-		var $content7 = $('#drop7').next();
-		
-		test('Position of content with 3 relative containers', function() {
+       	test('Position of content with 3 relative containers', function() {
 			
 			expect ( 2 );
+			
+			var $trigger7 = $('#drop7').children(':first');
+			var $content7 = $('#drop7').next();
 			
 			$trigger7.click();
 			
@@ -417,16 +453,16 @@
        	
        	// Dropdown 8
        	
-       	var $trigger8 = $('#drop8').children(':first');
-		var $content8 = $('#drop8').next();
-		
-		test('Position of content dropped to left on primary dropdown', function() {
+       	test('Position of content dropped to left on primary dropdown', function() {
+			
+			expect ( 2 );
+			
+			var $trigger8 = $('#drop8').children(':first');
+			var $content8 = $('#drop8').next();
 			
 			$trigger8.click();
 			
-			expect ( 2 );
-
-			equal( $content8.offset().left + $content8.outerWidth(), $trigger8.offset().left + $trigger8.outerWidth(), "Expected to find content right position = trigger right position");
+			ok( $content8.offset().left < $trigger8.offset().left, "Expected to find content left position < trigger left position");
        		equal( $content8.offset().top, $trigger8.offset().top + $trigger8.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
        		
        		$trigger8.click();
@@ -435,12 +471,12 @@
        	
        	// Dropdown 9
        	
-       	var $trigger9 = $('#drop9').children(':first');
-		var $content9 = $('#drop9').next();
-		
-		test('Position of content dropped to left on secondary dropdown', function() {
+       	test('Position of content dropped to left on secondary dropdown', function() {
 			
 			expect ( 2 );
+			
+			var $trigger9 = $('#drop9').children(':first');
+			var $content9 = $('#drop9').next();
 			
 			$trigger9.click();
 			
@@ -448,6 +484,34 @@
        		equal( $content9.offset().top, $trigger9.offset().top + $trigger9.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
        		
        		$trigger9.click();
+       	});
+       	
+       	
+       	// Dropdown 10
+       	module("Dropdown callbacks");   	
+		
+		test('Dropdown callback on show', function() {
+			
+			expect ( 1 );
+			
+			testDropdown2.show();
+			
+			hasClass("body", "onShow");
+			
+			$("body").removeClass("onShow");
+
+       	});
+       	
+       	test('Dropdown callback on hide', function() {
+			
+			expect ( 1 );
+			
+			testDropdown2.hide();
+			
+			hasClass("body", "onHide");
+			
+			$("body").removeClass("onHide");
+
        	});
 
 	</script>

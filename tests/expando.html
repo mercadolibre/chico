@@ -11,7 +11,14 @@
 <!-- #body -->
 	<h1>Chico-UI: Expando testcases</h1>
     <hr />
-	<div class="testExpando">
+	<div id="testExpando">
+		<h4>Lorem ipsum dolor sit amet.</h4>
+		<div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		</div>
+	</div>
+	
+	<div id="testExpando2">
 		<h4>Lorem ipsum dolor sit amet.</h4>
 		<div>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
@@ -35,7 +42,16 @@
 <!-- #script -->
 	<script>
 
-		var testExpando = $('.testExpando').expando();
+		var testExpando = $("#testExpando").expando();
+		var testExpando2 = $("#testExpando2").expando({
+			open:true,
+			onShow: function(){
+				$("body").addClass("onShow");
+			},
+			onHide: function(){
+				$("body").addClass("onHide");
+			}			
+		});
 		
 		$.fx.off = true;
 
@@ -45,15 +61,28 @@
 
 		module("Expando instance object");
 		
-		test("testExpando instance", function() {
-		
-		    expect( 2 );
-		
-			ok( testExpando.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
-			
-			ok( testExpando.type == "expando" , "Expected to find \"expando\" as value of type attribute");
-		
-		});
+        test("Expando public properties", function(){
+
+            expect( 3 );
+
+       		ok( testExpando.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+       		
+    		ok( testExpando.type == "expando" , "Expected to find \"expando\" as value of type attribute");
+    		
+    		ok( testExpando.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+
+        });
+        
+        test("Expando public methods", function(){
+
+            expect( 2 );
+    		
+    		ok( testExpando.hasOwnProperty("show"), "Expected to find a \"show\" method" );
+    		
+    		ok( testExpando.hasOwnProperty("hide"), "Expected to find a \"hide\" method" );
+
+        });
+        
 		
 		test("Expando chain methods", function(){
             
@@ -77,12 +106,12 @@
         
         module('Expando layout and interaction');
 
-		var $triggerExpando =  $(".testExpando").children(":first").children();
+		var $triggerExpando =  $("#testExpando").children(":first").children();
 		var $contentExpando = $triggerExpando.parent().next();
 		
 		test('Check for the right visual classes', function() {
 			
-			hasClass('.testExpando', 'ch-expando');
+			hasClass('#testExpando', 'ch-expando');
 			hasClass($triggerExpando, 'ch-expando-trigger');
 			hasClass($contentExpando, 'ch-expando-content');
 			
@@ -122,6 +151,50 @@
 			$triggerExpando.click();
 			
 		});
+		
+		module('Expando open by configuration');
+		var $triggerExpando2 =  $("#testExpando2").children(":first").children();
+		var $contentExpando2 = $triggerExpando2.parent().next();
+		
+		test('Opened expando', function() {
+			
+			isVisible($contentExpando2);
+			hasClass($triggerExpando2, 'ch-expando-on');
+			
+			$triggerExpando2.click();
+			
+			isNotVisible($contentExpando2);
+			hasNotClass($triggerExpando2, 'ch-expando-on');
+						
+		});
+		
+		module('Expando callbacks');	
+		
+		test('Expando callback on show', function() {
+			
+			expect ( 1 );
+			
+			testExpando2.show();
+			
+			hasClass("body", "onShow");
+			
+			$("body").removeClass("onShow");
+
+       	});
+       	
+       	test('Expando callback on hide', function() {
+			
+			expect ( 1 );
+			
+			testExpando2.hide();
+			
+			hasClass("body", "onHide");
+			
+			$("body").removeClass("onHide");
+			
+			testExpando2.show();
+
+       	});
 
 	</script>
 

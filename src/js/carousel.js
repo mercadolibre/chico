@@ -6,102 +6,116 @@
  */
 
 ui.carousel = function(conf){
-	var that = ui.object(); // Inheritance
-	var status = false;
-	var page = 1;
-
-	// Global configuration
-	conf.$trigger = $(conf.element).addClass('ch-carousel');
-	conf.$htmlContent = $(conf.element).find('.carousel').addClass('ch-carousel-content'); // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
-
-	// UL Width calculator
-	var htmlElementMargin = (ui.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
-	var extraWidth = (ui.utils.html.hasClass("ie6")) ? conf.$htmlContent.children().outerWidth() : 0;
-	var htmlContentWidth = conf.$htmlContent.children().size() * (conf.$htmlContent.children().outerWidth() + htmlElementMargin) + extraWidth;
+	
+/** 
+ *  Constructor
+ */
+	
+	var that = this;
+	
+	that.$element.addClass('ch-carousel');
 	
 	// UL configuration
-	conf.$htmlContent
+	that.$content = that.$element.find('.carousel')	 // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
+		.addClass('ch-carousel-content')
 		.wrap($('<div>').addClass('ch-mask'))//gracias al que esta abajo puedo leer el $mask.width()
-		.css('width', htmlContentWidth);
-		
+
+	that.conf = conf;
+	
+/**
+ *	Inheritance
+ */
+
+    that = ui.sliders.call(that);
+    that.parent = ui.clon(that);
+
+/**
+ *  Private Members
+ */
+	var page = 1;
+	
+	// UL Width calculator
+	var htmlElementMargin = (ui.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
+	var extraWidth = (ui.utils.html.hasClass("ie6")) ? that.$content.children().outerWidth() : 0;
+	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
+	that.$content.css('width', htmlContentWidth);
+	
 	// Mask Object	
-	var $mask = conf.$trigger.find('.ch-mask');
+	var $mask = that.$element.find('.ch-mask');
 
 	// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
-	var steps = ~~( (conf.$trigger.width() - 70) / (conf.$htmlContent.children().outerWidth() + 20));
+	var steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + 20));
 		steps = (steps == 0) ? 1 : steps;	
-	var totalPages = Math.ceil(conf.$htmlContent.children().size() / steps);
+	var totalPages = Math.ceil(that.$content.children().size() / steps);
 
 	// Move to... (steps in pixels)
-	var moveTo = (conf.$htmlContent.children().outerWidth() + 20) * steps;
+	var moveTo = (that.$content.children().outerWidth() + 20) * steps;
 	// Mask configuration
 	var margin = ($mask.width()-moveTo) / 2;
-	$mask.width( moveTo ).height( conf.$htmlContent.children().outerHeight() + 2 ); // +2 for content with border
-	//if(conf.arrows != false) $mask.css('marginLeft', margin);
+	$mask.width( moveTo ).height( that.$content.children().outerHeight() + 2 ); // +2 for content with border
+
 	
-	//En IE6 al htmlContentWidth por algun motivo se le suma el doble del width de un elemento (li) y calcula mal el next()
-	if($.browser.msie && $.browser.version == '6.0') htmlContentWidth = htmlContentWidth - (conf.$htmlContent.children().outerWidth()*2);
-	
-	
+
+/**
+ *  Protected Members
+ */
+
 	// Buttons
-	var buttons = {
+	that.buttons = {
 		prev: {
-			$element: $('<p class="ch-prev">Previous</p>').bind('click', function(){ move("prev", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
-			on: function(){ buttons.prev.$element.addClass("ch-prev-on") },
-			off: function(){ buttons.prev.$element.removeClass("ch-prev-on") }
+			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }).css('top', (that.$element.outerHeight() - 50) / 2), // 50 = button height + margin TODO usar positioner
+			on: function(){ that.buttons.prev.$element.addClass("ch-prev-on") },
+			off: function(){ that.buttons.prev.$element.removeClass("ch-prev-on") }
 		},
 		next: {
-			$element: $('<p class="ch-next">Next</p>').bind('click', function(){ move("next", 1) }).css('top', (conf.$trigger.outerHeight() - 22) / 2), // 22 = button height
-			on: function(){ buttons.next.$element.addClass("ch-next-on") },
-			off: function(){ buttons.next.$element.removeClass("ch-next-on") }
+			$element: $('<p class="ch-next"><span>Next</span></p>').bind('click', function(){ that.move("next", 1) }).css('top', (that.$element.outerHeight() - 50) / 2), // 50 = button height + margin TODO usar positioner
+			on: function(){ that.buttons.next.$element.addClass("ch-next-on") },
+			off: function(){ that.buttons.next.$element.removeClass("ch-next-on") }
 		}
 	};
 	
-	// Buttons behavior
-	conf.$trigger.prepend( buttons.prev.$element ).append( buttons.next.$element ); // Append prev and next buttons
-	if (htmlContentWidth > $mask.width()) buttons.next.on(); // Activate Next button if items amount is over carousel size
-	
-	
-	var move = function(direction, distance){
+
+
+	that.move = function(direction, distance){
 		var movement;
 		
 		switch(direction){
 			case "prev":
 				// Validation
-				if(status || (page - distance) <= 0) return;
+				if(that.active || (page - distance) <= 0) return;
 				
 				// Next move
 				page -= distance;
 				
 				// Css object
-				movement = conf.$htmlContent.position().left + (moveTo * distance);
+				movement = that.$content.position().left + (moveTo * distance);
 				
 				// Buttons behavior
-				if(page == 1) buttons.prev.off();
-				buttons.next.on();
+				if(page == 1) that.buttons.prev.off();
+				that.buttons.next.on();
 			break;
 			case "next":
 				// Validation
-				if(status || (page + distance) > totalPages) return;
+				if(that.active || (page + distance) > totalPages) return;
 				
 				// Next move
 				page += distance;
 				
 				// Css object
-				movement = conf.$htmlContent.position().left - (moveTo * distance);
+				movement = that.$content.position().left - (moveTo * distance);
 				
 				// Buttons behavior
-				if(page == totalPages) buttons.next.off();
-				buttons.prev.on();
+				if(page == totalPages) that.buttons.next.off();
+				that.buttons.prev.on();
 			break;
 		};
 				
 		// Status moving
-		status = true;
+		that.active = true;
 		
 		// Function executed after movement
 		var afterMove = function(){
-			status = false;
+			that.active = false;
 			
 			// Pager behavior
 			if (conf.pager) {
@@ -110,50 +124,48 @@ ui.carousel = function(conf){
 			};
 
 			// Callbacks
-			that.callbacks(conf, "onMove");
+			that.callbacks("onMove");
 		};
 		
 		// Have CSS3 Transitions feature?
 		if (ui.features.transition) {
 			
 			// Css movement
-			conf.$htmlContent.css({ left: movement });
+			that.$content.css({ left: movement });
 			
 			// Callback
 			afterMove();
 			
 		// Ok, let JQuery do the magic...
 		} else {
-			conf.$htmlContent.animate({ left: movement }, afterMove);
+			
+			that.$content.animate({ left: movement }, afterMove);
 		};
 		
-		// Returns publish object
-		return conf.publish;
+		return that;
 	};
 	
 	
-	var select = function(pageToGo){
+	that.select = function(pageToGo){
 		//var itemPage = ~~(item / steps) + 1; // Page of "item"
 		
 		// Move right
 		if(pageToGo > page){
-			move("next", pageToGo - page);
+			that.move("next", pageToGo - page);
 		// Move left
 		}else if(pageToGo < page){
-	        move("prev", page - pageToGo);
+	        that.move("prev", page - pageToGo);
 		};
 		
 		if (conf.pager) {
 			$(".ch-pager li").removeClass("ch-pager-on");
 			$(".ch-pager li:nth-child(" + page + ")").addClass("ch-pager-on");
-		}
+		};
 			
-		// return publish object
-	    return conf.publish;
+	    return that;
 	};
-	
-	
-	var pager = function(){
+
+	that.pager = function(){
 		var list = $("<ul class=\"ch-pager\">");
 		var thumbs = [];
 		
@@ -166,7 +178,7 @@ ui.carousel = function(conf){
 		list.append( thumbs.join("") );
 		
 		// Create pager
-		conf.$trigger.append( list );
+		that.$element.append( list );
 		
 		// Position
 		var pager = $(".ch-pager");
@@ -178,33 +190,55 @@ ui.carousel = function(conf){
 		// Children functionality
 		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
 			$(e).bind("click", function(){
-				select(i+1);
+				that.select(i+1);
 			});
 		});
 	};
 	
+
+
+/**
+ *  Public Members
+ */
+
+   	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;
+
+	that.public.getSteps = function() { return steps; };
+    that.public.getPage = function() { return page; };
+    that.public.moveTo = function(page) {
+    	that.select(page);
+
+    	return that.public;
+    };
+    
+    that.public.next = function(){
+    	that.move("next", 1);
+
+    	return that.public;
+    };
+    
+	that.public.prev = function(){
+		that.move("prev", 1);
+
+		return that.public;
+	};
+
+
+/**
+ *  Default event delegation
+ */
+ 	
+	// UL width configuration
+	that.$content.css('width', htmlContentWidth);
+ 	
+	// Buttons behavior
+	that.$element.prepend( that.buttons.prev.$element ).append( that.buttons.next.$element ); // Append prev and next buttons
+	if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
+
 	// Create pager if it was configured
-	if (conf.pager) pager();
-	
-	
-    // Create the publish object to be returned
-    conf.publish = that.publish;
-    
-    /**
-	 *  @ Public Properties
-	 */
-    conf.publish.uid = conf.uid;
-    conf.publish.element = conf.element;
-    conf.publish.type = conf.type;
-    
-    /**
-	 *  @ Public Methods
-	 */
-    conf.publish.getSteps = function() { return steps; };
-    conf.publish.getPage = function() { return page; };
-    conf.publish.moveTo = function(page) { return select(page); };
-    conf.publish.next = function(){ return move("next", 1); };
-    conf.publish.prev = function(){ return move("prev", 1); };
+	if (conf.pager) that.pager();
  
-	return conf.publish;
+	return that;
 }

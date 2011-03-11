@@ -18,68 +18,74 @@
 	<p>Ejemplo del objeto de configuración:</p>
 	<code>
 		<pre name="code" class="js">
-{
-	content: string,
-	ajax: string,
-	cache: boolean,					// Content cache
-	event: string,
-	showTime: number,				  // Delay in milliseconds to show layer (default 400)
-	hideTime: number,				  // Delay in milliseconds to hide layer (default 400)
-	onShow: function() {},    		 // Callback executed on layer show 
-	onHide: function() {},			 // Callback executed on layer hide
-	onContentLoad: function() {},	  // Callback executed on content load success (ajax includes)
-	onContentError: function() {} 	 // Callback executed on content load fail (ajax only)
-	offset: string,					// Positioner configuration. Default value "0 10".
-	points: string,					// Positioner configuration. Default value "lt lb".
-	hold: boolean					  // Positioner configuration. Default value "false".
-}</pre>
+		{
+			content: string,
+			ajax: string,
+			cache: boolean,					  // Content cache
+			event: string,
+			onShow: function() {},    		  // Callback executed on layer show 
+			onHide: function() {},			  // Callback executed on layer hide
+			onContentLoad: function() {},	  // Callback executed on content load success (ajax includes)
+			onContentError: function() {} 	  // Callback executed on content load fail (ajax only)
+			offset: string,					  // Positioner configuration. Default value "0 10".
+			points: string,					  // Positioner configuration. Default value "lt lb".
+			hold: boolean					  // Positioner configuration. Default value "false".
+		}
+		</pre>
 	</code>
     <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
 	<code>
 		<pre name="code" class="js">
-$("#Foobar").layer({
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elite.",
-	event: "click"
-});</pre>
+        $("#Foobar").layer({
+        	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elite.",
+        	event: "click"
+        });
+		</pre>
 	</code>
    
 	<p>Cada vez que se instancia un componente Contextual Layer retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
 	<code>
 		<pre name="code" class="js">
-var foo = $("#Foobar").layer();
-
-// returns
-foo = {
-	uid: 121,                         //  Global number instance
-	element: HTMLInputElement,        //  Input DOM Interface
-	type: "layer",                    //  Component Type
-	content: string,				  //  Get content
-	position(),					   //  Get, set and refresh position
-	show(),						   //  Show layer
-	hide()						    //  Hide layer
-}</pre>
+		var foo = $("#Foobar").layer();
+        
+		// returns
+		foo = {
+			uid: 121,                         //  Global number instance
+			element: HTMLInputElement,        //  Input DOM Interface
+			type: "layer",                    //  Component Type
+			content: string,				  //  Get content
+			position(),					  	  //  Get, set and refresh position
+			show(),						  	  //  Show layer
+			hide()						  	  //  Hide layer
+		}
+		</pre>
 	</code>
 	
 	<p>El método público position() puede ser utilizado para:</p>
 	<p>1. Obtener la configuración actual de posicionamiento.</p>
 	<code>
-		<pre name="code" class="js">foo.position();					   //  Get position</pre>
+		<pre name="code" class="js">
+		foo.position();						  //  Get position
+		</pre>
 	</code>
 	
 	<p>2. Actualizar la posición del elemento.</p>
 	<code>
-		<pre name="code" class="js">foo.position("refresh");			  //  Refresh position</pre>
+		<pre name="code" class="js">
+		foo.position("refresh");			  //  Refresh position
+		</pre>
 	</code>
 	
 	<p>3. Setear una nueva configuración para el <a href="../positioner">posicionamiento</a> del elemento.</p>
 	<code>
 		<pre name="code" class="js">
-foo.position({ 					   //  Set new position
-	context: $(element),
-	offset: string,
-	points: string,
-	fixed: boolean
-});</pre>
+		foo.position({ 						  //  Set new position			
+			context: $(element),
+			offset: string,
+			points: string,
+			fixed: boolean
+		});					
+		</pre>
 	</code>
 	
 </body>

@@ -29,6 +29,26 @@
 				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
 				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
 				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
 			</ul>
 		</div>
 	</div>
@@ -50,42 +70,225 @@
 
 <!-- #script -->
 	<script>
-		var testCarousel = $('.testCarousel').carousel();
+		var carousel = $('.testCarousel').carousel({
+			onMove: function(){
+				$("body").addClass("onMove");
+			}
+		});
 		
+		ui.features.transition = false;
 		$.fx.off = true;
 
 		/**
 		 * 	Test Cases
 		 */
 
-       module("Carousel instance object");
-		
-        test("testCarousel instance", function(){
+		module("Carousel instance object");
+       
+		test("Carousel public properties", function(){
 
-            expect( 4 );
+			expect( 3 );
 
-       		ok( testCarousel.uid >= 0 , "Expected to find a \"uid\" attribute on the Carousel instance");
-       		
-    		ok( testCarousel.type == "carousel" , "Expected to find \"carousel\" as value of type attribute");
-    		
-    		ok( $.isFunction(testCarousel.next) , "Expected to find a method called next()");
-    		
-    		ok( $.isFunction(testCarousel.prev) , "Expected to find a method called prev()");
-    		  		
-        });
+			ok( carousel.uid >= 0 , "Expected to find a \"uid\" attribute on the carousel instance");
+	
+			ok( carousel.type == "carousel" , "Expected to find \"carousel\" as value of type attribute");
+	
+			ok( carousel.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+
+		});
+
+		test("Carousel public methods", function(){
+
+			expect( 5 );
+	
+			ok( carousel.hasOwnProperty("getPage"), "Expected to find a \"getPage\" method" );
+	
+			ok( carousel.hasOwnProperty("getSteps"), "Expected to find a \"getSteps\" method" );
+	
+			ok( carousel.hasOwnProperty("moveTo"), "Expected to find a \"moveTo\" method" );
+			
+			ok( carousel.hasOwnProperty("next"), "Expected to find a \"next\" method" );
+			
+			ok( carousel.hasOwnProperty("prev"), "Expected to find a \"prev\" method" );
+
+		});
         
-        test("chain methods", function(){
+        test("Carousel chain methods", function(){
             
-            expect ( 1 );
+            expect ( 3 );
             
-            var testCarouselOriginal = testCarousel;
+            var carouselOriginal = carousel;
             
-            var chainSelect = testCarousel.next().prev();
+            var chainNext = carousel.next();
+            
+            var chainPrev = carousel.prev();
+
+            var chained = carousel.next().prev();
              
-            ok ( chainSelect === testCarouselOriginal , "Expected to return original instance object on select() method call");
+            ok ( chainNext === carouselOriginal, "Expected to return original instance object on next() method call");
+            
+            ok ( chainPrev === carouselOriginal, "Expected to return original instance object on prev() method call");
+
+            ok ( chained === carouselOriginal, "Expected to return original instance object on .next().prev() methods chained call");
             
         });
         
+        
+        
+        module("Carousel movement interaction");
+       
+		test("Next page with next() method", function(){
+			
+			expect ( 2 );
+			
+			equal( carousel.getPage(), 1, "Expected to return first page.");
+			
+			carousel.next();
+			
+			equal( carousel.getPage(), 2, "Expected to return second page.");
+			
+		});
+		
+		test("Previous page width prev() method", function(){
+			
+			expect ( 1 );
+			
+			carousel.prev();
+			
+			equal( carousel.getPage(), 1, "Expected to return first page.");
+			
+		});
+		
+		test("Next page with next button", function(){
+			
+			expect ( 2 );
+			
+			equal( carousel.getPage(), 1, "Expected to return first page.");
+						
+			$(".ch-carousel .ch-next").click();
+			
+			equal( carousel.getPage(), 2, "Expected to return second page.");
+						
+		});
+		
+		test("Previous page width prev button", function(){
+			
+			expect ( 1 );
+			
+			$(".ch-carousel .ch-prev").click();
+			
+			equal( carousel.getPage(), 1, "Expected to return first page.");
+			
+		});
+		
+		test("Go to a specific page with moveTo() method", function(){
+			
+			expect ( 1 );
+			
+			var pageToGo = 2;
+			
+			carousel.moveTo(pageToGo);
+			
+			equal( carousel.getPage(), pageToGo, "Expected to return correct page when it was moved.");
+						
+		});
+		
+		
+		
+		module("Carousel visual interaction");
+		
+		test("Arrows behavior on Next (on first page)", function(){
+			
+			expect ( 4 );
+			
+			carousel.moveTo(1);
+			
+			hasNotClass( ".ch-carousel .ch-prev", "ch-prev-on" );
+			
+			hasClass( ".ch-carousel .ch-next", "ch-next-on" );
+			
+			carousel.next();
+			
+			hasClass( ".ch-carousel .ch-prev", "ch-prev-on" );
+			
+			hasClass( ".ch-carousel .ch-next", "ch-next-on" );
+		
+		});
+		
+		test("Arrows behavior on Prev (on last page)", function(){
+			
+			expect ( 4 );
+			
+			var page;
+			
+			// Go to last page
+			do {
+				
+				page = carousel.getPage();
+				
+				carousel.next();
+				
+			} while ( carousel.getPage() != page );
+			
+			
+			hasClass( ".ch-carousel .ch-prev", "ch-prev-on" );
+			
+			hasNotClass( ".ch-carousel .ch-next", "ch-next-on" );
+			
+			carousel.prev();
+			
+			hasClass( ".ch-carousel .ch-prev", "ch-prev-on" );
+			
+			hasClass( ".ch-carousel .ch-next", "ch-next-on" );
+			
+			// Reset Carousel for next tests (Go to first page)
+			carousel.moveTo(1);
+			
+		});
+		
+		
+		
+		module('Carousel callbacks');       	
+		
+		test('Carousel callback on next', function() {
+			
+			expect ( 1 );
+			
+			carousel.next();
+			
+			hasClass("body", "onMove");
+			
+			$("body").removeClass("onMove");
+
+       	});
+       	
+       	test('Carousel callback on prev', function() {
+			
+			expect ( 1 );
+			
+			carousel.prev();
+			
+			hasClass("body", "onMove");
+			
+			$("body").removeClass("onMove");
+
+       	});
+       	
+       	test('Carousel callback on move', function() {
+			
+			expect ( 1 );
+			
+			carousel.moveTo(2);
+			
+			hasClass("body", "onMove");
+			
+			$("body").removeClass("onMove");
+			
+			// Reset Carousel for next tests (Go to first page)
+			carousel.moveTo(1);
+
+       	});
+                
 	</script>
 
 </body>

@@ -5,30 +5,60 @@
 *  @returns {Object} New Navigators.
 */	
 ui.navs = function(){
-	var that = ui.object(); // Inheritance
 	
-	that.status = false;
+/**
+ *  Constructor
+ */
+	var that = this;
+	var conf = that.conf;
+/**
+ *  Inheritance
+ */
+
+    that = ui.object.call(that);
+    that.parent = ui.clon(that);
+
+/**
+ *  Private Members
+ */
+ 
+ 
+/**
+ *  Protected Members
+ */ 
+
+			
+/**
+ *  Public Members
+ */ 	
+	that.active = false;
 		
-	that.show = function(event, conf){
+	that.show = function(event){
 		that.prevent(event);
 		
-		if (that.status) return;
+		if ( that.active ) return;
 		
-		that.status = true;
-		conf.$trigger.addClass("ch-" + conf.type + "-on");
-		conf.$htmlContent.show();	
-		that.callbacks(conf, 'onShow');
+		that.active = true;
+
+		that.$trigger.addClass("ch-" + that.type + "-on");
+		that.$content.show();
+		that.callbacks("onShow");
+		
+		return that;
 	};
 	
-	that.hide = function(event, conf){
+	that.hide = function(event){
 		that.prevent(event);
 		
-		if (!that.status) return;
+		if (!that.active) return;
 		
-		that.status = false;
-		conf.$trigger.removeClass("ch-" + conf.type + "-on");
-		conf.$htmlContent.hide();
-		that.callbacks(conf, 'onHide');
+		that.active = false;
+		
+		that.$trigger.removeClass("ch-" + that.type + "-on");
+		that.$content.hide();
+		that.callbacks("onHide");
+		
+		return that;
 	};		
 	
 	return that;

@@ -11,12 +11,11 @@
     <!-- #body -->
 	<h1>Chico-UI: Tab Navigator testcases</h1>
 
-	<div class="testTabs">
+	<div id="testTabs">
 		<ul>
 			<li><a href="#tab1">Tab 1</a></li>
 			<li><a href="#tab2">Tab 2</a></li>
 			<li><a href="#tab3">Tab 3</a></li>
-			<li><a href="http://www.google.com.ar">Tab 4</a></li>
 		</ul>
 		<div>
 			<div id="tab1">Tab 1</div>
@@ -24,6 +23,56 @@
 			<div id="tab3">Tab 3</div>
 		</div>
 	</div>
+
+	<div id="testTabs2">
+		<ul>
+			<li><a href="#tab2-1">Tab 1</a></li>
+			<li><a href="#tab2-2">Tab 2</a></li>
+			<li><a href="#tab2-3">Tab 3</a></li>
+			<li><a href="../test.html">Ajax</a></li>
+		</ul>
+		<div>
+			<div id="tab2-1">Tab 1</div>
+			<div id="tab2-2">Tab 2</div>
+			<div id="tab2-3">Tab 3</div>
+		</div>
+	</div>
+	
+	<div id="testTabs3">
+		<ul>
+			<li><a href="#tab2-1">Tab 1</a></li>
+			<li><a href="#tab2-2">Tab 2</a></li>
+			<li><a href="http://www.mercadolibre.com">Ajax</a></li>
+			
+		</ul>
+		<div>
+			<div id="tab2-1">Tab 1</div>
+			<div id="tab2-2">Tab 2</div>
+		</div>
+	</div>
+	
+	<div id="testTabs4">
+		<ul>
+			<li><a href="#tab2-1">Tab 1</a></li>
+			<li><a href="#tab2-2">Tab 2</a></li>
+		</ul>
+		<div>
+			<div id="tab2-1">Tab 1</div>
+			<div id="tab2-2">Tab 2</div>
+		</div>
+	</div>
+	
+	<div id="testTabs5">
+		<ul>
+			<li><a href="#tab2-1">Tab 1</a></li>
+			<li><a href="#tab2-2">Tab 2</a></li>
+		</ul>
+		<div>
+			<div id="tab2-1">Tab 1</div>
+			<div id="tab2-2">Tab 2</div>
+		</div>
+	</div>
+	
 <!-- #body -->
 	<hr>
 
@@ -41,54 +90,92 @@
 
 <!-- #script -->
 	<script>
-		var testTabs = $('.testTabs').tabNavigator();
+		
+		// IMPORTANT: Init tests with #!tab3 hash
+		
+		var loc = window.location;
+		
+		if(loc.hash !== "#!tab3"){
+			if(loc.hash.length == 0) window.location = loc.href + "#!tab3"; else window.location = loc.href.replace(loc.hash, "#!tab3");
+		};
+		
+		// **************************************
+		
+		var testTabs1 = $("#testTabs").tabNavigator();		
+		var testTabs4 = $("#testTabs4").tabNavigator({
+			onSelect: function(){
+				$("body").addClass("onSelect");
+			}
+		});		
+		var testTabs5 = $("#testTabs5").tabNavigator({
+			selected: 1
+		});
 		
 		$.fx.off = true;
-
+		
 		/**
 		 * 	Test Cases
 		 */
 
-       module("TabNavigator instance object");
+		module("TabNavigator instance object");
 		
-        test("testTabs instance", function(){
+        test("TabNavigator public properties", function(){
 
-            expect( 3 );
+            expect( 4 );
 
-       		ok( testTabs.uid >= 0 , "Expected to find a \"uid\" attribute on the tabnavigator instance");
+       		ok( testTabs1.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
-    		ok( testTabs.type == "tabNavigator" , "Expected to find \"ui.tabNavigator\" as value of type attribute");
-    		  		
-    		ok( $.isArray(testTabs.tabs) && testTabs.tabs.length > 0 , "Expected to find an array of Tabs on the tabNavigator instance with more than 1 items on it");
+    		ok( testTabs1.type == "tabNavigator" , "Expected to find \"tabNavigator\" as value of type attribute");
+    		
+    		ok( testTabs1.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		
+    		ok( $.isArray(testTabs1.children) && testTabs1.children.length > 0 , "Expected to find an array of Tabs on the tabNavigator instance with more than 1 items on it");
 
         });
         
-        test("TabNavigator chain methods", function(){
+        test("TabNavigator public methods", function(){
+        	expect( 2 );
+        	 
+			ok( testTabs1.hasOwnProperty("select"), "Expected to find a \"select\" method" );
+    		
+    		ok( testTabs1.hasOwnProperty("getSelected"), "Expected to find a \"getSelected\" method" );
+   
+		});
+                
+        test("Tab selected by default by hash", function(){
+        	expect( 1 );
+        	 
+			equal( testTabs1.getSelected(), 2, "Expected to find the third tab selected by default" );
+    		   
+		});
+		
+		test("TabNavigator chain methods", function(){
+
+            expect( 1 );
+
+            var testTabsOriginal = testTabs1;
             
-            expect ( 1 );
-            
-            var testTabsOriginal = testTabs;
-            
-            var chainSelect = testTabs.select(0);
+            var chainSelect = testTabs1.select(0);
              
             ok ( chainSelect === testTabsOriginal , "Expected to return original instance object on select() method call");
-            
+
         });
+        
         
         module('TabNavigator layout and interaction');
 		
-			var $ul = $('.testTabs').children(':first');
-			var $triggers = $ul.find('a');
-			var $contents = $ul.next();
+		var $ul = $("#testTabs").children(':first');
+		var $triggers = $ul.find('a');
+		var $contents = $ul.next();
 
 		test('Check for right visual classes', function() {
 			
-			hasClass('.testTabs', 'ch-tabNavigator');
+			hasClass("#testTabs", 'ch-tabNavigator');
 			hasClass($triggers, 'ch-tabNavigator-trigger');
 			hasClass($contents, 'ch-tabNavigator-content');
 			
 		});
-
+		
 		test('State before click', function() {
 			
 			// Tabs state before click on any trigger
@@ -133,9 +220,91 @@
 			equal( $contents.find( $triggers.eq(1).attr('href') ).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated after click on third tab' );
 			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'block', 'Content asociated to thind tab sholud be activated after click on third tab' );
 		
-		    testTabs.select(0);
+		    testTabs1.select(0);
 		});
+		
+		module("TabNavigator callbacks");			
+		
+		test("TabNavigator onContentLoad Callback", function(){			
+			
+			expect( 1 );
+			
+			var testTabs2 = $("#testTabs2").tabNavigator({
+				onContentLoad: function(){
+					switch( this.getSelected() ){
+						case 3:
+							
+							$("body").addClass("onContentLoad");
+							
+							start();
+							
+							hasClass("body", "onContentLoad");
+							
+							$("body").removeClass("onContentLoad");							
+							
+						break;
+					};
 				
+				}
+			});
+			
+			testTabs2.select(3);
+
+			stop();
+		});
+		
+		test("TabNavigator onContentError Callback", function(){			
+			
+			expect( 1 );
+			
+			var testTabs3 = $("#testTabs3").tabNavigator({
+				onContentError: function(){
+					switch( this.getSelected() ){
+						case 2:
+							
+							$("body").addClass("onContentError");
+							
+							start();
+							
+							hasClass("body", "onContentError");
+							
+							$("body").removeClass("onContentError");
+													
+						break;
+					};
+					
+					return "Ajax with error"
+				}
+			});
+			
+			testTabs3.select(2);
+
+			stop();
+		});
+		
+		test("TabNavigator onSelect Callback", function(){			
+			
+			expect( 1 );
+			
+			testTabs4.select(1);
+			
+			hasClass("body", "onSelect");
+
+			testTabs4.select(0);
+
+			$("body").removeClass("onSelect");
+		});
+		
+		module("TabNavigator selected tab configuration");			
+		
+		test("Selected tab configuration", function(){			
+			
+			expect ( 1 );
+
+			equal ( testTabs5.getSelected(), 1, "Expected to return the selected tab configured.");
+
+		});
+
 	</script>
 
 </body>

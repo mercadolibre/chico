@@ -5,171 +5,208 @@
  *	@return An interface object
  */
 
-/*
+ui.form = ui.forms = function(conf){
 
-conf:{
-	[ messages ]: message map for each validation type,
-	[ callbacks ]: {
-		[ submit ]: function,
-		[ clear ]: function
-	},
-}
-*/
-
-ui.forms = function(conf){
-    
-	// Validation
+/**
+ *  Validation
+ */
 	// Are there action and submit type?
-	if ($(conf.element).find(":submit").length == 0 || $(conf.element).attr('action') == "" ){ 
-		 alert("Forms fatal error: The <input type=submit> is missing, or need to define a action attribute on the form tag.");
-		 return;
+	if ( this.$element.find(":submit").length == 0 || this.$element.attr("action") == "" ){ 
+		alert("Forms fatal error: The <input type=submit> is missing, or need to define a action attribute on the form tag.");
+		return;
 	};
-	
-	if (ui.instances.forms) {
-		if(ui.instances.forms.length > 0){ // Is there forms in map instances?
-			for(var i = 0, j = ui.instances.forms.length; i < j; i ++){
-				if(ui.instances.forms[i].element === conf.element){
-					return { 
-		                exists: true, 
-		                object: ui.instances.forms[i]
-		            };
-				};
+
+	// Is there forms in map instances?	
+	if ( ui.instances.hasOwnProperty("forms") && ui.instances.forms.length > 0 ){
+		for(var i = 0, j = ui.instances.forms.length; i < j; i++){
+			if(ui.instances.forms[i].element === this.element){
+				return { 
+	                exists: true, 
+	                object: ui.instances.forms[i]
+	            };
 			};
 		};
-	}
-	
-	// Start new forms
-	var that = ui.controllers(); // Inheritance
-	var status = false;
-
-	// patch exists because the components need a trigger
-	$(conf.element).bind('submit', function(event){ that.prevent(event); });
-	$(conf.element).find(":submit").unbind('click'); // Delete all click handlers asociated to submit button >NATAN: Why?
-
-	// Create the Messages for General Error
-	if (!conf.messages) conf.messages = {};
-	
-	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
-
-
-	// General Error
-	var $error = $('<p class="ch-validator"><span class="ico error">Error: </span>' + conf.messages["general"] + '</p>');	
-	var createError = function(){ // Create
-		$(conf.element).before( $error );		
-		$("body").trigger(ui.events.CHANGE_LAYOUT);
-
 	};
-	var removeError = function(){ // Remove
+
+/**
+ *  Constructor
+ */
+	var that = this;
+	
+	// Create the Messages for General Error
+	if ( !conf.hasOwnProperty("messages") ) conf.messages = {};
+	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
+	
+	that.conf = conf;
+
+/**
+ *  Inheritance
+ */
+
+    that = ui.controllers.call(that);
+    that.parent = ui.clon(that);
+	
+	
+/**
+ *  Private Members
+ */
+ 
+	var status = true;
+	
+	// General Error
+	var $error = $("<p class=\"ch-validator\"><span class=\"ico error\">Error: </span>" + conf.messages["general"] + "</p>");
+	
+	// Create
+	var createError = function(){ 
+		that.$element.before( $error );		
+		$("body").trigger(ui.events.CHANGE_LAYOUT);
+	};
+	
+	// Remove
+	var removeError = function(){
 		$error.detach();
 		$("body").trigger(ui.events.CHANGE_LAYOUT);
 	};
-	
-	// Publics Methods
+
 	var checkStatus = function(){
 		// Check status of my childrens
 		for(var i = 0, j = that.children.length; i < j; i ++){
 			// Status error (cut the flow)
-			if( !that.children[i].status ){				
-				if (!status) removeError();				
+			if( that.children[i].active() ){
+				if ( !status ) removeError();			
 				createError();
 				status = false;
 				return;
 			};
 		};
-		
+
 		// Status OK (with previous error)
-		if (!status) {
+		if ( !status ) {
 			removeError();
 			status = true;
 		};
+
 	};
-	
-	var validate = function(event){
-    
-        that.callbacks(conf, 'beforeValidate');
-        
-		that.prevent(event);
-		
+
+	var validate = function(){
+
+        that.callbacks("beforeValidate");
+
 		// Shoot validations
 		for(var i = 0, j = that.children.length; i < j; i ++){
 			that.children[i].validate();
 		};
-		
+
 		checkStatus();
 
-        that.callbacks(conf, 'afterValidate');
+        that.callbacks("afterValidate");
         
-		return conf.publish; // Return publish object
+		return that;
 	};
 
 	var submit = function(event){
 
-        that.callbacks(conf, 'beforeSubmit');
+        that.prevent(event);
+        
+        that.callbacks("beforeSubmit");
 
-		that.prevent(event);
-
-		validate(event); // Validate start
+		validate(); // Validate start
 		
 		if ( status ){ // Status OK
 			if ( !conf.hasOwnProperty("onSubmit") ) {
-				conf.element.submit();
+				that.element.submit();
 			}else{
-				that.callbacks(conf, "onSubmit");
+				that.callbacks("onSubmit");
 			};
 		};		
 
-        that.callbacks(conf, 'afterSubmit');
+        that.callbacks("afterSubmit");
         
-		return conf.publish; // Return publish object
+		return that;
 	};
-
 
 	var clear = function(event){		
 		that.prevent(event);		
 		removeError();	
 		for(var i = 0, j = that.children.length; i < j; i ++) that.children[i].reset(); // Reset helpers		
-		return conf.publish; // Return publish object
+		
+		return that;
 	};
 	
 	var reset = function(event){
 		clear();
-		conf.element.reset(); // Reset html form
-
-		return conf.publish; // Return publish object
+		that.element.reset(); // Reset html form native
+		
+		return that;
 	};
 
 
+/**
+ *  Protected Members
+ */
+
+	
+			
+/**
+ *  Public Members
+ */	
+
+	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;
+	that.public.children = that.children;
+	that.public.messages = conf.messages;
+	that.public.validate = function() { 
+		validate(); 
+		
+		return that.public; 
+	};
+	
+	that.public.submit = function() { 
+		submit(); 
+		
+		return that.public; 
+	};
+	
+	that.public.checkStatus = function() { 
+		checkStatus(); 
+		
+		return that.public; 
+	};
+	
+	that.public.getStatus = function(){
+		return status;	
+	};
+	
+	that.public.clear = function() { 
+		clear(); 
+		
+		return that.public; 
+	};
+	
+	that.public.reset = function() { 
+		reset(); 
+		
+		return that.public; 
+	};
+
+
+/**
+ *  Default event delegation
+ */	
+
+	// patch exists because the components need a trigger
+	//that.$element.bind('submit', function(event){ that.prevent(event); });
+	//that.$element.find(":submit").unbind('click'); // Delete all click handlers asociated to submit button >NATAN: Why?
+
 
 	// Bind the submit
-	$(conf.element).bind('submit', function(event){
-		that.prevent(event);
+	that.$element.bind("submit", function(event){
 		submit(event);
 	});
 	
 	// Bind the reset
-	$(conf.element).find(":reset").bind('click', reset);
-	
-    // Create the publish object to be returned
-	conf.publish = that.publish;
-	
-	/**
-	 *  @ Public Properties
-	 */
-	conf.publish.uid = conf.uid;
-	conf.publish.element = conf.element;
-	conf.publish.type = conf.type;
-	conf.publish.status = status;
-	conf.publish.children = that.children;
-    conf.publish.messages = conf.messages;
-	
-	/**
-	 *  @ Public Methods
-	 */
-	conf.publish.validate = validate;
-	conf.publish.submit = submit;
-	conf.publish.checkStatus = function() { checkStatus(); return conf.publish };
-	conf.publish.clear = clear;
-	conf.publish.reset = reset;
-		
-	return conf.publish;
+	that.$element.find(":reset, .resetForm").bind("click", function(event){ clear(event); });
+
+	return that;
 };

@@ -9,79 +9,86 @@
 ui.tooltip = function(conf) {
     
 /**
- *  Constructor
+ *	Constructor
+ *	Guardo el contexto de ejecucion (this) que viene con 3 propiedades del factory (uid, element, type).
+ *	Luego, seteamos la configuracion básica del componente y lo guardamos en el contexto para que llegue a sus padres cuando pasamos el contexto (that.conf)
  */
+
+	var that = this;
+
 	conf.cone = true;
-	conf.content = conf.element.title;	
-	conf.visible = false;
+	conf.content = that.element.title;	
 	conf.position = {};
-	conf.position.context = $(conf.element);
+	conf.position.context = $(that.element);
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
 	
+	that.conf = conf;
+	
 /**
- *  Inheritance
+ *	Inheritance
+ *		
  */
- 
-	var that = ui.floats(conf); // Inheritance
+
+    that = ui.floats.call(that);
+    that.parent = ui.clon(that);
 
 /**
  *  Private Members
  */
- 
-    var show = function(event) {
-        $(conf.element).attr('title', ''); // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
-		that.show(event, conf);
-	}
-	
-    var hide = function(event) {
-		$(conf.element).attr('title', conf.content);
-		that.hide(event, conf);
-    }
+
     
 /**
  *  Protected Members
- */ 
- 
+ */     
+    that.$trigger = that.$element;
+
+    that.show = function(event) {
+        that.$trigger.attr('title', ''); // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
+		that.parent.show(event);
+		
+		return that;
+	};
+	
+    that.hide = function(event) {
+		that.$trigger.attr('title', conf.content);
+		that.parent.hide(event);
+		
+		return that;
+    };
+
+/**
+ *  Public Members
+ */
+ 	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;
+	that.public.content = conf.content;
+	that.public.show = function(){
+		that.show();
+
+		return that.public;
+	};
+	that.public.hide = function(){
+		that.hide();
+
+		return that.public;
+	};	
+	that.public.position = that.position;
+    
+
+
 /**
  *  Default event delegation
  */	
  	
-	conf.$trigger = $(conf.element)
-		.css('cursor', 'default')
-		.bind('mouseenter', show)
-		.bind('mouseleave', hide);
+	that.$trigger
+		.bind('mouseenter', that.show)
+		.bind('mouseleave', that.hide);
 
     // Fix: change layout problem
-    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh", conf) });
-    
-/**
- *  Expose propierties and methods
- */	
-	that.publish = {
-	
-	/**
-	 *  @ Public Properties
-	 */
-    	uid: conf.uid,
-		element: conf.element,
-		type: conf.type,
-		content: conf.content,
-	/**
-	 *  @ Public Methods
-	 */
-		show: function() { 
-			show();
-			return that.publish; // Returns publish object
-		},
-		hide: function() { 
-			hide();
-			return that.publish; // Returns publish object
-		},
-		position: function(o) { 
-			return that.position(o,conf) || that.publish;
-		}
-	}
+    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh") });
 
-	return that.publish;
+
+	return that;
 };

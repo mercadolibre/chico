@@ -8,118 +8,134 @@
 ui.dropdown = function(conf){
 
 /** 
- *  Constructor: Redefine or preset component's settings
+ *  Constructor
  */
-	var $container = $(conf.element).addClass("ch-dropdown");
-	var skin = ( $container.hasClass("ch-secondary") ) ? "secondary": "primary";
+	
+	var that = this;
+
+	conf.skin = ( that.$element.hasClass("ch-secondary") ) ? "secondary": "primary";
+
+	that.conf = conf;
 	
 /**
- *  Inheritance: Create a symbolic link to myself and my direct parent
+ *	Inheritance
  */
-	var that = ui.navs();
-	
-	
+
+    that = ui.navs.call(that);
+    that.parent = ui.clon(that);
+
 /**
  *  Private Members
  */
-	var show = function(event){
+	
+	
+
+/**
+ *  Protected Members
+ */ 
+	that.$container = that.$element.addClass("ch-dropdown");
+	
+	that.$trigger = that.$container.children(":first");
+	
+	that.show = function(event){
 		that.prevent(event);
 		
 		// Toggle
-		if(that.status){
-			return hide();
+		if ( that.active ) {
+			return that.hide(event);
 		};
 		
-		// Reset all dropdowns
+        // Reset all dropdowns
 		$(ui.instances.dropdown).each(function(i, e){ e.hide(); });
-		 
+		
         // Show menu
-		conf.$htmlContent.css('z-index', ui.utils.zIndex++);		
-		that.show(event, conf);
-		that.position("refresh",conf);
+		that.$content.css('z-index', ui.utils.zIndex++);		
+		that.parent.show(event);		
+		that.position("refresh");
 		
 		// Secondary behavior
-		if(skin == "secondary"){
-			conf.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content
-			$container.addClass("ch-dropdown-on"); // Container ON
+		if(conf.skin == "secondary"){
+			that.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content
+			that.$container.addClass("ch-dropdown-on"); // Container ON
 		};
 	
 		// Document events
-		ui.utils.document.one('click', hide);
+		ui.utils.document.one('click', function(event){ that.hide(event) });
 		
-        return that.publish; // Returns publish object
+        return that;
     };
 	
-    var hide = function(event){
+    that.hide = function(event){
     	that.prevent(event);
     	
+    	if (!that.active) return;
+    	
     	// Secondary behavior
-		if(skin == "secondary"){
-			$container.removeClass("ch-dropdown-on"); // Container OFF
+		if(conf.skin == "secondary"){
+			that.$container.removeClass("ch-dropdown-on"); // Container OFF
 		};
-        that.hide(event, conf);
+		
+        that.parent.hide(event);
         
-        return that.publish; // Returns publish object
-    };
-    
-    
+        return that;
+	};
+	
+/**
+ *  Public Members
+ */
+   	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;
+	that.public.show = function(){
+		that.show();
+		
+		return that.public;
+	};
+	
+	that.public.hide = function(){
+		that.hide();
+		
+		return that.public;
+	};
+	
+	that.public.position = that.position;	
+
+
+/**
+ *  Default event delegation
+ */		    
     // Trigger
-	conf.$trigger = $container.children(":first")
-		.bind("click", show)
-		.addClass("ch-dropdown-trigger-" + skin)
+	that.$trigger
+		.bind("click", function(event){ that.show(event) })
+		.addClass("ch-dropdown-trigger-" + conf.skin)
 		.append("<span class=\"ch-down\"> &raquo;</span>");
-	
+
 	// Content
-	conf.$htmlContent = conf.$trigger.next()
-	
+	that.$content = that.$trigger.next();
+	that.$content
 		// Prevent click on content (except links)
 		.bind("click", function(event){
-			event.stopPropagation()
+			event.stopPropagation();
 		})
-		
-		.addClass("ch-dropdown-content-" + skin)
-		
+		.addClass("ch-dropdown-content-" + conf.skin)
 		// Save on memory;
 		.detach();
 	
 	// Close dropdown after click an option (link)
-	conf.$htmlContent.find('a').one('click', function(){ hide(); });
-	
+	that.$content.find('a').one("click", function(event){ that.hide(event) });
+
 	// Put content out of container
-	$container.after( conf.$htmlContent );
+	that.$container.after( that.$content );
+		
+	// Position
+	that.conf.position = {};
+	that.conf.position.element = that.$content;
+	that.conf.position.context = that.$trigger;
+	that.conf.position.points = "lt lb";
+	that.conf.position.offset = "0 -1";
 	
-	// Content position
-	conf.position = {
-		context: conf.$trigger,
-		element: conf.$htmlContent,
-		points: "lt lb",
-		offset: "0 -1"
-	};
+	ui.positioner.call(that);
 	
-	ui.positioner(conf.position);
-
-/**
- *  Expose propierties and methods
- */
-    that.publish = {
-    
-    /**
-	 *  @ Public Properties
-	 */
-    	uid: conf.uid,
-    	element: conf.element,
-    	type: conf.type,
-    
-    /**
-	 *  @ Public Methods
-	 */
-    	show: show,
-    	hide: hide,
-    	position: function(o) {
-			return that.position(o,conf) || that.publish;
-		}
-    };
-
-	return that.publish;
+	return that;
 
 };

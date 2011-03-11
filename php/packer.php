@@ -23,7 +23,7 @@ class Packer {
     // files to load
     private $files;    
     private $components = "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,forms,viewer,chat,expando,codelighter";
-    private $internals = "positioner,object,floats,navs,controllers,watcher";
+    private $internals = "positioner,object,floats,navs,controllers,watcher,sliders";
 
     /**
      * Constructor

@@ -5,68 +5,94 @@
  *	@return An interface object
  */	
 ui.expando = function(conf){
-	var that = ui.navs(); // Inheritance
 
-	// Global configuration
-	$(conf.element).children(':first').wrapInner("<span class=\"ch-expando-trigger\"></span>");
-	$(conf.element).addClass('ch-expando');		
-	conf.$trigger = $(conf.element).find(".ch-expando-trigger");
-	conf.$htmlContent = conf.$trigger.parent().next();
+/** 
+ *  Constructor
+ */
+	
+	var that = this;
+	
+	that.$element.addClass("ch-expando")
+		.children(":first").wrapInner("<span class=\"ch-expando-trigger\"></span>");
+		
     conf.open = conf.open || false;
+
+	that.conf = conf;
 	
-	// Private methods
-	var show = function(event){
+/**
+ *	Inheritance
+ */
+
+    that = ui.navs.call(that);
+    that.parent = ui.clon(that);
+
+/**
+ *  Private Members
+ */
+	
+	
+
+/**
+ *  Protected Members
+ */ 
+
+	that.$content = that.$element.children().eq(1);
+	that.$trigger = that.$element.find(".ch-expando-trigger");
+	
+	that.show = function(event){
+		that.prevent(event);
+		
 		// Toggle
-		if(that.status){
-			return hide();
-		};	
-		// Show
-        that.show(event, conf);
-        return conf.publish; // Returns publish object
-    };
+		if ( that.active ) {
+			return that.hide(event);
+		};
+		
+		that.parent.show(event);
+		
+		return that;
+	};
+
+/**
+ *  Public Members
+ */
+   	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;
+	that.public.show = function(){
+		that.show();
+		
+		return that.public;
+	};
 	
-    var hide = function(event){
-    	// Hide
-		that.hide(event, conf); 
-		return conf.publish; // Returns publish object
-    };
+	that.public.hide = function(){
+		that.hide();
+		
+		return that.public;
+	};
+	
+
+/**
+ *  Default event delegation
+ */		
     
 	// Trigger
-	conf.$trigger
-		.bind('click', function(event){
-			// Show menu
-			that.prevent(event);
-			show();
-		})
-		.addClass('ch-expando-trigger')
+	that.$trigger
+		.bind('click', function(event){	that.show(event); })
+		.addClass('ch-expando-trigger');
 		
 	// Content
-	conf.$htmlContent
+	that.$content
 		.bind('click', function(event){ event.stopPropagation() })		
 		.addClass('ch-expando-content');
 
 	
 	// Change default behaivor (close)
-	if( conf.open ) show();
+	if( conf.open ) that.show();
 	
     
     // Create the publish object to be returned
     conf.publish = that.publish;
-    
-    /**
-	 *  @ Public Properties
-	 */
-    conf.publish.uid = conf.uid;
-    conf.publish.element = conf.element;
-	conf.publish.type = conf.type;
-    conf.publish.open = conf.open;
-    
-    /**
-	 *  @ Public Methods
-	 */
-    conf.publish.show = function(){ return show() };
-    conf.publish.hide = function(){ return hide() };
 
-	return conf.publish;
+	return that;
 
 };

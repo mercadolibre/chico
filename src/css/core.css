@@ -280,7 +280,7 @@ hr {
 	background-position:0 -232px;
 	font-size: 18px;
 	height:32px;
-	line-height:1em;
+	line-height:28px;
 }
 
 .btn.primary:hover { 
@@ -291,7 +291,7 @@ hr {
 	background-position:0 -296px;
 	-moz-box-shadow:0px 0px 0px ;
 	-webkit-box-shadow:0px 0px 0px ;
-	box-shadow:0px 0px 0px ;
+	box-shadow:0px 0px 0px;
 }
 
 .btn.primary:disabled,
@@ -305,7 +305,7 @@ hr {
 	background-position:0 -360px;
 	font-size:12px;
 	height:25px;
-	line-height:1em;
+	line-height:20px;
 }
 
 .btn.secondary:hover {

@@ -11,39 +11,17 @@
 
     <!-- #body -->
 	<h1>Chico-UI: Form testcases</h1>
-	<div class="box">
-                      
-            <form id="testForm" action="../test.html">
+		<div class="box">
+			<form id="testForm" action="../test.html">
                 <fieldset>
                     <legend>Casos de uso de Input</legend>
-                    <p class="required">* Datos obligatorios</p>
                     <ol>
                         <li class="fieldBox">
-                            <label class="required" for="val_custom">
-                                <span>Custom field: <em>*</em></span>                                                 
-                                <input type="email" id="val_custom" required="required">
+                            <label for="email">
+                                <span>E-mail:</span>                                                 
+                                <input type="email" id="email">
                             </label>
                             <p class="help">Escribe una descripción corta y clara</p>
-                        </li>
-                        <li class="fieldBox">
-                            <label class="required" for="val_title">
-                                <span>Titulo: <em>*</em></span>                                                 
-                                <input type="text" id="val_title" required="required">
-                            </label>
-                            <p class="help">Escribe una descripción corta y clara</p>
-                        </li>
-                        <li class="fieldBox">
-                            <label class="required" for="val_email">
-                                <span>E-mail: <em>*</em></span>                                                 
-                                <input type="email" id="val_email" required="required">
-                            </label>
-                            <p class="help">Escribe una descripción corta y clara</p>
-                        </li>
-                        <li class="fieldBox">
-                            <label for="val_url">
-                                <span>URL:</span>
-                                <input type="url" id="val_url">
-                            </label>
                         </li>
                     </ol>
                 </fieldset>
@@ -75,52 +53,84 @@
 		$.fx.off = true;
 
 
-		var testForm = $('#testForm').forms();  
-		
+		var testForm = $('#testForm').forms({
+			beforeValidate: function(){ $("body").addClass("beforeValidate"); },
+			afterValidate: function(){ $("body").addClass("afterValidate"); },			
+			beforeSubmit: function(){ $("body").addClass("beforeSubmit"); },
+			onSubmit: function(){ $("body").addClass("onSubmit"); },
+			afterSubmit: function(){ $("body").addClass("afterSubmit"); }
+		});
+
    
-        module("Forms basic instance object");
+        module("Form basic instance object");
         
-        test("Basics for testForm instance", function(){
+        test("Form public properties", function(){
 
-            expect( 5 );
+            expect( 6 );
 
-            ok( testForm.uid >= 0 , "Expected to find a defined content on the forms instance");
+       		ok( testForm.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+       		
+    		ok( testForm.type == "forms" , "Expected to find \"forms\" as value of type attribute");
+    		
+    		ok( testForm.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		
+    		ok( $.isArray(testForm.children) , "Expected to find a children array on the forms instance");
             
-            ok( testForm.type == "forms" , "Expected to find \"forms\" as value of type attribute");
+            ok( testForm.hasOwnProperty("messages") , "Expected to find a messages object on the forms instance");
             
-            ok( $.isArray(testForm.children) , "Expected to find a children array on the forms instance");
-            
-            ok( testForm.messages , "Expected to find a messages object on the forms instance");
-            
-            ok( testForm.messages.general , "Expected to find a general messages defined on the forms instance");
+            ok( testForm.messages.hasOwnProperty("general") , "Expected to find a general messages defined on the forms instance");
 
         });
+        
+        test("Form public methods", function(){
 
-        test("Forms chain methods", function(){
+            expect( 5 );
+    		
+    		ok( testForm.hasOwnProperty("getStatus"), "Expected to find a \"getStatus\" method" );
+    		
+    		ok( testForm.hasOwnProperty("clear"), "Expected to find a \"clear\" method" );
+    		
+    		ok( testForm.hasOwnProperty("reset"), "Expected to find a \"reset\" method" );
+    		
+    		ok( testForm.hasOwnProperty("submit"), "Expected to find a \"submit\" method" );
+    		
+    		ok( testForm.hasOwnProperty("validate"), "Expected to find a \"validate\" method" );
 
+        });
+        
+        test("Form chain methods", function(){
+			
+			expect( 4 );
+            
             var testFormOriginal = testForm;
             
-            var chainCheckStatus = testForm.checkStatus();
+            var chaingetStatus = testForm.getStatus();
             
             var chainClear = testForm.clear();
 
             var chainValidate = testForm.validate();
-             
-            ok ( chainCheckStatus === testFormOriginal, "Expected to return original instance object on show() method call");
             
-            ok ( chainClear === testFormOriginal, "Expected to return original instance object on hide() method call");
+            var chainReset = testForm.reset();
+             
+            ok ( typeof chaingetStatus === "boolean", "Expected to return a boolean");
+            
+            ok ( chainClear === testFormOriginal, "Expected to return original instance object on clear() method call");
 
-            ok ( chainValidate === testFormOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+            ok ( chainValidate === testFormOriginal, "Expected to return original instance object on validate() methods chained call");
+            
+            ok ( chainReset === testFormOriginal, "Expected to return original instance object on reset() methods chained call");
 
         });
         
         module("Form Interaction");
         
         test("Force error ;)",function(){
-           
-            var val_email = $("#val_email").email("Please write a valid email.");
+           	
+           	expect( 4 );
+           	
+            var val_email = $("#email").email("Please write a valid email.");
             
-            $("#val_email").val("force error ;)");
+            $("#email").val("force error ;)");
             
             testForm.validate();
            
@@ -129,16 +139,110 @@
             ok( $(".ch-validator").children("span.ico.error")[0] ,"Expected to find an icon on the message block");
             
             ok( $(".ch-validator").html().indexOf("Check for errors.")>=0 ,"Expected to have a explicit message: 'Check for errors.' ");
+
+            ok( testForm.getStatus() == false ,"Expected to find status false");
             
         });
         
         test("Force clear ;)", function(){
             
+            expect( 2 );
+            
             testForm.clear();
 
             ok( !$(".ch-validator")[0] , "Expected NOT to find a general error message block");
+            
+            ok( $("#email").val() != "" , "Expected to find a value on email field");
                         
-        })
+        });
+        
+        test("Force reset ;)", function(){
+            
+            expect( 2 );
+            
+            $("#email").val("force error ;)");
+            
+            testForm.validate();
+            
+            testForm.reset();
+			
+			ok( !$(".ch-validator")[0] , "Expected NOT to find a general error message block");
+            
+            ok( $("#email").val() == "" , "Expected NOT to find a value on email field");
+                        
+        });
+        
+        module('Form callbacks');	
+		
+		test('Form callback before validate', function() {
+			
+			expect ( 1 );
+			
+			testForm.validate();
+			
+			hasClass("body", "beforeValidate");
+			
+			$("body").removeClass("beforeValidate");
+			
+       	});
+       	
+       	test('Form callback after validate', function() {
+			
+			expect ( 1 );
+			
+			testForm.validate();
+			
+			hasClass("body", "afterValidate");
+			
+			$("body").removeClass("afterValidate");
+			
+			testForm.clear();
+			
+       	});
+       	
+       	test('Form callback before submit', function() {
+			
+			expect ( 1 );
+			
+			testForm.submit();
+			
+			hasClass("body", "beforeSubmit");
+			
+			$("body").removeClass("beforeSubmit");
+			
+			testForm.clear();
+
+       	});
+       	
+       	test('Form callback on submit', function() {
+			
+			expect ( 1 );
+			
+			$("#email").val("chico@mercadolibre.com");
+			
+			testForm.submit();
+			
+			hasClass("body", "onSubmit");
+			
+			$("body").removeClass("onSubmit");
+			
+			testForm.clear();
+
+       	});
+       	
+       	test('Form callback after submit', function() {
+			
+			expect ( 1 );
+			
+			testForm.submit();
+			
+			hasClass("body", "afterSubmit");
+			
+			$("body").removeClass("afterSubmit");
+			
+			testForm.clear();
+
+       	});
 
 	</script>
 

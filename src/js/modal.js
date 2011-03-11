@@ -7,18 +7,25 @@
 ui.modal = function(conf){
 
 /**
- *  Constructor
- */
-	conf.$trigger = $(conf.element);
-	conf.closeButton = (conf.type == "modal") ? true : false;
-	conf.classes = "box";
-		
-	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default
-/**
- *  Inheritance
+ *	Constructor
+ *	Guardo el contexto de ejecucion (this) que viene con 3 propiedades del factory (uid, element, type).
+ *	Luego, seteamos la configuracion básica del componente y lo guardamos en el contexto para que llegue a sus padres cuando pasamos el contexto (that.conf).
  */
 
-	var that = ui.floats(conf); // Inheritance	
+	var that = this;
+	
+	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default	
+	conf.closeButton = (that.type == "modal") ? true : false;
+	conf.classes = "box";
+
+	that.conf = conf;
+
+/**
+ *	Inheritance
+ */
+
+    that = ui.floats.call(that);
+    that.parent = ui.clon(that);
 
 /**
  *  Private Members
@@ -28,7 +35,7 @@ ui.modal = function(conf){
 	// Dimmer object
 	var $dimmer = $('<div>')
 			.addClass('ch-dimmer')
-			.css({height:$(window).height(), display:'block'})
+			.css({ height: ui.utils.window.height(), display:'block' })
 			.hide();
 
 	// Dimmer Controller
@@ -39,8 +46,8 @@ ui.modal = function(conf){
 				.css("z-index",ui.utils.zIndex++)
 				.fadeIn();
 
-			if (conf.type == "modal") {
-				$dimmer.one("click", function(event){ hide(event) });
+			if (that.type == "modal") {
+				$dimmer.one("click", function(event){ that.hide(event) });
 			}
 			
 		},
@@ -51,61 +58,56 @@ ui.modal = function(conf){
 		}
 	};
 
-	var show = function(event) {
-		dimmer.on();
-		that.show(event, conf);
-		// Parasito
-		$(".btn.ch-close").one("click", dimmer.off);// and then continue propagation to that.hide()
-		ui.positioner(conf.position);		
-		conf.$trigger.blur();
-	};
-
-	var hide = function(event) {
-		dimmer.off();
-		that.hide(event, conf);
-	};
-
-	
 /**
  *  Protected Members
  */ 
+	that.$trigger = that.$element;
+	
+	that.show = function(event) {	
+		dimmer.on();
+		that.parent.show(event);
+		that.$trigger.blur();
+		
+		return that;
+	};
+	
+	that.hide = function(event) {
+		dimmer.off();		
+		that.parent.hide(event);
+		
+		return that;
+	};
+	
+/**
+ *  Public Members
+ */
+   	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;
+	that.public.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
+	that.public.show = function(){
+		that.show();
+		
+		return that.public;
+	};
+	
+	that.public.hide = function(){
+		that.hide();
+		
+		return that.public;
+	};
+	
+	that.public.position = that.position;
  
 /**
  *  Default event delegation
  */	
-	conf.$trigger
+	that.$trigger
 		.css('cursor', 'pointer')
-		.bind('click', show);
+		.bind('click', function(event){ that.show(event) });
 
-/**
- *  Expose propierties and methods
- */	
-	that.publish = {
-	
-	/**
-	 *  @ Public Properties
-	 */
-    	uid: conf.uid,
-		element: conf.element,
-		type: conf.type,
-		content: (conf.content) ? conf.content : ((conf.ajax === true) ? (conf.$trigger.attr('href') || conf.$trigger.parents('form').attr('action')) : conf.ajax ),
-	/**
-	 *  @ Public Methods
-	 */
-	 	show: function() {
-			show();
-			return that.publish;
-		},
-		hide: function() {
-			hide();
-			return that.publish;
-		},
-		position: function(o) {
-			return that.position(o,conf) || that.publish;
-		}
-	};
-	
-	return that.publish;
+
+	return that;
 };
 
 
@@ -127,8 +129,8 @@ ui.transition = function(conf) {
 	conf.closeButton = false;
 	conf.msg = conf.msg || "Espere por favor...";
 	conf.content = "<div class=\"loading\"></div><p>"+conf.msg+"</p>";
-	
-    return ui.modal(conf);
+
+	return ui.modal.call(this, conf);
     
 }
 

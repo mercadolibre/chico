@@ -1,5 +1,4 @@
 // @arg o == configuration
-ui.positioner = function( o ) {
 /*   References
      points: x, y 
          x values: center, left, right
@@ -22,7 +21,13 @@ ui.positioner = function( o ) {
         [draggable]: false // default
         
     } */
-    
+ui.positioner = function(o) {
+
+/**
+ *  Private Members
+ */
+
+	var o = o || this.conf.position;
     // Initial configuration
 	var element = $(o.element);
 	var context;
@@ -187,9 +192,7 @@ ui.positioner = function( o ) {
 				styles = stylesLeft;
 			};
 		};
-		
-		
-		
+
 		return styles;
 	};
 	
@@ -216,7 +219,7 @@ ui.positioner = function( o ) {
 			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
-		if ( context.hasOwnProperty("element") && context.element !== ui.utils.window[0] ){			
+		if ( context.hasOwnProperty("element") && context.element !== ui.utils.window[0] ){
 			$(context.element)
 				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );
@@ -230,7 +233,7 @@ ui.positioner = function( o ) {
 		function getContext(){
 			
 			var contextOffset = o.context.offset();
-		
+			
 		    context = {
 		    	element: o.context,
 				top: contextOffset.top + offset_top - parentRelative.top,
@@ -270,36 +273,35 @@ ui.positioner = function( o ) {
 	};
 	
 
-	// Set element position on resize
-	
-    var initPosition = function(){
-    	// Hidden behavior
-		if( element.css("display") === "none" ) return; 	
-		
+    var initPosition = function(){			
 	    viewport = getViewport();
 	    parentRelative = getParentRelative();
 	    context = getContext();
 	    setPosition();
-    };
+    }; 
+ 	 
+	var scrolled = false;
+
+/**
+ *  Default event delegation
+ */ 
 
 	// Init	
 	initPosition();
-	
+
 	// Scroll and resize events
-	// Tested on IE = Magic, no lag!! 
-	var scrolled = false;	
-	
+	// Tested on IE, Magic! no lag!!
 	ui.utils.window.bind("resize scroll", function() {
 		scrolled = true;
 	});
 	
 	setInterval(function() {
 	    if( !scrolled ) return;
-		scrolled = false;	
+		scrolled = false;
+		// Hidden behavior
+		if( element.css("display") === "none" ) return; 	
 		initPosition();
-	    
 	}, 250);
 	
-
 	return $(element);
 };

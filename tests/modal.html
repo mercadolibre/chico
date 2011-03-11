@@ -10,38 +10,83 @@
 
     <!-- #body -->
 	<h1>Chico-UI: Modal testcases</h1>
-		<h2>Contenido por parametro</h2>
+		<h2>Content parameter</h2>
 		<div class="box">
 			<form action="../test.html" method="post">
-				<input type="submit" class="btn primary" id="testModal" value="Comprar">				
+				<input type="submit" class="btn primary" id="testModal" value="Buy">				
 			</form>
 		</div>
-		<h2>Contenido por DOM</h2>
+			
+		<h2>Content DOM</h2>
 		<div class="box">
 			<form action="../test.html" method="post">
-				<input type="submit" class="btn primary" id="testModalDOM" value="Comprar">				
+				<input type="submit" class="btn primary" id="testModalDOM" value="Buy">				
 			</form>
 		</div>
 
-		<h2>Contenido por AJAX</h2>
+		<h2>Content AJAX</h2>
 		<div class="box">
 			<form action="../test.html" method="post">
-				<input type="submit" class="btn primary" id="testModalAjax" value="Comprar">				
+				<input type="submit" class="btn primary" id="testModalAjax" value="Buy">				
 			</form>
 		</div>
+		
+		<h2>Modal with height and witdth.</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalWH" value="Buy">				
+			</form>
+		</div>
+		
+		<h2>Modal callback onShow and onHide.</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalCall" value="Buy">				
+			</form>
+		</div>
+		
+		<h2>Modal callback onContentLoad.</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalCall2" value="Buy">				
+			</form>
+		</div>
+		
+		<h2>Modal callback onContentError.</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalCall3" value="Buy">				
+			</form>
+		</div>
+		
+		<h2>Content cache</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalCache" value="Buy">				
+			</form>
+		</div>
+		
+		<h2>Content without cache</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalnoCache" value="Buy">				
+			</form>
+		</div>
+		
+		
 		
 		
 		<h1>Chico-UI: Transition testcases</h1>
-		<h2>Contenido por parametro</h2>
+		<h2>Content parameter</h2>
 		<div class="box">
 			<form action="../test.html" method="post">
-				<input type="submit" class="btn primary" id="testTransition" value="Comprar">				
+				<input type="submit" class="btn primary" id="testTransition" value="Buy">				
 			</form>
 		</div>
-		<h2>Contenido por DOM</h2>
+		<h2>Content DOM</h2>
 		<div class="box">
 			<form action="../test.html" method="post">
-				<input type="submit" class="btn primary" id="testTransition2" value="Comprar">				
+				<input type="submit" class="btn primary" id="testTransition2" value="Buy">				
 			</form>
 		</div>
 	<br>
@@ -50,6 +95,11 @@
 		<h2>Modal title DOM</h2>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
 	</div>
+	
+	<div class="testCache" style="display:none">
+		<h2>Modal cache on</h2>		
+	</div>
+	
 <!-- #body -->	
 	<hr>
 	<h1 id="qunit-header">QUnit Test Suite</h1>
@@ -70,16 +120,40 @@
 		var testModal = $('#testModal').modal({
     		content: '<h2>Modal title</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>'
     	});
-    
+    	   
 	    var testModalDOM = $('#testModalDOM').modal({
 	    	content: '#testDOM'
-	    });	    
+	    });
+	    
+	    var testModalWH = $("#testModalWH").modal({	    
+	        width:500,
+	        height:300
+		});
+		
+		var testModalCall = $("#testModalCall").modal({	    
+	        onShow: function(){
+				$("body").addClass("onShow");
+	        },
+
+	        onHide: function(){
+				$("body").addClass("onHide");
+	        }
+		});
+		
+		var testModalCache = $("#testModalCache").modal(".testCache");
+		
+		var testModalnoCache = $("#testModalnoCache").modal({	    
+	        content: ".testCache",
+	        cache: false
+		});
 	    
 		var testTransition = $('#testTransition').transition();
 		
-		var testTransition2 = $('#testTransition2').transition("Espere a que valide el test por favor...");
+		var testTransition2 = $('#testTransition2').transition("Wait to validate the test, please...");
 
-	    var testModalAjax;					
+	    var testModalAjax;
+	    var testModalCall2;
+	    var testModalCall3
 		$.fx.off = true;
 		
 		/**
@@ -112,7 +186,8 @@
 		module('Modal layout and interaction');
 						
 		test('Opens basic modal dialog', function(){
-		  
+		  	expect( 6 );
+			
 			notExists('.ch-dimmer');
 			notExists('.ch-modal');
 			
@@ -127,7 +202,8 @@
 		});			
 		
 		test("Close modal dialog", function() {
-
+			expect( 2 );
+			
 			$('.ch-dimmer').click();		  
 
 			notExists('.ch-dimmer');
@@ -136,7 +212,8 @@
 		});
 
 		test('Close modal dialog with close button', function(){
-		  					
+		  	expect( 3 );
+
 			$('#testModal').click();
 			
 			exists('.ch-modal .ch-close');
@@ -151,6 +228,7 @@
 		module('Modal content configurations');
 
 		test('STATIC content', function() {
+			expect( 2 );
 
 			$('#testModal').click();
 			
@@ -163,7 +241,8 @@
 		});
 				
 		test('DOM content', function(){
-			
+			expect( 2 );
+
 			$("#testModalDOM").click();
 
 			ok( testModal.content , "Expected to find a defined content on the modal instance");
@@ -176,9 +255,9 @@
 
 				
 		test('AJAX content', function(){
-        
+        	expect( 2 );
+        	
             testModalAjax = $('#testModalAjax').modal({
-                ajax: true,
 				onContentLoad: function(){ 
                         
                         start();
@@ -196,7 +275,8 @@
 
 			stop();
 		});
-        
+		
+		       
         test("Basics for testModal", function(){
 
             expect( 3 );
@@ -235,10 +315,133 @@
 
         });
         
-        
-        
-        
-        /* TRANSITION TESTS */ 
+        module('Modal width and height configuration');
+		
+		test("Width and Height configuration", function(){
+			expect( 2 );
+
+    		$("#testModalWH").click();
+
+    		equal( $(".ch-modal").width(), 500, "Expected to find modal width = 500");
+    		equal( $(".ch-modal").height(), 300, "Expected to find modal height = 300");
+
+			$('.ch-dimmer').trigger('click');
+
+		});
+		
+		
+		module('Modal Callbacks configuration');
+		
+		test("Modal onShow Callback", function(){
+			expect( 1 );
+
+    		testModalCall.show();
+
+    		hasClass("body", "onShow");
+			
+			$("body").removeClass("onShow");
+
+		});
+
+		test("Modal onHide Callback", function(){
+			expect( 1 );
+
+    		testModalCall.hide();
+
+    		hasClass("body", "onHide");
+
+			$("body").removeClass("onHide");
+
+		});
+		
+		
+		test("Modal onContentLoad Callback", function(){
+        	expect( 1 );
+        	
+            testModalCall2 = $('#testModalCall2').modal({
+            	
+				onContentLoad: function(){ 
+                    $("body").addClass("onContentLoad");
+                    start();
+
+                    hasClass("body", "onContentLoad");
+                    
+                    $("body").removeClass("onContentLoad");
+                    
+                    this.hide();
+               }
+               
+            });
+
+			testModalCall2.show();
+									
+			stop();
+		});
+		
+		test("Modal onContentError Callback", function(){
+        	expect( 1 );
+        	
+            testModalCall3 = $('#testModalCall3').modal({
+            	ajax: "http://www.google.com",
+				onContentError: function(){
+					$("body").addClass("onContentError");
+
+					start();
+					hasClass("body", "onContentError");
+
+					$("body").removeClass("onContentError");
+
+					this.hide();
+
+					return "Callback:  onContentError";            
+              }
+
+            });
+
+			testModalCall3.show();
+			
+			stop();
+		
+		});
+
+		
+		module('Content cache');
+		test("Modal with cache on", function(){
+			expect( 1 );
+
+    		testModalCache.show();    		
+    		testModalCache.hide();
+    		$(".testCache h2").html("Modal cache off");
+
+    		testModalCache.show();
+
+			equal($(".ch-modal .testCache h2").html(), "Modal cache on", "Expected to find the same content.");
+			
+			testModalCache.hide();
+			
+			$(".testCache h2").html("Modal cache on");
+			
+		});
+		
+		test("Modal with cache off", function(){
+			expect( 1 );
+
+    		testModalnoCache.show();    		
+    		testModalnoCache.hide();
+    		$(".testCache h2").html("Modal cache off");
+
+    		testModalnoCache.show();
+
+			equal($(".ch-modal .testCache h2").html(), "Modal cache off", "Expected to find the changed content.");
+			
+			testModalnoCache.hide();
+			
+			$(".testCache h2").html("Modal cache on");
+		});
+
+
+
+        // TRANSITION TESTS 
                 
         module("Transition basics instance object");
 		
@@ -278,7 +481,8 @@
         module('Transition layout and interaction');
 						
 		test('Opens basic transition window', function(){
-		  
+		  	expect( 6 );
+
 			notExists('.ch-dimmer');
 			notExists('.ch-transition');
 			
@@ -295,6 +499,7 @@
 		});
 		
 		test('Transition window without close button and dimmer close action', function(){
+		  	expect( 3 );
 		  					
 			$('#testTransition').click();
 			
@@ -315,8 +520,7 @@
 
             expect( 1 );
 
-			var msg = "<div class=\"loading\"></div><p>Espere a que valide el test por favor...</p>";
-
+			var msg = "<div class=\"loading\"></div><p>Wait to validate the test, please...</p>";
        		ok( testTransition2.content ==  msg, "Expected to find a custom message on the transition content");
 
         });

@@ -39,7 +39,7 @@
 	position:absolute;
 	white-space:nowrap;
 	display:none;
-	max-height:212px;
+	max-height:215px;
 	overflow:auto;
 }
 
@@ -102,7 +102,7 @@
 	display:block;
 	height:25px;
 	line-height:25px;
-	padding:0 5px;
+	padding:0 20px 0 5px;
 	margin:5px;
 }
 

@@ -84,10 +84,6 @@ form .options h4{
 	margin-bottom:15px;
 }
 
-form .options input {
-	border:none;
-}
-
 form .options.required h4{
 	font-weight:bold;
 }
@@ -102,8 +98,9 @@ form .options label span {
 	vertical-align:baseline;
 }
 
-form .options label input {
-	border:medium none;
+form .options label input[type=checkbox],
+form .options label input[type=radio] {
+	border:none;
 	margin:0;
 	padding:0;
 }	
@@ -200,7 +197,15 @@ form .disabled input{
 	margin-left:148px;
 }
 
-.ie6 form h4 { margin-left:10px; }
+.ie6 form h4 {
+	margin-left:10px;
+}
+
+.ie6 form .options label input {
+	border:none;
+	margin:0;
+	padding:0;
+}
 
 /* IE 7*/
 .ie7 form {
@@ -224,6 +229,12 @@ form .disabled input{
 	position:relative;
 }
 
+.ie7 form .options label input {
+	border:none;
+	margin:0;
+	padding:0;
+}
+
 /* IE 8 */
 .ie8 form label input:focus,
 .ie8 form label textarea:focus {
@@ -233,5 +244,11 @@ form .disabled input{
 .ie8 form .options label input:focus,
 .ie8 form .options label textarea:focus {
 	border:none;
+	padding:0;
+}
+
+.ie8 form .options label input {
+	border:none;
+	margin:0;
 	padding:0;
 }

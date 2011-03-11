@@ -7,62 +7,111 @@
 
 ui.tabNavigator = function(conf){
 
-    var that = ui.controllers(); // Inheritance
+/** 
+ *  Constructor
+ */
+	
+	var that = this;
+
+	that.$element.addClass('ch-tabNavigator');
+	conf.selected = conf.selected || conf.value || 0;
+	
+	that.conf = conf;
+	
+/**
+ *	Inheritance
+ */
+
+    that = ui.controllers.call(that);
+    that.parent = ui.clon(that);
+
+/**
+ *  Private Members
+ */
+	
+	var ul = that.$element.children(':first').addClass('ch-tabNavigator-triggers');
+	
+	var hash = window.location.hash.replace("#!", "");
+	
+    var hashed = false;
     
-    var $triggers = $(conf.element).children(':first').find('a');
-	var $htmlContent = $(conf.element).children(':first').next();
+    var selected = conf.selected;
 
-	// Global configuration
-	$(conf.element).addClass('ch-tabNavigator');
-	$(conf.element).children(':first').addClass('ch-tabNavigator-triggers');
-	$triggers.addClass('ch-tabNavigator-trigger');
-	$htmlContent.addClass('ch-tabNavigator-content box');
+/**
+ *  Protected Members
+ */ 
+ 
+ 	that.$trigger = ul.find('a');
+	that.$content = ul.next().addClass('ch-tabNavigator-content box');
+	
+	that.select = function(tab){		
+		
+		selected = parseInt(tab);
+		
+		tab = that.children[selected];
+		
+		if(tab.active) return; // Don't click me if I'm open
 
-	// Starts (Mother is pregnant, and her children born)
-	$.each($triggers, function(i, e){
-		that.children.push(ui.tab(i, e, conf));
-	});
-    
-    // TODO: Normalizar las nomenclaturas de métodos, "show" debería ser "select"
-	var show = function(event, tab){
-		        
-        that.children[tab].shoot(event);                
-
-        // return publish object
-        return conf.publish; 
+		// Hide my open bro
+		$.each(that.children, function(i, e){
+			if( e.active ) e.hide();
+		});
+        
+        tab.shoot();
+        
+        //Change location hash
+		window.location.hash = "#!" + tab.$content.attr("id");		
+		
+		// Callback
+		that.callbacks("onSelect");
+		
+        return that;
 	};
     
-    // Create the publish object to be returned
-    conf.publish = that.publish;
-    
-    /**
-	 *  @ Public Properties
-	 */
-	conf.publish.uid = conf.uid;
-	conf.publish.element = conf.element;
-	conf.publish.type = conf.type;
-	conf.publish.tabs = that.children;
+/**
+ *  Public Members
+ */
 	
-	/**
-	 *  @ Public Methods
-	 */
-	conf.publish.select = function(tab){ return show($.Event(), tab) };
-      	
+	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;
+	that.public.children = that.children;
+	that.public.select = function(tab){
+		that.select(tab);
 		
+		return that.public;
+	};	
+	that.public.getSelected = function(){ return selected; };
+	
+/**
+ *  Default event delegation
+ */	
+    
+	// Create children
+	$.each(that.$trigger, function(i, e){
+		var tab = {};
+			tab.uid = that.uid + "#" + i;
+			tab.type = "tab";
+			tab.element = e;			
+			tab.$element = $(e);
+			
+		that.children.push( ui.tab.call(tab, that) );
+	});
+	
 	//Default: Load hash tab or Open first tab	
-    var hash = window.location.hash.replace( "#!", "" );
-    var hashed = false;
-	for( var i = that.children.length; i--; ){
-		if ( that.children[i].conf.$htmlContent.attr("id") === hash ) {
-			show($.Event(), i);
+	for(var i = that.children.length; i--; ){
+		if ( that.children[i].$content.attr("id") === hash ) {
+			that.select(i);
+			
 			hashed = true;
+			
 			break;
 		};
 	};
 
-	if ( !hashed ) show($.Event(), 0); 
+	if ( !hashed ) that.children[conf.selected].shoot();
 
-	return conf.publish;
+	return that;
 	
 };
 
@@ -74,69 +123,89 @@ ui.tabNavigator = function(conf){
  *	@return An interface object
  */
 
-ui.tab = function(index, element, conf){
-	var that = ui.navs(); // Inheritance
-	var display = element.href.split('#');
-	var $tabContent = $(element).parents('.ch-tabNavigator').find('#' + display[1]);
+ui.tab = function(controller){
 
-	// Global configuration
-	that.conf = {
-		type: 'tab',
-		$trigger: $(element).addClass('ch-tabNavigator-trigger')
-	};
+/** 
+ *  Constructor
+ */
+	
+	var that = this;
+	
+	conf = {};
+	if ( controller.conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad = controller.conf.onContentLoad;
+	if ( controller.conf.hasOwnProperty("onContentError") ) conf.onContentError = controller.conf.onContentError;	
+	
+	that.conf = conf;
+/**
+ *	Inheritance
+ */
 
-	var results = function(){
+    that = ui.navs.call(that);
+    that.parent = ui.clon(that);
+	that.controller = controller;
+
+/**
+ *  Private Members
+ */
+	
+	
+/**
+ *  Protected Members
+ */ 
+	
+	that.$trigger = that.$element.addClass("ch-tabNavigator-trigger");
+	
+	that.$content = (function(){
 		
-        // If there are a tabContent...
-		if ( $tabContent.attr('id') ) {
-			return $tabContent; 		
+		var content = controller.$element.find("#" + that.element.href.split("#")[1]);
+		
+		// If there are a tabContent...
+		if ( content.length > 0 ) {
+			
+			return content;
+		
 		// If tabContent doesn't exists        
 		} else {
 			// Set ajax configuration
-			that.conf.ajax = true;
+			conf.ajax = true;
 						
 			// Create tabContent
-			var w = $('<div>').attr('id', 'ch-tab' + index);
-				w.hide().appendTo( that.conf.$trigger.parents('.ch-tabNavigator').find('.ch-tabNavigator-content') );
-			return w;
-		};
-	};
-	that.conf.$htmlContent = results();
+			return $("<div id=\"ch-tab" + that.uid + "\">")
+				.hide()
+				.appendTo( controller.$element.find(".ch-tabNavigator-content") );
+		}; 
 
-	// Hide all closed tabs
-	if(!that.status) that.conf.$htmlContent.hide();
-
+	})();
+	
 	// Process show event
 	that.shoot = function(event){
 		that.prevent(event);
-        
-		var tabs = conf.publish.tabs; //ui.instances.tabNavigator[conf.id].tabs; // All my bros
-		if(tabs[index].status) return; // Don't click me if I'm open
-
-		// Hide my open bro
-		$.each(tabs, function(i, e){
-			if(e.status) e.hide(event, e.conf);
-		});
 
 		// Load my content if I'need an ajax request 
-		if(that.conf.$htmlContent.html() === '') that.conf.$htmlContent.html( that.loadContent(that.conf) );
+		if( that.$content.html() == "" ) that.$content.html( that.loadContent() );
 
 		// Show me
-		that.show(event, that.conf);
+		that.show(event);
 		
-		//Change location hash
-		window.location.hash = "#!" + that.conf.$htmlContent.attr("id");
-		
-		// Callback
-		that.callbacks(conf, "onSelect");
-		
+		return that;
 	};
 
-	// Events	
-	that.conf.$trigger.bind('click', function(event){
-		that.shoot(event);
+/**
+ *  Public Members
+ */
+	
+	
+/**
+ *  Default event delegation
+ */	 	
+	
+	// Hide my content if im inactive
+	if(!that.active) that.$content.hide();
+
+	that.$trigger.bind('click', function(event){
+		that.prevent(event);
+		controller.select(that.uid.split("#")[1]);
 	});
-
-
+	
 	return that;
 }

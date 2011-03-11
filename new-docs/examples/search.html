@@ -1,0 +1,193 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+	<head>
+		<script></script>
+		<meta charset="utf-8">
+		<title>Chico UI - Search</title>
+		<link rel="stylesheet" type="text/css" href="http://mercadolibre.github.com/chico/src/css/chico.css">
+		<link rel="stylesheet" type="text/css" href="http://mercadolibre.github.com/chico/src/css/grid.css">
+		<link rel="stylesheet" type="text/css" href="http://mercadolibre.github.com/chico/src/css/pages.css">
+		<!--[if lt IE 7 ]>
+		<script src="libs/js/dd_belatedpng.js"></script>
+		<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+		<![endif]-->
+		<style>
+			/* HEADER */
+			.navMenu { overflow: hidden; margin-bottom:20px; }
+			.isoLogo { float: left; position: relative; top: 20px; width: 190px; }
+			.barAllMenu { display: block; overflow: hidden; }
+			.isoLogo a { background: url("http://static.mlstatic.com/org-img/search2008/images/sp_log_bot.gif") no-repeat scroll 0 0 transparent; display: block; height: 45px; width: 170px; }
+			.isoLogo a span { display: none; }
+			a.homeAcces { float: left; }
+			ul.accesBar { float: right; margin: 0 0 5px; padding: 0; }
+			.menuBar { background: url("http://static.mlstatic.com/org-img/search2008/images/bg_buscador.gif") repeat-x scroll 0 0 transparent; clear: both; margin: 0; padding: 5px 5px 5px 8px; width: auto; }
+			ul.accesBar li.lastAcces { border-right: medium none; margin-right: 0; padding-right: 0; }
+			ul.accesBar li { border-right: 1px solid #999999; float: right; line-height: 13px; margin: 5px 10px 0 0; padding: 0 10px 0 0; }
+			input.buscador { margin-right: 5px; width: 50%; }
+			
+			/* SEARCH */
+			.path{ height:30px; line-height:30px; font-size:16px; border-bottom:1px solid #ccc; }
+			.mclics-bottom{ height:300px; background-color:#ccc; }
+			.mclics-top{ background-color:#ccc; }
+			.mclics-top, .qcat{ padding:10px 0; height:100px; border-bottom:1px solid #ccc; margin-bottom:10px; }
+			.qcat dt{ font-weight:bold; }
+			.details, .hgroup p{ color:#555; font-size:11px; }
+			.details{ padding-top:5px; }
+			.hgroup, .prices{ padding-top:10px; }
+			.hgroup a{ font-size:17px; }
+			.item{ overflow:hidden; margin-bottom:10px; border-bottom:1px solid #ccc; }
+		</style>
+	</head>
+<body>	
+
+	<div class="navMenu"> 
+		<p class="isoLogo"> 
+			<a href="http://www.mercadolibre.com.pa/"> 
+				<span>MercadoLibre, donde compras y vendes de todo</span> 
+			</a> 
+		</p> 
+		<div class="barAllMenu"> 
+			<a class="homeAcces" href="http://www.mercadolibre.com.pa/">Inicio</a> 
+			<ul class="accesBar"> 
+		
+				<li class="lastAcces"><a href="http://www.mercadolibre.com.pa/ayuda_home">Ayuda</a></li> 
+		
+				<li><a href="http://www.mercadolibre.com.pa/jm/myML">Mi MercadoLibre</a></li> 
+				<li><a href="http://www.mercadolibre.com.pa/jm/sell">Vender</a></li> 
+				<li><a href="reg.html" target="_blank">Regístrate</a></li> 
+			</ul> 
+			<div class="menuBar allRounded box"> 
+				<input type="text" class="buscador" name="as_word" id="as_inner_word" maxlength="160" value="" onblur="javascript:setBlur()" onfocus="javascript:setFocus()"> 
+				<input type="submit" onclick="innerSearch();" value="Buscar" class="btn secondary"> 
+			</div> 
+		</div> 
+	</div> 
+	
+	<p class="path"><a href="#">Inicio</a> > <a href="#">Computación</a> > <a href="#">Apple</a> > <a href="#">Computadoras</a> > <a href="#">Mac mini</a> > "mac mini"</p>
+	
+	<div class="qcat ch-g5-6">
+		<dl class="ch-g1-6">
+			<dt>Ubicación</dt>
+			<dd><a href="#">Capital Federal</a></dd>
+			<dd><a href="#">Capital Federal</a></dd>
+			<dd><a href="#">Capital Federal</a></dd>
+			<dd><a href="#">Capital Federal</a></dd>
+		</dl>
+		
+		<dl class="ch-g1-6">
+			<dt>Categorías</dt>
+			<dd><a href="#">iMac</a></dd>
+			<dd><a href="#">Power Mac</a></dd>
+			<dd><a href="#">Mac mini</a></dd>
+			<dd><a href="#">Otras</a></dd>
+		</dl>
+		
+		<dl class="ch-g1-6">
+			<dt>O refinar por</dt>
+			<dd><a href="#">En cuotas</a></dd>
+			<dd><a href="#">En cuotas</a></dd>
+			<dd><a href="#">En cuotas</a></dd>
+		</dl>
+	</div>
+	
+	<div class="mclics-top ch-g1-6e">MClics</div>
+	
+	<ol class="list ch-g5-6">
+		<li class="item">
+			<div class="ch-g1-6">
+				<img src="http://img1.mlstatic.com/s_MLA_v_S_f_97495948_621.jpg" width="90" height="90">
+			</div>
+			
+			<div class="hgroup ch-g3-6">
+				<a href="#">Apple Mac Mini Mc270 2gb 2,4ghz 320gb Core 2 Duo 2010 Nuevas</a>
+				<p>Equipos Nuevos Caja Cerrada Directo De Fabrica Garantia Escrita</p>
+			</div>
+			
+			<ul class="prices ch-g1-6">
+				<li class="price">$ 123 <sup>45</sup></li>
+				<li><span class="price">6</span> cuotas de <span class="price">$ 20 <sup>57</sup></span></li>
+			</ul>
+			
+			<ul class="details ch-g1-6">
+				<li>Artículo nuevo</li>
+				<li>5 vendidos</li>
+				<li>Capital Federal</li>
+			</ul>
+		</li>
+		
+		<li class="item">
+			<div class="ch-g1-6">
+				<img src="http://img1.mlstatic.com/s_MLA_v_S_f_97495948_621.jpg" width="90" height="90">
+			</div>
+			
+			<div class="hgroup ch-g3-6">
+				<a href="#">Apple Mac Mini Mc270 2gb 2,4ghz 320gb Core 2 Duo 2010 Nuevas</a>
+				<p>Equipos Nuevos Caja Cerrada Directo De Fabrica Garantia Escrita</p>
+			</div>
+			
+			<ul class="prices ch-g1-6">
+				<li class="price">$ 123 <sup>45</sup></li>
+				<li><span class="price">6</span> cuotas de <span class="price">$ 20 <sup>57</sup></span></li>
+			</ul>
+			
+			<ul class="details ch-g1-6">
+				<li>Artículo nuevo</li>
+				<li>5 vendidos</li>
+				<li>Capital Federal</li>
+			</ul>
+		</li>
+		
+		<li class="item">
+			<div class="ch-g1-6">
+				<img src="http://img1.mlstatic.com/s_MLA_v_S_f_97495948_621.jpg" width="90" height="90">
+			</div>
+			
+			<div class="hgroup ch-g3-6">
+				<a href="#">Apple Mac Mini Mc270 2gb 2,4ghz 320gb Core 2 Duo 2010 Nuevas</a>
+				<p>Equipos Nuevos Caja Cerrada Directo De Fabrica Garantia Escrita</p>
+			</div>
+			
+			<ul class="prices ch-g1-6">
+				<li class="price">$ 123 <sup>45</sup></li>
+				<li><span class="price">6</span> cuotas de <span class="price">$ 20 <sup>57</sup></span></li>
+			</ul>
+			
+			<ul class="details ch-g1-6">
+				<li>Artículo nuevo</li>
+				<li>5 vendidos</li>
+				<li>Capital Federal</li>
+			</ul>
+		</li>
+		
+		<li class="item">
+			<div class="ch-g1-6">
+				<img src="http://img1.mlstatic.com/s_MLA_v_S_f_97495948_621.jpg" width="90" height="90">
+			</div>
+			
+			<div class="hgroup ch-g3-6">
+				<a href="#">Apple Mac Mini Mc270 2gb 2,4ghz 320gb Core 2 Duo 2010 Nuevas</a>
+				<p>Equipos Nuevos Caja Cerrada Directo De Fabrica Garantia Escrita</p>
+			</div>
+			
+			<ul class="prices ch-g1-6">
+				<li class="price">$ 123 <sup>45</sup></li>
+				<li><span class="price">6</span> cuotas de <span class="price">$ 20 <sup>57</sup></span></li>
+			</ul>
+			
+			<ul class="details ch-g1-6">
+				<li>Artículo nuevo</li>
+				<li>5 vendidos</li>
+				<li>Capital Federal</li>
+			</ul>
+		</li>
+	</ol>
+	
+	<div class="mclics-bottom ch-g1-6e">MClics</div>
+
+</body>
+</html>

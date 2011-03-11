@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="php/packer.php?type=css">
 		<link rel="stylesheet" type="text/css" href="src/css/doc.css">
 		<script></script><!-- Prevent Script blocking -->
-		<script src="libs/js/jquery-1.5.js"></script>
+		<script src="libs/js/jquery-1.5.1.js"></script>
 		<script src="php/packer.php?debug=true"></script>
 		<!--[if lt IE 7 ]>
 			<script src="libs/js/dd_belatedpng.js"></script>
@@ -32,6 +32,7 @@
 	   <h3>Documentación</h3>
 	   <p>Está disponible la <a href="docs">documentación</a> en el cloud para consumo interno.</p>
 	</div>
+		
 		<div class="article demo">
 			<h1>Dropdown</h1>
 			<div class="section">
@@ -47,6 +48,20 @@
 						</ul>
 					</div>
 				</div>
+				
+				<div class="box">
+					<h2>Demo</h2>
+					<div class="demoDropdown ch-secondary">
+						<span>Sitios</span>
+						<ul>
+							<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+							<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+							<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+							<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+						</ul>
+					</div>
+				</div>
+				
 			</div>
 		
 			<div class="aside">
@@ -364,6 +379,27 @@
 						</div>
 					</div>
 					
+					<div class="demoTabNavigatorA">
+						<ul>
+							<li><a href="#tab1A">Tab1</a></li>
+							<li><a href="test.html">Tab2</a></li>
+							<li><a href="#tab3A">Tab3</a></li>
+						</ul>
+						<div>
+							<div id="tab1A">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+							</div>
+			
+							<!--div id="tab2">
+								<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
+							</div-->
+					
+							<div id="tab3A">
+								<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+							</div>
+						</div>
+					</div>
+								
 				</div>
 			</div>
 		
@@ -700,7 +736,7 @@
 			
 						<p class="actions">
 							<input type="submit" value="Enviar" class="btn primary">
-							<a href="#" class="resetForm">Cancelar</a>
+							<a href="#">Cancelar</a>
 						</p>
 					</form>
 				</div>
@@ -738,6 +774,20 @@
 	<div id="chat">
 	</div>
 	
+	<div class="article demo box">
+		<h1>Buttons</h1>
+
+		<p class="container"><input type="button" class="btn primary" value="Primary Button"></p>
+
+		<p class="container"><input type="button" class="btn secondary" value="Secondary Button"></p>
+
+		<p class="container"><input type="button" class="btn secondary skin" value="Secondary Skin Button"></p>
+		
+		<p class="container"><input type="button" class="btn primary disabled" value="Disabled Primary Button" disabled="disabled"></p>
+		
+		<p class="container"><input type="button" class="btn secondary disabled" value="Disabled Secondary Button" disabled="disabled"></p>
+	</div>
+	
 	<!-- Organization -->
 	<script>
 
@@ -747,33 +797,45 @@
         document.getElementsByTagName("h1")[0].innerHTML = title;
  
 		// Components
-        var ui_drop = $('.demoDropdown').dropdown();
-        
-        var ui_expa = $(".demoExpando").expando();
-
-        var ui_caro = $('.demoCarousel').carousel();
-        
-        var ui_view = $('.demoViewer').viewer();
-        
-        var ui_moda = $('.demoModal').modal({
-        	onContentError: function(xhr, textStatus, errorThrown){
-				return "<p>En este momento no podemos cargar el contenido. Intentalo más tarde.</p>";
+		
+		//Floats
+      	var ui_tool = $('.demoTooltip').tooltip();
+      	var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foklsajd lkasdlsaj dlkasjd lkasjdlksajd klasjdlkasjdklas jdlkasjd lkasjdlksajd salkjdaslk djaslkdjaslkd jaslkjdsalkdjaslko</p>' });
+       	var ui_layr = $('.demoLayerOnmouseover').layer({ content: '<p>foo</p>', points:"lt rt", offset: "10 -10" });       
+		var ui_moda = $('.demoModal').modal({
+        	width: 350,
+        	height: 400,
+        	//cache: false,
+        	//content: "<h2 class=\"lala\">LALALALALALAL</h2><p>contentcontenotndi sadkjsjhd hdkahdjk skdh ñdashd jksa h</p>",
+        	content: "asdasdasda",
+        	onShow: function(){ /*console.log("Se abre el modal")*/  },
+        	onContentLoad: function(){ 
+        		var that = this;
+        		$("h2").bind("click", function(){ 
+        			that.hide();
+        		}); 
         	},
-       	 	onContentLoad: function(data, textStatus, xhr){
-				// Do something...
-        	}
+        	onContentError: function(){ /*console.log("Content Error")*/ },
+        	onHide: function(){ /*console.log("Se cierra el modal")*/ }
         });
         
         var ui_trans1 = $(".demoTransition1").transition("Espere mientras pruebo la transición. Gracias papi."); 
-        var ui_trans2 = $(".demoTransition2").transition(); 
-        
-        var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foo</p>' });
-        var ui_layr = $('.demoLayerOnmouseover').layer({ content: '<p>foo</p>' });
-        var ui_tool = $('.demoTooltip').tooltip();
-        var ui_tabs = $('.demoTabNavigator,#chico-tabs').tabNavigator();
-        
+       	var ui_trans2 = $(".demoTransition2").transition();        
 
-		// New validator
+		//Navs
+		var ui_drop = $('.demoDropdown').dropdown();
+		var ui_expa = $(".demoExpando").expando({open:true});
+		
+		//Sliders
+		var ui_caro = $('.demoCarousel').carousel();
+				
+		var ui_tab = $('.demoTabNavigator').tabNavigator({selected:2});
+		var ui_tabA = $('.demoTabNavigatorA').tabNavigator(1);
+		
+		
+		var ui_view = $('.demoViewer').viewer();
+		
+		// Form and watchers
 		var uiForm = $('.formulario').forms({ messages: {
 		    required: "Mensaje por defecto requerido",
 		    email: "Mensaje email por defecto",
@@ -792,44 +854,42 @@
         
         }
 		
-		var nvC = $('#val_custom').custom(customVal,"Some custom validation message, value equals to: Chico-UI");
+		var nvC = $('#val_custom')
+			.custom(customVal, "Some custom validation message, value equals to: Chico-UI")
+			.and()
+			.required();
+			
  		var nv0 = $('#val_title')
                      .maxLength(10,'<%= t9n.tr(s:"El campo debe tener menos de 60 caracteres.")%>')
                      .and()
-                     .minLength(3) //,'<%= t9n.tr(s:"El campo debe tener más de 3 caracteres.")%>');
-                     .and()
+                     .minLength(3,'<%= t9n.tr(s:"El campo debe tener más de 3 caracteres.")%>')
+                     .and()                   
                      .required('<%= t9n.tr(s:"El título es obligatorio.")%>'); 
                      
 
-        var nv1 = $('#val_email').email("Por favor ingresa un email").and().required().and().minLength(20);
+        var nv1 = $('#val_email')
+        			.email("Por favor ingresa un email")
+        			.and()        			
+        			.minLength(20)
+        			.and()
+        			.required()
 		var nv2 = $('#val_url').string({ url: true });
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
-		var nv4 = $('#val_range').number({ min: 1, max: 10 });
+		var nv4 = $('#val_range').min(1).and().max(10);
 		var nv5 = $('#val_length').string({ maxLength: 20, minLength: 6 });
     	var nv6 = $('#val_required_disabled, #val_select2, #val_select3, .val_check2, .val_check3, .val_radio2, .val_radio3, #val_textarea2, #val_textarea3').required();
 
 		var nv7 = $("#val_price").price("Por favor ingresa un precio válido.");
 
         var m = $('#val_selectM').required();
-            m.validate();
+           // m.validate();
         
-		// Submit form
+        // Submit form
 		uiForm.submit();
 		
-        //Test: without trigger
-        //$.modal("<h1>Modal</h1>").show();		
-
-		// Chat
-		$('#chat').chat('APP_PENDING_PAYMENTS');
-        
-		$('#chat').chat({
-            ruleGroupName: 'APP_PENDING_PAYMENTS',
-            style: "inline",
-            template: "2",
-            environment: "1"
-        });
-        
-        ui.codelighter();
+		
+		ui.codelighter();
+		//$(".xml").codeXML();
 
 	</script>
 	</body>

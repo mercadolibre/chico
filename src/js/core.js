@@ -107,42 +107,56 @@ ui.factory = function(o) {
         $.fn[x] = function( options ) {
 
             var results = [];			    
-            var that = this;
-            var options = options || {};
-            // Could be more than one argument
-            var _arguments = arguments;
+            var that = this;       
 
+ 			// Could be more than one argument
+ 			var _arguments = arguments;
+ 			
             that.each( function(i, e) {
+            	
+				var conf = options || {};
 
-                var conf = {};
-                    conf.type = x;
-                    conf.element = e;
-                    conf.uid = ui.utils.index += 1; // Global instantiation index
-                
-                // If argument is a number, join with the conf
-                if (typeof options === "number") {
-                    conf.value = options;
-                }
-                    // Could come a messages as a second argument
-                    if (_arguments[1]) {
-                        conf.msg = _arguments[1];
-                    }
-                    
-                if (typeof options === "string") { // This could be a message   
-                    conf.msg = options;
-                }
-
-                if (typeof options === "function") { // This is a condition for custom validation
-                    conf.lambda = options;
-                }
-                                    
-                if (typeof options === "object") { // This is a configuration object
-                    // Extend conf with the options
-                    $.extend( conf , options );   
-                }
-
+                var context = {};
+                    context.type = x;
+                    context.element = e;
+                    context.$element = $(e);
+                    context.uid = ui.utils.index += 1; // Global instantiation index
+               
+				switch(typeof conf) {
+					// If argument is a number, join with the conf
+					case "number":
+						var num = conf;
+						conf = {};
+						conf.value = num;
+						
+						// Could come a messages as a second argument
+		                if (_arguments[1]) {
+		                    conf.msg = _arguments[1];
+		                };
+					break;
+					
+					// This could be a message
+					case "string":						
+						var msg = conf;
+						conf = {};
+						conf.msg = msg;
+					break;
+					
+					// This is a condition for custom validation
+					case "function":
+						var func = conf;
+						conf = {};
+						conf.lambda = func;
+						
+						// Could come a messages as a second argument
+		                if (_arguments[1]) {		                	
+		                    conf.msg = _arguments[1];
+		                };
+					break;
+				};
+               
                 // Create a component from his constructor
-                var created = ui[x]( conf );
+                var created = ui[x].call( context, conf );
 
 				/* 
 					MAPPING INSTANCES
@@ -153,7 +167,9 @@ ui.factory = function(o) {
     					object: {}
     				}
 				*/
-
+				
+				created = ( created.hasOwnProperty("public") ) ? created.public : created;
+				
 			    if (created.type) {
 			        var type = created.type;		    
                     // If component don't exists in the instances map create an empty array
@@ -168,12 +184,12 @@ ui.factory = function(o) {
 				}			
 
 			    results.push( created );
-
+			    
             });
             
             // return the created components or component   
             return ( results.length > 1 ) ? results : results[0];
-        }
+        };
 
         // if a callback is defined 
         if ( o.callback ) { o.callback(); }
@@ -217,26 +233,27 @@ ui.get = function(o) {
 		
 		case "content":
 
-	        var x = o.conf;
-
+	        var that = o.that;
+	        var conf = that.conf;
+			var context = ( that.controller ) ? that.controller.public : that.public;
 			//Set ajax config
 			//setTimeout(function(){
 			
 			$.ajax({
-				url: x.ajaxUrl,
-				type: x.ajaxType || 'GET',
-				data: x.ajaxParams,
+				url: conf.ajaxUrl,
+				type: conf.ajaxType || 'GET',
+				data: conf.ajaxParams,
 				cache: true,
 				async: true,
 				success: function(data, textStatus, xhr){					
-					x.$htmlContent.html( data ); 
-					if(x.onContentLoad) x.onContentLoad();
-					if( x.position ) ui.positioner(x.position);
+					that.$content.html( data ); 
+					if ( conf.onContentLoad ) conf.onContentLoad.call(context);
+					if ( conf.position ) ui.positioner(conf.position);
 				},
 				error: function(xhr, textStatus, errorThrown){
-					data = (x.onContentError) ? x.onContentError(xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
-					x.$htmlContent.html( data );
-					if( x.position ) ui.positioner(x.position);
+					data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+					that.$content.html( data );
+					if ( conf.position ) ui.positioner(conf.position);
 				}
 			});
 			//}, 25);
@@ -335,6 +352,23 @@ ui.cache = {
 		ui.cache.map = {};
 	}
 };
+
+
+/**
+ *	Clone function
+ */	
+
+ui.clon = function(o) {
+	
+	obj = {};
+	
+    for (x in o) {
+    	obj[x] = o[x]; 
+    };
+    
+    return obj;
+};
+
 
 $(function() { // DOM Ready
 	var now = new Date().getTime();

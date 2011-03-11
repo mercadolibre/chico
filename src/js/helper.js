@@ -2,73 +2,79 @@
  *	Helper
  */
 
-ui.helper = function(parent){
+ui.helper = function(controller){
 
-/**
+/** 
  *  Constructor
  */
-var conf = {};
-	conf.type = "helper";
-	conf.$trigger = $(parent.element);
-	conf.cone = true;
-	conf.classes = "helper" + parent.uid;
-	conf.visible = false;
-	conf.position = {};
-	conf.position.context = parent.reference;
-	conf.position.offset = conf.offset || "15 0";
-	conf.position.points = conf.points || "lt rt";
+	
+	var that = this;
+
+	var conf = {};		
+		conf.cone = true;
+		conf.position = {};
+		conf.position.context = controller.reference;
+		conf.position.offset = "15 0";
+		conf.position.points = "lt rt";
+	
+	that.conf = conf;
 
 /**
- *  Inheritance
+ *	Inheritance
  */
 
-	var that = ui.floats(conf); // Inheritance
+    that = ui.floats.call(that);
+    that.parent = ui.clon(that);
 
 /**
  *  Private Members
  */
-	var hide = function(){
-		$('.helper' + parent.uid).remove();
-		conf.visible = false;
-		that.callbacks(conf, 'hide');
-	};
-	
-	var show = function(txt){
-		conf.content = '<p><span class="ico error">Error: </span>' + txt + '</p>';		
-		that.show($.Event(), conf);
-	};
+
+
 
 /**
  *  Protected Members
  */ 
- 
+	that.$trigger = that.$element;
+	
+	that.show = function(text){
+		conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';
+		that.parent.show();
+		
+		return that;
+	};
+
+/**
+ *  Public Members
+ */
+
+   	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = that.type;
+	that.public.content = conf.content || conf.ajax || conf.msg;
+	that.public.show = function(text){
+		that.show(text);
+		
+		return that.public;
+	};
+	
+	that.public.hide = function(){
+		that.hide();
+		
+		return that.public;
+	};
+	
+	that.public.position = that.position;
+
+
 /**
  *  Default event delegation
  */
+
     $("body").bind(ui.events.CHANGE_LAYOUT, function(){ 
-        that.position("refresh", conf);
+        that.position("refresh");
     });
 
-/**
- *  Expose propierties and methods
- */	
-	that.publish = {
-	
-	/**
-	 *  @ Public Properties
-	 */
-    	uid: conf.uid,
-		element: conf.element,
-		type: conf.type,
-	/**
-	 *  @ Public Methods
-	 */
-		show: function(txt) { show(txt); },
-		hide: hide,
-		position: function(o) {
-			return that.position(o,conf) || that.publish;
-		}
-	 };
 	 
-	 return that.publish;
+	return that;
 };

@@ -4,31 +4,31 @@
  *	@Interface
  */
 
-ui.required = function(conf){
+ui.required = function(conf) {
+/**
+ *  Constructor
+ */
+	
+	conf = conf || {};
+	
+    conf.messages = {};
 
-    /**
-	 *  Override Watcher Configuration
-	 */
+    if ( conf.hasOwnProperty("msg") ) {     	
+    	conf.messages.required = conf.msg;
+    	conf.msg = null;
+    	delete conf.msg;
+    };
+    
 	// Define the validation interface    
     conf.required = true;
-	// Add validation types
+    
+    // Add validation types
 	conf.types = "required";
     // Define the conditions of this interface
     conf.conditions = {
         required: 'that.isEmpty' // This pattern is diferent
-    }
+    };
 	
-	conf.messages = conf.messages || {};
-
-    if (conf.msg) { conf.messages.required = conf.msg; conf.msg = null; }
-	
-    /**
-	 *  Extend Watcher
-	 */
- 	var that = ui.watcher(conf);
-
-    /**
-	 *  Public Object
-	 */
-	return that.publish;
+	return ui.watcher.call(this, conf);
+    
 };

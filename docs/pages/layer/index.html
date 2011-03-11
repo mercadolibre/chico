@@ -70,7 +70,6 @@
 	            <li><a href="../required">Required</a></li>
 	            <li><a href="../number">Number</a></li>
 	            <li><a href="../string">String</a></li>
-	            <li><a href="../custom">Custom</a></li>
 			</ul>
 			<ul>
 				<li><h3>Controllers</h3></li>
@@ -111,68 +110,74 @@
 	<p>Ejemplo del objeto de configuración:</p>
 	<code>
 		<pre name="code" class="js">
-{
-	content: string,
-	ajax: string,
-	cache: boolean,					// Content cache
-	event: string,
-	showTime: number,				  // Delay in milliseconds to show layer (default 400)
-	hideTime: number,				  // Delay in milliseconds to hide layer (default 400)
-	onShow: function() {},    		 // Callback executed on layer show 
-	onHide: function() {},			 // Callback executed on layer hide
-	onContentLoad: function() {},	  // Callback executed on content load success (ajax includes)
-	onContentError: function() {} 	 // Callback executed on content load fail (ajax only)
-	offset: string,					// Positioner configuration. Default value "0 10".
-	points: string,					// Positioner configuration. Default value "lt lb".
-	hold: boolean					  // Positioner configuration. Default value "false".
-}</pre>
+		{
+			content: string,
+			ajax: string,
+			cache: boolean,					  // Content cache
+			event: string,
+			onShow: function() {},    		  // Callback executed on layer show 
+			onHide: function() {},			  // Callback executed on layer hide
+			onContentLoad: function() {},	  // Callback executed on content load success (ajax includes)
+			onContentError: function() {} 	  // Callback executed on content load fail (ajax only)
+			offset: string,					  // Positioner configuration. Default value "0 10".
+			points: string,					  // Positioner configuration. Default value "lt lb".
+			hold: boolean					  // Positioner configuration. Default value "false".
+		}
+		</pre>
 	</code>
     <p>Realizando una selección con jQuery podemos asignarle una configuración de la siguiente forma:</p>
 	<code>
 		<pre name="code" class="js">
-$("#Foobar").layer({
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elite.",
-	event: "click"
-});</pre>
+        $("#Foobar").layer({
+        	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elite.",
+        	event: "click"
+        });
+		</pre>
 	</code>
    
 	<p>Cada vez que se instancia un componente Contextual Layer retorna un objecto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
 	<code>
 		<pre name="code" class="js">
-var foo = $("#Foobar").layer();
-
-// returns
-foo = {
-	uid: 121,                         //  Global number instance
-	element: HTMLInputElement,        //  Input DOM Interface
-	type: "layer",                    //  Component Type
-	content: string,				  //  Get content
-	position(),					   //  Get, set and refresh position
-	show(),						   //  Show layer
-	hide()						    //  Hide layer
-}</pre>
+		var foo = $("#Foobar").layer();
+        
+		// returns
+		foo = {
+			uid: 121,                         //  Global number instance
+			element: HTMLInputElement,        //  Input DOM Interface
+			type: "layer",                    //  Component Type
+			content: string,				  //  Get content
+			position(),					  	  //  Get, set and refresh position
+			show(),						  	  //  Show layer
+			hide()						  	  //  Hide layer
+		}
+		</pre>
 	</code>
 	
 	<p>El método público position() puede ser utilizado para:</p>
 	<p>1. Obtener la configuración actual de posicionamiento.</p>
 	<code>
-		<pre name="code" class="js">foo.position();					   //  Get position</pre>
+		<pre name="code" class="js">
+		foo.position();						  //  Get position
+		</pre>
 	</code>
 	
 	<p>2. Actualizar la posición del elemento.</p>
 	<code>
-		<pre name="code" class="js">foo.position("refresh");			  //  Refresh position</pre>
+		<pre name="code" class="js">
+		foo.position("refresh");			  //  Refresh position
+		</pre>
 	</code>
 	
 	<p>3. Setear una nueva configuración para el <a href="../positioner">posicionamiento</a> del elemento.</p>
 	<code>
 		<pre name="code" class="js">
-foo.position({ 					   //  Set new position
-	context: $(element),
-	offset: string,
-	points: string,
-	fixed: boolean
-});</pre>
+		foo.position({ 						  //  Set new position			
+			context: $(element),
+			offset: string,
+			points: string,
+			fixed: boolean
+		});					
+		</pre>
 	</code>
 	
 
@@ -185,34 +190,37 @@ foo.position({ 					   //  Set new position
 	<span class="layerOnmouseover">Layer ejecutado en mouseover.</span>
 	
 	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
-$(".layerOnmouseover").layer({
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-});</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+		$(".layerOnmouseover").layer({
+			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+		});	
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
 	
 	<h4>Contextual Layer ejecutado en click</h4>	
 	
 	<span class="layerOnclick">Layer ejecutado con click.</span>
 	
 	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
-$(".layerOnclick").layer({
-	event: "click",
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-});</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
+		$(".layerOnclick").layer({
+			event: "click",
+			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+		});	
+	</pre></code></div></div><div class="ch-g2-3"><div class="leftcolumn cases">
 	
 	<h4>Contextual Layer seteando una nueva configuración de posicionamiento.</h4>	
 	
 	<span class="layerOnclick2">Layer ejecutado con click.</span>
 	
 	</div></div><div class="ch-g1-3"><div class="rightcolumn"><p>El Javascript para iniciarlo es:</p><code><pre class="js" name="code">
-var LayerNewPosition = $(".layerOnclick2").layer({
-	event: "click",
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-});
-
-LayerNewPosition.position({
-	points: "lb lt",
-	offset: "100 -10"
-});</pre></code></div></div></div>
+		var LayerNewPosition = $(".layerOnclick2").layer({
+			event: "click",
+			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+		});
+		
+		LayerNewPosition.position({
+			points: "lb lt",
+			offset: "100 -10"
+		});
+	</pre></code></div></div></div>
 		</div>
 	</div>
 	
@@ -236,27 +244,30 @@ LayerNewPosition.position({
 
 		/* Case 1 */
 
-$(".layerOnmouseover").layer({
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-});
+		$(".layerOnmouseover").layer({
+			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+		});	
+	
 
 		/* Case 2 */
 
-$(".layerOnclick").layer({
-	event: "click",
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-});
+		$(".layerOnclick").layer({
+			event: "click",
+			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+		});	
+	
 
 		/* Case 3 */
 
-var LayerNewPosition = $(".layerOnclick2").layer({
-	event: "click",
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-});
-
-LayerNewPosition.position({
-	points: "lb lt",
-	offset: "100 -10"
-});</script>
+		var LayerNewPosition = $(".layerOnclick2").layer({
+			event: "click",
+			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+		});
+		
+		LayerNewPosition.position({
+			points: "lb lt",
+			offset: "100 -10"
+		});
+	</script>
 </body>
 </html>

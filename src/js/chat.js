@@ -32,7 +32,7 @@ ui.chat = function(conf) {
    	ui.get({
    	    method: "component",
    	    name: "chat",
-   	    script: "https://www."+getDomain(conf.environment)+"/org-img/jsapi/chat/chatRBIScript.js",
+   	    script: "http://www."+getDomain(conf.environment)+"/org-img/jsapi/chat/chatRBIScript.js",
    	    callback: function() {
        	    that.load(); 
         }

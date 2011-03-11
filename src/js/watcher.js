@@ -5,56 +5,89 @@
 
 ui.watcher = function(conf) {
 
-	/**
-	 *  Alerts
-	 *  Configration is needed
-	 */	
+/**
+ *  Validation
+ */
 
-    if (!conf) {
+    /*if ( !conf ) {
         alert("Watcher fatal error: Need a configuration object to create a validation.");
-    }
-    
-	/**
-	 *  Inheritance
-	 */	
+    };*/
 
-    var that = ui.object();
+/**
+ *  Constructor
+ */
 
-	/**
-	 *  @ Private methods
-	 */
-    
-	/**
-	 *  Check for instances with the same trigger
-	 */
-	var checkInstance = function(conf) {
+	var that = this;
+	that.conf = conf;	
+
+/**
+ *  Inheritance
+ */
+
+    that = ui.object.call(that);
+    that.parent = ui.clon(that);
+	
+	
+/**
+ *  Private Members
+ */
+	
+	// Enabled
+	
+	
+	// Get my parent or set it
+	var controller = (function() {
+		if ( ui.instances.hasOwnProperty("forms") && ui.instances.forms.length > 0 ) {	
+		  var i = 0, j = ui.instances.forms.length; 
+		  for (i; i < j; i ++) {
+				if (ui.instances.forms[i].element === that.$element.parents("form")[0]) {
+					return ui.instances.forms[i]; // Get my parent
+				};
+			};
+		} else {
+			that.$element.parents("form").forms();
+			var last = (ui.instances.forms.length - 1);
+			return ui.instances.forms[last]; // Set my parent
+		};
+	})();
+	
+ 	//  Check for instances with the same trigger	
+	var checkInstance = function() {
         var instance = ui.instances.watcher;
-        if (instance&&instance.length>0) {
-            for (var i = 0, j = instance.length; i < j; i ++) {                
-                if (instance[i].element === conf.element) {
-            	    // Mergeo Validations
-                    $.extend(instance[i].validations, getValidations(conf));
-            	    // Mergeo Conditions
-                    $.extend(instance[i].conditions, getConditions(conf));
-                    // Merge Messages
-                    $.extend(instance[i].messages, conf.messages);
-                    // Merge types
-            	    instance[i].types = mergeTypes(instance[i].types);
-    				return { 
-    				    exists: true, 
-    				    object: instance[i] 
-    			    };
-                }
-            }
-        }
+        
+        if ( instance && instance.length > 0 ) {
+			for (var i = 0, j = instance.length; i < j; i ++) {            	                
+                
+                if (instance[i].element !== that.element) continue;
+        	    
+        	    // Merge Validations        	    
+                $.extend(instance[i].validations, that.validations);
+        	    
+        	    // Merge Conditions        	    
+                $.extend(instance[i].conditions, that.conditions);
+
+                // Merge Messages
+                $.extend(instance[i].messages, that.messages);
+                
+                // Merge types
+        	    instance[i].types = mergeTypes(instance[i].types);
+
+				return { 
+				    exists: true, 
+				    object: instance[i] 
+			    };
+			    
+            };
+        };
     };
     
-    var mergeTypes = function (types) {
+	var mergeTypes = function (types) {
         if (!types || types == "") {
             return conf.types;
         } else {
             var currentTypes = types.split(",");
             var newTypes = conf.types.split(",");
+
             var toMerge = [];
             // For all new types, check if don't exists
             var e = 0; g = newTypes.length;
@@ -62,57 +95,59 @@ ui.watcher = function(conf) {
                 if (types.indexOf(newTypes[e]) === -1) {
                     // If is a new type, pushed to merge it with the currents
                     toMerge.push(newTypes[e]);
-                }
-            }
+                };
+            };
             // If are things to merge, do it.
             if (toMerge.length > 0) {
                 $.merge(currentTypes, toMerge);
-            }
+            };
+
             // Return as string
             return currentTypes.join(",");
         }    
-    }
+    };
     
-    // Reference: for the Positioner
-    var getReference = function(conf) {
+	// Revalidate
+	var revalidate = function() {		
+		that.validate();
+        controller.checkStatus();  // Check everthing?
+	}; 
+
+
+/**
+ *  Protected Members
+ */ 
+
+ 	// Status
+	that.active = false;
+	
+	// Enabled
+	that.enabled = true;
+	
+	// Reference: for the Positioner
+	that.reference = (function() {
         var reference;
         // CHECKBOX, RADIO
-        if ($(conf.element).hasClass("options")) {
+        if ( that.$element.hasClass("options") ) {
         	// Helper reference from will be fired
         	// H4
-        	if ($(conf.element).find('h4').length > 0) {
-        		var h4 = $(conf.element).find('h4'); // Find h4
+        	if ( that.$element.find('h4').length > 0 ) {
+        		var h4 = that.$element.find('h4'); // Find h4
         			h4.wrapInner('<span>'); // Wrap content with inline element
         		reference = h4.children(); // Inline element in h4 like helper reference	
         	// Legend
-        	} else if ($(conf.element).prev().attr('tagName') == 'LEGEND') {
-        		reference = $(conf.element).prev(); // Legend like helper reference
+        	} else if ( that.$element.prev().attr('tagName') == 'LEGEND' ) {
+        		reference = that.$element.prev(); // Legend like helper reference
         	};
         // INPUT, SELECT, TEXTAREA
         } else {
-        	reference = $(conf.element);
+        	reference = that.$element;
         };
         return reference;
-    }
-    
-	// Get my parent or set it
-	var getParent = function(conf) {
-		if (ui.instances.forms.length > 0) {	
-		  var i = 0, j = ui.instances.forms.length; 
-		  for (i; i < j; i ++) {
-				if (ui.instances.forms[i].element === $(conf.element).parents("form")[0]) {
-					return ui.instances.forms[i]; // Get my parent
-				}
-			};
-		} else {
-			$(conf.element).parents("form").forms();
-			var last = (ui.instances.forms.length - 1);
-			return ui.instances.forms[last]; // Set my parent
-		};
-	}
-    
-    // Collect validations
-    var getValidations = function(conf) {
+    })();
+
+	// Validations Map - Collect validations
+	that.validations = (function() {
         var collection = {};
         var types = conf.types.split(",");
         for (var i = 0, j = types.length; i < j; i ++) {
@@ -123,11 +158,13 @@ ui.watcher = function(conf) {
                 };
             };
         };
-        return collection;
-    };
 
-    // Collect conditions
-    var getConditions = function(conf) {
+        return collection;
+    })();
+
+
+	// Conditions Map
+	that.conditions = (function() {
         var collection = {};        
         var types = conf.types.split(",");
         for (var i = 0, j = types.length; i < j; i ++) {
@@ -138,214 +175,205 @@ ui.watcher = function(conf) {
                 };
             };
         };
+    	    
         return collection;
-    };
+    })();
 
-	// Get Messages
-    var getMessages = function(conf) {	
-    	// Configure messages by parameter (conf vs. default messages)
-    	var messages = {};
-    	for (var msg in conf.messages) {
-    	   messages[msg] = conf.messages[msg];
-    	}
-        return messages;
-    };
 
-	// Revalidate
-	var revalidate = function() {
-		that.validate(conf);
-        that.parent.checkStatus();  // Check everthing?
-	}
-
-	/**
-	 *  @ Protected Members, Properties and Methods ;)
-	 */	
-    
-    // Status
-	that.status = true;
 	
-	// Enabled
-	that.enabled = true;
-	
-	// Types
-	that.types = conf.types;
-	
-	// Reference
-	that.reference = conf.reference = getReference(conf);
-
-	// Parent
-	that.parent = conf.parent = getParent(conf);
-
-	// Validations Map
-	that.validations = getValidations(conf);
-
-	// Conditions Map
-	that.conditions = getConditions(conf);
-
     // Messages
-    that.messages = getMessages(conf);
 
-    // Default Messages
-    that.defaultMessages = conf.defaultMessages;
-    
+    that.messages = ui.clon(conf.messages);
+ 
     // Helper
-    that.helper = ui.helper(conf);
+    var helper = {};
+		helper.uid = that.uid + "#0";
+		helper.type = "helper";
+		helper.element = that.element;
+		helper.$element = that.$element;
+		
+    that.helper = ui.helper.call(helper, that);
     
     // Validate Method
-	that.validate = function(conf) {
-		
-		// Pre-validation: Don't validate disabled or not required&empty elements
-		if ($(conf.element).attr('disabled')) { return; };
-		if (that.publish.types.indexOf("required") == -1 && that.isEmpty(conf)) { return; };
+	that.validate = function() {		
+		// Pre-validation: Don't validate disabled or not required & empty elements
+		if ( that.$element.attr('disabled') ) { return; };
+		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; };
 
-		if (that.enabled) {
-        // Validate each type of validation
-		for (var type in that.validations) {
-			// Status error (stop the flow)
+		if ( that.enabled ) {
 			
-			var condition = that.conditions[type];
-            var value = $(conf.element).val();
-            var gotError = true;
-
-            if (type=="required") {
-                gotError = !that.isEmpty(conf);
-            };
-            
-            if (condition.patt) {
-                gotError = condition.patt.test(value);
-            };
-            
-            if (condition.expr) {
-                gotError = condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
-            };
-            
-            if (condition.func&&type!="required") {
-                gotError = condition.func.call(this, value); // Call validation function with 'this' as scope
-            };
-                    
-			if (!gotError) {
-    			// Field error style
-				$(conf.element).addClass("error");
-				// With previous error
-				if (!conf.status) { that.helper.hide(); };
-				// Show helper with message
-				that.helper.show( (that.messages[type]) ? that.messages[type] : that.parent.messages[type] ); 
-				// Status false
-				that.publish.status = that.status =  conf.status = false;
-			    
-				var event = (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur";
+			that.callbacks('beforeValidate');
+			
+	        // Validate each type of validation
+	        
+			for (var type in that.validations) {
 				
-				$(conf.element).one(event, revalidate); // Add blur event only one time
-                    
-                return;
-			};
-        }; 
+				// Status error (stop the flow)
+				var condition = that.conditions[type];
+	            var value = that.$element.val();
+	            var gotError = false;
+				
+	            if ( type == "required" ) {
+	                gotError = that.isEmpty();
+	            };
+	            
+	            if ( condition.patt ) {
+	                gotError = !condition.patt.test(value);
+	            };
+	            
+	            if ( condition.expr ) {
+	                gotError = !condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
+	            };
+
+	            if ( condition.func && type != "required" ) {
+	                gotError = !condition.func.call(this, value); // Call validation function with 'this' as scope
+	            };
+				
+				if ( gotError ) {
+										
+	    			// Field error style
+					that.$element.addClass("error");
+
+					// Show helper with message
+					var text = ( that.messages.hasOwnProperty(type) ) ? that.messages[type] : 
+						(controller.hasOwnProperty("messages")) ? controller.messages[type] :
+						undefined;
+
+					that.helper.show( text );
+
+					that.active = true;
+
+					var event = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
+
+					that.$element.one(event, that.validate); // Add blur or change event only one time
+
+	                return;
+				};
+	        }; 
 		}; // Enabled
 		
 		// Status OK (with previous error)
-		if (!that.status||!that.enabled) {
+		if ( that.active || !that.enabled ) {
 		    // Remove field error style
-			$(conf.element).removeClass("error"); 
+			that.$element.removeClass("error"); 
             // Hide helper  
 			that.helper.hide();
 			// Public status OK
-			that.publish.status = that.status =  conf.status = true; // Status OK
-			// Remove blur event on status OK
-			$(conf.element).unbind( (conf.tag == 'OPTIONS' || conf.tag == 'SELECT') ? "change" : "blur" );
+			//that.publish.status = that.status =  conf.status = true; // Status OK
+			that.active = false;
+			
+			controller.checkStatus();
 		};
         
-        that.callbacks(conf, 'validate');
+        that.callbacks('afterValidate');
+        
+        return that;
 	};
 	
 	// Reset Method
-	that.reset = function(conf) {
-		that.publish.status = that.status = conf.status = true; // Public status OK
-		$(conf.element).removeClass("error");
+	that.reset = function() {
+		//that.publish.status = that.status = conf.status = true; // Public status OK
+		that.active = false;
+		that.$element.removeClass("error");
 		that.helper.hide(); // Hide helper
-		$(conf.element).unbind("blur"); // Remove blur event 
+		that.$element.unbind("blur"); // Remove blur event 
 		
-		that.callbacks(conf, 'reset');
+		that.callbacks("reset");
+		
+		return that;
 	};
 	
 	// isEmpty Method
-	that.isEmpty = function(conf) {
-		conf.tag = ($(conf.element).hasClass("options")) ? "OPTIONS" : conf.element.tagName;
-		switch (conf.tag) {
+	that.isEmpty = function() {
+		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
+		switch (that.tag) {
 			case 'OPTIONS':
-				return $(conf.element).find('input:checked').length == 0;
+				return that.$element.find('input:checked').length == 0;
 			break;
 			
 			case 'SELECT':
-			    var val = $(conf.element).val();
+			    var val = that.$element.val();
 				return val == -1 || val == null;
 			break;
 			
 			case 'INPUT':
 			case 'TEXTAREA':
-				return $.trim( $(conf.element).val() ).length == 0;
+				return $.trim( that.$element.val() ).length == 0;
 			break;
 		};
+				
 	};
-    
+
+	
+			
 /**
- *  Expose propierties and methods
+ *  Public Members
  */	
-	that.publish = {
-	/**
-	 *  @ Public Properties
-	 */
-    	uid: conf.uid,
-		element: conf.element,
-		type: "watcher", //conf.type, // Everything is a "watcher" type, no matter what interface is used
-		types: that.types,
-		status: that.status,
-		reference: that.reference,
-		parent: that.parent,
-		validations: that.validations,
-		conditions: that.conditions,
-		messages: that.messages,
-	/**
-	 *  @ Public Methods
-	 */
-		and: function() {
-		  return $(conf.element);
-		},
-		reset: function() {
-			that.reset(conf);
-			return that.publish;
-		},
-		validate: function() {
-			that.validate(conf);
-			return that.publish;
-		},
-        refresh: function() { 
-            return that.helper.position("refresh");
-        },
-		enable: function() {
-			that.enabled = true;		
-			return that.publish;			
-		},
-		disable: function() {
-			that.enabled = false;
-			return that.publish;
-		}
+	that.public.uid = that.uid;
+	that.public.element = that.element;
+	that.public.type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
+	that.public.types = conf.types;
+	that.public.reference = that.reference;
+	that.public.validations = that.validations;
+	that.public.conditions = that.conditions;
+	that.public.messages = that.messages;
+	that.public.helper = that.helper;
+	that.public.active = function() {
+		return that.active;
 	};
+	
+	that.public.and = function() {
+		return that.$element;
+	};
+	
+	that.public.reset = function() {
+		that.reset();
+		
+		return that.public;
+	};
+	
+	that.public.validate = function() {
+		that.validate();
+		
+		return that.public;
+	};
+	  
+	that.public.enable = function() {
+		that.enabled = true;
+				
+		return that.public;			
+	};
+	
+	that.public.disable = function() {
+		that.enabled = false;
+		
+		return that.public;
+	};
+	
+	that.public.refresh = function() { 
+		return that.helper.position("refresh");
+   };
+
+	
+
+/**
+ *  Default event delegation
+ */	
 
     // Run the instances checker        
     // TODO: Maybe is better to check this on top to avoid all the process. 
-    var check = checkInstance(conf);
+    var check = checkInstance();
     // If a match exists
-    if (check) {
-        // Create a publish object and save the existing object
-        // in the publish object to mantain compatibility
+    if ( check ) {
+        // Create a public object and save the existing object
+        // in the public object to mantain compatibility
         var that = {};
-            that.publish = check; 
+            that.public = check; 
         // ;) repleace that object with the repeated instance
     } else {
         // this is a new instance: "Come to papa!"
-        that.parent.children.push(that.publish);
-    }
+        controller.children.push(that.public);
+    };
 
-	// return public object
 	return that;
 };

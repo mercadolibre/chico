@@ -1,0 +1,176 @@
+/**** HEADER ******/
+.navMenu {
+    overflow: hidden;
+    margin-bottom:20px;
+}
+
+p.isoLogo {
+    float: left;
+    position: relative;
+    top: 20px;
+    width: 190px;
+}
+
+.barAllMenu {
+    display: block;
+    overflow: hidden;
+}
+
+p.isoLogo a {
+    background: url("http://static.mlstatic.com/org-img/search2008/images/sp_log_bot.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 45px;
+    width: 170px;
+}
+p.isoLogo a span {
+    display: none;
+}
+a.homeAcces {
+    float: left;
+}
+ul.accesBar {
+    float: right;
+    margin: 0 0 5px;
+    padding: 0;
+}
+.menuBar {
+    background: url("http://static.mlstatic.com/org-img/search2008/images/bg_buscador.gif") repeat-x scroll 0 0 transparent;
+    clear: both;
+    margin: 0;
+    padding: 5px 5px 5px 8px;
+    width: auto;
+}
+
+ul.accesBar li.lastAcces {
+    border-right: medium none;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+ul.accesBar li {
+    border-right: 1px solid #999999;
+    float: right;
+    line-height: 13px;
+    margin: 5px 10px 0 0;
+    padding: 0 10px 0 0;
+}
+
+input.buscador {
+    margin-right: 5px;
+    width: 50%;
+}
+
+.loading {
+	background: #fff url(http://static.mlstatic.com/org-img/vip3/layer/loading_small.gif);
+	width: 50px;
+	height: 50px;
+	margin: 20px auto;
+}
+
+/*---- PREGUNTAS Y RESPUESTAS ----*/
+.listQA li dl {overflow:hidden;}
+.listQA li dl.question {background-image:url(http://static.mlstatic.com/org-img/GMP/spr.gif); background-position:0 -400px; background-repeat:repeat-x;}
+.listQA li dl dt {float:left; text-align:right; width:10%; padding:5px 0 5px 2%; border-top:1px dotted #ccc; clear:both; }
+.listQA li dl dt {font-weight:bold;}
+.listQA li dl dt span {display: inline-block;font-size: 10px; font-weight: normal; position: relative; top: -5px;}
+.listQA li dl dd {float:left;  padding:5px 2%; border-top:1px dotted #ccc; position:relative; width:84%;}
+.listQA li dl dd a {position:absolute; right:20px;  font-size:11px;}/*top: 5px;*/
+.listQA li dl dd span {display:block;width:92%;}
+.formQA {margin:15px auto 5px; text-align:center;}
+
+
+
+/*Preguntas holdeadas*/
+.txt table{border:1px solid #e2321b;background-color:#fff7c6;width:380px;}
+.txt table td{padding:5px;line-height:15px;}
+.txt table td strong{left:5px;position:relative;top:-5px;}
+.listQA li dl .txt table a {font-size:12px;position:relative;right:0;top:0;}
+/*-END PREGUNTAS Y RESPUESTAS ----*/
+
+.messagesVip{
+	text-align: center; height: 50px;
+}
+
+.messagesVip p{
+	margin-top:30px;
+}
+.statusOk {
+    background-image: url("http://www.mercadolibre.com.ar/org-img/vip3/iconTilde24.png");
+    background-position: 0 5px;
+    background-repeat: no-repeat;
+    padding: 8px 5px 6px 30px;
+}
+
+body {
+  max-width: 980px;
+}
+
+.ch-modal{width:600px;}
+.container {
+    margin: 10px auto;
+}
+.makeQuestion ul {
+	font-size:11px;
+	line-height:16px;
+	padding:0 0 5px;
+}
+
+.makeQuestion ul li{
+	margin-left:35px;
+	list-style-type:disc;
+}
+
+.makeQuestion ul li.first {
+	margin-left:0px;
+	list-style-type:none;
+	background: url("http://static.mlstatic.com/org-img/GMP/spr.png") no-repeat scroll 0 -442px transparent;
+	padding-left:20px;
+	font-weight:bold;
+	margin-bottom:2px;
+}
+
+form#form_quest li{list-style-type:none;margin-left:0;}
+
+form label textarea {
+    width: 98%;
+}
+
+form .help {
+   margin-left: 0;
+}
+
+form fieldset {
+    margin-bottom: 0;
+}
+
+form .actions {
+    margin-left: 0;
+    text-align: center;
+}
+.actions {
+    margin-top: 0;
+}
+
+body > section {
+  margin: 20px 0;
+}
+
+#search form {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+#search form input {
+  font-size: 14px;
+}
+
+#search ul li {
+  width: 90px;
+  height: 90px;
+}
+
+#search .results {
+  padding: 20px 0;
+}
+
+section { display: block; }

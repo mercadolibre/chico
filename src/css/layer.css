@@ -1,5 +1,5 @@
 .ch-layer {
-	width:280px;
+	min-width:280px;
 	background-image:none;
 	position:absolute;
 	z-index: 300;
@@ -72,4 +72,14 @@
 .ch-layer.ch-top-right .ch-cone {
 	background-position:0 -8px;
 	bottom:-8px;
+}
+
+/* IE 6 */
+.ie6 .ch-layer {
+	width:280px;
+}
+
+/* IE 7 */
+.ie7 .ch-layer {
+	width:280px;
 }

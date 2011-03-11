@@ -10,7 +10,7 @@
 // HTML Content Type
 header("Content-type: text/html");
 
-$tests = "core, dropdown, expando, layer, modal, tabNavigator, tooltip, forms, watcher";
+$tests = "tabNavigator, core, dropdown, expando, layer, modal, tooltip, forms, watcher";
 $files = explode(", ", $tests);
 
 $outScript = "";

@@ -4,117 +4,136 @@
  *  @returns {Object} Floats.
  */
 
-ui.floats = function(conf) {
+ui.floats = function() {
 
 /**
  *  Constructor
  */
-
+	var that = this;
+	var conf = that.conf;
+	
 /**
  *  Inheritance
  */
 
-	var that = ui.object(conf); // Inheritance	
+    that = ui.object.call(that);
+    that.parent = ui.clon(that);
     
 /**
  *  Private Members
  */
-	// parasito
+	var createCone = function() {
+		$('<div class="ch-cone"></div>').prependTo(that.$container);
+		
+		return;
+	};
+
 	var createClose = function() { 
 		$('<p>')
 			.addClass("btn ch-close")
 			.css("z-index",ui.utils.zIndex++)
-			.bind('click', function(event) {
-				that.hide(event, conf);
-			})
-			.prependTo(conf.$container);
-
+			.bind('click', function(event){ that.hide(event) })
+			.prependTo(that.$container);
+			
 		return;
 	};
 
-	var createCone = function(conf) {
-		$('<div class="ch-cone"></div>').prependTo(conf.$container);
-	};
-
-    var createLayout = function(conf) {
+    var createLayout = function() {
 
         // Creo el layout del float
-    	conf.$container = $("<div class=\"ch-" + conf.type + "\"><div class=\"ch-" + conf.type + "-content\"></div></div>").appendTo("body").hide();
-    	conf.$htmlContent = conf.$container.find(".ch-" + conf.type + "-content");
+    	that.$container = $("<div class=\"ch-" + that.type + "\"><div class=\"ch-" + that.type + "-content\"></div></div>").appendTo("body").hide();
+    	that.$content = that.$container.find(".ch-" + that.type + "-content");
 		
 		conf.position = conf.position || {};
-		conf.position.element = conf.$container;
+		conf.position.element = that.$container;
 		conf.position.hold = conf.hold || false;		
+		
 		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
     	
     	// Visual configuration
-		if( conf.closeButton ) createClose(conf);
-		if( conf.cone ) createCone(conf);
-		if( conf.classes ) conf.$container.addClass(conf.classes);
-		if( conf.hasOwnProperty("width") ) conf.$container.css("width", conf.width);
-		if( conf.hasOwnProperty("height") ) conf.$container.css("height", conf.height);
+		if( conf.closeButton ) createClose();
+		if( conf.cone ) createCone();
+		if( conf.classes ) that.$container.addClass(conf.classes);
+		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
+		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
 
-		conf.$htmlContent.html( that.loadContent(conf) );
-		conf.$container
+		that.$content.html( that.loadContent(that) );
+		that.$container
     		.css("z-index", ui.utils.zIndex++)
-		    .fadeIn('fast', function(){ that.callbacks(conf, 'onShow'); });
+		    .fadeIn('fast', function(){ that.callbacks('onShow'); });
 
-		ui.positioner(conf.position);
+		ui.positioner.call(that);
 		
-		conf.visible = true;
+		return;
     };
+    
 
+/**
+ *  Protected Members
+ */ 
+			
 /**
  *  Public Members
  */
  
-	that.show = function(event, conf) {
+	that.active = false;
 	
+	that.show = function(event) {
+		
 		if ( event ) that.prevent(event);
 		
-		if ( conf.visible ) return;
+		if ( that.active ) return;
+		
+		that.active = true;
 		
 		// Show if exist, else create		
-		if ( conf.$container ) {
+		if ( that.$container ) {
 			
-			// If not cache... get content! 
-			if ( !conf.cache ) conf.$htmlContent.html( that.loadContent(conf) );
+			// If not cache... get content! // Flush cache where?? when?? do it!
+			if ( !conf.cache ) that.$content.html( that.loadContent() );
 						
-    		conf.$container
+    		that.$container
     		    .appendTo("body")
     			.css("z-index", ui.utils.zIndex++)
 			    .fadeIn('fast', function(){ 
-					conf.visible = true;
+					that.active = true;
 					
 					// Callback execute
-					that.callbacks(conf, 'onShow');
+					that.callbacks('onShow');
 				});
 
-			ui.positioner(conf.position);			
-			return;
+			that.position("refresh");
+						
+			return that;
 		};
 		
 		// If you reach here, create a float
-        createLayout(conf); 
+        createLayout();
+        
+        return that;
 	};
 
-	that.hide = function(event, conf) {
-	
+	that.hide = function(event) {
+
 		if (event) that.prevent(event);
-		
-		if (!conf.visible) return;
-		
-		conf.$container.fadeOut('fast', function(event){ 
 
-			conf.visible = false;
+		if (!that.active) return;
 
+		that.$container.fadeOut('fast', function(){ 
+			 
+			that.active = false;
+			
 			// Callback execute
-			that.callbacks(conf, 'onHide');
+			that.callbacks('onHide');
+			
+			$(this).detach();
 
-			$(this).detach();	
 		});
+		
+		return that;
 
 	};
-		
+	
 	return that;
+	
 };

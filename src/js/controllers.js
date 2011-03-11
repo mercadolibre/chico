@@ -6,9 +6,35 @@
  */
 
 ui.controllers = function(){
-	var that = ui.object(); // Inheritance
+
+/**
+ *  Constructor
+ */
+	var that = this;
+		
+/**
+ *  Inheritance
+ */
+
+    that = ui.object.call(that);
+    that.parent = ui.clon(that);
+	
+	
+/**
+ *  Private Members
+ */
+ 
+ 
+/**
+ *  Protected Members
+ */ 
 	
 	that.children = [];
+			
+/**
+ *  Public Members
+ */	
+	
 	
 	return that;
 };

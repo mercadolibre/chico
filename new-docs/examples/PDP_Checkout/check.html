@@ -1,0 +1,301 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+	<head>
+		<script></script>
+		<meta charset="UTF-8">
+		<title>Check out</title>
+		
+		<link rel="stylesheet" type="text/css" href="0.4.7/chico-ui-all.css">
+		<link rel="stylesheet" type="text/css" href="pdp.css">
+        <link rel="stylesheet" type="text/css" href="recommendations/recommendations.css">
+				
+		<!--[if lt IE 7 ]>
+			<script src="libs/js/dd_belatedpng.js"></script>
+			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+		<![endif]-->
+
+	</head>
+	<body>
+
+		<div style='width:100%;background: #eee;border-bottom:2px solid #06C;position:absolute;top:0;left:0;padding: 10px 0;'>
+			<div style="max-width: 1200px; min-width: 760px;margin: 0 auto;padding: 0 10px;">
+				<span>Buscá un producto: </span>
+				<select id="conuntryProduct">
+					<option value="MLA">MLA</option>
+					<option value="MLB">MLB</option>
+					<option value="MLM">MLM</option>    
+				</select>
+				<input id="inputProduct" type="text" value="800768">
+				<input id="searchProduct" type="button" value="Buscar">
+				<span id="errorSearchProd"></span>
+			</div>
+        </div>
+
+<div id="container" style="display:none">	
+        <div class="header">
+			<p class="isoLogo">
+				<a href="http://www.mercadolibre.com.pa/" a="">
+					<span>MercadoLibre, donde compras y vendes de todo</span>
+				</a>
+			</p>
+			<div class="barAllMenu">
+			    <a class="homeAcces" href="http://www.mercadolibre.com.pa/">Inicio</a>
+				<ul class="accesBar">
+				
+					<li class="lastAcces"><a href="http://www.mercadolibre.com.pa/ayuda_home">Ayuda</a></li>
+				
+				    <li><a href="http://www.mercadolibre.com.pa/jm/myML">Mi MercadoLibre</a></li>
+				    <li><a href="http://www.mercadolibre.com.pa/jm/sell">Vender</a></li>
+				    <li><a href="reg.html" target="_blank">Regístrate</a></li>
+				</ul>
+				<div class="menuBar allRounded box" style="height:25px;">
+				 
+				</div>
+			</div>
+		</div>
+		
+		
+       <div class="section box data-sheet" >
+        <div class="nav">
+			<h1 class="typo" >Revisa y confirma tu compra</h1>
+		</div>
+		<div class="section product">
+			
+			
+			<!--  Galeria de imágenes -->  
+			<div class="figure gallery">
+				<div class="slider"><img src="" alt="Ipod"></div>
+			</div>
+            
+			
+			
+			<div id="principal" class="section">
+				 
+              <dl class="itemData" style="margin-bottom:">
+	                <dt>Precio:</dt>
+                <dd>
+				  <span id="principalPrice" class="price"> </span> C/U
+				
+				</dd>
+                    <dt>Cantidad:</dt>
+                <dd>
+						<span id="principalPrice" class="price"></span>
+						
+						<select id="stock">
+							<!--option value="1" selected="selected">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option-->
+						</select>
+				</dd>				
+				</dl>
+                
+               
+				<dl class="itemData" style="border-top:1px solid #CCCCCC; margin:10px 0 20px 0;">
+	                
+	                    	<!-- Cuotas MP-->         
+                  <dt>Pago:</dt>                        
+					<dd class="total">
+						<div class="article">
+							
+							<ul>			
+							  <li title="Visa" class="payMethod visa">Visa</li>
+							</ul>
+                          <p style="padding-left:10px;">XXXX XXXX XXXX 4897</p>
+						</div>	
+					</dd>
+	                <!-- End Cuotas MP-->
+                  <dd>
+						
+                        <select id="stock">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3"  selected="selected">3</option>
+						</select>
+                        <span> cuotas de </span>
+                        <span id="principalPrice" class="price"> R$176</span>
+                        <span>(Total de R$ 529)</span>				  </dd>
+                     <dd>
+                    <span>Código de seguridad:</span>
+                    <label>
+                    
+                    
+                    <input type="text" name="" id="">
+                    </label>
+                    </dd>
+                    <dd>
+                    <input name="" type="checkbox" value=""><span>Quiero recibir información fiscal de mi compra.</span>
+                    </dd>
+              </dl>
+              
+                
+              <dl class="itemData" style="border-top:1px solid #CCCCCC; margin:10px 0 20px 0;">
+	                <dt>Envío:</dt>
+	                <dd>
+                    <span>Tronador 45646</span>
+                    <a class="link-modal" href="mod.html" title="Modificar">Modificar</a>
+                    </dd>
+                     <dd>
+                    <span>Buenos Aires</span>
+                    </dd>
+                      <dd>
+                    <span>cp 1233</span>
+                    </dd>
+              </dl>
+				
+               
+               
+               
+              
+              
+              
+                
+                    
+                    <form method="get" action="" class="buy">
+					<input type="submit" value="Confirmar pago" class="btn primary">
+					
+			  </form>
+				
+				
+				
+			</div>
+		</div>
+      </div>
+
+		
+		
+	
+		
+		<div class="footer mainFooter"> 
+			<ul> 
+			  <li><a href="http://www.mercadolibre.com.pa/panama/ml/org_theme.p_main?as_theme_id=NEW_SOBRE_ML">Sobre MercadoLibre</a> | </li> 
+		 
+			  <li><a href="http://www.mercadolibre.com.pa/panama/ml/p_loadhtml?as_menu=CSEG&amp;as_html_code=CSEG01">Centro de Seguridad</a> | </li> 
+			  <li><a href="http://www.mercadolibre.com.pa/sitemap.html">Mapa del Sitio</a> | </li> 
+		 
+			  <li><a href="http://www.mercadolibre.com">Ver otros países</a></li> 
+			</ul> 
+			 
+			<hr><p> 
+		  El uso de este sitio web implica la aceptación de los <a href="http://www.mercadolibre.com.pa/seguro_terminos.html" target="_blank">Términos y Condiciones</a> y de las <a href="http://www.mercadolibre.com.pa/org-img/html/MPA/seguro_privacidad.html" target="_blank">Políticas de Privacidad</a> de MercadoLibre S.R.L. <br> Copyright &copy; 1999-2010 MercadoLibre S.R.L.
+		  </p>	
+		  
+		</div>
+        
+        </div>
+        
+        </div>
+		
+		<script src="jquery-1.4.4.js"></script>
+		<script src="0.4.7/chico-ui-all.js"></script>
+		<script>
+
+    $("<div class=\"loading\">").prependTo("body");
+  
+    var cho = {
+        
+        cache: {},
+        
+        getProduct: function() {
+            var productId = $('#inputProduct').val();
+    		var catalog = "https://sandbox.mercadolibre.com/catalog_products/"+productId;
+    		$.getJSON(catalog+'?callback=?',cho.getItem);
+        },
+        
+        getItem: function(data) {
+          
+          cho.cache.product = data[2];
+        
+    	  //LLamado a la api de search con productos NUEVOS
+		  var search = "https://api.mercadolibre.com/sites/"+$('#conuntryProduct').val()+"/search?product="+ data[2].id +"&condition=new";
+
+		  $.getJSON(search+'&callback=?',function(data) {
+		
+		      cho.cache.item = data[2].results[0];
+   			  
+   			  $.getJSON("https://api.mercadolibre.com/items/"+ cho.cache.item.id +"?callback=?", function(data) {
+   			     
+   			     cho.cache.item = data[2];
+   			     
+   			     cho.draw();
+   			      
+			  });
+		  
+	      });
+
+        },
+        
+        draw: function() {
+            
+            $(".loading").hide();
+            $("#container").fadeIn();
+            
+            var item = cho.cache.item;
+            var product = cho.cache.product;
+            
+            var title = $("h1.typo").html() + " de <strong>" + product.title + "</strong>";
+            
+            $("h1.typo").html(title);
+            
+            $("#principalPrice").html( cho.convertCurrency(item.currency_id) + " " + item.price);
+            
+            for (var i = 0; i < item.available_quantity; i++) {
+                $("#stock")[0].options.length++;
+                $("#stock")[0].options[i].innerHTML = i+1;
+                $("#stock")[0].options[i].value = i+1;                                
+            }
+            
+            $("#stock").change(function(event){ 
+                $("#quantity").val( $(this).val() );
+            });
+
+            
+        },
+        
+       	convertCurrency: function(c) {
+      		if(c == "ARS"){
+      			return "$";
+      		}else if(c == "USD"){
+      			return "U$S";
+      		}else if(c == "BRL"){
+      			return "R$";
+      		}else if(c == 'MXN'){
+      			return "$";
+      		}else {
+      			console.log("Currency invalid");
+      		}
+      	}
+    
+    }
+    
+    
+
+    cho.getProduct();
+
+				
+				$('#inputProduct').keyup(function(e) {
+					if(e.keyCode == 13) {
+						pdp.init($('#conuntryProduct').val(), $('#inputProduct').val());
+						recommend.init($('#inputProduct').val(), $('#conuntryProduct').val(), function(){ carousel.init(recommend.carousels)});
+						$('.loading').css('display', 'block');
+						$('#conteiner').css('display', 'none');
+					}
+				});
+
+				/*var ui_caro = $('.demoCarousel').carousel();
+				var ui_caro = $('.demoCarousel').carousel();*/
+				var ui_tabs = $('.tabs').tabNavigator();
+				var ui_moda = $('.link-modal').modal({ ajax: true });
+				var ui_laye = $('.mlG').layer({ event: 'over', content: '<h4>MercadoLíder Gold</h4><p>Los MercadoLíderes Gold son grandes vendedores del sitio, distinguidos por tener una muy buena reputación.</p>' });
+				var ui_laye = $('.mlP').layer({ event: 'click', content: '<h4>MercadoLíder Platinum</h4><p>Los MercadoLíderes Platinum son los mejores vendedores del sitio, distinguidos por su excelente reputación.</p>' });
+				var ui_drop = $('.drop').dropdown();
+				var ui_laye = $('.meterLay').layer({ event: 'over', content: '<h2>Reputacion del Vendedor</h2><img src="img/repu.png"/>' });
+				
+		</script>
+			
+	</body>
+</html>

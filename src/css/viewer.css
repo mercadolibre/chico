@@ -12,15 +12,15 @@
 	height:320px;
 }
 
-.ch-lens{
+.ch-viewer .ch-lens{
     height:41px;
     position:absolute;
     width:41px;
     cursor:pointer;
+    display:none;
 	background-image: url('../src/assets/viewer.png');
 	background-repeat: no-repeat;
 	background-position:-2px -1px;
-	
 }
 
 .ch-viewer-modal-content{
@@ -57,7 +57,7 @@
 }
 
 .ch-viewer-triggers{
-  margin-top:10px;
+	margin-top:10px;
 }
 
 .ch-viewer .ch-viewer-triggers li{

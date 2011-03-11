@@ -5,67 +5,72 @@
  *	@return An interface object
  */
 
-ui.number = function(conf){
+
+ui.number = function(conf) {
+
+/**
+ *  Constructor
+ */
+
+	conf = conf || {};
 	
-    /**
-	 *  Override Watcher Configuration
-	 */
-	// Validation types
+    conf.messages = conf.messages || {};
+
+    if ( conf.hasOwnProperty("msg") ) { 
+		conf.messages.number = conf.msg;
+    	conf.msg = null;
+    	delete conf.msg;
+    };
+    
+    // $.number("message"); support
+	if ( !conf.number && !conf.min && !conf.max && !conf.price ) {
+		conf.number = true;
+	};
+  
+	// Add validation types
 	conf.types = "number,min,max,price";
-	// Helper
-	conf.reference = $(conf.element);
-	// Conditions map TODO: float	
+    
+    // Define the conditions of this interface
     conf.conditions = {
-        number: { patt: /^([0-9\s]+)$/ },
+		number: { patt: /^([0-9\s]+)$/ },
         min:    { expr: function(a,b) { return a >= b } },
         max:    { expr: function(a,b) { return a <= b } },
 		price:  { patt: /^(\d+)[.,]?(\d?\d?)$/ }
-		//price:  { patt: /^\d (\Z|[\.]\d )$/ }
-
+		// price:  { patt: /^\d (\Z|[\.]\d )$/ }
+		// float: TODO       
     };
-    
-	conf.messages = conf.messages || {};
 
-    if (conf.msg) { 
-        conf.messages.number = conf.msg; 
-        conf.msg = null; 
-    }
 
-    // $.number("message"); support
-    if (!conf.number&&!conf.min&&!conf.max&&!conf.price){
-        conf.number = true;
-    }
+	return ui.watcher.call(this, conf);
     
-    /**
-	 *  Extend Watcher
-	 */
- 	var that = ui.watcher(conf);
-	
-    /**
-	 *  Public Object
-	 */
-	return that.publish;
 };
-
 
 /**
  *	@Interface Min validations
  *	@return An interface object
  */
- 
+
 ui.min = function(conf) {
     
     conf = conf || {};
-    
-    conf.min = conf.value;
+	
+	conf.min = conf.value;
+	
+	conf.value = null;
+	
+	delete conf.value;
+	
+	conf.messages = {};
 
-	conf.messages = conf.messages || {};
+    if ( conf.hasOwnProperty("msg") ) { 
+		conf.messages.min = conf.msg;
+    	conf.msg = null;
+    	delete conf.msg;
+    };
 
-    if (conf.msg) { conf.messages.min = conf.msg; conf.msg = null; }
+	return ui.number.call(this, conf);
     
-    return ui.number(conf);
-    
-}
+};
 
 ui.factory({ component: 'min' });
 
@@ -77,14 +82,22 @@ ui.factory({ component: 'min' });
 ui.max = function(conf) {
     
     conf = conf || {};
-    
-    conf.max = conf.value;
+	
+	conf.max = conf.value;
+	
+	conf.value = null;
+	
+	delete conf.value;
+	
+	conf.messages = {};
 
-	conf.messages = conf.messages || {};
+    if ( conf.hasOwnProperty("msg") ) { 
+		conf.messages.max = conf.msg;
+    	conf.msg = null;
+    	delete conf.msg;
+    };
 
-    if (conf.msg) { conf.messages.max = conf.msg; conf.msg = null; }
-    
-    return ui.number(conf);
+	return ui.number.call(this, conf);
     
 }
 
@@ -99,14 +112,22 @@ ui.factory({ component: 'max' });
 ui.price = function(conf) {
     
     conf = conf || {};
-    
-    conf.price = true;
+	
+	conf.price = true;
+	
+	conf.value = null;
+	
+	delete conf.value;
+	
+	conf.messages = {};
 
-	conf.messages = conf.messages || {};
+    if ( conf.hasOwnProperty("msg") ) { 
+		conf.messages.price = conf.msg;
+    	conf.msg = null;
+    	delete conf.msg;
+    };
 
-    if (conf.msg) { conf.messages.price = conf.msg; conf.msg = null; }
-    
-    return ui.number(conf);
+	return ui.number.call(this, conf);
     
 }
 
