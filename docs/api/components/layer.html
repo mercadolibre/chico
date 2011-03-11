@@ -1,0 +1,245 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+        <script></script> <!-- Avoid script blocking -->
+        <meta charset="utf-8">
+        <title>Contextual Layer</title>
+        <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../../src/css/grid.css">
+        <!--[if lt IE 7 ]>
+            <script src="../../libs/js/dd_belatedpng.js"></script>
+            <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+        <![endif]-->
+        <script src="../../../libs/js/jquery.js"></script>
+		<script src="../../../build/chico-min-0.5.5.js"></script>
+    <head>
+<body>
+
+
+
+<h1>Contextual Layer</h1>
+
+<div class="sourceTabs">
+	<ul>
+		<li><a href="#demo">Demo</a></li>
+		<li><a href="#html">Html</a></li>
+		<li><a href="#js">JavaScript</a></li>
+	</ul>
+	<div>
+		<div id="demo">
+			<strong class="demoLayerOnmouseover">Drag cursor over me!!</strong>
+		</div>
+		
+		<div id="html">
+			<code>
+				<pre name="code" class="xml"><span class="demoLayerOnmouseover">Drag cursor over me!!</span></pre>
+			</code>
+		</div>
+		
+		<div id="js">
+			<code>
+				<pre name="code" class="js">$(".demoLayerOnmouseover").layer("Thank you.");</pre>
+			</code>
+		</div>
+	</div>
+</div>
+
+<div class="box">
+	<h2>Cómo se usa</h2>
+	
+	<p>El objecto Contextual Layer pertenece a la familia Floats (al igual que <a href="modal.html" lang="en">Modal window</a> y <a href="tooltip.html" lang="en">Tooltip</a>). Recibe como argumento un objeto de propiedades para su funcionamiento, contenido o para los <em lang="en">callbacks</em>.</p>
+	
+	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+	
+	<code>
+		<pre name="code" class="js">$(".foo").layer();</pre>
+	</code>
+	
+	<p>Objeto de configuración:</p>
+	
+	<code>
+		<pre name="code" class="js">
+{
+	content: string,					// HTML markup or query string to get content. For example "<p>content</p>", "#Foobar", etc.
+	ajax: string,					   // URL to get content
+	cache: boolean,					 // Content cacheable (Only one request per layer). Default "true"
+	event: string,					  // "click" define a click triggered layer
+	onShow: function() {},    		  // Callback executed after show layer
+	onHide: function() {},			  // Callback executed before hide layer
+	onContentLoad: function() {},	   // Callback executed on success of content loaded via ajax
+	onContentError: function() {} 	  // Callback executed on fail of content loaded via ajax
+	offset: string,					 // Positioner configuration. Default "0 10"
+	points: string,					 // Positioner configuration. Default "lt lb"
+	hold: boolean					   // Positioner configuration. Default "false"
+}</pre>
+	</code>
+	
+	<p>Ejemplo:</p>
+	
+	<code>
+		<pre name="code" class="js">
+$(".foo").layer({
+	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elite.",
+	event: "click"
+});</pre>
+	</code>
+	
+	<p>Otra forma de iniciarlo es utilizando la siguiente sintaxis:</p>
+	
+	<code>
+		<pre name="code" class="js">$(".foo").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elite.");</pre>
+	</code>
+	   
+	<p>Cada vez que se instancia un componente Contextual Layer retorna un objecto público de control que nos brinda información sobre la instancia.</p>
+	
+	<code>
+		<pre name="code" class="js">
+var foo = $(".foo").layer();
+
+// It returns
+foo = {
+	uid: 121,                         //  Global number instance
+	element: HTMLElement,        	 //  DOM Interface
+	type: "layer",                    //  Component Type
+	content: string,				  //  Get content
+	position(),					   //  Get, set and refresh position
+	show(),						   //  Show layer
+	hide()						    //  Hide layer
+}</pre>
+	</code>
+	
+	<p>El método público position() puede ser utilizado para:</p>
+	
+	<p>1. Obtener la configuración actual de posicionamiento.</p>
+	<code>
+		<pre name="code" class="js">
+foo.position();					   //  Get position</pre>
+	</code>
+	
+	<p>2. Actualizar la posición del elemento.</p>
+	<code>
+		<pre name="code" class="js">
+foo.position("refresh");			  //  Refresh position</pre>
+	</code>
+	
+	<p>3. Setear una nueva configuración para el <a href="../positioner">posicionamiento</a> del elemento.</p>
+	<code>
+		<pre name="code" class="js">
+foo.position({ 					   //  Set new position
+	context: $(element),
+	offset: string,
+	points: string,
+	fixed: boolean
+});</pre>
+	</code>
+</div>
+
+<div class="box">
+	<h2>Ejemplos</h2>
+	
+	<div class="container">
+		<h3>1. Contextual Layer ejecutado en mouseover</h3>
+		
+		<div class="container">
+			<strong class="layerOnmouseover">Layer ejecutado en mouseover.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="layerOnmouseover">Layer ejecutado en mouseover.</span></pre>
+		</code>
+		
+		<p>El layer ejecutado en el mouseover es el comportamiento predeterminado de este componente. Es decir que no es necesario iniciar un Layer con un objeto de configuración, sino que puede iniciarse solo indicandose un contenido de la siguiente manera:</p>
+				
+		<code>
+			<pre name="code" class="js">$(".layerOnmouseover").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");</pre>
+		</code>
+	</div>
+	
+	<div class="container">
+		<h3>2. Contextual Layer ejecutado en el click</h3>
+		
+		<div class="container">
+			<strong class="layerOnclick">Layer ejecutado con click.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="layerOnclick">Layer ejecutado con click.</span></pre>
+		</code>
+		
+		<p>Para ejecutar un layer en el click de un elemento, es necesario especificar dicho comportamiento dentro del objeto de configuración:</p>
+				
+		<code>
+			<pre name="code" class="js">
+$(".layerOnclick").layer({
+	event: "click",
+	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+});</pre>
+		</code>
+	</div>
+	
+	<div class="container">
+		<h3>3. Contextual Layer seteando una nueva configuración de posicionamiento</h3>
+		
+		<div class="container">
+			<strong class="layerOnclick2">Layer con posicionamiento modificado.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="layerOnclick2">Layer ejecutado con click.</span></pre>
+		</code>
+		
+		<p>Una de las posibilidades que se dan en el Contextual Layer, es la de reposicionar el elemento:</p>
+				
+		<code>
+			<pre name="code" class="js">
+var layerToBePositioned = $(".layerOnclick2").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+
+layerToBePositioned.position({
+	points: "lb lt",
+	offset: "100 -10"
+});</pre>
+		</code>
+	</div>
+</div>
+
+
+<script>
+	ui.codelighter();
+
+    $(".sourceTabs").tabNavigator();
+    
+    $(".demoLayerOnmouseover").layer("Thank you.");
+    
+    $(".layerOnmouseover").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+    
+    $(".layerOnclick").layer({
+		event: "click",
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+	});
+	
+	var layerToBePositioned = $(".layerOnclick2").layer({
+		event: "click",
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+	});
+
+	layerToBePositioned.position({
+		points: "lb lt",
+		offset: "100 -10"
+	});
+</script>
+
+
+
+</body>
+</html>
