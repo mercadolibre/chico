@@ -122,7 +122,7 @@ ui.dropdown = function(conf){
 		.detach();
 	
 	// Close dropdown after click an option (link)
-	that.$content.find('a').one("click", function(event){ that.hide(event) });
+	that.$content.find('a').one("click", function(){ that.hide() });
 
 	// Put content out of container
 	that.$container.after( that.$content );
