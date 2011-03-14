@@ -1,0 +1,605 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+        <script></script> <!-- Avoid script blocking -->
+        <meta charset="utf-8">
+        <title>Modal Window</title>
+        <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../../src/css/grid.css">
+        <!--[if lt IE 7 ]>
+            <script src="../../../libs/js/dd_belatedpng.js"></script>
+            <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+        <![endif]-->
+        <script src="../../../libs/js/jquery.js"></script>
+		<script src="../../../build/chico-min-0.5.5.js"></script>
+    <head>
+<body>
+
+
+
+<h1>Modal Window</h1>
+
+<div class="sourceTabs">
+	<ul>
+		<li><a href="#demo">Demo</a></li>
+		<li><a href="#html">Html</a></li>
+		<li><a href="#js">JavaScript</a></li>
+	</ul>
+	<div>
+		<div id="demo">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn primary clickmeModal" value="Click me!">				
+			</form>
+		</div>
+		
+		<div id="html">
+			<code>
+				<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn primary clickmeModal" value="Buy">				
+</form></pre>
+			</code>
+		</div>
+
+		<div id="js">
+			<code>
+				<pre name="code" class="js">
+$(".clickmeModal").modal()</pre>
+			</code>
+		</div>
+	</div>
+</div>
+
+<div class="box">
+	<h2>Cómo se usa</h2>
+	
+	<p>El modal es disparado por un link o botón del tipo submit (dentro de un form). Esto puede ser en el evento click, o bien, utilizando su método público .show().</p>
+	<p>Carga su contenido tanto por ajax como por parametro. Por defecto, lo hace por ajax tomando la url del elemento HTML que lo incia (en caso de que sea un link, levanta el href y si es un botón de tipo submit, levatan el action del form) o se le puede indicar una URL por configuración al iniciarlo.</p>
+	
+	<code>
+		<pre name="code" class="js">$(".foo").modal();</pre>
+	</code>
+	
+	<h2>Configuración</h2>
+	
+	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+	
+	<p>Objeto de configuración:</p>
+	
+	<code>
+		<pre name="code" class="js">
+{
+	content: string,					// HTML markup or query string to get content. For example "<p>content</p>", "#Foobar", etc.
+	ajax: string,					   // URL to get content
+	cache: boolean,					 // Content cacheable (Only one request per modal). Default "true"
+	width: number,
+	height: number,
+	onShow: function() {},    		  // Callback executed after show modal
+	onHide: function() {},			  // Callback executed before hide modal
+	onContentLoad: function() {},	   // Callback executed on success of content loaded via ajax
+	onContentError: function() {} 	  // Callback executed on fail of content loaded via ajax
+}</pre>
+	</code>
+	
+	<p>Ejemplo:</p>
+	
+	<code>
+		<pre name="code" class="js">
+$(".foo").modal({
+	content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+	width:500,
+	height:300
+});</pre>
+	</code>
+	
+	<p>Otras formas de iniciarlo es utilizando la siguiente sintaxis:</p>
+	
+	<code>
+		<pre name="code" class="js">$(".foo").modal("<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>");</pre>
+	</code>
+	
+	<code>
+		<pre name="code" class="js">$(".foo").modal("http://www.mercadolibre.com");</pre>
+	</code>
+	   
+	<h2>Objeto público</h2>
+	<p>Cada vez que se instancia un componente expando, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+	
+	<code>
+		<pre name="code" class="js">
+var foo = $(".foo").modal();
+
+// It returns
+foo = {
+	uid: 121,						//  Global number instance
+	element: HTMLElement,			//  DOM Interface
+	type: "modal",				   //  Component Type
+	content: string,				 //  Get content
+	position(),					  //  Get, set and refresh position
+	show(),						  //  Show dropdown
+	hide(),						  //  Hide dropdown	
+}</pre>
+	</code>
+	
+	
+	<p>El método público position() puede ser utilizado para:</p>
+	
+	<p>1. Obtener la configuración actual de posicionamiento.</p>
+	<code>
+		<pre name="code" class="js">
+	foo.position();					   //  Get position</pre>
+	</code>
+	
+	<p>2. Actualizar la posición del elemento.</p>
+	<code>
+		<pre name="code" class="js">
+	foo.position("refresh");			  //  Refresh position</pre>
+	</code>
+	
+	<p>3. Setear una nueva configuración para el <a href="../core/positioner.html">posicionamiento</a> del elemento.</p>
+	<code>
+		<pre name="code" class="js">
+	foo.position({ 					   //  Set new position
+		context: $(element),
+		offset: string,
+		points: string,
+		hold: boolean
+	});</pre>
+	</code>
+	
+</div>
+
+<div class="box">
+	<h2>Ejemplos</h2>
+	
+	<div class="container">
+		<h3>1. Modal con alto y ancho fijo</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example1" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>Podemos setear un alto y ancho fijo agregando dichos parametros como configuración cuando iniciamos el componente.</p>
+		<code>
+			<pre name="code" class="js">
+$("#example1").modal({	    
+    width:500,
+    height:300
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn primary" id="example1" value="Click Me!">				
+</form></pre>
+		</code>
+		
+	</div>
+	<hr>
+	<div class="container">
+		<h3>2. Contenido HTML, cargado con el atributo "content"</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example2" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>Para ejecutar un modal con un determinado contenido, es posible invocar al atributo "content":</p>
+		<code>
+			<pre name="code" class="js">
+$("#example2").modal({	    
+	content:"<h2>Modal title</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>"
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn secondary" id="example2" value="Click Me!">				
+</form></pre>
+		</code>
+		
+	</div>
+	<hr>
+	
+	<div class="container">
+		<h3>3. Contenido a partir de un elemento DOM</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example3" value="Click Me!">				
+			</form>
+
+			<div id="contentForModal" style="display:none">
+				<h2>Contenido de un elemento DOM</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			</div>			
+		</div>
+		
+		<p>Es posible ejecutar un modal con el contenido de un elemento que se encuentra oculto o no en el DOM, utilizando el atributo "content":</p>
+		
+		<code>
+			<pre name="code" class="js">
+$("#example3").modal({
+	content: "#contentForModal"
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn secondary" id="example3" value="Click Me!">				
+</form>
+
+<div id="contentForModal" style="display:none">
+	<h2>Contenido de un elemento DOM</h2>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+</div></pre>
+		</code>
+		
+		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 4).</p>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>4. Contenido HTML, cargado sin objeto de configuración</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example4" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>Otra forma de ejecutar un layer con un determinado contenido, es sin especificar un objeto de configuración.</p>
+				
+		<code>
+			<pre name="code" class="js">
+$("#example4").modal("Contenido HTML, cargado sin objeto de configuración");</pre>
+		</code>
+		
+		<p><strong>Este método es equivalente a utilizar el atributo de configuración "content"</strong> (Ver ejemplos 3 y 4).</p>
+				
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn secondary" id="example4" value="Click Me!">				
+</form></pre>
+		</code>
+
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>5. Contenido cargado por Ajax (una nueva url)</h3>
+		
+		<div class="container">
+			<form action="http://www.mercadolibre.com" method="post">
+				<input type="submit" class="btn secondary" id="example5" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>Es posible cargar el contenido de un modal desde una URL diferente a la que toma por <em id="defaultAjax">default</em>. Para ello, se debe especificar en el atributo "ajax" la nueva URL de dónde obtenedrá el contenido:</p>
+		
+		<code>
+			<pre name="code" class="js">
+$("#example5").modal({
+	ajax: "ajax.html"
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<form action="http://www.mercadolibre.com" method="post">
+	<input type="submit" class="btn secondary" id="example5" value="Click Me!">				
+</form></pre>
+		</code>
+		
+		<p>El atributo de configuración "ajax" no puede coexistir con el atributo "content".</p>		
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>6. Callbacks al mostrarse y ocultarse</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example6" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>El callback <strong>onShow()</strong> se ejecuta luego de mostrarse el Layer, mientras que el callback <strong>onHide()</strong> se ejecuta antes de ocultarse el componente:</p>
+		
+		<code>
+			<pre name="code" class="js">
+$("#example6").modal({
+	content: "Callbacks al mostrarse y ocultarse",
+	onShow: function() {
+		alert("Callback onShow");
+	},
+	onHide: function() {
+		alert("Callback onHide");
+	}
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn secondary" id="example6" value="Click Me!">				
+</form></pre>
+		</code>
+		
+		
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>7. Callback para cuando el contenido por Ajax es cargado <em>correctamente</em>.</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example7" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentLoad</strong> que se dispara luego de que el contenido se cargó de forma correcta:</p>
+		
+		<code>
+			<pre name="code" class="js">
+$("#example7").layer({
+	onContentLoad: function() {
+		alert("Callback onContentLoad");
+	}
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn secondary" id="example7" value="Click Me!">				
+</form></pre>
+		</code>
+		
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>8. Callback para cuando el contenido por Ajax es cargado de forma <em>incorrecta</em>.</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example8" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentError</strong> que se dispara cuando existe un error en el llamado de Ajax.</p>
+		
+		<p>Para este ejemplo se utilizó la URL "http://www.error.com" para forzar un error.</p>
+		
+		<code>
+			<pre name="code" class="js">
+$("#example8").layer({
+	ajax: "http://www.error.com",
+	event: "click",
+	onContentError: function() {
+		alert("Callback onContentError");
+	}
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn secondary" id="example8" value="Click Me!">				
+</form></pre>
+		</code>
+		
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>9. Cambiar el contenido de un modal y actualizar su posicionamiento.</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example9" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>Para modificar el contenido de un modal, tenemos que agregar o modificar el contenido del div ".ch-modal-content".</p>
+		<p>Luego, debemos refrescar el posicionamiento del modal utilizando su método publico .position() y pasarle como parametro el string "refresh".</p>
+		
+		<code>
+			<pre name="code" class="js">
+$("#example9").modal({
+	
+	content: "<input type=\"button\" id=\"changeContent\" class=\"btn primary\">",
+		
+	onContentLoad: function(){
+		
+		var that = this; // this is the public object
+		
+		$("#changeContent").bind("click", function(){
+			
+			$(".ch-modal-content").html("<h2>Nuevo contenido</h2><p>Se carga nuevo contenido al modal.</p>");
+			
+			that.position("refresh");		
+		
+		});
+		 
+	}
+	
+});</pre>
+		</code>		
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn secondary" id="example9" value="Click Me!">				
+</form></pre>
+		</code>
+		
+	</div>
+
+	<hr>
+	
+	<div class="container">
+		<h3>10. Cerrar un modal.</h3>
+		
+		<div class="container">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn secondary" id="example10" value="Click Me!">				
+			</form>
+		</div>
+		
+		<p>Para cerrar un modal con cualquier elemento que se encuentre dentro del modal debemos utilizar el método público .hide().</p>
+				
+		<code>
+			<pre name="code" class="js">
+$("#example10").modal({
+	content: "<h2>Modal Title</h2><p>Se carga contenido con un link para cerar el modal.</p><p class=\"actions\"><a href=\"#\" id=\"closeMyModal\">Cerrar el modal.</a></p>",				
+
+	onContentLoad: function(){
+
+		var that = this; // this is the public object
+
+		$(".closeMyModal").bind("click", function(event){
+
+			event.preventDefault();
+
+			that.hide(); // Here that is the public object
+
+		});
+		
+	}
+
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn secondary" id="example10" value="Click Me!">				
+</form></pre>
+		</code>
+		
+	</div>
+	
+	
+</div>
+
+
+<script>
+	ui.codelighter();
+    $(".sourceTabs").tabNavigator();
+    $(".clickmeModal").modal();
+    
+    // Examples
+    $("#example1").modal({	    
+    	width:500,
+    	height:150
+	});
+	
+	$("#example2").modal({	    
+		content:"<h2>Modal title</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+	});
+	
+	$("#example3").modal({
+		content: "#contentForModal"
+	});
+	
+	$("#example4").modal("Contenido HTML, cargado sin objeto de configuración");
+	
+	$("#example5").modal({
+		ajax: "ajax.html"
+	});
+	
+	$("#defaultAjax").layer("<p>En caso de que sea un link, levanta el href.</p><p>Si es un botón de tipo submit, levatan el action del formulario padre.</p>>")
+	
+	$("#example6").modal({
+		content: "Callbacks al mostrarse y ocultarse",
+		onShow: function() {
+			alert("Callback onShow");
+		},
+		onHide: function() {
+			alert("Callback onHide");
+		}
+	});
+	
+	$("#example7").modal({
+		onContentLoad: function() {
+			alert("Callback onContentLoad");
+		}
+	});
+	
+	$("#example8").modal({
+		ajax: "http://www.error.com",	
+		onContentError: function() {
+			alert("Callback onContentError");
+			
+			return "Callback onContentError";
+		}
+	});
+		
+	$("#example9").modal({
+		content: "<h2>Contenido actual</h2><p class=\"actions\"><input type=\"button\" id=\"changeContent\" class=\"btn secondary skin\" value=\"Cambiar Contenido\"></p>",
+		onShow: function(){
+			var that = this;
+			$("#changeContent").bind("click", function(){
+				$(".ch-modal-content").html("<h2>Nuevo contenido</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>");
+				that.position("refresh");
+			}); 
+		},
+		cache:false
+	});
+	
+	$("#example10").modal({
+		content: "<h2>Cerrar un modal</h2><p>Se carga contenido al modal con un link para cerarlo.</p><p class=\"actions\"><a href=\"#\" id=\"closeMyModal\">Cerrar el modal.</a></p>",				
+		onShow: function(){
+			var that = this;
+			$("#closeMyModal").bind("click", function(event){
+				event.preventDefault();
+				console.log(that);		
+				that.hide();
+			});
+		}
+	});
+
+</script>
+
+
+</body>
+</html>
