@@ -149,16 +149,16 @@ foo.position({ 					   //  Set new position
 			<strong class="example1">Drag cursor over me.</strong>
 		</div>
 		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example1">Drag cursor over me.</span></pre>
-		</code>
-		
 		<p>El layer ejecutado en el mouseover es el comportamiento predeterminado de este componente. Es decir que no es necesario iniciar un Layer con un objeto de configuración, sino que puede iniciarse solo indicandose un contenido de la siguiente manera:</p>
 				
 		<code>
 			<pre name="code" class="js">$(".example1").layer("Contextual Layer ejecutado en mouseover (comportamiento predeterminado)");</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example1">Drag cursor over me.</span></pre>
 		</code>
 	</div>
 	
@@ -171,12 +171,6 @@ foo.position({ 					   //  Set new position
 			<strong class="example2">Click me.</strong>
 		</div>
 		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example2">Click me.</span></pre>
-		</code>
-		
 		<p>Para ejecutar un layer en el click de un elemento, es necesario especificar dicho comportamiento dentro del objeto de configuración:</p>
 				
 		<code>
@@ -185,6 +179,12 @@ $(".example2").layer({
 	event: "click",
 	content: "Contextual Layer ejecutado en el click"
 });</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example2">Click me.</span></pre>
 		</code>
 	</div>
 	
@@ -197,12 +197,6 @@ $(".example2").layer({
 			<strong class="example3">Drag cursor over me.</strong>
 		</div>
 		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example3">Drag cursor over me.</span></pre>
-		</code>
-		
 		<p>Para ejecutar un layer con un determinado contenido, es posible invocar al atributo "content":</p>
 				
 		<code>
@@ -213,6 +207,12 @@ $(".example3").layer({
 		</code>
 		
 		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example3">Drag cursor over me.</span></pre>
+		</code>
 	</div>
 	
 	<hr>
@@ -226,15 +226,6 @@ $(".example3").layer({
 		
 		<p id="contentForLayer" style="display:none">Contenido de un elemento DOM</p>
 		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml">
-<span class="example4">Drag cursor over me.</span>
-
-<p id="contentForLayer" style="display:none">Contenido de un elemento DOM</p></pre>
-		</code>
-		
 		<p>Es posible ejecutar un layer con el contenido de un elemento que se encuentra oculto o no en el DOM, utilizando el atributo "content":</p>
 		
 		<code>
@@ -245,6 +236,15 @@ $(".example4").layer({
 		</code>
 		
 		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<span class="example4">Drag cursor over me.</span>
+
+<p id="contentForLayer" style="display:none">Contenido de un elemento DOM</p></pre>
+		</code>
 	</div>
 	
 	<hr>
@@ -256,12 +256,6 @@ $(".example4").layer({
 			<strong class="example5">Drag cursor over me.</strong>
 		</div>
 		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example5">Drag cursor over me.</span></pre>
-		</code>
-		
 		<p>Otra forma de ejecutar un layer con un determinado contenido, es sin especificar un objeto de configuración.</p>
 				
 		<code>
@@ -270,6 +264,12 @@ $(".example5").layer("Contenido HTML, cargado sin objeto de configuración");</p
 		</code>
 		
 		<p><strong>Este método es equivalente a utilizar el atributo de configuración "content"</strong> (Ver ejemplos 3 y 4).</p>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example5">Drag cursor over me.</span></pre>
+		</code>
 	</div>
 	
 	<hr>
@@ -281,12 +281,6 @@ $(".example5").layer("Contenido HTML, cargado sin objeto de configuración");</p
 			<strong class="example6">Drag cursor over me.</strong>
 		</div>
 		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example6">Drag cursor over me.</span></pre>
-		</code>
-		
 		<p>Es posible cargar el contenido de un layer asincrónicamente, especificando en el atributo "ajax" la URL de donde se deberá obtener el contenido:</p>
 		
 		<code>
@@ -297,6 +291,12 @@ $(".example6").layer({
 		</code>
 		
 		<p>El atributo de configuración "ajax" no puede coexistir con el atributo "content".</p>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example6">Drag cursor over me.</span></pre>
+		</code>
 	</div>
 	
 	<hr>
@@ -307,12 +307,6 @@ $(".example6").layer({
 		<div class="container">
 			<strong class="example7">Click me.</strong>
 		</div>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example7">Click me.</span></pre>
-		</code>
 		
 		<p>El callback <strong>onShow()</strong> se ejecuta luego de mostrarse el Layer, mientras que el callback <strong>onHide()</strong> se ejecuta antes de ocultarse el componente:</p>
 		
@@ -329,6 +323,12 @@ $(".example7").layer({
 	}
 });</pre>
 		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example7">Click me.</span></pre>
+		</code>
 	</div>
 	
 	<hr>
@@ -339,12 +339,6 @@ $(".example7").layer({
 		<div class="container">
 			<strong class="example8">Click me.</strong>
 		</div>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example8">Click me.</span></pre>
-		</code>
 		
 		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentLoad</strong> que se dispara luego de que el contenido se cargó de forma correcta:</p>
 		
@@ -358,6 +352,12 @@ $(".example8").layer({
 	}
 });</pre>
 		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example8">Click me.</span></pre>
+		</code>
 	</div>
 	
 	<hr>
@@ -368,12 +368,6 @@ $(".example8").layer({
 		<div class="container">
 			<strong class="example9">Click me.</strong>
 		</div>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example9">Click me.</span></pre>
-		</code>
 		
 		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentError</strong> que se dispara cuando existe un error en el llamado de Ajax.</p>
 		
@@ -389,6 +383,12 @@ $(".example9").layer({
 	}
 });</pre>
 		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example9">Click me.</span></pre>
+		</code>
 	</div>
 	
 	<hr>
@@ -400,12 +400,6 @@ $(".example9").layer({
 			<strong class="example10">Drag cursor over me.</strong>
 		</div>
 		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example10">Drag cursor over me.</span></pre>
-		</code>
-		
 		<p>En este componente existe la posibilidad de modificar el <a href="../core/positioner.html">posicionamiento</a> el elemento emergente, mediante el método público <strong>position</strong>:</p>
 				
 		<code>
@@ -416,6 +410,12 @@ layerToBePositioned.position({
 	points: "lt rt",
 	offset: "10 -10"
 });</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example10">Drag cursor over me.</span></pre>
 		</code>
 	</div>
 </div>
