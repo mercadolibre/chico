@@ -27,8 +27,8 @@
 <div class="sourceTabs">
 	<ul>
 		<li><a href="#demo">Demo</a></li>
-		<li><a href="#html">Html</a></li>
-		<li><a href="#css">Css</a></li>
+		<li><a href="#html">HTML</a></li>
+		<li><a href="#css">CSS</a></li>
 		<li><a href="#js">JavaScript</a></li>
 	</ul>
 	<div>
@@ -81,7 +81,7 @@
 		</div>
 		
 		<div id="css">
-			<p>Para que el Carousel pueda realizar todos los cálculos internos, es necesario especificar vía css, el alto y ancho de los elementos de la lista:</p>
+			<p>Para que el Carousel pueda realizar todos los cálculos internos, es necesario especificar vía CSS, el alto y ancho de los elementos de la lista:</p>
 			
 			<code>
 				<pre name="code" class="css">
@@ -104,14 +104,20 @@
 	<h2>Cómo se usa</h2>
 	
 	<p>El Carousel se crea a partir de agregarle funcionalidad a una lista de objetos, ya sean imágenes, texto, o ambos.</p>
-	<p>Para crear un Carousel, es necesario iniciarlo a traves de un contenedor, en el cual puede haber todo tipo de elementos, y una lista con la clase css "carousel". Es decir, que el Carousel puede convivir dentro de una caja junto con contenido de cualquier tipo.</p>
-	<p>El ancho y alto de los elementos &lt;li&gt; del Carousel debe ser especificados obligatoriamente por css.</p>
+	
+	<p>Para crear un Carousel, es necesario iniciarlo a traves de un contenedor, en el cual puede haber todo tipo de elementos, y una lista con la clase CSS "carousel". Es decir, que el Carousel puede convivir dentro de una caja junto con contenido de cualquier tipo.</p>
+	
+	<p>El ancho y alto de los elementos &lt;li&gt; del Carousel deben ser especificados obligatoriamente por CSS.</p>
 	
 	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
 	
 	<code>
 		<pre name="code" class="js">$(".foo").carousel();</pre>
 	</code>
+	
+	<h2>Configuración</h2>
+	
+	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
 	
 	<p>Objeto de configuración:</p>
 	
@@ -132,7 +138,9 @@ $(".foo").carousel({
 	}
 });</pre>
 	</code>
-	   
+	
+	<h2>Objeto público</h2>
+	
 	<p>Cada vez que se instancia un componente Carousel retorna un objecto público de control que nos brinda información sobre la instancia.</p>
 	
 	<code>
@@ -153,6 +161,179 @@ foo = {
 	</code>
 </div>
 
+<div class="box">
+	<h2>Ejemplos</h2>
+	
+	<div class="container">
+		<h3>1. Mover hacia una página específica</h3>
+		
+		<div class="container">
+			<div class="box example1">
+				<ul class="carousel">
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				</ul>
+			</div>
+		</div>
+		
+		<p>Mediante el objeto público del Carousel, se puede seleccionar una determinada página usando el método <strong>moveTo()</strong>, al cual se le especifica el número de página al cual moverse.</p>
+		
+		<div class="container">
+			<button class="btn secondary btn_example1">Mover a la página 2</button>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+var carouselMove = $(".example1").carousel();
+
+$(".btn_example1").click(function(){
+	carouselMove.moveTo(2);
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>2. Mover hacia a las páginas anterior y siguiente</h3>
+		
+		<div class="container">
+			<div class="box example2">
+				<ul class="carousel">
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				</ul>
+			</div>
+		</div>
+		
+		<p>Mediante el objeto público del Carousel, se puede navegar hacia adelante y hacia atras entre las páginas usando los métodos <strong>next()</strong> y <strong>prev()</strong> respectivamente.</p>
+		
+		<div class="container">
+			<button class="btn secondary btn_prev_example2">&lt; Mover a la página anterior</button>
+			<button class="btn secondary btn_next_example2">Mover a la página siguiente &gt;</button>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+var carouselNav = $(".example2").carousel();
+
+$(".btn_prev_example2").click(function(){
+	carouselNav.prev();
+});
+
+$(".btn_next_example2").click(function(){
+	carouselNav.next();
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>3. Callback al moverse el Carousel</h3>
+		
+		<div class="container">
+			<div class="box example3">
+				<ul class="carousel">
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+		
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+		
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				</ul>
+			</div>
+		</div>
+		
+		<p>El callback <strong>onMove()</strong> se ejecuta luego de moverse el Carousel, ya sea cliqueando los botones Anterior y Siguiente, o utilizando los métodos públicos moveTo(), next() o prev().</p>
+		
+		<code>
+			<pre name="code" class="js">
+$(".example3").carousel({
+	onMove: function() {
+		alert("Callback onMove");
+	}
+});</pre>
+		</code>
+	</div>
+</div>
 
 <script>
 	ui.codelighter();
@@ -160,6 +341,31 @@ foo = {
 	$(".demoCarousel").carousel();
 	
 	$(".sourceTabs").tabNavigator();
+	
+	
+	var carouselMove = $(".example1").carousel();
+
+	$(".btn_example1").click(function(){
+		carouselMove.moveTo(2);
+	});
+	
+	
+	var carouselNav = $(".example2").carousel();
+
+	$(".btn_prev_example2").click(function(){
+		carouselNav.prev();
+	});
+
+	$(".btn_next_example2").click(function(){
+		carouselNav.next();
+	});
+	
+	
+	$(".example3").carousel({
+		onMove: function() {
+			alert("Callback onMove");
+		}
+	});
 </script>
 
 
