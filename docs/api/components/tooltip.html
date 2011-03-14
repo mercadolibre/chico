@@ -53,13 +53,18 @@
 <div class="box">
 	<h2>Cómo se usa</h2>
 	
-	<p>El tooltip es un componente emergente que puede iniciarse con cualquier elemento HTML <strong>que tenga el atributo title</strong>. Se dispara con el evento mouseover del elemento, o bien, utilizando su método público.</p>
+	<p>El Tooltip es un componente emergente que puede iniciarse con cualquier elemento HTML <strong>que tenga el atributo title</strong>. Se dispara con el evento mouseover del elemento, o bien, utilizando su método público show().</p>
+	
+	<p>Este componente pertenece a la familia Floats (al igual que <a href="modal.html">Modal window</a> y <a href="layer.html">Contextual Layer</a>).</p>
 	
 	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
 	
 	<code>
 		<pre name="code" class="js">$(".foo").tooltip();</pre>
 	</code>
+	
+	<h2>Configuración</h2>
+	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
 	
 	<p>Objeto de configuración:</p>
 	
@@ -83,12 +88,13 @@ $(".foo").tooltip({
 		// Do something
 	},
 	onHide: function() {
-		// Do something else
+		// Do something
 	}
 });</pre>
 	</code>
 	
-	<p>Cada vez que se instancia un componente Tooltip retorna un objecto público de control que nos brinda información sobre la instancia.</p>
+	<h2>Objeto público</h2>
+	<p>Cada vez que se instancia un componente Tooltip, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
 	
 	<code>
 		<pre name="code" class="js">
@@ -106,6 +112,7 @@ foo = {
 }</pre>
 	</code>
 	
+	<h2>Posicionamiento</h2>
 	<p>El método público position() puede ser utilizado para:</p>
 	
 	<p>1. Obtener la configuración actual de posicionamiento.</p>
@@ -132,6 +139,38 @@ foo.position({ 					   //  Set new position
 	</code>
 </div>
 
+<div class="box">
+	<h2>Ejemplos</h2>
+	
+	<div class="container">
+		<h3>1. Callbacks al mostrarse y ocultarse</h3>
+		
+		<div class="container">
+			<img class="example1" title="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+		</div>
+		
+		<p>El callback <strong>onShow()</strong> se ejecuta luego de mostrarse el Tooltip, mientras que el callback <strong>onHide()</strong> se ejecuta antes de ocultarse el componente:</p>
+		
+		<code>
+			<pre name="code" class="js">
+$(".example1").tooltip({
+	onShow: function() {
+		alert("Callback onShow");
+	},
+	onHide: function() {
+		alert("Callback onHide");
+	}
+});</pre>
+		</code>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><img class="example1" title="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif"></pre>
+		</code>
+	</div>
+</div>
+
 
 <script>
 	ui.codelighter();
@@ -139,6 +178,15 @@ foo.position({ 					   //  Set new position
     $(".sourceTabs").tabNavigator();
     
     $(".demoTooltip").tooltip();
+    
+    $(".example1").tooltip({
+		onShow: function() {
+			alert("Callback onShow");
+		},
+		onHide: function() {
+			alert("Callback onHide");
+		}
+	});
 </script>
 
 

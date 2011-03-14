@@ -52,7 +52,9 @@
 <div class="box">
 	<h2>Cómo se usa</h2>
 	
-	<p>El objecto Contextual Layer pertenece a la familia Floats (al igual que <a href="modal.html" lang="en">Modal window</a> y <a href="tooltip.html" lang="en">Tooltip</a>). Recibe como argumento un objeto de propiedades para su funcionamiento, contenido o para los <em lang="en">callbacks</em>.</p>
+	<p>El Contextual Layer es un componente emergente que puede iniciarse con cualquier elemento HTML. Recibe como argumento un objeto de propiedades para su funcionamiento, contenido o para los <em lang="en">callbacks</em>.</p>
+	
+	<p>Este componente pertenece a la familia Floats (al igual que <a href="modal.html">Modal window</a> y <a href="tooltip.html">Tooltip</a>).</p>
 	
 	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
 	
@@ -371,12 +373,12 @@ $(".example8").layer({
 		
 		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentError</strong> que se dispara cuando existe un error en el llamado de Ajax.</p>
 		
-		<p>Para este ejemplo se utilizó la URL "http://www.google.com" para forzar un error.</p>
+		<p>Para este ejemplo se utilizó la URL "http://www.error.com" para forzar un error.</p>
 		
 		<code>
 			<pre name="code" class="js">
 $(".example9").layer({
-	ajax: "http://www.google.com",
+	ajax: "http://www.error.com",
 	event: "click",
 	onContentError: function() {
 		alert("Callback onContentError");
@@ -469,7 +471,7 @@ layerToBePositioned.position({
 	});
 	
 	$(".example9").layer({
-		ajax: "http://www.google.com",
+		ajax: "http://www.error.com",
 		event: "click",
 		onContentError: function() {
 			alert("Callback onContentError");
