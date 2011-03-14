@@ -1,0 +1,492 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+        <script></script> <!-- Avoid script blocking -->
+        <meta charset="utf-8">
+        <title>Positioner</title>
+        <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../../src/css/grid.css">
+        <!--[if lt IE 7 ]>
+            <script src="../../libs/js/dd_belatedpng.js"></script>
+            <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+        <![endif]-->
+        <script src="../../../libs/js/jquery.js"></script>
+		<script src="../../../build/chico-min-0.5.5.js"></script>
+    <head>
+<body>
+
+
+<style>
+
+.context {
+    border: 1px solid blue;
+    color: blue;
+    text-align:center;
+    line-height: 100px;
+    height: 100px;
+    margin: 30px;
+    width: 100px;
+}
+
+.element {
+    background-color: red;
+    color: white;
+    line-height: 25px;
+    height: 25px;
+    position: absolute;
+    padding:0 10px;
+}
+
+.points {
+	margin:25px 0;
+}
+
+.points th,
+.points td {
+	padding:5px 25px;
+}
+
+.ico.information {
+	float:left;
+	margin:2px 5px 0 0;
+}
+
+</style>
+
+<h1>Positioner</h1>
+
+<div class="sourceTabs">
+	<ul>
+		<li><a href="#demo">Demo</a></li>
+		<li><a href="#html">HTML</a></li>
+		<li><a href="#js">JavaScript</a></li>
+	</ul>
+	<div>
+		<div id="demo">
+			<!-- First example -->
+			<div class="context" id="context1">Context</div>
+			<div class="element" id="element1">Element</div>
+
+			<!-- Second example -->
+			<div class="context" id="context2">Context</div>
+			<div class="element" id="element2">Element</div>
+			
+			<div class="clearfix"></div>
+		</div>
+		
+		<div id="html">
+			<code>
+				<pre name="code" class="xml">
+<!-- First example -->
+<div class="context" id="context1">Context</div>
+<div class="element" id="element1">Element</div>
+
+<!-- Second example -->
+<div class="context" id="context2">Context</div>
+<div class="element" id="element2">Element</div></pre>
+			</code>
+		</div>
+		
+		<div id="js">
+			<code>
+				<pre name="code" class="js">
+// First example
+ui.positioner({
+	element: $("#element1"),
+	context: $("#context1"),
+	points: "lt rt"				//  Element left-top axis equal to Context left-bottom axis
+});
+
+// Second example
+ui.positioner({
+	element: $("#element2"),
+	context: $("#context2"),
+	points: "lt lb"				//  Element center-middle axis equal to Context center-middle axis
+});</pre>
+			</code>
+		</div>
+	</div>
+</div>
+
+<div class="box">
+	<h2>Cómo se usa</h2>
+	
+	<p>El Positioner es un componente que tiene como función <strong>posicionar elementos con respecto a un contexto</strong>.</p>
+	
+	<p>El contexto puede ser cualquier elemento del <abbr title="Document Object Model">DOM</abbr> o el area visible de la ventana del navegador (o <em lang="en">viewport</em>).</p>
+	
+	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+	
+	<p>Existen dos maneras de iniciar el componente; como objeto global, a partir de un elemento, o desde una instancia de componente:</p>
+	<code>
+		<pre name="code" class="js">
+ui.positioner();				//  Global object
+component.position();		   //  Through component public instance</pre>
+	</code>
+	
+	<h2>Points</h2>
+	
+	<p>Como parte de la configuración, el Positioner puede recibir una referencia a los puntos en común por los cuales el contexto y el elemento deben posicionarse.</p>
+	
+	<p>Para especificar este comportamiento se definieron una serie de puntos con la siguiente estructura:</p>
+	
+	<p style="font-size:20px;"><strong>"lt lb"</strong></p>
+	
+	<p>Las <strong>primeras dos letras</strong> representan al punto de referencia del <strong>elemento a posicionar</strong>, mientras que las <strong>segundas dos letras</strong> representan al punto de referencia del <strong>contexto</strong> con respecto al cual se posicionará el elemento. Ambos grupos están <strong>separados por un espacio</strong>.</p>
+	
+	<p>La <strong>primera letra</strong> de cada una de estas dos agrupaciones, representa al <strong>eje horizontal (left, center o right)</strong>, y la <strong>segunda letra</strong> representa al <strong>eje vertical (top, middle o bottom)</strong>.
+	
+	<p>Las posibles combinaciones de posicionamiento son las siguientes:</p>
+	
+	<table class="points">
+		<thead>
+			<tr>
+				<th>Puntos</th>
+				<th>Descripción</th>
+				<th>Ubicación del elemento con respecto al contexto</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				<th>cm cm</th>
+				<td>Element center-middle axis equal to Context center-middle axis</td>
+				<td>Center</td>
+			</tr>
+			<tr>
+				<th>lt lb</th>
+				<td>Element left-top axis equal to Context left-bottom axis</td>
+				<td>Bottom</td>
+			</tr>
+			<tr>
+				<th>lb lt</th>
+				<td>Element left-bottom axis equal to Context left-top axis</td>
+				<td>Top</td>
+			</tr>
+			<tr>
+				<th>rt rb</th>
+				<td>Element right-top axis equal to Context right-bottom axis</td>
+				<td>Bottom</td>
+			</tr>
+			<tr>
+				<th>rb rt</th>
+				<td>Element right-bottom axis equal to Context right-top axis</td>
+				<td>Top</td>
+			</tr>
+			<tr>
+				<th>lt rt</th>
+				<td>Element left-top axis equal to Context right-top axis</td>
+				<td>Right</td>
+			</tr>
+			<tr>
+				<th>lm lm</th>
+				<td>Element left-middle axis equal to Context left-middle axis</td>
+				<td>Right</td>
+			</tr>
+			<tr>
+				<th>lt lt</th>
+				<td>Element left-top axis equal to Context left-top axis</td>
+				<td>Right</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<p><span class="ico information">Para tener en cuenta:</span> <em>En próximas versiones de Chico, se completaran todas las combinaciones de posicionamiento.</em></p>
+	
+	
+	<h2>Configuración</h2>
+	
+	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+	
+	<p>Objeto de configuración:</p>
+	
+	<code>
+		<pre name="code" class="js">
+{
+	element: $(element),		//  Element to be positioned
+	context: $(element),		//  Context from which the element is positioned. Default: viewport
+	offset: string,			 //  A string with X and Y coordinates (in pixels) separated by space (i.e.: "10 0"). Default "0 0"
+	points: string,			 //  A string with element and context shared axis, separated by space (i.e.: "lt lb"). Default "cm cm" (centered)
+	hold: boolean			   //  Hold element's position. Default "false"
+}</pre>
+	</code>
+	
+	
+	<p>Ejemplo como objeto global:</p>
+	
+	<code>
+		<pre name="code" class="js">
+ui.positioner({
+	element: $(".foo"),
+	context: $(".context"),
+	offset: "10 0",
+	points: "cm cm"
+});</pre>
+	</code>
+	
+	
+	<p>Ejemplo de configuración desde una instancia de componente:</p>
+	
+	<code>
+		<pre name="code" class="js">
+component.position({
+	context: $(".context"),
+	offset: "10 0",
+	points: "cm cm"
+});</pre>
+	</code>
+	
+	<h2>Inteligencia de posicionamiento</h2>
+	
+	<p>***Explicar hold***</p>
+	
+</div>
+
+<div class="box">
+	<h2>Ejemplos</h2>
+	
+	<div class="container">
+		<h3>1. "lt lb": Element left-top axis equal to Context left-bottom axis</h3>
+		
+		<div class="container">
+			<div class="context" id="context_example1">Context</div>
+			<div class="element" id="element_example1">Element</div>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+ui.positioner({
+	element: $("#element_example1"),
+	context: $("#context_example1"),
+	points: "lt rt"
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>2. "lb lt": Element left-bottom axis equal to Context left-top axis</h3>
+		
+		<div class="container">
+			<div class="context" id="context_example2">Context</div>
+			<div class="element" id="element_example2">Element</div>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+ui.positioner({
+	element: $("#element_example2"),
+	context: $("#context_example2"),
+	points: "lb lt"
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>3. "rt rb": Element right-top axis equal to Context right-bottom axis</h3>
+		
+		<div class="container">
+			<div class="context" id="context_example3">Context</div>
+			<div class="element" id="element_example3">Element</div>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+ui.positioner({
+	element: $("#element_example3"),
+	context: $("#context_example3"),
+	points: "rt rb"
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>4. "rb rt": Element right-bottom axis equal to Context right-top axis</h3>
+		
+		<div class="container">
+			<div class="context" id="context_example4">Context</div>
+			<div class="element" id="element_example4">Element</div>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+ui.positioner({
+	element: $("#element_example4"),
+	context: $("#context_example4"),
+	points: "rb rt"
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>5. "lm lm": Element left-middle axis equal to Context left-middle axis</h3>
+		
+		<div class="container">
+			<div class="context" id="context_example5">Context</div>
+			<div class="element" id="element_example5">Element</div>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+ui.positioner({
+	element: $("#element_example5"),
+	context: $("#context_example5"),
+	points: "lm lm"
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>6. "lt lt": Element left-top axis equal to Context left-top axis</h3>
+		
+		<div class="container">
+			<div class="context" id="context_example6">Context</div>
+			<div class="element" id="element_example6">Element</div>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+ui.positioner({
+	element: $("#element_example6"),
+	context: $("#context_example6"),
+	points: "lt lt"
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>7. "cm cm": Element center-middle axis equal to Context center-middle axis</h3>
+		
+		<div class="container">
+			<div class="context" id="context_example7">Context</div>
+			<div class="element" id="element_example7">Element</div>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+ui.positioner({
+	element: $("#element_example7"),
+	context: $("#context_example7"),
+	points: "cm cm"
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>8. "lt rt": Element left-top axis equal to Context right-top axis</h3>
+		
+		<div class="container">
+			<div class="context" id="context_example8">Context</div>
+			<div class="element" id="element_example8">Element</div>
+		</div>
+		
+		<code>
+			<pre name="code" class="js">
+ui.positioner({
+	element: $("#element_example8"),
+	context: $("#context_example8"),
+	points: "lt rt"
+});</pre>
+		</code>
+	</div>
+</div>
+
+
+<script>
+	ui.codelighter();
+
+    $(".sourceTabs").tabNavigator();
+    $("abbr").tooltip();
+
+	ui.positioner({
+		element: $("#element1"),
+		context: $("#context1"),
+		points: "lt rt"				//  Element left-top axis equal to Context left-bottom axis
+	});
+
+	ui.positioner({
+		element: $("#element2"),
+		context: $("#context2"),
+		points: "lt lb"				//  Element center-middle axis equal to Context center-middle axis
+	});
+	
+	
+	ui.positioner({
+		element: $("#element_example1"),
+		context: $("#context_example1"),
+		points: "lt lb"
+	});
+	
+	
+	ui.positioner({
+		element: $("#element_example2"),
+		context: $("#context_example2"),
+		points: "lb lt"
+	});
+	
+	
+	ui.positioner({
+		element: $("#element_example3"),
+		context: $("#context_example3"),
+		points: "rt rb"
+	});
+	
+	
+	ui.positioner({
+		element: $("#element_example4"),
+		context: $("#context_example4"),
+		points: "rb rt"
+	});
+	
+	
+	ui.positioner({
+		element: $("#element_example5"),
+		context: $("#context_example5"),
+		points: "lm lm"
+	});
+	
+	
+	ui.positioner({
+		element: $("#element_example6"),
+		context: $("#context_example6"),
+		points: "lt lt"
+	});
+	
+	
+	ui.positioner({
+		element: $("#element_example7"),
+		context: $("#context_example7"),
+		points: "cm cm"
+	});
+	
+	
+	ui.positioner({
+		element: $("#element_example8"),
+		context: $("#context_example8"),
+		points: "lt rt"
+	});
+	
+</script>
+
+
+
+</body>
+</html>
