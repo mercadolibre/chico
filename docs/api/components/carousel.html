@@ -133,7 +133,7 @@ $(".foo").carousel({
 });</pre>
 	</code>
 	   
-	<p>Cada vez que se instancia un componente Contextual Layer retorna un objecto público de control que nos brinda información sobre la instancia.</p>
+	<p>Cada vez que se instancia un componente Carousel retorna un objecto público de control que nos brinda información sobre la instancia.</p>
 	
 	<code>
 		<pre name="code" class="js">
@@ -146,7 +146,7 @@ foo = {
     type: "carousel",                //  Component Type
     getSteps(),					  //  Returns items amount of each page
     getPage(),					   //  Returns actual page
-    moveTo(page),                    //  Select a page to move
+    moveTo(page),                    //  Select a page
     next(),						  //  Move to next page
     prev(),						  //  Move to previous page
 }</pre>
@@ -157,9 +157,9 @@ foo = {
 <script>
 	ui.codelighter();
 	
-	$(".sourceTabs").tabNavigator();
+	$(".demoCarousel").carousel();
 	
-    $(".demoCarousel").carousel();
+	$(".sourceTabs").tabNavigator();
 </script>
 
 

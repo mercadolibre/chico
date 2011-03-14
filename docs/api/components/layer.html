@@ -143,71 +143,278 @@ foo.position({ 					   //  Set new position
 	<h2>Ejemplos</h2>
 	
 	<div class="container">
-		<h3>1. Contextual Layer ejecutado en mouseover</h3>
+		<h3>1. Contextual Layer ejecutado en mouseover (comportamiento predeterminado)</h3>
 		
 		<div class="container">
-			<strong class="layerOnmouseover">Layer ejecutado en mouseover.</strong>
+			<strong class="example1">Drag cursor over me.</strong>
 		</div>
 		
 		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
 		
 		<code>
-			<pre name="code" class="xml"><span class="layerOnmouseover">Layer ejecutado en mouseover.</span></pre>
+			<pre name="code" class="xml"><span class="example1">Drag cursor over me.</span></pre>
 		</code>
 		
 		<p>El layer ejecutado en el mouseover es el comportamiento predeterminado de este componente. Es decir que no es necesario iniciar un Layer con un objeto de configuración, sino que puede iniciarse solo indicandose un contenido de la siguiente manera:</p>
 				
 		<code>
-			<pre name="code" class="js">$(".layerOnmouseover").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");</pre>
+			<pre name="code" class="js">$(".example1").layer("Contextual Layer ejecutado en mouseover (comportamiento predeterminado)");</pre>
 		</code>
 	</div>
+	
+	<hr>
 	
 	<div class="container">
 		<h3>2. Contextual Layer ejecutado en el click</h3>
 		
 		<div class="container">
-			<strong class="layerOnclick">Layer ejecutado con click.</strong>
+			<strong class="example2">Click me.</strong>
 		</div>
 		
 		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
 		
 		<code>
-			<pre name="code" class="xml"><span class="layerOnclick">Layer ejecutado con click.</span></pre>
+			<pre name="code" class="xml"><span class="example2">Click me.</span></pre>
 		</code>
 		
 		<p>Para ejecutar un layer en el click de un elemento, es necesario especificar dicho comportamiento dentro del objeto de configuración:</p>
 				
 		<code>
 			<pre name="code" class="js">
-$(".layerOnclick").layer({
+$(".example2").layer({
 	event: "click",
-	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+	content: "Contextual Layer ejecutado en el click"
 });</pre>
 		</code>
 	</div>
 	
+	<hr>
+	
 	<div class="container">
-		<h3>3. Contextual Layer seteando una nueva configuración de posicionamiento</h3>
+		<h3>3. Contenido HTML, cargado con el atributo "content"</h3>
 		
 		<div class="container">
-			<strong class="layerOnclick2">Layer con posicionamiento modificado.</strong>
+			<strong class="example3">Drag cursor over me.</strong>
 		</div>
 		
 		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
 		
 		<code>
-			<pre name="code" class="xml"><span class="layerOnclick2">Layer ejecutado con click.</span></pre>
+			<pre name="code" class="xml"><span class="example3">Drag cursor over me.</span></pre>
 		</code>
 		
-		<p>Una de las posibilidades que se dan en el Contextual Layer, es la de reposicionar el elemento:</p>
+		<p>Para ejecutar un layer con un determinado contenido, es posible invocar al atributo "content":</p>
 				
 		<code>
 			<pre name="code" class="js">
-var layerToBePositioned = $(".layerOnclick2").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+$(".example3").layer({
+	content: "Contenido HTML, cargado con el atributo content"
+});</pre>
+		</code>
+		
+		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>4. Contenido a partir de un elemento DOM</h3>
+		
+		<div class="container">
+			<strong class="example4">Drag cursor over me.</strong>
+		</div>
+		
+		<p id="contentForLayer" style="display:none">Contenido de un elemento DOM</p>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml">
+<span class="example4">Drag cursor over me.</span>
+
+<p id="contentForLayer" style="display:none">Contenido de un elemento DOM</p></pre>
+		</code>
+		
+		<p>Es posible ejecutar un layer con el contenido de un elemento que se encuentra oculto o no en el DOM, utilizando el atributo "content":</p>
+		
+		<code>
+			<pre name="code" class="js">
+$(".example4").layer({
+	content: "#contentForLayer"
+});</pre>
+		</code>
+		
+		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>5. Contenido HTML, cargado sin objeto de configuración</h3>
+		
+		<div class="container">
+			<strong class="example5">Drag cursor over me.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example5">Drag cursor over me.</span></pre>
+		</code>
+		
+		<p>Otra forma de ejecutar un layer con un determinado contenido, es sin especificar un objeto de configuración.</p>
+				
+		<code>
+			<pre name="code" class="js">
+$(".example5").layer("Contenido HTML, cargado sin objeto de configuración");</pre>
+		</code>
+		
+		<p><strong>Este método es equivalente a utilizar el atributo de configuración "content"</strong> (Ver ejemplos 3 y 4).</p>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>6. Contenido cargado por Ajax</h3>
+		
+		<div class="container">
+			<strong class="example6">Drag cursor over me.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example6">Drag cursor over me.</span></pre>
+		</code>
+		
+		<p>Es posible cargar el contenido de un layer asincrónicamente, especificando en el atributo "ajax" la URL de donde se deberá obtener el contenido:</p>
+		
+		<code>
+			<pre name="code" class="js">
+$(".example6").layer({
+	ajax: "ajax.html"
+});</pre>
+		</code>
+		
+		<p>El atributo de configuración "ajax" no puede coexistir con el atributo "content".</p>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>7. Callbacks al mostrarse y ocultarse</h3>
+		
+		<div class="container">
+			<strong class="example7">Click me.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example7">Click me.</span></pre>
+		</code>
+		
+		<p>El callback <strong>onShow()</strong> se ejecuta luego de mostrarse el Layer, mientras que el callback <strong>onHide()</strong> se ejecuta antes de ocultarse el componente:</p>
+		
+		<code>
+			<pre name="code" class="js">
+$(".example7").layer({
+	event: "click",
+	content: "Callbacks al mostrarse y ocultarse",
+	onShow: function() {
+		alert("Callback onShow");
+	},
+	onHide: function() {
+		alert("Callback onHide");
+	}
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>8. Callback para cuando el contenido por Ajax es cargado <em>correctamente</em>.</h3>
+		
+		<div class="container">
+			<strong class="example8">Click me.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example8">Click me.</span></pre>
+		</code>
+		
+		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentLoad</strong> que se dispara luego de que el contenido se cargó de forma correcta:</p>
+		
+		<code>
+			<pre name="code" class="js">
+$(".example8").layer({
+	ajax: "ajax.html",
+	event: "click",
+	onContentLoad: function() {
+		alert("Callback onContentLoad");
+	}
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>9. Callback para cuando el contenido por Ajax es cargado de forma <em>incorrecta</em>.</h3>
+		
+		<div class="container">
+			<strong class="example9">Click me.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example9">Click me.</span></pre>
+		</code>
+		
+		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentError</strong> que se dispara cuando existe un error en el llamado de Ajax.</p>
+		
+		<p>Para este ejemplo se utilizó la URL "http://www.google.com" para forzar un error.</p>
+		
+		<code>
+			<pre name="code" class="js">
+$(".example9").layer({
+	ajax: "http://www.google.com",
+	event: "click",
+	onContentError: function() {
+		alert("Callback onContentError");
+	}
+});</pre>
+		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>10. Reposicionamiento</h3>
+		
+		<div class="container">
+			<strong class="example10">Drag cursor over me.</strong>
+		</div>
+		
+		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		
+		<code>
+			<pre name="code" class="xml"><span class="example10">Drag cursor over me.</span></pre>
+		</code>
+		
+		<p>En este componente existe la posibilidad de modificar el <a href="../core/positioner.html">posicionamiento</a> el elemento emergente, mediante el método público <strong>position</strong>:</p>
+				
+		<code>
+			<pre name="code" class="js">
+var layerToBePositioned = $(".example10").layer("Layer reposicionado");
 
 layerToBePositioned.position({
-	points: "lb lt",
-	offset: "100 -10"
+	points: "lt rt",
+	offset: "10 -10"
 });</pre>
 		</code>
 	</div>
@@ -221,22 +428,61 @@ layerToBePositioned.position({
     
     $(".demoLayerOnmouseover").layer("Thank you.");
     
-    $(".layerOnmouseover").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+    $(".example1").layer("Contextual Layer ejecutado en mouseover (comportamiento predeterminado)");
     
-    $(".layerOnclick").layer({
+    $(".example2").layer({
 		event: "click",
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+		content: "Contextual Layer ejecutado en el click"
 	});
 	
-	var layerToBePositioned = $(".layerOnclick2").layer({
-		event: "click",
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+	$(".example3").layer({
+		content: "Contenido HTML, cargado con el atributo content"
 	});
+	
+	$(".example4").layer({
+		content: "#contentForLayer"
+	});
+	
+	$(".example5").layer("Contenido HTML, cargado sin objeto de configuración");
+	
+	$(".example6").layer({
+		ajax: "ajax.html"
+	});
+	
+	$(".example7").layer({
+		event: "click",
+		content: "Callbacks al mostrarse y ocultarse",
+		onShow: function() {
+			alert("Callback onShow");
+		},
+		onHide: function() {
+			alert("Callback onHide");
+		}
+	});
+	
+	$(".example8").layer({
+		ajax: "ajax.html",
+		event: "click",
+		onContentLoad: function() {
+			alert("Callback onContentLoad");
+		}
+	});
+	
+	$(".example9").layer({
+		ajax: "http://www.google.com",
+		event: "click",
+		onContentError: function() {
+			alert("Callback onContentError");
+		}
+	});
+	
+	var layerToBePositioned = $(".example10").layer("Layer reposicionado");
 
 	layerToBePositioned.position({
-		points: "lb lt",
-		offset: "100 -10"
+		points: "lt rt",
+		offset: "10 -10"
 	});
+	
 </script>
 
 
