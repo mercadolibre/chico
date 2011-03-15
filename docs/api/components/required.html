@@ -81,7 +81,7 @@
 		<div id="js">
 			<code>
 				<pre name="code" class="js">// Define a Form Controller
-        var form = $('.demoFrom').forms({
+        var form = $('.demoFrom').form({
               messages: {
                   email: "Default message for email validation.",
                   minLength: "Default message for minLength validation",
@@ -104,7 +104,7 @@
 
 <p>El objeto Required es un componente dentro de la familia <a href="watcher.html" lang="en">Watcher</a> donde se pueden declarar que campos o grupos de formularios sean requeridos para efectuar un <em lang="en">submit</em>. Recibe como argumento un objeto de propiedades que definen algunos aspecto de su comportamiento como los <em lang="en">callbacks</em>.</p>	
 
-<p>Este componente extiende su funcionalidad del componente Watcher (al igual que <a href="number.html">Number</a> y <a href="string.html">String</a>).</p>
+<p>Este componente extiende su funcionalidad del componente Watcher (al igual que <a href="number.html">Number</a>, <a href="string.html">String</a> y <a href="custom.html">Custom</a>).</p>
 
 <p><em>Nota:</em> Es recomendable instanciar un objeto <a href="forms.html" lang="en">Forms</a> antes de configurar componentes de la familia <a href="watcher.html" lang="en">Watcher</a>.</p>
 
@@ -329,7 +329,7 @@ foo = {
 			
 	<code>
 		<pre name="code" class="js">
-$('.c2').forms();
+$('.c2').form();
 $('#c2_selectM, #c2_selectS').required("You must complete this field!");</pre>
 	</code>
 	
@@ -413,7 +413,7 @@ $('#c2_selectM, #c2_selectS').required("You must complete this field!");</pre>
 			
 	<code>
 		<pre name="code" class="js">
-$('.c3').forms();
+$('.c3').form();
 $('.c3_check').required("You must complete this field!");</pre>
 	</code>
 		
@@ -489,7 +489,7 @@ $('.c3_check').required("You must complete this field!");</pre>
 	
 	<code>
 		<pre name="code" class="js">
-$('.c4').forms();
+$('.c4').form();
 $('.c4_radio').required("You must complete this field!");</pre>
 	</code>
 		
@@ -533,7 +533,7 @@ $('.c4_radio').required("You must complete this field!");</pre>
 
     $(".sourceTabs").tabNavigator();
 
-    var form = $('.demoFrom').forms({
+    var form = $('.demoFrom').form({
           messages: {
               email: "Default message for email validation.",
               minLength: "Default message for minLength validation",
@@ -549,19 +549,19 @@ $('.c4_radio').required("You must complete this field!");</pre>
         .required();
     
     // Example 1
-    $('.c1').forms();
+    $('.c1').form();
     $("#c1_fistname, #c1_middlename, #c1_lastname").required("You must complete this field!");
 
     // Example 2
-    $('.c2').forms();
+    $('.c2').form();
     $('#c2_selectM, #c2_selectS').required("You must complete this field!");
 
     // Example 3
-	$('.c3').forms();
+	$('.c3').form();
     $('.c3_check').required("You must complete this field!");
 
     // Example 4
-	$('.c4').forms();
+	$('.c4').form();
     $('.c4_radio').required("You must complete this field!");
     
 </script>

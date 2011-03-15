@@ -27,7 +27,6 @@
 	<ul>
 		<li><a href="#demo">Demo</a></li>
 		<li><a href="#html">HTML</a></li>
-		<!--li><a href="#css">CSS</a></li-->
 		<li><a href="#js">JavaScript</a></li>
 	</ul>
 	<div>
@@ -108,18 +107,11 @@
 			</code>
 		</div>
 		
-		<!--div id="css">
-			<code>
-				<pre name="code" class="css">
-/* CSS code */</pre>
-			</code>
-		</div-->
-		
 		<div id="js">
 			<code>
 				<pre name="code" class="js">
 // Define a Form Controller
-var form = $('.demoForm').forms({
+var form = $('.demoForm').form({
     messages: {
         email: "Enter a valid email",
         minLength: "The value is to short",
@@ -127,46 +119,57 @@ var form = $('.demoForm').forms({
     }
 });
 var email = $('#val_email').email().and().minLength(20,"Need 20 characters.").and().required();
-var select = $('#val_select').required();
-// JS code</pre>
+var select = $('#val_select').required();</pre>
 			</code>
 		</div>
 	</div>
 </div>
 
-<div class="container">
-	<h2>Cómo se usa</h2>
-    
-    <p>El objeto Watcher define una nueva familia de componentes que se encargan de validar campos de formularios. Recibe como argumento un objeto de propiedades para su funcionamiento, mensajes o para los <em lang="en">callbacks</em>.</p>
 
-    <p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+<h2>Cómo se usa</h2>
+    
+<p>El objeto Watcher define una nueva familia de componentes que se encargan de validar campos de formularios. Recibe como argumento un objeto de propiedades para su funcionamiento, mensajes o para los <em lang="en">callbacks</em>.</p>
 
-    <code>
-        <pre name="code" class="js">$(".foo").component();</pre>
-    </code>
-    	
-    <p>Se asocia a uno o más controles de formularios y se encarga agrupar las validaciones por cada uno. Cada instancia de Watcher posee una referencia directa con el elemento &lt;form&gt; padre. Cada elemento de formulario debería estar relacionado con una instancia del componente <a href="form.html">Forms</a> de la familia <strong>Controllers</strong>. De esta manera logramos una referencia circular desde un elemento de formulario, la instancia de Watcher, el elemento &lt;form&gt; y su instancia de <a href="form.html">Forms</a>.</p>
-    
-    <p>Existen varias interfaces que permiten la utilización de los Watchers. Se dividen en 3 grupos: <a href="string.html">String</a>, <a href="number.html">Number</a> y <a href="required.html">Required</a>. Cada uno de ellos define internamente un Watcher con configuraciones especiales de validación.</p>
-    
-    <p>Lista de interfaces disponibles:</p>
-    <ul>
-        <li><a href="required.html"><strong>required</strong>()</a></li>
-        <li><a href="string.html"><strong>string</strong>()</a></li>
-        <li><a href="string.html">email()</a></li>
-        <li><a href="string.html">url()</a></li>
-        <li><a href="string.html">maxLength()</a></li>
-        <li><a href="string.html">minLength()</a></li>
-        <li><a href="number.html"><strong>Number</strong>()</a></li>
-        <li><a href="number.html">max()</a></li>
-        <li><a href="number.html">min()</a></li>
-        <li><a href="number.html">price()</a></li>
-    </ul>
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+    <pre name="code" class="js">$(".foo").component();</pre>
+</code>
+	
+<p>Se asocia a uno o más controles de formularios y se encarga agrupar las validaciones por cada uno. Cada instancia de Watcher posee una referencia directa con el elemento &lt;form&gt; padre. Cada elemento de formulario debería estar relacionado con una instancia del componente <a href="form.html">Form</a> de la familia <strong>Controllers</strong>. De esta manera logramos una referencia circular desde un elemento de formulario, la instancia de Watcher, el elemento &lt;form&gt; y su instancia de <a href="form.html">Form</a>.</p>
+
+<p>Existen varias interfaces que permiten la utilización de los Watchers. Se dividen en 4 grupos: <a href="string.html">String</a>, <a href="number.html">Number</a>, <a href="required.html">Required</a> y <a href="custom.html">Custom</a>. Cada uno de ellos define internamente un Watcher con configuraciones especiales de validación.</p>
+
+<p>Lista de interfaces disponibles:</p>
+<ul>
+    <li><a href="required.html"><strong>required</strong>()</a></li>
+    <li><a href="string.html"><strong>string</strong>()</a></li>
+    <li><a href="string.html">email()</a></li>
+    <li><a href="string.html">url()</a></li>
+    <li><a href="string.html">maxLength()</a></li>
+    <li><a href="string.html">minLength()</a></li>
+    <li><a href="number.html"><strong>Number</strong>()</a></li>
+    <li><a href="number.html">max()</a></li>
+    <li><a href="number.html">min()</a></li>
+    <li><a href="number.html">price()</a></li>
+</ul>
 
 <script>
 	ui.codelighter();
 
-        $(".sourceTabs").tabNavigator();
+    $(".sourceTabs").tabNavigator();
+    
+    // Define a Form Controller
+    var form = $('.demoForm').form({
+        messages: {
+            email: "Enter a valid email",
+            minLength: "The value is to short",
+            required: "This field is required"
+        }
+    });
+    var email = $('#val_email').email().and().minLength(20,"Need 20 characters.").and().required();
+    var select = $('#val_select').required();
+
 </script>
 
 
