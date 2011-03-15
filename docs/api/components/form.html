@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Form</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+		<link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../../libs/js/dd_belatedpng.js"></script>
@@ -17,7 +18,7 @@
         <![endif]-->
         <script src="../../../libs/js/jquery.js"></script>
 		<script src="../../../build/chico-min-0.5.5.js"></script>
-    <head>
+    </head>
 <body>
 
 
@@ -64,7 +65,7 @@
 			<li class="fieldBox">
 				<label class="required" for="val_email">
 					<span>E-mail: <em>*</em></span>													
-					<input type="email" id="val_email" required="required">
+					<input type="email" id="val_email" required="required" name="val_email">
 				</label>
 				<p class="help">Escribe una descripción corta y clara</p>
 			</li>
@@ -81,76 +82,78 @@
 		<div id="js">
 			<code>
 				<pre name="code" class="js">
-$('#demoform').form();</pre>
+$("#demoform").form();</pre>
 			</code>
 		</div>
 	</div>
 </div>
 
-<div class="container">
-	<h2>Cómo se usa</h2>
-	
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").form();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+
+<h2>Cómo se usa</h2>
+<p>El componente Form es un controlador que maneja las validaciones (<a href="watchers.html">Watchers</a>), resetea los campos y submitea el formulario. Este componente puede ser instanciado realizando una selección con jQuery, o bien, internamente por los watchers.</p>
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").form();</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {	
 	messages: object, 					// Define validation messages
-	beforeSubmit: function() {},    		  // Callback executed before submit form
+	beforeSubmit: function() {},          // Callback executed before submit
 	onSubmit: function() {},			  // Callback executed on submit form to send via ajax
-	afterSubmit: function() {}	   // Callback executed after submit form
-	beforeValidate: function() {}	   // Callback executed before validate form
-	onValidate: function() {}	   // Callback executed on validate success form
-	onError: function() {}	   // Callback executed on validate error form
-	afterValidate: function() {}	   // Callback executed after validate form
-	onReset: function() {},    		  // Callback executed on reset form
-	onClear: function() {},    		  // Callback executed on clear form (reset too)
+	afterSubmit: function() {},	   	// Callback executed after submit
+	beforeValidate: function() {},		// Callback executed before validate
+	onValidate: function() {},			// Callback executed on validate success
+	onError: function() {},			   // Callback executed on validate error
+	afterValidate: function() {},	     // Callback executed after validate
+	onReset: function() {},    		   // Callback executed on reset form
+	onClear: function() {}    		    // Callback executed on clear form (reset included)
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").form({
 	messages: {
 		general: "Formulario con errores.",
 	    required: "Mensaje por defecto requerido",
 	    email: "Mensaje email por defecto",
 	    maxLength: "Mensaje por defecto del max length",
-	    minLength: 'Mensaje por defecto del min length'
+	    minLength: "Mensaje por defecto del min length" 
 	}
 });</pre>
-	</code>
-	
-	<p>Otra forma de iniciarlo es utilizando la siguiente sintaxis:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").component(string or number or function);</pre>
-	</code>
-	
-	<h2>Objeto público</h2>
-	<p>Cada vez que se instancia un componente ***component***, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
-var foo = $(".foo").component();
+</code>
+
+<h2>Objeto público</h2>
+<p>Cada vez que se instancia un componente Form, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
+var foo = $(".foo").form();
 
 // It returns
 foo = {
-	uid: 121,                         //  Global number instance
-	element: HTMLInputElement,        //  Input DOM Interface
-	type: "modal",                    //  Component Type
+	uid: 121,                         // Global number instance
+	element: HTMLElement,        	 // DOM Interface
+	type: "form",                     // Component Type
+	children: array,                  // Instances of components controlled by Form (watchers)
+	messages:,						// Messages collections
+	validate: function(),			 // Run watchers's validations
+	submit: function(),			   // Submit the form
+	checkStatus: function(),		  // Check status of forms validations
+	getStatus: function(),			// Return the form validations status
+	clear: function(),				// Clear watchers validations
+	reset: function()				 // Reset form and clear validations
 }</pre>
 	</code>
 </div>
@@ -159,69 +162,71 @@ foo = {
 	
 <div class="example">
 
-	<h3>1. Component executed on...</h3>
+	<h3>1. Enviar un formulario por ajax</h3>
 	
 	<div class="container">
-		*****Aca poner la demo funcionando*****
+		<form action="ajax.html" id="example1">
+			<fieldset>
+				<legend>Manejo de Forms</legend>
+				<ol>
+					<li class="fieldBox">
+						<label for="example1_title">
+							<span>Título: </span>													
+							<input type="text" id="example1_title" name="example1_title">
+						</label>
+						<p class="help">Escribe una descripción corta y clara.</p>
+					</li>
+				</ul>
+			</fieldset>   
+			<p class="actions">
+				<input type="submit" value="Enviar" class="btn primary" name="submit">
+				<a href="#" class="resetForm">Cancelar</a>
+			</p>
+		</form>
 	</div>
-	
-	<p>*****Explicacion*****</p>
-	
-	<code>
-		<pre name="code" class="xml">
-<!-- HTML code --></pre>
-	</code>
-	
-	<p>*****Explicacion*****</p>
-	
-	<code>
-		<pre name="code" class="css">
-/* CSS code */</pre>
-	</code>
-	
+		
 	<p>*****Explicacion*****</p>
 	
 	<code>
 		<pre name="code" class="js">
-// JS code</pre>
+$("#example1").form({
+	onSubmit: function(){
+		var data = $(this.element).serialize();
+		// Send data via ajax here	
+	}
+});</pre>
 	</code>
-
-</div>
-	
-
-<div class="example">
-
-	<h3>2. Component executed on...</h3>
-	
-	<div class="container">
-		*****Aca poner la demo funcionando*****
-	</div>
-
-</div>
-
-
-<div class="example">
-
-    <h3>3. Component executed on...</h3>
-    
-    <div class="container">
-        *****Aca poner la demo funcionando*****
-    </div>
 
 </div>
 
 
 <script>
 	ui.codelighter();
-	
-    $(".sourceTabs").tabNavigator();
-    
-    $('#demoform').form();
-    $('#val_email').required().and().email();
-    
+
+    $(".sourceTabs").tabNavigator({
+    	onSelect: function(){
+    		if ( this.getSelected() != 0 ){
+    			$(".ch-helper").hide();
+    		} else {
+    			$(".ch-helper").show();
+    		};
+    	}
+    });
+
+	var form = $('#demoform').form();
+	var email = $('#val_email').required().and().email();
+	form.submit();
+
     // Examples
-    
-    
+	$("#example1").form({
+		onSubmit: function(){
+			var data = $(this.element).serialize();
+			alert("Send data via ajax here");	
+		}
+	});
+	
+	$('#example1_title').required();
+
 </script>
 
 
