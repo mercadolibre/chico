@@ -1,0 +1,402 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+        <script></script> <!-- Avoid script blocking -->
+        <meta charset="utf-8">
+        <title>String extends Watcher</title>
+        <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
+        <link rel="stylesheet" href="../../../src/css/grid.css">
+        <!--[if lt IE 7 ]>
+            <script src="../../libs/js/dd_belatedpng.js"></script>
+            <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+        <![endif]-->
+        <script src="../../../libs/js/jquery.js"></script>
+		<script src="../../../build/chico-min-0.5.5.js"></script>
+    </head>
+<body>
+
+<h1>String</h1>
+
+<div class="sourceTabs">
+	<ul>
+		<li><a href="#demo">Demo</a></li>
+		<li><a href="#html">HTML</a></li>
+		<li><a href="#js">JavaScript</a></li>
+	</ul>
+	<div>
+		<div id="demo">
+		    
+<form action="test.html" class="formulario">
+    <fieldset>
+        <ol>
+            <li class="fieldBox">
+                <label class="required" for="val_email">
+                    <span>E-mail: <em>*</em></span>                                                 
+                    <input type="email" id="val_email" required="required">
+                </label>
+                <p class="help">Escribe una descripción corta y clara</p>
+            </li>
+        </ul>
+    </fieldset>
+            
+    <p class="actions">
+        <input type="submit" value="Enviar" class="btn primary">
+        <a href="#">Cancelar</a>
+    </p>
+</form>
+
+		</div>
+		
+		<div id="html">
+			<code>
+				<pre name="code" class="xml">
+<form action="test.html" class="demoFrom">
+    <fieldset>
+        <ol>
+            <li class="fieldBox">
+                <label class="required" for="demoEmail">
+                    <span>E-mail: <em>*</em></span>                                                 
+                    <input type="email" id="demoEmail" required="required">
+                </label>
+                <p class="help">Escribe una descripción corta y clara</p>
+            </li>
+        </ul>
+    </fieldset>
+            
+    <p class="actions">
+        <input type="submit" value="Enviar" class="btn primary">
+        <a href="#">Cancelar</a>
+    </p>
+</form></pre>
+			</code>
+		</div>
+		
+		<div id="js">
+			<code>
+				<pre name="code" class="js">// Define a Form Controller
+        var form = $('.demoFrom').form({
+              messages: {
+                  email: "Default message for email validation.",
+                  minLength: "Default message for minLength validation",
+                  required: "Default message for required validation"
+              }
+        });
+        var validation = $('#demoEmail')
+            .email("This must be a valid email.")
+            .and()
+            .minLength(20,"You miss some characters, try 10 as minimum.")
+            .and()
+            .required();</pre>
+			</code>
+		</div>
+	</div>
+</div>
+    
+<h2>Cómo se usa</h2>
+
+<p>El objeto String es un componente dentro de la familia <a href="watcher.html" lang="en">Watcher</a> donde se pueden definir algunas validaciones preformateadas de cadenas de caracteres. Recibe como argumento un objeto de propiedades que definen los tipos de validaciones y algunos aspecto de su comportamiento como los <em lang="en">callbacks</em>.</p>
+
+<p>Este componente extiende su funcionalidad del componente Watcher (al igual que <a href="number.html">Number</a> y <a href="required.html">Required</a>).</p>
+
+<p><em>Nota:</em> Es recomendable instanciar un objeto <a href="form.html" lang="en">Form</a> antes de configurar componentes de la familia <a href="watcher.html" lang="en">Watcher</a>.</p>
+
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">
+$(".foo").string({
+    email:true,
+    messages:{
+        email: "validation message"
+    }
+});</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
+{
+    text: boolean,                      //  Configure a text validation
+    email: boolean,                     //  Configure an email validation
+    url: boolean,                       //  Configure a url validation
+    maxLength: int,                     //  Configure a max length validation
+    minLength: int,                     //  Configure a min lenght validation
+    messages: {                         //  Messages Map
+        text: string,
+        email: string,
+        url: string,
+        maxLength: string,
+        minLength: string
+    },
+    beforeValidate: function() {}       //  Callback before validate
+    afterValidate: function() {}        //  Callback after validate
+    onReset: function() {}              //  Callback on reset
+}</pre>
+</code>
+
+<h2>Ejemplo de configuración</h2>
+
+<code>
+	<pre name="code" class="js">
+$("#Foobar").string({ // Check for a valid email format smaller than 20 chars
+    email: true,
+    maxLength: 20,
+    messages: {
+        email: "This must be a valid email!",
+        maxLength: "Please no more than 20 chars."
+    }
+});</pre>
+</code>
+    	
+<h2>Múltiples validaciones</h2>
+
+<p>Todo componente perteneciente al a familia <a href="watcher.html">Watcher</a> tiene la habilidad de concatenar validaciones de distintos tipos en un mismo campo de formulario con el método <strong>and()</strong>. Esto nos permite hacer distintas validaciones sobre un dato, como por ejemplo comprobar que el valor de un campo requerido sea un número:</p>
+
+<code>
+    <pre name="code" class="js"> // Check for a valid email format smaller than 20 chars
+$(".foo").email("This must be a valid email!").and().maxLength(20, "Please no more than 20 chars.");</pre>
+</code>
+
+<h2>Interfaces disponibles</h2>
+
+<p><strong>Email</strong></p>
+<code>
+    <pre name="code" class="js">var foo = $("#Foobar").email("This must be a valid email.");</pre>
+</code> 
+<p><strong>URL</strong></p>
+<code>
+    <pre name="code" class="js">var foo = $("#Foobar").url("This must be a valid url.");</pre>
+</code> 
+<p><strong>maxLength</strong></p>
+<code>
+    <pre name="code" class="js">var foo = $("#Foobar").maxLength(20, "There's too many characters, try 20 as max.");</pre>
+</code> 
+<p><strong>minLength</strong></p>
+<code>
+    <pre name="code" class="js">var foo = $("#Foobar").minLength(10, "You miss some characters, try 10 as minimum.");</pre>
+</code>
+
+<h2>Objeto público</h2>
+
+<p>Cada vez que se instancia un componente de la familia <a href="watcher.html" lang="en">Watcher</a> éste retorna un objeto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
+
+<code>
+	<pre name="code" class="js">
+// It returns
+foo = {
+    uid: 121,                         //  Global number instance
+    element: HTMLInputElement,        //  Input DOM Interface
+    type: "watcher",                  //  Component Type
+    types: "text, email, url...       //  All the possible interfaces
+    reference: HTMLElement            //  Helpers reference
+    helper: ui.Helper                 //  UI Component to show messages 
+    status: boolean,                  //  Status
+    reference: HTMLInputElement,      //  Positioner reference
+    parent: HTMLFormElement,          //  Form parent
+    conditions: {                     //  Conditions Map (logic)
+        ...
+    },
+    validations: {                    //  Validation Map (configuration)
+        ...               
+    },
+    messages:{},                      //  Messages Map
+    active(),                         //  Returns true if some of the validation is 'active'
+    and(),                            //  Concatenate method 
+    reset(),                          //  Reset the value
+    validate(),                       //  Execute the configured validations
+    enable(),                         //  Stop ignoring configured validation
+    disable(),                        //  Start ignoring configured validations
+    refresh(),                        //  Refresh the helper's position</pre>
+</code>
+
+<h2>Ejemplos</h2>
+
+<div class="example">
+    
+    <h3>Validación de Email y URL</h3>
+    
+    <form action="test.html" class="c1">
+        <fieldset>
+            <ol>
+                <li class="fieldBox">
+                    <label class="required" for="c1_email">
+                        <span>E-mail: <em>*</em></span>                                                 
+                        <input type="email" id="c1_email" required="required">
+                    </label>
+                    <p class="help">Escribe una descripción corta y clara</p>
+                </li>
+                <li class="fieldBox">
+                    <label class="required" for="c1_url">
+                        <span>Website: <em>*</em></span>                                                    
+                        <input type="email" id="c1_url" required="required">
+                    </label>
+                    <p class="help">Escribe una descripción corta y clara</p>
+                </li>
+            </ul>
+        </fieldset>
+                
+        <p class="actions">
+            <input type="submit" value="Enviar" class="btn primary">
+            <a href="#">Cancelar</a>
+        </p>
+    </form>
+
+    <p>En la configuración de los campos podemos conbinar con el método <strong lang="en">and()</strong> con otras interfaces del componente <a href="watcher.html" lang="en">Watcher</a> como la validación de campo requerido <a href="required.html" lang="en">Required</a>.
+
+	<code>
+		<pre name="code" class="js">
+$(".c1").forms();
+$("#c1_email").email().and().required();
+$("#c1_url").url().and().required();
+       
+/*  Otra alternativa es agrupar validaciones requeridas en una instrucción:
+$("#c1_email").email();
+$("#c1_url").url();
+$(".c1 input").required(); // Require all fields inside .c1
+*/</pre>
+	</code>
+	
+	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+	
+	<code>
+		<pre name="code" class="xml">
+<form action="test.html" class="c1">
+    <fieldset>
+        <ol>
+            <li class="fieldBox">
+                <label class="required" for="c1_email">
+                    <span>E-mail: <em>*</em></span>                                                 
+                    <input type="email" id="c1_email" required="required">
+                </label>
+                <p class="help">Escribe una descripción corta y clara</p>
+            </li>
+            <li class="fieldBox">
+                <label class="required" for="c1_url">
+                    <span>Website: <em>*</em></span>                                                    
+                    <input type="email" id="c1_url" required="required">
+                </label>
+                <p class="help">Escribe una descripción corta y clara</p>
+            </li>
+        </ul>
+    </fieldset>
+            
+    <p class="actions">
+        <input type="submit" value="Enviar" class="btn primary">
+        <a href="#">Cancelar</a>
+    </p>
+</form></pre>
+	</code>
+</div>
+
+<hr>
+
+<div class="example">
+	
+    <h3>Validando cantidad de caracteres en los campos</h3>
+    
+    <form action="test.html" class="c2">
+        <fieldset>
+            <ol>
+                <li class="fieldBox">
+                    <label for="c2_edad">
+                        <span>Edad:</span>
+                        <input type="text" id="c2_edad" value="6">
+                    </label>
+                    <p class="help">Escribe una descripción corta y clara</p>
+                </li>
+            </ul>
+        </fieldset>
+                
+        <p class="actions">
+            <input type="submit" value="Enviar" class="btn primary">
+            <a href="#">Cancelar</a>
+        </p>
+    </form>
+	
+	<p>Para ejecutar un layer en el click de un elemento, es necesario especificar dicho comportamiento dentro del objeto de configuración:</p>
+			
+	<code>
+		<pre name="code" class="js">
+$('.c2').forms();
+$('#c2_edad').minLength(2);</pre>
+	</code>
+	
+	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+	
+	<code>
+		<pre name="code" class="xml">
+<form action="test.html" class="c2">
+    <fieldset>
+        <ol>
+            <li class="fieldBox">
+                <label for="c2_edad">
+                    <span>Edad:</span>
+                    <input type="text" id="c2_edad" value="6">
+                </label>
+                <p class="help">Escribe una descripción corta y clara</p>
+            </li>
+        </ul>
+    </fieldset>
+            
+    <p class="actions">
+        <input type="submit" value="Enviar" class="btn primary">
+        <a href="#">Cancelar</a>
+    </p>
+</form></pre>
+	</code>
+</div>
+
+<script>
+	ui.codelighter();
+
+    $(".sourceTabs").tabNavigator();
+
+    // Define a Form Controller
+    var form = $('.formulario').form({
+          messages: {
+              email: "Default message for email validation.",
+              minLength: "Default message for minLength validation",
+              required: "Default message for required validation"
+          }
+    });
+
+    var email = $('#val_email')
+                    .email("This must be a valid email.")
+                    .and()
+                    .minLength(20,"You miss some characters, try 10 as minimum.")
+                    .and()
+                    .required();
+
+    /* Case 1 */
+
+    $(".c1").form();
+    $("#c1_email").email().and().required();
+    $("#c1_url").url().and().required();
+       
+/*  Otra alternativa es agrupar validaciones requeridas en una instrucción:
+    $("#c1_email").email();
+    $("#c1_url").url();
+    $(".c1 input").required();
+*/
+    /* Case 2 */
+
+    $('.c2').form();
+    $('#c2_edad').minLength(2);
+    
+</script>
+
+
+
+</body>
+</html>

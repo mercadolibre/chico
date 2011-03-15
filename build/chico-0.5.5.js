@@ -2879,11 +2879,11 @@ ui.form = function(conf){
  */
 	// Are there action and submit type?
 	if ( this.$element.find(":submit").length == 0 || this.$element.attr("action") == "" ){ 
-		alert("Forms fatal error: The <input type=submit> is missing, or need to define a action attribute on the form tag.");
+		alert("Form fatal error: The <input type=submit> is missing, or need to define a action attribute on the form tag.");
 		return;
 	};
 
-	// Is there forms in map instances?	
+	// Is there form in map instances?	
 	if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ){
 		for(var i = 0, j = ui.instances.form.length; i < j; i++){
 			if(ui.instances.form[i].element === this.element){

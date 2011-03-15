@@ -118,7 +118,7 @@ ui.watcher = function(conf) {
  *  Protected Members
  */ 
 
- 	// Status
+    // Status
 	that.active = false;
 	
 	// Enabled
@@ -129,20 +129,20 @@ ui.watcher = function(conf) {
         var reference;
         // CHECKBOX, RADIO
         if ( that.$element.hasClass("options") ) {
-        	// Helper reference from will be fired
-        	// H4
-        	if ( that.$element.find('h4').length > 0 ) {
-        		var h4 = that.$element.find('h4'); // Find h4
-        			h4.wrapInner('<span>'); // Wrap content with inline element
-        		reference = h4.children(); // Inline element in h4 like helper reference	
-        	// Legend
-        	} else if ( that.$element.prev().attr('tagName') == 'LEGEND' ) {
-        		reference = that.$element.prev(); // Legend like helper reference
-        	};
+            // Helper reference from will be fired
+            // H4
+            if ( that.$element.find('h4').length > 0 ) {
+                var h4 = that.$element.find('h4'); // Find h4
+                    h4.wrapInner('<span>'); // Wrap content with inline element
+                reference = h4.children(); // Inline element in h4 like helper reference	
+            // Legend
+            } else if ( that.$element.prev().attr('tagName') == 'LEGEND' ) {
+                reference = that.$element.prev(); // Legend like helper reference
+            }
         // INPUT, SELECT, TEXTAREA
         } else {
-        	reference = that.$element;
-        };
+            reference = that.$element;
+        }
         return reference;
     })();
 
@@ -155,9 +155,9 @@ ui.watcher = function(conf) {
                 if (types[i] == val) {
                     collection[val] = conf[val];
                     // TODO: eliminar conf[val]???
-                };
-            };
-        };
+                }
+            }
+        }
 
         return collection;
     })();
@@ -172,10 +172,10 @@ ui.watcher = function(conf) {
                 if (types[i] == val) {
                     collection[val] = conf.conditions[val];
                     // TODO: eliminar conf[val]???
-                };
-            };
-        };
-    	    
+                }
+            }
+        }
+
         return collection;
     })();
 
@@ -197,8 +197,8 @@ ui.watcher = function(conf) {
     // Validate Method
 	that.validate = function() {		
 		// Pre-validation: Don't validate disabled or not required & empty elements
-		if ( that.$element.attr('disabled') ) { return; };
-		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; };
+		if ( that.$element.attr('disabled') ) { return; }
+		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; }
 
 		if ( that.enabled ) {
 			
@@ -215,19 +215,19 @@ ui.watcher = function(conf) {
 				
 	            if ( type == "required" ) {
 	                gotError = that.isEmpty();
-	            };
+	            }
 	            
 	            if ( condition.patt ) {
 	                gotError = !condition.patt.test(value);
-	            };
+	            }
 	            
 	            if ( condition.expr ) {
 	                gotError = !condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
-	            };
+	            }
 
 	            if ( condition.func && type != "required" ) {
 	                gotError = !condition.func.call(this, value); // Call validation function with 'this' as scope
-	            };
+	            }
 				
 				if ( gotError ) {
 										
@@ -248,9 +248,9 @@ ui.watcher = function(conf) {
 					that.$element.one(event, that.validate); // Add blur or change event only one time
 
 	                return;
-				};
-	        }; 
-		}; // Enabled
+				}
+	        } 
+		} // Enabled
 		
 		// Status OK (with previous error)
 		if ( that.active || !that.enabled ) {
@@ -263,7 +263,7 @@ ui.watcher = function(conf) {
 			that.active = false;
 			
 			controller.checkStatus();
-		};
+		}
         
         that.callbacks('afterValidate');
         
@@ -278,7 +278,7 @@ ui.watcher = function(conf) {
 		that.helper.hide(); // Hide helper
 		that.$element.unbind("blur"); // Remove blur event 
 		
-		that.callbacks("reset");
+		that.callbacks("onReset");
 		
 		return that;
 	};
@@ -288,17 +288,17 @@ ui.watcher = function(conf) {
 		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
 		switch (that.tag) {
 			case 'OPTIONS':
-				return that.$element.find('input:checked').length == 0;
+				return that.$element.find('input:checked').length === 0;
 			break;
 			
 			case 'SELECT':
 			    var val = that.$element.val();
-				return val == -1 || val == null;
+				return val === -1 || val === null;
 			break;
 			
 			case 'INPUT':
 			case 'TEXTAREA':
-				return $.trim( that.$element.val() ).length == 0;
+				return $.trim( that.$element.val() ).length === 0;
 			break;
 		};
 				
