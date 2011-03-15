@@ -10,7 +10,7 @@ class Builder {
 	public $autor = "Chico Team <chico@mercadolibre.com>";
 	    
     private $src = "../build/";
-    private $doc = "../docs/build/";
+    //private $doc = "../docs/build/";
         
     /**
      * Constructor
@@ -43,7 +43,7 @@ class Builder {
         $this->build( $url."?type=css", $this->src."chico-min-".$version.".css" );
         $this->build( $url."?type=css&debug=true", $this->src."chico-".$version.".css" );       
         echo "</ul>\n";   
-        echo "<ul>\n";           
+        /*echo "<ul>\n";           
         // For Docs
         $this->build( $url , $this->doc."chico.js" );
         $this->build( $url , $this->doc."chico-min-".$version.".js" );
@@ -51,7 +51,7 @@ class Builder {
         $this->build( $url."?type=css", $this->doc."chico.css" );
         $this->build( $url."?type=css", $this->doc."chico-min-".$version.".css" );
         $this->build( $url."?type=css&debug=true", $this->doc."chico-".$version.".css" );       
-        echo "</ul>\n";
+        echo "</ul>\n";*/
         
         //docs.
     }

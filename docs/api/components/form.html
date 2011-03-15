@@ -8,7 +8,7 @@
 <head>
         <script></script> <!-- Avoid script blocking -->
         <meta charset="utf-8">
-        <title>Component name</title>
+        <title>Form</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
@@ -22,38 +22,66 @@
 
 
 
-<h1>Component Name</h1>
+<h1>Form</h1>
 
 <div class="sourceTabs">
 	<ul>
 		<li><a href="#demo">Demo</a></li>
 		<li><a href="#html">HTML</a></li>
-		<li><a href="#css">CSS</a></li>
 		<li><a href="#js">JavaScript</a></li>
 	</ul>
 	<div>
 		<div id="demo">
-			
+			<form action="ajax.html" id="demoform">
+		    	<fieldset>
+		    		<legend>Manejo de Forms</legend>
+		    		<p class="required">* Datos obligatorios</p>
+		    		<ol>
+		    			<li class="fieldBox">
+		    				<label class="required" for="val_email">
+		    					<span>E-mail: <em>*</em></span>													
+		    					<input type="email" id="val_email" required="required">
+		    				</label>
+		    				<p class="help">Escribe una descripción corta y clara.</p>
+		    			</li>
+		    		</ul>
+		    	</fieldset>   
+		    	<p class="actions">
+		    		<input type="submit" value="Enviar" class="btn primary">
+		    		<a href="#" class="resetForm">Cancelar</a>
+		    	</p>
+		    </form>
 		</div>
 		
 		<div id="html">
 			<code>
 				<pre name="code" class="xml">
-<!-- HTML code --></pre>
+<form action="ajax.html" id="demoform">
+	<fieldset>
+		<legend>Manejo de Forms</legend>
+		<p class="required">* Datos obligatorios</p>
+		<ol>
+			<li class="fieldBox">
+				<label class="required" for="val_email">
+					<span>E-mail: <em>*</em></span>													
+					<input type="email" id="val_email" required="required">
+				</label>
+				<p class="help">Escribe una descripción corta y clara</p>
+			</li>
+		</ul>
+	</fieldset>   
+	<p class="actions">
+		<input type="submit" value="Enviar" class="btn primary">
+		<a href="#" class="resetForm">Cancelar</a>
+	</p>
+</form></pre>
 			</code>
 		</div>
-		
-		<div id="css">
-			<code>
-				<pre name="code" class="css">
-/* CSS code */</pre>
-			</code>
-		</div>
-		
+
 		<div id="js">
 			<code>
 				<pre name="code" class="js">
-// JS code</pre>
+$('#demoform').form();</pre>
 			</code>
 		</div>
 	</div>
@@ -65,7 +93,7 @@
 	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
 	
 	<code>
-		<pre name="code" class="js">$(".foo").component();</pre>
+		<pre name="code" class="js">$(".foo").form();</pre>
 	</code>
 	
 	<h2>Configuración</h2>
@@ -76,8 +104,17 @@
 	
 	<code>
 		<pre name="code" class="js">
-{
-	name: value	// Comment
+{	
+	messages: object, 					// Define validation messages
+	beforeSubmit: function() {},    		  // Callback executed before submit form
+	onSubmit: function() {},			  // Callback executed on submit form to send via ajax
+	afterSubmit: function() {}	   // Callback executed after submit form
+	beforeValidate: function() {}	   // Callback executed before validate form
+	onValidate: function() {}	   // Callback executed on validate success form
+	onError: function() {}	   // Callback executed on validate error form
+	afterValidate: function() {}	   // Callback executed after validate form
+	onReset: function() {},    		  // Callback executed on reset form
+	onClear: function() {},    		  // Callback executed on clear form (reset too)
 }</pre>
 	</code>
 	
@@ -85,8 +122,14 @@
 	
 	<code>
 		<pre name="code" class="js">
-$(".foo").component({
-	name: value
+$(".foo").form({
+	messages: {
+		general: "Formulario con errores.",
+	    required: "Mensaje por defecto requerido",
+	    email: "Mensaje email por defecto",
+	    maxLength: "Mensaje por defecto del max length",
+	    minLength: 'Mensaje por defecto del min length'
+	}
 });</pre>
 	</code>
 	
@@ -172,6 +215,13 @@ foo = {
 	ui.codelighter();
 	
     $(".sourceTabs").tabNavigator();
+    
+    $('#demoform').form();
+    $('#val_email').required().and().email();
+    
+    // Examples
+    
+    
 </script>
 
 

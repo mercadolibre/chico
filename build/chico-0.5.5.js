@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, forms, viewer, chat, expando, codelighter
+  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -22,7 +22,7 @@ var ui = window.ui = {
 
     version: "0.5.5",
 
-    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,forms,viewer,chat,expando,codelighter",
+    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter",
 
     internals: "positioner,object,floats,navs,controllers,watcher,sliders",
 
@@ -1092,17 +1092,17 @@ ui.watcher = function(conf) {
 	
 	// Get my parent or set it
 	var controller = (function() {
-		if ( ui.instances.hasOwnProperty("forms") && ui.instances.forms.length > 0 ) {	
-		  var i = 0, j = ui.instances.forms.length; 
+		if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ) {	
+		  var i = 0, j = ui.instances.form.length; 
 		  for (i; i < j; i ++) {
-				if (ui.instances.forms[i].element === that.$element.parents("form")[0]) {
-					return ui.instances.forms[i]; // Get my parent
+				if (ui.instances.form[i].element === that.$element.parents("form")[0]) {
+					return ui.instances.form[i]; // Get my parent
 				};
 			};
 		} else {
-			that.$element.parents("form").forms();
-			var last = (ui.instances.forms.length - 1);
-			return ui.instances.forms[last]; // Set my parent
+			that.$element.parents("form").form();
+			var last = (ui.instances.form.length - 1);
+			return ui.instances.form[last]; // Set my parent
 		};
 	})();
 	
@@ -1838,7 +1838,7 @@ ui.dropdown = function(conf){
 		.detach();
 	
 	// Close dropdown after click an option (link)
-	that.$content.find('a').one("click", function(event){ that.hide(event) });
+	that.$content.find('a').one("click", function(){ that.hide() });
 
 	// Put content out of container
 	that.$container.after( that.$content );
@@ -2872,7 +2872,7 @@ ui.helper = function(controller){
  *	@return An interface object
  */
 
-ui.form = ui.forms = function(conf){
+ui.form = function(conf){
 
 /**
  *  Validation
@@ -2884,12 +2884,12 @@ ui.form = ui.forms = function(conf){
 	};
 
 	// Is there forms in map instances?	
-	if ( ui.instances.hasOwnProperty("forms") && ui.instances.forms.length > 0 ){
-		for(var i = 0, j = ui.instances.forms.length; i < j; i++){
-			if(ui.instances.forms[i].element === this.element){
+	if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ){
+		for(var i = 0, j = ui.instances.form.length; i < j; i++){
+			if(ui.instances.form[i].element === this.element){
 				return { 
 	                exists: true, 
-	                object: ui.instances.forms[i]
+	                object: ui.instances.form[i]
 	            };
 			};
 		};
@@ -2965,6 +2965,8 @@ ui.form = ui.forms = function(conf){
 		};
 
 		checkStatus();
+		
+		status ? that.callbacks("onValidate") : that.callbacks("onError");  
 
         that.callbacks("afterValidate");
         
@@ -2997,12 +2999,15 @@ ui.form = ui.forms = function(conf){
 		removeError();	
 		for(var i = 0, j = that.children.length; i < j; i ++) that.children[i].reset(); // Reset helpers		
 		
+		that.callbacks("onClear");
+		
 		return that;
 	};
 	
 	var reset = function(event){
 		clear();
 		that.element.reset(); // Reset html form native
+		that.callbacks("onReset");
 		
 		return that;
 	};
@@ -3076,8 +3081,7 @@ ui.form = ui.forms = function(conf){
 	that.$element.find(":reset, .resetForm").bind("click", function(event){ clear(event); });
 
 	return that;
-};
-/**
+};/**
  *	Viewer
  *	@author
  *	@Contructor

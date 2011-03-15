@@ -37,17 +37,17 @@ ui.watcher = function(conf) {
 	
 	// Get my parent or set it
 	var controller = (function() {
-		if ( ui.instances.hasOwnProperty("forms") && ui.instances.forms.length > 0 ) {	
-		  var i = 0, j = ui.instances.forms.length; 
+		if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ) {	
+		  var i = 0, j = ui.instances.form.length; 
 		  for (i; i < j; i ++) {
-				if (ui.instances.forms[i].element === that.$element.parents("form")[0]) {
-					return ui.instances.forms[i]; // Get my parent
+				if (ui.instances.form[i].element === that.$element.parents("form")[0]) {
+					return ui.instances.form[i]; // Get my parent
 				};
 			};
 		} else {
-			that.$element.parents("form").forms();
-			var last = (ui.instances.forms.length - 1);
-			return ui.instances.forms[last]; // Set my parent
+			that.$element.parents("form").form();
+			var last = (ui.instances.form.length - 1);
+			return ui.instances.form[last]; // Set my parent
 		};
 	})();
 	

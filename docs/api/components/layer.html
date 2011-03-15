@@ -74,10 +74,15 @@
 	ajax: string,					   // URL to get content
 	cache: boolean,					 // Content cacheable (Only one request per layer). Default "true"
 	event: string,					  // "click" define a click triggered layer
+	
+	showTime: number,				   // Delay in milliseconds to show layer. Default 400
+	hideTime: number,				   // Delay in milliseconds to hide layer. Default 400
+	
 	onShow: function() {},    		  // Callback executed after show layer
 	onHide: function() {},			  // Callback executed before hide layer
 	onContentLoad: function() {},	   // Callback executed on success of content loaded via ajax
 	onContentError: function() {} 	  // Callback executed on fail of content loaded via ajax
+	
 	offset: string,					 // Positioner configuration. Default "0 10"
 	points: string,					 // Positioner configuration. Default "lt lb"
 	hold: boolean					   // Positioner configuration. Default "false"
@@ -142,7 +147,7 @@ foo.position({ 					   //  Set new position
 	context: $(element),
 	offset: string,
 	points: string,
-	fixed: boolean
+	hold: boolean
 });</pre>
 	</code>
 </div>
@@ -161,12 +166,6 @@ foo.position({ 					   //  Set new position
 				
 		<code>
 			<pre name="code" class="js">$(".example1").layer("Contextual Layer ejecutado en mouseover (comportamiento predeterminado)");</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example1">Drag cursor over me.</span></pre>
 		</code>
 	</div>
 	
@@ -187,12 +186,6 @@ $(".example2").layer({
 	event: "click",
 	content: "Contextual Layer ejecutado en el click"
 });</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example2">Click me.</span></pre>
 		</code>
 	</div>
 	
@@ -215,12 +208,6 @@ $(".example3").layer({
 		</code>
 		
 		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example3">Drag cursor over me.</span></pre>
-		</code>
 	</div>
 	
 	<hr>
@@ -244,15 +231,6 @@ $(".example4").layer({
 		</code>
 		
 		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml">
-<span class="example4">Drag cursor over me.</span>
-
-<p id="contentForLayer" style="display:none">Contenido de un elemento DOM</p></pre>
-		</code>
 	</div>
 	
 	<hr>
@@ -272,12 +250,6 @@ $(".example5").layer("Contenido HTML, cargado sin objeto de configuración");</p
 		</code>
 		
 		<p><strong>Este método es equivalente a utilizar el atributo de configuración "content"</strong> (Ver ejemplos 3 y 4).</p>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example5">Drag cursor over me.</span></pre>
-		</code>
 	</div>
 	
 	<hr>
@@ -299,12 +271,6 @@ $(".example6").layer({
 		</code>
 		
 		<p>El atributo de configuración "ajax" no puede coexistir con el atributo "content".</p>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example6">Drag cursor over me.</span></pre>
-		</code>
 	</div>
 	
 	<hr>
@@ -331,12 +297,6 @@ $(".example7").layer({
 	}
 });</pre>
 		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example7">Click me.</span></pre>
-		</code>
 	</div>
 	
 	<hr>
@@ -359,12 +319,6 @@ $(".example8").layer({
 		alert("Callback onContentLoad");
 	}
 });</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example8">Click me.</span></pre>
 		</code>
 	</div>
 	
@@ -391,12 +345,6 @@ $(".example9").layer({
 	}
 });</pre>
 		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><span class="example9">Click me.</span></pre>
-		</code>
 	</div>
 	
 	<hr>
@@ -419,11 +367,26 @@ layerToBePositioned.position({
 	offset: "10 -10"
 });</pre>
 		</code>
+	</div>
+	
+	<hr>
+	
+	<div class="container">
+		<h3>11. Tiempo en abrirse demorado</h3>
 		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+		<div class="container">
+			<strong class="example11">Click me, and wait 3 seconds!!</strong>
+		</div>
 		
+		<p>Desde la configuración se puede cambiar el tiempo que el Layer demora en mostrarse y ocultarse, a traves de <strong>showTime</strong> y <strong>hideTime</strong> respectivamente:</p>
+				
 		<code>
-			<pre name="code" class="xml"><span class="example10">Drag cursor over me.</span></pre>
+			<pre name="code" class="js">
+$(".example11").layer({
+	event: "click",
+	content: "Layer con 3 segundos de retraso",
+	showTime: 3000
+});</pre>
 		</code>
 	</div>
 </div>
@@ -489,6 +452,12 @@ layerToBePositioned.position({
 	layerToBePositioned.position({
 		points: "lt rt",
 		offset: "10 -10"
+	});
+	
+	$(".example11").layer({
+		event: "click",
+		content: "Layer con 3 segundos de retraso",
+		showTime: 3000
 	});
 	
 </script>
