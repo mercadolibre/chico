@@ -1,0 +1,217 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+        <script></script> <!-- Avoid script blocking -->
+        <meta charset="utf-8">
+        <title>Custom extends Watcher</title>
+        <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
+        <link rel="stylesheet" href="../../../src/css/grid.css">
+        <!--[if lt IE 7 ]>
+            <script src="../../libs/js/dd_belatedpng.js"></script>
+            <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+        <![endif]-->
+        <script src="../../../libs/js/jquery.js"></script>
+		<script src="../../../build/chico-min-0.5.5.js"></script>
+    </head>
+<body>
+
+<h1>Custom</h1>
+
+<div class="sourceTabs">
+	<ul>
+		<li><a href="#demo">Demo</a></li>
+		<li><a href="#html">HTML</a></li>
+		<li><a href="#js">JavaScript</a></li>
+	</ul>
+	<div>
+		<div id="demo">
+
+<form action="test.html" class="formulario">
+    <fieldset>
+        <div class="fieldBox">
+            <label for="val_custom" class="required">
+                <span>Ingresa "hola":</span>                                                    
+                <input type="text" id="val_custom" required="required" class="required">
+            </label>
+        </div>
+    </fieldset>
+            
+    <p class="actions">
+        <input type="submit" value="Enviar" class="btn primary">
+        <a href="#">Cancelar</a>
+    </p>
+</form>
+
+		</div>
+		
+		<div id="html">
+			<code>
+				<pre name="code" class="xml">
+<form action="test.html" class="formulario">
+    <fieldset>
+        <div class="fieldBox">
+            <label for="val_custom" class="required">
+                <span>Ingresa "hola":</span>                                                    
+                <input type="text" id="val_custom" required="required" class="required">
+            </label>
+        </div>
+    </fieldset>
+            
+    <p class="actions">
+        <input type="submit" value="Enviar" class="btn primary">
+        <a href="#">Cancelar</a>
+    </p>
+</form></pre>
+			</code>
+		</div>
+		
+		<div id="js">
+			<code>
+				<pre name="code" class="js">
+// Define a Form Controller
+var form = $('.formulario').forms({
+    onSubmit: function(){
+        // Do something
+        alert("Validación OK!");
+    }
+});
+
+// Define a validation function
+var myValidation = function( value ) {
+    
+   // Toda validación personalizada recibe como argumento
+   // el "value" del campo al que está asignado.
+
+   if (value === "hola") {
+       return true; // Devolver "true" le avisa al engine que es una validación exitosa.
+   }
+
+   return false; // Devolver "false" le avisa al engine que *no* es una validación exitosa y por ende mostará un mensaje de error.
+};
+
+// Init validation
+var custom = $('#val_custom').custom(myValidation, "Ingresa la palabra \"hola\".").and().required();</pre>
+			</code>
+		</div>
+	</div>
+</div>
+
+
+    
+	<h2>Cómo se usa</h2>
+	
+    <p>El objeto Number es un componente dentro de la familia <a href="watcher.html" lang="en">Watcher</a> donde se pueden definir algunas validaciones preformateadas de números. Recibe como argumento un objeto de propiedades que definen los tipos de validaciones y algunos aspecto de su comportamiento como los <em lang="en">callbacks</em>.</p>
+	
+	<p>Este componente extiende su funcionalidad del componente Watcher (al igual que <a href="string.html">String</a> y <a href="required.html">Required</a>).</p>
+	
+	<p><em>Nota:</em> Es recomendable instanciar un objeto <a href="form.html" lang="en">Form</a> antes de configurar componentes de la familia <a href="watcher.html" lang="en">Watcher</a>.</p>
+	
+	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+	
+    <code>
+        <pre name="code" class="js">
+$("#Foobar").custom(function(value){
+    if (value==="keyword") {
+        return true;
+    } else {
+        return false;
+    }
+},"Custom Example");</pre>
+    </code>
+    
+	<h2>Configuración</h2>
+	
+	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+	
+	<p>Objeto de configuración:</p>
+	
+	<code>
+		<pre name="code" class="js">
+{
+    custom: function(){},               //  Configure a number validation
+    messages: {                         //  Messages Map
+        custom: string
+    },
+    beforeValidate: function() {}       //  Callback before validate
+    afterValidate: function() {}        //  Callback after validate
+    onReset: function() {}              //  Callback on reset
+}</pre>
+	</code>
+    
+	<h2>Objeto público</h2>
+    
+    <p>Cada vez que se instancia un componente de la familia <a href="watcher.html" lang="en">Watcher</a> éste retorna un objeto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
+	
+	<code>
+		<pre name="code" class="js">
+// It returns
+foo = {
+    uid: 121,                         //  Global number instance
+    element: HTMLInputElement,        //  Input DOM Interface
+    type: "watcher",                  //  Component Type
+    types: "custom"                   //  All the possible interfaces
+    reference: HTMLElement            //  Helpers reference
+    helper: ui.Helper                 //  UI Component to show messages 
+    status: boolean,                  //  Status
+    reference: HTMLInputElement,      //  Positioner reference
+    parent: HTMLFormElement,          //  Form parent
+    conditions: {                     //  Conditions Map (logic)
+        ...
+    },
+    validations: {                    //  Validation Map (configuration)
+        ...               
+    },
+    messages:{},                      //  Messages Map
+    active(),                         //  Returns true if some of the validation is 'active'
+    and(),                            //  Concatenate method 
+    reset(),                          //  Reset the value
+    validate(),                       //  Execute the configured validations
+    enable(),                         //  Stop ignoring configured validation
+    disable(),                        //  Start ignoring configured validations
+    refresh(),                        //  Refresh the helper's position</pre>
+	</code>
+	
+
+<script>
+	ui.codelighter();
+
+    $(".sourceTabs").tabNavigator();
+
+        /* Demo */
+
+    // Define a Form Controller
+    var form = $('.formulario').form({
+        onSubmit: function(){
+            // Do something
+            alert("Validación OK!");
+        }
+    });
+    
+    // Define a validation function
+    var myValidation = function(value){
+        
+       // Toda validación personalizada recibe como argumento
+       // el "value" del campo al que está asignado.
+    
+       if (value === "hola") {
+           return true; // Devolver "true" le avisa al engine que es una validación exitosa.
+       }
+    
+       return false; // Devolver "false" le avisa al engine que *no* es una validación exitosa y por ende mostará un mensaje de error.
+    };
+    
+    // Init validation
+    var custom = $('#val_custom').custom(myValidation, "Ingresa la palabra \"hola\".").and().required();</script>
+        
+</script>
+
+
+
+</body>
+</html>
