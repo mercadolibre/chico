@@ -82,7 +82,11 @@
 		<div id="js">
 			<code>
 				<pre name="code" class="js">
-$("#demoform").form();</pre>
+var form = $('#demoform').form({
+	messages:{
+		general: "Formulario con errores."
+	}
+});</pre>
 			</code>
 		</div>
 	</div>
@@ -90,7 +94,7 @@ $("#demoform").form();</pre>
 
 
 <h2>Cómo se usa</h2>
-<p>El componente Form es un controlador que maneja las validaciones (<a href="watchers.html">Watchers</a>), resetea los campos y submitea el formulario. Este componente puede ser instanciado realizando una selección con jQuery, o bien, internamente por los watchers.</p>
+<p>El componente Form es un controlador que maneja las instancias de las validaciones (<a href="watcher.html">Watchers</a>), limpia y resetea los campos, y además nos permite submitear el formulario ejecutando algunos callbacks. Este componente puede ser instanciado realizando una selección con jQuery, o bien, internamente por un <a href="watcher.html">Watcher</a>.</p>
 <p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
 
 <code>
@@ -147,7 +151,7 @@ foo = {
 	element: HTMLElement,        	 // DOM Interface
 	type: "form",                     // Component Type
 	children: array,                  // Instances of components controlled by Form (watchers)
-	messages:,						// Messages collections
+	messages: object,				 // Messages collections
 	validate: function(),			 // Run watchers's validations
 	submit: function(),			   // Submit the form
 	checkStatus: function(),		  // Check status of forms validations
@@ -185,14 +189,68 @@ foo = {
 		</form>
 	</div>
 		
-	<p>*****Explicacion*****</p>
+	<p>Si queremos enviar una formulario via ajax tenemos que hacer uso del callback onSubmit. Dicho callback, previene el envio del formulario para que podamos tener control del mismo. Por tal motivo, tenemos que obtener todos los valores del formulario con el método .serialize() de jQuery y luego enviarlos por ajax.</p>
 	
 	<code>
 		<pre name="code" class="js">
 $("#example1").form({
 	onSubmit: function(){
-		var data = $(this.element).serialize();
+		var data = $(this.element).serialize(); // this.element es el objecto DOM (form)
 		// Send data via ajax here	
+	}
+});</pre>
+	</code>
+
+</div>
+
+
+<div class="example">
+
+	<h3>2. Mensajes por defecto</h3>
+	
+	<div class="container">
+		<form action="ajax.html" id="example2">
+			<fieldset>
+				<legend>Manejo de Forms</legend>
+				<ol>
+					<li class="fieldBox">
+						<label for="example2_title">
+							<span>Título: </span>													
+							<input type="text" id="example2_title" name="example2_title">
+						</label>
+						<p class="help">Escribe una descripción corta y clara.</p>
+					</li>
+					<li class="fieldBox">
+						<label for="example2_email">
+							<span>E-mail: </span>													
+							<input type="text" id="example2_email" name="example2_email">
+						</label>
+					</li>
+					<li class="fieldBox">
+						<label for="example2_nick">
+							<span>Apodo: </span>													
+							<input type="text" id="example2_nick" name="example2_nick">
+						</label>
+					</li>
+				</ul>
+			</fieldset>   
+			<p class="actions">
+				<input type="submit" value="Enviar" class="btn primary" name="submit">
+				<a href="#" class="resetForm">Cancelar</a>
+			</p>
+		</form>
+	</div>
+		
+	<p>Para agregar mensajes por defecto a las validaciones de una formulario, debemos utilizar la propiedad "messages" al iniciarlo. Dicha propiedad es un objecto que contiene el tipo de la validacion (<a href="watcher.html">Watcher</a>) junto con un mensaje. Si queremos modificar el mensaje del error general, tenemos que indicarlo con el nombre "general".</p>
+		
+	<code>
+		<pre name="code" class="js">
+$("#example2").form({
+	messages: {
+		general: "Formulario con errores y mensajes por defecto.",
+	    required: "Mensaje por defecto requerido",
+	    email: "Mensaje por defecto del e-mail",
+	    minLength: "Mensaje por defecto del min length"
 	}
 });</pre>
 	</code>
@@ -213,7 +271,11 @@ $("#example1").form({
     	}
     });
 
-	var form = $('#demoform').form();
+	var form = $('#demoform').form({
+		messages:{
+			general: "Formulario con errores."
+		}
+	});
 	var email = $('#val_email').required().and().email();
 	form.submit();
 
@@ -225,6 +287,22 @@ $("#example1").form({
 		}
 	});	
 	$('#example1_title').required();
+	
+	var example2 = $("#example2").form({
+		messages: {
+			general: "Formulario con errores y mensajes por defecto.",
+		    required: "Mensaje por defecto requerido",
+		    email: "Mensaje por defecto del e-mail",
+		    minLength: "Mensaje por defecto del min length"
+		}
+	});
+	$('#example2_email').val("@.com");
+	$('#example2_nick').val("chico");
+	$('#example2_title').required();
+	$('#example2_email').email();
+	$('#example2_nick').minLength(6);
+	
+	example2.submit();
 
 </script>
 

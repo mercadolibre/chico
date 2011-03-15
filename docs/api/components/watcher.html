@@ -27,7 +27,6 @@
 	<ul>
 		<li><a href="#demo">Demo</a></li>
 		<li><a href="#html">HTML</a></li>
-		<!--li><a href="#css">CSS</a></li-->
 		<li><a href="#js">JavaScript</a></li>
 	</ul>
 	<div>
@@ -107,7 +106,7 @@
 </form></pre>
 			</code>
 		</div>
-			
+
 		<div id="js">
 			<code>
 				<pre name="code" class="js">
@@ -130,7 +129,7 @@ var select = $('#val_select').required();</pre>
 
 
 <h2>Cómo se usa</h2>
-
+    
 <p>El objeto Watcher define una nueva familia de componentes que se encargan de validar campos de formularios. Recibe como argumento un objeto de propiedades para su funcionamiento, mensajes o para los <em lang="en">callbacks</em>.</p>
 
 <p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
@@ -141,7 +140,7 @@ var select = $('#val_select').required();</pre>
 	
 <p>Se asocia a uno o más controles de formularios y se encarga agrupar las validaciones por cada uno. Cada instancia de Watcher posee una referencia directa con el elemento &lt;form&gt; padre. Cada elemento de formulario debería estar relacionado con una instancia del componente <a href="form.html">Form</a> de la familia <strong>Controllers</strong>. De esta manera logramos una referencia circular desde un elemento de formulario, la instancia de Watcher, el elemento &lt;form&gt; y su instancia de <a href="form.html">Form</a>.</p>
 
-<p>Existen varias interfaces que permiten la utilización de los Watchers. Se dividen en 3 grupos: <a href="string.html">String</a>, <a href="number.html">Number</a> y <a href="required.html">Required</a>. Cada uno de ellos define internamente un Watcher con configuraciones especiales de validación.</p>
+<p>Existen varias interfaces que permiten la utilización de los Watchers. Se dividen en 4 grupos: <a href="string.html">String</a>, <a href="number.html">Number</a>, <a href="required.html">Required</a> y <a href="custom.html">Custom</a>. Cada uno de ellos define internamente un Watcher con configuraciones especiales de validación.</p>
 
 <p>Lista de interfaces disponibles:</p>
 <ul>
@@ -160,7 +159,19 @@ var select = $('#val_select').required();</pre>
 <script>
 	ui.codelighter();
 
-        $(".sourceTabs").tabNavigator();
+    $(".sourceTabs").tabNavigator();
+    
+    // Define a Form Controller
+    var form = $('.demoForm').form({
+        messages: {
+            email: "Enter a valid email",
+            minLength: "The value is to short",
+            required: "This field is required"
+        }
+    });
+    var email = $('#val_email').email().and().minLength(20,"Need 20 characters.").and().required();
+    var select = $('#val_select').required();
+
 </script>
 
 
