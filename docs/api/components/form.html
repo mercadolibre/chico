@@ -189,13 +189,13 @@ foo = {
 		</form>
 	</div>
 		
-	<p>*****Explicacion*****</p>
+	<p>Si queremos enviar una formulario via ajax tenemos que hacer uso del callback onSubmit. Dicho callback, previene el envio del formulario para que podamos tener control del mismo. Por tal motivo, tenemos que obtener todos los valores del formulario con el método .serialize() de jQuery y luego enviarlos por ajax.</p>
 	
 	<code>
 		<pre name="code" class="js">
 $("#example1").form({
 	onSubmit: function(){
-		var data = $(this.element).serialize();
+		var data = $(this.element).serialize(); // this.element es el objecto DOM (form)
 		// Send data via ajax here	
 	}
 });</pre>
