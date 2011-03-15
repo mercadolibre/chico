@@ -81,7 +81,7 @@
 		<div id="js">
 			<code>
 				<pre name="code" class="js">
-$('#demoform').forms();</pre>
+$('#demoform').form();</pre>
 			</code>
 		</div>
 	</div>
@@ -93,7 +93,7 @@ $('#demoform').forms();</pre>
 	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
 	
 	<code>
-		<pre name="code" class="js">$(".foo").component();</pre>
+		<pre name="code" class="js">$(".foo").form();</pre>
 	</code>
 	
 	<h2>Configuración</h2>
@@ -216,7 +216,8 @@ foo = {
 	
     $(".sourceTabs").tabNavigator();
     
-    $('#demoform').forms();
+    $('#demoform').form();
+    $('#val_email').required().and().email();
     
     // Examples
     
