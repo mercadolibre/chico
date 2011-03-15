@@ -1092,17 +1092,17 @@ ui.watcher = function(conf) {
 	
 	// Get my parent or set it
 	var controller = (function() {
-		if ( ui.instances.hasOwnProperty("forms") && ui.instances.forms.length > 0 ) {	
-		  var i = 0, j = ui.instances.forms.length; 
+		if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ) {	
+		  var i = 0, j = ui.instances.form.length; 
 		  for (i; i < j; i ++) {
-				if (ui.instances.forms[i].element === that.$element.parents("form")[0]) {
-					return ui.instances.forms[i]; // Get my parent
+				if (ui.instances.form[i].element === that.$element.parents("form")[0]) {
+					return ui.instances.form[i]; // Get my parent
 				};
 			};
 		} else {
-			that.$element.parents("form").forms();
-			var last = (ui.instances.forms.length - 1);
-			return ui.instances.forms[last]; // Set my parent
+			that.$element.parents("form").form();
+			var last = (ui.instances.form.length - 1);
+			return ui.instances.form[last]; // Set my parent
 		};
 	})();
 	
@@ -2872,7 +2872,7 @@ ui.helper = function(controller){
  *	@return An interface object
  */
 
-ui.form = ui.forms = function(conf){
+ui.form = function(conf){
 
 /**
  *  Validation
@@ -2884,12 +2884,12 @@ ui.form = ui.forms = function(conf){
 	};
 
 	// Is there forms in map instances?	
-	if ( ui.instances.hasOwnProperty("forms") && ui.instances.forms.length > 0 ){
-		for(var i = 0, j = ui.instances.forms.length; i < j; i++){
-			if(ui.instances.forms[i].element === this.element){
+	if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ){
+		for(var i = 0, j = ui.instances.form.length; i < j; i++){
+			if(ui.instances.form[i].element === this.element){
 				return { 
 	                exists: true, 
-	                object: ui.instances.forms[i]
+	                object: ui.instances.form[i]
 	            };
 			};
 		};
@@ -3081,8 +3081,7 @@ ui.form = ui.forms = function(conf){
 	that.$element.find(":reset, .resetForm").bind("click", function(event){ clear(event); });
 
 	return that;
-};
-/**
+};/**
  *	Viewer
  *	@author
  *	@Contructor
