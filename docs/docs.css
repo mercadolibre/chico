@@ -1,0 +1,63 @@
+h1 {
+	font-size: 32px;
+	margin-bottom: 35px;
+}
+
+h2 {
+	margin:40px 0 15px 0;
+	font-size:24px;
+}
+
+p {
+	line-height:1.4em;
+	margin-bottom:10px;
+}
+
+.context {
+    border: 1px solid blue;
+    color: blue;
+    text-align:center;
+    line-height: 100px;
+    height: 100px;
+    margin: 30px;
+    width: 100px;
+}
+
+.element {
+    background-color: red;
+    color: white;
+    line-height: 25px;
+    height: 25px;
+    position: absolute;
+    padding:0 10px;
+}
+
+.pointsTable {
+	margin-bottom:25px;
+}
+
+.pointsTable th,
+.pointsTable td {
+	padding:5px 25px;
+}
+
+.ico.information {
+	float:left;
+	margin:2px 7px 0 0;
+}
+
+.tagReference {
+	margin:25px 10px;
+}
+
+.tagReference span {
+	font-size:20px;
+	border:1px solid green;
+	padding:2px 5px;
+}
+
+.example {
+	margin:35px;
+	border-bottom:1px dashed #ccc;
+	padding-bottom:30px;
+}

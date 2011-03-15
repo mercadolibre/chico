@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Dropdown</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../libs/js/dd_belatedpng.js"></script>
@@ -67,23 +68,22 @@ $(".demoDropdown").dropdown();</pre>
 	</div>
 </div>
 
-<div class="box">
-	<h2>Cómo se usa</h2>
-	<p>El objeto Dropdown es un componente que agrupa una lista de links, los cuales disparan diferentes acciones. Puede recibir como argumento un objeto de propiedades para los <em lang="en">callbacks</em>.</p>
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").dropdown();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+<h2>Cómo se usa</h2>
+<p>El objeto Dropdown es un componente que agrupa una lista de links, los cuales disparan diferentes acciones. Puede recibir como argumento un objeto de propiedades para los <em lang="en">callbacks</em>.</p>
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").dropdown();</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {
 	onShow: function() {},		   // Callback executed on dropdown show
 	onHide: function() {},		   // Callback executed on dropdown hide
@@ -91,24 +91,24 @@ $(".demoDropdown").dropdown();</pre>
 	points: string,				  // Positioner configuration. Default "lt lb"
 	hold: boolean					// Positioner configuration. Default "false"	
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").dropdown({
 	onHide: function() {
 		// something
 	}
 });</pre>
-	</code>
+</code>
 
-	<h2>Objeto público</h2>
-	<p>Cada vez que se instancia un componente expando, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
+<h2>Objeto público</h2>
+<p>Cada vez que se instancia un componente expando, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
 var foo = $(".foo").dropdown();
 
 // returns
@@ -120,55 +120,55 @@ foo = {
 	show(),						  //  Show dropdown
 	hide(),						  //  Hide dropdown	
 }</pre>
-	</code>
+</code>
 
-	<p>El método público position() puede ser utilizado para:</p>
-	
-	<p>1. Obtener la configuración actual de posicionamiento.</p>
-	<code>
-		<pre name="code" class="js">
-	foo.position();					   //  Get position</pre>
-	</code>
-	
-	<p>2. Actualizar la posición del elemento.</p>
-	<code>
-		<pre name="code" class="js">
-	foo.position("refresh");			  //  Refresh position</pre>
-	</code>
-	
-	<p>3. Setear una nueva configuración para el <a href="../core/positioner.html">posicionamiento</a> del elemento.</p>
-	<code>
-		<pre name="code" class="js">
-	foo.position({ 					   //  Set new position
-		context: $(element),
-		offset: string,
-		points: string,
-		hold: boolean
-	});</pre>
-	</code>
-</div>
-<div class="box">
-	<h2>Ejemplos</h2>
+<h2>Posicionamiento</h2>
+
+<p>El método público position() puede ser utilizado para:</p>
+
+<p>1. Obtener la configuración actual de posicionamiento.</p>
+<code>
+	<pre name="code" class="js">foo.position();					   //  Get position</pre>
+</code>
+
+<p>2. Actualizar la posición del elemento.</p>
+<code>
+	<pre name="code" class="js">foo.position("refresh");			  //  Refresh position</pre>
+</code>
+
+<p>3. Setear una nueva configuración para el <a href="../core/positioner.html">posicionamiento</a> del elemento.</p>
+<code>
+	<pre name="code" class="js">
+foo.position({ 					   //  Set new position
+	context: $(element),
+	offset: string,
+	points: string,
+	hold: boolean
+});</pre>
+</code>
+
+
+<h2>Ejemplos</h2>
+
+<div class="example">
+	<h3>1. Skin secundario del dropdown</h3>
 	
 	<div class="container">
-		<h3>1. Skin secundario del dropdown</h3>
-		
-		<div class="container">
-			<div class="c1drop ch-secondary">
-				<span>Sitios</span>
-				<ul>
-					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-				</ul>
-			</div>
+		<div class="c1drop ch-secondary">
+			<span>Sitios</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</ul>
 		</div>
-		
-		<p>Agregando la clase css "ch-secondary" en el snippet de código html, se obtiene un skinning secundario de dropdown.</p>
-		
-		<code>
-			<pre name="code" class="xml">
+	</div>
+	
+	<p>Agregando la clase css "ch-secondary" en el snippet de código html, se obtiene un skinning secundario de dropdown.</p>
+	
+	<code>
+		<pre name="code" class="xml">
 <div class="c1drop ch-secondary">
 	<span>Sitios</span>
 	<ul>
@@ -178,23 +178,22 @@ foo = {
 		<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
 	</ul>
 </div></pre>
-		</code>
+	</code>
 
-		<p>Luego, realizamos una selección con jQuery para iniciar el componente.</p>
+	<p>Luego, realizamos una selección con jQuery para iniciar el componente.</p>
 
-		<code>
-			<pre name="code" class="js">
-$(".c1drop").dropdown();</pre>
-		</code>
-	</div>
-	
+	<code>
+		<pre name="code" class="js">$(".c1drop").dropdown();</pre>
+	</code>
 </div>
-
 
 <script>
 	ui.codelighter();
+	
     $(".sourceTabs").tabNavigator();
+    
     $(".demoDropdown").dropdown();
+    
     $(".c1drop").dropdown();
 </script>
 

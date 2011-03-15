@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Component name</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../../libs/js/dd_belatedpng.js"></script>
@@ -59,48 +60,47 @@
 	</div>
 </div>
 
-<div class="container">
-	<h2>Cómo se usa</h2>
-	
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").component();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+<h2>Cómo se usa</h2>
+
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").component();</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {
 	name: value	// Comment
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").component({
 	name: value
 });</pre>
-	</code>
-	
-	<p>Otra forma de iniciarlo es utilizando la siguiente sintaxis:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").component(string or number or function);</pre>
-	</code>
-	
-	<h2>Objeto público</h2>
-	<p>Cada vez que se instancia un componente ***component***, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Otra forma de iniciarlo es utilizando la siguiente sintaxis:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").component(string or number or function);</pre>
+</code>
+
+<h2>Objeto público</h2>
+<p>Cada vez que se instancia un componente ***component***, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
 var foo = $(".foo").component();
 
 // It returns
@@ -109,8 +109,7 @@ foo = {
 	element: HTMLInputElement,        //  Input DOM Interface
 	type: "modal",                    //  Component Type
 }</pre>
-	</code>
-</div>
+</code>
 
 <h2>Ejemplos</h2>
 	

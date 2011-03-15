@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Tooltip</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../libs/js/dd_belatedpng.js"></script>
@@ -50,26 +51,25 @@
 	</div>
 </div>
 
-<div class="box">
-	<h2>Cómo se usa</h2>
-	
-	<p>El Tooltip es un componente emergente que puede iniciarse con cualquier elemento HTML <strong>que tenga el atributo title</strong>. Se dispara con el evento mouseover del elemento, o bien, utilizando su método público show().</p>
-	
-	<p>Este componente pertenece a la familia Floats (al igual que <a href="modal.html">Modal window</a> y <a href="layer.html">Contextual Layer</a>).</p>
-	
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").tooltip();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+<h2>Cómo se usa</h2>
+
+<p>El Tooltip es un componente emergente que puede iniciarse con cualquier elemento HTML <strong>que tenga el atributo title</strong>. Se dispara con el evento mouseover del elemento, o bien, utilizando su método público show().</p>
+
+<p>Este componente pertenece a la familia Floats (al igual que <a href="modal.html">Modal window</a> y <a href="layer.html">Contextual Layer</a>).</p>
+
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").tooltip();</pre>
+</code>
+
+<h2>Configuración</h2>
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {
 	onShow: function() {},    		  // Callback executed after show tooltip
 	onHide: function() {},			  // Callback executed before hide tooltip
@@ -77,12 +77,12 @@
 	points: string,					 // Positioner configuration. Default "lt lb"
 	hold: boolean					   // Positioner configuration. Default "false"
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").tooltip({
 	onShow: function() {
 		// Do something
@@ -91,13 +91,13 @@ $(".foo").tooltip({
 		// Do something
 	}
 });</pre>
-	</code>
-	
-	<h2>Objeto público</h2>
-	<p>Cada vez que se instancia un componente Tooltip, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<h2>Objeto público</h2>
+<p>Cada vez que se instancia un componente Tooltip, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
 var foo = $(".foo").tooltip();
 
 // It returns
@@ -110,49 +110,45 @@ foo = {
 	show(),						   //  Show layer
 	hide()						    //  Hide layer
 }</pre>
-	</code>
-	
-	<h2>Posicionamiento</h2>
-	<p>El método público position() puede ser utilizado para:</p>
-	
-	<p>1. Obtener la configuración actual de posicionamiento.</p>
-	<code>
-		<pre name="code" class="js">
-foo.position();					   //  Get position</pre>
-	</code>
-	
-	<p>2. Actualizar la posición del elemento.</p>
-	<code>
-		<pre name="code" class="js">
-foo.position("refresh");			  //  Refresh position</pre>
-	</code>
-	
-	<p>3. Setear una nueva configuración para el <a href="../core/positioner.html">posicionamiento</a> del elemento.</p>
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<h2>Posicionamiento</h2>
+<p>El método público position() puede ser utilizado para:</p>
+
+<p>1. Obtener la configuración actual de posicionamiento.</p>
+<code>
+	<pre name="code" class="js">foo.position();					   //  Get position</pre>
+</code>
+
+<p>2. Actualizar la posición del elemento.</p>
+<code>
+	<pre name="code" class="js">foo.position("refresh");			  //  Refresh position</pre>
+</code>
+
+<p>3. Setear una nueva configuración para el <a href="../core/positioner.html">posicionamiento</a> del elemento.</p>
+<code>
+	<pre name="code" class="js">
 foo.position({ 					   //  Set new position
 	context: $(element),
 	offset: string,
 	points: string,
 	hold: boolean
 });</pre>
-	</code>
-</div>
+</code>
 
-<div class="box">
-	<h2>Ejemplos</h2>
+<h2>Ejemplos</h2>
+
+<div class="example">
+	<h3>1. Callbacks al mostrarse y ocultarse</h3>
 	
 	<div class="container">
-		<h3>1. Callbacks al mostrarse y ocultarse</h3>
-		
-		<div class="container">
-			<img class="example1" title="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
-		</div>
-		
-		<p>El callback <strong>onShow()</strong> se ejecuta luego de mostrarse el Tooltip, mientras que el callback <strong>onHide()</strong> se ejecuta antes de ocultarse el componente:</p>
-		
-		<code>
-			<pre name="code" class="js">
+		<img class="example1" title="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+	</div>
+	
+	<p>El callback <strong>onShow()</strong> se ejecuta luego de mostrarse el Tooltip, mientras que el callback <strong>onHide()</strong> se ejecuta antes de ocultarse el componente:</p>
+	
+	<code>
+		<pre name="code" class="js">
 $(".example1").tooltip({
 	onShow: function() {
 		alert("Callback onShow");
@@ -161,14 +157,7 @@ $(".example1").tooltip({
 		alert("Callback onHide");
 	}
 });</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml"><img class="example1" title="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif"></pre>
-		</code>
-	</div>
+	</code>
 </div>
 
 

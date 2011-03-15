@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Contextual Layer</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../libs/js/dd_belatedpng.js"></script>
@@ -49,67 +50,66 @@
 	</div>
 </div>
 
-<div class="box">
-	<h2>Cómo se usa</h2>
-	
-	<p>El Contextual Layer es un componente emergente que puede iniciarse con cualquier elemento HTML. Recibe como argumento un objeto de propiedades para su funcionamiento, contenido o para los <em lang="en">callbacks</em>.</p>
-	
-	<p>Este componente pertenece a la familia Floats (al igual que <a href="modal.html">Modal window</a> y <a href="tooltip.html">Tooltip</a>).</p>
-	
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").layer();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+<h2>Cómo se usa</h2>
+
+<p>El Contextual Layer es un componente emergente que puede iniciarse con cualquier elemento HTML. Recibe como argumento un objeto de propiedades para su funcionamiento, contenido o para los <em lang="en">callbacks</em>.</p>
+
+<p>Este componente pertenece a la familia Floats (al igual que <a href="modal.html">Modal window</a> y <a href="tooltip.html">Tooltip</a>).</p>
+
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").layer();</pre>
+</code>
+
+<h2>Configuración</h2>
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {
 	content: string,					// HTML markup or query string to get content. For example "<p>content</p>", "#Foobar", etc.
 	ajax: string,					   // URL to get content
 	cache: boolean,					 // Content cacheable (Only one request per layer). Default "true"
 	event: string,					  // "click" define a click triggered layer
-	
+
 	showTime: number,				   // Delay in milliseconds to show layer. Default 400
 	hideTime: number,				   // Delay in milliseconds to hide layer. Default 400
-	
+
 	onShow: function() {},    		  // Callback executed after show layer
 	onHide: function() {},			  // Callback executed before hide layer
 	onContentLoad: function() {},	   // Callback executed on success of content loaded via ajax
 	onContentError: function() {} 	  // Callback executed on fail of content loaded via ajax
-	
+
 	offset: string,					 // Positioner configuration. Default "0 10"
 	points: string,					 // Positioner configuration. Default "lt lb"
 	hold: boolean					   // Positioner configuration. Default "false"
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").layer({
 	content: "Lorem ipsum dolor sit amet, consectetur adipiscing elite.",
 	event: "click"
 });</pre>
-	</code>
-	
-	<p>Otra forma de iniciarlo es utilizando la siguiente sintaxis:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elite.");</pre>
-	</code>
-	
-	<h2>Objeto público</h2>
-	<p>Cada vez que se instancia un componente Contextual Layer retorna un objecto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Otra forma de iniciarlo es utilizando la siguiente sintaxis:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").layer("Lorem ipsum dolor sit amet, consectetur adipiscing elite.");</pre>
+</code>
+
+<h2>Objeto público</h2>
+<p>Cada vez que se instancia un componente Contextual Layer retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
 var foo = $(".foo").layer();
 
 // It returns
@@ -122,170 +122,154 @@ foo = {
 	show(),						   //  Show layer
 	hide()						    //  Hide layer
 }</pre>
-	</code>
-	
-	<h2>Posicionamiento</h2>
-	
-	<p>El método público position() puede ser utilizado para:</p>
-	
-	<p>1. Obtener la configuración actual de posicionamiento.</p>
-	<code>
-		<pre name="code" class="js">
-foo.position();					   //  Get position</pre>
-	</code>
-	
-	<p>2. Actualizar la posición del elemento.</p>
-	<code>
-		<pre name="code" class="js">
-foo.position("refresh");			  //  Refresh position</pre>
-	</code>
-	
-	<p>3. Setear una nueva configuración para el <a href="../core/positioner.html">posicionamiento</a> del elemento.</p>
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<h2>Posicionamiento</h2>
+
+<p>El método público position() puede ser utilizado para:</p>
+
+<p>1. Obtener la configuración actual de posicionamiento.</p>
+<code>
+	<pre name="code" class="js">foo.position();					   //  Get position</pre>
+</code>
+
+<p>2. Actualizar la posición del elemento.</p>
+<code>
+	<pre name="code" class="js">foo.position("refresh");			  //  Refresh position</pre>
+</code>
+
+<p>3. Setear una nueva configuración para el <a href="../core/positioner.html">posicionamiento</a> del elemento.</p>
+<code>
+	<pre name="code" class="js">
 foo.position({ 					   //  Set new position
 	context: $(element),
 	offset: string,
 	points: string,
 	hold: boolean
 });</pre>
+</code>
+
+
+<h2>Ejemplos</h2>
+
+<div class="example">
+	<h3>1. Contextual Layer ejecutado en mouseover (comportamiento predeterminado)</h3>
+	
+	<div class="container">
+		<strong class="example1">Drag cursor over me.</strong>
+	</div>
+	
+	<p>El layer ejecutado en el mouseover es el comportamiento predeterminado de este componente. Es decir que no es necesario iniciar un Layer con un objeto de configuración, sino que puede iniciarse solo indicandose un contenido de la siguiente manera:</p>
+			
+	<code>
+		<pre name="code" class="js">$(".example1").layer("Contextual Layer ejecutado en mouseover (comportamiento predeterminado)");</pre>
 	</code>
 </div>
 
-<div class="box">
-	<h2>Ejemplos</h2>
+<div class="example">
+	<h3>2. Contextual Layer ejecutado en el click</h3>
 	
 	<div class="container">
-		<h3>1. Contextual Layer ejecutado en mouseover (comportamiento predeterminado)</h3>
-		
-		<div class="container">
-			<strong class="example1">Drag cursor over me.</strong>
-		</div>
-		
-		<p>El layer ejecutado en el mouseover es el comportamiento predeterminado de este componente. Es decir que no es necesario iniciar un Layer con un objeto de configuración, sino que puede iniciarse solo indicandose un contenido de la siguiente manera:</p>
-				
-		<code>
-			<pre name="code" class="js">$(".example1").layer("Contextual Layer ejecutado en mouseover (comportamiento predeterminado)");</pre>
-		</code>
+		<strong class="example2">Click me.</strong>
 	</div>
 	
-	<hr>
-	
-	<div class="container">
-		<h3>2. Contextual Layer ejecutado en el click</h3>
-		
-		<div class="container">
-			<strong class="example2">Click me.</strong>
-		</div>
-		
-		<p>Para ejecutar un layer en el click de un elemento, es necesario especificar dicho comportamiento dentro del objeto de configuración:</p>
-				
-		<code>
-			<pre name="code" class="js">
+	<p>Para ejecutar un layer en el click de un elemento, es necesario especificar dicho comportamiento dentro del objeto de configuración:</p>
+			
+	<code>
+		<pre name="code" class="js">
 $(".example2").layer({
 	event: "click",
 	content: "Contextual Layer ejecutado en el click"
 });</pre>
-		</code>
-	</div>
-	
-	<hr>
+	</code>
+</div>
+
+<div class="example">
+	<h3>3. Contenido HTML, cargado con el atributo "content"</h3>
 	
 	<div class="container">
-		<h3>3. Contenido HTML, cargado con el atributo "content"</h3>
-		
-		<div class="container">
-			<strong class="example3">Drag cursor over me.</strong>
-		</div>
-		
-		<p>Para ejecutar un layer con un determinado contenido, es posible invocar al atributo "content":</p>
-				
-		<code>
-			<pre name="code" class="js">
+		<strong class="example3">Drag cursor over me.</strong>
+	</div>
+	
+	<p>Para ejecutar un layer con un determinado contenido, es posible invocar al atributo "content":</p>
+			
+	<code>
+		<pre name="code" class="js">
 $(".example3").layer({
 	content: "Contenido HTML, cargado con el atributo content"
 });</pre>
-		</code>
-		
-		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
-	</div>
+	</code>
 	
-	<hr>
+	<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
+</div>
+
+<div class="example">
+	<h3>4. Contenido a partir de un elemento DOM</h3>
 	
 	<div class="container">
-		<h3>4. Contenido a partir de un elemento DOM</h3>
-		
-		<div class="container">
-			<strong class="example4">Drag cursor over me.</strong>
-		</div>
-		
-		<p id="contentForLayer" style="display:none">Contenido de un elemento DOM</p>
-		
-		<p>Es posible ejecutar un layer con el contenido de un elemento que se encuentra oculto o no en el DOM, utilizando el atributo "content":</p>
-		
-		<code>
-			<pre name="code" class="js">
+		<strong class="example4">Drag cursor over me.</strong>
+	</div>
+	
+	<p id="contentForLayer" style="display:none">Contenido de un elemento DOM</p>
+	
+	<p>Es posible ejecutar un layer con el contenido de un elemento que se encuentra oculto o no en el DOM, utilizando el atributo "content":</p>
+	
+	<code>
+		<pre name="code" class="js">
 $(".example4").layer({
 	content: "#contentForLayer"
 });</pre>
-		</code>
-		
-		<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
-	</div>
+	</code>
 	
-	<hr>
-	
-	<div class="container">
-		<h3>5. Contenido HTML, cargado sin objeto de configuración</h3>
-		
-		<div class="container">
-			<strong class="example5">Drag cursor over me.</strong>
-		</div>
-		
-		<p>Otra forma de ejecutar un layer con un determinado contenido, es sin especificar un objeto de configuración.</p>
-				
-		<code>
-			<pre name="code" class="js">
-$(".example5").layer("Contenido HTML, cargado sin objeto de configuración");</pre>
-		</code>
-		
-		<p><strong>Este método es equivalente a utilizar el atributo de configuración "content"</strong> (Ver ejemplos 3 y 4).</p>
-	</div>
-	
-	<hr>
+	<p>Otra forma de hacerlo es sin un objeto de configuración (Ver ejemplo 5).</p>
+</div>
+
+<div class="example">
+	<h3>5. Contenido HTML, cargado sin objeto de configuración</h3>
 	
 	<div class="container">
-		<h3>6. Contenido cargado por Ajax</h3>
-		
-		<div class="container">
-			<strong class="example6">Drag cursor over me.</strong>
-		</div>
-		
-		<p>Es posible cargar el contenido de un layer asincrónicamente, especificando en el atributo "ajax" la URL de donde se deberá obtener el contenido:</p>
-		
-		<code>
-			<pre name="code" class="js">
+		<strong class="example5">Drag cursor over me.</strong>
+	</div>
+	
+	<p>Otra forma de ejecutar un layer con un determinado contenido, es sin especificar un objeto de configuración.</p>
+			
+	<code>
+		<pre name="code" class="js">$(".example5").layer("Contenido HTML, cargado sin objeto de configuración");</pre>
+	</code>
+	
+	<p><strong>Este método es equivalente a utilizar el atributo de configuración "content"</strong> (Ver ejemplos 3 y 4).</p>
+</div>
+
+<div class="example">
+	<h3>6. Contenido cargado por Ajax</h3>
+	
+	<div class="container">
+		<strong class="example6">Drag cursor over me.</strong>
+	</div>
+	
+	<p>Es posible cargar el contenido de un layer asincrónicamente, especificando en el atributo "ajax" la URL de donde se deberá obtener el contenido:</p>
+	
+	<code>
+		<pre name="code" class="js">
 $(".example6").layer({
 	ajax: "ajax.html"
 });</pre>
-		</code>
-		
-		<p>El atributo de configuración "ajax" no puede coexistir con el atributo "content".</p>
-	</div>
+	</code>
 	
-	<hr>
+	<p>El atributo de configuración "ajax" no puede coexistir con el atributo "content".</p>
+</div>
+
+<div class="example">
+	<h3>7. Callbacks al mostrarse y ocultarse</h3>
 	
 	<div class="container">
-		<h3>7. Callbacks al mostrarse y ocultarse</h3>
-		
-		<div class="container">
-			<strong class="example7">Click me.</strong>
-		</div>
-		
-		<p>El callback <strong>onShow()</strong> se ejecuta luego de mostrarse el Layer, mientras que el callback <strong>onHide()</strong> se ejecuta antes de ocultarse el componente:</p>
-		
-		<code>
-			<pre name="code" class="js">
+		<strong class="example7">Click me.</strong>
+	</div>
+	
+	<p>El callback <strong>onShow()</strong> se ejecuta luego de mostrarse el Layer, mientras que el callback <strong>onHide()</strong> se ejecuta antes de ocultarse el componente:</p>
+	
+	<code>
+		<pre name="code" class="js">
 $(".example7").layer({
 	event: "click",
 	content: "Callbacks al mostrarse y ocultarse",
@@ -296,22 +280,20 @@ $(".example7").layer({
 		alert("Callback onHide");
 	}
 });</pre>
-		</code>
-	</div>
-	
-	<hr>
+	</code>
+</div>
+
+<div class="example">
+	<h3>8. Callback para cuando el contenido por Ajax es cargado <em>correctamente</em>.</h3>
 	
 	<div class="container">
-		<h3>8. Callback para cuando el contenido por Ajax es cargado <em>correctamente</em>.</h3>
-		
-		<div class="container">
-			<strong class="example8">Click me.</strong>
-		</div>
-		
-		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentLoad</strong> que se dispara luego de que el contenido se cargó de forma correcta:</p>
-		
-		<code>
-			<pre name="code" class="js">
+		<strong class="example8">Click me.</strong>
+	</div>
+	
+	<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentLoad</strong> que se dispara luego de que el contenido se cargó de forma correcta:</p>
+	
+	<code>
+		<pre name="code" class="js">
 $(".example8").layer({
 	ajax: "ajax.html",
 	event: "click",
@@ -319,24 +301,22 @@ $(".example8").layer({
 		alert("Callback onContentLoad");
 	}
 });</pre>
-		</code>
-	</div>
-	
-	<hr>
+	</code>
+</div>
+
+<div class="example">
+	<h3>9. Callback para cuando el contenido por Ajax es cargado de forma <em>incorrecta</em>.</h3>
 	
 	<div class="container">
-		<h3>9. Callback para cuando el contenido por Ajax es cargado de forma <em>incorrecta</em>.</h3>
-		
-		<div class="container">
-			<strong class="example9">Click me.</strong>
-		</div>
-		
-		<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentError</strong> que se dispara cuando existe un error en el llamado de Ajax.</p>
-		
-		<p>Para este ejemplo se utilizó la URL "http://www.error.com" para forzar un error.</p>
-		
-		<code>
-			<pre name="code" class="js">
+		<strong class="example9">Click me.</strong>
+	</div>
+	
+	<p>Cargando el contenido por Ajax, existe la posibilidad de utilizar el callback <strong>onContentError</strong> que se dispara cuando existe un error en el llamado de Ajax.</p>
+	
+	<p>Para este ejemplo se utilizó la URL "http://www.error.com" para forzar un error.</p>
+	
+	<code>
+		<pre name="code" class="js">
 $(".example9").layer({
 	ajax: "http://www.error.com",
 	event: "click",
@@ -344,51 +324,46 @@ $(".example9").layer({
 		alert("Callback onContentError");
 	}
 });</pre>
-		</code>
-	</div>
-	
-	<hr>
+	</code>
+</div>
+
+<div class="example">
+	<h3>10. Reposicionamiento</h3>
 	
 	<div class="container">
-		<h3>10. Reposicionamiento</h3>
-		
-		<div class="container">
-			<strong class="example10">Drag cursor over me.</strong>
-		</div>
-		
-		<p>En este componente existe la posibilidad de modificar el <a href="../core/positioner.html">posicionamiento</a> el elemento emergente, mediante el método público <strong>position</strong>:</p>
-				
-		<code>
-			<pre name="code" class="js">
+		<strong class="example10">Drag cursor over me.</strong>
+	</div>
+	
+	<p>En este componente existe la posibilidad de modificar el <a href="../core/positioner.html">posicionamiento</a> el elemento emergente, mediante el método público <strong>position</strong>:</p>
+			
+	<code>
+		<pre name="code" class="js">
 var layerToBePositioned = $(".example10").layer("Layer reposicionado");
 
 layerToBePositioned.position({
 	points: "lt rt",
 	offset: "10 -10"
 });</pre>
-		</code>
-	</div>
-	
-	<hr>
+	</code>
+</div>
+
+<div class="example">
+	<h3>11. Tiempo en abrirse demorado</h3>
 	
 	<div class="container">
-		<h3>11. Tiempo en abrirse demorado</h3>
-		
-		<div class="container">
-			<strong class="example11">Click me, and wait 3 seconds!!</strong>
-		</div>
-		
-		<p>Desde la configuración se puede cambiar el tiempo que el Layer demora en mostrarse y ocultarse, a traves de <strong>showTime</strong> y <strong>hideTime</strong> respectivamente:</p>
-				
-		<code>
-			<pre name="code" class="js">
+		<strong class="example11">Click me, and wait 3 seconds!!</strong>
+	</div>
+	
+	<p>Desde la configuración se puede cambiar el tiempo que el Layer demora en mostrarse y ocultarse, a traves de <strong>showTime</strong> y <strong>hideTime</strong> respectivamente:</p>
+			
+	<code>
+		<pre name="code" class="js">
 $(".example11").layer({
 	event: "click",
 	content: "Layer con 3 segundos de retraso",
 	showTime: 3000
 });</pre>
-		</code>
-	</div>
+	</code>
 </div>
 
 
