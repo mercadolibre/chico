@@ -18,7 +18,7 @@
         <![endif]-->
         <script src="../../../libs/js/jquery.js"></script>
 		<script src="../../../build/chico-min-0.5.5.js"></script>
-    <head>
+    </head>
 <body>
 
 
@@ -36,7 +36,7 @@
 		    
 <form action="test.html" class="demoForm">
     <fieldset>
-        <ol>
+        <ul>
             <li class="fieldBox">
                 <label class="required" for="demoEmail">
                     <span>E-mail: <em>*</em></span>                                                 
@@ -57,9 +57,10 @@
 		
 		<div id="html">
 			<code>
-				<pre name="code" class="xml"><form action="test.html" class="demoForm">
+				<pre name="code" class="xml">
+<form action="test.html" class="demoForm">
     <fieldset>
-        <ol>
+        <ul>
             <li class="fieldBox">
                 <label class="required" for="demoEmail">
                     <span>E-mail: <em>*</em></span>                                                 
@@ -81,19 +82,20 @@
 		<div id="js">
 			<code>
 				<pre name="code" class="js">// Define a Form Controller
-        var form = $('.demoFrom').forms({
-              messages: {
-                  email: "Default message for email validation.",
-                  minLength: "Default message for minLength validation",
-                  required: "Default message for required validation"
-              }
-        });
-        var validation = $('#demoEmail')
-            .email("This must be a valid email.")
-            .and()
-            .minLength(20,"You miss some characters, try 10 as minimum.")
-            .and()
-            .required();</pre>
+var form = $('.demoFrom').form({
+	messages: {
+		email: "Default message for email validation.",
+		minLength: "Default message for minLength validation",
+		required: "Default message for required validation"
+	}
+});
+
+var validation = $('#demoEmail')
+    .email("This must be a valid email.")
+    .and()
+    .minLength(20, "You miss some characters, try 10 as minimum.")
+    .and()
+    .required();</pre>
 			</code>
 		</div>
 	</div>
@@ -106,7 +108,7 @@
 
 <p>Este componente extiende su funcionalidad del componente Watcher (al igual que <a href="number.html">Number</a> y <a href="string.html">String</a>).</p>
 
-<p><em>Nota:</em> Es recomendable instanciar un objeto <a href="forms.html" lang="en">Forms</a> antes de configurar componentes de la familia <a href="watcher.html" lang="en">Watcher</a>.</p>
+<p><em>Nota:</em> Es recomendable instanciar un objeto <a href="form.html" lang="en">Form</a> antes de configurar componentes de la familia <a href="watcher.html" lang="en">Watcher</a>.</p>
 
 <p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
 
@@ -127,8 +129,8 @@
     messages: {                         //  Messages Map
         required: string
     },
-    beforeValidate: function() {}       //  Callback before validate
-    afterValidate: function() {}        //  Callback after validate
+    beforeValidate: function() {},      //  Callback before validate
+    afterValidate: function() {},       //  Callback after validate
     onReset: function() {}              //  Callback on reset
 }</pre>
 </code>
@@ -196,7 +198,7 @@ foo = {
     validate(),                       //  Execute the configured validations
     enable(),                         //  Stop ignoring configured validation
     disable(),                        //  Start ignoring configured validations
-    refresh(),                        //  Refresh the helper's position</pre>
+    refresh()                         //  Refresh the helper's position</pre>
 </code>
 
 <h2>Ejemplos</h2>
@@ -283,7 +285,7 @@ foo = {
 	</code>
 </div>
 
-<hr>
+
 
 <div class="example">
 	
@@ -329,7 +331,7 @@ foo = {
 			
 	<code>
 		<pre name="code" class="js">
-$('.c2').forms();
+$('.c2').form();
 $('#c2_selectM, #c2_selectS').required("You must complete this field!");</pre>
 	</code>
 	
@@ -375,7 +377,7 @@ $('#c2_selectM, #c2_selectS').required("You must complete this field!");</pre>
 	</code>
 </div>
 
-<hr>
+
 
 <div class="example">
     
@@ -413,7 +415,7 @@ $('#c2_selectM, #c2_selectS').required("You must complete this field!");</pre>
 			
 	<code>
 		<pre name="code" class="js">
-$('.c3').forms();
+$('.c3').form();
 $('.c3_check').required("You must complete this field!");</pre>
 	</code>
 		
@@ -451,7 +453,7 @@ $('.c3_check').required("You must complete this field!");</pre>
 	</code>
 </div>
 
-<hr>
+
 
 <div class="example">
     
@@ -489,7 +491,7 @@ $('.c3_check').required("You must complete this field!");</pre>
 	
 	<code>
 		<pre name="code" class="js">
-$('.c4').forms();
+$('.c4').form();
 $('.c4_radio').required("You must complete this field!");</pre>
 	</code>
 		
@@ -533,7 +535,7 @@ $('.c4_radio').required("You must complete this field!");</pre>
 
     $(".sourceTabs").tabNavigator();
 
-    var form = $('.demoFrom').forms({
+    var form = $('.demoFrom').form({
           messages: {
               email: "Default message for email validation.",
               minLength: "Default message for minLength validation",
@@ -549,19 +551,19 @@ $('.c4_radio').required("You must complete this field!");</pre>
         .required();
     
     // Example 1
-    $('.c1').forms();
+    $('.c1').form();
     $("#c1_fistname, #c1_middlename, #c1_lastname").required("You must complete this field!");
 
     // Example 2
-    $('.c2').forms();
+    $('.c2').form();
     $('#c2_selectM, #c2_selectS').required("You must complete this field!");
 
     // Example 3
-	$('.c3').forms();
+	$('.c3').form();
     $('.c3_check').required("You must complete this field!");
 
     // Example 4
-	$('.c4').forms();
+	$('.c4').form();
     $('.c4_radio').required("You must complete this field!");
     
 </script>

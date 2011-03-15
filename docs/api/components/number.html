@@ -34,7 +34,7 @@
 
 <form action="test.html" class="demoForm">
     <fieldset>
-        <ol>
+        <ul>
             <li class="fieldBox">
                 <label class="required" for="val_num">
                     <span>Rango: <em>*</em></span>                                                  
@@ -58,7 +58,7 @@
 				<pre name="code" class="xml">
 <form action="test.html" class="demoForm">
     <fieldset>
-        <ol>
+        <ul>
             <li class="fieldBox">
                 <label class="required" for="val_num">
                     <span>Rango: <em>*</em></span>                                                  
@@ -81,19 +81,20 @@
 			<code>
 				<pre name="code" class="js">
 // Define a Form Controller
-var form = $('.demoForm').forms({
+var form = $('.demoForm').form({
     messages: {
         required: "Default message for required validation",
         min: "Default message for min validation",
         max: "Default message for max validation"
     }
 });
+
 var email = $('#val_num')
-            .min(13,"No less than 13.")
-            .and()
-            .max(20)
-            .and()
-            .required();</pre>
+		        .min(13,"No less than 13.")
+		        .and()
+		        .max(20)
+		        .and()
+		        .required();</pre>
 			</code>
 		</div>
 	</div>
@@ -115,7 +116,7 @@ var email = $('#val_num')
 	<pre name="code" class="js">
 $(".foo").number({
     number: true,
-    min: 13
+    min: 13,
     messages:{
         number: "This field must be a valid number.",
         min: "The value must be grater than 13."
@@ -185,7 +186,7 @@ $("#Foobar").string({ // Check for a valid email format smaller than 20 chars
 <p>Todo componente perteneciente al a familia <a href="watcher.html">Watcher</a> tiene la habilidad de concatenar validaciones de distintos tipos en un mismo campo de formulario con el método <strong>and()</strong>. Esto nos permite hacer distintas validaciones sobre un dato, como por ejemplo comprobar que el valor de un campo requerido sea un número:</p>
 
 <code>
-    <pre name="code" class="js"> // Check for a valid email format smaller than 20 chars
+    <pre name="code" class="js">// Check for a valid email format smaller than 20 chars
 $(".foo").number().and().required("Please no more than 20 chars.");</pre>
 </code>
 
@@ -195,7 +196,7 @@ $(".foo").number().and().required("Please no more than 20 chars.");</pre>
     <code>
         <pre name="code" class="js">$(".foobar").min(13).and().max(20);</pre>
     </code>
-    <p>La selección <strong>".foobar"</strong> es una clase que puede estar repetida, si esa query me devuelve mas de un resultado, el <a href="../factory">Factory</a> object me va a devolver una <em>Collección</em> de resultados, por ende el método <strong>.and()</strong> queda obsoleto. Este caso puede llegar a ser soportado en próximas versiones de Chico-UI.</p>
+    <p>La selección <strong>".foobar"</strong> es una clase que puede estar repetida, si esa query me devuelve mas de un resultado, el <a href="../factory">Factory</a> object me va a devolver una <em>Colección</em> de resultados, por ende el método <strong>.and()</strong> queda obsoleto. Este caso puede llegar a ser soportado en próximas versiones de Chico-UI.</p>
     
 </div>
 
@@ -237,7 +238,7 @@ foo = {
 
 <div class="example">
     
-   <h3>Validación de valor máximo</h3>
+   <h3>1. Validación de valor máximo</h3>
     
     <form action="test.html" class="c1">
         <fieldset>
@@ -262,7 +263,7 @@ foo = {
 
 	<code>
 		<pre name="code" class="js">
-$(".c1").forms();
+$(".c1").form();
 $("#c1_horas").max(24).and().required();</pre>
 	</code>
 	
@@ -293,7 +294,7 @@ $("#c1_horas").max(24).and().required();</pre>
 
 <div class="example">
 	
-    <h3>Validando valor mínimo</h3>
+    <h3>2. Validando valor mínimo</h3>
     
     <form action="test.html" class="c2">
         <fieldset>
@@ -318,7 +319,7 @@ $("#c1_horas").max(24).and().required();</pre>
 			
 	<code>
 		<pre name="code" class="js">
-$(".c2").forms();
+$(".c2").form();
 $(" #c2_edad").min(13);</pre>
 	</code>
 	
@@ -349,7 +350,7 @@ $(" #c2_edad").min(13);</pre>
 
 <div class="example">
     
-    <h3>Validando precio</h3>
+    <h3>3. Validando precio</h3>
     
     <form action="test.html" class="c2">
         <fieldset>
@@ -357,7 +358,7 @@ $(" #c2_edad").min(13);</pre>
                 <li class="fieldBox">
                     <label for="c3_price">
                         <span>Precio:</span>
-                        <input type="text" id="c3_price">
+                        <input type="text" id="c3_price" value="abc">
                     </label>
                     <p class="help">Ingresa un precio válido: 9,99</p>
                 </li>
@@ -372,7 +373,7 @@ $(" #c2_edad").min(13);</pre>
     
     <code>
         <pre name="code" class="js">
-$(".c3").forms();
+$(".c3").form();
 $("#c3_price").price("Este precio no es válido, usa un formato 9,99 o 9.99");</pre>
     </code>
     
@@ -407,20 +408,20 @@ $("#c3_price").price("Este precio no es válido, usa un formato 9,99 o 9.99");</
 
     $(".sourceTabs").tabNavigator();
 
-        // Define a Form Controller
-        var form = $('.demoForm').form({
-            messages: {
-                required: "Default message for required validation",
-                min: "Default message for min validation",
-                max: "Default message for max validation"
-            }
-        });
-        var email = $('#val_num')
-                        .min(13,"No less than 13.")
-                        .and()
-                        .max(20)
-                        .and()
-                        .required();
+    // Define a Form Controller
+    var form = $('.demoForm').form({
+        messages: {
+            required: "Default message for required validation",
+            min: "Default message for min validation",
+            max: "Default message for max validation"
+        }
+    });
+    var email = $('#val_num')
+                    .min(13,"No less than 13.")
+                    .and()
+                    .max(20)
+                    .and()
+                    .required();
 
     /* Case 1 */
 

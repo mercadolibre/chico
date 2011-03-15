@@ -34,7 +34,7 @@
 		    
 <form action="test.html" class="formulario">
     <fieldset>
-        <ol>
+        <ul>
             <li class="fieldBox">
                 <label class="required" for="val_email">
                     <span>E-mail: <em>*</em></span>                                                 
@@ -56,13 +56,13 @@
 		<div id="html">
 			<code>
 				<pre name="code" class="xml">
-<form action="test.html" class="demoFrom">
+<form action="test.html" class="formulario">
     <fieldset>
-        <ol>
+        <ul>
             <li class="fieldBox">
-                <label class="required" for="demoEmail">
+                <label class="required" for="val_email">
                     <span>E-mail: <em>*</em></span>                                                 
-                    <input type="email" id="demoEmail" required="required">
+                    <input type="email" id="val_email" required="required">
                 </label>
                 <p class="help">Escribe una descripción corta y clara</p>
             </li>
@@ -80,19 +80,20 @@
 		<div id="js">
 			<code>
 				<pre name="code" class="js">// Define a Form Controller
-        var form = $('.demoFrom').form({
-              messages: {
-                  email: "Default message for email validation.",
-                  minLength: "Default message for minLength validation",
-                  required: "Default message for required validation"
-              }
-        });
-        var validation = $('#demoEmail')
-            .email("This must be a valid email.")
-            .and()
-            .minLength(20,"You miss some characters, try 10 as minimum.")
-            .and()
-            .required();</pre>
+var form = $('.demoFrom').form({
+	messages: {
+		email: "Default message for email validation.",
+		minLength: "Default message for minLength validation",
+		required: "Default message for required validation"
+	}
+});
+
+var validation = $('#demoEmail')
+    .email("This must be a valid email.")
+    .and()
+    .minLength(20,"You miss some characters, try 10 as minimum.")
+    .and()
+    .required();</pre>
 			</code>
 		</div>
 	</div>
@@ -139,9 +140,9 @@ $(".foo").string({
         maxLength: string,
         minLength: string
     },
-    beforeValidate: function() {}       //  Callback before validate
-    afterValidate: function() {}        //  Callback after validate
-    onReset: function() {}              //  Callback on reset
+    beforeValidate: function() {},      //  Callback before validate
+    afterValidate: function() {},       //  Callback after validate
+    onReset: function() {},             //  Callback on reset
 }</pre>
 </code>
 
@@ -164,7 +165,7 @@ $("#Foobar").string({ // Check for a valid email format smaller than 20 chars
 <p>Todo componente perteneciente al a familia <a href="watcher.html">Watcher</a> tiene la habilidad de concatenar validaciones de distintos tipos en un mismo campo de formulario con el método <strong>and()</strong>. Esto nos permite hacer distintas validaciones sobre un dato, como por ejemplo comprobar que el valor de un campo requerido sea un número:</p>
 
 <code>
-    <pre name="code" class="js"> // Check for a valid email format smaller than 20 chars
+    <pre name="code" class="js">// Check for a valid email format smaller than 20 chars
 $(".foo").email("This must be a valid email!").and().maxLength(20, "Please no more than 20 chars.");</pre>
 </code>
 
@@ -217,7 +218,7 @@ foo = {
     validate(),                       //  Execute the configured validations
     enable(),                         //  Stop ignoring configured validation
     disable(),                        //  Start ignoring configured validations
-    refresh(),                        //  Refresh the helper's position</pre>
+    refresh()                         //  Refresh the helper's position</pre>
 </code>
 
 <h2>Ejemplos</h2>
@@ -260,11 +261,10 @@ $(".c1").forms();
 $("#c1_email").email().and().required();
 $("#c1_url").url().and().required();
        
-/*  Otra alternativa es agrupar validaciones requeridas en una instrucción:
+// Otra alternativa es agrupar validaciones requeridas en una instrucción:
 $("#c1_email").email();
 $("#c1_url").url();
-$(".c1 input").required(); // Require all fields inside .c1
-*/</pre>
+$(".c1 input").required(); // Require all fields inside .c1</pre>
 	</code>
 	
 	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
@@ -299,7 +299,6 @@ $(".c1 input").required(); // Require all fields inside .c1
 	</code>
 </div>
 
-<hr>
 
 <div class="example">
 	
