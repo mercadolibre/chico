@@ -6,19 +6,19 @@
 <!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
 <head>
-        <script></script> <!-- Avoid script blocking -->
-        <meta charset="utf-8">
-        <title>Modal Window</title>
-        <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
-        <link rel="stylesheet" href="../../docs.css">
-        <link rel="stylesheet" href="../../../src/css/grid.css">
-        <!--[if lt IE 7 ]>
-            <script src="../../../libs/js/dd_belatedpng.js"></script>
-            <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
-        <![endif]-->
-        <script src="../../../libs/js/jquery.js"></script>
-		<script src="../../../build/chico-min-0.5.5.js"></script>
-    <head>
+    <script></script> <!-- Avoid script blocking -->
+    <meta charset="utf-8">
+    <title>Modal Window</title>
+    <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+    <link rel="stylesheet" href="../../docs.css">
+    <link rel="stylesheet" href="../../../src/css/grid.css">
+    <!--[if lt IE 7 ]>
+        <script src="../../../libs/js/dd_belatedpng.js"></script>
+        <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+    <![endif]-->
+    <script src="../../../libs/js/jquery.js"></script>
+	<script src="../../../build/chico-min-0.5.5.js"></script>
+</head>
 <body>
 
 
@@ -91,7 +91,7 @@ $(".clickmeModal").modal()</pre>
 <code>
 	<pre name="code" class="js">
 $(".foo").modal({
-	content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+	content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
 	width:500,
 	height:300
 });</pre>
@@ -107,26 +107,9 @@ $(".foo").modal({
 	<pre name="code" class="js">$(".foo").modal("http://www.mercadolibre.com");</pre>
 </code>
 
-<p>El modal cuenta con una interfaz llamada Tranistion. El objeto Transition puede ser utilizado para dirigir al usuario a lugares externos al flujo, como otros sitios o también para gateways externos dentro de un mismo flujo.</p>	
-
-<p>Ejemplo:</p>
-
-<code>
-	<pre name="code" class="js">
-$(".foo").transition({
-	content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
-	width:500,
-	height:300
-});</pre>
-</code>
-
-<p>Al igual que el modal, puede iniciarse utilizando la siguiente sintaxis:</p>
-<code>
-	<pre name="code" class="js">$("#Foobar").transition("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");</pre>
-</code>	
 
 <h2>Objeto público</h2>
-<p>Cada vez que se instancia un componente expando, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+<p>Cada vez que se instancia un componente Modal, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
 
 <code>
 	<pre name="code" class="js">
@@ -530,33 +513,6 @@ $("#example10").modal({
 </div>
 
 
-<div class="example">
-	<h3>11. Transition.</h3>
-	
-	<div class="container">
-		<form action="ajax.html" method="post">
-			<input type="submit" class="btn secondary" id="example11" value="Click Me!">				
-		</form>
-	</div>
-	
-	<p>Para utilizar la interfaz transition del modal debemos iniciar el componente de la siguiente manera:</p>
-			
-	<code>
-		<pre name="code" class="js">$("#example11").transition();</pre>
-	</code>
-	
-	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-	
-	<code>
-		<pre name="code" class="xml">
-<form action="ajax.html" method="post">
-	<input type="submit" class="btn secondary" id="example11" value="Click Me!">				
-</form></pre>
-	</code>
-	
-</div>	
-
-
 <script>
 	ui.codelighter();
     $(".sourceTabs").tabNavigator();
@@ -627,42 +583,10 @@ $("#example10").modal({
 			var that = this;
 			$("#closeMyModal").bind("click", function(event){
 				event.preventDefault();
-				console.log(that);		
 				that.hide();
 			});
 		}
-	});
-	
-	var i = 5;
-		
-	var timer = function(){
-		if (i == 0) { 
-			
-			if ( t_demo[0] ){
-				 
-				t_demo[0].hide();
-				
-			} else {
-				
-				t_demo.hide();
-			}
-
-			i = 5;
-			
-			return; 
-		}
-						
-		$(".ch-transition-content p").html("Cerrando en "+i+" segundos ...");
-		i--;
-		setTimeout(timer,1000);
-	};
-		
-	
-	var t_demo = $("#example11").transition({
-		onShow:function() {
-			setTimeout(timer,1000);
-		}
-	});
+	});		
 
 </script>
 
