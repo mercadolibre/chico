@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Carousel</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../libs/js/dd_belatedpng.js"></script>
@@ -100,175 +101,170 @@
 	</div>
 </div>
 
-<div class="box">
-	<h2>Cómo se usa</h2>
-	
-	<p>El Carousel se crea a partir de agregarle funcionalidad a una lista de objetos, ya sean imágenes, texto, o ambos.</p>
-	
-	<p>Para crear un Carousel, es necesario iniciarlo a traves de un contenedor, en el cual puede haber todo tipo de elementos, y una lista con la clase CSS "carousel". Es decir, que el Carousel puede convivir dentro de una caja junto con contenido de cualquier tipo.</p>
-	
-	<p>El ancho y alto de los elementos &lt;li&gt; del Carousel deben ser especificados obligatoriamente por CSS.</p>
-	
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").carousel();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+<h2>Cómo se usa</h2>
+
+<p>El Carousel se crea a partir de agregarle funcionalidad a una lista de objetos, ya sean imágenes, texto, o ambos.</p>
+
+<p>Para crear un Carousel, es necesario iniciarlo a traves de un contenedor, en el cual puede haber todo tipo de elementos, y una lista con la clase CSS "carousel". Es decir, que el Carousel puede convivir dentro de una caja junto con contenido de cualquier tipo.</p>
+
+<p>El ancho y alto de los elementos &lt;li&gt; del Carousel deben ser especificados obligatoriamente por CSS.</p>
+
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").carousel();</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {
 	onMove: function() {}			  // Callback executed after carousel movement (It is triggered when use next(), prev() or moveTo() methods)
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").carousel({
 	onMove: function() {
 		// something
 	}
 });</pre>
-	</code>
-	
-	<h2>Objeto público</h2>
-	
-	<p>Cada vez que se instancia un componente Carousel retorna un objecto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<h2>Objeto público</h2>
+
+<p>Cada vez que se instancia un componente Carousel retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
 var foo = $(".foo").carousel();
 
 // It returns
 foo = {
-    uid: 121,                        //  Global number instance
-    element: HTMLElement,	        //  DOM Interface
-    type: "carousel",                //  Component Type
-    getSteps(),					  //  Returns items amount of each page
-    getPage(),					   //  Returns actual page
-    moveTo(page:Number),             //  Select a page
-    next(),						  //  Move to next page
-    prev(),						  //  Move to previous page
+	uid: 121,                        //  Global number instance
+	element: HTMLElement,	        //  DOM Interface
+	type: "carousel",                //  Component Type
+	getSteps(),					  //  Returns items amount of each page
+	getPage(),					   //  Returns actual page
+	moveTo(page:Number),             //  Select a page
+	next(),						  //  Move to next page
+	prev(),						  //  Move to previous page
 }</pre>
-	</code>
-</div>
+</code>
 
-<div class="box">
-	<h2>Ejemplos</h2>
+<h2>Ejemplos</h2>
+
+<div class="example">
+	<h3>1. Mover hacia una página específica</h3>
 	
 	<div class="container">
-		<h3>1. Mover hacia una página específica</h3>
-		
-		<div class="container">
-			<div class="box example1">
-				<ul class="carousel">
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-		
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-		
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-		
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-		
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				</ul>
-			</div>
+		<div class="box example1">
+			<ul class="carousel">
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+	
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+	
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+	
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+	
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			</ul>
 		</div>
-		
-		<p>Mediante el objeto público del Carousel, se puede seleccionar una determinada página usando el método <strong>moveTo()</strong>, al cual se le especifica el número de página al cual moverse.</p>
-		
-		<div class="container">
-			<button class="btn secondary btn_example1">Mover a la página 2</button>
-		</div>
-		
-		<code>
-			<pre name="code" class="js">
+	</div>
+	
+	<p>Mediante el objeto público del Carousel, se puede seleccionar una determinada página usando el método <strong>moveTo()</strong>, al cual se le especifica el número de página al cual moverse.</p>
+	
+	<div class="container">
+		<button class="btn secondary btn_example1">Mover a la página 2</button>
+	</div>
+	
+	<code>
+		<pre name="code" class="js">
 var carouselMove = $(".example1").carousel();
 
 $(".btn_example1").click(function(){
 	carouselMove.moveTo(2);
 });</pre>
-		</code>
-	</div>
-	
-	<hr>
+	</code>
+</div>
+
+<div class="example">
+	<h3>2. Mover hacia a las páginas anterior y siguiente</h3>
 	
 	<div class="container">
-		<h3>2. Mover hacia a las páginas anterior y siguiente</h3>
-		
-		<div class="container">
-			<div class="box example2">
-				<ul class="carousel">
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-		
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-		
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-		
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-		
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				</ul>
-			</div>
+		<div class="box example2">
+			<ul class="carousel">
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+	
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+	
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+	
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+	
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			</ul>
 		</div>
-		
-		<p>Mediante el objeto público del Carousel, se puede navegar hacia adelante y hacia atras entre las páginas usando los métodos <strong>next()</strong> y <strong>prev()</strong> respectivamente.</p>
-		
-		<div class="container">
-			<button class="btn secondary btn_prev_example2">&lt; Mover a la página anterior</button>
-			<button class="btn secondary btn_next_example2">Mover a la página siguiente &gt;</button>
-		</div>
-		
-		<code>
-			<pre name="code" class="js">
+	</div>
+	
+	<p>Mediante el objeto público del Carousel, se puede navegar hacia adelante y hacia atras entre las páginas usando los métodos <strong>next()</strong> y <strong>prev()</strong> respectivamente.</p>
+	
+	<div class="container">
+		<button class="btn secondary btn_prev_example2">&lt; Mover a la página anterior</button>
+		<button class="btn secondary btn_next_example2">Mover a la página siguiente &gt;</button>
+	</div>
+	
+	<code>
+		<pre name="code" class="js">
 var carouselNav = $(".example2").carousel();
 
 $(".btn_prev_example2").click(function(){
@@ -278,61 +274,58 @@ $(".btn_prev_example2").click(function(){
 $(".btn_next_example2").click(function(){
 	carouselNav.next();
 });</pre>
-		</code>
-	</div>
-	
-	<hr>
+	</code>
+</div>
+
+<div class="example">
+	<h3>3. Callback al moverse el Carousel</h3>
 	
 	<div class="container">
-		<h3>3. Callback al moverse el Carousel</h3>
-		
-		<div class="container">
-			<div class="box example3">
-				<ul class="carousel">
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-		
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-		
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-		
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-					<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-		
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-					<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				</ul>
-			</div>
+		<div class="box example3">
+			<ul class="carousel">
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+	
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+	
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+	
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+	
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+			</ul>
 		</div>
-		
-		<p>El callback <strong>onMove()</strong> se ejecuta luego de moverse el Carousel, ya sea cliqueando los botones Anterior y Siguiente, o utilizando los métodos públicos moveTo(), next() o prev().</p>
-		
-		<code>
-			<pre name="code" class="js">
+	</div>
+	
+	<p>El callback <strong>onMove()</strong> se ejecuta luego de moverse el Carousel, ya sea cliqueando los botones Anterior y Siguiente, o utilizando los métodos públicos moveTo(), next() o prev().</p>
+	
+	<code>
+		<pre name="code" class="js">
 $(".example3").carousel({
 	onMove: function() {
 		alert("Callback onMove");
 	}
 });</pre>
-		</code>
-	</div>
+	</code>
 </div>
 
 <script>

@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Viewer</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../libs/js/dd_belatedpng.js"></script>
@@ -116,116 +117,114 @@
 	</div>
 </div>
 
-<div class="box">
-	<h2>Cómo se usa</h2>
-	
-	<p>El Viewer se genera a partir de extender la funcionalidad de un listado de imágenes de tamaño medio, las cuales poseen un link a una imagen de mayor tamaño.</p>
-	
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").viewer();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+
+<h2>Cómo se usa</h2>
+
+<p>El Viewer se genera a partir de extender la funcionalidad de un listado de imágenes de tamaño medio, las cuales poseen un link a una imagen de mayor tamaño.</p>
+
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").viewer();</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {
 	onMove: function() {}			  // Callback executed after Viewer movement (It is triggered when use next(), prev() or moveTo() methods)
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").viewer({
 	onMove: function() {
 		// Do something
 	}
 });</pre>
-	</code>
-	
-	<h2>Objeto público</h2>
-	
-	<p>Cada vez que se instancia un componente Viewer retorna un objecto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<h2>Objeto público</h2>
+
+<p>Cada vez que se instancia un componente Viewer retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
 var foo = $(".foo").viewer();
 
 // It returns
 foo = {
-    uid: 121,                        //  Global number instance
-    element: HTMLElement,	        //  DOM Interface
-    type: "viewer",                  //  Component Type
-    children: array,                 //  Instances of components controlled by Viewer
-    getSelected(),				   //  Returns actual item selected
-    moveTo(page:Number),             //  Select an item
-    next(),						  //  Move to next page
-    prev(),						  //  Move to previous page
+	uid: 121,                        //  Global number instance
+	element: HTMLElement,	        //  DOM Interface
+	type: "viewer",                  //  Component Type
+	children: array,                 //  Instances of components controlled by Viewer
+	getSelected(),				   //  Returns actual item selected
+	moveTo(page:Number),             //  Select an item
+	next(),						  //  Move to next page
+	prev(),						  //  Move to previous page
 }</pre>
-	</code>
-</div>
+</code>
 
 
-<div class="box">
-	<h2>Ejemplos</h2>
+<h2>Ejemplos</h2>
+
+<div class="example">
+	<h3>1. Mover hacia un item específico</h3>
 	
 	<div class="container">
-		<h3>1. Mover hacia un item específico</h3>
-		
-		<div class="container">
-			<div class="example1">
-				<ul>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
-						</a>
-					</li>
-				</ul>
-			</div>
+		<div class="example1">
+			<ul>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
+					</a>
+				</li>
+			</ul>
 		</div>
-		
-		<p>Mediante el objeto público del Viewer, se puede seleccionar un determinado item usando el método <strong>moveTo()</strong>, al cual se le especifica el número de item al cual moverse.</p>
-		
-		<div class="container">
-			<button class="btn secondary btn_item2_example1">Mover al item 2</button>
-			<button class="btn secondary btn_item6_example1">Mover al item 6</button>
-		</div>
-		
-		<code>
-			<pre name="code" class="js">
+	</div>
+	
+	<p>Mediante el objeto público del Viewer, se puede seleccionar un determinado item usando el método <strong>moveTo()</strong>, al cual se le especifica el número de item al cual moverse.</p>
+	
+	<div class="container">
+		<button class="btn secondary btn_item2_example1">Mover al item 2</button>
+		<button class="btn secondary btn_item6_example1">Mover al item 6</button>
+	</div>
+	
+	<code>
+		<pre name="code" class="js">
 var viewerMove = $(".example1").viewer();
 
 $(".btn_item2_example1").click(function(){
@@ -235,60 +234,58 @@ $(".btn_item2_example1").click(function(){
 $(".btn_item6_example1").click(function(){
 	viewerMove.moveTo(6);
 });</pre>
-		</code>
-	</div>
-	
-	<hr>
+	</code>
+</div>
+
+<div class="example">
+	<h3>2. Mover hacia a los items anterior y siguiente</h3>
 	
 	<div class="container">
-		<h3>2. Mover hacia a los items anterior y siguiente</h3>
-		
-		<div class="container">
-			<div class="example2">
-				<ul>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
-						</a>
-					</li>
-					<li>
-						<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blank">
-							<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
-						</a>
-					</li>
-				</ul>
-			</div>
+		<div class="example2">
+			<ul>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
+					</a>
+				</li>
+				<li>
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blank">
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
+					</a>
+				</li>
+			</ul>
 		</div>
-		
-		<p>Mediante el objeto público del Viewer, se puede navegar hacia adelante y hacia atras entre los items usando los métodos <strong>next()</strong> y <strong>prev()</strong> respectivamente.</p>
-		
-		<div class="container">
-			<button class="btn secondary btn_prev_example2">&lt; Mover al item anterior</button>
-			<button class="btn secondary btn_next_example2">Mover al siguiente item &gt;</button>
-		</div>
-		
-		<code>
-			<pre name="code" class="js">
+	</div>
+	
+	<p>Mediante el objeto público del Viewer, se puede navegar hacia adelante y hacia atras entre los items usando los métodos <strong>next()</strong> y <strong>prev()</strong> respectivamente.</p>
+	
+	<div class="container">
+		<button class="btn secondary btn_prev_example2">&lt; Mover al item anterior</button>
+		<button class="btn secondary btn_next_example2">Mover al siguiente item &gt;</button>
+	</div>
+	
+	<code>
+		<pre name="code" class="js">
 var viewerNav = $(".example2").viewer();
 
 $(".btn_prev_example2").click(function(){
@@ -298,8 +295,7 @@ $(".btn_prev_example2").click(function(){
 $(".btn_next_example2").click(function(){
 	viewerNav.next();
 });</pre>
-		</code>
-	</div>
+	</code>
 </div>
 
 <script>

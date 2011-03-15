@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Expando</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../../libs/js/dd_belatedpng.js"></script>
@@ -61,46 +62,46 @@ $(".demoExpando").expando();</pre>
 	</div>
 </div>
 
-<div class="box">
-	<h2>Cómo se usa</h2>
-	<p>El objecto Expando es un componente que muestra u oculta información relacionada a un titular. Puede recibir como argumento un objeto de propiedades para modificar su comportamiento por default y para los <em lang="en">callbacks</em>.</p>
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").expando();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+
+<h2>Cómo se usa</h2>
+<p>El Expando es un componente que muestra u oculta información relacionada a un titular. Puede recibir como argumento un objeto de propiedades para modificar su comportamiento por default y para los <em lang="en">callbacks</em>.</p>
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").expando();</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {
 	onShow: function() {},		   // Callback executed on expando show
 	onHide: function() {},		   // Callback executed on expando hide
 	open: boolean					// Expand configuration. Default "false"	
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").expando({
 	onHide: function() {
 		// something
 	}
 });</pre>
-	</code>
-	
-	<h2>Objeto público</h2>
-	<p>Cada vez que se instancia un componente expando, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<h2>Objeto público</h2>
+<p>Cada vez que se instancia un componente expando, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
 var foo = $(".foo").expando();
 
 // returns
@@ -111,63 +112,60 @@ foo = {
 	show(),						  //  Show dropdown
 	hide(),						  //  Hide dropdown	
 }</pre>
-	</code>
-</div>
+</code>
 
-<div class="box">
-	<h2>Ejemplos</h2>
-	
+
+<h2>Ejemplos</h2>
+
+<div class="example">
+	<h3>1. Expando abierto por defecto.</h3>
+
 	<div class="container">
-		<h3>1. Expando abierto por defecto.</h3>
-		
-		<div class="container">
-			<div id="example1">
-				<h4>Lorem ipsum dolor sit amet.</h4>
-				<div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
+		<div id="example1">
+			<h4>Lorem ipsum dolor sit amet.</h4>
+			<div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 			</div>
 		</div>
-		
-		<p>Para que se encuentre expandido por defecto, lo que debemos hacer es iniciar el componente utilizando el atributo "open" con el valor "true".</p>
-		<code>
-			<pre name="code" class="js">
+	</div>
+
+	<p>Para que se encuentre expandido por defecto, lo que debemos hacer es iniciar el componente utilizando el atributo "open" con el valor "true".</p>
+	<code>
+		<pre name="code" class="js">
 $("#example1").expando({	    
-    open:true
+	open:true
 });</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		<code>
-			<pre name="code" class="xml">
+	</code>
+
+	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+	<code>
+		<pre name="code" class="xml">
 <div id="example1">
 	<h4>Lorem ipsum dolor sit amet.</h4>
 	<div>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 	</div>
 </div></pre>
-		</code>
-		
-	</div>
-	
-	<hr>
+	</code>
+
+</div>
+
+<div class="example">
+	<h3>2. Callbacks al exapandir y colapsar</h3>
 
 	<div class="container">
-		<h3>2. Callbacks al exapandir y colapsar</h3>
-		
-		<div class="container">
-			<div id="example2">
-				<h4>Lorem ipsum dolor sit amet.</h4>
-				<div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
+		<div id="example2">
+			<h4>Lorem ipsum dolor sit amet.</h4>
+			<div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 			</div>
 		</div>
-		
-		<p>El callback <strong>onShow()</strong> se ejecuta luego de expandirse el expando, mientras que el callback <strong>onHide()</strong> se ejecuta antes de colapsar el componente:</p>
-		
-		<code>
-			<pre name="code" class="js">
+	</div>
+
+	<p>El callback <strong>onShow()</strong> se ejecuta luego de expandirse el expando, mientras que el callback <strong>onHide()</strong> se ejecuta antes de colapsar el componente:</p>
+
+	<code>
+		<pre name="code" class="js">
 $("#example2").expando({
 	content: "Callbacks al exapandir y colapsar",
 	onShow: function() {
@@ -177,23 +175,21 @@ $("#example2").expando({
 		alert("Callback onHide");
 	}
 });</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml">
+	</code>
+
+	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+
+	<code>
+		<pre name="code" class="xml">
 <div id="example2">
 	<h4>Lorem ipsum dolor sit amet.</h4>
 	<div>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 	</div>
 </div></pre>
-		</code>
-		
-		
-	</div>
-		
+	</code>
+
+
 </div>
 
 

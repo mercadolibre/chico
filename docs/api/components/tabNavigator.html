@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <title>Tab Navigator</title>
         <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../docs.css">
         <link rel="stylesheet" href="../../../src/css/grid.css">
         <!--[if lt IE 7 ]>
             <script src="../../../libs/js/dd_belatedpng.js"></script>
@@ -66,55 +67,53 @@
 		
 		<div id="js">
 			<code>
-				<pre name="code" class="js">
-$("#testTabs").tabNavigator();</pre>
+				<pre name="code" class="js">$("#testTabs").tabNavigator();</pre>
 			</code>
 		</div>
 	</div>
 </div>
 
-<div class="box">
-	<h2>Cómo se usa</h2>
-	<p>El Tab Navigator se crea a partir de agregarle funcionalidad a un conjunto de anclas.</p>
-	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
-	
-	<code>
-		<pre name="code" class="js">$(".foo").tabNavigator();</pre>
-	</code>
-	
-	<h2>Configuración</h2>
-	
-	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
-	
-	<p>Objeto de configuración:</p>
-	
-	<code>
-		<pre name="code" class="js">
+<h2>Cómo se usa</h2>
+<p>El Tab Navigator se crea a partir de agregarle funcionalidad a un conjunto de anclas.</p>
+<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").tabNavigator();</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
 {
 	selected: number,				   // Opened tab by default 
 	onSelect: function() {},    		// Callback executed after show modal
 	onContentLoad: function() {},	   // Callback executed on success of content loaded via ajax
 	onContentError: function() {} 	  // Callback executed on fail of content loaded via ajax
 }</pre>
-	</code>
-	
-	<p>Ejemplo:</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
 $(".foo").tabNavigator({
 	selected: 2
 });</pre>
-	</code>
-	
-	<h2>Objeto público</h2>
-	<p>Cada vez que se instancia un componente Tab Navigator, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
-	
-	<code>
-		<pre name="code" class="js">
+</code>
+
+<h2>Objeto público</h2>
+<p>Cada vez que se instancia un componente Tab Navigator, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
 var foo = $(".foo").tabNavigator();
 
-// returns
+// It returns
 foo = {
 	uid: 121,								 //  Global number instance
 	element: HTMLElement,					 //  DOM Interface
@@ -123,41 +122,40 @@ foo = {
 	select(): function(tab:Number) {},		//  Select the tab that should be open
 	getSelected(): function() {}	  		//  Return the opened tab	
 }</pre>
-	</code>
-</div>
+</code>
 
-<div class="box">
-	<h2>Ejemplos</h2>
+
+<h2>Ejemplos</h2>
+
+<div class="example">
+	<h3>1. Selecionar que tab debe abrirse por defecto.</h3>
 	
 	<div class="container">
-		<h3>1. Selecionar que tab debe abrirse por defecto.</h3>
-		
-		<div class="container">
-			<div id="example1">
-				<ul>
-					<li><a href="#example1-tab1">Tab 1</a></li>
-					<li><a href="#example1-tab2">Tab 2</a></li>
-					<li><a href="#example1-tab3">Tab 3</a></li>
-				</ul>
-				<div>
-					<div id="example1-tab1">Tab 1</div>
-					<div id="example1-tab2">Tab 2</div>
-					<div id="example1-tab3">Tab 3</div>
-				</div>
+		<div id="example1">
+			<ul>
+				<li><a href="#example1-tab1">Tab 1</a></li>
+				<li><a href="#example1-tab2">Tab 2</a></li>
+				<li><a href="#example1-tab3">Tab 3</a></li>
+			</ul>
+			<div>
+				<div id="example1-tab1">Tab 1</div>
+				<div id="example1-tab2">Tab 2</div>
+				<div id="example1-tab3">Tab 3</div>
 			</div>
 		</div>
-		
-		<p>Para que se encuentre expandido por defecto, lo que debemos hacer es iniciar el componente utilizando el atributo "open" con el valor "true".</p>
-		<code>
-			<pre name="code" class="js">
+	</div>
+	
+	<p>Para que se encuentre expandido por defecto, lo que debemos hacer es iniciar el componente utilizando el atributo "open" con el valor "true".</p>
+	<code>
+		<pre name="code" class="js">
 $("#example1").tabNavigator({	    
-    selected:3
+	selected:3
 });</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		<code>
-			<pre name="code" class="xml">
+	</code>
+	
+	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+	<code>
+		<pre name="code" class="xml">
 <div id="example1">
 	<ul>
 		<li><a href="#example1-tab1">Tab 1</a></li>
@@ -170,45 +168,43 @@ $("#example1").tabNavigator({
 		<div id="example1-tab3">Tab 3</div>
 	</div>
 </div></pre>
-		</code>
-		
-	</div>
+	</code>
 	
-	<hr>
+</div>
 
+<div class="example">
+	<h3>2. Callbacks al selecionar un tab</h3>
+	
 	<div class="container">
-		<h3>2. Callbacks al selecionar un tab</h3>
-		
-		<div class="container">
-			<div id="example2">
-				<ul>
-					<li><a href="#example2-tab1">Tab 1</a></li>
-					<li><a href="#example2-tab2">Tab 2</a></li>
-					<li><a href="#example2-tab3">Tab 3</a></li>
-				</ul>
-				<div>
-					<div id="example2-tab1">Tab 1</div>
-					<div id="example2-tab2">Tab 2</div>
-					<div id="example2-tab3">Tab 3</div>
-				</div>
+		<div id="example2">
+			<ul>
+				<li><a href="#example2-tab1">Tab 1</a></li>
+				<li><a href="#example2-tab2">Tab 2</a></li>
+				<li><a href="#example2-tab3">Tab 3</a></li>
+			</ul>
+			<div>
+				<div id="example2-tab1">Tab 1</div>
+				<div id="example2-tab2">Tab 2</div>
+				<div id="example2-tab3">Tab 3</div>
 			</div>
 		</div>
-		
-		<p>El callback <strong>onSelect()</strong> se ejecuta luego de selecionarse un tab:</p>
-		
-		<code>
-			<pre name="code" class="js">
+	</div>
+	
+	<p>El callback <strong>onSelect()</strong> se ejecuta luego de selecionarse un tab:</p>
+	
+	<code>
+		<pre name="code" class="js">
 $("#example2").tabNavigator({
 	onSelect: function() {
 		alert("Callback onSelect");
 	}
 });</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml">
+	</code>
+	
+	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+	
+	<code>
+		<pre name="code" class="xml">
 <div id="example2">
 	<ul>
 		<li><a href="#example2-tab1">Tab 1</a></li>
@@ -221,33 +217,33 @@ $("#example2").tabNavigator({
 		<div id="example2-tab3">Tab 3</div>
 	</div>
 </div></pre>
-		</code>
-		
-	</div>
+	</code>
 	
+</div>
 
+
+<div class="example">
+	<h3>3. Callback onSelect para un tab específico</h3>
+	
 	<div class="container">
-		<h3>3. Callback onSelect para un tab específico</h3>
-		
-		<div class="container">
-			<div id="example3">
-				<ul>
-					<li><a href="#example3-tab1">Tab 1</a></li>
-					<li><a href="#example3-tab2">Tab 2</a></li>
-					<li><a href="#example3-tab3">Tab 3</a></li>
-				</ul>
-				<div>
-					<div id="example3-tab1">Tab 1</div>
-					<div id="example3-tab2">Tab 2</div>
-					<div id="example3-tab3">Tab 3</div>
-				</div>
+		<div id="example3">
+			<ul>
+				<li><a href="#example3-tab1">Tab 1</a></li>
+				<li><a href="#example3-tab2">Tab 2</a></li>
+				<li><a href="#example3-tab3">Tab 3</a></li>
+			</ul>
+			<div>
+				<div id="example3-tab1">Tab 1</div>
+				<div id="example3-tab2">Tab 2</div>
+				<div id="example3-tab3">Tab 3</div>
 			</div>
 		</div>
-		
-		<p>Si queremos ejecutar un callback cuando se selecione un tab en especial, debemos evaluar que tab fue seleccionado. Para ello, utilizamos la propiedad getSelected():</p>
-		
-		<code>
-			<pre name="code" class="js">
+	</div>
+	
+	<p>Si queremos ejecutar un callback cuando se selecione un tab en especial, debemos evaluar que tab fue seleccionado. Para ello, utilizamos la propiedad getSelected():</p>
+	
+	<code>
+		<pre name="code" class="js">
 $("#example3").tabNavigator({
 	onSelect: function(){
 		if( this.getSelected() == 2 ){  
@@ -255,12 +251,12 @@ $("#example3").tabNavigator({
 		};	
 	}
 });</pre>
-		</code>
-		
-		<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
-		
-		<code>
-			<pre name="code" class="xml">
+	</code>
+	
+	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+	
+	<code>
+		<pre name="code" class="xml">
 <div id="example3">
 	<ul>
 		<li><a href="#example3-tab1">Tab 1</a></li>
@@ -273,10 +269,8 @@ $("#example3").tabNavigator({
 		<div id="example3-tab3">Tab 3</div>
 	</div>
 </div></pre>
-		</code>
-		
-	</div>	
-		
+	</code>
+	
 </div>
 
 
