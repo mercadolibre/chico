@@ -1,0 +1,247 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+    <script></script> <!-- Avoid script blocking -->
+    <meta charset="utf-8">
+    <title>Transition Window</title>
+    <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+    <link rel="stylesheet" href="../../docs.css">
+    <link rel="stylesheet" href="../../../src/css/grid.css">
+    <!--[if lt IE 7 ]>
+        <script src="../../../libs/js/dd_belatedpng.js"></script>
+        <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+    <![endif]-->
+    <script src="../../../libs/js/jquery.js"></script>
+	<script src="../../../build/chico-min-0.5.5.js"></script>
+</head>
+<body>
+
+
+
+<h1>Transition Window</h1>
+
+<div class="sourceTabs">
+	<ul>
+		<li><a href="#demo">Demo</a></li>
+		<li><a href="#html">Html</a></li>
+		<li><a href="#js">JavaScript</a></li>
+	</ul>
+	<div>
+		<div id="demo">
+			<form action="ajax.html" method="post">
+				<input type="submit" class="btn primary" id="demoTransition" value="Click Me!">				
+			</form>
+		</div>
+		
+		<div id="html">
+			<code>
+				<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn primary" id="demoTransition" value="Click Me!">				
+</form></pre>
+			</code>
+		</div>
+
+		<div id="js">
+			<code>
+				<pre name="code" class="js">
+var delay = 5;
+
+var timer = function(){
+	
+	if (delay == 0) {
+		if (demoTransition[0]) {
+			demoTransition[0].hide();
+		} else {
+			demoTransition.hide();
+		};
+		
+		delay = 5;
+		
+		return;
+	};
+	
+	$(".ch-transition-content p").html("Cerrando en " + delay + " segundos...");
+	
+	delay--;
+	
+	setTimeout(timer, 1000);
+	
+};
+
+var demoTransition = $("#demoTransition").transition({
+	onShow: function() {
+		setTimeout(timer, 1000);
+	}
+});</pre>
+			</code>
+		</div>
+	</div>
+</div>
+
+<h2>Cómo se usa</h2>
+
+<p>El Transition es una interfaz del <a href="modal.html">Modal Window</a> que puede ser utilizada para para dirigir al usuario a lugares externos al flujo, como otros sitios, o también para gateways externos dentro de un mismo flujo.</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").transition();</pre>
+</code>
+
+<h2>Configuración</h2>
+
+<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+
+<p>Objeto de configuración:</p>
+
+<code>
+	<pre name="code" class="js">
+{
+	content: string,					// HTML markup or query string to get content. For example "<p>content</p>", "#Foobar", etc.
+	width: number,
+	height: number,
+	onShow: function() {},    		  // Callback executed after show modal
+	onHide: function() {},			  // Callback executed before hide modal
+}</pre>
+</code>
+
+<p>Ejemplo:</p>
+
+<code>
+	<pre name="code" class="js">
+$(".foo").transition({
+	content:"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+	width:500,
+	height:300
+});</pre>
+</code>
+
+<p>Otras formas de iniciarlo es utilizando la siguiente sintaxis:</p>
+
+<code>
+	<pre name="code" class="js">$(".foo").transition("<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>");</pre>
+</code>
+
+<h2>Objeto público</h2>
+<p>Cada vez que se instancia un componente Transition, retorna un objeto público de control que nos brinda información sobre la instancia.</p>
+
+<code>
+	<pre name="code" class="js">
+var foo = $(".foo").transition();
+
+// It returns
+foo = {
+	uid: 121,						//  Global number instance
+	element: HTMLElement,			//  DOM Interface
+	type: "modal",				   //  Component Type
+	content: string,				 //  Get content
+	position(),					  //  Get, set and refresh position
+	show(),						  //  Show dropdown
+	hide(),						  //  Hide dropdown	
+}</pre>
+</code>
+
+<h2>Posicionamiento</h2>
+
+<p>El método público position() puede ser utilizado para:</p>
+
+<p>1. Obtener la configuración actual de posicionamiento.</p>
+<code>
+	<pre name="code" class="js">
+foo.position();					   //  Get position</pre>
+</code>
+
+<p>2. Actualizar la posición del elemento.</p>
+<code>
+	<pre name="code" class="js">
+foo.position("refresh");			  //  Refresh position</pre>
+</code>
+
+<p>3. Setear una nueva configuración para el <a href="../core/positioner.html">posicionamiento</a> del elemento.</p>
+<code>
+	<pre name="code" class="js">
+foo.position({ 					   //  Set new position
+	context: $(element),
+	offset: string,
+	points: string,
+	hold: boolean
+});</pre>
+</code>
+
+
+<h2>Ejemplos</h2>
+
+<div class="example">
+	<h3>1. Transition sin opción de cierre</h3>
+	
+	<div class="container">
+		<form action="ajax.html" method="post">
+			<input type="submit" class="btn secondary" id="example1" value="Click Me!">				
+		</form>
+	</div>
+	
+	<p>Podemos setear un alto y ancho fijo agregando dichos parametros como configuración cuando iniciamos el componente.</p>
+	<code>
+		<pre name="code" class="js">$("#example1").transition();</pre>
+	</code>
+	
+	<p>El HTML necesario para ejecutar este ejemplo es el siguiente:</p>
+	<code>
+		<pre name="code" class="xml">
+<form action="ajax.html" method="post">
+	<input type="submit" class="btn primary" id="example1" value="Click Me!">				
+</form></pre>
+	</code>
+	
+</div>
+
+<script>
+	ui.codelighter();
+	
+    $(".sourceTabs").tabNavigator();
+    
+    $(".clickmeModal").modal();
+    
+    
+    // Demo
+    var delay = 5;
+	
+	var timer = function(){
+		
+		if (delay == 0) {
+			if (demoTransition[0]) {
+				demoTransition[0].hide();
+			} else {
+				demoTransition.hide();
+			};
+			
+			delay = 5;
+			
+			return;
+		};
+		
+		$(".ch-transition-content p").html("Cerrando en " + delay + " segundos...");
+		
+		delay--;
+		
+		setTimeout(timer, 1000);
+		
+	};
+	
+	var demoTransition = $("#demoTransition").transition({
+    	onShow: function() {
+			setTimeout(timer, 1000);
+		}
+	});
+	
+	// Examples
+	$("#example1").transition();
+</script>
+
+
+</body>
+</html>
