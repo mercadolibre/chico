@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.form = ui.forms = function(conf){
+ui.form = function(conf){
 
 /**
  *  Validation
@@ -17,12 +17,12 @@ ui.form = ui.forms = function(conf){
 	};
 
 	// Is there forms in map instances?	
-	if ( ui.instances.hasOwnProperty("forms") && ui.instances.forms.length > 0 ){
-		for(var i = 0, j = ui.instances.forms.length; i < j; i++){
-			if(ui.instances.forms[i].element === this.element){
+	if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ){
+		for(var i = 0, j = ui.instances.form.length; i < j; i++){
+			if(ui.instances.form[i].element === this.element){
 				return { 
 	                exists: true, 
-	                object: ui.instances.forms[i]
+	                object: ui.instances.form[i]
 	            };
 			};
 		};
@@ -98,6 +98,8 @@ ui.form = ui.forms = function(conf){
 		};
 
 		checkStatus();
+		
+		status ? that.callbacks("onValidate") : that.callbacks("onError");  
 
         that.callbacks("afterValidate");
         
@@ -130,12 +132,15 @@ ui.form = ui.forms = function(conf){
 		removeError();	
 		for(var i = 0, j = that.children.length; i < j; i ++) that.children[i].reset(); // Reset helpers		
 		
+		that.callbacks("onClear");
+		
 		return that;
 	};
 	
 	var reset = function(event){
 		clear();
 		that.element.reset(); // Reset html form native
+		that.callbacks("onReset");
 		
 		return that;
 	};

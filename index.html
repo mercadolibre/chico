@@ -836,12 +836,20 @@
 		var ui_view = $('.demoViewer').viewer();
 		
 		// Form and watchers
-		var uiForm = $('.formulario').forms({ messages: {
-		    required: "Mensaje por defecto requerido",
-		    email: "Mensaje email por defecto",
-		    maxLength: "Mensaje por defecto del max length",
-		    minLength: 'Mensaje por defecto del min length'
-		} });
+		var uiForm = $('.formulario').form({ 
+			messages: {
+			    required: "Mensaje por defecto requerido",
+			    email: "Mensaje email por defecto",
+			    maxLength: "Mensaje por defecto del max length",
+			    minLength: 'Mensaje por defecto del min length'
+			},
+			onError: function(){ console.log("Error!!!") },
+			onValidate: function(){ console.log("OK!!!") },
+			beforeValidate: function(){ console.log("Before Validate!!!") },
+			afterValidate: function(){ console.log("After validate!!!") },
+			onReset: function(){ console.log("Reset!!") },
+			onClear: function(){ console.log("Clear!!") } 
+		});
 		
 		
 		var customVal = function(value) { // recibe the input value

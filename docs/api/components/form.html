@@ -1,0 +1,229 @@
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]-->
+<head>
+        <script></script> <!-- Avoid script blocking -->
+        <meta charset="utf-8">
+        <title>Form</title>
+        <link rel="stylesheet" href="../../../build/chico-min-0.5.5.css"> <!-- Chico-UI Core Style Sheet -->
+        <link rel="stylesheet" href="../../../src/css/grid.css">
+        <!--[if lt IE 7 ]>
+            <script src="../../../libs/js/dd_belatedpng.js"></script>
+            <script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
+        <![endif]-->
+        <script src="../../../libs/js/jquery.js"></script>
+		<script src="../../../build/chico-min-0.5.5.js"></script>
+    <head>
+<body>
+
+
+
+<h1>Form</h1>
+
+<div class="sourceTabs">
+	<ul>
+		<li><a href="#demo">Demo</a></li>
+		<li><a href="#html">HTML</a></li>
+		<li><a href="#js">JavaScript</a></li>
+	</ul>
+	<div>
+		<div id="demo">
+			<form action="ajax.html" id="demoform">
+		    	<fieldset>
+		    		<legend>Manejo de Forms</legend>
+		    		<p class="required">* Datos obligatorios</p>
+		    		<ol>
+		    			<li class="fieldBox">
+		    				<label class="required" for="val_email">
+		    					<span>E-mail: <em>*</em></span>													
+		    					<input type="email" id="val_email" required="required">
+		    				</label>
+		    				<p class="help">Escribe una descripción corta y clara.</p>
+		    			</li>
+		    		</ul>
+		    	</fieldset>   
+		    	<p class="actions">
+		    		<input type="submit" value="Enviar" class="btn primary">
+		    		<a href="#" class="resetForm">Cancelar</a>
+		    	</p>
+		    </form>
+		</div>
+		
+		<div id="html">
+			<code>
+				<pre name="code" class="xml">
+<form action="ajax.html" id="demoform">
+	<fieldset>
+		<legend>Manejo de Forms</legend>
+		<p class="required">* Datos obligatorios</p>
+		<ol>
+			<li class="fieldBox">
+				<label class="required" for="val_email">
+					<span>E-mail: <em>*</em></span>													
+					<input type="email" id="val_email" required="required">
+				</label>
+				<p class="help">Escribe una descripción corta y clara</p>
+			</li>
+		</ul>
+	</fieldset>   
+	<p class="actions">
+		<input type="submit" value="Enviar" class="btn primary">
+		<a href="#" class="resetForm">Cancelar</a>
+	</p>
+</form></pre>
+			</code>
+		</div>
+
+		<div id="js">
+			<code>
+				<pre name="code" class="js">
+$('#demoform').forms();</pre>
+			</code>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<h2>Cómo se usa</h2>
+	
+	<p>Realizando una selección con jQuery podemos iniciar el componente de la siguiente forma:</p>
+	
+	<code>
+		<pre name="code" class="js">$(".foo").component();</pre>
+	</code>
+	
+	<h2>Configuración</h2>
+	
+	<p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
+	
+	<p>Objeto de configuración:</p>
+	
+	<code>
+		<pre name="code" class="js">
+{	
+	messages: object, 					// Define validation messages
+	beforeSubmit: function() {},    		  // Callback executed before submit form
+	onSubmit: function() {},			  // Callback executed on submit form to send via ajax
+	afterSubmit: function() {}	   // Callback executed after submit form
+	beforeValidate: function() {}	   // Callback executed before validate form
+	onValidate: function() {}	   // Callback executed on validate success form
+	onError: function() {}	   // Callback executed on validate error form
+	afterValidate: function() {}	   // Callback executed after validate form
+	onReset: function() {},    		  // Callback executed on reset form
+	onClear: function() {},    		  // Callback executed on clear form (reset too)
+}</pre>
+	</code>
+	
+	<p>Ejemplo:</p>
+	
+	<code>
+		<pre name="code" class="js">
+$(".foo").form({
+	messages: {
+		general: "Formulario con errores.",
+	    required: "Mensaje por defecto requerido",
+	    email: "Mensaje email por defecto",
+	    maxLength: "Mensaje por defecto del max length",
+	    minLength: 'Mensaje por defecto del min length'
+	}
+});</pre>
+	</code>
+	
+	<p>Otra forma de iniciarlo es utilizando la siguiente sintaxis:</p>
+	
+	<code>
+		<pre name="code" class="js">$(".foo").component(string or number or function);</pre>
+	</code>
+	
+	<h2>Objeto público</h2>
+	<p>Cada vez que se instancia un componente ***component***, retorna un objecto público de control que nos brinda información sobre la instancia.</p>
+	
+	<code>
+		<pre name="code" class="js">
+var foo = $(".foo").component();
+
+// It returns
+foo = {
+	uid: 121,                         //  Global number instance
+	element: HTMLInputElement,        //  Input DOM Interface
+	type: "modal",                    //  Component Type
+}</pre>
+	</code>
+</div>
+
+<h2>Ejemplos</h2>
+	
+<div class="example">
+
+	<h3>1. Component executed on...</h3>
+	
+	<div class="container">
+		*****Aca poner la demo funcionando*****
+	</div>
+	
+	<p>*****Explicacion*****</p>
+	
+	<code>
+		<pre name="code" class="xml">
+<!-- HTML code --></pre>
+	</code>
+	
+	<p>*****Explicacion*****</p>
+	
+	<code>
+		<pre name="code" class="css">
+/* CSS code */</pre>
+	</code>
+	
+	<p>*****Explicacion*****</p>
+	
+	<code>
+		<pre name="code" class="js">
+// JS code</pre>
+	</code>
+
+</div>
+	
+
+<div class="example">
+
+	<h3>2. Component executed on...</h3>
+	
+	<div class="container">
+		*****Aca poner la demo funcionando*****
+	</div>
+
+</div>
+
+
+<div class="example">
+
+    <h3>3. Component executed on...</h3>
+    
+    <div class="container">
+        *****Aca poner la demo funcionando*****
+    </div>
+
+</div>
+
+
+<script>
+	ui.codelighter();
+	
+    $(".sourceTabs").tabNavigator();
+    
+    $('#demoform').forms();
+    
+    // Examples
+    
+    
+</script>
+
+
+
+</body>
+</html>

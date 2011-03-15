@@ -735,7 +735,7 @@ div p.keywords{color:darkorange;}
 
 		
 		// New validator
-		var uiForm = $('.formulario').forms();
+		var uiForm = $('.formulario').form();
 		var nv1 = $('#val_email').string({ email: true }).and().string({ minLength: 20 }).and().required();
 		var nv2 = $('#val_url').string({ url: true });
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
