@@ -54,6 +54,36 @@ ui.carousel = function(conf){
 	var margin = ($mask.width()-moveTo) / 2;
 	$mask.width( moveTo ).height( that.$content.children().outerHeight() + 2 ); // +2 for content with border
 
+	var makePager = function(){
+		var pager = $("<ul class=\"ch-pager\">");
+		var thumbs = [];
+		
+		// Create each mini thumb
+		for(var i = 1, j = totalPages + 1; i < j; i += 1){
+			if(i == 1) thumbs.push("<li class=\"ch-pager-on\">"); else thumbs.push("<li>");
+			thumbs.push(i);
+			thumbs.push("</li>");
+		};
+		pager.append( thumbs.join("") );
+		
+		// Create pager
+		that.$element.append( pager );
+		
+		// Position
+		var contextWidth = pager.parent().width();
+		var pagerWidth = pager.outerWidth();
+		
+		pager.css('left', (contextWidth - pagerWidth) / 2);
+		
+		// Children functionality
+		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
+			$(e).bind("click", function(){
+				that.select(i+1);
+			});
+		});
+		
+		return pager;
+	};
 	
 
 /**
@@ -118,9 +148,9 @@ ui.carousel = function(conf){
 			that.active = false;
 			
 			// Pager behavior
-			if (conf.pager) {
-				$(".ch-pager li").removeClass("ch-pager-on");
-				$(".ch-pager li:nth-child(" + page + ")").addClass("ch-pager-on");
+			if (conf.pager) {								
+				that.pager.children().removeClass("ch-pager-on");
+				that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
 			};
 
 			// Callbacks
@@ -158,43 +188,12 @@ ui.carousel = function(conf){
 		};
 		
 		if (conf.pager) {
-			$(".ch-pager li").removeClass("ch-pager-on");
-			$(".ch-pager li:nth-child(" + page + ")").addClass("ch-pager-on");
+			that.pager.children().removeClass("ch-pager-on");
+			that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
 		};
 			
 	    return that;
 	};
-
-	that.pager = function(){
-		var list = $("<ul class=\"ch-pager\">");
-		var thumbs = [];
-		
-		// Create each mini thumb
-		for(var i = 1, j = totalPages + 1; i < j; i += 1){
-			thumbs.push("<li>");
-			thumbs.push(i);
-			thumbs.push("</li>");
-		};
-		list.append( thumbs.join("") );
-		
-		// Create pager
-		that.$element.append( list );
-		
-		// Position
-		var pager = $(".ch-pager");
-		var contextWidth = pager.parent().width();
-		var pagerWidth = pager.outerWidth();
-		
-		pager.css('left', (contextWidth - pagerWidth) / 2);
-		
-		// Children functionality
-		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
-			$(e).bind("click", function(){
-				that.select(i+1);
-			});
-		});
-	};
-	
 
 
 /**
@@ -238,7 +237,7 @@ ui.carousel = function(conf){
 	if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
 
 	// Create pager if it was configured
-	if (conf.pager) that.pager();
+	if (conf.pager) that.pager = makePager();
  
 	return that;
 }
