@@ -1,15 +1,15 @@
 .ch-viewer{
 	border:1px solid #CCCCCC;	
 	width:340px;
-	height:380px;
+	height:390px;
 	overflow:hidden;
 }
 
 .ch-viewer-display{
 	position:relative;
 	overflow:hidden;
-	width:340px;
 	height:320px;
+	padding-top:10px;
 }
 
 .ch-viewer .ch-lens{
