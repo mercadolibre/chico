@@ -706,7 +706,7 @@ hr {
 	line-height:24px;
 	border-radius:3px;
 	-moz-border-radius:3px;
-	-webkit-border-radius:5px;
+	-webkit-border-radius:3px;
 }
 
 /* Trigger Hover */
@@ -790,9 +790,9 @@ hr {
 
 /* Container ON */
 .ch-dropdown.ch-secondary.ch-dropdown-on {
-	box-shadow: 2px 2px 1px #888;
-	-moz-box-shadow: 2px 2px 1px #888;
-	-webkit-box-shadow: 2px 2px 1px #888;
+	box-shadow: 2px 2px 0px #888;
+	-moz-box-shadow: 2px 2px 0px #888;
+	-webkit-box-shadow: 2px 2px 0px #888;
 }
 
 /* Trigger ON */
@@ -1499,15 +1499,15 @@ form .disabled input{
 .ch-viewer{
 	border:1px solid #CCCCCC;	
 	width:340px;
-	height:380px;
+	height:390px;
 	overflow:hidden;
 }
 
 .ch-viewer-display{
 	position:relative;
 	overflow:hidden;
-	width:340px;
 	height:320px;
+	padding-top:10px;
 }
 
 .ch-viewer .ch-lens{

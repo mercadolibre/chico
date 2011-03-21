@@ -1173,7 +1173,7 @@ ui.watcher = function(conf) {
  *  Protected Members
  */ 
 
- 	// Status
+    // Status
 	that.active = false;
 	
 	// Enabled
@@ -1184,20 +1184,20 @@ ui.watcher = function(conf) {
         var reference;
         // CHECKBOX, RADIO
         if ( that.$element.hasClass("options") ) {
-        	// Helper reference from will be fired
-        	// H4
-        	if ( that.$element.find('h4').length > 0 ) {
-        		var h4 = that.$element.find('h4'); // Find h4
-        			h4.wrapInner('<span>'); // Wrap content with inline element
-        		reference = h4.children(); // Inline element in h4 like helper reference	
-        	// Legend
-        	} else if ( that.$element.prev().attr('tagName') == 'LEGEND' ) {
-        		reference = that.$element.prev(); // Legend like helper reference
-        	};
+            // Helper reference from will be fired
+            // H4
+            if ( that.$element.find('h4').length > 0 ) {
+                var h4 = that.$element.find('h4'); // Find h4
+                    h4.wrapInner('<span>'); // Wrap content with inline element
+                reference = h4.children(); // Inline element in h4 like helper reference	
+            // Legend
+            } else if ( that.$element.prev().attr('tagName') == 'LEGEND' ) {
+                reference = that.$element.prev(); // Legend like helper reference
+            }
         // INPUT, SELECT, TEXTAREA
         } else {
-        	reference = that.$element;
-        };
+            reference = that.$element;
+        }
         return reference;
     })();
 
@@ -1210,9 +1210,9 @@ ui.watcher = function(conf) {
                 if (types[i] == val) {
                     collection[val] = conf[val];
                     // TODO: eliminar conf[val]???
-                };
-            };
-        };
+                }
+            }
+        }
 
         return collection;
     })();
@@ -1227,10 +1227,10 @@ ui.watcher = function(conf) {
                 if (types[i] == val) {
                     collection[val] = conf.conditions[val];
                     // TODO: eliminar conf[val]???
-                };
-            };
-        };
-    	    
+                }
+            }
+        }
+
         return collection;
     })();
 
@@ -1252,8 +1252,8 @@ ui.watcher = function(conf) {
     // Validate Method
 	that.validate = function() {		
 		// Pre-validation: Don't validate disabled or not required & empty elements
-		if ( that.$element.attr('disabled') ) { return; };
-		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; };
+		if ( that.$element.attr('disabled') ) { return; }
+		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; }
 
 		if ( that.enabled ) {
 			
@@ -1270,19 +1270,19 @@ ui.watcher = function(conf) {
 				
 	            if ( type == "required" ) {
 	                gotError = that.isEmpty();
-	            };
+	            }
 	            
 	            if ( condition.patt ) {
 	                gotError = !condition.patt.test(value);
-	            };
+	            }
 	            
 	            if ( condition.expr ) {
 	                gotError = !condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
-	            };
+	            }
 
 	            if ( condition.func && type != "required" ) {
 	                gotError = !condition.func.call(this, value); // Call validation function with 'this' as scope
-	            };
+	            }
 				
 				if ( gotError ) {
 										
@@ -1303,9 +1303,9 @@ ui.watcher = function(conf) {
 					that.$element.one(event, that.validate); // Add blur or change event only one time
 
 	                return;
-				};
-	        }; 
-		}; // Enabled
+				}
+	        } 
+		} // Enabled
 		
 		// Status OK (with previous error)
 		if ( that.active || !that.enabled ) {
@@ -1318,7 +1318,7 @@ ui.watcher = function(conf) {
 			that.active = false;
 			
 			controller.checkStatus();
-		};
+		}
         
         that.callbacks('afterValidate');
         
@@ -1333,7 +1333,7 @@ ui.watcher = function(conf) {
 		that.helper.hide(); // Hide helper
 		that.$element.unbind("blur"); // Remove blur event 
 		
-		that.callbacks("reset");
+		that.callbacks("onReset");
 		
 		return that;
 	};
@@ -1343,17 +1343,17 @@ ui.watcher = function(conf) {
 		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
 		switch (that.tag) {
 			case 'OPTIONS':
-				return that.$element.find('input:checked').length == 0;
+				return that.$element.find('input:checked').length === 0;
 			break;
 			
 			case 'SELECT':
 			    var val = that.$element.val();
-				return val == -1 || val == null;
+				return val === -1 || val === null;
 			break;
 			
 			case 'INPUT':
 			case 'TEXTAREA':
-				return $.trim( that.$element.val() ).length == 0;
+				return $.trim( that.$element.val() ).length === 0;
 			break;
 		};
 				
@@ -1526,6 +1526,36 @@ ui.carousel = function(conf){
 	var margin = ($mask.width()-moveTo) / 2;
 	$mask.width( moveTo ).height( that.$content.children().outerHeight() + 2 ); // +2 for content with border
 
+	var makePager = function(){
+		var pager = $("<ul class=\"ch-pager\">");
+		var thumbs = [];
+		
+		// Create each mini thumb
+		for(var i = 1, j = totalPages + 1; i < j; i += 1){
+			if(i == 1) thumbs.push("<li class=\"ch-pager-on\">"); else thumbs.push("<li>");
+			thumbs.push(i);
+			thumbs.push("</li>");
+		};
+		pager.append( thumbs.join("") );
+		
+		// Create pager
+		that.$element.append( pager );
+		
+		// Position
+		var contextWidth = pager.parent().width();
+		var pagerWidth = pager.outerWidth();
+		
+		pager.css('left', (contextWidth - pagerWidth) / 2);
+		
+		// Children functionality
+		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
+			$(e).bind("click", function(){
+				that.select(i+1);
+			});
+		});
+		
+		return pager;
+	};
 	
 
 /**
@@ -1590,9 +1620,9 @@ ui.carousel = function(conf){
 			that.active = false;
 			
 			// Pager behavior
-			if (conf.pager) {
-				$(".ch-pager li").removeClass("ch-pager-on");
-				$(".ch-pager li:nth-child(" + page + ")").addClass("ch-pager-on");
+			if (conf.pager) {								
+				that.pager.children().removeClass("ch-pager-on");
+				that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
 			};
 
 			// Callbacks
@@ -1630,43 +1660,12 @@ ui.carousel = function(conf){
 		};
 		
 		if (conf.pager) {
-			$(".ch-pager li").removeClass("ch-pager-on");
-			$(".ch-pager li:nth-child(" + page + ")").addClass("ch-pager-on");
+			that.pager.children().removeClass("ch-pager-on");
+			that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
 		};
 			
 	    return that;
 	};
-
-	that.pager = function(){
-		var list = $("<ul class=\"ch-pager\">");
-		var thumbs = [];
-		
-		// Create each mini thumb
-		for(var i = 1, j = totalPages + 1; i < j; i += 1){
-			thumbs.push("<li>");
-			thumbs.push(i);
-			thumbs.push("</li>");
-		};
-		list.append( thumbs.join("") );
-		
-		// Create pager
-		that.$element.append( list );
-		
-		// Position
-		var pager = $(".ch-pager");
-		var contextWidth = pager.parent().width();
-		var pagerWidth = pager.outerWidth();
-		
-		pager.css('left', (contextWidth - pagerWidth) / 2);
-		
-		// Children functionality
-		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
-			$(e).bind("click", function(){
-				that.select(i+1);
-			});
-		});
-	};
-	
 
 
 /**
@@ -1710,7 +1709,7 @@ ui.carousel = function(conf){
 	if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
 
 	// Create pager if it was configured
-	if (conf.pager) that.pager();
+	if (conf.pager) that.pager = makePager();
  
 	return that;
 }
@@ -1765,13 +1764,13 @@ ui.dropdown = function(conf){
 		$(ui.instances.dropdown).each(function(i, e){ e.hide(); });
 		
         // Show menu
-		that.$content.css('z-index', ui.utils.zIndex++);		
+		that.$content.css('z-index', ui.utils.zIndex++);
+		that.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content		
 		that.parent.show(event);		
 		that.position("refresh");
 		
 		// Secondary behavior
 		if(conf.skin == "secondary"){
-			that.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content
 			that.$container.addClass("ch-dropdown-on"); // Container ON
 		};
 	
