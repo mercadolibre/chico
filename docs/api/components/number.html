@@ -100,7 +100,7 @@ var email = $('#val_num')
 	</div>
 </div>
 
-
+<div class="box">
     
 <h2>Cómo se usa</h2>
 
@@ -123,7 +123,9 @@ $(".foo").number({
     }
 });</pre>
 </code>
+</div>
 
+<div class="box">
 <h2>Configuración</h2>
 
 <p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
@@ -146,7 +148,9 @@ $(".foo").number({
     onReset: function() {}              //  Callback on reset
 }</pre>
 </code>
+</div>
 
+<div class="box">
 <h2>Ejemplo de configuración</h2>
 
 <code>
@@ -160,7 +164,9 @@ $("#Foobar").string({ // Check for a valid email format smaller than 20 chars
     }
 });</pre>
 </code>
+</div>
 
+<div class="box">
 <h2>Interfaces disponibles</h2>
 
 <p><strong>Number</strong></p>
@@ -180,7 +186,9 @@ $("#Foobar").string({ // Check for a valid email format smaller than 20 chars
     <pre name="code" class="js">var foo = $("#Foobar").price("A valid price please: 9,99");</pre>
 </code>
 
+</div>
 
+<div class="box">
 <h2>Múltiples validaciones</h2>
 
 <p>Todo componente perteneciente al a familia <a href="watcher.html">Watcher</a> tiene la habilidad de concatenar validaciones de distintos tipos en un mismo campo de formulario con el método <strong>and()</strong>. Esto nos permite hacer distintas validaciones sobre un dato, como por ejemplo comprobar que el valor de un campo requerido sea un número:</p>
@@ -199,7 +207,9 @@ $(".foo").number().and().required("Please no more than 20 chars.");</pre>
     <p>La selección <strong>".foobar"</strong> es una clase que puede estar repetida, si esa query me devuelve mas de un resultado, el <a href="../factory">Factory</a> object me va a devolver una <em>Colección</em> de resultados, por ende el método <strong>.and()</strong> queda obsoleto. Este caso puede llegar a ser soportado en próximas versiones de Chico-UI.</p>
     
 </div>
+</div>
 
+<div class="box">
 <h2>Objeto público</h2>
 
 <p>Cada vez que se instancia un componente de la familia <a href="watcher.html" lang="en">Watcher</a> éste retorna un objeto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
@@ -233,7 +243,9 @@ foo = {
     refresh(),                        //  Refresh the helper's position</pre>
 </code>
 
+</div>
 
+<div class="box">
 <h2>Ejemplos</h2>
 
 <div class="example">
@@ -401,7 +413,7 @@ $("#c3_price").price("Este precio no es válido, usa un formato 9,99 o 9.99");</
 </form></pre>
     </code>
 </div>
-
+</div>
 
 <script>
 	ui.codelighter();

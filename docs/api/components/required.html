@@ -101,6 +101,8 @@ var validation = $('#demoEmail')
 	</div>
 </div>
 
+<div class="box">
+
     
 <h2>Cómo se usa</h2>
 
@@ -115,7 +117,9 @@ var validation = $('#demoEmail')
 <code>
 	<pre name="code" class="js">$(".foo").required("validation message");</pre>
 </code>
+</div>
 
+<div class="box">
 <h2>Configuración</h2>
 
 <p>La mayoría de los componentes pueden recibir parámetros de configuración, que modifican el comportamiento por defecto.</p>
@@ -134,7 +138,9 @@ var validation = $('#demoEmail')
     onReset: function() {}              //  Callback on reset
 }</pre>
 </code>
+</div>
 
+<div class="box">
 <h2>Ejemplo de configuración</h2>
 
 <code>
@@ -158,7 +164,9 @@ $(".foo").required({
     <pre name="code" class="js">
 $(".foo").required("This field is required!");</pre>
 </code>
+</div>
 
+<div class="box">
 <h2>Múltiples validaciones</h2>
 
 <p>Todo componente perteneciente al a familia <a href="watcher.html">Watcher</a> tiene la habilidad de concatenar validaciones de distintos tipos en un mismo campo de formulario con el método <strong>and()</strong>. Esto nos permite hacer distintas validaciones sobre un dato, como por ejemplo comprobar que el valor de un campo requerido sea un número:</p>
@@ -167,7 +175,9 @@ $(".foo").required("This field is required!");</pre>
     <pre name="code" class="js">
 $(".foo").required("This field is required!").and().number("This filed must be a number!");</pre>
 </code>
+</div>
 
+<div class="box">
 <h2>Objeto público</h2>
 
 <p>Cada vez que se instancia un componente de la familia <a href="watcher.html" lang="en">Watcher</a> éste retorna un objeto público de control que nos brinda información sobre la instancia y nos permite ejecutar algunos métodos públicos.</p>
@@ -200,7 +210,9 @@ foo = {
     disable(),                        //  Start ignoring configured validations
     refresh()                         //  Refresh the helper's position</pre>
 </code>
+</div>
 
+<div class="box">
 <h2>Ejemplos</h2>
 
 <div class="example">
@@ -527,6 +539,7 @@ $('.c4_radio').required("You must complete this field!");</pre>
     </p>
 </form></pre>
 	</code>
+</div>
 </div>
 
 
