@@ -58,7 +58,7 @@
 	line-height:24px;
 	border-radius:3px;
 	-moz-border-radius:3px;
-	-webkit-border-radius:5px;
+	-webkit-border-radius:3px;
 }
 
 /* Trigger Hover */
@@ -142,9 +142,9 @@
 
 /* Container ON */
 .ch-dropdown.ch-secondary.ch-dropdown-on {
-	box-shadow: 2px 2px 1px #888;
-	-moz-box-shadow: 2px 2px 1px #888;
-	-webkit-box-shadow: 2px 2px 1px #888;
+	box-shadow: 2px 2px 0px #888;
+	-moz-box-shadow: 2px 2px 0px #888;
+	-webkit-box-shadow: 2px 2px 0px #888;
 }
 
 /* Trigger ON */

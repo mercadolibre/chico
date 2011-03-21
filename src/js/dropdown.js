@@ -49,13 +49,13 @@ ui.dropdown = function(conf){
 		$(ui.instances.dropdown).each(function(i, e){ e.hide(); });
 		
         // Show menu
-		that.$content.css('z-index', ui.utils.zIndex++);		
+		that.$content.css('z-index', ui.utils.zIndex++);
+		that.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content		
 		that.parent.show(event);		
 		that.position("refresh");
 		
 		// Secondary behavior
 		if(conf.skin == "secondary"){
-			that.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content
 			that.$container.addClass("ch-dropdown-on"); // Container ON
 		};
 	
