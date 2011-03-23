@@ -16,13 +16,13 @@ ui.layer = function(conf) {
 
 	var that = this;
 	
+	conf = ui.clon(conf);
 	conf.cone = true;
 	conf.classes = "box";
 	conf.position = {};
 	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
-
 
 	that.conf = conf;
 
@@ -58,7 +58,9 @@ ui.layer = function(conf) {
 	
 		// Reset all layers
 		$.each(ui.instances.layer, function(i, e){ e.hide(); });
+		//conf.position.context = that.$element;
 		that.parent.show(event);
+
 		that.$container.bind('click', function(event){ event.stopPropagation() });
         
         // Click

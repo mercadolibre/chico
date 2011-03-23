@@ -33,6 +33,7 @@ ui.form = function(conf){
  */
 	var that = this;
 	
+	conf = ui.clon(conf);
 	// Create the Messages for General Error
 	if ( !conf.hasOwnProperty("messages") ) conf.messages = {};
 	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	

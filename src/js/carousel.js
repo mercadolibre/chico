@@ -20,6 +20,7 @@ ui.carousel = function(conf){
 		.addClass('ch-carousel-content')
 		.wrap($('<div>').addClass('ch-mask'))//gracias al que esta abajo puedo leer el $mask.width()
 
+	conf = ui.clon(conf);
 	that.conf = conf;
 	
 /**

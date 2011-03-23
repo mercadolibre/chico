@@ -28,6 +28,7 @@ ui.positioner = function(o) {
  */
 
 	var o = o || this.conf.position;
+
     // Initial configuration
 	var element = $(o.element);
 		element.css("position","absolute");
@@ -232,7 +233,7 @@ ui.positioner = function(o) {
 	//Conditional Advance Loading method
 	var getContext = (o.context) ?		
 		function getContext(){
-			
+
 			var contextOffset = o.context.offset();
 			
 		    context = {

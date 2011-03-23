@@ -13,7 +13,8 @@ ui.modal = function(conf){
  */
 
 	var that = this;
-	
+
+	conf = ui.clon(conf);
 	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default	
 	conf.closeButton = (that.type == "modal") ? true : false;
 	conf.classes = "box";

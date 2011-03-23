@@ -14,6 +14,8 @@ ui.tabNavigator = function(conf){
 	var that = this;
 
 	that.$element.addClass('ch-tabNavigator');
+		
+	conf = ui.clon(conf);
 	conf.selected = conf.selected || conf.value || 0;
 	
 	that.conf = conf;

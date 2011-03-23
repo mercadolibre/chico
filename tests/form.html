@@ -53,7 +53,7 @@
 		$.fx.off = true;
 
 
-		var testForm = $('#testForm').forms({
+		var testForm = $('#testForm').form({
 			beforeValidate: function(){ $("body").addClass("beforeValidate"); },
 			afterValidate: function(){ $("body").addClass("afterValidate"); },			
 			beforeSubmit: function(){ $("body").addClass("beforeSubmit"); },
@@ -70,7 +70,7 @@
 
        		ok( testForm.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
-    		ok( testForm.type == "forms" , "Expected to find \"forms\" as value of type attribute");
+    		ok( testForm.type == "form" , "Expected to find \"forms\" as value of type attribute");
     		
     		ok( testForm.hasOwnProperty("element"), "Expected to find an \"element\" property" );
     		

@@ -15,7 +15,8 @@ ui.tooltip = function(conf) {
  */
 
 	var that = this;
-
+	
+	conf = ui.clon(conf);
 	conf.cone = true;
 	conf.content = that.element.title;	
 	conf.position = {};

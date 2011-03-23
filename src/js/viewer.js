@@ -11,6 +11,7 @@ ui.viewer = function(conf){
  */
 	var that = this;
 
+	conf = ui.clon(conf);
 	that.conf = conf;
 
 /**

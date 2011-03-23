@@ -15,6 +15,7 @@ ui.expando = function(conf){
 	that.$element.addClass("ch-expando")
 		.children(":first").wrapInner("<span class=\"ch-expando-trigger\"></span>");
 		
+    conf = ui.clon(conf);
     conf.open = conf.open || false;
 
 	that.conf = conf;

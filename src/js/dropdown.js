@@ -13,6 +13,7 @@ ui.dropdown = function(conf){
 	
 	var that = this;
 
+	conf = ui.clon(conf);
 	conf.skin = ( that.$element.hasClass("ch-secondary") ) ? "secondary": "primary";
 
 	that.conf = conf;

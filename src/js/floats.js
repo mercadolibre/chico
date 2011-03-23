@@ -10,7 +10,7 @@ ui.floats = function() {
  *  Constructor
  */
 	var that = this;
-	var conf = that.conf;
+	var conf = that.conf;	
 	
 /**
  *  Inheritance
@@ -39,14 +39,14 @@ ui.floats = function() {
 	};
 
     var createLayout = function() {
-
+		
         // Creo el layout del float
     	that.$container = $("<div class=\"ch-" + that.type + "\"><div class=\"ch-" + that.type + "-content\"></div></div>").appendTo("body").hide();
     	that.$content = that.$container.find(".ch-" + that.type + "-content");
-		
+
 		conf.position = conf.position || {};
 		conf.position.element = that.$container;
-		conf.position.hold = conf.hold || false;		
+		conf.position.hold = conf.hold || false;
 		
 		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
     	
