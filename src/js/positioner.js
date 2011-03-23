@@ -30,6 +30,7 @@ ui.positioner = function(o) {
 	var o = o || this.conf.position;
     // Initial configuration
 	var element = $(o.element);
+		element.css("position","absolute");
 	var context;
 	var viewport;
 	var parentRelative;
