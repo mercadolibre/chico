@@ -96,7 +96,11 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
 	</div>
 	
-	<div class="testCache" style="display:none">
+	<div id="testCache" style="display:none">
+		<h2>Modal cache on</h2>		
+	</div>
+	
+	<div id="testCache2" style="display:none">
 		<h2>Modal cache on</h2>		
 	</div>
 	
@@ -140,10 +144,10 @@
 	        }
 		});
 		
-		var testModalCache = $("#testModalCache").modal(".testCache");
+		var testModalCache = $("#testModalCache").modal("#testCache2");
 		
 		var testModalnoCache = $("#testModalnoCache").modal({	    
-	        content: ".testCache",
+	        content: "#testCache",
 	        cache: false
 		});
 	    
@@ -404,41 +408,35 @@
 		
 		});
 
-		
 		module('Content cache');
-		test("Modal with cache on", function(){
+		
+		test("Modal with cache true", function(){
+			expect( 3 );
+
+    		testModalCache.show();    		
+    		notExists("body > #testCache2");
+    		
+    		testModalCache.hide();
+    		exists("body > #testCache2");
+    		
+    		testModalCache.show();
+
+			ok($(".ch-modal #testCache2").html() != "", "Expected to find content.");
+			
+			testModalCache.hide();
+						
+		});
+		
+		test("Modal with cache false", function(){
 			expect( 1 );
 
     		testModalCache.show();    		
+    		notExists("body > #testCache");
+    		
     		testModalCache.hide();
-    		$(".testCache h2").html("Modal cache off");
-
-    		testModalCache.show();
-
-			equal($(".ch-modal .testCache h2").html(), "Modal cache on", "Expected to find the same content.");
-			
-			testModalCache.hide();
-			
-			$(".testCache h2").html("Modal cache on");
+    		exists("body > #testCache");
 			
 		});
-		
-		test("Modal with cache off", function(){
-			expect( 1 );
-
-    		testModalnoCache.show();    		
-    		testModalnoCache.hide();
-    		$(".testCache h2").html("Modal cache off");
-
-    		testModalnoCache.show();
-
-			equal($(".ch-modal .testCache h2").html(), "Modal cache off", "Expected to find the changed content.");
-			
-			testModalnoCache.hide();
-			
-			$(".testCache h2").html("Modal cache on");
-		});
-
 
 
         // TRANSITION TESTS 

@@ -66,16 +66,22 @@ ui.modal = function(conf){
 	
 	that.show = function(event) {	
 		dimmer.on();
-		that.parent.show(event);
+		that.parent.show(event);		
 		that.$trigger.blur();
 		
 		return that;
 	};
 	
 	that.hide = function(event) {
-		dimmer.off();		
-		that.parent.hide(event);
+		dimmer.off();
+
+		// If not cache, return content to body
+		if ( conf.cache == false && $(conf.content).length > 0 ) {
+			that.$content.children().appendTo("body").fadeOut();
+		};
 		
+		that.parent.hide(event);
+
 		return that;
 	};
 	
@@ -106,7 +112,6 @@ ui.modal = function(conf){
 	that.$trigger
 		.css('cursor', 'pointer')
 		.bind('click', function(event){ that.show(event) });
-
 
 	return that;
 };

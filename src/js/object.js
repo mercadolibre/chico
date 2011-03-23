@@ -61,8 +61,8 @@ ui.object = function(){
 			return '<div class="loading"></div>';
 			
 		} else {
-			var content = conf.content || conf.msg;			
-			return ($(content).length > 0) ? $(content).clone().show() : content ;
+			var content = conf.content || conf.msg;
+			return ($(content).length > 0) ? $(content).detach().clone().show() : content ;
 		};
 
 	};

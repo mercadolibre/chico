@@ -645,7 +645,12 @@ div p.keywords{color:darkorange;}
 	<div id="chat">
 
 	</div>
-	<div class="list-layer" style="display:none">
+	
+	<div id="modalContent" style="display:none">
+		<h2>Titulo del modal que tiene un click</h2>
+		<p>Lorem ipsum......</p>
+	</div>
+	<div id="list-layer" style="display:none">
 		<div class="min-box pricing">
 			<p class="price"><span class="l-currency">$</span> <span class="l-price">250<sup>00</sup></span> <select class="stock"><option>casca</option><option>casca</option><option>casca</option><option>casca</option></select></p>
 			<p class="shipping"><span class="free-shipping">Gratis</span> a través de <span class="mail-sedex">Sedex</span></p>
@@ -709,9 +714,9 @@ div p.keywords{color:darkorange;}
         	width: 350,
         	height: 400,
         	cache: false,
-        	//content: "<h2 class=\"lala\">LALALALALALAL</h2><p>contentcontenotndi sadkjsjhd hdkahdjk skdh ñdashd jksa h</p>",
-        	onShow: function(){ /*console.log("Se abre el modal")*/ },
-        	onContentLoad: function(){ $("h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
+        	content: "#modalContent",        	
+        	onShow: function(){ $("#modalContent h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
+        	onContentLoad: function(){},
         	onContentError: function(){ /*console.log("Content Error")*/ },
         	onHide: function(){ /*console.log("Se cierra el modal")*/ }
         });
@@ -720,7 +725,7 @@ div p.keywords{color:darkorange;}
         var ui_trans2 = $(".demoTransition2").transition(); 
         
         var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foo</p>' });
-        var ui_layr = $('.demoLayerOnmouseover').layer({ content: ".list-layer"/*"<p>asdsadas dsa dasd asd asdasd asd a</p><div style=\"margin-top:50px;width:50px;height:50px;\">asd <form><input /></form></div>"*/ });
+        var ui_layr = $('.demoLayerOnmouseover').layer({ content: "#list-layer"/*"<p>asdsadas dsa dasd asd asdasd asd a</p><div style=\"margin-top:50px;width:50px;height:50px;\">asd <form><input /></form></div>"*/ });
         var ui_tool = $('.demoTooltip').tooltip();
         var ui_tabs = $('.demoTabNavigator').tabNavigator({
         	onSelect: function(){ /*console.log("Callback onSelect OK!")*/ }

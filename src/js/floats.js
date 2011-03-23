@@ -127,7 +127,6 @@ ui.floats = function() {
 			that.callbacks('onHide');
 			
 			$(this).detach();
-
 		});
 		
 		return that;
