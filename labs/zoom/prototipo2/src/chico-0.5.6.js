@@ -3132,66 +3132,31 @@ ui.viewer = function(conf){
 	/**
 	 * 	Zoom
 	 */
-	var zoom = function(index, context){
+	var zoom = function($original){
 		
-		var active = false;
-		
-		var src = "src/58557491_8009.jpg";
+		var content = $original.parents(".ch-viewer-modal");
 		
 		var image = $("<img>")
-			.attr("src", src)
-			.addClass("ch-zoom-img");
+			.attr("src", "src/58557491_8009.jpg")
+			.addClass("ch-zoom-img")
+			
+			// Fade Out
+			.bind("click", function(){ image.fadeOut(); })
+			
+			// Movement
+			.bind("mousemove", function(event){
+				var offset = $original.offset();
+			
+				image.css({
+					left: -(event.pageX - offset.left) / 1.3 + "px",
+					top: -(event.pageY - offset.top) / 1.2 + "px"
+				});
+			})
+			.appendTo( content )
+			.hide();
 		
-		var $trigger = $("<a href=\"" + image + "\" class=\"ch-zoom-trigger\">M&aacute;s detalle</a>")
-			.bind("click", function(event){
-				that.prevent(event);
-				if (active) zoomOut(); else zoomIn();
-			});
-		
-		var move = function(event){
-			
-			var offset = context.children(".ch-original-img").offset();
-			
-			image.css({
-				left: -(event.pageX - offset.left) + "px",
-				top: -(event.pageY - offset.top) + "px"
-			});
-		};
-		
-		var zoomIn = function(){
-			// Giant image fadeIn
-			image.appendTo(context).hide().fadeIn();
-			
-			context.parents(".ch-mask").css("border", "1px solid #ccc");
-			
-			// Status
-			active = true;
-			
-			$trigger.html("Menos detalle");
-			
-			// Event delegation
-			context.bind("mousemove", function(event){ move(event); });
-		};
-		
-		var zoomOut = function(){
-			$trigger.html("M&aacute;s detalle");
-			
-			context.parents(".ch-mask").css("border", "none");
-			
-			// Giant image fadeOut
-			image.fadeOut("normal", function(){
-				image.remove()
-				
-				// Status
-				active = false;
-				
-				// Event delegation
-				context.unbind("mouseover");
-			});
-		};
-		
-		
-		return $trigger;		
+		// Fade In
+		$original.bind("click", function(){ image.fadeIn(); });
 	};
 		
 	
@@ -3215,8 +3180,10 @@ ui.viewer = function(conf){
 			content.find("img").each(function(i, e){
 				$(e).attr("src", bigImgs[i]);
 				// TODO: if (tiene imagen con zoom) // guardar una por una las fotos que van a tener link para mostrar o no el link en next y prev
-				$(e).addClass("ch-original-img");
-				if(i==0) content.append( zoom(i, $(e).parent()) );
+				if(i==0){
+					zoom($(e));
+					$(e).addClass("ch-original-img");
+				};
 			});
 			
 			that.children[2] = viewerModal.carousel = content.carousel({
