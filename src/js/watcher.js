@@ -205,7 +205,7 @@ ui.watcher = function(conf) {
 		if ( that.enabled ) {
 			
 			that.callbacks('beforeValidate');
-			
+
 	        // Validate each type of validation
 	        
 			for (var type in that.validations) {
@@ -251,8 +251,8 @@ ui.watcher = function(conf) {
 
 	                return;
 				}
-	        } 
-		} // Enabled
+	        } // End for each validation
+		} // End if Enabled
 		
 		// Status OK (with previous error)
 		if ( that.active || !that.enabled ) {

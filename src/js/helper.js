@@ -16,6 +16,7 @@ ui.helper = function(controller){
 		conf.position.context = controller.reference;
 		conf.position.offset = "15 0";
 		conf.position.points = "lt rt";
+		conf.cache = false;
 	
 	that.conf = conf;
 
@@ -37,9 +38,15 @@ ui.helper = function(controller){
  */ 
 	that.$trigger = that.$element;
 	
-	that.show = function(text){
+	that.show = function(text) {
+
 		conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';
+
 		that.parent.show();
+		
+		// This is a awful fix
+		// TODO: We need  to update validation messages on each validation somehow
+        that.$content.html( that.loadContent() );		
 		
 		return that;
 	};
