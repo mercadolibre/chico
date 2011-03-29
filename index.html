@@ -881,7 +881,7 @@
         			.minLength(20)
         			.and()
         			.required()
-		var nv2 = $('#val_url').string({ url: true });
+		var nv2 = $('#val_url').string({ url: true }).and().required();
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
 		var nv4 = $('#val_range').min(1).and().max(10);
 		var nv5 = $('#val_length').string({ maxLength: 20, minLength: 6 });
