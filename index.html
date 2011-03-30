@@ -808,15 +808,21 @@
         	//cache: false,
         	//content: "<h2 class=\"lala\">LALALALALALAL</h2><p>contentcontenotndi sadkjsjhd hdkahdjk skdh ñdashd jksa h</p>",
         	content: "asdasdasda",
-        	onShow: function(){ /*console.log("Se abre el modal")*/  },
+        	onShow: function(){ 
+        	    //console.log("Se abre el modal")
+    	    },
         	onContentLoad: function(){ 
         		var that = this;
         		$("h2").bind("click", function(){ 
         			that.hide();
         		}); 
         	},
-        	onContentError: function(){ /*console.log("Content Error")*/ },
-        	onHide: function(){ /*console.log("Se cierra el modal")*/ }
+        	onContentError: function(){ 
+        	    //console.log("Content Error")
+    	    },
+        	onHide: function(){ 
+        	    //console.log("Se cierra el modal")
+    	    }
         });
         
         var ui_trans1 = $(".demoTransition1").transition("Espere mientras pruebo la transición. Gracias papi."); 
@@ -843,12 +849,24 @@
 			    maxLength: "Mensaje por defecto del max length",
 			    minLength: 'Mensaje por defecto del min length'
 			},
-			onError: function(){ console.log("Error!!!") },
-			onValidate: function(){ console.log("OK!!!") },
-			beforeValidate: function(){ console.log("Before Validate!!!") },
-			afterValidate: function(){ console.log("After validate!!!") },
-			onReset: function(){ console.log("Reset!!") },
-			onClear: function(){ console.log("Clear!!") } 
+			onError: function(){ 
+			    //$console.log("Error!!!") 
+		    },
+			onValidate: function(){ 
+			    //console.log("OK!!!") 
+			},
+			beforeValidate: function(){ 
+			    //console.log("Before Validate!!!") 
+		    },
+			afterValidate: function(){ 
+			    //console.log("After validate!!!") 
+		    },
+			onReset: function(){ 
+			    //console.log("Reset!!") 
+		    },
+			onClear: function(){ 
+			    //console.log("Clear!!") 
+		    } 
 		});
 		
 		
