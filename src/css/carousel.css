@@ -82,19 +82,21 @@
 }
 
 .ch-carousel .ch-pager li{
-	background-image: url('../src/assets/viewer.png');
-	background-repeat: no-repeat;
-	text-indent:-9999px;
+	text-indent:999px;
+	overflow:hidden;
 	float:left;
 	margin-right:10px;
 	width:10px;
 	height:10px;
-	background-position:-14px -101px;
 	cursor:pointer;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	background-color:#d1d1d1;
 }
 
 .ch-carousel .ch-pager .ch-pager-on{
-	background-position:-2px -101px;
+	background-color:#16232f;
 }
 
 /* IE 6 */

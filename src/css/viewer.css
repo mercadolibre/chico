@@ -1,44 +1,19 @@
+/* Component */
 .ch-viewer{
-	border:1px solid #CCCCCC;	
+	border:1px solid #ccc;
 	width:340px;
-	height:390px;
 	overflow:hidden;
 }
 
+/* Showcase area */
 .ch-viewer-display{
 	position:relative;
 	overflow:hidden;
 	height:320px;
-	padding-top:10px;
+	padding:10px;
 }
 
-.ch-viewer .ch-lens{
-    height:41px;
-    position:absolute;
-    width:41px;
-    cursor:pointer;
-    display:none;
-	background-image: url('../src/assets/viewer.png');
-	background-repeat: no-repeat;
-	background-position:-2px -1px;
-}
-
-.ch-viewer-modal-content{
-	margin:20px 0;
-}
-
-.ch-viewer-modal .ch-carousel-content li{
-	width:500px;
-	height:500px;
-	text-align:center;
-	line-height:500px;
-}
-
-.ch-viewer-modal .ch-carousel-content li img{
-	vertical-align:middle;
-}
-
-
+/* Showcase list */
 .ch-viewer-content{
 	position:absolute;
 	transition: all 0.5s ease-in-out;
@@ -47,33 +22,84 @@
 	-webkit-transition: all 0.5s ease-in-out;
 }
 
+/* Showcase list items */
 .ch-viewer-content li{
 	float:left;
-	margin:0 10px;
+	width:320px;
+	height:320px;
+	padding:0 10px;
 }
 
-.ch-viewer-content li a{
-	display:block;
+/* Magnifying glass */
+.ch-viewer .ch-lens{
+    width:41px;
+    height:41px;
+    position:absolute;
+    cursor:pointer;
+	background-image: url('../src/assets/viewer.png');
+	background-repeat: no-repeat;
 }
 
-.ch-viewer-triggers{
-	margin-top:10px;
+/* Thumbnails */
+.ch-viewer-triggers {
+	margin-bottom:10px;
 }
 
-.ch-viewer .ch-viewer-triggers li{
+/* Thumbnails items */
+.ch-viewer-triggers li {
 	width:40px;
 	height:40px;
-}
-
-.ch-viewer-triggers img{
-	display:block;
-	border:1px solid #fff
+	border:1px solid transparent;
 	cursor:pointer;
 }
 
-.ch-viewer-triggers .ch-thumbnail-on{
-	border:1px solid #ccc;
+/* Highlighted thumbnail */
+.ch-viewer-triggers .ch-thumbnail-on {
+	border-color:#ccc;
 }
+
+/* Modal content */
+.ch-viewer-modal {
+	padding:20px 0 35px;
+}
+
+/* Modal items */
+.ch-viewer-modal .ch-carousel-content li{
+	width:500px;
+	height:500px;
+	text-align:center;
+	line-height:500px;
+}
+
+/* Modal images */
+.ch-viewer-modal .ch-carousel-content li img{
+	vertical-align:middle;
+}
+
+/* Modal pager */
+.ch-viewer-modal .ch-pager {
+	bottom:8px;
+}
+
+/* Modal zoomable image */
+.ch-viewer-zoomable {
+	cursor: zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: -webkit-zoom-in;
+}
+
+/* Modal augmented image */
+.ch-viewer-zoomed {
+	position:absolute;
+	left:-250px;
+	top:-250px;
+	z-index:1;
+	cursor: zoom-out;
+	cursor: -moz-zoom-out;
+	cursor: -webkit-zoom-out;
+}
+
+
 
 /* IE 6 */
 .ie6 .ch-viewer-modal-content{

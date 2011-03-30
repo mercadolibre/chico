@@ -30,147 +30,194 @@ ui.viewer = function(conf){
 	 * 	Viewer
 	 */
 	var $viewer = that.$element.addClass("ch-viewer");
-
-	/**
-	 * 	Modal of Viewer
-	 */
-	var viewerModal = {};
-		viewerModal.carouselStruct = $viewer.find("ul").clone().addClass("carousel");	
-		
-		viewerModal.carouselStruct.find("img").each(function(i, e){
-			$(e).attr("src", "") // Image source change
-				.unwrap(); // Link deletion
-		});
-		
-		viewerModal.showContent = function(){
-			$(".ch-viewer-modal-content").parent().addClass("ch-viewer-modal");
-			$(".ch-viewer-modal-content").html( viewerModal.carouselStruct );
-			$(".ch-viewer-modal-content img").each(function(i,e){
-				$(e).attr("src", bigImgs[i]);
-			});
-
-			that.children[2] = viewerModal.carousel = $(".ch-viewer-modal-content").carousel({ pager: true });
 	
-			$(".ch-viewer-modal-content .ch-carousel-content").css("left",0); // Reset position
-			viewerModal.carousel.moveTo( thumbnails.selected );
-			viewerModal.modal.position();
-		};
-		
-		viewerModal.hideContent = function(){
-			
-			// Thumbnails syncro
-			that.move(viewerModal.carousel.getPage());
-			
-			// Remove carousel wrapper
-			$("ch-viewer-modal").remove();
-	
-			// Reset left of carousel in modal
-			viewerModal.carouselStruct.css("left", "0");
-			
-			// Delete modal instance // TODO pasar al object
-			for(var i = 0, j = ui.instances.carousel.length; i < j; i += 1){
-				if(ui.instances.carousel[i].element === viewerModal.carousel.element){
-					ui.instances.carousel.splice(i, 1);
-					return;
-				};
-			};
-					
-		};
-
-
 	/**
 	 * 	Showcase
 	 */
 	var showcase = {};
+	
 		showcase.wrapper = $("<div>").addClass("ch-viewer-display");
-		showcase.display = $viewer.children(":first");
+		showcase.display = $viewer.children(":first").addClass("ch-viewer-content");
 		
-		$viewer
-			.append( showcase.wrapper.append( showcase.display ) )
-			.append("<div class=\"ch-lens\">");
+		showcase.items = showcase.display.children();
+		showcase.itemWidth = showcase.items.outerWidth();
+		showcase.children = showcase.display.find("a");
 		
-		// Magnifying glass
-		showcase.wrapper.append("<div class=\"ch-lens\">");
-		showcase.lens = showcase.wrapper.find(".ch-lens");
+		showcase.lens = $("<div class=\"ch-lens\">").bind("click", function(){ that.children[1].show() }).hide();
 		
+		showcase.wrapper
+			.append( showcase.display )
+			.append( showcase.lens ) // Magnifying glass
+			.bind("mouseover", function(){ showcase.lens.fadeIn(400); }) // Show magnifying glass
+			.bind("mouseleave", function(){ showcase.lens.fadeOut(400); }) // Hide magnifying glass			
+			.appendTo( $viewer );
+		
+		// Position magnifying glass
 		ui.positioner({
 	        element: showcase.lens,
 	        context: showcase.wrapper
 		});
 		
-		showcase.lens
-			.hide()			
-			.bind("click", function(){ viewerModal.modal.show() });
-		
-		showcase.wrapper
-			.bind("mouseover", function(){ showcase.lens.fadeIn(400); }) // Show magnifying glass
-			.bind("mouseleave", function(){ showcase.lens.fadeOut(400); }); // Hide magnifying glass			
-
-		showcase.children = showcase.display.find("a");
-		showcase.itemWidth = $(showcase.children[0]).parent().outerWidth();
-		
-		// Set content visual config
+		// Set visual config of content
 		var extraWidth = (ui.utils.html.hasClass("ie6")) ? showcase.itemWidth : 0;
-		showcase.display
-			.css('width', (showcase.children.length * showcase.itemWidth) + extraWidth )
-			.addClass("ch-viewer-content")
+		showcase.display.css("width", (showcase.children.length * showcase.itemWidth) + extraWidth );
 			
-		
 		// Showcase functionality
 		showcase.children.bind("click", function(event){
 			that.prevent(event);
-			viewerModal.modal.show();
+			that.children[1].show();
 		});
 
-
+	
+	// Generic list creation
+	var createList = function(type){
+		var list = $("<ul>").addClass("carousel");
+		
+		$.each(showcase.items, function(i, e){
+			var page = i + 1;
+		
+			var image = $("<img>").attr("src", (type == "thumb") ? $(e).children("link[rel=thumb]").attr("href") : bigImages[i]); // Thumbnails source vs. Big images source
+			
+			if(type == "thumb") {
+				image.bind("click", function(event){
+					that.prevent(event);
+					that.move(page);
+				});
+			};
+			
+			$("<li>").append( image ).appendTo( list );
+		});
+				
+		return list;
+	};
+		
+	
+	
 	/**
 	 * 	Thumbnails
 	 */
 	var thumbnails = {};
+	
+		thumbnails.structure = createList("thumb");
+		thumbnails.children = thumbnails.structure.children();
 		thumbnails.selected = 1;
-		thumbnails.wrapper = $("<div>").addClass("ch-viewer-triggers");
 		
-		// Create carousel structure
-		$viewer.append( thumbnails.wrapper.append( $viewer.find("ul").clone().addClass("carousel") ) );
-		 
-		thumbnails.children = thumbnails.wrapper.find("img");
+		thumbnails.wrapper = $("<div>")
+			.addClass("ch-viewer-triggers")
+			.bind("mouseenter", function(){
+				showcase.lens.fadeOut(400); // It hides magnifying glass
+			})
+			.append( thumbnails.structure )
+			.appendTo( $viewer );
 		
-		// Thumbnails behavior
-		thumbnails.children.each(function(i, e){
-			// Change image parameter (thumbnail size)
-			$(e)
-			    .attr("src", $(e).attr("src").replace("v=V", "v=M"))
-			    .unwrap()
-			    // Thumbnail link click
-			    .bind("click", function(event){
-		            that.prevent(event);
-		            that.move(i+1);
-			 });
-			 
-		});
+		thumbnails.carousel = that.children[0] = thumbnails.wrapper.carousel();
 		
-		// Inits carousel
-		that.children[0] = thumbnails.carousel = thumbnails.wrapper.carousel();
+	
+	
+	/**
+	 * 	Zoom
+	 */
+	var checkZoomImages = function(modal){
+		
+		var zoomImages = [];
+		
+		$.each(showcase.items, function(i, e){
 			
-		// Hide magnifying glass
-		thumbnails.wrapper.bind("mouseenter", function(){
-			showcase.lens.fadeOut(400);
+			// Zoom image source
+			var src = $(e).children("link[rel=zoom]").attr("href");
+			
+			// If it has not zoom, continue
+			if(!src) return;
+			
+			var image = $("<img>")
+				.attr("src", src)
+				.addClass("ch-viewer-zoomed")
+				.bind("click", function(){ $(this).fadeOut(); }) // Fade Out
+				.bind("mousemove", function(event){ zoomMove(event); }) // Movement
+				.appendTo( modal )
+				.hide();
+			
+			var zoomMove = function(event){
+				var offset = modal.offset();
+				
+				var diff = {
+					x: image.outerWidth() / modal.outerWidth() - 1,
+					y: image.outerHeight() / modal.outerHeight() - 1
+				};
+				
+				image.css({
+					left: -(event.pageX - offset.left) * diff.x + "px",
+					top: -(event.pageY - offset.top) * diff.y + "px"
+				});
+			};
+			
+			// Create zoom functionality
+			var zoomable = $("<a>")
+				.attr("href", src)
+				.addClass("ch-viewer-zoomable")
+				.bind("click", function(event){
+					that.prevent(event);
+					zoomMove(event);
+					image.fadeIn();
+				}); // FadeIn
+			
+			// Append link to image in modal
+			modal.find("img").eq(i).wrap( zoomable );
+			
+			// Add source to preload
+			zoomImages.push(src);
 		});
-
 		
- 
+		// Preload if there are zoom images
+		if(zoomImages.length > 0) ui.preload(zoomImages);
+	};
+	
+	
+	/**
+	 * 	Modal
+	 */
+	that.children[1] = $("<div>").modal({
+		content: "<div class=\"ch-viewer-modal\"></div>",
+		width:600,
+		onShow: function(){ // TODO: Deberia cachear el contenido para evitar recalcular todo
+		
+			var modalContent = $(".ch-viewer-modal");
+		
+			// Create list + reset position + append it
+			createList("big").css("left", 0).appendTo( modalContent );
+			
+			// Zoom process
+			checkZoomImages(modalContent);
+		
+			// Init carousel and move to position of item selected on thumbs
+			that.children[2] = modalContent.carousel({ pager: true }).moveTo( thumbnails.selected );
+			
+			// Refresh modal position
+			this.position("refresh");
+		},
+		onHide: function(){
+		
+			// Reset modal content
+			$(".ch-viewer-modal").html("").removeClass("ch-carousel");
+		
+			// Thumbnails syncro (select thumb that was selected in modal)
+			that.move( that.children[2].getPage() );
+			
+			// Delete modal instance // TODO pasar funcionalidad al object ("that.destroy"?)
+			for(var i = 0, j = ui.instances.carousel.length; i < j; i += 1){
+				if(ui.instances.carousel[i].element === that.children[2].element){
+					ui.instances.carousel.splice(i, 1);
+					return;
+				};
+			};
+		}
+	});
+
+
 /**
  *  Protected Members
  */ 
 
-	that.children[1] = viewerModal.modal = $("<a>").modal({
-		content: "<div class=\"ch-viewer-modal-content\">",
-		width:600,
-		height:545,
-		onShow: viewerModal.showContent,
-		onHide: viewerModal.hideContent
-	});
-	
 	that.move = function(item){
 
 		// Validation
@@ -181,25 +228,19 @@ ui.viewer = function(conf){
 		var nextPage = Math.ceil( item / visibles ); // Page of "item"
 
 		// Visual config
-		$(thumbnails.children[thumbnails.selected-1]).removeClass("ch-thumbnail-on"); // thumbnails.children[0] first children
-		$(thumbnails.children[item-1]).addClass("ch-thumbnail-on");
+		$(thumbnails.children[thumbnails.selected - 1]).removeClass("ch-thumbnail-on"); // Disable thumbnail
+		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
 
 		// Content movement
-		var movement = { left: (-item+1) * showcase.itemWidth };
+		var movement = { left: (-item + 1) * showcase.itemWidth };
 		
-		// Have CSS3 Transitions feature?
-		if(ui.features.transition) {
-			showcase.display.css(movement);
+		// CSS3 Transitions vs jQuery magic
+		if(ui.features.transition) showcase.display.css(movement); else showcase.display.animate(movement);
 		
-		// Why not!!! Ok, ok.. let JQuery do the magic...
-		} else {
-			showcase.display.animate(movement);
-		};
-		
-		// Trigger movement
+		// Move thumbnails carousel if item selected is on another page
 		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
 
-		// Selected
+		// Refresh selected thumb
 		thumbnails.selected = item;
 
 		// Callback
@@ -245,15 +286,15 @@ ui.viewer = function(conf){
 	// Default behavior (Move to the first item and without callback)
 	that.move(1);
 	
-	// Preload big imgs on document loaded
-	var bigImgs = [];
+	// Preload big images on document load
+	var bigImages = [];
 	ui.utils.window.load(function(){
-		setTimeout(function(){			
+		//setTimeout(function(){
 			showcase.children.each(function(i, e){
-				bigImgs.push( $(e).attr("href") ); // Image source change
+				bigImages.push( $(e).attr("href") ); // Image source change
 			});
-			ui.preload(bigImgs);
-		},250);
+			ui.preload(bigImages);
+		//},250);
 	});
 
 	
