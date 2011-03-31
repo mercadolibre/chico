@@ -1,0 +1,50 @@
+.ch-accordion {
+	max-width:300px;
+	border-top:1px solid #ccc;
+}
+
+.ch-bellows-trigger,
+.ch-bellows a {
+	font-size:13px;
+	cursor:pointer;
+	text-decoration:none!important;
+	color:#333!important;
+	display:block;
+}
+
+.ch-bellows-trigger {
+	border-bottom:1px solid #ccc;
+	padding:3px 0 3px 5px;
+}
+
+.ch-bellows-trigger .ch-arrow {
+	width:16px;
+	height:16px;
+	background-image: url('../src/assets/expando.png');
+	background-position: 0 -1px;
+	background-repeat:no-repeat;
+	float:right;
+	text-indent:999px;
+	overflow:hidden;
+}
+
+.ch-bellows-trigger:hover .ch-arrow {
+	background-position: 0 -17px;
+}
+
+.ch-bellows-trigger.ch-bellows-on .ch-arrow {
+	background-position: 0 -32px;
+}
+
+.ch-bellows-trigger:hover,
+.ch-bellows-content li:hover {
+	background-color:#FCF8D0;
+}
+
+.ch-bellows-content {
+	border-bottom:1px solid #ccc;
+}
+
+.ch-bellows-content li {
+	padding:3px 0 3px 20px;
+}

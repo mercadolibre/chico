@@ -27,6 +27,66 @@
 	
 	<body>
 		<h1></h1>
+		
+		
+		
+		<div class="article demo">
+
+			<h1>Accordion</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<ul class="demoAccordion">
+						<li>
+							<span>Sitios</span>
+							<ul>
+
+								<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+								<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+								<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+								<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">Link</a>
+						</li>
+						<li>
+							<span>Sitios</span>
+							<ul>
+
+								<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+								<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+								<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+								<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+							</ul>
+						</li>
+						<li>
+							<span>Sitios</span>
+							<ul>
+
+								<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+								<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+								<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+								<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+							</ul>
+						</li>
+						<li>
+							<span>Sitios</span>
+							<ul>
+
+								<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+								<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+								<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+								<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		
+		
 		<h1>CodeLighter</h1>
 		<div class="box">
 			<code>
@@ -697,14 +757,18 @@ div p.keywords{color:darkorange;}
             if ( $first.height() < $second.height() ) { $first.height( $second.height() ); } 
             
         });
-
-		// Automatic version
+        
+        // Automatic version
         var title = $('head title').html() + ' ' + ui.version;
         document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
         document.getElementsByTagName("h1")[0].innerHTML = title;
  
 		// Components
         var ui_drop = $('.demoDropdown').dropdown();
+        
+        var ui_acc = $('.demoAccordion').accordion({
+        	selected: 2
+        });
 
         var ui_caro = $('.demoCarousel').carousel({
         	onMove: function(){ /*console.log("Callback onMove OK!")*/ }
@@ -749,7 +813,7 @@ div p.keywords{color:darkorange;}
 		var nv6 = $('#val_required_disabled, #val_select2, #val_select3, .val_check2, .val_check3, .val_radio2, .val_radio3, #val_textarea2, #val_textarea3').required();
 		
 
-		uiForm.submit();
+		//uiForm.submit();
 		
 		var ui_view = $(".viewerDemo").viewer();
 

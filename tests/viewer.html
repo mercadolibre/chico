@@ -12,39 +12,48 @@
     <!-- #body -->
 	<h1>Chico-UI: Viewer testcases</h1>
 	<div class="testViewer">
-        <ul>
-            <li>
-                <a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=O" target="_blank">
-                    <img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_9736.jpg&v=V">
-                </a>
-            </li>
-            <li>
-                <a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank">
-                    <img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
-                </a>
-            </li>
-            <li>
-                <a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blank">
-                    <img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
-                </a>
-            </li>
-            <li>
-                <a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank">
-                    <img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
-                </a>
-            </li>
-            <li>
-                <a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blank">
-                    <img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
-                </a>
-            </li>
-            <li>
-                <a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blank">
-                    <img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
-                </a>
-            </li>
-        </ul>
-    </div>
+		<ul>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=M" itemprop="thumb" />
+				<link rel="zoom" href="http://10.100.34.210:8080/content/chico/0.5.5/labs/zoom/prototipo2/src/58557491_8009.jpg" itemprop="zoom" />
+			</li>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=M" itemprop="thumb" />
+				<link rel="zoom" href="http://cachepe.zzounds.com/media/quality,85/p41133-11a00daf7859d92ccd3a960b8e2262d5.jpg" itemprop="zoom" />
+			</li>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=M" itemprop="thumb" />
+			</li>
+
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=M" itemprop="thumb" />
+			</li>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=M" itemprop="thumb" />
+			</li>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=M" itemprop="thumb" />
+			</li>
+		</ul>
+	</div>
 
 <!-- #body -->
 	<hr>
@@ -76,6 +85,24 @@
 		 * 	Test Cases
 		 */
 
+		module("HTML Snippet");
+		
+		test("Necesary elements to init Viewer", function(){
+
+			expect( 4 );
+
+			var li = $(".testViewer").find("li").eq(0);
+			
+			exists(li.children("a"));
+			
+			exists(li.find("img"));
+			
+			exists(li.children("link[rel=thumb]"));
+			
+			exists(li.children("link[rel=zoom]"));
+			
+		});
+		
 		module("Viewer instance object");
        
 		test("Viewer public properties", function(){
@@ -222,11 +249,11 @@
 			
 			expect ( 2 );
 			
-			notExists(".ch-viewer-modal-content");
+			notExists(".ch-viewer-modal");
 			
 			$(".ch-lens").click();
 			
-			exists(".ch-viewer-modal-content");
+			exists(".ch-viewer-modal");
 			
 			$(".ch-dimmer").click();
 			
@@ -283,6 +310,38 @@
 			equal( viewer.children[2].type, "carousel", "Expected to find a \"carousel\" child on third instance of children" );
 			
 		});
+		
+		
+		
+		module("Viewer zoom interaction");
+		
+		test("Zoom on square image", function(){
+			
+			expect ( 6 );
+			
+			viewer.moveTo(1);
+			
+			$(".ch-lens").click();
+			
+			var link = $(".ch-viewer-modal .ch-carousel-content").children().eq(0).children("a");
+			
+			exists(link);
+			
+			hasClass(link, "ch-viewer-zoomable");
+			
+			equal(link.css("cursor").slice(-7), "zoom-in", "Expected to find Zoom In cursor");
+			
+			notExists(".ch-viewer-zoomed");
+			
+			link.click();
+			
+			exists(".ch-viewer-zoomed");
+			
+			equal($(".ch-viewer-zoomed").css("cursor").slice(-8), "zoom-out", "Expected to find Zoom In cursor");
+			
+			$(".ch-dimmer").click();
+		});
+		
 		
 		
 		
