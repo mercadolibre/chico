@@ -48,6 +48,8 @@ ui.accordion = function(conf){
 			that.children[ bellows ].show();
 		};
 		
+		that.callbacks("onSelect");
+		
 		return that.public;
 	};	
 	
@@ -69,8 +71,12 @@ ui.accordion = function(conf){
 			list.type = "bellows";
 			list.element = e;
 			list.$element = $(e);
-			// conf.selected -> It can be "2" or "2#1"
-			list.open = conf.hasOwnProperty("selected") && (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
+			// Selected -> It can be for example"2" or "2#1"
+			if(conf.hasOwnProperty("selected")) {
+				list.open = (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
+			} else {
+				list.open = false;
+			};
 			
 		that.children.push( ui.bellows.call(list, that) );
 	});
