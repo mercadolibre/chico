@@ -315,9 +315,9 @@
 		
 		module("Viewer zoom interaction");
 		
-		test("Zoom on square image", function(){
+		test("Zoom on image", function(){
 			
-			expect ( 6 );
+			expect ( 5 );
 			
 			viewer.moveTo(1);
 			
@@ -331,7 +331,7 @@
 			
 			equal(link.css("cursor").slice(-7), "zoom-in", "Expected to find Zoom In cursor");
 			
-			notExists(".ch-viewer-zoomed");
+			//notExists(".ch-viewer-zoomed");
 			
 			link.click();
 			

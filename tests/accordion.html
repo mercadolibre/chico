@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Accordion - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=accordion">
+	<link href="../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- #body -->
+	<h1>Chico-UI: Accordion testcases</h1>
+    <hr />
+    <div class="box">
+	    <h2>Accordion</h2>
+	    <ul class="testAccordion">
+			<li>
+				<span>Buy</span>
+				<ul>
+
+					<li><a href="#">Following</a></li>
+					<li><a href="#">Questions</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Sell</span>
+				<ul>
+
+					<li><a href="#">Answers</a></li>
+					<li><a href="#">Items</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Payments</span>
+				<ul>
+					<li><a href="#">Example 1</a></li>
+					<li><a href="#">Example 2</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Tools</a>
+			</li>
+		</ul>
+    </div>
+    
+    <div class="box">
+	    <h2>Menu</h2>
+	    <ul class="testMenu">
+			<li>
+				<span>Buy</span>
+				<ul>
+
+					<li><a href="#">Following</a></li>
+					<li><a href="#">Questions</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Sell</span>
+				<ul>
+
+					<li><a href="#">Answers</a></li>
+					<li><a href="#">Items</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Payments</span>
+				<ul>
+					<li><a href="#">Example 1</a></li>
+					<li><a href="#">Example 2</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Tools</a>
+			</li>
+		</ul>
+    </div>
+	
+<!-- #body -->
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../libs/js/jquery.js"></script>
+	<script src="../libs/js/qunit.js"></script>
+	<script src="../php/packer.php?get=accordion&debug=true"></script>
+	<script src="functions.js"></script>
+	
+<!-- #script -->
+	<script>
+
+		var testAccordion = $(".testAccordion").accordion({
+			selected:0,
+			onSelect: function(){
+				$("body").addClass("onSelect");
+			}
+		});
+		var testMenu = $(".testMenu").menu({selected:0});
+		
+		$.fx.off = true;
+
+		/**
+		 * 	Test Cases
+		 */
+
+		module("Accordion instance object");
+		
+        test("Accordion public properties", function(){
+
+            expect( 3 );
+
+       		ok( testAccordion.uid >= 0 , "Expected to find a \"uid\" attribute on the accordion instance");
+       		
+    		ok( testAccordion.type == "accordion" , "Expected to find \"accordion\" as value of type attribute");
+    		
+    		ok( testAccordion.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+
+        });
+        
+        test("Accordion public methods", function(){
+
+            expect( 1 );
+    		
+    		ok( testAccordion.hasOwnProperty("select"), "Expected to find a \"select\" method" );
+    		
+        });
+        
+		
+		test("Accordion chain methods", function(){
+            
+            expect ( 3 );
+            
+            var testAccordionOriginal = testAccordion;
+            
+            var chainSelect1 = testAccordion.select(0);
+            
+            var chainSelect2 = testAccordion.select(1);
+
+            var chained = testAccordion.select(0).select(1);
+             
+            ok ( chainSelect1 === testAccordionOriginal, "Expected to return original instance object on first select() method call");
+            
+            ok ( chainSelect2 === testAccordionOriginal, "Expected to return original instance object on second select() method call");
+
+            ok ( chained === testAccordionOriginal, "Expected to return original instance object on .select(0).select(1) methods chained call");
+            
+        });
+        
+        module('Accordion layout and interaction');
+
+		var $triggerAccordion =  $(".testAccordion").children().eq(0).children(":first");
+		var $contentAccordion = $triggerAccordion.next();
+		
+		var $triggerAccordion2 =  $(".testAccordion").children().eq(1).children(":first");
+		var $contentAccordion2 = $triggerAccordion2.next();
+		
+		test('Check for the right visual classes', function() {
+			
+			expect( 3 );
+			
+			hasClass('.testAccordion', 'ch-accordion');
+			hasClass($triggerAccordion, 'ch-bellows-trigger');
+			hasClass($contentAccordion, 'ch-bellows-content');
+			
+		});
+		
+		test('Open Accordion child', function() {
+			
+			expect( 4 );
+			
+			$triggerAccordion2.click();
+			
+			isNotVisible($contentAccordion);
+			
+			hasNotClass($triggerAccordion, 'ch-bellows-on');
+			
+			isVisible($contentAccordion2);
+			
+			hasClass($triggerAccordion2, 'ch-bellows-on');
+			
+		});
+		
+		test('Avoiding close child, clicking on component trigger', function() {
+			
+			expect( 2 );
+			
+			$triggerAccordion2.click();
+			
+			isVisible($contentAccordion2);
+			
+			hasClass($triggerAccordion2, 'ch-bellows-on');
+			
+		});
+		
+		var $triggerAccordion3 =  $(".testAccordion").children().eq(2).children(":first");
+		var $contentAccordion3 = $triggerAccordion3.next();
+		
+		test('Open Accordion child throwgh public methods', function() {
+			
+			expect( 2 );
+			
+			testAccordion.select(2);
+			
+			isVisible($contentAccordion3);
+			
+			hasClass($triggerAccordion3, 'ch-bellows-on');
+			
+		});
+		
+		test('Open Accordion grandson throwgh public methods', function() {
+			
+			expect( 3 );
+			
+			testAccordion.select("0#1");
+			
+			isVisible($contentAccordion);
+			
+			hasClass($triggerAccordion, 'ch-bellows-on');
+			
+			exists($contentAccordion.find("a.ch-bellows-on"));
+			
+		});
+		
+				
+		module('Accordion callbacks');
+		
+		test('Accordion callback on select', function() {
+			
+			expect ( 1 );
+			
+			testAccordion.select(0);
+			
+			hasClass("body", "onSelect");
+			
+			$("body").removeClass("onSelect");
+
+       	});
+       	
+       	
+		
+		var $triggerMenu =  $(".testMenu").children().eq(0).children(":first");
+		var $contentMenu = $triggerMenu.next();
+		
+		var $triggerMenu2 =  $(".testMenu").children().eq(1).children(":first");
+		var $contentMenu2 = $triggerMenu2.next();
+		
+		
+       	module('Menu interface');
+       	
+       	
+       	test('Menu open by configuration', function() {
+			
+			expect( 2 );
+			
+			isVisible($contentMenu);
+			
+			hasClass($triggerMenu, 'ch-bellows-on');
+						
+		});
+		
+		test('Open Menu child', function() {
+			
+			expect( 6 );
+			
+			isNotVisible($contentMenu2);
+			
+			hasNotClass($triggerMenu2, 'ch-bellows-on');
+			
+			$triggerMenu2.click();
+			
+			isVisible($contentMenu);
+			
+			hasClass($triggerMenu, 'ch-bellows-on');
+			
+			isVisible($contentMenu2);
+			
+			hasClass($triggerMenu2, 'ch-bellows-on');
+			
+		});
+		
+		test('Close child, clicking on component trigger', function() {
+			
+			expect( 2 );
+			
+			$triggerMenu2.click();
+			
+			isNotVisible($contentMenu2);
+			
+			hasNotClass($triggerMenu2, 'ch-bellows-on');
+			
+		});
+
+	</script>
+
+</body>
+</html>
