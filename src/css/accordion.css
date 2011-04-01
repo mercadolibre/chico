@@ -48,3 +48,7 @@
 .ch-bellows-content li {
 	padding:3px 0 3px 20px;
 }
+
+.ch-bellows-content .ch-bellows-on {
+	font-weight:bold;
+}

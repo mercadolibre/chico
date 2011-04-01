@@ -25,18 +25,7 @@ ui.accordion = function(conf){
 
     that = ui.controllers.call(that);
     that.parent = ui.clon(that);
-
-/**
- *  Private Members
- */
-	
-	var generateMenu;
-
-/**
- *  Protected Members
- */ 
  
-    
 /**
  *  Public Members
  */
@@ -59,9 +48,7 @@ ui.accordion = function(conf){
     // Create children
 	$.each(that.$element.children(), function(i, e){
 		
-		$(e).children().eq(0).addClass("ch-bellows-trigger");
-		
-		// Only lists
+		// Links are pushed directly
 		if($(e).children().eq(1).attr("tagName") != "UL") {
 			that.children.push($(e));
 			return;
@@ -72,8 +59,9 @@ ui.accordion = function(conf){
 			list.type = "bellows";
 			list.element = e;
 			list.$element = $(e);
-			list.open = conf.hasOwnProperty("selected") && conf.selected == i;
-	
+			// conf.selected -> It can be "2" or "2#1"
+			list.open = conf.hasOwnProperty("selected") && (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
+			
 		that.children.push( ui.bellows.call(list, that) );
 	});
     
@@ -101,11 +89,6 @@ ui.bellows = function(controller){
     that = ui.navs.call(that);
     that.parent = ui.clon(that);
 	that.controller = controller;
-
-/**
- *  Private Members
- */
-	
 	
 /**
  *  Protected Members
@@ -120,12 +103,24 @@ ui.bellows = function(controller){
 	that.show = function(event){
 		that.prevent(event);
 		
-		// Toggle
-		if ( that.active ) return that.hide(event);
+		// Accordion behavior
+		if(!controller.conf.menu) {
+			
+			// Hide last active
+			$.each(controller.children, function(i, e){
+				if(e.hasOwnProperty("active") && e.active == true && e.element !== that.element) e.hide();
+			});
+			
+		} else {
+			// Toggle
+			if ( that.active ) return that.hide(event);
+		};
 		
-        that.parent.show(event);
-		
-		return that;
+        that.$content.slideDown("fast", function(){
+	        that.parent.show(event);
+        });
+        
+        return that;
     };
 	
     that.hide = function(event){
@@ -134,30 +129,33 @@ ui.bellows = function(controller){
     	// Toggle
     	if (!that.active) return;
     	
-        that.parent.hide(event);
+    	that.$content.slideUp("fast", function(){
+    		that.parent.hide(event);
+    	});
         
         return that;
 	};
 	
 /**
- *  Public Members
- */
-	
-	
-/**
  *  Default event delegation
  */	 	
 	
-	// Closed by default
+	// Selection
 	if(that.open) {
 		that.active = true;
 		that.$trigger.addClass("ch-bellows-on");
+		
+		// L2 selection
+		if(typeof that.open == "string") that.$content.find("a").eq( parseInt(that.open) ).addClass("ch-bellows-on");
+	
+	// Closed by default
 	} else {
 		that.$content.hide();
 	};
 	
 	// Trigger
 	that.$trigger
+		.addClass("ch-bellows-trigger")
 		.bind("click", function(event){ that.show(event) })
 		.append("<span class=\"ch-arrow\"> &raquo;</span>");
 
@@ -169,3 +167,21 @@ ui.bellows = function(controller){
 	
 	return that;
 };
+
+
+/**
+ *	@Interface Menu
+ *	@return An interface object
+ */
+
+ui.menu = function(conf) {
+    
+    conf = conf || {};
+	
+	conf.menu = true;
+	
+	return ui.accordion.call(this, conf);
+    
+};
+
+ui.factory({ component: 'menu' });

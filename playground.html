@@ -38,47 +38,83 @@
 					<h2>Demo</h2>
 					<ul class="demoAccordion">
 						<li>
-							<span>Sitios</span>
+							<a href="http://www.google.com">Resumen</a>
+						</li>
+						<li>
+							<span>Comprar</span>
 							<ul>
 
-								<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-								<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-								<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-								<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+								<li><a href="http://www.mercadolibre.com">En seguimiento</a></li>
+								<li><a href="http://www.mercadopago.com">Preguntas</a></li>
+								<li><a href="http://www.mercadoshops.com">Compras</a></li>
 							</ul>
 						</li>
 						<li>
-							<a href="#">Link</a>
-						</li>
-						<li>
-							<span>Sitios</span>
+							<span>Vender</span>
 							<ul>
 
-								<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-								<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-								<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-								<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+								<li><a href="http://www.mercadolibre.com">Preguntas</a></li>
+								<li><a href="http://www.mercadopago.com">Publicaciones</a></li>
+								<li><a href="http://www.mercadoshops.com">Ventas</a></li>
 							</ul>
 						</li>
 						<li>
-							<span>Sitios</span>
+							<span>Facturas</span>
 							<ul>
-
-								<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-								<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-								<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-								<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+								<li><a href="http://www.mercadolibre.com">Facturas 1</a></li>
+								<li><a href="http://www.mercadopago.com">Facturas 2</a></li>
 							</ul>
 						</li>
 						<li>
-							<span>Sitios</span>
+							<a href="http://www.google.com">Mi perfil</a>
+						</li>
+						<li>
+							<a href="http://www.google.com">Herramientas</a>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			
+			
+			<h1>Menu</h1>
+			<div class="section">
+				<div class="box">
+					<h2>Demo</h2>
+					<ul class="demoMenu">
+						<li>
+							<a href="http://www.google.com">Resumen</a>
+						</li>
+						<li>
+							<span>Comprar</span>
 							<ul>
 
-								<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-								<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-								<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-								<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+								<li><a href="http://www.mercadolibre.com">En seguimiento</a></li>
+								<li><a href="http://www.mercadopago.com">Preguntas</a></li>
+								<li><a href="http://www.mercadoshops.com">Compras</a></li>
 							</ul>
+						</li>
+						<li>
+							<span>Vender</span>
+							<ul>
+
+								<li><a href="http://www.mercadolibre.com">Preguntas</a></li>
+								<li><a href="http://www.mercadopago.com">Publicaciones</a></li>
+								<li><a href="http://www.mercadoshops.com">Ventas</a></li>
+							</ul>
+						</li>
+						<li>
+							<span>Facturas</span>
+							<ul>
+								<li><a href="http://www.mercadolibre.com">Facturas 1</a></li>
+								<li><a href="http://www.mercadopago.com">Facturas 2</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="http://www.google.com">Mi perfil</a>
+						</li>
+						<li>
+							<a href="http://www.google.com">Herramientas</a>
 						</li>
 					</ul>
 				</div>
@@ -767,6 +803,10 @@ div p.keywords{color:darkorange;}
         var ui_drop = $('.demoDropdown').dropdown();
         
         var ui_acc = $('.demoAccordion').accordion({
+        	selected: "1#0"
+        });
+        
+        var ui_menu = $('.demoMenu').menu({
         	selected: 2
         });
 
