@@ -25,7 +25,11 @@ ui.accordion = function(conf){
 
     that = ui.controllers.call(that);
     that.parent = ui.clon(that);
- 
+
+/**
+ *  Protected Members
+ */
+
 /**
  *  Public Members
  */
@@ -34,12 +38,18 @@ ui.accordion = function(conf){
 	that.public.element = that.element;
 	that.public.type = that.type;
 	that.public.children = that.children;
-	that.public.select = function(tab){
-		that.select(tab);
+	that.public.select = function(bellows){
+		
+		if(typeof bellows == "string") {
+			var sliced = bellows.split("#");
+		
+			that.children[ sliced[0] ].select( sliced[1] );
+		} else {
+			that.children[ bellows ].show();
+		};
 		
 		return that.public;
 	};	
-	that.public.getSelected = function(){ return selected; };
 	
 /**
  *  Default event delegation
@@ -106,6 +116,10 @@ ui.bellows = function(controller){
 		// Accordion behavior
 		if(!controller.conf.menu) {
 			
+			var child = that.$element.find("a.ch-bellows-on");
+			
+			if(child.length > 0) child.removeClass("ch-bellows-on");
+			
 			// Hide last active
 			$.each(controller.children, function(i, e){
 				if(e.hasOwnProperty("active") && e.active == true && e.element !== that.element) e.hide();
@@ -136,22 +150,20 @@ ui.bellows = function(controller){
         return that;
 	};
 	
+	that.select = function(child) {
+		that.show();
+		
+		// L2 selection
+		that.$content.find("a").eq( child ).addClass("ch-bellows-on");
+	};
+	
+	
 /**
  *  Default event delegation
  */	 	
 	
-	// Selection
-	if(that.open) {
-		that.active = true;
-		that.$trigger.addClass("ch-bellows-on");
-		
-		// L2 selection
-		if(typeof that.open == "string") that.$content.find("a").eq( parseInt(that.open) ).addClass("ch-bellows-on");
-	
 	// Closed by default
-	} else {
-		that.$content.hide();
-	};
+	if(that.open) that.select( parseInt(that.open) ); else that.$content.hide();
 	
 	// Trigger
 	that.$trigger
