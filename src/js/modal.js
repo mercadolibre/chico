@@ -73,13 +73,7 @@ ui.modal = function(conf){
 	};
 	
 	that.hide = function(event) {
-		dimmer.off();
-
-		// If not cache, return content to body
-		if ( conf.cache == false && $(conf.content).length > 0 ) {
-			that.$content.children().appendTo("body").fadeOut();
-		};
-		
+		dimmer.off();		
 		that.parent.hide(event);
 
 		return that;

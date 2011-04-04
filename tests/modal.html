@@ -428,12 +428,12 @@
 		});
 		
 		test("Modal with cache false", function(){
-			expect( 1 );
-
-    		testModalCache.show();    		
+			expect( 2 );
+			
+    		testModalnoCache.show();
     		notExists("body > #testCache");
     		
-    		testModalCache.hide();
+    		testModalnoCache.hide();
     		exists("body > #testCache");
 			
 		});

@@ -781,7 +781,6 @@ div p.keywords{color:darkorange;}
 		</form>
 	</div>
 	
-	
 	<!-- Organization -->
 	<script>
 
@@ -817,8 +816,8 @@ div p.keywords{color:darkorange;}
         var ui_moda = $('.demoModal').modal({
         	width: 350,
         	height: 400,
-        	cache: false,
-        	content: "#modalContent",        	
+        	cache: true,
+        	content: "body div#modalContent",
         	onShow: function(){ $("#modalContent h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
         	onContentLoad: function(){},
         	onContentError: function(){ /*console.log("Content Error")*/ },
@@ -828,8 +827,8 @@ div p.keywords{color:darkorange;}
         var ui_trans1 = $(".demoTransition1").transition("Espere mientras pruebo la transición. Gracias papi."); 
         var ui_trans2 = $(".demoTransition2").transition(); 
         
-        var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: '<p>foo</p>' });
-        var ui_layr = $('.demoLayerOnmouseover').layer({ content: "#list-layer"/*"<p>asdsadas dsa dasd asd asdasd asd a</p><div style=\"margin-top:50px;width:50px;height:50px;\">asd <form><input /></form></div>"*/ });
+        var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: "<p>foo</p>" });
+		var ui_layr = $('.demoLayerOnmouseover').layer({ content: "#list-layer"/*"<p>asdsadas dsa dasd asd asdasd asd a</p><div style=\"margin-top:50px;width:50px;height:50px;\">asd <form><input /></form></div>"*/ });
         var ui_tool = $('.demoTooltip').tooltip();
         var ui_tabs = $('.demoTabNavigator').tabNavigator({
         	onSelect: function(){ /*console.log("Callback onSelect OK!")*/ }
