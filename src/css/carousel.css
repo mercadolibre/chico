@@ -47,17 +47,16 @@
 	overflow:hidden;
 }
 
+.ch-carousel .ch-prev-on,
+.ch-carousel .ch-next-on {
+	cursor:pointer;
+}
+
 .ch-carousel .ch-prev-on span,
 .ch-carousel .ch-next-on span {
 	background-image: url('../src/assets/carousel.png');
 	background-repeat: no-repeat;
 }
-
-.ch-carousel .ch-prev-on:hover,
-.ch-carousel .ch-next-on:hover {
-	cursor:pointer;
-}
-
 
 .ch-carousel .ch-prev-on span{
 	background-position: -2px -2px;
@@ -105,5 +104,5 @@
 }
 
 .ie6 .ch-carousel .ch-prev{
-	left: -15px;
+	left: 5px;
 }

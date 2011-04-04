@@ -436,6 +436,51 @@ hr {
 .ie7 .actions a, {
 	display:inline-block;margin-bottom:5px;
 }
+  
+
+/**
+ * Pagination
+ */  
+     
+
+.pagination {
+	clear:both;
+	margin:10px 0;
+	}
+    		
+.pagination li {
+	display:inline-block;
+	margin:0px 4px;
+    }
+    		
+.pagination li a, 
+.pagination li.current {
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	padding: 3px 8px;
+	display:inline-block; /* same shape */
+	border:1px solid #ccc;
+   	}
+    		
+.pagination li a:hover{
+	color:#fff;
+	text-decoration:none;
+	background-color:#0637b3;
+	border:1px solid #0637b3;
+   	}
+		
+.pagination li.current {
+	border:1px solid #ededed;
+	background:#ededed;
+	color:#0637b3; 
+	font-weight: bold;
+	}
+    
+.pagination li:first-child a, 
+.pagination li:last-child a {
+	border:none;
+	}
      
 
 /**

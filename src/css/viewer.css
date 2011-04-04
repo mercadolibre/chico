@@ -3,6 +3,7 @@
 	border:1px solid #ccc;
 	width:340px;
 	overflow:hidden;
+	background-color:#fff;
 }
 
 /* Showcase area */
@@ -49,7 +50,7 @@
 .ch-viewer-triggers li {
 	width:40px;
 	height:40px;
-	border:1px solid transparent;
+	border:1px solid #fff;
 	cursor:pointer;
 }
 
@@ -100,26 +101,34 @@
 }
 
 
+/* IE 6,7,8 */
+.ie6 .ch-viewer-zoomable,
+.ie7 .ch-viewer-zoomable,
+.ie8 .ch-viewer-zoomable,
+.ie6 .ch-viewer-zoomed,
+.ie7 .ch-viewer-zoomed,
+.ie8 .ch-viewer-zoomed, {
+	cursor:pointer;
+}
+
 
 /* IE 6 */
-.ie6 .ch-viewer-modal-content{
-	top:20px;
-}
-
-.ie6 .ch-viewer .ch-viewer-triggers img{
-	width:40px;
-	height:40px;
-}
-
-.ie6 .ch-viewer-triggers .prev{
+.ie6 .ch-viewer-triggers .ch-prev {
 	left: -30px;
 }
 
-.ie6 .ch-viewer-triggers .next{
+.ie6 .ch-viewer-triggers .ch-next {
 	right: 10px;
 }
 
-/* IE 7 */
-.ie7 .ch-viewer-modal-content{
-	top:20px;
+.ie6 .ch-modal {
+	overflow:hidden;
+}
+
+.ie6 .ch-viewer-modal .ch-pager {
+	bottom:30px;
+}
+
+.ie6 .ch-viewer .ch-lens {
+	background-position:-2px -1px;
 }
