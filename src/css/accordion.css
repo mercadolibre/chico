@@ -6,6 +6,8 @@
 .ch-bellows-trigger,
 .ch-bellows a {
 	font-size:13px;
+	height:26px;
+	line-height:26px;
 	cursor:pointer;
 	text-decoration:none!important;
 	color:#333!important;
@@ -14,16 +16,19 @@
 
 .ch-bellows-trigger {
 	border-bottom:1px solid #ccc;
-	padding:3px 0 3px 5px;
+	padding:0 5px;
+	position:relative;
 }
 
 .ch-bellows-trigger .ch-arrow {
-	width:16px;
-	height:16px;
+	width:12px;
+	height:12px;
 	background-image: url('../src/assets/expando.png');
-	background-position: 0 -1px;
 	background-repeat:no-repeat;
 	float:right;
+	position:absolute;
+	top:7px;
+	right:5px;
 	text-indent:999px;
 	overflow:hidden;
 }
@@ -37,6 +42,7 @@
 }
 
 .ch-bellows-trigger:hover,
+.ch-bellows a:hover,
 .ch-bellows-content li:hover {
 	background-color:#FCF8D0;
 }

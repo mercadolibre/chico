@@ -62,7 +62,7 @@ ui.accordion = function(conf){
 		
 		// Links are pushed directly
 		if($(e).children().eq(1).attr("tagName") != "UL") {
-			that.children.push($(e));
+			that.children.push( $(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger") );
 			return;
 		};
 		
@@ -71,7 +71,7 @@ ui.accordion = function(conf){
 			list.type = "bellows";
 			list.element = e;
 			list.$element = $(e);
-			// Selected -> It can be for example"2" or "2#1"
+			// Selected -> It can be for example "2" or "2#1"
 			if(conf.hasOwnProperty("selected")) {
 				list.open = (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
 			} else {
@@ -119,26 +119,19 @@ ui.bellows = function(controller){
 	that.show = function(event){
 		that.prevent(event);
 		
-		// Accordion behavior
+		// Toggle
+		if (that.active) return that.hide(event);
+		
+		// Accordion behavior (hide last active)
 		if(!controller.conf.menu) {
-			
-			var child = that.$element.find("a.ch-bellows-on");
-			
-			if(child.length > 0) child.removeClass("ch-bellows-on");
-			
-			// Hide last active
 			$.each(controller.children, function(i, e){
 				if(e.hasOwnProperty("active") && e.active == true && e.element !== that.element) e.hide();
 			});
-			
-		} else {
-			// Toggle
-			if ( that.active ) return that.hide(event);
 		};
 		
-        that.$content.slideDown("fast", function(){
-	        that.parent.show(event);
-        });
+        that.$content.slideDown("fast");
+        
+        that.parent.show(event);
         
         return that;
     };
@@ -149,9 +142,16 @@ ui.bellows = function(controller){
     	// Toggle
     	if (!that.active) return;
     	
-    	that.$content.slideUp("fast", function(){
-    		that.parent.hide(event);
-    	});
+    	that.active = false;
+    	
+   		that.parent.hide(event);
+    	that.$content.slideUp("fast");
+
+        that.$trigger.removeClass("ch-" + that.type + "-on");
+        
+		that.$content.slideUp("fast");
+		
+		that.callbacks("onHide");
         
         return that;
 	};

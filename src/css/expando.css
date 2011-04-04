@@ -1,9 +1,10 @@
 .ch-expando .ch-expando-trigger{
-	padding:0 0 0 16px;
+	padding-left:16px;
+	height:13px;
 	color:#0637B3;
 	cursor:pointer;
 	background-image: url('../src/assets/expando.png');
-	background-position: 0 -1px;
+	background-position: 0 2px;
 	background-repeat:no-repeat;
 }
 
@@ -17,11 +18,11 @@
 
 .ch-expando .ch-expando-trigger:hover {
 	text-decoration: underline;
-	background-position: 1px -18px;
+	background-position: 0 -15px;
 }
 
 .ch-expando .ch-expando-trigger.ch-expando-on{
-	background-position: 0 -33px;
+	background-position: 0 -31px;
 }
 
 .ch-expando .ch-expando-content{
