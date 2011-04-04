@@ -61,8 +61,8 @@ ui.object = function(){
 			return '<div class="loading"></div>';
 			
 		} else {
-			var content = conf.content || conf.msg;
-			return ($(content).length > 0) ? $(content).detach().clone().show() : content ;
+			var content = conf.content || conf.msg;				
+			return ( ui.utils.isSelector(content) ) ? $(content).detach().clone().show() : content;			
 		};
 
 	};
@@ -70,7 +70,6 @@ ui.object = function(){
 	that.callbacks = function(when){
 		if( conf.hasOwnProperty(when) ) {
 			var context = ( that.controller ) ? that.controller.public : that.public;
-			
 			return conf[when].call( context );
 		};
 	};

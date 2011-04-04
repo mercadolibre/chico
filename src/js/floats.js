@@ -10,8 +10,8 @@ ui.floats = function() {
  *  Constructor
  */
 	var that = this;
-	var conf = that.conf;	
-	
+	var conf = that.conf;
+
 /**
  *  Inheritance
  */
@@ -88,10 +88,14 @@ ui.floats = function() {
 		
 		// Show if exist, else create		
 		if ( that.$container ) {
-			
-			// If not cache... get content! // Flush cache where?? when?? do it!
+				
+			// If not cache... get content again! // Flush cache where?? when?? do it!
 			if ( !conf.cache ) that.$content.html( that.loadContent() );
-						
+			
+			// Detach the content of BODY
+			var content = conf.content || conf.msg;
+			if ( ui.utils.isSelector(content) ) $(content).detach();
+
     		that.$container
     		    .appendTo("body")
     			.css("z-index", ui.utils.zIndex++)
@@ -122,6 +126,10 @@ ui.floats = function() {
 		that.$container.fadeOut('fast', function(){ 
 			 
 			that.active = false;
+			
+			// Append the content of BODY
+			var content = conf.content || conf.msg;
+			if ( ui.utils.isSelector(content) ) that.$content.children().clone().appendTo("body").hide();
 			
 			// Callback execute
 			that.callbacks('onHide');

@@ -35,7 +35,17 @@ var ui = window.ui = {
 		window: $(window),
 		document: $(document),
 		zIndex: 1000,
-		index: 0 // global instantiation index
+		index: 0, // global instantiation index
+		isSelector: function(string){
+			if(typeof string !== "string") return false;
+			
+			for (var regex in $.expr.match){
+				if ($.expr.match[ regex ].test(string) && $(string).length > 0) {
+					return true;
+				};
+			};
+			return false;
+		}
 	},
 /**
  *	@const Event's Map.
