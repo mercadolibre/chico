@@ -263,17 +263,6 @@ hr {
 	cursor:not-allowed;
 }
 
-.ie6 .btn.disabled,
-.ie7 .btn.disabled,
-.ie7 .btn.disabled:hover,
-.ie8 .btn.disabled,
-.ie8 .btn.disabled:hover, {
-	background-color:#FFFFFF;
-	background-position:0 -328px;
-	border:1px solid #CCCCCC;
-	color:#CCCCCC;
-}
-
 /* Primary */
 
 .btn.primary { 
@@ -330,10 +319,6 @@ hr {
 	color: #476274;
 }
 
-.ie7 .btn.secondary.skin {
-	background-position:0 -436px;
-}
-
 .btn.secondary.skin:focus {
 	box-shadow:0px 0px 5px #ADD7F3;
 	-moz-box-shadow:0px 0px 5px #ADD7F3;
@@ -376,9 +361,44 @@ hr {
 	outline:none;
 }
 
+/* IE */
+.ie6 .btn.disabled,
+.ie7 .btn.disabled,
+.ie7 .btn.disabled:hover,
+.ie8 .btn.disabled,
+.ie8 .btn.disabled:hover, {
+	background-color:#FFFFFF;
+	background-position:0 -328px;
+	border:1px solid #CCCCCC;
+	color:#CCCCCC;
+}
+
+
+/*IE 6*/
+/* Primary */
+.ie6 .btn.primary {
+	padding:1px 9px;
+}
+
+/* Secondary */
+.ie6 .btn.secondary {
+	padding:2px 9px;
+}
+
+/* Close */
 .ie6 .btn.ch-close {
 	line-height:16px;
 }
+
+/*IE 7*/
+.ie7 .btn{
+	line-height: 0.5em;
+}
+
+.ie7 .btn.secondary.skin {
+	background-position:0 -436px;
+}
+
 
 /**
  * Boxes
