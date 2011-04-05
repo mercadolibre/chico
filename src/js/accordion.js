@@ -71,6 +71,7 @@ ui.accordion = function(conf){
 			list.type = "bellows";
 			list.element = e;
 			list.$element = $(e);
+			
 			// Selected -> It can be for example "2" or "2#1"
 			if(conf.hasOwnProperty("selected")) {
 				list.open = (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
@@ -129,7 +130,7 @@ ui.bellows = function(controller){
 			});
 		};
 		
-        that.$content.slideDown("fast");
+        if(!ui.utils.html.hasClass("ie6")) that.$content.slideDown("fast");
         
         that.parent.show(event);
         
@@ -149,10 +150,10 @@ ui.bellows = function(controller){
 
         that.$trigger.removeClass("ch-" + that.type + "-on");
         
-		that.$content.slideUp("fast");
+		if(!ui.utils.html.hasClass("ie6")) that.$content.slideUp("fast");
 		
 		that.callbacks("onHide");
-        
+		
         return that;
 	};
 	

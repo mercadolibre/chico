@@ -13,7 +13,7 @@ ui.viewer = function(conf){
 
 	conf = ui.clon(conf);
 	that.conf = conf;
-
+	
 /**
  *  Inheritance
  */
@@ -25,7 +25,7 @@ ui.viewer = function(conf){
 /**
  *  Private Members
  */
-
+	
 	/**
 	 * 	Viewer
 	 */
@@ -34,40 +34,43 @@ ui.viewer = function(conf){
 	/**
 	 * 	Showcase
 	 */
-	var showcase = {};
 	
-		showcase.wrapper = $("<div>").addClass("ch-viewer-display");
-		showcase.display = $viewer.children(":first").addClass("ch-viewer-content");
+	var showcase = (function(){
 		
-		showcase.items = showcase.display.children();
-		showcase.itemWidth = showcase.items.outerWidth();
-		showcase.children = showcase.display.find("a");
+		var lens = $("<div class=\"ch-lens\">").bind("click", function(){ viewerModal.show(); }).hide();
 		
-		showcase.lens = $("<div class=\"ch-lens\">").bind("click", function(){ that.children[1].show() }).hide();
+		var display = $viewer.children(":first").addClass("ch-viewer-content");
 		
-		showcase.wrapper
-			.append( showcase.display )
-			.append( showcase.lens ) // Magnifying glass
-			.bind("mouseover", function(){ showcase.lens.fadeIn(400); }) // Show magnifying glass
-			.bind("mouseleave", function(){ showcase.lens.fadeOut(400); }) // Hide magnifying glass			
+		var wrapper = $("<div>")
+			.addClass("ch-viewer-display")
+			.append( display )
+			.append( lens ) // Magnifying glass
+			.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
+			.bind("mouseleave", function(){ lens.fadeOut(); }) // Hide magnifying glass			
 			.appendTo( $viewer );
+
+		var self = {};
+		
+			self.items = display.children();
+			self.itemsWidth = self.items.outerWidth();
+			self.itemsAmount = self.items.length;
+			self.itemsAnchor = self.items.children("a").bind("click", function(event){ that.prevent(event); viewerModal.show(); });
+			
+			// Set visual config of content
+			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ui.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
 		
 		// Position magnifying glass
 		ui.positioner({
-	        element: showcase.lens,
-	        context: showcase.wrapper
+	        element: lens,
+	        context: wrapper
 		});
 		
-		// Set visual config of content
-		var extraWidth = (ui.utils.html.hasClass("ie6")) ? showcase.itemWidth : 0;
-		showcase.display.css("width", (showcase.children.length * showcase.itemWidth) + extraWidth );
-			
-		// Showcase functionality
-		showcase.children.bind("click", function(event){
-			that.prevent(event);
-			that.children[1].show();
-		});
-
+		// Structure validation
+		if(self.items.find("link[rel=thumb][itemprop=thumb]").length == 0) alert("");
+		
+		return self;
+	})();
+	
 	
 	// Generic list creation
 	var createList = function(type){
@@ -96,22 +99,82 @@ ui.viewer = function(conf){
 	/**
 	 * 	Thumbnails
 	 */
-	var thumbnails = {};
+	var createThumbs = function(){
 	
-		thumbnails.structure = createList("thumb");
-		thumbnails.children = thumbnails.structure.children();
-		thumbnails.selected = 1;
+		var structure = createList("thumb");
 		
-		thumbnails.wrapper = $("<div>")
-			.addClass("ch-viewer-triggers")
-			.bind("mouseenter", function(){
-				showcase.lens.fadeOut(400); // It hides magnifying glass
-			})
-			.append( thumbnails.structure )
-			.appendTo( $viewer );
+		var self = {};
 		
-		thumbnails.carousel = that.children[0] = thumbnails.wrapper.carousel();
+			self.children = structure.children();
+			
+			self.selected = 1;
 		
+			self.carousel = that.children[0] = $("<div>")
+				.addClass("ch-viewer-triggers")
+				.append( structure )
+				.appendTo( $viewer )
+				.carousel();
+		
+		return self;
+	};
+		
+	
+	
+	
+	
+	
+	/**
+	 * 	Modal
+	 */
+	var viewerModal = that.children[1] = $("<div>").modal({
+		content: "<div class=\"ch-viewer-modal-content\"></div>",
+		width:600,
+		onShow: function(){ // TODO: Deberia cachear el contenido para evitar recalcular todo
+		
+			var modalContent = $(".ch-viewer-modal-content");
+				modalContent.parents(".ch-modal").addClass("ch-viewer-modal");
+		
+			// Create list + reset position + append it
+			createList("big").css("left", 0).appendTo( modalContent );
+			
+			// Full behavior
+			if(showcase.itemsAmount > 1) {
+				// Init carousel and move to position of item selected on thumbs
+				that.children[2] = modalContent.carousel({ pager: true }).moveTo( thumbnails.selected );
+				
+			// Basic behavior
+			} else {
+				// Simulate carousel structure
+				modalContent.wrapInner("<div class=\"ch-viewer-oneItem\">");
+			};
+			
+			// Zoom process
+			checkZoomImages(modalContent);
+			
+			// Refresh modal position
+			this.position("refresh");
+		},
+		onHide: function(){
+		
+			// Reset modal content
+			$(".ch-viewer-modal-content").html("").removeClass("ch-carousel");
+		
+			// Full behavior
+			if(showcase.itemsAmount > 1) {
+				// Thumbnails syncro (select thumb that was selected in modal)
+				that.move( that.children[2].getPage() );
+			
+				// Delete modal instance // TODO pasar funcionalidad al object ("that.destroy"?)
+				for(var i = 0, j = ui.instances.carousel.length; i < j; i += 1){
+					if(ui.instances.carousel[i].element === that.children[2].element){
+						ui.instances.carousel.splice(i, 1);
+						return;
+					};
+				};
+			};
+		}
+	});
+	
 	
 	
 	/**
@@ -134,7 +197,7 @@ ui.viewer = function(conf){
 				.addClass("ch-viewer-zoomed")
 				.bind("click", function(){ $(this).fadeOut(); }) // Fade Out
 				.bind("mousemove", function(event){ zoomMove(event); }) // Movement
-				.appendTo( modal )
+				.appendTo( (showcase.itemsAmount > 1) ? modal : modal.children() )
 				.hide();
 			
 			var zoomMove = function(event){
@@ -173,70 +236,27 @@ ui.viewer = function(conf){
 	};
 	
 	
-	/**
-	 * 	Modal
-	 */
-	that.children[1] = $("<div>").modal({
-		content: "<div class=\"ch-viewer-modal\"></div>",
-		width:600,
-		onShow: function(){ // TODO: Deberia cachear el contenido para evitar recalcular todo
-		
-			var modalContent = $(".ch-viewer-modal");
-		
-			// Create list + reset position + append it
-			createList("big").css("left", 0).appendTo( modalContent );
-			
-			// Zoom process
-			checkZoomImages(modalContent);
-		
-			// Init carousel and move to position of item selected on thumbs
-			that.children[2] = modalContent.carousel({ pager: true }).moveTo( thumbnails.selected );
-			
-			// Refresh modal position
-			this.position("refresh");
-		},
-		onHide: function(){
-		
-			// Reset modal content
-			$(".ch-viewer-modal").html("").removeClass("ch-carousel");
-		
-			// Thumbnails syncro (select thumb that was selected in modal)
-			that.move( that.children[2].getPage() );
-			
-			// Delete modal instance // TODO pasar funcionalidad al object ("that.destroy"?)
-			for(var i = 0, j = ui.instances.carousel.length; i < j; i += 1){
-				if(ui.instances.carousel[i].element === that.children[2].element){
-					ui.instances.carousel.splice(i, 1);
-					return;
-				};
-			};
-		}
-	});
-
-
-/**
- *  Protected Members
- */ 
-
-	that.move = function(item){
+	
+	var move = function(item){
 
 		// Validation
-		if(item > showcase.children.length || item < 1 || isNaN(item)) return that;
-		
+		if(item > showcase.itemsAmount || item < 1 || isNaN(item)) return that;
+	
 		var visibles = thumbnails.carousel.getSteps(); // Items per page
 		var page = thumbnails.carousel.getPage(); // Current page
 		var nextPage = Math.ceil( item / visibles ); // Page of "item"
 
 		// Visual config
+	
 		$(thumbnails.children[thumbnails.selected - 1]).removeClass("ch-thumbnail-on"); // Disable thumbnail
 		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
 
 		// Content movement
-		var movement = { left: (-item + 1) * showcase.itemWidth };
-		
+		var movement = { left: (-item + 1) * showcase.itemsWidth };
+	
 		// CSS3 Transitions vs jQuery magic
 		if(ui.features.transition) showcase.display.css(movement); else showcase.display.animate(movement);
-		
+	
 		// Move thumbnails carousel if item selected is on another page
 		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
 
@@ -245,9 +265,15 @@ ui.viewer = function(conf){
 
 		// Callback
 		that.callbacks("onMove");
-		
+	
 		return that;
 	};
+
+/**
+ *  Protected Members
+ */ 
+	
+	
 	
 
 /**
@@ -258,43 +284,35 @@ ui.viewer = function(conf){
 	that.public.element = that.element;
 	that.public.type = that.type;
 	that.public.children = that.children;
-	that.public.moveTo = function(page){
-		that.move(page);
-		
-		return that.public;
-	};
-	that.public.next = function(){
-		that.move( thumbnails.selected + 1 );
-		
-		return that.public;
-	};
-	that.public.prev = function(){
-		that.move( thumbnails.selected - 1 );
-		
-		return that.public;
-	};
 	
-	that.public.getSelected = function(){ // Is this necesary???
-		return thumbnails.selected;
+	// Full behavior
+	if(showcase.itemsAmount > 1) {
+		that.public.moveTo = function(page){ that.move(page); return that.public; };
+		that.public.next = function(){ that.move( thumbnails.selected + 1 ); return that.public; };
+		that.public.prev = function(){ that.move( thumbnails.selected - 1 ); return that.public; };
+		that.public.getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
 	};
-
 
 /**
  *  Default event delegation
  */	
 	
-	// Default behavior (Move to the first item and without callback)
-	that.move(1);
+	// Full behavior
+	if(showcase.itemsAmount > 1) {
+		var thumbnails = createThumbs();
+		that.move = move;
+		that.move(1); // Move to the first item and without callback
+	};
 	
 	// Preload big images on document load
 	var bigImages = [];
-	ui.utils.window.load(function(){
-		//setTimeout(function(){
-			showcase.children.each(function(i, e){
-				bigImages.push( $(e).attr("href") ); // Image source change
-			});
-			ui.preload(bigImages);
-		//},250);
+	
+	$(function(){
+		showcase.itemsAnchor.each(function(i, e){
+			bigImages.push( $(e).attr("href") );
+		});
+		
+		ui.preload(bigImages);
 	});
 
 	

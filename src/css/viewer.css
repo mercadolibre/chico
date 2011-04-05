@@ -59,26 +59,38 @@
 	border-color:#ccc;
 }
 
-/* Modal content */
+/* Modal */
 .ch-viewer-modal {
+	overflow:hidden;
+}
+
+/* Modal content */
+.ch-viewer-modal-content {
 	padding:20px 0 35px;
 }
 
 /* Modal items */
-.ch-viewer-modal .ch-carousel-content li{
+.ch-viewer-modal-content .ch-carousel-content li,
+.ch-viewer-oneItem {
 	width:500px;
 	height:500px;
 	text-align:center;
 	line-height:500px;
 }
 
+/* Simulation of carousel structure */
+.ch-viewer-oneItem {
+	margin:0 auto;
+	overflow:hidden;
+}
+
 /* Modal images */
-.ch-viewer-modal .ch-carousel-content li img{
+.ch-viewer-modal-content .ch-carousel-content li img{
 	vertical-align:middle;
 }
 
 /* Modal pager */
-.ch-viewer-modal .ch-pager {
+.ch-viewer-modal-content .ch-pager {
 	bottom:8px;
 }
 
@@ -125,6 +137,6 @@
 	overflow:hidden;
 }
 
-.ie6 .ch-viewer-modal .ch-pager {
+.ie6 .ch-viewer-modal-content .ch-pager {
 	bottom:30px;
 }
