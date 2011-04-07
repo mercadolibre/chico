@@ -99,7 +99,10 @@
 				$("body").addClass("onSelect");
 			}
 		});
-		var testMenu = $(".testMenu").menu({selected:0});
+		
+		var testMenu = $(".testMenu").menu({
+			selected:0
+		});
 		
 		$.fx.off = true;
 
@@ -140,7 +143,7 @@
             
             var chainSelect2 = testAccordion.select(1);
 
-            var chained = testAccordion.select(0).select(1);
+            var chained = testAccordion.select(1).select(0);
              
             ok ( chainSelect1 === testAccordionOriginal, "Expected to return original instance object on first select() method call");
             
@@ -160,10 +163,11 @@
 		
 		test('Check for the right visual classes', function() {
 			
-			expect( 3 );
+			expect( 4 );
 			
 			hasClass('.testAccordion', 'ch-accordion');
 			hasClass($triggerAccordion, 'ch-bellows-trigger');
+			hasClass($triggerAccordion, 'ch-bellows-on');
 			hasClass($contentAccordion, 'ch-bellows-content');
 			
 		});
@@ -184,15 +188,15 @@
 			
 		});
 		
-		test('Avoiding close child, clicking on component trigger', function() {
+		test('Close child, clicking on component trigger', function() {
 			
 			expect( 2 );
 			
 			$triggerAccordion2.click();
 			
-			isVisible($contentAccordion2);
+			isNotVisible($contentAccordion2);
 			
-			hasClass($triggerAccordion2, 'ch-bellows-on');
+			hasNotClass($triggerAccordion2, 'ch-bellows-on');
 			
 		});
 		
@@ -279,18 +283,6 @@
 			isVisible($contentMenu2);
 			
 			hasClass($triggerMenu2, 'ch-bellows-on');
-			
-		});
-		
-		test('Close child, clicking on component trigger', function() {
-			
-			expect( 2 );
-			
-			$triggerMenu2.click();
-			
-			isNotVisible($contentMenu2);
-			
-			hasNotClass($triggerMenu2, 'ch-bellows-on');
 			
 		});
 
