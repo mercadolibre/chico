@@ -4,7 +4,7 @@
  *	@return Public Object.
  */
 
-ui.modal = function(conf){
+ch.modal = function(conf){
 
 /**
  *	Constructor
@@ -14,7 +14,7 @@ ui.modal = function(conf){
 
 	var that = this;
 
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default	
 	conf.closeButton = (that.type == "modal") ? true : false;
 	conf.classes = "box";
@@ -25,8 +25,8 @@ ui.modal = function(conf){
  *	Inheritance
  */
 
-    that = ui.floats.call(that);
-    that.parent = ui.clon(that);
+    that = ch.floats.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Private Members
@@ -36,7 +36,7 @@ ui.modal = function(conf){
 	// Dimmer object
 	var $dimmer = $('<div>')
 			.addClass('ch-dimmer')
-			.css({ height: ui.utils.window.height(), display:'block' })
+			.css({ height: ch.utils.window.height(), display:'block' })
 			.hide();
 
 	// Dimmer Controller
@@ -44,7 +44,7 @@ ui.modal = function(conf){
 		on: function() { //TODO: posicionar el dimmer con el positioner
 			$dimmer
 				.appendTo('body')
-				.css("z-index",ui.utils.zIndex++)
+				.css("z-index",ch.utils.zIndex++)
 				.fadeIn();
 
 			if (that.type == "modal") {
@@ -122,7 +122,7 @@ var t = $("div").transition("Aguarde mientras transiosiono");
  
  */
  
-ui.transition = function(conf) {
+ch.transition = function(conf) {
     
     conf = conf || {};
 	
@@ -130,8 +130,8 @@ ui.transition = function(conf) {
 	conf.msg = conf.msg || "Espere por favor...";
 	conf.content = "<div class=\"loading\"></div><p>"+conf.msg+"</p>";
 
-	return ui.modal.call(this, conf);
+	return ch.modal.call(this, conf);
     
 }
 
-ui.factory({ component: 'transition' });
+ch.factory({ component: 'transition' });

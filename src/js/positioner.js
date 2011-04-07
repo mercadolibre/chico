@@ -21,7 +21,7 @@
         [draggable]: false // default
         
     } */
-ui.positioner = function(o) {
+ch.positioner = function(o) {
 
 /**
  *  Private Members
@@ -221,7 +221,7 @@ ui.positioner = function(o) {
 			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
-		if ( context.hasOwnProperty("element") && context.element !== ui.utils.window[0] ){
+		if ( context.hasOwnProperty("element") && context.element !== ch.utils.window[0] ){
 			$(context.element)
 				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );
@@ -293,7 +293,7 @@ ui.positioner = function(o) {
 
 	// Scroll and resize events
 	// Tested on IE, Magic! no lag!!
-	ui.utils.window.bind("resize scroll", function() {
+	ch.utils.window.bind("resize scroll", function() {
 		scrolled = true;
 	});
 	

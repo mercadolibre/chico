@@ -224,7 +224,7 @@ class Packer {
             $deliver .= "  * @copyright 2008 Ryan Grove <ryan@wonko.com> (PHP port) \n";
             $deliver .= "  * @link http://code.google.com/p/jsmin-php/ \n";
             $deliver .= "  */\n";
-            $deliver .= ";(function($){\n".$print."\nui.init();\n})(jQuery);"; // Add ui.init() instruction to the end
+            $deliver .= ";(function($){\n".$print."\nch.init();\n})(jQuery);"; // Add ch.init() instruction to the end
         }
         
         return utf8_encode($deliver);

@@ -9,9 +9,9 @@
  *  });
  */
 
-ui.chat = function(conf) {
+ch.chat = function(conf) {
     
-   	var that = ui.object(); // Inheritance
+   	var that = ch.object(); // Inheritance
 
     var getDomain = function(n) {
         switch (n) {
@@ -29,7 +29,7 @@ ui.chat = function(conf) {
         loadChatGZ(conf.ruleGroupName, conf.element.id, conf.style||"block", conf.template||"1",conf.environment||"3"); 
     }
 
-   	ui.get({
+   	ch.get({
    	    method: "component",
    	    name: "chat",
    	    script: "http://www."+getDomain(conf.environment)+"/org-img/jsapi/chat/chatRBIScript.js",

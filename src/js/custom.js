@@ -4,7 +4,7 @@
  *	@Interface
  */
 
-ui.custom = function(conf) {
+ch.custom = function(conf) {
 
 /**
  *  Validation
@@ -39,6 +39,6 @@ ui.custom = function(conf) {
     };
 
 
-	return ui.watcher.call(this, conf);
+	return ch.watcher.call(this, conf);
     
 };

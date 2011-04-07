@@ -4,7 +4,7 @@
  *  @returns {Object} Floats.
  */
 
-ui.floats = function() {
+ch.floats = function() {
 
 /**
  *  Constructor
@@ -16,8 +16,8 @@ ui.floats = function() {
  *  Inheritance
  */
 
-    that = ui.object.call(that);
-    that.parent = ui.clon(that);
+    that = ch.object.call(that);
+    that.parent = ch.clon(that);
     
 /**
  *  Private Members
@@ -31,7 +31,7 @@ ui.floats = function() {
 	var createClose = function() { 
 		$('<p>')
 			.addClass("btn ch-close")
-			.css("z-index",ui.utils.zIndex++)
+			.css("z-index",ch.utils.zIndex++)
 			.bind('click', function(event){ that.hide(event) })
 			.prependTo(that.$container);
 			
@@ -59,10 +59,10 @@ ui.floats = function() {
 
 		that.$content.html( that.loadContent(that) );
 		that.$container
-    		.css("z-index", ui.utils.zIndex++)
+    		.css("z-index", ch.utils.zIndex++)
 		    .fadeIn('fast', function(){ that.callbacks('onShow'); });
 
-		ui.positioner.call(that);
+		ch.positioner.call(that);
 		
 		return;
     };
@@ -94,11 +94,11 @@ ui.floats = function() {
 			
 			// Detach the content of BODY
 			var content = conf.content || conf.msg;
-			if ( ui.utils.isSelector(content) ) $(content).detach();
+			if ( ch.utils.isSelector(content) ) $(content).detach();
 
     		that.$container
     		    .appendTo("body")
-    			.css("z-index", ui.utils.zIndex++)
+    			.css("z-index", ch.utils.zIndex++)
 			    .fadeIn('fast', function(){ 
 					that.active = true;
 					
@@ -129,7 +129,7 @@ ui.floats = function() {
 			
 			// Append the content of BODY
 			var content = conf.content || conf.msg;
-			if ( ui.utils.isSelector(content) ) that.$content.children().clone().appendTo("body").hide();
+			if ( ch.utils.isSelector(content) ) that.$content.children().clone().appendTo("body").hide();
 			
 			// Callback execute
 			that.callbacks('onHide');

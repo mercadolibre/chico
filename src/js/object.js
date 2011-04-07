@@ -3,7 +3,7 @@
  *  @return {object} Object.
  */	
 
-ui.object = function(){
+ch.object = function(){
 	
 /**
  *  Inheritance: Create a symbolic link to myself
@@ -25,7 +25,7 @@ ui.object = function(){
 		
 	that.loadContent = function() {
 		// TODO: Properties validation
-		//if( self.ajax && (self.content || self.msg) ) { alert('UI: "Ajax" and "Content" can\'t live together.'); return; };
+		//if( self.ajax && (self.content || self.msg) ) { alert('CH: "Ajax" and "Content" can\'t live together.'); return; };
 		
 		if( conf.ajax === true){
 			
@@ -44,7 +44,7 @@ ui.object = function(){
 
 			// Returns ajax results
 
-			ui.get({method:"content", that:that});
+			ch.get({method:"content", that:that});
 			
 			return '<div class="loading"></div>';
 			
@@ -57,12 +57,12 @@ ui.object = function(){
 
 			// Returns ajax results
 
-			ui.get({method:"content", that:that});
+			ch.get({method:"content", that:that});
 			return '<div class="loading"></div>';
 			
 		} else {
 			var content = conf.content || conf.msg;				
-			return ( ui.utils.isSelector(content) ) ? $(content).detach().clone().show() : content;			
+			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().show() : content;			
 		};
 
 	};
@@ -84,7 +84,7 @@ ui.object = function(){
 				conf.position.offset = o.offset || conf.position.offset;				
 				conf.position.fixed = o.fixed || conf.position.fixed;
 			
-				ui.positioner(conf.position);
+				ch.positioner(conf.position);
 				return that.public;
 				break;
 		
@@ -93,7 +93,7 @@ ui.object = function(){
 					alert("ChicoUI error: position() expected to find \"refresh\" parameter.");
 				};
 
-				ui.positioner(conf.position);
+				ch.positioner(conf.position);
 				return that.public;   			
 				break;
 		

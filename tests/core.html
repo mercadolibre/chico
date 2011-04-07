@@ -38,11 +38,11 @@
 		 * 	Test Cases
 		 */
 		
-    	module("Chico ui.get");
+    	module("Chico ch.get");
     	
-        asyncTest("Get dojo library from google CDN using ui.get(component)", function() {
+        asyncTest("Get dojo library from google CDN using ch.get(component)", function() {
             
-            ui.get({            
+            ch.get({            
                 method: "component",
                 component: "dojo",
                 script: "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js",
@@ -60,7 +60,7 @@
 	    
         test("Post-configure chat component through Factory", function(){            
     		// Chat
-    		ui.factory({
+    		ch.factory({
     		      component: "chat",
     		      script: "http://10.100.34.210:8080/content/chico/0.4.5/src/js/chat.js",
     		      callback: createChat
@@ -77,8 +77,8 @@
                 });
 
                 start();
-                ok( ui["chat"] , "Expected to find chat instantiation");
-                ok( ui.instances["chat"] , "Expected to find chat in the instances map");
+                ok( ch["chat"] , "Expected to find chat instantiation");
+                ok( ch.instances["chat"] , "Expected to find chat in the instances map");
 
             } 
             
@@ -90,11 +90,11 @@
     	   
     	   expect ( 3 );
     	   
-       	   ok(ui.version, "Expected to find a Version defined");
+       	   ok(ch.version, "Expected to find a Version defined");
 
-    	   ok(ui.internals, "Expected to find Internals components to load");
+    	   ok(ch.internals, "Expected to find Internals components to load");
     	   
-    	   ok(ui.components, "Expected to find Visual components to load");
+    	   ok(ch.components, "Expected to find Visual components to load");
 
     	});
     	
@@ -102,9 +102,9 @@
 
             expect ( 2 );
 
-           ok(ui.factory, "Expected to find a Factory module");
+           ok(ch.factory, "Expected to find a Factory module");
            
-           ok(ui.get, "Expected to find a Get (Communicator) module");
+           ok(ch.get, "Expected to find a Get (Communicator) module");
                	       	   
     	});
    
@@ -112,20 +112,20 @@
        	
        	test("Check for internal components instantiation",function(){
        	    
-       	    expect ( ui.internals.split(",").length );
+       	    expect ( ch.internals.split(",").length );
        	    
-       	    $(ui.internals.split(",")).each(function(i,e){
-       	        ok( ui[e] , "Expected to find "+e+" instantiation");
+       	    $(ch.internals.split(",")).each(function(i,e){
+       	        ok( ch[e] , "Expected to find "+e+" instantiation");
        	    });
        	    
         });
 
        	test("Check for visual components instantiation",function(){
 
-            expect ( ui.components.split(",").length );
+            expect ( ch.components.split(",").length );
        	    
-       	    $(ui.components.split(",")).each(function(i,e){
-       	        ok( ui[e] , "Expected to find "+e+" instantiation");
+       	    $(ch.components.split(",")).each(function(i,e){
+       	        ok( ch[e] , "Expected to find "+e+" instantiation");
        	    });
        	    
         });

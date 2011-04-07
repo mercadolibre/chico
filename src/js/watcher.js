@@ -3,7 +3,7 @@
  *	@return An interface object
  */
 
-ui.watcher = function(conf) {
+ch.watcher = function(conf) {
 
 /**
  *  Validation
@@ -19,15 +19,15 @@ ui.watcher = function(conf) {
 
 	var that = this;
 	
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	that.conf = conf;	
 
 /**
  *  Inheritance
  */
 
-    that = ui.object.call(that);
-    that.parent = ui.clon(that);
+    that = ch.object.call(that);
+    that.parent = ch.clon(that);
 	
 	
 /**
@@ -39,23 +39,23 @@ ui.watcher = function(conf) {
 	
 	// Get my parent or set it
 	var controller = (function() {
-		if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ) {	
-		  var i = 0, j = ui.instances.form.length; 
+		if ( ch.instances.hasOwnProperty("form") && ch.instances.form.length > 0 ) {	
+		  var i = 0, j = ch.instances.form.length; 
 		  for (i; i < j; i ++) {
-				if (ui.instances.form[i].element === that.$element.parents("form")[0]) {
-					return ui.instances.form[i]; // Get my parent
+				if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
+					return ch.instances.form[i]; // Get my parent
 				};
 			};
 		} else {
 			that.$element.parents("form").form();
-			var last = (ui.instances.form.length - 1);
-			return ui.instances.form[last]; // Set my parent
+			var last = (ch.instances.form.length - 1);
+			return ch.instances.form[last]; // Set my parent
 		};
 	})();
 	
  	//  Check for instances with the same trigger	
 	var checkInstance = function() {
-        var instance = ui.instances.watcher;
+        var instance = ch.instances.watcher;
         
         if ( instance && instance.length > 0 ) {
 			for (var i = 0, j = instance.length; i < j; i ++) {            	                
@@ -185,7 +185,7 @@ ui.watcher = function(conf) {
 	
     // Messages
 
-    that.messages = ui.clon(conf.messages);
+    that.messages = ch.clon(conf.messages);
  
     // Helper
     var helper = {};
@@ -194,7 +194,7 @@ ui.watcher = function(conf) {
 		helper.element = that.element;
 		helper.$element = that.$element;
 		
-    that.helper = ui.helper.call(helper, that);
+    that.helper = ch.helper.call(helper, that);
     
     // Validate Method
 	that.validate = function() {		

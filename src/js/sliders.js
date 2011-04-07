@@ -4,7 +4,7 @@
  *  @returns {Object} Sliders.
  */
 
-ui.sliders = function() {
+ch.sliders = function() {
 
 /**
  *  Constructor
@@ -16,8 +16,8 @@ ui.sliders = function() {
  *  Inheritance
  */
 
-    that = ui.object.call(that);
-    that.parent = ui.clon(that);
+    that = ch.object.call(that);
+    that.parent = ch.clon(that);
     
 /**
  *  Private Members

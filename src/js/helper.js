@@ -2,7 +2,7 @@
  *	Helper
  */
 
-ui.helper = function(controller){
+ch.helper = function(controller){
 
 /** 
  *  Constructor
@@ -24,8 +24,8 @@ ui.helper = function(controller){
  *	Inheritance
  */
 
-    that = ui.floats.call(that);
-    that.parent = ui.clon(that);
+    that = ch.floats.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Private Members
@@ -78,7 +78,7 @@ ui.helper = function(controller){
  *  Default event delegation
  */
 
-    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ 
+    $("body").bind(ch.events.CHANGE_LAYOUT, function(){ 
         that.position("refresh");
     });
 

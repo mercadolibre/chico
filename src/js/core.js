@@ -2,7 +2,7 @@ var start = new Date().getTime();
 /** 
   * @namespace
   */
-var ui = window.ui = {
+var ch = window.ch = {
 
     version: "0.5.7",
 
@@ -18,13 +18,13 @@ var ui = window.ui = {
         // unmark the no-js flag on html tag
         $("html").removeClass("no-js");
         // check for browser support
-		ui.features = ui.support();
+		ch.features = ch.support();
         // check for pre-configured components
-        ui.components = (window.components) ? ui.components+","+window.components : ui.components ;
+        ch.components = (window.components) ? ch.components+","+window.components : ch.components ;
         // check for pre-configured internals
-        ui.internals = (window.internals) ? ui.internals+","+window.internals : ui.internals ;
+        ch.internals = (window.internals) ? ch.internals+","+window.internals : ch.internals ;
         // iterate and create components               
-        $(ui.components.split(",")).each(function(i,e){ ui.factory({component:e}); });
+        $(ch.components.split(",")).each(function(i,e){ ch.factory({component:e}); });
     },
 /**
  *	@static Utils. Common usage functions.
@@ -62,7 +62,7 @@ var ui = window.ui = {
  *	Pre-Load function
  */	
 
-ui.preload = function(arr) {
+ch.preload = function(arr) {
 
 	if (typeof arr === "string") {
 		arr = (arr.indexOf(",") > 0) ? arr.split(",") : [arr] ;
@@ -85,7 +85,7 @@ ui.preload = function(arr) {
 /**
 *	Factory
 */	
-ui.factory = function(o) {
+ch.factory = function(o) {
 
     /**
     *   o {
@@ -130,7 +130,7 @@ ui.factory = function(o) {
                     context.type = x;
                     context.element = e;
                     context.$element = $(e);
-                    context.uid = ui.utils.index += 1; // Global instantiation index
+                    context.uid = ch.utils.index += 1; // Global instantiation index
                
 				switch(typeof conf) {
 					// If argument is a number, join with the conf
@@ -166,7 +166,7 @@ ui.factory = function(o) {
 				};
                
                 // Create a component from his constructor
-                var created = ui[x].call( context, conf );
+                var created = ch[x].call( context, conf );
 
 				/* 
 					MAPPING INSTANCES
@@ -183,8 +183,8 @@ ui.factory = function(o) {
 			    if (created.type) {
 			        var type = created.type;		    
                     // If component don't exists in the instances map create an empty array
-                    if (!ui.instances[type]) { ui.instances[type] = []; }
-                         ui.instances[type].push( created );
+                    if (!ch.instances[type]) { ch.instances[type] = []; }
+                         ch.instances[type].push( created );
 			    }
                 
                 // Avoid mapping objects that already exists
@@ -206,13 +206,13 @@ ui.factory = function(o) {
                         
     } // end create function
     
-    if ( ui[o.component] ) {
+    if ( ch[o.component] ) {
         // script already here, just create
         create(o.component);
         
     } else {
         // get resurces and call create
-        ui.get({
+        ch.get({
             "method":"component",
             "component":o.component,
             "script": ( o.script )? o.script : "src/js/"+o.component+".js",
@@ -220,7 +220,7 @@ ui.factory = function(o) {
             "callback":create
         });
         
-        //alert("UI: " + x + " configuration error. The component do not exists");
+        //alert("CH: " + x + " configuration error. The component do not exists");
     }
 }
 
@@ -228,7 +228,7 @@ ui.factory = function(o) {
  *  Get
  */
  
-ui.get = function(o) {
+ch.get = function(o) {
     /**
     *   o {
             method: "content"|"component",
@@ -258,12 +258,12 @@ ui.get = function(o) {
 				success: function(data, textStatus, xhr){					
 					that.$content.html( data ); 
 					if ( conf.onContentLoad ) conf.onContentLoad.call(context);
-					if ( conf.position ) ui.positioner(conf.position);
+					if ( conf.position ) ch.positioner(conf.position);
 				},
 				error: function(xhr, textStatus, errorThrown){
 					data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
 					that.$content.html( data );
-					if ( conf.position ) ui.positioner(conf.position);
+					if ( conf.position ) ch.positioner(conf.position);
 				}
 			});
 			//}, 25);
@@ -272,14 +272,14 @@ ui.get = function(o) {
 	        
 		case "component":
 	        
-	        // ui.get: "Should I get a style?"
+	        // ch.get: "Should I get a style?"
 	        if ( o.style ) {
 	    		var style = document.createElement('link');
 	        		style.href = o.style;
 	    	    	style.rel = 'stylesheet';
 	            	style.type = 'text/css';
 	        }
-	        // ui.get: "Should I get a script?"        
+	        // ch.get: "Should I get a script?"        
 	        if ( o.script ) {
 	    	   	var script = document.createElement("script");
 	    			script.src = o.script;
@@ -322,7 +322,7 @@ ui.get = function(o) {
  *  Support
  */
  
-ui.support = function() {
+ch.support = function() {
 	
 	// Based on: http://gist.github.com/373874
 	// Verify that CSS3 transition is supported (or any of its browser-specific implementations)
@@ -345,21 +345,21 @@ ui.support = function() {
  *  Cache
  */
 
-ui.cache = {
+ch.cache = {
 	map: {},
 	add: function(url, data) {
-		ui.cache.map[url] = data;
+		ch.cache.map[url] = data;
 	},
 	get: function(url) {
-		return ui.cache.map[url];
+		return ch.cache.map[url];
 	},
 	rem: function(url) {
-		ui.cache.map[url] = null;
-		delete ui.cache.map[url];
+		ch.cache.map[url] = null;
+		delete ch.cache.map[url];
 	},
 	flush: function() {
-		delete ui.cache.map;
-		ui.cache.map = {};
+		delete ch.cache.map;
+		ch.cache.map = {};
 	}
 };
 
@@ -368,7 +368,7 @@ ui.cache = {
  *	Clone function
  */	
 
-ui.clon = function(o) {
+ch.clon = function(o) {
 	
 	obj = {};
 	
@@ -382,5 +382,5 @@ ui.clon = function(o) {
 
 $(function() { // DOM Ready
 	var now = new Date().getTime();
-    ui.loadTime = now - start;
+    ch.loadTime = now - start;
 });

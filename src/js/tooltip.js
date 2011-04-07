@@ -3,10 +3,10 @@
  *	@author 
  *	@Contructor
  *	@return An interface object
- *  @memberOf ui.Floats
+ *  @memberOf ch.Floats
  */
 
-ui.tooltip = function(conf) {
+ch.tooltip = function(conf) {
     
 /**
  *	Constructor
@@ -16,7 +16,7 @@ ui.tooltip = function(conf) {
 
 	var that = this;
 	
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	conf.cone = true;
 	conf.content = that.element.title;	
 	conf.position = {};
@@ -31,8 +31,8 @@ ui.tooltip = function(conf) {
  *		
  */
 
-    that = ui.floats.call(that);
-    that.parent = ui.clon(that);
+    that = ch.floats.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Private Members
@@ -88,7 +88,7 @@ ui.tooltip = function(conf) {
 		.bind('mouseleave', that.hide);
 
     // Fix: change layout problem
-    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh") });
+    $("body").bind(ch.events.CHANGE_LAYOUT, function(){ that.position("refresh") });
 
 
 	return that;

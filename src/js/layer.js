@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.layer = function(conf) {
+ch.layer = function(conf) {
 
     
 /**
@@ -16,7 +16,7 @@ ui.layer = function(conf) {
 
 	var that = this;
 	
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	conf.cone = true;
 	conf.classes = "box";
 	conf.position = {};
@@ -31,8 +31,8 @@ ui.layer = function(conf) {
  *		
  */
 
-    that = ui.floats.call(that);
-    that.parent = ui.clon(that);
+    that = ch.floats.call(that);
+    that.parent = ch.clon(that);
     
 /**
  *  Private Members
@@ -57,7 +57,7 @@ ui.layer = function(conf) {
 	that.show = function(event) {
 	
 		// Reset all layers
-		$.each(ui.instances.layer, function(i, e){ e.hide(); });
+		$.each(ch.instances.layer, function(i, e){ e.hide(); });
 		//conf.position.context = that.$element;
 		that.parent.show(event);
 
@@ -130,7 +130,7 @@ ui.layer = function(conf) {
 	};
 
     // Fix: change layout problem
-    $("body").bind(ui.events.CHANGE_LAYOUT, function(){ that.position("refresh") });
+    $("body").bind(ch.events.CHANGE_LAYOUT, function(){ that.position("refresh") });
  
 
 	return that;

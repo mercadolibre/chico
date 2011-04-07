@@ -4,7 +4,7 @@
  *	@Contructor
  *	@return An interface object
  */	
-ui.expando = function(conf){
+ch.expando = function(conf){
 
 /** 
  *  Constructor
@@ -15,7 +15,7 @@ ui.expando = function(conf){
 	that.$element.addClass("ch-expando")
 		.children(":first").wrapInner("<span class=\"ch-expando-trigger\"></span>");
 		
-    conf = ui.clon(conf);
+    conf = ch.clon(conf);
     conf.open = conf.open || false;
 
 	that.conf = conf;
@@ -24,8 +24,8 @@ ui.expando = function(conf){
  *	Inheritance
  */
 
-    that = ui.navs.call(that);
-    that.parent = ui.clon(that);
+    that = ch.navs.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Private Members

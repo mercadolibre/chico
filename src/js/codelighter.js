@@ -1,11 +1,11 @@
 /**
  *	@Codelighter
  * 
- * ui.codelighter();
+ * ch.codelighter();
  * $(".xml").codeXML();
  */
 
-ui.codelighter = function() {
+ch.codelighter = function() {
 /**
  *  Constructor
  */
@@ -15,8 +15,8 @@ ui.codelighter = function() {
  *  Inheritance
  */
 
-    that = ui.controllers.call(that);
-    that.parent = ui.clon(that);
+    that = ch.controllers.call(that);
+    that.parent = ch.clon(that);
 	
 	
 /**
@@ -44,16 +44,16 @@ ui.codelighter = function() {
 	$("pre[name=code]").each(function(i, e){
 		
 		var codesnippet = {};
-			codesnippet.uid = ui.utils.index += 1;
+			codesnippet.uid = ch.utils.index += 1;
 			codesnippet.type = "codesnippet";
 			codesnippet.element = e;
 			codesnippet.snippet = e.innerHTML;			
 
-		that.children.push( ui["code" + e.className.toUpperCase()].call(codesnippet) );
+		that.children.push( ch["code" + e.className.toUpperCase()].call(codesnippet) );
 
 	});
 
-	ui.instances.codelighter = that.children; // Create codeligther instance
+	ch.instances.codelighter = that.children; // Create codeligther instance
 	
 	return that;
 };
@@ -64,14 +64,14 @@ ui.codelighter = function() {
  *	@Codesnippet
  */
  
-ui.codesnippet = function(conf){
+ch.codesnippet = function(conf){
 /**
  *  Constructor
  */
 	
 	var that = this;	
 	
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	that.conf = conf;
 	
 		
@@ -79,8 +79,8 @@ ui.codesnippet = function(conf){
  *  Inheritance
  */
 
-    that = ui.object.call(that);
-    that.parent = ui.clon(that);
+    that = ch.object.call(that);
+    that.parent = ch.clon(that);
 	
 /**
  *  Private Members
@@ -128,7 +128,7 @@ ui.codesnippet = function(conf){
  *	@return An interface object
  */
 
-ui.codeXML = function(conf) {
+ch.codeXML = function(conf) {
     
 /** 
  *  Constructor: Redefine or preset component's settings
@@ -150,11 +150,11 @@ ui.codeXML = function(conf) {
     
     this.snippet = this.snippet || this.element.innerHTML;
     
-    return ui.codesnippet.call(this, conf);
+    return ch.codesnippet.call(this, conf);
     
 };
 
-ui.factory({ component: 'codeXML' });
+ch.factory({ component: 'codeXML' });
 
 
 
@@ -163,7 +163,7 @@ ui.factory({ component: 'codeXML' });
  *	@return An interface object
  */
 
-ui.codeJS = function(conf) {
+ch.codeJS = function(conf) {
     
 /** 
  *  Constructor: Redefine or preset component's settings
@@ -188,11 +188,11 @@ ui.codeJS = function(conf) {
 	    
     this.snippet = this.snippet || this.element.innerHTML;
     
-    return ui.codesnippet.call(this, conf);
+    return ch.codesnippet.call(this, conf);
     
 };
 
-ui.factory({ component: 'codeJS' });
+ch.factory({ component: 'codeJS' });
 
 
 /**
@@ -200,7 +200,7 @@ ui.factory({ component: 'codeJS' });
  *	@return An interface object
  */
 
-ui.codeCSS = function(conf) {
+ch.codeCSS = function(conf) {
     
 /** 
  *  Constructor: Redefine or preset component's settings
@@ -222,8 +222,8 @@ ui.codeCSS = function(conf) {
 	
 	this.snippet = this.snippet || this.element.innerHTML;
 	
-    return ui.codesnippet.call(this, conf);
+    return ch.codesnippet.call(this, conf);
     
 };
 
-ui.factory({ component: 'codeCSS' });
+ch.factory({ component: 'codeCSS' });

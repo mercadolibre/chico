@@ -4,7 +4,7 @@
  *	@Interface
  */
 
-ui.required = function(conf) {
+ch.required = function(conf) {
 /**
  *  Constructor
  */
@@ -29,6 +29,6 @@ ui.required = function(conf) {
         required: 'that.isEmpty' // This pattern is diferent
     };
 	
-	return ui.watcher.call(this, conf);
+	return ch.watcher.call(this, conf);
     
 };

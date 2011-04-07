@@ -4,22 +4,22 @@
  *	@Contructor
  *	@return An interface object
  */
-ui.viewer = function(conf){
+ch.viewer = function(conf){
 
 /**
  *  Constructor
  */
 	var that = this;
 
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	that.conf = conf;
 	
 /**
  *  Inheritance
  */
 
-    that = ui.controllers.call(that);
-    that.parent = ui.clon(that);
+    that = ch.controllers.call(that);
+    that.parent = ch.clon(that);
 	
 	
 /**
@@ -57,10 +57,10 @@ ui.viewer = function(conf){
 			self.itemsAnchor = self.items.children("a").bind("click", function(event){ that.prevent(event); viewerModal.show(); });
 			
 			// Set visual config of content
-			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ui.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
+			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
 		
 		// Position magnifying glass
-		ui.positioner({
+		ch.positioner({
 	        element: lens,
 	        context: wrapper
 		});
@@ -165,9 +165,9 @@ ui.viewer = function(conf){
 				that.move( that.children[2].getPage() );
 			
 				// Delete modal instance // TODO pasar funcionalidad al object ("that.destroy"?)
-				for(var i = 0, j = ui.instances.carousel.length; i < j; i += 1){
-					if(ui.instances.carousel[i].element === that.children[2].element){
-						ui.instances.carousel.splice(i, 1);
+				for(var i = 0, j = ch.instances.carousel.length; i < j; i += 1){
+					if(ch.instances.carousel[i].element === that.children[2].element){
+						ch.instances.carousel.splice(i, 1);
 						return;
 					};
 				};
@@ -232,7 +232,7 @@ ui.viewer = function(conf){
 		});
 		
 		// Preload if there are zoom images
-		if(zoomImages.length > 0) ui.preload(zoomImages);
+		if(zoomImages.length > 0) ch.preload(zoomImages);
 	};
 	
 	
@@ -255,7 +255,7 @@ ui.viewer = function(conf){
 		var movement = { left: (-item + 1) * showcase.itemsWidth };
 	
 		// CSS3 Transitions vs jQuery magic
-		if(ui.features.transition) showcase.display.css(movement); else showcase.display.animate(movement);
+		if(ch.features.transition) showcase.display.css(movement); else showcase.display.animate(movement);
 	
 		// Move thumbnails carousel if item selected is on another page
 		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
@@ -312,7 +312,7 @@ ui.viewer = function(conf){
 			bigImages.push( $(e).attr("href") );
 		});
 		
-		ui.preload(bigImages);
+		ch.preload(bigImages);
 	});
 
 	

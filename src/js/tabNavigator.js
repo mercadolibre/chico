@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.tabNavigator = function(conf){
+ch.tabNavigator = function(conf){
 
 /** 
  *  Constructor
@@ -15,7 +15,7 @@ ui.tabNavigator = function(conf){
 
 	that.$element.addClass('ch-tabNavigator');
 		
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	conf.selected = conf.selected || conf.value || 0;
 	
 	that.conf = conf;
@@ -24,8 +24,8 @@ ui.tabNavigator = function(conf){
  *	Inheritance
  */
 
-    that = ui.controllers.call(that);
-    that.parent = ui.clon(that);
+    that = ch.controllers.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Private Members
@@ -97,7 +97,7 @@ ui.tabNavigator = function(conf){
 			tab.element = e;			
 			tab.$element = $(e);
 			
-		that.children.push( ui.tab.call(tab, that) );
+		that.children.push( ch.tab.call(tab, that) );
 	});
 	
 	//Default: Load hash tab or Open first tab	
@@ -125,7 +125,7 @@ ui.tabNavigator = function(conf){
  *	@return An interface object
  */
 
-ui.tab = function(controller){
+ch.tab = function(controller){
 
 /** 
  *  Constructor
@@ -142,8 +142,8 @@ ui.tab = function(controller){
  *	Inheritance
  */
 
-    that = ui.navs.call(that);
-    that.parent = ui.clon(that);
+    that = ch.navs.call(that);
+    that.parent = ch.clon(that);
 	that.controller = controller;
 
 /**

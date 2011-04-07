@@ -4,7 +4,7 @@
 *  @requires PowerConstructor
 *  @returns {Object} New Navigators.
 */	
-ui.navs = function(){
+ch.navs = function(){
 	
 /**
  *  Constructor
@@ -15,8 +15,8 @@ ui.navs = function(){
  *  Inheritance
  */
 
-    that = ui.object.call(that);
-    that.parent = ui.clon(that);
+    that = ch.object.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Private Members

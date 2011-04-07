@@ -6,7 +6,7 @@
  */
 
 
-ui.number = function(conf) {
+ch.number = function(conf) {
 
 /**
  *  Constructor
@@ -41,7 +41,7 @@ ui.number = function(conf) {
     };
 
 
-	return ui.watcher.call(this, conf);
+	return ch.watcher.call(this, conf);
     
 };
 
@@ -50,7 +50,7 @@ ui.number = function(conf) {
  *	@return An interface object
  */
 
-ui.min = function(conf) {
+ch.min = function(conf) {
     
     conf = conf || {};
 	
@@ -68,18 +68,18 @@ ui.min = function(conf) {
     	delete conf.msg;
     };
 
-	return ui.number.call(this, conf);
+	return ch.number.call(this, conf);
     
 };
 
-ui.factory({ component: 'min' });
+ch.factory({ component: 'min' });
 
 /**
  *	@Interface Max validations
  *	@return An interface object
  */
  
-ui.max = function(conf) {
+ch.max = function(conf) {
     
     conf = conf || {};
 	
@@ -97,11 +97,11 @@ ui.max = function(conf) {
     	delete conf.msg;
     };
 
-	return ui.number.call(this, conf);
+	return ch.number.call(this, conf);
     
 }
 
-ui.factory({ component: 'max' });
+ch.factory({ component: 'max' });
 
 
 /**
@@ -109,7 +109,7 @@ ui.factory({ component: 'max' });
  *	@return An interface object
  */
  
-ui.price = function(conf) {
+ch.price = function(conf) {
     
     conf = conf || {};
 	
@@ -127,8 +127,8 @@ ui.price = function(conf) {
     	delete conf.msg;
     };
 
-	return ui.number.call(this, conf);
+	return ch.number.call(this, conf);
     
 }
 
-ui.factory({ component: 'price' });
+ch.factory({ component: 'price' });

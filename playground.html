@@ -794,7 +794,7 @@ div p.keywords{color:darkorange;}
         });
         
         // Automatic version
-        var title = $('head title').html() + ' ' + ui.version;
+        var title = $('head title').html() + ' ' + ch.version;
         document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
         document.getElementsByTagName("h1")[0].innerHTML = title;
  
@@ -857,7 +857,7 @@ div p.keywords{color:darkorange;}
 		var ui_view = $(".viewerDemo").viewer();
 
 		// Chat
-		ui.factory({
+		ch.factory({
 		      component: "chat",
 		      callback: createChat
 	      });
@@ -871,7 +871,7 @@ div p.keywords{color:darkorange;}
         }
         
         
-        var lighter = ui.codelighter();		
+        var lighter = ch.codelighter();		
 		//$(".codeXML").xml();
 		//$(".codeCSS").css();
 

@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.accordion = function(conf){
+ch.accordion = function(conf){
 
 /** 
  *  Constructor
@@ -15,7 +15,7 @@ ui.accordion = function(conf){
 
 	that.$element.addClass('ch-accordion');
 		
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	
 	that.conf = conf;
 	
@@ -23,8 +23,8 @@ ui.accordion = function(conf){
  *	Inheritance
  */
 
-    that = ui.controllers.call(that);
-    that.parent = ui.clon(that);
+    that = ch.controllers.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Protected Members
@@ -79,7 +79,7 @@ ui.accordion = function(conf){
 				list.open = false;
 			};
 			
-		that.children.push( ui.bellows.call(list, that) );
+		that.children.push( ch.bellows.call(list, that) );
 	});
     
     
@@ -88,7 +88,7 @@ ui.accordion = function(conf){
 };
 
 
-ui.bellows = function(controller){
+ch.bellows = function(controller){
 
 /** 
  *  Constructor
@@ -103,8 +103,8 @@ ui.bellows = function(controller){
  *	Inheritance
  */
 
-    that = ui.navs.call(that);
-    that.parent = ui.clon(that);
+    that = ch.navs.call(that);
+    that.parent = ch.clon(that);
 	that.controller = controller;
 	
 /**
@@ -130,7 +130,7 @@ ui.bellows = function(controller){
 			});
 		};
 		
-        if(!ui.utils.html.hasClass("ie6")) that.$content.slideDown("fast");
+        if(!ch.utils.html.hasClass("ie6")) that.$content.slideDown("fast");
         
         that.parent.show(event);
         
@@ -150,7 +150,7 @@ ui.bellows = function(controller){
 
         that.$trigger.removeClass("ch-" + that.type + "-on");
         
-		if(!ui.utils.html.hasClass("ie6")) that.$content.slideUp("fast");
+		if(!ch.utils.html.hasClass("ie6")) that.$content.slideUp("fast");
 		
 		that.callbacks("onHide");
 		
@@ -193,14 +193,14 @@ ui.bellows = function(controller){
  *	@return An interface object
  */
 
-ui.menu = function(conf) {
+ch.menu = function(conf) {
     
     conf = conf || {};
 	
 	conf.menu = true;
 	
-	return ui.accordion.call(this, conf);
+	return ch.accordion.call(this, conf);
     
 };
 
-ui.factory({ component: 'menu' });
+ch.factory({ component: 'menu' });

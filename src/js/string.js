@@ -3,7 +3,7 @@
  *	@return An interface object
  */
 
-ui.string = function(conf) {
+ch.string = function(conf) {
 
 /**
  *  Constructor
@@ -39,7 +39,7 @@ ui.string = function(conf) {
     };
 
 
-	return ui.watcher.call(this, conf);
+	return ch.watcher.call(this, conf);
     
 };
 
@@ -49,7 +49,7 @@ ui.string = function(conf) {
  *	@return An interface object
  */
 
-ui.email = function(conf) {
+ch.email = function(conf) {
     
     conf = conf || {};
 	
@@ -63,18 +63,18 @@ ui.email = function(conf) {
     	delete conf.msg;
     };
 
-	return ui.string.call(this, conf);
+	return ch.string.call(this, conf);
     
 };
 
-ui.factory({ component: 'email' });
+ch.factory({ component: 'email' });
 
 /**
  *	@Interface URL validations
  *	@return An interface object
  */
 
-ui.url = function(conf) {
+ch.url = function(conf) {
     
     conf = conf || {};
 	
@@ -88,18 +88,18 @@ ui.url = function(conf) {
     	delete conf.msg;
     };
 
-	return ui.string.call(this, conf);
+	return ch.string.call(this, conf);
     
 };
 
-ui.factory({ component: 'url' });
+ch.factory({ component: 'url' });
 
 /**
  *	@Interface MinLength validations
  *	@return An interface object
  */
 
-ui.minLength = function(conf) {
+ch.minLength = function(conf) {
     
     conf = conf || {};
 	
@@ -113,18 +113,18 @@ ui.minLength = function(conf) {
     	delete conf.msg;
     };
 
-	return ui.string.call(this, conf);
+	return ch.string.call(this, conf);
     
 };
 
-ui.factory({ component: 'minLength' });
+ch.factory({ component: 'minLength' });
 
 /**
  *	@Interface MaxLength validations
  *	@return An interface object
  */
 
-ui.maxLength = function(conf) {
+ch.maxLength = function(conf) {
     
     conf = conf || {};
 	
@@ -138,8 +138,8 @@ ui.maxLength = function(conf) {
     	delete conf.msg;
     };
 
-	return ui.string.call(this, conf);
+	return ch.string.call(this, conf);
     
 };
 
-ui.factory({ component: 'maxLength' });
+ch.factory({ component: 'maxLength' });

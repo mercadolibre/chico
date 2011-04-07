@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.carousel = function(conf){
+ch.carousel = function(conf){
 	
 /** 
  *  Constructor
@@ -20,15 +20,15 @@ ui.carousel = function(conf){
 		.addClass('ch-carousel-content')
 		.wrap($('<div>').addClass('ch-mask'))//gracias al que esta abajo puedo leer el $mask.width()
 
-	conf = ui.clon(conf);
+	conf =ch.clon(conf);
 	that.conf = conf;
 	
 /**
  *	Inheritance
  */
 
-    that = ui.sliders.call(that);
-    that.parent = ui.clon(that);
+    that = ch.sliders.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Private Members
@@ -36,8 +36,8 @@ ui.carousel = function(conf){
 	var page = 1;
 	
 	// UL Width calculator
-	var htmlElementMargin = (ui.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
-	var extraWidth = (ui.utils.html.hasClass("ie6")) ? that.$content.children().outerWidth() : 0;
+	var htmlElementMargin = (ch.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
+	var extraWidth = (ch.utils.html.hasClass("ie6")) ? that.$content.children().outerWidth() : 0;
 	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
 	that.$content.css('width', htmlContentWidth);
 	
@@ -159,7 +159,7 @@ ui.carousel = function(conf){
 		};
 		
 		// Have CSS3 Transitions feature?
-		if (ui.features.transition) {
+		if (ch.features.transition) {
 			
 			// Css movement
 			that.$content.css({ left: movement });

@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.controllers = function(){
+ch.controllers = function(){
 
 /**
  *  Constructor
@@ -16,8 +16,8 @@ ui.controllers = function(){
  *  Inheritance
  */
 
-    that = ui.object.call(that);
-    that.parent = ui.clon(that);
+    that = ch.object.call(that);
+    that.parent = ch.clon(that);
 	
 	
 /**

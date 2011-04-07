@@ -5,7 +5,7 @@
  *	@return An interface object
  */
 
-ui.form = function(conf){
+ch.form = function(conf){
 
 /**
  *  Validation
@@ -17,12 +17,12 @@ ui.form = function(conf){
 	};
 
 	// Is there form in map instances?	
-	if ( ui.instances.hasOwnProperty("form") && ui.instances.form.length > 0 ){
-		for(var i = 0, j = ui.instances.form.length; i < j; i++){
-			if(ui.instances.form[i].element === this.element){
+	if ( ch.instances.hasOwnProperty("form") && ch.instances.form.length > 0 ){
+		for(var i = 0, j = ch.instances.form.length; i < j; i++){
+			if(ch.instances.form[i].element === this.element){
 				return { 
 	                exists: true, 
-	                object: ui.instances.form[i]
+	                object: ch.instances.form[i]
 	            };
 			};
 		};
@@ -33,7 +33,7 @@ ui.form = function(conf){
  */
 	var that = this;
 	
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	// Create the Messages for General Error
 	if ( !conf.hasOwnProperty("messages") ) conf.messages = {};
 	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
@@ -44,8 +44,8 @@ ui.form = function(conf){
  *  Inheritance
  */
 
-    that = ui.controllers.call(that);
-    that.parent = ui.clon(that);
+    that = ch.controllers.call(that);
+    that.parent = ch.clon(that);
 	
 	
 /**
@@ -60,13 +60,13 @@ ui.form = function(conf){
 	// Create
 	var createError = function(){ 
 		that.$element.before( $error );		
-		$("body").trigger(ui.events.CHANGE_LAYOUT);
+		$("body").trigger(ch.events.CHANGE_LAYOUT);
 	};
 	
 	// Remove
 	var removeError = function(){
 		$error.detach();
-		$("body").trigger(ui.events.CHANGE_LAYOUT);
+		$("body").trigger(ch.events.CHANGE_LAYOUT);
 	};
 
 	var checkStatus = function(){

@@ -5,7 +5,7 @@
  *	@return An interface object
  */	
 
-ui.dropdown = function(conf){
+ch.dropdown = function(conf){
 
 /** 
  *  Constructor
@@ -13,7 +13,7 @@ ui.dropdown = function(conf){
 	
 	var that = this;
 
-	conf = ui.clon(conf);
+	conf = ch.clon(conf);
 	conf.skin = ( that.$element.hasClass("ch-secondary") ) ? "secondary": "primary";
 
 	that.conf = conf;
@@ -22,8 +22,8 @@ ui.dropdown = function(conf){
  *	Inheritance
  */
 
-    that = ui.navs.call(that);
-    that.parent = ui.clon(that);
+    that = ch.navs.call(that);
+    that.parent = ch.clon(that);
 
 /**
  *  Private Members
@@ -47,11 +47,11 @@ ui.dropdown = function(conf){
 		};
 		
         // Reset all dropdowns
-		$(ui.instances.dropdown).each(function(i, e){ e.hide(); });
+		$(ch.instances.dropdown).each(function(i, e){ e.hide(); });
 		
         // Show menu
-		that.$content.css('z-index', ui.utils.zIndex++);
-		that.$trigger.css('z-index', ui.utils.zIndex ++); // Z-index of trigger over content		
+		that.$content.css('z-index', ch.utils.zIndex++);
+		that.$trigger.css('z-index', ch.utils.zIndex ++); // Z-index of trigger over content		
 		that.parent.show(event);		
 		that.position("refresh");
 		
@@ -61,7 +61,7 @@ ui.dropdown = function(conf){
 		};
 	
 		// Document events
-		ui.utils.document.one('click', function(event){ that.hide(event) });
+		ch.utils.document.one('click', function(event){ that.hide(event) });
 		
         return that;
     };
@@ -135,7 +135,7 @@ ui.dropdown = function(conf){
 	that.conf.position.points = "lt lb";
 	that.conf.position.offset = "0 -1";
 	
-	ui.positioner.call(that);
+	ch.positioner.call(that);
 	
 	return that;
 
