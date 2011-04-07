@@ -336,7 +336,7 @@ hr {
 
 /* Close */
 
-.btn.ch-close {
+.btn.close {
 	background-color:transparent;
 	background-repeat:no-repeat;
 	background-position:0 -184px;
@@ -351,12 +351,12 @@ hr {
 	width:16px;
 }
 
-.btn.ch-close:hover, .btn.ch-close:focus{
+.btn.close:hover, .btn.close:focus{
 	background-position:0 -200px;
 	border:none;
 }
 
-.btn.ch-close:active{
+.btn.close:active{
 	background-position:0 -216px;
 	outline:none;
 }
@@ -386,7 +386,7 @@ hr {
 }
 
 /* Close */
-.ie6 .btn.ch-close {
+.ie6 .btn.close {
 	line-height:16px;
 }
 
@@ -466,12 +466,12 @@ hr {
 .pagination {
 	clear:both;
 	margin:10px 0;
-	}
+}
     		
 .pagination li {
 	display:inline-block;
 	margin:0px 4px;
-    }
+}
     		
 .pagination li a, 
 .pagination li.current {
@@ -481,26 +481,26 @@ hr {
 	padding: 3px 8px;
 	display:inline-block; /* same shape */
 	border:1px solid #ccc;
-   	}
+}
     		
 .pagination li a:hover{
 	color:#fff;
 	text-decoration:none;
 	background-color:#0637b3;
 	border:1px solid #0637b3;
-   	}
+}
 		
 .pagination li.current {
 	border:1px solid #ededed;
-	background:#ededed;
+	background-color:#ededed;
 	color:#0637b3; 
 	font-weight: bold;
-	}
+}
     
 .pagination li:first-child a, 
 .pagination li:last-child a {
 	border:none;
-	}
+}
      
 
 /**

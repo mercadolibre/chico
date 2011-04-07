@@ -65,7 +65,7 @@ ch.layer = function(conf) {
         
         // Click
         if (conf.event == "click") {
-            $('<p class="btn ch-close">x</p>').bind('click', that.hide).prependTo(that.$container);
+            $('<p class="btn close">x</p>').bind('click', that.hide).prependTo(that.$container);
             // Document events
             $(document).one('click', that.hide);
             

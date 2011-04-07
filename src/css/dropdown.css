@@ -119,7 +119,7 @@
  */
 
 /* Container */
-.ch-dropdown.ch-secondary {
+.ch-dropdown.secondary {
 	height:13px;
 	line-height:13px;
 }
@@ -141,7 +141,7 @@
 }
 
 /* Container ON */
-.ch-dropdown.ch-secondary.ch-dropdown-on {
+.ch-dropdown.secondary.ch-dropdown-on {
 	box-shadow: 2px 2px 0px #888;
 	-moz-box-shadow: 2px 2px 0px #888;
 	-webkit-box-shadow: 2px 2px 0px #888;
@@ -183,7 +183,7 @@
 }
 
 
-/* IE 7/8 */
+/* IE 7,8 */
 .ie7 .ch-dropdown-trigger-primary,
 .ie8 .ch-dropdown-trigger-primary {
 	background-position:0 -436px;

@@ -220,9 +220,9 @@
 
 			$('#testModal').click();
 			
-			exists('.ch-modal .ch-close');
+			exists('.ch-modal .close');
 			
-			$('.ch-close').trigger('click');
+			$('.close').trigger('click');
 			
 			notExists('.ch-dimmer');
 			notExists('.ch-modal');
@@ -501,7 +501,7 @@
 		  					
 			$('#testTransition').click();
 			
-			notExists('.ch-modal .ch-close');
+			notExists('.ch-modal .close');
 			
 			$('.ch-dimmer').trigger('click');
 			

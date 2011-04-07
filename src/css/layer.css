@@ -11,7 +11,7 @@
 	-moz-box-shadow: 3px 3px 3px #999;
 }
 
-.ch-layer .ch-close {
+.ch-layer .close {
 	top:5px;
 	right:5px;
 }
@@ -74,12 +74,8 @@
 	bottom:-8px;
 }
 
-/* IE 6 */
-.ie6 .ch-layer {
-	width:280px;
-}
-
-/* IE 7 */
+/* IE 6,7 */
+.ie6 .ch-layer,
 .ie7 .ch-layer {
 	width:280px;
 }

@@ -14,7 +14,7 @@ ch.dropdown = function(conf){
 	var that = this;
 
 	conf = ch.clon(conf);
-	conf.skin = ( that.$element.hasClass("ch-secondary") ) ? "secondary": "primary";
+	conf.skin = ( that.$element.hasClass("secondary") ) ? "secondary": "primary";
 
 	that.conf = conf;
 	

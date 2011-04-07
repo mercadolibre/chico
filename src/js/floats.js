@@ -30,7 +30,7 @@ ch.floats = function() {
 
 	var createClose = function() { 
 		$('<p>')
-			.addClass("btn ch-close")
+			.addClass("btn close")
 			.css("z-index",ch.utils.zIndex++)
 			.bind('click', function(event){ that.hide(event) })
 			.prependTo(that.$container);
