@@ -154,7 +154,7 @@ ch.positioner = function(o) {
 		if ( (points == "lt lb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
-			
+
 			//store old styles
 			stylesDown = styles;
 			
@@ -252,26 +252,28 @@ ch.positioner = function(o) {
 	
 	
 	var getParentRelative = function(){
+		
 		var relative = {};
 			relative.left = 0;
 			relative.top = 0;
 		
-		element.parents().each(function(i, e){
-			if ( $(e).css("position") != "relative" ) return;
-		
-			var borderLeft = ($(e).outerWidth() - $(e).width() - ( parseInt($(e).css("padding-left")) * 2 )) / 2;
+		var parent = element.offsetParent();
+
+		if ( parent.css("position") == "relative" ) {
 			
-			relative = $(e).offset();
+			var borderLeft = (parent.outerWidth() - parent.width() - ( parseInt(parent.css("padding-left")) * 2 )) / 2;
+			
+			relative = parent.offset();
 			relative.left -= offset_left - borderLeft;
 			relative.top -= offset_top;
 			
-			return false;
-		});
+		};
 		
 		return {
 			left: relative.left,
 			top: relative.top
 		};
+		
 	};
 	
 
