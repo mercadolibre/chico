@@ -40,14 +40,17 @@ ch.helper = function(controller){
 	
 	that.show = function(text) {
 
-		conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';
+		if ( !that.active ) {
+			// Load content and show!
+			conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';
+			that.parent.show();
+			
+		} else {
+			// Just Reload content!
+			that.$content.html('<p><span class="ico error">Error: </span>' + text + '</p>');
+			
+		};
 
-		that.parent.show();
-		
-		// This is a awful fix
-		// TODO: We need  to update validation messages on each validation somehow
-        that.$content.html( that.loadContent() );		
-		
 		return that;
 	};
 
