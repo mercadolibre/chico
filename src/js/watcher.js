@@ -295,7 +295,7 @@ ch.watcher = function(conf) {
 			
 			case 'SELECT':
 			    var val = that.$element.val();
-				return val === -1 || val === null;
+				return parseInt(val) === -1 || val === null;
 			break;
 			
 			case 'INPUT':
