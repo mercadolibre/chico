@@ -59,19 +59,19 @@
 }
 
 .ch-carousel .ch-prev-on span{
-	background-position: -2px -2px;
+	background-position: 0 0;
 }
 
 .ch-carousel .ch-prev-on:hover span{
-	background-position: -2px -25px;
+	background-position: 0 -20px;
 }
 
 .ch-carousel .ch-next-on span{
-	background-position: -2px -48px;
+	background-position: 0 -40px;
 }
 
 .ch-carousel .ch-next-on:hover span{
-	background-position: -2px -71px;
+	background-position: 0 -60px;
 }
 
 /* Pager */
