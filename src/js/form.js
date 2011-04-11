@@ -38,6 +38,9 @@ ch.form = function(conf){
 	if ( !conf.hasOwnProperty("messages") ) conf.messages = {};
 	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
 	
+	// Disable HTML5 browser-native validations
+	that.$element.attr("novalidate", "novalidate");	
+	
 	that.conf = conf;
 
 /**
