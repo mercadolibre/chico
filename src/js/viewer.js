@@ -40,13 +40,14 @@ ch.viewer = function(conf){
 		var lens = $("<div class=\"ch-lens\">").bind("click", function(){ viewerModal.show(); }).hide();
 		
 		var display = $viewer.children(":first").addClass("ch-viewer-content");
+			display.find("img")
+				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
+				.bind("mouseleave", function(){ lens.fadeOut(); }) // Hide magnifying glass
 		
 		var wrapper = $("<div>")
 			.addClass("ch-viewer-display")
 			.append( display )
 			.append( lens ) // Magnifying glass
-			.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
-			.bind("mouseleave", function(){ lens.fadeOut(); }) // Hide magnifying glass			
 			.appendTo( $viewer );
 
 		var self = {};
