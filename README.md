@@ -18,8 +18,6 @@ Some features.
 
 License
 -------
-The MIT License
-
 Copyright (c) 2011 MercadoLibre, http://www.mercadolibre.com/ 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
