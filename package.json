@@ -1,0 +1,40 @@
+{
+   "name": "Chico UI",
+   "version": "0.5.8",
+   "main": "core",
+   "description": "The main goal is to improve and accelerate the development process. Built on top of jQuery, this toolbox brings a couple of known visual patterns for the web and takes advantages of the new HTML5 and CSS3 features.",
+   "keywords": [
+       "UI",
+       "components"
+   ],
+   "maintainers": [
+       {
+           "name": "Chico-UI Team",
+           "email": "chico@mercadolibre.com",
+           "web": "http://www.chico-ui.com.ar",
+           "twitter": "chicoui"
+       } 
+   ],
+   "bugs": {
+       "mail": "chico@mercadolibre.com",
+       "web": "https://github.com/mercadolibre/chico/issues" 
+   },
+   "licenses": [
+       {
+           "type": "MIT"
+       } 
+   ],
+   "repositories": [
+       {
+           "type": "git",
+           "url": "git@github.com:mercadolibre/chico.git" 
+       } 
+   ],
+   "directories": {
+       "build": "build",
+       "docs": "docs",
+       "src": "src",
+       "tests": "tests"
+   },
+   "main": "index.html"
+}
