@@ -1,36 +1,37 @@
 /* Codelighter */
 pre {
 	font-family: Monospace, "Monotype Corsiva";
- 	background-color:#F8F8F8;
+ 	background-color:#fdf6e3;
     border: 1px solid #CCCCCC;
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 20px;
     margin: 10px 0;
     overflow: auto;
     padding: 10px;
+    color:#657b83;
 }
 
 
 /*xml*/
-.ch-tag{color:#A0B;}
+.ch-tag{color:#268bd2;font-weight:bold;}
+.ch-attrName{color:#93a1a1;;font-weight:normal;}
 
 /*js*/
-.ch-keywords{color:#A0B;}
-.ch-atom{color:#281;}
-.ch-operator{color:#A0B;}
+.ch-keywords{color:#268bd2;}
+.ch-atom{color:#dc322f;}
+.ch-operator{color:#cb4b16;}
 
 /*css*/
-.ch-selector{color:darkred;}
-.ch-property{color:#A0B}
+.ch-selector{color:#859900;}
+.ch-property{color:#b58900}
 
 
-.ch-attrName{color:blue;}
 .ch-attrValue,
 .ch-attrValue .ch-keywords,
 .ch-attrValue .ch-comment{
-	color:#281;
+	color:#2aa198;
 }
 .ch-comment, 
 .ch-comment .ch-keywords{
-	color:#A70;
+	color:#6c71c4;
 }

@@ -275,7 +275,6 @@ ch.carousel = function(conf){
 	// Elastic behavior    
     if ( !conf.hasOwnProperty("width") ){
 		
-		
 	    ch.utils.window.bind("resize", function() {
 			resize = true;
 		});
