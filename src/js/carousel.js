@@ -15,12 +15,15 @@ ch.carousel = function(conf){
 	
 	that.$element.addClass('ch-carousel');
 	
+	if ( conf.height ) that.$element.height( conf.height );
+	if ( conf.width ) that.$element.width( conf.width );
+	
 	// UL configuration
 	that.$content = that.$element.find('.carousel')	 // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
 		.addClass('ch-carousel-content')
 		.wrap($('<div>').addClass('ch-mask'))//gracias al que esta abajo puedo leer el $mask.width()
-
-	conf =ch.clon(conf);
+	
+	conf = ch.clon(conf);
 	that.conf = conf;
 	
 /**
@@ -41,21 +44,31 @@ ch.carousel = function(conf){
 	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
 	that.$content.css('width', htmlContentWidth);
 	
-	// Mask Object	
+	// Mask Object and draw function	
 	var $mask = that.$element.find('.ch-mask');
+	var steps, totalPages, moveTo, margin;
+	
+	var calculateMask = function(){
+		// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
+		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + 20));
+		steps = (steps == 0) ? 1 : steps;
+		totalPages = Math.ceil(that.$content.children().size() / steps);
+		
+		// Move to... (steps in pixels)
+		moveTo = (that.$content.children().outerWidth() + 20) * steps;
+		// Mask configuration
+		margin = ($mask.width()-moveTo) / 2;
+		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() + 2 ); // +2 for content with border
+		
+		return that;
+	};
 
-	// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
-	var steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + 20));
-		steps = (steps == 0) ? 1 : steps;	
-	var totalPages = Math.ceil(that.$content.children().size() / steps);
+	calculateMask();
 
-	// Move to... (steps in pixels)
-	var moveTo = (that.$content.children().outerWidth() + 20) * steps;
-	// Mask configuration
-	var margin = ($mask.width()-moveTo) / 2;
-	$mask.width( moveTo ).height( that.$content.children().outerHeight() + 2 ); // +2 for content with border
-
+	// Pager
 	var makePager = function(){
+		that.$element.find(".ch-pager").remove();
+			
 		var pager = $("<ul class=\"ch-pager\">");
 		var thumbs = [];
 		
@@ -82,9 +95,11 @@ ch.carousel = function(conf){
 				that.select(i+1);
 			});
 		});
-		
+
 		return pager;
 	};
+	
+	var resize = false;
 	
 
 /**
@@ -94,12 +109,14 @@ ch.carousel = function(conf){
 	// Buttons
 	that.buttons = {
 		prev: {
-			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }).css('top', (that.$element.outerHeight() - 50) / 2), // 50 = button height + margin TODO usar positioner
+			//TODO usar positioner cuando esten todos los casos de posicionamiento
+			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }).css('top', (that.$element.outerHeight() - 50 + (( conf.pager ) ? 30 : 0)) / 2), // 50 = button height + margin; 30 = padding bottom if pager exists
 			on: function(){ that.buttons.prev.$element.addClass("ch-prev-on") },
 			off: function(){ that.buttons.prev.$element.removeClass("ch-prev-on") }
 		},
 		next: {
-			$element: $('<p class="ch-next"><span>Next</span></p>').bind('click', function(){ that.move("next", 1) }).css('top', (that.$element.outerHeight() - 50) / 2), // 50 = button height + margin TODO usar positioner
+			//TODO usar positioner cuando esten todos los casos de posicionamiento
+			$element: $('<p class="ch-next"><span>Next</span></p>').bind('click', function(){ that.move("next", 1) }).css('top', (that.$element.outerHeight() - 50 + (( conf.pager ) ? 30 : 0)) / 2), // 50 = button height + margin; 30 = padding bottom if pager exists
 			on: function(){ that.buttons.next.$element.addClass("ch-next-on") },
 			off: function(){ that.buttons.next.$element.removeClass("ch-next-on") }
 		}
@@ -195,7 +212,12 @@ ch.carousel = function(conf){
 			
 	    return that;
 	};
-
+	
+	that.redraw = function(){
+		that.select(1); //reset the position
+		calculateMask();
+		if (conf.pager) that.pager = makePager();
+	};
 
 /**
  *  Public Members
@@ -224,6 +246,12 @@ ch.carousel = function(conf){
 
 		return that.public;
 	};
+	
+	that.public.redraw = function(){
+		that.redraw();
+		
+		return that.public;
+	};
 
 
 /**
@@ -238,7 +266,27 @@ ch.carousel = function(conf){
 	if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
 
 	// Create pager if it was configured
-	if (conf.pager) that.pager = makePager();
+	if (conf.pager){
+		that.$element.addClass("ch-pager-bottom");
+		that.pager = makePager();
+	};
+	
+	
+	// Elastic behavior    
+    if ( !conf.hasOwnProperty("width") ){
+		
+		
+	    ch.utils.window.bind("resize", function() {
+			resize = true;
+		});
+		
+		setInterval(function() {
+		    if( !resize ) return;
+			resize = false;
+			that.redraw();
+		}, 250);
+		
+	};
  
 	return that;
 }

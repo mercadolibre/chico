@@ -126,7 +126,7 @@
 
 /* IE 6 */
 .ie6 .ch-viewer-triggers .ch-prev {
-	left: -30px;
+	left: 10px;
 }
 
 .ie6 .ch-viewer-triggers .ch-next {
