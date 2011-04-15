@@ -13,8 +13,8 @@ pre {
 
 
 /*xml*/
-.ch-tag{color:#268bd2;font-weight:bold;}
-.ch-attrName{color:#93a1a1;;font-weight:normal;}
+.ch-tag{color:#268bd2;}
+.ch-attrName{color:#93a1a1;}
 
 /*js*/
 .ch-keywords{color:#268bd2;}
