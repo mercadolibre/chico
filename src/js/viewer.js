@@ -21,11 +21,10 @@ ch.viewer = function(conf){
     that = ch.controllers.call(that);
     that.parent = ch.clon(that);
 	
-	
 /**
  *  Private Members
  */
-	
+ 
 	/**
 	 * 	Viewer
 	 */
@@ -40,7 +39,7 @@ ch.viewer = function(conf){
 		var lens = $("<div class=\"ch-lens\">").bind("click", function(){ viewerModal.show(); }).hide();
 		
 		var display = $viewer.children(":first").addClass("ch-viewer-content");
-			display.find("img")
+			display.find("img, object, embed, video") // TODO: Checkear que este correcto
 				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
 				.bind("mouseleave", function(){ lens.fadeOut(); }) // Hide magnifying glass
 		
@@ -59,6 +58,8 @@ ch.viewer = function(conf){
 			
 			// Set visual config of content
 			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
+			
+			//self.videos = [];
 		
 		// Position magnifying glass
 		ch.positioner({
@@ -66,35 +67,8 @@ ch.viewer = function(conf){
 	        context: wrapper
 		});
 		
-		// Structure validation
-		if(self.items.find("link[rel=thumb][itemprop=thumb]").length == 0) alert("");
-		
 		return self;
 	})();
-	
-	
-	// Generic list creation
-	var createList = function(type){
-		var list = $("<ul>").addClass("carousel");
-		
-		$.each(showcase.items, function(i, e){
-			var page = i + 1;
-		
-			var image = $("<img>").attr("src", (type == "thumb") ? $(e).children("link[rel=thumb]").attr("href") : bigImages[i]); // Thumbnails source vs. Big images source
-			
-			if(type == "thumb") {
-				image.bind("click", function(event){
-					that.prevent(event);
-					that.move(page);
-				});
-			};
-			
-			$("<li>").append( image ).appendTo( list );
-		});
-				
-		return list;
-	};
-		
 	
 	
 	/**
@@ -102,7 +76,33 @@ ch.viewer = function(conf){
 	 */
 	var createThumbs = function(){
 	
-		var structure = createList("thumb");
+		var structure = $("<ul>").addClass("carousel");
+		
+		$.each(showcase.items, function(i, e){
+			
+			var thumb = $("<li>").bind("click", function(event){
+				that.prevent(event);
+				that.move(i + 1);
+			});
+			
+			// Thumbnail
+			if( $(e).children("link[rel=thumb]").length > 0 ) {
+				$("<img>")
+					.attr("src", $(e).children("link[rel=thumb]").attr("href"))
+					.appendTo( thumb );
+			
+			// Google Map
+			//} else if( ref.children("iframe").length > 0 ) {
+				// Do something...
+					
+			// Video
+			} else if( $(e).children("object").length > 0 ) {
+				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-video") );
+				//showcase.videos.push($(e).children("object"));
+			};
+			
+			structure.append( thumb );
+		});
 		
 		var self = {};
 		
@@ -131,12 +131,54 @@ ch.viewer = function(conf){
 		content: "<div class=\"ch-viewer-modal-content\"></div>",
 		width:600,
 		onShow: function(){ // TODO: Deberia cachear el contenido para evitar recalcular todo
-		
+			
+			// Pause showcase videos
+			/*$.each(showcase.videos, function(i, e){
+				e.pauseVideo();
+				$(e).children("embed")[0].pauseVideo();
+			});*/
+			
 			var modalContent = $(".ch-viewer-modal-content");
 				modalContent.parents(".ch-modal").addClass("ch-viewer-modal");
 		
 			// Create list + reset position + append it
-			createList("big").css("left", 0).appendTo( modalContent );
+			var list = $("<ul>");
+			
+			var bigId = 0;
+		
+			$.each(showcase.items, function(i, e) {
+				
+				var item = {};
+				
+				// Thumbnail
+				if( $(e).children("a").length > 0 ) {
+					item = $("<img>").attr("src", bigImages[ bigId++ ]);
+					
+				// Google Map
+				//} else if( ref.children("iframe").length > 0 ) ? "src/assets/viewer.png" :
+				
+				// Video
+				} else if( $(e).children("object").length > 0 ) {
+					
+					// TODO: tomar alto de las bigImages y sino 
+					//var newSize = ( bigImages.length > 0 ) ? $("img").attr("src", bigImages[0]).width() : 500;
+					
+					var resize = { "width": 500, "height": 500 };
+					
+					var video = $(e).children("object").clone().attr(resize);
+					
+						video.children("embed").attr(resize);
+					
+					item = video;
+				};
+					
+				
+				$("<li>").append( item ).appendTo( list );
+			});
+
+			list.addClass("carousel")
+				.css("left", 0)
+				.appendTo( modalContent );
 			
 			// Full behavior
 			if(showcase.itemsAmount > 1) {
@@ -226,7 +268,7 @@ ch.viewer = function(conf){
 				}); // FadeIn
 			
 			// Append link to image in modal
-			modal.find("img").eq(i).wrap( zoomable );
+			modal.find(".ch-carousel-content li").eq(i).wrap( zoomable );
 			
 			// Add source to preload
 			zoomImages.push(src);
@@ -288,21 +330,20 @@ ch.viewer = function(conf){
 	
 	// Full behavior
 	if(showcase.itemsAmount > 1) {
-		that.public.moveTo = function(page){ that.move(page); return that.public; };
+		that.public.moveTo = function(item){ that.move(item); return that.public; };
 		that.public.next = function(){ that.move( thumbnails.selected + 1 ); return that.public; };
 		that.public.prev = function(){ that.move( thumbnails.selected - 1 ); return that.public; };
 		that.public.getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
-	};
+		// ...
 
 /**
  *  Default event delegation
  */	
 	
-	// Full behavior
-	if(showcase.itemsAmount > 1) {
+		// ...
 		var thumbnails = createThumbs();
 		that.move = move;
-		that.move(1); // Move to the first item and without callback
+		that.move(1); // Move to the first item without callback
 	};
 	
 	// Preload big images on document load

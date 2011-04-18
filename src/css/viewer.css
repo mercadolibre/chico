@@ -31,13 +31,18 @@
 	padding:0 10px;
 }
 
+/* Sprite */
+.ch-viewer .ch-lens,
+.ch-viewer-video span {
+	background-image: url('../src/assets/viewer.png');
+}
+
 /* Magnifying glass */
 .ch-viewer .ch-lens{
     width:41px;
     height:41px;
     position:absolute;
     cursor:pointer;
-	background-image: url('../src/assets/viewer.png');
 	background-repeat: no-repeat;
 }
 
@@ -57,6 +62,25 @@
 /* Highlighted thumbnail */
 .ch-viewer-triggers .ch-thumbnail-on {
 	border-color:#ccc;
+}
+
+/* Video thumbnail */
+.ch-viewer-video {
+	background-color:#eee;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	text-indent:999px;
+	overflow:hidden;
+}
+
+/* Video icon on thumbnail */
+.ch-viewer-video span {
+	background-position:0 -41px;
+	width:12px;
+	height:22px;
+	display:block;
+	margin:9px 0 0 15px;
 }
 
 /* Modal */
