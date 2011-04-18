@@ -20,7 +20,7 @@ var start = new Date().getTime();
   */
 var ch = window.ch = {
 
-    version: "0.5.7",
+    version: "0.5.8",
 
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,accordion",
 
@@ -1509,12 +1509,15 @@ ch.carousel = function(conf){
 	
 	that.$element.addClass('ch-carousel');
 	
+	if ( conf.height ) that.$element.height( conf.height );
+	if ( conf.width ) that.$element.width( conf.width );
+	
 	// UL configuration
 	that.$content = that.$element.find('.carousel')	 // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
 		.addClass('ch-carousel-content')
 		.wrap($('<div>').addClass('ch-mask'))//gracias al que esta abajo puedo leer el $mask.width()
-
-	conf =ch.clon(conf);
+	
+	conf = ch.clon(conf);
 	that.conf = conf;
 	
 /**
@@ -1535,21 +1538,31 @@ ch.carousel = function(conf){
 	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
 	that.$content.css('width', htmlContentWidth);
 	
-	// Mask Object	
+	// Mask Object and draw function	
 	var $mask = that.$element.find('.ch-mask');
+	var steps, totalPages, moveTo, margin;
+	
+	var calculateMask = function(){
+		// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
+		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + 20));
+		steps = (steps == 0) ? 1 : steps;
+		totalPages = Math.ceil(that.$content.children().size() / steps);
+		
+		// Move to... (steps in pixels)
+		moveTo = (that.$content.children().outerWidth() + 20) * steps;
+		// Mask configuration
+		margin = ($mask.width()-moveTo) / 2;
+		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() + 2 ); // +2 for content with border
+		
+		return that;
+	};
 
-	// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
-	var steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + 20));
-		steps = (steps == 0) ? 1 : steps;	
-	var totalPages = Math.ceil(that.$content.children().size() / steps);
+	calculateMask();
 
-	// Move to... (steps in pixels)
-	var moveTo = (that.$content.children().outerWidth() + 20) * steps;
-	// Mask configuration
-	var margin = ($mask.width()-moveTo) / 2;
-	$mask.width( moveTo ).height( that.$content.children().outerHeight() + 2 ); // +2 for content with border
-
+	// Pager
 	var makePager = function(){
+		that.$element.find(".ch-pager").remove();
+			
 		var pager = $("<ul class=\"ch-pager\">");
 		var thumbs = [];
 		
@@ -1576,9 +1589,11 @@ ch.carousel = function(conf){
 				that.select(i+1);
 			});
 		});
-		
+
 		return pager;
 	};
+	
+	var resize = false;
 	
 
 /**
@@ -1588,12 +1603,14 @@ ch.carousel = function(conf){
 	// Buttons
 	that.buttons = {
 		prev: {
-			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }).css('top', (that.$element.outerHeight() - 50) / 2), // 50 = button height + margin TODO usar positioner
+			//TODO usar positioner cuando esten todos los casos de posicionamiento
+			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }).css('top', (that.$element.outerHeight() - 50 + (( conf.pager ) ? 30 : 0)) / 2), // 50 = button height + margin; 30 = padding bottom if pager exists
 			on: function(){ that.buttons.prev.$element.addClass("ch-prev-on") },
 			off: function(){ that.buttons.prev.$element.removeClass("ch-prev-on") }
 		},
 		next: {
-			$element: $('<p class="ch-next"><span>Next</span></p>').bind('click', function(){ that.move("next", 1) }).css('top', (that.$element.outerHeight() - 50) / 2), // 50 = button height + margin TODO usar positioner
+			//TODO usar positioner cuando esten todos los casos de posicionamiento
+			$element: $('<p class="ch-next"><span>Next</span></p>').bind('click', function(){ that.move("next", 1) }).css('top', (that.$element.outerHeight() - 50 + (( conf.pager ) ? 30 : 0)) / 2), // 50 = button height + margin; 30 = padding bottom if pager exists
 			on: function(){ that.buttons.next.$element.addClass("ch-next-on") },
 			off: function(){ that.buttons.next.$element.removeClass("ch-next-on") }
 		}
@@ -1689,7 +1706,12 @@ ch.carousel = function(conf){
 			
 	    return that;
 	};
-
+	
+	that.redraw = function(){
+		that.select(1); //reset the position
+		calculateMask();
+		if (conf.pager) that.pager = makePager();
+	};
 
 /**
  *  Public Members
@@ -1718,6 +1740,12 @@ ch.carousel = function(conf){
 
 		return that.public;
 	};
+	
+	that.public.redraw = function(){
+		that.redraw();
+		
+		return that.public;
+	};
 
 
 /**
@@ -1732,7 +1760,26 @@ ch.carousel = function(conf){
 	if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
 
 	// Create pager if it was configured
-	if (conf.pager) that.pager = makePager();
+	if (conf.pager){
+		that.$element.addClass("ch-pager-bottom");
+		that.pager = makePager();
+	};
+	
+	
+	// Elastic behavior    
+    if ( !conf.hasOwnProperty("width") ){
+		
+	    ch.utils.window.bind("resize", function() {
+			resize = true;
+		});
+		
+		setInterval(function() {
+		    if( !resize ) return;
+			resize = false;
+			that.redraw();
+		}, 250);
+		
+	};
  
 	return that;
 }
@@ -3151,11 +3198,10 @@ ch.viewer = function(conf){
     that = ch.controllers.call(that);
     that.parent = ch.clon(that);
 	
-	
 /**
  *  Private Members
  */
-	
+ 
 	/**
 	 * 	Viewer
 	 */
@@ -3170,7 +3216,7 @@ ch.viewer = function(conf){
 		var lens = $("<div class=\"ch-lens\">").bind("click", function(){ viewerModal.show(); }).hide();
 		
 		var display = $viewer.children(":first").addClass("ch-viewer-content");
-			display.find("img")
+			display.find("img, object, embed, video") // TODO: Checkear que este correcto
 				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
 				.bind("mouseleave", function(){ lens.fadeOut(); }) // Hide magnifying glass
 		
@@ -3189,6 +3235,8 @@ ch.viewer = function(conf){
 			
 			// Set visual config of content
 			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
+			
+			//self.videos = [];
 		
 		// Position magnifying glass
 		ch.positioner({
@@ -3196,35 +3244,8 @@ ch.viewer = function(conf){
 	        context: wrapper
 		});
 		
-		// Structure validation
-		if(self.items.find("link[rel=thumb][itemprop=thumb]").length == 0) alert("");
-		
 		return self;
 	})();
-	
-	
-	// Generic list creation
-	var createList = function(type){
-		var list = $("<ul>").addClass("carousel");
-		
-		$.each(showcase.items, function(i, e){
-			var page = i + 1;
-		
-			var image = $("<img>").attr("src", (type == "thumb") ? $(e).children("link[rel=thumb]").attr("href") : bigImages[i]); // Thumbnails source vs. Big images source
-			
-			if(type == "thumb") {
-				image.bind("click", function(event){
-					that.prevent(event);
-					that.move(page);
-				});
-			};
-			
-			$("<li>").append( image ).appendTo( list );
-		});
-				
-		return list;
-	};
-		
 	
 	
 	/**
@@ -3232,7 +3253,33 @@ ch.viewer = function(conf){
 	 */
 	var createThumbs = function(){
 	
-		var structure = createList("thumb");
+		var structure = $("<ul>").addClass("carousel");
+		
+		$.each(showcase.items, function(i, e){
+			
+			var thumb = $("<li>").bind("click", function(event){
+				that.prevent(event);
+				that.move(i + 1);
+			});
+			
+			// Thumbnail
+			if( $(e).children("link[rel=thumb]").length > 0 ) {
+				$("<img>")
+					.attr("src", $(e).children("link[rel=thumb]").attr("href"))
+					.appendTo( thumb );
+			
+			// Google Map
+			//} else if( ref.children("iframe").length > 0 ) {
+				// Do something...
+					
+			// Video
+			} else if( $(e).children("object").length > 0 || $(e).children("embed").length > 0 ) {
+				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-video") );
+				//showcase.videos.push($(e).children("object"));
+			};
+			
+			structure.append( thumb );
+		});
 		
 		var self = {};
 		
@@ -3244,7 +3291,9 @@ ch.viewer = function(conf){
 				.addClass("ch-viewer-triggers")
 				.append( structure )
 				.appendTo( $viewer )
-				.carousel();
+				.carousel({
+					width: $viewer.width()
+				});
 		
 		return self;
 	};
@@ -3261,12 +3310,59 @@ ch.viewer = function(conf){
 		content: "<div class=\"ch-viewer-modal-content\"></div>",
 		width:600,
 		onShow: function(){ // TODO: Deberia cachear el contenido para evitar recalcular todo
-		
+			
+			// Pause showcase videos
+			/*$.each(showcase.videos, function(i, e){
+				e.pauseVideo();
+				$(e).children("embed")[0].pauseVideo();
+			});*/
+			
 			var modalContent = $(".ch-viewer-modal-content");
 				modalContent.parents(".ch-modal").addClass("ch-viewer-modal");
 		
 			// Create list + reset position + append it
-			createList("big").css("left", 0).appendTo( modalContent );
+			var list = $("<ul>");
+			
+			var bigId = 0;
+		
+			$.each(showcase.items, function(i, e) {
+				
+				var item = {};
+				
+				// Thumbnail
+				if( $(e).children("a").length > 0 ) {
+					item = $("<img>").attr("src", bigImages[ bigId++ ]);
+					
+				// Google Map
+				//} else if( ref.children("iframe").length > 0 ) ? "src/assets/viewer.png" :
+				
+				// Video (OBJECT)
+				} else if( $(e).children("object").length > 0) {
+					
+					// TODO: Take width and height of "bigImages". Else, 500x500.
+					var resize = { "width": 500, "height": 500 };
+					
+					var video = $(e).children("object")[0].cloneNode(true);
+					
+					item = $(video).attr(resize).children("embed").attr(resize);
+				
+				// Video (EMBED)
+				} else if ( $(e).children("embed").length > 0 ) {
+
+					var video = $(e).children("embed")[0].cloneNode(true);
+					
+					// TODO: Take width and height of "bigImages". Else, 500x500.
+					item = $(video).attr({ "width": 500, "height": 500 });
+					
+				};
+					
+				
+				$("<li>").append( item ).appendTo( list );
+			});
+
+			list.addClass("carousel")
+				.css("left", 0)
+				.appendTo( modalContent );
 			
 			// Full behavior
 			if(showcase.itemsAmount > 1) {
@@ -3356,7 +3452,7 @@ ch.viewer = function(conf){
 				}); // FadeIn
 			
 			// Append link to image in modal
-			modal.find("img").eq(i).wrap( zoomable );
+			modal.find(".ch-carousel-content li").eq(i).wrap( zoomable );
 			
 			// Add source to preload
 			zoomImages.push(src);
@@ -3418,21 +3514,20 @@ ch.viewer = function(conf){
 	
 	// Full behavior
 	if(showcase.itemsAmount > 1) {
-		that.public.moveTo = function(page){ that.move(page); return that.public; };
+		that.public.moveTo = function(item){ that.move(item); return that.public; };
 		that.public.next = function(){ that.move( thumbnails.selected + 1 ); return that.public; };
 		that.public.prev = function(){ that.move( thumbnails.selected - 1 ); return that.public; };
 		that.public.getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
-	};
+		// ...
 
 /**
  *  Default event delegation
  */	
 	
-	// Full behavior
-	if(showcase.itemsAmount > 1) {
+		// ...
 		var thumbnails = createThumbs();
 		that.move = move;
-		that.move(1); // Move to the first item and without callback
+		that.move(1); // Move to the first item without callback
 	};
 	
 	// Preload big images on document load
