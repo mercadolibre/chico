@@ -114,7 +114,9 @@ ch.viewer = function(conf){
 				.addClass("ch-viewer-triggers")
 				.append( structure )
 				.appendTo( $viewer )
-				.carousel();
+				.carousel({
+					width: $viewer.width()
+				});
 		
 		return self;
 	};

@@ -75,9 +75,13 @@
 }
 
 /* Pager */
+.ch-carousel.ch-pager-bottom{
+	padding-bottom: 30px;
+}
+
 .ch-carousel .ch-pager {
 	position:absolute;
-	bottom:0;
+	bottom:10px;
 }
 
 .ch-carousel .ch-pager li{
