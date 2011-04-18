@@ -159,25 +159,23 @@ ch.viewer = function(conf){
 				// Google Map
 				//} else if( ref.children("iframe").length > 0 ) ? "src/assets/viewer.png" :
 				
-				// Video
+				// Video (OBJECT)
 				} else if( $(e).children("object").length > 0) {
 					
-					// TODO: tomar alto de las bigImages y sino 
-					//var newSize = ( bigImages.length > 0 ) ? $("img").attr("src", bigImages[0]).width() : 500;
-					
+					// TODO: Take width and height of "bigImages". Else, 500x500.
 					var resize = { "width": 500, "height": 500 };
 					
 					var video = $(e).children("object")[0].cloneNode(true);
-						
+					
 					item = $(video).attr(resize).children("embed").attr(resize);
-					
-				} else if (  $(e).children("embed").length > 0  ) {
-					
-					var resize = { "width": 500, "height": 500 };
-					
+				
+				// Video (EMBED)
+				} else if ( $(e).children("embed").length > 0 ) {
+
 					var video = $(e).children("embed")[0].cloneNode(true);
-						
-					item = $(video).attr(resize);
+					
+					// TODO: Take width and height of "bigImages". Else, 500x500.
+					item = $(video).attr({ "width": 500, "height": 500 });
 					
 				};
 					
