@@ -96,7 +96,7 @@ ch.viewer = function(conf){
 				// Do something...
 					
 			// Video
-			} else if( $(e).children("object").length > 0 ) {
+			} else if( $(e).children("object").length > 0 || $(e).children("embed").length > 0 ) {
 				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-video") );
 				//showcase.videos.push($(e).children("object"));
 			};
@@ -160,18 +160,25 @@ ch.viewer = function(conf){
 				//} else if( ref.children("iframe").length > 0 ) ? "src/assets/viewer.png" :
 				
 				// Video
-				} else if( $(e).children("object").length > 0 ) {
+				} else if( $(e).children("object").length > 0) {
 					
 					// TODO: tomar alto de las bigImages y sino 
 					//var newSize = ( bigImages.length > 0 ) ? $("img").attr("src", bigImages[0]).width() : 500;
 					
 					var resize = { "width": 500, "height": 500 };
 					
-					var video = $(e).children("object").clone().attr(resize);
+					var video = $(e).children("object")[0].cloneNode(true);
+						
+					item = $(video).attr(resize).children("embed").attr(resize);
 					
-						video.children("embed").attr(resize);
+				} else if (  $(e).children("embed").length > 0  ) {
 					
-					item = video;
+					var resize = { "width": 500, "height": 500 };
+					
+					var video = $(e).children("embed")[0].cloneNode(true);
+						
+					item = $(video).attr(resize);
+					
 				};
 					
 				
