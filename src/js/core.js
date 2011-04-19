@@ -45,6 +45,9 @@ var ch = window.ch = {
 				};
 			};
 			return false;
+		},
+		isUrl: function(url){
+			return ( url.match(/(?:(?:(https?|file|ftp):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g) ) ? true : false;
 		}
 	},
 /**

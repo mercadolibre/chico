@@ -22,7 +22,39 @@ ch.object = function(){
 		
 		return that;
 	};
+	
+	
+	that.content = function(content){
 		
+		if ( content === undefined ) {
+		
+			var content = conf.content || conf.msg;
+			return (content) ? (( ch.utils.isSelector(content) ) ? $(content) : content) : ((conf.ajax === true) ? (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
+		
+		} else {
+			
+			//TODO: We have to cache the content if it's the same
+			conf.cache = false;
+			
+			if ( ch.utils.isUrl(content) ) {
+				conf.content = undefined;
+				conf.ajax = content;
+			} else {
+				conf.ajax = false;
+				conf.content = content;
+			};
+	
+			if ( that.active ) {
+				that.$content.html(that.loadContent());
+				return that.position("refresh");
+			};
+
+			if (that.active) that.position("refresh");
+			return that.public;
+		};
+		
+	};
+
 	that.loadContent = function() {
 		// TODO: Properties validation
 		//if( self.ajax && (self.content || self.msg) ) { alert('CH: "Ajax" and "Content" can\'t live together.'); return; };
@@ -61,7 +93,7 @@ ch.object = function(){
 			return '<div class="loading"></div>';
 			
 		} else {
-			var content = conf.content || conf.msg;				
+			var content = conf.content || conf.msg;		
 			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().show() : content;			
 		};
 

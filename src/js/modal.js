@@ -85,7 +85,11 @@ ch.modal = function(conf){
    	that.public.uid = that.uid;
 	that.public.element = that.element;
 	that.public.type = that.type;
-	that.public.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
+	//that.public.content = (conf.content) ? conf.content : ((conf.ajax === true) ? (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
+	that.public.content = that.content;
+	
+	that.public.content = that.content;
+	
 	that.public.show = function(){
 		that.show();
 		

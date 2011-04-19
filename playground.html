@@ -842,12 +842,14 @@ div p.keywords{color:darkorange;}
         	onMove: function(){ /*console.log("Callback onMove OK!")*/ }
         });
         
-        //var ui_moda = $('.demoModal').modal("/test.html");
+        //var ui_moda = $('.demoModal').modal();
         var ui_moda = $('.demoModal').modal({
-        	width: 350,
-        	height: 400,
-        	cache: true,
-        	content: "body div#modalContent",
+        	//width: 350,
+        	//height: 400,
+        	//cache: true,
+        	//content: "body div#modalContent",
+        	//content:"alallaa",
+        	//ajax: "/testasd.html",
         	onShow: function(){ $("#modalContent h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
         	onContentLoad: function(){},
         	onContentError: function(){ /*console.log("Content Error")*/ },
@@ -863,11 +865,11 @@ div p.keywords{color:darkorange;}
         var ui_tabs = $('.demoTabNavigator').tabNavigator({
         	onSelect: function(){ /*console.log("Callback onSelect OK!")*/ }
         });
-        
+
         var ui_tabs2 = $('.demoTabNavigator2').tabNavigator({
         	onSelect: function(){ /*console.log("Callback2 onSelect OK!")*/ }
         });
-        
+
         var ui_expa = $('.demoExpando').expando();
         var ui_expa1 = $('.demoExpando1').expando({open: true });
 
