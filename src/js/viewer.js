@@ -36,12 +36,14 @@ ch.viewer = function(conf){
 	
 	var showcase = (function(){
 		
-		var lens = $("<div class=\"ch-lens\">").bind("click", function(){ viewerModal.show(); }).hide();
+		var lens = $("<div>")
+			.addClass("ch-lens ch-hide")
+			.bind("click", function(){ viewerModal.show(); });
 		
 		var display = $viewer.children(":first").addClass("ch-viewer-content");
 			display.find("img, object, embed, video") // TODO: Checkear que este correcto
 				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
-				.bind("mouseleave", function(){ lens.fadeOut(); }) // Hide magnifying glass
+				.bind("mouseleave", function(){ lens.fadeOut(); }); // Hide magnifying glass
 		
 		var wrapper = $("<div>")
 			.addClass("ch-viewer-display")
@@ -275,7 +277,7 @@ ch.viewer = function(conf){
 				}); // FadeIn
 			
 			// Append link to image in modal
-			modal.find(".ch-carousel-content li").eq(i).wrap( zoomable );
+			modal.find(".ch-carousel-content li").eq(i).wrapInner( zoomable );
 			
 			// Add source to preload
 			zoomImages.push(src);

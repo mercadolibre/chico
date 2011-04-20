@@ -518,8 +518,7 @@
 
             expect( 1 );
 
-			var msg = "<div class=\"loading\"></div><p>Wait to validate the test, please...</p>";
-       		ok( testTransition2.content ==  msg, "Expected to find a custom message on the transition content");
+       		equal( testTransition2.content.children().html(), "Wait to validate the test, please...", "Expected to find a custom message on the transition content");
 
         });
         	

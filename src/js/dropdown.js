@@ -50,7 +50,7 @@ ch.dropdown = function(conf){
 		$(ch.instances.dropdown).each(function(i, e){ e.hide(); });
 		
         // Show menu
-		that.$content.css('z-index', ch.utils.zIndex++);
+		that.$content.css('z-index', ch.utils.zIndex ++);
 		that.$trigger.css('z-index', ch.utils.zIndex ++); // Z-index of trigger over content		
 		that.parent.show(event);		
 		that.position("refresh");
@@ -112,18 +112,16 @@ ch.dropdown = function(conf){
 		.append("<span class=\"ch-down\"> &raquo;</span>");
 
 	// Content
-	that.$content = that.$trigger.next();
-	that.$content
-		// Prevent click on content (except links)
-		.bind("click", function(event){
-			event.stopPropagation();
-		})
+	that.$content = that.$trigger.next()
 		.addClass("ch-dropdown-content-" + conf.skin)
-		// Save on memory;
-		.detach();
+		.addClass("ch-hide")
+		.bind("click", function(event){
+			event.stopPropagation(); // Prevent click on content (except links)
+		})
+		.detach(); // Save on memory;
 	
 	// Close dropdown after click an option (link)
-	that.$content.find('a').one("click", function(){ that.hide() });
+	that.$content.find("a").one("click", function(){ that.hide(); });
 
 	// Put content out of container
 	that.$container.after( that.$content );

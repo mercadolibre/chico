@@ -170,7 +170,7 @@ ch.bellows = function(controller){
  */	 	
 	
 	// Closed by default
-	if(that.open) that.select( parseInt(that.open) ); else that.$content.hide();
+	if(that.open) that.select( parseInt(that.open) ); else that.$content.addClass("ch-hide");
 	
 	// Trigger
 	that.$trigger
