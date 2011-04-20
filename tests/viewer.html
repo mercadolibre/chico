@@ -225,7 +225,7 @@
 			
 			isNotVisible(".ch-viewer .ch-lens");
 			
-			$(".ch-viewer-display").mouseover();
+			$(".ch-viewer-display img").mouseover();
 			
 			isVisible(".ch-viewer .ch-lens");
 		
@@ -235,7 +235,7 @@
 			
 			expect ( 1 );
 			
-			$(".ch-viewer-display").mouseleave();
+			$(".ch-viewer-display img").mouseleave();
 			
 			isNotVisible(".ch-viewer .ch-lens");
 		
@@ -324,7 +324,7 @@
 			$(".ch-lens").click();
 			
 			var link = $(".ch-viewer-modal .ch-carousel-content").children().eq(0).children("a");
-			
+			console.log($(".ch-viewer-modal .ch-carousel-content").children());
 			exists(link);
 			
 			hasClass(link, "ch-viewer-zoomable");

@@ -275,7 +275,7 @@ ch.viewer = function(conf){
 				}); // FadeIn
 			
 			// Append link to image in modal
-			modal.find(".ch-carousel-content li").eq(i).wrap( zoomable );
+			modal.find(".ch-carousel-content li").eq(i).wrapInner( zoomable );
 			
 			// Add source to preload
 			zoomImages.push(src);
