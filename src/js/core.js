@@ -322,6 +322,93 @@ ch.get = function(o) {
 }
 
 /**
+ *  Eraser
+ */
+ 
+ch.eraser = function(data) {
+	
+	if(typeof data == "number"){
+		
+		// By UID
+		for(var x in ch.instances){
+			
+			var component = ch.instances[x];
+			
+			for(var i = 0, j = component.length; i < j; i += 1){
+				if(component[i].uid == data){
+					// TODO: component.delete()
+					delete component[i];
+					component.splice(i, 1);
+					
+					return;
+				};
+			};
+		};
+	
+	} else {
+		
+		// All
+		if(data === "meltdown"){
+			
+			/*$.each(ch.instances, function(i, e){
+				$.each(e, function(j, f){
+					delete f;
+					e.slice(f, 1);
+					e.erase();
+				});
+			});*/
+			
+			delete ch.instances;
+			ch.instances = {};
+			
+		// By component name	
+		} else {
+			
+			for(var x in ch.instances){
+			
+				if(x == data){
+					
+					var component = ch.instances[x];
+				
+					/*for(var i = 0; i < component.length; i += 1){
+						// TODO: component.delete()
+					};*/
+					
+					delete ch.instances[x];
+				};
+			};
+
+			
+			/*
+			
+			$.each(ch.instances, function(i, e){
+				if(e == component) {
+					$.each(e, function(j, f){
+						delete f;
+						e.slice(f, 1);
+						e.erase();
+					});
+				};
+			});*/
+			
+		};
+		
+	};
+		
+	/**
+	
+	Eventos no sirve.. cada uno va a tener que tener un metodo delete que se encargue de pegar that.snippet (that.element inicial) en dode estaba y unbindiear los eventos
+	
+	Erase a component from itself: modal.erase( null );
+	Erase a instance and his family: ch.eraser( 0 ); // uid
+	Erase a type of component: ch.eraser( "tooltip" );
+	Erase all: ch.eraser( "meltdown" );
+	*/
+	
+};
+
+
+/**
  *  Support
  */
  
