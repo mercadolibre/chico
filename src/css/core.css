@@ -79,7 +79,7 @@ body {
 	width:expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
 }
 
-.o {
+.o, .ch-hide {
 	display:none;
 }
 

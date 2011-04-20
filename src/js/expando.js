@@ -82,10 +82,7 @@ ch.expando = function(conf){
 		.addClass('ch-expando-trigger');
 		
 	// Content
-	that.$content
-		.bind('click', function(event){ event.stopPropagation() })		
-		.addClass('ch-expando-content');
-
+	that.$content.addClass('ch-expando-content');
 	
 	// Change default behaivor (close)
 	if( conf.open ) that.show();

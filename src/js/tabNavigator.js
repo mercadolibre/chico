@@ -172,9 +172,10 @@ ch.tab = function(controller){
 			conf.ajax = true;
 						
 			// Create tabContent
-			return $("<div id=\"ch-tab" + that.uid + "\">")
-				.hide()
-				.appendTo( controller.$element.find(".ch-tabNavigator-content") );
+			return $("<div>")
+				.attr("id", "ch-tab" + that.uid)
+				.addClass("ch-hide")
+				.appendTo( controller.$content );
 		}; 
 
 	})();
@@ -202,7 +203,7 @@ ch.tab = function(controller){
  */	 	
 	
 	// Hide my content if im inactive
-	if(!that.active) that.$content.hide();
+	if(!that.active) that.$content.addClass("ch-hide");
 
 	that.$trigger.bind('click', function(event){
 		that.prevent(event);

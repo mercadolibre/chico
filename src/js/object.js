@@ -62,7 +62,7 @@ ch.object = function(){
 			
 		} else {
 			var content = conf.content || conf.msg;				
-			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().show() : content;			
+			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().show() : content;
 		};
 
 	};

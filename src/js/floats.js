@@ -23,45 +23,53 @@ ch.floats = function() {
  *  Private Members
  */
 	var createCone = function() {
-		$('<div class="ch-cone"></div>').prependTo(that.$container);
+		$("<div>")
+			.addClass("ch-cone")
+			.prependTo( that.$container );
 		
 		return;
 	};
 
 	var createClose = function() { 
-		$('<p>')
+		$("<div>")
 			.addClass("btn close")
-			.css("z-index",ch.utils.zIndex++)
-			.bind('click', function(event){ that.hide(event) })
-			.prependTo(that.$container);
+			.css("z-index", ch.utils.zIndex ++)
+			.bind("click", function(event){ that.hide(event); })
+			.prependTo( that.$container );
 			
 		return;
 	};
 
     var createLayout = function() {
 		
-        // Creo el layout del float
-    	that.$container = $("<div class=\"ch-" + that.type + "\"><div class=\"ch-" + that.type + "-content\"></div></div>").appendTo("body").hide();
-    	that.$content = that.$container.find(".ch-" + that.type + "-content");
-
-		conf.position = conf.position || {};
-		conf.position.element = that.$container;
-		conf.position.hold = conf.hold || false;
+        that.$content = $("<div>")
+        	.addClass("ch-" + that.type + "-content")
+        	.html( that.loadContent() );
 		
-		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
-    	
-    	// Visual configuration
-		if( conf.closeButton ) createClose();
-		if( conf.cone ) createCone();
+    	that.$container = $("<div>")
+    		.addClass("ch-" + that.type)
+    		.addClass("ch-hide")
+    		.css("z-index", ch.utils.zIndex ++)
+    		.append( that.$content )
+    		.appendTo("body");
+		
+		// Visual configuration
 		if( conf.classes ) that.$container.addClass(conf.classes);
 		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
-
-		that.$content.html( that.loadContent(that) );
-		that.$container
-    		.css("z-index", ch.utils.zIndex++)
-		    .fadeIn('fast', function(){ that.callbacks('onShow'); });
-
+		if( conf.closeButton ) createClose();
+		if( conf.cone ) createCone();
+		
+		// Cache - Default: true
+		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
+		
+		// Show component
+		that.$container.fadeIn("fast", function(){ that.callbacks("onShow"); });
+		
+		// Position component
+		conf.position = conf.position || {};
+		conf.position.element = that.$container;
+		conf.position.hold = conf.hold || false;
 		ch.positioner.call(that);
 		
 		return;
@@ -129,12 +137,19 @@ ch.floats = function() {
 			
 			// Append the content of BODY
 			var content = conf.content || conf.msg;
-			if ( ch.utils.isSelector(content) ) that.$content.children().clone().appendTo("body").hide();
+			
+			if(ch.utils.isSelector(content)) {
+				that.$content.children()
+					.clone()
+					.addClass("ch-hide")
+					.appendTo("body");
+			};
 			
 			// Callback execute
 			that.callbacks('onHide');
 			
 			$(this).detach();
+			
 		});
 		
 		return that;

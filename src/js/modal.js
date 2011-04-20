@@ -32,29 +32,25 @@ ch.modal = function(conf){
  *  Private Members
  */
 
-	// Dimmer 2.0
 	// Dimmer object
-	var $dimmer = $('<div>')
-			.addClass('ch-dimmer')
-			.css({ height: ch.utils.window.height(), display:'block' })
-			.hide();
+	var $dimmer = $("<div>").addClass("ch-dimmer");
 
 	// Dimmer Controller
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
 			$dimmer
-				.appendTo('body')
-				.css("z-index",ch.utils.zIndex++)
+				.appendTo("body")
+				.css("z-index", ch.utils.zIndex ++)
 				.fadeIn();
 
-			if (that.type == "modal") {
+			if(that.type == "modal") {
 				$dimmer.one("click", function(event){ that.hide(event) });
 			}
 			
 		},
 		off: function() {
-			$dimmer.fadeOut('normal', function(){ 
-				$dimmer.detach(); 
+			$dimmer.fadeOut("normal", function(){ 
+				$dimmer.detach();
 			});
 		}
 	};
@@ -104,8 +100,8 @@ ch.modal = function(conf){
  *  Default event delegation
  */	
 	that.$trigger
-		.css('cursor', 'pointer')
-		.bind('click', function(event){ that.show(event) });
+		.css("cursor", "pointer")
+		.bind("click", function(event){ that.show(event); });
 
 	return that;
 };
@@ -115,11 +111,6 @@ ch.modal = function(conf){
 /**
  *	@Interface Transition
  *	@return An interface object
- 
-
-var t = $("div").transition("Aguarde mientras transiosiono");
-	t.hide();
- 
  */
  
 ch.transition = function(conf) {
@@ -127,8 +118,10 @@ ch.transition = function(conf) {
     conf = conf || {};
 	
 	conf.closeButton = false;
-	conf.msg = conf.msg || "Espere por favor...";
-	conf.content = "<div class=\"loading\"></div><p>"+conf.msg+"</p>";
+	conf.msg = conf.msg || "Please wait...";
+	conf.content = $("<div>")
+		.addClass("loading")
+		.append( $("<p>").html(conf.msg) );
 
 	return ch.modal.call(this, conf);
     

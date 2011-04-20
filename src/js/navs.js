@@ -41,7 +41,7 @@ ch.navs = function(){
 		that.active = true;
 
 		that.$trigger.addClass("ch-" + that.type + "-on");
-		that.$content.show();
+		that.$content.removeClass("ch-hide");
 		that.callbacks("onShow");
 		
 		return that;
@@ -55,7 +55,7 @@ ch.navs = function(){
 		that.active = false;
 		
 		that.$trigger.removeClass("ch-" + that.type + "-on");
-		that.$content.hide();
+		that.$content.addClass("ch-hide");
 		that.callbacks("onHide");
 		
 		return that;

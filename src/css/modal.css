@@ -1,32 +1,29 @@
 .ch-dimmer {
 	background-color:rgba(0,0,0,.5);
-	display:none;
-	height:100%;
-	left:0;
-	position:fixed;
-	top:0;
 	width:100%;
-	z-index:100;
+	height:100%;
+	position:fixed;
+	left:0;
+	top:0;
 }
 
 .ch-transition p {
-    text-align: center
+    text-align: center;
 }
 
 .ch-modal, .ch-transition {
 	background-color: #fff;
-	display:none;
-	width:500px;
 	position:absolute;
+	overflow:auto;
+	width:500px;
 	box-shadow: 3px 3px 3px #595959;
 	-webkit-box-shadow: 3px 3px 3px #595959;
 	-moz-box-shadow: 3px 3px 3px #595959;
-	overflow:auto;
 }
 
 .ch-modal h2 {
     font:20px "Trebuchet MS", Verdana, "DejaVu Sans", sans-serif;
-	border-bottom:1px solid #cccccc;
+	border-bottom:1px solid #ccc;
 	padding-bottom:5px;
 	margin-bottom:10px;
 }
@@ -36,9 +33,6 @@
 	filter:alpha(opacity=50) !important;
 	background-color:#000000;
 	width:105.2%;
-}
-
-html.ie6  div.ch-dimmer {
 	position:absolute;
 	top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop : document.body.scrollTop);
 }
