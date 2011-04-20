@@ -47,7 +47,7 @@ var ch = window.ch = {
 			return false;
 		},
 		isUrl: function(url){
-			return ( url.match(/(?:(?:(https?|file|ftp):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g) ) ? true : false;
+			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
 		}
 	},
 /**
@@ -162,7 +162,7 @@ ch.factory = function(o) {
 						conf.lambda = func;
 						
 						// Could come a messages as a second argument
-		                if (_arguments[1]) {		                	
+		                if (_arguments[1]) {      	
 		                    conf.msg = _arguments[1];
 		                };
 					break;

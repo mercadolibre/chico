@@ -80,7 +80,7 @@ ch.object = function(){
 			
 			return '<div class="loading"></div>';
 			
-		} else if ( conf.ajax || (conf.msg && conf.msg.match(/(?:(?:(https?|file):\/\/)([^\/]+)(\/(?:[^\s])+)?)|(\/(?:[^\s])+)/g)) ){
+		} else if ( conf.ajax || (conf.msg && ch.utils.isUrl(conf.msg)) ){
 			// Set url
 			conf.ajaxUrl = conf.ajax || conf.msg;
 
