@@ -73,7 +73,12 @@
 			</form>
 		</div>
 		
-		
+		<h2>Change content</h2>
+		<div class="box">
+			<form action="../test.html" method="post">
+				<input type="submit" class="btn primary" id="testModalChangeContent" value="Buy">				
+			</form>
+		</div>
 		
 		
 		<h1>Chico-UI: Transition testcases</h1>
@@ -149,6 +154,10 @@
 		var testModalnoCache = $("#testModalnoCache").modal({	    
 	        content: "#testCache",
 	        cache: false
+		});
+		
+		var testModalChangeContent = $("#testModalChangeContent").modal({
+			content: "Modal with dinamic content..."
 		});
 	    
 		var testTransition = $('#testTransition').transition();
@@ -236,7 +245,7 @@
 
 			$('#testModal').click();
 			
-			ok( testModal.content , "Expected to find a defined content on the modal instance");
+			ok( testModal.content() , "Expected to find a defined content on the modal instance");
 			
 			hasContent('.ch-modal', 'Lorem');
 			
@@ -249,7 +258,7 @@
 
 			$("#testModalDOM").click();
 
-			ok( testModal.content , "Expected to find a defined content on the modal instance");
+			ok( testModal.content(), "Expected to find a defined content on the modal instance");
 			
 			hasContent(".ch-modal", "Modal title DOM");
 
@@ -275,9 +284,20 @@
 
 			$("#testModalAjax").click();
 
-			ok( testModalAjax.content , "Expected to find a defined content on the modal instance");
+			ok( testModalAjax.content(), "Expected to find a defined content on the modal instance");
 
 			stop();
+		});
+		
+		test('Set new modal content', function(){
+			expect( 1 );
+
+			testModalChangeContent.show();
+			testModalChangeContent.content("Content change...");
+			
+			equal( testModalChangeContent.content(), "Content change...", "Expected to find a new content on the modal");
+			
+			testModalChangeContent.hide();
 		});
 		
 		       
@@ -289,7 +309,7 @@
        		
     		ok( testModal.type == "modal" , "Expected to find \"modal\" as value of type attribute");
     		
-    		ok( testModal.content != undefined, "Expected to find a defined content on the modal instance");
+    		ok( testModal.content() != undefined, "Expected to find a defined content on the modal instance");
 
         });
 
@@ -301,9 +321,9 @@
        		
     		ok( testModalDOM.type == "modal" , "Expected to find \"modal\" as value of type attribute");
     		
-    		ok( testModalDOM.content != undefined , "Expected to find a defined content on the modal instance");
+    		ok( testModalDOM.content() != undefined , "Expected to find a defined content on the modal instance");
 
-    		ok( /\.|\#/.test(testModalDOM.content) , "Expected to find a CSS \"#id\" or \".class\" declaration on content attribute");
+    		ok( testModalDOM.content().attr("id") == "testDOM" , "Expected to find a CSS \"#id\" or \".class\" declaration on content attribute");
 
         });
 
@@ -315,7 +335,7 @@
        		
     		ok( testModalAjax.type == "modal" , "Expected to find \"modal\" as value of type attribute");
     		
-    		ok( testModalAjax.content != undefined , "Expected to find a defined content on the modal instance");
+    		ok( testModalAjax.content() != undefined , "Expected to find a defined content on the modal instance");
 
         });
         
@@ -324,8 +344,8 @@
 		test("Width and Height configuration", function(){
 			expect( 2 );
 
-    		$("#testModalWH").click();
-
+    		testModalWH.show();
+    		
     		equal( $(".ch-modal").width(), 500, "Expected to find modal width = 500");
     		equal( $(".ch-modal").height(), 300, "Expected to find modal height = 300");
 
@@ -451,7 +471,7 @@
        		
     		ok( testTransition.type == "transition" , "Expected to find \"transition\" as value of type attribute");
     		
-    		ok( testTransition.content != undefined , "Expected to find a defined content on the transition instance");
+    		ok( testTransition.content() != undefined , "Expected to find a defined content on the transition instance");
 
         });
 		
@@ -514,11 +534,11 @@
 		
 		module("Transition custom messages");
 		
-		test("Custom massages for transitions window", function(){
+		test("Custom messages for transitions window", function(){
 
             expect( 1 );
 
-       		equal( testTransition2.content.children().html(), "Wait to validate the test, please...", "Expected to find a custom message on the transition content");
+       		equal( testTransition2.content().children().html(), "Wait to validate the test, please...", "Expected to find a custom message on the transition content");
 
         });
         	

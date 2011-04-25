@@ -92,7 +92,7 @@ ch.layer = function(conf) {
    	that.public.uid = that.uid;
 	that.public.element = that.element;
 	that.public.type = that.type;
-	that.public.content = conf.content || conf.ajax || conf.msg;
+	that.public.content = that.content;
 	that.public.show = function(){
 		that.show();
 		
