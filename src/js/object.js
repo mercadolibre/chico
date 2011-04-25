@@ -23,7 +23,7 @@ ch.object = function(){
 		return that;
 	};
 	
-	
+	//TODO: Analizar si unificar that.content (get and set) con that.loadContent(load).
 	that.content = function(content){
 		
 		if ( content === undefined ) {
@@ -94,7 +94,7 @@ ch.object = function(){
 			
 		} else {
 			var content = conf.content || conf.msg;		
-			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().show() : content;			
+			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().removeClass("ch-hide").show() : content;			
 		};
 
 	};

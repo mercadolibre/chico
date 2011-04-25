@@ -23,6 +23,8 @@
 	
 	<div class="box"><img class="tool3" title="Good seller" alt="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif"></div>
 
+	<div class="box"><img class="tool4" title="Good seller" alt="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif"></div>
+
 	<hr>
 <!-- #body -->
 	<h1 id="qunit-header">QUnit Test Suite</h1>
@@ -49,6 +51,7 @@
 				$("body").addClass("onHide");
 			}
 		});
+		var tooltip4 = $('.tool4').tooltip();
 
 		$.fx.off = true;
 
@@ -68,7 +71,7 @@
     		
     		ok( tooltip1.hasOwnProperty("element"), "Expected to find an \"element\" property" );
     		
-    		equal( tooltip1.content, $(".tool1").attr("title"), "Expected to find the tooltip \"title\" attribute on \"content\" property of tooltip instance");
+    		equal( tooltip1.content(), $(".tool1").attr("title"), "Expected to find the tooltip \"title\" attribute on \"content\" property of tooltip instance");
 
         });
         
@@ -138,6 +141,16 @@
 
 			notExists('.ch-tooltip');
 		});
+		
+		test("Set new content", function(){
+
+            expect( 1 );
+			
+			tooltip4.content("New content...")
+       		
+       		ok( tooltip4.content() == "New content...", "Expected to find a new content on the tooltip");
+
+        });
 
        	
        	module('Tooltip behavior with spaceless viewport');
