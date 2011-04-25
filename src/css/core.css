@@ -1,8 +1,6 @@
 /*
  * MELI Reset Sylesheet
- * @autor: Eric Meyer
- * @mod: 07/07/2010
- *
+ * @based: Eric Meyer
  */
 
 html, body, div, span, applet, object, iframe,
@@ -25,12 +23,15 @@ progress, section, time, video {
 	vertical-align: baseline;
 	background: transparent;	
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, 
 blockquote:after,
 q:before, q:after {
@@ -47,6 +48,7 @@ q:before, q:after {
 ins {
 	text-decoration: none;
 }
+
 del {
 	text-decoration: line-through;
 }
@@ -59,10 +61,6 @@ table {
 
 /*
  * Global
- * @autor: Leandro Linares
- * @autor: Jesica Bertisch
- * @mod: 05/07/2010
- *
  */
 
 body { 
@@ -72,31 +70,31 @@ body {
 	min-width:760px;
 	max-width:1200px;
 	margin:0 auto;
-	padding:0 10px; /* Impide que el layout se pegue con el borde del browser */
+	padding:0 10px; /* Prevent layout "sticking" to the edge of the browser */
 }
 
 .ie6 body, .ie7 body {
 	width:expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
 }
 
+/* IMPORTANT: .ch-hide class allows components to be shown and hidden */
 .o, .ch-hide {
 	display:none;
 }
 
 /*
- * Links
- * @autor: Leandro Linares
- * @mod: 02/07/2010
- *
+ * Anchors
  */
 
 a { 
 	color:#0637B3;
 	text-decoration: none;
 }
+
 a:active {
 	color: #00D;
 }
+
 a:visited{
 	color:#800080;
 }
@@ -110,29 +108,21 @@ a img{
 }
 
 /*
- * Sprites
- * @autor: All
- * @mod: 30/06/2010
- *
+ * Core sprite
  */
 
-.btn, .box, .ch-cone, .ico,
+.btn,
+.box,
+.ch-cone,
+.ico,
 .ch-dropdown-trigger-primary,
-.ch-tabNavigator .ch-tab-on { 
+.ch-tabNavigator .ch-tab-on {
 	background-image: url('../src/assets/base.png');
 }
 
 /*
- * Typos
- * @autor: Emiliano Quintana
- * @mod: 24/09/2010
- *
+ * Typography
  */
-
-
-/*p { is this really necesary ?  
-	margin: 5px 0 10px;
-}*/
 
 p.table {
 	font-size:12px;
@@ -153,13 +143,13 @@ h1, h2, h3, h4, h5, h6 {
 	font-family:"Trebuchet MS", Verdana, "DejaVu Sans", sans-serif
 }
 
-/*Con Arial*/
+/* Arial Headers */
 h1 { font-size:20px }
 h2 { font-size:18px }
 h3 { font-size:16px }
 h5 { font-size:11px }
 	
-/*Con Trebuchet*/
+/* Trebuchet Headers */
 h1.typo { font-size:20px }
 h2.typo { font-size:18px }
 h5.typo { font-size:13px }
@@ -179,10 +169,8 @@ h5.typo { font-size:13px }
 
 /*
  * Price
- * @autor: Jesica Bertisch
- * @mod: 
- *
  */
+
 .price {
 	color: #900;
 	font-size: 16px;
@@ -209,10 +197,8 @@ h5.typo { font-size:13px }
 
 /*
  * Misc
- * @autor: 
- * @mod: 
- *
  */
+
 hr { 
 	border: none;
 	border-bottom: 1px dashed #ccc;
@@ -223,7 +209,7 @@ hr {
 	height:0;
 }
 
-/**
+/*
  * Buttons
  */
 
@@ -255,7 +241,7 @@ hr {
 .btn:disabled,
 .btn:disabled:hover,
 .btn:disabled:active,
-.btn.disabled { /* Refuerza los botones disabled */
+.btn.disabled { /* Reinforces disabled state */
 	border: #999 1px solid;
 	opacity: 0.3;
 	color: #f7f7f7;
@@ -310,7 +296,7 @@ hr {
 	background-position:0 -510px;
 }
 
-/* secondary with Cian skin */
+/* Secondary with Cian skin */
 
 .btn.secondary.skin {
 	background-position:0 -435px;
@@ -361,7 +347,6 @@ hr {
 	outline:none;
 }
 
-/* IE */
 .ie6 .btn.disabled,
 .ie7 .btn.disabled,
 .ie7 .btn.disabled:hover,
@@ -373,24 +358,18 @@ hr {
 	color:#CCCCCC;
 }
 
-
-/*IE 6*/
-/* Primary */
 .ie6 .btn.primary {
 	padding:1px 9px;
 }
 
-/* Secondary */
 .ie6 .btn.secondary {
 	padding:2px 9px;
 }
 
-/* Close */
 .ie6 .btn.close {
 	line-height:16px;
 }
 
-/*IE 7*/
 .ie7 .btn{
 	line-height: 0.5em;
 }
@@ -400,11 +379,8 @@ hr {
 }
 
 
-/**
+/*
  * Boxes
- * @autor: Natan Santolo
- * @mod: 28/09/2010
- *
  */
 
 .container {
@@ -447,21 +423,20 @@ hr {
 	text-align: center
 }
 
-/*Titulo sobre box*/
-.box h2.typo {
-	margin-bottom:10px;
-}
-
 .ie6 .actions a,
 .ie7 .actions a, {
 	display:inline-block;margin-bottom:5px;
 }
-  
 
-/**
+/* Box title */
+.box h2.typo {
+	margin-bottom:10px;
+}  
+
+
+/*
  * Pagination
- */  
-     
+ */
 
 .pagination {
 	clear:both;
@@ -501,9 +476,9 @@ hr {
 .pagination li:last-child a {
 	border:none;
 }
-     
 
-/**
+
+/*
  * Icons
  */
 
@@ -540,7 +515,7 @@ hr {
 	background-position:0 -128px;
 }
 
-/**
+/*
  * Transitions
  */
 
@@ -560,11 +535,9 @@ hr {
 /*
  * Clear Fix
  * @based: http://xyberneticos.com/index.php/2008/02/17/clearfix-css-hack/
- * @mod: 01/07/2010
- *
  */
 
-/* slightly enhanced, universal clearfix hack */
+/* Slightly enhanced, universal clearfix hack */
 .clearfix:after {
 	visibility: hidden;
 	display: block;
@@ -578,7 +551,7 @@ hr {
 	display: inline-block;
 }
 
-/* start commented backslash hack \*/
+/* Commented backslash hack */
 
 * html .clearfix {
 	height: 1%;
@@ -587,4 +560,3 @@ hr {
 .clearfix {
 	display: block;
 }
-/* close commented backslash hack */
