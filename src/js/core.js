@@ -4,7 +4,7 @@ var start = new Date().getTime();
   */
 var ch = window.ch = {
 
-    version: "0.5.9",
+    version: "0.6.0",
 
     components: "",
 
