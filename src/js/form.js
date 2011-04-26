@@ -208,9 +208,13 @@ ch.form = function(conf){
  */	
 
 	// patch exists because the components need a trigger
-	//that.$element.bind('submit', function(event){ that.prevent(event); });
-	//that.$element.find(":submit").unbind('click'); // Delete all click handlers asociated to submit button >NATAN: Why?
-
+	if (conf.hasOwnProperty("onSubmit")) {
+		that.$element.bind('submit', function(event){ that.prevent(event); });
+		// Delete all click handlers asociated to submit button >NATAN: Why?
+			//Because if you want do something on submit, you need that the trigger (submit button) 
+			//don't have events associates. You can add funcionality on onSubmit callback
+		that.$element.find(":submit").unbind('click');
+	};
 
 	// Bind the submit
 	that.$element.bind("submit", function(event){
