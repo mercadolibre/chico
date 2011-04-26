@@ -311,48 +311,48 @@ ch.watcher = function(conf) {
 /**
  *  Public Members
  */	
-	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
-	that.public.types = conf.types;
-	that.public.reference = that.reference;
-	that.public.validations = that.validations;
-	that.public.conditions = that.conditions;
-	that.public.messages = that.messages;
-	that.public.helper = that.helper;
-	that.public.active = function() {
+	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
+	that["public"].types = conf.types;
+	that["public"].reference = that.reference;
+	that["public"].validations = that.validations;
+	that["public"].conditions = that.conditions;
+	that["public"].messages = that.messages;
+	that["public"].helper = that.helper;
+	that["public"].active = function() {
 		return that.active;
 	};
 	
-	that.public.and = function() {
+	that["public"].and = function() {
 		return that.$element;
 	};
 	
-	that.public.reset = function() {
+	that["public"].reset = function() {
 		that.reset();
 		
-		return that.public;
+		return that["public"];
 	};
 	
-	that.public.validate = function() {
+	that["public"].validate = function() {
 		that.validate();
 		
-		return that.public;
+		return that["public"];
 	};
 	  
-	that.public.enable = function() {
+	that["public"].enable = function() {
 		that.enabled = true;
 				
-		return that.public;			
+		return that["public"];			
 	};
 	
-	that.public.disable = function() {
+	that["public"].disable = function() {
 		that.enabled = false;
 		
-		return that.public;
+		return that["public"];
 	};
 	
-	that.public.refresh = function() { 
+	that["public"].refresh = function() { 
 		return that.helper.position("refresh");
    };
 
@@ -370,11 +370,11 @@ ch.watcher = function(conf) {
         // Create a public object and save the existing object
         // in the public object to mantain compatibility
         var that = {};
-            that.public = check; 
+            that["public"] = check; 
         // ;) repleace that object with the repeated instance
     } else {
         // this is a new instance: "Come to papa!"
-        controller.children.push(that.public);
+        controller.children.push(that["public"]);
     };
 
 	return that;

@@ -223,34 +223,34 @@ ch.carousel = function(conf){
  *  Public Members
  */
 
-   	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = that.type;
+   	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;
 
-	that.public.getSteps = function() { return steps; };
-    that.public.getPage = function() { return page; };
-    that.public.moveTo = function(page) {
+	that["public"].getSteps = function() { return steps; };
+    that["public"].getPage = function() { return page; };
+    that["public"].moveTo = function(page) {
     	that.select(page);
 
-    	return that.public;
+    	return that["public"];
     };
     
-    that.public.next = function(){
+    that["public"].next = function(){
     	that.move("next", 1);
 
-    	return that.public;
+    	return that["public"];
     };
     
-	that.public.prev = function(){
+	that["public"].prev = function(){
 		that.move("prev", 1);
 
-		return that.public;
+		return that["public"];
 	};
 	
-	that.public.redraw = function(){
+	that["public"].redraw = function(){
 		that.redraw();
 		
-		return that.public;
+		return that["public"];
 	};
 
 

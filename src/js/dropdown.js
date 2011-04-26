@@ -84,22 +84,22 @@ ch.dropdown = function(conf){
 /**
  *  Public Members
  */
-   	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = that.type;
-	that.public.show = function(){
+   	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;
+	that["public"].show = function(){
 		that.show();
 		
-		return that.public;
+		return that["public"];
 	};
 	
-	that.public.hide = function(){
+	that["public"].hide = function(){
 		that.hide();
 		
-		return that.public;
+		return that["public"];
 	};
 	
-	that.public.position = that.position;	
+	that["public"].position = that.position;	
 
 
 /**

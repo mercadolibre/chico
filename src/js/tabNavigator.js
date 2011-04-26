@@ -74,16 +74,16 @@ ch.tabNavigator = function(conf){
  *  Public Members
  */
 	
-	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = that.type;
-	that.public.children = that.children;
-	that.public.select = function(tab){
+	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;
+	that["public"].children = that.children;
+	that["public"].select = function(tab){
 		that.select(tab);
 		
-		return that.public;
+		return that["public"];
 	};	
-	that.public.getSelected = function(){ return selected; };
+	that["public"].getSelected = function(){ return selected; };
 	
 /**
  *  Default event delegation

@@ -50,7 +50,7 @@ ch.object = function(){
 			};
 
 			if (that.active) that.position("refresh");
-			return that.public;
+			return that["public"];
 		};
 		
 	};
@@ -101,7 +101,7 @@ ch.object = function(){
 
 	that.callbacks = function(when){
 		if( conf.hasOwnProperty(when) ) {
-			var context = ( that.controller ) ? that.controller.public : that.public;
+			var context = ( that.controller ) ? that.controller["public"] : that["public"];
 			return conf[when].call( context );
 		};
 	};
@@ -117,7 +117,7 @@ ch.object = function(){
 				conf.position.fixed = o.fixed || conf.position.fixed;
 			
 				ch.positioner(conf.position);
-				return that.public;
+				return that["public"];
 				break;
 		
 			case "string":
@@ -126,7 +126,7 @@ ch.object = function(){
 				};
 
 				ch.positioner(conf.position);
-				return that.public;   			
+				return that["public"];   			
 				break;
 		
 			case "undefined":
@@ -138,7 +138,7 @@ ch.object = function(){
 	
 
 	 
- 	that.public = {};
+ 	that["public"] = {};
 	
 	return that;
 };

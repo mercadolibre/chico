@@ -31,10 +31,10 @@ ch.codelighter = function() {
  *  Public Members
  */
 	
-	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = that.type;	
-	that.public.children = that.children;	
+	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;	
+	that["public"].children = that.children;	
 
 
 /**
@@ -106,12 +106,12 @@ ch.codesnippet = function(conf){
  *  Public Members
  */	
 
-	that.public = {};
-	that.public.uid = that.uid;
-	that.public.type = conf.type;
-	that.public.element = that.element;
-	that.public.snippet = that.snippet;
-	that.public.paintedSnippet = that.paintedSnippet;	
+	that["public"] = {};
+	that["public"].uid = that.uid;
+	that["public"].type = conf.type;
+	that["public"].element = that.element;
+	that["public"].snippet = that.snippet;
+	that["public"].paintedSnippet = that.paintedSnippet;	
 
 /**
  *  Default event delegation

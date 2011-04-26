@@ -163,43 +163,43 @@ ch.form = function(conf){
  *  Public Members
  */	
 
-	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = that.type;
-	that.public.children = that.children;
-	that.public.messages = conf.messages;
-	that.public.validate = function() { 
+	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;
+	that["public"].children = that.children;
+	that["public"].messages = conf.messages;
+	that["public"].validate = function() { 
 		validate(); 
 		
-		return that.public; 
+		return that["public"]; 
 	};
 	
-	that.public.submit = function() { 
+	that["public"].submit = function() { 
 		submit(); 
 		
-		return that.public; 
+		return that["public"]; 
 	};
 	
-	that.public.checkStatus = function() { 
+	that["public"].checkStatus = function() { 
 		checkStatus(); 
 		
-		return that.public; 
+		return that["public"]; 
 	};
 	
-	that.public.getStatus = function(){
+	that["public"].getStatus = function(){
 		return status;	
 	};
 	
-	that.public.clear = function() { 
+	that["public"].clear = function() { 
 		clear(); 
 		
-		return that.public; 
+		return that["public"]; 
 	};
 	
-	that.public.reset = function() { 
+	that["public"].reset = function() { 
 		reset(); 
 		
-		return that.public; 
+		return that["public"]; 
 	};
 
 

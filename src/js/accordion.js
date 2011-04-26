@@ -34,11 +34,11 @@ ch.accordion = function(conf){
  *  Public Members
  */
 	
-	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = that.type;
-	that.public.children = that.children;
-	that.public.select = function(bellows){
+	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;
+	that["public"].children = that.children;
+	that["public"].select = function(bellows){
 		
 		if(typeof bellows == "string") {
 			var sliced = bellows.split("#");
@@ -50,7 +50,7 @@ ch.accordion = function(conf){
 		
 		that.callbacks("onSelect");
 		
-		return that.public;
+		return that["public"];
 	};	
 	
 /**

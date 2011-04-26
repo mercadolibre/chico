@@ -58,23 +58,23 @@ ch.helper = function(controller){
  *  Public Members
  */
 
-   	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = that.type;
-	that.public.content = that.content;
-	that.public.show = function(text){
+   	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;
+	that["public"].content = that.content;
+	that["public"].show = function(text){
 		that.show(text);
 		
-		return that.public;
+		return that["public"];
 	};
 	
-	that.public.hide = function(){
+	that["public"].hide = function(){
 		that.hide();
 		
-		return that.public;
+		return that["public"];
 	};
 	
-	that.public.position = that.position;
+	that["public"].position = that.position;
 
 
 /**

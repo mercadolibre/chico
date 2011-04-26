@@ -332,17 +332,17 @@ ch.viewer = function(conf){
  *  Public Members
  */	
 
-	that.public.uid = that.uid;
-	that.public.element = that.element;
-	that.public.type = that.type;
-	that.public.children = that.children;
+	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;
+	that["public"].children = that.children;
 	
 	// Full behavior
 	if(showcase.itemsAmount > 1) {
-		that.public.moveTo = function(item){ that.move(item); return that.public; };
-		that.public.next = function(){ that.move( thumbnails.selected + 1 ); return that.public; };
-		that.public.prev = function(){ that.move( thumbnails.selected - 1 ); return that.public; };
-		that.public.getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
+		that["public"].moveTo = function(item){ that.move(item); return that["public"]; };
+		that["public"].next = function(){ that.move( thumbnails.selected + 1 ); return that["public"]; };
+		that["public"].prev = function(){ that.move( thumbnails.selected - 1 ); return that["public"]; };
+		that["public"].getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
 		// ...
 
 /**

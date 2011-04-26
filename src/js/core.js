@@ -181,7 +181,7 @@ ch.factory = function(o) {
     				}
 				*/
 				
-				created = ( created.hasOwnProperty("public") ) ? created.public : created;
+				created = ( created.hasOwnProperty("public") ) ? created["public"] : created;
 				
 			    if (created.type) {
 			        var type = created.type;		    
@@ -248,7 +248,7 @@ ch.get = function(o) {
 
 	        var that = o.that;
 	        var conf = that.conf;
-			var context = ( that.controller ) ? that.controller.public : that.public;
+			var context = ( that.controller ) ? that.controller["public"] : that["public"];
 			//Set ajax config
 			//setTimeout(function(){
 			
