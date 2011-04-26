@@ -19,7 +19,7 @@
     <!-- #body -->
 	<h1>Chico-UI: Carousel testcases</h1>
 	<div class="box">
-		<h2>Carousel</h2>
+		<h2>Elastic Carousel</h2>
 		<div class="box testCarousel">
 			<ul class="carousel">
 				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
@@ -59,6 +59,90 @@
 			</ul>
 		</div>
 	</div>
+	
+	
+	<div class="box">
+		<h2>Carousel with width and height fixed</h2>
+		<div class="box testCarouselFixed">
+			<ul class="carousel">
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg">
+					<p>Lorem ipsum...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg">
+					<p>Lorem ipsum...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg">
+					<p>Lorem ipsum...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg">
+					<p>Lorem ipsum...</p>
+				</li>
+				
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg">
+					<p>Lorem ipsum...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg">
+					<p>Lorem ipsum...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg">
+					<p>Lorem ipsum...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg">
+					<p>Lorem ipsum...</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	
+	<div class="box">
+		<h2>Carousel redraw behaivor</h2>
+		<div class="box testCarouselRedraw">
+			<ul class="carousel">
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg">
+					<p>Lorem impusm...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg">
+					<p>Lorem impusm...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg">
+					<p>Lorem impusm...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg">
+					<p>Lorem impusm...</p>
+				</li>
+				
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg">
+					<p>Lorem impusm...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg">
+					<p>Lorem impusm...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg">
+					<p>Lorem impusm...</p>
+				</li>
+				<li>
+					<img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg">
+					<p>Lorem impusm...</p>
+				</li>
+			</ul>
+		</div>
+	</div>
 
 <!-- #body -->
 	<hr>
@@ -83,6 +167,13 @@
 			}
 		});
 		
+		var carousel2 = $(".testCarouselFixed").carousel({
+			width:500,
+			height:150
+		});
+		
+		var carousel3 = $(".testCarouselRedraw").carousel();
+		
 		ch.features.transition = false;
 		$.fx.off = true;
 
@@ -106,7 +197,7 @@
 
 		test("Carousel public methods", function(){
 
-			expect( 5 );
+			expect( 6 );
 	
 			ok( carousel.hasOwnProperty("getPage"), "Expected to find a \"getPage\" method" );
 	
@@ -117,6 +208,8 @@
 			ok( carousel.hasOwnProperty("next"), "Expected to find a \"next\" method" );
 			
 			ok( carousel.hasOwnProperty("prev"), "Expected to find a \"prev\" method" );
+			
+			ok( carousel.hasOwnProperty("redraw"), "Expected to find a \"redraw\" method" );
 
 		});
         
@@ -172,7 +265,7 @@
 			
 			equal( carousel.getPage(), 1, "Expected to return first page.");
 						
-			$(".ch-carousel .ch-next").click();
+			$(".testCarousel.ch-carousel .ch-next").click();
 			
 			equal( carousel.getPage(), 2, "Expected to return second page.");
 						
@@ -182,7 +275,7 @@
 			
 			expect ( 1 );
 			
-			$(".ch-carousel .ch-prev").click();
+			$(".testCarousel.ch-carousel .ch-prev").click();
 			
 			equal( carousel.getPage(), 1, "Expected to return first page.");
 			
@@ -210,15 +303,15 @@
 			
 			carousel.moveTo(1);
 			
-			hasNotClass( ".ch-carousel .ch-prev", "ch-prev-on" );
+			hasNotClass( ".testCarousel.ch-carousel .ch-prev", "ch-prev-on" );
 			
-			hasClass( ".ch-carousel .ch-next", "ch-next-on" );
+			hasClass( ".testCarousel.ch-carousel .ch-next", "ch-next-on" );
 			
 			carousel.next();
 			
-			hasClass( ".ch-carousel .ch-prev", "ch-prev-on" );
+			hasClass( ".testCarousel.ch-carousel .ch-prev", "ch-prev-on" );
 			
-			hasClass( ".ch-carousel .ch-next", "ch-next-on" );
+			hasClass( ".testCarousel.ch-carousel .ch-next", "ch-next-on" );
 		
 		});
 		
@@ -238,15 +331,15 @@
 			} while ( carousel.getPage() != page );
 			
 			
-			hasClass( ".ch-carousel .ch-prev", "ch-prev-on" );
+			hasClass( ".testCarousel.ch-carousel .ch-prev", "ch-prev-on" );
 			
-			hasNotClass( ".ch-carousel .ch-next", "ch-next-on" );
+			hasNotClass( ".testCarousel.ch-carousel .ch-next", "ch-next-on" );
 			
 			carousel.prev();
 			
-			hasClass( ".ch-carousel .ch-prev", "ch-prev-on" );
+			hasClass( ".testCarousel.ch-carousel .ch-prev", "ch-prev-on" );
 			
-			hasClass( ".ch-carousel .ch-next", "ch-next-on" );
+			hasClass( ".testCarousel.ch-carousel .ch-next", "ch-next-on" );
 			
 			// Reset Carousel for next tests (Go to first page)
 			carousel.moveTo(1);
@@ -295,7 +388,40 @@
 			carousel.moveTo(1);
 
        	});
-                
+       	
+       	module("Carousel fixed measures");
+		test("Width fixed", function(){
+			
+			expect ( 1 );
+			
+			equal( $(".testCarouselFixed.ch-carousel").width(), 500, "Expected to find a defined width on the carousel instance");
+			
+		});
+		test("Height fixed", function(){
+			
+			expect ( 1 );
+			
+			equal( $(".testCarouselFixed.ch-carousel").height(), 150, "Expected to find a defined height on the carousel instance");
+			
+		});
+		
+		
+		module("Carousel redraw behaivor");
+		test("Redraw behaivor", function(){
+
+			expect ( 1 );
+
+			var oldSteps = carousel3.getSteps();
+
+			$(".testCarouselRedraw").width("180");
+			carousel3.redraw();
+			
+			var currentSteps = carousel3.getSteps();
+			
+			ok( (oldSteps > currentSteps && currentSteps > 0), "Expected to find less items after redraw");
+
+		});
+ 
 	</script>
 
 </body>
