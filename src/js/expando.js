@@ -82,7 +82,7 @@ ch.expando = function(conf){
 		.addClass('ch-expando-trigger');
 		
 	// Content
-	that.$content.addClass('ch-expando-content');
+	that.$content.addClass('ch-expando-content ch-hide');
 	
 	// Change default behaivor (close)
 	if( conf.open ) that.show();
