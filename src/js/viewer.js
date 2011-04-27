@@ -41,7 +41,7 @@ ch.viewer = function(conf){
 			.bind("click", function(){ viewerModal.show(); });
 		
 		var display = $viewer.children(":first").addClass("ch-viewer-content");
-			display.find("img, object, embed, video") // TODO: Checkear que este correcto
+			display.find("img, object, embed, video") // TODO: Esto es correcto?
 				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
 				.bind("mouseleave", function(){ lens.fadeOut(); }); // Hide magnifying glass
 		
@@ -56,12 +56,11 @@ ch.viewer = function(conf){
 			self.items = display.children();
 			self.itemsWidth = self.items.outerWidth();
 			self.itemsAmount = self.items.length;
-			self.itemsAnchor = self.items.children("a").bind("click", function(event){ that.prevent(event); viewerModal.show(); });
+			self.itemsAnchor = self.items.children("a")
+				.bind("click", function(event){ that.prevent(event); viewerModal.show(); });
 			
 			// Set visual config of content
 			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
-			
-			//self.videos = [];
 		
 		// Position magnifying glass
 		ch.positioner({
@@ -116,9 +115,7 @@ ch.viewer = function(conf){
 				.addClass("ch-viewer-triggers")
 				.append( structure )
 				.appendTo( $viewer )
-				.carousel({
-					width: $viewer.width()
-				});
+				.carousel({ width: $viewer.width() });
 		
 		return self;
 	};
@@ -127,105 +124,7 @@ ch.viewer = function(conf){
 	
 	
 	
-	
-	/**
-	 * 	Modal
-	 */
-	var viewerModal = that.children[1] = $("<div>").modal({
-		content: "<div class=\"ch-viewer-modal-content\"></div>",
-		width:600,
-		onShow: function(){ // TODO: Deberia cachear el contenido para evitar recalcular todo
-			
-			// Pause showcase videos
-			/*$.each(showcase.videos, function(i, e){
-				e.pauseVideo();
-				$(e).children("embed")[0].pauseVideo();
-			});*/
-			
-			var modalContent = $(".ch-viewer-modal-content");
-				modalContent.parents(".ch-modal").addClass("ch-viewer-modal");
-		
-			// Create list + reset position + append it
-			var list = $("<ul>");
-			
-			var bigId = 0;
-		
-			$.each(showcase.items, function(i, e) {
-				
-				var item = {};
-				
-				// Thumbnail
-				if( $(e).children("a").length > 0 ) {
-					item = $("<img>").attr("src", bigImages[ bigId++ ]);
-					
-				// Google Map
-				//} else if( ref.children("iframe").length > 0 ) ? "src/assets/viewer.png" :
-				
-				// Video (OBJECT)
-				} else if( $(e).children("object").length > 0) {
-					
-					// TODO: Take width and height of "bigImages". Else, 500x500.
-					var resize = { "width": 500, "height": 500 };
-					
-					var video = $(e).children("object")[0].cloneNode(true);
-					
-					item = $(video).attr(resize).children("embed").attr(resize);
-				
-				// Video (EMBED)
-				} else if ( $(e).children("embed").length > 0 ) {
 
-					var video = $(e).children("embed")[0].cloneNode(true);
-					
-					// TODO: Take width and height of "bigImages". Else, 500x500.
-					item = $(video).attr({ "width": 500, "height": 500 });
-					
-				};
-					
-				
-				$("<li>").append( item ).appendTo( list );
-			});
-
-			list.addClass("carousel")
-				.css("left", 0)
-				.appendTo( modalContent );
-			
-			// Full behavior
-			if(showcase.itemsAmount > 1) {
-				// Init carousel and move to position of item selected on thumbs
-				that.children[2] = modalContent.carousel({ pager: true }).moveTo( thumbnails.selected );
-				
-			// Basic behavior
-			} else {
-				// Simulate carousel structure
-				modalContent.wrapInner("<div class=\"ch-viewer-oneItem\">");
-			};
-			
-			// Zoom process
-			checkZoomImages(modalContent);
-			
-			// Refresh modal position
-			this.position("refresh");
-		},
-		onHide: function(){
-		
-			// Reset modal content
-			$(".ch-viewer-modal-content").html("").removeClass("ch-carousel");
-		
-			// Full behavior
-			if(showcase.itemsAmount > 1) {
-				// Thumbnails syncro (select thumb that was selected in modal)
-				that.move( that.children[2].getPage() );
-			
-				// Delete modal instance // TODO pasar funcionalidad al object ("that.destroy"?)
-				for(var i = 0, j = ch.instances.carousel.length; i < j; i += 1){
-					if(ch.instances.carousel[i].element === that.children[2].element){
-						ch.instances.carousel.splice(i, 1);
-						return;
-					};
-				};
-			};
-		}
-	});
 	
 	
 	
@@ -288,6 +187,92 @@ ch.viewer = function(conf){
 	};
 	
 	
+		
+	/**
+	 * 	Modal
+	 */
+	
+	var modalInited = false;
+	
+	var viewerModal = that.children[1] = $("<div>").modal({
+		width:600,
+		onShow: function(){
+			if(showcase.itemsAmount > 1 && !modalInited) {
+				// Carousel redraw + show
+				$(that.children[2].redraw().element).removeClass("ch-hide");
+				
+				// Modal reposition
+				this.position("refresh");
+				
+				modalInited = true;
+			};
+		},
+		onHide: function(){
+			if(showcase.itemsAmount > 1) {
+				//that.move( that.children[2].getPage() ); // Select thumb that was selected in modal
+				that.children[2].moveTo(1).moveTo( thumbnails.selected ); // Reset position
+			};
+		},
+		content: (function generateContent(){
+			var content = $("<div>").addClass("ch-viewer-modal-content ch-hide");
+			
+			var list = $("<ul>")
+				.addClass("carousel")
+				.css("left", 0)
+				.appendTo( content );
+			
+			var imageIndex = 0;
+		
+			$.each(showcase.items, function(i, e) {
+				
+				var item = {};
+				
+				// Thumbnail
+				if( $(e).children("a").length > 0 ) {
+					item = $("<img>").attr("src", $(e).children("a").attr("href"));
+				
+				// Video (OBJECT)
+				} else if( $(e).children("object").length > 0) {
+					
+					// TODO: Take width and height of "bigImages". Else, 500x500.
+					var resize = { "width": 500, "height": 500 };
+					
+					var video = $(e).children("object")[0].cloneNode(true);
+					
+					item = $(video).attr(resize).children("embed").attr(resize);
+				
+				// Video (EMBED)
+				} else if ( $(e).children("embed").length > 0 ) {
+	
+					var video = $(e).children("embed")[0].cloneNode(true);
+					
+					// TODO: Take width and height of "bigImages". Else, 500x500.
+					item = $(video).attr({ "width": 500, "height": 500 });
+					
+				};
+				
+				$("<li>").append( item ).appendTo( list );
+			});
+			
+			// Full behavior
+			if(showcase.itemsAmount > 1) {
+				// Init carousel and move to position of item selected on thumbs
+				that.children[2] = content.carousel({ pager: true });
+				
+			// Basic behavior
+			} else {
+				// Simulate carousel structure
+				content.wrapInner("<div class=\"ch-viewer-oneItem\">");
+			};
+			
+			// Zoom process
+			checkZoomImages(content);
+			
+			return content;
+		})()
+	});
+	
+	
 	
 	var move = function(item){
 
@@ -305,16 +290,19 @@ ch.viewer = function(conf){
 
 		// Content movement
 		var movement = { left: (-item + 1) * showcase.itemsWidth };
-	
+		
 		// CSS3 Transitions vs jQuery magic
 		if(ch.features.transition) showcase.display.css(movement); else showcase.display.animate(movement);
-	
+		
 		// Move thumbnails carousel if item selected is on another page
 		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
 
 		// Refresh selected thumb
 		thumbnails.selected = item;
-
+		
+		// Modal syncro
+		that.children[2].moveTo(1).moveTo( item );
+		
 		// Callback
 		that.callbacks("onMove");
 	
