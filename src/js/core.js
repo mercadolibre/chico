@@ -258,6 +258,9 @@ ch.get = function(o) {
 				data: conf.ajaxParams,
 				cache: true,
 				async: true,
+				beforeSend: function(jqXHR){
+					jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+				},
 				success: function(data, textStatus, xhr){					
 					that.$content.html( data ); 
 					if ( conf.onContentLoad ) conf.onContentLoad.call(context);
