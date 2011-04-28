@@ -34,7 +34,10 @@ ch.modal = function(conf){
 
 	// Dimmer object
 	var $dimmer = $("<div>").addClass("ch-dimmer");
-
+	
+	// Set dimmer height for IE6
+	if (ch.utils.html.hasClass("ie6")) { $dimmer.height( parseInt(document.documentElement.clientHeight, 10) * 3) };
+	
 	// Dimmer Controller
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
@@ -42,11 +45,14 @@ ch.modal = function(conf){
 				.appendTo("body")
 				.css("z-index", ch.utils.zIndex ++)
 				.fadeIn();
-
-			if(that.type == "modal") {
+		
+			if (that.type == "modal") {
 				$dimmer.one("click", function(event){ that.hide(event) });
-			}
+			};
 			
+			if (!ch.features.fixed) {
+			  	ch.positioner({ element: $dimmer });
+			};
 		},
 		off: function() {
 			$dimmer.fadeOut("normal", function(){ 

@@ -393,18 +393,34 @@ ch.eraser = function(data) {
  */
  
 ch.support = function() {
-	
+	var thisBody = document.body || document.documentElement;
 	// Based on: http://gist.github.com/373874
 	// Verify that CSS3 transition is supported (or any of its browser-specific implementations)
 	var transition = (function(){
-		var thisBody = document.body || document.documentElement;
 		var thisStyle = thisBody.style;
 
 		return thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.OTransition !== undefined || thisStyle.transition !== undefined;
 	})();
 	
+	// Based on: http://kangax.github.com/cft/#IS_POSITION_FIXED_SUPPORTED
+	// Verify that position fixed is supported
+	var fixed = (function(){
+		var isSupported = false;
+		var e = document.createElement("div");
+			e.style.position = "fixed";
+			e.style.top = "10px";
+			
+		thisBody.appendChild(e);
+		if (e.offsetTop === 10) { isSupported = true; };
+  		thisBody.removeChild(e);
+  		
+  		return isSupported;
+  		
+	})();
+
 	return {
-		transition: transition
+		transition: transition,
+		fixed: fixed
 		// gradient: gradient
 	};
 	
