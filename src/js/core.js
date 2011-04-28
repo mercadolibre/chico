@@ -249,30 +249,34 @@ ch.get = function(o) {
 	        var that = o.that;
 	        var conf = that.conf;
 			var context = ( that.controller ) ? that.controller["public"] : that["public"];
-			//Set ajax config
-			//setTimeout(function(){
+
+			// Set ajax config
+			// On IE (6-7) "that" reference losts when I call ch.get for second time
+			// Why?? I don't know... but with a setTimeOut() work fine!
+			setTimeout(function(){
 			
-			$.ajax({
-				url: conf.ajaxUrl,
-				type: conf.ajaxType || 'GET',
-				data: conf.ajaxParams,
-				cache: true,
-				async: true,
-				beforeSend: function(jqXHR){
-					jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-				},
-				success: function(data, textStatus, xhr){					
-					that.$content.html( data ); 
-					if ( conf.onContentLoad ) conf.onContentLoad.call(context);
-					if ( conf.position ) ch.positioner(conf.position);
-				},
-				error: function(xhr, textStatus, errorThrown){
-					data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
-					that.$content.html( data );
-					if ( conf.position ) ch.positioner(conf.position);
-				}
-			});
-			//}, 25);
+				$.ajax({
+					url: conf.ajaxUrl,
+					type: conf.ajaxType || 'GET',
+					data: conf.ajaxParams,
+					cache: true,
+					async: true,
+					beforeSend: function(jqXHR){
+						jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+					},
+					success: function(data, textStatus, xhr){					
+						that.$content.html( data );
+						if ( conf.onContentLoad ) conf.onContentLoad.call(context);
+						if ( conf.position ) ch.positioner(conf.position);
+					},
+					error: function(xhr, textStatus, errorThrown){
+						data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+						that.$content.html( data );
+						if ( conf.position ) ch.positioner(conf.position);
+					}
+				});
+				
+			}, 0);
 			
 		break;
 	        
@@ -393,18 +397,34 @@ ch.eraser = function(data) {
  */
  
 ch.support = function() {
-	
+	var thisBody = document.body || document.documentElement;
 	// Based on: http://gist.github.com/373874
 	// Verify that CSS3 transition is supported (or any of its browser-specific implementations)
 	var transition = (function(){
-		var thisBody = document.body || document.documentElement;
 		var thisStyle = thisBody.style;
 
 		return thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.OTransition !== undefined || thisStyle.transition !== undefined;
 	})();
 	
+	// Based on: http://kangax.github.com/cft/#IS_POSITION_FIXED_SUPPORTED
+	// Verify that position fixed is supported
+	var fixed = (function(){
+		var isSupported = false;
+		var e = document.createElement("div");
+			e.style.position = "fixed";
+			e.style.top = "10px";
+			
+		thisBody.appendChild(e);
+		if (e.offsetTop === 10) { isSupported = true; };
+  		thisBody.removeChild(e);
+  		
+  		return isSupported;
+  		
+	})();
+
 	return {
-		transition: transition
+		transition: transition,
+		fixed: fixed
 		// gradient: gradient
 	};
 	
