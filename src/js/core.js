@@ -249,30 +249,34 @@ ch.get = function(o) {
 	        var that = o.that;
 	        var conf = that.conf;
 			var context = ( that.controller ) ? that.controller["public"] : that["public"];
-			//Set ajax config
-			//setTimeout(function(){
+
+			// Set ajax config
+			// On IE (6-7) "that" reference losts when I call ch.get for second time
+			// Why?? I don't know... but with a setTimeOut() work fine!
+			setTimeout(function(){
 			
-			$.ajax({
-				url: conf.ajaxUrl,
-				type: conf.ajaxType || 'GET',
-				data: conf.ajaxParams,
-				cache: true,
-				async: true,
-				beforeSend: function(jqXHR){
-					jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-				},
-				success: function(data, textStatus, xhr){					
-					that.$content.html( data ); 
-					if ( conf.onContentLoad ) conf.onContentLoad.call(context);
-					if ( conf.position ) ch.positioner(conf.position);
-				},
-				error: function(xhr, textStatus, errorThrown){
-					data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
-					that.$content.html( data );
-					if ( conf.position ) ch.positioner(conf.position);
-				}
-			});
-			//}, 25);
+				$.ajax({
+					url: conf.ajaxUrl,
+					type: conf.ajaxType || 'GET',
+					data: conf.ajaxParams,
+					cache: true,
+					async: true,
+					beforeSend: function(jqXHR){
+						jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+					},
+					success: function(data, textStatus, xhr){					
+						that.$content.html( data );
+						if ( conf.onContentLoad ) conf.onContentLoad.call(context);
+						if ( conf.position ) ch.positioner(conf.position);
+					},
+					error: function(xhr, textStatus, errorThrown){
+						data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+						that.$content.html( data );
+						if ( conf.position ) ch.positioner(conf.position);
+					}
+				});
+				
+			}, 0);
 			
 		break;
 	        

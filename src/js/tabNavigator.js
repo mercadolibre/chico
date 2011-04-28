@@ -173,7 +173,7 @@ ch.tab = function(controller){
 						
 			// Create tabContent
 			return $("<div>")
-				.attr("id", "ch-tab" + that.uid)
+				.attr("id", "ch-tab" + that.uid.replace("#","-"))
 				.addClass("ch-hide")
 				.appendTo( controller.$content );
 		}; 
