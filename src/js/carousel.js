@@ -110,17 +110,26 @@ ch.carousel = function(conf){
 	that.buttons = {
 		prev: {
 			//TODO usar positioner cuando esten todos los casos de posicionamiento
-			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }).css('top', (that.$element.outerHeight() - 50 + (( conf.pager ) ? 30 : 0)) / 2), // 50 = button height + margin; 30 = padding bottom if pager exists
+			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }),
 			on: function(){ that.buttons.prev.$element.addClass("ch-prev-on") },
 			off: function(){ that.buttons.prev.$element.removeClass("ch-prev-on") }
 		},
 		next: {
 			//TODO usar positioner cuando esten todos los casos de posicionamiento
-			$element: $('<p class="ch-next"><span>Next</span></p>').bind('click', function(){ that.move("next", 1) }).css('top', (that.$element.outerHeight() - 50 + (( conf.pager ) ? 30 : 0)) / 2), // 50 = button height + margin; 30 = padding bottom if pager exists
+			$element: $('<p class="ch-next"><span>Next</span></p>').bind('click', function(){ that.move("next", 1) }),
 			on: function(){ that.buttons.next.$element.addClass("ch-next-on") },
 			off: function(){ that.buttons.next.$element.removeClass("ch-next-on") }
+		},
+		position: function(){
+			// 50 = button height + margin; 30 = padding bottom if pager exists },
+			var newTop = {'top': (that.$element.outerHeight() - 50 + (( conf.pager ) ? 30 : 0)) / 2};
+				
+			that.buttons.prev.$element.css(newTop);
+			that.buttons.next.$element.css(newTop);
 		}
 	};
+	
+	that.buttons.position();
 	
 
 
@@ -216,6 +225,7 @@ ch.carousel = function(conf){
 	that.redraw = function(){
 		that.select(1); //reset the position
 		calculateMask();
+		that.buttons.position();
 		if (conf.pager) that.pager = makePager();
 	};
 
