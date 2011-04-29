@@ -421,7 +421,7 @@ ch.keyboard = function(event) {
 	
 	if( !keyCodes.hasOwnProperty(event.keyCode) ) return;
 	
-	ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ]);
+	ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ], event);
 	
 };
 
