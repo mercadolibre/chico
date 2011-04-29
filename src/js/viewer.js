@@ -204,6 +204,10 @@ ch.viewer = function(conf){
 				// Modal reposition
 				this.position("refresh");
 				
+				// Keyboard support
+				ch.utils.document.bind(ch.events.KEY.LEFT_ARROW, function(){ that.children[2].prev(); });
+				ch.utils.document.bind(ch.events.KEY.RIGHT_ARROW, function(){ that.children[2].next(); });
+				
 				modalInited = true;
 			};
 		},
@@ -211,6 +215,10 @@ ch.viewer = function(conf){
 			if(showcase.itemsAmount > 1) {
 				//that.move( that.children[2].getPage() ); // Select thumb that was selected in modal
 				that.children[2].moveTo(1).moveTo( thumbnails.selected ); // Reset position
+				
+				// Keyboard support
+				ch.utils.document.unbind(ch.events.KEY.LEFT_ARROW);
+				ch.utils.document.unbind(ch.events.KEY.RIGHT_ARROW);
 			};
 		},
 		content: (function generateContent(){
