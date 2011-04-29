@@ -74,7 +74,7 @@ ch.carousel = function(conf){
 		
 		// Create each mini thumb
 		for(var i = 1, j = totalPages + 1; i < j; i += 1){
-			if(i == 1) thumbs.push("<li class=\"ch-pager-on\">"); else thumbs.push("<li>");
+			if(i == page) thumbs.push("<li class=\"ch-pager-on\">"); else thumbs.push("<li>");
 			thumbs.push(i);
 			thumbs.push("</li>");
 		};
@@ -121,18 +121,14 @@ ch.carousel = function(conf){
 			off: function(){ that.buttons.next.$element.removeClass("ch-next-on") }
 		},
 		position: function(){
-			// 50 = button height + margin; 30 = padding bottom if pager exists },
-			var newTop = {'top': (that.$element.outerHeight() - 50 + (( conf.pager ) ? 30 : 0)) / 2};
+			// 50 = button height + "margin"; 10 = bottom position if pager exists },
+			var newTop = {'top': (that.$element.outerHeight() - 50 + (( conf.pager ) ? 10 : 0)) / 2};
 				
 			that.buttons.prev.$element.css(newTop);
 			that.buttons.next.$element.css(newTop);
 		}
 	};
 	
-	that.buttons.position();
-	
-
-
 	that.move = function(direction, distance){
 		var movement;
 		
@@ -223,10 +219,13 @@ ch.carousel = function(conf){
 	};
 	
 	that.redraw = function(){
-		that.select(1); //reset the position
+		if (steps > 1){ that.select(1); } //reset the position
+		
 		calculateMask();
+		
 		that.buttons.position();
-		if (conf.pager) that.pager = makePager();
+		
+		if (conf.pager && totalPages > 1) that.pager = makePager();
 	};
 
 /**
@@ -278,9 +277,10 @@ ch.carousel = function(conf){
 	// Create pager if it was configured
 	if (conf.pager){
 		that.$element.addClass("ch-pager-bottom");
-		that.pager = makePager();
+		that.pager = makePager();	
 	};
 	
+	that.buttons.position();
 	
 	// Elastic behavior    
     if ( !conf.hasOwnProperty("width") ){
