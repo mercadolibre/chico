@@ -25,6 +25,9 @@ var ch = window.ch = {
         ch.internals = (window.internals) ? ch.internals+","+window.internals : ch.internals ;
         // iterate and create components               
         $(ch.components.split(",")).each(function(i,e){ ch.factory({component:e}); });
+        
+		ch.utils.document.bind("keydown", function(event){ ch.keyboard(event); });
+        
     },
 /**
  *	@static Utils. Common usage functions.
@@ -54,8 +57,16 @@ var ch = window.ch = {
  *	@const Event's Map.
  */	
     events: {
-        CHANGE_LAYOUT: "changeLayout"
-    }    
+        CHANGE_LAYOUT: "changeLayout",
+        KEY: {
+        	ENTER: "enter",
+			ESC: "esc",
+			LEFT_ARROW: "left_arrow",
+			UP_ARROW: "up_arrow",
+			RIGHT_ARROW: "right_arrow",
+			DOWN_ARROW: "down_arrow"
+        }
+    }
 };
 
 
@@ -388,6 +399,29 @@ ch.eraser = function(data) {
 		};
 		
 	};
+	
+};
+
+
+
+/**
+ *  Keyboard
+ */
+ 
+ch.keyboard = function(event) {
+	
+	var keyCodes = {
+		"13": "ENTER",
+		"27": "ESC",
+		"37": "LEFT_ARROW",
+		"38": "UP_ARROW",
+		"39": "RIGHT_ARROW",
+		"40": "DOWN_ARROW"
+	};
+	
+	if( !keyCodes.hasOwnProperty(event.keyCode) ) return;
+	
+	ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ]);
 	
 };
 
