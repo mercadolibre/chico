@@ -95,7 +95,7 @@
 }
 
 /* List of links */
-.ch-dropdown-content-primary a {
+.ch-dropdown-content-primary li a {
 	color:#000;
 	text-decoration:none;
 	display:block;
@@ -109,7 +109,6 @@
 .ch-dropdown-content-primary li a:hover,
 .ch-dropdown-content-primary li a:focus {
 	background-color:#fefbd6;
-	text-decoration:none;
 }
 
 
@@ -173,6 +172,11 @@
 /* List of links */
 .ch-dropdown-content-secondary a {
 	line-height:20px;
+}
+
+/* Focus on list of links */
+.ch-dropdown-content-secondary a:focus {
+	text-decoration:underline;
 }
 
 
