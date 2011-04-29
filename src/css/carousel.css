@@ -13,10 +13,10 @@
 
 .ch-carousel-content{
 	position:absolute;
-	transition: all 0.5s ease-in-out;
-	-o-transition: all 0.5s ease-in-out;
-	-moz-transition: all 0.5s ease-in-out;
-	-webkit-transition: all 0.5s ease-in-out;
+	transition: all .3s linear;
+	-o-transition: all .3s linear;
+	-moz-transition: all .3s linear;
+	-webkit-transition: all .3s linear;
 }
 
 .ch-carousel-content li{
