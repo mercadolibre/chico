@@ -94,7 +94,7 @@ ch.tabNavigator = function(conf){
 		var tab = {};
 			tab.uid = that.uid + "#" + i;
 			tab.type = "tab";
-			tab.element = e;			
+			tab.element = e;
 			tab.$element = $(e);
 			
 		that.children.push( ch.tab.call(tab, that) );
@@ -170,10 +170,10 @@ ch.tab = function(controller){
 		} else {
 			// Set ajax configuration
 			conf.ajax = true;
-						
+
 			// Create tabContent
 			return $("<div>")
-				.attr("id", "ch-tab" + that.uid.replace("#","-"))
+				.attr("id", (that.element.href.split("#").length == 2) ? that.element.href.split("#")[1] : "ch-tab" + that.uid.replace("#","-") )
 				.addClass("ch-hide")
 				.appendTo( controller.$content );
 		}; 

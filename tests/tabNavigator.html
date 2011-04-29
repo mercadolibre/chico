@@ -72,7 +72,17 @@
 			<div id="tab2-2">Tab 2</div>
 		</div>
 	</div>
-	
+
+	<div id="testTabs6">
+		<ul>
+			<li><a href="../test.html">Ajax 1</a></li>
+			<li><a href="../test.html#ajax2">Ajax 2</a></li>
+		</ul>
+		<div>
+
+		</div>
+	</div>
+
 <!-- #body -->
 	<hr>
 
@@ -110,6 +120,7 @@
 		var testTabs5 = $("#testTabs5").tabNavigator({
 			selected: 1
 		});
+		var testTabs6 = $("#testTabs6").tabNavigator();
 		
 		$.fx.off = true;
 		
@@ -304,6 +315,16 @@
 			equal ( testTabs5.getSelected(), 1, "Expected to return the selected tab configured.");
 
 		});
+		
+		module("TabNavigator loaded content by ajax");
+		test("Create container for each tab (with or witout hash on url)", function(){			
+			
+			expect ( 2 );
+
+			exists('#ch-tab'+testTabs6.children[0].uid.replace("#","-"));
+			exists('#ajax2');
+
+		});		
 
 	</script>
 
