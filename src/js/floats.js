@@ -30,13 +30,17 @@ ch.floats = function() {
 		return;
 	};
 
-	var createClose = function() { 
+	var createClose = function() {
+		// Close Button
 		$("<div>")
 			.addClass("btn close")
 			.css("z-index", ch.utils.zIndex ++)
 			.bind("click", function(event){ that.hide(event); })
 			.prependTo( that.$container );
-			
+		
+		// ESC key
+		ch.utils.document.bind(ch.events.KEY.ESC, function(event){ that.hide(event); });
+		
 		return;
 	};
 
