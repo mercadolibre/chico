@@ -378,7 +378,6 @@ hr {
 
 .actions { 
 	margin-top: 10px;
-	text-align: center
 }
 
 .ie6 .actions a,
@@ -769,7 +768,6 @@ td{
 .ch-dropdown-content-primary li a:hover,
 .ch-dropdown-content-primary li a:focus {
 	background-color:#8C0303;
-	text-decoration:none;
 }
 
 
@@ -842,6 +840,11 @@ td{
 /* List of links */
 .ch-dropdown-content-secondary a {
 	line-height:20px;
+}
+
+/* Focus on list of links */
+.ch-dropdown-content-secondary a:focus {
+	text-decoration:underline;
 }
 
 
