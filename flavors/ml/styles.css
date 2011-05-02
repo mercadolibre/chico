@@ -128,7 +128,7 @@ p.table {
 	font-size:12px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, table caption, h3, h4, h5, h6 {
 	font-weight:normal;
 	margin-top: 10px;
 }
@@ -145,7 +145,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Typos with Arial*/
 h1 { font-size:20px }
-h2 { font-size:18px }
+h2, table caption { font-size:18px }
 h3 { font-size:16px }
 h5 { font-size:11px }
 	
@@ -455,6 +455,57 @@ hr {
 	height: 50px;
 	margin: 20px auto;
 }
+
+/*
+ * Tables
+ */
+
+table{	
+	width:100%;
+	border:solid 1px #CECECE;
+	font-size:11px;
+	text-align:left;
+}
+
+table caption {
+	text-align: left;
+}
+
+
+th{	
+	vertical-align: middle;
+	border-bottom:solid 1px #CECECE;
+	border-left:solid 1px #CECECE;
+	text-align:left;
+	height:24px;
+	padding: 0 10px;
+	background: #DEDEDE url(./assets/th.png) repeat-x; /* to-do: add this to base.png? */
+}
+
+th.selected{
+	background: #DEDEDE url(./assets/th-selected.gif) no-repeat right center;
+	}
+		
+
+th:first-child{
+	border-left:none;
+	}
+
+tr{
+	border-top:solid 1px #EEE;
+	}
+	
+tr.selected {
+	background-color:#FFC;
+	}
+
+td{
+	height:40px;
+	padding: 0 10px;
+	vertical-align: middle;
+	}
+
+
 
 /* Clear Fix
  * @based: http://xyberneticos.com/index.php/2008/02/17/clearfix-css-hack/ */
