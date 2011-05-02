@@ -15,7 +15,9 @@
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
+	padding:1px 3px;
 }
+
 
 .ch-validator {
 	margin-bottom:10px;
@@ -61,7 +63,7 @@
 .ch-helper.ch-right .ch-cone {
 	width:8px;
 	height:16px;
-	top:4px;
+	top:3px;
 }
 
 .ch-helper.ch-right-right .ch-cone {

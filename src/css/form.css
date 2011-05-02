@@ -51,7 +51,7 @@ form label.required span em {
 /* Fields */
 form label input, form label textarea {
 	border:1px solid #CCCCCC;
-	padding:3px;
+	padding:4px;
 	margin:5px 0;
 }
 
@@ -127,7 +127,7 @@ form .help{
 /* Focus */
 form label input:focus, form label textarea:focus {
 	border:2px solid #666;
-	padding:2px;
+	padding:3px;
 }
 
 form .options label input:focus, form .options label textarea:focus {
@@ -143,7 +143,7 @@ form label select:focus{
 
 form label .error:focus {
 	border:1px solid #CC0000;
-	padding:3px;
+	padding:4px;
 	box-shadow:2px #CC0000;
 	-moz-box-shadow:2px #CC0000;
 	-webkit-box-shadow:2px #CC0000;
