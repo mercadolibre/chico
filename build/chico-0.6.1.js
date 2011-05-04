@@ -3494,14 +3494,13 @@ ch.viewer = function(conf){
 				self.itemsHeight = Math.ceil((self.itemsWidth * oldItemsHeight) / oldItemsWidth);
 				
 				for (var i = 0, j = self.itemsImgs.length; i < j; i += 1){
-					//$(self.itemsImgs[i]).attr("width", self.itemsWidth).attr("height", self.itemsHeight);
-					$(self.itemsImgs[i]).width(self.itemsWidth).height(self.itemsHeight);
-					//self.itemsImgs[i].width = self.itemsWidth;
-					//self.itemsImgs[i].height = self.itemsHeight;
+					self.itemsImgs[i].width = self.itemsWidth;
+					self.itemsImgs[i].height = self.itemsHeight;
 				};
 								
 				for (var i = 0, j = self.itemsVideo.length; i < j; i += 1){
-					$(self.itemsVideo[i]).attr("width", self.itemsWidth).attr("height", self.itemsHeight);
+					self.itemsVideo[i].width = self.itemsWidth;
+					self.itemsVideo[i].height = self.itemsHeight;
 				};
 
 				$display.css({
