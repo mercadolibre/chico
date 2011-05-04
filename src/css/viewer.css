@@ -1,7 +1,6 @@
 /* Component */
 .ch-viewer{
 	border:1px solid #ccc;
-	width:340px;
 	overflow:hidden;
 	background-color:#fff;
 }
@@ -10,8 +9,7 @@
 .ch-viewer-display{
 	position:relative;
 	overflow:hidden;
-	height:320px;
-	padding:10px;
+	padding:10px 0;
 }
 
 /* Showcase list */
@@ -26,24 +24,17 @@
 /* Showcase list items */
 .ch-viewer-content li{
 	float:left;
-	width:320px;
-	height:320px;
-	padding:0 10px;
+	/*padding:0 10px;*/
+}
+
+.ch-viewer-content li a{
+	cursor:default;
 }
 
 /* Sprite */
 .ch-viewer .ch-lens,
 .ch-viewer-video span {
 	background-image: url('../src/assets/viewer.png');
-}
-
-/* Magnifying glass */
-.ch-viewer .ch-lens{
-    width:41px;
-    height:41px;
-    position:absolute;
-    cursor:pointer;
-	background-repeat: no-repeat;
 }
 
 /* Thumbnails */
@@ -53,8 +44,8 @@
 
 /* Thumbnails items */
 .ch-viewer-triggers li {
-	width:40px;
-	height:40px;
+	width:90px;
+	height:90px;
 	border:1px solid #fff;
 	cursor:pointer;
 }
@@ -83,70 +74,8 @@
 	margin:9px 0 0 15px;
 }
 
-/* Modal */
-.ch-viewer-modal {
-	overflow:hidden;
-}
-
-/* Modal content */
-.ch-viewer-modal-content {
-	padding:20px 0 35px;
-}
-
-/* Modal items */
-.ch-viewer-modal-content .ch-carousel-content li,
-.ch-viewer-oneItem {
-	width:500px;
-	height:500px;
-	text-align:center;
-	line-height:500px;
-}
-
-/* Simulation of carousel structure */
-.ch-viewer-oneItem {
-	margin:0 auto;
-	overflow:hidden;
-}
-
-/* Modal images */
-.ch-viewer-modal-content .ch-carousel-content li img{
-	vertical-align:middle;
-}
-
-/* Modal pager */
-.ch-viewer-modal-content .ch-pager {
-	bottom:8px;
-}
-
-/* Modal zoomable image */
-.ch-viewer-zoomable {
-	cursor: zoom-in;
-	cursor: -moz-zoom-in;
-	cursor: -webkit-zoom-in;
-}
-
-/* Modal augmented image */
-.ch-viewer-zoomed {
-	position:absolute;
-	left:-250px;
-	top:-250px;
-	z-index:1;
-	cursor: zoom-out;
-	cursor: -moz-zoom-out;
-	cursor: -webkit-zoom-out;
-}
-
 
 /* IE 6,7,8 */
-.ie6 .ch-viewer-zoomable,
-.ie7 .ch-viewer-zoomable,
-.ie8 .ch-viewer-zoomable,
-.ie6 .ch-viewer-zoomed,
-.ie7 .ch-viewer-zoomed,
-.ie8 .ch-viewer-zoomed, {
-	cursor:pointer;
-}
-
 
 /* IE 6 */
 .ie6 .ch-viewer-triggers .ch-prev {
@@ -155,12 +84,4 @@
 
 .ie6 .ch-viewer-triggers .ch-next {
 	right: 10px;
-}
-
-.ie6 .ch-modal {
-	overflow:hidden;
-}
-
-.ie6 .ch-viewer-modal-content .ch-pager {
-	bottom:30px;
 }
