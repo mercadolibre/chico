@@ -283,7 +283,7 @@ ch.watcher = function(conf) {
 		that.active = false;
 		that.$element.removeClass("error");
 		that.helper.hide(); // Hide helper
-		that.$element.unbind("blur"); // Remove blur event 
+		that.$element.unbind("blur change", that.validate); // Remove blur and change event
 		
 		that.callbacks("onReset");
 		
