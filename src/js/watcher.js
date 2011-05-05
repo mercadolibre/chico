@@ -199,10 +199,10 @@ ch.watcher = function(conf) {
     // Validate Method
 	that.validate = function() {		
 		// Pre-validation: Don't validate disabled or not required & empty elements
-		if ( that.$element.attr('disabled') ) { return; }
-		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; }
+		var bypassValidations = that.$element.attr('disabled') ||
+                                (!that.validations.hasOwnProperty("required") && that.isEmpty());
 
-		if ( that.enabled ) {
+		if ( that.enabled && !bypassValidations) {
 			
 			that.callbacks('beforeValidate');
 
