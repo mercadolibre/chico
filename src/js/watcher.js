@@ -200,14 +200,14 @@ ch.watcher = function(conf) {
 	that.validate = function() {		
 		// Pre-validation: Don't validate disabled or not required & empty elements
 		if ( that.$element.attr('disabled') ) { return; }
-		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; }
-
-		if ( that.enabled ) {
-			
+		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() && that.active === false) { return; }
+		
+		// Pre-validation: Don't validate disabled or not required & empty elements
+		if ( that.enabled && ( that.active === false || !that.isEmpty() || that.validations.hasOwnProperty("required") ) ) {
+	
 			that.callbacks('beforeValidate');
 
 	        // Validate each type of validation
-	        
 			for (var type in that.validations) {
 				
 				// Status error (stop the flow)
