@@ -264,11 +264,11 @@ ch.watcher = function(conf) {
 			that.active = false;
 			
 			// If has an error, but complete the field and submit witout trigger blur event
-			var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
-			if (event && originalTarget.type == "submit") {
-				controller.submit();
+			if (event) {
+				var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
+				if (originalTarget.type == "submit") { controller.submit(); };
 			};
-				
+			
 			controller.checkStatus();
 		};
         
