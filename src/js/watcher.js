@@ -197,17 +197,16 @@ ch.watcher = function(conf) {
     that.helper = ch.helper.call(helper, that);
     
     // Validate Method
-	that.validate = function() {		
+	that.validate = function(event) {	
 		// Pre-validation: Don't validate disabled or not required & empty elements
 		if ( that.$element.attr('disabled') ) { return; }
-		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; }
+		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() && that.active === false) { return; }
 
-		if ( that.enabled ) {
-			
+		if ( that.enabled && ( that.active === false || !that.isEmpty() || that.validations.hasOwnProperty("required") ) ) {
+	
 			that.callbacks('beforeValidate');
 
 	        // Validate each type of validation
-	        
 			for (var type in that.validations) {
 				
 				// Status error (stop the flow)
@@ -247,7 +246,7 @@ ch.watcher = function(conf) {
 
 					var event = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
 
-					that.$element.one(event, that.validate); // Add blur or change event only one time
+					that.$element.one(event, function(event){ that.validate(event); }); // Add blur or change event only one time
 
 	                return;
 				}
@@ -264,8 +263,14 @@ ch.watcher = function(conf) {
 			//that.publish.status = that.status =  conf.status = true; // Status OK
 			that.active = false;
 			
+			// If has an error, but complete the field and submit witout trigger blur event
+			if (event) {
+				var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
+				if (originalTarget.type == "submit") { controller.submit(); };
+			};
+			
 			controller.checkStatus();
-		}
+		};
         
         that.callbacks('afterValidate');
         
@@ -278,7 +283,7 @@ ch.watcher = function(conf) {
 		that.active = false;
 		that.$element.removeClass("error");
 		that.helper.hide(); // Hide helper
-		that.$element.unbind("blur"); // Remove blur event 
+		that.$element.unbind("blur change", that.validate); // Remove blur and change event
 		
 		that.callbacks("onReset");
 		
@@ -319,7 +324,7 @@ ch.watcher = function(conf) {
 	that["public"].validations = that.validations;
 	that["public"].conditions = that.conditions;
 	that["public"].messages = that.messages;
-	that["public"].helper = that.helper;
+	that["public"].helper = that.helper["public"];
 	that["public"].active = function() {
 		return that.active;
 	};
