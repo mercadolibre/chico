@@ -259,7 +259,7 @@ ch.viewer = function(conf){
 					
 				};
 				
-				$("<li>").append( item ).appendTo( list );
+				$("<li>").css({ "width": 500, "height": 500 }).append( item ).appendTo( list );
 			});
 			
 			// Full behavior
