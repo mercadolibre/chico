@@ -31,11 +31,6 @@
 	padding:0 10px;
 }
 
-/* Sprite */
-.ch-viewer .ch-lens,
-.ch-viewer-video span {
-	background-image: url('../src/assets/viewer.png');
-}
 
 /* Magnifying glass */
 .ch-viewer .ch-lens{
@@ -43,6 +38,7 @@
     height:41px;
     position:absolute;
     cursor:pointer;
+    background-image: url('../src/assets/zoom.png');
 	background-repeat: no-repeat;
 }
 
@@ -76,11 +72,12 @@
 
 /* Video icon on thumbnail */
 .ch-viewer-video span {
-	background-position:0 -41px;
+	background-image: url('../src/assets/viewer.png');
 	width:12px;
 	height:22px;
 	display:block;
-	margin:9px 0 0 15px;
+	vertical-align:middle;
+	margin:10px auto;
 }
 
 /* Modal */
