@@ -1,5 +1,5 @@
 /* Component */
-.ch-viewer-classic{
+.ch-viewer{
 	border:1px solid #ccc;
 	width:340px;
 	overflow:hidden;
@@ -7,7 +7,7 @@
 }
 
 /* Showcase area */
-.ch-viewer-classic-display{
+.ch-viewer-display{
 	position:relative;
 	overflow:hidden;
 	height:320px;
@@ -15,7 +15,7 @@
 }
 
 /* Showcase list */
-.ch-viewer-classic-content{
+.ch-viewer-content{
 	position:absolute;
 	transition: all 0.5s ease-in-out;
 	-o-transition: all 0.5s ease-in-out;
@@ -24,7 +24,7 @@
 }
 
 /* Showcase list items */
-.ch-viewer-classic-content li{
+.ch-viewer-content li{
 	float:left;
 	width:320px;
 	height:320px;
@@ -32,13 +32,13 @@
 }
 
 /* Sprite */
-.ch-viewer-classic .ch-lens,
-.ch-viewer-classic-video span {
+.ch-viewer .ch-lens,
+.ch-viewer-video span {
 	background-image: url('../src/assets/viewer.png');
 }
 
 /* Magnifying glass */
-.ch-viewer-classic .ch-lens{
+.ch-viewer .ch-lens{
     width:41px;
     height:41px;
     position:absolute;
@@ -47,12 +47,12 @@
 }
 
 /* Thumbnails */
-.ch-viewer-classic-triggers {
+.ch-viewer-triggers {
 	margin-bottom:10px;
 }
 
 /* Thumbnails items */
-.ch-viewer-classic-triggers li {
+.ch-viewer-triggers li {
 	width:40px;
 	height:40px;
 	border:1px solid #fff;
@@ -60,12 +60,12 @@
 }
 
 /* Highlighted thumbnail */
-.ch-viewer-classic-triggers .ch-thumbnail-on {
+.ch-viewer-triggers .ch-thumbnail-on {
 	border-color:#ccc;
 }
 
 /* Video thumbnail */
-.ch-viewer-classic-video {
+.ch-viewer-video {
 	background-color:#eee;
 	border-radius:5px;
 	-moz-border-radius:5px;
@@ -75,7 +75,7 @@
 }
 
 /* Video icon on thumbnail */
-.ch-viewer-classic-video span {
+.ch-viewer-video span {
 	background-position:0 -41px;
 	width:12px;
 	height:22px;
@@ -84,18 +84,18 @@
 }
 
 /* Modal */
-.ch-viewer-classic-modal {
+.ch-viewer-modal {
 	overflow:hidden;
 }
 
 /* Modal content */
-.ch-viewer-classic-modal-content {
+.ch-viewer-modal-content {
 	padding:20px 0 35px;
 }
 
 /* Modal items */
-.ch-viewer-classic-modal-content .ch-carousel-content li,
-.ch-viewer-classic-oneItem {
+.ch-viewer-modal-content .ch-carousel-content li,
+.ch-viewer-oneItem {
 	width:500px;
 	height:500px;
 	text-align:center;
@@ -103,30 +103,30 @@
 }
 
 /* Simulation of carousel structure */
-.ch-viewer-classic-oneItem {
+.ch-viewer-oneItem {
 	margin:0 auto;
 	overflow:hidden;
 }
 
 /* Modal images */
-.ch-viewer-classic-modal-content .ch-carousel-content li img{
+.ch-viewer-modal-content .ch-carousel-content li img{
 	vertical-align:middle;
 }
 
 /* Modal pager */
-.ch-viewer-classic-modal-content .ch-pager {
+.ch-viewer-modal-content .ch-pager {
 	bottom:8px;
 }
 
 /* Modal zoomable image */
-.ch-viewer-classic-zoomable {
+.ch-viewer-zoomable {
 	cursor: zoom-in;
 	cursor: -moz-zoom-in;
 	cursor: -webkit-zoom-in;
 }
 
 /* Modal augmented image */
-.ch-viewer-classic-zoomed {
+.ch-viewer-zoomed {
 	position:absolute;
 	left:-250px;
 	top:-250px;
@@ -138,22 +138,22 @@
 
 
 /* IE 6,7,8 */
-.ie6 .ch-viewer-classic-zoomable,
-.ie7 .ch-viewer-classic-zoomable,
-.ie8 .ch-viewer-classic-zoomable,
-.ie6 .ch-viewer-classic-zoomed,
-.ie7 .ch-viewer-classic-zoomed,
-.ie8 .ch-viewer-classic-zoomed, {
+.ie6 .ch-viewer-zoomable,
+.ie7 .ch-viewer-zoomable,
+.ie8 .ch-viewer-zoomable,
+.ie6 .ch-viewer-zoomed,
+.ie7 .ch-viewer-zoomed,
+.ie8 .ch-viewer-zoomed, {
 	cursor:pointer;
 }
 
 
 /* IE 6 */
-.ie6 .ch-viewer-classic-triggers .ch-prev {
+.ie6 .ch-viewer-triggers .ch-prev {
 	left: 10px;
 }
 
-.ie6 .ch-viewer-classic-triggers .ch-next {
+.ie6 .ch-viewer-triggers .ch-next {
 	right: 10px;
 }
 
@@ -161,6 +161,6 @@
 	overflow:hidden;
 }
 
-.ie6 .ch-viewer-classic-modal-content .ch-pager {
+.ie6 .ch-viewer-modal-content .ch-pager {
 	bottom:30px;
 }

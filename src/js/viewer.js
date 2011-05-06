@@ -1,10 +1,10 @@
 /**
- *	Viewer Classic
+ *	Viewer
  *	@author
  *	@Contructor
  *	@return An interface object
  */
-ch.viewer_classic = function(conf){
+ch.viewer = function(conf){
 
 /**
  *  Constructor
@@ -28,7 +28,7 @@ ch.viewer_classic = function(conf){
 	/**
 	 * 	Viewer
 	 */
-	var $viewer = that.$element.addClass("ch-viewer-classic");
+	var $viewer = that.$element.addClass("ch-viewer");
 	
 	/**
 	 * 	Showcase
@@ -40,13 +40,13 @@ ch.viewer_classic = function(conf){
 			.addClass("ch-lens ch-hide")
 			.bind("click", function(){ viewerModal.show(); });
 		
-		var display = $viewer.children(":first").addClass("ch-viewer-classic-content");
+		var display = $viewer.children(":first").addClass("ch-viewer-content");
 			display.find("img, object, embed, video") // TODO: Esto es correcto?
 				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
 				.bind("mouseleave", function(){ lens.fadeOut(); }); // Hide magnifying glass
 		
 		var wrapper = $("<div>")
-			.addClass("ch-viewer-classic-display")
+			.addClass("ch-viewer-display")
 			.append( display )
 			.append( lens ) // Magnifying glass
 			.appendTo( $viewer );
@@ -98,7 +98,7 @@ ch.viewer_classic = function(conf){
 					
 			// Video
 			} else if( $(e).children("object").length > 0 || $(e).children("embed").length > 0 ) {
-				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-classic-video") );
+				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-video") );
 				//showcase.videos.push($(e).children("object"));
 			};
 			
@@ -112,7 +112,7 @@ ch.viewer_classic = function(conf){
 			self.selected = 1;
 		
 			self.carousel = that.children[0] = $("<div>")
-				.addClass("ch-viewer-classic-triggers")
+				.addClass("ch-viewer-triggers")
 				.append( structure )
 				.appendTo( $viewer )
 				.carousel({ width: $viewer.width() });
@@ -145,7 +145,7 @@ ch.viewer_classic = function(conf){
 			
 			var image = $("<img>")
 				.attr("src", src)
-				.addClass("ch-viewer-classic-zoomed")
+				.addClass("ch-viewer-zoomed")
 				.bind("click", function(){ $(this).fadeOut(); }) // Fade Out
 				.bind("mousemove", function(event){ zoomMove(event); }) // Movement
 				.appendTo( (showcase.itemsAmount > 1) ? modal : modal.children() )
@@ -168,7 +168,7 @@ ch.viewer_classic = function(conf){
 			// Create zoom functionality
 			var zoomable = $("<a>")
 				.attr("href", src)
-				.addClass("ch-viewer-classic-zoomable")
+				.addClass("ch-viewer-zoomable")
 				.bind("click", function(event){
 					that.prevent(event);
 					zoomMove(event);
@@ -222,7 +222,7 @@ ch.viewer_classic = function(conf){
 			};
 		},
 		content: (function generateContent(){
-			var content = $("<div>").addClass("ch-viewer-classic-modal-content ch-hide");
+			var content = $("<div>").addClass("ch-viewer-modal-content ch-hide");
 			
 			var list = $("<ul>")
 				.addClass("carousel")
@@ -270,7 +270,7 @@ ch.viewer_classic = function(conf){
 			// Basic behavior
 			} else {
 				// Simulate carousel structure
-				content.wrapInner("<div class=\"ch-viewer-classic-oneItem\">");
+				content.wrapInner("<div class=\"ch-viewer-oneItem\">");
 			};
 			
 			// Zoom process
