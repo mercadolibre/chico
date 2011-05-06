@@ -88,7 +88,9 @@ ch.carousel = function(conf){
 		var pagerWidth = pager.outerWidth();
 		
 		pager.css('left', (contextWidth - pagerWidth) / 2);
-		
+
+		if ( ch.utils.html.hasClass("ie6") ) { pager.css('top', that.$element.height() + 15) };
+
 		// Children functionality
 		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
 			$(e).bind("click", function(){

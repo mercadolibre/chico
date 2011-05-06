@@ -14,7 +14,7 @@
 	    <link rel="stylesheet" type="text/css" href="src/css/forms.css" /--> 
 		<link rel="stylesheet" type="text/css" href="php/packer.php?type=css"> 
 		<link rel="stylesheet" type="text/css" href="libs/css/highlight.css"> 
-		<script src="libs/js/jquery-1.5.1.js"></script> 
+		<script src="libs/js/jquery-1.5.1.js"></script>
 		<script src="php/packer.php?debug=true"></script> 
 		<!--script src="src/js/core.js"></script--> 
 				
@@ -876,9 +876,7 @@ div p.keywords{color:darkorange;}
 		
 		// New validator
 		var uiForm = $('.formulario').form();
-		$('#val_email').bind("blur", function(){ console.log("Bluuuurrrasdasdsadasdasdasda!!") });
 		var nv1 = $('#val_email').string({ email: true }).and().string({ minLength: 20 }).and().required();
-		$('#val_email').bind("blur", function(){ console.log("Bluuuurrr!!") });
 		var nv2 = $('#val_url').string({ url: true });
 		var nv3 = $('#val_number').number({ number: true, min: 20 });
 		var nv4 = $('#val_range').number({ min: 1, max: 10 });
@@ -888,7 +886,7 @@ div p.keywords{color:darkorange;}
  
 		//uiForm.submit();
 		
-		var ui_view = $(".viewerDemo").viewer();
+		var ui_view = $(".viewerDemo").viewer_classic();
  
 		// Chat
 		ch.factory({
