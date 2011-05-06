@@ -51,24 +51,32 @@ ch.floats = function() {
         	.html( that.loadContent() );
 		
     	that.$container = $("<div>")
-    		.addClass("ch-" + that.type)
-    		.addClass("ch-hide")
+    		.addClass("ch-hide ch-" + that.type)
     		.css("z-index", ch.utils.zIndex ++)
     		.append( that.$content )
     		.appendTo("body");
 		
 		// Visual configuration
-		if( conf.classes ) that.$container.addClass(conf.classes);
+		if( conf.hasOwnProperty("classes") ) that.$container.addClass(conf.classes);
 		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
-		if( conf.closeButton ) createClose();
-		if( conf.cone ) createCone();
+		if( conf.hasOwnProperty("closeButton") ) createClose();
+		if( conf.hasOwnProperty("cone") ) createCone();
+		if( conf.hasOwnProperty("fx") ) conf.fx = conf.fx; else conf.fx = true;
 		
 		// Cache - Default: true
 		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
 		
-		// Show component
-		that.$container.fadeIn("fast", function(){ that.callbacks("onShow"); });
+		// Show component with effects
+		if( conf.fx ) {
+			that.$container.fadeIn("fast", function(){ that.callbacks("onShow"); });
+		
+		// Show component without effects
+		} else {
+			// TODO: that.$container.removeClass("ch-hide");
+			that.$container.show();
+			that.callbacks("onShow");
+		};
 		
 		// Position component
 		conf.position = conf.position || {};
@@ -135,7 +143,7 @@ ch.floats = function() {
 
 		if (!that.active) return;
 
-		that.$container.fadeOut('fast', function(){ 
+		var afterHide = function(){ 
 			 
 			that.active = false;
 			
@@ -154,7 +162,18 @@ ch.floats = function() {
 			
 			$(this).detach();
 			
-		});
+		};
+		
+		// Show component with effects
+		if( conf.fx ) {
+			that.$container.fadeOut("fast", afterHide);
+		
+		// Show component without effects
+		} else {
+			// TODO: that.$container.addClass("ch-hide");
+			that.$container.hide();
+			afterHide();
+		};
 		
 		return that;
 
