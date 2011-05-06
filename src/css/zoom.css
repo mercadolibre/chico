@@ -1,0 +1,42 @@
+/* Magnifying glass */
+.ch-viewer .ch-lens {
+	background-image: url('../src/assets/zoom.png');
+	width:41px;
+	height:41px;
+	position:absolute;
+	bottom:0;
+	right:0;
+}
+
+/* Seeker (Rectangle) */
+.ch-viewer .ch-seeker {
+	background-color:rgba(0,0,255,.1);
+	border:1px solid #00f;
+	cursor:pointer;
+	position:absolute;
+}
+
+/* Anchor */
+.ch-zoom-trigger {
+	position:relative;
+	display:block;
+	overflow:hidden;
+}
+
+/* Zoomed area */
+.ch-zoom {
+	border:1px solid #ccc;
+}
+
+/* Zoomed container */
+.ch-zoom-content {
+	overflow:hidden;
+	position:relative;
+	width:100%;
+	height:100%;
+}
+
+/* Zoomed image */
+.ch-zoom-content img {
+	position:absolute;
+}
