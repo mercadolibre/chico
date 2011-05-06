@@ -7,20 +7,6 @@
 
 ch.zoom = function(conf) {
 
-
-/**
- *	Validation
- */
-
-	if(
-		(this.element.nodeName != "A") ||						// Exists an anchor
-		(this.element.href.length == 0) ||						// Anchor have an "href" property
-		(this.$element.children()[0].nodeName != "IMG") ||		// Exists an image inside anchor
-		(this.$element.children().eq(0).hasOwnProperty("src"))	// Image have a "src" property
-	) {
-		alert("Chico-UI: Expected to find an image inside an anchor.");
-	};
-    
 /**
  *	Constructor
  */
@@ -56,7 +42,7 @@ ch.zoom = function(conf) {
  */
 	
 	// Magnifying glass
-	var $lens = $("<div>").addClass("ch-lens ch-hide");
+	//var $lens = $("<div>").addClass("ch-lens ch-hide");
 	
 	// Seeker
 	var $seeker = $("<div>")
@@ -69,22 +55,23 @@ ch.zoom = function(conf) {
 		});
 	
 	var move = function(event){
-		var x = event.pageX;
-		var y = event.pageY;
-		
 		var context = that.$element.children();
-		var contextOffset = context.offset();
-		var zoomedImage = that.$content.children();
+		var offset = context.offset();
+		var img = conf.content;
 		
-		zoomedImage.css({
-			"left": -(x - contextOffset.left) * (zoomedImage.outerWidth() / context.outerWidth() - 1),
-			"top": -(y - contextOffset.top) * (zoomedImage.outerHeight() / context.outerHeight() - 1)
+		var x = event.pageX - offset.left;
+		var y = event.pageY - offset.top;
+		
+		// Zoomed image
+		img.css({
+			"left": -x * (img.outerWidth() / context.outerWidth() - 1),
+			"top": -y * (img.outerHeight() / context.outerHeight() - 1)
 		});
 
-		// Shape
+		// Seeker shape
 		$seeker.css({
-			"left": x - contextOffset.left - ($seeker.width() / 2),
-			"top": y - contextOffset.top - ($seeker.height() / 2)
+			"left": x - ($seeker.width() / 2),
+			"top": y - ($seeker.height() / 2)
 		});
 	};
 	
@@ -101,7 +88,7 @@ ch.zoom = function(conf) {
 		that.parent.show();
 		
 		// Magnifying glass
-		$lens.fadeIn();
+		//$lens.fadeIn();
 		
 		// Seeker
 		$seeker.removeClass("ch-hide");
@@ -116,7 +103,7 @@ ch.zoom = function(conf) {
 		$seeker.addClass("ch-hide");
 		
 		// Magnifying glass
-		$lens.fadeOut();
+		//$lens.fadeOut();
 		
 		// Floats hide
 		that.parent.hide();
@@ -178,7 +165,7 @@ ch.zoom = function(conf) {
 		.addClass("ch-zoom-trigger")
 		
 		// Magnifying glass
-		.append( $lens )
+		//.append( $lens )
 		
 		// Seeker
 		.append( $seeker )

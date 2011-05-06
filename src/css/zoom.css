@@ -1,5 +1,12 @@
+/* Anchor */
+.ch-zoom-trigger {
+	position:relative;
+	display:inline-block;
+	overflow:hidden;
+}
+
 /* Magnifying glass */
-.ch-viewer .ch-lens {
+.ch-zoom-trigger .ch-lens {
 	background-image: url('../src/assets/zoom.png');
 	width:41px;
 	height:41px;
@@ -8,24 +15,20 @@
 	right:0;
 }
 
-/* Seeker (Rectangle) */
-.ch-viewer .ch-seeker {
+/* Seeker shape */
+.ch-zoom-trigger .ch-seeker {
 	background-color:rgba(0,0,255,.1);
 	border:1px solid #00f;
-	cursor:pointer;
+	cursor:zoom-in;
+	cursor:-moz-zoom-in;
+	cursor:-webkit-zoom-in;
 	position:absolute;
-}
-
-/* Anchor */
-.ch-zoom-trigger {
-	position:relative;
-	display:block;
-	overflow:hidden;
 }
 
 /* Zoomed area */
 .ch-zoom {
 	border:1px solid #ccc;
+	background-color:#fff;
 }
 
 /* Zoomed container */
