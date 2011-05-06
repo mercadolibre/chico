@@ -1,10 +1,10 @@
 /**
- *	Viewer
+ *	Viewer Classic
  *	@author
  *	@Contructor
  *	@return An interface object
  */
-ch.viewer = function(conf){
+ch.viewer_classic = function(conf){
 
 /**
  *  Constructor
@@ -28,7 +28,7 @@ ch.viewer = function(conf){
 	/**
 	 * 	Viewer
 	 */
-	var $viewer = that.$element.addClass("ch-viewer");
+	var $viewer = that.$element.addClass("ch-viewer-classic");
 	
 	/**
 	 * 	Showcase
@@ -36,81 +36,38 @@ ch.viewer = function(conf){
 	
 	var showcase = (function(){
 		
-		var $content = $viewer.children(":first").addClass("ch-viewer-content");
+		var lens = $("<div>")
+			.addClass("ch-lens ch-hide")
+			.bind("click", function(){ viewerModal.show(); });
 		
-		var $display = $("<div>")
-			.addClass("ch-viewer-display")
-			.append( $content )
+		var display = $viewer.children(":first").addClass("ch-viewer-classic-content");
+			display.find("img, object, embed, video") // TODO: Esto es correcto?
+				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
+				.bind("mouseleave", function(){ lens.fadeOut(); }); // Hide magnifying glass
+		
+		var wrapper = $("<div>")
+			.addClass("ch-viewer-classic-display")
+			.append( display )
+			.append( lens ) // Magnifying glass
 			.appendTo( $viewer );
 
 		var self = {};
 		
-			self.$content = $content;
-			
-			self.items = $content.children();
+			self.items = display.children();
+			self.itemsWidth = self.items.outerWidth();
 			self.itemsAmount = self.items.length;
-			
 			self.itemsAnchor = self.items.children("a")
-				.bind("click", function(event){ that.prevent(event) });
-			self.itemsImgs = self.itemsAnchor.children("img");
-			self.itemsVideo = self.items.children("object");
+				.bind("click", function(event){ that.prevent(event); viewerModal.show(); });
 			
-			// Items width and height
-			var itemFirst = self.itemsImgs[0] || self.itemsVideo[0];
-			self.itemsWidth = parseInt(itemFirst.width, 10);
-			self.itemsHeight = parseInt(itemFirst.height, 10);
-			self.MAX_WIDTH = self.itemsWidth;
-
-			// TODO: 
-			$display.css({
-				"width": self.itemsWidth,
-				"height": self.itemsHeight
-			});
-			$viewer.width( self.itemsWidth );
-			self.$content.width((self.itemsAmount * (self.itemsWidth)) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
-			
-			// TODO:
-			self.draw = function(){
-				
-				if ( $viewer.parent().width() > self.MAX_WIDTH + 35 ) return;
-
-				var newWidth;
-				var oldItemsWidth = self.itemsWidth;
-				var oldItemsHeight = self.itemsHeight;
-				
-				if( $viewer.parent().width() < self.MAX_WIDTH ){
-					newWidth = self.MAX_WIDTH - (self.MAX_WIDTH - $viewer.parent().width());
-				} else if ($viewer.parent().width() > self.MAX_WIDTH && $viewer.width() < self.MAX_WIDTH){
-					newWidth = self.MAX_WIDTH;
-				};
-				
-				self.itemsWidth = newWidth;
-				self.itemsHeight = Math.ceil((self.itemsWidth * oldItemsHeight) / oldItemsWidth);
-				
-				for (var i = 0, j = self.itemsImgs.length; i < j; i += 1){
-					self.itemsImgs[i].width = self.itemsWidth;
-					self.itemsImgs[i].height = self.itemsHeight;
-				};
-								
-				for (var i = 0, j = self.itemsVideo.length; i < j; i += 1){
-					self.itemsVideo[i].width = self.itemsWidth;
-					self.itemsVideo[i].height = self.itemsHeight;
-				};
-
-				$display.css({
-					"width": self.itemsWidth,
-					"height": self.itemsHeight
-				});
-				
-				$viewer.width( newWidth );
-
-				self.$content.css({
-					"width": (self.itemsAmount * (self.itemsWidth)) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0), // Extra width
-					"left": 0
-				});
-
-			};		
-
+			// Set visual config of content
+			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
+		
+		// Position magnifying glass
+		ch.positioner({
+	        element: lens,
+	        context: wrapper
+		});
+		
 		return self;
 	})();
 	
@@ -141,7 +98,7 @@ ch.viewer = function(conf){
 					
 			// Video
 			} else if( $(e).children("object").length > 0 || $(e).children("embed").length > 0 ) {
-				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-video") );
+				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-classic-video") );
 				//showcase.videos.push($(e).children("object"));
 			};
 			
@@ -155,24 +112,173 @@ ch.viewer = function(conf){
 			self.selected = 1;
 		
 			self.carousel = that.children[0] = $("<div>")
-				.addClass("ch-viewer-triggers")
+				.addClass("ch-viewer-classic-triggers")
 				.append( structure )
 				.appendTo( $viewer )
-				.carousel();
-				
-			self.draw = function(){
-				// TODO: 90 is thumbnails size hardcoded, this should be variable
-				var w = (showcase.itemsWidth * 90) / showcase.MAX_WIDTH;
-				var h = (showcase.itemsHeight * 90) / showcase.MAX_WIDTH;
-				for (var i = 0, j = self.children.length; i < j; i += 1){
-					$(self.children[i]).width(w).height(h);
-					self.children.find("img").width(w).height(h);
-				};
-				
-			};
+				.carousel({ width: $viewer.width() });
 		
 		return self;
 	};
+		
+	
+	
+	
+	
+
+	
+	
+	
+	/**
+	 * 	Zoom
+	 */
+	var checkZoomImages = function(modal){
+		
+		var zoomImages = [];
+		
+		$.each(showcase.items, function(i, e){
+			
+			// Zoom image source
+			var src = $(e).children("link[rel=zoom]").attr("href");
+			
+			// If it has not zoom, continue
+			if(!src) return;
+			
+			var image = $("<img>")
+				.attr("src", src)
+				.addClass("ch-viewer-classic-zoomed")
+				.bind("click", function(){ $(this).fadeOut(); }) // Fade Out
+				.bind("mousemove", function(event){ zoomMove(event); }) // Movement
+				.appendTo( (showcase.itemsAmount > 1) ? modal : modal.children() )
+				.hide();
+			
+			var zoomMove = function(event){
+				var offset = modal.offset();
+				
+				var diff = {
+					x: image.outerWidth() / modal.outerWidth() - 1,
+					y: image.outerHeight() / modal.outerHeight() - 1
+				};
+				
+				image.css({
+					left: -(event.pageX - offset.left) * diff.x + "px",
+					top: -(event.pageY - offset.top) * diff.y + "px"
+				});
+			};
+			
+			// Create zoom functionality
+			var zoomable = $("<a>")
+				.attr("href", src)
+				.addClass("ch-viewer-classic-zoomable")
+				.bind("click", function(event){
+					that.prevent(event);
+					zoomMove(event);
+					image.fadeIn();
+				}); // FadeIn
+			
+			// Append link to image in modal
+			modal.find(".ch-carousel-content li").eq(i).wrapInner( zoomable );
+			
+			// Add source to preload
+			zoomImages.push(src);
+		});
+		
+		// Preload if there are zoom images
+		if(zoomImages.length > 0) ch.preload(zoomImages);
+	};
+	
+	
+		
+	/**
+	 * 	Modal
+	 */
+	
+	var modalInited = false;
+	
+	var viewerModal = that.children[1] = $("<div>").modal({
+		width:600,
+		onShow: function(){
+			if(showcase.itemsAmount > 1 && !modalInited) {
+				// Carousel redraw + show
+				$(that.children[2].redraw().element).removeClass("ch-hide");
+				
+				// Modal reposition
+				this.position("refresh");
+				
+				// Keyboard support
+				ch.utils.document.bind(ch.events.KEY.LEFT_ARROW, function(){ that.children[2].prev(); });
+				ch.utils.document.bind(ch.events.KEY.RIGHT_ARROW, function(){ that.children[2].next(); });
+				
+				modalInited = true;
+			};
+		},
+		onHide: function(){
+			if(showcase.itemsAmount > 1) {
+				//that.move( that.children[2].getPage() ); // Select thumb that was selected in modal
+				that.children[2].moveTo(1).moveTo( thumbnails.selected ); // Reset position
+				
+				// Keyboard support
+				ch.utils.document.unbind(ch.events.KEY.LEFT_ARROW);
+				ch.utils.document.unbind(ch.events.KEY.RIGHT_ARROW);
+			};
+		},
+		content: (function generateContent(){
+			var content = $("<div>").addClass("ch-viewer-classic-modal-content ch-hide");
+			
+			var list = $("<ul>")
+				.addClass("carousel")
+				.css("left", 0)
+				.appendTo( content );
+			
+			var imageIndex = 0;
+		
+			$.each(showcase.items, function(i, e) {
+				
+				var item = {};
+				
+				// Thumbnail
+				if( $(e).children("a").length > 0 ) {
+					item = $("<img>").attr("src", $(e).children("a").attr("href"));
+				
+				// Video (OBJECT)
+				} else if( $(e).children("object").length > 0) {
+					
+					// TODO: Take width and height of "bigImages". Else, 500x500.
+					var resize = { "width": 500, "height": 500 };
+					
+					var video = $(e).children("object")[0].cloneNode(true);
+					
+					item = $(video).attr(resize).children("embed").attr(resize);
+				
+				// Video (EMBED)
+				} else if ( $(e).children("embed").length > 0 ) {
+	
+					var video = $(e).children("embed")[0].cloneNode(true);
+					
+					// TODO: Take width and height of "bigImages". Else, 500x500.
+					item = $(video).attr({ "width": 500, "height": 500 });
+					
+				};
+				
+				$("<li>").append( item ).appendTo( list );
+			});
+			
+			// Full behavior
+			if(showcase.itemsAmount > 1) {
+				// Init carousel and move to position of item selected on thumbs
+				that.children[2] = content.carousel({ pager: true });
+				
+			// Basic behavior
+			} else {
+				// Simulate carousel structure
+				content.wrapInner("<div class=\"ch-viewer-classic-oneItem\">");
+			};
+			
+			// Zoom process
+			checkZoomImages(content);
+			
+			return content;
+		})()
+	});
 	
 	
 	
@@ -191,11 +297,10 @@ ch.viewer = function(conf){
 		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
 
 		// Content movement
-
-		var movement = { left: (-item + 1) * (showcase.itemsWidth) };
-
+		var movement = { left: (-item + 1) * showcase.itemsWidth };
+		
 		// CSS3 Transitions vs jQuery magic
-		if(ch.features.transition) showcase.$content.css(movement); else showcase.$content.animate(movement);
+		if(ch.features.transition) showcase.display.css(movement); else showcase.display.animate(movement);
 		
 		// Move thumbnails carousel if item selected is on another page
 		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
@@ -203,31 +308,20 @@ ch.viewer = function(conf){
 		// Refresh selected thumb
 		thumbnails.selected = item;
 		
+		// Modal syncro
+		that.children[2].moveTo(1).moveTo( item );
+		
 		// Callback
 		that.callbacks("onMove");
 	
 		return that;
 	};
-	
-	var resize = false;
 
 /**
  *  Protected Members
  */ 
 	
-	that.redraw = function(){
-		
-		showcase.draw();
-		
-		if ( thumbnails ) {
-			
-			thumbnails.draw();
-			that.children[0].redraw();
-			move(1);
-		};
-		
-
-	};
+	
 	
 
 /**
@@ -255,23 +349,6 @@ ch.viewer = function(conf){
 		var thumbnails = createThumbs();
 		that.move = move;
 		that.move(1); // Move to the first item without callback
-		
-		that.redraw();
-	};
-	
-	// Elastic behavior    
-    if ( !conf.hasOwnProperty("width") ){
-		
-	    ch.utils.window.bind("resize", function() {
-			resize = true;
-		});
-		
-		setInterval(function() {
-		    if( !resize ) return;
-			resize = false;
-			that.redraw();
-		}, 250);
-		
 	};
 	
 	// Preload big images on document load
@@ -284,7 +361,6 @@ ch.viewer = function(conf){
 		
 		ch.preload(bigImages);
 	});
-	
 
 	
 	return that;

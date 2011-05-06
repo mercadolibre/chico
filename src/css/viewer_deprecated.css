@@ -1,0 +1,87 @@
+/* Component */
+.ch-viewer{
+	border:1px solid #ccc;
+	overflow:hidden;
+	background-color:#fff;
+}
+
+/* Showcase area */
+.ch-viewer-display{
+	position:relative;
+	overflow:hidden;
+	padding:10px 0;
+}
+
+/* Showcase list */
+.ch-viewer-content{
+	position:absolute;
+	transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+
+/* Showcase list items */
+.ch-viewer-content li{
+	float:left;
+	/*padding:0 10px;*/
+}
+
+.ch-viewer-content li a{
+	cursor:default;
+}
+
+/* Sprite */
+.ch-viewer .ch-lens,
+.ch-viewer-video span {
+	background-image: url('../src/assets/viewer.png');
+}
+
+/* Thumbnails */
+.ch-viewer-triggers {
+	margin-bottom:10px;
+}
+
+/* Thumbnails items */
+.ch-viewer-triggers li {
+	width:90px;
+	height:90px;
+	border:1px solid #fff;
+	cursor:pointer;
+}
+
+/* Highlighted thumbnail */
+.ch-viewer-triggers .ch-thumbnail-on {
+	border-color:#ccc;
+}
+
+/* Video thumbnail */
+.ch-viewer-video {
+	background-color:#eee;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	text-indent:999px;
+	overflow:hidden;
+}
+
+/* Video icon on thumbnail */
+.ch-viewer-video span {
+	background-position:0 -41px;
+	width:12px;
+	height:22px;
+	display:block;
+	margin:9px 0 0 15px;
+}
+
+
+/* IE 6,7,8 */
+
+/* IE 6 */
+.ie6 .ch-viewer-triggers .ch-prev {
+	left: 10px;
+}
+
+.ie6 .ch-viewer-triggers .ch-next {
+	right: 10px;
+}
