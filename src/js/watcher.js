@@ -324,7 +324,7 @@ ch.watcher = function(conf) {
 	that["public"].validations = that.validations;
 	that["public"].conditions = that.conditions;
 	that["public"].messages = that.messages;
-	that["public"].helper = that.helper;
+	that["public"].helper = that.helper["public"];
 	that["public"].active = function() {
 		return that.active;
 	};
