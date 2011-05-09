@@ -1,17 +1,18 @@
 /* Component */
 .ch-viewer{
 	border:1px solid #ccc;
-	width:340px;
 	overflow:hidden;
 	background-color:#fff;
+	width:340px;
 }
 
 /* Showcase area */
 .ch-viewer-display{
 	position:relative;
 	overflow:hidden;
-	height:320px;
 	padding:10px;
+	width:320px;
+	height:320px;
 }
 
 /* Showcase list */
@@ -26,9 +27,22 @@
 /* Showcase list items */
 .ch-viewer-content li{
 	float:left;
-	width:320px;
-	height:320px;
 	padding:0 10px;
+	height:320px;
+	width:320px;
+	line-height:320px;
+	text-align:center;
+}
+
+.ch-viewer-content li a,
+.ch-viewer-content li object{
+	display:block;
+    	text-align: center;
+}
+/* Showcase list images and videos */
+.ch-viewer-content li img,
+.ch-viewer-content li embed{
+	vertical-align:middle;
 }
 
 
