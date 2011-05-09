@@ -36,19 +36,11 @@ ch.viewer = function(conf){
 	
 	var showcase = (function(){
 		
-		var lens = $("<div>")
-			.addClass("ch-lens ch-hide")
-			.bind("click", function(){ viewerModal.show(); });
-		
 		var display = $viewer.children(":first").addClass("ch-viewer-content");
-			display.find("img, object, embed, video") // TODO: Esto es correcto?
-				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
-				.bind("mouseleave", function(){ lens.fadeOut(); }); // Hide magnifying glass
 		
 		var wrapper = $("<div>")
 			.addClass("ch-viewer-display")
 			.append( display )
-			.append( lens ) // Magnifying glass
 			.appendTo( $viewer );
 
 		var self = {};
@@ -56,17 +48,64 @@ ch.viewer = function(conf){
 			self.items = display.children();
 			self.itemsWidth = self.items.outerWidth();
 			self.itemsAmount = self.items.length;
-			self.itemsAnchor = self.items.children("a")
-				.bind("click", function(event){ that.prevent(event); viewerModal.show(); });
+			self.itemsAnchor = self.items.children("a");
 			
 			// Set visual config of content
 			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
 		
-		// Position magnifying glass
-		ch.positioner({
-	        element: lens,
-	        context: wrapper
-		});
+		
+		// Modal zoom
+		if(conf.zoom == "modal"){
+			
+			var lens = $("<div>")
+				.addClass("ch-lens ch-hide")
+				.bind("click", function(){ viewerModal.show(); })
+				.appendTo( wrapper );
+			
+			display.find("img, object, embed, video")
+				// Show magnifying glass
+				.bind("mouseover", function(){
+					lens.fadeIn();
+					
+					ch.positioner({
+				        element: lens,
+				        context: wrapper
+					});
+				})
+				// Hide magnifying glass
+				.bind("mouseleave", function(){ lens.fadeOut(); });
+			
+			self.itemsAnchor.bind("click", function(event){
+				that.prevent(event);
+				viewerModal.show();
+			});
+						
+		// Zoom component
+		} else {
+			
+			var zoomChildren = [];
+			
+			self.itemsAnchor.each(function(i, e){
+				var zoom = {};
+					zoom.uid = that.uid + "#" + i;
+					zoom.type = "zoom";
+					zoom.element = e;
+					zoom.$element = $(e);
+					
+			    zoomChildren.push(
+			    	ch.zoom.call(zoom, {
+			    		context: $viewer,
+			    		onShow: function(){
+			    			this.width( $viewer.width() );
+			    			this.height( $viewer.height() );
+			    		}
+			    	})
+			    );
+			});
+			
+			that.children.push( zoomChildren );
+			
+		};
 		
 		return self;
 	})();
@@ -121,16 +160,12 @@ ch.viewer = function(conf){
 	};
 		
 	
-	
-	
-	
-
-	
-	
-	
 	/**
-	 * 	Zoom
+	 * 	Modal zoom
 	 */
+	
+	if(conf.zoom == "modal"){
+	
 	var checkZoomImages = function(modal){
 		
 		var zoomImages = [];
@@ -280,7 +315,7 @@ ch.viewer = function(conf){
 		})()
 	});
 	
-	
+	};
 	
 	var move = function(item){
 
@@ -309,7 +344,7 @@ ch.viewer = function(conf){
 		thumbnails.selected = item;
 		
 		// Modal syncro
-		that.children[2].moveTo(1).moveTo( item );
+		if(conf.zoom == "modal") that.children[2].moveTo(1).moveTo( item );
 		
 		// Callback
 		that.callbacks("onMove");
@@ -352,16 +387,17 @@ ch.viewer = function(conf){
 	};
 	
 	// Preload big images on document load
-	var bigImages = [];
-	
-	$(function(){
-		showcase.itemsAnchor.each(function(i, e){
-			bigImages.push( $(e).attr("href") );
-		});
+	if(conf.zoom == "modal"){
+		var bigImages = [];
 		
-		ch.preload(bigImages);
-	});
-
+		$(function(){
+			showcase.itemsAnchor.each(function(i, e){
+				bigImages.push( $(e).attr("href") );
+			});
+			
+			ch.preload(bigImages);
+		});
+	};
 	
 	return that;
 };
