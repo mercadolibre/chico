@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, viewer_classic, chat, expando, codelighter, accordion
+  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, accordion, zoom
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -22,7 +22,7 @@ var ch = window.ch = {
 
     version: "0.6.1",
 
-    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,viewer_classic,chat,expando,codelighter,accordion",
+    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,accordion,zoom",
 
     internals: "positioner,object,floats,navs,controllers,watcher,sliders",
 
@@ -1032,24 +1032,32 @@ ch.floats = function() {
         	.html( that.loadContent() );
 		
     	that.$container = $("<div>")
-    		.addClass("ch-" + that.type)
-    		.addClass("ch-hide")
+    		.addClass("ch-hide ch-" + that.type)
     		.css("z-index", ch.utils.zIndex ++)
     		.append( that.$content )
     		.appendTo("body");
 		
 		// Visual configuration
-		if( conf.classes ) that.$container.addClass(conf.classes);
+		if( conf.hasOwnProperty("classes") ) that.$container.addClass(conf.classes);
 		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
-		if( conf.closeButton ) createClose();
-		if( conf.cone ) createCone();
+		if( conf.hasOwnProperty("closeButton") ) createClose();
+		if( conf.hasOwnProperty("cone") ) createCone();
+		if( conf.hasOwnProperty("fx") ) conf.fx = conf.fx; else conf.fx = true;
 		
 		// Cache - Default: true
 		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
 		
-		// Show component
-		that.$container.fadeIn("fast", function(){ that.callbacks("onShow"); });
+		// Show component with effects
+		if( conf.fx ) {
+			that.$container.fadeIn("fast", function(){ that.callbacks("onShow"); });
+		
+		// Show component without effects
+		} else {
+			// TODO: that.$container.removeClass("ch-hide");
+			that.$container.show();
+			that.callbacks("onShow");
+		};
 		
 		// Position component
 		conf.position = conf.position || {};
@@ -1116,7 +1124,7 @@ ch.floats = function() {
 
 		if (!that.active) return;
 
-		that.$container.fadeOut('fast', function(){ 
+		var afterHide = function(){ 
 			 
 			that.active = false;
 			
@@ -1135,7 +1143,18 @@ ch.floats = function() {
 			
 			$(this).detach();
 			
-		});
+		};
+		
+		// Show component with effects
+		if( conf.fx ) {
+			that.$container.fadeOut("fast", afterHide);
+		
+		// Show component without effects
+		} else {
+			// TODO: that.$container.addClass("ch-hide");
+			that.$container.hide();
+			afterHide();
+		};
 		
 		return that;
 
@@ -1447,17 +1466,16 @@ ch.watcher = function(conf) {
     that.helper = ch.helper.call(helper, that);
     
     // Validate Method
-	that.validate = function() {		
+	that.validate = function(event) {	
 		// Pre-validation: Don't validate disabled or not required & empty elements
 		if ( that.$element.attr('disabled') ) { return; }
-		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() ) { return; }
+		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() && that.active === false) { return; }
 
-		if ( that.enabled ) {
-			
+		if ( that.enabled && ( that.active === false || !that.isEmpty() || that.validations.hasOwnProperty("required") ) ) {
+	
 			that.callbacks('beforeValidate');
 
 	        // Validate each type of validation
-	        
 			for (var type in that.validations) {
 				
 				// Status error (stop the flow)
@@ -1497,7 +1515,7 @@ ch.watcher = function(conf) {
 
 					var event = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
 
-					that.$element.one(event, that.validate); // Add blur or change event only one time
+					that.$element.one(event, function(event){ that.validate(event); }); // Add blur or change event only one time
 
 	                return;
 				}
@@ -1514,8 +1532,14 @@ ch.watcher = function(conf) {
 			//that.publish.status = that.status =  conf.status = true; // Status OK
 			that.active = false;
 			
+			// If has an error, but complete the field and submit witout trigger blur event
+			if (event) {
+				var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
+				if (originalTarget.type == "submit") { controller.submit(); };
+			};
+			
 			controller.checkStatus();
-		}
+		};
         
         that.callbacks('afterValidate');
         
@@ -1528,7 +1552,7 @@ ch.watcher = function(conf) {
 		that.active = false;
 		that.$element.removeClass("error");
 		that.helper.hide(); // Hide helper
-		that.$element.unbind("blur"); // Remove blur event 
+		that.$element.unbind("blur change", that.validate); // Remove blur and change event
 		
 		that.callbacks("onReset");
 		
@@ -1569,7 +1593,7 @@ ch.watcher = function(conf) {
 	that["public"].validations = that.validations;
 	that["public"].conditions = that.conditions;
 	that["public"].messages = that.messages;
-	that["public"].helper = that.helper;
+	that["public"].helper = that.helper["public"];
 	that["public"].active = function() {
 		return that.active;
 	};
@@ -1757,7 +1781,9 @@ ch.carousel = function(conf){
 		var pagerWidth = pager.outerWidth();
 		
 		pager.css('left', (contextWidth - pagerWidth) / 2);
-		
+
+		if ( ch.utils.html.hasClass("ie6") ) { pager.css('top', that.$element.height() + 15) };
+
 		// Children functionality
 		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
 			$(e).bind("click", function(){
@@ -3451,72 +3477,68 @@ ch.viewer = function(conf){
 
 		var self = {};
 		
-			self.$content = $content;
-			
 			self.items = $content.children();
+			self.itemsWidth = self.items.outerWidth();
 			self.itemsAmount = self.items.length;
+			self.itemsAnchor = self.items.children("a");
 			
-			self.itemsAnchor = self.items.children("a")
-				.bind("click", function(event){ that.prevent(event) });
-			self.itemsImgs = self.itemsAnchor.children("img");
-			self.itemsVideo = self.items.children("object");
+			// Set visual config of content
+			self.$content = $content.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
+		
+		
+		// Modal zoom
+		if(conf.zoom == "modal"){
 			
-			// Items width and height
-			var itemFirst = self.itemsImgs[0] || self.itemsVideo[0];
-			self.itemsWidth = parseInt(itemFirst.width, 10);
-			self.itemsHeight = parseInt(itemFirst.height, 10);
-			self.MAX_WIDTH = self.itemsWidth;
-
-			// TODO: 
-			$display.css({
-				"width": self.itemsWidth,
-				"height": self.itemsHeight
+			var lens = $("<div>")
+				.addClass("ch-lens ch-hide")
+				.bind("click", function(){ viewerModal.show(); })
+				.appendTo( $display );
+			
+			$content.find("img, object, embed, video")
+				// Show magnifying glass
+				.bind("mouseover", function(){
+					lens.fadeIn();
+					
+					ch.positioner({
+				        element: lens,
+				        context: $display
+					});
+				})
+				// Hide magnifying glass
+				.bind("mouseleave", function(){ lens.fadeOut(); });
+			
+			self.itemsAnchor.bind("click", function(event){
+				that.prevent(event);
+				viewerModal.show();
 			});
-			$viewer.width( self.itemsWidth );
-			self.$content.width((self.itemsAmount * (self.itemsWidth)) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
+						
+		// Zoom component
+		} else {
 			
-			// TODO:
-			self.draw = function(){
-				
-				if ( $viewer.parent().width() > self.MAX_WIDTH + 35 ) return;
-
-				var newWidth;
-				var oldItemsWidth = self.itemsWidth;
-				var oldItemsHeight = self.itemsHeight;
-				
-				if( $viewer.parent().width() < self.MAX_WIDTH ){
-					newWidth = self.MAX_WIDTH - (self.MAX_WIDTH - $viewer.parent().width());
-				} else if ($viewer.parent().width() > self.MAX_WIDTH && $viewer.width() < self.MAX_WIDTH){
-					newWidth = self.MAX_WIDTH;
-				};
-				
-				self.itemsWidth = newWidth;
-				self.itemsHeight = Math.ceil((self.itemsWidth * oldItemsHeight) / oldItemsWidth);
-				
-				for (var i = 0, j = self.itemsImgs.length; i < j; i += 1){
-					self.itemsImgs[i].width = self.itemsWidth;
-					self.itemsImgs[i].height = self.itemsHeight;
-				};
-								
-				for (var i = 0, j = self.itemsVideo.length; i < j; i += 1){
-					self.itemsVideo[i].width = self.itemsWidth;
-					self.itemsVideo[i].height = self.itemsHeight;
-				};
-
-				$display.css({
-					"width": self.itemsWidth,
-					"height": self.itemsHeight
-				});
-				
-				$viewer.width( newWidth );
-
-				self.$content.css({
-					"width": (self.itemsAmount * (self.itemsWidth)) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0), // Extra width
-					"left": 0
-				});
-
-			};		
-
+			var zoomChildren = [];
+			
+			self.itemsAnchor.each(function(i, e){
+				var zoom = {};
+					zoom.uid = that.uid + "#" + i;
+					zoom.type = "zoom";
+					zoom.element = e;
+					zoom.$element = $(e);
+					
+			    zoomChildren.push(
+			    	ch.zoom.call(zoom, {
+			    		context: $viewer,
+			    		onShow: function(){
+			    			this.width( $viewer.width() );
+			    			this.height( $viewer.height() );
+			    		}
+			    	})
+			    );
+			});
+			
+			that.children.push( zoomChildren );
+			
+		};
+		
 		return self;
 	})();
 	
@@ -3564,270 +3586,18 @@ ch.viewer = function(conf){
 				.addClass("ch-viewer-triggers")
 				.append( structure )
 				.appendTo( $viewer )
-				.carousel();
-				
-			self.draw = function(){
-				// TODO: 90 is thumbnails size hardcoded, this should be variable
-				var w = (showcase.itemsWidth * 90) / showcase.MAX_WIDTH;
-				var h = (showcase.itemsHeight * 90) / showcase.MAX_WIDTH;
-				for (var i = 0, j = self.children.length; i < j; i += 1){
-					$(self.children[i]).width(w).height(h);
-					self.children.find("img").width(w).height(h);
-				};
-				
-			};
-		
-		return self;
-	};
-	
-	
-	
-	var move = function(item){
-
-		// Validation
-		if(item > showcase.itemsAmount || item < 1 || isNaN(item)) return that;
-	
-		var visibles = thumbnails.carousel.getSteps(); // Items per page
-		var page = thumbnails.carousel.getPage(); // Current page
-		var nextPage = Math.ceil( item / visibles ); // Page of "item"
-
-		// Visual config
-	
-		$(thumbnails.children[thumbnails.selected - 1]).removeClass("ch-thumbnail-on"); // Disable thumbnail
-		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
-
-		// Content movement
-
-		var movement = { left: (-item + 1) * (showcase.itemsWidth) };
-
-		// CSS3 Transitions vs jQuery magic
-		if(ch.features.transition) showcase.$content.css(movement); else showcase.$content.animate(movement);
-		
-		// Move thumbnails carousel if item selected is on another page
-		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
-
-		// Refresh selected thumb
-		thumbnails.selected = item;
-		
-		// Callback
-		that.callbacks("onMove");
-	
-		return that;
-	};
-	
-	var resize = false;
-
-/**
- *  Protected Members
- */ 
-	
-	that.redraw = function(){
-		
-		showcase.draw();
-		
-		if ( thumbnails ) {
-			
-			thumbnails.draw();
-			that.children[0].redraw();
-			move(1);
-		};
-		
-
-	};
-	
-
-/**
- *  Public Members
- */	
-
-	that["public"].uid = that.uid;
-	that["public"].element = that.element;
-	that["public"].type = that.type;
-	that["public"].children = that.children;
-	
-	// Full behavior
-	if(showcase.itemsAmount > 1) {
-		that["public"].moveTo = function(item){ that.move(item); return that["public"]; };
-		that["public"].next = function(){ that.move( thumbnails.selected + 1 ); return that["public"]; };
-		that["public"].prev = function(){ that.move( thumbnails.selected - 1 ); return that["public"]; };
-		that["public"].getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
-		// ...
-
-/**
- *  Default event delegation
- */	
-	
-		// ...
-		var thumbnails = createThumbs();
-		that.move = move;
-		that.move(1); // Move to the first item without callback
-		
-		that.redraw();
-	};
-	
-	// Elastic behavior    
-    if ( !conf.hasOwnProperty("width") ){
-		
-	    ch.utils.window.bind("resize", function() {
-			resize = true;
-		});
-		
-		setInterval(function() {
-		    if( !resize ) return;
-			resize = false;
-			that.redraw();
-		}, 250);
-		
-	};
-	
-	// Preload big images on document load
-	var bigImages = [];
-	
-	$(function(){
-		showcase.itemsAnchor.each(function(i, e){
-			bigImages.push( $(e).attr("href") );
-		});
-		
-		ch.preload(bigImages);
-	});
-	
-
-	
-	return that;
-};
-/**
- *	Viewer Classic
- *	@author
- *	@Contructor
- *	@return An interface object
- */
-ch.viewer_classic = function(conf){
-
-/**
- *  Constructor
- */
-	var that = this;
-
-	conf = ch.clon(conf);
-	that.conf = conf;
-	
-/**
- *  Inheritance
- */
-
-    that = ch.controllers.call(that);
-    that.parent = ch.clon(that);
-	
-/**
- *  Private Members
- */
- 
-	/**
-	 * 	Viewer
-	 */
-	var $viewer = that.$element.addClass("ch-viewer-classic");
-	
-	/**
-	 * 	Showcase
-	 */
-	
-	var showcase = (function(){
-		
-		var lens = $("<div>")
-			.addClass("ch-lens ch-hide")
-			.bind("click", function(){ viewerModal.show(); });
-		
-		var display = $viewer.children(":first").addClass("ch-viewer-classic-content");
-			display.find("img, object, embed, video") // TODO: Esto es correcto?
-				.bind("mouseover", function(){ lens.fadeIn(); }) // Show magnifying glass
-				.bind("mouseleave", function(){ lens.fadeOut(); }); // Hide magnifying glass
-		
-		var wrapper = $("<div>")
-			.addClass("ch-viewer-classic-display")
-			.append( display )
-			.append( lens ) // Magnifying glass
-			.appendTo( $viewer );
-
-		var self = {};
-		
-			self.items = display.children();
-			self.itemsWidth = self.items.outerWidth();
-			self.itemsAmount = self.items.length;
-			self.itemsAnchor = self.items.children("a")
-				.bind("click", function(event){ that.prevent(event); viewerModal.show(); });
-			
-			// Set visual config of content
-			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
-		
-		// Position magnifying glass
-		ch.positioner({
-	        element: lens,
-	        context: wrapper
-		});
-		
-		return self;
-	})();
-	
-	
-	/**
-	 * 	Thumbnails
-	 */
-	var createThumbs = function(){
-	
-		var structure = $("<ul>").addClass("carousel");
-		
-		$.each(showcase.items, function(i, e){
-			
-			var thumb = $("<li>").bind("click", function(event){
-				that.prevent(event);
-				that.move(i + 1);
-			});
-			
-			// Thumbnail
-			if( $(e).children("link[rel=thumb]").length > 0 ) {
-				$("<img>")
-					.attr("src", $(e).children("link[rel=thumb]").attr("href"))
-					.appendTo( thumb );
-			
-			// Google Map
-			//} else if( ref.children("iframe").length > 0 ) {
-				// Do something...
-					
-			// Video
-			} else if( $(e).children("object").length > 0 || $(e).children("embed").length > 0 ) {
-				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-classic-video") );
-				//showcase.videos.push($(e).children("object"));
-			};
-			
-			structure.append( thumb );
-		});
-		
-		var self = {};
-		
-			self.children = structure.children();
-			
-			self.selected = 1;
-		
-			self.carousel = that.children[0] = $("<div>")
-				.addClass("ch-viewer-classic-triggers")
-				.append( structure )
-				.appendTo( $viewer )
 				.carousel({ width: $viewer.width() });
 		
 		return self;
 	};
 		
 	
-	
-	
-	
-
-	
-	
-	
 	/**
-	 * 	Zoom
+	 * 	Modal zoom
 	 */
+	
+	if(conf.zoom == "modal"){
+	
 	var checkZoomImages = function(modal){
 		
 		var zoomImages = [];
@@ -3842,7 +3612,7 @@ ch.viewer_classic = function(conf){
 			
 			var image = $("<img>")
 				.attr("src", src)
-				.addClass("ch-viewer-classic-zoomed")
+				.addClass("ch-viewer-zoomed")
 				.bind("click", function(){ $(this).fadeOut(); }) // Fade Out
 				.bind("mousemove", function(event){ zoomMove(event); }) // Movement
 				.appendTo( (showcase.itemsAmount > 1) ? modal : modal.children() )
@@ -3865,7 +3635,7 @@ ch.viewer_classic = function(conf){
 			// Create zoom functionality
 			var zoomable = $("<a>")
 				.attr("href", src)
-				.addClass("ch-viewer-classic-zoomable")
+				.addClass("ch-viewer-zoomable")
 				.bind("click", function(event){
 					that.prevent(event);
 					zoomMove(event);
@@ -3919,7 +3689,7 @@ ch.viewer_classic = function(conf){
 			};
 		},
 		content: (function generateContent(){
-			var content = $("<div>").addClass("ch-viewer-classic-modal-content ch-hide");
+			var content = $("<div>").addClass("ch-viewer-modal-content ch-hide");
 			
 			var list = $("<ul>")
 				.addClass("carousel")
@@ -3956,7 +3726,7 @@ ch.viewer_classic = function(conf){
 					
 				};
 				
-				$("<li>").append( item ).appendTo( list );
+				$("<li>").css({ "width": 500, "height": 500 }).append( item ).appendTo( list );
 			});
 			
 			// Full behavior
@@ -3967,7 +3737,7 @@ ch.viewer_classic = function(conf){
 			// Basic behavior
 			} else {
 				// Simulate carousel structure
-				content.wrapInner("<div class=\"ch-viewer-classic-oneItem\">");
+				content.wrapInner("<div class=\"ch-viewer-oneItem\">");
 			};
 			
 			// Zoom process
@@ -3977,7 +3747,7 @@ ch.viewer_classic = function(conf){
 		})()
 	});
 	
-	
+	};
 	
 	var move = function(item){
 
@@ -3997,7 +3767,7 @@ ch.viewer_classic = function(conf){
 		var movement = { left: (-item + 1) * showcase.itemsWidth };
 		
 		// CSS3 Transitions vs jQuery magic
-		if(ch.features.transition) showcase.display.css(movement); else showcase.display.animate(movement);
+		if(ch.features.transition) showcase.$content.css(movement); else showcase.$content.animate(movement);
 		
 		// Move thumbnails carousel if item selected is on another page
 		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
@@ -4006,7 +3776,7 @@ ch.viewer_classic = function(conf){
 		thumbnails.selected = item;
 		
 		// Modal syncro
-		that.children[2].moveTo(1).moveTo( item );
+		if(conf.zoom == "modal") that.children[2].moveTo(1).moveTo( item );
 		
 		// Callback
 		that.callbacks("onMove");
@@ -4049,16 +3819,17 @@ ch.viewer_classic = function(conf){
 	};
 	
 	// Preload big images on document load
-	var bigImages = [];
-	
-	$(function(){
-		showcase.itemsAnchor.each(function(i, e){
-			bigImages.push( $(e).attr("href") );
-		});
+	if(conf.zoom == "modal"){
+		var bigImages = [];
 		
-		ch.preload(bigImages);
-	});
-
+		$(function(){
+			showcase.itemsAnchor.each(function(i, e){
+				bigImages.push( $(e).attr("href") );
+			});
+			
+			ch.preload(bigImages);
+		});
+	};
 	
 	return that;
 };
@@ -4641,6 +4412,195 @@ ch.menu = function(conf) {
 };
 
 ch.factory({ component: 'menu' });
+/**
+ *	Zoom
+ *	@author
+ *	@Contructor
+ *	@return An interface object
+ */
+
+ch.zoom = function(conf) {
+
+/**
+ *	Constructor
+ */
+
+	var that = this;
+	
+	conf = ch.clon(conf);
+	
+	// Link source as zoomed image
+	conf.content = $("<img>").attr("src", that.element.href);
+	
+	conf.position = {};
+	conf.position.context = conf.context || that.$element;
+	conf.position.offset = conf.offset || "20 0";
+	conf.position.points = conf.points || "lt rt";
+	
+	conf.width = conf.width || 300;
+	conf.height = conf.height || 300;
+	
+	conf.fx = false;
+
+	that.conf = conf;
+
+/**
+ *	Inheritance
+ */
+
+    that = ch.floats.call(that);
+    that.parent = ch.clon(that);
+    
+/**
+ *  Private Members
+ */
+	
+	// Magnifying glass
+	//var $lens = $("<div>").addClass("ch-lens ch-hide");
+	
+	// Seeker
+	var $seeker = $("<div>")
+		.addClass("ch-seeker ch-hide")
+		.bind("mousemove", function(event){ move(event); })
+		// TODO: Make a scale reference calc for seeker size
+		.css({
+			width: conf.width / 3, //(conf.content.width() / that.$element.children().width()),
+			height: conf.height / 3 //(conf.content.height() / that.$element.children().height())
+		});
+	
+	var move = function(event){
+		var context = that.$element.children();
+		var offset = context.offset();
+		var img = conf.content;
+		
+		var x = event.pageX - offset.left;
+		var y = event.pageY - offset.top;
+		
+		// Zoomed image
+		img.css({
+			"left": -x * (img.outerWidth() / context.outerWidth() - 1),
+			"top": -y * (img.outerHeight() / context.outerHeight() - 1)
+		});
+
+		// Seeker shape
+		$seeker.css({
+			"left": x - ($seeker.width() / 2),
+			"top": y - ($seeker.height() / 2)
+		});
+	};
+	
+/**
+ *  Protected Members
+ */
+	
+	that.$trigger = that.$element;
+	
+	that.show = function(event){
+		that.prevent(event);
+		
+		// Floats show
+		that.parent.show();
+		
+		// Magnifying glass
+		//$lens.fadeIn();
+		
+		// Seeker
+		$seeker.removeClass("ch-hide");
+		
+		return that;
+	};
+	
+	that.hide = function(event){
+		that.prevent(event);
+		
+		// Seeker
+		$seeker.addClass("ch-hide");
+		
+		// Magnifying glass
+		//$lens.fadeOut();
+		
+		// Floats hide
+		that.parent.hide();
+		
+		return that;
+	};
+	
+	that.enlarge = function(event){
+		that.prevent(event);
+		
+		// Open pop-up
+	};
+	
+	that.size = function(attr, data) {
+		if (!data) return conf[attr]; // Getter
+		
+		// Configuration
+		that.conf[attr] = data;
+		
+		// Container
+		that.$container[attr](data);
+		
+		// Seeker
+		$seeker[attr](data / 3);
+
+		return that["public"];
+	};
+
+/**
+ *  Public Members
+ */
+   	that["public"].uid = that.uid;
+	that["public"].element = that.element;
+	that["public"].type = that.type;
+	that["public"].content = that.content;
+	that["public"].show = function(){
+		that.show();
+		
+		return that["public"];
+	};
+	
+	that["public"].hide = function(){
+		that.hide();
+		
+		return that["public"];
+	};
+	
+	that["public"].position = that.position;
+	
+	that["public"].width = function(data){ that.size("width", data); };
+	that["public"].height = function(data){ that.size("height", data) };
+
+	
+/**
+ *  Default event delegation
+ */
+	
+	that.$element
+		.addClass("ch-zoom-trigger")
+		
+		// Magnifying glass
+		//.append( $lens )
+		
+		// Seeker
+		.append( $seeker )
+		
+		// Show
+		.bind("mouseover", that.show)
+		
+		// Hide
+		.bind("mouseleave", that.hide)
+		
+		// Move
+		.bind("mousemove", function(event){ move(event); })
+		
+		// Enlarge
+		.bind("click", function(event){ that.enlarge(event); });
+	
+	// Preload zoomed image
+	ch.preload(that.element.href);
+	
+	return that;
+};
 
 ch.init();
 })(jQuery);
