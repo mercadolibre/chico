@@ -36,22 +36,22 @@ ch.viewer = function(conf){
 	
 	var showcase = (function(){
 		
-		var display = $viewer.children(":first").addClass("ch-viewer-content");
+		var $content = $viewer.children(":first").addClass("ch-viewer-content");
 		
-		var wrapper = $("<div>")
+		var $display = $("<div>")
 			.addClass("ch-viewer-display")
-			.append( display )
+			.append( $content )
 			.appendTo( $viewer );
 
 		var self = {};
 		
-			self.items = display.children();
+			self.items = $content.children();
 			self.itemsWidth = self.items.outerWidth();
 			self.itemsAmount = self.items.length;
 			self.itemsAnchor = self.items.children("a");
 			
 			// Set visual config of content
-			self.display = display.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
+			self.$content = $content.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
 		
 		
 		// Modal zoom
@@ -60,16 +60,16 @@ ch.viewer = function(conf){
 			var lens = $("<div>")
 				.addClass("ch-lens ch-hide")
 				.bind("click", function(){ viewerModal.show(); })
-				.appendTo( wrapper );
+				.appendTo( $display );
 			
-			display.find("img, object, embed, video")
+			$content.find("img, object, embed, video")
 				// Show magnifying glass
 				.bind("mouseover", function(){
 					lens.fadeIn();
 					
 					ch.positioner({
 				        element: lens,
-				        context: wrapper
+				        context: $display
 					});
 				})
 				// Hide magnifying glass
@@ -335,7 +335,7 @@ ch.viewer = function(conf){
 		var movement = { left: (-item + 1) * showcase.itemsWidth };
 		
 		// CSS3 Transitions vs jQuery magic
-		if(ch.features.transition) showcase.display.css(movement); else showcase.display.animate(movement);
+		if(ch.features.transition) showcase.$content.css(movement); else showcase.$content.animate(movement);
 		
 		// Move thumbnails carousel if item selected is on another page
 		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
