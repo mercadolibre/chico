@@ -3,16 +3,12 @@
 	border:1px solid #ccc;
 	overflow:hidden;
 	background-color:#fff;
-	width:340px;
+	width:600px;
 }
 
 /* Showcase area */
 .ch-viewer-display{
-	position:relative;
-	overflow:hidden;
-	padding:10px;
-	width:320px;
-	height:320px;
+	/*padding:10px;*/
 }
 
 /* Showcase list */
@@ -28,9 +24,9 @@
 .ch-viewer-content li{
 	float:left;
 	padding:0 10px;
-	height:320px;
-	width:320px;
-	line-height:320px;
+	height:500px;
+	width:500px;
+	line-height:520px;
 	text-align:center;
 }
 
@@ -38,6 +34,7 @@
 .ch-viewer-content li object{
 	display:block;
     	text-align: center;
+    	margin:0 auto;
 }
 /* Showcase list images and videos */
 .ch-viewer-content li img,

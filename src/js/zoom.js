@@ -22,6 +22,7 @@ ch.zoom = function(conf) {
 	conf.position.context = conf.context || that.$element;
 	conf.position.offset = conf.offset || "20 0";
 	conf.position.points = conf.points || "lt rt";
+	conf.position.hold = true;
 	
 	conf.width = conf.width || 300;
 	conf.height = conf.height || 300;
@@ -162,6 +163,7 @@ ch.zoom = function(conf) {
  */
 	
 	that.$element
+		.children("img")
 		.addClass("ch-zoom-trigger")
 		
 		// Magnifying glass
