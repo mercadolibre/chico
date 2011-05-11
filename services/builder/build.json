@@ -1,0 +1,34 @@
+{
+    "name": "Chico-UI",
+    "version": "v0.5.8 RC",
+    "build": 0,
+    "packages": [
+        {
+            "name": "Chico JS",
+            "input": "../../src/js/",
+            "type": "js",
+            "upload": ["A3"],
+            "min": true
+        },
+        {
+            "name": "Chico CSS",
+            "input": "../../src/css/",
+            "type": "css",
+            "upload": ["A3"],
+            "min": true
+        }
+    ],
+    
+    "output": {
+        "uri": "../../build/",
+        "template": "/* Chico UI Packed */"
+    },
+    
+    "locations": {
+        "A3": {
+            "key": "-i ~/chicoui.pem",
+            "host": "ubuntu@chico-ui.com.ar",
+            "uri": "/chico/downloads/lastest/"
+        }
+    }
+}

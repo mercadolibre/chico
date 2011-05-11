@@ -1,0 +1,197 @@
+var sys = require("sys"),
+    fs = require("fs"),
+    child = require("child_process"),
+    pro = require("../lib/process"),
+    jsp = require("../lib/parse-js"),
+    gzip = require("../lib/gzip"),
+    exec  = child.exec,
+    spawn = child.spawn;
+
+
+sys.puts("\n######################################\n           Chico-UI Builder         \n######################################\n");
+
+var version = 0.1;
+
+var _files = {};
+    _files.raw = []; // name of the files
+    _files.data = []; // content of the files
+    _files.total = 0;
+    _files.loaded = 0;
+    _files.bytesLoaded = 0;
+    _files.ready = function() { return _files.total === _files.loaded; };
+
+var output; // Temp
+
+var template = function(data) { return "(function($){"+data+"ui.init();})(jQuery);"; };
+
+var kbs = function(data) { return (Math.ceil(data/1024)); };
+
+var get_file_name = function(file) { return "chico"+file.split("chico")[1]; };
+
+var is_ui_object = function(c) {
+    
+    var uiObjects = {
+        carousel:       1,
+        chat:           2,
+        codelighter:    3,
+        custom:         4,
+        dropdown:       5,
+        expando:        6,
+        forms:          7,
+        layer:          8,
+        modal:          9,
+        number:         10,
+        required:       11,
+        string:         12,
+        tabNavigator:   14,
+        tooltip:        15,
+        viewer:         16
+    };
+    
+    if (!uiObjects[c]) {
+        return false;
+    }
+
+    return true;
+};
+
+var upload = function(file) {
+
+    var file_name = get_file_name(file);
+
+    var child = exec("scp -i ~/chicoui.pem "+file+" ubuntu@chico-ui.com.ar:/chico/downloads/lastest/"+file_name, function (err) {
+    
+        if (err) {
+            sys.puts( file_name + "          > " + err);
+            return;
+        }
+    
+        sys.puts( file_name + "          > Uploaded to A3 Cloud!" );
+               
+    });
+ 
+};
+
+var write = function(file, data) {
+    
+    var file_name = get_file_name(file);
+    
+    fs.writeFile(file, data, function( err ) {
+        if(err) {
+            sys.puts(err);
+        } else {
+            sys.puts( file_name + "          > Saved file " + kbs(data.length) + " kbs" );
+            upload(file);
+        }
+    });
+
+};
+
+var load = function( _files ) {
+
+    sys.puts("\n = : Total bytes loaded: " + kbs( _files.bytesLoaded ) + " kbs\n");
+    
+    var uicomponents = [];
+    var components = _files.raw.join("").split(".js");
+    
+    var i = 0;
+    
+    for (i; i < components.length; i++ ) {
+        if (is_ui_object(components[i])) {
+            uicomponents.push(components[i]);
+        }
+    }
+
+    var data = _files["core.js"].data+_files.data.join("");
+        data = data.replace("components: \"\",","components: \""+uicomponents.join(",")+"\",");
+        
+        version = data.split("version: \"")[1];
+        version = version.split("\",")[0];
+            
+    output = template( data );
+    
+    var ast = jsp.parse( output ); // parse code and get the initial AST
+        ast = pro.ast_mangle(ast); // get a new AST with mangled names
+        ast = pro.ast_squeeze( ast ); // get an AST with compression optimizations
+        
+    var final_code = pro.gen_code( ast ); // compressed code here
+    
+    write("../../build/chico-"+version+".js", output);
+    write("../../build/chico-min-"+version+".js", final_code);
+
+};
+
+var process = function(o) {
+
+    var uri = o.input;
+
+    sys.puts("Building "+o.name);
+
+    var readFiles = function( err, files ) {
+        
+        if ( err ) {
+            sys.puts("Error: "+err);
+            return;
+        }
+        
+        files = files.join(",").split(".DS_Store,").join("").split(","); 
+        
+        _files.raw = files;
+        
+        _files.total = files.length;
+        
+        var i = 0;
+        
+        for ( i; i < _files.total; i++ ) {
+            
+            var file = files[i];
+            
+            (function(file){
+            
+                fs.readFile( uri+file, function( err , data ) {
+        
+                    if ( err ) {
+                        sys.puts("Error: "+err);
+                        return;
+                    }
+
+                   // sys.puts(" + : "+file);
+
+                    // Bytes loaded
+                    var bytes = data.length;
+                    // add the chunk
+                    if ( file !== "core.js" || file !== "core.css" ) {
+                        _files.data.push( data );
+                    }
+                    // create a file
+                    _files[file] = {
+                        "data" : data,
+                        "bytes" : data.length   
+                    };
+                    // Count loaded files
+                    _files.loaded += 1;
+                    // Count byte loaded
+                    _files.bytesLoaded += bytes;
+                    // dismiss file
+                    fs.unlink( file );
+                    
+                    if ( _files.ready() ) {
+                        //load( _files );
+                        sys.puts(o.name+ " Load: "+ _files.raw.toString());    
+                    }
+            
+                } );
+            
+            } )(file);
+            
+        }
+    };
+    // start reading files
+    fs.readdir( uri, readFiles );
+    
+};
+
+/* -----[ Exports ]----- */
+exports.version = version;
+exports.process = process;
+exports.write = write;
