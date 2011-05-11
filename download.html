@@ -10,118 +10,58 @@
 		<meta charset="utf-8">
 		<title>Chico UI, MercadoLibre's Visual Framework</title>
 		<link rel="stylesheet" href="./build/chico.css">
-		<link rel="stylesheet" href="./src/css/grid.css">
-		<link rel="stylesheet" href="./src/css/pages.css">
-		<!--[if lt IE 7 ]>
-			<script src="libs/js/dd_belatedpng.js"></script>
-			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
-		<![endif]-->
+		<link rel="stylesheet" href="./src/css/mesh.css">
+		<style>
+
+.class {
+
+}
+
+.abstract {
+    color: #999;
+}
+
+.interface {
+
+}
+		</style>
 	</head>
 <body>
 	<div class="container">
 		<div class="ch-g1">
 			<div class="box">
-				<h1>Download</h1>
+				<h1>Custom Download</h1>
 
 <form id="downloadForm" action="php/packer.php" method="get">
 
 <div class="ch-g1-4">
-<div>
+<div class="rightcolumn">
 <fieldset>
-	<legend>Select the cup:</legend>
+	<legend>Abstracts:</legend>
 	<div class="options">
-		<ul>
-			<li class="fieldBox">
-				<label for="typeJS">
-					<input type="radio" value="js" id="typeJS" name="type" checked="checked">
-					<span>JavaScript</span>
-				</label>
-			</li>
-
-			<li class="fieldBox">
-				<label for="typeCSS">
-					<input type="radio" value="css" id="typeCSS" name="type">
-					<span>StyleSheets</span>
-				</label>
-			</li>
-		</ul>
+		<ul id="abstracts"></ul>
 	</div>
 </fieldset>
 </div>
 </div>
 
 <div class="ch-g1-4">
-<div class="rightcolumn">
+<div>
 <fieldset>
-	<legend>Pick your flavors:</legend>
+	<legend>Components:</legend>
 	<div class="options">
-		<ul>
-			<li class="fieldBox">
-				<label for="checkDropdown">
-					<input type="checkbox" value="dropdown" id="checkDropdown" name="get">
-					<span>Dropdown</span>
-				</label>
-			</li>
+		<ul id="components"></ul>
+	</div>
+</fieldset>
+</div>
+</div>
 
-			<li class="fieldBox">
-				<label for="checkExpando">
-					<input type="checkbox" value="checkbox" id="checkExpando" name="get">
-					<span>Expando</span>
-				</label>
-			</li>
-
-			<li class="fieldBox">
-				<label for="checkCarousel">
-					<input type="checkbox" value="carousel" id="checkCarousel" name="get">
-					<span>Carousel</span>
-				</label>
-			</li>
-
-			<li class="fieldBox">
-				<label for="checkViewer">
-					<input type="checkbox" value="viewer" id="checkViewer" name="get">
-					<span>Viewer</span>
-				</label>
-			</li>
-			
-			<li class="fieldBox">
-				<label for="checkTabNavigator">
-					<input type="checkbox" value="tabNavigator" id="checkTabNavigator" name="get">
-					<span>TabNavigator</span>
-				</label>
-			</li>
-			
-			<li class="fieldBox">
-				<label for="checkTooltip">
-					<input type="checkbox" value="tooltip" id="checkTooltip" name="get">
-					<span>Tooltip</span>
-				</label>
-			</li>
-								
-			<li class="fieldBox">
-				<label for="checkLayer">
-					<input type="checkbox" value="layer" id="checkLayer" name="get">
-					<span>Layer</span>
-				</label>
-			</li>
-			
-			<li class="fieldBox">
-				<label for="checkModal">
-					<input type="checkbox" value="modal" id="checkModal" name="get">
-					<span>Modal</span>
-				</label>
-			</li>
-			
-			<li class="fieldBox">
-				<label for="checkForms">
-					<input type="checkbox" value="string,number,required,helper,forms" id="checkForms" name="get">
-					<span>Forms</span>
-				</label>
-			</li>
-            <li>
-                <span id="selectAll" style="color:blue;text-decoration:underline;cursor:pointer">select all</span>
-            </li>
-		</ul>
+<div class="ch-g1-4">
+<div>
+<fieldset>
+	<legend>Utils:</legend>
+	<div class="options">
+		<ul id="utils"></ul>
 	</div>
 </fieldset>
 </div>
@@ -159,13 +99,16 @@
 </div>
 </div>
 
-<div class="ch-g1-4">
-<div class="leftcolumn">
+
+<div class="ch-g1">
+
 <fieldset>
 	<legend>Done!</legend>
-	<input type="submit" value="Download" class="btn primary"></fieldset>
+	<input type="submit" value="Download" class="btn primary">
+</fieldset>
+
 </div>
-</div>
+
 <div class="clearfix"></div>
 </form>
 
@@ -174,65 +117,69 @@
 			</div>
 		</div>
 </div>
-	<p class="footer">Chico-UI, powered by <a href="http://www.mercadolibre.com">MercadoLibre</a>.</p>
+
+<p class="footer">Chico-UI, powered by <a href="http://www.mercadolibre.com">MercadoLibre</a>.</p>
+
 <script src="./libs/js/jquery.js"></script>
 <script src="./build/chico.js"></script>
+<script src="inheritanceMap.js"></script>
+
 <script>
-   
-    var f = $("#downloadForm").forms({callbacks:{
-        submit: function() {
-            
-            var q = [];
-            
-            $("input[type=checkbox]").each(function(i,e){
-                if ($(e).attr("checked")) {
-                    q.push($(e).val());
-                }
-            });
-            
-            if (q == "") {
-                alert("Please select some components.");
-                return;
-            }
-            
-            var type = [];
-            var theme = [];
-            
-            $("input[type=radio]").each(function(i,e){             
-                if ($(e).attr("checked")) {
-                    switch ($(e).attr("name")) {
-                        case "type": 
-                            type.push($(e).val());
-                            break;
-                        
-                        case "theme": 
-                            theme.push($(e).val());
-                            break;
-                        
-                    }
-                }  
-            });
 
-            q = q.join(",") + "&type=" + type.join("") + "&theme=" + theme.join("");
-            
-            var action = $("form").attr("action") + "?get=" + q;
+var build_version = {};
 
-            $("form").attr("action",action);
+var components = [];
+var utils = [];
 
-            window.location = action;
+for (var c in map) {
+    var type = map[c].type;
+    var value = c.toString().toLowerCase();
+    var appendTo = (type == "class" || type == "interface") ? "#components" : (type == "abstract") ? "#abstracts" : "#utils" ;  
+    var className = "fieldBox " + type;
+    var disabled = (type == "abstract") ? "disabled=\"disabled\"" : "" ;
+    $("<li class=\""+className+"\"><label><input type=\"checkbox\" value=\""+value+"\" name=\"get\" "+disabled+"> <span>"+c+"</span></label>")
+        .appendTo(appendTo);
+}
+
+var checkIt = function(c) {
+    $("input[value="+c+"]").attr("checked","checked");
+}
+
+var checkMap = function(c) {
+
+    if (!c) { return; }
+
+    if (c.implements) {
+        checkIt(c.implements);
+        checkMap(map[c.implements]);
+    }
+    if (c.inheritance) {
+        checkIt(c.inheritance);
+        if (map[c.inheritance]) { 
+            checkMap(map[c.inheritance]); 
         }
-    }});
+    }
+    if (c.depends) {
+        $(c.depends).each(function(i,e){
+            checkIt(e);
+            if (map[e]) { 
+                checkMap(map[e]); 
+            }
+        });  
+    }
+}
+
+$("#components input").change(function(e){
     
-    $(".downloadTab").tabNavigator();
+    var c = map[$(this).val()];
     
-    $("#selectAll").toggle(function() {
-        $("input[type=checkbox]").attr("checked","checked");
-        $(this).html("select none");
-    }, function(){
-        $("input[type=checkbox]").attr("checked",""); 
-        $(this).html("select all");
-    }).click();
+    if (!$(this).attr("checked")) return;
     
+    // Check the map
+    checkMap(c);
+
+});
+       
 </script>
 </body>
 </html>

@@ -1,8 +1,9 @@
 /* Anchor */
 .ch-zoom-trigger {
 	position:relative;
-	display:inline-block;
 	overflow:hidden;
+	cursor:default;
+	display:block;
 }
 
 /* Magnifying glass */
