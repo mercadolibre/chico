@@ -56,19 +56,17 @@ ch.zoom = function(conf) {
 		});
 	
 	var move = function(event){
-		var context = that.$element.children();
-		var offset = context.offset();
-		var img = conf.content;
+		var offset = that.$child.offset();
 		
 		var x = event.pageX - offset.left;
 		var y = event.pageY - offset.top;
 		
 		// Zoomed image
-		img.css({
-			"left": -x * (img.outerWidth() / context.outerWidth() - 1),
-			"top": -y * (img.outerHeight() / context.outerHeight() - 1)
+		conf.content.css({
+			"left": -x * (conf.content.outerWidth() / that.$child.outerWidth() - 1),
+			"top": -y * (conf.content.outerHeight() / that.$child.outerHeight() - 1)
 		});
-
+		
 		// Seeker shape
 		$seeker.css({
 			"left": x - ($seeker.width() / 2),
@@ -81,6 +79,8 @@ ch.zoom = function(conf) {
  */
 	
 	that.$trigger = that.$element;
+	
+	that.$child = that.$trigger.children();
 	
 	that.show = function(event){
 		that.prevent(event);
@@ -163,7 +163,6 @@ ch.zoom = function(conf) {
  */
 	
 	that.$element
-		.children("img")
 		.addClass("ch-zoom-trigger")
 		
 		// Magnifying glass
@@ -171,6 +170,12 @@ ch.zoom = function(conf) {
 		
 		// Seeker
 		.append( $seeker )
+		
+		// Size
+		.css({
+			"width": that.$child.width(),
+			"height": that.$child.height()
+		})
 		
 		// Show
 		.bind("mouseover", that.show)
