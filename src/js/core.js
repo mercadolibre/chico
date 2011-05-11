@@ -33,8 +33,8 @@ var ch = window.ch = {
  *	@static Utils. Common usage functions.
  */		
     utils: {
-		body: $('body'),
-		html: $('html'),
+		body: $("body"),
+		html: $("html"),
 		window: $(window),
 		document: $(document),
 		zIndex: 1000,

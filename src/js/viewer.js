@@ -29,57 +29,88 @@ ch.viewer = function(conf){
 	 * 	Viewer
 	 */
 	var $viewer = that.$element.addClass("ch-viewer");
-	
+		
+	var $content = $viewer.children().addClass("ch-viewer-content carousel");
+
 	/**
-	 * 	Showcase
+	 * 	Display
 	 */
-	
-	//var showcase = (function(){
-		
-		var $content = $viewer.children().addClass("ch-viewer-content carousel");
+	var $display = $("<div>")
+		.addClass("ch-viewer-display")
+		.append( $content )
+		.appendTo( $viewer )
+		.carousel({
+			arrows: false,
+			onMove: function(){
+				var carousel = this;
+				var page = carousel.getPage();
+				var currentHeight = $(itemsChildren[page]).height();
+				that.move(page);
+				$viewer.find(".ch-mask").eq(0).height(currentHeight);
+			}
+		})
 
-		var $display = $("<div>")
-			.addClass("ch-viewer-display")
-			.append( $content )
-			.appendTo( $viewer )
-			.carousel();
-		
-			var items = $content.children();
-			//self.itemsWidth = self.items.outerWidth();
-			var itemsAmount = items.length;
-			var itemsAnchor = items.children("a");
-			
-			// Set visual config of content
-			//self.$content = $content.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
-		
-		
-		// Zoom component
-		var zoomChildren = [];
+	var items = $content.children();
+	var itemsAmount = items.length;
+	var itemsAnchor = items.children("a");
+	var itemsChildren = items.find("object, embed, video, img");
 
-		itemsAnchor.each(function(i, e){
-			var zoom = {};
-				zoom.uid = that.uid + "#" + i;
-				zoom.type = "zoom";
-				zoom.element = e;
-				zoom.$element = $(e);
+	if ( itemsAmount > 1 ){
+		// Arrows styles
+		var prevArrow = $("<p>")
+			.addClass("ch-viewer-prev")
+			.bind("click", function(){
+				var prev = thumbnails.selected - 1;
+
+				nextArrow.addClass("ch-viewer-next-on");
+
+				if (prev == 0) {
+					this.removeClass("ch-viewer-prev-on");
+				};
 				
-		    zoomChildren.push(
-		    	ch.zoom.call(zoom, {
-		    		context: $viewer,
-		    		onShow: function(){
-		    			// TODO: hacer la cuenta para que entre a la izquierda
-		    			this.width( $viewer.width() - 100);
-		    			this.height( $viewer.height());
-		    		}
-		    	})
-		    );
-		});
+				that.move(prev);
+			})
+			.appendTo( $viewer );
 		
-		that.children.push( zoomChildren );
+		var nextArrow = $("<p>")
+			.addClass("ch-viewer-next ch-viewer-next-on")
+			.bind("click", function(){
+				var next = thumbnails.selected + 1;
+
+				prevArrow.addClass("ch-viewer-prev-on");
+
+				if (next == itemsAmount + 1) {
+					this.removeClass("ch-viewer-next-on");
+				};
+				
+				that.move(next);
+			})
+			.appendTo( $viewer );
+	};
+		
+	// Zoom component
+	var zoomChildren = [];
+
+	$.each(itemsAnchor, function(i, e){
+		var zoom = {};
+			zoom.uid = that.uid + "#" + i;
+			zoom.type = "zoom";
+			zoom.element = e;
+			zoom.$element = $(e);
+			
+	    zoomChildren.push(
+	    	ch.zoom.call(zoom, {
+	    		context: $viewer,
+	    		onShow: function(){
+	    			// TODO: hacer la cuenta para que entre a la izquierda
+	    			this.width( ($("body").outerWidth() - $viewer.outerWidth()) - 65 );
+	    			this.height( $viewer.height());
+	    		}
+	    	})
+	    );
+	});
 	
-		//return self;
-	//})();
-	
+	that.children.push( zoomChildren );
 	
 	/**
 	 * 	Thumbnails
@@ -138,16 +169,8 @@ ch.viewer = function(conf){
 		var nextPage = Math.ceil( item / visibles ); // Page of "item"
 
 		// Visual config
-	
 		$(thumbnails.children[thumbnails.selected - 1]).removeClass("ch-thumbnail-on"); // Disable thumbnail
 		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
-
-		/*// Content movement
-		var movement = { left: (-item + 1) * showcase.itemsWidth };
-		
-		// CSS3 Transitions vs jQuery magic
-		if(ch.features.transition) showcase.$content.css(movement); else showcase.$content.animate(movement);
-		*/
 		
 		// Move thumbnails carousel if item selected is on another page
 		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
@@ -166,9 +189,7 @@ ch.viewer = function(conf){
 /**
  *  Protected Members
  */ 
-	
-	
-	
+
 
 /**
  *  Public Members
@@ -196,8 +217,6 @@ ch.viewer = function(conf){
 		that.move = move;
 		that.move(1); // Move to the first item without callback
 	};
-	
-	
 	
 	return that;
 };
