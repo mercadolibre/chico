@@ -3,12 +3,13 @@
 	border:1px solid #ccc;
 	overflow:hidden;
 	background-color:#fff;
-	width:600px;
+	width:500px;
+	position:relative;
 }
 
-/* Showcase area */
-.ch-viewer-display{
-	/*padding:10px;*/
+/* Display list */
+.ch-viewer-display .ch-viewer-content li{
+	margin:0;
 }
 
 /* Showcase list */
@@ -23,10 +24,8 @@
 /* Showcase list items */
 .ch-viewer-content li{
 	float:left;
-	padding:0 10px;
 	height:500px;
 	width:500px;
-	line-height:520px;
 	text-align:center;
 }
 
@@ -36,22 +35,40 @@
     	text-align: center;
     	margin:0 auto;
 }
-/* Showcase list images and videos */
-.ch-viewer-content li img,
-.ch-viewer-content li embed{
-	vertical-align:middle;
+
+/* Display arrows list */
+.ch-viewer-prev,
+.ch-viewer-next{
+	position: absolute;
+	top: 0;
+	width: 28px;
+	height: 34px;
+	display: block;
+	text-indent:999px;
+	overflow:hidden;
+	background-image: url('../src/assets/viewerArrows.png');
+	background-repeat:no-repeat;
+	cursor:pointer;
 }
 
-
-/* Magnifying glass */
-.ch-viewer .ch-lens{
-    width:41px;
-    height:41px;
-    position:absolute;
-    cursor:pointer;
-    background-image: url('../src/assets/zoom.png');
-	background-repeat: no-repeat;
+.ch-viewer-prev{
+	background-position:0 -34px;
+	right:28px;
 }
+
+.ch-viewer-next{
+	background-position: -28px -34px;
+	right:0;
+}
+
+.ch-viewer-prev-on{
+	background-position:0 0;
+}
+
+.ch-viewer-next-on{
+	background-position: -28px 0;
+}
+
 
 /* Thumbnails */
 .ch-viewer-triggers {
@@ -60,10 +77,19 @@
 
 /* Thumbnails items */
 .ch-viewer-triggers li {
-	width:40px;
-	height:40px;
+	width:90px;
+	height:90px;
+	line-height:90px;
 	border:1px solid #fff;
 	cursor:pointer;
+	text-align:center;
+	margin:0 5px;
+}
+
+/* Thumbnails imgs */
+.ch-viewer-triggers li span,
+.ch-viewer-triggers li img{
+	vertical-align:middle;
 }
 
 /* Highlighted thumbnail */
@@ -90,71 +116,6 @@
 	vertical-align:middle;
 	margin:10px auto;
 }
-
-/* Modal */
-.ch-viewer-modal {
-	overflow:hidden;
-}
-
-/* Modal content */
-.ch-viewer-modal-content {
-	padding:20px 0 35px;
-}
-
-/* Modal items */
-.ch-viewer-modal-content .ch-carousel-content li,
-.ch-viewer-oneItem {
-	width:500px;
-	height:500px;
-	text-align:center;
-	line-height:500px;
-}
-
-/* Simulation of carousel structure */
-.ch-viewer-oneItem {
-	margin:0 auto;
-	overflow:hidden;
-}
-
-/* Modal images */
-.ch-viewer-modal-content .ch-carousel-content li img{
-	vertical-align:middle;
-}
-
-/* Modal pager */
-.ch-viewer-modal-content .ch-pager {
-	bottom:8px;
-}
-
-/* Modal zoomable image */
-.ch-viewer-zoomable {
-	cursor: zoom-in;
-	cursor: -moz-zoom-in;
-	cursor: -webkit-zoom-in;
-}
-
-/* Modal augmented image */
-.ch-viewer-zoomed {
-	position:absolute;
-	left:-250px;
-	top:-250px;
-	z-index:1;
-	cursor: zoom-out;
-	cursor: -moz-zoom-out;
-	cursor: -webkit-zoom-out;
-}
-
-
-/* IE 6,7,8 */
-.ie6 .ch-viewer-zoomable,
-.ie7 .ch-viewer-zoomable,
-.ie8 .ch-viewer-zoomable,
-.ie6 .ch-viewer-zoomed,
-.ie7 .ch-viewer-zoomed,
-.ie8 .ch-viewer-zoomed, {
-	cursor:pointer;
-}
-
 
 /* IE 6 */
 .ie6 .ch-viewer-triggers .ch-prev {

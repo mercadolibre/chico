@@ -17,6 +17,7 @@ ch.carousel = function(conf){
 	
 	if ( conf.height ) that.$element.height( conf.height );
 	if ( conf.width ) that.$element.width( conf.width );
+	if ( conf.hasOwnProperty("arrows") ) conf.arrows = conf.arrows; else conf.arrows = true;
 	
 	// UL configuration
 	that.$content = that.$element.find('.carousel')	 // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
@@ -40,6 +41,8 @@ ch.carousel = function(conf){
 	
 	// UL Width calculator
 	var htmlElementMargin = (ch.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
+	var marginChildren = parseInt( that.$content.children().css("marginLeft") ) * 2;
+
 	var extraWidth = (ch.utils.html.hasClass("ie6")) ? that.$content.children().outerWidth() : 0;
 	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
 	that.$content.css('width', htmlContentWidth);
@@ -50,12 +53,12 @@ ch.carousel = function(conf){
 	
 	var calculateMask = function(){
 		// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
-		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + 20));
+		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + marginChildren));
 		steps = (steps == 0) ? 1 : steps;
 		totalPages = Math.ceil(that.$content.children().size() / steps);
 		
 		// Move to... (steps in pixels)
-		moveTo = (that.$content.children().outerWidth() + 20) * steps;
+		moveTo = (that.$content.children().outerWidth() + marginChildren) * steps;
 		// Mask configuration
 		margin = ($mask.width()-moveTo) / 2;
 		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() + 2 ); // +2 for content with border
@@ -146,8 +149,10 @@ ch.carousel = function(conf){
 				movement = that.$content.position().left + (moveTo * distance);
 				
 				// Buttons behavior
-				if(page == 1) that.buttons.prev.off();
-				that.buttons.next.on();
+				if ( conf.arrows ) {
+					if(page == 1) that.buttons.prev.off();
+					that.buttons.next.on();
+				};
 			break;
 			case "next":
 				// Validation
@@ -160,8 +165,10 @@ ch.carousel = function(conf){
 				movement = that.$content.position().left - (moveTo * distance);
 				
 				// Buttons behavior
-				if(page == totalPages) that.buttons.next.off();
-				that.buttons.prev.on();
+				if ( conf.arrows ) {
+					if(page == totalPages) that.buttons.next.off();
+					that.buttons.prev.on();
+				};
 			break;
 		};
 				
@@ -271,10 +278,6 @@ ch.carousel = function(conf){
  	
 	// UL width configuration
 	that.$content.css('width', htmlContentWidth);
- 	
-	// Buttons behavior
-	that.$element.prepend( that.buttons.prev.$element ).append( that.buttons.next.$element ); // Append prev and next buttons
-	if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
 
 	// Create pager if it was configured
 	if (conf.pager){
@@ -282,7 +285,13 @@ ch.carousel = function(conf){
 		that.pager = makePager();	
 	};
 	
-	that.buttons.position();
+	// Buttons behavior
+	if ( conf.arrows ){
+		that.$element.prepend( that.buttons.prev.$element ).append( that.buttons.next.$element ); // Append prev and next buttons
+		if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
+		that.buttons.position();
+	};
+	
 	
 	// Elastic behavior    
     if ( !conf.hasOwnProperty("width") ){
