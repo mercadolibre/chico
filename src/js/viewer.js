@@ -11,6 +11,9 @@ ch.viewer = function(conf){
  */
 	var that = this;
 
+	conf.width = conf.width || 320;
+	conf.height = conf.height || 320;
+
 	conf = ch.clon(conf);
 	that.conf = conf;
 	
@@ -28,7 +31,7 @@ ch.viewer = function(conf){
 	/**
 	 * 	Viewer
 	 */
-	var $viewer = that.$element.addClass("ch-viewer");
+	var $viewer = that.$element.addClass("ch-viewer").width(conf.width);
 		
 	var $content = $viewer.children().addClass("ch-viewer-content carousel");
 
@@ -40,17 +43,20 @@ ch.viewer = function(conf){
 		.append( $content )
 		.appendTo( $viewer )
 		.carousel({
+			width: conf.width,
 			arrows: false,
 			onMove: function(){
 				var carousel = this;
 				var page = carousel.getPage();
-				var currentHeight = $(itemsChildren[page]).height();
 				that.move(page);
+
+				// Resize display
+				var currentHeight = $(itemsChildren[page]).height();
 				$viewer.find(".ch-mask").eq(0).height(currentHeight);
 			}
 		})
 
-	var items = $content.children();
+	var items = $content.children().width(conf.width).height(conf.height);
 	var itemsAmount = items.length;
 	var itemsAnchor = items.children("a");
 	var itemsChildren = items.find("object, embed, video, img");
@@ -102,9 +108,10 @@ ch.viewer = function(conf){
 	    	ch.zoom.call(zoom, {
 	    		context: $viewer,
 	    		onShow: function(){
-	    			// TODO: hacer la cuenta para que entre a la izquierda
-	    			this.width( ($("body").outerWidth() - $viewer.outerWidth()) - 65 );
-	    			this.height( $viewer.height());
+	    			var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
+	    			var zoomDisplayWidth = (conf.width < rest)? conf.width :	(rest - 65 );
+	    			this.width( zoomDisplayWidth );
+	    			this.height( $viewer.height() );
 	    		}
 	    	})
 	    );
@@ -139,7 +146,6 @@ ch.viewer = function(conf){
 			// Video
 			} else if( $(e).children("object").length > 0 || $(e).children("embed").length > 0 ) {
 				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-video") );
-				//showcase.videos.push($(e).children("object"));
 			};
 			
 			structure.append( thumb );
@@ -155,7 +161,7 @@ ch.viewer = function(conf){
 				.addClass("ch-viewer-triggers")
 				.append( structure )
 				.appendTo( $viewer )
-				.carousel({ width: $viewer.width() });
+				.carousel({ width: conf.width });
 		
 		return self;
 	};
@@ -217,6 +223,8 @@ ch.viewer = function(conf){
 		that.move = move;
 		that.move(1); // Move to the first item without callback
 	};
+
+	$viewer.find(".ch-mask").eq(0).height( $(itemsChildren[0]).height() );
 	
 	return that;
 };

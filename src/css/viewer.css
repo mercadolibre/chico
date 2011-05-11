@@ -3,8 +3,12 @@
 	border:1px solid #ccc;
 	overflow:hidden;
 	background-color:#fff;
-	width:500px;
 	position:relative;
+}
+
+
+.ch-viewer-display{
+	margin:5px 0;
 }
 
 /* Display list */
@@ -24,8 +28,6 @@
 /* Showcase list items */
 .ch-viewer-content li{
 	float:left;
-	height:500px;
-	width:500px;
 	text-align:center;
 }
 
@@ -72,13 +74,13 @@
 
 /* Thumbnails */
 .ch-viewer-triggers {
-	margin-bottom:10px;
+	margin-bottom:5px;
 }
 
 /* Thumbnails items */
 .ch-viewer-triggers li {
-	width:90px;
-	height:90px;
+	width:91px;
+	height:91px;
 	line-height:90px;
 	border:1px solid #fff;
 	cursor:pointer;
