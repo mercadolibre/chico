@@ -76,7 +76,8 @@ var map = {
             },
     "watcher": {
         "type": "abstract",
-        "inheritance": "object"
+        "inheritance": "object",
+        "depends": ["form"]
     },
         "custom": {
             "type": "class",
@@ -130,7 +131,7 @@ var map = {
         "dropdown": {
             "type": "class",
             "inheritance": "navs",
-            "depends": ["positioner, keyboard"]
+            "depends": ["positioner", "keyboard"]
         },
         "expando": {
             "type": "class",
