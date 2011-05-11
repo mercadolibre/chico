@@ -20,7 +20,7 @@ var start = new Date().getTime();
   */
 var ch = window.ch = {
 
-    version: "0.6.1",
+    version: "0.6.2",
 
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,accordion,zoom",
 
@@ -49,8 +49,8 @@ var ch = window.ch = {
  *	@static Utils. Common usage functions.
  */		
     utils: {
-		body: $('body'),
-		html: $('html'),
+		body: $("body"),
+		html: $("html"),
 		window: $(window),
 		document: $(document),
 		zIndex: 1000,
@@ -1710,6 +1710,7 @@ ch.carousel = function(conf){
 	
 	if ( conf.height ) that.$element.height( conf.height );
 	if ( conf.width ) that.$element.width( conf.width );
+	if ( conf.hasOwnProperty("arrows") ) conf.arrows = conf.arrows; else conf.arrows = true;
 	
 	// UL configuration
 	that.$content = that.$element.find('.carousel')	 // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
@@ -1733,6 +1734,8 @@ ch.carousel = function(conf){
 	
 	// UL Width calculator
 	var htmlElementMargin = (ch.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
+	var marginChildren = parseInt( that.$content.children().css("marginLeft") ) * 2;
+
 	var extraWidth = (ch.utils.html.hasClass("ie6")) ? that.$content.children().outerWidth() : 0;
 	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
 	that.$content.css('width', htmlContentWidth);
@@ -1743,12 +1746,12 @@ ch.carousel = function(conf){
 	
 	var calculateMask = function(){
 		// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
-		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + 20));
+		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + marginChildren));
 		steps = (steps == 0) ? 1 : steps;
 		totalPages = Math.ceil(that.$content.children().size() / steps);
 		
 		// Move to... (steps in pixels)
-		moveTo = (that.$content.children().outerWidth() + 20) * steps;
+		moveTo = (that.$content.children().outerWidth() + marginChildren) * steps;
 		// Mask configuration
 		margin = ($mask.width()-moveTo) / 2;
 		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() + 2 ); // +2 for content with border
@@ -1839,8 +1842,10 @@ ch.carousel = function(conf){
 				movement = that.$content.position().left + (moveTo * distance);
 				
 				// Buttons behavior
-				if(page == 1) that.buttons.prev.off();
-				that.buttons.next.on();
+				if ( conf.arrows ) {
+					if(page == 1) that.buttons.prev.off();
+					that.buttons.next.on();
+				};
 			break;
 			case "next":
 				// Validation
@@ -1853,8 +1858,10 @@ ch.carousel = function(conf){
 				movement = that.$content.position().left - (moveTo * distance);
 				
 				// Buttons behavior
-				if(page == totalPages) that.buttons.next.off();
-				that.buttons.prev.on();
+				if ( conf.arrows ) {
+					if(page == totalPages) that.buttons.next.off();
+					that.buttons.prev.on();
+				};
 			break;
 		};
 				
@@ -1964,10 +1971,6 @@ ch.carousel = function(conf){
  	
 	// UL width configuration
 	that.$content.css('width', htmlContentWidth);
- 	
-	// Buttons behavior
-	that.$element.prepend( that.buttons.prev.$element ).append( that.buttons.next.$element ); // Append prev and next buttons
-	if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
 
 	// Create pager if it was configured
 	if (conf.pager){
@@ -1975,7 +1978,13 @@ ch.carousel = function(conf){
 		that.pager = makePager();	
 	};
 	
-	that.buttons.position();
+	// Buttons behavior
+	if ( conf.arrows ){
+		that.$element.prepend( that.buttons.prev.$element ).append( that.buttons.next.$element ); // Append prev and next buttons
+		if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
+		that.buttons.position();
+	};
+	
 	
 	// Elastic behavior    
     if ( !conf.hasOwnProperty("width") ){
@@ -3443,6 +3452,9 @@ ch.viewer = function(conf){
  */
 	var that = this;
 
+	conf.width = conf.width || 320;
+	conf.height = conf.height || 320;
+
 	conf = ch.clon(conf);
 	that.conf = conf;
 	
@@ -3460,88 +3472,66 @@ ch.viewer = function(conf){
 	/**
 	 * 	Viewer
 	 */
-	var $viewer = that.$element.addClass("ch-viewer");
+	var $viewer = that.$element.addClass("ch-viewer").width(conf.width);
+		
+	var $content = $viewer.children().addClass("ch-viewer-content carousel");
+
+	/**
+	 * 	Display
+	 */
+	var $display = $("<div>")
+		.addClass("ch-viewer-display")
+		.append( $content )
+		.appendTo( $viewer )
+		.carousel({
+			width: conf.width,
+			arrows: false,
+			onMove: function(){
+				var carousel = this;
+				var page = carousel.getPage();
+				that.move(page);
+
+				// Resize display
+				var currentHeight = $(itemsChildren[page]).height();
+				$viewer.find(".ch-mask").eq(0).height(currentHeight);
+			}
+		})
+
+	var items = $content.children().width(conf.width).height(conf.height);
+	var itemsAmount = items.length;
+	var itemsAnchor = items.children("a");
+	var itemsChildren = items.find("object, embed, video, img");
 	
 	/**
-	 * 	Showcase
+	 * 	Zoom
 	 */
+	if( ch.hasOwnProperty("zoom") ) {
+		var zoomChildren = [];
 	
-	var showcase = (function(){
+		$.each(itemsAnchor, function(i, e){
+			
+			var component = {
+				uid: that.uid + "#" + i,
+				type: "zoom",
+				element: e,
+				$element: $(e)
+			};
+			
+			var config = {
+	    		context: $viewer,
+	    		onShow: function(){
+	    			var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
+	    			var zoomDisplayWidth = (conf.width < rest)? conf.width :	(rest - 65 );
+	    			this.width( zoomDisplayWidth );
+	    			this.height( $viewer.height() );
+	    		}
+	    	};
+			
+			zoomChildren.push( ch.zoom.call(component, config) );
+		});
 		
-		var $content = $viewer.children(":first").addClass("ch-viewer-content");
-		
-		var $display = $("<div>")
-			.addClass("ch-viewer-display")
-			.append( $content )
-			.appendTo( $viewer );
-
-		var self = {};
-		
-			self.items = $content.children();
-			self.itemsWidth = self.items.outerWidth();
-			self.itemsAmount = self.items.length;
-			self.itemsAnchor = self.items.children("a");
-			
-			// Set visual config of content
-			self.$content = $content.css("width", (self.itemsAmount * self.itemsWidth) + (ch.utils.html.hasClass("ie6") ? self.itemsWidth : 0)); // Extra width
-		
-		
-		// Modal zoom
-		if(conf.zoom == "modal"){
-			
-			var lens = $("<div>")
-				.addClass("ch-lens ch-hide")
-				.bind("click", function(){ viewerModal.show(); })
-				.appendTo( $display );
-			
-			$content.find("img, object, embed, video")
-				// Show magnifying glass
-				.bind("mouseover", function(){
-					lens.fadeIn();
-					
-					ch.positioner({
-				        element: lens,
-				        context: $display
-					});
-				})
-				// Hide magnifying glass
-				.bind("mouseleave", function(){ lens.fadeOut(); });
-			
-			self.itemsAnchor.bind("click", function(event){
-				that.prevent(event);
-				viewerModal.show();
-			});
-						
-		// Zoom component
-		} else {
-			
-			var zoomChildren = [];
-			
-			self.itemsAnchor.each(function(i, e){
-				var zoom = {};
-					zoom.uid = that.uid + "#" + i;
-					zoom.type = "zoom";
-					zoom.element = e;
-					zoom.$element = $(e);
-					
-			    zoomChildren.push(
-			    	ch.zoom.call(zoom, {
-			    		context: $viewer,
-			    		onShow: function(){
-			    			this.width( $viewer.width() );
-			    			this.height( $viewer.height() );
-			    		}
-			    	})
-			    );
-			});
-			
-			that.children.push( zoomChildren );
-			
-		};
-		
-		return self;
-	})();
-	
+		that.children.push( zoomChildren );
+	};
 	
 	/**
 	 * 	Thumbnails
@@ -3550,7 +3540,7 @@ ch.viewer = function(conf){
 	
 		var structure = $("<ul>").addClass("carousel");
 		
-		$.each(showcase.items, function(i, e){
+		$.each(items, function(i, e){
 			
 			var thumb = $("<li>").bind("click", function(event){
 				that.prevent(event);
@@ -3570,7 +3560,6 @@ ch.viewer = function(conf){
 			// Video
 			} else if( $(e).children("object").length > 0 || $(e).children("embed").length > 0 ) {
 				$("<span>").html("Video").appendTo( thumb.addClass("ch-viewer-video") );
-				//showcase.videos.push($(e).children("object"));
 			};
 			
 			structure.append( thumb );
@@ -3586,210 +3575,74 @@ ch.viewer = function(conf){
 				.addClass("ch-viewer-triggers")
 				.append( structure )
 				.appendTo( $viewer )
-				.carousel({ width: $viewer.width() });
+				.carousel({ width: conf.width });
 		
 		return self;
 	};
-		
-	
-	/**
-	 * 	Modal zoom
-	 */
-	
-	if(conf.zoom == "modal"){
-	
-	var checkZoomImages = function(modal){
-		
-		var zoomImages = [];
-		
-		$.each(showcase.items, function(i, e){
-			
-			// Zoom image source
-			var src = $(e).children("link[rel=zoom]").attr("href");
-			
-			// If it has not zoom, continue
-			if(!src) return;
-			
-			var image = $("<img>")
-				.attr("src", src)
-				.addClass("ch-viewer-zoomed")
-				.bind("click", function(){ $(this).fadeOut(); }) // Fade Out
-				.bind("mousemove", function(event){ zoomMove(event); }) // Movement
-				.appendTo( (showcase.itemsAmount > 1) ? modal : modal.children() )
-				.hide();
-			
-			var zoomMove = function(event){
-				var offset = modal.offset();
-				
-				var diff = {
-					x: image.outerWidth() / modal.outerWidth() - 1,
-					y: image.outerHeight() / modal.outerHeight() - 1
-				};
-				
-				image.css({
-					left: -(event.pageX - offset.left) * diff.x + "px",
-					top: -(event.pageY - offset.top) * diff.y + "px"
-				});
-			};
-			
-			// Create zoom functionality
-			var zoomable = $("<a>")
-				.attr("href", src)
-				.addClass("ch-viewer-zoomable")
-				.bind("click", function(event){
-					that.prevent(event);
-					zoomMove(event);
-					image.fadeIn();
-				}); // FadeIn
-			
-			// Append link to image in modal
-			modal.find(".ch-carousel-content li").eq(i).wrapInner( zoomable );
-			
-			// Add source to preload
-			zoomImages.push(src);
-		});
-		
-		// Preload if there are zoom images
-		if(zoomImages.length > 0) ch.preload(zoomImages);
-	};
-	
-	
-		
-	/**
-	 * 	Modal
-	 */
-	
-	var modalInited = false;
-	
-	var viewerModal = that.children[1] = $("<div>").modal({
-		width:600,
-		onShow: function(){
-			if(showcase.itemsAmount > 1 && !modalInited) {
-				// Carousel redraw + show
-				$(that.children[2].redraw().element).removeClass("ch-hide");
-				
-				// Modal reposition
-				this.position("refresh");
-				
-				// Keyboard support
-				ch.utils.document.bind(ch.events.KEY.LEFT_ARROW, function(){ that.children[2].prev(); });
-				ch.utils.document.bind(ch.events.KEY.RIGHT_ARROW, function(){ that.children[2].next(); });
-				
-				modalInited = true;
-			};
-		},
-		onHide: function(){
-			if(showcase.itemsAmount > 1) {
-				//that.move( that.children[2].getPage() ); // Select thumb that was selected in modal
-				that.children[2].moveTo(1).moveTo( thumbnails.selected ); // Reset position
-				
-				// Keyboard support
-				ch.utils.document.unbind(ch.events.KEY.LEFT_ARROW);
-				ch.utils.document.unbind(ch.events.KEY.RIGHT_ARROW);
-			};
-		},
-		content: (function generateContent(){
-			var content = $("<div>").addClass("ch-viewer-modal-content ch-hide");
-			
-			var list = $("<ul>")
-				.addClass("carousel")
-				.css("left", 0)
-				.appendTo( content );
-			
-			var imageIndex = 0;
-		
-			$.each(showcase.items, function(i, e) {
-				
-				var item = {};
-				
-				// Thumbnail
-				if( $(e).children("a").length > 0 ) {
-					item = $("<img>").attr("src", $(e).children("a").attr("href"));
-				
-				// Video (OBJECT)
-				} else if( $(e).children("object").length > 0) {
-					
-					// TODO: Take width and height of "bigImages". Else, 500x500.
-					var resize = { "width": 500, "height": 500 };
-					
-					var video = $(e).children("object")[0].cloneNode(true);
-					
-					item = $(video).attr(resize).children("embed").attr(resize);
-				
-				// Video (EMBED)
-				} else if ( $(e).children("embed").length > 0 ) {
-	
-					var video = $(e).children("embed")[0].cloneNode(true);
-					
-					// TODO: Take width and height of "bigImages". Else, 500x500.
-					item = $(video).attr({ "width": 500, "height": 500 });
-					
-				};
-				
-				$("<li>").css({ "width": 500, "height": 500 }).append( item ).appendTo( list );
-			});
-			
-			// Full behavior
-			if(showcase.itemsAmount > 1) {
-				// Init carousel and move to position of item selected on thumbs
-				that.children[2] = content.carousel({ pager: true });
-				
-			// Basic behavior
-			} else {
-				// Simulate carousel structure
-				content.wrapInner("<div class=\"ch-viewer-oneItem\">");
-			};
-			
-			// Zoom process
-			checkZoomImages(content);
-			
-			return content;
-		})()
-	});
-	
-	};
 	
 	var move = function(item){
-
 		// Validation
-		if(item > showcase.itemsAmount || item < 1 || isNaN(item)) return that;
-	
-		var visibles = thumbnails.carousel.getSteps(); // Items per page
-		var page = thumbnails.carousel.getPage(); // Current page
-		var nextPage = Math.ceil( item / visibles ); // Page of "item"
+		if(item > itemsAmount || item < 1 || isNaN(item)) return that;
 
 		// Visual config
-	
 		$(thumbnails.children[thumbnails.selected - 1]).removeClass("ch-thumbnail-on"); // Disable thumbnail
 		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
-
-		// Content movement
-		var movement = { left: (-item + 1) * showcase.itemsWidth };
 		
-		// CSS3 Transitions vs jQuery magic
-		if(ch.features.transition) showcase.$content.css(movement); else showcase.$content.animate(movement);
+		// Move Display carousel
+		$display.moveTo(item);
 		
-		// Move thumbnails carousel if item selected is on another page
-		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
-
+		// Move thumbnails carousel if item selected is in other page
+		var nextThumbsPage = Math.ceil( item / thumbnails.carousel.getSteps() );
+		if(thumbnails.carousel.getPage() != nextThumbsPage) thumbnails.carousel.moveTo( nextThumbsPage );
+		
+		// Buttons behavior
+		if(item > 1 && item < itemsAmount){
+			arrows.prev.on();
+			arrows.next.on();
+		} else {
+			if(item == 1) arrows.prev.off();
+			if(item == itemsAmount) arrows.next.off();
+		};
+		
 		// Refresh selected thumb
 		thumbnails.selected = item;
-		
-		// Modal syncro
-		if(conf.zoom == "modal") that.children[2].moveTo(1).moveTo( item );
 		
 		// Callback
 		that.callbacks("onMove");
 	
 		return that;
 	};
+	
+	// Arrows
+	var arrows = {};
+	
+	arrows.prev = {
+		$element: $("<p>").addClass("ch-viewer-prev").bind("click", function(){ that.prev(); }),
+		on: function(){ arrows.prev.$element.addClass("ch-viewer-prev-on") },
+		off: function(){ arrows.prev.$element.removeClass("ch-viewer-prev-on") }
+	};
+	
+	arrows.next = {
+		$element: $("<p>").addClass("ch-viewer-next").bind("click", function(){ that.next(); }),
+		on: function(){ arrows.next.$element.addClass("ch-viewer-next-on") },
+		off: function(){ arrows.next.$element.removeClass("ch-viewer-next-on") }
+	};
 
 /**
  *  Protected Members
  */ 
 	
+	that.prev = function(){
+		that.move( thumbnails.selected - 1 );
+		
+		return that;
+	};
 	
-	
+	that.next = function(){
+		that.move( thumbnails.selected + 1 );
+		
+		return that;
+	};
 
 /**
  *  Public Members
@@ -3801,35 +3654,32 @@ ch.viewer = function(conf){
 	that["public"].children = that.children;
 	
 	// Full behavior
-	if(showcase.itemsAmount > 1) {
+	if(itemsAmount > 1) {
 		that["public"].moveTo = function(item){ that.move(item); return that["public"]; };
-		that["public"].next = function(){ that.move( thumbnails.selected + 1 ); return that["public"]; };
-		that["public"].prev = function(){ that.move( thumbnails.selected - 1 ); return that["public"]; };
+		that["public"].next = function(){ that.next(); return that["public"]; };
+		that["public"].prev = function(){ that.prev(); return that["public"]; };
 		that["public"].getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
 		// ...
 
 /**
  *  Default event delegation
- */	
+ */
 	
 		// ...
+		
+		// Create thumbnails
 		var thumbnails = createThumbs();
+		
+		// Create Viewer buttons
+		$viewer.append( arrows.prev.$element ).append( arrows.next.$element );
+		
+		// Create movement method
 		that.move = move;
 		that.move(1); // Move to the first item without callback
+		arrows.next.on();
 	};
-	
-	// Preload big images on document load
-	if(conf.zoom == "modal"){
-		var bigImages = [];
-		
-		$(function(){
-			showcase.itemsAnchor.each(function(i, e){
-				bigImages.push( $(e).attr("href") );
-			});
-			
-			ch.preload(bigImages);
-		});
-	};
+
+	$viewer.find(".ch-mask").eq(0).height( $(itemsChildren[0]).height() );
 	
 	return that;
 };
@@ -4436,6 +4286,7 @@ ch.zoom = function(conf) {
 	conf.position.context = conf.context || that.$element;
 	conf.position.offset = conf.offset || "20 0";
 	conf.position.points = conf.points || "lt rt";
+	conf.position.hold = true;
 	
 	conf.width = conf.width || 300;
 	conf.height = conf.height || 300;
@@ -4469,19 +4320,17 @@ ch.zoom = function(conf) {
 		});
 	
 	var move = function(event){
-		var context = that.$element.children();
-		var offset = context.offset();
-		var img = conf.content;
+		var offset = that.$child.offset();
 		
 		var x = event.pageX - offset.left;
 		var y = event.pageY - offset.top;
 		
 		// Zoomed image
-		img.css({
-			"left": -x * (img.outerWidth() / context.outerWidth() - 1),
-			"top": -y * (img.outerHeight() / context.outerHeight() - 1)
+		conf.content.css({
+			"left": -x * (conf.content.outerWidth() / that.$child.outerWidth() - 1),
+			"top": -y * (conf.content.outerHeight() / that.$child.outerHeight() - 1)
 		});
-
+		
 		// Seeker shape
 		$seeker.css({
 			"left": x - ($seeker.width() / 2),
@@ -4494,6 +4343,8 @@ ch.zoom = function(conf) {
  */
 	
 	that.$trigger = that.$element;
+	
+	that.$child = that.$trigger.children();
 	
 	that.show = function(event){
 		that.prevent(event);
@@ -4583,6 +4434,12 @@ ch.zoom = function(conf) {
 		
 		// Seeker
 		.append( $seeker )
+		
+		// Size
+		.css({
+			"width": that.$child.width(),
+			"height": that.$child.height()
+		})
 		
 		// Show
 		.bind("mouseover", that.show)
