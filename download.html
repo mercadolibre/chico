@@ -145,35 +145,77 @@ var checkIt = function(c) {
     $("input[value="+c+"]").attr("checked","checked");
 }
 
-var checkMap = function(c) {
+var unCheckIt = function(c) {
+
+    if (isShared(c)) { 
+        return; 
+    }
+
+    $("input[value="+c+"]").removeAttr("checked");
+}
+
+var isShared = function(c) {
+    
+    var r = false;
+    
+    $("input:checked").each(function(event){
+    
+        var t = map[$(this).val()];
+        
+        if (!t) return;
+        
+        if (t.inheritance && c == t.inheritance || t.implements && c == t.implements) {
+            r = true;    
+        }
+                
+        if (t.depends) {
+            if (t.depends.join(",").indexOf(c) > -1) {
+                r = true;
+            }
+        }
+
+    });
+    
+    return r;    
+}
+
+var checkMap = function(c,a) {
 
     if (!c) { return; }
 
     if (c.implements) {
-        checkIt(c.implements);
+
+        action(c.implements);
+
         checkMap(map[c.implements]);
     }
+
     if (c.inheritance) {
-        checkIt(c.inheritance);
-        if (map[c.inheritance]) { 
-            checkMap(map[c.inheritance]); 
-        }
+
+        action(c.inheritance);
+
+        checkMap(map[c.inheritance]); 
+
     }
     if (c.depends) {
+        
         $(c.depends).each(function(i,e){
-            checkIt(e);
-            if (map[e]) { 
-                checkMap(map[e]); 
-            }
+
+            action(e);
+
+            checkMap(map[e]); 
+        
         });  
     }
 }
 
+var action = checkIt;
+
 $("#components input").change(function(e){
     
     var c = map[$(this).val()];
-    
-    if (!$(this).attr("checked")) return;
+        
+    action = (!$(this).attr("checked")) ? unCheckIt : checkIt ;
     
     // Check the map
     checkMap(c);
