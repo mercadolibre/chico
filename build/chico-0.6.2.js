@@ -3492,15 +3492,15 @@ ch.viewer = function(conf){
 				that.move(page);
 
 				// Resize display
-				var currentHeight = $(itemsChildren[page]).height();
+				var currentHeight = $(itemsChildren[page - 1]).height();
 				$viewer.find(".ch-mask").eq(0).height(currentHeight);
 			}
 		})
 
-	var items = $content.children().width(conf.width).height(conf.height);
+	var items = $content.children();
 	var itemsAmount = items.length;
 	var itemsAnchor = items.children("a");
-	var itemsChildren = items.find("object, embed, video, img");
+	var itemsChildren = items.find("img, embed");
 	
 	/**
 	 * 	Zoom
@@ -4425,7 +4425,7 @@ ch.zoom = function(conf) {
 /**
  *  Default event delegation
  */
-	
+setTimeout( function(){
 	that.$element
 		.addClass("ch-zoom-trigger")
 		
@@ -4452,7 +4452,7 @@ ch.zoom = function(conf) {
 		
 		// Enlarge
 		.bind("click", function(event){ that.enlarge(event); });
-	
+},50);	
 	// Preload zoomed image
 	ch.preload(that.element.href);
 	

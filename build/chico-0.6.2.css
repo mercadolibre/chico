@@ -1598,6 +1598,8 @@ form .disabled input{
 /* Display list */
 .ch-viewer-display .ch-viewer-content li{
 	margin:0;
+	width:500px;
+	height:500px	;
 }
 
 /* Showcase list */

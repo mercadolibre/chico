@@ -161,7 +161,7 @@ ch.zoom = function(conf) {
 /**
  *  Default event delegation
  */
-	
+setTimeout( function(){
 	that.$element
 		.addClass("ch-zoom-trigger")
 		
@@ -188,7 +188,7 @@ ch.zoom = function(conf) {
 		
 		// Enlarge
 		.bind("click", function(event){ that.enlarge(event); });
-	
+},50);	
 	// Preload zoomed image
 	ch.preload(that.element.href);
 	
