@@ -60,52 +60,23 @@ ch.viewer = function(conf){
 	var itemsAmount = items.length;
 	var itemsAnchor = items.children("a");
 	var itemsChildren = items.find("object, embed, video, img");
-
-	if ( itemsAmount > 1 ){
-		// Arrows styles
-		var prevArrow = $("<p>")
-			.addClass("ch-viewer-prev")
-			.bind("click", function(){
-				var prev = thumbnails.selected - 1;
-
-				nextArrow.addClass("ch-viewer-next-on");
-
-				if (prev == 0) {
-					this.removeClass("ch-viewer-prev-on");
-				};
-				
-				that.move(prev);
-			})
-			.appendTo( $viewer );
-		
-		var nextArrow = $("<p>")
-			.addClass("ch-viewer-next ch-viewer-next-on")
-			.bind("click", function(){
-				var next = thumbnails.selected + 1;
-
-				prevArrow.addClass("ch-viewer-prev-on");
-
-				if (next == itemsAmount + 1) {
-					this.removeClass("ch-viewer-next-on");
-				};
-				
-				that.move(next);
-			})
-			.appendTo( $viewer );
-	};
-		
-	// Zoom component
-	var zoomChildren = [];
-
-	$.each(itemsAnchor, function(i, e){
-		var zoom = {};
-			zoom.uid = that.uid + "#" + i;
-			zoom.type = "zoom";
-			zoom.element = e;
-			zoom.$element = $(e);
+	
+	/**
+	 * 	Zoom
+	 */
+	if( ch.hasOwnProperty("zoom") ) {
+		var zoomChildren = [];
+	
+		$.each(itemsAnchor, function(i, e){
 			
-	    zoomChildren.push(
-	    	ch.zoom.call(zoom, {
+			var component = {
+				uid: that.uid + "#" + i,
+				type: "zoom",
+				element: e,
+				$element: $(e)
+			};
+			
+			var config = {
 	    		context: $viewer,
 	    		onShow: function(){
 	    			var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
@@ -113,11 +84,13 @@ ch.viewer = function(conf){
 	    			this.width( zoomDisplayWidth );
 	    			this.height( $viewer.height() );
 	    		}
-	    	})
-	    );
-	});
-	
-	that.children.push( zoomChildren );
+	    	};
+			
+			zoomChildren.push( ch.zoom.call(component, config) );
+		});
+		
+		that.children.push( zoomChildren );
+	};
 	
 	/**
 	 * 	Thumbnails
@@ -170,32 +143,65 @@ ch.viewer = function(conf){
 		// Validation
 		if(item > itemsAmount || item < 1 || isNaN(item)) return that;
 
-		var visibles = thumbnails.carousel.getSteps(); // Items per page
-		var page = thumbnails.carousel.getPage(); // Current page
-		var nextPage = Math.ceil( item / visibles ); // Page of "item"
-
 		// Visual config
 		$(thumbnails.children[thumbnails.selected - 1]).removeClass("ch-thumbnail-on"); // Disable thumbnail
 		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
 		
-		// Move thumbnails carousel if item selected is on another page
-		if(page != nextPage) thumbnails.carousel.moveTo(nextPage);
-
+		// Move Display carousel
+		$display.moveTo(item);
+		
+		// Move thumbnails carousel if item selected is in other page
+		var nextThumbsPage = Math.ceil( item / thumbnails.carousel.getSteps() );
+		if(thumbnails.carousel.getPage() != nextThumbsPage) thumbnails.carousel.moveTo( nextThumbsPage );
+		
+		// Buttons behavior
+		if(item > 1 && item < itemsAmount){
+			arrows.prev.on();
+			arrows.next.on();
+		} else {
+			if(item == 1) arrows.prev.off();
+			if(item == itemsAmount) arrows.next.off();
+		};
+		
 		// Refresh selected thumb
 		thumbnails.selected = item;
-		
-		$display.moveTo(item);
 		
 		// Callback
 		that.callbacks("onMove");
 	
 		return that;
 	};
+	
+	// Arrows
+	var arrows = {};
+	
+	arrows.prev = {
+		$element: $("<p>").addClass("ch-viewer-prev").bind("click", function(){ that.prev(); }),
+		on: function(){ arrows.prev.$element.addClass("ch-viewer-prev-on") },
+		off: function(){ arrows.prev.$element.removeClass("ch-viewer-prev-on") }
+	};
+	
+	arrows.next = {
+		$element: $("<p>").addClass("ch-viewer-next").bind("click", function(){ that.next(); }),
+		on: function(){ arrows.next.$element.addClass("ch-viewer-next-on") },
+		off: function(){ arrows.next.$element.removeClass("ch-viewer-next-on") }
+	};
 
 /**
  *  Protected Members
  */ 
-
+	
+	that.prev = function(){
+		that.move( thumbnails.selected - 1 );
+		
+		return that;
+	};
+	
+	that.next = function(){
+		that.move( thumbnails.selected + 1 );
+		
+		return that;
+	};
 
 /**
  *  Public Members
@@ -209,8 +215,8 @@ ch.viewer = function(conf){
 	// Full behavior
 	if(itemsAmount > 1) {
 		that["public"].moveTo = function(item){ that.move(item); return that["public"]; };
-		that["public"].next = function(){ that.move( thumbnails.selected + 1 ); return that["public"]; };
-		that["public"].prev = function(){ that.move( thumbnails.selected - 1 ); return that["public"]; };
+		that["public"].next = function(){ that.next(); return that["public"]; };
+		that["public"].prev = function(){ that.prev(); return that["public"]; };
 		that["public"].getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
 		// ...
 
@@ -219,9 +225,17 @@ ch.viewer = function(conf){
  */
 	
 		// ...
+		
+		// Create thumbnails
 		var thumbnails = createThumbs();
+		
+		// Create Viewer buttons
+		$viewer.append( arrows.prev.$element ).append( arrows.next.$element );
+		
+		// Create movement method
 		that.move = move;
 		that.move(1); // Move to the first item without callback
+		arrows.next.on();
 	};
 
 	$viewer.find(".ch-mask").eq(0).height( $(itemsChildren[0]).height() );
