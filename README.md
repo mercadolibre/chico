@@ -17,10 +17,10 @@ Some features.
 
 The team.
 ---------
+- Natan Santolo, @natos
 - Leandro Linares, @lean8086
 - Guillermo Paz, @pazguille
 - Natalia Devalle, @taly
-- Natan Santolo, @natos
 
 License
 -------
