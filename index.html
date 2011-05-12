@@ -385,17 +385,11 @@
 		<div class="YOUR_SELECTOR_Viewer">
 			<ul> 
 				<li> 
-					<object width="320" height="320"> 
+					<object width="320" height="320" type="application/x-shockwave-flash" data="http://www.youtube.com/e/um-MD4vUK14?enablejsapi=1&version=3">
 						<param name="movie" value="http://www.youtube.com/e/um-MD4vUK14?enablejsapi=1&version=3"></param> 
-						<param name="allowFullScreen" value="false"></param> 
-						<param name="allowScriptAccess" value="always"></param> 
-						<embed src="http://www.youtube.com/e/um-MD4vUK14?enablejsapi=1&version=3"
-							type="application/x-shockwave-flash"
-							allowfullscreen="false"
-							allowscriptaccess="always"
-							width="320" height="320"> 
-						</embed> 
-					</object> 
+						<param name="allowFullScreen" value="false"></param>
+						<param name="allowScriptAccess" value="always"></param>
+					</object>
 				</li> 
 				<li> 
 					<a href="http://www.mercadolibre.co.cr/jm/img?s=MLA&f=111780141_356.jpg&v=F" target="_blank"> 
@@ -904,7 +898,7 @@ pre {
 		var ch_wch6 = $("#YOUR_SELECTOR_required_disabled, #YOUR_SELECTOR_select2, #YOUR_SELECTOR_select3, .YOUR_SELECTOR_check2, .YOUR_SELECTOR_check3, .YOUR_SELECTOR_radio2, .YOUR_SELECTOR_radio3, #YOUR_SELECTOR_textarea2, #YOUR_SELECTOR_textarea3").required();
 		
 		// Viewer
-		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer();
+		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer({width:500});
 		
 		// Codelighter
 		var ch_code = ch.codelighter();

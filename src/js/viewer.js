@@ -59,7 +59,7 @@ ch.viewer = function(conf){
 	var items = $content.children();
 	var itemsAmount = items.length;
 	var itemsAnchor = items.children("a");
-	var itemsChildren = items.find("img, embed");
+	var itemsChildren = items.find("img, object");
 	
 	/**
 	 * 	Zoom
