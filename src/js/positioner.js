@@ -89,7 +89,6 @@ ch.positioner = function(o) {
 			height = viewport.clientHeight;
 			pageX = viewport.scrollLeft;
 			pageY = viewport.scrollTop;
-			
 			// Return viewport object
 			return {
 				element: viewport,			
@@ -114,7 +113,6 @@ ch.positioner = function(o) {
 		var elementWidth = element.outerWidth();
 		var elementHeight = element.outerHeight();
 		
-		
 		var xReferences = {
 			ll: contextLeft,
 			lr: contextLeft + contextWidth,
@@ -125,6 +123,7 @@ ch.positioner = function(o) {
 		
 		// my_y and at_y values together
 		var yReferences = {
+			// jquery 1.6 do not support offset on IE
 			tt: contextTop,
 			tb: contextTop + contextHeight,
 			bt: contextTop - elementHeight,
@@ -210,9 +209,9 @@ ch.positioner = function(o) {
         	at_x: splitted[1].slice(0,1),
         	at_y: splitted[1].slice(1,2)
         }
-        
+
 		var styles = calculatePoints(o.points, unitPoints);
-		
+
 		element
 			.css({
 				left: styles.left,
@@ -235,15 +234,15 @@ ch.positioner = function(o) {
 		function getContext(){
 
 			var contextOffset = o.context.offset();
-			
+
 		    context = {
 		    	element: o.context,
-				top: contextOffset.top + offset_top - parentRelative.top,
+				top: contextOffset.top + offset_top - parentRelative.top + ((ch.utils.html.hasClass("ie6"))? document.documentElement.scrollTop : 0),
 				left: contextOffset.left + offset_left - parentRelative.left,
 				width: o.context.outerWidth(),
 				height: o.context.outerHeight()
 		    };
-		    
+
 		    return context;
 		}:
 		function getContext(){

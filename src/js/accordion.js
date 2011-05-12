@@ -122,18 +122,23 @@ ch.bellows = function(controller){
 	
 	that.show = function(event){
 		that.prevent(event);
-		
+
 		// Toggle
 		if (that.active) return that.hide(event);
-		
+
 		// Accordion behavior (hide last active)
-		if(!controller.conf.menu) {
+		if (!controller.conf.hasOwnProperty("menu")) {
+
 			$.each(controller.children, function(i, e){
-				if(e.hasOwnProperty("active") && e.active == true && e.element !== that.element) e.hide();
+				if (e.tagName == "A") return;
+				if ( e.hasOwnProperty("active") && e.hasOwnProperty("element") ) {
+					if (e.active == true && e.element !== that.element) { e.hide(); };
+				}; 
 			});
+			
 		};
 		
-        if(!ch.utils.html.hasClass("ie6")) that.$content.slideDown("fast");
+		that.$content.slideDown("fast");
         
         that.parent.show(event);
         
