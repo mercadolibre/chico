@@ -21,12 +21,14 @@ var map = {
     },
    
     "object": {
-        "type": "abstract"     
+        "type": "abstract",
+        "depends": ["core"]   
     },
+    
     "floats": {
         "type": "abstract",
         "inheritance": "object",
-        "depends": ["positioner","keyboard","cache"]
+        "depends": ["positioner","cache"]
     },
         "tooltip": {
             "type": "class",
@@ -34,11 +36,13 @@ var map = {
         },
         "layer": {
             "type": "class",
-            "inheritance": "floats"    
+            "inheritance": "floats",
+            "depends": ["keyboard"]   
         },
         "modal": {
             "type": "class",
-            "inheritance": "floats"
+            "inheritance": "floats",
+            "depends": ["keyboard"]
         },
             "transitions": {
                 "type": "interface",

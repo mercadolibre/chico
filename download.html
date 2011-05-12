@@ -41,6 +41,10 @@
 	<div class="options">
 		<ul id="abstracts"></ul>
 	</div>
+	<legend>Utils:</legend>
+	<div class="options">
+		<ul id="utils"></ul>
+	</div>
 </fieldset>
 </div>
 </div>
@@ -59,54 +63,91 @@
 <div class="ch-g1-4">
 <div>
 <fieldset>
-	<legend>Utils:</legend>
-	<div class="options">
-		<ul id="utils"></ul>
-	</div>
+<fieldset>
+    <legend>Flavors:</legend>
+    <div class="options">
+        <ul>
+            <li class="fieldBox">
+                <label for="ml_theme">
+                    <input type="radio" value="ml" id="ml_theme" name="theme" checked="checked">
+                    <span>MercadoLibre</span>
+                </label>
+            </li>
+
+            <li class="fieldBox">
+                <label for="mp_theme">
+                    <input type="radio" value="mp" id="mp_theme" name="theme">
+                    <span>MercadoPago</span>
+                </label>
+            </li>
+
+            <li class="fieldBox">
+                <label for="ms_theme">
+                    <input type="radio" value="ms" id="ms_theme" name="theme">
+                    <span>MercadoShops</span>
+                </label>
+            </li>
+        </ul>
+    </div>
+    
+    <legend>Options:</legend>
+    <div class="options">
+        <ul>
+
+            <li class="fieldBox">
+                <label>
+                    <input type="checkbox" value="base64">
+                    <span>Embed images</span>
+                </label>
+            </li>
+            <li class="fieldBox">
+                <label>
+                    <input type="checkbox" value="mesh">
+                    <span>Include Mesh</span>
+                </label>
+            </li>
+            
+        </ul>
+    </div>
 </fieldset>
+
 </div>
 </div>
 
 <div class="ch-g1-4">
 <div class="leftcolumn">
-<fieldset>
-	<legend>Toppings:</legend>
-	<div class="options">
-		<ul>
-			<li class="fieldBox">
-				<label for="ml_theme">
-					<input type="radio" value="ml" id="ml_theme" name="theme" checked="checked">
-					<span>MercadoLibre</span>
-				</label>
-			</li>
-
-			<li class="fieldBox">
-				<label for="mp_theme">
-					<input type="radio" value="mp" id="mp_theme" name="theme">
-					<span>MercadoPago</span>
-				</label>
-			</li>
-
-			<li class="fieldBox">
-				<label for="ms_theme">
-					<input type="radio" value="ms" id="ms_theme" name="theme">
-					<span>MercadoShops</span>
-				</label>
-			</li>
-		</ul>
-	</div>
-</fieldset>
-</div>
-</div>
-
-
-<div class="ch-g1">
 
 <fieldset>
-	<legend>Done!</legend>
-	<input type="submit" value="Download" class="btn primary">
+
+    <legend>Environment:</legend>
+    <div class="options">
+        <ul>
+            <li class="fieldBox">
+                <label>
+                    <input type="checkbox" value="production" checked="checked">
+                    <span>Production <small>(minified)</small></span>
+                </label>
+            </li>
+            <li class="fieldBox">
+                <label>
+                    <input type="checkbox" value="development">
+                    <span>Development <small>(with comments)</small></span>
+                </label>
+            </li>
+        </ul>
+     </div>
+
+    <legend>Summary:</legend>
+    <div class="summary">
+        <ul>
+            <li>Selected: <span class="selected-components">0</span>.</li>
+            <li>Total size: <span class="total-size">0</span>kbs.</li>
+        </ul>
+    </div>
+    <input type="submit" value="Download" class="btn primary">    
 </fieldset>
 
+</div>
 </div>
 
 <div class="clearfix"></div>
@@ -133,7 +174,7 @@ var utils = [];
 
 for (var c in map) {
     var type = map[c].type;
-    var value = c.toString().toLowerCase();
+    var value = c.toString();
     var appendTo = (type == "class" || type == "interface") ? "#components" : (type == "abstract") ? "#abstracts" : "#utils" ;  
     var className = "fieldBox " + type;
     var disabled = (type == "abstract") ? "disabled=\"disabled\"" : "" ;
@@ -179,7 +220,7 @@ var isShared = function(c) {
     return r;    
 }
 
-var checkMap = function(c,a) {
+var checkMap = function(c) {
 
     if (!c) { return; }
 
@@ -207,11 +248,13 @@ var checkMap = function(c,a) {
         
         });  
     }
+    
+    $(".selected-components").html( $("#components input:checked").size() + $("#abstracts input:checked").size() + $("#utils input:checked").size());
 }
 
 var action = checkIt;
 
-$("#components input").change(function(e){
+$("#components input, #utils input").change(function(e){
     
     var c = map[$(this).val()];
         
