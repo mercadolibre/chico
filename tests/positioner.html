@@ -169,7 +169,7 @@
             expect( 2 );
 	
        		equal( parseFloat($(".e5").css("left")), c5tOffset.left,"Expected to find element.left = context.left");
-       		equal( parseFloat($(".e5").css("top")), c5tOffset.top + $(".c5").outerHeight()/2 - $(".e5").outerHeight()/2,"Expected to find element.middle = context.middle");
+       		equal( ~~(parseFloat($(".e5").css("top"))), ~~(c5tOffset.top + $(".c5").outerHeight()/2 - $(".e5").outerHeight()/2), "Expected to find element.middle = context.middle");
 
         });
         
@@ -188,7 +188,7 @@
             expect( 2 );
 	
        		equal( parseFloat($(".e7").css("left")), c7tOffset.left + $(".c7").outerWidth()/2 - $(".e7").outerWidth()/2,"Expected to find element.center = context.center");
-       		equal( parseFloat($(".e7").css("top")), (c7tOffset.top + $(".c7").outerHeight()/2 - $(".e7").outerHeight()/2),"Expected to find element.middle = context.middle");
+       		equal( ~~(parseFloat($(".e7").css("top"))), ~~((c7tOffset.top + $(".c7").outerHeight()/2 - $(".e7").outerHeight()/2)), "Expected to find element.middle = context.middle");
 
         });
 
