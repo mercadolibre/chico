@@ -159,8 +159,8 @@ ch.viewer = function(conf){
 			arrows.prev.on();
 			arrows.next.on();
 		} else {
-			if(item == 1) arrows.prev.off();
-			if(item == itemsAmount) arrows.next.off();
+			if(item == 1){ arrows.prev.off(); arrows.next.on(); };
+			if(item == itemsAmount){ arrows.next.off(); arrows.prev.on(); };
 		};
 		
 		// Refresh selected thumb
