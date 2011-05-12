@@ -37,7 +37,6 @@ ch.accordion = function(conf){
 	that["public"].uid = that.uid;
 	that["public"].element = that.element;
 	that["public"].type = that.type;
-	that["public"].children = that.children;
 	that["public"].select = function(bellows){
 		
 		if(typeof bellows == "string") {
@@ -57,27 +56,31 @@ ch.accordion = function(conf){
  *  Default event delegation
  */	
     
-    // Create children
-	$.each(that.$element.children(), function(i, e){
+    // Children
+	that.$element.children().each(function(i, e){
 		
-		// Links are pushed directly
-		if($(e).children().eq(1).attr("tagName") != "UL") {
-			that.children.push( $(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger") );
+		var $child = $(e).children();
+		
+		// Link
+		if($child.eq(0).attr("tagName") == "A") {
+			$(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger");
+			that.children.push( $child[0] );
 			return;
 		};
 		
+		// Bellows
 		var list = {};
 			list.uid = that.uid + "#" + i;
 			list.type = "bellows";
 			list.element = e;
 			list.$element = $(e);
 			
-			// Selected -> It can be for example "2" or "2#1"
-			if(conf.hasOwnProperty("selected")) {
-				list.open = (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
-			} else {
-				list.open = false;
-			};
+		// Selected -> It can be for example "2" or "2#1"
+		if(conf.hasOwnProperty("selected")) {
+			list.open = (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
+		} else {
+			list.open = false;
+		};
 			
 		that.children.push( ch.bellows.call(list, that) );
 	});
