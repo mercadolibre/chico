@@ -62,7 +62,7 @@ ch.accordion = function(conf){
 		var $child = $(e).children();
 		
 		// Link
-		if($child.eq(0).attr("tagName") == "A") {
+		if($child.eq(0).prop("tagName") == "A") {
 			$(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger");
 			that.children.push( $child[0] );
 			return;

@@ -138,7 +138,7 @@ ch.watcher = function(conf) {
                     h4.wrapInner('<span>'); // Wrap content with inline element
                 reference = h4.children(); // Inline element in h4 like helper reference	
             // Legend
-            } else if ( that.$element.prev().attr('tagName') == 'LEGEND' ) {
+            } else if ( that.$element.prev().prop('tagName') == 'LEGEND' ) {
                 reference = that.$element.prev(); // Legend like helper reference
             }
         // INPUT, SELECT, TEXTAREA

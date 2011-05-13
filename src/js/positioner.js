@@ -237,7 +237,7 @@ ch.positioner = function(o) {
 
 		    context = {
 		    	element: o.context,
-				top: contextOffset.top + offset_top - parentRelative.top + ((ch.utils.html.hasClass("ie6"))? document.documentElement.scrollTop : 0),
+				top: contextOffset.top + offset_top - parentRelative.top,
 				left: contextOffset.left + offset_left - parentRelative.left,
 				width: o.context.outerWidth(),
 				height: o.context.outerHeight()
