@@ -173,8 +173,6 @@ ch.dropdown = function(conf){
 	that.conf.position.points = "lt lb";
 	that.conf.position.offset = "0 -1";
 	
-	ch.positioner.call(that);
-	
 	return that;
 
 };
