@@ -70,30 +70,20 @@ var ch = window.ch = {
 };
 
 
-
-
 /**
- *	Pre-Load function
- */	
+ *  Clone function
+ */ 
 
-ch.preload = function(arr) {
-
-	if (typeof arr === "string") {
-		arr = (arr.indexOf(",") > 0) ? arr.split(",") : [arr] ;
-	}
-
-	for (var i=0;i<arr.length;i++) {
-				
-		var o = document.createElement("object");
-			o.data = arr[i]; // URL
-			
-		var h = document.getElementsByTagName("head")[0];
-			h.appendChild(o);
-			h.removeChild(o); 
-	}       
+ch.clon = function(o) {
+    
+    obj = {};
+    
+    for (x in o) {
+        obj[x] = o[x]; 
+    };
+    
+    return obj;
 };
-
-
 
 
 /**
@@ -238,6 +228,7 @@ ch.factory = function(o) {
     }
 }
 
+
 /**
  *  Get
  */
@@ -339,92 +330,6 @@ ch.get = function(o) {
 
 }
 
-/**
- *  Eraser
- */
- 
-ch.eraser = function(data) {
-	
-	if(typeof data == "number"){
-		
-		// By UID
-		for(var x in ch.instances){
-			
-			var component = ch.instances[x];
-			
-			for(var i = 0, j = component.length; i < j; i += 1){
-				if(component[i].uid == data){
-					// TODO: component.delete()
-					delete component[i];
-					component.splice(i, 1);
-					
-					return;
-				};
-			};
-		};
-	
-	} else {
-		
-		// All
-		if(data === "meltdown"){
-			// TODO: component.delete()
-			/*for(var x in ch.instances){
-				var component = ch.instances[x];
-				for(var i = 0, j = component.length; i < j; i += 1){
-					component.delete();
-				};
-			};*/
-			
-			delete ch.instances;
-			ch.instances = {};
-			
-		// By component name	
-		} else {
-			
-			for(var x in ch.instances){
-			
-				if(x == data){
-					
-					var component = ch.instances[x];
-					
-					// TODO: component.delete()
-					/*for(var i = 0; i < component.length; i += 1){
-						component.delete()
-					};*/
-					
-					delete ch.instances[x];
-				};
-			};
-			
-		};
-		
-	};
-	
-};
-
-
-
-/**
- *  Keyboard
- */
- 
-ch.keyboard = function(event) {
-	
-	var keyCodes = {
-		"13": "ENTER",
-		"27": "ESC",
-		"37": "LEFT_ARROW",
-		"38": "UP_ARROW",
-		"39": "RIGHT_ARROW",
-		"40": "DOWN_ARROW"
-	};
-	
-	if( !keyCodes.hasOwnProperty(event.keyCode) ) return;
-	
-	ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ], event);
-	
-};
-
 
 /**
  *  Support
@@ -462,45 +367,6 @@ ch.support = function() {
 		// gradient: gradient
 	};
 	
-};
-
-
-/**
- *  Cache
- */
-
-ch.cache = {
-	map: {},
-	add: function(url, data) {
-		ch.cache.map[url] = data;
-	},
-	get: function(url) {
-		return ch.cache.map[url];
-	},
-	rem: function(url) {
-		ch.cache.map[url] = null;
-		delete ch.cache.map[url];
-	},
-	flush: function() {
-		delete ch.cache.map;
-		ch.cache.map = {};
-	}
-};
-
-
-/**
- *	Clone function
- */	
-
-ch.clon = function(o) {
-	
-	obj = {};
-	
-    for (x in o) {
-    	obj[x] = o[x]; 
-    };
-    
-    return obj;
 };
 
 
