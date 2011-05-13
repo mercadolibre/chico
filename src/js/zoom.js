@@ -177,34 +177,36 @@ ch.zoom = function(conf) {
 /**
  *  Default event delegation
  */
-setTimeout( function(){
-	that.$element
-		.addClass("ch-zoom-trigger")
-		
-		// Magnifying glass
-		//.append( $lens )
-		
-		// Seeker
-		.append( seeker.shape )
-		
-		// Size (same as image)
-		.css({"width": main.w, "height": main.h})
-		
-		// Show
-		.bind("mouseover", that.show)
-		
-		// Hide
-		.bind("mouseleave", that.hide)
-		
-		// Move
-		.bind("mousemove", function(event){ move(event); })
-		
-		// Enlarge
-		.bind("click", function(event){ that.enlarge(event); });
-},50);	
+	
+	// TODO: El setTimeout soluciona problemas en el viewer
+	setTimeout( function(){
+		that.$element
+			.addClass("ch-zoom-trigger")
+			
+			// Magnifying glass
+			//.append( $lens )
+			
+			// Seeker
+			.append( seeker.shape )
+			
+			// Size (same as image)
+			.css({"width": main.w, "height": main.h})
+			
+			// Show
+			.bind("mouseover", that.show)
+			
+			// Hide
+			.bind("mouseleave", that.hide)
+			
+			// Move
+			.bind("mousemove", function(event){ move(event); })
+			
+			// Enlarge
+			.bind("click", function(event){ that.enlarge(event); });
+	},50);	
 	
 	// Preload zoomed image
-	ch.preload(that.element.href);
+	if(ch.hasOwnProperty("preload")) ch.preload(that.element.href);
 	
 	return that;
 };
