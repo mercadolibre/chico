@@ -4,6 +4,7 @@
 	overflow:hidden;
 	background-color:#fff;
 	position:relative;
+	width:320px;
 }
 
 
@@ -14,8 +15,8 @@
 /* Display list */
 .ch-viewer-display .ch-viewer-content li{
 	margin:0;
-	width:500px;
-	height:500px	;
+	width:320px;
+	height:320px	;
 }
 
 /* Showcase list */
@@ -81,13 +82,13 @@
 
 /* Thumbnails items */
 .ch-viewer-triggers li {
-	width:91px;
-	height:91px;
-	line-height:90px;
+	width:41px;
+	height:41px;
+	line-height:40px;
 	border:1px solid #fff;
 	cursor:pointer;
 	text-align:center;
-	margin:0 5px;
+	margin:0 10px;
 }
 
 /* Thumbnails imgs */

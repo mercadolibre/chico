@@ -11,9 +11,6 @@ ch.viewer = function(conf){
  */
 	var that = this;
 
-	conf.width = conf.width || 320;
-	conf.height = conf.height || 320;
-
 	conf = ch.clon(conf);
 	that.conf = conf;
 	
@@ -31,8 +28,10 @@ ch.viewer = function(conf){
 	/**
 	 * 	Viewer
 	 */
-	var $viewer = that.$element.addClass("ch-viewer").width(conf.width);
-		
+	var $viewer = that.$element.addClass("ch-viewer");
+	conf.width = $viewer.outerWidth();
+	conf.height = $viewer.outerHeight();
+	
 	var $content = $viewer.children().addClass("ch-viewer-content carousel");
 
 	/**
@@ -159,8 +158,8 @@ ch.viewer = function(conf){
 			arrows.prev.on();
 			arrows.next.on();
 		} else {
-			if(item == 1) arrows.prev.off();
-			if(item == itemsAmount) arrows.next.off();
+			if(item == 1){ arrows.prev.off(); arrows.next.on(); };
+			if(item == itemsAmount){ arrows.next.off(); arrows.prev.on(); };
 		};
 		
 		// Refresh selected thumb

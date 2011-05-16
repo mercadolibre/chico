@@ -42,35 +42,43 @@ ch.zoom = function(conf) {
  *  Private Members
  */
 	
+	var main = {};
+		main.img = that.$element.children();
+		main.w = main.img.width();
+		main.h = main.img.height();
+	
+	var zoomed = {};
+		zoomed.img = conf.content;
+	
 	// Magnifying glass
 	//var $lens = $("<div>").addClass("ch-lens ch-hide");
 	
 	// Seeker
-	var $seeker = $("<div>")
-		.addClass("ch-seeker ch-hide")
-		.bind("mousemove", function(event){ move(event); })
-		// TODO: Make a scale reference calc for seeker size
-		.css({
-			width: conf.width / 3, //(conf.content.width() / that.$element.children().width()),
-			height: conf.height / 3 //(conf.content.height() / that.$element.children().height())
-		});
+	var seeker = {};
+		// TODO: Calc relativity like in that.size (en lugar de la division por 3)
+		seeker.w = conf.width / 3;
+		seeker.h = conf.height / 3;
+		seeker.shape = $("<div>")
+			.addClass("ch-seeker ch-hide")
+			.bind("mousemove", function(event){ move(event); })
+			.css({width: seeker.w, height: seeker.h});
 	
 	var move = function(event){
-		var offset = that.$child.offset();
+		var offset = main.img.offset();
 		
 		var x = event.pageX - offset.left;
 		var y = event.pageY - offset.top;
 		
 		// Zoomed image
-		conf.content.css({
-			"left": -x * (conf.content.outerWidth() / that.$child.outerWidth() - 1),
-			"top": -y * (conf.content.outerHeight() / that.$child.outerHeight() - 1)
+		zoomed.img.css({
+			"left": -( ((zoomed.w * x) / main.w) - (conf.width / 2) ),
+			"top": -( ((zoomed.h * y) / main.h) - (conf.height / 2) )
 		});
 		
 		// Seeker shape
-		$seeker.css({
-			"left": x - ($seeker.width() / 2),
-			"top": y - ($seeker.height() / 2)
+		seeker.shape.css({
+			"left": x - (seeker.w / 2),
+			"top": y - (seeker.h / 2)
 		});
 	};
 	
@@ -79,8 +87,6 @@ ch.zoom = function(conf) {
  */
 	
 	that.$trigger = that.$element;
-	
-	that.$child = that.$trigger.children();
 	
 	that.show = function(event){
 		that.prevent(event);
@@ -92,7 +98,7 @@ ch.zoom = function(conf) {
 		//$lens.fadeIn();
 		
 		// Seeker
-		$seeker.removeClass("ch-hide");
+		seeker.shape.removeClass("ch-hide");
 		
 		return that;
 	};
@@ -101,7 +107,7 @@ ch.zoom = function(conf) {
 		that.prevent(event);
 		
 		// Seeker
-		$seeker.addClass("ch-hide");
+		seeker.shape.addClass("ch-hide");
 		
 		// Magnifying glass
 		//$lens.fadeOut();
@@ -121,6 +127,14 @@ ch.zoom = function(conf) {
 	that.size = function(attr, data) {
 		if (!data) return conf[attr]; // Getter
 		
+		// Size of zoomed image
+		zoomed.w = zoomed.img.width();
+		zoomed.h = zoomed.img.height();
+		zoomed.ref_x = (zoomed.w / main.w - 1);
+		zoomed.ref_y = (zoomed.h / main.h - 1);
+		
+		var at = attr.substr(0,1);
+		
 		// Configuration
 		that.conf[attr] = data;
 		
@@ -128,7 +142,9 @@ ch.zoom = function(conf) {
 		that.$container[attr](data);
 		
 		// Seeker
-		$seeker[attr](data / 3);
+		var rel = (main[at] * data) / zoomed[at];
+		seeker[at] = rel;
+		seeker.shape[attr](rel);
 
 		return that["public"];
 	};
@@ -161,36 +177,36 @@ ch.zoom = function(conf) {
 /**
  *  Default event delegation
  */
-setTimeout( function(){
-	that.$element
-		.addClass("ch-zoom-trigger")
-		
-		// Magnifying glass
-		//.append( $lens )
-		
-		// Seeker
-		.append( $seeker )
-		
-		// Size
-		.css({
-			"width": that.$child.width(),
-			"height": that.$child.height()
-		})
-		
-		// Show
-		.bind("mouseover", that.show)
-		
-		// Hide
-		.bind("mouseleave", that.hide)
-		
-		// Move
-		.bind("mousemove", function(event){ move(event); })
-		
-		// Enlarge
-		.bind("click", function(event){ that.enlarge(event); });
-},50);	
+	
+	// TODO: El setTimeout soluciona problemas en el viewer
+	setTimeout( function(){
+		that.$element
+			.addClass("ch-zoom-trigger")
+			
+			// Magnifying glass
+			//.append( $lens )
+			
+			// Seeker
+			.append( seeker.shape )
+			
+			// Size (same as image)
+			.css({"width": main.w, "height": main.h})
+			
+			// Show
+			.bind("mouseover", that.show)
+			
+			// Hide
+			.bind("mouseleave", that.hide)
+			
+			// Move
+			.bind("mousemove", function(event){ move(event); })
+			
+			// Enlarge
+			.bind("click", function(event){ that.enlarge(event); });
+	},50);	
+	
 	// Preload zoomed image
-	ch.preload(that.element.href);
+	if(ch.hasOwnProperty("preload")) ch.preload(that.element.href);
 	
 	return that;
 };

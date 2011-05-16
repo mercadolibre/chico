@@ -222,7 +222,7 @@ ch.form = function(conf){
 	});
 	
 	// Bind the reset
-	that.$element.find(":reset, .resetForm").bind("click", function(event){ clear(event); });
+	that.$element.find(":reset, .resetForm").bind("click", function(event){ reset(event); });
 
 	return that;
 };

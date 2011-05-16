@@ -4,25 +4,13 @@
 	overflow:hidden;
 	cursor:default;
 	display:block;
-}
-
-/* Magnifying glass */
-.ch-zoom-trigger .ch-lens {
-	background-image: url('../src/assets/zoom.png');
-	width:41px;
-	height:41px;
-	position:absolute;
-	bottom:0;
-	right:0;
+	cursor:crosshair;
 }
 
 /* Seeker shape */
 .ch-zoom-trigger .ch-seeker {
 	background-color:rgba(0,0,255,.1);
 	border:1px solid #00f;
-	cursor:zoom-in;
-	cursor:-moz-zoom-in;
-	cursor:-webkit-zoom-in;
 	position:absolute;
 }
 

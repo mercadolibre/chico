@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, accordion, zoom
+  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, keyboard, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, accordion, zoom
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -24,7 +24,7 @@ var ch = window.ch = {
 
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,accordion,zoom",
 
-    internals: "positioner,object,floats,navs,controllers,watcher,sliders",
+    internals: "positioner,object,floats,navs,controllers,watcher,sliders,keyboard",
 
     instances: {},
     
@@ -86,30 +86,20 @@ var ch = window.ch = {
 };
 
 
-
-
 /**
- *	Pre-Load function
- */	
+ *  Clone function
+ */ 
 
-ch.preload = function(arr) {
-
-	if (typeof arr === "string") {
-		arr = (arr.indexOf(",") > 0) ? arr.split(",") : [arr] ;
-	}
-
-	for (var i=0;i<arr.length;i++) {
-				
-		var o = document.createElement("object");
-			o.data = arr[i]; // URL
-			
-		var h = document.getElementsByTagName("head")[0];
-			h.appendChild(o);
-			h.removeChild(o); 
-	}       
+ch.clon = function(o) {
+    
+    obj = {};
+    
+    for (x in o) {
+        obj[x] = o[x]; 
+    };
+    
+    return obj;
 };
-
-
 
 
 /**
@@ -254,6 +244,7 @@ ch.factory = function(o) {
     }
 }
 
+
 /**
  *  Get
  */
@@ -355,92 +346,6 @@ ch.get = function(o) {
 
 }
 
-/**
- *  Eraser
- */
- 
-ch.eraser = function(data) {
-	
-	if(typeof data == "number"){
-		
-		// By UID
-		for(var x in ch.instances){
-			
-			var component = ch.instances[x];
-			
-			for(var i = 0, j = component.length; i < j; i += 1){
-				if(component[i].uid == data){
-					// TODO: component.delete()
-					delete component[i];
-					component.splice(i, 1);
-					
-					return;
-				};
-			};
-		};
-	
-	} else {
-		
-		// All
-		if(data === "meltdown"){
-			// TODO: component.delete()
-			/*for(var x in ch.instances){
-				var component = ch.instances[x];
-				for(var i = 0, j = component.length; i < j; i += 1){
-					component.delete();
-				};
-			};*/
-			
-			delete ch.instances;
-			ch.instances = {};
-			
-		// By component name	
-		} else {
-			
-			for(var x in ch.instances){
-			
-				if(x == data){
-					
-					var component = ch.instances[x];
-					
-					// TODO: component.delete()
-					/*for(var i = 0; i < component.length; i += 1){
-						component.delete()
-					};*/
-					
-					delete ch.instances[x];
-				};
-			};
-			
-		};
-		
-	};
-	
-};
-
-
-
-/**
- *  Keyboard
- */
- 
-ch.keyboard = function(event) {
-	
-	var keyCodes = {
-		"13": "ENTER",
-		"27": "ESC",
-		"37": "LEFT_ARROW",
-		"38": "UP_ARROW",
-		"39": "RIGHT_ARROW",
-		"40": "DOWN_ARROW"
-	};
-	
-	if( !keyCodes.hasOwnProperty(event.keyCode) ) return;
-	
-	ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ], event);
-	
-};
-
 
 /**
  *  Support
@@ -478,45 +383,6 @@ ch.support = function() {
 		// gradient: gradient
 	};
 	
-};
-
-
-/**
- *  Cache
- */
-
-ch.cache = {
-	map: {},
-	add: function(url, data) {
-		ch.cache.map[url] = data;
-	},
-	get: function(url) {
-		return ch.cache.map[url];
-	},
-	rem: function(url) {
-		ch.cache.map[url] = null;
-		delete ch.cache.map[url];
-	},
-	flush: function() {
-		delete ch.cache.map;
-		ch.cache.map = {};
-	}
-};
-
-
-/**
- *	Clone function
- */	
-
-ch.clon = function(o) {
-	
-	obj = {};
-	
-    for (x in o) {
-    	obj[x] = o[x]; 
-    };
-    
-    return obj;
 };
 
 
@@ -615,7 +481,6 @@ ch.positioner = function(o) {
 			height = viewport.clientHeight;
 			pageX = viewport.scrollLeft;
 			pageY = viewport.scrollTop;
-			
 			// Return viewport object
 			return {
 				element: viewport,			
@@ -640,7 +505,6 @@ ch.positioner = function(o) {
 		var elementWidth = element.outerWidth();
 		var elementHeight = element.outerHeight();
 		
-		
 		var xReferences = {
 			ll: contextLeft,
 			lr: contextLeft + contextWidth,
@@ -651,6 +515,7 @@ ch.positioner = function(o) {
 		
 		// my_y and at_y values together
 		var yReferences = {
+			// jquery 1.6 do not support offset on IE
 			tt: contextTop,
 			tb: contextTop + contextHeight,
 			bt: contextTop - elementHeight,
@@ -736,9 +601,9 @@ ch.positioner = function(o) {
         	at_x: splitted[1].slice(0,1),
         	at_y: splitted[1].slice(1,2)
         }
-        
+
 		var styles = calculatePoints(o.points, unitPoints);
-		
+
 		element
 			.css({
 				left: styles.left,
@@ -761,7 +626,7 @@ ch.positioner = function(o) {
 		function getContext(){
 
 			var contextOffset = o.context.offset();
-			
+
 		    context = {
 		    	element: o.context,
 				top: contextOffset.top + offset_top - parentRelative.top,
@@ -769,7 +634,7 @@ ch.positioner = function(o) {
 				width: o.context.outerWidth(),
 				height: o.context.outerHeight()
 		    };
-		    
+
 		    return context;
 		}:
 		function getContext(){
@@ -1407,7 +1272,7 @@ ch.watcher = function(conf) {
                     h4.wrapInner('<span>'); // Wrap content with inline element
                 reference = h4.children(); // Inline element in h4 like helper reference	
             // Legend
-            } else if ( that.$element.prev().attr('tagName') == 'LEGEND' ) {
+            } else if ( that.$element.prev().prop('tagName') == 'LEGEND' ) {
                 reference = that.$element.prev(); // Legend like helper reference
             }
         // INPUT, SELECT, TEXTAREA
@@ -1692,6 +1557,26 @@ ch.sliders = function() {
 	return that;
 	
 };/**
+ *  Keyboard
+ */
+ 
+ch.keyboard = function(event) {
+    
+    var keyCodes = {
+        "13": "ENTER",
+        "27": "ESC",
+        "37": "LEFT_ARROW",
+        "38": "UP_ARROW",
+        "39": "RIGHT_ARROW",
+        "40": "DOWN_ARROW"
+    };
+    
+    if( !keyCodes.hasOwnProperty(event.keyCode) ) return;
+    
+    ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ], event);
+    
+};
+/**
  *	Carousel
  *	@author
  *	@Contructor
@@ -2178,8 +2063,6 @@ ch.dropdown = function(conf){
 	that.conf.position.points = "lt lb";
 	that.conf.position.offset = "0 -1";
 	
-	ch.positioner.call(that);
-	
 	return that;
 
 };
@@ -2250,7 +2133,7 @@ ch.layer = function(conf) {
         
         // Click
         if (conf.event == "click") {
-            $('<p class="btn close">x</p>').bind('click', that.hide).prependTo(that.$container);
+			conf.close = true;
             // Document events
             $(document).one('click', that.hide);
             
@@ -3436,10 +3319,11 @@ ch.form = function(conf){
 	});
 	
 	// Bind the reset
-	that.$element.find(":reset, .resetForm").bind("click", function(event){ clear(event); });
+	that.$element.find(":reset, .resetForm").bind("click", function(event){ reset(event); });
 
 	return that;
-};/**
+};
+/**
  *	Viewer
  *	@author
  *	@Contructor
@@ -3451,9 +3335,6 @@ ch.viewer = function(conf){
  *  Constructor
  */
 	var that = this;
-
-	conf.width = conf.width || 320;
-	conf.height = conf.height || 320;
 
 	conf = ch.clon(conf);
 	that.conf = conf;
@@ -3472,8 +3353,10 @@ ch.viewer = function(conf){
 	/**
 	 * 	Viewer
 	 */
-	var $viewer = that.$element.addClass("ch-viewer").width(conf.width);
-		
+	var $viewer = that.$element.addClass("ch-viewer");
+	conf.width = $viewer.outerWidth();
+	conf.height = $viewer.outerHeight();
+	
 	var $content = $viewer.children().addClass("ch-viewer-content carousel");
 
 	/**
@@ -3500,7 +3383,7 @@ ch.viewer = function(conf){
 	var items = $content.children();
 	var itemsAmount = items.length;
 	var itemsAnchor = items.children("a");
-	var itemsChildren = items.find("img, embed");
+	var itemsChildren = items.find("img, object");
 	
 	/**
 	 * 	Zoom
@@ -3600,8 +3483,8 @@ ch.viewer = function(conf){
 			arrows.prev.on();
 			arrows.next.on();
 		} else {
-			if(item == 1) arrows.prev.off();
-			if(item == itemsAmount) arrows.next.off();
+			if(item == 1){ arrows.prev.off(); arrows.next.on(); };
+			if(item == itemsAmount){ arrows.next.off(); arrows.prev.on(); };
 		};
 		
 		// Refresh selected thumb
@@ -4095,7 +3978,6 @@ ch.accordion = function(conf){
 	that["public"].uid = that.uid;
 	that["public"].element = that.element;
 	that["public"].type = that.type;
-	that["public"].children = that.children;
 	that["public"].select = function(bellows){
 		
 		if(typeof bellows == "string") {
@@ -4115,27 +3997,31 @@ ch.accordion = function(conf){
  *  Default event delegation
  */	
     
-    // Create children
-	$.each(that.$element.children(), function(i, e){
+    // Children
+	that.$element.children().each(function(i, e){
 		
-		// Links are pushed directly
-		if($(e).children().eq(1).attr("tagName") != "UL") {
-			that.children.push( $(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger") );
+		var $child = $(e).children();
+		
+		// Link
+		if($child.eq(0).prop("tagName") == "A") {
+			$(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger");
+			that.children.push( $child[0] );
 			return;
 		};
 		
+		// Bellows
 		var list = {};
 			list.uid = that.uid + "#" + i;
 			list.type = "bellows";
 			list.element = e;
 			list.$element = $(e);
 			
-			// Selected -> It can be for example "2" or "2#1"
-			if(conf.hasOwnProperty("selected")) {
-				list.open = (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
-			} else {
-				list.open = false;
-			};
+		// Selected -> It can be for example "2" or "2#1"
+		if(conf.hasOwnProperty("selected")) {
+			list.open = (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
+		} else {
+			list.open = false;
+		};
 			
 		that.children.push( ch.bellows.call(list, that) );
 	});
@@ -4177,18 +4063,23 @@ ch.bellows = function(controller){
 	
 	that.show = function(event){
 		that.prevent(event);
-		
+
 		// Toggle
 		if (that.active) return that.hide(event);
-		
+
 		// Accordion behavior (hide last active)
-		if(!controller.conf.menu) {
+		if (!controller.conf.hasOwnProperty("menu")) {
+
 			$.each(controller.children, function(i, e){
-				if(e.hasOwnProperty("active") && e.active == true && e.element !== that.element) e.hide();
+				if (e.tagName == "A") return;
+				if ( e.hasOwnProperty("active") && e.hasOwnProperty("element") ) {
+					if (e.active == true && e.element !== that.element) { e.hide(); };
+				}; 
 			});
+			
 		};
 		
-        if(!ch.utils.html.hasClass("ie6")) that.$content.slideDown("fast");
+		that.$content.slideDown("fast");
         
         that.parent.show(event);
         
@@ -4306,35 +4197,43 @@ ch.zoom = function(conf) {
  *  Private Members
  */
 	
+	var main = {};
+		main.img = that.$element.children();
+		main.w = main.img.width();
+		main.h = main.img.height();
+	
+	var zoomed = {};
+		zoomed.img = conf.content;
+	
 	// Magnifying glass
 	//var $lens = $("<div>").addClass("ch-lens ch-hide");
 	
 	// Seeker
-	var $seeker = $("<div>")
-		.addClass("ch-seeker ch-hide")
-		.bind("mousemove", function(event){ move(event); })
-		// TODO: Make a scale reference calc for seeker size
-		.css({
-			width: conf.width / 3, //(conf.content.width() / that.$element.children().width()),
-			height: conf.height / 3 //(conf.content.height() / that.$element.children().height())
-		});
+	var seeker = {};
+		// TODO: Calc relativity like in that.size (en lugar de la division por 3)
+		seeker.w = conf.width / 3;
+		seeker.h = conf.height / 3;
+		seeker.shape = $("<div>")
+			.addClass("ch-seeker ch-hide")
+			.bind("mousemove", function(event){ move(event); })
+			.css({width: seeker.w, height: seeker.h});
 	
 	var move = function(event){
-		var offset = that.$child.offset();
+		var offset = main.img.offset();
 		
 		var x = event.pageX - offset.left;
 		var y = event.pageY - offset.top;
 		
 		// Zoomed image
-		conf.content.css({
-			"left": -x * (conf.content.outerWidth() / that.$child.outerWidth() - 1),
-			"top": -y * (conf.content.outerHeight() / that.$child.outerHeight() - 1)
+		zoomed.img.css({
+			"left": -( ((zoomed.w * x) / main.w) - (conf.width / 2) ),
+			"top": -( ((zoomed.h * y) / main.h) - (conf.height / 2) )
 		});
 		
 		// Seeker shape
-		$seeker.css({
-			"left": x - ($seeker.width() / 2),
-			"top": y - ($seeker.height() / 2)
+		seeker.shape.css({
+			"left": x - (seeker.w / 2),
+			"top": y - (seeker.h / 2)
 		});
 	};
 	
@@ -4343,8 +4242,6 @@ ch.zoom = function(conf) {
  */
 	
 	that.$trigger = that.$element;
-	
-	that.$child = that.$trigger.children();
 	
 	that.show = function(event){
 		that.prevent(event);
@@ -4356,7 +4253,7 @@ ch.zoom = function(conf) {
 		//$lens.fadeIn();
 		
 		// Seeker
-		$seeker.removeClass("ch-hide");
+		seeker.shape.removeClass("ch-hide");
 		
 		return that;
 	};
@@ -4365,7 +4262,7 @@ ch.zoom = function(conf) {
 		that.prevent(event);
 		
 		// Seeker
-		$seeker.addClass("ch-hide");
+		seeker.shape.addClass("ch-hide");
 		
 		// Magnifying glass
 		//$lens.fadeOut();
@@ -4385,6 +4282,14 @@ ch.zoom = function(conf) {
 	that.size = function(attr, data) {
 		if (!data) return conf[attr]; // Getter
 		
+		// Size of zoomed image
+		zoomed.w = zoomed.img.width();
+		zoomed.h = zoomed.img.height();
+		zoomed.ref_x = (zoomed.w / main.w - 1);
+		zoomed.ref_y = (zoomed.h / main.h - 1);
+		
+		var at = attr.substr(0,1);
+		
 		// Configuration
 		that.conf[attr] = data;
 		
@@ -4392,7 +4297,9 @@ ch.zoom = function(conf) {
 		that.$container[attr](data);
 		
 		// Seeker
-		$seeker[attr](data / 3);
+		var rel = (main[at] * data) / zoomed[at];
+		seeker[at] = rel;
+		seeker.shape[attr](rel);
 
 		return that["public"];
 	};
@@ -4425,36 +4332,36 @@ ch.zoom = function(conf) {
 /**
  *  Default event delegation
  */
-setTimeout( function(){
-	that.$element
-		.addClass("ch-zoom-trigger")
-		
-		// Magnifying glass
-		//.append( $lens )
-		
-		// Seeker
-		.append( $seeker )
-		
-		// Size
-		.css({
-			"width": that.$child.width(),
-			"height": that.$child.height()
-		})
-		
-		// Show
-		.bind("mouseover", that.show)
-		
-		// Hide
-		.bind("mouseleave", that.hide)
-		
-		// Move
-		.bind("mousemove", function(event){ move(event); })
-		
-		// Enlarge
-		.bind("click", function(event){ that.enlarge(event); });
-},50);	
+	
+	// TODO: El setTimeout soluciona problemas en el viewer
+	setTimeout( function(){
+		that.$element
+			.addClass("ch-zoom-trigger")
+			
+			// Magnifying glass
+			//.append( $lens )
+			
+			// Seeker
+			.append( seeker.shape )
+			
+			// Size (same as image)
+			.css({"width": main.w, "height": main.h})
+			
+			// Show
+			.bind("mouseover", that.show)
+			
+			// Hide
+			.bind("mouseleave", that.hide)
+			
+			// Move
+			.bind("mousemove", function(event){ move(event); })
+			
+			// Enlarge
+			.bind("click", function(event){ that.enlarge(event); });
+	},50);	
+	
 	// Preload zoomed image
-	ch.preload(that.element.href);
+	if(ch.hasOwnProperty("preload")) ch.preload(that.element.href);
 	
 	return that;
 };

@@ -14,10 +14,7 @@
 	    <link rel="stylesheet" type="text/css" href="src/css/forms.css" /-->
 		<link rel="stylesheet" type="text/css" id="flavors" href="./bloody-chico/styles.css"> <!-- Chico-UI Core Style Sheet -->
 		<link rel="stylesheet" type="text/css" href="../src/css/grid.css">
-		<link rel="stylesheet" type="text/css" href="../libs/css/highlight.css">
 		<link rel="stylesheet" type="text/css" href="../src/css/doc.css">
-		<script src="../libs/js/jquery-1.5.1.js"></script>
-		<script src="../php/packer.php?debug=true"></script>
 		<!--script src="src/js/core.js"></script-->
 				
 		<!--[if lt IE 7 ]>
@@ -43,113 +40,136 @@
 		</style>
 	</head>
 	
-	<body class="layout">
-		
-		<div class="head">
-			<h1 class="title">Flavors</h1>
-			<ul class="mainNav">
-				<li><a href="./ml/styles.css">MercadoLibre</a></li>
-				<li><a href="./mp/styles.css">MercadoPago</a></li>
-				<li><a href="./bloody-chico/styles.css">Chico</a></li>
-			
-			</ul>			
-		</div>
-		<hr>
-<div class="container"> 
+<body> 
+ 
+	<div class="container"> 
 		<h1>Header 1</h1> 
 		<h2>Header 2</h2> 
 		<h3>Header 3</h3> 
 		<h4>Header 4</h4> 
 		<h5>Header 5</h5> 
-		<h6>Header 6</h6>
-		<p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+		<h6>Header 6</h6> 
+		<p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> 
 	</div> 
-
+ 
 	<div class="box"> 
 		<h2>Links</h2> 
-
+ 
 		<p><a href="http://www.mercadolibre.com">MercadoLibre</a></p> 
 		<p><a href="http://www.mercadopago.com">MercadoPago</a></p> 
 		<p><a href="http://www.mercadoshops.com">MercadoShops</a></p> 
 		<p><a href="http://www.mercadoclics.com">MercadoClics</a></p> 
 	</div> 
-
+ 
 	<div class="box"> 
 		<h2>Boxes</h2> 
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
 	</div> 
-
-	<div class="box">
+ 
+	<div class="box"> 
 		<h2>Buttons</h2> 
+		<p><input type="button" class="btn main" value="Main button"></p> 
 		<p><input type="button" class="btn primary" value="Primary button"></p> 
 		<p><input type="button" class="btn secondary" value="Secondary button"></p>
-		<p><input type="button" class="btn secondary skin" value="Secondary button cyan"></p>
 
+		<p><input type="button" class="btn secondary skin" value="Secondary button with skin"></p>
+ 
+		<p><input type="button" class="btn main disabled" disabled="disabled" value="Main disabled"></p> 
 		<p><input type="button" class="btn primary disabled" disabled="disabled" value="Primary disabled"></p> 
 		<p><input type="button" class="btn secondary disabled" disabled="disabled" value="Secondary disabled"></p> 
 	</div> 
 	
 	<div class="box">
-			<table summary="Listado de cobros en MercadoPago">
-				<caption>Table</caption>
-				<thead>
-					<tr>
-						<th scope="col"><input type="checkbox" name="mycheckall"/></th>
-						<th scope="col">Datos de inicio</th>
-						<th scope="col">Tipo de operación</th>
-						<th scope="col" class="selected">Contraparte</th>
-						<th scope="col">Descripción</th>
-						<th scope="col">Valor</th>
-						<th scope="col">Status de la operación</th>
-						<th scope="col">Acciones</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td scope="row"><input type="checkbox" name="mycheck"/></td>
-						<td>02/04/2011</td>
-						<td><a href="#">Valor de venta del producto</a></td>
-						<td><a href="#">usuariontest@gmail.com</a></td>
-						<td>Compras en MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pendiente de pago</td>
-						<td>select	
-						</td>
-					</tr>
-					<tr class="selected">
-						<td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
-						<td>02/04/2011</td>
-						<td><a href="#">Valor de venta del producto</a></td>
-						<td><a href="#">usuariontest@gmail.com</a></td>
-						<td>Compras en MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pendiente de pago</td>
-						<td>select</td>
-					</tr>
-					<tr>
-						<td scope="row"><input type="checkbox" name="mycheck"/></td>
-						<td>02/04/2011</td>
-						<td><a href="#">Valor de venta del producto</a></td>
-						<td><a href="#">usuariontest@gmail.com</a></td>
-						<td>Compras en MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pendiente de pago</td>
-						<td>select</td>
-					</tr>
-					<tr>
-						<td scope="row"><input type="checkbox" name="mycheck"/></td>
-						<td>02/04/2011</td>
-						<td><a href="#">Valor de venta del producto</a></td>
-						<td><a href="#">usuariontest@gmail.com</a></td>
-						<td>Compras en MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pendiente de pago</td>
-						<td>select</td>
-					</tr>
-				</tbody>
-			</table>
-	</div>
+		<h2>Pagination</h2>
+		
+		<ul class="pagination">
+			<li><a type="prev" href="#6">&lt; Anterior</a></li>
 
+			<li><a href="#1">1</a></li>
+			<li><a href="#2">2</a></li>
+			<li><a href="#3">3</a></li>
+			<li><a href="#4">4</a></li>
+			<li><a href="#5">5</a></li>
+			<li><a href="#6">6</a></li>
+
+			<li class="current">7</li>
+			<li><a href="#8">8</a></li>
+			<li><a href="#9">9</a></li>
+			<li><a href="#10">10</a></li>
+			<li><a type="next" href="#8">Siguiente &gt;</a></li>
+		</ul>
+
+	</div>
+	
+	<div class="box">
+		<table summary="Listado de cobros en MercadoPago">
+			<caption>Table</caption>
+			<thead>
+				<tr>
+					<th scope="col"><input type="checkbox" name="mycheckall"/></th>
+					<th scope="col">Datos de inicio</th>
+
+					<th scope="col">Tipo de operación</th>
+					<th scope="col" class="selected">Contraparte</th>
+					<th scope="col">Descripción</th>
+					<th scope="col">Valor</th>
+					<th scope="col">Status de la operación</th>
+					<th scope="col">Acciones</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td scope="row"><input type="checkbox" name="mycheck"/></td>
+					<td>02/04/2011</td>
+					<td><a href="#">Valor de venta del producto</a></td>
+					<td><a href="#">usuariontest@gmail.com</a></td>
+
+					<td>Compras en MercadoLibre</td>
+					<td><span class="value">$1200,30</span></td>
+					<td>Pendiente de pago</td>
+					<td>select	
+					</td>
+				</tr>
+				<tr class="selected">
+					<td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
+
+					<td>02/04/2011</td>
+					<td><a href="#">Valor de venta del producto</a></td>
+					<td><a href="#">usuariontest@gmail.com</a></td>
+					<td>Compras en MercadoLibre</td>
+					<td><span class="value">$1200,30</span></td>
+					<td>Pendiente de pago</td>
+
+					<td>select</td>
+				</tr>
+				<tr>
+					<td scope="row"><input type="checkbox" name="mycheck"/></td>
+					<td>02/04/2011</td>
+					<td><a href="#">Valor de venta del producto</a></td>
+					<td><a href="#">usuariontest@gmail.com</a></td>
+
+					<td>Compras en MercadoLibre</td>
+					<td><span class="value">$1200,30</span></td>
+					<td>Pendiente de pago</td>
+					<td>select</td>
+				</tr>
+				<tr>
+					<td scope="row"><input type="checkbox" name="mycheck"/></td>
+
+					<td>02/04/2011</td>
+					<td><a href="#">Valor de venta del producto</a></td>
+					<td><a href="#">usuariontest@gmail.com</a></td>
+					<td>Compras en MercadoLibre</td>
+					<td><span class="value">$1200,30</span></td>
+					<td>Pendiente de pago</td>
+
+					<td>select</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+ 
 	<div class="box"> 
 		<h2>Expando</h2> 
 		<div class="YOUR_SELECTOR_Expando"> 
@@ -159,107 +179,107 @@
 			</div> 
 		</div> 
 	</div> 
-
-
-	<div class="box">
-		<h2>Accordion</h2>
-		<ul class="YOUR_SELECTOR_Accordion">
-			<li>
-				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
-				<ul>
-
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
-				<ul>
-
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#">Link</a>
-			</li>
-			<li>
-				<a href="#">Link</a>
-			</li>
-		</ul>
-	</div>
-
-
-	<div class="box">
-		<h2>Menu</h2>
-		<ul class="YOUR_SELECTOR_Menu">
-			<li>
-				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
-				<ul>
-
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
-				<ul>
-
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#">Link</a>
-			</li>
-			<li>
-				<a href="#">Link</a>
-			</li>
-		</ul>
-	</div>
-
-
+ 
+ 
+	<div class="box"> 
+		<h2>Accordion</h2> 
+		<ul class="YOUR_SELECTOR_Accordion"> 
+			<li> 
+				<span>Item</span> 
+				<ul> 
+					<li><a href="#">Link 1</a></li> 
+					<li><a href="#">Link 2</a></li> 
+					<li><a href="#">Link 3</a></li> 
+				</ul> 
+			</li> 
+			<li> 
+				<span>Item</span> 
+				<ul> 
+ 
+					<li><a href="#">Link 1</a></li> 
+					<li><a href="#">Link 2</a></li> 
+					<li><a href="#">Link 3</a></li> 
+				</ul> 
+			</li> 
+			<li> 
+				<span>Item</span> 
+				<ul> 
+ 
+					<li><a href="#">Link 1</a></li> 
+					<li><a href="#">Link 2</a></li> 
+					<li><a href="#">Link 3</a></li> 
+				</ul> 
+			</li> 
+			<li> 
+				<span>Item</span> 
+				<ul> 
+					<li><a href="#">Link 1</a></li> 
+					<li><a href="#">Link 2</a></li> 
+					<li><a href="#">Link 3</a></li> 
+				</ul> 
+			</li> 
+			<li> 
+				<a href="#">Link</a> 
+			</li> 
+			<li> 
+				<a href="#">Link</a> 
+			</li> 
+		</ul> 
+	</div> 
+ 
+ 
+	<div class="box"> 
+		<h2>Menu</h2> 
+		<ul class="YOUR_SELECTOR_Menu"> 
+			<li> 
+				<span>Item</span> 
+				<ul> 
+					<li><a href="#">Link 1</a></li> 
+					<li><a href="#">Link 2</a></li> 
+					<li><a href="#">Link 3</a></li> 
+				</ul> 
+			</li> 
+			<li> 
+				<span>Item</span> 
+				<ul> 
+ 
+					<li><a href="#">Link 1</a></li> 
+					<li><a href="#">Link 2</a></li> 
+					<li><a href="#">Link 3</a></li> 
+				</ul> 
+			</li> 
+			<li> 
+				<span>Item</span> 
+				<ul> 
+ 
+					<li><a href="#">Link 1</a></li> 
+					<li><a href="#">Link 2</a></li> 
+					<li><a href="#">Link 3</a></li> 
+				</ul> 
+			</li> 
+			<li> 
+				<span>Item</span> 
+				<ul> 
+					<li><a href="#">Link 1</a></li> 
+					<li><a href="#">Link 2</a></li> 
+					<li><a href="#">Link 3</a></li> 
+				</ul> 
+			</li> 
+			<li> 
+				<a href="#">Link</a> 
+			</li> 
+			<li> 
+				<a href="#">Link</a> 
+			</li> 
+		</ul> 
+	</div> 
+ 
+ 
 	<div class="box"> 
 		<h2>Dropdown</h2>			
 		<div class="YOUR_SELECTOR_Dropdown"> 
 			<span>Primary</span> 
-
+ 
 			<ul> 
 				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
@@ -267,87 +287,87 @@
 				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
 			</ul> 
 		</div> 
-
-
+ 
+ 
 		<div class="YOUR_SELECTOR_Dropdown secondary"> 
-			<span>Secondary</span>
+			<span>Secondary</span> 
 			<ul> 
 				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
 				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li> 
 				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
-
+ 
 			</ul> 
 		</div> 
 	</div> 
-
-
-
+ 
+ 
+ 
 	<div class="box"> 
 		<h2>Tooltip</h2> 
 		<img class="YOUR_SELECTOR_Tooltip" title="Good seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif"> 
-
+ 
 	</div> 
-
-
+ 
+ 
 	<div class="box"> 
 		<h2>Layer</h2> 
 		<span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> | <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
 	</div> 
-
+ 
 	<div class="box"> 
 		<h2>Modal window</h2> 
 		
 		<form action="test.html"> 
-			<p class="actions">
-				<input type="submit" class="btn secondary YOUR_SELECTOR_Modal" value="Executed by submit input">
-				<a href="test.html" class="YOUR_SELECTOR_Modal">Executed by link.</a>
-			</p>
-		</form>
+			<p class="actions"> 
+				<input type="submit" class="btn secondary YOUR_SELECTOR_Modal" value="Executed by submit input"> 
+				<a href="test.html" class="YOUR_SELECTOR_Modal">Executed by link.</a> 
+			</p> 
+		</form> 
 	</div> 
-
+ 
 	<div class="box"> 
 		<h2>Transition window</h2> 
 		<form action="test.html"> 
 			<input type="submit" class="btn secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
 	</div> 
-
+ 
 	<div> 
-
-		<h2 class="container">Tab Navigator</h2>
-
+ 
+		<h2 class="container">Tab Navigator</h2> 
+ 
 		<div class="YOUR_SELECTOR_TabNavigator"> 
 			<ul> 
 				<li><a href="#tab1-b">Tab1</a></li> 
 				<li><a href="#tab2-b">Tab2</a></li> 
 				<li><a href="#tab3-b">Tab3</a></li> 
-
+ 
 			</ul> 
 			<div> 
-
+ 
 				<div id="tab1-b"> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
 				</div> 
-
+ 
 				<div id="tab2-b"> 
 					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p> 
-
+ 
 				</div> 
-
+ 
 				<div id="tab3-b"> 
 					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p> 
 				</div>				
 			</div> 
 	
 		</div> 
-
+ 
 	</div> 
-
+ 
 	<div class="box"> 
-
+ 
 		<h2>Carousel</h2> 
-
+ 
 		<div class="YOUR_SELECTOR_Carousel"> 
 			<ul class="carousel"> 
 				<li> 
@@ -355,7 +375,7 @@
 						<img width="63" height="64" alt="HTML5 Powered" src="http://www.w3.org/html/logo/badge/html5-badge-h-solo.png"> 
 					</div> 
 					<div class="ch-g4-5"> 
-
+ 
 						<h3>Open source</h3> 
 						<p>We love the open web, we want to collaborate to make a beautiful web. Our open platform is HTML5 + CSS3 + JavaScript.</p> 
 					</div> 
@@ -364,68 +384,54 @@
 					<div class="ch-g1-5"> 
 			
 					</div> 
-
+ 
 					<div class="ch-g4-5"> 
-
+ 
 						<h3>Fast by default</h3> 
 						<p>We are constantly testing to find the fastest way to solve code problems.</p> 
 					</div> 
 				</li> 
 				<li> 
 					<div class="ch-g1-5"> 
-
+ 
 			
 					</div> 
 					<div class="ch-g4-5"> 
-
+ 
 						<h3>Crossbrowsing</h3> 
 						<p>Still supporting old browsers: IE6+, FF2+, Chrome, Safari, Opera.</p> 
 					</div> 
 				</li> 
 				<li> 
-
+ 
 					<div class="ch-g1-5"> 
 			
 					</div> 
 					<div class="ch-g4-5"> 
-
+ 
 						<h3>Really easy to use</h3> 
 						<p>You don't need to know about code or what ever, just know you want to make amazing interfaces.</p> 
 					</div> 
 				</li> 
-
+ 
 			</ul> 
 		</div> 
-
+ 
 	</div> 
-
+ 
 	<div class="box"> 
 		<h2>Viewer</h2> 
 		<div class="YOUR_SELECTOR_Viewer"> 
 			<ul> 
 				<li> 
-					<object width="320" height="320"> 
-						<param name="movie" value="http://www.youtube.com/e/um-MD4vUK14?enablejsapi=1&version=3"></param> 
-						<param name="allowFullScreen" value="false"></param> 
-						<param name="allowScriptAccess" value="always"></param> 
-						<embed src="http://www.youtube.com/e/um-MD4vUK14?enablejsapi=1&version=3"
-							type="application/x-shockwave-flash"
-							allowfullscreen="false"
-							allowscriptaccess="always"
-							width="320" height="320"> 
-						</embed> 
-					</object> 
-				</li> 
-				<li> 
-					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=O" target="_blank"> 
+					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=F" target="_blank"> 
 						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=V"> 
-					</a> 
-					<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=M" itemprop="thumb" /> 
-					<link rel="zoom" href="http://10.100.34.210:8080/content/chico/0.5.5/labs/zoom/prototipo2/src/58557491_8009.jpg" itemprop="zoom" /> 
+					</a>
+					<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=M" itemprop="thumb" />  
 				</li> 
 				<li> 
 					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank"> 
-						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V"> 
+						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
 					</a> 
 					<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=M" itemprop="thumb" /> 
 				</li> 
@@ -435,7 +441,7 @@
 					</a> 
 					<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=M" itemprop="thumb" /> 
 				</li> 
-
+ 
 				<li> 
 					<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank"> 
 						<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V"> 
@@ -448,41 +454,48 @@
 					</a> 
 					<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=M" itemprop="thumb" /> 
 				</li> 
+				<li> 
+					<object width="320" height="320" type="application/x-shockwave-flash" data="http://www.youtube.com/e/um-MD4vUK14?enablejsapi=1&version=3">
+						<param name="movie" value="http://www.youtube.com/e/um-MD4vUK14?enablejsapi=1&version=3"></param> 
+						<param name="allowFullScreen" value="false"></param>
+						<param name="allowScriptAccess" value="always"></param>
+					</object>
+				</li> 		
 			</ul> 
 	
 		</div> 
 	</div> 
-
+ 
 	<div class="box"> 
-		<h2>Icons</h2>
-		<ul class="showroomIcons">
-			<li><span class="ico error">Error</span> Error</li>
-			<li><span class="ico help">Help</span> Help</li>
-			<li><span class="ico information">Info</span> Information</li>
-			<li><span class="ico attention">Attention</span> Attention</li>
-			<li><span class="ico ok">ok</span> OK</li>
-			<li><span class="ico check">check</span> Checked</li>
-		</ul>
+		<h2>Icons</h2> 
+		<ul class="showroomIcons"> 
+			<li><span class="ico error">Error</span> Error</li> 
+			<li><span class="ico help">Help</span> Help</li> 
+			<li><span class="ico information">Info</span> Information</li> 
+			<li><span class="ico attention">Attention</span> Attention</li> 
+			<li><span class="ico ok">ok</span> OK</li> 
+			<li><span class="ico check">check</span> Checked</li> 
+		</ul> 
 	</div> 
-
-
+ 
+ 
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
-
+ 
 		<form action="test.html" class="YOUR_SELECTOR_Form"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
-
+ 
 				<p class="required">* Required fields</p> 
 				<ol> 
 					<li class="fieldBox"> 
 						<label class="required" for="YOUR_SELECTOR_email"> 
-
+ 
 							<span>E-mail: <em>*</em></span>													
 							<input type="email" id="YOUR_SELECTOR_email" required="required"> 
 						</label> 
 						<p class="help">Short description about field</p> 
-
+ 
 					</li> 
 					<li class="fieldBox"> 
 						<label for="YOUR_SELECTOR_url"> 
@@ -491,29 +504,29 @@
 						</label> 
 					</li> 
 					<li class="fieldBox"> 
-
+ 
 						<label for="YOUR_SELECTOR_number"> 
 							<span>Numeric field:</span> 
-
+ 
 							<input type="number" id="YOUR_SELECTOR_number" min="20"> 
 						</label> 
 					</li> 
 					<li class="fieldBox"> 
 						<label for="YOUR_SELECTOR_range"> 
 							<span>Numeric range:</span> 
-
+ 
 							<input type="range" id="YOUR_SELECTOR_range" min="1" max="10"> 
 						</label> 
-
+ 
 					</li> 
 					<li class="fieldBox"> 
 						<label class="required disabled" for="YOUR_SELECTOR_required_disabled"> 
 							<span>Required disabled: <em>*</em></span> 
 							<input type="text" id="YOUR_SELECTOR_required_disabled" required="required" disabled="disabled"> 
 						</label> 
-
+ 
 					</li> 
-
+ 
 					<li class="fieldBox"> 
 						<label for="YOUR_SELECTOR_length"> 
 							<span>Characters:</span> 
@@ -521,9 +534,9 @@
 						</label> 
 					</li> 
 				</ol> 
-
+ 
 			</fieldset> 
-
+ 
 			<fieldset> 
 				<legend>Selects</legend> 
 				<ul> 
@@ -531,33 +544,33 @@
 						<label for="YOUR_SELECTOR_select1"> 
 							<span>Common field:</span> 
 							<select id="YOUR_SELECTOR_select1"> 
-
+ 
 								<option value="-1">Select one...</option> 
 								<option value="1">Option 1</option> 
 								<option value="2">Option 2</option> 
 								<option value="3">Option 3</option> 
 								<option value="4">Option 4</option> 
 							</select> 
-
+ 
 						</label> 
 					</li> 
-
+ 
 					<li class="fieldBox"> 
 						<label for="YOUR_SELECTOR_select2" class="required"> 
 							<span>Rquired: <em>*</em></span> 
 							<select id="YOUR_SELECTOR_select2" required="required"> 
 								<option value="-1">Select one...</option> 
-
+ 
 								<option value="1">Option 1</option> 
 								<option value="2">Option 2</option> 
 								<option value="3">Option 3</option> 
 								<option value="4">Option 4</option> 
 							</select> 
 						</label> 
-
+ 
 					</li> 
-
-
+ 
+ 
 					<li class="fieldBox"> 
 						<label for="YOUR_SELECTOR_select3" class="required disabled"> 
 							<span>Required disabled: <em>*</em></span> 
@@ -570,29 +583,29 @@
 							</select> 
 						</label> 
 					</li> 
-
+ 
 					<li class="fieldBox"> 
-
+ 
 						<label for="YOUR_SELECTOR_select4" class="disabled"> 
 							<span>Disabled:</span> 
-
+ 
 							<select id="YOUR_SELECTOR_select4" disabled="disabled"> 
 								<option value="-1">Select one...</option> 
 								<option value="1">Option 1</option> 
 								<option value="2">Option 2</option> 
 								<option value="3">Option 3</option> 
 								<option value="4">Option 4</option> 
-
+ 
 							</select> 
 						</label> 
 					</li> 
 				</ul> 
 			</fieldset> 
-
+ 
 			<fieldset> 
 				<legend>Checkbox</legend> 
 				<div class="YOUR_SELECTOR_check1 options"> 
-
+ 
 					<h4>Label of checkboxs group:</h4> 
 					<ul> 
 						<li class="fieldBox"> 
@@ -601,53 +614,53 @@
 								<span>Alpha</span> 
 							</label> 
 						</li> 
-
+ 
 	
 						<li class="fieldBox"> 
 							<label for="YOUR_SELECTOR_check1b"> 
 								<input type="checkbox" value="beta" id="YOUR_SELECTOR_check1b" name="version1"> 
 								<span>Beta</span> 
-
+ 
 							</label> 
 						</li> 
 					</ul> 
 				</div> 
-
+ 
 			</fieldset> 
-
+ 
 			<fieldset> 
 				<legend>Legend of required group <em>*</em></legend> 
-
+ 
 				<div class="YOUR_SELECTOR_check2 options required"> 
 					<ul> 
 						<li class="fieldBox"> 
 							<label for="YOUR_SELECTOR_check2a"> 
 								<input type="checkbox" value="alpha" id="YOUR_SELECTOR_check2a" name="version2"> 
-
+ 
 								<span>Alpha</span> 
 							</label> 
 						</li> 
-
+ 
 	
 						<li class="fieldBox"> 
 							<label for="YOUR_SELECTOR_check2b"> 
 								<input type="checkbox" value="beta" id="YOUR_SELECTOR_check2b" name="version2"> 
 								<span>Beta</span> 
 							</label> 
-
+ 
 						</li> 
 					</ul> 
 				</div> 
-
+ 
 			</fieldset> 
-
+ 
 			<fieldset> 
 				<legend>Legend of checkboxs group</legend> 
 				<div class="YOUR_SELECTOR_check3 required options"> 
 					<h4>Label of required group: <em>*</em></h4> 
-
+ 
 					<ul> 
-
+ 
 						<li class="fieldBox"> 
 							<label for="YOUR_SELECTOR_check3a"> 
 								<input type="radio" value="alpha" id="YOUR_SELECTOR_check3a" name="version3"> 
@@ -656,9 +669,9 @@
 						</li> 
 	
 						<li class="fieldBox"> 
-
+ 
 							<label for="YOUR_SELECTOR_check3b"> 
-
+ 
 								<input type="radio" value="beta" id="YOUR_SELECTOR_check3b" name="version3"> 
 								<span>Beta</span> 
 							</label> 
@@ -666,8 +679,8 @@
 					</ul> 
 				</div> 
 			</fieldset> 
-
-
+ 
+ 
 			<fieldset> 
 				<legend>Radio buttons</legend> 
 				<div class="YOUR_SELECTOR_radio1 options"> 
@@ -676,7 +689,7 @@
 							<label for="YOUR_SELECTOR_radio1a"> 
 								<input type="radio" value="alpha" id="YOUR_SELECTOR_radio1a" name="version4"> 
 								<span>Alpha</span> 
-
+ 
 							</label> 
 						</li> 
 	
@@ -686,7 +699,7 @@
 								<span>Beta</span> 
 							</label> 
 						</li> 
-
+ 
 					</ul> 
 				</div> 
 			</fieldset> 
@@ -695,9 +708,9 @@
 				<legend>Radio buttons required <em>*</em></legend> 
 				<div class="YOUR_SELECTOR_radio2 options required"> 
 					<ul> 
-
+ 
 						<li class="fieldBox"> 
-
+ 
 							<label for="YOUR_SELECTOR_radio2a"> 
 								<input type="radio" value="alpha" id="YOUR_SELECTOR_radio2a" name="version5"> 
 								<span>Alpha</span> 
@@ -706,9 +719,9 @@
 	
 						<li class="fieldBox"> 
 							<label for="YOUR_SELECTOR_radio2b"> 
-
+ 
 								<input type="radio" value="beta" id="YOUR_SELECTOR_radio2b" name="version5"> 
-
+ 
 								<span>Beta</span> 
 							</label> 
 						</li> 
@@ -717,18 +730,18 @@
 			</fieldset> 
 	
 			<fieldset> 
-
+ 
 				<legend>Legend of Radios group</legend> 
-
+ 
 				<div class="YOUR_SELECTOR_radio3 options required"> 
 					<h4 class="required">Radios required: <em>*</em></h4> 
 					<ul> 
 						<li class="fieldBox"> 
 							<label for="YOUR_SELECTOR_radio3a"> 
 								<input type="radio" value="alpha" id="YOUR_SELECTOR_radio3a" name="version6"> 
-
+ 
 								<span>Alpha</span> 
-
+ 
 							</label> 
 						</li> 
 	
@@ -736,75 +749,76 @@
 							<label for="YOUR_SELECTOR_radio3b"> 
 								<input type="radio" value="beta" id="YOUR_SELECTOR_radio3b" name="version6"> 
 								<span>Beta</span> 
-
+ 
 							</label> 
 						</li> 
-
+ 
 					</ul> 
 				</div> 
 			</fieldset> 
-
+ 
 			<fieldset> 
 				<legend>Textarea</legend> 
-
+ 
 				<ul> 
 					<li class="fieldBox"> 
 						<label for="YOUR_SELECTOR_textarea1"> 
-
+ 
 							<span>Textarea:</span> 
 							<textarea id="YOUR_SELECTOR_textarea1"></textarea> 
 						</label> 
 					</li> 
-
-
+ 
+ 
 					<li class="fieldBox"> 
 						<label for="YOUR_SELECTOR_textarea2" class="required"> 
 							<span>Obligatorio: <em>*</em></span> 
-
+ 
 							<textarea id="YOUR_SELECTOR_textarea2" required="required"></textarea> 
 						</label> 
 					</li> 
-
+ 
 					<li class="fieldBox"> 
-
+ 
 						<label for="YOUR_SELECTOR_textarea3" class="required disabled"> 
 							<span>Required disabled: <em>*</em></span> 
 							<textarea id="YOUR_SELECTOR_textarea3" required="required" disabled="disabled"></textarea> 
-
+ 
 						</label> 
 					</li> 
-
+ 
 					<li class="fieldBox"> 
 						<label for="YOUR_SELECTOR_textarea4" class="disabled"> 
-
+ 
 							<span>Disabled:</span> 
 							<textarea id="YOUR_SELECTOR_textarea4" disabled="disabled"></textarea> 
 						</label> 
 					</li> 
-
+ 
 				</ul> 
 			</fieldset> 
-
-			<p class="actions">
+ 
+			<p class="actions"> 
 				<input type="submit" value="Send" class="btn primary"> 
 				<input type="reset" value="Cancel" class="btn secondary"> 
 				<a href="#" class="resetForm">Reset validations</a> 
 			</p> 
 		</form> 
-
+ 
 	</div> 
-
-
+ 
+ 
 	<div class="box"> 
 		<h2>CodeLighter</h2> 
 		<code> 
-			<pre name="code" class="xml"><div id="Foo" class="Foobar">
+			<pre name="code" class="xml"><div id="Foo" class="Foobar"> 
 	<!-- Lorem ipsum dolor sit amet --> 
-	<p id="Foobar" title="Lorem ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-</div></pre>
+	<p id="Foobar" title="Lorem ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> 
+
+</div></pre> 
 		</code> 
 		
-		<code>
+		<code> 
 			<pre name="code" class="js">var paint = function() {
 	var reg;
 	
@@ -826,12 +840,12 @@
 		};
 	};
 };
-
-$("#Foobar").email().and().required().and().minLength(6);</pre>
+ 
+$("#Foobar").email().and().required().and().minLength(6);</pre> 
 		</code>		
 		
 		<code> 
-		<pre name="code" class="css">
+		<pre name="code" class="css"> 
 pre {
 	font-family: Monospace, "Monotype Corsiva";
 	background-color:#fdf6e3;
@@ -843,85 +857,73 @@ pre {
     padding: 10px;
     color:#657b83;
 }
-
+ 
 /* xml */
 .ch-tag{color:#268bd2;}
 .ch-attrName{color:#93a1a1;}
-
+ 
 /* js */
 .ch-keywords{color:#268bd2;}
 .ch-atom{color:#dc322f;}
 .ch-operator{color:#cb4b16;}
-
+ 
 /* css */
 .ch-selector{color:#859900;}
 .ch-property{color:#b58900;}</pre> 
 </code> 
 	</div> 
 	
-	<script src="libs/js/jquery-1.5.1.js"></script>
-	<script src="php/packer.php?debug=true"></script>
+	<script src="../libs/js/jquery.js"></script> 
+	<script src="../php/packer.php"></script> 
 	
 	<script> 
-		$(".mainNav a").bind("click", function(event){
-			event.preventDefault();
-			$("#flavors").attr("href", this.href);
-			
-			
-		})
 		
-		// Automatic version
-        var title = document.title + ' ' + ch.version;
-        document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
-        document.getElementsByTagName("h1")[0].innerHTML = title;
-		
-		
-		// Components
-		
-		// Accordion
+		/* Accordion */
 		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
 			selected: "0#1"
 		});
 		
-		// Menu
+		/* Menu */
 		var ch_menu = $(".YOUR_SELECTOR_Menu").menu();
 		
-		// Dropdown
+		/* Dropdown */
 		var ch_drop = $(".YOUR_SELECTOR_Dropdown").dropdown();
 		
-		// Carousel
+		/* Carousel */
 		var ch_caro = $(".YOUR_SELECTOR_Carousel").carousel({
 			pager:true
 		});
 		
-		// Modal
+		/* Modal */
 		var ch_moda = $(".YOUR_SELECTOR_Modal").modal();
 		
-		// Transition
+		/* Transition */
 		var ch_tran = $(".YOUR_SELECTOR_Transition").transition();
 		
-		// Layer on click
+		/* Layer on click */
 		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
 			event: "click",
 			content: "<p>foo</p>"
 		});
 		
-		// Layer on mouseover
+		/* Layer on mouseover */
 		var ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
 		
-		// Tooltip
+		/* Tooltip */
 		var ch_tool = $(".YOUR_SELECTOR_Tooltip").tooltip();
 		
-		// Tab Navigator
+		/* Tab Navigator */
 		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator();
 		
-		// Expando
+		/* Expando */
 		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
 		
-		// Form
-		var ch_form = $('.YOUR_SELECTOR_Form').form();
+		/* Form */
+		var ch_form = $('.YOUR_SELECTOR_Form').form({
+			general: "General message on top"
+		});
 		
-		// Watchers
+		/* Watchers */
 		var ch_wch1 = $("#YOUR_SELECTOR_email").email().and().minLength(20).and().required();
 		var ch_wch2 = $("#YOUR_SELECTOR_url").url();
 		var ch_wch3 = $("#YOUR_SELECTOR_number").number().and().min(20);
@@ -929,14 +931,13 @@ pre {
 		var ch_wch5 = $("#YOUR_SELECTOR_length").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#YOUR_SELECTOR_required_disabled, #YOUR_SELECTOR_select2, #YOUR_SELECTOR_select3, .YOUR_SELECTOR_check2, .YOUR_SELECTOR_check3, .YOUR_SELECTOR_radio2, .YOUR_SELECTOR_radio3, #YOUR_SELECTOR_textarea2, #YOUR_SELECTOR_textarea3").required();
 		
-		// Viewer
+		/* Viewer */
 		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer();
 		
-		// Codelighter
+		/* Codelighter */
 		var ch_code = ch.codelighter();
 		
-	</script>
+	</script>	
 
-	
-	</body>
+</body>
 </html>
