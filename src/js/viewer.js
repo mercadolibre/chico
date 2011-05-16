@@ -11,9 +11,6 @@ ch.viewer = function(conf){
  */
 	var that = this;
 
-	conf.width = conf.width || 320;
-	conf.height = conf.height || 320;
-
 	conf = ch.clon(conf);
 	that.conf = conf;
 	
@@ -31,8 +28,10 @@ ch.viewer = function(conf){
 	/**
 	 * 	Viewer
 	 */
-	var $viewer = that.$element.addClass("ch-viewer").width(conf.width);
-		
+	var $viewer = that.$element.addClass("ch-viewer");
+	conf.width = $viewer.outerWidth();
+	conf.height = $viewer.outerHeight();
+	
 	var $content = $viewer.children().addClass("ch-viewer-content carousel");
 
 	/**
