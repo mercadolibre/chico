@@ -7,16 +7,6 @@
 	cursor:crosshair;
 }
 
-/* Magnifying glass */
-/*.ch-zoom-trigger .ch-lens {
-	: url('../src/assets/zoom.png');
-	width:41px;
-	height:41px;
-	position:absolute;
-	bottom:0;
-	right:0;
-}*/
-
 /* Seeker shape */
 .ch-zoom-trigger .ch-seeker {
 	background-color:rgba(0,0,255,.1);
