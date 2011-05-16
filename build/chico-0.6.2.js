@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, accordion, zoom
+  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, keyboard, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, accordion, zoom
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -24,7 +24,7 @@ var ch = window.ch = {
 
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,accordion,zoom",
 
-    internals: "positioner,object,floats,navs,controllers,watcher,sliders",
+    internals: "positioner,object,floats,navs,controllers,watcher,sliders,keyboard",
 
     instances: {},
     
@@ -1557,6 +1557,26 @@ ch.sliders = function() {
 	return that;
 	
 };/**
+ *  Keyboard
+ */
+ 
+ch.keyboard = function(event) {
+    
+    var keyCodes = {
+        "13": "ENTER",
+        "27": "ESC",
+        "37": "LEFT_ARROW",
+        "38": "UP_ARROW",
+        "39": "RIGHT_ARROW",
+        "40": "DOWN_ARROW"
+    };
+    
+    if( !keyCodes.hasOwnProperty(event.keyCode) ) return;
+    
+    ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ], event);
+    
+};
+/**
  *	Carousel
  *	@author
  *	@Contructor
@@ -3316,9 +3336,6 @@ ch.viewer = function(conf){
  */
 	var that = this;
 
-	conf.width = conf.width || 320;
-	conf.height = conf.height || 320;
-
 	conf = ch.clon(conf);
 	that.conf = conf;
 	
@@ -3336,8 +3353,10 @@ ch.viewer = function(conf){
 	/**
 	 * 	Viewer
 	 */
-	var $viewer = that.$element.addClass("ch-viewer").width(conf.width);
-		
+	var $viewer = that.$element.addClass("ch-viewer");
+	conf.width = $viewer.outerWidth();
+	conf.height = $viewer.outerHeight();
+	
 	var $content = $viewer.children().addClass("ch-viewer-content carousel");
 
 	/**
