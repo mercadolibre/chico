@@ -1960,28 +1960,16 @@ pre {
 /* Anchor */
 .ch-zoom-trigger {
 	position:relative;
-	display:inline-block;
 	overflow:hidden;
-}
-
-/* Magnifying glass */
-.ch-zoom-trigger .ch-lens {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACkAAAApCAYAAACoYAD2AAAB4UlEQVRYw+2YTUrFMBDHcw4P8C7wzuE1vIDHKO66Erqsu26ELosuuiwIFgSLYHkLi2ARLAgFIeb/oDCEfuSjH1k0MNvkNzP/mUnCmFie5x2FXQu7dciuhB0452fAS2GZw3YE5KPjkHfMccCz7ZCbQQZB8Jym6amu618urbZt/8qy/I7j+G0TSN/3n/I8/+SKq2maNoqi19UgwzB8waHcYMGxxSEBiDTKacXhiBQi3MkgSZL3qqp+ZNCiKL4WgwSArD0c2IENGeBlx6DjRSBlDWZZ9qGjYdlBRHtWSGxID0DVmnQCGlHTtA9CIj1Ug1MpHjJE33afQUhaADYVCigaTZMeOghJN7btd9RhHV1PQlI9mqa6L+WLQdo241Ug0dBtIFHVi0DSHodJYgNJR6rJXkzFewCbAqLobBs6U93c9PpFK9vUWaZ6AFqSrjZpwdjIhumkSge07+6JSM46cfrGI51AQ9qCY33XNRtQZhqV7kBcPJBWgMnXs7lAlZ8P0JMqxNygTPeygKhNwSKqSDttYzagzKb/Qa+A7gxtStbqHKCrvLttQVf7HJgCHXsDrfqDMQY6NtFW/2bpA52aRJv8BVFQlVG52YcV4FRH7P71t0O6CHnvOOQNIA/CHhwFRAAv/gECp32EQAuexwAAAABJRU5ErkJggg==');
-/*zoom*/*background-image: url('../src/assets/zoom.png');
-	width:41px;
-	height:41px;
-	position:absolute;
-	bottom:0;
-	right:0;
+	cursor:default;
+	display:block;
+	cursor:crosshair;
 }
 
 /* Seeker shape */
 .ch-zoom-trigger .ch-seeker {
 	background-color:rgba(255,0,0,.1);
-	border:1px solid #DF2D1B;
-	cursor:zoom-in;
-	cursor:-moz-zoom-in;
-	cursor:-webkit-zoom-in;
+	border:1px solid #f00;
 	position:absolute;
 }
 
