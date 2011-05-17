@@ -128,7 +128,7 @@ ch.transition = function(conf) {
 	conf.msg = conf.msg || "Please wait...";
 	conf.content = $("<div>")
 		.addClass("loading")
-		.append( $("<p>").html(conf.msg) );
+		.after( $("<p>").html(conf.msg) );
 
 	return ch.modal.call(this, conf);
     
