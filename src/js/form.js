@@ -80,6 +80,9 @@ ch.form = function(conf){
 				if ( !status ) removeError();			
 				createError();
 				status = false;
+				// Issue UI-332: On validation must focus the first field with errors.
+				// Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
+				that.children[i].element.focus();
 				return;
 			};
 		};
@@ -99,9 +102,6 @@ ch.form = function(conf){
 		// Shoot validations
 		for(var i = 0, j = that.children.length; i < j; i ++){
 			that.children[i].validate();
-			// Issue UI-332: On validation must focus the first field with errors.
-			// Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-			if (i==0) that.children[i].element.focus();
 		};
 
 		checkStatus();
