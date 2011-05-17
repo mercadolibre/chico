@@ -121,17 +121,17 @@ ch.modal = function(conf){
  */
  
 ch.transition = function(conf) {
-    
+
     conf = conf || {};
-	
+
 	conf.closeButton = false;
-	conf.msg = conf.msg || "Please wait...";
+	conf.msg = conf.msg || conf.content || "Please wait...";
 	conf.content = $("<div>")
 		.addClass("loading")
 		.after( $("<p>").html(conf.msg) );
 
 	return ch.modal.call(this, conf);
-    
-}
+
+};
 
 ch.factory({ component: 'transition' });
