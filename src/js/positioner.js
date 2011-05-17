@@ -1,46 +1,60 @@
-// @arg o == configuration
-/*   References
-     points: x, y 
-         x values: center, left, right
-         y values: middle, top, bottom
-         
-     examples:
-         "cm" = center middle
-         "tl" = top left
-         "tr" = top right
-         "bl" = bottom left
-         "br" = bottom right
-
-    example configuration:
-    {
-        element: $element
-        [context]: $element | viewport
-        [offset]: "x y" 
-        [points]: "cm cm" // default
-        [hold]: false // default
-        [draggable]: false // default
-        
-    } */
-ch.positioner = function(o) {
 
 /**
- *  Private Members
+ * Positioner is a utility that resolve positioning problem for all UI-Objects.
+ *
+ * @class Positioner
+ * @requires ch
+ * @param {Position Object} o Object with positioning properties
+ * @return {jQuery Object}
  */
+ch.positioner = function(o) {
 
+    
+    /**
+     * Object that contains all properties for positioning
+     * @private
+     * @example
+     * ch.positioner({
+     *   element: $element
+     *   [context]: $element | viewport
+     *   [points]: "cm cm"
+     *   [offset]: "x y" 
+     *   [hold]: false
+     * });
+     */
 	var o = o || this.conf.position;
-
-    // Initial configuration
+        o.points = o.points || "cm cm";
+        o.offset = o.offset || "0 0";
+    
+    /**
+     * Reference to the DOM Element beign positioned
+     * @private
+     */
 	var element = $(o.element);
 		element.css("position","absolute");
-	var context;
-	var viewport;
-	var parentRelative;
     
-	// Default parameters 
-    o.points = o.points || "cm cm";
-    o.offset = o.offset || "0 0";
+    /**
+     * Reference to the DOM Element that we will use as a reference
+     * @private
+     */
+	var context;
+    
+    /**
+     * Reference to the Window Object and it's size
+     * @private
+     */
+	var viewport;
+	
+    /**
+     * Reference to the element beign positioned
+     * @private
+     */
+	var parentRelative;
 
-    // Class names
+    /**
+     * A map to reference the input points to output className
+     * @private
+     */
     var classReferences = {
 		"lt lb": "down",
 		"lb lt": "top",
@@ -50,19 +64,34 @@ ch.positioner = function(o) {
 		"cm cm": "center"
 	};
 
-	// Offset parameter
+    /**
+     * Array with offset information
+     * @private
+     */
     var splittedOffset = o.offset.split(" ");
+   	/**
+     * String with left offset information
+     * @private
+     */
    	var offset_left = parseInt(splittedOffset[0]);
-	var offset_top = parseInt(splittedOffset[1]);
+   	/**
+     * String with top offset information
+     * @private
+     */
+    var offset_top = parseInt(splittedOffset[1]);
 
-    // Get viewport with your configuration - Crossbrowser
-    //Conditional Advance Loading method
-	var getViewport = (typeof window.innerWidth != "undefined") ?
-		// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight 	
-		function getViewport() {
-			var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;							
-			
-			viewport = window;
+    /**
+     * Get the viewport size
+     * @private
+     * @return {Viewport Object}
+     */
+	var getViewport = function() {
+        
+        var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;	    
+	    	    
+        // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+	    if (typeof window.innerWidth != "undefined") {
+		    viewport = window;
 			width = viewport.innerWidth - scrollBar;
 			height = viewport.innerHeight;
 			pageX = viewport.pageXOffset;
@@ -78,17 +107,16 @@ ch.positioner = function(o) {
 				width: width,
 				height: height
 			}
-		}:		
-		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
-		// older versions of IE - viewport = document.getElementsByTagName('body')[0];
-		function getViewport(){
-			var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;
-			
+		}
+        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+        // older versions of IE - viewport = document.getElementsByTagName('body')[0];		
+		else {
 			viewport = document.documentElement;
 			width = viewport.clientWidth - scrollBar;
 			height = viewport.clientHeight;
 			pageX = viewport.scrollLeft;
 			pageY = viewport.scrollTop;
+			
 			// Return viewport object
 			return {
 				element: viewport,			
@@ -99,10 +127,16 @@ ch.positioner = function(o) {
 				width: width,
 				height: height
 			}
-		};
+	    }
+	    
+	};
 	
  	
-	// Calculate css left and top to element on context
+	/**
+     * Calculate css left and top to element on context
+     * @private
+     * @return {Axis Object}
+     */
 	var getPosition = function(unitPoints) {		     
 		// my_x and at_x values together
 		// cache properties 
@@ -139,7 +173,11 @@ ch.positioner = function(o) {
 		return axis;
 	};
 	
-	// Evaluate viewport spaces and set points
+    /**
+     * Evaluate viewport spaces and set points
+     * @private
+     * @return {Styles Object}
+     */
 	var calculatePoints = function(points, unitPoints){					
 		// Default styles
         var styles = getPosition(unitPoints);
@@ -198,7 +236,10 @@ ch.positioner = function(o) {
 	};
 	
 	
-	// Set position to element on context
+    /**
+     * Set position to element
+     * @private
+     */
 	var setPosition = function() {
 		// Separate points config
         var splitted = o.points.split(" ");
@@ -228,28 +269,36 @@ ch.positioner = function(o) {
 
 	};	
 
-	// Get context	
-	//Conditional Advance Loading method
-	var getContext = (o.context) ?		
-		function getContext(){
-
-			var contextOffset = o.context.offset();
-
-		    context = {
-		    	element: o.context,
-				top: contextOffset.top + offset_top - parentRelative.top,
-				left: contextOffset.left + offset_left - parentRelative.left,
-				width: o.context.outerWidth(),
-				height: o.context.outerHeight()
-		    };
-
-		    return context;
-		}:
-		function getContext(){
-			return viewport;
-		};
+    /**
+     * Get context element for positioning, if ain't one, select the viewport as context.
+     * @private
+     * @return {Context Object}
+     */
+	var getContext = function(){
+	    
+	    if (!o.context) {
+	        return viewport;
+	    }
+	     
+        var contextOffset = o.context.offset();
+        
+        context = {
+            element: o.context,
+            top: contextOffset.top + offset_top - parentRelative.top,
+            left: contextOffset.left + offset_left - parentRelative.left,
+            width: o.context.outerWidth(),
+            height: o.context.outerHeight()
+        };
+        
+        return context;	        
+	    
+	};
 	
-	
+    /**
+     * Get offset values from relative parents
+     * @private
+     * @return {Offset Object} 
+     */
 	var getParentRelative = function(){
 		
 		var relative = {};
@@ -275,23 +324,22 @@ ch.positioner = function(o) {
 		
 	};
 	
-
-    var initPosition = function(){			
-	    viewport = getViewport();
-	    parentRelative = getParentRelative();
-	    context = getContext();
-	    setPosition();
-    }; 
  	 
 	var scrolled = false;
 
 /**
- *  Default event delegation
- */ 
-
-	// Init	
+ * Constructs a new positioning, get viewport size, check for relative parent's offests, find the context and set the position. 
+ * @constructor
+ */
+	var initPosition = function(){
+    	viewport = getViewport();
+        parentRelative = getParentRelative();
+        context = getContext();
+        setPosition();        
+	};
+	
 	initPosition();
-
+    
 	// Scroll and resize events
 	// Tested on IE, Magic! no lag!!
 	ch.utils.window.bind("resize scroll", function() {
@@ -308,3 +356,4 @@ ch.positioner = function(o) {
 	
 	return $(element);
 };
+
