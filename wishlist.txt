@@ -1,0 +1,5 @@
+Lean:    Humanst.txt
+Guille:  Webworkers.
+Naty:    Que Custom-Download soporte flavors.
+Natan:   Crear chico lite, distribuido.
+

@@ -60,7 +60,7 @@ ch.floats = function() {
 		if( conf.hasOwnProperty("classes") ) that.$container.addClass(conf.classes);
 		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
-		if( conf.hasOwnProperty("closeButton") ) createClose();
+		if( conf.hasOwnProperty("closeButton") && conf.closeButton ) createClose();
 		if( conf.hasOwnProperty("cone") ) createCone();
 		if( conf.hasOwnProperty("fx") ) conf.fx = conf.fx; else conf.fx = true;
 		
