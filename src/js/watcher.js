@@ -14,7 +14,7 @@
  * @see ch.Custom
  */
 
-ch.Watcher = function(conf) {
+ch.watcher = function(conf) {
 
 // Private members
 

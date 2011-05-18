@@ -6,7 +6,7 @@
  * @memberOf ch
  */
  
-ch.Cache = {
+ch.cache = {
 
     /**
      * Map of resources cached

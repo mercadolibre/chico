@@ -10,7 +10,7 @@
  * @see ch.Watcher
  */
  
-ch.Object = function(){
+ch.object = function(){
 	
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.

@@ -14,7 +14,7 @@
  * $("element").layer("<p>Content.</p>");
  */ 
 
-ch.Layer = function(conf) {
+ch.layer = function(conf) {
     
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.

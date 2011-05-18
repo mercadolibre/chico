@@ -11,7 +11,7 @@
  * @see ch.Form
  */
  
-ch.Controllers = function(){
+ch.controllers = function(){
 
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.

@@ -11,7 +11,7 @@
  * @see ch.Layer
  */ 
 
-ch.Modal = function(conf){
+ch.modal = function(conf){
 
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.

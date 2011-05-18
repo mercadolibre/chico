@@ -9,7 +9,7 @@
  * @return {Chico-UI Object}
  */
 
-ch.Dropdown = function(conf){
+ch.dropdown = function(conf){
 
 
     /**

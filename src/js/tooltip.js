@@ -9,7 +9,7 @@
  * @return {Chico-UI Object}
  */
 
-ch.Tooltip = function(conf) {
+ch.tooltip = function(conf) {
     
     
     /**

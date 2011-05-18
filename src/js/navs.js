@@ -11,7 +11,7 @@
  * @see ch.Expando
  */
  
-ch.Navs = function(){
+ch.navs = function(){
 	
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.

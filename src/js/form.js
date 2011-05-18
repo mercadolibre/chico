@@ -9,7 +9,7 @@
  * @return {Chico-UI Object}
  */
 
-ch.Form = function(conf) {
+ch.form = function(conf) {
 
 /**
  *  Validation

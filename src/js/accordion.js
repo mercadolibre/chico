@@ -9,7 +9,7 @@
  * @return {Chico-UI Object}
  */
  
-ch.Accordion = function(conf){
+ch.accordion = function(conf){
 
 // Private members
 

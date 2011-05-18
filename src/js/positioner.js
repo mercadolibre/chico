@@ -22,7 +22,7 @@
  * });
  */
  
-ch.Positioner = function(o) {
+ch.positioner = function(o) {
 
     /**
      * Constructs a new positioning, get viewport size, check for relative parent's offests, 

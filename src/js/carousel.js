@@ -9,7 +9,7 @@
  * @return {Chico-UI Object}
  */
  
-ch.Carousel = function(conf){
+ch.carousel = function(conf){
 	
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.

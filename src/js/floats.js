@@ -12,7 +12,7 @@
  * @see ch.Modal
  */ 
 
-ch.Floats = function() {
+ch.floats = function() {
 
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
