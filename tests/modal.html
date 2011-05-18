@@ -538,7 +538,7 @@
 
             expect( 1 );
 
-       		equal( testTransition2.content().children().html(), "Wait to validate the test, please...", "Expected to find a custom message on the transition content");
+       		equal( testTransition2.content()[1].innerHTML, "Wait to validate the test, please...", "Expected to find a custom message on the transition content");
 
         });
         	

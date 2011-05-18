@@ -74,7 +74,7 @@ ch.layer = function(conf) {
         	clearTimers();    
         	that.$container
         		.one("mouseenter", clearTimers)
-        		.bind("mouseleave", function(event){
+        		.one("mouseleave", function(event){
 					var target = event.srcElement || event.target;
 					var relatedTarget = event.relatedTarget || event.toElement;
 					var relatedParent = relatedTarget.parentNode;

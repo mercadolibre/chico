@@ -51,7 +51,7 @@ ch.floats = function() {
         	.html( that.loadContent() );
 		
     	that.$container = $("<div>")
-    		.addClass("ch-hide ch-" + that.type)
+    		.addClass("ch-" + that.type)
     		.css("z-index", ch.utils.zIndex ++)
     		.append( that.$content )
     		.appendTo("body");
@@ -150,7 +150,10 @@ ch.floats = function() {
 			// Append the content of BODY
 			var content = conf.content || conf.msg;
 			
-			if(ch.utils.isSelector(content)) {
+			if (ch.utils.isSelector(content)) {
+
+				if ($("body " + content + ".ch-hide").length > 0) return false;
+
 				that.$content.children()
 					.clone()
 					.addClass("ch-hide")
