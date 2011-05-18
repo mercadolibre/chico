@@ -1,19 +1,26 @@
-/**
- *	@class Modal. Create and manage modal windows
- *  @requires: floats.
- *	@return Public Object.
- */
-
-ch.modal = function(conf){
 
 /**
- *	Constructor
- *	Guardo el contexto de ejecucion (this) que viene con 3 propiedades del factory (uid, element, type).
- *	Luego, seteamos la configuracion básica del componente y lo guardamos en el contexto para que llegue a sus padres cuando pasamos el contexto (that.conf).
- */
+ * Is a centered floated window UI-Object.
+ * @name Modal
+ * @class Modal
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Tooltip
+ * @see ch.Layer
+ */ 
 
-	var that = this;
+ch.Modal = function(conf){
 
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Modal
+     */
+  	var that = this;
 	conf = ch.clon(conf);
 	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default	
 	conf.closeButton = (that.type == "modal") ? true : false;
@@ -32,13 +39,25 @@ ch.modal = function(conf){
  *  Private Members
  */
 
-	// Dimmer object
+    /**
+     * Reference to the dimmer object, the gray background element.
+     * @private
+     * @name $dimmer
+     * @type {jQuery Object}
+     * @memberOf ch.Modal
+     */
 	var $dimmer = $("<div>").addClass("ch-dimmer");
 	
 	// Set dimmer height for IE6
 	if (ch.utils.html.hasClass("ie6")) { $dimmer.height( parseInt(document.documentElement.clientHeight, 10) * 3) };
 	
-	// Dimmer Controller
+    /**
+     * Reference to dimmer control, turn on/off the dimmer object.
+     * @private
+     * @name dimmer
+     * @type {Object}
+     * @memberOf ch.Modal
+     */
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
 			$dimmer
@@ -84,23 +103,71 @@ ch.modal = function(conf){
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Modal
+     */
    	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Modal
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Modal
+     */
 	that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Modal
+     */
 	that["public"].content = that.content;
-	
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Modal
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Modal
+     */ 
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Modal
+     */
 	that["public"].position = that.position;
  
 /**
@@ -114,10 +181,12 @@ ch.modal = function(conf){
 };
 
 
-
 /**
- *	@Interface Transition
- *	@return An interface object
+ * Transition
+ *
+ * @interfaces Transition
+ * @augments Modal
+ * @return {Object}
  */
  
 ch.transition = function(conf) {

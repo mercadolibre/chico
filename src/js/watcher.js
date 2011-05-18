@@ -1,43 +1,46 @@
-/**
- *	Field validation Watcher
- *	@return An interface object
- */
-
-ch.watcher = function(conf) {
 
 /**
- *  Validation
+ * Watcher is a validation engine for html forms elements.
+ * @name Watcher
+ * @class Watcher
+ * @augments ch.Object
+ * @memberOf ch
+ * @requires ch.Form
+ * @param {Configuration Object} o Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Required
+ * @see ch.String
+ * @see ch.Number
+ * @see ch.Custom
  */
 
-    /*if ( !conf ) {
-        alert("Watcher fatal error: Need a configuration object to create a validation.");
-    };*/
+ch.Watcher = function(conf) {
 
-/**
- *  Constructor
- */
+// Private members
 
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Watcher
+     */
 	var that = this;
-	
 	conf = ch.clon(conf);
 	that.conf = conf;	
 
-/**
- *  Inheritance
- */
-
+    // Inheritance
     that = ch.object.call(that);
     that.parent = ch.clon(that);
 	
 	
-/**
- *  Private Members
- */
-	
-	// Enabled
-	
-	
-	// Get my parent or set it
+    /**
+     * Reference to a ch.form controller. If there isn't any, the Watcher instance will create one.
+     * @private
+     * @name controller
+     * @type {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	var controller = (function() {
 		if ( ch.instances.hasOwnProperty("form") && ch.instances.form.length > 0 ) {	
 		  var i = 0, j = ch.instances.form.length; 
@@ -53,24 +56,26 @@ ch.watcher = function(conf) {
 		};
 	})();
 	
- 	//  Check for instances with the same trigger	
+    
+    /**
+     * Will search for instances of Watchers with the same trigger, and then merge it's properties with it.
+     * @private
+     * @function
+     * @name checkInstance
+     * @return {Instance Object}
+     * @memberOf ch.Watcher
+     */	
 	var checkInstance = function() {
         var instance = ch.instances.watcher;
-        
         if ( instance && instance.length > 0 ) {
-			for (var i = 0, j = instance.length; i < j; i ++) {            	                
-                
+			for (var i = 0, j = instance.length; i < j; i ++) {
                 if (instance[i].element !== that.element) continue;
-        	    
         	    // Merge Validations        	    
                 $.extend(instance[i].validations, that.validations);
-        	    
         	    // Merge Conditions        	    
                 $.extend(instance[i].conditions, that.conditions);
-
                 // Merge Messages
                 $.extend(instance[i].messages, that.messages);
-                
                 // Merge types
         	    instance[i].types = mergeTypes(instance[i].types);
 
@@ -83,7 +88,16 @@ ch.watcher = function(conf) {
         };
     };
     
-	var mergeTypes = function (types) {
+    /**
+     * Given an Array of types will merge with the current types and will return the new collection.
+     * @private
+     * @function
+     * @name mergeTypes
+     * @param {Array} types Collection of types
+     * @return {Instance Object}
+     * @memberOf ch.Watcher
+     */
+	var mergeTypes = function(types) {
         if (!types || types == "") {
             return conf.types;
         } else {
@@ -109,25 +123,34 @@ ch.watcher = function(conf) {
         }    
     };
     
-	// Revalidate
+    /**
+     * Run all validations again and do form.checkStatus()
+     * @private
+     * @function
+     * @name revalidate
+     * @memberOf ch.Watcher
+     */
 	var revalidate = function() {		
 		that.validate();
         controller.checkStatus();  // Check everthing?
 	}; 
 
+// Protected Members 
 
-/**
- *  Protected Members
- */ 
-
-    // Status
+    /**
+     * Active is a boolean property that let you know if there's a validation going on.
+     */
 	that.active = false;
 	
-	// Enabled
-	that.enabled = true;
+    /**
+     * Enabled is a boolean property that let you know if the watchers is enabled or not.
+     */	
+    that.enabled = true;
 	
-	// Reference: for the Positioner
-	that.reference = (function() {
+    /**
+     * Reference is used to assign a context to the positioning preferences.
+     */
+ 	that.reference = (function() {
         var reference;
         // CHECKBOX, RADIO
         if ( that.$element.hasClass("options") ) {
@@ -148,7 +171,9 @@ ch.watcher = function(conf) {
         return reference;
     })();
 
-	// Validations Map - Collect validations
+    /**
+     * Validations is a map with all configured validations.
+     */
 	that.validations = (function() {
         var collection = {};
         var types = conf.types.split(",");
@@ -165,7 +190,9 @@ ch.watcher = function(conf) {
     })();
 
 
-	// Conditions Map
+	/**
+     * Conditions is a map with all configured conditions.
+     */
 	that.conditions = (function() {
         var collection = {};        
         var types = conf.types.split(",");
@@ -180,15 +207,17 @@ ch.watcher = function(conf) {
 
         return collection;
     })();
-
-
 	
-    // Messages
-
+    /**
+     * Messages is a map with all configured messages.
+     */
     that.messages = ch.clon(conf.messages);
  
-    // Helper
-    var helper = {};
+    /**
+     * Helper is a UI Component that shows the messages of active validations.
+     * @type {Chico-UI Object}
+     */
+     var helper = {};
 		helper.uid = that.uid + "#0";
 		helper.type = "helper";
 		helper.element = that.element;
@@ -196,8 +225,10 @@ ch.watcher = function(conf) {
 		
     that.helper = ch.helper.call(helper, that);
     
-    // Validate Method
-	that.validate = function(event) {	
+    /**
+     * Validate executes all configured validations.
+     */
+ 	that.validate = function(event) {	
 		// Pre-validation: Don't validate disabled or not required & empty elements
 		if ( that.$element.attr('disabled') ) { return; }
 		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() && that.active === false) { return; }
@@ -277,8 +308,10 @@ ch.watcher = function(conf) {
         return that;
 	};
 	
-	// Reset Method
-	that.reset = function() {
+    /**
+     * Reset all active validations messages.
+     */
+ 	that.reset = function() {
 		//that.publish.status = that.status = conf.status = true; // Public status OK
 		that.active = false;
 		that.$element.removeClass("error");
@@ -290,8 +323,10 @@ ch.watcher = function(conf) {
 		return that;
 	};
 	
-	// isEmpty Method
-	that.isEmpty = function() {
+    /**
+     * isEmpty determine if the field has no value selected.
+     */	
+     that.isEmpty = function() {
 		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
 		switch (that.tag) {
 			case 'OPTIONS':
@@ -313,58 +348,172 @@ ch.watcher = function(conf) {
 
 	
 			
-/**
- *  Public Members
- */	
+// Public Members
+	
+	/**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Watcher
+     */ 
 	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Watcher
+     */
 	that["public"].element = that.element;
+	/**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Watcher
+     */
 	that["public"].type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
+    /**
+     * Validations supported.
+     * @public
+     * @name types
+     * @type {String}
+     * @memberOf ch.Watcher
+     */
 	that["public"].types = conf.types;
+    /**
+     * Positioner reference.
+     * @public
+     * @name reference
+     * @type {jQuery Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].reference = that.reference;
+    /**
+     * Configured validations.
+     * @public
+     * @name validations
+     * @type {Object Literal}
+     * @memberOf ch.Watcher
+     */
 	that["public"].validations = that.validations;
+    /**
+     * Configured conditions.
+     * @public
+     * @name conditions
+     * @type {Object Literal}
+     * @memberOf ch.Watcher
+     */
 	that["public"].conditions = that.conditions;
+    /**
+     * Configured messages.
+     * @public
+     * @name messages
+     * @type {Object Literal}
+     * @memberOf ch.Watcher
+     */
 	that["public"].messages = that.messages;
+    /**
+     * Helper's instance reference.
+     * @public
+     * @name helper
+     * @type {ch.Helper}
+     * @memberOf ch.Watcher
+     * @see ch.Helper
+     */
 	that["public"].helper = that.helper["public"];
+    /**
+     * Active is a boolean property that let you know if there's a validation going on.
+     * @public
+     * @function
+     * @name active
+     * @return {Boolean}
+     * @memberOf ch.Watcher
+     */
 	that["public"].active = function() {
 		return that.active;
 	};
-	
+    /**
+     * Let you concatenate methods.
+     * @public
+     * @function
+     * @name and
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].and = function() {
 		return that.$element;
 	};
-	
+    /**
+     * Reset al active validations.
+     * @public
+     * @function
+     * @name reset
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].reset = function() {
 		that.reset();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Run all configured validations.
+     * @public
+     * @function
+     * @name validate
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].validate = function() {
 		that.validate();
 		
 		return that["public"];
 	};
-	  
+    /**
+     * Turn on Watcher engine.
+     * @public
+     * @function
+     * @name enable
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].enable = function() {
 		that.enabled = true;
 				
 		return that["public"];			
 	};
-	
+    /**
+     * Turn off Watcher engine.
+     * @public
+     * @function
+     * @name disable
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].disable = function() {
 		that.enabled = false;
 		
 		return that["public"];
 	};
-	
+	/**
+     * Recalculate Helper's positioning.
+     * @public
+     * @function
+     * @name refresh
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].refresh = function() { 
 		return that.helper.position("refresh");
-   };
+    };
 
 	
 
 /**
- *  Default event delegation
+ * Default event delegation
+ * @ignore
  */	
 
     // Run the instances checker        

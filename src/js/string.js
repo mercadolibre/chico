@@ -1,6 +1,19 @@
+
 /**
- *	@Interface String validations
- *	@return An interface object
+ * Validate strings.
+ * @name String
+ * @class String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Email
+ * @see ch.Url
+ * @see ch.MaxLength
+ * @see ch.MinLength
+ * @example
+ * // Create a string validation
+ * $("input").string("This field must be a string.");
  */
 
 ch.string = function(conf) {
@@ -46,10 +59,22 @@ ch.string = function(conf) {
 
 
 /**
- *	@Interface Email validations
- *	@return An interface object
+ * Validate email sintaxis.
+ * @name Email
+ * @class Email
+ * @augments ch.String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Url
+ * @see ch.MaxLength
+ * @see ch.MinLength
+ * @example
+ * // Create a email validation
+ * $("input").email("This field must be a valid email.");
  */
-
+ 
 ch.email = function(conf) {
     
     conf = conf || {};
@@ -70,9 +95,22 @@ ch.email = function(conf) {
 
 ch.factory({ component: 'email' });
 
+
 /**
- *	@Interface URL validations
- *	@return An interface object
+ * Validate URL sintaxis.
+ * @name Url
+ * @class Url
+ * @augments ch.String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Email
+ * @see ch.MaxLength
+ * @see ch.MinLength
+ * @example
+ * // Create a URL validation
+ * $("input").url("This field must be a valid URL.");
  */
 
 ch.url = function(conf) {
@@ -95,9 +133,23 @@ ch.url = function(conf) {
 
 ch.factory({ component: 'url' });
 
+
 /**
- *	@Interface MinLength validations
- *	@return An interface object
+ * Validate a minimun amount of characters.
+ * @name MinLength
+ * @class MinLength
+ * @augments ch.String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Number} value Minimun number value.
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Email
+ * @see ch.Url
+ * @see ch.MaxLength
+ * @example
+ * // Create a minLength validation
+ * $("input").minLength(10, "At least 10 characters..");
  */
 
 ch.minLength = function(conf) {
@@ -120,9 +172,23 @@ ch.minLength = function(conf) {
 
 ch.factory({ component: 'minLength' });
 
+
 /**
- *	@Interface MaxLength validations
- *	@return An interface object
+ * Validate a maximun amount of characters.
+ * @name MaxLength
+ * @class MaxLength
+ * @augments ch.String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Number} value Maximun number value.
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Email
+ * @see ch.Url
+ * @see ch.MinLength
+ * @example
+ * // Create a maxLength validation
+ * $("input").maxLength(10, "No more than 10 characters..");
  */
 
 ch.maxLength = function(conf) {

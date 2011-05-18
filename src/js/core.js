@@ -1,37 +1,73 @@
-var start = new Date().getTime();
-/** 
-  * @namespace
-  */
+/*! Chico-UI Copyright 2011, MercadoLibre.com (Natan santolo, Leandro Linares, Guillermo Paz, Natalia Devalle) */
+
+/**
+ * Chico-UI namespace
+ * @namespace ch
+ * @name ch
+ */
+
 var ch = window.ch = {
 
+    /**
+     * Current version
+     * @name version
+     * @type {Number}
+     * @memberOf ch
+     */
     version: "0.6.2",
-
+    /**
+     * List of UI components available.
+     * @name components
+     * @type {String}
+     * @memberOf ch
+     */
     components: "",
-
+    /**
+     * List of internal components available.
+     * @name internals
+     * @type {String}
+     * @memberOf ch
+     */
     internals: "",
-
+    /**
+     * Here you will find a map of all component's instances created by Chico-UI.
+     * @name instances
+     * @type {Map Object}
+     * @memberOf ch
+     */
     instances: {},
-    
+    /**
+     * Available device's features.
+     * @name features
+     * @type {Map Object}
+     * @see ch.Support
+     * @memberOf ch
+     */
     features: {},
- 	
+    /**
+     * Core constructor function.
+     * @name init
+     * @function
+     * @memberOf ch
+     */
     init: function() { 
         // unmark the no-js flag on html tag
         $("html").removeClass("no-js");
         // check for browser support
 		ch.features = ch.support();
-        // check for pre-configured components
-        ch.components = (window.components) ? ch.components+","+window.components : ch.components ;
-        // check for pre-configured internals
-        ch.internals = (window.internals) ? ch.internals+","+window.internals : ch.internals ;
         // iterate and create components               
         $(ch.components.split(",")).each(function(i,e){ ch.factory({component:e}); });
         
+        // TODO: This should be on keyboard controller.
 		ch.utils.document.bind("keydown", function(event){ ch.keyboard(event); });
         
     },
-/**
- *	@static Utils. Common usage functions.
- */		
+    /**
+     * References and commons functions.
+     * @name utils
+     * @type {Object Literal}
+     * @memberOf ch
+     */
     utils: {
 		body: $("body"),
 		html: $("html"),
@@ -53,27 +89,79 @@ var ch = window.ch = {
 			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
 		}
 	},
-/**
- *	@const Event's Map.
- */	
+
+    /**
+     * Chico-UI global events reference.
+     * @name Events
+     * @class Events
+     * @type {Map Object}
+     * @memberOf ch 
+     * @see ch.Events.KEY
+     */	
     events: {
-        CHANGE_LAYOUT: "changeLayout",
+        /**
+         * Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
+         * @public
+         * @name CHANGE_LAYOUT
+         * @memberOf ch.Events
+         */ 
+        CHANGE_LAYOUT: "changeLayout", 
+        /**
+         * Keryboard event collection.
+         * @name KEY
+         * @class KEY
+         * @memberOf ch.Events
+         */
         KEY: {
+            /**
+             * Enter key event.
+             * @name ENTER
+             * @memberOf ch.Events.KEY
+             */
         	ENTER: "enter",
+            /**
+             * Esc key event.
+             * @name ESC
+             * @memberOf ch.Events.KEY
+             */
 			ESC: "esc",
+            /**
+             * Left arrow key event.
+             * @name LEFT_ARROW
+             * @memberOf ch.Events.KEY
+             */
 			LEFT_ARROW: "left_arrow",
+            /**
+             * Up arrow key event.
+             * @name UP_ARROW
+             * @memberOf ch.Events.KEY
+             */
 			UP_ARROW: "up_arrow",
+            /**
+             * Rigth arrow key event.
+             * @name RIGHT_ARROW
+             * @memberOf ch.Events.KEY
+             */
 			RIGHT_ARROW: "right_arrow",
+            /**
+             * Down arrow key event.
+             * @name DOWN_ARROW
+             * @memberOf ch.Events.KEY
+             */
 			DOWN_ARROW: "down_arrow"
         }
     }
 };
 
 
-/**
- *  Clone function
- */ 
-
+/** 
+ * Utility to clone objects
+ * @function
+ * @name clon
+ * @param {Object} o Object to clone
+ * @return {Object}
+ * @memberOf ch
+ */
 ch.clon = function(o) {
     
     obj = {};
@@ -86,22 +174,24 @@ ch.clon = function(o) {
 };
 
 
-/**
-*	Factory
-*/	
-ch.factory = function(o) {
+/** 
+ * Class to create UI Components
+ * @name Factory
+ * @class Factory
+ * @param {Configuration Object} o 
+ * @example
+ *   o {
+ *      component: "chat",
+ *      callback: function(){},
+ *      [script]: "http://..",
+ *      [style]: "http://..",
+ *      [callback]: function(){}    
+ *   }
+ * @return {Collection} A collection of object instances
+ * @memberOf ch
+ */    
 
-    /**
-    *   o {
-            component: "chat",
-            callback: function(){},
-            [script]: "http://..",
-            [style]: "http://..",
-            [callback]: function(){}    
-    *    }
-    *
-    *	@return A collection of object instances
-    */
+ch.factory = function(o) {
     
     if (!o) { 
         alert("Factory fatal error: Need and object {component:\"\"} to configure a component."); 
@@ -201,7 +291,7 @@ ch.factory = function(o) {
 			    
             });
             
-            // return the created components or component   
+            // return the created components collection or single component   
             return ( results.length > 1 ) ? results : results[0];
         };
 
@@ -211,11 +301,11 @@ ch.factory = function(o) {
     } // end create function
     
     if ( ch[o.component] ) {
-        // script already here, just create
+        // script already here, just create it
         create(o.component);
         
     } else {
-        // get resurces and call create
+        // get resurces and call create later
         ch.get({
             "method":"component",
             "component":o.component,
@@ -223,27 +313,27 @@ ch.factory = function(o) {
             "styles": ( o.style ) ? o.style : "src/css/"+x+".css",
             "callback":create
         });
-        
-        //alert("CH: " + x + " configuration error. The component do not exists");
     }
 }
 
 
 /**
- *  Get
+ * Load components or content 
+ * @name Get
+ * @class Get
+ * @param o {Object} object 
+ * @example
+ *   o {
+ *      method: "content"|"component",
+ *      component: "chat",
+ *      [script]: "http://..",
+ *      [style]: "http://..",
+ *      [callback]: function(){}
+ *   }
+ * @memberOf ch
  */
- 
 ch.get = function(o) {
-    /**
-    *   o {
-            method: "content"|"component",
-            component: "chat",
-            [script]: "http://..",
-            [style]: "http://..",
-            [callback]: function(){}
-    *    }
-    */
-    
+     
     switch(o.method) {
 		
 		case "content":
@@ -307,20 +397,20 @@ ch.get = function(o) {
 	    
 	    	if ( !done && (!this.readyState || 
 						this.readyState === "loaded" || this.readyState === "complete") ) {
-						
+
 					done = true;
-	            
+
 		   			// if callback is defined call it
 		   	        if ( o.callback ) { o.callback( o.component ); }
-										
+
 			   		// Handle memory leak in IE
 		   			script.onload = script.onreadystatechange = null;
-	   			
+
 			   		if ( head && script.parentNode ) { head.removeChild( script ); }
 				}
 			};
 	            
-			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+			// Use insertBefore instead of appendChild to circumvent an IE6 bug.
 			// This arises when a base node is used.
 			if ( o.script ) { head.insertBefore( script, head.firstChild ); }
 			if ( o.style ) { head.appendChild( style ); }
@@ -332,23 +422,46 @@ ch.get = function(o) {
 
 
 /**
- *  Support
+ * Returns a data object with features supported by the device
+ * @name Support
+ * @class Support
+ * @return {Object}
+ * @memberOf ch 
  */
- 
 ch.support = function() {
+	
+	/**
+	 * Private reference to the <body> element
+	 * @private
+	 * @name thisBody
+	 * @type {HTMLBodyElement}
+	 * @memberOf ch.Support
+	 */
 	var thisBody = document.body || document.documentElement;
-	// Based on: http://gist.github.com/373874
-	// Verify that CSS3 transition is supported (or any of its browser-specific implementations)
+	
+	/**
+     * Based on: http://gist.github.com/373874
+     * Verify that CSS3 transition is supported (or any of its browser-specific implementations)
+     *
+     * @private
+     * @return {Boolean}
+     * @memberOf ch.Support
+     */
 	var transition = (function(){
 		var thisStyle = thisBody.style;
-
 		return thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.OTransition !== undefined || thisStyle.transition !== undefined;
 	})();
-	
-	// Based on: http://kangax.github.com/cft/#IS_POSITION_FIXED_SUPPORTED
-	// Verify that position fixed is supported
+
+    /**
+     * Based on: http://kangax.github.com/cft/#IS_POSITION_FIXED_SUPPORTED
+     * Verify that position fixed is supported
+     * 
+     * @private
+     * @return {Boolean}
+     * @memberOf ch.Support
+     */	
 	var fixed = (function(){
-		var isSupported = false;
+        var isSupported = false;
 		var e = document.createElement("div");
 			e.style.position = "fixed";
 			e.style.top = "10px";
@@ -362,15 +475,22 @@ ch.support = function() {
 	})();
 
 	return {
-		transition: transition,
+        /**
+         * Boolean property that indicates if CSS3 Transitions are supported by the device.
+         * @public
+         * @name transition
+         * @type {Boolean}
+         * @memberOf ch.Support
+         */
+ 		transition: transition,
+        /**
+         * Boolean property that indicates if Fixed positioning are supported by the device.
+         * @public
+         * @name fixed
+         * @type {Boolean}
+         * @memberOf ch.Support
+         */
 		fixed: fixed
-		// gradient: gradient
 	};
 	
 };
-
-
-$(function() { // DOM Ready
-	var now = new Date().getTime();
-    ch.loadTime = now - start;
-});

@@ -1,16 +1,24 @@
+
 /**
- *	Dropdown
- *	@author 
- *	@Contructor
- *	@return An interface object
- */	
-
-ch.dropdown = function(conf){
-
-/** 
- *  Constructor
+ * A navegable list of items, UI-Object.
+ * @name Dropdown
+ * @class Dropdown
+ * @augments ch.Navs
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
-	
+
+ch.Dropdown = function(conf){
+
+
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Dropdown
+     */
 	var that = this;
 
 	conf = ch.clon(conf);
@@ -24,11 +32,6 @@ ch.dropdown = function(conf){
 
     that = ch.navs.call(that);
     that.parent = ch.clon(that);
-
-/**
- *  Private Members
- */
-	
 
 /**
  *  Protected Members
@@ -124,21 +127,65 @@ ch.dropdown = function(conf){
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Dropdown
+     */
    	that["public"].uid = that.uid;
+    
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Dropdown
+     */
 	that["public"].element = that.element;
+    
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Dropdown
+     */	
 	that["public"].type = that.type;
+	
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Dropdown
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Dropdown
+     */ 
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Dropdown
+     */
 	that["public"].position = that.position;	
 
 

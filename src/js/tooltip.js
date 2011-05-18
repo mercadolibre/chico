@@ -1,19 +1,24 @@
+
 /**
- *	Tooltip
- *	@author 
- *	@Contructor
- *	@return An interface object
- *  @memberOf ch.Floats
+ * Simple Tooltip UI-Object.
+ * @name Tooltip
+ * @class Tooltip
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
-ch.tooltip = function(conf) {
+ch.Tooltip = function(conf) {
     
-/**
- *	Constructor
- *	Guardo el contexto de ejecucion (this) que viene con 3 propiedades del factory (uid, element, type).
- *	Luego, seteamos la configuracion básica del componente y lo guardamos en el contexto para que llegue a sus padres cuando pasamos el contexto (that.conf)
- */
-
+    
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Tooltip
+     */
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -61,23 +66,71 @@ ch.tooltip = function(conf) {
 /**
  *  Public Members
  */
- 	that["public"].uid = that.uid;
-	that["public"].element = that.element;
-	that["public"].type = that.type;
-	that["public"].content = that.content;
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Tooltip
+     */
+    that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Tooltip
+     */
+    that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Tooltip
+     */
+    that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Tooltip
+     */
+    that["public"].content = that.content;
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Tooltip
+     */
 	that["public"].show = function(){
 		that.show();
 
 		return that["public"];
 	};
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Tooltip
+     */ 
 	that["public"].hide = function(){
 		that.hide();
 
 		return that["public"];
-	};	
+	};
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Tooltip
+     */
 	that["public"].position = that.position;
-    
-
 
 /**
  *  Default event delegation

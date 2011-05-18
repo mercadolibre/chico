@@ -1,40 +1,44 @@
-/**
- *	Controllers
- *	@author 
- *	@Contructor
- *	@return An interface object
- */
-
-ch.controllers = function(){
 
 /**
- *  Constructor
+ * Abstract class
+ * @name Controllers
+ * @class Controllers 
+ * @augments ch.Object
+ * @memberOf ch
+ * @return {Object}
+ * @see ch.Accordion
+ * @see ch.Carousel
+ * @see ch.Form
  */
-	var that = this;
+ 
+ch.Controllers = function(){
+
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Controllers
+     */ 
+ 	var that = this;
 		
-/**
- *  Inheritance
- */
-
+    /**
+     *  Inheritance
+     */
     that = ch.object.call(that);
     that.parent = ch.clon(that);
 	
-	
-/**
- *  Private Members
- */
  
- 
-/**
- *  Protected Members
- */ 
-	
+    /**
+     * Collection of children elements.
+     * @name children
+     * @type {Collection}
+     * @memberOf ch.Controllers
+     */ 
 	that.children = [];
 			
-/**
- *  Public Members
- */	
-	
-	
+    /**
+     *  Public Members
+     */	
+		
 	return that;
 };

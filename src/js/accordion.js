@@ -1,42 +1,68 @@
+
 /**
- *	Accordion
- *	@author
- *	@Contructor
- *	@return An interface object
+ * Accordion is a UI-Component.
+ * @name Accordion
+ * @class Accordion
+ * @augments ch.Controllers
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
+ 
+ch.Accordion = function(conf){
 
-ch.accordion = function(conf){
+// Private members
 
-/** 
- *  Constructor
- */
-	
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Accordion
+     */	
 	var that = this;
-
 	that.$element.addClass('ch-accordion');
-		
 	conf = ch.clon(conf);
-	
 	that.conf = conf;
 	
-/**
- *	Inheritance
- */
-
+    // Inheritance
     that = ch.controllers.call(that);
     that.parent = ch.clon(that);
 
-/**
- *  Protected Members
- */
-
-/**
- *  Public Members
- */
-	
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Accordion
+     */ 	
 	that["public"].uid = that.uid;
+	
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Accordion
+     */
 	that["public"].element = that.element;
+	
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Accordion
+     */
 	that["public"].type = that.type;
+	
+    /**
+     * Select a specific children.
+     * @public
+     * @name select
+     * @function
+     * @memberOf ch.Accordion
+     */
 	that["public"].select = function(bellows){
 		
 		if(typeof bellows == "string") {
@@ -91,12 +117,25 @@ ch.accordion = function(conf){
 };
 
 
+
+/**
+ * Accordion's content container.
+ * @name Bellows
+ * @class Bellows
+ * @augments ch.Navs
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ */
 ch.bellows = function(controller){
 
-/** 
- *  Constructor
- */
-	
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Bellows
+     */ 
 	var that = this;
 	
 	conf = {};
@@ -118,9 +157,24 @@ ch.bellows = function(controller){
 	
 	that.$trigger = that.$container.children(":first");
 	
+    /**
+     * Component's content.
+     * @public
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Bellows
+     */
 	that.$content = that.$trigger.next();
-	
+    
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Bellows
+     */
 	that.show = function(event){
+
 		that.prevent(event);
 
 		// Toggle
@@ -144,7 +198,14 @@ ch.bellows = function(controller){
         
         return that;
     };
-	
+    
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Bellows
+     */
     that.hide = function(event){
     	that.prevent(event);
     	
@@ -165,6 +226,13 @@ ch.bellows = function(controller){
         return that;
 	};
 	
+    /**
+     * Select component's content.
+     * @public
+     * @name select
+     * @return {Chico-UI Object}
+     * @memberOf ch.Bellows
+     */
 	that.select = function(child) {
 		that.show();
 		
@@ -197,8 +265,13 @@ ch.bellows = function(controller){
 
 
 /**
- *	@Interface Menu
- *	@return An interface object
+ * Menu is a UI-Component.
+ * @name Menu
+ * @class Menu
+ * @augments ch.Accordion
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.menu = function(conf) {
@@ -206,8 +279,40 @@ ch.menu = function(conf) {
     conf = conf || {};
 	
 	conf.menu = true;
-	
+
 	return ch.accordion.call(this, conf);
+
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Menu
+     */     
+    
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Menu
+     */
+    
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Menu
+     */
+    
+    /**
+     * Select a specific children.
+     * @public
+     * @name select
+     * @function
+     * @memberOf ch.Menu
+     */
     
 };
 

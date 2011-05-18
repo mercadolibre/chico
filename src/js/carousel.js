@@ -1,16 +1,23 @@
-/**
- *	Carousel
- *	@author
- *	@Contructor
- *	@return An interface object
- */
 
-ch.carousel = function(conf){
-	
-/** 
- *  Constructor
+/**
+ * Carousel is a UI-Component.
+ * @name Carousel
+ * @class Carousel
+ * @augments ch.Controllers
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
+ 
+ch.Carousel = function(conf){
 	
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Carousel
+     */	
 	var that = this;
 	
 	that.$element.addClass('ch-carousel');
@@ -37,6 +44,14 @@ ch.carousel = function(conf){
 /**
  *  Private Members
  */
+ 
+    /**
+     * Page size.
+     * @private
+     * @name page
+     * @type {Number}
+     * @memberOf ch.Carousel
+     */ 
 	var page = 1;
 	
 	// UL Width calculator
@@ -51,6 +66,14 @@ ch.carousel = function(conf){
 	var $mask = that.$element.find('.ch-mask');
 	var steps, totalPages, moveTo, margin;
 	
+    /**
+     * Calculate size of the carousel's mask.
+     * @private
+     * @name calculateMask
+     * @function
+     * @return {That Object}
+     * @memberOf ch.Carousel
+     */ 
 	var calculateMask = function(){
 		// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
 		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + marginChildren));
@@ -68,8 +91,15 @@ ch.carousel = function(conf){
 
 	calculateMask();
 
-	// Pager
-	var makePager = function(){
+    /**
+     * Create pager functionlity whitin a carousel instance.
+     * @private
+     * @name makePager
+     * @function
+     * @return {Pager Object}
+     * @memberOf ch.Carousel
+     */ 
+ 	var makePager = function(){
 		that.$element.find(".ch-pager").remove();
 			
 		var pager = $("<ul class=\"ch-pager\">");
@@ -111,8 +141,13 @@ ch.carousel = function(conf){
  *  Protected Members
  */
 
-	// Buttons
-	that.buttons = {
+    /**
+     * Internal class that handles buttons behavior.
+     * @private
+     * @name buttons
+     * @memberOf ch.Carousel
+     */ 
+ 	that.buttons = {
 		prev: {
 			//TODO usar positioner cuando esten todos los casos de posicionamiento
 			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }),
@@ -241,30 +276,97 @@ ch.carousel = function(conf){
  *  Public Members
  */
 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Carousel
+     */ 
    	that["public"].uid = that.uid;
+    
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Carousel
+     */
 	that["public"].element = that.element;
+   
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Carousel
+     */
 	that["public"].type = that.type;
 
+    /**
+     * Get the amount of steps.
+     * @public
+     * @name getSteps
+     * @return {Number}
+     * @memberOf ch.Carousel
+     */
 	that["public"].getSteps = function() { return steps; };
+    
+    /**
+     * Get the current page.
+     * @public
+     * @name getPage
+     * @return {Number}
+     * @memberOf ch.Carousel
+     */
     that["public"].getPage = function() { return page; };
+    
+    /**
+     * Moves the carousel to the defined page.
+     * @public
+     * @name moveTo
+     * @return {Chico-UI Object}
+     * @memberOf ch.Carousel
+     */
     that["public"].moveTo = function(page) {
     	that.select(page);
 
     	return that["public"];
     };
     
+    /**
+     * Moves to the next page.
+     * @public
+     * @name next
+     * @return {Chico-UI Object}
+     * @memberOf ch.Carousel
+     */
     that["public"].next = function(){
     	that.move("next", 1);
 
     	return that["public"];
     };
-    
+
+    /**
+     * Moves to the previous page.
+     * @public
+     * @name prev
+     * @return {Chico-UI Object}
+     * @memberOf ch.Carousel
+     */
 	that["public"].prev = function(){
 		that.move("prev", 1);
 
 		return that["public"];
 	};
-	
+
+    /**
+     * Re-calculate positioning, sizing, paging, and re-draw.
+     * @public
+     * @name redraw
+     * @return {Chico-UI Object}
+     * @memberOf ch.Carousel
+     */	
 	that["public"].redraw = function(){
 		that.redraw();
 		

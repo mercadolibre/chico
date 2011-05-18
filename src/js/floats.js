@@ -1,15 +1,27 @@
-/**
- *  @class Floats. Represent the abstract class of all floats UI-Objects.
- *  @requires object.
- *  @returns {Object} Floats.
- */
-
-ch.floats = function() {
 
 /**
- *  Constructor
- */
-	var that = this;
+ * Abstract class of all floats UI-Objects.
+ * @name Floats
+ * @class Floats
+ * @augments ch.Object
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Tooltip
+ * @see ch.Layer
+ * @see ch.Modal
+ */ 
+
+ch.Floats = function() {
+
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Floats
+     */ 
+ 	var that = this;
 	var conf = that.conf;
 
 /**
@@ -97,7 +109,14 @@ ch.floats = function() {
  */
  
 	that.active = false;
-	
+
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Floats
+     */ 
 	that.show = function(event) {
 		
 		if ( event ) that.prevent(event);
@@ -137,6 +156,13 @@ ch.floats = function() {
         return that;
 	};
 
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Floats
+     */ 
 	that.hide = function(event) {
 
 		if (event) that.prevent(event);

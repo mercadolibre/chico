@@ -1,7 +1,19 @@
+
 /**
- *	Required validations
- *  @Extends Watcher
- *	@Interface
+ * Required interface for Watcher.
+ * @name Required
+ * @class Required
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Number
+ * @see ch.String
+ * @see ch.Custom
+ * @example
+ * // Simple validation
+ * $("input").required("This field is required");
+ * @see ch.Watcher
  */
 
 ch.required = function(conf) {
