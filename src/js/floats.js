@@ -63,7 +63,7 @@ ch.Floats = function() {
         	.html( that.loadContent() );
 		
     	that.$container = $("<div>")
-    		.addClass("ch-hide ch-" + that.type)
+    		.addClass("ch-" + that.type)
     		.css("z-index", ch.utils.zIndex ++)
     		.append( that.$content )
     		.appendTo("body");
@@ -72,7 +72,7 @@ ch.Floats = function() {
 		if( conf.hasOwnProperty("classes") ) that.$container.addClass(conf.classes);
 		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
-		if( conf.hasOwnProperty("closeButton") ) createClose();
+		if( conf.hasOwnProperty("closeButton") && conf.closeButton ) createClose();
 		if( conf.hasOwnProperty("cone") ) createCone();
 		if( conf.hasOwnProperty("fx") ) conf.fx = conf.fx; else conf.fx = true;
 		
@@ -176,7 +176,10 @@ ch.Floats = function() {
 			// Append the content of BODY
 			var content = conf.content || conf.msg;
 			
-			if(ch.utils.isSelector(content)) {
+			if (ch.utils.isSelector(content)) {
+
+				if ($("body " + content + ".ch-hide").length > 0) return false;
+
 				that.$content.children()
 					.clone()
 					.addClass("ch-hide")

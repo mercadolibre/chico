@@ -14,7 +14,7 @@ var ch = window.ch = {
      * @type {Number}
      * @memberOf ch
      */
-    version: "0.6.2",
+    version: "0.6.3",
     /**
      * List of UI components available.
      * @name components
