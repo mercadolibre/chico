@@ -1,14 +1,25 @@
 
 /**
-*  @static @class Navigators. Represent the abstract class of all navigators ui objects.
-*  @requires PowerConstructor
-*  @returns {Object} New Navigators.
-*/	
+ * Abstract representation of navs components.
+ * @name Navs
+ * @class Navs
+ * @augments ch.Object
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Dropdown
+ * @see ch.Expando
+ */
+ 
 ch.navs = function(){
 	
-/**
- *  Constructor
- */
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Navs
+     */ 
 	var that = this;
 	var conf = that.conf;
 /**
@@ -17,22 +28,19 @@ ch.navs = function(){
 
     that = ch.object.call(that);
     that.parent = ch.clon(that);
-
-/**
- *  Private Members
- */
- 
- 
-/**
- *  Protected Members
- */ 
-
 			
 /**
  *  Public Members
  */ 	
 	that.active = false;
-		
+
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Navs
+     */
 	that.show = function(event){
 		that.prevent(event);
 		
@@ -46,7 +54,13 @@ ch.navs = function(){
 		
 		return that;
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Navs
+     */
 	that.hide = function(event){
 		that.prevent(event);
 		

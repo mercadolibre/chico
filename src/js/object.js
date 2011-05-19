@@ -1,16 +1,27 @@
-/**
- *  @class Object. Represent the abstract class of all ui objects.
- *  @return {object} Object.
- */	
 
+/**
+ * Object represent the abstract class of all UI Objects.
+ * @name Object
+ * @class Object 
+ * @memberOf ch
+ * @see ch.Controllers
+ * @see ch.Floats
+ * @see ch.Navs
+ * @see ch.Watcher
+ */
+ 
 ch.object = function(){
 	
-/**
- *  Inheritance: Create a symbolic link to myself
- */
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Object
+     */ 
 	var that = this;	
 	var conf = that.conf;
-	//Porque llegan las cosas que pisa el modal cuando sube... si no estan definidas todavia.
+
 /**
  *  Public Members
  */

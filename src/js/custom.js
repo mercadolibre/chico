@@ -1,7 +1,18 @@
+
 /**
- *	Custom validations
- *  @Extends Watcher
- *	@Interface
+ * Create custom validation interfaces for Watcher validation engine.
+ * @name Custom
+ * @class Custom
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @example
+ * // Validate a even number
+ * $("input").custom(function(value){
+ *      return (value%2==0) ? true : false;
+ * }, "Enter a even number");
+ * @see ch.Watcher
  */
 
 ch.custom = function(conf) {

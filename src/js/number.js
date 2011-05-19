@@ -1,10 +1,19 @@
-/**
- *	Number validations
- *	@author
- *	@Contructor
- *	@return An interface object
- */
 
+/**
+ * Validate numbers.
+ * @name Number
+ * @class Number
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties.
+ * @return {Chico-UI Object}
+ * @see ch.Min
+ * @see ch.Max
+ * @see ch.Price
+ * @example
+ * // Create a number validation
+ * $("input").number("This field must be a number.");
+ */
 
 ch.number = function(conf) {
 
@@ -46,8 +55,19 @@ ch.number = function(conf) {
 };
 
 /**
- *	@Interface Min validations
- *	@return An interface object
+ * Validate a number with a minimun value.
+ * @name Min
+ * @class Min
+ * @augments ch.Number
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Number} value Minimun number value.
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Max
+ * @see ch.Price
+ * @example
+ * $("input").min(10, "Write a number bigger than 10");
  */
 
 ch.min = function(conf) {
@@ -75,8 +95,19 @@ ch.min = function(conf) {
 ch.factory({ component: 'min' });
 
 /**
- *	@Interface Max validations
- *	@return An interface object
+ * Validate a number with a maximun value.
+ * @name Max
+ * @class Max
+ * @augments ch.Number
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Number} value Minimun number value.
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Min
+ * @see ch.Price
+ * @example
+ * $("input").max(10, "Write a number smaller than 10");
  */
  
 ch.max = function(conf) {
@@ -105,8 +136,18 @@ ch.factory({ component: 'max' });
 
 
 /**
- *	@Interface Price validations
- *	@return An interface object
+ * Validate a number with a price format.
+ * @name Price
+ * @class Price
+ * @augments ch.Number
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Min
+ * @see ch.Max
+ * @example
+ * $("input").price("Write valid price.");
  */
  
 ch.price = function(conf) {

@@ -1,6 +1,12 @@
-/**
- *	@Codelighter
- * 
+
+
+/** 
+ * A simple utility to highlight code snippets in the HTML.
+ * @name Codelighter
+ * @class Codelighter 
+ * @return {Object}
+ * @memberOf ch 
+ * @example
  * ch.codelighter();
  * $(".xml").codeXML();
  */

@@ -2,4 +2,5 @@ Lean:    Humanst.txt
 Guille:  Webworkers.
 Naty:    Que Custom-Download soporte flavors.
 Natan:   Crear chico lite, distribuido.
-
+Natan:   Componente de máscaras de entrada.
+Natan:   Componente de calendario fijo y flotado.

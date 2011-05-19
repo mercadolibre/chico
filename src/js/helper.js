@@ -1,13 +1,23 @@
+
 /**
- *	Helper
+ * Shows messages on the screen with a contextual floated UI-Component.
+ * @name Helper
+ * @class Helper
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Controller Object} o Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.helper = function(controller){
 
-/** 
- *  Constructor
- */
-	
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Helper
+     */
 	var that = this;
 
 	var conf = {};		
@@ -58,22 +68,77 @@ ch.helper = function(controller){
  *  Public Members
  */
 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Helper
+     */ 
    	that["public"].uid = that.uid;
+   	
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Helper
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Helper
+     */
 	that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Helper
+     */
 	that["public"].content = that.content;
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Helper
+     */
 	that["public"].show = function(text){
 		that.show(text);
 		
 		return that["public"];
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Helper
+     */ 
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Helper
+     * @example
+     * // Change helper's position.
+     * $('input').required("message").helper.position({ 
+     *    offset: "0 10",
+     *    points: "lt lb"
+     * });
+     */
 	that["public"].position = that.position;
 
 

@@ -1,0 +1,156 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">/**
+<span class='line'>  3</span>  * Simple Tooltip UI-Object.
+<span class='line'>  4</span>  * @name Tooltip
+<span class='line'>  5</span>  * @class Tooltip
+<span class='line'>  6</span>  * @augments ch.Floats
+<span class='line'>  7</span>  * @memberOf ch
+<span class='line'>  8</span>  * @param {Configuration Object} conf Object with configuration properties
+<span class='line'>  9</span>  * @return {Chico-UI Object}
+<span class='line'> 10</span>  */</span><span class="WHIT">
+<span class='line'> 11</span> 
+<span class='line'> 12</span> </span><span class="NAME">ch.tooltip</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">    
+<span class='line'> 14</span>     
+<span class='line'> 15</span>     </span><span class="COMM">/**
+<span class='line'> 16</span>      * Reference to a internal component instance, saves all the information and configuration properties.
+<span class='line'> 17</span>      * @private
+<span class='line'> 18</span>      * @name that
+<span class='line'> 19</span>      * @type {Object}
+<span class='line'> 20</span>      * @memberOf ch.Tooltip
+<span class='line'> 21</span>      */</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">	
+<span class='line'> 24</span> 	</span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">conf.cone</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="NAME">conf.content</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.element.title</span><span class="PUNC">;</span><span class="WHIT">	
+<span class='line'> 27</span> 	</span><span class="NAME">conf.position</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="NAME">conf.position.context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">that.element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">conf.position.offset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf.offset</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"0 10"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="NAME">conf.position.points</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf.points</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"lt lb"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	
+<span class='line'> 32</span> 	</span><span class="NAME">that.conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	
+<span class='line'> 34</span> </span><span class="COMM">/**
+<span class='line'> 35</span>  *	Inheritance
+<span class='line'> 36</span>  *		
+<span class='line'> 37</span>  */</span><span class="WHIT">
+<span class='line'> 38</span> 
+<span class='line'> 39</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.floats.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 41</span> 
+<span class='line'> 42</span> </span><span class="COMM">/**
+<span class='line'> 43</span>  *  Private Members
+<span class='line'> 44</span>  */</span><span class="WHIT">
+<span class='line'> 45</span> 
+<span class='line'> 46</span> </span><span class="WHIT">    
+<span class='line'> 47</span> </span><span class="COMM">/**
+<span class='line'> 48</span>  *  Protected Members
+<span class='line'> 49</span>  */</span><span class="WHIT">     
+<span class='line'> 50</span>     </span><span class="NAME">that.$trigger</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> 
+<span class='line'> 52</span> </span><span class="WHIT">    </span><span class="NAME">that.show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">        </span><span class="NAME">that.$trigger.attr</span><span class="PUNC">(</span><span class="STRN">'title'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">		</span><span class="NAME">that.parent.show</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">		
+<span class='line'> 56</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">	
+<span class='line'> 59</span>     </span><span class="NAME">that.hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">		</span><span class="NAME">that.$trigger.attr</span><span class="PUNC">(</span><span class="STRN">'title'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">conf.content</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">		</span><span class="NAME">that.parent.hide</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">		
+<span class='line'> 63</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> 
+<span class='line'> 66</span> </span><span class="COMM">/**
+<span class='line'> 67</span>  *  Public Members
+<span class='line'> 68</span>  */</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 70</span>      * The component's instance unique identifier.
+<span class='line'> 71</span>      * @public
+<span class='line'> 72</span>      * @name uid
+<span class='line'> 73</span>      * @type {Number}
+<span class='line'> 74</span>      * @memberOf ch.Tooltip
+<span class='line'> 75</span>      */</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">uid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.uid</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 78</span>      * The element reference.
+<span class='line'> 79</span>      * @public
+<span class='line'> 80</span>      * @name element
+<span class='line'> 81</span>      * @type {HTMLElement}
+<span class='line'> 82</span>      * @memberOf ch.Tooltip
+<span class='line'> 83</span>      */</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 86</span>      * The component's type.
+<span class='line'> 87</span>      * @public
+<span class='line'> 88</span>      * @name type
+<span class='line'> 89</span>      * @type {String}
+<span class='line'> 90</span>      * @memberOf ch.Tooltip
+<span class='line'> 91</span>      */</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 94</span>      * The component's content.
+<span class='line'> 95</span>      * @public
+<span class='line'> 96</span>      * @name content
+<span class='line'> 97</span>      * @type {String}
+<span class='line'> 98</span>      * @memberOf ch.Tooltip
+<span class='line'> 99</span>      */</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">content</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.content</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>102</span>      * Shows component's content.
+<span class='line'>103</span>      * @public
+<span class='line'>104</span>      * @name show
+<span class='line'>105</span>      * @function
+<span class='line'>106</span>      * @return {Chico-UI Object}
+<span class='line'>107</span>      * @memberOf ch.Tooltip
+<span class='line'>108</span>      */</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">		</span><span class="NAME">that.show</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> 
+<span class='line'>112</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>115</span>      * Hides component's content.
+<span class='line'>116</span>      * @public
+<span class='line'>117</span>      * @name hide
+<span class='line'>118</span>      * @function
+<span class='line'>119</span>      * @return {Chico-UI Object}
+<span class='line'>120</span>      * @memberOf ch.Tooltip
+<span class='line'>121</span>      */</span><span class="WHIT"> 
+<span class='line'>122</span> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">		</span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>124</span> 
+<span class='line'>125</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>128</span>      * Positioning configuration.
+<span class='line'>129</span>      * @public
+<span class='line'>130</span>      * @name position
+<span class='line'>131</span>      * @memberOf ch.Tooltip
+<span class='line'>132</span>      */</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">position</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.position</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> 
+<span class='line'>135</span> </span><span class="COMM">/**
+<span class='line'>136</span>  *  Default event delegation
+<span class='line'>137</span>  */</span><span class="WHIT">	
+<span class='line'>138</span>  	
+<span class='line'>139</span> 	</span><span class="NAME">that.$trigger</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">'mouseenter'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">that.show</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">'mouseleave'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">that.hide</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>142</span> 
+<span class='line'>143</span> </span><span class="WHIT">    </span><span class="COMM">// Fix: change layout problem</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">    </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"body"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="NAME">ch.events.CHANGE_LAYOUT</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.position</span><span class="PUNC">(</span><span class="STRN">"refresh"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>145</span> 
+<span class='line'>146</span> 
+<span class='line'>147</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>149</span> </span></pre></body></html>

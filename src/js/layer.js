@@ -1,19 +1,28 @@
+
 /**
- *	Context Layer
- *	@author
- *	@Contructor
- *	@return An interface object
- */
+ * Is a contextual floated UI-Object.
+ * @name Layer
+ * @class Layer
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Tooltip
+ * @see ch.Modal
+ * @example
+ * // Create a simple contextual layer
+ * $("element").layer("<p>Content.</p>");
+ */ 
 
 ch.layer = function(conf) {
-
     
-/**
- *	Constructor
- *	Guardo el contexto de ejecucion (this) que viene con 3 propiedades del factory (uid, element, type).
- *	Luego, seteamos la configuracion básica del componente y lo guardamos en el contexto para que llegue a sus padres cuando pasamos el contexto (that.conf)
- */
-
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Layer
+     */ 
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -38,14 +47,64 @@ ch.layer = function(conf) {
  *  Private Members
  */
  
+    /**
+     * Delay time to show component's contents.
+     * @private
+     * @name showTime
+     * @type {Number}
+     * @default 400
+     * @memberOf ch.Layer
+     */ 
     var showTime = conf.showTime || 400;
+    /**
+     * Delay time to hide component's contents.
+     * @private
+     * @name hideTime
+     * @type {Number}
+     * @default 400
+     * @memberOf ch.Layer
+     */ 
     var hideTime = conf.hideTime || 400;
 
-	var st, ht; // showTimer and hideTimer
-	
+    /**
+     * Show timer instance.
+     * @private
+     * @name st
+     * @type {Timer}
+     * @memberOf ch.Layer
+     */ 
+	var st;
+	/**
+     * Hide timer instance.
+     * @private
+     * @name ht
+     * @type {Timer}
+     * @memberOf ch.Layer
+     */ 
+	var ht;
+    /**
+     * Starts show timer.
+     * @private
+     * @name showTimer
+     * @function
+     * @memberOf ch.Layer
+     */ 
 	var showTimer = function(){ st = setTimeout(that.show, showTime) };
+    /**
+     * Starts hide timer.
+     * @private
+     * @name hideTimer
+     * @function
+     * @memberOf ch.Layer
+     */ 
 	var hideTimer = function(){ ht = setTimeout(that.hide, hideTime) };
-	
+    /**
+     * Clear all timers.
+     * @private
+     * @name clearTimers
+     * @function
+     * @memberOf ch.Layer
+     */ 
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 /**
@@ -89,22 +148,77 @@ ch.layer = function(conf) {
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Layer
+     */
    	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Layer
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Layer
+     */
 	that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Layer
+     */
 	that["public"].content = that.content;
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Layer
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Layer
+     */	
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Layer
+     * @example
+     * // Change layer's position.
+     * $('input').layer("content").position({ 
+     *    offset: "0 10",
+     *    points: "lt lb"
+     * });
+     */
 	that["public"].position = that.position;
 	
 /**

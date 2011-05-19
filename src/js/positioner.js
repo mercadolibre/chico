@@ -1,26 +1,60 @@
 
 /**
  * Positioner is a utility that resolve positioning problem for all UI-Objects.
- *
+ * @name Positioner
  * @class Positioner
- * @requires ch
+ * @memberOf ch
  * @param {Position Object} o Object with positioning properties
  * @return {jQuery Object}
+ * @example
+ * // First example
+ * ch.positioner({
+ *     element: $("#element1"),
+ *     context: $("#context1"),
+ *     points: "lt rt"                //  Element left-top point = Context left-bottom point
+ * });
+ * @example  
+ * // Second example
+ * ch.positioner({
+ *     element: $("#element2"),
+ *     context: $("#context2"),
+ *     points: "lt lb"                //  Element center-middle point = Context center-middle point
+ * });
  */
+ 
 ch.positioner = function(o) {
 
-    
+    /**
+     * Constructs a new positioning, get viewport size, check for relative parent's offests, 
+     * find the context and set the position to a given element.
+     * @constructs
+     * @private
+     * @function
+     * @name initPosition
+     * @memberOf ch.Positioner
+     */
+    var initPosition = function(){
+        viewport = getViewport();
+        parentRelative = getParentRelative();
+        context = getContext();
+        setPosition();        
+    };
+
+
     /**
      * Object that contains all properties for positioning
      * @private
+     * @name o
+     * @type {Position Object}
      * @example
-     * ch.positioner({
+     * ch.Positioner({
      *   element: $element
      *   [context]: $element | viewport
      *   [points]: "cm cm"
      *   [offset]: "x y" 
      *   [hold]: false
      * });
+     * @memberOf ch.Positioner
      */
 	var o = o || this.conf.position;
         o.points = o.points || "cm cm";
@@ -29,6 +63,9 @@ ch.positioner = function(o) {
     /**
      * Reference to the DOM Element beign positioned
      * @private
+     * @name element
+     * @type {jQuery Object}
+     * @memberOf ch.Positioner
      */
 	var element = $(o.element);
 		element.css("position","absolute");
@@ -36,24 +73,34 @@ ch.positioner = function(o) {
     /**
      * Reference to the DOM Element that we will use as a reference
      * @private
+     * @name context
+     * @type {HTMLElement}
+     * @memberOf ch.Positioner
      */
 	var context;
     
     /**
      * Reference to the Window Object and it's size
      * @private
+     * @name viewport
+     * @type {Viewport Object}
+     * @memberOf ch.Positioner
      */
 	var viewport;
 	
     /**
      * Reference to the element beign positioned
      * @private
+     * @name parentRelative
+     * @memberOf ch.Positioner
      */
 	var parentRelative;
 
     /**
      * A map to reference the input points to output className
      * @private
+     * @name classReferences
+     * @memberOf ch.Positioner
      */
     var classReferences = {
 		"lt lb": "down",
@@ -67,6 +114,8 @@ ch.positioner = function(o) {
     /**
      * Array with offset information
      * @private
+     * @name splittedOffset
+     * @memberOf ch.Positioner
      */
     var splittedOffset = o.offset.split(" ");
    	/**
@@ -83,7 +132,10 @@ ch.positioner = function(o) {
     /**
      * Get the viewport size
      * @private
+     * @function
+     * @name getViewport
      * @return {Viewport Object}
+     * @memberOf ch.Positioner
      */
 	var getViewport = function() {
         
@@ -135,7 +187,10 @@ ch.positioner = function(o) {
 	/**
      * Calculate css left and top to element on context
      * @private
+     * @function
+     * @name getPosition
      * @return {Axis Object}
+     * @memberOf ch.Positioner
      */
 	var getPosition = function(unitPoints) {		     
 		// my_x and at_x values together
@@ -176,7 +231,10 @@ ch.positioner = function(o) {
     /**
      * Evaluate viewport spaces and set points
      * @private
+     * @function
+     * @name calculatePoints
      * @return {Styles Object}
+     * @memberOf ch.Positioner
      */
 	var calculatePoints = function(points, unitPoints){					
 		// Default styles
@@ -239,6 +297,9 @@ ch.positioner = function(o) {
     /**
      * Set position to element
      * @private
+     * @function
+     * @name setPosition
+     * @memberOf ch.Positioner
      */
 	var setPosition = function() {
 		// Separate points config
@@ -272,7 +333,10 @@ ch.positioner = function(o) {
     /**
      * Get context element for positioning, if ain't one, select the viewport as context.
      * @private
+     * @function
+     * @name getContext
      * @return {Context Object}
+     * @memberOf ch.Positioner
      */
 	var getContext = function(){
 	    
@@ -297,7 +361,10 @@ ch.positioner = function(o) {
     /**
      * Get offset values from relative parents
      * @private
-     * @return {Offset Object} 
+     * @function
+     * @name getParentRelative
+     * @return {Offset Object}
+     * @memberOf ch.Positioner 
      */
 	var getParentRelative = function(){
 		
@@ -327,19 +394,6 @@ ch.positioner = function(o) {
  	 
 	var scrolled = false;
 
-/**
- * Constructs a new positioning, get viewport size, check for relative parent's offests, find the context and set the position. 
- * @constructor
- */
-	var initPosition = function(){
-    	viewport = getViewport();
-        parentRelative = getParentRelative();
-        context = getContext();
-        setPosition();        
-	};
-	
-	initPosition();
-    
 	// Scroll and resize events
 	// Tested on IE, Magic! no lag!!
 	ch.utils.window.bind("resize scroll", function() {
@@ -353,7 +407,13 @@ ch.positioner = function(o) {
 		if( element.css("display") === "none" ) return; 	
 		initPosition();
 	}, 250);
+
+   /**
+    * @ignore
+    */
+    initPosition();
 	
+	// Return the reference to the positioned element
 	return $(element);
 };
 

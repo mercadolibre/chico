@@ -1,23 +1,31 @@
+
 /**
- *	Zoom
- *	@author
- *	@Contructor
- *	@return An interface object
+ * Zoom UI-Component for images.
+ * @name Zoom
+ * @class Zoom
+ * @augments ch.Floats
+ * @requires ch.Positioner
+ * @requires ch.Preload
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.zoom = function(conf) {
 
-/**
- *	Constructor
- */
-
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Zoom
+     */
 	var that = this;
-	
 	conf = ch.clon(conf);
-	
+
 	// Link source as zoomed image
 	conf.content = $("<img>").attr("src", that.element.href);
-	
+
 	conf.position = {};
 	conf.position.context = conf.context || that.$element;
 	conf.position.offset = conf.offset || "20 0";
@@ -41,19 +49,39 @@ ch.zoom = function(conf) {
 /**
  *  Private Members
  */
-	
+
+    /**
+     * Main configuration object.
+     * @private
+     * @name main
+     * @type {Object}
+     * @memberOf ch.Zoom
+     */
 	var main = {};
 		main.img = that.$element.children();
 		main.w = main.img.width();
 		main.h = main.img.height();
-	
+
+    /**
+     * The zoomed visual element.
+     * @private
+     * @name zoomed
+     * @type {Object}
+     * @memberOf ch.Zoom
+     */
 	var zoomed = {};
 		zoomed.img = conf.content;
 	
 	// Magnifying glass
 	//var $lens = $("<div>").addClass("ch-lens ch-hide");
 	
-	// Seeker
+    /**
+     * The seeker is the visual element that follows mouse movement.
+     * @private
+     * @name seeker
+     * @type {Object}
+     * @memberOf ch.Zoom
+     */
 	var seeker = {};
 		// TODO: Calc relativity like in that.size (en lugar de la division por 3)
 		seeker.w = conf.width / 3;
@@ -62,7 +90,15 @@ ch.zoom = function(conf) {
 			.addClass("ch-seeker ch-hide")
 			.bind("mousemove", function(event){ move(event); })
 			.css({width: seeker.w, height: seeker.h});
-	
+    
+    /**
+     * Get the mouse position and moves the zoomed image.
+     * @private
+     * @function
+     * @name move
+     * @param {Mouse Event Object} event
+     * @memberOf ch.Zoom
+     */
 	var move = function(event){
 		var offset = main.img.offset();
 		
@@ -117,13 +153,29 @@ ch.zoom = function(conf) {
 		
 		return that;
 	};
-	
+
+    /**
+     * Opens the big picture.
+     * @private
+     * @function
+     * @name enlarge
+     * @memberOf ch.Layer
+     */
 	that.enlarge = function(event){
 		that.prevent(event);
 		
 		// Open pop-up
 	};
 	
+    /**
+     * Getter and setter for size attributes.
+     * @private
+     * @function
+     * @name size
+     * @param {String} attr
+     * @param {String} [data]
+     * @memberOf ch.Layer
+     */
 	that.size = function(attr, data) {
 		if (!data) return conf[attr]; // Getter
 		
@@ -152,25 +204,95 @@ ch.zoom = function(conf) {
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Zoom
+     */
    	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Zoom
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Zoom
+     */
 	that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Zoom
+     */
 	that["public"].content = that.content;
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Zoom
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Zoom
+     */
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Zoom
+     * @example
+     * // Change position.
+     * $('input').zoom().position({ 
+     *    offset: "0 10",
+     *    points: "lt lb"
+     * });
+     */
 	that["public"].position = that.position;
 	
+    /**
+     * Sets the width size.
+     * @private
+     * @name width
+     * @param {Number} data Width value.
+     * @memberOf ch.Zoom
+     */
 	that["public"].width = function(data){ that.size("width", data); };
+    /**
+     * Sets the height size.
+     * @private
+     * @name height
+     * @param {Number} data Height value.
+     * @memberOf ch.Zoom
+     */
 	that["public"].height = function(data){ that.size("height", data) };
 
 	

@@ -1,11 +1,15 @@
+
 /**
- *	Form Controller
- *	@author
- *	@Contructor
- *	@return An interface object
+ * Forms is a Controller of DOM's HTMLFormElement.
+ * @name Form
+ * @class Form
+ * @augments ch.Controllers
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
-ch.form = function(conf){
+ch.form = function(conf) {
 
 /**
  *  Validation
@@ -28,9 +32,13 @@ ch.form = function(conf){
 		};
 	};
 
-/**
- *  Constructor
- */
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Form
+     */ 
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -55,23 +63,53 @@ ch.form = function(conf){
  *  Private Members
  */
  
+    /**
+     * A Boolean property that indicates is exists errors in the form.
+     * @private
+     * @name status
+     * @type {Boolean}
+     * @memberOf ch.Form
+     */ 
 	var status = true;
 	
-	// General Error
+    /**
+     * HTML snippet to show the general error on top of the form.
+     * @private
+     * @name $error
+     * @type {jQuery Object}
+     * @memberOf ch.Form
+     */ 
 	var $error = $("<p class=\"ch-validator\"><span class=\"ico error\">Error: </span>" + conf.messages["general"] + "</p>");
 	
-	// Create
+    /**
+     * Inserts the general error snippet into the HTML. This implies a change in the document's flow, so it will trigger the CHANGE_LAYOUT Event.
+     * @private
+     * @function
+     * @name createError
+     * @memberOf ch.Form
+     * @see ch.events.CHANGE_LAYOUT
+     */ 
 	var createError = function(){ 
 		that.$element.before( $error );		
 		$("body").trigger(ch.events.CHANGE_LAYOUT);
 	};
-	
-	// Remove
-	var removeError = function(){
+
+    /**
+     * Removes the general error snippet from the HTML. This implies a change in the document's flow, so it will trigger the CHANGE_LAYOUT Event.
+     * @private
+     * @function
+     * @name removeError
+     * @memberOf ch.Form
+     * @see ch.events.CHANGE_LAYOUT
+     */ 
+ 	var removeError = function(){
 		$error.detach();
 		$("body").trigger(ch.events.CHANGE_LAYOUT);
 	};
 
+    /**
+     * Iterates all the Watchers defined as children, for each one of them will check it's active property and returns when finds an error.
+     */
 	var checkStatus = function(){
 		// Check status of my childrens
 		for(var i = 0, j = that.children.length; i < j; i ++){
@@ -94,7 +132,10 @@ ch.form = function(conf){
 		};
 
 	};
-
+	
+    /**
+     * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+     */
 	var validate = function(){
 
         that.callbacks("beforeValidate");
@@ -113,6 +154,9 @@ ch.form = function(conf){
 		return that;
 	};
 
+    /**
+     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+     */
 	var submit = function(event){
 
         that.prevent(event);
@@ -134,6 +178,9 @@ ch.form = function(conf){
 		return that;
 	};
 
+    /**
+     * Use this method to clear al validations.
+     */
 	var clear = function(event){		
 		that.prevent(event);		
 		removeError();	
@@ -143,7 +190,10 @@ ch.form = function(conf){
 		
 		return that;
 	};
-	
+
+    /**
+     * Use this method to reset the form's input elements.
+     */	
 	var reset = function(event){
 		clear();
 		that.element.reset(); // Reset html form native
@@ -152,50 +202,119 @@ ch.form = function(conf){
 		return that;
 	};
 
-
-/**
- *  Protected Members
- */
-
-	
 			
 /**
  *  Public Members
  */	
-
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Form
+     */ 
 	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Form
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Form
+     */
 	that["public"].type = that.type;
+    /**
+     * Watcher instances associated to this controller.
+     * @public
+     * @name children
+     * @type {Collection}
+     * @memberOf ch.Form
+     */
 	that["public"].children = that.children;
+    /**
+     * Collection of messages defined.
+     * @public
+     * @name messages
+     * @type {String}
+     * @memberOf ch.Form
+     */
 	that["public"].messages = conf.messages;
+    /**
+     * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+     * @function
+     * @name validate
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */
 	that["public"].validate = function() { 
 		validate(); 
 		
 		return that["public"]; 
 	};
 	
+    /**
+     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+     * @function
+     * @name submit
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */
 	that["public"].submit = function() { 
 		submit(); 
 		
 		return that["public"]; 
 	};
 	
+    /**
+     * Iterates all the Watchers defined as children, for each one of them will check it's active property and returns when finds an error.
+     * @function
+     * @name checkStatus
+     * @memberOf ch.Form
+     * @see ch.watcher.active
+     */
 	that["public"].checkStatus = function() { 
 		checkStatus(); 
 		
 		return that["public"]; 
 	};
-	
+
+    /**
+     * Return the status value.
+     * @function
+     * @name getStatus
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */ 	
 	that["public"].getStatus = function(){
 		return status;	
 	};
-	
+
+    /**
+     * Use this method to clear al validations.
+     * @function
+     * @name clear
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */ 
 	that["public"].clear = function() { 
 		clear(); 
 		
 		return that["public"]; 
 	};
-	
+    /**
+     * Use this method to clear al validations.
+     * @function
+     * @name reset
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */ 
 	that["public"].reset = function() { 
 		reset(); 
 		

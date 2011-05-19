@@ -1,9 +1,19 @@
 /**
- *  Keyboard
- */
- 
+ * Keyboard event controller utility to know wich keys are begin
+ * @name Keyboard  
+ * @class Keyboard
+ * @memberOF ch
+ * @param {Event Object} event
+ */ 
 ch.keyboard = function(event) {
     
+    /**
+     * Map with references to key codes.
+     * @private
+     * @name keyCodes
+     * @type {Object}
+     * @memberOf ch.Keyboard
+     */ 
     var keyCodes = {
         "13": "ENTER",
         "27": "ESC",
