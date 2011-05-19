@@ -22,7 +22,7 @@ form p.required {
 }
 
 /* Field wrapper */
-form .fieldBox {
+form .field-box {
 	padding:3px 0;
 }
 
@@ -75,7 +75,7 @@ form label .error.ico{
 }
 
 /* Options */
-form .options .fieldBox{
+form .options .field-box{
 	margin: 0 0 15px 20px;
 	padding:0;
 }
@@ -154,7 +154,7 @@ form label select.error:focus{
 }
 
 /* Vertical Form*/
-form.vertical .fieldBox {
+form.vertical .field-box {
 	padding:7px 0;
 }
 
@@ -216,7 +216,7 @@ form .disabled input{
 	position:relative;
 }
 
-.ie7 form .fieldBox{
+.ie7 form .field-box{
 	position:relative;
 }
 
