@@ -55,8 +55,7 @@ ch.carousel = function(conf){
 	var page = 1;
 	
 	// UL Width calculator
-	var htmlElementMargin = (ch.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
-	var marginChildren = parseInt( that.$content.children().css("marginLeft") ) * 2;
+	var htmlElementMargin = parseInt( that.$content.children().css("marginLeft") ) * 2;
 
 	var extraWidth = (ch.utils.html.hasClass("ie6")) ? that.$content.children().outerWidth() : 0;
 	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
@@ -76,15 +75,15 @@ ch.carousel = function(conf){
      */ 
 	var calculateMask = function(){
 		// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
-		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + marginChildren));
+		steps = ~~( (that.$element.outerWidth() - 70) / (that.$content.children().outerWidth() + htmlElementMargin));
 		steps = (steps == 0) ? 1 : steps;
 		totalPages = Math.ceil(that.$content.children().size() / steps);
 		
 		// Move to... (steps in pixels)
-		moveTo = (that.$content.children().outerWidth() + marginChildren) * steps;
+		moveTo = (that.$content.children().outerWidth() + htmlElementMargin) * steps;
 		// Mask configuration
 		margin = ($mask.width()-moveTo) / 2;
-		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() + 2 ); // +2 for content with border
+		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() );
 		
 		return that;
 	};
