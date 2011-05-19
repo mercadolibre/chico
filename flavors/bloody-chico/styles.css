@@ -1,10 +1,13 @@
 /*
  * Chico Flavors
- * Chico-UI Theming System
+ * Chico-UI Theming System | http://chico-ui.com.ar/en/flavors
  * 
- * @flavor: Bloody Chico
- * @autor: Chico Team <chico@mercadolibre.com>
- * @tip: find components by name, pressing ctrl+F.
+ * @flavor: Chico
+ * @author: Chico Team <chico@mercadolibre.com>
+ * @components: core,carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,forms,viewer,chat,expando,viewer,codelighter
+ * @tip: to search, select a component from the list above, press ctrl+f and then hit enter.
+ * 
+ *  
  */
 
 /*
@@ -1340,7 +1343,7 @@ form p.required {
 }
 
 /* Field wrapper */
-form .fieldBox {
+form .field-box {
 	padding:5px 0 15px 0;
 }
 
@@ -1390,7 +1393,7 @@ form label .error.ico{
 }
 
 /* Options */
-form .options .fieldBox{
+form .options .field-box{
 	margin: 0 0 15px 20px;
 	padding:7px 0;
 }
@@ -1482,7 +1485,7 @@ form .disabled textarea{
 	position:relative;
 }
 
-.ie7 form .fieldBox{
+.ie7 form .field-box{
 	position:relative;
 }
 
