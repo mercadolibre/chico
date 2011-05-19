@@ -344,7 +344,7 @@ ch.get = function(o) {
 
 			// Set ajax config
 			// On IE (6-7) "that" reference losts when I call ch.get for second time
-			// Why?? I don't know... but with a setTimeOut() work fine!
+			// Why?? I don't know... but with a setTimeOut() works fine!
 			setTimeout(function(){
 			
 				$.ajax({
@@ -356,15 +356,15 @@ ch.get = function(o) {
 					beforeSend: function(jqXHR){
 						jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 					},
-					success: function(data, textStatus, xhr){					
+					success: function(data, textStatus, jqXHR){					
 						that.$content.html( data );
-						if ( conf.onContentLoad ) conf.onContentLoad.call(context);
-						if ( conf.position ) ch.positioner(conf.position);
+						if ( conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad.call(context, data, textStatus, jqXHR);
+						if ( conf.hasOwnProperty("position") ) ch.positioner(conf.position);
 					},
-					error: function(xhr, textStatus, errorThrown){
-						data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+					error: function(jqXHR, textStatus, errorThrown){
+						data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, jqXHR, textStatus, errorThrown) : "<p>Error on ajax call </p>";
 						that.$content.html( data );
-						if ( conf.position ) ch.positioner(conf.position);
+						if ( conf.hasOwnProperty("position") ) ch.positioner(conf.position);
 					}
 				});
 				
