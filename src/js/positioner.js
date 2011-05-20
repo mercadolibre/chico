@@ -103,9 +103,9 @@ ch.positioner = function(o) {
      * @memberOf ch.Positioner
      */
     var classReferences = {
-		"lt lb": "down",
+		"lt lb": "bottom",
 		"lb lt": "top",
-		"rt rb": "down",
+		"rt rb": "bottom",
 		"rb rt": "top",
 		"lt rt": "right",
 		"cm cm": "center"
@@ -245,25 +245,25 @@ ch.positioner = function(o) {
 		if (o.hold) return styles;
 
         // Check viewport limits	
-		// Down to top
+		// Bottom to top
 		if ( (points == "lt lb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
 
 			//store old styles
-			stylesDown = styles;
+			stylesBottom = styles;
 			
 			// New styles		 
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
 			styles.top -= (2 * offset_top);
 		
-			// Top to Down - Default again 
+			// Top to Bottom - Default again 
 			if(styles.top + parentRelative.top < viewport.top){
 				unitPoints.my_y = "t";
 				unitPoints.at_y = "b";
-				styles = stylesDown;
-				styles.direction = "down";
+				styles = stylesBottom;
+				styles.direction = "bottom";
 			};
 		};
 		
@@ -319,12 +319,12 @@ ch.positioner = function(o) {
 				left: styles.left,
 				top: styles.top
 			})
-			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right  ch-right-right" )
+			.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
 		if ( context.hasOwnProperty("element") && context.element !== ch.utils.window[0] ){
 			$(context.element)
-				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right ch-right-right" )
+				.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );
 		};
 

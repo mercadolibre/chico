@@ -26,14 +26,14 @@
 	position:absolute;
 }
 
-.ch-layer.ch-down .ch-cone,
+.ch-layer.ch-bottom .ch-cone,
 .ch-layer.ch-top .ch-cone {
 	width:16px;
 	height:8px;
 	left:12px;
 }
 
-.ch-layer.ch-down .ch-cone {
+.ch-layer.ch-bottom .ch-cone {
 	top:-8px;
 }
 
@@ -58,14 +58,14 @@
 	left:-8px;
 }
 
-.ch-layer.ch-down-right .ch-cone,
+.ch-layer.ch-bottom-right .ch-cone,
 .ch-layer.ch-top-right .ch-cone {
 	width:16px;
 	height:8px;
 	right:12px;
 }
 
-.ch-layer.ch-down-right .ch-cone {
+.ch-layer.ch-bottom-right .ch-cone {
 	top:-8px;
 }
 
