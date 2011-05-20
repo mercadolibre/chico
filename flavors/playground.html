@@ -924,7 +924,10 @@ pre {
 		});
 		
 		/* Watchers */
-		var ch_wch1 = $("#YOUR_SELECTOR_email").email().and().minLength(20).and().required();
+		var ch_wch1 = $("#YOUR_SELECTOR_email").email().and().minLength(20).and().required().helper.position({ 
+	offset: "0 10",
+    points: "lt lb"
+});
 		var ch_wch2 = $("#YOUR_SELECTOR_url").url();
 		var ch_wch3 = $("#YOUR_SELECTOR_number").number().and().min(20);
 		var ch_wch4 = $("#YOUR_SELECTOR_range").min(1).and().max(10);
