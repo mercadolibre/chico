@@ -40,18 +40,23 @@ ch.string = function(conf) {
 	conf.types = "text,email,url,minLength,maxLength";
     
     // Define the conditions of this interface
-    conf.conditions = {
-		text:       { patt: /^([a-zA-Z\s]+)$/ },
-        email:      { patt: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/ },
-        //url:        { patt: /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/ },
-        // TODO: Improve this expression.
-       	//url:        { patt: /((ftp|http|https):\/\/)?(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/ },
-        url:		{ patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/ },
-        minLength:  { expr: function(a,b) { return a >= b } },
-        maxLength:  { expr: function(a,b) { return a <= b } }
+    conf.conditions = [{
+            name: "text", 
+            patt: /^([a-zA-Z\s]+)$/ 
+        },{
+            name:"email",
+            patt: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/ 
+        },{
+            name: "url",
+            patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/ 
+        },{
+            name: "minLength",
+            expr: function(a,b) { return a.length >= b } 
+        },{
+            name: "maxLength",
+            expr: function(a,b) { return a.length <= b } 
+        }];
         // Conditions map TODO: uppercase, lowercase, varchar
-    };
-
 
 	return ch.watcher.call(this, conf);
     

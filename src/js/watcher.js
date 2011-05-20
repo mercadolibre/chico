@@ -58,7 +58,7 @@ ch.watcher = function(conf) {
 	
     
     /**
-     * Will search for instances of Watchers with the same trigger, and then merge it's properties with it.
+     * Search for instances of Watchers with the same trigger, and then merge it's properties with it.
      * @private
      * @function
      * @name checkInstance
@@ -70,15 +70,8 @@ ch.watcher = function(conf) {
         if ( instance && instance.length > 0 ) {
 			for (var i = 0, j = instance.length; i < j; i ++) {
                 if (instance[i].element !== that.element) continue;
-        	    // Merge Validations        	    
-                $.extend(instance[i].validations, that.validations);
         	    // Merge Conditions        	    
-                $.extend(instance[i].conditions, that.conditions);
-                // Merge Messages
-                $.extend(instance[i].messages, that.messages);
-                // Merge types
-        	    instance[i].types = mergeTypes(instance[i].types);
-
+                $.merge(instance[i].conditions, that.conditions);
 				return { 
 				    exists: true, 
 				    object: instance[i] 
@@ -87,42 +80,7 @@ ch.watcher = function(conf) {
             };
         };
     };
-    
-    /**
-     * Given an Array of types will merge with the current types and will return the new collection.
-     * @private
-     * @function
-     * @name mergeTypes
-     * @param {Array} types Collection of types
-     * @return {Instance Object}
-     * @memberOf ch.Watcher
-     */
-	var mergeTypes = function(types) {
-        if (!types || types == "") {
-            return conf.types;
-        } else {
-            var currentTypes = types.split(",");
-            var newTypes = conf.types.split(",");
 
-            var toMerge = [];
-            // For all new types, check if don't exists
-            var e = 0; g = newTypes.length;
-            for (e; e < g; e++) {
-                if (types.indexOf(newTypes[e]) === -1) {
-                    // If is a new type, pushed to merge it with the currents
-                    toMerge.push(newTypes[e]);
-                };
-            };
-            // If are things to merge, do it.
-            if (toMerge.length > 0) {
-                $.merge(currentTypes, toMerge);
-            };
-
-            // Return as string
-            return currentTypes.join(",");
-        }    
-    };
-    
     /**
      * Run all validations again and do form.checkStatus()
      * @private
@@ -171,54 +129,61 @@ ch.watcher = function(conf) {
         return reference;
     })();
 
-    /**
-     * Validations is a map with all configured validations.
+	/**
+     * Boolean, indicates that this watcher has a required filed.
+     * @depends that.coditions
      */
-	that.validations = (function() {
-        var collection = {};
-        var types = conf.types.split(",");
-        for (var i = 0, j = types.length; i < j; i ++) {
-            for (var val in conf) {
-                if (types[i] == val) {
-                    collection[val] = conf[val];
-                    // TODO: eliminar conf[val]???
-                }
-            }
-        }
-
-        return collection;
-    })();
-
+    that.isRequired = false;
 
 	/**
-     * Conditions is a map with all configured conditions.
+     * Process conditions and creates a map with all configured conditions, it's messages and validations.
      */
-	that.conditions = (function() {
-        var collection = {};        
-        var types = conf.types.split(",");
-        for (var i = 0, j = types.length; i < j; i ++) {
-            for (var val in conf) {
-                if (types[i] == val) {
-                    collection[val] = conf.conditions[val];
-                    // TODO: eliminar conf[val]???
-                }
-            }
-        }
+    that.conditions = (function(){
+        var c = []; // temp collection
+        var i = 0;  // iteration
+        var t = conf.conditions.length;
+        for ( i; i < t; i++ ) {
 
-        return collection;
-    })();
-	
-    /**
-     * Messages is a map with all configured messages.
-     */
-    that.messages = ch.clon(conf.messages);
- 
+            /**
+             * Process conditions to find out which should be configured.
+             * Add validations and messages to conditions object.
+             */
+            
+            var condition = conf.conditions[i];
+            
+            if ( conf[condition.name] ) {
+                
+                condition.value = conf[condition.name];
+                
+                if ( conf.messages[condition.name] ) {
+                    condition.message = conf.messages[condition.name];
+                }
+    
+                c.push(condition);
+            }
+
+            /*
+             * And mark the Watcher as Required.
+             */              
+            if ( condition.name === "required" ) {
+                that.isRequired = true;
+            }
+
+        }
+        
+        return c; // return all the configured conditions
+        
+    })(); // Love this ;)
+
+    
     /**
      * Helper is a UI Component that shows the messages of active validations.
-     * @type {Chico-UI Object}
+     * @name helper
+     * @     {ch.Helper}
+     * @see ch.Helper
      */
-     var helper = {};
-		helper.uid = that.uid + "#0";
+    var helper = {};
+        helper.uid = that.uid + "#0";
 		helper.type = "helper";
 		helper.element = that.element;
 		helper.$element = that.$element;
@@ -230,58 +195,69 @@ ch.watcher = function(conf) {
      */
  	that.validate = function(event) {	
 		// Pre-validation: Don't validate disabled or not required & empty elements
-		if ( that.$element.attr('disabled') ) { return; }
-		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() && that.active === false) { return; }
 
-		if ( that.enabled && ( that.active === false || !that.isEmpty() || that.validations.hasOwnProperty("required") ) ) {
+		if ( that.$element.attr('disabled') ) { return; }
+//        console.log(that);
+        // Avoid fields that aren't required when they are empty or de-activated
+		if ( !that.isRequired && that.isEmpty() && that.active === false) { return; }
+
+		if ( that.enabled && ( that.active === false ) ) {
 	
 			that.callbacks('beforeValidate');
 
-	        // Validate each type of validation
-			for (var type in that.validations) {
-				
-				// Status error (stop the flow)
-				var condition = that.conditions[type];
-	            var value = that.$element.val();
-	            var gotError = false;
-				
-	            if ( type == "required" ) {
-	                gotError = that.isEmpty();
-	            }
-	            
-	            if ( condition.patt ) {
-	                gotError = !condition.patt.test(value);
-	            }
-	            
-	            if ( condition.expr ) {
-	                gotError = !condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
-	            }
+//	        console.log(that.conditions);
 
-	            if ( condition.func && type != "required" ) {
-	                gotError = !condition.func.call(this, value); // Call validation function with 'this' as scope
-	            }
-				
-				if ( gotError ) {
-										
-	    			// Field error style
-					that.$element.addClass("error");
+            var i = 0;
+            var t = that.conditions.length;
+            var value = that.$element.val();
+            
+            for (i; i < t; i++) {
+                
+            	var condition = that.conditions[i];
+    	        
+//    	        console.log(condition.name);
 
-					// Show helper with message
-					var text = ( that.messages.hasOwnProperty(type) ) ? that.messages[type] : 
-						(controller.hasOwnProperty("messages")) ? controller.messages[type] :
-						undefined;
+            	if ( that.isRequired ) {
+                    gotError = that.isEmpty();
+            	}
+            	
+                if ( condition.patt ) {
+                    gotError = !condition.patt.test(value);
+                }
+                
+                if ( condition.expr ) {
+                    gotError = !condition.expr( value, condition.value );
+                }
 
-					that.helper.show( text );
-
-					that.active = true;
-
-					var event = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
-
-					that.$element.one(event, function(event){ that.validate(event); }); // Add blur or change event only one time
-
-	                return;
-				}
-	        } // End for each validation
+                if ( condition.func && !that.isRequired && (typeof condition.func !== "string") ) {
+                    // Call validation function with 'this' as scope.
+                    gotError = !condition.func.call(that["public"], value); 
+                }
+            
+                if ( gotError ) {
+                						
+                	// Field error style
+                	that.$element.addClass("error");
+                
+                	// Show helper with message
+                	var text = ( condition.message ) ? condition.message : 
+                		(controller.hasOwnProperty("messages")) ? controller.messages[condition.name] :
+                		undefined;
+                
+                	that.helper.show( text );
+                
+                	that.active = true;
+                
+                	var event = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
+                
+                	that.$element.one(event, function(event){ that.validate(event); }); // Add blur or change event only one time
+                
+                    return;
+                }
+            
+            } // End for each validation
+	        
+	        
 		} // End if Enabled
 		
 		// Status OK (with previous error)
@@ -347,7 +323,6 @@ ch.watcher = function(conf) {
 	};
 
 	
-			
 // Public Members
 	
 	/**
@@ -375,14 +350,6 @@ ch.watcher = function(conf) {
      */
 	that["public"].type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
     /**
-     * Validations supported.
-     * @public
-     * @name types
-     * @type {String}
-     * @memberOf ch.Watcher
-     */
-	that["public"].types = conf.types;
-    /**
      * Positioner reference.
      * @public
      * @name reference
@@ -390,14 +357,6 @@ ch.watcher = function(conf) {
      * @memberOf ch.Watcher
      */
 	that["public"].reference = that.reference;
-    /**
-     * Configured validations.
-     * @public
-     * @name validations
-     * @type {Object Literal}
-     * @memberOf ch.Watcher
-     */
-	that["public"].validations = that.validations;
     /**
      * Configured conditions.
      * @public
@@ -412,15 +371,6 @@ ch.watcher = function(conf) {
      * @name messages
      * @type {Object Literal}
      * @memberOf ch.Watcher
-     */
-	that["public"].messages = that.messages;
-    /**
-     * Helper's instance reference.
-     * @public
-     * @name helper
-     * @type {ch.Helper}
-     * @memberOf ch.Watcher
-     * @see ch.Helper
      */
 	that["public"].helper = that.helper["public"];
     /**
