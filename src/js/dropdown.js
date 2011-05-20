@@ -88,18 +88,18 @@ ch.dropdown = function(conf){
 		var selectItem = function(arrow, event){
 			that.prevent(event);
 			
-			if(itemSelected == ((arrow == "down") ? items.length - 1 : 0)) return;
+			if(itemSelected == ((arrow == "bottom") ? items.length - 1 : 0)) return;
 			
 			items.eq( itemSelected ).blur();
 			
-			if(arrow == "down") itemSelected ++; else itemSelected --;
+			if(arrow == "bottom") itemSelected ++; else itemSelected --;
 			
 			items.eq( itemSelected ).focus();
 		};
 		
 		// Arrows
 		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function(x, event){ selectItem("up", event); });
-		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function(x, event){ selectItem("down", event); });
+		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function(x, event){ selectItem("bottom", event); });
 		
         return that;
     };
@@ -196,7 +196,7 @@ ch.dropdown = function(conf){
 	that.$trigger
 		.bind("click", function(event){ that.show(event) })
 		.addClass("ch-dropdown-trigger-" + conf.skin)
-		.append("<span class=\"ch-down\"> &raquo;</span>");
+		.append("<span class=\"ch-bottom\"> &raquo;</span>");
 
 	// Content
 	that.$content = that.$trigger.next()

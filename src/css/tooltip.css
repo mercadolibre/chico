@@ -23,14 +23,14 @@
 	position:absolute;
 }
 
-.ch-tooltip.ch-down .ch-cone,
+.ch-tooltip.ch-bottom .ch-cone,
 .ch-tooltip.ch-top .ch-cone {
 	width:16px;
 	height:8px;
 	left:12px;
 }
 
-.ch-tooltip.ch-down .ch-cone {
+.ch-tooltip.ch-bottom .ch-cone {
 	top:-8px;
 }
 
@@ -55,14 +55,14 @@
 	left:-8px;
 }
 
-.ch-tooltip.ch-down-right .ch-cone,
+.ch-tooltip.ch-bottom-right .ch-cone,
 .ch-tooltip.ch-top-right .ch-cone {
 	width:16px;
 	height:8px;
 	right:12px;
 }
 
-.ch-tooltip.ch-down-right .ch-cone {
+.ch-tooltip.ch-bottom-right .ch-cone {
 	top:-8px;
 }
 

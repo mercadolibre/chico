@@ -43,14 +43,14 @@
 	position:absolute;
 }
 
-.ch-helper.ch-down .ch-cone,
+.ch-helper.ch-bottom .ch-cone,
 .ch-helper.ch-top .ch-cone{
 	width:16px;
 	height:8px;
 	left:8px;
 }
 
-.ch-helper.ch-down .ch-cone {
+.ch-helper.ch-bottom .ch-cone {
 	top:-8px;
 }
 
