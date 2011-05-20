@@ -92,7 +92,7 @@ ch.watcher = function(conf) {
 		that.validate();
         controller.checkStatus();  // Check everthing?
 	}; 
-
+	
 // Protected Members 
 
     /**
@@ -130,12 +130,6 @@ ch.watcher = function(conf) {
     })();
 
 	/**
-     * Boolean, indicates that this watcher has a required filed.
-     * @depends that.coditions
-     */
-    that.isRequired = false;
-
-	/**
      * Process conditions and creates a map with all configured conditions, it's messages and validations.
      */
     that.conditions = (function(){
@@ -148,34 +142,47 @@ ch.watcher = function(conf) {
              * Process conditions to find out which should be configured.
              * Add validations and messages to conditions object.
              */
-            
             var condition = conf.conditions[i];
             
+            // If condition exists in the Configuration Object
             if ( conf[condition.name] ) {
                 
+                // Sabe the value
                 condition.value = conf[condition.name];
                 
+                // If there is a message defined for that condition
                 if ( conf.messages[condition.name] ) {
                     condition.message = conf.messages[condition.name];
                 }
-    
+                
+                // Push it to the new conditions collection
                 c.push(condition);
             }
-
-            /*
-             * And mark the Watcher as Required.
-             */              
-            if ( condition.name === "required" ) {
-                that.isRequired = true;
-            }
-
         }
         
-        return c; // return all the configured conditions
+        // return all the configured conditions
+        return c;
         
     })(); // Love this ;)
 
-    
+    /**
+     * Return true is a required conditions is found on the condition collection.
+     * @private
+     * @function
+     * @name isRequired
+     * @memberOf ch.Watcher
+     */
+    that.isRequired = function(){
+        var t = that.conditions.length;
+        while ( t-- ) {   
+            var condition = that.conditions[t];
+            if ( condition.name === "required" && condition.value ) {
+                return true;
+            }
+        }
+        return false;
+    };
+
     /**
      * Helper is a UI Component that shows the messages of active validations.
      * @name helper
@@ -194,30 +201,28 @@ ch.watcher = function(conf) {
      * Validate executes all configured validations.
      */
  	that.validate = function(event) {	
+		
 		// Pre-validation: Don't validate disabled or not required & empty elements
-
 		if ( that.$element.attr('disabled') ) { return; }
-//        console.log(that);
-        // Avoid fields that aren't required when they are empty or de-activated
-		if ( !that.isRequired && that.isEmpty() && that.active === false) { return; }
 
-		if ( that.enabled && ( that.active === false ) ) {
+        var isRequired = that.isRequired()
+
+        // Avoid fields that aren't required when they are empty or de-activated
+		if ( !isRequired && that.isEmpty() && that.active === false) { return; }
+        
+        if ( that.enabled && ( that.active === false || !that.isEmpty() || isRequired ) ) {
 	
 			that.callbacks('beforeValidate');
 
-//	        console.log(that.conditions);
-
-            var i = 0;
             var t = that.conditions.length;
             var value = that.$element.val();
+            var gotError = false;
             
-            for (i; i < t; i++) {
+            while ( t-- ) {
                 
-            	var condition = that.conditions[i];
-    	        
-//    	        console.log(condition.name);
-
-            	if ( that.isRequired ) {
+            	var condition = that.conditions[t];
+        
+            	if ( that.isRequired() ) {
                     gotError = that.isEmpty();
             	}
             	
@@ -229,11 +234,11 @@ ch.watcher = function(conf) {
                     gotError = !condition.expr( value, condition.value );
                 }
 
-                if ( condition.func && !that.isRequired && (typeof condition.func !== "string") ) {
+                if ( condition.func) {
                     // Call validation function with 'this' as scope.
                     gotError = !condition.func.call(that["public"], value); 
                 }
-            
+                
                 if ( gotError ) {
                 						
                 	// Field error style
@@ -256,8 +261,7 @@ ch.watcher = function(conf) {
                 }
             
             } // End for each validation
-	        
-	        
+            
 		} // End if Enabled
 		
 		// Status OK (with previous error)

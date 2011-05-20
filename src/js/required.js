@@ -38,8 +38,7 @@ ch.required = function(conf) {
 	conf.types = "required";
     // Define the conditions of this interface
     conf.conditions = [{
-        name: "required", 
-        func: "that.isEmpty"
+        name: "required"
     }];
 	
 	return ch.watcher.call(this, conf);
