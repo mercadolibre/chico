@@ -40,14 +40,19 @@ ch.number = function(conf) {
 	conf.types = "number,min,max,price";
     
     // Define the conditions of this interface
-    conf.conditions = {
-		number: { patt: /^([0-9\s]+)$/ },
-        min:    { expr: function(a,b) { return a >= b } },
-        max:    { expr: function(a,b) { return a <= b } },
-		price:  { patt: /^(\d+)[.,]?(\d?\d?)$/ }
-		// price:  { patt: /^\d (\Z|[\.]\d )$/ }
-		// float: TODO       
-    };
+    conf.conditions = [{
+            name: "number",
+            patt: /^([0-9\s]+)$/ 
+    	},{
+            name: "min",
+            expr: function(a,b) { return a >= b } 
+        },{
+            name: "max",
+            expr: function(a,b) { return a <= b } 
+        },{
+            name: "price",
+            patt: /^(\d+)[.,]?(\d?\d?)$/ 
+        }];
 
 
 	return ch.watcher.call(this, conf);

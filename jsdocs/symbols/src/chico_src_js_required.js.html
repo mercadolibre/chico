@@ -44,9 +44,9 @@
 <span class='line'> 37</span>     </span><span class="COMM">// Add validation types</span><span class="WHIT">
 <span class='line'> 38</span> </span><span class="WHIT">	</span><span class="NAME">conf.types</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"required"</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 39</span> </span><span class="WHIT">    </span><span class="COMM">// Define the conditions of this interface</span><span class="WHIT">
-<span class='line'> 40</span> </span><span class="WHIT">    </span><span class="NAME">conf.conditions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 41</span> </span><span class="WHIT">        </span><span class="NAME">required</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'that.isEmpty'</span><span class="WHIT"> </span><span class="COMM">// This pattern is diferent</span><span class="WHIT">
-<span class='line'> 42</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">    </span><span class="NAME">conf.conditions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">        </span><span class="NAME">name</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"required"</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 43</span> </span><span class="WHIT">	
 <span class='line'> 44</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ch.watcher.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 45</span> </span><span class="WHIT">    

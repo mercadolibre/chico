@@ -51,12 +51,13 @@
 <span class='line'> 44</span> </span><span class="WHIT">	</span><span class="COMM">// Add validation types</span><span class="WHIT">
 <span class='line'> 45</span> </span><span class="WHIT">	</span><span class="NAME">conf.types</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"custom"</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 46</span> </span><span class="WHIT">    </span><span class="COMM">// Define the conditions of this interface</span><span class="WHIT">
-<span class='line'> 47</span> </span><span class="WHIT">    </span><span class="NAME">conf.conditions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 48</span> </span><span class="WHIT">		</span><span class="COMM">// I don't have pre-conditions, comes within an argument </span><span class="WHIT">
-<span class='line'> 49</span> </span><span class="WHIT">        </span><span class="NAME">custom</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">func</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">conf.lambda</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">       
-<span class='line'> 50</span>     </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 51</span> 
+<span class='line'> 47</span> </span><span class="WHIT">    </span><span class="NAME">conf.conditions</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">		</span><span class="COMM">// I don't have pre-conditions, comes within conf.lambda argument </span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">        </span><span class="NAME">name</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"custom"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">        </span><span class="NAME">func</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">conf.lambda</span><span class="WHIT"> 
+<span class='line'> 51</span>     </span><span class="PUNC">}</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 52</span> 
-<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ch.watcher.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 54</span> </span><span class="WHIT">    
-<span class='line'> 55</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>
+<span class='line'> 53</span> 
+<span class='line'> 54</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ch.watcher.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">    
+<span class='line'> 56</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>

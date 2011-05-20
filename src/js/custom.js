@@ -44,10 +44,11 @@ ch.custom = function(conf) {
 	// Add validation types
 	conf.types = "custom";
     // Define the conditions of this interface
-    conf.conditions = {
-		// I don't have pre-conditions, comes within an argument 
-        custom: { func: conf.lambda }       
-    };
+    conf.conditions = [{
+		// I don't have pre-conditions, comes within conf.lambda argument 
+        name: "custom",
+        func: conf.lambda 
+    }];
 
 
 	return ch.watcher.call(this, conf);
