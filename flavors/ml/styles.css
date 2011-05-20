@@ -84,7 +84,7 @@ body {
 	padding:0 10px; /* Prevent layout "sticking" to the edge of the browser */
 }
 
-.ie6 body, .ie7 body {
+.ie6 body {
 	width:expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
 }
 
@@ -562,6 +562,9 @@ table caption {
 	text-align: left;
 }
 
+thead tr{
+	border-top: 1px solid #CECECE;
+}
 
 th{	
 	vertical-align: middle;
@@ -575,26 +578,37 @@ th{
 
 th.selected{
 	background: #DEDEDE url(./assets/th-selected.gif) no-repeat right center;
-	}
+}
 		
 
 th:first-child{
 	border-left:none;
-	}
+}
 
 tr{
 	border-top:solid 1px #EEE;
-	}
+}
 	
 tr.selected {
 	background-color:#FFC;
-	}
+}
 
 td{
 	height:40px;
 	padding: 0 10px;
 	vertical-align: middle;
-	}
+}
+
+.ie6 tr.selected td,
+.ie7 tr.selected td {
+	background-color:#FFC;
+}
+
+.ie6 td,
+.ie7 td,
+.ie8 td {
+	border-top: 1px solid #EEE;
+}
 
 
 

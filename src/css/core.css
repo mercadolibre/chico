@@ -73,7 +73,7 @@ body {
 	padding:0 10px; /* Prevent layout "sticking" to the edge of the browser */
 }
 
-.ie6 body, .ie7 body {
+.ie6 body {
 	width:expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
 }
 
@@ -537,7 +537,7 @@ hr {
  * Tables
  */
 
-table{	
+table {
 	width:100%;
 	border:solid 1px #CECECE;
 	font-size:11px;
@@ -548,8 +548,11 @@ table caption {
 	text-align: left;
 }
 
+thead tr{
+	border-top: 1px solid #CECECE;
+}
 
-th{	
+th {	
 	vertical-align: middle;
 	border-bottom:solid 1px #CECECE;
 	border-left:solid 1px #CECECE;
@@ -559,30 +562,40 @@ th{
 	background: #DEDEDE url(../src/assets/th.png) repeat-x; /* to-do: add this to base.png? */
 }
 
-th.selected{
+th.selected {
 	background: #DEDEDE url(../src/assets/th-selected.gif) no-repeat right center;
-	}
+}
 		
 
-th:first-child{
+th:first-child {
 	border-left:none;
-	}
+}
 
-tr{
+tr {
 	border-top:solid 1px #EEE;
-	}
-	
+}
+
 tr.selected {
 	background-color:#FFC;
-	}
+}
 
-td{
+td {
 	height:40px;
 	padding: 0 10px;
 	vertical-align: middle;
-	}
+}
 
 
+.ie6 tr.selected td,
+.ie7 tr.selected td {
+	background-color:#FFC;
+}
+
+.ie6 td,
+.ie7 td,
+.ie8 td {
+	border-top: 1px solid #EEE;
+}
 
 /*
  * Clear Fix
