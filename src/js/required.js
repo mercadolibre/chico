@@ -37,9 +37,9 @@ ch.required = function(conf) {
     // Add validation types
 	conf.types = "required";
     // Define the conditions of this interface
-    conf.conditions = {
-        required: 'that.isEmpty' // This pattern is diferent
-    };
+    conf.conditions = [{
+        name: "required"
+    }];
 	
 	return ch.watcher.call(this, conf);
     
