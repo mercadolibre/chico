@@ -166,7 +166,7 @@ ch.floats = function() {
 	that.hide = function(event) {
 
 		if (event) that.prevent(event);
-
+		
 		if (!that.active) return;
 
 		var afterHide = function(){ 
@@ -189,7 +189,7 @@ ch.floats = function() {
 			// Callback execute
 			that.callbacks('onHide');
 			
-			$(this).detach();
+			that.$container.detach();
 			
 		};
 		
