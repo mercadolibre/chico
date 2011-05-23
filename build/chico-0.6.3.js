@@ -14,40 +14,76 @@
   * @link http://code.google.com/p/jsmin-php/ 
   */
 ;(function($){
-var start = new Date().getTime();
-/** 
-  * @namespace
-  */
+/*! Chico-UI Copyright 2011, MercadoLibre.com (Natan santolo, Leandro Linares, Guillermo Paz, Natalia Devalle) */
+
+/**
+ * Chico-UI namespace
+ * @namespace ch
+ * @name ch
+ */
+
 var ch = window.ch = {
 
-    version: "0.6.2",
-
+    /**
+     * Current version
+     * @name version
+     * @type {Number}
+     * @memberOf ch
+     */
+    version: "0.6.3",
+    /**
+     * List of UI components available.
+     * @name components
+     * @type {String}
+     * @memberOf ch
+     */
     components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,accordion,zoom",
-
+    /**
+     * List of internal components available.
+     * @name internals
+     * @type {String}
+     * @memberOf ch
+     */
     internals: "positioner,object,floats,navs,controllers,watcher,sliders,keyboard",
-
+    /**
+     * Here you will find a map of all component's instances created by Chico-UI.
+     * @name instances
+     * @type {Map Object}
+     * @memberOf ch
+     */
     instances: {},
-    
+    /**
+     * Available device's features.
+     * @name features
+     * @type {Map Object}
+     * @see ch.Support
+     * @memberOf ch
+     */
     features: {},
- 	
+    /**
+     * Core constructor function.
+     * @name init
+     * @function
+     * @memberOf ch
+     */
     init: function() { 
         // unmark the no-js flag on html tag
         $("html").removeClass("no-js");
         // check for browser support
 		ch.features = ch.support();
-        // check for pre-configured components
-        ch.components = (window.components) ? ch.components+","+window.components : ch.components ;
-        // check for pre-configured internals
-        ch.internals = (window.internals) ? ch.internals+","+window.internals : ch.internals ;
         // iterate and create components               
         $(ch.components.split(",")).each(function(i,e){ ch.factory({component:e}); });
         
+        // TODO: This should be on keyboard controller.
 		ch.utils.document.bind("keydown", function(event){ ch.keyboard(event); });
         
     },
-/**
- *	@static Utils. Common usage functions.
- */		
+    /**
+     * References and commons functions.
+     * @name utils
+     * @type {Object Literal}
+     * @memberOf ch
+     */
     utils: {
 		body: $("body"),
 		html: $("html"),
@@ -69,27 +105,79 @@ var ch = window.ch = {
 			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
 		}
 	},
-/**
- *	@const Event's Map.
- */	
+
+    /**
+     * Chico-UI global events reference.
+     * @name Events
+     * @class Events
+     * @type {Map Object}
+     * @memberOf ch 
+     * @see ch.Events.KEY
+     */	
     events: {
-        CHANGE_LAYOUT: "changeLayout",
+        /**
+         * Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
+         * @public
+         * @name CHANGE_LAYOUT
+         * @memberOf ch.Events
+         */ 
+        CHANGE_LAYOUT: "changeLayout", 
+        /**
+         * Keryboard event collection.
+         * @name KEY
+         * @class KEY
+         * @memberOf ch.Events
+         */
         KEY: {
+            /**
+             * Enter key event.
+             * @name ENTER
+             * @memberOf ch.Events.KEY
+             */
         	ENTER: "enter",
+            /**
+             * Esc key event.
+             * @name ESC
+             * @memberOf ch.Events.KEY
+             */
 			ESC: "esc",
+            /**
+             * Left arrow key event.
+             * @name LEFT_ARROW
+             * @memberOf ch.Events.KEY
+             */
 			LEFT_ARROW: "left_arrow",
+            /**
+             * Up arrow key event.
+             * @name UP_ARROW
+             * @memberOf ch.Events.KEY
+             */
 			UP_ARROW: "up_arrow",
+            /**
+             * Rigth arrow key event.
+             * @name RIGHT_ARROW
+             * @memberOf ch.Events.KEY
+             */
 			RIGHT_ARROW: "right_arrow",
+            /**
+             * Down arrow key event.
+             * @name DOWN_ARROW
+             * @memberOf ch.Events.KEY
+             */
 			DOWN_ARROW: "down_arrow"
         }
     }
 };
 
 
-/**
- *  Clone function
- */ 
-
+/** 
+ * Utility to clone objects
+ * @function
+ * @name clon
+ * @param {Object} o Object to clone
+ * @return {Object}
+ * @memberOf ch
+ */
 ch.clon = function(o) {
     
     obj = {};
@@ -102,22 +190,24 @@ ch.clon = function(o) {
 };
 
 
-/**
-*	Factory
-*/	
-ch.factory = function(o) {
+/** 
+ * Class to create UI Components
+ * @name Factory
+ * @class Factory
+ * @param {Configuration Object} o 
+ * @example
+ *   o {
+ *      component: "chat",
+ *      callback: function(){},
+ *      [script]: "http://..",
+ *      [style]: "http://..",
+ *      [callback]: function(){}    
+ *   }
+ * @return {Collection} A collection of object instances
+ * @memberOf ch
+ */    
 
-    /**
-    *   o {
-            component: "chat",
-            callback: function(){},
-            [script]: "http://..",
-            [style]: "http://..",
-            [callback]: function(){}    
-    *    }
-    *
-    *	@return A collection of object instances
-    */
+ch.factory = function(o) {
     
     if (!o) { 
         alert("Factory fatal error: Need and object {component:\"\"} to configure a component."); 
@@ -217,7 +307,7 @@ ch.factory = function(o) {
 			    
             });
             
-            // return the created components or component   
+            // return the created components collection or single component   
             return ( results.length > 1 ) ? results : results[0];
         };
 
@@ -227,11 +317,11 @@ ch.factory = function(o) {
     } // end create function
     
     if ( ch[o.component] ) {
-        // script already here, just create
+        // script already here, just create it
         create(o.component);
         
     } else {
-        // get resurces and call create
+        // get resurces and call create later
         ch.get({
             "method":"component",
             "component":o.component,
@@ -239,27 +329,27 @@ ch.factory = function(o) {
             "styles": ( o.style ) ? o.style : "src/css/"+x+".css",
             "callback":create
         });
-        
-        //alert("CH: " + x + " configuration error. The component do not exists");
     }
 }
 
 
 /**
- *  Get
+ * Load components or content 
+ * @name Get
+ * @class Get
+ * @param o {Object} object 
+ * @example
+ *   o {
+ *      method: "content"|"component",
+ *      component: "chat",
+ *      [script]: "http://..",
+ *      [style]: "http://..",
+ *      [callback]: function(){}
+ *   }
+ * @memberOf ch
  */
- 
 ch.get = function(o) {
-    /**
-    *   o {
-            method: "content"|"component",
-            component: "chat",
-            [script]: "http://..",
-            [style]: "http://..",
-            [callback]: function(){}
-    *    }
-    */
-    
+     
     switch(o.method) {
 		
 		case "content":
@@ -270,7 +360,7 @@ ch.get = function(o) {
 
 			// Set ajax config
 			// On IE (6-7) "that" reference losts when I call ch.get for second time
-			// Why?? I don't know... but with a setTimeOut() work fine!
+			// Why?? I don't know... but with a setTimeOut() works fine!
 			setTimeout(function(){
 			
 				$.ajax({
@@ -282,15 +372,15 @@ ch.get = function(o) {
 					beforeSend: function(jqXHR){
 						jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 					},
-					success: function(data, textStatus, xhr){					
+					success: function(data, textStatus, jqXHR){					
 						that.$content.html( data );
-						if ( conf.onContentLoad ) conf.onContentLoad.call(context);
-						if ( conf.position ) ch.positioner(conf.position);
+						if ( conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad.call(context, data, textStatus, jqXHR);
+						if ( conf.hasOwnProperty("position") ) ch.positioner(conf.position);
 					},
-					error: function(xhr, textStatus, errorThrown){
-						data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, xhr, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+					error: function(jqXHR, textStatus, errorThrown){
+						data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, jqXHR, textStatus, errorThrown) : "<p>Error on ajax call </p>";
 						that.$content.html( data );
-						if ( conf.position ) ch.positioner(conf.position);
+						if ( conf.hasOwnProperty("position") ) ch.positioner(conf.position);
 					}
 				});
 				
@@ -323,20 +413,20 @@ ch.get = function(o) {
 	    
 	    	if ( !done && (!this.readyState || 
 						this.readyState === "loaded" || this.readyState === "complete") ) {
-						
+
 					done = true;
-	            
+
 		   			// if callback is defined call it
 		   	        if ( o.callback ) { o.callback( o.component ); }
-										
+
 			   		// Handle memory leak in IE
 		   			script.onload = script.onreadystatechange = null;
-	   			
+
 			   		if ( head && script.parentNode ) { head.removeChild( script ); }
 				}
 			};
 	            
-			// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+			// Use insertBefore instead of appendChild to circumvent an IE6 bug.
 			// This arises when a base node is used.
 			if ( o.script ) { head.insertBefore( script, head.firstChild ); }
 			if ( o.style ) { head.appendChild( style ); }
@@ -348,23 +438,46 @@ ch.get = function(o) {
 
 
 /**
- *  Support
+ * Returns a data object with features supported by the device
+ * @name Support
+ * @class Support
+ * @return {Object}
+ * @memberOf ch 
  */
- 
 ch.support = function() {
+	
+	/**
+	 * Private reference to the <body> element
+	 * @private
+	 * @name thisBody
+	 * @type {HTMLBodyElement}
+	 * @memberOf ch.Support
+	 */
 	var thisBody = document.body || document.documentElement;
-	// Based on: http://gist.github.com/373874
-	// Verify that CSS3 transition is supported (or any of its browser-specific implementations)
+	
+	/**
+     * Based on: http://gist.github.com/373874
+     * Verify that CSS3 transition is supported (or any of its browser-specific implementations)
+     *
+     * @private
+     * @return {Boolean}
+     * @memberOf ch.Support
+     */
 	var transition = (function(){
 		var thisStyle = thisBody.style;
-
 		return thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.OTransition !== undefined || thisStyle.transition !== undefined;
 	})();
-	
-	// Based on: http://kangax.github.com/cft/#IS_POSITION_FIXED_SUPPORTED
-	// Verify that position fixed is supported
+
+    /**
+     * Based on: http://kangax.github.com/cft/#IS_POSITION_FIXED_SUPPORTED
+     * Verify that position fixed is supported
+     * 
+     * @private
+     * @return {Boolean}
+     * @memberOf ch.Support
+     */	
 	var fixed = (function(){
-		var isSupported = false;
+        var isSupported = false;
 		var e = document.createElement("div");
 			e.style.position = "fixed";
 			e.style.top = "10px";
@@ -378,83 +491,171 @@ ch.support = function() {
 	})();
 
 	return {
-		transition: transition,
+        /**
+         * Boolean property that indicates if CSS3 Transitions are supported by the device.
+         * @public
+         * @name transition
+         * @type {Boolean}
+         * @memberOf ch.Support
+         */
+ 		transition: transition,
+        /**
+         * Boolean property that indicates if Fixed positioning are supported by the device.
+         * @public
+         * @name fixed
+         * @type {Boolean}
+         * @memberOf ch.Support
+         */
 		fixed: fixed
-		// gradient: gradient
 	};
 	
 };
 
-
-$(function() { // DOM Ready
-	var now = new Date().getTime();
-    ch.loadTime = now - start;
-});
-// @arg o == configuration
-/*   References
-     points: x, y 
-         x values: center, left, right
-         y values: middle, top, bottom
-         
-     examples:
-         "cm" = center middle
-         "tl" = top left
-         "tr" = top right
-         "bl" = bottom left
-         "br" = bottom right
-
-    example configuration:
-    {
-        element: $element
-        [context]: $element | viewport
-        [offset]: "x y" 
-        [points]: "cm cm" // default
-        [hold]: false // default
-        [draggable]: false // default
-        
-    } */
+/**
+ * Positioner is a utility that resolve positioning problem for all UI-Objects.
+ * @name Positioner
+ * @class Positioner
+ * @memberOf ch
+ * @param {Position Object} o Object with positioning properties
+ * @return {jQuery Object}
+ * @example
+ * // First example
+ * ch.positioner({
+ *     element: $("#element1"),
+ *     context: $("#context1"),
+ *     points: "lt rt"                //  Element left-top point = Context left-bottom point
+ * });
+ * @example  
+ * // Second example
+ * ch.positioner({
+ *     element: $("#element2"),
+ *     context: $("#context2"),
+ *     points: "lt lb"                //  Element center-middle point = Context center-middle point
+ * });
+ */
+ 
 ch.positioner = function(o) {
 
-/**
- *  Private Members
- */
+    /**
+     * Constructs a new positioning, get viewport size, check for relative parent's offests, 
+     * find the context and set the position to a given element.
+     * @constructs
+     * @private
+     * @function
+     * @name initPosition
+     * @memberOf ch.Positioner
+     */
+    var initPosition = function(){
+        viewport = getViewport();
+        parentRelative = getParentRelative();
+        context = getContext();
+        setPosition();        
+    };
 
+
+    /**
+     * Object that contains all properties for positioning
+     * @private
+     * @name o
+     * @type {Position Object}
+     * @example
+     * ch.Positioner({
+     *   element: $element
+     *   [context]: $element | viewport
+     *   [points]: "cm cm"
+     *   [offset]: "x y" 
+     *   [hold]: false
+     * });
+     * @memberOf ch.Positioner
+     */
 	var o = o || this.conf.position;
-
-    // Initial configuration
+        o.points = o.points || "cm cm";
+        o.offset = o.offset || "0 0";
+    
+    /**
+     * Reference to the DOM Element beign positioned
+     * @private
+     * @name element
+     * @type {jQuery Object}
+     * @memberOf ch.Positioner
+     */
 	var element = $(o.element);
 		element.css("position","absolute");
-	var context;
-	var viewport;
-	var parentRelative;
     
-	// Default parameters 
-    o.points = o.points || "cm cm";
-    o.offset = o.offset || "0 0";
+    /**
+     * Reference to the DOM Element that we will use as a reference
+     * @private
+     * @name context
+     * @typeÂ {HTMLElement}
+     * @memberOf ch.Positioner
+     */
+	var context;
+    
+    /**
+     * Reference to the Window Object and it's size
+     * @private
+     * @name viewport
+     * @type {Viewport Object}
+     * @memberOf ch.Positioner
+     */
+	var viewport;
+	
+    /**
+     * Reference to the element beign positioned
+     * @private
+     * @name parentRelative
+     * @memberOf ch.Positioner
+     */
+	var parentRelative;
 
-    // Class names
+    /**
+     * A map to reference the input points to output className
+     * @private
+     * @name classReferences
+     * @memberOf ch.Positioner
+     */
     var classReferences = {
-		"lt lb": "down",
+		"lt lb": "bottom",
 		"lb lt": "top",
-		"rt rb": "down",
+		"rt rb": "bottom",
 		"rb rt": "top",
 		"lt rt": "right",
 		"cm cm": "center"
 	};
 
-	// Offset parameter
+    /**
+     * Array with offset information
+     * @private
+     * @name splittedOffset
+     * @memberOf ch.Positioner
+     */
     var splittedOffset = o.offset.split(" ");
+   	/**
+     * String with left offset information
+     * @private
+     */
    	var offset_left = parseInt(splittedOffset[0]);
-	var offset_top = parseInt(splittedOffset[1]);
+   	/**
+     * String with top offset information
+     * @private
+     */
+    var offset_top = parseInt(splittedOffset[1]);
 
-    // Get viewport with your configuration - Crossbrowser
-    //Conditional Advance Loading method
-	var getViewport = (typeof window.innerWidth != "undefined") ?
-		// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight 	
-		function getViewport() {
-			var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;							
-			
-			viewport = window;
+    /**
+     * Get the viewport size
+     * @private
+     * @function
+     * @name getViewport
+     * @return {Viewport Object}
+     * @memberOf ch.Positioner
+     */
+	var getViewport = function() {
+        
+        var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;	    
+	    	    
+        // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+	    if (typeof window.innerWidth != "undefined") {
+		    viewport = window;
 			width = viewport.innerWidth - scrollBar;
 			height = viewport.innerHeight;
 			pageX = viewport.pageXOffset;
@@ -470,17 +671,16 @@ ch.positioner = function(o) {
 				width: width,
 				height: height
 			}
-		}:		
-		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
-		// older versions of IE - viewport = document.getElementsByTagName('body')[0];
-		function getViewport(){
-			var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;
-			
+		}
+        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+        // older versions of IE - viewport = document.getElementsByTagName('body')[0];		
+		else {
 			viewport = document.documentElement;
 			width = viewport.clientWidth - scrollBar;
 			height = viewport.clientHeight;
 			pageX = viewport.scrollLeft;
 			pageY = viewport.scrollTop;
+			
 			// Return viewport object
 			return {
 				element: viewport,			
@@ -491,10 +691,19 @@ ch.positioner = function(o) {
 				width: width,
 				height: height
 			}
-		};
+	    }
+	    
+	};
 	
  	
-	// Calculate css left and top to element on context
+	/**
+     * Calculate css left and top to element on context
+     * @private
+     * @function
+     * @name getPosition
+     * @return {Axis Object}
+     * @memberOf ch.Positioner
+     */
 	var getPosition = function(unitPoints) {		     
 		// my_x and at_x values together
 		// cache properties 
@@ -531,7 +740,14 @@ ch.positioner = function(o) {
 		return axis;
 	};
 	
-	// Evaluate viewport spaces and set points
+    /**
+     * Evaluate viewport spaces and set points
+     * @private
+     * @function
+     * @name calculatePoints
+     * @return {Styles Object}
+     * @memberOf ch.Positioner
+     */
 	var calculatePoints = function(points, unitPoints){					
 		// Default styles
         var styles = getPosition(unitPoints);
@@ -541,25 +757,25 @@ ch.positioner = function(o) {
 		if (o.hold) return styles;
 
         // Check viewport limits	
-		// Down to top
+		// Bottom to top
 		if ( (points == "lt lb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
 
 			//store old styles
-			stylesDown = styles;
+			stylesBottom = styles;
 			
 			// New styles		 
 			styles = getPosition(unitPoints);
 			styles.direction = "top";
 			styles.top -= (2 * offset_top);
 		
-			// Top to Down - Default again 
+			// Top to Bottom - Default again 
 			if(styles.top + parentRelative.top < viewport.top){
 				unitPoints.my_y = "t";
 				unitPoints.at_y = "b";
-				styles = stylesDown;
-				styles.direction = "down";
+				styles = stylesBottom;
+				styles.direction = "bottom";
 			};
 		};
 		
@@ -590,7 +806,13 @@ ch.positioner = function(o) {
 	};
 	
 	
-	// Set position to element on context
+    /**
+     * Set position to element
+     * @private
+     * @function
+     * @name setPosition
+     * @memberOf ch.Positioner
+     */
 	var setPosition = function() {
 		// Separate points config
         var splitted = o.points.split(" ");
@@ -609,39 +831,53 @@ ch.positioner = function(o) {
 				left: styles.left,
 				top: styles.top
 			})
-			.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right  ch-right-right" )
+			.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
 		if ( context.hasOwnProperty("element") && context.element !== ch.utils.window[0] ){
 			$(context.element)
-				.removeClass( "ch-top ch-left ch-down ch-right ch-down-right ch-top-right ch-right-right" )
+				.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );
 		};
 
 	};	
 
-	// Get context	
-	//Conditional Advance Loading method
-	var getContext = (o.context) ?		
-		function getContext(){
-
-			var contextOffset = o.context.offset();
-
-		    context = {
-		    	element: o.context,
-				top: contextOffset.top + offset_top - parentRelative.top,
-				left: contextOffset.left + offset_left - parentRelative.left,
-				width: o.context.outerWidth(),
-				height: o.context.outerHeight()
-		    };
-
-		    return context;
-		}:
-		function getContext(){
-			return viewport;
-		};
+    /**
+     * Get context element for positioning, if ain't one, select the viewport as context.
+     * @private
+     * @function
+     * @name getContext
+     * @return {Context Object}
+     * @memberOf ch.Positioner
+     */
+	var getContext = function(){
+	    
+	    if (!o.context) {
+	        return viewport;
+	    }
+	     
+        var contextOffset = o.context.offset();
+        
+        context = {
+            element: o.context,
+            top: contextOffset.top + offset_top - parentRelative.top,
+            left: contextOffset.left + offset_left - parentRelative.left,
+            width: o.context.outerWidth(),
+            height: o.context.outerHeight()
+        };
+        
+        return context;	        
+	    
+	};
 	
-	
+    /**
+     * Get offset values from relative parents
+     * @private
+     * @function
+     * @name getParentRelative
+     * @return {Offset Object}
+     * @memberOf ch.Positioner 
+     */
 	var getParentRelative = function(){
 		
 		var relative = {};
@@ -667,22 +903,8 @@ ch.positioner = function(o) {
 		
 	};
 	
-
-    var initPosition = function(){			
-	    viewport = getViewport();
-	    parentRelative = getParentRelative();
-	    context = getContext();
-	    setPosition();
-    }; 
  	 
 	var scrolled = false;
-
-/**
- *  Default event delegation
- */ 
-
-	// Init	
-	initPosition();
 
 	// Scroll and resize events
 	// Tested on IE, Magic! no lag!!
@@ -697,22 +919,40 @@ ch.positioner = function(o) {
 		if( element.css("display") === "none" ) return; 	
 		initPosition();
 	}, 250);
+
+   /**
+    * @ignore
+    */
+    initPosition();
 	
+	// Return the reference to the positioned element
 	return $(element);
 };
-/**
- *  @class Object. Represent the abstract class of all ui objects.
- *  @return {object} Object.
- */	
 
+
+/**
+ * Object represent the abstract class of all UI Objects.
+ * @name Object
+ * @class Object 
+ * @memberOf ch
+ * @see ch.Controllers
+ * @see ch.Floats
+ * @see ch.Navs
+ * @see ch.Watcher
+ */
+ 
 ch.object = function(){
 	
-/**
- *  Inheritance: Create a symbolic link to myself
- */
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Object
+     */ 
 	var that = this;	
 	var conf = that.conf;
-	//Porque llegan las cosas que pisa el modal cuando sube... si no estan definidas todavia.
+
 /**
  *  Public Members
  */
@@ -844,18 +1084,30 @@ ch.object = function(){
 	
 	return that;
 };
+
 /**
- *  @class Floats. Represent the abstract class of all floats UI-Objects.
- *  @requires object.
- *  @returns {Object} Floats.
- */
+ * Abstract class of all floats UI-Objects.
+ * @name Floats
+ * @class Floats
+ * @augments ch.Object
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Tooltip
+ * @see ch.Layer
+ * @see ch.Modal
+ */ 
 
 ch.floats = function() {
 
-/**
- *  Constructor
- */
-	var that = this;
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Floats
+     */ 
+ 	var that = this;
 	var conf = that.conf;
 
 /**
@@ -897,7 +1149,7 @@ ch.floats = function() {
         	.html( that.loadContent() );
 		
     	that.$container = $("<div>")
-    		.addClass("ch-hide ch-" + that.type)
+    		.addClass("ch-" + that.type)
     		.css("z-index", ch.utils.zIndex ++)
     		.append( that.$content )
     		.appendTo("body");
@@ -906,7 +1158,7 @@ ch.floats = function() {
 		if( conf.hasOwnProperty("classes") ) that.$container.addClass(conf.classes);
 		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
 		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
-		if( conf.hasOwnProperty("closeButton") ) createClose();
+		if( conf.hasOwnProperty("closeButton") && conf.closeButton ) createClose();
 		if( conf.hasOwnProperty("cone") ) createCone();
 		if( conf.hasOwnProperty("fx") ) conf.fx = conf.fx; else conf.fx = true;
 		
@@ -943,7 +1195,14 @@ ch.floats = function() {
  */
  
 	that.active = false;
-	
+
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Floats
+     */ 
 	that.show = function(event) {
 		
 		if ( event ) that.prevent(event);
@@ -983,10 +1242,17 @@ ch.floats = function() {
         return that;
 	};
 
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Floats
+     */ 
 	that.hide = function(event) {
 
 		if (event) that.prevent(event);
-
+		
 		if (!that.active) return;
 
 		var afterHide = function(){ 
@@ -996,7 +1262,10 @@ ch.floats = function() {
 			// Append the content of BODY
 			var content = conf.content || conf.msg;
 			
-			if(ch.utils.isSelector(content)) {
+			if (ch.utils.isSelector(content)) {
+
+				if ($("body " + content + ".ch-hide").length > 0) return false;
+
 				that.$content.children()
 					.clone()
 					.addClass("ch-hide")
@@ -1006,7 +1275,7 @@ ch.floats = function() {
 			// Callback execute
 			that.callbacks('onHide');
 			
-			$(this).detach();
+			that.$container.detach();
 			
 		};
 		
@@ -1028,16 +1297,28 @@ ch.floats = function() {
 	return that;
 	
 };
+
 /**
-*  @static @class Navigators. Represent the abstract class of all navigators ui objects.
-*  @requires PowerConstructor
-*  @returns {Object} New Navigators.
-*/	
+ * Abstract representation of navs components.
+ * @name Navs
+ * @class Navs
+ * @augments ch.Object
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Dropdown
+ * @see ch.Expando
+ */
+ 
 ch.navs = function(){
 	
-/**
- *  Constructor
- */
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Navs
+     */ 
 	var that = this;
 	var conf = that.conf;
 /**
@@ -1046,22 +1327,19 @@ ch.navs = function(){
 
     that = ch.object.call(that);
     that.parent = ch.clon(that);
-
-/**
- *  Private Members
- */
- 
- 
-/**
- *  Protected Members
- */ 
-
 			
 /**
  *  Public Members
  */ 	
 	that.active = false;
-		
+
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Navs
+     */
 	that.show = function(event){
 		that.prevent(event);
 		
@@ -1075,7 +1353,13 @@ ch.navs = function(){
 		
 		return that;
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Navs
+     */
 	that.hide = function(event){
 		that.prevent(event);
 		
@@ -1092,86 +1376,93 @@ ch.navs = function(){
 	
 	return that;
 }
-/**
- *	Controllers
- *	@author 
- *	@Contructor
- *	@return An interface object
- */
 
+/**
+ * Abstract class
+ * @name Controllers
+ * @class Controllers 
+ * @augments ch.Object
+ * @memberOf ch
+ * @return {Object}
+ * @see ch.Accordion
+ * @see ch.Carousel
+ * @see ch.Form
+ */
+ 
 ch.controllers = function(){
 
-/**
- *  Constructor
- */
-	var that = this;
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Controllers
+     */ 
+ 	var that = this;
 		
-/**
- *  Inheritance
- */
-
+    /**
+     *  Inheritance
+     */
     that = ch.object.call(that);
     that.parent = ch.clon(that);
 	
-	
-/**
- *  Private Members
- */
  
- 
-/**
- *  Protected Members
- */ 
-	
+    /**
+     * Collection of children elements.
+     * @name children
+     * @type {Collection}
+     * @memberOf ch.Controllers
+     */ 
 	that.children = [];
 			
-/**
- *  Public Members
- */	
-	
-	
+    /**
+     *  Public Members
+     */	
+		
 	return that;
 };
+
 /**
- *	Field validation Watcher
- *	@return An interface object
+ * Watcher is a validation engine for html forms elements.
+ * @name Watcher
+ * @class Watcher
+ * @augments ch.Object
+ * @memberOf ch
+ * @requires ch.Form
+ * @param {Configuration Object} o Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Required
+ * @see ch.String
+ * @see ch.Number
+ * @see ch.Custom
  */
 
 ch.watcher = function(conf) {
 
-/**
- *  Validation
- */
+// Private members
 
-    /*if ( !conf ) {
-        alert("Watcher fatal error: Need a configuration object to create a validation.");
-    };*/
-
-/**
- *  Constructor
- */
-
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Watcher
+     */
 	var that = this;
-	
 	conf = ch.clon(conf);
 	that.conf = conf;	
 
-/**
- *  Inheritance
- */
-
+    // Inheritance
     that = ch.object.call(that);
     that.parent = ch.clon(that);
 	
 	
-/**
- *  Private Members
- */
-	
-	// Enabled
-	
-	
-	// Get my parent or set it
+    /**
+     * Reference to a ch.form controller. If there isn't any, the Watcher instance will create one.
+     * @private
+     * @name controller
+     * @type {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	var controller = (function() {
 		if ( ch.instances.hasOwnProperty("form") && ch.instances.form.length > 0 ) {	
 		  var i = 0, j = ch.instances.form.length; 
@@ -1187,27 +1478,22 @@ ch.watcher = function(conf) {
 		};
 	})();
 	
- 	//  Check for instances with the same trigger	
+    
+    /**
+     * Search for instances of Watchers with the same trigger, and then merge it's properties with it.
+     * @private
+     * @function
+     * @name checkInstance
+     * @return {Instance Object}
+     * @memberOf ch.Watcher
+     */	
 	var checkInstance = function() {
         var instance = ch.instances.watcher;
-        
         if ( instance && instance.length > 0 ) {
-			for (var i = 0, j = instance.length; i < j; i ++) {            	                
-                
+			for (var i = 0, j = instance.length; i < j; i ++) {
                 if (instance[i].element !== that.element) continue;
-        	    
-        	    // Merge Validations        	    
-                $.extend(instance[i].validations, that.validations);
-        	    
         	    // Merge Conditions        	    
-                $.extend(instance[i].conditions, that.conditions);
-
-                // Merge Messages
-                $.extend(instance[i].messages, that.messages);
-                
-                // Merge types
-        	    instance[i].types = mergeTypes(instance[i].types);
-
+                $.merge(instance[i].conditions, that.conditions);
 				return { 
 				    exists: true, 
 				    object: instance[i] 
@@ -1216,52 +1502,35 @@ ch.watcher = function(conf) {
             };
         };
     };
-    
-	var mergeTypes = function (types) {
-        if (!types || types == "") {
-            return conf.types;
-        } else {
-            var currentTypes = types.split(",");
-            var newTypes = conf.types.split(",");
 
-            var toMerge = [];
-            // For all new types, check if don't exists
-            var e = 0; g = newTypes.length;
-            for (e; e < g; e++) {
-                if (types.indexOf(newTypes[e]) === -1) {
-                    // If is a new type, pushed to merge it with the currents
-                    toMerge.push(newTypes[e]);
-                };
-            };
-            // If are things to merge, do it.
-            if (toMerge.length > 0) {
-                $.merge(currentTypes, toMerge);
-            };
-
-            // Return as string
-            return currentTypes.join(",");
-        }    
-    };
-    
-	// Revalidate
+    /**
+     * Run all validations again and do form.checkStatus()
+     * @private
+     * @function
+     * @name revalidate
+     * @memberOf ch.Watcher
+     */
 	var revalidate = function() {		
 		that.validate();
         controller.checkStatus();  // Check everthing?
 	}; 
+	
+// Protected Members 
 
-
-/**
- *  Protected Members
- */ 
-
-    // Status
+    /**
+     * Active is a boolean property that let you know if there's a validation going on.
+     */
 	that.active = false;
 	
-	// Enabled
-	that.enabled = true;
+    /**
+     * Enabled is a boolean property that let you know if the watchers is enabled or not.
+     */	
+    that.enabled = true;
 	
-	// Reference: for the Positioner
-	that.reference = (function() {
+    /**
+     * Reference is used to assign a context to the positioning preferences.
+     */
+ 	that.reference = (function() {
         var reference;
         // CHECKBOX, RADIO
         if ( that.$element.hasClass("options") ) {
@@ -1282,109 +1551,139 @@ ch.watcher = function(conf) {
         return reference;
     })();
 
-	// Validations Map - Collect validations
-	that.validations = (function() {
-        var collection = {};
-        var types = conf.types.split(",");
-        for (var i = 0, j = types.length; i < j; i ++) {
-            for (var val in conf) {
-                if (types[i] == val) {
-                    collection[val] = conf[val];
-                    // TODO: eliminar conf[val]???
+	/**
+     * Process conditions and creates a map with all configured conditions, it's messages and validations.
+     */
+    that.conditions = (function(){
+        var c = []; // temp collection
+        var i = 0;  // iteration
+        var t = conf.conditions.length;
+        for ( i; i < t; i++ ) {
+
+            /**
+             * Process conditions to find out which should be configured.
+             * Add validations and messages to conditions object.
+             */
+            var condition = conf.conditions[i];
+            
+            // If condition exists in the Configuration Object
+            if ( conf[condition.name] ) {
+                
+                // Sabe the value
+                condition.value = conf[condition.name];
+                
+                // If there is a message defined for that condition
+                if ( conf.messages[condition.name] ) {
+                    condition.message = conf.messages[condition.name];
                 }
+                
+                // Push it to the new conditions collection
+                c.push(condition);
             }
         }
+        
+        // return all the configured conditions
+        return c;
+        
+    })(); // Love this ;)
 
-        return collection;
-    })();
-
-
-	// Conditions Map
-	that.conditions = (function() {
-        var collection = {};        
-        var types = conf.types.split(",");
-        for (var i = 0, j = types.length; i < j; i ++) {
-            for (var val in conf) {
-                if (types[i] == val) {
-                    collection[val] = conf.conditions[val];
-                    // TODO: eliminar conf[val]???
-                }
+    /**
+     * Return true is a required conditions is found on the condition collection.
+     * @private
+     * @function
+     * @name isRequired
+     * @memberOf ch.Watcher
+     */
+    that.isRequired = function(){
+        var t = that.conditions.length;
+        while ( t-- ) {   
+            var condition = that.conditions[t];
+            if ( condition.name === "required" && condition.value ) {
+                return true;
             }
         }
+        return false;
+    };
 
-        return collection;
-    })();
-
-
-	
-    // Messages
-
-    that.messages = ch.clon(conf.messages);
- 
-    // Helper
+    /**
+     * Helper is a UI Component that shows the messages of active validations.
+     * @name helper
+     * @     {ch.Helper}
+     * @see ch.Helper
+     */
     var helper = {};
-		helper.uid = that.uid + "#0";
+        helper.uid = that.uid + "#0";
 		helper.type = "helper";
 		helper.element = that.element;
 		helper.$element = that.$element;
 		
     that.helper = ch.helper.call(helper, that);
     
-    // Validate Method
-	that.validate = function(event) {	
+    /**
+     * Validate executes all configured validations.
+     */
+ 	that.validate = function(event) {	
+		
 		// Pre-validation: Don't validate disabled or not required & empty elements
 		if ( that.$element.attr('disabled') ) { return; }
-		if ( !that.validations.hasOwnProperty("required") && that.isEmpty() && that.active === false) { return; }
 
-		if ( that.enabled && ( that.active === false || !that.isEmpty() || that.validations.hasOwnProperty("required") ) ) {
+        var isRequired = that.isRequired()
+
+        // Avoid fields that aren't required when they are empty or de-activated
+		if ( !isRequired && that.isEmpty() && that.active === false) { return; }
+        
+        if ( that.enabled && ( that.active === false || !that.isEmpty() || isRequired ) ) {
 	
 			that.callbacks('beforeValidate');
 
-	        // Validate each type of validation
-			for (var type in that.validations) {
-				
-				// Status error (stop the flow)
-				var condition = that.conditions[type];
-	            var value = that.$element.val();
-	            var gotError = false;
-				
-	            if ( type == "required" ) {
-	                gotError = that.isEmpty();
-	            }
-	            
-	            if ( condition.patt ) {
-	                gotError = !condition.patt.test(value);
-	            }
-	            
-	            if ( condition.expr ) {
-	                gotError = !condition.expr((type.indexOf("Length")>-1) ? value.length : value, that.validations[type]);
-	            }
+            var t = that.conditions.length;
+            var value = that.$element.val();
+            var gotError = false;
+            
+            while ( t-- ) {
+                
+            	var condition = that.conditions[t];
+        
+            	if ( that.isRequired() ) {
+                    gotError = that.isEmpty();
+            	}
+            	
+                if ( condition.patt ) {
+                    gotError = !condition.patt.test(value);
+                }
+                
+                if ( condition.expr ) {
+                    gotError = !condition.expr( value, condition.value );
+                }
 
-	            if ( condition.func && type != "required" ) {
-	                gotError = !condition.func.call(this, value); // Call validation function with 'this' as scope
-	            }
-				
-				if ( gotError ) {
-										
-	    			// Field error style
-					that.$element.addClass("error");
-
-					// Show helper with message
-					var text = ( that.messages.hasOwnProperty(type) ) ? that.messages[type] : 
-						(controller.hasOwnProperty("messages")) ? controller.messages[type] :
-						undefined;
-
-					that.helper.show( text );
-
-					that.active = true;
-
-					var event = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
-
-					that.$element.one(event, function(event){ that.validate(event); }); // Add blur or change event only one time
-
-	                return;
-				}
-	        } // End for each validation
+                if ( condition.func) {
+                    // Call validation function with 'this' as scope.
+                    gotError = !condition.func.call(that["public"], value); 
+                }
+                
+                if ( gotError ) {
+                						
+                	// Field error style
+                	that.$element.addClass("error");
+                
+                	// Show helper with message
+                	var text = ( condition.message ) ? condition.message : 
+                		(controller.hasOwnProperty("messages")) ? controller.messages[condition.name] :
+                		undefined;
+                
+                	that.helper.show( text );
+                
+                	that.active = true;
+                
+                	var event = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
+                
+                	that.$element.one(event, function(event){ that.validate(event); }); // Add blur or change event only one time
+                
+                    return;
+                }
+            
+            } // End for each validation
+            
 		} // End if Enabled
 		
 		// Status OK (with previous error)
@@ -1411,8 +1710,10 @@ ch.watcher = function(conf) {
         return that;
 	};
 	
-	// Reset Method
-	that.reset = function() {
+    /**
+     * Reset all active validations messages.
+     */
+ 	that.reset = function() {
 		//that.publish.status = that.status = conf.status = true; // Public status OK
 		that.active = false;
 		that.$element.removeClass("error");
@@ -1424,8 +1725,10 @@ ch.watcher = function(conf) {
 		return that;
 	};
 	
-	// isEmpty Method
-	that.isEmpty = function() {
+    /**
+     * isEmpty determine if the field has no value selected.
+     */	
+     that.isEmpty = function() {
 		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
 		switch (that.tag) {
 			case 'OPTIONS':
@@ -1446,59 +1749,147 @@ ch.watcher = function(conf) {
 	};
 
 	
-			
-/**
- *  Public Members
- */	
+// Public Members
+	
+	/**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Watcher
+     */ 
 	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Watcher
+     */
 	that["public"].element = that.element;
+	/**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Watcher
+     */
 	that["public"].type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
-	that["public"].types = conf.types;
+    /**
+     * Positioner reference.
+     * @public
+     * @name reference
+     * @type {jQuery Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].reference = that.reference;
-	that["public"].validations = that.validations;
+    /**
+     * Configured conditions.
+     * @public
+     * @name conditions
+     * @type {Object Literal}
+     * @memberOf ch.Watcher
+     */
 	that["public"].conditions = that.conditions;
-	that["public"].messages = that.messages;
+    /**
+     * Configured messages.
+     * @public
+     * @name messages
+     * @type {Object Literal}
+     * @memberOf ch.Watcher
+     */
 	that["public"].helper = that.helper["public"];
+    /**
+     * Active is a boolean property that let you know if there's a validation going on.
+     * @public
+     * @function
+     * @name active
+     * @return {Boolean}
+     * @memberOf ch.Watcher
+     */
 	that["public"].active = function() {
 		return that.active;
 	};
-	
+    /**
+     * Let you concatenate methods.
+     * @public
+     * @function
+     * @name and
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].and = function() {
 		return that.$element;
 	};
-	
+    /**
+     * Reset al active validations.
+     * @public
+     * @function
+     * @name reset
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].reset = function() {
 		that.reset();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Run all configured validations.
+     * @public
+     * @function
+     * @name validate
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].validate = function() {
 		that.validate();
 		
 		return that["public"];
 	};
-	  
+    /**
+     * Turn on Watcher engine.
+     * @public
+     * @function
+     * @name enable
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].enable = function() {
 		that.enabled = true;
 				
 		return that["public"];			
 	};
-	
+    /**
+     * Turn off Watcher engine.
+     * @public
+     * @function
+     * @name disable
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].disable = function() {
 		that.enabled = false;
 		
 		return that["public"];
 	};
-	
+	/**
+     * Recalculate Helper's positioning.
+     * @public
+     * @function
+     * @name refresh
+     * @return {Chico-UI Object}
+     * @memberOf ch.Watcher
+     */
 	that["public"].refresh = function() { 
 		return that.helper.position("refresh");
-   };
+    };
 
 	
 
 /**
- *  Default event delegation
+ * Default event delegation
+ * @ignore
  */	
 
     // Run the instances checker        
@@ -1518,10 +1909,15 @@ ch.watcher = function(conf) {
 
 	return that;
 };
+
 /**
- *  @class Sliders. Represent the abstract class of all sliders UI-Objects.
- *  @requires object.
- *  @returns {Object} Sliders.
+ * Generic Slider UI-Component.
+ * @name Slider
+ * @class Slider
+ * @augments ch.Object
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.sliders = function() {
@@ -1557,11 +1953,21 @@ ch.sliders = function() {
 	return that;
 	
 };/**
- *  Keyboard
- */
- 
+ * Keyboard event controller utility to know wich keys are begin
+ * @name Keyboard  
+ * @class Keyboard
+ * @memberOF ch
+ * @param {Event Object} event
+ */ 
 ch.keyboard = function(event) {
     
+    /**
+     * Map with references to key codes.
+     * @private
+     * @name keyCodes
+     * @type {Object}
+     * @memberOf ch.Keyboard
+     */ 
     var keyCodes = {
         "13": "ENTER",
         "27": "ESC",
@@ -1576,19 +1982,26 @@ ch.keyboard = function(event) {
     ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ], event);
     
 };
-/**
- *	Carousel
- *	@author
- *	@Contructor
- *	@return An interface object
- */
 
+/**
+ * Carousel is a UI-Component.
+ * @name Carousel
+ * @class Carousel
+ * @augments ch.Controllers
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ */
+ 
 ch.carousel = function(conf){
 	
-/** 
- *  Constructor
- */
-	
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Carousel
+     */	
 	var that = this;
 	
 	that.$element.addClass('ch-carousel');
@@ -1615,11 +2028,18 @@ ch.carousel = function(conf){
 /**
  *  Private Members
  */
+ 
+    /**
+     * Page size.
+     * @private
+     * @name page
+     * @type {Number}
+     * @memberOf ch.Carousel
+     */ 
 	var page = 1;
 	
 	// UL Width calculator
-	var htmlElementMargin = (ch.utils.html.hasClass("ie6")) ? 21 : 20; // IE needs 1px more
-	var marginChildren = parseInt( that.$content.children().css("marginLeft") ) * 2;
+	var htmlElementMargin = parseInt( that.$content.children().css("marginLeft") ) * 2;
 
 	var extraWidth = (ch.utils.html.hasClass("ie6")) ? that.$content.children().outerWidth() : 0;
 	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
@@ -1629,25 +2049,40 @@ ch.carousel = function(conf){
 	var $mask = that.$element.find('.ch-mask');
 	var steps, totalPages, moveTo, margin;
 	
+    /**
+     * Calculate size of the carousel's mask.
+     * @private
+     * @name calculateMask
+     * @function
+     * @return {That Object}
+     * @memberOf ch.Carousel
+     */ 
 	var calculateMask = function(){
 		// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
-		steps = ~~( (that.$element.width() - 70) / (that.$content.children().outerWidth() + marginChildren));
+		steps = ~~( (that.$element.outerWidth() - 70) / (that.$content.children().outerWidth() + htmlElementMargin));
 		steps = (steps == 0) ? 1 : steps;
 		totalPages = Math.ceil(that.$content.children().size() / steps);
 		
 		// Move to... (steps in pixels)
-		moveTo = (that.$content.children().outerWidth() + marginChildren) * steps;
+		moveTo = (that.$content.children().outerWidth() + htmlElementMargin) * steps;
 		// Mask configuration
 		margin = ($mask.width()-moveTo) / 2;
-		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() + 2 ); // +2 for content with border
+		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() );
 		
 		return that;
 	};
 
 	calculateMask();
 
-	// Pager
-	var makePager = function(){
+    /**
+     * Create pager functionlity whitin a carousel instance.
+     * @private
+     * @name makePager
+     * @function
+     * @return {Pager Object}
+     * @memberOf ch.Carousel
+     */ 
+ 	var makePager = function(){
 		that.$element.find(".ch-pager").remove();
 			
 		var pager = $("<ul class=\"ch-pager\">");
@@ -1689,8 +2124,13 @@ ch.carousel = function(conf){
  *  Protected Members
  */
 
-	// Buttons
-	that.buttons = {
+    /**
+     * Internal class that handles buttons behavior.
+     * @private
+     * @name buttons
+     * @memberOf ch.Carousel
+     */ 
+ 	that.buttons = {
 		prev: {
 			//TODO usar positioner cuando esten todos los casos de posicionamiento
 			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }),
@@ -1819,30 +2259,97 @@ ch.carousel = function(conf){
  *  Public Members
  */
 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Carousel
+     */ 
    	that["public"].uid = that.uid;
+    
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Carousel
+     */
 	that["public"].element = that.element;
+   
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Carousel
+     */
 	that["public"].type = that.type;
 
+    /**
+     * Get the amount of steps.
+     * @public
+     * @name getSteps
+     * @return {Number}
+     * @memberOf ch.Carousel
+     */
 	that["public"].getSteps = function() { return steps; };
+    
+    /**
+     * Get the current page.
+     * @public
+     * @name getPage
+     * @return {Number}
+     * @memberOf ch.Carousel
+     */
     that["public"].getPage = function() { return page; };
+    
+    /**
+     * Moves the carousel to the defined page.
+     * @public
+     * @name moveTo
+     * @return {Chico-UI Object}
+     * @memberOf ch.Carousel
+     */
     that["public"].moveTo = function(page) {
     	that.select(page);
 
     	return that["public"];
     };
     
+    /**
+     * Moves to the next page.
+     * @public
+     * @name next
+     * @return {Chico-UI Object}
+     * @memberOf ch.Carousel
+     */
     that["public"].next = function(){
     	that.move("next", 1);
 
     	return that["public"];
     };
-    
+
+    /**
+     * Moves to the previous page.
+     * @public
+     * @name prev
+     * @return {Chico-UI Object}
+     * @memberOf ch.Carousel
+     */
 	that["public"].prev = function(){
 		that.move("prev", 1);
 
 		return that["public"];
 	};
-	
+
+    /**
+     * Re-calculate positioning, sizing, paging, and re-draw.
+     * @public
+     * @name redraw
+     * @return {Chico-UI Object}
+     * @memberOf ch.Carousel
+     */	
 	that["public"].redraw = function(){
 		that.redraw();
 		
@@ -1888,19 +2395,27 @@ ch.carousel = function(conf){
  
 	return that;
 }
+
 /**
- *	Dropdown
- *	@author 
- *	@Contructor
- *	@return An interface object
- */	
+ * A navegable list of items, UI-Object.
+ * @name Dropdown
+ * @class Dropdown
+ * @augments ch.Navs
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ */
 
 ch.dropdown = function(conf){
 
-/** 
- *  Constructor
- */
-	
+
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Dropdown
+     */
 	var that = this;
 
 	conf = ch.clon(conf);
@@ -1914,11 +2429,6 @@ ch.dropdown = function(conf){
 
     that = ch.navs.call(that);
     that.parent = ch.clon(that);
-
-/**
- *  Private Members
- */
-	
 
 /**
  *  Protected Members
@@ -1975,18 +2485,18 @@ ch.dropdown = function(conf){
 		var selectItem = function(arrow, event){
 			that.prevent(event);
 			
-			if(itemSelected == ((arrow == "down") ? items.length - 1 : 0)) return;
+			if(itemSelected == ((arrow == "bottom") ? items.length - 1 : 0)) return;
 			
 			items.eq( itemSelected ).blur();
 			
-			if(arrow == "down") itemSelected ++; else itemSelected --;
+			if(arrow == "bottom") itemSelected ++; else itemSelected --;
 			
 			items.eq( itemSelected ).focus();
 		};
 		
 		// Arrows
 		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function(x, event){ selectItem("up", event); });
-		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function(x, event){ selectItem("down", event); });
+		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function(x, event){ selectItem("bottom", event); });
 		
         return that;
     };
@@ -2014,21 +2524,65 @@ ch.dropdown = function(conf){
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Dropdown
+     */
    	that["public"].uid = that.uid;
+    
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Dropdown
+     */
 	that["public"].element = that.element;
+    
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Dropdown
+     */	
 	that["public"].type = that.type;
+	
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Dropdown
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Dropdown
+     */ 
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Dropdown
+     */
 	that["public"].position = that.position;	
 
 
@@ -2039,7 +2593,7 @@ ch.dropdown = function(conf){
 	that.$trigger
 		.bind("click", function(event){ that.show(event) })
 		.addClass("ch-dropdown-trigger-" + conf.skin)
-		.append("<span class=\"ch-down\"> &raquo;</span>");
+		.append("<span class=\"ch-bottom\"> &raquo;</span>");
 
 	// Content
 	that.$content = that.$trigger.next()
@@ -2066,22 +2620,31 @@ ch.dropdown = function(conf){
 	return that;
 
 };
+
 /**
- *	Context Layer
- *	@author
- *	@Contructor
- *	@return An interface object
- */
+ * Is a contextual floated UI-Object.
+ * @name Layer
+ * @class Layer
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Tooltip
+ * @see ch.Modal
+ * @example
+ * // Create a simple contextual layer
+ * $("element").layer("<p>Content.</p>");
+ */ 
 
 ch.layer = function(conf) {
-
     
-/**
- *	Constructor
- *	Guardo el contexto de ejecucion (this) que viene con 3 propiedades del factory (uid, element, type).
- *	Luego, seteamos la configuracion bÃ¡sica del componente y lo guardamos en el contexto para que llegue a sus padres cuando pasamos el contexto (that.conf)
- */
-
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Layer
+     */ 
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -2106,14 +2669,64 @@ ch.layer = function(conf) {
  *  Private Members
  */
  
+    /**
+     * Delay time to show component's contents.
+     * @private
+     * @name showTime
+     * @type {Number}
+     * @default 400
+     * @memberOf ch.Layer
+     */ 
     var showTime = conf.showTime || 400;
+    /**
+     * Delay time to hide component's contents.
+     * @private
+     * @name hideTime
+     * @type {Number}
+     * @default 400
+     * @memberOf ch.Layer
+     */ 
     var hideTime = conf.hideTime || 400;
 
-	var st, ht; // showTimer and hideTimer
-	
+    /**
+     * Show timer instance.
+     * @private
+     * @name st
+     * @type {Timer}
+     * @memberOf ch.Layer
+     */ 
+	var st;
+	/**
+     * Hide timer instance.
+     * @private
+     * @name ht
+     * @type {Timer}
+     * @memberOf ch.Layer
+     */ 
+	var ht;
+    /**
+     * Starts show timer.
+     * @private
+     * @name showTimer
+     * @function
+     * @memberOf ch.Layer
+     */ 
 	var showTimer = function(){ st = setTimeout(that.show, showTime) };
+    /**
+     * Starts hide timer.
+     * @private
+     * @name hideTimer
+     * @function
+     * @memberOf ch.Layer
+     */ 
 	var hideTimer = function(){ ht = setTimeout(that.hide, hideTime) };
-	
+    /**
+     * Clear all timers.
+     * @private
+     * @name clearTimers
+     * @function
+     * @memberOf ch.Layer
+     */ 
 	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 /**
@@ -2142,7 +2755,7 @@ ch.layer = function(conf) {
         	clearTimers();    
         	that.$container
         		.one("mouseenter", clearTimers)
-        		.bind("mouseleave", function(event){
+        		.one("mouseleave", function(event){
 					var target = event.srcElement || event.target;
 					var relatedTarget = event.relatedTarget || event.toElement;
 					var relatedParent = relatedTarget.parentNode;
@@ -2157,22 +2770,77 @@ ch.layer = function(conf) {
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Layer
+     */
    	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Layer
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Layer
+     */
 	that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Layer
+     */
 	that["public"].content = that.content;
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Layer
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Layer
+     */	
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Layer
+     * @example
+     * // Change layer's position.
+     * $('input').layer("content").position({ 
+     *    offset: "0 10",
+     *    points: "lt lb"
+     * });
+     */
 	that["public"].position = that.position;
 	
 /**
@@ -2204,22 +2872,29 @@ ch.layer = function(conf) {
 	return that;
 
 };
+
 /**
- *	@class Modal. Create and manage modal windows
- *  @requires: floats.
- *	@return Public Object.
- */
+ * Is a centered floated window UI-Object.
+ * @name Modal
+ * @class Modal
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Tooltip
+ * @see ch.Layer
+ */ 
 
 ch.modal = function(conf){
 
-/**
- *	Constructor
- *	Guardo el contexto de ejecucion (this) que viene con 3 propiedades del factory (uid, element, type).
- *	Luego, seteamos la configuracion bÃ¡sica del componente y lo guardamos en el contexto para que llegue a sus padres cuando pasamos el contexto (that.conf).
- */
-
-	var that = this;
-
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Modal
+     */
+  	var that = this;
 	conf = ch.clon(conf);
 	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default	
 	conf.closeButton = (that.type == "modal") ? true : false;
@@ -2238,13 +2913,25 @@ ch.modal = function(conf){
  *  Private Members
  */
 
-	// Dimmer object
+    /**
+     * Reference to the dimmer object, the gray background element.
+     * @private
+     * @name $dimmer
+     * @type {jQuery Object}
+     * @memberOf ch.Modal
+     */
 	var $dimmer = $("<div>").addClass("ch-dimmer");
 	
 	// Set dimmer height for IE6
 	if (ch.utils.html.hasClass("ie6")) { $dimmer.height( parseInt(document.documentElement.clientHeight, 10) * 3) };
 	
-	// Dimmer Controller
+    /**
+     * Reference to dimmer control, turn on/off the dimmer object.
+     * @private
+     * @name dimmer
+     * @type {Object}
+     * @memberOf ch.Modal
+     */
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
 			$dimmer
@@ -2290,23 +2977,71 @@ ch.modal = function(conf){
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Modal
+     */
    	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Modal
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Modal
+     */
 	that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Modal
+     */
 	that["public"].content = that.content;
-	
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Modal
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Modal
+     */ 
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Modal
+     */
 	that["public"].position = that.position;
  
 /**
@@ -2320,40 +3055,49 @@ ch.modal = function(conf){
 };
 
 
-
 /**
- *	@Interface Transition
- *	@return An interface object
+ * Transition
+ *
+ * @interfaces Transition
+ * @augments Modal
+ * @return {Object}
  */
  
 ch.transition = function(conf) {
-    
+
     conf = conf || {};
-	
+
 	conf.closeButton = false;
-	conf.msg = conf.msg || "Please wait...";
+	conf.msg = conf.msg || conf.content || "Please wait...";
 	conf.content = $("<div>")
 		.addClass("loading")
-		.append( $("<p>").html(conf.msg) );
+		.after( $("<p>").html(conf.msg) );
 
 	return ch.modal.call(this, conf);
-    
-}
+
+};
 
 ch.factory({ component: 'transition' });
+
 /**
- *	Tabs Navigator
- *	@author
- *	@Contructor
- *	@return An interface object
+ * TabNavigator UI-Component for static and dinamic content.
+ * @name TabNavigator
+ * @class TabNavigator
+ * @augments ch.Controllers
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.tabNavigator = function(conf){
 
-/** 
- *  Constructor
- */
-	
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.TabNavigator
+     */
 	var that = this;
 
 	that.$element.addClass('ch-tabNavigator');
@@ -2373,13 +3117,39 @@ ch.tabNavigator = function(conf){
 /**
  *  Private Members
  */
-	
+
+    /**
+     * Reference to the tabNavigator's triggers.
+     * @private
+     * @name ul
+     * @type {jQuery Object}
+     * @memberOf ch.TabNavigator
+     */
 	var ul = that.$element.children(':first').addClass('ch-tabNavigator-triggers');
-	
+    /**
+     * The actual location hash, is used to know if there's a specific tab selected.
+     * @private
+     * @name hash
+     * @type {String}
+     * @memberOf ch.TabNavigator
+     */
 	var hash = window.location.hash.replace("#!", "");
-	
+    /**
+     * A boolean property to know if the some tag should be selected.
+     * @private
+     * @name hashed
+     * @type {Boolean}
+     * @default false
+     * @memberOf ch.TabNavigator
+     */
     var hashed = false;
-    
+    /**
+     * Get wich tab is selected.
+     * @private
+     * @name selected
+     * @type {Number}
+     * @memberOf ch.TabNavigator
+     */
     var selected = conf.selected;
 
 /**
@@ -2416,16 +3186,60 @@ ch.tabNavigator = function(conf){
 /**
  *  Public Members
  */
-	
+
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.TabNavigator
+     */
 	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.TabNavigator
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.TabNavigator
+     */
 	that["public"].type = that.type;
+    /**
+     * Children instances associated to this controller.
+     * @public
+     * @name children
+     * @type {Collection}
+     * @memberOf ch.TabNavigator
+     */
 	that["public"].children = that.children;
+    /**
+     * Select a specific child.
+     * @public
+     * @function
+     * @name select
+     * @param {Number} tab Tab's index.
+     * @memberOf ch.TabNavigator
+     */
 	that["public"].select = function(tab){
 		that.select(tab);
 		
 		return that["public"];
-	};	
+	};
+    /**
+     * Returns the selected child's index.
+     * @public
+     * @function
+     * @name getSelected
+     * @return {Number} selected Tab's index.
+     * @memberOf ch.TabNavigator
+     */	
 	that["public"].getSelected = function(){ return selected; };
 	
 /**
@@ -2461,20 +3275,27 @@ ch.tabNavigator = function(conf){
 };
 
 
+
 /**
- *	Tab
- *	@author
- *	@Contructor
- *	@return An interface object
+ * Simple unit of content for TabNavigators.
+ * @name Tab
+ * @class Tab
+ * @augments ch.Navs
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.tab = function(controller){
 
-/** 
- *  Constructor
- */
-	
-	var that = this;
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Tab
+     */
+ 	var that = this;
 	
 	conf = {};
 	if ( controller.conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad = controller.conf.onContentLoad;
@@ -2497,9 +3318,22 @@ ch.tab = function(controller){
 /**
  *  Protected Members
  */ 
-	
+    /**
+     * Reference to the trigger element.
+     * @private
+     * @name $trigger
+     * @type {jQuery Object}
+     * @memberOf ch.Tab
+     */
 	that.$trigger = that.$element.addClass("ch-tabNavigator-trigger");
-	
+
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Tab
+     */	
 	that.$content = (function(){
 		
 		var content = controller.$element.find("#" + that.element.href.split("#")[1]);
@@ -2522,8 +3356,15 @@ ch.tab = function(controller){
 		}; 
 
 	})();
-	
-	// Process show event
+
+    /**
+     * Process the show event.
+     * @private
+     * @function
+     * @name shoot
+     * @return {jQuery Object}
+     * @memberOf ch.Tab
+     */ 
 	that.shoot = function(event){
 		that.prevent(event);
 
@@ -2555,22 +3396,27 @@ ch.tab = function(controller){
 	
 	return that;
 }
+
 /**
- *	Tooltip
- *	@author 
- *	@Contructor
- *	@return An interface object
- *  @memberOf ch.Floats
+ * Simple Tooltip UI-Object.
+ * @name Tooltip
+ * @class Tooltip
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.tooltip = function(conf) {
     
-/**
- *	Constructor
- *	Guardo el contexto de ejecucion (this) que viene con 3 propiedades del factory (uid, element, type).
- *	Luego, seteamos la configuracion bÃ¡sica del componente y lo guardamos en el contexto para que llegue a sus padres cuando pasamos el contexto (that.conf)
- */
-
+    
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Tooltip
+     */
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -2618,23 +3464,71 @@ ch.tooltip = function(conf) {
 /**
  *  Public Members
  */
- 	that["public"].uid = that.uid;
-	that["public"].element = that.element;
-	that["public"].type = that.type;
-	that["public"].content = that.content;
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Tooltip
+     */
+    that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Tooltip
+     */
+    that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Tooltip
+     */
+    that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Tooltip
+     */
+    that["public"].content = that.content;
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Tooltip
+     */
 	that["public"].show = function(){
 		that.show();
 
 		return that["public"];
 	};
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Tooltip
+     */ 
 	that["public"].hide = function(){
 		that.hide();
 
 		return that["public"];
-	};	
+	};
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Tooltip
+     */
 	that["public"].position = that.position;
-    
-
 
 /**
  *  Default event delegation
@@ -2650,9 +3544,22 @@ ch.tooltip = function(conf) {
 
 	return that;
 };
+
 /**
- *	@Interface String validations
- *	@return An interface object
+ * Validate strings.
+ * @name String
+ * @class String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Email
+ * @see ch.Url
+ * @see ch.MaxLength
+ * @see ch.MinLength
+ * @example
+ * // Create a string validation
+ * $("input").string("This field must be a string.");
  */
 
 ch.string = function(conf) {
@@ -2679,18 +3586,23 @@ ch.string = function(conf) {
 	conf.types = "text,email,url,minLength,maxLength";
     
     // Define the conditions of this interface
-    conf.conditions = {
-		text:       { patt: /^([a-zA-Z\s]+)$/ },
-        email:      { patt: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/ },
-        //url:        { patt: /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/ },
-        // TODO: Improve this expression.
-       	//url:        { patt: /((ftp|http|https):\/\/)?(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/ },
-        url:		{ patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/ },
-        minLength:  { expr: function(a,b) { return a >= b } },
-        maxLength:  { expr: function(a,b) { return a <= b } }
+    conf.conditions = [{
+            name: "text", 
+            patt: /^([a-zA-Z\s]+)$/ 
+        },{
+            name:"email",
+            patt: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/ 
+        },{
+            name: "url",
+            patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/ 
+        },{
+            name: "minLength",
+            expr: function(a,b) { return a.length >= b } 
+        },{
+            name: "maxLength",
+            expr: function(a,b) { return a.length <= b } 
+        }];
         // Conditions map TODO: uppercase, lowercase, varchar
-    };
-
 
 	return ch.watcher.call(this, conf);
     
@@ -2698,10 +3610,22 @@ ch.string = function(conf) {
 
 
 /**
- *	@Interface Email validations
- *	@return An interface object
+ * Validate email sintaxis.
+ * @name Email
+ * @class Email
+ * @augments ch.String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Url
+ * @see ch.MaxLength
+ * @see ch.MinLength
+ * @example
+ * // Create a email validation
+ * $("input").email("This field must be a valid email.");
  */
-
+ 
 ch.email = function(conf) {
     
     conf = conf || {};
@@ -2722,9 +3646,22 @@ ch.email = function(conf) {
 
 ch.factory({ component: 'email' });
 
+
 /**
- *	@Interface URL validations
- *	@return An interface object
+ * Validate URL sintaxis.
+ * @name Url
+ * @class Url
+ * @augments ch.String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Email
+ * @see ch.MaxLength
+ * @see ch.MinLength
+ * @example
+ * // Create a URL validation
+ * $("input").url("This field must be a valid URL.");
  */
 
 ch.url = function(conf) {
@@ -2747,9 +3684,23 @@ ch.url = function(conf) {
 
 ch.factory({ component: 'url' });
 
+
 /**
- *	@Interface MinLength validations
- *	@return An interface object
+ * Validate a minimun amount of characters.
+ * @name MinLength
+ * @class MinLength
+ * @augments ch.String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Number} value Minimun number value.
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Email
+ * @see ch.Url
+ * @see ch.MaxLength
+ * @example
+ * // Create a minLength validation
+ * $("input").minLength(10, "At least 10 characters..");
  */
 
 ch.minLength = function(conf) {
@@ -2772,9 +3723,23 @@ ch.minLength = function(conf) {
 
 ch.factory({ component: 'minLength' });
 
+
 /**
- *	@Interface MaxLength validations
- *	@return An interface object
+ * Validate a maximun amount of characters.
+ * @name MaxLength
+ * @class MaxLength
+ * @augments ch.String
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Number} value Maximun number value.
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Email
+ * @see ch.Url
+ * @see ch.MinLength
+ * @example
+ * // Create a maxLength validation
+ * $("input").maxLength(10, "No more than 10 characters..");
  */
 
 ch.maxLength = function(conf) {
@@ -2795,13 +3760,22 @@ ch.maxLength = function(conf) {
     
 };
 
-ch.factory({ component: 'maxLength' });/**
- *	Number validations
- *	@author
- *	@Contructor
- *	@return An interface object
+ch.factory({ component: 'maxLength' });
+/**
+ * Validate numbers.
+ * @name Number
+ * @class Number
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties.
+ * @return {Chico-UI Object}
+ * @see ch.Min
+ * @see ch.Max
+ * @see ch.Price
+ * @example
+ * // Create a number validation
+ * $("input").number("This field must be a number.");
  */
-
 
 ch.number = function(conf) {
 
@@ -2828,14 +3802,19 @@ ch.number = function(conf) {
 	conf.types = "number,min,max,price";
     
     // Define the conditions of this interface
-    conf.conditions = {
-		number: { patt: /^([0-9\s]+)$/ },
-        min:    { expr: function(a,b) { return a >= b } },
-        max:    { expr: function(a,b) { return a <= b } },
-		price:  { patt: /^(\d+)[.,]?(\d?\d?)$/ }
-		// price:  { patt: /^\d (\Z|[\.]\d )$/ }
-		// float: TODO       
-    };
+    conf.conditions = [{
+            name: "number",
+            patt: /^([0-9\s]+)$/ 
+    	},{
+            name: "min",
+            expr: function(a,b) { return a >= b } 
+        },{
+            name: "max",
+            expr: function(a,b) { return a <= b } 
+        },{
+            name: "price",
+            patt: /^(\d+)[.,]?(\d?\d?)$/ 
+        }];
 
 
 	return ch.watcher.call(this, conf);
@@ -2843,8 +3822,19 @@ ch.number = function(conf) {
 };
 
 /**
- *	@Interface Min validations
- *	@return An interface object
+ * Validate a number with a minimun value.
+ * @name Min
+ * @class Min
+ * @augments ch.Number
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Number} value Minimun number value.
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Max
+ * @see ch.Price
+ * @example
+ * $("input").min(10, "Write a number bigger than 10");
  */
 
 ch.min = function(conf) {
@@ -2872,8 +3862,19 @@ ch.min = function(conf) {
 ch.factory({ component: 'min' });
 
 /**
- *	@Interface Max validations
- *	@return An interface object
+ * Validate a number with a maximun value.
+ * @name Max
+ * @class Max
+ * @augments ch.Number
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Number} value Minimun number value.
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Min
+ * @see ch.Price
+ * @example
+ * $("input").max(10, "Write a number smaller than 10");
  */
  
 ch.max = function(conf) {
@@ -2902,8 +3903,18 @@ ch.factory({ component: 'max' });
 
 
 /**
- *	@Interface Price validations
- *	@return An interface object
+ * Validate a number with a price format.
+ * @name Price
+ * @class Price
+ * @augments ch.Number
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {String} [message] Validation message.
+ * @return {Chico-UI Object}
+ * @see ch.Min
+ * @see ch.Max
+ * @example
+ * $("input").price("Write valid price.");
  */
  
 ch.price = function(conf) {
@@ -2929,10 +3940,21 @@ ch.price = function(conf) {
 }
 
 ch.factory({ component: 'price' });
+
 /**
- *	Custom validations
- *  @Extends Watcher
- *	@Interface
+ * Create custom validation interfaces for Watcher validation engine.
+ * @name Custom
+ * @class Custom
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @example
+ * // Validate a even number
+ * $("input").custom(function(value){
+ *      return (value%2==0) ? true : false;
+ * }, "Enter a even number");
+ * @see ch.Watcher
  */
 
 ch.custom = function(conf) {
@@ -2964,18 +3986,31 @@ ch.custom = function(conf) {
 	// Add validation types
 	conf.types = "custom";
     // Define the conditions of this interface
-    conf.conditions = {
-		// I don't have pre-conditions, comes within an argument 
-        custom: { func: conf.lambda }       
-    };
+    conf.conditions = [{
+		// I don't have pre-conditions, comes within conf.lambda argument 
+        name: "custom",
+        func: conf.lambda 
+    }];
 
 
 	return ch.watcher.call(this, conf);
     
-};/**
- *	Required validations
- *  @Extends Watcher
- *	@Interface
+};
+/**
+ * Required interface for Watcher.
+ * @name Required
+ * @class Required
+ * @augments ch.Watcher
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ * @see ch.Number
+ * @see ch.String
+ * @see ch.Custom
+ * @example
+ * // Simple validation
+ * $("input").required("This field is required");
+ * @see ch.Watcher
  */
 
 ch.required = function(conf) {
@@ -2999,22 +4034,32 @@ ch.required = function(conf) {
     // Add validation types
 	conf.types = "required";
     // Define the conditions of this interface
-    conf.conditions = {
-        required: 'that.isEmpty' // This pattern is diferent
-    };
+    conf.conditions = [{
+        name: "required"
+    }];
 	
 	return ch.watcher.call(this, conf);
     
-};/**
- *	Helper
+};
+/**
+ * Shows messages on the screen with a contextual floated UI-Component.
+ * @name Helper
+ * @class Helper
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Controller Object} o Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.helper = function(controller){
 
-/** 
- *  Constructor
- */
-	
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Helper
+     */
 	var that = this;
 
 	var conf = {};		
@@ -3065,22 +4110,77 @@ ch.helper = function(controller){
  *  Public Members
  */
 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Helper
+     */ 
    	that["public"].uid = that.uid;
+   	
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Helper
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Helper
+     */
 	that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Helper
+     */
 	that["public"].content = that.content;
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Helper
+     */
 	that["public"].show = function(text){
 		that.show(text);
 		
 		return that["public"];
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Helper
+     */ 
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Helper
+     * @example
+     * // Change helper's position.
+     * $('input').required("message").helper.position({ 
+     *    offset: "0 10",
+     *    points: "lt lb"
+     * });
+     */
 	that["public"].position = that.position;
 
 
@@ -3095,14 +4195,18 @@ ch.helper = function(controller){
 	 
 	return that;
 };
+
 /**
- *	Form Controller
- *	@author
- *	@Contructor
- *	@return An interface object
+ * Forms is a Controller of DOM's HTMLFormElement.
+ * @name Form
+ * @class Form
+ * @augments ch.Controllers
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
-ch.form = function(conf){
+ch.form = function(conf) {
 
 /**
  *  Validation
@@ -3125,9 +4229,13 @@ ch.form = function(conf){
 		};
 	};
 
-/**
- *  Constructor
- */
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Form
+     */ 
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -3152,23 +4260,53 @@ ch.form = function(conf){
  *  Private Members
  */
  
+    /**
+     * A Boolean property that indicates is exists errors in the form.
+     * @private
+     * @name status
+     * @type {Boolean}
+     * @memberOf ch.Form
+     */ 
 	var status = true;
 	
-	// General Error
+    /**
+     * HTML snippet to show the general error on top of the form.
+     * @private
+     * @name $error
+     * @type {jQuery Object}
+     * @memberOf ch.Form
+     */ 
 	var $error = $("<p class=\"ch-validator\"><span class=\"ico error\">Error: </span>" + conf.messages["general"] + "</p>");
 	
-	// Create
+    /**
+     * Inserts the general error snippet into the HTML. This implies a change in the document's flow, so it will trigger the CHANGE_LAYOUT Event.
+     * @private
+     * @function
+     * @name createError
+     * @memberOf ch.Form
+     * @see ch.events.CHANGE_LAYOUT
+     */ 
 	var createError = function(){ 
 		that.$element.before( $error );		
 		$("body").trigger(ch.events.CHANGE_LAYOUT);
 	};
-	
-	// Remove
-	var removeError = function(){
+
+    /**
+     * Removes the general error snippet from the HTML. This implies a change in the document's flow, so it will trigger the CHANGE_LAYOUT Event.
+     * @private
+     * @function
+     * @name removeError
+     * @memberOf ch.Form
+     * @see ch.events.CHANGE_LAYOUT
+     */ 
+ 	var removeError = function(){
 		$error.detach();
 		$("body").trigger(ch.events.CHANGE_LAYOUT);
 	};
 
+    /**
+     * Iterates all the Watchers defined as children, for each one of them will check it's active property and returns when finds an error.
+     */
 	var checkStatus = function(){
 		// Check status of my childrens
 		for(var i = 0, j = that.children.length; i < j; i ++){
@@ -3177,6 +4315,9 @@ ch.form = function(conf){
 				if ( !status ) removeError();			
 				createError();
 				status = false;
+				// Issue UI-332: On validation must focus the first field with errors.
+				// Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
+				that.children[i].element.focus();
 				return;
 			};
 		};
@@ -3188,7 +4329,10 @@ ch.form = function(conf){
 		};
 
 	};
-
+	
+    /**
+     * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+     */
 	var validate = function(){
 
         that.callbacks("beforeValidate");
@@ -3196,9 +4340,6 @@ ch.form = function(conf){
 		// Shoot validations
 		for(var i = 0, j = that.children.length; i < j; i ++){
 			that.children[i].validate();
-			// Issue UI-332: On validation must focus the first field with errors.
-			// Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-			if (i==0) that.children[i].element.focus();
 		};
 
 		checkStatus();
@@ -3210,6 +4351,9 @@ ch.form = function(conf){
 		return that;
 	};
 
+    /**
+     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+     */
 	var submit = function(event){
 
         that.prevent(event);
@@ -3231,6 +4375,9 @@ ch.form = function(conf){
 		return that;
 	};
 
+    /**
+     * Use this method to clear al validations.
+     */
 	var clear = function(event){		
 		that.prevent(event);		
 		removeError();	
@@ -3240,7 +4387,10 @@ ch.form = function(conf){
 		
 		return that;
 	};
-	
+
+    /**
+     * Use this method to reset the form's input elements.
+     */	
 	var reset = function(event){
 		clear();
 		that.element.reset(); // Reset html form native
@@ -3249,50 +4399,119 @@ ch.form = function(conf){
 		return that;
 	};
 
-
-/**
- *  Protected Members
- */
-
-	
 			
 /**
  *  Public Members
  */	
-
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Form
+     */ 
 	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Form
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Form
+     */
 	that["public"].type = that.type;
+    /**
+     * Watcher instances associated to this controller.
+     * @public
+     * @name children
+     * @type {Collection}
+     * @memberOf ch.Form
+     */
 	that["public"].children = that.children;
+    /**
+     * Collection of messages defined.
+     * @public
+     * @name messages
+     * @type {String}
+     * @memberOf ch.Form
+     */
 	that["public"].messages = conf.messages;
+    /**
+     * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+     * @function
+     * @name validate
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */
 	that["public"].validate = function() { 
 		validate(); 
 		
 		return that["public"]; 
 	};
 	
+    /**
+     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+     * @function
+     * @name submit
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */
 	that["public"].submit = function() { 
 		submit(); 
 		
 		return that["public"]; 
 	};
 	
+    /**
+     * Iterates all the Watchers defined as children, for each one of them will check it's active property and returns when finds an error.
+     * @function
+     * @name checkStatus
+     * @memberOf ch.Form
+     * @see ch.watcher.active
+     */
 	that["public"].checkStatus = function() { 
 		checkStatus(); 
 		
 		return that["public"]; 
 	};
-	
+
+    /**
+     * Return the status value.
+     * @function
+     * @name getStatus
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */ 	
 	that["public"].getStatus = function(){
 		return status;	
 	};
-	
+
+    /**
+     * Use this method to clear al validations.
+     * @function
+     * @name clear
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */ 
 	that["public"].clear = function() { 
 		clear(); 
 		
 		return that["public"]; 
 	};
-	
+    /**
+     * Use this method to clear al validations.
+     * @function
+     * @name reset
+     * @memberOf ch.Form
+     * @return {Chico-UI Object}
+     */ 
 	that["public"].reset = function() { 
 		reset(); 
 		
@@ -3323,19 +4542,29 @@ ch.form = function(conf){
 
 	return that;
 };
+
 /**
- *	Viewer
- *	@author
- *	@Contructor
- *	@return An interface object
+ * Viewer UI-Component for images, videos and maps.
+ * @name Viewer
+ * @class Viewer
+ * @augments ch.Controllers
+ * @requires ch.Carousel
+ * @requires ch.Zoom
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
+
 ch.viewer = function(conf){
 
-/**
- *  Constructor
- */
-	var that = this;
-
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Viewer
+     */
+ 	var that = this;
 	conf = ch.clon(conf);
 	that.conf = conf;
 	
@@ -3350,18 +4579,33 @@ ch.viewer = function(conf){
  *  Private Members
  */
  
-	/**
-	 * 	Viewer
-	 */
+    /**
+     * Reference to the viewer's visual object.
+     * @private
+     * @name $viewer
+     * @type {jQuery Object}
+     * @memberOf ch.Viewer
+     */
 	var $viewer = that.$element.addClass("ch-viewer");
 	conf.width = $viewer.outerWidth();
 	conf.height = $viewer.outerHeight();
-	
+
+    /**
+     * Reference to the viewer's internal content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Viewer
+     */
 	var $content = $viewer.children().addClass("ch-viewer-content carousel");
 
-	/**
-	 * 	Display
-	 */
+    /**
+     * Reference to the viewer's display element.
+     * @private
+     * @name $display
+     * @type {jQuery Object}
+     * @memberOf ch.Viewer
+     */
 	var $display = $("<div>")
 		.addClass("ch-viewer-display")
 		.append( $content )
@@ -3380,9 +4624,37 @@ ch.viewer = function(conf){
 			}
 		})
 
+    /**
+     * Collection of viewer's children.
+     * @private
+     * @name items
+     * @type {Collection}
+     * @memberOf ch.Viewer
+     */
 	var items = $content.children();
+    /**
+     * Amount of children.
+     * @private
+     * @name itemsAmount
+     * @type {Number}
+     * @memberOf ch.Viewer
+     */
 	var itemsAmount = items.length;
+    /**
+     * Collection of anchors finded on items collection.
+     * @private
+     * @name itemsAnchor
+     * @type {Collection}
+     * @memberOf ch.Viewer
+     */
 	var itemsAnchor = items.children("a");
+    /**
+     * Collection of references to HTMLIMGElements or HTMLObjectElements.
+     * @private
+     * @name itemsChildren
+     * @type {Object}
+     * @memberOf ch.Viewer
+     */
 	var itemsChildren = items.find("img, object");
 	
 	/**
@@ -3419,6 +4691,13 @@ ch.viewer = function(conf){
 	/**
 	 * 	Thumbnails
 	 */
+    /**
+     * Creates all thumbnails and configure it as a Carousel.
+     * @private
+     * @function
+     * @name createThumbs
+     * @memberOf ch.Viewer
+     */
 	var createThumbs = function(){
 	
 		var structure = $("<ul>").addClass("carousel");
@@ -3463,6 +4742,15 @@ ch.viewer = function(conf){
 		return self;
 	};
 	
+    /**
+     * Moves the viewer's content.
+     * @private
+     * @function
+     * @name move
+     * @param {Number} item
+     * @return {Chico-UI Object} that
+     * @memberOf ch.Viewer
+     */
 	var move = function(item){
 		// Validation
 		if(item > itemsAmount || item < 1 || isNaN(item)) return that;
@@ -3496,8 +4784,14 @@ ch.viewer = function(conf){
 		return that;
 	};
 	
-	// Arrows
-	var arrows = {};
+    /**
+     * Handles the visual behavior of arrows
+     * @private
+     * @name arrows
+     * @type {Object}
+     * @memberOf ch.Viewer
+     */
+ 	var arrows = {};
 	
 	arrows.prev = {
 		$element: $("<p>").addClass("ch-viewer-prev").bind("click", function(){ that.prev(); }),
@@ -3531,16 +4825,74 @@ ch.viewer = function(conf){
  *  Public Members
  */	
 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Viewer
+     */
 	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Viewer
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Viewer
+     */
 	that["public"].type = that.type;
-	that["public"].children = that.children;
+    /**
+     * Children instances associated to this controller.
+     * @public
+     * @name children
+     * @type {Collection}
+     * @memberOf ch.Viewer
+     */
+ 	that["public"].children = that.children;
 	
 	// Full behavior
 	if(itemsAmount > 1) {
+        /**
+         * Selects a specific viewer's child.
+         * @public
+         * @function
+         * @name moveTo 
+         * @param {Number} item Recieve a index to select a children.
+         * @memberOf ch.Viewer
+         */
+        // TODO: This method should be called 'select'?
 		that["public"].moveTo = function(item){ that.move(item); return that["public"]; };
+        /**
+         * Selects the next child available.
+         * @public
+         * @function
+         * @name next
+         * @memberOf ch.Viewer
+         */
 		that["public"].next = function(){ that.next(); return that["public"]; };
+        /**
+         * Selects the previous child available.
+         * @public
+         * @function
+         * @name prev
+         * @memberOf ch.Viewer
+         */
 		that["public"].prev = function(){ that.prev(); return that["public"]; };
+        /**
+         * Get the index of the selected child.
+         * @public
+         * @function
+         * @name getSelected
+         * @memberOf ch.Viewer
+         */
 		that["public"].getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
 		// ...
 
@@ -3615,19 +4967,27 @@ ch.chat = function(conf) {
     return that.publish;
 
 }
+
 /**
- *	Expando
- *	@author 
- *	@Contructor
- *	@return An interface object
- */	
+ * Expando is a UI-Component.
+ * @name Expando
+ * @class Expando
+ * @augments ch.Navs
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ */
+ 
 ch.expando = function(conf){
 
-/** 
- *  Constructor
- */
-	
-	var that = this;
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Expando
+     */
+    var that = this;
 	
 	that.$element.addClass("ch-expando")
 		.children(":first").wrapInner("<span class=\"ch-expando-trigger\"></span>");
@@ -3643,12 +5003,6 @@ ch.expando = function(conf){
 
     that = ch.navs.call(that);
     that.parent = ch.clon(that);
-
-/**
- *  Private Members
- */
-	
-	
 
 /**
  *  Protected Members
@@ -3673,15 +5027,54 @@ ch.expando = function(conf){
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Expando
+     */
    	that["public"].uid = that.uid;
-	that["public"].element = that.element;
+    
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Expando
+     */
+ 	that["public"].element = that.element;
+ 	
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Expando
+     */
 	that["public"].type = that.type;
+	
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Expando
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Expando
+     */	
 	that["public"].hide = function(){
 		that.hide();
 		
@@ -3711,9 +5104,15 @@ ch.expando = function(conf){
 	return that;
 
 };
-/**
- *	@Codelighter
- * 
+
+
+/** 
+ * A simple utility to highlight code snippets in the HTML.
+ * @name Codelighter
+ * @class Codelighter 
+ * @return {Object}
+ * @memberOf ch 
+ * @example
  * ch.codelighter();
  * $(".xml").codeXML();
  */
@@ -3939,45 +5338,71 @@ ch.codeCSS = function(conf) {
     
 };
 
-ch.factory({ component: 'codeCSS' });/**
- *	Accordion
- *	@author
- *	@Contructor
- *	@return An interface object
+ch.factory({ component: 'codeCSS' });
+/**
+ * Accordion is a UI-Component.
+ * @name Accordion
+ * @class Accordion
+ * @augments ch.Controllers
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
-
+ 
 ch.accordion = function(conf){
 
-/** 
- *  Constructor
- */
-	
-	var that = this;
+// Private members
 
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Accordion
+     */	
+	var that = this;
 	that.$element.addClass('ch-accordion');
-		
 	conf = ch.clon(conf);
-	
 	that.conf = conf;
 	
-/**
- *	Inheritance
- */
-
+    // Inheritance
     that = ch.controllers.call(that);
     that.parent = ch.clon(that);
 
-/**
- *  Protected Members
- */
-
-/**
- *  Public Members
- */
-	
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Accordion
+     */ 	
 	that["public"].uid = that.uid;
+	
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Accordion
+     */
 	that["public"].element = that.element;
+	
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Accordion
+     */
 	that["public"].type = that.type;
+	
+    /**
+     * Select a specific children.
+     * @public
+     * @name select
+     * @function
+     * @memberOf ch.Accordion
+     */
 	that["public"].select = function(bellows){
 		
 		if(typeof bellows == "string") {
@@ -4032,12 +5457,25 @@ ch.accordion = function(conf){
 };
 
 
+
+/**
+ * Accordion's content container.
+ * @name Bellows
+ * @class Bellows
+ * @augments ch.Navs
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
+ */
 ch.bellows = function(controller){
 
-/** 
- *  Constructor
- */
-	
+    /**
+     * Reference to a internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Bellows
+     */ 
 	var that = this;
 	
 	conf = {};
@@ -4059,9 +5497,24 @@ ch.bellows = function(controller){
 	
 	that.$trigger = that.$container.children(":first");
 	
+    /**
+     * Component's content.
+     * @public
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Bellows
+     */
 	that.$content = that.$trigger.next();
-	
+    
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @return {Chico-UI Object}
+     * @memberOf ch.Bellows
+     */
 	that.show = function(event){
+
 		that.prevent(event);
 
 		// Toggle
@@ -4085,7 +5538,14 @@ ch.bellows = function(controller){
         
         return that;
     };
-	
+    
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @return {Chico-UI Object}
+     * @memberOf ch.Bellows
+     */
     that.hide = function(event){
     	that.prevent(event);
     	
@@ -4106,6 +5566,13 @@ ch.bellows = function(controller){
         return that;
 	};
 	
+    /**
+     * Select component's content.
+     * @public
+     * @name select
+     * @return {Chico-UI Object}
+     * @memberOf ch.Bellows
+     */
 	that.select = function(child) {
 		that.show();
 		
@@ -4138,8 +5605,13 @@ ch.bellows = function(controller){
 
 
 /**
- *	@Interface Menu
- *	@return An interface object
+ * Menu is a UI-Component.
+ * @name Menu
+ * @class Menu
+ * @augments ch.Accordion
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.menu = function(conf) {
@@ -4147,43 +5619,78 @@ ch.menu = function(conf) {
     conf = conf || {};
 	
 	conf.menu = true;
-	
+
 	return ch.accordion.call(this, conf);
+
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Menu
+     */     
+    
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Menu
+     */
+    
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Menu
+     */
+    
+    /**
+     * Select a specific children.
+     * @public
+     * @name select
+     * @function
+     * @memberOf ch.Menu
+     */
     
 };
 
 ch.factory({ component: 'menu' });
+
 /**
- *	Zoom
- *	@author
- *	@Contructor
- *	@return An interface object
+ * Zoom UI-Component for images.
+ * @name Zoom
+ * @class Zoom
+ * @augments ch.Floats
+ * @requires ch.Positioner
+ * @requires ch.Preload
+ * @memberOf ch
+ * @param {Configuration Object} conf Object with configuration properties
+ * @return {Chico-UI Object}
  */
 
 ch.zoom = function(conf) {
 
-/**
- *	Constructor
- */
-
+    /**
+     * Reference to an internal component instance, saves all the information and configuration properties.
+     * @private
+     * @name that
+     * @type {Object}
+     * @memberOf ch.Zoom
+     */
 	var that = this;
 	
 	conf = ch.clon(conf);
-	
-	// Link source as zoomed image
-	conf.content = $("<img>").attr("src", that.element.href);
-	
+	conf.width = conf.width || 300;
+	conf.height = conf.height || 300;
+	conf.fx = false;
 	conf.position = {};
 	conf.position.context = conf.context || that.$element;
 	conf.position.offset = conf.offset || "20 0";
 	conf.position.points = conf.points || "lt rt";
 	conf.position.hold = true;
 	
-	conf.width = conf.width || 300;
-	conf.height = conf.height || 300;
-	
-	conf.fx = false;
-
 	that.conf = conf;
 
 /**
@@ -4196,44 +5703,70 @@ ch.zoom = function(conf) {
 /**
  *  Private Members
  */
-	
-	var main = {};
-		main.img = that.$element.children();
-		main.w = main.img.width();
-		main.h = main.img.height();
-	
+
+    /**
+     * Original image.
+     * @private
+     * @name original
+     * @type {Object}
+     * @memberOf ch.Zoom
+     */
+	var original = {};
+		original.img = that.$element.children();
+		original["width"] = original.img.width();
+		original["height"] = original.img.height();
+
+    /**
+     * Zoomed visual element.
+     * @private
+     * @name zoomed
+     * @typeÂ {Object}
+     * @memberOf ch.Zoom
+     */
 	var zoomed = {};
-		zoomed.img = conf.content;
+		zoomed.img = conf.content = $("<img>").attr("src", that.element.href);
 	
-	// Magnifying glass
+	// Magnifying glass (enlarge)
 	//var $lens = $("<div>").addClass("ch-lens ch-hide");
 	
-	// Seeker
+    /**
+     * Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
+     * @private
+     * @name seeker
+     * @typeÂ {Object}
+     * @memberOf ch.Zoom
+     */
 	var seeker = {};
-		// TODO: Calc relativity like in that.size (en lugar de la division por 3)
-		seeker.w = conf.width / 3;
-		seeker.h = conf.height / 3;
 		seeker.shape = $("<div>")
 			.addClass("ch-seeker ch-hide")
 			.bind("mousemove", function(event){ move(event); })
-			.css({width: seeker.w, height: seeker.h});
-	
+			// TODO: Calc relativity like in that.size (en lugar de la division por 3)
+			.css({ width: conf.width / 3, height: conf.height / 3 });
+    
+    /**
+     * Get the mouse position and moves the zoomed image.
+     * @private
+     * @function
+     * @name move
+     * @param {Mouse Event Object} event
+     * @memberOf ch.Zoom
+     */
 	var move = function(event){
-		var offset = main.img.offset();
+		var offset = original.img.offset();
 		
 		var x = event.pageX - offset.left;
 		var y = event.pageY - offset.top;
 		
 		// Zoomed image
 		zoomed.img.css({
-			"left": -( ((zoomed.w * x) / main.w) - (conf.width / 2) ),
-			"top": -( ((zoomed.h * y) / main.h) - (conf.height / 2) )
+			"left": -( ((zoomed["width"] * x) / original["width"]) - (conf.width / 2) ),
+			"top": -( ((zoomed["height"] * y) / original["height"]) - (conf.height / 2) )
 		});
 		
 		// Seeker shape
 		seeker.shape.css({
-			"left": x - (seeker.w / 2),
-			"top": y - (seeker.h / 2)
+			"left": x - seeker["width"],
+			"top": y - seeker["height"]
 		});
 	};
 	
@@ -4272,23 +5805,38 @@ ch.zoom = function(conf) {
 		
 		return that;
 	};
-	
+
+    /**
+     * Opens the big picture.
+     * @private
+     * @function
+     * @name enlarge
+     * @memberOf ch.Layer
+     */
 	that.enlarge = function(event){
 		that.prevent(event);
 		
 		// Open pop-up
 	};
 	
+    /**
+     * Getter and setter for size attributes.
+     * @private
+     * @function
+     * @name size
+     * @param {String} attr
+     * @param {String} [data]
+     * @memberOf ch.Layer
+     */
 	that.size = function(attr, data) {
 		if (!data) return conf[attr]; // Getter
 		
 		// Size of zoomed image
-		zoomed.w = zoomed.img.width();
-		zoomed.h = zoomed.img.height();
-		zoomed.ref_x = (zoomed.w / main.w - 1);
-		zoomed.ref_y = (zoomed.h / main.h - 1);
-		
-		var at = attr.substr(0,1);
+		// TODO: Make this only first time or outside of here.
+		// It's calculating zoomed image size in that.size,
+		// because isn't posible calc this before image load
+		zoomed["width"] = zoomed.img.width();
+		zoomed["height"] = zoomed.img.height();
 		
 		// Configuration
 		that.conf[attr] = data;
@@ -4297,9 +5845,9 @@ ch.zoom = function(conf) {
 		that.$container[attr](data);
 		
 		// Seeker
-		var rel = (main[at] * data) / zoomed[at];
-		seeker[at] = rel;
-		seeker.shape[attr](rel);
+		var size = (original[attr] * data) / zoomed[attr]; // Shape size relative to zoomed image and zoomed area
+		seeker.shape[attr](size); // Sets shape size
+		seeker[attr] = size / 2; // Shape half size: for position it
 
 		return that["public"];
 	};
@@ -4307,25 +5855,107 @@ ch.zoom = function(conf) {
 /**
  *  Public Members
  */
+ 
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Zoom
+     */
    	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Zoom
+     */
 	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Zoom
+     */
 	that["public"].type = that.type;
+    /**
+     * The component's content.
+     * @public
+     * @name content
+     * @type {String}
+     * @memberOf ch.Zoom
+     */
 	that["public"].content = that.content;
+    /**
+     * Shows component's content.
+     * @public
+     * @name show
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Zoom
+     */
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
-	
+    /**
+     * Hides component's content.
+     * @public
+     * @name hide
+     * @function
+     * @return {Chico-UI Object}
+     * @memberOf ch.Zoom
+     */
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-	
+
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Zoom
+     * @example
+     * // Change position.
+     * $('input').zoom().position({ 
+     *    offset: "0 10",
+     *    points: "lt lb"
+     * });
+     */
 	that["public"].position = that.position;
 	
+    /**
+     * Gets and sets the width size.
+     * @private
+     * @name width
+     * @param {Number} data Width value.
+     * @memberOf ch.Zoom
+     * @example
+     * // Gets width of zoomed visual element.
+     * foo.width();
+     * @example
+     * // Sets width of zoomed visual element and update the seeker size to keep these relation.
+     * foo.width(500);
+     */
 	that["public"].width = function(data){ that.size("width", data); };
+    /**
+     * Gets and sets the height size.
+     * @private
+     * @name height
+     * @param {Number} data Height value.
+     * @memberOf ch.Zoom
+     * @example
+     * // Gets height of zoomed visual element.
+     * foo.height();
+     * @example
+     * // Sets height of zoomed visual element and update the seeker size to keep these relation.
+     * foo.height(500);
+     */
 	that["public"].height = function(data){ that.size("height", data) };
 
 	
@@ -4345,7 +5975,7 @@ ch.zoom = function(conf) {
 			.append( seeker.shape )
 			
 			// Size (same as image)
-			.css({"width": main.w, "height": main.h})
+			.css({"width": original["width"], "height": original["height"]})
 			
 			// Show
 			.bind("mouseover", that.show)

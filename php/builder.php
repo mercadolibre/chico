@@ -25,12 +25,13 @@ class Builder {
    		$content = file_get_contents("../src/js/core.js");
 		$content = explode("version: ", $content);
 		$content = explode("components", $content[1]);
-        $version = str_replace(",","",$content[0]);
+        /*$version = str_replace(",","",$content[0]);
         $version = str_replace("\"","",$version);
         $version = str_replace(" ","",$version);
         $version = str_replace("\n","",$version);
         $version = str_replace("\t","",$version);
-
+		*/
+		$version = "0.6.3";
         echo "<h1>Chico-UI Builder</h1>\n";
         echo "<h3>Building files from version ".$version." ...</h3>\n";
         echo "<ul>\n";
