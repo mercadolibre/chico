@@ -1115,6 +1115,7 @@ td{
 
 .ch-modal, .ch-transition {
 	background-color: #fff;
+	background-image: none;
 	position:absolute;
 	overflow:auto;
 	width:500px;
