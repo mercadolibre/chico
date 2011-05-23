@@ -14,29 +14,24 @@
 ch.zoom = function(conf) {
 
     /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
+     * Reference to an internal component instance, saves all the information and configuration properties.
      * @private
      * @name that
      * @type {Object}
      * @memberOf ch.Zoom
      */
 	var that = this;
+	
 	conf = ch.clon(conf);
-
-	// Link source as zoomed image
-	conf.content = $("<img>").attr("src", that.element.href);
-
+	conf.width = conf.width || 300;
+	conf.height = conf.height || 300;
+	conf.fx = false;
 	conf.position = {};
 	conf.position.context = conf.context || that.$element;
 	conf.position.offset = conf.offset || "20 0";
 	conf.position.points = conf.points || "lt rt";
 	conf.position.hold = true;
 	
-	conf.width = conf.width || 300;
-	conf.height = conf.height || 300;
-	
-	conf.fx = false;
-
 	that.conf = conf;
 
 /**
@@ -51,45 +46,43 @@ ch.zoom = function(conf) {
  */
 
     /**
-     * Main configuration object.
+     * Original image.
      * @private
-     * @name main
+     * @name original
      * @type {Object}
      * @memberOf ch.Zoom
      */
-	var main = {};
-		main.img = that.$element.children();
-		main.w = main.img.width();
-		main.h = main.img.height();
+	var original = {};
+		original.img = that.$element.children();
+		original["width"] = original.img.width();
+		original["height"] = original.img.height();
 
     /**
-     * The zoomed visual element.
+     * Zoomed visual element.
      * @private
      * @name zoomed
      * @type {Object}
      * @memberOf ch.Zoom
      */
 	var zoomed = {};
-		zoomed.img = conf.content;
+		zoomed.img = conf.content = $("<img>").attr("src", that.element.href);
 	
-	// Magnifying glass
+	// Magnifying glass (enlarge)
 	//var $lens = $("<div>").addClass("ch-lens ch-hide");
 	
     /**
-     * The seeker is the visual element that follows mouse movement.
+     * Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
      * @private
      * @name seeker
      * @type {Object}
      * @memberOf ch.Zoom
      */
 	var seeker = {};
-		// TODO: Calc relativity like in that.size (en lugar de la division por 3)
-		seeker.w = conf.width / 3;
-		seeker.h = conf.height / 3;
 		seeker.shape = $("<div>")
 			.addClass("ch-seeker ch-hide")
 			.bind("mousemove", function(event){ move(event); })
-			.css({width: seeker.w, height: seeker.h});
+			// TODO: Calc relativity like in that.size (en lugar de la division por 3)
+			.css({ width: conf.width / 3, height: conf.height / 3 });
     
     /**
      * Get the mouse position and moves the zoomed image.
@@ -100,21 +93,21 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var move = function(event){
-		var offset = main.img.offset();
+		var offset = original.img.offset();
 		
 		var x = event.pageX - offset.left;
 		var y = event.pageY - offset.top;
 		
 		// Zoomed image
 		zoomed.img.css({
-			"left": -( ((zoomed.w * x) / main.w) - (conf.width / 2) ),
-			"top": -( ((zoomed.h * y) / main.h) - (conf.height / 2) )
+			"left": -( ((zoomed["width"] * x) / original["width"]) - (conf.width / 2) ),
+			"top": -( ((zoomed["height"] * y) / original["height"]) - (conf.height / 2) )
 		});
 		
 		// Seeker shape
 		seeker.shape.css({
-			"left": x - (seeker.w / 2),
-			"top": y - (seeker.h / 2)
+			"left": x - seeker["width"],
+			"top": y - seeker["height"]
 		});
 	};
 	
@@ -180,12 +173,11 @@ ch.zoom = function(conf) {
 		if (!data) return conf[attr]; // Getter
 		
 		// Size of zoomed image
-		zoomed.w = zoomed.img.width();
-		zoomed.h = zoomed.img.height();
-		zoomed.ref_x = (zoomed.w / main.w - 1);
-		zoomed.ref_y = (zoomed.h / main.h - 1);
-		
-		var at = attr.substr(0,1);
+		// TODO: Make this only first time or outside of here.
+		// It's calculating zoomed image size in that.size,
+		// because isn't posible calc this before image load
+		zoomed["width"] = zoomed.img.width();
+		zoomed["height"] = zoomed.img.height();
 		
 		// Configuration
 		that.conf[attr] = data;
@@ -194,9 +186,9 @@ ch.zoom = function(conf) {
 		that.$container[attr](data);
 		
 		// Seeker
-		var rel = (main[at] * data) / zoomed[at];
-		seeker[at] = rel;
-		seeker.shape[attr](rel);
+		var size = (original[attr] * data) / zoomed[attr]; // Shape size relative to zoomed image and zoomed area
+		seeker.shape[attr](size); // Sets shape size
+		seeker[attr] = size / 2; // Shape half size: for position it
 
 		return that["public"];
 	};
@@ -279,19 +271,31 @@ ch.zoom = function(conf) {
 	that["public"].position = that.position;
 	
     /**
-     * Sets the width size.
+     * Gets and sets the width size.
      * @private
      * @name width
      * @param {Number} data Width value.
      * @memberOf ch.Zoom
+     * @example
+     * // Gets width of zoomed visual element.
+     * foo.width();
+     * @example
+     * // Sets width of zoomed visual element and update the seeker size to keep these relation.
+     * foo.width(500);
      */
 	that["public"].width = function(data){ that.size("width", data); };
     /**
-     * Sets the height size.
+     * Gets and sets the height size.
      * @private
      * @name height
      * @param {Number} data Height value.
      * @memberOf ch.Zoom
+     * @example
+     * // Gets height of zoomed visual element.
+     * foo.height();
+     * @example
+     * // Sets height of zoomed visual element and update the seeker size to keep these relation.
+     * foo.height(500);
      */
 	that["public"].height = function(data){ that.size("height", data) };
 
@@ -312,7 +316,7 @@ ch.zoom = function(conf) {
 			.append( seeker.shape )
 			
 			// Size (same as image)
-			.css({"width": main.w, "height": main.h})
+			.css({"width": original["width"], "height": original["height"]})
 			
 			// Show
 			.bind("mouseover", that.show)

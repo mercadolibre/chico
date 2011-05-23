@@ -377,16 +377,6 @@ ul.inheritsList
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Watcher.<b><a href="../symbols/ch.watcher.html#.helper">helper</a></b>
-								</div>
-								<div class="description">Helper's instance reference.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
 								ch.Watcher.<b><a href="../symbols/ch.watcher.html#.messages">messages</a></b>
 								</div>
 								<div class="description">Configured messages.</div>
@@ -427,29 +417,9 @@ ul.inheritsList
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Watcher.<b><a href="../symbols/ch.watcher.html#.types">types</a></b>
-								</div>
-								<div class="description">Validations supported.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
 								ch.Watcher.<b><a href="../symbols/ch.watcher.html#.uid">uid</a></b>
 								</div>
 								<div class="description">The component's instance unique identifier.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								ch.Watcher.<b><a href="../symbols/ch.watcher.html#.validations">validations</a></b>
-								</div>
-								<div class="description">Configured validations.</div>
 							</td>
 						</tr>
 					
@@ -501,7 +471,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont">ch.Watcher.<b><a href="../symbols/ch.watcher.html#.checkInstance">checkInstance</a></b>()
 								</div>
-								<div class="description">Will search for instances of Watchers with the same trigger, and then merge it's properties with it.</div>
+								<div class="description">Search for instances of Watchers with the same trigger, and then merge it's properties with it.</div>
 							</td>
 						</tr>
 					
@@ -526,9 +496,9 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ch.Watcher.<b><a href="../symbols/ch.watcher.html#.mergeTypes">mergeTypes</a></b>(types)
+								<div class="fixedFont">ch.Watcher.<b><a href="../symbols/ch.watcher.html#.isRequired">isRequired</a></b>()
 								</div>
-								<div class="description">Given an Array of types will merge with the current types and will return the new collection.</div>
+								<div class="description">Return true is a required conditions is found on the condition collection.</div>
 							</td>
 						</tr>
 					
@@ -721,35 +691,6 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".helper"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">ch.Watcher.</span><b>helper</b>
-					
-					</div>
-					<div class="description">
-						Helper's instance reference.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">See:</dt>
-							
-							<dd><a href="../symbols/ch.helper.html">ch.Helper</a></dd>
-							
-							</dl>
-						
-						
-
-					<hr />
-				
 					<a name=".messages"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
@@ -838,28 +779,6 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".types"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">ch.Watcher.</span><b>types</b>
-					
-					</div>
-					<div class="description">
-						Validations supported.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name=".uid"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
@@ -869,28 +788,6 @@ ul.inheritsList
 					</div>
 					<div class="description">
 						The component's instance unique identifier.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".validations"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">ch.Watcher.</span><b>validations</b>
-					
-					</div>
-					<div class="description">
-						Configured validations.
 						
 						
 					</div>
@@ -984,7 +881,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						Will search for instances of Watchers with the same trigger, and then merge it's properties with it.
+						Search for instances of Watchers with the same trigger, and then merge it's properties with it.
 						
 						
 					</div>
@@ -1072,15 +969,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".mergeTypes"> </a>
+					<a name=".isRequired"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
-					<span class="light">{Instance Object}</span>
-					<span class="light">ch.Watcher.</span><b>mergeTypes</b>(types)
+					
+					<span class="light">ch.Watcher.</span><b>isRequired</b>()
 					
 					</div>
 					<div class="description">
-						Given an Array of types will merge with the current types and will return the new collection.
+						Return true is a required conditions is found on the condition collection.
 						
 						
 					</div>
@@ -1088,27 +985,9 @@ ul.inheritsList
 					
 					
 						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{Array}</span> <b>types</b>
-									
-								</dt>
-								<dd>Collection of types</dd>
-							
-							</dl>
 						
 						
 						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{Instance Object}</span> </dd>
-							
-							</dl>
 						
 						
 						
@@ -1248,7 +1127,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			&copy;2011<br />
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed May 18 2011 19:23:18 GMT-0300 (GMT-03:00)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Fri May 20 2011 12:42:28 GMT-0300 (GMT-03:00)
 		</div>
 	</body>
 </html>
