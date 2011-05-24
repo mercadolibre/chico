@@ -53,7 +53,7 @@ ch.dropdown = function(conf){
 		
         // Show menu
 		that.$content.css('z-index', ch.utils.zIndex ++);
-		that.$trigger.css('z-index', ch.utils.zIndex ++); // Z-index of trigger over content		
+		that.$container.css('z-index', ch.utils.zIndex ++); // Z-index of trigger over content		
 		that.parent.show(event);
 		that.position("refresh");
 		
