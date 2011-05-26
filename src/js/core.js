@@ -340,7 +340,7 @@ ch.get = function(o) {
 
 	        var that = o.that;
 	        var conf = that.conf;
-			var context = ( that.controller ) ? that.controller["public"] : that["public"];
+			var context = ( that.hasOwnProperty("controller") ) ? that.controller : that["public"];
 
 			// Set ajax config
 			// On IE (6-7) "that" reference losts when I call ch.get for second time

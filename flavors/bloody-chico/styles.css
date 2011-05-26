@@ -1702,56 +1702,65 @@ form .disabled textarea{
  * Expando
  *******************************/
  
-.ch-expando > h4{
-	margin:0px;
-}
-
-.ch-expando .ch-expando-trigger{
-	padding:0 0 0 16px;
-	color:#FFF;
+/* Trigger */
+.ch-expando-trigger{
+	color:#fff;
 	cursor:pointer;
-	/* background-image: url('./assets/expando.png'); */
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAA0CAYAAAHJW+mxAAAACXBIWXMAAAsSAAALEgHS3X78AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAMYSURBVHjaYvz//z8DAwMDAxMDAwPD0bO3/zOiiGBhJAYi1AAAAAD//2L4//8/AxNcG+P/hID/DP///2dg+OFmAmEBAAAA//9i+P//P8OGQ7f+////H2KCqihEL8IUmNk/3U3/Y5eBAQAAAAD//0KVMTEx+Y+i7OjZ2//hnDnTerDouaUhhtCjZmnNwJAY+J+BgYGB5eezJwx///5l4MLrApb3ttr/BcXEGW5dvcLA8P//f4ab6qL/Ib5H0gMQCgcZMDEwMDCYmJj833Pi9v89J27/x7BFiBuCE5PT/8MD+f///wwJSWn/YWwMCzHsYMiL/8+QF/8fU+LpYwgOdvoPCw0WBgYGhvevXjKws7MzcO05x6hGyB+MX50N///8+ZOBi4uLgZ2Hl4GBj5+BgZcP4dwfbib//wc5/scaPpiuwgIArJM/CsIwGEdfQqs2dvESWfQAirvgzVwFl55AHB0FQaSjxU0QvUE3Wyk41aGaNrSLfz4IhLzkB8n38vkJCbAOr3lVDQO6LswWS2reeG4x5kEJHQCvVUZEUSQM6LhmvWdmTU367uYSoKqq5a+eTGuwiEoT9GhsQQeA5AaA7g+wwOOeAtDeHIQFsiyjF57EH/rRVE481LlSCqUU8qXOZb9D+r5f263PsZBqexRSVhKDlbD+x1u0H5+9qZ7MVC1PxEAQfW3a7lJVzP2EzeluPSGpRaCwBAF/5hwhh8AjEQjMCQQEQaiC5DI/4dTlxKaqg2H3rtntASGX8JJJ1rzZ+XhvBlP9KFNVVZ4gPdiqtdb88EQutNaeoNwttZDZOibTWzy+DljAwip+M65uAtYYIlxfTrCXYt+6wuuBiJiI+PTsnImoCPXwt7HuhJBY56mjYwAA3d9BzRfR9z+slsBqCXVwCFyccMi+Tks0HrEqdTAjNW+9HxP76L5cvIm2bb3yHMEYs64zjpHPmijfJm9TlwwA+ayJtk1p94tLhi5gCGq+iBJTl1wUBdI07UUsJCAEICSQZYCQoPGIe013XRck0MuzG6/XtKlLllIiFhL08e7t4R/K+9eEzwEAhni5E27o2/kAAAAASUVORK5CYII=');
-	background-position: 0 1px;
-	background-repeat:no-repeat;
+	position:relative;
+	padding-left:16px;
 	font-size:14px;
 }
 
-.ch-expando .ch-expando-trigger:active {
-	color: #DF2D1B;
+/* Active trigger */
+.ch-expando-trigger:active,
+.ch-expando-trigger:visited {
+	color: #8C0303;
 }
 
-.ch-expando .ch-expando-trigger:visited{
-	color:#CCC;
-}
-
-.ch-expando .ch-expando-trigger:hover {
+/* Hover trigger */
+.ch-expando-trigger:hover {
 	text-decoration: underline;
-	background-position: 1px -16px;
-	color:#DF2D1B;
 }
 
-.ch-expando .ch-expando-trigger.ch-expando-on{
-	background-position: 0 -32px;
+/* Trigger icon */
+.ch-expando-trigger .ico {
+	/*background-image: url('../src/assets/expando.png');*/
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAA0CAYAAAHJW+mxAAAACXBIWXMAAAsSAAALEgHS3X78AAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAMYSURBVHjaYvz//z8DAwMDAxMDAwPD0bO3/zOiiGBhJAYi1AAAAAD//2L4//8/AxNcG+P/hID/DP///2dg+OFmAmEBAAAA//9i+P//P8OGQ7f+////H2KCqihEL8IUmNk/3U3/Y5eBAQAAAAD//0KVMTEx+Y+i7OjZ2//hnDnTerDouaUhhtCjZmnNwJAY+J+BgYGB5eezJwx///5l4MLrApb3ttr/BcXEGW5dvcLA8P//f4ab6qL/Ib5H0gMQCgcZMDEwMDCYmJj833Pi9v89J27/x7BFiBuCE5PT/8MD+f///wwJSWn/YWwMCzHsYMiL/8+QF/8fU+LpYwgOdvoPCw0WBgYGhvevXjKws7MzcO05x6hGyB+MX50N///8+ZOBi4uLgZ2Hl4GBj5+BgZcP4dwfbib//wc5/scaPpiuwgIArJM/CsIwGEdfQqs2dvESWfQAirvgzVwFl55AHB0FQaSjxU0QvUE3Wyk41aGaNrSLfz4IhLzkB8n38vkJCbAOr3lVDQO6LswWS2reeG4x5kEJHQCvVUZEUSQM6LhmvWdmTU367uYSoKqq5a+eTGuwiEoT9GhsQQeA5AaA7g+wwOOeAtDeHIQFsiyjF57EH/rRVE481LlSCqUU8qXOZb9D+r5f263PsZBqexRSVhKDlbD+x1u0H5+9qZ7MVC1PxEAQfW3a7lJVzP2EzeluPSGpRaCwBAF/5hwhh8AjEQjMCQQEQaiC5DI/4dTlxKaqg2H3rtntASGX8JJJ1rzZ+XhvBlP9KFNVVZ4gPdiqtdb88EQutNaeoNwttZDZOibTWzy+DljAwip+M65uAtYYIlxfTrCXYt+6wuuBiJiI+PTsnImoCPXwt7HuhJBY56mjYwAA3d9BzRfR9z+slsBqCXVwCFyccMi+Tks0HrEqdTAjNW+9HxP76L5cvIm2bb3yHMEYs64zjpHPmijfJm9TlwwA+ayJtk1p94tLhi5gCGq+iBJTl1wUBdI07UUsJCAEICSQZYCQoPGIe013XRck0MuzG6/XtKlLllIiFhL08e7t4R/K+9eEzwEAhni5E27o2/kAAAAASUVORK5CYII=');
+	width:12px;
+	height:12px;
+	position:absolute;
+	top:4px;
+	left:0;
+	background-position:0 -3px;
 }
 
-.ch-expando .ch-expando-content{
-	margin:0px 0 0 16px;
+/* Trigger icon hover */
+.ch-expando-trigger:hover .ico {
+	background-position: 0 -20px;
 }
 
-.ch-expando .ch-expando-content p{
-	margin:5px 0;
+/* Trigger icon on */
+.ch-expando-trigger-on .ico,
+.ch-expando-trigger-on:hover .ico {
+	background-position: 0 -35px;
+}
+
+/* Content */
+.ch-expando-content {
+	margin:5px 0 0 16px;
 }
 
 /* IE 6 */
-.ie6 .ch-expando .ch-expando-trigger{
+.ie6 .ch-expando-trigger {
+	font-size:13px;
 	text-decoration: underline;
 }
 
 /* IE 7 */
-.ie7 .ch-expando .ch-expando-trigger{
+.ie7 .ch-expando-trigger{
 	font-size:13px;
 }
+
 
 /*******************************
  * Accordion

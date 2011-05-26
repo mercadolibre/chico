@@ -2,38 +2,41 @@
 .ch-expando-trigger{
 	color:#0637B3;
 	cursor:pointer;
+	position:relative;
+	padding-left:16px;
 }
 
-/* Active */
+/* Active trigger */
 .ch-expando-trigger:active {
 	color: #00D;
 }
 
-/* Visited */
+/* Visited trigger */
 .ch-expando-trigger:visited{
 	color:#800080;
 }
 
-/* Hover */
+/* Hover trigger */
 .ch-expando-trigger:hover {
 	text-decoration: underline;
 }
 
-/* Icon */
+/* Trigger icon */
 .ch-expando-trigger .ico {
 	background-image: url('../src/assets/expando.png');
 	width:12px;
 	height:12px;
-	float:left;
-	margin:4px 4px 4px 0;
+	position:absolute;
+	top:2px;
+	left:0;
 }
 
-/* Icon hover */
+/* Trigger icon hover */
 .ch-expando-trigger:hover .ico {
 	background-position: 0 -17px;
 }
 
-/* Icon On */
+/* Trigger icon on */
 .ch-expando-trigger-on .ico,
 .ch-expando-trigger-on:hover .ico {
 	background-position: 0 -32px;
