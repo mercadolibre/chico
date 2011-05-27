@@ -1,8 +1,10 @@
+/* TabNavigator container */
 .ch-tabNavigator {
 	margin:10px 0;
 }
 
-.ch-tabNavigator-triggers {
+/* Triggers container */
+.ch-tabNavigator .ch-tabNavigator-triggers {
 	position:relative;
 	top:1px;
 	z-index:10;
@@ -16,7 +18,8 @@
 	float:left;
 }
 
-.ch-tabNavigator-trigger {
+/* Triggers */
+.ch-tab-trigger {
 	border:1px solid #ccc;
 	display:inline-block;
 	padding:3px 12px;
@@ -26,13 +29,15 @@
 	border-radius:5px 5px 0 0;
 	-moz-border-radius:5px 5px 0 0;
 	-webkit-border-radius:5px 5px 0 0;
-}	
+}
 
-.ch-tabNavigator-trigger:hover, .ch-tabNavigator-trigger:active {
+/* Hover and active */
+.ch-tab-trigger:hover, .ch-tab-trigger:active {
 	background-color: #dedede;
 }
 
-.ch-tabNavigator.vertical .ch-tabNavigator-trigger {
+/* Vertical trigger */
+.ch-tabNavigator.vertical .ch-tab-trigger {
 	border-radius:5px 0 0 5px;
 	-moz-border-radius:5px 0 0 5px;
 	-webkit-border-radius:5px 0 0 5px;
@@ -40,7 +45,8 @@
 	margin-bottom:5px;
 }
 
-.ch-tabNavigator .ch-tab-on {
+/* Trigger ON */
+.ch-tabNavigator .ch-tab-trigger-on {
 	font-weight:bold;
 	cursor:default;
 	background-position:0 -535px;
@@ -52,6 +58,7 @@
 	border-right:1px solid #FFFFFF;				
 }
 
+/* content */
 .ch-tabNavigator .box{
  	background-image:none;
  	border-radius:0;

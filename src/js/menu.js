@@ -79,9 +79,9 @@ ch.menu = function(conf){
 			if (grandson) $(that.children[ child ].element).find("a").eq(grandson - 1).addClass("ch-bellows-on");
 
 			if (conf.accordion) {
-				$.each(that.children, function(j, f){
-					if (f.hasOwnProperty("uid") && that.children[ child ].uid != that.children[j].uid ) {
-						f.hide();
+				$.each(that.children, function(i, e){
+					if ( (e.tagName != "A") && e.hasOwnProperty("uid") && (that.children[ child ].uid != that.children[i].uid) ) {
+						e.hide();
 					};
 				});
 			};
