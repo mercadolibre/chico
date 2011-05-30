@@ -126,7 +126,6 @@ ch.menu = function(conf){
 			
 			// Accordion behavior
 			if (conf.accordion) {
-				
 				// Hides every that.children list that don't be this specific list item
 				$.each(that.children, function(i, e){
 					if(

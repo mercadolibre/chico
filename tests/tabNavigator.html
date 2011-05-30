@@ -156,7 +156,7 @@
         test("Tab selected by default by hash", function(){
         	expect( 1 );
         	 
-			equal( testTabs1.getSelected(), 2, "Expected to find the third tab selected by default" );
+			equal( testTabs1.getSelected(), 3, "Expected to find the third tab selected by default" );
     		   
 		});
 		
@@ -166,7 +166,7 @@
 
             var testTabsOriginal = testTabs1;
             
-            var chainSelect = testTabs1.select(0);
+            var chainSelect = testTabs1.select(1);
              
             ok ( chainSelect === testTabsOriginal , "Expected to return original instance object on select() method call");
 
@@ -182,7 +182,7 @@
 		test('Check for right visual classes', function() {
 			
 			hasClass("#testTabs", 'ch-tabNavigator');
-			hasClass($triggers, 'ch-tabNavigator-trigger');
+			hasClass($triggers, 'ch-tab-trigger');
 			hasClass($contents, 'ch-tabNavigator-content');
 			
 		});
@@ -190,9 +190,9 @@
 		test('State before click', function() {
 			
 			// Tabs state before click on any trigger
-			hasClass($triggers.eq(0), 'ch-tab-on');
-			hasNotClass($triggers.eq(1), 'ch-tab-on');
-			hasNotClass($triggers.eq(2), 'ch-tab-on');
+			hasClass($triggers.eq(0), 'ch-tab-trigger-on');
+			hasNotClass($triggers.eq(1), 'ch-tab-trigger-on');
+			hasNotClass($triggers.eq(2), 'ch-tab-trigger-on');
 
 			// Contents state before click on any trigger
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'block', 'Expected " + selector + " to be visible' );
@@ -206,9 +206,9 @@
 			$triggers.eq(1).click();
 			
 			// First & third tab not activated
-			hasNotClass($triggers.eq(0), 'ch-tab-on');
-			hasClass($triggers.eq(1), 'ch-tab-on');
-			hasNotClass($triggers.eq(2), 'ch-tab-on');
+			hasNotClass($triggers.eq(0), 'ch-tab-trigger-on');
+			hasClass($triggers.eq(1), 'ch-tab-trigger-on');
+			hasNotClass($triggers.eq(2), 'ch-tab-trigger-on');
 
 			// Contents
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on second tab' );
@@ -222,16 +222,16 @@
 			$triggers.eq(2).click();
 			
 			// First & second tab not activated
-			hasNotClass($triggers.eq(0), 'ch-tab-on');
-			hasNotClass($triggers.eq(1), 'ch-tab-on');
-			hasClass($triggers.eq(2), 'ch-tab-on');
+			hasNotClass($triggers.eq(0), 'ch-tab-trigger-on');
+			hasNotClass($triggers.eq(1), 'ch-tab-trigger-on');
+			hasClass($triggers.eq(2), 'ch-tab-trigger-on');
 
 			// Contents
 			equal( $contents.find( $triggers.eq(0).attr('href') ).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on third tab' );
 			equal( $contents.find( $triggers.eq(1).attr('href') ).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated after click on third tab' );
 			equal( $contents.find( $triggers.eq(2).attr('href') ).css('display'), 'block', 'Content asociated to thind tab sholud be activated after click on third tab' );
 		
-		    testTabs1.select(0);
+		    testTabs1.select(1);
 		});
 		
 		module("TabNavigator callbacks");			
@@ -243,7 +243,7 @@
 			var testTabs2 = $("#testTabs2").tabNavigator({
 				onContentLoad: function(){
 					switch( this.getSelected() ){
-						case 3:
+						case 4:
 							
 							$("body").addClass("onContentLoad");
 							
@@ -258,8 +258,8 @@
 				
 				}
 			});
-			
-			testTabs2.select(3);
+
+			testTabs2.select(4);
 
 			stop();
 		});
@@ -271,7 +271,7 @@
 			var testTabs3 = $("#testTabs3").tabNavigator({
 				onContentError: function(){
 					switch( this.getSelected() ){
-						case 2:
+						case 3:
 							
 							$("body").addClass("onContentError");
 							
@@ -288,7 +288,7 @@
 				}
 			});
 			
-			testTabs3.select(2);
+			testTabs3.select(3);
 
 			stop();
 		});
@@ -297,11 +297,11 @@
 			
 			expect( 1 );
 			
-			testTabs4.select(1);
+			testTabs4.select(2);
 			
 			hasClass("body", "onSelect");
 
-			testTabs4.select(0);
+			testTabs4.select(1);
 
 			$("body").removeClass("onSelect");
 		});

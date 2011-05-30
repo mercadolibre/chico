@@ -34,7 +34,13 @@ ch.dropdown = function(conf){
 /**
  *  Private Members
  */
-
+    /**
+     * Adds keyboard events.
+     * @private
+     * @name shortcuts
+     * @function
+     * @memberOf ch.TabNavigator
+     */
 	var shortcuts = function(items){
 		
 		// Keyboard support
@@ -70,16 +76,36 @@ ch.dropdown = function(conf){
 /**
  *  Protected Members
  */
+    /**
+     * The component's trigger.
+     * @private
+     * @name $trigger
+     * @type {jQuery Object}
+     * @memberOf ch.Dropdown
+     */
 	that.$trigger = that.$element.children().eq(0);
-	that.$content = that.$trigger.next();
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Dropdown
+     */
+	that.$content = that.$trigger.next().detach(); // Save on memory;
 
 	that.show = function(event){
 		that.prevent(event);
 
 		that.$content.css('z-index', ch.utils.zIndex ++);
+		
+		if (that.$element.hasClass("secondary")) { // Z-index of trigger over conten 
+			that.$trigger.css('z-index', ch.utils.zIndex ++);
+		}; 
+
+		
 		that.$element
-			.css('z-index', ch.utils.zIndex ++) // Z-index of element over content
-			.addClass("ch-dropdown-on");
+			.addClass("ch-dropdown-on")
+			.css('z-index', ch.utils.zIndex ++);
 
 		that.parent.show(event);
 		that.position("refresh");
@@ -102,7 +128,6 @@ ch.dropdown = function(conf){
 
 		return that;
 	};
-
 
 	that.hide = function(event){
 		that.prevent(event);
@@ -187,6 +212,11 @@ ch.dropdown = function(conf){
 
 	that.configBehavior();
 	
+	that.$element.after( that.$content ); // Put content out of element
+	ch.utils.avoidTextSelection(that.$trigger);
+	
+	if (that.$element.hasClass("secondary")) that.$content.addClass("secondary");
+	
 	// Prevent click on content (except links)
 	that.$content.bind("click", function(event){ event.stopPropagation(); });
 	
@@ -196,7 +226,7 @@ ch.dropdown = function(conf){
 	that.conf.position.context = that.$trigger;
 	that.conf.position.points = "lt lb";
 	that.conf.position.offset = "0 -1";
-	
+
 	return that;
 
 };

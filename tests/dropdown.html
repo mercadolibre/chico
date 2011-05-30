@@ -240,9 +240,9 @@
 			expect ( 4 );
 			
 			hasClass('.testDropdown', 'ch-dropdown');
-			hasClass($trigger, 'ch-dropdown-trigger-primary');
-			hasClass($content, 'ch-dropdown-content-primary');
-			hasClass($trigger.find('span'), 'ch-bottom');
+			hasClass($trigger, 'ch-dropdown-trigger');
+			hasClass($content, 'ch-dropdown-content');
+			hasClass($trigger.find('span'), 'ico');
 			
 		});
 		
@@ -255,7 +255,7 @@
 			$trigger.click();
 			
 			isVisible($content);
-			hasClass($trigger, 'ch-dropdown-on');
+			hasClass($trigger, 'ch-dropdown-trigger-on');
 			
 		});
 		
@@ -266,7 +266,7 @@
 			$('body').click();
 			
 			isNotVisible($content);
-			hasNotClass($trigger, 'ch-dropdown-on');
+			hasNotClass($trigger, 'ch-dropdown-trigger-on');
 			
 		});
 		
@@ -278,7 +278,7 @@
 			$trigger.click();
 			
 			isNotVisible($content);
-			hasNotClass($trigger, 'ch-dropdown-on');
+			hasNotClass($trigger, 'ch-dropdown-trigger-on');
 			
 		});
 		
@@ -290,7 +290,7 @@
 			$content.click();
 			
 			isVisible($content);
-			hasClass($trigger, 'ch-dropdown-on');
+			hasClass($trigger, 'ch-dropdown-trigger-on');
 			
 			$trigger.click();
 			
@@ -304,7 +304,7 @@
 			$content.find('a').click();
 			
 			isNotVisible($content);
-			hasNotClass($trigger, 'ch-dropdown-on');
+			hasNotClass($trigger, 'ch-dropdown-trigger-on');
 			
 		});
 		
@@ -322,9 +322,9 @@
 			
 			hasClass('#drop2', 'ch-dropdown');
 			hasClass('#drop2', 'secondary');
-			hasClass($trigger2, 'ch-dropdown-trigger-secondary');
-			hasClass($content2, 'ch-dropdown-content-secondary');
-			hasClass($trigger2.find('span'), 'ch-bottom');
+			hasClass($trigger2, 'ch-dropdown-trigger');
+			hasClass($content2, 'ch-dropdown-content');
+			hasClass($trigger2.find('span'), 'ico');
 			
 		});
 		
@@ -337,7 +337,7 @@
 			$trigger2.click();
 			
 			isVisible($content2);
-			hasClass($trigger2, 'ch-dropdown-on');
+			hasClass($trigger2, 'ch-dropdown-trigger-on');
 			hasClass('#drop2', 'ch-dropdown-on');
 		});
 		
@@ -361,7 +361,7 @@
 			$trigger2.click();
 			
 			isNotVisible($content2);
-			hasNotClass($trigger, 'ch-dropdown-on');
+			hasNotClass($trigger, 'ch-dropdown-trigger-on');
 			hasNotClass($('#drop2'), 'ch-dropdown-on');
 			
 		});

@@ -36,14 +36,6 @@ ch.tabNavigator = function(conf){
  */
 
     /**
-     * Reference to the tabNavigator's triggers.
-     * @private
-     * @name ul
-     * @type {jQuery Object}
-     * @memberOf ch.TabNavigator
-     */
-	//var ul = that.$element.children(':first').addClass('ch-tabNavigator-triggers');
-    /**
      * The actual location hash, is used to know if there's a specific tab selected.
      * @private
      * @name hash
@@ -69,16 +61,16 @@ ch.tabNavigator = function(conf){
      */
     var selected = conf.selected - 1 || conf.value - 1 || 0;
     /**
-     * """"""""""""""""""""
+     * Create controller's children.
      * @private
      * @name createTabs
-     * @type {""""""}
+     * @function
      * @memberOf ch.TabNavigator
      */
 	var createTabs = function(){
 
 		// Children
-		that.$element.children().eq(0).find("a").each(function(i, e){
+		that.$element.children().eq(0).addClass("ch-tabNavigator-triggers").find("a").each(function(i, e){
 
 			// Tab context
 			var tab = {};
@@ -86,6 +78,7 @@ ch.tabNavigator = function(conf){
 				tab.type = "tab";
 				tab.element = e;
 				tab.$element = $(e);
+				tab.controller = that["public"];
 
 			// Tab configuration
 			var conf = {};
@@ -114,7 +107,13 @@ ch.tabNavigator = function(conf){
 		return;
 
 	};
-
+    /**
+     * Select a child to show its content.
+     * @private
+     * @name select
+     * @function
+     * @memberOf ch.TabNavigator
+     */
 	var select = function(tab){
 
 		tab = that.children[tab - 1];
@@ -140,10 +139,13 @@ ch.tabNavigator = function(conf){
 /**
  *  Protected Members
  */ 
-
- 	//that.$trigger = ul.find('a');
-	//that.$content = ul.next().addClass('ch-tabNavigator-content box');
-
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.TabNavigator
+     */
 	that.$content = that.$element.children().eq(1).addClass("ch-tabNavigator-content box");
 
     
@@ -204,7 +206,7 @@ ch.tabNavigator = function(conf){
      * @return {Number} selected Tab's index.
      * @memberOf ch.TabNavigator
      */	
-	that["public"].getSelected = function(){ return selected; };
+	that["public"].getSelected = function(){ return (selected + 1); };
 
 /**
  *  Default event delegation
@@ -225,7 +227,7 @@ ch.tabNavigator = function(conf){
 		};
 	};
 
-	return that;
+	return that["public"];
 	
 };
 
@@ -268,7 +270,13 @@ ch.tab = function(conf){
 /**
  *  Private Members
  */
-
+    /**
+     * Creates the basic structure for the tab's content.
+     * @private
+     * @name createContent
+     * @function
+     * @memberOf ch.TabNavigator
+     */
 	var createContent = function(){
 		var href = that.element.href.split("#");
 		var controller = that.$element.parents(".ch-tabNavigator");

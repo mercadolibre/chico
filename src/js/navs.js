@@ -38,7 +38,13 @@ ch.navs = function(){
 /**
  *  Private Members
  */
-
+    /**
+     * Adds icon in trigger's content.
+     * @private
+     * @name createIcon
+     * @function
+     * @memberOf ch.Navs
+     */
 	var createIcon = function(){
 		$("<span>")
 			.addClass("ico")

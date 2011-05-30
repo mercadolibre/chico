@@ -88,6 +88,19 @@ var ch = window.ch = {
 		},
 		isUrl: function(url){
 			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
+		},
+		avoidTextSelection: function(){
+			$.each(arguments, function(i, e){
+				if ( $.browser.msie ) {
+					$(e).attr('unselectable', 'on');
+				} else if ($.browser.opera) {
+					$(e).bind("mousedown", function(){ return false; });
+				} else { 
+					$(e).addClass("ch-user-no-select");
+				};
+			});
+				
+			return;
 		}
 	},
 
