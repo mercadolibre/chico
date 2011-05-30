@@ -92,6 +92,7 @@ var ch = window.ch = {
 
     /**
      * Chico-UI global events reference.
+	 * @abstract
      * @name Events
      * @class Events
      * @type {Map Object}
@@ -109,7 +110,7 @@ var ch = window.ch = {
         /**
          * Keryboard event collection.
          * @name KEY
-         * @class KEY
+         * @namespace KEY
          * @memberOf ch.Events
          */
         KEY: {
@@ -176,6 +177,7 @@ ch.clon = function(o) {
 
 /** 
  * Class to create UI Components
+ * @abstract
  * @name Factory
  * @class Factory
  * @param {Configuration Object} o 
@@ -318,7 +320,8 @@ ch.factory = function(o) {
 
 
 /**
- * Load components or content 
+ * Load components or content
+ * @abstract
  * @name Get
  * @class Get
  * @param o {Object} object 
@@ -423,6 +426,7 @@ ch.get = function(o) {
 
 /**
  * Returns a data object with features supported by the device
+ * @abstract
  * @name Support
  * @class Support
  * @return {Object}

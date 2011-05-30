@@ -1,6 +1,7 @@
 
 /**
  * Eraser is an utility to erase component's instances and free unused memory. A Numer will erase only that particular instance, a component's name will erase all components of that type, a "meltdown" will erase all component's instances from any kind.
+ * @abstract
  * @name Eraser
  * @class Eraser
  * @memberOf ch

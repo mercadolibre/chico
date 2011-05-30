@@ -5,34 +5,36 @@
 	.STRN {color: #393;}
 	.REGX {color: #339;}
 	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
-	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
-<span class='line'>  2</span>  * Keyboard event controller utility to know wich keys are begin
-<span class='line'>  3</span>  * @name Keyboard  
-<span class='line'>  4</span>  * @class Keyboard
-<span class='line'>  5</span>  * @memberOF ch
-<span class='line'>  6</span>  * @param {Event Object} event
-<span class='line'>  7</span>  */</span><span class="WHIT"> 
-<span class='line'>  8</span> </span><span class="NAME">ch.keyboard</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>  9</span> </span><span class="WHIT">    
-<span class='line'> 10</span>     </span><span class="COMM">/**
-<span class='line'> 11</span>      * Map with references to key codes.
-<span class='line'> 12</span>      * @private
-<span class='line'> 13</span>      * @name keyCodes
-<span class='line'> 14</span>      * @type {Object}
-<span class='line'> 15</span>      * @memberOf ch.Keyboard
-<span class='line'> 16</span>      */</span><span class="WHIT"> 
-<span class='line'> 17</span>     </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">keyCodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 18</span> </span><span class="WHIT">        </span><span class="STRN">"13"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"ENTER"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 19</span> </span><span class="WHIT">        </span><span class="STRN">"27"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"ESC"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 20</span> </span><span class="WHIT">        </span><span class="STRN">"37"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"LEFT_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 21</span> </span><span class="WHIT">        </span><span class="STRN">"38"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"UP_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 22</span> </span><span class="WHIT">        </span><span class="STRN">"39"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"RIGHT_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 23</span> </span><span class="WHIT">        </span><span class="STRN">"40"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"DOWN_ARROW"</span><span class="WHIT">
-<span class='line'> 24</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="WHIT">    
-<span class='line'> 26</span>     </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">keyCodes.hasOwnProperty</span><span class="PUNC">(</span><span class="NAME">event.keyCode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+	</style></head><body><pre><span class='line'>  1</span> <span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">/**
+<span class='line'>  3</span>  * Keyboard event controller utility to know wich keys are begin
+<span class='line'>  4</span>  * @abstract
+<span class='line'>  5</span>  * @name Keyboard  
+<span class='line'>  6</span>  * @class Keyboard
+<span class='line'>  7</span>  * @memberOF ch
+<span class='line'>  8</span>  * @param {Event Object} event
+<span class='line'>  9</span>  */</span><span class="WHIT"> 
+<span class='line'> 10</span> </span><span class="NAME">ch.keyboard</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">    
+<span class='line'> 12</span>     </span><span class="COMM">/**
+<span class='line'> 13</span>      * Map with references to key codes.
+<span class='line'> 14</span>      * @private
+<span class='line'> 15</span>      * @name keyCodes
+<span class='line'> 16</span>      * @type {Object}
+<span class='line'> 17</span>      * @memberOf ch.Keyboard
+<span class='line'> 18</span>      */</span><span class="WHIT"> 
+<span class='line'> 19</span>     </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">keyCodes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">        </span><span class="STRN">"13"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"ENTER"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">        </span><span class="STRN">"27"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"ESC"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">        </span><span class="STRN">"37"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"LEFT_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">        </span><span class="STRN">"38"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"UP_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">        </span><span class="STRN">"39"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"RIGHT_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">        </span><span class="STRN">"40"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"DOWN_ARROW"</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 27</span> </span><span class="WHIT">    
-<span class='line'> 28</span>     </span><span class="NAME">ch.utils.document.trigger</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">keyCodes</span><span class="PUNC">[</span><span class="NAME">event.keyCode</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span>     </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">keyCodes.hasOwnProperty</span><span class="PUNC">(</span><span class="NAME">event.keyCode</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 29</span> </span><span class="WHIT">    
-<span class='line'> 30</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 31</span> </span></pre></body></html>
+<span class='line'> 30</span>     </span><span class="NAME">ch.utils.document.trigger</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">keyCodes</span><span class="PUNC">[</span><span class="NAME">event.keyCode</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">    
+<span class='line'> 32</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> </span></pre></body></html>
