@@ -64,7 +64,6 @@ ch.number = function(conf) {
  * @name Min
  * @class Min
  * @augments ch.Number
- * @augments ch.Watcher
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
@@ -104,7 +103,6 @@ ch.factory({ component: 'min' });
  * @name Max
  * @class Max
  * @augments ch.Number
- * @augments ch.Watcher
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
@@ -145,7 +143,6 @@ ch.factory({ component: 'max' });
  * @name Price
  * @class Price
  * @augments ch.Number
- * @augments ch.Watcher
  * @memberOf ch
  * @param {String} [message] Validation message.
  * @return {Chico-UI Object}

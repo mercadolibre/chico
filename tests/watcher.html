@@ -347,7 +347,17 @@
            return false; // return false otherwise
         };
 
-        var nv0 = $('#val_custom').custom(customVal,"Some custom validation message, value equals to: Chico-UI");
+        var onErrorCallback = false;
+        var beforeValidateCallback = false;
+        var afterValidateCallback = false;
+
+        var nv0 = $('#val_custom').custom({
+            lambda: customVal,
+            msg: "Some custom validation message, value equals to: Chico-UI",
+            beforeValidate: function(){ beforeValidateCallback = true; },
+            afterValidate: function(){ afterValidateCallback = true; },
+            onError: function(){ onErrorCallback = true; }
+        });
         var nv1 = $('#val_title')
                      .maxLength(10,'<%= t9n.tr(s:"El campo debe tener menos de 60 caracteres.")%>')
                      .and()
@@ -492,11 +502,9 @@
             
         });
 
-
-
-        test("Force error and success to check UI response", function(){
+        test("Force error to check UI response", function(){
            
-           expect( 6 );
+           expect( 3 );
            
            ok( !$('.ch-helper')[0] , "Expected not to find a helper until force error validation"); 
            
@@ -507,6 +515,12 @@
             
            ok( $('.ch-helper')[0] , "Expected to find a helper until force error validation"); 
            
+        });
+        
+        test("Force success to check UI response", function(){
+
+            expect( 3 );
+            
            // Force success with the expected value
            $('#val_custom').val("Chico-UI");
 
@@ -515,9 +529,28 @@
            ok( nv0.validate() , "Expected to recibe an object in response of method 'validate'");
 
            ok( !$('.ch-helper')[0] , "Expected not to find a helper before force success validation");
-           
+
         });
 
+        module("Watcher basics callback functions");
+
+        test("Check for beforeValidate callback", function(){
+            
+            ok( beforeValidateCallback , "Expected to hear a beforeCallback");
+            
+        });
+
+        test("Check for afterValidate callback", function(){
+            
+            ok( afterValidateCallback , "Expected to hear a afterValidateCallback");
+            
+        });
+        
+        test("Check for onError callback", function(){
+            
+            ok( onErrorCallback , "Expected to hear a onErrorCallback");
+            
+        });
 
 	</script>
 

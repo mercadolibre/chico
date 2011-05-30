@@ -1,6 +1,7 @@
 
 /**
  * Pre-load is an utility to preload images on browser's memory. An array of sources will iterate and preload each one, a single source will do the same thing.
+ * @abstract
  * @name Preload
  * @class Preload
  * @memberOf ch

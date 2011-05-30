@@ -120,6 +120,7 @@ ch.accordion = function(conf){
 
 /**
  * Accordion's content container.
+ * @abstract
  * @name Bellows
  * @class Bellows
  * @augments ch.Navs
