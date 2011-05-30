@@ -190,6 +190,7 @@ ch.watcher = function(conf) {
      * Helper is a UI Component that shows the messages of active validations.
      * @name helper
      * @type {ch.Helper}
+     * @memberOf ch.Watcher
      * @see ch.Helper
      */
     var helper = {};

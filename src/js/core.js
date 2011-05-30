@@ -109,6 +109,7 @@ var ch = window.ch = {
         CHANGE_LAYOUT: "changeLayout", 
         /**
          * Keryboard event collection.
+         * @name KEY
          * @namespace KEY
          * @memberOf ch.Events
          */
