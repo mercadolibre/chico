@@ -213,7 +213,8 @@ ch.dropdown = function(conf){
 	that.configBehavior();
 	
 	that.$element.after( that.$content ); // Put content out of element
-		
+	ch.utils.avoidTextSelection(that.$trigger);
+	
 	if (that.$element.hasClass("secondary")) that.$content.addClass("secondary");
 	
 	// Prevent click on content (except links)

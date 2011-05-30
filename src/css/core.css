@@ -625,3 +625,9 @@ td {
 .clearfix {
 	display: block;
 }
+
+.ch-user-no-select{
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}

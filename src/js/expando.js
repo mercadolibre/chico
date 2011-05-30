@@ -101,6 +101,7 @@ ch.expando = function(conf){
  */		
     
 	that.configBehavior();
+	ch.utils.avoidTextSelection(that.$trigger);
 
 	return that;
 

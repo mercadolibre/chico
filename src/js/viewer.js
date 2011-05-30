@@ -371,6 +371,8 @@ ch.viewer = function(conf){
 	};
 
 	$viewer.find(".ch-mask").eq(0).height( $(itemsChildren[0]).height() );
-	
+
+	ch.utils.avoidTextSelection(that.element);
+
 	return that;
 };
