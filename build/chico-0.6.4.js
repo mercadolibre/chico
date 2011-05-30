@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, keyboard, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, accordion, zoom
+  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, keyboard, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, menu, zoom
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -30,14 +30,14 @@ var ch = window.ch = {
      * @type {Number}
      * @memberOf ch
      */
-    version: "0.6.3",
+    version: "0.6.4",
     /**
      * List of UI components available.
      * @name components
      * @type {String}
      * @memberOf ch
      */
-    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,accordion,zoom",
+    components: "carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,menu,zoom",
     /**
      * List of internal components available.
      * @name internals
@@ -95,19 +95,34 @@ var ch = window.ch = {
 			if(typeof string !== "string") return false;
 			
 			for (var regex in $.expr.match){
-				if ($.expr.match[ regex ].test(string) && $(string).length > 0) {
+				if ($.expr.match[ regex ].test(string) && document.getElementsByTagName(string).length > 0) {
 					return true;
 				};
 			};
+			
 			return false;
 		},
 		isUrl: function(url){
 			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
+		},
+		avoidTextSelection: function(){
+			$.each(arguments, function(i, e){
+				if ( $.browser.msie ) {
+					$(e).attr('unselectable', 'on');
+				} else if ($.browser.opera) {
+					$(e).bind("mousedown", function(){ return false; });
+				} else { 
+					$(e).addClass("ch-user-no-select");
+				};
+			});
+				
+			return;
 		}
 	},
 
     /**
      * Chico-UI global events reference.
+	 * @abstract
      * @name Events
      * @class Events
      * @type {Map Object}
@@ -125,7 +140,7 @@ var ch = window.ch = {
         /**
          * Keryboard event collection.
          * @name KEY
-         * @class KEY
+         * @namespace KEY
          * @memberOf ch.Events
          */
         KEY: {
@@ -192,6 +207,7 @@ ch.clon = function(o) {
 
 /** 
  * Class to create UI Components
+ * @abstract
  * @name Factory
  * @class Factory
  * @param {Configuration Object} o 
@@ -334,7 +350,8 @@ ch.factory = function(o) {
 
 
 /**
- * Load components or content 
+ * Load components or content
+ * @abstract
  * @name Get
  * @class Get
  * @param o {Object} object 
@@ -356,7 +373,7 @@ ch.get = function(o) {
 
 	        var that = o.that;
 	        var conf = that.conf;
-			var context = ( that.controller ) ? that.controller["public"] : that["public"];
+			var context = ( that.hasOwnProperty("controller") ) ? that.controller : that["public"];
 
 			// Set ajax config
 			// On IE (6-7) "that" reference losts when I call ch.get for second time
@@ -439,6 +456,7 @@ ch.get = function(o) {
 
 /**
  * Returns a data object with features supported by the device
+ * @abstract
  * @name Support
  * @class Support
  * @return {Object}
@@ -513,6 +531,7 @@ ch.support = function() {
 
 /**
  * Positioner is a utility that resolve positioning problem for all UI-Objects.
+ * @abstract
  * @name Positioner
  * @class Positioner
  * @memberOf ch
@@ -932,9 +951,12 @@ ch.positioner = function(o) {
 
 /**
  * Object represent the abstract class of all UI Objects.
+ * @abstract
  * @name Object
  * @class Object 
  * @memberOf ch
+ * @requires ch.Get
+ * @requires ch.Factory
  * @see ch.Controllers
  * @see ch.Floats
  * @see ch.Navs
@@ -1087,6 +1109,7 @@ ch.object = function(){
 
 /**
  * Abstract class of all floats UI-Objects.
+ * @abstract
  * @name Floats
  * @class Floats
  * @augments ch.Object
@@ -1300,6 +1323,7 @@ ch.floats = function() {
 
 /**
  * Abstract representation of navs components.
+ * @abstract
  * @name Navs
  * @class Navs
  * @augments ch.Object
@@ -1321,16 +1345,47 @@ ch.navs = function(){
      */ 
 	var that = this;
 	var conf = that.conf;
+		conf.icon = (conf.hasOwnProperty("icon")) ? conf.icon : true;
+		conf.open = conf.open || false;
+		conf.fx = conf.fx || false;
+
 /**
  *  Inheritance
  */
 
     that = ch.object.call(that);
     that.parent = ch.clon(that);
-			
+
+
 /**
- *  Public Members
+ *  Private Members
+ */
+    /**
+     * Adds icon in trigger's content.
+     * @private
+     * @name createIcon
+     * @function
+     * @memberOf ch.Navs
+     */
+	var createIcon = function(){
+		$("<span>")
+			.addClass("ico")
+			.html("drop")
+			.appendTo( that.$trigger );
+
+		return;
+	};
+	
+/**
+ *  Protected Members
  */ 	
+     /**
+     * Status of component
+     * @public
+     * @name active
+     * @return {Boolean}
+     * @memberOf ch.Navs
+     */
 	that.active = false;
 
     /**
@@ -1342,14 +1397,25 @@ ch.navs = function(){
      */
 	that.show = function(event){
 		that.prevent(event);
-		
-		if ( that.active ) return;
+
+		if ( that.active ) {
+			return that.hide(event);
+		};
 		
 		that.active = true;
 
-		that.$trigger.addClass("ch-" + that.type + "-on");
-		that.$content.removeClass("ch-hide");
-		that.callbacks("onShow");
+		that.$trigger.addClass("ch-" + that.type + "-trigger-on");
+		
+		// Animation
+		if( conf.fx ) {
+			that.$content.slideDown("fast", function(){
+				//that.$content.removeClass("ch-hide");
+				that.callbacks("onShow");
+			});
+		} else {
+			that.$content.removeClass("ch-hide");
+			that.callbacks("onShow");
+		};
 		
 		return that;
 	};
@@ -1367,18 +1433,56 @@ ch.navs = function(){
 		
 		that.active = false;
 		
-		that.$trigger.removeClass("ch-" + that.type + "-on");
-		that.$content.addClass("ch-hide");
-		that.callbacks("onHide");
+		that.$trigger.removeClass("ch-" + that.type + "-trigger-on");
+
+		// Animation
+		if( conf.fx ) {
+			that.$content.slideUp("fast", function(){
+				//that.$content.addClass("ch-hide");
+				that.callbacks("onHide");
+			});
+		} else {
+			that.$content.addClass("ch-hide");
+			that.callbacks("onHide");
+		};
 		
 		return that;
-	};		
+	};
+
+     /**
+     * Create component's layout
+     * @public
+     * @name createLayout
+     * @return {void}
+     * @memberOf ch.Navs
+     */
+	that.configBehavior = function(){
+		that.$trigger
+			.addClass("ch-" + that.type + "-trigger")
+			.bind("click", function(event){ that.show(event); });
+
+		that.$content
+			.addClass("ch-" + that.type + "-content ch-hide");
+
+		// Visual configuration
+		if( conf.icon ) createIcon();
+		if( conf.open ) that.show();
+
+		return;
+	};
 	
+/**
+ *  Default event delegation
+ */
+	that.$element.addClass("ch-" + that.type);
+
+
 	return that;
 }
 
 /**
  * Abstract class
+ * @abstract
  * @name Controllers
  * @class Controllers 
  * @augments ch.Object
@@ -1423,11 +1527,14 @@ ch.controllers = function(){
 
 /**
  * Watcher is a validation engine for html forms elements.
+ * @abstract
  * @name Watcher
  * @class Watcher
  * @augments ch.Object
  * @memberOf ch
  * @requires ch.Form
+ * @requires ch.Positioner
+ * @requires ch.Events
  * @param {Configuration Object} o Object with configuration properties
  * @return {Chico-UI Object}
  * @see ch.Required
@@ -1608,7 +1715,8 @@ ch.watcher = function(conf) {
     /**
      * Helper is a UI Component that shows the messages of active validations.
      * @name helper
-     * @     {ch.Helper}
+     * @type {ch.Helper}
+     * @memberOf ch.Watcher
      * @see ch.Helper
      */
     var helper = {};
@@ -1662,7 +1770,9 @@ ch.watcher = function(conf) {
                 }
                 
                 if ( gotError ) {
-                						
+
+                    that.callbacks('onError');
+		
                 	// Field error style
                 	that.$element.addClass("error");
                 
@@ -1911,7 +2021,8 @@ ch.watcher = function(conf) {
 };
 
 /**
- * Generic Slider UI-Component.
+ * Abstract Slider.
+ * @abstract
  * @name Slider
  * @class Slider
  * @augments ch.Object
@@ -1952,8 +2063,10 @@ ch.sliders = function() {
 	
 	return that;
 	
-};/**
+};
+/**
  * Keyboard event controller utility to know wich keys are begin
+ * @abstract
  * @name Keyboard  
  * @class Keyboard
  * @memberOF ch
@@ -2119,6 +2232,23 @@ ch.carousel = function(conf){
 	
 	var resize = false;
 	
+	
+	// Function executed after movement
+	var afterMove = function(){
+		that.active = false;
+		
+		if (ch.features.transition) ch.utils.document.unbind("transitionend webkitTransitionEnd OTransitionEnd");
+		
+		// Pager behavior
+		if (conf.pager) {								
+			that.pager.children().removeClass("ch-pager-on");
+			that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
+		};
+
+		// Callbacks
+		that.callbacks("onMove");
+	};
+	
 
 /**
  *  Protected Members
@@ -2193,28 +2323,14 @@ ch.carousel = function(conf){
 		// Status moving
 		that.active = true;
 		
-		// Function executed after movement
-		var afterMove = function(){
-			that.active = false;
-			
-			// Pager behavior
-			if (conf.pager) {								
-				that.pager.children().removeClass("ch-pager-on");
-				that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
-			};
-
-			// Callbacks
-			that.callbacks("onMove");
-		};
-		
 		// Have CSS3 Transitions feature?
 		if (ch.features.transition) {
+			
+			ch.utils.document.bind("transitionend webkitTransitionEnd OTransitionEnd", afterMove);
 			
 			// Css movement
 			that.$content.css({ left: movement });
 			
-			// Callback
-			afterMove();
 			
 		// Ok, let JQuery do the magic...
 		} else {
@@ -2375,8 +2491,9 @@ ch.carousel = function(conf){
 		that.$element.prepend( that.buttons.prev.$element ).append( that.buttons.next.$element ); // Append prev and next buttons
 		if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
 		that.buttons.position();
+		
+		ch.utils.avoidTextSelection(that.buttons.prev.$element,that.buttons.next.$element);
 	};
-	
 	
 	// Elastic behavior    
     if ( !conf.hasOwnProperty("width") ){
@@ -2419,8 +2536,6 @@ ch.dropdown = function(conf){
 	var that = this;
 
 	conf = ch.clon(conf);
-	conf.skin = ( that.$element.hasClass("secondary") ) ? "secondary": "primary";
-
 	that.conf = conf;
 	
 /**
@@ -2431,94 +2546,113 @@ ch.dropdown = function(conf){
     that.parent = ch.clon(that);
 
 /**
- *  Protected Members
- */ 
-	that.$container = that.$element.addClass("ch-dropdown");
-	
-	that.$trigger = that.$container.children(":first");
-	
-	that.show = function(event){
-		that.prevent(event);
-		
-		// Toggle
-		if ( that.active ) {
-			return that.hide(event);
-		};
-		
-        // Reset all dropdowns
-		$(ch.instances.dropdown).each(function(i, e){ e.hide(); });
-		
-        // Show menu
-		that.$content.css('z-index', ch.utils.zIndex ++);
-		that.$trigger.css('z-index', ch.utils.zIndex ++); // Z-index of trigger over content		
-		that.parent.show(event);
-		that.position("refresh");
-		
-		// Secondary behavior
-		if(conf.skin == "secondary"){
-			that.$container.addClass("ch-dropdown-on"); // Container ON
-		};
-		
-		// Close events
-		ch.utils.document.one("click", function(event){ that.hide(event); });
-		ch.utils.document.bind(ch.events.KEY.ESC, function(event){ that.hide(event) });
-		
-		// Select first anchor child by default
-		var items = that.$content.find("a");
-			items.eq(0).focus();
-		
-		// More than one item
-		if(items.length == 0) return that;
+ *  Private Members
+ */
+    /**
+     * Adds keyboard events.
+     * @private
+     * @name shortcuts
+     * @function
+     * @memberOf ch.TabNavigator
+     */
+	var shortcuts = function(items){
 		
 		// Keyboard support
-		var itemSelected = 0;
+		var selected = 0;
 		
 		// Item selected by mouseover
 		// TODO: It's over keyboard selection and it is generating double selection.
-		items.each(function(i, e){
+		$.each(items, function(i, e){
 			$(e).bind("mouseenter", function(){
-				itemSelected = i;
-				items.eq( itemSelected ).focus();
+				selected = i;
+				items.eq( selected ).focus();
 			});
 		});
 		
 		var selectItem = function(arrow, event){
 			that.prevent(event);
 			
-			if(itemSelected == ((arrow == "bottom") ? items.length - 1 : 0)) return;
+			if(selected == ((arrow == "bottom") ? items.length - 1 : 0)) return;
 			
-			items.eq( itemSelected ).blur();
+			items.eq( selected ).blur();
 			
-			if(arrow == "bottom") itemSelected ++; else itemSelected --;
+			if(arrow == "bottom") selected += 1; else selected -= 1;
 			
-			items.eq( itemSelected ).focus();
+			items.eq( selected ).focus();
 		};
 		
 		// Arrows
 		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function(x, event){ selectItem("up", event); });
 		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function(x, event){ selectItem("bottom", event); });
+	};
+
+
+/**
+ *  Protected Members
+ */
+    /**
+     * The component's trigger.
+     * @private
+     * @name $trigger
+     * @type {jQuery Object}
+     * @memberOf ch.Dropdown
+     */
+	that.$trigger = that.$element.children().eq(0);
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Dropdown
+     */
+	that.$content = that.$trigger.next().detach(); // Save on memory;
+
+	that.show = function(event){
+		that.prevent(event);
+
+		that.$content.css('z-index', ch.utils.zIndex ++);
 		
-        return that;
-    };
-	
-    that.hide = function(event){
-    	that.prevent(event);
-    	
-    	if (!that.active) return;
-    	
-    	// Secondary behavior
-		if(conf.skin == "secondary"){
-			that.$container.removeClass("ch-dropdown-on"); // Container OFF
-		};
+		if (that.$element.hasClass("secondary")) { // Z-index of trigger over conten 
+			that.$trigger.css('z-index', ch.utils.zIndex ++);
+		}; 
+
 		
+		that.$element
+			.addClass("ch-dropdown-on")
+			.css('z-index', ch.utils.zIndex ++);
+
+		that.parent.show(event);
+		that.position("refresh");
+
+		// Reset all dropdowns
+		$.each(ch.instances.dropdown, function(i, e){ 
+			if (e.uid !== that.uid) e.hide();
+		});
+
+		// Close events
+		ch.utils.document.one("click " + ch.events.KEY.ESC, function(event){ that.hide(event); });
+		// Close dropdown after click an option (link)
+		that.$content.find("a").one("click", function(){ that.hide(); });
+
+		// Keyboard support
+		var items = that.$content.find("a");
+			items.eq(0).focus(); // Select first anchor child by default
+
+		if (items.length > 1){ shortcuts(items); };
+
+		return that;
+	};
+
+	that.hide = function(event){
+		that.prevent(event);
+
         that.parent.hide(event);
-        
+        	that.$element.removeClass("ch-dropdown-on");
+
         // Unbind events
-        ch.utils.document.unbind(ch.events.KEY.UP_ARROW);
-        ch.utils.document.unbind(ch.events.KEY.DOWN_ARROW);
-        ch.utils.document.unbind(ch.events.KEY.ESC);
-        
-        return that;
+        ch.utils.document.unbind(ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW);
+
+		return that;
 	};
 	
 /**
@@ -2589,34 +2723,24 @@ ch.dropdown = function(conf){
 /**
  *  Default event delegation
  */		    
-    // Trigger
-	that.$trigger
-		.bind("click", function(event){ that.show(event) })
-		.addClass("ch-dropdown-trigger-" + conf.skin)
-		.append("<span class=\"ch-bottom\"> &raquo;</span>");
 
-	// Content
-	that.$content = that.$trigger.next()
-		.addClass("ch-dropdown-content-" + conf.skin)
-		.addClass("ch-hide")
-		.bind("click", function(event){
-			event.stopPropagation(); // Prevent click on content (except links)
-		})
-		.detach(); // Save on memory;
+	that.configBehavior();
 	
-	// Close dropdown after click an option (link)
-	that.$content.find("a").one("click", function(){ that.hide(); });
-
-	// Put content out of container
-	that.$container.after( that.$content );
-		
+	that.$element.after( that.$content ); // Put content out of element
+	ch.utils.avoidTextSelection(that.$trigger);
+	
+	if (that.$element.hasClass("secondary")) that.$content.addClass("secondary");
+	
+	// Prevent click on content (except links)
+	that.$content.bind("click", function(event){ event.stopPropagation(); });
+	
 	// Position
 	that.conf.position = {};
 	that.conf.position.element = that.$content;
 	that.conf.position.context = that.$trigger;
 	that.conf.position.points = "lt lb";
 	that.conf.position.offset = "0 -1";
-	
+
 	return that;
 
 };
@@ -2946,10 +3070,18 @@ ch.modal = function(conf){
 			if (!ch.features.fixed) {
 			  	ch.positioner({ element: $dimmer });
 			};
+
+			if ($("html").hasClass("ie6")) {
+				$("select, object").css("visibility", "hidden");
+			};
 		},
 		off: function() {
-			$dimmer.fadeOut("normal", function(){ 
+			$dimmer.fadeOut("normal", function(){
 				$dimmer.detach();
+
+				if ($("html").hasClass("ie6")) {
+					$("select, object").css("visibility", "visible");
+				};
 			});
 		}
 	};
@@ -3100,11 +3232,8 @@ ch.tabNavigator = function(conf){
      */
 	var that = this;
 
-	that.$element.addClass('ch-tabNavigator');
-		
 	conf = ch.clon(conf);
-	conf.selected = conf.selected || conf.value || 0;
-	
+
 	that.conf = conf;
 	
 /**
@@ -3118,14 +3247,6 @@ ch.tabNavigator = function(conf){
  *  Private Members
  */
 
-    /**
-     * Reference to the tabNavigator's triggers.
-     * @private
-     * @name ul
-     * @type {jQuery Object}
-     * @memberOf ch.TabNavigator
-     */
-	var ul = that.$element.children(':first').addClass('ch-tabNavigator-triggers');
     /**
      * The actual location hash, is used to know if there's a specific tab selected.
      * @private
@@ -3150,38 +3271,95 @@ ch.tabNavigator = function(conf){
      * @type {Number}
      * @memberOf ch.TabNavigator
      */
-    var selected = conf.selected;
+    var selected = conf.selected - 1 || conf.value - 1 || 0;
+    /**
+     * Create controller's children.
+     * @private
+     * @name createTabs
+     * @function
+     * @memberOf ch.TabNavigator
+     */
+	var createTabs = function(){
 
-/**
- *  Protected Members
- */ 
- 
- 	that.$trigger = ul.find('a');
-	that.$content = ul.next().addClass('ch-tabNavigator-content box');
-	
-	that.select = function(tab){		
+		// Children
+		that.$element.children().eq(0).addClass("ch-tabNavigator-triggers").find("a").each(function(i, e){
+
+			// Tab context
+			var tab = {};
+				tab.uid = that.uid + "#" + i;
+				tab.type = "tab";
+				tab.element = e;
+				tab.$element = $(e);
+				tab.controller = that["public"];
+
+			// Tab configuration
+			var conf = {};
+				conf.open = (selected == i);
+				conf.onShow = function(){
+					selected = i;
+				};
+
+			// Callbacks
+			if ( that.conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad = that.conf.onContentLoad;
+			if ( that.conf.hasOwnProperty("onContentError") ) conf.onContentError = that.conf.onContentError;
+
+			// Create Tabs
+			that.children.push(
+				ch.tab.call(tab, conf)
+			);
+
+			// Bind new click to have control
+			$(e).unbind("click").bind("click", function(event){
+				that.prevent(event);
+				select(i + 1);
+			});
+
+		});
+
+		return;
+
+	};
+    /**
+     * Select a child to show its content.
+     * @private
+     * @name select
+     * @function
+     * @memberOf ch.TabNavigator
+     */
+	var select = function(tab){
+
+		tab = that.children[tab - 1];
 		
-		selected = parseInt(tab);
-		
-		tab = that.children[selected];
-		
-		if(tab.active) return; // Don't click me if I'm open
+		if(tab === that.children[selected]) return; // Don't click me if I'm open
 
 		// Hide my open bro
 		$.each(that.children, function(i, e){
-			if( e.active ) e.hide();
+			if(tab !== e) e.hide();
 		});
-        
-        tab.shoot();
-        
+
+		tab.show();
+
         //Change location hash
-		window.location.hash = "#!" + tab.$content.attr("id");		
+		window.location.hash = "#!" + tab.$content.attr("id");	
 		
 		// Callback
 		that.callbacks("onSelect");
 		
         return that;
 	};
+
+/**
+ *  Protected Members
+ */ 
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.TabNavigator
+     */
+	that.$content = that.$element.children().eq(1).addClass("ch-tabNavigator-content box");
+
     
 /**
  *  Public Members
@@ -3228,7 +3406,7 @@ ch.tabNavigator = function(conf){
      * @memberOf ch.TabNavigator
      */
 	that["public"].select = function(tab){
-		that.select(tab);
+		select(tab);
 		
 		return that["public"];
 	};
@@ -3240,27 +3418,20 @@ ch.tabNavigator = function(conf){
      * @return {Number} selected Tab's index.
      * @memberOf ch.TabNavigator
      */	
-	that["public"].getSelected = function(){ return selected; };
-	
+	that["public"].getSelected = function(){ return (selected + 1); };
+
 /**
  *  Default event delegation
  */	
-    
-	// Create children
-	$.each(that.$trigger, function(i, e){
-		var tab = {};
-			tab.uid = that.uid + "#" + i;
-			tab.type = "tab";
-			tab.element = e;
-			tab.$element = $(e);
-			
-		that.children.push( ch.tab.call(tab, that) );
-	});
-	
+
+    	that.$element.addClass('ch-tabNavigator');
+
+	createTabs();
+
 	//Default: Load hash tab or Open first tab	
 	for(var i = that.children.length; i--; ){
 		if ( that.children[i].$content.attr("id") === hash ) {
-			that.select(i);
+			select(i + 1);
 			
 			hashed = true;
 			
@@ -3268,9 +3439,7 @@ ch.tabNavigator = function(conf){
 		};
 	};
 
-	if ( !hashed ) that.children[conf.selected].shoot();
-
-	return that;
+	return that["public"];
 	
 };
 
@@ -3278,6 +3447,7 @@ ch.tabNavigator = function(conf){
 
 /**
  * Simple unit of content for TabNavigators.
+ * @abstract
  * @name Tab
  * @class Tab
  * @augments ch.Navs
@@ -3286,8 +3456,7 @@ ch.tabNavigator = function(conf){
  * @return {Chico-UI Object}
  */
 
-ch.tab = function(controller){
-
+ch.tab = function(conf){
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
@@ -3295,48 +3464,35 @@ ch.tab = function(controller){
      * @type {Object}
      * @memberOf ch.Tab
      */
- 	var that = this;
-	
-	conf = {};
-	if ( controller.conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad = controller.conf.onContentLoad;
-	if ( controller.conf.hasOwnProperty("onContentError") ) conf.onContentError = controller.conf.onContentError;	
+    var that = this;
+
+	conf = ch.clon(conf);
+	conf.icon = false;
 	
 	that.conf = conf;
+
+	
 /**
  *	Inheritance
  */
 
-    that = ch.navs.call(that);
-    that.parent = ch.clon(that);
-	that.controller = controller;
+	that = ch.navs.call(that);
+	that.parent = ch.clon(that);
 
 /**
  *  Private Members
  */
-	
-	
-/**
- *  Protected Members
- */ 
     /**
-     * Reference to the trigger element.
+     * Creates the basic structure for the tab's content.
      * @private
-     * @name $trigger
-     * @type {jQuery Object}
-     * @memberOf ch.Tab
+     * @name createContent
+     * @function
+     * @memberOf ch.TabNavigator
      */
-	that.$trigger = that.$element.addClass("ch-tabNavigator-trigger");
-
-    /**
-     * The component's content.
-     * @private
-     * @name $content
-     * @type {jQuery Object}
-     * @memberOf ch.Tab
-     */	
-	that.$content = (function(){
-		
-		var content = controller.$element.find("#" + that.element.href.split("#")[1]);
+	var createContent = function(){
+		var href = that.element.href.split("#");
+		var controller = that.$element.parents(".ch-tabNavigator");
+		var content = controller.find("#" + href[1]);
 		
 		// If there are a tabContent...
 		if ( content.length > 0 ) {
@@ -3350,29 +3506,50 @@ ch.tab = function(controller){
 
 			// Create tabContent
 			return $("<div>")
-				.attr("id", (that.element.href.split("#").length == 2) ? that.element.href.split("#")[1] : "ch-tab" + that.uid.replace("#","-") )
+				.attr("id", (href.length == 2) ? href[1] : "ch-tab" + that.uid.replace("#","-") )
 				.addClass("ch-hide")
-				.appendTo( controller.$content );
-		}; 
+				.appendTo( controller.children().eq(1) );
+		};
 
-	})();
+	};
+
+/**
+ *  Protected Members
+ */ 
+    /**
+     * Reference to the trigger element.
+     * @private
+     * @name $trigger
+     * @type {jQuery Object}
+     * @memberOf ch.Tab
+     */
+	that.$trigger = that.$element;
+
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Tab
+     */	
+	that.$content = createContent();
 
     /**
      * Process the show event.
      * @private
      * @function
-     * @name shoot
+     * @name show
      * @return {jQuery Object}
      * @memberOf ch.Tab
      */ 
-	that.shoot = function(event){
+	that.show = function(event){
 		that.prevent(event);
 
 		// Load my content if I'need an ajax request 
 		if( that.$content.html() == "" ) that.$content.html( that.loadContent() );
 
 		// Show me
-		that.show(event);
+		that.parent.show(event);
 		
 		return that;
 	};
@@ -3384,15 +3561,10 @@ ch.tab = function(controller){
 	
 /**
  *  Default event delegation
- */	 	
-	
-	// Hide my content if im inactive
-	if(!that.active) that.$content.addClass("ch-hide");
+ */
 
-	that.$trigger.bind('click', function(event){
-		that.prevent(event);
-		controller.select(that.uid.split("#")[1]);
-	});
+	that.configBehavior();
+
 	
 	return that;
 }
@@ -3614,7 +3786,6 @@ ch.string = function(conf) {
  * @name Email
  * @class Email
  * @augments ch.String
- * @augments ch.Watcher
  * @memberOf ch
  * @param {String} [message] Validation message.
  * @return {Chico-UI Object}
@@ -3652,7 +3823,6 @@ ch.factory({ component: 'email' });
  * @name Url
  * @class Url
  * @augments ch.String
- * @augments ch.Watcher
  * @memberOf ch
  * @param {String} [message] Validation message.
  * @return {Chico-UI Object}
@@ -3690,7 +3860,6 @@ ch.factory({ component: 'url' });
  * @name MinLength
  * @class MinLength
  * @augments ch.String
- * @augments ch.Watcher
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
@@ -3729,7 +3898,6 @@ ch.factory({ component: 'minLength' });
  * @name MaxLength
  * @class MaxLength
  * @augments ch.String
- * @augments ch.Watcher
  * @memberOf ch
  * @param {Number} value Maximun number value.
  * @param {String} [message] Validation message.
@@ -3826,7 +3994,6 @@ ch.number = function(conf) {
  * @name Min
  * @class Min
  * @augments ch.Number
- * @augments ch.Watcher
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
@@ -3866,7 +4033,6 @@ ch.factory({ component: 'min' });
  * @name Max
  * @class Max
  * @augments ch.Number
- * @augments ch.Watcher
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
@@ -3907,7 +4073,6 @@ ch.factory({ component: 'max' });
  * @name Price
  * @class Price
  * @augments ch.Number
- * @augments ch.Watcher
  * @memberOf ch
  * @param {String} [message] Validation message.
  * @return {Chico-UI Object}
@@ -4915,7 +5080,9 @@ ch.viewer = function(conf){
 	};
 
 	$viewer.find(".ch-mask").eq(0).height( $(itemsChildren[0]).height() );
-	
+
+	ch.utils.avoidTextSelection(that.element);
+
 	return that;
 };
 
@@ -4988,41 +5155,24 @@ ch.expando = function(conf){
      * @memberOf ch.Expando
      */
     var that = this;
-	
-	that.$element.addClass("ch-expando")
-		.children(":first").wrapInner("<span class=\"ch-expando-trigger\"></span>");
 		
-    conf = ch.clon(conf);
-    conf.open = conf.open || false;
-
+	conf = ch.clon(conf);
 	that.conf = conf;
 	
 /**
  *	Inheritance
  */
 
-    that = ch.navs.call(that);
-    that.parent = ch.clon(that);
+	that = ch.navs.call(that);
+	that.parent = ch.clon(that);
 
 /**
  *  Protected Members
  */ 
 
+	that.$trigger = that.$element.children().eq(0).wrapInner("<span>").children();
+
 	that.$content = that.$element.children().eq(1);
-	that.$trigger = that.$element.find(".ch-expando-trigger");
-	
-	that.show = function(event){
-		that.prevent(event);
-		
-		// Toggle
-		if ( that.active ) {
-			return that.hide(event);
-		};
-		
-		that.parent.show(event);
-		
-		return that;
-	};
 
 /**
  *  Public Members
@@ -5086,28 +5236,16 @@ ch.expando = function(conf){
  *  Default event delegation
  */		
     
-	// Trigger
-	that.$trigger
-		.bind('click', function(event){	that.show(event); })
-		.addClass('ch-expando-trigger');
-		
-	// Content
-	that.$content.addClass('ch-expando-content ch-hide');
-	
-	// Change default behaivor (close)
-	if( conf.open ) that.show();
-	
-    
-    // Create the publish object to be returned
-    conf.publish = that.publish;
+	that.configBehavior();
+	ch.utils.avoidTextSelection(that.$trigger);
 
 	return that;
 
 };
 
-
 /** 
  * A simple utility to highlight code snippets in the HTML.
+ * @abstract
  * @name Codelighter
  * @class Codelighter 
  * @return {Object}
@@ -5338,43 +5476,194 @@ ch.codeCSS = function(conf) {
     
 };
 
-ch.factory({ component: 'codeCSS' });
-/**
- * Accordion is a UI-Component.
- * @name Accordion
- * @class Accordion
+ch.factory({ component: 'codeCSS' });/**
+ * Menu is a UI-Component.
+ * @name Menu
+ * @class Menu
  * @augments ch.Controllers
+ * @requires ch.Expando
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
  * @return {Chico-UI Object}
  */
  
-ch.accordion = function(conf){
-
-// Private members
+ch.menu = function(conf){
 
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
      * @name that
      * @type {Object}
-     * @memberOf ch.Accordion
-     */	
+     * @memberOf ch.Menu
+     */
 	var that = this;
-	that.$element.addClass('ch-accordion');
+	
 	conf = ch.clon(conf);
+	
 	that.conf = conf;
 	
-    // Inheritance
+/**
+ *	Inheritance
+ */
+
     that = ch.controllers.call(that);
     that.parent = ch.clon(that);
 
+/**
+ *  Private Members
+ */
+
+	/**
+     * Indicates witch child is opened
+     * @private
+     * @name selected
+     * @type {Number}
+     * @memberOf ch.Menu
+     */
+	var selected = conf.selected - 1;
+
+	/**
+     * Inits an Expando component on each list inside main HTML code snippet
+     * @private
+     * @name createLayout
+     * @function
+     * @memberOf ch.Menu
+     */
+	var createLayout = function(){
+		
+		// No slide efects for IE6 and IE7
+		var efects = (ch.utils.html.hasClass("ie6") || ch.utils.html.hasClass("ie7")) ? false : true;
+		
+		// List elements
+		that.$element.children().each(function(i, e){
+			
+			// Children of list elements
+			var $child = $(e).children();
+		
+			// Anchor inside list
+			if($child.eq(0).prop("tagName") == "A") {
+				
+				// Add class to list and anchor
+				$(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger");
+				
+				// Add anchor to that.children
+				that.children.push( $child[0] );
+				
+				return;
+			};
+		
+			// List inside list, inits an Expando
+			var expando = $(e).expando({
+				// Show/hide on IE6/7 instead slideUp/slideDown
+				fx: efects,
+				onShow: function(){
+					// Updates selected tab when it's opened
+					selected = i;
+				}
+			});
+			
+			// Add expando to that.children
+			that.children.push( expando );
+
+		});
+	};
+	
+	/**
+     * Opens specific Expando child and optionally grandson
+     * @private
+     * @name select
+     * @function
+     * @memberOf ch.Menu
+     */
+	var select = function(item){
+
+		var child, grandson;
+		
+		// Split item parameter, if it's a string with hash
+		if (typeof item == "string") {
+			var sliced = item.split("#");
+			child = sliced[0] - 1;
+			grandson = sliced[1];
+		
+		// Set child when item is a Number
+		} else {
+			child = item - 1;
+		};
+		
+		// Specific item of that.children list
+		var itemObject = that.children[ child ];
+		
+		// Item as object
+		if (itemObject.hasOwnProperty("uid")) {
+			
+			// Show this list
+			itemObject.show();
+			
+			// Select grandson if splited parameter got a specific grandson
+			if (grandson) $(itemObject.element).find("a").eq(grandson - 1).addClass("ch-menu-on");
+			
+			// Accordion behavior
+			if (conf.accordion) {
+				// Hides every that.children list that don't be this specific list item
+				$.each(that.children, function(i, e){
+					if(
+						// If it isn't an anchor...
+						(e.tagName != "A") &&
+						// If there are an unique id...
+						(e.hasOwnProperty("uid")) &&
+						// If unique id is different to unique id on that.children list...
+						(that.children[ child ].uid != that.children[i].uid)
+					){
+						// ...hide it
+						e.hide();
+					};
+				});
+				
+			};
+		
+		// Item as anchor
+		} else{
+			// Just selects it
+			that.children[ child ].addClass("ch-menu-on");
+		};
+		
+		// onSelect callback
+		that.callbacks("onSelect");
+
+		return that;
+	};
+	
+	/**
+     * Binds controller's own click to expando triggers
+     * @private
+     * @name configureAccordion
+     * @function
+     * @memberOf ch.Menu
+     */
+	var configureAccordion = function(){
+
+		$.each(that.children, function(i, e){
+			$(e.element).find(".ch-expando-trigger").unbind("click").bind("click", function(){
+				select(i + 1);
+			});
+		});
+		
+		return;
+	};
+
+/**
+ *  Protected Members
+ */
+
+/**
+ *  Public Members
+ */
     /**
      * The component's instance unique identifier.
      * @public
      * @name uid
      * @type {Number}
-     * @memberOf ch.Accordion
+     * @memberOf ch.Menu
      */ 	
 	that["public"].uid = that.uid;
 	
@@ -5383,7 +5672,7 @@ ch.accordion = function(conf){
      * @public
      * @name element
      * @type {HTMLElement}
-     * @memberOf ch.Accordion
+     * @memberOf ch.Menu
      */
 	that["public"].element = that.element;
 	
@@ -5392,7 +5681,7 @@ ch.accordion = function(conf){
      * @public
      * @name type
      * @type {String}
-     * @memberOf ch.Accordion
+     * @memberOf ch.Menu
      */
 	that["public"].type = that.type;
 	
@@ -5401,233 +5690,59 @@ ch.accordion = function(conf){
      * @public
      * @name select
      * @function
-     * @memberOf ch.Accordion
+     * @memberOf ch.Menu
      */
-	that["public"].select = function(bellows){
-		
-		if(typeof bellows == "string") {
-			var sliced = bellows.split("#");
-		
-			that.children[ sliced[0] ].select( sliced[1] );
-		} else {
-			that.children[ bellows ].show();
-		};
-		
-		that.callbacks("onSelect");
-		
+	that["public"].select = function(item){
+		select(item);
+
 		return that["public"];
-	};	
-	
+	};
+
 /**
  *  Default event delegation
  */	
+	
+	// Sets component main class name
+	that.$element.addClass('ch-menu');
+	
+	// Inits an Expando component on each list inside main HTML code snippet
+	createLayout();
+	
+	// Accordion behavior
+	if (conf.accordion) configureAccordion();
+	
+	// Select specific item if there are a "selected" parameter on component configuration object
+    if (conf.hasOwnProperty("selected")) select(conf.selected);
     
-    // Children
-	that.$element.children().each(function(i, e){
-		
-		var $child = $(e).children();
-		
-		// Link
-		if($child.eq(0).prop("tagName") == "A") {
-			$(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger");
-			that.children.push( $child[0] );
-			return;
-		};
-		
-		// Bellows
-		var list = {};
-			list.uid = that.uid + "#" + i;
-			list.type = "bellows";
-			list.element = e;
-			list.$element = $(e);
-			
-		// Selected -> It can be for example "2" or "2#1"
-		if(conf.hasOwnProperty("selected")) {
-			list.open = (typeof conf.selected == "number") ? conf.selected == i : (conf.selected.split("#")[0] == i) ? conf.selected.split("#")[1] : false;
-		} else {
-			list.open = false;
-		};
-			
-		that.children.push( ch.bellows.call(list, that) );
-	});
-    
-    
-	return that;
+	return that["public"];
 	
 };
 
 
-
 /**
- * Accordion's content container.
- * @name Bellows
- * @class Bellows
- * @augments ch.Navs
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
- */
-ch.bellows = function(controller){
-
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name that
-     * @type {Object}
-     * @memberOf ch.Bellows
-     */ 
-	var that = this;
-	
-	conf = {};
-	
-	that.conf = conf;
-/**
- *	Inheritance
- */
-
-    that = ch.navs.call(that);
-    that.parent = ch.clon(that);
-	that.controller = controller;
-	
-/**
- *  Protected Members
- */ 
-	
-	that.$container = that.$element.addClass("ch-bellows");
-	
-	that.$trigger = that.$container.children(":first");
-	
-    /**
-     * Component's content.
-     * @public
-     * @name $content
-     * @type {jQuery Object}
-     * @memberOf ch.Bellows
-     */
-	that.$content = that.$trigger.next();
-    
-    /**
-     * Shows component's content.
-     * @public
-     * @name show
-     * @return {Chico-UI Object}
-     * @memberOf ch.Bellows
-     */
-	that.show = function(event){
-
-		that.prevent(event);
-
-		// Toggle
-		if (that.active) return that.hide(event);
-
-		// Accordion behavior (hide last active)
-		if (!controller.conf.hasOwnProperty("menu")) {
-
-			$.each(controller.children, function(i, e){
-				if (e.tagName == "A") return;
-				if ( e.hasOwnProperty("active") && e.hasOwnProperty("element") ) {
-					if (e.active == true && e.element !== that.element) { e.hide(); };
-				}; 
-			});
-			
-		};
-		
-		that.$content.slideDown("fast");
-        
-        that.parent.show(event);
-        
-        return that;
-    };
-    
-    /**
-     * Hides component's content.
-     * @public
-     * @name hide
-     * @return {Chico-UI Object}
-     * @memberOf ch.Bellows
-     */
-    that.hide = function(event){
-    	that.prevent(event);
-    	
-    	// Toggle
-    	if (!that.active) return;
-    	
-    	that.active = false;
-    	
-   		that.parent.hide(event);
-    	that.$content.slideUp("fast");
-
-        that.$trigger.removeClass("ch-" + that.type + "-on");
-        
-		if(!ch.utils.html.hasClass("ie6")) that.$content.slideUp("fast");
-		
-		that.callbacks("onHide");
-		
-        return that;
-	};
-	
-    /**
-     * Select component's content.
-     * @public
-     * @name select
-     * @return {Chico-UI Object}
-     * @memberOf ch.Bellows
-     */
-	that.select = function(child) {
-		that.show();
-		
-		// L2 selection
-		that.$content.find("a").eq( child ).addClass("ch-bellows-on");
-	};
-	
-	
-/**
- *  Default event delegation
- */	 	
-	
-	// Closed by default
-	if(that.open) that.select( parseInt(that.open) ); else that.$content.addClass("ch-hide");
-	
-	// Trigger
-	that.$trigger
-		.addClass("ch-bellows-trigger")
-		.bind("click", function(event){ that.show(event) })
-		.append("<span class=\"ch-arrow\"> &raquo;</span>");
-
-	// Content
-	that.$content
-		.addClass("ch-bellows-content")
-		.bind("click", function(event){ event.stopPropagation(); });
-	
-	
-	return that;
-};
-
-
-/**
- * Menu is a UI-Component.
- * @name Menu
- * @class Menu
+ * Accordion is a UI-Component.
+ * @name Accordion
+ * @class Accordion
  * @augments ch.Accordion
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
  * @return {Chico-UI Object}
  */
 
-ch.menu = function(conf) {
+ch.accordion = function(conf) {
     
     conf = conf || {};
 	
-	conf.menu = true;
+	conf.accordion = true;
 
-	return ch.accordion.call(this, conf);
+	return ch.menu.call(this, conf);
 
     /**
      * The component's instance unique identifier.
      * @public
      * @name uid
      * @type {Number}
-     * @memberOf ch.Menu
+     * @memberOf ch.Accordion
      */     
     
     /**
@@ -5635,7 +5750,7 @@ ch.menu = function(conf) {
      * @public
      * @name element
      * @type {HTMLElement}
-     * @memberOf ch.Menu
+     * @memberOf ch.Accordion
      */
     
     /**
@@ -5643,7 +5758,7 @@ ch.menu = function(conf) {
      * @public
      * @name type
      * @type {String}
-     * @memberOf ch.Menu
+     * @memberOf ch.Accordion
      */
     
     /**
@@ -5651,12 +5766,12 @@ ch.menu = function(conf) {
      * @public
      * @name select
      * @function
-     * @memberOf ch.Menu
+     * @memberOf ch.Accordion
      */
     
 };
 
-ch.factory({ component: 'menu' });
+ch.factory({ component: "accordion" });
 
 /**
  * Zoom UI-Component for images.
