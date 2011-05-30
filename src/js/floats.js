@@ -1,6 +1,7 @@
 
 /**
  * Abstract class of all floats UI-Objects.
+ * @abstract
  * @name Floats
  * @class Floats
  * @augments ch.Object

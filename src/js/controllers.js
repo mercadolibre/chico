@@ -1,6 +1,7 @@
 
 /**
  * Abstract class
+ * @abstract
  * @name Controllers
  * @class Controllers 
  * @augments ch.Object

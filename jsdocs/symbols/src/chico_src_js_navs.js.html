@@ -8,80 +8,81 @@
 	</style></head><body><pre><span class='line'>  1</span> <span class="WHIT">
 <span class='line'>  2</span> </span><span class="COMM">/**
 <span class='line'>  3</span>  * Abstract representation of navs components.
-<span class='line'>  4</span>  * @name Navs
-<span class='line'>  5</span>  * @class Navs
-<span class='line'>  6</span>  * @augments ch.Object
-<span class='line'>  7</span>  * @memberOf ch
-<span class='line'>  8</span>  * @param {Configuration Object} conf Object with configuration properties
-<span class='line'>  9</span>  * @return {Chico-UI Object}
-<span class='line'> 10</span>  * @see ch.Dropdown
-<span class='line'> 11</span>  * @see ch.Expando
-<span class='line'> 12</span>  */</span><span class="WHIT">
-<span class='line'> 13</span> </span><span class="WHIT"> 
-<span class='line'> 14</span> </span><span class="NAME">ch.navs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 15</span> </span><span class="WHIT">	
-<span class='line'> 16</span>     </span><span class="COMM">/**
-<span class='line'> 17</span>      * Reference to a internal component instance, saves all the information and configuration properties.
-<span class='line'> 18</span>      * @private
-<span class='line'> 19</span>      * @name that
-<span class='line'> 20</span>      * @type {Object}
-<span class='line'> 21</span>      * @memberOf ch.Navs
-<span class='line'> 22</span>      */</span><span class="WHIT"> 
-<span class='line'> 23</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.conf</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="COMM">/**
-<span class='line'> 26</span>  *  Inheritance
-<span class='line'> 27</span>  */</span><span class="WHIT">
-<span class='line'> 28</span> 
-<span class='line'> 29</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.object.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 30</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 31</span> </span><span class="WHIT">			
-<span class='line'> 32</span> </span><span class="COMM">/**
-<span class='line'> 33</span>  *  Public Members
-<span class='line'> 34</span>  */</span><span class="WHIT"> 	
-<span class='line'> 35</span> 	</span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 36</span> 
-<span class='line'> 37</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'> 38</span>      * Shows component's content.
-<span class='line'> 39</span>      * @public
-<span class='line'> 40</span>      * @name show
-<span class='line'> 41</span>      * @return {Chico-UI Object}
-<span class='line'> 42</span>      * @memberOf ch.Navs
-<span class='line'> 43</span>      */</span><span class="WHIT">
-<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="NAME">that.show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 45</span> </span><span class="WHIT">		</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 46</span> </span><span class="WHIT">		
-<span class='line'> 47</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 48</span> </span><span class="WHIT">		
-<span class='line'> 49</span> 		</span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 50</span> 
-<span class='line'> 51</span> </span><span class="WHIT">		</span><span class="NAME">that.$trigger.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 52</span> </span><span class="WHIT">		</span><span class="NAME">that.$content.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-hide"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 53</span> </span><span class="WHIT">		</span><span class="NAME">that.callbacks</span><span class="PUNC">(</span><span class="STRN">"onShow"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 54</span> </span><span class="WHIT">		
-<span class='line'> 55</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 57</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'> 58</span>      * Hides component's content.
-<span class='line'> 59</span>      * @public
-<span class='line'> 60</span>      * @name hide
-<span class='line'> 61</span>      * @return {Chico-UI Object}
-<span class='line'> 62</span>      * @memberOf ch.Navs
-<span class='line'> 63</span>      */</span><span class="WHIT">
-<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="NAME">that.hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 65</span> </span><span class="WHIT">		</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 66</span> </span><span class="WHIT">		
-<span class='line'> 67</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">that.active</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 68</span> </span><span class="WHIT">		
-<span class='line'> 69</span> 		</span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 70</span> </span><span class="WHIT">		
-<span class='line'> 71</span> 		</span><span class="NAME">that.$trigger.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 72</span> </span><span class="WHIT">		</span><span class="NAME">that.$content.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-hide"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 73</span> </span><span class="WHIT">		</span><span class="NAME">that.callbacks</span><span class="PUNC">(</span><span class="STRN">"onHide"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 74</span> </span><span class="WHIT">		
-<span class='line'> 75</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 76</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">		
-<span class='line'> 77</span> 	
-<span class='line'> 78</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 79</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 80</span> </span></pre></body></html>
+<span class='line'>  4</span>  * @abstract
+<span class='line'>  5</span>  * @name Navs
+<span class='line'>  6</span>  * @class Navs
+<span class='line'>  7</span>  * @augments ch.Object
+<span class='line'>  8</span>  * @memberOf ch
+<span class='line'>  9</span>  * @param {Configuration Object} conf Object with configuration properties
+<span class='line'> 10</span>  * @return {Chico-UI Object}
+<span class='line'> 11</span>  * @see ch.Dropdown
+<span class='line'> 12</span>  * @see ch.Expando
+<span class='line'> 13</span>  */</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT"> 
+<span class='line'> 15</span> </span><span class="NAME">ch.navs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	
+<span class='line'> 17</span>     </span><span class="COMM">/**
+<span class='line'> 18</span>      * Reference to a internal component instance, saves all the information and configuration properties.
+<span class='line'> 19</span>      * @private
+<span class='line'> 20</span>      * @name that
+<span class='line'> 21</span>      * @type {Object}
+<span class='line'> 22</span>      * @memberOf ch.Navs
+<span class='line'> 23</span>      */</span><span class="WHIT"> 
+<span class='line'> 24</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.conf</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="COMM">/**
+<span class='line'> 27</span>  *  Inheritance
+<span class='line'> 28</span>  */</span><span class="WHIT">
+<span class='line'> 29</span> 
+<span class='line'> 30</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.object.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">			
+<span class='line'> 33</span> </span><span class="COMM">/**
+<span class='line'> 34</span>  *  Public Members
+<span class='line'> 35</span>  */</span><span class="WHIT"> 	
+<span class='line'> 36</span> 	</span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> 
+<span class='line'> 38</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 39</span>      * Shows component's content.
+<span class='line'> 40</span>      * @public
+<span class='line'> 41</span>      * @name show
+<span class='line'> 42</span>      * @return {Chico-UI Object}
+<span class='line'> 43</span>      * @memberOf ch.Navs
+<span class='line'> 44</span>      */</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="NAME">that.show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">		</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">		
+<span class='line'> 48</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">		
+<span class='line'> 50</span> 		</span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> 
+<span class='line'> 52</span> </span><span class="WHIT">		</span><span class="NAME">that.$trigger.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">		</span><span class="NAME">that.$content.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-hide"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">		</span><span class="NAME">that.callbacks</span><span class="PUNC">(</span><span class="STRN">"onShow"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">		
+<span class='line'> 56</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 59</span>      * Hides component's content.
+<span class='line'> 60</span>      * @public
+<span class='line'> 61</span>      * @name hide
+<span class='line'> 62</span>      * @return {Chico-UI Object}
+<span class='line'> 63</span>      * @memberOf ch.Navs
+<span class='line'> 64</span>      */</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="NAME">that.hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">		</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">		
+<span class='line'> 68</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">that.active</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">		
+<span class='line'> 70</span> 		</span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">		
+<span class='line'> 72</span> 		</span><span class="NAME">that.$trigger.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">		</span><span class="NAME">that.$content.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-hide"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">		</span><span class="NAME">that.callbacks</span><span class="PUNC">(</span><span class="STRN">"onHide"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">		
+<span class='line'> 76</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">		
+<span class='line'> 78</span> 	
+<span class='line'> 79</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 81</span> </span></pre></body></html>

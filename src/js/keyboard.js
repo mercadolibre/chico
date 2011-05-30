@@ -1,5 +1,7 @@
+
 /**
  * Keyboard event controller utility to know wich keys are begin
+ * @abstract
  * @name Keyboard  
  * @class Keyboard
  * @memberOF ch

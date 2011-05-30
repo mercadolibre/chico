@@ -235,6 +235,7 @@ ch.tabNavigator = function(conf){
 
 /**
  * Simple unit of content for TabNavigators.
+ * @abstract
  * @name Tab
  * @class Tab
  * @augments ch.Navs
