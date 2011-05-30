@@ -1,0 +1,17 @@
+
+#index {
+    padding: 10px;
+}
+
+#content {
+
+}
+
+.sectionTitle {
+    background-color: #EEEEEE;    
+}
+
+.detailList {
+    border-bottom: 1px solid #CCCCCC;
+    padding: 10px;
+}
