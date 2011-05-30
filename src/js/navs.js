@@ -1,6 +1,7 @@
 
 /**
  * Abstract representation of navs components.
+ * @abstract
  * @name Navs
  * @class Navs
  * @augments ch.Object

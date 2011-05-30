@@ -1,7 +1,7 @@
 
-
 /** 
  * A simple utility to highlight code snippets in the HTML.
+ * @abstract
  * @name Codelighter
  * @class Codelighter 
  * @return {Object}

@@ -68,7 +68,6 @@ ch.string = function(conf) {
  * @name Email
  * @class Email
  * @augments ch.String
- * @augments ch.Watcher
  * @memberOf ch
  * @param {String} [message] Validation message.
  * @return {Chico-UI Object}
@@ -106,7 +105,6 @@ ch.factory({ component: 'email' });
  * @name Url
  * @class Url
  * @augments ch.String
- * @augments ch.Watcher
  * @memberOf ch
  * @param {String} [message] Validation message.
  * @return {Chico-UI Object}
@@ -144,7 +142,6 @@ ch.factory({ component: 'url' });
  * @name MinLength
  * @class MinLength
  * @augments ch.String
- * @augments ch.Watcher
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
@@ -183,7 +180,6 @@ ch.factory({ component: 'minLength' });
  * @name MaxLength
  * @class MaxLength
  * @augments ch.String
- * @augments ch.Watcher
  * @memberOf ch
  * @param {Number} value Maximun number value.
  * @param {String} [message] Validation message.

@@ -1,9 +1,12 @@
 
 /**
  * Object represent the abstract class of all UI Objects.
+ * @abstract
  * @name Object
  * @class Object 
  * @memberOf ch
+ * @requires ch.Get
+ * @requires ch.Factory
  * @see ch.Controllers
  * @see ch.Floats
  * @see ch.Navs
