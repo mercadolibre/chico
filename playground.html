@@ -28,16 +28,16 @@
 		
 		<div class="article demo"> 
  
-			<h1>Accordion</h1> 
+			<h1>Menu</h1> 
 			<div class="section"> 
 				<div class="box"> 
 					<h2>Demo</h2> 
-					<ul class="demoAccordion"> 
+					<ul class="demoMenu"> 
 						<li> 
 							<a href="http://www.google.com">Resumen</a> 
 						</li> 
 						<li> 
-							<span>Comprar</span> 
+							<p>Comprar</p> 
 							<ul> 
  
 								<li><a href="http://www.mercadolibre.com">En seguimiento</a></li> 
@@ -46,7 +46,7 @@
 							</ul> 
 						</li> 
 						<li> 
-							<span>Vender</span> 
+							<p>Vender</p> 
 							<ul> 
  
 								<li><a href="http://www.mercadolibre.com">Preguntas</a></li> 
@@ -55,7 +55,7 @@
 							</ul> 
 						</li> 
 						<li> 
-							<span>Facturas</span> 
+							<p>Facturas</p> 
 							<ul> 
 								<li><a href="http://www.mercadolibre.com">Facturas 1</a></li> 
 								<li><a href="http://www.mercadopago.com">Facturas 2</a></li> 
@@ -73,11 +73,11 @@
 			</div> 
 			
 			
-			<h1>Menu</h1> 
+			<h1>Accordion</h1> 
 			<div class="section"> 
 				<div class="box"> 
 					<h2>Demo</h2> 
-					<ul class="demoMenu"> 
+					<ul class="demoAccordion"> 
 						<li> 
 							<a href="http://www.google.com">Resumen</a> 
 						</li> 
@@ -812,51 +812,44 @@ div p.keywords{color:darkorange;}
 		// Components
         var ui_drop = $('.demoDropdown').dropdown();
         
-        var ui_acc = $('.demoAccordion').accordion({
-        	selected: "1#0"
-        });
-        
-        var ui_menu = $('.demoMenu').menu({
-        	selected: 2
-        });
- 
+		var ui_menu = $('.demoMenu').menu();
+
+		var ui_acc = $('.demoAccordion').accordion();
+
         var ui_caro = $('.demoCarousel').carousel({
-        	height: 120,
-        	width: 800,
-        	onMove: function(){ /*console.log("Callback onMove OK!")*/ }
+		    	height: 120,
+		    	width: 800,
+		    	onMove: function(){ /*console.log("Callback onMove OK!")*/ }
         });
         
          var ui_caro2 = $('.demoCarousel2').carousel({
          	pager:true,
-        	onMove: function(){ /*console.log("Callback onMove OK!")*/ }
+        		onMove: function(){ /*console.log("Callback onMove OK!")*/ }
         });
         
         //var ui_moda = $('.demoModal').modal();
         var ui_moda = $('.demoModal').modal({
-        	//width: 350,
-        	//height: 400,
-        	//cache: true,
-        	//content: "body div#modalContent",
-        	//content:"alallaa",
-        //ajax: "/testasd.xml",
-        	onShow: function(){ $("#modalContent h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
-        	onContentLoad: function(){},
-        	onHide: function(){ /*console.log("Se cierra el modal")*/ }
+		    	//width: 350,
+		    	//height: 400,
+		    	//cache: true,
+		    	//content: "body div#modalContent",
+		    	//content:"alallaa",
+		    //ajax: "/testasd.xml",
+		    	onShow: function(){ $("#modalContent h2").bind("click", function(){alert("Callback en el contentLoad!")}) },
+		    	onContentLoad: function(){},
+		    	onHide: function(){ /*console.log("Se cierra el modal")*/ }
         });
         
         var ui_trans1 = $(".demoTransition1").transition("Espere mientras pruebo la transición. Gracias papi."); 
         var ui_trans2 = $(".demoTransition2").transition(); 
         
         var ui_laye = $('.demoLayerOnclick').layer({ event: 'click', content: "<p>foo</p>" });
-		var ui_layr = $('.demoLayerOnmouseover').layer({ content: "#list-layer"/*"<p>asdsadas dsa dasd asd asdasd asd a</p><div style=\"margin-top:50px;width:50px;height:50px;\">asd <form><input /></form></div>"*/ });
+		var ui_layr = $('.demoLayerOnmouseover').layer({ content: "#list-layer" });
+
         var ui_tool = $('.demoTooltip').tooltip();
-        var ui_tabs = $('.demoTabNavigator').tabNavigator({
-        	onSelect: function(){ /*console.log("Callback onSelect OK!")*/ }
-        });
- 
-        var ui_tabs2 = $('.demoTabNavigator2').tabNavigator({
-        	onSelect: function(){ /*console.log("Callback2 onSelect OK!")*/ }
-        });
+
+		var ui_tabs = $('.demoTabNavigator').tabNavigator();
+		var ui_tabs2 = $('.demoTabNavigator2').tabNavigator();
  
         var ui_expa = $('.demoExpando').expando();
         var ui_expa1 = $('.demoExpando1').expando({open: true });

@@ -115,8 +115,8 @@ a img{
 .box,
 .ch-cone,
 .ico,
-.ch-dropdown-trigger-primary,
-.ch-tabNavigator .ch-tab-on {
+.ch-dropdown-trigger,
+.ch-tabNavigator .ch-tab-trigger-on {
 	background-image: url('../src/assets/base.png');
 }
 
@@ -624,4 +624,10 @@ td {
 
 .clearfix {
 	display: block;
+}
+
+.ch-user-no-select{
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
 }

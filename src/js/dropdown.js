@@ -22,8 +22,6 @@ ch.dropdown = function(conf){
 	var that = this;
 
 	conf = ch.clon(conf);
-	conf.skin = ( that.$element.hasClass("secondary") ) ? "secondary": "primary";
-
 	that.conf = conf;
 	
 /**
@@ -34,94 +32,113 @@ ch.dropdown = function(conf){
     that.parent = ch.clon(that);
 
 /**
- *  Protected Members
- */ 
-	that.$container = that.$element.addClass("ch-dropdown");
-	
-	that.$trigger = that.$container.children(":first");
-	
-	that.show = function(event){
-		that.prevent(event);
-		
-		// Toggle
-		if ( that.active ) {
-			return that.hide(event);
-		};
-		
-        // Reset all dropdowns
-		$(ch.instances.dropdown).each(function(i, e){ e.hide(); });
-		
-        // Show menu
-		that.$content.css('z-index', ch.utils.zIndex ++);
-		that.$container.css('z-index', ch.utils.zIndex ++); // Z-index of trigger over content		
-		that.parent.show(event);
-		that.position("refresh");
-		
-		// Secondary behavior
-		if(conf.skin == "secondary"){
-			that.$container.addClass("ch-dropdown-on"); // Container ON
-		};
-		
-		// Close events
-		ch.utils.document.one("click", function(event){ that.hide(event); });
-		ch.utils.document.bind(ch.events.KEY.ESC, function(event){ that.hide(event) });
-		
-		// Select first anchor child by default
-		var items = that.$content.find("a");
-			items.eq(0).focus();
-		
-		// More than one item
-		if(items.length == 0) return that;
+ *  Private Members
+ */
+    /**
+     * Adds keyboard events.
+     * @private
+     * @name shortcuts
+     * @function
+     * @memberOf ch.TabNavigator
+     */
+	var shortcuts = function(items){
 		
 		// Keyboard support
-		var itemSelected = 0;
+		var selected = 0;
 		
 		// Item selected by mouseover
 		// TODO: It's over keyboard selection and it is generating double selection.
-		items.each(function(i, e){
+		$.each(items, function(i, e){
 			$(e).bind("mouseenter", function(){
-				itemSelected = i;
-				items.eq( itemSelected ).focus();
+				selected = i;
+				items.eq( selected ).focus();
 			});
 		});
 		
 		var selectItem = function(arrow, event){
 			that.prevent(event);
 			
-			if(itemSelected == ((arrow == "bottom") ? items.length - 1 : 0)) return;
+			if(selected == ((arrow == "bottom") ? items.length - 1 : 0)) return;
 			
-			items.eq( itemSelected ).blur();
+			items.eq( selected ).blur();
 			
-			if(arrow == "bottom") itemSelected ++; else itemSelected --;
+			if(arrow == "bottom") selected += 1; else selected -= 1;
 			
-			items.eq( itemSelected ).focus();
+			items.eq( selected ).focus();
 		};
 		
 		// Arrows
 		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function(x, event){ selectItem("up", event); });
 		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function(x, event){ selectItem("bottom", event); });
+	};
+
+
+/**
+ *  Protected Members
+ */
+    /**
+     * The component's trigger.
+     * @private
+     * @name $trigger
+     * @type {jQuery Object}
+     * @memberOf ch.Dropdown
+     */
+	that.$trigger = that.$element.children().eq(0);
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Dropdown
+     */
+	that.$content = that.$trigger.next().detach(); // Save on memory;
+
+	that.show = function(event){
+		that.prevent(event);
+
+		that.$content.css('z-index', ch.utils.zIndex ++);
 		
-        return that;
-    };
-	
-    that.hide = function(event){
-    	that.prevent(event);
-    	
-    	if (!that.active) return;
-    	
-    	// Secondary behavior
-		if(conf.skin == "secondary"){
-			that.$container.removeClass("ch-dropdown-on"); // Container OFF
-		};
+		if (that.$element.hasClass("secondary")) { // Z-index of trigger over conten 
+			that.$trigger.css('z-index', ch.utils.zIndex ++);
+		}; 
+
 		
+		that.$element
+			.addClass("ch-dropdown-on")
+			.css('z-index', ch.utils.zIndex ++);
+
+		that.parent.show(event);
+		that.position("refresh");
+
+		// Reset all dropdowns
+		$.each(ch.instances.dropdown, function(i, e){ 
+			if (e.uid !== that.uid) e.hide();
+		});
+
+		// Close events
+		ch.utils.document.one("click " + ch.events.KEY.ESC, function(event){ that.hide(event); });
+		// Close dropdown after click an option (link)
+		that.$content.find("a").one("click", function(){ that.hide(); });
+
+		// Keyboard support
+		var items = that.$content.find("a");
+			items.eq(0).focus(); // Select first anchor child by default
+
+		if (items.length > 1){ shortcuts(items); };
+
+		return that;
+	};
+
+	that.hide = function(event){
+		that.prevent(event);
+
         that.parent.hide(event);
-        
+        	that.$element.removeClass("ch-dropdown-on");
+
         // Unbind events
-        ch.utils.document.unbind(ch.events.KEY.UP_ARROW);
-        ch.utils.document.unbind(ch.events.KEY.DOWN_ARROW);
-        ch.utils.document.unbind(ch.events.KEY.ESC);
-        
-        return that;
+        ch.utils.document.unbind(ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW);
+
+		return that;
 	};
 	
 /**
@@ -192,34 +209,24 @@ ch.dropdown = function(conf){
 /**
  *  Default event delegation
  */		    
-    // Trigger
-	that.$trigger
-		.bind("click", function(event){ that.show(event) })
-		.addClass("ch-dropdown-trigger-" + conf.skin)
-		.append("<span class=\"ch-bottom\"> &raquo;</span>");
 
-	// Content
-	that.$content = that.$trigger.next()
-		.addClass("ch-dropdown-content-" + conf.skin)
-		.addClass("ch-hide")
-		.bind("click", function(event){
-			event.stopPropagation(); // Prevent click on content (except links)
-		})
-		.detach(); // Save on memory;
+	that.configBehavior();
 	
-	// Close dropdown after click an option (link)
-	that.$content.find("a").one("click", function(){ that.hide(); });
-
-	// Put content out of container
-	that.$container.after( that.$content );
-		
+	that.$element.after( that.$content ); // Put content out of element
+	ch.utils.avoidTextSelection(that.$trigger);
+	
+	if (that.$element.hasClass("secondary")) that.$content.addClass("secondary");
+	
+	// Prevent click on content (except links)
+	that.$content.bind("click", function(event){ event.stopPropagation(); });
+	
 	// Position
 	that.conf.position = {};
 	that.conf.position.element = that.$content;
 	that.conf.position.context = that.$trigger;
 	that.conf.position.points = "lt lb";
 	that.conf.position.offset = "0 -1";
-	
+
 	return that;
 
 };
