@@ -80,7 +80,7 @@ ch.navs = function(){
 		// Animation
 		if( conf.fx ) {
 			that.$content.slideDown("fast", function(){
-				that.$content.removeClass("ch-hide");
+				//that.$content.removeClass("ch-hide");
 				that.callbacks("onShow");
 			});
 		} else {
@@ -109,7 +109,7 @@ ch.navs = function(){
 		// Animation
 		if( conf.fx ) {
 			that.$content.slideUp("fast", function(){
-				that.$content.addClass("ch-hide");
+				//that.$content.addClass("ch-hide");
 				that.callbacks("onHide");
 			});
 		} else {

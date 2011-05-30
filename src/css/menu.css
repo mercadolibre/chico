@@ -1,10 +1,13 @@
+/* Menu */
 .ch-menu {
 	max-width:300px;
 	border-top:1px solid #ccc;
 }
 
+/* L1 and L2 items */
 .ch-bellows-trigger,
-.ch-bellows a {
+.ch-menu .ch-expando-trigger,
+.ch-menu .ch-expando-content a {
 	font-size:13px;
 	height:26px;
 	line-height:26px;
@@ -12,49 +15,41 @@
 	text-decoration:none!important;
 	color:#333!important;
 	display:block;
-}
-
-.ch-bellows-trigger {
-	border-bottom:1px solid #ccc;
 	padding:0 5px;
-	position:relative;
 }
 
-.ch-bellows-trigger .ch-arrow {
-	width:12px;
-	height:12px;
-	background-image: url('../src/assets/expando.png');
-	background-repeat:no-repeat;
-	float:right;
-	position:absolute;
-	top:7px;
-	right:5px;
-	text-indent:999px;
-	overflow:hidden;
-}
-
-.ch-bellows-trigger:hover .ch-arrow {
-	background-position: 0 -17px;
-}
-
-.ch-bellows-trigger.ch-bellows-on .ch-arrow {
-	background-position: 0 -32px;
-}
-
+/* L1 and L2 items hover */
 .ch-bellows-trigger:hover,
-.ch-bellows a:hover,
-.ch-bellows-content li:hover {
+.ch-menu .ch-expando-trigger:hover,
+.ch-menu .ch-expando-content a:hover {
 	background-color:#FCF8D0;
 }
 
-.ch-bellows-content {
+/* L1 items */
+.ch-bellows-trigger,
+.ch-menu .ch-expando-trigger,
+.ch-menu .ch-expando-content {
 	border-bottom:1px solid #ccc;
+	position:relative;
 }
 
-.ch-bellows-content li {
-	padding:0 0 0 20px;
+/* L1 items icon */
+.ch-menu .ch-expando-trigger .ico {
+	right:5px;
+	top:7px;
 }
 
-.ch-bellows-content .ch-bellows-on {
+/* L2 items list */
+.ch-menu .ch-expando-content {
+	margin:0;
+}
+
+/* L2 items */
+.ch-menu .ch-expando-content a {
+	padding-left:20px;
+}
+
+/* Selected child */
+.ch-menu-on {
 	font-weight:bold;
 }
