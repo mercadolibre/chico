@@ -9,7 +9,7 @@
 <body>
 
 <!-- #body -->
-	<h1>Chico-UI: Accordion testcases</h1>
+	<h1>Chico-UI: Menu testcases</h1>
     <hr />
     <div class="box">
 	    <h2>Accordion</h2>
@@ -87,25 +87,43 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/packer.php?get=accordion&debug=true"></script>
+	<script src="../php/packer.php?debug=true"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
 	<script>
 
 		var testAccordion = $(".testAccordion").accordion({
-			selected:0,
+			selected:1,
 			onSelect: function(){
 				$("body").addClass("onSelect");
 			}
 		});
 		
 		var testMenu = $(".testMenu").menu({
-			selected:0
+			selected:1
 		});
 		
 		$.fx.off = true;
+		
+		// DOM references
+		var items = [];
+			
+		for(var i = 0, j = 4; i < j; i += 1){
+			var ref = {};
+				ref.container = $(testAccordion.element).children().eq(i);
+				ref.trigger = ref.container.children().eq(0);
+				
+				// Fourth is an anchor
+				if(i != 3){
+					ref.trigger = ref.trigger.children();
+					ref.content = ref.container.children().eq(1);
+				};
+				
+			items[i] = ref;
+		};
 
+		
 		/**
 		 * 	Test Cases
 		 */
@@ -137,54 +155,53 @@
             
             expect ( 3 );
             
-            var testAccordionOriginal = testAccordion;
+            var acc = testAccordion;
             
-            var chainSelect1 = testAccordion.select(0);
+            var chain1 = testAccordion.select(1);
             
-            var chainSelect2 = testAccordion.select(1);
+            var chain2 = testAccordion.select(2);
 
-            var chained = testAccordion.select(1).select(0);
+            var chained = testAccordion.select(2).select(1);
              
-            ok ( chainSelect1 === testAccordionOriginal, "Expected to return original instance object on first select() method call");
+            equal ( chain1, acc, "Expected to return original instance object on first select() method call");
             
-            ok ( chainSelect2 === testAccordionOriginal, "Expected to return original instance object on second select() method call");
+            equal ( chain2, acc, "Expected to return original instance object on second select() method call");
 
-            ok ( chained === testAccordionOriginal, "Expected to return original instance object on .select(0).select(1) methods chained call");
+            equal ( chained, acc, "Expected to return original instance object on .select(0).select(1) methods chained call");
             
         });
         
         module('Accordion layout and interaction');
 
-		var $triggerAccordion =  $(".testAccordion").children().eq(0).children(":first");
-		var $contentAccordion = $triggerAccordion.next();
-		
-		var $triggerAccordion2 =  $(".testAccordion").children().eq(1).children(":first");
-		var $contentAccordion2 = $triggerAccordion2.next();
-		
 		test('Check for the right visual classes', function() {
 			
-			expect( 4 );
+			expect( 6 );
 			
-			hasClass('.testAccordion', 'ch-accordion');
-			hasClass($triggerAccordion, 'ch-bellows-trigger');
-			hasClass($triggerAccordion, 'ch-bellows-on');
-			hasClass($contentAccordion, 'ch-bellows-content');
+			hasClass('.testAccordion', 'ch-menu');
+			console.log(items[0].trigger);
+			// Expando
+			hasClass(items[0].container, 'ch-expando');
+			hasClass(items[0].trigger, 'ch-expando-trigger');
+			hasClass(items[0].content, 'ch-expando-content');
 			
+			// Anchor
+			hasClass(items[3].container, 'ch-bellows');
+			hasClass(items[3].trigger, 'ch-bellows-trigger');
 		});
 		
 		test('Open Accordion child', function() {
 			
 			expect( 4 );
 			
-			$triggerAccordion2.click();
+			items[1].trigger.click();
 			
-			isNotVisible($contentAccordion);
+			isNotVisible(items[0].content);
 			
-			hasNotClass($triggerAccordion, 'ch-bellows-on');
+			hasNotClass(items[0].trigger, 'ch-expando-trigger-on');
 			
-			isVisible($contentAccordion2);
+			isVisible(items[1].content);
 			
-			hasClass($triggerAccordion2, 'ch-bellows-on');
+			hasClass(items[1].trigger, 'ch-expando-trigger-on');
 			
 		});
 		
@@ -192,26 +209,23 @@
 			
 			expect( 2 );
 			
-			$triggerAccordion2.click();
+			items[1].trigger.click();
 			
-			isNotVisible($contentAccordion2);
+			isNotVisible(items[1].content);
 			
-			hasNotClass($triggerAccordion2, 'ch-bellows-on');
+			hasNotClass(items[1].trigger, 'ch-expando-trigger-on');
 			
 		});
-		
-		var $triggerAccordion3 =  $(".testAccordion").children().eq(2).children(":first");
-		var $contentAccordion3 = $triggerAccordion3.next();
 		
 		test('Open Accordion child throwgh public methods', function() {
 			
 			expect( 2 );
 			
-			testAccordion.select(2);
+			testAccordion.select(3);
 			
-			isVisible($contentAccordion3);
+			isVisible(items[2].content);
 			
-			hasClass($triggerAccordion3, 'ch-bellows-on');
+			hasClass(items[2].trigger, 'ch-expando-trigger-on');
 			
 		});
 		
@@ -219,13 +233,13 @@
 			
 			expect( 3 );
 			
-			testAccordion.select("0#1");
+			testAccordion.select("1#2");
 			
-			isVisible($contentAccordion);
+			isVisible(items[0].content);
 			
-			hasClass($triggerAccordion, 'ch-bellows-on');
+			hasClass(items[0].trigger, 'ch-expando-trigger-on');
 			
-			exists($contentAccordion.find("a.ch-bellows-on"));
+			exists(items[0].content.find("a.ch-menu-on"));
 			
 		});
 		
@@ -236,7 +250,7 @@
 			
 			expect ( 1 );
 			
-			testAccordion.select(0);
+			testAccordion.select(1);
 			
 			hasClass("body", "onSelect");
 			
@@ -246,23 +260,34 @@
        	
        	
 		
-		var $triggerMenu =  $(".testMenu").children().eq(0).children(":first");
-		var $contentMenu = $triggerMenu.next();
+		var $containerMenu =  $(".testMenu").children().eq(0);
+		var $triggerMenu = $containerMenu.children().eq(0).children();
+		var $contentMenu = $containerMenu.children().eq(1);
 		
-		var $triggerMenu2 =  $(".testMenu").children().eq(1).children(":first");
-		var $contentMenu2 = $triggerMenu2.next();
+		var $containerMenu2 =  $(".testMenu").children().eq(1);
+		var $triggerMenu2 = $containerMenu2.children().eq(0).children();
+		var $contentMenu2 = $containerMenu2.children().eq(1);
 		
 		
-       	module('Menu interface');
-       	
+		// DOM references
+		var menuItems = [];
+			menuItems[0].container = $(testMenu.element).children().eq(0);
+			menuItems[0].trigger = ref.container.children().eq(0);
+			menuItems[0].content = ref.container.children().eq(1);
+			
+			menuItems[1].container = $(testMenu.element).children().eq(1);
+			menuItems[1].trigger = ref.container.children().eq(0);
+			menuItems[1].content = ref.container.children().eq(1);
+		
+       	module('Menu');
        	
        	test('Menu open by configuration', function() {
 			
 			expect( 2 );
 			
-			isVisible($contentMenu);
+			isVisible(menuItems[0].content);
 			
-			hasClass($triggerMenu, 'ch-bellows-on');
+			hasClass(menuItems[0].trigger, 'ch-expando-trigger-on');
 						
 		});
 		
@@ -270,19 +295,19 @@
 			
 			expect( 6 );
 			
-			isNotVisible($contentMenu2);
+			isNotVisible(menuItems[1].content);
 			
-			hasNotClass($triggerMenu2, 'ch-bellows-on');
+			hasNotClass(menuItems[1].trigger, 'ch-expando-trigger-on');
 			
-			$triggerMenu2.click();
+			menuItems[1].trigger.click();
 			
-			isVisible($contentMenu);
+			isVisible(menuItems[0].content);
 			
-			hasClass($triggerMenu, 'ch-bellows-on');
+			hasClass(menuItems[0].trigger, 'ch-expando-trigger-on');
 			
-			isVisible($contentMenu2);
+			isVisible(menuItems[1].content);
 			
-			hasClass($triggerMenu2, 'ch-bellows-on');
+			hasClass(menuItems[1].trigger, 'ch-expando-trigger-on');
 			
 		});
 

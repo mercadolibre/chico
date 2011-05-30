@@ -135,6 +135,23 @@ ch.carousel = function(conf){
 	
 	var resize = false;
 	
+	
+	// Function executed after movement
+	var afterMove = function(){
+		that.active = false;
+		
+		if (ch.features.transition) ch.utils.document.unbind("transitionend webkitTransitionEnd OTransitionEnd");
+		
+		// Pager behavior
+		if (conf.pager) {								
+			that.pager.children().removeClass("ch-pager-on");
+			that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
+		};
+
+		// Callbacks
+		that.callbacks("onMove");
+	};
+	
 
 /**
  *  Protected Members
@@ -209,28 +226,14 @@ ch.carousel = function(conf){
 		// Status moving
 		that.active = true;
 		
-		// Function executed after movement
-		var afterMove = function(){
-			that.active = false;
-			
-			// Pager behavior
-			if (conf.pager) {								
-				that.pager.children().removeClass("ch-pager-on");
-				that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
-			};
-
-			// Callbacks
-			that.callbacks("onMove");
-		};
-		
 		// Have CSS3 Transitions feature?
 		if (ch.features.transition) {
+			
+			ch.utils.document.bind("transitionend webkitTransitionEnd OTransitionEnd", afterMove);
 			
 			// Css movement
 			that.$content.css({ left: movement });
 			
-			// Callback
-			afterMove();
 			
 		// Ok, let JQuery do the magic...
 		} else {

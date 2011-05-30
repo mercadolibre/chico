@@ -124,7 +124,7 @@
 			$triggerExpando.click();
 			
 			isVisible($contentExpando);
-			hasClass($triggerExpando, 'ch-expando-on');
+			hasClass($triggerExpando, 'ch-expando-trigger-on');
 			
 			$triggerExpando.click();
 			
@@ -136,7 +136,7 @@
 			$triggerExpando.click();
 			
 			isNotVisible($contentExpando);
-			hasNotClass($triggerExpando, 'ch-expando-on');
+			hasNotClass($triggerExpando, 'ch-expando-trigger-on');
 			
 		});
 		
@@ -146,7 +146,7 @@
 			$contentExpando.click();
 			
 			isVisible($contentExpando);
-			hasClass($triggerExpando, 'ch-expando-on');
+			hasClass($triggerExpando, 'ch-expando-trigger-on');
 			
 			$triggerExpando.click();
 			
@@ -159,12 +159,12 @@
 		test('Opened expando', function() {
 			
 			isVisible($contentExpando2);
-			hasClass($triggerExpando2, 'ch-expando-on');
+			hasClass($triggerExpando2, 'ch-expando-trigger-on');
 			
 			$triggerExpando2.click();
 			
 			isNotVisible($contentExpando2);
-			hasNotClass($triggerExpando2, 'ch-expando-on');
+			hasNotClass($triggerExpando2, 'ch-expando-trigger-on');
 						
 		});
 		
