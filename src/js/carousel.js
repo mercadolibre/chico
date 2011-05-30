@@ -391,8 +391,9 @@ ch.carousel = function(conf){
 		that.$element.prepend( that.buttons.prev.$element ).append( that.buttons.next.$element ); // Append prev and next buttons
 		if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
 		that.buttons.position();
+		
+		ch.utils.avoidTextSelection(that.buttons.prev.$element,that.buttons.next.$element);
 	};
-	
 	
 	// Elastic behavior    
     if ( !conf.hasOwnProperty("width") ){

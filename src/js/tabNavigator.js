@@ -20,11 +20,8 @@ ch.tabNavigator = function(conf){
      */
 	var that = this;
 
-	that.$element.addClass('ch-tabNavigator');
-		
 	conf = ch.clon(conf);
-	conf.selected = conf.selected || conf.value || 0;
-	
+
 	that.conf = conf;
 	
 /**
@@ -38,14 +35,6 @@ ch.tabNavigator = function(conf){
  *  Private Members
  */
 
-    /**
-     * Reference to the tabNavigator's triggers.
-     * @private
-     * @name ul
-     * @type {jQuery Object}
-     * @memberOf ch.TabNavigator
-     */
-	var ul = that.$element.children(':first').addClass('ch-tabNavigator-triggers');
     /**
      * The actual location hash, is used to know if there's a specific tab selected.
      * @private
@@ -70,38 +59,95 @@ ch.tabNavigator = function(conf){
      * @type {Number}
      * @memberOf ch.TabNavigator
      */
-    var selected = conf.selected;
+    var selected = conf.selected - 1 || conf.value - 1 || 0;
+    /**
+     * Create controller's children.
+     * @private
+     * @name createTabs
+     * @function
+     * @memberOf ch.TabNavigator
+     */
+	var createTabs = function(){
 
-/**
- *  Protected Members
- */ 
- 
- 	that.$trigger = ul.find('a');
-	that.$content = ul.next().addClass('ch-tabNavigator-content box');
-	
-	that.select = function(tab){		
+		// Children
+		that.$element.children().eq(0).addClass("ch-tabNavigator-triggers").find("a").each(function(i, e){
+
+			// Tab context
+			var tab = {};
+				tab.uid = that.uid + "#" + i;
+				tab.type = "tab";
+				tab.element = e;
+				tab.$element = $(e);
+				tab.controller = that["public"];
+
+			// Tab configuration
+			var conf = {};
+				conf.open = (selected == i);
+				conf.onShow = function(){
+					selected = i;
+				};
+
+			// Callbacks
+			if ( that.conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad = that.conf.onContentLoad;
+			if ( that.conf.hasOwnProperty("onContentError") ) conf.onContentError = that.conf.onContentError;
+
+			// Create Tabs
+			that.children.push(
+				ch.tab.call(tab, conf)
+			);
+
+			// Bind new click to have control
+			$(e).unbind("click").bind("click", function(event){
+				that.prevent(event);
+				select(i + 1);
+			});
+
+		});
+
+		return;
+
+	};
+    /**
+     * Select a child to show its content.
+     * @private
+     * @name select
+     * @function
+     * @memberOf ch.TabNavigator
+     */
+	var select = function(tab){
+
+		tab = that.children[tab - 1];
 		
-		selected = parseInt(tab);
-		
-		tab = that.children[selected];
-		
-		if(tab.active) return; // Don't click me if I'm open
+		if(tab === that.children[selected]) return; // Don't click me if I'm open
 
 		// Hide my open bro
 		$.each(that.children, function(i, e){
-			if( e.active ) e.hide();
+			if(tab !== e) e.hide();
 		});
-        
-        tab.shoot();
-        
+
+		tab.show();
+
         //Change location hash
-		window.location.hash = "#!" + tab.$content.attr("id");		
+		window.location.hash = "#!" + tab.$content.attr("id");	
 		
 		// Callback
 		that.callbacks("onSelect");
 		
         return that;
 	};
+
+/**
+ *  Protected Members
+ */ 
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.TabNavigator
+     */
+	that.$content = that.$element.children().eq(1).addClass("ch-tabNavigator-content box");
+
     
 /**
  *  Public Members
@@ -148,7 +194,7 @@ ch.tabNavigator = function(conf){
      * @memberOf ch.TabNavigator
      */
 	that["public"].select = function(tab){
-		that.select(tab);
+		select(tab);
 		
 		return that["public"];
 	};
@@ -160,27 +206,20 @@ ch.tabNavigator = function(conf){
      * @return {Number} selected Tab's index.
      * @memberOf ch.TabNavigator
      */	
-	that["public"].getSelected = function(){ return selected; };
-	
+	that["public"].getSelected = function(){ return (selected + 1); };
+
 /**
  *  Default event delegation
  */	
-    
-	// Create children
-	$.each(that.$trigger, function(i, e){
-		var tab = {};
-			tab.uid = that.uid + "#" + i;
-			tab.type = "tab";
-			tab.element = e;
-			tab.$element = $(e);
-			
-		that.children.push( ch.tab.call(tab, that) );
-	});
-	
+
+    	that.$element.addClass('ch-tabNavigator');
+
+	createTabs();
+
 	//Default: Load hash tab or Open first tab	
 	for(var i = that.children.length; i--; ){
 		if ( that.children[i].$content.attr("id") === hash ) {
-			that.select(i);
+			select(i + 1);
 			
 			hashed = true;
 			
@@ -188,9 +227,7 @@ ch.tabNavigator = function(conf){
 		};
 	};
 
-	if ( !hashed ) that.children[conf.selected].shoot();
-
-	return that;
+	return that["public"];
 	
 };
 
@@ -207,8 +244,7 @@ ch.tabNavigator = function(conf){
  * @return {Chico-UI Object}
  */
 
-ch.tab = function(controller){
-
+ch.tab = function(conf){
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
@@ -216,48 +252,35 @@ ch.tab = function(controller){
      * @type {Object}
      * @memberOf ch.Tab
      */
- 	var that = this;
-	
-	conf = {};
-	if ( controller.conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad = controller.conf.onContentLoad;
-	if ( controller.conf.hasOwnProperty("onContentError") ) conf.onContentError = controller.conf.onContentError;	
+    var that = this;
+
+	conf = ch.clon(conf);
+	conf.icon = false;
 	
 	that.conf = conf;
+
+	
 /**
  *	Inheritance
  */
 
-    that = ch.navs.call(that);
-    that.parent = ch.clon(that);
-	that.controller = controller;
+	that = ch.navs.call(that);
+	that.parent = ch.clon(that);
 
 /**
  *  Private Members
  */
-	
-	
-/**
- *  Protected Members
- */ 
     /**
-     * Reference to the trigger element.
+     * Creates the basic structure for the tab's content.
      * @private
-     * @name $trigger
-     * @type {jQuery Object}
-     * @memberOf ch.Tab
+     * @name createContent
+     * @function
+     * @memberOf ch.TabNavigator
      */
-	that.$trigger = that.$element.addClass("ch-tabNavigator-trigger");
-
-    /**
-     * The component's content.
-     * @private
-     * @name $content
-     * @type {jQuery Object}
-     * @memberOf ch.Tab
-     */	
-	that.$content = (function(){
-		
-		var content = controller.$element.find("#" + that.element.href.split("#")[1]);
+	var createContent = function(){
+		var href = that.element.href.split("#");
+		var controller = that.$element.parents(".ch-tabNavigator");
+		var content = controller.find("#" + href[1]);
 		
 		// If there are a tabContent...
 		if ( content.length > 0 ) {
@@ -271,29 +294,50 @@ ch.tab = function(controller){
 
 			// Create tabContent
 			return $("<div>")
-				.attr("id", (that.element.href.split("#").length == 2) ? that.element.href.split("#")[1] : "ch-tab" + that.uid.replace("#","-") )
+				.attr("id", (href.length == 2) ? href[1] : "ch-tab" + that.uid.replace("#","-") )
 				.addClass("ch-hide")
-				.appendTo( controller.$content );
-		}; 
+				.appendTo( controller.children().eq(1) );
+		};
 
-	})();
+	};
+
+/**
+ *  Protected Members
+ */ 
+    /**
+     * Reference to the trigger element.
+     * @private
+     * @name $trigger
+     * @type {jQuery Object}
+     * @memberOf ch.Tab
+     */
+	that.$trigger = that.$element;
+
+    /**
+     * The component's content.
+     * @private
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Tab
+     */	
+	that.$content = createContent();
 
     /**
      * Process the show event.
      * @private
      * @function
-     * @name shoot
+     * @name show
      * @return {jQuery Object}
      * @memberOf ch.Tab
      */ 
-	that.shoot = function(event){
+	that.show = function(event){
 		that.prevent(event);
 
 		// Load my content if I'need an ajax request 
 		if( that.$content.html() == "" ) that.$content.html( that.loadContent() );
 
 		// Show me
-		that.show(event);
+		that.parent.show(event);
 		
 		return that;
 	};
@@ -305,15 +349,10 @@ ch.tab = function(controller){
 	
 /**
  *  Default event delegation
- */	 	
-	
-	// Hide my content if im inactive
-	if(!that.active) that.$content.addClass("ch-hide");
+ */
 
-	that.$trigger.bind('click', function(event){
-		that.prevent(event);
-		controller.select(that.uid.split("#")[1]);
-	});
+	that.configBehavior();
+
 	
 	return that;
 }

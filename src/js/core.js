@@ -87,6 +87,19 @@ var ch = window.ch = {
 		},
 		isUrl: function(url){
 			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
+		},
+		avoidTextSelection: function(){
+			$.each(arguments, function(i, e){
+				if ( $.browser.msie ) {
+					$(e).attr('unselectable', 'on');
+				} else if ($.browser.opera) {
+					$(e).bind("mousedown", function(){ return false; });
+				} else { 
+					$(e).addClass("ch-user-no-select");
+				};
+			});
+				
+			return;
 		}
 	},
 
@@ -343,7 +356,7 @@ ch.get = function(o) {
 
 	        var that = o.that;
 	        var conf = that.conf;
-			var context = ( that.controller ) ? that.controller["public"] : that["public"];
+			var context = ( that.hasOwnProperty("controller") ) ? that.controller : that["public"];
 
 			// Set ajax config
 			// On IE (6-7) "that" reference losts when I call ch.get for second time

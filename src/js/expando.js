@@ -19,41 +19,24 @@ ch.expando = function(conf){
      * @memberOf ch.Expando
      */
     var that = this;
-	
-	that.$element.addClass("ch-expando")
-		.children(":first").wrapInner("<span class=\"ch-expando-trigger\"></span>");
 		
-    conf = ch.clon(conf);
-    conf.open = conf.open || false;
-
+	conf = ch.clon(conf);
 	that.conf = conf;
 	
 /**
  *	Inheritance
  */
 
-    that = ch.navs.call(that);
-    that.parent = ch.clon(that);
+	that = ch.navs.call(that);
+	that.parent = ch.clon(that);
 
 /**
  *  Protected Members
  */ 
 
+	that.$trigger = that.$element.children().eq(0).wrapInner("<span>").children();
+
 	that.$content = that.$element.children().eq(1);
-	that.$trigger = that.$element.find(".ch-expando-trigger");
-	
-	that.show = function(event){
-		that.prevent(event);
-		
-		// Toggle
-		if ( that.active ) {
-			return that.hide(event);
-		};
-		
-		that.parent.show(event);
-		
-		return that;
-	};
 
 /**
  *  Public Members
@@ -117,20 +100,8 @@ ch.expando = function(conf){
  *  Default event delegation
  */		
     
-	// Trigger
-	that.$trigger
-		.bind('click', function(event){	that.show(event); })
-		.addClass('ch-expando-trigger');
-		
-	// Content
-	that.$content.addClass('ch-expando-content ch-hide');
-	
-	// Change default behaivor (close)
-	if( conf.open ) that.show();
-	
-    
-    // Create the publish object to be returned
-    conf.publish = that.publish;
+	that.configBehavior();
+	ch.utils.avoidTextSelection(that.$trigger);
 
 	return that;
 
