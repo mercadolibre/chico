@@ -244,7 +244,9 @@ ch.watcher = function(conf) {
                 }
                 
                 if ( gotError ) {
-                						
+
+                    that.callbacks('onError');
+		
                 	// Field error style
                 	that.$element.addClass("error");
                 
