@@ -31,7 +31,6 @@
 		<div class="ch-g1">
 			<div class="box">
 				<h1>Custom Download</h1>
-
 <form id="downloadForm" action="php/packer.php" method="get">
 
 <div class="ch-g1-4">
@@ -163,107 +162,135 @@
 
 <script src="./libs/js/jquery.js"></script>
 <script src="./build/chico.js"></script>
-<script src="inheritanceMap.js"></script>
 
 <script>
 
-var build_version = {};
+var map = {}
 
-var components = [];
-var utils = [];
+$.getJSON("./services/builder/inheritanceMap.js", function(data){
 
-for (var c in map) {
-    var type = map[c].type;
-    var value = c.toString();
-    var appendTo = (type == "class" || type == "interface") ? "#components" : (type == "abstract") ? "#abstracts" : "#utils" ;  
-    var className = "fieldBox " + type;
-    var disabled = (type == "abstract") ? "disabled=\"disabled\"" : "" ;
-    $("<li class=\""+className+"\"><label><input type=\"checkbox\" value=\""+value+"\" name=\"get\" "+disabled+"> <span>"+c+"</span></label>")
-        .appendTo(appendTo);
-}
+    map = data;
 
-var checkIt = function(c) {
-    $("input[value="+c+"]").attr("checked","checked");
-}
-
-var unCheckIt = function(c) {
-
-    if (isShared(c)) { 
-        return; 
-    }
-
-    $("input[value="+c+"]").removeAttr("checked");
-}
-
-var isShared = function(c) {
+    custom.populate();
     
-    var r = false;
-    
-    $("input:checked").each(function(event){
-    
-        var t = map[$(this).val()];
+    $("#components input, #utils input").change(function(e){
         
-        if (!t) return;
+        var c = map[$(this).val()];
         
-        if (t.inheritance && c == t.inheritance || t.implements && c == t.implements) {
-            r = true;    
-        }
-                
-        if (t.depends) {
-            if (t.depends.join(",").indexOf(c) > -1) {
-                r = true;
-            }
-        }
-
+        custom.action = (!$(this).attr("checked")) ? custom.unCheckIt : custom.checkIt ;
+        
+        // Check the map
+        custom.checkMap(c);
+    
     });
-    
-    return r;    
-}
-
-var checkMap = function(c) {
-
-    if (!c) { return; }
-
-    if (c.implements) {
-
-        action(c.implements);
-
-        checkMap(map[c.implements]);
-    }
-
-    if (c.inheritance) {
-
-        action(c.inheritance);
-
-        checkMap(map[c.inheritance]); 
-
-    }
-    if (c.depends) {
-        
-        $(c.depends).each(function(i,e){
-
-            action(e);
-
-            checkMap(map[e]); 
-        
-        });  
-    }
-    
-    $(".selected-components").html( $("#components input:checked").size() + $("#abstracts input:checked").size() + $("#utils input:checked").size());
-}
-
-var action = checkIt;
-
-$("#components input, #utils input").change(function(e){
-    
-    var c = map[$(this).val()];
-        
-    action = (!$(this).attr("checked")) ? unCheckIt : checkIt ;
-    
-    // Check the map
-    checkMap(c);
 
 });
+
+var help = {
+    
+    _list: [],
+    
+    init: function() {
+    
+        var a = "<p><a href=\"#\">Turn off help layers.</a></p>";
+        
+    },
+    
+    add: function(o) {},
+    
+    on: function() {},
+    
+    off: function() {}
+    
+}
+
+var custom = {
+    
+    components: [],
+    
+    utils: [],
+    
+    populate: function() {
+        
+        for (var c in map) {
+            var value = c.toString();
+            var type = (value == "Object") ? "abstract" : map[c].type ;
+            var appendTo = (type == "class" || type == "interface") ? "#components" : (type == "abstract") ? "#abstracts" : "#utils" ;
+                
+            var className = "fieldBox " + type;
+            var disabled = (type == "abstract") ? "disabled=\"disabled\"" : "" ;
+            $("<li class=\""+className+"\"><label><input type=\"checkbox\" value=\""+value+"\" name=\"get\" "+disabled+"> <span>"+c+"</span></label>")
+                .appendTo(appendTo)
+                .tooltip("<p>" + map[c].description + "<br />Father class: " + map[c].augments + ( (map[c].requires)? "<br />Requires: " + map[c].requires : "" ) +"</p>")
+                .position({ offset: "25 10" });
+        }    
+
+    },
+
+    checkIt: function(c) {
+        $("input[value="+c+"]").attr("checked","checked");
+    },
+    
+    unCheckIt: function(c) {
+    
+        if (custom.isShared(c)) { 
+            return; 
+        }
+    
+        $("input[value="+c+"]").removeAttr("checked");
+    },
+    
+    isShared: function(c) {
+        
+        var r = false;
+        
+        $("input:checked").each(function(event){
+        
+            var t = map[$(this).val()];
+            
+            if (!t) return;
+            
+            if (t.augments && c == t.augments) {
+                r = true;    
+            }
+                    
+            if (t.depends) {
+                if (t.depends.join(",").indexOf(c) > -1) {
+                    r = true;
+                }
+            }
+    
+        });
+        
+        return r;    
+    },
+    
+    checkMap: function( c ) {
+    
+        if ( !c ) { return; }
+    
+        if (c.augments) {
+            
+            custom.action( c.augments );
+    
+            custom.checkMap( map[c.augments] );
+    
+        }
+        if (c.requires) {
+            
+            $(c.requires).each(function(i,e){
+    
+                custom.action( e );
+    
+                custom.checkMap( map[e] );
+            
+            });  
+        }
+        
+        $(".selected-components").html( $("#components input:checked").size() + $("#abstracts input:checked").size() + $("#utils input:checked").size());
+    }
+};
+
        
 </script>
 </body>
