@@ -72,10 +72,18 @@ ch.modal = function(conf){
 			if (!ch.features.fixed) {
 			  	ch.positioner({ element: $dimmer });
 			};
+
+			if ($("html").hasClass("ie6")) {
+				$("select, object").css("visibility", "hidden");
+			};
 		},
 		off: function() {
-			$dimmer.fadeOut("normal", function(){ 
+			$dimmer.fadeOut("normal", function(){
 				$dimmer.detach();
+
+				if ($("html").hasClass("ie6")) {
+					$("select, object").css("visibility", "visible");
+				};
 			});
 		}
 	};
