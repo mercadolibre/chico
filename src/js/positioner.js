@@ -1,6 +1,7 @@
 
 /**
  * Positioner is a utility that resolve positioning problem for all UI-Objects.
+ * @abstract
  * @name Positioner
  * @class Positioner
  * @memberOf ch

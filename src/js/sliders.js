@@ -1,6 +1,7 @@
 
 /**
- * Generic Slider UI-Component.
+ * Abstract Slider.
+ * @abstract
  * @name Slider
  * @class Slider
  * @augments ch.Object

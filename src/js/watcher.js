@@ -1,11 +1,14 @@
 
 /**
  * Watcher is a validation engine for html forms elements.
+ * @abstract
  * @name Watcher
  * @class Watcher
  * @augments ch.Object
  * @memberOf ch
  * @requires ch.Form
+ * @requires ch.Positioner
+ * @requires ch.Events
  * @param {Configuration Object} o Object with configuration properties
  * @return {Chico-UI Object}
  * @see ch.Required
@@ -186,7 +189,8 @@ ch.watcher = function(conf) {
     /**
      * Helper is a UI Component that shows the messages of active validations.
      * @name helper
-     * @     {ch.Helper}
+     * @type {ch.Helper}
+     * @memberOf ch.Watcher
      * @see ch.Helper
      */
     var helper = {};
@@ -240,7 +244,9 @@ ch.watcher = function(conf) {
                 }
                 
                 if ( gotError ) {
-                						
+
+                    that.callbacks('onError');
+		
                 	// Field error style
                 	that.$element.addClass("error");
                 

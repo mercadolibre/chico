@@ -7,45 +7,46 @@
 	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
 	</style></head><body><pre><span class='line'>  1</span> <span class="WHIT">
 <span class='line'>  2</span> </span><span class="COMM">/**
-<span class='line'>  3</span>  * Generic Slider UI-Component.
-<span class='line'>  4</span>  * @name Slider
-<span class='line'>  5</span>  * @class Slider
-<span class='line'>  6</span>  * @augments ch.Object
-<span class='line'>  7</span>  * @memberOf ch
-<span class='line'>  8</span>  * @param {Configuration Object} conf Object with configuration properties
-<span class='line'>  9</span>  * @return {Chico-UI Object}
-<span class='line'> 10</span>  */</span><span class="WHIT">
-<span class='line'> 11</span> 
-<span class='line'> 12</span> </span><span class="NAME">ch.sliders</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 13</span> 
-<span class='line'> 14</span> </span><span class="COMM">/**
-<span class='line'> 15</span>  *  Constructor
-<span class='line'> 16</span>  */</span><span class="WHIT">
-<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.conf</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 19</span> </span><span class="WHIT">	
-<span class='line'> 20</span> </span><span class="COMM">/**
-<span class='line'> 21</span>  *  Inheritance
-<span class='line'> 22</span>  */</span><span class="WHIT">
-<span class='line'> 23</span> 
-<span class='line'> 24</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.object.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 26</span> </span><span class="WHIT">    
-<span class='line'> 27</span> </span><span class="COMM">/**
-<span class='line'> 28</span>  *  Private Members
-<span class='line'> 29</span>  */</span><span class="WHIT">
-<span class='line'> 30</span> </span><span class="WHIT">	
-<span class='line'> 31</span> 
-<span class='line'> 32</span> </span><span class="COMM">/**
-<span class='line'> 33</span>  *  Protected Members
-<span class='line'> 34</span>  */</span><span class="WHIT"> 
-<span class='line'> 35</span> 			
-<span class='line'> 36</span> </span><span class="COMM">/**
-<span class='line'> 37</span>  *  Public Members
-<span class='line'> 38</span>  */</span><span class="WHIT">
-<span class='line'> 39</span> </span><span class="WHIT"> 
-<span class='line'> 40</span> 	</span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 41</span> </span><span class="WHIT">	
-<span class='line'> 42</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 43</span> </span><span class="WHIT">	
-<span class='line'> 44</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>
+<span class='line'>  3</span>  * Abstract Slider.
+<span class='line'>  4</span>  * @abstract
+<span class='line'>  5</span>  * @name Slider
+<span class='line'>  6</span>  * @class Slider
+<span class='line'>  7</span>  * @augments ch.Object
+<span class='line'>  8</span>  * @memberOf ch
+<span class='line'>  9</span>  * @param {Configuration Object} conf Object with configuration properties
+<span class='line'> 10</span>  * @return {Chico-UI Object}
+<span class='line'> 11</span>  */</span><span class="WHIT">
+<span class='line'> 12</span> 
+<span class='line'> 13</span> </span><span class="NAME">ch.sliders</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 14</span> 
+<span class='line'> 15</span> </span><span class="COMM">/**
+<span class='line'> 16</span>  *  Constructor
+<span class='line'> 17</span>  */</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.conf</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">	
+<span class='line'> 21</span> </span><span class="COMM">/**
+<span class='line'> 22</span>  *  Inheritance
+<span class='line'> 23</span>  */</span><span class="WHIT">
+<span class='line'> 24</span> 
+<span class='line'> 25</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.object.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">    
+<span class='line'> 28</span> </span><span class="COMM">/**
+<span class='line'> 29</span>  *  Private Members
+<span class='line'> 30</span>  */</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	
+<span class='line'> 32</span> 
+<span class='line'> 33</span> </span><span class="COMM">/**
+<span class='line'> 34</span>  *  Protected Members
+<span class='line'> 35</span>  */</span><span class="WHIT"> 
+<span class='line'> 36</span> 			
+<span class='line'> 37</span> </span><span class="COMM">/**
+<span class='line'> 38</span>  *  Public Members
+<span class='line'> 39</span>  */</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT"> 
+<span class='line'> 41</span> 	</span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	
+<span class='line'> 43</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	
+<span class='line'> 45</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>
