@@ -79,7 +79,7 @@ var ch = window.ch = {
 			if(typeof string !== "string") return false;
 			
 			for (var regex in $.expr.match){
-				if ($.expr.match[ regex ].test(string) && document.getElementsByTagName(string).length > 0) {
+				if ($.expr.match[ regex ].test(string) && $(string).length > 0) {
 					return true;
 				};
 			};
