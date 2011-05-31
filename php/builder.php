@@ -31,7 +31,7 @@ class Builder {
         $version = str_replace("\n","",$version);
         $version = str_replace("\t","",$version);
 		*/
-		$version = "0.6.4";
+		$version = "0.6.5";
         echo "<h1>Chico-UI Builder</h1>\n";
         echo "<h3>Building files from version ".$version." ...</h3>\n";
         echo "<ul>\n";
