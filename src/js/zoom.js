@@ -21,7 +21,7 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var that = this;
-	
+
 	conf = ch.clon(conf);
 	conf.width = conf.width || 300;
 	conf.height = conf.height || 300;
@@ -31,7 +31,7 @@ ch.zoom = function(conf) {
 	conf.position.offset = conf.offset || "20 0";
 	conf.position.points = conf.points || "lt rt";
 	conf.position.hold = true;
-	
+
 	that.conf = conf;
 
 /**
@@ -65,7 +65,7 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var zoomed = {};
-		zoomed.img = conf.content = $("<img>").attr("src", that.element.href);
+		zoomed.img = conf.content = $("<img>");
 	
 	// Magnifying glass (enlarge)
 	//var $lens = $("<div>").addClass("ch-lens ch-hide");
@@ -119,7 +119,8 @@ ch.zoom = function(conf) {
 	
 	that.show = function(event){
 		that.prevent(event);
-		
+		zoomed.img.attr("src", that.element.href);
+
 		// Floats show
 		that.parent.show();
 		
@@ -330,9 +331,13 @@ ch.zoom = function(conf) {
 			// Enlarge
 			.bind("click", function(event){ that.enlarge(event); });
 	},50);	
-	
+
 	// Preload zoomed image
-	if(ch.hasOwnProperty("preload")) ch.preload(that.element.href);
-	
+	if (ch.hasOwnProperty("preload")) {
+		ch.utils.window.bind("load", function(){
+			ch.preload(that.element.href);
+		});
+	};
+
 	return that;
 };
