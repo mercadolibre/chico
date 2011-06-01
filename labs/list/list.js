@@ -6,7 +6,7 @@
  * @memberOf ch
  */
 
-var ch.List = ch.Collection = function() {
+ch.List = ch.Collection = function() {
 
     /**
      * @public
@@ -28,20 +28,22 @@ var ch.List = ch.Collection = function() {
      */
     var _find = function(q) {
         // null search return the entire collection
-        if (!q) return _children;
+        if ( !q && q!=0 ) {
+            return _children;
+        }
         
         // number? return a specific position
-        if ( /d/.test(q) ) {
+        if ( typeof q === "number" ) {
             return _children[q];
         }
         
         // string? ok, let's find it
-        var t = size();        
-        if ( /w/.test(q) ) {
-            while (t--) {
-                var child = _children[t];
-                for (member in child) {
-                    if (member === q || child[member] === q) {
+        var t = size(), _prop, child;
+        if ( typeof q === "string" ) {
+            while ( t-- ) {
+                child = _children[t];
+                for ( _prop in child ) {
+                    if ( _prop === q || child[_prop] === q ) {
                         return child;
                     }
                 } // end for
@@ -49,16 +51,16 @@ var ch.List = ch.Collection = function() {
         }
         
         // object? ok, assume a item
-        var t = size();
+        t = size();
         if ( typeof q === "object") {
-            while (t--) {
-                var child = _children[t];
-                if (child === q) {
+            while ( t-- ) {
+                child = _children[t];
+                if ( child === q ) {
                     return child;
                 }
             } // end while
         }
-    }
+    };
 
     /**
      * Adds a new child to the collection 
@@ -70,7 +72,7 @@ var ch.List = ch.Collection = function() {
      */
     var add = function(child) {
         return _children.push(child);
-    }
+    };
     
     /**
      * Removes a child from the collection.
@@ -85,20 +87,22 @@ var ch.List = ch.Collection = function() {
      */
     var rem = function(q) {
         // null search return
-        if (!q) return;
+        if ( !q && q!=0 ) {
+            return;
+        }
         
         // number? return a specific position
-        if ( /d/.test(q) ) {
+        if ( typeof q === "number" ) {
             return _children.splice( q , 1 );
         }
         
         // string? ok, let's find it
-        var t = size();        
-        if ( /w/.test(q) ) {
-            while (t--) {
-                var child = _children[t];
-                for (member in child) {
-                    if (member === q || child[member] === q) {
+        var t = size(), _prop, child;     
+        if ( typeof q === "string" ) {
+            while ( t-- ) {
+                child = _children[t];
+                for ( _prop in child ) {
+                    if ( _prop === q || child[_prop] === q ) {
                         return _children.splice( t , 1 );
                     }
                 } // end for
@@ -106,17 +110,17 @@ var ch.List = ch.Collection = function() {
         }
 
         // object? ok, assume a item
-        var t = size();
+        t = size();
         if ( typeof q === "object") {
-            while (t--) {
-                var child = _children[t];
-                if (child === q) {
+            while ( t-- ) {
+                child = _children[t];
+                if ( child === q ) {
                     return _children.splice( t , 1 );
                 }
             } // end while
         }
 
-    }
+    };
 
     /**
      * Get a child from the collection.
@@ -129,8 +133,8 @@ var ch.List = ch.Collection = function() {
      * @memberOf ch.List
      */
     var get = function(q) {
-        return _find(q);   
-    }
+        return _find(q);  
+    };
 
     /**
      * Get the amount of child from the collection.
@@ -143,7 +147,7 @@ var ch.List = ch.Collection = function() {
 
     var size = function() {
         return _children.length;    
-    }
+    };
 
     /**
      * @public
@@ -154,8 +158,8 @@ var ch.List = ch.Collection = function() {
         rem: rem,
         get: get,
         size: size
-    }
+    };
     
     return that;
     
-}
+};
