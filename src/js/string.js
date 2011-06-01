@@ -25,7 +25,7 @@ ch.string = function(conf) {
 	
     conf.messages = conf.messages || {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.string = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -87,7 +87,7 @@ ch.email = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.email = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -124,7 +124,7 @@ ch.url = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.url = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -162,7 +162,7 @@ ch.minLength = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.minLength = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -200,7 +200,7 @@ ch.maxLength = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.maxLength = conf.msg;
     	conf.msg = null;
     	delete conf.msg;

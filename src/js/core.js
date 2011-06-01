@@ -101,6 +101,9 @@ var ch = window.ch = {
 			});
 				
 			return;
+		},
+		hasOwn: function(o, property) {
+			return Object.prototype.hasOwnProperty.call(o, property);
 		}
 	},
 
@@ -288,7 +291,7 @@ ch.factory = function(o) {
     				}
 				*/
 				
-				created = ( created.hasOwnProperty("public") ) ? created["public"] : created;
+				created = ( ch.utils.hasOwn(created, "public") ) ? created["public"] : created;
 				
 			    if (created.type) {
 			        var type = created.type;		    
@@ -357,7 +360,7 @@ ch.get = function(o) {
 
 	        var that = o.that;
 	        var conf = that.conf;
-			var context = ( that.hasOwnProperty("controller") ) ? that.controller : that["public"];
+			var context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"];
 
 			// Set ajax config
 			// On IE (6-7) "that" reference losts when I call ch.get for second time
@@ -375,13 +378,13 @@ ch.get = function(o) {
 					},
 					success: function(data, textStatus, jqXHR){					
 						that.$content.html( data );
-						if ( conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad.call(context, data, textStatus, jqXHR);
-						if ( conf.hasOwnProperty("position") ) ch.positioner(conf.position);
+						if ( ch.utils.hasOwn(conf, "onContentLoad") ) conf.onContentLoad.call(context, data, textStatus, jqXHR);
+						if ( ch.utils.hasOwn(conf, "position") ) ch.positioner(conf.position);
 					},
 					error: function(jqXHR, textStatus, errorThrown){
-						data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, jqXHR, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+						data = (ch.utils.hasOwn(conf, "onContentError")) ? conf.onContentError.call(context, jqXHR, textStatus, errorThrown) : "<p>Error on ajax call </p>";
 						that.$content.html( data );
-						if ( conf.hasOwnProperty("position") ) ch.positioner(conf.position);
+						if ( ch.utils.hasOwn(conf, "position") ) ch.positioner(conf.position);
 					}
 				});
 				
