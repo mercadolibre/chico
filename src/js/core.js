@@ -86,6 +86,9 @@ var ch = window.ch = {
 			
 			return false;
 		},
+		isArray: function( o ) {
+            return Object.prototype.toString.apply( o ) === "[object Array]";
+	    }, 
 		isUrl: function(url){
 			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
 		},

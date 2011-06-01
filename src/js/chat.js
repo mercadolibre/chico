@@ -38,12 +38,12 @@ ch.chat = function(conf) {
         }
    	});
 
-    that.publish = {
+    that["public"] = {
     	uid: conf.uid,
 		element: conf.element,
-        type: conf.type
+        type: "chat"
     }
     
-    return that.publish;
+    return that;
 
 }
