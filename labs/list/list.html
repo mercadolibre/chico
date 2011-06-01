@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
+	<title>Form - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="../../build/chico-min.css">
+    <link rel="stylesheet" type="text/css" href="../../php/packer.php?type=css">
+    <link href="../../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- #body -->
+	<h1>Chico-UI: List testcases</h1>
+
+    <!-- #body -->
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+    <script src="../../libs/js/jquery.js"></script>
+    <script src="../../libs/js/qunit.js"></script>
+    <script src="../../php/packer.php?debug=true"></script>
+    <script src="list.js"></script>
+    <script src="../../tests/functions.js"></script>
+
+<!-- #script -->
+	<script>
+        
+		$.fx.off = true;
+        
+        var lista = ch.List();
+
+        var band = { band: "Pearl Jam", rating: 1.2 }
+
+        module("ch.List children Member");
+
+        test( "Check list children member" , function(){
+            
+            ok( lista.children , "Expected to find a children member on List objects." );
+
+            ok( typeof lista.children === typeof [] , "Check that children data type is an array." );
+            
+        });
+        
+        test( "Check other members" , function(){
+            
+            ok( lista.add && typeof lista.add === "function" , "Expected to find add() method on List objects." );
+            
+            ok( lista.get && typeof lista.get === "function" , "Expected to find get() method on List objects." );
+            
+            ok( lista.rem && typeof lista.rem === "function" , "Expected to find rem() method on List objects." );
+            
+        });
+
+        module("ch.List add() Method");
+        
+        test( "Adding basic data types as content." , function(){
+
+            lista.add("Nirvana");
+
+            ok( lista.children[0] === "Nirvana" , "Add a simple String value and check is there." );
+            
+            ok( lista.size() === 1 , "Check List size() Method, expected to find value: 1." );
+            
+            lista.add(83);
+            
+            ok( lista.children[1] === 83 , "Add a simple Number value and check is there." );
+
+            ok( lista.size() === 2 , "Check List size() Method, expected to find value: 2." );
+      
+        });
+        
+        test( "Adding objects to a list." , function(){
+
+            
+            lista.add(band)
+            
+            ok( lista.children[2] === band , "Add an Object with some properties and check is there." ); 
+
+            ok( lista.size() === 3 , "Check List size() Method, expected to find value: 3." );
+        });
+        
+        module("ch.List get() Method");
+
+        test( "Finding elements by index." , function(){
+            
+            var getByIndex = lista.get(1);
+            
+            ok( getByIndex === "Nirvana" , "Excpected to get the first element on the list, value: \"Nirvana\"." );
+            
+            getByIndex = lista.get(2);
+            
+            ok( getByIndex === 83 , "Excpected to get the second element on the list, value: 83." );
+            
+        });
+        
+        test( "Finding elements by querys." , function(){
+            
+            var getByQuery = lista.get("Pearl Jam");
+
+            ok( getByQuery === band , "Query \"Pearl Jam\" : Excpected to get the third element on the list, value: { band: \"Pearl Jam\", rating: 1.2 }." );
+                
+        });
+
+        module("ch.List rem() Method");
+
+        test( "Removing elements by index." , function(){
+            
+            var remove = lista.rem(2);
+
+            ok( lista.children[1] !== 83 , "Excpected not to get the second element on the list, value: 83." );
+            
+            ok( lista.size() === 2 , "Check List size() Method, expected to find value: 2." );
+
+                
+        });
+
+
+        test( "Removing elements by Query: \"Pearl Jam\"" , function(){
+            
+            var remove = lista.rem("Pearl Jam");
+
+            ok( remove === band , "Expected to find the removed element as a return from rem() method." );
+
+            ok( lista.children[2] !== band , "Query \"Pearl Jam\" : Excpected not to get the third element on the list, value: { band: \"Pearl Jam\", rating: 1.2 }." );
+                        
+            ok( lista.size() === 1 , "Check List size() Method, expected to find value: 1." );
+
+        });
+
+
+	</script>
+
+</body>
+</html>
