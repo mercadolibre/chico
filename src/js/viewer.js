@@ -1,4 +1,3 @@
-
 /**
  * Viewer UI-Component for images, videos and maps.
  * @name Viewer
@@ -116,7 +115,7 @@ ch.viewer = function(conf){
 	/**
 	 * 	Zoom
 	 */
-	if( ch.hasOwnProperty("zoom") ) {
+	if( ch.utils.hasOwn(ch, "zoom") ) {
 		var zoomChildren = [];
 	
 		$.each(itemsAnchor, function(i, e){

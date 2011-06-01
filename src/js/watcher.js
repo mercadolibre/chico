@@ -45,7 +45,7 @@ ch.watcher = function(conf) {
      * @memberOf ch.Watcher
      */
 	var controller = (function() {
-		if ( ch.instances.hasOwnProperty("form") && ch.instances.form.length > 0 ) {	
+		if ( ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0 ) {	
 		  var i = 0, j = ch.instances.form.length; 
 		  for (i; i < j; i ++) {
 				if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
@@ -252,7 +252,7 @@ ch.watcher = function(conf) {
                 
                 	// Show helper with message
                 	var text = ( condition.message ) ? condition.message : 
-                		(controller.hasOwnProperty("messages")) ? controller.messages[condition.name] :
+                		(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
                 		undefined;
                 
                 	that.helper.show( text );

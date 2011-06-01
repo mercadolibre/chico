@@ -21,7 +21,7 @@ ch.form = function(conf) {
 	};
 
 	// Is there form in map instances?	
-	if ( ch.instances.hasOwnProperty("form") && ch.instances.form.length > 0 ){
+	if ( ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0 ){
 		for(var i = 0, j = ch.instances.form.length; i < j; i++){
 			if(ch.instances.form[i].element === this.element){
 				return { 
@@ -43,7 +43,7 @@ ch.form = function(conf) {
 	
 	conf = ch.clon(conf);
 	// Create the Messages for General Error
-	if ( !conf.hasOwnProperty("messages") ) conf.messages = {};
+	if ( !ch.utils.hasOwn(conf, "messages") ) conf.messages = {};
 	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
 	
 	// Disable HTML5 browser-native validations
@@ -166,7 +166,7 @@ ch.form = function(conf) {
 		validate(); // Validate start
 		
 		if ( status ){ // Status OK
-			if ( !conf.hasOwnProperty("onSubmit") ) {
+			if ( !ch.utils.hasOwn(conf, "onSubmit") ) {
 				that.element.submit();
 			}else{
 				that.callbacks("onSubmit");
@@ -327,7 +327,7 @@ ch.form = function(conf) {
  */	
 
 	// patch exists because the components need a trigger
-	if (conf.hasOwnProperty("onSubmit")) {
+	if (ch.utils.hasOwn(conf, "onSubmit")) {
 		that.$element.bind('submit', function(event){ that.prevent(event); });
 		// Delete all click handlers asociated to submit button >NATAN: Why?
 			//Because if you want do something on submit, you need that the trigger (submit button) 

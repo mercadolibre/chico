@@ -323,7 +323,7 @@ ch.positioner = function(o) {
 			.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
-		if ( context.hasOwnProperty("element") && context.element !== ch.utils.window[0] ){
+		if ( ch.utils.hasOwn(context, "element") && context.element !== ch.utils.window[0] ){
 			$(context.element)
 				.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );

@@ -22,7 +22,7 @@ ch.modal = function(conf){
      */
   	var that = this;
 	conf = ch.clon(conf);
-	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default	
+	conf.ajax = ( !ch.utils.hasOwn(conf, "ajax") && !ch.utils.hasOwn(conf, "content") && !ch.utils.hasOwn(conf, "msg") ) ? true : conf.ajax; //Default	
 	conf.closeButton = (that.type == "modal") ? true : false;
 	conf.classes = "box";
 
