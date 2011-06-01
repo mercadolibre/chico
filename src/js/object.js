@@ -114,7 +114,7 @@ ch.object = function(){
 	};
 
 	that.callbacks = function(when){
-		if( conf.hasOwnProperty(when) ) {
+		if( ch.utils.hasOwn(conf, when) ) {
 			var context = ( that.controller ) ? that.controller["public"] : that["public"];
 			return conf[when].call( context );
 		};

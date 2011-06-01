@@ -88,8 +88,8 @@ ch.tabNavigator = function(conf){
 				};
 
 			// Callbacks
-			if ( that.conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad = that.conf.onContentLoad;
-			if ( that.conf.hasOwnProperty("onContentError") ) conf.onContentError = that.conf.onContentError;
+			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) conf.onContentLoad = that.conf.onContentLoad;
+			if ( ch.utils.hasOwn(that.conf, "onContentError") ) conf.onContentError = that.conf.onContentError;
 
 			// Create Tabs
 			that.children.push(

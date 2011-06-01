@@ -25,7 +25,7 @@ ch.number = function(conf) {
 	
     conf.messages = conf.messages || {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.number = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -86,7 +86,7 @@ ch.min = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.min = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -125,7 +125,7 @@ ch.max = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.max = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -164,7 +164,7 @@ ch.price = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.price = conf.msg;
     	conf.msg = null;
     	delete conf.msg;

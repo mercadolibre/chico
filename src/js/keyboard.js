@@ -25,7 +25,7 @@ ch.keyboard = function(event) {
         "40": "DOWN_ARROW"
     };
     
-    if( !keyCodes.hasOwnProperty(event.keyCode) ) return;
+    if( !ch.utils.hasOwn(keyCodes, event.keyCode) ) return;
     
     ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ], event);
     

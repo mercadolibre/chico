@@ -23,7 +23,7 @@ ch.navs = function(){
      */ 
 	var that = this;
 	var conf = that.conf;
-		conf.icon = (conf.hasOwnProperty("icon")) ? conf.icon : true;
+		conf.icon = (ch.utils.hasOwn(conf, "icon")) ? conf.icon : true;
 		conf.open = conf.open || false;
 		conf.fx = conf.fx || false;
 
