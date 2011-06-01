@@ -70,15 +70,15 @@ ch.floats = function() {
     		.appendTo("body");
 		
 		// Visual configuration
-		if( conf.hasOwnProperty("classes") ) that.$container.addClass(conf.classes);
-		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
-		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
-		if( conf.hasOwnProperty("closeButton") && conf.closeButton ) createClose();
-		if( conf.hasOwnProperty("cone") ) createCone();
-		if( conf.hasOwnProperty("fx") ) conf.fx = conf.fx; else conf.fx = true;
+		if( ch.utils.hasOwn(conf, "classes") ) that.$container.addClass(conf.classes);
+		if( ch.utils.hasOwn(conf, "width") ) that.$container.css("width", conf.width);
+		if( ch.utils.hasOwn(conf, "height") ) that.$container.css("height", conf.height);
+		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) createClose();
+		if( ch.utils.hasOwn(conf, "cone") ) createCone();
+		if( ch.utils.hasOwn(conf, "fx") ) conf.fx = conf.fx; else conf.fx = true;
 		
 		// Cache - Default: true
-		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
+		conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
 		
 		// Show component with effects
 		if( conf.fx ) {

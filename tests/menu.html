@@ -178,7 +178,7 @@
 			expect( 6 );
 			
 			hasClass('.testAccordion', 'ch-menu');
-			console.log(items[0].trigger);
+			
 			// Expando
 			hasClass(items[0].container, 'ch-expando');
 			hasClass(items[0].trigger, 'ch-expando-trigger');
@@ -191,11 +191,9 @@
 		
 		test('Open Accordion child', function() {
 			
-			expect( 4 );
+			expect( 3 );
 			
 			items[1].trigger.click();
-			
-			isNotVisible(items[0].content);
 			
 			hasNotClass(items[0].trigger, 'ch-expando-trigger-on');
 			
@@ -257,17 +255,6 @@
 			$("body").removeClass("onSelect");
 
        	});
-       	
-       	
-		
-		var $containerMenu =  $(".testMenu").children().eq(0);
-		var $triggerMenu = $containerMenu.children().eq(0).children();
-		var $contentMenu = $containerMenu.children().eq(1);
-		
-		var $containerMenu2 =  $(".testMenu").children().eq(1);
-		var $triggerMenu2 = $containerMenu2.children().eq(0).children();
-		var $contentMenu2 = $containerMenu2.children().eq(1);
-		
 		
 		// DOM references
 		var menuItems = [];

@@ -116,7 +116,7 @@ ch.menu = function(conf){
 		var itemObject = that.children[ child ];
 		
 		// Item as object
-		if (itemObject.hasOwnProperty("uid")) {
+		if (ch.utils.hasOwn(itemObject, "uid")) {
 			
 			// Show this list
 			itemObject.show();
@@ -132,7 +132,7 @@ ch.menu = function(conf){
 						// If it isn't an anchor...
 						(e.tagName != "A") &&
 						// If there are an unique id...
-						(e.hasOwnProperty("uid")) &&
+						(ch.utils.hasOwn(e, "uid")) &&
 						// If unique id is different to unique id on that.children list...
 						(that.children[ child ].uid != that.children[i].uid)
 					){
@@ -234,7 +234,7 @@ ch.menu = function(conf){
 	if (conf.accordion) configureAccordion();
 	
 	// Select specific item if there are a "selected" parameter on component configuration object
-    if (conf.hasOwnProperty("selected")) select(conf.selected);
+    if (ch.utils.hasOwn(conf, "selected")) select(conf.selected);
     
 	return that["public"];
 	

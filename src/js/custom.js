@@ -32,7 +32,7 @@ ch.custom = function(conf) {
 	conf = conf || {};
     conf.messages = conf.messages || {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
     	conf.messages.custom = conf.msg;
     	conf.msg = null;
     	delete conf.msg;

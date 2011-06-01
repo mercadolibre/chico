@@ -25,7 +25,7 @@ ch.required = function(conf) {
 	
     conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) {     	
+    if ( ch.utils.hasOwn(conf, "msg") ) {     	
     	conf.messages.required = conf.msg;
     	conf.msg = null;
     	delete conf.msg;

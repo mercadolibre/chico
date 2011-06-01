@@ -24,7 +24,7 @@ ch.carousel = function(conf){
 	
 	if ( conf.height ) that.$element.height( conf.height );
 	if ( conf.width ) that.$element.width( conf.width );
-	if ( conf.hasOwnProperty("arrows") ) conf.arrows = conf.arrows; else conf.arrows = true;
+	if ( ch.utils.hasOwn(conf, "arrows") ) conf.arrows = conf.arrows; else conf.arrows = true;
 	
 	// UL configuration
 	that.$content = that.$element.find('.carousel')	 // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
@@ -399,7 +399,7 @@ ch.carousel = function(conf){
 	};
 	
 	// Elastic behavior    
-    if ( !conf.hasOwnProperty("width") ){
+    if ( !ch.utils.hasOwn(conf, "width") ){
 		
 	    ch.utils.window.bind("resize", function() {
 			resize = true;
