@@ -194,7 +194,7 @@
        		
     		ok( testDropdown[0].type == "dropdown" , "Expected to find \"dropdown\" as value of type attribute");
     		
-    		ok( testDropdown[0].hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		ok( ch.utils.hasOwn(testDropdown[0], "element"), "Expected to find an \"element\" property" );
 
         });
         
@@ -202,11 +202,11 @@
 
             expect( 3 );
     		
-    		ok( testDropdown[0].hasOwnProperty("position"), "Expected to find a \"position\" method" );
+    		ok( ch.utils.hasOwn(testDropdown[0], "position"), "Expected to find a \"position\" method" );
     		
-    		ok( testDropdown[0].hasOwnProperty("show"), "Expected to find a \"show\" method" );
+    		ok( ch.utils.hasOwn(testDropdown[0], "show"), "Expected to find a \"show\" method" );
     		
-    		ok( testDropdown[0].hasOwnProperty("hide"), "Expected to find a \"hide\" method" );
+    		ok( ch.utils.hasOwn(testDropdown[0], "hide"), "Expected to find a \"hide\" method" );
 
         });
         

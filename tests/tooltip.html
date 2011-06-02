@@ -69,7 +69,7 @@
        		
     		ok( tooltip1.type == "tooltip" , "Expected to find \"tooltip\" as value of type attribute");
     		
-    		ok( tooltip1.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		ok( ch.utils.hasOwn(tooltip1, "element"), "Expected to find an \"element\" property" );
     		
     		equal( tooltip1.content(), $(".tool1").attr("title"), "Expected to find the tooltip \"title\" attribute on \"content\" property of tooltip instance");
 
@@ -79,11 +79,11 @@
 
             expect( 3 );
     		
-    		ok( tooltip1.hasOwnProperty("position"), "Expected to find a \"position\" method" );
+    		ok( ch.utils.hasOwn(tooltip1, "position"), "Expected to find a \"position\" method" );
     		
-    		ok( tooltip1.hasOwnProperty("show"), "Expected to find a \"show\" method" );
+    		ok( ch.utils.hasOwn(tooltip1, "show"), "Expected to find a \"show\" method" );
     		
-    		ok( tooltip1.hasOwnProperty("hide"), "Expected to find a \"hide\" method" );
+    		ok( ch.utils.hasOwn(tooltip1, "hide"), "Expected to find a \"hide\" method" );
 
         });
 
