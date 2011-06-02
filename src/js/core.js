@@ -75,6 +75,9 @@ var ch = window.ch = {
 		document: $(document),
 		zIndex: 1000,
 		index: 0, // global instantiation index
+		isArray: function(o){
+			return Object.prototype.toString.apply(o) === "[object Array]";
+		},
 		isSelector: function(string){
 			if(typeof string !== "string") return false;
 			

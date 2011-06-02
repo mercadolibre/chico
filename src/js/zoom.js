@@ -333,7 +333,7 @@ ch.zoom = function(conf) {
 	},50);	
 
 	// Preload zoomed image
-	if (ch.hasOwnProperty("preload")) {
+	if (ch.utils.hasOwn(ch, "preload")) {
 		ch.utils.window.bind("load", function(){
 			ch.preload(that.element.href);
 		});

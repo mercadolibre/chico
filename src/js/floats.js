@@ -59,15 +59,15 @@ ch.floats = function() {
 
     var createLayout = function() {
 		
-        that.$content = $("<div>")
-        	.addClass("ch-" + that.type + "-content")
-        	.html( that.loadContent() );
+		that.$content = $("<div>")
+		    	.addClass("ch-" + that.type + "-content")
+		    	.html( that.loadContent() );
 		
-    	that.$container = $("<div>")
-    		.addClass("ch-" + that.type)
-    		.css("z-index", ch.utils.zIndex ++)
-    		.append( that.$content )
-    		.appendTo("body");
+		that.$container = $("<div>")
+			.addClass("ch-" + that.type)
+			.css("z-index", ch.utils.zIndex ++)
+			.append( that.$content )
+			.appendTo("body");
 		
 		// Visual configuration
 		if( ch.utils.hasOwn(conf, "classes") ) that.$container.addClass(conf.classes);
