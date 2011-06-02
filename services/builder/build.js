@@ -10,16 +10,20 @@
 
 var sys = require("sys"),
     fs = require("fs"),
-    builder = require("./builder"),
-    deployer = require("./deployer"),
+    Packer = require("./builder").Packer,
+    Deployer = require("./deployer").Deployer,
     packages = { size: 0, map: [] };
 
 var deploy = function( package ) {
-
-    packages.map.push( package );
+    
+    if ( !package.upload ) {
+        packages.size -= 1;    
+    } else {
+        packages.map.push( package );
+    }
     
     if ( packages.map.length === packages.size ) {
-        console.log( packages );
+        new Deployer( packages );
     }
 }
 
@@ -43,18 +47,19 @@ fs.readFile( 'builder.conf', function( err , data ) {
     // for each build.packages
     for (var i in build.packages) {
         
-        var _package = build.packages[i];
+        var _package = Object.create(build.packages[i]);
             _package.version = build.version;
             _package.output = build.output;
             _package.build = build.build;
             _package.upload = build.locations[_package.upload];
             _package.template = build.templates[_package.type];
 
-        var packer = new builder.Packer( _package );        
+        var packer = new Packer( _package );        
 
             packer.on( "done" , function( package ) {
                
-               //TODO: deploy( package );
+               //TODO: 
+               deploy( package );
                
             });
 
@@ -64,7 +69,7 @@ fs.readFile( 'builder.conf', function( err , data ) {
     var new_build = JSON.stringify(build);
     
     // write conf file
-    fs.writeFile( 'builder.conf' , new_build , function( err ) {
+    fs.writeFile( 'builder.conf' , new_build , encoding='utf8' , function( err ) {
         if(err) {
             sys.puts(err);
         }

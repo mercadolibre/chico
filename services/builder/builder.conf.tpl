@@ -1,7 +1,7 @@
 {
     "name": "Chico-UI",
     "version": "0.6.5",
-    "build": 0,
+    "build": 12,
     "packages": [
         {
             "name": "chico",
@@ -14,6 +14,7 @@
             "name": "chico",
             "input": "../../src/js/",
             "type": "js",
+            "upload": false,
             "min": false
         },
         {
@@ -27,6 +28,7 @@
             "name": "chico",
             "input": "../../src/css/",
             "type": "css",
+            "upload": false,
             "min": false
         }
     ],

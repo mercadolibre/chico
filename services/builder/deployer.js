@@ -7,7 +7,7 @@ var sys = require("sys"),
     version = 0.2;
 
 
-var Deployer = function( pacakges ) {
+var Deployer = function( packages ) {
     
     sys.puts( "   ___           __                   " );
     sys.puts( "  / _ \\___ ___  / /__  __ _____ ____ " );
@@ -17,25 +17,50 @@ var Deployer = function( pacakges ) {
     sys.puts("  ");
 
     var self = this;
+        self.packages = packages.map;
+        
+    sys.puts( "Preparing " + self.packages.length + " packages to deploy." );
     
-    sys.puts( "Preparing " + packages.length + " packages to deploy." );
-    
+    self.process();
 };
 
 Deployer.prototype = new events.EventEmitter();
 
-Deployer.prototype.upload = function( file ) {
+Deployer.prototype.process = function() {
 
-    var child = exec("scp -i ~/chicoui.pem "+file+" ubuntu@chico-ui.com.ar:/chico/downloads/lastest/"+file_name, function (err) {
+    var self = this;
+    var packages = self.packages;
     
-        if (err) {
-            sys.puts( file_name + "          > " + err);
+    for ( var i in packages ) {
+        
+        var package = packages[i];
+
+        sys.puts(" > Processing " + package.filename );
+            
+        self.upload( package );
+        
+    }    
+    
+}
+
+Deployer.prototype.upload = function( package ) {
+
+    sys.puts( " > Uploading " + package.filename );
+    
+    var o = package.upload;
+    
+    var cmd = "scp " + ( (o.key) ? o.key + " " : "" ) + package.filename + " " + o.host + ":" + o.uri;
+
+    var child = exec( cmd , function( err ) {
+    
+        if ( err ) {
+            sys.puts( "Error: <Uploading file> " + err );
             return;
         }
     
-        sys.puts( file_name + "          > Uploaded to A3 Cloud!" );
+        sys.puts( "   Uploaded to " + o.host + "!" );
                
-    });    
+    });
     
 }
 

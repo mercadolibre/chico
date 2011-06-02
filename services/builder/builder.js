@@ -29,14 +29,15 @@ var Packer = function(o) {
     var self = this;
     
     // Package data
+    self.ui = [];
     self.name = o.name;
     self.version = o.version;
     self.fullversion = o.version + "-" + o.build;
     self.input = o.input;
     self.type = o.type;
     self.min = o.min;
-    self.template = o.template;
     self.upload = o.upload;
+    self.template = o.template;
     self.filename = o.output.uri + o.name + ( ( self.min ) ? "-min-" : "-" ) + self.fullversion + "." + self.type ;
     self._files = {
         names: [], // name of the files
@@ -45,7 +46,7 @@ var Packer = function(o) {
         loaded: 0,
         bytesLoaded: 0
     };
-    
+
     self._files.ready = function() { return self._files.total === self._files.loaded; };
 
     // Begin ;)
@@ -113,7 +114,16 @@ Packer.prototype.loadFile = function( file, savedIndex ) {
             sys.puts("Error: <Reading file "+file+"> "+err);
             return;
         }
-
+        
+        if (self.type=="js") {
+            // Get the first comment
+            var raw = data.toString().split("/**").join("><><").split(" */").join("><><").split("><><")[1];
+            // Seek for UI Components
+            if ( !/@abstract/.test( raw ) && file !== "core.js") {
+                self.ui.push( file );
+            }
+        }
+        
         // Save file data
         _files.data[savedIndex] = data;
         
@@ -140,11 +150,13 @@ Packer.prototype.process = function() {
 
     var self = this;
     var _files = self._files;
-        
+
     sys.puts( " > Processing " + self.filename );
-    
+
+    self.ui = self.ui.join(",").split(".js").join("");
+
     var output = _files.data.join("");
-    
+        
     var output_min = false;
     
     sys.puts( "   original size " + output.length );            
@@ -166,11 +178,13 @@ Packer.prototype.process = function() {
         
     }
     
-    // Templating
+    // Templating & replacements
     
     var out = self.template.replace( "<version>" , self.fullversion );
         out = out.replace( "<code>" , output_min || output );
-
+        out = out.replace( ",components:\"\"," , ",components:\"" + self.ui + "\"," );
+        out = out.replace( "version:\"\"" , "version:\"" + self.fullversion + "\"" );
+        
     self.emit( "processed" , out );
     
     self.write( self.filename , out );    
