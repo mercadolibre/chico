@@ -17,7 +17,9 @@ var Deployer = function( pacakges ) {
     sys.puts("  ");
 
     var self = this;
-        
+    
+    sys.puts( "Preparing " + packages.length + " packages to deploy." );
+    
 };
 
 Deployer.prototype = new events.EventEmitter();
