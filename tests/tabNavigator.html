@@ -138,7 +138,7 @@
        		
     		ok( testTabs1.type == "tabNavigator" , "Expected to find \"tabNavigator\" as value of type attribute");
     		
-    		ok( testTabs1.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		ok( ch.utils.hasOwn(testTabs1, "element"), "Expected to find an \"element\" property" );
     		
     		ok( $.isArray(testTabs1.children) && testTabs1.children.length > 0 , "Expected to find an array of Tabs on the tabNavigator instance with more than 1 items on it");
 
@@ -147,9 +147,9 @@
         test("TabNavigator public methods", function(){
         	expect( 2 );
         	 
-			ok( testTabs1.hasOwnProperty("select"), "Expected to find a \"select\" method" );
+			ok( ch.utils.hasOwn(testTabs1, "select"), "Expected to find a \"select\" method" );
     		
-    		ok( testTabs1.hasOwnProperty("getSelected"), "Expected to find a \"getSelected\" method" );
+    		ok( ch.utils.hasOwn(testTabs1, "getSelected"), "Expected to find a \"getSelected\" method" );
    
 		});
                 

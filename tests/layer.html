@@ -152,7 +152,7 @@
        		
     		ok( layer1.type == "layer" , "Expected to find \"layer\" as value of type attribute");
     		
-    		ok( layer1.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		ok( ch.utils.hasOwn(layer1, "element"), "Expected to find an \"element\" property" );
 
         });
         
@@ -160,11 +160,11 @@
 
             expect( 3 );
     		
-    		ok( layer1.hasOwnProperty("position"), "Expected to find a \"position\" method" );
+    		ok( ch.utils.hasOwn(layer1, "position"), "Expected to find a \"position\" method" );
     		
-    		ok( layer1.hasOwnProperty("show"), "Expected to find a \"show\" method" );
+    		ok( ch.utils.hasOwn(layer1, "show"), "Expected to find a \"show\" method" );
     		
-    		ok( layer1.hasOwnProperty("hide"), "Expected to find a \"hide\" method" );
+    		ok( ch.utils.hasOwn(layer1, "hide"), "Expected to find a \"hide\" method" );
 
         });
         

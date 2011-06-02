@@ -113,7 +113,7 @@
 	
 			ok( viewer.type == "viewer" , "Expected to find \"viewer\" as value of type attribute");
 	
-			ok( viewer.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+			ok( ch.utils.hasOwn(viewer, "element"), "Expected to find an \"element\" property" );
 			
 			ok( $.isArray(viewer.children), "Expected to find a \"children\" array" );
 			
@@ -123,13 +123,13 @@
 
 			expect( 4 );
 	
-			ok( viewer.hasOwnProperty("getSelected"), "Expected to find a \"getSelected\" method" );
+			ok( ch.utils.hasOwn(viewer, "getSelected"), "Expected to find a \"getSelected\" method" );
 	
-			ok( viewer.hasOwnProperty("moveTo"), "Expected to find a \"moveTo\" method" );
+			ok( ch.utils.hasOwn(viewer, "moveTo"), "Expected to find a \"moveTo\" method" );
 			
-			ok( viewer.hasOwnProperty("next"), "Expected to find a \"next\" method" );
+			ok( ch.utils.hasOwn(viewer, "next"), "Expected to find a \"next\" method" );
 			
-			ok( viewer.hasOwnProperty("prev"), "Expected to find a \"prev\" method" );
+			ok( ch.utils.hasOwn(viewer, "prev"), "Expected to find a \"prev\" method" );
 
 		});
         
