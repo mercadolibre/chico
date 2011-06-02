@@ -1,15 +1,15 @@
 /**
- *
- *  Inheritances Cartographer, map.js
- *  Proccess the source files and returns a JSON Object with a Inheritance Map
- * 
- * */
+ * Inheritances Cartographer. Proccess the source files and returns a JSON Object with a Inheritance Map.
+ * @class map
+ * @autor Natan Santolo <natan.santolo@mercadolibre.com>
+ */
 
 var sys = require("sys"),
     fs = require("fs"),
     child = require("child_process"),
     exec  = child.exec,
-    map = {};
+    map = {},
+    version = "1.0";
 
 
 var trim = function(str) {
@@ -21,9 +21,10 @@ sys.puts( "(__/_____)                              /)          " );
 sys.puts( "  /       _   __ _/_ ____   __  _  __  (/    _  __  " );
 sys.puts( " /       (_(_/ (_(__(_)(_/_/ (_(_(_/_)_/ )__(/_/ (_ " );
 sys.puts( "(______)              .-/       .-/                 " );
-sys.puts( "                     (_/       (_/             1.1  " );
+sys.puts( "                     (_/       (_/        " + version );
 sys.puts( " " );
-sys.puts( "Starting Cartographer..." );
+sys.puts( " > Starting Cartographer..." );
+
 // Create a temporal map of all classes
 var child = exec("cat ../../src/js/* > tmp_map.js", function (err) {
     
@@ -35,7 +36,7 @@ var child = exec("cat ../../src/js/* > tmp_map.js", function (err) {
     // Read temporal map of classes
     fs.readFile( "tmp_map.js" , function( err , data ) { 
         
-        sys.puts( "Processing Classes." );
+        sys.puts( " > Processing Classes." );
         
         var raw = data.toString().split("/**").join("><><").split(" */").join("><><").split("><><");
         var tmp = [];
@@ -101,9 +102,9 @@ var child = exec("cat ../../src/js/* > tmp_map.js", function (err) {
              
         sys.puts( "  - " + t + " Classes processed." );
         sys.puts( "  - " + tags + " Tags processed." );
-        sys.puts( "Building the map." );
+        sys.puts( " > Building the map." );
         sys.puts( " " );                
-        sys.puts( "Creating file \"inheritanceMap.js\"" );
+        sys.puts( " > Creating file \"inheritanceMap.js\"" );
         
         var mapData = JSON.stringify(map)
         // Write the map to a file
@@ -118,7 +119,7 @@ var child = exec("cat ../../src/js/* > tmp_map.js", function (err) {
 
         // Erase temporal map of classes
         fs.unlink( "tmp_map.js" , function(){
-            sys.puts( "Deleting temporary files." )
+            sys.puts( " > Deleting temporary files." )
             //sys.puts(mapData);
         });
 
