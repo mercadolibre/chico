@@ -69,7 +69,7 @@
        		
     		ok( testExpando.type == "expando" , "Expected to find \"expando\" as value of type attribute");
     		
-    		ok( testExpando.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		ok( ch.utils.hasOwn(testExpando, "element"), "Expected to find an \"element\" property" );
 
         });
         
@@ -77,9 +77,9 @@
 
             expect( 2 );
     		
-    		ok( testExpando.hasOwnProperty("show"), "Expected to find a \"show\" method" );
+    		ok( ch.utils.hasOwn(testExpando, "show"), "Expected to find a \"show\" method" );
     		
-    		ok( testExpando.hasOwnProperty("hide"), "Expected to find a \"hide\" method" );
+    		ok( ch.utils.hasOwn(testExpando, "hide"), "Expected to find a \"hide\" method" );
 
         });
         

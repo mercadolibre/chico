@@ -72,13 +72,13 @@
        		
     		ok( testForm.type == "form" , "Expected to find \"forms\" as value of type attribute");
     		
-    		ok( testForm.hasOwnProperty("element"), "Expected to find an \"element\" property" );
+    		ok( ch.utils.hasOwn(testForm, "element"), "Expected to find an \"element\" property" );
     		
     		ok( $.isArray(testForm.children) , "Expected to find a children array on the forms instance");
             
-            ok( testForm.hasOwnProperty("messages") , "Expected to find a messages object on the forms instance");
+            ok( ch.utils.hasOwn(testForm, "messages") , "Expected to find a messages object on the forms instance");
             
-            ok( testForm.messages.hasOwnProperty("general") , "Expected to find a general messages defined on the forms instance");
+            ok( ch.utils.hasOwn(testForm.messages, "general") , "Expected to find a general messages defined on the forms instance");
 
         });
         
@@ -86,15 +86,15 @@
 
             expect( 5 );
     		
-    		ok( testForm.hasOwnProperty("getStatus"), "Expected to find a \"getStatus\" method" );
+    		ok( ch.utils.hasOwn(testForm, "getStatus"), "Expected to find a \"getStatus\" method" );
     		
-    		ok( testForm.hasOwnProperty("clear"), "Expected to find a \"clear\" method" );
+    		ok( ch.utils.hasOwn(testForm, "clear"), "Expected to find a \"clear\" method" );
     		
-    		ok( testForm.hasOwnProperty("reset"), "Expected to find a \"reset\" method" );
+    		ok( ch.utils.hasOwn(testForm, "reset"), "Expected to find a \"reset\" method" );
     		
-    		ok( testForm.hasOwnProperty("submit"), "Expected to find a \"submit\" method" );
+    		ok( ch.utils.hasOwn(testForm, "submit"), "Expected to find a \"submit\" method" );
     		
-    		ok( testForm.hasOwnProperty("validate"), "Expected to find a \"validate\" method" );
+    		ok( ch.utils.hasOwn(testForm, "validate"), "Expected to find a \"validate\" method" );
 
         });
         
