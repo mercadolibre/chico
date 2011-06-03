@@ -87,7 +87,7 @@ ch.carousel = function(conf){
 	},
 
 	_toggleArrows = function(page){
-
+ 		
 		if (page > 1 && page < that.pages ){
 			that.prevArrow.removeClass("ch-hide");
 			that.nextArrow.removeClass("ch-hide");
@@ -121,7 +121,9 @@ ch.carousel = function(conf){
 		that.$element.append( that.$pagination );
 
 		that.$pagination.css("left", (that.$element.outerWidth() - that.$pagination.outerWidth()) / 2);
-		
+
+		_$itemsPagination = that.$pagination.children();
+			
 		return;
 	},
 
@@ -130,16 +132,17 @@ ch.carousel = function(conf){
 	},
 
 	_getPages = function(){
-		return  Math.ceil( that.items.size() / that.itemsPerPage );
+		return  Math.ceil( that.items.children.length / that.itemsPerPage );
 	},
 
 	_draw = function(){
-		// Calculate total pages and items per page
+		_maskWidth = that.$container.outerWidth();
 
+		// Calculate total pages and items per page
 		that.itemsPerPage = _getItemsPerPage();
 		that.pages = _getPages();
 
-		var _itemMargin = (( that.$container.outerWidth() - (that.itemSize.width * that.itemsPerPage) ) / that.itemsPerPage ) / 2;
+		var _itemMargin = (( _maskWidth - (that.itemSize.width * that.itemsPerPage) ) / that.itemsPerPage ) / 2;
 
 		if (_itemMargin < 0) return;
 
@@ -147,11 +150,8 @@ ch.carousel = function(conf){
 
 		that.goTo(1);
 		
-		$.each(that.items, function(i ,e){
-			$(e).css({
-				"margin-left": _itemMargin,
-				"margin-right": _itemMargin
-			});
+		$.each(that.items.children, function(i, e){
+			e.style.marginLeft = e.style.marginRight = _itemMargin + "px";
 		});
 
 		that.$content
@@ -160,7 +160,9 @@ ch.carousel = function(conf){
 		
 		if ( conf.pagination && that.pages > 1) { _createPagination(); };
 	},
-
+	
+	_maskWidth,
+	_$itemsPagination,
 	_resize = false;
 
 /**
@@ -171,11 +173,9 @@ ch.carousel = function(conf){
 	that.$collection = that.$element.children();
 
 	// Create a List object to carousel's items and 	append items to List
-	that.items = ch.List();
-	$.each( that.$collection.children(), function(i, e){
-		that.items.add(e);
-	});
-
+	var temp = that.$collection.children().toArray();
+	that.items = ch.List( temp );
+	
 	// Item sizes (width and height)
 	that.itemSize = {
 		width: $(that.items.children[0]).outerWidth(),
@@ -190,14 +190,7 @@ ch.carousel = function(conf){
 
 		if (page == that.currentPage || page > that.pages || page < 1 || isNaN(page)) { return that; };
 
-		/*var pepe = that.items.size() / that.itemsPerPage	
-		var caca = Math.ceil( pepe );
-
-		if ( (caca - pepe) > 0 && that.currentPage == (that.pages - 1) ){
-			that.$content.append(that.$collection.clone()).css("width", that.$content.outerWidth() * 2);
-		}*/
-				
-		var movement = -(that.$container.outerWidth() * (page - 1));
+		var movement = -(_maskWidth * (page - 1));
 
 		//TODO: review this conditional
 		// Have CSS3 Transitions feature?
@@ -216,7 +209,7 @@ ch.carousel = function(conf){
 		that.currentPage = page;
 
 		if (conf.pagination) {
-			that.$pagination.children()
+			_$itemsPagination
 				.removeClass("ch-carousel-pages-on")
 				.eq(page-1)
 				.addClass("ch-carousel-pages-on");
@@ -351,7 +344,7 @@ ch.carousel = function(conf){
  */
 	// Add class name to carousel container
 	that.$element.addClass("ch-carousel");
-	
+
 	// Add class name to collection's children
 	// Detach collection and set width attribute	
 	that.$collection
@@ -383,7 +376,6 @@ ch.carousel = function(conf){
 		}, 250);
 		
 	};
-
 
 	return that;
 }
