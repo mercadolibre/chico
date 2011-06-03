@@ -23,7 +23,8 @@ ch.carousel = function(conf){
 	conf = ch.clon(conf);
 
 	conf.pagination = conf.pagination || false;
-	if( ch.utils.hasOwn(conf, "rolling") ) { conf.rolling = conf.rolling; } else { conf.rolling = true; };
+	conf.rolling = false;
+	//if( ch.utils.hasOwn(conf, "rolling") ) { conf.rolling = conf.rolling; } else { conf.rolling = true; };
 	if( ch.utils.hasOwn(conf, "arrows") ) { conf.arrows = conf.arrows; } else { conf.arrows = true; };
 	if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; };
 	
@@ -45,12 +46,12 @@ ch.carousel = function(conf){
 		// Create carousel's content
 		that.$content = $("<div>")
 			.addClass("ch-carousel-content")
-			.css("width", (that.itemSize.width * that.items.size()) )
 			.append( that.$collection );
 
 		// Create carousel's mask
 		that.$container = $("<div>")
 			.addClass("ch-carousel-container")
+			.css("height", that.itemSize.height)
 			.append( that.$content )
 			.appendTo( that.$element );
 
@@ -99,6 +100,7 @@ ch.carousel = function(conf){
 	},
 
 	_createPagination = function(){
+		that.$element.find(".ch-carousel-pages").remove();
 
 		that.$pagination = $("<ul>").addClass("ch-carousel-pages");
 
@@ -122,36 +124,43 @@ ch.carousel = function(conf){
 		
 		return;
 	},
-	
+
 	_getItemsPerPage = function(){
 		return  ~~( (that.$element.outerWidth() - that.itemSize.width) / that.itemSize.width );
 	},
 
-	_getPages = function(){		
+	_getPages = function(){
 		return  Math.ceil( that.items.size() / that.itemsPerPage );
-	},
-
-	_getItemSize = function(){
-		that.itemSize.margin = parseInt( $(that.items.children[0]).css("marginLeft") ) + parseInt( $(that.items.children[0]).css("marginRight") );
-
-		that.itemSize.width = $(that.items.children[0]).outerWidth() + that.itemSize.margin;
-		that.itemSize.height = $(that.items.children[0]).outerHeight();
-
-		return;
 	},
 
 	_draw = function(){
 		// Calculate total pages and items per page
+
 		that.itemsPerPage = _getItemsPerPage();
 		that.pages = _getPages();
 
-		// Set container dimmensions
-		that.$container.css({
-			"height": that.itemSize.height,
-			"width": that.itemSize.width * that.itemsPerPage
+		var _itemMargin = (( that.$container.outerWidth() - (that.itemSize.width * that.itemsPerPage) ) / that.itemsPerPage ) / 2;
+
+		if (_itemMargin < 0) return;
+
+		that.$content.detach();
+
+		that.goTo(1);
+		
+		$.each(that.items, function(i ,e){
+			$(e).css({
+				"margin-left": _itemMargin,
+				"margin-right": _itemMargin
+			});
 		});
+
+		that.$content
+			.css("width", ((that.itemSize.width + (_itemMargin*2)) * that.items.size()) )
+			.appendTo(that.$container);
+		
+		if ( conf.pagination && that.pages > 1) { _createPagination(); };
 	},
-	
+
 	_resize = false;
 
 /**
@@ -160,7 +169,7 @@ ch.carousel = function(conf){
 
 	// Create a List object to carousel's items
 	that.$collection = that.$element.children();
-	
+
 	// Create a List object to carousel's items and 	append items to List
 	that.items = ch.List();
 	$.each( that.$collection.children(), function(i, e){
@@ -168,7 +177,10 @@ ch.carousel = function(conf){
 	});
 
 	// Item sizes (width and height)
-	that.itemSize = {};
+	that.itemSize = {
+		width: $(that.items.children[0]).outerWidth(),
+		height: $(that.items.children[0]).outerHeight()
+	};
 
 	// Initialize current page
 	that.currentPage = 1;
@@ -177,7 +189,14 @@ ch.carousel = function(conf){
 	that.goTo = function(page){
 
 		if (page == that.currentPage || page > that.pages || page < 1 || isNaN(page)) { return that; };
-		
+
+		/*var pepe = that.items.size() / that.itemsPerPage	
+		var caca = Math.ceil( pepe );
+
+		if ( (caca - pepe) > 0 && that.currentPage == (that.pages - 1) ){
+			that.$content.append(that.$collection.clone()).css("width", that.$content.outerWidth() * 2);
+		}*/
+				
 		var movement = -(that.$container.outerWidth() * (page - 1));
 
 		//TODO: review this conditional
@@ -334,24 +353,21 @@ ch.carousel = function(conf){
 	that.$element.addClass("ch-carousel");
 	
 	// Add class name to collection's children
-	that.$collection.children().addClass("ch-carousel-item");
-	
-	// Calculate item size
-	_getItemSize();
-
 	// Detach collection and set width attribute	
 	that.$collection
 		.detach()
 		.addClass("ch-carousel-list")
-	
+		.children()
+			.addClass("ch-carousel-item");
+
 	// Create carousel layout
  	_createLayout();
 
+	// Render...
 	_draw();
 
 	// Create arrows and pagination
 	if ( conf.arrows && that.pages > 1) { _createArrows(); };
-	if ( conf.pagination && that.pages > 1) { _createPagination(); };
 
 	// Elastic behavior    
     if ( !conf.hasOwnProperty("width") ){
@@ -367,7 +383,6 @@ ch.carousel = function(conf){
 		}, 250);
 		
 	};
-	
 
 
 	return that;
