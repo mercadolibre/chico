@@ -1,117 +1,215 @@
+/**
+ * Chico-UI Builder Class.
+ * @class Builder
+ * @autor Natan Santolo <natan.santolo@mercadolibre.com>
+ */
+ 
 var sys = require("sys"),
     fs = require("fs"),
     events = require('events'),
     child = require("child_process"),
-    pro = require("../lib/process"),
-    jsp = require("../lib/parse-js"),
+    uglify = require("../../../UglifyJS/uglify-js"),
     cssmin = require('../lib/cssmin').cssmin,
     exec  = child.exec,
-    spawn = child.spawn;
-
-sys.puts("\n######################################\n           Chico-UI Builder         \n######################################\n");
-
-var version = 0.1;
-
-var template = function(data) { return "(function($){"+data+"ui.init();})(jQuery);"; };
-
-var kbs = function(data) { return (Math.ceil(data/1024)); };
-
-var get_file_name = function(file) { return "chico"+file.split("chico")[1]; };
+    spawn = child.spawn,
+    version = "1.2";
 
 
-var upload = function(file) {
 
-    var file_name = get_file_name(file);
-
-    var child = exec("scp -i ~/chicoui.pem "+file+" ubuntu@chico-ui.com.ar:/chico/downloads/lastest/"+file_name, function (err) {
-    
-        if (err) {
-            sys.puts( file_name + "          > " + err);
-            return;
-        }
-    
-        sys.puts( file_name + "          > Uploaded to A3 Cloud!" );
-               
-    });
- 
-};
+sys.puts( "________       ___________________ " );           
+sys.puts( "___  __ )___  ____(_)__  /_____  /____________" );
+sys.puts( "__  __  |  / / /_  /__  /_  __  /_  _ \\_  ___/" );
+sys.puts( "_  /_/ // /_/ /_  / _  / / /_/ / /  __/  / "+version );
+sys.puts( "/_____/ \\__,_/ /_/  /_/  \\__,_/  \\___//_/   " );
+sys.puts( " " );                                   
 
 
 var Packer = function(o) {
-    
-    var self = this;
 
+    var self = this;
+    
+    // Package data
+    self.ui = [];
     self.name = o.name;
     self.version = o.version;
+    self.fullversion = o.version + "-" + o.build;
     self.input = o.input;
     self.type = o.type;
     self.min = o.min;
-    self.upload = o.upload;                
+    self.upload = o.upload;
+    self.template = o.template;
+    self.filename = o.output.uri + o.name + ( ( self.min ) ? "-min-" : "-" ) + self.fullversion + "." + self.type ;
     self._files = {
-        raw: [], // name of the files
+        names: [], // name of the files
         data: [], // content of the files
         total: 0,
         loaded: 0,
         bytesLoaded: 0
     };
-    
+
     self._files.ready = function() { return self._files.total === self._files.loaded; };
-        
+
+    // Begin ;)
+    self.run();
+            
 };
 
+// Inherit from EventEmitter
 Packer.prototype = new events.EventEmitter();
 
-Packer.prototype.run = function() {
+Packer.prototype.run = function() {
     
-    var self = this; 
+    // private scope
+    var self = this;
+    var _files = self._files;
+    var core = "core."+self.type;
+    
+    // Get files for the defined package
+    fs.readdir( self.input , function( err, files ) {
+    
+        if ( err ) {
+            sys.puts("Error: <Reading files> "+err);
+            return;
+        }
+        
+        // Puts core always first.
+        files = ( core + "," + files.join(",").split( core + "," ).join("") ).split(",");
 
-    var child = exec("cat "+self.input+"*."+self.type+"  > ../../build/tmp."+self.type, function (err) {
+        // Iteration variables
+        var t = _files.total = files.length, file = "", i = 0;
+
+        // Iteration
+        for ( i ; i < t ; i++ ) {
+            // each file
+            file = files[i];
+            
+            // ignore ".DS_Store"
+            if ( file === ".DS_Store" ) {
+                _files.total -= 1;
+                continue;
+            }
+
+            // Save file name
+            var savedIndex = _files.names.push( file );
+
+            // Get data from file and process it.
+            self.loadFile( file , savedIndex );
+
+        } // end Iteration
+
+        self.emit( "run-complete", files );
+        
+    }); // end Get files
+};
+
+Packer.prototype.loadFile = function( file, savedIndex ) {
     
+    var self = this;
+    var _files = self._files;
+    
+    // Read file
+    fs.readFile( self.input + "/" + file , function( err , data ) { 
+        
         if (err) {
+            sys.puts("Error: <Reading file "+file+"> "+err);
+            return;
+        }
+        
+        if (self.type=="js") {
+            // Get the first comment
+            var raw = data.toString().split("/**").join("><><").split(" */").join("><><").split("><><")[1];
+            // Seek for UI Components
+            if ( !/@abstract/.test( raw ) && file !== "core.js") {
+                self.ui.push( file );
+            }
+        }
+        
+        // Save file data
+        _files.data[savedIndex] = data;
+        
+        // Save file size
+        _files.bytesLoaded += data.length;
+        
+        // Increment loaded counter
+        _files.loaded += 1;
+        
+        // Are we ready ?
+        if ( _files.ready()  ) {
+            
+            self.emit( "loaded", file );
+            
+            // All files saved then process
+            self.process();
+        }
+        
+    });
+
+};
+
+Packer.prototype.process = function() {
+
+    var self = this;
+    var _files = self._files;
+
+    sys.puts( " > Processing " + self.filename );
+
+    self.ui = self.ui.join(",").split(".js").join("");
+
+    var output = _files.data.join("");
+        
+    var output_min = false;
+    
+    sys.puts( "   original size " + output.length );            
+    
+    if ( self.min ) {
+    
+        switch( self.type ) {
+        
+            case "js": 
+                output_min = uglify( output.toString() ); // compressed code here
+                break;
+    
+            case "css":
+                output_min = cssmin(output);
+                break;
+        }
+    
+        sys.puts( "   optimized size " + output_min.length );
+        
+    }
+    
+    // Templating & replacements
+    
+    var out = self.template.replace( "<version>" , self.fullversion );
+        out = out.replace( "<code>" , output_min || output );
+        out = out.replace( ",components:\"\"," , ",components:\"" + self.ui + "\"," );
+        out = out.replace( "version:\"\"" , "version:\"" + self.fullversion + "\"" );
+        
+    self.emit( "processed" , out );
+    
+    self.write( self.filename , out );    
+
+};
+
+Packer.prototype.write = function( file , data ) {
+    
+    var self = this;
+    
+    fs.writeFile( file , data , function( err ) {
+        
+        if ( err ) {
             sys.puts( err );
             return;
         }
-    
-        fs.readFile( '../../build/tmp.'+self.type , function( err , data ) { 
-        
-            if (err) {
-                sys.puts(err); 
-                return;
-            }
-            
-            var output = data;
-            var output_min = "";
-            
-            if ( self.type == "js" ) {
 
-                var ast = jsp.parse( output ); // parse code and get the initial AST
-                    ast = pro.ast_mangle( ast ); // get a new AST with mangled names
-                    ast = pro.ast_squeeze( ast ); // get an AST with compression optimizations
-                    
-                output_min = pro.gen_code( ast ); // compressed code here
+        sys.puts( " > Writting " + self.filename + "..." );
+        sys.puts( "   Done! " );
 
-            } else if ( self.type === "css" ) {
-                
-                output_min = cssmin(output);
-                
-            }
-                                       
-        });
-    });
-}
-
-Packer.prototype.write = function(file, data) {
-        
-    fs.writeFile(file, data, function( err ) {
-        if(err) {
-            sys.puts(err);
-        } else {
-            sys.puts( file + "          > Saved file!" );
-            //upload(file);
-        }
+        self.emit( "writed", self.filename );
+        self.emit( "done", self );
     });
 
-}
+};
 
 /* -----[ Exports ]----- */
 exports.version = version;
