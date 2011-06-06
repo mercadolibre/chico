@@ -5,7 +5,6 @@
  * @class Zoom
  * @augments ch.Floats
  * @requires ch.Positioner
- * @requires ch.Preload
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
@@ -21,7 +20,7 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var that = this;
-	
+
 	conf = ch.clon(conf);
 	conf.width = conf.width || 300;
 	conf.height = conf.height || 300;
@@ -31,7 +30,7 @@ ch.zoom = function(conf) {
 	conf.position.offset = conf.offset || "20 0";
 	conf.position.points = conf.points || "lt rt";
 	conf.position.hold = true;
-	
+
 	that.conf = conf;
 
 /**
@@ -54,8 +53,8 @@ ch.zoom = function(conf) {
      */
 	var original = {};
 		original.img = that.$element.children();
-		original["width"] = original.img.width();
-		original["height"] = original.img.height();
+		original["width"] = original.img.prop("width");
+		original["height"] = original.img.prop("height");
 
     /**
      * Zoomed visual element.
@@ -65,7 +64,7 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var zoomed = {};
-		zoomed.img = conf.content = $("<img>").attr("src", that.element.href);
+		zoomed.img = conf.content = $("<img>");
 	
 	// Magnifying glass (enlarge)
 	//var $lens = $("<div>").addClass("ch-lens ch-hide");
@@ -119,13 +118,15 @@ ch.zoom = function(conf) {
 	
 	that.show = function(event){
 		that.prevent(event);
-		
+
+		zoomed.img.prop("src", that.element.href);
+
 		// Floats show
 		that.parent.show();
-		
+
 		// Magnifying glass
 		//$lens.fadeIn();
-		
+
 		// Seeker
 		seeker.shape.removeClass("ch-hide");
 		
@@ -171,14 +172,7 @@ ch.zoom = function(conf) {
      */
 	that.size = function(attr, data) {
 		if (!data) return conf[attr]; // Getter
-		
-		// Size of zoomed image
-		// TODO: Make this only first time or outside of here.
-		// It's calculating zoomed image size in that.size,
-		// because isn't posible calc this before image load
-		zoomed["width"] = zoomed.img.width();
-		zoomed["height"] = zoomed.img.height();
-		
+
 		// Configuration
 		that.conf[attr] = data;
 		
@@ -319,7 +313,7 @@ ch.zoom = function(conf) {
 			.css({"width": original["width"], "height": original["height"]})
 			
 			// Show
-			.bind("mouseover", that.show)
+			.bind("mouseenter", that.show)
 			
 			// Hide
 			.bind("mouseleave", that.hide)
@@ -330,9 +324,15 @@ ch.zoom = function(conf) {
 			// Enlarge
 			.bind("click", function(event){ that.enlarge(event); });
 	},50);	
-	
+
 	// Preload zoomed image
-	if(ch.utils.hasOwn(ch, "preload")) ch.preload(that.element.href);
-	
+	ch.utils.window.one("load", function(){
+		zoomed.img.prop("src", that.element.href).one("load", function(){
+			zoomed["width"] = zoomed.img.prop("width");
+			zoomed["height"] = zoomed.img.prop("height");
+		});
+	});
+
+
 	return that;
 };
