@@ -6,7 +6,7 @@
  * @augments ch.Floats
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Tooltip
  * @see ch.Modal
  * @example
@@ -186,7 +186,7 @@ ch.layer = function(conf) {
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Layer
      */
 	that["public"].show = function(){
@@ -199,7 +199,7 @@ ch.layer = function(conf) {
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Layer
      */	
 	that["public"].hide = function(){

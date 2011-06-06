@@ -6,7 +6,7 @@
  * @augments ch.Controllers
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.tabNavigator = function(conf){
@@ -203,7 +203,7 @@ ch.tabNavigator = function(conf){
      * @public
      * @function
      * @name getSelected
-     * @return {Number} selected Tab's index.
+     * @returns {Number} selected Tab's index.
      * @memberOf ch.TabNavigator
      */	
 	that["public"].getSelected = function(){ return (selected + 1); };
@@ -241,7 +241,7 @@ ch.tabNavigator = function(conf){
  * @augments ch.Navs
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.tab = function(conf){
@@ -327,7 +327,7 @@ ch.tab = function(conf){
      * @private
      * @function
      * @name show
-     * @return {jQuery Object}
+     * @returns {jQuery Object}
      * @memberOf ch.Tab
      */ 
 	that.show = function(event){

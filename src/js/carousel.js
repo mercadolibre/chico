@@ -6,7 +6,7 @@
  * @augments ch.Controllers
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
  
 ch.carousel = function(conf){
@@ -41,7 +41,7 @@ ch.carousel = function(conf){
  *  Private Members
  */
 
-	var _createLayout = function(){
+	var _createLayout = function() {
 
 		// Create carousel's content
 		that.$content = $("<div>")
@@ -64,7 +64,8 @@ ch.carousel = function(conf){
 
 	},
 
-	_createArrows = function(){
+	_createArrows = function() {
+	
 		that.prevArrow = $("<p>")
 			.addClass("ch-prev-arrow")
 			.append("<span>Previous</span>")
@@ -275,7 +276,7 @@ ch.carousel = function(conf){
      * Get the amount of steps.
      * @public
      * @name getSteps
-     * @return {Number}
+     * @returns {Number}
      * @memberOf ch.Carousel
      */
 	that["public"].getItemsPerPage = function() { return that.itemsPerPage; };
@@ -284,7 +285,7 @@ ch.carousel = function(conf){
      * Get the current page.
      * @public
      * @name getPage
-     * @return {Number}
+     * @returns {Number}
      * @memberOf ch.Carousel
      */
     that["public"].getPage = function() { return that.currentPage; };
@@ -293,7 +294,7 @@ ch.carousel = function(conf){
      * Moves the carousel to the defined page.
      * @public
      * @name moveTo
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
      */
     that["public"].goTo = function(page) {
@@ -306,7 +307,7 @@ ch.carousel = function(conf){
      * Moves to the next page.
      * @public
      * @name next
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
      */
     that["public"].next = function(){
@@ -319,7 +320,7 @@ ch.carousel = function(conf){
      * Moves to the previous page.
      * @public
      * @name prev
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
      */
 	that["public"].prev = function(){
@@ -332,7 +333,7 @@ ch.carousel = function(conf){
      * Re-calculate positioning, sizing, paging, and re-draw.
      * @public
      * @name redraw
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
      */	
 	that["public"].redraw = function(){

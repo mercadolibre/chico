@@ -6,7 +6,7 @@
  * @augments ch.Watcher
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Email
  * @see ch.Url
  * @see ch.MaxLength
@@ -70,7 +70,7 @@ ch.string = function(conf) {
  * @augments ch.String
  * @memberOf ch
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Url
  * @see ch.MaxLength
  * @see ch.MinLength
@@ -107,7 +107,7 @@ ch.factory({ component: 'email' });
  * @augments ch.String
  * @memberOf ch
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Email
  * @see ch.MaxLength
  * @see ch.MinLength
@@ -145,7 +145,7 @@ ch.factory({ component: 'url' });
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Email
  * @see ch.Url
  * @see ch.MaxLength
@@ -183,7 +183,7 @@ ch.factory({ component: 'minLength' });
  * @memberOf ch
  * @param {Number} value Maximun number value.
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Email
  * @see ch.Url
  * @see ch.MinLength
