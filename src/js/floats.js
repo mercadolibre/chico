@@ -7,7 +7,7 @@
  * @augments ch.Object
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Tooltip
  * @see ch.Layer
  * @see ch.Modal
@@ -115,7 +115,7 @@ ch.floats = function() {
      * Shows component's content.
      * @public
      * @name show
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Floats
      */ 
 	that.show = function(event) {
@@ -161,7 +161,7 @@ ch.floats = function() {
      * Hides component's content.
      * @public
      * @name hide
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Floats
      */ 
 	that.hide = function(event) {

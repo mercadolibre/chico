@@ -7,7 +7,7 @@
  * @augments ch.Object
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.sliders = function() {

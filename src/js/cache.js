@@ -34,7 +34,7 @@ ch.cache = {
      * @function
      * @name get
      * @param {String} url Resource location
-     * @return {String} data Resource information
+     * @returns {String} data Resource information
      * @memberOf ch.Cache
      */
     get: function(url) {

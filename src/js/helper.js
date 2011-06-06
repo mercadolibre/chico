@@ -6,7 +6,7 @@
  * @augments ch.Floats
  * @memberOf ch
  * @param {Controller Object} o Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.helper = function(controller){
@@ -106,7 +106,7 @@ ch.helper = function(controller){
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Helper
      */
 	that["public"].show = function(text){
@@ -119,7 +119,7 @@ ch.helper = function(controller){
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Helper
      */ 
 	that["public"].hide = function(){

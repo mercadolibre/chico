@@ -1,5 +1,3 @@
-/*! Chico-UI Copyright 2011, MercadoLibre.com (Natan santolo, Leandro Linares, Guillermo Paz, Natalia Devalle) */
-
 /**
  * Chico-UI namespace
  * @namespace ch
@@ -180,7 +178,7 @@ var ch = window.ch = {
  * @function
  * @name clon
  * @param {Object} o Object to clone
- * @return {Object}
+ * @returns {Object}
  * @memberOf ch
  */
 ch.clon = function(o) {
@@ -209,7 +207,7 @@ ch.clon = function(o) {
  *      [style]: "http://..",
  *      [callback]: function(){}    
  *   }
- * @return {Collection} A collection of object instances
+ * @returns {Collection} A collection of object instances
  * @memberOf ch
  */    
 
@@ -449,7 +447,7 @@ ch.get = function(o) {
  * @abstract
  * @name Support
  * @class Support
- * @return {Object}
+ * @returns {Object}
  * @memberOf ch 
  */
 ch.support = function() {
@@ -468,7 +466,7 @@ ch.support = function() {
      * Verify that CSS3 transition is supported (or any of its browser-specific implementations)
      *
      * @private
-     * @return {Boolean}
+     * @returns {Boolean}
      * @memberOf ch.Support
      */
 	var transition = (function(){
@@ -481,7 +479,7 @@ ch.support = function() {
      * Verify that position fixed is supported
      * 
      * @private
-     * @return {Boolean}
+     * @returns {Boolean}
      * @memberOf ch.Support
      */	
 	var fixed = (function(){

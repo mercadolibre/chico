@@ -4,7 +4,7 @@
  * @abstract
  * @name Codelighter
  * @class Codelighter 
- * @return {Object}
+ * @returns {Object}
  * @memberOf ch 
  * @example
  * ch.codelighter();
@@ -131,7 +131,7 @@ ch.codesnippet = function(conf){
 
 /**
  *	@Interface xml
- *	@return An interface object
+ *	@returns An interface object
  */
 
 ch.codeXML = function(conf) {
@@ -166,7 +166,7 @@ ch.factory({ component: 'codeXML' });
 
 /**
  *	@Interface js
- *	@return An interface object
+ *	@returns An interface object
  */
 
 ch.codeJS = function(conf) {
@@ -203,7 +203,7 @@ ch.factory({ component: 'codeJS' });
 
 /**
  *	@Interface css
- *	@return An interface object
+ *	@returns An interface object
  */
 
 ch.codeCSS = function(conf) {

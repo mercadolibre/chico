@@ -8,7 +8,7 @@
  * @requires ch.Preload
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.zoom = function(conf) {
@@ -234,7 +234,7 @@ ch.zoom = function(conf) {
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Zoom
      */
 	that["public"].show = function(){
@@ -247,7 +247,7 @@ ch.zoom = function(conf) {
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Zoom
      */
 	that["public"].hide = function(){

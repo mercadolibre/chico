@@ -6,7 +6,7 @@
  * @augments ch.Watcher
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Min
  * @see ch.Max
  * @see ch.Price
@@ -67,7 +67,7 @@ ch.number = function(conf) {
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Max
  * @see ch.Price
  * @example
@@ -106,7 +106,7 @@ ch.factory({ component: 'min' });
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Min
  * @see ch.Price
  * @example
@@ -145,7 +145,7 @@ ch.factory({ component: 'max' });
  * @augments ch.Number
  * @memberOf ch
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Min
  * @see ch.Max
  * @example
