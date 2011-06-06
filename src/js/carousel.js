@@ -48,6 +48,7 @@ ch.carousel = function(conf){
 /**
  *  Private Members
  */
+<<<<<<< HEAD
 	
 	/**
      * Creates the necesary structure to carousel operation.
@@ -56,7 +57,7 @@ ch.carousel = function(conf){
      * @name _createLayout
      * @memberOf ch.Carousel
      */
-	var _createLayout = function(){
+	var _createLayout = function() {
 
 		// Create carousel's content
 		that.$content = $("<div>")
@@ -250,7 +251,7 @@ ch.carousel = function(conf){
 		
 		// Change content size and append it to DOM again
 		that.$content
-			.css("width", ((that.itemSize.width + (_itemMargin * 2)) * that.items.size()) )
+			.css("width", ((that.itemSize.width + (_itemMargin * 2)) * that.items.size() + _extraWidth) )
 			.appendTo(that.$container);
 		
 		// Create pagination if there are more than one page on total amount of pages
@@ -258,6 +259,7 @@ ch.carousel = function(conf){
 		
 		return;
 	},
+<<<<<<< HEAD
 	
 	/**
      * Size of carousel mask.
@@ -276,6 +278,15 @@ ch.carousel = function(conf){
      * @memberOf ch.Carousel
      */
 	_$itemsPagination,
+	
+	/**
+     * Extra size calculated on content
+     * @private
+     * @name _extraWidth
+     * @type {Number}
+     * @memberOf ch.Carousel
+     */
+	_extraWidth,
 	
 	/**
      * Resize status of Window.
@@ -328,7 +339,7 @@ ch.carousel = function(conf){
      * @memberOf ch.Carousel
      */
 	that.currentPage = 1;
-	
+
 	that.goTo = function(page){
 		
 		// Validation of page parameter
@@ -533,6 +544,9 @@ ch.carousel = function(conf){
 	// Creates the necesary structure to carousel operation
  	_createLayout();
 
+	// Calculate extra width for content before draw carousel
+	_extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemSize.width : 0;
+	
 	// Calculates all necesary data to draw carousel correctly
 	_draw();
 

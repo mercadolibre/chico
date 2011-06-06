@@ -121,20 +121,22 @@ ch.viewer = function(conf){
 		
 		// Initialize zoom on imgs loaded
 		itemsChildren.filter("img").bind("load", function(){
-			var parent =  this.parentNode;
+
+			var _parentNode = this.parentNode;
+			
 			var component = {
 				uid: that.uid + "#" + i,
 				type: "zoom",
-				element: parent,
-				$element: $(parent)
+				element: _parentNode,
+				$element: $(_parentNode)
 			};
 		
 			var config = {
 				context: $viewer,
 				onShow: function(){
-					var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
-					var zoomDisplayWidth = (conf.width < rest)? conf.width :	(rest - 65 );
-					this.width( zoomDisplayWidth );
+					var _rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
+					var _zoomDisplayWidth = (conf.width < _rest)? conf.width : (_rest - 65 );
+					this.width( _zoomDisplayWidth );
 					this.height( $viewer.height() );
 				}
 			};
