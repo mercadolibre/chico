@@ -6,7 +6,7 @@
  * @class Controllers 
  * @augments ch.Object
  * @memberOf ch
- * @return {Object}
+ * @returns {Object}
  * @see ch.Accordion
  * @see ch.Carousel
  * @see ch.Form

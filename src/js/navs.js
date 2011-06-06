@@ -7,7 +7,7 @@
  * @augments ch.Object
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Dropdown
  * @see ch.Expando
  */
@@ -61,7 +61,7 @@ ch.navs = function(){
      * Status of component
      * @public
      * @name active
-     * @return {Boolean}
+     * @returns {Boolean}
      * @memberOf ch.Navs
      */
 	that.active = false;
@@ -70,7 +70,7 @@ ch.navs = function(){
      * Shows component's content.
      * @public
      * @name show
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Navs
      */
 	that.show = function(event){
@@ -101,7 +101,7 @@ ch.navs = function(){
      * Hides component's content.
      * @public
      * @name hide
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Navs
      */
 	that.hide = function(event){
@@ -131,7 +131,7 @@ ch.navs = function(){
      * Create component's layout
      * @public
      * @name createLayout
-     * @return {void}
+     * @returns {void}
      * @memberOf ch.Navs
      */
 	that.configBehavior = function(){

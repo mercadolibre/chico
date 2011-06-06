@@ -6,7 +6,7 @@
  * @class Positioner
  * @memberOf ch
  * @param {Position Object} o Object with positioning properties
- * @return {jQuery Object}
+ * @returns {jQuery Object}
  * @example
  * // First example
  * ch.positioner({
@@ -135,7 +135,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name getViewport
-     * @return {Viewport Object}
+     * @returns {Viewport Object}
      * @memberOf ch.Positioner
      */
 	var getViewport = function() {
@@ -190,7 +190,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name getPosition
-     * @return {Axis Object}
+     * @returns {Axis Object}
      * @memberOf ch.Positioner
      */
 	var getPosition = function(unitPoints) {		     
@@ -234,7 +234,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name calculatePoints
-     * @return {Styles Object}
+     * @returns {Styles Object}
      * @memberOf ch.Positioner
      */
 	var calculatePoints = function(points, unitPoints){					
@@ -336,7 +336,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name getContext
-     * @return {Context Object}
+     * @returns {Context Object}
      * @memberOf ch.Positioner
      */
 	var getContext = function(){
@@ -364,7 +364,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name getParentRelative
-     * @return {Offset Object}
+     * @returns {Offset Object}
      * @memberOf ch.Positioner 
      */
 	var getParentRelative = function(){

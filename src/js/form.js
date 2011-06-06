@@ -6,7 +6,7 @@
  * @augments ch.Controllers
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.form = function(conf) {
@@ -251,7 +251,7 @@ ch.form = function(conf) {
      * @function
      * @name validate
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */
 	that["public"].validate = function() { 
 		validate(); 
@@ -264,7 +264,7 @@ ch.form = function(conf) {
      * @function
      * @name submit
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */
 	that["public"].submit = function() { 
 		submit(); 
@@ -290,7 +290,7 @@ ch.form = function(conf) {
      * @function
      * @name getStatus
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */ 	
 	that["public"].getStatus = function(){
 		return status;	
@@ -301,7 +301,7 @@ ch.form = function(conf) {
      * @function
      * @name clear
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */ 
 	that["public"].clear = function() { 
 		clear(); 
@@ -313,7 +313,7 @@ ch.form = function(conf) {
      * @function
      * @name reset
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */ 
 	that["public"].reset = function() { 
 		reset(); 
