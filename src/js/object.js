@@ -46,10 +46,11 @@ ch.object = function(){
 			return (content) ? (( ch.utils.isSelector(content) ) ? $(content) : content) : ((conf.ajax === true) ? (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
 		
 		} else {
-			
-			//TODO: We have to cache the content if it's the same
+
+			var cache = conf.cache;
+
 			conf.cache = false;
-			
+
 			if ( ch.utils.isUrl(content) ) {
 				conf.content = undefined;
 				conf.ajax = content;
@@ -57,13 +58,12 @@ ch.object = function(){
 				conf.ajax = false;
 				conf.content = content;
 			};
-	
-			if ( that.active ) {
-				that.$content.html(that.loadContent());
-				return that.position("refresh");
-			};
 
-			if (that.active) that.position("refresh");
+			that.$content.html(that.loadContent());
+			that.position("refresh");
+
+			conf.cache = cache;
+			
 			return that["public"];
 		};
 		

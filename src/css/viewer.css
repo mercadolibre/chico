@@ -12,6 +12,10 @@
 	margin:5px 0;
 }
 
+.ch-viewer-display .ch-carousel-container{
+	margin:0;
+}
+
 /* Display list */
 .ch-viewer-display .ch-viewer-content li{
 	margin:0;
