@@ -15,7 +15,7 @@
 <span class='line'>  8</span>  * @requires ch.Preload
 <span class='line'>  9</span>  * @memberOf ch
 <span class='line'> 10</span>  * @param {Configuration Object} conf Object with configuration properties
-<span class='line'> 11</span>  * @return {Chico-UI Object}
+<span class='line'> 11</span>  * @returns {Chico-UI Object}
 <span class='line'> 12</span>  */</span><span class="WHIT">
 <span class='line'> 13</span> 
 <span class='line'> 14</span> </span><span class="NAME">ch.zoom</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -241,7 +241,7 @@
 <span class='line'>234</span>      * @public
 <span class='line'>235</span>      * @name show
 <span class='line'>236</span>      * @function
-<span class='line'>237</span>      * @return {Chico-UI Object}
+<span class='line'>237</span>      * @returns {Chico-UI Object}
 <span class='line'>238</span>      * @memberOf ch.Zoom
 <span class='line'>239</span>      */</span><span class="WHIT">
 <span class='line'>240</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
@@ -254,7 +254,7 @@
 <span class='line'>247</span>      * @public
 <span class='line'>248</span>      * @name hide
 <span class='line'>249</span>      * @function
-<span class='line'>250</span>      * @return {Chico-UI Object}
+<span class='line'>250</span>      * @returns {Chico-UI Object}
 <span class='line'>251</span>      * @memberOf ch.Zoom
 <span class='line'>252</span>      */</span><span class="WHIT">
 <span class='line'>253</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
@@ -339,7 +339,7 @@
 <span class='line'>332</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="NUMB">50</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	
 <span class='line'>333</span> 	
 <span class='line'>334</span> 	</span><span class="COMM">// Preload zoomed image</span><span class="WHIT">
-<span class='line'>335</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">ch.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"preload"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">ch.preload</span><span class="PUNC">(</span><span class="NAME">that.element.href</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">ch</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"preload"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">ch.preload</span><span class="PUNC">(</span><span class="NAME">that.element.href</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>336</span> </span><span class="WHIT">	
 <span class='line'>337</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>338</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">

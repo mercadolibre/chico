@@ -38,7 +38,6 @@ ch.menu = function(conf){
 	/**
      * Indicates witch child is opened
      * @private
-     * @name selected
      * @type {Number}
      * @memberOf ch.Menu
      */
@@ -93,7 +92,6 @@ ch.menu = function(conf){
 	/**
      * Opens specific Expando child and optionally grandson
      * @private
-     * @name select
      * @function
      * @memberOf ch.Menu
      */
@@ -245,7 +243,7 @@ ch.menu = function(conf){
  * Accordion is a UI-Component.
  * @name Accordion
  * @class Accordion
- * @augments ch.Accordion
+ * @augments ch.Menu
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}

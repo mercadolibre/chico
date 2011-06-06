@@ -13,7 +13,7 @@
 <span class='line'>  6</span>  * @class Positioner
 <span class='line'>  7</span>  * @memberOf ch
 <span class='line'>  8</span>  * @param {Position Object} o Object with positioning properties
-<span class='line'>  9</span>  * @return {jQuery Object}
+<span class='line'>  9</span>  * @returns {jQuery Object}
 <span class='line'> 10</span>  * @example
 <span class='line'> 11</span>  * // First example
 <span class='line'> 12</span>  * ch.positioner({
@@ -142,7 +142,7 @@
 <span class='line'>135</span>      * @private
 <span class='line'>136</span>      * @function
 <span class='line'>137</span>      * @name getViewport
-<span class='line'>138</span>      * @return {Viewport Object}
+<span class='line'>138</span>      * @returns {Viewport Object}
 <span class='line'>139</span>      * @memberOf ch.Positioner
 <span class='line'>140</span>      */</span><span class="WHIT">
 <span class='line'>141</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">getViewport</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -197,7 +197,7 @@
 <span class='line'>190</span>      * @private
 <span class='line'>191</span>      * @function
 <span class='line'>192</span>      * @name getPosition
-<span class='line'>193</span>      * @return {Axis Object}
+<span class='line'>193</span>      * @returns {Axis Object}
 <span class='line'>194</span>      * @memberOf ch.Positioner
 <span class='line'>195</span>      */</span><span class="WHIT">
 <span class='line'>196</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">getPosition</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">unitPoints</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">		     
@@ -241,7 +241,7 @@
 <span class='line'>234</span>      * @private
 <span class='line'>235</span>      * @function
 <span class='line'>236</span>      * @name calculatePoints
-<span class='line'>237</span>      * @return {Styles Object}
+<span class='line'>237</span>      * @returns {Styles Object}
 <span class='line'>238</span>      * @memberOf ch.Positioner
 <span class='line'>239</span>      */</span><span class="WHIT">
 <span class='line'>240</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">calculatePoints</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">points</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">unitPoints</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">					
@@ -330,7 +330,7 @@
 <span class='line'>323</span> </span><span class="WHIT">			</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="STRN">"ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right  ch-right-right"</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'>324</span> </span><span class="WHIT">			</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="STRN">"ch-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">styles.direction</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>325</span> </span><span class="WHIT">				
-<span class='line'>326</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">context.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"element"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">context.element</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">ch.utils.window</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>326</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">context</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"element"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">context.element</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">ch.utils.window</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>327</span> </span><span class="WHIT">			</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">context.element</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'>328</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="STRN">"ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right ch-right-right"</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'>329</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="STRN">"ch-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">styles.direction</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
@@ -343,7 +343,7 @@
 <span class='line'>336</span>      * @private
 <span class='line'>337</span>      * @function
 <span class='line'>338</span>      * @name getContext
-<span class='line'>339</span>      * @return {Context Object}
+<span class='line'>339</span>      * @returns {Context Object}
 <span class='line'>340</span>      * @memberOf ch.Positioner
 <span class='line'>341</span>      */</span><span class="WHIT">
 <span class='line'>342</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">getContext</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
@@ -371,7 +371,7 @@
 <span class='line'>364</span>      * @private
 <span class='line'>365</span>      * @function
 <span class='line'>366</span>      * @name getParentRelative
-<span class='line'>367</span>      * @return {Offset Object}
+<span class='line'>367</span>      * @returns {Offset Object}
 <span class='line'>368</span>      * @memberOf ch.Positioner 
 <span class='line'>369</span>      */</span><span class="WHIT">
 <span class='line'>370</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">getParentRelative</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
