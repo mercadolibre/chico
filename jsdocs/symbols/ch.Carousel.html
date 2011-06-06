@@ -241,7 +241,7 @@ vertical-align: top;
 			<p class="description">
 				
 				<br />Extends
-					<a href="../symbols/ch.controllers.html">ch.Controllers</a>.<br />
+					<a href="../symbols/ch.object.html">ch.Object</a>.<br />
 				
 			
 				Carousel
@@ -293,9 +293,49 @@ vertical-align: top;
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.buttons">buttons</a></b>
+								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.$collection">$collection</a></b>
 								</div>
-								<div class="description">Internal class that handles buttons behavior.</div>
+								<div class="description">UL list of items.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Carousel.<b><a href="../symbols/ch.carousel.html#._$itemsPagination">_$itemsPagination</a></b>
+								</div>
+								<div class="description">List of pagination thumbnails.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Carousel.<b><a href="../symbols/ch.carousel.html#._maskWidth">_maskWidth</a></b>
+								</div>
+								<div class="description">Size of carousel mask.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Carousel.<b><a href="../symbols/ch.carousel.html#._resize">_resize</a></b>
+								</div>
+								<div class="description">Resize status of Window.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.currentPage">currentPage</a></b>
+								</div>
+								<div class="description">Page selected.</div>
 							</td>
 						</tr>
 					
@@ -313,29 +353,39 @@ vertical-align: top;
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
+								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.getItemsPerPage">getItemsPerPage</a></b>
+								</div>
+								<div class="description">Get the items amount of each page.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
 								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.getPage">getPage</a></b>
 								</div>
-								<div class="description">Get the current page.</div>
+								<div class="description">Get the total amount of pages.</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.getSteps">getSteps</a></b>
+								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.items">items</a></b>
 								</div>
-								<div class="description">Get the amount of steps.</div>
+								<div class="description">List object created from each item.</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.moveTo">moveTo</a></b>
+								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.itemSize">itemSize</a></b>
 								</div>
-								<div class="description">Moves the carousel to the defined page.</div>
+								<div class="description">Width and height of first item.</div>
 							</td>
 						</tr>
 					
@@ -346,16 +396,6 @@ vertical-align: top;
 								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.next">next</a></b>
 								</div>
 								<div class="description">Moves to the next page.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								ch.Carousel.<b><a href="../symbols/ch.carousel.html#.page">page</a></b>
-								</div>
-								<div class="description">Page size.</div>
 							</td>
 						</tr>
 					
@@ -437,18 +477,72 @@ vertical-align: top;
 						<tr>
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#.calculateMask">calculateMask</a></b>()
+								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#._createArrows">_createArrows</a></b>()
 								</div>
-								<div class="description">Calculate size of the carousel's mask.</div>
+								<div class="description">Creates Previous and Next arrows.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#.makePager">makePager</a></b>()
+								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#._createLayout">_createLayout</a></b>()
 								</div>
-								<div class="description">Create pager functionlity whitin a carousel instance.</div>
+								<div class="description">Creates the necesary structure to carousel operation.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#._createPagination">_createPagination</a></b>()
+								</div>
+								<div class="description">Creates carousel pagination.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#._draw">_draw</a></b>()
+								</div>
+								<div class="description">Calculates all necesary data to draw carousel correctly.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#._getItemsPerPage">_getItemsPerPage</a></b>()
+								</div>
+								<div class="description">Calculates items amount on each page.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#._getPages">_getPages</a></b>()
+								</div>
+								<div class="description">Calculates total amount of pages.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#._toggleArrows">_toggleArrows</a></b>(page)
+								</div>
+								<div class="description">Manages arrows turning it on and off when non-continue carousel is on first or last page.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Carousel.<b><a href="../symbols/ch.carousel.html#.goTo">goTo</a></b>(page)
+								</div>
+								<div class="description">Moves to a defined page.</div>
 							</td>
 						</tr>
 					
@@ -519,15 +613,103 @@ vertical-align: top;
 					Field Detail
 				</div>
 				
-					<a name=".buttons"> </a>
+					<a name=".$collection"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
 					
-					<span class="light">ch.Carousel.</span><b>buttons</b>
+					<span class="light">ch.Carousel.</span><b>$collection</b>
 					
 					</div>
 					<div class="description">
-						Internal class that handles buttons behavior.
+						UL list of items.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._$itemsPagination"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Carousel.</span><b>_$itemsPagination</b>
+					
+					</div>
+					<div class="description">
+						List of pagination thumbnails.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._maskWidth"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Carousel.</span><b>_maskWidth</b>
+					
+					</div>
+					<div class="description">
+						Size of carousel mask.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._resize"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Carousel.</span><b>_resize</b>
+					
+					</div>
+					<div class="description">
+						Resize status of Window.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".currentPage"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Carousel.</span><b>currentPage</b>
+					
+					</div>
+					<div class="description">
+						Page selected.
 						
 						
 					</div>
@@ -563,6 +745,28 @@ vertical-align: top;
 
 					<hr />
 				
+					<a name=".getItemsPerPage"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Number}</span>
+					<span class="light">ch.Carousel.</span><b>getItemsPerPage</b>
+					
+					</div>
+					<div class="description">
+						Get the items amount of each page.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name=".getPage"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
@@ -571,7 +775,7 @@ vertical-align: top;
 					
 					</div>
 					<div class="description">
-						Get the current page.
+						Get the total amount of pages.
 						
 						
 					</div>
@@ -585,15 +789,15 @@ vertical-align: top;
 
 					<hr />
 				
-					<a name=".getSteps"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name=".items"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
-					<span class="light">{Number}</span>
-					<span class="light">ch.Carousel.</span><b>getSteps</b>
+					
+					<span class="light">ch.Carousel.</span><b>items</b>
 					
 					</div>
 					<div class="description">
-						Get the amount of steps.
+						List object created from each item.
 						
 						
 					</div>
@@ -607,15 +811,15 @@ vertical-align: top;
 
 					<hr />
 				
-					<a name=".moveTo"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name=".itemSize"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
-					<span class="light">{Chico-UI Object}</span>
-					<span class="light">ch.Carousel.</span><b>moveTo</b>
+					
+					<span class="light">ch.Carousel.</span><b>itemSize</b>
 					
 					</div>
 					<div class="description">
-						Moves the carousel to the defined page.
+						Width and height of first item.
 						
 						
 					</div>
@@ -643,26 +847,12 @@ vertical-align: top;
 					</div>
 					
 					
+					
+					<pre class="code">// Create a carousel
+var foo = $("bar").carousel();
 
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".page"> </a>
-					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
-					
-					
-					<span class="light">ch.Carousel.</span><b>page</b>
-					
-					</div>
-					<div class="description">
-						Page size.
-						
-						
-					</div>
+// Go to next page
+foo.next();</pre>
 					
 					
 
@@ -687,6 +877,14 @@ vertical-align: top;
 					</div>
 					
 					
+					
+					<pre class="code">// Create a carousel
+var foo = $("bar").carousel();
+
+// Go to previous page
+foo.prev();</pre>
+					
+					
 
 						
 						
@@ -707,6 +905,14 @@ vertical-align: top;
 						
 						
 					</div>
+					
+					
+					
+					<pre class="code">// Create a carousel
+var foo = $("bar").carousel();
+
+// Re-draw carousel
+foo.redraw();</pre>
 					
 					
 
@@ -791,15 +997,115 @@ vertical-align: top;
 					Method Detail
 				</div>
 				
-					<a name=".calculateMask"> </a>
+					<a name="._createArrows"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
-					<span class="light">{That Object}</span>
-					<span class="light">ch.Carousel.</span><b>calculateMask</b>()
+					
+					<span class="light">ch.Carousel.</span><b>_createArrows</b>()
 					
 					</div>
 					<div class="description">
-						Calculate size of the carousel's mask.
+						Creates Previous and Next arrows.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._createLayout"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Carousel.</span><b>_createLayout</b>()
+					
+					</div>
+					<div class="description">
+						Creates the necesary structure to carousel operation.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._createPagination"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Carousel.</span><b>_createPagination</b>()
+					
+					</div>
+					<div class="description">
+						Creates carousel pagination.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._draw"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Carousel.</span><b>_draw</b>()
+					
+					</div>
+					<div class="description">
+						Calculates all necesary data to draw carousel correctly.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._getItemsPerPage"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					<span class="light">{Number}</span>
+					<span class="light">ch.Carousel.</span><b>_getItemsPerPage</b>()
+					
+					</div>
+					<div class="description">
+						Calculates items amount on each page.
 						
 						
 					</div>
@@ -814,7 +1120,7 @@ vertical-align: top;
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{That Object}</span> </dd>
+								<dd><span class="light fixedFont">{Number}</span> Items amount on each page</dd>
 							
 							</dl>
 						
@@ -823,15 +1129,15 @@ vertical-align: top;
 
 					<hr />
 				
-					<a name=".makePager"> </a>
+					<a name="._getPages"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
-					<span class="light">{Pager Object}</span>
-					<span class="light">ch.Carousel.</span><b>makePager</b>()
+					<span class="light">{Number}</span>
+					<span class="light">ch.Carousel.</span><b>_getPages</b>()
 					
 					</div>
 					<div class="description">
-						Create pager functionlity whitin a carousel instance.
+						Calculates total amount of pages.
 						
 						
 					</div>
@@ -846,7 +1152,94 @@ vertical-align: top;
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{Pager Object}</span> </dd>
+								<dd><span class="light fixedFont">{Number}</span> Total amount of pages</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="._toggleArrows"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Carousel.</span><b>_toggleArrows</b>(page)
+					
+					</div>
+					<div class="description">
+						Manages arrows turning it on and off when non-continue carousel is on first or last page.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>page</b>
+									
+								</dt>
+								<dd>Page to be moved</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".goTo"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Chico-UI Object}</span>
+					<span class="light">ch.Carousel.</span><b>goTo</b>(page)
+					
+					</div>
+					<div class="description">
+						Moves to a defined page.
+						
+						
+					</div>
+					
+					
+					
+					<pre class="code">// Create a carousel
+var foo = $("bar").carousel();
+
+// Go to second page
+foo.goTo(2);</pre>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>page</b>
+									
+								</dt>
+								<dd>Page to be moved</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Chico-UI Object}</span> </dd>
 							
 							</dl>
 						
@@ -867,7 +1260,7 @@ vertical-align: top;
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			&copy;2011<br />
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Jun 06 2011 17:48:13 GMT-0300 (GMT-03:00)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Jun 06 2011 18:07:11 GMT-0300 (GMT-03:00)
 		</div>
 	</body>
 </html>

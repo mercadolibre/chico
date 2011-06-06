@@ -197,7 +197,7 @@ ch.carousel = function(conf){
 		var _widthDiff = that.$element.outerWidth() - that.itemSize.width;
 		
 		// If there are space to be distributed, calculate pages
-		return (_widthDiff > that.itemSize.width) ? ~~( _widthDiff / that.itemSize.width) : 1;
+		return (_widthDiff > that.itemSize.width) ? ~~(_widthDiff / that.itemSize.width) : 1;
 	},
 	
 	/**
@@ -363,6 +363,9 @@ ch.carousel = function(conf){
 				.eq(page - 1)
 				.addClass("ch-carousel-pages-on");
 		};
+		
+		// Movement callback
+		that.callbacks("onMove");
 
  		return that;
 	};
@@ -371,7 +374,6 @@ ch.carousel = function(conf){
 		that.goTo(that.currentPage - 1);
 
 		that.callbacks("onPrev");
-		that.callbacks("onMove");
 
 		return that;
 	};
@@ -380,7 +382,6 @@ ch.carousel = function(conf){
 		that.goTo(that.currentPage + 1);
 
 		that.callbacks("onNext");
-		that.callbacks("onMove");
 
 		return that;
 	};
@@ -443,6 +444,12 @@ ch.carousel = function(conf){
      * @returns {Chico-UI Object}
      * @param {Number} page Page to be moved
      * @memberOf ch.Carousel
+     * @example
+     * // Create a carousel
+     * var foo = $("bar").carousel();
+     * 
+     * // Go to second page
+     * foo.goTo(2);
      */
     that["public"].goTo = function(page) {
     	that.goTo(page);
@@ -456,6 +463,12 @@ ch.carousel = function(conf){
      * @name next
      * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
+     * @example
+     * // Create a carousel
+     * var foo = $("bar").carousel();
+     * 
+     * // Go to next page
+     * foo.next();
      */
     that["public"].next = function(){
 		that.next();
@@ -469,6 +482,12 @@ ch.carousel = function(conf){
      * @name prev
      * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
+     * @example
+     * // Create a carousel
+     * var foo = $("bar").carousel();
+     * 
+     * // Go to previous page
+     * foo.prev();
      */
 	that["public"].prev = function(){
 		that.prev();
@@ -482,7 +501,14 @@ ch.carousel = function(conf){
      * @name redraw
      * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
-     */	
+     * @example
+     * // Create a carousel
+     * var foo = $("bar").carousel();
+     * 
+     * // Re-draw carousel
+     * foo.redraw();
+     */
+     */
 	that["public"].redraw = function(){
 		_draw();
 		
