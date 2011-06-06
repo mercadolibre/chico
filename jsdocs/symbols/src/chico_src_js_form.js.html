@@ -13,7 +13,7 @@
 <span class='line'>  6</span>  * @augments ch.Controllers
 <span class='line'>  7</span>  * @memberOf ch
 <span class='line'>  8</span>  * @param {Configuration Object} conf Object with configuration properties
-<span class='line'>  9</span>  * @return {Chico-UI Object}
+<span class='line'>  9</span>  * @returns {Chico-UI Object}
 <span class='line'> 10</span>  */</span><span class="WHIT">
 <span class='line'> 11</span> 
 <span class='line'> 12</span> </span><span class="NAME">ch.form</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -28,7 +28,7 @@
 <span class='line'> 21</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 22</span> 
 <span class='line'> 23</span> </span><span class="WHIT">	</span><span class="COMM">// Is there form in map instances?	</span><span class="WHIT">
-<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.instances.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"form"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">ch.instances.form.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">ch.instances</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"form"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">ch.instances.form.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 25</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">j</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.instances.form.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">j</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 26</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">ch.instances.form</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">this.element</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 27</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 
@@ -50,7 +50,7 @@
 <span class='line'> 43</span> </span><span class="WHIT">	
 <span class='line'> 44</span> 	</span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 45</span> </span><span class="WHIT">	</span><span class="COMM">// Create the Messages for General Error</span><span class="WHIT">
-<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">conf.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"messages"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">conf.messages</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"messages"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">conf.messages</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 47</span> </span><span class="WHIT">	</span><span class="NAME">conf.messages</span><span class="PUNC">[</span><span class="STRN">"general"</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf.messages</span><span class="PUNC">[</span><span class="STRN">"general"</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="STRN">"Check for errors."</span><span class="PUNC">;</span><span class="WHIT">	
 <span class='line'> 48</span> 	
 <span class='line'> 49</span> 	</span><span class="COMM">// Disable HTML5 browser-native validations</span><span class="WHIT">
@@ -173,7 +173,7 @@
 <span class='line'>166</span> </span><span class="WHIT">		</span><span class="NAME">validate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Validate start</span><span class="WHIT">
 <span class='line'>167</span> </span><span class="WHIT">		
 <span class='line'>168</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">status</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="COMM">// Status OK</span><span class="WHIT">
-<span class='line'>169</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">conf.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"onSubmit"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"onSubmit"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>170</span> </span><span class="WHIT">				</span><span class="NAME">that.element.submit</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>171</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="KEYW">else</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>172</span> </span><span class="WHIT">				</span><span class="NAME">that.callbacks</span><span class="PUNC">(</span><span class="STRN">"onSubmit"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
@@ -258,7 +258,7 @@
 <span class='line'>251</span>      * @function
 <span class='line'>252</span>      * @name validate
 <span class='line'>253</span>      * @memberOf ch.Form
-<span class='line'>254</span>      * @return {Chico-UI Object}
+<span class='line'>254</span>      * @returns {Chico-UI Object}
 <span class='line'>255</span>      */</span><span class="WHIT">
 <span class='line'>256</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">validate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 
 <span class='line'>257</span> 		</span><span class="NAME">validate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
@@ -271,7 +271,7 @@
 <span class='line'>264</span>      * @function
 <span class='line'>265</span>      * @name submit
 <span class='line'>266</span>      * @memberOf ch.Form
-<span class='line'>267</span>      * @return {Chico-UI Object}
+<span class='line'>267</span>      * @returns {Chico-UI Object}
 <span class='line'>268</span>      */</span><span class="WHIT">
 <span class='line'>269</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">submit</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 
 <span class='line'>270</span> 		</span><span class="NAME">submit</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
@@ -297,7 +297,7 @@
 <span class='line'>290</span>      * @function
 <span class='line'>291</span>      * @name getStatus
 <span class='line'>292</span>      * @memberOf ch.Form
-<span class='line'>293</span>      * @return {Chico-UI Object}
+<span class='line'>293</span>      * @returns {Chico-UI Object}
 <span class='line'>294</span>      */</span><span class="WHIT"> 	
 <span class='line'>295</span> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">getStatus</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>296</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">status</span><span class="PUNC">;</span><span class="WHIT">	
@@ -308,7 +308,7 @@
 <span class='line'>301</span>      * @function
 <span class='line'>302</span>      * @name clear
 <span class='line'>303</span>      * @memberOf ch.Form
-<span class='line'>304</span>      * @return {Chico-UI Object}
+<span class='line'>304</span>      * @returns {Chico-UI Object}
 <span class='line'>305</span>      */</span><span class="WHIT"> 
 <span class='line'>306</span> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">clear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 
 <span class='line'>307</span> 		</span><span class="NAME">clear</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
@@ -320,7 +320,7 @@
 <span class='line'>313</span>      * @function
 <span class='line'>314</span>      * @name reset
 <span class='line'>315</span>      * @memberOf ch.Form
-<span class='line'>316</span>      * @return {Chico-UI Object}
+<span class='line'>316</span>      * @returns {Chico-UI Object}
 <span class='line'>317</span>      */</span><span class="WHIT"> 
 <span class='line'>318</span> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">reset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 
 <span class='line'>319</span> 		</span><span class="NAME">reset</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
@@ -334,7 +334,7 @@
 <span class='line'>327</span>  */</span><span class="WHIT">	
 <span class='line'>328</span> 
 <span class='line'>329</span> 	</span><span class="COMM">// patch exists because the components need a trigger</span><span class="WHIT">
-<span class='line'>330</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">conf.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"onSubmit"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>330</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"onSubmit"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>331</span> </span><span class="WHIT">		</span><span class="NAME">that.$element.bind</span><span class="PUNC">(</span><span class="STRN">'submit'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>332</span> </span><span class="WHIT">		</span><span class="COMM">// Delete all click handlers asociated to submit button >NATAN: Why?</span><span class="WHIT">
 <span class='line'>333</span> </span><span class="WHIT">			</span><span class="COMM">//Because if you want do something on submit, you need that the trigger (submit button) </span><span class="WHIT">

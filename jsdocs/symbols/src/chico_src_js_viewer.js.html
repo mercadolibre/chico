@@ -5,380 +5,381 @@
 	.STRN {color: #393;}
 	.REGX {color: #339;}
 	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
-	</style></head><body><pre><span class='line'>  1</span> <span class="WHIT">
-<span class='line'>  2</span> </span><span class="COMM">/**
-<span class='line'>  3</span>  * Viewer UI-Component for images, videos and maps.
-<span class='line'>  4</span>  * @name Viewer
-<span class='line'>  5</span>  * @class Viewer
-<span class='line'>  6</span>  * @augments ch.Controllers
-<span class='line'>  7</span>  * @requires ch.Carousel
-<span class='line'>  8</span>  * @requires ch.Zoom
-<span class='line'>  9</span>  * @memberOf ch
-<span class='line'> 10</span>  * @param {Configuration Object} conf Object with configuration properties
-<span class='line'> 11</span>  * @return {Chico-UI Object}
-<span class='line'> 12</span>  */</span><span class="WHIT">
-<span class='line'> 13</span> 
-<span class='line'> 14</span> </span><span class="NAME">ch.viewer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 15</span> 
-<span class='line'> 16</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'> 17</span>      * Reference to a internal component instance, saves all the information and configuration properties.
-<span class='line'> 18</span>      * @private
-<span class='line'> 19</span>      * @name that
-<span class='line'> 20</span>      * @type {Object}
-<span class='line'> 21</span>      * @memberOf ch.Viewer
-<span class='line'> 22</span>      */</span><span class="WHIT">
-<span class='line'> 23</span> </span><span class="WHIT"> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">that.conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 26</span> </span><span class="WHIT">	
-<span class='line'> 27</span> </span><span class="COMM">/**
-<span class='line'> 28</span>  *  Inheritance
-<span class='line'> 29</span>  */</span><span class="WHIT">
-<span class='line'> 30</span> 
-<span class='line'> 31</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.controllers.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 32</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="WHIT">	
-<span class='line'> 34</span> </span><span class="COMM">/**
-<span class='line'> 35</span>  *  Private Members
-<span class='line'> 36</span>  */</span><span class="WHIT">
-<span class='line'> 37</span> </span><span class="WHIT"> 
-<span class='line'> 38</span>     </span><span class="COMM">/**
-<span class='line'> 39</span>      * Reference to the viewer's visual object.
-<span class='line'> 40</span>      * @private
-<span class='line'> 41</span>      * @name $viewer
-<span class='line'> 42</span>      * @type {jQuery Object}
-<span class='line'> 43</span>      * @memberOf ch.Viewer
-<span class='line'> 44</span>      */</span><span class="WHIT">
-<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$viewer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$element.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="NAME">conf.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$viewer.outerWidth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="NAME">conf.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$viewer.outerHeight</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 48</span> 
-<span class='line'> 49</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'> 50</span>      * Reference to the viewer's internal content.
-<span class='line'> 51</span>      * @private
-<span class='line'> 52</span>      * @name $content
-<span class='line'> 53</span>      * @type {jQuery Object}
-<span class='line'> 54</span>      * @memberOf ch.Viewer
-<span class='line'> 55</span>      */</span><span class="WHIT">
-<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$content</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$viewer.children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-content carousel"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 57</span> 
-<span class='line'> 58</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'> 59</span>      * Reference to the viewer's display element.
-<span class='line'> 60</span>      * @private
-<span class='line'> 61</span>      * @name $display
-<span class='line'> 62</span>      * @type {jQuery Object}
-<span class='line'> 63</span>      * @memberOf ch.Viewer
-<span class='line'> 64</span>      */</span><span class="WHIT">
-<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$display</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;div>"</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 66</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-display"</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 67</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$content</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 68</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$viewer</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 69</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">carousel</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 70</span> </span><span class="WHIT">			</span><span class="NAME">width</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">conf.width</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 71</span> </span><span class="WHIT">			</span><span class="NAME">arrows</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 72</span> </span><span class="WHIT">			</span><span class="NAME">onMove</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 73</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">carousel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 74</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">carousel.getPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 75</span> </span><span class="WHIT">				</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 76</span> 
-<span class='line'> 77</span> </span><span class="WHIT">				</span><span class="COMM">// Resize display</span><span class="WHIT">
-<span class='line'> 78</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">currentHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">itemsChildren</span><span class="PUNC">[</span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">height</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 79</span> </span><span class="WHIT">				</span><span class="NAME">$viewer.find</span><span class="PUNC">(</span><span class="STRN">".ch-mask"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">height</span><span class="PUNC">(</span><span class="NAME">currentHeight</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 80</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 81</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 82</span> 
-<span class='line'> 83</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'> 84</span>      * Collection of viewer's children.
-<span class='line'> 85</span>      * @private
-<span class='line'> 86</span>      * @name items
-<span class='line'> 87</span>      * @type {Collection}
-<span class='line'> 88</span>      * @memberOf ch.Viewer
-<span class='line'> 89</span>      */</span><span class="WHIT">
-<span class='line'> 90</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">items</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$content.children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 91</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'> 92</span>      * Amount of children.
-<span class='line'> 93</span>      * @private
-<span class='line'> 94</span>      * @name itemsAmount
-<span class='line'> 95</span>      * @type {Number}
-<span class='line'> 96</span>      * @memberOf ch.Viewer
-<span class='line'> 97</span>      */</span><span class="WHIT">
-<span class='line'> 98</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">itemsAmount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">items.length</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 99</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>100</span>      * Collection of anchors finded on items collection.
-<span class='line'>101</span>      * @private
-<span class='line'>102</span>      * @name itemsAnchor
-<span class='line'>103</span>      * @type {Collection}
-<span class='line'>104</span>      * @memberOf ch.Viewer
-<span class='line'>105</span>      */</span><span class="WHIT">
-<span class='line'>106</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">itemsAnchor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">items.children</span><span class="PUNC">(</span><span class="STRN">"a"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>107</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>108</span>      * Collection of references to HTMLIMGElements or HTMLObjectElements.
-<span class='line'>109</span>      * @private
-<span class='line'>110</span>      * @name itemsChildren
-<span class='line'>111</span>      * @type {Object}
-<span class='line'>112</span>      * @memberOf ch.Viewer
-<span class='line'>113</span>      */</span><span class="WHIT">
-<span class='line'>114</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">itemsChildren</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">items.find</span><span class="PUNC">(</span><span class="STRN">"img, object"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>115</span> </span><span class="WHIT">	
-<span class='line'>116</span> 	</span><span class="COMM">/**
-<span class='line'>117</span> 	 * 	Zoom
-<span class='line'>118</span> 	 */</span><span class="WHIT">
-<span class='line'>119</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"zoom"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>120</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">zoomChildren</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>121</span> </span><span class="WHIT">	
-<span class='line'>122</span> 		</span><span class="NAME">$.each</span><span class="PUNC">(</span><span class="NAME">itemsAnchor</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>123</span> </span><span class="WHIT">			
-<span class='line'>124</span> 			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">component</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>125</span> </span><span class="WHIT">				</span><span class="NAME">uid</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">that.uid</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"#"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>126</span> </span><span class="WHIT">				</span><span class="NAME">type</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"zoom"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>127</span> </span><span class="WHIT">				</span><span class="NAME">element</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>128</span> </span><span class="WHIT">				</span><span class="NAME">$element</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>129</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>130</span> </span><span class="WHIT">			
-<span class='line'>131</span> 			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">config</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>132</span> </span><span class="WHIT">	    		</span><span class="NAME">context</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$viewer</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>133</span> </span><span class="WHIT">	    		</span><span class="NAME">onShow</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>134</span> </span><span class="WHIT">	    			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rest</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ch.utils.body.outerWidth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">$viewer.outerWidth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>135</span> </span><span class="WHIT">	    			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">zoomDisplayWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">conf.width</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">rest</span><span class="PUNC">)</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">conf.width</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT">	</span><span class="PUNC">(</span><span class="NAME">rest</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">65</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>136</span> </span><span class="WHIT">	    			</span><span class="NAME">this.width</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">zoomDisplayWidth</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>137</span> </span><span class="WHIT">	    			</span><span class="NAME">this.height</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$viewer.height</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>138</span> </span><span class="WHIT">	    		</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>139</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>140</span> </span><span class="WHIT">			
-<span class='line'>141</span> 			</span><span class="NAME">zoomChildren.push</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.zoom.call</span><span class="PUNC">(</span><span class="NAME">component</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">config</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>142</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>143</span> </span><span class="WHIT">		
-<span class='line'>144</span> 		</span><span class="NAME">that.children.push</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">zoomChildren</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>145</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>146</span> </span><span class="WHIT">	
-<span class='line'>147</span> 	</span><span class="COMM">/**
-<span class='line'>148</span> 	 * 	Thumbnails
-<span class='line'>149</span> 	 */</span><span class="WHIT">
-<span class='line'>150</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>151</span>      * Creates all thumbnails and configure it as a Carousel.
-<span class='line'>152</span>      * @private
-<span class='line'>153</span>      * @function
-<span class='line'>154</span>      * @name createThumbs
-<span class='line'>155</span>      * @memberOf ch.Viewer
-<span class='line'>156</span>      */</span><span class="WHIT">
-<span class='line'>157</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">createThumbs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>158</span> </span><span class="WHIT">	
-<span class='line'>159</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">structure</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;ul>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"carousel"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>160</span> </span><span class="WHIT">		
-<span class='line'>161</span> 		</span><span class="NAME">$.each</span><span class="PUNC">(</span><span class="NAME">items</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>162</span> </span><span class="WHIT">			
-<span class='line'>163</span> 			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">thumb</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;li>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>164</span> </span><span class="WHIT">				</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>165</span> </span><span class="WHIT">				</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>166</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>167</span> </span><span class="WHIT">			
-<span class='line'>168</span> 			</span><span class="COMM">// Thumbnail</span><span class="WHIT">
-<span class='line'>169</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="STRN">"link[rel=thumb]"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>170</span> </span><span class="WHIT">				</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;img>"</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>171</span> </span><span class="WHIT">					</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"src"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="STRN">"link[rel=thumb]"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"href"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>172</span> </span><span class="WHIT">					</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumb</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>173</span> </span><span class="WHIT">			
-<span class='line'>174</span> 			</span><span class="COMM">// Google Map</span><span class="WHIT">
-<span class='line'>175</span> </span><span class="WHIT">			</span><span class="COMM">//} else if( ref.children("iframe").length > 0 ) {</span><span class="WHIT">
-<span class='line'>176</span> </span><span class="WHIT">				</span><span class="COMM">// Do something...</span><span class="WHIT">
-<span class='line'>177</span> </span><span class="WHIT">					
-<span class='line'>178</span> 			</span><span class="COMM">// Video</span><span class="WHIT">
-<span class='line'>179</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="STRN">"object"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="STRN">"embed"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>180</span> </span><span class="WHIT">				</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;span>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="STRN">"Video"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumb.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-video"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>181</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>182</span> </span><span class="WHIT">			
-<span class='line'>183</span> 			</span><span class="NAME">structure.append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumb</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>184</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>185</span> </span><span class="WHIT">		
-<span class='line'>186</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>187</span> </span><span class="WHIT">		
-<span class='line'>188</span> 			</span><span class="NAME">self.children</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">structure.children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>189</span> </span><span class="WHIT">			
-<span class='line'>190</span> 			</span><span class="NAME">self.selected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>191</span> </span><span class="WHIT">		
-<span class='line'>192</span> 			</span><span class="NAME">self.carousel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.children</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;div>"</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>193</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-triggers"</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>194</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">structure</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>195</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$viewer</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>196</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">carousel</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">width</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">conf.width</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>197</span> </span><span class="WHIT">		
-<span class='line'>198</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">self</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>199</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>200</span> </span><span class="WHIT">	
-<span class='line'>201</span>     </span><span class="COMM">/**
-<span class='line'>202</span>      * Moves the viewer's content.
-<span class='line'>203</span>      * @private
-<span class='line'>204</span>      * @function
-<span class='line'>205</span>      * @name move
-<span class='line'>206</span>      * @param {Number} item
-<span class='line'>207</span>      * @return {Chico-UI Object} that
-<span class='line'>208</span>      * @memberOf ch.Viewer
-<span class='line'>209</span>      */</span><span class="WHIT">
-<span class='line'>210</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">move</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>211</span> </span><span class="WHIT">		</span><span class="COMM">// Validation</span><span class="WHIT">
-<span class='line'>212</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NAME">itemsAmount</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">isNaN</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>213</span> 
-<span class='line'>214</span> </span><span class="WHIT">		</span><span class="COMM">// Visual config</span><span class="WHIT">
-<span class='line'>215</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">thumbnails.children</span><span class="PUNC">[</span><span class="NAME">thumbnails.selected</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-thumbnail-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Disable thumbnail</span><span class="WHIT">
-<span class='line'>216</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">thumbnails.children</span><span class="PUNC">[</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-thumbnail-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Enable next thumbnail</span><span class="WHIT">
-<span class='line'>217</span> </span><span class="WHIT">		
-<span class='line'>218</span> 		</span><span class="COMM">// Move Display carousel</span><span class="WHIT">
-<span class='line'>219</span> </span><span class="WHIT">		</span><span class="NAME">$display.moveTo</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>220</span> </span><span class="WHIT">		
-<span class='line'>221</span> 		</span><span class="COMM">// Move thumbnails carousel if item selected is in other page</span><span class="WHIT">
-<span class='line'>222</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nextThumbsPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.ceil</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NAME">thumbnails.carousel.getSteps</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>223</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">thumbnails.carousel.getPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">nextThumbsPage</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">thumbnails.carousel.moveTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">nextThumbsPage</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>224</span> </span><span class="WHIT">		
-<span class='line'>225</span> 		</span><span class="COMM">// Buttons behavior</span><span class="WHIT">
-<span class='line'>226</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">itemsAmount</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>227</span> </span><span class="WHIT">			</span><span class="NAME">arrows.prev.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>228</span> </span><span class="WHIT">			</span><span class="NAME">arrows.next.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>229</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>230</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.prev.off</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">arrows.next.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>231</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">itemsAmount</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.next.off</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">arrows.prev.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>232</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>233</span> </span><span class="WHIT">		
-<span class='line'>234</span> 		</span><span class="COMM">// Refresh selected thumb</span><span class="WHIT">
-<span class='line'>235</span> </span><span class="WHIT">		</span><span class="NAME">thumbnails.selected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">item</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>236</span> </span><span class="WHIT">		
-<span class='line'>237</span> 		</span><span class="COMM">// Callback</span><span class="WHIT">
-<span class='line'>238</span> </span><span class="WHIT">		</span><span class="NAME">that.callbacks</span><span class="PUNC">(</span><span class="STRN">"onMove"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>239</span> </span><span class="WHIT">	
-<span class='line'>240</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>241</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>242</span> </span><span class="WHIT">	
-<span class='line'>243</span>     </span><span class="COMM">/**
-<span class='line'>244</span>      * Handles the visual behavior of arrows
-<span class='line'>245</span>      * @private
-<span class='line'>246</span>      * @name arrows
-<span class='line'>247</span>      * @type {Object}
-<span class='line'>248</span>      * @memberOf ch.Viewer
-<span class='line'>249</span>      */</span><span class="WHIT">
-<span class='line'>250</span> </span><span class="WHIT"> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">arrows</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>251</span> </span><span class="WHIT">	
-<span class='line'>252</span> 	</span><span class="NAME">arrows.prev</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>253</span> </span><span class="WHIT">		</span><span class="NAME">$element</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;p>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-prev"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.prev</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>254</span> </span><span class="WHIT">		</span><span class="NAME">on</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.prev.$element.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-prev-on"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>255</span> </span><span class="WHIT">		</span><span class="NAME">off</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.prev.$element.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-prev-on"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>256</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>257</span> </span><span class="WHIT">	
-<span class='line'>258</span> 	</span><span class="NAME">arrows.next</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>259</span> </span><span class="WHIT">		</span><span class="NAME">$element</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;p>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-next"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>260</span> </span><span class="WHIT">		</span><span class="NAME">on</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.next.$element.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-next-on"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>261</span> </span><span class="WHIT">		</span><span class="NAME">off</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.next.$element.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-next-on"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>262</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>263</span> 
-<span class='line'>264</span> </span><span class="COMM">/**
-<span class='line'>265</span>  *  Protected Members
-<span class='line'>266</span>  */</span><span class="WHIT"> 
-<span class='line'>267</span> 	
-<span class='line'>268</span> 	</span><span class="NAME">that.prev</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>269</span> </span><span class="WHIT">		</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumbnails.selected</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>270</span> </span><span class="WHIT">		
-<span class='line'>271</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>272</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>273</span> </span><span class="WHIT">	
-<span class='line'>274</span> 	</span><span class="NAME">that.next</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>275</span> </span><span class="WHIT">		</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumbnails.selected</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>276</span> </span><span class="WHIT">		
-<span class='line'>277</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>278</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>279</span> 
-<span class='line'>280</span> </span><span class="COMM">/**
-<span class='line'>281</span>  *  Public Members
-<span class='line'>282</span>  */</span><span class="WHIT">	
-<span class='line'>283</span> 
-<span class='line'>284</span>     </span><span class="COMM">/**
-<span class='line'>285</span>      * The component's instance unique identifier.
-<span class='line'>286</span>      * @public
-<span class='line'>287</span>      * @name uid
-<span class='line'>288</span>      * @type {Number}
-<span class='line'>289</span>      * @memberOf ch.Viewer
-<span class='line'>290</span>      */</span><span class="WHIT">
-<span class='line'>291</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">uid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.uid</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>292</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>293</span>      * The element reference.
-<span class='line'>294</span>      * @public
-<span class='line'>295</span>      * @name element
-<span class='line'>296</span>      * @type {HTMLElement}
-<span class='line'>297</span>      * @memberOf ch.Viewer
-<span class='line'>298</span>      */</span><span class="WHIT">
-<span class='line'>299</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.element</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>300</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>301</span>      * The component's type.
-<span class='line'>302</span>      * @public
-<span class='line'>303</span>      * @name type
-<span class='line'>304</span>      * @type {String}
-<span class='line'>305</span>      * @memberOf ch.Viewer
-<span class='line'>306</span>      */</span><span class="WHIT">
-<span class='line'>307</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>308</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>309</span>      * Children instances associated to this controller.
-<span class='line'>310</span>      * @public
-<span class='line'>311</span>      * @name children
-<span class='line'>312</span>      * @type {Collection}
-<span class='line'>313</span>      * @memberOf ch.Viewer
-<span class='line'>314</span>      */</span><span class="WHIT">
-<span class='line'>315</span> </span><span class="WHIT"> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">children</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.children</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>316</span> </span><span class="WHIT">	
-<span class='line'>317</span> 	</span><span class="COMM">// Full behavior</span><span class="WHIT">
-<span class='line'>318</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">itemsAmount</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>319</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>320</span>          * Selects a specific viewer's child.
-<span class='line'>321</span>          * @public
-<span class='line'>322</span>          * @function
-<span class='line'>323</span>          * @name moveTo 
-<span class='line'>324</span>          * @param {Number} item Recieve a index to select a children.
-<span class='line'>325</span>          * @memberOf ch.Viewer
-<span class='line'>326</span>          */</span><span class="WHIT">
-<span class='line'>327</span> </span><span class="WHIT">        </span><span class="COMM">// TODO: This method should be called 'select'?</span><span class="WHIT">
-<span class='line'>328</span> </span><span class="WHIT">		</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">moveTo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>329</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>330</span>          * Selects the next child available.
-<span class='line'>331</span>          * @public
-<span class='line'>332</span>          * @function
-<span class='line'>333</span>          * @name next
-<span class='line'>334</span>          * @memberOf ch.Viewer
-<span class='line'>335</span>          */</span><span class="WHIT">
-<span class='line'>336</span> </span><span class="WHIT">		</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">next</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>337</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>338</span>          * Selects the previous child available.
-<span class='line'>339</span>          * @public
-<span class='line'>340</span>          * @function
-<span class='line'>341</span>          * @name prev
-<span class='line'>342</span>          * @memberOf ch.Viewer
-<span class='line'>343</span>          */</span><span class="WHIT">
-<span class='line'>344</span> </span><span class="WHIT">		</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">prev</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.prev</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>345</span> </span><span class="WHIT">        </span><span class="COMM">/**
-<span class='line'>346</span>          * Get the index of the selected child.
-<span class='line'>347</span>          * @public
-<span class='line'>348</span>          * @function
-<span class='line'>349</span>          * @name getSelected
-<span class='line'>350</span>          * @memberOf ch.Viewer
-<span class='line'>351</span>          */</span><span class="WHIT">
-<span class='line'>352</span> </span><span class="WHIT">		</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">getSelected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">thumbnails.selected</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Is this necesary???</span><span class="WHIT">
-<span class='line'>353</span> </span><span class="WHIT">		</span><span class="COMM">// ...</span><span class="WHIT">
-<span class='line'>354</span> 
-<span class='line'>355</span> </span><span class="COMM">/**
-<span class='line'>356</span>  *  Default event delegation
-<span class='line'>357</span>  */</span><span class="WHIT">
-<span class='line'>358</span> </span><span class="WHIT">	
-<span class='line'>359</span> 		</span><span class="COMM">// ...</span><span class="WHIT">
-<span class='line'>360</span> </span><span class="WHIT">		
-<span class='line'>361</span> 		</span><span class="COMM">// Create thumbnails</span><span class="WHIT">
-<span class='line'>362</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">thumbnails</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">createThumbs</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>363</span> </span><span class="WHIT">		
-<span class='line'>364</span> 		</span><span class="COMM">// Create Viewer buttons</span><span class="WHIT">
-<span class='line'>365</span> </span><span class="WHIT">		</span><span class="NAME">$viewer.append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">arrows.prev.$element</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">arrows.next.$element</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>366</span> </span><span class="WHIT">		
-<span class='line'>367</span> 		</span><span class="COMM">// Create movement method</span><span class="WHIT">
-<span class='line'>368</span> </span><span class="WHIT">		</span><span class="NAME">that.move</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">move</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>369</span> </span><span class="WHIT">		</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Move to the first item without callback</span><span class="WHIT">
-<span class='line'>370</span> </span><span class="WHIT">		</span><span class="NAME">arrows.next.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>371</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>372</span> 
-<span class='line'>373</span> </span><span class="WHIT">	</span><span class="NAME">$viewer.find</span><span class="PUNC">(</span><span class="STRN">".ch-mask"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">height</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">itemsChildren</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">height</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>374</span> </span><span class="WHIT">	
-<span class='line'>375</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>376</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>377</span> </span></pre></body></html>
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Viewer UI-Component for images, videos and maps.
+<span class='line'>  3</span>  * @name Viewer
+<span class='line'>  4</span>  * @class Viewer
+<span class='line'>  5</span>  * @augments ch.Controllers
+<span class='line'>  6</span>  * @requires ch.Carousel
+<span class='line'>  7</span>  * @requires ch.Zoom
+<span class='line'>  8</span>  * @memberOf ch
+<span class='line'>  9</span>  * @param {Configuration Object} conf Object with configuration properties
+<span class='line'> 10</span>  * @returns {Chico-UI Object}
+<span class='line'> 11</span>  */</span><span class="WHIT">
+<span class='line'> 12</span> 
+<span class='line'> 13</span> </span><span class="NAME">ch.viewer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 14</span> 
+<span class='line'> 15</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 16</span>      * Reference to a internal component instance, saves all the information and configuration properties.
+<span class='line'> 17</span>      * @private
+<span class='line'> 18</span>      * @name that
+<span class='line'> 19</span>      * @type {Object}
+<span class='line'> 20</span>      * @memberOf ch.Viewer
+<span class='line'> 21</span>      */</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT"> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">	</span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="NAME">that.conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	
+<span class='line'> 26</span> </span><span class="COMM">/**
+<span class='line'> 27</span>  *  Inheritance
+<span class='line'> 28</span>  */</span><span class="WHIT">
+<span class='line'> 29</span> 
+<span class='line'> 30</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.controllers.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">	
+<span class='line'> 33</span> </span><span class="COMM">/**
+<span class='line'> 34</span>  *  Private Members
+<span class='line'> 35</span>  */</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT"> 
+<span class='line'> 37</span>     </span><span class="COMM">/**
+<span class='line'> 38</span>      * Reference to the viewer's visual object.
+<span class='line'> 39</span>      * @private
+<span class='line'> 40</span>      * @name $viewer
+<span class='line'> 41</span>      * @type {jQuery Object}
+<span class='line'> 42</span>      * @memberOf ch.Viewer
+<span class='line'> 43</span>      */</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$viewer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$element.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="NAME">conf.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$viewer.outerWidth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">	</span><span class="NAME">conf.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$viewer.outerHeight</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> 
+<span class='line'> 48</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 49</span>      * Reference to the viewer's internal content.
+<span class='line'> 50</span>      * @private
+<span class='line'> 51</span>      * @name $content
+<span class='line'> 52</span>      * @type {jQuery Object}
+<span class='line'> 53</span>      * @memberOf ch.Viewer
+<span class='line'> 54</span>      */</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$content</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$viewer.children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-content carousel"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 56</span> 
+<span class='line'> 57</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 58</span>      * Reference to the viewer's display element.
+<span class='line'> 59</span>      * @private
+<span class='line'> 60</span>      * @name $display
+<span class='line'> 61</span>      * @type {jQuery Object}
+<span class='line'> 62</span>      * @memberOf ch.Viewer
+<span class='line'> 63</span>      */</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$display</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;div>"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-display"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$content</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$viewer</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">carousel</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">			</span><span class="NAME">width</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">conf.width</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">			</span><span class="NAME">arrows</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">			</span><span class="NAME">onMove</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">carousel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">carousel.getPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">				</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="NAME">page</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 75</span> 
+<span class='line'> 76</span> </span><span class="WHIT">				</span><span class="COMM">// Resize display</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">				</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">currentHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">itemsChildren</span><span class="PUNC">[</span><span class="NAME">page</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">height</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">				</span><span class="NAME">$viewer.find</span><span class="PUNC">(</span><span class="STRN">".ch-mask"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">height</span><span class="PUNC">(</span><span class="NAME">currentHeight</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 81</span> 
+<span class='line'> 82</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 83</span>      * Collection of viewer's children.
+<span class='line'> 84</span>      * @private
+<span class='line'> 85</span>      * @name items
+<span class='line'> 86</span>      * @type {Collection}
+<span class='line'> 87</span>      * @memberOf ch.Viewer
+<span class='line'> 88</span>      */</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">items</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$content.children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 91</span>      * Amount of children.
+<span class='line'> 92</span>      * @private
+<span class='line'> 93</span>      * @name itemsAmount
+<span class='line'> 94</span>      * @type {Number}
+<span class='line'> 95</span>      * @memberOf ch.Viewer
+<span class='line'> 96</span>      */</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">itemsAmount</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">items.length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 99</span>      * Collection of anchors finded on items collection.
+<span class='line'>100</span>      * @private
+<span class='line'>101</span>      * @name itemsAnchor
+<span class='line'>102</span>      * @type {Collection}
+<span class='line'>103</span>      * @memberOf ch.Viewer
+<span class='line'>104</span>      */</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">itemsAnchor</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">items.children</span><span class="PUNC">(</span><span class="STRN">"a"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>107</span>      * Collection of references to HTMLIMGElements or HTMLObjectElements.
+<span class='line'>108</span>      * @private
+<span class='line'>109</span>      * @name itemsChildren
+<span class='line'>110</span>      * @type {Object}
+<span class='line'>111</span>      * @memberOf ch.Viewer
+<span class='line'>112</span>      */</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">itemsChildren</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">items.find</span><span class="PUNC">(</span><span class="STRN">"img, object"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">	
+<span class='line'>115</span> 	</span><span class="COMM">/**
+<span class='line'>116</span> 	 * 	Zoom
+<span class='line'>117</span> 	 */</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">ch</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"zoom"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">zoomChildren</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">	
+<span class='line'>121</span> 		</span><span class="NAME">$.each</span><span class="PUNC">(</span><span class="NAME">itemsAnchor</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">			
+<span class='line'>123</span> 			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">component</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">				</span><span class="NAME">uid</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">that.uid</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"#"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">				</span><span class="NAME">type</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"zoom"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">				</span><span class="NAME">element</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">				</span><span class="NAME">$element</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">			
+<span class='line'>130</span> 			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">config</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">	    		</span><span class="NAME">context</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$viewer</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">	    		</span><span class="NAME">onShow</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">	    			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">rest</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ch.utils.body.outerWidth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">$viewer.outerWidth</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">	    			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">zoomDisplayWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">conf.width</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">rest</span><span class="PUNC">)</span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">conf.width</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT">	</span><span class="PUNC">(</span><span class="NAME">rest</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">65</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">	    			</span><span class="NAME">this.width</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">zoomDisplayWidth</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">	    			</span><span class="NAME">this.height</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$viewer.height</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">	    		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">	    	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">			
+<span class='line'>140</span> 			</span><span class="NAME">zoomChildren.push</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.zoom.call</span><span class="PUNC">(</span><span class="NAME">component</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">config</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">		
+<span class='line'>143</span> 		</span><span class="NAME">that.children.push</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">zoomChildren</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">	
+<span class='line'>146</span> 	</span><span class="COMM">/**
+<span class='line'>147</span> 	 * 	Thumbnails
+<span class='line'>148</span> 	 */</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>150</span>      * Creates all thumbnails and configure it as a Carousel.
+<span class='line'>151</span>      * @private
+<span class='line'>152</span>      * @function
+<span class='line'>153</span>      * @name createThumbs
+<span class='line'>154</span>      * @memberOf ch.Viewer
+<span class='line'>155</span>      */</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">createThumbs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="WHIT">	
+<span class='line'>158</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">structure</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;ul>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"carousel"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">		
+<span class='line'>160</span> 		</span><span class="NAME">$.each</span><span class="PUNC">(</span><span class="NAME">items</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>161</span> </span><span class="WHIT">			
+<span class='line'>162</span> 			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">thumb</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;li>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>163</span> </span><span class="WHIT">				</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">				</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="WHIT">			
+<span class='line'>167</span> 			</span><span class="COMM">// Thumbnail</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="STRN">"link[rel=thumb]"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">				</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;img>"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="WHIT">					</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"src"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="STRN">"link[rel=thumb]"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"href"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">					</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumb</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="WHIT">			
+<span class='line'>173</span> 			</span><span class="COMM">// Google Map</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">			</span><span class="COMM">//} else if( ref.children("iframe").length > 0 ) {</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="WHIT">				</span><span class="COMM">// Do something...</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">					
+<span class='line'>177</span> 			</span><span class="COMM">// Video</span><span class="WHIT">
+<span class='line'>178</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="KEYW">if</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="STRN">"object"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">children</span><span class="PUNC">(</span><span class="STRN">"embed"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>179</span> </span><span class="WHIT">				</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;span>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="STRN">"Video"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumb.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-video"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">			
+<span class='line'>182</span> 			</span><span class="NAME">structure.append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumb</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">		
+<span class='line'>185</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">self</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">		
+<span class='line'>187</span> 			</span><span class="NAME">self.children</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">structure.children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>188</span> </span><span class="WHIT">			
+<span class='line'>189</span> 			</span><span class="NAME">self.selected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>190</span> </span><span class="WHIT">		
+<span class='line'>191</span> 			</span><span class="NAME">self.carousel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.children</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;div>"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-triggers"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">structure</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">appendTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$viewer</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>195</span> </span><span class="WHIT">				</span><span class="PUNC">.</span><span class="NAME">carousel</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">width</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">conf.width</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">		
+<span class='line'>197</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">self</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">	
+<span class='line'>200</span>     </span><span class="COMM">/**
+<span class='line'>201</span>      * Moves the viewer's content.
+<span class='line'>202</span>      * @private
+<span class='line'>203</span>      * @function
+<span class='line'>204</span>      * @name move
+<span class='line'>205</span>      * @param {Number} item
+<span class='line'>206</span>      * @returns {Chico-UI Object} that
+<span class='line'>207</span>      * @memberOf ch.Viewer
+<span class='line'>208</span>      */</span><span class="WHIT">
+<span class='line'>209</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">move</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>210</span> </span><span class="WHIT">		</span><span class="COMM">// Validation</span><span class="WHIT">
+<span class='line'>211</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NAME">itemsAmount</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">isNaN</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>212</span> 
+<span class='line'>213</span> </span><span class="WHIT">		</span><span class="COMM">// Visual config</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">thumbnails.children</span><span class="PUNC">[</span><span class="NAME">thumbnails.selected</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-thumbnail-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Disable thumbnail</span><span class="WHIT">
+<span class='line'>215</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">thumbnails.children</span><span class="PUNC">[</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-thumbnail-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Enable next thumbnail</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">		
+<span class='line'>217</span> 		</span><span class="COMM">// Move Display carousel</span><span class="WHIT">
+<span class='line'>218</span> </span><span class="WHIT">		</span><span class="NAME">$display.moveTo</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">		
+<span class='line'>220</span> 		</span><span class="COMM">// Move thumbnails carousel if item selected is in other page</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nextThumbsPage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.ceil</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NAME">thumbnails.carousel.getSteps</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>222</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">thumbnails.carousel.getPage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="NAME">nextThumbsPage</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">thumbnails.carousel.moveTo</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">nextThumbsPage</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>223</span> </span><span class="WHIT">		
+<span class='line'>224</span> 		</span><span class="COMM">// Buttons behavior</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">itemsAmount</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">			</span><span class="NAME">arrows.prev.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">			</span><span class="NAME">arrows.next.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>229</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.prev.off</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">arrows.next.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">item</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">itemsAmount</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.next.off</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">arrows.prev.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>232</span> </span><span class="WHIT">		
+<span class='line'>233</span> 		</span><span class="COMM">// Refresh selected thumb</span><span class="WHIT">
+<span class='line'>234</span> </span><span class="WHIT">		</span><span class="NAME">thumbnails.selected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">item</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>235</span> </span><span class="WHIT">		
+<span class='line'>236</span> 		</span><span class="COMM">// Callback</span><span class="WHIT">
+<span class='line'>237</span> </span><span class="WHIT">		</span><span class="NAME">that.callbacks</span><span class="PUNC">(</span><span class="STRN">"onMove"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>238</span> </span><span class="WHIT">	
+<span class='line'>239</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>240</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>241</span> </span><span class="WHIT">	
+<span class='line'>242</span>     </span><span class="COMM">/**
+<span class='line'>243</span>      * Handles the visual behavior of arrows
+<span class='line'>244</span>      * @private
+<span class='line'>245</span>      * @name arrows
+<span class='line'>246</span>      * @type {Object}
+<span class='line'>247</span>      * @memberOf ch.Viewer
+<span class='line'>248</span>      */</span><span class="WHIT">
+<span class='line'>249</span> </span><span class="WHIT"> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">arrows</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>250</span> </span><span class="WHIT">	
+<span class='line'>251</span> 	</span><span class="NAME">arrows.prev</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>252</span> </span><span class="WHIT">		</span><span class="NAME">$element</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;p>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-prev"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.prev</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>253</span> </span><span class="WHIT">		</span><span class="NAME">on</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.prev.$element.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-prev-on"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>254</span> </span><span class="WHIT">		</span><span class="NAME">off</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.prev.$element.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-prev-on"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>255</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>256</span> </span><span class="WHIT">	
+<span class='line'>257</span> 	</span><span class="NAME">arrows.next</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>258</span> </span><span class="WHIT">		</span><span class="NAME">$element</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;p>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-next"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>259</span> </span><span class="WHIT">		</span><span class="NAME">on</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.next.$element.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-next-on"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>260</span> </span><span class="WHIT">		</span><span class="NAME">off</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">arrows.next.$element.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-viewer-next-on"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>261</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>262</span> 
+<span class='line'>263</span> </span><span class="COMM">/**
+<span class='line'>264</span>  *  Protected Members
+<span class='line'>265</span>  */</span><span class="WHIT"> 
+<span class='line'>266</span> 	
+<span class='line'>267</span> 	</span><span class="NAME">that.prev</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>268</span> </span><span class="WHIT">		</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumbnails.selected</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">		
+<span class='line'>270</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>271</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>272</span> </span><span class="WHIT">	
+<span class='line'>273</span> 	</span><span class="NAME">that.next</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>274</span> </span><span class="WHIT">		</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">thumbnails.selected</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>275</span> </span><span class="WHIT">		
+<span class='line'>276</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>278</span> 
+<span class='line'>279</span> </span><span class="COMM">/**
+<span class='line'>280</span>  *  Public Members
+<span class='line'>281</span>  */</span><span class="WHIT">	
+<span class='line'>282</span> 
+<span class='line'>283</span>     </span><span class="COMM">/**
+<span class='line'>284</span>      * The component's instance unique identifier.
+<span class='line'>285</span>      * @public
+<span class='line'>286</span>      * @name uid
+<span class='line'>287</span>      * @type {Number}
+<span class='line'>288</span>      * @memberOf ch.Viewer
+<span class='line'>289</span>      */</span><span class="WHIT">
+<span class='line'>290</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">uid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.uid</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>291</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>292</span>      * The element reference.
+<span class='line'>293</span>      * @public
+<span class='line'>294</span>      * @name element
+<span class='line'>295</span>      * @type {HTMLElement}
+<span class='line'>296</span>      * @memberOf ch.Viewer
+<span class='line'>297</span>      */</span><span class="WHIT">
+<span class='line'>298</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>299</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>300</span>      * The component's type.
+<span class='line'>301</span>      * @public
+<span class='line'>302</span>      * @name type
+<span class='line'>303</span>      * @type {String}
+<span class='line'>304</span>      * @memberOf ch.Viewer
+<span class='line'>305</span>      */</span><span class="WHIT">
+<span class='line'>306</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>307</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>308</span>      * Children instances associated to this controller.
+<span class='line'>309</span>      * @public
+<span class='line'>310</span>      * @name children
+<span class='line'>311</span>      * @type {Collection}
+<span class='line'>312</span>      * @memberOf ch.Viewer
+<span class='line'>313</span>      */</span><span class="WHIT">
+<span class='line'>314</span> </span><span class="WHIT"> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">children</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.children</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>315</span> </span><span class="WHIT">	
+<span class='line'>316</span> 	</span><span class="COMM">// Full behavior</span><span class="WHIT">
+<span class='line'>317</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">itemsAmount</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>318</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>319</span>          * Selects a specific viewer's child.
+<span class='line'>320</span>          * @public
+<span class='line'>321</span>          * @function
+<span class='line'>322</span>          * @name moveTo 
+<span class='line'>323</span>          * @param {Number} item Recieve a index to select a children.
+<span class='line'>324</span>          * @memberOf ch.Viewer
+<span class='line'>325</span>          */</span><span class="WHIT">
+<span class='line'>326</span> </span><span class="WHIT">        </span><span class="COMM">// TODO: This method should be called 'select'?</span><span class="WHIT">
+<span class='line'>327</span> </span><span class="WHIT">		</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">moveTo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="NAME">item</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>328</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>329</span>          * Selects the next child available.
+<span class='line'>330</span>          * @public
+<span class='line'>331</span>          * @function
+<span class='line'>332</span>          * @name next
+<span class='line'>333</span>          * @memberOf ch.Viewer
+<span class='line'>334</span>          */</span><span class="WHIT">
+<span class='line'>335</span> </span><span class="WHIT">		</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">next</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>336</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>337</span>          * Selects the previous child available.
+<span class='line'>338</span>          * @public
+<span class='line'>339</span>          * @function
+<span class='line'>340</span>          * @name prev
+<span class='line'>341</span>          * @memberOf ch.Viewer
+<span class='line'>342</span>          */</span><span class="WHIT">
+<span class='line'>343</span> </span><span class="WHIT">		</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">prev</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.prev</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>344</span> </span><span class="WHIT">        </span><span class="COMM">/**
+<span class='line'>345</span>          * Get the index of the selected child.
+<span class='line'>346</span>          * @public
+<span class='line'>347</span>          * @function
+<span class='line'>348</span>          * @name getSelected
+<span class='line'>349</span>          * @memberOf ch.Viewer
+<span class='line'>350</span>          */</span><span class="WHIT">
+<span class='line'>351</span> </span><span class="WHIT">		</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">getSelected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">thumbnails.selected</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Is this necesary???</span><span class="WHIT">
+<span class='line'>352</span> </span><span class="WHIT">		</span><span class="COMM">// ...</span><span class="WHIT">
+<span class='line'>353</span> 
+<span class='line'>354</span> </span><span class="COMM">/**
+<span class='line'>355</span>  *  Default event delegation
+<span class='line'>356</span>  */</span><span class="WHIT">
+<span class='line'>357</span> </span><span class="WHIT">	
+<span class='line'>358</span> 		</span><span class="COMM">// ...</span><span class="WHIT">
+<span class='line'>359</span> </span><span class="WHIT">		
+<span class='line'>360</span> 		</span><span class="COMM">// Create thumbnails</span><span class="WHIT">
+<span class='line'>361</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">thumbnails</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">createThumbs</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>362</span> </span><span class="WHIT">		
+<span class='line'>363</span> 		</span><span class="COMM">// Create Viewer buttons</span><span class="WHIT">
+<span class='line'>364</span> </span><span class="WHIT">		</span><span class="NAME">$viewer.append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">arrows.prev.$element</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">arrows.next.$element</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>365</span> </span><span class="WHIT">		
+<span class='line'>366</span> 		</span><span class="COMM">// Create movement method</span><span class="WHIT">
+<span class='line'>367</span> </span><span class="WHIT">		</span><span class="NAME">that.move</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">move</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>368</span> </span><span class="WHIT">		</span><span class="NAME">that.move</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Move to the first item without callback</span><span class="WHIT">
+<span class='line'>369</span> </span><span class="WHIT">		</span><span class="NAME">arrows.next.on</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>370</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>371</span> 
+<span class='line'>372</span> </span><span class="WHIT">	</span><span class="NAME">$viewer.find</span><span class="PUNC">(</span><span class="STRN">".ch-mask"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">height</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">itemsChildren</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">height</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>373</span> 
+<span class='line'>374</span> </span><span class="WHIT">	</span><span class="NAME">ch.utils.avoidTextSelection</span><span class="PUNC">(</span><span class="NAME">that.element</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>375</span> 
+<span class='line'>376</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>377</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>378</span> </span></pre></body></html>

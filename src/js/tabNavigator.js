@@ -110,7 +110,6 @@ ch.tabNavigator = function(conf){
     /**
      * Select a child to show its content.
      * @private
-     * @name select
      * @function
      * @memberOf ch.TabNavigator
      */
