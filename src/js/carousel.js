@@ -193,7 +193,11 @@ ch.carousel = function(conf){
      * @returns {Number} Items amount on each page
      */
 	_getItemsPerPage = function(){
-		return ~~( (that.$element.outerWidth() - that.itemSize.width) / that.itemSize.width );
+		// Space to be distributed among all items
+		var _widthDiff = that.$element.outerWidth() - that.itemSize.width;
+		
+		// If there are space to be distributed, calculate pages
+		return (_widthDiff > that.itemSize.width) ? ~~( _widthDiff / that.itemSize.width) : 1;
 	},
 	
 	/**
@@ -346,11 +350,12 @@ ch.carousel = function(conf){
 		};
 
 		// Manage arrows
-		if (!conf.rolling) { _toggleArrows(page); };
+		if (!conf.rolling && conf.arrows) { _toggleArrows(page); };
 		
 		// Refresh selected page
 		that.currentPage = page;
 		
+		// TODO: Use toggleClass() instead remove and add.
 		// Select thumbnail on pagination
 		if (conf.pagination) {
 			_$itemsPagination
@@ -366,6 +371,7 @@ ch.carousel = function(conf){
 		that.goTo(that.currentPage - 1);
 
 		that.callbacks("onPrev");
+		that.callbacks("onMove");
 
 		return that;
 	};
@@ -374,6 +380,7 @@ ch.carousel = function(conf){
 		that.goTo(that.currentPage + 1);
 
 		that.callbacks("onNext");
+		that.callbacks("onMove");
 
 		return that;
 	};

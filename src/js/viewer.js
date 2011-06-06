@@ -52,7 +52,7 @@ ch.viewer = function(conf){
      * @type {jQuery Object}
      * @memberOf ch.Viewer
      */
-	var $content = $viewer.children().addClass("ch-viewer-content carousel");
+	var $content = $viewer.children().addClass("ch-viewer-content");
 
     /**
      * Reference to the viewer's display element.
@@ -116,31 +116,34 @@ ch.viewer = function(conf){
 	 * 	Zoom
 	 */
 	if( ch.utils.hasOwn(ch, "zoom") ) {
-		var zoomChildren = [];
-	
-		$.each(itemsAnchor, function(i, e){
-			
+
+		var i = 0;
+		
+		// Initialize zoom on imgs loaded
+		itemsChildren.filter("img").bind("load", function(){
+			var parent =  this.parentNode;
 			var component = {
 				uid: that.uid + "#" + i,
 				type: "zoom",
-				element: e,
-				$element: $(e)
+				element: parent,
+				$element: $(parent)
 			};
-			
-			var config = {
-	    		context: $viewer,
-	    		onShow: function(){
-	    			var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
-	    			var zoomDisplayWidth = (conf.width < rest)? conf.width :	(rest - 65 );
-	    			this.width( zoomDisplayWidth );
-	    			this.height( $viewer.height() );
-	    		}
-	    	};
-			
-			zoomChildren.push( ch.zoom.call(component, config) );
-		});
 		
-		that.children.push( zoomChildren );
+			var config = {
+				context: $viewer,
+				onShow: function(){
+					var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
+					var zoomDisplayWidth = (conf.width < rest)? conf.width :	(rest - 65 );
+					this.width( zoomDisplayWidth );
+					this.height( $viewer.height() );
+				}
+			};
+
+			that.children.push( ch.zoom.call(component, config) );
+
+			i += 1;
+		});
+
 	};
 	
 	/**
@@ -215,11 +218,11 @@ ch.viewer = function(conf){
 		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
 		
 		// Move Display carousel
-		$display.moveTo(item);
+		$display.goTo(item);
 		
 		// Move thumbnails carousel if item selected is in other page
-		var nextThumbsPage = Math.ceil( item / thumbnails.carousel.getSteps() );
-		if(thumbnails.carousel.getPage() != nextThumbsPage) thumbnails.carousel.moveTo( nextThumbsPage );
+		var nextThumbsPage = Math.ceil( item / thumbnails.carousel.getItemsPerPage() );
+		if(thumbnails.carousel.getPage() != nextThumbsPage) thumbnails.carousel.goTo( nextThumbsPage );
 		
 		// Buttons behavior
 		if(item > 1 && item < itemsAmount){
