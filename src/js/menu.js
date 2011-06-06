@@ -234,7 +234,7 @@ ch.menu = function(conf){
 	// Select specific item if there are a "selected" parameter on component configuration object
     if (ch.utils.hasOwn(conf, "selected")) select(conf.selected);
     
-	return that["public"];
+	return;
 	
 };
 
