@@ -17,7 +17,7 @@
 <span class='line'> 10</span>  * @requires ch.Positioner
 <span class='line'> 11</span>  * @requires ch.Events
 <span class='line'> 12</span>  * @param {Configuration Object} o Object with configuration properties
-<span class='line'> 13</span>  * @return {Chico-UI Object}
+<span class='line'> 13</span>  * @returns {Chico-UI Object}
 <span class='line'> 14</span>  * @see ch.Required
 <span class='line'> 15</span>  * @see ch.String
 <span class='line'> 16</span>  * @see ch.Number
@@ -52,7 +52,7 @@
 <span class='line'> 45</span>      * @memberOf ch.Watcher
 <span class='line'> 46</span>      */</span><span class="WHIT">
 <span class='line'> 47</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">controller</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 48</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.instances.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"form"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">ch.instances.form.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">	
+<span class='line'> 48</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">ch.instances</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"form"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">ch.instances.form.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">	
 <span class='line'> 49</span> 		  </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">j</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.instances.form.length</span><span class="PUNC">;</span><span class="WHIT"> 
 <span class='line'> 50</span> 		  </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">j</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 51</span> </span><span class="WHIT">				</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ch.instances.form</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">that.$element.parents</span><span class="PUNC">(</span><span class="STRN">"form"</span><span class="PUNC">)</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -72,7 +72,7 @@
 <span class='line'> 65</span>      * @private
 <span class='line'> 66</span>      * @function
 <span class='line'> 67</span>      * @name checkInstance
-<span class='line'> 68</span>      * @return {Instance Object}
+<span class='line'> 68</span>      * @returns {Instance Object}
 <span class='line'> 69</span>      * @memberOf ch.Watcher
 <span class='line'> 70</span>      */</span><span class="WHIT">	
 <span class='line'> 71</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">checkInstance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -259,7 +259,7 @@
 <span class='line'>252</span> </span><span class="WHIT">                
 <span class='line'>253</span>                 	</span><span class="COMM">// Show helper with message</span><span class="WHIT">
 <span class='line'>254</span> </span><span class="WHIT">                	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">text</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">condition.message</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">condition.message</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> 
-<span class='line'>255</span>                 		</span><span class="PUNC">(</span><span class="NAME">controller.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"messages"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">controller.messages</span><span class="PUNC">[</span><span class="NAME">condition.name</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT">
+<span class='line'>255</span>                 		</span><span class="PUNC">(</span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">controller</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"messages"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">controller.messages</span><span class="PUNC">[</span><span class="NAME">condition.name</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT">
 <span class='line'>256</span> </span><span class="WHIT">                		</span><span class="NAME">undefined</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>257</span> </span><span class="WHIT">                
 <span class='line'>258</span>                 	</span><span class="NAME">that.helper.show</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">text</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
@@ -395,7 +395,7 @@
 <span class='line'>388</span>      * @public
 <span class='line'>389</span>      * @function
 <span class='line'>390</span>      * @name active
-<span class='line'>391</span>      * @return {Boolean}
+<span class='line'>391</span>      * @returns {Boolean}
 <span class='line'>392</span>      * @memberOf ch.Watcher
 <span class='line'>393</span>      */</span><span class="WHIT">
 <span class='line'>394</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">active</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -406,7 +406,7 @@
 <span class='line'>399</span>      * @public
 <span class='line'>400</span>      * @function
 <span class='line'>401</span>      * @name and
-<span class='line'>402</span>      * @return {Chico-UI Object}
+<span class='line'>402</span>      * @returns {Chico-UI Object}
 <span class='line'>403</span>      * @memberOf ch.Watcher
 <span class='line'>404</span>      */</span><span class="WHIT">
 <span class='line'>405</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">and</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -417,7 +417,7 @@
 <span class='line'>410</span>      * @public
 <span class='line'>411</span>      * @function
 <span class='line'>412</span>      * @name reset
-<span class='line'>413</span>      * @return {Chico-UI Object}
+<span class='line'>413</span>      * @returns {Chico-UI Object}
 <span class='line'>414</span>      * @memberOf ch.Watcher
 <span class='line'>415</span>      */</span><span class="WHIT">
 <span class='line'>416</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">reset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -430,7 +430,7 @@
 <span class='line'>423</span>      * @public
 <span class='line'>424</span>      * @function
 <span class='line'>425</span>      * @name validate
-<span class='line'>426</span>      * @return {Chico-UI Object}
+<span class='line'>426</span>      * @returns {Chico-UI Object}
 <span class='line'>427</span>      * @memberOf ch.Watcher
 <span class='line'>428</span>      */</span><span class="WHIT">
 <span class='line'>429</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">validate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -443,7 +443,7 @@
 <span class='line'>436</span>      * @public
 <span class='line'>437</span>      * @function
 <span class='line'>438</span>      * @name enable
-<span class='line'>439</span>      * @return {Chico-UI Object}
+<span class='line'>439</span>      * @returns {Chico-UI Object}
 <span class='line'>440</span>      * @memberOf ch.Watcher
 <span class='line'>441</span>      */</span><span class="WHIT">
 <span class='line'>442</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">enable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -456,7 +456,7 @@
 <span class='line'>449</span>      * @public
 <span class='line'>450</span>      * @function
 <span class='line'>451</span>      * @name disable
-<span class='line'>452</span>      * @return {Chico-UI Object}
+<span class='line'>452</span>      * @returns {Chico-UI Object}
 <span class='line'>453</span>      * @memberOf ch.Watcher
 <span class='line'>454</span>      */</span><span class="WHIT">
 <span class='line'>455</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">disable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -469,7 +469,7 @@
 <span class='line'>462</span>      * @public
 <span class='line'>463</span>      * @function
 <span class='line'>464</span>      * @name refresh
-<span class='line'>465</span>      * @return {Chico-UI Object}
+<span class='line'>465</span>      * @returns {Chico-UI Object}
 <span class='line'>466</span>      * @memberOf ch.Watcher
 <span class='line'>467</span>      */</span><span class="WHIT">
 <span class='line'>468</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">refresh</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 

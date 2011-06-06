@@ -13,7 +13,7 @@
 <span class='line'>  6</span>  * @augments ch.Navs
 <span class='line'>  7</span>  * @memberOf ch
 <span class='line'>  8</span>  * @param {Configuration Object} conf Object with configuration properties
-<span class='line'>  9</span>  * @return {Chico-UI Object}
+<span class='line'>  9</span>  * @returns {Chico-UI Object}
 <span class='line'> 10</span>  */</span><span class="WHIT">
 <span class='line'> 11</span> 
 <span class='line'> 12</span> </span><span class="NAME">ch.dropdown</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
@@ -29,205 +29,212 @@
 <span class='line'> 22</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 23</span> 
 <span class='line'> 24</span> </span><span class="WHIT">	</span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">conf.skin</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">that.$element.hasClass</span><span class="PUNC">(</span><span class="STRN">"secondary"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">"secondary"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"primary"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 26</span> 
-<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="NAME">that.conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 28</span> </span><span class="WHIT">	
-<span class='line'> 29</span> </span><span class="COMM">/**
-<span class='line'> 30</span>  *	Inheritance
-<span class='line'> 31</span>  */</span><span class="WHIT">
-<span class='line'> 32</span> 
-<span class='line'> 33</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.navs.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 34</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 35</span> 
-<span class='line'> 36</span> </span><span class="COMM">/**
-<span class='line'> 37</span>  *  Protected Members
-<span class='line'> 38</span>  */</span><span class="WHIT"> 
-<span class='line'> 39</span> 	</span><span class="NAME">that.$container</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$element.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-dropdown"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 40</span> </span><span class="WHIT">	
-<span class='line'> 41</span> 	</span><span class="NAME">that.$trigger</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$container.children</span><span class="PUNC">(</span><span class="STRN">":first"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 42</span> </span><span class="WHIT">	
-<span class='line'> 43</span> 	</span><span class="NAME">that.show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 44</span> </span><span class="WHIT">		</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">that.conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	
+<span class='line'> 27</span> </span><span class="COMM">/**
+<span class='line'> 28</span>  *	Inheritance
+<span class='line'> 29</span>  */</span><span class="WHIT">
+<span class='line'> 30</span> 
+<span class='line'> 31</span> </span><span class="WHIT">    </span><span class="NAME">that</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.navs.call</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">    </span><span class="NAME">that.parent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ch.clon</span><span class="PUNC">(</span><span class="NAME">that</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> 
+<span class='line'> 34</span> </span><span class="COMM">/**
+<span class='line'> 35</span>  *  Private Members
+<span class='line'> 36</span>  */</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 38</span>      * Adds keyboard events.
+<span class='line'> 39</span>      * @private
+<span class='line'> 40</span>      * @name shortcuts
+<span class='line'> 41</span>      * @function
+<span class='line'> 42</span>      * @memberOf ch.TabNavigator
+<span class='line'> 43</span>      */</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">shortcuts</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">items</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 45</span> </span><span class="WHIT">		
-<span class='line'> 46</span> 		</span><span class="COMM">// Toggle</span><span class="WHIT">
-<span class='line'> 47</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">that.active</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 48</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 49</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 50</span> </span><span class="WHIT">		
-<span class='line'> 51</span>         </span><span class="COMM">// Reset all dropdowns</span><span class="WHIT">
-<span class='line'> 52</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">ch.instances.dropdown</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">each</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">e.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 53</span> </span><span class="WHIT">		
-<span class='line'> 54</span>         </span><span class="COMM">// Show menu</span><span class="WHIT">
-<span class='line'> 55</span> </span><span class="WHIT">		</span><span class="NAME">that.$content.css</span><span class="PUNC">(</span><span class="STRN">'z-index'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ch.utils.zIndex</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 56</span> </span><span class="WHIT">		</span><span class="NAME">that.$container.css</span><span class="PUNC">(</span><span class="STRN">'z-index'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ch.utils.zIndex</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Z-index of trigger over content		</span><span class="WHIT">
-<span class='line'> 57</span> </span><span class="WHIT">		</span><span class="NAME">that.parent.show</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 58</span> </span><span class="WHIT">		</span><span class="NAME">that.position</span><span class="PUNC">(</span><span class="STRN">"refresh"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 59</span> </span><span class="WHIT">		
-<span class='line'> 60</span> 		</span><span class="COMM">// Secondary behavior</span><span class="WHIT">
-<span class='line'> 61</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">conf.skin</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"secondary"</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 62</span> </span><span class="WHIT">			</span><span class="NAME">that.$container.addClass</span><span class="PUNC">(</span><span class="STRN">"ch-dropdown-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Container ON</span><span class="WHIT">
-<span class='line'> 63</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 64</span> </span><span class="WHIT">		
-<span class='line'> 65</span> 		</span><span class="COMM">// Close events</span><span class="WHIT">
-<span class='line'> 66</span> </span><span class="WHIT">		</span><span class="NAME">ch.utils.document.one</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 67</span> </span><span class="WHIT">		</span><span class="NAME">ch.utils.document.bind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.ESC</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 68</span> </span><span class="WHIT">		
-<span class='line'> 69</span> 		</span><span class="COMM">// Select first anchor child by default</span><span class="WHIT">
-<span class='line'> 70</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">items</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$content.find</span><span class="PUNC">(</span><span class="STRN">"a"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 71</span> </span><span class="WHIT">			</span><span class="NAME">items.eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">focus</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 72</span> </span><span class="WHIT">		
-<span class='line'> 73</span> 		</span><span class="COMM">// More than one item</span><span class="WHIT">
-<span class='line'> 74</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">items.length</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 75</span> </span><span class="WHIT">		
-<span class='line'> 76</span> 		</span><span class="COMM">// Keyboard support</span><span class="WHIT">
-<span class='line'> 77</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">itemSelected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 78</span> </span><span class="WHIT">		
-<span class='line'> 79</span> 		</span><span class="COMM">// Item selected by mouseover</span><span class="WHIT">
-<span class='line'> 80</span> </span><span class="WHIT">		</span><span class="COMM">// TODO: It's over keyboard selection and it is generating double selection.</span><span class="WHIT">
-<span class='line'> 81</span> </span><span class="WHIT">		</span><span class="NAME">items.each</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 82</span> </span><span class="WHIT">			</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"mouseenter"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 83</span> </span><span class="WHIT">				</span><span class="NAME">itemSelected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 84</span> </span><span class="WHIT">				</span><span class="NAME">items.eq</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">itemSelected</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">focus</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 85</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 86</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 87</span> </span><span class="WHIT">		
-<span class='line'> 88</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">selectItem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">arrow</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 89</span> </span><span class="WHIT">			</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 90</span> </span><span class="WHIT">			
-<span class='line'> 91</span> 			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">itemSelected</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">arrow</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"bottom"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">items.length</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 92</span> </span><span class="WHIT">			
-<span class='line'> 93</span> 			</span><span class="NAME">items.eq</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">itemSelected</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">blur</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 94</span> </span><span class="WHIT">			
-<span class='line'> 95</span> 			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">arrow</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"bottom"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">itemSelected</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="NAME">itemSelected</span><span class="WHIT"> </span><span class="PUNC">--</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 96</span> </span><span class="WHIT">			
-<span class='line'> 97</span> 			</span><span class="NAME">items.eq</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">itemSelected</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">focus</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 98</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 99</span> </span><span class="WHIT">		
-<span class='line'>100</span> 		</span><span class="COMM">// Arrows</span><span class="WHIT">
-<span class='line'>101</span> </span><span class="WHIT">		</span><span class="NAME">ch.utils.document.bind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.UP_ARROW</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">selectItem</span><span class="PUNC">(</span><span class="STRN">"up"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>102</span> </span><span class="WHIT">		</span><span class="NAME">ch.utils.document.bind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.DOWN_ARROW</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">selectItem</span><span class="PUNC">(</span><span class="STRN">"bottom"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>103</span> </span><span class="WHIT">		
-<span class='line'>104</span>         </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>105</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>106</span> </span><span class="WHIT">	
-<span class='line'>107</span>     </span><span class="NAME">that.hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>108</span> </span><span class="WHIT">    	</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>109</span> </span><span class="WHIT">    	
-<span class='line'>110</span>     	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">that.active</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>111</span> </span><span class="WHIT">    	
-<span class='line'>112</span>     	</span><span class="COMM">// Secondary behavior</span><span class="WHIT">
-<span class='line'>113</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">conf.skin</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"secondary"</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>114</span> </span><span class="WHIT">			</span><span class="NAME">that.$container.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-dropdown-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Container OFF</span><span class="WHIT">
-<span class='line'>115</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>116</span> </span><span class="WHIT">		
-<span class='line'>117</span>         </span><span class="NAME">that.parent.hide</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>118</span> </span><span class="WHIT">        
-<span class='line'>119</span>         </span><span class="COMM">// Unbind events</span><span class="WHIT">
-<span class='line'>120</span> </span><span class="WHIT">        </span><span class="NAME">ch.utils.document.unbind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.UP_ARROW</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>121</span> </span><span class="WHIT">        </span><span class="NAME">ch.utils.document.unbind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.DOWN_ARROW</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>122</span> </span><span class="WHIT">        </span><span class="NAME">ch.utils.document.unbind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.ESC</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>123</span> </span><span class="WHIT">        
-<span class='line'>124</span>         </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>125</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>126</span> </span><span class="WHIT">	
-<span class='line'>127</span> </span><span class="COMM">/**
-<span class='line'>128</span>  *  Public Members
-<span class='line'>129</span>  */</span><span class="WHIT">
-<span class='line'>130</span> </span><span class="WHIT"> 
-<span class='line'>131</span>     </span><span class="COMM">/**
-<span class='line'>132</span>      * The component's instance unique identifier.
-<span class='line'>133</span>      * @public
-<span class='line'>134</span>      * @name uid
-<span class='line'>135</span>      * @type {Number}
-<span class='line'>136</span>      * @memberOf ch.Dropdown
-<span class='line'>137</span>      */</span><span class="WHIT">
-<span class='line'>138</span> </span><span class="WHIT">   	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">uid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.uid</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>139</span> </span><span class="WHIT">    
-<span class='line'>140</span>     </span><span class="COMM">/**
-<span class='line'>141</span>      * The element reference.
-<span class='line'>142</span>      * @public
-<span class='line'>143</span>      * @name element
-<span class='line'>144</span>      * @type {HTMLElement}
-<span class='line'>145</span>      * @memberOf ch.Dropdown
-<span class='line'>146</span>      */</span><span class="WHIT">
-<span class='line'>147</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.element</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>148</span> </span><span class="WHIT">    
-<span class='line'>149</span>     </span><span class="COMM">/**
-<span class='line'>150</span>      * The component's type.
-<span class='line'>151</span>      * @public
-<span class='line'>152</span>      * @name type
-<span class='line'>153</span>      * @type {String}
-<span class='line'>154</span>      * @memberOf ch.Dropdown
-<span class='line'>155</span>      */</span><span class="WHIT">	
-<span class='line'>156</span> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>157</span> </span><span class="WHIT">	
-<span class='line'>158</span>     </span><span class="COMM">/**
-<span class='line'>159</span>      * Shows component's content.
-<span class='line'>160</span>      * @public
-<span class='line'>161</span>      * @name show
-<span class='line'>162</span>      * @return {Chico-UI Object}
-<span class='line'>163</span>      * @memberOf ch.Dropdown
-<span class='line'>164</span>      */</span><span class="WHIT">
-<span class='line'>165</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>166</span> </span><span class="WHIT">		</span><span class="NAME">that.show</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>167</span> </span><span class="WHIT">		
-<span class='line'>168</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>169</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>170</span> 
-<span class='line'>171</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>172</span>      * Hides component's content.
-<span class='line'>173</span>      * @public
-<span class='line'>174</span>      * @name hide
-<span class='line'>175</span>      * @return {Chico-UI Object}
-<span class='line'>176</span>      * @memberOf ch.Dropdown
-<span class='line'>177</span>      */</span><span class="WHIT"> 
-<span class='line'>178</span> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>179</span> </span><span class="WHIT">		</span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>180</span> </span><span class="WHIT">		
-<span class='line'>181</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>182</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>183</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>184</span>      * Positioning configuration.
-<span class='line'>185</span>      * @public
-<span class='line'>186</span>      * @name position
-<span class='line'>187</span>      * @memberOf ch.Dropdown
-<span class='line'>188</span>      */</span><span class="WHIT">
-<span class='line'>189</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">position</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.position</span><span class="PUNC">;</span><span class="WHIT">	
-<span class='line'>190</span> 
-<span class='line'>191</span> 
-<span class='line'>192</span> </span><span class="COMM">/**
-<span class='line'>193</span>  *  Default event delegation
-<span class='line'>194</span>  */</span><span class="WHIT">		    
-<span class='line'>195</span>     </span><span class="COMM">// Trigger</span><span class="WHIT">
-<span class='line'>196</span> </span><span class="WHIT">	</span><span class="NAME">that.$trigger</span><span class="WHIT">
-<span class='line'>197</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.show</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>198</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-dropdown-trigger-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">conf.skin</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>199</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="STRN">"&lt;span class=\"ch-bottom\"> &raquo;&lt;/span>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>200</span> 
-<span class='line'>201</span> </span><span class="WHIT">	</span><span class="COMM">// Content</span><span class="WHIT">
-<span class='line'>202</span> </span><span class="WHIT">	</span><span class="NAME">that.$content</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$trigger.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>203</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-dropdown-content-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">conf.skin</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>204</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-hide"</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>205</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>206</span> </span><span class="WHIT">			</span><span class="NAME">event.stopPropagation</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Prevent click on content (except links)</span><span class="WHIT">
-<span class='line'>207</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>208</span> </span><span class="WHIT">		</span><span class="PUNC">.</span><span class="NAME">detach</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Save on memory;</span><span class="WHIT">
-<span class='line'>209</span> </span><span class="WHIT">	
-<span class='line'>210</span> 	</span><span class="COMM">// Close dropdown after click an option (link)</span><span class="WHIT">
-<span class='line'>211</span> </span><span class="WHIT">	</span><span class="NAME">that.$content.find</span><span class="PUNC">(</span><span class="STRN">"a"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">one</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> 		</span><span class="COMM">// Keyboard support</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">selected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">		
+<span class='line'> 49</span> 		</span><span class="COMM">// Item selected by mouseover</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">		</span><span class="COMM">// TODO: It's over keyboard selection and it is generating double selection.</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">		</span><span class="NAME">$.each</span><span class="PUNC">(</span><span class="NAME">items</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">			</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">bind</span><span class="PUNC">(</span><span class="STRN">"mouseenter"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">				</span><span class="NAME">selected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">				</span><span class="NAME">items.eq</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">selected</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">focus</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">		
+<span class='line'> 58</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">selectItem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">arrow</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">			</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">			
+<span class='line'> 61</span> 			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">selected</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">arrow</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"bottom"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">items.length</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">			
+<span class='line'> 63</span> 			</span><span class="NAME">items.eq</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">selected</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">blur</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">			
+<span class='line'> 65</span> 			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">arrow</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">"bottom"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">selected</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="NAME">selected</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">			
+<span class='line'> 67</span> 			</span><span class="NAME">items.eq</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">selected</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">focus</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">		
+<span class='line'> 70</span> 		</span><span class="COMM">// Arrows</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">		</span><span class="NAME">ch.utils.document.bind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.UP_ARROW</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">selectItem</span><span class="PUNC">(</span><span class="STRN">"up"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">		</span><span class="NAME">ch.utils.document.bind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.DOWN_ARROW</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">selectItem</span><span class="PUNC">(</span><span class="STRN">"bottom"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> 
+<span class='line'> 75</span> 
+<span class='line'> 76</span> </span><span class="COMM">/**
+<span class='line'> 77</span>  *  Protected Members
+<span class='line'> 78</span>  */</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 80</span>      * The component's trigger.
+<span class='line'> 81</span>      * @private
+<span class='line'> 82</span>      * @name $trigger
+<span class='line'> 83</span>      * @type {jQuery Object}
+<span class='line'> 84</span>      * @memberOf ch.Dropdown
+<span class='line'> 85</span>      */</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="NAME">that.$trigger</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$element.children</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 88</span>      * The component's content.
+<span class='line'> 89</span>      * @private
+<span class='line'> 90</span>      * @name $content
+<span class='line'> 91</span>      * @type {jQuery Object}
+<span class='line'> 92</span>      * @memberOf ch.Dropdown
+<span class='line'> 93</span>      */</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">	</span><span class="NAME">that.$content</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$trigger.next</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">detach</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Save on memory;</span><span class="WHIT">
+<span class='line'> 95</span> 
+<span class='line'> 96</span> </span><span class="WHIT">	</span><span class="NAME">that.show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">		</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> 
+<span class='line'> 99</span> </span><span class="WHIT">		</span><span class="NAME">that.$content.css</span><span class="PUNC">(</span><span class="STRN">'z-index'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ch.utils.zIndex</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">		
+<span class='line'>101</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">that.$element.hasClass</span><span class="PUNC">(</span><span class="STRN">"secondary"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="COMM">// Z-index of trigger over conten </span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">			</span><span class="NAME">that.$trigger.css</span><span class="PUNC">(</span><span class="STRN">'z-index'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ch.utils.zIndex</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'>104</span> 
+<span class='line'>105</span> 		
+<span class='line'>106</span> 		</span><span class="NAME">that.$element</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">			</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"ch-dropdown-on"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">			</span><span class="PUNC">.</span><span class="NAME">css</span><span class="PUNC">(</span><span class="STRN">'z-index'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ch.utils.zIndex</span><span class="WHIT"> </span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> 
+<span class='line'>110</span> </span><span class="WHIT">		</span><span class="NAME">that.parent.show</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">		</span><span class="NAME">that.position</span><span class="PUNC">(</span><span class="STRN">"refresh"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>112</span> 
+<span class='line'>113</span> </span><span class="WHIT">		</span><span class="COMM">// Reset all dropdowns</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">		</span><span class="NAME">$.each</span><span class="PUNC">(</span><span class="NAME">ch.instances.dropdown</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">e</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> 
+<span class='line'>115</span> 			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">e.uid</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NAME">that.uid</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">e.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>117</span> 
+<span class='line'>118</span> </span><span class="WHIT">		</span><span class="COMM">// Close events</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">		</span><span class="NAME">ch.utils.document.one</span><span class="PUNC">(</span><span class="STRN">"click "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">ch.events.KEY.ESC</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">		</span><span class="COMM">// Close dropdown after click an option (link)</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">		</span><span class="NAME">that.$content.find</span><span class="PUNC">(</span><span class="STRN">"a"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">one</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>122</span> 
+<span class='line'>123</span> </span><span class="WHIT">		</span><span class="COMM">// Keyboard support</span><span class="WHIT">
+<span class='line'>124</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">items</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$content.find</span><span class="PUNC">(</span><span class="STRN">"a"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>125</span> </span><span class="WHIT">			</span><span class="NAME">items.eq</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">focus</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Select first anchor child by default</span><span class="WHIT">
+<span class='line'>126</span> 
+<span class='line'>127</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">items.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">shortcuts</span><span class="PUNC">(</span><span class="NAME">items</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>128</span> 
+<span class='line'>129</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> 
+<span class='line'>132</span> </span><span class="WHIT">	</span><span class="NAME">that.hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">		</span><span class="NAME">that.prevent</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> 
+<span class='line'>135</span> </span><span class="WHIT">        </span><span class="NAME">that.parent.hide</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">        	</span><span class="NAME">that.$element.removeClass</span><span class="PUNC">(</span><span class="STRN">"ch-dropdown-on"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> 
+<span class='line'>138</span> </span><span class="WHIT">        </span><span class="COMM">// Unbind events</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">        </span><span class="NAME">ch.utils.document.unbind</span><span class="PUNC">(</span><span class="NAME">ch.events.KEY.ESC</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">ch.events.KEY.UP_ARROW</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">ch.events.KEY.DOWN_ARROW</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>140</span> 
+<span class='line'>141</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">	
+<span class='line'>144</span> </span><span class="COMM">/**
+<span class='line'>145</span>  *  Public Members
+<span class='line'>146</span>  */</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="WHIT"> 
+<span class='line'>148</span>     </span><span class="COMM">/**
+<span class='line'>149</span>      * The component's instance unique identifier.
+<span class='line'>150</span>      * @public
+<span class='line'>151</span>      * @name uid
+<span class='line'>152</span>      * @type {Number}
+<span class='line'>153</span>      * @memberOf ch.Dropdown
+<span class='line'>154</span>      */</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">   	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">uid</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.uid</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">    
+<span class='line'>157</span>     </span><span class="COMM">/**
+<span class='line'>158</span>      * The element reference.
+<span class='line'>159</span>      * @public
+<span class='line'>160</span>      * @name element
+<span class='line'>161</span>      * @type {HTMLElement}
+<span class='line'>162</span>      * @memberOf ch.Dropdown
+<span class='line'>163</span>      */</span><span class="WHIT">
+<span class='line'>164</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.element</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="WHIT">    
+<span class='line'>166</span>     </span><span class="COMM">/**
+<span class='line'>167</span>      * The component's type.
+<span class='line'>168</span>      * @public
+<span class='line'>169</span>      * @name type
+<span class='line'>170</span>      * @type {String}
+<span class='line'>171</span>      * @memberOf ch.Dropdown
+<span class='line'>172</span>      */</span><span class="WHIT">	
+<span class='line'>173</span> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">type</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.type</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="WHIT">	
+<span class='line'>175</span>     </span><span class="COMM">/**
+<span class='line'>176</span>      * Shows component's content.
+<span class='line'>177</span>      * @public
+<span class='line'>178</span>      * @name show
+<span class='line'>179</span>      * @returns {Chico-UI Object}
+<span class='line'>180</span>      * @memberOf ch.Dropdown
+<span class='line'>181</span>      */</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">show</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">		</span><span class="NAME">that.show</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">		
+<span class='line'>185</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>187</span> 
+<span class='line'>188</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>189</span>      * Hides component's content.
+<span class='line'>190</span>      * @public
+<span class='line'>191</span>      * @name hide
+<span class='line'>192</span>      * @returns {Chico-UI Object}
+<span class='line'>193</span>      * @memberOf ch.Dropdown
+<span class='line'>194</span>      */</span><span class="WHIT"> 
+<span class='line'>195</span> 	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">hide</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>196</span> </span><span class="WHIT">		</span><span class="NAME">that.hide</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>197</span> </span><span class="WHIT">		
+<span class='line'>198</span> 		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>199</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>200</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>201</span>      * Positioning configuration.
+<span class='line'>202</span>      * @public
+<span class='line'>203</span>      * @name position
+<span class='line'>204</span>      * @memberOf ch.Dropdown
+<span class='line'>205</span>      */</span><span class="WHIT">
+<span class='line'>206</span> </span><span class="WHIT">	</span><span class="NAME">that</span><span class="PUNC">[</span><span class="STRN">"public"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">position</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.position</span><span class="PUNC">;</span><span class="WHIT">	
+<span class='line'>207</span> 
+<span class='line'>208</span> 
+<span class='line'>209</span> </span><span class="COMM">/**
+<span class='line'>210</span>  *  Default event delegation
+<span class='line'>211</span>  */</span><span class="WHIT">		    
 <span class='line'>212</span> 
-<span class='line'>213</span> </span><span class="WHIT">	</span><span class="COMM">// Put content out of container</span><span class="WHIT">
-<span class='line'>214</span> </span><span class="WHIT">	</span><span class="NAME">that.$container.after</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">that.$content</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>215</span> </span><span class="WHIT">		
-<span class='line'>216</span> 	</span><span class="COMM">// Position</span><span class="WHIT">
-<span class='line'>217</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>218</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position.element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$content</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>219</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position.context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$trigger</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>220</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position.points</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"lt lb"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>221</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position.offset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"0 -1"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>213</span> 	</span><span class="NAME">that.configBehavior</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>214</span> </span><span class="WHIT">	
+<span class='line'>215</span> 	</span><span class="NAME">that.$element.after</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">that.$content</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Put content out of element</span><span class="WHIT">
+<span class='line'>216</span> </span><span class="WHIT">	</span><span class="NAME">ch.utils.avoidTextSelection</span><span class="PUNC">(</span><span class="NAME">that.$trigger</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>217</span> </span><span class="WHIT">	
+<span class='line'>218</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">that.$element.hasClass</span><span class="PUNC">(</span><span class="STRN">"secondary"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="NAME">that.$content.addClass</span><span class="PUNC">(</span><span class="STRN">"secondary"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>219</span> </span><span class="WHIT">	
+<span class='line'>220</span> 	</span><span class="COMM">// Prevent click on content (except links)</span><span class="WHIT">
+<span class='line'>221</span> </span><span class="WHIT">	</span><span class="NAME">that.$content.bind</span><span class="PUNC">(</span><span class="STRN">"click"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">event.stopPropagation</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>222</span> </span><span class="WHIT">	
-<span class='line'>223</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>224</span> 
-<span class='line'>225</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>226</span> </span></pre></body></html>
+<span class='line'>223</span> 	</span><span class="COMM">// Position</span><span class="WHIT">
+<span class='line'>224</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>225</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position.element</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$content</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>226</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position.context</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$trigger</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>227</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position.points</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"lt lb"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>228</span> </span><span class="WHIT">	</span><span class="NAME">that.conf.position.offset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"0 -1"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>229</span> 
+<span class='line'>230</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">that</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>231</span> 
+<span class='line'>232</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>233</span> </span></pre></body></html>

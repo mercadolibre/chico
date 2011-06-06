@@ -13,7 +13,7 @@
 <span class='line'>  6</span>  * @augments ch.Watcher
 <span class='line'>  7</span>  * @memberOf ch
 <span class='line'>  8</span>  * @param {Configuration Object} conf Object with configuration properties
-<span class='line'>  9</span>  * @return {Chico-UI Object}
+<span class='line'>  9</span>  * @returns {Chico-UI Object}
 <span class='line'> 10</span>  * @example
 <span class='line'> 11</span>  * // Validate a even number
 <span class='line'> 12</span>  * $("input").custom(function(value){
@@ -39,7 +39,7 @@
 <span class='line'> 32</span> </span><span class="WHIT">	</span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 33</span> </span><span class="WHIT">    </span><span class="NAME">conf.messages</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf.messages</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 34</span> 
-<span class='line'> 35</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">conf.hasOwnProperty</span><span class="PUNC">(</span><span class="STRN">"msg"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 
+<span class='line'> 35</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"msg"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 
 <span class='line'> 36</span>     	</span><span class="NAME">conf.messages.custom</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf.msg</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 37</span> </span><span class="WHIT">    	</span><span class="NAME">conf.msg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 38</span> </span><span class="WHIT">    	</span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">conf.msg</span><span class="PUNC">;</span><span class="WHIT">
