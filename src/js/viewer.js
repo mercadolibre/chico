@@ -7,7 +7,7 @@
  * @requires ch.Zoom
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.viewer = function(conf){
@@ -203,7 +203,7 @@ ch.viewer = function(conf){
      * @function
      * @name move
      * @param {Number} item
-     * @return {Chico-UI Object} that
+     * @returns {Chico-UI Object} that
      * @memberOf ch.Viewer
      */
 	var move = function(item){

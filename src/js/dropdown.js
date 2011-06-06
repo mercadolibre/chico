@@ -6,7 +6,7 @@
  * @augments ch.Navs
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.dropdown = function(conf){
@@ -176,7 +176,7 @@ ch.dropdown = function(conf){
      * Shows component's content.
      * @public
      * @name show
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Dropdown
      */
 	that["public"].show = function(){
@@ -189,7 +189,7 @@ ch.dropdown = function(conf){
      * Hides component's content.
      * @public
      * @name hide
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Dropdown
      */ 
 	that["public"].hide = function(){

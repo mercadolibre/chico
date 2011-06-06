@@ -6,7 +6,7 @@
  * @augments ch.Navs
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
  
 ch.expando = function(conf){
@@ -73,7 +73,7 @@ ch.expando = function(conf){
      * Shows component's content.
      * @public
      * @name show
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Expando
      */
 	that["public"].show = function(){
@@ -86,7 +86,7 @@ ch.expando = function(conf){
      * Hides component's content.
      * @public
      * @name hide
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Expando
      */	
 	that["public"].hide = function(){

@@ -6,7 +6,7 @@
  * @augments ch.Watcher
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Number
  * @see ch.String
  * @see ch.Custom

@@ -6,7 +6,7 @@
  * @requires ch.Expando
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
  
 ch.menu = function(conf){
@@ -248,7 +248,7 @@ ch.menu = function(conf){
  * @augments ch.Accordion
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.accordion = function(conf) {

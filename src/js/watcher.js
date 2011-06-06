@@ -10,7 +10,7 @@
  * @requires ch.Positioner
  * @requires ch.Events
  * @param {Configuration Object} o Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Required
  * @see ch.String
  * @see ch.Number
@@ -65,7 +65,7 @@ ch.watcher = function(conf) {
      * @private
      * @function
      * @name checkInstance
-     * @return {Instance Object}
+     * @returns {Instance Object}
      * @memberOf ch.Watcher
      */	
 	var checkInstance = function() {
@@ -388,7 +388,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name active
-     * @return {Boolean}
+     * @returns {Boolean}
      * @memberOf ch.Watcher
      */
 	that["public"].active = function() {
@@ -399,7 +399,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name and
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].and = function() {
@@ -410,7 +410,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name reset
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].reset = function() {
@@ -423,7 +423,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name validate
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].validate = function() {
@@ -436,7 +436,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name enable
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].enable = function() {
@@ -449,7 +449,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name disable
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].disable = function() {
@@ -462,7 +462,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name refresh
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].refresh = function() { 

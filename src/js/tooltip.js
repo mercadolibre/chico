@@ -6,7 +6,7 @@
  * @augments ch.Floats
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.tooltip = function(conf) {
@@ -103,7 +103,7 @@ ch.tooltip = function(conf) {
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Tooltip
      */
 	that["public"].show = function(){
@@ -116,7 +116,7 @@ ch.tooltip = function(conf) {
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Tooltip
      */ 
 	that["public"].hide = function(){
