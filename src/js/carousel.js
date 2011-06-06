@@ -128,7 +128,9 @@ ch.carousel = function(conf){
 	},
 
 	_getItemsPerPage = function(){
-		return  ~~( (that.$element.outerWidth() - that.itemSize.width) / that.itemSize.width );
+		var _widthDiff = that.$element.outerWidth() - that.itemSize.width;
+
+		return (_widthDiff > that.itemSize.width) ? ~~( _widthDiff / that.itemSize.width) : 1;
 	},
 
 	_getPages = function(){
@@ -157,7 +159,7 @@ ch.carousel = function(conf){
 		that.$content
 			.css("width", ((that.itemSize.width + (_itemMargin*2)) * that.items.size()) )
 			.appendTo(that.$container);
-		
+
 		if ( conf.pagination && that.pages > 1) { _createPagination(); };
 	},
 	
@@ -173,8 +175,7 @@ ch.carousel = function(conf){
 	that.$collection = that.$element.children();
 
 	// Create a List object to carousel's items and 	append items to List
-	var temp = that.$collection.children().toArray();
-	that.items = ch.List( temp );
+	that.items = ch.List( that.$collection.children().toArray() );
 	
 	// Item sizes (width and height)
 	that.itemSize = {
@@ -204,7 +205,7 @@ ch.carousel = function(conf){
 		};
 
 		// Arrows behavior
-		if (!conf.rolling) _toggleArrows(page);
+		if (!conf.rolling && conf.arrows) _toggleArrows(page);
 
 		that.currentPage = page;
 
@@ -223,6 +224,7 @@ ch.carousel = function(conf){
 		that.goTo(that.currentPage - 1);
 
 		that.callbacks("onPrev");
+		that.callbacks("onMove");
 
 		return that;
 	};
@@ -232,6 +234,7 @@ ch.carousel = function(conf){
 		that.goTo(that.currentPage + 1);
 
 		that.callbacks("onNext");
+		that.callbacks("onMove");
 
 		return that;
 	};

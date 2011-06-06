@@ -8,7 +8,9 @@
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 	
 	<style>
-		.testCarousel li{
+		.testCarousel li,
+		.testCarousel2 li, 
+		.testCarousel3 li{
 			width:120px;
 			height:120px;
 		}
@@ -102,6 +104,47 @@
 		</div>
 	</div>
 
+	<div class="box">
+		<h2>Fixed Carousel</h2>
+		<div class="box testCarousel3">
+			<ul>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
+				
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
+				
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
+			</ul>
+		</div>
+	</div>
 <!-- #body -->
 	<hr>
 
@@ -133,11 +176,13 @@
 			}
 		});
 
-		var carousel = $('.testCarousel').carousel({
+		var carousel2 = $('.testCarousel2').carousel({
 			fx: false,
 			width: 500,
-			height: 120
+			height: 150
 		});
+
+		var carousel3 = $('.testCarousel3').carousel();
 		
 
 
@@ -374,17 +419,17 @@
 		module("Carousel redraw behaivor");
 		test("Redraw behaivor", function(){
 
-			/*expect ( 1 );
+			expect ( 1 );
 
-			var oldSteps = carousel3.getSteps();
+			var oldSteps = carousel3.getItemsPerPage();
 
-			$(".testCarouselRedraw").width("180");
+			$(".testCarousel3").width("220");
 			carousel3.redraw();
 			
-			var currentSteps = carousel3.getSteps();
+			var currentSteps = carousel3.getItemsPerPage();
 			
-			ok( (oldSteps > currentSteps && currentSteps > 0), "Expected to find less items after redraw");
-			*/
+			ok( (oldSteps > currentSteps && currentSteps > 0), "Expected to find less items per page after redraw");
+
 		});
  
 	</script>

@@ -5,7 +5,6 @@
  * @class Zoom
  * @augments ch.Floats
  * @requires ch.Positioner
- * @requires ch.Preload
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
  * @return {Chico-UI Object}
@@ -54,8 +53,8 @@ ch.zoom = function(conf) {
      */
 	var original = {};
 		original.img = that.$element.children();
-		original["width"] = original.img.width();
-		original["height"] = original.img.height();
+		original["width"] = original.img.prop("width");
+		original["height"] = original.img.prop("height");
 
     /**
      * Zoomed visual element.
@@ -119,14 +118,15 @@ ch.zoom = function(conf) {
 	
 	that.show = function(event){
 		that.prevent(event);
-		zoomed.img.attr("src", that.element.href);
+
+		zoomed.img.prop("src", that.element.href);
 
 		// Floats show
 		that.parent.show();
-		
+
 		// Magnifying glass
 		//$lens.fadeIn();
-		
+
 		// Seeker
 		seeker.shape.removeClass("ch-hide");
 		
@@ -172,14 +172,7 @@ ch.zoom = function(conf) {
      */
 	that.size = function(attr, data) {
 		if (!data) return conf[attr]; // Getter
-		
-		// Size of zoomed image
-		// TODO: Make this only first time or outside of here.
-		// It's calculating zoomed image size in that.size,
-		// because isn't posible calc this before image load
-		zoomed["width"] = zoomed.img.width();
-		zoomed["height"] = zoomed.img.height();
-		
+
 		// Configuration
 		that.conf[attr] = data;
 		
@@ -320,7 +313,7 @@ ch.zoom = function(conf) {
 			.css({"width": original["width"], "height": original["height"]})
 			
 			// Show
-			.bind("mouseover", that.show)
+			.bind("mouseenter", that.show)
 			
 			// Hide
 			.bind("mouseleave", that.hide)
@@ -333,11 +326,13 @@ ch.zoom = function(conf) {
 	},50);	
 
 	// Preload zoomed image
-	if (ch.utils.hasOwn(ch, "preload")) {
-		ch.utils.window.bind("load", function(){
-			ch.preload(that.element.href);
+	ch.utils.window.one("load", function(){
+		zoomed.img.prop("src", that.element.href).one("load", function(){
+			zoomed["width"] = zoomed.img.prop("width");
+			zoomed["height"] = zoomed.img.prop("height");
 		});
-	};
+	});
+
 
 	return that;
 };
