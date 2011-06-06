@@ -99,3 +99,11 @@
 	background-color:#16232f;
 }
 
+/* IE 6 */
+.ie6 .ch-carousel .ch-next-arrow{
+	right: 30px;
+}
+
+.ie6 .ch-carousel .ch-prev-arrow{
+	left: 5px;
+}

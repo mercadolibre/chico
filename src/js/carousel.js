@@ -158,13 +158,14 @@ ch.carousel = function(conf){
 		});
 
 		that.$content
-			.css("width", ((that.itemSize.width + (_itemMargin*2)) * that.items.size()) )
+			.css("width", ((that.itemSize.width + (_itemMargin*2)) * that.items.size() + _extraWidth) )
 			.appendTo(that.$container);
 
 		if ( conf.pagination && that.pages > 1) { _createPagination(); };
 	},
-	
+
 	_maskWidth,
+	_extraWidth,
 	_$itemsPagination,
 	_resize = false;
 
@@ -186,7 +187,7 @@ ch.carousel = function(conf){
 
 	// Initialize current page
 	that.currentPage = 1;
-	
+
 	//
 	that.goTo = function(page){
 
@@ -359,6 +360,8 @@ ch.carousel = function(conf){
 
 	// Create carousel layout
  	_createLayout();
+
+	_extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemSize.width : 0;
 
 	// Render...
 	_draw();
