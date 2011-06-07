@@ -315,7 +315,7 @@ ch.carousel = function(conf){
      * @type {Object}
      * @memberOf ch.Carousel
      */
-	that.items = ch.List( that.$collection.children().toArray() );
+	that.items = ch.list( that.$collection.children().toArray() );
 	
 	/**
      * Width and height of first item.
