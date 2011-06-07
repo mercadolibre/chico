@@ -59,11 +59,13 @@ ch.object = function(){
 				conf.content = content;
 			};
 
-			that.$content.html(that.loadContent());
-			that.position("refresh");
+			if ( ch.utils.hasOwn(that, "$content") ) {
+				that.$content.html(that.loadContent());
+				that.position("refresh");
+			};
 
 			conf.cache = cache;
-			
+
 			return that["public"];
 		};
 		
