@@ -445,7 +445,7 @@ ch.watcher = function(conf) {
 		return that["public"];			
 	};
     /**
-     * Turn off Watcher engine.
+     * Turn off Watcher engine and reset its validation.
      * @public
      * @function
      * @name disable
@@ -454,7 +454,8 @@ ch.watcher = function(conf) {
      */
 	that["public"].disable = function() {
 		that.enabled = false;
-		
+		that.reset();
+
 		return that["public"];
 	};
 	/**
@@ -465,11 +466,13 @@ ch.watcher = function(conf) {
      * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
-	that["public"].refresh = function() { 
-		return that.helper.position("refresh");
+	that["public"].refresh = function() {
+		that.helper.position("refresh");
+
+		return that["public"];
     };
 
-	
+
 
 /**
  * Default event delegation

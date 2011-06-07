@@ -11,12 +11,16 @@ ch.List = function( collection ) {
 
     var that = this;
 
+
+    var that = this;
+
     /**
      * @public
      * @name children
      * @type {Collection}
      * @memberOf ch.List
      */
+
     var _children = ( collection && ch.utils.isArray( collection ) ) ? collection : [] ;
 
     /**
@@ -32,7 +36,8 @@ ch.List = function( collection ) {
      * @memberOf ch.List
      */
     var _find = function(q, a) {
-        // null search return the entire collection
+
+		// null search return the entire collection
         if ( !q ) {
             return _children;
         }
@@ -42,7 +47,7 @@ ch.List = function( collection ) {
         if ( c === "number" ) {
             q--; // _children is a Zero-index based collection
             return ( a ) ? a.call( that , q ) : _children[q] ;
-        }
+        };
         
         // string? ok, let's find it
         var t = size(), _prop, child;
@@ -139,7 +144,7 @@ ch.List = function( collection ) {
      */
 
     var size = function() {
-        return _children.length;    
+        return _children.length;
     };
 
     /**
@@ -154,5 +159,5 @@ ch.List = function( collection ) {
     };
     
     return that;
-    
+
 };
