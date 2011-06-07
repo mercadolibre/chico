@@ -5,7 +5,7 @@
 		<meta name="generator" content="JsDoc Toolkit" />
 		
 		
-		<title>Chico API Reference - ch.Controllers</title>
+		<title>Chico API Reference - ch.List</title>
 
 		<style type="text/css">
 			/**
@@ -236,26 +236,24 @@ vertical-align: top;
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class ch.Controllers
+				Class ch.List
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				
-				<br />Extends
-					<a href="../symbols/ch.object.html">ch.Object</a>.<br />
 				
 			
-				Controllers
+				List
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/chico_src_js_controllers.js.html">controllers.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/chico_src_js_list.js.html">list.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ch.Controllers.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ch.List.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -268,9 +266,9 @@ vertical-align: top;
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ch.controllers.html#constructor">ch.Controllers</a></b>()
+								<b><a href="../symbols/ch.list.html#constructor">ch.List</a></b>(collection)
 							</div>
-							<div class="description">Abstract class</div>
+							<div class="description">Manage collections with abstract lists.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -281,7 +279,7 @@ vertical-align: top;
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ch.Controllers.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ch.List.">
 					<caption>Field Summary</caption>
 					<thead>
 						<tr>
@@ -295,19 +293,9 @@ vertical-align: top;
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Controllers.<b><a href="../symbols/ch.controllers.html#.children">children</a></b>
+								ch.List.<b><a href="../symbols/ch.list.html#.children">children</a></b>
 								</div>
-								<div class="description">Collection of children elements.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								ch.Controllers.<b><a href="../symbols/ch.controllers.html#.that">that</a></b>
-								</div>
-								<div class="description">Reference to a internal component instance, saves all the information and configuration properties.</div>
+								<div class="description"></div>
 							</td>
 						</tr>
 					
@@ -316,13 +304,72 @@ vertical-align: top;
 				
 				
 				
-				<dl class="inheritsList">
-				
-				</dl>
-				
 			
 
 <!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ch.List.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#._find">_find</a></b>(q, q, q, a)
+								</div>
+								<div class="description">Seek members inside the collection by index, query string or object comparison.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#.add">add</a></b>(child, child, child)
+								</div>
+								<div class="description">Adds a new child (or more) to the collection.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#.get">get</a></b>(q, q, q)
+								</div>
+								<div class="description">Get a child from the collection by index, query string or object comparison.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#.rem">rem</a></b>(q, q, q)
+								</div>
+								<div class="description">Removes a child from the collection by index, query string or object comparison.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#.size">size</a></b>()
+								</div>
+								<div class="description">Get the amount of children from the collection.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
 			
 <!-- ============================== events summary ======================== -->
 			
@@ -335,11 +382,11 @@ vertical-align: top;
 				</div>
 				
 				<div class="fixedFont">
-						<b>ch.Controllers</b>()
+						<b>ch.List</b>(collection)
 				</div>
 				
 				<div class="description">
-					Abstract class
+					Manage collections with abstract lists. Create a list of objects, add, get and remove.
 					
 				</div>
 				
@@ -347,29 +394,22 @@ vertical-align: top;
 				
 				
 					
-					
-					
-					
-					
 						<dl class="detailList">
-						<dt class="heading">Returns:</dt>
+						<dt class="heading">Parameters:</dt>
 						
-								<dd><span class="light fixedFont">{Object}</span> </dd>
+							<dt>
+								<span class="light fixedFont">{Array}</span>  <b>collection</b>
+								<i>Optional</i>
+							</dt>
+								<dd>Constructs a List with an optional initial collection</dd>
 						
 						</dl>
 					
 					
 					
-						<dl class="detailList">
-						<dt class="heading">See:</dt>
-						
-							<dd><a href="../symbols/ch.accordion.html">ch.Accordion</a></dd>
-						
-							<dd><a href="../symbols/ch.carousel.html">ch.Carousel</a></dd>
-						
-							<dd><a href="../symbols/ch.form.html">ch.Form</a></dd>
-						
-						</dl>
+					
+					
+					
 					
 
 			</div>
@@ -385,33 +425,11 @@ vertical-align: top;
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ch.Controllers.</span><b>children</b>
+					<span class="light">ch.List.</span><b>children</b>
 					
 					</div>
 					<div class="description">
-						Collection of children elements.
 						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".that"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">ch.Controllers.</span><b>that</b>
-					
-					</div>
-					<div class="description">
-						Reference to a internal component instance, saves all the information and configuration properties.
 						
 						
 					</div>
@@ -429,6 +447,264 @@ vertical-align: top;
 
 <!-- ============================== method details ========================= -->		
 			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="._find"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">ch.List.</span><b>_find</b>(q, q, q, a)
+					
+					</div>
+					<div class="description">
+						Seek members inside the collection by index, query string or object comparison.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>a</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> Returns the finded element</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".add"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Number, Collection}</span>
+					<span class="light">ch.List.</span><b>add</b>(child, child, child)
+					
+					</div>
+					<div class="description">
+						Adds a new child (or more) to the collection.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>child</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>child</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Array}</span> <b>child</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> The index of the added child.</dd>
+							
+								<dd><span class="light fixedFont">{Collection}</span> Returns the entire collecction if the input is an array.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".get"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.List.</span><b>get</b>(q, q, q)
+					
+					</div>
+					<div class="description">
+						Get a child from the collection by index, query string or object comparison.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd>Get a child from the collection by index number.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd>Get a child from the collection by a query string.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd>Get a child from the collection by comparing objects.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".rem"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">ch.List.</span><b>rem</b>(q, q, q)
+					
+					</div>
+					<div class="description">
+						Removes a child from the collection by index, query string or object comparison.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> Returns the removed element</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".size"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Number}</span>
+					<span class="light">ch.List.</span><b>size</b>()
+					
+					</div>
+					<div class="description">
+						Get the amount of children from the collection.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
 			
 <!-- ============================== event details ========================= -->		
 			
@@ -440,7 +716,7 @@ vertical-align: top;
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			&copy;2011<br />
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue Jun 07 2011 12:44:39 GMT-0300 (GMT-03:00)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue Jun 07 2011 12:44:40 GMT-0300 (GMT-03:00)
 		</div>
 	</body>
 </html>
