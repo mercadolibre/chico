@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, keyboard, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, menu, zoom
+  * @components: core, positioner, object, floats, navs, controllers, watcher, sliders, keyboard, preload, list, carousel, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, chat, expando, codelighter, menu, zoom
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -14,8 +14,6 @@
   * @link http://code.google.com/p/jsmin-php/ 
   */
 ;(function($){
-/*! Chico-UI Copyright 2011, MercadoLibre.com (Natan santolo, Leandro Linares, Guillermo Paz, Natalia Devalle) */
-
 /**
  * Chico-UI namespace
  * @namespace ch
@@ -30,7 +28,7 @@ var ch = window.ch = {
      * @type {Number}
      * @memberOf ch
      */
-    version: "0.6.4",
+    version: "0.6.5",
     /**
      * List of UI components available.
      * @name components
@@ -44,7 +42,7 @@ var ch = window.ch = {
      * @type {String}
      * @memberOf ch
      */
-    internals: "positioner,object,floats,navs,controllers,watcher,sliders,keyboard",
+    internals: "positioner,object,floats,navs,controllers,watcher,sliders,keyboard,preload,list",
     /**
      * Here you will find a map of all component's instances created by Chico-UI.
      * @name instances
@@ -102,6 +100,9 @@ var ch = window.ch = {
 			
 			return false;
 		},
+		isArray: function( o ) {
+            return Object.prototype.toString.apply( o ) === "[object Array]";
+	    }, 
 		isUrl: function(url){
 			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
 		},
@@ -117,6 +118,9 @@ var ch = window.ch = {
 			});
 				
 			return;
+		},
+		hasOwn: function(o, property) {
+			return Object.prototype.hasOwnProperty.call(o, property);
 		}
 	},
 
@@ -190,7 +194,7 @@ var ch = window.ch = {
  * @function
  * @name clon
  * @param {Object} o Object to clone
- * @return {Object}
+ * @returns {Object}
  * @memberOf ch
  */
 ch.clon = function(o) {
@@ -219,7 +223,7 @@ ch.clon = function(o) {
  *      [style]: "http://..",
  *      [callback]: function(){}    
  *   }
- * @return {Collection} A collection of object instances
+ * @returns {Collection} A collection of object instances
  * @memberOf ch
  */    
 
@@ -304,7 +308,7 @@ ch.factory = function(o) {
     				}
 				*/
 				
-				created = ( created.hasOwnProperty("public") ) ? created["public"] : created;
+				created = ( ch.utils.hasOwn(created, "public") ) ? created["public"] : created;
 				
 			    if (created.type) {
 			        var type = created.type;		    
@@ -373,7 +377,7 @@ ch.get = function(o) {
 
 	        var that = o.that;
 	        var conf = that.conf;
-			var context = ( that.hasOwnProperty("controller") ) ? that.controller : that["public"];
+			var context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"];
 
 			// Set ajax config
 			// On IE (6-7) "that" reference losts when I call ch.get for second time
@@ -391,13 +395,13 @@ ch.get = function(o) {
 					},
 					success: function(data, textStatus, jqXHR){					
 						that.$content.html( data );
-						if ( conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad.call(context, data, textStatus, jqXHR);
-						if ( conf.hasOwnProperty("position") ) ch.positioner(conf.position);
+						if ( ch.utils.hasOwn(conf, "onContentLoad") ) conf.onContentLoad.call(context, data, textStatus, jqXHR);
+						if ( ch.utils.hasOwn(conf, "position") ) ch.positioner(conf.position);
 					},
 					error: function(jqXHR, textStatus, errorThrown){
-						data = (conf.hasOwnProperty("onContentError")) ? conf.onContentError.call(context, jqXHR, textStatus, errorThrown) : "<p>Error on ajax call </p>";
+						data = (ch.utils.hasOwn(conf, "onContentError")) ? conf.onContentError.call(context, jqXHR, textStatus, errorThrown) : "<p>Error on ajax call </p>";
 						that.$content.html( data );
-						if ( conf.hasOwnProperty("position") ) ch.positioner(conf.position);
+						if ( ch.utils.hasOwn(conf, "position") ) ch.positioner(conf.position);
 					}
 				});
 				
@@ -459,7 +463,7 @@ ch.get = function(o) {
  * @abstract
  * @name Support
  * @class Support
- * @return {Object}
+ * @returns {Object}
  * @memberOf ch 
  */
 ch.support = function() {
@@ -478,7 +482,7 @@ ch.support = function() {
      * Verify that CSS3 transition is supported (or any of its browser-specific implementations)
      *
      * @private
-     * @return {Boolean}
+     * @returns {Boolean}
      * @memberOf ch.Support
      */
 	var transition = (function(){
@@ -491,7 +495,7 @@ ch.support = function() {
      * Verify that position fixed is supported
      * 
      * @private
-     * @return {Boolean}
+     * @returns {Boolean}
      * @memberOf ch.Support
      */	
 	var fixed = (function(){
@@ -536,7 +540,7 @@ ch.support = function() {
  * @class Positioner
  * @memberOf ch
  * @param {Position Object} o Object with positioning properties
- * @return {jQuery Object}
+ * @returns {jQuery Object}
  * @example
  * // First example
  * ch.positioner({
@@ -665,7 +669,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name getViewport
-     * @return {Viewport Object}
+     * @returns {Viewport Object}
      * @memberOf ch.Positioner
      */
 	var getViewport = function() {
@@ -720,7 +724,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name getPosition
-     * @return {Axis Object}
+     * @returns {Axis Object}
      * @memberOf ch.Positioner
      */
 	var getPosition = function(unitPoints) {		     
@@ -764,7 +768,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name calculatePoints
-     * @return {Styles Object}
+     * @returns {Styles Object}
      * @memberOf ch.Positioner
      */
 	var calculatePoints = function(points, unitPoints){					
@@ -853,7 +857,7 @@ ch.positioner = function(o) {
 			.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right  ch-right-right" )
 			.addClass( "ch-" + styles.direction );
 				
-		if ( context.hasOwnProperty("element") && context.element !== ch.utils.window[0] ){
+		if ( ch.utils.hasOwn(context, "element") && context.element !== ch.utils.window[0] ){
 			$(context.element)
 				.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right ch-right-right" )
 				.addClass( "ch-" + styles.direction );
@@ -866,7 +870,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name getContext
-     * @return {Context Object}
+     * @returns {Context Object}
      * @memberOf ch.Positioner
      */
 	var getContext = function(){
@@ -894,7 +898,7 @@ ch.positioner = function(o) {
      * @private
      * @function
      * @name getParentRelative
-     * @return {Offset Object}
+     * @returns {Offset Object}
      * @memberOf ch.Positioner 
      */
 	var getParentRelative = function(){
@@ -996,10 +1000,11 @@ ch.object = function(){
 			return (content) ? (( ch.utils.isSelector(content) ) ? $(content) : content) : ((conf.ajax === true) ? (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
 		
 		} else {
-			
-			//TODO: We have to cache the content if it's the same
+
+			var cache = conf.cache;
+
 			conf.cache = false;
-			
+
 			if ( ch.utils.isUrl(content) ) {
 				conf.content = undefined;
 				conf.ajax = content;
@@ -1007,13 +1012,14 @@ ch.object = function(){
 				conf.ajax = false;
 				conf.content = content;
 			};
-	
-			if ( that.active ) {
+
+			if ( ch.utils.hasOwn(that, "$content") ) {
 				that.$content.html(that.loadContent());
-				return that.position("refresh");
+				that.position("refresh");
 			};
 
-			if (that.active) that.position("refresh");
+			conf.cache = cache;
+
 			return that["public"];
 		};
 		
@@ -1064,7 +1070,7 @@ ch.object = function(){
 	};
 
 	that.callbacks = function(when){
-		if( conf.hasOwnProperty(when) ) {
+		if( ch.utils.hasOwn(conf, when) ) {
 			var context = ( that.controller ) ? that.controller["public"] : that["public"];
 			return conf[when].call( context );
 		};
@@ -1115,7 +1121,7 @@ ch.object = function(){
  * @augments ch.Object
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Tooltip
  * @see ch.Layer
  * @see ch.Modal
@@ -1167,26 +1173,26 @@ ch.floats = function() {
 
     var createLayout = function() {
 		
-        that.$content = $("<div>")
-        	.addClass("ch-" + that.type + "-content")
-        	.html( that.loadContent() );
+		that.$content = $("<div>")
+		    	.addClass("ch-" + that.type + "-content")
+		    	.html( that.loadContent() );
 		
-    	that.$container = $("<div>")
-    		.addClass("ch-" + that.type)
-    		.css("z-index", ch.utils.zIndex ++)
-    		.append( that.$content )
-    		.appendTo("body");
+		that.$container = $("<div>")
+			.addClass("ch-" + that.type)
+			.css("z-index", ch.utils.zIndex ++)
+			.append( that.$content )
+			.appendTo("body");
 		
 		// Visual configuration
-		if( conf.hasOwnProperty("classes") ) that.$container.addClass(conf.classes);
-		if( conf.hasOwnProperty("width") ) that.$container.css("width", conf.width);
-		if( conf.hasOwnProperty("height") ) that.$container.css("height", conf.height);
-		if( conf.hasOwnProperty("closeButton") && conf.closeButton ) createClose();
-		if( conf.hasOwnProperty("cone") ) createCone();
-		if( conf.hasOwnProperty("fx") ) conf.fx = conf.fx; else conf.fx = true;
+		if( ch.utils.hasOwn(conf, "classes") ) that.$container.addClass(conf.classes);
+		if( ch.utils.hasOwn(conf, "width") ) that.$container.css("width", conf.width);
+		if( ch.utils.hasOwn(conf, "height") ) that.$container.css("height", conf.height);
+		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) createClose();
+		if( ch.utils.hasOwn(conf, "cone") ) createCone();
+		if( ch.utils.hasOwn(conf, "fx") ) conf.fx = conf.fx; else conf.fx = true;
 		
 		// Cache - Default: true
-		conf.cache = ( conf.hasOwnProperty("cache") ) ? conf.cache : true;
+		conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
 		
 		// Show component with effects
 		if( conf.fx ) {
@@ -1223,7 +1229,7 @@ ch.floats = function() {
      * Shows component's content.
      * @public
      * @name show
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Floats
      */ 
 	that.show = function(event) {
@@ -1269,7 +1275,7 @@ ch.floats = function() {
      * Hides component's content.
      * @public
      * @name hide
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Floats
      */ 
 	that.hide = function(event) {
@@ -1329,7 +1335,7 @@ ch.floats = function() {
  * @augments ch.Object
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Dropdown
  * @see ch.Expando
  */
@@ -1345,7 +1351,7 @@ ch.navs = function(){
      */ 
 	var that = this;
 	var conf = that.conf;
-		conf.icon = (conf.hasOwnProperty("icon")) ? conf.icon : true;
+		conf.icon = (ch.utils.hasOwn(conf, "icon")) ? conf.icon : true;
 		conf.open = conf.open || false;
 		conf.fx = conf.fx || false;
 
@@ -1383,7 +1389,7 @@ ch.navs = function(){
      * Status of component
      * @public
      * @name active
-     * @return {Boolean}
+     * @returns {Boolean}
      * @memberOf ch.Navs
      */
 	that.active = false;
@@ -1392,7 +1398,7 @@ ch.navs = function(){
      * Shows component's content.
      * @public
      * @name show
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Navs
      */
 	that.show = function(event){
@@ -1423,7 +1429,7 @@ ch.navs = function(){
      * Hides component's content.
      * @public
      * @name hide
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Navs
      */
 	that.hide = function(event){
@@ -1453,7 +1459,7 @@ ch.navs = function(){
      * Create component's layout
      * @public
      * @name createLayout
-     * @return {void}
+     * @returns {void}
      * @memberOf ch.Navs
      */
 	that.configBehavior = function(){
@@ -1487,7 +1493,7 @@ ch.navs = function(){
  * @class Controllers 
  * @augments ch.Object
  * @memberOf ch
- * @return {Object}
+ * @returns {Object}
  * @see ch.Accordion
  * @see ch.Carousel
  * @see ch.Form
@@ -1536,7 +1542,7 @@ ch.controllers = function(){
  * @requires ch.Positioner
  * @requires ch.Events
  * @param {Configuration Object} o Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Required
  * @see ch.String
  * @see ch.Number
@@ -1571,7 +1577,7 @@ ch.watcher = function(conf) {
      * @memberOf ch.Watcher
      */
 	var controller = (function() {
-		if ( ch.instances.hasOwnProperty("form") && ch.instances.form.length > 0 ) {	
+		if ( ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0 ) {	
 		  var i = 0, j = ch.instances.form.length; 
 		  for (i; i < j; i ++) {
 				if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
@@ -1591,7 +1597,7 @@ ch.watcher = function(conf) {
      * @private
      * @function
      * @name checkInstance
-     * @return {Instance Object}
+     * @returns {Instance Object}
      * @memberOf ch.Watcher
      */	
 	var checkInstance = function() {
@@ -1778,7 +1784,7 @@ ch.watcher = function(conf) {
                 
                 	// Show helper with message
                 	var text = ( condition.message ) ? condition.message : 
-                		(controller.hasOwnProperty("messages")) ? controller.messages[condition.name] :
+                		(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
                 		undefined;
                 
                 	that.helper.show( text );
@@ -1914,7 +1920,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name active
-     * @return {Boolean}
+     * @returns {Boolean}
      * @memberOf ch.Watcher
      */
 	that["public"].active = function() {
@@ -1925,7 +1931,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name and
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].and = function() {
@@ -1936,7 +1942,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name reset
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].reset = function() {
@@ -1949,7 +1955,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name validate
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].validate = function() {
@@ -1962,7 +1968,7 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name enable
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].enable = function() {
@@ -1971,16 +1977,17 @@ ch.watcher = function(conf) {
 		return that["public"];			
 	};
     /**
-     * Turn off Watcher engine.
+     * Turn off Watcher engine and reset its validation.
      * @public
      * @function
      * @name disable
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
 	that["public"].disable = function() {
 		that.enabled = false;
-		
+		that.reset();
+
 		return that["public"];
 	};
 	/**
@@ -1988,14 +1995,16 @@ ch.watcher = function(conf) {
      * @public
      * @function
      * @name refresh
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Watcher
      */
-	that["public"].refresh = function() { 
-		return that.helper.position("refresh");
+	that["public"].refresh = function() {
+		that.helper.position("refresh");
+
+		return that["public"];
     };
 
-	
+
 
 /**
  * Default event delegation
@@ -2028,7 +2037,7 @@ ch.watcher = function(conf) {
  * @augments ch.Object
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.sliders = function() {
@@ -2090,20 +2099,206 @@ ch.keyboard = function(event) {
         "40": "DOWN_ARROW"
     };
     
-    if( !keyCodes.hasOwnProperty(event.keyCode) ) return;
+    if( !ch.utils.hasOwn(keyCodes, event.keyCode) ) return;
     
     ch.utils.document.trigger(ch.events.KEY[ keyCodes[event.keyCode] ], event);
     
 };
 
 /**
+ * Pre-load is an utility to preload images on browser's memory. An array of sources will iterate and preload each one, a single source will do the same thing.
+ * @abstract
+ * @name Preload
+ * @class Preload
+ * @memberOf ch
+ * @param {Array} [arr] Collection of image sources
+ * @param {String} [str] A single image source
+ * @example
+ * ch.preload(["img1.jpg","img2.jpg","img3.png"]);
+ * @example
+ * ch.preload("logo.jpg");
+ */
+ch.preload = function(arr) {
+
+    if (typeof arr === "string") {
+        arr = (arr.indexOf(",") > 0) ? arr.split(",") : [arr] ;
+    }
+
+    for (var i=0;i<arr.length;i++) {
+                
+        var o = document.createElement("object");
+            o.data = arr[i]; // URL
+            
+        var h = document.getElementsByTagName("head")[0];
+            h.appendChild(o);
+            h.removeChild(o); 
+    }       
+};/**
+ * Manage collections with abstract lists. Create a list of objects, add, get and remove.
+ * @abstract
+ * @name List
+ * @class List
+ * @memberOf ch
+ * @param {Array} [collection] Constructs a List with an optional initial collection
+ */
+
+ch.list = function( collection ) {
+
+    var that = this;
+
+    /**
+     * @public
+     * @name children
+     * @type {Collection}
+     * @memberOf ch.List
+     */
+    var _children = ( collection && ch.utils.isArray( collection ) ) ? collection : [] ;
+
+    /**
+     * Seek members inside the collection by index, query string or object comparison.
+     * @private
+     * @function
+     * @name _find
+     * @param {Number} [q]
+     * @param {String} [q]
+     * @param {Object} [q]
+     * @param {Function} [a]
+     * @return {Object} Returns the finded element
+     * @memberOf ch.List
+     */
+    var _find = function(q, a) {
+        // null search return the entire collection
+        if ( !q ) {
+            return _children;
+        }
+
+        var c = typeof q;
+        // number? return a specific position
+        if ( c === "number" ) {
+            q--; // _children is a Zero-index based collection
+            return ( a ) ? a.call( that , q ) : _children[q] ;
+        }
+        
+        // string? ok, let's find it
+        var t = size(), _prop, child;
+        if ( c === "string" || c === "object" ) {
+            while ( t-- ) {
+                child = _children[t];
+                // object or string strict equal
+                if ( child === q ) {
+                    return ( a ) ? a.call( that , t ) : child ;
+                }
+                // if isn't finded yet
+                // search inside an object for a string
+                for ( _prop in child ) {
+                    if ( _prop === q || child[_prop] === q ) {
+                        return ( a ) ? a.call( that , t ) : child ;
+                    }
+                } // end for
+            } // end while
+        }
+    };
+
+    /**
+     * Adds a new child (or more) to the collection.
+     * @public
+     * @function
+     * @name add
+     * @param {String} [child]
+     * @param {Object} [child]
+     * @param {Array} [child]
+     * @memberOf ch.List
+     * @returns {Number} The index of the added child.
+     * @returns {Collection} Returns the entire collecction if the input is an array.
+     */
+    var add = function( child ) {
+        
+        if ( ch.utils.isArray( child ) ) {
+            var i = 0, t = child.length;
+            for ( i; i < t; i++ ) {
+                _children.push( child[i] );
+            }            
+            return _children;
+        }
+        return _children.push( child );
+    };
+    
+    /**
+     * Removes a child from the collection by index, query string or object comparison.
+     * @public
+     * @function
+     * @name rem
+     * @param {Number} [q]
+     * @param {String} [q]
+     * @param {Object} [q]
+     * @return {Object} Returns the removed element
+     * @memberOf ch.List
+     */
+    var rem = function( q ) {
+        // null search return
+        if ( !q ) {
+            return that;
+        }
+        
+        var remove = function( t ) {
+            return _children.splice( t , 1 )[0];
+        }
+
+        return _find( q , remove );
+
+    };
+
+    /**
+     * Get a child from the collection by index, query string or object comparison.
+     * @public
+     * @function
+     * @name get
+     * @param {Number} [q] Get a child from the collection by index number.
+     * @param {String} [q] Get a child from the collection by a query string.
+     * @param {Object} [q] Get a child from the collection by comparing objects.
+     * @memberOf ch.List
+     */
+    var get = function( q ) {
+
+        return _find( q );  
+
+    };
+
+    /**
+     * Get the amount of children from the collection.
+     * @public
+     * @function
+     * @name size
+     * @return {Number}
+     * @memberOf ch.List
+     */
+
+    var size = function() {
+        return _children.length;    
+    };
+
+    /**
+     * @public
+     */
+    var that = {
+        children: _children,
+        add: add,
+        rem: rem,
+        get: get,
+        size: size
+    };
+    
+    return that;
+    
+};
+/**
  * Carousel is a UI-Component.
  * @name Carousel
  * @class Carousel
- * @augments ch.Controllers
+ * @augments ch.Object
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
  
 ch.carousel = function(conf){
@@ -2117,259 +2312,381 @@ ch.carousel = function(conf){
      */	
 	var that = this;
 	
-	that.$element.addClass('ch-carousel');
-	
-	if ( conf.height ) that.$element.height( conf.height );
-	if ( conf.width ) that.$element.width( conf.width );
-	if ( conf.hasOwnProperty("arrows") ) conf.arrows = conf.arrows; else conf.arrows = true;
-	
-	// UL configuration
-	that.$content = that.$element.find('.carousel')	 // TODO: wrappear el contenido para que los botones se posicionen con respecto a su contenedor
-		.addClass('ch-carousel-content')
-		.wrap($('<div>').addClass('ch-mask'))//gracias al que esta abajo puedo leer el $mask.width()
-	
 	conf = ch.clon(conf);
+	
+	// Configurable pagination
+	conf.pagination = conf.pagination || false;
+	
+	// Configuration for continue carousel
+	// TODO: Rolling is forced to be false. Use this instead:
+	// if( ch.utils.hasOwn(conf, "rolling") ) { conf.rolling = conf.rolling; } else { conf.rolling = true; };
+	conf.rolling = false;
+	
+	// Configurable arrows
+	if( ch.utils.hasOwn(conf, "arrows") ) { conf.arrows = conf.arrows; } else { conf.arrows = true; };
+	
+	// Configurable efects
+	if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; };
+	
 	that.conf = conf;
 	
 /**
  *	Inheritance
  */
 
-    that = ch.sliders.call(that);
+    that = ch.object.call(that);
     that.parent = ch.clon(that);
 
 /**
  *  Private Members
  */
- 
-    /**
-     * Page size.
+	
+	/**
+     * Creates the necesary structure to carousel operation.
      * @private
-     * @name page
-     * @type {Number}
-     * @memberOf ch.Carousel
-     */ 
-	var page = 1;
-	
-	// UL Width calculator
-	var htmlElementMargin = parseInt( that.$content.children().css("marginLeft") ) * 2;
-
-	var extraWidth = (ch.utils.html.hasClass("ie6")) ? that.$content.children().outerWidth() : 0;
-	var htmlContentWidth = that.$content.children().size() * (that.$content.children().outerWidth() + htmlElementMargin) + extraWidth;
-	that.$content.css('width', htmlContentWidth);
-	
-	// Mask Object and draw function	
-	var $mask = that.$element.find('.ch-mask');
-	var steps, totalPages, moveTo, margin;
-	
-    /**
-     * Calculate size of the carousel's mask.
-     * @private
-     * @name calculateMask
      * @function
-     * @return {That Object}
+     * @name _createLayout
      * @memberOf ch.Carousel
-     */ 
-	var calculateMask = function(){
-		// Steps = (width - marginMask / elementWidth + elementMargin) 70 = total margin (see css)
-		steps = ~~( (that.$element.outerWidth() - 70) / (that.$content.children().outerWidth() + htmlElementMargin));
-		steps = (steps == 0) ? 1 : steps;
-		totalPages = Math.ceil(that.$content.children().size() / steps);
-		
-		// Move to... (steps in pixels)
-		moveTo = (that.$content.children().outerWidth() + htmlElementMargin) * steps;
-		// Mask configuration
-		margin = ($mask.width()-moveTo) / 2;
-		$mask.width( moveTo ).height( conf.height || that.$content.children().outerHeight() );
-		
-		return that;
-	};
+     */
+	var _createLayout = function() {
 
-	calculateMask();
+		// Create carousel's content
+		that.$content = $("<div>")
+			.addClass("ch-carousel-content")
+			.append( that.$collection );
 
-    /**
-     * Create pager functionlity whitin a carousel instance.
+		// Create carousel's mask
+		that.$container = $("<div>")
+			.addClass("ch-carousel-container")
+			.css("height", that.itemSize.height)
+			.append( that.$content )
+			.appendTo( that.$element );
+
+		// Visual configuration
+		if ( ch.utils.hasOwn(conf, "width") ) { that.$element.css("width", conf.width); };
+		if ( ch.utils.hasOwn(conf, "height") ) { that.$element.css("height", conf.height); };
+		if ( !conf.fx && ch.features.transition ) { that.$content.addClass("ch-carousel-nofx"); };
+
+		return;
+	},
+	
+	/**
+     * Creates Previous and Next arrows.
      * @private
-     * @name makePager
      * @function
-     * @return {Pager Object}
+     * @name _createArrows
      * @memberOf ch.Carousel
-     */ 
- 	var makePager = function(){
-		that.$element.find(".ch-pager").remove();
+     */
+	_createArrows = function(){
+		
+		// Previous arrow
+		that.prevArrow = $("<p>")
+			.addClass("ch-prev-arrow")
+			.append("<span>Previous</span>")
+			.bind("click", that.prev);
+		
+		// Next arrow
+		that.nextArrow = $("<p>")
+			.addClass("ch-next-arrow")
+			.append("<span>Next</span>")
+			.bind("click", that.next);
+		
+		// Continue carousel arrows behavior
+		if ( !conf.rolling ) { that.prevArrow.addClass("ch-hide") };
+		
+		// Append arrows to carousel
+		that.$element.prepend(that.prevArrow).append(that.nextArrow);
+		
+		// Positions arrows vertically inside carousel
+		var arrowsPosition = (that.$element.outerHeight() - that.nextArrow.outerHeight()) / 2;
+		$(that.prevArrow).css("top", arrowsPosition);
+		$(that.nextArrow).css("top", arrowsPosition);
+
+		return;
+	},
+	
+	/**
+     * Manages arrows turning it on and off when non-continue carousel is on first or last page.
+     * @private
+     * @function
+     * @name _toggleArrows
+     * @param {Number} page Page to be moved
+     * @memberOf ch.Carousel
+     */
+	_toggleArrows = function(page){
+ 		
+ 		// Both arrows shown on carousel's middle
+		if (page > 1 && page < that.pages ){
+			that.prevArrow.removeClass("ch-hide");
+			that.nextArrow.removeClass("ch-hide");
+		} else {
+			// Previous arrow hidden on first page
+			if (page == 1) { that.prevArrow.addClass("ch-hide"); that.nextArrow.removeClass("ch-hide"); };
 			
-		var pager = $("<ul class=\"ch-pager\">");
-		var thumbs = [];
-		
-		// Create each mini thumb
-		for(var i = 1, j = totalPages + 1; i < j; i += 1){
-			if(i == page) thumbs.push("<li class=\"ch-pager-on\">"); else thumbs.push("<li>");
-			thumbs.push(i);
-			thumbs.push("</li>");
+			// Next arrow hidden on last page
+			if (page == that.pages) { that.prevArrow.removeClass("ch-hide"); that.nextArrow.addClass("ch-hide"); };
 		};
-		pager.append( thumbs.join("") );
-		
-		// Create pager
-		that.$element.append( pager );
-		
-		// Position
-		var contextWidth = pager.parent().width();
-		var pagerWidth = pager.outerWidth();
-		
-		pager.css('left', (contextWidth - pagerWidth) / 2);
 
-		if ( ch.utils.html.hasClass("ie6") ) { pager.css('top', that.$element.height() + 15) };
+		return;
+	},
+	
+	/**
+     * Creates carousel pagination.
+     * @private
+     * @function
+     * @name _createPagination
+     * @memberOf ch.Carousel
+     */
+	_createPagination = function(){
+		
+		// Deletes pagination if already exists
+		that.$element.find(".ch-carousel-pages").remove();
+		
+		// Create an list of elements for new pagination
+		that.$pagination = $("<ul>").addClass("ch-carousel-pages");
 
-		// Children functionality
-		pager.children().each(function(i, e){ //TODO: unificar con el for de arriba (pager)
+		// Create each mini thumbnail
+		for (var i = 1; i <= that.pages; i += 1) {
+			// Thumbnail <li>
+			var thumb = $("<li>").html(i);
+			
+			// Mark as actived if thumbnail is the same that current page
+			if (i == that.currentPage) { thumb.addClass("ch-carousel-pages-on"); };
+			
+			// Append thumbnail to list
+			that.$pagination.append(thumb);
+		};
+
+		// Bind each thumbnail behavior
+		$.each(that.$pagination.children(), function(i, e){
 			$(e).bind("click", function(){
-				that.select(i+1);
+				that.goTo(i + 1);
 			});
 		});
-
-		return pager;
-	};
-	
-	var resize = false;
-	
-	
-	// Function executed after movement
-	var afterMove = function(){
-		that.active = false;
 		
-		if (ch.features.transition) ch.utils.document.unbind("transitionend webkitTransitionEnd OTransitionEnd");
+		// Append list to carousel
+		that.$element.append( that.$pagination );
 		
-		// Pager behavior
-		if (conf.pager) {								
-			that.pager.children().removeClass("ch-pager-on");
-			that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
-		};
-
-		// Callbacks
-		that.callbacks("onMove");
-	};
+		// Positions list
+		that.$pagination.css("left", (that.$element.outerWidth() - that.$pagination.outerWidth()) / 2);
+		
+		// Save each generated thumb into an array
+		_$itemsPagination = that.$pagination.children();
+			
+		return;
+	},
 	
+	/**
+     * Calculates items amount on each page.
+     * @private
+     * @function
+     * @name _getItemsPerPage
+     * @memberOf ch.Carousel
+     * @returns {Number} Items amount on each page
+     */
+	_getItemsPerPage = function(){
+		// Space to be distributed among all items
+		var _widthDiff = that.$element.outerWidth() - that.itemSize.width;
+		
+		// If there are space to be distributed, calculate pages
+		return (_widthDiff > that.itemSize.width) ? ~~(_widthDiff / that.itemSize.width) : 1;
+	},
+	
+	/**
+     * Calculates total amount of pages.
+     * @private
+     * @function
+     * @name _getPages
+     * @memberOf ch.Carousel
+     * @returns {Number} Total amount of pages
+     */
+	_getPages = function(){
+		// (Total amount of items) / (items amount on each page)
+		return  Math.ceil( that.items.children.length / that.itemsPerPage );
+	},
+
+	/**
+     * Calculates all necesary data to draw carousel correctly.
+     * @private
+     * @function
+     * @name _draw
+     * @memberOf ch.Carousel
+     */
+	_draw = function(){
+		
+		// Reset size of carousel mask
+		_maskWidth = that.$container.outerWidth();
+
+		// Recalculate items amount on each page
+		that.itemsPerPage = _getItemsPerPage();
+		
+		// Recalculate total amount of pages
+		that.pages = _getPages();
+		
+		// Calculate variable margin between each item
+		var _itemMargin = (( _maskWidth - (that.itemSize.width * that.itemsPerPage) ) / that.itemsPerPage ) / 2;
+		
+		// Modify sizes only if new items margin are positive numbers
+		if (_itemMargin < 0) return;
+		
+		// Detach content from DOM for make a few changes
+		that.$content.detach();
+		
+		// Move carousel to first page for reset initial position
+		that.goTo(1);
+		
+		// Sets new margin to each item
+		$.each(that.items.children, function(i, e){
+			e.style.marginLeft = e.style.marginRight = _itemMargin + "px";
+		});
+		
+		// Change content size and append it to DOM again
+		that.$content
+			.css("width", ((that.itemSize.width + (_itemMargin * 2)) * that.items.size() + _extraWidth) )
+			.appendTo(that.$container);
+		
+		// Create pagination if there are more than one page on total amount of pages
+		if ( conf.pagination && that.pages > 1) { _createPagination(); };
+		
+		return;
+	},
+	
+	/**
+     * Size of carousel mask.
+     * @private
+     * @name _maskWidth
+     * @type {Number}
+     * @memberOf ch.Carousel
+     */
+	_maskWidth,
+	
+	/**
+     * List of pagination thumbnails.
+     * @private
+     * @name _$itemsPagination
+     * @type {Array}
+     * @memberOf ch.Carousel
+     */
+	_$itemsPagination,
+	
+	/**
+     * Extra size calculated on content
+     * @private
+     * @name _extraWidth
+     * @type {Number}
+     * @memberOf ch.Carousel
+     */
+	_extraWidth,
+	
+	/**
+     * Resize status of Window.
+     * @private
+     * @name _resize
+     * @type {Boolean}
+     * @memberOf ch.Carousel
+     */
+	_resize = false;
 
 /**
  *  Protected Members
  */
 
-    /**
-     * Internal class that handles buttons behavior.
+	/**
+     * UL list of items.
      * @private
-     * @name buttons
+     * @name $collection
+     * @type {Array}
      * @memberOf ch.Carousel
-     */ 
- 	that.buttons = {
-		prev: {
-			//TODO usar positioner cuando esten todos los casos de posicionamiento
-			$element: $('<p class="ch-prev"><span>Previous</span></p>').bind('click', function(){ that.move("prev", 1) }),
-			on: function(){ that.buttons.prev.$element.addClass("ch-prev-on") },
-			off: function(){ that.buttons.prev.$element.removeClass("ch-prev-on") }
-		},
-		next: {
-			//TODO usar positioner cuando esten todos los casos de posicionamiento
-			$element: $('<p class="ch-next"><span>Next</span></p>').bind('click', function(){ that.move("next", 1) }),
-			on: function(){ that.buttons.next.$element.addClass("ch-next-on") },
-			off: function(){ that.buttons.next.$element.removeClass("ch-next-on") }
-		},
-		position: function(){
-			// 50 = button height + "margin"; 10 = bottom position if pager exists },
-			var newTop = {'top': (that.$element.outerHeight() - 50 + (( conf.pager ) ? 10 : 0)) / 2};
-				
-			that.buttons.prev.$element.css(newTop);
-			that.buttons.next.$element.css(newTop);
-		}
-	};
+     */
+	that.$collection = that.$element.children();
 	
-	that.move = function(direction, distance){
-		var movement;
+	/**
+     * List object created from each item.
+     * @private
+     * @name items
+     * @type {Object}
+     * @memberOf ch.Carousel
+     */
+	that.items = ch.list( that.$collection.children().toArray() );
+	
+	/**
+     * Width and height of first item.
+     * @private
+     * @name itemSize
+     * @type {Object}
+     * @memberOf ch.Carousel
+     */
+	that.itemSize = {
+		width: $(that.items.children[0]).outerWidth(),
+		height: $(that.items.children[0]).outerHeight()
+	};
+
+	/**
+     * Page selected.
+     * @private
+     * @name currentPage
+     * @type {Number}
+     * @memberOf ch.Carousel
+     */
+	that.currentPage = 1;
+
+	that.goTo = function(page){
 		
-		switch(direction){
-			case "prev":
-				// Validation
-				if(that.active || (page - distance) <= 0) return;
-				
-				// Next move
-				page -= distance;
-				
-				// Css object
-				movement = that.$content.position().left + (moveTo * distance);
-				
-				// Buttons behavior
-				if ( conf.arrows ) {
-					if(page == 1) that.buttons.prev.off();
-					that.buttons.next.on();
-				};
-			break;
-			case "next":
-				// Validation
-				if(that.active || (page + distance) > totalPages) return;
-				
-				// Next move
-				page += distance;
-				
-				// Css object
-				movement = that.$content.position().left - (moveTo * distance);
-				
-				// Buttons behavior
-				if ( conf.arrows ) {
-					if(page == totalPages) that.buttons.next.off();
-					that.buttons.prev.on();
-				};
-			break;
-		};
-				
-		// Status moving
-		that.active = true;
+		// Validation of page parameter
+		if (page == that.currentPage || page > that.pages || page < 1 || isNaN(page)) { return that; };
 		
-		// Have CSS3 Transitions feature?
-		if (ch.features.transition) {
-			
-			ch.utils.document.bind("transitionend webkitTransitionEnd OTransitionEnd", afterMove);
-			
-			// Css movement
-			that.$content.css({ left: movement });
-			
-			
-		// Ok, let JQuery do the magic...
+		// Coordinates to next movement
+		var movement = -(_maskWidth * (page - 1));
+
+		// TODO: review this conditional
+		// Movement with CSS transition
+		if (conf.fx && ch.features.transition) {
+			that.$content.css("left", movement);
+		// Movement with jQuery animate
+		} else if (conf.fx){
+			that.$content.animate({ left: movement });
+		// Movement without transition or jQuery
 		} else {
-			
-			that.$content.animate({ left: movement }, afterMove);
+			that.$content.css("left", movement);
+		};
+
+		// Manage arrows
+		if (!conf.rolling && conf.arrows) { _toggleArrows(page); };
+		
+		// Refresh selected page
+		that.currentPage = page;
+		
+		// TODO: Use toggleClass() instead remove and add.
+		// Select thumbnail on pagination
+		if (conf.pagination) {
+			_$itemsPagination
+				.removeClass("ch-carousel-pages-on")
+				.eq(page - 1)
+				.addClass("ch-carousel-pages-on");
 		};
 		
+		// Movement callback
+		that.callbacks("onMove");
+
+ 		return that;
+	};
+
+	that.prev = function(){
+		that.goTo(that.currentPage - 1);
+
+		that.callbacks("onPrev");
+
 		return that;
 	};
 	
-	
-	that.select = function(pageToGo){
-		//var itemPage = ~~(item / steps) + 1; // Page of "item"
-		
-		// Move right
-		if(pageToGo > page){
-			that.move("next", pageToGo - page);
-		// Move left
-		}else if(pageToGo < page){
-	        that.move("prev", page - pageToGo);
-		};
-		
-		if (conf.pager) {
-			that.pager.children().removeClass("ch-pager-on");
-			that.pager.children(":nth-child("+page+")").addClass("ch-pager-on");
-		};
-			
-	    return that;
+	that.next = function(){
+		that.goTo(that.currentPage + 1);
+
+		that.callbacks("onNext");
+
+		return that;
 	};
-	
-	that.redraw = function(){
-		if (steps > 1){ that.select(1); } //reset the position
-		
-		calculateMask();
-		
-		that.buttons.position();
-		
-		if (conf.pager && totalPages > 1) that.pager = makePager();
-	};
+
 
 /**
  *  Public Members
@@ -2403,45 +2720,59 @@ ch.carousel = function(conf){
 	that["public"].type = that.type;
 
     /**
-     * Get the amount of steps.
+     * Get the items amount of each page.
      * @public
-     * @name getSteps
-     * @return {Number}
+     * @name getItemsPerPage
+     * @returns {Number}
      * @memberOf ch.Carousel
      */
-	that["public"].getSteps = function() { return steps; };
+	that["public"].getItemsPerPage = function() { return that.itemsPerPage; };
     
     /**
-     * Get the current page.
+     * Get the total amount of pages.
      * @public
      * @name getPage
-     * @return {Number}
+     * @returns {Number}
      * @memberOf ch.Carousel
      */
-    that["public"].getPage = function() { return page; };
+    that["public"].getPage = function() { return that.currentPage; };
     
     /**
-     * Moves the carousel to the defined page.
+     * Moves to a defined page.
      * @public
-     * @name moveTo
-     * @return {Chico-UI Object}
+     * @function
+     * @name goTo
+     * @returns {Chico-UI Object}
+     * @param {Number} page Page to be moved
      * @memberOf ch.Carousel
+     * @example
+     * // Create a carousel
+     * var foo = $("bar").carousel();
+     * 
+     * // Go to second page
+     * foo.goTo(2);
      */
-    that["public"].moveTo = function(page) {
-    	that.select(page);
+    that["public"].goTo = function(page) {
+    	that.goTo(page);
 
-    	return that["public"];
+   		return that["public"];
     };
     
     /**
      * Moves to the next page.
      * @public
      * @name next
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
+     * @example
+     * // Create a carousel
+     * var foo = $("bar").carousel();
+     * 
+     * // Go to next page
+     * foo.next();
      */
     that["public"].next = function(){
-    	that.move("next", 1);
+		that.next();
 
     	return that["public"];
     };
@@ -2450,11 +2781,17 @@ ch.carousel = function(conf){
      * Moves to the previous page.
      * @public
      * @name prev
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
+     * @example
+     * // Create a carousel
+     * var foo = $("bar").carousel();
+     * 
+     * // Go to previous page
+     * foo.prev();
      */
 	that["public"].prev = function(){
-		that.move("prev", 1);
+		that.prev();
 
 		return that["public"];
 	};
@@ -2463,11 +2800,17 @@ ch.carousel = function(conf){
      * Re-calculate positioning, sizing, paging, and re-draw.
      * @public
      * @name redraw
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Carousel
-     */	
+     * @example
+     * // Create a carousel
+     * var foo = $("bar").carousel();
+     * 
+     * // Re-draw carousel
+     * foo.redraw();
+     */
 	that["public"].redraw = function(){
-		that.redraw();
+		_draw();
 		
 		return that["public"];
 	};
@@ -2476,40 +2819,46 @@ ch.carousel = function(conf){
 /**
  *  Default event delegation
  */
- 	
-	// UL width configuration
-	that.$content.css('width', htmlContentWidth);
+	
+	// Add class name to carousel container
+	that.$element.addClass("ch-carousel");
 
-	// Create pager if it was configured
-	if (conf.pager){
-		that.$element.addClass("ch-pager-bottom");
-		that.pager = makePager();	
-	};
+	// Add class name to collection and its children
+	that.$collection
+		.detach()
+		.addClass("ch-carousel-list")
+		.children()
+			.addClass("ch-carousel-item");
+
+	// Creates the necesary structure to carousel operation
+ 	_createLayout();
+
+	// Calculate extra width for content before draw carousel
+	_extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemSize.width : 0;
 	
-	// Buttons behavior
-	if ( conf.arrows ){
-		that.$element.prepend( that.buttons.prev.$element ).append( that.buttons.next.$element ); // Append prev and next buttons
-		if (htmlContentWidth > $mask.width()) that.buttons.next.on(); // Activate Next button if items amount is over carousel size
-		that.buttons.position();
-		
-		ch.utils.avoidTextSelection(that.buttons.prev.$element,that.buttons.next.$element);
-	};
-	
+	// Calculates all necesary data to draw carousel correctly
+	_draw();
+
+	// Creates Previous and Next arrows
+	if ( conf.arrows && that.pages > 1) { _createArrows(); };
+
 	// Elastic behavior    
     if ( !conf.hasOwnProperty("width") ){
 		
+		// Change resize status on Window resize event
 	    ch.utils.window.bind("resize", function() {
-			resize = true;
+			_resize = true;
 		});
 		
+		// Limit resize execution to a quarter of second
 		setInterval(function() {
-		    if( !resize ) return;
-			resize = false;
-			that.redraw();
+		    if( !_resize ) { return; };
+			_resize = false;
+			_draw();
 		}, 250);
 		
 	};
- 
+
 	return that;
 }
 
@@ -2520,7 +2869,7 @@ ch.carousel = function(conf){
  * @augments ch.Navs
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.dropdown = function(conf){
@@ -2690,7 +3039,7 @@ ch.dropdown = function(conf){
      * Shows component's content.
      * @public
      * @name show
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Dropdown
      */
 	that["public"].show = function(){
@@ -2703,7 +3052,7 @@ ch.dropdown = function(conf){
      * Hides component's content.
      * @public
      * @name hide
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Dropdown
      */ 
 	that["public"].hide = function(){
@@ -2752,7 +3101,7 @@ ch.dropdown = function(conf){
  * @augments ch.Floats
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Tooltip
  * @see ch.Modal
  * @example
@@ -2932,7 +3281,7 @@ ch.layer = function(conf) {
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Layer
      */
 	that["public"].show = function(){
@@ -2945,7 +3294,7 @@ ch.layer = function(conf) {
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Layer
      */	
 	that["public"].hide = function(){
@@ -3004,7 +3353,7 @@ ch.layer = function(conf) {
  * @augments ch.Floats
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Tooltip
  * @see ch.Layer
  */ 
@@ -3020,7 +3369,7 @@ ch.modal = function(conf){
      */
   	var that = this;
 	conf = ch.clon(conf);
-	conf.ajax = ( !conf.hasOwnProperty("ajax") && !conf.hasOwnProperty("content") && !conf.hasOwnProperty("msg") ) ? true : conf.ajax; //Default	
+	conf.ajax = ( !ch.utils.hasOwn(conf, "ajax") && !ch.utils.hasOwn(conf, "content") && !ch.utils.hasOwn(conf, "msg") ) ? true : conf.ajax; //Default	
 	conf.closeButton = (that.type == "modal") ? true : false;
 	conf.classes = "box";
 
@@ -3147,7 +3496,7 @@ ch.modal = function(conf){
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Modal
      */
 	that["public"].show = function(){
@@ -3160,7 +3509,7 @@ ch.modal = function(conf){
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Modal
      */ 
 	that["public"].hide = function(){
@@ -3192,7 +3541,7 @@ ch.modal = function(conf){
  *
  * @interfaces Transition
  * @augments Modal
- * @return {Object}
+ * @returns {Object}
  */
  
 ch.transition = function(conf) {
@@ -3218,7 +3567,7 @@ ch.factory({ component: 'transition' });
  * @augments ch.Controllers
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.tabNavigator = function(conf){
@@ -3300,8 +3649,8 @@ ch.tabNavigator = function(conf){
 				};
 
 			// Callbacks
-			if ( that.conf.hasOwnProperty("onContentLoad") ) conf.onContentLoad = that.conf.onContentLoad;
-			if ( that.conf.hasOwnProperty("onContentError") ) conf.onContentError = that.conf.onContentError;
+			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) conf.onContentLoad = that.conf.onContentLoad;
+			if ( ch.utils.hasOwn(that.conf, "onContentError") ) conf.onContentError = that.conf.onContentError;
 
 			// Create Tabs
 			that.children.push(
@@ -3322,7 +3671,6 @@ ch.tabNavigator = function(conf){
     /**
      * Select a child to show its content.
      * @private
-     * @name select
      * @function
      * @memberOf ch.TabNavigator
      */
@@ -3415,7 +3763,7 @@ ch.tabNavigator = function(conf){
      * @public
      * @function
      * @name getSelected
-     * @return {Number} selected Tab's index.
+     * @returns {Number} selected Tab's index.
      * @memberOf ch.TabNavigator
      */	
 	that["public"].getSelected = function(){ return (selected + 1); };
@@ -3439,7 +3787,7 @@ ch.tabNavigator = function(conf){
 		};
 	};
 
-	return that["public"];
+	return that;
 	
 };
 
@@ -3453,7 +3801,7 @@ ch.tabNavigator = function(conf){
  * @augments ch.Navs
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.tab = function(conf){
@@ -3539,7 +3887,7 @@ ch.tab = function(conf){
      * @private
      * @function
      * @name show
-     * @return {jQuery Object}
+     * @returns {jQuery Object}
      * @memberOf ch.Tab
      */ 
 	that.show = function(event){
@@ -3576,7 +3924,7 @@ ch.tab = function(conf){
  * @augments ch.Floats
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.tooltip = function(conf) {
@@ -3673,7 +4021,7 @@ ch.tooltip = function(conf) {
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Tooltip
      */
 	that["public"].show = function(){
@@ -3686,7 +4034,7 @@ ch.tooltip = function(conf) {
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Tooltip
      */ 
 	that["public"].hide = function(){
@@ -3724,7 +4072,7 @@ ch.tooltip = function(conf) {
  * @augments ch.Watcher
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Email
  * @see ch.Url
  * @see ch.MaxLength
@@ -3743,7 +4091,7 @@ ch.string = function(conf) {
 	
     conf.messages = conf.messages || {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.string = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -3788,7 +4136,7 @@ ch.string = function(conf) {
  * @augments ch.String
  * @memberOf ch
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Url
  * @see ch.MaxLength
  * @see ch.MinLength
@@ -3805,7 +4153,7 @@ ch.email = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.email = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -3825,7 +4173,7 @@ ch.factory({ component: 'email' });
  * @augments ch.String
  * @memberOf ch
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Email
  * @see ch.MaxLength
  * @see ch.MinLength
@@ -3842,7 +4190,7 @@ ch.url = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.url = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -3863,7 +4211,7 @@ ch.factory({ component: 'url' });
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Email
  * @see ch.Url
  * @see ch.MaxLength
@@ -3880,7 +4228,7 @@ ch.minLength = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.minLength = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -3901,7 +4249,7 @@ ch.factory({ component: 'minLength' });
  * @memberOf ch
  * @param {Number} value Maximun number value.
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Email
  * @see ch.Url
  * @see ch.MinLength
@@ -3918,7 +4266,7 @@ ch.maxLength = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.maxLength = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -3936,7 +4284,7 @@ ch.factory({ component: 'maxLength' });
  * @augments ch.Watcher
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Min
  * @see ch.Max
  * @see ch.Price
@@ -3955,7 +4303,7 @@ ch.number = function(conf) {
 	
     conf.messages = conf.messages || {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.number = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -3997,7 +4345,7 @@ ch.number = function(conf) {
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Max
  * @see ch.Price
  * @example
@@ -4016,7 +4364,7 @@ ch.min = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.min = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -4036,7 +4384,7 @@ ch.factory({ component: 'min' });
  * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Min
  * @see ch.Price
  * @example
@@ -4055,7 +4403,7 @@ ch.max = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.max = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -4075,7 +4423,7 @@ ch.factory({ component: 'max' });
  * @augments ch.Number
  * @memberOf ch
  * @param {String} [message] Validation message.
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Min
  * @see ch.Max
  * @example
@@ -4094,7 +4442,7 @@ ch.price = function(conf) {
 	
 	conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
 		conf.messages.price = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -4113,7 +4461,7 @@ ch.factory({ component: 'price' });
  * @augments ch.Watcher
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @example
  * // Validate a even number
  * $("input").custom(function(value){
@@ -4139,7 +4487,7 @@ ch.custom = function(conf) {
 	conf = conf || {};
     conf.messages = conf.messages || {};
 
-    if ( conf.hasOwnProperty("msg") ) { 
+    if ( ch.utils.hasOwn(conf, "msg") ) { 
     	conf.messages.custom = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -4168,7 +4516,7 @@ ch.custom = function(conf) {
  * @augments ch.Watcher
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  * @see ch.Number
  * @see ch.String
  * @see ch.Custom
@@ -4187,7 +4535,7 @@ ch.required = function(conf) {
 	
     conf.messages = {};
 
-    if ( conf.hasOwnProperty("msg") ) {     	
+    if ( ch.utils.hasOwn(conf, "msg") ) {     	
     	conf.messages.required = conf.msg;
     	conf.msg = null;
     	delete conf.msg;
@@ -4213,7 +4561,7 @@ ch.required = function(conf) {
  * @augments ch.Floats
  * @memberOf ch
  * @param {Controller Object} o Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.helper = function(controller){
@@ -4313,7 +4661,7 @@ ch.helper = function(controller){
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Helper
      */
 	that["public"].show = function(text){
@@ -4326,7 +4674,7 @@ ch.helper = function(controller){
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Helper
      */ 
 	that["public"].hide = function(){
@@ -4368,7 +4716,7 @@ ch.helper = function(controller){
  * @augments ch.Controllers
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.form = function(conf) {
@@ -4383,7 +4731,7 @@ ch.form = function(conf) {
 	};
 
 	// Is there form in map instances?	
-	if ( ch.instances.hasOwnProperty("form") && ch.instances.form.length > 0 ){
+	if ( ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0 ){
 		for(var i = 0, j = ch.instances.form.length; i < j; i++){
 			if(ch.instances.form[i].element === this.element){
 				return { 
@@ -4405,7 +4753,7 @@ ch.form = function(conf) {
 	
 	conf = ch.clon(conf);
 	// Create the Messages for General Error
-	if ( !conf.hasOwnProperty("messages") ) conf.messages = {};
+	if ( !ch.utils.hasOwn(conf, "messages") ) conf.messages = {};
 	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
 	
 	// Disable HTML5 browser-native validations
@@ -4528,7 +4876,7 @@ ch.form = function(conf) {
 		validate(); // Validate start
 		
 		if ( status ){ // Status OK
-			if ( !conf.hasOwnProperty("onSubmit") ) {
+			if ( !ch.utils.hasOwn(conf, "onSubmit") ) {
 				that.element.submit();
 			}else{
 				that.callbacks("onSubmit");
@@ -4613,7 +4961,7 @@ ch.form = function(conf) {
      * @function
      * @name validate
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */
 	that["public"].validate = function() { 
 		validate(); 
@@ -4626,7 +4974,7 @@ ch.form = function(conf) {
      * @function
      * @name submit
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */
 	that["public"].submit = function() { 
 		submit(); 
@@ -4652,7 +5000,7 @@ ch.form = function(conf) {
      * @function
      * @name getStatus
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */ 	
 	that["public"].getStatus = function(){
 		return status;	
@@ -4663,7 +5011,7 @@ ch.form = function(conf) {
      * @function
      * @name clear
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */ 
 	that["public"].clear = function() { 
 		clear(); 
@@ -4675,7 +5023,7 @@ ch.form = function(conf) {
      * @function
      * @name reset
      * @memberOf ch.Form
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      */ 
 	that["public"].reset = function() { 
 		reset(); 
@@ -4689,7 +5037,7 @@ ch.form = function(conf) {
  */	
 
 	// patch exists because the components need a trigger
-	if (conf.hasOwnProperty("onSubmit")) {
+	if (ch.utils.hasOwn(conf, "onSubmit")) {
 		that.$element.bind('submit', function(event){ that.prevent(event); });
 		// Delete all click handlers asociated to submit button >NATAN: Why?
 			//Because if you want do something on submit, you need that the trigger (submit button) 
@@ -4707,7 +5055,6 @@ ch.form = function(conf) {
 
 	return that;
 };
-
 /**
  * Viewer UI-Component for images, videos and maps.
  * @name Viewer
@@ -4717,7 +5064,7 @@ ch.form = function(conf) {
  * @requires ch.Zoom
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.viewer = function(conf){
@@ -4762,7 +5109,7 @@ ch.viewer = function(conf){
      * @type {jQuery Object}
      * @memberOf ch.Viewer
      */
-	var $content = $viewer.children().addClass("ch-viewer-content carousel");
+	var $content = $viewer.children().addClass("ch-viewer-content");
 
     /**
      * Reference to the viewer's display element.
@@ -4825,32 +5172,37 @@ ch.viewer = function(conf){
 	/**
 	 * 	Zoom
 	 */
-	if( ch.hasOwnProperty("zoom") ) {
-		var zoomChildren = [];
-	
-		$.each(itemsAnchor, function(i, e){
+	if( ch.utils.hasOwn(ch, "zoom") ) {
+
+		var i = 0;
+		
+		// Initialize zoom on imgs loaded
+		itemsChildren.filter("img").bind("load", function(){
+
+			var _parentNode = this.parentNode;
 			
 			var component = {
 				uid: that.uid + "#" + i,
 				type: "zoom",
-				element: e,
-				$element: $(e)
+				element: _parentNode,
+				$element: $(_parentNode)
 			};
-			
-			var config = {
-	    		context: $viewer,
-	    		onShow: function(){
-	    			var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
-	    			var zoomDisplayWidth = (conf.width < rest)? conf.width :	(rest - 65 );
-	    			this.width( zoomDisplayWidth );
-	    			this.height( $viewer.height() );
-	    		}
-	    	};
-			
-			zoomChildren.push( ch.zoom.call(component, config) );
-		});
 		
-		that.children.push( zoomChildren );
+			var config = {
+				context: $viewer,
+				onShow: function(){
+					var _rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
+					var _zoomDisplayWidth = (conf.width < _rest)? conf.width : (_rest - 65 );
+					this.width( _zoomDisplayWidth );
+					this.height( $viewer.height() );
+				}
+			};
+
+			that.children.push( ch.zoom.call(component, config) );
+
+			i += 1;
+		});
+
 	};
 	
 	/**
@@ -4913,7 +5265,7 @@ ch.viewer = function(conf){
      * @function
      * @name move
      * @param {Number} item
-     * @return {Chico-UI Object} that
+     * @returns {Chico-UI Object} that
      * @memberOf ch.Viewer
      */
 	var move = function(item){
@@ -4925,11 +5277,11 @@ ch.viewer = function(conf){
 		$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
 		
 		// Move Display carousel
-		$display.moveTo(item);
+		$display.goTo(item);
 		
 		// Move thumbnails carousel if item selected is in other page
-		var nextThumbsPage = Math.ceil( item / thumbnails.carousel.getSteps() );
-		if(thumbnails.carousel.getPage() != nextThumbsPage) thumbnails.carousel.moveTo( nextThumbsPage );
+		var nextThumbsPage = Math.ceil( item / thumbnails.carousel.getItemsPerPage() );
+		if(thumbnails.carousel.getPage() != nextThumbsPage) thumbnails.carousel.goTo( nextThumbsPage );
 		
 		// Buttons behavior
 		if(item > 1 && item < itemsAmount){
@@ -5125,13 +5477,13 @@ ch.chat = function(conf) {
         }
    	});
 
-    that.publish = {
+    that["public"] = {
     	uid: conf.uid,
 		element: conf.element,
-        type: conf.type
+        type: "chat"
     }
     
-    return that.publish;
+    return that;
 
 }
 
@@ -5142,7 +5494,7 @@ ch.chat = function(conf) {
  * @augments ch.Navs
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
  
 ch.expando = function(conf){
@@ -5209,7 +5561,7 @@ ch.expando = function(conf){
      * Shows component's content.
      * @public
      * @name show
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Expando
      */
 	that["public"].show = function(){
@@ -5222,7 +5574,7 @@ ch.expando = function(conf){
      * Hides component's content.
      * @public
      * @name hide
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Expando
      */	
 	that["public"].hide = function(){
@@ -5248,7 +5600,7 @@ ch.expando = function(conf){
  * @abstract
  * @name Codelighter
  * @class Codelighter 
- * @return {Object}
+ * @returns {Object}
  * @memberOf ch 
  * @example
  * ch.codelighter();
@@ -5375,7 +5727,7 @@ ch.codesnippet = function(conf){
 
 /**
  *	@Interface xml
- *	@return An interface object
+ *	@returns An interface object
  */
 
 ch.codeXML = function(conf) {
@@ -5410,7 +5762,7 @@ ch.factory({ component: 'codeXML' });
 
 /**
  *	@Interface js
- *	@return An interface object
+ *	@returns An interface object
  */
 
 ch.codeJS = function(conf) {
@@ -5447,7 +5799,7 @@ ch.factory({ component: 'codeJS' });
 
 /**
  *	@Interface css
- *	@return An interface object
+ *	@returns An interface object
  */
 
 ch.codeCSS = function(conf) {
@@ -5484,7 +5836,7 @@ ch.factory({ component: 'codeCSS' });/**
  * @requires ch.Expando
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
  
 ch.menu = function(conf){
@@ -5516,7 +5868,6 @@ ch.menu = function(conf){
 	/**
      * Indicates witch child is opened
      * @private
-     * @name selected
      * @type {Number}
      * @memberOf ch.Menu
      */
@@ -5571,7 +5922,6 @@ ch.menu = function(conf){
 	/**
      * Opens specific Expando child and optionally grandson
      * @private
-     * @name select
      * @function
      * @memberOf ch.Menu
      */
@@ -5594,7 +5944,7 @@ ch.menu = function(conf){
 		var itemObject = that.children[ child ];
 		
 		// Item as object
-		if (itemObject.hasOwnProperty("uid")) {
+		if (ch.utils.hasOwn(itemObject, "uid")) {
 			
 			// Show this list
 			itemObject.show();
@@ -5610,7 +5960,7 @@ ch.menu = function(conf){
 						// If it isn't an anchor...
 						(e.tagName != "A") &&
 						// If there are an unique id...
-						(e.hasOwnProperty("uid")) &&
+						(ch.utils.hasOwn(e, "uid")) &&
 						// If unique id is different to unique id on that.children list...
 						(that.children[ child ].uid != that.children[i].uid)
 					){
@@ -5712,9 +6062,9 @@ ch.menu = function(conf){
 	if (conf.accordion) configureAccordion();
 	
 	// Select specific item if there are a "selected" parameter on component configuration object
-    if (conf.hasOwnProperty("selected")) select(conf.selected);
+    if (ch.utils.hasOwn(conf, "selected")) select(conf.selected);
     
-	return that["public"];
+	return that;
 	
 };
 
@@ -5723,10 +6073,10 @@ ch.menu = function(conf){
  * Accordion is a UI-Component.
  * @name Accordion
  * @class Accordion
- * @augments ch.Accordion
+ * @augments ch.Menu
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.accordion = function(conf) {
@@ -5779,10 +6129,9 @@ ch.factory({ component: "accordion" });
  * @class Zoom
  * @augments ch.Floats
  * @requires ch.Positioner
- * @requires ch.Preload
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
- * @return {Chico-UI Object}
+ * @returns {Chico-UI Object}
  */
 
 ch.zoom = function(conf) {
@@ -5795,7 +6144,7 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var that = this;
-	
+
 	conf = ch.clon(conf);
 	conf.width = conf.width || 300;
 	conf.height = conf.height || 300;
@@ -5805,7 +6154,7 @@ ch.zoom = function(conf) {
 	conf.position.offset = conf.offset || "20 0";
 	conf.position.points = conf.points || "lt rt";
 	conf.position.hold = true;
-	
+
 	that.conf = conf;
 
 /**
@@ -5828,8 +6177,8 @@ ch.zoom = function(conf) {
      */
 	var original = {};
 		original.img = that.$element.children();
-		original["width"] = original.img.width();
-		original["height"] = original.img.height();
+		original["width"] = original.img.prop("width");
+		original["height"] = original.img.prop("height");
 
     /**
      * Zoomed visual element.
@@ -5839,7 +6188,7 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var zoomed = {};
-		zoomed.img = conf.content = $("<img>").attr("src", that.element.href);
+		zoomed.img = conf.content = $("<img>");
 	
 	// Magnifying glass (enlarge)
 	//var $lens = $("<div>").addClass("ch-lens ch-hide");
@@ -5893,13 +6242,15 @@ ch.zoom = function(conf) {
 	
 	that.show = function(event){
 		that.prevent(event);
-		
+
+		zoomed.img.prop("src", that.element.href);
+
 		// Floats show
 		that.parent.show();
-		
+
 		// Magnifying glass
 		//$lens.fadeIn();
-		
+
 		// Seeker
 		seeker.shape.removeClass("ch-hide");
 		
@@ -5945,14 +6296,7 @@ ch.zoom = function(conf) {
      */
 	that.size = function(attr, data) {
 		if (!data) return conf[attr]; // Getter
-		
-		// Size of zoomed image
-		// TODO: Make this only first time or outside of here.
-		// It's calculating zoomed image size in that.size,
-		// because isn't posible calc this before image load
-		zoomed["width"] = zoomed.img.width();
-		zoomed["height"] = zoomed.img.height();
-		
+
 		// Configuration
 		that.conf[attr] = data;
 		
@@ -6008,7 +6352,7 @@ ch.zoom = function(conf) {
      * @public
      * @name show
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Zoom
      */
 	that["public"].show = function(){
@@ -6021,7 +6365,7 @@ ch.zoom = function(conf) {
      * @public
      * @name hide
      * @function
-     * @return {Chico-UI Object}
+     * @returns {Chico-UI Object}
      * @memberOf ch.Zoom
      */
 	that["public"].hide = function(){
@@ -6093,7 +6437,7 @@ ch.zoom = function(conf) {
 			.css({"width": original["width"], "height": original["height"]})
 			
 			// Show
-			.bind("mouseover", that.show)
+			.bind("mouseenter", that.show)
 			
 			// Hide
 			.bind("mouseleave", that.hide)
@@ -6104,10 +6448,16 @@ ch.zoom = function(conf) {
 			// Enlarge
 			.bind("click", function(event){ that.enlarge(event); });
 	},50);	
-	
+
 	// Preload zoomed image
-	if(ch.hasOwnProperty("preload")) ch.preload(that.element.href);
-	
+	ch.utils.window.one("load", function(){
+		zoomed.img.prop("src", that.element.href).one("load", function(){
+			zoomed["width"] = zoomed.img.prop("width");
+			zoomed["height"] = zoomed.img.prop("height");
+		});
+	});
+
+
 	return that;
 };
 

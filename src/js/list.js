@@ -7,7 +7,7 @@
  * @param {Array} [collection] Constructs a List with an optional initial collection
  */
 
-ch.List = function( collection ) {
+ch.list = function( collection ) {
 
     var that = this;
 

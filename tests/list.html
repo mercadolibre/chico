@@ -45,12 +45,12 @@
         ];
         
         // Start a list with 5 members
-        var lista = ch.List(arr);
+        var lista = ch.list(arr);
 
         var pearljam = { band: "Pearl Jam", rating: 1.2 }
         var jeffair = { band: "Jefferson Airplane", rating: 1.1 }
 
-        module("ch.List children Member");
+        module("ch.list children Member");
 
         test( "Check list children member" , function(){
             
@@ -70,7 +70,7 @@
             
         });
 
-        module("ch.List add() Method");
+        module("ch.list add() Method");
         
         test( "Adding basic data types as content." , function(){
 
@@ -99,7 +99,7 @@
 
         });
         
-        module("ch.List get() Method");
+        module("ch.list get() Method");
 
         test( "Finding elements by index." , function(){
             
@@ -133,7 +133,7 @@
 
         });
 
-        module("ch.List rem() Method");
+        module("ch.list rem() Method");
 
         test( "Removing elements by index." , function(){
             

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Accordion - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=accordion">
+	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=menu,expando">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
 <body>
@@ -87,7 +87,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/packer.php?debug=true"></script>
+	<script src="../php/packer.php?debug=true&get=menu,expando"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
@@ -258,13 +258,15 @@
 		
 		// DOM references
 		var menuItems = [];
+			menuItems[0] = {};
 			menuItems[0].container = $(testMenu.element).children().eq(0);
-			menuItems[0].trigger = ref.container.children().eq(0);
-			menuItems[0].content = ref.container.children().eq(1);
+			menuItems[0].trigger = menuItems[0].container.children().eq(0).children();
+			menuItems[0].content = menuItems[0].container.children().eq(1);
 			
+			menuItems[1] = {};
 			menuItems[1].container = $(testMenu.element).children().eq(1);
-			menuItems[1].trigger = ref.container.children().eq(0);
-			menuItems[1].content = ref.container.children().eq(1);
+			menuItems[1].trigger = menuItems[1].container.children().eq(0).children();
+			menuItems[1].content = menuItems[1].container.children().eq(1);
 		
        	module('Menu');
        	
@@ -275,7 +277,7 @@
 			isVisible(menuItems[0].content);
 			
 			hasClass(menuItems[0].trigger, 'ch-expando-trigger-on');
-						
+			
 		});
 		
 		test('Open Menu child', function() {

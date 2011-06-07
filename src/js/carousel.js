@@ -48,7 +48,6 @@ ch.carousel = function(conf){
 /**
  *  Private Members
  */
-<<<<<<< HEAD
 	
 	/**
      * Creates the necesary structure to carousel operation.
@@ -259,7 +258,6 @@ ch.carousel = function(conf){
 		
 		return;
 	},
-<<<<<<< HEAD
 	
 	/**
      * Size of carousel mask.
@@ -317,7 +315,7 @@ ch.carousel = function(conf){
      * @type {Object}
      * @memberOf ch.Carousel
      */
-	that.items = ch.List( that.$collection.children().toArray() );
+	that.items = ch.list( that.$collection.children().toArray() );
 	
 	/**
      * Width and height of first item.
@@ -518,7 +516,6 @@ ch.carousel = function(conf){
      * 
      * // Re-draw carousel
      * foo.redraw();
-     */
      */
 	that["public"].redraw = function(){
 		_draw();
