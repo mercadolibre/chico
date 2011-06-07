@@ -458,37 +458,43 @@ hr {
 }
     		
 .pagination li {
-	display:inline-block;
+	float:left;
 	margin:0px 4px;
 }
-    		
+
 .pagination li a, 
 .pagination li.current {
 	border-radius:3px;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	padding: 3px 8px;
-	display:inline-block; /* same shape */
+	float:left;
 	border:1px solid #ccc;
+	background-color:#fff;
 }
-    		
-.pagination li a:hover{
+
+.pagination li a:hover {
 	color:#fff;
 	text-decoration:none;
 	background-color:#0637b3;
 	border:1px solid #0637b3;
 }
-		
+
 .pagination li.current {
 	border:1px solid #ededed;
 	background-color:#ededed;
 	color:#0637b3; 
 	font-weight: bold;
 }
-    
-.pagination li:first-child a, 
+
+.pagination li:first-child a,
 .pagination li:last-child a {
-	border:none;
+	border-color:#fff;
+}
+
+.pagination li:first-child a:hover,
+.pagination li:last-child a:hover {
+	border-color:#0637b3;
 }
 
 
@@ -648,46 +654,59 @@ td {
 	-moz-user-select: none;
 }
 /* Carousel */
-.ch-carousel{
+.ch-carousel {
 	overflow:hidden;
 	position:relative;
 }
 
-.ch-carousel .ch-mask{
-	overflow: hidden;
-	position: relative;
-	/*margin:0 35px;*/
-	margin:0 auto;
+.ch-carousel-container {
+	margin: 0 50px;
+	position:relative;
+	overflow:hidden;
 }
 
-.ch-carousel-content{
+.ch-carousel-content {
 	position:absolute;
 	transition: all .3s linear;
 	-o-transition: all .3s linear;
 	-moz-transition: all .3s linear;
 	-webkit-transition: all .3s linear;
-	left:0;
+	left:0;	
 }
 
-.ch-carousel-content li{
-	margin:0 10px;
+.ch-carousel-content.ch-carousel-nofx{
+	transition: none;
+	-o-transition: none;
+	-moz-transition: none;
+	-webkit-transition: none;
+}
+
+.ch-carousel-list {
+	float:left;
+	overflow:hidden;
+}
+
+.ch-carousel-item {
 	float:left;
 }
 
 /* Buttons */
+.ch-carousel .ch-prev-arrow,
+.ch-carousel .ch-next-arrow {
+	position:absolute;
+	cursor:pointer;
+}
 
-.ch-carousel .ch-prev {
-	position: absolute;
+.ch-carousel .ch-prev-arrow {
 	left: 10px;
 }
 
-.ch-carousel .ch-next {
-	position: absolute;
+.ch-carousel .ch-next-arrow {
 	right: 10px;
 }
 
-.ch-carousel .ch-prev span,
-.ch-carousel .ch-next span {
+.ch-carousel .ch-prev-arrow span,
+.ch-carousel .ch-next-arrow span {
 	background:none;
 	display: block;
 	width:11px;
@@ -695,47 +714,30 @@ td {
 	margin:15px 8px; /* Area sensible */
 	text-indent:999px;
 	overflow:hidden;
-}
-
-.ch-carousel .ch-prev-on,
-.ch-carousel .ch-next-on {
-	cursor:pointer;
-}
-
-.ch-carousel .ch-prev-on span,
-.ch-carousel .ch-next-on span {
 	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAABQCAYAAADP5Y8SAAAAY0lEQVRIx+3WQQoAIQgFUO/kYVU8bEOL1v1Ammb6gbv3FxKoIsBT1dYLhlNMWAOXMQPnBSAcEa0XDKeYsAYu42sD7n5qD8Jx9fcAT4kXj5PaHceR+9HAgJm5e02b2eXHCfKbD+zu/HWMn1jyAAAAAElFTkSuQmCC');
 /*carousel*/*background-image: url('../src/assets/carousel.png');
 	background-repeat: no-repeat;
 }
 
-.ch-carousel .ch-prev-on span{
-	background-position: 0 0;
-}
-
-.ch-carousel .ch-prev-on:hover span{
-	background-position: 0 -20px;
-}
-
-.ch-carousel .ch-next-on span{
+.ch-carousel .ch-next-arrow span{
 	background-position: 0 -40px;
 }
 
-.ch-carousel .ch-next-on:hover span{
+.ch-carousel .ch-prev-arrow:hover span{
+	background-position: 0 -20px;
+}
+
+.ch-carousel .ch-next-arrow:hover span{
 	background-position: 0 -60px;
 }
 
 /* Pager */
-.ch-carousel.ch-pager-bottom{
-	padding-bottom: 30px;
-}
-
-.ch-carousel .ch-pager {
+.ch-carousel-pages {
 	position:absolute;
-	bottom:10px;
+	bottom:0px;
 }
 
-.ch-carousel .ch-pager li{
+.ch-carousel .ch-carousel-pages li{
 	text-indent:999px;
 	overflow:hidden;
 	float:left;
@@ -749,18 +751,19 @@ td {
 	background-color:#d1d1d1;
 }
 
-.ch-carousel .ch-pager .ch-pager-on{
+.ch-carousel-pages li.ch-carousel-pages-on{
 	background-color:#16232f;
 }
 
 /* IE 6 */
-.ie6 .ch-carousel .ch-next{
+.ie6 .ch-carousel .ch-next-arrow{
 	right: 30px;
 }
 
-.ie6 .ch-carousel .ch-prev{
+.ie6 .ch-carousel .ch-prev-arrow{
 	left: 5px;
-}/**
+}
+/**
  *	Default Styles
  */
 
@@ -1645,6 +1648,10 @@ form .disabled input{
 
 .ch-viewer-display{
 	margin:5px 0;
+}
+
+.ch-viewer-display .ch-carousel-container{
+	margin:0;
 }
 
 /* Display list */
