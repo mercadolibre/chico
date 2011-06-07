@@ -1,4 +1,14 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		
+		<title>Chico API Reference - ch.List</title>
+
+		<style type="text/css">
+			/**
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
@@ -23,3 +33,690 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 /*viewerArrows*/*background-image: url('../src/assets/viewerArrows.png');background-repeat:no-repeat;cursor:pointer;}.ch-viewer-prev{background-position:0 -34px;right:28px;}.ch-viewer-next{background-position:-28px -34px;right:0;}.ch-viewer-prev-on{background-position:0 0;}.ch-viewer-next-on{background-position:-28px 0;}.ch-viewer-triggers{margin-bottom:5px;}.ch-viewer-triggers li{width:40px;height:40px;border:1px solid #fff;cursor:pointer;text-align:center;margin:0 10px;}.ch-viewer-triggers li span,.ch-viewer-triggers li img{vertical-align:middle;}.ch-viewer-triggers .ch-thumbnail-on{border-color:#ccc;}.ch-viewer-video{background-color:#eee;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;text-indent:999px;overflow:hidden;}.ch-viewer-video span{background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAWCAYAAAD0OH0aAAAAWElEQVQ4y2MQU9ZvAOIEBmIBVMN/ojUhaSBOE5oGwpqwaMCvCYcG3JrwaMCuiYAGTE1EaEDVRKQGhCYSNEA00VJDAs08nUCziEugWeJLoFkGIimLEl0IAACQNL9jBnbfRgAAAABJRU5ErkJggg==');
 /*viewer*/*background-image: url('../src/assets/viewer.png');width:12px;height:22px;display:block;vertical-align:middle;margin:10px auto;}.ie6 .ch-viewer-triggers .ch-prev{left:10px;}.ie6 .ch-viewer-triggers .ch-next{right:10px;}.ie6 .ch-modal{overflow:hidden;}.ie6 .ch-viewer-modal-content .ch-pager{bottom:30px;}.ch-expando-trigger{color:#0637B3;cursor:pointer;position:relative;padding-left:16px;}.ch-expando-trigger:active{color:#00D;}.ch-expando-trigger:visited{color:#800080;}.ch-expando-trigger:hover{text-decoration:underline;}.ch-expando-trigger .ico{background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAqCAYAAACHgLrMAAABI0lEQVRIx+2Uoa7CMBSG9wh7lwleAIPAEAjmCkLCFZCQLFdgUKirMFeheAUsEnsNAoIgJBiuIQEGjIlrDvsX2jDasxYNJ/nSpP2/rGlP5zh35XkeAcemEBxNKcFKQmg8J4lRQmCypBSZEhZ/16TASliYbUiLVsLkaktaWOHvQAq1+ie/pV1IKRCOR5cVon+SIByPbuYpiUI4Ltd4eQiye37XrXLlBQHr8NcwSrCSEGoPLhKjhEDzJ0yRKWGx0Q8VWAkLte+zFq2EyY/eSQsrVLtHhYq/5bdU6gQp2LAQin4gyQwLodA6JBjDohC0Dr/swzEhjzLf2CfnjwvDDaMl0ENoPHQsWl2+kacF8RWToHQsJE5gHxGkR8H4tiEJ4alfDhe+AvLnHnASburEAAAAAElFTkSuQmCC');
 /*expando*/*background-image: url('../src/assets/expando.png');width:12px;height:12px;position:absolute;top:2px;}.ch-expando-trigger:hover .ico{background-position:0 -17px;}.ch-expando-trigger-on .ico,.ch-expando-trigger-on:hover .ico{background-position:0 -32px;}.ch-expando-content{margin:5px 0 0 16px;}.ie6 .ch-expando-trigger{font-size:13px;text-decoration:underline;}.ie7 .ch-expando-trigger{font-size:13px;}pre{font-family:Monospace, "Monotype Corsiva";background-color:#fdf6e3;border:1px solid #CCCCCC;font-size:14px;line-height:20px;margin:10px 0;overflow:auto;padding:10px;color:#657b83;}.ch-tag{color:#268bd2;}.ch-attrName{color:#93a1a1;}.ch-keywords{color:#268bd2;}.ch-atom{color:#dc322f;}.ch-operator{color:#cb4b16;}.ch-selector{color:#859900;}.ch-property{color:#b58900;}.ch-attrValue,.ch-attrValue .ch-keywords,.ch-attrValue .ch-comment{color:#2aa198;}.ch-comment,.ch-comment .ch-tag,.ch-comment .ch-attrName,.ch-comment .ch-keywords,.ch-comment .ch-atom,.ch-comment .ch-operator,.ch-comment .ch-selector,.ch-comment .ch-property,.ch-comment .ch-attrValue{color:#6c71c4;}.ch-menu{max-width:300px;border-top:1px solid #ccc;}.ch-bellows-trigger,.ch-menu .ch-expando-trigger,.ch-menu .ch-expando-content a{font-size:13px;height:26px;line-height:26px;cursor:pointer;text-decoration:none!important;color:#333!important;display:block;padding:0 5px;}.ch-bellows-trigger:hover,.ch-menu .ch-expando-trigger:hover,.ch-menu .ch-expando-content a:hover{background-color:#FCF8D0;}.ch-bellows-trigger,.ch-menu .ch-expando-trigger,.ch-menu .ch-expando-content{border-bottom:1px solid #ccc;position:relative;}.ch-menu .ch-expando-trigger .ico{right:5px;top:7px;}.ch-menu .ch-expando-content{margin:0;}.ch-menu .ch-expando-content a{padding-left:20px;}.ch-menu-on{font-weight:bold;}.ch-zoom-trigger{position:relative;overflow:hidden;cursor:default;display:block;cursor:crosshair;}.ch-zoom-trigger .ch-seeker{background-color:rgba(0,0,255,.1);border:1px solid #00f;position:absolute;}.ch-zoom{border:1px solid #ccc;background-color:#fff;}.ch-zoom-content{overflow:hidden;position:relative;width:100%;height:100%;}.ch-zoom-content img{position:absolute;}
+			/*
+ * Grid System
+ * @autor: Chico-UI
+ * @web: http://mercadolibre.github.com/chico
+ * @version: 0.1
+ * @mod: 24/02/11
+ *
+ */
+ 
+/* about class names: 1-2 = 1/2 = 50% */
+ 
+.ch-g1,
+.ch-g9-10,
+.ch-g7-8,
+.ch-g5-6,
+.ch-g4-5, .ch-g8-10,
+.ch-g3-4, .ch-g6-8,
+.ch-g7-10,
+.ch-g2-3, .ch-g4-6,
+.ch-g5-8,
+.ch-g3-5, .ch-g6-10,
+.ch-g1-2, .ch-g2-4, .ch-g3-6, .ch-g4-8, .ch-g5-10,
+.ch-g2-5, .ch-g4-10,
+.ch-g3-8,
+.ch-g1-3r,
+.ch-g1-3, .ch-g2-6,
+.ch-g3-10,
+.ch-g1-4, .ch-g2-8,
+.ch-g1-5, .ch-g2-10,
+.ch-g1-6r,
+.ch-g1-6,
+.ch-g1-8,
+.ch-g1-10 {
+float:left;
+vertical-align: top;
+}
+
+.ch-g1 { width:100%;}
+.ch-g9-10 {width: 90%;}
+.ch-g7-8 {width: 87.5%;}
+.ch-g5-6 {width: 83.3%;}
+.ch-g4-5, .ch-g8-10 {width: 80%;}
+.ch-g3-4, .ch-g6-8 { width:75%; }
+.ch-g7-10 {width: 70%; }
+.ch-g2-3, .ch-g4-6 { width:66.67%;}
+.ch-g5-8 {width: 62.5%;}
+.ch-g3-5, .ch-g6-10 {width: 60%;}
+.ch-g1-2, .ch-g2-4, .ch-g3-6, .ch-g4-8, .ch-g5-10 { width:50%;}
+.ch-g2-5, .ch-g4-10 {width: 40%;}
+.ch-g3-8 {width: 37.5%;}
+.ch-g1-3r { width:33.34%; } /* Rounding - If you want 3 equal columns, one of them has to be ch-g1-3r to reach 100% */
+.ch-g1-3, .ch-g2-6 { width:33.33%; }
+.ch-g3-10 {width: 30%;}
+.ch-g1-4, .ch-g2-8 { width:25%;}
+.ch-g1-5, .ch-g2-10 { width:20%;}
+.ch-g1-6r { width:16.7%;} /* Rounding - If you want 6 equal columns, one of them has to be ch-g1-6r to reach 100% */
+.ch-g1-6 { width:16.66%;}
+.ch-g1-8 { width:12.5%;}
+.ch-g1-10 { width:10%; }
+
+
+
+/* gutters: you can use these on your inner elements */
+
+.rightcolumn {margin-left: 10px;}
+.leftcolumn {margin-right: 10px;}
+.centercolumn {margin-left: 10px; margin-right: 10px;}
+			
+#index {
+    padding: 10px;
+}
+
+#content {
+
+}
+
+.sectionTitle {
+    background-color: #EEEEEE;    
+}
+
+.detailList {
+    border-bottom: 1px solid #CCCCCC;
+    padding: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+	<h1>Chico-UI API Docs</h1>
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index" class="ch-g1-6">
+		  <div class="leftcolumn">
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/ch.html">ch</a></li>
+	
+	<li><a href="../symbols/ch.accordion.html">ch.Accordion</a></li>
+	
+	<li><a href="../symbols/ch.cache.html">ch.Cache</a></li>
+	
+	<li><a href="../symbols/ch.carousel.html">ch.Carousel</a></li>
+	
+	<li><a href="../symbols/ch.codelighter.html">ch.Codelighter</a></li>
+	
+	<li><a href="../symbols/ch.controllers.html">ch.Controllers</a></li>
+	
+	<li><a href="../symbols/ch.custom.html">ch.Custom</a></li>
+	
+	<li><a href="../symbols/ch.dropdown.html">ch.Dropdown</a></li>
+	
+	<li><a href="../symbols/ch.email.html">ch.Email</a></li>
+	
+	<li><a href="../symbols/ch.eraser.html">ch.Eraser</a></li>
+	
+	<li><a href="../symbols/ch.events.html">ch.Events</a></li>
+	
+	<li><a href="../symbols/ch.events.key.html">ch.Events.KEY</a></li>
+	
+	<li><a href="../symbols/ch.expando.html">ch.Expando</a></li>
+	
+	<li><a href="../symbols/ch.factory.html">ch.Factory</a></li>
+	
+	<li><a href="../symbols/ch.floats.html">ch.Floats</a></li>
+	
+	<li><a href="../symbols/ch.form.html">ch.Form</a></li>
+	
+	<li><a href="../symbols/ch.get.html">ch.Get</a></li>
+	
+	<li><a href="../symbols/ch.helper.html">ch.Helper</a></li>
+	
+	<li><a href="../symbols/ch.keyboard.html">ch.Keyboard</a></li>
+	
+	<li><a href="../symbols/ch.layer.html">ch.Layer</a></li>
+	
+	<li><a href="../symbols/ch.list.html">ch.List</a></li>
+	
+	<li><a href="../symbols/ch.max.html">ch.Max</a></li>
+	
+	<li><a href="../symbols/ch.maxlength.html">ch.MaxLength</a></li>
+	
+	<li><a href="../symbols/ch.menu.html">ch.Menu</a></li>
+	
+	<li><a href="../symbols/ch.min.html">ch.Min</a></li>
+	
+	<li><a href="../symbols/ch.minlength.html">ch.MinLength</a></li>
+	
+	<li><a href="../symbols/ch.modal.html">ch.Modal</a></li>
+	
+	<li><a href="../symbols/ch.navs.html">ch.Navs</a></li>
+	
+	<li><a href="../symbols/ch.number.html">ch.Number</a></li>
+	
+	<li><a href="../symbols/ch.object.html">ch.Object</a></li>
+	
+	<li><a href="../symbols/ch.positioner.html">ch.Positioner</a></li>
+	
+	<li><a href="../symbols/ch.preload.html">ch.Preload</a></li>
+	
+	<li><a href="../symbols/ch.price.html">ch.Price</a></li>
+	
+	<li><a href="../symbols/ch.required.html">ch.Required</a></li>
+	
+	<li><a href="../symbols/ch.slider.html">ch.Slider</a></li>
+	
+	<li><a href="../symbols/ch.string.html">ch.String</a></li>
+	
+	<li><a href="../symbols/ch.support.html">ch.Support</a></li>
+	
+	<li><a href="../symbols/ch.tab.html">ch.Tab</a></li>
+	
+	<li><a href="../symbols/ch.tabnavigator.html">ch.TabNavigator</a></li>
+	
+	<li><a href="../symbols/ch.tooltip.html">ch.Tooltip</a></li>
+	
+	<li><a href="../symbols/ch.url.html">ch.Url</a></li>
+	
+	<li><a href="../symbols/ch.viewer.html">ch.Viewer</a></li>
+	
+	<li><a href="../symbols/ch.watcher.html">ch.Watcher</a></li>
+	
+	<li><a href="../symbols/ch.zoom.html">ch.Zoom</a></li>
+	
+</ul>
+<hr />
+		  </div>
+		</div>
+		
+		<div id="content" class="ch-g3-4">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Class ch.List
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+				
+				
+			
+				List
+				
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/chico_src_js_list.js.html">list.js</a>.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ch.List.">
+				<caption>Class Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/ch.list.html#constructor">ch.List</a></b>(collection)
+							</div>
+							<div class="description">Manage collections with abstract lists.</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ch.List.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.List.<b><a href="../symbols/ch.list.html#.children">children</a></b>
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ch.List.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#._find">_find</a></b>(q, q, q, a)
+								</div>
+								<div class="description">Seek members inside the collection by index, query string or object comparison.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#.add">add</a></b>(child, child, child)
+								</div>
+								<div class="description">Adds a new child (or more) to the collection.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#.get">get</a></b>(q, q, q)
+								</div>
+								<div class="description">Get a child from the collection by index, query string or object comparison.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#.rem">rem</a></b>(q, q, q)
+								</div>
+								<div class="description">Removes a child from the collection by index, query string or object comparison.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.List.<b><a href="../symbols/ch.list.html#.size">size</a></b>()
+								</div>
+								<div class="description">Get the amount of children from the collection.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+<!-- ============================== events summary ======================== -->
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Class Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>ch.List</b>(collection)
+				</div>
+				
+				<div class="description">
+					Manage collections with abstract lists. Create a list of objects, add, get and remove.
+					
+				</div>
+				
+				
+				
+				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								<span class="light fixedFont">{Array}</span>  <b>collection</b>
+								<i>Optional</i>
+							</dt>
+								<dd>Constructs a List with an optional initial collection</dd>
+						
+						</dl>
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".children"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.List.</span><b>children</b>
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="._find"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">ch.List.</span><b>_find</b>(q, q, q, a)
+					
+					</div>
+					<div class="description">
+						Seek members inside the collection by index, query string or object comparison.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Function}</span> <b>a</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> Returns the finded element</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".add"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Number, Collection}</span>
+					<span class="light">ch.List.</span><b>add</b>(child, child, child)
+					
+					</div>
+					<div class="description">
+						Adds a new child (or more) to the collection.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>child</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>child</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Array}</span> <b>child</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> The index of the added child.</dd>
+							
+								<dd><span class="light fixedFont">{Collection}</span> Returns the entire collecction if the input is an array.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".get"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.List.</span><b>get</b>(q, q, q)
+					
+					</div>
+					<div class="description">
+						Get a child from the collection by index, query string or object comparison.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd>Get a child from the collection by index number.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd>Get a child from the collection by a query string.</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd>Get a child from the collection by comparing objects.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".rem"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Object}</span>
+					<span class="light">ch.List.</span><b>rem</b>(q, q, q)
+					
+					</div>
+					<div class="description">
+						Removes a child from the collection by index, query string or object comparison.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>q</b>
+									<i>Optional</i>
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object}</span> Returns the removed element</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".size"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{Number}</span>
+					<span class="light">ch.List.</span><b>size</b>()
+					
+					</div>
+					<div class="description">
+						Get the amount of children from the collection.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
+			
+			<hr />
+		</div>
+
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			&copy;2011<br />
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue Jun 07 2011 12:44:40 GMT-0300 (GMT-03:00)
+		</div>
+	</body>
+</html>

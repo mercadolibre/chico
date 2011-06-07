@@ -226,7 +226,7 @@ ch.tabNavigator = function(conf){
 		};
 	};
 
-	return that["public"];
+	return that;
 	
 };
 
