@@ -48,7 +48,6 @@ ch.carousel = function(conf){
 /**
  *  Private Members
  */
-<<<<<<< HEAD
 	
 	/**
      * Creates the necesary structure to carousel operation.
@@ -259,7 +258,6 @@ ch.carousel = function(conf){
 		
 		return;
 	},
-<<<<<<< HEAD
 	
 	/**
      * Size of carousel mask.
@@ -518,7 +516,6 @@ ch.carousel = function(conf){
      * 
      * // Re-draw carousel
      * foo.redraw();
-     */
      */
 	that["public"].redraw = function(){
 		_draw();
