@@ -35,7 +35,7 @@ var Packer = function(o) {
     self.fullversion = o.version + "-" + o.build;
     self.input = o.input;
     self.type = o.type;
-    self.components = o.components.split(",").join("." + self.type + ",").split(",");
+    self.components = (o.components.split(",").join("." + self.type + ",").split(",")) + "." + self.type;
     self.min = o.min;
     self.upload = o.upload;
     self.template = o.template;
@@ -67,6 +67,7 @@ Packer.prototype.run = function() {
     
     // TODO: refactor
     var testComp = function(files){
+    	
     	// Iteration variables
         var t = _files.total = files.length, file = "", i = 0;
 
@@ -95,7 +96,7 @@ Packer.prototype.run = function() {
     if(self.components.length > 0){
     	
     	// Puts core always first.
-		self.components = ( core + "," + self.components.join(",").split( core + "," ).join("") ).split(",");
+		self.components = ( core + "," + self.components.split( core + "," ).join("") ).split(",");
     	
     	testComp(self.components);
     	
