@@ -82,10 +82,18 @@ CustomBuild.prototype.pack = function( package ) {
 		//_package.upload = build.locations[_package.upload];
 		_package.template = self.build.templates[_package.type];
 		
-	var packer = new Packer( _package );
+//	var packer = new Packer( _package );
 		/*packer.on("done", function( pack ) {
-			self.compress( pack );
+			
 		}*/
+		
+        var packer = new Packer( _package );        
+
+            packer.on( "done" , function( package ) {
+               
+               self.compress( package );
+               
+            });
 	
 }
 
@@ -106,18 +114,18 @@ CustomBuild.prototype.compress = function( package ) {
 		
 	sys.puts( "Compressing files..." );
 	
-	var zipName = build.name + "-" + package.version + "-" + package.build + ".zip";
+	var zipName = self.build.name + "-" + package.version + "-" + package.build + ".zip" ;
 	
-	exec("cd ./" + folder + " && tar -cvf " + zipName + " * && rm *.js *.css", function(err) {
+	exec("cd ./" + self.folder + " && tar -cvf " + zipName + " * && rm *.js *.css", function(err) {
 	   
         if ( err ) {
             sys.puts( "Error: <Creating folder> " + err );
             return;
         }
 		
-		sys.puts("Package builded at " + folder + packageName);
+		sys.puts("Package builded at " + self.folder + zipName );
 		
-		self.emit("done", folder + packageName);
+		self.emit("done", self.folder + zipName );
     });
 	
 }
