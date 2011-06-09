@@ -8,7 +8,7 @@ var sys = require("sys"),
     fs = require("fs"),
     events = require('events'),
     child = require("child_process"),
-    uglify = require("../../../UglifyJS/uglify-js"),
+    uglify = require("uglify-js"),
     cssmin = require('../lib/cssmin').cssmin,
     exec  = child.exec,
     spawn = child.spawn,
@@ -35,6 +35,7 @@ var Packer = function(o) {
     self.fullversion = o.version + "-" + o.build;
     self.input = o.input;
     self.type = o.type;
+    self.components = o.components.split(",").join("." + self.type + ",").split(",");
     self.min = o.min;
     self.upload = o.upload;
     self.template = o.template;
@@ -64,18 +65,9 @@ Packer.prototype.run = function() {
     var _files = self._files;
     var core = "core."+self.type;
     
-    // Get files for the defined package
-    fs.readdir( self.input , function( err, files ) {
-    
-        if ( err ) {
-            sys.puts("Error: <Reading files> "+err);
-            return;
-        }
-        
-        // Puts core always first.
-        files = ( core + "," + files.join(",").split( core + "," ).join("") ).split(",");
-
-        // Iteration variables
+    // TODO: refactor
+    var testComp = function(files){
+    	// Iteration variables
         var t = _files.total = files.length, file = "", i = 0;
 
         // Iteration
@@ -98,8 +90,31 @@ Packer.prototype.run = function() {
         } // end Iteration
 
         self.emit( "run-complete", files );
-        
-    }); // end Get files
+    };
+    
+    if(self.components.length > 0){
+    	
+    	// Puts core always first.
+		self.components = ( core + "," + self.components.join(",").split( core + "," ).join("") ).split(",");
+    	
+    	testComp(self.components);
+    	
+    } else {
+	    // Get files for the defined package
+	    fs.readdir( self.input , function( err, files ) {
+	    
+	        if ( err ) {
+	            sys.puts("Error: <Reading files> "+err);
+	            return;
+	        }
+	        
+	        // Puts core always first.
+	        files = ( core + "," + files.join(",").split( core + "," ).join("") ).split(",");
+	
+	        testComp(files);
+	        
+	    }); // end Get files
+    };
 };
 
 Packer.prototype.loadFile = function( file, savedIndex ) {
@@ -108,10 +123,11 @@ Packer.prototype.loadFile = function( file, savedIndex ) {
     var _files = self._files;
     
     // Read file
-    fs.readFile( self.input + "/" + file , function( err , data ) { 
+    fs.readFile( self.input + file , function( err , data ) { 
         
         if (err) {
             sys.puts("Error: <Reading file "+file+"> "+err);
+            _files.loaded += 1;
             return;
         }
         
@@ -165,7 +181,7 @@ Packer.prototype.process = function() {
     
         switch( self.type ) {
         
-            case "js": 
+            case "js":
                 output_min = uglify( output.toString() ); // compressed code here
                 break;
     
