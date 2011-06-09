@@ -1,0 +1,92 @@
+/* Calendar */
+.ch-calendar{
+	display:inline;
+}
+.ch-calendar-trigger{
+	cursor:pointer;
+}
+
+/* Container */
+.ch-calendar-container.ch-dropdown-content.secondary {
+	padding:0;
+	width:190px;
+}
+
+/* Content */
+.ch-calendar-content{
+	position:relative;
+}
+
+/* Month Table */
+.ch-calendar-month{
+	border:none;
+	padding:0;
+}
+
+.ch-calendar-month caption{
+	text-align: center;
+	font-size:12px;
+	margin:0;
+	background-color:#F5F5F5;
+}
+
+.ch-calendar-month thead tr,
+.ch-calendar-month th{
+	border-top:none;
+	border-bottom:none;
+	border:none;
+	background:none;
+	height:auto;
+	width:auto;
+	padding:0;
+	text-align:center;
+}
+
+.ch-calendar-month .week{
+	border:none;
+}
+
+.ch-calendar-month .day,
+.ch-calendar-month .disable{
+	height: auto;
+    text-align: center;
+    cursor:pointer;
+    padding:0;
+    line-height:16px	;
+}
+
+.ch-calendar-month .day:hover{
+	background: #FEFBD6;
+}
+
+.ch-calendar-month .disable{
+	color:#C6C6C6;
+	cursor:default;
+}
+
+.ch-calendar-month td.selected{
+	background: #FEFBD6;
+}
+
+.ch-calendar-month .today{
+	background: #CCC;
+}
+
+
+/* Arrows */
+.ch-calendar-prev,
+.ch-calendar-next {
+	width:50px;
+	height:20px;
+	position:absolute;
+	top:5px;
+	cursor:pointer;
+}
+
+.ch-calendar-prev {
+	left: 5px;
+}
+
+.ch-calendar-next {
+	right: 5px;
+}

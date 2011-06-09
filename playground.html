@@ -34,6 +34,29 @@
 		<div class="article demo"> 
 			<h1>Carousel</h1> 
 			<div class="section"> 
+
+<div class="article demo"> 
+			<h1>Validator</h1> 
+			<div class="section"> 
+
+				<div class="box"> 
+					<h2>Demo</h2>
+					<form action="test.html" class="form">
+						<fieldset>
+							<legend>Calendar</legend>
+							<ol>
+								<li class="field-box"> 
+									<label for="val_date"> 
+										<span>Fecha:</span>
+										<input type="date" id="val_date"> 
+										<strong class="myCalendar">calendar</strong>
+									</label> 
+								</li> 
+							</ol>
+						</fieldset>
+					</form>
+				</div>
+
 				<div class="box"> 
 					<h2>Demo</h2>
 					<div class="demoCarousel2">
@@ -280,7 +303,7 @@ div p.keywords{color:darkorange;}
 						<div id="tab1-a"> 
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
  
-							<div class="demoDropdown secondary"> 
+							<div class="demoDropdown secondary">
 								<span>Sitios</span> 
 								<ul> 
 									<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
@@ -867,8 +890,15 @@ div p.keywords{color:darkorange;}
                template: '3'
            });
         }
-        
-        
+
+        /*var calendar = $(".myCalendar").calendar({
+			since: "2011/01/01",
+			until: "2012/01/01",
+			selected: "2011/06/13"
+        });*/
+
+        var calendar = $(".myCalendar").calendar();
+
         var lighter = ch.codelighter();		
 		//$(".codeXML").xml();
 		//$(".codeCSS").css();
