@@ -135,6 +135,8 @@ ch.calendar = function(conf){
 		var first_weekday = _currentMonth.day;
 
 		var _weeks, _classToday, _classSelected;
+
+		_weeks = "<tbody>";
 		
 		do {
 			
@@ -168,9 +170,10 @@ ch.calendar = function(conf){
 			
 		} while (_currentDate.month == _currentMonth.month);
 
-		
+		_weeks += "</tbody>";
+
 		_tableMonth
-			.append("<caption>"+_monthsNames[_currentMonth.month] + " - " + _currentMonth.year+"</caption>")
+			.prepend("<caption>"+_monthsNames[_currentMonth.month] + " - " + _currentMonth.year+"</caption>")
 			.append(_weeks);
 
 		$.each(_tableMonth.find(".day"), function(i, e){

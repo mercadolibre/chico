@@ -1,9 +1,25 @@
 /* Calendar */
-.ch-calendar{
-	display:inline;
+.ch-calendar.ch-dropdown.secondary,
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
+	height: 20px;
+    line-height: 20px;
+    padding: 0;
+    width: 20px;
 }
-.ch-calendar-trigger{
-	cursor:pointer;
+
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
+	text-indent:999px;
+}
+
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
+	top:0;
+	right:0;
+	margin:0;
+	height: 20px;
+    line-height: 20px;
+    padding: 0;
+    width: 20px;	
+
 }
 
 /* Container */
@@ -88,4 +104,9 @@
 
 .ch-calendar-next {
 	right: 5px;
+}
+
+.ie7 .ch-calendar {
+	display: inline;
+	vertical-align:super;
 }
