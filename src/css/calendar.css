@@ -67,8 +67,7 @@
 .ch-calendar-month td.selected{
 	background: #FEFBD6;
 }
-
-.ch-calendar-month .today{
+.ch-calendar-month .today {
 	background: #CCC;
 }
 
