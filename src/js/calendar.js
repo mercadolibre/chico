@@ -210,24 +210,16 @@ ch.calendar = function(conf){
 		that.$element.wrap(_$trigger).after(that.$container);
 		that.$trigger = that.$element.parent();
 
-		// Dropdown context
-		var drop = {};
-			drop.uid = that.uid + "#" + 1;
-			drop.type = "dropdown";
-			drop.element = that.$trigger[0];
-			drop.$element = that.$trigger;
-
-		// Dropdown configuration
-		var conf = {};
-			conf.icon = false;
-			
-		var dropdown = ch.dropdown.call(drop, conf);
-
-		that.children.push(dropdown["public"]);
-		
-		if (!ch.utils.hasOwn(ch.instances, "dropdown")) { ch.instances.dropdown = []; };
-
-		ch.instances.dropdown.push(dropdown["public"]);
+		that.children[0] = that.$trigger.dropdown({
+			onShow: function(){
+				// onShow callback
+				that.callbacks.call(that, "onShow");
+			},
+			onHide: function(){
+				// onHide callback
+				that.callbacks.call(that, "onHide");
+			}
+		});
 
 		return;
 	};
@@ -434,9 +426,6 @@ ch.calendar = function(conf){
      */
 	that["public"].show = function(){
 		that.children[0].show();
-
-		// Callback
-		//that.callbacks("onShow");
 		
 		return that["public"];
 	};
@@ -450,9 +439,6 @@ ch.calendar = function(conf){
      */
 	that["public"].hide = function(){
 		that.children[0].hide();
-
-		// Callback
-		//that.callbacks("onHide");
 
 		return that["public"];
 	};

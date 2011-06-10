@@ -80,6 +80,9 @@ ch.menu = function(conf){
 				onShow: function(){
 					// Updates selected tab when it's opened
 					selected = i;
+
+					// onSelect callback
+					that.callbacks.call(that, "onSelect");
 				}
 			});
 			
@@ -146,9 +149,6 @@ ch.menu = function(conf){
 			// Just selects it
 			that.children[ child ].addClass("ch-menu-on");
 		};
-		
-		// onSelect callback
-		that.callbacks("onSelect");
 
 		return that;
 	};
