@@ -44,7 +44,7 @@ ch.calendar = function(conf){
      * @type {Array}
      * @memberOf ch.Calendar
      */
-	var _month_names = conf.month ||["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+	var _monthsNames = conf.monthsNames ||["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
     /**
      * Collection of weekdays short names
@@ -53,7 +53,7 @@ ch.calendar = function(conf){
      * @type {Array}
      * @memberOf ch.Calendar
      */
-	var _short_weekdays_names = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
+	var _shortWeekdaysNames = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
 
     /**
      * Date of today
@@ -84,8 +84,8 @@ ch.calendar = function(conf){
 		
 		var _weekdaysTitle = "<thead>";
 		
-		for (var i = 0; i < _short_weekdays_names.length; i += 1) {
-			_weekdaysTitle += "<th>" + _short_weekdays_names[i] + "</th>";
+		for (var i = 0; i < _shortWeekdaysNames.length; i += 1) {
+			_weekdaysTitle += "<th>" + _shortWeekdaysNames[i] + "</th>";
 		};
 		
 		return _weekdaysTitle += "</thead>";
@@ -170,7 +170,7 @@ ch.calendar = function(conf){
 
 		
 		_tableMonth
-			.append("<caption>"+_month_names[_currentMonth.month] + " - " + _currentMonth.year+"</caption>")
+			.append("<caption>"+_monthsNames[_currentMonth.month] + " - " + _currentMonth.year+"</caption>")
 			.append(_weeks);
 
 		$.each(_tableMonth.find(".day"), function(i, e){
