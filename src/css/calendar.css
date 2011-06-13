@@ -104,17 +104,17 @@
 /* Arrows */
 .ch-calendar-prev,
 .ch-calendar-next {
-	width:50px;
+	width:35px;
 	height:20px;
 	position:absolute;
-	top:0px;
+	top:4px;
 	cursor:pointer;
 	z-index:1;
 }
 
 .ch-calendar-prev {
 	left: 5px;
-    background-position:32px -27px;
+    background-position:17px -27px;
 }
 
 .ch-calendar-next {
