@@ -420,6 +420,23 @@
 		</ul>
 	</div> 
 
+	<div class="box"> 
+		<h2>Calendar</h2>
+		<form action="test.html" class="YOUR_SELECTOR_Formcalendar">
+			<fieldset>
+				<legend>Calendar</legend>
+				<ol>
+					<li class="field-box"> 
+						<label for="val_date"> 
+							<span>Fecha:</span>
+							<input type="date" id="val_date">
+							<strong class="myCalendar">calendar</strong>
+						</label> 
+					</li>
+				</ol>
+			</fieldset>
+		</form>
+	</div>
 
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
@@ -874,7 +891,10 @@ pre {
 		
 		// Expando
 		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
-		
+
+		// Calendar
+		var calendar = $(".myCalendar").calendar();
+
 		// Form
 		var ch_form = $('.YOUR_SELECTOR_Form').form();
 		
