@@ -22,7 +22,7 @@ ch.calendar = function(conf){
 
 	conf = ch.clon(conf);
 	if (ch.utils.hasOwn(conf, "selected")){ conf.selected = new Date(conf.selected); }; 
-	
+
 	that.conf = conf;
 
 /**
@@ -44,6 +44,7 @@ ch.calendar = function(conf){
      * @type {Array}
      * @memberOf ch.Calendar
      */
+	//TODO: default in english and snnif browser language
 	var _monthsNames = conf.monthsNames ||["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
     /**
@@ -53,6 +54,7 @@ ch.calendar = function(conf){
      * @type {Array}
      * @memberOf ch.Calendar
      */
+	//TODO: default in english and snnif browser language
 	var _shortWeekdaysNames = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
 
     /**
@@ -80,6 +82,7 @@ ch.calendar = function(conf){
      * @name name _weekdays
      * @memberOf ch.Calendar
      */
+	//TODO: change to constant syntax
 	var _weekdays = (function(){
 		
 		var _weekdaysTitle = "<thead>";
@@ -557,7 +560,7 @@ ch.calendar = function(conf){
 		.html(_createMonth(that.currentDate))
 		.appendTo(that.$container);
 	
-	that.$container.append( _arrows.$prev ).append( _arrows.$next )
+	that.$container.prepend( _arrows.$prev ).prepend( _arrows.$next );
 
 
 	return that;

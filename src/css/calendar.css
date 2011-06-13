@@ -107,8 +107,9 @@
 	width:50px;
 	height:20px;
 	position:absolute;
-	top:5px;
+	top:0px;
 	cursor:pointer;
+	z-index:1;
 }
 
 .ch-calendar-prev {
