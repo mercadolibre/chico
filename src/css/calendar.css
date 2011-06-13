@@ -3,23 +3,36 @@
 .ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
 	height: 20px;
     line-height: 20px;
-    padding: 0;
+    padding: 0 5px 0 0;
     width: 20px;
 }
 
 .ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
-	text-indent:999px;
+	text-indent:-9999px;
+}
+
+.ch-calendar.ch-dropdown.secondary.ch-dropdown-on {
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.ch-calendar-prev,
+.ch-calendar-next,
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
+	background-image: url('../src/assets/calendar.png');
+	background-repeat: no-repeat;
 }
 
 .ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
 	top:0;
-	right:0;
+	right:3px;
 	margin:0;
 	height: 20px;
     line-height: 20px;
     padding: 0;
     width: 20px;	
-
+    background-position:0 0;
 }
 
 /* Container */
@@ -100,10 +113,12 @@
 
 .ch-calendar-prev {
 	left: 5px;
+    background-position:32px -27px;
 }
 
 .ch-calendar-next {
 	right: 5px;
+    background-position:-10px -27px;
 }
 
 .ie7 .ch-calendar {
