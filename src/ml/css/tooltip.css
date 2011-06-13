@@ -1,0 +1,72 @@
+.ch-tooltip {
+	font-size:11px;
+	background-color:#faf5c8;
+	border:1px solid #a0a082;
+	min-width:30px;
+	position:absolute;
+	padding:0 5px;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	box-shadow:-2px 2px 3px #ccc;
+	-moz-box-shadow:-2px 2px 3px #ccc;
+	-webkit-box-shadow:-2px 2px 3px #ccc;
+}
+
+/* Cone */
+
+.ch-tooltip .ch-cone {
+	background-color: transparent;
+	background-image: url('../src/assets/tooltip.png');
+	background-position: 0 0 no-repeat;
+	display:block;
+	position:absolute;
+}
+
+.ch-tooltip.ch-bottom .ch-cone,
+.ch-tooltip.ch-top .ch-cone {
+	width:16px;
+	height:8px;
+	left:12px;
+}
+
+.ch-tooltip.ch-bottom .ch-cone {
+	top:-8px;
+}
+
+.ch-tooltip.ch-top .ch-cone{
+	background-position:0 -8px;
+	bottom:-8px;
+}
+
+.ch-tooltip.ch-left .ch-cone,
+.ch-tooltip.ch-right .ch-cone {
+	width:8px;
+	height:16px;
+	top:2px;
+}
+
+.ch-tooltip.ch-left .ch-cone {
+	background-position:-8px 0;
+	right:-8px;
+}
+
+.ch-tooltip.ch-right .ch-cone {
+	left:-8px;
+}
+
+.ch-tooltip.ch-bottom-right .ch-cone,
+.ch-tooltip.ch-top-right .ch-cone {
+	width:16px;
+	height:8px;
+	right:12px;
+}
+
+.ch-tooltip.ch-bottom-right .ch-cone {
+	top:-8px;
+}
+
+.ch-tooltip.ch-top-right .ch-cone {
+	background-position:0 -8px;
+	bottom:-8px;
+}

@@ -67,7 +67,7 @@ fs.readFile( 'builder.conf', function( err , data ) {
 
     // save conf file  with incremented build number
     var new_build = JSON.stringify(build);
-    
+
     // write conf file
     fs.writeFile( 'builder.conf' , new_build , encoding='utf8' , function( err ) {
         if(err) {

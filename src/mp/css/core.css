@@ -1,0 +1,691 @@
+/*
+ * MELI Reset Sylesheet
+ * @based: Eric Meyer
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+abbr, article, aside, audio, bb, canvas, datagrid, 
+datalist, details, dialog, eventsource, figure, footer,
+header, hgroup, mark, menu, meter, nav, output,
+progress, section, time, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background: transparent;	
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, 
+blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+ * Global
+ */
+
+body { 
+	background-color: #fff;
+	color: #333; 
+	font:13px/20px Arial, Helvetica, "Nimbus Sans L", sans-serif;
+	min-width:760px;
+	max-width:1200px;
+	margin:0 auto;
+	padding:0 10px; /* Prevent layout "sticking" to the edge of the browser */
+}
+
+.ie6 body {
+	width:expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
+}
+
+/* IMPORTANT: .ch-hide class allows components to be shown and hidden */
+.o, .ch-hide {
+	display:none;
+}
+
+/*
+ * Anchors
+ */
+
+a { 
+	color:#0637B3;
+	text-decoration: none;
+}
+
+a:active {
+	color: #00D;
+}
+
+a:visited{
+	color:#800080;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a img{
+	border:none;
+}
+
+/*
+ * Core sprite
+ */
+
+.btn,
+.box,
+.ch-cone,
+.ico,
+.ch-dropdown-trigger,
+.ch-tabNavigator .ch-tab-trigger-on {
+	background-image: url('../src/assets/base.png');
+}
+
+/*
+ * Typography
+ */
+
+p.table {
+	font-size:12px;
+}
+
+h1, h2, table caption, h3, h4, h5, h6 {
+	font-weight:normal;
+	margin-top: 10px;
+}
+
+.box h1, .box h2, .box h3, 
+.box h4, .box h5, .box h6 {
+	margin-top:0;
+	margin-bottom:10px;
+}
+
+.typo {
+	font-family:"Trebuchet MS", Verdana, "DejaVu Sans", sans-serif
+}
+
+/* Arial Headers */
+h1 { font-size:20px; color: #666; border-bottom: 1px solid #ccc; padding-bottom: 5px;}
+h2, table caption { font-size:18px;  }
+h3 { font-size:16px }
+h5 { font-size:11px }
+	
+/* Trebuchet Headers */
+h1.typo { font-size:20px }
+h2.typo { font-size:18px }
+h5.typo { font-size:13px }
+
+.auction, .mercadoPago {
+	font-weight:bold;
+	font-style:normal;
+}
+
+.auction{
+	color:#090;
+}
+
+.mercadoPago{
+	color:#36c;
+}
+
+/*
+ * Price
+ */
+
+.price {
+	color: #900;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.price sup {
+	font-size: 10px;
+	vertical-align: text-top;
+	line-height:1em;
+}
+
+.price span {
+	color:#999;
+	font-size:13px;
+	font-weight:normal
+}
+
+.ie6 .price sup,
+.ie7 .price sup,
+.ie8 .price sup {
+	font-size:12px;
+}
+
+/*
+ * Misc
+ */
+
+hr { 
+	border: none;
+	border-bottom: 1px dashed #ccc;
+}
+
+.ie6 hr,
+.ie7 hr {
+	height:0;
+}
+
+/*
+ * Buttons
+ */
+
+/* Buttons */
+
+.btn {
+	background-repeat: repeat-x;
+	background-color:#2C3176;
+	border: 1px solid #29516C; 
+	cursor:pointer;
+	overflow: visible;
+	padding: 3px 9px;
+	color:#FFF;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.btn:focus {
+	box-shadow:0px 0px 5px #29516C;
+	-moz-box-shadow:0px 0px 5px #29516C;
+	-webkit-box-shadow:0px 0px 5px #29516C;
+}
+
+.btn:active {
+	box-shadow:0px 0px 0px;
+	-moz-box-shadow:0px 0px 0px;
+	-webkit-box-shadow:0px 0px 0px;
+}
+
+.btn:disabled,
+.btn:disabled:hover,
+.btn:disabled:active,
+.btn.disabled { /* Refuerza los botones disabled */
+	border: #999 1px solid;
+	opacity: 0.3;
+	color: #f7f7f7;
+	text-shadow:none;
+	cursor:not-allowed;
+}
+
+.ie6 .btn.disabled,
+.ie7 .btn.disabled,
+.ie7 .btn.disabled:hover,
+.ie8 .btn.disabled,
+.ie8 .btn.disabled:hover, {
+	background-color:#FFFFFF;
+	background-position:0 -328px;
+	border:1px solid #CCCCCC;
+	color:#CCCCCC;
+}
+
+/* Main Button */
+
+.btn.main { 
+	background-position:0 0px;
+	font-size: 20px;
+	height: 43px;
+	padding: 0 20px;
+	text-shadow: 1px 1px #F67C41;
+	border: 1px solid #F67C41;
+}
+
+.btn.main:hover { 
+	background-position:0 -43px;
+}
+
+.btn.main:active {
+	background-position:0 -86px;
+}
+
+.btn.main:focus {
+	box-shadow:0px 0px 5px #F67C41;
+	-moz-box-shadow:0px 0px 5px #F67C41;
+	-webkit-box-shadow:0px 0px 5px #F67C41;}
+
+.btn.main:disabled,
+.btn.main.disabled {
+	background-position:0 -129px;
+	border: 1px solid #CCCCCC;
+	text-shadow: none;
+}
+
+
+
+/* Primary Button */
+
+.btn.primary { 
+	background-position:0 -172px;
+	font-size: 18px;
+	height:32px;
+	line-height:28px;
+}
+
+.btn.primary:hover { 
+	background-position:0 -204px;
+}
+
+.btn.primary:active {
+	background-position:0 -236px;
+	-moz-box-shadow:0px 0px 0px ;
+	-webkit-box-shadow:0px 0px 0px ;
+	box-shadow:0px 0px 0px;
+}
+
+.btn.primary:disabled,
+.btn.primary.disabled {
+	background-position:0 -268px;
+}
+
+/* Secondary Button */
+
+.btn.secondary { 
+	background-position:0 -300px;
+	font-size:12px;
+	height:25px;
+	line-height:20px;
+}
+
+.btn.secondary:hover {
+	background-position:0 -325px;
+}
+
+.btn.secondary:active {
+	background-position:0 -350px;
+}
+
+.btn.secondary:disabled,
+.btn.secondary.disabled {
+	background-position:0 -450px;
+}
+
+/* Secondary Button with Cyan skin */
+
+.btn.secondary.skin {
+	background-position:0 -375px;
+	background-color:#C0DAEC;
+	border:1px solid #79a8c7;
+	color: #476274;
+}
+
+.ie7 .btn.secondary.skin {
+	background-position:0 -436px;
+}
+
+.btn.secondary.skin:focus {
+	box-shadow:0px 0px 5px #ADD7F3;
+	-moz-box-shadow:0px 0px 5px #ADD7F3;
+	-webkit-box-shadow:0px 0px 5px #ADD7F3;
+}
+
+.btn.secondary.skin:hover { 
+	background-position:0 -400px;
+}
+
+.btn.secondary.skin:active {
+	background-position:0 -425px;
+	
+}
+
+/* Close Button */
+
+
+.btn.close {
+	background-color:transparent;
+	background-repeat:no-repeat;
+	background-position:0 -475px; /* add correct button to base.png */
+	border:none;
+	cursor:pointer;
+	height:16px;
+	padding:0px;
+	position:absolute;
+	right:10px;
+	top:10px;
+	text-indent:-9999px;
+	width:16px;
+}
+
+.btn.close:hover, .btn.close:focus{
+	background-position:0 -475px; /* add correct button to base.png */
+	border:none;
+}
+
+.btn.close:active{
+	background-position:0 -475px; /* add correct button to base.png */
+	outline:none;
+}
+
+.ie6 .btn.disabled,
+.ie7 .btn.disabled,
+.ie7 .btn.disabled:hover,
+.ie8 .btn.disabled,
+.ie8 .btn.disabled:hover, {
+	background-color:#FFFFFF;
+	background-position:0 -328px;
+	border:1px solid #CCCCCC;
+	color:#CCCCCC;
+}
+
+.ie6 .btn.primary {
+	padding:1px 9px;
+}
+
+.ie6 .btn.secondary {
+	padding:2px 9px;
+}
+
+.ie6 .btn.close {
+	line-height:16px;
+}
+
+.ie7 .btn{
+	line-height: 0.5em;
+}
+
+.ie7 .btn.secondary.skin {
+	background-position:0 -436px;
+}
+/*
+ * Boxes
+ */
+
+.container {
+	border: none;
+	background: none;
+	margin: 10px 0;
+	padding: 10px;	
+}
+
+.box { 
+	border: 1px solid #ccc;
+	margin: 0 0 10px 0;
+	padding: 10px;
+	background-position: 0 -617px;
+	background-repeat: repeat-x;
+	background-color: #fff;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+
+.ie6 .box{ 
+	z-index:1; /* Fix z-index property */
+}
+
+.container > .box:first-of-type {
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.container .box {
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+.actions { 
+	margin-top: 10px;
+	text-align: center
+}
+
+.ie6 .actions a,
+.ie7 .actions a, {
+	display:inline-block;margin-bottom:5px;
+}
+
+/* Box title */
+.box h2.typo {
+	margin-bottom:10px;
+}  
+
+
+/*
+ * Pagination
+ */
+
+.pagination {
+	clear:both;
+	margin:10px 0;
+}
+    		
+.pagination li {
+	float:left;
+	margin:0px 4px;
+}
+
+.pagination li a, 
+.pagination li.current {
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	padding: 3px 8px;
+	float:left;
+	border:1px solid #ccc;
+	background-color:#fff;
+}
+
+.pagination li a:hover {
+	color:#fff;
+	text-decoration:none;
+	background-color:#0637b3;
+	border:1px solid #0637b3;
+}
+
+.pagination li.current {
+	border:1px solid #ededed;
+	background-color:#ededed;
+	color:#0637b3; 
+	font-weight: bold;
+}
+
+.pagination li:first-child a,
+.pagination li:last-child a {
+	border-color:#fff;
+}
+
+.pagination li:first-child a:hover,
+.pagination li:last-child a:hover {
+	border-color:#0637b3;
+}
+
+
+/*
+ * Icons
+ */
+
+.ico {
+	display:block;
+	width:16px;
+	height:16px;
+	text-indent:999px;
+	overflow:hidden;
+	background-repeat:no-repeat;
+}
+
+
+.ico.help {
+	background-position:0 -555px;
+}
+
+.ico.attention {
+	background-position:0 -571px;
+}
+
+.ico.information {
+	background-position:0 -539px;
+}
+
+.ico.error {
+	background-position:0 -523px;
+}
+
+.ico.ok {
+	background-position:0 -587px;
+}
+
+.ico.check {
+	background-position:0 -603px;
+}
+
+
+/*
+ * Transitions
+ */
+
+.loading {
+	background-image: url('../src/assets/loading.gif');
+	width: 44px;
+	height: 44px;
+	margin: 20px auto;
+}
+
+.loading.small {
+	background-image: url('../src/assets/loading_small.gif');
+	width: 18px;
+	height: 18px;
+}
+
+
+/*
+ * Tables
+ */
+
+table {
+	width:100%;
+	border:solid 1px #CECECE;
+	font-size:11px;
+	text-align:left;
+}
+
+table caption {
+	text-align: left;
+}
+
+thead tr{
+	border-top: 1px solid #CECECE;
+}
+
+th {	
+	vertical-align: middle;
+	border-bottom:solid 1px #CECECE;
+	border-left:solid 1px #CECECE;
+	text-align:left;
+	height:24px;
+	padding: 0 10px;
+	background: #DEDEDE url(../src/assets/th.png) repeat-x; /* to-do: add this to base.png? */
+}
+
+th.selected {
+	background: #DEDEDE url(../src/assets/th-selected.gif) no-repeat right center;
+}
+		
+
+th:first-child {
+	border-left:none;
+}
+
+tr {
+	border-top:solid 1px #EEE;
+}
+
+tr.selected {
+	background-color:#FFC;
+}
+
+td {
+	height:40px;
+	padding: 0 10px;
+	vertical-align: middle;
+}
+
+
+.ie6 tr.selected td,
+.ie7 tr.selected td {
+	background-color:#FFC;
+}
+
+.ie6 td,
+.ie7 td,
+.ie8 td {
+	border-top: 1px solid #EEE;
+}
+
+/*
+ * Clear Fix
+ * @based: http://xyberneticos.com/index.php/2008/02/17/clearfix-css-hack/
+ */
+
+/* Slightly enhanced, universal clearfix hack */
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+/* Commented backslash hack */
+
+* html .clearfix {
+	height: 1%;
+}
+
+.clearfix {
+	display: block;
+}
+
+.ch-user-no-select{
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}

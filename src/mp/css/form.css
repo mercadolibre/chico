@@ -1,0 +1,254 @@
+/* Module */
+form fieldset {
+	margin-bottom:10px;
+}
+
+/* Title module */
+form legend {
+	color:#215181;
+	font-size:14px;
+	font-weight:bold;
+	padding-bottom:15px;
+}
+
+form h4 {
+	font-size:13px;
+}
+
+/* Required specification */
+form p.required {
+	color:#999;
+	font-size:11px;
+}
+
+/* Field wrapper */
+form .field-box {
+	padding:3px 0;
+}
+
+form label span {
+	display:block;
+	float:left;
+	margin:5px 15px 5px 0;
+	padding:2px 0;
+	text-align:right;
+	width:130px;
+}
+
+/* Field label required */
+form label.required span {
+	font-weight:bold;
+	position:relative;
+}
+
+/* Asterisk of field label required */
+form label.required span em {
+	position:absolute;
+	right:-8px;
+	top: 0px;
+}
+
+/* Fields */
+form label input, form label textarea {
+	border:1px solid #CCCCCC;
+	padding:4px;
+	margin:5px 0;
+}
+
+form label select {
+	margin:5px 0;
+}
+
+form label textarea {
+	height:125px;
+	width:350px;
+}
+
+/* Error */
+/* Field input error */
+form label .error, form select .error{
+	border:1px solid #C62026 !important;
+}
+
+form label .error.ico{
+	border:none !important;
+}
+
+/* Options */
+form .options .field-box{
+	margin: 0 0 15px 20px;
+	padding:0;
+}
+
+form .options h4{
+	margin-bottom:15px;
+}
+
+form .options.required h4{
+	font-weight:bold;
+}
+
+form .options label span {
+	display:inline;
+	float:none;
+	margin:0;
+	padding:0;
+	text-align:left;
+	width:auto;
+	vertical-align:baseline;
+}
+
+form .options label input[type=checkbox],
+form .options label input[type=radio] {
+	border:none;
+	margin:0;
+	padding:0;
+}	
+
+
+/* Actions */
+form .actions {
+	margin-left:145px;
+	text-align:left;
+}
+
+form .actions .btn{
+	margin-right:15px;
+}
+
+/* Help */
+form .help{
+	color:#666666;
+	font-size:11px;
+	line-height:11px;
+	margin-left:145px;
+}
+
+/* Focus */
+form label input:focus, form label textarea:focus {
+	border:2px solid #666;
+	padding:3px;
+}
+
+form .options label input:focus, form .options label textarea:focus {
+	border:none;
+	padding:0;
+}
+
+form label select:focus{
+	box-shadow:2px #666;
+	-moz-box-shadow:2px #666;
+	-webkit-box-shadow:2px #666;
+}
+
+form label .error:focus {
+	border:1px solid #CC0000;
+	padding:4px;
+	box-shadow:2px #CC0000;
+	-moz-box-shadow:2px #CC0000;
+	-webkit-box-shadow:2px #CC0000;
+}
+
+form label select.error:focus{	
+	padding:0px;
+}
+
+/* Vertical Form*/
+form.vertical .field-box {
+	padding:7px 0;
+}
+
+form.vertical label span {
+	float:none;
+	line-height:13px;
+	margin:0;
+	padding:0;
+	text-align:left;
+	width:auto;
+}
+
+
+form.vertical label.required span em {
+	position:relative;
+	left:0;
+	top: 0px;
+}
+
+form.vertical .help{
+	margin-left:0;
+}
+
+/* Disabled*/
+/* Wrapper disabled (Don't forget to add Disabled attribute to input element) */
+form .disabled {
+	color:#999;
+}
+
+form .disabled input{
+	background-color:#F2F2F2;
+}
+
+/* IE 6  */
+.ie6 form .disabled {
+	border:none !important;
+}
+
+.ie6 form .help {
+	margin-left:148px;
+}
+
+.ie6 form h4 {
+	margin-left:10px;
+}
+
+.ie6 form .options label input {
+	border:none;
+	margin:0;
+	padding:0;
+}
+
+/* IE 7*/
+.ie7 form {
+	position:relative;
+}
+
+.ie7 form .options{
+	position:relative;
+}
+
+.ie7 form .field-box{
+	position:relative;
+}
+
+.ie7 form h4 { 
+	margin-left:10px;
+	display:block;
+}
+
+.ie7 form .actions{
+	position:relative;
+}
+
+.ie7 form .options label input {
+	border:none;
+	margin:0;
+	padding:0;
+}
+
+/* IE 8 */
+.ie8 form label input:focus,
+.ie8 form label textarea:focus {
+	border:3px solid #666;
+}
+
+.ie8 form .options label input:focus,
+.ie8 form .options label textarea:focus {
+	border:none;
+	padding:0;
+}
+
+.ie8 form .options label input {
+	border:none;
+	margin:0;
+	padding:0;
+}

@@ -6,6 +6,7 @@
  * @class Floats
  * @augments ch.Object
  * @memberOf ch
+ * @requires ch.Positioner
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
  * @see ch.Tooltip
