@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: carousel,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,menu,zoom
+  * @components: carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,menu,zoom
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -762,6 +762,142 @@ td {
 
 .ie6 .ch-carousel .ch-prev-arrow{
 	left: 5px;
+}
+/* Calendar */
+.ch-calendar.ch-dropdown.secondary,
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
+	height: 20px;
+    line-height: 20px;
+    padding: 0 5px 0 0;
+    width: 20px;
+}
+
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
+	text-indent:-9999px;
+}
+
+.ch-calendar.ch-dropdown.secondary.ch-dropdown-on {
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.ch-calendar-prev,
+.ch-calendar-next,
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAqCAYAAABP7FAaAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABV0RVh0Q3JlYXRpb24gVGltZQAyNy80LzExYrslRgAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAT1SURBVFiF7ZZLSFxXGMd/99w7L2cm8TEQqS2aoDFNF0WkUMwidFFptIsSoYsudJFtgqu26SJdSNxlEwppF80i2RQXZlcabMEWa6iLYBppaEmUEjGOzmQcZ+487txz7+liHvE14xho+iB/OMwZ+O75nf853/nO0ZRSvGhpgEin0x9ms1kjn8nrC7/dF53HuhG64OHi75w48TrmZobo+hM6u7owUxlWo0/oOt7FejRONmfScbQDwzDc9vb2SaAASKWUWwvqsaVdeLz+ADObQs81QiADAsiGUYEkwvVBwYfTsIFWCCCkH8e/gbBDuFJAQ4q2SCcth15pBzaBrFLKrgY1AH0jHeXr7z9B2YKhN8b54devkKrAQOdnTNwZo6O5lzdbB5iY/Zjjh96h97UP+GbhU95+9SOafUf5dmmMnmP9ABHABqzSb1WoyNsma8llPG4Dc3d/YlUu42o2c3d/ZMOOoWUfYkd/JuUkWM4s4sZnSMsEfywuENJipFWC9c0/AcLAU4rrVFUGoLnKJRpbxmsE2LC+RHpN0BRr1hdIf5KEE2NJ3sP2bZB2fmHJvof0b5CWU+DoWJ44yUMJAA+gl7atJhSlQHMMNF3HaUiiOcXv3IYkQuqgS1zPJrrtBaPY16QX5cmjDBfN8oCsaW6bNKDBzGxmHjyeQ9M0lFIIrTiApml4vR5sWyIdidAECoUudJRSuK5TGkIRDjRxouOtd4ElYE0planl1AkFD7cppVb2Ckgnc4QbA3W7qEcG4ACWZVnoug6AEALLspienkZKiZXP896ZMwSDQebm5nj06BGDg4M0NzdTKBQAcN2qx3KXRAlqb61MSimEEJw8eZLe3l4CwSAzMzMIIQiHw2RzOVKp1HM7FYAqgVFKVZphGHR0dNDW1rbNSXd3N42NjTg7nB2knFZSbqfTMmRxcZH7CwucPn0apRSapmFZ1rblPGj9rkB1XUcIgaYVj5jH42FtfZ3p6WlGL1wgHA5j28UiI6VElaBl4HM5jcVimGaaXC6L67qsrKzw+aVLxOJxvrt9m9k7d/B6vSilSCaTlQR6HqdGuZPNZtF1nUhLM5lsDp/Px/DICD6vF9u2aWlpwXEclFK8PzhIJBJBFgoHBsKzchWMx+NmIpGgqbER3TAIBoN4PJ5tyVXeR13XcV0Xx3EqA0kpCYfDdReHYscwiEQimKaJ4zgIISiUnJT3eaerrf/LMfWoDFU+nw8pJU1NTRQKBWy7gGUpHMfBdd0KXAiBEAJd1yvJJ4TA7/cD5AFJ8RjuC3UCgcAR4AhwGPDXPe1nylO8wPOUzn01ldfEAHxAsAQ0qn5RXbIEzACWUkruB9Uo3oPlVv8GPVO5sjmAo2qktfZPvAYNy7JeOLX+6/4l9H8FNU3zxUInJiYYGhrad6Dz589z/fr1uiao5fP5PY/M/Pw8ly9fJhqNAjA7O1tzoFOnTgHQ2trKuXPnGBgYqB+6urrK1atXmZmZ2RZYL7Ssnp4eRkdH6erq2hUrXNel3FKpFOPj47uAAFvj9mo7NT8/z8WLF0mlUrtija3PDq/Xy5UrV5iamuLGjRuVpQW2PU/2UygUYmRkhLNnz+757Z63SX9/P319fdy6dYvJyckDZe/Q0BDDw8OEQqGqMVoymaxZe6PRKNeuXWNsbKwm7ObNm/T19dHZ2bnvxPaF/h3691akl9D/FPQvzbWlVl57VTcAAAAASUVORK5CYII=');
+/*calendar*/*background-image: url('../src/assets/calendar.png');
+	background-repeat: no-repeat;
+}
+
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
+	top:0;
+	right:3px;
+	margin:0;
+	height: 20px;
+    line-height: 20px;
+    padding: 0;
+    width: 20px;	
+    background-position:0 0;
+}
+
+/* Container */
+.ch-calendar-container.ch-dropdown-content.secondary {
+	padding:0;
+	width:190px;
+}
+
+/* Content */
+.ch-calendar-content{
+	position:relative;
+}
+
+/* Month Table */
+.ch-calendar-month{
+	border:none;
+	padding:0;
+}
+
+.ch-calendar-month caption{
+	text-align: center;
+	font-size:12px;
+	margin:0;
+	background-color:#F5F5F5;
+}
+
+.ch-calendar-month thead tr,
+.ch-calendar-month th{
+	border-top:none;
+	border-bottom:none;
+	border:none;
+	background:none;
+	height:auto;
+	width:auto;
+	padding:0;
+	text-align:center;
+}
+
+.ch-calendar-month .week{
+	border:none;
+}
+
+.ch-calendar-month .day,
+.ch-calendar-month .disable{
+	height: auto;
+    text-align: center;
+    cursor:pointer;
+    padding:0;
+    line-height:16px	;
+}
+
+.ch-calendar-month .day:hover{
+	background: #FEFBD6;
+}
+
+.ch-calendar-month .disable{
+	color:#C6C6C6;
+	cursor:default;
+}
+
+.ch-calendar-month td.selected{
+	background: #FEFBD6;
+}
+.ch-calendar-month .today {
+	background: #CCC;
+}
+
+
+/* Arrows */
+.ch-calendar-prev,
+.ch-calendar-next {
+	width:35px;
+	height:20px;
+	position:absolute;
+	top:4px;
+	cursor:pointer;
+	z-index:1;
+}
+
+.ch-calendar-prev {
+	left: 5px;
+    background-position:17px -27px;
+}
+
+.ch-calendar-next {
+	right: 5px;
+    background-position:-10px -27px;
+}
+
+
+/* IE 7*/
+.ie7 .ch-calendar {
+	display: inline;
+	vertical-align:top;
+	margin-top:10px;
+}
+
+.ie7 .ch-calendar .ch-dropdown-trigger {
+	display: block;
 }
 /**
  *	Default Styles
