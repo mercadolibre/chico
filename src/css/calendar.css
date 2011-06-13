@@ -122,7 +122,14 @@
     background-position:-10px -27px;
 }
 
+
+/* IE 7*/
 .ie7 .ch-calendar {
 	display: inline;
-	vertical-align:super;
+	vertical-align:top;
+	margin-top:10px;
+}
+
+.ie7 .ch-calendar .ch-dropdown-trigger {
+	display: block;
 }
