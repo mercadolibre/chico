@@ -8,7 +8,7 @@
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
  */
-
+//TODO: Examples
 ch.calendar = function(conf){
 
     /**
@@ -21,7 +21,9 @@ ch.calendar = function(conf){
     var that = this;
 
 	conf = ch.clon(conf);
-	if (ch.utils.hasOwn(conf, "selected")){ conf.selected = new Date(conf.selected); }; 
+	// TODO: analizar que formato d fecha soportar.
+	if (ch.utils.hasOwn(conf, "selected")){ conf.selected = new Date(conf.selected); };
+	
 
 	that.conf = conf;
 
@@ -45,6 +47,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	//TODO: default in english and snnif browser language
+	//TODO: cambiar a sintaxis de constante
 	var _monthsNames = conf.monthsNames ||["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
     /**
@@ -55,6 +58,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	//TODO: default in english and snnif browser language
+	//TODO: cambiar a sintaxis de constante
 	var _shortWeekdaysNames = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
 
     /**
@@ -83,6 +87,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	//TODO: change to constant syntax
+	//TODO: subfio de render y cambiar el nombre para que sea mas especifico, thead
 	var _weekdays = (function(){
 		
 		var _weekdaysTitle = "<thead>";
@@ -140,7 +145,7 @@ ch.calendar = function(conf){
 		var _weeks, _classToday, _classSelected;
 
 		_weeks = "<tbody>";
-		
+
 		do {
 			
 			_weeks += "<tr class=\"week\">";
@@ -178,7 +183,7 @@ ch.calendar = function(conf){
 		_tableMonth
 			.prepend("<caption>"+_monthsNames[_currentMonth.month] + " - " + _currentMonth.year+"</caption>")
 			.append(_weeks);
-
+		//TODO: probar de sacar el each
 		$.each(_tableMonth.find(".day"), function(i, e){
 			$(e).bind("click", function(){
 				_select( _currentDate.year + "/" + _currentDate.month + "/" + this.innerHTML );
@@ -259,6 +264,7 @@ ch.calendar = function(conf){
      */
 	var _parseDate = function(date){
 
+		//TODO: typeof date
 		if (typeof date == "undefined") { return; };
 		
 		return  date.getFullYear() + "/" + (date.getMonth() < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (date.getDate() < 10 ? '0' : '') + date.getDate();
@@ -293,6 +299,7 @@ ch.calendar = function(conf){
      * @name _nextMonth
      * @memberOf ch.Calendar
      */
+    //TODO: crear una interfaz que resuleva donde moverse
 	var _nextMonth = function(){
 		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()+1,1);
 		that.$content.html(_createMonth(that.currentDate));
