@@ -47,7 +47,9 @@ ch.form = function(conf) {
 	conf.messages["general"] = conf.msg || conf.messages["general"]  || "Check for errors.";	
 	
 	// Disable HTML5 browser-native validations
-	that.$element.attr("novalidate", "novalidate");	
+	that.$element.attr("novalidate", "novalidate");
+	// Grab submit button
+	that.$submit = that.$element.find("input:submit");
 	
 	that.conf = conf;
 
@@ -139,13 +141,38 @@ ch.form = function(conf) {
 	var validate = function(){
 
         that.callbacks("beforeValidate");
-
-		// Shoot validations
-		for(var i = 0, j = that.children.length; i < j; i ++){
-			that.children[i].validate();
+		
+		// Status OK (with previous error)
+		if ( !status ) {
+			removeError();
+			status = true;
 		};
-
-		checkStatus();
+		
+        var i = 0, j = that.children.length, toFocus, childrenError = [];
+		// Shoot validations
+		for ( i; i < j; i++ ) {
+		    var child = that.children[i];
+			// Validate
+			if ( !child.active() ) {
+                child.validate();
+            } 
+            // Save children with errors
+            if ( child.active() ) {
+                childrenError.push( child );
+            }
+		};
+        
+        // Is there's an error
+        if ( childrenError.length > 0 ) {
+            if ( !status ) {
+                removeError();
+            }
+            createError();
+            status = false;
+            // Issue UI-332: On validation must focus the first field with errors.
+            // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
+            childrenError[0].element.focus();
+        }
 		
 		status ? that.callbacks("onValidate") : that.callbacks("onError");  
 
@@ -155,7 +182,8 @@ ch.form = function(conf) {
 	};
 
     /**
-     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, 
+     * and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
      */
 	var submit = function(event){
 
@@ -167,13 +195,24 @@ ch.form = function(conf) {
 		
 		if ( status ){ // Status OK
 			if ( !ch.utils.hasOwn(conf, "onSubmit") ) {
-				that.element.submit();
+                // To fix Webflow dumb navigation,
+                // Clone the submit button into a hidden field
+    			var hidden = that.$submit.clone();
+    			    hidden.attr("type","hidden");
+				    hidden.prependTo(that.element);    
+
+			    // And send the form
+				that.element.submit(event);
+
 			}else{
 				that.callbacks("onSubmit");
 			};
 		};		
 
         that.callbacks("afterSubmit");
+
+        // re-asign submit event   
+    	that.$element.one("submit", submit);
         
 		return that;
 	};
@@ -336,9 +375,7 @@ ch.form = function(conf) {
 	};
 
 	// Bind the submit
-	that.$element.bind("submit", function(event){
-		submit(event);
-	});
+	that.$element.one("submit", submit);
 	
 	// Bind the reset
 	that.$element.find(":reset, .resetForm").bind("click", function(event){ reset(event); });

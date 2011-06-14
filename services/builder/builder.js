@@ -8,7 +8,7 @@ var sys = require("sys"),
     fs = require("fs"),
     events = require('events'),
     child = require("child_process"),
-    uglify = require("../../../UglifyJS/uglify-js"),
+    uglify = require("../../../node_modules/UglifyJS/uglify-js"),
     cssmin = require('../lib/cssmin').cssmin,
     exec  = child.exec,
     spawn = child.spawn,
@@ -175,18 +175,21 @@ Packer.prototype.process = function() {
         }
     
         sys.puts( "   optimized size " + output_min.length );
-        
+
     }
     
-    // Templating & replacements
-    
+    // Templating & replacements.
     var out = self.template.replace( "<version>" , self.fullversion );
+        // Put the code out.
         out = out.replace( "<code>" , output_min || output );
+        // Save the componentes loaded in Chico's Core.
         out = out.replace( ",components:\"\"," , ",components:\"" + self.ui + "\"," );
+        // Write down the version number.
         out = out.replace( "version:\"\"" , "version:\"" + self.fullversion + "\"" );
-        
+
+    // Process complete.
     self.emit( "processed" , out );
-    
+    // Write the file.
     self.write( self.filename , out );    
 
 };
@@ -194,7 +197,7 @@ Packer.prototype.process = function() {
 Packer.prototype.write = function( file , data ) {
     
     var self = this;
-    
+    // Write the file
     fs.writeFile( file , data , function( err ) {
         
         if ( err ) {
@@ -204,8 +207,10 @@ Packer.prototype.write = function( file , data ) {
 
         sys.puts( " > Writting " + self.filename + "..." );
         sys.puts( "   Done! " );
-
+        
+        // Write complete
         self.emit( "writed", self.filename );
+        // Finish it.
         self.emit( "done", self );
     });
 

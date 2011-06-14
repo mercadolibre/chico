@@ -1,0 +1,55 @@
+/* Menu */
+.ch-menu {
+	max-width:300px;
+	border-top:1px solid #ccc;
+}
+
+/* L1 and L2 items */
+.ch-bellows-trigger,
+.ch-menu .ch-expando-trigger,
+.ch-menu .ch-expando-content a {
+	font-size:13px;
+	height:26px;
+	line-height:26px;
+	cursor:pointer;
+	text-decoration:none!important;
+	color:#333!important;
+	display:block;
+	padding:0 5px;
+}
+
+/* L1 and L2 items hover */
+.ch-bellows-trigger:hover,
+.ch-menu .ch-expando-trigger:hover,
+.ch-menu .ch-expando-content a:hover {
+	background-color:#FCF8D0;
+}
+
+/* L1 items */
+.ch-bellows-trigger,
+.ch-menu .ch-expando-trigger,
+.ch-menu .ch-expando-content {
+	border-bottom:1px solid #ccc;
+	position:relative;
+}
+
+/* L1 items icon */
+.ch-menu .ch-expando-trigger .ico {
+	right:5px;
+	top:7px;
+}
+
+/* L2 items list */
+.ch-menu .ch-expando-content {
+	margin:0;
+}
+
+/* L2 items */
+.ch-menu .ch-expando-content a {
+	padding-left:20px;
+}
+
+/* Selected child */
+.ch-menu-on {
+	font-weight:bold;
+}

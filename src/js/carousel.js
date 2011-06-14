@@ -4,6 +4,7 @@
  * @name Carousel
  * @class Carousel
  * @augments ch.Object
+ * @requires ch.List   
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}

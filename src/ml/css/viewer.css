@@ -1,0 +1,144 @@
+/* Component */
+.ch-viewer{
+	border:1px solid #ccc;
+	overflow:hidden;
+	background-color:#fff;
+	position:relative;
+	width:320px;
+}
+
+
+.ch-viewer-display{
+	margin:5px 0;
+}
+
+.ch-viewer-display .ch-carousel-container{
+	margin:0;
+}
+
+/* Display list */
+.ch-viewer-display .ch-viewer-content li{
+	margin:0;
+	width:320px;
+	height:320px	;
+}
+
+/* Showcase list */
+.ch-viewer-content{
+	position:absolute;
+	transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+
+/* Showcase list items */
+.ch-viewer-content li{
+	float:left;
+	text-align:center;
+}
+
+.ch-viewer-content li a,
+.ch-viewer-content li object{
+	display:block;
+    	text-align: center;
+    	margin:0 auto;
+}
+
+/* Display arrows list */
+.ch-viewer-prev,
+.ch-viewer-next{
+	position: absolute;
+	top: 0;
+	width: 28px;
+	height: 34px;
+	display: block;
+	text-indent:999px;
+	overflow:hidden;
+	background-image: url('../src/assets/viewerArrows.png');
+	background-repeat:no-repeat;
+	cursor:pointer;
+}
+
+.ch-viewer-prev{
+	background-position:0 -34px;
+	right:28px;
+}
+
+.ch-viewer-next{
+	background-position: -28px -34px;
+	right:0;
+}
+
+.ch-viewer-prev-on{
+	background-position:0 0;
+}
+
+.ch-viewer-next-on{
+	background-position: -28px 0;
+}
+
+
+/* Thumbnails */
+.ch-viewer-triggers {
+	margin-bottom:5px;
+}
+
+/* Thumbnails items */
+.ch-viewer-triggers li {
+	width:40px;
+	height:40px;
+	/*line-height:40px;*/
+	border:1px solid #fff;
+	cursor:pointer;
+	text-align:center;
+	margin:0 10px;
+}
+
+/* Thumbnails imgs */
+.ch-viewer-triggers li span,
+.ch-viewer-triggers li img{
+	vertical-align:middle;
+}
+
+/* Highlighted thumbnail */
+.ch-viewer-triggers .ch-thumbnail-on {
+	border-color:#ccc;
+}
+
+/* Video thumbnail */
+.ch-viewer-video {
+	background-color:#eee;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	text-indent:999px;
+	overflow:hidden;
+}
+
+/* Video icon on thumbnail */
+.ch-viewer-video span {
+	background-image: url('../src/assets/viewer.png');
+	width:12px;
+	height:22px;
+	display:block;
+	vertical-align:middle;
+	margin:10px auto;
+}
+
+/* IE 6 */
+.ie6 .ch-viewer-triggers .ch-prev {
+	left: 10px;
+}
+
+.ie6 .ch-viewer-triggers .ch-next {
+	right: 10px;
+}
+
+.ie6 .ch-modal {
+	overflow:hidden;
+}
+
+.ie6 .ch-viewer-modal-content .ch-pager {
+	bottom:30px;
+}

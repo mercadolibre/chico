@@ -1,0 +1,34 @@
+/* Anchor */
+.ch-zoom-trigger {
+	position:relative;
+	overflow:hidden;
+	cursor:default;
+	display:block;
+	cursor:crosshair;
+}
+
+/* Seeker shape */
+.ch-zoom-trigger .ch-seeker {
+	background-color:rgba(0,0,255,.1);
+	border:1px solid #00f;
+	position:absolute;
+}
+
+/* Zoomed area */
+.ch-zoom {
+	border:1px solid #ccc;
+	background-color:#fff;
+}
+
+/* Zoomed container */
+.ch-zoom-content {
+	overflow:hidden;
+	position:relative;
+	width:100%;
+	height:100%;
+}
+
+/* Zoomed image */
+.ch-zoom-content img {
+	position:absolute;
+}
