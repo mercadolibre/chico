@@ -247,7 +247,7 @@ ch.positioner = function(o) {
 
         // Check viewport limits	
 		// Bottom to top
-		if ( (points == "lt lb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
+		if ( (points == "lt lb" || points == "rt rb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
 
