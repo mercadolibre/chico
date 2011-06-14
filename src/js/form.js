@@ -44,7 +44,7 @@ ch.form = function(conf) {
 	conf = ch.clon(conf);
 	// Create the Messages for General Error
 	if ( !ch.utils.hasOwn(conf, "messages") ) conf.messages = {};
-	conf.messages["general"] = conf.messages["general"] || "Check for errors.";	
+	conf.messages["general"] = conf.msg || conf.messages["general"]  || "Check for errors.";	
 	
 	// Disable HTML5 browser-native validations
 	that.$element.attr("novalidate", "novalidate");	
