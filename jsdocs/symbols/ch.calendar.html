@@ -5,7 +5,7 @@
 		<meta name="generator" content="JsDoc Toolkit" />
 		
 		
-		<title>Chico API Reference - ch.Max</title>
+		<title>Chico API Reference - ch.Calendar</title>
 
 		<style type="text/css">
 			/**
@@ -142,8 +142,6 @@ vertical-align: top;
 	
 	<li><a href="../symbols/ch.html">ch</a></li>
 	
-	<li><a href="../symbols/ch.accordion.html">ch.Accordion</a></li>
-	
 	<li><a href="../symbols/ch.cache.html">ch.Cache</a></li>
 	
 	<li><a href="../symbols/ch.calendar.html">ch.Calendar</a></li>
@@ -182,11 +180,7 @@ vertical-align: top;
 	
 	<li><a href="../symbols/ch.list.html">ch.List</a></li>
 	
-	<li><a href="../symbols/ch.max.html">ch.Max</a></li>
-	
 	<li><a href="../symbols/ch.menu.html">ch.Menu</a></li>
-	
-	<li><a href="../symbols/ch.min.html">ch.Min</a></li>
 	
 	<li><a href="../symbols/ch.modal.html">ch.Modal</a></li>
 	
@@ -199,8 +193,6 @@ vertical-align: top;
 	<li><a href="../symbols/ch.positioner.html">ch.Positioner</a></li>
 	
 	<li><a href="../symbols/ch.preload.html">ch.Preload</a></li>
-	
-	<li><a href="../symbols/ch.price.html">ch.Price</a></li>
 	
 	<li><a href="../symbols/ch.required.html">ch.Required</a></li>
 	
@@ -215,8 +207,6 @@ vertical-align: top;
 	<li><a href="../symbols/ch.tabnavigator.html">ch.TabNavigator</a></li>
 	
 	<li><a href="../symbols/ch.tooltip.html">ch.Tooltip</a></li>
-	
-	<li><a href="../symbols/ch.transition.html">ch.Transition</a></li>
 	
 	<li><a href="../symbols/ch.viewer.html">ch.Viewer</a></li>
 	
@@ -233,26 +223,26 @@ vertical-align: top;
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class ch.Max
+				Class ch.Calendar
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				
 				<br />Extends
-					<a href="../symbols/ch.number.html">ch.Number</a>.<br />
+					<a href="../symbols/ch.controllers.html">ch.Controllers</a>.<br />
 				
 			
-				Max
+				Calendar
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/chico_src_js_number.js.html">number.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/chico_src_js_calendar.js.html">calendar.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ch.Max.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ch.Calendar.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -265,9 +255,9 @@ vertical-align: top;
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ch.max.html#constructor">ch.Max</a></b>(value, message)
+								<b><a href="../symbols/ch.calendar.html#constructor">ch.Calendar</a></b>(conf)
 							</div>
-							<div class="description">Validate a number with a maximun value.</div>
+							<div class="description">Calendar UI-Component for static and dinamic content.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -276,8 +266,324 @@ vertical-align: top;
 
 <!-- ============================== properties summary ===================== -->
 			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ch.Calendar.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#.$dateField">$dateField</a></b>
+								</div>
+								<div class="description">The input calendar</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._month_names">_month_names</a></b>
+								</div>
+								<div class="description">Collection of months names</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._short_weekdays_names">_short_weekdays_names</a></b>
+								</div>
+								<div class="description">Collection of weekdays short names</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._templateMonth">_templateMonth</a></b>
+								</div>
+								<div class="description">HTML Template to months</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._todat">_todat</a></b>
+								</div>
+								<div class="description">Date of today</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#.arrows">arrows</a></b>
+								</div>
+								<div class="description">Handles behavior of arrows</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#.currentDate">currentDate</a></b>
+								</div>
+								<div class="description">The current date that should show on calendar</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#.element">element</a></b>
+								</div>
+								<div class="description">The element reference.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#.that">that</a></b>
+								</div>
+								<div class="description">Reference to a internal component instance, saves all the information and configuration properties.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#.type">type</a></b>
+								</div>
+								<div class="description">The component's type.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#.uid">uid</a></b>
+								</div>
+								<div class="description">The component's instance unique identifier.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+				<dl class="inheritsList">
+				
+				</dl>
+				
+			
 
 <!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ch.Calendar.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._nextMonth">_nextMonth</a></b>()
+								</div>
+								<div class="description">Move to next month of calendar</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._parseDate">_parseDate</a></b>()
+								</div>
+								<div class="description">Parse Date object to YY/MM/DD format</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._prevMonth">_prevMonth</a></b>()
+								</div>
+								<div class="description">Move to prev month of calendar</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._reset">_reset</a></b>()
+								</div>
+								<div class="description">Move to prev year of calendar</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._select">_select</a></b>()
+								</div>
+								<div class="description">Selects an specific date to show</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.createLayout">createLayout</a></b>()
+								</div>
+								<div class="description">Create component's layout</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.getSelected">getSelected</a></b>()
+								</div>
+								<div class="description">Returns the selected date</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.getToday">getToday</a></b>()
+								</div>
+								<div class="description">Returns date of today</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b>name _createDropdown _createDropdown</b>()
+								</div>
+								<div class="description">Creates an instance of Dropdown</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b>name _createMonth _createMonth</b>()
+								</div>
+								<div class="description">Creates a complete month and returns it in a table</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b>name _weekdays _weekdays</b>()
+								</div>
+								<div class="description">Creates tag thead with short name of week days</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.next">next</a></b>()
+								</div>
+								<div class="description">Move to the next month</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.nextYear">nextYear</a></b>()
+								</div>
+								<div class="description">Move to the next year</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.prev">prev</a></b>()
+								</div>
+								<div class="description">Move to the prev month</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.prevYear">prevYear</a></b>()
+								</div>
+								<div class="description">Move to the prev year</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.reset">reset</a></b>()
+								</div>
+								<div class="description">Reset the calendar to date of today</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.select">select</a></b>()
+								</div>
+								<div class="description">Select a specific date.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.show">show</a></b>()
+								</div>
+								<div class="description">Open calendar</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+				<dl class="inheritsList">
+				
+				</dl>
+				
 			
 <!-- ============================== events summary ======================== -->
 			
@@ -290,17 +596,13 @@ vertical-align: top;
 				</div>
 				
 				<div class="fixedFont">
-						<b>ch.Max</b>(value, message)
+						<b>ch.Calendar</b>(conf)
 				</div>
 				
 				<div class="description">
-					Validate a number with a maximun value.
+					Calendar UI-Component for static and dinamic content.
 					
 				</div>
-				
-				
-				
-				<pre class="code">$("input").max(10, "Write a number smaller than 10");</pre>
 				
 				
 				
@@ -310,16 +612,10 @@ vertical-align: top;
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								<span class="light fixedFont">{Number}</span>  <b>value</b>
+								<span class="light fixedFont">{Configuration Object}</span>  <b>conf</b>
 								
 							</dt>
-								<dd>Minimun number value.</dd>
-						
-							<dt>
-								<span class="light fixedFont">{String}</span>  <b>message</b>
-								<i>Optional</i>
-							</dt>
-								<dd>Validation message.</dd>
+								<dd>Object with configuration properties</dd>
 						
 						</dl>
 					
@@ -335,15 +631,13 @@ vertical-align: top;
 						</dl>
 					
 					
-					
 						<dl class="detailList">
-						<dt class="heading">See:</dt>
+						<dt class="heading">Requires:</dt>
 						
-							<dd><a href="../symbols/ch.min.html">ch.Min</a></dd>
-						
-							<dd><a href="../symbols/ch.price.html">ch.Price</a></dd>
+							<dd><a href="../symbols/ch.dropdown.html">ch.Dropdown</a></dd>
 						
 						</dl>
+					
 					
 
 			</div>
@@ -351,8 +645,721 @@ vertical-align: top;
 
 <!-- ============================== field details ========================== -->		
 			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".$dateField"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>$dateField</b>
+					
+					</div>
+					<div class="description">
+						The input calendar
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._month_names"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_month_names</b>
+					
+					</div>
+					<div class="description">
+						Collection of months names
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._short_weekdays_names"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_short_weekdays_names</b>
+					
+					</div>
+					<div class="description">
+						Collection of weekdays short names
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._templateMonth"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_templateMonth</b>
+					
+					</div>
+					<div class="description">
+						HTML Template to months
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._todat"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_todat</b>
+					
+					</div>
+					<div class="description">
+						Date of today
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".arrows"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>arrows</b>
+					
+					</div>
+					<div class="description">
+						Handles behavior of arrows
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".currentDate"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>currentDate</b>
+					
+					</div>
+					<div class="description">
+						The current date that should show on calendar
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".element"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>element</b>
+					
+					</div>
+					<div class="description">
+						The element reference.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".that"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>that</b>
+					
+					</div>
+					<div class="description">
+						Reference to a internal component instance, saves all the information and configuration properties.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".type"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>type</b>
+					
+					</div>
+					<div class="description">
+						The component's type.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".uid"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>uid</b>
+					
+					</div>
+					<div class="description">
+						The component's instance unique identifier.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
 
 <!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="._nextMonth"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_nextMonth</b>()
+					
+					</div>
+					<div class="description">
+						Move to next month of calendar
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._parseDate"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_parseDate</b>()
+					
+					</div>
+					<div class="description">
+						Parse Date object to YY/MM/DD format
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._prevMonth"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_prevMonth</b>()
+					
+					</div>
+					<div class="description">
+						Move to prev month of calendar
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._reset"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_reset</b>()
+					
+					</div>
+					<div class="description">
+						Move to prev year of calendar
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._select"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_select</b>()
+					
+					</div>
+					<div class="description">
+						Selects an specific date to show
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".createLayout"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>createLayout</b>()
+					
+					</div>
+					<div class="description">
+						Create component's layout
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getSelected"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>getSelected</b>()
+					
+					</div>
+					<div class="description">
+						Returns the selected date
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".getToday"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>getToday</b>()
+					
+					</div>
+					<div class="description">
+						Returns date of today
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".name _createDropdown"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>name _createDropdown</b>()
+					
+					</div>
+					<div class="description">
+						Creates an instance of Dropdown
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".name _createMonth"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>name _createMonth</b>()
+					
+					</div>
+					<div class="description">
+						Creates a complete month and returns it in a table
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".name _weekdays"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>name _weekdays</b>()
+					
+					</div>
+					<div class="description">
+						Creates tag thead with short name of week days
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".next"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>next</b>()
+					
+					</div>
+					<div class="description">
+						Move to the next month
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".nextYear"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>nextYear</b>()
+					
+					</div>
+					<div class="description">
+						Move to the next year
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".prev"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>prev</b>()
+					
+					</div>
+					<div class="description">
+						Move to the prev month
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".prevYear"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>prevYear</b>()
+					
+					</div>
+					<div class="description">
+						Move to the prev year
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".reset"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>reset</b>()
+					
+					</div>
+					<div class="description">
+						Reset the calendar to date of today
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".select"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>select</b>()
+					
+					</div>
+					<div class="description">
+						Select a specific date.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{String}</span> <b>"YY/MM/DD".</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".show"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>show</b>()
+					
+					</div>
+					<div class="description">
+						Open calendar
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
 			
 			
 <!-- ============================== event details ========================= -->		
@@ -365,7 +1372,7 @@ vertical-align: top;
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			&copy;2011<br />
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Jun 13 2011 15:53:34 GMT-0300 (GMT-03:00)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue Jun 14 2011 14:59:41 GMT-0300 (GMT-03:00)
 		</div>
 	</body>
 </html>
