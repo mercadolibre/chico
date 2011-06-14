@@ -192,9 +192,9 @@ ch.modal = function(conf){
 /**
  * Transition
  * @name Transition
- * @class Transition
+ * @interface Transition
  * @augments ch.Modal
- * @memberOf ch
+ * @memberOf ch.Modal
  * @returns {Chico-UI Object}
  */
  
