@@ -7,9 +7,7 @@
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties.
  * @returns {Chico-UI Object}
- * @see ch.Min
- * @see ch.Max
- * @see ch.Price
+ * @see ch.Watcher
  * @example
  * // Create a number validation
  * $("input").number("This field must be a number.");
@@ -62,14 +60,13 @@ ch.number = function(conf) {
 /**
  * Validate a number with a minimun value.
  * @name Min
- * @class Min
+ * @interface Min
  * @augments ch.Number
- * @memberOf ch
+ * @memberOf ch.Number
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
- * @see ch.Max
- * @see ch.Price
+ * @see ch.Watcher
  * @example
  * $("input").min(10, "Write a number bigger than 10");
  */
@@ -101,14 +98,13 @@ ch.factory({ component: 'min' });
 /**
  * Validate a number with a maximun value.
  * @name Max
- * @class Max
+ * @interface Max
  * @augments ch.Number
- * @memberOf ch
+ * @memberOf ch.Number
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
- * @see ch.Min
- * @see ch.Price
+ * @see ch.Watcher
  * @example
  * $("input").max(10, "Write a number smaller than 10");
  */
@@ -141,13 +137,12 @@ ch.factory({ component: 'max' });
 /**
  * Validate a number with a price format.
  * @name Price
- * @class Price
+ * @interface Price
  * @augments ch.Number
- * @memberOf ch
+ * @memberOf ch.Number
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
- * @see ch.Min
- * @see ch.Max
+ * @see ch.Watcher
  * @example
  * $("input").price("Write valid price.");
  */
