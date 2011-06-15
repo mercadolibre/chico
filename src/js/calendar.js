@@ -40,7 +40,7 @@ ch.calendar = function(conf){
     /**
      * Collection of months names
      * @private
-     * @name _month_names
+     * @name _monthsNames
      * @type {Array}
      * @memberOf ch.Calendar
      */
@@ -50,7 +50,7 @@ ch.calendar = function(conf){
     /**
      * Collection of weekdays short names
      * @private
-     * @name _short_weekdays_names
+     * @name _shortWeekdaysNames
      * @type {Array}
      * @memberOf ch.Calendar
      */
@@ -60,7 +60,7 @@ ch.calendar = function(conf){
     /**
      * Date of today
      * @private
-     * @name _todat
+     * @name _today
      * @type {Date}
      * @memberOf ch.Calendar
      */
@@ -69,7 +69,7 @@ ch.calendar = function(conf){
     /**
      * Date of selected day
      * @private
-     * @name _todat
+     * @name _selected
      * @type {Date}
      * @memberOf ch.Calendar
      */
@@ -192,7 +192,7 @@ ch.calendar = function(conf){
     /**
      * Handles behavior of arrows
      * @private
-     * @name arrows
+     * @name _arrows
      * @type {Object}
      * @memberOf ch.Calendar
      */
@@ -234,7 +234,7 @@ ch.calendar = function(conf){
      * Create component's layout
      * @private
 	 * @function
-     * @name createLayout
+     * @name _createLayout
      * @memberOf ch.Calendar
      */
 	var _createLayout = function(){
@@ -324,7 +324,7 @@ ch.calendar = function(conf){
      * Move to next year of calendar
      * @private
 	 * @function
-     * @name _prevMonth
+     * @name _nextYear
      * @memberOf ch.Calendar
      */
 	var _nextYear = function(){
@@ -338,7 +338,7 @@ ch.calendar = function(conf){
      * Move to prev year of calendar
      * @private
 	 * @function
-     * @name _prevMonth
+     * @name _prevYear
      * @memberOf ch.Calendar
      */
 	var _prevYear = function(){
