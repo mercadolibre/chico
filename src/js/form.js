@@ -84,29 +84,29 @@ ch.form = function(conf) {
 	var $error = $("<p class=\"ch-validator\"><span class=\"ico error\">Error: </span>" + conf.messages["general"] + "</p>");
 	
     /**
-     * Inserts the general error snippet into the HTML. This implies a change in the document's flow, so it will trigger the CHANGE_LAYOUT Event.
+     * Inserts the general error snippet into the HTML. This implies a change in the document's flow, so it will trigger the ch.events.LAYOUT.CHANGE Event.
      * @private
      * @function
      * @name createError
      * @memberOf ch.Form
-     * @see ch.events.CHANGE_LAYOUT
+     * @see ch.events.LAYOUT.CHANGE
      */ 
 	var createError = function(){ 
 		that.$element.before( $error );		
-		$("body").trigger(ch.events.CHANGE_LAYOUT);
+		$("body").trigger(ch.events.LAYOUT.CHANGE);
 	};
 
     /**
-     * Removes the general error snippet from the HTML. This implies a change in the document's flow, so it will trigger the CHANGE_LAYOUT Event.
+     * Removes the general error snippet from the HTML. This implies a change in the document's flow, so it will trigger the ch.events.LAYOUT.CHANGE Event.
      * @private
      * @function
      * @name removeError
      * @memberOf ch.Form
-     * @see ch.events.CHANGE_LAYOUT
+     * @see ch.events.LAYOUT.CHANGE
      */ 
  	var removeError = function(){
 		$error.detach();
-		$("body").trigger(ch.events.CHANGE_LAYOUT);
+		$("body").trigger(ch.events.LAYOUT.CHANGE);
 	};
 
     /**
@@ -195,7 +195,7 @@ ch.form = function(conf) {
 		
 		if ( status ){ // Status OK
 			if ( !ch.utils.hasOwn(conf, "onSubmit") ) {
-                // To fix Webflow dumb navigation,
+                // To fix Webflow dumb navigation system,
                 // Clone the submit button into a hidden field
     			var hidden = that.$submit.clone();
     			    hidden.attr("type","hidden");
