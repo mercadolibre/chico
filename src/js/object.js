@@ -151,7 +151,6 @@ ch.object = function(){
 	};
 	
 
-	 
  	that["public"] = {};
 	
 	return that;

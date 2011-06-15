@@ -256,47 +256,37 @@
 <span class='line'>249</span>  * @returns {Chico-UI Object}
 <span class='line'>250</span>  */</span><span class="WHIT">
 <span class='line'>251</span> 
-<span class='line'>252</span> </span><span class="NAME">ch.accordion</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>253</span> </span><span class="WHIT">    
-<span class='line'>254</span>     </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>255</span> </span><span class="WHIT">	
-<span class='line'>256</span> 	</span><span class="NAME">conf.accordion</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>257</span> 
-<span class='line'>258</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ch.menu.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>259</span> 
-<span class='line'>260</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>261</span>      * The component's instance unique identifier.
-<span class='line'>262</span>      * @public
-<span class='line'>263</span>      * @name uid
-<span class='line'>264</span>      * @type {Number}
-<span class='line'>265</span>      * @memberOf ch.Menu.Accordion
-<span class='line'>266</span>      */</span><span class="WHIT">     
-<span class='line'>267</span>     
-<span class='line'>268</span>     </span><span class="COMM">/**
-<span class='line'>269</span>      * The element reference.
-<span class='line'>270</span>      * @public
-<span class='line'>271</span>      * @name element
-<span class='line'>272</span>      * @type {HTMLElement}
-<span class='line'>273</span>      * @memberOf ch.Menu.Accordion
-<span class='line'>274</span>      */</span><span class="WHIT">
-<span class='line'>275</span> </span><span class="WHIT">    
-<span class='line'>276</span>     </span><span class="COMM">/**
-<span class='line'>277</span>      * The component's type.
-<span class='line'>278</span>      * @public
-<span class='line'>279</span>      * @name type
-<span class='line'>280</span>      * @type {String}
-<span class='line'>281</span>      * @memberOf ch.Menu.Accordion
-<span class='line'>282</span>      */</span><span class="WHIT">
-<span class='line'>283</span> </span><span class="WHIT">    
-<span class='line'>284</span>     </span><span class="COMM">/**
-<span class='line'>285</span>      * Select a specific children.
-<span class='line'>286</span>      * @public
-<span class='line'>287</span>      * @name select
-<span class='line'>288</span>      * @function
-<span class='line'>289</span>      * @memberOf ch.Menu.Accordion
-<span class='line'>290</span>      */</span><span class="WHIT">
-<span class='line'>291</span> </span><span class="WHIT">    
-<span class='line'>292</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>293</span> 
-<span class='line'>294</span> </span><span class="NAME">ch.factory</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">component</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"accordion"</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>295</span> </span></pre></body></html>
+<span class='line'>252</span> </span><span class="NAME">ch.interface</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="STRN">"accordion"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"menu"</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'>253</span> 
+<span class='line'>254</span>     </span><span class="COMM">/**
+<span class='line'>255</span>      * The component's instance unique identifier.
+<span class='line'>256</span>      * @public
+<span class='line'>257</span>      * @name uid
+<span class='line'>258</span>      * @type {Number}
+<span class='line'>259</span>      * @memberOf ch.Menu.Accordion
+<span class='line'>260</span>      */</span><span class="WHIT">     
+<span class='line'>261</span>     
+<span class='line'>262</span>     </span><span class="COMM">/**
+<span class='line'>263</span>      * The element reference.
+<span class='line'>264</span>      * @public
+<span class='line'>265</span>      * @name element
+<span class='line'>266</span>      * @type {HTMLElement}
+<span class='line'>267</span>      * @memberOf ch.Menu.Accordion
+<span class='line'>268</span>      */</span><span class="WHIT">
+<span class='line'>269</span> </span><span class="WHIT">    
+<span class='line'>270</span>     </span><span class="COMM">/**
+<span class='line'>271</span>      * The component's type.
+<span class='line'>272</span>      * @public
+<span class='line'>273</span>      * @name type
+<span class='line'>274</span>      * @type {String}
+<span class='line'>275</span>      * @memberOf ch.Menu.Accordion
+<span class='line'>276</span>      */</span><span class="WHIT">
+<span class='line'>277</span> </span><span class="WHIT">    
+<span class='line'>278</span>     </span><span class="COMM">/**
+<span class='line'>279</span>      * Select a specific children.
+<span class='line'>280</span>      * @public
+<span class='line'>281</span>      * @name select
+<span class='line'>282</span>      * @function
+<span class='line'>283</span>      * @memberOf ch.Menu.Accordion
+<span class='line'>284</span>      */</span><span class="WHIT">
+<span class='line'>285</span> </span></pre></body></html>

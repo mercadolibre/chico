@@ -47,7 +47,7 @@
 <span class='line'> 40</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 41</span>      * Collection of months names
 <span class='line'> 42</span>      * @private
-<span class='line'> 43</span>      * @name _month_names
+<span class='line'> 43</span>      * @name _monthsNames
 <span class='line'> 44</span>      * @type {Array}
 <span class='line'> 45</span>      * @memberOf ch.Calendar
 <span class='line'> 46</span>      */</span><span class="WHIT">
@@ -57,7 +57,7 @@
 <span class='line'> 50</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 51</span>      * Collection of weekdays short names
 <span class='line'> 52</span>      * @private
-<span class='line'> 53</span>      * @name _short_weekdays_names
+<span class='line'> 53</span>      * @name _shortWeekdaysNames
 <span class='line'> 54</span>      * @type {Array}
 <span class='line'> 55</span>      * @memberOf ch.Calendar
 <span class='line'> 56</span>      */</span><span class="WHIT">
@@ -67,7 +67,7 @@
 <span class='line'> 60</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 61</span>      * Date of today
 <span class='line'> 62</span>      * @private
-<span class='line'> 63</span>      * @name _todat
+<span class='line'> 63</span>      * @name _today
 <span class='line'> 64</span>      * @type {Date}
 <span class='line'> 65</span>      * @memberOf ch.Calendar
 <span class='line'> 66</span>      */</span><span class="WHIT">
@@ -76,7 +76,7 @@
 <span class='line'> 69</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 70</span>      * Date of selected day
 <span class='line'> 71</span>      * @private
-<span class='line'> 72</span>      * @name _todat
+<span class='line'> 72</span>      * @name _selected
 <span class='line'> 73</span>      * @type {Date}
 <span class='line'> 74</span>      * @memberOf ch.Calendar
 <span class='line'> 75</span>      */</span><span class="WHIT">
@@ -199,7 +199,7 @@
 <span class='line'>192</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>193</span>      * Handles behavior of arrows
 <span class='line'>194</span>      * @private
-<span class='line'>195</span>      * @name arrows
+<span class='line'>195</span>      * @name _arrows
 <span class='line'>196</span>      * @type {Object}
 <span class='line'>197</span>      * @memberOf ch.Calendar
 <span class='line'>198</span>      */</span><span class="WHIT">
@@ -241,7 +241,7 @@
 <span class='line'>234</span>      * Create component's layout
 <span class='line'>235</span>      * @private
 <span class='line'>236</span> 	 * @function
-<span class='line'>237</span>      * @name createLayout
+<span class='line'>237</span>      * @name _createLayout
 <span class='line'>238</span>      * @memberOf ch.Calendar
 <span class='line'>239</span>      */</span><span class="WHIT">
 <span class='line'>240</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">_createLayout</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
@@ -331,7 +331,7 @@
 <span class='line'>324</span>      * Move to next year of calendar
 <span class='line'>325</span>      * @private
 <span class='line'>326</span> 	 * @function
-<span class='line'>327</span>      * @name _prevMonth
+<span class='line'>327</span>      * @name _nextYear
 <span class='line'>328</span>      * @memberOf ch.Calendar
 <span class='line'>329</span>      */</span><span class="WHIT">
 <span class='line'>330</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">_nextYear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
@@ -345,7 +345,7 @@
 <span class='line'>338</span>      * Move to prev year of calendar
 <span class='line'>339</span>      * @private
 <span class='line'>340</span> 	 * @function
-<span class='line'>341</span>      * @name _prevMonth
+<span class='line'>341</span>      * @name _prevYear
 <span class='line'>342</span>      * @memberOf ch.Calendar
 <span class='line'>343</span>      */</span><span class="WHIT">
 <span class='line'>344</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">_prevYear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">

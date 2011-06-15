@@ -249,13 +249,7 @@ ch.menu = function(conf){
  * @returns {Chico-UI Object}
  */
 
-ch.accordion = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.accordion = true;
-
-	return ch.menu.call(this, conf);
+ch.interface( "accordion", "menu" ); 
 
     /**
      * The component's instance unique identifier.
@@ -288,7 +282,3 @@ ch.accordion = function(conf) {
      * @function
      * @memberOf ch.Menu.Accordion
      */
-    
-};
-
-ch.factory({ component: "accordion" });

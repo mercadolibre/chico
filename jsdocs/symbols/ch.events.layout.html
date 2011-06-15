@@ -5,7 +5,7 @@
 		<meta name="generator" content="JsDoc Toolkit" />
 		
 		
-		<title>Chico API Reference - ch.Preload</title>
+		<title>Chico API Reference - ch.Events.LAYOUT</title>
 
 		<style type="text/css">
 			/**
@@ -227,7 +227,7 @@ vertical-align: top;
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class ch.Preload
+				Namespace ch.Events.LAYOUT
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -235,17 +235,17 @@ vertical-align: top;
 				
 				
 			
-				Preload
+				LAYOUT
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/chico_src_js_preload.js.html">preload.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/chico_src_js_core.js.html">core.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ch.Preload.">
-				<caption>Class Summary</caption>
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ch.Events.LAYOUT.">
+				<caption>Namespace Summary</caption>
 				<thead>
 					<tr>
 						<th scope="col">Constructor Attributes</th>
@@ -257,9 +257,9 @@ vertical-align: top;
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ch.preload.html#constructor">ch.Preload</a></b>(arr, str)
+								<b><a href="../symbols/ch.events.layout.html#constructor">ch.Events.LAYOUT</a></b>
 							</div>
-							<div class="description">Pre-load is an utility to preload images on browser's memory.</div>
+							<div class="description">Layout event collection.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -267,6 +267,34 @@ vertical-align: top;
 			
 
 <!-- ============================== properties summary ===================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ch.Events.LAYOUT.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Events.LAYOUT.<b><a href="../symbols/ch.events.layout.html#.CHANGE">CHANGE</a></b>
+								</div>
+								<div class="description">Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
 			
 
 <!-- ============================== methods summary ======================== -->
@@ -278,44 +306,21 @@ vertical-align: top;
 			
 			<div class="details"><a name="constructor"> </a>
 				<div class="sectionTitle">
-					Class Detail
+					Namespace Detail
 				</div>
 				
 				<div class="fixedFont">
-						<b>ch.Preload</b>(arr, str)
+						<b>ch.Events.LAYOUT</b>
 				</div>
 				
 				<div class="description">
-					Pre-load is an utility to preload images on browser's memory. An array of sources will iterate and preload each one, a single source will do the same thing.
+					Layout event collection.
 					
 				</div>
 				
 				
 				
-				<pre class="code">ch.preload(["img1.jpg","img2.jpg","img3.png"]);</pre>
 				
-				<pre class="code">ch.preload("logo.jpg");</pre>
-				
-				
-				
-				
-					
-						<dl class="detailList">
-						<dt class="heading">Parameters:</dt>
-						
-							<dt>
-								<span class="light fixedFont">{Array}</span>  <b>arr</b>
-								<i>Optional</i>
-							</dt>
-								<dd>Collection of image sources</dd>
-						
-							<dt>
-								<span class="light fixedFont">{String}</span>  <b>str</b>
-								<i>Optional</i>
-							</dt>
-								<dd>A single image source</dd>
-						
-						</dl>
 					
 					
 					
@@ -328,6 +333,46 @@ vertical-align: top;
 			
 
 <!-- ============================== field details ========================== -->		
+			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".CHANGE"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ch.Events.LAYOUT.</span><b>CHANGE</b>
+					
+					</div>
+					<div class="description">
+						Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">See:</dt>
+							
+							<dd><a href="../symbols/ch.form.html">ch.Form</a></dd>
+							
+							<dd><a href="../symbols/ch.layer.html">ch.Layer</a></dd>
+							
+							<dd><a href="../symbols/ch.tooltip.html">ch.Tooltip</a></dd>
+							
+							<dd><a href="../symbols/ch.helper.html">ch.Helper</a></dd>
+							
+							</dl>
+						
+						
+
+					
+				
 			
 
 <!-- ============================== method details ========================= -->		
@@ -343,7 +388,7 @@ vertical-align: top;
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			&copy;2011<br />
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Jun 15 2011 17:16:20 GMT-0300 (GMT-03:00)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Jun 15 2011 17:16:18 GMT-0300 (GMT-03:00)
 		</div>
 	</body>
 </html>

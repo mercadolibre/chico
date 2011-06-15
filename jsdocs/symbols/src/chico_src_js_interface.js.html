@@ -1,0 +1,70 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="WHIT">
+<span class='line'>  2</span> </span><span class="COMM">/**
+<span class='line'>  3</span>  * Interface is a utility that resolve creating interfaces problem for all UI-Objects.
+<span class='line'>  4</span>  * @abstract
+<span class='line'>  5</span>  * @name Interface
+<span class='line'>  6</span>  * @class Interface
+<span class='line'>  7</span>  * @memberOf ch
+<span class='line'>  8</span>  * @param {String} name Interface's name.
+<span class='line'>  9</span>  * @param {Function} class Class to inherit from.
+<span class='line'> 10</span>  * @param {Function} [process] Optional function to pre-process configuration, recieves a 'conf' param and must return the configration object.
+<span class='line'> 11</span>  * @example
+<span class='line'> 12</span>  * // Create an URL interface type based on String component.
+<span class='line'> 13</span>  * ch.interface( "url", "string" );
+<span class='line'> 14</span>  * @example
+<span class='line'> 15</span>  * // Create an Accordion interface type based on Menu component.
+<span class='line'> 16</span>  * createInterface( "accordion", "menu" ); 
+<span class='line'> 17</span>  * @example
+<span class='line'> 18</span>  * // And the coolest one...
+<span class='line'> 19</span>  * // Create an Transition interface type based on his Modal component, with some conf manipulations:
+<span class='line'> 20</span>  * createInterface( "transition", "modal" , function(conf) {
+<span class='line'> 21</span>  *     conf.closeButton = false;
+<span class='line'> 22</span>  *     conf.msg = conf.msg || conf.content || "Please wait...";
+<span class='line'> 23</span>  *     conf.content = $("&lt;div&gt;").addClass("loading").after( $("&lt;p&gt;").html(conf.msg) );
+<span class='line'> 24</span>  *     return conf;
+<span class='line'> 25</span>  * });
+<span class='line'> 26</span>  */</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="NAME">ch.interface</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">name</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">class</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">process</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="WHIT">    </span><span class="COMM">// Create the component in Chico-UI namespace</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">    </span><span class="NAME">ch</span><span class="PUNC">[</span><span class="NAME">name</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 31</span> 
+<span class='line'> 32</span> </span><span class="WHIT">        </span><span class="COMM">// Invoke pre-proccess if is defined,</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">        </span><span class="COMM">// or grab the raw conf argument,</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">        </span><span class="COMM">// or just create an empty object.</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">        </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">process</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">process</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> 
+<span class='line'> 37</span> </span><span class="WHIT">        </span><span class="COMM">// Some interfaces need a data value,</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">        </span><span class="COMM">// others simply need to be 'true'.</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">        </span><span class="NAME">conf</span><span class="PUNC">[</span><span class="NAME">name</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf.value</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">        
+<span class='line'> 41</span>         </span><span class="COMM">// Here we recieve messages,</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">        </span><span class="COMM">// or create an empty object.</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">    	</span><span class="NAME">conf.messages</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf.messages</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> 
+<span class='line'> 45</span> </span><span class="WHIT">        </span><span class="COMM">// If the interface recieve a 'msg' argument,</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="WHIT">        </span><span class="COMM">// store it in the message map.</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"msg"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> 
+<span class='line'> 48</span>     		</span><span class="NAME">conf.messages</span><span class="PUNC">[</span><span class="NAME">name</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">conf.msg</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">        	</span><span class="NAME">conf.msg</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="WHIT">        	</span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">conf.msg</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">        
+<span class='line'> 53</span>         </span><span class="COMM">// Here is where the magic happen,</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">        </span><span class="COMM">// invoke the class with the new conf,</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">        </span><span class="COMM">// and return the instance to the namespace.</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">[</span><span class="NAME">class</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">conf</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">        
+<span class='line'> 58</span>     </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">    
+<span class='line'> 60</span>     </span><span class="COMM">// Almost done, now we need expose the new component,</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">    </span><span class="COMM">// let's ask the factory to do it for us.</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">    </span><span class="NAME">ch.factory</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">component</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">name</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>

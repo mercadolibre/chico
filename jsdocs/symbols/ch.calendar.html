@@ -162,6 +162,8 @@ vertical-align: top;
 	
 	<li><a href="../symbols/ch.events.key.html">ch.Events.KEY</a></li>
 	
+	<li><a href="../symbols/ch.events.layout.html">ch.Events.LAYOUT</a></li>
+	
 	<li><a href="../symbols/ch.expando.html">ch.Expando</a></li>
 	
 	<li><a href="../symbols/ch.factory.html">ch.Factory</a></li>
@@ -173,6 +175,8 @@ vertical-align: top;
 	<li><a href="../symbols/ch.get.html">ch.Get</a></li>
 	
 	<li><a href="../symbols/ch.helper.html">ch.Helper</a></li>
+	
+	<li><a href="../symbols/ch.interface.html">ch.Interface</a></li>
 	
 	<li><a href="../symbols/ch.keyboard.html">ch.Keyboard</a></li>
 	
@@ -292,7 +296,17 @@ vertical-align: top;
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._month_names">_month_names</a></b>
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._arrows">_arrows</a></b>
+								</div>
+								<div class="description">Handles behavior of arrows</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._monthsNames">_monthsNames</a></b>
 								</div>
 								<div class="description">Collection of months names</div>
 							</td>
@@ -302,7 +316,17 @@ vertical-align: top;
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._short_weekdays_names">_short_weekdays_names</a></b>
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._selected">_selected</a></b>
+								</div>
+								<div class="description">Date of selected day</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._shortWeekdaysNames">_shortWeekdaysNames</a></b>
 								</div>
 								<div class="description">Collection of weekdays short names</div>
 							</td>
@@ -322,19 +346,9 @@ vertical-align: top;
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._todat">_todat</a></b>
+								ch.Calendar.<b><a href="../symbols/ch.calendar.html#._today">_today</a></b>
 								</div>
 								<div class="description">Date of today</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								ch.Calendar.<b><a href="../symbols/ch.calendar.html#.arrows">arrows</a></b>
-								</div>
-								<div class="description">Handles behavior of arrows</div>
 							</td>
 						</tr>
 					
@@ -416,9 +430,27 @@ vertical-align: top;
 						<tr>
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._createLayout">_createLayout</a></b>()
+								</div>
+								<div class="description">Create component's layout</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._nextMonth">_nextMonth</a></b>()
 								</div>
 								<div class="description">Move to next month of calendar</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._nextYear">_nextYear</a></b>()
+								</div>
+								<div class="description">Move to next year of calendar</div>
 							</td>
 						</tr>
 					
@@ -443,6 +475,15 @@ vertical-align: top;
 						<tr>
 							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._prevYear">_prevYear</a></b>()
+								</div>
+								<div class="description">Move to prev year of calendar</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._reset">_reset</a></b>()
 								</div>
 								<div class="description">Move to prev year of calendar</div>
@@ -455,15 +496,6 @@ vertical-align: top;
 								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#._select">_select</a></b>()
 								</div>
 								<div class="description">Selects an specific date to show</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;private&gt; &lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">ch.Calendar.<b><a href="../symbols/ch.calendar.html#.createLayout">createLayout</a></b>()
-								</div>
-								<div class="description">Create component's layout</div>
 							</td>
 						</tr>
 					
@@ -671,11 +703,33 @@ vertical-align: top;
 
 					<hr />
 				
-					<a name="._month_names"> </a>
+					<a name="._arrows"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
 					
-					<span class="light">ch.Calendar.</span><b>_month_names</b>
+					<span class="light">ch.Calendar.</span><b>_arrows</b>
+					
+					</div>
+					<div class="description">
+						Handles behavior of arrows
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._monthsNames"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_monthsNames</b>
 					
 					</div>
 					<div class="description">
@@ -693,11 +747,33 @@ vertical-align: top;
 
 					<hr />
 				
-					<a name="._short_weekdays_names"> </a>
+					<a name="._selected"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
 					
-					<span class="light">ch.Calendar.</span><b>_short_weekdays_names</b>
+					<span class="light">ch.Calendar.</span><b>_selected</b>
+					
+					</div>
+					<div class="description">
+						Date of selected day
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._shortWeekdaysNames"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_shortWeekdaysNames</b>
 					
 					</div>
 					<div class="description">
@@ -737,37 +813,15 @@ vertical-align: top;
 
 					<hr />
 				
-					<a name="._todat"> </a>
+					<a name="._today"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
 					
-					<span class="light">ch.Calendar.</span><b>_todat</b>
+					<span class="light">ch.Calendar.</span><b>_today</b>
 					
 					</div>
 					<div class="description">
 						Date of today
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".arrows"> </a>
-					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
-					
-					
-					<span class="light">ch.Calendar.</span><b>arrows</b>
-					
-					</div>
-					<div class="description">
-						Handles behavior of arrows
 						
 						
 					</div>
@@ -899,6 +953,31 @@ vertical-align: top;
 					Method Detail
 				</div>
 				
+					<a name="._createLayout"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_createLayout</b>()
+					
+					</div>
+					<div class="description">
+						Create component's layout
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="._nextMonth"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
@@ -908,6 +987,31 @@ vertical-align: top;
 					</div>
 					<div class="description">
 						Move to next month of calendar
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="._nextYear"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_nextYear</b>()
+					
+					</div>
+					<div class="description">
+						Move to next year of calendar
 						
 						
 					</div>
@@ -974,6 +1078,31 @@ vertical-align: top;
 
 					<hr />
 				
+					<a name="._prevYear"> </a>
+					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
+					
+					
+					<span class="light">ch.Calendar.</span><b>_prevYear</b>()
+					
+					</div>
+					<div class="description">
+						Move to prev year of calendar
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="._reset"> </a>
 					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
 					
@@ -1008,31 +1137,6 @@ vertical-align: top;
 					</div>
 					<div class="description">
 						Selects an specific date to show
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".createLayout"> </a>
-					<div class="fixedFont">&lt;private&gt; &lt;static&gt; 
-					
-					
-					<span class="light">ch.Calendar.</span><b>createLayout</b>()
-					
-					</div>
-					<div class="description">
-						Create component's layout
 						
 						
 					</div>
@@ -1372,7 +1476,7 @@ vertical-align: top;
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			&copy;2011<br />
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue Jun 14 2011 14:59:41 GMT-0300 (GMT-03:00)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Jun 15 2011 17:16:18 GMT-0300 (GMT-03:00)
 		</div>
 	</body>
 </html>
