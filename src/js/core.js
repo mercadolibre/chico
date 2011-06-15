@@ -119,12 +119,20 @@ var ch = window.ch = {
      */	
     events: {
         /**
-         * Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
-         * @public
-         * @name CHANGE_LAYOUT
+         * Layout event collection.
+         * @name LAYOUT
+         * @namespace LAYOUT
          * @memberOf ch.Events
-         */ 
-        CHANGE_LAYOUT: "changeLayout", 
+         */
+        LAYOUT: {
+            /**
+             * Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
+             * @name CHANGE
+             * @namespace CHANGE
+             * @memberOf ch.Events.LAYOUT
+             */
+            CHANGE: "change",        
+        },
         /**
          * Keryboard event collection.
          * @name KEY
