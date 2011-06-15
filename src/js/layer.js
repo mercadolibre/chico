@@ -244,7 +244,7 @@ ch.layer = function(conf) {
 	};
 
     // Fix: change layout problem
-    $("body").bind(ch.events.CHANGE_LAYOUT, function(){ that.position("refresh") });
+    $("body").bind(ch.events.LAYOUT.CHANGE, function(){ that.position("refresh") });
  
 
 	return that;

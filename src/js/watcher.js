@@ -281,7 +281,7 @@ ch.watcher = function(conf) {
 			//that.publish.status = that.status =  conf.status = true; // Status OK
 			that.active = false;
 			
-			// If has an error, but complete the field and submit witout trigger blur event
+			// If has an error, but complete the field and submit witout trigger blur event 
 			if (event) {
 				var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
 				if (originalTarget.type == "submit") { controller.submit(event); };
