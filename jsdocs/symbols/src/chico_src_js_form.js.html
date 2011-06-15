@@ -91,29 +91,29 @@
 <span class='line'> 84</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">$error</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;p class=\"ch-validator\">&lt;span class=\"ico error\">Error: &lt;/span>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">conf.messages</span><span class="PUNC">[</span><span class="STRN">"general"</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;/p>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 85</span> </span><span class="WHIT">	
 <span class='line'> 86</span>     </span><span class="COMM">/**
-<span class='line'> 87</span>      * Inserts the general error snippet into the HTML. This implies a change in the document's flow, so it will trigger the CHANGE_LAYOUT Event.
+<span class='line'> 87</span>      * Inserts the general error snippet into the HTML. This implies a change in the document's flow, so it will trigger the ch.events.LAYOUT.CHANGE Event.
 <span class='line'> 88</span>      * @private
 <span class='line'> 89</span>      * @function
 <span class='line'> 90</span>      * @name createError
 <span class='line'> 91</span>      * @memberOf ch.Form
-<span class='line'> 92</span>      * @see ch.events.CHANGE_LAYOUT
+<span class='line'> 92</span>      * @see ch.events.LAYOUT.CHANGE
 <span class='line'> 93</span>      */</span><span class="WHIT"> 
 <span class='line'> 94</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">createError</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> 
 <span class='line'> 95</span> 		</span><span class="NAME">that.$element.before</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">$error</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">		
-<span class='line'> 96</span> 		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"body"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">trigger</span><span class="PUNC">(</span><span class="NAME">ch.events.CHANGE_LAYOUT</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 96</span> 		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"body"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">trigger</span><span class="PUNC">(</span><span class="NAME">ch.events.LAYOUT.CHANGE</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 97</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 98</span> 
 <span class='line'> 99</span> </span><span class="WHIT">    </span><span class="COMM">/**
-<span class='line'>100</span>      * Removes the general error snippet from the HTML. This implies a change in the document's flow, so it will trigger the CHANGE_LAYOUT Event.
+<span class='line'>100</span>      * Removes the general error snippet from the HTML. This implies a change in the document's flow, so it will trigger the ch.events.LAYOUT.CHANGE Event.
 <span class='line'>101</span>      * @private
 <span class='line'>102</span>      * @function
 <span class='line'>103</span>      * @name removeError
 <span class='line'>104</span>      * @memberOf ch.Form
-<span class='line'>105</span>      * @see ch.events.CHANGE_LAYOUT
+<span class='line'>105</span>      * @see ch.events.LAYOUT.CHANGE
 <span class='line'>106</span>      */</span><span class="WHIT"> 
 <span class='line'>107</span>  	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">removeError</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>108</span> </span><span class="WHIT">		</span><span class="NAME">$error.detach</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>109</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"body"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">trigger</span><span class="PUNC">(</span><span class="NAME">ch.events.CHANGE_LAYOUT</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"body"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">trigger</span><span class="PUNC">(</span><span class="NAME">ch.events.LAYOUT.CHANGE</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>110</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>111</span> 
 <span class='line'>112</span> </span><span class="WHIT">    </span><span class="COMM">/**
@@ -202,7 +202,7 @@
 <span class='line'>195</span> </span><span class="WHIT">		
 <span class='line'>196</span> 		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">status</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="COMM">// Status OK</span><span class="WHIT">
 <span class='line'>197</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">ch.utils.hasOwn</span><span class="PUNC">(</span><span class="NAME">conf</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"onSubmit"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>198</span> </span><span class="WHIT">                </span><span class="COMM">// To fix Webflow dumb navigation,</span><span class="WHIT">
+<span class='line'>198</span> </span><span class="WHIT">                </span><span class="COMM">// To fix Webflow dumb navigation system,</span><span class="WHIT">
 <span class='line'>199</span> </span><span class="WHIT">                </span><span class="COMM">// Clone the submit button into a hidden field</span><span class="WHIT">
 <span class='line'>200</span> </span><span class="WHIT">    			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">hidden</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">that.$submit.clone</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>201</span> </span><span class="WHIT">    			    </span><span class="NAME">hidden.attr</span><span class="PUNC">(</span><span class="STRN">"type"</span><span class="PUNC">,</span><span class="STRN">"hidden"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">

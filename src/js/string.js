@@ -55,8 +55,8 @@ ch.string = function(conf) {
         }];
         // Conditions map TODO: uppercase, lowercase, varchar
 
-	return ch.watcher.call(this, conf);
-    
+    return ch.watcher.call(this, conf);        
+
 };
 
 
@@ -73,27 +73,8 @@ ch.string = function(conf) {
  * // Create a email validation
  * $("input").email("This field must be a valid email.");
  */
- 
-ch.email = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.email = true;
-	
-	conf.messages = {};
 
-    if ( ch.utils.hasOwn(conf, "msg") ) { 
-		conf.messages.email = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
-
-	return ch.string.call(this, conf);
-    
-};
-
-ch.factory({ component: 'email' });
-
+ch.interface( "email", "string" );
 
 /**
  * Validate URL sintaxis.
@@ -109,25 +90,7 @@ ch.factory({ component: 'email' });
  * $("input").url("This field must be a valid URL.");
  */
 
-ch.url = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.url = true;
-	
-	conf.messages = {};
-
-    if ( ch.utils.hasOwn(conf, "msg") ) { 
-		conf.messages.url = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
-
-	return ch.string.call(this, conf);
-    
-};
-
-ch.factory({ component: 'url' });
+ch.interface( "url", "string" );
 
 
 /**
@@ -145,25 +108,7 @@ ch.factory({ component: 'url' });
  * $("input").minLength(10, "At least 10 characters..");
  */
 
-ch.minLength = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.minLength = conf.value;
-	
-	conf.messages = {};
-
-    if ( ch.utils.hasOwn(conf, "msg") ) { 
-		conf.messages.minLength = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
-
-	return ch.string.call(this, conf);
-    
-};
-
-ch.factory({ component: 'minLength' });
+ch.interface( "minLength", "string" );
 
 
 /**
@@ -181,22 +126,4 @@ ch.factory({ component: 'minLength' });
  * $("input").maxLength(10, "No more than 10 characters..");
  */
 
-ch.maxLength = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.maxLength = conf.value;
-	
-	conf.messages = {};
-
-    if ( ch.utils.hasOwn(conf, "msg") ) { 
-		conf.messages.maxLength = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
-
-	return ch.string.call(this, conf);
-    
-};
-
-ch.factory({ component: 'maxLength' });
+ch.interface( "maxLength", "string" );

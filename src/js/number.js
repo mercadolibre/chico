@@ -71,29 +71,8 @@ ch.number = function(conf) {
  * $("input").min(10, "Write a number bigger than 10");
  */
 
-ch.min = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.min = conf.value;
-	
-	conf.value = null;
-	
-	delete conf.value;
-	
-	conf.messages = {};
+ch.interface( "min", "number" );
 
-    if ( ch.utils.hasOwn(conf, "msg") ) { 
-		conf.messages.min = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
-
-	return ch.number.call(this, conf);
-    
-};
-
-ch.factory({ component: 'min' });
 
 /**
  * Validate a number with a maximun value.
@@ -109,30 +88,7 @@ ch.factory({ component: 'min' });
  * $("input").max(10, "Write a number smaller than 10");
  */
  
-ch.max = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.max = conf.value;
-	
-	conf.value = null;
-	
-	delete conf.value;
-	
-	conf.messages = {};
-
-    if ( ch.utils.hasOwn(conf, "msg") ) { 
-		conf.messages.max = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
-
-	return ch.number.call(this, conf);
-    
-}
-
-ch.factory({ component: 'max' });
-
+ch.interface( "max", "number" );
 
 /**
  * Validate a number with a price format.
@@ -147,26 +103,4 @@ ch.factory({ component: 'max' });
  * $("input").price("Write valid price.");
  */
  
-ch.price = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.price = true;
-	
-	conf.value = null;
-	
-	delete conf.value;
-	
-	conf.messages = {};
-
-    if ( ch.utils.hasOwn(conf, "msg") ) { 
-		conf.messages.price = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
-
-	return ch.number.call(this, conf);
-    
-}
-
-ch.factory({ component: 'price' });
+ch.interface( "price", "number" );
