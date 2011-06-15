@@ -129,6 +129,10 @@ var ch = window.ch = {
              * Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
              * @name CHANGE
              * @memberOf ch.Events.LAYOUT
+             * @see ch.Form
+             * @see ch.Layer
+             * @see ch.Tooltip
+             * @see ch.Helper 
              */
             CHANGE: "change",        
         },
