@@ -134,7 +134,7 @@ var ch = window.ch = {
              * @see ch.Tooltip
              * @see ch.Helper 
              */
-            CHANGE: "change",        
+            CHANGE: "change"
         },
         /**
          * Keryboard event collection.

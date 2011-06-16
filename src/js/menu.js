@@ -249,7 +249,7 @@ ch.menu = function(conf){
  * @returns {Chico-UI Object}
  */
 
-ch.interface( "accordion", "menu" ); 
+ch.extend("menu").as("accordion");
 
     /**
      * The component's instance unique identifier.

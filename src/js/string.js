@@ -2,9 +2,9 @@
 /**
  * Validate strings.
  * @name String
- * @class String
+ * @interface String
  * @augments ch.Watcher
- * @memberOf ch
+ * @memberOf ch.Watcher
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
  * @see ch.Watcher
@@ -13,28 +13,12 @@
  * $("input").string("This field must be a string.");
  */
 
-ch.string = function(conf) {
+ch.extend("watcher").as("string", function (conf) {
 
-/**
- *  Constructor
- */
-	conf = conf || {};
-	
-    conf.messages = conf.messages || {};
-
-    if ( ch.utils.hasOwn(conf, "msg") ) { 
-		conf.messages.string = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
-    
     // $.string("message"); support
     if ( !conf.text && !conf.email && !conf.url && !conf.maxLength && !conf.minLength ) {
         conf.text = true;
     };
-
-	// Add validation types
-	conf.types = "text,email,url,minLength,maxLength";
     
     // Define the conditions of this interface
     conf.conditions = [{
@@ -53,12 +37,10 @@ ch.string = function(conf) {
             name: "maxLength",
             expr: function(a,b) { return a.length <= b } 
         }];
-        // Conditions map TODO: uppercase, lowercase, varchar
 
-    return ch.watcher.call(this, conf);        
+    return conf;
 
-};
-
+});
 
 /**
  * Validate email sintaxis.
@@ -74,7 +56,7 @@ ch.string = function(conf) {
  * $("input").email("This field must be a valid email.");
  */
 
-ch.interface( "email", "string" );
+ch.extend("string").as("email");
 
 /**
  * Validate URL sintaxis.
@@ -90,7 +72,7 @@ ch.interface( "email", "string" );
  * $("input").url("This field must be a valid URL.");
  */
 
-ch.interface( "url", "string" );
+ch.extend("string").as("url");
 
 
 /**
@@ -108,7 +90,7 @@ ch.interface( "url", "string" );
  * $("input").minLength(10, "At least 10 characters..");
  */
 
-ch.interface( "minLength", "string" );
+ch.extend("string").as("minLength");
 
 
 /**
@@ -126,4 +108,4 @@ ch.interface( "minLength", "string" );
  * $("input").maxLength(10, "No more than 10 characters..");
  */
 
-ch.interface( "maxLength", "string" );
+ch.extend("string").as("maxLength");
