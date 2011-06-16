@@ -216,10 +216,10 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	var _createDropdown = function(){
-
-		var _$trigger =	$("<div>").addClass("secondary");
-		that.$element.wrap(_$trigger).after(that.$container);
-		that.$trigger = that.$element.parent();
+		
+		var _dropdownTrigger = $("<strong>").html("Calendar");
+		
+		that.$trigger.append(_dropdownTrigger).append(that.$container);
 
 		that.children[0] = that.$trigger.dropdown({
 			onShow: function(){
@@ -244,13 +244,15 @@ ch.calendar = function(conf){
      */
 	var _createLayout = function(){
 
+		that.$trigger =	$("<div>").addClass("secondary ch-calendar");
+
 		that.$container = $("<div>").addClass("ch-calendar-container ch-hide");
 
 		that.$content = $("<div>").addClass("ch-calendar-content");
 
+		that.$element.after(that.$trigger);
+
 		_createDropdown();
-		
-		that.$trigger.addClass("ch-calendar");
 
 		return;
 	};
@@ -284,7 +286,7 @@ ch.calendar = function(conf){
 		
 		that.$content.html(_createMonth(_selected));
 		
-		that.$dateField.val( _parseDate(_selected) );
+		that.$element.val( _parseDate(_selected) );
 
 		// Callback
 		that.callbacks("onSelect");
@@ -365,7 +367,7 @@ ch.calendar = function(conf){
 	var _reset = function(){
 		_selected = conf.selected;
 		that.currentDate = _selected || _today;
-		that.$dateField.val("");
+		that.$element.val("");
 
 		that.$content.html(_createMonth(that.currentDate));
 
@@ -388,16 +390,6 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	that.currentDate = _selected || _today;
-
-    /**
-     * The input calendar
-     * @private
-     * @name $dateField
-     * @type {jQuery Object}
-     * @memberOf ch.Calendar
-     */
-	that.$dateField = that.$element.prev().prop("type", "text");
-
 
 /**
  *  Public Members
@@ -561,6 +553,8 @@ ch.calendar = function(conf){
  *  Default event delegation
  */
 
+	that.$element.prop("type", "text");
+
 	_createLayout();
 	
 	that.$content
@@ -568,7 +562,6 @@ ch.calendar = function(conf){
 		.appendTo(that.$container);
 	
 	that.$container.prepend( _arrows.$prev ).prepend( _arrows.$next );
-
 
 	return that;
 		
