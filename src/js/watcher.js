@@ -218,13 +218,14 @@ ch.watcher = function(conf) {
 	
 			that.callbacks('beforeValidate');
 
-            var t = that.conditions.length;
-            var value = that.$element.val();
-            var gotError = false;
-            
-            while ( t-- ) {
+            var i = 0, t = that.conditions.length,
+                value = that.$element.val(),
+                gotError = false;
+
+            // for each condition
+            for ( i ; i < t ; i +=1 ) {
                 
-            	var condition = that.conditions[t];
+            	var condition = that.conditions[i];
         
             	if ( that.isRequired() ) {
                     gotError = that.isEmpty();
@@ -254,7 +255,7 @@ ch.watcher = function(conf) {
                 	var text = ( condition.message ) ? condition.message : 
                 		(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
                 		undefined;
-                
+
                 	that.helper.show( text );
                 
                 	that.active = true;

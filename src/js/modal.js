@@ -197,7 +197,7 @@ ch.modal = function(conf){
  * @memberOf ch.Modal
  * @returns {Chico-UI Object}
  */
-ch.interface( "transition", "modal" , function(conf) {
+ch.extend("modal").as("transition", function(conf) {
 	conf.closeButton = false;
 	conf.msg = conf.msg || conf.content || "Please wait...";
 	conf.content = $("<div>")
