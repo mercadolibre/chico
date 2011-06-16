@@ -8,7 +8,7 @@
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
  */
-
+//TODO: Examples
 ch.calendar = function(conf){
 
     /**
@@ -21,7 +21,9 @@ ch.calendar = function(conf){
     var that = this;
 
 	conf = ch.clon(conf);
-	if (ch.utils.hasOwn(conf, "selected")){ conf.selected = new Date(conf.selected); }; 
+	// TODO: analizar que formato d fecha soportar.
+	if (ch.utils.hasOwn(conf, "selected")){ conf.selected = new Date(conf.selected); };
+	
 
 	that.conf = conf;
 
@@ -45,6 +47,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	//TODO: default in english and snnif browser language
+	//TODO: cambiar a sintaxis de constante
 	var _monthsNames = conf.monthsNames ||["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
     /**
@@ -55,6 +58,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	//TODO: default in english and snnif browser language
+	//TODO: cambiar a sintaxis de constante
 	var _shortWeekdaysNames = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
 
     /**
@@ -83,6 +87,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	//TODO: change to constant syntax
+	//TODO: subfio de render y cambiar el nombre para que sea mas especifico, thead
 	var _weekdays = (function(){
 		
 		var _weekdaysTitle = "<thead>";
@@ -140,7 +145,7 @@ ch.calendar = function(conf){
 		var _weeks, _classToday, _classSelected;
 
 		_weeks = "<tbody>";
-		
+
 		do {
 			
 			_weeks += "<tr class=\"week\">";
@@ -178,7 +183,7 @@ ch.calendar = function(conf){
 		_tableMonth
 			.prepend("<caption>"+_monthsNames[_currentMonth.month] + " - " + _currentMonth.year+"</caption>")
 			.append(_weeks);
-
+		//TODO: probar de sacar el each
 		$.each(_tableMonth.find(".day"), function(i, e){
 			$(e).bind("click", function(){
 				_select( _currentDate.year + "/" + _currentDate.month + "/" + this.innerHTML );
@@ -211,10 +216,10 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	var _createDropdown = function(){
-
-		var _$trigger =	$("<div>").addClass("secondary");
-		that.$element.wrap(_$trigger).after(that.$container);
-		that.$trigger = that.$element.parent();
+		
+		var _dropdownTrigger = $("<strong>").html("Calendar");
+		
+		that.$trigger.append(_dropdownTrigger).append(that.$container);
 
 		that.children[0] = that.$trigger.dropdown({
 			onShow: function(){
@@ -239,13 +244,15 @@ ch.calendar = function(conf){
      */
 	var _createLayout = function(){
 
+		that.$trigger =	$("<div>").addClass("secondary ch-calendar");
+
 		that.$container = $("<div>").addClass("ch-calendar-container ch-hide");
 
 		that.$content = $("<div>").addClass("ch-calendar-content");
 
+		that.$element.after(that.$trigger);
+
 		_createDropdown();
-		
-		that.$trigger.addClass("ch-calendar");
 
 		return;
 	};
@@ -259,6 +266,7 @@ ch.calendar = function(conf){
      */
 	var _parseDate = function(date){
 
+		//TODO: typeof date
 		if (typeof date == "undefined") { return; };
 		
 		return  date.getFullYear() + "/" + (date.getMonth() < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (date.getDate() < 10 ? '0' : '') + date.getDate();
@@ -278,7 +286,7 @@ ch.calendar = function(conf){
 		
 		that.$content.html(_createMonth(_selected));
 		
-		that.$dateField.val( _parseDate(_selected) );
+		that.$element.val( _parseDate(_selected) );
 
 		// Callback
 		that.callbacks("onSelect");
@@ -293,6 +301,7 @@ ch.calendar = function(conf){
      * @name _nextMonth
      * @memberOf ch.Calendar
      */
+    //TODO: crear una interfaz que resuleva donde moverse
 	var _nextMonth = function(){
 		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()+1,1);
 		that.$content.html(_createMonth(that.currentDate));
@@ -358,7 +367,7 @@ ch.calendar = function(conf){
 	var _reset = function(){
 		_selected = conf.selected;
 		that.currentDate = _selected || _today;
-		that.$dateField.val("");
+		that.$element.val("");
 
 		that.$content.html(_createMonth(that.currentDate));
 
@@ -381,16 +390,6 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	that.currentDate = _selected || _today;
-
-    /**
-     * The input calendar
-     * @private
-     * @name $dateField
-     * @type {jQuery Object}
-     * @memberOf ch.Calendar
-     */
-	that.$dateField = that.$element.prev().prop("type", "text");
-
 
 /**
  *  Public Members
@@ -554,6 +553,8 @@ ch.calendar = function(conf){
  *  Default event delegation
  */
 
+	that.$element.prop("type", "text");
+
 	_createLayout();
 	
 	that.$content
@@ -561,7 +562,6 @@ ch.calendar = function(conf){
 		.appendTo(that.$container);
 	
 	that.$container.prepend( _arrows.$prev ).prepend( _arrows.$next );
-
 
 	return that;
 		
