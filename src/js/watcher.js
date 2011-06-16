@@ -259,9 +259,10 @@ ch.watcher = function(conf) {
                 
                 	that.active = true;
                 
-                	var event = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
-                
-                	that.$element.one(event, function(event){ that.validate(event); }); // Add blur or change event only one time
+                	var validationEvent = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
+
+                    // Add blur or change event only one time
+                	that.$element.one( validationEvent , function(event){ that.validate(event); }); 
                 
                     return;
                 }
@@ -280,13 +281,14 @@ ch.watcher = function(conf) {
 			//that.publish.status = that.status =  conf.status = true; // Status OK
 			that.active = false;
 			
-			// If has an error, but complete the field and submit witout trigger blur event
+			// If has an error, but complete the field and submit witout trigger blur event 
 			if (event) {
 				var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
-				if (originalTarget.type == "submit") { controller.submit(); };
+				if (originalTarget.type == "submit") { controller.submit(event); };
 			};
 			
-			controller.checkStatus();
+			// This generates a lot of redraws... I don't want it here
+			//controller.checkStatus();
 		};
         
         that.callbacks('afterValidate');
