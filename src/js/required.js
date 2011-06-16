@@ -2,9 +2,9 @@
 /**
  * Required interface for Watcher.
  * @name Required
- * @class Required
+ * @interface Required
  * @augments ch.Watcher
- * @memberOf ch
+ * @memberOf ch.Watcher
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
  * @see ch.Number
@@ -16,31 +16,15 @@
  * @see ch.Watcher
  */
 
-ch.required = function(conf) {
-/**
- *  Constructor
- */
-	
-	conf = conf || {};
-	
-    conf.messages = {};
-
-    if ( ch.utils.hasOwn(conf, "msg") ) {     	
-    	conf.messages.required = conf.msg;
-    	conf.msg = null;
-    	delete conf.msg;
-    };
+ch.extend("watcher").as("required", function(conf) {
     
-	// Define the validation interface    
+    // Define the validation interface    
     conf.required = true;
-    
-    // Add validation types
-	conf.types = "required";
     // Define the conditions of this interface
     conf.conditions = [{
         name: "required"
     }];
-	
-	return ch.watcher.call(this, conf);
     
-};
+    return conf;
+    
+});
