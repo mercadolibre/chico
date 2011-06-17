@@ -191,24 +191,17 @@ ch.modal = function(conf){
 
 /**
  * Transition
- *
- * @interfaces Transition
- * @augments Modal
- * @returns {Object}
+ * @name Transition
+ * @interface Transition
+ * @augments ch.Modal
+ * @memberOf ch.Modal
+ * @returns {Chico-UI Object}
  */
- 
-ch.transition = function(conf) {
-
-    conf = conf || {};
-
+ch.extend("modal").as("transition", function(conf) {
 	conf.closeButton = false;
 	conf.msg = conf.msg || conf.content || "Please wait...";
 	conf.content = $("<div>")
 		.addClass("loading")
 		.after( $("<p>").html(conf.msg) );
-
-	return ch.modal.call(this, conf);
-
-};
-
-ch.factory({ component: 'transition' });
+	return conf;
+});

@@ -242,27 +242,21 @@ ch.menu = function(conf){
 /**
  * Accordion is a UI-Component.
  * @name Accordion
- * @class Accordion
+ * @interface Accordion
  * @augments ch.Menu
- * @memberOf ch
+ * @memberOf ch.Menu
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
  */
 
-ch.accordion = function(conf) {
-    
-    conf = conf || {};
-	
-	conf.accordion = true;
-
-	return ch.menu.call(this, conf);
+ch.extend("menu").as("accordion");
 
     /**
      * The component's instance unique identifier.
      * @public
      * @name uid
      * @type {Number}
-     * @memberOf ch.Accordion
+     * @memberOf ch.Menu.Accordion
      */     
     
     /**
@@ -270,7 +264,7 @@ ch.accordion = function(conf) {
      * @public
      * @name element
      * @type {HTMLElement}
-     * @memberOf ch.Accordion
+     * @memberOf ch.Menu.Accordion
      */
     
     /**
@@ -278,7 +272,7 @@ ch.accordion = function(conf) {
      * @public
      * @name type
      * @type {String}
-     * @memberOf ch.Accordion
+     * @memberOf ch.Menu.Accordion
      */
     
     /**
@@ -286,9 +280,5 @@ ch.accordion = function(conf) {
      * @public
      * @name select
      * @function
-     * @memberOf ch.Accordion
+     * @memberOf ch.Menu.Accordion
      */
-    
-};
-
-ch.factory({ component: "accordion" });

@@ -146,7 +146,7 @@ ch.helper = function(controller){
  *  Default event delegation
  */
 
-    $("body").bind(ch.events.CHANGE_LAYOUT, function(){ 
+    $("body").bind(ch.events.LAYOUT.CHANGE, function(){ 
         that.position("refresh");
     });
 

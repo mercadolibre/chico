@@ -21,9 +21,10 @@ class Packer {
     private $datauri;
     
     // files to load
-    private $files;    
-    private $components = "carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,menu,zoom";
-    private $internals = "positioner,object,floats,navs,controllers,watcher,keyboard,preload,list";
+    private $files;
+    private $components = "carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,expando,menu,zoom";
+    private $internals = "positioner,object,floats,navs,controllers,watcher,sliders,keyboard,preload,list,extend";
+
 
     /**
      * Constructor
@@ -224,7 +225,8 @@ class Packer {
             $deliver .= "  * @copyright 2008 Ryan Grove <ryan@wonko.com> (PHP port) \n";
             $deliver .= "  * @link http://code.google.com/p/jsmin-php/ \n";
             $deliver .= "  */\n";
-            $deliver .= ";(function($){\n".$print."\nch.init();\n})(jQuery);"; // Add ch.init() instruction to the end
+            //$deliver .= ";(function($){\n".$print."\nch.init();\n})(jQuery);"; // Add ch.init() instruction to the end
+            $deliver .= "\n".$print."\nch.init();\n"; // Add ch.init() instruction to the end
         }
         
         return utf8_encode($deliver);

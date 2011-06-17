@@ -5,8 +5,6 @@
  * @name Object
  * @class Object 
  * @memberOf ch
- * @requires ch.Get
- * @requires ch.Factory
  * @see ch.Controllers
  * @see ch.Floats
  * @see ch.Navs
@@ -153,7 +151,6 @@ ch.object = function(){
 	};
 	
 
-	 
  	that["public"] = {};
 	
 	return that;

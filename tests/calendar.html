@@ -21,8 +21,7 @@
 					<li class="field-box"> 
 						<label for="val_date"> 
 							<span>Fecha:</span>
-							<input type="date" id="val_date"> 
-							<strong class="calendar1">calendar</strong>
+							<input type="date" id="val_date" class="calendar1">
 						</label> 
 					</li> 
 				</ol>
@@ -96,15 +95,16 @@
 
 		module("Calendar layout creation");
 
-		var $trigger = $(".calendar1");
-		var $element = $trigger.parent();
-		var $container = $element.next();
+		var $element = $(".calendar1");
+		var $dropdown = $element.next();
+		var $trigger = $dropdown.children();
+		var $container = $dropdown.next();
 		var $content = $container.children();
 
 		test("Calendar layout creation", function(){
 			expect(10);
 
-			hasClass($element,"ch-calendar");
+			hasClass($dropdown, "ch-calendar");
 			hasClass($trigger, "ch-dropdown-trigger");
 			hasClass($container, "ch-calendar-container");
 			hasClass($content, "ch-calendar-content");
@@ -119,9 +119,10 @@
 
 		module("Calendar interaction");
 
-		var $trigger = $(".calendar1");
-		var $element = $trigger.parent();
-		var $container = $element.next();
+		var $element = $(".calendar1");
+		var $dropdown = $element.next();
+		var $trigger = $dropdown.children();
+		var $container = $dropdown.next();
 		var $content = $container.children();
 
 		test("Trigger click to show and hide calendar", function(){
