@@ -34,49 +34,31 @@
 }
 
 /* Cone */
-
 .ch-helper .ch-cone {
-	background-color: transparent;
 	background-image: url('../src/assets/helper.png');
-	background-position: 0 0 no-repeat;
 	display:block;
 	position:absolute;
-}
-
-.ch-helper.ch-bottom .ch-cone,
-.ch-helper.ch-top .ch-cone{
-	width:16px;
-	height:8px;
-	left:8px;
-}
-
-.ch-helper.ch-bottom .ch-cone {
-	top:-8px;
-}
-
-.ch-helper.ch-top .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
-}
-
-.ch-helper.ch-right-right .ch-cone,
-.ch-helper.ch-right .ch-cone {
 	width:8px;
 	height:16px;
 	top:3px;
-}
-
-.ch-helper.ch-right-right .ch-cone {
-	background-position:-8px 0;
-	right:-8px;
-}
-
-.ch-helper.ch-right .ch-cone {
 	left:-8px;
+}
+
+.ch-helper.ch-bottom .ch-cone {
+	width:16px;
+	height:8px;
+	top:-8px;
+	left:8px;
 }
 
 /* IE 6, 7 */
 .ie6 .ch-helper,
 .ie7 .ch-helper {
 	z-index:1;
+}
+
+/* IE6 */
+.ie6 .ch-helper .ch-cone {
+	font-size:0;
+	line-height:0;
 }
