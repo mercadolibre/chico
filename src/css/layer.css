@@ -17,65 +17,40 @@
 }
 
 /* Cone */
-
 .ch-layer .ch-cone {
-	background-color: transparent;
 	background-image: url('../src/assets/layer.png');
-	background-position: 0 0 no-repeat;
 	display:block;
 	position:absolute;
-}
-
-.ch-layer.ch-bottom .ch-cone,
-.ch-layer.ch-top .ch-cone {
 	width:16px;
 	height:8px;
+}
+
+.ch-layer.ch-left .ch-cone {
 	left:12px;
+}
+
+.ch-layer.ch-right .ch-cone {
+	right:12px;
+}
+
+.ch-layer.ch-top .ch-cone {
+	background-position:0 -8px;
+	bottom:-8px;
 }
 
 .ch-layer.ch-bottom .ch-cone {
 	top:-8px;
 }
 
-.ch-layer.ch-top .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
-}
-
-.ch-layer.ch-left .ch-cone,
-.ch-layer.ch-right .ch-cone {
-	width:8px;
-	height:16px;
-	top:8px;
-}
-
-.ch-layer.ch-left .ch-cone {
-	background-position:-8px 0;
-	right:-8px;
-}
-
-.ch-layer.ch-right .ch-cone {
-	left:-8px;
-}
-
-.ch-layer.ch-bottom-right .ch-cone,
-.ch-layer.ch-top-right .ch-cone {
-	width:16px;
-	height:8px;
-	right:12px;
-}
-
-.ch-layer.ch-bottom-right .ch-cone {
-	top:-8px;
-}
-
-.ch-layer.ch-top-right .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
-}
-
 /* IE 6,7 */
 .ie6 .ch-layer,
 .ie7 .ch-layer {
 	width:280px;
+}
+
+
+/* IE6 */
+.ie6 .ch-layer .ch-cone {
+	font-size:0;
+	line-height:0;
 }

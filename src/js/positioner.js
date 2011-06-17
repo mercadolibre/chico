@@ -38,7 +38,7 @@ ch.positioner = function(o) {
         viewport = getViewport();
         parentRelative = getParentRelative();
         context = getContext();
-        setPosition();        
+        setPosition();   
     };
 
 
@@ -100,16 +100,16 @@ ch.positioner = function(o) {
     /**
      * A map to reference the input points to output className
      * @private
-     * @name classReferences
+     * @name _CLASS_REFERENCES
      * @memberOf ch.Positioner
      */
-    var classReferences = {
-		"lt lb": "bottom",
-		"lb lt": "top",
-		"rt rb": "bottom",
-		"rb rt": "top",
-		"lt rt": "right",
-		"cm cm": "center"
+    var _CLASS_REFERENCES = {
+		"lt lb": "ch-left ch-bottom",
+		"lb lt": "ch-left ch-top",
+		"rt rb": "ch-right ch-bottom",
+		"rb rt": "ch-right ch-top",
+		"lt rt": "ch-right",
+		"cm cm": "ch-center"
 	};
 
     /**
@@ -237,59 +237,71 @@ ch.positioner = function(o) {
      * @returns {Styles Object}
      * @memberOf ch.Positioner
      */
-	var calculatePoints = function(points, unitPoints){					
+	var calculatePoints = function(points, unitPoints){
 		// Default styles
         var styles = getPosition(unitPoints);
-        	styles.direction = classReferences[points];
+        var classes = _CLASS_REFERENCES[points] || "";
 		
 		// Hold behavior
-		if (o.hold) return styles;
-
-        // Check viewport limits	
-		// Bottom to top
-		if ( (points == "lt lb") && ((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom) ) { // Element bottom > Viewport bottom
+		if (o.hold) {
+			styles.classes = classes;
+			return styles;
+		};
+		
+		var stylesCache;
+		classes = classes.split(" ");
+		
+        // Viewport limits (From bottom to top)
+		if (
+			// If element is positioned at bottom and...
+			(points == "lt lb" || points == "rt rb") &&
+			// There isn't space in viewport... (Element bottom > Viewport bottom)
+			((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom)
+		) {
 			unitPoints.my_y = "b";
 			unitPoints.at_y = "t";
 
-			//store old styles
-			stylesBottom = styles;
+			// Store old styles
+			stylesCache = styles;
 			
 			// New styles		 
 			styles = getPosition(unitPoints);
-			styles.direction = "top";
-			styles.top -= (2 * offset_top);
-		
+			
 			// Top to Bottom - Default again 
 			if(styles.top + parentRelative.top < viewport.top){
-				unitPoints.my_y = "t";
-				unitPoints.at_y = "b";
-				styles = stylesBottom;
-				styles.direction = "bottom";
+				styles = stylesCache;
+			} else {
+				styles.top -= (2 * offset_top);
+				classes[1] = "ch-top";
 			};
 		};
 		
-		// Left to right
-		if ( (styles.left + parentRelative.left + element.outerWidth()) > viewport.right ) { // Element right > Viewport right
-			unitPoints.my_x = "r";
-			unitPoints.at_x = "r";
+		
+		// Viewport limits (From left to right)
+		// If there isn't space in viewport... (Element right > Viewport right)
+		if ((styles.left + parentRelative.left + element.outerWidth()) > viewport.right) {
+			unitPoints.my_x = unitPoints.at_x = "r";
 			
-			//store old styles
-			stylesLeft = styles;
+			// Store old styles
+			stylesCache = styles;
 			
-			// New styles
-			var current = styles.direction;
+			// New styles		 
 			styles = getPosition(unitPoints);
-			styles.direction = current + "-right";						
-			styles.left -= (2 * offset_left);
-			if(current == "top") styles.top -= (2 * offset_top);
 			
 			// Right to Left - Default again 
 			if(styles.left < viewport.left){
-				unitPoints.my_y = "l";
-				unitPoints.at_y = "l";
-				styles = stylesLeft;
+				styles = stylesCache;
+			}else{
+				styles.left -= (2 * offset_left);
+				
+				classes[0] = "ch-right";
+				
+				if(classes[1] == "ch-top") { styles.top -= (2 * offset_top); };
 			};
 		};
+		
+		// Changes classes or default classes
+		styles.classes = classes.join(" ");
 
 		return styles;
 	};
@@ -307,26 +319,26 @@ ch.positioner = function(o) {
         var splitted = o.points.split(" ");
         
         var unitPoints = {
-        	my_x: splitted[0].slice(0,1),
-        	my_y: splitted[0].slice(1,2),
-        	at_x: splitted[1].slice(0,1),
-        	at_y: splitted[1].slice(1,2)
+        	my_x: splitted[0].charAt(0),
+        	my_y: splitted[0].charAt(1),
+        	at_x: splitted[1].charAt(0),
+        	at_y: splitted[1].charAt(1)
         }
 
 		var styles = calculatePoints(o.points, unitPoints);
-
+		
 		element
 			.css({
 				left: styles.left,
 				top: styles.top
 			})
-			.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right  ch-right-right" )
-			.addClass( "ch-" + styles.direction );
+			.removeClass( "ch-top ch-left ch-bottom ch-right" )
+			.addClass(styles.classes);
 				
 		if ( ch.utils.hasOwn(context, "element") && context.element !== ch.utils.window[0] ){
 			$(context.element)
-				.removeClass( "ch-top ch-left ch-bottom ch-right ch-bottom-right ch-top-right ch-right-right" )
-				.addClass( "ch-" + styles.direction );
+				.removeClass( "ch-top ch-left ch-bottom ch-right" )
+				.addClass(styles.classes);
 		};
 
 	};	
@@ -412,6 +424,7 @@ ch.positioner = function(o) {
    /**
     * @ignore
     */
+    
     initPosition();
 	
 	// Return the reference to the positioned element
