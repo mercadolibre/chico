@@ -21,9 +21,10 @@ class Packer {
     private $datauri;
     
     // files to load
-    private $files;    
+    private $files;
     private $components = "carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,expando,menu,zoom";
     private $internals = "positioner,object,floats,navs,controllers,watcher,sliders,keyboard,preload,list,extend";
+
 
     /**
      * Constructor

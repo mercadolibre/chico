@@ -224,7 +224,7 @@ ch.dropdown = function(conf){
 	that.conf.position = {};
 	that.conf.position.element = that.$content;
 	that.conf.position.context = that.$trigger;
-	that.conf.position.points = "lt lb";
+	that.conf.position.points = conf.points || "lt lb";
 	that.conf.position.offset = "0 -1";
 
 	return that;

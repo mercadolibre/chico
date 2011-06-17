@@ -147,6 +147,18 @@
 		</div>
 	</div>
 	
+	<div class="box">
+		<div id="drop11" class="ch-primary">
+			<span>"rt rb" points</span>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</ul>
+		</div>
+	</div>
+	
 <!-- #body -->
 	<hr style="clear:both;">
 
@@ -174,6 +186,10 @@
 	        onHide: function(){
 				$("body").addClass("onHide");
 	        }
+		});
+		
+		var testDropdown3 = $("#drop11").dropdown({
+			points: "rt rb"
 		});
 		
 		$.fx.off = true;
@@ -513,6 +529,26 @@
 			$("body").removeClass("onHide");
 
        	});
+       	
+       	
+       	module("Dropdown default position through parameters");
+		
+		test('Dropdown with "rt rb" points', function() {
+			
+			expect ( 2 );
+			
+			var $trigger11 = $('#drop11').children(':first');
+			var $content11 = $('#drop11').next();
+			
+			$trigger11.click();
+			
+			ok( $content11.offset().left < $trigger11.offset().left, "Expected to find content left position < trigger left position");
+       		equal( $content11.offset().top, $trigger11.offset().top + $trigger11.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
+       		
+       		$trigger11.click();
+
+       	});
+
 
 	</script>
 
