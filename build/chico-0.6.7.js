@@ -2309,7 +2309,6 @@ ch.extend = function (klass) {
                 // Invoke pre-proccess if is defined,
                 // or grab the raw conf argument,
                 // or just create an empty object.
-//            	conf = ch.clon(conf);
                 conf = (process) ? process(conf) : conf || {};
 
                 // Some interfaces need a data value,
@@ -5132,10 +5131,6 @@ ch.form = function(conf) {
 	var that = this;
 	
 	conf = ch.clon(conf);
-	// Create the Messages for General Error
-	if ( !ch.utils.hasOwn(conf, "messages") ) conf.messages = {};
-	conf.messages["general"] = conf.msg || conf.messages["general"]  || "Check for errors.";	
-	
 	// Disable HTML5 browser-native validations
 	that.$element.attr("novalidate", "novalidate");
 	// Grab submit button
@@ -5165,67 +5160,6 @@ ch.form = function(conf) {
 	var status = true;
 	
     /**
-     * HTML snippet to show the general error on top of the form.
-     * @private
-     * @name $error
-     * @type {jQuery Object}
-     * @memberOf ch.Form
-     */ 
-	var $error = $("<p class=\"ch-validator\"><span class=\"ico error\">Error: </span>" + conf.messages["general"] + "</p>");
-	
-    /**
-     * Inserts the general error snippet into the HTML. This implies a change in the document's flow, so it will trigger the ch.events.LAYOUT.CHANGE Event.
-     * @private
-     * @function
-     * @name createError
-     * @memberOf ch.Form
-     * @see ch.events.LAYOUT.CHANGE
-     */ 
-	var createError = function(){ 
-		that.$element.before( $error );		
-		$("body").trigger(ch.events.LAYOUT.CHANGE);
-	};
-
-    /**
-     * Removes the general error snippet from the HTML. This implies a change in the document's flow, so it will trigger the ch.events.LAYOUT.CHANGE Event.
-     * @private
-     * @function
-     * @name removeError
-     * @memberOf ch.Form
-     * @see ch.events.LAYOUT.CHANGE
-     */ 
- 	var removeError = function(){
-		$error.detach();
-		$("body").trigger(ch.events.LAYOUT.CHANGE);
-	};
-
-    /**
-     * Iterates all the Watchers defined as children, for each one of them will check it's active property and returns when finds an error.
-     */
-	var checkStatus = function(){
-		// Check status of my childrens
-		for(var i = 0, j = that.children.length; i < j; i ++){
-			// Status error (cut the flow)
-			if( that.children[i].active() ){
-				if ( !status ) removeError();			
-				createError();
-				status = false;
-				// Issue UI-332: On validation must focus the first field with errors.
-				// Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-				that.children[i].element.focus();
-				return;
-			};
-		};
-
-		// Status OK (with previous error)
-		if ( !status ) {
-			removeError();
-			status = true;
-		};
-
-	};
-	
-    /**
      * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
      */
 	var validate = function(){
@@ -5234,7 +5168,6 @@ ch.form = function(conf) {
 		
 		// Status OK (with previous error)
 		if ( !status ) {
-			removeError();
 			status = true;
 		};
 		
@@ -5242,78 +5175,81 @@ ch.form = function(conf) {
 		// Shoot validations
 		for ( i; i < j; i++ ) {
 		    var child = that.children[i];
-			// Validate
-			if ( !child.active() ) {
-                child.validate();
-            } 
-            // Save children with errors
-            if ( child.active() ) {
-                childrenError.push( child );
-            }
+			 // Validate
+           child.validate();
+           // Save children with errors
+           if ( child.active() ) {
+               childrenError.push( child );
+           }
 		};
         
         // Is there's an error
         if ( childrenError.length > 0 ) {
-            if ( !status ) {
-                removeError();
-            }
-            createError();
             status = false;
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            childrenError[0].element.focus();
+            if (childrenError[0].element.tagName === "DIV") {
+                $(childrenError[0].element).find("input:first").focus();
+            } else {
+                childrenError[0].element.focus();
+            }
+        } else {
+            status = true;    
         }
 		
-		status ? that.callbacks("onValidate") : that.callbacks("onError");  
+        status ? that.callbacks("onValidate") : that.callbacks("onError");  
 
         that.callbacks("afterValidate");
-        
-		return that;
-	};
+
+        return that;
+    };
 
     /**
      * This methods triggers the 'beforSubmit' callback, then will execute validate() method, 
      * and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
      */
-	var submit = function(event){
+	var submit = function(event) {
 
-        that.prevent(event);
-        
+        // After submit callback
         that.callbacks("beforeSubmit");
 
-		validate(); // Validate start
+        // re-asign submit event   
+        that.$element.one("submit", submit);
+
+        // Execute all validations
+		validate();
 		
-		if ( status ){ // Status OK
-			if ( !ch.utils.hasOwn(conf, "onSubmit") ) {
-                // To fix Webflow dumb navigation system,
-                // Clone the submit button into a hidden field
-    			var hidden = that.$submit.clone();
-    			    hidden.attr("type","hidden");
-				    hidden.prependTo(that.element);    
+		// If an error ocurs prevent default actions
+		if ( !status ) {
+            that.prevent(event);
+		}
+		
+		// Is there's no error but there's a onSubmit callback
+		if ( status && ch.utils.hasOwn(conf, "onSubmit")) {
+            // Avoid default actions
+            that.prevent(event);
+            // To execute defined onSubmit callback
+            that.callbacks("onSubmit");  
+	    }
 
-			    // And send the form
-				that.element.submit(event);
-
-			}else{
-				that.callbacks("onSubmit");
-			};
-		};		
-
+        // Execute afterSubmit callback
         that.callbacks("afterSubmit");
 
-        // re-asign submit event   
-    	that.$element.one("submit", submit);
-        
-		return that;
+        // Return that to chain methods
+        return that;
 	};
 
     /**
      * Use this method to clear al validations.
      */
 	var clear = function(event){		
+		
 		that.prevent(event);		
-		removeError();	
-		for(var i = 0, j = that.children.length; i < j; i ++) that.children[i].reset(); // Reset helpers		
+        
+        var i = 0, j = that.children.length;
+		for(i; i < j; i += 1) {
+		  that.children[i].reset();
+		}
 		
 		that.callbacks("onClear");
 		
@@ -5400,19 +5336,6 @@ ch.form = function(conf) {
 		
 		return that["public"]; 
 	};
-	
-    /**
-     * Iterates all the Watchers defined as children, for each one of them will check it's active property and returns when finds an error.
-     * @function
-     * @name checkStatus
-     * @memberOf ch.Form
-     * @see ch.watcher.active
-     */
-	that["public"].checkStatus = function() { 
-		checkStatus(); 
-		
-		return that["public"]; 
-	};
 
     /**
      * Return the status value.
@@ -5465,7 +5388,7 @@ ch.form = function(conf) {
 	};
 
 	// Bind the submit
-	that.$element.one("submit", submit);
+	that.$element.bind("submit", submit);
 	
 	// Bind the reset
 	that.$element.find(":reset, .resetForm").bind("click", function(event){ reset(event); });
