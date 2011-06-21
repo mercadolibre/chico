@@ -440,7 +440,7 @@
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
 
-		<form action="test.html" class="YOUR_SELECTOR_Form"> 
+		<form action="http://localhost:3000/test/post" class="YOUR_SELECTOR_Form" method="POST"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
 
@@ -450,7 +450,7 @@
 						<label class="required" for="YOUR_SELECTOR_email"> 
 
 							<span>E-mail: <em>*</em></span>													
-							<input type="email" id="YOUR_SELECTOR_email" required="required"> 
+							<input type="email" id="YOUR_SELECTOR_email" name="email" required="required"> 
 						</label> 
 						<p class="help">Short description about field</p> 
 
@@ -765,77 +765,13 @@
 			</fieldset> 
 
 			<p class="actions">
-				<input type="submit" value="Send" class="btn primary"> 
+                <input type="submit" name="_eventId_confirmation" value="Webflow" class="btn primary">
+				<!--input type="submit" value="Send" class="btn primary"--> 
 				<input type="reset" value="Cancel" class="btn secondary"> 
 				<a href="#" class="resetForm">Reset validations</a> 
 			</p> 
 		</form> 
 
-	</div> 
-
-
-	<div class="box"> 
-		<h2>CodeLighter</h2> 
-		<code> 
-			<pre name="code" class="xml"><div id="Foo" class="Foobar">
-	<!-- Lorem ipsum dolor sit amet --> 
-	<p id="Foobar" title="Lorem ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-</div></pre>
-		</code> 
-		
-		<code>
-			<pre name="code" class="js">var paint = function() {
-	var reg;
-	
-	for (var x in conf.brush) {
-		reg = new RegExp(x, "g");
-		
-		if (reg.test(conf.paintedSnippet)) {
-			conf.paintedSnippet = conf.paintedSnippet.replace(reg, conf.brush[ x ]);
-		};
-		
-		boolean;
-		return;
-		null;
-		undefined;
-		2 + 1 = 3;
-		
-		if(foo && Foobar || bar){
-			var foobar = foo;
-		};
-	};
-};
-
-$("#Foobar").email().and().required().and().minLength(6);</pre>
-		</code>		
-		
-		<code> 
-		<pre name="code" class="css">
-pre {
-	font-family: Monospace, "Monotype Corsiva";
-	background-color:#fdf6e3;
-    border: 1px solid #CCCCCC;
-    font-size: 14px;
-    line-height: 20px;
-    margin: 10px 0;
-    overflow: auto;
-    padding: 10px;
-    color:#657b83;
-}
-
-/* xml */
-.ch-tag{color:#268bd2;}
-.ch-attrName{color:#93a1a1;}
-
-/* js */
-.ch-keywords{color:#268bd2;}
-.ch-atom{color:#dc322f;}
-.ch-operator{color:#cb4b16;}
-
-/* css */
-.ch-selector{color:#859900;}
-.ch-property{color:#b58900;}</pre> 
-</code> 
 	</div> 
 	
 	<script src="libs/js/jquery.js"></script>
@@ -908,8 +844,6 @@ pre {
                                                     return (v.toString().indexOf("2")>-1) ? true : false ;
                                                 },"2")
 ;
-        
-
 		var ch_wch3 = $("#YOUR_SELECTOR_number").number().and().min(20);
 		var ch_wch4 = $("#YOUR_SELECTOR_range").min(1).and().max(10);
 		var ch_wch5 = $("#YOUR_SELECTOR_length").maxLength(20).and().minLength(6);
