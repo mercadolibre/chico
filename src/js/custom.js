@@ -2,7 +2,8 @@
 /**
  * Create custom validation interfaces for Watcher validation engine.
  * @name Custom
- * @interface Custom
+ * @class
+ * @interface
  * @augments ch.Watcher
  * @memberOf ch.Watcher
  * @param {Configuration Object} conf Object with configuration properties
