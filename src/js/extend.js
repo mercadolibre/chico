@@ -36,7 +36,6 @@ ch.extend = function (klass) {
                 // Invoke pre-proccess if is defined,
                 // or grab the raw conf argument,
                 // or just create an empty object.
-//            	conf = ch.clon(conf);
                 conf = (process) ? process(conf) : conf || {};
 
                 // Some interfaces need a data value,

@@ -66,7 +66,7 @@
         
         test("Form public properties", function(){
 
-            expect( 6 );
+            expect( 5 );
 
        		ok( testForm.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
@@ -78,8 +78,6 @@
             
             ok( ch.utils.hasOwn(testForm, "messages") , "Expected to find a messages object on the forms instance");
             
-            ok( ch.utils.hasOwn(testForm.messages, "general") , "Expected to find a general messages defined on the forms instance");
-
         });
         
         test("Form public methods", function(){
@@ -125,20 +123,12 @@
         module("Form Interaction");
         
         test("Force error ;)",function(){
-           	
-           	expect( 4 );
-           	
+           	           	
             var val_email = $("#email").email("Please write a valid email.");
             
             $("#email").val("force error ;)");
             
             testForm.validate();
-           
-            ok( $(".ch-validator")[0] , "Expected to find a general error message block");
-            
-            ok( $(".ch-validator").children("span.ico.error")[0] ,"Expected to find an icon on the message block");
-            
-            ok( $(".ch-validator").html().indexOf("Check for errors.")>=0 ,"Expected to have a explicit message: 'Check for errors.' ");
 
             ok( testForm.getStatus() == false ,"Expected to find status false");
             
@@ -146,11 +136,7 @@
         
         test("Force clear ;)", function(){
             
-            expect( 2 );
-            
             testForm.clear();
-
-            ok( !$(".ch-validator")[0] , "Expected NOT to find a general error message block");
             
             ok( $("#email").val() != "" , "Expected to find a value on email field");
                         
@@ -158,16 +144,12 @@
         
         test("Force reset ;)", function(){
             
-            expect( 2 );
-            
             $("#email").val("force error ;)");
             
             testForm.validate();
             
             testForm.reset();
-			
-			ok( !$(".ch-validator")[0] , "Expected NOT to find a general error message block");
-            
+			            
             ok( $("#email").val() == "" , "Expected NOT to find a value on email field");
                         
         });
