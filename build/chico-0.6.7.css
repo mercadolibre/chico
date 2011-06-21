@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,chat,expando,codelighter,menu,zoom
+  * @components: carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,expando,menu,zoom
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -126,7 +126,6 @@ a img{
 
 .btn,
 .box,
-.ch-cone,
 .ico,
 .ch-dropdown-trigger,
 .ch-tabNavigator .ch-tab-trigger-on {
@@ -1141,68 +1140,43 @@ td {
 }
 
 /* Cone */
-
 .ch-layer .ch-cone {
-	background-color: transparent;
 	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAUElEQVQ4y2P4//8/Ay68fv36/yCMTw1ezTCAzxCCmgkZQpRmfIYQrRmXISRpxmYIyZrRDSFLM7IhlBtAsReoEohUiUaqJCSqJGWqZCZSsjMAWH9unj6MIOAAAAAASUVORK5CYII=');
 /*layer*/*background-image: url('../src/assets/layer.png');
-	background-position: 0 0 no-repeat;
 	display:block;
 	position:absolute;
-}
-
-.ch-layer.ch-bottom .ch-cone,
-.ch-layer.ch-top .ch-cone {
 	width:16px;
 	height:8px;
+}
+
+.ch-layer.ch-left .ch-cone {
 	left:12px;
+}
+
+.ch-layer.ch-right .ch-cone {
+	right:12px;
+}
+
+.ch-layer.ch-top .ch-cone {
+	background-position:0 -8px;
+	bottom:-8px;
 }
 
 .ch-layer.ch-bottom .ch-cone {
 	top:-8px;
 }
 
-.ch-layer.ch-top .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
-}
-
-.ch-layer.ch-left .ch-cone,
-.ch-layer.ch-right .ch-cone {
-	width:8px;
-	height:16px;
-	top:8px;
-}
-
-.ch-layer.ch-left .ch-cone {
-	background-position:-8px 0;
-	right:-8px;
-}
-
-.ch-layer.ch-right .ch-cone {
-	left:-8px;
-}
-
-.ch-layer.ch-bottom-right .ch-cone,
-.ch-layer.ch-top-right .ch-cone {
-	width:16px;
-	height:8px;
-	right:12px;
-}
-
-.ch-layer.ch-bottom-right .ch-cone {
-	top:-8px;
-}
-
-.ch-layer.ch-top-right .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
-}
-
 /* IE 6,7 */
 .ie6 .ch-layer,
 .ie7 .ch-layer {
 	width:280px;
+}
+
+
+/* IE6 */
+.ie6 .ch-layer .ch-cone {
+	font-size:0;
+	line-height:0;
 }.ch-dimmer {
 	background-color:rgba(0,0,0,.5);
 	width:100%;
@@ -1379,62 +1353,36 @@ td {
 }
 
 /* Cone */
-
 .ch-tooltip .ch-cone {
-	background-color: transparent;
 	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVQ4y2P4//8/Ay68YEHTfxDGpwav5u/fj4ExPkMIaiZkCFGa8RlCtGZchpCkGZshJGtGN4QszciGUG4AxV6gSiBSJRqpkpCokpSpkplIyc4AbZtFTiNX1XYAAAAASUVORK5CYII=');
 /*tooltip*/*background-image: url('../src/assets/tooltip.png');
-	background-position: 0 0 no-repeat;
 	display:block;
 	position:absolute;
-}
-
-.ch-tooltip.ch-bottom .ch-cone,
-.ch-tooltip.ch-top .ch-cone {
 	width:16px;
 	height:8px;
-	left:12px;
+}
+
+.ch-tooltip.ch-left .ch-cone {
+	left:8px;
+}
+
+.ch-tooltip.ch-right .ch-cone {
+	right:8px;
+}
+
+.ch-tooltip.ch-top .ch-cone {
+	background-position:0 -8px;
+	bottom:-8px;
 }
 
 .ch-tooltip.ch-bottom .ch-cone {
 	top:-8px;
 }
 
-.ch-tooltip.ch-top .ch-cone{
-	background-position:0 -8px;
-	bottom:-8px;
-}
-
-.ch-tooltip.ch-left .ch-cone,
-.ch-tooltip.ch-right .ch-cone {
-	width:8px;
-	height:16px;
-	top:2px;
-}
-
-.ch-tooltip.ch-left .ch-cone {
-	background-position:-8px 0;
-	right:-8px;
-}
-
-.ch-tooltip.ch-right .ch-cone {
-	left:-8px;
-}
-
-.ch-tooltip.ch-bottom-right .ch-cone,
-.ch-tooltip.ch-top-right .ch-cone {
-	width:16px;
-	height:8px;
-	right:12px;
-}
-
-.ch-tooltip.ch-bottom-right .ch-cone {
-	top:-8px;
-}
-
-.ch-tooltip.ch-top-right .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
+/* IE6 */
+.ie6 .ch-tooltip .ch-cone {
+	font-size:0;
+	line-height:0;
 }.ch-helper,
 .ch-validator {
 	background-color:#fbd9db;
@@ -1471,46 +1419,22 @@ td {
 }
 
 /* Cone */
-
 .ch-helper .ch-cone {
-	background-color: transparent;
 	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVQ4y2P4//8/Ay78feW6/yCMTw1ezb9v3gZjfIYQ1EzIEKI04zOEaM24DCFJMzZDSNaMbghZmpENodwAir1AlUCkSjRSJSFRJSlTJTORkp0Bj4RUnmmT4g4AAAAASUVORK5CYII=');
 /*helper*/*background-image: url('../src/assets/helper.png');
-	background-position: 0 0 no-repeat;
 	display:block;
 	position:absolute;
-}
-
-.ch-helper.ch-bottom .ch-cone,
-.ch-helper.ch-top .ch-cone{
-	width:16px;
-	height:8px;
-	left:8px;
-}
-
-.ch-helper.ch-bottom .ch-cone {
-	top:-8px;
-}
-
-.ch-helper.ch-top .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
-}
-
-.ch-helper.ch-right-right .ch-cone,
-.ch-helper.ch-right .ch-cone {
 	width:8px;
 	height:16px;
 	top:3px;
-}
-
-.ch-helper.ch-right-right .ch-cone {
-	background-position:-8px 0;
-	right:-8px;
-}
-
-.ch-helper.ch-right .ch-cone {
 	left:-8px;
+}
+
+.ch-helper.ch-bottom .ch-cone {
+	width:16px;
+	height:8px;
+	top:-8px;
+	left:8px;
 }
 
 /* IE 6, 7 */
@@ -1518,7 +1442,12 @@ td {
 .ie7 .ch-helper {
 	z-index:1;
 }
-/* Module */
+
+/* IE6 */
+.ie6 .ch-helper .ch-cone {
+	font-size:0;
+	line-height:0;
+}/* Module */
 form fieldset {
 	margin-bottom:10px;
 }
@@ -1977,51 +1906,7 @@ form .disabled input{
 .ie7 .ch-expando-trigger{
 	font-size:13px;
 }
-/* Codelighter */
-pre {
-	font-family: Monospace, "Monotype Corsiva";
- 	background-color:#fdf6e3;
-    border: 1px solid #CCCCCC;
-    font-size: 14px;
-    line-height: 20px;
-    margin: 10px 0;
-    overflow: auto;
-    padding: 10px;
-    color:#657b83;
-}
-
-
-/* xml */
-.ch-tag{color:#268bd2;}
-.ch-attrName{color:#93a1a1;}
-
-/* js */
-.ch-keywords{color:#268bd2;}
-.ch-atom{color:#dc322f;}
-.ch-operator{color:#cb4b16;}
-
-/* css */
-.ch-selector{color:#859900;}
-.ch-property{color:#b58900;}
-
-.ch-attrValue,
-.ch-attrValue .ch-keywords,
-.ch-attrValue .ch-comment{
-	color:#2aa198;
-}
-
-.ch-comment, 
-.ch-comment .ch-tag,
-.ch-comment .ch-attrName,
-.ch-comment .ch-keywords,
-.ch-comment .ch-atom,
-.ch-comment .ch-operator,
-.ch-comment .ch-selector,
-.ch-comment .ch-property,
-.ch-comment .ch-attrValue
-{
-	color:#6c71c4;
-}/* Menu */
+/* Menu */
 .ch-menu {
 	max-width:300px;
 	border-top:1px solid #ccc;
