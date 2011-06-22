@@ -2,7 +2,7 @@
 /**
  * Validate strings.
  * @name String 
- * @class
+ * @class String
  * @interface
  * @augments ch.Watcher
  * @memberOf ch

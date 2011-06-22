@@ -2,7 +2,7 @@
 /**
  * Create custom validation interfaces for Watcher validation engine.
  * @name Custom
- * @class
+ * @class Custom
  * @interface
  * @augments ch.Watcher
  * @memberOf ch

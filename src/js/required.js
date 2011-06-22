@@ -2,7 +2,7 @@
 /**
  * Required interface for Watcher.
  * @name Required
- * @class
+ * @class Required
  * @interface
  * @augments ch.Watcher
  * @memberOf ch

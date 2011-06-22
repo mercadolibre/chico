@@ -2,7 +2,7 @@
 /**
  * Validate numbers.
  * @name Number
- * @class
+ * @class Number
  * @interface
  * @augments ch.Watcher
  * @memberOf ch
