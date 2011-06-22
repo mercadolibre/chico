@@ -74,12 +74,20 @@ var ch = window.ch = {
 		zIndex: 1000,
 		index: 0, // global instantiation index
 		isSelector: function(string){
+
 			if(typeof string !== "string") return false;
-			
+
 			for (var regex in $.expr.match){
+
 				if ($.expr.match[ regex ].test(string) && $(string).length > 0) {
+
+					if (regex == "TAG" && (/(<([a-z]|\/).*?>)/).test(string)) {
+						return false;
+					};
+
 					return true;
 				};
+
 			};
 			
 			return false;
