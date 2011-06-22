@@ -81,7 +81,12 @@ ch.menu = function(conf){
 					// Updates selected tab when it's opened
 					selected = i;
 
-					// onSelect callback
+                    /**
+                     * Callback function
+                     * @name onSelect
+                     * @type {Function}
+                     * @memberOf ch.Menu
+                     */
 					that.callbacks.call(that, "onSelect");
 				}
 			});

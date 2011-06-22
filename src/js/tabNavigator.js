@@ -87,8 +87,19 @@ ch.tabNavigator = function(conf){
 					selected = i;
 				};
 
-			// Callbacks
+           /**
+            * Callback function
+            * @name onContentLoad
+            * @type {Function}
+            * @memberOf ch.TabNavigator
+            */
 			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) conf.onContentLoad = that.conf.onContentLoad;
+           /**
+            * Callback function
+            * @name onContentError
+            * @type {Function}
+            * @memberOf ch.TabNavigator
+            */
 			if ( ch.utils.hasOwn(that.conf, "onContentError") ) conf.onContentError = that.conf.onContentError;
 
 			// Create Tabs
@@ -129,7 +140,12 @@ ch.tabNavigator = function(conf){
         //Change location hash
 		window.location.hash = "#!" + tab.$content.attr("id");	
 		
-		// Callback
+       /**
+        * Callback function
+        * @name onSelect
+        * @type {Function}
+        * @memberOf ch.TabNavigator
+        */
 		that.callbacks("onSelect");
 		
         return that;

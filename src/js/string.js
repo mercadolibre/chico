@@ -1,11 +1,12 @@
 
 /**
  * Validate strings.
- * @name String
- * @interface String
+ * @name String 
+ * @class String
+ * @interface
  * @augments ch.Watcher
- * @memberOf ch.Watcher
- * @param {Configuration Object} conf Object with configuration properties
+ * @memberOf ch
+ * @param {String} msg Validation message
  * @returns {Chico-UI Object}
  * @see ch.Watcher
  * @example
@@ -45,7 +46,7 @@ ch.extend("watcher").as("string", function (conf) {
 /**
  * Validate email sintaxis.
  * @name Email
- * @interface Email
+ * @interface
  * @augments ch.String
  * @memberOf ch.String
  * @param {String} [message] Validation message.
@@ -61,7 +62,7 @@ ch.extend("string").as("email");
 /**
  * Validate URL sintaxis.
  * @name Url
- * @interface Url
+ * @interface
  * @augments ch.String
  * @memberOf ch.String
  * @param {String} [message] Validation message.
@@ -78,7 +79,7 @@ ch.extend("string").as("url");
 /**
  * Validate a minimun amount of characters.
  * @name MinLength
- * @interface MinLength
+ * @interface
  * @augments ch.String
  * @memberOf ch.String
  * @param {Number} value Minimun number value.
@@ -96,7 +97,7 @@ ch.extend("string").as("minLength");
 /**
  * Validate a maximun amount of characters.
  * @name MaxLength
- * @interface MaxLength
+ * @interface
  * @augments ch.String
  * @memberOf ch.String
  * @param {Number} value Maximun number value.

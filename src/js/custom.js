@@ -2,9 +2,10 @@
 /**
  * Create custom validation interfaces for Watcher validation engine.
  * @name Custom
- * @interface Custom
+ * @class Custom
+ * @interface
  * @augments ch.Watcher
- * @memberOf ch.Watcher
+ * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
  * @see ch.Watcher

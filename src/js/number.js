@@ -2,9 +2,10 @@
 /**
  * Validate numbers.
  * @name Number
- * @interface Number
+ * @class Number
+ * @interface
  * @augments ch.Watcher
- * @memberOf ch.Watcher
+ * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties.
  * @returns {Chico-UI Object}
  * @see ch.Watcher
@@ -42,7 +43,7 @@ ch.extend("watcher").as("number", function(conf) {
 /**
  * Validate a number with a minimun value.
  * @name Min
- * @interface Min
+ * @interface
  * @augments ch.Number
  * @memberOf ch.Number
  * @param {Number} value Minimun number value.
@@ -59,7 +60,7 @@ ch.extend("number").as("min");
 /**
  * Validate a number with a maximun value.
  * @name Max
- * @interface Max
+ * @interface
  * @augments ch.Number
  * @memberOf ch.Number
  * @param {Number} value Minimun number value.
@@ -75,7 +76,7 @@ ch.extend("number").as("max");
 /**
  * Validate a number with a price format.
  * @name Price
- * @interface Price
+ * @interface
  * @augments ch.Number
  * @memberOf ch.Number
  * @param {String} [message] Validation message.

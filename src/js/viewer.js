@@ -238,7 +238,12 @@ ch.viewer = function(conf){
 		// Refresh selected thumb
 		thumbnails.selected = item;
 		
-		// Callback
+       /**
+        * Callback function
+        * @name onMove
+        * @type {Function}
+        * @memberOf ch.Viewer
+        */
 		that.callbacks("onMove");
 	
 		return that;
