@@ -75,6 +75,12 @@ ch.form = function(conf) {
      */
 	var validate = function(){
 
+       /**
+        * Callback function
+        * @name beforeValidate
+        * @type {Function}
+        * @memberOf ch.Form
+        */
         that.callbacks("beforeValidate");
 		
 		// Status OK (with previous error)
@@ -107,9 +113,26 @@ ch.form = function(conf) {
         } else {
             status = true;    
         }
-		
+      /**
+        * Callback function
+        * @name onValidate
+        * @type {Function}
+        * @memberOf ch.Form
+        */
+      /**
+        * Callback function
+        * @name onError
+        * @type {Function}
+        * @memberOf ch.Form
+        */
         status ? that.callbacks("onValidate") : that.callbacks("onError");  
 
+      /**
+        * Callback function
+        * @name afterValidate
+        * @type {Function}
+        * @memberOf ch.Form
+        */
         that.callbacks("afterValidate");
 
         return that;
@@ -121,7 +144,12 @@ ch.form = function(conf) {
      */
 	var submit = function(event) {
 
-        // After submit callback
+       /**
+        * Callback function
+        * @name beforeSubmit
+        * @type {Function}
+        * @memberOf ch.Form
+        */
         that.callbacks("beforeSubmit");
 
         // re-asign submit event   
@@ -134,7 +162,14 @@ ch.form = function(conf) {
 		if ( !status ) {
             that.prevent(event);
 		}
-		
+
+       /**
+        * Callback function
+        * @name onSubmit
+        * @type {Function}
+        * @memberOf ch.Form
+        */
+
 		// Is there's no error but there's a onSubmit callback
 		if ( status && ch.utils.hasOwn(conf, "onSubmit")) {
             // Avoid default actions
@@ -143,7 +178,13 @@ ch.form = function(conf) {
             that.callbacks("onSubmit");  
 	    }
 
-        // Execute afterSubmit callback
+       /**
+        * Callback function
+        * @name afterSubmit
+        * @type {Function}
+        * @memberOf ch.Form
+        */
+
         that.callbacks("afterSubmit");
 
         // Return that to chain methods
@@ -161,7 +202,13 @@ ch.form = function(conf) {
 		for(i; i < j; i += 1) {
 		  that.children[i].reset();
 		}
-		
+ 
+       /**
+        * Callback function
+        * @name onClear
+        * @type {Function}
+        * @memberOf ch.Form
+        */
 		that.callbacks("onClear");
 		
 		return that;
@@ -173,6 +220,12 @@ ch.form = function(conf) {
 	var reset = function(event){
 		clear();
 		that.element.reset(); // Reset html form native
+       /**
+        * Callback function
+        * @name onReset
+        * @type {Function}
+        * @memberOf ch.Form
+        */
 		that.callbacks("onReset");
 		
 		return that;

@@ -26,6 +26,13 @@ ch.object = function(){
 /**
  *  Public Members
  */
+
+   /**
+    * Prevent propagation and default actions.
+    * @name loadContent
+    * @param {EventObject} Recieves a event object
+    * @memberOf ch.Object
+    */
 	that.prevent = function(event) {
 		if (event && typeof event == "object") {
 		    event.preventDefault();
@@ -34,7 +41,14 @@ ch.object = function(){
 		
 		return that;
 	};
-	
+
+   /**
+    * Set the content of a component
+    * @name content
+    * @type {String} Could be a simple text, html or a url to get the content with ajax.
+    * @memberOf ch.Object
+    */
+
 	//TODO: Analizar si unificar that.content (get and set) con that.loadContent(load).
 	that.content = function(content){
 		
@@ -69,6 +83,12 @@ ch.object = function(){
 		
 	};
 
+   /**
+    * Load dynamic content
+    * @name loadContent
+    * @lends ch.Get
+    * @memberOf ch.Object
+    */
 	that.loadContent = function() {
 		// TODO: Properties validation
 		//if( self.ajax && (self.content || self.msg) ) { alert('CH: "Ajax" and "Content" can\'t live together.'); return; };
@@ -113,13 +133,25 @@ ch.object = function(){
 
 	};
 
+   /**
+    * Executes a specific callback
+    * @name callbacks
+    * @function
+    * @memberOf ch.Object
+    */
 	that.callbacks = function(when){
 		if( ch.utils.hasOwn(conf, when) ) {
 			var context = ( that.controller ) ? that.controller["public"] : that["public"];
 			return conf[when].call( context );
 		};
 	};
-	
+
+    /**
+    * Change components position
+    * @name position
+    * @lends ch.Positioner
+    * @memberOf ch.Object
+    */	
 	that.position = function(o){
 	
 		switch(typeof o) {

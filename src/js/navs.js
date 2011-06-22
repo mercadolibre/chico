@@ -83,7 +83,12 @@ ch.navs = function(){
 		that.active = true;
 
 		that.$trigger.addClass("ch-" + that.type + "-trigger-on");
-		
+       /**
+        * Callback function
+        * @name onShow
+        * @type {Function}
+        * @memberOf ch.Navs
+        */
 		// Animation
 		if( conf.fx ) {
 			that.$content.slideDown("fast", function(){
@@ -112,7 +117,12 @@ ch.navs = function(){
 		that.active = false;
 		
 		that.$trigger.removeClass("ch-" + that.type + "-trigger-on");
-
+      /**
+        * Callback function
+        * @name onHide
+        * @type {Function}
+        * @memberOf ch.Navs
+        */
 		// Animation
 		if( conf.fx ) {
 			that.$content.slideUp("fast", function(){

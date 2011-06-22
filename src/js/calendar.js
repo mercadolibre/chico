@@ -24,7 +24,6 @@ ch.calendar = function(conf){
 	// TODO: analizar que formato d fecha soportar.
 	if (ch.utils.hasOwn(conf, "selected")){ conf.selected = new Date(conf.selected); };
 	
-
 	that.conf = conf;
 
 /**
@@ -273,7 +272,7 @@ ch.calendar = function(conf){
 
 	};
 
-     /**
+    /**
      * Selects an specific date to show
      * @private
 	 * @function
@@ -288,7 +287,13 @@ ch.calendar = function(conf){
 		
 		that.$element.val( _parseDate(_selected) );
 
-		// Callback
+       /**
+        * Callback function
+        * @name onSelect
+        * @type {Function}
+        * @memberOf ch.Calendar
+        */
+
 		that.callbacks("onSelect");
 
 		return that;
@@ -439,7 +444,7 @@ ch.calendar = function(conf){
      * Open calendar
      * @public
      * @function
-     * @name show
+     * @name hide
      * @memberOf ch.Calendar
      */
 	that["public"].hide = function(){
