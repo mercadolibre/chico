@@ -6,7 +6,7 @@
  * @interface
  * @augments ch.Watcher
  * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
+ * @param {String} msg Validation message
  * @returns {Chico-UI Object}
  * @see ch.Watcher
  * @example
