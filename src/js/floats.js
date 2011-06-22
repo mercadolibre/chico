@@ -80,7 +80,7 @@ ch.floats = function() {
 		
 		// Cache - Default: true
 		conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
-		
+
 		// Show component with effects
 		if( conf.fx ) {
 			that.$container.fadeIn("fast", function(){ that.callbacks("onShow"); });
@@ -137,6 +137,12 @@ ch.floats = function() {
 			var content = conf.content || conf.msg;
 			if ( ch.utils.isSelector(content) ) $(content).detach();
 
+           /**
+            * Callback function
+            * @name onShow
+            * @type {Function}
+            * @memberOf ch.Floats
+            */
     		that.$container
     		    .appendTo("body")
     			.css("z-index", ch.utils.zIndex++)
@@ -188,7 +194,12 @@ ch.floats = function() {
 					.appendTo("body");
 			};
 			
-			// Callback execute
+           /**
+            * Callback function
+            * @name onHide
+            * @type {Function}
+            * @memberOf ch.Floats
+            */
 			that.callbacks('onHide');
 			
 			that.$container.detach();

@@ -215,7 +215,13 @@ ch.watcher = function(conf) {
 		if ( !isRequired && that.isEmpty() && that.active === false) { return; }
         
         if ( that.enabled && ( that.active === false || !that.isEmpty() || isRequired ) ) {
-	
+
+            /**
+             * Callback function
+             * @name beforeValidate
+             * @type {Function}
+             * @memberOf ch.Watcher
+             */
 			that.callbacks('beforeValidate');
 
             var i = 0, t = that.conditions.length,
@@ -246,6 +252,12 @@ ch.watcher = function(conf) {
                 
                 if ( gotError ) {
 
+                   /**
+                    * Callback function
+                    * @name onError
+                    * @type {Function}
+                    * @memberOf ch.Watcher
+                    */
                     that.callbacks('onError');
 		
                 	// Field error style
@@ -291,7 +303,14 @@ ch.watcher = function(conf) {
 			// This generates a lot of redraws... I don't want it here
 			//controller.checkStatus();
 		};
-        
+
+
+       /**
+        * Callback function
+        * @name afterValidate
+        * @type {Function}
+        * @memberOf ch.Watcher
+        */
         that.callbacks('afterValidate');
         
         return that;
@@ -306,7 +325,12 @@ ch.watcher = function(conf) {
 		that.$element.removeClass("error");
 		that.helper.hide(); // Hide helper
 		that.$element.unbind("blur change", that.validate); // Remove blur and change event
-		
+       /**
+        * Callback function
+        * @name onReset
+        * @type {Function}
+        * @memberOf ch.Watcher
+        */
 		that.callbacks("onReset");
 		
 		return that;

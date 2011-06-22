@@ -374,7 +374,12 @@ ch.carousel = function(conf){
 				.addClass("ch-carousel-pages-on");
 		};
 		
-		// Movement callback
+       /**
+        * Callback function
+        * @name onMove
+        * @type {Function}
+        * @memberOf ch.Carousel
+        */
 		that.callbacks("onMove");
 
  		return that;
@@ -383,6 +388,13 @@ ch.carousel = function(conf){
 	that.prev = function(){
 		that.goTo(that.currentPage - 1);
 
+       /**
+        * Callback function
+        * @name onPrev
+        * @type {Function}
+        * @memberOf ch.Carousel
+        */
+
 		that.callbacks("onPrev");
 
 		return that;
@@ -390,6 +402,13 @@ ch.carousel = function(conf){
 	
 	that.next = function(){
 		that.goTo(that.currentPage + 1);
+
+       /**
+        * Callback function
+        * @name onNext
+        * @type {Function}
+        * @memberOf ch.Carousel
+        */
 
 		that.callbacks("onNext");
 
