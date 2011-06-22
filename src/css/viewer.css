@@ -41,8 +41,8 @@
 .ch-viewer-content li a,
 .ch-viewer-content li object{
 	display:block;
-    	text-align: center;
-    	margin:0 auto;
+   	text-align: center;
+   	margin:0 auto;
 }
 
 /* Display arrows list */
@@ -55,7 +55,7 @@
 	display: block;
 	text-indent:999px;
 	overflow:hidden;
-	background-image: url('../src/assets/viewerArrows.png');
+	background-image: url('../src/assets/viewer.png');
 	background-repeat:no-repeat;
 	cursor:pointer;
 }
@@ -108,22 +108,18 @@
 
 /* Video thumbnail */
 .ch-viewer-video {
-	background-color:#eee;
-	border-radius:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
 	text-indent:999px;
 	overflow:hidden;
 }
 
 /* Video icon on thumbnail */
 .ch-viewer-video span {
-	background-image: url('../src/assets/viewer.png');
-	width:12px;
-	height:22px;
+	background-image: url('../src/assets/video.png');
+	width:27px;
+	height:24px;
 	display:block;
 	vertical-align:middle;
-	margin:10px auto;
+	margin:8px auto;
 }
 
 /* IE 6 */
