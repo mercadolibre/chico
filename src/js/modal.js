@@ -185,6 +185,7 @@ ch.modal = function(conf){
      * Positioning configuration.
      * @public
      * @name position
+     * @see ch.Object.position
      * @memberOf ch.Modal
      */
 	that["public"].position = that.position;
