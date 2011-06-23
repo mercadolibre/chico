@@ -433,16 +433,16 @@
 		test("Modal with cache true", function(){
 			expect( 3 );
 
-    		testModalCache.show();    		
-    		notExists("body > #testCache2");
-    		
-    		testModalCache.hide();
-    		exists("body > #testCache2");
-    		
-    		testModalCache.show();
+			testModalCache.show();    		
+			notExists("body > #testCache2");
+
+			testModalCache.hide();
+			exists("body > #testCache2");
+
+			testModalCache.show();
 
 			ok($(".ch-modal #testCache2").html() != "", "Expected to find content.");
-			
+
 			testModalCache.hide();
 						
 		});

@@ -10,10 +10,8 @@
 		<meta charset="utf-8"> 
 		<title>Chico UI</title> 
  
-    	<!--link rel="stylesheet" type="text/css" href="src/css/base.css" />
-	    <link rel="stylesheet" type="text/css" href="src/css/forms.css" /--> 
 		<link rel="stylesheet" type="text/css" href="php/packer.php?type=css"> 
-		<link rel="stylesheet" type="text/css" href="libs/css/highlight.css">
+		<link rel="stylesheet" type="text/css" href="src/css/codelighter.css">
 		<!--[if lt IE 7 ]>
 			<script src="libs/js/dd_belatedpng.js"></script>
 			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
@@ -806,8 +804,8 @@ div p.keywords{color:darkorange;}
 	<!-- Organization -->
 	<script src="libs/js/jquery.js"></script>
 	<script src="php/packer.php?debug=true"></script>
-	<script src="labs/list/list.js"></script>
-	<script> 
+	<script src="src/plugin/codelighter.js"></script>
+	<script>
  
 		// Boxes alignment
         $('.article').each(function(i, e){ 
@@ -831,22 +829,28 @@ div p.keywords{color:darkorange;}
 		var ui_acc = $('.demoAccordion').accordion();
 
         var ui_caro = $('.demoCarousel2').carousel({
-			pagination: true
+			pagination: true,
+			onNext: function(){
+				alert("Siguiente");
+			},
+			onPrev: function(){
+				alert("Anterior");
+			}
         });
         
-        //var ui_moda = $('.demoModal').modal();
-        var ui_moda = $('.demoModal').modal({
+        var ui_moda = $('.demoModal').modal("test.html");
+        /*var ui_moda = $('.demoModal').modal({
 		    	//width: 350,
 		    	//height: 400,
 		    //cache: false,
 		    //content: "body div#modalContent",
 		    	//content:"alallaa",
-		    ajax: "/test.html",
+		    //ajax: "/test.html",
 		    	//onContentLoad: function(){},
 		    	onHide: function(){
 				this.content("New content!");
 		    	}
-        });
+        });*/
         
         var ui_trans1 = $(".demoTransition1").transition("Espere mientras pruebo la transición. Gracias papi."); 
         var ui_trans2 = $(".demoTransition2").transition(); 
