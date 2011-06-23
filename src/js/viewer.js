@@ -6,6 +6,7 @@
  * @requires ch.Carousel
  * @requires ch.Zoom
  * @memberOf ch
+ * @requires ch.onImagesLoads
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
  */
@@ -116,36 +117,32 @@ ch.viewer = function(conf){
 	 * 	Zoom
 	 */
 	if( ch.utils.hasOwn(ch, "zoom") ) {
-
-		var i = 0;
 		
 		// Initialize zoom on imgs loaded
-		itemsChildren.filter("img").bind("load", function(){
-
-			var _parentNode = this.parentNode;
+		itemsAnchor.each(function(i, e){
 			
-			var component = {
-				uid: that.uid + "#" + i,
-				type: "zoom",
-				element: _parentNode,
-				$element: $(_parentNode)
-			};
-		
-			var config = {
-				context: $viewer,
-				onShow: function(){
-					var _rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
-					var _zoomDisplayWidth = (conf.width < _rest)? conf.width : (_rest - 65 );
-					this.width( _zoomDisplayWidth );
-					this.height( $viewer.height() );
-				}
-			};
-
-			that.children.push( ch.zoom.call(component, config) );
-
-			i += 1;
+			$(e).children("img").onImagesLoads(function(){
+				var component = {
+					uid: that.uid + "#" + i,
+					type: "zoom",
+					element: e,
+					$element: $(e)
+				};
+	
+				var config = {
+					context: $viewer,
+					onShow: function(){
+						var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
+						var zoomDisplayWidth = (conf.width < rest) ? conf.width : (rest - 65);
+						this.width( zoomDisplayWidth );
+						this.height( $viewer.height() );
+					}
+				};
+	
+				that.children.push( ch.zoom.call(component, config) );
+			});
+			
 		});
-
 	};
 	
 	/**

@@ -25,6 +25,7 @@ ch.zoom = function(conf) {
 	conf.width = conf.width || 300;
 	conf.height = conf.height || 300;
 	conf.fx = false;
+	
 	conf.position = {};
 	conf.position.context = conf.context || that.$element;
 	conf.position.offset = conf.offset || "20 0";
@@ -64,10 +65,9 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var zoomed = {};
-		zoomed.img = conf.content = $("<img>");
-	
-	// Magnifying glass (enlarge)
-	//var $lens = $("<div>").addClass("ch-lens ch-hide");
+		zoomed.img = conf.content = $("<img>").prop("src", that.element.href);
+		zoomed["width"] = zoomed.img.prop("width");
+		zoomed["height"] = zoomed.img.prop("height");
 	
     /**
      * Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
@@ -79,7 +79,6 @@ ch.zoom = function(conf) {
 	var seeker = {};
 		seeker.shape = $("<div>")
 			.addClass("ch-seeker ch-hide")
-			.bind("mousemove", function(event){ move(event); })
 			// TODO: Calc relativity like in that.size (en lugar de la division por 3)
 			.css({ width: conf.width / 3, height: conf.height / 3 });
     
@@ -92,22 +91,29 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var move = function(event){
-		var offset = original.img.offset();
 		
-		var x = event.pageX - offset.left;
-		var y = event.pageY - offset.top;
+		// Cursor coordinates relatives to original image
+		var x = event.pageX - original.offset.left;
+		var y = event.pageY - original.offset.top;
 		
-		// Zoomed image
-		zoomed.img.css({
-			"left": -( ((zoomed["width"] * x) / original["width"]) - (conf.width / 2) ),
-			"top": -( ((zoomed["height"] * y) / original["height"]) - (conf.height / 2) )
-		});
+		// Seeker axis
+		var limit = {};
+			limit.left = parseInt(x - seeker["width"]);
+			limit.right = parseInt(x + seeker["width"]);
+			limit.top = parseInt(y - seeker["height"]);
+			limit.bottom = parseInt(y + seeker["height"]);
+
+		// Horizontal: keep seeker into limits
+		if(limit.left >= 0 && limit.right < original["width"] - 1) {
+			zoomed.img.css("left", -( (parseInt(zoomed["width"] * x) / original["width"]) - (conf.width / 2) ));
+			seeker.shape.css("left", limit.left);
+		};
 		
-		// Seeker shape
-		seeker.shape.css({
-			"left": x - seeker["width"],
-			"top": y - seeker["height"]
-		});
+		// Vertical: keep seeker into limits
+		if(limit.top >= 0 && limit.bottom < original["height"] - 1) {
+			zoomed.img.css("top", -( (parseInt(zoomed["height"] * y) / original["height"]) - (conf.height / 2) ));
+			seeker.shape.css("top", limit.top);
+		};
 	};
 	
 /**
@@ -117,33 +123,30 @@ ch.zoom = function(conf) {
 	that.$trigger = that.$element;
 	
 	that.show = function(event){
-		that.prevent(event);
-
-		zoomed.img.prop("src", that.element.href);
-
 		// Floats show
-		that.parent.show();
+		that.parent.show(event);
+		
+		// Recalc offset of original image
+		original.offset = original.img.offset();
 
-		// Magnifying glass
-		//$lens.fadeIn();
-
+		// Move
+		that.$element.bind("mousemove", function(event){ move(event); })
+		
 		// Seeker
 		seeker.shape.removeClass("ch-hide");
-		
+
 		return that;
 	};
 	
 	that.hide = function(event){
-		that.prevent(event);
+		// Floats hide
+		that.parent.hide(event);
+		
+		// Move
+		that.$element.unbind("mousemove");
 		
 		// Seeker
 		seeker.shape.addClass("ch-hide");
-		
-		// Magnifying glass
-		//$lens.fadeOut();
-		
-		// Floats hide
-		that.parent.hide();
 		
 		return that;
 	};
@@ -171,20 +174,27 @@ ch.zoom = function(conf) {
      * @memberOf ch.Layer
      */
 	that.size = function(attr, data) {
-		if (!data) return conf[attr]; // Getter
+		// Getter
+		if (!data) {
+			return that.conf[attr];
+		};
 
-		// Configuration
+		// Setter
 		that.conf[attr] = data;
 		
 		// Container
 		that.$container[attr](data);
 		
-		// Seeker
-		var size = (original[attr] * data) / zoomed[attr]; // Shape size relative to zoomed image and zoomed area
-		seeker.shape[attr](size); // Sets shape size
-		seeker[attr] = size / 2; // Shape half size: for position it
+		// Seeker: shape size relative to zoomed image and zoomed area
+		var size = (original[attr] * data) / zoomed[attr];
+		
+		// Seeker: sets shape size
+		seeker.shape[attr](size);
+		
+		// Seeker: shape half size, for position it
+		seeker[attr] = size / 2;
 
-		return that["public"];
+		return that;
 	};
 
 /**
@@ -257,7 +267,7 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      * @example
      * // Change position.
-     * $('input').zoom().position({ 
+     * $('a').zoom().position({ 
      *    offset: "0 10",
      *    points: "lt lb"
      * });
@@ -277,7 +287,12 @@ ch.zoom = function(conf) {
      * // Sets width of zoomed visual element and update the seeker size to keep these relation.
      * foo.width(500);
      */
-	that["public"].width = function(data){ that.size("width", data); };
+	that["public"].width = function(data){
+		that.size("width", data);
+		
+		return that["public"];
+	};
+	
     /**
      * Gets and sets the height size.
      * @private
@@ -291,48 +306,35 @@ ch.zoom = function(conf) {
      * // Sets height of zoomed visual element and update the seeker size to keep these relation.
      * foo.height(500);
      */
-	that["public"].height = function(data){ that.size("height", data) };
+	that["public"].height = function(data){
+		that.size("height", data);
+		
+		return that["public"];
+	};
 
 	
 /**
  *  Default event delegation
  */
+
+	that.$element
+		.addClass("ch-zoom-trigger")
+		
+		// Seeker
+		.append( seeker.shape )
+		
+		// Size (same as image)
+		.css({"width": original["width"], "height": original["height"]})
+		
+		// Show
+		.bind("mouseenter", function(event){ that.show(event); })
+		
+		// Hide
+		.bind("mouseleave", function(event){ that.hide(event); })
+		
+		// Enlarge
+		.bind("click", function(event){ that.enlarge(event); });
 	
-	// TODO: El setTimeout soluciona problemas en el viewer
-	setTimeout( function(){
-		that.$element
-			.addClass("ch-zoom-trigger")
-			
-			// Magnifying glass
-			//.append( $lens )
-			
-			// Seeker
-			.append( seeker.shape )
-			
-			// Size (same as image)
-			.css({"width": original["width"], "height": original["height"]})
-			
-			// Show
-			.bind("mouseenter", that.show)
-			
-			// Hide
-			.bind("mouseleave", that.hide)
-			
-			// Move
-			.bind("mousemove", function(event){ move(event); })
-			
-			// Enlarge
-			.bind("click", function(event){ that.enlarge(event); });
-	},50);	
-
-	// Preload zoomed image
-	ch.utils.window.one("load", function(){
-		zoomed.img.prop("src", that.element.href).one("load", function(){
-			zoomed["width"] = zoomed.img.prop("width");
-			zoomed["height"] = zoomed.img.prop("height");
-		});
-	});
-
-
+	
 	return that;
 };
