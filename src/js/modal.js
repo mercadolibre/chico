@@ -97,7 +97,7 @@ ch.modal = function(conf){
 		dimmer.on();
 		that.parent.show(event);		
 		that.$trigger.blur();
-		
+
 		return that;
 	};
 	
@@ -145,7 +145,18 @@ ch.modal = function(conf){
      */
 	that["public"].content = that.content;
     /**
-     * Shows component's content.
+     * Returns true if the component is active.
+     * @public
+     * @name isActive
+     * @function 
+     * @returns {Boolean}
+     * @memberOf ch.Modal
+     */
+	that["public"].isActive = function(){
+	   return that.active;
+	}
+    /**
+     * Create the UI if necesary and added to the DOM tree.
      * @public
      * @name show
      * @function
@@ -154,11 +165,11 @@ ch.modal = function(conf){
      */
 	that["public"].show = function(){
 		that.show();
-		
+
 		return that["public"];
 	};
     /**
-     * Hides component's content.
+     * Removes component from DOM tree.
      * @public
      * @name hide
      * @function
@@ -174,6 +185,7 @@ ch.modal = function(conf){
      * Positioning configuration.
      * @public
      * @name position
+     * @see ch.Object.position
      * @memberOf ch.Modal
      */
 	that["public"].position = that.position;

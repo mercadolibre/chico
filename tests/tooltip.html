@@ -61,17 +61,31 @@
 		
 		module("Tooltip instance object");
 		
-        test("Layer public properties", function(){
+        test("Tooltip public properties", function(){
 
-            expect( 4 );
+            expect( 5 );
 
        		ok( tooltip1.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
     		ok( tooltip1.type == "tooltip" , "Expected to find \"tooltip\" as value of type attribute");
     		
     		ok( ch.utils.hasOwn(tooltip1, "element"), "Expected to find an \"element\" property" );
-    		
+
+    		ok( ch.utils.hasOwn(tooltip1, "isActive"), "Expected to find an \"active\" property" );
+
     		equal( tooltip1.content(), $(".tool1").attr("title"), "Expected to find the tooltip \"title\" attribute on \"content\" property of tooltip instance");
+
+        });
+        
+        test("Active property for tooltip1", function(){
+
+    		ok( tooltip1.isActive() == false , "Expected to find \"false\" as value for active property");
+            
+            tooltip1.show();
+
+    		ok( tooltip1.isActive() == true , "Expected to find \"true\" as value for active property");
+
+            tooltip1.hide();
 
         });
         

@@ -355,7 +355,6 @@ ch.factory = function(o) {
     }
 }
 
-
 /**
  * Load components or content
  * @abstract

@@ -29,8 +29,9 @@ ch.object = function(){
 
    /**
     * Prevent propagation and default actions.
-    * @name loadContent
-    * @param {EventObject} Recieves a event object
+    * @name prevent
+    * @function
+    * @param {EventObject} event Recieves a event object
     * @memberOf ch.Object
     */
 	that.prevent = function(event) {
@@ -45,7 +46,9 @@ ch.object = function(){
    /**
     * Set the content of a component
     * @name content
-    * @type {String} Could be a simple text, html or a url to get the content with ajax.
+    * @function
+    * @param {String} [content] Could be a simple text, html or a url to get the content with ajax.
+    * @returns {Chico-UI Object}
     * @memberOf ch.Object
     */
 
@@ -55,7 +58,11 @@ ch.object = function(){
 		if ( content === undefined ) {
 		
 			var content = conf.content || conf.msg;
-			return (content) ? (( ch.utils.isSelector(content) ) ? $(content) : content) : ((conf.ajax === true) ? (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
+			return (content) ? 
+                       (( ch.utils.isSelector(content) ) ? 
+                           $(content) : content) : 
+                       ((conf.ajax === true) ? 
+                           (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
 		
 		} else {
 
@@ -86,8 +93,10 @@ ch.object = function(){
    /**
     * Load dynamic content
     * @name loadContent
+    * @function
     * @lends ch.Get
     * @memberOf ch.Object
+    * @returns {String} Content
     */
 	that.loadContent = function() {
 
@@ -123,6 +132,10 @@ ch.object = function(){
 		} else {
 
 			var content = conf.content || conf.msg;
+			
+			var context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"];
+			
+			if ( ch.utils.hasOwn(conf, "onContentLoad") ) conf.onContentLoad.call( context );
 
 			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().removeClass("ch-hide").show() : content;
 
@@ -146,10 +159,13 @@ ch.object = function(){
     /**
     * Change components position
     * @name position
-    * @lends ch.Positioner
+    * @function
+    * @param {Object} [o] Configuration object
+    * @param {String} ["refresh"] Refresh
     * @memberOf ch.Object
+    * @returns {Object} o Configuration object is arguments are empty
     */	
-	that.position = function(o){
+	that.position = function(o) {
 	
 		switch(typeof o) {
 		 
