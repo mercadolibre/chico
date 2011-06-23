@@ -173,29 +173,6 @@
 		 * 	Test Cases
 		 */
 
-        module("Modal basics instance object");
-
-        test("Modal chain methods", function(){
-            
-            expect ( 3 );
-            
-            var testModalOriginal = testModal;
-            
-            var chainShow = testModal.show();
-            
-            var chainHide = testModal.hide();
-
-            var chained = testModal.show().hide();
-             
-            ok ( chainShow === testModalOriginal, "Expected to return original instance object on show() method call");
-            
-            ok ( chainHide === testModalOriginal, "Expected to return original instance object on hide() method call");
-
-            ok ( chained === testModalOriginal, "Expected to return original instance object on .show().hide() methods chained call");
-            
-        });
-    
-
 		module('Modal layout and interaction');
 						
 		test('Opens basic modal dialog', function(){
@@ -299,17 +276,32 @@
 			
 			testModalChangeContent.hide();
 		});
-		
-		       
+
+        module("Modal basics instance object");
+        
         test("Basics for testModal", function(){
 
-            expect( 3 );
+            expect( 4 );
 
        		ok( testModal.uid >= 0 , "Expected to find a defined content on the modal instance");
        		
     		ok( testModal.type == "modal" , "Expected to find \"modal\" as value of type attribute");
     		
     		ok( testModal.content() != undefined, "Expected to find a defined content on the modal instance");
+    		
+    		ok( ch.utils.hasOwn(testModal, "isActive"), "Expected to find an \"active\" property" );
+
+        });
+        
+        test("Active property for testModal", function(){
+
+    		ok( testModal.isActive() == false , "Expected to find \"false\" as value for active property");
+            
+            testModal.show();
+
+    		ok( testModal.isActive() == true , "Expected to find \"true\" as value for active property");
+
+            testModal.hide();
 
         });
 
@@ -339,6 +331,27 @@
 
         });
         
+        test("Modal chain methods", function(){
+            
+            expect ( 3 );
+            
+            var testModalOriginal = testModal;
+            
+            var chainShow = testModal.show();
+            
+            var chainHide = testModal.hide();
+
+            var chained = testModal.show().hide();
+             
+            ok ( chainShow === testModalOriginal, "Expected to return original instance object on show() method call");
+            
+            ok ( chainHide === testModalOriginal, "Expected to return original instance object on hide() method call");
+
+            ok ( chained === testModalOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+            
+        });
+    
+
         module('Modal width and height configuration');
 		
 		test("Width and Height configuration", function(){

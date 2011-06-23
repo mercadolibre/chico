@@ -102,6 +102,17 @@ ch.helper = function(controller){
      */
 	that["public"].content = that.content;
     /**
+     * Returns true if the component is active.
+     * @public
+     * @name active
+     * @function
+     * @returns {Boolean}
+     * @memberOf ch.Helper
+     */
+	that["public"].isActive = function() {
+	   return that.active;
+	};
+    /**
      * Shows component's content.
      * @public
      * @name show

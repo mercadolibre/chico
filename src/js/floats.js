@@ -126,7 +126,7 @@ ch.floats = function() {
 		if ( that.active ) return;
 		
 		that.active = true;
-		
+
 		// Show if exist, else create		
 		if ( that.$container ) {
 				
