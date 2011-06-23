@@ -146,12 +146,14 @@
 		
         test("Layer common public properties", function(){
 
-            expect( 3 );
+            expect( 4 );
 
        		ok( layer1.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
     		ok( layer1.type == "layer" , "Expected to find \"layer\" as value of type attribute");
     		
+    		ok( ch.utils.hasOwn(layer1, "isActive"), "Expected to find an \"active\" property" );
+
     		ok( ch.utils.hasOwn(layer1, "element"), "Expected to find an \"element\" property" );
 
         });
@@ -256,7 +258,19 @@
 
         
 		module("Layer layout and interaction");		
-		
+
+        test("Active property for layer1", function(){
+
+    		ok( layer1.isActive() == false , "Expected to find \"false\" as value for active property");
+            
+            layer1.show();
+
+    		ok( layer1.isActive() == true , "Expected to find \"true\" as value for active property");
+
+            layer1.hide();
+            
+        });
+
 		test("Check for the right visual elements", function(){					
 		  
             expect( 2 );
