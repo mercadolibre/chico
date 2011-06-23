@@ -51,7 +51,7 @@ ch.object = function(){
 
 	//TODO: Analizar si unificar that.content (get and set) con that.loadContent(load).
 	that.content = function(content){
-		
+
 		if ( content === undefined ) {
 		
 			var content = conf.content || conf.msg;
@@ -63,12 +63,12 @@ ch.object = function(){
 
 			conf.cache = false;
 
-			if ( ch.utils.isUrl(content) ) {
-				conf.content = undefined;
+			if (ch.utils.isUrl(content)) {
 				conf.ajax = content;
+				conf.content = undefined;
 			} else {
-				conf.ajax = false;
 				conf.content = content;
+				conf.ajax = undefined;
 			};
 
 			if ( ch.utils.hasOwn(that, "$content") ) {
@@ -90,45 +90,42 @@ ch.object = function(){
     * @memberOf ch.Object
     */
 	that.loadContent = function() {
-		// TODO: Properties validation
-		//if( self.ajax && (self.content || self.msg) ) { alert('CH: "Ajax" and "Content" can\'t live together.'); return; };
-		
-		if( conf.ajax === true){
-			
-			// Load URL from href or form action
-			conf.ajaxUrl = that.$element.attr('href') || that.$element.parents('form').attr('action');
-			
+
+		if ( conf.ajax != undefined || ch.utils.isUrl(conf.msg)) {
+
 			// Ajax parameters
-			conf.ajaxParams = 'x=x'; // TODO refactor con el header de ajax
-			
-			// If trigger is a form button...
-			if(that.$element.attr('type') == 'submit'){
-				conf.ajaxType = that.$element.parents('form').attr('method') || 'GET';
-				var serialized = that.$element.parents('form').serialize();
-				conf.ajaxParams = conf.ajaxParams + ((serialized != '') ? '&' + serialized : '');
+			conf.ajaxParams = 'x=x';
+
+			// Load URL from href or action
+			if (conf.ajax === true) {
+
+				conf.ajaxUrl = that.$element.attr('href') || that.$element.parents('form').attr('action');
+
+				// If the trigger is a form button, serialize its parent
+				if (that.$element.attr('type') == 'submit') {
+					conf.ajaxType = that.$element.parents('form').attr('method') || 'GET';
+					var _serialized = that.$element.parents('form').serialize();
+					conf.ajaxParams = conf.ajaxParams + ((_serialized != '') ? '&' + _serialized : '');
+				};
+
+			// Load URL from conf.ajax or conf.msg
+			} else {
+
+				conf.ajaxUrl = conf.ajax || conf.msg;
+
 			};
 
 			// Returns ajax results
-
 			ch.get({method:"content", that:that});
-			
+
 			return '<div class="loading"></div>';
-			
-		} else if ( conf.ajax || (conf.msg && ch.utils.isUrl(conf.msg)) ){
-			// Set url
-			conf.ajaxUrl = conf.ajax || conf.msg;
 
-			// Ajax parameters
-			conf.ajaxParams = 'x=x'; // TODO refactor con el header de ajax
-
-			// Returns ajax results
-
-			ch.get({method:"content", that:that});
-			return '<div class="loading"></div>';
-			
 		} else {
-			var content = conf.content || conf.msg;		
-			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().removeClass("ch-hide").show() : content;			
+
+			var content = conf.content || conf.msg;
+
+			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().removeClass("ch-hide").show() : content;
+
 		};
 
 	};
