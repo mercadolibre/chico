@@ -107,8 +107,19 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	var _templateMonth = $("<table>")
-							.addClass("ch-calendar-month")
-							.append(_weekdays);
+		.addClass("ch-calendar-month")
+		.append(_weekdays)
+		.bind("click", function(event){
+
+			event = event || window.event;
+			src = event.target || event.srcElement;
+
+			if (src.nodeName !== "TD" || src.className.indexOf("day")) {
+				return;
+			};
+
+			_select( that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML );
+		});
 
 
     /**
@@ -122,7 +133,7 @@ ch.calendar = function(conf){
 
 		var date = new Date(date);
 
-		var _tableMonth = _templateMonth.clone();
+		var _tableMonth = _templateMonth.clone(true);
 
 		var _currentMonth = {};
 			_currentMonth.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -182,12 +193,6 @@ ch.calendar = function(conf){
 		_tableMonth
 			.prepend("<caption>"+_monthsNames[_currentMonth.month] + " - " + _currentMonth.year+"</caption>")
 			.append(_weeks);
-		//TODO: probar de sacar el each
-		$.each(_tableMonth.find(".day"), function(i, e){
-			$(e).bind("click", function(){
-				_select( _currentDate.year + "/" + _currentDate.month + "/" + this.innerHTML );
-			});
-		});
 
 		return _tableMonth;
 	};
@@ -268,7 +273,7 @@ ch.calendar = function(conf){
 		//TODO: typeof date
 		if (typeof date == "undefined") { return; };
 		
-		return  date.getFullYear() + "/" + (date.getMonth() < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (date.getDate() < 10 ? '0' : '') + date.getDate();
+		return  date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate();
 
 	};
 
@@ -280,7 +285,9 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	var _select = function(date){
+
 		_selected = new Date(date);
+
 		that.currentDate = _selected;
 		
 		that.$content.html(_createMonth(_selected));
