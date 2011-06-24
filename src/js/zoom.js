@@ -153,7 +153,7 @@ ch.zoom = function(conf) {
      * @private
      * @function
      * @name enlarge
-     * @memberOf ch.Layer
+     * @memberOf ch.Zoom
      */
 	that.enlarge = function(event){
 		that.prevent(event);
@@ -168,7 +168,7 @@ ch.zoom = function(conf) {
      * @name size
      * @param {String} attr
      * @param {String} [data]
-     * @memberOf ch.Layer
+     * @memberOf ch.Zoom
      */
 	that.size = function(attr, data) {
 		if (!data) return conf[attr]; // Getter

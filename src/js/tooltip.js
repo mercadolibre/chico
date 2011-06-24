@@ -99,6 +99,17 @@ ch.tooltip = function(conf) {
      */
     that["public"].content = that.content;
     /**
+     * Returns true if the component is active.
+     * @public
+     * @name isActive
+     * @function 
+     * @returns {Boolean}
+     * @memberOf ch.Tooltip
+     */
+	that["public"].isActive = function() {
+	   return that.active;
+    };
+    /**
      * Shows component's content.
      * @public
      * @name show
