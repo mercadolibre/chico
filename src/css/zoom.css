@@ -2,16 +2,17 @@
 .ch-zoom-trigger {
 	position:relative;
 	overflow:hidden;
-	cursor:default;
 	display:block;
-	cursor:crosshair;
 }
 
 /* Seeker shape */
 .ch-zoom-trigger .ch-seeker {
-	background-color:rgba(0,0,255,.1);
-	border:1px solid #00f;
+	border:1px solid #ccc;
+	background:#eee;
+	opacity:0.3;
+	filter:alpha(opacity=30);
 	position:absolute;
+	cursor:crosshair;
 }
 
 /* Zoomed area */

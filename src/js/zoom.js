@@ -5,6 +5,7 @@
  * @class Zoom
  * @augments ch.Floats
  * @requires ch.Positioner
+ * @requires ch.onImagesLoads
  * @memberOf ch
  * @param {Configuration Object} conf Object with configuration properties
  * @returns {Chico-UI Object}
@@ -64,8 +65,6 @@ ch.zoom = function(conf) {
      */
 	var zoomed = {};
 		zoomed.img = conf.content = $("<img>").prop("src", that.element.href);
-		zoomed["width"] = zoomed.img.prop("width");
-		zoomed["height"] = zoomed.img.prop("height");
 	
     /**
      * Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
@@ -114,6 +113,33 @@ ch.zoom = function(conf) {
 		return;
 	};
 	
+	/**
+     * Calculates zoomed image sizes and adds event listeners to trigger of float element
+     * @private
+     * @function
+     * @name init
+	 * @returns {void}
+     * @memberOf ch.Zoom
+     */
+	var init = function(){
+		// Zoomed image size
+		zoomed["width"] = zoomed.img.prop("width");
+		zoomed["height"] = zoomed.img.prop("height");
+		
+		// Anchor
+		that.$element
+			// Apend Seeker
+			.append( seeker.shape )
+			
+			// Show
+			.bind("mouseenter", that.show)
+			
+			// Hide
+			.bind("mouseleave", that.hide)
+		
+		return;
+	};
+	
 /**
  *  Protected Members
  */
@@ -127,10 +153,7 @@ ch.zoom = function(conf) {
      */
 	that.$trigger = that.$element;
 	
-	that.show = function(event){
-		// Floats show
-		that.parent.show(event);
-		
+	that.show = function(){
 		// Recalc offset of original image
 		original.offset = original.img.offset();
 
@@ -139,19 +162,22 @@ ch.zoom = function(conf) {
 		
 		// Seeker
 		seeker.shape.removeClass("ch-hide");
+		
+		// Floats show
+		that.parent.show();
 
 		return that;
 	};
 	
-	that.hide = function(event){
-		// Floats hide
-		that.parent.hide(event);
-		
+	that.hide = function(){
 		// Move
 		that.$element.unbind("mousemove");
 		
 		// Seeker
 		seeker.shape.addClass("ch-hide");
+		
+		// Floats hide
+		that.parent.hide();
 		
 		return that;
 	};
@@ -195,13 +221,13 @@ ch.zoom = function(conf) {
 		// Container
 		that.$container[prop](data);
 		
-		// Seeker: shape size relative to zoomed image and zoomed area
+		// Seeker: shape size relative to zoomed image respect zoomed area
 		var size = (original[prop] * data) / zoomed[prop];
 		
 		// Seeker: sets shape size
 		seeker.shape[prop](size);
 		
-		// Seeker: shape half size, for position it
+		// Seeker: save shape half size for position it respect cursor
 		seeker[prop] = size / 2;
 
 		return that;
@@ -347,30 +373,19 @@ ch.zoom = function(conf) {
 /**
  *  Default event delegation
  */
-
+	
+	// Anchor
 	that.$element
 		.addClass("ch-zoom-trigger")
-		
-		// Seeker
-		.append( seeker.shape )
 		
 		// Size (same as image)
 		.css({"width": original["width"], "height": original["height"]})
 		
-		// Show
-		.bind("mouseenter", function(event){ that.show(event); })
-		
-		// Hide
-		.bind("mouseleave", function(event){ that.hide(event); })
-		
 		// Enlarge
 		.bind("click", function(event){ that.enlarge(event); });
 	
-	// Seeker default size
-	/*seeker.shape.css({
-		"width": (original["width"] * original["width"]) / zoomed["width"],
-		"height": (original["height"] * original["height"]) / zoomed["height"]
-	});*/
+	// Initialize when zoomed image loads...
+	zoomed.img.onImagesLoads( init );
 	
 	return that;
 };
