@@ -1,6 +1,6 @@
 
 /**
- * Zoom UI-Component for images.
+ * Zoom is a standalone UI component that shows a contextual reference to an augmented version of main declared image.
  * @name Zoom
  * @class Zoom
  * @augments ch.Floats
@@ -22,8 +22,6 @@ ch.zoom = function(conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
-	conf.width = conf.width || 300;
-	conf.height = conf.height || 300;
 	conf.fx = false;
 	
 	conf.position = {};
@@ -46,7 +44,7 @@ ch.zoom = function(conf) {
  */
 
     /**
-     * Original image.
+     * Reference to main image declared on HTML code snippet.
      * @private
      * @name original
      * @type {Object}
@@ -58,7 +56,7 @@ ch.zoom = function(conf) {
 		original["height"] = original.img.prop("height");
 
     /**
-     * Zoomed visual element.
+     * Reference to the augmented version of image, that will be displayed in context.
      * @private
      * @name zoomed
      * @type {Object}
@@ -77,17 +75,15 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var seeker = {};
-		seeker.shape = $("<div>")
-			.addClass("ch-seeker ch-hide")
-			// TODO: Calc relativity like in that.size (en lugar de la division por 3)
-			.css({ width: conf.width / 3, height: conf.height / 3 });
+		seeker.shape = $("<div>").addClass("ch-seeker ch-hide")
     
     /**
-     * Get the mouse position and moves the zoomed image.
+     * Gets the mouse position relative to original image position, and accordingly moves the zoomed image.
      * @private
      * @function
      * @name move
      * @param {Mouse Event Object} event
+	 * @returns {void}
      * @memberOf ch.Zoom
      */
 	var move = function(event){
@@ -114,12 +110,21 @@ ch.zoom = function(conf) {
 			zoomed.img.css("top", -( (parseInt(zoomed["height"] * y) / original["height"]) - (conf.height / 2) ));
 			seeker.shape.css("top", limit.top);
 		};
+		
+		return;
 	};
 	
 /**
  *  Protected Members
  */
 	
+	/**
+     * Anchor that wraps the main image and links to zoomed image file.
+     * @public
+     * @name $trigger
+     * @type {Object}
+     * @memberOf ch.Zoom
+     */
 	that.$trigger = that.$element;
 	
 	that.show = function(event){
@@ -152,47 +157,52 @@ ch.zoom = function(conf) {
 	};
 
     /**
-     * Opens the big picture.
+     * Triggered on anchor click, it prevents redirection to zoomed image file.
      * @private
      * @function
      * @name enlarge
-     * @memberOf ch.Layer
+     * @param {Mouse Event Object} event
+	 * @returns {Internal component instance}
+     * @memberOf ch.Zoom
      */
 	that.enlarge = function(event){
 		that.prevent(event);
 		
-		// Open pop-up
+		// Do what you want...
+		
+		return that;
 	};
 	
     /**
-     * Getter and setter for size attributes.
+     * Getter and setter for size attributes of float that contains the zoomed image.
      * @private
      * @function
      * @name size
-     * @param {String} attr
-     * @param {String} [data]
-     * @memberOf ch.Layer
+     * @param {String} prop Property that will be setted or getted, like "width" or "height".
+     * @param {String} [data] Only for setter. It's the new value of defined property.
+	 * @returns {Internal component instance}
+     * @memberOf ch.Zoom
      */
-	that.size = function(attr, data) {
+	that.size = function(prop, data) {
 		// Getter
 		if (!data) {
-			return that.conf[attr];
+			return that.conf[prop];
 		};
 
 		// Setter
-		that.conf[attr] = data;
+		that.conf[prop] = data;
 		
 		// Container
-		that.$container[attr](data);
+		that.$container[prop](data);
 		
 		// Seeker: shape size relative to zoomed image and zoomed area
-		var size = (original[attr] * data) / zoomed[attr];
+		var size = (original[prop] * data) / zoomed[prop];
 		
 		// Seeker: sets shape size
-		seeker.shape[attr](size);
+		seeker.shape[prop](size);
 		
 		// Seeker: shape half size, for position it
-		seeker[attr] = size / 2;
+		seeker[prop] = size / 2;
 
 		return that;
 	};
@@ -202,39 +212,47 @@ ch.zoom = function(conf) {
  */
  
     /**
-     * The component's instance unique identifier.
+     * Unique identifier of component instance.
      * @public
      * @name uid
      * @type {Number}
      * @memberOf ch.Zoom
      */
    	that["public"].uid = that.uid;
+   	
     /**
-     * The element reference.
+     * Reference to trigger element.
      * @public
      * @name element
      * @type {HTMLElement}
      * @memberOf ch.Zoom
      */
 	that["public"].element = that.element;
+	
     /**
-     * The component's type.
+     * Component type.
      * @public
      * @name type
      * @type {String}
      * @memberOf ch.Zoom
      */
 	that["public"].type = that.type;
+	
     /**
-     * The component's content.
+     * Gets the component content. In Zoom component it's the zoomed image reference.
      * @public
      * @name content
-     * @type {String}
+     * @function
+	 * @returns {HTMLIMGElement}
      * @memberOf ch.Zoom
      */
-	that["public"].content = that.content;
+	that["public"].content = function(){
+		// Only on Zoom, it's limmited to be a getter
+		return that.content();
+	};
+	
     /**
-     * Shows component's content.
+     * Shows float element that contains the zoomed image.
      * @public
      * @name show
      * @function
@@ -246,8 +264,9 @@ ch.zoom = function(conf) {
 		
 		return that["public"];
 	};
+	
     /**
-     * Hides component's content.
+     * Hides float element that contains the zoomed image.
      * @public
      * @name hide
      * @function
@@ -261,30 +280,40 @@ ch.zoom = function(conf) {
 	};
 
     /**
-     * Positioning configuration.
+     * Gets and sets Zoom position.
      * @public
      * @name position
+     * @function
+     * @returns {Chico-UI Object}
      * @memberOf ch.Zoom
      * @example
-     * // Change position.
-     * $('a').zoom().position({ 
+     * // Change default position.
+     * $("a").zoom().position({
      *    offset: "0 10",
      *    points: "lt lb"
      * });
+     * @example
+     * // Refresh position.
+     * $("a").zoom().position("refresh");
+     * @example
+     * // Get current position.
+     * $("a").zoom().position();
      */
 	that["public"].position = that.position;
 	
     /**
-     * Gets and sets the width size.
+     * Gets and sets the width size of float element.
      * @private
      * @name width
+     * @function
+     * @returns {Chico-UI Object}
      * @param {Number} data Width value.
      * @memberOf ch.Zoom
      * @example
-     * // Gets width of zoomed visual element.
+     * // Gets width of Zoom float element.
      * foo.width();
      * @example
-     * // Sets width of zoomed visual element and update the seeker size to keep these relation.
+     * // Sets width of Zoom float element and updates the seeker size to keep these relation.
      * foo.width(500);
      */
 	that["public"].width = function(data){
@@ -294,16 +323,18 @@ ch.zoom = function(conf) {
 	};
 	
     /**
-     * Gets and sets the height size.
+     * Gets and sets the height size of float element.
      * @private
      * @name height
+     * @function
+     * @returns {Chico-UI Object}
      * @param {Number} data Height value.
      * @memberOf ch.Zoom
      * @example
-     * // Gets height of zoomed visual element.
+     * // Gets height of Zoom float element.
      * foo.height();
      * @example
-     * // Sets height of zoomed visual element and update the seeker size to keep these relation.
+     * // Sets height of Zoom float element and update the seeker size to keep these relation.
      * foo.height(500);
      */
 	that["public"].height = function(data){
@@ -335,6 +366,11 @@ ch.zoom = function(conf) {
 		// Enlarge
 		.bind("click", function(event){ that.enlarge(event); });
 	
+	// Seeker default size
+	/*seeker.shape.css({
+		"width": (original["width"] * original["width"]) / zoomed["width"],
+		"height": (original["height"] * original["height"]) / zoomed["height"]
+	});*/
 	
 	return that;
 };

@@ -88,6 +88,7 @@ ch.viewer = function(conf){
      * @memberOf ch.Viewer
      */
 	var items = $content.children();
+	
     /**
      * Amount of children.
      * @private
@@ -96,6 +97,7 @@ ch.viewer = function(conf){
      * @memberOf ch.Viewer
      */
 	var itemsAmount = items.length;
+	
     /**
      * Collection of anchors finded on items collection.
      * @private
@@ -104,6 +106,7 @@ ch.viewer = function(conf){
      * @memberOf ch.Viewer
      */
 	var itemsAnchor = items.children("a");
+	
     /**
      * Collection of references to HTMLIMGElements or HTMLObjectElements.
      * @private
@@ -114,13 +117,21 @@ ch.viewer = function(conf){
 	var itemsChildren = items.find("img, object");
 	
 	/**
-	 * 	Zoom
-	 */
-	if( ch.utils.hasOwn(ch, "zoom") ) {
+     * Iniatilizes Zoom component on each anchor
+     * @private
+     * @name instanceZoom
+     * @type {Object}
+     * @memberOf ch.Viewer
+     */
+	var instanceZoom = function() {
 		
-		// Initialize zoom on imgs loaded
+		var _size = {};
+			_size.width = conf.zoomWidth || $viewer.width();
+			_size.height = conf.zoomHeight || $viewer.height();
+		
 		itemsAnchor.each(function(i, e){
 			
+			// Initialize zoom on imgs loaded
 			$(e).children("img").onImagesLoads(function(){
 				var component = {
 					uid: that.uid + "#" + i,
@@ -129,25 +140,24 @@ ch.viewer = function(conf){
 					$element: $(e)
 				};
 	
-				var config = {
+				var configuration = {
 					context: $viewer,
 					onShow: function(){
-						var rest = (ch.utils.body.outerWidth() - $viewer.outerWidth());
-						var zoomDisplayWidth = (conf.width < rest) ? conf.width : (rest - 65);
-						this.width( zoomDisplayWidth );
-						this.height( $viewer.height() );
+						this.width(
+							(_size.width === "auto") ?
+								$viewer.parent().width() - $viewer.outerWidth() - 20 : // 20px of Zoom default offset
+								_size.width
+						);
+						this.height( _size.height );
 					}
 				};
 	
-				that.children.push( ch.zoom.call(component, config) );
+				that.children.push( ch.zoom.call(component, configuration) );
 			});
 			
 		});
 	};
 	
-	/**
-	 * 	Thumbnails
-	 */
     /**
      * Creates all thumbnails and configure it as a Carousel.
      * @private
@@ -303,6 +313,7 @@ ch.viewer = function(conf){
      * @memberOf ch.Viewer
      */
 	that["public"].element = that.element;
+	
     /**
      * The component's type.
      * @public
@@ -311,6 +322,7 @@ ch.viewer = function(conf){
      * @memberOf ch.Viewer
      */
 	that["public"].type = that.type;
+	
     /**
      * Children instances associated to this controller.
      * @public
@@ -332,6 +344,7 @@ ch.viewer = function(conf){
          */
         // TODO: This method should be called 'select'?
 		that["public"].moveTo = function(item){ that.move(item); return that["public"]; };
+		
         /**
          * Selects the next child available.
          * @public
@@ -340,6 +353,7 @@ ch.viewer = function(conf){
          * @memberOf ch.Viewer
          */
 		that["public"].next = function(){ that.next(); return that["public"]; };
+		
         /**
          * Selects the previous child available.
          * @public
@@ -348,6 +362,7 @@ ch.viewer = function(conf){
          * @memberOf ch.Viewer
          */
 		that["public"].prev = function(){ that.prev(); return that["public"]; };
+		
         /**
          * Get the index of the selected child.
          * @public
@@ -372,12 +387,21 @@ ch.viewer = function(conf){
 		
 		// Create movement method
 		that.move = move;
-		that.move(1); // Move to the first item without callback
+		
+		// Move to the first item without callback
+		that.move(1);
+		
+		// Turn on Next arrow
 		arrows.next.on();
 	};
 
 	$viewer.find(".ch-mask").eq(0).height( $(itemsChildren[0]).height() );
-
+	
+	// Initialize Zoom if there are anchors
+	if( ch.utils.hasOwn(ch, "zoom") && itemsAnchor.length > 0) {
+		instanceZoom();
+	};
+	
 	ch.utils.avoidTextSelection(that.element);
 
 	return that;
