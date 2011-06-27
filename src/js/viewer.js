@@ -127,6 +127,11 @@ ch.viewer = function(conf){
 		
 		var _size = {};
 			_size.width = conf.zoomWidth || $viewer.width();
+			
+			if(_size.width === "auto"){
+				_size.width = $viewer.parent().width() - $viewer.outerWidth() - 20; // 20px of Zoom default offset
+			};
+			
 			_size.height = conf.zoomHeight || $viewer.height();
 		
 		itemsAnchor.each(function(i, e){
@@ -143,16 +148,12 @@ ch.viewer = function(conf){
 				var configuration = {
 					context: $viewer,
 					onShow: function(){
-						this.width(
-							(_size.width === "auto") ?
-								$viewer.parent().width() - $viewer.outerWidth() - 20 : // 20px of Zoom default offset
-								_size.width
-						);
+						this.width( _size.width );
 						this.height( _size.height );
 					}
 				};
 	
-				that.children.push( ch.zoom.call(component, configuration) );
+				that.children.push( ch.zoom.call(component, configuration).public );
 			});
 			
 		});
