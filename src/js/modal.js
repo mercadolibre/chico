@@ -22,7 +22,6 @@ ch.modal = function(conf){
      */
   	var that = this;
 	conf = ch.clon(conf);
-	conf.ajax = ( !ch.utils.hasOwn(conf, "ajax") && !ch.utils.hasOwn(conf, "content") && !ch.utils.hasOwn(conf, "msg") ) ? true : conf.ajax; //Default	
 	conf.closeButton = (that.type == "modal") ? true : false;
 	conf.classes = "box";
 
@@ -46,7 +45,7 @@ ch.modal = function(conf){
      * @type {jQuery Object}
      * @memberOf ch.Modal
      */
-	var $dimmer = $("<div>").addClass("ch-dimmer");
+	var $dimmer = $("<div class=\"ch-dimmer\">");
 	
 	// Set dimmer height for IE6
 	if (ch.utils.html.hasClass("ie6")) { $dimmer.height( parseInt(document.documentElement.clientHeight, 10) * 3) };
@@ -61,8 +60,8 @@ ch.modal = function(conf){
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
 			$dimmer
+				.css("z-index", ch.utils.zIndex += 1)
 				.appendTo("body")
-				.css("z-index", ch.utils.zIndex ++)
 				.fadeIn();
 		
 			if (that.type == "modal") {
@@ -137,10 +136,11 @@ ch.modal = function(conf){
      */
 	that["public"].type = that.type;
     /**
-     * The component's content.
+     * Set and get component's content.
      * @public
      * @name content
-     * @type {String}
+     * @function
+     * @param {String} Static content, DOM selector or URL. If argument is empty then will return the content.
      * @memberOf ch.Modal
      */
 	that["public"].content = that.content;

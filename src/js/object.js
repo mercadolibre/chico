@@ -35,6 +35,7 @@ ch.object = function(){
     * @memberOf ch.Object
     */
 	that.prevent = function(event) {
+	   
 		if (event && typeof event == "object") {
 		    event.preventDefault();
 			event.stopPropagation();
@@ -43,105 +44,129 @@ ch.object = function(){
 		return that;
 	};
 
+
    /**
-    * Set the content of a component
+    * Set and get the content of a component
     * @name content
     * @function
     * @param {String} [content] Could be a simple text, html or a url to get the content with ajax.
     * @returns {Chico-UI Object}
     * @memberOf ch.Object
+    * @requires ch.Cache
     */
+    that.content = function(content) {
+    
+            // Save argument or configuration
+        var content = content,
+            // Get context, could be a single component or a controller
+            context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"],
+            // Local isURL
+            isUrl = ch.utils.isUrl(content||that._content),
+            // Local isSelector
+            isSelector = ch.utils.isSelector(content||that._content),
+            // Defined content will return at the end
+            definedContent,
+            undefined;
 
-	//TODO: Analizar si unificar that.content (get and set) con that.loadContent(load).
-	that.content = function(content){
-
+    /**
+     * Get content
+     */
+		// return defined content
 		if ( content === undefined ) {
+
+            if ( that._content === undefined ) {
+                return "<p>No content defined for this component</p>";    
+            }
+            
+            // return jQuery Object for Selectors
+            if ( isSelector ) {
+                return $(that._content);    
+            }
+            
+            // for ajax
+            if ( isUrl ) {
+                return that._content;
+            }
+            
+            return that._content;
+
+		}
 		
-			var content = conf.content || conf.msg;
-			return (content) ? 
-                       (( ch.utils.isSelector(content) ) ? 
-                           $(content) : content) : 
-                       ((conf.ajax === true) ? 
-                           (that.$trigger.attr('href') || that.$trigger.parents('form').attr('action')) : conf.ajax );
-		
-		} else {
+    /**
+     * Set content
+     */	
+     
+        // Save cache configuration
+        var cache = conf.cache;
+		// Turn off cache so we can change the content        
+        conf.cache = false;
+        
+    /* Evaluate AJAX content */  
 
-			var cache = conf.cache;
-
-			conf.cache = false;
-
-			if (ch.utils.isUrl(content)) {
-				conf.ajax = content;
-				conf.content = undefined;
-			} else {
-				conf.content = content;
-				conf.ajax = undefined;
+        if (isUrl) {
+            
+            if (cache) {
+                
+                }
+            
+            var _method, _serialized, _params;
+            
+			// If the trigger is a form button, serialize its parent to send data to the server.
+			if (that.$element.attr('type') == 'submit') {
+				_method = that.$element.parents('form').attr('method') || 'GET';
+				_serialized = that.$element.parents('form').serialize();
+				_params = "x=x" + ((_serialized != '') ? '&' + _serialized : '');
 			};
-
-			if ( ch.utils.hasOwn(that, "$content") ) {
-				that.$content.html(that.loadContent());
-				that.position("refresh");
-			};
-
-			conf.cache = cache;
-
-			return that["public"];
-		};
-		
-	};
-
-   /**
-    * Load dynamic content
-    * @name loadContent
-    * @function
-    * @lends ch.Get
-    * @memberOf ch.Object
-    * @returns {String} Content
-    */
-	that.loadContent = function() {
-
-		if ( conf.ajax != undefined || ch.utils.isUrl(conf.msg)) {
-
-			// Ajax parameters
-			conf.ajaxParams = 'x=x';
-
-			// Load URL from href or action
-			if (conf.ajax === true) {
-
-				conf.ajaxUrl = that.$element.attr('href') || that.$element.parents('form').attr('action');
-
-				// If the trigger is a form button, serialize its parent
-				if (that.$element.attr('type') == 'submit') {
-					conf.ajaxType = that.$element.parents('form').attr('method') || 'GET';
-					var _serialized = that.$element.parents('form').serialize();
-					conf.ajaxParams = conf.ajaxParams + ((_serialized != '') ? '&' + _serialized : '');
-				};
-
-			// Load URL from conf.ajax or conf.msg
-			} else {
-
-				conf.ajaxUrl = conf.ajax || conf.msg;
-
-			};
-
-			// Returns ajax results
-			ch.get({method:"content", that:that});
-
-			return '<div class="loading"></div>';
-
-		} else {
-
-			var content = conf.content || conf.msg;
 			
-			var context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"];
-			
-			if ( ch.utils.hasOwn(conf, "onContentLoad") ) conf.onContentLoad.call( context );
+			console.log(content)
+			console.log(that._content)
 
-			return ( ch.utils.isSelector(content) ) ? $(content).detach().clone().removeClass("ch-hide").show() : content;
+			$.ajax({
+				url: that._content,
+				type: _method || 'GET',
+				data: _params,
+				cache: true, // TODO: Configuration here?
+				async: true,
+				beforeSend: function(jqXHR){
+					jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+				},
+				success: function(data, textStatus, jqXHR){
+                    that.contentCallback.call(that,data);
+					if (ch.utils.hasOwn(conf, "onContentLoad")) conf.onContentLoad.call(context, data, textStatus, jqXHR);
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+                    that.contentCallback.call(that,"<p>Error on ajax call </p>");
+					if (ch.utils.hasOwn(conf, "onContentError")) conf.onContentError.call(context, jqXHR, textStatus, errorThrown)
+				}
+			});
 
-		};
+            // Return Spinner and wait for callbacks
+			definedContent = '<div class="loading"></div>';
 
-	};
+        }
+
+    /* Evaluate DOM content */
+
+        if (ch.utils.isSelector(content)) {
+									            
+            that.DOMParent = $(content).parent();
+            that.DOMContentIsVisible = $(content).is(":visible")
+
+            // Define content            
+			definedContent = $(content).detach().clone().removeClass("ch-hide").show();
+
+        }
+ 
+    /* Finally return 'definedContent' or static content */
+
+        // Save previous cache configuration
+        conf.cache = cache;
+        // trigger onContentLoad callback for DOM and Static,
+        // Avoid trigger this callback on AJAX requests.
+		if ( ch.utils.hasOwn(conf, "onContentLoad") && !ch.utils.isUrl(content)) { conf.onContentLoad.call( context ); }
+        // set 'definedContent' or static content
+		return definedContent || content;
+    };
 
    /**
     * Executes a specific callback
@@ -149,7 +174,7 @@ ch.object = function(){
     * @function
     * @memberOf ch.Object
     */
-	that.callbacks = function(when){
+	that.callbacks = function(when) {
 		if( ch.utils.hasOwn(conf, when) ) {
 			var context = ( that.controller ) ? that.controller["public"] : that["public"];
 			return conf[when].call( context );
@@ -180,11 +205,12 @@ ch.object = function(){
 				break;
 		
 			case "string":
-				if(o != "refresh"){
-					alert("ChicoUI error: position() expected to find \"refresh\" parameter.");
+				if(o != "refresh") {
+					alert("Chico UI error: position() expected to find \"refresh\" parameter.");
 				};
 
 				ch.positioner(conf.position);
+
 				return that["public"];   			
 				break;
 		

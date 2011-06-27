@@ -419,7 +419,7 @@ ch.positioner = function(o) {
 		// Hidden behavior
 		if( element.css("display") === "none" ) return; 	
 		initPosition();
-	}, 250);
+	}, 350);
 
    /**
     * @ignore

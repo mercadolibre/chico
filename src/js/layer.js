@@ -181,6 +181,7 @@ ch.layer = function(conf) {
      * @memberOf ch.Layer
      */
 	that["public"].content = that.content;
+	
     /**
      * Returns true if the component is active.
      * @public

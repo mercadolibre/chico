@@ -1,4 +1,5 @@
 
+
 /**
  * Abstract class of all floats UI-Objects.
  * @abstract
@@ -36,19 +37,29 @@ ch.floats = function() {
 /**
  *  Private Members
  */
+
+    /**
+     * Creates a 'cone', is a visual asset for floats.
+     * @private
+     * @name createCone
+     * @function
+     * @memberOf ch.Floats
+     */ 
 	var createCone = function() {
-		$("<div>")
-			.addClass("ch-cone")
+		$("<div class=\"ch-cone\">")
 			.prependTo( that.$container );
-		
-		return;
 	};
 
+    /**
+     * Creates close button.
+     * @private
+     * @name createClose
+     * @function
+     * @memberOf ch.Floats
+     */ 
 	var createClose = function() {
 		// Close Button
-		$("<div>")
-			.addClass("btn close")
-			.css("z-index", ch.utils.zIndex ++)
+		$("<div class=\"btn close\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">")
 			.bind("click", function(event){ that.hide(event); })
 			.prependTo( that.$container );
 		
@@ -58,47 +69,39 @@ ch.floats = function() {
 		return;
 	};
 
+    /**
+     * Process al UI configuration and creates the components layout.
+     * @private
+     * @name createLayout
+     * @function
+     * @memberOf ch.Floats
+     */ 
     var createLayout = function() {
-		
-		that.$content = $("<div>")
-		    	.addClass("ch-" + that.type + "-content")
-		    	.html( that.loadContent() );
-		
-		that.$container = $("<div>")
-			.addClass("ch-" + that.type)
-			.css("z-index", ch.utils.zIndex ++)
-			.append( that.$content )
-			.appendTo("body");
+
+		// Create the component container
+		that.$container = $("<div class=\"ch-"+that.type+"\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">");
+		// Create the content container
+		that.$content = $("<div class=\"ch-" + that.type + "-content\">").appendTo(that.$container);
 		
 		// Visual configuration
-		if( ch.utils.hasOwn(conf, "classes") ) that.$container.addClass(conf.classes);
-		if( ch.utils.hasOwn(conf, "width") ) that.$container.css("width", conf.width);
-		if( ch.utils.hasOwn(conf, "height") ) that.$container.css("height", conf.height);
-		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) createClose();
-		if( ch.utils.hasOwn(conf, "cone") ) createCone();
-		if( ch.utils.hasOwn(conf, "fx") ) conf.fx = conf.fx; else conf.fx = true;
+		if( ch.utils.hasOwn(conf, "classes") ) { that.$container.addClass(conf.classes); }
+		if( ch.utils.hasOwn(conf, "width") ) { that.$container.css("width", conf.width); }
+		if( ch.utils.hasOwn(conf, "height") ) { that.$container.css("height", conf.height); }
+		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) { createClose(); }
+		if( ch.utils.hasOwn(conf, "cone") ) { createCone(); }
+		if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; }
 		
 		// Cache - Default: true
 		conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
 
-		// Show component with effects
-		if( conf.fx ) {
-			that.$container.fadeIn("fast", function(){ that.callbacks("onShow"); });
-		
-		// Show component without effects
-		} else {
-			// TODO: that.$container.removeClass("ch-hide");
-			that.$container.show();
-			that.callbacks("onShow");
-		};
-		
 		// Position component
 		conf.position = conf.position || {};
 		conf.position.element = that.$container;
 		conf.position.hold = conf.hold || false;
 		ch.positioner.call(that);
 		
-		return;
+		// Return the entire Layout
+		return that.$container;
     };
     
 
@@ -110,10 +113,71 @@ ch.floats = function() {
  *  Public Members
  */
  
+     /**
+     * Content configuration, could be a string, url, or CSS selector for DOM content.
+     * @private
+     * @name HTML
+     * @type {String}
+     * @memberOf ch.Floats
+     */ 
+     
+     that.html = "";
+     
+     /**
+     * Content configuration, could be a string, url, or CSS selector for DOM content.
+     * @private
+     * @name _content
+     * @type {String}
+     * @memberOf ch.Floats
+     */ 
+	that._content = conf.content || conf.msg || that.$element.attr('href') || that.$element.parents('form').attr('action');
+	
+
+    /**
+     * Flag that indicates if the float is active on the DOM tree.
+     * @public
+     * @name active
+     * @type {Boolean}
+     * @memberOf ch.Floats
+     */ 
 	that.active = false;
 
     /**
-     * Shows component's content.
+     * DOM Parent of content, this is useful to attach DOM Content when float is hidding.
+     * @public
+     * @name DOMParent
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Floats
+     */ 
+    that.DOMParent;
+
+    /**
+     * Flag to know if the DOM Content is visible or not.
+     * @public
+     * @name DOMContentIsVisible
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Floats
+     */ 
+    that.DOMContentIsVisible;
+
+    /**
+     * This callback is triggered when async data is loaded into component's content, when ajax content comes back.
+     * @public
+     * @name contentCallback
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Floats
+     */ 
+    that.contentCallback = function(data) {
+        
+        that.$content.html(data);
+        
+    	if ( ch.utils.hasOwn(conf, "position") ) {
+    	   ch.positioner(conf.position);
+    	}
+    }
+
+    /**
+     * Renders the component in the display by adding it to the DOM tree.
      * @public
      * @name show
      * @returns {Chico-UI Object}
@@ -123,49 +187,57 @@ ch.floats = function() {
 		
 		if ( event ) that.prevent(event);
 		
+		// Avoid showing things that are already shown
 		if ( that.active ) return;
 		
 		that.active = true;
 
-		// Show if exist, else create		
-		if ( that.$container ) {
+		// Need to have a Layout		
+		if ( !that.$container ){
+            createLayout();
+		}
+
+		// For DOM Contents remove from DOM
+		if ( ch.utils.isSelector(that.content) ) {
+                // Detach from DOM tree
+		     that.$content.children().detach();
+		}
 				
-			// If not cache... get content again! // Flush cache where?? when?? do it!
-			if ( !conf.cache ) that.$content.html( that.loadContent() );
-			
-			// Detach the content of BODY
-			var content = conf.content || conf.msg;
-			if ( ch.utils.isSelector(content) ) $(content).detach();
+		// Set the content's container is empty, 
+		// or cache is off, 
+		// reload content.
+		if ( !conf.cache || that.$content.html() === "") {
+            that.$content.html( that.content() );
+		}
 
-           /**
-            * Callback function
-            * @name onShow
-            * @type {Function}
-            * @memberOf ch.Floats
-            */
-    		that.$container
-    		    .appendTo("body")
-    			.css("z-index", ch.utils.zIndex++)
-			    .fadeIn('fast', function(){ 
-					that.active = true;
-					
-					// Callback execute
-					that.callbacks('onShow');
-				});
+        // Add layout to DOM tree
+        // Increment zIndex
+		that.$container
+		    .appendTo("body")
+			.css("z-index", ch.utils.zIndex++);
 
-			that.position("refresh");
-						
-			return that;
+        /**
+         * Callback function
+         * @name onShow
+         * @type {Function}
+         * @memberOf ch.Floats
+         */
+		// Show component with effects
+		if( conf.fx ) {
+			that.$container.fadeIn("fast", function(){ that.callbacks("onShow"); });
+		} else { 
+        // Show component without effects
+			that.$container.removeClass("ch-hide");
+			that.callbacks("onShow");
 		};
-		
-		// If you reach here, create a float
-        createLayout();
+
+		that.position("refresh");
         
         return that;
 	};
 
     /**
-     * Hides component's content.
+     * Hides the component and detach it from DOM tree.
      * @public
      * @name hide
      * @returns {Chico-UI Object}
@@ -180,18 +252,20 @@ ch.floats = function() {
 		var afterHide = function(){ 
 			 
 			that.active = false;
-			
-			// Append the content of BODY
-			var content = conf.content || conf.msg;
-			
-			if (ch.utils.isSelector(content)) {
 
-				if ($("body " + content + ".ch-hide").length > 0) return false;
+			if (ch.utils.isSelector(that._content)) {
 
-				that.$content.children()
-					.clone()
-					.addClass("ch-hide")
-					.appendTo("body");
+				if ($("body " + that.content + ".ch-hide").length > 0) return false;
+
+				var r = that.$content
+				            .children()
+				            .clone()
+				            .appendTo(that.DOMParent || "body");
+
+			    if (!that.DOMContentIsVisible) {
+                    r.addClass("ch-hide");	     
+		        }
+		        
 			};
 			
            /**
@@ -212,8 +286,7 @@ ch.floats = function() {
 		
 		// Show component without effects
 		} else {
-			// TODO: that.$container.addClass("ch-hide");
-			that.$container.hide();
+			that.$container.addClass("ch-hide");
 			afterHide();
 		};
 		

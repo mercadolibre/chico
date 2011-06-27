@@ -26,7 +26,7 @@ ch.cache = {
      * @memberOf ch.Cache
      */
     add: function(url, data) {
-        ch.Cache.map[url] = data;
+        ch.cache.map[url] = data;
     },
     
     /**
@@ -38,7 +38,7 @@ ch.cache = {
      * @memberOf ch.Cache
      */
     get: function(url) {
-        return ch.Cache.map[url];
+        return ch.cache.map[url];
     },
     
     /**
@@ -49,8 +49,8 @@ ch.cache = {
      * @memberOf ch.Cache
      */
     rem: function(url) {
-        ch.Cache.map[url] = null;
-        delete ch.Cache.map[url];
+        ch.cache.map[url] = null;
+        delete ch.cache.map[url];
     },
     
     /**
@@ -60,7 +60,7 @@ ch.cache = {
      * @memberOf ch.Cache
      */
     flush: function() {
-        delete ch.Cache.map;
-        ch.Cache.map = {};
+        delete ch.cache.map;
+        ch.cache.map = {};
     }
 };

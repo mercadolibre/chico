@@ -286,7 +286,26 @@
 			</p>
 		</form>
 	</div> 
-
+	
+	<div class="box"> 
+		<h2>Modal window with DOM Content</h2> 
+		
+        <div class="container">
+			<a href="test.html" class="YOUR_SELECTOR_Modal_visible">Modal with visible DOM content.</a>
+			<hr />
+			<a href="test.html" class="YOUR_SELECTOR_Modal_invisible">Modal with invisible DOM content.</a>
+			<hr />
+        </div>
+		<div id="visible-content">
+    		<h1>This content is visible</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+		</div>		
+		<div id="invisible-content" class="ch-hide">
+    		<h1>This content is invisible</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+		</div>
+	</div> 
+	
 	<div class="box"> 
 		<h2>Transition window</h2> 
 		<form action="test.html"> 
@@ -800,12 +819,20 @@
 		var ch_caro = $(".YOUR_SELECTOR_Carousel").carousel({
 			pagination:true
 		});
-		
+					
 		// Modal
-		var ch_moda = $(".YOUR_SELECTOR_Modal").modal({ 
-		  onContentLoad: function() {
-		      console.log(this);
-		  }
+		var ch_moda = $(".YOUR_SELECTOR_Modal").modal({
+		      onContentLoad: function(){ console.log("onContentLoad working fine") },
+		      onContentError: function(){ console.log("onContentError working fine") },
+		});
+		
+		// Modal with visible and invisible DOM Content
+		var ch_moda_visible = $(".YOUR_SELECTOR_Modal_visible").modal({ 
+		  content:"#visible-content"
+		});
+		
+		var ch_moda_invisible = $(".YOUR_SELECTOR_Modal_invisible").modal({ 
+		  content:"#invisible-content"
 		});
 		
 		// Transition
