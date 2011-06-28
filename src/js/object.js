@@ -97,14 +97,10 @@ ch.object = function(){
 
             // Local argument
             content = content,
-            // Local static content reference
-            staticContent = that.staticContent,
-            // Local content source reference
-            source = that.source,
             // Local isURL
-            sourceIsUrl = ch.utils.isUrl(source),
+            sourceIsUrl = ch.utils.isUrl(that.source),
             // Local isSelector
-            sourceIsSelector = ch.utils.isSelector(source),
+            sourceIsSelector = ch.utils.isSelector(that.source),
             // Get context, could be a single component or a controller
             context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"],
             // undefined, for comparison.
@@ -119,13 +115,13 @@ ch.object = function(){
 		if ( _get ) {
 
 			// no source, no content
-            if ( source === undefined ) {
+            if ( that.source === undefined ) {
                 return "<p>No content defined for this component</p>";    
             }
 
             // Get data from cache for DOMContent or AJAXContent
             if ( cache && ( sourceIsSelector || sourceIsUrl )) {
-                var fromCache = ch.cache.get(source);
+                var fromCache = ch.cache.get(that.source);
                 if (fromCache) {
                     return fromCache;
                 }
@@ -134,52 +130,64 @@ ch.object = function(){
             // First time we need to get the contemt.
             // Is cache is off, go and get content again.
             // Yeap, recursive.
-            if ( !cache || staticContent === undefined ) {
-            	return that.content(source);
+            if ( !cache || that.staticContent === undefined ) {
+            	return that.content(that.source);
             }
 
             // Flag to remove DOM content and avoid ID duplication
             if ( sourceIsSelector ) {
-            	$(source).detach();
+            	$(that.source).detach();
             }
             
 			// get at last
-            return staticContent;
+            return that.staticContent;
 
 		}
 
     /**
      * Set content
      */	
-     
+
+    // Reset cache to overwrite content
+	conf.cache = false;
+
+		// Local isURL
+	var isUrl = ch.utils.isUrl(content),
+		// Local isSelector
+		isSelector = ch.utils.isSelector(content);
+
     /* Evaluate static content */  
-        
-        // set 'staticContent' as defined in source
-		staticContent = source;
+
+        // Set 'that.staticContent'.
+		// Overwrite 'that.source' just in case you 
+		// want to update DOM or AJAX Content.
+		that.staticContent = that.source = content;
 
     /* Evaluate DOM content */
 
-        if (sourceIsSelector) {
-									            
+        if (isSelector) {
+			
+			// Save DOMParent, so we know where to re-insert the content.
             that.DOMParent = $(content).parent();
+            // Check if content was visible or not.
             that.DOMContentIsVisible = $(content).is(":visible")
 
-            // Return DOM content            
-			staticContent = $(content).removeClass("ch-hide").remove();
+            // Return DOM content, remove it from DOM to avoid ID duplications
+			that.staticContent = $(content).removeClass("ch-hide").remove();
 			
 			// Save new data to the cache
             if (cache) {
-            	ch.cache.set(source,staticContent);
+            	ch.cache.set(that.source, that.staticContent);
             }       
         }
 
         // trigger onContentLoad callback for DOM and Static,
         // Avoid trigger this callback on AJAX requests.
-		if ( ch.utils.hasOwn(conf, "onContentLoad") && !sourceIsUrl) { conf.onContentLoad.call( context ); }
+		if ( ch.utils.hasOwn(conf, "onContentLoad") && !isUrl) { conf.onContentLoad.call( context ); }
 
     /* Evaluate AJAX content */  
 
-        if (sourceIsUrl) {
+        if (isUrl) {
             
             var _method, _serialized, _params = "x=x";
             
@@ -191,7 +199,7 @@ ch.object = function(){
 			};
 			
 			$.ajax({
-				url: source,
+				url: that.source,
 				type: _method || 'GET',
 				data: _params,
 				// each component could have a different cache configuration
@@ -210,7 +218,7 @@ ch.object = function(){
 					}
 					// Save new data to the cache
                     if (cache) {
-                        ch.cache.set(source,data);
+                        ch.cache.set(that.source,data);
                     }
 				},
 				error: function(jqXHR, textStatus, errorThrown){
@@ -224,13 +232,17 @@ ch.object = function(){
 			});
 
             // Return Spinner and wait for callbacks
-			staticContent = '<div class="loading"></div>';
+			that.staticContent = '<div class="loading"></div>';
 
         }
 
+     /* Set previous cache configuration */
+
+		conf.cache = cache;
+
      /* Finally return 'staticContent' */
 
-		return staticContent;
+		return that.staticContent;
     };
 
    /**
