@@ -226,8 +226,7 @@ ch.floats = function() {
 			// TODO: This should be wrapped on Object.content() method
 			// We need to be able to use interal callbacks...
 			if (!ch.utils.isSelector(that.source)) {
-
-				var original = that.staticContent.clone();
+				var original = $(that.staticContent).clone();
 					original.appendTo(that.DOMParent||"body");
 
 			   if (!that.DOMContentIsVisible) {
