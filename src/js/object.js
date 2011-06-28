@@ -110,7 +110,7 @@ ch.object = function(){
             // undefined, for comparison.
             undefined,
             // Save cache configuration
-            cache = conf.cache;
+            cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
 
     /**
      * Get content

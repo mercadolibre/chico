@@ -70,7 +70,7 @@ ch.tabNavigator = function(conf){
 	var createTabs = function(){
 
 		// Children
-		that.$element.children().eq(0).addClass("ch-tabNavigator-triggers").find("a").each(function(i, e){
+		that.$triggers.find("a").each(function(i, e){
 
 			// Tab context
 			var tab = {};
@@ -81,11 +81,15 @@ ch.tabNavigator = function(conf){
 				tab.controller = that["public"];
 
 			// Tab configuration
-			var conf = {};
-				conf.open = (selected == i);
-				conf.onShow = function(){
+			var config = {};
+				config.open = (selected == i);
+				config.onShow = function(){
 					selected = i;
 				};
+				
+			if(ch.utils.hasOwn(that.conf, "cache")) {
+				config.cache = that.conf.cache;
+			};
 
            /**
             * Callback function
@@ -93,18 +97,18 @@ ch.tabNavigator = function(conf){
             * @type {Function}
             * @memberOf ch.TabNavigator
             */
-			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) conf.onContentLoad = that.conf.onContentLoad;
+			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) config.onContentLoad = that.conf.onContentLoad;
            /**
             * Callback function
             * @name onContentError
             * @type {Function}
             * @memberOf ch.TabNavigator
             */
-			if ( ch.utils.hasOwn(that.conf, "onContentError") ) conf.onContentError = that.conf.onContentError;
+			if ( ch.utils.hasOwn(that.conf, "onContentError") ) config.onContentError = that.conf.onContentError;
 
 			// Create Tabs
 			that.children.push(
-				ch.tab.call(tab, conf)
+				ch.tab.call(tab, config)
 			);
 
 			// Bind new click to have control
@@ -154,6 +158,16 @@ ch.tabNavigator = function(conf){
 /**
  *  Protected Members
  */ 
+    
+    /**
+     * The component's triggers container.
+     * @private
+     * @name $triggers
+     * @type {jQuery Object}
+     * @memberOf ch.TabNavigator
+     */
+	that.$triggers = that.$element.children(":first").addClass("ch-tabNavigator-triggers");
+    
     /**
      * The component's content.
      * @private
@@ -161,7 +175,7 @@ ch.tabNavigator = function(conf){
      * @type {jQuery Object}
      * @memberOf ch.TabNavigator
      */
-	that.$content = that.$element.children().eq(1).addClass("ch-tabNavigator-content box");
+	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content box");
 
     
 /**
@@ -227,7 +241,7 @@ ch.tabNavigator = function(conf){
  *  Default event delegation
  */	
 
-    	that.$element.addClass('ch-tabNavigator');
+    that.$element.addClass("ch-tabNavigator");
 
 	createTabs();
 
@@ -290,7 +304,7 @@ ch.tab = function(conf){
      * @private
      * @name createContent
      * @function
-     * @memberOf ch.TabNavigator
+     * @memberOf ch.Tab
      */
 	var createContent = function(){
 		var href = that.element.href.split("#");
@@ -304,14 +318,19 @@ ch.tab = function(conf){
 		
 		// If tabContent doesn't exists        
 		} else {
-			// Set ajax configuration
-			conf.ajax = true;
-
+			/**
+		     * Content configuration property.
+		     * @public
+		     * @name source
+		     * @type {String}
+		     * @memberOf ch.Tab
+		     */
+			that.source = that.element.href;
+			
+			var id = (href.length == 2) ? href[1] : "ch-tab" + that.uid.replace("#","-");
+			
 			// Create tabContent
-			return $("<div>")
-				.attr("id", (href.length == 2) ? href[1] : "ch-tab" + that.uid.replace("#","-") )
-				.addClass("ch-hide")
-				.appendTo( controller.children().eq(1) );
+			return $("<div id=\"" + id + "\" class=\"ch-hide\">").appendTo( controller.children().eq(1) );
 		};
 
 	};
@@ -349,13 +368,28 @@ ch.tab = function(conf){
 		that.prevent(event);
 
 		// Load my content if I'need an ajax request 
-		if( that.$content.html() == "" ) that.$content.html( that.loadContent() );
+		if( ch.utils.hasOwn(that, "source") ) {
+			that.$content.html( that.content() );
+		};
 
 		// Show me
 		that.parent.show(event);
 		
 		return that;
 	};
+	
+	/**
+     * This callback is triggered when async data is loaded into component's content, when ajax content comes back.
+     * @public
+     * @name contentCallback
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Floats
+     */
+    that.contentCallback = function(data) {
+		that.staticContent = data;
+        that.$content.html(that.staticContent);
+    };
+	
 
 /**
  *  Public Members
@@ -367,7 +401,6 @@ ch.tab = function(conf){
  */
 
 	that.configBehavior();
-
 	
 	return that;
 }

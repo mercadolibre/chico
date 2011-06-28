@@ -92,7 +92,7 @@ ch.floats = function() {
 		if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; }
 		
 		// Cache - Default: true
-		conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
+		//conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
 
 		// Position component
 		conf.position = conf.position || {};
