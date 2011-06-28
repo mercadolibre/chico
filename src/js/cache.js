@@ -18,14 +18,14 @@ ch.cache = {
     map: {},
     
     /**
-     * Add a resource to the cache control
+     * Set a resource to the cache control
      * @function 
-     * @name add
+     * @name set
      * @param {String} url Resource location
      * @param {String} data Resource information
      * @memberOf ch.Cache
      */
-    add: function(url, data) {
+    set: function(url, data) {
         ch.cache.map[url] = data;
     },
     

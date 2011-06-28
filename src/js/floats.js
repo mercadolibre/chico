@@ -33,7 +33,7 @@ ch.floats = function() {
 
     that = ch.object.call(that);
     that.parent = ch.clon(that);
-    
+
 /**
  *  Private Members
  */
@@ -79,9 +79,9 @@ ch.floats = function() {
     var createLayout = function() {
 
 		// Create the component container
-		that.$container = $("<div class=\"ch-"+that.type+"\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">");
+		that.$container = $("<div class=\"ch-"+ that.type +"\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">");
 		// Create the content container
-		that.$content = $("<div class=\"ch-" + that.type + "-content\">").appendTo(that.$container);
+		that.$content = $("<div class=\"ch-"+ that.type +"-content\">").appendTo(that.$container);
 		
 		// Visual configuration
 		if( ch.utils.hasOwn(conf, "classes") ) { that.$container.addClass(conf.classes); }
@@ -112,28 +112,7 @@ ch.floats = function() {
 /**
  *  Public Members
  */
- 
      /**
-     * Content configuration, could be a string, url, or CSS selector for DOM content.
-     * @private
-     * @name HTML
-     * @type {String}
-     * @memberOf ch.Floats
-     */ 
-     
-     that.html = "";
-     
-     /**
-     * Content configuration, could be a string, url, or CSS selector for DOM content.
-     * @private
-     * @name _content
-     * @type {String}
-     * @memberOf ch.Floats
-     */ 
-	that._content = conf.content || conf.msg || that.$element.attr('href') || that.$element.parents('form').attr('action');
-	
-
-    /**
      * Flag that indicates if the float is active on the DOM tree.
      * @public
      * @name active
@@ -143,22 +122,13 @@ ch.floats = function() {
 	that.active = false;
 
     /**
-     * DOM Parent of content, this is useful to attach DOM Content when float is hidding.
+     * Content configuration propertie.
      * @public
-     * @name DOMParent
-     * @returns {Chico-UI Object}
+     * @name source
+     * @type {String}
      * @memberOf ch.Floats
-     */ 
-    that.DOMParent;
-
-    /**
-     * Flag to know if the DOM Content is visible or not.
-     * @public
-     * @name DOMContentIsVisible
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Floats
-     */ 
-    that.DOMContentIsVisible;
+     */
+	that.source = conf.content || conf.msg || that.$element.attr('href') || that.$element.parents('form').attr('action');
 
     /**
      * This callback is triggered when async data is loaded into component's content, when ajax content comes back.
@@ -168,8 +138,8 @@ ch.floats = function() {
      * @memberOf ch.Floats
      */ 
     that.contentCallback = function(data) {
-        
-        that.$content.html(data);
+        that.staticContent = data;
+        that.$content.html(that.staticContent);
         
     	if ( ch.utils.hasOwn(conf, "position") ) {
     	   ch.positioner(conf.position);
@@ -190,25 +160,12 @@ ch.floats = function() {
 		// Avoid showing things that are already shown
 		if ( that.active ) return;
 		
-		that.active = true;
-
 		// Need to have a Layout		
-		if ( !that.$container ){
+		if ( !that.$container ) {
             createLayout();
 		}
 
-		// For DOM Contents remove from DOM
-		if ( ch.utils.isSelector(that.content) ) {
-                // Detach from DOM tree
-		     that.$content.children().detach();
-		}
-				
-		// Set the content's container is empty, 
-		// or cache is off, 
-		// reload content.
-		if ( !conf.cache || that.$content.html() === "") {
-            that.$content.html( that.content() );
-		}
+        that.$content.html( that.content() );
 
         // Add layout to DOM tree
         // Increment zIndex
@@ -232,7 +189,9 @@ ch.floats = function() {
 		};
 
 		that.position("refresh");
-        
+
+		that.active = true;
+
         return that;
 	};
 
@@ -252,10 +211,12 @@ ch.floats = function() {
 		var afterHide = function(){ 
 			 
 			that.active = false;
+			
+			// TODO: This should be wrapped on Object.content() method
+			// We need to be able to use interal callbacks...
+			if (ch.utils.isSelector(that.source)) {
 
-			if (ch.utils.isSelector(that._content)) {
-
-				if ($("body " + that.content + ".ch-hide").length > 0) return false;
+				if ($("body " + that.source + ".ch-hide").length > 0) return false;
 
 				var r = that.$content
 				            .children()

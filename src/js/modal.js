@@ -90,6 +90,7 @@ ch.modal = function(conf){
 /**
  *  Protected Members
  */ 
+ 
 	that.$trigger = that.$element;
 	
 	that.show = function(event) {	

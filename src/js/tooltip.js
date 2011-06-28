@@ -23,7 +23,7 @@ ch.tooltip = function(conf) {
 	
 	conf = ch.clon(conf);
 	conf.cone = true;
-	conf.content = that.element.title;	
+	conf.content = that.element.title || that.element.alt;	
 	conf.position = {};
 	conf.position.context = $(that.element);
 	conf.position.offset = conf.offset || "0 10";
