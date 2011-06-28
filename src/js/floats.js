@@ -213,22 +213,6 @@ ch.floats = function() {
 			 
 			that.active = false;
 			
-			// TODO: This should be wrapped on Object.content() method
-			// We need to be able to use interal callbacks...
-			if (ch.utils.isSelector(that.source)) {
-
-				if ( $(that.source).length > 0 ) return false;
-
-				that.staticContent
-					.appendTo(that.DOMParent||"body");
-
-			   /* if (!that.DOMContentIsVisible) {
-					that.staticContent
-						.addClass("ch-hide");	     
-		        }*/
-		        
-			};
-			
            /**
             * Callback function
             * @name onHide
@@ -239,6 +223,18 @@ ch.floats = function() {
 			
 			that.$container.detach();
 			
+			// TODO: This should be wrapped on Object.content() method
+			// We need to be able to use interal callbacks...
+			if (!ch.utils.isSelector(that.source)) {
+
+				var original = that.staticContent.clone();
+					original.appendTo(that.DOMParent||"body");
+
+			   if (!that.DOMContentIsVisible) {
+					original.addClass("ch-hide");	     
+		       }
+		        
+			};
 		};
 		
 		// Show component with effects

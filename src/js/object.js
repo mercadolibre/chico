@@ -117,10 +117,12 @@ ch.object = function(){
      */
 		// return defined content
 		if ( _get ) {
+
 			// no source, no content
             if ( source === undefined ) {
                 return "<p>No content defined for this component</p>";    
             }
+
             // Get data from cache for DOMContent or AJAXContent
             if ( cache && ( sourceIsSelector || sourceIsUrl )) {
                 var fromCache = ch.cache.get(source);
@@ -128,12 +130,19 @@ ch.object = function(){
                     return fromCache;
                 }
             }
+            
             // First time we need to get the contemt.
             // Is cache is off, go and get content again.
             // Yeap, recursive.
             if ( !cache || staticContent === undefined ) {
             	return that.content(source);
             }
+
+            // Flag to remove DOM content and avoid ID duplication
+            if ( sourceIsSelector ) {
+            	$(source).detach();
+            }
+            
 			// get at last
             return staticContent;
 
