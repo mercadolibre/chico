@@ -165,7 +165,8 @@ ch.floats = function() {
             createLayout();
 		}
 
-        that.$content.html( that.content() );
+		that.staticContent = that.content();
+        that.$content.html(that.staticContent);
 
         // Add layout to DOM tree
         // Increment zIndex
@@ -216,16 +217,15 @@ ch.floats = function() {
 			// We need to be able to use interal callbacks...
 			if (ch.utils.isSelector(that.source)) {
 
-				if ($("body " + that.source + ".ch-hide").length > 0) return false;
+				if ( $(that.source).length > 0 ) return false;
 
-				var r = that.$content
-				            .children()
-				            .clone()
-				            .appendTo(that.DOMParent || "body");
+				that.staticContent
+					.appendTo(that.DOMParent||"body");
 
-			    if (!that.DOMContentIsVisible) {
-                    r.addClass("ch-hide");	     
-		        }
+			   /* if (!that.DOMContentIsVisible) {
+					that.staticContent
+						.addClass("ch-hide");	     
+		        }*/
 		        
 			};
 			

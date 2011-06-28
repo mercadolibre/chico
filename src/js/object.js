@@ -117,9 +117,12 @@ ch.object = function(){
      */
 		// return defined content
 		if ( _get ) {
+			// no source, no content
+            if ( source === undefined ) {
+                return "<p>No content defined for this component</p>";    
+            }
             // Get data from cache for DOMContent or AJAXContent
             if ( cache && ( sourceIsSelector || sourceIsUrl )) {
-            console.log("get from cache");
                 var fromCache = ch.cache.get(source);
                 if (fromCache) {
                     return fromCache;
@@ -131,11 +134,6 @@ ch.object = function(){
             if ( !cache || staticContent === undefined ) {
             	return that.content(source);
             }
-			// no source, no content
-            if ( source === undefined ) {
-                return "<p>No content defined for this component</p>";    
-            }
-			
 			// get at last
             return staticContent;
 
@@ -158,13 +156,12 @@ ch.object = function(){
             that.DOMContentIsVisible = $(content).is(":visible")
 
             // Return DOM content            
-			staticContent = $(content).detach().clone().removeClass("ch-hide").show();
+			staticContent = $(content).removeClass("ch-hide").remove();
 			
 			// Save new data to the cache
             if (cache) {
             	ch.cache.set(source,staticContent);
-            }
-       
+            }       
         }
 
         // trigger onContentLoad callback for DOM and Static,
