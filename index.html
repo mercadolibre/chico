@@ -802,7 +802,11 @@
 		});
 		
 		// Modal
-		var ch_moda = $(".YOUR_SELECTOR_Modal").modal();
+		var ch_moda = $(".YOUR_SELECTOR_Modal").modal({ 
+		  onContentLoad: function() {
+		      console.log(this);
+		  }
+		});
 		
 		// Transition
 		var ch_tran = $(".YOUR_SELECTOR_Transition").transition();
