@@ -1,0 +1,163 @@
+<!doctype html> 
+<!--[if IE]><![endif]--> 
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<head> 
+	<script></script> 
+	<meta charset="utf-8"> 
+	<title>Zoom - TestCases</title>
+	
+	<link rel="stylesheet" href="../php/packer.php?type=css&get=carousel,viewer,zoom">
+	<link href="../src/css/doc.css" rel="stylesheet">
+	<link href="../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+	
+<!-- #body -->
+<h1>Chico-UI: Zoom testcases</h1>
+
+<div class="testZoom">
+	<ul>
+		<li>
+			<a href="http://10.100.34.210:8080/content/chico/chico-0.6.2rc/labs/zoom/prototipo3/src/16680471_1834.jpg" target="blank">
+				<img src="http://www.mercadolibre.com.ar/jm/img?s=MLU&f=16680471_1834.jpg&v=V">
+			</a>
+			<link rel="thumb" itemprop="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLU&f=16680471_1834.jpg&v=M">
+		</li>
+		<li>
+			<img src="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=V">
+			<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=M" itemprop="thumb">
+		</li>
+	</ul>
+</div>
+
+<!-- #body -->
+
+<h1 id="qunit-header">QUnit Test Suite</h1><h2 id="qunit-banner"></h2><div id="qunit-testrunner-toolbar"></div><h2 id="qunit-userAgent"></h2><ol id="qunit-tests"></ol><div id="qunit-fixture">test markup</div>
+
+<script src="../libs/js/jquery.js"></script>
+<script src="../libs/js/qunit.js"></script>
+<script src="../php/packer.php?get=viewer,carousel,zoom"></script>
+<script src="functions.js"></script>
+
+<!-- #script -->
+
+<script>
+
+	var viewer = $(".testZoom").viewer();
+	var zoom;
+	
+	$.fx.off = true;
+	
+	// Test Cases
+
+	module("Zoom instance object");
+		
+	test("Zoom public properties", function(){
+	
+		expect( 3 );
+	
+		$("<img>").prop("src", $(".testZoom a").prop("href")).onImagesLoads(function(){
+			zoom = viewer.children[1];
+			
+			// UID
+			equal( typeof zoom.uid, "string", "Expected to find a \"uid\" attribute on the Zoom instance");
+			
+			// Type
+			equal( zoom.type, "zoom" , "Expected to find \"zoom\" as value of type attribute");
+			
+			// Element
+			ok( ch.utils.hasOwn(zoom, "element"), "Expected to find an \"element\" property" );
+			
+			start();
+		});
+		
+		stop();
+	});
+	
+	test("Zoom public methods", function(){
+	
+		expect( 6 );
+		
+		ok( ch.utils.hasOwn(zoom, "width"), "Expected to find a \"width\" method" );
+		
+		ok( ch.utils.hasOwn(zoom, "height"), "Expected to find a \"height\" method" );
+		
+		ok( ch.utils.hasOwn(zoom, "show"), "Expected to find a \"show\" method" );
+		
+		ok( ch.utils.hasOwn(zoom, "hide"), "Expected to find a \"hide\" method" );
+		
+		ok( ch.utils.hasOwn(zoom, "content"), "Expected to find a \"content\" method" );
+		
+		ok( ch.utils.hasOwn(zoom, "position"), "Expected to find a \"position\" method" );
+		
+	});
+
+
+	test("Zoom chain methods", function(){
+	
+		expect( 3 );
+		
+		var originalZoom = zoom;
+		
+		equal( zoom.show(), originalZoom, "Expected to return original instance object on show() method call");
+		
+		equal( zoom.hide(), originalZoom, "Expected to return original instance object on hide() method call");
+		
+		equal( zoom.show().hide(), originalZoom, "Expected to return original instance object on .show().hide() methods chained call");
+	
+	});
+	
+	test("Viewer must have only one zoom initialized", function(){
+	
+		expect( 1 );
+		
+		equal( viewer.children.length, 2, "Expected to find carousel and one zoom on viewer instance");
+	
+	});
+
+
+	module("Zoom basic interaction");
+	
+	test("Show Zoom on anchor mouseenter", function(){
+		
+		expect( 4 );
+		
+		isNotVisible(".ch-seeker");
+		
+		notExists(".ch-zoom");
+		
+		zoom.show();
+		
+		isVisible(".ch-seeker");
+		
+		exists(".ch-zoom");
+
+	});
+	
+	test("Hide Zoom on anchor mouseleave", function(){
+		
+		expect( 2 );
+		
+		zoom.hide();
+		
+		isNotVisible(".ch-seeker");
+		
+		notExists(".ch-zoom");
+		
+	});
+	
+	
+	//module("Zoom movement interaction");
+	
+	//module("Seeker limit area");
+
+
+
+</script>
+
+</body>
+</html>
