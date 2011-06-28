@@ -12,7 +12,9 @@
 	opacity:0.3;
 	filter:alpha(opacity=30);
 	position:absolute;
-	cursor:crosshair;
+	cursor: zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: -webkit-zoom-in;
 }
 
 /* Zoomed area */
@@ -33,3 +35,10 @@
 .ch-zoom-content img {
 	position:absolute;
 }
+
+/* IE */
+.ie6 .ch-zoom-trigger .ch-seeker,
+.ie7 .ch-zoom-trigger .ch-seeker,
+.ie8 .ch-zoom-trigger .ch-seeker {
+	cursor:crosshair;
+};
