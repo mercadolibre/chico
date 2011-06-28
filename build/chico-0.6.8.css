@@ -1710,7 +1710,6 @@ form .disabled input{
 	width:320px;
 }
 
-
 .ch-viewer-display{
 	margin:5px 0;
 }
@@ -1744,8 +1743,8 @@ form .disabled input{
 .ch-viewer-content li a,
 .ch-viewer-content li object{
 	display:block;
-    	text-align: center;
-    	margin:0 auto;
+   	text-align: center;
+   	margin:0 auto;
 }
 
 /* Display arrows list */
@@ -1758,8 +1757,8 @@ form .disabled input{
 	display: block;
 	text-indent:999px;
 	overflow:hidden;
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAABECAYAAADUZvakAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABV0RVh0Q3JlYXRpb24gVGltZQAxMS81LzExPba7owAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAJhSURBVGiB7dmxaqRAHIDxT5MqV22TA1mEe4MFO9Eqb3EPcehrXKPcQ+QB7opUWyl2A/sGC7KwsE261Fdkp0iRw5n5j3MmfrUj80OdESbiWpZl34EH4J5ldwH2SqlHgAggy7JfwLeQs/LQUSn14+b65MrQs/HQJkmSKOb1tfyoPcQs/5v7V/dx6Bn4ThzYNM3OdmzbttZj30sU2DTNrizLre34oii20kgxoCtOJ40UAbZtK4LTSSKdgW3b7oqiEMPppJBOQF84nQTSGugbp3NFWgHnwulckMbAuXG6oii2NnusETAUTleWpTFyMjA0TmeKXP9FdVVVHfq+P/mczJS6rjvVdX2Yer3REwyNNMWBxSsaCtn3vTEOLL/BuZF935+qqjLGgcMiMxfSBQeOq6hvpCsOBLYJX0gJHAjtg1VVHbquE0NK4UBwo6/rWgQpiQPhPxlXpDQOIMqy7I/kDf+3PsW/6CX0JDx2iYF96Fl4bB9fz9GOoWfioaNS6vEG4Hw+PyVJEgFfgS9h5+XcBfitlPoJn2CRWU94F9x6wvsRWk94jcvzfBNi7HuJAvM836Rpemc7Pk3TO2mkGNAVp5NGigClcDpJpDNQGqeTQjoBfeF0EkhroG+czhVpBZwLp3NBGgPnxulskUbAUDidDXIyMDROZ4pc/0V1wzA8j+P44nMyUxrH8WUYhuep1xs9wdBIUxxYvKKhkDY4sPwG50ba4sBhkZkL6YIDx1XUN9IVBwLbhC+kBA6E9kFppBQOBDd6KaQkDuBW6kbwinQZL42D9YR3+a0nvAtvPeFdYm9OeP8CiTmAdHraST8AAAAASUVORK5CYII=');
-/*viewerArrows*/*background-image: url('../src/assets/viewerArrows.png');
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAABECAYAAADUZvakAAABVklEQVRo3u3ZsQ2DMBCF4bcT27ADk9ClzxTZAFJniQyS4CgFipQC+3cgfmfpGqST+ITF2XfSe3Vd1y9xXuLy55EMvdZreXBqAPYZp/WXuzQavRrZll+3qxrGvSKAW2Oapntu7jzP90MDE+6xrNz8lEsjReNKgTQSAaYXeqxWKZBEisZRQAopGkcCCaRoHA0sRYrG1QCWIEXjagHTyqmxonE1gTlI0bjawK3IANpsUYufjEWZsCj0Fkc1i8O2xXXJ4sJr0bKwaDpFX3QnYPOt+7aHL82PzywGoDHhjQlvTHhjwhsnmaMAh2G47pH7E2B6wXEcb7n5KZdGisaVAmmkaBwBJJGicRSQQorGkUACKRpHA0uRonE1gCVI0bhawFykaFxNYA5SNK42cCsygDZb1OInY1EmLAq9xVHN4rBtcV2yuPBatCwsmk7RF40Jb0x4Y8JrN+F9AsHq4TdXFQHlAAAAAElFTkSuQmCC');
+/*viewer*/*background-image: url('../src/assets/viewer.png');
 	background-repeat:no-repeat;
 	cursor:pointer;
 }
@@ -1810,25 +1809,17 @@ form .disabled input{
 	border-color:#ccc;
 }
 
-/* Video thumbnail */
-.ch-viewer-video {
-	background-color:#eee;
-	border-radius:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	text-indent:999px;
-	overflow:hidden;
-}
-
 /* Video icon on thumbnail */
 .ch-viewer-video span {
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAWCAYAAAD0OH0aAAAAWElEQVQ4y2MQU9ZvAOIEBmIBVMN/ojUhaSBOE5oGwpqwaMCvCYcG3JrwaMCuiYAGTE1EaEDVRKQGhCYSNEA00VJDAs08nUCziEugWeJLoFkGIimLEl0IAACQNL9jBnbfRgAAAABJRU5ErkJggg==');
-/*viewer*/*background-image: url('../src/assets/viewer.png');
-	width:12px;
-	height:22px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAYAQMAAAAxjhS4AAAABlBMVEX///+5vcEiRTQyAAAAAXRSTlMAQObYZgAAADdJREFUCNdjePfu3QMGBAEG8v//MzDY///fACW+g4jPIOIjiPgAJurhBFziM1wxXC/YKDBAtQgAw+A/DSM7vLUAAAAASUVORK5CYII=');
+/*video*/*background-image: url('../src/assets/video.png');
+	width:27px;
+	height:24px;
 	display:block;
 	vertical-align:middle;
-	margin:10px auto;
+	margin:8px auto;
+	text-indent:999px;
+	overflow:hidden;
 }
 
 /* IE 6 */
@@ -1840,14 +1831,9 @@ form .disabled input{
 	right: 10px;
 }
 
-.ie6 .ch-modal {
-	overflow:hidden;
-}
-
-.ie6 .ch-viewer-modal-content .ch-pager {
-	bottom:30px;
-}
-/* Trigger */
+.ie6 .ch-viewer-video {
+	text-align:center;
+}/* Trigger */
 .ch-expando-trigger{
 	color:#0637B3;
 	cursor:pointer;
@@ -1964,16 +1950,19 @@ form .disabled input{
 .ch-zoom-trigger {
 	position:relative;
 	overflow:hidden;
-	cursor:default;
 	display:block;
-	cursor:crosshair;
 }
 
 /* Seeker shape */
 .ch-zoom-trigger .ch-seeker {
-	background-color:rgba(0,0,255,.1);
-	border:1px solid #00f;
+	border:1px solid #ccc;
+	background:#eee;
+	opacity:0.3;
+	filter:alpha(opacity=30);
 	position:absolute;
+	cursor: zoom-in;
+	cursor: -moz-zoom-in;
+	cursor: -webkit-zoom-in;
 }
 
 /* Zoomed area */
@@ -1994,3 +1983,10 @@ form .disabled input{
 .ch-zoom-content img {
 	position:absolute;
 }
+
+/* IE */
+.ie6 .ch-zoom-trigger .ch-seeker,
+.ie7 .ch-zoom-trigger .ch-seeker,
+.ie8 .ch-zoom-trigger .ch-seeker {
+	cursor:crosshair;
+};
