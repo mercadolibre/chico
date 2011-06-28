@@ -69,42 +69,6 @@ ch.floats = function() {
 		return;
 	};
 
-    /**
-     * Process al UI configuration and creates the components layout.
-     * @private
-     * @name createLayout
-     * @function
-     * @memberOf ch.Floats
-     */ 
-    var createLayout = function() {
-
-		// Create the component container
-		that.$container = $("<div class=\"ch-"+ that.type +"\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">");
-		// Create the content container
-		that.$content = $("<div class=\"ch-"+ that.type +"-content\">").appendTo(that.$container);
-		
-		// Visual configuration
-		if( ch.utils.hasOwn(conf, "classes") ) { that.$container.addClass(conf.classes); }
-		if( ch.utils.hasOwn(conf, "width") ) { that.$container.css("width", conf.width); }
-		if( ch.utils.hasOwn(conf, "height") ) { that.$container.css("height", conf.height); }
-		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) { createClose(); }
-		if( ch.utils.hasOwn(conf, "cone") ) { createCone(); }
-		if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; }
-		
-		// Cache - Default: true
-		//conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
-
-		// Position component
-		conf.position = conf.position || {};
-		conf.position.element = that.$container;
-		conf.position.hold = conf.hold || false;
-		ch.positioner.call(that);
-		
-		// Return the entire Layout
-		return that.$container;
-    };
-    
-
 /**
  *  Protected Members
  */ 
@@ -129,6 +93,50 @@ ch.floats = function() {
      * @memberOf ch.Floats
      */
 	that.source = conf.content || conf.msg || that.$element.attr('href') || that.$element.parents('form').attr('action');
+
+
+    /**
+     * Container for UI Component.
+     * @public
+     * @name $container
+     * @type {jQuery Object}
+     * @memberOf ch.Floats
+     */ 
+    that.$container = (function() { // Create Layout
+
+		// Create the component container
+		that.$container = $("<div class=\"ch-"+ that.type +"\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">");
+				
+		// Visual configuration
+		if( ch.utils.hasOwn(conf, "classes") ) { that.$container.addClass(conf.classes); }
+		if( ch.utils.hasOwn(conf, "width") ) { that.$container.css("width", conf.width); }
+		if( ch.utils.hasOwn(conf, "height") ) { that.$container.css("height", conf.height); }
+		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) { createClose(); }
+		if( ch.utils.hasOwn(conf, "cone") ) { createCone(); }
+		if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; }
+		
+		// Cache - Default: true
+		//conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
+
+		// Position component
+		conf.position = conf.position || {};
+		conf.position.element = that.$container;
+		conf.position.hold = conf.hold || false;
+		ch.positioner.call(that);
+		
+		// Return the entire Layout
+		return that.$container;
+
+    })(); 
+
+    /**
+     * Container for UI Component's content.
+     * @public
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Floats
+     */ 
+	that.$content = $("<div class=\"ch-"+ that.type +"-content\">").appendTo(that.$container);
 
     /**
      * This callback is triggered when async data is loaded into component's content, when ajax content comes back.
@@ -160,12 +168,9 @@ ch.floats = function() {
 		// Avoid showing things that are already shown
 		if ( that.active ) return;
 		
-		// Need to have a Layout		
-		if ( !that.$container ) {
-            createLayout();
-		}
-
+		// Get content
 		that.staticContent = that.content();
+		// Saves content
         that.$content.html(that.staticContent);
 
         // Add layout to DOM tree
