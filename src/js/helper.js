@@ -52,7 +52,7 @@ ch.helper = function(controller){
 
 		if ( !that.active ) {
 			// Load content and show!
-			conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';
+			that.source = '<p><span class="ico error">Error: </span>' + text + '</p>';
 			that.parent.show();
 			
 		} else {

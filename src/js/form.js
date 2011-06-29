@@ -274,7 +274,7 @@ ch.form = function(conf) {
      * @type {String}
      * @memberOf ch.Form
      */
-	that["public"].messages = conf.messages;
+	that["public"].messages = conf.messages || {};
     /**
      * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
      * @function
