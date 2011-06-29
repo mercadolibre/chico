@@ -1147,14 +1147,10 @@ ch.object = function(){
 
             // Local argument
             content = content,
-            // Local static content reference
-            staticContent = that.staticContent,
-            // Local content source reference
-            source = that.source,
             // Local isURL
-            sourceIsUrl = ch.utils.isUrl(source),
+            sourceIsUrl = ch.utils.isUrl(that.source),
             // Local isSelector
-            sourceIsSelector = ch.utils.isSelector(source),
+            sourceIsSelector = ch.utils.isSelector(that.source),
             // Get context, could be a single component or a controller
             context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"],
             // undefined, for comparison.
@@ -1169,13 +1165,13 @@ ch.object = function(){
 		if ( _get ) {
 
 			// no source, no content
-            if ( source === undefined ) {
+            if ( that.source === undefined ) {
                 return "<p>No content defined for this component</p>";    
             }
 
             // Get data from cache for DOMContent or AJAXContent
             if ( cache && ( sourceIsSelector || sourceIsUrl )) {
-                var fromCache = ch.cache.get(source);
+                var fromCache = ch.cache.get(that.source);
                 if (fromCache) {
                     return fromCache;
                 }
@@ -1184,52 +1180,64 @@ ch.object = function(){
             // First time we need to get the contemt.
             // Is cache is off, go and get content again.
             // Yeap, recursive.
-            if ( !cache || staticContent === undefined ) {
-            	return that.content(source);
+            if ( !cache || that.staticContent === undefined ) {
+            	return that.content(that.source);
             }
 
             // Flag to remove DOM content and avoid ID duplication
             if ( sourceIsSelector ) {
-            	$(source).detach();
+            	$(that.source).detach();
             }
             
 			// get at last
-            return staticContent;
+            return that.staticContent;
 
 		}
 
     /**
      * Set content
      */	
-     
+
+    // Reset cache to overwrite content
+	conf.cache = false;
+
+		// Local isURL
+	var isUrl = ch.utils.isUrl(content),
+		// Local isSelector
+		isSelector = ch.utils.isSelector(content);
+
     /* Evaluate static content */  
-        
-        // set 'staticContent' as defined in source
-		staticContent = source;
+
+        // Set 'that.staticContent'.
+		// Overwrite 'that.source' just in case you 
+		// want to update DOM or AJAX Content.
+		that.staticContent = that.source = content;
 
     /* Evaluate DOM content */
 
-        if (sourceIsSelector) {
-									            
+        if (isSelector) {
+			
+			// Save DOMParent, so we know where to re-insert the content.
             that.DOMParent = $(content).parent();
+            // Check if content was visible or not.
             that.DOMContentIsVisible = $(content).is(":visible")
 
-            // Return DOM content            
-			staticContent = $(content).removeClass("ch-hide").remove();
+            // Return DOM content, remove it from DOM to avoid ID duplications
+			that.staticContent = $(content).removeClass("ch-hide").remove();
 			
 			// Save new data to the cache
             if (cache) {
-            	ch.cache.set(source,staticContent);
+            	ch.cache.set(that.source, that.staticContent);
             }       
         }
 
         // trigger onContentLoad callback for DOM and Static,
         // Avoid trigger this callback on AJAX requests.
-		if ( ch.utils.hasOwn(conf, "onContentLoad") && !sourceIsUrl) { conf.onContentLoad.call( context ); }
+		if ( ch.utils.hasOwn(conf, "onContentLoad") && !isUrl) { conf.onContentLoad.call( context ); }
 
     /* Evaluate AJAX content */  
 
-        if (sourceIsUrl) {
+        if (isUrl) {
             
             var _method, _serialized, _params = "x=x";
             
@@ -1241,7 +1249,7 @@ ch.object = function(){
 			};
 			
 			$.ajax({
-				url: source,
+				url: that.source,
 				type: _method || 'GET',
 				data: _params,
 				// each component could have a different cache configuration
@@ -1260,7 +1268,7 @@ ch.object = function(){
 					}
 					// Save new data to the cache
                     if (cache) {
-                        ch.cache.set(source,data);
+                        ch.cache.set(that.source,data);
                     }
 				},
 				error: function(jqXHR, textStatus, errorThrown){
@@ -1274,13 +1282,17 @@ ch.object = function(){
 			});
 
             // Return Spinner and wait for callbacks
-			staticContent = '<div class="loading"></div>';
+			that.staticContent = '<div class="loading"></div>';
 
         }
 
+     /* Set previous cache configuration */
+
+		conf.cache = cache;
+
      /* Finally return 'staticContent' */
 
-		return staticContent;
+		return that.staticContent;
     };
 
    /**
@@ -1414,42 +1426,6 @@ ch.floats = function() {
 		return;
 	};
 
-    /**
-     * Process al UI configuration and creates the components layout.
-     * @private
-     * @name createLayout
-     * @function
-     * @memberOf ch.Floats
-     */ 
-    var createLayout = function() {
-
-		// Create the component container
-		that.$container = $("<div class=\"ch-"+ that.type +"\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">");
-		// Create the content container
-		that.$content = $("<div class=\"ch-"+ that.type +"-content\">").appendTo(that.$container);
-		
-		// Visual configuration
-		if( ch.utils.hasOwn(conf, "classes") ) { that.$container.addClass(conf.classes); }
-		if( ch.utils.hasOwn(conf, "width") ) { that.$container.css("width", conf.width); }
-		if( ch.utils.hasOwn(conf, "height") ) { that.$container.css("height", conf.height); }
-		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) { createClose(); }
-		if( ch.utils.hasOwn(conf, "cone") ) { createCone(); }
-		if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; }
-		
-		// Cache - Default: true
-		//conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
-
-		// Position component
-		conf.position = conf.position || {};
-		conf.position.element = that.$container;
-		conf.position.hold = conf.hold || false;
-		ch.positioner.call(that);
-		
-		// Return the entire Layout
-		return that.$container;
-    };
-    
-
 /**
  *  Protected Members
  */ 
@@ -1473,7 +1449,51 @@ ch.floats = function() {
      * @type {String}
      * @memberOf ch.Floats
      */
-	that.source = conf.content || conf.msg || that.$element.attr('href') || that.$element.parents('form').attr('action');
+	that.source = conf.content || conf.msg || conf.ajax || that.$element.attr('href') || that.$element.parents('form').attr('action');
+
+
+    /**
+     * Container for UI Component.
+     * @public
+     * @name $container
+     * @type {jQuery Object}
+     * @memberOf ch.Floats
+     */ 
+    that.$container = (function() { // Create Layout
+
+		// Create the component container
+		that.$container = $("<div class=\"ch-"+ that.type +"\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">");
+				
+		// Visual configuration
+		if( ch.utils.hasOwn(conf, "classes") ) { that.$container.addClass(conf.classes); }
+		if( ch.utils.hasOwn(conf, "width") ) { that.$container.css("width", conf.width); }
+		if( ch.utils.hasOwn(conf, "height") ) { that.$container.css("height", conf.height); }
+		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) { createClose(); }
+		if( ch.utils.hasOwn(conf, "cone") ) { createCone(); }
+		if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; }
+		
+		// Cache - Default: true
+		//conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
+
+		// Position component
+		conf.position = conf.position || {};
+		conf.position.element = that.$container;
+		conf.position.hold = conf.hold || false;
+		ch.positioner.call(that);
+		
+		// Return the entire Layout
+		return that.$container;
+
+    })(); 
+
+    /**
+     * Container for UI Component's content.
+     * @public
+     * @name $content
+     * @type {jQuery Object}
+     * @memberOf ch.Floats
+     */ 
+	that.$content = $("<div class=\"ch-"+ that.type +"-content\">").appendTo(that.$container);
 
     /**
      * This callback is triggered when async data is loaded into component's content, when ajax content comes back.
@@ -1505,12 +1525,9 @@ ch.floats = function() {
 		// Avoid showing things that are already shown
 		if ( that.active ) return;
 		
-		// Need to have a Layout		
-		if ( !that.$container ) {
-            createLayout();
-		}
-
+		// Get content
 		that.staticContent = that.content();
+		// Saves content
         that.$content.html(that.staticContent);
 
         // Add layout to DOM tree
@@ -4104,6 +4121,7 @@ ch.layer = function(conf) {
 	conf = ch.clon(conf);
 	conf.cone = true;
 	conf.classes = "box";
+	conf.closeButton = 	(conf.event === 'click') ? true : false;
 	conf.position = {};
 	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
@@ -4314,9 +4332,6 @@ ch.layer = function(conf) {
  */
 	// Click
 	if(conf.event === 'click') {
-		// Local configuration
-		conf.closeButton = true;
-
 		// Trigger events
 		that.$trigger
 			.css('cursor', 'pointer')
@@ -5439,7 +5454,7 @@ ch.helper = function(controller){
 
 		if ( !that.active ) {
 			// Load content and show!
-			conf.content = '<p><span class="ico error">Error: </span>' + text + '</p>';
+			that.source = '<p><span class="ico error">Error: </span>' + text + '</p>';
 			that.parent.show();
 			
 		} else {
@@ -5827,7 +5842,7 @@ ch.form = function(conf) {
      * @type {String}
      * @memberOf ch.Form
      */
-	that["public"].messages = conf.messages;
+	that["public"].messages = conf.messages || {};
     /**
      * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
      * @function
