@@ -47,7 +47,7 @@
 		
 		<h2>Modal callback onContentLoad.</h2>
 		<div class="box">
-			<form action="../test.html" method="post">
+			<form action="../test.html?a=A" method="post">
 				<input type="submit" class="btn primary" id="testModalCall2" value="Buy">				
 			</form>
 		</div>
@@ -264,9 +264,9 @@
 		});
 		
 		test('Set new modal content', function(){
-			expect( 1 );
 
 			testModalChangeContent.show();
+			
 			testModalChangeContent.content("Content change...");
 			
 			equal( testModalChangeContent.content(), "Content change...", "Expected to find a new content on the modal");
@@ -393,14 +393,13 @@
         	expect( 1 );
         	
             testModalCall2 = $('#testModalCall2').modal({
-            	
 				onContentLoad: function(){ 
-                    $("body").addClass("onContentLoad");
+					
+					console.log("onContentLoad");
+                    
                     start();
 
-                    hasClass("body", "onContentLoad");
-                    
-                    $("body").removeClass("onContentLoad");
+		            ok ( true , "onContentLoad working fine.");
                     
                     this.hide();
                }
@@ -418,13 +417,11 @@
             testModalCall3 = $('#testModalCall3').modal({
             	ajax: "http://www.google.com",
 				onContentError: function(){
-					$("body").addClass("onContentError");
 
 					start();
-					hasClass("body", "onContentError");
 
-					$("body").removeClass("onContentError");
-
+		            ok ( true , "onContentError working fine.");
+		            
 					this.hide();
 
 					return "Callback:  onContentError";            

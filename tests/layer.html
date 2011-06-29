@@ -210,7 +210,10 @@
 
         });
         
-        test("Content property of layer with content loaded via ajax (relative URL)", function(){
+/*  
+	TODO: Rethink and refactor all this tests.
+	
+      test("Content property of layer with content loaded via ajax (relative URL)", function(){
 
             expect( 1 );
 
@@ -225,7 +228,7 @@
        		ok( layer7.content() == "http://www.google.com", "Expected to find a defined content on the layer instance");
 
         });
-        
+  */      
         test("Set new content", function(){
 
             expect( 1 );
@@ -275,12 +278,12 @@
 		  
             expect( 2 );
 		  
-			$(".layer2").click();
+			layer2.show()
 			
 			exists(".ch-layer .close");
 			exists(".ch-layer .ch-cone");
 			
-			$("body").click();
+			layer2.hide();
 			
 		});
 		
