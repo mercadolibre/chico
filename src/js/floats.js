@@ -92,7 +92,7 @@ ch.floats = function() {
      * @type {String}
      * @memberOf ch.Floats
      */
-	that.source = conf.content || conf.msg || that.$element.attr('href') || that.$element.parents('form').attr('action');
+	that.source = conf.content || conf.msg || conf.ajax || that.$element.attr('href') || that.$element.parents('form').attr('action');
 
 
     /**

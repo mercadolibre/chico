@@ -28,6 +28,7 @@ ch.layer = function(conf) {
 	conf = ch.clon(conf);
 	conf.cone = true;
 	conf.classes = "box";
+	conf.closeButton = 	(conf.event === 'click') ? true : false;
 	conf.position = {};
 	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
@@ -238,9 +239,6 @@ ch.layer = function(conf) {
  */
 	// Click
 	if(conf.event === 'click') {
-		// Local configuration
-		conf.closeButton = true;
-
 		// Trigger events
 		that.$trigger
 			.css('cursor', 'pointer')
