@@ -148,7 +148,6 @@ ch.floats = function() {
     that.contentCallback = function(data) {
         that.staticContent = data;
         that.$content.html(that.staticContent);
-        
     	if ( ch.utils.hasOwn(conf, "position") ) {
     	   ch.positioner(conf.position);
     	}

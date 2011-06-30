@@ -158,9 +158,8 @@ ch.object = function(){
 
     /* Evaluate static content */  
 
-        // Set 'that.staticContent'.
-		// Overwrite 'that.source' just in case you 
-		// want to update DOM or AJAX Content.
+        // Set 'that.staticContent' and overwrite 'that.source'
+		// just in case you want to update DOM or AJAX Content.
 		that.staticContent = that.source = content;
 
     /* Evaluate DOM content */
@@ -189,6 +188,15 @@ ch.object = function(){
 
         if (isUrl) {
             
+            // First check Cache
+            // Check if this source is in our cache
+            if ( cache ) {
+                var fromCache = ch.cache.get(that.source);
+                if (fromCache) {
+                    return fromCache;
+                }
+            }
+
             var _method, _serialized, _params = "x=x";
             
 			// If the trigger is a form button, serialize its parent to send data to the server.
@@ -241,6 +249,9 @@ ch.object = function(){
 		conf.cache = cache;
 
      /* Finally return 'staticContent' */
+		
+		// Update Content
+		that.contentCallback.call(that,that.staticContent);
 
 		return that.staticContent;
     };
