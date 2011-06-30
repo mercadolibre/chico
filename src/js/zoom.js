@@ -64,7 +64,8 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	var zoomed = {};
-		zoomed.img = conf.content = $("<img>").prop("src", that.element.href);
+		// Define the content source 
+		zoomed.img = that.source = $("<img>").prop("src", that.element.href);
 	
     /**
      * Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
