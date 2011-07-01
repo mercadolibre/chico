@@ -313,6 +313,46 @@ ch.object = function(){
 	
 
  	that["public"] = {};
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Object
+     */
+   	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Object
+     */
+	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Object
+     */
+	that["public"].type = that.type;
+    
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Object
+     */
+	that["public"].position = that.position;
+    /**
+     * Positioning configuration.
+     * @public
+     * @function
+     * @name content
+     * @memberOf ch.Object
+     */
+	that["public"].content = that.content;
 	
 	return that;
 };

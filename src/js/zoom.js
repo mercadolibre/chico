@@ -113,7 +113,7 @@ ch.zoom = function(conf) {
 		
 		return;
 	};
-	
+		
 	/**
      * Calculates zoomed image sizes and adds event listeners to trigger of float element
      * @private
@@ -159,8 +159,10 @@ ch.zoom = function(conf) {
 		original.offset = original.img.offset();
 
 		// Move
-		that.$element.bind("mousemove", function(event){ move(event); })
-		
+		that.$element.bind("mousemove", function(event){ 
+			move(event); 
+		});
+
 		// Seeker
 		seeker.shape.removeClass("ch-hide");
 		
@@ -211,27 +213,21 @@ ch.zoom = function(conf) {
      * @memberOf ch.Zoom
      */
 	that.size = function(prop, data) {
-		// Getter
-		if (!data) {
-			return that.conf[prop];
+
+		if (data) {
+
+			// Seeker: shape size relative to zoomed image respect zoomed area
+			var size = (original[prop] * data) / zoomed[prop];
+		
+			// Seeker: sets shape size
+			seeker.shape[prop](size);
+		
+			// Seeker: save shape half size for position it respect cursor
+			seeker[prop] = size / 2;
+
 		};
 
-		// Setter
-		that.conf[prop] = data;
-		
-		// Container
-		that.$container[prop](data);
-		
-		// Seeker: shape size relative to zoomed image respect zoomed area
-		var size = (original[prop] * data) / zoomed[prop];
-		
-		// Seeker: sets shape size
-		seeker.shape[prop](size);
-		
-		// Seeker: save shape half size for position it respect cursor
-		seeker[prop] = size / 2;
-
-		return that;
+		return that.parent.size(prop, data);
 	};
 
 /**
@@ -245,7 +241,6 @@ ch.zoom = function(conf) {
      * @type {Number}
      * @memberOf ch.Zoom
      */
-   	that["public"].uid = that.uid;
    	
     /**
      * Reference to trigger element.
@@ -254,7 +249,6 @@ ch.zoom = function(conf) {
      * @type {HTMLElement}
      * @memberOf ch.Zoom
      */
-	that["public"].element = that.element;
 	
     /**
      * Component type.
@@ -263,7 +257,6 @@ ch.zoom = function(conf) {
      * @type {String}
      * @memberOf ch.Zoom
      */
-	that["public"].type = that.type;
 	
     /**
      * Gets the component content. In Zoom component it's the zoomed image reference.
@@ -286,11 +279,6 @@ ch.zoom = function(conf) {
      * @returns {Chico-UI Object}
      * @memberOf ch.Zoom
      */
-	that["public"].show = function(){
-		that.show();
-		
-		return that["public"];
-	};
 	
     /**
      * Hides float element that contains the zoomed image.
@@ -300,11 +288,6 @@ ch.zoom = function(conf) {
      * @returns {Chico-UI Object}
      * @memberOf ch.Zoom
      */
-	that["public"].hide = function(){
-		that.hide();
-		
-		return that["public"];
-	};
 
     /**
      * Gets and sets Zoom position.
@@ -326,7 +309,6 @@ ch.zoom = function(conf) {
      * // Get current position.
      * $("a").zoom().position();
      */
-	that["public"].position = that.position;
 	
     /**
      * Gets and sets the width size of float element.
@@ -343,11 +325,7 @@ ch.zoom = function(conf) {
      * // Sets width of Zoom float element and updates the seeker size to keep these relation.
      * foo.width(500);
      */
-	that["public"].width = function(data){
-		that.size("width", data);
-		
-		return that["public"];
-	};
+
 	
     /**
      * Gets and sets the height size of float element.
@@ -364,11 +342,6 @@ ch.zoom = function(conf) {
      * // Sets height of Zoom float element and update the seeker size to keep these relation.
      * foo.height(500);
      */
-	that["public"].height = function(data){
-		that.size("height", data);
-		
-		return that["public"];
-	};
 
 	
 /**
