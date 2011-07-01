@@ -158,9 +158,8 @@ ch.object = function(){
 
     /* Evaluate static content */  
 
-        // Set 'that.staticContent'.
-		// Overwrite 'that.source' just in case you 
-		// want to update DOM or AJAX Content.
+        // Set 'that.staticContent' and overwrite 'that.source'
+		// just in case you want to update DOM or AJAX Content.
 		that.staticContent = that.source = content;
 
     /* Evaluate DOM content */
@@ -189,6 +188,15 @@ ch.object = function(){
 
         if (isUrl) {
             
+            // First check Cache
+            // Check if this source is in our cache
+            if ( cache ) {
+                var fromCache = ch.cache.get(that.source);
+                if (fromCache) {
+                    return fromCache;
+                }
+            }
+
             var _method, _serialized, _params = "x=x";
             
 			// If the trigger is a form button, serialize its parent to send data to the server.
@@ -241,6 +249,9 @@ ch.object = function(){
 		conf.cache = cache;
 
      /* Finally return 'staticContent' */
+		
+		// Update Content
+		that.contentCallback.call(that,that.staticContent);
 
 		return that.staticContent;
     };
@@ -302,6 +313,46 @@ ch.object = function(){
 	
 
  	that["public"] = {};
+    /**
+     * The component's instance unique identifier.
+     * @public
+     * @name uid
+     * @type {Number}
+     * @memberOf ch.Object
+     */
+   	that["public"].uid = that.uid;
+    /**
+     * The element reference.
+     * @public
+     * @name element
+     * @type {HTMLElement}
+     * @memberOf ch.Object
+     */
+	that["public"].element = that.element;
+    /**
+     * The component's type.
+     * @public
+     * @name type
+     * @type {String}
+     * @memberOf ch.Object
+     */
+	that["public"].type = that.type;
+    
+    /**
+     * Positioning configuration.
+     * @public
+     * @name position
+     * @memberOf ch.Object
+     */
+	that["public"].position = that.position;
+    /**
+     * Positioning configuration.
+     * @public
+     * @function
+     * @name content
+     * @memberOf ch.Object
+     */
+	that["public"].content = that.content;
 	
 	return that;
 };
