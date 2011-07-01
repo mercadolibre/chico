@@ -140,7 +140,8 @@ ch.positioner = function(o) {
      */
 	var getViewport = function() {
         
-        var viewport, width, height, left, top, pageX, pageY, scrollBar = 30;	    
+        // TODO: Calc scrollbar size
+        var viewport, width, height, left, top, pageX, pageY, scrollBar = 0;
 	    	    
         // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
 	    if (typeof window.innerWidth != "undefined") {
