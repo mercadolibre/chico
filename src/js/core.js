@@ -73,23 +73,21 @@ var ch = window.ch = {
 		document: $(document),
 		zIndex: 1000,
 		index: 0, // global instantiation index
+		isTag: function(string){
+			return (/<([\w:]+)/).test(string);
+		},
 		isSelector: function(string){
 
-			if(typeof string !== "string") return false;
+			if (typeof string !== "string") return false;
 
 			for (var regex in $.expr.match){
 
-				if ($.expr.match[ regex ].test(string) && $(string).length > 0) {
-
-					if (regex == "TAG" && (/(<([a-z]|\/).*?>)/).test(string)) {
-						return false;
-					};
-
+				if ($.expr.match[ regex ].test(string) && $(string).length > 0 && !ch.utils.isTag(string)) {
 					return true;
 				};
 
 			};
-			
+
 			return false;
 		},
 		isArray: function( o ) {
