@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flavor</title>
+	
+	<!-- Default styles -->
+	<link id="original" rel="stylesheet" type="text/css" href="/php/packer.php?type=css&debug=true">
+	<link rel="stylesheet" type="text/css" href="/src/css/doc.css">
+	<link rel="stylesheet" type="text/css" href="/src/css/mesh.css">
+	
+	<!-- Custom styles -->
+	<style id="custom">
+	
+	</style>
+	
+	<!-- Layout styles -->
+	<style>
+	
+		#init {
+			position: fixed;
+			width: 100%;
+			height: 500px;
+		}
+		
+		#init .loading {
+			margin: 200px auto;
+		}
+	
+		#demo {
+			display:none;
+		}
+
+		#editor {
+			display:none;
+			position: fixed;
+			right: 0;
+			padding: 10px;
+			background-color: #EEEEEE;
+		}
+		
+		#input-text {
+			display:block;
+			width: 550px;
+			height: 400px;
+		}
+		
+	</style>
+	
+</head>
+<body>
+
+	<h1>Flavors</h1>
+	<p>Edit your flavor and download it!</p>
+
+	<div id="init">
+		<div class="loading"></div>
+	</div>
+
+	<div id="demo" class="ch-g1-2">
+	<h1>Chico-UI</h1>
+
+	<div class="container"> 
+		<h1>Header 1</h1> 
+		<h2>Header 2</h2> 
+		<h3>Header 3</h3> 
+		<h4>Header 4</h4> 
+		<h5>Header 5</h5> 
+		<h6>Header 6</h6>
+		<p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	</div> 
+
+	<div class="box"> 
+		<h2>Links</h2> 
+
+		<p><a href="http://www.mercadolibre.com">MercadoLibre</a></p> 
+		<p><a href="http://www.mercadopago.com">MercadoPago</a></p> 
+		<p><a href="http://www.mercadoshops.com">MercadoShops</a></p> 
+		<p><a href="http://www.mercadoclics.com">MercadoClics</a></p> 
+	</div> 
+
+	<div class="box"> 
+		<h2>Boxes</h2> 
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+	</div> 
+
+	<div class="box">
+		<h2>Buttons</h2> 
+		<p><input type="button" class="btn primary" value="Primary button"></p> 
+		<p><input type="button" class="btn secondary" value="Secondary button"></p>
+		<p><input type="button" class="btn secondary skin" value="Secondary button cyan"></p>
+
+		<p><input type="button" class="btn primary disabled" disabled="disabled" value="Primary disabled"></p> 
+		<p><input type="button" class="btn secondary disabled" disabled="disabled" value="Secondary disabled"></p> 
+	</div> 
+	
+	<div class="box">
+			<table summary="Listado de cobros en MercadoPago">
+				<caption>Table</caption>
+				<thead>
+					<tr>
+						<th scope="col"><input type="checkbox" name="mycheckall"/></th>
+						<th scope="col">Datos de inicio</th>
+						<th scope="col">Tipo de operación</th>
+						<th scope="col" class="selected">Contraparte</th>
+						<th scope="col">Descripción</th>
+						<th scope="col">Valor</th>
+						<th scope="col">Status de la operación</th>
+						<th scope="col">Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td scope="row"><input type="checkbox" name="mycheck"/></td>
+						<td>02/04/2011</td>
+						<td><a href="#">Valor de venta del producto</a></td>
+						<td><a href="#">usuariontest@gmail.com</a></td>
+						<td>Compras en MercadoLibre</td>
+						<td><span class="value">$1200,30</span></td>
+						<td>Pendiente de pago</td>
+						<td>select	
+						</td>
+					</tr>
+					<tr class="selected">
+						<td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
+						<td>02/04/2011</td>
+						<td><a href="#">Valor de venta del producto</a></td>
+						<td><a href="#">usuariontest@gmail.com</a></td>
+						<td>Compras en MercadoLibre</td>
+						<td><span class="value">$1200,30</span></td>
+						<td>Pendiente de pago</td>
+						<td>select</td>
+					</tr>
+					<tr>
+						<td scope="row"><input type="checkbox" name="mycheck"/></td>
+						<td>02/04/2011</td>
+						<td><a href="#">Valor de venta del producto</a></td>
+						<td><a href="#">usuariontest@gmail.com</a></td>
+						<td>Compras en MercadoLibre</td>
+						<td><span class="value">$1200,30</span></td>
+						<td>Pendiente de pago</td>
+						<td>select</td>
+					</tr>
+					<tr>
+						<td scope="row"><input type="checkbox" name="mycheck"/></td>
+						<td>02/04/2011</td>
+						<td><a href="#">Valor de venta del producto</a></td>
+						<td><a href="#">usuariontest@gmail.com</a></td>
+						<td>Compras en MercadoLibre</td>
+						<td><span class="value">$1200,30</span></td>
+						<td>Pendiente de pago</td>
+						<td>select</td>
+					</tr>
+				</tbody>
+			</table>
+	</div>
+
+	<div class="box"> 
+		<h2>Expando</h2> 
+		<div class="YOUR_SELECTOR_Expando"> 
+			<h4>Lorem ipsum dolor sit amet.</h4> 
+			<div> 
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+			</div> 
+		</div> 
+	</div> 
+
+
+	<div class="box">
+		<h2>Accordion</h2>
+		<ul class="YOUR_SELECTOR_Accordion">
+			<li>
+				<span>Item</span>
+				<ul>
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Item</span>
+				<ul>
+
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Item</span>
+				<ul>
+
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Item</span>
+				<ul>
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Link</a>
+			</li>
+			<li>
+				<a href="#">Link</a>
+			</li>
+		</ul>
+	</div>
+	</div>
+	
+	<div id="editor">
+		<form>
+			<fieldset>
+				<legend>Editor</legend>
+				<p>Edit CSS code below and see live changes on the demo.</p>
+				<textarea id="input-text"></textarea>
+				<input type="submit" value="Download">
+			</fieldset>
+		</form>
+	</div>
+
+
+	<script src="/libs/js/jquery.js"></script>
+	<script src="/php/packer.php?debug=true"></script>
+	<script type="text/javascript">
+	
+		var original = $("#original").remove().attr("href");
+		
+		$.get(original,function (data) {
+			$("#custom").html(data);
+			$("#input-text").val(data);
+			$("#demo, #editor").fadeIn("slow");
+			$("#init").fadeOut();
+		})
+		
+		$("#input-text").keyup(function (event) {
+			var data = $(this).val();
+			$('#custom').html(data);
+		});
+	
+	
+		// Demos
+		$('#YOUR_SELECTOR_Accordion').accordion();
+		
+	</script>
+</body>
+</html>
