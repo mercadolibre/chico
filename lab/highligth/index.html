@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Highlight</title>
+	<style>
+	.o {
+		width: 100px;
+		height: 100px;
+		border: 1px solid #000;
+	}
+	</style>
+</head>
+<body>
+<div id="t" class="o">
+<p>Je.</p>
+</div>
+<script type="text/javascript">
+var h = function(e){
+
+}
+
+var t = document.getElementById("t");
+	t.onclick = function() {
+		fade("t");
+	}
+
+function fade(id) {
+    var dom = document.getElementById(id),
+        level = 1;
+    function step () {
+        var h = level.toString(16);
+        dom.style.backgroundColor = '#FFFF' + h + h;
+        if (level < 15) {
+            level += 1;
+            setTimeout(step, 100);
+        }
+    }
+    setTimeout(step, 100);
+}
+
+</script>
+</body>
+</html>
