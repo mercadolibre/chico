@@ -162,7 +162,9 @@ ch.floats = function() {
      */ 
 	that.show = function(event) {
 		
-		if ( event ) that.prevent(event);
+		if ( event ) {
+			that.prevent(event);
+		}
 		
 		// Avoid showing things that are already shown
 		if ( that.active ) return;
@@ -209,9 +211,13 @@ ch.floats = function() {
      */ 
 	that.hide = function(event) {
 
-		if (event) that.prevent(event);
+		if (event) {
+			that.prevent(event);
+		}
 		
-		if (!that.active) return;
+		if (!that.active) {
+			return;
+		}
 
 		var afterHide = function(){ 
 			 
@@ -308,15 +314,41 @@ ch.floats = function() {
 		
 		return that["public"];
 	};
-	
+    /**
+     * Sets or gets the width of the Float element.
+     * @public
+     * @name width
+     * @function
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Float
+     */
 	that["public"].width = function(data) {
 		
 		return that.size("width", data) || that["public"];
 	};
-
+    /**
+     * Sets or gets the height of the Float element.
+     * @public
+     * @name height
+     * @function
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Float
+     */
 	that["public"].height = function(data) {
 			
 		return that.size("height", data) || that["public"];
+	};
+    
+    /**
+     * Returns true if the component is active.
+     * @public
+     * @name isActive
+     * @function
+     * @returns {Boolean}
+     * @memberOf ch.Floats
+     */
+	that["public"].isActive = function() {
+	   return that.active;
 	};
 	
 	return that;
