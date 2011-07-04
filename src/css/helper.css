@@ -9,13 +9,14 @@
 
 .ch-helper {
 	display:inline-block;
-	width:160px;
+	max-width:200px;
 	position:absolute;
 	z-index:300;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	padding:1px 3px;
+	line-height: 18px;
 }
 
 
@@ -25,6 +26,12 @@
 
 .ch-helper span {
 	padding:0;
+}
+
+.ch-helper-content p {
+    padding-left: 22px;
+    padding-right: 8px;
+    padding-top: 2px;
 }
 
 .ch-helper .ico.error,
