@@ -795,7 +795,6 @@
 	
 	<script src="libs/js/jquery.js"></script>
 	<script src="php/packer.php?debug=true"></script>
-	<!--script src="http://download.chico-ui.com.ar/0.6.8-3/chico-min-0.6.8.js"></script-->
 	<script> 
 
 		// Automatic version
@@ -828,7 +827,7 @@
               },
 		      onContentError: function(){ 
 		      	console.log("onContentError working fine") 
-		      },
+		      }
 		});
 		
 		// Modal with visible and invisible DOM Content
@@ -857,12 +856,12 @@
 		
 		// Tab Navigator
 		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator();
-		
+
 		// Expando
 		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
 
 		// Calendar
-		var calendar = $(".myCalendar").calendar();
+		var calendar = $(".myCalendar").calendar("today");
 
 		// Form
 		var ch_form = $('.YOUR_SELECTOR_Form').form({onSubmit:function(){}});
