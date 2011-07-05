@@ -22,7 +22,7 @@ class Packer {
     
     // files to load
     private $files;
-    private $components = "carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,expando,menu,zoom";
+    private $components = "blink,carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,expando,menu,zoom";
     private $internals = "cache,positioner,object,floats,navs,controllers,watcher,keyboard,preload,list,extend,onImagesLoads";
 
 
