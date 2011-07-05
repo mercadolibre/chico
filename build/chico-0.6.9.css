@@ -765,10 +765,13 @@ td {
 /* Calendar */
 .ch-calendar.ch-dropdown.secondary,
 .ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
-	height: 20px;
-    line-height: 20px;
-    padding: 0 5px 0 0;
-    width: 20px;
+    border-width: 0;
+    background-color:#FFF;
+    height: 24px;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+    width: 33px;
 }
 
 .ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
@@ -776,9 +779,10 @@ td {
 }
 
 .ch-calendar.ch-dropdown.secondary.ch-dropdown-on {
-	box-shadow: none;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;
+	box-shadow:	2px 0 0px #888888;
+	-moz-box-shadow: 2px 0 0px #888888;
+	-webkit-box-shadow:	2px 0 0px #888888;
+	padding: 0 0 4px;
 }
 
 .ch-calendar-prev,
@@ -790,14 +794,14 @@ td {
 }
 
 .ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
-	top:0;
-	right:3px;
-	margin:0;
-	height: 20px;
+	background-position: 0 0;
+    height: 20px;
+    left: 5px;
     line-height: 20px;
+    margin: 0;
     padding: 0;
-    width: 20px;	
-    background-position:0 0;
+    top: 1px;
+    width: 20px;
 }
 
 /* Container */
@@ -1394,13 +1398,14 @@ td {
 
 .ch-helper {
 	display:inline-block;
-	width:160px;
+	max-width:200px;
 	position:absolute;
 	z-index:300;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	padding:1px 3px;
+	line-height: 18px;
 }
 
 
@@ -1410,6 +1415,12 @@ td {
 
 .ch-helper span {
 	padding:0;
+}
+
+.ch-helper-content p {
+    padding-left: 22px;
+    padding-right: 8px;
+    padding-top: 2px;
 }
 
 .ch-helper .ico.error,
