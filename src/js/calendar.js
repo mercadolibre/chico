@@ -23,7 +23,7 @@ ch.calendar = function(conf) {
 
 	conf.format = conf.format || "DD/MM/YYYY";
 		
-	if (ch.utils.hasOwn(conf, "msg")) { conf.selected = ((conf.msg === "today")) ? new Date() : new Date(conf.msg); };
+	if (ch.utils.hasOwn(conf, "msg")) { conf.msg = ((conf.msg === "today")) ? new Date() : new Date(conf.msg); };
 	if (ch.utils.hasOwn(conf, "selected")) { conf.selected = ((conf.selected === "today")) ? new Date() : new Date(conf.selected); };
 
 	that.conf = conf;
@@ -77,7 +77,7 @@ ch.calendar = function(conf) {
      * @type {Date}
      * @memberOf ch.Calendar
      */
-	var _selected = conf.selected;
+	var _selected = conf.selected || conf.msg;
 
     /**
      * Creates tag thead with short name of week days
@@ -594,7 +594,8 @@ ch.calendar = function(conf) {
  */
 
 	that.element.type = "text";
-	that.element.value = _FORMAT_DATE[conf.format](conf.selected) || "";
+
+	that.element.value = ((_selected) ? _FORMAT_DATE[conf.format](_selected) : "");
 
 	_createLayout();
 
