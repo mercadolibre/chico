@@ -120,10 +120,10 @@ ch.floats = function() {
 
 		// Position component
 		conf.position = conf.position || {};
-		conf.position.element = that.$container;
+		//conf.position.element = that.$container;
 		conf.position.hold = conf.hold || false;
-		ch.positioner.call(that);
-		
+		//ch.positioner.call(that); // Is this necesary?
+
 		// Return the entire Layout
 		return that.$container;
 
@@ -161,7 +161,7 @@ ch.floats = function() {
      * @memberOf ch.Floats
      */ 
 	that.show = function(event) {
-		
+
 		if ( event ) {
 			that.prevent(event);
 		}
@@ -194,6 +194,9 @@ ch.floats = function() {
 			that.$container.removeClass("ch-hide");
 			that.callbacks("onShow");
 		};
+	
+		// TODO: Positioner should recalculate the element's size (width and height) 
+		conf.position.element = that.$container;
 
 		that.position("refresh");
 
