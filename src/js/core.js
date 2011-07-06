@@ -113,6 +113,10 @@ var ch = window.ch = {
 		},
 		hasOwn: function(o, property) {
 			return Object.prototype.hasOwnProperty.call(o, property);
+		},
+		// Based on: http://www.quirksmode.org/dom/getstyles.html
+		getStyles: function(o, style){
+			return getComputedStyle(o, "").getPropertyValue(style) || o.currentStyle[style];
 		}
 	},
 
@@ -134,7 +138,7 @@ var ch = window.ch = {
          */
         LAYOUT: {
             /**
-             * Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
+             * Every time Chico-UI needs to inform all visual components that layout has been changed, he triggers this event.
              * @name CHANGE
              * @memberOf ch.Events.LAYOUT
              * @see ch.Form
@@ -143,6 +147,28 @@ var ch = window.ch = {
              * @see ch.Helper 
              */
             CHANGE: "change"
+        },
+        /**
+         * Window event collection.
+         * @name WINDOW
+         * @namespace WINDOW
+         * @memberOf ch.Events
+         */
+        VIEWPORT: {
+            /**
+             * Every time Chico-UI needs to inform all visual components that window has been scrolled, he triggers this event.
+             * @name SCROLL
+             * @memberOf ch.Events.WINDOW
+             * @see ch.Positioner
+             */
+            SCROLL: "ch-scroll",
+            /**
+             * Every time Chico-UI needs to inform all visual components that window has been resized, he triggers this event.
+             * @name RESIZE
+             * @memberOf ch.Events.RESIZE
+             * @see ch.Positioner
+             */
+            RESIZE: "ch-resize"
         },
         /**
          * Keryboard event collection.
