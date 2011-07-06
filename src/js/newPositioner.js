@@ -1,138 +1,4 @@
 /**
- * Viewport is a reference to positions and sizes of visible area into browser.
- * @abstract
- * @name Viewport
- * @class Viewport
- * @memberOf ch
- * @returns {Viewport Object}
- */
-ch.viewport = (function () {
-	
-	// Object to be returned
-	var self = {};
-	
-	/**
-	* Width of viewport.
-	* @public
-	* @name width
-	* @type {Number}
-	* @memberOf ch.Viewport
-	*/
-		self.width =
-	
-	/**
-	* Height of viewport.
-	* @public
-	* @name height
-	* @type {Number}
-	* @memberOf ch.Viewport
-	*/
-		self.height =
-	
-	/**
-	* Left offset of viewport.
-	* @public
-	* @name left
-	* @type {Number}
-	* @memberOf ch.Viewport
-	*/
-		self.left =
-	
-	/**
-	* Top offset of viewport.
-	* @public
-	* @name top
-	* @type {Number}
-	* @memberOf ch.Viewport
-	*/
-		self.top = 0;
-	
-	// Main browsers
-	if (typeof window.innerWidth !== "undefined") {
-		
-		/**
-	     * Viewport HTML Element.
-	     * @public
-	     * @name element
-	     * @type {HTMLElement}
-	     * @memberOf ch.Viewport
-	     */
-		self.element = window;
-		
-		/**
-	     * Re-calculates width and height of viewport and updates ch.viewport.width and ch.viewport.height.
-	     * @public
-	     * @function
-	     * @name getSize
-	     * @returns {Size Object}
-	     * @memberOf ch.Viewport
-	     */
-		self.getSize = function () {
-			return {
-				width: ch.viewport.width = self.element.innerWidth,
-				height: ch.viewport.height = self.element.innerHeight
-			};
-		};
-		
-		/**
-	     * Re-calculates left and top of viewport and updates ch.viewport.left and ch.viewport.top.
-	     * @public
-	     * @function
-	     * @name getOffset
-	     * @returns {Offset Object}
-	     * @memberOf ch.Viewport
-	     */
-		self.getOffset = function () {
-			return {
-				left: ch.viewport.left = self.element.pageXOffset,
-				top: ch.viewport.top = self.element.pageYOffset
-			};
-		};
-	
-	// Fallback
-	} else {
-		
-		/**
-	     * Viewport HTML Element.
-	     * @public
-	     * @type {HTMLElement}
-	     * @memberOf ch.Viewport
-	     */
-		self.element = document.documentElement;
-		
-		/**
-	     * Re-calculates width and height of viewport and updates ch.viewport.width and ch.viewport.height.
-	     * @public
-	     * @function
-	     * @returns {Size Object}
-	     * @memberOf ch.Viewport
-	     */
-		self.getSize = function () {
-			return {
-				width: ch.viewport.width = self.element.clientWidth,
-				height: ch.viewport.height = self.element.clientHeight
-			};
-		};
-		
-		/**
-	     * Re-calculates left and top of viewport and updates ch.viewport.left and ch.viewport.top.
-	     * @public
-	     * @function
-	     * @returns {Offset Object}
-	     * @memberOf ch.Viewport
-	     */
-		self.getOffset = function () {
-			return {
-				left: self.element.scrollLeft,
-				top: self.element.scrollTop
-			};
-		};
-	}
-	
-	return self;
-}());
-
-/**
  * Positioner is an utility that centralizes and manages changes related to positioned elements, and returns an utility that resolves positioning for all UI-Objects.
  * @abstract
  * @name newPositioner
@@ -151,7 +17,7 @@ ch.newPositioner = (function () {
      */
 	// TODO: incluir mas especificaciones como ch-out
 	// TODO: analizar si reducir cantidad de clases ej:ch-out-left-bottom
-	// TODO: completar casos con todas las posiciones que se soportan
+	// TODO: completar clases con todas las posiciones que se soportan
 	var CLASS_MAP = {
 		//"lt lt"
 		"lt lb": "ch-left ch-bottom",
@@ -332,115 +198,117 @@ ch.newPositioner = (function () {
 	     * offset[0] = 5;
 	     * offset[1] = 5;
 	     */
-			offset = (conf.offset || "0 0").split(" ");
-		offset[0] = parseInt(offset[0], 10);
-		offset[1] = parseInt(offset[1], 10);
+			offset = (conf.offset || "0 0").split(" "),
 		
 		/**
-		 * Context is a reference to positions and sizes of element that will be considered to carry out the position.
-		 * @name context
-		 * @class context
+		 * Defines context element, its size, position, and methods to re-calculate all.
+		 * @function
+		 * @name getContext
 		 * @memberOf ch.newPositioner
 		 * @returns {Context Object}
 		 */
-		var context = (function () {
-		
-			// Object to be returned.
-			var self = {};
-			
-			/**
-		     * Width of context.
-		     * @public
-		     * @name width
-		     * @type {Number}
-		     * @memberOf context
-		     */
+			getContext = function () {
+				
+				// Parse as Integer offset values
+				offset[0] = parseInt(offset[0], 10);
+				offset[1] = parseInt(offset[1], 10);
+				
+				// Object to be returned.
+				var self = {};
+				
+				/**
+			     * Width of context.
+			     * @public
+			     * @name width
+			     * @type {Number}
+			     * @memberOf context
+			     */
 				self.width =
-			
-			/**
-		     * Height of context.
-		     * @public
-		     * @name height
-		     * @type {Number}
-		     * @memberOf context
-		     */
-				self.height =
-			
-			/**
-		     * Left offset of context.
-		     * @public
-		     * @name left
-		     * @type {Number}
-		     * @memberOf context
-		     */
-				self.left =
-			
-			/**
-		     * Top offset of context.
-		     * @public
-		     * @name top
-		     * @type {Number}
-		     * @memberOf context
-		     */
-				self.top = 0;
-			
-			// Context from configuration
-			if (ch.utils.hasOwn(conf, "context")) {
 				
 				/**
-			     * Context HTML Element.
+			     * Height of context.
 			     * @public
-			     * @name element
-			     * @type {HTMLElement}
+			     * @name height
+			     * @type {Number}
 			     * @memberOf context
 			     */
-				self.element = $(conf.context);
+					self.height =
 				
 				/**
-			     * Re-calculates width and height of context and updates context.width and context.height.
+			     * Left offset of context.
 			     * @public
-			     * @function
-			     * @name getSize
-			     * @returns {Size Object}
+			     * @name left
+			     * @type {Number}
 			     * @memberOf context
 			     */
-				self.getSize = function () {
-					return {
-						width: context.width = self.element.outerWidth(),
-						height: context.height = self.element.outerHeight()
-					};
-				};
+					self.left =
 				
 				/**
-			     * Re-calculates left and top of context and updates context.left and context.top.
+			     * Top offset of context.
 			     * @public
-			     * @function
-			     * @name getOffset
-			     * @returns {Offset Object}
+			     * @name top
+			     * @type {Number}
 			     * @memberOf context
 			     */
-				self.getOffset = function () {
+					self.top = 0;
+				
+				// Context from configuration
+				if (ch.utils.hasOwn(conf, "context")) {
 					
-					// Gets offset of context element
-					var contextOffset = self.element.offset();
+					/**
+				     * Context HTML Element.
+				     * @public
+				     * @name element
+				     * @type {HTMLElement}
+				     * @memberOf context
+				     */
+					self.element = $(conf.context);
 					
-					// Left and top are calculated including offset and relative parent positions
-					return {
-						left: context.left = contextOffset.left + offset[0] - relativeParent.left,
-						top: context.top = contextOffset.top + offset[1] - relativeParent.top
+					/**
+				     * Re-calculates width and height of context and updates context.width and context.height.
+				     * @public
+				     * @function
+				     * @name getSize
+				     * @returns {Size Object}
+				     * @memberOf context
+				     */
+					self.getSize = function () {
+						return {
+							width: context.width = self.element.outerWidth(),
+							height: context.height = self.element.outerHeight()
+						};
 					};
-				};
-			
-			// Context by default is viewport
-			} else {
+					
+					/**
+				     * Re-calculates left and top of context and updates context.left and context.top.
+				     * @public
+				     * @function
+				     * @name getOffset
+				     * @returns {Offset Object}
+				     * @memberOf context
+				     */
+					self.getOffset = function () {
+						
+						// Gets offset of context element
+						var contextOffset = self.element.offset();
+						
+						// Left and top are calculated including offset and relative parent positions
+						return {
+							left: context.left = contextOffset.left + offset[0] - relativeParent.left,
+							top: context.top = contextOffset.top + offset[1] - relativeParent.top
+						};
+					};
 				
-				// Self references to ch.viewport
-				self = ch.viewport;
+				// Context by default is viewport
+				} else {
+					
+					// Self references to ch.viewport
+					self = ch.viewport;
+					
+				}
 				
-			}
-			
-			return self;
-		}()),
+				return self;
+			},
 		
 		/**
 		 * It's the first of context's parents that is relativitly positioned.
@@ -472,7 +340,7 @@ ch.newPositioner = (function () {
 			     * @type {Number}
 			     * @memberOf relativeParent
 			     */
-					self.left =
+				self.left =
 				
 				/**
 			     * Top offset of relative parent.
@@ -577,7 +445,7 @@ ch.newPositioner = (function () {
 	     * @type {Boolean}
 	     * @memberOf ch.newPositioner
 	     */
-			repositioned = null;
+			repositioned,
 		
 		/**
 		 * Gets new coordinates and checks it's space into viewport.
@@ -586,76 +454,77 @@ ch.newPositioner = (function () {
 		 * @memberOf ch.newPositioner
 		 * @returns {Offset measures}
 		 */
-		getPosition = function () {
-			
-			// Gets coordinates from main points
-			var coordinates = getCoordinates(points);
-			
-			// Default behavior: returns left and top offset related to main points
-			if (!conf.reposition) {
+			getPosition = function () {
+				
+				// Gets coordinates from main points
+				var coordinates = getCoordinates(points);
+				
+				// Default behavior: returns left and top offset related to main points
+				if (!conf.reposition) {
+					return {
+						left: coordinates.left,
+						top: coordinates.top
+					};
+				}
+				
+				var newPoints, newCoordinates;
+				
+				// Intelligence
+				// TODO: Unificar los 3 casos de inteligencia en uno (solo cambian las 2 condiciones)
+				// Elements positioned at bottom without space in viewport (Element bottom > Viewport bottom)
+				// TODO: If points are in CORRELATION_MAP and last point is "b", then do it
+				if (
+					(points === "lt lb" || points === "rt rb") &&
+						(coordinates.top + offset[1] + $element.outerHeight() > ch.viewport.height || repositioned)
+				) {
+					newPoints = repositioned || CORRELATION_MAP[points];
+					newCoordinates = getCoordinates(newPoints);
+					
+					// Elements positioned at top without space in viewport (Element top < Viewport top)
+					if (newCoordinates.top + offset[1] > ch.viewport.top) {
+						coordinates = newCoordinates;
+						repositioned = (repositioned) ? null : points;
+						points = newPoints;
+					}
+				}
+				
+				if (
+					(points === "lb lt" || points === "rb rt") &&
+						(coordinates.top + offset[1] < ch.viewport.top || repositioned)
+				) {
+					newPoints = repositioned || CORRELATION_MAP[points];
+					newCoordinates = getCoordinates(newPoints);
+					
+					// Elements positioned at top without space in viewport (Element top < Viewport top)
+					if (newCoordinates.top + offset[1] + $element.outerHeight() < ch.viewport.height) {
+						coordinates = newCoordinates;
+						repositioned = (repositioned) ? null : points;
+						points = newPoints;
+					}
+				}
+				
+				// Elements positioned at right without space in viewport (Element right > Viewport right)
+				if (
+					(points === "lt rt") &&
+						(coordinates.left + offset[0] + $element.outerWidth() > ch.viewport.width || repositioned)
+				) {
+					newPoints = repositioned || CORRELATION_MAP[points];
+					newCoordinates = getCoordinates(newPoints);
+					
+					// Elements positioned at top without space in viewport (Element top < Viewport top)
+					if (newCoordinates.left + offset[0] > ch.viewport.left) {
+						coordinates = newCoordinates;
+						repositioned = (repositioned) ? null : points;
+						points = newPoints;
+					}
+				}
+				
+				// Returns left and top offset related to modified points
 				return {
 					left: coordinates.left,
 					top: coordinates.top
 				};
-			}
-			
-			var newPoints, newCoordinates;
-			
-			// Intelligence
-			// Elements positioned at bottom without space in viewport (Element bottom > Viewport bottom)
-			// TODO: If points are in CORRELATION_MAP and last point is "b", then do it
-			if (
-				(points === "lt lb" || points === "rt rb") &&
-					(coordinates.top + offset[1] + $element.outerHeight() > ch.viewport.height || repositioned)
-			) {
-				newPoints = repositioned || CORRELATION_MAP[points];
-				newCoordinates = getCoordinates(newPoints);
-				
-				// Elements positioned at top without space in viewport (Element top < Viewport top)
-				if (newCoordinates.top + offset[1] > ch.viewport.top) {
-					coordinates = newCoordinates;
-					repositioned = (repositioned) ? null : points;
-					points = newPoints;
-				}
-			}
-			
-			if (
-				(points === "lb lt" || points === "rb rt") &&
-					(coordinates.top + offset[1] < ch.viewport.top || repositioned)
-			) {
-				newPoints = repositioned || CORRELATION_MAP[points];
-				newCoordinates = getCoordinates(newPoints);
-				
-				// Elements positioned at top without space in viewport (Element top < Viewport top)
-				if (newCoordinates.top + offset[1] + $element.outerHeight() < ch.viewport.height) {
-					coordinates = newCoordinates;
-					repositioned = (repositioned) ? null : points;
-					points = newPoints;
-				}
-			}
-			
-			// Elements positioned at right without space in viewport (Element right > Viewport right)
-			if (
-				(points === "lt rt") &&
-					(coordinates.left + offset[0] + $element.outerWidth() > ch.viewport.width || repositioned)
-			) {
-				newPoints = repositioned || CORRELATION_MAP[points];
-				newCoordinates = getCoordinates(newPoints);
-				
-				// Elements positioned at top without space in viewport (Element top < Viewport top)
-				if (newCoordinates.left + offset[0] > ch.viewport.left) {
-					coordinates = newCoordinates;
-					repositioned = (repositioned) ? null : points;
-					points = newPoints;
-				}
-			}
-			
-			// Returns left and top offset related to modified points
-			return {
-				left: coordinates.left,
-				top: coordinates.top
-			};
-		};
+			},
 		
 		/**
 	     * Stores last changes on coordinates for evaluate necesaries redraws and reflows.
@@ -664,7 +533,7 @@ ch.newPositioner = (function () {
 	     * @type {Offset Object}
 	     * @memberOf ch.newPositioner
 	     */
-		var lastCoordinates = {},
+			lastCoordinates = {},
 		
 		/**
 		 * Triggers calculations of coordinates and checks if there are changes to re-positionate element.
@@ -749,7 +618,15 @@ ch.newPositioner = (function () {
 				}
 				
 				return position();
-			};
+			},
+			
+		/**
+		 * Context is a reference to positions and sizes of element that will be considered to carry out the position.
+		 * @name context
+		 * @type {Context Object}
+		 * @memberOf ch.newPositioner
+		 */
+			context = getContext();
 		
 		/**
 		 * Control panel that allows change configuration properties, refresh current position or get current configuration.
@@ -758,7 +635,7 @@ ch.newPositioner = (function () {
 		 * @param {Object} [o] Configuration object
 		 * @param {String} ["refresh"] Refresh current position
 		 * @memberOf ch.newPositioner
-		 * @returns {Object} o Configuration object is arguments are empty.
+		 * @returns {Control Panel Object}
 		 * @example
 		 * // Sets a new configuration
 		 * var foo = ch.positioner({ ... });
@@ -775,30 +652,50 @@ ch.newPositioner = (function () {
 			var r;
 			
 			switch (typeof o) {
-				
-			case "object":
-				conf.position.context = o.context || conf.position.context;
-				conf.position.points = o.points || conf.position.points;
-				conf.position.offset = o.offset || conf.position.offset;
-				conf.position.fixed = o.fixed || conf.position.fixed;
 			
-				ch.positioner(conf.position);
+			// Changes configuration properties and re-positions element
+			case "object":
+				// New points or current points
+				points = o.points || points;
 				
-				r = that;
+				// New reposition or current reposition
+				conf.reposition = o.reposition || conf.reposition;
 				
-				break;
-		
-			case "string":
-				if (o !== "refresh") {
-					alert("Chico-UI error: expected to find \"refresh\" parameter on position() method.");
+				// If it's necesary, set new offset (splitted)
+				if (ch.utils.hasOwn(o, "offset")) {
+					offset = o.offset.split(" ");
 				}
 				
+				// If it's necesary, set new context
+				if (ch.utils.hasOwn(o, "context")) {
+					// Sets conf value
+					conf.context = o.context;
+					
+					// Re-generate context object
+					context = getContext();
+				}
+				
+				// Reset
 				init();
 				
 				r = that;
 				
 				break;
-		
+			
+			// Refresh current position
+			case "string":
+				if (o !== "refresh") {
+					alert("Chico-UI error: expected to find \"refresh\" parameter on position() method.");
+				}
+				
+				// Reset
+				init();
+				
+				r = that;
+				
+				break;
+			
+			// Gets current configuration
 			case "undefined":
 				r = {
 					context: context.element,
