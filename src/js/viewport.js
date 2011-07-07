@@ -131,3 +131,7 @@ ch.viewport = (function () {
 	
 	return self;
 }());
+
+// Calculates size and position
+ch.viewport.getSize();
+ch.viewport.getOffset();

@@ -4,6 +4,7 @@
  * @name newPositioner
  * @class newPositioner
  * @memberOf ch
+ * @requires ch.Viewport
  * @returns {Positioner Component Constructor Object}
  */
 ch.newPositioner = (function () {
@@ -319,19 +320,12 @@ ch.newPositioner = (function () {
 		 */
 			relativeParent = (function () {
 				
-				// Object to be returned.
-				var self = {},
-				
 				// Context's parent that's relativitly positioned.
-					element = $element.offsetParent()[0],
+				// TODO: si es body no calcular borders
+				var element = $element.offsetParent()[0],
 				
-			    // Left border width of context's parent.
-				// TODO: Analizar si esto deberia hacerse solo una vez o en cada getOffset()
-					borderLeft = parseInt(ch.utils.getStyles(element, "border-left-width"), 10),
-				
-				// Top border width of context's parent.
-				// TODO: Analizar si esto deberia hacerse solo una vez o en cada getOffset()
-					borderTop = parseInt(ch.utils.getStyles(element, "border-top-width"), 10);
+				// Object to be returned.
+					self = {};
 				
 				/**
 			     * Left offset of relative parent.
@@ -359,13 +353,20 @@ ch.newPositioner = (function () {
 			     * @returns {Offset Object}
 			     * @memberOf relativeParent
 			     */
+			     // TODO: en ie6 el borde del padre relativo empuja demasiado (tambien en el positioner viejo)
 				self.getOffset = function () {
 					// If first parent relative is Body, don't re-calculate position
 					if (element.tagName === "BODY") { return; }
 					
 					// Offset of first parent relative
-					var parentOffset = $(element).offset();
+					var parentOffset = $(element).offset(),
 					
+				    // Left border width of context's parent.
+						borderLeft = parseInt(ch.utils.getStyles(element, "border-left-width"), 10),
+					
+					// Top border width of context's parent.
+						borderTop = parseInt(ch.utils.getStyles(element, "border-top-width"), 10);
+
 					// Returns left and top position of relative parent and updates relativeParent.left and relativeParent.top.
 					return {
 						left: relativeParent.left = parentOffset.left + borderLeft,
@@ -467,10 +468,10 @@ ch.newPositioner = (function () {
 					};
 				}
 				
-				var newPoints, newCoordinates;
-				
 				// Intelligence
 				// TODO: Unificar los 3 casos de inteligencia en uno (solo cambian las 2 condiciones)
+				var newPoints, newCoordinates;
+				
 				// Elements positioned at bottom without space in viewport (Element bottom > Viewport bottom)
 				// TODO: If points are in CORRELATION_MAP and last point is "b", then do it
 				if (
@@ -581,7 +582,6 @@ ch.newPositioner = (function () {
 				if (!$element.is(":visible")) { return; }
 				
 				// Re-calculates relative parent position
-				// TODO: es necesario?
 				relativeParent.getOffset();
 				
 				// If context isn't the viewport, re-calculates its position and size
@@ -606,10 +606,6 @@ ch.newPositioner = (function () {
 			init = function () {
 				// Re-calculates relative parent position
 				relativeParent.getOffset();
-				
-				// Re-calculates viewport position and size
-				ch.viewport.getSize();
-				ch.viewport.getOffset();
 				
 				// If context isn't the viewport, re-calculates its position and size
 				if (context !== ch.viewport) {
@@ -655,18 +651,16 @@ ch.newPositioner = (function () {
 			
 			// Changes configuration properties and re-positions element
 			case "object":
-				// New points or current points
-				points = o.points || points;
+				// New points
+				if (ch.utils.hasOwn(o, "points")) { points = o.points; }
 				
-				// New reposition or current reposition
-				conf.reposition = o.reposition || conf.reposition;
+				// New reposition
+				if (ch.utils.hasOwn(o, "reposition")) { conf.reposition = o.reposition; }
 				
-				// If it's necesary, set new offset (splitted)
-				if (ch.utils.hasOwn(o, "offset")) {
-					offset = o.offset.split(" ");
-				}
+				// New offset (splitted)
+				if (ch.utils.hasOwn(o, "offset")) { offset = o.offset.split(" "); }
 				
-				// If it's necesary, set new context
+				// New context
 				if (ch.utils.hasOwn(o, "context")) {
 					// Sets conf value
 					conf.context = o.context;
@@ -729,7 +723,10 @@ ch.newPositioner = (function () {
 				if (!$element.is(":visible")) { return; }
 				
 				// On resize, if context isn't the viewport, re-calculates its position
-				if (event.type === ch.events.VIEWPORT.RESIZE && context !== ch.viewport) { context.getOffset(); }
+				if (event.type === ch.events.VIEWPORT.RESIZE && context !== ch.viewport) {
+					relativeParent.getOffset();
+					context.getOffset();
+				}
 				
 				return position();
 			});

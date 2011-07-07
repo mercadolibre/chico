@@ -115,8 +115,21 @@ var ch = window.ch = {
 			return Object.prototype.hasOwnProperty.call(o, property);
 		},
 		// Based on: http://www.quirksmode.org/dom/getstyles.html
-		getStyles: function(o, style){
-			return getComputedStyle(o, "").getPropertyValue(style) || o.currentStyle[style];
+		getStyles: function (element, style) {
+			// Main browsers
+			if (window.getComputedStyle) {
+				
+				return getComputedStyle(element, "").getPropertyValue(style);
+			
+			// IE
+			} else {
+				
+				// Turn style name into camel notation
+				style = style.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
+				
+				return element.currentStyle[style];
+				
+			}
 		}
 	},
 
