@@ -119,7 +119,7 @@ ch.modal = function(conf){
      * @type {Number}
      * @memberOf ch.Modal
      */
-   	that["public"].uid = that.uid;
+
     /**
      * The element reference.
      * @public
@@ -127,7 +127,7 @@ ch.modal = function(conf){
      * @type {HTMLElement}
      * @memberOf ch.Modal
      */
-	that["public"].element = that.element;
+
     /**
      * The component's type.
      * @public
@@ -135,7 +135,7 @@ ch.modal = function(conf){
      * @type {String}
      * @memberOf ch.Modal
      */
-	that["public"].type = that.type;
+
     /**
      * Set and get component's content.
      * @public
@@ -144,7 +144,7 @@ ch.modal = function(conf){
      * @param {String} Static content, DOM selector or URL. If argument is empty then will return the content.
      * @memberOf ch.Modal
      */
-	that["public"].content = that.content;
+
     /**
      * Returns true if the component is active.
      * @public
@@ -164,11 +164,7 @@ ch.modal = function(conf){
      * @returns {Chico-UI Object}
      * @memberOf ch.Modal
      */
-	that["public"].show = function(){
-		that.show();
 
-		return that["public"];
-	};
     /**
      * Removes component from DOM tree.
      * @public
@@ -177,11 +173,7 @@ ch.modal = function(conf){
      * @returns {Chico-UI Object}
      * @memberOf ch.Modal
      */ 
-	that["public"].hide = function(){
-		that.hide();
-		
-		return that["public"];
-	};
+
     /**
      * Positioning configuration.
      * @public
@@ -189,7 +181,6 @@ ch.modal = function(conf){
      * @see ch.Object.position
      * @memberOf ch.Modal
      */
-	that["public"].position = that.position;
  
 /**
  *  Default event delegation

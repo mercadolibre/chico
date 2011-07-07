@@ -48,21 +48,21 @@ ch.helper = function(controller){
  */ 
 	that.$trigger = that.$element;
 	
-	that.show = function(text) {
+//	that.$content.prepend('<span class="ico error">Error: </span>');
+	
+	that.show = function() {
 
 		if ( !that.active ) {
 			// Load content and show!
-			that.source = '<p><span class="ico error">Error: </span>' + text + '</p>';
 			that.parent.show();
-			
-		} else {
-			// Just Reload content!
-			that.$content.html('<p><span class="ico error">Error: </span>' + text + '</p>');
-			
-		};
+		};			
+
+		// Just Reload content!
+		that.$content.html('<span class="ico error">Error: </span><p>' + that.content() + '</p>');		
 
 		return that;
 	};
+
 
 /**
  *  Public Members
@@ -75,7 +75,7 @@ ch.helper = function(controller){
      * @type {Number}
      * @memberOf ch.Helper
      */ 
-   	that["public"].uid = that.uid;
+
    	
     /**
      * The element reference.
@@ -84,7 +84,7 @@ ch.helper = function(controller){
      * @type {HTMLElement}
      * @memberOf ch.Helper
      */
-	that["public"].element = that.element;
+
     /**
      * The component's type.
      * @public
@@ -92,15 +92,16 @@ ch.helper = function(controller){
      * @type {String}
      * @memberOf ch.Helper
      */
-	that["public"].type = that.type;
+
     /**
      * The component's content.
      * @public
+     * @function
      * @name content
-     * @type {String}
+     * @param {String}
      * @memberOf ch.Helper
      */
-	that["public"].content = that.content;
+
     /**
      * Returns true if the component is active.
      * @public
@@ -109,9 +110,7 @@ ch.helper = function(controller){
      * @returns {Boolean}
      * @memberOf ch.Helper
      */
-	that["public"].isActive = function() {
-	   return that.active;
-	};
+
     /**
      * Shows component's content.
      * @public
@@ -120,11 +119,7 @@ ch.helper = function(controller){
      * @returns {Chico-UI Object}
      * @memberOf ch.Helper
      */
-	that["public"].show = function(text){
-		that.show(text);
-		
-		return that["public"];
-	};
+
     /**
      * Hides component's content.
      * @public
@@ -133,11 +128,7 @@ ch.helper = function(controller){
      * @returns {Chico-UI Object}
      * @memberOf ch.Helper
      */ 
-	that["public"].hide = function(){
-		that.hide();
-		
-		return that["public"];
-	};
+
     /**
      * Positioning configuration.
      * @public
@@ -150,7 +141,6 @@ ch.helper = function(controller){
      *    points: "lt lb"
      * });
      */
-	that["public"].position = that.position;
 
 
 /**

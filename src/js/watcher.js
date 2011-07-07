@@ -262,13 +262,14 @@ ch.watcher = function(conf) {
 		
                 	// Field error style
                 	that.$element.addClass("error");
-                
+
                 	// Show helper with message
                 	var text = ( condition.message ) ? condition.message : 
                 		(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
                 		undefined;
 
-                	that.helper.show( text );
+					that.helper.content(text);
+                	that.helper.show();
                 
                 	that.active = true;
                 

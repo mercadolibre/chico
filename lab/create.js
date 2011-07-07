@@ -36,9 +36,9 @@ ch.define = function (_name) {
             Class.prototype.constructor = _constructor;
             return _helper;
         },
-        inherits: function(parent){
+        inherits: function(parent){ 
            var F = function(){};
-               F.prototype  = parent;
+               F.prototype  = new parent();
                Class.prototype = new F();
                Class.prototype.parent = parent; 
            return _helper; 
@@ -48,7 +48,7 @@ ch.define = function (_name) {
             return _helper;
         },
         create: function(){
-            return new Class;   
+            return Class;
         }
     };
 
@@ -61,12 +61,12 @@ ch.Object = ch.define("Object").create();
 var UIObject = ch.define('UIObject')
                  .inherits(ch.Object)
                  .init(function(){ console.log("Constructing "+this.name); })
+                 .method('active', true)
                  .method('prevent', function() {})
                  .method('content', function() {})
                  .method('callback', function() {})
                  .method('position', function() {})
                  .create();
-
 
 var Floats = ch.define('Floats')
                .inherits(UIObject)
@@ -82,6 +82,10 @@ var Floats = ch.define('Floats')
 
 var Modal = ch.define('Modal')
               .inherits(Floats)
+              .method('show',function(){
+                console.log("Methodo del Modal");
+                this.parent.show();  
+              })
               .create();
     
 var Natan = ch.define('Natan')

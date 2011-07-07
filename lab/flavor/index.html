@@ -1,39 +1,60 @@
-<!doctype html> 
-<!--[if IE]><![endif]--> 
-<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
-<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
-<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
-<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
-<head> 
-	<script></script> 
-	<meta charset="utf-8"> 
-	<title>Chico-UI</title>
-	
-	<link rel="stylesheet" type="text/css" href="php/packer.php?type=css">
-	<link rel="stylesheet" type="text/css" href="src/css/doc.css">
-	<link rel="stylesheet" type="text/css" href="src/css/mesh.css">
-	
-	<style> 
-		/* Carousel list size */
-		.YOUR_SELECTOR_Carousel li {
-			width:650px;
-			height:120px;
-		}
-		
-		/* Icons demo */
-		.showroomIcons li{
-			clear:left;
-		}
-		
-		.showroomIcons .ico {
-			float:left;
-			margin:5px 10px 0 0;
-		}
-	</style>
-</head>
 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Flavor</title>
+	
+	<!-- Default styles -->
+	<link id="original" rel="stylesheet" type="text/css" href="/php/packer.php?type=css&debug=true">
+	<link rel="stylesheet" type="text/css" href="/src/css/doc.css">
+	<link rel="stylesheet" type="text/css" href="/src/css/mesh.css">
+	
+	<!-- Custom styles -->
+	<style id="custom">
+	
+	</style>
+	
+	<!-- Layout styles -->
+	<style>
+	
+		#init {
+			position: fixed;
+			width: 100%;
+			height: 500px;
+		}
+		
+		#init .loading {
+			margin: 200px auto;
+		}
+	
+		#demo {
+			display:none;
+		}
+
+		#editor {
+			display:none;
+			position: fixed;
+			right: 0;
+			padding: 10px;
+			background-color: #EEEEEE;
+		}
+		
+		#input-text {
+			display:block;
+			width: 550px;
+			height: 400px;
+		}
+		
+	</style>
+	
+</head>
 <body>
+
+	<div id="init">
+		<div class="loading"></div>
+	</div>
+
+	<div id="demo" class="ch-g1-2">
 	<h1>Chico-UI</h1>
 
 	<div class="container"> 
@@ -792,18 +813,41 @@
 		</form> 
 
 	</div> 
-	
-	<script src="libs/js/jquery.js"></script>
-	<script src="php/packer.php?debug=true"></script>
-	<script> 
+</div>
+	<div id="editor">
+		<form>
+			<fieldset>
+				<legend>Editor</legend>
+				<p>Edit CSS code below and see live changes on the demo.</p>
+				<textarea id="input-text"></textarea>
+				<input type="submit" value="Download">
+			</fieldset>
+		</form>
+	</div>
 
-		// Automatic version
-        var title = document.title + ' ' + ch.version;
-        document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
-        document.getElementsByTagName("h1")[0].innerHTML = title;
+	<script src="/libs/js/jquery.js"></script>
+	<script src="/php/packer.php?debug=true"></script>
+	<script type="text/javascript">
 
-		// Components
+		// start
+		var original = $("#original").remove().attr("href");
 		
+		$.get(original,function (data) {
+			$("#custom").html(data);
+			$("#input-text").val(data);
+			$("#demo, #editor").fadeIn("slow");
+			$("#init").fadeOut();
+			startDemos();
+		})
+		
+		$("#input-text").keyup(function (event) {
+			var data = $(this).val();
+			$('#custom').html(data);
+		});
+		
+		// Demos
+// Components
+var startDemos = function(){		
 		// Accordion
 		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
 			selected: "1#2"
@@ -827,7 +871,7 @@
               },
 		      onContentError: function(){ 
 		      	console.log("onContentError working fine") 
-		      }
+		      },
 		});
 		
 		// Modal with visible and invisible DOM Content
@@ -856,7 +900,7 @@
 		
 		// Tab Navigator
 		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator();
-
+		
 		// Expando
 		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
 
@@ -869,7 +913,7 @@
 		// Watchers
 
 		var ch_wch1 = $("#YOUR_SELECTOR_email").required("requerid").and().email("Guachin emial").and().minLength(10);
-		var ch_wch11 = $("#YOUR_SELECTOR_custom").custom(function(v){ return (v.toString().indexOf("1")>-1) ? true : false ;},"Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja.")
+		var ch_wch11 = $("#YOUR_SELECTOR_custom").custom(function(v){ return (v.toString().indexOf("1")>-1) ? true : false ;},"1")
                                                 .and()
                                                 .required()
                                                 .and()
@@ -886,7 +930,7 @@
 
 		// Viewer
 		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer();
-		
+}
 	</script>
-</body> 
+</body>
 </html>

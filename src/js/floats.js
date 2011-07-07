@@ -120,10 +120,10 @@ ch.floats = function() {
 
 		// Position component
 		conf.position = conf.position || {};
-		conf.position.element = that.$container;
+		//conf.position.element = that.$container;
 		conf.position.hold = conf.hold || false;
-		ch.positioner.call(that);
-		
+		//ch.positioner.call(that); // Is this necesary?
+
 		// Return the entire Layout
 		return that.$container;
 
@@ -148,7 +148,6 @@ ch.floats = function() {
     that.contentCallback = function(data) {
         that.staticContent = data;
         that.$content.html(that.staticContent);
-        
     	if ( ch.utils.hasOwn(conf, "position") ) {
     	   ch.positioner(conf.position);
     	}
@@ -162,8 +161,10 @@ ch.floats = function() {
      * @memberOf ch.Floats
      */ 
 	that.show = function(event) {
-		
-		if ( event ) that.prevent(event);
+
+		if ( event ) {
+			that.prevent(event);
+		}
 		
 		// Avoid showing things that are already shown
 		if ( that.active ) return;
@@ -193,6 +194,9 @@ ch.floats = function() {
 			that.$container.removeClass("ch-hide");
 			that.callbacks("onShow");
 		};
+	
+		// TODO: Positioner should recalculate the element's size (width and height) 
+		conf.position.element = that.$container;
 
 		that.position("refresh");
 
@@ -210,9 +214,13 @@ ch.floats = function() {
      */ 
 	that.hide = function(event) {
 
-		if (event) that.prevent(event);
+		if (event) {
+			that.prevent(event);
+		}
 		
-		if (!that.active) return;
+		if (!that.active) {
+			return;
+		}
 
 		var afterHide = function(){ 
 			 
@@ -253,6 +261,97 @@ ch.floats = function() {
 		
 		return that;
 
+	};
+	
+	/**
+     * Getter and setter for size attributes on any float component.
+     * @private
+     * @function
+     * @name size
+     * @param {String} prop Property that will be setted or getted, like "width" or "height".
+     * @param {String} [data] Only for setter. It's the new value of defined property.
+	 * @returns {Internal component instance}
+     * @memberOf ch.Floats
+     */
+	that.size = function(prop, data) {
+		// Getter
+		if (!data) {
+			return that.conf[prop];
+		};
+
+		// Setter
+		that.conf[prop] = data;
+		
+		// Container
+		that.$container[prop](data);
+		
+		that.position("refresh");
+		
+		return that["public"];
+	};
+
+    /**
+     * Shows float element that contains the zoomed image.
+     * @public
+     * @name show
+     * @function
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Float
+     */
+	that["public"].show = function(){
+		that.show();
+		
+		return that["public"];
+	};
+	
+    /**
+     * Hides float element that contains the zoomed image.
+     * @public
+     * @name hide
+     * @function
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Float
+     */
+	that["public"].hide = function(){
+		that.hide();
+		
+		return that["public"];
+	};
+    /**
+     * Sets or gets the width of the Float element.
+     * @public
+     * @name width
+     * @function
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Float
+     */
+	that["public"].width = function(data) {
+		
+		return that.size("width", data) || that["public"];
+	};
+    /**
+     * Sets or gets the height of the Float element.
+     * @public
+     * @name height
+     * @function
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Float
+     */
+	that["public"].height = function(data) {
+			
+		return that.size("height", data) || that["public"];
+	};
+    
+    /**
+     * Returns true if the component is active.
+     * @public
+     * @name isActive
+     * @function
+     * @returns {Boolean}
+     * @memberOf ch.Floats
+     */
+	that["public"].isActive = function() {
+	   return that.active;
 	};
 	
 	return that;

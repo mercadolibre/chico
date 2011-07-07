@@ -9,8 +9,7 @@
  * @returns {Chico-UI Object}
  */
 //TODO: Examples
-ch.calendar = function(conf){
-
+ch.calendar = function(conf) {
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
@@ -21,9 +20,12 @@ ch.calendar = function(conf){
     var that = this;
 
 	conf = ch.clon(conf);
-	// TODO: analizar que formato d fecha soportar.
-	if (ch.utils.hasOwn(conf, "selected")){ conf.selected = new Date(conf.selected); };
-	
+
+	conf.format = conf.format || "DD/MM/YYYY";
+		
+	if (ch.utils.hasOwn(conf, "msg")) { conf.msg = ((conf.msg === "today")) ? new Date() : new Date(conf.msg); };
+	if (ch.utils.hasOwn(conf, "selected")) { conf.selected = ((conf.selected === "today")) ? new Date() : new Date(conf.selected); };
+
 	that.conf = conf;
 
 /**
@@ -36,7 +38,6 @@ ch.calendar = function(conf){
 /**
  *  Private Members
  */
-
 
     /**
      * Collection of months names
@@ -76,7 +77,7 @@ ch.calendar = function(conf){
      * @type {Date}
      * @memberOf ch.Calendar
      */
-	var _selected = conf.selected;
+	var _selected = conf.selected || conf.msg;
 
     /**
      * Creates tag thead with short name of week days
@@ -86,7 +87,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	//TODO: change to constant syntax
-	//TODO: subfio de render y cambiar el nombre para que sea mas especifico, thead
+	//TODO: subfijo de render y cambiar el nombre para que sea mas especifico, thead
 	var _weekdays = (function(){
 		
 		var _weekdaysTitle = "<thead>";
@@ -115,10 +116,12 @@ ch.calendar = function(conf){
 			src = event.target || event.srcElement;
 
 			if (src.nodeName !== "TD" || src.className.indexOf("day")) {
+				that.prevent(event);
 				return;
 			};
 
 			_select( that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML );
+
 		});
 
 
@@ -207,9 +210,9 @@ ch.calendar = function(conf){
      */
 	var _arrows = {
 	
-		$prev: $("<p>").addClass("ch-calendar-prev").bind("click", function(event){ that.prevent(event); _prevMonth(); }),
+		$prev: $("<p class=\"ch-calendar-prev\">").bind("click", function(event){ that.prevent(event); _prevMonth(); }),
 	
-		$next: $("<p>").addClass("ch-calendar-next").bind("click", function(event){ that.prevent(event); _nextMonth(); })
+		$next: $("<p class=\"ch-calendar-next\">").bind("click", function(event){ that.prevent(event); _nextMonth(); })
 	};
 
     /**
@@ -236,6 +239,11 @@ ch.calendar = function(conf){
 			}
 		});
 
+		that.children[0].position({
+			context: that.$element,
+			points: "lt lb"
+		});
+
 		return;
 	};
 
@@ -248,11 +256,11 @@ ch.calendar = function(conf){
      */
 	var _createLayout = function(){
 
-		that.$trigger =	$("<div>").addClass("secondary ch-calendar");
+		that.$trigger =	$("<div class=\"secondary ch-calendar\">");
 
-		that.$container = $("<div>").addClass("ch-calendar-container ch-hide");
+		that.$container = $("<div class=\"ch-calendar-container ch-hide\">");
 
-		that.$content = $("<div>").addClass("ch-calendar-content");
+		that.$content = $("<div class=\"ch-calendar-content\">");
 
 		that.$element.after(that.$trigger);
 
@@ -262,20 +270,39 @@ ch.calendar = function(conf){
 	};
 
      /**
-     * Parse Date object to YY/MM/DD format
+     * Parse string to YY/MM/DD format date
      * @private
 	 * @function
      * @name _parseDate
      * @memberOf ch.Calendar
      */
-	var _parseDate = function(date){
-
-		//TODO: typeof date
-		if (typeof date == "undefined") { return; };
+	var _parseDate = function(value){
+		var _date = value.split("/");
 		
-		return  date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate();
-
+		switch (conf.format) {
+			case "DD/MM/YYYY":
+				return _date[2] + "/" + _date[1] + "/" + _date[0];
+			break;
+			
+			case "MM/DD/YYYY":
+				return _date[2] + "/" + _date[0] + "/" + _date[1];
+			break;
+		};
 	};
+
+
+    /**
+     * Map of formart's date
+     * @private
+     * @name _FORMAT_DATE
+     * @memberOf ch.Calendar
+     */
+	var _FORMAT_DATE = {
+		"YYYY/MM/DD": function(date){ return  date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate(); },
+		"DD/MM/YYYY": function(date){ return (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear()},
+		"MM/DD/YYYY": function(date){ return (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + "/" + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear()}
+	};
+
 
     /**
      * Selects an specific date to show
@@ -292,7 +319,7 @@ ch.calendar = function(conf){
 		
 		that.$content.html(_createMonth(_selected));
 		
-		that.$element.val( _parseDate(_selected) );
+		that.element.value = _FORMAT_DATE[conf.format](_selected);
 
        /**
         * Callback function
@@ -379,7 +406,7 @@ ch.calendar = function(conf){
 	var _reset = function(){
 		_selected = conf.selected;
 		that.currentDate = _selected || _today;
-		that.$element.val("");
+		that.element.value = "";
 
 		that.$content.html(_createMonth(that.currentDate));
 
@@ -469,7 +496,8 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	that["public"].select = function(date){
-		_select(date);
+
+		_select(((date === "today")? _today : _parseDate(date)));
 
 		return that["public"];
 	};
@@ -482,7 +510,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	that["public"].getSelected = function(){
-		return _parseDate(_selected);
+		return _FORMAT_DATE[conf.format](_selected);
 	};
 
     /**
@@ -493,7 +521,7 @@ ch.calendar = function(conf){
      * @memberOf ch.Calendar
      */
 	that["public"].getToday = function(){
-		return _parseDate(_today);
+		return _FORMAT_DATE[conf.format](_today);
 	};	
 
     /**
@@ -565,15 +593,17 @@ ch.calendar = function(conf){
  *  Default event delegation
  */
 
-	that.$element.prop("type", "text");
+	that.element.type = "text";
+
+	that.element.value = ((_selected) ? _FORMAT_DATE[conf.format](_selected) : "");
 
 	_createLayout();
-	
+
 	that.$content
 		.html(_createMonth(that.currentDate))
 		.appendTo(that.$container);
-	
-	that.$container.prepend( _arrows.$prev ).prepend( _arrows.$next );
+
+	that.$container.prepend(_arrows.$prev).prepend(_arrows.$next);
 
 	return that;
 		
