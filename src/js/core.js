@@ -87,7 +87,7 @@ var ch = window.ch = {
 			return Object.prototype.toString.apply( o ) === "[object Array]";
 		},
 		isUrl: function(url){
-			return ((/^((http(s)?|ftp|file):\/{2}(www)?|(\/?([\w-\d]|\.{1,2})*\/)+|[\w-\d]*(\.|\/|\:\d))([a-z0-9-]*)?(((\.|\/)[a-z0-9-]+)+)?([/?]\S*)?/).test(url));
+			return ((/^((http(s)?|ftp|file):\/{2}(www)?|(\/?([\w]|\.{1,2})*\/)+|[\w]*(\.|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
 		},
 		avoidTextSelection: function(){
 			$.each(arguments, function(i, e){
