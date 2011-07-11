@@ -2,7 +2,7 @@
   * Chico-UI
   * Packer-o-matic
   * Like the pizza delivery service: "Les than 100 milisecons delivery guarantee!"
-  * @components: core, cache, positioner, object, floats, navs, controllers, watcher, keyboard, preload, list, extend, onImagesLoads, carousel, calendar, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, expando, menu, zoom
+  * @components: core, cache, positioner, object, floats, navs, controllers, watcher, keyboard, preload, list, extend, onImagesLoads, blink, carousel, calendar, dropdown, layer, modal, tabNavigator, tooltip, string, number, custom, required, helper, form, viewer, expando, menu, zoom
   * @version 0.4
   * @autor Chico Team <chico@mercadolibre.com>
   *
@@ -28,14 +28,14 @@ var ch = window.ch = {
 	* @type {Number}
 	* @memberOf ch
 	*/
-	version: "0.6.9",
+	version: "0.7.0",
 	/**
 	* List of UI components available.
 	* @name components
 	* @type {String}
 	* @memberOf ch
 	*/
-	components: "carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,expando,menu,zoom",
+	components: "blink,carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,expando,menu,zoom",
 	/**
 	* List of internal components available.
 	* @name internals
@@ -103,7 +103,7 @@ var ch = window.ch = {
 			return Object.prototype.toString.apply( o ) === "[object Array]";
 		},
 		isUrl: function(url){
-			return ( (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/).test(url) );
+			return ((/^((http(s)?|ftp|file):\/{2}(www)?|(\/?([\w-\d]|\.{1,2})*\/)+|[\w-\d]*(\.|\/|\:\d))([a-z0-9-]*)?(((\.|\/)[a-z0-9-]+)+)?([/?]\S*)?/).test(url));
 		},
 		avoidTextSelection: function(){
 			$.each(arguments, function(i, e){
@@ -119,6 +119,23 @@ var ch = window.ch = {
 		},
 		hasOwn: function(o, property) {
 			return Object.prototype.hasOwnProperty.call(o, property);
+		},
+		// Based on: http://www.quirksmode.org/dom/getstyles.html
+		getStyles: function (element, style) {
+			// Main browsers
+			if (window.getComputedStyle) {
+				
+				return getComputedStyle(element, "").getPropertyValue(style);
+			
+			// IE
+			} else {
+				
+				// Turn style name into camel notation
+				style = style.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
+				
+				return element.currentStyle[style];
+				
+			}
 		}
 	},
 
@@ -150,6 +167,28 @@ var ch = window.ch = {
 			 */
 			CHANGE: "change"
 		},
+		/**
+         * Viewport event collection.
+         * @name VIEWPORT
+         * @namespace VIEWPORT
+         * @memberOf ch.Events
+         */
+        VIEWPORT: {
+            /**
+             * Every time Chico-UI needs to inform all visual components that window has been scrolled, he triggers this event.
+             * @name SCROLL
+             * @memberOf ch.Events.VIEWPORT
+             * @see ch.Viewport
+             */
+            SCROLL: "ch-scroll",
+            /**
+             * Every time Chico-UI needs to inform all visual components that window has been resized, he triggers this event.
+             * @name RESIZE
+             * @memberOf ch.Events.VIEWPORT
+             * @see ch.Viewport
+             */
+            RESIZE: "ch-resize"
+        },
 		/**
 		 * Keryboard event collection.
 		 * @name KEY
@@ -1504,10 +1543,10 @@ ch.floats = function() {
 
 		// Position component
 		conf.position = conf.position || {};
-		conf.position.element = that.$container;
+		//conf.position.element = that.$container;
 		conf.position.hold = conf.hold || false;
-		ch.positioner.call(that);
-		
+		//ch.positioner.call(that); // Is this necesary?
+
 		// Return the entire Layout
 		return that.$container;
 
@@ -1545,7 +1584,7 @@ ch.floats = function() {
      * @memberOf ch.Floats
      */ 
 	that.show = function(event) {
-		
+
 		if ( event ) {
 			that.prevent(event);
 		}
@@ -1578,6 +1617,9 @@ ch.floats = function() {
 			that.$container.removeClass("ch-hide");
 			that.callbacks("onShow");
 		};
+	
+		// TODO: Positioner should recalculate the element's size (width and height) 
+		conf.position.element = that.$container;
 
 		that.position("refresh");
 
@@ -2812,7 +2854,54 @@ ch.onImagesLoads = function(conf){
 	return that;
 };
 
-ch.factory({ component: "onImagesLoads" });
+ch.factory({ component: "onImagesLoads" });/** 
+ * UI feedback utility, creates a visual highlight
+ * changing background color from yellow to white.
+ * @function
+ * @name blink
+ * @param {Selector} selector CSS Selector to blink a collection
+ * @param {Number} [time] Amount of time to blink
+ * @returns {jQuery Object}
+ * @memberOf ch
+ */
+ch.blink = function (conf) {
+
+	var that = this,
+		// Hex start level toString(16).
+		level = 1, 
+		// Time, 200 miliseconds by default.
+		t = conf.value || 200,
+		// Inner highlighter.
+		highlight = function (e) {
+			// Let know everyone we are active.
+			that.$element.addClass("ch-active");
+			// Color iteration.
+			function step () {
+				// New hex level.
+				var h = level.toString(16);
+				// Change background-color, redraw().
+				e.style.backgroundColor = '#FFFF' + h + h;
+				// Itearate for all hex levels.
+				if (level < 15) {
+					// Increment hex level.
+					level += 1;
+					// Inner recursion.
+					setTimeout(step, t);
+				} else {
+					// Stop right there...
+					that.$element.removeClass("ch-active");
+				}
+		};
+		// Begin steps.
+		setTimeout(step, t);
+	}
+	// Start a blink if the element isn't active.
+	if (!that.$element.hasClass("ch-active")) {
+		highlight(that.element);
+	}
+	// Return the element so keep chaining things.
+	return that.$element;
+}
 /**
  * Carousel is a UI-Component.
  * @name Carousel
@@ -3428,7 +3517,7 @@ ch.calendar = function(conf) {
 
 	conf.format = conf.format || "DD/MM/YYYY";
 		
-	if (ch.utils.hasOwn(conf, "msg")) { conf.selected = ((conf.msg === "today")) ? new Date() : new Date(conf.msg); };
+	if (ch.utils.hasOwn(conf, "msg")) { conf.msg = ((conf.msg === "today")) ? new Date() : new Date(conf.msg); };
 	if (ch.utils.hasOwn(conf, "selected")) { conf.selected = ((conf.selected === "today")) ? new Date() : new Date(conf.selected); };
 
 	that.conf = conf;
@@ -3482,7 +3571,7 @@ ch.calendar = function(conf) {
      * @type {Date}
      * @memberOf ch.Calendar
      */
-	var _selected = conf.selected;
+	var _selected = conf.selected || conf.msg;
 
     /**
      * Creates tag thead with short name of week days
@@ -3999,7 +4088,8 @@ ch.calendar = function(conf) {
  */
 
 	that.element.type = "text";
-	that.element.value = _FORMAT_DATE[conf.format](conf.selected) || "";
+
+	that.element.value = ((_selected) ? _FORMAT_DATE[conf.format](_selected) : "");
 
 	_createLayout();
 
