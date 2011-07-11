@@ -320,9 +320,8 @@ ch.newPositioner = (function () {
 		/**
 		 * It's the first of context's parents that is relativitly positioned.
 		 * @name relativeParent
-		 * @class relativeParent
+		 * @type {Relative Parent Object}
 		 * @memberOf ch.newPositioner
-		 * @returns {Relative Parent Object}
 		 */
 			relativeParent = (function () {
 				
@@ -545,11 +544,11 @@ ch.newPositioner = (function () {
 		/**
 		 * Triggers calculations of coordinates and checks if there are changes to re-positionate element.
 		 * @function
-		 * @name position
+		 * @name draw
 		 * @memberOf ch.newPositioner
 		 * @returns {Positioned Element}
 		 */
-			position = function () {
+			draw = function () {
 				
 				// Gets definitive coordinates for element re-positioning
 				var coordinates = getPosition();
@@ -596,7 +595,7 @@ ch.newPositioner = (function () {
 					context.getOffset();
 				}
 				
-				return position();
+				return draw();
 			},
 		
 		/**
@@ -619,7 +618,7 @@ ch.newPositioner = (function () {
 					context.getOffset();
 				}
 				
-				return position();
+				return draw();
 			},
 			
 		/**
@@ -734,7 +733,7 @@ ch.newPositioner = (function () {
 					context.getOffset();
 				}
 				
-				return position();
+				return draw();
 			});
 		
 		return that;
