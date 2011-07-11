@@ -103,6 +103,23 @@ var ch = window.ch = {
 		},
 		hasOwn: function(o, property) {
 			return Object.prototype.hasOwnProperty.call(o, property);
+		},
+		// Based on: http://www.quirksmode.org/dom/getstyles.html
+		getStyles: function (element, style) {
+			// Main browsers
+			if (window.getComputedStyle) {
+				
+				return getComputedStyle(element, "").getPropertyValue(style);
+			
+			// IE
+			} else {
+				
+				// Turn style name into camel notation
+				style = style.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
+				
+				return element.currentStyle[style];
+				
+			}
 		}
 	},
 
@@ -134,6 +151,28 @@ var ch = window.ch = {
 			 */
 			CHANGE: "change"
 		},
+		/**
+         * Viewport event collection.
+         * @name VIEWPORT
+         * @namespace VIEWPORT
+         * @memberOf ch.Events
+         */
+        VIEWPORT: {
+            /**
+             * Every time Chico-UI needs to inform all visual components that window has been scrolled, he triggers this event.
+             * @name SCROLL
+             * @memberOf ch.Events.VIEWPORT
+             * @see ch.Viewport
+             */
+            SCROLL: "ch-scroll",
+            /**
+             * Every time Chico-UI needs to inform all visual components that window has been resized, he triggers this event.
+             * @name RESIZE
+             * @memberOf ch.Events.VIEWPORT
+             * @see ch.Viewport
+             */
+            RESIZE: "ch-resize"
+        },
 		/**
 		 * Keryboard event collection.
 		 * @name KEY
