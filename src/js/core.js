@@ -77,17 +77,23 @@ var ch = window.ch = {
 		isSelector: function(string){
 			if (typeof string !== "string") return false;
 			for (var regex in $.expr.match){
-				if ($.expr.match[ regex ].test(string) && $(string).length > 0 && !ch.utils.isTag(string)) {
+				if ($.expr.match[ regex ].test(string) && !ch.utils.isTag(string)) {
 					return true;
 				};
 			};
+			return false;
+		},
+		inDom: function (selector, context) {
+			if ($(selector, context).length > 0) {
+				return true;
+			}
 			return false;
 		},
 		isArray: function( o ) {
 			return Object.prototype.toString.apply( o ) === "[object Array]";
 		},
 		isUrl: function(url){
-			return ((/^((http(s)?|ftp|file):\/{2}(www)?|(\/?([\w]|\.{1,2})*\/)+|[\w]*(\.|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
+			return ((/^((http(s)?|ftp|file):\/{2}(www)?|(\/?([\w]|\.{1,2})*\/)+|[\w]+(\.|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
 		},
 		avoidTextSelection: function(){
 			$.each(arguments, function(i, e){
