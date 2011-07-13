@@ -101,6 +101,8 @@ ch.object = function(){
             sourceIsUrl = ch.utils.isUrl(that.source),
             // Local isSelector
             sourceIsSelector = ch.utils.isSelector(that.source),
+           	// Local inDom
+			sourceInDom = ch.utils.inDom(that.source),
             // Get context, could be a single component or a controller
             context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"],
             // undefined, for comparison.
@@ -135,7 +137,7 @@ ch.object = function(){
             }
 
             // Flag to remove DOM content and avoid ID duplication
-            if ( sourceIsSelector ) {
+            if ( sourceIsSelector && sourceInDom ) {
             	$(that.source).detach();
             }
             
@@ -154,7 +156,9 @@ ch.object = function(){
 		// Local isURL
 	var isUrl = ch.utils.isUrl(content),
 		// Local isSelector
-		isSelector = ch.utils.isSelector(content);
+		isSelector = ch.utils.isSelector(content),
+		// Local inDom
+		inDom = ch.utils.inDom(content);
 
     /* Evaluate static content */  
 
@@ -164,7 +168,7 @@ ch.object = function(){
 
     /* Evaluate DOM content */
 
-        if (isSelector) {
+        if (isSelector && inDom) {
 			
 			// Save DOMParent, so we know where to re-insert the content.
             that.DOMParent = $(content).parent();
