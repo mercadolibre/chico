@@ -23,7 +23,7 @@ ch.tooltip = function(conf) {
 	
 	conf = ch.clon(conf);
 	conf.cone = true;
-	conf.content = that.element.title || that.element.alt;	
+	conf.content = that.element.title || that.element.alt;
 	conf.position = {};
 	conf.position.context = $(that.element);
 	conf.position.offset = conf.offset || "0 10";
@@ -42,7 +42,14 @@ ch.tooltip = function(conf) {
 /**
  *  Private Members
  */
-
+	/**
+     * The attribute that will provide the content. It can be "title" or "alt" attributes.
+     * @private
+     * @name contentReference
+     * @type {string}
+     * @memberOf ch.Tooltip
+     */ 
+	var contentReference = (that.element.title) ? "title" : "alt";
     
 /**
  *  Protected Members
@@ -50,14 +57,14 @@ ch.tooltip = function(conf) {
     that.$trigger = that.$element;
 
     that.show = function(event) {
-        that.$trigger.attr('title', ''); // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
+        that.element[contentReference] = ""; // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 		that.parent.show(event);
 		
 		return that;
 	};
 	
     that.hide = function(event) {
-		that.$trigger.attr('title', conf.content);
+		that.element[contentReference] = conf.content;
 		that.parent.hide(event);
 		
 		return that;
