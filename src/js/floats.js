@@ -94,7 +94,6 @@ ch.floats = function() {
      */
 	that.source = conf.content || conf.msg || conf.ajax || that.$element.attr('href') || that.$element.parents('form').attr('action');
 
-
     /**
      * Container for UI Component.
      * @public
@@ -168,7 +167,7 @@ ch.floats = function() {
 		
 		// Avoid showing things that are already shown
 		if ( that.active ) return;
-		
+
 		// Get content
 		that.staticContent = that.content();
 		// Saves content
@@ -238,14 +237,14 @@ ch.floats = function() {
 			
 			// TODO: This should be wrapped on Object.content() method
 			// We need to be able to use interal callbacks...
-			if (ch.utils.isSelector(that.source) && !ch.utils.inDom(that.source)) {
+			if (ch.utils.isSelector(that.source) && !ch.utils.inDom(that.source) && !ch.utils.isUrl(that.source)) {
 				var original = $(that.staticContent).clone();
 					original.appendTo(that.DOMParent||"body");
 
 			   if (!that.DOMContentIsVisible) {
-					original.addClass("ch-hide");	     
+					original.addClass("ch-hide");
 		       }
-		        
+
 			};
 		};
 		
