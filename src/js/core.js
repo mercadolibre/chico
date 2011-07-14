@@ -84,9 +84,11 @@ var ch = window.ch = {
 			return false;
 		},
 		inDom: function (selector, context) {
+			
 			if ($(selector, context).length > 0) {
 				return true;
 			}
+
 			return false;
 		},
 		isArray: function( o ) {
