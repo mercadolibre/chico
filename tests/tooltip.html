@@ -73,7 +73,7 @@
 
     		ok( ch.utils.hasOwn(tooltip1, "isActive"), "Expected to find an \"active\" property" );
 
-    		equal( tooltip1.content(), $(".tool1").attr("title"), "Expected to find the tooltip \"title\" attribute on \"content\" property of tooltip instance");
+    		equal( $(tooltip1.content()).text(), $(".tool1").attr("title"), "Expected to find the tooltip \"title\" attribute on \"content\" property of tooltip instance");
 
         });
         
