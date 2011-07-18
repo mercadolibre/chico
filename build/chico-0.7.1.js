@@ -28,7 +28,7 @@ var ch = window.ch = {
 	* @type {Number}
 	* @memberOf ch
 	*/
-	version: "0.7.0",
+	version: "0.7.1",
 	/**
 	* List of UI components available.
 	* @name components
@@ -93,17 +93,25 @@ var ch = window.ch = {
 		isSelector: function(string){
 			if (typeof string !== "string") return false;
 			for (var regex in $.expr.match){
-				if ($.expr.match[ regex ].test(string) && $(string).length > 0 && !ch.utils.isTag(string)) {
+				if ($.expr.match[ regex ].test(string) && !ch.utils.isTag(string)) {
 					return true;
 				};
 			};
+			return false;
+		},
+		inDom: function (selector, context) {
+			
+			if ($(selector, context).length > 0) {
+				return true;
+			}
+
 			return false;
 		},
 		isArray: function( o ) {
 			return Object.prototype.toString.apply( o ) === "[object Array]";
 		},
 		isUrl: function(url){
-			return ((/^((http(s)?|ftp|file):\/{2}(www)?|(\/?([\w]|\.{1,2})*\/)+|[\w]*(\.|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
+			return ((/^((http(s)?|ftp|file):\/{2}(www)?|(\/?([\w]|\.{1,2})*\/)+|[\w]+(\.|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
 		},
 		avoidTextSelection: function(){
 			$.each(arguments, function(i, e){
@@ -1166,6 +1174,8 @@ ch.object = function(){
             sourceIsUrl = ch.utils.isUrl(that.source),
             // Local isSelector
             sourceIsSelector = ch.utils.isSelector(that.source),
+           	// Local inDom
+			sourceInDom = ch.utils.inDom(that.source),
             // Get context, could be a single component or a controller
             context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"],
             // undefined, for comparison.
@@ -1177,17 +1187,18 @@ ch.object = function(){
      * Get content
      */
 		// return defined content
-		if ( _get ) {
+		if (_get) {
 
 			// no source, no content
-            if ( that.source === undefined ) {
+            if (that.source === undefined) {
                 return "<p>No content defined for this component</p>";    
             }
 
             // Get data from cache for DOMContent or AJAXContent
-            if ( cache && ( sourceIsSelector || sourceIsUrl )) {
+            if (cache && ( sourceIsSelector || sourceIsUrl)) {
                 var fromCache = ch.cache.get(that.source);
                 if (fromCache) {
+                	$(that.source).detach();
                     return fromCache;
                 }
             }
@@ -1195,12 +1206,14 @@ ch.object = function(){
             // First time we need to get the contemt.
             // Is cache is off, go and get content again.
             // Yeap, recursive.
-            if ( !cache || that.staticContent === undefined ) {
-            	return that.content(that.source);
+            if (!cache || that.staticContent === undefined) {
+            	var content = that.content(that.source);
+            	$(that.source).detach();
+            	return content;
             }
 
-            // Flag to remove DOM content and avoid ID duplication
-            if ( sourceIsSelector ) {
+            // Flag to remove DOM content and avoid ID duplication the first time
+            if (sourceIsSelector && sourceInDom) {
             	$(that.source).detach();
             }
             
@@ -1219,7 +1232,9 @@ ch.object = function(){
 		// Local isURL
 	var isUrl = ch.utils.isUrl(content),
 		// Local isSelector
-		isSelector = ch.utils.isSelector(content);
+		isSelector = ch.utils.isSelector(content),
+		// Local inDom
+		inDom = ch.utils.inDom(content);
 
     /* Evaluate static content */  
 
@@ -1229,7 +1244,7 @@ ch.object = function(){
 
     /* Evaluate DOM content */
 
-        if (isSelector) {
+        if (isSelector && inDom) {
 			
 			// Save DOMParent, so we know where to re-insert the content.
             that.DOMParent = $(content).parent();
@@ -1255,7 +1270,7 @@ ch.object = function(){
             
             // First check Cache
             // Check if this source is in our cache
-            if ( cache ) {
+            if (cache) {
                 var fromCache = ch.cache.get(that.source);
                 if (fromCache) {
                     return fromCache;
@@ -1517,7 +1532,6 @@ ch.floats = function() {
      */
 	that.source = conf.content || conf.msg || conf.ajax || that.$element.attr('href') || that.$element.parents('form').attr('action');
 
-
     /**
      * Container for UI Component.
      * @public
@@ -1591,7 +1605,7 @@ ch.floats = function() {
 		
 		// Avoid showing things that are already shown
 		if ( that.active ) return;
-		
+
 		// Get content
 		that.staticContent = that.content();
 		// Saves content
@@ -1661,14 +1675,14 @@ ch.floats = function() {
 			
 			// TODO: This should be wrapped on Object.content() method
 			// We need to be able to use interal callbacks...
-			if (!ch.utils.isSelector(that.source)) {
+			if (ch.utils.isSelector(that.source) && !ch.utils.inDom(that.source) && !ch.utils.isUrl(that.source)) {
 				var original = $(that.staticContent).clone();
 					original.appendTo(that.DOMParent||"body");
 
 			   if (!that.DOMContentIsVisible) {
-					original.addClass("ch-hide");	     
+					original.addClass("ch-hide");
 		       }
-		        
+
 			};
 		};
 		
@@ -5237,7 +5251,7 @@ ch.tooltip = function(conf) {
 	
 	conf = ch.clon(conf);
 	conf.cone = true;
-	conf.content = that.element.title || that.element.alt;	
+	conf.content = "<span>" + (that.element.title || that.element.alt) + "</span>";
 	conf.position = {};
 	conf.position.context = $(that.element);
 	conf.position.offset = conf.offset || "0 10";
@@ -5256,22 +5270,38 @@ ch.tooltip = function(conf) {
 /**
  *  Private Members
  */
+	/**
+     * The attribute that will provide the content. It can be "title" or "alt" attributes.
+     * @private
+     * @name attrReference
+     * @type {string}
+     * @memberOf ch.Tooltip
+     */ 
+	var attrReference = (that.element.title) ? "title" : "alt";
 
-    
+	/**
+     * The original attribute content.
+     * @private
+     * @name attrContent
+     * @type {string}
+     * @memberOf ch.Tooltip
+     */ 
+	var attrContent = that.element.title || that.element.alt;
+
 /**
  *  Protected Members
  */     
     that.$trigger = that.$element;
 
     that.show = function(event) {
-        that.$trigger.attr('title', ''); // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
+        that.element[attrReference] = ""; // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 		that.parent.show(event);
 		
 		return that;
 	};
 	
     that.hide = function(event) {
-		that.$trigger.attr('title', conf.content);
+		that.element[attrReference] = attrContent;
 		that.parent.hide(event);
 		
 		return that;
