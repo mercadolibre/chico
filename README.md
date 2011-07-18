@@ -18,6 +18,7 @@ Some features.
 The team.
 ---------
 - Natan Santolo, @natos
+- Hernan Mammana, @hmammana
 - Leandro Linares, @lean8086
 - Guillermo Paz, @pazguille
 - Natalia Devalle, @taly
