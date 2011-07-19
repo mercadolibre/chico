@@ -592,7 +592,7 @@ hr {
 
 
 .ie6 .datagrid tr.selected td,
-.ie7 table.tabuled-data tr.selected td {
+.ie7 .datagrid tr.selected td {
 	background-color:#FFC;
 }
 
