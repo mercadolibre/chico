@@ -9,7 +9,34 @@
  * @returns {Chico-UI Object}
  * @see ch.Tooltip
  * @see ch.Layer
- */ 
+ * @example
+ * // Simple modal
+ * $("link").modal();
+ * @example
+ * // Simple configuration
+ * $("link").modal({
+ *     content: "Content for my modal window.",
+ *     onShow: function(){
+ *         // Some code here
+ *     }
+ * }); 
+ * @example
+ * // Width and height configuration
+ * $("link").modal({
+ *     width: "200px",
+ *     height: "500"
+ * });
+ * @example
+ * // Callbacks configuration
+ * $("input").modal({
+ *     onContentLoad: function() {
+ *         // Do something here!
+ *     },
+ *     onHide: function() {
+ *         // Do something here!
+ *     }
+ * });
+ */
 
 ch.modal = function(conf){
 
@@ -143,6 +170,18 @@ ch.modal = function(conf){
      * @function
      * @param {String} Static content, DOM selector or URL. If argument is empty then will return the content.
      * @memberOf ch.Modal
+     * @example
+	 * // Getting the modal's content
+	 * modal.content();
+	 * @example
+	 * // Setting a new content by parameter
+	 * myModal.content("New content");
+	 * @example
+	 * // Setting a new content by DOM
+	 * myModal.content("#newContent");
+	 * @example
+	 * // Setting a new content by AJAX
+	 * myModal.content("http://www.chico-ui.com.ar/newcontent.html");
      */
 
     /**
@@ -152,27 +191,40 @@ ch.modal = function(conf){
      * @function 
      * @returns {Boolean}
      * @memberOf ch.Modal
+   	 * @example
+	 * // Setting a new content by AJAX
+	 * if (myModal.isActive()) {
+	 *     // Do something here!
+	 * };
      */
 	that["public"].isActive = function(){
 	   return that.active;
 	}
     /**
-     * Create the UI if necesary and added to the DOM tree.
+     * Create the UI necesary, added to the DOM tree and show the modal.
      * @public
      * @name show
      * @function
      * @returns {Chico-UI Object}
      * @memberOf ch.Modal
+   	 * @example
+	 * // Showing modal on DOM Ready
+	 * $(function(){
+	 *     myModal.show();
+	 * });
      */
 
     /**
-     * Removes component from DOM tree.
+     * Removes component from DOM tree and hide the modal.
      * @public
      * @name hide
      * @function
      * @returns {Chico-UI Object}
      * @memberOf ch.Modal
-     */ 
+   	 * @example
+	 * // Hiding modal
+	 * myModal.hide();
+     */
 
     /**
      * Positioning configuration.
@@ -180,8 +232,38 @@ ch.modal = function(conf){
      * @name position
      * @see ch.Object.position
      * @memberOf ch.Modal
+     * @example
+	 * // Refreshing modal's position
+	 * myModal.position("refresh");
      */
- 
+
+    /**
+     * Sets or gets the width of the Modal element.
+     * @public
+     * @name width size
+     * @function
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Modal
+     * @example
+	 * // Setting width
+	 * myModal.width("200px");
+	 * // or 
+	 * myModal.width(200);
+     */
+
+    /**
+     * Sets or gets the height of the Modal element.
+     * @public
+     * @name height
+     * @function
+     * @returns {Chico-UI Object}
+     * @memberOf ch.Modal
+     * @example
+	 * // Setting height size
+	 * myModal.height("500px"); 
+	 * // or 
+	 * myModal.height(500);	    
+     */
 /**
  *  Default event delegation
  */	
