@@ -33,14 +33,14 @@ ch.extend = function (klass) {
         as: function (name, process) {
             // Create the component in Chico-UI namespace
             ch[name] = function (conf) {
+                // Some interfaces need a data value,
+                // others simply need to be 'true'.
+                conf[name] = conf.value || true;
+                
                 // Invoke pre-proccess if is defined,
                 // or grab the raw conf argument,
                 // or just create an empty object.
                 conf = (process) ? process(conf) : conf || {};
-
-                // Some interfaces need a data value,
-                // others simply need to be 'true'.
-                conf[name] = conf.value || true;
         
                 // Here we recieve messages,
                 // or create an empty object.

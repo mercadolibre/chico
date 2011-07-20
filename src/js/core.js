@@ -228,42 +228,6 @@ var ch = window.ch = {
 	}
 };
 
-
-
-/** 
- * UI feedback utility, creates a visual highlight
- * changing background color from yellow to white.
- * @function
- * @name blink
- * @param {Array} [o] Array of Objects to blink
- * @param {Selector} [selector] CSS Selector to blink a collection
- * @param {jQueryObject} [$object] jQuery Object to blink
- * @returns {Object}
- * @memberOf ch
- */
-ch.blink = function (o, t) {
-	if (!o) {
-		return;
-	}
-	var level = 1, 
-		t = t || 120,
-		highlight = function (e) {
-			function step () {
-				var h = level.toString(16);
-				e.style.backgroundColor = '#FFFF' + h + h;
-					if (level < 15) {
-						level += 1;
-						setTimeout(step, t);
-					}
-		};
-		setTimeout(step, t);
-	}
-	$(o).each(function (i,e) {
-		highlight(e);
-	});
-}
-
-
 /** 
  * Utility to clone objects
  * @function

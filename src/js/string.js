@@ -48,7 +48,7 @@ ch.extend("watcher").as("string", function (conf) {
  * @name Email
  * @interface
  * @augments ch.String
- * @memberOf ch.String
+ * @memberOf ch
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
  * @see ch.Watcher
@@ -64,7 +64,7 @@ ch.extend("string").as("email");
  * @name Url
  * @interface
  * @augments ch.String
- * @memberOf ch.String
+ * @memberOf ch
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
  * @see ch.Watcher
@@ -81,7 +81,7 @@ ch.extend("string").as("url");
  * @name MinLength
  * @interface
  * @augments ch.String
- * @memberOf ch.String
+ * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
@@ -99,7 +99,7 @@ ch.extend("string").as("minLength");
  * @name MaxLength
  * @interface
  * @augments ch.String
- * @memberOf ch.String
+ * @memberOf ch
  * @param {Number} value Maximun number value.
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
