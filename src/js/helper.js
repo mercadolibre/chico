@@ -5,8 +5,8 @@
  * @class Helper
  * @augments ch.Floats
  * @memberOf ch
- * @param {Controller Object} o Object with configuration properties
- * @returns {Chico-UI Object}
+ * @param {Object} o Object with configuration properties
+ * @returns {itself}
  */
 
 ch.helper = function(controller){
@@ -46,15 +46,21 @@ ch.helper = function(controller){
 /**
  *  Protected Members
  */ 
+ 
+ 	/**
+	* Inner show method. Attach the component layout to the DOM tree.
+	* @protected
+	* @name ch.Helper#innerShow
+	* @function
+	* @returns {itself}
+	*/ 
 	that.$trigger = that.$element;
-	
-//	that.$content.prepend('<span class="ico error">Error: </span>');
-	
-	that.show = function() {
+		
+	that.innerShow = function() {
 
 		if ( !that.active ) {
 			// Load content and show!
-			that.parent.show();
+			that.parent.innerShow();
 		};			
 
 		// Just Reload content!
@@ -63,85 +69,126 @@ ch.helper = function(controller){
 		return that;
 	};
 
-
 /**
  *  Public Members
  */
-
+ 
     /**
-     * The component's instance unique identifier.
+     * The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
      * @public
-     * @name uid
+     * @name ch.Helper#uid
      * @type {Number}
-     * @memberOf ch.Helper
-     */ 
+     */
 
-   	
     /**
-     * The element reference.
+     * Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
      * @public
-     * @name element
+     * @name ch.Helper#element
      * @type {HTMLElement}
-     * @memberOf ch.Helper
      */
 
     /**
-     * The component's type.
+     * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
      * @public
-     * @name type
+     * @name ch.Helper#type
      * @type {String}
-     * @memberOf ch.Helper
      */
 
     /**
-     * The component's content.
-     * @public
-     * @function
-     * @name content
-     * @param {String}
-     * @memberOf ch.Helper
-     */
+    * Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
+    * @public
+    * @name ch.Helper#content
+    * @function
+    * @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+    * @example
+    * // Get the defined content
+    * me.content();
+    * @example
+    * // Set static content
+    * me.content("Some static content");
+    * @example
+    * // Set DOM content
+    * me.content("#hiddenContent");
+    * @example
+    * // Set AJAX content
+	* me.content("http://chico.com/some/content.html");
+	* @see ch.Object#content
+    */
 
     /**
-     * Returns true if the component is active.
-     * @public
-     * @name active
-     * @function
-     * @returns {Boolean}
-     * @memberOf ch.Helper
-     */
+    * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+	* @public
+    * @name ch.Helper#isActive
+    * @function 
+    * @returns {Boolean}
+    */
 
-    /**
-     * Shows component's content.
-     * @public
-     * @name show
-     * @function
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Helper
-     */
+	/**
+	* Triggers the innerShow method and returns the public scope to keep method chaining.
+	* @public
+	* @name ch.Helper#show
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#show
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.show();
+	*/
 
+	/**
+	* Triggers the innerHide method and returns the public scope to keep method chaining.
+	* @public
+	* @name ch.Helper#hide
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#hide
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.hide();
+	*/
+	
+	/**
+	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
+	* @public
+	* @name ch.Helper#width
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#size
+	* @example
+	* // to set the width
+	* me.width(700);
+	* @example
+	* // to get the width
+	* me.width // 700
+	*/
+	
+	/**
+	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
+	* @public
+	* @name ch.Helper#height
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#size
+	* @example
+	* // to set the heigth
+	* me.height(300);
+	* @example
+	* // to get the heigth
+	* me.height // 300
+	*/
+	
     /**
-     * Hides component's content.
+     * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
      * @public
-     * @name hide
-     * @function
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Helper
-     */ 
-
-    /**
-     * Positioning configuration.
-     * @public
-     * @name position
-     * @memberOf ch.Helper
+     * @name ch.Helper#position
      * @example
-     * // Change helper's position.
-     * $('input').required("message").helper.position({ 
+     * // Change component's position.
+     * me.position({ 
      *    offset: "0 10",
      *    points: "lt lb"
      * });
+     * @see ch.Object#position
      */
-
 
 /**
  *  Default event delegation
@@ -151,6 +198,7 @@ ch.helper = function(controller){
         that.position("refresh");
     });
 
-	 
+	that.trigger("ready");
+
 	return that;
 };

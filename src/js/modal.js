@@ -1,14 +1,21 @@
 
 /**
- * Is a centered floated window UI-Object.
+ * Is a centered floated window with a dark gray dimmer background. This component let you handle its size, positioning and content.
  * @name Modal
  * @class Modal
  * @augments ch.Floats
  * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
+ * @param {Object} conf Object with configuration properties
+ * @returns {itself}
  * @see ch.Tooltip
  * @see ch.Layer
+ * @example
+ * // Create a new modal window triggered by an anchor with a class name 'example'.
+ * var me = $("a.example").modal();
+ * @example
+ * // Now 'me' is a reference to the modal instance controller.
+ * // You can set a new content by using 'me' like this: 
+ * me.content("http://content.com/new/content");
  */ 
 
 ch.modal = function(conf){
@@ -16,9 +23,8 @@ ch.modal = function(conf){
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
-     * @name that
+     * @name ch.Modal#that
      * @type {Object}
-     * @memberOf ch.Modal
      */
   	var that = this;
 	conf = ch.clon(conf);
@@ -41,9 +47,8 @@ ch.modal = function(conf){
     /**
      * Reference to the dimmer object, the gray background element.
      * @private
-     * @name $dimmer
+     * @name ch.Modal#$dimmer
      * @type {jQuery Object}
-     * @memberOf ch.Modal
      */
 	var $dimmer = $("<div class=\"ch-dimmer\">");
 	
@@ -53,9 +58,8 @@ ch.modal = function(conf){
     /**
      * Reference to dimmer control, turn on/off the dimmer object.
      * @private
-     * @name dimmer
+     * @name ch.Modal#dimmer
      * @type {Object}
-     * @memberOf ch.Modal
      */
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
@@ -65,7 +69,7 @@ ch.modal = function(conf){
 				.fadeIn();
 		
 			if (that.type == "modal") {
-				$dimmer.one("click", function(event){ that.hide(event) });
+				$dimmer.one("click", function(event){ that.innerHide(event) });
 			};
 			
 			if (!ch.features.fixed) {
@@ -77,13 +81,7 @@ ch.modal = function(conf){
 			};
 		},
 		off: function() {
-			$dimmer.fadeOut("normal", function(){
-				$dimmer.detach();
-
-				if ($("html").hasClass("ie6")) {
-					$("select, object").css("visibility", "visible");
-				};
-			});
+			$dimmer.fadeOut("normal", function()ch.Modal);
 		}
 	};
 
@@ -92,19 +90,31 @@ ch.modal = function(conf){
  */ 
  
 	that.$trigger = that.$element;
-	
-	that.show = function(event) {	
-		dimmer.on();
-		that.parent.show(event);		
-		that.$trigger.blur();
 
+	/**
+	* Inner show method. Attach the component's layout to the DOM tree and load defined content.
+	* @protected
+	* @name ch.Modal#innerShow
+	* @function
+	* @returns {itself}
+	*/ 
+	that.innerShow = function(event) {	
+		dimmer.on();
+		that.parent.innerShow(event);		
+		that.$trigger.blur();
 		return that;
 	};
 	
-	that.hide = function(event) {
+	/**
+	* Inner hide method. Hides the component's layout and detach it from DOM tree.
+	* @protected
+	* @name ch.Modal#innerHide
+	* @function
+	* @returns {itself}
+	*/ 	
+	that.innerHide = function(event) {
 		dimmer.off();		
-		that.parent.hide(event);
-
+		that.parent.innerHide(event);
 		return that;
 	};
 	
@@ -113,73 +123,120 @@ ch.modal = function(conf){
  */
  
     /**
-     * The component's instance unique identifier.
+     * The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
      * @public
-     * @name uid
+     * @name ch.Modal#uid
      * @type {Number}
-     * @memberOf ch.Modal
      */
 
     /**
-     * The element reference.
+     * Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
      * @public
-     * @name element
+     * @name ch.Modal#element
      * @type {HTMLElement}
-     * @memberOf ch.Modal
      */
 
     /**
-     * The component's type.
+     * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
      * @public
-     * @name type
+     * @name ch.Modal#type
      * @type {String}
-     * @memberOf ch.Modal
      */
 
     /**
-     * Set and get component's content.
-     * @public
-     * @name content
-     * @function
-     * @param {String} Static content, DOM selector or URL. If argument is empty then will return the content.
-     * @memberOf ch.Modal
-     */
+    * Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
+    * @public
+    * @name ch.Modal#content
+    * @function
+    * @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+    * @example
+    * // Get the defined content
+    * me.content();
+    * @example
+    * // Set static content
+    * me.content("Some static content");
+    * @example
+    * // Set DOM content
+    * me.content("#hiddenContent");
+    * @example
+    * // Set AJAX content
+	* me.content("http://chico.com/some/content.html");
+	* @see ch.Object#content
+    */
 
     /**
-     * Returns true if the component is active.
-     * @public
-     * @name isActive
-     * @function 
-     * @returns {Boolean}
-     * @memberOf ch.Modal
-     */
-	that["public"].isActive = function(){
-	   return that.active;
-	}
-    /**
-     * Create the UI if necesary and added to the DOM tree.
-     * @public
-     * @name show
-     * @function
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Modal
-     */
+    * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+	* @public
+    * @name ch.Modal#isActive
+    * @function 
+    * @returns {Boolean}
+    */
 
-    /**
-     * Removes component from DOM tree.
-     * @public
-     * @name hide
-     * @function
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Modal
-     */ 
+	/**
+	* Triggers the innerShow method and returns the public scope to keep method chaining.
+	* @public
+	* @name ch.Modal#show
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#show
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.show();
+	*/
 
+	/**
+	* Triggers the innerHide method and returns the public scope to keep method chaining.
+	* @public
+	* @name ch.Modal#hide
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#hide
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.hide();
+	*/
+	
+	/**
+	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
+	* @public
+	* @name ch.Modal#width
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#size
+	* @example
+	* // to set the width
+	* me.width(700);
+	* @example
+	* // to get the width
+	* me.width // 700
+	*/
+	
+	/**
+	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
+	* @public
+	* @name ch.Modal#height
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#size
+	* @example
+	* // to set the heigth
+	* me.height(300);
+	* @example
+	* // to get the heigth
+	* me.height // 300
+	*/
+	
     /**
-     * Positioning configuration.
+     * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
      * @public
-     * @name position
-     * @see ch.Object.position
-     * @memberOf ch.Modal
+     * @name ch.Modal#position
+     * @example
+     * // Change component's position.
+     * me.position({ 
+     *    offset: "0 10",
+     *    points: "lt lb"
+     * });
+     * @see ch.Object#position
      */
  
 /**
@@ -187,7 +244,44 @@ ch.modal = function(conf){
  */	
 	that.$trigger
 		.css("cursor", "pointer")
-		.bind("click", function(event){ that.show(event); });
+		.bind("click", function(event){ that.innerShow(event); });
+		
+	/**
+	* Triggers when component is visible.
+	* @name ch.Modal#show
+	* @event
+    * @public
+	* @example
+	* me.on("show",function(){
+	*    this.content("Some new content");
+	* });
+	* @see ch.Floats#event:show
+	*/
+
+	/**
+	* Triggers when component is not longer visible.
+	* @name ch.Modal#hide
+	* @event
+    * @public
+	* @example
+	* me.on("hide",function(){
+	*    otherComponent.show();
+	* });
+	* @see ch.Floats#event:hide
+	*/
+		
+	/**
+	* Triggers when the component is ready to use.
+	* @name ch.Modal#ready
+	* @event
+	* @public
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.on("ready",function(){
+	*    this.show();
+	* });
+	*/
+	that.trigger("ready");
 
 	return that;
 };
@@ -196,10 +290,10 @@ ch.modal = function(conf){
 /**
  * Transition
  * @name Transition
- * @interface Transition
+ * @class Transition
  * @augments ch.Modal
- * @memberOf ch.Modal
- * @returns {Chico-UI Object}
+ * @memberOf ch
+ * @returns {itself}
  */
 ch.extend("modal").as("transition", function(conf) {
 	conf.closeButton = false;
