@@ -5,13 +5,17 @@
  * @class Layer
  * @augments ch.Floats
  * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
+ * @param {Object} conf Object with configuration properties
+ * @returns {itself}
  * @see ch.Tooltip
  * @see ch.Modal
  * @example
  * // Create a simple contextual layer
- * $("element").layer("<p>Content.</p>");
+ * var me = $(".some-element").layer("<p>Some content.</p>");
+ * @example
+ * // Now 'me' is a reference to the layer instance controller.
+ * // You can set a new content by using 'me' like this: 
+ * me.content("http://content.com/new/content");
  */ 
 
 ch.layer = function(conf) {
@@ -90,7 +94,7 @@ ch.layer = function(conf) {
      * @function
      * @memberOf ch.Layer
      */ 
-	var showTimer = function(){ st = setTimeout(that.show, showTime) };
+	var showTimer = function(){ st = setTimeout(that.innerShow, showTime) };
     /**
      * Starts hide timer.
      * @private
@@ -98,7 +102,7 @@ ch.layer = function(conf) {
      * @function
      * @memberOf ch.Layer
      */ 
-	var hideTimer = function(){ ht = setTimeout(that.hide, hideTime) };
+	var hideTimer = function(){ ht = setTimeout(that.innerHide, hideTime) };
     /**
      * Clear all timers.
      * @private
@@ -113,13 +117,20 @@ ch.layer = function(conf) {
  */
 
 	that.$trigger = that.$element;
-	
-	that.show = function(event) {
+
+	/**
+	* Inner show method. Attach the component layout to the DOM tree.
+	* @protected
+	* @name ch.Layer#innerShow
+	* @function
+	* @returns {itself}
+	*/ 
+	that.innerShow = function(event) {
 	
 		// Reset all layers
 		$.each(ch.instances.layer, function(i, e){ e.hide(); });
 		//conf.position.context = that.$element;
-		that.parent.show(event);
+		that.parent.innerShow(event);
 
 		that.$container.bind('click', function(event){ event.stopPropagation() });
         
@@ -127,7 +138,7 @@ ch.layer = function(conf) {
         if (conf.event == "click") {
 			conf.close = true;
             // Document events
-            $(document).one('click', that.hide);
+            $(document).one('click', that.innerHide);
             
         // Hover
         } else {      	
@@ -142,120 +153,193 @@ ch.layer = function(conf) {
 					hideTimer();
         		});
         };
-        
+
         return that;
     };
 
 /**
  *  Public Members
  */
- 
+  
     /**
-     * The component's instance unique identifier.
+     * The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
      * @public
-     * @name uid
+     * @name ch.Layer#uid
      * @type {Number}
-     * @memberOf ch.Layer
      */
-   	that["public"].uid = that.uid;
+
     /**
-     * The element reference.
+     * Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
      * @public
-     * @name element
+     * @name ch.Layer#element
      * @type {HTMLElement}
-     * @memberOf ch.Layer
      */
-	that["public"].element = that.element;
+
     /**
-     * The component's type.
+     * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
      * @public
-     * @name type
+     * @name ch.Layer#type
      * @type {String}
-     * @memberOf ch.Layer
      */
-	that["public"].type = that.type;
+
     /**
-     * The component's content.
-     * @public
-     * @name content
-     * @type {String}
-     * @memberOf ch.Layer
-     */
-	that["public"].content = that.content;
+    * Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
+    * @public
+    * @name ch.Layer#content
+    * @function
+    * @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+    * @example
+    * // Get the defined content
+    * me.content();
+    * @example
+    * // Set static content
+    * me.content("Some static content");
+    * @example
+    * // Set DOM content
+    * me.content("#hiddenContent");
+    * @example
+    * // Set AJAX content
+	* me.content("http://chico.com/some/content.html");
+	* @see ch.Object#content
+    */
+
+    /**
+    * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+	* @public
+    * @name ch.Layer#isActive
+    * @function 
+    * @returns {Boolean}
+    */
+
+	/**
+	* Triggers the innerShow method and returns the public scope to keep method chaining.
+	* @public
+	* @name ch.Layer#show
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#show
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.show();
+	*/
+
+	/**
+	* Triggers the innerHide method and returns the public scope to keep method chaining.
+	* @public
+	* @name ch.Layer#hide
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#hide
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.hide();
+	*/
+	
+	/**
+	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
+	* @public
+	* @name ch.Layer#width
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#size
+	* @example
+	* // to set the width
+	* me.width(700);
+	* @example
+	* // to get the width
+	* me.width // 700
+	*/
+	
+	/**
+	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
+	* @public
+	* @name ch.Layer#height
+	* @function
+	* @returns {itself}
+	* @see ch.Floats#size
+	* @example
+	* // to set the heigth
+	* me.height(300);
+	* @example
+	* // to get the heigth
+	* me.height // 300
+	*/
 	
     /**
-     * Returns true if the component is active.
+     * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
      * @public
-     * @name isActive
-     * @function 
-     * @returns {Boolean}
-     * @memberOf ch.Layer
-     */
-	that["public"].isActive = function(){
-	   return that.active;
-	}
-    /**
-     * Shows component's content.
-     * @public
-     * @name show
-     * @function
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Layer
-     */
-	that["public"].show = function(){
-		that.show();
-		
-		return that["public"];
-	};
-    /**
-     * Hides component's content.
-     * @public
-     * @name hide
-     * @function
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Layer
-     */	
-	that["public"].hide = function(){
-		that.hide();
-		
-		return that["public"];
-	};
-    /**
-     * Positioning configuration.
-     * @public
-     * @name position
-     * @memberOf ch.Layer
+     * @name ch.Layer#position
      * @example
-     * // Change layer's position.
-     * $('input').layer("content").position({ 
+     * // Change component's position.
+     * me.position({ 
      *    offset: "0 10",
      *    points: "lt lb"
      * });
+     * @see ch.Object#position
      */
-	that["public"].position = that.position;
 	
 /**
  *  Default event delegation
  */
+
 	// Click
 	if(conf.event === 'click') {
+
 		// Trigger events
 		that.$trigger
 			.css('cursor', 'pointer')
-			.bind('click', that.show);
+			.bind('click', that.innerShow);
 
 	// Hover
 	} else {
+	
 		// Trigger events
 		that.$trigger
 			.css('cursor', 'default')
-			.bind('mouseenter', that.show)
+			.bind('mouseenter', that.innerShow)
 			.bind('mouseleave', hideTimer);
 	};
 
     // Fix: change layout problem
     $("body").bind(ch.events.LAYOUT.CHANGE, function(){ that.position("refresh") });
  
+	/**
+	* Triggers when component is visible.
+	* @name ch.Layer#show
+	* @event
+    * @public
+	* @example
+	* me.on("show",function(){
+	*    this.content("Some new content");
+	* });
+	* @see ch.Floats#event:show
+	*/
+
+	/**
+	* Triggers when component is not longer visible.
+	* @name ch.Layer#hide
+	* @event
+    * @public
+	* @example
+	* me.on("hide",function(){
+	*    otherComponent.show();
+	* });
+	* @see ch.Floats#event:hide
+	*/
+		
+	/**
+	* Triggers when the component is ready to use.
+	* @name ch.Layer#ready
+	* @event
+	* @public
+	* @example
+	* // Following the first example, using 'me' as Layer's instance controller:
+	* me.on("ready",function(){
+	*    this.show();
+	* });
+	*/
+	that.trigger("ready");
+
 
 	return that;
 

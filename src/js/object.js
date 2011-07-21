@@ -16,9 +16,8 @@ ch.object = function(){
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
-     * @name that
+     * @name ch.Object#that
      * @type {Object}
-     * @memberOf ch.Object
      */ 
 	var that = this;	
 	var conf = that.conf;
@@ -29,38 +28,35 @@ ch.object = function(){
  
 
    /**
-    * Component's static content.
+    * Component static content.
     * @public
-    * @name staticContent
+    * @name ch.Object#staticContent
 	* @type {String}
-    * @memberOf ch.Object
     */ 
     that.staticContent;
     
    /**
     * DOM Parent of content, this is useful to attach DOM Content when float is hidding.
     * @public
-    * @name DOMParent
+    * @name ch.Object#DOMParent
     * @type {HTMLElement}
-    * @memberOf ch.Object
     */ 
     that.DOMParent;
 
    /**
     * Flag to know if the DOM Content is visible or not.
     * @public
-    * @name DOMContentIsVisible
+    * @name ch.Object#DOMContentIsVisible
     * @type {Boolean}
-    * @memberOf ch.Object
     */ 
     that.DOMContentIsVisible;
 
    /**
     * Prevent propagation and default actions.
-    * @name prevent
+    * @name ch.Object#prevent
     * @function
+    * @protected
     * @param {EventObject} event Recieves a event object
-    * @memberOf ch.Object
     */
 	that.prevent = function(event) {
 	   
@@ -72,24 +68,23 @@ ch.object = function(){
 		return that;
 	};
 
-
    /**
-    * Set and get the content of a component
-    * @name content
+    * Set and get the content of a component. With no arguments will behave as a getter function. Send any kind of content and will be a setter function. Use a valid URL for AJAX content, use a CSS selector for a DOM content or just send a static content like HTML or Text.
+    * @name ch.Object#content
+    * @protected
     * @function
     * @param {String} [content] Could be a simple text, html or a url to get the content with ajax.
     * @returns {String} content
-    * @memberOf ch.Object
     * @requires ch.Cache
     * @example
     * // Simple static content
-    * $(element).layer("Some static content");
+    * $(element).layer().content("Some static content");
     * @example
     * // Get DOM content
-    * $(element).layer("#hiddenContent");
+    * $(element).layer().content("#hiddenContent");
     * @example
     * // Get AJAX content
-	* $(element).layer("http://chico.com/content/layer.html");
+	* $(element).layer().content("http://chico.com/content/layer.html");
     */
     that.content = function(content) {
 
@@ -264,10 +259,10 @@ ch.object = function(){
     };
 
    /**
-    * Executes a specific callback
-    * @name callbacks
+    * This method will be deprecated soon. Triggers a specific callback inside component's context.
+    * @name ch.Object#callbacks
     * @function
-    * @memberOf ch.Object
+    * @protected
     */
     // TODO: Add examples!!!
 	that.callbacks = function(when) {
@@ -278,13 +273,13 @@ ch.object = function(){
 	};
 
    /**
-    * Change components position
-    * @name position
+    * Change component's position configuration. If a "refresh" {String} is recived, will refresh component's positioning with the same configuration. You can send an {Object} with a new configuration.
+    * @name ch.Object#position
     * @function
-    * @param {Object} [o] Configuration object
+    * @protected
     * @param {String} ["refresh"] Refresh
-    * @memberOf ch.Object
-    * @returns {Object} o Configuration object is arguments are empty
+    * @returns {Object} Configuration object if no arguments are sended.
+    * @see ch.Positioner
     */	
     // TODO: Add examples!!!
 	that.position = function(o) {
@@ -319,47 +314,116 @@ ch.object = function(){
 	};
 	
 
+	
+   /**
+    * Triggers a specific event within the component public context.
+    * @name ch.Object#trigger
+    * @function
+    * @protected
+    * @param {String} event The event name you want to trigger.
+    */	
+	that.trigger = function(event) {
+		$(that["public"]).trigger("ch-"+event);
+	}
+
+	/**
+	 * Component's public scope. In this scope you will find all public members.
+	 */
+
  	that["public"] = {};
     /**
-     * The component's instance unique identifier.
+     * The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
      * @public
-     * @name uid
+     * @name ch.Object#uid
      * @type {Number}
-     * @memberOf ch.Object
+     * @ignore  
      */
    	that["public"].uid = that.uid;
     /**
-     * The element reference.
+     * Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
      * @public
-     * @name element
+     * @name ch.Object#element
      * @type {HTMLElement}
-     * @memberOf ch.Object
+     * @ignore
      */
 	that["public"].element = that.element;
     /**
-     * The component's type.
+     * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
      * @public
-     * @name type
+     * @name ch.Object#type
      * @type {String}
-     * @memberOf ch.Object
+     * @ignore
      */
 	that["public"].type = that.type;
-    
+
     /**
-     * Positioning configuration.
+     * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
      * @public
-     * @name position
-     * @memberOf ch.Object
+     * @name ch.Object#position
+     * @example
+     * // Change component's position.
+     * me.position({ 
+     *    offset: "0 10",
+     *    points: "lt lb"
+     * });
+     * @see ch.Object#position
      */
 	that["public"].position = that.position;
+
     /**
-     * Positioning configuration.
+    * Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
+    * @public
+    * @name ch.Object#content
+    * @function
+    * @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+    * @example
+    * // Get the defined content
+    * me.content();
+    * @example
+    * // Set static content
+    * me.content("Some static content");
+    * @example
+    * // Set DOM content
+    * me.content("#hiddenContent");
+    * @example
+    * // Set AJAX content
+	* me.content("http://chico.com/some/content.html");
+    */
+	that["public"].content = that.content;
+
+    /**
+     * Add a callback function to specific object events.
      * @public
      * @function
-     * @name content
-     * @memberOf ch.Object
+     * @name ch.Object#on
+     * @param {String} event Event name.
+     * @param {Function} handler Handler.
+     * @returns {itself}
      */
-	that["public"].content = that.content;
-	
+     that["public"].on = function(event, handler) {
+     	
+     	if (event && handler) {
+			$(that["public"]).bind("ch-"+event, handler);
+     	}
+
+   		return that["public"];
+     }
+    /**
+     * Removes a callback function to specific object events.
+     * @public
+     * @function
+     * @name ch.Object#off
+     * @param {String} event Event name.
+     * @returns {itself}
+     */	
+     that["public"].off = function(event, handler) {
+     
+     	if (event && handler) {
+			$(that["public"]).unbind("ch-"+event, handler);
+		}
+		
+   		return that["public"];		
+     }
+     	
 	return that;
 };
