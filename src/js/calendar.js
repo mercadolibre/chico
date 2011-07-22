@@ -42,6 +42,7 @@ ch.calendar = function(conf) {
      * Collection of months names
      * @private
      * @name ch.Calendar#MONTHS_NAMES
+     * @constant
      * @type {Array}
      */
 	//TODO: default in english and snnif browser language
@@ -52,6 +53,7 @@ ch.calendar = function(conf) {
      * Collection of weekdays short names
      * @private
      * @name ch.Calendar#SHORT_WEEK_NAMES
+     * @constant
      * @type {Array}
      */
 	//TODO: default in english and snnif browser language
@@ -283,6 +285,7 @@ ch.calendar = function(conf) {
      * Map of formart's date
      * @private
      * @name ch.Calendar#FORMAT_DATE
+     * @constant
      * @type {Object}
      */
 	var FORMAT_DATE = {

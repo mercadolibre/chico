@@ -1,8 +1,8 @@
 /**
- * Chico-UI namespace
- * @namespace ch
- * @name ch
- */
+* Chico-UI namespace
+* @namespace ch
+* @name ch
+*/
 
 var ch = window.ch = {
 
@@ -132,95 +132,105 @@ var ch = window.ch = {
 	},
 
 	/**
-	 * Chico-UI global events reference.
-	 * @abstract
-	 * @name Events
-	 * @class Events
-	 * @type {Map Object}
-	 * @memberOf ch 
-	 * @see ch.Events.KEY
-	 */	
+	* Chico-UI global events reference.
+	* @abstract
+	* @name Events
+	* @class Events
+	* @type {Map Object}
+	* @memberOf ch 
+	* @see ch.Events.KEY
+	*/	
 	events: {
 		/**
-		 * Layout event collection.
-		 * @name LAYOUT
-		 * @namespace LAYOUT
-		 * @memberOf ch.Events
-		 */
+		* Layout event collection.
+		* @name LAYOUT
+		* @namespace LAYOUT
+		* @memberOf ch.Events
+		*/
 		LAYOUT: {
 			/**
-			 * Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
-			 * @name CHANGE
-			 * @memberOf ch.Events.LAYOUT
-			 * @see ch.Form
-			 * @see ch.Layer
-			 * @see ch.Tooltip
-			 * @see ch.Helper 
-			 */
+			* Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
+			* @name CHANGE
+			* @memberOf ch.Events.LAYOUT
+			* @constant
+			* @see ch.Form
+			* @see ch.Layer
+			* @see ch.Tooltip
+			* @see ch.Helper 
+			*/
 			CHANGE: "change"
 		},
 		/**
-         * Viewport event collection.
-         * @name VIEWPORT
-         * @namespace VIEWPORT
-         * @memberOf ch.Events
-         */
-        VIEWPORT: {
-            /**
-             * Every time Chico-UI needs to inform all visual components that window has been scrolled, he triggers this event.
-             * @name SCROLL
-             * @memberOf ch.Events.VIEWPORT
-             * @see ch.Viewport
-             */
-            SCROLL: "ch-scroll",
-            /**
-             * Every time Chico-UI needs to inform all visual components that window has been resized, he triggers this event.
-             * @name RESIZE
-             * @memberOf ch.Events.VIEWPORT
-             * @see ch.Viewport
-             */
-            RESIZE: "ch-resize"
-        },
+		* Viewport event collection.
+		* @name VIEWPORT
+		* @namespace VIEWPORT
+		* @memberOf ch.Events
+		*/
+		VIEWPORT: {
+			/**
+			* Every time Chico-UI needs to inform all visual components that window has been scrolled, he triggers this event.
+			* @name SCROLL
+			* @constant
+			* @memberOf ch.Events.VIEWPORT
+			* @see ch.Viewport
+			*/
+			SCROLL: "ch-scroll",
+			/**
+			* Every time Chico-UI needs to inform all visual components that window has been resized, he triggers this event.
+			* @name RESIZE
+			* @constant
+			* @memberOf ch.Events.VIEWPORT
+			* @see ch.Viewport
+			*/
+			RESIZE: "ch-resize"
+		},
 		/**
-		 * Keryboard event collection.
-		 * @name KEY
-		 * @namespace KEY
-		 * @memberOf ch.Events
-		 */
+		* Keryboard event collection.
+		* @name KEY
+		* @constant
+		* @namespace KEY
+		* @memberOf ch.Events
+		*/
 		KEY: {
 			/**
-			 * Enter key event.
+			* Enter key event.
 			* @name ENTER
+			* @constant
 			* @memberOf ch.Events.KEY
 			*/
 			ENTER: "enter",
 			/**
 			* Esc key event.
 			* @name ESC
+			* @constant
 			* @memberOf ch.Events.KEY
 			*/
 			ESC: "esc",
 			/**
 			* Left arrow key event.
 			* @name LEFT_ARROW
+			* @constant
 			* @memberOf ch.Events.KEY
 			*/
 			LEFT_ARROW: "left_arrow",
 			/**
 			* Up arrow key event.
 			* @name UP_ARROW
+			* @constant
 			* @memberOf ch.Events.KEY
 			*/
 			UP_ARROW: "up_arrow",
 			/**
 			* Rigth arrow key event.
 			* @name RIGHT_ARROW
+			* @constant
 			* @memberOf ch.Events.KEY
 			*/
 			RIGHT_ARROW: "right_arrow",
 			/**
 			* Down arrow key event.
 			* @name DOWN_ARROW
+			* @constant
 			* @memberOf ch.Events.KEY
 			*/
 			DOWN_ARROW: "down_arrow"
@@ -229,13 +239,13 @@ var ch = window.ch = {
 };
 
 /** 
- * Utility to clone objects
- * @function
- * @name clon
- * @param {Object} o Object to clone
- * @returns {Object}
- * @memberOf ch
- */
+* Utility to clone objects
+* @function
+* @name clon
+* @param {Object} o Object to clone
+* @returns {Object}
+* @memberOf ch
+*/
 ch.clon = function(o) {
 
 	obj = {};
@@ -249,22 +259,22 @@ ch.clon = function(o) {
 
 
 /** 
- * Class to create UI Components
- * @abstract
- * @name Factory
- * @class Factory
- * @param {Configuration Object} o 
- * @example
- *   o {
- * 	component: "chat",
- * 	callback: function(){},
- * 	[script]: "http://..",
- * 	[style]: "http://..",
- * 	[callback]: function(){}	
- *   }
- * @returns {Collection} A collection of object instances
- * @memberOf ch
- */	
+* Class to create UI Components
+* @abstract
+* @name Factory
+* @class Factory
+* @param {Configuration Object} o 
+* @example
+*	o {
+*		component: "chat",
+*		callback: function(){},
+*		[script]: "http://..",
+*		[style]: "http://..",
+*		[callback]: function(){}	
+*	}
+* @returns {Collection} A collection of object instances
+* @memberOf ch
+*/
 
 ch.factory = function(o) {
 
@@ -285,8 +295,8 @@ ch.factory = function(o) {
 		// Send configuration to a component trough options object
 		$.fn[x] = function( options ) {
 
-			var results = [];				
-			var that = this;  	
+			var results = [];
+			var that = this;
 
 			// Could be more than one argument
 			var _arguments = arguments;
@@ -391,20 +401,20 @@ ch.factory = function(o) {
 }
 
 /**
- * Load components or content
- * @abstract
- * @name Get
- * @class Get
- * @param o {Object} object 
- * @example
- *   o {
- * 	component: "chat",
- * 	[script]: "http://..",
- * 	[style]: "http://..",
- * 	[callback]: function(){}
- *   }
- * @memberOf ch
- */
+* Load components or content
+* @abstract
+* @name Get
+* @class Get
+* @param o {Object} object 
+* @example
+*	o {
+*		component: "chat",
+*		[script]: "http://..",
+*		[style]: "http://..",
+*		[callback]: function(){}
+*	}
+* @memberOf ch
+*/
 ch.get = function(o) {
 	
 	// ch.get: "Should I get a style?"
@@ -447,22 +457,22 @@ ch.get = function(o) {
 
 
 /**
- * Returns a data object with features supported by the device
- * @abstract
- * @name Support
- * @class Support
- * @returns {Object}
- * @memberOf ch 
- */
+* Returns a data object with features supported by the device
+* @abstract
+* @name Support
+* @class Support
+* @returns {Object}
+* @memberOf ch 
+*/
 ch.support = function() {
 	
 	/**
-	 * Private reference to the <body> element
-	 * @private
-	 * @name thisBody
-	 * @type {HTMLBodyElement}
-	 * @memberOf ch.Support
-	 */
+	* Private reference to the <body> element
+	* @private
+	* @name thisBody
+	* @type {HTMLBodyElement}
+	* @memberOf ch.Support
+	*/
 	var thisBody = document.body || document.documentElement;
 	
 	/**
