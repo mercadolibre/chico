@@ -579,7 +579,6 @@ ch.watcher = function(conf) {
 		var that = {};
 			that["public"] = check; 
 		// ;) repleace that object with the repeated instance
-		console.log("repeated man")
 	} else {
 		// this is a new instance: "Come to papa!"
 		controller.children.push(that["public"]);
