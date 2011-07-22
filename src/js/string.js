@@ -1,18 +1,21 @@
 
 /**
- * Validate strings.
- * @name String 
- * @class String
- * @interface
- * @augments ch.Watcher
- * @memberOf ch
- * @param {String} msg Validation message
- * @returns {Chico-UI Object}
- * @see ch.Watcher
- * @example
- * // Create a string validation
- * $("input").string("This field must be a string.");
- */
+* Validate strings.
+* @name String 
+* @class String
+* @interface
+* @augments ch.Watcher
+* @memberOf ch
+* @param {String} msg Validation message
+* @returns {Chico-UI Object}
+* @see ch.Watcher
+* @see ch.Required
+* @see ch.Custom
+* @see ch.Number
+* @example
+* // Create a string validation
+* $("input").string("This field must be a string.");
+*/
 
 ch.extend("watcher").as("string", function (conf) {
 
@@ -21,6 +24,11 @@ ch.extend("watcher").as("string", function (conf) {
         conf.text = true;
     };
     
+    /**
+    * @public
+    * 
+    * @type {Map}
+    */
     // Define the conditions of this interface
     conf.conditions = [{
             name: "text", 
