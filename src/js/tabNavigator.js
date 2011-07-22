@@ -383,7 +383,7 @@ ch.tab = function(conf){
      * @public
      * @name contentCallback
      * @returns {Chico-UI Object}
-     * @memberOf ch.Floats
+     * @memberOf ch.TabNavigator
      */
     that.contentCallback = function(data) {
 		that.staticContent = data;

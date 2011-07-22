@@ -17,9 +17,8 @@ ch.navs = function(){
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
-     * @name that
+     * @name ch.Navs#that
      * @type {Object}
-     * @memberOf ch.Navs
      */ 
 	var that = this;
 	var conf = that.conf;
@@ -41,9 +40,8 @@ ch.navs = function(){
     /**
      * Adds icon in trigger's content.
      * @private
-     * @name createIcon
+     * @name ch.Navs#createIcon
      * @function
-     * @memberOf ch.Navs
      */
 	var createIcon = function(){
 		$("<span>")
@@ -59,19 +57,17 @@ ch.navs = function(){
  */ 	
      /**
      * Status of component
-     * @public
-     * @name active
+     * @protected
+     * @name ch.Navs#active
      * @returns {Boolean}
-     * @memberOf ch.Navs
      */
 	that.active = false;
 
     /**
      * Shows component's content.
-     * @public
-     * @name show
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Navs
+     * @protected
+     * @name ch.Navs#show
+     * @returns {itself}
      */
 	that.show = function(event){
 		that.prevent(event);
@@ -84,19 +80,25 @@ ch.navs = function(){
 
 		that.$trigger.addClass("ch-" + that.type + "-trigger-on");
        /**
-        * Callback function
-        * @name onShow
-        * @type {Function}
-        * @memberOf ch.Navs
+        * onShow callback function
+        * @name ch.Navs#onShow
+        * @event
         */
 		// Animation
 		if( conf.fx ) {
 			that.$content.slideDown("fast", function(){
 				//that.$content.removeClass("ch-hide");
+			
+				// new callbacks
+				that.trigger("show");
+				// old callback system
 				that.callbacks("onShow");
 			});
 		} else {
 			that.$content.removeClass("ch-hide");
+			// new callbacks
+			that.trigger("show");
+			// old callback system
 			that.callbacks("onShow");
 		};
 		
@@ -104,10 +106,9 @@ ch.navs = function(){
 	};
     /**
      * Hides component's content.
-     * @public
-     * @name hide
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Navs
+     * @protected
+     * @name ch.Navs#hide
+     * @returns {itself}
      */
 	that.hide = function(event){
 		that.prevent(event);
@@ -118,10 +119,9 @@ ch.navs = function(){
 		
 		that.$trigger.removeClass("ch-" + that.type + "-trigger-on");
       /**
-        * Callback function
-        * @name onHide
-        * @type {Function}
-        * @memberOf ch.Navs
+        * onHide callback function
+        * @name ch.Navs#onHide
+        * @event
         */
 		// Animation
 		if( conf.fx ) {
@@ -131,6 +131,9 @@ ch.navs = function(){
 			});
 		} else {
 			that.$content.addClass("ch-hide");
+			// new callbacks
+			that.trigger("hide");
+			// old callback system
 			that.callbacks("onHide");
 		};
 		
@@ -139,10 +142,8 @@ ch.navs = function(){
 
      /**
      * Create component's layout
-     * @public
-     * @name createLayout
-     * @returns {void}
-     * @memberOf ch.Navs
+     * @protected
+     * @name ch.Navs#createLayout
      */
 	that.configBehavior = function(){
 		that.$trigger
@@ -156,7 +157,6 @@ ch.navs = function(){
 		if( conf.icon ) createIcon();
 		if( conf.open ) that.show();
 
-		return;
 	};
 	
 /**
@@ -164,6 +164,29 @@ ch.navs = function(){
  */
 	that.$element.addClass("ch-" + that.type);
 
+	/**
+	* Triggers when component is visible.
+	* @name ch.Navs#show
+	* @event
+    * @public
+	* @example
+	* me.on("show",function(){
+	*    this.content("Some new content");
+	* });
+	* @see ch.Floats#event:show
+	*/
+
+	/**
+	* Triggers when component is not longer visible.
+	* @name ch.Navs#hide
+	* @event
+    * @public
+	* @example
+	* me.on("hide",function(){
+	*    otherComponent.show();
+	* });
+	* @see ch.Floats#event:hide
+	*/
 
 	return that;
 }
