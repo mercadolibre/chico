@@ -81,7 +81,13 @@ ch.modal = function(conf){
 			};
 		},
 		off: function() {
-			$dimmer.fadeOut("normal", function()ch.Modal);
+			$dimmer.fadeOut("normal", function(){
+				$dimmer.detach();
+
+				if ($("html").hasClass("ie6")) {
+					$("select, object").css("visibility", "visible");
+				};
+			});
 		}
 	};
 
