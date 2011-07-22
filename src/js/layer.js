@@ -23,9 +23,8 @@ ch.layer = function(conf) {
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
-     * @name that
+     * @name ch.Layer#that
      * @type {Object}
-     * @memberOf ch.Layer
      */ 
 	var that = this;
 	
@@ -55,62 +54,59 @@ ch.layer = function(conf) {
     /**
      * Delay time to show component's contents.
      * @private
-     * @name showTime
+     * @name ch.Layer#showTime
      * @type {Number}
      * @default 400
-     * @memberOf ch.Layer
      */ 
-    var showTime = conf.showTime || 400;
+    var showTime = conf.showTime || 400,
     /**
      * Delay time to hide component's contents.
      * @private
-     * @name hideTime
+     * @name ch.Layer#hideTime
      * @type {Number}
      * @default 400
-     * @memberOf ch.Layer
      */ 
-    var hideTime = conf.hideTime || 400;
+    hideTime = conf.hideTime || 400,
 
     /**
      * Show timer instance.
      * @private
-     * @name st
+     * @name ch.Layer#st
      * @type {Timer}
-     * @memberOf ch.Layer
      */ 
-	var st;
+	st,
+	
 	/**
      * Hide timer instance.
      * @private
-     * @name ht
+     * @name ch.Layer#ht
      * @type {Timer}
-     * @memberOf ch.Layer
      */ 
-	var ht;
+	ht,
+	
     /**
      * Starts show timer.
      * @private
-     * @name showTimer
+     * @name ch.Layer#showTimer
      * @function
-     * @memberOf ch.Layer
      */ 
-	var showTimer = function(){ st = setTimeout(that.innerShow, showTime) };
+	showTimer = function(){ st = setTimeout(that.innerShow, showTime) },
+	
     /**
      * Starts hide timer.
      * @private
-     * @name hideTimer
+     * @name ch.Layer#hideTimer
      * @function
-     * @memberOf ch.Layer
      */ 
-	var hideTimer = function(){ ht = setTimeout(that.innerHide, hideTime) };
+	hideTimer = function(){ ht = setTimeout(that.innerHide, hideTime) },
+	
     /**
      * Clear all timers.
      * @private
-     * @name clearTimers
+     * @name ch.Layer#clearTimers
      * @function
-     * @memberOf ch.Layer
      */ 
-	var clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
+	clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
 
 /**
  *  Protected Members
@@ -284,16 +280,12 @@ ch.layer = function(conf) {
 
 	// Click
 	if(conf.event === 'click') {
-
-		// Trigger events
 		that.$trigger
 			.css('cursor', 'pointer')
 			.bind('click', that.innerShow);
 
 	// Hover
 	} else {
-	
-		// Trigger events
 		that.$trigger
 			.css('cursor', 'default')
 			.bind('mouseenter', that.innerShow)

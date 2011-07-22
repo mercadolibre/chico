@@ -268,8 +268,8 @@ ch.watcher = function(conf) {
                 		(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
                 		undefined;
 
-					that.helper.content(text);
-                	that.helper.show();
+					that.helper["public"].content(text);
+                	that.helper["public"].show();
                 
                 	that.active = true;
                 
@@ -290,7 +290,7 @@ ch.watcher = function(conf) {
 		    // Remove field error style
 			that.$element.removeClass("error"); 
             // Hide helper  
-			that.helper.hide();
+			that.helper["public"].hide();
 			// Public status OK
 			//that.publish.status = that.status =  conf.status = true; // Status OK
 			that.active = false;
@@ -324,7 +324,7 @@ ch.watcher = function(conf) {
 		//that.publish.status = that.status = conf.status = true; // Public status OK
 		that.active = false;
 		that.$element.removeClass("error");
-		that.helper.hide(); // Hide helper
+		that.helper["public"].hide(); // Hide helper
 		that.$element.unbind("blur change", that.validate); // Remove blur and change event
        /**
         * Callback function
@@ -370,7 +370,7 @@ ch.watcher = function(conf) {
      * @type {Number}
      * @memberOf ch.Watcher
      */ 
-	that["public"].uid = that.uid;
+
     /**
      * The element reference.
      * @public
@@ -378,7 +378,7 @@ ch.watcher = function(conf) {
      * @type {HTMLElement}
      * @memberOf ch.Watcher
      */
-	that["public"].element = that.element;
+
 	/**
      * The component's type.
      * @public

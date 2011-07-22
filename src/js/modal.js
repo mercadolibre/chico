@@ -33,6 +33,9 @@
  *         // Do something here!
  *     }
  * });
+ * // Now 'me' is a reference to the modal instance controller.
+ * // You can set a new content by using 'me' like this: 
+ * me.content("http://content.com/new/content");
  */ 
 
 ch.modal = function(conf){
@@ -265,6 +268,7 @@ ch.modal = function(conf){
      * me.position("refresh");
      * @see ch.Object#position
      */
+     
 /**
  *  Default event delegation
  */	

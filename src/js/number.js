@@ -20,7 +20,7 @@ ch.extend("watcher").as("number", function(conf) {
 	if ( !conf.number && !conf.min && !conf.max && !conf.price ) {
 		conf.number = true;
 	};
-  
+	
     // Define the conditions of this interface
     conf.conditions = [{
             name: "number",
@@ -31,9 +31,6 @@ ch.extend("watcher").as("number", function(conf) {
         },{
             name: "max",
             expr: function(a,b) { return a <= b } 
-        },{
-            name: "price",
-            patt: /^(\d+)[.,]?(\d?\d?)$/ 
         }];
 
     return conf;
@@ -45,7 +42,7 @@ ch.extend("watcher").as("number", function(conf) {
  * @name Min
  * @interface
  * @augments ch.Number
- * @memberOf ch.Number
+ * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
@@ -62,7 +59,7 @@ ch.extend("number").as("min");
  * @name Max
  * @interface
  * @augments ch.Number
- * @memberOf ch.Number
+ * @memberOf ch
  * @param {Number} value Minimun number value.
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
@@ -77,8 +74,8 @@ ch.extend("number").as("max");
  * Validate a number with a price format.
  * @name Price
  * @interface
- * @augments ch.Number
- * @memberOf ch.Number
+ * @augments ch.Watcher
+ * @memberOf ch
  * @param {String} [message] Validation message.
  * @returns {Chico-UI Object}
  * @see ch.Watcher
@@ -86,4 +83,16 @@ ch.extend("number").as("max");
  * $("input").price("Write valid price.");
  */
  
-ch.extend("number").as("price");
+ch.extend("watcher").as("price",function(conf){
+
+	conf.price = true;	
+
+    // Define the conditions of this interface
+    conf.conditions = [{
+            name: "price",
+            patt: /^(\d+)[.,]?(\d?\d?)$/ 
+        }];
+
+    return conf;
+
+});
