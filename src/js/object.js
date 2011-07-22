@@ -316,12 +316,13 @@ ch.object = function(){
 
 	
    /**
-    * Triggers a specific event within the component public context.
-    * @name ch.Object#trigger
-    * @function
-    * @protected
-    * @param {String} event The event name you want to trigger.
-    */	
+   * Triggers a specific event within the component public context.
+   * @name ch.Object#trigger
+   * @function
+   * @protected
+   * @param {String} event The event name you want to trigger.
+   * @since version 0.7.1
+   */	
 	that.trigger = function(event) {
 		$(that["public"]).trigger("ch-"+event);
 	}
@@ -397,8 +398,12 @@ ch.object = function(){
      * @function
      * @name ch.Object#on
      * @param {String} event Event name.
-     * @param {Function} handler Handler.
+     * @param {Function} handler Handler function.
      * @returns {itself}
+     * @since version 0.7.1
+     * @example
+     * // Will add a event handler to the "ready" event
+     * me.on("ready", startDoingStuff);
      */
      that["public"].on = function(event, handler) {
      	
@@ -414,7 +419,12 @@ ch.object = function(){
      * @function
      * @name ch.Object#off
      * @param {String} event Event name.
+     * @param {Function} handler Handler function.
      * @returns {itself}
+     * @since version 0.7.1
+     * @example
+     * // Will remove event handler to the "ready" event
+     * me.off("ready", startDoingStuff);
      */	
      that["public"].off = function(event, handler) {
      

@@ -1,21 +1,20 @@
 /**
- * Calendar UI-Component for static and dinamic content.
+ * Is a simple UI-Component for picking dates.
  * @name Calendar
  * @class Calendar
  * @augments ch.Controllers
  * @requires ch.Dropdown
  * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
+ * @param {Object} conf Object with configuration properties
+ * @returns {itself}
  */
 //TODO: Examples
 ch.calendar = function(conf) {
     /**
      * Reference to a internal component instance, saves all the information and configuration properties.
      * @private
-     * @name that
+     * @name ch.Calendar#that
      * @type {Object}
-     * @memberOf ch.Calendar
      */
     var that = this;
 
@@ -42,74 +41,69 @@ ch.calendar = function(conf) {
     /**
      * Collection of months names
      * @private
-     * @name _monthsNames
+     * @name ch.Calendar#MONTHS_NAMES
      * @type {Array}
-     * @memberOf ch.Calendar
      */
 	//TODO: default in english and snnif browser language
 	//TODO: cambiar a sintaxis de constante
-	var _monthsNames = conf.monthsNames ||["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+	var MONTHS_NAMES = conf.monthsNames ||["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
     /**
      * Collection of weekdays short names
      * @private
-     * @name _shortWeekdaysNames
+     * @name ch.Calendar#SHORT_WEEK_NAMES
      * @type {Array}
-     * @memberOf ch.Calendar
      */
 	//TODO: default in english and snnif browser language
 	//TODO: cambiar a sintaxis de constante
-	var _shortWeekdaysNames = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
+	var SHORT_WEEK_NAMES = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
 
     /**
      * Date of today
      * @private
-     * @name _today
+     * @name ch.Calendar#today
      * @type {Date}
-     * @memberOf ch.Calendar
      */
-	var _today = new Date();
+	var today = new Date();
 
     /**
      * Date of selected day
      * @private
-     * @name _selected
+     * @name ch.Calendar#selected
      * @type {Date}
-     * @memberOf ch.Calendar
      */
-	var _selected = conf.selected || conf.msg;
+	var selected = conf.selected || conf.msg;
 
     /**
      * Creates tag thead with short name of week days
      * @private
-     * @function 
-     * @name name _weekdays
-     * @memberOf ch.Calendar
+     * @name ch.Calendar#weekdays
+     * @function
+     * @return {String}
      */
 	//TODO: change to constant syntax
 	//TODO: subfijo de render y cambiar el nombre para que sea mas especifico, thead
-	var _weekdays = (function(){
+	var weekdays = (function(){
 		
-		var _weekdaysTitle = "<thead>";
+		var weekdaysTitle = "<thead>";
 		
-		for (var i = 0; i < _shortWeekdaysNames.length; i += 1) {
-			_weekdaysTitle += "<th>" + _shortWeekdaysNames[i] + "</th>";
+		for (var i = 0; i < SHORT_WEEK_NAMES.length; i += 1) {
+			weekdaysTitle += "<th>" + SHORT_WEEK_NAMES[i] + "</th>";
 		};
 		
-		return _weekdaysTitle += "</thead>";
+		return weekdaysTitle += "</thead>";
 
 	}());
 
 	/**
      * HTML Template to months
      * @private
-     * @name _templateMonth
+     * @name ch.Calendar#templateMonth
 	 * @type {jQuery Object}
-     * @memberOf ch.Calendar
      */
-	var _templateMonth = $("<table>")
+	var templateMonth = $("<table>")
 		.addClass("ch-calendar-month")
-		.append(_weekdays)
+		.append(weekdays)
 		.bind("click", function(event){
 
 			event = event || window.event;
@@ -120,7 +114,7 @@ ch.calendar = function(conf) {
 				return;
 			};
 
-			_select( that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML );
+			select( that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML );
 
 		});
 
@@ -128,105 +122,103 @@ ch.calendar = function(conf) {
     /**
      * Creates a complete month and returns it in a table
      * @private
-     * @function 
-     * @name name _createMonth
-     * @memberOf ch.Calendar
+     * @name ch.Calendar#createMonth
+     * @function
+     * @return {String}
      */
-	var _createMonth = function(date){
+	var createMonth = function(date){
 
 		var date = new Date(date);
 
-		var _tableMonth = _templateMonth.clone(true);
+		var tableMonth = templateMonth.clone(true);
 
-		var _currentMonth = {};
-			_currentMonth.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
-			_currentMonth.date = _currentMonth.fullDate.getDate();
-			_currentMonth.day = _currentMonth.fullDate.getDay();
-			_currentMonth.month = _currentMonth.fullDate.getMonth();
-			_currentMonth.year = _currentMonth.fullDate.getFullYear();
+		var currentMonth = {};
+			currentMonth.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
+			currentMonth.date = currentMonth.fullDate.getDate();
+			currentMonth.day = currentMonth.fullDate.getDay();
+			currentMonth.month = currentMonth.fullDate.getMonth();
+			currentMonth.year = currentMonth.fullDate.getFullYear();
 
 
-		var _currentDate = {};
-			_currentDate.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
-			_currentDate.date = _currentDate.fullDate.getDate();
-			_currentDate.day = _currentDate.fullDate.getDay();
-			_currentDate.month = _currentDate.fullDate.getMonth();
-			_currentDate.year = _currentDate.fullDate.getFullYear();
+		var currentDate = {};
+			currentDate.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
+			currentDate.date = currentDate.fullDate.getDate();
+			currentDate.day = currentDate.fullDate.getDay();
+			currentDate.month = currentDate.fullDate.getMonth();
+			currentDate.year = currentDate.fullDate.getFullYear();
 
-		var first_weekday = _currentMonth.day;
+		var firstWeekday = currentMonth.day;
 
-		var _weeks, _classToday, _classSelected;
+		var weeks, classToday, classSelected;
 
-		_weeks = "<tbody>";
+		weeks = "<tbody>";
 
 		do {
 			
-			_weeks += "<tr class=\"week\">";
+			weeks += "<tr class=\"week\">";
 
 			for (var i = 0; i < 7; i += 1) {
 
-				if (_currentDate.date == 1) {
-					for (var i = 0; i < first_weekday; i += 1) {
-						_weeks += "<td class=\"disable\"></td>";
+				if (currentDate.date == 1) {
+					for (var i = 0; i < firstWeekday; i += 1) {
+						weeks += "<td class=\"disable\"></td>";
 					};
 				};
 				
-				_classToday = (_currentDate.date == _today.getDate() && _currentDate.month == _today.getMonth() && _currentDate.year == _today.getFullYear()) ? " today" : "";
+				classToday = (currentDate.date == today.getDate() && currentDate.month == today.getMonth() && currentDate.year == today.getFullYear()) ? " today" : "";
 
-				_classSelected = (_selected && _currentDate.date == _selected.getDate() && _currentDate.month == _selected.getMonth() && _currentDate.year == _selected.getFullYear()) ? " selected" : "";
+				classSelected = (selected && currentDate.date == selected.getDate() && currentDate.month == selected.getMonth() && currentDate.year == selected.getFullYear()) ? " selected" : "";
 				
-				_weeks += "<td class=\"day" + _classToday +  _classSelected + "\">" + _currentDate.date + "</td>";
+				weeks += "<td class=\"day" + classToday +  classSelected + "\">" + currentDate.date + "</td>";
 				
-				_currentDate.fullDate.setDate(_currentDate.date+1);
-				_currentDate.date = _currentDate.fullDate.getDate();
-				_currentDate.day = _currentDate.fullDate.getDay();
-				_currentDate.month = _currentDate.fullDate.getMonth();
-				_currentDate.year = _currentDate.fullDate.getFullYear();
+				currentDate.fullDate.setDate(currentDate.date+1);
+				currentDate.date = currentDate.fullDate.getDate();
+				currentDate.day = currentDate.fullDate.getDay();
+				currentDate.month = currentDate.fullDate.getMonth();
+				currentDate.year = currentDate.fullDate.getFullYear();
 
-				if ( _currentDate.month != _currentMonth.month ) { break; };
+				if ( currentDate.month != currentMonth.month ) { break; };
 
 			};
 
-			_weeks += "</tr>";
+			weeks += "</tr>";
 			
-		} while (_currentDate.month == _currentMonth.month);
+		} while (currentDate.month == currentMonth.month);
 
-		_weeks += "</tbody>";
+		weeks += "</tbody>";
 
-		_tableMonth
-			.prepend("<caption>"+_monthsNames[_currentMonth.month] + " - " + _currentMonth.year+"</caption>")
-			.append(_weeks);
+		tableMonth
+			.prepend("<caption>"+MONTHS_NAMES[currentMonth.month] + " - " + currentMonth.year+"</caption>")
+			.append(weeks);
 
-		return _tableMonth;
+		return tableMonth;
 	};
 
 
     /**
      * Handles behavior of arrows
      * @private
-     * @name _arrows
+     * @name ch.Calendar#arrows
      * @type {Object}
-     * @memberOf ch.Calendar
      */
-	var _arrows = {
+	var arrows = {
 	
-		$prev: $("<p class=\"ch-calendar-prev\">").bind("click", function(event){ that.prevent(event); _prevMonth(); }),
+		$prev: $("<p class=\"ch-calendar-prev\">").bind("click", function(event){ that.prevent(event); prevMonth(); }),
 	
-		$next: $("<p class=\"ch-calendar-next\">").bind("click", function(event){ that.prevent(event); _nextMonth(); })
+		$next: $("<p class=\"ch-calendar-next\">").bind("click", function(event){ that.prevent(event); nextMonth(); })
 	};
 
     /**
      * Creates an instance of Dropdown
      * @private
-     * @function 
-     * @name name _createDropdown
-     * @memberOf ch.Calendar
+     * @name ch.Calendar#createDropdown
+     * @function
      */
-	var _createDropdown = function(){
+	var createDropdown = function(){
 		
-		var _dropdownTrigger = $("<strong>").html("Calendar");
+		var dropdownTrigger = $("<strong>").html("Calendar");
 		
-		that.$trigger.append(_dropdownTrigger).append(that.$container);
+		that.$trigger.append(dropdownTrigger).append(that.$container);
 
 		that.children[0] = that.$trigger.dropdown({
 			onShow: function(){
@@ -244,17 +236,15 @@ ch.calendar = function(conf) {
 			points: "lt lb"
 		});
 
-		return;
 	};
 
      /**
      * Create component's layout
      * @private
+     * @name ch.Calendar#createLayout
 	 * @function
-     * @name _createLayout
-     * @memberOf ch.Calendar
      */
-	var _createLayout = function(){
+	var createLayout = function(){
 
 		that.$trigger =	$("<div class=\"secondary ch-calendar\">");
 
@@ -264,28 +254,26 @@ ch.calendar = function(conf) {
 
 		that.$element.after(that.$trigger);
 
-		_createDropdown();
+		createDropdown();
 
-		return;
 	};
 
      /**
      * Parse string to YY/MM/DD format date
      * @private
+     * @name ch.Calendar#parseDate     
 	 * @function
-     * @name _parseDate
-     * @memberOf ch.Calendar
      */
-	var _parseDate = function(value){
-		var _date = value.split("/");
+	var parseDate = function(value){
+		var date = value.split("/");
 		
 		switch (conf.format) {
 			case "DD/MM/YYYY":
-				return _date[2] + "/" + _date[1] + "/" + _date[0];
+				return date[2] + "/" + date[1] + "/" + date[0];
 			break;
 			
 			case "MM/DD/YYYY":
-				return _date[2] + "/" + _date[0] + "/" + _date[1];
+				return date[2] + "/" + date[0] + "/" + date[1];
 			break;
 		};
 	};
@@ -294,10 +282,10 @@ ch.calendar = function(conf) {
     /**
      * Map of formart's date
      * @private
-     * @name _FORMAT_DATE
-     * @memberOf ch.Calendar
+     * @name ch.Calendar#FORMAT_DATE
+     * @type {Object}
      */
-	var _FORMAT_DATE = {
+	var FORMAT_DATE = {
 		"YYYY/MM/DD": function(date){ return  date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate(); },
 		"DD/MM/YYYY": function(date){ return (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear()},
 		"MM/DD/YYYY": function(date){ return (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + "/" + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear()}
@@ -307,25 +295,25 @@ ch.calendar = function(conf) {
     /**
      * Selects an specific date to show
      * @private
+     * @name ch.Calendar#select
 	 * @function
-     * @name _select
-     * @memberOf ch.Calendar
+	 * @return {itself}
      */
-	var _select = function(date){
+	var select = function(date){
 
-		_selected = new Date(date);
+		selected = new Date(date);
 
-		that.currentDate = _selected;
+		that.currentDate = selected;
 		
-		that.$content.html(_createMonth(_selected));
+		that.$content.html(createMonth(selected));
 		
-		that.element.value = _FORMAT_DATE[conf.format](_selected);
+		that.element.value = FORMAT_DATE[conf.format](selected);
 
        /**
         * Callback function
-        * @name onSelect
-        * @type {Function}
-        * @memberOf ch.Calendar
+        * @public
+        * @name ch.Calendar#onSelect
+        * @event
         */
 
 		that.callbacks("onSelect");
@@ -336,14 +324,14 @@ ch.calendar = function(conf) {
      /**
      * Move to next month of calendar
      * @private
+     * @name ch.Calendar#nextMonth
 	 * @function
-     * @name _nextMonth
-     * @memberOf ch.Calendar
+	 * @return {itself}
      */
     //TODO: crear una interfaz que resuleva donde moverse
-	var _nextMonth = function(){
+	var nextMonth = function(){
 		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()+1,1);
-		that.$content.html(_createMonth(that.currentDate));
+		that.$content.html(createMonth(that.currentDate));
 
 		// Callback
 		that.callbacks("onNextMonth");
@@ -354,13 +342,13 @@ ch.calendar = function(conf) {
      /**
      * Move to prev month of calendar
      * @private
+     * @name ch.Calendar#prevMonth
 	 * @function
-     * @name _prevMonth
-     * @memberOf ch.Calendar
+	 * @return {itself}
      */
-	var _prevMonth = function(){
+	var prevMonth = function(){
 		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()-1,1);
-		that.$content.html(_createMonth(that.currentDate));
+		that.$content.html(createMonth(that.currentDate));
 
 		// Callback
 		that.callbacks("onPrevMonth");
@@ -371,13 +359,13 @@ ch.calendar = function(conf) {
      /**
      * Move to next year of calendar
      * @private
+     * @name ch.Calendar#nextYear
 	 * @function
-     * @name _nextYear
-     * @memberOf ch.Calendar
+	 * @return {itself}
      */
-	var _nextYear = function(){
+	var nextYear = function(){
 		that.currentDate = new Date(that.currentDate.getFullYear()+1,that.currentDate.getMonth(),1);
-		that.$content.html(_createMonth(that.currentDate));
+		that.$content.html(createMonth(that.currentDate));
 
 		return that;
 	};
@@ -385,13 +373,13 @@ ch.calendar = function(conf) {
      /**
      * Move to prev year of calendar
      * @private
+     * @name ch.Calendar#prevYear
 	 * @function
-     * @name _prevYear
-     * @memberOf ch.Calendar
+	 * @return {itself}
      */
-	var _prevYear = function(){
+	var prevYear = function(){
 		that.currentDate = new Date(that.currentDate.getFullYear()-1,that.currentDate.getMonth(),1);
-		that.$content.html(_createMonth(that.currentDate));
+		that.$content.html(createMonth(that.currentDate));
 
 		return that;
 	};
@@ -399,16 +387,16 @@ ch.calendar = function(conf) {
      /**
      * Move to prev year of calendar
      * @private
+     * @name ch.Calendar#reset
 	 * @function
-     * @name _reset
-     * @memberOf ch.Calendar
+	 * @return {itself}
      */
-	var _reset = function(){
-		_selected = conf.selected;
-		that.currentDate = _selected || _today;
+	var reset = function(){
+		selected = conf.selected;
+		that.currentDate = selected || today;
 		that.element.value = "";
 
-		that.$content.html(_createMonth(that.currentDate));
+		that.$content.html(createMonth(that.currentDate));
 
 		// Callback
 		that.callbacks("onReset");
@@ -423,64 +411,64 @@ ch.calendar = function(conf) {
 
     /**
      * The current date that should show on calendar
-     * @private
-     * @name currentDate
+     * @protected
+     * @name ch.Calendar#currentDate
      * @type {Date}
-     * @memberOf ch.Calendar
      */
-	that.currentDate = _selected || _today;
+	that.currentDate = selected || today;
 
 /**
  *  Public Members
  */
  
     /**
-     * The component's instance unique identifier.
-     * @public
-     * @name uid
-     * @type {Number}
-     * @memberOf ch.Calendar
-     */
-   	that["public"].uid = that.uid;
-    
-    /**
-     * The element reference.
-     * @public
-     * @name element
-     * @type {HTMLElement}
-     * @memberOf ch.Calendar
-     */
-	that["public"].element = that.element;
-    
-    /**
-     * The component's type.
-     * @public
-     * @name type
-     * @type {String}
-     * @memberOf ch.Calendar
-     */	
-	that["public"].type = that.type;
+    * The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
+    * @public
+	* @name ch.Calendar#uid
+    * @type {Number}
+    */
 
     /**
-     * Open calendar
-     * @public
-     * @function
-     * @name show
-     * @memberOf ch.Calendar
-     */
+    * Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
+    * @public
+	* @name ch.Calendar#element
+    * @type {HTMLElement}
+    */
+
+    /**
+    * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
+    * @public
+	* @name ch.Calendar#type
+    * @type {String}
+    */
+
+
+	/**
+	* Triggers the innerShow method and returns the public scope to keep method chaining.
+	* @public
+	* @name ch.Calendar#show
+	* @function
+	* @returns {itself}
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.show();
+	*/
 	that["public"].show = function(){
 		that.children[0].show();
 		
 		return that["public"];
 	};
 
-    /**
-     * Open calendar
-     * @public
-     * @function
-     * @name hide
-     * @memberOf ch.Calendar
-     */
+	/**
+	* Triggers the innerHide method and returns the public scope to keep method chaining.
+	* @public
+	* @name ch.Calendar#hide
+	* @function
+	* @returns {itself}
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.hide();
+	*/
 	that["public"].hide = function(){
 		that.children[0].hide();
 
@@ -490,14 +478,15 @@ ch.calendar = function(conf) {
     /**
      * Select a specific date.
      * @public
+	 * @name ch.Calendar#select
      * @function
-     * @name select
      * @param {String} "YY/MM/DD".
-     * @memberOf ch.Calendar
+     * @return {itself}
+     * @TODO: Make select() method a get/set member
      */
 	that["public"].select = function(date){
 
-		_select(((date === "today")? _today : _parseDate(date)));
+		select(((date === "today")? today : parseDate(date)));
 
 		return that["public"];
 	};
@@ -505,34 +494,35 @@ ch.calendar = function(conf) {
     /**
      * Returns the selected date
      * @public
+     * @name ch.Calendar#getSelected
      * @function
-     * @name getSelected
-     * @memberOf ch.Calendar
+     * @return {itself}
+     * @TODO: Unifiy with select() method.
      */
 	that["public"].getSelected = function(){
-		return _FORMAT_DATE[conf.format](_selected);
+		return FORMAT_DATE[conf.format](selected);
 	};
 
     /**
      * Returns date of today
      * @public
+     * @name ch.Calendar#getToday
      * @function
-     * @name getToday
-     * @memberOf ch.Calendar
+     * @return {Date}
      */
 	that["public"].getToday = function(){
-		return _FORMAT_DATE[conf.format](_today);
+		return FORMAT_DATE[conf.format](today);
 	};	
 
     /**
      * Move to the next month
      * @public
+     * @name ch.Calendar#next
      * @function
-     * @name next
-     * @memberOf ch.Calendar
+     * @return {itself}
      */
 	that["public"].next = function(){
-		_nextMonth();
+		nextMonth();
 
 		return that["public"];
 	};
@@ -540,12 +530,12 @@ ch.calendar = function(conf) {
     /**
      * Move to the prev month
      * @public
+     * @name ch.Calendar#prev
      * @function
-     * @name prev
-     * @memberOf ch.Calendar
+     * @return {itself}
      */
 	that["public"].prev = function(){
-		_prevMonth();
+		prevMonth();
 
 		return that["public"];
 	};
@@ -553,12 +543,12 @@ ch.calendar = function(conf) {
     /**
      * Move to the next year
      * @public
+     * @name ch.Calendar#nextYear
      * @function
-     * @name nextYear
-     * @memberOf ch.Calendar
+     * @return {itself}
      */
 	that["public"].nextYear = function(){
-		_nextYear();
+		nextYear();
 
 		return that["public"];
 	};
@@ -566,12 +556,12 @@ ch.calendar = function(conf) {
     /**
      * Move to the prev year
      * @public
+     * @name ch.Calendar#prevYear
      * @function
-     * @name prevYear
-     * @memberOf ch.Calendar
+     * @return {itself}
      */
 	that["public"].prevYear = function(){
-		_prevYear();
+		prevYear();
 
 		return that["public"];
 	};
@@ -579,12 +569,12 @@ ch.calendar = function(conf) {
     /**
      * Reset the calendar to date of today
      * @public
+     * @name ch.Calendar#reset
      * @function
-     * @name reset
-     * @memberOf ch.Calendar
+     * @return {itself}
      */
 	that["public"].reset = function(){
-		_reset();
+		reset();
 
 		return that["public"];
 	};
@@ -595,15 +585,15 @@ ch.calendar = function(conf) {
 
 	that.element.type = "text";
 
-	that.element.value = ((_selected) ? _FORMAT_DATE[conf.format](_selected) : "");
+	that.element.value = ((selected) ? FORMAT_DATE[conf.format](selected) : "");
 
-	_createLayout();
+	createLayout();
 
 	that.$content
-		.html(_createMonth(that.currentDate))
+		.html(createMonth(that.currentDate))
 		.appendTo(that.$container);
 
-	that.$container.prepend(_arrows.$prev).prepend(_arrows.$next);
+	that.$container.prepend(arrows.$prev).prepend(arrows.$next);
 
 	return that;
 		

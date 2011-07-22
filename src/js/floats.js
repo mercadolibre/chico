@@ -177,7 +177,7 @@ ch.floats = function() {
 			that.$container.fadeIn("fast", function(){ 
 				// new callbacks
 				that.trigger("show");
-				// Old callback sistem
+				// Old callback system
 				that.callbacks('onShow');
 			});
 		} else { 
@@ -185,7 +185,7 @@ ch.floats = function() {
 			that.$container.removeClass("ch-hide");
 			// new callbacks
 			that.trigger("show");
-			// Old callback sistem
+			// Old callback system
 			that.callbacks('onShow');
 		};
 	
@@ -228,7 +228,7 @@ ch.floats = function() {
 		*/
 			// new callbacks
 			that.trigger("hide");
-			// Old callback sistem
+			// Old callback system
 			that.callbacks('onHide');
 
 			that.$container.detach();
