@@ -18,7 +18,7 @@
 	box-shadow:	2px 0 0px #888888;
 	-moz-box-shadow: 2px 0 0px #888888;
 	-webkit-box-shadow:	2px 0 0px #888888;
-	padding: 0 0 4px;
+	padding: 0 0 2px;
 }
 
 .ch-calendar-prev,
@@ -60,7 +60,11 @@
 	text-align: center;
 	font-size:12px;
 	margin:0;
-	background-color:#F5F5F5;
+	background:#F5F5F5;
+	background: -moz-linear-gradient(#F5F5F5 50%, #F0F0F0 50%);
+	background: -webkit-linear-gradient(#F5F5F5 50%, #F0F0F0 50%);
+	background: -o-linear-gradient(#F5F5F5 50%, #F0F0F0 50%);
+	
 }
 
 .ch-calendar-month thead tr,

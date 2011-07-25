@@ -103,7 +103,7 @@ ch.calendar = function(conf) {
      * @name ch.Calendar#templateMonth
 	 * @type {jQuery Object}
      */
-	var templateMonth = $("<table>")
+	var templateMonth = $("<table class=\"datagrid\">")
 		.addClass("ch-calendar-month")
 		.append(weekdays)
 		.bind("click", function(event){
@@ -117,7 +117,6 @@ ch.calendar = function(conf) {
 			};
 
 			select( that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML );
-
 		});
 
 
@@ -230,7 +229,7 @@ ch.calendar = function(conf) {
 			onHide: function(){
 				// onHide callback
 				that.callbacks.call(that, "onHide");
-			}
+			},
 		});
 
 		that.children[0].position({
@@ -336,6 +335,9 @@ ch.calendar = function(conf) {
 		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()+1,1);
 		that.$content.html(createMonth(that.currentDate));
 
+		//Refresh position
+		that.children[0].position("refresh");
+
 		// Callback
 		that.callbacks("onNextMonth");
 
@@ -352,6 +354,9 @@ ch.calendar = function(conf) {
 	var prevMonth = function(){
 		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()-1,1);
 		that.$content.html(createMonth(that.currentDate));
+		
+		// Refresh position
+		that.children[0].position("refresh");
 
 		// Callback
 		that.callbacks("onPrevMonth");
