@@ -106,8 +106,15 @@ ch.layer = function(conf) {
      * @name ch.Layer#clearTimers
      * @function
      */ 
-	clearTimers = function(){ clearTimeout(st); clearTimeout(ht); };
+	clearTimers = function(){ clearTimeout(st); clearTimeout(ht); },
 
+    /**
+     * Stop event bubble propagation to avoid hiding the layer by click on his own layout.
+     * @private
+     * @name ch.Layer#stopBubble
+     * @function
+     */
+	stopBubble = function(event){ event.stopPropagation(); };
 /**
  *  Protected Members
  */
@@ -128,14 +135,12 @@ ch.layer = function(conf) {
 		//conf.position.context = that.$element;
 		that.parent.innerShow(event);
 
-		that.$container.bind('click', function(event){ event.stopPropagation() });
-        
         // Click
         if (conf.event == "click") {
 			conf.close = true;
             // Document events
             $(document).one('click', that.innerHide);
-            
+			that.$container.bind('click', stopBubble);
         // Hover
         } else {      	
         	clearTimers();    
@@ -152,6 +157,18 @@ ch.layer = function(conf) {
 
         return that;
     };
+    
+	/**
+	* Inner hide method. Hides the component and detach it from DOM tree.
+	* @protected
+	* @name ch.Layer#innerHide
+	* @function
+	* @returns {itself}
+	*/ 
+	that.innerHide = function(event) {
+		that.$container.unbind('click', stopBubble);
+		that.parent.innerHide(event);
+	}
 
 /**
  *  Public Members

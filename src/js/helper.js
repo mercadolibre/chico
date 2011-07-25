@@ -47,6 +47,8 @@ ch.helper = function(controller){
  *  Protected Members
  */ 
  
+	that.content("I'm not sure what just happened, this field might have some problems. Can you take a look?")
+ 
  	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
@@ -64,7 +66,7 @@ ch.helper = function(controller){
 		};			
 
 		// Just Reload content!
-		that.$content.html('<span class="ico error">Error: </span><p>' + that.content() + '</p>');		
+		that.$content.html("<span class=\"ico error\">Error: </span><p>" + that.content() + "</p>");
 
 		return that;
 	};
