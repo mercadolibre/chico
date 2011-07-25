@@ -352,7 +352,7 @@ ch.form = function(conf) {
 	};
 
 	// Bind the submit
-	that.$element.bind("submit", submit);
+	that.$element.one("submit", submit);
 	
 	// Bind the reset
 	that.$element.find(":reset, .resetForm").bind("click", function(event){ reset(event); });

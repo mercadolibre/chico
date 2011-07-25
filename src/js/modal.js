@@ -1,4 +1,3 @@
-
 /**
  * Is a centered floated window with a dark gray dimmer background. This component let you handle its size, positioning and content.
  * @name Modal
@@ -13,6 +12,27 @@
  * // Create a new modal window triggered by an anchor with a class name 'example'.
  * var me = $("a.example").modal();
  * @example
+ * // Also, you can create a modal window with the following configuration:
+ * var me = $("a.example").modal({
+ *     content: "Content for my modal window.",
+ *     onShow: function(){
+ *         // Some code here
+ *     }
+ * }); 
+ * @example
+ * var me = $("a.example").modal({
+ *     width: "200px",
+ *     height: "500"
+ * });
+ * @example
+ * var me = $("a.example").modal({
+ *     onContentLoad: function() {
+ *         // Do something here!
+ *     },
+ *     onHide: function() {
+ *         // Do something here!
+ *     }
+ * });
  * // Now 'me' is a reference to the modal instance controller.
  * // You can set a new content by using 'me' like this: 
  * me.content("http://content.com/new/content");
@@ -83,7 +103,6 @@ ch.modal = function(conf){
 		off: function() {
 			$dimmer.fadeOut("normal", function(){
 				$dimmer.detach();
-
 				if ($("html").hasClass("ie6")) {
 					$("select, object").css("visibility", "visible");
 				};
@@ -155,7 +174,9 @@ ch.modal = function(conf){
     * @name ch.Modal#content
     * @function
     * @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
-    * @example
+	* @example
+	* // Now 'me' is a reference to the modal instance controller.
+	* // You can set and get new content by using 'me' and 'content' like this: 
     * // Get the defined content
     * me.content();
     * @example
@@ -242,6 +263,9 @@ ch.modal = function(conf){
      *    offset: "0 10",
      *    points: "lt lb"
      * });
+     * @example
+     * // Update component's position.
+     * me.position("refresh");
      * @see ch.Object#position
      */
      
