@@ -229,7 +229,7 @@ ch.calendar = function(conf) {
 			onHide: function(){
 				// onHide callback
 				that.callbacks.call(that, "onHide");
-			},
+			}
 		});
 
 		that.children[0].position({
