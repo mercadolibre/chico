@@ -85,11 +85,9 @@ var ch = window.ch = {
 		},
 		inDom: function (selector, context) {
 			
-			if ($(selector, context).length > 0) {
-				return true;
-			}
+			if (!ch.utils.isSelector(selector)) { return false }
 
-			return false;
+			return $(selector, context).length > 0;
 		},
 		isArray: function( o ) {
 			return Object.prototype.toString.apply( o ) === "[object Array]";
