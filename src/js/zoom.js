@@ -141,7 +141,7 @@ ch.zoom = function(conf) {
 	*/
 	that.$trigger = that.$element;
 	
-	that.show = function(){
+	that.innerShow = function(){
 		// Recalc offset of original image
 		original.offset = original.img.offset();
 
@@ -154,12 +154,12 @@ ch.zoom = function(conf) {
 		seeker.shape.removeClass("ch-hide");
 		
 		// Floats show
-		that.parent.show();
+		that.parent.innerShow();
 
 		return that;
 	};
 	
-	that.hide = function(){
+	that.innerHide = function(){
 		// Move
 		that.$element.unbind("mousemove");
 		
@@ -167,7 +167,7 @@ ch.zoom = function(conf) {
 		seeker.shape.addClass("ch-hide");
 		
 		// Floats hide
-		that.parent.hide();
+		that.parent.innerHide();
 		
 		return that;
 	};
