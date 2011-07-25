@@ -390,7 +390,14 @@ ch.object = function(){
     * // Set AJAX content
 	* me.content("http://chico.com/some/content.html");
     */
-	that["public"].content = that.content;
+	that["public"].content = function(content){
+		if (content) {
+			that.content(content);
+			return that["public"];
+		} else {
+			return that.content();
+		}
+	}
 
     /**
      * Add a callback function to specific object events.
