@@ -253,7 +253,9 @@ ch.viewer = function(conf){
         * @memberOf ch.Viewer
         */
 		that.callbacks("onMove");
-	
+		// new callback
+		that.trigger("move");
+			
 		return that;
 	};
 	
