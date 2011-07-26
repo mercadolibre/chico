@@ -381,7 +381,9 @@ ch.carousel = function(conf){
         * @memberOf ch.Carousel
         */
 		that.callbacks("onMove");
-
+		// new callback
+		that.trigger("move");
+		
  		return that;
 	};
 
@@ -396,7 +398,9 @@ ch.carousel = function(conf){
         */
 
 		that.callbacks("onPrev");
-
+		// new callback
+		that.trigger("prev");
+		
 		return that;
 	};
 	
@@ -411,7 +415,9 @@ ch.carousel = function(conf){
         */
 
 		that.callbacks("onNext");
-
+		// new callback
+		that.trigger("next");
+		
 		return that;
 	};
 
