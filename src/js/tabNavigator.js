@@ -151,7 +151,9 @@ ch.tabNavigator = function(conf){
         * @memberOf ch.TabNavigator
         */
 		that.callbacks("onSelect");
-		
+		// new callback
+		that.trigger("select");
+			
         return that;
 	};
 

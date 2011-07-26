@@ -288,7 +288,7 @@ ch.watcher = function(conf) {
 					// old callback system
 					that.callbacks('error');
 					// new callback
-					//that.trigger("error");
+					that.trigger("error");
 
 					// Field error style
 					that.$element.addClass("error");

@@ -82,6 +82,8 @@ ch.form = function(conf) {
         * @memberOf ch.Form
         */
         that.callbacks("beforeValidate");
+		// new callback
+		that.trigger("beforeValidate");
 		
 		// Status OK (with previous error)
 		if ( !status ) {
@@ -125,7 +127,16 @@ ch.form = function(conf) {
         * @type {Function}
         * @memberOf ch.Form
         */
-        status ? that.callbacks("onValidate") : that.callbacks("onError");  
+        //status ? that.callbacks("onValidate") : that.callbacks("onError");  
+        if (status) {
+			that.callbacks("onValidate");
+       		// new callback
+			that.trigger("onValidate");	
+        } else {
+        	that.callbacks("onError");
+        	// new callback
+        	that.trigger("onError");
+        }
 
       /**
         * Callback function
@@ -134,7 +145,9 @@ ch.form = function(conf) {
         * @memberOf ch.Form
         */
         that.callbacks("afterValidate");
-
+		// new callback
+		that.trigger("afterValidate");
+		
         return that;
     };
 
@@ -151,7 +164,9 @@ ch.form = function(conf) {
         * @memberOf ch.Form
         */
         that.callbacks("beforeSubmit");
-
+		// new callback
+		that.trigger("beforeSubmit");
+		
         // re-asign submit event   
         that.$element.one("submit", submit);
 
@@ -175,7 +190,9 @@ ch.form = function(conf) {
             // Avoid default actions
             that.prevent(event);
             // To execute defined onSubmit callback
-            that.callbacks("onSubmit");  
+            that.callbacks("onSubmit");
+			// new callback
+			that.trigger("submit");
 	    }
 
        /**
@@ -186,7 +203,9 @@ ch.form = function(conf) {
         */
 
         that.callbacks("afterSubmit");
-
+		// new callback
+		that.trigger("afterSubmit");
+			
         // Return that to chain methods
         return that;
 	};
@@ -210,7 +229,9 @@ ch.form = function(conf) {
         * @memberOf ch.Form
         */
 		that.callbacks("onClear");
-		
+		// new callback
+		that.trigger("clear");
+
 		return that;
 	};
 
@@ -227,6 +248,8 @@ ch.form = function(conf) {
         * @memberOf ch.Form
         */
 		that.callbacks("onReset");
+		// new callback
+		that.trigger("reset");
 		
 		return that;
 	};
