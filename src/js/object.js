@@ -125,7 +125,7 @@ ch.object = function(){
                 }
             }
             
-            // First time we need to get the contemt.
+            // First time we need to get the content.
             // Is cache is off, go and get content again.
             // Yeap, recursive.
             if (!cache || that.staticContent === undefined) {
@@ -253,8 +253,11 @@ ch.object = function(){
      /* Finally return 'staticContent' */
 		
 		// Update Content
+		// old callback system
 		that.contentCallback.call(that,that.staticContent);
-
+		// new callbacks
+		that.trigger("contentLoad");
+		
 		return that.staticContent;
     };
 
@@ -390,10 +393,17 @@ ch.object = function(){
     * // Set AJAX content
 	* me.content("http://chico.com/some/content.html");
     */
-	that["public"].content = that.content;
+	that["public"].content = function(content){
+		if (content) { // sets
+			that.content(content);
+			return that["public"];
+		} else { // gets
+			return that.content();
+		}
+	}
 
     /**
-     * Add a callback function to specific object events.
+     * Add a callback function from specific event.
      * @public
      * @function
      * @name ch.Object#on
@@ -414,7 +424,7 @@ ch.object = function(){
    		return that["public"];
      }
     /**
-     * Removes a callback function to specific object events.
+     * Removes a callback function from specific event.
      * @public
      * @function
      * @name ch.Object#off

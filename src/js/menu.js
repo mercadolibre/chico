@@ -88,6 +88,8 @@ ch.menu = function(conf){
                      * @memberOf ch.Menu
                      */
 					that.callbacks.call(that, "onSelect");
+					// new callback
+					that.trigger("select");
 				}
 			});
 			

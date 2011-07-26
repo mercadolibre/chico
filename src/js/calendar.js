@@ -224,11 +224,17 @@ ch.calendar = function(conf) {
 		that.children[0] = that.$trigger.dropdown({
 			onShow: function(){
 				// onShow callback
+				// old callback system
 				that.callbacks.call(that, "onShow");
+				// new callback
+				that.trigger("show");
 			},
 			onHide: function(){
 				// onHide callback
+				// old callback system
 				that.callbacks.call(that, "onHide");
+				// new callback
+				that.trigger("hide");
 			}
 		});
 
@@ -317,8 +323,10 @@ ch.calendar = function(conf) {
         * @name ch.Calendar#onSelect
         * @event
         */
-
+		// old callback system
 		that.callbacks("onSelect");
+		// new callback
+		that.trigger("select");
 
 		return that;
 	};
@@ -340,7 +348,9 @@ ch.calendar = function(conf) {
 
 		// Callback
 		that.callbacks("onNextMonth");
-
+		// new callback
+		that.trigger("onNextMonth");
+		
 		return that;
 	};
 
@@ -360,7 +370,9 @@ ch.calendar = function(conf) {
 
 		// Callback
 		that.callbacks("onPrevMonth");
-
+		// new callback
+		that.trigger("onPrevMonth");
+		
 		return that;
 	};
 
@@ -408,7 +420,8 @@ ch.calendar = function(conf) {
 
 		// Callback
 		that.callbacks("onReset");
-
+		// new callback
+		that.trigger("onReset");
 		return that;
 	};
 
