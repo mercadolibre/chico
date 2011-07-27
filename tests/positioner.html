@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <!-- #body -->
+	<!-- #body -->
 	<h1>Chico-UI: Positioner testcases</h1>
 	<div class="context c1"></div>
 	<div class="element e1"></div>
@@ -59,65 +59,65 @@
 	
 		var c1tOffset = $(".c1").offset();
 		ch.positioner({
-	        element: $(".e1"),
-	        context: $(".c1"),
-	        points: "lt lb"
-	    });
-	    
-	    
-	    var c2tOffset = $(".c2").offset();
-	    ch.positioner({
-	        element: $(".e2"),
-	        context: $(".c2"),
-	        points: "lb lt"
-	    });
-	    
-	    
-	    var c3tOffset = $(".c3").offset();
-	    ch.positioner({
-	        element: $(".e3"),
-	        context: $(".c3"),
-	        points: "rt rb"
-	    });
-	    
-	    
-	    var c4tOffset = $(".c4").offset();
-	    ch.positioner({
-	        element: $(".e4"),
-	        context: $(".c4"),
-	        points: "rb rt"
-	    });
+			element: $(".e1"),
+			context: $(".c1"),
+			points: "lt lb"
+		});
+		
+		
+		var c2tOffset = $(".c2").offset();
+		ch.positioner({
+			element: $(".e2"),
+			context: $(".c2"),
+			points: "lb lt"
+		});
+		
+		
+		var c3tOffset = $(".c3").offset();
+		ch.positioner({
+			element: $(".e3"),
+			context: $(".c3"),
+			points: "rt rb"
+		});
+		
+		
+		var c4tOffset = $(".c4").offset();
+		ch.positioner({
+			element: $(".e4"),
+			context: $(".c4"),
+			points: "rb rt"
+		});
 
 
-	    var c5tOffset = $(".c5").offset();
-	    ch.positioner({
-	        element: $(".e5"),
-	        context: $(".c5"),
-	        points: "lm lm"
-	    });
+		var c5tOffset = $(".c5").offset();
+		ch.positioner({
+			element: $(".e5"),
+			context: $(".c5"),
+			points: "lm lm"
+		});
 
-	    
-	    var c6tOffset = $(".c6").offset();
-	    ch.positioner({
-	        element: $(".e6"),
-	        context: $(".c6"),
-	        points: "lt lt"
-	    });
+		
+		var c6tOffset = $(".c6").offset();
+		ch.positioner({
+			element: $(".e6"),
+			context: $(".c6"),
+			points: "lt lt"
+		});
 
 
-	    var c7tOffset = $(".c7").offset();
-	    ch.positioner({
-	        element: $(".e7"),
-	        context: $(".c7"),
-	        points: "cm cm"
-	    });
-	    
-	    var c8tOffset = $(".c8").offset();
-	    ch.positioner({
-	        element: $(".e8"),
-	        context: $(".c8"),
-	        points: "lt rt"
-	    });	    
+		var c7tOffset = $(".c7").offset();
+		ch.positioner({
+			element: $(".e7"),
+			context: $(".c7"),
+			points: "cm cm"
+		});
+		
+		var c8tOffset = $(".c8").offset();
+		ch.positioner({
+			element: $(".e8"),
+			context: $(".c8"),
+			points: "lt rt"
+		});		
 
 		$.fx.off = true;
 
@@ -126,81 +126,81 @@
 		 */
 		module("Positioner");
 		
-        test("Position LT LB", function(){
+		test("Position LT LB", function(){
 
-            expect( 2 );
+			expect( 2 );
 	
-       		equal( parseFloat($(".e1").css("left")), c1tOffset.left,"Expected to find element.left = context.left");
-       		equal( parseFloat($(".e1").css("top")), c1tOffset.top + $(".c1").outerHeight(),"Expected to find element.top = context.bottom");
+	   		equal( parseFloat($(".e1").css("left")), c1tOffset.left,"Expected to find element.left = context.left");
+	   		equal( parseFloat($(".e1").css("top")), c1tOffset.top + $(".c1").outerHeight(),"Expected to find element.top = context.bottom");
 
-        });
+		});
 
 		test("Position LB LT", function(){
 
-            expect( 2 );
+			expect( 2 );
 	
-       		equal( parseFloat($(".e2").css("left")), c2tOffset.left,"Expected to find element.left = context.left");
-       		equal( parseFloat($(".e2").css("top")) + $(".e2").outerHeight(), c2tOffset.top,"Expected to find element.bottom = context.top");
+	   		equal( parseFloat($(".e2").css("left")), c2tOffset.left,"Expected to find element.left = context.left");
+	   		equal( parseFloat($(".e2").css("top")) + $(".e2").outerHeight(), c2tOffset.top,"Expected to find element.bottom = context.top");
 
-        });
-        
-        
-        test("Position RT RB", function(){
+		});
+		
+		
+		test("Position RT RB", function(){
 
-            expect( 2 );
+			expect( 2 );
 	
-       		equal( parseFloat($(".e3").css("left")), c3tOffset.left + $(".c3").outerWidth() - $(".e3").outerWidth(),"Expected to find element.right = context.right");
-       		equal( parseFloat($(".e3").css("top")), c3tOffset.top + $(".c3").outerHeight(),"Expected to find element.top = context.bottom");
+	   		equal( parseFloat($(".e3").css("left")), c3tOffset.left + $(".c3").outerWidth() - $(".e3").outerWidth(),"Expected to find element.right = context.right");
+	   		equal( parseFloat($(".e3").css("top")), c3tOffset.top + $(".c3").outerHeight(),"Expected to find element.top = context.bottom");
 
-        });
-        
-        test("Position RB RT", function(){
+		});
+		
+		test("Position RB RT", function(){
 
-            expect( 2 );
+			expect( 2 );
 	
-       		equal( parseFloat($(".e4").css("left")), c4tOffset.left + $(".c4").outerWidth() - $(".e4").outerWidth(),"Expected to find element.right = context.right");
-       		equal( parseFloat($(".e4").css("top")) + $(".e4").outerHeight(), c4tOffset.top,"Expected to find element.bottom = context.top");
+	   		equal( parseFloat($(".e4").css("left")), c4tOffset.left + $(".c4").outerWidth() - $(".e4").outerWidth(),"Expected to find element.right = context.right");
+	   		equal( parseFloat($(".e4").css("top")) + $(".e4").outerHeight(), c4tOffset.top,"Expected to find element.bottom = context.top");
 
-        });
-        
-        
-        test("Position LM LM", function(){
+		});
+		
+		
+		test("Position LM LM", function(){
 
-            expect( 2 );
+			expect( 2 );
 	
-       		equal( parseFloat($(".e5").css("left")), c5tOffset.left,"Expected to find element.left = context.left");
-       		equal( ~~(parseFloat($(".e5").css("top"))), ~~(c5tOffset.top + $(".c5").outerHeight()/2 - $(".e5").outerHeight()/2), "Expected to find element.middle = context.middle");
+	   		equal( parseFloat($(".e5").css("left")), c5tOffset.left,"Expected to find element.left = context.left");
+	   		equal( ~~(parseFloat($(".e5").css("top"))), ~~(c5tOffset.top + $(".c5").outerHeight()/2 - $(".e5").outerHeight()/2), "Expected to find element.middle = context.middle");
 
-        });
-        
-        
-        test("Position LT LT", function(){
+		});
+		
+		
+		test("Position LT LT", function(){
 
-            expect( 2 );
+			expect( 2 );
 	
-       		equal( parseFloat($(".e6").css("left")), c6tOffset.left,"Expected to find element.left = context.left");
-       		equal( parseFloat($(".e6").css("top")), c6tOffset.top,"Expected to find element.top = context.top");
+	   		equal( parseFloat($(".e6").css("left")), c6tOffset.left,"Expected to find element.left = context.left");
+	   		equal( parseFloat($(".e6").css("top")), c6tOffset.top,"Expected to find element.top = context.top");
 
-        });
-        
-        test("Position CM CM", function(){
+		});
+		
+		test("Position CM CM", function(){
 
-            expect( 2 );
+			expect( 2 );
 	
-       		equal( parseFloat($(".e7").css("left")), c7tOffset.left + $(".c7").outerWidth()/2 - $(".e7").outerWidth()/2,"Expected to find element.center = context.center");
-       		equal( ~~(parseFloat($(".e7").css("top"))), ~~((c7tOffset.top + $(".c7").outerHeight()/2 - $(".e7").outerHeight()/2)), "Expected to find element.middle = context.middle");
+	   		equal( parseFloat($(".e7").css("left")), c7tOffset.left + $(".c7").outerWidth()/2 - $(".e7").outerWidth()/2,"Expected to find element.center = context.center");
+	   		equal( ~~(parseFloat($(".e7").css("top"))), ~~((c7tOffset.top + $(".c7").outerHeight()/2 - $(".e7").outerHeight()/2)), "Expected to find element.middle = context.middle");
 
-        });
+		});
 
-        test("Position LT RT", function(){
+		test("Position LT RT", function(){
 
-            expect( 2 );
+			expect( 2 );
 	
-       		equal( parseFloat($(".e8").css("left")), c8tOffset.left + $(".c8").outerWidth(),"Expected to find element.left = context.right");
-       		equal( parseFloat($(".e8").css("top")), c8tOffset.top,"Expected to find element.top = context.top");
+	   		equal( parseFloat($(".e8").css("left")), c8tOffset.left + $(".c8").outerWidth(),"Expected to find element.left = context.right");
+	   		equal( parseFloat($(".e8").css("top")), c8tOffset.top,"Expected to find element.top = context.top");
 
-        });
-        
+		});
+		
 	</script>
 
 </body>
