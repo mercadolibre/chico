@@ -1,37 +1,37 @@
 
 /**
- * Is a contextual floated UI-Object.
- * @name Layer
- * @class Layer
- * @augments ch.Floats
- * @memberOf ch
- * @param {Object} conf Object with configuration properties
- * @returns {itself}
- * @see ch.Tooltip
- * @see ch.Modal
- * @example
- * // Create a simple contextual layer
- * var me = $(".some-element").layer("<p>Some content.</p>");
- * @example
- * // Now 'me' is a reference to the layer instance controller.
- * // You can set a new content by using 'me' like this: 
- * me.content("http://content.com/new/content");
- */ 
+* Is a contextual floated UI-Object.
+* @name Layer
+* @class Layer
+* @augments ch.Floats
+* @memberOf ch
+* @param {Object} conf Object with configuration properties
+* @returns {itself}
+* @see ch.Tooltip
+* @see ch.Modal
+* @example
+* // Create a simple contextual layer
+* var me = $(".some-element").layer("<p>Some content.</p>");
+* @example
+* // Now 'me' is a reference to the layer instance controller.
+* // You can set a new content by using 'me' like this: 
+* me.content("http://content.com/new/content");
+*/
 
 ch.layer = function(conf) {
-    
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name ch.Layer#that
-     * @type {Object}
-     */ 
+
+	/**
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @private
+	* @name ch.Layer#that
+	* @type {Object}
+	*/ 
 	var that = this;
 	
 	conf = ch.clon(conf);
 	conf.cone = true;
 	conf.classes = "box";
-	conf.closeButton = 	(conf.event === 'click') ? true : false;
+	conf.closeButton =	(conf.event === 'click') ? true : false;
 	conf.position = {};
 	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
@@ -40,84 +40,83 @@ ch.layer = function(conf) {
 	that.conf = conf;
 
 /**
- *	Inheritance
- *		
- */
+*	Inheritance
+*/
 
-    that = ch.floats.call(that);
-    that.parent = ch.clon(that);
-    
+	that = ch.floats.call(that);
+	that.parent = ch.clon(that);
+	
 /**
- *  Private Members
- */
- 
-    /**
-     * Delay time to show component's contents.
-     * @private
-     * @name ch.Layer#showTime
-     * @type {Number}
-     * @default 400
-     */ 
-    var showTime = conf.showTime || 400,
-    /**
-     * Delay time to hide component's contents.
-     * @private
-     * @name ch.Layer#hideTime
-     * @type {Number}
-     * @default 400
-     */ 
-    hideTime = conf.hideTime || 400,
+*	Private Members
+*/
 
-    /**
-     * Show timer instance.
-     * @private
-     * @name ch.Layer#st
-     * @type {Timer}
-     */ 
+	/**
+	* Delay time to show component's contents.
+	* @private
+	* @name ch.Layer#showTime
+	* @type {Number}
+	* @default 400
+	*/ 
+	var showTime = conf.showTime || 400,
+	/**
+	* Delay time to hide component's contents.
+	* @private
+	* @name ch.Layer#hideTime
+	* @type {Number}
+	* @default 400
+	*/ 
+	hideTime = conf.hideTime || 400,
+
+	/**
+	* Show timer instance.
+	* @private
+	* @name ch.Layer#st
+	* @type {Timer}
+	*/ 
 	st,
 	
 	/**
-     * Hide timer instance.
-     * @private
-     * @name ch.Layer#ht
-     * @type {Timer}
-     */ 
+	* Hide timer instance.
+	* @private
+	* @name ch.Layer#ht
+	* @type {Timer}
+	*/ 
 	ht,
 	
-    /**
-     * Starts show timer.
-     * @private
-     * @name ch.Layer#showTimer
-     * @function
-     */ 
+	/**
+	* Starts show timer.
+	* @private
+	* @name ch.Layer#showTimer
+	* @function
+	*/ 
 	showTimer = function(){ st = setTimeout(that.innerShow, showTime) },
 	
-    /**
-     * Starts hide timer.
-     * @private
-     * @name ch.Layer#hideTimer
-     * @function
-     */ 
+	/**
+	* Starts hide timer.
+	* @private
+	* @name ch.Layer#hideTimer
+	* @function
+	*/ 
 	hideTimer = function(){ ht = setTimeout(that.innerHide, hideTime) },
 	
-    /**
-     * Clear all timers.
-     * @private
-     * @name ch.Layer#clearTimers
-     * @function
-     */ 
+	/**
+	* Clear all timers.
+	* @private
+	* @name ch.Layer#clearTimers
+	* @function
+	*/ 
 	clearTimers = function(){ clearTimeout(st); clearTimeout(ht); },
 
-    /**
-     * Stop event bubble propagation to avoid hiding the layer by click on his own layout.
-     * @private
-     * @name ch.Layer#stopBubble
-     * @function
-     */
+	/**
+	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
+	* @private
+	* @name ch.Layer#stopBubble
+	* @function
+	*/
 	stopBubble = function(event){ event.stopPropagation(); };
 /**
- *  Protected Members
- */
+*	Protected Members
+*/
 
 	that.$trigger = that.$element;
 
@@ -135,29 +134,29 @@ ch.layer = function(conf) {
 		//conf.position.context = that.$element;
 		that.parent.innerShow(event);
 
-        // Click
-        if (conf.event == "click") {
+		// Click
+		if (conf.event == "click") {
 			conf.close = true;
-            // Document events
-            $(document).one('click', that.innerHide);
+			// Document events
+			$(document).one('click', that.innerHide);
 			that.$container.bind('click', stopBubble);
-        // Hover
-        } else {      	
-        	clearTimers();    
-        	that.$container
-        		.one("mouseenter", clearTimers)
-        		.one("mouseleave", function(event){
+		// Hover
+		} else { 		
+			clearTimers();	
+			that.$container
+				.one("mouseenter", clearTimers)
+				.one("mouseleave", function(event){
 					var target = event.srcElement || event.target;
 					var relatedTarget = event.relatedTarget || event.toElement;
 					var relatedParent = relatedTarget.parentNode;
 					if ( target === relatedTarget || relatedParent === null || target.nodeName === "SELECT" ) return;
 					hideTimer();
-        		});
-        };
+				});
+		};
 
-        return that;
-    };
-    
+		return that;
+	};
+	
 	/**
 	* Inner hide method. Hides the component and detach it from DOM tree.
 	* @protected
@@ -171,58 +170,58 @@ ch.layer = function(conf) {
 	}
 
 /**
- *  Public Members
- */
-  
-    /**
-     * The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-     * @public
-     * @name ch.Layer#uid
-     * @type {Number}
-     */
+*	Public Members
+*/
 
-    /**
-     * Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-     * @public
-     * @name ch.Layer#element
-     * @type {HTMLElement}
-     */
+	/**
+	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
+	* @public
+	* @name ch.Layer#uid
+	* @type {Number}
+	*/
 
-    /**
-     * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-     * @public
-     * @name ch.Layer#type
-     * @type {String}
-     */
+	/**
+	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
+	* @public
+	* @name ch.Layer#element
+	* @type {HTMLElement}
+	*/
 
-    /**
-    * Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
-    * @public
-    * @name ch.Layer#content
-    * @function
-    * @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
-    * @example
-    * // Get the defined content
-    * me.content();
-    * @example
-    * // Set static content
-    * me.content("Some static content");
-    * @example
-    * // Set DOM content
-    * me.content("#hiddenContent");
-    * @example
-    * // Set AJAX content
+	/**
+	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
+	* @public
+	* @name ch.Layer#type
+	* @type {String}
+	*/
+
+	/**
+	* Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
+	* @public
+	* @name ch.Layer#content
+	* @function
+	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @example
+	* // Get the defined content
+	* me.content();
+	* @example
+	* // Set static content
+	* me.content("Some static content");
+	* @example
+	* // Set DOM content
+	* me.content("#hiddenContent");
+	* @example
+	* // Set AJAX content
 	* me.content("http://chico.com/some/content.html");
 	* @see ch.Object#content
-    */
+	*/
 
-    /**
-    * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+	/**
+	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
-    * @name ch.Layer#isActive
-    * @function 
-    * @returns {Boolean}
-    */
+	* @name ch.Layer#isActive
+	* @function 
+	* @returns {Boolean}
+	*/
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
@@ -278,22 +277,22 @@ ch.layer = function(conf) {
 	* me.height // 300
 	*/
 	
-    /**
-     * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
-     * @public
-     * @name ch.Layer#position
-     * @example
-     * // Change component's position.
-     * me.position({ 
-     *    offset: "0 10",
-     *    points: "lt lb"
-     * });
-     * @see ch.Object#position
-     */
+	/**
+	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
+	* @public
+	* @name ch.Layer#position
+	* @example
+	* // Change component's position.
+	* me.position({ 
+	*	offset: "0 10",
+	*	points: "lt lb"
+	* });
+	* @see ch.Object#position
+	*/
 	
 /**
- *  Default event delegation
- */
+*	Default event delegation
+*/
 
 	// Click
 	if(conf.event === 'click') {
@@ -309,17 +308,17 @@ ch.layer = function(conf) {
 			.bind('mouseleave', hideTimer);
 	};
 
-    // Fix: change layout problem
-    $("body").bind(ch.events.LAYOUT.CHANGE, function(){ that.position("refresh") });
- 
+	// Fix: change layout problem
+	$("body").bind(ch.events.LAYOUT.CHANGE, function(){ that.position("refresh") });
+
 	/**
 	* Triggers when component is visible.
 	* @name ch.Layer#show
 	* @event
-    * @public
+	* @public
 	* @example
 	* me.on("show",function(){
-	*    this.content("Some new content");
+	*	this.content("Some new content");
 	* });
 	* @see ch.Floats#event:show
 	*/
@@ -328,10 +327,10 @@ ch.layer = function(conf) {
 	* Triggers when component is not longer visible.
 	* @name ch.Layer#hide
 	* @event
-    * @public
+	* @public
 	* @example
 	* me.on("hide",function(){
-	*    otherComponent.show();
+	*	otherComponent.show();
 	* });
 	* @see ch.Floats#event:hide
 	*/
@@ -344,11 +343,10 @@ ch.layer = function(conf) {
 	* @example
 	* // Following the first example, using 'me' as Layer's instance controller:
 	* me.on("ready",function(){
-	*    this.show();
+	*	this.show();
 	* });
 	*/
 	that.trigger("ready");
-
 
 	return that;
 

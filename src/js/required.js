@@ -18,14 +18,14 @@
 */
 
 ch.extend("watcher").as("required", function(conf) {
-    
-    // Define the validation interface    
-    conf.required = true;
-    // Define the conditions of this interface
-    conf.conditions = [{
-        name: "required"
-    }];
-    
-    return conf;
-    
+
+	// Define the validation interface    
+	conf.required = true;
+	// Define the conditions of this interface
+	conf.conditions = [{
+		name: "required"
+	}];
+
+	return conf;
+
 });

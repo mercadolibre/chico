@@ -25,20 +25,20 @@ ch.form = function(conf) {
 		for(var i = 0, j = ch.instances.form.length; i < j; i++){
 			if(ch.instances.form[i].element === this.element){
 				return { 
-	                exists: true, 
-	                object: ch.instances.form[i]
-	            };
+					exists: true, 
+					object: ch.instances.form[i]
+				};
 			};
 		};
 	};
 
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name that
-     * @type {Object}
-     * @memberOf ch.Form
-     */ 
+	/**
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @private
+	* @name that
+	* @type {Object}
+	* @memberOf ch.Form
+	*/ 
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -50,38 +50,38 @@ ch.form = function(conf) {
 	that.conf = conf;
 
 /**
- *  Inheritance
- */
+*  Inheritance
+*/
 
-    that = ch.controllers.call(that);
-    that.parent = ch.clon(that);
+	that = ch.controllers.call(that);
+	that.parent = ch.clon(that);
 	
 	
 /**
- *  Private Members
- */
- 
-    /**
-     * A Boolean property that indicates is exists errors in the form.
-     * @private
-     * @name status
-     * @type {Boolean}
-     * @memberOf ch.Form
-     */ 
+*  Private Members
+*/
+
+	/**
+	* A Boolean property that indicates is exists errors in the form.
+	* @private
+	* @name status
+	* @type {Boolean}
+	* @memberOf ch.Form
+	*/ 
 	var status = true;
 	
-    /**
-     * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
-     */
+	/**
+	* Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+	*/
 	var validate = function(){
 
-       /**
-        * Callback function
-        * @name beforeValidate
-        * @type {Function}
-        * @memberOf ch.Form
-        */
-        that.callbacks("beforeValidate");
+		/**
+		* Callback function
+		* @name beforeValidate
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
+		that.callbacks("beforeValidate");
 		// new callback
 		that.trigger("beforeValidate");
 		
@@ -90,144 +90,144 @@ ch.form = function(conf) {
 			status = true;
 		};
 		
-        var i = 0, j = that.children.length, toFocus, childrenError = [];
+		var i = 0, j = that.children.length, toFocus, childrenError = [];
 		// Shoot validations
 		for ( i; i < j; i++ ) {
-		    var child = that.children[i];
+			var child = that.children[i];
 			 // Validate
-           child.validate();
-           // Save children with errors
-           if ( child.active() ) {
-               childrenError.push( child );
-           }
+			child.validate();
+			// Save children with errors
+			if ( child.active() ) {
+				childrenError.push( child );
+			}
 		};
-        
-        // Is there's an error
-        if ( childrenError.length > 0 ) {
-            status = false;
-            // Issue UI-332: On validation must focus the first field with errors.
-            // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            if (childrenError[0].element.tagName === "DIV") {
-                $(childrenError[0].element).find("input:first").focus();
-            } else {
-                childrenError[0].element.focus();
-            }
-        } else {
-            status = true;    
-        }
-      /**
-        * Callback function
-        * @name onValidate
-        * @type {Function}
-        * @memberOf ch.Form
-        */
-      /**
-        * Callback function
-        * @name onError
-        * @type {Function}
-        * @memberOf ch.Form
-        */
-        //status ? that.callbacks("onValidate") : that.callbacks("onError");  
-        if (status) {
+		
+		// Is there's an error
+		if ( childrenError.length > 0 ) {
+			status = false;
+			// Issue UI-332: On validation must focus the first field with errors.
+			// Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
+			if (childrenError[0].element.tagName === "DIV") {
+				$(childrenError[0].element).find("input:first").focus();
+			} else {
+				childrenError[0].element.focus();
+			}
+		} else {
+			status = true;	
+		}
+		/**
+		* Callback function
+		* @name onValidate
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
+		/**
+		* Callback function
+		* @name onError
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
+		//status ? that.callbacks("onValidate") : that.callbacks("onError");  
+		if (status) {
 			that.callbacks("onValidate");
-       		// new callback
+			// new callback
 			that.trigger("onValidate");	
-        } else {
-        	that.callbacks("onError");
-        	// new callback
-        	that.trigger("onError");
-        }
+		} else {
+			that.callbacks("onError");
+			// new callback
+			that.trigger("onError");
+		}
 
-      /**
-        * Callback function
-        * @name afterValidate
-        * @type {Function}
-        * @memberOf ch.Form
-        */
-        that.callbacks("afterValidate");
+		/**
+		* Callback function
+		* @name afterValidate
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
+		that.callbacks("afterValidate");
 		// new callback
 		that.trigger("afterValidate");
 		
-        return that;
-    };
+		return that;
+	};
 
-    /**
-     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, 
-     * and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
-     */
+	/**
+	* This methods triggers the 'beforSubmit' callback, then will execute validate() method, 
+	* and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+	*/
 	var submit = function(event) {
 
-       /**
-        * Callback function
-        * @name beforeSubmit
-        * @type {Function}
-        * @memberOf ch.Form
-        */
-        that.callbacks("beforeSubmit");
+		/**
+		* Callback function
+		* @name beforeSubmit
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
+		that.callbacks("beforeSubmit");
 		// new callback
 		that.trigger("beforeSubmit");
 		
-        // re-asign submit event   
-        that.$element.one("submit", submit);
+		// re-asign submit event   
+		that.$element.one("submit", submit);
 
-        // Execute all validations
+		// Execute all validations
 		validate();
 		
 		// If an error ocurs prevent default actions
 		if ( !status ) {
-            that.prevent(event);
+			that.prevent(event);
 		}
 
-       /**
-        * Callback function
-        * @name onSubmit
-        * @type {Function}
-        * @memberOf ch.Form
-        */
+		/**
+		* Callback function
+		* @name onSubmit
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
 
 		// Is there's no error but there's a onSubmit callback
 		if ( status && ch.utils.hasOwn(conf, "onSubmit")) {
-            // Avoid default actions
-            that.prevent(event);
-            // To execute defined onSubmit callback
-            that.callbacks("onSubmit");
+			// Avoid default actions
+			that.prevent(event);
+			// To execute defined onSubmit callback
+			that.callbacks("onSubmit");
 			// new callback
 			that.trigger("submit");
-	    }
+		}
 
-       /**
-        * Callback function
-        * @name afterSubmit
-        * @type {Function}
-        * @memberOf ch.Form
-        */
+		/**
+		* Callback function
+		* @name afterSubmit
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
 
-        that.callbacks("afterSubmit");
+		that.callbacks("afterSubmit");
 		// new callback
 		that.trigger("afterSubmit");
 			
-        // Return that to chain methods
-        return that;
+		// Return that to chain methods
+		return that;
 	};
 
-    /**
-     * Use this method to clear al validations.
-     */
+	/**
+	* Use this method to clear al validations.
+	*/
 	var clear = function(event){		
 		
 		that.prevent(event);		
-        
-        var i = 0, j = that.children.length;
+		
+		var i = 0, j = that.children.length;
 		for(i; i < j; i += 1) {
 		  that.children[i].reset();
 		}
- 
-       /**
-        * Callback function
-        * @name onClear
-        * @type {Function}
-        * @memberOf ch.Form
-        */
+
+		/**
+		* Callback function
+		* @name onClear
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
 		that.callbacks("onClear");
 		// new callback
 		that.trigger("clear");
@@ -235,18 +235,18 @@ ch.form = function(conf) {
 		return that;
 	};
 
-    /**
-     * Use this method to reset the form's input elements.
-     */	
+	/**
+	* Use this method to reset the form's input elements.
+	*/	
 	var reset = function(event){
 		clear();
 		that.element.reset(); // Reset html form native
-       /**
-        * Callback function
-        * @name onReset
-        * @type {Function}
-        * @memberOf ch.Form
-        */
+		/**
+		* Callback function
+		* @name onReset
+		* @type {Function}
+		* @memberOf ch.Form
+		*/
 		that.callbacks("onReset");
 		// new callback
 		that.trigger("reset");
@@ -254,106 +254,106 @@ ch.form = function(conf) {
 		return that;
 	};
 
-			
+
 /**
- *  Public Members
- */	
-    /**
-     * The component's instance unique identifier.
-     * @public
-     * @name uid
-     * @type {Number}
-     * @memberOf ch.Form
-     */ 
+*  Public Members
+*/	
+	/**
+	* The component's instance unique identifier.
+	* @public
+	* @name uid
+	* @type {Number}
+	* @memberOf ch.Form
+	*/ 
 	that["public"].uid = that.uid;
-    /**
-     * The element reference.
-     * @public
-     * @name element
-     * @type {HTMLElement}
-     * @memberOf ch.Form
-     */
+	/**
+	* The element reference.
+	* @public
+	* @name element
+	* @type {HTMLElement}
+	* @memberOf ch.Form
+	*/
 	that["public"].element = that.element;
-    /**
-     * The component's type.
-     * @public
-     * @name type
-     * @type {String}
-     * @memberOf ch.Form
-     */
+	/**
+	* The component's type.
+	* @public
+	* @name type
+	* @type {String}
+	* @memberOf ch.Form
+	*/
 	that["public"].type = that.type;
-    /**
-     * Watcher instances associated to this controller.
-     * @public
-     * @name children
-     * @type {Collection}
-     * @memberOf ch.Form
-     */
+	/**
+	* Watcher instances associated to this controller.
+	* @public
+	* @name children
+	* @type {Collection}
+	* @memberOf ch.Form
+	*/
 	that["public"].children = that.children;
-    /**
-     * Collection of messages defined.
-     * @public
-     * @name messages
-     * @type {String}
-     * @memberOf ch.Form
-     */
+	/**
+	* Collection of messages defined.
+	* @public
+	* @name messages
+	* @type {String}
+	* @memberOf ch.Form
+	*/
 	that["public"].messages = conf.messages || {};
-    /**
-     * Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
-     * @function
-     * @name validate
-     * @memberOf ch.Form
-     * @returns {Chico-UI Object}
-     */
+	/**
+	* Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+	* @function
+	* @name validate
+	* @memberOf ch.Form
+	* @returns {Chico-UI Object}
+	*/
 	that["public"].validate = function() { 
 		validate(); 
 		
 		return that["public"]; 
 	};
 	
-    /**
-     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
-     * @function
-     * @name submit
-     * @memberOf ch.Form
-     * @returns {Chico-UI Object}
-     */
+	/**
+	* This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+	* @function
+	* @name submit
+	* @memberOf ch.Form
+	* @returns {Chico-UI Object}
+	*/
 	that["public"].submit = function() { 
 		submit(); 
 		
 		return that["public"]; 
 	};
 
-    /**
-     * Return the status value.
-     * @function
-     * @name getStatus
-     * @memberOf ch.Form
-     * @returns {Chico-UI Object}
-     */ 	
+	/**
+	* Return the status value.
+	* @function
+	* @name getStatus
+	* @memberOf ch.Form
+	* @returns {Chico-UI Object}
+	*/	
 	that["public"].getStatus = function(){
 		return status;	
 	};
 
-    /**
-     * Use this method to clear al validations.
-     * @function
-     * @name clear
-     * @memberOf ch.Form
-     * @returns {Chico-UI Object}
-     */ 
+	/**
+	* Use this method to clear al validations.
+	* @function
+	* @name clear
+	* @memberOf ch.Form
+	* @returns {Chico-UI Object}
+	*/ 
 	that["public"].clear = function() { 
 		clear(); 
 		
 		return that["public"]; 
 	};
-    /**
-     * Use this method to clear al validations.
-     * @function
-     * @name reset
-     * @memberOf ch.Form
-     * @returns {Chico-UI Object}
-     */ 
+	/**
+	* Use this method to clear al validations.
+	* @function
+	* @name reset
+	* @memberOf ch.Form
+	* @returns {Chico-UI Object}
+	*/ 
 	that["public"].reset = function() { 
 		reset(); 
 		
@@ -362,8 +362,8 @@ ch.form = function(conf) {
 
 
 /**
- *  Default event delegation
- */	
+*  Default event delegation
+*/	
 
 	// patch exists because the components need a trigger
 	if (ch.utils.hasOwn(conf, "onSubmit")) {

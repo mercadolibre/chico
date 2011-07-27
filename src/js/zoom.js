@@ -1,15 +1,15 @@
 
 /**
- * Zoom is a standalone UI component that shows a contextual reference to an augmented version of main declared image.
- * @name Zoom
- * @class Zoom
- * @augments ch.Floats
- * @requires ch.Positioner
- * @requires ch.onImagesLoads
- * @memberOf ch
- * @param {Object} conf Object with configuration properties
- * @returns {self}
- */
+* Zoom is a standalone UI component that shows a contextual reference to an augmented version of main declared image.
+* @name Zoom
+* @class Zoom
+* @augments ch.Floats
+* @requires ch.Positioner
+* @requires ch.onImagesLoads
+* @memberOf ch
+* @param {Object} conf Object with configuration properties
+* @returns {self}
+*/
 
 ch.zoom = function(conf) {
 	/**
@@ -32,15 +32,15 @@ ch.zoom = function(conf) {
 	that.conf = conf;
 
 /**
- *	Inheritance
- */
+*	Inheritance
+*/
 
 	that = ch.floats.call(that);
 	that.parent = ch.clon(that);
 	
 /**
- *  Private Members
- */
+*	Private Members
+*/
 
 	/**
 	* Reference to main image declared on HTML code snippet.
@@ -94,18 +94,18 @@ ch.zoom = function(conf) {
 
 		// Horizontal: keep seeker into limits
 		if(limit.left >= 0 && limit.right < original["width"] - 1) {
-			zoomed.img.css("left", -( (parseInt(zoomed["width"] * x) / original["width"]) - (conf.width / 2) ));
+			zoomed.img.css("left", -( (parseInt(zoomed["width"]* x) / original["width"]) - (conf.width / 2) ));
 			seeker.shape.css("left", limit.left);
 		};
 		
 		// Vertical: keep seeker into limits
 		if(limit.top >= 0 && limit.bottom < original["height"] - 1) {
-			zoomed.img.css("top", -( (parseInt(zoomed["height"] * y) / original["height"]) - (conf.height / 2) ));
+			zoomed.img.css("top", -( (parseInt(zoomed["height"]* y) / original["height"]) - (conf.height / 2) ));
 			seeker.shape.css("top", limit.top);
 		};
 		
 	};
-		
+
 	/**
 	* Calculates zoomed image sizes and adds event listeners to trigger of float element
 	* @private
@@ -128,11 +128,11 @@ ch.zoom = function(conf) {
 			// Hide
 			.bind("mouseleave", that.hide)
 	};
-	
+
 /**
-*  Protected Members
+*	Protected Members
 */
-	
+
 	/**
 	* Anchor that wraps the main image and links to zoomed image file.
 	* @public
@@ -140,7 +140,7 @@ ch.zoom = function(conf) {
 	* @type {Object}
 	*/
 	that.$trigger = that.$element;
-	
+
 	that.innerShow = function(){
 		// Recalc offset of original image
 		original.offset = original.img.offset();
@@ -158,7 +158,7 @@ ch.zoom = function(conf) {
 
 		return that;
 	};
-	
+
 	that.innerHide = function(){
 		// Move
 		that.$element.unbind("mousemove");
@@ -178,13 +178,11 @@ ch.zoom = function(conf) {
 	* @function
 	* @name ch.Zoom#enlarge
 	* @param {Mouse Event Object} event
-	 * @returns {itself}
+	* @returns {itself}
 	*/
 	that.enlarge = function(event){
 		that.prevent(event);
-		
 		// Do what you want...
-		
 		return that;
 	};
 	
@@ -203,11 +201,11 @@ ch.zoom = function(conf) {
 		if (data) {
 
 			// Seeker: shape size relative to zoomed image respect zoomed area
-			var size = (original[prop] * data) / zoomed[prop];
-		
+			var size = (original[prop]* data) / zoomed[prop];
+
 			// Seeker: sets shape size
 			seeker.shape[prop](size);
-		
+
 			// Seeker: save shape half size for position it respect cursor
 			seeker[prop] = size / 2;
 
@@ -217,7 +215,7 @@ ch.zoom = function(conf) {
 	};
 
 /**
-*  Public Members
+*	Public Members
 */
 
 	/**
@@ -258,7 +256,7 @@ ch.zoom = function(conf) {
 		// Only on Zoom, it's limmited to be a getter
 		return that.content();
 	};
-	
+
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
@@ -305,7 +303,7 @@ ch.zoom = function(conf) {
 	* // Sets width of Zoom float element and updates the seeker size to keep these relation.
 	* foo.width(500);
 	*/
-	
+
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
@@ -320,7 +318,7 @@ ch.zoom = function(conf) {
 	* // Sets height of Zoom float element and update the seeker size to keep these relation.
 	* foo.height(500);
 	*/
-	
+
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
@@ -339,24 +337,24 @@ ch.zoom = function(conf) {
 	* $("a").zoom().position();
 	* @see ch.Object#position
 	*/
-	
-	
+
+
 /**
- *  Default event delegation
- */
-	
+*	Default event delegation
+*/
+
 	// Anchor
 	that.$element
 		.addClass("ch-zoom-trigger")
-		
+
 		// Size (same as image)
 		.css({"width": original["width"], "height": original["height"]})
-		
+
 		// Enlarge
 		.bind("click", function(event){ that.enlarge(event); });
 	
 	// Initialize when zoomed image loads...
 	zoomed.img.onImagesLoads( init );
-	
+
 	return that;
 };

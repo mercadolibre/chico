@@ -1,46 +1,46 @@
 
 /**
- * A navegable list of items, UI-Object.
- * @name Dropdown
- * @class Dropdown
- * @augments ch.Navs
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- */
+* A navegable list of items, UI-Object.
+* @name Dropdown
+* @class Dropdown
+* @augments ch.Navs
+* @memberOf ch
+* @param {Configuration Object} conf Object with configuration properties
+* @returns {Chico-UI Object}
+*/
 
 ch.dropdown = function(conf){
 
 
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name that
-     * @type {Object}
-     * @memberOf ch.Dropdown
-     */
+	/**
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @private
+	* @name that
+	* @type {Object}
+	* @memberOf ch.Dropdown
+	*/
 	var that = this;
 
 	conf = ch.clon(conf);
 	that.conf = conf;
 	
 /**
- *	Inheritance
- */
+*	Inheritance
+*/
 
-    that = ch.navs.call(that);
-    that.parent = ch.clon(that);
+	that = ch.navs.call(that);
+	that.parent = ch.clon(that);
 
 /**
- *  Private Members
- */
-    /**
-     * Adds keyboard events.
-     * @private
-     * @name shortcuts
-     * @function
-     * @memberOf ch.TabNavigator
-     */
+*  Private Members
+*/
+	/**
+	* Adds keyboard events.
+	* @private
+	* @name shortcuts
+	* @function
+	* @memberOf ch.TabNavigator
+	*/
 	var shortcuts = function(items){
 		
 		// Keyboard support
@@ -74,23 +74,23 @@ ch.dropdown = function(conf){
 
 
 /**
- *  Protected Members
- */
-    /**
-     * The component's trigger.
-     * @private
-     * @name $trigger
-     * @type {jQuery Object}
-     * @memberOf ch.Dropdown
-     */
+*  Protected Members
+*/
+	/**
+	* The component's trigger.
+	* @private
+	* @name $trigger
+	* @type {jQuery Object}
+	* @memberOf ch.Dropdown
+	*/
 	that.$trigger = that.$element.children().eq(0);
-    /**
-     * The component's content.
-     * @private
-     * @name $content
-     * @type {jQuery Object}
-     * @memberOf ch.Dropdown
-     */
+	/**
+	* The component's content.
+	* @private
+	* @name $content
+	* @type {jQuery Object}
+	* @memberOf ch.Dropdown
+	*/
 	that.$content = that.$trigger.next().detach(); // Save on memory;
 
 	that.show = function(event){
@@ -132,83 +132,83 @@ ch.dropdown = function(conf){
 	that.hide = function(event){
 		that.prevent(event);
 
-        that.parent.hide(event);
-        	that.$element.removeClass("ch-dropdown-on");
+		that.parent.hide(event);
+			that.$element.removeClass("ch-dropdown-on");
 
-        // Unbind events
-        ch.utils.document.unbind(ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW);
+		// Unbind events
+		ch.utils.document.unbind(ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW);
 
 		return that;
 	};
 	
 /**
- *  Public Members
- */
+*  Public Members
+*/
  
-    /**
-     * The component's instance unique identifier.
-     * @public
-     * @name uid
-     * @type {Number}
-     * @memberOf ch.Dropdown
-     */
-   	that["public"].uid = that.uid;
-    
-    /**
-     * The element reference.
-     * @public
-     * @name element
-     * @type {HTMLElement}
-     * @memberOf ch.Dropdown
-     */
+	/**
+	* The component's instance unique identifier.
+	* @public
+	* @name uid
+	* @type {Number}
+	* @memberOf ch.Dropdown
+	*/
+  	that["public"].uid = that.uid;
+	
+	/**
+	* The element reference.
+	* @public
+	* @name element
+	* @type {HTMLElement}
+	* @memberOf ch.Dropdown
+	*/
 	that["public"].element = that.element;
-    
-    /**
-     * The component's type.
-     * @public
-     * @name type
-     * @type {String}
-     * @memberOf ch.Dropdown
-     */	
+	
+	/**
+	* The component's type.
+	* @public
+	* @name type
+	* @type {String}
+	* @memberOf ch.Dropdown
+	*/	
 	that["public"].type = that.type;
 	
-    /**
-     * Shows component's content.
-     * @public
-     * @name show
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Dropdown
-     */
+	/**
+	* Shows component's content.
+	* @public
+	* @name show
+	* @returns {Chico-UI Object}
+	* @memberOf ch.Dropdown
+	*/
 	that["public"].show = function(){
 		that.show();
 		
 		return that["public"];
 	};
 
-    /**
-     * Hides component's content.
-     * @public
-     * @name hide
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Dropdown
-     */ 
+	/**
+	* Hides component's content.
+	* @public
+	* @name hide
+	* @returns {Chico-UI Object}
+	* @memberOf ch.Dropdown
+	*/ 
 	that["public"].hide = function(){
 		that.hide();
 		
 		return that["public"];
 	};
-    /**
-     * Positioning configuration.
-     * @public
-     * @name position
-     * @memberOf ch.Dropdown
-     */
+	/**
+	* Positioning configuration.
+	* @public
+	* @name position
+	* @memberOf ch.Dropdown
+	*/
 	that["public"].position = that.position;	
 
 
 /**
- *  Default event delegation
- */		    
+*  Default event delegation
+*/			
 
 	that.configBehavior();
 	

@@ -59,8 +59,8 @@ ch.watcher = function(conf) {
 			return ch.instances.form[last]; // Set my parent
 		};
 	})();
-	
-	
+
+
 	/**
 	* Search for instances of Watchers with the same trigger, and then merge it's properties with it.
 	* @private
@@ -209,9 +209,8 @@ ch.watcher = function(conf) {
 		helper.type = "helper";
 		helper.element = that.element;
 		helper.$element = that.$element;
-		
+
 	that.helper = ch.helper.call(helper, that);
-	
 
 	/**
 	* Process all conditions looking for errors.
@@ -221,7 +220,7 @@ ch.watcher = function(conf) {
 	* @return {itself}
 	*/
 	that.validate = function(event) {	
-		
+
 		// Pre-validation: Don't validate disabled or not required & empty elements
 		if ( that.$element.attr('disabled') ) { return; }
 
@@ -255,15 +254,15 @@ ch.watcher = function(conf) {
 			for ( i ; i < t ; i +=1 ) {
 				
 				var condition = that.conditions[i];
-		
+
 				if ( that.isRequired() ) {
 					gotError = that.isEmpty();
 				}
-				
+
 				if ( condition.patt ) {
 					gotError = !condition.patt.test(value);
 				}
-				
+
 				if ( condition.expr ) {
 					gotError = !condition.expr( value, condition.value );
 				}
@@ -324,13 +323,13 @@ ch.watcher = function(conf) {
 			// Public status OK
 			//that.publish.status = that.status =  conf.status = true; // Status OK
 			that.active = false;
-			
+
 			// If has an error, but complete the field and submit witout trigger blur event 
 			if (event) {
 				var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
 				if (originalTarget.type == "submit") { controller.submit(event); };
 			};
-			
+
 			// This generates a lot of redraws... I don't want it here
 			//controller.checkStatus();
 		};
@@ -382,19 +381,18 @@ ch.watcher = function(conf) {
 		that.callbacks('onReset');
 		// new callback
 		that.trigger("reset");
-		
+
 		return that;
 	};
-	
-	
+
 	/**
- 	* Returns false if the field has no value selected.
- 	* @protected
- 	* @name ch.Watcher#isEmpty
- 	* @function
- 	* @return {Boolean}
- 	*/
- 	that.isEmpty = function() {
+	* Returns false if the field has no value selected.
+	* @protected
+	* @name ch.Watcher#isEmpty
+	* @function
+	* @return {Boolean}
+	*/
+	that.isEmpty = function() {
 		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
 		switch (that.tag) {
 			case 'OPTIONS':
@@ -416,9 +414,9 @@ ch.watcher = function(conf) {
 
 	
 /**
-*  Public Members
+*	Public Members
 */
- 
+
 	/**
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
@@ -449,24 +447,24 @@ ch.watcher = function(conf) {
 	* @TODO: remove 'reference' from public scope
 	*/
 	that["public"].reference = that.reference;
-	
+
 	/**
 	* This public Map saves all the validation configurations from this instance.
 	* @public
 	* @name ch.Watcher#conditions
 	* @type {Object}
-	*/	
+	*/
 	that["public"].conditions = that.conditions;
-	
+
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
 	* @name ch.Watcher#type
 	* @type {String}
 	* @see ch.Floats
-	*/	
+	*/
 	that["public"].helper = that.helper["public"];
-	
+
 	/**
 	* Active is a boolean property that let you know if there's a validation going on.
 	* @public
@@ -477,7 +475,7 @@ ch.watcher = function(conf) {
 	that["public"].active = function() {
 		return that.active;
 	};
-	
+
 	/**
 	* Let you keep chaining methods.
 	* @public
@@ -488,6 +486,7 @@ ch.watcher = function(conf) {
 	that["public"].and = function() {
 		return that.$element;
 	};
+
 	/**
 	* Reset al active validations.
 	* @public
@@ -500,6 +499,7 @@ ch.watcher = function(conf) {
 		
 		return that["public"];
 	};
+
 	/**
 	* Run all configured validations.
 	* @public
@@ -512,6 +512,7 @@ ch.watcher = function(conf) {
 		
 		return that["public"];
 	};
+
 	/**
 	* Turn on Watcher engine.
 	* @public
@@ -524,6 +525,7 @@ ch.watcher = function(conf) {
 				
 		return that["public"];			
 	};
+
 	/**
 	* Turn off Watcher engine and reset its validation.
 	* @public
@@ -537,6 +539,7 @@ ch.watcher = function(conf) {
 
 		return that["public"];
 	};
+
 	/**
 	* Recalculate Helper's positioning.
 	* @public
@@ -550,11 +553,9 @@ ch.watcher = function(conf) {
 		return that["public"];
 	};
 
-
-
 /**
-* Default event delegation
-*/	
+*	Default event delegation
+*/
 
 	/**
 	* Triggers when the component is ready to use.

@@ -1,24 +1,24 @@
 /**
- * Execute callback when images of a query selection loads
- * @abstract
- * @name onImagesLoads
- * @class onImagesLoads
- * @memberOf ch
- * @param {Array of images}
- * @returns {jQuery Object}
- * @example
- * $("img").onImagesLoads(function(){ ... });
- */
+* Execute callback when images of a query selection loads
+* @abstract
+* @name onImagesLoads
+* @class onImagesLoads
+* @memberOf ch
+* @param {Array of images}
+* @returns {jQuery Object}
+* @example
+* $("img").onImagesLoads(function(){ ... });
+*/
 
 ch.onImagesLoads = function(conf){
 
 	/**
-	 * Reference to a internal component instance, saves all the information and configuration properties.
-	 * @private
-	 * @name that
-	 * @type {Object}
-	 * @memberOf ch.onImagesLoads
-	 */
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @private
+	* @name that
+	* @type {Object}
+	* @memberOf ch.onImagesLoads
+	*/
 	var that = this;
 	conf = ch.clon(conf);
 	that.conf = conf;

@@ -1,14 +1,14 @@
 
 /** 
- * UI feedback utility, creates a visual highlight
- * changing background color from yellow to white.
- * @function
- * @name blink
- * @param {Selector} selector CSS Selector to blink a collection
- * @param {Number} [time] Amount of time to blink
- * @returns {jQuery Object}
- * @memberOf ch
- */
+* UI feedback utility, creates a visual highlight
+* changing background color from yellow to white.
+* @function
+* @name blink
+* @param {Selector} selector CSS Selector to blink a collection
+* @param {Number} [time] Amount of time to blink
+* @returns {jQuery Object}
+* @memberOf ch
+*/
 ch.blink = function (conf) {
 
 	var that = this,

@@ -1,23 +1,23 @@
 /**
- * Menu is a UI-Component.
- * @name Menu
- * @class Menu
- * @augments ch.Controllers
- * @requires ch.Expando
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- */
- 
+* Menu is a UI-Component.
+* @name Menu
+* @class Menu
+* @augments ch.Controllers
+* @requires ch.Expando
+* @memberOf ch
+* @param {Configuration Object} conf Object with configuration properties
+* @returns {Chico-UI Object}
+*/
+
 ch.menu = function(conf){
 
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name that
-     * @type {Object}
-     * @memberOf ch.Menu
-     */
+	/**
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @private
+	* @name that
+	* @type {Object}
+	* @memberOf ch.Menu
+	*/
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -25,31 +25,31 @@ ch.menu = function(conf){
 	that.conf = conf;
 	
 /**
- *	Inheritance
- */
+*	Inheritance
+*/
 
-    that = ch.controllers.call(that);
-    that.parent = ch.clon(that);
+	that = ch.controllers.call(that);
+	that.parent = ch.clon(that);
 
 /**
- *  Private Members
- */
+*	Private Members
+*/
 
 	/**
-     * Indicates witch child is opened
-     * @private
-     * @type {Number}
-     * @memberOf ch.Menu
-     */
+	* Indicates witch child is opened
+	* @private
+	* @type {Number}
+	* @memberOf ch.Menu
+	*/
 	var selected = conf.selected - 1;
 
 	/**
-     * Inits an Expando component on each list inside main HTML code snippet
-     * @private
-     * @name createLayout
-     * @function
-     * @memberOf ch.Menu
-     */
+	* Inits an Expando component on each list inside main HTML code snippet
+	* @private
+	* @name createLayout
+	* @function
+	* @memberOf ch.Menu
+	*/
 	var createLayout = function(){
 		
 		// No slide efects for IE6 and IE7
@@ -81,12 +81,12 @@ ch.menu = function(conf){
 					// Updates selected tab when it's opened
 					selected = i;
 
-                    /**
-                     * Callback function
-                     * @name onSelect
-                     * @type {Function}
-                     * @memberOf ch.Menu
-                     */
+					/**
+					* Callback function
+					* @name onSelect
+					* @type {Function}
+					* @memberOf ch.Menu
+					*/
 					that.callbacks.call(that, "onSelect");
 					// new callback
 					that.trigger("select");
@@ -100,11 +100,11 @@ ch.menu = function(conf){
 	};
 	
 	/**
-     * Opens specific Expando child and optionally grandson
-     * @private
-     * @function
-     * @memberOf ch.Menu
-     */
+	* Opens specific Expando child and optionally grandson
+	* @private
+	* @function
+	* @memberOf ch.Menu
+	*/
 	var select = function(item){
 
 		var child, grandson;
@@ -161,12 +161,12 @@ ch.menu = function(conf){
 	};
 	
 	/**
-     * Binds controller's own click to expando triggers
-     * @private
-     * @name configureAccordion
-     * @function
-     * @memberOf ch.Menu
-     */
+	* Binds controller's own click to expando triggers
+	* @private
+	* @name configureAccordion
+	* @function
+	* @memberOf ch.Menu
+	*/
 	var configureAccordion = function(){
 
 		$.each(that.children, function(i, e){
@@ -179,46 +179,46 @@ ch.menu = function(conf){
 	};
 
 /**
- *  Protected Members
- */
+*	Protected Members
+*/
 
 /**
- *  Public Members
- */
-    /**
-     * The component's instance unique identifier.
-     * @public
-     * @name uid
-     * @type {Number}
-     * @memberOf ch.Menu
-     */ 	
+*	Public Members
+*/
+	/**
+	* The component's instance unique identifier.
+	* @public
+	* @name uid
+	* @type {Number}
+	* @memberOf ch.Menu
+	*/	
 	that["public"].uid = that.uid;
 	
-    /**
-     * The element reference.
-     * @public
-     * @name element
-     * @type {HTMLElement}
-     * @memberOf ch.Menu
-     */
+	/**
+	* The element reference.
+	* @public
+	* @name element
+	* @type {HTMLElement}
+	* @memberOf ch.Menu
+	*/
 	that["public"].element = that.element;
 	
-    /**
-     * The component's type.
-     * @public
-     * @name type
-     * @type {String}
-     * @memberOf ch.Menu
-     */
+	/**
+	* The component's type.
+	* @public
+	* @name type
+	* @type {String}
+	* @memberOf ch.Menu
+	*/
 	that["public"].type = that.type;
 	
-    /**
-     * Select a specific children.
-     * @public
-     * @name select
-     * @function
-     * @memberOf ch.Menu
-     */
+	/**
+	* Select a specific children.
+	* @public
+	* @name select
+	* @function
+	* @memberOf ch.Menu
+	*/
 	that["public"].select = function(item){
 		select(item);
 
@@ -226,8 +226,8 @@ ch.menu = function(conf){
 	};
 
 /**
- *  Default event delegation
- */	
+*	Default event delegation
+*/
 	
 	// Sets component main class name
 	that.$element.addClass('ch-menu');
@@ -239,53 +239,53 @@ ch.menu = function(conf){
 	if (conf.accordion) configureAccordion();
 	
 	// Select specific item if there are a "selected" parameter on component configuration object
-    if (ch.utils.hasOwn(conf, "selected")) select(conf.selected);
-    
+	if (ch.utils.hasOwn(conf, "selected")) select(conf.selected);
+	
 	return that;
 	
 };
 
 
 /**
- * Accordion is a UI-Component.
- * @name Accordion
- * @interface Accordion
- * @augments ch.Menu
- * @memberOf ch.Menu
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- */
+* Accordion is a UI-Component.
+* @name Accordion
+* @interface Accordion
+* @augments ch.Menu
+* @memberOf ch.Menu
+* @param {Configuration Object} conf Object with configuration properties
+* @returns {Chico-UI Object}
+*/
 
 ch.extend("menu").as("accordion");
 
-    /**
-     * The component's instance unique identifier.
-     * @public
-     * @name uid
-     * @type {Number}
-     * @memberOf ch.Menu.Accordion
-     */     
-    
-    /**
-     * The element reference.
-     * @public
-     * @name element
-     * @type {HTMLElement}
-     * @memberOf ch.Menu.Accordion
-     */
-    
-    /**
-     * The component's type.
-     * @public
-     * @name type
-     * @type {String}
-     * @memberOf ch.Menu.Accordion
-     */
-    
-    /**
-     * Select a specific children.
-     * @public
-     * @name select
-     * @function
-     * @memberOf ch.Menu.Accordion
-     */
+	/**
+	* The component's instance unique identifier.
+	* @public
+	* @name uid
+	* @type {Number}
+	* @memberOf ch.Menu.Accordion
+	*/
+	
+	/**
+	* The element reference.
+	* @public
+	* @name element
+	* @type {HTMLElement}
+	* @memberOf ch.Menu.Accordion
+	*/
+	
+	/**
+	* The component's type.
+	* @public
+	* @name type
+	* @type {String}
+	* @memberOf ch.Menu.Accordion
+	*/
+	
+	/**
+	* Select a specific children.
+	* @public
+	* @name select
+	* @function
+	* @memberOf ch.Menu.Accordion
+	*/
