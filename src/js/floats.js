@@ -1,16 +1,16 @@
 
 /**
- * Abstract class of all floats UI-Objects.
- * @abstract
- * @name ch.Floats
- * @class Floats
- * @augments ch.Object
- * @requires ch.Positioner
- * @returns {ch Object}
- * @see ch.Tooltip
- * @see ch.Layer
- * @see ch.Modal
- */ 
+* Abstract class of all floats UI-Objects.
+* @abstract
+* @name ch.Floats
+* @class Floats
+* @augments ch.Object
+* @requires ch.Positioner
+* @returns {ch Object}
+* @see ch.Tooltip
+* @see ch.Layer
+* @see ch.Modal
+*/ 
 
 ch.floats = function() {
 
@@ -24,15 +24,15 @@ ch.floats = function() {
 	var conf = that.conf;
 
 /**
- * Inheritance
- */
+* Inheritance
+*/
 
 	that = ch.object.call(that);
 	that.parent = ch.clon(that);
 
 /**
- * Private Members
- */
+* Private Members
+*/
 
 	/**
  	* Creates a 'cone', is a visual asset for floats.
@@ -64,8 +64,8 @@ ch.floats = function() {
 	};
 
 /**
- * Protected Members
- */ 
+* Protected Members
+*/ 
 	/**
 	* Flag that indicates if the float is active and rendered on the DOM tree.
 	* @protected
@@ -283,10 +283,9 @@ ch.floats = function() {
 	};
 
 
-			
 /**
- * Public Members
- */
+* Public Members
+*/
  
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
@@ -347,7 +346,7 @@ ch.floats = function() {
 	};
 	
 	/**
-    * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
 	* @name ch.Floats#isActive
 	* @function

@@ -1,24 +1,23 @@
 
 /**
- * Carousel is a UI-Component.
- * @name Carousel
- * @class Carousel
- * @augments ch.Object
- * @requires ch.List   
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- */
+* Carousel is a UI-Component.
+* @name Carousel
+* @class Carousel
+* @augments ch.Object
+* @requires ch.List   
+* @memberOf ch
+* @param {Configuration Object} conf Object with configuration properties
+* @returns {Chico-UI Object}
+*/
  
 ch.carousel = function(conf){
 	
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name that
-     * @type {Object}
-     * @memberOf ch.Carousel
-     */	
+	/**
+	* Reference to a internal component instance, saves all the information and configuration properties.	* @private
+	* @name that
+	* @type {Object}
+	* @memberOf ch.Carousel
+	*/	
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -40,23 +39,23 @@ ch.carousel = function(conf){
 	that.conf = conf;
 	
 /**
- *	Inheritance
- */
+*  Inheritance
+*/
 
-    that = ch.object.call(that);
-    that.parent = ch.clon(that);
+	that = ch.object.call(that);
+	that.parent = ch.clon(that);
 
 /**
- *  Private Members
- */
+*  Private Members
+*/
 	
 	/**
-     * Creates the necesary structure to carousel operation.
-     * @private
-     * @function
-     * @name _createLayout
-     * @memberOf ch.Carousel
-     */
+	* Creates the necesary structure to carousel operation.
+	* @private
+	* @function
+	* @name _createLayout
+	* @memberOf ch.Carousel
+	*/
 	var _createLayout = function() {
 
 		// Create carousel's content
@@ -80,12 +79,12 @@ ch.carousel = function(conf){
 	},
 	
 	/**
-     * Creates Previous and Next arrows.
-     * @private
-     * @function
-     * @name _createArrows
-     * @memberOf ch.Carousel
-     */
+	* Creates Previous and Next arrows.
+	* @private
+	* @function
+	* @name _createArrows
+	* @memberOf ch.Carousel
+	*/
 	_createArrows = function(){
 		
 		// Previous arrow
@@ -115,16 +114,16 @@ ch.carousel = function(conf){
 	},
 	
 	/**
-     * Manages arrows turning it on and off when non-continue carousel is on first or last page.
-     * @private
-     * @function
-     * @name _toggleArrows
-     * @param {Number} page Page to be moved
-     * @memberOf ch.Carousel
-     */
+	* Manages arrows turning it on and off when non-continue carousel is on first or last page.
+	* @private
+	* @function
+	* @name _toggleArrows
+	* @param {Number} page Page to be moved
+	* @memberOf ch.Carousel
+	*/
 	_toggleArrows = function(page){
- 		
- 		// Both arrows shown on carousel's middle
+		
+		// Both arrows shown on carousel's middle
 		if (page > 1 && page < that.pages ){
 			that.prevArrow.removeClass("ch-hide");
 			that.nextArrow.removeClass("ch-hide");
@@ -140,12 +139,12 @@ ch.carousel = function(conf){
 	},
 	
 	/**
-     * Creates carousel pagination.
-     * @private
-     * @function
-     * @name _createPagination
-     * @memberOf ch.Carousel
-     */
+	* Creates carousel pagination.
+	* @private
+	* @function
+	* @name _createPagination
+	* @memberOf ch.Carousel
+	*/
 	_createPagination = function(){
 		
 		// Deletes pagination if already exists
@@ -186,13 +185,13 @@ ch.carousel = function(conf){
 	},
 	
 	/**
-     * Calculates items amount on each page.
-     * @private
-     * @function
-     * @name _getItemsPerPage
-     * @memberOf ch.Carousel
-     * @returns {Number} Items amount on each page
-     */
+	* Calculates items amount on each page.
+	* @private
+	* @function
+	* @name _getItemsPerPage
+	* @memberOf ch.Carousel
+	* @returns {Number} Items amount on each page
+	*/
 	_getItemsPerPage = function(){
 		// Space to be distributed among all items
 		var _widthDiff = that.$element.outerWidth() - that.itemSize.width;
@@ -202,25 +201,25 @@ ch.carousel = function(conf){
 	},
 	
 	/**
-     * Calculates total amount of pages.
-     * @private
-     * @function
-     * @name _getPages
-     * @memberOf ch.Carousel
-     * @returns {Number} Total amount of pages
-     */
+	* Calculates total amount of pages.
+	* @private
+	* @function
+	* @name _getPages
+	* @memberOf ch.Carousel
+	* @returns {Number} Total amount of pages
+	*/
 	_getPages = function(){
 		// (Total amount of items) / (items amount on each page)
 		return  Math.ceil( that.items.children.length / that.itemsPerPage );
 	},
 
 	/**
-     * Calculates all necesary data to draw carousel correctly.
-     * @private
-     * @function
-     * @name _draw
-     * @memberOf ch.Carousel
-     */
+	* Calculates all necesary data to draw carousel correctly.
+	* @private
+	* @function
+	* @name _draw
+	* @memberOf ch.Carousel
+	*/
 	_draw = function(){
 		
 		// Reset size of carousel mask
@@ -261,82 +260,82 @@ ch.carousel = function(conf){
 	},
 	
 	/**
-     * Size of carousel mask.
-     * @private
-     * @name _maskWidth
-     * @type {Number}
-     * @memberOf ch.Carousel
-     */
+	* Size of carousel mask.
+	* @private
+	* @name _maskWidth
+	* @type {Number}
+	* @memberOf ch.Carousel
+	*/
 	_maskWidth,
 	
 	/**
-     * List of pagination thumbnails.
-     * @private
-     * @name _$itemsPagination
-     * @type {Array}
-     * @memberOf ch.Carousel
-     */
+	* List of pagination thumbnails.
+	* @private
+	* @name _$itemsPagination
+	* @type {Array}
+	* @memberOf ch.Carousel
+	*/
 	_$itemsPagination,
 	
 	/**
-     * Extra size calculated on content
-     * @private
-     * @name _extraWidth
-     * @type {Number}
-     * @memberOf ch.Carousel
-     */
+	* Extra size calculated on content
+	* @private
+	* @name _extraWidth
+	* @type {Number}
+	* @memberOf ch.Carousel
+	*/
 	_extraWidth,
 	
 	/**
-     * Resize status of Window.
-     * @private
-     * @name _resize
-     * @type {Boolean}
-     * @memberOf ch.Carousel
-     */
+	* Resize status of Window.
+	* @private
+	* @name _resize
+	* @type {Boolean}
+	* @memberOf ch.Carousel
+	*/
 	_resize = false;
 
 /**
- *  Protected Members
- */
+*  Protected Members
+*/
 
 	/**
-     * UL list of items.
-     * @private
-     * @name $collection
-     * @type {Array}
-     * @memberOf ch.Carousel
-     */
+	* UL list of items.
+	* @private
+	* @name $collection
+	* @type {Array}
+	* @memberOf ch.Carousel
+	*/
 	that.$collection = that.$element.children();
 	
 	/**
-     * List object created from each item.
-     * @private
-     * @name items
-     * @type {Object}
-     * @memberOf ch.Carousel
-     */
+	* List object created from each item.
+	* @private
+	* @name items
+	* @type {Object}
+	* @memberOf ch.Carousel
+	*/
 	that.items = ch.list( that.$collection.children().toArray() );
 	
 	/**
-     * Width and height of first item.
-     * @private
-     * @name itemSize
-     * @type {Object}
-     * @memberOf ch.Carousel
-     */
+	* Width and height of first item.
+	* @private
+	* @name itemSize
+	* @type {Object}
+	* @memberOf ch.Carousel
+	*/
 	that.itemSize = {
 		width: $(that.items.children[0]).outerWidth(),
 		height: $(that.items.children[0]).outerHeight()
 	};
 
 	/**
-     * Page selected.
-     * @private
-     * @name currentPage
-     * @type {Number}
-     * @memberOf ch.Carousel
-     */
+	* Page selected.
+	* @private
+	* @name currentPage
+	* @type {Number}
+	* @memberOf ch.Carousel
+	*/
 	that.currentPage = 1;
 
 	that.goTo = function(page){
@@ -374,28 +373,28 @@ ch.carousel = function(conf){
 				.addClass("ch-carousel-pages-on");
 		};
 		
-       /**
-        * Callback function
-        * @name onMove
-        * @type {Function}
-        * @memberOf ch.Carousel
-        */
+		/**
+		* Callback function
+		* @name onMove
+		* @type {Function}
+		* @memberOf ch.Carousel
+		*/
 		that.callbacks("onMove");
 		// new callback
 		that.trigger("move");
 		
- 		return that;
+		return that;
 	};
 
-	that.prev = function(){
+		that.prev = function(){
 		that.goTo(that.currentPage - 1);
 
-       /**
-        * Callback function
-        * @name onPrev
-        * @type {Function}
-        * @memberOf ch.Carousel
-        */
+		/**
+		* Callback function
+		* @name onPrev
+		* @type {Function}
+		* @memberOf ch.Carousel
+		*/
 
 		that.callbacks("onPrev");
 		// new callback
@@ -407,12 +406,12 @@ ch.carousel = function(conf){
 	that.next = function(){
 		that.goTo(that.currentPage + 1);
 
-       /**
-        * Callback function
-        * @name onNext
-        * @type {Function}
-        * @memberOf ch.Carousel
-        */
+		/**
+		* Callback function
+		* @name onNext
+		* @type {Function}
+		* @memberOf ch.Carousel
+		*/
 
 		that.callbacks("onNext");
 		// new callback
@@ -423,126 +422,126 @@ ch.carousel = function(conf){
 
 
 /**
- *  Public Members
- */
+*  Public Members
+*/
 
-    /**
-     * The component's instance unique identifier.
-     * @public
-     * @name uid
-     * @type {Number}
-     * @memberOf ch.Carousel
-     */ 
-   	that["public"].uid = that.uid;
-    
-    /**
-     * The element reference.
-     * @public
-     * @name element
-     * @type {HTMLElement}
-     * @memberOf ch.Carousel
-     */
+	/**
+	* The component's instance unique identifier.
+	* @public
+	* @name uid
+	* @type {Number}
+	* @memberOf ch.Carousel
+	*/ 
+	that["public"].uid = that.uid;
+	
+	/**
+	* The element reference.
+	* @public
+	* @name element
+	* @type {HTMLElement}
+	* @memberOf ch.Carousel
+	*/
 	that["public"].element = that.element;
-   
-    /**
-     * The component's type.
-     * @public
-     * @name type
-     * @type {String}
-     * @memberOf ch.Carousel
-     */
+
+	/**
+	* The component's type.
+	* @public
+	* @name type
+	* @type {String}
+	* @memberOf ch.Carousel
+	*/
 	that["public"].type = that.type;
 
-    /**
-     * Get the items amount of each page.
-     * @public
-     * @name getItemsPerPage
-     * @returns {Number}
-     * @memberOf ch.Carousel
-     */
+	/**
+	* Get the items amount of each page.
+	* @public
+	* @name getItemsPerPage
+	* @returns {Number}
+	* @memberOf ch.Carousel
+	*/
 	that["public"].getItemsPerPage = function() { return that.itemsPerPage; };
-    
-    /**
-     * Get the total amount of pages.
-     * @public
-     * @name getPage
-     * @returns {Number}
-     * @memberOf ch.Carousel
-     */
-    that["public"].getPage = function() { return that.currentPage; };
-    
-    /**
-     * Moves to a defined page.
-     * @public
-     * @function
-     * @name goTo
-     * @returns {Chico-UI Object}
-     * @param {Number} page Page to be moved
-     * @memberOf ch.Carousel
-     * @example
-     * // Create a carousel
-     * var foo = $("bar").carousel();
-     * 
-     * // Go to second page
-     * foo.goTo(2);
-     */
-    that["public"].goTo = function(page) {
-    	that.goTo(page);
+	
+	/**
+	* Get the total amount of pages.
+	* @public
+	* @name getPage
+	* @returns {Number}
+	* @memberOf ch.Carousel
+	*/
+	that["public"].getPage = function() { return that.currentPage; };
+	
+	/**
+	* Moves to a defined page.
+	* @public
+	* @function
+	* @name goTo
+	* @returns {Chico-UI Object}
+	* @param {Number} page Page to be moved
+	* @memberOf ch.Carousel
+	* @example
+	* // Create a carousel
+	* var foo = $("bar").carousel();
+	* 
+	* // Go to second page
+	* foo.goTo(2);
+	*/
+	that["public"].goTo = function(page) {
+		that.goTo(page);
 
-   		return that["public"];
-    };
-    
-    /**
-     * Moves to the next page.
-     * @public
-     * @name next
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Carousel
-     * @example
-     * // Create a carousel
-     * var foo = $("bar").carousel();
-     * 
-     * // Go to next page
-     * foo.next();
-     */
-    that["public"].next = function(){
+  		return that["public"];
+	};
+	
+	/**
+	* Moves to the next page.
+	* @public
+	* @name next
+	* @returns {Chico-UI Object}
+	* @memberOf ch.Carousel
+	* @example
+	* // Create a carousel
+	* var foo = $("bar").carousel();
+	* 
+	* // Go to next page
+	* foo.next();
+	*/
+	that["public"].next = function(){
 		that.next();
 
-    	return that["public"];
-    };
+		return that["public"];
+	};
 
-    /**
-     * Moves to the previous page.
-     * @public
-     * @name prev
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Carousel
-     * @example
-     * // Create a carousel
-     * var foo = $("bar").carousel();
-     * 
-     * // Go to previous page
-     * foo.prev();
-     */
+	/**
+	* Moves to the previous page.
+	* @public
+	* @name prev
+	* @returns {Chico-UI Object}
+	* @memberOf ch.Carousel
+	* @example
+	* // Create a carousel
+	* var foo = $("bar").carousel();
+	* 
+	* // Go to previous page
+	* foo.prev();
+	*/
 	that["public"].prev = function(){
 		that.prev();
 
 		return that["public"];
 	};
 
-    /**
-     * Re-calculate positioning, sizing, paging, and re-draw.
-     * @public
-     * @name redraw
-     * @returns {Chico-UI Object}
-     * @memberOf ch.Carousel
-     * @example
-     * // Create a carousel
-     * var foo = $("bar").carousel();
-     * 
-     * // Re-draw carousel
-     * foo.redraw();
-     */
+	/**
+	* Re-calculate positioning, sizing, paging, and re-draw.
+	* @public
+	* @name redraw
+	* @returns {Chico-UI Object}
+	* @memberOf ch.Carousel
+	* @example
+	* // Create a carousel
+	* var foo = $("bar").carousel();
+	* 
+	* // Re-draw carousel
+	* foo.redraw();
+	*/
 	that["public"].redraw = function(){
 		_draw();
 		
@@ -551,8 +550,8 @@ ch.carousel = function(conf){
 
 
 /**
- *  Default event delegation
- */
+*  Default event delegation
+*/
 	
 	// Add class name to carousel container
 	that.$element.addClass("ch-carousel");
@@ -565,7 +564,7 @@ ch.carousel = function(conf){
 			.addClass("ch-carousel-item");
 
 	// Creates the necesary structure to carousel operation
- 	_createLayout();
+	_createLayout();
 
 	// Calculate extra width for content before draw carousel
 	_extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemSize.width : 0;
@@ -576,17 +575,17 @@ ch.carousel = function(conf){
 	// Creates Previous and Next arrows
 	if ( conf.arrows && that.pages > 1) { _createArrows(); };
 
-	// Elastic behavior    
-    if ( !conf.hasOwnProperty("width") ){
+	// Elastic behavior	
+	if ( !conf.hasOwnProperty("width") ){
 		
 		// Change resize status on Window resize event
-	    ch.utils.window.bind("resize", function() {
+		ch.utils.window.bind("resize", function() {
 			_resize = true;
 		});
 		
 		// Limit resize execution to a quarter of second
 		setInterval(function() {
-		    if( !_resize ) { return; };
+			if( !_resize ) { return; };
 			_resize = false;
 			_draw();
 		}, 250);

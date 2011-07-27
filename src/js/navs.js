@@ -1,25 +1,25 @@
 
 /**
- * Abstract representation of navs components.
- * @abstract
- * @name Navs
- * @class Navs
- * @augments ch.Object
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- * @see ch.Dropdown
- * @see ch.Expando
- */
- 
+* Abstract representation of navs components.
+* @abstract
+* @name Navs
+* @class Navs
+* @augments ch.Object
+* @memberOf ch
+* @param {Configuration Object} conf Object with configuration properties
+* @returns {Chico-UI Object}
+* @see ch.Dropdown
+* @see ch.Expando
+*/
+
 ch.navs = function(){
-	
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name ch.Navs#that
-     * @type {Object}
-     */ 
+
+	/**
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @private
+	* @name ch.Navs#that
+	* @type {Object}
+	*/ 
 	var that = this;
 	var conf = that.conf;
 		conf.icon = (ch.utils.hasOwn(conf, "icon")) ? conf.icon : true;
@@ -27,22 +27,22 @@ ch.navs = function(){
 		conf.fx = conf.fx || false;
 
 /**
- *  Inheritance
- */
+*	Inheritance
+*/
 
-    that = ch.object.call(that);
-    that.parent = ch.clon(that);
+	that = ch.object.call(that);
+	that.parent = ch.clon(that);
 
 
 /**
- *  Private Members
- */
-    /**
-     * Adds icon in trigger's content.
-     * @private
-     * @name ch.Navs#createIcon
-     * @function
-     */
+*	Private Members
+*/
+	/**
+	* Adds icon in trigger's content.
+	* @private
+	* @name ch.Navs#createIcon
+	* @function
+	*/
 	var createIcon = function(){
 		$("<span>")
 			.addClass("ico")
@@ -53,22 +53,22 @@ ch.navs = function(){
 	};
 	
 /**
- *  Protected Members
- */ 	
-     /**
-     * Status of component
-     * @protected
-     * @name ch.Navs#active
-     * @returns {Boolean}
-     */
+*	Protected Members
+*/
+	/**
+	* Status of component
+	* @protected
+	* @name ch.Navs#active
+	* @returns {Boolean}
+	*/
 	that.active = false;
 
-    /**
-     * Shows component's content.
-     * @protected
-     * @name ch.Navs#show
-     * @returns {itself}
-     */
+	/**
+	* Shows component's content.
+	* @protected
+	* @name ch.Navs#show
+	* @returns {itself}
+	*/
 	that.show = function(event){
 		that.prevent(event);
 
@@ -79,11 +79,11 @@ ch.navs = function(){
 		that.active = true;
 
 		that.$trigger.addClass("ch-" + that.type + "-trigger-on");
-       /**
-        * onShow callback function
-        * @name ch.Navs#onShow
-        * @event
-        */
+		/**
+		* onShow callback function
+		* @name ch.Navs#onShow
+		* @event
+		*/
 		// Animation
 		if( conf.fx ) {
 			that.$content.slideDown("fast", function(){
@@ -104,12 +104,12 @@ ch.navs = function(){
 		
 		return that;
 	};
-    /**
-     * Hides component's content.
-     * @protected
-     * @name ch.Navs#hide
-     * @returns {itself}
-     */
+	/**
+	* Hides component's content.
+	* @protected
+	* @name ch.Navs#hide
+	* @returns {itself}
+	*/
 	that.hide = function(event){
 		that.prevent(event);
 		
@@ -118,11 +118,11 @@ ch.navs = function(){
 		that.active = false;
 		
 		that.$trigger.removeClass("ch-" + that.type + "-trigger-on");
-      /**
-        * onHide callback function
-        * @name ch.Navs#onHide
-        * @event
-        */
+		/**
+		* onHide callback function
+		* @name ch.Navs#onHide
+		* @event
+		*/
 		// Animation
 		if( conf.fx ) {
 			that.$content.slideUp("fast", function(){
@@ -140,11 +140,11 @@ ch.navs = function(){
 		return that;
 	};
 
-     /**
-     * Create component's layout
-     * @protected
-     * @name ch.Navs#createLayout
-     */
+	/**
+	* Create component's layout
+	* @protected
+	* @name ch.Navs#createLayout
+	*/
 	that.configBehavior = function(){
 		that.$trigger
 			.addClass("ch-" + that.type + "-trigger")
@@ -160,18 +160,18 @@ ch.navs = function(){
 	};
 	
 /**
- *  Default event delegation
- */
+*	Default event delegation
+*/
 	that.$element.addClass("ch-" + that.type);
 
 	/**
 	* Triggers when component is visible.
 	* @name ch.Navs#show
 	* @event
-    * @public
+	* @public
 	* @example
 	* me.on("show",function(){
-	*    this.content("Some new content");
+	*	this.content("Some new content");
 	* });
 	* @see ch.Floats#event:show
 	*/
@@ -180,10 +180,10 @@ ch.navs = function(){
 	* Triggers when component is not longer visible.
 	* @name ch.Navs#hide
 	* @event
-    * @public
+	* @public
 	* @example
 	* me.on("hide",function(){
-	*    otherComponent.show();
+	*	otherComponent.show();
 	* });
 	* @see ch.Floats#event:hide
 	*/

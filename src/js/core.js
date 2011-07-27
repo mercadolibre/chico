@@ -53,7 +53,7 @@ var ch = window.ch = {
 		$("html").removeClass("no-js");
 		// check for browser support
 		ch.features = ch.support();
-		// iterate and create components  			
+		// iterate and create components 			
 		$(ch.components.split(",")).each(function(i,e){ ch.factory({component:e}); });
 		// TODO: This should be on keyboard controller.
 		ch.utils.document.bind("keydown", function(event){ ch.keyboard(event); });

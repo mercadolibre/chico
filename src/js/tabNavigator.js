@@ -1,23 +1,23 @@
 
 /**
- * TabNavigator UI-Component for static and dinamic content.
- * @name TabNavigator
- * @class TabNavigator
- * @augments ch.Controllers
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- */
+* TabNavigator UI-Component for static and dinamic content.
+* @name TabNavigator
+* @class TabNavigator
+* @augments ch.Controllers
+* @memberOf ch
+* @param {Configuration Object} conf Object with configuration properties
+* @returns {Chico-UI Object}
+*/
 
 ch.tabNavigator = function(conf){
 
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name that
-     * @type {Object}
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @private
+	* @name that
+	* @type {Object}
+	* @memberOf ch.TabNavigator
+	*/
 	var that = this;
 
 	conf = ch.clon(conf);
@@ -25,48 +25,48 @@ ch.tabNavigator = function(conf){
 	that.conf = conf;
 	
 /**
- *	Inheritance
- */
+*	Inheritance
+*/
 
-    that = ch.controllers.call(that);
-    that.parent = ch.clon(that);
+	that = ch.controllers.call(that);
+	that.parent = ch.clon(that);
 
 /**
- *  Private Members
- */
+*	Private Members
+*/
 
-    /**
-     * The actual location hash, is used to know if there's a specific tab selected.
-     * @private
-     * @name hash
-     * @type {String}
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* The actual location hash, is used to know if there's a specific tab selected.
+	* @private
+	* @name hash
+	* @type {String}
+	* @memberOf ch.TabNavigator
+	*/
 	var hash = window.location.hash.replace("#!", "");
-    /**
-     * A boolean property to know if the some tag should be selected.
-     * @private
-     * @name hashed
-     * @type {Boolean}
-     * @default false
-     * @memberOf ch.TabNavigator
-     */
-    var hashed = false;
-    /**
-     * Get wich tab is selected.
-     * @private
-     * @name selected
-     * @type {Number}
-     * @memberOf ch.TabNavigator
-     */
-    var selected = conf.selected - 1 || conf.value - 1 || 0;
-    /**
-     * Create controller's children.
-     * @private
-     * @name createTabs
-     * @function
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* A boolean property to know if the some tag should be selected.
+	* @private
+	* @name hashed
+	* @type {Boolean}
+	* @default false
+	* @memberOf ch.TabNavigator
+	*/
+	var hashed = false;
+	/**
+	* Get wich tab is selected.
+	* @private
+	* @name selected
+	* @type {Number}
+	* @memberOf ch.TabNavigator
+	*/
+	var selected = conf.selected - 1 || conf.value - 1 || 0;
+	/**
+	* Create controller's children.
+	* @private
+	* @name createTabs
+	* @function
+	* @memberOf ch.TabNavigator
+	*/
 	var createTabs = function(){
 
 		// Children
@@ -91,19 +91,19 @@ ch.tabNavigator = function(conf){
 				config.cache = that.conf.cache;
 			};
 
-           /**
-            * Callback function
-            * @name onContentLoad
-            * @type {Function}
-            * @memberOf ch.TabNavigator
-            */
+		/**
+		* Callback function
+		* @name onContentLoad
+		* @type {Function}
+		* @memberOf ch.TabNavigator
+		*/
 			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) config.onContentLoad = that.conf.onContentLoad;
-           /**
-            * Callback function
-            * @name onContentError
-            * @type {Function}
-            * @memberOf ch.TabNavigator
-            */
+		/**
+		* Callback function
+		* @name onContentError
+		* @type {Function}
+		* @memberOf ch.TabNavigator
+		*/
 			if ( ch.utils.hasOwn(that.conf, "onContentError") ) config.onContentError = that.conf.onContentError;
 
 			// Create Tabs
@@ -122,12 +122,12 @@ ch.tabNavigator = function(conf){
 		return;
 
 	};
-    /**
-     * Select a child to show its content.
-     * @private
-     * @function
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* Select a child to show its content.
+	* @private
+	* @function
+	* @memberOf ch.TabNavigator
+	*/
 	var select = function(tab){
 
 		tab = that.children[tab - 1];
@@ -141,109 +141,109 @@ ch.tabNavigator = function(conf){
 
 		tab.show();
 
-        //Change location hash
+	//Change location hash
 		window.location.hash = "#!" + tab.$content.attr("id");	
 		
-       /**
-        * Callback function
-        * @name onSelect
-        * @type {Function}
-        * @memberOf ch.TabNavigator
-        */
+	/**
+	* Callback function
+	* @name onSelect
+	* @type {Function}
+	* @memberOf ch.TabNavigator
+	*/
 		that.callbacks("onSelect");
 		// new callback
 		that.trigger("select");
 			
-        return that;
+	return that;
 	};
 
 /**
- *  Protected Members
- */ 
-    
-    /**
-     * The component's triggers container.
-     * @private
-     * @name $triggers
-     * @type {jQuery Object}
-     * @memberOf ch.TabNavigator
-     */
+*	Protected Members
+*/
+	
+	/**
+	* The component's triggers container.
+	* @private
+	* @name $triggers
+	* @type {jQuery Object}
+	* @memberOf ch.TabNavigator
+	*/
 	that.$triggers = that.$element.children(":first").addClass("ch-tabNavigator-triggers");
-    
-    /**
-     * The component's content.
-     * @private
-     * @name $content
-     * @type {jQuery Object}
-     * @memberOf ch.TabNavigator
-     */
+	
+	/**
+	* The component's content.
+	* @private
+	* @name $content
+	* @type {jQuery Object}
+	* @memberOf ch.TabNavigator
+	*/
 	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content box");
 
-    
+	
 /**
- *  Public Members
- */
+*	Public Members
+*/
 
-    /**
-     * The component's instance unique identifier.
-     * @public
-     * @name uid
-     * @type {Number}
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* The component's instance unique identifier.
+	* @public
+	* @name uid
+	* @type {Number}
+	* @memberOf ch.TabNavigator
+	*/
 	that["public"].uid = that.uid;
-    /**
-     * The element reference.
-     * @public
-     * @name element
-     * @type {HTMLElement}
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* The element reference.
+	* @public
+	* @name element
+	* @type {HTMLElement}
+	* @memberOf ch.TabNavigator
+	*/
 	that["public"].element = that.element;
-    /**
-     * The component's type.
-     * @public
-     * @name type
-     * @type {String}
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* The component's type.
+	* @public
+	* @name type
+	* @type {String}
+	* @memberOf ch.TabNavigator
+	*/
 	that["public"].type = that.type;
-    /**
-     * Children instances associated to this controller.
-     * @public
-     * @name children
-     * @type {Collection}
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* Children instances associated to this controller.
+	* @public
+	* @name children
+	* @type {Collection}
+	* @memberOf ch.TabNavigator
+	*/
 	that["public"].children = that.children;
-    /**
-     * Select a specific child.
-     * @public
-     * @function
-     * @name select
-     * @param {Number} tab Tab's index.
-     * @memberOf ch.TabNavigator
-     */
+	/**
+	* Select a specific child.
+	* @public
+	* @function
+	* @name select
+	* @param {Number} tab Tab's index.
+	* @memberOf ch.TabNavigator
+	*/
 	that["public"].select = function(tab){
 		select(tab);
 		
 		return that["public"];
 	};
-    /**
-     * Returns the selected child's index.
-     * @public
-     * @function
-     * @name getSelected
-     * @returns {Number} selected Tab's index.
-     * @memberOf ch.TabNavigator
-     */	
+	/**
+	* Returns the selected child's index.
+	* @public
+	* @function
+	* @name getSelected
+	* @returns {Number} selected Tab's index.
+	* @memberOf ch.TabNavigator
+	*/	
 	that["public"].getSelected = function(){ return (selected + 1); };
 
 /**
- *  Default event delegation
- */	
+*	Default event delegation
+*/	
 
-    that.$element.addClass("ch-tabNavigator");
+	that.$element.addClass("ch-tabNavigator");
 
 	createTabs();
 
@@ -265,25 +265,25 @@ ch.tabNavigator = function(conf){
 
 
 /**
- * Simple unit of content for TabNavigators.
- * @abstract
- * @name Tab
- * @class Tab
- * @augments ch.Navs
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- */
+* Simple unit of content for TabNavigators.
+* @abstract
+* @name Tab
+* @class Tab
+* @augments ch.Navs
+* @memberOf ch
+* @param {Configuration Object} conf Object with configuration properties
+* @returns {Chico-UI Object}
+*/
 
 ch.tab = function(conf){
-    /**
-     * Reference to a internal component instance, saves all the information and configuration properties.
-     * @private
-     * @name that
-     * @type {Object}
-     * @memberOf ch.Tab
-     */
-    var that = this;
+	/**
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @private
+	* @name that
+	* @type {Object}
+	* @memberOf ch.Tab
+	*/
+	var that = this;
 
 	conf = ch.clon(conf);
 	conf.icon = false;
@@ -292,22 +292,22 @@ ch.tab = function(conf){
 
 	
 /**
- *	Inheritance
- */
+*	Inheritance
+*/
 
 	that = ch.navs.call(that);
 	that.parent = ch.clon(that);
 
 /**
- *  Private Members
- */
-    /**
-     * Creates the basic structure for the tab's content.
-     * @private
-     * @name createContent
-     * @function
-     * @memberOf ch.Tab
-     */
+*	Private Members
+*/
+	/**
+	* Creates the basic structure for the tab's content.
+	* @private
+	* @name createContent
+	* @function
+	* @memberOf ch.Tab
+	*/
 	var createContent = function(){
 		var href = that.element.href.split("#");
 		var controller = that.$element.parents(".ch-tabNavigator");
@@ -318,15 +318,15 @@ ch.tab = function(conf){
 			
 			return content;
 		
-		// If tabContent doesn't exists        
+		// If tabContent doesn't exists  	
 		} else {
 			/**
-		     * Content configuration property.
-		     * @public
-		     * @name source
-		     * @type {String}
-		     * @memberOf ch.Tab
-		     */
+			* Content configuration property.
+			* @public
+			* @name source
+			* @type {String}
+			* @memberOf ch.Tab
+			*/
 			that.source = that.element.href;
 			
 			var id = (href.length == 2) ? href[1] : "ch-tab" + that.uid.replace("#","-");
@@ -338,34 +338,34 @@ ch.tab = function(conf){
 	};
 
 /**
- *  Protected Members
- */ 
-    /**
-     * Reference to the trigger element.
-     * @private
-     * @name $trigger
-     * @type {jQuery Object}
-     * @memberOf ch.Tab
-     */
+*	Protected Members
+*/
+	/**
+	* Reference to the trigger element.
+	* @private
+	* @name $trigger
+	* @type {jQuery Object}
+	* @memberOf ch.Tab
+	*/
 	that.$trigger = that.$element;
 
-    /**
-     * The component's content.
-     * @private
-     * @name $content
-     * @type {jQuery Object}
-     * @memberOf ch.Tab
-     */	
+	/**
+	* The component's content.
+	* @private
+	* @name $content
+	* @type {jQuery Object}
+	* @memberOf ch.Tab
+	*/
 	that.$content = createContent();
 
-    /**
-     * Process the show event.
-     * @private
-     * @function
-     * @name show
-     * @returns {jQuery Object}
-     * @memberOf ch.Tab
-     */ 
+	/**
+	* Process the show event.
+	* @private
+	* @function
+	* @name show
+	* @returns {jQuery Object}
+	* @memberOf ch.Tab
+	*/
 	that.show = function(event){
 		that.prevent(event);
 
@@ -381,28 +381,27 @@ ch.tab = function(conf){
 	};
 	
 	/**
-     * This callback is triggered when async data is loaded into component's content, when ajax content comes back.
-     * @public
-     * @name contentCallback
-     * @returns {Chico-UI Object}
-     * @memberOf ch.TabNavigator
-     */
-    that.contentCallback = function(data) {
+	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
+	* @public
+	* @name contentCallback
+	* @returns {Chico-UI Object}
+	* @memberOf ch.TabNavigator
+	*/
+	that.contentCallback = function(data) {
 		that.staticContent = data;
-        that.$content.html(that.staticContent);
-    };
+	that.$content.html(that.staticContent);
+	};
 	
 
 /**
- *  Public Members
- */
-	
-	
+*	Public Members
+*/
+
 /**
- *  Default event delegation
- */
+*	Default event delegation
+*/
 
 	that.configBehavior();
-	
+
 	return that;
 }
