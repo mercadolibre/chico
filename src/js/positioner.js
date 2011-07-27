@@ -1,109 +1,119 @@
-
 /**
- * Positioner is a utility that resolve positioning problem for all UI-Objects.
+ * Positioner is an utility that centralizes and manages changes related to positioned elements, and returns an utility that resolves positioning for all UI-Objects.
  * @abstract
- * @name Positioner
+ * @name ch#Positioner
  * @class Positioner
- * @memberOf ch
- * @param {Position Object} o Object with positioning properties
- * @returns {jQuery Object}
+ * @param {Configuration Object} conf Configuration object with positioning properties.
+ * @requires ch.Viewport
+ * @returns {Positioner Control Object}
  * @example
- * // First example
+ * // An Element centered into the Viewport (default behavior)
  * ch.positioner({
- *     element: $("#element1"),
- *     context: $("#context1"),
- *     points: "lt rt"                //  Element left-top point = Context left-bottom point
+ *     element: "#element1",
  * });
- * @example  
- * // Second example
+ * @example
+ * // An Element positioned relative to a Context through defined points
  * ch.positioner({
- *     element: $("#element2"),
- *     context: $("#context2"),
- *     points: "lt lb"                //  Element center-middle point = Context center-middle point
+ *     element: "#element2",
+ *     context: "#context2",
+ *     points: "lt rt"                //  Element left-top point same as Context right-bottom point
+ * });
+ * @example
+ * // An Element displaced horizontally by 10px of defined position
+ * ch.positioner({
+ *     element: $("#element3",
+ *     context: $("#context3",
+ *     points: "lt rt",
+ *     offset: "10 0"
+ * });
+ * @example
+ * // Repositionable Element if it can't be shown into viewport area
+ * ch.positioner({
+ *     element: $("#element4",
+ *     context: $("#context4",
+ *     points: "lt rt",
+ *     reposition: true
  * });
  */
- 
-ch.positioner = function(o) {
 
-    /**
-     * Constructs a new positioning, get viewport size, check for relative parent's offests, 
-     * find the context and set the position to a given element.
-     * @constructs
-     * @private
-     * @function
-     * @name initPosition
-     * @memberOf ch.Positioner
-     */
-    var initPosition = function(){
-        viewport = getViewport();
-        parentRelative = getParentRelative();
-        context = getContext();
-        setPosition();   
-    };
+ch.positioner = function (o) {
+
+	/**
+	 * Constructs a new position, gets viewport size, checks for relative parent's offset,
+	 * finds the context and sets the position to a given element.
+	 * @private
+	 * @function
+	 * @constructs
+	 * @name ch.Positioner#initPosition
+	 */
+	var initPosition = function () {
+		viewport = getViewport();
+		parentRelative = getParentRelative();
+		context = getContext();
+		setPosition();
+	};
 
 
-    /**
-     * Object that contains all properties for positioning
-     * @private
-     * @name o
-     * @type {Position Object}
-     * @example
-     * ch.Positioner({
-     *   element: $element
-     *   [context]: $element | viewport
-     *   [points]: "cm cm"
-     *   [offset]: "x y" 
-     *   [hold]: false
-     * });
-     * @memberOf ch.Positioner
-     */
+	/**
+	 * Object that contains all properties for positioning
+	 * @private
+	 * @name ch.Positioner#o
+	 * @type {Position Object}
+	 * @example
+	 * ch.positioner({
+	 *     element: $element
+	 *     [context]: $element | viewport
+	 *     [points]: "cm cm"
+	 *     [offset]: "x y" 
+	 *     [hold]: false
+	 * });
+	 */
 	var o = o || this.conf.position;
-        o.points = o.points || "cm cm";
-        o.offset = o.offset || "0 0";
-    
-    /**
-     * Reference to the DOM Element beign positioned
-     * @private
-     * @name element
-     * @type {jQuery Object}
-     * @memberOf ch.Positioner
-     */
+		o.points = o.points || "cm cm";
+		o.offset = o.offset || "0 0";
+
+	/**
+	 * Reference to the DOM Element to be positioned.
+	 * @private
+	 * @name ch.Positioner#$element
+	 * @type {jQuery Object}
+	 */
 	var element = $(o.element);
-		element.css("position","absolute");
-    
-    /**
-     * Reference to the DOM Element that we will use as a reference
-     * @private
-     * @name context
-     * @type {HTMLElement}
-     * @memberOf ch.Positioner
-     */
+		element.css("position", "absolute");
+
+	/**
+	 * It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the viewport.
+	 * @private
+	 * @name ch.Positioner#context
+	 * @type {Context Object}
+	 * @default Viewport
+	 */
 	var context;
-    
-    /**
-     * Reference to the Window Object and it's size
-     * @private
-     * @name viewport
-     * @type {Viewport Object}
-     * @memberOf ch.Positioner
-     */
+
+	/**
+	 * Viewport is a reference to positions and sizes of visible area into browser.
+	 * @private
+	 * @name ch.Positioner#viewport
+	 * @type {Viewport Object}
+	 */
 	var viewport;
 	
-    /**
-     * Reference to the element beign positioned
-     * @private
-     * @name parentRelative
-     * @memberOf ch.Positioner
-     */
+	/**
+	 * It's the first of context's parents that is styled positioned.
+	 * @private
+	 * @name ch.Positioner#parentRelative
+	 * @type {Relative Parent Object}
+	 */
 	var parentRelative;
 
-    /**
-     * A map to reference the input points to output className
-     * @private
-     * @name _CLASS_REFERENCES
-     * @memberOf ch.Positioner
-     */
-    var _CLASS_REFERENCES = {
+	/**
+	 * Map that references the input points to an output friendly classname.
+	 * @private
+	 * @constant
+	 * @name ch.Positioner#CLASS_REFERENCES
+	 * @type {Map Object}
+	 */
+	var CLASS_REFERENCES = {
 		"lt lb": "ch-left ch-bottom",
 		"lb lt": "ch-left ch-top",
 		"rt rb": "ch-right ch-bottom",
@@ -112,40 +122,47 @@ ch.positioner = function(o) {
 		"cm cm": "ch-center"
 	};
 
-    /**
-     * Array with offset information
-     * @private
-     * @name splittedOffset
-     * @memberOf ch.Positioner
-     */
-    var splittedOffset = o.offset.split(" ");
-   	/**
-     * String with left offset information
-     * @private
-     */
-   	var offset_left = parseInt(splittedOffset[0]);
-   	/**
-     * String with top offset information
-     * @private
-     */
-    var offset_top = parseInt(splittedOffset[1]);
+	/**
+	 * Array with offset configuration
+	 * @private
+	 * @name ch.Positioner#splittedOffset
+	 * @type {Array}
+	 * @default [0,0]
+	 */
+	var splittedOffset = o.offset.split(" ");
 
-    /**
-     * Get the viewport size
-     * @private
-     * @function
-     * @name getViewport
-     * @returns {Viewport Object}
-     * @memberOf ch.Positioner
-     */
-	var getViewport = function() {
-        
-        // TODO: Calc scrollbar size
-        var viewport, width, height, left, top, pageX, pageY, scrollBar = 0;
-	    	    
-        // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
-	    if (typeof window.innerWidth != "undefined") {
-		    viewport = window;
+	/**
+	 * Left offset through configuration
+	 * @private
+	 * @name ch.Positioner#offset_left
+	 * @type {Number}
+	 * @default 0
+	 */
+	var offset_left = parseInt(splittedOffset[0]);
+
+	/**
+	 * Right offset through configuration
+	 * @private
+	 * @name ch.Positioner#offset_right
+	 * @type {Number}
+	 * @default 0
+	 */
+	var offset_top = parseInt(splittedOffset[1]);
+
+	/**
+	 * Defines viewport element, its size, position, and methods to recalculate all.
+	 * @function
+	 * @name ch.Positioner#getViewport
+	 * @returns {Viewport Object}
+	 */
+	var getViewport = function () {
+
+		// TODO: Calc scrollbar size
+		var viewport, width, height, left, top, pageX, pageY, scrollBar = 0;
+
+		// the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+		if (typeof window.innerWidth != "undefined") {
+			viewport = window;
 			width = viewport.innerWidth - scrollBar;
 			height = viewport.innerHeight;
 			pageX = viewport.pageXOffset;
@@ -162,8 +179,8 @@ ch.positioner = function(o) {
 				height: height
 			}
 		}
-        // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
-        // older versions of IE - viewport = document.getElementsByTagName('body')[0];		
+		// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+		// older versions of IE - viewport = document.getElementsByTagName('body')[0];		
 		else {
 			viewport = document.documentElement;
 			width = viewport.clientWidth - scrollBar;
@@ -181,20 +198,25 @@ ch.positioner = function(o) {
 				width: width,
 				height: height
 			}
-	    }
-	    
+		}
 	};
-	
- 	
+
 	/**
-     * Calculate css left and top to element on context
-     * @private
-     * @function
-     * @name getPosition
-     * @returns {Axis Object}
-     * @memberOf ch.Positioner
-     */
-	var getPosition = function(unitPoints) {		     
+	 * Calculates left and top position from specific points.
+	 * @private
+	 * @name ch.Positioner#getPosition
+	 * @function
+	 * @param {Unit points} unitPoints String with points to be calculated.
+	 * @returns {Axis measures}
+	 * @example
+	 * var foo = getCoordinates("ll");
+	 * 
+	 * foo = {
+	 *     left: Number,
+	 *     top: Number
+	 * };
+	 */
+	var getPosition = function (unitPoints) {
 		// my_x and at_x values together
 		// cache properties 
 		var contextLeft = context.left;
@@ -230,18 +252,17 @@ ch.positioner = function(o) {
 		return axis;
 	};
 	
-    /**
-     * Evaluate viewport spaces and set points
-     * @private
-     * @function
-     * @name calculatePoints
-     * @returns {Styles Object}
-     * @memberOf ch.Positioner
-     */
-	var calculatePoints = function(points, unitPoints){
+	/**
+	 * Gets new coordinates and checks its space into viewport.
+	 * @private
+	 * @name ch.Positioner#calculatePoints
+	 * @function
+	 * @returns {Styles Object}
+	 */
+	var calculatePoints = function (points, unitPoints) {
 		// Default styles
-        var styles = getPosition(unitPoints);
-        var classes = _CLASS_REFERENCES[points] || "";
+		var styles = getPosition(unitPoints);
+		var classes = CLASS_REFERENCES[points] || "";
 		
 		// Hold behavior
 		if (o.hold) {
@@ -252,10 +273,10 @@ ch.positioner = function(o) {
 		var stylesCache;
 		classes = classes.split(" ");
 		
-        // Viewport limits (From bottom to top)
+		// Viewport limits (From bottom to top)
 		if (
 			// If element is positioned at bottom and...
-			(points == "lt lb" || points == "rt rb") &&
+			(points === "lt lb" || points === "rt rb") &&
 			// There isn't space in viewport... (Element bottom > Viewport bottom)
 			((styles.top + parentRelative.top + element.outerHeight()) > viewport.bottom)
 		) {
@@ -269,7 +290,7 @@ ch.positioner = function(o) {
 			styles = getPosition(unitPoints);
 			
 			// Top to Bottom - Default again 
-			if(styles.top + parentRelative.top < viewport.top){
+			if (styles.top + parentRelative.top < viewport.top) {
 				styles = stylesCache;
 			} else {
 				styles.top -= (2 * offset_top);
@@ -290,14 +311,14 @@ ch.positioner = function(o) {
 			styles = getPosition(unitPoints);
 			
 			// Right to Left - Default again 
-			if(styles.left < viewport.left){
+			if (styles.left < viewport.left) {
 				styles = stylesCache;
 			}else{
 				styles.left -= (2 * offset_left);
 				
 				classes[0] = "ch-right";
 				
-				if(classes[1] == "ch-top") { styles.top -= (2 * offset_top); };
+				if (classes[1] === "ch-top") { styles.top -= (2 * offset_top); };
 			};
 		};
 		
@@ -307,24 +328,22 @@ ch.positioner = function(o) {
 		return styles;
 	};
 	
-	
-    /**
-     * Set position to element
-     * @private
-     * @function
-     * @name setPosition
-     * @memberOf ch.Positioner
-     */
-	var setPosition = function() {
+	/**
+	 * Checks if there are changes on coordinates to reposition the element.
+	 * @private
+	 * @name ch.Positioner#setPosition
+	 * @function
+	 */
+	var setPosition = function () {
 		// Separate points config
-        var splitted = o.points.split(" ");
-        
-        var unitPoints = {
-        	my_x: splitted[0].charAt(0),
-        	my_y: splitted[0].charAt(1),
-        	at_x: splitted[1].charAt(0),
-        	at_y: splitted[1].charAt(1)
-        }
+		var splitted = o.points.split(" ");
+
+		var unitPoints = {
+			my_x: splitted[0].charAt(0),
+			my_y: splitted[0].charAt(1),
+			at_x: splitted[1].charAt(0),
+			at_y: splitted[1].charAt(1)
+		};
 
 		var styles = calculatePoints(o.points, unitPoints);
 		
@@ -336,7 +355,7 @@ ch.positioner = function(o) {
 			.removeClass( "ch-top ch-left ch-bottom ch-right" )
 			.addClass(styles.classes);
 				
-		if ( ch.utils.hasOwn(context, "element") && context.element !== ch.utils.window[0] ){
+		if (ch.utils.hasOwn(context, "element") && context.element !== ch.utils.window[0]) {
 			$(context.element)
 				.removeClass( "ch-top ch-left ch-bottom ch-right" )
 				.addClass(styles.classes);
@@ -344,43 +363,38 @@ ch.positioner = function(o) {
 
 	};	
 
-    /**
-     * Get context element for positioning, if ain't one, select the viewport as context.
-     * @private
-     * @function
-     * @name getContext
-     * @returns {Context Object}
-     * @memberOf ch.Positioner
-     */
-	var getContext = function(){
-	    
-	    if (!o.context) {
-	        return viewport;
-	    }
-	     
-        var contextOffset = o.context.offset();
-        
-        context = {
-            element: o.context,
-            top: contextOffset.top + offset_top - parentRelative.top,
-            left: contextOffset.left + offset_left - parentRelative.left,
-            width: o.context.outerWidth(),
-            height: o.context.outerHeight()
-        };
-        
-        return context;	        
-	    
+	/**
+	 * Defines context element, its size, position.
+	 * @function
+	 * @name ch.Positioner#getContext
+	 * @returns {Context Object}
+	 */
+	var getContext = function () {
+
+		if (!o.context) {
+			return viewport;
+		}
+
+		o.context = $(o.context);
+
+		var contextOffset = o.context.offset();
+
+		return {
+			element: o.context,
+			top: contextOffset.top + offset_top - parentRelative.top,
+			left: contextOffset.left + offset_left - parentRelative.left,
+			width: o.context.outerWidth(),
+			height: o.context.outerHeight()
+		};
 	};
-	
-    /**
-     * Get offset values from relative parents
-     * @private
-     * @function
-     * @name getParentRelative
-     * @returns {Offset Object}
-     * @memberOf ch.Positioner 
-     */
-	var getParentRelative = function(){
+
+	/**
+	 * Defines relative parent, its size, position.
+	 * @function
+	 * @name ch.Positioner#getParentRelative
+	 * @returns {Relative Parent coordinates}
+	 */
+	var getParentRelative = function () {
 		
 		var relative = {};
 			relative.left = 0;
@@ -388,7 +402,7 @@ ch.positioner = function(o) {
 		
 		var parent = element.offsetParent();
 
-		if ( parent.css("position") == "relative" ) {
+		if (parent.css("position") === "relative") {
 			
 			var borderLeft = (parent.outerWidth() - parent.width() - ( parseInt(parent.css("padding-left")) * 2 )) / 2;
 			
@@ -405,30 +419,34 @@ ch.positioner = function(o) {
 		
 	};
 	
- 	 
+	/**
+	 * Reference that allows to know when window is being scrolled.
+	 * @private
+	 * @name ch.Positioner#scrolled
+	 * @type {Boolean}
+	 */
 	var scrolled = false;
 
 	// Scroll and resize events
 	// Tested on IE, Magic! no lag!!
-	ch.utils.window.bind("resize scroll", function() {
+	ch.utils.window.bind("resize scroll", function () {
 		scrolled = true;
 	});
 	
-	setInterval(function() {
-	    if( !scrolled ) return;
+	setInterval(function () {
+		if (!scrolled ) return;
 		scrolled = false;
 		// Hidden behavior
-		if( element.css("display") === "none" ) return; 	
+		if (element.css("display") === "none" ) return; 	
 		initPosition();
 	}, 350);
 
-   /**
-    * @ignore
-    */
-    
-    initPosition();
+	/**
+	 * @ignore
+	 */
+
+	initPosition();
 	
 	// Return the reference to the positioned element
 	return $(element);
 };
-

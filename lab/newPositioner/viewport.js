@@ -12,40 +12,58 @@ ch.viewport = (function () {
 	var self = {};
 	
 	/**
-	* Width of viewport.
-	* @public
-	* @name width
-	* @type {Number}
-	* @memberOf ch.Viewport
-	*/
+	 * Width of viewport.
+	 * @public
+	 * @name width
+	 * @type {Number}
+	 * @memberOf ch.Viewport
+	 */
 	self.width =
 	
 	/**
-	* Height of viewport.
-	* @public
-	* @name height
-	* @type {Number}
-	* @memberOf ch.Viewport
-	*/
+	 * Height of viewport.
+	 * @public
+	 * @name height
+	 * @type {Number}
+	 * @memberOf ch.Viewport
+	 */
 		self.height =
 	
 	/**
-	* Left offset of viewport.
-	* @public
-	* @name left
-	* @type {Number}
-	* @memberOf ch.Viewport
-	*/
+	 * Left offset of viewport.
+	 * @public
+	 * @name left
+	 * @type {Number}
+	 * @memberOf ch.Viewport
+	 */
 		self.left =
 	
 	/**
-	* Top offset of viewport.
-	* @public
-	* @name top
-	* @type {Number}
-	* @memberOf ch.Viewport
-	*/
-		self.top = 0;
+	 * Top offset of viewport.
+	 * @public
+	 * @name top
+	 * @type {Number}
+	 * @memberOf ch.Viewport
+	 */
+		self.top,
+	
+	/**
+	 * right offset of viewport.
+	 * @public
+	 * @name right
+	 * @type {Number}
+	 * @memberOf ch.Viewport
+	 */
+		self.right =
+	
+	/**
+	 * Bottom offset of viewport.
+	 * @public
+	 * @name bottom
+	 * @type {Number}
+	 * @memberOf ch.Viewport
+	 */
+		self.bottom = 0;
 	
 	// Main browsers
 	if (typeof window.innerWidth !== "undefined") {
@@ -83,9 +101,16 @@ ch.viewport = (function () {
 	     * @memberOf ch.Viewport
 	     */
 		self.getOffset = function () {
+			
+			var size = self.getSize(),
+				left = self.element.pageXOffset,
+				top = self.element.pageYOffset;
+			
 			return {
-				left: ch.viewport.left = self.element.pageXOffset,
-				top: ch.viewport.top = self.element.pageYOffset
+				left: ch.viewport.left = left,
+				top: ch.viewport.top = top,
+				right: ch.viewport.right = left + size.width,
+				bottom: ch.viewport.bottom = top + size.height
 			};
 		};
 	
@@ -122,10 +147,18 @@ ch.viewport = (function () {
 	     * @memberOf ch.Viewport
 	     */
 		self.getOffset = function () {
+			
+			var size = self.getSize(),
+				left = self.element.scrollLeft,
+				top = self.element.scrollTop;
+			
 			return {
-				left: self.element.scrollLeft,
-				top: self.element.scrollTop
+				left: ch.viewport.left = left,
+				top: ch.viewport.top = top,
+				right: ch.viewport.right = left + size.width,
+				bottom: ch.viewport.bottom = top + size.height
 			};
+
 		};
 	}
 	
@@ -133,5 +166,4 @@ ch.viewport = (function () {
 }());
 
 // Calculates size and position
-ch.viewport.getSize();
 ch.viewport.getOffset();
