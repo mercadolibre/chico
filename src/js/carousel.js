@@ -114,10 +114,10 @@ ch.carousel = function (conf) {
 			that.nextArrow.removeClass("ch-hide");
 		} else {
 			// Previous arrow hidden on first page
-			if (page == 1) { that.prevArrow.addClass("ch-hide"); that.nextArrow.removeClass("ch-hide"); }
+			if (page === 1) { that.prevArrow.addClass("ch-hide"); that.nextArrow.removeClass("ch-hide"); }
 			
 			// Next arrow hidden on last page
-			if (page == that.pages) { that.prevArrow.removeClass("ch-hide"); that.nextArrow.addClass("ch-hide"); }
+			if (page === that.pages) { that.prevArrow.removeClass("ch-hide"); that.nextArrow.addClass("ch-hide"); }
 		}
 	},
 	
@@ -142,7 +142,7 @@ ch.carousel = function (conf) {
 			var thumb = $("<li>" + i + "</li>");
 			
 			// Mark as actived if thumbnail is the same that current page
-			if (i == that.currentPage) { thumb.addClass("ch-carousel-pages-on"); }
+			if (i === that.currentPage) { thumb.addClass("ch-carousel-pages-on"); }
 			
 			// Append thumbnail to list
 			that.$pagination.append(thumb);
@@ -320,7 +320,7 @@ ch.carousel = function (conf) {
 	that.goTo = function (page) {
 		
 		// Validation of page parameter
-		if (page == that.currentPage || page > that.pages || page < 1 || isNaN(page)) { return that; }
+		if (page === that.currentPage || page > that.pages || page < 1 || isNaN(page)) { return that; }
 		
 		// Coordinates to next movement
 		var movement = -(maskWidth * (page - 1));
