@@ -15,7 +15,7 @@
  * MELI Reset Sylesheet
  * @based: Eric Meyer
  */
-
+ 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -558,22 +558,22 @@ hr {
  * Tables
  */
 
-table {
+.datagrid {
 	width:100%;
 	border:solid 1px #CECECE;
 	font-size:11px;
 	text-align:left;
 }
 
-table caption {
+.datagrid caption {
 	text-align: left;
 }
 
-thead tr{
+.datagrid thead tr{
 	border-top: 1px solid #CECECE;
 }
 
-th {	
+.datagrid th {	
 	vertical-align: middle;
 	border-bottom:solid 1px #CECECE;
 	border-left:solid 1px #CECECE;
@@ -583,38 +583,38 @@ th {
 	background: #DEDEDE url(../src/assets/th.png) repeat-x; /* to-do: add this to base.png? */
 }
 
-th.selected {
+.datagrid th.selected {
 	background: #DEDEDE url(../src/assets/th-selected.gif) no-repeat right center;
 }
 		
 
-th:first-child {
+.datagrid th:first-child {
 	border-left:none;
 }
 
-tr {
+.datagrid tr {
 	border-top:solid 1px #EEE;
 }
 
-tr.selected {
+.datagrid tr.selected {
 	background-color:#FFC;
 }
 
-td {
+.datagrid td {
 	height:40px;
 	padding: 0 10px;
 	vertical-align: middle;
 }
 
 
-.ie6 tr.selected td,
-.ie7 tr.selected td {
+.ie6 .datagrid tr.selected td,
+.ie7 .datagrid tr.selected td {
 	background-color:#FFC;
 }
 
-.ie6 td,
-.ie7 td,
-.ie8 td {
+.ie6 .datagrid td,
+.ie7 .datagrid td,
+.ie8 .datagrid td {
 	border-top: 1px solid #EEE;
 }
 
@@ -782,7 +782,7 @@ td {
 	box-shadow:	2px 0 0px #888888;
 	-moz-box-shadow: 2px 0 0px #888888;
 	-webkit-box-shadow:	2px 0 0px #888888;
-	padding: 0 0 4px;
+	padding: 0 0 2px;
 }
 
 .ch-calendar-prev,
@@ -825,7 +825,11 @@ td {
 	text-align: center;
 	font-size:12px;
 	margin:0;
-	background-color:#F5F5F5;
+	background:#F5F5F5;
+	background: -moz-linear-gradient(#F5F5F5 50%, #F0F0F0 50%);
+	background: -webkit-linear-gradient(#F5F5F5 50%, #F0F0F0 50%);
+	background: -o-linear-gradient(#F5F5F5 50%, #F0F0F0 50%);
+	
 }
 
 .ch-calendar-month thead tr,
