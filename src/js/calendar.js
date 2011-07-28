@@ -9,7 +9,8 @@
 * @returns {itself}
 */
 //TODO: Examples
-ch.calendar = function(conf) {
+ch.calendar = function (conf) {
+	
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
@@ -22,8 +23,13 @@ ch.calendar = function(conf) {
 
 	conf.format = conf.format || "DD/MM/YYYY";
 		
-	if (ch.utils.hasOwn(conf, "msg")) { conf.msg = ((conf.msg === "today")) ? new Date() : new Date(conf.msg); };
-	if (ch.utils.hasOwn(conf, "selected")) { conf.selected = ((conf.selected === "today")) ? new Date() : new Date(conf.selected); };
+	if (ch.utils.hasOwn(conf, "msg")) {
+		conf.msg = (conf.msg === "today") ? new Date() : new Date(conf.msg);
+	}
+	
+	if (ch.utils.hasOwn(conf, "selected")) {
+		conf.selected = (conf.selected === "today") ? new Date() : new Date(conf.selected);
+	}
 
 	that.conf = conf;
 
@@ -83,15 +89,17 @@ ch.calendar = function(conf) {
 	*/
 	//TODO: change to constant syntax
 	//TODO: subfijo de render y cambiar el nombre para que sea mas especifico, thead
-	var weekdays = (function(){
+	var weekdays = (function () {
 		
-		var weekdaysTitle = "<thead>";
+		var thead = ["<thead>"];
 		
-		for (var i = 0; i < SHORT_WEEK_NAMES.length; i += 1) {
-			weekdaysTitle += "<th>" + SHORT_WEEK_NAMES[i] + "</th>";
+		for (var i = 0; i < 7; i += 1) {
+			thead.push("<th>" + SHORT_WEEK_NAMES[i] + "</th>");
 		};
 		
-		return weekdaysTitle += "</thead>";
+		thead.push("</thead>")
+		
+		return thead.join("");
 
 	}());
 
@@ -101,22 +109,20 @@ ch.calendar = function(conf) {
 	* @name ch.Calendar#templateMonth
 	* @type {jQuery Object}
 	*/
-	var templateMonth = $("<table class=\"datagrid\">")
-		.addClass("ch-calendar-month")
-		.append(weekdays)
-		.bind("click", function(event){
+	var templateMonth = $("<table class=\"ch-calendar-month datagrid\">" + weekdays + "</table>")
+		.bind("click", function (event) {
 
 			event = event || window.event;
-			src = event.target || event.srcElement;
+			
+			var src = event.target || event.srcElement;
 
 			if (src.nodeName !== "TD" || src.className.indexOf("day")) {
 				that.prevent(event);
 				return;
-			};
+			}
 
-			select( that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML );
+			select(that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML);
 		});
-
 
 	/**
 	* Creates a complete month and returns it in a table
@@ -125,7 +131,7 @@ ch.calendar = function(conf) {
 	* @function
 	* @return {String}
 	*/
-	var createMonth = function(date){
+	var createMonth = function (date) {
 
 		var date = new Date(date);
 
@@ -138,7 +144,6 @@ ch.calendar = function(conf) {
 			currentMonth.month = currentMonth.fullDate.getMonth();
 			currentMonth.year = currentMonth.fullDate.getFullYear();
 
-
 		var currentDate = {};
 			currentDate.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
 			currentDate.date = currentDate.fullDate.getDate();
@@ -148,27 +153,27 @@ ch.calendar = function(conf) {
 
 		var firstWeekday = currentMonth.day;
 
-		var weeks, classToday, classSelected;
-
-		weeks = "<tbody>";
+		var classToday,
+			classSelected,
+			weeks = ["<tbody>"];
 
 		do {
 			
-			weeks += "<tr class=\"week\">";
+			weeks.push("<tr class=\"week\">");
 
 			for (var i = 0; i < 7; i += 1) {
 
-				if (currentDate.date == 1) {
+				if (currentDate.date === 1) {
 					for (var i = 0; i < firstWeekday; i += 1) {
-						weeks += "<td class=\"disable\"></td>";
+						weeks.push("<td class=\"disable\"></td>");
 					};
-				};
+				}
 				
-				classToday = (currentDate.date == today.getDate() && currentDate.month == today.getMonth() && currentDate.year == today.getFullYear()) ? " today" : "";
+				classToday = (currentDate.date === today.getDate() && currentDate.month === today.getMonth() && currentDate.year === today.getFullYear()) ? " today" : "";
 
-				classSelected = (selected && currentDate.date == selected.getDate() && currentDate.month == selected.getMonth() && currentDate.year == selected.getFullYear()) ? " selected" : "";
+				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected" : "";
 				
-				weeks += "<td class=\"day" + classToday +  classSelected + "\">" + currentDate.date + "</td>";
+				weeks.push("<td class=\"day" + classToday + classSelected + "\">" + currentDate.date + "</td>");
 				
 				currentDate.fullDate.setDate(currentDate.date+1);
 				currentDate.date = currentDate.fullDate.getDate();
@@ -176,19 +181,19 @@ ch.calendar = function(conf) {
 				currentDate.month = currentDate.fullDate.getMonth();
 				currentDate.year = currentDate.fullDate.getFullYear();
 
-				if ( currentDate.month != currentMonth.month ) { break; };
+				if (currentDate.month != currentMonth.month) { break; }
 
 			};
 
-			weeks += "</tr>";
+			weeks.push("</tr>");
 			
-		} while (currentDate.month == currentMonth.month);
+		} while (currentDate.month === currentMonth.month);
 
-		weeks += "</tbody>";
+		weeks.push("</tbody>");
 
 		tableMonth
-			.prepend("<caption>"+MONTHS_NAMES[currentMonth.month] + " - " + currentMonth.year+"</caption>")
-			.append(weeks);
+			.prepend("<caption>" + MONTHS_NAMES[currentMonth.month] + " - " + currentMonth.year + "</caption>")
+			.append(weeks.join(""));
 
 		return tableMonth;
 	};
@@ -202,9 +207,9 @@ ch.calendar = function(conf) {
 	*/
 	var arrows = {
 	
-		$prev: $("<p class=\"ch-calendar-prev\">").bind("click", function(event){ that.prevent(event); prevMonth(); }),
+		$prev: $("<p class=\"ch-calendar-prev\">").bind("click", function (event) { that.prevent(event); prevMonth(); }),
 	
-		$next: $("<p class=\"ch-calendar-next\">").bind("click", function(event){ that.prevent(event); nextMonth(); })
+		$next: $("<p class=\"ch-calendar-next\">").bind("click", function (event) { that.prevent(event); nextMonth(); })
 	};
 
 	/**
@@ -213,21 +218,19 @@ ch.calendar = function(conf) {
 	* @name ch.Calendar#createDropdown
 	* @function
 	*/
-	var createDropdown = function(){
+	var createDropdown = function () {
 		
-		var dropdownTrigger = $("<strong>").html("Calendar");
-		
-		that.$trigger.append(dropdownTrigger).append(that.$container);
+		that.$trigger.append("<strong>Calendar</strong>").append(that.$container);
 
 		that.children[0] = that.$trigger.dropdown({
-			onShow: function(){
+			onShow: function () {
 				// onShow callback
 				// old callback system
 				that.callbacks.call(that, "onShow");
 				// new callback
 				that.trigger("show");
 			},
-			onHide: function(){
+			onHide: function () {
 				// onHide callback
 				// old callback system
 				that.callbacks.call(that, "onHide");
@@ -249,7 +252,7 @@ ch.calendar = function(conf) {
 	* @name ch.Calendar#createLayout
 	* @function
 	*/
-	var createLayout = function(){
+	var createLayout = function () {
 
 		that.$trigger =	$("<div class=\"secondary ch-calendar\">");
 
@@ -269,7 +272,7 @@ ch.calendar = function(conf) {
 	* @name ch.Calendar#parseDate 	
 	* @function
 	*/
-	var parseDate = function(value){
+	var parseDate = function (value) {
 		var date = value.split("/");
 		
 		switch (conf.format) {
@@ -291,20 +294,28 @@ ch.calendar = function(conf) {
 	* @type {Object}
 	*/
 	var FORMAT_DATE = {
-		"YYYY/MM/DD": function(date){ return  date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate(); },
-		"DD/MM/YYYY": function(date){ return (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear()},
-		"MM/DD/YYYY": function(date){ return (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + "/" + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear()}
+		
+		"YYYY/MM/DD": function (date) {
+			return date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? "0" : "") + date.getDate();
+		},
+		
+		"DD/MM/YYYY": function (date) {
+			return (parseInt(date.getDate(), 10) < 10 ? "0" : "") + date.getDate() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear();
+		},
+		
+		"MM/DD/YYYY": function (date) {
+			return (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + "/" + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear();
+		}
 	};
 
 
 	/**
 	* Selects an specific date to show
 	* @private
-	* @name ch.Calendar#select
 	* @function
 	* @return {itself}
 	*/
-	var select = function(date){
+	var select = function (date) {
 
 		selected = new Date(date);
 
@@ -336,8 +347,8 @@ ch.calendar = function(conf) {
 	* @return {itself}
 	*/
 	//TODO: crear una interfaz que resuleva donde moverse
-	var nextMonth = function(){
-		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()+1,1);
+	var nextMonth = function () {
+		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() + 1, 1);
 		that.$content.html(createMonth(that.currentDate));
 
 		//Refresh position
@@ -358,8 +369,9 @@ ch.calendar = function(conf) {
 	* @function
 	* @return {itself}
 	*/
-	var prevMonth = function(){
-		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()-1,1);
+	var prevMonth = function () {
+		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() - 1, 1);
+		
 		that.$content.html(createMonth(that.currentDate));
 		
 		// Refresh position
@@ -380,8 +392,9 @@ ch.calendar = function(conf) {
 	* @function
 	* @return {itself}
 	*/
-	var nextYear = function(){
-		that.currentDate = new Date(that.currentDate.getFullYear()+1,that.currentDate.getMonth(),1);
+	var nextYear = function () {
+		that.currentDate = new Date(that.currentDate.getFullYear() + 1,that.currentDate.getMonth(), 1);
+		
 		that.$content.html(createMonth(that.currentDate));
 
 		return that;
@@ -394,8 +407,9 @@ ch.calendar = function(conf) {
 	* @function
 	* @return {itself}
 	*/
-	var prevYear = function(){
-		that.currentDate = new Date(that.currentDate.getFullYear()-1,that.currentDate.getMonth(),1);
+	var prevYear = function () {
+		that.currentDate = new Date(that.currentDate.getFullYear() - 1, that.currentDate.getMonth(), 1);
+		
 		that.$content.html(createMonth(that.currentDate));
 
 		return that;
@@ -404,13 +418,14 @@ ch.calendar = function(conf) {
 	/**
 	* Move to prev year of calendar
 	* @private
-	* @name ch.Calendar#reset
 	* @function
 	* @return {itself}
 	*/
-	var reset = function(){
+	var reset = function () {
 		selected = conf.selected;
+		
 		that.currentDate = selected || today;
+		
 		that.element.value = "";
 
 		that.$content.html(createMonth(that.currentDate));
@@ -419,6 +434,7 @@ ch.calendar = function(conf) {
 		that.callbacks("onReset");
 		// new callback
 		that.trigger("onReset");
+		
 		return that;
 	};
 
@@ -438,7 +454,7 @@ ch.calendar = function(conf) {
 /**
 *  Public Members
 */
- 
+
 	/**
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
@@ -471,7 +487,7 @@ ch.calendar = function(conf) {
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.show();
 	*/
-	that["public"].show = function(){
+	that["public"].show = function () {
 		that.children[0].show();
 		
 		return that["public"];
@@ -487,7 +503,7 @@ ch.calendar = function(conf) {
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.hide();
 	*/
-	that["public"].hide = function(){
+	that["public"].hide = function () {
 		that.children[0].hide();
 
 		return that["public"];
@@ -496,15 +512,15 @@ ch.calendar = function(conf) {
 	/**
 	* Select a specific date.
 	* @public
-	 * @name ch.Calendar#select
+	* @name ch.Calendar#select
 	* @function
 	* @param {String} "YY/MM/DD".
 	* @return {itself}
 	* @TODO: Make select() method a get/set member
 	*/
-	that["public"].select = function(date){
+	that["public"].select = function (date) {
 
-		select(((date === "today")? today : parseDate(date)));
+		select((date === "today") ? today : parseDate(date));
 
 		return that["public"];
 	};
@@ -517,7 +533,7 @@ ch.calendar = function(conf) {
 	* @return {itself}
 	* @TODO: Unifiy with select() method.
 	*/
-	that["public"].getSelected = function(){
+	that["public"].getSelected = function () {
 		return FORMAT_DATE[conf.format](selected);
 	};
 
@@ -528,58 +544,54 @@ ch.calendar = function(conf) {
 	* @function
 	* @return {Date}
 	*/
-	that["public"].getToday = function(){
+	that["public"].getToday = function () {
 		return FORMAT_DATE[conf.format](today);
 	};	
 
 	/**
-	* Move to the next month
+	* Move to the next month or year. If it isn't specified, it will be moved to next month.
 	* @public
 	* @name ch.Calendar#next
 	* @function
+	* @param {String} time A string that allows specify if it should move to next month or year.
 	* @return {itself}
+	* @default Next month
 	*/
-	that["public"].next = function(){
-		nextMonth();
-
+	that["public"].next = function (time) {
+		
+		switch (time) {
+			case "month":
+			case undefined:
+				nextMonth();
+			break;
+			case "year":
+				nextYear();
+			break;
+		}
+		
 		return that["public"];
 	};
 
 	/**
-	* Move to the prev month
+	* Move to the previous month or year. If it isn't specified, it will be moved to previous month.
 	* @public
 	* @name ch.Calendar#prev
 	* @function
+	* @param {String} time A string that allows specify if it should move to previous month or year.
 	* @return {itself}
+	* @default Previous month
 	*/
-	that["public"].prev = function(){
-		prevMonth();
-
-		return that["public"];
-	};
-
-	/**
-	* Move to the next year
-	* @public
-	* @name ch.Calendar#nextYear
-	* @function
-	* @return {itself}
-	*/
-	that["public"].nextYear = function(){
-		nextYear();
-
-		return that["public"];
-	};
-
-	/**
-	* Move to the prev year
-	* @public
-	* @name ch.Calendar#prevYear
-	* @function
-	* @return {itself}
-	*/
-	that["public"].prevYear = function(){
-		prevYear();
+	that["public"].prev = function (time) {
+		
+		switch (time) {
+			case "month":
+			case undefined:
+				prevMonth();
+			break;
+			case "year":
+				prevYear();
+			break;
+		}
 
 		return that["public"];
 	};
@@ -591,7 +603,7 @@ ch.calendar = function(conf) {
 	* @function
 	* @return {itself}
 	*/
-	that["public"].reset = function(){
+	that["public"].reset = function () {
 		reset();
 
 		return that["public"];
@@ -607,12 +619,9 @@ ch.calendar = function(conf) {
 
 	createLayout();
 
-	that.$content
-		.html(createMonth(that.currentDate))
-		.appendTo(that.$container);
+	that.$content.html(createMonth(that.currentDate)).appendTo(that.$container);
 
 	that.$container.prepend(arrows.$prev).prepend(arrows.$next);
 
 	return that;
-
 };
