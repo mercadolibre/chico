@@ -101,7 +101,7 @@ ch.calendar = function(conf) {
 	* @name ch.Calendar#templateMonth
 	* @type {jQuery Object}
 	*/
-	var templateMonth = $("<table>")
+	var templateMonth = $("<table class=\"datagrid\">")
 		.addClass("ch-calendar-month")
 		.append(weekdays)
 		.bind("click", function(event){
