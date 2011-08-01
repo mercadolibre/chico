@@ -564,11 +564,16 @@ hr {
 	text-align:left;
 	height:24px;
 	padding: 0 10px;
-	background: #DEDEDE url(../src/assets/th.png) repeat-x; /* to-do: add this to base.png? */
+	background-color:#DEDEDE; 
+	background-image:url(../src/assets/th.png);/* to-do: add this to base.png? */
+	background-repeat:repeat-x;
 }
 
 .datagrid th.selected {
-	background: #DEDEDE url(../src/assets/th-selected.gif) no-repeat right center;
+	background-color:#DEDEDE;
+	background-image:url(../src/assets/th-selected.gif);
+	background-repeat:no-repeat;
+	background-position:right center;
 }
 		
 
