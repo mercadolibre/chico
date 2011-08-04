@@ -4,8 +4,8 @@
 * @name Positioner
 * @class Positioner
 * @memberOf ch
-* @param {Position Object} o Object with positioning properties
-* @returns {jQuery Object}
+* @param {object} o Object with configuration properties
+* @returns jQuery
 * @example
 * // First example
 * ch.positioner({
@@ -30,8 +30,7 @@ ch.positioner = function(o) {
 	* @constructs
 	* @private
 	* @function
-	* @name initPosition
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#initPosition
 	*/
 	var initPosition = function(){
 		viewport = getViewport();
@@ -43,8 +42,8 @@ ch.positioner = function(o) {
 	/**
 	* Object that contains all properties for positioning
 	* @private
-	* @name o
-	* @type {Position Object}
+	* @name ch.Positioner#o
+	* @type object
 	* @example
 	* ch.Positioner({
 	*	element: $element
@@ -53,7 +52,6 @@ ch.positioner = function(o) {
 	*	[offset]: "x y"
 	*	[hold]: false
 	* });
-	* @memberOf ch.Positioner
 	*/
 	var o = o || this.conf.position;
 		o.points = o.points || "cm cm";
@@ -62,9 +60,8 @@ ch.positioner = function(o) {
 	/**
 	* Reference to the DOM Element beign positioned
 	* @private
-	* @name element
-	* @type {jQuery Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#element
+	* @type jQuery
 	*/
 	var element = $(o.element);
 		element.css("position","absolute");
@@ -72,34 +69,32 @@ ch.positioner = function(o) {
 	/**
 	* Reference to the DOM Element that we will use as a reference
 	* @private
-	* @name context
-	* @type {HTMLElement}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#context
+	* @type HTMLElement
 	*/
 	var context;
 	
 	/**
 	* Reference to the Window Object and it's size
 	* @private
-	* @name viewport
-	* @type {Viewport Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#viewport
+	* @type object
 	*/
 	var viewport;
 	
 	/**
 	* Reference to the element beign positioned
 	* @private
-	* @name parentRelative
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#parentRelative
+	* @type HTMLElement
 	*/
 	var parentRelative;
 
 	/**
 	* A map to reference the input points to output className
 	* @private
-	* @name _CLASS_REFERENCES
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#_CLASS_REFERENCES
+	* @type object
 	*/
 	var _CLASS_REFERENCES = {
 		"lt lb": "ch-left ch-bottom",
@@ -113,18 +108,22 @@ ch.positioner = function(o) {
 	/**
 	* Array with offset information
 	* @private
-	* @name splittedOffset
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#splittedOffset
+	* @type string
 	*/
 	var splittedOffset = o.offset.split(" ");
 	/**
 	* String with left offset information
 	* @private
+	* @name ch.Positioner#offset_left
+	* @type string
 	*/
 	var offset_left = parseInt(splittedOffset[0]);
 	/**
 	* String with top offset information
 	* @private
+	* @name ch.Positioner#offset_top
+	* @type string
 	*/
 	var offset_top = parseInt(splittedOffset[1]);
 
@@ -132,9 +131,8 @@ ch.positioner = function(o) {
 	* Get the viewport size
 	* @private
 	* @function
-	* @name getViewport
-	* @returns {Viewport Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#getViewport
+	* @returns object
 	*/
 	var getViewport = function() {
 	
@@ -187,9 +185,8 @@ ch.positioner = function(o) {
 	* Calculate css left and top to element on context
 	* @private
 	* @function
-	* @name getPosition
-	* @returns {Axis Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#getPosition
+	* @returns object
 	*/
 	var getPosition = function(unitPoints) {
 		// my_x and at_x values together
@@ -231,9 +228,8 @@ ch.positioner = function(o) {
 	* Evaluate viewport spaces and set points
 	* @private
 	* @function
-	* @name calculatePoints
-	* @returns {Styles Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#calculatePoints
+	* @returns object
 	*/
 	var calculatePoints = function(points, unitPoints){
 		// Default styles
@@ -307,8 +303,7 @@ ch.positioner = function(o) {
 	* Set position to element
 	* @private
 	* @function
-	* @name setPosition
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#setPosition
 	*/
 	var setPosition = function() {
 	// Separate points config
@@ -343,9 +338,8 @@ ch.positioner = function(o) {
 	* Get context element for positioning, if ain't one, select the viewport as context.
 	* @private
 	* @function
-	* @name getContext
-	* @returns {Context Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#getContext
+	* @returns object
 	*/
 	var getContext = function(){
 		
@@ -371,9 +365,8 @@ ch.positioner = function(o) {
 	* Get offset values from relative parents
 	* @private
 	* @function
-	* @name getParentRelative
-	* @returns {Offset Object}
-	* @memberOf ch.Positioner 
+	* @name ch.Positioner#getParentRelative
+	* @returns object
 	*/
 	var getParentRelative = function(){
 		

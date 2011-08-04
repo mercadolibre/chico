@@ -5,8 +5,8 @@
 * @augments ch.Controllers
 * @requires ch.Dropdown
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 //TODO: Examples
 ch.calendar = function (conf) {
@@ -15,7 +15,7 @@ ch.calendar = function (conf) {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Calendar#that
-	* @type {Object}
+	* @type object
 	*/
 	var that = this;
 
@@ -48,7 +48,7 @@ ch.calendar = function (conf) {
 	* Collection of months names
 	* @private
 	* @name ch.Calendar#MONTHS_NAMES
-	* @type {Array}
+	* @type array
 	*/
 	//TODO: default in english and snnif browser language
 	//TODO: cambiar a sintaxis de constante
@@ -58,7 +58,7 @@ ch.calendar = function (conf) {
 	* Collection of weekdays short names
 	* @private
 	* @name ch.Calendar#SHORT_WEEK_NAMES
-	* @type {Array}
+	* @type array
 	*/
 	//TODO: default in english and snnif browser language
 	//TODO: cambiar a sintaxis de constante
@@ -68,7 +68,7 @@ ch.calendar = function (conf) {
 	* Date of today
 	* @private
 	* @name ch.Calendar#today
-	* @type {Date}
+	* @type date
 	*/
 	var today = new Date();
 
@@ -76,16 +76,16 @@ ch.calendar = function (conf) {
 	* Date of selected day
 	* @private
 	* @name ch.Calendar#selected
-	* @type {Date}
+	* @type date
 	*/
 	var selected = conf.selected || conf.msg;
 
 	/**
 	* Creates tag thead with short name of week days
 	* @private
-	* @name ch.Calendar#weekdays
 	* @function
-	* @return {String}
+	* @name ch.Calendar#weekdays
+	* @return string
 	*/
 	//TODO: change to constant syntax
 	//TODO: subfijo de render y cambiar el nombre para que sea mas especifico, thead
@@ -107,7 +107,7 @@ ch.calendar = function (conf) {
 	* HTML Template to months
 	* @private
 	* @name ch.Calendar#templateMonth
-	* @type {jQuery Object}
+	* @type jQuery
 	*/
 	var templateMonth = $("<table class=\"ch-calendar-month datagrid\">" + weekdays + "</table>")
 		.bind("click", function (event) {
@@ -127,9 +127,9 @@ ch.calendar = function (conf) {
 	/**
 	* Creates a complete month and returns it in a table
 	* @private
-	* @name ch.Calendar#createMonth
 	* @function
-	* @return {String}
+	* @name ch.Calendar#createMonth
+	* @return string
 	*/
 	var createMonth = function (date) {
 
@@ -203,7 +203,7 @@ ch.calendar = function (conf) {
 	* Handles behavior of arrows
 	* @private
 	* @name ch.Calendar#arrows
-	* @type {Object}
+	* @type object
 	*/
 	var arrows = {
 	
@@ -215,8 +215,8 @@ ch.calendar = function (conf) {
 	/**
 	* Creates an instance of Dropdown
 	* @private
-	* @name ch.Calendar#createDropdown
 	* @function
+	* @name ch.Calendar#createDropdown
 	*/
 	var createDropdown = function () {
 		
@@ -249,8 +249,8 @@ ch.calendar = function (conf) {
 	/**
 	* Create component's layout
 	* @private
-	* @name ch.Calendar#createLayout
 	* @function
+	* @name ch.Calendar#createLayout
 	*/
 	var createLayout = function () {
 
@@ -269,8 +269,8 @@ ch.calendar = function (conf) {
 	/**
 	* Parse string to YY/MM/DD format date
 	* @private
-	* @name ch.Calendar#parseDate 	
 	* @function
+	* @name ch.Calendar#parseDate 	
 	*/
 	var parseDate = function (value) {
 		var date = value.split("/");
@@ -291,7 +291,7 @@ ch.calendar = function (conf) {
 	* Map of formart's date
 	* @private
 	* @name ch.Calendar#FORMAT_DATE
-	* @type {Object}
+	* @type object
 	*/
 	var FORMAT_DATE = {
 		
@@ -313,7 +313,8 @@ ch.calendar = function (conf) {
 	* Selects an specific date to show
 	* @private
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#select
+	* @return itself
 	*/
 	var select = function (date) {
 
@@ -342,9 +343,9 @@ ch.calendar = function (conf) {
 	/**
 	* Move to next month of calendar
 	* @private
-	* @name ch.Calendar#nextMonth
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#nextMonth
+	* @return itself
 	*/
 	//TODO: crear una interfaz que resuleva donde moverse
 	var nextMonth = function () {
@@ -365,9 +366,9 @@ ch.calendar = function (conf) {
 	/**
 	* Move to prev month of calendar
 	* @private
-	* @name ch.Calendar#prevMonth
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#prevMonth
+	* @return itself
 	*/
 	var prevMonth = function () {
 		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() - 1, 1);
@@ -388,9 +389,9 @@ ch.calendar = function (conf) {
 	/**
 	* Move to next year of calendar
 	* @private
-	* @name ch.Calendar#nextYear
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#nextYear
+	* @return itself
 	*/
 	var nextYear = function () {
 		that.currentDate = new Date(that.currentDate.getFullYear() + 1,that.currentDate.getMonth(), 1);
@@ -403,9 +404,9 @@ ch.calendar = function (conf) {
 	/**
 	* Move to prev year of calendar
 	* @private
-	* @name ch.Calendar#prevYear
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#prevYear
+	* @return itself
 	*/
 	var prevYear = function () {
 		that.currentDate = new Date(that.currentDate.getFullYear() - 1, that.currentDate.getMonth(), 1);
@@ -419,7 +420,8 @@ ch.calendar = function (conf) {
 	* Move to prev year of calendar
 	* @private
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#reset
+	* @return itself
 	*/
 	var reset = function () {
 		selected = conf.selected;
@@ -447,7 +449,7 @@ ch.calendar = function (conf) {
 	* The current date that should show on calendar
 	* @protected
 	* @name ch.Calendar#currentDate
-	* @type {Date}
+	* @type date
 	*/
 	that.currentDate = selected || today;
 
@@ -459,30 +461,30 @@ ch.calendar = function (conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Calendar#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Calendar#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Calendar#type
-	* @type {String}
+	* @type string
 	*/
 
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Calendar#show
 	* @function
-	* @returns {itself}
+	* @name ch.Calendar#show
+	* @returns itself
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.show();
@@ -496,9 +498,9 @@ ch.calendar = function (conf) {
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Calendar#hide
 	* @function
-	* @returns {itself}
+	* @name ch.Calendar#hide
+	* @returns itself
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.hide();
@@ -512,10 +514,10 @@ ch.calendar = function (conf) {
 	/**
 	* Select a specific date.
 	* @public
-	* @name ch.Calendar#select
 	* @function
-	* @param {String} "YY/MM/DD".
-	* @return {itself}
+	* @name ch.Calendar#select
+	* @param {string} "YY/MM/DD".
+	* @return itself
 	* @TODO: Make select() method a get/set member
 	*/
 	that["public"].select = function (date) {
@@ -528,9 +530,9 @@ ch.calendar = function (conf) {
 	/**
 	* Returns the selected date
 	* @public
-	* @name ch.Calendar#getSelected
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#getSelected
+	* @return itself
 	* @TODO: Unifiy with select() method.
 	*/
 	that["public"].getSelected = function () {
@@ -540,9 +542,9 @@ ch.calendar = function (conf) {
 	/**
 	* Returns date of today
 	* @public
-	* @name ch.Calendar#getToday
 	* @function
-	* @return {Date}
+	* @name ch.Calendar#getToday
+	* @return date
 	*/
 	that["public"].getToday = function () {
 		return FORMAT_DATE[conf.format](today);
@@ -575,7 +577,6 @@ ch.calendar = function (conf) {
 	/**
 	* Move to the previous month or year. If it isn't specified, it will be moved to previous month.
 	* @public
-	* @name ch.Calendar#prev
 	* @function
 	* @param {String} time A string that allows specify if it should move to previous month or year.
 	* @return {itself}
@@ -599,9 +600,9 @@ ch.calendar = function (conf) {
 	/**
 	* Reset the calendar to date of today
 	* @public
-	* @name ch.Calendar#reset
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#reset
+	* @return itself
 	*/
 	that["public"].reset = function () {
 		reset();

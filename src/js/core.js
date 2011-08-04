@@ -9,35 +9,35 @@ var ch = window.ch = {
 	/**
 	* Current version
 	* @name version
-	* @type {Number}
+	* @type number
 	* @memberOf ch
 	*/
 	version: "0.7.3",
 	/**
 	* List of UI components available.
 	* @name components
-	* @type {String}
+	* @type string
 	* @memberOf ch
 	*/
 	components: "",
 	/**
 	* List of internal components available.
 	* @name internals
-	* @type {String}
+	* @type string
 	* @memberOf ch
 	*/
 	internals: "",
 	/**
 	* Here you will find a map of all component's instances created by Chico-UI.
 	* @name instances
-	* @type {Map Object}
+	* @type object
 	* @memberOf ch
 	*/
 	instances: {},
 	/**
 	* Available device's features.
 	* @name features
-	* @type {Map Object}
+	* @type object
 	* @see ch.Support
 	* @memberOf ch
 	*/
@@ -61,7 +61,7 @@ var ch = window.ch = {
 	/**
 	* References and commons functions.
 	* @name utils
-	* @type {Object Literal}
+	* @type object
 	* @memberOf ch
 	*/
 	utils: {
@@ -134,9 +134,11 @@ var ch = window.ch = {
 	* @abstract
 	* @name Events
 	* @class Events
-	* @type {Map Object}
+	* @type object
 	* @memberOf ch 
 	* @see ch.Events.KEY
+	* @see ch.Events.LAYOUT
+	* @see ch.Events.VIEWPORT
 	*/	
 	events: {
 		/**
@@ -240,8 +242,8 @@ var ch = window.ch = {
 * Utility to clone objects
 * @function
 * @name clon
-* @param {Object} o Object to clone
-* @returns {Object}
+* @param o Object to clone
+* @returns object
 * @memberOf ch
 */
 ch.clon = function(o) {
@@ -261,7 +263,7 @@ ch.clon = function(o) {
 * @abstract
 * @name Factory
 * @class Factory
-* @param {Configuration Object} o 
+* @param o Configuration Object
 * @example
 *	o {
 *		component: "chat",
@@ -270,7 +272,7 @@ ch.clon = function(o) {
 *		[style]: "http://..",
 *		[callback]: function(){}	
 *	}
-* @returns {Collection} A collection of object instances
+* @returns collection
 * @memberOf ch
 */
 
@@ -403,7 +405,7 @@ ch.factory = function(o) {
 * @abstract
 * @name Get
 * @class Get
-* @param o {Object} object 
+* @param {object} o Configuration object 
 * @example
 *	o {
 *		component: "chat",
@@ -459,7 +461,7 @@ ch.get = function(o) {
 * @abstract
 * @name Support
 * @class Support
-* @returns {Object}
+* @returns object
 * @memberOf ch 
 */
 ch.support = function() {
@@ -468,7 +470,7 @@ ch.support = function() {
 	* Private reference to the <body> element
 	* @private
 	* @name thisBody
-	* @type {HTMLBodyElement}
+	* @type HTMLBodyElement
 	* @memberOf ch.Support
 	*/
 	var thisBody = document.body || document.documentElement;
@@ -478,7 +480,7 @@ ch.support = function() {
 	* Verify that CSS3 transition is supported (or any of its browser-specific implementations)
 	*
 	* @private
-	* @returns {Boolean}
+	* @returns boolean
 	* @memberOf ch.Support
 	*/
 	var transition = (function(){
@@ -491,7 +493,7 @@ ch.support = function() {
 	* Verify that position fixed is supported
 	* 
 	* @private
-	* @returns {Boolean}
+	* @returns boolean
 	* @memberOf ch.Support
 	*/	
 	var fixed = (function(){
@@ -513,7 +515,7 @@ ch.support = function() {
 		* Boolean property that indicates if CSS3 Transitions are supported by the device.
 		* @public
 		* @name transition
-		* @type {Boolean}
+		* @type boolean
 		* @memberOf ch.Support
 		*/
 		transition: transition,
@@ -521,7 +523,7 @@ ch.support = function() {
 		* Boolean property that indicates if Fixed positioning are supported by the device.
 		* @public
 		* @name fixed
-		* @type {Boolean}
+		* @type boolean
 		* @memberOf ch.Support
 		*/
 		fixed: fixed

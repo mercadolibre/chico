@@ -5,9 +5,10 @@
 * @name Extend
 * @class Extend
 * @memberOf ch
-* @param {String} name Interface's name.
-* @param {Function} klass Class to inherit from.
-* @param {Function} [process] Optional function to pre-process configuration, recieves a 'conf' param and must return the configration object.
+* @param {string} name Interface's name.
+* @param {function} klass Class to inherit from.
+* @param {function} [process] Optional function to pre-process configuration, recieves a 'conf' param and must return the configration object.
+* @returns class
 * @example
 * // Create an URL interface type based on String component.
 * ch.extend("string").as("url");

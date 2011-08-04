@@ -4,8 +4,8 @@
 * @name onImagesLoads
 * @class onImagesLoads
 * @memberOf ch
-* @param {Array of images}
-* @returns {jQuery Object}
+* @param array
+* @returns jQuery
 * @example
 * $("img").onImagesLoads(function(){ ... });
 */
@@ -15,9 +15,8 @@ ch.onImagesLoads = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.onImagesLoads
+	* @name ch.onImagesLoads#that
+	* @type object
 	*/
 	var that = this;
 	conf = ch.clon(conf);

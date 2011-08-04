@@ -6,8 +6,8 @@
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {Object} conf Object with configuration properties.
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Watcher
 * @see ch.Required
 * @see ch.Custom
@@ -43,13 +43,13 @@ ch.extend("watcher").as("number", function(conf) {
 /**
 * Validate a number with a minimun value.
 * @name Min
-* @name Max
+* @class Min
 * @interface
 * @augments ch.Number
 * @memberOf ch
-* @param {Number} value Minimun number value.
-* @param {String} [message] Validation message.
-* @returns {itself}
+* @param {number} value Minimun number value.
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * $("input").min(10, "Write a number bigger than 10");
@@ -65,9 +65,9 @@ ch.extend("number").as("min");
 * @interface
 * @augments ch.Number
 * @memberOf ch
-* @param {Number} value Minimun number value.
-* @param {String} [message] Validation message.
-* @returns {itself}
+* @param {number} value Minimun number value.
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * $("input").max(10, "Write a number smaller than 10");
@@ -82,8 +82,8 @@ ch.extend("number").as("max");
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {String} [message] Validation message.
-* @returns {itself}
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * $("input").price("Write valid price.");

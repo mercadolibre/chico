@@ -6,7 +6,7 @@
 * @class Floats
 * @augments ch.Object
 * @requires ch.Positioner
-* @returns {ch Object}
+* @returns itself
 * @see ch.Tooltip
 * @see ch.Layer
 * @see ch.Modal
@@ -18,7 +18,7 @@ ch.floats = function() {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @protected
 	* @name ch.Floats#that
-	* @type {Object}
+	* @type object
 	*/ 
 	var that = this;
 	var conf = that.conf;
@@ -37,8 +37,8 @@ ch.floats = function() {
 	/**
  	* Creates a 'cone', is a visual asset for floats.
  	* @private
- 	* @name ch.Floats#createCone
  	* @function
+ 	* @name ch.Floats#createCone
  	*/ 
 	var createCone = function() {
 		$("<div class=\"ch-cone\">")
@@ -48,8 +48,8 @@ ch.floats = function() {
 	/**
  	* Creates close button.
  	* @private
- 	* @name ch.Floats#createClose
  	* @function
+ 	* @name ch.Floats#createClose
  	*/ 
 	var createClose = function() {
 		// Close Button
@@ -70,7 +70,7 @@ ch.floats = function() {
 	* Flag that indicates if the float is active and rendered on the DOM tree.
 	* @protected
 	* @name ch.Floats#active
-	* @type {Boolean}
+	* @type boolean
 	*/ 
 	that.active = false;
 
@@ -78,7 +78,7 @@ ch.floats = function() {
 	* Content configuration property.
 	* @protected
 	* @name ch.Floats#source
-	* @type {String}
+	* @type string
 	*/
 	that.source = conf.content || conf.msg || conf.ajax || that.$element.attr('href') || that.$element.parents('form').attr('action');
 
@@ -86,7 +86,7 @@ ch.floats = function() {
 	* Inner function that resolves the component's layout and returns a static reference.
 	* @protected
 	* @name ch.Floats#$container
-	* @type {jQuery Object}
+	* @type jQuery
 	*/ 
 	that.$container = (function() { // Create Layout
 
@@ -119,7 +119,7 @@ ch.floats = function() {
 	* Inner reference to content container. Here is where the content will be added.
 	* @protected
 	* @name ch.Floats#$content
-	* @type {jQuery Object}
+	* @type jQuery
 	* @see ch.Object#content
 	*/ 
 	that.$content = $("<div class=\"ch-"+ that.type +"-content\">").appendTo(that.$container);
@@ -127,9 +127,9 @@ ch.floats = function() {
 	/**
 	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
 	* @protected
-	* @name ch.Floats#contentCallback
 	* @function
-	* @returns {this}
+	* @name ch.Floats#contentCallback
+	* @returns itself
 	*/ 
 	that.contentCallback = function(data) {
 		that.staticContent = data;
@@ -142,9 +142,9 @@ ch.floats = function() {
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
-	* @name ch.Floats#innerShow
 	* @function
-	* @returns {this}
+	* @name ch.Floats#innerShow
+	* @returns itself
 	*/ 
 	that.innerShow = function(event) {
 
@@ -202,9 +202,9 @@ ch.floats = function() {
 	/**
 	* Inner hide method. Hides the component and detach it from DOM tree.
 	* @protected
-	* @name ch.Floats#innerHide
 	* @function
-	* @returns {this}
+	* @name ch.Floats#innerHide
+	* @returns itself
 	*/ 
 	that.innerHide = function(event) {
 
@@ -267,7 +267,7 @@ ch.floats = function() {
 	* @name ch.Floats#size
 	* @param {String} prop Property that will be setted or getted, like "width" or "height".
 	* @param {String} [data] Only for setter. It's the new value of defined property.
-	* @returns {this}
+	* @returns itself
 	*/
 	that.size = function(prop, data) {
 		// Getter
@@ -290,9 +290,9 @@ ch.floats = function() {
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Floats#show
 	* @function
-	* @returns {this}
+	* @name ch.Floats#show
+	* @returns itself
 	*/
 	that["public"].show = function(){
 		that.innerShow();
@@ -302,9 +302,9 @@ ch.floats = function() {
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Floats#hide
 	* @function
-	* @returns {this}
+	* @name ch.Floats#hide
+	* @returns itself
 	*/
 	that["public"].hide = function(){
 		that.innerHide();
@@ -313,9 +313,9 @@ ch.floats = function() {
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
-	* @name ch.Floats#width
 	* @function
-	* @returns {this}
+	* @name ch.Floats#width
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -330,9 +330,9 @@ ch.floats = function() {
 	/**
 	* Sets or gets the height of the Float element.
 	* @public
-	* @name ch.Floats#height
 	* @function
-	* @returns {this}
+	* @name ch.Floats#height
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -348,9 +348,9 @@ ch.floats = function() {
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
-	* @name ch.Floats#isActive
 	* @function
-	* @returns {Boolean}
+	* @name ch.Floats#isActive
+	* @returns boolean
 	*/
 	that["public"].isActive = function() {
 		return that.active;

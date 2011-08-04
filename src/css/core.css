@@ -561,17 +561,22 @@ hr {
 }
 
 .datagrid th {	
+	background-image: url('../src/assets/th.png');
+	background-color: #DEDEDE;
+	background-repeat: repeat-x;
 	vertical-align: middle;
 	border-bottom:solid 1px #CECECE;
 	border-left:solid 1px #CECECE;
 	text-align:left;
 	height:24px;
 	padding: 0 10px;
-	background: #DEDEDE url(../src/assets/th.png) repeat-x; /* to-do: add this to base.png? */
 }
 
 .datagrid th.selected {
-	background: #DEDEDE url(../src/assets/th-selected.gif) no-repeat right center;
+	background-image: url('../src/assets/th-selected.gif');
+	background-color: #DEDEDE;
+	background-repeat: no-repeat;
+	background-position: right center;
 }
 		
 

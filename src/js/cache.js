@@ -10,20 +10,20 @@
 ch.cache = {
 
 	/**
-	* Map of resources cached
-	* @name map 
-	* @type {Object}
-	* @memberOf ch.Cache
+	* Map of cached resources
+	* @public
+	* @name ch.Cache#map 
+	* @type object
 	*/
 	map: {},
 	
 	/**
 	* Set a resource to the cache control
+	* @public
 	* @function 
-	* @name set
-	* @param {String} url Resource location
-	* @param {String} data Resource information
-	* @memberOf ch.Cache
+	* @name ch.Cache#set
+	* @param {string} url Resource location
+	* @param {string} data Resource information
 	*/
 	set: function(url, data) {
 		ch.cache.map[url] = data;
@@ -31,11 +31,11 @@ ch.cache = {
 	
 	/**
 	* Get a resource from the cache
+	* @public
 	* @function
-	* @name get
-	* @param {String} url Resource location
-	* @returns {String} data Resource information
-	* @memberOf ch.Cache
+	* @name ch.Cache#get
+	* @param {string} url Resource location
+	* @returns data Resource information
 	*/
 	get: function(url) {
 		return ch.cache.map[url];
@@ -43,10 +43,10 @@ ch.cache = {
 	
 	/**
 	* Remove a resource from the cache
+	* @public
 	* @function
-	* @name rem
-	* @param {String} url Resource location
-	* @memberOf ch.Cache
+	* @name ch.Cache#rem
+	* @param {string} url Resource location
 	*/
 	rem: function(url) {
 		ch.cache.map[url] = null;
@@ -55,9 +55,9 @@ ch.cache = {
 	
 	/**
 	* Clears the cache map
+	* @public
 	* @function
-	* @name flush
-	* @memberOf ch.Cache
+	* @name ch.Cache#flush
 	*/
 	flush: function() {
 		delete ch.cache.map;

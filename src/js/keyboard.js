@@ -5,7 +5,7 @@
 * @name Keyboard
 * @class Keyboard
 * @memberOF ch
-* @param {Event Object} event
+* @param event
 */ 
 
 ch.keyboard = function(event) {
@@ -13,9 +13,8 @@ ch.keyboard = function(event) {
 	/**
 	* Map with references to key codes.
 	* @private
-	* @name keyCodes
-	* @type {Object}
-	* @memberOf ch.Keyboard
+	* @name ch.Keyboard#keyCodes
+	* @type object
 	*/ 
 	var keyCodes = {
 		"13": "ENTER",
