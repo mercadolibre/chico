@@ -25,7 +25,8 @@ ch.carousel = function (conf) {
 	conf.pagination = conf.pagination || false;
 	
 	// Configuration for continue carousel
-	// TODO: Rolling is forced to be false. Use this instead: conf.rolling = (ch.utils.hasOwn(conf, "rolling")) ? conf.rolling : true;
+	// TODO: Rolling is forced to be false.
+	// Use this: conf.rolling = (ch.utils.hasOwn(conf, "rolling")) ? conf.rolling : true;
 	conf.rolling = false;
 	
 	// Configurable arrows
@@ -48,51 +49,26 @@ ch.carousel = function (conf) {
 */
 	
 	/**
-	* Creates the necesary structure to carousel operation.
-	* @private
-	* @function
-	* @name ch.Carousel#createLayout
-	*/
-	var createLayout = function () {
-
-		// Create carousel's content
-		that.$content = $("<div class=\"ch-carousel-content\">").append(that.$collection);
-
-		// Create carousel's mask
-		that.$container = $("<div class=\"ch-carousel-container\" style=\"height:" + that.itemSize.height + "px;\">")
-			.append(that.$content)
-			.appendTo(that.$element);
-
-		// Visual configuration
-		if (ch.utils.hasOwn(conf, "width")) { that.$element.css("width", conf.width); }
-		if (ch.utils.hasOwn(conf, "height")) { that.$element.css("height", conf.height); }
-		if (!conf.fx && ch.features.transition) { that.$content.addClass("ch-carousel-nofx"); }
-	},
-	
-	/**
 	* Creates Previous and Next arrows.
 	* @private
 	* @function
 	* @name ch.Carousel#createArrows
 	*/
-	createArrows = function () {
+	var createArrows = function () {
 		
 		// Previous arrow
-		that.prevArrow = $("<p class=\"ch-prev-arrow\"><span>Previous</span></p>").bind("click", that.prev);
+		that.prevArrow = $("<p class=\"ch-prev-arrow" + ((conf.rolling) ? "" : " ch-hide") + "\"><span>Previous</span></p>")[0];
 		
 		// Next arrow
-		that.nextArrow = $("<p class=\"ch-next-arrow\"><span>Next</span></p>").bind("click", that.next);
-		
-		// Continue carousel arrows behavior
-		if (!conf.rolling) { that.prevArrow.addClass("ch-hide") }
+		that.nextArrow = $("<p class=\"ch-next-arrow\"><span>Next</span></p>")[0];
 		
 		// Append arrows to carousel
 		that.$element.prepend(that.prevArrow).append(that.nextArrow);
 		
 		// Positions arrows vertically inside carousel
-		var arrowsPosition = (that.$element.outerHeight() - that.nextArrow.outerHeight()) / 2;
-		$(that.prevArrow).css("top", arrowsPosition);
-		$(that.nextArrow).css("top", arrowsPosition);
+		var arrowsPosition = (that.$element.outerHeight() - $(that.nextArrow).outerHeight()) / 2;
+		$(that.prevArrow).css("top", arrowsPosition).bind("click", that.prev);
+		$(that.nextArrow).css("top", arrowsPosition).bind("click", that.next);
 	},
 	
 	/**
@@ -103,17 +79,20 @@ ch.carousel = function (conf) {
 	* @param {Number} page Page to be moved
 	*/
 	toggleArrows = function (page) {
-		
 		// Both arrows shown on carousel's middle
 		if (page > 1 && page < that.pages) {
-			that.prevArrow.removeClass("ch-hide");
-			that.nextArrow.removeClass("ch-hide");
+			that.prevArrow.className = "ch-prev-arrow";
+			that.nextArrow.className = "ch-next-arrow";
 		} else {
-			// Previous arrow hidden on first page
-			if (page === 1) { that.prevArrow.addClass("ch-hide"); that.nextArrow.removeClass("ch-hide"); }
-			
-			// Next arrow hidden on last page
-			if (page === that.pages) { that.prevArrow.removeClass("ch-hide"); that.nextArrow.addClass("ch-hide"); }
+		// Previous arrow hidden on first page
+			if (page === 1) {
+				that.prevArrow.className = "ch-prev-arrow ch-hide";
+				that.nextArrow.className = "ch-next-arrow";
+		// Next arrow hidden on last page
+			} else if (page === that.pages) {
+				that.prevArrow.className = "ch-prev-arrow";
+				that.nextArrow.className = "ch-next-arrow ch-hide";
+			}
 		}
 	},
 	
@@ -169,10 +148,10 @@ ch.carousel = function (conf) {
 	*/
 	getItemsPerPage = function () {
 		// Space to be distributed among all items
-		var widthDiff = that.$element.outerWidth() - that.itemSize.width;
+		var widthDiff = that.$element.outerWidth() - that.items.width;
 		
 		// If there are space to be distributed, calculate pages
-		return (widthDiff > that.itemSize.width) ? ~~(widthDiff / that.itemSize.width) : 1;
+		return (widthDiff > that.items.width) ? ~~(widthDiff / that.items.width) : 1;
 	},
 	
 	/**
@@ -184,7 +163,7 @@ ch.carousel = function (conf) {
 	*/
 	getPages = function () {
 		// (Total amount of items) / (items amount on each page)
-		return Math.ceil((that.items.size() + that.queue.length) / that.itemsPerPage);
+		return Math.ceil((that.items.list.size() + that.items.queue.length) / that.itemsPerPage);
 	},
 
 	/**
@@ -205,10 +184,10 @@ ch.carousel = function (conf) {
 		that.pages = getPages();
 		
 		// Calculate variable margin between each item
-		that.itemMargin = Math.ceil(((maskWidth - (that.itemSize.width * that.itemsPerPage)) / that.itemsPerPage) / 2);
+		that.items.margin = Math.ceil(((maskWidth - (that.items.width * that.itemsPerPage)) / that.itemsPerPage) / 2);
 		
 		// Modify sizes only if new items margin are positive numbers
-		if (that.itemMargin < 0) { return; }
+		if (that.items.margin < 0) { return; }
 		
 		// Detach content from DOM for make a few changes
 		that.$content.detach();
@@ -217,16 +196,16 @@ ch.carousel = function (conf) {
 		that.goTo(1);
 		
 		// Sets new margin to each item
-		var i = that.items.size(),
-			items = that.items.children;
+		var i = that.items.list.size(),
+			items = that.items.list.children;
 		
 		while (i) {
-			items[i -= 1].style.marginLeft = items[i].style.marginRight = that.itemMargin + "px";
+			items[i -= 1].style.marginLeft = items[i].style.marginRight = that.items.margin + "px";
 		}
 		
 		// Change content size and append it to DOM again
 		that.$content
-			.css("width", (that.itemSize.width + that.itemMargin * 2) * that.items.size() + extraWidth)
+			.css("width", (that.items.width + that.items.margin * 2) * that.items.list.size() + extraWidth)
 			.appendTo(that.$container);
 		
 		// Create pagination if there are more than one page on total amount of pages
@@ -269,38 +248,18 @@ ch.carousel = function (conf) {
 *  Protected Members
 */
 
+	// Create carousel's mask
+	that.$container = that.$element.children();
+	
+	that.$content = that.$container.children();
+	
 	/**
 	* UL list of items.
 	* @private
 	* @name ch.Carousel#$collection
 	* @type {Array}
 	*/
-	that.$collection = that.$element.children();
-	
-	/**
-	* CSS margin between each item.
-	* @private
-	* @name ch.Carousel#$collection
-	* @type {Array}
-	*/
-	that.itemMargin = 0;
-	
-	/**
-	* Width and height of first item.
-	* @private
-	* @name ch.Carousel#itemSize
-	* @type {Object}
-	*/
-	that.itemSize = (function () {
-		
-		var item = that.$collection.children(":first");
-		
-		return {
-			width: item.outerWidth(),
-			height: item.outerHeight()
-		};
-		
-	}());
+	that.$collection = that.$content.children();
 	
 	/**
 	* List Object created from items that previously exists on DOM.
@@ -308,54 +267,96 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#items
 	* @type {Object}
 	*/
-	that.items = ch.list(that.$collection.children().addClass("ch-carousel-item").toArray());
+	that.items = (function () {
+		
+		var items = that.$collection.children(),
+			self = {};
+		
+		/**
+		* Width and height of first item.
+		* @private
+		* @name ch.Carousel#itemSize
+		* @type {Object}
+		*/
+		self.width = items.outerWidth();
+		
+		self.list = ch.list(items.toArray());
+		
+		/**
+		* List of items that should be added on page movement.
+		* @private
+		* @name ch.Carousel#queue
+		* @type {Object}
+		*/
+		self.queue = conf.asyncData || [];
+		
+		/**
+		* CSS margin between each item.
+		* @private
+		* @name ch.Carousel#$collection
+		* @type {Array}
+		*/
+		self.margin = 0;
+		
+		/**
+		* Adds items from queue to List Object and renders these into collection
+		* @private
+		* @name ch.Carousel#addItems
+		* @function
+		*/
+		self.add = function (amount) {
+			
+			// Take the sample from queue
+			var sample = self.queue.splice(0, amount),
+			
+			// Amount of items previous to add from queue
+				i = self.list.size(),
+			
+			// Amount of items next to add from queue
+				j = i + sample.length;
+				
+			console.log("hay " + i + " items renderizados");
+			console.log("hay que agregar " + amount + " items asincronicos");
+			
+			// Add to list
+			self.list.add(sample);
+			
+			// Expand content width for include new items
+			that.$content.css("width", (self.width + self.margin * 2) * j + extraWidth);
 	
-	/**
-	* List of items that should be added on page movement.
-	* @private
-	* @name ch.Carousel#queue
-	* @type {Object}
-	*/
-	that.queue = conf.asyncData || [];
-	
-	/**
-	* Adds items from queue to List Object and renders these into collection
-	* @private
-	* @name ch.Carousel#addItems
-	* @function
-	*/
-	that.addItems = function (sampleSize) {
-		
-		// Amount of items previous to add from queue
-		var itemsAmount = that.items.size(),
-		
-		// Take a sample from queue
-			sample = that.queue.splice(0, sampleSize);
-		console.log("hay " + itemsAmount + " items renderizados");
-		console.log("hay que agregar " + sampleSize + " items asincronicos");
-		// Add to list
-		that.items.add(sample);
-		
-		// Recalculate UL width
-		that.$content.css("width", (that.itemSize.width + that.itemMargin * 2) * that.items.size() + extraWidth);
-
-		// Append to collection
-		//that.$collection.html(sample.join(""));
-		var createItem = function (content) {
-			return $("<li class=\"ch-carousel-item\" style=\"margin-left:" + that.itemMargin + "px;margin-right:" + that.itemMargin + "px;\">" + ((ch.utils.hasOwn(conf, "asyncRender")) ? conf.asyncRender(content) : content) + "</li>");
+			// Create item using Render function or direct content
+			var createItem = function (content) {
+				return $("<li class=\"ch-carousel-item\" style=\"margin-left:" + self.margin + "px;margin-right:" + self.margin + "px;\">" + ((ch.utils.hasOwn(conf, "asyncRender")) ? conf.asyncRender(content) : content) + "</li>");
+			};
+			
+			// Detach collection to add some items
+			that.$collection.detach();
+			
+			// Append asynchronous items to collection
+			for (; i < j; i += 1) {
+				createItem(self.list.children[i]).appendTo(that.$collection);
+			};
+			
+			// Append collection again
+			that.$collection.appendTo(that.$content);
+			
+			
+			console.log("ahora hay " + j + " items renderizados");
 		};
 		
-		// Detach collection to add some items
-		that.$collection.detach();
+		// Calculate extra width for content before draw carousel
+		extraWidth = (ch.utils.html.hasClass("ie6")) ? self.width : 0;
 		
-		// Append asynchronous items to collection
-		for (var i = itemsAmount, j = that.items.size(); i < j; i += 1) {
-			createItem(that.items.children[i]).appendTo(that.$collection);
-		};
-		console.log("ahora hay " + that.items.size() + " items renderizados");
-		// Append collection again
-		that.$collection.appendTo(that.$content);
-	};
+		that.$container.css("height", items.outerHeight());
+		
+		return self;
+		
+	}());
+	
+	// Recalculate items amount on each page
+	that.itemsPerPage = getItemsPerPage();
+	
+	
 	
 	
 	/**
@@ -434,15 +435,15 @@ ch.carousel = function (conf) {
 	that.next = function () {
 		
 		// Asynchronous items loads when there are items in queue
-		if (that.queue.length > 0) {
+		if (that.items.queue.length > 0) {
 			// How many items needs to add for complete next page
-			var amount = (that.currentPage + 1) * that.itemsPerPage % that.items.size(),
+			var amount = (that.currentPage + 1) * that.itemsPerPage % that.items.list.size(),
 			
 			// If isn't needed items to complete a page, then add an entire page
 				sampleSize = (amount === 0) ? that.itemsPerPage : amount;
 			
 			// Add these
-			that.addItems(sampleSize);
+			that.items.add(sampleSize);
 		}
 		
 		that.goTo(that.currentPage + 1);
@@ -580,46 +581,34 @@ ch.carousel = function (conf) {
 *  Default event delegation
 */
 	
-	// Add class name to carousel container
-	that.$element.addClass("ch-carousel");
+	// Visual configuration
+	if (ch.utils.hasOwn(conf, "width")) { that.$element.css("width", conf.width); }
+	if (ch.utils.hasOwn(conf, "height")) { that.$element.css("height", conf.height); }
+	if (!conf.fx && ch.features.transition) { that.$content.addClass("ch-carousel-nofx"); }
 
-	// Add class name to collection and its children
-	that.$collection.detach().addClass("ch-carousel-list");
-	
-	// Recalculate items amount on each page
-	that.itemsPerPage = getItemsPerPage();
-
-	// Creates the necesary structure to carousel operation
-	createLayout();
-
-	// Calculate extra width for content before draw carousel
-	extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemSize.width : 0;
-	
 	// Calculates all necesary data to draw carousel correctly
 	draw();
 
 	// Creates Previous and Next arrows
 	if (conf.arrows && that.pages > 1) { createArrows(); }
 
-	// Elastic behavior	
-	if (!ch.utils.hasOwn(conf, "width")) {
+	// Default behavior	
+	if (ch.utils.hasOwn(conf, "width")) { return that; }
+	
+	// Elastic behavior
+	// Change resize status on Window resize event
+	ch.utils.window.bind("resize", function () { resizing = true; });
+	
+	// Limit resize execution to a quarter of second
+	setInterval(function () {
 		
-		// Change resize status on Window resize event
-		ch.utils.window.bind("resize", function () {
-			resizing = true;
-		});
+		if (!resizing) { return; }
 		
-		// Limit resize execution to a quarter of second
-		setInterval(function () {
-			
-			if (!resizing) { return; }
-			
-			resizing = false;
-			
-			draw();
-			
-		}, 250);
-	}
+		resizing = false;
+		
+		draw();
+		
+	}, 350);
 
 	return that;
 }
