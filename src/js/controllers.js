@@ -6,7 +6,7 @@
 * @class Controllers 
 * @augments ch.Object
 * @memberOf ch
-* @returns {Object}
+* @returns itself
 * @see ch.Accordion
 * @see ch.Carousel
 * @see ch.Form
@@ -16,9 +16,8 @@ ch.controllers = function(){
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Controllers
+	* @name ch.Controllers#that
+	* @type object
 	*/ 
 	var that = this;
 		
@@ -31,9 +30,8 @@ ch.controllers = function(){
  
 	/**
 	* Collection of children elements.
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.Controllers
+	* @name ch.Controllers#children
+	* @type collection
 	*/ 
 	that.children = [];
 			

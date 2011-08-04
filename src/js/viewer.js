@@ -8,8 +8,8 @@
 * @requires ch.Zoom
 * @memberOf ch
 * @requires ch.onImagesLoads
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.viewer = function(conf){
@@ -17,9 +17,8 @@ ch.viewer = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#that
+	* @type object
 	*/
 	var that = this;
 	conf = ch.clon(conf);
@@ -39,9 +38,8 @@ ch.viewer = function(conf){
 	/**
 	* Reference to the viewer's visual object.
 	* @private
-	* @name $viewer
-	* @type {jQuery Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#$viewer
+	* @type jQuery
 	*/
 	var $viewer = that.$element.addClass("ch-viewer");
 	conf.width = $viewer.outerWidth();
@@ -50,18 +48,16 @@ ch.viewer = function(conf){
 	/**
 	* Reference to the viewer's internal content.
 	* @private
-	* @name $content
-	* @type {jQuery Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#$content
+	* @type jQuery
 	*/
 	var $content = $viewer.children().addClass("ch-viewer-content");
 
 	/**
 	* Reference to the viewer's display element.
 	* @private
-	* @name $display
-	* @type {jQuery Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#$display
+	* @type jQuery
 	*/
 	var $display = $("<div>")
 		.addClass("ch-viewer-display")
@@ -84,45 +80,40 @@ ch.viewer = function(conf){
 	/**
 	* Collection of viewer's children.
 	* @private
-	* @name items
-	* @type {Collection}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#items
+	* @type collection
 	*/
 	var items = $content.children();
 
 	/**
 	* Amount of children.
 	* @private
-	* @name itemsAmount
-	* @type {Number}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#itemsAmount
+	* @type number
 	*/
 	var itemsAmount = items.length;
 
 	/**
 	* Collection of anchors finded on items collection.
 	* @private
-	* @name itemsAnchor
-	* @type {Collection}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#itemsAnchor
+	* @type collection
 	*/
 	var itemsAnchor = items.children("a");
 
 	/**
 	* Collection of references to HTMLIMGElements or HTMLObjectElements.
 	* @private
-	* @name itemsChildren
-	* @type {Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#itemsChildren
+	* @type object
 	*/
 	var itemsChildren = items.find("img, object");
 
 	/**
 	* Iniatilizes Zoom component on each anchor
 	* @private
-	* @name instanceZoom
-	* @type {Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#instanceZoom
+	* @type object
 	*/
 	var instanceZoom = function() {
 
@@ -164,8 +155,7 @@ ch.viewer = function(conf){
 	* Creates all thumbnails and configure it as a Carousel.
 	* @private
 	* @function
-	* @name createThumbs
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#createThumbs
 	*/
 	var createThumbs = function(){
 
@@ -215,10 +205,9 @@ ch.viewer = function(conf){
 	* Moves the viewer's content.
 	* @private
 	* @function
-	* @name move
-	* @param {Number} item
-	* @returns {Chico-UI Object} that
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#move
+	* @param {number} item
+	* @returns itself
 	*/
 	var move = function(item){
 		// Validation
@@ -249,9 +238,8 @@ ch.viewer = function(conf){
 
 		/**
 		* Callback function
-		* @name onMove
-		* @type {Function}
-		* @memberOf ch.Viewer
+		* @name ch.Viewer#onMove
+		* @event
 		*/
 		that.callbacks("onMove");
 		// new callback
@@ -263,9 +251,8 @@ ch.viewer = function(conf){
 	/**
 	* Handles the visual behavior of arrows
 	* @private
-	* @name arrows
-	* @type {Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#arrows
+	* @type object
 	*/
 	var arrows = {};
 
@@ -304,36 +291,29 @@ ch.viewer = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#uid
+	* @type number
 	*/
-	that["public"].uid = that.uid;
 
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
 
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#type
+	* @type string
 	*/
-	that["public"].type = that.type;
 
 	/**
 	* Children instances associated to this controller.
 	* @public
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#children
+	* @type Collection
 	*/
 	that["public"].children = that.children;
 
@@ -343,9 +323,8 @@ ch.viewer = function(conf){
 		* Selects a specific viewer's child.
 		* @public
 		* @function
-		* @name moveTo 
+		* @name ch.Viewer#moveTo 
 		* @param {Number} item Recieve a index to select a children.
-		* @memberOf ch.Viewer
 		*/
 		// TODO: This method should be called 'select'?
 		that["public"].moveTo = function(item){ that.move(item); return that["public"]; };
@@ -354,8 +333,7 @@ ch.viewer = function(conf){
 		* Selects the next child available.
 		* @public
 		* @function
-		* @name next
-		* @memberOf ch.Viewer
+		* @name ch.Viewer#next
 		*/
 		that["public"].next = function(){ that.next(); return that["public"]; };
 
@@ -363,8 +341,7 @@ ch.viewer = function(conf){
 		* Selects the previous child available.
 		* @public
 		* @function
-		* @name prev
-		* @memberOf ch.Viewer
+		* @name ch.Viewer#prev
 		*/
 		that["public"].prev = function(){ that.prev(); return that["public"]; };
 
@@ -372,8 +349,7 @@ ch.viewer = function(conf){
 		* Get the index of the selected child.
 		* @public
 		* @function
-		* @name getSelected
-		* @memberOf ch.Viewer
+		* @name ch.Viewer#getSelected
 		*/
 		that["public"].getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
 

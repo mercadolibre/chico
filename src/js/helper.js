@@ -5,8 +5,8 @@
 * @class Helper
 * @augments ch.Floats
 * @memberOf ch
-* @param {Object} o Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.helper = function(controller){
@@ -14,9 +14,8 @@ ch.helper = function(controller){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Helper
+	* @name ch.Helper#that
+	* @type object
 	*/
 	var that = this;
 
@@ -48,15 +47,16 @@ ch.helper = function(controller){
 */ 
  
 	that.content("I'm not sure what just happened, this field might have some problems. Can you take a look?")
- 
+
+ 	that.$trigger = that.$element;
+
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
-	* @name ch.Helper#innerShow
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#innerShow
+	* @returns itself
 	*/ 
-	that.$trigger = that.$element;
 		
 	that.innerShow = function() {
 
@@ -79,28 +79,28 @@ ch.helper = function(controller){
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Helper#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Helper#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Helper#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
 	* Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
 	* @public
-	* @name ch.Helper#content
 	* @function
+	* @name ch.Helper#content
 	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
@@ -120,17 +120,17 @@ ch.helper = function(controller){
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
+	* @function
 	* @name ch.Helper#isActive
-	* @function 
-	* @returns {Boolean}
+	* @returns boolean
 	*/
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Helper#show
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#show
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -140,9 +140,9 @@ ch.helper = function(controller){
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Helper#hide
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#hide
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -152,9 +152,9 @@ ch.helper = function(controller){
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
-	* @name ch.Helper#width
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#width
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -167,9 +167,9 @@ ch.helper = function(controller){
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
-	* @name ch.Helper#height
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#height
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -182,6 +182,7 @@ ch.helper = function(controller){
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
+	* @function
 	* @name ch.Helper#position
 	* @example
 	* // Change component's position.
@@ -200,6 +201,17 @@ ch.helper = function(controller){
 		that.position("refresh");
 	});
 
+	/**
+	* Triggers when the component is ready to use.
+	* @name ch.Helper#ready
+	* @event
+	* @public
+	* @example
+	* // Following the first example, using 'me' as Layer's instance controller:
+	* me.on("ready",function(){
+	*	this.show();
+	* });
+	*/
 	that.trigger("ready");
 
 	return that;

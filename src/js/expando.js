@@ -5,8 +5,8 @@
 * @class Expando
 * @augments ch.Navs
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
  
 ch.expando = function(conf){
@@ -14,9 +14,8 @@ ch.expando = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Expando
+	* @name ch.Expando#that
+	* @type object
 	*/
 	var that = this;
 		
@@ -45,36 +44,30 @@ ch.expando = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Expando
+	* @name ch.Expando#uid
+	* @type number
 	*/
-	that["public"].uid = that.uid;
 	
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Expando
+	* @name ch.Expando#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
 	
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Expando
+	* @name ch.Expando#type
+	* @type string
 	*/
-	that["public"].type = that.type;
 	
 	/**
 	* Shows component's content.
 	* @public
-	* @name show
-	* @returns {Chico-UI Object}
-	* @memberOf ch.Expando
+	* @function
+	* @name ch.Expando#show
+	* @returns itself
 	*/
 	that["public"].show = function(){
 		that.show();
@@ -85,9 +78,9 @@ ch.expando = function(conf){
 	/**
 	* Hides component's content.
 	* @public
-	* @name hide
-	* @returns {Chico-UI Object}
-	* @memberOf ch.Expando
+	* @function
+	* @name ch.Expando#hide
+	* @returns itself
 	*/	
 	that["public"].hide = function(){
 		that.hide();

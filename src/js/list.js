@@ -5,7 +5,7 @@
 * @name List
 * @class List
 * @memberOf ch
-* @param {Array} [collection] Constructs a List with an optional initial collection
+* @param {array} [collection] Constructs a List with an optional initial collection
 */
 
 ch.list = function( collection ) {
@@ -14,9 +14,8 @@ ch.list = function( collection ) {
 
 	/**
 	* @public
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.List
+	* @name ch.List#children
+	* @type collection
 	*/
 	var _children = ( collection && ch.utils.isArray( collection ) ) ? collection : [] ;
 
@@ -24,13 +23,12 @@ ch.list = function( collection ) {
 	* Seek members inside the collection by index, query string or object comparison.
 	* @private
 	* @function
-	* @name _find
-	* @param {Number} [q]
-	* @param {String} [q]
-	* @param {Object} [q]
-	* @param {Function} [a]
-	* @return {Object} Returns the finded element
-	* @memberOf ch.List
+	* @name ch.List#_find
+	* @param {number} [q]
+	* @param {string} [q]
+	* @param {object} [q]
+	* @param {function} [a]
+	* @return object
 	*/
 	var _find = function(q, a) {
 		// null search return the entire collection
@@ -69,13 +67,12 @@ ch.list = function( collection ) {
 	* Adds a new child (or more) to the collection.
 	* @public
 	* @function
-	* @name add
-	* @param {String} [child]
-	* @param {Object} [child]
-	* @param {Array} [child]
-	* @memberOf ch.List
-	* @returns {Number} The index of the added child.
-	* @returns {Collection} Returns the entire collecction if the input is an array.
+	* @name ch.List#add
+	* @param {string} [child]
+	* @param {object} [child]
+	* @param {array} [child]
+	* @returns number The index of the added child.
+	* @returns collection Returns the entire collecction if the input is an array.
 	*/
 	var add = function( child ) {
 		
@@ -93,12 +90,11 @@ ch.list = function( collection ) {
 	* Removes a child from the collection by index, query string or object comparison.
 	* @public
 	* @function
-	* @name rem
-	* @param {Number} [q]
-	* @param {String} [q]
-	* @param {Object} [q]
-	* @return {Object} Returns the removed element
-	* @memberOf ch.List
+	* @name ch.List#rem
+	* @param {number} [q]
+	* @param {string} [q]
+	* @param {object} [q]
+	* @return {object} Returns the removed element
 	*/
 	var rem = function( q ) {
 		// null search return
@@ -118,11 +114,11 @@ ch.list = function( collection ) {
 	* Get a child from the collection by index, query string or object comparison.
 	* @public
 	* @function
-	* @name get
-	* @param {Number} [q] Get a child from the collection by index number.
-	* @param {String} [q] Get a child from the collection by a query string.
-	* @param {Object} [q] Get a child from the collection by comparing objects.
-	* @memberOf ch.List
+	* @name ch.List#get
+	* @param {number} [q] Get a child from the collection by index number.
+	* @param {string} [q] Get a child from the collection by a query string.
+	* @param {object} [q] Get a child from the collection by comparing objects.
+	* @return object
 	*/
 	var get = function( q ) {
 
@@ -134,9 +130,8 @@ ch.list = function( collection ) {
 	* Get the amount of children from the collection.
 	* @public
 	* @function
-	* @name size
-	* @return {Number}
-	* @memberOf ch.List
+	* @name ch.List#size
+	* @return number
 	*/
 
 	var size = function() {

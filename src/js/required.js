@@ -6,8 +6,8 @@
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Watcher
 * @see ch.Custom
 * @see ch.Number
