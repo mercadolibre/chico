@@ -101,11 +101,11 @@
 
 /* IE 6 */
 .ie6 .ch-carousel .ch-next-arrow{
-	right: 30px;
+	right: 20px;
 }
 
 .ie6 .ch-carousel .ch-prev-arrow{
-	left: 5px;
+	left: 0;
 }
 
 /* No-js */
