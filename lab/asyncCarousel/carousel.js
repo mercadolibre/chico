@@ -150,7 +150,7 @@ ch.carousel = function (conf) {
 	*/
 	getPages = function () {
 		// (Total amount of items) / (items amount on each page)
-		return Math.ceil((that.items.list.size() + that.items.queue.length) / that.items.onEachPage);
+		return Math.ceil((that.$collection.children().length + that.items.queue.length) / that.items.onEachPage);
 	},
 
 	/**
@@ -196,7 +196,7 @@ ch.carousel = function (conf) {
 		// Change content size and append it to DOM again
 		// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
 		that.$content
-			.css("width", (that.items.width + that.items.margin * 2) * that.items.list.size() + extraWidth)
+			.css("width", (that.items.width + that.items.margin * 2) * items.length + extraWidth)
 			.appendTo(that.$container);
 		
 		// Create pagination if there are more than one page on total amount of pages
@@ -271,7 +271,7 @@ ch.carousel = function (conf) {
 	*/
 	that.items = (function () {
 		
-		// All rendered items
+		// Items rendered
 		var items = that.$collection.children(),
 		
 		// Create an object to be exposed
@@ -285,15 +285,6 @@ ch.carousel = function (conf) {
 		* @memberOf items
 		*/
 		self.width = items.outerWidth();
-		
-		/**
-		* Reference to List Object of items.
-		* @protected
-		* @name list
-		* @type List Object
-		* @memberOf items
-		*/
-		self.list = ch.list(items.toArray());
 		
 		/**
 		* List of items that should be loaded on page movement.
@@ -323,42 +314,28 @@ ch.carousel = function (conf) {
 		self.add = function (amount) {
 			
 			// Take the sample from queue
-			var sample = self.queue.splice(0, amount),
+			var sample = self.queue.splice(0, amount);
 			
-			// Amount of items previous to add from queue
-				i = self.list.size(),
-			
-			// Amount of items next to add from queue
-				j = i + sample.length,
-			
-			// List of items to load on collection
-				output = [],
-				
-			// Returns item structure using Render function or direct content
-				createItem = function (content) {
-					return "<li class=\"ch-carousel-item\" style=\"margin-left:" + self.margin + "px;margin-right:" + self.margin + "px;\">" + ((ch.utils.hasOwn(conf, "asyncRender")) ? conf.asyncRender(content) : content) + "</li>";
-				};
-			
-			console.clear();
-			console.log(i + " renderizados");
-			console.log(amount + " agregar");
-			console.log(j + " total");
-			//*/
-			
-			// Add sample to list
-			self.list.add(sample);
-			
-			// Expand content width for include new items
-			// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
-			that.$content.css("width", (self.width + self.margin * 2) * j + extraWidth);
-	
 			// Append asynchronous items to collection
-			for (; i < j; i += 1) {
-				output.push(createItem(self.list.children[i]));
+			for (var i = 0, j = sample.length; i < j; i += 1) {
+				sample[i] = "<li class=\"ch-carousel-item\" style=\"margin-left:" + self.margin + "px;margin-right:" + self.margin + "px;\">" + ((ch.utils.hasOwn(conf, "asyncRender")) ? conf.asyncRender(sample[i]) : sample[i]) + "</li>";
 			};
 			
+			// Expand content width for include new items (item width and margin) * (total amount of items) + extra width
+			// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
+			that.$content.css("width", (self.width + self.margin * 2) * (that.$collection.children().length + amount) + extraWidth);
+			
 			// Append collection again
-			that.$collection.append(output.join(""));
+			that.$collection.append(sample.join(""));
+			
+			/**
+			* Callback function
+			* @name ch.Carousel#onItemsAdded
+			* @type {Function}
+			*/
+			that.callbacks("onItemsAdded");
+			// new callback
+			that.trigger("itemsAdded");
 		}
 		
 		/**
@@ -407,7 +384,7 @@ ch.carousel = function (conf) {
 			var itemsHere = that.currentPage * self.onEachPage,
 			
 			// Items rendered
-				itemsRendered = self.list.size();
+				itemsRendered = that.$collection.children().length;
 			
 			// Load only when there are more visible items than items rendered
 			if (itemsHere < itemsRendered) { return; }
