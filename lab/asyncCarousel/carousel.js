@@ -142,22 +142,6 @@ ch.carousel = function (conf) {
 	},
 	
 	/**
-	* Calculates items amount on each page.
-	* @private
-	* @function
-	* @name ch.Carousel#getItemsPerPage
-	* @returns {Number} Items amount on each page
-	*/
-	// TODO: Maybe widthDiff is the same that items.margin
-	getItemsPerPage = function () {
-		// Space to be distributed among all items
-		var widthDiff = that.$element.outerWidth() - that.items.width;
-		
-		// If there are space to be distributed, calculate pages
-		return (widthDiff > that.items.width) ? ~~(widthDiff / that.items.width) : 1;
-	},
-	
-	/**
 	* Calculates total amount of pages.
 	* @private
 	* @function
@@ -166,7 +150,7 @@ ch.carousel = function (conf) {
 	*/
 	getPages = function () {
 		// (Total amount of items) / (items amount on each page)
-		return Math.ceil((that.items.list.size() + that.items.queue.length) / that.itemsPerPage);
+		return Math.ceil((that.items.list.size() + that.items.queue.length) / that.items.onEachPage);
 	},
 
 	/**
@@ -181,13 +165,13 @@ ch.carousel = function (conf) {
 		maskWidth = that.$container.outerWidth();
 		
 		// Recalculate items amount on each page
-		that.itemsPerPage = getItemsPerPage();
+		that.items.getItemsPerPage();
 		
 		// Recalculate total amount of pages
 		that.pages = getPages();
 		
 		// Calculate variable margin between each item
-		that.items.margin = Math.ceil(((maskWidth - (that.items.width * that.itemsPerPage)) / that.itemsPerPage) / 2);
+		that.items.margin = Math.ceil(((maskWidth - (that.items.width * that.items.onEachPage)) / that.items.onEachPage) / 2);
 		
 		// Modify sizes only if new items margin are positive numbers
 		if (that.items.margin < 0) { return; }
@@ -355,7 +339,7 @@ ch.carousel = function (conf) {
 					return "<li class=\"ch-carousel-item\" style=\"margin-left:" + self.margin + "px;margin-right:" + self.margin + "px;\">" + ((ch.utils.hasOwn(conf, "asyncRender")) ? conf.asyncRender(content) : content) + "</li>";
 				};
 			
-			/*console.clear();
+			console.clear();
 			console.log(i + " renderizados");
 			console.log(amount + " agregar");
 			console.log(j + " total");
@@ -375,7 +359,32 @@ ch.carousel = function (conf) {
 			
 			// Append collection again
 			that.$collection.append(output.join(""));
+		}
+		
+		/**
+		* Calculates items amount on each page.
+		* @protected
+		* @name getItemsPerPage
+		* @function
+		* @memberOf items
+		*/
+		// TODO: Maybe widthDiff is the same that items.margin
+		self.getItemsPerPage = function () {
+			// Space to be distributed among all items
+			var widthDiff = that.$element.outerWidth() - self.width;
+			
+			// If there are space to be distributed, calculate pages
+			return self.onEachPage = (widthDiff > self.width) ? ~~(widthDiff / self.width) : 1;
 		};
+		
+		/**
+		* Items amount on each page.
+		* @protected
+		* @name onEachPage
+		* @type Number
+		* @memberOf items
+		*/
+		self.onEachPage = self.getItemsPerPage();
 		
 		// Calculate extra width for content
 		extraWidth = (ch.utils.html.hasClass("ie6")) ? self.width : 0;
@@ -383,12 +392,43 @@ ch.carousel = function (conf) {
 		// Set container size based on items size
 		that.$container.css("height", items.outerHeight());
 		
+		// At the begin, add items from queue if page is incomplete
+		if (items.length < self.onEachPage) {
+			self.add(self.onEachPage - items.length);
+		}
+		
+		// Asynchronous items load
+		that["public"].on("next", function () {
+			
+			// Load only when there are items in queue
+			if (self.queue.length === 0) { return; }
+			
+			// Amount of items from the beginning to current page
+			var itemsHere = that.currentPage * self.onEachPage,
+			
+			// Items rendered
+				itemsRendered = self.list.size();
+			
+			// Load only when there are more visible items than items rendered
+			if (itemsHere < itemsRendered) { return; }
+			
+			// How many items needs to add for complete next page
+			var amount = itemsHere % itemsRendered,
+			
+			// If isn't needed items to complete a page, then add an entire page
+				sampleSize = (amount === 0) ? self.onEachPage : amount;
+			
+			// Add these
+			self.add(sampleSize);
+			
+		});
+		
 		return self;
 		
 	}());
 	
 	// Calculate items amount on each page
-	that.itemsPerPage = getItemsPerPage();
+	//that.itemsPerPage = getItemsPerPage();
 		
 	/**
 	* The page that is selected.
@@ -465,18 +505,6 @@ ch.carousel = function (conf) {
 	
 	that.next = function () {
 		
-		// Asynchronous items loads when there are items in queue
-		if (that.items.queue.length > 0) {
-			// How many items needs to add for complete next page
-			var amount = (that.currentPage + 1) * that.itemsPerPage % that.items.list.size(),
-			
-			// If isn't needed items to complete a page, then add an entire page
-				sampleSize = (amount === 0) ? that.itemsPerPage : amount;
-			
-			// Add these
-			that.items.add(sampleSize);
-		}
-		
 		that.goTo(that.currentPage + 1);
 
 		/**
@@ -523,7 +551,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#getItemsPerPage
 	* @returns {Number}
 	*/
-	that["public"].getItemsPerPage = function () { return that.itemsPerPage; };
+	that["public"].getItemsPerPage = function () { return that.items.onEachPage; };
 	
 	/**
 	* Get the total amount of pages.
@@ -534,7 +562,7 @@ ch.carousel = function (conf) {
 	that["public"].getPage = function () { return that.currentPage; };
 	
 	/**
-	* Moves to a defined page.
+	* Moves to a defined page. Only works when Carousel hasn't asynchronous item load.
 	* @public
 	* @function
 	* @name ch.Carousel#goTo
@@ -547,11 +575,14 @@ ch.carousel = function (conf) {
 	* // Go to second page
 	* foo.goTo(2);
 	*/
-	that["public"].goTo = function (page) {
-		that.goTo(page);
-
-		return that["public"];
-	};
+	// TODO: Add support to goTo function on asynchronous item load.
+	if (!ch.utils.hasOwn(conf, "asyncData")) {
+		that["public"].goTo = function (page) {
+			that.goTo(page);
+	
+			return that["public"];
+		};
+	}
 	
 	/**
 	* Moves to the next page.
