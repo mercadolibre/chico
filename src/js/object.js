@@ -207,41 +207,46 @@ ch.object = function(){
 				_serialized = that.$element.parents('form').serialize();
 				_params = _params + ((_serialized != '') ? '&' + _serialized : '');
 			};
-			
-			$.ajax({
-				url: that.source,
-				type: _method || 'GET',
-				data: _params,
-				// each component could have a different cache configuration
-				cache: cache,
-				async: true,
-				beforeSend: function(jqXHR){
-					// Ajax default HTTP headers
-					jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-				},
-				success: function(data, textStatus, jqXHR){
-					// TODO: It would be nice to re-use the onContentLoad callback.
-				that.contentCallback.call(that,data);
-				// Callback your way out
-					if (ch.utils.hasOwn(conf, "onContentLoad")) {
-						conf.onContentLoad.call(context, data, textStatus, jqXHR);
-					}
-					// Save new data to the cache
-				if (cache) {
-					ch.cache.set(that.source,data);
-				}
-				},
-				error: function(jqXHR, textStatus, errorThrown){
-				// TODO: It would be nice to re-use the onContentError callback.
-				that.contentCallback.call(that,"<p>Error on ajax call </p>");
-				// Callback your way out
-					if (ch.utils.hasOwn(conf, "onContentError")) {
-						conf.onContentError.call(context, jqXHR, textStatus, errorThrown)
-					}
-				}
-			});
 
-		// Return Spinner and wait for callbacks
+			// Set ajax config
+			// On IE (6-7) "that" reference losts for second time
+			// Why?? I don't know... but with a setTimeOut() works fine!
+			setTimeout(function(){
+				$.ajax({
+					url: that.source,
+					type: _method || 'GET',
+					data: _params,
+					// each component could have a different cache configuration
+					cache: cache,
+					async: true,
+					beforeSend: function(jqXHR){
+						// Ajax default HTTP headers
+						jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+					},
+					success: function(data, textStatus, jqXHR){
+						// TODO: It would be nice to re-use the onContentLoad callback.
+					that.contentCallback.call(that,data);
+					// Callback your way out
+						if (ch.utils.hasOwn(conf, "onContentLoad")) {
+							conf.onContentLoad.call(context, data, textStatus, jqXHR);
+						}
+						// Save new data to the cache
+					if (cache) {
+						ch.cache.set(that.source,data);
+					}
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+					// TODO: It would be nice to re-use the onContentError callback.
+					that.contentCallback.call(that,"<p>Error on ajax call </p>");
+					// Callback your way out
+						if (ch.utils.hasOwn(conf, "onContentError")) {
+							conf.onContentError.call(context, jqXHR, textStatus, errorThrown)
+						}
+					}
+				});
+			}, 0);
+
+			// Return Spinner and wait for callbacks
 			that.staticContent = '<div class="loading"></div>';
 
 		}
