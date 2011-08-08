@@ -147,7 +147,6 @@ ch.floats = function() {
 	* @returns itself
 	*/ 
 	that.innerShow = function(event) {
-
 		if (event) {
 			that.prevent(event);
 		}
@@ -294,11 +293,12 @@ ch.floats = function() {
 	* @name ch.Floats#show
 	* @returns itself
 	*/
-	that["public"].show = function(){
+	that["public"].show = function(content){
+		if (content) { that.content(content); }
 		that.innerShow();
 		return that["public"];
 	};
-	
+
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
