@@ -3,20 +3,20 @@
 * @name Carousel
 * @class Carousel
 * @augments ch.Object
-* @requires ch.List   
+* @requires ch.List
 * @memberOf ch
-* @param {object} conf Object with configuration properties
-* @returns itself
+* @param {Configuration Object} conf Object with configuration properties
+* @returns {Chico-UI Object}
 */
- 
+
 ch.carousel = function (conf) {
 	
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @private
+	* @protected
 	* @name ch.Carousel#that
-	* @type object
-	*/	
+	* @type {Object}
+	*/
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -25,8 +25,7 @@ ch.carousel = function (conf) {
 	conf.pagination = conf.pagination || false;
 	
 	// Configuration for continue carousel
-	// TODO: Rolling is forced to be false. Use this instead:
-	// if (ch.utils.hasOwn(conf, "rolling")) { conf.rolling = conf.rolling; } else { conf.rolling = true; };
+	// TODO: Rolling is forced to be false. Use this: conf.rolling = (ch.utils.hasOwn(conf, "rolling")) ? conf.rolling : true;
 	conf.rolling = false;
 	
 	// Configurable arrows
@@ -49,80 +48,61 @@ ch.carousel = function (conf) {
 */
 	
 	/**
-	* Creates the necesary structure to carousel operation.
-	* @private
-	* @function
-	* @name ch.Carousel#_createLayout
-	*/
-	var createLayout = function () {
-
-		// Create carousel's content
-		that.$content = $("<div class=\"ch-carousel-content\">").append(that.$collection);
-
-		// Create carousel's mask
-		that.$container = $("<div class=\"ch-carousel-container\" style=\"height:" + that.itemSize.height + "px;\">")
-			.append(that.$content)
-			.appendTo(that.$element);
-
-		// Visual configuration
-		if (ch.utils.hasOwn(conf, "width")) { that.$element.css("width", conf.width); }
-		if (ch.utils.hasOwn(conf, "height")) { that.$element.css("height", conf.height); }
-		if (!conf.fx && ch.features.transition) { that.$content.addClass("ch-carousel-nofx"); }
-	},
-	
-	/**
 	* Creates Previous and Next arrows.
 	* @private
 	* @function
-	* @name ch.Carousel#_createArrows
+	* @name ch.Carousel#createArrows
 	*/
-	createArrows = function () {
+	var createArrows = function () {
 		
 		// Previous arrow
-		that.prevArrow = $("<p class=\"ch-prev-arrow\"><span>Previous</span></p>").bind("click", that.prev);
+		that.prevArrow = $("<p class=\"ch-prev-arrow" + (conf.rolling ? "" : " ch-hide") + "\"><span>Previous</span></p>")
+			.bind("click", that.prev)
+			.prependTo(that.$element)
+			[0];
 		
 		// Next arrow
-		that.nextArrow = $("<p class=\"ch-next-arrow\"><span>Next</span></p>").bind("click", that.next);
+		that.nextArrow = $("<p class=\"ch-next-arrow\"><span>Next</span></p>")
+			.bind("click", that.next)
+			.appendTo(that.$element)
+			[0];
 		
-		// Continue carousel arrows behavior
-		if (!conf.rolling) { that.prevArrow.addClass("ch-hide") }
+		// Positions arrows vertically in middle of Carousel
+		var position = (that.$element.outerHeight() - $(that.nextArrow).outerHeight()) / 2;
 		
-		// Append arrows to carousel
-		that.$element.prepend(that.prevArrow).append(that.nextArrow);
-		
-		// Positions arrows vertically inside carousel
-		var arrowsPosition = (that.$element.outerHeight() - that.nextArrow.outerHeight()) / 2;
-		$(that.prevArrow).css("top", arrowsPosition);
-		$(that.nextArrow).css("top", arrowsPosition);
+		that.prevArrow.style.top = that.nextArrow.style.top = position + "px";
 	},
 	
 	/**
-	* Manages arrows turning it on and off when non-continue carousel is on first or last page.
+	* Manages arrows turning it on and off when non-continue Carousel is moving.
 	* @private
 	* @function
-	* @name ch.Carousel#_toggleArrows
+	* @name ch.Carousel#toggleArrows
 	* @param {Number} page Page to be moved
 	*/
 	toggleArrows = function (page) {
-		
 		// Both arrows shown on carousel's middle
 		if (page > 1 && page < that.pages) {
-			that.prevArrow.removeClass("ch-hide");
-			that.nextArrow.removeClass("ch-hide");
+			that.prevArrow.className = "ch-prev-arrow";
+			that.nextArrow.className = "ch-next-arrow";
 		} else {
-			// Previous arrow hidden on first page
-			if (page === 1) { that.prevArrow.addClass("ch-hide"); that.nextArrow.removeClass("ch-hide"); }
-			
-			// Next arrow hidden on last page
-			if (page === that.pages) { that.prevArrow.removeClass("ch-hide"); that.nextArrow.addClass("ch-hide"); }
+		// Previous arrow hidden on first page
+			if (page === 1) {
+				that.prevArrow.className = "ch-prev-arrow ch-hide";
+				that.nextArrow.className = "ch-next-arrow";
+		// Next arrow hidden on last page
+			} else if (page === that.pages) {
+				that.prevArrow.className = "ch-prev-arrow";
+				that.nextArrow.className = "ch-next-arrow ch-hide";
+			}
 		}
 	},
 	
 	/**
-	* Creates carousel pagination.
+	* Creates Carousel pagination.
 	* @private
 	* @function
-	* @name ch.Carousel#_createPagination
+	* @name ch.Carousel#createPagination
 	*/
 	createPagination = function () {
 		
@@ -162,69 +142,61 @@ ch.carousel = function (conf) {
 	},
 	
 	/**
-	* Calculates items amount on each page.
-	* @private
-	* @function
-	* @name ch.Carousel#_getItemsPerPage
-	* @returns {Number} Items amount on each page
-	*/
-	getItemsPerPage = function () {
-		// Space to be distributed among all items
-		var widthDiff = that.$element.outerWidth() - that.itemSize.width;
-		
-		// If there are space to be distributed, calculate pages
-		return (widthDiff > that.itemSize.width) ? ~~(widthDiff / that.itemSize.width) : 1;
-	},
-	
-	/**
 	* Calculates total amount of pages.
 	* @private
 	* @function
-	* @name ch.Carousel#_getPages
+	* @name ch.Carousel#getPages
 	* @returns {Number} Total amount of pages
 	*/
 	getPages = function () {
 		// (Total amount of items) / (items amount on each page)
-		return  Math.ceil(that.items.children.length / that.itemsPerPage);
+		return Math.ceil((that.$collection.children().length + that.items.queue.length) / that.items.onEachPage);
 	},
 
 	/**
-	* Calculates all necesary data to draw carousel correctly.
+	* Calculates all necesary data to draw Carousel correctly.
 	* @private
 	* @function
-	* @name ch.Carousel#_draw
+	* @name ch.Carousel#draw
 	*/
 	draw = function () {
 		
 		// Reset size of carousel mask
 		maskWidth = that.$container.outerWidth();
-
+		
 		// Recalculate items amount on each page
-		that.itemsPerPage = getItemsPerPage();
+		that.items.getItemsPerPage();
 		
 		// Recalculate total amount of pages
 		that.pages = getPages();
 		
 		// Calculate variable margin between each item
-		var itemMargin = Math.ceil(((maskWidth - (that.itemSize.width * that.itemsPerPage)) / that.itemsPerPage) / 2);
+		that.items.margin = Math.ceil(((maskWidth - (that.items.width * that.items.onEachPage)) / that.items.onEachPage) / 2);
 		
 		// Modify sizes only if new items margin are positive numbers
-		if (itemMargin < 0) { return; }
+		if (that.items.margin < 0) { return; }
 		
 		// Detach content from DOM for make a few changes
 		that.$content.detach();
 		
-		// Move carousel to first page for reset initial position
+		// Move Carousel to first page for reset initial position
 		that.goTo(1);
 		
-		// Sets new margin to each item
-		$.each(that.items.children, function (i, e) {
-			e.style.marginLeft = e.style.marginRight = itemMargin + "px";
-		});
+		// Get all rendered items
+		var items = that.$collection.children(),
+		
+		// Save rendered items amount
+			i = items.length;
+		
+		// Set new margin to all items
+		while (i) {
+			items[i -= 1].style.marginLeft = items[i].style.marginRight = that.items.margin + "px";
+		}
 		
 		// Change content size and append it to DOM again
+		// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
 		that.$content
-			.css("width", ((that.itemSize.width + (itemMargin * 2)) * that.items.size() + extraWidth))
+			.css("width", (that.items.width + that.items.margin * 2) * items.length + extraWidth)
 			.appendTo(that.$container);
 		
 		// Create pagination if there are more than one page on total amount of pages
@@ -234,71 +206,212 @@ ch.carousel = function (conf) {
 	/**
 	* Size of carousel mask.
 	* @private
-	* @name ch.Carousel#_maskWidth
-	* @type number
+	* @name ch.Carousel#maskWidth
+	* @type {Number}
 	*/
 	maskWidth,
 	
 	/**
 	* List of pagination thumbnails.
 	* @private
-	* @name ch.Carousel#_$itemsPagination
-	* @type array
+	* @name ch.Carousel#$itemsPagination
+	* @type {Array}
 	*/
 	$itemsPagination,
 	
 	/**
-	* Extra size calculated on content
+	* Extra size calculated on content. Fix some IE6 issues.
 	* @private
-	* @name ch.Carousel#_extraWidth
-	* @type number
+	* @name ch.Carousel#extraWidth
+	* @type {Number}
 	*/
 	extraWidth,
 	
 	/**
 	* Resize status of Window.
 	* @private
-	* @name ch.Carousel#_resize
-	* @type boolean
+	* @name ch.Carousel#resizing
+	* @type {Boolean}
 	*/
 	resizing = false;
 
 /**
 *  Protected Members
 */
-
+	
 	/**
-	* UL list of items.
-	* @private
+	* List of items.
+	* @protected
 	* @name ch.Carousel#$collection
-	* @type array
+	* @type jQuery Object
 	*/
-	that.$collection = that.$element.children();
+	that.$collection = that.$element.addClass("ch-carousel").children("ul").addClass("ch-carousel-list");
 	
 	/**
-	* List object created from each item.
-	* @private
+	* Mask for deny overflow of content.
+	* @protected
+	* @name ch.Carousel#$container
+	* @type jQuery Object
+	*/
+	that.$container = $("<div class=\"ch-carousel-container\">").appendTo(that.$element);
+	
+	/**
+	* Element that will move for both directions.
+	* @protected
+	* @name ch.Carousel#$content
+	* @type jQuery Object
+	*/
+	that.$content = $("<div class=\"ch-carousel-content\">").append(that.$collection).appendTo(that.$container);
+	
+	/**
+	* References to items attributes and manages internal queue for asynchronous item load.
+	* @protected
 	* @name ch.Carousel#items
-	* @type object
+	* @type Object
 	*/
-	that.items = ch.list(that.$collection.children().toArray());
+	that.items = (function () {
+		
+		// Items rendered
+		var items = that.$collection.children().addClass("ch-carousel-item"),
+		
+		// Create an object to be exposed
+			self = {};
+		
+		/**
+		* Reference to items size.
+		* @protected
+		* @name width
+		* @type Number
+		* @memberOf items
+		*/
+		self.width = items.outerWidth();
+		
+		/**
+		* List of items that should be loaded on page movement.
+		* @protected
+		* @name queue
+		* @type Array
+		* @memberOf items
+		*/
+		self.queue = conf.asyncData || [];
+		
+		/**
+		* CSS margin between each item.
+		* @protected
+		* @name margin
+		* @type Number
+		* @memberOf items
+		*/
+		self.margin = 0;
+		
+		/**
+		* Adds items from queue to List Object and renders these into collection
+		* @protected
+		* @name add
+		* @function
+		* @memberOf items
+		*/
+		self.add = function (amount) {
+			
+			// Take the sample from queue
+			var sample = self.queue.splice(0, amount);
+			
+			// Append asynchronous items to collection
+			for (var i = 0, j = sample.length; i < j; i += 1) {
+				sample[i] = "<li class=\"ch-carousel-item\" style=\"margin-left:" + self.margin + "px;margin-right:" + self.margin + "px;\">" + ((ch.utils.hasOwn(conf, "asyncRender")) ? conf.asyncRender(sample[i]) : sample[i]) + "</li>";
+			};
+			
+			// Expand content width for include new items (item width and margin) * (total amount of items) + extra width
+			// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
+			that.$content.css("width", (self.width + self.margin * 2) * (that.$collection.children().length + amount) + extraWidth);
+			
+			// Append collection again
+			that.$collection.append(sample.join(""));
+			
+			/**
+			* Callback function
+			* @name ch.Carousel#onItemsAdded
+			* @type {Function}
+			*/
+			that.callbacks("onItemsAdded");
+			// new callback
+			that.trigger("itemsAdded");
+		};
+		
+		/**
+		* Calculates items amount on each page.
+		* @protected
+		* @name getItemsPerPage
+		* @function
+		* @memberOf items
+		*/
+		// TODO: Maybe widthDiff is the same that items.margin
+		self.getItemsPerPage = function () {
+			// Space to be distributed among all items
+			var widthDiff = that.$element.outerWidth() - self.width;
+			
+			// If there are space to be distributed, calculate pages
+			return self.onEachPage = (widthDiff > self.width) ? ~~(widthDiff / self.width) : 1;
+		};
+		
+		/**
+		* Items amount on each page.
+		* @protected
+		* @name onEachPage
+		* @type Number
+		* @memberOf items
+		*/
+		self.onEachPage = self.getItemsPerPage();
+		
+		// Calculate extra width for content
+		extraWidth = (ch.utils.html.hasClass("ie6")) ? self.width : 0;
+		
+		// Set container size based on items size
+		that.$container.css("height", items.outerHeight());
+		
+		// At the begin, add items from queue if page is incomplete
+		if (items.length < self.onEachPage) {
+			self.add(self.onEachPage - items.length);
+		}
+		
+		// Asynchronous items load
+		that["public"].on("next", function () {
+			
+			// Load only when there are items in queue
+			if (self.queue.length === 0) { return; }
+			
+			// Amount of items from the beginning to current page
+			var itemsHere = that.currentPage * self.onEachPage,
+			
+			// Items rendered
+				itemsRendered = that.$collection.children().length;
+			
+			// Load only when there are more visible items than items rendered
+			if (itemsHere < itemsRendered) { return; }
+			
+			// How many items needs to add for complete next page
+			var amount = itemsHere % itemsRendered,
+			
+			// If isn't needed items to complete a page, then add an entire page
+				sampleSize = (amount === 0) ? self.onEachPage : amount;
+			
+			// Add these
+			self.add(sampleSize);
+			
+		});
+		
+		return self;
+		
+	}());
 	
+	// Calculate items amount on each page
+	//that.itemsPerPage = getItemsPerPage();
+		
 	/**
-	* Width and height of first item.
-	* @private
-	* @name ch.Carousel#itemSize
-	* @type object
-	*/
-	that.itemSize = {
-		width: $(that.items.children[0]).outerWidth(),
-		height: $(that.items.children[0]).outerHeight()
-	};
-
-	/**
-	* Page selected.
+	* The page that is selected.
 	* @private
 	* @name ch.Carousel#currentPage
-	* @type number
+	* @type {Number}
 	*/
 	that.currentPage = 1;
 
@@ -331,17 +444,13 @@ ch.carousel = function (conf) {
 		// TODO: Use toggleClass() instead remove and add.
 		// Select thumbnail on pagination
 		if (conf.pagination) {
-			$itemsPagination
-				.removeClass("ch-carousel-pages-on")
-				.eq(page - 1)
-				.addClass("ch-carousel-pages-on");
+			$itemsPagination.removeClass("ch-carousel-pages-on").eq(page - 1).addClass("ch-carousel-pages-on");
 		}
 		
 		/**
 		* Callback function
-		* @public
 		* @name ch.Carousel#onMove
-		* @event
+		* @type {Function}
 		*/
 		that.callbacks("onMove");
 		// new callback
@@ -351,15 +460,14 @@ ch.carousel = function (conf) {
 	};
 
 	that.prev = function () {
+		
 		that.goTo(that.currentPage - 1);
 
 		/**
 		* Callback function
-		* @public
 		* @name ch.Carousel#onPrev
-		* @event
+		* @type {Function}
 		*/
-
 		that.callbacks("onPrev");
 		// new callback
 		that.trigger("prev");
@@ -368,15 +476,14 @@ ch.carousel = function (conf) {
 	};
 	
 	that.next = function () {
+		
 		that.goTo(that.currentPage + 1);
 
 		/**
 		* Callback function
-		* @public
 		* @name ch.Carousel#onNext
-		* @event
+		* @type {Function}
 		*/
-
 		that.callbacks("onNext");
 		// new callback
 		that.trigger("next");
@@ -393,45 +500,45 @@ ch.carousel = function (conf) {
 	* The component's instance unique identifier.
 	* @public
 	* @name ch.Carousel#uid
-	* @type number
-	*/ 
+	* @type {Number}
+	*/
 	
 	/**
 	* The element reference.
 	* @public
 	* @name ch.Carousel#element
-	* @type HTMLElement
+	* @type {HTMLElement}
 	*/
 
 	/**
 	* The component's type.
 	* @public
 	* @name ch.Carousel#type
-	* @type string
+	* @type {String}
 	*/
 
 	/**
 	* Get the items amount of each page.
 	* @public
 	* @name ch.Carousel#getItemsPerPage
-	* @returns number
+	* @returns {Number}
 	*/
-	that["public"].getItemsPerPage = function () { return that.itemsPerPage; };
+	that["public"].getItemsPerPage = function () { return that.items.onEachPage; };
 	
 	/**
 	* Get the total amount of pages.
 	* @public
 	* @name ch.Carousel#getPage
-	* @returns number
+	* @returns {Number}
 	*/
 	that["public"].getPage = function () { return that.currentPage; };
 	
 	/**
-	* Moves to a defined page.
+	* Moves to a defined page. Only works when Carousel hasn't asynchronous item load.
 	* @public
 	* @function
 	* @name ch.Carousel#goTo
-	* @returns itself
+	* @returns {Chico-UI Object}
 	* @param {Number} page Page to be moved
 	* @example
 	* // Create a carousel
@@ -440,17 +547,20 @@ ch.carousel = function (conf) {
 	* // Go to second page
 	* foo.goTo(2);
 	*/
-	that["public"].goTo = function (page) {
-		that.goTo(page);
-
-  		return that["public"];
-	};
+	// TODO: Add support to goTo function on asynchronous item load.
+	if (!ch.utils.hasOwn(conf, "asyncData")) {
+		that["public"].goTo = function (page) {
+			that.goTo(page);
+	
+			return that["public"];
+		};
+	}
 	
 	/**
 	* Moves to the next page.
 	* @public
 	* @name ch.Carousel#next
-	* @returns itself
+	* @returns {Chico-UI Object}
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -468,7 +578,7 @@ ch.carousel = function (conf) {
 	* Moves to the previous page.
 	* @public
 	* @name ch.Carousel#prev
-	* @returns itself
+	* @returns {Chico-UI Object}
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -486,7 +596,7 @@ ch.carousel = function (conf) {
 	* Re-calculate positioning, sizing, paging, and re-draw.
 	* @public
 	* @name ch.Carousel#redraw
-	* @returns itself
+	* @returns {Chico-UI Object}
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -505,47 +615,34 @@ ch.carousel = function (conf) {
 *  Default event delegation
 */
 	
-	// Add class name to carousel container
-	that.$element.addClass("ch-carousel");
+	// Visual configuration
+	if (ch.utils.hasOwn(conf, "width")) { that.$element.css("width", conf.width); }
+	if (ch.utils.hasOwn(conf, "height")) { that.$element.css("height", conf.height); }
+	if (!conf.fx && ch.features.transition) { that.$content.addClass("ch-carousel-nofx"); }
 
-	// Add class name to collection and its children
-	that.$collection
-		.detach()
-		.addClass("ch-carousel-list")
-		.children()
-			.addClass("ch-carousel-item");
-
-	// Creates the necesary structure to carousel operation
-	createLayout();
-
-	// Calculate extra width for content before draw carousel
-	extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemSize.width : 0;
-	
 	// Calculates all necesary data to draw carousel correctly
 	draw();
 
 	// Creates Previous and Next arrows
 	if (conf.arrows && that.pages > 1) { createArrows(); }
 
-	// Elastic behavior	
-	if (!conf.hasOwnProperty("width")) {
+	// Default behavior	
+	if (ch.utils.hasOwn(conf, "width")) { return that; }
+	
+	// Elastic behavior
+	// Change resize status on Window resize event
+	ch.utils.window.bind("resize", function () { resizing = true; });
+	
+	// Limit resize execution to a quarter of second
+	setInterval(function () {
 		
-		// Change resize status on Window resize event
-		ch.utils.window.bind("resize", function () {
-			resizing = true;
-		});
+		if (!resizing) { return; }
 		
-		// Limit resize execution to a quarter of second
-		setInterval(function () {
-			
-			if (!resizing) { return; }
-			
-			resizing = false;
-			
-			draw();
-			
-		}, 250);
-	}
+		resizing = false;
+		
+		draw();
+		
+	}, 350);
 
 	return that;
-}
+};

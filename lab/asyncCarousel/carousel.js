@@ -420,8 +420,6 @@ ch.carousel = function (conf) {
 		// Validation of page parameter
 		if (page === that.currentPage || page > that.pages || page < 1 || isNaN(page)) { return that; }
 		
-		// TODO: async functionality go here
-		
 		// Coordinates to next movement
 		var movement = -(maskWidth * (page - 1));
 
@@ -446,10 +444,7 @@ ch.carousel = function (conf) {
 		// TODO: Use toggleClass() instead remove and add.
 		// Select thumbnail on pagination
 		if (conf.pagination) {
-			$itemsPagination
-				.removeClass("ch-carousel-pages-on")
-				.eq(page - 1)
-				.addClass("ch-carousel-pages-on");
+			$itemsPagination.removeClass("ch-carousel-pages-on").eq(page - 1).addClass("ch-carousel-pages-on");
 		}
 		
 		/**
