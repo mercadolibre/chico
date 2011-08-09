@@ -6,8 +6,8 @@
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {String} msg Validation message
-* @returns {Chico-UI Object}
+* @param {string} msg Validation message
+* @returns itself
 * @see ch.Watcher
 * @see ch.Required
 * @see ch.Custom
@@ -54,11 +54,12 @@ ch.extend("watcher").as("string", function (conf) {
 /**
 * Validate email sintaxis.
 * @name Email
+* @class Email
 * @interface
 * @augments ch.String
 * @memberOf ch
-* @param {String} [message] Validation message.
-* @returns {Chico-UI Object}
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * // Create a email validation
@@ -70,11 +71,12 @@ ch.extend("string").as("email");
 /**
 * Validate URL sintaxis.
 * @name Url
+* @class Url
 * @interface
 * @augments ch.String
 * @memberOf ch
-* @param {String} [message] Validation message.
-* @returns {Chico-UI Object}
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * // Create a URL validation
@@ -87,12 +89,13 @@ ch.extend("string").as("url");
 /**
 * Validate a minimun amount of characters.
 * @name MinLength
+* @class MinLength
 * @interface
 * @augments ch.String
 * @memberOf ch
-* @param {Number} value Minimun number value.
-* @param {String} [message] Validation message.
-* @returns {Chico-UI Object}
+* @param {number} value Minimun number value.
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * // Create a minLength validation
@@ -105,12 +108,13 @@ ch.extend("string").as("minLength");
 /**
 * Validate a maximun amount of characters.
 * @name MaxLength
+* @class MaxLength
 * @interface
 * @augments ch.String
 * @memberOf ch
-* @param {Number} value Maximun number value.
-* @param {String} [message] Validation message.
-* @returns {Chico-UI Object}
+* @param {number} value Maximun number value.
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * // Create a maxLength validation

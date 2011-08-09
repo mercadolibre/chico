@@ -9,8 +9,8 @@
 * @requires ch.Form
 * @requires ch.Positioner
 * @requires ch.Events
-* @param {Object} o Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Required
 * @see ch.String
 * @see ch.Number
@@ -23,7 +23,7 @@ ch.watcher = function(conf) {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @protected
 	* @name ch.Watcher#that
-	* @type {Object}
+	* @type itself
 	*/ 
 	var that = this;
 	conf = ch.clon(conf);
@@ -43,7 +43,7 @@ ch.watcher = function(conf) {
 	* Reference to a ch.form controller. If there isn't any, the Watcher instance will create one.
 	* @private
 	* @name ch.Watcher#controller
-	* @type {Object}
+	* @type ch.Form
 	*/
 	var controller = (function() {
 		if ( ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0 ) {	
@@ -66,7 +66,7 @@ ch.watcher = function(conf) {
 	* @private
 	* @name ch.Watcher#checkInstance
 	* @function
-	* @returns {Object}
+	* @returns object
 	*/	
 	var checkInstance = function() {
 		var instance = ch.instances.watcher;
@@ -102,7 +102,7 @@ ch.watcher = function(conf) {
 	* Flag that let you know if there's a validation going on.
 	* @protected
 	* @name ch.Watcher#active
-	* @type {Boolean}
+	* @type boolean
 	*/ 
 	that.active = false;
 	
@@ -110,7 +110,7 @@ ch.watcher = function(conf) {
 	* Flag that let you know if the watchers is enabled or not.
 	* @protected
 	* @name ch.Watcher#enabled
-	* @type {Boolean}
+	* @type boolean
 	*/ 
 	that.enabled = true;
 	
@@ -118,7 +118,7 @@ ch.watcher = function(conf) {
 	* This clousure is used as a reference to the positioning preferences.
 	* @protected
 	* @name ch.Watcher#reference
-	* @type {jQuery Object}
+	* @type jQuery
 	*/ 
 	that.reference = (function() {
 		var reference;
@@ -146,7 +146,7 @@ ch.watcher = function(conf) {
 	* This clousure process conditions and creates a map with all configured conditions, it's messages and validations.
 	* @protected
 	* @name ch.Watcher#conditions
-	* @type {Boolean}
+	* @type array
 	*/ 
 	that.conditions = (function(){
 		var c = []; // temp collection
@@ -184,7 +184,7 @@ ch.watcher = function(conf) {
 	* @private
 	* @name ch.Watcher#isRequired
 	* @function
-	* @return {Boolean}
+	* @return boolean
 	*/
 	that.isRequired = function(){
 		var t = that.conditions.length;
@@ -201,7 +201,7 @@ ch.watcher = function(conf) {
 	* Helper is a UI Component that shows the messages of active validations.
 	* @private
 	* @name ch.Watcher#helper
-	* @type {ch.Helper}
+	* @type ch.Helper
 	* @see ch.Helper
 	*/
 	var helper = {};
@@ -217,7 +217,7 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#validate
 	* @function
-	* @return {itself}
+	* @return itself
 	*/
 	that.validate = function(event) {	
 
@@ -358,7 +358,7 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#reset
 	* @function
-	* @return {itself}
+	* @return itself
 	*/
 	that.reset = function() {
 		//that.publish.status = that.status = conf.status = true; // Public status OK
@@ -390,7 +390,7 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#isEmpty
 	* @function
-	* @return {Boolean}
+	* @return boolean
 	*/
 	that.isEmpty = function() {
 		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
@@ -421,21 +421,21 @@ ch.watcher = function(conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Watcher#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Watcher#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Watcher#type
-	* @type {String}
+	* @type string
 	*/
 	that["public"].type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
 
@@ -443,7 +443,7 @@ ch.watcher = function(conf) {
 	* Used by the helper's positioner to do his magic.
 	* @public
 	* @name ch.Watcher#reference
-	* @type {jQuery Object}
+	* @type jQuery
 	* @TODO: remove 'reference' from public scope
 	*/
 	that["public"].reference = that.reference;
@@ -452,7 +452,7 @@ ch.watcher = function(conf) {
 	* This public Map saves all the validation configurations from this instance.
 	* @public
 	* @name ch.Watcher#conditions
-	* @type {Object}
+	* @type object
 	*/
 	that["public"].conditions = that.conditions;
 
@@ -460,7 +460,7 @@ ch.watcher = function(conf) {
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
 	* @name ch.Watcher#type
-	* @type {String}
+	* @type string
 	* @see ch.Floats
 	*/
 	that["public"].helper = that.helper["public"];
@@ -470,7 +470,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#active
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/	
 	that["public"].active = function() {
 		return that.active;
@@ -481,7 +481,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#and
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].and = function() {
 		return that.$element;
@@ -492,7 +492,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#reset
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].reset = function() {
 		that.reset();
@@ -505,7 +505,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @function
 	* @name ch.Watcher#validate
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].validate = function() {
 		that.validate();
@@ -518,7 +518,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#enable
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].enable = function() {
 		that.enabled = true;
@@ -531,7 +531,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#disable
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].disable = function() {
 		that.enabled = false;
@@ -545,7 +545,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#refresh
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].refresh = function() {
 		that.helper.position("refresh");

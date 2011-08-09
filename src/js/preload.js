@@ -5,8 +5,8 @@
 * @name Preload
 * @class Preload
 * @memberOf ch
-* @param {Array} [arr] Collection of image sources
-* @param {String} [str] A single image source
+* @param {array} [arr] Collection of image sources
+* @param {string} [str] A single image source
 * @example
 * ch.preload(["img1.jpg","img2.jpg","img3.png"]);
 * @example

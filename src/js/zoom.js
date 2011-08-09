@@ -7,8 +7,8 @@
 * @requires ch.Positioner
 * @requires ch.onImagesLoads
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {self}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.zoom = function(conf) {
@@ -16,10 +16,13 @@ ch.zoom = function(conf) {
 	* Reference to an internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Zoom#that
-	* @type {Object}
+	* @type itself
 	*/
 	var that = this;
 
+/**
+*	Constructor
+*/
 	conf = ch.clon(conf);
 	conf.fx = false;
 	
@@ -46,7 +49,7 @@ ch.zoom = function(conf) {
 	* Reference to main image declared on HTML code snippet.
 	* @private
 	* @name ch.Zoom#original
-	* @type {Object}
+	* @type object
 	*/
 	var original = {};
 		original.img = that.$element.children();
@@ -57,7 +60,7 @@ ch.zoom = function(conf) {
 	* Reference to the augmented version of image, that will be displayed in context.
 	* @private
 	* @name ch.Zoom#zoomed
-	* @type {Object}
+	* @type object
 	*/
 	var zoomed = {};
 		// Define the content source 
@@ -67,7 +70,7 @@ ch.zoom = function(conf) {
 	* Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
 	* @private
 	* @name ch.Zoom#seeker
-	* @type {Object}
+	* @type object
 	*/
 	var seeker = {};
 		seeker.shape = $("<div>").addClass("ch-seeker ch-hide")
@@ -77,7 +80,7 @@ ch.zoom = function(conf) {
 	* @private
 	* @function
 	* @name ch.Zoom#move
-	* @param {Event Object} event
+	* @param event event
 	*/
 	var move = function(event){
 		
@@ -135,9 +138,9 @@ ch.zoom = function(conf) {
 
 	/**
 	* Anchor that wraps the main image and links to zoomed image file.
-	* @public
+	* @protected
 	* @name ch.Zoom#$trigger
-	* @type {Object}
+	* @type jQuery
 	*/
 	that.$trigger = that.$element;
 
@@ -177,8 +180,8 @@ ch.zoom = function(conf) {
 	* @protected
 	* @function
 	* @name ch.Zoom#enlarge
-	* @param {Mouse Event Object} event
-	* @returns {itself}
+	* @param {mouseEvent} event
+	* @returns itself
 	*/
 	that.enlarge = function(event){
 		that.prevent(event);
@@ -190,11 +193,10 @@ ch.zoom = function(conf) {
 	* Getter and setter for size attributes of float that contains the zoomed image.
 	* @protected
 	* @function
-	* @name size
-	* @param {String} prop Property that will be setted or getted, like "width" or "height".
-	* @param {String} [data] Only for setter. It's the new value of defined property.
-	* @returns {Internal component instance}
-	* @memberOf ch.Zoom
+	* @name ch.Zoom#size
+	* @param {string} prop Property that will be setted or getted, like "width" or "height".
+	* @param {string} [data] Only for setter. It's the new value of defined property.
+	* @returns itself
 	*/
 	that.size = function(prop, data) {
 
@@ -222,21 +224,21 @@ ch.zoom = function(conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Zoom#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Zoom#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Zoom#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
@@ -244,7 +246,7 @@ ch.zoom = function(conf) {
 	* @public
 	* @name ch.Zoom#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @returns {HTMLIMGElement}
 	* @example
 	* // Get the defined content
@@ -260,17 +262,17 @@ ch.zoom = function(conf) {
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
-	* @name ch.Zoom#isActive
 	* @function 
-	* @returns {Boolean}
+	* @name ch.Zoom#isActive
+	* @returns boolean
 	*/
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
+	* @function 
 	* @name ch.Zoom#show
-	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -280,9 +282,9 @@ ch.zoom = function(conf) {
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Zoom#hide
 	* @function
-	* @returns {itself}
+	* @name ch.Zoom#hide
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -292,9 +294,9 @@ ch.zoom = function(conf) {
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
-	* @name ch.Zoom#width
 	* @function
-	* @returns {itself}
+	* @name ch.Zoom#width
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // Gets width of Zoom float element.
@@ -307,9 +309,9 @@ ch.zoom = function(conf) {
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
-	* @name ch.Zoom#height
 	* @function
-	* @returns {itself}
+	* @name ch.Zoom#height
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // Gets height of Zoom float element.
@@ -322,6 +324,7 @@ ch.zoom = function(conf) {
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
+	* @function
 	* @name ch.Zoom#position
 	* @example
 	* // Change default position.
@@ -355,6 +358,43 @@ ch.zoom = function(conf) {
 	
 	// Initialize when zoomed image loads...
 	zoomed.img.onImagesLoads( init );
+
+	/**
+	* Triggers when component is visible.
+	* @name ch.Zoom#show
+	* @event
+	* @public
+	* @example
+	* me.on("show",function(){
+	*	this.content("Some new content");
+	* });
+	* @see ch.Floats#event:show
+	*/
+
+	/**
+	* Triggers when component is not longer visible.
+	* @name ch.Zoom#hide
+	* @event
+	* @public
+	* @example
+	* me.on("hide",function(){
+	*	otherComponent.show();
+	* });
+	* @see ch.Floats#event:hide
+	*/
+
+	/**
+	* Triggers when the component is ready to use.
+	* @name ch.Zoom#ready
+	* @event
+	* @public
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.on("ready",function(){
+	*	this.show();
+	* });
+	*/
+	that.trigger("ready");
 
 	return that;
 };

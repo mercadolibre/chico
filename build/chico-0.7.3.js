@@ -25,35 +25,35 @@ var ch = window.ch = {
 	/**
 	* Current version
 	* @name version
-	* @type {Number}
+	* @type number
 	* @memberOf ch
 	*/
-	version: "0.7.2",
+	version: "0.7.3",
 	/**
 	* List of UI components available.
 	* @name components
-	* @type {String}
+	* @type string
 	* @memberOf ch
 	*/
 	components: "blink,carousel,calendar,dropdown,layer,modal,tabNavigator,tooltip,string,number,custom,required,helper,form,viewer,expando,menu,zoom",
 	/**
 	* List of internal components available.
 	* @name internals
-	* @type {String}
+	* @type string
 	* @memberOf ch
 	*/
 	internals: "cache,positioner,object,floats,navs,controllers,watcher,keyboard,preload,list,extend,onImagesLoads",
 	/**
 	* Here you will find a map of all component's instances created by Chico-UI.
 	* @name instances
-	* @type {Map Object}
+	* @type object
 	* @memberOf ch
 	*/
 	instances: {},
 	/**
 	* Available device's features.
 	* @name features
-	* @type {Map Object}
+	* @type object
 	* @see ch.Support
 	* @memberOf ch
 	*/
@@ -77,7 +77,7 @@ var ch = window.ch = {
 	/**
 	* References and commons functions.
 	* @name utils
-	* @type {Object Literal}
+	* @type object
 	* @memberOf ch
 	*/
 	utils: {
@@ -150,9 +150,11 @@ var ch = window.ch = {
 	* @abstract
 	* @name Events
 	* @class Events
-	* @type {Map Object}
+	* @type object
 	* @memberOf ch 
 	* @see ch.Events.KEY
+	* @see ch.Events.LAYOUT
+	* @see ch.Events.VIEWPORT
 	*/	
 	events: {
 		/**
@@ -256,8 +258,8 @@ var ch = window.ch = {
 * Utility to clone objects
 * @function
 * @name clon
-* @param {Object} o Object to clone
-* @returns {Object}
+* @param o Object to clone
+* @returns object
 * @memberOf ch
 */
 ch.clon = function(o) {
@@ -277,7 +279,7 @@ ch.clon = function(o) {
 * @abstract
 * @name Factory
 * @class Factory
-* @param {Configuration Object} o 
+* @param o Configuration Object
 * @example
 *	o {
 *		component: "chat",
@@ -286,7 +288,7 @@ ch.clon = function(o) {
 *		[style]: "http://..",
 *		[callback]: function(){}	
 *	}
-* @returns {Collection} A collection of object instances
+* @returns collection
 * @memberOf ch
 */
 
@@ -419,7 +421,7 @@ ch.factory = function(o) {
 * @abstract
 * @name Get
 * @class Get
-* @param o {Object} object 
+* @param {object} o Configuration object 
 * @example
 *	o {
 *		component: "chat",
@@ -475,7 +477,7 @@ ch.get = function(o) {
 * @abstract
 * @name Support
 * @class Support
-* @returns {Object}
+* @returns object
 * @memberOf ch 
 */
 ch.support = function() {
@@ -484,7 +486,7 @@ ch.support = function() {
 	* Private reference to the <body> element
 	* @private
 	* @name thisBody
-	* @type {HTMLBodyElement}
+	* @type HTMLBodyElement
 	* @memberOf ch.Support
 	*/
 	var thisBody = document.body || document.documentElement;
@@ -494,7 +496,7 @@ ch.support = function() {
 	* Verify that CSS3 transition is supported (or any of its browser-specific implementations)
 	*
 	* @private
-	* @returns {Boolean}
+	* @returns boolean
 	* @memberOf ch.Support
 	*/
 	var transition = (function(){
@@ -507,7 +509,7 @@ ch.support = function() {
 	* Verify that position fixed is supported
 	* 
 	* @private
-	* @returns {Boolean}
+	* @returns boolean
 	* @memberOf ch.Support
 	*/	
 	var fixed = (function(){
@@ -529,7 +531,7 @@ ch.support = function() {
 		* Boolean property that indicates if CSS3 Transitions are supported by the device.
 		* @public
 		* @name transition
-		* @type {Boolean}
+		* @type boolean
 		* @memberOf ch.Support
 		*/
 		transition: transition,
@@ -537,7 +539,7 @@ ch.support = function() {
 		* Boolean property that indicates if Fixed positioning are supported by the device.
 		* @public
 		* @name fixed
-		* @type {Boolean}
+		* @type boolean
 		* @memberOf ch.Support
 		*/
 		fixed: fixed
@@ -556,20 +558,20 @@ ch.support = function() {
 ch.cache = {
 
 	/**
-	* Map of resources cached
-	* @name map 
-	* @type {Object}
-	* @memberOf ch.Cache
+	* Map of cached resources
+	* @public
+	* @name ch.Cache#map 
+	* @type object
 	*/
 	map: {},
 	
 	/**
 	* Set a resource to the cache control
+	* @public
 	* @function 
-	* @name set
-	* @param {String} url Resource location
-	* @param {String} data Resource information
-	* @memberOf ch.Cache
+	* @name ch.Cache#set
+	* @param {string} url Resource location
+	* @param {string} data Resource information
 	*/
 	set: function(url, data) {
 		ch.cache.map[url] = data;
@@ -577,11 +579,11 @@ ch.cache = {
 	
 	/**
 	* Get a resource from the cache
+	* @public
 	* @function
-	* @name get
-	* @param {String} url Resource location
-	* @returns {String} data Resource information
-	* @memberOf ch.Cache
+	* @name ch.Cache#get
+	* @param {string} url Resource location
+	* @returns data Resource information
 	*/
 	get: function(url) {
 		return ch.cache.map[url];
@@ -589,10 +591,10 @@ ch.cache = {
 	
 	/**
 	* Remove a resource from the cache
+	* @public
 	* @function
-	* @name rem
-	* @param {String} url Resource location
-	* @memberOf ch.Cache
+	* @name ch.Cache#rem
+	* @param {string} url Resource location
 	*/
 	rem: function(url) {
 		ch.cache.map[url] = null;
@@ -601,9 +603,9 @@ ch.cache = {
 	
 	/**
 	* Clears the cache map
+	* @public
 	* @function
-	* @name flush
-	* @memberOf ch.Cache
+	* @name ch.Cache#flush
 	*/
 	flush: function() {
 		delete ch.cache.map;
@@ -615,8 +617,8 @@ ch.cache = {
 * @name Positioner
 * @class Positioner
 * @memberOf ch
-* @param {Position Object} o Object with positioning properties
-* @returns {jQuery Object}
+* @param {object} o Object with configuration properties
+* @returns jQuery
 * @example
 * // First example
 * ch.positioner({
@@ -641,8 +643,7 @@ ch.positioner = function(o) {
 	* @constructs
 	* @private
 	* @function
-	* @name initPosition
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#initPosition
 	*/
 	var initPosition = function(){
 		viewport = getViewport();
@@ -654,8 +655,8 @@ ch.positioner = function(o) {
 	/**
 	* Object that contains all properties for positioning
 	* @private
-	* @name o
-	* @type {Position Object}
+	* @name ch.Positioner#o
+	* @type object
 	* @example
 	* ch.Positioner({
 	*	element: $element
@@ -664,7 +665,6 @@ ch.positioner = function(o) {
 	*	[offset]: "x y"
 	*	[hold]: false
 	* });
-	* @memberOf ch.Positioner
 	*/
 	var o = o || this.conf.position;
 		o.points = o.points || "cm cm";
@@ -673,9 +673,8 @@ ch.positioner = function(o) {
 	/**
 	* Reference to the DOM Element beign positioned
 	* @private
-	* @name element
-	* @type {jQuery Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#element
+	* @type jQuery
 	*/
 	var element = $(o.element);
 		element.css("position","absolute");
@@ -683,34 +682,32 @@ ch.positioner = function(o) {
 	/**
 	* Reference to the DOM Element that we will use as a reference
 	* @private
-	* @name context
-	* @typeÂ {HTMLElement}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#context
+	* @typeÂ HTMLElement
 	*/
 	var context;
 	
 	/**
 	* Reference to the Window Object and it's size
 	* @private
-	* @name viewport
-	* @type {Viewport Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#viewport
+	* @type object
 	*/
 	var viewport;
 	
 	/**
 	* Reference to the element beign positioned
 	* @private
-	* @name parentRelative
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#parentRelative
+	* @type HTMLElement
 	*/
 	var parentRelative;
 
 	/**
 	* A map to reference the input points to output className
 	* @private
-	* @name _CLASS_REFERENCES
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#_CLASS_REFERENCES
+	* @type object
 	*/
 	var _CLASS_REFERENCES = {
 		"lt lb": "ch-left ch-bottom",
@@ -724,18 +721,22 @@ ch.positioner = function(o) {
 	/**
 	* Array with offset information
 	* @private
-	* @name splittedOffset
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#splittedOffset
+	* @type string
 	*/
 	var splittedOffset = o.offset.split(" ");
 	/**
 	* String with left offset information
 	* @private
+	* @name ch.Positioner#offset_left
+	* @type string
 	*/
 	var offset_left = parseInt(splittedOffset[0]);
 	/**
 	* String with top offset information
 	* @private
+	* @name ch.Positioner#offset_top
+	* @type string
 	*/
 	var offset_top = parseInt(splittedOffset[1]);
 
@@ -743,9 +744,8 @@ ch.positioner = function(o) {
 	* Get the viewport size
 	* @private
 	* @function
-	* @name getViewport
-	* @returns {Viewport Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#getViewport
+	* @returns object
 	*/
 	var getViewport = function() {
 	
@@ -798,9 +798,8 @@ ch.positioner = function(o) {
 	* Calculate css left and top to element on context
 	* @private
 	* @function
-	* @name getPosition
-	* @returns {Axis Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#getPosition
+	* @returns object
 	*/
 	var getPosition = function(unitPoints) {
 		// my_x and at_x values together
@@ -842,9 +841,8 @@ ch.positioner = function(o) {
 	* Evaluate viewport spaces and set points
 	* @private
 	* @function
-	* @name calculatePoints
-	* @returns {Styles Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#calculatePoints
+	* @returns object
 	*/
 	var calculatePoints = function(points, unitPoints){
 		// Default styles
@@ -918,8 +916,7 @@ ch.positioner = function(o) {
 	* Set position to element
 	* @private
 	* @function
-	* @name setPosition
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#setPosition
 	*/
 	var setPosition = function() {
 	// Separate points config
@@ -954,9 +951,8 @@ ch.positioner = function(o) {
 	* Get context element for positioning, if ain't one, select the viewport as context.
 	* @private
 	* @function
-	* @name getContext
-	* @returns {Context Object}
-	* @memberOf ch.Positioner
+	* @name ch.Positioner#getContext
+	* @returns object
 	*/
 	var getContext = function(){
 		
@@ -982,9 +978,8 @@ ch.positioner = function(o) {
 	* Get offset values from relative parents
 	* @private
 	* @function
-	* @name getParentRelative
-	* @returns {Offset Object}
-	* @memberOf ch.Positioner 
+	* @name ch.Positioner#getParentRelative
+	* @returns object
 	*/
 	var getParentRelative = function(){
 		
@@ -1054,7 +1049,7 @@ ch.object = function(){
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Object#that
-	* @type {Object}
+	* @type object
 	*/ 
 	var that = this;	
 	var conf = that.conf;
@@ -1068,7 +1063,7 @@ ch.object = function(){
 	* Component static content.
 	* @public
 	* @name ch.Object#staticContent
-	* @type {String}
+	* @type string
 	*/ 
 	that.staticContent;
 	
@@ -1076,7 +1071,7 @@ ch.object = function(){
 	* DOM Parent of content, this is useful to attach DOM Content when float is hidding.
 	* @public
 	* @name ch.Object#DOMParent
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/ 
 	that.DOMParent;
 
@@ -1084,7 +1079,7 @@ ch.object = function(){
 	* Flag to know if the DOM Content is visible or not.
 	* @public
 	* @name ch.Object#DOMContentIsVisible
-	* @type {Boolean}
+	* @type boolean
 	*/ 
 	that.DOMContentIsVisible;
 
@@ -1093,7 +1088,7 @@ ch.object = function(){
 	* @name ch.Object#prevent
 	* @function
 	* @protected
-	* @param {EventObject} event Recieves a event object
+	* @param {event} event Recieves a event object
 	*/
 	that.prevent = function(event) {
 		
@@ -1110,8 +1105,8 @@ ch.object = function(){
 	* @name ch.Object#content
 	* @protected
 	* @function
-	* @param {String} [content] Could be a simple text, html or a url to get the content with ajax.
-	* @returns {String} content
+	* @param {string} [content] Could be a simple text, html or a url to get the content with ajax.
+	* @returns {string} content
 	* @requires ch.Cache
 	* @example
 	* // Simple static content
@@ -1244,41 +1239,46 @@ ch.object = function(){
 				_serialized = that.$element.parents('form').serialize();
 				_params = _params + ((_serialized != '') ? '&' + _serialized : '');
 			};
-			
-			$.ajax({
-				url: that.source,
-				type: _method || 'GET',
-				data: _params,
-				// each component could have a different cache configuration
-				cache: cache,
-				async: true,
-				beforeSend: function(jqXHR){
-					// Ajax default HTTP headers
-					jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-				},
-				success: function(data, textStatus, jqXHR){
-					// TODO: It would be nice to re-use the onContentLoad callback.
-				that.contentCallback.call(that,data);
-				// Callback your way out
-					if (ch.utils.hasOwn(conf, "onContentLoad")) {
-						conf.onContentLoad.call(context, data, textStatus, jqXHR);
-					}
-					// Save new data to the cache
-				if (cache) {
-					ch.cache.set(that.source,data);
-				}
-				},
-				error: function(jqXHR, textStatus, errorThrown){
-				// TODO: It would be nice to re-use the onContentError callback.
-				that.contentCallback.call(that,"<p>Error on ajax call </p>");
-				// Callback your way out
-					if (ch.utils.hasOwn(conf, "onContentError")) {
-						conf.onContentError.call(context, jqXHR, textStatus, errorThrown)
-					}
-				}
-			});
 
-		// Return Spinner and wait for callbacks
+			// Set ajax config
+			// On IE (6-7) "that" reference losts for second time
+			// Why?? I don't know... but with a setTimeOut() works fine!
+			setTimeout(function(){
+				$.ajax({
+					url: that.source,
+					type: _method || 'GET',
+					data: _params,
+					// each component could have a different cache configuration
+					cache: cache,
+					async: true,
+					beforeSend: function(jqXHR){
+						// Ajax default HTTP headers
+						jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+					},
+					success: function(data, textStatus, jqXHR){
+						// TODO: It would be nice to re-use the onContentLoad callback.
+					that.contentCallback.call(that,data);
+					// Callback your way out
+						if (ch.utils.hasOwn(conf, "onContentLoad")) {
+							conf.onContentLoad.call(context, data, textStatus, jqXHR);
+						}
+						// Save new data to the cache
+					if (cache) {
+						ch.cache.set(that.source,data);
+					}
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+					// TODO: It would be nice to re-use the onContentError callback.
+					that.contentCallback.call(that,"<p>Error on ajax call </p>");
+					// Callback your way out
+						if (ch.utils.hasOwn(conf, "onContentError")) {
+							conf.onContentError.call(context, jqXHR, textStatus, errorThrown)
+						}
+					}
+				});
+			}, 0);
+
+			// Return Spinner and wait for callbacks
 			that.staticContent = '<div class="loading"></div>';
 
 		}
@@ -1313,12 +1313,12 @@ ch.object = function(){
 	};
 
 	/**
-	* Change component's position configuration. If a "refresh" {String} is recived, will refresh component's positioning with the same configuration. You can send an {Object} with a new configuration.
+	* Change component's position configuration. If a "refresh" {string} is recived, will refresh component's positioning with the same configuration. You can send an {object} with a new configuration.
 	* @name ch.Object#position
 	* @function
 	* @protected
-	* @param {String} ["refresh"] Refresh
-	* @returns {Object} Configuration object if no arguments are sended.
+	* @param {string} ["refresh"] Refresh
+	* @returns {object} Configuration object if no arguments are sended.
 	* @see ch.Positioner
 	*/	
 	// TODO: Add examples!!!
@@ -1360,7 +1360,7 @@ ch.object = function(){
 	* @name ch.Object#trigger
 	* @function
 	* @protected
-	* @param {String} event The event name you want to trigger.
+	* @param {string} event The event name you want to trigger.
 	* @since version 0.7.1
 	*/	
 	that.trigger = function(event) {
@@ -1376,7 +1376,7 @@ ch.object = function(){
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Object#uid
-	* @type {Number}
+	* @type number
 	* @ignore
 	*/
 		that["public"].uid = that.uid;
@@ -1392,7 +1392,7 @@ ch.object = function(){
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Object#type
-	* @type {String}
+	* @type string
 	* @ignore
 	*/
 	that["public"].type = that.type;
@@ -1416,7 +1416,7 @@ ch.object = function(){
 	* @public
 	* @name ch.Object#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
 	* me.content();
@@ -1444,9 +1444,9 @@ ch.object = function(){
 	* @public
 	* @function
 	* @name ch.Object#on
-	* @param {String} event Event name.
-	* @param {Function} handler Handler function.
-	* @returns {itself}
+	* @param {string} event Event name.
+	* @param {function} handler Handler function.
+	* @returns itself
 	* @since version 0.7.1
 	* @example
 	* // Will add a event handler to the "ready" event
@@ -1465,9 +1465,9 @@ ch.object = function(){
 	* @public
 	* @function
 	* @name ch.Object#off
-	* @param {String} event Event name.
-	* @param {Function} handler Handler function.
-	* @returns {itself}
+	* @param {string} event Event name.
+	* @param {function} handler Handler function.
+	* @returns itself
 	* @since version 0.7.1
 	* @example
 	* // Will remove event handler to the "ready" event
@@ -1492,7 +1492,7 @@ ch.object = function(){
 * @class Floats
 * @augments ch.Object
 * @requires ch.Positioner
-* @returns {ch Object}
+* @returns itself
 * @see ch.Tooltip
 * @see ch.Layer
 * @see ch.Modal
@@ -1504,7 +1504,7 @@ ch.floats = function() {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @protected
 	* @name ch.Floats#that
-	* @type {Object}
+	* @type object
 	*/ 
 	var that = this;
 	var conf = that.conf;
@@ -1523,8 +1523,8 @@ ch.floats = function() {
 	/**
  	* Creates a 'cone', is a visual asset for floats.
  	* @private
- 	* @name ch.Floats#createCone
  	* @function
+ 	* @name ch.Floats#createCone
  	*/ 
 	var createCone = function() {
 		$("<div class=\"ch-cone\">")
@@ -1534,8 +1534,8 @@ ch.floats = function() {
 	/**
  	* Creates close button.
  	* @private
- 	* @name ch.Floats#createClose
  	* @function
+ 	* @name ch.Floats#createClose
  	*/ 
 	var createClose = function() {
 		// Close Button
@@ -1556,7 +1556,7 @@ ch.floats = function() {
 	* Flag that indicates if the float is active and rendered on the DOM tree.
 	* @protected
 	* @name ch.Floats#active
-	* @type {Boolean}
+	* @type boolean
 	*/ 
 	that.active = false;
 
@@ -1564,7 +1564,7 @@ ch.floats = function() {
 	* Content configuration property.
 	* @protected
 	* @name ch.Floats#source
-	* @type {String}
+	* @type string
 	*/
 	that.source = conf.content || conf.msg || conf.ajax || that.$element.attr('href') || that.$element.parents('form').attr('action');
 
@@ -1572,7 +1572,7 @@ ch.floats = function() {
 	* Inner function that resolves the component's layout and returns a static reference.
 	* @protected
 	* @name ch.Floats#$container
-	* @type {jQuery Object}
+	* @type jQuery
 	*/ 
 	that.$container = (function() { // Create Layout
 
@@ -1605,7 +1605,7 @@ ch.floats = function() {
 	* Inner reference to content container. Here is where the content will be added.
 	* @protected
 	* @name ch.Floats#$content
-	* @type {jQuery Object}
+	* @type jQuery
 	* @see ch.Object#content
 	*/ 
 	that.$content = $("<div class=\"ch-"+ that.type +"-content\">").appendTo(that.$container);
@@ -1613,9 +1613,9 @@ ch.floats = function() {
 	/**
 	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
 	* @protected
-	* @name ch.Floats#contentCallback
 	* @function
-	* @returns {this}
+	* @name ch.Floats#contentCallback
+	* @returns itself
 	*/ 
 	that.contentCallback = function(data) {
 		that.staticContent = data;
@@ -1628,12 +1628,11 @@ ch.floats = function() {
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
-	* @name ch.Floats#innerShow
 	* @function
-	* @returns {this}
+	* @name ch.Floats#innerShow
+	* @returns itself
 	*/ 
 	that.innerShow = function(event) {
-
 		if (event) {
 			that.prevent(event);
 		}
@@ -1688,9 +1687,9 @@ ch.floats = function() {
 	/**
 	* Inner hide method. Hides the component and detach it from DOM tree.
 	* @protected
-	* @name ch.Floats#innerHide
 	* @function
-	* @returns {this}
+	* @name ch.Floats#innerHide
+	* @returns itself
 	*/ 
 	that.innerHide = function(event) {
 
@@ -1753,7 +1752,7 @@ ch.floats = function() {
 	* @name ch.Floats#size
 	* @param {String} prop Property that will be setted or getted, like "width" or "height".
 	* @param {String} [data] Only for setter. It's the new value of defined property.
-	* @returns {this}
+	* @returns itself
 	*/
 	that.size = function(prop, data) {
 		// Getter
@@ -1776,21 +1775,22 @@ ch.floats = function() {
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Floats#show
 	* @function
-	* @returns {this}
+	* @name ch.Floats#show
+	* @returns itself
 	*/
-	that["public"].show = function(){
+	that["public"].show = function(content){
+		if (content) { that.content(content); }
 		that.innerShow();
 		return that["public"];
 	};
-	
+
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Floats#hide
 	* @function
-	* @returns {this}
+	* @name ch.Floats#hide
+	* @returns itself
 	*/
 	that["public"].hide = function(){
 		that.innerHide();
@@ -1799,9 +1799,9 @@ ch.floats = function() {
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
-	* @name ch.Floats#width
 	* @function
-	* @returns {this}
+	* @name ch.Floats#width
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -1816,9 +1816,9 @@ ch.floats = function() {
 	/**
 	* Sets or gets the height of the Float element.
 	* @public
-	* @name ch.Floats#height
 	* @function
-	* @returns {this}
+	* @name ch.Floats#height
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -1834,9 +1834,9 @@ ch.floats = function() {
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
-	* @name ch.Floats#isActive
 	* @function
-	* @returns {Boolean}
+	* @name ch.Floats#isActive
+	* @returns boolean
 	*/
 	that["public"].isActive = function() {
 		return that.active;
@@ -1853,8 +1853,8 @@ ch.floats = function() {
 * @class Navs
 * @augments ch.Object
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Dropdown
 * @see ch.Expando
 */
@@ -1865,7 +1865,7 @@ ch.navs = function(){
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Navs#that
-	* @type {Object}
+	* @type object
 	*/ 
 	var that = this;
 	var conf = that.conf;
@@ -1906,7 +1906,7 @@ ch.navs = function(){
 	* Status of component
 	* @protected
 	* @name ch.Navs#active
-	* @returns {Boolean}
+	* @returns boolean
 	*/
 	that.active = false;
 
@@ -1914,7 +1914,7 @@ ch.navs = function(){
 	* Shows component's content.
 	* @protected
 	* @name ch.Navs#show
-	* @returns {itself}
+	* @returns itself
 	*/
 	that.show = function(event){
 		that.prevent(event);
@@ -1955,7 +1955,7 @@ ch.navs = function(){
 	* Hides component's content.
 	* @protected
 	* @name ch.Navs#hide
-	* @returns {itself}
+	* @returns itself
 	*/
 	that.hide = function(event){
 		that.prevent(event);
@@ -2045,7 +2045,7 @@ ch.navs = function(){
 * @class Controllers 
 * @augments ch.Object
 * @memberOf ch
-* @returns {Object}
+* @returns itself
 * @see ch.Accordion
 * @see ch.Carousel
 * @see ch.Form
@@ -2055,9 +2055,8 @@ ch.controllers = function(){
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Controllers
+	* @name ch.Controllers#that
+	* @type object
 	*/ 
 	var that = this;
 		
@@ -2070,9 +2069,8 @@ ch.controllers = function(){
  
 	/**
 	* Collection of children elements.
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.Controllers
+	* @name ch.Controllers#children
+	* @type collection
 	*/ 
 	that.children = [];
 			
@@ -2093,8 +2091,8 @@ ch.controllers = function(){
 * @requires ch.Form
 * @requires ch.Positioner
 * @requires ch.Events
-* @param {Object} o Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Required
 * @see ch.String
 * @see ch.Number
@@ -2107,7 +2105,7 @@ ch.watcher = function(conf) {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @protected
 	* @name ch.Watcher#that
-	* @type {Object}
+	* @type itself
 	*/ 
 	var that = this;
 	conf = ch.clon(conf);
@@ -2127,7 +2125,7 @@ ch.watcher = function(conf) {
 	* Reference to a ch.form controller. If there isn't any, the Watcher instance will create one.
 	* @private
 	* @name ch.Watcher#controller
-	* @type {Object}
+	* @type ch.Form
 	*/
 	var controller = (function() {
 		if ( ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0 ) {	
@@ -2150,7 +2148,7 @@ ch.watcher = function(conf) {
 	* @private
 	* @name ch.Watcher#checkInstance
 	* @function
-	* @returns {Object}
+	* @returns object
 	*/	
 	var checkInstance = function() {
 		var instance = ch.instances.watcher;
@@ -2186,7 +2184,7 @@ ch.watcher = function(conf) {
 	* Flag that let you know if there's a validation going on.
 	* @protected
 	* @name ch.Watcher#active
-	* @type {Boolean}
+	* @type boolean
 	*/ 
 	that.active = false;
 	
@@ -2194,7 +2192,7 @@ ch.watcher = function(conf) {
 	* Flag that let you know if the watchers is enabled or not.
 	* @protected
 	* @name ch.Watcher#enabled
-	* @type {Boolean}
+	* @type boolean
 	*/ 
 	that.enabled = true;
 	
@@ -2202,7 +2200,7 @@ ch.watcher = function(conf) {
 	* This clousure is used as a reference to the positioning preferences.
 	* @protected
 	* @name ch.Watcher#reference
-	* @type {jQuery Object}
+	* @type jQuery
 	*/ 
 	that.reference = (function() {
 		var reference;
@@ -2230,7 +2228,7 @@ ch.watcher = function(conf) {
 	* This clousure process conditions and creates a map with all configured conditions, it's messages and validations.
 	* @protected
 	* @name ch.Watcher#conditions
-	* @type {Boolean}
+	* @type array
 	*/ 
 	that.conditions = (function(){
 		var c = []; // temp collection
@@ -2268,7 +2266,7 @@ ch.watcher = function(conf) {
 	* @private
 	* @name ch.Watcher#isRequired
 	* @function
-	* @return {Boolean}
+	* @return boolean
 	*/
 	that.isRequired = function(){
 		var t = that.conditions.length;
@@ -2285,7 +2283,7 @@ ch.watcher = function(conf) {
 	* Helper is a UI Component that shows the messages of active validations.
 	* @private
 	* @name ch.Watcher#helper
-	* @type {ch.Helper}
+	* @type ch.Helper
 	* @see ch.Helper
 	*/
 	var helper = {};
@@ -2301,7 +2299,7 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#validate
 	* @function
-	* @return {itself}
+	* @return itself
 	*/
 	that.validate = function(event) {	
 
@@ -2442,7 +2440,7 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#reset
 	* @function
-	* @return {itself}
+	* @return itself
 	*/
 	that.reset = function() {
 		//that.publish.status = that.status = conf.status = true; // Public status OK
@@ -2474,7 +2472,7 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#isEmpty
 	* @function
-	* @return {Boolean}
+	* @return boolean
 	*/
 	that.isEmpty = function() {
 		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
@@ -2505,21 +2503,21 @@ ch.watcher = function(conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Watcher#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Watcher#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Watcher#type
-	* @type {String}
+	* @type string
 	*/
 	that["public"].type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
 
@@ -2527,7 +2525,7 @@ ch.watcher = function(conf) {
 	* Used by the helper's positioner to do his magic.
 	* @public
 	* @name ch.Watcher#reference
-	* @type {jQuery Object}
+	* @type jQuery
 	* @TODO: remove 'reference' from public scope
 	*/
 	that["public"].reference = that.reference;
@@ -2536,7 +2534,7 @@ ch.watcher = function(conf) {
 	* This public Map saves all the validation configurations from this instance.
 	* @public
 	* @name ch.Watcher#conditions
-	* @type {Object}
+	* @type object
 	*/
 	that["public"].conditions = that.conditions;
 
@@ -2544,7 +2542,7 @@ ch.watcher = function(conf) {
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
 	* @name ch.Watcher#type
-	* @type {String}
+	* @type string
 	* @see ch.Floats
 	*/
 	that["public"].helper = that.helper["public"];
@@ -2554,7 +2552,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#active
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/	
 	that["public"].active = function() {
 		return that.active;
@@ -2565,7 +2563,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#and
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].and = function() {
 		return that.$element;
@@ -2576,7 +2574,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#reset
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].reset = function() {
 		that.reset();
@@ -2589,7 +2587,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @function
 	* @name ch.Watcher#validate
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].validate = function() {
 		that.validate();
@@ -2602,7 +2600,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#enable
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].enable = function() {
 		that.enabled = true;
@@ -2615,7 +2613,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#disable
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].disable = function() {
 		that.enabled = false;
@@ -2629,7 +2627,7 @@ ch.watcher = function(conf) {
 	* @public
 	* @name ch.Watcher#refresh
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that["public"].refresh = function() {
 		that.helper.position("refresh");
@@ -2677,7 +2675,7 @@ ch.watcher = function(conf) {
 * @name Keyboard
 * @class Keyboard
 * @memberOF ch
-* @param {Event Object} event
+* @param event
 */ 
 
 ch.keyboard = function(event) {
@@ -2685,9 +2683,8 @@ ch.keyboard = function(event) {
 	/**
 	* Map with references to key codes.
 	* @private
-	* @name keyCodes
-	* @type {Object}
-	* @memberOf ch.Keyboard
+	* @name ch.Keyboard#keyCodes
+	* @type object
 	*/ 
 	var keyCodes = {
 		"13": "ENTER",
@@ -2709,8 +2706,8 @@ ch.keyboard = function(event) {
 * @name Preload
 * @class Preload
 * @memberOf ch
-* @param {Array} [arr] Collection of image sources
-* @param {String} [str] A single image source
+* @param {array} [arr] Collection of image sources
+* @param {string} [str] A single image source
 * @example
 * ch.preload(["img1.jpg","img2.jpg","img3.png"]);
 * @example
@@ -2738,7 +2735,7 @@ ch.preload = function(arr) {
 * @name List
 * @class List
 * @memberOf ch
-* @param {Array} [collection] Constructs a List with an optional initial collection
+* @param {array} [collection] Constructs a List with an optional initial collection
 */
 
 ch.list = function( collection ) {
@@ -2747,9 +2744,8 @@ ch.list = function( collection ) {
 
 	/**
 	* @public
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.List
+	* @name ch.List#children
+	* @type collection
 	*/
 	var _children = ( collection && ch.utils.isArray( collection ) ) ? collection : [] ;
 
@@ -2757,13 +2753,12 @@ ch.list = function( collection ) {
 	* Seek members inside the collection by index, query string or object comparison.
 	* @private
 	* @function
-	* @name _find
-	* @param {Number} [q]
-	* @param {String} [q]
-	* @param {Object} [q]
-	* @param {Function} [a]
-	* @return {Object} Returns the finded element
-	* @memberOf ch.List
+	* @name ch.List#_find
+	* @param {number} [q]
+	* @param {string} [q]
+	* @param {object} [q]
+	* @param {function} [a]
+	* @return object
 	*/
 	var _find = function(q, a) {
 		// null search return the entire collection
@@ -2802,13 +2797,12 @@ ch.list = function( collection ) {
 	* Adds a new child (or more) to the collection.
 	* @public
 	* @function
-	* @name add
-	* @param {String} [child]
-	* @param {Object} [child]
-	* @param {Array} [child]
-	* @memberOf ch.List
-	* @returns {Number} The index of the added child.
-	* @returns {Collection} Returns the entire collecction if the input is an array.
+	* @name ch.List#add
+	* @param {string} [child]
+	* @param {object} [child]
+	* @param {array} [child]
+	* @returns number The index of the added child.
+	* @returns collection Returns the entire collecction if the input is an array.
 	*/
 	var add = function( child ) {
 		
@@ -2826,12 +2820,11 @@ ch.list = function( collection ) {
 	* Removes a child from the collection by index, query string or object comparison.
 	* @public
 	* @function
-	* @name rem
-	* @param {Number} [q]
-	* @param {String} [q]
-	* @param {Object} [q]
-	* @return {Object} Returns the removed element
-	* @memberOf ch.List
+	* @name ch.List#rem
+	* @param {number} [q]
+	* @param {string} [q]
+	* @param {object} [q]
+	* @return {object} Returns the removed element
 	*/
 	var rem = function( q ) {
 		// null search return
@@ -2851,11 +2844,11 @@ ch.list = function( collection ) {
 	* Get a child from the collection by index, query string or object comparison.
 	* @public
 	* @function
-	* @name get
-	* @param {Number} [q] Get a child from the collection by index number.
-	* @param {String} [q] Get a child from the collection by a query string.
-	* @param {Object} [q] Get a child from the collection by comparing objects.
-	* @memberOf ch.List
+	* @name ch.List#get
+	* @param {number} [q] Get a child from the collection by index number.
+	* @param {string} [q] Get a child from the collection by a query string.
+	* @param {object} [q] Get a child from the collection by comparing objects.
+	* @return object
 	*/
 	var get = function( q ) {
 
@@ -2867,9 +2860,8 @@ ch.list = function( collection ) {
 	* Get the amount of children from the collection.
 	* @public
 	* @function
-	* @name size
-	* @return {Number}
-	* @memberOf ch.List
+	* @name ch.List#size
+	* @return number
 	*/
 
 	var size = function() {
@@ -2896,9 +2888,10 @@ ch.list = function( collection ) {
 * @name Extend
 * @class Extend
 * @memberOf ch
-* @param {String} name Interface's name.
-* @param {Function} klass Class to inherit from.
-* @param {Function} [process] Optional function to pre-process configuration, recieves a 'conf' param and must return the configration object.
+* @param {string} name Interface's name.
+* @param {function} klass Class to inherit from.
+* @param {function} [process] Optional function to pre-process configuration, recieves a 'conf' param and must return the configration object.
+* @returns class
 * @example
 * // Create an URL interface type based on String component.
 * ch.extend("string").as("url");
@@ -2962,8 +2955,8 @@ ch.extend = function (klass) {
 * @name onImagesLoads
 * @class onImagesLoads
 * @memberOf ch
-* @param {Array of images}
-* @returns {jQuery Object}
+* @param array
+* @returns jQuery
 * @example
 * $("img").onImagesLoads(function(){ ... });
 */
@@ -2973,9 +2966,8 @@ ch.onImagesLoads = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.onImagesLoads
+	* @name ch.onImagesLoads#that
+	* @type object
 	*/
 	var that = this;
 	conf = ch.clon(conf);
@@ -3011,9 +3003,9 @@ ch.factory({ component: "onImagesLoads" });
 * changing background color from yellow to white.
 * @function
 * @name blink
-* @param {Selector} selector CSS Selector to blink a collection
-* @param {Number} [time] Amount of time to blink
-* @returns {jQuery Object}
+* @param {selector} selector CSS Selector to blink a collection
+* @param {number} [time] Amount of time to blink
+* @returns jQuery
 * @memberOf ch
 */
 ch.blink = function (conf) {
@@ -3053,26 +3045,25 @@ ch.blink = function (conf) {
 	}
 	// Return the element so keep chaining things.
 	return that.$element;
-}
-/**
+}/**
 * Carousel is a UI-Component.
 * @name Carousel
 * @class Carousel
 * @augments ch.Object
-* @requires ch.List   
+* @requires ch.List
 * @memberOf ch
 * @param {Configuration Object} conf Object with configuration properties
 * @returns {Chico-UI Object}
 */
- 
-ch.carousel = function(conf){
+
+ch.carousel = function (conf) {
 	
 	/**
-	* Reference to a internal component instance, saves all the information and configuration properties.	* @private
-	* @name that
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @protected
+	* @name ch.Carousel#that
 	* @type {Object}
-	* @memberOf ch.Carousel
-	*/	
+	*/
 	var that = this;
 	
 	conf = ch.clon(conf);
@@ -3081,15 +3072,14 @@ ch.carousel = function(conf){
 	conf.pagination = conf.pagination || false;
 	
 	// Configuration for continue carousel
-	// TODO: Rolling is forced to be false. Use this instead:
-	// if( ch.utils.hasOwn(conf, "rolling") ) { conf.rolling = conf.rolling; } else { conf.rolling = true; };
+	// TODO: Rolling is forced to be false. Use this: conf.rolling = (ch.utils.hasOwn(conf, "rolling")) ? conf.rolling : true;
 	conf.rolling = false;
 	
 	// Configurable arrows
-	if( ch.utils.hasOwn(conf, "arrows") ) { conf.arrows = conf.arrows; } else { conf.arrows = true; };
+	conf.arrows = (ch.utils.hasOwn(conf, "arrows")) ? conf.arrows : true;
 	
 	// Configurable efects
-	if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; };
+	conf.fx = (ch.utils.hasOwn(conf, "fx")) ? conf.fx : true;
 	
 	that.conf = conf;
 	
@@ -3105,316 +3095,395 @@ ch.carousel = function(conf){
 */
 	
 	/**
-	* Creates the necesary structure to carousel operation.
-	* @private
-	* @function
-	* @name _createLayout
-	* @memberOf ch.Carousel
-	*/
-	var _createLayout = function() {
-
-		// Create carousel's content
-		that.$content = $("<div>")
-			.addClass("ch-carousel-content")
-			.append( that.$collection );
-
-		// Create carousel's mask
-		that.$container = $("<div>")
-			.addClass("ch-carousel-container")
-			.css("height", that.itemSize.height)
-			.append( that.$content )
-			.appendTo( that.$element );
-
-		// Visual configuration
-		if ( ch.utils.hasOwn(conf, "width") ) { that.$element.css("width", conf.width); };
-		if ( ch.utils.hasOwn(conf, "height") ) { that.$element.css("height", conf.height); };
-		if ( !conf.fx && ch.features.transition ) { that.$content.addClass("ch-carousel-nofx"); };
-
-		return;
-	},
-	
-	/**
 	* Creates Previous and Next arrows.
 	* @private
 	* @function
-	* @name _createArrows
-	* @memberOf ch.Carousel
+	* @name ch.Carousel#createArrows
 	*/
-	_createArrows = function(){
+	var createArrows = function () {
 		
 		// Previous arrow
-		that.prevArrow = $("<p>")
-			.addClass("ch-prev-arrow")
-			.append("<span>Previous</span>")
-			.bind("click", that.prev);
+		that.prevArrow = $("<p class=\"ch-prev-arrow" + (conf.rolling ? "" : " ch-hide") + "\"><span>Previous</span></p>")
+			.bind("click", that.prev)
+			.prependTo(that.$element)
+			[0];
 		
 		// Next arrow
-		that.nextArrow = $("<p>")
-			.addClass("ch-next-arrow")
-			.append("<span>Next</span>")
-			.bind("click", that.next);
+		that.nextArrow = $("<p class=\"ch-next-arrow\"><span>Next</span></p>")
+			.bind("click", that.next)
+			.appendTo(that.$element)
+			[0];
 		
-		// Continue carousel arrows behavior
-		if ( !conf.rolling ) { that.prevArrow.addClass("ch-hide") };
+		// Positions arrows vertically in middle of Carousel
+		var position = (that.$element.outerHeight() - $(that.nextArrow).outerHeight()) / 2;
 		
-		// Append arrows to carousel
-		that.$element.prepend(that.prevArrow).append(that.nextArrow);
-		
-		// Positions arrows vertically inside carousel
-		var arrowsPosition = (that.$element.outerHeight() - that.nextArrow.outerHeight()) / 2;
-		$(that.prevArrow).css("top", arrowsPosition);
-		$(that.nextArrow).css("top", arrowsPosition);
-
-		return;
+		that.prevArrow.style.top = that.nextArrow.style.top = position + "px";
 	},
 	
 	/**
-	* Manages arrows turning it on and off when non-continue carousel is on first or last page.
+	* Manages arrows turning it on and off when non-continue Carousel is moving.
 	* @private
 	* @function
-	* @name _toggleArrows
+	* @name ch.Carousel#toggleArrows
 	* @param {Number} page Page to be moved
-	* @memberOf ch.Carousel
 	*/
-	_toggleArrows = function(page){
-		
+	toggleArrows = function (page) {
 		// Both arrows shown on carousel's middle
-		if (page > 1 && page < that.pages ){
-			that.prevArrow.removeClass("ch-hide");
-			that.nextArrow.removeClass("ch-hide");
+		if (page > 1 && page < that.pages) {
+			that.prevArrow.className = "ch-prev-arrow";
+			that.nextArrow.className = "ch-next-arrow";
 		} else {
-			// Previous arrow hidden on first page
-			if (page == 1) { that.prevArrow.addClass("ch-hide"); that.nextArrow.removeClass("ch-hide"); };
-			
-			// Next arrow hidden on last page
-			if (page == that.pages) { that.prevArrow.removeClass("ch-hide"); that.nextArrow.addClass("ch-hide"); };
-		};
-
-		return;
+		// Previous arrow hidden on first page
+			if (page === 1) {
+				that.prevArrow.className = "ch-prev-arrow ch-hide";
+				that.nextArrow.className = "ch-next-arrow";
+		// Next arrow hidden on last page
+			} else if (page === that.pages) {
+				that.prevArrow.className = "ch-prev-arrow";
+				that.nextArrow.className = "ch-next-arrow ch-hide";
+			}
+		}
 	},
 	
 	/**
-	* Creates carousel pagination.
+	* Creates Carousel pagination.
 	* @private
 	* @function
-	* @name _createPagination
-	* @memberOf ch.Carousel
+	* @name ch.Carousel#createPagination
 	*/
-	_createPagination = function(){
+	createPagination = function () {
 		
 		// Deletes pagination if already exists
 		that.$element.find(".ch-carousel-pages").remove();
 		
 		// Create an list of elements for new pagination
-		that.$pagination = $("<ul>").addClass("ch-carousel-pages");
+		that.$pagination = $("<ul class=\"ch-carousel-pages\">");
 
 		// Create each mini thumbnail
 		for (var i = 1; i <= that.pages; i += 1) {
 			// Thumbnail <li>
-			var thumb = $("<li>").html(i);
+			var thumb = $("<li>" + i + "</li>");
 			
 			// Mark as actived if thumbnail is the same that current page
-			if (i == that.currentPage) { thumb.addClass("ch-carousel-pages-on"); };
+			if (i === that.currentPage) { thumb.addClass("ch-carousel-pages-on"); }
 			
 			// Append thumbnail to list
 			that.$pagination.append(thumb);
 		};
 
 		// Bind each thumbnail behavior
-		$.each(that.$pagination.children(), function(i, e){
-			$(e).bind("click", function(){
+		$.each(that.$pagination.children(), function (i, e) {
+			$(e).bind("click", function () {
 				that.goTo(i + 1);
 			});
 		});
 		
 		// Append list to carousel
-		that.$element.append( that.$pagination );
+		that.$element.append(that.$pagination);
 		
 		// Positions list
 		that.$pagination.css("left", (that.$element.outerWidth() - that.$pagination.outerWidth()) / 2);
 		
 		// Save each generated thumb into an array
-		_$itemsPagination = that.$pagination.children();
-			
-		return;
-	},
-	
-	/**
-	* Calculates items amount on each page.
-	* @private
-	* @function
-	* @name _getItemsPerPage
-	* @memberOf ch.Carousel
-	* @returns {Number} Items amount on each page
-	*/
-	_getItemsPerPage = function(){
-		// Space to be distributed among all items
-		var _widthDiff = that.$element.outerWidth() - that.itemSize.width;
-		
-		// If there are space to be distributed, calculate pages
-		return (_widthDiff > that.itemSize.width) ? ~~(_widthDiff / that.itemSize.width) : 1;
+		$itemsPagination = that.$pagination.children();
 	},
 	
 	/**
 	* Calculates total amount of pages.
 	* @private
 	* @function
-	* @name _getPages
-	* @memberOf ch.Carousel
+	* @name ch.Carousel#getPages
 	* @returns {Number} Total amount of pages
 	*/
-	_getPages = function(){
+	getPages = function () {
 		// (Total amount of items) / (items amount on each page)
-		return  Math.ceil( that.items.children.length / that.itemsPerPage );
+		return Math.ceil((that.$collection.children().length + that.items.queue.length) / that.items.onEachPage);
 	},
 
 	/**
-	* Calculates all necesary data to draw carousel correctly.
+	* Calculates all necesary data to draw Carousel correctly.
 	* @private
 	* @function
-	* @name _draw
-	* @memberOf ch.Carousel
+	* @name ch.Carousel#draw
 	*/
-	_draw = function(){
+	draw = function () {
 		
 		// Reset size of carousel mask
-		_maskWidth = that.$container.outerWidth();
-
+		maskWidth = that.$container.outerWidth();
+		
 		// Recalculate items amount on each page
-		that.itemsPerPage = _getItemsPerPage();
+		that.items.getItemsPerPage();
 		
 		// Recalculate total amount of pages
-		that.pages = _getPages();
+		that.pages = getPages();
 		
 		// Calculate variable margin between each item
-		var _itemMargin = (( _maskWidth - (that.itemSize.width * that.itemsPerPage) ) / that.itemsPerPage ) / 2;
+		that.items.margin = Math.ceil(((maskWidth - (that.items.width * that.items.onEachPage)) / that.items.onEachPage) / 2);
 		
 		// Modify sizes only if new items margin are positive numbers
-		if (_itemMargin < 0) return;
+		if (that.items.margin < 0) { return; }
 		
 		// Detach content from DOM for make a few changes
 		that.$content.detach();
 		
-		// Move carousel to first page for reset initial position
+		// Move Carousel to first page for reset initial position
 		that.goTo(1);
 		
-		// Sets new margin to each item
-		$.each(that.items.children, function(i, e){
-			e.style.marginLeft = e.style.marginRight = _itemMargin + "px";
-		});
+		// Get all rendered items
+		var items = that.$collection.children(),
+		
+		// Save rendered items amount
+			i = items.length;
+		
+		// Set new margin to all items
+		while (i) {
+			items[i -= 1].style.marginLeft = items[i].style.marginRight = that.items.margin + "px";
+		}
 		
 		// Change content size and append it to DOM again
+		// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
 		that.$content
-			.css("width", ((that.itemSize.width + (_itemMargin * 2)) * that.items.size() + _extraWidth) )
+			.css("width", (that.items.width + that.items.margin * 2) * items.length + extraWidth)
 			.appendTo(that.$container);
 		
 		// Create pagination if there are more than one page on total amount of pages
-		if ( conf.pagination && that.pages > 1) { _createPagination(); };
-		
-		return;
+		if (conf.pagination && that.pages > 1) { createPagination(); }
 	},
 	
 	/**
 	* Size of carousel mask.
 	* @private
-	* @name _maskWidth
+	* @name ch.Carousel#maskWidth
 	* @type {Number}
-	* @memberOf ch.Carousel
 	*/
-	_maskWidth,
+	maskWidth,
 	
 	/**
 	* List of pagination thumbnails.
 	* @private
-	* @name _$itemsPagination
+	* @name ch.Carousel#$itemsPagination
 	* @type {Array}
-	* @memberOf ch.Carousel
 	*/
-	_$itemsPagination,
+	$itemsPagination,
 	
 	/**
-	* Extra size calculated on content
+	* Extra size calculated on content. Fix some IE6 issues.
 	* @private
-	* @name _extraWidth
+	* @name ch.Carousel#extraWidth
 	* @type {Number}
-	* @memberOf ch.Carousel
 	*/
-	_extraWidth,
+	extraWidth,
 	
 	/**
 	* Resize status of Window.
 	* @private
-	* @name _resize
+	* @name ch.Carousel#resizing
 	* @type {Boolean}
-	* @memberOf ch.Carousel
 	*/
-	_resize = false;
+	resizing = false;
 
 /**
 *  Protected Members
 */
-
-	/**
-	* UL list of items.
-	* @private
-	* @name $collection
-	* @type {Array}
-	* @memberOf ch.Carousel
-	*/
-	that.$collection = that.$element.children();
 	
 	/**
-	* List object created from each item.
-	* @private
-	* @name items
-	* @type {Object}
-	* @memberOf ch.Carousel
+	* List of items.
+	* @protected
+	* @name ch.Carousel#$collection
+	* @type jQuery Object
 	*/
-	that.items = ch.list( that.$collection.children().toArray() );
+	that.$collection = that.$element.addClass("ch-carousel").children("ul").addClass("ch-carousel-list");
 	
 	/**
-	* Width and height of first item.
-	* @private
-	* @name itemSize
-	* @type {Object}
-	* @memberOf ch.Carousel
+	* Mask for deny overflow of content.
+	* @protected
+	* @name ch.Carousel#$container
+	* @type jQuery Object
 	*/
-	that.itemSize = {
-		width: $(that.items.children[0]).outerWidth(),
-		height: $(that.items.children[0]).outerHeight()
-	};
-
+	that.$container = $("<div class=\"ch-carousel-container\">").appendTo(that.$element);
+	
 	/**
-	* Page selected.
+	* Element that will move for both directions.
+	* @protected
+	* @name ch.Carousel#$content
+	* @type jQuery Object
+	*/
+	that.$content = $("<div class=\"ch-carousel-content\">").append(that.$collection).appendTo(that.$container);
+	
+	/**
+	* References to items attributes and manages internal queue for asynchronous item load.
+	* @protected
+	* @name ch.Carousel#items
+	* @type Object
+	*/
+	that.items = (function () {
+		
+		// Items rendered
+		var items = that.$collection.children().addClass("ch-carousel-item"),
+		
+		// Create an object to be exposed
+			self = {};
+		
+		/**
+		* Reference to items size.
+		* @protected
+		* @name width
+		* @type Number
+		* @memberOf items
+		*/
+		self.width = items.outerWidth();
+		
+		/**
+		* List of items that should be loaded on page movement.
+		* @protected
+		* @name queue
+		* @type Array
+		* @memberOf items
+		*/
+		self.queue = conf.asyncData || [];
+		
+		/**
+		* CSS margin between each item.
+		* @protected
+		* @name margin
+		* @type Number
+		* @memberOf items
+		*/
+		self.margin = 0;
+		
+		/**
+		* Adds items from queue to List Object and renders these into collection
+		* @protected
+		* @name add
+		* @function
+		* @memberOf items
+		*/
+		self.add = function (amount) {
+			
+			// Take the sample from queue
+			var sample = self.queue.splice(0, amount);
+			
+			// Append asynchronous items to collection
+			for (var i = 0, j = sample.length; i < j; i += 1) {
+				sample[i] = "<li class=\"ch-carousel-item\" style=\"margin-left:" + self.margin + "px;margin-right:" + self.margin + "px;\">" + ((ch.utils.hasOwn(conf, "asyncRender")) ? conf.asyncRender(sample[i]) : sample[i]) + "</li>";
+			};
+			
+			// Expand content width for include new items (item width and margin) * (total amount of items) + extra width
+			// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
+			that.$content.css("width", (self.width + self.margin * 2) * (that.$collection.children().length + amount) + extraWidth);
+			
+			// Append collection again
+			that.$collection.append(sample.join(""));
+			
+			/**
+			* Callback function
+			* @name ch.Carousel#onItemsAdded
+			* @type {Function}
+			*/
+			that.callbacks("onItemsAdded");
+			// new callback
+			that.trigger("itemsAdded");
+		};
+		
+		/**
+		* Calculates items amount on each page.
+		* @protected
+		* @name getItemsPerPage
+		* @function
+		* @memberOf items
+		*/
+		// TODO: Maybe widthDiff is the same that items.margin
+		self.getItemsPerPage = function () {
+			// Space to be distributed among all items
+			var widthDiff = that.$element.outerWidth() - self.width;
+			
+			// If there are space to be distributed, calculate pages
+			return self.onEachPage = (widthDiff > self.width) ? ~~(widthDiff / self.width) : 1;
+		};
+		
+		/**
+		* Items amount on each page.
+		* @protected
+		* @name onEachPage
+		* @type Number
+		* @memberOf items
+		*/
+		self.onEachPage = self.getItemsPerPage();
+		
+		// Calculate extra width for content
+		extraWidth = (ch.utils.html.hasClass("ie6")) ? self.width : 0;
+		
+		// Set container size based on items size
+		that.$container.css("height", items.outerHeight());
+		
+		// At the begin, add items from queue if page is incomplete
+		if (items.length < self.onEachPage) {
+			self.add(self.onEachPage - items.length);
+		}
+		
+		// Asynchronous items load
+		that["public"].on("next", function () {
+			
+			// Load only when there are items in queue
+			if (self.queue.length === 0) { return; }
+			
+			// Amount of items from the beginning to current page
+			var itemsHere = that.currentPage * self.onEachPage,
+			
+			// Items rendered
+				itemsRendered = that.$collection.children().length;
+			
+			// Load only when there are more visible items than items rendered
+			if (itemsHere < itemsRendered) { return; }
+			
+			// How many items needs to add for complete next page
+			var amount = itemsHere % itemsRendered,
+			
+			// If isn't needed items to complete a page, then add an entire page
+				sampleSize = (amount === 0) ? self.onEachPage : amount;
+			
+			// Add these
+			self.add(sampleSize);
+			
+		});
+		
+		return self;
+		
+	}());
+	
+	// Calculate items amount on each page
+	//that.itemsPerPage = getItemsPerPage();
+		
+	/**
+	* The page that is selected.
 	* @private
-	* @name currentPage
+	* @name ch.Carousel#currentPage
 	* @type {Number}
-	* @memberOf ch.Carousel
 	*/
 	that.currentPage = 1;
 
-	that.goTo = function(page){
+	that.goTo = function (page) {
 		
 		// Validation of page parameter
-		if (page == that.currentPage || page > that.pages || page < 1 || isNaN(page)) { return that; };
+		if (page === that.currentPage || page > that.pages || page < 1 || isNaN(page)) { return that; }
 		
 		// Coordinates to next movement
-		var movement = -(_maskWidth * (page - 1));
+		var movement = -(maskWidth * (page - 1));
 
 		// TODO: review this conditional
 		// Movement with CSS transition
 		if (conf.fx && ch.features.transition) {
 			that.$content.css("left", movement);
 		// Movement with jQuery animate
-		} else if (conf.fx){
+		} else if (conf.fx) {
 			that.$content.animate({ left: movement });
 		// Movement without transition or jQuery
 		} else {
 			that.$content.css("left", movement);
-		};
+		}
 
 		// Manage arrows
-		if (!conf.rolling && conf.arrows) { _toggleArrows(page); };
+		if (!conf.rolling && conf.arrows) { toggleArrows(page); }
 		
 		// Refresh selected page
 		that.currentPage = page;
@@ -3422,17 +3491,13 @@ ch.carousel = function(conf){
 		// TODO: Use toggleClass() instead remove and add.
 		// Select thumbnail on pagination
 		if (conf.pagination) {
-			_$itemsPagination
-				.removeClass("ch-carousel-pages-on")
-				.eq(page - 1)
-				.addClass("ch-carousel-pages-on");
-		};
+			$itemsPagination.removeClass("ch-carousel-pages-on").eq(page - 1).addClass("ch-carousel-pages-on");
+		}
 		
 		/**
 		* Callback function
-		* @name onMove
+		* @name ch.Carousel#onMove
 		* @type {Function}
-		* @memberOf ch.Carousel
 		*/
 		that.callbacks("onMove");
 		// new callback
@@ -3441,16 +3506,15 @@ ch.carousel = function(conf){
 		return that;
 	};
 
-		that.prev = function(){
+	that.prev = function () {
+		
 		that.goTo(that.currentPage - 1);
 
 		/**
 		* Callback function
-		* @name onPrev
+		* @name ch.Carousel#onPrev
 		* @type {Function}
-		* @memberOf ch.Carousel
 		*/
-
 		that.callbacks("onPrev");
 		// new callback
 		that.trigger("prev");
@@ -3458,16 +3522,15 @@ ch.carousel = function(conf){
 		return that;
 	};
 	
-	that.next = function(){
+	that.next = function () {
+		
 		that.goTo(that.currentPage + 1);
 
 		/**
 		* Callback function
-		* @name onNext
+		* @name ch.Carousel#onNext
 		* @type {Function}
-		* @memberOf ch.Carousel
 		*/
-
 		that.callbacks("onNext");
 		// new callback
 		that.trigger("next");
@@ -3483,56 +3546,47 @@ ch.carousel = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
+	* @name ch.Carousel#uid
 	* @type {Number}
-	* @memberOf ch.Carousel
-	*/ 
-	that["public"].uid = that.uid;
+	*/
 	
 	/**
 	* The element reference.
 	* @public
-	* @name element
+	* @name ch.Carousel#element
 	* @type {HTMLElement}
-	* @memberOf ch.Carousel
 	*/
-	that["public"].element = that.element;
 
 	/**
 	* The component's type.
 	* @public
-	* @name type
+	* @name ch.Carousel#type
 	* @type {String}
-	* @memberOf ch.Carousel
 	*/
-	that["public"].type = that.type;
 
 	/**
 	* Get the items amount of each page.
 	* @public
-	* @name getItemsPerPage
+	* @name ch.Carousel#getItemsPerPage
 	* @returns {Number}
-	* @memberOf ch.Carousel
 	*/
-	that["public"].getItemsPerPage = function() { return that.itemsPerPage; };
+	that["public"].getItemsPerPage = function () { return that.items.onEachPage; };
 	
 	/**
 	* Get the total amount of pages.
 	* @public
-	* @name getPage
+	* @name ch.Carousel#getPage
 	* @returns {Number}
-	* @memberOf ch.Carousel
 	*/
-	that["public"].getPage = function() { return that.currentPage; };
+	that["public"].getPage = function () { return that.currentPage; };
 	
 	/**
-	* Moves to a defined page.
+	* Moves to a defined page. Only works when Carousel hasn't asynchronous item load.
 	* @public
 	* @function
-	* @name goTo
+	* @name ch.Carousel#goTo
 	* @returns {Chico-UI Object}
 	* @param {Number} page Page to be moved
-	* @memberOf ch.Carousel
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -3540,18 +3594,20 @@ ch.carousel = function(conf){
 	* // Go to second page
 	* foo.goTo(2);
 	*/
-	that["public"].goTo = function(page) {
-		that.goTo(page);
-
-  		return that["public"];
-	};
+	// TODO: Add support to goTo function on asynchronous item load.
+	if (!ch.utils.hasOwn(conf, "asyncData")) {
+		that["public"].goTo = function (page) {
+			that.goTo(page);
+	
+			return that["public"];
+		};
+	}
 	
 	/**
 	* Moves to the next page.
 	* @public
-	* @name next
+	* @name ch.Carousel#next
 	* @returns {Chico-UI Object}
-	* @memberOf ch.Carousel
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -3559,7 +3615,7 @@ ch.carousel = function(conf){
 	* // Go to next page
 	* foo.next();
 	*/
-	that["public"].next = function(){
+	that["public"].next = function () {
 		that.next();
 
 		return that["public"];
@@ -3568,9 +3624,8 @@ ch.carousel = function(conf){
 	/**
 	* Moves to the previous page.
 	* @public
-	* @name prev
+	* @name ch.Carousel#prev
 	* @returns {Chico-UI Object}
-	* @memberOf ch.Carousel
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -3578,7 +3633,7 @@ ch.carousel = function(conf){
 	* // Go to previous page
 	* foo.prev();
 	*/
-	that["public"].prev = function(){
+	that["public"].prev = function () {
 		that.prev();
 
 		return that["public"];
@@ -3587,9 +3642,8 @@ ch.carousel = function(conf){
 	/**
 	* Re-calculate positioning, sizing, paging, and re-draw.
 	* @public
-	* @name redraw
+	* @name ch.Carousel#redraw
 	* @returns {Chico-UI Object}
-	* @memberOf ch.Carousel
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -3597,8 +3651,8 @@ ch.carousel = function(conf){
 	* // Re-draw carousel
 	* foo.redraw();
 	*/
-	that["public"].redraw = function(){
-		_draw();
+	that["public"].redraw = function () {
+		draw();
 		
 		return that["public"];
 	};
@@ -3608,64 +3662,54 @@ ch.carousel = function(conf){
 *  Default event delegation
 */
 	
-	// Add class name to carousel container
-	that.$element.addClass("ch-carousel");
+	// Visual configuration
+	if (ch.utils.hasOwn(conf, "width")) { that.$element.css("width", conf.width); }
+	if (ch.utils.hasOwn(conf, "height")) { that.$element.css("height", conf.height); }
+	if (!conf.fx && ch.features.transition) { that.$content.addClass("ch-carousel-nofx"); }
 
-	// Add class name to collection and its children
-	that.$collection
-		.detach()
-		.addClass("ch-carousel-list")
-		.children()
-			.addClass("ch-carousel-item");
-
-	// Creates the necesary structure to carousel operation
-	_createLayout();
-
-	// Calculate extra width for content before draw carousel
-	_extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemSize.width : 0;
-	
 	// Calculates all necesary data to draw carousel correctly
-	_draw();
+	draw();
 
 	// Creates Previous and Next arrows
-	if ( conf.arrows && that.pages > 1) { _createArrows(); };
+	if (conf.arrows && that.pages > 1) { createArrows(); }
 
-	// Elastic behavior	
-	if ( !conf.hasOwnProperty("width") ){
+	// Default behavior	
+	if (ch.utils.hasOwn(conf, "width")) { return that; }
+	
+	// Elastic behavior
+	// Change resize status on Window resize event
+	ch.utils.window.bind("resize", function () { resizing = true; });
+	
+	// Limit resize execution to a quarter of second
+	setInterval(function () {
 		
-		// Change resize status on Window resize event
-		ch.utils.window.bind("resize", function() {
-			_resize = true;
-		});
+		if (!resizing) { return; }
 		
-		// Limit resize execution to a quarter of second
-		setInterval(function() {
-			if( !_resize ) { return; };
-			_resize = false;
-			_draw();
-		}, 250);
+		resizing = false;
 		
-	};
+		draw();
+		
+	}, 350);
 
 	return that;
-}
-/**
+};/**
 * Is a simple UI-Component for picking dates.
 * @name Calendar
 * @class Calendar
 * @augments ch.Controllers
 * @requires ch.Dropdown
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 //TODO: Examples
-ch.calendar = function(conf) {
+ch.calendar = function (conf) {
+	
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Calendar#that
-	* @type {Object}
+	* @type object
 	*/
 	var that = this;
 
@@ -3673,8 +3717,13 @@ ch.calendar = function(conf) {
 
 	conf.format = conf.format || "DD/MM/YYYY";
 		
-	if (ch.utils.hasOwn(conf, "msg")) { conf.msg = ((conf.msg === "today")) ? new Date() : new Date(conf.msg); };
-	if (ch.utils.hasOwn(conf, "selected")) { conf.selected = ((conf.selected === "today")) ? new Date() : new Date(conf.selected); };
+	if (ch.utils.hasOwn(conf, "msg")) {
+		conf.msg = (conf.msg === "today") ? new Date() : new Date(conf.msg);
+	}
+	
+	if (ch.utils.hasOwn(conf, "selected")) {
+		conf.selected = (conf.selected === "today") ? new Date() : new Date(conf.selected);
+	}
 
 	that.conf = conf;
 
@@ -3693,7 +3742,7 @@ ch.calendar = function(conf) {
 	* Collection of months names
 	* @private
 	* @name ch.Calendar#MONTHS_NAMES
-	* @type {Array}
+	* @type array
 	*/
 	//TODO: default in english and snnif browser language
 	//TODO: cambiar a sintaxis de constante
@@ -3703,7 +3752,7 @@ ch.calendar = function(conf) {
 	* Collection of weekdays short names
 	* @private
 	* @name ch.Calendar#SHORT_WEEK_NAMES
-	* @type {Array}
+	* @type array
 	*/
 	//TODO: default in english and snnif browser language
 	//TODO: cambiar a sintaxis de constante
@@ -3713,7 +3762,7 @@ ch.calendar = function(conf) {
 	* Date of today
 	* @private
 	* @name ch.Calendar#today
-	* @type {Date}
+	* @type date
 	*/
 	var today = new Date();
 
@@ -3721,28 +3770,30 @@ ch.calendar = function(conf) {
 	* Date of selected day
 	* @private
 	* @name ch.Calendar#selected
-	* @type {Date}
+	* @type date
 	*/
 	var selected = conf.selected || conf.msg;
 
 	/**
 	* Creates tag thead with short name of week days
 	* @private
-	* @name ch.Calendar#weekdays
 	* @function
-	* @return {String}
+	* @name ch.Calendar#weekdays
+	* @return string
 	*/
 	//TODO: change to constant syntax
 	//TODO: subfijo de render y cambiar el nombre para que sea mas especifico, thead
-	var weekdays = (function(){
+	var weekdays = (function () {
 		
-		var weekdaysTitle = "<thead>";
+		var thead = ["<thead>"];
 		
-		for (var i = 0; i < SHORT_WEEK_NAMES.length; i += 1) {
-			weekdaysTitle += "<th>" + SHORT_WEEK_NAMES[i] + "</th>";
+		for (var i = 0; i < 7; i += 1) {
+			thead.push("<th>" + SHORT_WEEK_NAMES[i] + "</th>");
 		};
 		
-		return weekdaysTitle += "</thead>";
+		thead.push("</thead>")
+		
+		return thead.join("");
 
 	}());
 
@@ -3750,33 +3801,31 @@ ch.calendar = function(conf) {
 	* HTML Template to months
 	* @private
 	* @name ch.Calendar#templateMonth
-	* @type {jQuery Object}
+	* @type jQuery
 	*/
-	var templateMonth = $("<table class=\"datagrid\">")
-		.addClass("ch-calendar-month")
-		.append(weekdays)
-		.bind("click", function(event){
+	var templateMonth = $("<table class=\"ch-calendar-month datagrid\">" + weekdays + "</table>")
+		.bind("click", function (event) {
 
 			event = event || window.event;
-			src = event.target || event.srcElement;
+			
+			var src = event.target || event.srcElement;
 
 			if (src.nodeName !== "TD" || src.className.indexOf("day")) {
 				that.prevent(event);
 				return;
-			};
+			}
 
-			select( that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML );
+			select(that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML);
 		});
-
 
 	/**
 	* Creates a complete month and returns it in a table
 	* @private
-	* @name ch.Calendar#createMonth
 	* @function
-	* @return {String}
+	* @name ch.Calendar#createMonth
+	* @return string
 	*/
-	var createMonth = function(date){
+	var createMonth = function (date) {
 
 		var date = new Date(date);
 
@@ -3789,7 +3838,6 @@ ch.calendar = function(conf) {
 			currentMonth.month = currentMonth.fullDate.getMonth();
 			currentMonth.year = currentMonth.fullDate.getFullYear();
 
-
 		var currentDate = {};
 			currentDate.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
 			currentDate.date = currentDate.fullDate.getDate();
@@ -3799,27 +3847,27 @@ ch.calendar = function(conf) {
 
 		var firstWeekday = currentMonth.day;
 
-		var weeks, classToday, classSelected;
-
-		weeks = "<tbody>";
+		var classToday,
+			classSelected,
+			weeks = ["<tbody>"];
 
 		do {
 			
-			weeks += "<tr class=\"week\">";
+			weeks.push("<tr class=\"week\">");
 
 			for (var i = 0; i < 7; i += 1) {
 
-				if (currentDate.date == 1) {
+				if (currentDate.date === 1) {
 					for (var i = 0; i < firstWeekday; i += 1) {
-						weeks += "<td class=\"disable\"></td>";
+						weeks.push("<td class=\"disable\"></td>");
 					};
-				};
+				}
 				
-				classToday = (currentDate.date == today.getDate() && currentDate.month == today.getMonth() && currentDate.year == today.getFullYear()) ? " today" : "";
+				classToday = (currentDate.date === today.getDate() && currentDate.month === today.getMonth() && currentDate.year === today.getFullYear()) ? " today" : "";
 
-				classSelected = (selected && currentDate.date == selected.getDate() && currentDate.month == selected.getMonth() && currentDate.year == selected.getFullYear()) ? " selected" : "";
+				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected" : "";
 				
-				weeks += "<td class=\"day" + classToday +  classSelected + "\">" + currentDate.date + "</td>";
+				weeks.push("<td class=\"day" + classToday + classSelected + "\">" + currentDate.date + "</td>");
 				
 				currentDate.fullDate.setDate(currentDate.date+1);
 				currentDate.date = currentDate.fullDate.getDate();
@@ -3827,19 +3875,19 @@ ch.calendar = function(conf) {
 				currentDate.month = currentDate.fullDate.getMonth();
 				currentDate.year = currentDate.fullDate.getFullYear();
 
-				if ( currentDate.month != currentMonth.month ) { break; };
+				if (currentDate.month != currentMonth.month) { break; }
 
 			};
 
-			weeks += "</tr>";
+			weeks.push("</tr>");
 			
-		} while (currentDate.month == currentMonth.month);
+		} while (currentDate.month === currentMonth.month);
 
-		weeks += "</tbody>";
+		weeks.push("</tbody>");
 
 		tableMonth
-			.prepend("<caption>"+MONTHS_NAMES[currentMonth.month] + " - " + currentMonth.year+"</caption>")
-			.append(weeks);
+			.prepend("<caption>" + MONTHS_NAMES[currentMonth.month] + " - " + currentMonth.year + "</caption>")
+			.append(weeks.join(""));
 
 		return tableMonth;
 	};
@@ -3849,36 +3897,34 @@ ch.calendar = function(conf) {
 	* Handles behavior of arrows
 	* @private
 	* @name ch.Calendar#arrows
-	* @type {Object}
+	* @type object
 	*/
 	var arrows = {
 	
-		$prev: $("<p class=\"ch-calendar-prev\">").bind("click", function(event){ that.prevent(event); prevMonth(); }),
+		$prev: $("<p class=\"ch-calendar-prev\">").bind("click", function (event) { that.prevent(event); prevMonth(); }),
 	
-		$next: $("<p class=\"ch-calendar-next\">").bind("click", function(event){ that.prevent(event); nextMonth(); })
+		$next: $("<p class=\"ch-calendar-next\">").bind("click", function (event) { that.prevent(event); nextMonth(); })
 	};
 
 	/**
 	* Creates an instance of Dropdown
 	* @private
-	* @name ch.Calendar#createDropdown
 	* @function
+	* @name ch.Calendar#createDropdown
 	*/
-	var createDropdown = function(){
+	var createDropdown = function () {
 		
-		var dropdownTrigger = $("<strong>").html("Calendar");
-		
-		that.$trigger.append(dropdownTrigger).append(that.$container);
+		that.$trigger.append("<strong>Calendar</strong>").append(that.$container);
 
 		that.children[0] = that.$trigger.dropdown({
-			onShow: function(){
+			onShow: function () {
 				// onShow callback
 				// old callback system
 				that.callbacks.call(that, "onShow");
 				// new callback
 				that.trigger("show");
 			},
-			onHide: function(){
+			onHide: function () {
 				// onHide callback
 				// old callback system
 				that.callbacks.call(that, "onHide");
@@ -3897,10 +3943,10 @@ ch.calendar = function(conf) {
 	/**
 	* Create component's layout
 	* @private
-	* @name ch.Calendar#createLayout
 	* @function
+	* @name ch.Calendar#createLayout
 	*/
-	var createLayout = function(){
+	var createLayout = function () {
 
 		that.$trigger =	$("<div class=\"secondary ch-calendar\">");
 
@@ -3917,10 +3963,10 @@ ch.calendar = function(conf) {
 	/**
 	* Parse string to YY/MM/DD format date
 	* @private
-	* @name ch.Calendar#parseDate 	
 	* @function
+	* @name ch.Calendar#parseDate 	
 	*/
-	var parseDate = function(value){
+	var parseDate = function (value) {
 		var date = value.split("/");
 		
 		switch (conf.format) {
@@ -3939,23 +3985,32 @@ ch.calendar = function(conf) {
 	* Map of formart's date
 	* @private
 	* @name ch.Calendar#FORMAT_DATE
-	* @type {Object}
+	* @type object
 	*/
 	var FORMAT_DATE = {
-		"YYYY/MM/DD": function(date){ return  date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate(); },
-		"DD/MM/YYYY": function(date){ return (parseInt(date.getDate(), 10) < 10 ? '0' : '') + date.getDate() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear()},
-		"MM/DD/YYYY": function(date){ return (parseInt(date.getMonth(), 10) + 1 < 10 ? '0' : '') + "/" + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear()}
+		
+		"YYYY/MM/DD": function (date) {
+			return date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? "0" : "") + date.getDate();
+		},
+		
+		"DD/MM/YYYY": function (date) {
+			return (parseInt(date.getDate(), 10) < 10 ? "0" : "") + date.getDate() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear();
+		},
+		
+		"MM/DD/YYYY": function (date) {
+			return (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + "/" + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear();
+		}
 	};
 
 
 	/**
 	* Selects an specific date to show
 	* @private
-	* @name ch.Calendar#select
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#select
+	* @return itself
 	*/
-	var select = function(date){
+	var select = function (date) {
 
 		selected = new Date(date);
 
@@ -3982,13 +4037,13 @@ ch.calendar = function(conf) {
 	/**
 	* Move to next month of calendar
 	* @private
-	* @name ch.Calendar#nextMonth
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#nextMonth
+	* @return itself
 	*/
 	//TODO: crear una interfaz que resuleva donde moverse
-	var nextMonth = function(){
-		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()+1,1);
+	var nextMonth = function () {
+		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() + 1, 1);
 		that.$content.html(createMonth(that.currentDate));
 
 		//Refresh position
@@ -4005,12 +4060,13 @@ ch.calendar = function(conf) {
 	/**
 	* Move to prev month of calendar
 	* @private
-	* @name ch.Calendar#prevMonth
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#prevMonth
+	* @return itself
 	*/
-	var prevMonth = function(){
-		that.currentDate = new Date(that.currentDate.getFullYear(),that.currentDate.getMonth()-1,1);
+	var prevMonth = function () {
+		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() - 1, 1);
+		
 		that.$content.html(createMonth(that.currentDate));
 		
 		// Refresh position
@@ -4027,12 +4083,13 @@ ch.calendar = function(conf) {
 	/**
 	* Move to next year of calendar
 	* @private
+	* @function
 	* @name ch.Calendar#nextYear
-	* @function
-	* @return {itself}
+	* @return itself
 	*/
-	var nextYear = function(){
-		that.currentDate = new Date(that.currentDate.getFullYear()+1,that.currentDate.getMonth(),1);
+	var nextYear = function () {
+		that.currentDate = new Date(that.currentDate.getFullYear() + 1,that.currentDate.getMonth(), 1);
+		
 		that.$content.html(createMonth(that.currentDate));
 
 		return that;
@@ -4041,12 +4098,13 @@ ch.calendar = function(conf) {
 	/**
 	* Move to prev year of calendar
 	* @private
+	* @function
 	* @name ch.Calendar#prevYear
-	* @function
-	* @return {itself}
+	* @return itself
 	*/
-	var prevYear = function(){
-		that.currentDate = new Date(that.currentDate.getFullYear()-1,that.currentDate.getMonth(),1);
+	var prevYear = function () {
+		that.currentDate = new Date(that.currentDate.getFullYear() - 1, that.currentDate.getMonth(), 1);
+		
 		that.$content.html(createMonth(that.currentDate));
 
 		return that;
@@ -4055,13 +4113,15 @@ ch.calendar = function(conf) {
 	/**
 	* Move to prev year of calendar
 	* @private
-	* @name ch.Calendar#reset
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#reset
+	* @return itself
 	*/
-	var reset = function(){
+	var reset = function () {
 		selected = conf.selected;
+		
 		that.currentDate = selected || today;
+		
 		that.element.value = "";
 
 		that.$content.html(createMonth(that.currentDate));
@@ -4070,6 +4130,7 @@ ch.calendar = function(conf) {
 		that.callbacks("onReset");
 		// new callback
 		that.trigger("onReset");
+		
 		return that;
 	};
 
@@ -4082,47 +4143,47 @@ ch.calendar = function(conf) {
 	* The current date that should show on calendar
 	* @protected
 	* @name ch.Calendar#currentDate
-	* @type {Date}
+	* @type date
 	*/
 	that.currentDate = selected || today;
 
 /**
 *  Public Members
 */
- 
+
 	/**
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Calendar#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Calendar#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Calendar#type
-	* @type {String}
+	* @type string
 	*/
 
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Calendar#show
 	* @function
-	* @returns {itself}
+	* @name ch.Calendar#show
+	* @returns itself
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.show();
 	*/
-	that["public"].show = function(){
+	that["public"].show = function () {
 		that.children[0].show();
 		
 		return that["public"];
@@ -4131,14 +4192,14 @@ ch.calendar = function(conf) {
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Calendar#hide
 	* @function
-	* @returns {itself}
+	* @name ch.Calendar#hide
+	* @returns itself
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.hide();
 	*/
-	that["public"].hide = function(){
+	that["public"].hide = function () {
 		that.children[0].hide();
 
 		return that["public"];
@@ -4147,15 +4208,15 @@ ch.calendar = function(conf) {
 	/**
 	* Select a specific date.
 	* @public
-	 * @name ch.Calendar#select
 	* @function
-	* @param {String} "YY/MM/DD".
-	* @return {itself}
+	* @name ch.Calendar#select
+	* @param {string} "YY/MM/DD".
+	* @return itself
 	* @TODO: Make select() method a get/set member
 	*/
-	that["public"].select = function(date){
+	that["public"].select = function (date) {
 
-		select(((date === "today")? today : parseDate(date)));
+		select((date === "today") ? today : parseDate(date));
 
 		return that["public"];
 	};
@@ -4163,74 +4224,69 @@ ch.calendar = function(conf) {
 	/**
 	* Returns the selected date
 	* @public
-	* @name ch.Calendar#getSelected
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#getSelected
+	* @return itself
 	* @TODO: Unifiy with select() method.
 	*/
-	that["public"].getSelected = function(){
+	that["public"].getSelected = function () {
 		return FORMAT_DATE[conf.format](selected);
 	};
 
 	/**
 	* Returns date of today
 	* @public
-	* @name ch.Calendar#getToday
 	* @function
-	* @return {Date}
+	* @name ch.Calendar#getToday
+	* @return date
 	*/
-	that["public"].getToday = function(){
+	that["public"].getToday = function () {
 		return FORMAT_DATE[conf.format](today);
 	};	
 
 	/**
-	* Move to the next month
+	* Move to the next month or year. If it isn't specified, it will be moved to next month.
 	* @public
 	* @name ch.Calendar#next
 	* @function
+	* @param {String} time A string that allows specify if it should move to next month or year.
 	* @return {itself}
+	* @default Next month
 	*/
-	that["public"].next = function(){
-		nextMonth();
-
+	that["public"].next = function (time) {
+		
+		switch (time) {
+			case "month":
+			case undefined:
+				nextMonth();
+			break;
+			case "year":
+				nextYear();
+			break;
+		}
+		
 		return that["public"];
 	};
 
 	/**
-	* Move to the prev month
+	* Move to the previous month or year. If it isn't specified, it will be moved to previous month.
 	* @public
-	* @name ch.Calendar#prev
 	* @function
+	* @param {String} time A string that allows specify if it should move to previous month or year.
 	* @return {itself}
+	* @default Previous month
 	*/
-	that["public"].prev = function(){
-		prevMonth();
-
-		return that["public"];
-	};
-
-	/**
-	* Move to the next year
-	* @public
-	* @name ch.Calendar#nextYear
-	* @function
-	* @return {itself}
-	*/
-	that["public"].nextYear = function(){
-		nextYear();
-
-		return that["public"];
-	};
-
-	/**
-	* Move to the prev year
-	* @public
-	* @name ch.Calendar#prevYear
-	* @function
-	* @return {itself}
-	*/
-	that["public"].prevYear = function(){
-		prevYear();
+	that["public"].prev = function (time) {
+		
+		switch (time) {
+			case "month":
+			case undefined:
+				prevMonth();
+			break;
+			case "year":
+				prevYear();
+			break;
+		}
 
 		return that["public"];
 	};
@@ -4238,11 +4294,11 @@ ch.calendar = function(conf) {
 	/**
 	* Reset the calendar to date of today
 	* @public
-	* @name ch.Calendar#reset
 	* @function
-	* @return {itself}
+	* @name ch.Calendar#reset
+	* @return itself
 	*/
-	that["public"].reset = function(){
+	that["public"].reset = function () {
 		reset();
 
 		return that["public"];
@@ -4258,14 +4314,11 @@ ch.calendar = function(conf) {
 
 	createLayout();
 
-	that.$content
-		.html(createMonth(that.currentDate))
-		.appendTo(that.$container);
+	that.$content.html(createMonth(that.currentDate)).appendTo(that.$container);
 
 	that.$container.prepend(arrows.$prev).prepend(arrows.$next);
 
 	return that;
-
 };
 /**
 * A navegable list of items, UI-Object.
@@ -4273,8 +4326,8 @@ ch.calendar = function(conf) {
 * @class Dropdown
 * @augments ch.Navs
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.dropdown = function(conf){
@@ -4283,9 +4336,8 @@ ch.dropdown = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Dropdown
+	* @name ch.Dropdown#that
+	* @type object
 	*/
 	var that = this;
 
@@ -4305,9 +4357,8 @@ ch.dropdown = function(conf){
 	/**
 	* Adds keyboard events.
 	* @private
-	* @name shortcuts
 	* @function
-	* @memberOf ch.TabNavigator
+	* @name ch.Dropdown#shortcuts
 	*/
 	var shortcuts = function(items){
 		
@@ -4347,17 +4398,15 @@ ch.dropdown = function(conf){
 	/**
 	* The component's trigger.
 	* @private
-	* @name $trigger
-	* @type {jQuery Object}
-	* @memberOf ch.Dropdown
+	* @name ch.Dropdown#$trigger
+	* @type jQuery
 	*/
 	that.$trigger = that.$element.children().eq(0);
 	/**
 	* The component's content.
 	* @private
-	* @name $content
-	* @type {jQuery Object}
-	* @memberOf ch.Dropdown
+	* @name ch.Dropdown#$content
+	* @type jQuery
 	*/
 	that.$content = that.$trigger.next().detach(); // Save on memory;
 
@@ -4416,36 +4465,30 @@ ch.dropdown = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Dropdown
+	* @name ch.Dropdown#uid
+	* @type number
 	*/
-  	that["public"].uid = that.uid;
 	
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Dropdown
+	* @name ch.Dropdown#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
 	
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Dropdown
+	* @name ch.Dropdown#type
+	* @type string
 	*/	
-	that["public"].type = that.type;
 	
 	/**
 	* Shows component's content.
 	* @public
-	* @name show
-	* @returns {Chico-UI Object}
-	* @memberOf ch.Dropdown
+	* @function
+	* @name ch.Dropdown#show
+	* @returns itself
 	*/
 	that["public"].show = function(){
 		that.show();
@@ -4456,9 +4499,9 @@ ch.dropdown = function(conf){
 	/**
 	* Hides component's content.
 	* @public
-	* @name hide
-	* @returns {Chico-UI Object}
-	* @memberOf ch.Dropdown
+	* @function
+	* @name ch.Dropdown#hide
+	* @returns itself
 	*/ 
 	that["public"].hide = function(){
 		that.hide();
@@ -4468,10 +4511,9 @@ ch.dropdown = function(conf){
 	/**
 	* Positioning configuration.
 	* @public
-	* @name position
-	* @memberOf ch.Dropdown
+	* @function
+	* @name ch.Dropdown#position
 	*/
-	that["public"].position = that.position;	
 
 
 /**
@@ -4505,8 +4547,8 @@ ch.dropdown = function(conf){
 * @class Layer
 * @augments ch.Floats
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Tooltip
 * @see ch.Modal
 * @example
@@ -4524,7 +4566,7 @@ ch.layer = function(conf) {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Layer#that
-	* @type {Object}
+	* @type object
 	*/ 
 	var that = this;
 	
@@ -4554,7 +4596,7 @@ ch.layer = function(conf) {
 	* Delay time to show component's contents.
 	* @private
 	* @name ch.Layer#showTime
-	* @type {Number}
+	* @type number
 	* @default 400
 	*/ 
 	var showTime = conf.showTime || 400,
@@ -4562,7 +4604,7 @@ ch.layer = function(conf) {
 	* Delay time to hide component's contents.
 	* @private
 	* @name ch.Layer#hideTime
-	* @type {Number}
+	* @type number
 	* @default 400
 	*/ 
 	hideTime = conf.hideTime || 400,
@@ -4571,7 +4613,7 @@ ch.layer = function(conf) {
 	* Show timer instance.
 	* @private
 	* @name ch.Layer#st
-	* @type {Timer}
+	* @type timer
 	*/ 
 	st,
 	
@@ -4579,39 +4621,39 @@ ch.layer = function(conf) {
 	* Hide timer instance.
 	* @private
 	* @name ch.Layer#ht
-	* @type {Timer}
+	* @type timer
 	*/ 
 	ht,
 	
 	/**
 	* Starts show timer.
 	* @private
-	* @name ch.Layer#showTimer
 	* @function
+	* @name ch.Layer#showTimer
 	*/ 
 	showTimer = function(){ st = setTimeout(that.innerShow, showTime) },
 	
 	/**
 	* Starts hide timer.
 	* @private
-	* @name ch.Layer#hideTimer
 	* @function
+	* @name ch.Layer#hideTimer
 	*/ 
 	hideTimer = function(){ ht = setTimeout(that.innerHide, hideTime) },
 	
 	/**
 	* Clear all timers.
 	* @private
-	* @name ch.Layer#clearTimers
 	* @function
+	* @name ch.Layer#clearTimers
 	*/ 
 	clearTimers = function(){ clearTimeout(st); clearTimeout(ht); },
 
 	/**
 	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
 	* @private
-	* @name ch.Layer#stopBubble
 	* @function
+	* @name ch.Layer#stopBubble
 	*/
 	stopBubble = function(event){ event.stopPropagation(); };
 /**
@@ -4623,9 +4665,9 @@ ch.layer = function(conf) {
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
-	* @name ch.Layer#innerShow
 	* @function
-	* @returns {itself}
+	* @name ch.Layer#innerShow
+	* @returns itself
 	*/ 
 	that.innerShow = function(event) {
 	
@@ -4660,9 +4702,9 @@ ch.layer = function(conf) {
 	/**
 	* Inner hide method. Hides the component and detach it from DOM tree.
 	* @protected
-	* @name ch.Layer#innerHide
 	* @function
-	* @returns {itself}
+	* @name ch.Layer#innerHide
+	* @returns itself
 	*/ 
 	that.innerHide = function(event) {
 		that.$container.unbind('click', stopBubble);
@@ -4677,21 +4719,21 @@ ch.layer = function(conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Layer#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Layer#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Layer#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
@@ -4699,7 +4741,7 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
 	* me.content();
@@ -4720,7 +4762,7 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#isActive
 	* @function 
-	* @returns {Boolean}
+	* @returns boolean
 	*/
 
 	/**
@@ -4728,7 +4770,7 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#show
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -4740,7 +4782,7 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#hide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -4752,7 +4794,7 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#width
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -4767,7 +4809,7 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#height
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -4781,6 +4823,7 @@ ch.layer = function(conf) {
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
 	* @name ch.Layer#position
+	* @function 
 	* @example
 	* // Change component's position.
 	* me.position({ 
@@ -4857,8 +4900,8 @@ ch.layer = function(conf) {
 * @class Modal
 * @augments ch.Floats
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Tooltip
 * @see ch.Layer
 * @example
@@ -4876,7 +4919,7 @@ ch.modal = function(conf){
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Modal#that
-	* @type {Object}
+	* @type object
 	*/
 	var that = this;
 	conf = ch.clon(conf);
@@ -4900,7 +4943,7 @@ ch.modal = function(conf){
 	* Reference to the dimmer object, the gray background element.
 	* @private
 	* @name ch.Modal#$dimmer
-	* @type {jQuery Object}
+	* @type jQuery
 	*/
 	var $dimmer = $("<div class=\"ch-dimmer\">");
 	
@@ -4911,7 +4954,7 @@ ch.modal = function(conf){
 	* Reference to dimmer control, turn on/off the dimmer object.
 	* @private
 	* @name ch.Modal#dimmer
-	* @type {Object}
+	* @type object
 	*/
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
@@ -4953,7 +4996,7 @@ ch.modal = function(conf){
 	* @protected
 	* @name ch.Modal#innerShow
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/ 
 	that.innerShow = function(event) {	
 		dimmer.on();
@@ -4967,7 +5010,7 @@ ch.modal = function(conf){
 	* @protected
 	* @name ch.Modal#innerHide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/	
 	that.innerHide = function(event) {
 		dimmer.off();		
@@ -4983,21 +5026,21 @@ ch.modal = function(conf){
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Modal#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Modal#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Modal#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
@@ -5005,7 +5048,7 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
 	* me.content();
@@ -5026,7 +5069,7 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#isActive
 	* @function 
-	* @returns {Boolean}
+	* @returns boolean
 	*/
 
 	/**
@@ -5034,7 +5077,7 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#show
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -5046,7 +5089,7 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#hide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -5058,7 +5101,7 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#width
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -5073,7 +5116,7 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#height
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -5087,6 +5130,7 @@ ch.modal = function(conf){
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
 	* @name ch.Modal#position
+	* @function
 	* @example
 	* // Change component's position.
 	* me.position({ 
@@ -5150,7 +5194,7 @@ ch.modal = function(conf){
 * @class Transition
 * @augments ch.Modal
 * @memberOf ch
-* @returns {itself}
+* @returns itself
 */
 ch.extend("modal").as("transition", function(conf) {
 	conf.closeButton = false;
@@ -5167,8 +5211,8 @@ ch.extend("modal").as("transition", function(conf) {
 * @class TabNavigator
 * @augments ch.Controllers
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.tabNavigator = function(conf){
@@ -5176,9 +5220,8 @@ ch.tabNavigator = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#that
+	* @type {object}
 	*/
 	var that = this;
 
@@ -5200,34 +5243,30 @@ ch.tabNavigator = function(conf){
 	/**
 	* The actual location hash, is used to know if there's a specific tab selected.
 	* @private
-	* @name hash
-	* @type {String}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#hash
+	* @type string
 	*/
 	var hash = window.location.hash.replace("#!", "");
 	/**
 	* A boolean property to know if the some tag should be selected.
 	* @private
-	* @name hashed
-	* @type {Boolean}
+	* @name ch.TabNavigator#hashed
+	* @type boolean
 	* @default false
-	* @memberOf ch.TabNavigator
 	*/
 	var hashed = false;
 	/**
 	* Get wich tab is selected.
 	* @private
-	* @name selected
-	* @type {Number}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#selected
+	* @type number
 	*/
 	var selected = conf.selected - 1 || conf.value - 1 || 0;
 	/**
 	* Create controller's children.
 	* @private
-	* @name createTabs
+	* @name ch.TabNavigator#createTabs
 	* @function
-	* @memberOf ch.TabNavigator
 	*/
 	var createTabs = function(){
 
@@ -5255,16 +5294,16 @@ ch.tabNavigator = function(conf){
 
 		/**
 		* Callback function
-		* @name onContentLoad
-		* @type {Function}
-		* @memberOf ch.TabNavigator
+		* @name ch.TabNavigator#onContentLoad
+		* @event
+		* @public
 		*/
 			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) config.onContentLoad = that.conf.onContentLoad;
 		/**
 		* Callback function
-		* @name onContentError
-		* @type {Function}
-		* @memberOf ch.TabNavigator
+		* @name ch.TabNavigator#onContentError
+		* @event
+		* @public
 		*/
 			if ( ch.utils.hasOwn(that.conf, "onContentError") ) config.onContentError = that.conf.onContentError;
 
@@ -5286,9 +5325,9 @@ ch.tabNavigator = function(conf){
 	};
 	/**
 	* Select a child to show its content.
+	* @name ch.TabNavigator#select
 	* @private
 	* @function
-	* @memberOf ch.TabNavigator
 	*/
 	var select = function(tab){
 
@@ -5308,9 +5347,9 @@ ch.tabNavigator = function(conf){
 		
 	/**
 	* Callback function
-	* @name onSelect
-	* @type {Function}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#onSelect
+	* @event
+	* @public
 	*/
 		that.callbacks("onSelect");
 		// new callback
@@ -5326,18 +5365,16 @@ ch.tabNavigator = function(conf){
 	/**
 	* The component's triggers container.
 	* @private
-	* @name $triggers
-	* @type {jQuery Object}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#$triggers
+	* @type jQuery
 	*/
 	that.$triggers = that.$element.children(":first").addClass("ch-tabNavigator-triggers");
 	
 	/**
 	* The component's content.
 	* @private
-	* @name $content
-	* @type {jQuery Object}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#$content
+	* @type jQuery
 	*/
 	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content box");
 
@@ -5349,42 +5386,37 @@ ch.tabNavigator = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#uid
+	* @type number
 	*/
-	that["public"].uid = that.uid;
+
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
+
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#type
+	* @type string
 	*/
-	that["public"].type = that.type;
+
 	/**
 	* Children instances associated to this controller.
 	* @public
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#children
+	* @type collection
 	*/
 	that["public"].children = that.children;
 	/**
 	* Select a specific child.
 	* @public
 	* @function
-	* @name select
-	* @param {Number} tab Tab's index.
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#select
+	* @param {number} tab Tab's index.
 	*/
 	that["public"].select = function(tab){
 		select(tab);
@@ -5395,9 +5427,8 @@ ch.tabNavigator = function(conf){
 	* Returns the selected child's index.
 	* @public
 	* @function
-	* @name getSelected
-	* @returns {Number} selected Tab's index.
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#getSelected
+	* @returns {number} selected Tab's index.
 	*/	
 	that["public"].getSelected = function(){ return (selected + 1); };
 
@@ -5433,17 +5464,16 @@ ch.tabNavigator = function(conf){
 * @class Tab
 * @augments ch.Navs
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.tab = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Tab
+	* @name ch.Tab#that
+	* @type object
 	*/
 	var that = this;
 
@@ -5466,9 +5496,8 @@ ch.tab = function(conf){
 	/**
 	* Creates the basic structure for the tab's content.
 	* @private
-	* @name createContent
+	* @name ch.Tab#createContent
 	* @function
-	* @memberOf ch.Tab
 	*/
 	var createContent = function(){
 		var href = that.element.href.split("#");
@@ -5485,9 +5514,8 @@ ch.tab = function(conf){
 			/**
 			* Content configuration property.
 			* @public
-			* @name source
-			* @type {String}
-			* @memberOf ch.Tab
+			* @name ch.Tab#source
+			* @type string
 			*/
 			that.source = that.element.href;
 			
@@ -5505,18 +5533,16 @@ ch.tab = function(conf){
 	/**
 	* Reference to the trigger element.
 	* @private
-	* @name $trigger
-	* @type {jQuery Object}
-	* @memberOf ch.Tab
+	* @name ch.Tab#$trigger
+	* @type jQuery
 	*/
 	that.$trigger = that.$element;
 
 	/**
 	* The component's content.
 	* @private
-	* @name $content
-	* @type {jQuery Object}
-	* @memberOf ch.Tab
+	* @name ch.Tab#$content
+	* @type jQuery
 	*/
 	that.$content = createContent();
 
@@ -5524,9 +5550,8 @@ ch.tab = function(conf){
 	* Process the show event.
 	* @private
 	* @function
-	* @name show
-	* @returns {jQuery Object}
-	* @memberOf ch.Tab
+	* @name ch.Tab#show
+	* @returns jQuery
 	*/
 	that.show = function(event){
 		that.prevent(event);
@@ -5544,10 +5569,8 @@ ch.tab = function(conf){
 	
 	/**
 	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
-	* @public
-	* @name contentCallback
-	* @returns {Chico-UI Object}
-	* @memberOf ch.TabNavigator
+	* @protected
+	* @name ch.Tab#contentCallback
 	*/
 	that.contentCallback = function(data) {
 		that.staticContent = data;
@@ -5574,8 +5597,8 @@ ch.tab = function(conf){
 * @class Tooltip
 * @augments ch.Floats
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Modal
 * @see ch.Layer
 * @example
@@ -5593,7 +5616,7 @@ ch.tooltip = function(conf) {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Tooltip#that
-	* @type {Object}
+	* @type object
 	*/
 	var that = this;
 	
@@ -5621,7 +5644,7 @@ ch.tooltip = function(conf) {
 	* The attribute that will provide the content. It can be "title" or "alt" attributes.
 	* @protected
 	* @name ch.Tooltip#attrReference
-	* @type {string}
+	* @type string
 	*/
 	var attrReference = (that.element.title) ? "title" : "alt";
 
@@ -5629,7 +5652,7 @@ ch.tooltip = function(conf) {
 	* The original attribute content.
 	* @private
 	* @name ch.Tooltip#attrContent
-	* @type {string}
+	* @type string
 	*/
 	var attrContent = that.element.title || that.element.alt;
 
@@ -5643,7 +5666,7 @@ ch.tooltip = function(conf) {
 	* @protected
 	* @name ch.Tooltip#innerShow
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that.innerShow = function(event) {
 		that.element[attrReference] = ""; // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
@@ -5657,7 +5680,7 @@ ch.tooltip = function(conf) {
 	* @protected
 	* @name ch.Tooltip#innerHide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that.innerHide = function(event) {
 		that.element[attrReference] = attrContent;
@@ -5673,21 +5696,21 @@ ch.tooltip = function(conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Tooltip#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Tooltip#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Tooltip#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
@@ -5695,7 +5718,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
 	* me.content();
@@ -5716,7 +5739,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#isActive
 	* @function 
-	* @returns {Boolean}
+	* @returns boolean
 	*/
 
 	/**
@@ -5724,7 +5747,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#show
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -5736,7 +5759,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#hide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -5748,7 +5771,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#width
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -5763,7 +5786,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#height
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -5844,8 +5867,8 @@ ch.tooltip = function(conf) {
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {String} msg Validation message
-* @returns {Chico-UI Object}
+* @param {string} msg Validation message
+* @returns itself
 * @see ch.Watcher
 * @see ch.Required
 * @see ch.Custom
@@ -5892,11 +5915,12 @@ ch.extend("watcher").as("string", function (conf) {
 /**
 * Validate email sintaxis.
 * @name Email
+* @class Email
 * @interface
 * @augments ch.String
 * @memberOf ch
-* @param {String} [message] Validation message.
-* @returns {Chico-UI Object}
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * // Create a email validation
@@ -5908,11 +5932,12 @@ ch.extend("string").as("email");
 /**
 * Validate URL sintaxis.
 * @name Url
+* @class Url
 * @interface
 * @augments ch.String
 * @memberOf ch
-* @param {String} [message] Validation message.
-* @returns {Chico-UI Object}
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * // Create a URL validation
@@ -5925,12 +5950,13 @@ ch.extend("string").as("url");
 /**
 * Validate a minimun amount of characters.
 * @name MinLength
+* @class MinLength
 * @interface
 * @augments ch.String
 * @memberOf ch
-* @param {Number} value Minimun number value.
-* @param {String} [message] Validation message.
-* @returns {Chico-UI Object}
+* @param {number} value Minimun number value.
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * // Create a minLength validation
@@ -5943,12 +5969,13 @@ ch.extend("string").as("minLength");
 /**
 * Validate a maximun amount of characters.
 * @name MaxLength
+* @class MaxLength
 * @interface
 * @augments ch.String
 * @memberOf ch
-* @param {Number} value Maximun number value.
-* @param {String} [message] Validation message.
-* @returns {Chico-UI Object}
+* @param {number} value Maximun number value.
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * // Create a maxLength validation
@@ -5963,8 +5990,8 @@ ch.extend("string").as("maxLength");
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {Object} conf Object with configuration properties.
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Watcher
 * @see ch.Required
 * @see ch.Custom
@@ -6000,13 +6027,13 @@ ch.extend("watcher").as("number", function(conf) {
 /**
 * Validate a number with a minimun value.
 * @name Min
-* @name Max
+* @class Min
 * @interface
 * @augments ch.Number
 * @memberOf ch
-* @param {Number} value Minimun number value.
-* @param {String} [message] Validation message.
-* @returns {itself}
+* @param {number} value Minimun number value.
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * $("input").min(10, "Write a number bigger than 10");
@@ -6022,9 +6049,9 @@ ch.extend("number").as("min");
 * @interface
 * @augments ch.Number
 * @memberOf ch
-* @param {Number} value Minimun number value.
-* @param {String} [message] Validation message.
-* @returns {itself}
+* @param {number} value Minimun number value.
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * $("input").max(10, "Write a number smaller than 10");
@@ -6039,8 +6066,8 @@ ch.extend("number").as("max");
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {String} [message] Validation message.
-* @returns {itself}
+* @param {string} [message] Validation message.
+* @returns itself
 * @see ch.Watcher
 * @example
 * $("input").price("Write valid price.");
@@ -6066,8 +6093,8 @@ ch.extend("watcher").as("price",function(conf){
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Watcher
 * @see ch.Required
 * @see ch.Number
@@ -6102,8 +6129,8 @@ ch.extend("watcher").as("custom", function(conf) {
 * @interface
 * @augments ch.Watcher
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Watcher
 * @see ch.Custom
 * @see ch.Number
@@ -6131,8 +6158,8 @@ ch.extend("watcher").as("required", function(conf) {
 * @class Helper
 * @augments ch.Floats
 * @memberOf ch
-* @param {Object} o Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.helper = function(controller){
@@ -6140,9 +6167,8 @@ ch.helper = function(controller){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Helper
+	* @name ch.Helper#that
+	* @type object
 	*/
 	var that = this;
 
@@ -6174,15 +6200,16 @@ ch.helper = function(controller){
 */ 
  
 	that.content("I'm not sure what just happened, this field might have some problems. Can you take a look?")
- 
+
+ 	that.$trigger = that.$element;
+
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
-	* @name ch.Helper#innerShow
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#innerShow
+	* @returns itself
 	*/ 
-	that.$trigger = that.$element;
 		
 	that.innerShow = function() {
 
@@ -6205,28 +6232,28 @@ ch.helper = function(controller){
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Helper#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Helper#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Helper#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
 	* Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
 	* @public
-	* @name ch.Helper#content
 	* @function
+	* @name ch.Helper#content
 	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
@@ -6246,17 +6273,17 @@ ch.helper = function(controller){
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
+	* @function
 	* @name ch.Helper#isActive
-	* @function 
-	* @returns {Boolean}
+	* @returns boolean
 	*/
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Helper#show
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#show
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -6266,9 +6293,9 @@ ch.helper = function(controller){
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Helper#hide
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#hide
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -6278,9 +6305,9 @@ ch.helper = function(controller){
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
-	* @name ch.Helper#width
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#width
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -6293,9 +6320,9 @@ ch.helper = function(controller){
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
-	* @name ch.Helper#height
 	* @function
-	* @returns {itself}
+	* @name ch.Helper#height
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -6308,6 +6335,7 @@ ch.helper = function(controller){
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
+	* @function
 	* @name ch.Helper#position
 	* @example
 	* // Change component's position.
@@ -6326,26 +6354,37 @@ ch.helper = function(controller){
 		that.position("refresh");
 	});
 
+	/**
+	* Triggers when the component is ready to use.
+	* @name ch.Helper#ready
+	* @event
+	* @public
+	* @example
+	* // Following the first example, using 'me' as Layer's instance controller:
+	* me.on("ready",function(){
+	*	this.show();
+	* });
+	*/
 	that.trigger("ready");
 
 	return that;
 };
 
 /**
- * Forms is a Controller of DOM's HTMLFormElement.
- * @name Form
- * @class Form
- * @augments ch.Controllers
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- */
+* Forms is a Controller of DOM's HTMLFormElement.
+* @name Form
+* @class Form
+* @augments ch.Controllers
+* @memberOf ch
+* @param {object} conf Object with configuration properties
+* @returns itself
+*/
 
 ch.form = function(conf) {
 
 /**
- *  Validation
- */
+* Validation
+*/
 	// Are there action and submit type?
 	if ( this.$element.find(":submit").length == 0 || this.$element.attr("action") == "" ){ 
 		alert("Form fatal error: The <input type=submit> is missing, or need to define a action attribute on the form tag.");
@@ -6367,9 +6406,8 @@ ch.form = function(conf) {
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Form
+	* @name ch.Form#that
+	* @type object
 	*/ 
 	var that = this;
 	
@@ -6396,9 +6434,8 @@ ch.form = function(conf) {
 	/**
 	* A Boolean property that indicates is exists errors in the form.
 	* @private
-	* @name status
-	* @type {Boolean}
-	* @memberOf ch.Form
+	* @name ch.Form#status
+	* @type boolean
 	*/ 
 	var status = true;
 	
@@ -6409,9 +6446,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name beforeValidate
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#beforeValidate
+		* @event
+		* @public
 		*/
 		that.callbacks("beforeValidate");
 		// new callback
@@ -6449,15 +6486,15 @@ ch.form = function(conf) {
 		}
 		/**
 		* Callback function
-		* @name onValidate
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onValidate
+		* @event
+		* @public
 		*/
 		/**
 		* Callback function
-		* @name onError
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onError
+		* @event
+		* @public
 		*/
 		//status ? that.callbacks("onValidate") : that.callbacks("onError");  
 		if (status) {
@@ -6472,9 +6509,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name afterValidate
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#afterValidate
+		* @event
+		* @public
 		*/
 		that.callbacks("afterValidate");
 		// new callback
@@ -6491,9 +6528,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name beforeSubmit
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#beforeSubmit
+		* @event
+		* @public
 		*/
 		that.callbacks("beforeSubmit");
 		// new callback
@@ -6512,9 +6549,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name onSubmit
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onSubmit
+		* @event
+		* @public
 		*/
 
 		// Is there's no error but there's a onSubmit callback
@@ -6529,9 +6566,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name afterSubmit
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#afterSubmit
+		* @event
+		* @public
 		*/
 
 		that.callbacks("afterSubmit");
@@ -6556,9 +6593,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name onClear
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onClear
+		* @event
+		* @public
 		*/
 		that.callbacks("onClear");
 		// new callback
@@ -6575,9 +6612,9 @@ ch.form = function(conf) {
 		that.element.reset(); // Reset html form native
 		/**
 		* Callback function
-		* @name onReset
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onReset
+		* @event
+		* @public
 		*/
 		that.callbacks("onReset");
 		// new callback
@@ -6593,49 +6630,46 @@ ch.form = function(conf) {
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Form
+	* @name ch.Form#uid
+	* @type number
 	*/ 
-	that["public"].uid = that.uid;
+
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Form
+	* @name ch.Form#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
+
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Form
+	* @name ch.Form#type
+	* @type string
 	*/
-	that["public"].type = that.type;
+
 	/**
 	* Watcher instances associated to this controller.
 	* @public
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.Form
+	* @name ch.Form#children
+	* @type collection
 	*/
 	that["public"].children = that.children;
+	
 	/**
 	* Collection of messages defined.
 	* @public
-	* @name messages
-	* @type {String}
-	* @memberOf ch.Form
+	* @name ch.Form#messages
+	* @type string
 	*/
 	that["public"].messages = conf.messages || {};
+	
 	/**
 	* Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+	* @public
 	* @function
-	* @name validate
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#validate
+	* @returns itself
 	*/
 	that["public"].validate = function() { 
 		validate(); 
@@ -6645,10 +6679,10 @@ ch.form = function(conf) {
 	
 	/**
 	* This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+	* @public
 	* @function
-	* @name submit
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#submit
+	* @returns itself
 	*/
 	that["public"].submit = function() { 
 		submit(); 
@@ -6658,10 +6692,10 @@ ch.form = function(conf) {
 
 	/**
 	* Return the status value.
+	* @public
 	* @function
-	* @name getStatus
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#getStatus
+	* @returns itself
 	*/	
 	that["public"].getStatus = function(){
 		return status;	
@@ -6669,10 +6703,10 @@ ch.form = function(conf) {
 
 	/**
 	* Use this method to clear al validations.
+	* @public
 	* @function
-	* @name clear
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#clear
+	* @returns itself
 	*/ 
 	that["public"].clear = function() { 
 		clear(); 
@@ -6681,10 +6715,10 @@ ch.form = function(conf) {
 	};
 	/**
 	* Use this method to clear al validations.
+	* @public
 	* @function
-	* @name reset
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#reset
+	* @returns itself
 	*/ 
 	that["public"].reset = function() { 
 		reset(); 
@@ -6724,8 +6758,8 @@ ch.form = function(conf) {
 * @requires ch.Zoom
 * @memberOf ch
 * @requires ch.onImagesLoads
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.viewer = function(conf){
@@ -6733,9 +6767,8 @@ ch.viewer = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#that
+	* @type object
 	*/
 	var that = this;
 	conf = ch.clon(conf);
@@ -6755,9 +6788,8 @@ ch.viewer = function(conf){
 	/**
 	* Reference to the viewer's visual object.
 	* @private
-	* @name $viewer
-	* @type {jQuery Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#$viewer
+	* @type jQuery
 	*/
 	var $viewer = that.$element.addClass("ch-viewer");
 	conf.width = $viewer.outerWidth();
@@ -6766,18 +6798,16 @@ ch.viewer = function(conf){
 	/**
 	* Reference to the viewer's internal content.
 	* @private
-	* @name $content
-	* @type {jQuery Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#$content
+	* @type jQuery
 	*/
 	var $content = $viewer.children().addClass("ch-viewer-content");
 
 	/**
 	* Reference to the viewer's display element.
 	* @private
-	* @name $display
-	* @type {jQuery Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#$display
+	* @type jQuery
 	*/
 	var $display = $("<div>")
 		.addClass("ch-viewer-display")
@@ -6800,45 +6830,40 @@ ch.viewer = function(conf){
 	/**
 	* Collection of viewer's children.
 	* @private
-	* @name items
-	* @type {Collection}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#items
+	* @type collection
 	*/
 	var items = $content.children();
 
 	/**
 	* Amount of children.
 	* @private
-	* @name itemsAmount
-	* @type {Number}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#itemsAmount
+	* @type number
 	*/
 	var itemsAmount = items.length;
 
 	/**
 	* Collection of anchors finded on items collection.
 	* @private
-	* @name itemsAnchor
-	* @type {Collection}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#itemsAnchor
+	* @type collection
 	*/
 	var itemsAnchor = items.children("a");
 
 	/**
 	* Collection of references to HTMLIMGElements or HTMLObjectElements.
 	* @private
-	* @name itemsChildren
-	* @type {Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#itemsChildren
+	* @type object
 	*/
 	var itemsChildren = items.find("img, object");
 
 	/**
 	* Iniatilizes Zoom component on each anchor
 	* @private
-	* @name instanceZoom
-	* @type {Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#instanceZoom
+	* @type object
 	*/
 	var instanceZoom = function() {
 
@@ -6880,8 +6905,7 @@ ch.viewer = function(conf){
 	* Creates all thumbnails and configure it as a Carousel.
 	* @private
 	* @function
-	* @name createThumbs
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#createThumbs
 	*/
 	var createThumbs = function(){
 
@@ -6931,10 +6955,9 @@ ch.viewer = function(conf){
 	* Moves the viewer's content.
 	* @private
 	* @function
-	* @name move
-	* @param {Number} item
-	* @returns {Chico-UI Object} that
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#move
+	* @param {number} item
+	* @returns itself
 	*/
 	var move = function(item){
 		// Validation
@@ -6965,9 +6988,8 @@ ch.viewer = function(conf){
 
 		/**
 		* Callback function
-		* @name onMove
-		* @type {Function}
-		* @memberOf ch.Viewer
+		* @name ch.Viewer#onMove
+		* @event
 		*/
 		that.callbacks("onMove");
 		// new callback
@@ -6979,9 +7001,8 @@ ch.viewer = function(conf){
 	/**
 	* Handles the visual behavior of arrows
 	* @private
-	* @name arrows
-	* @type {Object}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#arrows
+	* @type object
 	*/
 	var arrows = {};
 
@@ -7020,36 +7041,29 @@ ch.viewer = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#uid
+	* @type number
 	*/
-	that["public"].uid = that.uid;
 
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
 
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#type
+	* @type string
 	*/
-	that["public"].type = that.type;
 
 	/**
 	* Children instances associated to this controller.
 	* @public
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.Viewer
+	* @name ch.Viewer#children
+	* @type Collection
 	*/
 	that["public"].children = that.children;
 
@@ -7059,9 +7073,8 @@ ch.viewer = function(conf){
 		* Selects a specific viewer's child.
 		* @public
 		* @function
-		* @name moveTo 
+		* @name ch.Viewer#moveTo 
 		* @param {Number} item Recieve a index to select a children.
-		* @memberOf ch.Viewer
 		*/
 		// TODO: This method should be called 'select'?
 		that["public"].moveTo = function(item){ that.move(item); return that["public"]; };
@@ -7070,8 +7083,7 @@ ch.viewer = function(conf){
 		* Selects the next child available.
 		* @public
 		* @function
-		* @name next
-		* @memberOf ch.Viewer
+		* @name ch.Viewer#next
 		*/
 		that["public"].next = function(){ that.next(); return that["public"]; };
 
@@ -7079,8 +7091,7 @@ ch.viewer = function(conf){
 		* Selects the previous child available.
 		* @public
 		* @function
-		* @name prev
-		* @memberOf ch.Viewer
+		* @name ch.Viewer#prev
 		*/
 		that["public"].prev = function(){ that.prev(); return that["public"]; };
 
@@ -7088,8 +7099,7 @@ ch.viewer = function(conf){
 		* Get the index of the selected child.
 		* @public
 		* @function
-		* @name getSelected
-		* @memberOf ch.Viewer
+		* @name ch.Viewer#getSelected
 		*/
 		that["public"].getSelected = function(){ return thumbnails.selected; }; // Is this necesary???
 
@@ -7131,8 +7141,8 @@ ch.viewer = function(conf){
 * @class Expando
 * @augments ch.Navs
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
  
 ch.expando = function(conf){
@@ -7140,9 +7150,8 @@ ch.expando = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Expando
+	* @name ch.Expando#that
+	* @type object
 	*/
 	var that = this;
 		
@@ -7171,36 +7180,30 @@ ch.expando = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Expando
+	* @name ch.Expando#uid
+	* @type number
 	*/
-	that["public"].uid = that.uid;
 	
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Expando
+	* @name ch.Expando#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
 	
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Expando
+	* @name ch.Expando#type
+	* @type string
 	*/
-	that["public"].type = that.type;
 	
 	/**
 	* Shows component's content.
 	* @public
-	* @name show
-	* @returns {Chico-UI Object}
-	* @memberOf ch.Expando
+	* @function
+	* @name ch.Expando#show
+	* @returns itself
 	*/
 	that["public"].show = function(){
 		that.show();
@@ -7211,9 +7214,9 @@ ch.expando = function(conf){
 	/**
 	* Hides component's content.
 	* @public
-	* @name hide
-	* @returns {Chico-UI Object}
-	* @memberOf ch.Expando
+	* @function
+	* @name ch.Expando#hide
+	* @returns itself
 	*/	
 	that["public"].hide = function(){
 		that.hide();
@@ -7239,8 +7242,8 @@ ch.expando = function(conf){
 * @augments ch.Controllers
 * @requires ch.Expando
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.menu = function(conf){
@@ -7248,9 +7251,8 @@ ch.menu = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Menu
+	* @name ch.Menu#that
+	* @type object
 	*/
 	var that = this;
 	
@@ -7272,17 +7274,16 @@ ch.menu = function(conf){
 	/**
 	* Indicates witch child is opened
 	* @private
-	* @type {Number}
-	* @memberOf ch.Menu
+	* @name ch.Menu#selected
+	* @type number
 	*/
 	var selected = conf.selected - 1;
 
 	/**
 	* Inits an Expando component on each list inside main HTML code snippet
 	* @private
-	* @name createLayout
+	* @name ch.Menu#createLayout
 	* @function
-	* @memberOf ch.Menu
 	*/
 	var createLayout = function(){
 		
@@ -7337,7 +7338,7 @@ ch.menu = function(conf){
 	* Opens specific Expando child and optionally grandson
 	* @private
 	* @function
-	* @memberOf ch.Menu
+	* @name ch.Menu#select
 	*/
 	var select = function(item){
 
@@ -7397,9 +7398,8 @@ ch.menu = function(conf){
 	/**
 	* Binds controller's own click to expando triggers
 	* @private
-	* @name configureAccordion
+	* @name ch.Menu#configureAccordion
 	* @function
-	* @memberOf ch.Menu
 	*/
 	var configureAccordion = function(){
 
@@ -7422,36 +7422,29 @@ ch.menu = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Menu
+	* @name ch.Menu#uid
+	* @type number
 	*/	
-	that["public"].uid = that.uid;
 	
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Menu
+	* @name ch.Menu#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
 	
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Menu
+	* @name ch.Menu#type
+	* @type string
 	*/
-	that["public"].type = that.type;
 	
 	/**
 	* Select a specific children.
 	* @public
-	* @name select
+	* @name ch.Menu#select
 	* @function
-	* @memberOf ch.Menu
 	*/
 	that["public"].select = function(item){
 		select(item);
@@ -7483,11 +7476,12 @@ ch.menu = function(conf){
 /**
 * Accordion is a UI-Component.
 * @name Accordion
-* @interface Accordion
+* @class Accordion
+* @interface
 * @augments ch.Menu
-* @memberOf ch.Menu
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @memberOf ch
+* @param conf Object with configuration properties
+* @returns itself
 */
 
 ch.extend("menu").as("accordion");
@@ -7495,33 +7489,29 @@ ch.extend("menu").as("accordion");
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Menu.Accordion
+	* @name ch.Accordion#uid
+	* @type number
 	*/
 	
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Menu.Accordion
+	* @name ch.Accordion#element
+	* @type HTMLElement
 	*/
 	
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Menu.Accordion
+	* @name ch.Accordion#type
+	* @type string
 	*/
 	
 	/**
 	* Select a specific children.
 	* @public
-	* @name select
+	* @name ch.Accordion#select
 	* @function
-	* @memberOf ch.Menu.Accordion
 	*/
 
 /**
@@ -7532,8 +7522,8 @@ ch.extend("menu").as("accordion");
 * @requires ch.Positioner
 * @requires ch.onImagesLoads
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {self}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.zoom = function(conf) {
@@ -7541,10 +7531,13 @@ ch.zoom = function(conf) {
 	* Reference to an internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Zoom#that
-	* @type {Object}
+	* @type itself
 	*/
 	var that = this;
 
+/**
+*	Constructor
+*/
 	conf = ch.clon(conf);
 	conf.fx = false;
 	
@@ -7571,7 +7564,7 @@ ch.zoom = function(conf) {
 	* Reference to main image declared on HTML code snippet.
 	* @private
 	* @name ch.Zoom#original
-	* @type {Object}
+	* @type object
 	*/
 	var original = {};
 		original.img = that.$element.children();
@@ -7582,7 +7575,7 @@ ch.zoom = function(conf) {
 	* Reference to the augmented version of image, that will be displayed in context.
 	* @private
 	* @name ch.Zoom#zoomed
-	* @typeÂ {Object}
+	* @typeÂ object
 	*/
 	var zoomed = {};
 		// Define the content source 
@@ -7592,7 +7585,7 @@ ch.zoom = function(conf) {
 	* Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
 	* @private
 	* @name ch.Zoom#seeker
-	* @typeÂ {Object}
+	* @typeÂ object
 	*/
 	var seeker = {};
 		seeker.shape = $("<div>").addClass("ch-seeker ch-hide")
@@ -7602,7 +7595,7 @@ ch.zoom = function(conf) {
 	* @private
 	* @function
 	* @name ch.Zoom#move
-	* @param {Event Object} event
+	* @param event event
 	*/
 	var move = function(event){
 		
@@ -7660,9 +7653,9 @@ ch.zoom = function(conf) {
 
 	/**
 	* Anchor that wraps the main image and links to zoomed image file.
-	* @public
+	* @protected
 	* @name ch.Zoom#$trigger
-	* @typeÂ {Object}
+	* @typeÂ jQuery
 	*/
 	that.$trigger = that.$element;
 
@@ -7702,8 +7695,8 @@ ch.zoom = function(conf) {
 	* @protected
 	* @function
 	* @name ch.Zoom#enlarge
-	* @param {Mouse Event Object} event
-	* @returns {itself}
+	* @param {mouseEvent} event
+	* @returns itself
 	*/
 	that.enlarge = function(event){
 		that.prevent(event);
@@ -7715,11 +7708,10 @@ ch.zoom = function(conf) {
 	* Getter and setter for size attributes of float that contains the zoomed image.
 	* @protected
 	* @function
-	* @name size
-	* @param {String} prop Property that will be setted or getted, like "width" or "height".
-	* @param {String} [data] Only for setter. It's the new value of defined property.
-	* @returns {Internal component instance}
-	* @memberOf ch.Zoom
+	* @name ch.Zoom#size
+	* @param {string} prop Property that will be setted or getted, like "width" or "height".
+	* @param {string} [data] Only for setter. It's the new value of defined property.
+	* @returns itself
 	*/
 	that.size = function(prop, data) {
 
@@ -7747,21 +7739,21 @@ ch.zoom = function(conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Zoom#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Zoom#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Zoom#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
@@ -7769,7 +7761,7 @@ ch.zoom = function(conf) {
 	* @public
 	* @name ch.Zoom#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @returns {HTMLIMGElement}
 	* @example
 	* // Get the defined content
@@ -7785,17 +7777,17 @@ ch.zoom = function(conf) {
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
-	* @name ch.Zoom#isActive
 	* @function 
-	* @returns {Boolean}
+	* @name ch.Zoom#isActive
+	* @returns boolean
 	*/
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
+	* @function 
 	* @name ch.Zoom#show
-	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -7805,9 +7797,9 @@ ch.zoom = function(conf) {
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @name ch.Zoom#hide
 	* @function
-	* @returns {itself}
+	* @name ch.Zoom#hide
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -7817,9 +7809,9 @@ ch.zoom = function(conf) {
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
-	* @name ch.Zoom#width
 	* @function
-	* @returns {itself}
+	* @name ch.Zoom#width
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // Gets width of Zoom float element.
@@ -7832,9 +7824,9 @@ ch.zoom = function(conf) {
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
-	* @name ch.Zoom#height
 	* @function
-	* @returns {itself}
+	* @name ch.Zoom#height
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // Gets height of Zoom float element.
@@ -7847,6 +7839,7 @@ ch.zoom = function(conf) {
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
+	* @function
 	* @name ch.Zoom#position
 	* @example
 	* // Change default position.
@@ -7880,6 +7873,43 @@ ch.zoom = function(conf) {
 	
 	// Initialize when zoomed image loads...
 	zoomed.img.onImagesLoads( init );
+
+	/**
+	* Triggers when component is visible.
+	* @name ch.Zoom#show
+	* @event
+	* @public
+	* @example
+	* me.on("show",function(){
+	*	this.content("Some new content");
+	* });
+	* @see ch.Floats#event:show
+	*/
+
+	/**
+	* Triggers when component is not longer visible.
+	* @name ch.Zoom#hide
+	* @event
+	* @public
+	* @example
+	* me.on("hide",function(){
+	*	otherComponent.show();
+	* });
+	* @see ch.Floats#event:hide
+	*/
+
+	/**
+	* Triggers when the component is ready to use.
+	* @name ch.Zoom#ready
+	* @event
+	* @public
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.on("ready",function(){
+	*	this.show();
+	* });
+	*/
+	that.trigger("ready");
 
 	return that;
 };

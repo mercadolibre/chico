@@ -1,19 +1,19 @@
 
 /**
- * Forms is a Controller of DOM's HTMLFormElement.
- * @name Form
- * @class Form
- * @augments ch.Controllers
- * @memberOf ch
- * @param {Configuration Object} conf Object with configuration properties
- * @returns {Chico-UI Object}
- */
+* Forms is a Controller of DOM's HTMLFormElement.
+* @name Form
+* @class Form
+* @augments ch.Controllers
+* @memberOf ch
+* @param {object} conf Object with configuration properties
+* @returns itself
+*/
 
 ch.form = function(conf) {
 
 /**
- *  Validation
- */
+* Validation
+*/
 	// Are there action and submit type?
 	if ( this.$element.find(":submit").length == 0 || this.$element.attr("action") == "" ){ 
 		alert("Form fatal error: The <input type=submit> is missing, or need to define a action attribute on the form tag.");
@@ -35,9 +35,8 @@ ch.form = function(conf) {
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Form
+	* @name ch.Form#that
+	* @type object
 	*/ 
 	var that = this;
 	
@@ -64,9 +63,8 @@ ch.form = function(conf) {
 	/**
 	* A Boolean property that indicates is exists errors in the form.
 	* @private
-	* @name status
-	* @type {Boolean}
-	* @memberOf ch.Form
+	* @name ch.Form#status
+	* @type boolean
 	*/ 
 	var status = true;
 	
@@ -77,9 +75,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name beforeValidate
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#beforeValidate
+		* @event
+		* @public
 		*/
 		that.callbacks("beforeValidate");
 		// new callback
@@ -117,15 +115,15 @@ ch.form = function(conf) {
 		}
 		/**
 		* Callback function
-		* @name onValidate
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onValidate
+		* @event
+		* @public
 		*/
 		/**
 		* Callback function
-		* @name onError
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onError
+		* @event
+		* @public
 		*/
 		//status ? that.callbacks("onValidate") : that.callbacks("onError");  
 		if (status) {
@@ -140,9 +138,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name afterValidate
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#afterValidate
+		* @event
+		* @public
 		*/
 		that.callbacks("afterValidate");
 		// new callback
@@ -159,9 +157,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name beforeSubmit
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#beforeSubmit
+		* @event
+		* @public
 		*/
 		that.callbacks("beforeSubmit");
 		// new callback
@@ -180,9 +178,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name onSubmit
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onSubmit
+		* @event
+		* @public
 		*/
 
 		// Is there's no error but there's a onSubmit callback
@@ -197,9 +195,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name afterSubmit
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#afterSubmit
+		* @event
+		* @public
 		*/
 
 		that.callbacks("afterSubmit");
@@ -224,9 +222,9 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name onClear
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onClear
+		* @event
+		* @public
 		*/
 		that.callbacks("onClear");
 		// new callback
@@ -243,9 +241,9 @@ ch.form = function(conf) {
 		that.element.reset(); // Reset html form native
 		/**
 		* Callback function
-		* @name onReset
-		* @type {Function}
-		* @memberOf ch.Form
+		* @name ch.Form#onReset
+		* @event
+		* @public
 		*/
 		that.callbacks("onReset");
 		// new callback
@@ -261,49 +259,46 @@ ch.form = function(conf) {
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Form
+	* @name ch.Form#uid
+	* @type number
 	*/ 
-	that["public"].uid = that.uid;
+
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Form
+	* @name ch.Form#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
+
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Form
+	* @name ch.Form#type
+	* @type string
 	*/
-	that["public"].type = that.type;
+
 	/**
 	* Watcher instances associated to this controller.
 	* @public
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.Form
+	* @name ch.Form#children
+	* @type collection
 	*/
 	that["public"].children = that.children;
+	
 	/**
 	* Collection of messages defined.
 	* @public
-	* @name messages
-	* @type {String}
-	* @memberOf ch.Form
+	* @name ch.Form#messages
+	* @type string
 	*/
 	that["public"].messages = conf.messages || {};
+	
 	/**
 	* Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+	* @public
 	* @function
-	* @name validate
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#validate
+	* @returns itself
 	*/
 	that["public"].validate = function() { 
 		validate(); 
@@ -313,10 +308,10 @@ ch.form = function(conf) {
 	
 	/**
 	* This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+	* @public
 	* @function
-	* @name submit
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#submit
+	* @returns itself
 	*/
 	that["public"].submit = function() { 
 		submit(); 
@@ -326,10 +321,10 @@ ch.form = function(conf) {
 
 	/**
 	* Return the status value.
+	* @public
 	* @function
-	* @name getStatus
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#getStatus
+	* @returns itself
 	*/	
 	that["public"].getStatus = function(){
 		return status;	
@@ -337,10 +332,10 @@ ch.form = function(conf) {
 
 	/**
 	* Use this method to clear al validations.
+	* @public
 	* @function
-	* @name clear
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#clear
+	* @returns itself
 	*/ 
 	that["public"].clear = function() { 
 		clear(); 
@@ -349,10 +344,10 @@ ch.form = function(conf) {
 	};
 	/**
 	* Use this method to clear al validations.
+	* @public
 	* @function
-	* @name reset
-	* @memberOf ch.Form
-	* @returns {Chico-UI Object}
+	* @name ch.Form#reset
+	* @returns itself
 	*/ 
 	that["public"].reset = function() { 
 		reset(); 

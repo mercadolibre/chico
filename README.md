@@ -15,13 +15,22 @@ Some features.
 - Grid System and
 - Custom Skins  
 
+Get in touch.
+-------------
+- chico (at) mercadolibre.com
+- @chicoui
+
 The team.
 ---------
-- Natan Santolo, @natos
-- Hernan Mammana, @hmammana
-- Leandro Linares, @lean8086
-- Guillermo Paz, @pazguille
-- Natalia Devalle, @taly
+- Natan Santolo (Chief), @natos
+- Hernan Mammana (Frontender), @hmammana
+- Leandro Linares (Frontender), @lean8086
+- Guillermo Paz (Frontender), @pazguille
+- Natalia Devalle (Web Dev), @taly
+
+Credits.
+--------
+![MercadoLibre](http://static.mlstatic.com/org-img/chico/img/logo-mercadolibre.png)
 
 License
 -------
