@@ -20,8 +20,8 @@
 ch.extend("watcher").as("string", function (conf) {
 
 	// $.string("message"); support
-	if ( !conf.text && !conf.email && !conf.url && !conf.maxLength && !conf.minLength ) {
-		conf.text = true;
+	if ( !conf.string && !conf.email && !conf.url && !conf.maxLength && !conf.minLength ) {
+		conf.string = true;
 	};
 	
 	/**
@@ -31,7 +31,7 @@ ch.extend("watcher").as("string", function (conf) {
 	*/
 	// Define the conditions of this interface
 	conf.conditions = [{
-			name: "text", 
+			name: "string", 
 			patt: /^([^0-9]+[áéíóúâêîôûäëïöüàèìòùÁÉÍÓÚÂÊÎÔÛÄËÏÖÜÀÈÌÒÙçÇ\s]*[a-zA-Z\s]*)$/
 		},{
 			name:"email",

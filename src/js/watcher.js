@@ -152,13 +152,14 @@ ch.watcher = function(conf) {
 		var c = []; // temp collection
 		var i = 0;  // iteration
 		var t = conf.conditions.length;
+		//console.log(conf);
 		for ( i; i < t; i++ ) {
 			/**
 			* Process conditions to find out which should be configured.
 			* Add validations and messages to conditions object.
 			*/
 			var condition = conf.conditions[i];
-			
+
 			// If condition exists in the Configuration Object
 			if ( conf[condition.name] ) {
 				
@@ -166,7 +167,9 @@ ch.watcher = function(conf) {
 				condition.value = conf[condition.name];
 				
 				// If there is a message defined for that condition
+				
 				if ( conf.messages[condition.name] ) {
+										
 					condition.message = conf.messages[condition.name];
 				}
 				
@@ -296,7 +299,7 @@ ch.watcher = function(conf) {
 					var text = ( condition.message ) ? condition.message : 
 						(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
 						undefined;
-
+						
 					that.helper["public"].content(text);
 					that.helper["public"].show();
 

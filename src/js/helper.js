@@ -46,7 +46,7 @@ ch.helper = function(controller){
 *  Protected Members
 */ 
  
-	that.content("I'm not sure what just happened, this field might have some problems. Can you take a look?")
+	that.content("Error");
 
  	that.$trigger = that.$element;
 
