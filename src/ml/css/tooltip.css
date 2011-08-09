@@ -14,59 +14,33 @@
 }
 
 /* Cone */
-
 .ch-tooltip .ch-cone {
-	background-color: transparent;
-	background-image: url('../src/assets/tooltip.png');
-	background-position: 0 0 no-repeat;
+	background-image: url('../src/ml/assets/tooltip.png');
 	display:block;
 	position:absolute;
-}
-
-.ch-tooltip.ch-bottom .ch-cone,
-.ch-tooltip.ch-top .ch-cone {
 	width:16px;
 	height:8px;
-	left:12px;
+}
+
+.ch-tooltip.ch-left .ch-cone {
+	left:8px;
+}
+
+.ch-tooltip.ch-right .ch-cone {
+	right:8px;
+}
+
+.ch-tooltip.ch-top .ch-cone {
+	background-position:0 -8px;
+	bottom:-8px;
 }
 
 .ch-tooltip.ch-bottom .ch-cone {
 	top:-8px;
 }
 
-.ch-tooltip.ch-top .ch-cone{
-	background-position:0 -8px;
-	bottom:-8px;
-}
-
-.ch-tooltip.ch-left .ch-cone,
-.ch-tooltip.ch-right .ch-cone {
-	width:8px;
-	height:16px;
-	top:2px;
-}
-
-.ch-tooltip.ch-left .ch-cone {
-	background-position:-8px 0;
-	right:-8px;
-}
-
-.ch-tooltip.ch-right .ch-cone {
-	left:-8px;
-}
-
-.ch-tooltip.ch-bottom-right .ch-cone,
-.ch-tooltip.ch-top-right .ch-cone {
-	width:16px;
-	height:8px;
-	right:12px;
-}
-
-.ch-tooltip.ch-bottom-right .ch-cone {
-	top:-8px;
-}
-
-.ch-tooltip.ch-top-right .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
+/* IE6 */
+.ie6 .ch-tooltip .ch-cone {
+	font-size:0;
+	line-height:0;
 }
