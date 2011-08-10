@@ -31,8 +31,10 @@ ch.extend("watcher").as("string", function (conf) {
 	*/
 	// Define the conditions of this interface
 	conf.conditions = [{
-			name: "string", 
-			patt: /^([^0-9]+[áéíóúâêîôûäëïöüàèìòùÁÉÍÓÚÂÊÎÔÛÄËÏÖÜÀÈÌÒÙçÇ\s]*[a-zA-Z\s]*)$/
+			name: "string",
+			// the following regular expression has the utf code for the lating characters
+			// the ranges are A,EI,O,U,a,ei,o,u,ç,Ç please for reference see http://www.fileformat.info/info/charset/UTF-8/list.htm
+			patt: /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/
 		},{
 			name:"email",
 			patt: /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/ 

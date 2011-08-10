@@ -252,7 +252,7 @@ ch.watcher = function(conf) {
 			var i = 0, t = that.conditions.length,
 				value = that.$element.val(),
 				gotError = false;
-
+				
 			// for each condition
 			for ( i ; i < t ; i +=1 ) {
 				
