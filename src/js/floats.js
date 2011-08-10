@@ -192,6 +192,8 @@ ch.floats = function() {
 			.appendTo("body")
 			.css("z-index", ch.utils.zIndex++);
 
+
+
 		// This make a reflow, but we need that the static content appends to DOM
 		// Get content
 		that.content();
@@ -314,7 +316,7 @@ ch.floats = function() {
 	* @returns {this}
 	*/
 	that["public"].show = function(content){
-		if (content !== undefined) { that.content(content); }
+		if (content !== undefined) { that["public"].content(content); }
 		that.innerShow();
 		return that["public"];
 	};
