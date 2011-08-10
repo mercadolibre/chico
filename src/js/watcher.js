@@ -297,8 +297,8 @@ ch.watcher = function(conf) {
 						(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
 						undefined;
 
-					that.helper["public"].content(text);
-					that.helper["public"].show();
+					//that.helper["public"].content(text);
+					that.helper["public"].show("<span class=\"ico error\">Error: </span><p>" + text + "</p>");
 
 					that.active = true;
 

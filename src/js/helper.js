@@ -57,16 +57,13 @@ ch.helper = function(controller){
 	* @returns {itself}
 	*/ 
 	that.$trigger = that.$element;
-		
+
 	that.innerShow = function() {
 
 		if ( !that.active ) {
 			// Load content and show!
 			that.parent.innerShow();
 		};
-
-		// Just Reload content!
-		that.$content.html("<span class=\"ico error\">Error: </span><p>" + that.content() + "</p>");
 
 		return that;
 	};

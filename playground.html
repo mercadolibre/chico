@@ -11,7 +11,7 @@
 		<title>Chico UI</title> 
  
 		<link rel="stylesheet" type="text/css" href="php/packer.php?type=css"> 
-		<link rel="stylesheet" type="text/css" href="src/css/codelighter.css">
+		<!--link rel="stylesheet" type="text/css" href="src/css/codelighter.css"-->
 		<!--[if lt IE 7 ]>
 			<script src="libs/js/dd_belatedpng.js"></script>
 			<script> DD_belatedPNG.fix('img, .ico'); //fix any <img> or .ico background-images </script>
@@ -89,7 +89,7 @@
 		<div class="article demo"> 
 			<h1>Calendar</h1>
 			<div class="box">	
-				<form action="test.html" class="form">
+				<form action="/test.html" class="form">
 					<fieldset>
 						<legend>Calendar</legend>
 						<ol>
@@ -261,9 +261,9 @@ div p.keywords{color:darkorange;}
 		<div class="section"> 
 			<div class="box"> 
 				<h2>Demo</h2> 
-				<a href="test.html" class="demoTransition1">Transition ejecutado en un link.</a></li> 
+				<a href="/test.html" class="demoTransition1">Transition ejecutado en un link.</a></li> 
  
-				<form action="test.html"> 
+				<form action="/test.html"> 
 					<input type="submit" class="btn secondary demoTransition2" value="Transition ejecutado en un botón"> 
 				</form> 
 			</div> 
@@ -291,8 +291,7 @@ div p.keywords{color:darkorange;}
 			<div class="box"> 
 				<h2>Demo</h2> 
 				<div class="demoTabNavigator"> 
-					<ul> 
- 
+					<ul>
 						<li><a href="#tab1-a">Tab1</a></li> 
 						<li><a href="http://ui.ml.com/test.html#prueba1">Tab2</a></li> 
 						<li><a href="http://ui.ml.com/download.html">Tab3</a></li> 
@@ -308,7 +307,6 @@ div p.keywords{color:darkorange;}
 									<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
 									<li><a href="http://www.mercadoshops.com">MercadoShops</a></li> 
 									<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
- 
 								</ul> 
 							</div> 
 						</div> 
@@ -762,11 +760,11 @@ div p.keywords{color:darkorange;}
  
 	</div> 
 	
-	<div id="modalContent" style="display:none"> 
+	<div id="modalContent" class="ch-hide"> 
 		<h2>Titulo del modal que tiene un click</h2> 
 		<p>Lorem ipsum......</p> 
 	</div> 
-	<div id="list-layer" style="display:none"> 
+	<div id="list-layer" class="ch-hide"> 
 		<div class="min-box pricing"> 
 			<p class="price"><span class="l-currency">$</span> <span class="l-price">250<sup>00</sup></span> <select class="stock"><option>casca</option><option>casca</option><option>casca</option><option>casca</option></select></p> 
 			<p class="shipping"><span class="free-shipping">Gratis</span> a través de <span class="mail-sedex">Sedex</span></p> 
@@ -804,7 +802,7 @@ div p.keywords{color:darkorange;}
 	<!-- Organization -->
 	<script src="libs/js/jquery.js"></script>
 	<script src="php/packer.php?debug=true"></script>
-	<script src="src/plugin/codelighter.js"></script>
+	<!--script src="src/plugin/codelighter.js"></script-->
 	<script>
  
 		// Boxes alignment
@@ -838,7 +836,7 @@ div p.keywords{color:darkorange;}
 			}
         });
         
-        var ui_moda = $('.demoModal').modal("test.html");
+        var ui_moda = $('.demoModal').modal("/test.html");
         /*var ui_moda = $('.demoModal').modal({
 		    	//width: 350,
 		    	//height: 400,
@@ -882,7 +880,7 @@ div p.keywords{color:darkorange;}
 		var ui_view = $(".viewerDemo").viewer();
  
 		// Chat
-		ch.factory({
+		/*ch.factory({
 		      component: "chat",
 		      callback: createChat
 	      });
@@ -893,11 +891,11 @@ div p.keywords{color:darkorange;}
                style: 'block',
                template: '3'
            });
-        }
+        }*/
 
         var calendar = $(".myCalendar").calendar();
 
-        var lighter = ch.codelighter();		
+        //var lighter = ch.codelighter();
 		//$(".codeXML").xml();
 		//$(".codeCSS").css();
  

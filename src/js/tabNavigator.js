@@ -371,7 +371,7 @@ ch.tab = function(conf){
 
 		// Load my content if I'need an ajax request 
 		if( ch.utils.hasOwn(that, "source") ) {
-			that.$content.html( that.content() );
+			that.content();
 		};
 
 		// Show me
@@ -387,11 +387,39 @@ ch.tab = function(conf){
 	* @returns {Chico-UI Object}
 	* @memberOf ch.TabNavigator
 	*/
-	that.contentCallback = function(data) {
-		that.staticContent = data;
-	that.$content.html(that.staticContent);
-	};
-	
+	that["public"].on("contentLoad", function(event, context){
+
+		that.$content.html(that.staticContent);
+
+		if (ch.utils.hasOwn(conf, "onContentLoad")) {
+			conf.onContentLoad.call(context, that.staticContent);
+		}
+
+	});
+
+	/**
+	* This callback is triggered when async request fails.
+	* @public
+	* @name contentCallback
+	* @returns {Chico-UI Object}
+	* @memberOf ch.TabNavigator
+	*/
+	that["public"].on("contentError", function(event, data){
+
+		that.$content.html(that.staticContent);
+
+		// Get the original that.source
+		var originalSource = that.source;
+
+		if (ch.utils.hasOwn(conf, "onContentError")) {
+			conf.onContentError.call(data.context, data.jqXHR, data.textStatus, data.errorThrown);
+		}
+
+		// Reset content configuration
+		that.source = originalSource;
+		that.staticContent = undefined;
+
+	});
 
 /**
 *	Public Members

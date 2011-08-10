@@ -10,7 +10,7 @@
 * @see ch.Tooltip
 * @see ch.Layer
 * @see ch.Modal
-*/ 
+*/
 
 ch.floats = function() {
 
@@ -35,43 +35,41 @@ ch.floats = function() {
 */
 
 	/**
- 	* Creates a 'cone', is a visual asset for floats.
- 	* @private
- 	* @name ch.Floats#createCone
- 	* @function
- 	*/ 
+	* Creates a 'cone', is a visual asset for floats.
+	* @private
+	* @name ch.Floats#createCone
+	* @function
+	*/
 	var createCone = function() {
 		$("<div class=\"ch-cone\">")
 			.prependTo( that.$container );
 	};
 
 	/**
- 	* Creates close button.
- 	* @private
- 	* @name ch.Floats#createClose
- 	* @function
- 	*/ 
+	* Creates close button.
+	* @private
+	* @name ch.Floats#createClose
+	* @function
+	*/
 	var createClose = function() {
 		// Close Button
 		$("<div class=\"btn close\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">")
 			.bind("click", function(event){ that.innerHide(event); })
 			.prependTo( that.$container );
-		
+
 		// ESC key
 		ch.utils.document.bind(ch.events.KEY.ESC, function(event){ that.innerHide(event); });
-		
-		return;
 	};
 
 /**
 * Protected Members
-*/ 
+*/
 	/**
 	* Flag that indicates if the float is active and rendered on the DOM tree.
 	* @protected
 	* @name ch.Floats#active
 	* @type {Boolean}
-	*/ 
+	*/
 	that.active = false;
 
 	/**
@@ -127,17 +125,50 @@ ch.floats = function() {
 	/**
 	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
 	* @protected
-	* @name ch.Floats#contentCallback
+	* @name ch.Floats#contentLoad
 	* @function
 	* @returns {this}
-	*/ 
-	that.contentCallback = function(data) {
-		that.staticContent = data;
+	*/
+	that["public"].on("contentLoad", function(event, context){
+
 		that.$content.html(that.staticContent);
-		if ( ch.utils.hasOwn(conf, "position") ) {
+
+		if (ch.utils.hasOwn(conf, "onContentLoad")) {
+			conf.onContentLoad.call(context, that.staticContent);
+		}
+
+		if (ch.utils.hasOwn(conf, "position")) {
+			ch.positioner(conf.position);
+		}
+	});
+
+	/**
+	* This callback is triggered when async request fails.
+	* @protected
+	* @name ch.Floats#contentError
+	* @function
+	* @returns {this}
+	*/
+	that["public"].on("contentError", function(event, data){
+
+		that.$content.html(that.staticContent);
+
+		// Get the original that.source
+		var originalSource = that.source;
+
+		if (ch.utils.hasOwn(conf, "onContentError")) {
+			conf.onContentError.call(data.context, data.jqXHR, data.textStatus, data.errorThrown);
+		}
+
+		// Reset content configuration
+		that.source = originalSource;
+		that.staticContent = undefined;
+
+		if (ch.utils.hasOwn(conf, "position")) {
 		   ch.positioner(conf.position);
 		}
-	}
+
+	});
 
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
@@ -145,26 +176,25 @@ ch.floats = function() {
 	* @name ch.Floats#innerShow
 	* @function
 	* @returns {this}
-	*/ 
+	*/
 	that.innerShow = function(event) {
 
 		if (event) {
 			that.prevent(event);
 		}
-				
+
 		// Avoid showing things that are already shown
 		if ( that.active ) return;
-
-		// Get content
-		that.staticContent = that.content();
-		// Saves content
-		that.$content.html(that.staticContent);
 
 		// Add layout to DOM tree
 		// Increment zIndex
 		that.$container
 			.appendTo("body")
 			.css("z-index", ch.utils.zIndex++);
+
+		// This make a reflow, but we need that the static content appends to DOM
+		// Get content
+		that.content();
 
 		/**
 		* Triggers when component is visible.
@@ -174,13 +204,13 @@ ch.floats = function() {
 		*/
 		// Show component with effects
 		if( conf.fx ) {
-			that.$container.fadeIn("fast", function(){ 
+			that.$container.fadeIn("fast", function(){
 				// new callbacks
 				that.trigger("show");
 				// Old callback system
 				that.callbacks('onShow');
 			});
-		} else { 
+		} else {
 		// Show component without effects
 			that.$container.removeClass("ch-hide");
 			// new callbacks
@@ -188,8 +218,8 @@ ch.floats = function() {
 			// Old callback system
 			that.callbacks('onShow');
 		};
-	
-		// TODO: Positioner should recalculate the element's size (width and height) 
+
+		// TODO: Positioner should recalculate the element's size (width and height)
 		conf.position.element = that.$container;
 
 		that.position("refresh");
@@ -205,21 +235,21 @@ ch.floats = function() {
 	* @name ch.Floats#innerHide
 	* @function
 	* @returns {this}
-	*/ 
+	*/
 	that.innerHide = function(event) {
 
 		if (event) {
 			that.prevent(event);
 		}
-		
+
 		if (!that.active) {
 			return;
 		}
 
-		var afterHide = function(){ 
-			 
+		var afterHide = function(){
+
 			that.active = false;
-			
+
 		/**
 		* Triggers when component is not longer visible.
 		* @name ch.Floats#hide
@@ -233,33 +263,22 @@ ch.floats = function() {
 
 			that.$container.detach();
 
-			// TODO: This should be wrapped on Object.content() method
-			// We need to be able to use interal callbacks...
-			if (ch.utils.isSelector(that.source) && !ch.utils.inDom(that.source) && !ch.utils.isUrl(that.source)) {
-				var original = $(that.staticContent).clone();
-					original.appendTo(that.DOMParent||"body");
-
-				if (!that.DOMContentIsVisible) {
-					original.addClass("ch-hide");
-				}
-
-			};
 		};
-		
+
 		// Show component with effects
-		if( conf.fx ) {
+		if (conf.fx) {
 			that.$container.fadeOut("fast", afterHide);
-		
+
 		// Show component without effects
 		} else {
 			that.$container.addClass("ch-hide");
 			afterHide();
-		};
+		}
 
 		return that;
 
 	};
-	
+
 	/**
 	* Getter and setter for size attributes on any float component.
 	* @protected
@@ -273,7 +292,7 @@ ch.floats = function() {
 		// Getter
 		if (!data) {
 			return that.conf[prop];
-		};
+		}
 		// Setter
 		that.conf[prop] = data;
 		// Container
@@ -286,7 +305,7 @@ ch.floats = function() {
 /**
 * Public Members
 */
- 
+
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
@@ -294,11 +313,12 @@ ch.floats = function() {
 	* @function
 	* @returns {this}
 	*/
-	that["public"].show = function(){
+	that["public"].show = function(content){
+		if (content !== undefined) { that.content(content); }
 		that.innerShow();
 		return that["public"];
 	};
-	
+
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
@@ -344,7 +364,7 @@ ch.floats = function() {
 	that["public"].height = function(data) {
 		return that.size("height", data) || that["public"];
 	};
-	
+
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
@@ -357,5 +377,5 @@ ch.floats = function() {
 	};
 
 	return that;
- 
+
 };

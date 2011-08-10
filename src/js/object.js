@@ -3,7 +3,7 @@
 * Object represent the abstract class of all UI Objects.
 * @abstract
 * @name Object
-* @class Object 
+* @class Object
 * @memberOf ch
 * @see ch.Controllers
 * @see ch.Floats
@@ -12,16 +12,16 @@
 */
 
 ch.object = function(){
-	
+
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Object#that
 	* @type {Object}
-	*/ 
-	var that = this;	
+	*/
+	var that = this;
 	var conf = that.conf;
-		
+
 /**
 *	Public Members
 */
@@ -32,24 +32,24 @@ ch.object = function(){
 	* @public
 	* @name ch.Object#staticContent
 	* @type {String}
-	*/ 
+	*/
 	that.staticContent;
-	
+
 	/**
 	* DOM Parent of content, this is useful to attach DOM Content when float is hidding.
 	* @public
 	* @name ch.Object#DOMParent
 	* @type {HTMLElement}
-	*/ 
+	*/
 	that.DOMParent;
 
 	/**
-	* Flag to know if the DOM Content is visible or not.
+	* Component original content.
 	* @public
-	* @name ch.Object#DOMContentIsVisible
+	* @name ch.Object#originalContent
 	* @type {Boolean}
-	*/ 
-	that.DOMContentIsVisible;
+	*/
+	that.originalContent;
 
 	/**
 	* Prevent propagation and default actions.
@@ -59,12 +59,12 @@ ch.object = function(){
 	* @param {EventObject} event Recieves a event object
 	*/
 	that.prevent = function(event) {
-		
+
 		if (event && typeof event == "object") {
 			event.preventDefault();
 			event.stopPropagation();
 		};
-		
+
 		return that;
 	};
 
@@ -90,175 +90,202 @@ ch.object = function(){
 
 		var _get = (content) ? false : true,
 
-		// Local argument
-		content = content,
-		// Local isURL
-		sourceIsUrl = ch.utils.isUrl(that.source),
-		// Local isSelector
-		sourceIsSelector = ch.utils.isSelector(that.source),
+			// Local argument
+			content = content,
+			// Local isURL
+			sourceIsUrl = ch.utils.isUrl(that.source),
+			// Local isSelector
+			sourceIsSelector = ch.utils.isSelector(that.source),
 			// Local inDom
-			sourceInDom = ch.utils.inDom(that.source),
-		// Get context, could be a single component or a controller
-		context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"],
-		// undefined, for comparison.
-		undefined,
-		// Save cache configuration
-		cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
+			sourceInDom = (!sourceIsUrl) ? ch.utils.inDom(that.source) : false,
+			// Get context, could be a single component or a controller
+			context = ( ch.utils.hasOwn(that, "controller") ) ? that.controller : that["public"],
+			// undefined, for comparison.
+			undefined,
+			// Save cache configuration
+			cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
 
-	/**
-	* Get content
-	*/
+		/**
+		* Get content
+		*/
+
 		// return defined content
 		if (_get) {
 
 			// no source, no content
-		if (that.source === undefined) {
-			return "<p>No content defined for this component</p>";	
-		}
+			if (that.source === undefined) {
+				that.staticContent = "<p>No content defined for this component</p>";
+				that.trigger("contentLoad");
 
-		// Get data from cache for DOMContent or AJAXContent
-		if (cache && ( sourceIsSelector || sourceIsUrl)) {
-			var fromCache = ch.cache.get(that.source);
-			if (fromCache) {
-				$(that.source).detach();
-				return fromCache;
+				return;
+			}
+
+			// First time we need to get the content.
+			// Is cache is off, go and get content again.
+			// Yeap, recursive.
+			if (!cache || that.staticContent === undefined) {
+				that.content(that.source);
+				return;
+			}
+
+			// Get data from cache if the staticContent was defined
+			if (cache && that.staticContent) {
+				var fromCache = ch.cache.get(that.source);
+
+				// 
+				if (fromCache && that.staticContent != fromCache) {
+					that.staticContent = fromCache;
+
+					that.trigger("contentLoad");
+
+					// Return and load content from cache
+					return;
+				}
+
+				// Return and show the latest content that was loaded
+				return;
 			}
 		}
-		
-		// First time we need to get the content.
-		// Is cache is off, go and get content again.
-		// Yeap, recursive.
-		if (!cache || that.staticContent === undefined) {
-			var content = that.content(that.source);
-			$(that.source).detach();
-			return content;
-		}
 
-		// Flag to remove DOM content and avoid ID duplication the first time
-		if (sourceIsSelector && sourceInDom) {
-			$(that.source).detach();
-		}
-		
-			// get at last
-		return that.staticContent;
+		/**
+		* Set content
+		*/
 
-		}
+		// Reset cache to overwrite content
+		conf.cache = false;
 
-	/**
-	* Set content
-	*/	
+		// Local isURL
+		var isUrl = ch.utils.isUrl(content),
+			// Local isSelector
+			isSelector = ch.utils.isSelector(content),
+			// Local inDom
+			inDom = (!isUrl) ? ch.utils.inDom(content) : false;
 
-	// Reset cache to overwrite content
-	conf.cache = false;
-
-	// Local isURL
-	var isUrl = ch.utils.isUrl(content),
-		// Local isSelector
-		isSelector = ch.utils.isSelector(content),
-		// Local inDom
-		inDom = ch.utils.inDom(content);
-
-	/* Evaluate static content*/  
+		/* Evaluate static content*/
 
 		// Set 'that.staticContent' and overwrite 'that.source'
 		// just in case you want to update DOM or AJAX Content.
+
 		that.staticContent = that.source = content;
 
-		/* Evaluate DOM content*/
-
-		if (isSelector && inDom) {
-			
-			// Save DOMParent, so we know where to re-insert the content.
-			that.DOMParent = $(content).parent();
-			// Check if content was visible or not.
-			that.DOMContentIsVisible = $(content).is(":visible")
-
-			// Return DOM content, remove it from DOM to avoid ID duplications
-			that.staticContent = $(content).removeClass("ch-hide").remove();
-			
-			// Save new data to the cache
-			if (cache) {
-				ch.cache.set(that.source, that.staticContent);
-			}
-		}
-
-		// trigger onContentLoad callback for DOM and Static,
-		// Avoid trigger this callback on AJAX requests.
-		if ( ch.utils.hasOwn(conf, "onContentLoad") && !isUrl) { conf.onContentLoad.call( context ); }
-
-	/* Evaluate AJAX content*/  
+		/* Evaluate AJAX content*/
 
 		if (isUrl) {
-  		
-  		// First check Cache
-  		// Check if this source is in our cache
-  		if (cache) {
- 			var fromCache = ch.cache.get(that.source);
- 			if (fromCache) {
-				return fromCache;
- 			}
-  		}
 
-  		var _method, _serialized, _params = "x=x";
-  		
+			// First check Cache
+			// Check if this source is in our cache
+			if (cache) {
+				var fromCache = ch.cache.get(that.source);
+				if (fromCache) {
+					conf.cache = cache;
+					that.staticContent = fromCache;
+					that.trigger("contentLoad", context);
+					return;
+				}
+			}
+
+			var _method, _serialized, _params = "x=x";
+
 			// If the trigger is a form button, serialize its parent to send data to the server.
 			if (that.$element.attr('type') == 'submit') {
 				_method = that.$element.parents('form').attr('method') || 'GET';
 				_serialized = that.$element.parents('form').serialize();
 				_params = _params + ((_serialized != '') ? '&' + _serialized : '');
 			};
-			
-			$.ajax({
-				url: that.source,
-				type: _method || 'GET',
-				data: _params,
-				// each component could have a different cache configuration
-				cache: cache,
-				async: true,
-				beforeSend: function(jqXHR){
-					// Ajax default HTTP headers
-					jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-				},
-				success: function(data, textStatus, jqXHR){
-					// TODO: It would be nice to re-use the onContentLoad callback.
-				that.contentCallback.call(that,data);
-				// Callback your way out
-					if (ch.utils.hasOwn(conf, "onContentLoad")) {
-						conf.onContentLoad.call(context, data, textStatus, jqXHR);
-					}
-					// Save new data to the cache
-				if (cache) {
-					ch.cache.set(that.source,data);
-				}
-				},
-				error: function(jqXHR, textStatus, errorThrown){
-				// TODO: It would be nice to re-use the onContentError callback.
-				that.contentCallback.call(that,"<p>Error on ajax call </p>");
-				// Callback your way out
-					if (ch.utils.hasOwn(conf, "onContentError")) {
-						conf.onContentError.call(context, jqXHR, textStatus, errorThrown)
-					}
-				}
-			});
 
-		// Return Spinner and wait for callbacks
-			that.staticContent = '<div class="loading"></div>';
+			// Set ajax config
+			// On IE (6-7) "that" reference losts for second time
+			// Why?? I don't know... but with a setTimeOut() works fine!
+			setTimeout(function(){
+				$.ajax({
+					url: that.source,
+					type: _method || 'GET',
+					data: _params,
+					// each component could have a different cache configuration
+					cache: cache,
+					async: true,
+					beforeSend: function(jqXHR){
+						// Ajax default HTTP headers
+						jqXHR.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+					},
+					success: function(data, textStatus, jqXHR){
+						// Save data as staticContent
+						that.staticContent = data;
 
+						// Use the contentLoad callback.
+						that.trigger("contentLoad", context);
+
+						// Save new staticContent to the cache
+						if (cache) {
+							ch.cache.set(that.source, that.staticContent);
+						}
+
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+						that.staticContent = "<p>Error on ajax call.</p>";
+
+						var data = {
+							"context": context,
+							"jqXHR": jqXHR,
+							"textStatus": textStatus,
+							"errorThrown": errorThrown
+						};
+						
+						// Use the contentError callback.
+						that.trigger("contentError", data);
+					}
+				});
+			}, 0);
+
+			// Return Spinner and wait for async callback
+			that.$content.html("<div class=\"loading\"></div>");
+			that.staticContent = undefined;
+
+		} else {
+
+			/* Evaluate DOM content*/
+
+			if (isSelector && inDom) {
+
+				// Save original DOMFragment.
+				that.originalContent = $(content);
+
+				// Save DOMParent, so we know where to re-insert the content.
+				that.DOMParent = that.originalContent.parent();
+
+				// Save a clone to original DOM content
+				that.staticContent = that.originalContent.clone().removeClass("ch-hide");
+
+			}
+
+			// Save new data to the cache
+			if (cache) {
+				ch.cache.set(that.source, that.staticContent);
+			}
+
+			// First time we need to set the callbacks that append and remove the original content.
+			if (that.originalContent && that.originalContent.selector == that.source) {
+
+				// Remove DOM content from DOM to avoid ID duplications
+				that["public"].on("show", function() {
+					that.originalContent.detach();
+				});
+
+				// Returns DOMelement to DOM
+				that["public"].on("hide", function(){
+					that.originalContent.appendTo(that.DOMParent||"body");
+				});
+			}
 		}
 
-	/* Set previous cache configuration*/
-
+		/* Set previous cache configuration*/
 		conf.cache = cache;
 
-	/* Finally return 'staticContent'*/
-		
-		// Update Content
-		// old callback system
-		that.contentCallback.call(that,that.staticContent);
-		// new callbacks
-		that.trigger("contentLoad");
-		
-		return that.staticContent;
+		// trigger contentLoad callback for DOM and Static content.
+		if (that.staticContent !== undefined) {
+			that.trigger("contentLoad", context);
+		}
+
 	};
 
 	/**
@@ -283,22 +310,22 @@ ch.object = function(){
 	* @param {String} ["refresh"] Refresh
 	* @returns {Object} Configuration object if no arguments are sended.
 	* @see ch.Positioner
-	*/	
+	*/
 	// TODO: Add examples!!!
 	that.position = function(o) {
-	
+
 		switch(typeof o) {
-		 
+
 			case "object":
 				conf.position.context = o.context || conf.position.context;
 				conf.position.points = o.points || conf.position.points;
 				conf.position.offset = o.offset || conf.position.offset;
 				conf.position.fixed = o.fixed || conf.position.fixed;
-			
+
 				ch.positioner(conf.position);
 				return that["public"];
 				break;
-		
+
 			case "string":
 				if(o != "refresh") {
 					alert("Chico UI error: position() expected to find \"refresh\" parameter.");
@@ -308,16 +335,14 @@ ch.object = function(){
 
 				return that["public"];
 				break;
-		
+
 			case "undefined":
 				return conf.position;
 				break;
 		};
-		
-	};
-	
 
-	
+	};
+
 	/**
 	* Triggers a specific event within the component public context.
 	* @name ch.Object#trigger
@@ -325,16 +350,16 @@ ch.object = function(){
 	* @protected
 	* @param {String} event The event name you want to trigger.
 	* @since version 0.7.1
-	*/	
-	that.trigger = function(event) {
-		$(that["public"]).trigger("ch-"+event);
-	}
+	*/
+	that.trigger = function(event, data) {
+		$(that["public"]).trigger("ch-"+event, data);
+	};
 
 	/**
 	* Component's public scope. In this scope you will find all public members.
 	*/
-
 	that["public"] = {};
+
 	/**
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
@@ -342,7 +367,8 @@ ch.object = function(){
 	* @type {Number}
 	* @ignore
 	*/
-		that["public"].uid = that.uid;
+	that["public"].uid = that.uid;
+
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
@@ -351,6 +377,7 @@ ch.object = function(){
 	* @ignore
 	*/
 	that["public"].element = that.element;
+
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
@@ -395,12 +422,19 @@ ch.object = function(){
 	*/
 	that["public"].content = function(content){
 		if (content) { // sets
-			that.content(content);
+			// Reset content data
+			that.source = content;
+			that.staticContent = undefined;
+
+			if (that.active) {
+				that.content(content);
+			}
+
 			return that["public"];
 		} else { // gets
-			return that.content();
+			return that.staticContent;
 		}
-	}
+	};
 
 	/**
 	* Add a callback function from specific event.
@@ -416,13 +450,14 @@ ch.object = function(){
 	* me.on("ready", startDoingStuff);
 	*/
 	that["public"].on = function(event, handler) {
-		
+
 		if (event && handler) {
 			$(that["public"]).bind("ch-"+event, handler);
 		}
 
 		return that["public"];
-	}
+	};
+
 	/**
 	* Removes a callback function from specific event.
 	* @public
@@ -435,15 +470,15 @@ ch.object = function(){
 	* @example
 	* // Will remove event handler to the "ready" event
 	* me.off("ready", startDoingStuff);
-	*/	
+	*/
 	that["public"].off = function(event, handler) {
-	
+
 		if (event && handler) {
 			$(that["public"]).unbind("ch-"+event, handler);
 		}
-		
-		return that["public"];		
-	}
-		
+
+		return that["public"];
+	};
+
 	return that;
 };

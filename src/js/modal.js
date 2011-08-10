@@ -62,6 +62,9 @@ ch.modal = function(conf){
 	*/
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
+
+			if (that.active) { return };
+
 			$dimmer
 				.css("z-index", ch.utils.zIndex += 1)
 				.appendTo("body")
@@ -102,7 +105,7 @@ ch.modal = function(conf){
 	* @function
 	* @returns {itself}
 	*/ 
-	that.innerShow = function(event) {	
+	that.innerShow = function(event) {
 		dimmer.on();
 		that.parent.innerShow(event);		
 		that.$trigger.blur();

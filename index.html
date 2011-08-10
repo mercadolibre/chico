@@ -281,10 +281,10 @@
 	<div class="box"> 
 		<h2>Modal window</h2> 
 		
-		<form action="test.html"> 
+		<form action="/test.html">
 			<p class="actions">
 				<input type="submit" class="btn secondary YOUR_SELECTOR_Modal" value="Executed by submit input">
-				<a href="test.html" class="YOUR_SELECTOR_Modal">Executed by link.</a>
+				<a href="/test.html" class="YOUR_SELECTOR_Modal">Executed by link.</a>
 			</p>
 		</form>
 	</div> 
@@ -293,15 +293,8 @@
 		<h2>Modal window with DOM Content</h2> 
 		
         <div class="container">
-			<a href="test.html" class="YOUR_SELECTOR_Modal_visible">Modal with visible DOM content.</a>
-			<hr />
-			<a href="test.html" class="YOUR_SELECTOR_Modal_invisible">Modal with invisible DOM content.</a>
-			<hr />
+			<a href="/test.html" class="YOUR_SELECTOR_Modal_invisible">Modal with invisible DOM content.</a>
         </div>
-		<div id="visible-content">
-    		<h1>This content is visible</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
-		</div>		
 		<div id="invisible-content" class="ch-hide">
     		<h1>This content is invisible</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
@@ -310,7 +303,7 @@
 	
 	<div class="box"> 
 		<h2>Transition window</h2> 
-		<form action="test.html"> 
+		<form action="/test.html"> 
 			<input type="submit" class="btn secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
 	</div> 
@@ -443,7 +436,7 @@
 
 	<div class="box"> 
 		<h2>Calendar</h2>
-		<form action="test.html" class="YOUR_SELECTOR_Formcalendar">
+		<form action="/test.html" class="YOUR_SELECTOR_Formcalendar">
 			<fieldset>
 				<legend>Calendar</legend>
 				<ol>
@@ -795,7 +788,7 @@
 			</fieldset> 
 
 			<p class="actions">
-                <input type="submit" name="_eventId_confirmation" value="Webflow" class="btn primary">
+                <input type="submit" name="_eventId_confirmation" value="Webflow" class="btn primary lean">
 				<!--input type="submit" value="Send" class="btn primary"--> 
 				<input type="reset" value="Cancel" class="btn secondary"> 
 				<a href="#" class="resetForm">Reset validations</a> 
@@ -825,7 +818,7 @@
 		
 		// Dropdown
 		var ch_drop = $(".YOUR_SELECTOR_Dropdown").dropdown();
-		
+
 		// Carousel
 		var ch_caro = $(".YOUR_SELECTOR_Carousel").carousel({
 			pagination:true
@@ -833,22 +826,34 @@
 					
 		// Modal
 		var ch_moda = $(".YOUR_SELECTOR_Modal").modal({
-		      onContentLoad: function(){ 
-		      	console.log("onContentLoad working fine") 
-              },
-		      onContentError: function(){ 
-		      	console.log("onContentError working fine") 
-		      },
-		      width: "300px",
-		      height: "300px"
-		      
+			//content: "pepe",
+			//content: "/pepe.html",
+			width: "500px",
+			height: "300px",
+			onContentLoad: function(){
+				console.log($(".titleAjax"));
+				$(".titleAjax").bind("click", function(){
+					console.log("asd");
+				});
+			},
+			onContentError:function(){
+				this.content("<p>Sorry, try again later!</p>");
+			}
+			
 		});
 		
-		// Modal with visible and invisible DOM Content
-		var ch_moda_visible = $(".YOUR_SELECTOR_Modal_visible").modal({ 
-		  content:"#visible-content"
-		});
+		/*ch_moda[0].on("contentLoad", function(){
+			console.log($(".titleAjax"));
+			$(".titleAjax").bind("click", function(){
+				console.log("asd");
+			});
+		});*/
 		
+		/*ch_moda[0].on("contentError", function(){
+			console.log("Error!");
+		});*/
+		
+		// Modal with invisible DOM Content		
 		var ch_moda_invisible = $(".YOUR_SELECTOR_Modal_invisible").modal({ 
 		  content:"#invisible-content"
 		});
@@ -859,7 +864,12 @@
 		// Layer on click
 		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
 			event: "click",
-			content: "<p>foo</p>"
+			content: "#invisible-content",
+		  onContentLoad: function(){
+			$("#invisible-content h1").bind("click", function(){
+				console.log("Hi!");
+			});
+		  }
 		});
 		
 		// Layer on mouseover
@@ -881,7 +891,18 @@
 		var calendar = $(".myCalendar").calendar();
 
 		// Form
-		var ch_form = $('.YOUR_SELECTOR_Form').form({onSubmit:function(){}});
+		var ch_form = $('.YOUR_SELECTOR_Form').form({
+			onSubmit:function(){
+				console.log("Yeah!");
+				lean.show("/test.html");
+			}
+		});
+
+		var lean = $("<a>").modal({
+			content: "",
+			cache: false
+		});
+
 		var count = 0;
 		// Watchers
 		var ch_wprice = $("#YOUR_SELECTOR_price").price("Price please!").and().required("algo");

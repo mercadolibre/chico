@@ -97,7 +97,15 @@ ch.layer = function(conf) {
 	* @name ch.Layer#hideTimer
 	* @function
 	*/ 
-	hideTimer = function(){ ht = setTimeout(that.innerHide, hideTime) },
+	hideTimer = function(event){
+		if (conf.event != "click") {
+			var target = event.srcElement || event.target;
+			var relatedTarget = event.relatedTarget || event.toElement;
+			if ( target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT" ) { return; };
+		}
+
+		ht = setTimeout(that.innerHide, hideTime);
+	},
 	
 	/**
 	* Clear all timers.
@@ -114,6 +122,20 @@ ch.layer = function(conf) {
 	* @function
 	*/
 	stopBubble = function(event){ event.stopPropagation(); };
+	
+	/**
+	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
+	* @private
+	* @name ch.Layer#stopBubble
+	* @function
+	*/
+/*	stopBubble = function(event) {
+		var target = event.srcElement || event.target;
+		var relatedTarget = event.relatedTarget || event.toElement;
+		if ( target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT" ) { return; };
+		hideTimer();
+	};*/
+
 /**
 *	Protected Members
 */
@@ -145,13 +167,7 @@ ch.layer = function(conf) {
 			clearTimers();	
 			that.$container
 				.one("mouseenter", clearTimers)
-				.one("mouseleave", function(event){
-					var target = event.srcElement || event.target;
-					var relatedTarget = event.relatedTarget || event.toElement;
-					var relatedParent = relatedTarget.parentNode;
-					if ( target === relatedTarget || relatedParent === null || target.nodeName === "SELECT" ) return;
-					hideTimer();
-				});
+				.bind("mouseleave", hideTimer);
 		};
 
 		return that;
@@ -166,6 +182,8 @@ ch.layer = function(conf) {
 	*/ 
 	that.innerHide = function(event) {
 		that.$container.unbind('click', stopBubble);
+		that.$container.unbind('mouseleave', hideTimer);
+
 		that.parent.innerHide(event);
 	}
 

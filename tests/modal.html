@@ -96,16 +96,16 @@
 		</div>
 	<br>
 	
-	<div id="testDOM" style="display:none">
+	<div id="testDOM" class="ch-hide">
 		<h2>Modal title DOM</h2>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
 	</div>
 	
-	<div id="testCache" style="display:none">
+	<div id="testCache" class="ch-hide">
 		<h2>Modal cache on</h2>		
 	</div>
 	
-	<div id="testCache2" style="display:none">
+	<div id="testCache2" class="ch-hide">
 		<h2>Modal cache on</h2>		
 	</div>
 	
@@ -246,19 +246,16 @@
 
 				
 		test('AJAX content', function(){
-        	expect( 2 );
-        	
+        	expect( 1 );
             testModalAjax = $('#testModalAjax').modal({
 				onContentLoad: function(){ 
-                        start();
-                        hasContent(".ch-modal-content h2", "Titulo de contenido ajax");
-                        $('.ch-dimmer').trigger('click');
+					start();
+					ok( this.content() != undefined, "Expected to find a defined content on the modal instance");
+					$('.ch-dimmer').trigger('click');
                 }
             });
 
 			$("#testModalAjax").click();
-
-			ok( testModalAjax.content() != undefined , "Expected to find a defined content on the modal instance");
 
 			stop();
 		});
@@ -389,14 +386,11 @@
 		});
 		
 		
-		test("Modal onContentLoad Callback", function(){
+		/*test("Modal onContentLoad Callback", function(){
         	expect( 1 );
-        	
+
             testModalCall2 = $('#testModalCall2').modal({
-				onContentLoad: function(){ 
-					
-					console.log("onContentLoad");
-                    
+				onContentLoad: function(){
                     start();
 
 		            ok ( true , "onContentLoad working fine.");
@@ -415,7 +409,7 @@
         	expect( 1 );
         	
             testModalCall3 = $('#testModalCall3').modal({
-            	ajax: "http://www.google.com",
+            	content: "http://www.google.com",
 				onContentError: function(){
 
 					start();
@@ -423,8 +417,6 @@
 		            ok ( true , "onContentError working fine.");
 		            
 					this.hide();
-
-					return "Callback:  onContentError";            
               }
 
             });
@@ -547,7 +539,7 @@
 
        		equal( testTransition2.content()[1].innerHTML, "Wait to validate the test, please...", "Expected to find a custom message on the transition content");
 
-        });
+        });*/
         	
 	</script>
 
