@@ -1,4 +1,3 @@
-
 /**
 * Shows messages on the screen with a contextual floated UI-Component.
 * @name Helper
@@ -19,14 +18,14 @@ ch.helper = function(controller){
 	*/
 	var that = this;
 
-	var conf = {};		
+	var conf = {};
 		conf.cone = true;
 		conf.position = {};
 		conf.position.context = controller.reference;
 		conf.position.offset = "15 0";
 		conf.position.points = "lt rt";
 		conf.cache = false;
-	
+
 	that.conf = conf;
 
 /**
@@ -41,11 +40,10 @@ ch.helper = function(controller){
 */
 
 
-
 /**
 *  Protected Members
-*/ 
- 
+*/
+
 	that.content("Error");
 
  	that.$trigger = that.$element;
@@ -56,17 +54,13 @@ ch.helper = function(controller){
 	* @function
 	* @name ch.Helper#innerShow
 	* @returns itself
-	*/ 
-		
+	*/
 	that.innerShow = function() {
 
-		if ( !that.active ) {
+		if (!that.active) {
 			// Load content and show!
 			that.parent.innerShow();
-		};
-
-		// Just Reload content!
-		that.$content.html("<span class=\"ico error\">Error: </span><p>" + that.content() + "</p>");
+		}
 
 		return that;
 	};
@@ -74,7 +68,7 @@ ch.helper = function(controller){
 /**
 *  Public Members
 */
- 
+
 	/**
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
@@ -148,7 +142,7 @@ ch.helper = function(controller){
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.hide();
 	*/
-	
+
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
@@ -163,7 +157,7 @@ ch.helper = function(controller){
 	* // to get the width
 	* me.width // 700
 	*/
-	
+
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
@@ -178,7 +172,7 @@ ch.helper = function(controller){
 	* // to get the heigth
 	* me.height // 300
 	*/
-	
+
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public

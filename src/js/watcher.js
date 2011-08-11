@@ -1,4 +1,3 @@
-
 /**
 * Watcher is a validation engine for html forms elements.
 * @abstract
@@ -24,10 +23,10 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#that
 	* @type itself
-	*/ 
+	*/
 	var that = this;
 	conf = ch.clon(conf);
-	that.conf = conf;	
+	that.conf = conf;
 
 /**
 * Inheritance
@@ -35,10 +34,10 @@ ch.watcher = function(conf) {
 
 	that = ch.object.call(that);
 	that.parent = ch.clon(that);
-	
+
 /**
 * Private Members
-*/	
+*/
 	/**
 	* Reference to a ch.form controller. If there isn't any, the Watcher instance will create one.
 	* @private
@@ -46,9 +45,9 @@ ch.watcher = function(conf) {
 	* @type ch.Form
 	*/
 	var controller = (function() {
-		if ( ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0 ) {	
-			var i = 0, j = ch.instances.form.length; 
-			for (i; i < j; i ++) {
+		if (ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0) {
+			var i = 0, j = ch.instances.form.length;
+			for (i; i < j; i+=1) {
 				if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
 					return ch.instances.form[i]; // Get my parent
 				};
@@ -57,9 +56,8 @@ ch.watcher = function(conf) {
 			that.$element.parents("form").form();
 			var last = (ch.instances.form.length - 1);
 			return ch.instances.form[last]; // Set my parent
-		};
+		}
 	})();
-
 
 	/**
 	* Search for instances of Watchers with the same trigger, and then merge it's properties with it.
@@ -67,20 +65,20 @@ ch.watcher = function(conf) {
 	* @name ch.Watcher#checkInstance
 	* @function
 	* @returns object
-	*/	
+	*/
 	var checkInstance = function() {
 		var instance = ch.instances.watcher;
 		if ( instance && instance.length > 0 ) {
-			for (var i = 0, j = instance.length; i < j; i ++) {
+			for (var i = 0, j = instance.length; i < j; i+=1) {
 				if (instance[i].element !== that.element) continue;
 				// Merge Conditions
 				$.merge(instance[i].conditions, that.conditions);
-				return { 
-					exists: true, 
-					object: instance[i] 
+				return {
+					exists: true,
+					object: instance[i]
 				};
 			};
-		};
+		}
 	};
 
 	/**
@@ -89,11 +87,11 @@ ch.watcher = function(conf) {
 	* @name ch.Watcher#revalidate
 	* @function
 	*/
-	var revalidate = function() {		
+	var revalidate = function() {
 		that.validate();
 		controller.checkStatus();  // Check everthing?
-	}; 
-	
+	};
+
 /**
 * Protected Members
 */
@@ -103,35 +101,35 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#active
 	* @type boolean
-	*/ 
+	*/
 	that.active = false;
-	
+
 	/**
 	* Flag that let you know if the watchers is enabled or not.
 	* @protected
 	* @name ch.Watcher#enabled
 	* @type boolean
-	*/ 
+	*/
 	that.enabled = true;
-	
+
 	/**
 	* This clousure is used as a reference to the positioning preferences.
 	* @protected
 	* @name ch.Watcher#reference
 	* @type jQuery
-	*/ 
+	*/
 	that.reference = (function() {
 		var reference;
 		// CHECKBOX, RADIO
-		if ( that.$element.hasClass("options") ) {
+		if (that.$element.hasClass("options")) {
 			// Helper reference from will be fired
 			// H4
-			if ( that.$element.find('h4').length > 0 ) {
+			if (that.$element.find('h4').length > 0) {
 				var h4 = that.$element.find('h4'); // Find h4
 					h4.wrapInner('<span>'); // Wrap content with inline element
-				reference = h4.children(); // Inline element in h4 like helper reference	
+				reference = h4.children(); // Inline element in h4 like helper reference
 			// Legend
-			} else if ( that.$element.prev().prop('tagName') == 'LEGEND' ) {
+			} else if (that.$element.prev().prop('tagName') == 'LEGEND') {
 				reference = that.$element.prev(); // Legend like helper reference
 			}
 		// INPUT, SELECT, TEXTAREA
@@ -147,13 +145,13 @@ ch.watcher = function(conf) {
 	* @protected
 	* @name ch.Watcher#conditions
 	* @type array
-	*/ 
+	*/
 	that.conditions = (function(){
 		var c = []; // temp collection
 		var i = 0;  // iteration
 		var t = conf.conditions.length;
-		//console.log(conf);
-		for ( i; i < t; i++ ) {
+		
+		for (i; i < t; i+=1) {
 			/**
 			* Process conditions to find out which should be configured.
 			* Add validations and messages to conditions object.
@@ -161,25 +159,25 @@ ch.watcher = function(conf) {
 			var condition = conf.conditions[i];
 
 			// If condition exists in the Configuration Object
-			if ( conf[condition.name] ) {
-				
+			if (conf[condition.name]) {
+
 				// Sabe the value
 				condition.value = conf[condition.name];
-				
+
 				// If there is a message defined for that condition
 				
 				if ( conf.messages[condition.name] ) {
 										
 					condition.message = conf.messages[condition.name];
 				}
-				
+
 				// Push it to the new conditions collection
 				c.push(condition);
 			}
 		}
 		// return all the configured conditions
 		return c;
-		
+
 	})(); // Love this ;)
 
 	/**
@@ -191,9 +189,9 @@ ch.watcher = function(conf) {
 	*/
 	that.isRequired = function(){
 		var t = that.conditions.length;
-		while ( t-- ) {   
+		while ( t-- ) {
 			var condition = that.conditions[t];
-			if ( condition.name === "required" && condition.value ) {
+			if (condition.name === "required" && condition.value) {
 				return true;
 			}
 		}
@@ -222,17 +220,17 @@ ch.watcher = function(conf) {
 	* @function
 	* @return itself
 	*/
-	that.validate = function(event) {	
+	that.validate = function(event) {
 
 		// Pre-validation: Don't validate disabled or not required & empty elements
 		if ( that.$element.attr('disabled') ) { return; }
 
-		var isRequired = that.isRequired()
+		var isRequired = that.isRequired();
 
 		// Avoid fields that aren't required when they are empty or de-activated
-		if ( !isRequired && that.isEmpty() && that.active === false) { return; }
-		
-		if ( that.enabled && ( that.active === false || !that.isEmpty() || isRequired ) ) {
+		if (!isRequired && that.isEmpty() && that.active === false) { return; }
+
+		if (that.enabled && ( that.active === false || !that.isEmpty() || isRequired) ) {
 
 			/**
 			* Triggers before start validation process.
@@ -255,24 +253,24 @@ ch.watcher = function(conf) {
 				
 			// for each condition
 			for ( i ; i < t ; i +=1 ) {
-				
+
 				var condition = that.conditions[i];
 
-				if ( that.isRequired() ) {
+				if (that.isRequired()) {
 					gotError = that.isEmpty();
 				}
 
-				if ( condition.patt ) {
+				if (condition.patt) {
 					gotError = !condition.patt.test(value);
 				}
 
-				if ( condition.expr ) {
+				if (condition.expr) {
 					gotError = !condition.expr( value, condition.value );
 				}
 
-				if ( condition.func) {
+				if (condition.func) {
 					// Call validation function with 'this' as scope.
-					gotError = !condition.func.call(that["public"], value); 
+					gotError = !condition.func.call(that["public"], value);
 				}
 
 				if ( gotError ) {
@@ -299,16 +297,15 @@ ch.watcher = function(conf) {
 					var text = ( condition.message ) ? condition.message : 
 						(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
 						undefined;
-						
-					that.helper["public"].content(text);
-					that.helper["public"].show();
+
+					that.helper["public"].show("<span class=\"ico error\">Error: </span><p>" + text + "</p>");
 
 					that.active = true;
 
 					var validationEvent = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
 
 					// Add blur or change event only one time
-					that.$element.one( validationEvent , function(event){ that.validate(event); }); 
+					that.$element.one(validationEvent , function(event){ that.validate(event); });
 
 					return;
 				}
@@ -318,24 +315,24 @@ ch.watcher = function(conf) {
 		} // End if Enabled
 
 		// Status OK (with previous error)
-		if ( that.active || !that.enabled ) {
+		if (that.active || !that.enabled) {
 			// Remove field error style
-			that.$element.removeClass("error"); 
-			// Hide helper  
+			that.$element.removeClass("error");
+			// Hide helper
 			that.helper["public"].hide();
 			// Public status OK
 			//that.publish.status = that.status =  conf.status = true; // Status OK
 			that.active = false;
 
-			// If has an error, but complete the field and submit witout trigger blur event 
+			// If has an error, but complete the field and submit witout trigger blur event
 			if (event) {
 				var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
 				if (originalTarget.type == "submit") { controller.submit(event); };
-			};
+			}
 
 			// This generates a lot of redraws... I don't want it here
 			//controller.checkStatus();
-		};
+		}
 
 		/**
 		* Triggers when the validation process ends.
@@ -354,8 +351,8 @@ ch.watcher = function(conf) {
 
 		return that;
 	};
-	
-	
+
+
 	/**
 	* Reset all active validations messages.
 	* @protected
@@ -401,21 +398,21 @@ ch.watcher = function(conf) {
 			case 'OPTIONS':
 				return that.$element.find('input:checked').length === 0;
 			break;
-			
+
 			case 'SELECT':
 				var val = that.$element.val();
 				return parseInt(val) === -1 || val === null;
 			break;
-			
+
 			case 'INPUT':
 			case 'TEXTAREA':
 				return $.trim( that.$element.val() ).length === 0;
 			break;
 		};
-				
+
 	};
 
-	
+
 /**
 *	Public Members
 */
@@ -474,7 +471,7 @@ ch.watcher = function(conf) {
 	* @name ch.Watcher#active
 	* @function
 	* @returns itself
-	*/	
+	*/
 	that["public"].active = function() {
 		return that.active;
 	};
@@ -499,7 +496,7 @@ ch.watcher = function(conf) {
 	*/
 	that["public"].reset = function() {
 		that.reset();
-		
+
 		return that["public"];
 	};
 
@@ -512,7 +509,7 @@ ch.watcher = function(conf) {
 	*/
 	that["public"].validate = function() {
 		that.validate();
-		
+
 		return that["public"];
 	};
 
@@ -525,8 +522,8 @@ ch.watcher = function(conf) {
 	*/
 	that["public"].enable = function() {
 		that.enabled = true;
-				
-		return that["public"];			
+
+		return that["public"];
 	};
 
 	/**
@@ -572,21 +569,21 @@ ch.watcher = function(conf) {
 	* });
 	*/
 	that.trigger("ready");
-	
-	// Run the instances checker		
-	// TODO: Maybe is better to check this on top to avoid all the process. 
+
+	// Run the instances checker
+	// TODO: Maybe is better to check this on top to avoid all the process.
 	var check = checkInstance();
 	// If a match exists
-	if ( check ) {
+	if (check) {
 		// Create a public object and save the existing object
 		// in the public object to mantain compatibility
 		var that = {};
-			that["public"] = check; 
+			that["public"] = check;
 		// ;) repleace that object with the repeated instance
 	} else {
 		// this is a new instance: "Come to papa!"
 		controller.children.push(that["public"]);
-	};
-	
+	}
+
 	return that;
 };
