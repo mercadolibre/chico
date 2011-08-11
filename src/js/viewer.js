@@ -145,7 +145,7 @@ ch.viewer = function(conf){
 					}
 				};
 	
-				that.children.push( ch.zoom.call(component, configuration).public );
+				that.children.push( ch.zoom.call(component, configuration)["public"] );
 			});
 
 		});
