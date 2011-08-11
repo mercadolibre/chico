@@ -63,7 +63,7 @@
 		
         test("Tooltip public properties", function(){
 
-            expect( 5 );
+            expect( 4 );
 
        		ok( tooltip1.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
        		
@@ -73,14 +73,12 @@
 
     		ok( ch.utils.hasOwn(tooltip1, "isActive"), "Expected to find an \"active\" property" );
 
-    		equal( $(tooltip1.content()).text(), $(".tool1").attr("title"), "Expected to find the tooltip \"title\" attribute on \"content\" property of tooltip instance");
-
         });
         
         test("Active property for tooltip1", function(){
 
     		ok( tooltip1.isActive() == false , "Expected to find \"false\" as value for active property");
-            
+
             tooltip1.show();
 
     		ok( tooltip1.isActive() == true , "Expected to find \"true\" as value for active property");
@@ -88,12 +86,14 @@
             tooltip1.hide();
 
         });
-        
+
         test("Tooltip public methods", function(){
 
-            expect( 3 );
+            expect( 4 );
     		
     		ok( ch.utils.hasOwn(tooltip1, "position"), "Expected to find a \"position\" method" );
+    		
+			ok( ch.utils.hasOwn(tooltip1, "content"), "Expected to find an \"content\" method" );
     		
     		ok( ch.utils.hasOwn(tooltip1, "show"), "Expected to find a \"show\" method" );
     		
@@ -159,10 +159,20 @@
 		test("Set new content", function(){
 
             expect( 1 );
-			
-			tooltip4.content("New content...")
+
+			tooltip4.content("New content...").show().hide();
        		
        		ok( tooltip4.content() == "New content...", "Expected to find a new content on the tooltip");
+
+        });
+        
+        test("Set new content via show method", function(){
+
+            expect( 1 );
+
+			tooltip4.show("New content via show method...").hide();
+       		
+       		ok( tooltip4.content() == "New content via show method...", "Expected to find a new content on the tooltip");
 
         });
 
@@ -202,13 +212,13 @@
        	});
        	
        	test('Tolltip callback on hide', function() {
-       	
+
        		expect ( 1 );
-       		
+
 			tooltip3.hide();
-			
+
 			hasClass("body", "onHide");
-			
+
 			$("body").removeClass("onHide");
 
        	});

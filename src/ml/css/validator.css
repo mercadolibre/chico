@@ -35,7 +35,7 @@
 
 .ch-helper .ch-cone {
 	background-color: transparent;
-	background-image: url('../src/assets/helper.png');
+	background-image: url('../src/ml/assets/helper.png');
 	background-position: 0 0 no-repeat;
 	display:block;
 	position:absolute;

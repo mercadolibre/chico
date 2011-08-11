@@ -84,8 +84,12 @@ var ch = window.ch = {
 			return false;
 		},
 		inDom: function (selector, context) {
-			
-			if (!ch.utils.isSelector(selector)) { return false }
+			if (typeof selector !== "string") return false;
+
+			// jQuery: If you wish to use any of the meta-characters ( such as !"#$%&'()*+,./:;<=>?@[\]^`{|}~ ) as a literal part of a name, you must escape the character with two backslashes: \\.
+			var selector = selector.replace(/(\!|\"|\$|\%|\&|\'|\(|\)|\*|\+|\,|\/|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)/gi, function(str, $1){
+				return "\\\\" + $1;
+			});
 
 			return $(selector, context).length > 0;
 		},
@@ -93,7 +97,7 @@ var ch = window.ch = {
 			return Object.prototype.toString.apply( o ) === "[object Array]";
 		},
 		isUrl: function(url){
-			return ((/^((http(s)?|ftp|file):\/{2}(www)?|(\/?([\w]|\.{1,2})*\/)+|[\w]+(\.|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
+			return ((/^((http(s)?|ftp|file):\/{2}(www)?|www.|((\/|\.{1,2})([\w]|\.{1,2})*\/)+|(\.\/|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
 		},
 		avoidTextSelection: function(){
 			$.each(arguments, function(i, e){
