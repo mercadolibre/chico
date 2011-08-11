@@ -150,6 +150,7 @@ ch.watcher = function(conf) {
 		var c = []; // temp collection
 		var i = 0;  // iteration
 		var t = conf.conditions.length;
+		
 		for (i; i < t; i+=1) {
 			/**
 			* Process conditions to find out which should be configured.
@@ -164,7 +165,9 @@ ch.watcher = function(conf) {
 				condition.value = conf[condition.name];
 
 				// If there is a message defined for that condition
+				
 				if ( conf.messages[condition.name] ) {
+										
 					condition.message = conf.messages[condition.name];
 				}
 
@@ -247,7 +250,7 @@ ch.watcher = function(conf) {
 			var i = 0, t = that.conditions.length,
 				value = that.$element.val(),
 				gotError = false;
-
+				
 			// for each condition
 			for ( i ; i < t ; i +=1 ) {
 
