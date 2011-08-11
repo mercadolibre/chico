@@ -1,4 +1,3 @@
-
 /**
 * Is a contextual floated UI-Object.
 * @name Layer
@@ -25,9 +24,9 @@ ch.layer = function(conf) {
 	* @private
 	* @name ch.Layer#that
 	* @type object
-	*/ 
+	*/
 	var that = this;
-	
+
 	conf = ch.clon(conf);
 	conf.cone = true;
 	conf.classes = "box";
@@ -45,7 +44,7 @@ ch.layer = function(conf) {
 
 	that = ch.floats.call(that);
 	that.parent = ch.clon(that);
-	
+
 /**
 *	Private Members
 */
@@ -56,15 +55,16 @@ ch.layer = function(conf) {
 	* @name ch.Layer#showTime
 	* @type number
 	* @default 400
-	*/ 
+	*/
 	var showTime = conf.showTime || 400,
+
 	/**
 	* Delay time to hide component's contents.
 	* @private
 	* @name ch.Layer#hideTime
 	* @type number
 	* @default 400
-	*/ 
+	*/
 	hideTime = conf.hideTime || 400,
 
 	/**
@@ -72,39 +72,47 @@ ch.layer = function(conf) {
 	* @private
 	* @name ch.Layer#st
 	* @type timer
-	*/ 
+	*/
 	st,
-	
+
 	/**
 	* Hide timer instance.
 	* @private
 	* @name ch.Layer#ht
 	* @type timer
-	*/ 
+	*/
 	ht,
-	
+
 	/**
 	* Starts show timer.
 	* @private
 	* @function
 	* @name ch.Layer#showTimer
-	*/ 
+	*/
 	showTimer = function(){ st = setTimeout(that.innerShow, showTime) },
-	
+
 	/**
 	* Starts hide timer.
 	* @private
 	* @function
 	* @name ch.Layer#hideTimer
-	*/ 
-	hideTimer = function(){ ht = setTimeout(that.innerHide, hideTime) },
-	
+	*/
+	hideTimer = function(event){
+		if (conf.event != "click") {
+			var target = event.srcElement || event.target;
+			var relatedTarget = event.relatedTarget || event.toElement;
+			if ( target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT" ) { return; };
+		}
+
+		ht = setTimeout(that.innerHide, hideTime);
+	},
+
 	/**
 	* Clear all timers.
 	* @private
 	* @function
 	* @name ch.Layer#clearTimers
-	*/ 
+	*/
 	clearTimers = function(){ clearTimeout(st); clearTimeout(ht); },
 
 	/**
@@ -114,6 +122,20 @@ ch.layer = function(conf) {
 	* @name ch.Layer#stopBubble
 	*/
 	stopBubble = function(event){ event.stopPropagation(); };
+
+	/**
+	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
+	* @private
+	* @name ch.Layer#stopBubble
+	* @function
+	*/
+/*	stopBubble = function(event) {
+		var target = event.srcElement || event.target;
+		var relatedTarget = event.relatedTarget || event.toElement;
+		if ( target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT" ) { return; };
+		hideTimer();
+	};*/
+
 /**
 *	Protected Members
 */
@@ -126,9 +148,9 @@ ch.layer = function(conf) {
 	* @function
 	* @name ch.Layer#innerShow
 	* @returns itself
-	*/ 
+	*/
 	that.innerShow = function(event) {
-	
+
 		// Reset all layers
 		$.each(ch.instances.layer, function(i, e){ e.hide(); });
 		//conf.position.context = that.$element;
@@ -142,30 +164,26 @@ ch.layer = function(conf) {
 			that.$container.bind('click', stopBubble);
 		// Hover
 		} else { 		
-			clearTimers();	
+			clearTimers();
 			that.$container
 				.one("mouseenter", clearTimers)
-				.one("mouseleave", function(event){
-					var target = event.srcElement || event.target;
-					var relatedTarget = event.relatedTarget || event.toElement;
-					var relatedParent = relatedTarget.parentNode;
-					if ( target === relatedTarget || relatedParent === null || target.nodeName === "SELECT" ) return;
-					hideTimer();
-				});
-		};
+				.bind("mouseleave", hideTimer);
+		}
 
 		return that;
 	};
-	
+
 	/**
 	* Inner hide method. Hides the component and detach it from DOM tree.
 	* @protected
 	* @function
 	* @name ch.Layer#innerHide
 	* @returns itself
-	*/ 
+	*/
 	that.innerHide = function(event) {
 		that.$container.unbind('click', stopBubble);
+		that.$container.unbind('mouseleave', hideTimer);
+
 		that.parent.innerHide(event);
 	}
 
@@ -219,7 +237,7 @@ ch.layer = function(conf) {
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
 	* @name ch.Layer#isActive
-	* @function 
+	* @function
 	* @returns boolean
 	*/
 
@@ -246,7 +264,7 @@ ch.layer = function(conf) {
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.hide();
 	*/
-	
+
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
@@ -261,7 +279,7 @@ ch.layer = function(conf) {
 	* // to get the width
 	* me.width // 700
 	*/
-	
+
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
@@ -276,21 +294,21 @@ ch.layer = function(conf) {
 	* // to get the heigth
 	* me.height // 300
 	*/
-	
+
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
 	* @name ch.Layer#position
-	* @function 
+	* @function
 	* @example
 	* // Change component's position.
-	* me.position({ 
+	* me.position({
 	*	offset: "0 10",
 	*	points: "lt lb"
 	* });
 	* @see ch.Object#position
 	*/
-	
+
 /**
 *	Default event delegation
 */
@@ -335,7 +353,7 @@ ch.layer = function(conf) {
 	* });
 	* @see ch.Floats#event:hide
 	*/
-		
+
 	/**
 	* Triggers when the component is ready to use.
 	* @name ch.Layer#ready

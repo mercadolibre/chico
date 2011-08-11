@@ -13,7 +13,7 @@
 * var me = $("a.example").modal();
 * @example
 * // Now 'me' is a reference to the modal instance controller.
-* // You can set a new content by using 'me' like this: 
+* // You can set a new content by using 'me' like this:
 * me.content("http://content.com/new/content");
 */
 
@@ -50,10 +50,10 @@ ch.modal = function(conf){
 	* @type jQuery
 	*/
 	var $dimmer = $("<div class=\"ch-dimmer\">");
-	
+
 	// Set dimmer height for IE6
 	if (ch.utils.html.hasClass("ie6")) { $dimmer.height( parseInt(document.documentElement.clientHeight, 10)* 3) };
-	
+
 	/**
 	* Reference to dimmer control, turn on/off the dimmer object.
 	* @private
@@ -62,22 +62,25 @@ ch.modal = function(conf){
 	*/
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
+
+			if (that.active) { return };
+
 			$dimmer
 				.css("z-index", ch.utils.zIndex += 1)
 				.appendTo("body")
 				.fadeIn();
-		
+
 			if (that.type == "modal") {
 				$dimmer.one("click", function(event){ that.innerHide(event) });
-			};
-			
+			}
+
 			if (!ch.features.fixed) {
 			 	ch.positioner({ element: $dimmer });
-			};
+			}
 
 			if ($("html").hasClass("ie6")) {
 				$("select, object").css("visibility", "hidden");
-			};
+			}
 		},
 		off: function() {
 			$dimmer.fadeOut("normal", function(){
@@ -91,7 +94,7 @@ ch.modal = function(conf){
 
 /**
 *	Protected Members
-*/ 
+*/
 
 	that.$trigger = that.$element;
 
@@ -101,27 +104,27 @@ ch.modal = function(conf){
 	* @name ch.Modal#innerShow
 	* @function
 	* @returns itself
-	*/ 
-	that.innerShow = function(event) {	
+	*/
+	that.innerShow = function(event) {
 		dimmer.on();
 		that.parent.innerShow(event);		
 		that.$trigger.blur();
 		return that;
 	};
-	
+
 	/**
 	* Inner hide method. Hides the component's layout and detach it from DOM tree.
 	* @protected
 	* @name ch.Modal#innerHide
 	* @function
 	* @returns itself
-	*/	
+	*/
 	that.innerHide = function(event) {
-		dimmer.off();		
+		dimmer.off();
 		that.parent.innerHide(event);
 		return that;
 	};
-	
+
 /**
 *	Public Members
 */
@@ -172,7 +175,7 @@ ch.modal = function(conf){
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
 	* @name ch.Modal#isActive
-	* @function 
+	* @function
 	* @returns boolean
 	*/
 
@@ -199,7 +202,7 @@ ch.modal = function(conf){
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.hide();
 	*/
-	
+
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
@@ -214,7 +217,7 @@ ch.modal = function(conf){
 	* // to get the width
 	* me.width // 700
 	*/
-	
+
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
@@ -237,7 +240,7 @@ ch.modal = function(conf){
 	* @function
 	* @example
 	* // Change component's position.
-	* me.position({ 
+	* me.position({
 	*	offset: "0 10",
 	*	points: "lt lb"
 	* });
