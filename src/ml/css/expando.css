@@ -23,7 +23,7 @@
 
 /* Trigger icon */
 .ch-expando-trigger .ico {
-	background-image: url('../src/assets/expando.png');
+	background-image: url('../src/ml/assets/expando.png');
 	width:12px;
 	height:12px;
 	position:absolute;

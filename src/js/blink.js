@@ -4,9 +4,9 @@
 * changing background color from yellow to white.
 * @function
 * @name blink
-* @param {Selector} selector CSS Selector to blink a collection
-* @param {Number} [time] Amount of time to blink
-* @returns {jQuery Object}
+* @param {selector} selector CSS Selector to blink a collection
+* @param {number} [time] Amount of time to blink
+* @returns jQuery
 * @memberOf ch
 */
 ch.blink = function (conf) {

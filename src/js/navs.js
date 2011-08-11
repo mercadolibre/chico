@@ -6,8 +6,8 @@
 * @class Navs
 * @augments ch.Object
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Dropdown
 * @see ch.Expando
 */
@@ -18,7 +18,7 @@ ch.navs = function(){
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Navs#that
-	* @type {Object}
+	* @type object
 	*/ 
 	var that = this;
 	var conf = that.conf;
@@ -59,7 +59,7 @@ ch.navs = function(){
 	* Status of component
 	* @protected
 	* @name ch.Navs#active
-	* @returns {Boolean}
+	* @returns boolean
 	*/
 	that.active = false;
 
@@ -67,7 +67,7 @@ ch.navs = function(){
 	* Shows component's content.
 	* @protected
 	* @name ch.Navs#show
-	* @returns {itself}
+	* @returns itself
 	*/
 	that.show = function(event){
 		that.prevent(event);
@@ -108,7 +108,7 @@ ch.navs = function(){
 	* Hides component's content.
 	* @protected
 	* @name ch.Navs#hide
-	* @returns {itself}
+	* @returns itself
 	*/
 	that.hide = function(event){
 		that.prevent(event);

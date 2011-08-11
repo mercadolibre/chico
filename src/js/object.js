@@ -1,4 +1,3 @@
-
 /**
 * Object represent the abstract class of all UI Objects.
 * @abstract
@@ -17,21 +16,21 @@ ch.object = function(){
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Object#that
-	* @type {Object}
+	* @type object
 	*/
 	var that = this;
+
 	var conf = that.conf;
 
 /**
 *	Public Members
 */
 
-
 	/**
 	* Component static content.
 	* @public
 	* @name ch.Object#staticContent
-	* @type {String}
+	* @type string
 	*/
 	that.staticContent;
 
@@ -39,7 +38,7 @@ ch.object = function(){
 	* DOM Parent of content, this is useful to attach DOM Content when float is hidding.
 	* @public
 	* @name ch.Object#DOMParent
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 	that.DOMParent;
 
@@ -47,7 +46,7 @@ ch.object = function(){
 	* Component original content.
 	* @public
 	* @name ch.Object#originalContent
-	* @type {Boolean}
+	* @type HTMLElement
 	*/
 	that.originalContent;
 
@@ -56,7 +55,7 @@ ch.object = function(){
 	* @name ch.Object#prevent
 	* @function
 	* @protected
-	* @param {EventObject} event Recieves a event object
+	* @param {event} event Recieves a event object
 	*/
 	that.prevent = function(event) {
 
@@ -73,8 +72,8 @@ ch.object = function(){
 	* @name ch.Object#content
 	* @protected
 	* @function
-	* @param {String} [content] Could be a simple text, html or a url to get the content with ajax.
-	* @returns {String} content
+	* @param {string} [content] Could be a simple text, html or a url to get the content with ajax.
+	* @returns {string} content
 	* @requires ch.Cache
 	* @example
 	* // Simple static content
@@ -132,7 +131,7 @@ ch.object = function(){
 			if (cache && that.staticContent) {
 				var fromCache = ch.cache.get(that.source);
 
-				// 
+				// Load content from cache
 				if (fromCache && that.staticContent != fromCache) {
 					that.staticContent = fromCache;
 
@@ -197,6 +196,7 @@ ch.object = function(){
 			// On IE (6-7) "that" reference losts for second time
 			// Why?? I don't know... but with a setTimeOut() works fine!
 			setTimeout(function(){
+
 				$.ajax({
 					url: that.source,
 					type: _method || 'GET',
@@ -230,11 +230,12 @@ ch.object = function(){
 							"textStatus": textStatus,
 							"errorThrown": errorThrown
 						};
-						
+
 						// Use the contentError callback.
 						that.trigger("contentError", data);
 					}
 				});
+
 			}, 0);
 
 			// Return Spinner and wait for async callback
@@ -303,12 +304,12 @@ ch.object = function(){
 	};
 
 	/**
-	* Change component's position configuration. If a "refresh" {String} is recived, will refresh component's positioning with the same configuration. You can send an {Object} with a new configuration.
+	* Change component's position configuration. If a "refresh" {string} is recived, will refresh component's positioning with the same configuration. You can send an {object} with a new configuration.
 	* @name ch.Object#position
 	* @function
 	* @protected
-	* @param {String} ["refresh"] Refresh
-	* @returns {Object} Configuration object if no arguments are sended.
+	* @param {string} ["refresh"] Refresh
+	* @returns {object} Configuration object if no arguments are sended.
 	* @see ch.Positioner
 	*/
 	// TODO: Add examples!!!
@@ -329,7 +330,7 @@ ch.object = function(){
 			case "string":
 				if(o != "refresh") {
 					alert("Chico UI error: position() expected to find \"refresh\" parameter.");
-				};
+				}
 
 				ch.positioner(conf.position);
 
@@ -348,7 +349,7 @@ ch.object = function(){
 	* @name ch.Object#trigger
 	* @function
 	* @protected
-	* @param {String} event The event name you want to trigger.
+	* @param {string} event The event name you want to trigger.
 	* @since version 0.7.1
 	*/
 	that.trigger = function(event, data) {
@@ -364,7 +365,7 @@ ch.object = function(){
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Object#uid
-	* @type {Number}
+	* @type number
 	* @ignore
 	*/
 	that["public"].uid = that.uid;
@@ -373,7 +374,7 @@ ch.object = function(){
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Object#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	* @ignore
 	*/
 	that["public"].element = that.element;
@@ -382,7 +383,7 @@ ch.object = function(){
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Object#type
-	* @type {String}
+	* @type string
 	* @ignore
 	*/
 	that["public"].type = that.type;
@@ -406,7 +407,7 @@ ch.object = function(){
 	* @public
 	* @name ch.Object#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
 	* me.content();
@@ -431,6 +432,7 @@ ch.object = function(){
 			}
 
 			return that["public"];
+
 		} else { // gets
 			return that.staticContent;
 		}
@@ -441,9 +443,9 @@ ch.object = function(){
 	* @public
 	* @function
 	* @name ch.Object#on
-	* @param {String} event Event name.
-	* @param {Function} handler Handler function.
-	* @returns {itself}
+	* @param {string} event Event name.
+	* @param {function} handler Handler function.
+	* @returns itself
 	* @since version 0.7.1
 	* @example
 	* // Will add a event handler to the "ready" event
@@ -463,9 +465,9 @@ ch.object = function(){
 	* @public
 	* @function
 	* @name ch.Object#off
-	* @param {String} event Event name.
-	* @param {Function} handler Handler function.
-	* @returns {itself}
+	* @param {string} event Event name.
+	* @param {function} handler Handler function.
+	* @returns itself
 	* @since version 0.7.1
 	* @example
 	* // Will remove event handler to the "ready" event

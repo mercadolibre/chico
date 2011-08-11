@@ -5,8 +5,8 @@
 * @class Tooltip
 * @augments ch.Floats
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Modal
 * @see ch.Layer
 * @example
@@ -24,7 +24,7 @@ ch.tooltip = function(conf) {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Tooltip#that
-	* @type {Object}
+	* @type object
 	*/
 	var that = this;
 	
@@ -52,7 +52,7 @@ ch.tooltip = function(conf) {
 	* The attribute that will provide the content. It can be "title" or "alt" attributes.
 	* @protected
 	* @name ch.Tooltip#attrReference
-	* @type {string}
+	* @type string
 	*/
 	var attrReference = (that.element.title) ? "title" : "alt";
 
@@ -60,7 +60,7 @@ ch.tooltip = function(conf) {
 	* The original attribute content.
 	* @private
 	* @name ch.Tooltip#attrContent
-	* @type {string}
+	* @type string
 	*/
 	var attrContent = that.element.title || that.element.alt;
 
@@ -74,7 +74,7 @@ ch.tooltip = function(conf) {
 	* @protected
 	* @name ch.Tooltip#innerShow
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that.innerShow = function(event) {
 		that.element[attrReference] = ""; // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
@@ -88,7 +88,7 @@ ch.tooltip = function(conf) {
 	* @protected
 	* @name ch.Tooltip#innerHide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	*/
 	that.innerHide = function(event) {
 		that.element[attrReference] = attrContent;
@@ -104,21 +104,21 @@ ch.tooltip = function(conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Tooltip#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Tooltip#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Tooltip#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
@@ -126,7 +126,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
 	* me.content();
@@ -147,7 +147,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#isActive
 	* @function 
-	* @returns {Boolean}
+	* @returns boolean
 	*/
 
 	/**
@@ -155,7 +155,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#show
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -167,7 +167,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#hide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -179,7 +179,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#width
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -194,7 +194,7 @@ ch.tooltip = function(conf) {
 	* @public
 	* @name ch.Tooltip#height
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth

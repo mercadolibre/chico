@@ -1,12 +1,11 @@
-
 /**
 * Is a contextual floated UI-Object.
 * @name Layer
 * @class Layer
 * @augments ch.Floats
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Tooltip
 * @see ch.Modal
 * @example
@@ -24,10 +23,10 @@ ch.layer = function(conf) {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Layer#that
-	* @type {Object}
-	*/ 
+	* @type object
+	*/
 	var that = this;
-	
+
 	conf = ch.clon(conf);
 	conf.cone = true;
 	conf.classes = "box";
@@ -45,7 +44,7 @@ ch.layer = function(conf) {
 
 	that = ch.floats.call(that);
 	that.parent = ch.clon(that);
-	
+
 /**
 *	Private Members
 */
@@ -54,49 +53,50 @@ ch.layer = function(conf) {
 	* Delay time to show component's contents.
 	* @private
 	* @name ch.Layer#showTime
-	* @type {Number}
+	* @type number
 	* @default 400
-	*/ 
+	*/
 	var showTime = conf.showTime || 400,
+
 	/**
 	* Delay time to hide component's contents.
 	* @private
 	* @name ch.Layer#hideTime
-	* @type {Number}
+	* @type number
 	* @default 400
-	*/ 
+	*/
 	hideTime = conf.hideTime || 400,
 
 	/**
 	* Show timer instance.
 	* @private
 	* @name ch.Layer#st
-	* @type {Timer}
-	*/ 
+	* @type timer
+	*/
 	st,
-	
+
 	/**
 	* Hide timer instance.
 	* @private
 	* @name ch.Layer#ht
-	* @type {Timer}
-	*/ 
+	* @type timer
+	*/
 	ht,
-	
+
 	/**
 	* Starts show timer.
 	* @private
-	* @name ch.Layer#showTimer
 	* @function
-	*/ 
+	* @name ch.Layer#showTimer
+	*/
 	showTimer = function(){ st = setTimeout(that.innerShow, showTime) },
-	
+
 	/**
 	* Starts hide timer.
 	* @private
-	* @name ch.Layer#hideTimer
 	* @function
-	*/ 
+	* @name ch.Layer#hideTimer
+	*/
 	hideTimer = function(event){
 		if (conf.event != "click") {
 			var target = event.srcElement || event.target;
@@ -106,23 +106,23 @@ ch.layer = function(conf) {
 
 		ht = setTimeout(that.innerHide, hideTime);
 	},
-	
+
 	/**
 	* Clear all timers.
 	* @private
-	* @name ch.Layer#clearTimers
 	* @function
-	*/ 
+	* @name ch.Layer#clearTimers
+	*/
 	clearTimers = function(){ clearTimeout(st); clearTimeout(ht); },
 
 	/**
 	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
 	* @private
-	* @name ch.Layer#stopBubble
 	* @function
+	* @name ch.Layer#stopBubble
 	*/
 	stopBubble = function(event){ event.stopPropagation(); };
-	
+
 	/**
 	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
 	* @private
@@ -145,12 +145,12 @@ ch.layer = function(conf) {
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
-	* @name ch.Layer#innerShow
 	* @function
-	* @returns {itself}
-	*/ 
+	* @name ch.Layer#innerShow
+	* @returns itself
+	*/
 	that.innerShow = function(event) {
-	
+
 		// Reset all layers
 		$.each(ch.instances.layer, function(i, e){ e.hide(); });
 		//conf.position.context = that.$element;
@@ -164,22 +164,22 @@ ch.layer = function(conf) {
 			that.$container.bind('click', stopBubble);
 		// Hover
 		} else { 		
-			clearTimers();	
+			clearTimers();
 			that.$container
 				.one("mouseenter", clearTimers)
 				.bind("mouseleave", hideTimer);
-		};
+		}
 
 		return that;
 	};
-	
+
 	/**
 	* Inner hide method. Hides the component and detach it from DOM tree.
 	* @protected
-	* @name ch.Layer#innerHide
 	* @function
-	* @returns {itself}
-	*/ 
+	* @name ch.Layer#innerHide
+	* @returns itself
+	*/
 	that.innerHide = function(event) {
 		that.$container.unbind('click', stopBubble);
 		that.$container.unbind('mouseleave', hideTimer);
@@ -195,21 +195,21 @@ ch.layer = function(conf) {
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Layer#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Layer#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Layer#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
@@ -217,7 +217,7 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
 	* me.content();
@@ -237,8 +237,8 @@ ch.layer = function(conf) {
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
 	* @name ch.Layer#isActive
-	* @function 
-	* @returns {Boolean}
+	* @function
+	* @returns boolean
 	*/
 
 	/**
@@ -246,7 +246,7 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#show
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -258,19 +258,19 @@ ch.layer = function(conf) {
 	* @public
 	* @name ch.Layer#hide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.hide();
 	*/
-	
+
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
 	* @name ch.Layer#width
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -279,13 +279,13 @@ ch.layer = function(conf) {
 	* // to get the width
 	* me.width // 700
 	*/
-	
+
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
 	* @name ch.Layer#height
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -294,20 +294,21 @@ ch.layer = function(conf) {
 	* // to get the heigth
 	* me.height // 300
 	*/
-	
+
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
 	* @name ch.Layer#position
+	* @function
 	* @example
 	* // Change component's position.
-	* me.position({ 
+	* me.position({
 	*	offset: "0 10",
 	*	points: "lt lb"
 	* });
 	* @see ch.Object#position
 	*/
-	
+
 /**
 *	Default event delegation
 */
@@ -352,7 +353,7 @@ ch.layer = function(conf) {
 	* });
 	* @see ch.Floats#event:hide
 	*/
-		
+
 	/**
 	* Triggers when the component is ready to use.
 	* @name ch.Layer#ready

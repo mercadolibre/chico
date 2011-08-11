@@ -59,7 +59,7 @@
 	margin:15px 8px; /* Area sensible */
 	text-indent:999px;
 	overflow:hidden;
-	background-image: url('../src/assets/carousel.png');
+	background-image: url('carousel.png');
 	background-repeat: no-repeat;
 }
 
@@ -101,9 +101,20 @@
 
 /* IE 6 */
 .ie6 .ch-carousel .ch-next-arrow{
-	right: 30px;
+	right: 20px;
 }
 
 .ie6 .ch-carousel .ch-prev-arrow{
-	left: 5px;
+	left: 0;
+}
+
+/* No-js */
+.no-js .ch-carousel-container {
+	height:150px;
+	overflow:auto;
+}
+
+.no-js .ch-carousel-content {
+	width:-moz-max-content;
+	width:-webkit-max-content;
 }

@@ -5,8 +5,8 @@
 * @augments ch.Controllers
 * @requires ch.Expando
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.menu = function(conf){
@@ -14,9 +14,8 @@ ch.menu = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Menu
+	* @name ch.Menu#that
+	* @type object
 	*/
 	var that = this;
 	
@@ -38,17 +37,16 @@ ch.menu = function(conf){
 	/**
 	* Indicates witch child is opened
 	* @private
-	* @type {Number}
-	* @memberOf ch.Menu
+	* @name ch.Menu#selected
+	* @type number
 	*/
 	var selected = conf.selected - 1;
 
 	/**
 	* Inits an Expando component on each list inside main HTML code snippet
 	* @private
-	* @name createLayout
+	* @name ch.Menu#createLayout
 	* @function
-	* @memberOf ch.Menu
 	*/
 	var createLayout = function(){
 		
@@ -103,7 +101,7 @@ ch.menu = function(conf){
 	* Opens specific Expando child and optionally grandson
 	* @private
 	* @function
-	* @memberOf ch.Menu
+	* @name ch.Menu#select
 	*/
 	var select = function(item){
 
@@ -163,9 +161,8 @@ ch.menu = function(conf){
 	/**
 	* Binds controller's own click to expando triggers
 	* @private
-	* @name configureAccordion
+	* @name ch.Menu#configureAccordion
 	* @function
-	* @memberOf ch.Menu
 	*/
 	var configureAccordion = function(){
 
@@ -188,36 +185,29 @@ ch.menu = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Menu
+	* @name ch.Menu#uid
+	* @type number
 	*/	
-	that["public"].uid = that.uid;
 	
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Menu
+	* @name ch.Menu#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
 	
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Menu
+	* @name ch.Menu#type
+	* @type string
 	*/
-	that["public"].type = that.type;
 	
 	/**
 	* Select a specific children.
 	* @public
-	* @name select
+	* @name ch.Menu#select
 	* @function
-	* @memberOf ch.Menu
 	*/
 	that["public"].select = function(item){
 		select(item);
@@ -249,11 +239,12 @@ ch.menu = function(conf){
 /**
 * Accordion is a UI-Component.
 * @name Accordion
-* @interface Accordion
+* @class Accordion
+* @interface
 * @augments ch.Menu
-* @memberOf ch.Menu
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @memberOf ch
+* @param conf Object with configuration properties
+* @returns itself
 */
 
 ch.extend("menu").as("accordion");
@@ -261,31 +252,27 @@ ch.extend("menu").as("accordion");
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.Menu.Accordion
+	* @name ch.Accordion#uid
+	* @type number
 	*/
 	
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.Menu.Accordion
+	* @name ch.Accordion#element
+	* @type HTMLElement
 	*/
 	
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.Menu.Accordion
+	* @name ch.Accordion#type
+	* @type string
 	*/
 	
 	/**
 	* Select a specific children.
 	* @public
-	* @name select
+	* @name ch.Accordion#select
 	* @function
-	* @memberOf ch.Menu.Accordion
 	*/

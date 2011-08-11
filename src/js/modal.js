@@ -4,8 +4,8 @@
 * @class Modal
 * @augments ch.Floats
 * @memberOf ch
-* @param {Object} conf Object with configuration properties
-* @returns {itself}
+* @param {object} conf Object with configuration properties
+* @returns itself
 * @see ch.Tooltip
 * @see ch.Layer
 * @example
@@ -13,7 +13,7 @@
 * var me = $("a.example").modal();
 * @example
 * // Now 'me' is a reference to the modal instance controller.
-* // You can set a new content by using 'me' like this: 
+* // You can set a new content by using 'me' like this:
 * me.content("http://content.com/new/content");
 */
 
@@ -23,7 +23,7 @@ ch.modal = function(conf){
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.Modal#that
-	* @type {Object}
+	* @type object
 	*/
 	var that = this;
 	conf = ch.clon(conf);
@@ -47,18 +47,18 @@ ch.modal = function(conf){
 	* Reference to the dimmer object, the gray background element.
 	* @private
 	* @name ch.Modal#$dimmer
-	* @type {jQuery Object}
+	* @type jQuery
 	*/
 	var $dimmer = $("<div class=\"ch-dimmer\">");
-	
+
 	// Set dimmer height for IE6
 	if (ch.utils.html.hasClass("ie6")) { $dimmer.height( parseInt(document.documentElement.clientHeight, 10)* 3) };
-	
+
 	/**
 	* Reference to dimmer control, turn on/off the dimmer object.
 	* @private
 	* @name ch.Modal#dimmer
-	* @type {Object}
+	* @type object
 	*/
 	var dimmer = {
 		on: function() { //TODO: posicionar el dimmer con el positioner
@@ -69,18 +69,18 @@ ch.modal = function(conf){
 				.css("z-index", ch.utils.zIndex += 1)
 				.appendTo("body")
 				.fadeIn();
-		
+
 			if (that.type == "modal") {
 				$dimmer.one("click", function(event){ that.innerHide(event) });
-			};
-			
+			}
+
 			if (!ch.features.fixed) {
 			 	ch.positioner({ element: $dimmer });
-			};
+			}
 
 			if ($("html").hasClass("ie6")) {
 				$("select, object").css("visibility", "hidden");
-			};
+			}
 		},
 		off: function() {
 			$dimmer.fadeOut("normal", function(){
@@ -94,7 +94,7 @@ ch.modal = function(conf){
 
 /**
 *	Protected Members
-*/ 
+*/
 
 	that.$trigger = that.$element;
 
@@ -103,28 +103,28 @@ ch.modal = function(conf){
 	* @protected
 	* @name ch.Modal#innerShow
 	* @function
-	* @returns {itself}
-	*/ 
+	* @returns itself
+	*/
 	that.innerShow = function(event) {
 		dimmer.on();
 		that.parent.innerShow(event);		
 		that.$trigger.blur();
 		return that;
 	};
-	
+
 	/**
 	* Inner hide method. Hides the component's layout and detach it from DOM tree.
 	* @protected
 	* @name ch.Modal#innerHide
 	* @function
-	* @returns {itself}
-	*/	
+	* @returns itself
+	*/
 	that.innerHide = function(event) {
-		dimmer.off();		
+		dimmer.off();
 		that.parent.innerHide(event);
 		return that;
 	};
-	
+
 /**
 *	Public Members
 */
@@ -133,21 +133,21 @@ ch.modal = function(conf){
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
 	* @name ch.Modal#uid
-	* @type {Number}
+	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
 	* @name ch.Modal#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
 	* @name ch.Modal#type
-	* @type {String}
+	* @type string
 	*/
 
 	/**
@@ -155,7 +155,7 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#content
 	* @function
-	* @param {String} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 	* @example
 	* // Get the defined content
 	* me.content();
@@ -175,8 +175,8 @@ ch.modal = function(conf){
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
 	* @public
 	* @name ch.Modal#isActive
-	* @function 
-	* @returns {Boolean}
+	* @function
+	* @returns boolean
 	*/
 
 	/**
@@ -184,7 +184,7 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#show
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#show
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
@@ -196,19 +196,19 @@ ch.modal = function(conf){
 	* @public
 	* @name ch.Modal#hide
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#hide
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
 	* me.hide();
 	*/
-	
+
 	/**
 	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
 	* @public
 	* @name ch.Modal#width
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the width
@@ -217,13 +217,13 @@ ch.modal = function(conf){
 	* // to get the width
 	* me.width // 700
 	*/
-	
+
 	/**
 	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
 	* @public
 	* @name ch.Modal#height
 	* @function
-	* @returns {itself}
+	* @returns itself
 	* @see ch.Floats#size
 	* @example
 	* // to set the heigth
@@ -237,9 +237,10 @@ ch.modal = function(conf){
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
 	* @name ch.Modal#position
+	* @function
 	* @example
 	* // Change component's position.
-	* me.position({ 
+	* me.position({
 	*	offset: "0 10",
 	*	points: "lt lb"
 	* });
@@ -300,7 +301,7 @@ ch.modal = function(conf){
 * @class Transition
 * @augments ch.Modal
 * @memberOf ch
-* @returns {itself}
+* @returns itself
 */
 ch.extend("modal").as("transition", function(conf) {
 	conf.closeButton = false;

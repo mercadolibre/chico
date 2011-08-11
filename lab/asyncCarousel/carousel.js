@@ -238,22 +238,14 @@ ch.carousel = function (conf) {
 /**
 *  Protected Members
 */
-	
-	/**
-	* List of items.
-	* @protected
-	* @name ch.Carousel#$collection
-	* @type jQuery Object
-	*/
-	that.$collection = that.$element.addClass("ch-carousel").children("ul").addClass("ch-carousel-list");
-	
+
 	/**
 	* Mask for deny overflow of content.
 	* @protected
 	* @name ch.Carousel#$container
 	* @type jQuery Object
 	*/
-	that.$container = $("<div class=\"ch-carousel-container\">").appendTo(that.$element);
+	that.$container = that.$element.children();
 	
 	/**
 	* Element that will move for both directions.
@@ -261,7 +253,15 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$content
 	* @type jQuery Object
 	*/
-	that.$content = $("<div class=\"ch-carousel-content\">").append(that.$collection).appendTo(that.$container);
+	that.$content = that.$container.children();
+	
+	/**
+	* List of items.
+	* @protected
+	* @name ch.Carousel#$collection
+	* @type jQuery Object
+	*/
+	that.$collection = that.$content.children();
 	
 	/**
 	* References to items attributes and manages internal queue for asynchronous item load.
@@ -272,7 +272,7 @@ ch.carousel = function (conf) {
 	that.items = (function () {
 		
 		// Items rendered
-		var items = that.$collection.children().addClass("ch-carousel-item"),
+		var items = that.$collection.children(),
 		
 		// Create an object to be exposed
 			self = {};
@@ -336,7 +336,7 @@ ch.carousel = function (conf) {
 			that.callbacks("onItemsAdded");
 			// new callback
 			that.trigger("itemsAdded");
-		};
+		}
 		
 		/**
 		* Calculates items amount on each page.

@@ -1,12 +1,11 @@
-
 /**
 * TabNavigator UI-Component for static and dinamic content.
 * @name TabNavigator
 * @class TabNavigator
 * @augments ch.Controllers
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.tabNavigator = function(conf){
@@ -14,16 +13,15 @@ ch.tabNavigator = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#that
+	* @type object
 	*/
 	var that = this;
 
 	conf = ch.clon(conf);
 
 	that.conf = conf;
-	
+
 /**
 *	Inheritance
 */
@@ -38,35 +36,35 @@ ch.tabNavigator = function(conf){
 	/**
 	* The actual location hash, is used to know if there's a specific tab selected.
 	* @private
-	* @name hash
-	* @type {String}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#hash
+	* @type string
 	*/
 	var hash = window.location.hash.replace("#!", "");
+
 	/**
 	* A boolean property to know if the some tag should be selected.
 	* @private
-	* @name hashed
-	* @type {Boolean}
+	* @name ch.TabNavigator#hashed
+	* @type boolean
 	* @default false
-	* @memberOf ch.TabNavigator
 	*/
 	var hashed = false;
+
 	/**
 	* Get wich tab is selected.
 	* @private
-	* @name selected
-	* @type {Number}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#selected
+	* @type number
 	*/
 	var selected = conf.selected - 1 || conf.value - 1 || 0;
+
 	/**
 	* Create controller's children.
 	* @private
-	* @name createTabs
+	* @name ch.TabNavigator#createTabs
 	* @function
-	* @memberOf ch.TabNavigator
 	*/
+
 	var createTabs = function(){
 
 		// Children
@@ -86,25 +84,25 @@ ch.tabNavigator = function(conf){
 				config.onShow = function(){
 					selected = i;
 				};
-				
+
 			if(ch.utils.hasOwn(that.conf, "cache")) {
 				config.cache = that.conf.cache;
 			};
 
 		/**
 		* Callback function
-		* @name onContentLoad
-		* @type {Function}
-		* @memberOf ch.TabNavigator
+		* @name ch.TabNavigator#onContentLoad
+		* @event
+		* @public
 		*/
-			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) config.onContentLoad = that.conf.onContentLoad;
+			if (ch.utils.hasOwn(that.conf, "onContentLoad")) config.onContentLoad = that.conf.onContentLoad;
 		/**
 		* Callback function
-		* @name onContentError
-		* @type {Function}
-		* @memberOf ch.TabNavigator
+		* @name ch.TabNavigator#onContentError
+		* @event
+		* @public
 		*/
-			if ( ch.utils.hasOwn(that.conf, "onContentError") ) config.onContentError = that.conf.onContentError;
+			if (ch.utils.hasOwn(that.conf, "onContentError")) config.onContentError = that.conf.onContentError;
 
 			// Create Tabs
 			that.children.push(
@@ -122,16 +120,17 @@ ch.tabNavigator = function(conf){
 		return;
 
 	};
+
 	/**
 	* Select a child to show its content.
+	* @name ch.TabNavigator#select
 	* @private
 	* @function
-	* @memberOf ch.TabNavigator
 	*/
 	var select = function(tab){
 
 		tab = that.children[tab - 1];
-		
+
 		if(tab === that.children[selected]) return; // Don't click me if I'm open
 
 		// Hide my open bro
@@ -141,45 +140,43 @@ ch.tabNavigator = function(conf){
 
 		tab.show();
 
-	//Change location hash
-		window.location.hash = "#!" + tab.$content.attr("id");	
-		
+		//Change location hash
+		window.location.hash = "#!" + tab.$content.attr("id");
+
 	/**
 	* Callback function
-	* @name onSelect
-	* @type {Function}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#onSelect
+	* @event
+	* @public
 	*/
 		that.callbacks("onSelect");
 		// new callback
 		that.trigger("select");
-			
+
 	return that;
 	};
 
 /**
 *	Protected Members
 */
-	
+
 	/**
 	* The component's triggers container.
 	* @private
-	* @name $triggers
-	* @type {jQuery Object}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#$triggers
+	* @type jQuery
 	*/
 	that.$triggers = that.$element.children(":first").addClass("ch-tabNavigator-triggers");
-	
+
 	/**
 	* The component's content.
 	* @private
-	* @name $content
-	* @type {jQuery Object}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#$content
+	* @type jQuery
 	*/
 	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content box");
 
-	
+
 /**
 *	Public Members
 */
@@ -187,82 +184,76 @@ ch.tabNavigator = function(conf){
 	/**
 	* The component's instance unique identifier.
 	* @public
-	* @name uid
-	* @type {Number}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#uid
+	* @type number
 	*/
-	that["public"].uid = that.uid;
+
 	/**
 	* The element reference.
 	* @public
-	* @name element
-	* @type {HTMLElement}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#element
+	* @type HTMLElement
 	*/
-	that["public"].element = that.element;
+
 	/**
 	* The component's type.
 	* @public
-	* @name type
-	* @type {String}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#type
+	* @type string
 	*/
-	that["public"].type = that.type;
+
 	/**
 	* Children instances associated to this controller.
 	* @public
-	* @name children
-	* @type {Collection}
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#children
+	* @type collection
 	*/
 	that["public"].children = that.children;
+
 	/**
 	* Select a specific child.
 	* @public
 	* @function
-	* @name select
-	* @param {Number} tab Tab's index.
-	* @memberOf ch.TabNavigator
+	* @name ch.TabNavigator#select
+	* @param {number} tab Tab's index.
 	*/
 	that["public"].select = function(tab){
 		select(tab);
-		
+
 		return that["public"];
 	};
+
 	/**
 	* Returns the selected child's index.
 	* @public
 	* @function
-	* @name getSelected
-	* @returns {Number} selected Tab's index.
-	* @memberOf ch.TabNavigator
-	*/	
+	* @name ch.TabNavigator#getSelected
+	* @returns {number} selected Tab's index.
+	*/
 	that["public"].getSelected = function(){ return (selected + 1); };
 
 /**
 *	Default event delegation
-*/	
+*/
 
 	that.$element.addClass("ch-tabNavigator");
 
 	createTabs();
 
 	//Default: Load hash tab or Open first tab	
-	for(var i = that.children.length; i--; ){
+	for(var i = that.children.length; i-=1; ){
 		if ( that.children[i].$content.attr("id") === hash ) {
 			select(i + 1);
-			
+
 			hashed = true;
-			
+
 			break;
 		};
 	};
 
 	return that;
-	
+
 };
-
-
 
 /**
 * Simple unit of content for TabNavigators.
@@ -271,26 +262,24 @@ ch.tabNavigator = function(conf){
 * @class Tab
 * @augments ch.Navs
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @param {object} conf Object with configuration properties
+* @returns itself
 */
 
 ch.tab = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
-	* @name that
-	* @type {Object}
-	* @memberOf ch.Tab
+	* @name ch.Tab#that
+	* @type object
 	*/
 	var that = this;
 
 	conf = ch.clon(conf);
 	conf.icon = false;
-	
+
 	that.conf = conf;
 
-	
 /**
 *	Inheritance
 */
@@ -304,36 +293,34 @@ ch.tab = function(conf){
 	/**
 	* Creates the basic structure for the tab's content.
 	* @private
-	* @name createContent
+	* @name ch.Tab#createContent
 	* @function
-	* @memberOf ch.Tab
 	*/
 	var createContent = function(){
 		var href = that.element.href.split("#");
 		var controller = that.$element.parents(".ch-tabNavigator");
 		var content = controller.find("#" + href[1]);
-		
+
 		// If there are a tabContent...
-		if ( content.length > 0 ) {
-			
+		if (content.length > 0) {
+
 			return content;
-		
-		// If tabContent doesn't exists  	
+
+		// If tabContent doesn't exists
 		} else {
 			/**
 			* Content configuration property.
 			* @public
-			* @name source
-			* @type {String}
-			* @memberOf ch.Tab
+			* @name ch.Tab#source
+			* @type string
 			*/
 			that.source = that.element.href;
-			
+
 			var id = (href.length == 2) ? href[1] : "ch-tab" + that.uid.replace("#","-");
-			
+
 			// Create tabContent
 			return $("<div id=\"" + id + "\" class=\"ch-hide\">").appendTo( controller.children().eq(1) );
-		};
+		}
 
 	};
 
@@ -343,18 +330,16 @@ ch.tab = function(conf){
 	/**
 	* Reference to the trigger element.
 	* @private
-	* @name $trigger
-	* @type {jQuery Object}
-	* @memberOf ch.Tab
+	* @name ch.Tab#$trigger
+	* @type jQuery
 	*/
 	that.$trigger = that.$element;
 
 	/**
 	* The component's content.
 	* @private
-	* @name $content
-	* @type {jQuery Object}
-	* @memberOf ch.Tab
+	* @name ch.Tab#$content
+	* @type jQuery
 	*/
 	that.$content = createContent();
 
@@ -362,30 +347,27 @@ ch.tab = function(conf){
 	* Process the show event.
 	* @private
 	* @function
-	* @name show
-	* @returns {jQuery Object}
-	* @memberOf ch.Tab
+	* @name ch.Tab#show
+	* @returns jQuery
 	*/
 	that.show = function(event){
 		that.prevent(event);
 
 		// Load my content if I'need an ajax request 
-		if( ch.utils.hasOwn(that, "source") ) {
+		if (ch.utils.hasOwn(that, "source")) {
 			that.content();
-		};
+		}
 
 		// Show me
 		that.parent.show(event);
-		
+
 		return that;
 	};
-	
+
 	/**
 	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
-	* @public
-	* @name contentCallback
-	* @returns {Chico-UI Object}
-	* @memberOf ch.TabNavigator
+	* @protected
+	* @name ch.Tab#contentCallback
 	*/
 	that["public"].on("contentLoad", function(event, context){
 

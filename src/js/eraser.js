@@ -5,7 +5,7 @@
 * @name Eraser
 * @class Eraser
 * @memberOf ch
-* @param {String} [data] 
+* @param {string} [data] 
 */
 	
 ch.eraser = function(data) {
