@@ -1,4 +1,3 @@
-
 /**
 * TabNavigator UI-Component for static and dinamic content.
 * @name TabNavigator
@@ -15,14 +14,14 @@ ch.tabNavigator = function(conf){
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
 	* @name ch.TabNavigator#that
-	* @type {object}
+	* @type object
 	*/
 	var that = this;
 
 	conf = ch.clon(conf);
 
 	that.conf = conf;
-	
+
 /**
 *	Inheritance
 */
@@ -41,6 +40,7 @@ ch.tabNavigator = function(conf){
 	* @type string
 	*/
 	var hash = window.location.hash.replace("#!", "");
+
 	/**
 	* A boolean property to know if the some tag should be selected.
 	* @private
@@ -49,6 +49,7 @@ ch.tabNavigator = function(conf){
 	* @default false
 	*/
 	var hashed = false;
+
 	/**
 	* Get wich tab is selected.
 	* @private
@@ -56,12 +57,14 @@ ch.tabNavigator = function(conf){
 	* @type number
 	*/
 	var selected = conf.selected - 1 || conf.value - 1 || 0;
+
 	/**
 	* Create controller's children.
 	* @private
 	* @name ch.TabNavigator#createTabs
 	* @function
 	*/
+
 	var createTabs = function(){
 
 		// Children
@@ -81,7 +84,7 @@ ch.tabNavigator = function(conf){
 				config.onShow = function(){
 					selected = i;
 				};
-				
+
 			if(ch.utils.hasOwn(that.conf, "cache")) {
 				config.cache = that.conf.cache;
 			};
@@ -92,14 +95,14 @@ ch.tabNavigator = function(conf){
 		* @event
 		* @public
 		*/
-			if ( ch.utils.hasOwn(that.conf, "onContentLoad") ) config.onContentLoad = that.conf.onContentLoad;
+			if (ch.utils.hasOwn(that.conf, "onContentLoad")) config.onContentLoad = that.conf.onContentLoad;
 		/**
 		* Callback function
 		* @name ch.TabNavigator#onContentError
 		* @event
 		* @public
 		*/
-			if ( ch.utils.hasOwn(that.conf, "onContentError") ) config.onContentError = that.conf.onContentError;
+			if (ch.utils.hasOwn(that.conf, "onContentError")) config.onContentError = that.conf.onContentError;
 
 			// Create Tabs
 			that.children.push(
@@ -117,6 +120,7 @@ ch.tabNavigator = function(conf){
 		return;
 
 	};
+
 	/**
 	* Select a child to show its content.
 	* @name ch.TabNavigator#select
@@ -126,7 +130,7 @@ ch.tabNavigator = function(conf){
 	var select = function(tab){
 
 		tab = that.children[tab - 1];
-		
+
 		if(tab === that.children[selected]) return; // Don't click me if I'm open
 
 		// Hide my open bro
@@ -136,9 +140,9 @@ ch.tabNavigator = function(conf){
 
 		tab.show();
 
-	//Change location hash
-		window.location.hash = "#!" + tab.$content.attr("id");	
-		
+		//Change location hash
+		window.location.hash = "#!" + tab.$content.attr("id");
+
 	/**
 	* Callback function
 	* @name ch.TabNavigator#onSelect
@@ -148,14 +152,14 @@ ch.tabNavigator = function(conf){
 		that.callbacks("onSelect");
 		// new callback
 		that.trigger("select");
-			
+
 	return that;
 	};
 
 /**
 *	Protected Members
 */
-	
+
 	/**
 	* The component's triggers container.
 	* @private
@@ -163,7 +167,7 @@ ch.tabNavigator = function(conf){
 	* @type jQuery
 	*/
 	that.$triggers = that.$element.children(":first").addClass("ch-tabNavigator-triggers");
-	
+
 	/**
 	* The component's content.
 	* @private
@@ -172,7 +176,7 @@ ch.tabNavigator = function(conf){
 	*/
 	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content box");
 
-	
+
 /**
 *	Public Members
 */
@@ -205,6 +209,7 @@ ch.tabNavigator = function(conf){
 	* @type collection
 	*/
 	that["public"].children = that.children;
+
 	/**
 	* Select a specific child.
 	* @public
@@ -214,42 +219,41 @@ ch.tabNavigator = function(conf){
 	*/
 	that["public"].select = function(tab){
 		select(tab);
-		
+
 		return that["public"];
 	};
+
 	/**
 	* Returns the selected child's index.
 	* @public
 	* @function
 	* @name ch.TabNavigator#getSelected
 	* @returns {number} selected Tab's index.
-	*/	
+	*/
 	that["public"].getSelected = function(){ return (selected + 1); };
 
 /**
 *	Default event delegation
-*/	
+*/
 
 	that.$element.addClass("ch-tabNavigator");
 
 	createTabs();
 
 	//Default: Load hash tab or Open first tab	
-	for(var i = that.children.length; i--; ){
+	for(var i = that.children.length; i-=1; ){
 		if ( that.children[i].$content.attr("id") === hash ) {
 			select(i + 1);
-			
+
 			hashed = true;
-			
+
 			break;
 		};
 	};
 
 	return that;
-	
+
 };
-
-
 
 /**
 * Simple unit of content for TabNavigators.
@@ -273,10 +277,9 @@ ch.tab = function(conf){
 
 	conf = ch.clon(conf);
 	conf.icon = false;
-	
+
 	that.conf = conf;
 
-	
 /**
 *	Inheritance
 */
@@ -297,13 +300,13 @@ ch.tab = function(conf){
 		var href = that.element.href.split("#");
 		var controller = that.$element.parents(".ch-tabNavigator");
 		var content = controller.find("#" + href[1]);
-		
+
 		// If there are a tabContent...
-		if ( content.length > 0 ) {
-			
+		if (content.length > 0) {
+
 			return content;
-		
-		// If tabContent doesn't exists  	
+
+		// If tabContent doesn't exists
 		} else {
 			/**
 			* Content configuration property.
@@ -312,12 +315,12 @@ ch.tab = function(conf){
 			* @type string
 			*/
 			that.source = that.element.href;
-			
+
 			var id = (href.length == 2) ? href[1] : "ch-tab" + that.uid.replace("#","-");
-			
+
 			// Create tabContent
 			return $("<div id=\"" + id + "\" class=\"ch-hide\">").appendTo( controller.children().eq(1) );
-		};
+		}
 
 	};
 
@@ -351,26 +354,54 @@ ch.tab = function(conf){
 		that.prevent(event);
 
 		// Load my content if I'need an ajax request 
-		if( ch.utils.hasOwn(that, "source") ) {
-			that.$content.html( that.content() );
-		};
+		if (ch.utils.hasOwn(that, "source")) {
+			that.content();
+		}
 
 		// Show me
 		that.parent.show(event);
-		
+
 		return that;
 	};
-	
+
 	/**
 	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
 	* @protected
 	* @name ch.Tab#contentCallback
 	*/
-	that.contentCallback = function(data) {
-		that.staticContent = data;
-	that.$content.html(that.staticContent);
-	};
-	
+	that["public"].on("contentLoad", function(event, context){
+
+		that.$content.html(that.staticContent);
+
+		if (ch.utils.hasOwn(conf, "onContentLoad")) {
+			conf.onContentLoad.call(context, that.staticContent);
+		}
+
+	});
+
+	/**
+	* This callback is triggered when async request fails.
+	* @public
+	* @name contentCallback
+	* @returns {Chico-UI Object}
+	* @memberOf ch.TabNavigator
+	*/
+	that["public"].on("contentError", function(event, data){
+
+		that.$content.html(that.staticContent);
+
+		// Get the original that.source
+		var originalSource = that.source;
+
+		if (ch.utils.hasOwn(conf, "onContentError")) {
+			conf.onContentError.call(data.context, data.jqXHR, data.textStatus, data.errorThrown);
+		}
+
+		// Reset content configuration
+		that.source = originalSource;
+		that.staticContent = undefined;
+
+	});
 
 /**
 *	Public Members

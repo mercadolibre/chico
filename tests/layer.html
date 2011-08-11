@@ -35,9 +35,9 @@
 	
 	<p class="box"><span class="layer12">Layer with new content.</span></p>
 	
-	<p class="content" style="display:none">DOM content</p>
+	<p class="content ch-hide">DOM content</p>
 	
-	<div class="list-layer" style="display:none">
+	<div class="list-layer ch-hide">
 		<div class="min-box pricing">
 			<p class="price"><span class="l-currency">$</span> <span class="l-price">250<sup>00</sup></span> <select class="stock"><option>casca</option><option>casca</option><option>casca</option><option>casca</option></select></p>
 			<p class="shipping"><span class="free-shipping">Gratis</span> a través de <span class="mail-sedex">Sedex</span></p>
@@ -113,11 +113,11 @@
 		var layer5 = $(".layer5").layer("Layer with content loaded without configuration object.");
 
 		var layer6 = $(".layer6").layer({
-			ajax: "../test.html"
+			content: "../test.html"
 		});
 		
 		var layer7 = $(".layer7").layer({
-			ajax: "http://www.google.com"
+			content: "http://www.google.com"
 		});
 		
 		var layer8 = $(".layer8").layer({
@@ -141,55 +141,64 @@
 		/**
 		 * 	Test Cases
 		 */
-		 
+
         module("Layer instance object");
-		
+
         test("Layer common public properties", function(){
 
             expect( 4 );
 
        		ok( layer1.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
-       		
+
     		ok( layer1.type == "layer" , "Expected to find \"layer\" as value of type attribute");
-    		
+
     		ok( ch.utils.hasOwn(layer1, "isActive"), "Expected to find an \"active\" property" );
 
     		ok( ch.utils.hasOwn(layer1, "element"), "Expected to find an \"element\" property" );
 
         });
-        
+
         test("Layer common public methods", function(){
 
-            expect( 3 );
-    		
+            expect( 4 );
+
     		ok( ch.utils.hasOwn(layer1, "position"), "Expected to find a \"position\" method" );
-    		
+
+    		ok( ch.utils.hasOwn(layer1, "content"), "Expected to find an \"content\" method" );
+
     		ok( ch.utils.hasOwn(layer1, "show"), "Expected to find a \"show\" method" );
-    		
+
     		ok( ch.utils.hasOwn(layer1, "hide"), "Expected to find a \"hide\" method" );
 
         });
-        
+
         test("Content property of layer executed on hover", function(){
 
             expect( 1 );
 
+			layer1.show();
+       		
        		equal( layer1.content().hasClass("list-layer"), true, "Expected to find a defined content on the layer instance");
-
+       		
+			layer1.hide();
         });
         
         test("Content property of layer executed on click", function(){
 
             expect( 1 );
 
+			layer2.show();
+
        		ok( layer2.content() == "Layer executed on click.", "Expected to find a defined content on the layer instance");
+       		
+       		layer2.hide();
 
         });
         
         test("Content property of layer with HTML content loaded via \"content\" attribute", function(){
 
             expect( 1 );
-
+			layer3.show().hide();
        		ok( layer3.content() == "Layer with HTML content loaded via \"content\" attribute.", "Expected to find a defined content on the layer instance");
 
         });
@@ -197,7 +206,7 @@
         test("Content property of layer with DOM content loaded via \"content\" attribute", function(){
 
             expect( 1 );
-
+			layer4.show().hide();
        		equal( layer4.content().hasClass("content"), true, "Expected to find a defined content on the layer instance");
 
         });
@@ -205,10 +214,18 @@
         test("Content property of layer with content loaded without configuration object", function(){
 
             expect( 1 );
-
+			layer5.show().hide();
        		ok( layer5.content() == "Layer with content loaded without configuration object.", "Expected to find a defined content on the layer instance");
 
         });
+        
+        test("Set new content via show method", function(){
+
+            expect( 1 );
+			layer5.show("New Content via show method").hide();
+       		ok( layer5.content() == "New Content via show method", "Expected to find a new content on the layer instance");
+
+        });        
         
 /*  
 	TODO: Rethink and refactor all this tests.
@@ -228,12 +245,12 @@
        		ok( layer7.content() == "http://www.google.com", "Expected to find a defined content on the layer instance");
 
         });
-  */      
+  */
         test("Set new content", function(){
 
             expect( 1 );
 			
-			layer12.content("New content...")
+			layer12.content("New content...").show().hide();
        		
        		ok( layer12.content() == "New content...", "Expected to find a new content on the layer");
 
@@ -439,7 +456,7 @@
         	expect( 1 );
         	
             layer9 = $('.layer9').layer({
-            	ajax:"../test.html",
+            	content:"../test.html",
 				onContentLoad: function(){ 
 					$("body").addClass("onContentLoad");
 
@@ -462,9 +479,10 @@
         	
         	expect( 1 );
         	
-            layer10 = $('.layer10').layer({
-            	ajax: "http://www.google.com",
+			layer10 = $('.layer10').layer({
+            	content: "http://www.google.com",
 				onContentError: function(){
+
 					$("body").addClass("onContentError");
 
 					start();
@@ -474,8 +492,6 @@
 					$("body").removeClass("onContentError");
 
 					this.hide();
-
-					return "Callback:  onContentError";
 				}
 
             });
