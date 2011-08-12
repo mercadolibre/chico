@@ -398,3 +398,5 @@ ch.zoom = function(conf) {
 
 	return that;
 };
+
+ch.factory("zoom");

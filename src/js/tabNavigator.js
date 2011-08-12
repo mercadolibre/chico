@@ -255,6 +255,8 @@ ch.tabNavigator = function(conf){
 
 };
 
+ch.factory("tabNavigator");
+
 /**
 * Simple unit of content for TabNavigators.
 * @abstract

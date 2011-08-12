@@ -219,3 +219,5 @@ ch.dropdown = function(conf){
 	return that;
 
 };
+
+ch.factory("dropdown");

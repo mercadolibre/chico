@@ -646,3 +646,5 @@ ch.carousel = function (conf) {
 
 	return that;
 };
+
+ch.factory("carousel");

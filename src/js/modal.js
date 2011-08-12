@@ -294,6 +294,7 @@ ch.modal = function(conf){
 	return that;
 };
 
+ch.factory("modal");
 
 /**
 * Transition

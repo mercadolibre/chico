@@ -626,3 +626,5 @@ ch.calendar = function (conf) {
 
 	return that;
 };
+
+ch.factory("calendar");
