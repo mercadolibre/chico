@@ -6,7 +6,7 @@
 * @requires ch.List
 * @memberOf ch
 * @param {Configuration Object} conf Object with configuration properties
-* @returns {Chico-UI Object}
+* @returns Chico-UI Object
 */
 
 ch.carousel = function (conf) {
@@ -15,7 +15,7 @@ ch.carousel = function (conf) {
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @protected
 	* @name ch.Carousel#that
-	* @type {Object}
+	* @type Object
 	*/
 	var that = this;
 	
@@ -60,10 +60,10 @@ ch.carousel = function (conf) {
 		extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemsWidth : 0;
 		
 		// Set width to Carousel if exists a width in configuration
-		if (ch.utils.hasOwn(conf, "width")) { that.$component.css("width", conf.width); }
+		if (ch.utils.hasOwn(conf, "width")) { that.$element.css("width", conf.width); }
 		
 		// Set height to Carousel if exists a height in configuration
-		if (ch.utils.hasOwn(conf, "height")) { that.$component.css("height", conf.height); }
+		if (ch.utils.hasOwn(conf, "height")) { that.$element.css("height", conf.height); }
 		
 		// Disable CSS transition if it's specified
 		if (!conf.fx && ch.features.transition) { that.$content.addClass("ch-carousel-nofx"); }
@@ -92,15 +92,15 @@ ch.carousel = function (conf) {
 			// Previous arrow
 			var $prev = $("<p class=\"ch-prev-arrow" + (conf.rolling ? "" : " ch-hide") + "\"><span>Previous</span></p>")
 				.bind("click", that.prev)
-				.prependTo(that.$component),
+				.prependTo(that.$element),
 			
 			// Next arrow
 				$next = $("<p class=\"ch-next-arrow\"><span>Next</span></p>")
 				.bind("click", that.next)
-				.appendTo(that.$component);
+				.appendTo(that.$element);
 			
 			// Positions arrows vertically in middle of Carousel
-			$prev[0].style.top = $next[0].style.top = (that.$component.outerHeight() - $prev.outerHeight()) / 2 + "px";
+			$prev[0].style.top = $next[0].style.top = (that.$element.outerHeight() - $prev.outerHeight()) / 2 + "px";
 			
 			/**
 			* Manages arrows turning it on and off when non-continue Carousel is moving.
@@ -160,10 +160,10 @@ ch.carousel = function (conf) {
 			};
 			
 			// Append list to carousel
-			that.$component.append($pagination);
+			that.$element.append($pagination);
 			
 			// Positions list
-			$pagination.css("left", (that.$component.outerWidth() - $pagination.outerWidth()) / 2).removeClass("ch-hide");
+			$pagination.css("left", (that.$element.outerWidth() - $pagination.outerWidth()) / 2).removeClass("ch-hide");
 			
 			// Set pagination children as thumbnails
 			$thumbnails = $pagination.children();
@@ -257,7 +257,7 @@ ch.carousel = function (conf) {
 			// Manage Previous and Next arrows
 			if (conf.arrows) {
 				// Deletes pagination if already exists
-				that.$component.find(".ch-prev-arrow, .ch-next-arrow").remove();
+				that.$element.find(".ch-prev-arrow, .ch-next-arrow").remove();
 				
 				// Creates updated pagination
 				if (that.pages > 1) { createArrows(); }
@@ -266,7 +266,7 @@ ch.carousel = function (conf) {
 			// Manage pagination
 			if (conf.pagination) {
 				// Deletes pagination if already exists
-				that.$component.find(".ch-carousel-pages").remove();
+				that.$element.find(".ch-carousel-pages").remove();
 				
 				// Creates updated pagination
 				if (that.pages > 1) { createPagination(); }
@@ -277,7 +277,7 @@ ch.carousel = function (conf) {
 	* Size of carousel mask.
 	* @private
 	* @name ch.Carousel#maskWidth
-	* @type {Number}
+	* @type Number
 	*/
 		maskWidth,
 		
@@ -285,7 +285,7 @@ ch.carousel = function (conf) {
 	* Extra size calculated on content. Fix some IE6 issues.
 	* @private
 	* @name ch.Carousel#extraWidth
-	* @type {Number}
+	* @type Number
 	*/
 		extraWidth,
 	
@@ -293,37 +293,21 @@ ch.carousel = function (conf) {
 	* Resize status of Window.
 	* @private
 	* @name ch.Carousel#resizing
-	* @type {Boolean}
+	* @type Boolean
 	*/
 		resizing = false;
 
 /**
 *  Protected Members
 */
-	
-	/**
-	* Element that wraps all HTML structure, like buttons, mask and pagination.
-	* @protected
-	* @name ch.Carousel#$mask
-	* @type jQuery Object
-	*/
-	that.$component = $("<div class=\"ch-carousel\">").insertBefore(that.$element);
-	
-	/**
-	* Mask that hides the overflow of content.
-	* @protected
-	* @name ch.Carousel#$mask
-	* @type jQuery Object
-	*/
-	that.$mask = that.$element.addClass("ch-carousel-mask").appendTo(that.$component);
-	
+
 	/**
 	* Element that will move for both directions.
 	* @protected
 	* @name ch.Carousel#$content
 	* @type jQuery Object
 	*/
-	that.$content = $("<div class=\"ch-carousel-content\">").appendTo(that.$mask);
+	that.$content = $("<div class=\"ch-carousel-content\">");
 	
 	/**
 	* List of items.
@@ -331,7 +315,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$collection
 	* @type jQuery Object
 	*/
-	that.$collection = that.$mask.children("ul").addClass("ch-carousel-list").appendTo(that.$content);
+	that.$collection = that.$element.children("ul").addClass("ch-carousel-list").appendTo(that.$content);
 	
 	/**
 	* Each item into collection.
@@ -340,6 +324,14 @@ ch.carousel = function (conf) {
 	* @type jQuery Object
 	*/
 	that.$items = that.$collection.children().addClass("ch-carousel-item");
+	
+	/**
+	* Mask that hides the overflow of content.
+	* @protected
+	* @name ch.Carousel#$mask
+	* @type jQuery Object
+	*/
+	that.$mask = $("<div class=\"ch-carousel-mask\">").append(that.$content).appendTo(that.$element);
 	
 	/**
 	* List of items that should be loaded asynchronously on page movement.
@@ -421,7 +413,7 @@ ch.carousel = function (conf) {
 		/**
 		* Callback function
 		* @name ch.Carousel#onItemsAdded
-		* @type {Function}
+		* @type Function
 		*/
 		that.callbacks("onItemsAdded");
 		// new callback
@@ -495,7 +487,7 @@ ch.carousel = function (conf) {
 		/**
 		* Callback function
 		* @name ch.Carousel#onMove
-		* @type {Function}
+		* @type Function
 		*/
 		that.callbacks("onMove");
 		// new callback
@@ -512,7 +504,7 @@ ch.carousel = function (conf) {
 		/**
 		* Callback function
 		* @name ch.Carousel#onPrev
-		* @type {Function}
+		* @type Function
 		*/
 		that.callbacks("onPrev");
 		// new callback
@@ -529,7 +521,7 @@ ch.carousel = function (conf) {
 		/**
 		* Callback function
 		* @name ch.Carousel#onNext
-		* @type {Function}
+		* @type Function
 		*/
 		that.callbacks("onNext");
 		// new callback
@@ -546,28 +538,28 @@ ch.carousel = function (conf) {
 	* The component's instance unique identifier.
 	* @public
 	* @name ch.Carousel#uid
-	* @type {Number}
+	* @type Number
 	*/
 	
 	/**
 	* The element reference.
 	* @public
 	* @name ch.Carousel#element
-	* @type {HTMLElement}
+	* @type HTMLElement
 	*/
 
 	/**
 	* The component's type.
 	* @public
 	* @name ch.Carousel#type
-	* @type {String}
+	* @type String
 	*/
 
 	/**
 	* Get the items amount of each page.
 	* @public
 	* @name ch.Carousel#getItemsPerPage
-	* @returns {Number}
+	* @returns Number
 	*/
 	that["public"].getItemsPerPage = function () { return that.itemsPerPage; };
 	
@@ -575,7 +567,7 @@ ch.carousel = function (conf) {
 	* Get the total amount of pages.
 	* @public
 	* @name ch.Carousel#getPage
-	* @returns {Number}
+	* @returns Number
 	*/
 	that["public"].getPage = function () { return that.currentPage; };
 	
@@ -584,7 +576,7 @@ ch.carousel = function (conf) {
 	* @public
 	* @function
 	* @name ch.Carousel#goTo
-	* @returns {Chico-UI Object}
+	* @returns Chico-UI Object
 	* @param {Number} page Page to be moved.
 	* @example
 	* // Create a carousel
@@ -595,7 +587,7 @@ ch.carousel = function (conf) {
 	*/
 	that["public"].goTo = function (page) {
 		// TODO: Add support to goTo function on asynchronous item load.
-		if (!ch.utils.hasOwn(conf, "asyncData")) { return that["public"]; }
+		if (ch.utils.hasOwn(conf, "asyncData")) { return that["public"]; }
 		
 		that.goTo(page);
 
@@ -606,7 +598,7 @@ ch.carousel = function (conf) {
 	* Moves to the previous page.
 	* @public
 	* @name ch.Carousel#prev
-	* @returns {Chico-UI Object}
+	* @returns Chico-UI Object
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -624,7 +616,7 @@ ch.carousel = function (conf) {
 	* Moves to the next page.
 	* @public
 	* @name ch.Carousel#next
-	* @returns {Chico-UI Object}
+	* @returns Chico-UI Object
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -642,7 +634,7 @@ ch.carousel = function (conf) {
 	* Re-calculate positioning, sizing, paging, and re-draw.
 	* @public
 	* @name ch.Carousel#redraw
-	* @returns {Chico-UI Object}
+	* @returns Chico-UI Object
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
