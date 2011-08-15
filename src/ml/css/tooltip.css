@@ -15,7 +15,7 @@
 
 /* Cone */
 .ch-tooltip .ch-cone {
-	background-image: url('../src/ml/assets/tooltip.png');
+	background-image: url('../assets/tooltip.png');
 	display:block;
 	position:absolute;
 	width:16px;

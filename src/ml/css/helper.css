@@ -42,7 +42,7 @@
 
 /* Cone */
 .ch-helper .ch-cone {
-	background-image: url('../src/ml/assets/helper.png');
+	background-image: url('../assets/helper.png');
 	display:block;
 	position:absolute;
 	width:8px;
