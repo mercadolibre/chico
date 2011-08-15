@@ -370,3 +370,5 @@ ch.layer = function(conf) {
 	return that;
 
 };
+
+ch.factory("layer");

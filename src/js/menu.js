@@ -235,6 +235,7 @@ ch.menu = function(conf){
 	
 };
 
+ch.factory("menu");
 
 /**
 * Accordion is a UI-Component.

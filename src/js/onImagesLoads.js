@@ -46,4 +46,4 @@ ch.onImagesLoads = function(conf){
 	return that;
 };
 
-ch.factory({ component: "onImagesLoads" });
+ch.factory("onImagesLoads");

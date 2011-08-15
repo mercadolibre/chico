@@ -411,3 +411,5 @@ ch.viewer = function (conf) {
 
 	return that;
 };
+
+ch.factory("viewer");
