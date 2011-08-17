@@ -12,10 +12,12 @@
 	overflow:hidden;
 }
 
-.ch-tabNavigator > .ch-tabNavigator-triggers li {
+.ch-tabNavigator-triggers li{
 	cursor:pointer;
-	margin-right:5px;
-	float:left;
+	/*margin-right:5px;
+	float:left;*/
+	display:inline;
+	margin-right:0;
 }
 
 /* Triggers */
@@ -23,12 +25,13 @@
 	border:1px solid #ccc;
 	display:inline-block;
 	padding:3px 12px;
+	margin-right:2px;
 	text-decoration:none !important;
 	color:#333333 !important;
 	background-color:#fff;
-	border-radius:5px 5px 0 0;
 	-moz-border-radius:5px 5px 0 0;
 	-webkit-border-radius:5px 5px 0 0;
+	border-radius:5px 5px 0 0;
 }
 
 /* Hover and active */
@@ -38,9 +41,9 @@
 
 /* Vertical trigger */
 .ch-tabNavigator.vertical .ch-tab-trigger {
-	border-radius:5px 0 0 5px;
 	-moz-border-radius:5px 0 0 5px;
 	-webkit-border-radius:5px 0 0 5px;
+	border-radius:5px 0 0 5px;
 	width:75px;
 	margin-bottom:5px;
 }
@@ -51,11 +54,11 @@
 	cursor:default;
 	background-position:0 -535px;
 	background-repeat:repeat-x;
-	border-bottom:1px solid #FFFFFF;				
+	border-bottom:1px solid #FFFFFF;
 }
 
 .ch-tabNavigator.vertical .ch-tab-on {
-	border-right:1px solid #FFFFFF;				
+	border-right:1px solid #FFFFFF;
 }
 
 /* content */
@@ -70,41 +73,52 @@
  	padding-left:100px;
 }
 
-/* IE 6 */
-.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tab-on:hover {
-	background-position:0 -535px;
+.no-js .ch-tabNavigator-triggers{
+	top:0;
+	border:1px solid #CCCCCC;
+	border-bottom:none;
+	margin:0;
+	padding-left:10px;
+	background:#f9f9f9;
+	
 }
 
-.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li{
+.no-js .ch-tabNavigator-triggers li{
+	display:list-item;
+	list-style-type:square;
+	margin-left:16px;
+	margin-right:16px;
+	cursor:default;
+}
+
+.no-js .ch-tab-trigger{
+	border:none;
+	border-radius:0;
+	padding:0 12px 0 2px;
 	display:inline;
-	margin:0 2px;
+	color:#0637B3 !important;
+	background:transparent;
 }
 
-.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li a:hover {
-	background-color: #dedede;
+.no-js .ch-tab-trigger:hover{
+	background:transparent;
+	text-decoration:underline !important;
 }
 
-.ie6 .ch-tabNavigator .ch-tabNavigator-triggers li .ch-tab-on:hover {
-	background-position:0 -535px;
+
+.no-js .ch-tab-trigger-on{
+	background:transparent;
+	font-weight:normal;
 }
 
-/* IE 7 */
-.ie7 .ch-tabNavigator-triggers{
-	position:relative;
-	top:1px;
+.no-js .ch-tabNavigator .box > div{
+	border-top:1px solid #CCCCCC;
+	margin-top:10px;
+	padding-top:10px;
 }
 
-.ie7 .ch-tabNavigator-triggers li{
-	display:inline;
-	margin:0 2px;
-}
-
-.ie7 .box .ch-tabNavigator-triggers{
-	top:1px;
-}
-
-/* IE 8 */
-.ie8 .ch-tabNavigator-triggers{
-	position:relative;
-	top:1px;
+.no-js .ch-tabNavigator .box > div:first-child{
+	border-top:none;
+	margin-top:0;
+	padding-top:0;
 }

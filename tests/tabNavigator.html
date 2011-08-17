@@ -1,6 +1,11 @@
-<!doctype html>
-<html>
-<head>
+<!doctype html> 
+<!--[if IE]><![endif]--> 
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<head> 
 	<meta charset="utf-8">
 	<title>Tab Navigator - TestCases</title>
 	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=tabNavigator">
@@ -11,34 +16,49 @@
     <!-- #body -->
 	<h1>Chico-UI: Tab Navigator testcases</h1>
 
-	<div id="testTabs">
-		<ul>
-			<li><a href="#tab1">Tab 1</a></li>
-			<li><a href="#tab2">Tab 2</a></li>
-			<li><a href="#tab3">Tab 3</a></li>
+	<div id="testTabs" class="ch-tabNavigator">
+		<ul class="ch-tabNavigator-triggers">
+			<li><a href="#tab1" class="ch-tab-trigger ch-tab-trigger-on">Tab 1</a></li>
+			<li><a href="#tab2" class="ch-tab-trigger">Tab 2</a></li>
+			<li><a href="#tab3" class="ch-tab-trigger">Tab 3</a></li>
 		</ul>
-		<div>
-			<div id="tab1">Tab 1</div>
-			<div id="tab2">Tab 2</div>
-			<div id="tab3">Tab 3</div>
+		<div class="box">
+			<div id="tab1">
+				<h2>Tab 1</h2>
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			</div>
+			<div id="tab2" class="ch-js-hide">
+				<h2>Tab 2</h2>
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.				
+			</div>
+			<div id="tab3" class="ch-js-hide">
+				<h2>Tab 3</h2>
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			</div>
 		</div>
 	</div>
 
-	<div id="testTabs2">
-		<ul>
-			<li><a href="#tab2-1">Tab 1</a></li>
-			<li><a href="#tab2-2">Tab 2</a></li>
-			<li><a href="#tab2-3">Tab 3</a></li>
-			<li><a href="../test.html">Ajax</a></li>
+	<div id="testTabs2" class="ch-tabNavigator">
+		<ul class="ch-tabNavigator-triggers">
+			<li><a href="#tab2-1" class="ch-tab-trigger">Tab 1</a></li>
+			<li><a href="#tab2-2" class="ch-tab-trigger">Tab 2</a></li>
+			<li><a href="#tab2-3" class="ch-tab-trigger">Tab 3</a></li>
+			<li><a href="../test.html" class="ch-tab-trigger">Ajax</a></li>
 		</ul>
-		<div>
-			<div id="tab2-1">Tab 1</div>
-			<div id="tab2-2">Tab 2</div>
-			<div id="tab2-3">Tab 3</div>
+		<div class="ch-tabNavigator-content box">
+			<div id="tab2-1" class="">Tab 1</div>
+			<div id="tab2-2" class="ch-js-hide">Tab 2</div>
+			<div id="tab2-3" class="ch-js-hide">Tab 3</div>
 		</div>
 	</div>
 	
-	<div id="testTabs3">
+	<div id="testTabs3 vertical">
 		<ul>
 			<li><a href="#tab2-1">Tab 1</a></li>
 			<li><a href="#tab2-2">Tab 2</a></li>
@@ -111,7 +131,8 @@
 		
 		// **************************************
 		
-		var testTabs1 = $("#testTabs").tabNavigator();		
+		var testTabs1 = $("#testTabs").tabNavigator();
+				
 		var testTabs4 = $("#testTabs4").tabNavigator({
 			onSelect: function(){
 				$("body").addClass("onSelect");
@@ -122,12 +143,12 @@
 		});
 		var testTabs6 = $("#testTabs6").tabNavigator();
 		
+		var testTabs3 = $("#testTabs3").tabNavigator();
 		$.fx.off = true;
 		
 		/**
 		 * 	Test Cases
-		 */
-
+		*/
 		module("TabNavigator instance object");
 		
         test("TabNavigator public properties", function(){
