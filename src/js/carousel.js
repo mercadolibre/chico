@@ -56,6 +56,9 @@ ch.carousel = function (conf) {
 	*/
 	var createLayout = function () {
 		
+		// Add class to component to support old HTML snippet
+		that.$element.addClass("ch-carousel");
+		
 		// Calculate extra width for content
 		extraWidth = (ch.utils.html.hasClass("ie6")) ? that.itemsWidth : 0;
 		
