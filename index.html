@@ -17,7 +17,7 @@
 	
 	<style> 
 		/* Carousel list size */
-		.ch-carousel-item {
+		.YOUR_SELECTOR_Carousel li {
 			width:650px;
 			height:120px;
 		}
@@ -36,6 +36,38 @@
 
 <body>
 	<h1>Chico-UI</h1>
+
+
+	<div> 
+
+		<h2 class="container">Tab Navigator</h2>
+
+		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator"> 
+			<ul class="ch-tabNavigator-triggers"> 
+				<li><a href="#tab1-b" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li> 
+				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li> 
+				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
+
+			</ul> 
+			<div class="box"> 
+
+				<div id="tab1-b"> 
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
+				</div> 
+
+				<div id="tab2-b" class="ch-js-hide"> 
+					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p> 
+
+				</div> 
+
+				<div id="tab3-b" class="ch-js-hide"> 
+					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p> 
+				</div>				
+			</div> 
+	
+		</div> 
+
+	</div> 
 
 	<div class="container">
 		<h1>Header 1</h1> 
@@ -342,43 +374,14 @@
 		</form> 
 	</div> 
 
-	<div> 
-
-		<h2 class="container">Tab Navigator</h2>
-
-		<div class="YOUR_SELECTOR_TabNavigator"> 
-			<ul> 
-				<li><a href="#tab1-b">Tab1</a></li> 
-				<li><a href="#tab2-b">Tab2</a></li> 
-				<li><a href="#tab3-b">Tab3</a></li> 
-
-			</ul> 
-			<div> 
-
-				<div id="tab1-b"> 
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
-				</div> 
-
-				<div id="tab2-b"> 
-					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p> 
-
-				</div> 
-
-				<div id="tab3-b"> 
-					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p> 
-				</div>				
-			</div> 
 	
-		</div> 
-
-	</div> 
 
 	<div class="box"> 
 
 		<h2>Carousel</h2> 
 
-		<div class="YOUR_SELECTOR_Carousel ch-carousel"> 
-			<ul>
+		<div class="YOUR_SELECTOR_Carousel"> 
+			<ul class="carousel"> 
 				<li> 
 					<div class="ch-g1-5"> 
 						<img width="63" height="64" alt="HTML5 Powered" src="http://www.w3.org/html/logo/badge/html5-badge-h-solo.png"> 

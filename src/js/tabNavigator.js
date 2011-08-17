@@ -77,6 +77,8 @@ ch.tabNavigator = function(conf){
 				tab.element = e;
 				tab.$element = $(e);
 				tab.controller = that["public"];
+				
+				tab.$element.attr("role","tab");
 
 			// Tab configuration
 			var config = {};
@@ -84,7 +86,7 @@ ch.tabNavigator = function(conf){
 				config.onShow = function(){
 					selected = i;
 				};
-
+			
 			if(ch.utils.hasOwn(that.conf, "cache")) {
 				config.cache = that.conf.cache;
 			};
@@ -166,7 +168,7 @@ ch.tabNavigator = function(conf){
 	* @name ch.TabNavigator#$triggers
 	* @type jQuery
 	*/
-	that.$triggers = that.$element.children(":first").addClass("ch-tabNavigator-triggers");
+	that.$triggers = that.$element.children(":first").addClass("ch-tabNavigator-triggers").attr("role","tablist");
 
 	/**
 	* The component's content.
@@ -174,7 +176,7 @@ ch.tabNavigator = function(conf){
 	* @name ch.TabNavigator#$content
 	* @type jQuery
 	*/
-	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content box");
+	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content box").attr("role","presentation");
 
 
 /**
@@ -321,7 +323,7 @@ ch.tab = function(conf){
 			var id = (href.length == 2) ? href[1] : "ch-tab" + that.uid.replace("#","-");
 
 			// Create tabContent
-			return $("<div id=\"" + id + "\" class=\"ch-hide\">").appendTo( controller.children().eq(1) );
+			return $("<div id=\"" + id + "\" role=\"tabpanel\" class=\"ch-hide\">").appendTo( controller.children().eq(1) );
 		}
 
 	};
@@ -362,6 +364,34 @@ ch.tab = function(conf){
 
 		// Show me
 		that.parent.show(event);
+
+		// Set me as hidden false
+		that.$content.attr("aria-hidden","false");
+		
+		// It removes the class ch-js-hide because the content be visible on click
+		//that.$content.hasClass('ch-js-hide')?that.$content.removeClass('ch-js-hide'):null;
+
+		// When click or enter to the tab, then it will be focused
+		that.$trigger.focus();
+
+		return that;
+	};
+	
+	/**
+	* Process the hide event.
+	* @private
+	* @function
+	* @name ch.Tab#hide
+	* @returns jQuery
+	*/
+	that.hide = function(event){
+		that.prevent(event);
+
+		// Hide me
+		that.parent.hide(event);
+
+		// Set all inactive tabs as hidden
+		that.$content.attr("aria-hidden","true");
 
 		return that;
 	};
@@ -414,6 +444,10 @@ ch.tab = function(conf){
 */
 
 	that.configBehavior();
-
+	// Add the attr for WAI-ARIA to the tabs and tabpanel
+	var hidden = that.$content.hasClass("ch-hide")?true:false;
+		that.$content.attr("role","tabpanel").attr("aria-hidden",hidden);
+		that.$trigger.attr("role","tab");
+		that.$trigger.attr("arial-controls",that.$content.attr("id"));
 	return that;
 }
