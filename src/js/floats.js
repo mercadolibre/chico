@@ -304,11 +304,12 @@ ch.floats = function() {
 */
 
 	/**
-	* Triggers the innerShow method and returns the public scope to keep method chaining.
+	* Triggers the innerShow method, returns the public scope to keep method chaining and sets new content if receive a parameter.
 	* @public
 	* @function
 	* @name ch.Floats#show
 	* @returns itself
+	* @see ch.Floats#content
 	*/
 	that["public"].show = function(content){
 		if (content !== undefined) { that["public"].content(content); }
