@@ -71,14 +71,25 @@ ch.carousel = function (conf) {
 		// Set container size based on items size
 		that.$mask.css("height", that.$items.outerHeight());
 		
+		// WAI-ARIA for items
+		$.each(that.$items, function (i, e) {
+			
+			// Page where this item is in
+			var page = ~~(i / that.itemsPerPage) + 1;
+			
+			$(e).attr({
+				"aria-hidden": page !== that.currentPage,
+				"aria-setsize": that.itemsTotal,
+				"aria-posinset": i + 1,
+				"aria-label": "page" + page
+			});
+		});
+		
+		// Total amount of items (Widthout include queue items)
+		var itemsAmount = that.$items.length;
+		
 		// At the begin, add items from queue if page is incomplete
-		if (that.$items.length < that.itemsPerPage) {
-			that.addItems(that.itemsPerPage - that.$items.length);
-		}
-		
-		// Bind asynchronous item load feature to "next" internal event
-		if (ch.utils.hasOwn(conf, "asyncData")) { that["public"].on("next", that.asyncItemsLoad); }
-		
+		if (itemsAmount < that.itemsPerPage) { that.addItems(that.itemsPerPage - itemsAmount); }
 	},
 	
 	/**
@@ -90,12 +101,12 @@ ch.carousel = function (conf) {
 		createArrows = function () {
 			
 			// Previous arrow
-			var $prev = $("<p class=\"ch-prev-arrow" + (conf.rolling ? "" : " ch-hide") + "\"><span>Previous</span></p>")
+			var $prev = $("<p class=\"ch-prev-arrow" + (conf.rolling ? "" : " ch-hide") + "\" role=\"button\" aria-hidden=\"" + (!conf.rolling) + "\"><span>Previous</span></p>")
 				.bind("click", that.prev)
 				.prependTo(that.$element),
 			
 			// Next arrow
-				$next = $("<p class=\"ch-next-arrow\"><span>Next</span></p>")
+				$next = $("<p class=\"ch-next-arrow\" role=\"button\" aria-hidden=\"false\"><span>Next</span></p>")
 				.bind("click", that.next)
 				.appendTo(that.$element);
 			
@@ -112,17 +123,17 @@ ch.carousel = function (conf) {
 			that.manageArrows = function (page) {
 				// Case 1: Both arrows shown on carousel's middle
 				if (page > 1 && page < that.pages) {
-					$prev.removeClass("ch-hide");
-					$next.removeClass("ch-hide");
+					$prev.attr("aria-hidden", "false").removeClass("ch-hide");
+					$next.attr("aria-hidden", "false").removeClass("ch-hide");
 				} else {
 				// Case 2: Previous arrow hidden on first page
 					if (page === 1) {
-						$prev.addClass("ch-hide");
-						$next.removeClass("ch-hide");
+						$prev.addClass("ch-hide").attr("aria-hidden", "true");
+						$next.attr("aria-hidden", "false").removeClass("ch-hide");
 				// Case 3: Next arrow hidden on last page
 					} else if (page === that.pages) {
-						$prev.removeClass("ch-hide");
-						$next.addClass("ch-hide");
+						$prev.attr("aria-hidden", "false").removeClass("ch-hide");
+						$next.addClass("ch-hide").attr("aria-hidden", "true");
 					}
 				}
 			};
@@ -138,7 +149,7 @@ ch.carousel = function (conf) {
 		createPagination = function () {
 			
 			// Create a element List for new pagination
-			var $pagination = $("<ul class=\"ch-carousel-pages ch-hide\">"),
+			var $pagination = $("<ul class=\"ch-carousel-pages ch-hide\" role=\"tablist\">"),
 			
 			// Each page into list element
 				$thumbnails;
@@ -147,14 +158,15 @@ ch.carousel = function (conf) {
 			for (var i = 1; i <= that.pages; i += 1) {
 				
 				// Mark as active if thumbnail is the same that current page
-				var status = (i === that.currentPage) ? " class=\"ch-carousel-pages-on\"" : "",
+				var status = (i === that.currentPage) ? " class=\"ch-carousel-pages-on\" aria-selected=\"true\"" : " aria-selected=\"false\"",
 				
 				// Thumbnail with closure
-					$thumb = $("<li" + status + ">" + i + "</li>").bind("click", function (i) {
-						return function () {
-							that.goTo(i);
-						};
-					}(i));
+					$thumb = $("<li" + status + " role=\"tab\" aria-controls=\"page" + i + "\">" + i + "</li>")
+						.bind("click", function (i) {
+							return function () {
+								that.goTo(i);
+							};
+						}(i));
 				
 				$pagination.append($thumb);
 			};
@@ -176,8 +188,8 @@ ch.carousel = function (conf) {
 			* @param {Number} page Page to be moved.
 			*/
 			that.managePagination = function (page) {
-				$thumbnails.eq(that.currentPage - 1).removeClass("ch-carousel-pages-on");
-				$thumbnails.eq(page - 1).addClass("ch-carousel-pages-on");
+				$thumbnails.eq(that.currentPage - 1).removeClass("ch-carousel-pages-on").attr("aria-selected", "false");
+				$thumbnails.eq(page - 1).addClass("ch-carousel-pages-on").attr("aria-selected", "true");
 			};
 		},
 	
@@ -205,7 +217,7 @@ ch.carousel = function (conf) {
 		getPages = function () {
 			// (Total amount of items) / (items amount on each page)
 			// TODO: $coll.children =? that.$items.length
-			return that.pages = Math.ceil((that.$collection.children().length + that.queue.length) / that.itemsPerPage);
+			return that.pages = Math.ceil(that.itemsTotal / that.itemsPerPage);
 		},
 
 	/**
@@ -237,21 +249,18 @@ ch.carousel = function (conf) {
 			// Move Carousel to first page for reset initial position
 			that.goTo(1);
 			
-			// Get all rendered items
-			var items = that.$collection.children(),
-			
 			// Save rendered items amount
-				i = items.length;
+			var i = that.$items.length;
 			
 			// Set new margin to all items
 			while (i) {
-				items[i -= 1].style.marginLeft = items[i].style.marginRight = that.itemsMargin + "px";
+				that.$items[i -= 1].style.marginLeft = that.$items[i].style.marginRight = that.itemsMargin + "px";
 			}
 			
 			// Change content size and append it to DOM again
 			// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
 			that.$content
-				.css("width", (that.itemsWidth + that.itemsMargin * 2) * items.length + extraWidth)
+				.css("width", (that.itemsWidth + that.itemsMargin * 2) * that.$items.length + extraWidth)
 				.appendTo(that.$mask);
 			
 			// Manage Previous and Next arrows
@@ -315,7 +324,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$collection
 	* @type jQuery Object
 	*/
-	that.$collection = that.$element.children("ul").addClass("ch-carousel-list").appendTo(that.$content);
+	that.$collection = that.$element.children("ul").addClass("ch-carousel-list").attr("role", "list").appendTo(that.$content);
 	
 	/**
 	* Each item into collection.
@@ -323,7 +332,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$items
 	* @type jQuery Object
 	*/
-	that.$items = that.$collection.children().addClass("ch-carousel-item");
+	that.$items = that.$collection.children().addClass("ch-carousel-item").attr("role", "listitem");
 	
 	/**
 	* Mask that hides the overflow of content.
@@ -331,7 +340,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$mask
 	* @type jQuery Object
 	*/
-	that.$mask = $("<div class=\"ch-carousel-mask\">").append(that.$content).appendTo(that.$element);
+	that.$mask = $("<div class=\"ch-carousel-mask\" role=\"tabpanel\">").append(that.$content).appendTo(that.$element);
 	
 	/**
 	* List of items that should be loaded asynchronously on page movement.
@@ -340,6 +349,14 @@ ch.carousel = function (conf) {
 	* @type Array
 	*/
 	that.queue = conf.asyncData || [];
+	
+	/**
+	* Amount of items into collection and items on queue.
+	* @protected
+	* @name ch.Carousel#itemsTotal
+	* @type Number
+	*/
+	that.itemsTotal = that.$items.length + that.queue.length;
 	
 	/**
 	* Reference to items width.
@@ -393,22 +410,33 @@ ch.carousel = function (conf) {
 	that.addItems = function (amount) {
 		
 		// Take the sample from queue
-		var sample = that.queue.splice(0, amount);
+		var sample = that.queue.splice(0, amount),
+		
+		// Condition if exists a render function on component configuration object
+			hasRender = ch.utils.hasOwn(conf, "asyncRender"),
+		
+		// Position where new items will be added
+			itemIndex = that.$items.length;
 		
 		// Append asynchronous items to collection
 		// HTML Li Element with classname and styles and content from conf.async with or without render function
-		// TODO: use amount +1 (or -1) instead sample.length
-		for (var i = 0, j = sample.length; i < j; i += 1) {
-			sample[i] = "<li class=\"ch-carousel-item\" style=\"margin-left:" + that.itemsMargin + "px;margin-right:" + that.itemsMargin + "px;\">" + (ch.utils.hasOwn(conf, "asyncRender") ? conf.asyncRender(sample[i]) : sample[i]) + "</li>";
+		for (var i = 0; i < amount; i += 1) {
+			
+			// Page where this item is in
+			var page = ~~(itemIndex / that.itemsPerPage) + 1;
+			
+			sample[i] = "<li class=\"ch-carousel-item\" role=\"listitem\" aria-hidden=\"" + (page !== that.currentPage) + "\" aria-setsize=\"" + that.itemsTotal + "\" aria-posinset=\"" + (itemIndex += 1) + "\" aria-label=\"page" + page + "\" style=\"margin-right: " + that.itemsMargin + "px; margin-left: " + that.itemsMargin + "px;\">" + (hasRender ? conf.asyncRender(sample[i]) : sample[i]) + "</li>";
 		};
 		
 		// Expand content width for include new items (item width and margin) * (total amount of items) + extra width
 		// TODO: Use "width:-moz-max-content;" once instead .css("width"). Maybe add support to ch.features
-		// TODO: that.$collection.children().length =? that.$items.length
-		that.$content.css("width", (that.itemsWidth + that.itemsMargin * 2) * (that.$collection.children().length + amount) + extraWidth);
+		that.$content.css("width", (that.itemsWidth + that.itemsMargin * 2) * that.itemsTotal + extraWidth);
 		
 		// Append collection again
 		that.$collection.append(sample.join(""));
+		
+		// Update items collection
+		that.$items = that.$collection.children();
 		
 		/**
 		* Callback function
@@ -429,7 +457,7 @@ ch.carousel = function (conf) {
 	* @function
 	*/
 	that.asyncItemsLoad = function () {
-			
+		
 		// Load only when there are items in queue
 		if (that.queue.length === 0) { return; }
 		
@@ -437,20 +465,22 @@ ch.carousel = function (conf) {
 		var itemsHere = that.currentPage * that.itemsPerPage,
 		
 		// Items rendered
-		// TODO: that.$collection.children().length =? that.$items.length
-			itemsRendered = that.$collection.children().length;
+			itemsRendered = that.$items.length;
 		
 		// Load only when there are more visible items than items rendered
 		if (itemsHere < itemsRendered) { return; }
 		
 		// How many items needs to add for complete next page
-		var amount = itemsHere % itemsRendered,
+		var amount = itemsHere % itemsRendered;
 		
 		// If isn't needed items to complete a page, then add an entire page
-			sampleSize = (amount === 0) ? that.itemsPerPage : amount;
+		amount = (amount === 0) ? that.itemsPerPage : amount;
+		
+		// If next page needs less items than it support, then add that amount
+		amount = (that.queue.length < amount) ? that.queue.length : amount;
 		
 		// Add these
-		that.addItems(sampleSize);
+		that.addItems(amount);
 		
 	};
 	
@@ -483,6 +513,11 @@ ch.carousel = function (conf) {
 		
 		// Refresh selected page
 		that.currentPage = page;
+		
+		// WAI-ARIA to set items as "hide"
+		$.each(that.$items, function (i, e) {
+			$(e).attr("aria-hidden", ~~(i / that.itemsPerPage) + 1 !== page);
+		});
 		
 		/**
 		* Callback function
@@ -517,7 +552,10 @@ ch.carousel = function (conf) {
 	that.next = function () {
 		
 		that.goTo(that.currentPage + 1);
-
+		
+		// Asynchronous item load feature
+		if (ch.utils.hasOwn(conf, "asyncData")) { that.asyncItemsLoad(); }
+		
 		/**
 		* Callback function
 		* @name ch.Carousel#onNext
@@ -558,18 +596,27 @@ ch.carousel = function (conf) {
 	/**
 	* Get the items amount of each page.
 	* @public
+	* @deprecated
 	* @name ch.Carousel#getItemsPerPage
 	* @returns Number
 	*/
-	that["public"].getItemsPerPage = function () { return that.itemsPerPage; };
 	
 	/**
-	* Get the total amount of pages.
+	* Get the items amount of each page.
 	* @public
+	* @since 0.7.4
+	* @name ch.Carousel#itemsPerPage
+	* @returns Number
+	*/
+	that["public"].itemsPerPage = function () { return that.itemsPerPage; };
+	
+	/**
+	* Get the current page.
+	* @public
+	* @deprecated
 	* @name ch.Carousel#getPage
 	* @returns Number
 	*/
-	that["public"].getPage = function () { return that.currentPage; };
 	
 	/**
 	* Moves to a defined page. Only works when Carousel hasn't asynchronous item load.
@@ -578,6 +625,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#goTo
 	* @returns Chico-UI Object
 	* @param {Number} page Page to be moved.
+	* @deprecated
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -585,11 +633,34 @@ ch.carousel = function (conf) {
 	* // Go to second page
 	* foo.goTo(2);
 	*/
-	that["public"].goTo = function (page) {
+	
+	/**
+	* Gets the current page or moves to a defined page.
+	* @public
+	* @function
+	* @name ch.Carousel#page
+	* @returns Chico-UI Object
+	* @param {Number} page Page to be moved.
+	* @since 0.7.4
+	* @example
+	* // Create a carousel
+	* var foo = $("bar").carousel();
+	* 
+	* // Go to second page
+	* foo.page(2);
+	* @example
+	* // Get the current page
+	* foo.page();
+	*/
+	that["public"].page = function (data) {
+		// Getter
+		if (!data) { return that.currentPage; }
+		
+		// Setter
 		// TODO: Add support to goTo function on asynchronous item load.
 		if (ch.utils.hasOwn(conf, "asyncData")) { return that["public"]; }
 		
-		that.goTo(page);
+		that.goTo(data);
 
 		return that["public"];
 	};

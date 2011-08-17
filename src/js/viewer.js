@@ -233,11 +233,11 @@ ch.viewer = function (conf) {
 			$(thumbnails.children[item - 1]).addClass("ch-thumbnail-on"); // Enable next thumbnail
 	
 			// Move Display carousel
-			$display.goTo(item);
+			$display.page(item);
 	
 			// Move thumbnails carousel if item selected is in other page
-			var nextThumbsPage = Math.ceil(item / thumbnails.carousel.getItemsPerPage());
-			if (thumbnails.carousel.getPage() !== nextThumbsPage) { thumbnails.carousel.goTo(nextThumbsPage); }
+			var nextThumbsPage = Math.ceil(item / thumbnails.carousel.itemsPerPage());
+			if (thumbnails.carousel.page() !== nextThumbsPage) { thumbnails.carousel.page(nextThumbsPage); }
 	
 			// Buttons behavior
 			if (item > 1 && item < itemsAmount) {

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Carousel - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=carousel">
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<link href="../src/ml/css/doc.css" rel="stylesheet">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 	
@@ -32,32 +32,7 @@
 				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
 				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
 				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
 				
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_65213880_2657.jpg"></li>
-				
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_98530811_2188.jpg"></li>
-				
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
-				<li><img src="http://img2.mlstatic.com/s_MLA_v_G_f_62634838_9736.jpg"></li>
 			</ul>
 		</div>
 	</div>
@@ -157,7 +132,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/packer.php?get=carousel&debug=true"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
 	<script src="functions.js"></script>
 
 <!-- #script -->
@@ -170,7 +145,66 @@
 			},
 			onPrev: function(){
 				$("body").addClass("onPrev");
-			}
+			},
+			
+			asyncRender : function (o) {
+				return '<a href="' + o.url + '"><img width="90" height="90" src="' + o.img + '" title="' + o.title + '" alt="' + o.title + '" /></a><p><a href="' + o.url + '" title="' + o.title + '">' + o.shortTitle + '</a></p><p class="price">' + o.price + '</p><p class="payment">' + o.payment + '</p>';
+			},
+			
+			asyncData: [
+			
+				{
+					url: "http://articulo.mercadolibre.com.ar/MLA-117042111-nikon-reflex-d3100-kit-18-55mm-vr-14mpx-memo-4gb-bolso-_JM",
+					img: "http://img1.mlstatic.com/s_MLA_v_I_f_112610720_9504.jpg",
+					title: "Nikon Reflex D3100 Kit 18-55mm Vr 14mpx + Memo 4gb + Bolso",
+					shortTitle: "Nikon Reflex D3100 Kit 18-55m...",
+					price: "$ 4.100<sup>00</sup>",
+					payment: "<strong>6</strong> cuotas de <span class=\"price\" >$ 799<sup>43</sup></span>"
+				},
+				
+				{
+					url: "http://articulo.mercadolibre.com.ar/MLA-117042111-nikon-reflex-d3100-kit-18-55mm-vr-14mpx-memo-4gb-bolso-_JM",
+					img: "http://img1.mlstatic.com/s_MLA_v_I_f_112610720_9504.jpg",
+					title: "Nikon Reflex D3100 Kit 18-55mm Vr 14mpx + Memo 4gb + Bolso",
+					shortTitle: "Nikon Reflex D3100 Kit 18-55m...",
+					price: "$ 4.100<sup>00</sup>",
+					payment: "<strong>6</strong> cuotas de <span class=\"price\" >$ 799<sup>43</sup></span>"
+				},
+				{
+					url: "http://articulo.mercadolibre.com.ar/MLA-117042111-nikon-reflex-d3100-kit-18-55mm-vr-14mpx-memo-4gb-bolso-_JM",
+					img: "http://img1.mlstatic.com/s_MLA_v_I_f_112610720_9504.jpg",
+					title: "Nikon Reflex D3100 Kit 18-55mm Vr 14mpx + Memo 4gb + Bolso",
+					shortTitle: "Nikon Reflex D3100 Kit 18-55m...",
+					price: "$ 4.100<sup>00</sup>",
+					payment: "<strong>6</strong> cuotas de <span class=\"price\" >$ 799<sup>43</sup></span>"
+				},
+				
+				{
+					url: "http://articulo.mercadolibre.com.ar/MLA-117042111-nikon-reflex-d3100-kit-18-55mm-vr-14mpx-memo-4gb-bolso-_JM",
+					img: "http://img1.mlstatic.com/s_MLA_v_I_f_112610720_9504.jpg",
+					title: "Nikon Reflex D3100 Kit 18-55mm Vr 14mpx + Memo 4gb + Bolso",
+					shortTitle: "Nikon Reflex D3100 Kit 18-55m...",
+					price: "$ 4.100<sup>00</sup>",
+					payment: "<strong>6</strong> cuotas de <span class=\"price\" >$ 799<sup>43</sup></span>"
+				},
+				{
+					url: "http://articulo.mercadolibre.com.ar/MLA-117042111-nikon-reflex-d3100-kit-18-55mm-vr-14mpx-memo-4gb-bolso-_JM",
+					img: "http://img1.mlstatic.com/s_MLA_v_I_f_112610720_9504.jpg",
+					title: "Nikon Reflex D3100 Kit 18-55mm Vr 14mpx + Memo 4gb + Bolso",
+					shortTitle: "Nikon Reflex D3100 Kit 18-55m...",
+					price: "$ 4.100<sup>00</sup>",
+					payment: "<strong>6</strong> cuotas de <span class=\"price\" >$ 799<sup>43</sup></span>"
+				},
+				
+				{
+					url: "http://articulo.mercadolibre.com.ar/MLA-117042111-nikon-reflex-d3100-kit-18-55mm-vr-14mpx-memo-4gb-bolso-_JM",
+					img: "http://img1.mlstatic.com/s_MLA_v_I_f_112610720_9504.jpg",
+					title: "Nikon Reflex D3100 Kit 18-55mm Vr 14mpx + Memo 4gb + Bolso",
+					shortTitle: "Nikon Reflex D3100 Kit 18-55m...",
+					price: "$ 4.100<sup>00</sup>",
+					payment: "<strong>6</strong> cuotas de <span class=\"price\" >$ 799<sup>43</sup></span>"
+				}
+			]
 		});
 
 		var carousel2 = $('.testCarousel2').carousel({
@@ -202,13 +236,11 @@
 
 		test("Carousel public methods", function(){
 
-			expect( 6 );
+			expect( 5 );
 	
-			ok( ch.utils.hasOwn(carousel, "getPage"), "Expected to find a \"getPage\" method" );
+			ok( ch.utils.hasOwn(carousel, "itemsPerPage"), "Expected to find a \"itemsPerPage\" method" );
 	
-			ok( ch.utils.hasOwn(carousel, "getItemsPerPage"), "Expected to find a \"getSteps\" method" );
-	
-			ok( ch.utils.hasOwn(carousel, "goTo"), "Expected to find a \"goTo\" method" );
+			ok( ch.utils.hasOwn(carousel, "page"), "Expected to find a \"page\" method" );
 			
 			ok( ch.utils.hasOwn(carousel, "next"), "Expected to find a \"next\" method" );
 			
@@ -224,11 +256,11 @@
             
             var carouselOriginal = carousel;
             
-            var chaingoto = carousel.goTo(2);
+            var chaingoto = carousel.page(2);
              
             ok ( chaingoto === carouselOriginal, "Expected to return original instance object on next() method call");
 
-			carousel.goTo(1);
+			carousel.page(1);
         });
         
         
@@ -257,11 +289,11 @@
 			
 			expect ( 2 );
 			
-			equal( carousel.getPage(), 1, "Expected to return first page.");
+			equal( carousel.page(), 1, "Expected to return first page.");
 			
 			carousel.next();
 			
-			equal( carousel.getPage(), 2, "Expected to return second page.");
+			equal( carousel.page(), 2, "Expected to return second page.");
 			
 		});
 		
@@ -271,7 +303,7 @@
 			
 			carousel.prev();
 			
-			equal( carousel.getPage(), 1, "Expected to return first page.");
+			equal( carousel.page(), 1, "Expected to return first page.");
 
 		});
 		
@@ -279,11 +311,11 @@
 			
 			expect ( 2 );
 			
-			equal( carousel.getPage(), 1, "Expected to return first page.");
+			equal( carousel.page(), 1, "Expected to return first page.");
 						
 			$(".testCarousel .ch-next-arrow").click();
 			
-			equal( carousel.getPage(), 2, "Expected to return second page.");
+			equal( carousel.page(), 2, "Expected to return second page.");
 			
 		});
 		
@@ -293,19 +325,19 @@
 			
 			$(".testCarousel .ch-prev-arrow").click();
 			
-			equal( carousel.getPage(), 1, "Expected to return first page.");
+			equal( carousel.page(), 1, "Expected to return first page.");
 
 		});
 		
-		test("Go to a specific page with goTo() method", function(){
+		test("Go to a specific page with page() method", function(){
 			
 			expect ( 1 );
 			
 			var pageToGo = 2;
 			
-			carousel.goTo(pageToGo);
+			carousel.page(pageToGo);
 			
-			equal( carousel.getPage(), pageToGo, "Expected to return correct page when it was moved.");
+			equal( carousel.page(), pageToGo, "Expected to return correct page when it was moved.");
 
 			
 
@@ -319,7 +351,7 @@
 			
 			expect ( 4 );
 
-			carousel.goTo(1);
+			carousel.page(1);
 			
 			hasClass( ".testCarousel .ch-prev-arrow", "ch-hide" );
 			
@@ -344,11 +376,11 @@
 			// Go to last page
 			do {
 				
-				page = carousel.getPage();
+				page = carousel.page();
 				
 				carousel.next();
 				
-			} while ( carousel.getPage() != page );
+			} while ( carousel.page() != page );
 			
 			
 			hasNotClass( ".testCarousel .ch-prev-arrow", "ch-hide" );
@@ -362,7 +394,7 @@
 			hasNotClass( ".testCarousel .ch-next-arrow", "ch-hide" );
 			
 			// Reset Carousel for next tests (Go to first page)
-			carousel.goTo(1);
+			carousel.page(1);
 
 		});
 		
@@ -417,12 +449,12 @@
 
 			expect ( 1 );
 
-			var oldSteps = carousel2.getItemsPerPage();
+			var oldSteps = carousel2.itemsPerPage();
 
 			$(".testCarousel2").css("width", 220);
 			carousel2.redraw();
 			
-			var currentSteps = carousel2.getItemsPerPage();
+			var currentSteps = carousel2.itemsPerPage();
 			
 			ok( (oldSteps > currentSteps && currentSteps > 0), "Expected to find less items per page after redraw");
 
