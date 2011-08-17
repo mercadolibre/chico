@@ -266,7 +266,7 @@ ch.clon = function(o) {
 
 ch.factory = function(o) {
 
-	var x = o.component || o;
+	var x = o.component || o;
 	
 	var create = function(x) { 
 
