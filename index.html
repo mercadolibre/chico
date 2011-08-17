@@ -10,14 +10,11 @@
 	<meta charset="utf-8"> 
 	<title>Chico-UI</title>
 	
-	<!--link rel="stylesheet" type="text/css" href="php/packer.php?type=css"-->
 	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
-	<link rel="stylesheet" type="text/css" href="src/css/doc.css">
-	<link rel="stylesheet" type="text/css" href="src/css/mesh.css">
 	
 	<style> 
 		/* Carousel list size */
-		.YOUR_SELECTOR_Carousel li {
+		.YOUR_SELECTOR_Carousel .ch-carousel-content li {
 			width:650px;
 			height:120px;
 		}
@@ -36,38 +33,6 @@
 
 <body>
 	<h1>Chico-UI</h1>
-
-
-	<div> 
-
-		<h2 class="container">Tab Navigator</h2>
-
-		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator"> 
-			<ul class="ch-tabNavigator-triggers"> 
-				<li><a href="#tab1-b" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li> 
-				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li> 
-				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
-
-			</ul> 
-			<div class="box"> 
-
-				<div id="tab1-b"> 
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
-				</div> 
-
-				<div id="tab2-b" class="ch-js-hide"> 
-					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p> 
-
-				</div> 
-
-				<div id="tab3-b" class="ch-js-hide"> 
-					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p> 
-				</div>				
-			</div> 
-	
-		</div> 
-
-	</div> 
 
 	<div class="container">
 		<h1>Header 1</h1> 
@@ -277,7 +242,7 @@
 	</div>
 
 
-<div class="box">
+	<div class="box">
 		<h2>Dropdown</h2>
 
 		<div class="myDropdown ch-dropdown">
@@ -300,34 +265,6 @@
 			</menu>
 		</div>
 	</div>
-	
-	<div class="box"> 
-	<h2>Dropdown</h2>   
-	<div class="myDropdown"> 
-	<span>Primary</span> 
-	
-	<ul> 
-	<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
-	<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
-	<li><a href="http://www.mercadoshops.com">MercadoShops</a></li> 
-	<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
-	</ul> 
-	</div> 
-	
-	
-	<div class="myDropdown secondary"> 
-	<span>Secondary</span>
-	<ul> 
-	<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
-	<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
-	<li><a href="http://www.mercadoshops.com">MercadoShops</a></li> 
-	<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
-	
-	</ul> 
-	</div> 
-	</div>	
-
-
 
 	<div class="box"> 
 		<h2>Tooltip</h2>
@@ -372,9 +309,7 @@
 		<form action="/test.html"> 
 			<input type="submit" class="btn secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
-	</div> 
-
-	
+	</div>
 
 	<div class="box"> 
 
@@ -430,6 +365,38 @@
 		</div> 
 
 	</div> 
+
+	<div> 
+
+		<h2 class="container">Tab Navigator</h2>
+
+		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator"> 
+			<ul class="ch-tabNavigator-triggers"> 
+				<li><a href="#tab1-b" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li> 
+				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li> 
+				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
+
+			</ul> 
+			<div class="box"> 
+
+				<div id="tab1-b"> 
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
+				</div> 
+
+				<div id="tab2-b" class="ch-js-hide"> 
+					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p> 
+
+				</div> 
+
+				<div id="tab3-b" class="ch-js-hide"> 
+					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p> 
+				</div>				
+			</div> 
+	
+		</div> 
+
+	</div> 
+
 
 	<div class="box"> 
 		<h2>Viewer</h2> 
@@ -835,7 +802,6 @@
 	</div> 
 	
 	<script src="http://code.jquery.com/jquery.min.js"></script>
-	<!--script src="php/packer.php?debug=true"></script-->
 	<script src="http://chico.com:8080/latest/js"></script>
 	<script> 
 
@@ -865,32 +831,9 @@
 					
 		// Modal
 		var ch_moda = $(".YOUR_SELECTOR_Modal").modal({
-			//content: "pepe",
-			//content: "/pepe.html",
 			width: "500px",
-			height: "300px",
-			onContentLoad: function(){
-				console.log($(".titleAjax"));
-				$(".titleAjax").bind("click", function(){
-					console.log("asd");
-				});
-			},
-			onContentError:function(){
-				this.content("<p>Sorry, try again later!</p>");
-			}
-			
+			height: "300px"
 		});
-		
-		/*ch_moda[0].on("contentLoad", function(){
-			console.log($(".titleAjax"));
-			$(".titleAjax").bind("click", function(){
-				console.log("asd");
-			});
-		});*/
-		
-		/*ch_moda[0].on("contentError", function(){
-			console.log("Error!");
-		});*/
 		
 		// Modal with invisible DOM Content		
 		var ch_moda_invisible = $(".YOUR_SELECTOR_Modal_invisible").modal({ 
@@ -903,23 +846,15 @@
 		// Layer on click
 		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
 			event: "click",
-			content: "#invisible-content",
-		  onContentLoad: function(){
-			$("#invisible-content h1").bind("click", function(){
-				console.log("Hi!");
-			});
-		  }
+			content: "#invisible-content"
 		});
 		
 		// Layer on mouseover
 		var ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
-		
+
 		// Tooltip
 		var ch_tool = $(".YOUR_SELECTOR_Tooltip").tooltip();
-			ch_tool[0].on("show",function(){
-				console.log(this);
-			});
-		
+
 		// Tab Navigator
 		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator();
 
@@ -930,17 +865,7 @@
 		var calendar = $(".myCalendar").calendar();
 
 		// Form
-		var ch_form = $('.YOUR_SELECTOR_Form').form({
-			onSubmit:function(){
-				console.log("Yeah!");
-				lean.show("/test.html");
-			}
-		});
-
-		var lean = $("<a>").modal({
-			content: "",
-			cache: false
-		});
+		var ch_form = $('.YOUR_SELECTOR_Form').form();
 
 		var count = 0;
 		// Watchers
