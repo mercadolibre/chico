@@ -267,3 +267,5 @@ ch.tooltip = function(conf) {
 
 	return that;
 };
+
+ch.factory("tooltip");

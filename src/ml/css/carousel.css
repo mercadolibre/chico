@@ -59,7 +59,7 @@
 	margin:15px 8px; /* Area sensible */
 	text-indent:999px;
 	overflow:hidden;
-	background-image: url('../src/ml/assets/carousel.png');
+	background-image: url('../assets/carousel.png');
 	background-repeat: no-repeat;
 }
 

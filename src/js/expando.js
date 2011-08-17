@@ -99,3 +99,5 @@ ch.expando = function(conf){
 	return that;
 
 };
+
+ch.factory("expando");

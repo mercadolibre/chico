@@ -120,7 +120,7 @@ a img{
 .ico,
 .ch-dropdown-trigger,
 .ch-tabNavigator .ch-tab-trigger-on {
-	background-image: url('../src/ml/assets/base.png');
+	background-image: url('../assets/base.png');
 }
 
 /*
@@ -532,14 +532,14 @@ hr {
  */
 
 .loading {
-	background-image: url('../src/ml/assets/loading.gif');
+	background-image: url('../assets/loading.gif');
 	width: 44px;
 	height: 44px;
 	margin: 20px auto;
 }
 
 .loading.small {
-	background-image: url('../src/ml/assets/loading_small.gif');
+	background-image: url('../assets/loading_small.gif');
 	width: 18px;
 	height: 18px;
 }
@@ -565,7 +565,7 @@ hr {
 }
 
 .datagrid th {	
-	background-image: url('../src/ml/assets/th.png');
+	background-image: url('../assets/th.png');
 	background-color: #DEDEDE;
 	background-repeat: repeat-x;
 	vertical-align: middle;
@@ -577,7 +577,7 @@ hr {
 }
 
 .datagrid th.selected {
-	background-image: url('../src/ml/assets/th-selected.gif');
+	background-image: url('../assets/th-selected.gif');
 	background-color: #DEDEDE;
 	background-repeat: no-repeat;
 	background-position: right center;

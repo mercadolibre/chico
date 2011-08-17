@@ -18,7 +18,7 @@
 
 /* Cone */
 .ch-layer .ch-cone {
-	background-image: url('../src/ml/assets/layer.png');
+	background-image: url('../assets/layer.png');
 	display:block;
 	position:absolute;
 	width:16px;

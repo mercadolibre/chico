@@ -210,3 +210,5 @@ ch.helper = function(controller){
 
 	return that;
 };
+
+ch.factory("helper");

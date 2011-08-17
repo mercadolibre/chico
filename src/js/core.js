@@ -14,20 +14,6 @@ var ch = window.ch = {
 	*/
 	version: "0.7.4",
 	/**
-	* List of UI components available.
-	* @name components
-	* @type string
-	* @memberOf ch
-	*/
-	components: "",
-	/**
-	* List of internal components available.
-	* @name internals
-	* @type string
-	* @memberOf ch
-	*/
-	internals: "",
-	/**
 	* Here you will find a map of all component's instances created by Chico-UI.
 	* @name instances
 	* @type object
@@ -53,8 +39,6 @@ var ch = window.ch = {
 		$("html").removeClass("no-js");
 		// check for browser support
 		ch.features = ch.support();
-		// iterate and create components 			
-		$(ch.components.split(",")).each(function(i,e){ ch.factory({component:e}); });
 		// TODO: This should be on keyboard controller.
 		ch.utils.document.bind("keydown", function(event){ ch.keyboard(event); });
 	},
@@ -282,18 +266,8 @@ ch.clon = function(o) {
 
 ch.factory = function(o) {
 
-	if (!o) { 
-		alert("Factory fatal error: Need and object {component:\"\"} to configure a component."); 
-		return;
-	};
-
-	if (!o.component) { 
-		alert("Factory fatal error: No component defined."); 
-		return;
-	};
-
-	var x = o.component;
-
+	var x = o.component || o;
+	
 	var create = function(x) { 
 
 		// Send configuration to a component trough options object
@@ -388,17 +362,17 @@ ch.factory = function(o) {
 
 	} // end create function
 
-	if ( ch[o.component] ) {
+	if ( ch[x] ) {
 		// script already here, just create it
-		create(o.component);
+		create(x);
 
 	} else {
 		// get resurces and call create later
 		ch.get({
 			"method":"component",
-			"component":o.component,
-			"script": ( o.script )? o.script : "src/js/"+o.component+".js",
-			"styles": ( o.style ) ? o.style : "src/css/"+x+".css",
+			"component": x,
+			"script": (o.script)? o.script : "src/js/"+x+".js",
+			"styles": (o.style)? o.style : "src/css/"+x+".css",
 			"callback":create
 		});
 	}
@@ -533,4 +507,72 @@ ch.support = function() {
 		fixed: fixed
 	};
 
+};
+
+
+/**
+* Extend is a utility that resolve creating interfaces problem for all UI-Objects.
+* @abstract
+* @name Extend
+* @class Extend
+* @memberOf ch
+* @param {string} name Interface's name.
+* @param {function} klass Class to inherit from.
+* @param {function} [process] Optional function to pre-process configuration, recieves a 'conf' param and must return the configration object.
+* @returns class
+* @example
+* // Create an URL interface type based on String component.
+* ch.extend("string").as("url");
+* @example
+* // Create an Accordion interface type based on Menu component.
+* ch.extend("menu").as("accordion"); 
+* @example
+* // And the coolest one...
+* // Create an Transition interface type based on his Modal component, with some conf manipulations:
+* ch.extend("modal").as("transition", function(conf) {
+*	conf.closeButton = false;
+*	conf.msg = conf.msg || conf.content || "Please wait...";
+*	conf.content = $("&lt;div&gt;").addClass("loading").after( $("&lt;p&gt;").html(conf.msg) );
+*	return conf;
+* });
+*/
+
+ch.extend = function (klass) {
+
+	"use strict";
+
+	return {
+	as: function (name, process) {
+		// Create the component in Chico-UI namespace
+		ch[name] = function (conf) {
+			// Some interfaces need a data value,
+			// others simply need to be 'true'.
+			conf[name] = conf.value || true;
+
+			// Invoke pre-proccess if is defined,
+			// or grab the raw conf argument,
+			// or just create an empty object.
+			conf = (process) ? process(conf) : conf || {};
+
+			// Here we recieve messages,
+			// or create an empty object.
+			conf.messages = conf.messages || {};
+
+			// If the interface recieve a 'msg' argument,
+			// store it in the message map.
+			if (ch.utils.hasOwn(conf, "msg")) {
+				conf.messages[name] = conf.msg;
+				conf.msg = null;
+				delete conf.msg;
+			}
+			// Here is where the magic happen,
+			// invoke the class with the new conf,
+			// and return the instance to the namespace.
+			return ch[klass].call(this, conf);
+		};
+		// Almost done, now we need expose the new component,
+		// let's ask the factory to do it for us.
+		ch.factory(name);
+	} // end as method
+	} // end return
 };

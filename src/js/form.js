@@ -377,3 +377,5 @@ ch.form = function(conf) {
 
 	return that;
 };
+
+ch.factory("form");
