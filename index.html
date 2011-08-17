@@ -36,7 +36,8 @@
 
 <body>
 	<h1>Chico-UI</h1>
-	
+
+
 	<div> 
 
 		<h2 class="container">Tab Navigator</h2>
@@ -67,8 +68,7 @@
 		</div> 
 
 	</div> 
-	
-	
+
 	<div class="container">
 		<h1>Header 1</h1> 
 		<h2>Header 2</h2> 
@@ -277,31 +277,55 @@
 	</div>
 
 
+<div class="box">
+		<h2>Dropdown</h2>
+
+		<div class="myDropdown ch-dropdown">
+			<p class="ch-dropdown-trigger">Links primary</p>
+			<menu label="Links" class="ch-dropdown-content">
+			    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+			    <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+			    <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+			    <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</menu>
+		</div>
+		
+		<div class="myDropdown ch-dropdown secondary">
+			<p class="ch-dropdown-trigger">Links secondary</p>
+			<menu label="Links" class="ch-dropdown-content">
+			    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+			    <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+			    <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+			    <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</menu>
+		</div>
+	</div>
+	
 	<div class="box"> 
-		<h2>Dropdown</h2>			
-		<div class="YOUR_SELECTOR_Dropdown"> 
-			<span>Primary</span> 
-
-			<ul> 
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li> 
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
-			</ul> 
-		</div> 
-
-
-		<div class="YOUR_SELECTOR_Dropdown secondary"> 
-			<span>Secondary</span>
-			<ul> 
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li> 
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
-
-			</ul> 
-		</div> 
+	<h2>Dropdown</h2>   
+	<div class="myDropdown"> 
+	<span>Primary</span> 
+	
+	<ul> 
+	<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
+	<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
+	<li><a href="http://www.mercadoshops.com">MercadoShops</a></li> 
+	<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
+	</ul> 
 	</div> 
+	
+	
+	<div class="myDropdown secondary"> 
+	<span>Secondary</span>
+	<ul> 
+	<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li> 
+	<li><a href="http://www.mercadopago.com">MercadoPago</a></li> 
+	<li><a href="http://www.mercadoshops.com">MercadoShops</a></li> 
+	<li><a href="http://www.mercadoclics.com">MercadoClics</a></li> 
+	
+	</ul> 
+	</div> 
+	</div>	
 
 
 
@@ -831,7 +855,8 @@
 		var ch_menu = $(".YOUR_SELECTOR_Menu").menu();
 		
 		// Dropdown
-		var ch_drop = $(".YOUR_SELECTOR_Dropdown").dropdown();
+		//var ch_drop = $(".YOUR_SELECTOR_Dropdown").dropdown();
+		var ch_drop = $(".myDropdown").dropdown();
 
 		// Carousel
 		var ch_caro = $(".YOUR_SELECTOR_Carousel").carousel({

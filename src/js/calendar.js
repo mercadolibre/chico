@@ -219,7 +219,7 @@ ch.calendar = function (conf) {
 	* @name ch.Calendar#createDropdown
 	*/
 	var createDropdown = function () {
-		
+
 		that.$trigger.append("<strong>Calendar</strong>").append(that.$container);
 
 		that.children[0] = that.$trigger.dropdown({

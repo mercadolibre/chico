@@ -81,26 +81,28 @@ ch.dropdown = function(conf){
 	* @type jQuery
 	*/
 	that.$trigger = that.$element.children().eq(0);
+
 	/**
 	* The component's content.
 	* @private
 	* @name ch.Dropdown#$content
 	* @type jQuery
 	*/
-	that.$content = that.$trigger.next().detach(); // Save on memory;
+	// Save on memory;
+	that.$content = that.$trigger.next().removeClass("ch-hide").attr("aria-hidden","true").attr("role","menu"); // Save on memory;
 
 	that.show = function(event){
 		that.prevent(event);
 
-		that.$content.css('z-index', ch.utils.zIndex ++);
+		that.$content
+			.css('z-index', ch.utils.zIndex ++)
+			.attr("aria-hidden","false");
 		
 		if (that.$element.hasClass("secondary")) { // Z-index of trigger over conten 
 			that.$trigger.css('z-index', ch.utils.zIndex ++);
 		}; 
 
-		
-		that.$element
-			.addClass("ch-dropdown-on")
+		that.$trigger
 			.css('z-index', ch.utils.zIndex ++);
 
 		that.parent.show(event);
@@ -116,6 +118,7 @@ ch.dropdown = function(conf){
 		// Close dropdown after click an option (link)
 		that.$content.find("a").one("click", function(){ that.hide(); });
 
+		// that.items o usar una ch.list
 		// Keyboard support
 		var items = that.$content.find("a");
 			items.eq(0).focus(); // Select first anchor child by default
@@ -129,7 +132,8 @@ ch.dropdown = function(conf){
 		that.prevent(event);
 
 		that.parent.hide(event);
-			that.$element.removeClass("ch-dropdown-on");
+		
+		that.$content.attr("aria-hidden","true");
 
 		// Unbind events
 		ch.utils.document.unbind(ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW);
@@ -200,11 +204,10 @@ ch.dropdown = function(conf){
 */			
 
 	that.configBehavior();
-	
-	that.$element.after( that.$content ); // Put content out of element
+
 	ch.utils.avoidTextSelection(that.$trigger);
 	
-	if (that.$element.hasClass("secondary")) that.$content.addClass("secondary");
+	that.$content.children().attr("role","menuitem");
 	
 	// Prevent click on content (except links)
 	that.$content.bind("click", function(event){ event.stopPropagation(); });
