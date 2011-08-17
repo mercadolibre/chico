@@ -89,7 +89,9 @@ ch.carousel = function (conf) {
 		var itemsAmount = that.$items.length;
 		
 		// At the begin, add items from queue if page is incomplete
-		if (itemsAmount < that.itemsPerPage) { that.addItems(that.itemsPerPage - itemsAmount); }
+		if (ch.utils.hasOwn(conf, "asyncData") && itemsAmount < that.itemsPerPage) {
+			that.addItems(that.itemsPerPage - itemsAmount);
+		}
 	},
 	
 	/**

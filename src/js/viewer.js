@@ -83,7 +83,7 @@ ch.viewer = function (conf) {
 				arrows: false,
 				onMove: function () {
 					
-					var page = this.getPage(),
+					var page = this.page(),
 					
 						currentHeight = $($itemsChildren[page - 1]).height();
 						
