@@ -19,7 +19,8 @@
 	position:absolute;
 	right:9px;
 	top:10px;
-	background-image: url('../src/ml/assets/dropdown.png');
+	background-color: transparent;
+	background-image: url('../assets/dropdown.png');
 	display:block;
 	width:7px;
 	height:5px;

@@ -11,8 +11,8 @@
 
 .ch-calendar-prev,
 .ch-calendar-next,
-.ch-calendar .ch-dropdown-trigger .ico {
-	background-image: url('../src/ml/assets/calendar.png');
+.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
+	background-image: url('../assets/calendar.png');
 	background-repeat: no-repeat;
 }
 

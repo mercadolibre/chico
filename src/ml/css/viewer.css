@@ -11,7 +11,7 @@
 	margin:5px 0;
 }
 
-.ch-viewer-display .ch-carousel-container{
+.ch-viewer-display .ch-carousel-mask{
 	margin:0;
 }
 
@@ -54,7 +54,7 @@
 	display: block;
 	text-indent:999px;
 	overflow:hidden;
-	background-image: url('../src/ml/assets/viewer.png');
+	background-image: url('../assets/viewer.png');
 	background-repeat:no-repeat;
 	cursor:pointer;
 }
@@ -107,7 +107,7 @@
 
 /* Video icon on thumbnail */
 .ch-viewer-video span {
-	background-image: url('../src/ml/assets/video.png');
+	background-image: url('../assets/video.png');
 	width:27px;
 	height:24px;
 	display:block;
