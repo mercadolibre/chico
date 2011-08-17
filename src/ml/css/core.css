@@ -78,12 +78,8 @@ body {
 }
 
 /* IMPORTANT: .ch-hide class allows components to be shown and hidden */
-.o, .ch-hide, .ch-js-hide {
+.o, .ch-hide {
 	display:none;
-}
-
-.no-js .ch-js-hide{
-	display:block;
 }
 
 /*

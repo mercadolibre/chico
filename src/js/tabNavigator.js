@@ -369,7 +369,7 @@ ch.tab = function(conf){
 		that.$content.attr("aria-hidden","false");
 		
 		// It removes the class ch-js-hide because the content be visible on click
-		that.$content.hasClass('ch-js-hide')?that.$content.removeClass('ch-js-hide'):null;
+		//that.$content.hasClass('ch-js-hide')?that.$content.removeClass('ch-js-hide'):null;
 
 		// When click or enter to the tab, then it will be focused
 		that.$trigger.focus();
