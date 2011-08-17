@@ -1,19 +1,17 @@
 /**
  *	Default Styles
  */
-
-/* Container */
 .ch-dropdown {
 	display: inline-block;
-	position:relative;
+    overflow: visible;
 }
 
 /* Trigger */
-.ch-dropdown-trigger{
-	cursor:pointer;
-	display:inline-block;
-	padding:0 23px 0 10px;
+.ch-dropdown-trigger {
+	display: inline-block;
 	position:relative;
+	cursor:pointer;
+	padding:0 23px 0 10px;
 }
 
 /* Trigger Down icon */
@@ -21,13 +19,11 @@
 	position:absolute;
 	right:9px;
 	top:10px;
-	background-color: transparent;
 	background-image: url('../src/ml/assets/dropdown.png');
 	display:block;
 	width:7px;
 	height:5px;
 	text-indent:999px;
-	overflow:hidden;
 }
 
 /* Content */
@@ -38,6 +34,10 @@
 	white-space:nowrap;
 	max-height:215px;
 	overflow:auto;
+}
+
+.ch-dropdown-content-hide {
+	display: none;
 }
 
 /**
@@ -51,12 +51,10 @@
 	border:1px solid #79a8c7;
 	color: #476274;
 	height:23px;
-	font-size:12px;
 	line-height:24px;
 	border-radius:3px;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
-	position:relative;
 }
 
 /* Trigger Hover */
@@ -69,15 +67,15 @@
 	background-position: 0 -485px;
 }
 
-.ch-dropdown-trigger.ch-dropdown-trigger-on.ch-bottom,
-.ch-dropdown-trigger.ch-dropdown-trigger-on.ch-bottom-right {
+.ch-dropdown-trigger-on.ch-bottom,
+.ch-dropdown-trigger-on.ch-bottom-right {
 	border-radius:3px 3px 0 0;
 	-moz-border-radius:3px 3px 0 0;
 	-webkit-border-radius:3px 3px 0 0;
 }
 
-.ch-dropdown-trigger.ch-dropdown-trigger-on.ch-top,
-.ch-dropdown-trigger.ch-dropdown-trigger-on.ch-top-right {
+.ch-dropdown-trigger-on.ch-top,
+.ch-dropdown-trigger-on.ch-top-right {
 	border-radius:0 0 3px 3px;
 	-moz-border-radius:0 0 3px 3px;
 	-webkit-border-radius:0 0 3px 3px;
@@ -111,14 +109,8 @@
  *	Secondary skin
  */
 
-/* Container */
-.ch-dropdown.secondary {
-	height:13px;
-	line-height:13px;
-}
-
 /* Trigger */
-.ch-dropdown.secondary .ch-dropdown-trigger {
+.secondary .ch-dropdown-trigger {
 	background-color:#fff;
 	background-image:none!important; /* Because sprite is in core.css, because Packer duplicate it */
 	color:#0637B3;
@@ -134,35 +126,37 @@
 }
 
 /* Trigger Down icon */
-.ch-dropdown.secondary .ch-dropdown-trigger .ico {
+.secondary .ch-dropdown-trigger .ico {
 	top:4px;
 }
 
 /* Trigger Actived */
-.ch-dropdown.secondary .ch-dropdown-trigger:active {
+.secondary .ch-dropdown-trigger:active {
 	color: #00D;
 }
 
-/* Container ON */
-.ch-dropdown.secondary.ch-dropdown-on {
-	box-shadow: 2px 2px 0px #888;
-	-moz-box-shadow: 2px 2px 0px #888;
-	-webkit-box-shadow: 2px 2px 0px #888;
+.secondary .ch-dropdown-trigger-on,
+.secondary .ch-dropdown-trigger-on{
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
 }
 
 /* Trigger ON */
-.ch-dropdown.secondary .ch-dropdown-trigger.ch-dropdown-trigger-on {
+.secondary .ch-dropdown-trigger-on {
+	box-shadow: 2px 2px 0px #888;
+	-moz-box-shadow: 2px 0px 0px #888;
+	-webkit-box-shadow: 2px 0px 0px #888;	
 	border-color:#ccc;
 }
 
 /* Trigger Hover */
-.ch-dropdown.secondary .ch-dropdown-trigger:hover {
+.secondary .ch-dropdown-trigger:hover {
 	text-decoration: underline;
 }
 
-
 /* Content */
-.ch-dropdown-content.secondary {
+.secondary .ch-dropdown-content {
 	border:1px solid #ccc;
 	padding: 5px 30px 5px 10px;
 	box-shadow: 2px 2px 1px #888;
@@ -171,7 +165,11 @@
 }
 
 /* List of links */
-.ch-dropdown-content.secondary a {
+.secondary .ch-dropdown-content li {
+	list-style:none;	
+}
+
+.secondary .ch-dropdown-content a {
 	line-height:20px;
 	padding:0;
 	margin:0;
@@ -181,23 +179,28 @@
 }
 
 /* Interaction of list */
-.ch-dropdown-content.secondary a:hover,
-.ch-dropdown-content.secondary a:focus {
+.secondary .ch-dropdown-content a:hover,
+.secondary .ch-dropdown-content a:focus {
 	background:none;
 	text-decoration:underline;
 }
 
 
-/* IE 6 */
-.ie6 .ch-dropdown {
+/* IE 6,7,8 */
+.ie6 .ch-dropdown,
+.ie7 .ch-dropdown,
+.ie6 .ch-dropdown-trigger,
+.ie7 .ch-dropdown-trigger {
 	display:inline;
 	margin: 0 5px;
-	padding:0;
+	text-indent:0;
+	height:auto;
 }
 
-.ie6 .ch-dropdown.secondary {
+.ie6 .secondary.ch-dropdown {
 	border-top:0;
 	border-bottom:0;
+	padding:0;
 }
 
 .ie6 .ch-dropdown-content {
@@ -206,8 +209,6 @@
 	height:150px;
 }
 
-
-/* IE 7,8 */
 .ie7 .ch-dropdown-trigger,
 .ie8 .ch-dropdown-trigger {
 	background-position:0 -436px;
@@ -219,4 +220,9 @@
 
 .ie8 .ch-dropdown-trigger.ch-dropdown-trigger-on {
 	background-position: 0 -486px;
+}
+
+/*No JS*/
+.no-js .ch-dropdown-content{
+	position:relative;
 }

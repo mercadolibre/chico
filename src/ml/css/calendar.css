@@ -1,46 +1,51 @@
 /* Calendar */
-.ch-calendar.ch-dropdown.secondary,
-.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
-    border-width: 0;
-    background-color:#FFF;
-    height: 24px;
-    line-height: 24px;
-    margin: 0;
-    padding: 0;
+.ch-calendar {
     width: 33px;
+    height: 24px;
+    line-height: 23px;
 }
 
-.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger{
+.ch-calendar .ch-dropdown-trigger{
 	text-indent:-9999px;
-}
-
-.ch-calendar.ch-dropdown.secondary.ch-dropdown-on {
-	box-shadow:	2px 0 0px #888888;
-	-moz-box-shadow: 2px 0 0px #888888;
-	-webkit-box-shadow:	2px 0 0px #888888;
-	padding: 0 0 2px;
 }
 
 .ch-calendar-prev,
 .ch-calendar-next,
-.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
+.ch-calendar .ch-dropdown-trigger .ico {
 	background-image: url('../src/ml/assets/calendar.png');
 	background-repeat: no-repeat;
 }
 
-.ch-calendar.ch-dropdown.secondary .ch-dropdown-trigger .ico {
+.ch-calendar .ch-dropdown-trigger {
+	height:25px !important;
+	width:33px;
+	line-height:23px !important;
+	border:none !important;
+	padding:0;
+}
+
+.ch-calendar .ch-dropdown-trigger .ico {
 	background-position: 0 0;
+    margin: 0;
+    padding: 0;	
     height: 20px;
     left: 5px;
-    line-height: 20px;
-    margin: 0;
-    padding: 0;
-    top: 1px;
+    top: 1px !important;
     width: 20px;
 }
 
+
+.ch-calendar .ch-dropdown-trigger-on {
+	box-shadow:	2px 0 0px #888888;
+	-moz-box-shadow: 2px 0 0px #888888;
+	-webkit-box-shadow:	2px 0 0px #888888;
+	padding: 0 0 2px;
+	border:none !important
+}
+
+
 /* Container */
-.ch-calendar-container.ch-dropdown-content.secondary {
+.ch-calendar .ch-calendar-container.ch-dropdown-content {
 	padding:0;
 	width:190px;
 }
@@ -131,6 +136,28 @@
 }
 
 
+/* IE 6*/
+.ie6 .ch-calendar {
+	display: inline;
+	vertical-align:top;
+}
+
+.ie6 .ch-calendar .ch-dropdown-trigger,
+.ie7 .ch-calendar .ch-dropdown-trigger {
+	line-height:0;
+	font-size:0;
+}
+
+.ie6 .ch-calendar .ch-dropdown-trigger .ico,
+.ie7 .ch-calendar .ch-dropdown-trigger .ico {
+	top: 9px !important;
+}
+
+.ie6 .ch-calendar .ch-dropdown-content{
+	padding:0;
+	width:200px;
+}
+
 /* IE 7*/
 .ie7 .ch-calendar {
 	display: inline;
@@ -138,6 +165,6 @@
 	margin-top:10px;
 }
 
-.ie7 .ch-calendar .ch-dropdown-trigger {
+.ie7 .ch-calendar.ch-dropdown-trigger {
 	display: block;
 }
