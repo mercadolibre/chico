@@ -78,7 +78,7 @@ ch.tabNavigator = function(conf){
 				tab.$element = $(e);
 				tab.controller = that["public"];
 				
-				tab.$element.attr("role","tab")
+				tab.$element.attr("role","tab");
 
 			// Tab configuration
 			var config = {};
@@ -444,8 +444,10 @@ ch.tab = function(conf){
 */
 
 	that.configBehavior();
+	// Add the attr for WAI-ARIA to the tabs and tabpanel
 	var hidden = that.$content.hasClass("ch-hide")?true:false;
 		that.$content.attr("role","tabpanel").attr("aria-hidden",hidden);
 		that.$trigger.attr("role","tab");
+		that.$trigger.attr("arial-controls",that.$content.attr("id"));
 	return that;
 }
