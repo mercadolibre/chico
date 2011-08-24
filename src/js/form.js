@@ -129,11 +129,11 @@ ch.form = function(conf) {
 		if (status) {
 			that.callbacks("onValidate");
 			// new callback
-			that.trigger("onValidate");	
+			that.trigger("validate");	
 		} else {
 			that.callbacks("onError");
 			// new callback
-			that.trigger("onError");
+			that.trigger("error");
 		}
 
 		/**
@@ -189,9 +189,15 @@ ch.form = function(conf) {
 			that.prevent(event);
 			// To execute defined onSubmit callback
 			that.callbacks("onSubmit");
+		}
+
+		var isSubmitEventDefined = $(that.public).data("events")["ch-submit"];
+		if (status && isSubmitEventDefined){
+			// Avoid default actions
+			that.prevent(event);
 			// new callback
 			that.trigger("submit");
-		}
+		};
 
 		/**
 		* Callback function
