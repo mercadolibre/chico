@@ -1,4 +1,3 @@
-
 /**
 * Simple Tooltip UI-Object. It uses the 'alt' and 'title' attributes to grab its content.
 * @name Tooltip
@@ -18,7 +17,7 @@
 * me.width(300);
 */
 
-ch.tooltip = function(conf) {
+ch.tooltip = function (conf) {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -29,8 +28,14 @@ ch.tooltip = function(conf) {
 	var that = this;
 	
 	conf = ch.clon(conf);
-	conf.cone = true;
+	
+	conf.cone = true;	
 	conf.content = "<span>" + (that.element.title || that.element.alt) + "</span>";
+	
+	conf.aria = {};
+	conf.aria.role = "tooltip";
+	conf.aria.identifier = "aria-describedby";
+	
 	conf.position = {};
 	conf.position.context = $(that.element);
 	conf.position.offset = conf.offset || "0 10";
@@ -54,7 +59,7 @@ ch.tooltip = function(conf) {
 	* @name ch.Tooltip#attrReference
 	* @type string
 	*/
-	var attrReference = (that.element.title) ? "title" : "alt";
+	var attrReference = (that.element.title) ? "title" : "alt",
 
 	/**
 	* The original attribute content.
@@ -62,12 +67,11 @@ ch.tooltip = function(conf) {
 	* @name ch.Tooltip#attrContent
 	* @type string
 	*/
-	var attrContent = that.element.title || that.element.alt;
+		attrContent = that.element.title || that.element.alt;
 
 /**
 *	Protected Members
 */
-	that.$trigger = that.$element;
 
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
@@ -76,8 +80,10 @@ ch.tooltip = function(conf) {
 	* @function
 	* @returns itself
 	*/
-	that.innerShow = function(event) {
-		that.element[attrReference] = ""; // IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
+	that.innerShow = function (event) {
+		// IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
+		that.element[attrReference] = "";
+		
 		that.parent.innerShow(event);
 
 		return that;
@@ -90,9 +96,11 @@ ch.tooltip = function(conf) {
 	* @function
 	* @returns itself
 	*/
-	that.innerHide = function(event) {
+	that.innerHide = function (event) {
 		that.element[attrReference] = attrContent;
+		
 		that.parent.innerHide(event);
+		
 		return that;
 	};
 
@@ -221,13 +229,12 @@ ch.tooltip = function(conf) {
 *	Default event delegation
 */
 	
-	that.$trigger
-		.bind('mouseenter', that.innerShow)
-		.bind('mouseleave', that.innerHide);
+	that.$element
+		.bind("mouseenter", that.innerShow)
+		.bind("mouseleave", that.innerHide);
 
 	// Fix: change layout problem
-	$("body").bind(ch.events.LAYOUT.CHANGE, function(){ that.position("refresh") });
-
+	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
 
 	/**
 	* Triggers when component is visible.
@@ -235,7 +242,7 @@ ch.tooltip = function(conf) {
 	* @event
 	* @public
 	* @example
-	* me.on("show",function(){
+	* me.on("show",function () {
 	*	this.content("Some new content");
 	* });
 	* @see ch.Floats#event:show
@@ -247,7 +254,7 @@ ch.tooltip = function(conf) {
 	* @event
 	* @public
 	* @example
-	* me.on("hide",function(){
+	* me.on("hide",function () {
 	*	otherComponent.show();
 	* });
 	* @see ch.Floats#event:hide
@@ -259,7 +266,7 @@ ch.tooltip = function(conf) {
 	* @event
 	* @public	
 	* @example
-	* me.on("ready",function(){
+	* me.on("ready",function () {
 	*	this.show();
 	* });
 	*/

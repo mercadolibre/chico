@@ -8,7 +8,7 @@
 * @returns itself
 */
 
-ch.helper = function(controller){
+ch.helper = function (controller) {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -16,16 +16,21 @@ ch.helper = function(controller){
 	* @name ch.Helper#that
 	* @type object
 	*/
-	var that = this;
+	var that = this,
 
-	var conf = {};
-		conf.cone = true;
-		conf.position = {};
-		conf.position.context = controller.reference;
-		conf.position.offset = "15 0";
-		conf.position.points = "lt rt";
-		conf.cache = false;
+		conf = {};
+		
+	conf.cone = true;
+	conf.cache = false;
+	
+	conf.aria = {};
+	conf.aria.role = "alert";
 
+	conf.position = {};
+	conf.position.context = controller.reference;
+	conf.position.offset = "15 0";
+	conf.position.points = "lt rt";
+	
 	that.conf = conf;
 
 /**
@@ -46,8 +51,6 @@ ch.helper = function(controller){
 
 	that.content("Error");
 
- 	that.$trigger = that.$element;
-
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
@@ -55,7 +58,7 @@ ch.helper = function(controller){
 	* @name ch.Helper#innerShow
 	* @returns itself
 	*/
-	that.innerShow = function() {
+	that.innerShow = function () {
 
 		if (!that.active) {
 			// Load content and show!
@@ -191,9 +194,7 @@ ch.helper = function(controller){
 *  Default event delegation
 */
 
-	$("body").bind(ch.events.LAYOUT.CHANGE, function(){ 
-		that.position("refresh");
-	});
+	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
 
 	/**
 	* Triggers when the component is ready to use.
@@ -202,7 +203,7 @@ ch.helper = function(controller){
 	* @public
 	* @example
 	* // Following the first example, using 'me' as Layer's instance controller:
-	* me.on("ready",function(){
+	* me.on("ready",function () {
 	*	this.show();
 	* });
 	*/
