@@ -841,6 +841,8 @@
 
 		// Form
 		var ch_form = $('.YOUR_SELECTOR_Form').form();
+			ch_form.on("validate",function(){console.log("validate event")})
+			ch_form.on("submit",function(){console.log("submit event")});
 
 		var count = 0;
 		// Watchers
