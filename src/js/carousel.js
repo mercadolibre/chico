@@ -640,6 +640,30 @@ ch.carousel = function (conf) {
 	*/
 	
 	/**
+	* Moves to a defined page.
+	* @public
+	* @function
+	* @name ch.Carousel#select
+	* @returns Chico-UI Object
+	* @param {Number} page Page to be moved.
+	* @since 0.7.5
+	* @example
+	* // Create a carousel
+	* var foo = $("bar").carousel();
+	* 
+	* // Go to second page
+	* foo.select(2);
+	*/
+	that["public"].select = function (data) {
+		// TODO: Add support to goTo function on asynchronous item load.
+		if (ch.utils.hasOwn(conf, "asyncData")) { return that["public"]; }
+		
+		that.goTo(data);
+
+		return that["public"];
+	};
+	
+	/**
 	* Gets the current page or moves to a defined page.
 	* @public
 	* @function
@@ -662,12 +686,7 @@ ch.carousel = function (conf) {
 		if (!data) { return that.currentPage; }
 		
 		// Setter
-		// TODO: Add support to goTo function on asynchronous item load.
-		if (ch.utils.hasOwn(conf, "asyncData")) { return that["public"]; }
-		
-		that.goTo(data);
-
-		return that["public"];
+		return that["public"].select(data);
 	};
 	
 	/**

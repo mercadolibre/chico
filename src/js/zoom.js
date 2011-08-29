@@ -11,7 +11,7 @@
 * @returns itself
 */
 
-ch.zoom = function(conf) {
+ch.zoom = function (conf) {
 	/**
 	* Reference to an internal component instance, saves all the information and configuration properties.
 	* @private
@@ -25,6 +25,10 @@ ch.zoom = function(conf) {
 */
 	conf = ch.clon(conf);
 	conf.fx = false;
+	
+	conf.aria = {};
+	conf.aria.role = "tooltip";
+	conf.aria.identifier = "aria-describedby";
 	
 	conf.position = {};
 	conf.position.context = conf.context || that.$element;
@@ -64,7 +68,7 @@ ch.zoom = function(conf) {
 	*/
 	var zoomed = {};
 		// Define the content source 
-		zoomed.img = that.source = $("<img>").prop("src", that.element.href);
+		zoomed.img = that.source = $("<img src=\"" + that.element.href + "\" alt=\"Zoomed image\">");
 	
 	/**
 	* Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
@@ -73,7 +77,7 @@ ch.zoom = function(conf) {
 	* @type object
 	*/
 	var seeker = {};
-		seeker.shape = $("<div>").addClass("ch-seeker ch-hide")
+		seeker.shape = $("<div class=\"ch-seeker ch-hide\">")
 	
 	/**
 	* Gets the mouse position relative to original image position, and accordingly moves the zoomed image.
@@ -82,7 +86,7 @@ ch.zoom = function(conf) {
 	* @name ch.Zoom#move
 	* @param event event
 	*/
-	var move = function(event){
+	var move = function (event) {
 		
 		// Cursor coordinates relatives to original image
 		var x = event.pageX - original.offset.left;
@@ -96,16 +100,16 @@ ch.zoom = function(conf) {
 			limit.bottom = parseInt(y + seeker["height"]);
 
 		// Horizontal: keep seeker into limits
-		if(limit.left >= 0 && limit.right < original["width"] - 1) {
-			zoomed.img.css("left", -( (parseInt(zoomed["width"]* x) / original["width"]) - (conf.width / 2) ));
+		if (limit.left >= 0 && limit.right < original["width"] - 1) {
+			zoomed.img.css("left", -((parseInt(zoomed["width"]* x) / original["width"]) - (conf.width / 2)));
 			seeker.shape.css("left", limit.left);
-		};
+		}
 		
 		// Vertical: keep seeker into limits
-		if(limit.top >= 0 && limit.bottom < original["height"] - 1) {
-			zoomed.img.css("top", -( (parseInt(zoomed["height"]* y) / original["height"]) - (conf.height / 2) ));
+		if (limit.top >= 0 && limit.bottom < original["height"] - 1) {
+			zoomed.img.css("top", -((parseInt(zoomed["height"]* y) / original["height"]) - (conf.height / 2)));
 			seeker.shape.css("top", limit.top);
-		};
+		}
 		
 	};
 
@@ -115,7 +119,7 @@ ch.zoom = function(conf) {
 	* @function
 	* @name ch.Zoom#init
 	*/
-	var init = function(){
+	var init = function () {
 		// Zoomed image size
 		zoomed["width"] = zoomed.img.prop("width");
 		zoomed["height"] = zoomed.img.prop("height");
@@ -123,7 +127,7 @@ ch.zoom = function(conf) {
 		// Anchor
 		that.$element
 			// Apend Seeker
-			.append( seeker.shape )
+			.append(seeker.shape)
 			
 			// Show
 			.bind("mouseenter", that.show)
@@ -136,20 +140,12 @@ ch.zoom = function(conf) {
 *	Protected Members
 */
 
-	/**
-	* Anchor that wraps the main image and links to zoomed image file.
-	* @protected
-	* @name ch.Zoom#$trigger
-	* @type jQuery
-	*/
-	that.$trigger = that.$element;
-
-	that.innerShow = function(){
+	that.innerShow = function () {
 		// Recalc offset of original image
 		original.offset = original.img.offset();
 
 		// Move
-		that.$element.bind("mousemove", function(event){ 
+		that.$element.bind("mousemove", function (event) { 
 			move(event); 
 		});
 
@@ -162,7 +158,7 @@ ch.zoom = function(conf) {
 		return that;
 	};
 
-	that.innerHide = function(){
+	that.innerHide = function () {
 		// Move
 		that.$element.unbind("mousemove");
 		
@@ -183,7 +179,7 @@ ch.zoom = function(conf) {
 	* @param {mouseEvent} event
 	* @returns itself
 	*/
-	that.enlarge = function(event){
+	that.enlarge = function (event) {
 		that.prevent(event);
 		// Do what you want...
 		return that;
@@ -198,12 +194,12 @@ ch.zoom = function(conf) {
 	* @param {string} [data] Only for setter. It's the new value of defined property.
 	* @returns itself
 	*/
-	that.size = function(prop, data) {
+	that.size = function (prop, data) {
 
 		if (data) {
 
 			// Seeker: shape size relative to zoomed image respect zoomed area
-			var size = (original[prop]* data) / zoomed[prop];
+			var size = (original[prop] * data) / zoomed[prop];
 
 			// Seeker: sets shape size
 			seeker.shape[prop](size);
@@ -211,7 +207,7 @@ ch.zoom = function(conf) {
 			// Seeker: save shape half size for position it respect cursor
 			seeker[prop] = size / 2;
 
-		};
+		}
 
 		return that.parent.size(prop, data);
 	};
@@ -254,7 +250,7 @@ ch.zoom = function(conf) {
 	* @see ch.Object#content
 	*/
 
-	that["public"].content = function(){
+	that["public"].content = function () {
 		// Only on Zoom, it's limmited to be a getter
 		return that.content();
 	};
@@ -354,10 +350,10 @@ ch.zoom = function(conf) {
 		.css({"width": original["width"], "height": original["height"]})
 
 		// Enlarge
-		.bind("click", function(event){ that.enlarge(event); });
+		.bind("click", function (event) { that.enlarge(event); });
 	
 	// Initialize when zoomed image loads...
-	zoomed.img.onImagesLoads( init );
+	zoomed.img.onImagesLoads(init);
 
 	/**
 	* Triggers when component is visible.
@@ -365,7 +361,7 @@ ch.zoom = function(conf) {
 	* @event
 	* @public
 	* @example
-	* me.on("show",function(){
+	* me.on("show",function () {
 	*	this.content("Some new content");
 	* });
 	* @see ch.Floats#event:show
@@ -377,7 +373,7 @@ ch.zoom = function(conf) {
 	* @event
 	* @public
 	* @example
-	* me.on("hide",function(){
+	* me.on("hide",function () {
 	*	otherComponent.show();
 	* });
 	* @see ch.Floats#event:hide
@@ -390,7 +386,7 @@ ch.zoom = function(conf) {
 	* @public
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
-	* me.on("ready",function(){
+	* me.on("ready",function () {
 	*	this.show();
 	* });
 	*/
