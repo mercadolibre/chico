@@ -219,6 +219,8 @@ ch.form = function(conf) {
 		for(i; i < j; i += 1) {
 		  that.children[i].reset();
 		}
+		
+		status = true;
 
 		/**
 		* Callback function
