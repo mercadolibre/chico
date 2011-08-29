@@ -11,7 +11,7 @@
 * @see ch.Modal
 */
 
-ch.floats = function() {
+ch.floats = function () {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -19,8 +19,8 @@ ch.floats = function() {
 	* @name ch.Floats#that
 	* @type object
 	*/
-	var that = this;
-	var conf = that.conf;
+	var that = this,
+		conf = that.conf;
 
 /**
 * Inheritance
@@ -37,28 +37,17 @@ ch.floats = function() {
 	* Creates a 'cone', is a visual asset for floats.
 	* @private
 	* @function
+	* @deprecated
 	* @name ch.Floats#createCone
 	*/
-	var createCone = function() {
-		$("<div class=\"ch-cone\">")
-			.prependTo( that.$container );
-	};
 
 	/**
 	* Creates close button.
 	* @private
 	* @function
+	* @deprecated
 	* @name ch.Floats#createClose
 	*/
-	var createClose = function() {
-		// Close Button
-		$("<div class=\"btn close\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">")
-			.bind("click", function(event){ that.innerHide(event); })
-			.prependTo( that.$container );
-
-		// ESC key
-		ch.utils.document.bind(ch.events.KEY.ESC, function(event){ that.innerHide(event); });
-	};
 
 /**
 * Protected Members
@@ -77,7 +66,7 @@ ch.floats = function() {
 	* @name ch.Floats#source
 	* @type string
 	*/
-	that.source = conf.content || conf.msg || conf.ajax || that.$element.attr('href') || that.$element.parents('form').attr('action');
+	that.source = conf.content || conf.msg || conf.ajax || that.element.href || that.$element.parents("form").attr("action");
 
 	/**
 	* Inner function that resolves the component's layout and returns a static reference.
@@ -85,31 +74,68 @@ ch.floats = function() {
 	* @name ch.Floats#$container
 	* @type jQuery
 	*/
-	that.$container = (function() { // Create Layout
-
-		// Create the component container
-		that.$container = $("<div class=\"ch-"+ that.type +"\" style=\"z-index:"+(ch.utils.zIndex+=1)+"\">");
-
-		// Visual configuration
-		if( ch.utils.hasOwn(conf, "classes") ) { that.$container.addClass(conf.classes); }
-		if( ch.utils.hasOwn(conf, "width") ) { that.$container.css("width", conf.width); }
-		if( ch.utils.hasOwn(conf, "height") ) { that.$container.css("height", conf.height); }
-		if( ch.utils.hasOwn(conf, "closeButton") && conf.closeButton ) { createClose(); }
-		if( ch.utils.hasOwn(conf, "cone") ) { createCone(); }
-		if( ch.utils.hasOwn(conf, "fx") ) { conf.fx = conf.fx; } else { conf.fx = true; }
-
-		// Cache - Default: true
-		//conf.cache = ( ch.utils.hasOwn(conf, "cache") ) ? conf.cache : true;
+	that.$container = (function () { // Create Layout
+		
+		// Final jQuery Object
+		var $container,
+		
+		// Component with close button and keyboard binding for close
+			closable = ch.utils.hasOwn(conf, "closeButton") && conf.closeButton,
+		
+		// HTML Div Element with ID and role for WAI-ARIA
+			container = ["<div role=\"" + conf.aria.role + "\""];
+			
+		// ID for WAI-ARIA
+		if (ch.utils.hasOwn(conf.aria, "identifier")) {
+			
+			// Generated ID using component name and its instance order
+			var id = "ch-" + that.type + "-" + (ch.utils.hasOwn(ch.instances, that.type) ? ch.instances[that.type].length + 1 : "1");
+			
+			// Add ID to container element
+			container.push(" id=\"" + id + "\"");
+			
+			// Add aria attribute to trigger element
+			that.$element.attr(conf.aria.identifier, id);
+		}
+		
+		// Classname with component type and extra classes from conf.classes
+		container.push(" class=\"ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
+		
+		// Z-index, defined width and height, tag close
+		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + (ch.utils.hasOwn(conf, "width") ? conf.width : "") + (ch.utils.hasOwn(conf, "height") ? conf.height : "") + "\">");
+		
+		// Create cone
+		if (ch.utils.hasOwn(conf, "cone")) { container.push("<div class=\"ch-cone\"></div>"); }
+		
+		// Create close button
+		if (closable) { container.push("<div class=\"btn close\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></div>"); }
+		
+		// Tag close
+		container.push("</div>");
+		
+		// jQuery Object generated from string
+		$container = $(container.join(""));
+		
+		// Close behavior bindings
+		if (closable) {
+			// Close button event delegation
+			$container.bind("click", function (event) {
+				if ($(event.target || event.srcElement).hasClass("close")) { that.innerHide(event); }
+			});
+			
+			// ESC key support
+			ch.utils.document.bind(ch.events.KEY.ESC, function (event) { that.innerHide(event); });
+		}
+		
+		// Efects configuration
+		if (ch.utils.hasOwn(conf, "fx")) { conf.fx = conf.fx; } else { conf.fx = true; }
 
 		// Position component
 		conf.position = conf.position || {};
-		//conf.position.element = that.$container;
 		conf.position.hold = conf.hold || false;
-		//ch.positioner.call(that); // Is this necesary?
 
 		// Return the entire Layout
-		return that.$container;
-
+		return $container;
 	})();
 
 	/**
@@ -119,7 +145,7 @@ ch.floats = function() {
 	* @type jQuery
 	* @see ch.Object#content
 	*/
-	that.$content = $("<div class=\"ch-"+ that.type +"-content\">").appendTo(that.$container);
+	that.$content = $("<div class=\"ch-" + that.type + "-content\">").appendTo(that.$container);
 
 	/**
 	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
@@ -128,7 +154,7 @@ ch.floats = function() {
 	* @name ch.Floats#contentCallback
 	* @returns itself
 	*/
-	that["public"].on("contentLoad", function(event, context){
+	that["public"].on("contentLoad", function (event, context) {
 		that.$content.html(that.staticContent);
 
 		if (ch.utils.hasOwn(conf, "onContentLoad")) {
@@ -147,7 +173,7 @@ ch.floats = function() {
 	* @function
 	* @returns {this}
 	*/
-	that["public"].on("contentError", function(event, data){
+	that["public"].on("contentError", function (event, data) {
 
 		that.$content.html(that.staticContent);
 
@@ -175,13 +201,13 @@ ch.floats = function() {
 	* @name ch.Floats#innerShow
 	* @returns itself
 	*/
-	that.innerShow = function(event) {
+	that.innerShow = function (event) {
 		if (event) {
 			that.prevent(event);
 		}
 
 		// Avoid showing things that are already shown
-		if ( that.active ) return;
+		if (that.active) return;
 
 		// Add layout to DOM tree
 		// Increment zIndex
@@ -200,8 +226,8 @@ ch.floats = function() {
 		* @public
 		*/
 		// Show component with effects
-		if( conf.fx ) {
-			that.$container.fadeIn("fast", function(){
+		if (conf.fx) {
+			that.$container.fadeIn("fast", function () {
 				// new callbacks
 				that.trigger("show");
 				// Old callback system
@@ -214,7 +240,7 @@ ch.floats = function() {
 			that.trigger("show");
 			// Old callback system
 			that.callbacks('onShow');
-		};
+		}
 
 		// TODO: Positioner should recalculate the element's size (width and height)
 		conf.position.element = that.$container;
@@ -233,7 +259,7 @@ ch.floats = function() {
 	* @name ch.Floats#innerHide
 	* @returns itself
 	*/
-	that.innerHide = function(event) {
+	that.innerHide = function (event) {
 
 		if (event) {
 			that.prevent(event);
@@ -243,7 +269,7 @@ ch.floats = function() {
 			return;
 		}
 
-		var afterHide = function(){
+		var afterHide = function () {
 
 			that.active = false;
 
@@ -285,7 +311,7 @@ ch.floats = function() {
 	* @param {String} [data] Only for setter. It's the new value of defined property.
 	* @returns itself
 	*/
-	that.size = function(prop, data) {
+	that.size = function (prop, data) {
 		// Getter
 		if (!data) {
 			return that.conf[prop];
@@ -311,7 +337,7 @@ ch.floats = function() {
 	* @returns itself
 	* @see ch.Floats#content
 	*/
-	that["public"].show = function(content){
+	that["public"].show = function (content) {
 		if (content !== undefined) { that["public"].content(content); }
 		that.innerShow();
 		return that["public"];
@@ -324,7 +350,7 @@ ch.floats = function() {
 	* @name ch.Floats#hide
 	* @returns itself
 	*/
-	that["public"].hide = function(){
+	that["public"].hide = function () {
 		that.innerHide();
 		return that["public"];
 	};
@@ -343,7 +369,7 @@ ch.floats = function() {
 	* // to get the width
 	* me.width // 700
 	*/
-	that["public"].width = function(data) {
+	that["public"].width = function (data) {
 		return that.size("width", data) || that["public"];
 	};
 
@@ -361,7 +387,7 @@ ch.floats = function() {
 	* // to get the heigth
 	* me.height // 300
 	*/
-	that["public"].height = function(data) {
+	that["public"].height = function (data) {
 		return that.size("height", data) || that["public"];
 	};
 
@@ -372,7 +398,7 @@ ch.floats = function() {
 	* @name ch.Floats#isActive
 	* @returns boolean
 	*/
-	that["public"].isActive = function() {
+	that["public"].isActive = function () {
 		return that.active;
 	};
 
