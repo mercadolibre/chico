@@ -32,11 +32,35 @@ ch.expando = function(conf){
 /**
 *  Protected Members
 */ 
-
-	that.$trigger = that.$element.children().eq(0).wrapInner("<span>").children();
-
-	that.$content = that.$element.children().eq(1);
-
+	
+	var $nav = that.$element.children(),
+		triggerAttr = {
+			"aria-expanded":conf.open,
+			"aria-controls":"ch-expando-"+that.uid
+		},
+		contentAttr = {
+			id:triggerAttr["aria-controls"],
+			"aria-hidden":!triggerAttr["aria-expanded"]
+		};
+		
+	that.$trigger = $nav.eq(0).attr("role","presentation").wrapInner("<span>").children().attr(triggerAttr);
+	that.$content = $nav.eq(1).attr(contentAttr);
+	
+	that.show = function(event){
+		that.$trigger.attr("aria-expanded","true");
+		that.$content.attr("aria-hidden","false");
+		that.parent.show();
+		return that;
+	}
+	// 
+	that.hide = function(event){
+		that.$trigger.attr("aria-expanded","false");
+		that.$content.attr("aria-hidden","true");
+		that.parent.hide();
+		return that;
+	}
+	
+	
 /**
 *  Public Members
 */
@@ -71,7 +95,6 @@ ch.expando = function(conf){
 	*/
 	that["public"].show = function(){
 		that.show();
-		
 		return that["public"];
 	};
 
@@ -84,7 +107,6 @@ ch.expando = function(conf){
 	*/	
 	that["public"].hide = function(){
 		that.hide();
-		
 		return that["public"];
 	};
 	
@@ -94,6 +116,7 @@ ch.expando = function(conf){
 */		
 	
 	that.configBehavior();
+	that.$trigger.children().attr("role","presentation");
 	ch.utils.avoidTextSelection(that.$trigger);
 
 	return that;
