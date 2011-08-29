@@ -1,12 +1,17 @@
 /* Menu */
-.ch-menu {
+.ch-menu{
 	max-width:300px;
+	border-top:1px solid #ccc;
+}
+
+.ch-accordion{
 	border-top:1px solid #ccc;
 }
 
 /* L1 and L2 items */
 .ch-bellows-trigger,
 .ch-menu .ch-expando-trigger,
+.ch-accordion .ch-expando-trigger,
 .ch-menu .ch-expando-content a {
 	font-size:13px;
 	height:26px;
@@ -28,19 +33,23 @@
 /* L1 items */
 .ch-bellows-trigger,
 .ch-menu .ch-expando-trigger,
-.ch-menu .ch-expando-content {
+.ch-menu .ch-expando-content,
+.ch-accordion .ch-expando-trigger,
+.ch-accordion .ch-expando-content{
 	border-bottom:1px solid #ccc;
 	position:relative;
 }
 
 /* L1 items icon */
-.ch-menu .ch-expando-trigger .ico {
+.ch-menu .ch-expando-trigger .ico,
+.ch-accordion .ch-expando-trigger .ico{
 	right:5px;
 	top:7px;
 }
 
 /* L2 items list */
-.ch-menu .ch-expando-content {
+.ch-menu .ch-expando-content,
+.ch-accordion .ch-expando-content{
 	margin:0;
 }
 

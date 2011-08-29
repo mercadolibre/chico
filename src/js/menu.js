@@ -55,15 +55,20 @@ ch.menu = function(conf){
 		
 		// List elements
 		that.$element.children().each(function(i, e){
-			
+			// List element
+			var $li = $(e);
+									  
 			// Children of list elements
-			var $child = $(e).children();
+			var $child = $li.children();
 		
 			// Anchor inside list
 			if($child.eq(0).prop("tagName") == "A") {
 				
+				// Add attr role to match wai-aria
+				$li.attr("role","presentation");
+				
 				// Add class to list and anchor
-				$(e).addClass("ch-bellows").children().addClass("ch-bellows-trigger");
+				$li.addClass("ch-bellows").children().addClass("ch-bellows-trigger");
 				
 				// Add anchor to that.children
 				that.children.push( $child[0] );
@@ -72,7 +77,7 @@ ch.menu = function(conf){
 			};
 		
 			// List inside list, inits an Expando
-			var expando = $(e).expando({
+			var expando = $li.expando({
 				// Show/hide on IE6/7 instead slideUp/slideDown
 				fx: efects,
 				onShow: function(){
@@ -91,6 +96,16 @@ ch.menu = function(conf){
 				}
 			});
 			
+			var childs = $li.children(),
+				$triggerCont = $(childs[0]),
+				$menu = $(childs[1]);
+				if (!conf.accordion) {
+					$menu.attr("role","menu");
+					$menu.children().children().attr("role","menuitem");
+				}
+				$menu.children().attr("role","presentation");
+				$triggerCont.attr("role","presentation");
+			
 			// Add expando to that.children
 			that.children.push( expando );
 
@@ -108,7 +123,7 @@ ch.menu = function(conf){
 		var child, grandson;
 		
 		// Split item parameter, if it's a string with hash
-		if (typeof item == "string") {
+		if (typeof item === "string") {
 			var sliced = item.split("#");
 			child = sliced[0] - 1;
 			grandson = sliced[1];
@@ -116,8 +131,8 @@ ch.menu = function(conf){
 		// Set child when item is a Number
 		} else {
 			child = item - 1;
-		};
-		
+		}
+
 		// Specific item of that.children list
 		var itemObject = that.children[ child ];
 		
@@ -220,19 +235,30 @@ ch.menu = function(conf){
 */
 	
 	// Sets component main class name
-	that.$element.addClass('ch-menu');
 	
+	
+	
+	
+
 	// Inits an Expando component on each list inside main HTML code snippet
 	createLayout();
-	
+
 	// Accordion behavior
-	if (conf.accordion) configureAccordion();
-	
+	if (conf.accordion) {
+		// Sets the interface main class name for avoid
+		configureAccordion();
+		that.$element.addClass('ch-accordion')
+	} else {
+		that.$element.addClass('ch-menu');
+		// Set the wai-aria for Menu
+		that.$element.attr("role","navigation");
+	}
+
 	// Select specific item if there are a "selected" parameter on component configuration object
 	if (ch.utils.hasOwn(conf, "selected")) select(conf.selected);
-	
+
 	return that;
-	
+
 };
 
 ch.factory("menu");
