@@ -2,7 +2,7 @@
 * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
 * @name Carousel
 * @class Carousel
-* @augments ch.Object
+* @augments ch.Uiobject
 * @requires ch.List
 * @memberOf ch
 * @param {Configuration Object} conf Object with configuration properties
@@ -41,7 +41,7 @@ ch.carousel = function (conf) {
 *  Inheritance
 */
 
-	that = ch.object.call(that);
+	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
 
 /**
