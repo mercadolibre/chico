@@ -347,7 +347,6 @@ ch.uiobject = function(){
 	/**
 	* Component's public scope. In this scope you will find all public members.
 	*/
-	that["public"] = {};
 
 	/**
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
@@ -356,7 +355,6 @@ ch.uiobject = function(){
 	* @type number
 	* @ignore
 	*/
-	that["public"].uid = that.uid;
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
@@ -365,7 +363,6 @@ ch.uiobject = function(){
 	* @type HTMLElement
 	* @ignore
 	*/
-	that["public"].element = that.element;
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
@@ -374,7 +371,6 @@ ch.uiobject = function(){
 	* @type string
 	* @ignore
 	*/
-	that["public"].type = that.type;
 
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
@@ -425,6 +421,43 @@ ch.uiobject = function(){
 			return that.staticContent;
 		}
 	};
+	
+	/**
+	* Triggers a specific event within the component public context.
+	* @name ch.Object#trigger
+	* @function
+	* @public
+	* @param {string} event The event name you want to trigger.
+	* @since version 0.7.1
+	*/
+	
+	/**
+	* Add a callback function from specific event.
+	* @public
+	* @function
+	* @name ch.Object#on
+	* @param {string} event Event name.
+	* @param {function} handler Handler function.
+	* @returns itself
+	* @since version 0.7.1
+	* @example
+	* // Will add a event handler to the "ready" event
+	* me.on("ready", startDoingStuff);
+	*/
+
+	/**
+	* Removes a callback function from specific event.
+	* @public
+	* @function
+	* @name ch.Object#off
+	* @param {string} event Event name.
+	* @param {function} handler Handler function.
+	* @returns itself
+	* @since version 0.7.1
+	* @example
+	* // Will remove event handler to the "ready" event
+	* me.off("ready", startDoingStuff);
+	*/
 
 	return that;
 };
