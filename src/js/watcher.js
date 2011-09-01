@@ -3,7 +3,7 @@
 * @abstract
 * @name Watcher
 * @class Watcher
-* @augments ch.Object
+* @augments ch.Uiobject
 * @memberOf ch
 * @requires ch.Form
 * @requires ch.Positioner
@@ -32,7 +32,7 @@ ch.watcher = function(conf) {
 * Inheritance
 */
 
-	that = ch.object.call(that);
+	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
 
 /**

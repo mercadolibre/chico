@@ -3,7 +3,7 @@
 * @abstract
 * @name ch.Floats
 * @class Floats
-* @augments ch.Object
+* @augments ch.Uiobject
 * @requires ch.Positioner
 * @returns itself
 * @see ch.Tooltip
@@ -26,7 +26,7 @@ ch.floats = function () {
 * Inheritance
 */
 
-	that = ch.object.call(that);
+	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
 
 /**

@@ -4,7 +4,7 @@
 * @abstract
 * @name Navs
 * @class Navs
-* @augments ch.Object
+* @augments ch.Uiobject
 * @memberOf ch
 * @param {object} conf Object with configuration properties
 * @returns itself
@@ -30,7 +30,7 @@ ch.navs = function(){
 *	Inheritance
 */
 
-	that = ch.object.call(that);
+	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
 
 
