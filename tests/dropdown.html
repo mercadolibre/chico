@@ -3,15 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<title>Dropdown - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=dropdown">
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
 <body>
 
 <!-- #body -->
 	<h1>Chico-UI: Dropdown testcases</h1>
-    <hr />
-    <div class="box">
+	<hr />
+	<div class="box">
 		<div id="drop1" class="testDropdown">
 			<span>Primary Skin</span>
 			<ul>
@@ -112,7 +112,7 @@
 		<div id="drop8" class="testDropdown" style="float:right;">
 			<span>Right position</span>
 			<ul>
-				<li><a href="http://www.mercadolibre.com">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id dui risus.</a></li>
+				<li><a href="http://www.mercadolibre.com">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id dui risus. Lorem ipsum dolor sit amet.</a></li>
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
 				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
 				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
@@ -125,7 +125,7 @@
 		<div id="drop9" class="testDropdown secondary" style="float:right;">
 			<span>Right position</span>
 			<ul>
-				<li><a href="http://www.mercadolibre.com">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id dui risus.</a></li>
+				<li><a href="http://www.mercadolibre.com">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id dui risus. Lorem ipsum dolor sit amet.</a></li>
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
 				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
 				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
@@ -171,7 +171,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/packer.php?get=dropdown&debug=true"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
@@ -179,13 +179,13 @@
 
 		var testDropdown = $('.testDropdown').dropdown();
 		var testDropdown2 = $('#drop10').dropdown({
-			onShow: function(){
+			onShow: function () {
 				$("body").addClass("onShow");
-	        },
+			},
 
-	        onHide: function(){
+			onHide: function () {
 				$("body").addClass("onHide");
-	        }
+			}
 		});
 		
 		var testDropdown3 = $("#drop11").dropdown({
@@ -202,58 +202,58 @@
 		// Dropdown 1
 		module("Layer instance object");
 		
-        test("Dropdown public properties", function(){
+		test("Dropdown public properties", function () {
 
-            expect( 3 );
+			expect(3);
 
-       		ok( testDropdown[0].uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
-       		
-    		ok( testDropdown[0].type == "dropdown" , "Expected to find \"dropdown\" as value of type attribute");
-    		
-    		ok( ch.utils.hasOwn(testDropdown[0], "element"), "Expected to find an \"element\" property" );
+	   		ok(testDropdown[0].uid >= 0, "Expected to find a \"uid\" attribute on the layer instance");
+	   		
+			ok(testDropdown[0].type == "dropdown", "Expected to find \"dropdown\" as value of type attribute");
+			
+			ok(ch.utils.hasOwn(testDropdown[0], "element"), "Expected to find an \"element\" property");
 
-        });
-        
-        test("Dropdown public methods", function(){
+		});
+		
+		test("Dropdown public methods", function () {
 
-            expect( 3 );
-    		
-    		ok( ch.utils.hasOwn(testDropdown[0], "position"), "Expected to find a \"position\" method" );
-    		
-    		ok( ch.utils.hasOwn(testDropdown[0], "show"), "Expected to find a \"show\" method" );
-    		
-    		ok( ch.utils.hasOwn(testDropdown[0], "hide"), "Expected to find a \"hide\" method" );
+			expect(3);
+			
+			ok(ch.utils.hasOwn(testDropdown[0], "position"), "Expected to find a \"position\" method");
+			
+			ok(ch.utils.hasOwn(testDropdown[0], "show"), "Expected to find a \"show\" method");
+			
+			ok(ch.utils.hasOwn(testDropdown[0], "hide"), "Expected to find a \"hide\" method");
 
-        });
-        
-        test("Dropdown chain methods", function(){
-            
-            expect ( 3 );
-            
-            var testDropdownOriginal = testDropdown[0];
-            
-            var chainShow = testDropdown[0].show();
-            
-            var chainHide = testDropdown[0].hide();
+		});
+		
+		test("Dropdown chain methods", function () {
+			
+			expect (3);
+			
+			var testDropdownOriginal = testDropdown[0];
+			
+			var chainShow = testDropdown[0].show();
+			
+			var chainHide = testDropdown[0].hide();
 
-            var chained = testDropdown[0].show().hide();
-             
-            ok ( chainShow === testDropdownOriginal, "Expected to return original instance object on show() method call");
-            
-            ok ( chainHide === testDropdownOriginal, "Expected to return original instance object on hide() method call");
+			var chained = testDropdown[0].show().hide();
+			 
+			ok (chainShow === testDropdownOriginal, "Expected to return original instance object on show() method call");
+			
+			ok (chainHide === testDropdownOriginal, "Expected to return original instance object on hide() method call");
 
-            ok ( chained === testDropdownOriginal, "Expected to return original instance object on .show().hide() methods chained call");
-            
-        });
+			ok (chained === testDropdownOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+			
+		});
 
 		module('Primary dropdown layout and interaction');
 
 		var $trigger = $('#drop1').children(':first');
-		var $content = $('#drop1').next();
+		var $content = $('#drop1').children().eq(1);
 
-		test('Check for the right visual classes on primary skin', function() {
+		test('Check for the right visual classes on primary skin', function () {
 			
-			expect ( 4 );
+			expect (4);
 			
 			hasClass('.testDropdown', 'ch-dropdown');
 			hasClass($trigger, 'ch-dropdown-trigger');
@@ -262,9 +262,9 @@
 			
 		});
 		
-		test('Opens dropdown menu', function() {
+		test('Opens dropdown menu', function () {
 			
-			expect ( 3 );
+			expect (3);
 			
 			isNotVisible($content);
 			
@@ -275,9 +275,9 @@
 			
 		});
 		
-		test('Closes dropdown menu, clicking on body', function() {
+		test('Closes dropdown menu, clicking on body', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			$('body').click();
 			
@@ -286,9 +286,9 @@
 			
 		});
 		
-		test('Closes dropdown menu, clicking on component trigger', function() {
+		test('Closes dropdown menu, clicking on component trigger', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			$trigger.click();
 			$trigger.click();
@@ -298,9 +298,9 @@
 			
 		});
 		
-		test('Click inside content', function() {
+		test('Click inside content', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			$trigger.click();
 			$content.click();
@@ -312,9 +312,9 @@
 			
 		});
 		
-		test('Click on content link', function() {
+		test('Click on content link', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			$trigger.click();
 			$content.find('a').click();
@@ -330,11 +330,11 @@
 		module('Secondary dropdown layout and interaction');
 		
 		var $trigger2 = $('#drop2').children(':first');
-		var $content2 = $('#drop2').next();
+		var $content2 = $('#drop2').children().eq(1);
 		
-		test('Check for the right visual classes on secondary skin', function() {
+		test('Check for the right visual classes on secondary skin', function () {
 			
-			expect ( 5 );
+			expect (5);
 			
 			hasClass('#drop2', 'ch-dropdown');
 			hasClass('#drop2', 'secondary');
@@ -344,9 +344,9 @@
 			
 		});
 		
-		test('Opens dropdown menu', function() {
+		test('Opens dropdown menu', function () {
 			
-			expect ( 4 );
+			expect (3);
 			
 			isNotVisible($content2);
 			
@@ -354,12 +354,11 @@
 			
 			isVisible($content2);
 			hasClass($trigger2, 'ch-dropdown-trigger-on');
-			hasClass('#drop2', 'ch-dropdown-on');
 		});
 		
-		test('Closes dropdown menu, clicking on body', function() {
+		test('Closes dropdown menu, clicking on body', function () {
 			
-			expect ( 3 );
+			expect (3);
 			
 			$('body').click();
 			
@@ -369,9 +368,9 @@
 			
 		});
 		
-		test('Closes dropdown menu, clicking on component trigger', function() {
+		test('Closes dropdown menu, clicking on component trigger', function () {
 			
-			expect ( 3 );
+			expect (3);
 			
 			$trigger2.click();
 			$trigger2.click();
@@ -387,128 +386,128 @@
 		
 		module('Dropdown behavior with "relative" positioned containers');
 		
-		test('Position of content with not relative container', function() {
+		test('Position of content with not relative container', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			var $trigger3 = $('#drop3').children(':first');
-			var $content3 = $('#drop3').next();
+			var $content3 = $('#drop3').children().eq(1);
 			
 			$trigger3.click();
 			
-			equal( $content3.offset().left, $trigger3.offset().left, "Expected to find content left position = trigger left position");
-       		equal( $content3.offset().top, $trigger3.offset().top + $trigger3.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
-       	});
-       	
-       	
-       	// Dropdown 4
-       	
-       	test('Position of content with first relative container', function() {
+			equal($content3.offset().left, $trigger3.offset().left, "Expected to find content left position = trigger left position");
+	   		equal($content3.offset().top, $trigger3.offset().top + $trigger3.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
+	   	});
+	   	
+	   	
+	   	// Dropdown 4
+	   	
+	   	test('Position of content with first relative container', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			var $trigger4 = $('#drop4').children(':first');
-			var $content4 = $('#drop4').next();
+			var $content4 = $('#drop4').children().eq(1);
 			
 			$trigger4.click();
 			
-			equal( $content4.position().left, $trigger4.position().left + 10, "Expected to find content left position = trigger left position"); // 10 = padding
-       		equal( $content4.position().top, $trigger4.position().top + 10 + $trigger4.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 10 = padding | 1 = offset
-       	});
-       	
-       	
-       	// Dropdown 5
-       	
-       	test('Position of content with second relative container', function() {
+			equal($content4.position().left, $trigger4.position().left, "Expected to find content left position = trigger left position");
+	   		equal($content4.position().top, $trigger4.position().top + $trigger4.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = offset
+	   	});
+	   	
+	   	
+	   	// Dropdown 5
+	   	
+	   	test('Position of content with second relative container', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			var $trigger5 = $('#drop5').children(':first');
-			var $content5 = $('#drop5').next();
+			var $content5 = $('#drop5').children().eq(1);
 			
 			$trigger5.click();
 			
-			equal( $content5.position().left, $trigger5.position().left + 10, "Expected to find content left position = trigger left position"); // 10 = padding
-       		equal( $content5.position().top, $trigger5.position().top + 10 + $trigger5.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 10 = padding | 1 = border
-       	});
-       	
-       	
-       	// Dropdown 6
-       	
-       	test('Position of content with 2 relative containers', function() {
+			equal($content5.position().left, $trigger5.position().left, "Expected to find content left position = trigger left position");
+	   		equal($content5.position().top, $trigger5.position().top + $trigger5.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = border
+	   	});
+	   	
+	   	
+	   	// Dropdown 6
+	   	
+	   	test('Position of content with 2 relative containers', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			var $trigger6 = $('#drop6').children(':first');
-			var $content6 = $('#drop6').next();
+			var $content6 = $('#drop6').children().eq(1);
 			
 			$trigger6.click();
 			
-			equal( $content6.position().left, $trigger6.position().left, "Expected to find content left position = trigger left position");
-       		equal( $content6.position().top, $trigger6.position().top + $trigger6.outerHeight() - 2, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 2 = borders
-       	});
-       	
-       	
-       	// Dropdown 7
-       	
-       	test('Position of content with 3 relative containers', function() {
+			equal($content6.position().left, $trigger6.position().left, "Expected to find content left position = trigger left position");
+	   		equal($content6.position().top, $trigger6.position().top + $trigger6.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = border
+	   	});
+	   	
+	   	
+	   	// Dropdown 7
+	   	
+	   	test('Position of content with 3 relative containers', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			var $trigger7 = $('#drop7').children(':first');
-			var $content7 = $('#drop7').next();
+			var $content7 = $('#drop7').children().eq(1);
 			
 			$trigger7.click();
 			
-			equal( $content7.position().left, $trigger7.position().left, "Expected to find content left position = trigger left position");
-       		equal( $content7.position().top, $trigger7.position().top + $trigger7.outerHeight() - 2, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 2 = borders
-       	});
-       	
-       	
-       	module('Dropdown behavior with spaceless viewport');
-       	
-       	// Dropdown 8
-       	
-       	test('Position of content dropped to left on primary dropdown', function() {
+			equal($content7.position().left, $trigger7.position().left, "Expected to find content left position = trigger left position");
+	   		equal($content7.position().top, $trigger7.position().top + $trigger7.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = border
+	   	});
+	   	
+	   	
+	   	module('Dropdown behavior with spaceless viewport');
+	   	
+	   	// Dropdown 8
+	   	
+	   	test('Position of content dropped to left on primary dropdown', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			var $trigger8 = $('#drop8').children(':first');
-			var $content8 = $('#drop8').next();
+			var $content8 = $('#drop8').children().eq(1);
 			
 			$trigger8.click();
 			
-			ok( $content8.offset().left < $trigger8.offset().left, "Expected to find content left position < trigger left position");
-       		equal( $content8.offset().top, $trigger8.offset().top + $trigger8.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
-       		
-       		$trigger8.click();
-       	});
-       	
-       	
-       	// Dropdown 9
-       	
-       	test('Position of content dropped to left on secondary dropdown', function() {
+			ok($content8.offset().left < $trigger8.offset().left, "Expected to find content left position < trigger left position");
+	   		equal($content8.offset().top, $trigger8.offset().top + $trigger8.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
+	   		
+	   		$trigger8.click();
+	   	});
+	   	
+	   	
+	   	// Dropdown 9
+	   	
+	   	test('Position of content dropped to left on secondary dropdown', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			var $trigger9 = $('#drop9').children(':first');
-			var $content9 = $('#drop9').next();
+			var $content9 = $('#drop9').children().eq(1);
 			
 			$trigger9.click();
 			
-			equal( $content9.offset().left + $content9.outerWidth(), $trigger9.offset().left + $trigger9.outerWidth(), "Expected to find content right position = trigger right position");
-       		equal( $content9.offset().top, $trigger9.offset().top + $trigger9.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
-       		
-       		$trigger9.click();
-       	});
-       	
-       	
-       	// Dropdown 10
-       	module("Dropdown callbacks");   	
+			equal($content9.offset().left + $content9.outerWidth(), $trigger9.offset().left + $trigger9.outerWidth(), "Expected to find content right position = trigger right position");
+	   		equal($content9.offset().top, $trigger9.offset().top + $trigger9.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
+	   		
+	   		$trigger9.click();
+	   	});
+	   	
+	   	
+	   	// Dropdown 10
+	   	module("Dropdown callbacks");   	
 		
-		test('Dropdown callback on show', function() {
+		test('Dropdown callback on show', function () {
 			
-			expect ( 1 );
+			expect (1);
 			
 			testDropdown2.show();
 			
@@ -516,11 +515,11 @@
 			
 			$("body").removeClass("onShow");
 
-       	});
-       	
-       	test('Dropdown callback on hide', function() {
+	   	});
+	   	
+	   	test('Dropdown callback on hide', function () {
 			
-			expect ( 1 );
+			expect (1);
 			
 			testDropdown2.hide();
 			
@@ -528,26 +527,26 @@
 			
 			$("body").removeClass("onHide");
 
-       	});
-       	
-       	
-       	module("Dropdown default position through parameters");
+	   	});
+	   	
+	   	
+	   	module("Dropdown default position through parameters");
 		
-		test('Dropdown with "rt rb" points', function() {
+		test('Dropdown with "rt rb" points', function () {
 			
-			expect ( 2 );
+			expect (2);
 			
 			var $trigger11 = $('#drop11').children(':first');
-			var $content11 = $('#drop11').next();
+			var $content11 = $('#drop11').children().eq(1);
 			
 			$trigger11.click();
 			
-			ok( $content11.offset().left < $trigger11.offset().left, "Expected to find content left position < trigger left position");
-       		equal( $content11.offset().top, $trigger11.offset().top + $trigger11.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
-       		
-       		$trigger11.click();
+			ok($content11.offset().left < $trigger11.offset().left, "Expected to find content left position < trigger left position");
+	   		equal($content11.offset().top, $trigger11.offset().top + $trigger11.outerHeight() - 1, "Expected to find content top position = trigger bottom position (except border-bottom)"); // 1 = Offset
+	   		
+	   		$trigger11.click();
 
-       	});
+	   	});
 
 
 	</script>
