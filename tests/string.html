@@ -1,40 +1,22 @@
-<!doctype html> 
-<!--[if IE]><![endif]--> 
-<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
-<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
-<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
-<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
-<head> 
-	<script></script> 
-	<meta charset="utf-8"> 
-	<title>Chico-UI</title>
-	
-	<link rel="stylesheet" type="text/css" href="/php/packer.php?type=css">
-	<!--link rel="stylesheet" type="text/css" href="/src/css/doc.css"-->
-	<!--link rel="stylesheet" type="text/css" href="/src/css/mesh.css"-->
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>String - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 	
-	<style> 
-		/* Carousel list size */
-		.YOUR_SELECTOR_Carousel li {
-			width:650px;
+	<style>
+		.testCarousel li,
+		.testCarousel2 li, 
+		.testCarousel3 li{
+			width:120px;
 			height:120px;
-		}
-		
-		/* Icons demo */
-		.showroomIcons li{
-			clear:left;
-		}
-		
-		.showroomIcons .ico {
-			float:left;
-			margin:5px 10px 0 0;
 		}
 	</style>
 </head>
-
 <body>
+
 	<h1>Chico-UI: String testcases</h1>
 		<form action="http://localhost:3000/test/post" class="form1" method="POST"> 
 			<fieldset> 
@@ -67,24 +49,24 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/packer.php?debug=true"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
 	<script>
-        var undefined;
-        var valid = false;
-        
-        // Components
+		var undefined;
+		var valid = false;
+		
+		// Components
 		var ch_form = $('.form1').form();
-			ch_form.on("submit",function(){})
+			ch_form.on("submit",function () {})
 
 		var ch_string = $('#string1').string('it must be a string');
-        	ch_string.on("error",function(){
+			ch_string.on("error",function () {
 				valid = true;
 			});
 			
-		function fillInput(selector,value){
+		function fillInput(selector,value) {
 			$(selector).val('').val(value);
 		}
 		/**
@@ -92,32 +74,32 @@
 		 */
 		$.fx.off = true;
 		module('Valid strings');
-			test('Single char', function(){
-				 fillInput('#string1','a');
+			test('Single char', function () {
+				 fillInput('#string1', 'a');
 				 valid = false;
 				 ch_form.submit();
 				 ok(!valid, "Must validate a single char.");
 			});
-			test('Single char with accent', function(){
-				 fillInput('#string1','á');
+			test('Single char with accent', function () {
+				 fillInput('#string1', 'á');
 				 valid = false;
 				 ch_form.submit();
 				 ok(!valid, "Must validate a single latin char.");
 			});
-			test('Single word', function(){
-				 fillInput('#string1','Juan');
+			test('Single word', function () {
+				 fillInput('#string1', 'Juan');
 				 valid = false;
 				 ch_form.submit();
 				 ok(!valid, "Must validate a single word.");
 			});
-			test('Words', function(){
-				 fillInput('#string1','Juan Mamani');
+			test('Words', function () {
+				 fillInput('#string1', 'Juan Mamani');
 				 valid = false;
 				 ch_form.submit();
 				 ok(!valid, "Must validate two words.");
 			});
-			test('Words with accent', function(){
-				 fillInput('#string1','hernán mammana');
+			test('Words with accent', function () {
+				 fillInput('#string1', 'hernán mammana');
 				 valid = false;
 				 ch_form.submit();
 				 ok(!valid, "Must validate two words with space.");
@@ -127,97 +109,97 @@
 		
 		module('Invalid Strings');
 						
-			test('Only one number', function(){
-				 fillInput('#string1','9');
+			test('Only one number', function () {
+				 fillInput('#string1', '9');
 				 valid = false;
 				 ch_string.validate();
 				 ok(valid, "It ");
 			});
 		
-			test('Numbers', function(){
-				 fillInput('#string1','989');
+			test('Numbers', function () {
+				 fillInput('#string1', '989');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have numbers.");
 			});
 			
-			test('Numbers with space', function(){
-				 fillInput('#string1','98 9');
+			test('Numbers with space', function () {
+				 fillInput('#string1', '98 9');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have numbers with space.");
 			});
 			
-			test('Numbers with characters and space in the begining of the string', function(){
-				 fillInput('#string1','ab 9b8a9');
+			test('Numbers with characters and space in the begining of the string', function () {
+				 fillInput('#string1', 'ab 9b8a9');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must no have alphanumeric words.");
 			});
 			
-			test('Numbers and words', function(){
-				 fillInput('#string1','something 2011');
+			test('Numbers and words', function () {
+				 fillInput('#string1', 'something 2011');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have numbers.");
 			});
-			test('Slash', function(){
-				 fillInput('#string1','/');
+			test('Slash', function () {
+				 fillInput('#string1', '/');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have a slash.");
 			});
 			
-			test('Quotes', function(){
-				 fillInput('#string1','"');
+			test('Quotes', function () {
+				 fillInput('#string1', '"');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have a double quot.");
 			});
 			
 			
-			test('Single quote', function(){
-				 fillInput('#string1','\'');
+			test('Single quote', function () {
+				 fillInput('#string1', '\'');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have a slash.");
 			});
 			
-			test('Semicolon', function(){
-				 fillInput('#string1',';');
+			test('Semicolon', function () {
+				 fillInput('#string1', ';');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have a semicolon.");
 			});
 			
-			test('Semicolon', function(){
-				 fillInput('#string1','@');
+			test('Semicolon', function () {
+				 fillInput('#string1', '@');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have a @.");
 			});
 			
-			test('Dot', function(){
-				 fillInput('#string1','.');
+			test('Dot', function () {
+				 fillInput('#string1', '.');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have a dot.");
 			});
-			test('Mixed characters', function(){
-				 fillInput('#string1','her876 @;');
+			test('Mixed characters', function () {
+				 fillInput('#string1', 'her876 @;');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have numbers and @");
 			});
 			
-			test('Sentences', function(){
-				 fillInput('#string1','Here we have some words with a dot.');
+			test('Sentences', function () {
+				 fillInput('#string1', 'Here we have some words with a dot.');
 				 valid = false;
 				 ch_form.submit();
 				 ok(valid, "It must not have a dot.");
 			});
 		
 		
-    </script>
+	</script>
 </body> 
 </html>

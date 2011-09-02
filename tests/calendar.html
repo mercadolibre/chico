@@ -3,13 +3,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>Calendar - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css">
-	<link href="../src/css/doc.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- #body -->
+	<!-- #body -->
 	<h1>Chico-UI: Calendar testcases</h1>
 
 	<div class="box"> 
@@ -41,70 +40,70 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/packer.php?debug=true"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
 	<script src="functions.js"></script>
 
 <!-- #script -->
 	<script>
 
 		var calendar1 = $(".calendar1").calendar();
-
-		$.fx.off = true; // Alert: Elements within modal are positioned after fadeIn(). With no fx, these elements are not correctly positioned.
+		
+		// Alert: Elements within modal are positioned after fadeIn(). With no fx, these elements are not correctly positioned.
+		$.fx.off = true;
+		
 		/**
 		 * 	Test Cases
 		 */
 
 		module("Calendar instance object");
 		
-        test("Calendar public properties", function(){
+		test("Calendar public properties", function () {
 
-            expect( 3 );
+			expect(3);
 
-       		ok( calendar1.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
-       		
-			ok( calendar1.type == "calendar" , "Expected to find \"calendar\" as value of type attribute");
-			
-			ok( ch.utils.hasOwn(calendar1, "element"), "Expected to find an \"element\" property" );
+			ok(calendar1.uid >= 0, "Expected to find a \"uid\" attribute on the layer instance");
 
-        });
-        
-        test("Calendar public methods", function(){
-		    	expect( 10 );
-		    	
-			ok( ch.utils.hasOwn(calendar1, "show"), "Expected to find a \"show\" method" );
+			ok(calendar1.type == "calendar", "Expected to find \"calendar\" as value of type attribute");
 			
-			ok( ch.utils.hasOwn(calendar1, "hide"), "Expected to find a \"hide\" method" );
+			ok(ch.utils.hasOwn(calendar1, "element"), "Expected to find an \"element\" property");
+
+		});
+
+		test("Calendar public methods", function () {
 			
-			ok( ch.utils.hasOwn(calendar1, "select"), "Expected to find a \"select\" method" );
+			expect(8);
+
+			ok(ch.utils.hasOwn(calendar1, "show"), "Expected to find a \"show\" method");
+			
+			ok(ch.utils.hasOwn(calendar1, "hide"), "Expected to find a \"hide\" method");
+			
+			ok(ch.utils.hasOwn(calendar1, "select"), "Expected to find a \"select\" method");
 				
-			ok( ch.utils.hasOwn(calendar1, "getSelected"), "Expected to find a \"getSelected\" method" );
+			ok(ch.utils.hasOwn(calendar1, "getSelected"), "Expected to find a \"getSelected\" method");
 
-			ok( ch.utils.hasOwn(calendar1, "getToday"), "Expected to find a \"getToday\" method" );
+			ok(ch.utils.hasOwn(calendar1, "getToday"), "Expected to find a \"getToday\" method");
 
-			ok( ch.utils.hasOwn(calendar1, "next"), "Expected to find a \"next\" method" );
+			ok(ch.utils.hasOwn(calendar1, "next"), "Expected to find a \"next\" method");
 
-			ok( ch.utils.hasOwn(calendar1, "prev"), "Expected to find a \"prev\" method" );
+			ok(ch.utils.hasOwn(calendar1, "prev"), "Expected to find a \"prev\" method");
 
-			ok( ch.utils.hasOwn(calendar1, "nextYear"), "Expected to find a \"nextYear\" method" );
+			ok(ch.utils.hasOwn(calendar1, "reset"), "Expected to find a \"reset\" method");
 
-			ok( ch.utils.hasOwn(calendar1, "prevYear"), "Expected to find a \"prevYear\" method" );
-
-			ok( ch.utils.hasOwn(calendar1, "reset"), "Expected to find a \"reset\" method" );
-   
 		});
 
 		module("Calendar layout creation");
 
-		var $element = $(".calendar1");
-		var $dropdown = $element.next();
-		var $trigger = $dropdown.children();
-		var $container = $dropdown.next();
-		var $content = $container.children();
+		var $dropdown = $(".ch-calendar.ch-dropdown");
+		var $trigger = $dropdown.children(":first");
+		var $container = $trigger.next();
+		var $content = $container.children("div");
 
-		test("Calendar layout creation", function(){
+		test("Calendar layout creation", function () {
 			expect(10);
-
-			hasClass($dropdown, "ch-calendar");
+			
+			$trigger.click();
+			
+			hasClass($dropdown, "ch-dropdown");
 			hasClass($trigger, "ch-dropdown-trigger");
 			hasClass($container, "ch-calendar-container");
 			hasClass($content, "ch-calendar-content");
@@ -115,37 +114,30 @@
 			exists(".ch-calendar-prev");
 			exists(".ch-calendar-next");
 
+			$trigger.click();
 		});
 
-		module("Calendar interaction");
-
-		var $element = $(".calendar1");
-		var $dropdown = $element.next();
-		var $trigger = $dropdown.children();
-		var $container = $dropdown.next();
-		var $content = $container.children();
-
-		test("Trigger click to show and hide calendar", function(){
+		test("Trigger click to show and hide calendar", function () {
 			expect(2);
 			
 			$trigger.click();
 
-			exists(".ch-calendar.ch-dropdown-on");
+			exists(".ch-calendar .ch-dropdown-trigger-on");
 			
 			$trigger.click();
 
-			notExists(".ch-calendar.ch-dropdown-on");
+			notExists(".ch-calendar .ch-dropdown-trigger-on");
 			
 		});
 
-		test("Click on document to close", function(){
+		test("Click on document to close", function () {
 			expect(1);
 			
 			$trigger.click();
 
 			ch.utils.document.click();
 
-			hasClass($container,"ch-hide");
+			hasClass($container, "ch-hide");
 			
 		});
 		
