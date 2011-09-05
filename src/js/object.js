@@ -304,47 +304,6 @@ ch.object = function(){
 	};
 
 	/**
-	* Change component's position configuration. If a "refresh" {string} is recived, will refresh component's positioning with the same configuration. You can send an {object} with a new configuration.
-	* @name ch.Object#position
-	* @function
-	* @protected
-	* @param {string} ["refresh"] Refresh
-	* @returns {object} Configuration object if no arguments are sended.
-	* @see ch.Positioner
-	*/
-	// TODO: Add examples!!!
-	that.position = function(o) {
-
-		switch(typeof o) {
-
-			case "object":
-				conf.position.context = o.context || conf.position.context;
-				conf.position.points = o.points || conf.position.points;
-				conf.position.offset = o.offset || conf.position.offset;
-				conf.position.fixed = o.fixed || conf.position.fixed;
-
-				ch.positioner(conf.position);
-				return that["public"];
-				break;
-
-			case "string":
-				if(o != "refresh") {
-					alert("Chico UI error: position() expected to find \"refresh\" parameter.");
-				}
-
-				ch.positioner(conf.position);
-
-				return that["public"];
-				break;
-
-			case "undefined":
-				return conf.position;
-				break;
-		};
-
-	};
-
-	/**
 	* Triggers a specific event within the component public context.
 	* @name ch.Object#trigger
 	* @function
