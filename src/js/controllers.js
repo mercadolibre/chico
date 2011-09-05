@@ -4,7 +4,7 @@
 * @abstract
 * @name Controllers
 * @class Controllers 
-* @augments ch.Object
+* @augments ch.Uiobject
 * @memberOf ch
 * @returns itself
 * @see ch.Accordion
@@ -24,7 +24,7 @@ ch.controllers = function(){
 	/**
 	*  Inheritance
 	*/
-	that = ch.object.call(that);
+	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
 	
  
