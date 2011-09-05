@@ -82,7 +82,7 @@ ch.floats = function () {
 		// Component with close button and keyboard binding for close
 			closable = ch.utils.hasOwn(conf, "closeButton") && conf.closeButton,
 		
-		// HTML Div Element with ID and role for WAI-ARIA
+		// HTML Div Element with role for WAI-ARIA
 			container = ["<div role=\"" + conf.aria.role + "\""];
 			
 		// ID for WAI-ARIA
@@ -132,8 +132,11 @@ ch.floats = function () {
 
 		// Position component
 		conf.position = conf.position || {};
-		conf.position.hold = conf.hold || false;
-
+		conf.position.element = $container;
+		conf.position.reposition = conf.position.reposition || false;
+		
+		that.position = ch.positioner(conf.position);
+		
 		// Return the entire Layout
 		return $container;
 	})();
@@ -161,9 +164,7 @@ ch.floats = function () {
 			conf.onContentLoad.call(context, that.staticContent);
 		}
 
-		if (ch.utils.hasOwn(conf, "position")) {
-			ch.positioner(conf.position);
-		}
+		that.position("refresh");
 	});
 
 	/**
@@ -241,12 +242,9 @@ ch.floats = function () {
 			// Old callback system
 			that.callbacks('onShow');
 		}
-
-		// TODO: Positioner should recalculate the element's size (width and height)
-		conf.position.element = that.$container;
-
+		
 		that.position("refresh");
-
+		
 		that.active = true;
 
 		return that;
@@ -320,7 +318,9 @@ ch.floats = function () {
 		that.conf[prop] = data;
 		// Container
 		that.$container[prop](data);
+		
 		that.position("refresh");
+		
 		return that["public"];
 	};
 
@@ -381,10 +381,10 @@ ch.floats = function () {
 	* @returns itself
 	* @see ch.Floats#size
 	* @example
-	* // to set the heigth
+	* // to set the height
 	* me.height(300);
 	* @example
-	* // to get the heigth
+	* // to get the height
 	* me.height // 300
 	*/
 	that["public"].height = function (data) {

@@ -40,6 +40,7 @@ ch.layer = function (conf) {
 	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
+	conf.position.reposition = true;
 
 	that.conf = conf;
 
@@ -290,10 +291,10 @@ ch.layer = function (conf) {
 	* @returns itself
 	* @see ch.Floats#size
 	* @example
-	* // to set the heigth
+	* // to set the height
 	* me.height(300);
 	* @example
-	* // to get the heigth
+	* // to get the height
 	* me.height // 300
 	*/
 

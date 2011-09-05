@@ -30,6 +30,7 @@ ch.helper = function (controller) {
 	conf.position.context = controller.reference;
 	conf.position.offset = "15 0";
 	conf.position.points = "lt rt";
+	conf.position.reposition = true;
 	
 	that.conf = conf;
 
