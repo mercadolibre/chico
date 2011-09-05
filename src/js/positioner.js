@@ -301,8 +301,8 @@ ch.positioner = (function () {
 					// Gets offset of context element
 					var contextOffset = self.element.offset(),
 						size = self.getSize(),
-						scrollLeft = contextOffset.left + offset[0] - relativeParent.left,
-						scrollTop = contextOffset.top + offset[1] - relativeParent.top;
+						scrollLeft = contextOffset.left + offset[0],
+						scrollTop = contextOffset.top + offset[1];
 
 					// Calculated including offset and relative parent positions
 					return {
