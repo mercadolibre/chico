@@ -3,14 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<title>Layer - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=layer">
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
 <body>
 
 <!-- #body -->
 	<h1>Chico-UI: Layer testcases</h1>
-    <hr>
+	<hr>
 	<p class="box"><span class="layer1">Layer executed on hover (default behavior).</span></p>
 	
 	<p class="box"><span class="layer2">Layer executed on click.</span></p>
@@ -88,7 +88,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/packer.php?get=layer&debug=true"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
@@ -122,10 +122,10 @@
 		
 		var layer8 = $(".layer8").layer({
 			content: "Layer with onShow and onHide callbacks.",
-			onShow: function(){
+			onShow: function () {
 				$("body").addClass("onShow");
 			},
-			onHide: function(){
+			onHide: function () {
 				$("body").addClass("onHide");
 			}
 		});
@@ -142,158 +142,158 @@
 		 * 	Test Cases
 		 */
 
-        module("Layer instance object");
+		module("Layer instance object");
 
-        test("Layer common public properties", function(){
+		test("Layer common public properties", function () {
 
-            expect( 4 );
+			expect(4);
 
-       		ok( layer1.uid >= 0 , "Expected to find a \"uid\" attribute on the layer instance");
+	   		ok(layer1.uid >= 0, "Expected to find a \"uid\" attribute on the layer instance");
 
-    		ok( layer1.type == "layer" , "Expected to find \"layer\" as value of type attribute");
+			ok(layer1.type == "layer", "Expected to find \"layer\" as value of type attribute");
 
-    		ok( ch.utils.hasOwn(layer1, "isActive"), "Expected to find an \"active\" property" );
+			ok(ch.utils.hasOwn(layer1, "isActive"), "Expected to find an \"active\" property");
 
-    		ok( ch.utils.hasOwn(layer1, "element"), "Expected to find an \"element\" property" );
+			ok(ch.utils.hasOwn(layer1, "element"), "Expected to find an \"element\" property");
 
-        });
+		});
 
-        test("Layer common public methods", function(){
+		test("Layer common public methods", function () {
 
-            expect( 4 );
+			expect(4);
 
-    		ok( ch.utils.hasOwn(layer1, "position"), "Expected to find a \"position\" method" );
+			ok(ch.utils.hasOwn(layer1, "position"), "Expected to find a \"position\" method");
 
-    		ok( ch.utils.hasOwn(layer1, "content"), "Expected to find an \"content\" method" );
+			ok(ch.utils.hasOwn(layer1, "content"), "Expected to find an \"content\" method");
 
-    		ok( ch.utils.hasOwn(layer1, "show"), "Expected to find a \"show\" method" );
+			ok(ch.utils.hasOwn(layer1, "show"), "Expected to find a \"show\" method");
 
-    		ok( ch.utils.hasOwn(layer1, "hide"), "Expected to find a \"hide\" method" );
+			ok(ch.utils.hasOwn(layer1, "hide"), "Expected to find a \"hide\" method");
 
-        });
+		});
 
-        test("Content property of layer executed on hover", function(){
+		test("Content property of layer executed on hover", function () {
 
-            expect( 1 );
+			expect(1);
 
 			layer1.show();
-       		
-       		equal( layer1.content().hasClass("list-layer"), true, "Expected to find a defined content on the layer instance");
-       		
+	   		
+	   		equal(layer1.content().hasClass("list-layer"), true, "Expected to find a defined content on the layer instance");
+	   		
 			layer1.hide();
-        });
-        
-        test("Content property of layer executed on click", function(){
+		});
+		
+		test("Content property of layer executed on click", function () {
 
-            expect( 1 );
+			expect(1);
 
 			layer2.show();
 
-       		ok( layer2.content() == "Layer executed on click.", "Expected to find a defined content on the layer instance");
-       		
-       		layer2.hide();
+	   		ok(layer2.content() == "Layer executed on click.", "Expected to find a defined content on the layer instance");
+	   		
+	   		layer2.hide();
 
-        });
-        
-        test("Content property of layer with HTML content loaded via \"content\" attribute", function(){
+		});
+		
+		test("Content property of layer with HTML content loaded via \"content\" attribute", function () {
 
-            expect( 1 );
+			expect(1);
 			layer3.show().hide();
-       		ok( layer3.content() == "Layer with HTML content loaded via \"content\" attribute.", "Expected to find a defined content on the layer instance");
+	   		ok(layer3.content() == "Layer with HTML content loaded via \"content\" attribute.", "Expected to find a defined content on the layer instance");
 
-        });
-        
-        test("Content property of layer with DOM content loaded via \"content\" attribute", function(){
+		});
+		
+		test("Content property of layer with DOM content loaded via \"content\" attribute", function () {
 
-            expect( 1 );
+			expect(1);
 			layer4.show().hide();
-       		equal( layer4.content().hasClass("content"), true, "Expected to find a defined content on the layer instance");
+	   		equal(layer4.content().hasClass("content"), true, "Expected to find a defined content on the layer instance");
 
-        });
-        
-        test("Content property of layer with content loaded without configuration object", function(){
+		});
+		
+		test("Content property of layer with content loaded without configuration object", function () {
 
-            expect( 1 );
+			expect(1);
 			layer5.show().hide();
-       		ok( layer5.content() == "Layer with content loaded without configuration object.", "Expected to find a defined content on the layer instance");
+	   		ok(layer5.content() == "Layer with content loaded without configuration object.", "Expected to find a defined content on the layer instance");
 
-        });
-        
-        test("Set new content via show method", function(){
+		});
+		
+		test("Set new content via show method", function () {
 
-            expect( 1 );
+			expect(1);
 			layer5.show("New Content via show method").hide();
-       		ok( layer5.content() == "New Content via show method", "Expected to find a new content on the layer instance");
+	   		ok(layer5.content() == "New Content via show method", "Expected to find a new content on the layer instance");
 
-        });        
-        
+		});		
+		
 /*  
 	TODO: Rethink and refactor all this tests.
 	
-      test("Content property of layer with content loaded via ajax (relative URL)", function(){
+	  test("Content property of layer with content loaded via ajax (relative URL)", function () {
 
-            expect( 1 );
+			expect(1);
 
-       		ok( layer6.content() == "../test.html", "Expected to find a defined content on the layer instance");
+	   		ok(layer6.content() == "../test.html", "Expected to find a defined content on the layer instance");
 
-        });
-        
-        test("Content property of layer with content loaded via ajax (absolute URL)", function(){
+		});
+		
+		test("Content property of layer with content loaded via ajax (absolute URL)", function () {
 
-            expect( 1 );
+			expect(1);
 
-       		ok( layer7.content() == "http://www.google.com", "Expected to find a defined content on the layer instance");
+	   		ok(layer7.content() == "http://www.google.com", "Expected to find a defined content on the layer instance");
 
-        });
+		});
   */
-        test("Set new content", function(){
+		test("Set new content", function () {
 
-            expect( 1 );
+			expect(1);
 			
 			layer12.content("New content...").show().hide();
-       		
-       		ok( layer12.content() == "New content...", "Expected to find a new content on the layer");
+	   		
+	   		ok(layer12.content() == "New content...", "Expected to find a new content on the layer");
 
-        });
-        
-        test("Layer chain methods", function(){
-            
-            expect ( 3 );
-            
-            var testLayerOriginal = layer2;
-            
-            var chainShow = layer2.show();
-            
-            var chainHide = layer2.hide();
+		});
+		
+		test("Layer chain methods", function () {
+			
+			expect (3);
+			
+			var testLayerOriginal = layer2;
+			
+			var chainShow = layer2.show();
+			
+			var chainHide = layer2.hide();
 
-            var chained = layer2.show().hide();
-             
-            ok ( chainShow === testLayerOriginal, "Expected to return original instance object on show() method call");
-            
-            ok ( chainHide === testLayerOriginal, "Expected to return original instance object on hide() method call");
+			var chained = layer2.show().hide();
+			 
+			ok (chainShow === testLayerOriginal, "Expected to return original instance object on show() method call");
+			
+			ok (chainHide === testLayerOriginal, "Expected to return original instance object on hide() method call");
 
-            ok ( chained === testLayerOriginal, "Expected to return original instance object on .show().hide() methods chained call");
-            
-        });
+			ok (chained === testLayerOriginal, "Expected to return original instance object on .show().hide() methods chained call");
+			
+		});
 
-        
+		
 		module("Layer layout and interaction");		
 
-        test("Active property for layer1", function(){
+		test("Active property for layer1", function () {
 
-    		ok( layer1.isActive() == false , "Expected to find \"false\" as value for active property");
-            
-            layer1.show();
+			ok(layer1.isActive() == false, "Expected to find \"false\" as value for active property");
+			
+			layer1.show();
 
-    		ok( layer1.isActive() == true , "Expected to find \"true\" as value for active property");
+			ok(layer1.isActive() == true, "Expected to find \"true\" as value for active property");
 
-            layer1.hide();
-            
-        });
+			layer1.hide();
+			
+		});
 
-		test("Check for the right visual elements", function(){					
+		test("Check for the right visual elements", function () {					
 		  
-            expect( 2 );
+			expect(2);
 		  
 			layer2.show()
 			
@@ -304,9 +304,9 @@
 			
 		});
 		
-		test("Show and hide functions", function(){
+		test("Show and hide functions", function () {
 
-			expect ( 4 );
+			expect (4);
 			
 			notExists(".ch-layer");
 			
@@ -322,9 +322,9 @@
 				
 		});
 		
-		test("Close button interaction", function(){
+		test("Close button interaction", function () {
 		  
-			expect ( 2 );
+			expect (2);
 			
 			$(".layer2").click();
 			
@@ -336,9 +336,9 @@
 			
 		});
 		
-		test("Check for click content interaction", function(){
+		test("Check for click content interaction", function () {
 		  
-			expect ( 1 );
+			expect (1);
 			
 			$(".layer2").click();
 			
@@ -353,9 +353,9 @@
 		
 		module("Layer executed on hover");
 		
-		test("Check for basic interaction", function(){
+		test("Check for basic interaction", function () {
 		  		
-			expect ( 3 );
+			expect (3);
 			
 			notExists(".ch-layer");
 			
@@ -369,9 +369,9 @@
 
 		});
 		
-		test("Check for advanced interaction: mouseenter and click on inner elements", function(){
+		test("Check for advanced interaction: mouseenter and click on inner elements", function () {
 		  		
-			expect ( 9 );
+			expect (9);
 			
 			$(".layer1").mouseenter();
 			
@@ -425,11 +425,11 @@
 
 		});
 
-		module('Layer callbacks');       	
+		module('Layer callbacks');	   	
 		
-		test('Layer callback on show', function() {
+		test('Layer callback on show', function () {
 			
-			expect ( 1 );
+			expect (1);
 			
 			layer8.show();
 			
@@ -437,11 +437,11 @@
 			
 			$("body").removeClass("onShow");
 
-       	});
-       	
-       	test('Layer callback on hide', function() {
+	   	});
+	   	
+	   	test('Layer callback on hide', function () {
 			
-			expect ( 1 );
+			expect (1);
 			
 			layer8.hide();
 			
@@ -449,15 +449,15 @@
 			
 			$("body").removeClass("onHide");
 
-       	});
-       	
-       	test("Layer callback on content loaded", function(){
-       	
-        	expect( 1 );
-        	
-            layer9 = $('.layer9').layer({
-            	content:"../test.html",
-				onContentLoad: function(){ 
+	   	});
+	   	
+	   	test("Layer callback on content loaded", function () {
+	   	
+			expect(1);
+			
+			layer9 = $('.layer9').layer({
+				content:"../test.html",
+				onContentLoad: function () { 
 					$("body").addClass("onContentLoad");
 
 					start();
@@ -468,20 +468,20 @@
 
 					this.hide();
 				}
-            });
+			});
 
 			layer9.show();
 			
 			stop();
 		});
 		
-		test("Layer callback on content loaded error", function(){
-        	
-        	expect( 1 );
-        	
+		test("Layer callback on content loaded error", function () {
+			
+			expect(1);
+			
 			layer10 = $('.layer10').layer({
-            	content: "http://www.google.com",
-				onContentError: function(){
+				content: "http://www.google.com",
+				onContentError: function () {
 
 					$("body").addClass("onContentError");
 
@@ -494,7 +494,7 @@
 					this.hide();
 				}
 
-            });
+			});
 
 			layer10.show();
 			
@@ -503,20 +503,20 @@
 		
 		
 		module('Layer behavior with spaceless viewport');
-       	
-       	test('Position of Layer on right', function() {
+	   	
+	   	test('Position of Layer on right', function () {
 
-			expect ( 1 );
+			expect (1);
 
 			var $trigger = $('.layer11');
 
 			layer11.show();
 
-			ok( $(".ch-layer").offset().left < $trigger.offset().left, "Expected to find layer left position < trigger left position");
+			ok($(".ch-layer").offset().left < $trigger.offset().left, "Expected to find layer left position < trigger left position");
 
-       		layer11.hide();
+	   		layer11.hide();
 
-       	});
+	   	});
 		
 	</script>
 

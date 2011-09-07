@@ -2,11 +2,11 @@
 * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
 * @name Carousel
 * @class Carousel
-* @augments ch.Object
+* @augments ch.Uiobject
 * @requires ch.List
 * @memberOf ch
 * @param {Configuration Object} conf Object with configuration properties
-* @returns Chico-UI Object
+* @returns Chico UI Object
 */
 
 ch.carousel = function (conf) {
@@ -25,7 +25,7 @@ ch.carousel = function (conf) {
 	// TODO: Add support to goTo function on asynchronous item load.
 	conf.pagination = (!ch.utils.hasOwn(conf, "asyncData") ? conf.pagination : false) || false;
 	
-	// Configuration for continue carousel
+	// Configuration for continue Carousel
 	// TODO: Rolling is forced to be false. Use this: conf.rolling = (ch.utils.hasOwn(conf, "rolling")) ? conf.rolling : true;
 	conf.rolling = false;
 	
@@ -41,7 +41,7 @@ ch.carousel = function (conf) {
 *  Inheritance
 */
 
-	that = ch.object.call(that);
+	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
 
 /**
@@ -126,7 +126,7 @@ ch.carousel = function (conf) {
 			* @param {Number} page Page to be moved.
 			*/
 			that.manageArrows = function (page) {
-				// Case 1: Both arrows shown on carousel's middle
+				// Case 1: Both arrows shown on Carousel's middle
 				if (page > 1 && page < that.pages) {
 					$prev.attr("aria-hidden", "false").removeClass("ch-hide");
 					$next.attr("aria-hidden", "false").removeClass("ch-hide");
@@ -176,7 +176,7 @@ ch.carousel = function (conf) {
 				$pagination.append($thumb);
 			};
 			
-			// Append list to carousel
+			// Append list to Carousel
 			that.$element.append($pagination);
 			
 			// Positions list
@@ -201,7 +201,6 @@ ch.carousel = function (conf) {
 	/**
 	* Calculates items amount on each page.
 	* @protected
-	* @name ch.Carousel#getItemsPerPage
 	* @function
 	*/
 		getItemsPerPage = function () {
@@ -288,7 +287,7 @@ ch.carousel = function (conf) {
 		},
 	
 	/**
-	* Size of carousel mask.
+	* Size of Carousel mask.
 	* @private
 	* @name ch.Carousel#maskWidth
 	* @type Number
@@ -296,7 +295,7 @@ ch.carousel = function (conf) {
 		maskWidth,
 		
 	/**
-	* Extra size calculated on content. Fix some IE6 issues.
+	* Extra size calculated on content. Fix issues of collection size in IE6.
 	* @private
 	* @name ch.Carousel#extraWidth
 	* @type Number
@@ -324,7 +323,7 @@ ch.carousel = function (conf) {
 	that.$content = $("<div class=\"ch-carousel-content\">");
 	
 	/**
-	* List of items.
+	* HTMLLiElement with a list of items.
 	* @protected
 	* @name ch.Carousel#$collection
 	* @type jQuery Object
@@ -366,7 +365,7 @@ ch.carousel = function (conf) {
 	/**
 	* Reference to items width.
 	* @protected
-	* @name ch.Carousel#itemWidth
+	* @name ch.Carousel#itemsWidth
 	* @type Number
 	*/
 	that.itemsWidth = that.$items.outerWidth();
@@ -382,14 +381,13 @@ ch.carousel = function (conf) {
 	/**
 	* Amount of items on each page.
 	* @protected
-	* @name ch.Carousel#itemsPerPage
 	* @type Number
 	*/
 	// TODO: This is calculates on draw() method. Maybe it isn't necessary to execute here.
 	that.itemsPerPage = getItemsPerPage();
 	
 	/**
-	* Amount of pages.
+	* Total amount of pages.
 	* @protected
 	* @name ch.Carousel#pages
 	* @type Number
@@ -443,13 +441,7 @@ ch.carousel = function (conf) {
 		// Update items collection
 		that.$items = that.$collection.children();
 		
-		/**
-		* Callback function
-		* @name ch.Carousel#onItemsAdded
-		* @type Function
-		*/
 		that.callbacks("onItemsAdded");
-		// new callback
 		that.trigger("itemsAdded");
 		
 	};
@@ -524,13 +516,7 @@ ch.carousel = function (conf) {
 			$(e).attr("aria-hidden", ~~(i / that.itemsPerPage) + 1 !== page);
 		});
 		
-		/**
-		* Callback function
-		* @name ch.Carousel#onMove
-		* @type Function
-		*/
 		that.callbacks("onMove");
-		// new callback
 		that.trigger("move");
 		
 		return that;
@@ -541,13 +527,7 @@ ch.carousel = function (conf) {
 		
 		that.goTo(that.currentPage - 1);
 
-		/**
-		* Callback function
-		* @name ch.Carousel#onPrev
-		* @type Function
-		*/
 		that.callbacks("onPrev");
-		// new callback
 		that.trigger("prev");
 		
 		return that;
@@ -561,13 +541,7 @@ ch.carousel = function (conf) {
 		// Asynchronous item load feature
 		if (ch.utils.hasOwn(conf, "asyncData")) { that.asyncItemsLoad(); }
 		
-		/**
-		* Callback function
-		* @name ch.Carousel#onNext
-		* @type Function
-		*/
 		that.callbacks("onNext");
-		// new callback
 		that.trigger("next");
 		
 		return that;
@@ -576,7 +550,51 @@ ch.carousel = function (conf) {
 /**
 *  Public Members
 */
-
+	
+	/**
+	* Triggers when component moves to next page.
+	* @name ch.Carousel#next
+	* @event
+	* @public
+	* @example
+	* example.on("next",function () {
+	*	alert("Next!");
+	* });
+	*/
+	
+	/**
+	* Triggers when component moves to previous page.
+	* @name ch.Carousel#prev
+	* @event
+	* @public
+	* @example
+	* example.on("prev",function () {
+	*	alert("Previous!");
+	* });
+	*/
+	
+	/**
+	* Triggers when component moves to next or previous page.
+	* @name ch.Carousel#move
+	* @event
+	* @public
+	* @example
+	* example.on("move",function () {
+	*	alert("I moved!");
+	* });
+	*/
+	
+	/**
+	* Triggers when component adds items asynchronously from queue.
+	* @name ch.Carousel#itemsAdded
+	* @event
+	* @public
+	* @example
+	* example.on("itemsAdded",function () {
+	*	alert("Some asynchronous items was added.");
+	* });
+	*/
+	
 	/**
 	* The component's instance unique identifier.
 	* @public
@@ -585,10 +603,10 @@ ch.carousel = function (conf) {
 	*/
 	
 	/**
-	* The element reference.
+	* Public reference to element that was used to init the component.
 	* @public
 	* @name ch.Carousel#element
-	* @type HTMLElement
+	* @type HTMLDivElement
 	*/
 
 	/**
@@ -599,7 +617,7 @@ ch.carousel = function (conf) {
 	*/
 
 	/**
-	* Get the items amount of each page.
+	* Deprecated - Get the items amount of each page.
 	* @public
 	* @deprecated
 	* @name ch.Carousel#getItemsPerPage
@@ -607,7 +625,7 @@ ch.carousel = function (conf) {
 	*/
 	
 	/**
-	* Get the items amount of each page.
+	* Get the items amount of each page (Since 0.7.4).
 	* @public
 	* @since 0.7.4
 	* @name ch.Carousel#itemsPerPage
@@ -616,23 +634,24 @@ ch.carousel = function (conf) {
 	that["public"].itemsPerPage = function () { return that.itemsPerPage; };
 	
 	/**
-	* Get the current page.
+	* Deprecated - Gets the current page.
 	* @public
 	* @deprecated
+	* @function
 	* @name ch.Carousel#getPage
 	* @returns Number
 	*/
 	
 	/**
-	* Moves to a defined page. Only works when Carousel hasn't asynchronous item load.
+	* Deprecated - Moves to a defined page. Only works when Carousel hasn't asynchronous item load.
 	* @public
 	* @function
 	* @name ch.Carousel#goTo
-	* @returns Chico-UI Object
+	* @returns Chico UI Object
 	* @param {Number} page Page to be moved.
 	* @deprecated
 	* @example
-	* // Create a carousel
+	* // Create a Carousel
 	* var foo = $("bar").carousel();
 	* 
 	* // Go to second page
@@ -640,15 +659,39 @@ ch.carousel = function (conf) {
 	*/
 	
 	/**
-	* Gets the current page or moves to a defined page.
+	* Moves to a defined page (Since 0.7.5).
+	* @public
+	* @function
+	* @name ch.Carousel#select
+	* @returns Chico UI Object
+	* @param {Number} page Page to be moved.
+	* @since 0.7.5
+	* @example
+	* // Create a Carousel
+	* var foo = $("bar").carousel();
+	* 
+	* // Go to second page
+	* foo.select(2);
+	*/
+	that["public"].select = function (data) {
+		// TODO: Add support to goTo function on asynchronous item load.
+		if (ch.utils.hasOwn(conf, "asyncData")) { return that["public"]; }
+		
+		that.goTo(data);
+
+		return that["public"];
+	};
+	
+	/**
+	* Gets the current page or moves to a defined page (Since 0.7.4).
 	* @public
 	* @function
 	* @name ch.Carousel#page
-	* @returns Chico-UI Object
+	* @returns Chico UI Object
 	* @param {Number} page Page to be moved.
 	* @since 0.7.4
 	* @example
-	* // Create a carousel
+	* // Create a Carousel
 	* var foo = $("bar").carousel();
 	* 
 	* // Go to second page
@@ -662,21 +705,17 @@ ch.carousel = function (conf) {
 		if (!data) { return that.currentPage; }
 		
 		// Setter
-		// TODO: Add support to goTo function on asynchronous item load.
-		if (ch.utils.hasOwn(conf, "asyncData")) { return that["public"]; }
-		
-		that.goTo(data);
-
-		return that["public"];
+		return that["public"].select(data);
 	};
 	
 	/**
 	* Moves to the previous page.
 	* @public
+	* @function
 	* @name ch.Carousel#prev
-	* @returns Chico-UI Object
+	* @returns Chico UI Object
 	* @example
-	* // Create a carousel
+	* // Create a Carousel
 	* var foo = $("bar").carousel();
 	* 
 	* // Go to previous page
@@ -691,8 +730,9 @@ ch.carousel = function (conf) {
 	/**
 	* Moves to the next page.
 	* @public
+	* @function
 	* @name ch.Carousel#next
-	* @returns Chico-UI Object
+	* @returns Chico UI Object
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -709,13 +749,14 @@ ch.carousel = function (conf) {
 	/**
 	* Re-calculate positioning, sizing, paging, and re-draw.
 	* @public
+	* @function
 	* @name ch.Carousel#redraw
-	* @returns Chico-UI Object
+	* @returns Chico UI Object
 	* @example
-	* // Create a carousel
+	* // Create a Carousel
 	* var foo = $("bar").carousel();
 	* 
-	* // Re-draw carousel
+	* // Re-draw Carousel
 	* foo.redraw();
 	*/
 	that["public"].redraw = function () {
@@ -732,7 +773,7 @@ ch.carousel = function (conf) {
 	// Does what is necessary to make ready the component structure
 	createLayout();
 	
-	// Calculates all necesary data to draw carousel correctly
+	// Calculates all necesary data to draw Carousel correctly
 	draw();
 	
 	// Default behavior	

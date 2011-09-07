@@ -3,7 +3,7 @@
 * @abstract
 * @name Watcher
 * @class Watcher
-* @augments ch.Object
+* @augments ch.Uiobject
 * @memberOf ch
 * @requires ch.Form
 * @requires ch.Validator
@@ -35,7 +35,7 @@ ch.watcher = function (conf) {
 * Inheritance
 */
 
-	that = ch.object.call(that);
+	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
 
 /**
@@ -52,7 +52,6 @@ ch.watcher = function (conf) {
 	var validator = that.validator = (function(){
 		var c = {};
 			c.condition = conf.condition
-			//c.watcher = that["public"];
 	 	return that.$element.validator(c);
 	})();
 
@@ -172,6 +171,13 @@ ch.watcher = function (conf) {
 		that.trigger("clear");
 	};
 
+	/**
+	* Returns a value of element
+	* @private
+	* @name ch.Watcher#value
+	* @function
+	* @returns string
+	*/
 	var value = function(){
 		return that.element.value;
 	};
@@ -276,15 +282,6 @@ ch.watcher = function (conf) {
 
 		return that["public"];
 	};
-	
-	/**
-	* Returns a value of element
-	* @public
-	* @name ch.Watcher#value
-	* @function
-	* @returns string
-	*/
-	that["public"].value = value;
 
 	/**
 	* Let you keep chaining methods.

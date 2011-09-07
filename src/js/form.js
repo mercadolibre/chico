@@ -116,24 +116,24 @@ ch.form = function(conf) {
 
 		/**
 		* Callback function
-		* @name ch.Form#onValidate
+		* @name ch.Form#validate
 		* @event
 		* @public
 		*/
 		/**
 		* Callback function
-		* @name ch.Form#onError
+		* @name ch.Form#error
 		* @event
 		* @public
 		*/
 		if (status) {
 			that.callbacks("onValidate");
 			// new callback
-			that.trigger("onValidate");
+			that.trigger("validate");
 		} else {
 			that.callbacks("onError");
 			// new callback
-			that.trigger("onError");
+			that.trigger("error");
 		}
 
 		/**
@@ -185,6 +185,14 @@ that.prevent(event);
 			that.callbacks("onSubmit");
 		}
 
+		// OLD CALLBACK SYSTEM!
+		// Is there's no error but there's a onSubmit callback
+		if ( status && ch.utils.hasOwn(conf, "onSubmit")) {
+			// Avoid default actions
+			that.prevent(event);
+			// To execute defined onSubmit callback
+			that.callbacks("onSubmit");
+		}
 		/**
 		* Callback function
 		* @name ch.Form#submit
@@ -194,6 +202,7 @@ that.prevent(event);
 		// * New callback system *
 		// Check inside $.data if there's a handler for ch-submit event
 		// if something found there, avoid submit.
+
 		var formEvents = $(that.public).data("events");
 		var isSubmitEventDefined = (formEvents && ch.utils.hasOwn(formEvents, "ch-submit"));
 
@@ -227,6 +236,8 @@ that.prevent(event);
 		for(i; i < j; i += 1) {
 		  that.children[i].clear();
 		}
+		
+		status = true;
 
 		status = true;
 

@@ -17,7 +17,7 @@
 * me.content("http://content.com/new/content");
 */
 
-ch.modal = function(conf){
+ch.modal = function (conf) {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -27,9 +27,19 @@ ch.modal = function(conf){
 	*/
 	var that = this;
 	conf = ch.clon(conf);
-	conf.closeButton = (that.type == "modal") ? true : false;
+	
 	conf.classes = "box";
-
+	conf.closeButton = that.type === "modal";
+	
+	conf.aria = {};
+	
+	if (conf.closeButton) {
+		conf.aria.role = "dialog";
+		conf.aria.identifier = "aria-label";
+	} else {
+		conf.aria.role = "alert";
+	}
+	
 	that.conf = conf;
 
 /**
@@ -52,7 +62,7 @@ ch.modal = function(conf){
 	var $dimmer = $("<div class=\"ch-dimmer\">");
 
 	// Set dimmer height for IE6
-	if (ch.utils.html.hasClass("ie6")) { $dimmer.height( parseInt(document.documentElement.clientHeight, 10)* 3) };
+	if (ch.utils.html.hasClass("ie6")) { $dimmer.height(parseInt(document.documentElement.clientHeight, 10) * 3); }
 
 	/**
 	* Reference to dimmer control, turn on/off the dimmer object.
@@ -61,33 +71,34 @@ ch.modal = function(conf){
 	* @type object
 	*/
 	var dimmer = {
-		on: function() { //TODO: posicionar el dimmer con el positioner
+		on: function () {
 
-			if (that.active) { return };
+			if (that.active) { return; }
 
 			$dimmer
 				.css("z-index", ch.utils.zIndex += 1)
-				.appendTo("body")
+				.appendTo(ch.utils.body)
 				.fadeIn();
 
-			if (that.type == "modal") {
-				$dimmer.one("click", function(event){ that.innerHide(event) });
+			if (that.type === "modal") {
+				$dimmer.one("click", function (event) { that.innerHide(event) });
 			}
-
+			
+			// TODO: position dimmer with Positioner
 			if (!ch.features.fixed) {
 			 	ch.positioner({ element: $dimmer });
 			}
 
-			if ($("html").hasClass("ie6")) {
+			if (ch.utils.html.hasClass("ie6")) {
 				$("select, object").css("visibility", "hidden");
 			}
 		},
-		off: function() {
-			$dimmer.fadeOut("normal", function(){
+		off: function () {
+			$dimmer.fadeOut("normal", function () {
 				$dimmer.detach();
-				if ($("html").hasClass("ie6")) {
+				if (ch.utils.html.hasClass("ie6")) {
 					$("select, object").css("visibility", "visible");
-				};
+				}
 			});
 		}
 	};
@@ -96,8 +107,6 @@ ch.modal = function(conf){
 *	Protected Members
 */
 
-	that.$trigger = that.$element;
-
 	/**
 	* Inner show method. Attach the component's layout to the DOM tree and load defined content.
 	* @protected
@@ -105,10 +114,10 @@ ch.modal = function(conf){
 	* @function
 	* @returns itself
 	*/
-	that.innerShow = function(event) {
+	that.innerShow = function (event) {
 		dimmer.on();
 		that.parent.innerShow(event);		
-		that.$trigger.blur();
+		that.$element.blur();
 		return that;
 	};
 
@@ -119,7 +128,7 @@ ch.modal = function(conf){
 	* @function
 	* @returns itself
 	*/
-	that.innerHide = function(event) {
+	that.innerHide = function (event) {
 		dimmer.off();
 		that.parent.innerHide(event);
 		return that;
@@ -250,9 +259,9 @@ ch.modal = function(conf){
 /**
 *	Default event delegation
 */
-	that.$trigger
+	that.$element
 		.css("cursor", "pointer")
-		.bind("click", function(event){ that.innerShow(event); });
+		.bind("click", function (event) { that.innerShow(event); });
 
 	/**
 	* Triggers when component is visible.
@@ -260,7 +269,7 @@ ch.modal = function(conf){
 	* @event
 	* @public
 	* @example
-	* me.on("show",function(){
+	* me.on("show",function () {
 	*	this.content("Some new content");
 	* });
 	* @see ch.Floats#event:show
@@ -272,7 +281,7 @@ ch.modal = function(conf){
 	* @event
 	* @public
 	* @example
-	* me.on("hide",function(){
+	* me.on("hide",function () {
 	*	otherComponent.show();
 	* });
 	* @see ch.Floats#event:hide
@@ -285,7 +294,7 @@ ch.modal = function(conf){
 	* @public
 	* @example
 	* // Following the first example, using 'me' as modal's instance controller:
-	* me.on("ready",function(){
+	* me.on("ready",function () {
 	*	this.show();
 	* });
 	*/
@@ -296,6 +305,7 @@ ch.modal = function(conf){
 
 ch.factory("modal");
 
+
 /**
 * Transition
 * @name Transition
@@ -304,11 +314,13 @@ ch.factory("modal");
 * @memberOf ch
 * @returns itself
 */
-ch.extend("modal").as("transition", function(conf) {
+ch.extend("modal").as("transition", function (conf) {
+	
 	conf.closeButton = false;
+	
 	conf.msg = conf.msg || conf.content || "Please wait...";
-	conf.content = $("<div>")
-		.addClass("loading")
-		.after( $("<p>").html(conf.msg) );
+	
+	conf.content = $("<div class=\"loading\"></div><p>" + conf.msg + "</p>");
+	
 	return conf;
 });

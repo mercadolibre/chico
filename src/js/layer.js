@@ -17,7 +17,7 @@
 * me.content("http://content.com/new/content");
 */
 
-ch.layer = function(conf) {
+ch.layer = function (conf) {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -26,15 +26,21 @@ ch.layer = function(conf) {
 	* @type object
 	*/
 	var that = this;
-
 	conf = ch.clon(conf);
+	
 	conf.cone = true;
+	conf.closeButton = conf.event === "click";
 	conf.classes = "box";
-	conf.closeButton =	(conf.event === 'click') ? true : false;
+	
+	conf.aria = {};
+	conf.aria.role = "tooltip";
+	conf.aria.identifier = "aria-describedby";
+	
 	conf.position = {};
 	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
+	conf.position.reposition = true;
 
 	that.conf = conf;
 
@@ -65,7 +71,7 @@ ch.layer = function(conf) {
 	* @type number
 	* @default 400
 	*/
-	hideTime = conf.hideTime || 400,
+		hideTime = conf.hideTime || 400,
 
 	/**
 	* Show timer instance.
@@ -73,7 +79,7 @@ ch.layer = function(conf) {
 	* @name ch.Layer#st
 	* @type timer
 	*/
-	st,
+		st,
 
 	/**
 	* Hide timer instance.
@@ -81,7 +87,7 @@ ch.layer = function(conf) {
 	* @name ch.Layer#ht
 	* @type timer
 	*/
-	ht,
+		ht,
 
 	/**
 	* Starts show timer.
@@ -89,7 +95,7 @@ ch.layer = function(conf) {
 	* @function
 	* @name ch.Layer#showTimer
 	*/
-	showTimer = function(){ st = setTimeout(that.innerShow, showTime) },
+		showTimer = function () { st = setTimeout(that.innerShow, showTime); },
 
 	/**
 	* Starts hide timer.
@@ -97,15 +103,17 @@ ch.layer = function(conf) {
 	* @function
 	* @name ch.Layer#hideTimer
 	*/
-	hideTimer = function(event){
-		if (conf.event != "click") {
-			var target = event.srcElement || event.target;
-			var relatedTarget = event.relatedTarget || event.toElement;
-			if ( target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT" ) { return; };
-		}
-
-		ht = setTimeout(that.innerHide, hideTime);
-	},
+		hideTimer = function (event) {
+			if (conf.event !== "click") {
+				var target = event.srcElement || event.target;
+				
+				var relatedTarget = event.relatedTarget || event.toElement;
+				
+				if (target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") { return; }
+			}
+	
+			ht = setTimeout(that.innerHide, hideTime);
+		},
 
 	/**
 	* Clear all timers.
@@ -113,7 +121,7 @@ ch.layer = function(conf) {
 	* @function
 	* @name ch.Layer#clearTimers
 	*/
-	clearTimers = function(){ clearTimeout(st); clearTimeout(ht); },
+		clearTimers = function () { clearTimeout(st); clearTimeout(ht); },
 
 	/**
 	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
@@ -121,7 +129,7 @@ ch.layer = function(conf) {
 	* @function
 	* @name ch.Layer#stopBubble
 	*/
-	stopBubble = function(event){ event.stopPropagation(); };
+		stopBubble = function (event) { event.stopPropagation(); };
 
 	/**
 	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
@@ -129,18 +137,16 @@ ch.layer = function(conf) {
 	* @name ch.Layer#stopBubble
 	* @function
 	*/
-/*	stopBubble = function(event) {
+/*	stopBubble = function (event) {
 		var target = event.srcElement || event.target;
 		var relatedTarget = event.relatedTarget || event.toElement;
-		if ( target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT" ) { return; };
+		if (target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") { return; };
 		hideTimer();
 	};*/
 
 /**
 *	Protected Members
 */
-
-	that.$trigger = that.$element;
 
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
@@ -149,25 +155,23 @@ ch.layer = function(conf) {
 	* @name ch.Layer#innerShow
 	* @returns itself
 	*/
-	that.innerShow = function(event) {
+	that.innerShow = function (event) {
 
 		// Reset all layers
-		$.each(ch.instances.layer, function(i, e){ e.hide(); });
-		//conf.position.context = that.$element;
+		$.each(ch.instances.layer, function (i, e) { e.hide(); });
+		
+		// conf.position.context = that.$element;
 		that.parent.innerShow(event);
 
 		// Click
-		if (conf.event == "click") {
-			conf.close = true;
+		if (conf.event === "click") {
 			// Document events
-			$(document).one('click', that.innerHide);
-			that.$container.bind('click', stopBubble);
+			ch.utils.document.one("click", that.innerHide);
+			that.$container.bind("click", stopBubble);
 		// Hover
 		} else { 		
 			clearTimers();
-			that.$container
-				.one("mouseenter", clearTimers)
-				.bind("mouseleave", hideTimer);
+			that.$container.one("mouseenter", clearTimers).bind("mouseleave", hideTimer);
 		}
 
 		return that;
@@ -180,9 +184,8 @@ ch.layer = function(conf) {
 	* @name ch.Layer#innerHide
 	* @returns itself
 	*/
-	that.innerHide = function(event) {
-		that.$container.unbind('click', stopBubble);
-		that.$container.unbind('mouseleave', hideTimer);
+	that.innerHide = function (event) {
+		that.$container.unbind("click", stopBubble).unbind("mouseleave", hideTimer);
 
 		that.parent.innerHide(event);
 	}
@@ -288,10 +291,10 @@ ch.layer = function(conf) {
 	* @returns itself
 	* @see ch.Floats#size
 	* @example
-	* // to set the heigth
+	* // to set the height
 	* me.height(300);
 	* @example
-	* // to get the heigth
+	* // to get the height
 	* me.height // 300
 	*/
 
@@ -314,21 +317,21 @@ ch.layer = function(conf) {
 */
 
 	// Click
-	if(conf.event === 'click') {
-		that.$trigger
-			.css('cursor', 'pointer')
-			.bind('click', that.innerShow);
+	if (conf.event === "click") {
+		that.$element
+			.css("cursor", "pointer")
+			.bind("click", that.innerShow);
 
 	// Hover
 	} else {
-		that.$trigger
-			.css('cursor', 'default')
-			.bind('mouseenter', that.innerShow)
-			.bind('mouseleave', hideTimer);
-	};
+		that.$element
+			.css("cursor", "default")
+			.bind("mouseenter", that.innerShow)
+			.bind("mouseleave", hideTimer);
+	}
 
 	// Fix: change layout problem
-	$("body").bind(ch.events.LAYOUT.CHANGE, function(){ that.position("refresh") });
+	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
 
 	/**
 	* Triggers when component is visible.
@@ -336,7 +339,7 @@ ch.layer = function(conf) {
 	* @event
 	* @public
 	* @example
-	* me.on("show",function(){
+	* me.on("show",function () {
 	*	this.content("Some new content");
 	* });
 	* @see ch.Floats#event:show
@@ -348,7 +351,7 @@ ch.layer = function(conf) {
 	* @event
 	* @public
 	* @example
-	* me.on("hide",function(){
+	* me.on("hide",function () {
 	*	otherComponent.show();
 	* });
 	* @see ch.Floats#event:hide
@@ -361,7 +364,7 @@ ch.layer = function(conf) {
 	* @public
 	* @example
 	* // Following the first example, using 'me' as Layer's instance controller:
-	* me.on("ready",function(){
+	* me.on("ready",function () {
 	*	this.show();
 	* });
 	*/
