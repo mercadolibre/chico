@@ -6,6 +6,8 @@
 * @augments ch.Object
 * @memberOf ch
 * @requires ch.Form
+* @requires ch.Validator
+* @requires ch.Helper
 * @requires ch.Positioner
 * @requires ch.Events
 * @param {object} conf Object with configuration properties
@@ -16,7 +18,7 @@
 * @see ch.Custom
 */
 
-ch.watcher = function(conf) {
+ch.watcher = function (conf) {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -25,6 +27,7 @@ ch.watcher = function(conf) {
 	* @type itself
 	*/
 	var that = this;
+
 	conf = ch.clon(conf);
 	that.conf = conf;
 
@@ -38,13 +41,58 @@ ch.watcher = function(conf) {
 /**
 * Private Members
 */
+	
 	/**
-	* Reference to a ch.form controller. If there isn't any, the Watcher instance will create one.
+	* Reference to a Validator instance. If there isn't any, the Watcher instance will create one.
 	* @private
-	* @name ch.Watcher#controller
-	* @type ch.Form
+	* @name ch.Watcher#validator
+	* @type ch.Validator
+	* @see ch.Validator
 	*/
-	var controller = (function() {
+	var validator = that.validator = (function(){
+		var c = {};
+			c.condition = conf.condition
+			//c.watcher = that["public"];
+	 	return that.$element.validator(c);
+	})();
+
+	/**
+	* Search for instances of Watcher with the same trigger, and then merge it's properties with it.
+	* @private
+	* @name ch.Watcher#checkInstance
+	* @function
+	* @returns Object
+	*/
+	var checkInstance;
+	if (checkInstance = function() {
+
+		var instance, instances = ch.instances.watcher;
+		if ( instances && instances.length > 0 ) {
+			for (var i = 0, j = instances.length; i < j; i+=1) {
+				instance = instances[i];
+
+				if (instance.element !== that.element) {
+					continue;
+				}
+
+				return {
+					exists: true,
+					object: instance
+				}
+			}
+		}
+	}()){
+		return checkInstance;
+	};
+
+	/**
+	* Reference to a Form instance. If there isn't any, the Watcher instance will create one.
+	* @private
+	* @name ch.Watcher#form
+	* @type ch.Form
+	* @see ch.Form
+	*/
+	var form = that.form = (function() {
 		if (ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0) {
 			var i = 0, j = ch.instances.form.length;
 			for (i; i < j; i+=1) {
@@ -58,51 +106,80 @@ ch.watcher = function(conf) {
 			return ch.instances.form[last]; // Set my parent
 		}
 	})();
+	form.children.push(that["public"]);
 
 	/**
-	* Search for instances of Watchers with the same trigger, and then merge it's properties with it.
+	* Validation event
 	* @private
-	* @name ch.Watcher#checkInstance
-	* @function
-	* @returns object
+	* @name ch.Watcher#validationEvent
 	*/
-	var checkInstance = function() {
-		var instance = ch.instances.watcher;
-		if ( instance && instance.length > 0 ) {
-			for (var i = 0, j = instance.length; i < j; i+=1) {
-				if (instance[i].element !== that.element) continue;
-				// Merge Conditions
-				$.merge(instance[i].conditions, that.conditions);
-				return {
-					exists: true,
-					object: instance[i]
-				};
-			};
+	var validationEvent = (that.$element.hasClass("options") || that.element.tagName == "SELECT") ? "change" : "blur";
+
+	/**
+	* hasError
+	* @private
+	* @name ch.Watcher#hasError
+	* @function
+	* @return boolean
+	*/
+	var hasError = function () {
+
+		// Pre-validation: Don't validate disabled
+		if (that.$element.attr('disabled') || !that.enabled) { return false; }
+
+		var gotError = validator.validate(value());
+		var status = !gotError.status;
+
+		if (status) {
+			that.$element.addClass("error");
+			that.helper.show(gotError.msg || form.messages[gotError.condition] || "Error.");
+
+			// Add blur or change event only one time
+			if (!that.$element.data("events")) { that.$element.one(validationEvent, hasError); }
+
+		} else {
+			that.$element.removeClass("error");
+			that.helper.hide();
 		}
+
+		return status;
+
 	};
 
-	/**
-	* Run all validations again and do form.checkStatus()
-	* @private
-	* @name ch.Watcher#revalidate
-	* @function
-	*/
-	var revalidate = function() {
-		that.validate();
-		controller.checkStatus();  // Check everthing?
+	var clear = function() {
+
+		that.$element.removeClass("error");
+		that.helper.hide();
+
+		// Don't work
+		//that.$element.unbind(validationEvent, hasError); // Remove blur and change event
+		
+		validator.clear();
+
+		/**
+		* Triggers when al validations are cleared.
+		* @name ch.Watcher#clear
+		* @event
+		* @public
+		* @example
+		* me.on("clear",function(){
+		*	submitButton.enable();
+		* });
+		*/
+		// old callback system
+		that.callbacks('onClear');
+		// new callback
+		that.trigger("clear");
 	};
+
+	var value = function(){
+		return that.element.value;
+	};
+
 
 /**
 * Protected Members
 */
-
-	/**
-	* Flag that let you know if there's a validation going on.
-	* @protected
-	* @name ch.Watcher#active
-	* @type boolean
-	*/
-	that.active = false;
 
 	/**
 	* Flag that let you know if the watchers is enabled or not.
@@ -116,9 +193,9 @@ ch.watcher = function(conf) {
 	* This clousure is used as a reference to the positioning preferences.
 	* @protected
 	* @name ch.Watcher#reference
-	* @type jQuery
+	* @type jQuery Object
 	*/
-	that.reference = (function() {
+	that.$reference = (function() {
 		var reference;
 		// CHECKBOX, RADIO
 		if (that.$element.hasClass("options")) {
@@ -139,279 +216,7 @@ ch.watcher = function(conf) {
 		return reference;
 	})();
 
-
-	/**
-	* This clousure process conditions and creates a map with all configured conditions, it's messages and validations.
-	* @protected
-	* @name ch.Watcher#conditions
-	* @type array
-	*/
-	that.conditions = (function(){
-		var c = []; // temp collection
-		var i = 0;  // iteration
-		var t = conf.conditions.length;
-		
-		for (i; i < t; i+=1) {
-			/**
-			* Process conditions to find out which should be configured.
-			* Add validations and messages to conditions object.
-			*/
-			var condition = conf.conditions[i];
-
-			// If condition exists in the Configuration Object
-			if (conf[condition.name]) {
-
-				// Sabe the value
-				condition.value = conf[condition.name];
-
-				// If there is a message defined for that condition
-				
-				if ( conf.messages[condition.name] ) {
-										
-					condition.message = conf.messages[condition.name];
-				}
-
-				// Push it to the new conditions collection
-				c.push(condition);
-			}
-		}
-		// return all the configured conditions
-		return c;
-
-	})(); // Love this ;)
-
-	/**
-	* Return true is a required conditions is found on the condition collection.
-	* @private
-	* @name ch.Watcher#isRequired
-	* @function
-	* @return boolean
-	*/
-	that.isRequired = function(){
-		var t = that.conditions.length;
-		while ( t-- ) {
-			var condition = that.conditions[t];
-			if (condition.name === "required" && condition.value) {
-				return true;
-			}
-		}
-		return false;
-	};
-
-	/**
-	* Helper is a UI Component that shows the messages of active validations.
-	* @private
-	* @name ch.Watcher#helper
-	* @type ch.Helper
-	* @see ch.Helper
-	*/
-	var helper = {};
-		helper.uid = that.uid + "#0";
-		helper.type = "helper";
-		helper.element = that.element;
-		helper.$element = that.$element;
-
-	that.helper = ch.helper.call(helper, that);
-
-	/**
-	* Process all conditions looking for errors.
-	* @protected
-	* @name ch.Watcher#validate
-	* @function
-	* @return itself
-	*/
-	that.validate = function(event) {
-
-		// Pre-validation: Don't validate disabled or not required & empty elements
-		if ( that.$element.attr('disabled') ) { return; }
-
-		var isRequired = that.isRequired();
-
-		// Avoid fields that aren't required when they are empty or de-activated
-		if (!isRequired && that.isEmpty() && that.active === false) { return; }
-
-		if (that.enabled && ( that.active === false || !that.isEmpty() || isRequired) ) {
-
-			/**
-			* Triggers before start validation process.
-			* @name ch.Watcher#beforeValidate
-			* @event
-			* @public
-			* @example
-			* me.on("beforeValidate",function(){
-			*	submitButton.disable();
-			* });
-			*/
-			// old callback system
-			that.callbacks('beforeValidate');
-			// new callback
-			that.trigger("beforeValidate");
-
-			var i = 0, t = that.conditions.length,
-				value = that.$element.val(),
-				gotError = false;
-				
-			// for each condition
-			for ( i ; i < t ; i +=1 ) {
-
-				var condition = that.conditions[i];
-
-				if (that.isRequired()) {
-					gotError = that.isEmpty();
-				}
-
-				if (condition.patt) {
-					gotError = !condition.patt.test(value);
-				}
-
-				if (condition.expr) {
-					gotError = !condition.expr( value, condition.value );
-				}
-
-				if (condition.func) {
-					// Call validation function with 'this' as scope.
-					gotError = !condition.func.call(that["public"], value);
-				}
-
-				if ( gotError ) {
-
-					/**
-					* Triggers when an error occurs on the validation process.
-					* @name ch.Watcher#error
-					* @event
-					* @public
-					* @example
-					* me.on("error",function(){
-					*	errorModal.show();
-					* });
-					*/
-					// old callback system
-					that.callbacks('error');
-					// new callback
-					that.trigger("error");
-
-					// Field error style
-					that.$element.addClass("error");
-
-					// Show helper with message
-					var text = ( condition.message ) ? condition.message : 
-						(ch.utils.hasOwn(controller, "messages")) ? controller.messages[condition.name] :
-						undefined;
-
-					that.helper["public"].show("<span class=\"ico error\">Error: </span><p>" + text + "</p>");
-
-					that.active = true;
-
-					var validationEvent = (that.tag == 'OPTIONS' || that.tag == 'SELECT') ? "change" : "blur";
-
-					// Add blur or change event only one time
-					that.$element.one(validationEvent , function(event){ that.validate(event); });
-
-					return;
-				}
-
-			} // End for each validation
-
-		} // End if Enabled
-
-		// Status OK (with previous error)
-		if (that.active || !that.enabled) {
-			// Remove field error style
-			that.$element.removeClass("error");
-			// Hide helper
-			that.helper["public"].hide();
-			// Public status OK
-			//that.publish.status = that.status =  conf.status = true; // Status OK
-			that.active = false;
-
-			// If has an error, but complete the field and submit witout trigger blur event
-			if (event) {
-				var originalTarget = event.originalEvent.explicitOriginalTarget || document.activeElement; // Moderns Browsers || IE
-				if (originalTarget.type == "submit") { controller.submit(event); };
-			}
-
-			// This generates a lot of redraws... I don't want it here
-			//controller.checkStatus();
-		}
-
-		/**
-		* Triggers when the validation process ends.
-		* @name ch.Watcher#afterValidate
-		* @event
-		* @public
-		* @example
-		* me.on("afterValidate",function(){
-		*	submitButton.disable();
-		* });
-		*/
-		// old callback system
-		that.callbacks('afterValidate');
-		// new callback
-		that.trigger("afterValidate");
-
-		return that;
-	};
-
-
-	/**
-	* Reset all active validations messages.
-	* @protected
-	* @name ch.Watcher#reset
-	* @function
-	* @return itself
-	*/
-	that.reset = function() {
-		//that.publish.status = that.status = conf.status = true; // Public status OK
-		that.active = false;
-		that.$element.removeClass("error");
-		that.helper["public"].hide(); // Hide helper
-		that.$element.unbind("blur change", that.validate); // Remove blur and change event
-
-		/**
-		* Triggers when al validations are reseted.
-		* @name ch.Watcher#reset
-		* @event
-		* @public
-		* @example
-		* me.on("reset",function(){
-		*	submitButton.enable();
-		* });
-		*/
-		// old callback system
-		that.callbacks('onReset');
-		// new callback
-		that.trigger("reset");
-
-		return that;
-	};
-
-	/**
-	* Returns false if the field has no value selected.
-	* @protected
-	* @name ch.Watcher#isEmpty
-	* @function
-	* @return boolean
-	*/
-	that.isEmpty = function() {
-		that.tag = ( that.$element.hasClass("options")) ? "OPTIONS" : that.element.tagName;
-		switch (that.tag) {
-			case 'OPTIONS':
-				return that.$element.find('input:checked').length === 0;
-			break;
-
-			case 'SELECT':
-				var val = that.$element.val();
-				return parseInt(val) === -1 || val === null;
-			break;
-
-			case 'INPUT':
-			case 'TEXTAREA':
-				return $.trim( that.$element.val() ).length === 0;
-			break;
-		};
-
-	};
-
+	that.helper = that.$reference.helper();
 
 /**
 *	Public Members
@@ -443,115 +248,118 @@ ch.watcher = function(conf) {
 	* Used by the helper's positioner to do his magic.
 	* @public
 	* @name ch.Watcher#reference
-	* @type jQuery
+	* @type jQuery Object
 	* @TODO: remove 'reference' from public scope
 	*/
-	that["public"].reference = that.reference;
+	that["public"].reference = that.$reference;
 
 	/**
-	* This public Map saves all the validation configurations from this instance.
+	* Run all configured validations.
 	* @public
-	* @name ch.Watcher#conditions
-	* @type object
+	* @function
+	* @name ch.watcher#hasError
+	* @returns itself
 	*/
-	that["public"].conditions = that.conditions;
+	that["public"].hasError = function(){
+		return hasError();
+	}
 
 	/**
-	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
+	* Clear all active validations.
 	* @public
-	* @name ch.Watcher#type
-	* @type string
-	* @see ch.Floats
-	*/
-	that["public"].helper = that.helper["public"];
-
-	/**
-	* Active is a boolean property that let you know if there's a validation going on.
-	* @public
-	* @name ch.Watcher#active
+	* @name ch.Watcher#clear
 	* @function
 	* @returns itself
 	*/
-	that["public"].active = function() {
-		return that.active;
+	that["public"].clear = function() {
+		clear();
+
+		return that["public"];
 	};
+	
+	/**
+	* Returns a value of element
+	* @public
+	* @name ch.Watcher#value
+	* @function
+	* @returns string
+	*/
+	that["public"].value = value;
 
 	/**
 	* Let you keep chaining methods.
 	* @public
 	* @name ch.Watcher#and
 	* @function
-	* @returns itself
+	* @returns jQuery Object
 	*/
-	that["public"].and = function() {
+	that["public"].and = function(){
 		return that.$element;
 	};
 
 	/**
-	* Reset al active validations.
+	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
-	* @name ch.Watcher#reset
-	* @function
-	* @returns itself
+	* @name ch.Watcher#form
+	* @type ch.Form
+	* @see ch.Form
 	*/
-	that["public"].reset = function() {
-		that.reset();
-
-		return that["public"];
-	};
+	that["public"].form = form;
 
 	/**
-	* Run all configured validations.
+	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
-	* @function
-	* @name ch.Watcher#validate
-	* @returns itself
+	* @name ch.Watcher#validator
+	* @type ch.Validator
+	* @see ch.Validator
 	*/
-	that["public"].validate = function() {
-		that.validate();
-
-		return that["public"];
-	};
+	that["public"].validator = validator;
+	
+	/**
+	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
+	* @public
+	* @name ch.Watcher#helper
+	* @type ch.Helper
+	* @see ch.Floats
+	* @see ch.Helper
+	*/
+	that["public"].helper = that.helper;
 
 	/**
-	* Turn on Watcher engine.
+	* Turn on Watcher and Validator engine or an specific condition.
 	* @public
 	* @name ch.Watcher#enable
 	* @function
 	* @returns itself
+	* @see ch.Validator
 	*/
-	that["public"].enable = function() {
-		that.enabled = true;
+	that["public"].enable = function(condition){
+		validator.enable(condition);
+
+		if(!condition){
+			that.enabled = true;
+		}
 
 		return that["public"];
-	};
+	}
 
 	/**
-	* Turn off Watcher engine and reset its validation.
+	* Turn off Watcher and Validator engine or an specific condition.
 	* @public
 	* @name ch.Watcher#disable
 	* @function
 	* @returns itself
+	* @see ch.Validator
 	*/
-	that["public"].disable = function() {
-		that.enabled = false;
-		that.reset();
+	that["public"].disable = function(condition){
+		validator.disable(condition);
+
+		if(!condition){
+			that.enabled = false;
+		}
 
 		return that["public"];
-	};
-
-	/**
-	* Recalculate Helper's positioning.
-	* @public
-	* @name ch.Watcher#refresh
-	* @function
-	* @returns itself
-	*/
-	that["public"].refresh = function() {
-		that.helper.position("refresh");
-
-		return that["public"];
-	};
+	}
 
 /**
 *	Default event delegation
@@ -570,20 +378,6 @@ ch.watcher = function(conf) {
 	*/
 	that.trigger("ready");
 
-	// Run the instances checker
-	// TODO: Maybe is better to check this on top to avoid all the process.
-	var check = checkInstance();
-	// If a match exists
-	if (check) {
-		// Create a public object and save the existing object
-		// in the public object to mantain compatibility
-		var that = {};
-			that["public"] = check;
-		// ;) repleace that object with the repeated instance
-	} else {
-		// this is a new instance: "Come to papa!"
-		controller.children.push(that["public"]);
-	}
-
 	return that;
 };
+ch.factory("watcher");

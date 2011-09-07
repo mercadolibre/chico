@@ -8,7 +8,7 @@
 * @returns itself
 */
 
-ch.helper = function(controller){
+ch.helper = function(conf){
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -18,13 +18,12 @@ ch.helper = function(controller){
 	*/
 	var that = this;
 
-	var conf = {};
-		conf.cone = true;
-		conf.position = {};
-		conf.position.context = controller.reference;
-		conf.position.offset = "15 0";
-		conf.position.points = "lt rt";
-		conf.cache = false;
+	conf.cone = true;
+	conf.position = {};
+	conf.position.context = that.$element;
+	conf.position.offset = "15 0";
+	conf.position.points = "lt rt";
+	conf.cache = false;
 
 	that.conf = conf;
 
@@ -44,7 +43,7 @@ ch.helper = function(controller){
 *  Protected Members
 */
 
-	that.content("Error");
+	that.content("<span class=\"ico error\">Error: </span><p>Error.</p>");
 
  	that.$trigger = that.$element;
 
@@ -110,6 +109,16 @@ ch.helper = function(controller){
 	* me.content("http://chico.com/some/content.html");
 	* @see ch.Object#content
 	*/
+	that["public"].content = function (message) {
+
+		if (message) {
+			that.content("<span class=\"ico error\">Error: </span><p>" + message + "</p>");
+		} else {
+			return that.content();
+		}
+
+		return that["public"];
+	};
 
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
