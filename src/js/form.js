@@ -154,7 +154,6 @@ ch.form = function(conf) {
 	* and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
 	*/
 	var submit = function(event) {
-that.prevent(event);
 		/**
 		* Callback function
 		* @name ch.Form#beforeSubmit
