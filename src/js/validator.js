@@ -32,13 +32,6 @@ ch.validator = function(conf) {
 /**
 * Private Members
 */
-
-	/**
-	* This clousure process creates new conditions objects and creates a map with all configured conditions, it's messages and validations.
-	* @protected
-	* @name ch.Validator#conditions
-	* @type Object
-	*/
 	var conditions = (function(){
 		var c = {}; // temp collection
 		var condition = ch.condition.call(that["public"], conf.condition);
@@ -84,11 +77,6 @@ ch.validator = function(conf) {
 		return checkInstance;
 	};
 
-	/**
-	* Process all conditions looking for errors.
-	* @private
-	* @name ch.Validator#validate
-	*/
 	var validate = function(value) {
 
 		if (!that.enabled) { return true; }
@@ -198,17 +186,6 @@ ch.validator = function(conf) {
 		
 	};
 
-	/**
-	* Clear all conditions
-	* @private
-	* @name ch.Validator#clear
-	*/
-	var clear = function() {
-		that.active = false;
-		
-		//helper.hide(); // Hide helper
-	};
-
 /**
 * Protected Members
 */
@@ -257,21 +234,13 @@ ch.validator = function(conf) {
 	that["public"].conditions = conditions;
 
 	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.Validator#element
-	* @type HTMLElement
-	*/
-	//that["public"].watcher = watcher["public"];
-
-	/**
 	* Active is a boolean property that let you know if there's a validation going on.
 	* @public
-	* @name ch.Validator#active
+	* @name ch.Validator#isActive
 	* @function
 	* @returns itself
 	*/
-	that["public"].active = function() {
+	that["public"].isActive = function() {
 		return that.active;
 	};
 
@@ -300,14 +269,14 @@ ch.validator = function(conf) {
 	};
 
 	/**
-	* Clear al active validations.
+	* Clear all active validations.
 	* @public
 	* @name ch.Validator#clear
 	* @function
 	* @returns itself
 	*/
 	that["public"].clear = function() {
-		clear();
+		that.active = false;
 
 		return that["public"];
 	};

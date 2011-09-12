@@ -42,13 +42,7 @@ ch.watcher = function (conf) {
 * Private Members
 */
 	
-	/**
-	* Reference to a Validator instance. If there isn't any, the Watcher instance will create one.
-	* @private
-	* @name ch.Watcher#validator
-	* @type ch.Validator
-	* @see ch.Validator
-	*/
+	// Reference to a Validator instance. If there isn't any, the Watcher instance will create one.
 	var validator = that.validator = (function(){
 		var c = {};
 			c.condition = conf.condition
@@ -84,13 +78,7 @@ ch.watcher = function (conf) {
 		return checkInstance;
 	};
 
-	/**
-	* Reference to a Form instance. If there isn't any, the Watcher instance will create one.
-	* @private
-	* @name ch.Watcher#form
-	* @type ch.Form
-	* @see ch.Form
-	*/
+	// Reference to a Form instance. If there isn't any, the Watcher instance will create one.
 	var form = that.form = (function() {
 		if (ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0) {
 			var i = 0, j = ch.instances.form.length;
@@ -114,13 +102,6 @@ ch.watcher = function (conf) {
 	*/
 	var validationEvent = (that.$element.hasClass("options") || that.element.tagName == "SELECT") ? "change" : "blur";
 
-	/**
-	* hasError
-	* @private
-	* @name ch.Watcher#hasError
-	* @function
-	* @return boolean
-	*/
 	var hasError = function () {
 
 		// Pre-validation: Don't validate disabled
@@ -241,12 +222,6 @@ ch.watcher = function (conf) {
 	*/
 	that.enabled = true;
 
-	/**
-	* This clousure is used as a reference to the positioning preferences.
-	* @protected
-	* @name ch.Watcher#reference
-	* @type jQuery Object
-	*/
 	that.$reference = (function() {
 		var reference;
 		// CHECKBOX, RADIO
@@ -309,7 +284,7 @@ ch.watcher = function (conf) {
 	* Run all configured validations.
 	* @public
 	* @function
-	* @name ch.watcher#hasError
+	* @name ch.Watcher#hasError
 	* @returns boolean
 	*/
 	that["public"].hasError = function(){
@@ -320,7 +295,7 @@ ch.watcher = function (conf) {
 	* Run all configured validations.
 	* @public
 	* @function
-	* @name ch.watcher#validate
+	* @name ch.Watcher#validate
 	* @returns boolean
 	*/
 	that["public"].validate = function(){
@@ -405,7 +380,7 @@ ch.watcher = function (conf) {
 	that["public"].enable = function(condition){
 		validator.enable(condition);
 
-		if(!condition){
+		if (!condition) {
 			that.enabled = true;
 		}
 
@@ -423,7 +398,7 @@ ch.watcher = function (conf) {
 	that["public"].disable = function(condition){
 		validator.disable(condition);
 
-		if(!condition){
+		if (!condition){
 			that.enabled = false;
 		}
 
@@ -436,7 +411,7 @@ ch.watcher = function (conf) {
 	* @public
 	* @name ch.Watcher#isActive
 	* @function
-	* @returns itself
+	* @returns boolean
 	* @see ch.Validator
 	*/
 	that["public"].isActive = function(){
