@@ -97,6 +97,16 @@ ch.object = function(){
 	};
 	
 	/**
+	* Triggers a specific event within the component public context.
+	* @name ch.Object#trigger
+	* @function
+	* @protected
+	* @param {string} event The event name you want to trigger.
+	* @since version 0.7.1
+	*/
+	that["public"].trigger = that.trigger;
+
+	/**
 	* Add a callback function from specific event.
 	* @public
 	* @function

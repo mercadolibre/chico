@@ -5,15 +5,6 @@
 	<title>Watcher - TestCases</title>
 	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
-	
-	<style>
-		.testCarousel li,
-		.testCarousel2 li, 
-		.testCarousel3 li{
-			width:120px;
-			height:120px;
-		}
-	</style>
 </head>
 <body>
 
@@ -21,31 +12,31 @@
 	<h1>Chico-UI: Watcher testcases</h1>
 	<div class="box">
 		<h2>Demo</h2>
-		
+
 		<p><strong>Tipos de validación:</strong> E-mail, Url, Campo obligatorio, Campo numérico, Valor numérico mínimo, Valor numérico máximo, Rango de números, Cantidad mínima de caracteres, Cantidad máxima de caracteres.</p><br>
-		
+
 		<form action="test.html" id="testFormForWatcher">
 			<fieldset>
 				<legend>Casos de uso de Input</legend>
 				<p class="required">* Datos obligatorios</p>
 				<ol>
 					<li class="field-box">
-						<label class="required" for="val_custom">
-							<span>Custom field: <em>*</em></span>												 
+						<label for="val_custom">
+							<span>Custom field:</span>										 
 							<input type="email" id="val_custom" required="required">
 						</label>
 						<p class="help">Escribe una descripción corta y clara</p>
 					</li>
 					<li class="field-box">
 						<label class="required" for="val_title">
-							<span>Titulo: <em>*</em></span>												 
+							<span>Titulo: <em>*</em></span>					 
 							<input type="email" id="val_title" required="required">
 						</label>
 						<p class="help">Escribe una descripción corta y clara</p>
 					</li>
 					<li class="field-box">
 						<label class="required" for="val_email">
-							<span>E-mail: <em>*</em></span>												 
+							<span>E-mail: <em>*</em></span>					 
 							<input type="email" id="val_email" required="required">
 						</label>
 						<p class="help">Escribe una descripción corta y clara</p>
@@ -360,11 +351,21 @@
 
 		var nv0 = $('#val_custom').custom({
 			lambda: customVal,
-			msg: "Some custom validation message, value equals to: Chico-UI",
-			beforeValidate: function () { beforeValidateCallback = true; },
-			afterValidate: function () { afterValidateCallback = true; },
-			onError: function () { onErrorCallback = true; }
+			msg: "Some custom validation message, value equals to: Chico-UI"
+			//beforeValidate: function () { beforeValidateCallback = true; },
+			//afterValidate: function () { afterValidateCallback = true; },
+			//onError: function () { onErrorCallback = true; }
 		});
+		
+		// Callbacks
+		nv0.on("beforeValidate", function(){ 
+			beforeValidateCallback = true;
+		}).on("afterValidate", function(){ 
+			afterValidateCallback = true;
+		}).on("error", function(){
+			onErrorCallback = true;
+		});
+
 		var nv1 = $('#val_title')
 					 .maxLength(10,'<%= t9n.tr(s:"El campo debe tener menos de 60 caracteres.")%>')
 					 .and()
@@ -385,30 +386,50 @@
 		/**
 		 * Test Cases
 		 */
-		
+
 		// Reuse this functions for basics tests on Watcher's interfaces:
-		
+
 		var interfaceCheck = function (e, i) {
-			
+
 			ok(e.uid >= 0, "Expected to find a defined content on the watcher instance");
-			
+
 			ok(e.type == "watcher", "Expected to find \"watcher\" as value of type attribute");
-						
-			ok(typeof e.conditions[i], "Expected to find a "+i+" type condition on the watcher instance");			
+			
+			ok(typeof e.element, "Expected to find a HTMLElement");
+
+			ok(typeof e.validator, "Expected to find a validator instance");
+			
+			ok(typeof e.form, "Expected to find a form instance");
+			
+			ok(typeof e.helper, "Expected to find a helper instance");
+			
+			ok(typeof e.reference, "Expected to find a reference HTMLElement");
 			
 		}
 		
 		var publicMethodsCheck = function (e) {
 			
+			ok(typeof e.and == "function","Expected to find a \"and\" public method");
+
+			ok(typeof e.clear == "function","Expected to find a \"clear\" public method");
+
+			ok(typeof e.reset == "function","Expected to find a \"reset\" public method");
+
 			ok(typeof e.disable == "function","Expected to find a \"disabled\" public method");
 			
 			ok(typeof e.enable == "function","Expected to find a \"enable\" public method");
+
+			ok(typeof e.hasError == "function","Expected to find a \"hasError\" public method");
 			
-			ok(typeof e.refresh == "function","Expected to find a \"refresh\" public method");
-			
-			ok(typeof e.reset == "function","Expected to find a \"reset\" public method");
-			
+			ok(typeof e.isActive == "function","Expected to find a \"isActive\" public method");
+
 			ok(typeof e.validate == "function","Expected to find a \"validate\" public method");
+			
+			ok(typeof e.off == "function","Expected to find a \"off\" public method");
+
+			ok(typeof e.on == "function","Expected to find a \"on\" public method");
+
+			ok(typeof e.trigger == "function","Expected to find a \"trigger\" public method");
 		}
 		
 		module("Watcher basics instance object");
@@ -504,9 +525,9 @@
 		})
 	
 		test("Watcher chain methods", function () { 
-		  
-			ok(nv0.disable().enable().validate(), "Expected to work chain methods");
-			
+
+			ok(nv0.disable().enable(), "Expected to work chain methods");
+
 		});
 
 		test("Force error to check UI response", function () { 
@@ -526,7 +547,7 @@
 		
 		test("Force success to check UI response", function () { 
 
-			expect(3);
+			expect(4);
 			
 		  // Force success with the expected value
 		  $('#val_custom').val("Chico-UI");
@@ -534,6 +555,8 @@
 		  ok($('.ch-helper')[0], "Expected to find a helper until force success validation"); 
 		  
 		  ok(nv0.validate(), "Expected to recibe an object in response of method 'validate'");
+		  
+		  ok(nv0.hasError() === false, "Expected to recibe an boolean in response of method 'hasError'");
 
 		  ok(!$('.ch-helper')[0], "Expected not to find a helper before force success validation");
 
@@ -554,7 +577,7 @@
 		});
 		
 		test("Check for onError callback", function () { 
-			
+			 $('#val_custom').val("");
 			ok(onErrorCallback, "Expected to hear a onErrorCallback");
 			
 		});

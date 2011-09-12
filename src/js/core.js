@@ -539,7 +539,7 @@ ch.extend = function (klass) {
 		ch[name] = function (conf) {
 			// Some interfaces need a data value,
 			// others simply need to be 'true'.
-			conf[name] = conf.value || true;
+			//conf[name] = conf.value || true;
 
 			// Invoke pre-proccess if is defined,
 			// or grab the raw conf argument,
