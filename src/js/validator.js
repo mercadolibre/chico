@@ -39,7 +39,7 @@ ch.validator = function(conf) {
 	* @name ch.Validator#conditions
 	* @type Object
 	*/
-	var conditions = /*that.children["conditions"] =*/ (function(){
+	var conditions = (function(){
 		var c = {}; // temp collection
 		var condition = ch.condition.call(that["public"], conf.condition);
 
@@ -84,18 +84,6 @@ ch.validator = function(conf) {
 		return checkInstance;
 	};
 
-	// Watcher context
-	/*var w = {};
-		w.uid = that.uid + "#" + 0;
-		w.type = "watcher";
-		w.element = that.element;
-		w.$element = that.$element;
-		w.colleagues = {};
-		w.colleagues.validator = that["public"];
-	var config;
-
-	var watcher = ch.watcher.call(w, config);*/
-
 	/**
 	* Process all conditions looking for errors.
 	* @private
@@ -108,7 +96,7 @@ ch.validator = function(conf) {
 		var condition, tested, empty, val, message, required = conditions["required"];
 
 		// Avoid fields that aren't required when they are empty or de-activated
-		if (!required && value === "" && that.active === false) { return true; }
+		if (!required && value === "" && that.active === false) { return {"status": true}; }
 
 		if (that.enabled && (!that.active || value !== "" || required)) {
 			/**
@@ -134,8 +122,6 @@ ch.validator = function(conf) {
 
 				// return false if any test fails,
 				if (!tested) {
-
-					//watcher["public"].helper.content(conditions[condition].message || watcher.form.messages[condition]);
 
 					/**
 					* Triggers when an error occurs on the validation process.
@@ -327,11 +313,11 @@ ch.validator = function(conf) {
 	};
 
 	/**
-	* Run all configured conditions.
+	* Runs all configured conditions and returns an object with a status value, condition name and a message.
 	* @public
 	* @function
 	* @name ch.Validator#validate
-	* @returns itself
+	* @returns Status Object
 	*/
 	that["public"].validate = function(value){
 		return validate(value);

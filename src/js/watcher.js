@@ -35,7 +35,7 @@ ch.watcher = function (conf) {
 * Inheritance
 */
 
-	that = ch.uiobject.call(that);
+	that = ch.object.call(that);
 	that.parent = ch.clon(that);
 
 /**
@@ -126,7 +126,23 @@ ch.watcher = function (conf) {
 		// Pre-validation: Don't validate disabled
 		if (that.$element.attr('disabled') || !that.enabled) { return false; }
 
+		/**
+		* Triggers before start validation process.
+		* @name ch.Watcher#beforeValidate
+		* @event
+		* @public
+		* @example
+		* me.on("beforeValidate",function(){
+		*	submitButton.disable();
+		* });
+		*/
+		// old callback system
+		that.callbacks('beforeValidate');
+		// new callback
+		that.trigger("beforeValidate");
+		
 		var gotError = validator.validate(value());
+
 		var status = !gotError.status;
 
 		if (status) {
@@ -134,12 +150,42 @@ ch.watcher = function (conf) {
 			that.helper.show(gotError.msg || form.messages[gotError.condition] || "Error.");
 
 			// Add blur or change event only one time
-			if (!that.$element.data("events")) { that.$element.one(validationEvent, hasError); }
+			if (!that.$element.data("events")) { that.$element.one(validationEvent, function(event){ hasError(); }); }
+
+			/**
+			* Triggers when an error occurs on the validation process.
+			* @name ch.Watcher#error
+			* @event
+			* @public
+			* @example
+			* me.on("error",function(){
+			*	errorModal.show();
+			* });
+			*/
+			// old callback system
+			that.callbacks('onError');
+			// new callback
+			that.trigger("error");
 
 		} else {
 			that.$element.removeClass("error");
 			that.helper.hide();
 		}
+
+		/**
+		* Triggers when the validation process ends.
+		* @name ch.Watcher#afterValidate
+		* @event
+		* @public
+		* @example
+		* me.on("afterValidate",function(){
+		*	submitButton.disable();
+		* });
+		*/
+		// old callback system
+		that.callbacks('afterValidate');
+		// new callback
+		that.trigger("afterValidate");
 
 		return status;
 
@@ -264,10 +310,23 @@ ch.watcher = function (conf) {
 	* @public
 	* @function
 	* @name ch.watcher#hasError
-	* @returns itself
+	* @returns boolean
 	*/
 	that["public"].hasError = function(){
 		return hasError();
+	}
+	
+	/**
+	* Run all configured validations.
+	* @public
+	* @function
+	* @name ch.watcher#validate
+	* @returns boolean
+	*/
+	that["public"].validate = function(){
+		hasError();
+
+		return that["public"];
 	}
 
 	/**
@@ -278,6 +337,19 @@ ch.watcher = function (conf) {
 	* @returns itself
 	*/
 	that["public"].clear = function() {
+		clear();
+
+		return that["public"];
+	};
+
+	/**
+	* Clear all active validations.
+	* @public
+	* @name ch.Watcher#resset
+	* @function
+	* @returns itself
+	*/
+	that["public"].reset = function() {
 		clear();
 
 		return that["public"];
@@ -356,6 +428,19 @@ ch.watcher = function (conf) {
 		}
 
 		return that["public"];
+	}
+
+
+	/**
+	* Turn off Watcher and Validator engine or an specific condition.
+	* @public
+	* @name ch.Watcher#isActive
+	* @function
+	* @returns itself
+	* @see ch.Validator
+	*/
+	that["public"].isActive = function(){
+		return validator.isActive();
 	}
 
 /**

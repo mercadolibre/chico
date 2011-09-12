@@ -50,10 +50,14 @@ ch.condition = function(condition) {
 
 		enable = function() {
 			enabled = true;
+			
+			return condition;
 		},
 	
 		disable = function() {
 			enabled = false;
+			
+			return condition;
 		};
 
 /**
@@ -89,8 +93,9 @@ ch.condition = function(condition) {
 	/**
 	* Turn on condition.
 	* @public
-	* @function	
-	* @name ch.Condition#enable	
+	* @function
+	* @name ch.Condition#enable
+	* @returns itself
 	*/
 
 	/**
@@ -98,6 +103,7 @@ ch.condition = function(condition) {
 	* @public
 	* @function
 	* @name ch.Condition#disable
+	* @returns itself
 	*/
 
 	condition = $.extend(condition, {
