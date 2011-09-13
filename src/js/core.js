@@ -12,7 +12,7 @@ var ch = window.ch = {
 	* @type number
 	* @memberOf ch
 	*/
-	version: "0.7.7",
+	version: "0.7.8",
 	/**
 	* Here you will find a map of all component's instances created by Chico-UI.
 	* @name instances
