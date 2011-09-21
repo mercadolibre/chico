@@ -7,9 +7,7 @@
 * @param {object} conf Object with configuration properties
 * @returns itself
 */
-
-ch.helper = function (controller) {
-
+ch.helper = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @private
@@ -27,10 +25,11 @@ ch.helper = function (controller) {
 	conf.aria.role = "alert";
 
 	conf.position = {};
-	conf.position.context = controller.reference;
+	conf.position.context = that.$element;
 	conf.position.offset = "15 0";
 	conf.position.points = "lt rt";
-	
+	conf.position.reposition = true;
+
 	that.conf = conf;
 
 /**
@@ -49,7 +48,7 @@ ch.helper = function (controller) {
 *  Protected Members
 */
 
-	that.content("Error");
+	that.content("<span class=\"ico error\">Error: </span><p>Error.</p>");
 
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
@@ -113,6 +112,16 @@ ch.helper = function (controller) {
 	* me.content("http://chico.com/some/content.html");
 	* @see ch.Object#content
 	*/
+	that["public"].content = function (message) {
+
+		if (message) {
+			that.content("<span class=\"ico error\">Error: </span><p>" + message + "</p>");
+		} else {
+			return that.content();
+		}
+
+		return that["public"];
+	};
 
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.

@@ -3,17 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<title>Accordion - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="../php/packer.php?type=css&get=menu,expando">
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
 <body>
 
 <!-- #body -->
 	<h1>Chico-UI: Menu testcases</h1>
-    <hr />
-    <div class="box">
-	    <h2>Accordion</h2>
-	    <ul class="testAccordion">
+	<hr />
+	<div class="box">
+		<h2>Accordion</h2>
+		<ul class="testAccordion">
 			<li>
 				<span>Buy</span>
 				<ul>
@@ -41,11 +41,11 @@
 				<a href="#">Tools</a>
 			</li>
 		</ul>
-    </div>
-    
-    <div class="box">
-	    <h2>Menu</h2>
-	    <ul class="testMenu">
+	</div>
+	
+	<div class="box">
+		<h2>Menu</h2>
+		<ul class="testMenu">
 			<li>
 				<span>Buy</span>
 				<ul>
@@ -73,7 +73,7 @@
 				<a href="#">Tools</a>
 			</li>
 		</ul>
-    </div>
+	</div>
 	
 <!-- #body -->
 	<hr>
@@ -87,7 +87,7 @@
 
 	<script src="../libs/js/jquery.js"></script>
 	<script src="../libs/js/qunit.js"></script>
-	<script src="../php/packer.php?debug=true&get=menu,expando"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
 	<script src="functions.js"></script>
 	
 <!-- #script -->
@@ -95,7 +95,7 @@
 
 		var testAccordion = $(".testAccordion").accordion({
 			selected:1,
-			onSelect: function(){
+			onSelect: function () {
 				$("body").addClass("onSelect");
 			}
 		});
@@ -109,13 +109,13 @@
 		// DOM references
 		var items = [];
 			
-		for(var i = 0, j = 4; i < j; i += 1){
+		for(var i = 0, j = 4; i < j; i += 1) {
 			var ref = {};
 				ref.container = $(testAccordion.element).children().eq(i);
 				ref.trigger = ref.container.children().eq(0);
 				
 				// Fourth is an anchor
-				if(i != 3){
+				if(i != 3) {
 					ref.trigger = ref.trigger.children();
 					ref.content = ref.container.children().eq(1);
 				};
@@ -130,52 +130,52 @@
 
 		module("Accordion instance object");
 		
-        test("Accordion public properties", function(){
+		test("Accordion public properties", function () {
 
-            expect( 3 );
+			expect(3);
 
-       		ok( testAccordion.uid >= 0 , "Expected to find a \"uid\" attribute on the accordion instance");
-       		
-    		ok( testAccordion.type == "accordion" , "Expected to find \"accordion\" as value of type attribute");
-    		
-    		ok( ch.utils.hasOwn(testAccordion, "element"), "Expected to find an \"element\" property" );
-
-        });
-        
-        test("Accordion public methods", function(){
-
-            expect( 1 );
-    		
-    		ok( ch.utils.hasOwn(testAccordion, "select"), "Expected to find a \"select\" method" );
-    		
-        });
-        
-		
-		test("Accordion chain methods", function(){
-            
-            expect ( 3 );
-            
-            var acc = testAccordion;
-            
-            var chain1 = testAccordion.select(1);
-            
-            var chain2 = testAccordion.select(2);
-
-            var chained = testAccordion.select(2).select(1);
-             
-            equal ( chain1, acc, "Expected to return original instance object on first select() method call");
-            
-            equal ( chain2, acc, "Expected to return original instance object on second select() method call");
-
-            equal ( chained, acc, "Expected to return original instance object on .select(0).select(1) methods chained call");
-            
-        });
-        
-        module('Accordion layout and interaction');
-
-		test('Check for the right visual classes', function() {
+	   		ok(testAccordion.uid >= 0, "Expected to find a \"uid\" attribute on the accordion instance");
+	   		
+			ok(testAccordion.type == "accordion", "Expected to find \"accordion\" as value of type attribute");
 			
-			expect( 6 );
+			ok(ch.utils.hasOwn(testAccordion, "element"), "Expected to find an \"element\" property");
+
+		});
+		
+		test("Accordion public methods", function () {
+
+			expect(1);
+			
+			ok(ch.utils.hasOwn(testAccordion, "select"), "Expected to find a \"select\" method");
+			
+		});
+		
+		
+		test("Accordion chain methods", function () {
+			
+			expect (3);
+			
+			var acc = testAccordion;
+			
+			var chain1 = testAccordion.select(1);
+			
+			var chain2 = testAccordion.select(2);
+
+			var chained = testAccordion.select(2).select(1);
+			 
+			equal (chain1, acc, "Expected to return original instance object on first select() method call");
+			
+			equal (chain2, acc, "Expected to return original instance object on second select() method call");
+
+			equal (chained, acc, "Expected to return original instance object on .select(0).select(1) methods chained call");
+			
+		});
+		
+		module('Accordion layout and interaction');
+
+		test('Check for the right visual classes', function () {
+			
+			expect(6);
 			
 			hasClass('.testAccordion', 'ch-accordion');
 			
@@ -189,9 +189,9 @@
 			hasClass(items[3].trigger, 'ch-bellows-trigger');
 		});
 		
-		test('Open Accordion child', function() {
+		test('Open Accordion child', function () {
 			
-			expect( 3 );
+			expect(3);
 			
 			items[1].trigger.click();
 			
@@ -203,9 +203,9 @@
 			
 		});
 		
-		test('Close child, clicking on component trigger', function() {
+		test('Close child, clicking on component trigger', function () {
 			
-			expect( 2 );
+			expect(2);
 			
 			items[1].trigger.click();
 			
@@ -215,9 +215,9 @@
 			
 		});
 		
-		test('Open Accordion child throwgh public methods', function() {
+		test('Open Accordion child throwgh public methods', function () {
 			
-			expect( 2 );
+			expect(2);
 			
 			testAccordion.select(3);
 			
@@ -227,9 +227,9 @@
 			
 		});
 		
-		test('Open Accordion grandson throwgh public methods', function() {
+		test('Open Accordion grandson throwgh public methods', function () {
 			
-			expect( 3 );
+			expect(3);
 			
 			testAccordion.select("1#2");
 			
@@ -244,9 +244,9 @@
 				
 		module('Accordion callbacks');
 		
-		test('Accordion callback on select', function() {
+		test('Accordion callback on select', function () {
 			
-			expect ( 1 );
+			expect (1);
 			
 			testAccordion.select(1);
 			
@@ -254,7 +254,7 @@
 			
 			$("body").removeClass("onSelect");
 
-       	});
+	   	});
 		
 		// DOM references
 		var menuItems = [];
@@ -268,11 +268,11 @@
 			menuItems[1].trigger = menuItems[1].container.children().eq(0).children();
 			menuItems[1].content = menuItems[1].container.children().eq(1);
 		
-       	module('Menu');
-       	
-       	test('Menu open by configuration', function() {
+	   	module('Menu');
+	   	
+	   	test('Menu open by configuration', function () {
 			
-			expect( 2 );
+			expect(2);
 			
 			isVisible(menuItems[0].content);
 			
@@ -280,9 +280,9 @@
 			
 		});
 		
-		test('Open Menu child', function() {
+		test('Open Menu child', function () {
 			
-			expect( 6 );
+			expect(6);
 			
 			isNotVisible(menuItems[1].content);
 			

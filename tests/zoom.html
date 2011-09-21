@@ -1,17 +1,9 @@
-<!doctype html> 
-<!--[if IE]><![endif]--> 
-<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
-<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
-<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
-<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
-<head> 
-	<script></script> 
-	<meta charset="utf-8"> 
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
 	<title>Zoom - TestCases</title>
-	
-	<link rel="stylesheet" href="../php/packer.php?type=css&get=carousel,viewer,zoom">
-	<link href="../src/css/doc.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<link href="../libs/css/qunit.css" rel="stylesheet">
 </head>
 <body>
@@ -40,7 +32,7 @@
 
 <script src="../libs/js/jquery.js"></script>
 <script src="../libs/js/qunit.js"></script>
-<script src="../php/packer.php?get=viewer,carousel,zoom"></script>
+<script src="http://chico.com:8080/latest/js"></script>
 <script src="functions.js"></script>
 
 <!-- #script -->
@@ -56,21 +48,21 @@
 
 	module("Zoom instance object");
 		
-	test("Zoom public properties", function(){
+	test("Zoom public properties", function () {
 	
-		expect( 3 );
+		expect(3);
 	
-		$("<img>").prop("src", $(".testZoom a").prop("href")).onImagesLoads(function(){
+		$("<img>").prop("src", $(".testZoom a").prop("href")).onImagesLoads(function () {
 			zoom = viewer.children[1];
 			
 			// UID
-			equal( typeof zoom.uid, "string", "Expected to find a \"uid\" attribute on the Zoom instance");
+			equal(typeof zoom.uid, "string", "Expected to find a \"uid\" attribute on the Zoom instance");
 			
 			// Type
-			equal( zoom.type, "zoom" , "Expected to find \"zoom\" as value of type attribute");
+			equal(zoom.type, "zoom", "Expected to find \"zoom\" as value of type attribute");
 			
 			// Element
-			ok( ch.utils.hasOwn(zoom, "element"), "Expected to find an \"element\" property" );
+			ok(ch.utils.hasOwn(zoom, "element"), "Expected to find an \"element\" property");
 			
 			start();
 		});
@@ -78,53 +70,53 @@
 		stop();
 	});
 	
-	test("Zoom public methods", function(){
+	test("Zoom public methods", function () {
 	
-		expect( 6 );
+		expect(6);
 		
-		ok( ch.utils.hasOwn(zoom, "width"), "Expected to find a \"width\" method" );
+		ok(ch.utils.hasOwn(zoom, "width"), "Expected to find a \"width\" method");
 		
-		ok( ch.utils.hasOwn(zoom, "height"), "Expected to find a \"height\" method" );
+		ok(ch.utils.hasOwn(zoom, "height"), "Expected to find a \"height\" method");
 		
-		ok( ch.utils.hasOwn(zoom, "show"), "Expected to find a \"show\" method" );
+		ok(ch.utils.hasOwn(zoom, "show"), "Expected to find a \"show\" method");
 		
-		ok( ch.utils.hasOwn(zoom, "hide"), "Expected to find a \"hide\" method" );
+		ok(ch.utils.hasOwn(zoom, "hide"), "Expected to find a \"hide\" method");
 		
-		ok( ch.utils.hasOwn(zoom, "content"), "Expected to find a \"content\" method" );
+		ok(ch.utils.hasOwn(zoom, "content"), "Expected to find a \"content\" method");
 		
-		ok( ch.utils.hasOwn(zoom, "position"), "Expected to find a \"position\" method" );
+		ok(ch.utils.hasOwn(zoom, "position"), "Expected to find a \"position\" method");
 		
 	});
 
 
-	test("Zoom chain methods", function(){
+	test("Zoom chain methods", function () {
 	
-		expect( 3 );
+		expect(3);
 		
 		var originalZoom = zoom;
 		
-		equal( zoom.show(), originalZoom, "Expected to return original instance object on show() method call");
+		equal(zoom.show(), originalZoom, "Expected to return original instance object on show() method call");
 		
-		equal( zoom.hide(), originalZoom, "Expected to return original instance object on hide() method call");
+		equal(zoom.hide(), originalZoom, "Expected to return original instance object on hide() method call");
 		
-		equal( zoom.show().hide(), originalZoom, "Expected to return original instance object on .show().hide() methods chained call");
+		equal(zoom.show().hide(), originalZoom, "Expected to return original instance object on .show().hide() methods chained call");
 	
 	});
 	
-	test("Viewer must have only one zoom initialized", function(){
+	test("Viewer must have only one zoom initialized", function () {
 	
-		expect( 1 );
+		expect(1);
 		
-		equal( viewer.children.length, 2, "Expected to find carousel and one zoom on viewer instance");
+		equal(viewer.children.length, 2, "Expected to find carousel and one zoom on viewer instance");
 	
 	});
 
 
 	module("Zoom basic interaction");
 	
-	test("Show Zoom on anchor mouseenter", function(){
+	test("Show Zoom on anchor mouseenter", function () {
 		
-		expect( 4 );
+		expect(4);
 		
 		isNotVisible(".ch-seeker");
 		
@@ -138,9 +130,9 @@
 
 	});
 	
-	test("Hide Zoom on anchor mouseleave", function(){
+	test("Hide Zoom on anchor mouseleave", function () {
 		
-		expect( 2 );
+		expect(2);
 		
 		zoom.hide();
 		

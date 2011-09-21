@@ -12,7 +12,7 @@ var ch = window.ch = {
 	* @type number
 	* @memberOf ch
 	*/
-	version: "0.7.6",
+	version: "0.7.8",
 	/**
 	* Here you will find a map of all component's instances created by Chico-UI.
 	* @name instances
@@ -156,21 +156,13 @@ var ch = window.ch = {
 		*/
 		VIEWPORT: {
 			/**
-			* Every time Chico-UI needs to inform all visual components that window has been scrolled, he triggers this event.
-			* @name SCROLL
+			* Every time Chico-UI needs to inform all visual components that window has been scrolled or resized, he triggers this event.
+			* @name CHANGE
 			* @constant
 			* @memberOf ch.Events.VIEWPORT
-			* @see ch.Viewport
+			* @see ch.Positioner
 			*/
-			SCROLL: "ch-scroll",
-			/**
-			* Every time Chico-UI needs to inform all visual components that window has been resized, he triggers this event.
-			* @name RESIZE
-			* @constant
-			* @memberOf ch.Events.VIEWPORT
-			* @see ch.Viewport
-			*/
-			RESIZE: "ch-resize"
+			CHANGE: "change"
 		},
 		/**
 		* Keryboard event collection.
@@ -547,7 +539,7 @@ ch.extend = function (klass) {
 		ch[name] = function (conf) {
 			// Some interfaces need a data value,
 			// others simply need to be 'true'.
-			conf[name] = conf.value || true;
+			//conf[name] = conf.value || true;
 
 			// Invoke pre-proccess if is defined,
 			// or grab the raw conf argument,

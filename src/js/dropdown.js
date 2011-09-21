@@ -1,4 +1,3 @@
-
 /**
 * A navegable list of items, UI-Object.
 * @name Dropdown
@@ -9,8 +8,7 @@
 * @returns itself
 */
 
-ch.dropdown = function(conf){
-
+ch.dropdown = function (conf) {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -22,7 +20,7 @@ ch.dropdown = function(conf){
 
 	conf = ch.clon(conf);
 	that.conf = conf;
-	
+
 /**
 *	Inheritance
 */
@@ -39,35 +37,35 @@ ch.dropdown = function(conf){
 	* @function
 	* @name ch.Dropdown#shortcuts
 	*/
-	var shortcuts = function(items){
-		
+	var shortcuts = function (items) {
+
 		// Keyboard support
 		var selected = 0;
-		
+
 		// Item selected by mouseover
 		// TODO: It's over keyboard selection and it is generating double selection.
-		$.each(items, function(i, e){
-			$(e).bind("mouseenter", function(){
+		$.each(items, function (i, e) {
+			$(e).bind("mouseenter", function () {
 				selected = i;
-				items.eq( selected ).focus();
+				items.eq(selected).focus();
 			});
 		});
-		
-		var selectItem = function(arrow, event){
+
+		var selectItem = function (arrow, event) {
 			that.prevent(event);
+
+			if (selected === (arrow === "bottom" ? items.length - 1 : 0)) { return; }
+
+			items.eq(selected).blur();
+
+			if (arrow === "bottom") { selected += 1; } else { selected -= 1; }
 			
-			if(selected == ((arrow == "bottom") ? items.length - 1 : 0)) return;
-			
-			items.eq( selected ).blur();
-			
-			if(arrow == "bottom") selected += 1; else selected -= 1;
-			
-			items.eq( selected ).focus();
+			items.eq(selected).focus();
 		};
 		
 		// Arrows
-		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function(x, event){ selectItem("up", event); });
-		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function(x, event){ selectItem("bottom", event); });
+		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function (x, event) { selectItem("up", event); });
+		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
 	};
 
 
@@ -88,52 +86,77 @@ ch.dropdown = function(conf){
 	* @name ch.Dropdown#$content
 	* @type jQuery
 	*/
-	// Save on memory;
-	that.$content = that.$trigger.next().removeClass("ch-hide").attr("aria-hidden","true").attr("role","menu"); // Save on memory;
-
-	that.show = function(event){
-		that.prevent(event);
-
-		that.$content
-			.css('z-index', ch.utils.zIndex ++)
-			.attr("aria-hidden","false");
+	that.$content = (function () {
 		
-		if (that.$element.hasClass("secondary")) { // Z-index of trigger over conten 
-			that.$trigger.css('z-index', ch.utils.zIndex ++);
-		}; 
+		// jQuery Object
+		var $content = that.$trigger.next()
+		// Visible
+			.removeClass("ch-hide")
+		// Prevent click on content (except links)
+			.bind("click", function (event) { event.stopPropagation(); })
+		// WAI-ARIA properties
+			.attr({ "role": "menu", "aria-hidden": "true" });
+		
+		// WAI-ARIA for items into content
+		$content.children().attr("role", "menuitem");
+		
+		// Position
+		that.position = ch.positioner({
+			element: $content,
+			context: that.$trigger,
+			points: (conf.points || "lt lb"),
+			offset: "0 -1",
+			reposition: true
+		});
+		
+		return $content;
+	}());
 
-		that.$trigger
-			.css('z-index', ch.utils.zIndex ++);
 
+	that.show = function (event) {
+		
+		// Stop propagation
+		that.prevent(event);
+		
+		// Z-index of content
+		that.$content.css("z-index", ch.utils.zIndex += 1).attr("aria-hidden", "false");
+		
+		// Z-index of trigger over content (secondary dropdown)
+		if (that.$element.hasClass("secondary")) { that.$trigger.css("z-index", ch.utils.zIndex += 1); }
+		
+		// Inheritance show
 		that.parent.show(event);
+		
+		// Refresh position
 		that.position("refresh");
 
-		// Reset all dropdowns
-		$.each(ch.instances.dropdown, function(i, e){ 
-			if (e.uid !== that.uid) e.hide();
+		// Reset all dropdowns except itself
+		$.each(ch.instances.dropdown, function (i, e) { 
+			if (e.uid !== that.uid) { e.hide(); }
 		});
 
 		// Close events
-		ch.utils.document.one("click " + ch.events.KEY.ESC, function(event){ that.hide(event); });
+		ch.utils.document.one("click " + ch.events.KEY.ESC, function (event) { that.hide(event); });
+		
 		// Close dropdown after click an option (link)
-		that.$content.find("a").one("click", function(){ that.hide(); });
+		that.$content.find("a").one("click", that.hide);
 
-		// that.items o usar una ch.list
 		// Keyboard support
 		var items = that.$content.find("a");
-			items.eq(0).focus(); // Select first anchor child by default
+		// Select first anchor child by default
+			items.eq(0).focus();
 
-		if (items.length > 1){ shortcuts(items); };
+		if (items.length > 1) { shortcuts(items); };
 
 		return that;
 	};
 
-	that.hide = function(event){
+	that.hide = function (event) {
 		that.prevent(event);
 
 		that.parent.hide(event);
 		
-		that.$content.attr("aria-hidden","true");
+		that.$content.attr("aria-hidden", "true");
 
 		// Unbind events
 		ch.utils.document.unbind(ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW);
@@ -173,7 +196,7 @@ ch.dropdown = function(conf){
 	* @name ch.Dropdown#show
 	* @returns itself
 	*/
-	that["public"].show = function(){
+	that["public"].show = function () {
 		that.show();
 		
 		return that["public"];
@@ -186,18 +209,19 @@ ch.dropdown = function(conf){
 	* @name ch.Dropdown#hide
 	* @returns itself
 	*/ 
-	that["public"].hide = function(){
+	that["public"].hide = function () {
 		that.hide();
 		
 		return that["public"];
 	};
+	
 	/**
 	* Positioning configuration.
 	* @public
 	* @function
 	* @name ch.Dropdown#position
 	*/
-
+	that["public"].position = that.position;
 
 /**
 *  Default event delegation
@@ -206,21 +230,8 @@ ch.dropdown = function(conf){
 	that.configBehavior();
 
 	ch.utils.avoidTextSelection(that.$trigger);
-	
-	that.$content.children().attr("role","menuitem");
-	
-	// Prevent click on content (except links)
-	that.$content.bind("click", function(event){ event.stopPropagation(); });
-	
-	// Position
-	that.conf.position = {};
-	that.conf.position.element = that.$content;
-	that.conf.position.context = that.$trigger;
-	that.conf.position.points = conf.points || "lt lb";
-	that.conf.position.offset = "0 -1";
 
 	return that;
-
 };
 
 ch.factory("dropdown");
