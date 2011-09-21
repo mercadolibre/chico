@@ -93,10 +93,12 @@ ch.calendar = function (conf) {
 		
 		var thead = ["<thead>"];
 		
-		for (var i = 0; i < 7; i += 1) {
-			thead.push("<th>" + SHORT_WEEK_NAMES[i] + "</th>");
-		};
+		thead.push("<tr role=\"row\">");
 		
+		for (var i = 0; i < 7; i += 1) {
+			thead.push("<th role=\"columnheader\">" + SHORT_WEEK_NAMES[i] + "</th>");
+		};
+		thead.push("</tr>");
 		thead.push("</thead>")
 		
 		return thead.join("");
@@ -109,7 +111,7 @@ ch.calendar = function (conf) {
 	* @name ch.Calendar#templateMonth
 	* @type jQuery
 	*/
-	var templateMonth = $("<table class=\"ch-calendar-month datagrid\">" + weekdays + "</table>")
+	var templateMonth = $("<table class=\"ch-calendar-month datagrid\" role=\"grid\" id=\"ch-calendar-grid-"+that.uid+"\">" + weekdays + "</table>")
 		.bind("click", function (event) {
 
 			event = event || window.event;
@@ -159,7 +161,7 @@ ch.calendar = function (conf) {
 
 		do {
 			
-			weeks.push("<tr class=\"week\">");
+			weeks.push("<tr class=\"week\" role=\"row\">");
 
 			for (var i = 0; i < 7; i += 1) {
 
@@ -171,9 +173,9 @@ ch.calendar = function (conf) {
 				
 				classToday = (currentDate.date === today.getDate() && currentDate.month === today.getMonth() && currentDate.year === today.getFullYear()) ? " today" : "";
 
-				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected" : "";
+				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected\" aria-selected=\"true\"" : "";
 				
-				weeks.push("<td class=\"day" + classToday + classSelected + "\">" + currentDate.date + "</td>");
+				weeks.push("<td class=\"day" + classToday + classSelected + "\"  role=\"gridcell\">" + currentDate.date + "</td>");
 				
 				currentDate.fullDate.setDate(currentDate.date+1);
 				currentDate.date = currentDate.fullDate.getDate();
@@ -207,9 +209,9 @@ ch.calendar = function (conf) {
 	*/
 	var arrows = {
 	
-		$prev: $("<p class=\"ch-calendar-prev\">").bind("click", function (event) { that.prevent(event); prevMonth(); }),
+		$prev: $("<p class=\"ch-calendar-prev\" aria-controls=\"ch-calendar-grid-"+that.uid+"\">prev</p>").bind("click", function (event) { that.prevent(event); prevMonth(); }),
 	
-		$next: $("<p class=\"ch-calendar-next\">").bind("click", function (event) { that.prevent(event); nextMonth(); })
+		$next: $("<p class=\"ch-calendar-next\" aria-controls=\"ch-calendar-grid-"+that.uid+"\">next</p>").bind("click", function (event) { that.prevent(event); nextMonth(); })
 	};
 
 	/**
