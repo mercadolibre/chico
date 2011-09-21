@@ -70,7 +70,7 @@ ch.form = function(conf) {
 	/**
 	* Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
 	*/
-	var validate = function(){
+	var validate = function(event){
 
 		/**
 		* Callback function
@@ -168,7 +168,7 @@ ch.form = function(conf) {
 		that.$element.one("submit", submit);
 
 		// Execute all validations
-		validate();
+		validate(event);
 
 		// If an error ocurs prevent default actions
 		if (!status) {
@@ -202,7 +202,7 @@ ch.form = function(conf) {
 		// Check inside $.data if there's a handler for ch-submit event
 		// if something found there, avoid submit.
 
-		var formEvents = $(that.public).data("events");
+		var formEvents = $(that["public"]).data("events");
 		var isSubmitEventDefined = (formEvents && ch.utils.hasOwn(formEvents, "ch-submit"));
 
 		if (status && isSubmitEventDefined){

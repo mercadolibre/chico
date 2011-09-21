@@ -33,10 +33,10 @@ ch.object = function(){
 	* @protected
 	*/
 	// TODO: Add examples!!!
-	that.callbacks = function(when) {
+	that.callbacks = function(when, data) {
 		if( ch.utils.hasOwn(conf, when) ) {
 			var context = ( that.controller ) ? that.controller["public"] : that["public"];
-			return conf[when].call( context );
+			return conf[when].call( context, data );
 		};
 	};
 
