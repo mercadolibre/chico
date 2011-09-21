@@ -853,7 +853,7 @@
 		var ch_wprice = $("#YOUR_SELECTOR_price").price("Price please!").and().required();
 
 		ch_wprice.on("error", function(event, condition) {
-			if (console) {
+			if (window.console) {
 				console.log(condition);
 			}
 		});
