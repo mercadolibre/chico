@@ -434,7 +434,7 @@
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
 
-		<form action="http://localhost:3000/test/post" class="YOUR_SELECTOR_Form" method="POST"> 
+		<form action="/test.html" class="YOUR_SELECTOR_Form" method="POST"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
 
@@ -844,7 +844,7 @@
 		var ch_form = $('.YOUR_SELECTOR_Form').form({
 			messages: {
 				"required": "Completa este campo."
-			}	
+			}
 		});
 
 		var count = 0;
@@ -885,9 +885,11 @@
 		var ch_wch5 = $("#YOUR_SELECTOR_length").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#YOUR_SELECTOR_required_disabled, #YOUR_SELECTOR_select2, #YOUR_SELECTOR_select3, .YOUR_SELECTOR_check2, .YOUR_SELECTOR_check3, .YOUR_SELECTOR_radio2, .YOUR_SELECTOR_radio3, #YOUR_SELECTOR_textarea2, #YOUR_SELECTOR_textarea3").required();
 
+		$(".lean").modal();
+
 		// Viewer
 		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer();
 
 	</script>
-</body> 
+</body>
 </html>

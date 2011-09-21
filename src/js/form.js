@@ -154,6 +154,7 @@ ch.form = function(conf) {
 	* and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
 	*/
 	var submit = function(event) {
+
 		/**
 		* Callback function
 		* @name ch.Form#beforeSubmit
@@ -173,6 +174,7 @@ ch.form = function(conf) {
 		// If an error ocurs prevent default actions
 		if (!status) {
 			that.prevent(event);
+			event.stopImmediatePropagation();
 		}
 
 		// OLD CALLBACK SYSTEM!
@@ -391,7 +393,7 @@ ch.form = function(conf) {
 	};
 
 	// Bind the submit
-	that.$element.one("submit", submit);
+	that.$element.bind("submit", function(event) { submit(event) });
 
 	// Bind the reset
 	that.$element.find(":reset, .resetForm").bind("click", function(event){ reset(event); });
