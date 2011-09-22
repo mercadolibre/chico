@@ -22,7 +22,6 @@ Get in touch.
 
 The team.
 ---------
-- Natan Santolo (Chief), @natos
 - Hernan Mammana (Frontender), @hmammana
 - Leandro Linares (Frontender), @lean8086
 - Guillermo Paz (Frontender), @pazguille
