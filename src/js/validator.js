@@ -117,14 +117,14 @@ ch.validator = function(conf) {
 					* @event
 					* @public
 					* @example
-					* me.on("error",function(){
+					* me.on("error",function(event, condition){
 					*	errorModal.show();
 					* });
 					*/
 					// old callback system
-					that.callbacks('error');
+					that.callbacks('onError', condition);
 					// new callback
-					that.trigger("error");
+					that.trigger("error", condition);
 
 					that.active = true;
 

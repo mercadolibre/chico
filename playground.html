@@ -434,7 +434,7 @@
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
 
-		<form action="http://localhost:3000/test/post" class="YOUR_SELECTOR_Form" method="POST"> 
+		<form action="/test.html" class="YOUR_SELECTOR_Form" method="POST"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
 
@@ -779,7 +779,7 @@
 	
 	<script src="http://code.jquery.com/jquery.min.js"></script>
 	<script src="http://chico.com:8080/latest/js?debug=true"></script>
-	<!--script src="http://chico.com:8080/versions/0.7.6/chico-0.7.6.js"></script-->
+	<!--script src="http://chico-ui.com.ar/versions/0.7.7/chico-min-0.7.7.js"></script-->
 	<script> 
 
 		// Automatic version
@@ -844,20 +844,20 @@
 		var ch_form = $('.YOUR_SELECTOR_Form').form({
 			messages: {
 				"required": "Completa este campo."
-			}	
+			}
 		});
 
 		var count = 0;
-		
-		//Validator
-		//var ch_val1 = $("#YOUR_SELECTOR_price").required().and().url("La url está mal!");
-		//var ch_val2 = $("#YOUR_SELECTOR_url").required();
-		//.and().url("La url está mal!");
-	
-		
 
 		// Watchers
 		var ch_wprice = $("#YOUR_SELECTOR_price").price("Price please!").and().required();
+
+		ch_wprice.on("error", function(event, condition) {
+			if (window.console) {
+				console.log(condition);
+			}
+		});
+
 		var ch_wch1 = $("#YOUR_SELECTOR_email").required("requerid").and().email("Guachin emial").and().minLength(10);
 		var ch_wch11 = $("#YOUR_SELECTOR_custom").custom(
 			function(v){
@@ -869,12 +869,12 @@
 					return true;
 				}
 
-				if (!value1){
+				if (!value1) {
 					this.conditions.custom.message = "Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 1";
 					return false;
 				}
 
-				if (!value2){
+				if (!value2) {
 					this.conditions.custom.message = "Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 2";
 					return false;
 				}
@@ -885,9 +885,11 @@
 		var ch_wch5 = $("#YOUR_SELECTOR_length").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#YOUR_SELECTOR_required_disabled, #YOUR_SELECTOR_select2, #YOUR_SELECTOR_select3, .YOUR_SELECTOR_check2, .YOUR_SELECTOR_check3, .YOUR_SELECTOR_radio2, .YOUR_SELECTOR_radio3, #YOUR_SELECTOR_textarea2, #YOUR_SELECTOR_textarea3").required();
 
+		$(".lean").modal();
+
 		// Viewer
 		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer();
 
 	</script>
-</body> 
+</body>
 </html>
