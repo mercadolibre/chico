@@ -113,7 +113,7 @@ ch.watcher = function (conf) {
 		* @event
 		* @public
 		* @example
-		* me.on("beforeValidate",function(){
+		* me.on("beforeValidate",function(event) {
 		*	submitButton.disable();
 		* });
 		*/
@@ -139,14 +139,16 @@ ch.watcher = function (conf) {
 			* @event
 			* @public
 			* @example
-			* me.on("error",function(){
-			*	errorModal.show();
+			* me.on("error",function(event, condition) {
+			*	if (condition === "required") {
+			* 		errorModal.show();
+			* 	}
 			* });
 			*/
 			// old callback system
-			that.callbacks('onError');
+			that.callbacks('onError', gotError.condition);
 			// new callback
-			that.trigger("error");
+			that.trigger("error", gotError.condition);
 
 		} else {
 			that.$element.removeClass("error");

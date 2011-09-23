@@ -259,9 +259,12 @@ ch.modal = function (conf) {
 /**
 *	Default event delegation
 */
-	that.$element
-		.css("cursor", "pointer")
-		.bind("click", function (event) { that.innerShow(event); });
+
+	if (that.element.tagName === "INPUT" && that.element.type === "submit") {
+		that.$element.parents("form").bind("submit", function (event) { that.innerShow(event); });
+	} else {
+		that.$element.bind("click", function (event) { that.innerShow(event); });
+	}
 
 	/**
 	* Triggers when component is visible.
