@@ -22,11 +22,14 @@ Get in touch.
 
 The team.
 ---------
-- Natan Santolo (Chief), @natos
 - Hernan Mammana (Frontender), @hmammana
 - Leandro Linares (Frontender), @lean8086
 - Guillermo Paz (Frontender), @pazguille
-- Natalia Devalle (Web Dev), @taly
+- Natalia Devalle (UX Designer), @taly
+
+Thanks to.
+----------
+- Natan Santolo (@natos). Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
 
 Credits.
 --------
