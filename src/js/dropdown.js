@@ -93,7 +93,16 @@ ch.dropdown = function (conf) {
 		// Visible
 			.removeClass("ch-hide")
 		// Prevent click on content (except links)
-			.bind("click", function (event) { event.stopPropagation(); })
+			.bind("click", function(event) {
+				event = event || window.event;
+				var src = event.target || event.srcElement;
+
+				if (src.tagName === "A") {
+					that.hide();
+				}
+
+				event.stopPropagation();
+			})
 		// WAI-ARIA properties
 			.attr({ "role": "menu", "aria-hidden": "true" });
 		
@@ -137,9 +146,6 @@ ch.dropdown = function (conf) {
 
 		// Close events
 		ch.utils.document.one("click " + ch.events.KEY.ESC, function (event) { that.hide(event); });
-		
-		// Close dropdown after click an option (link)
-		that.$content.find("a").one("click", that.hide);
 
 		// Keyboard support
 		var items = that.$content.find("a");

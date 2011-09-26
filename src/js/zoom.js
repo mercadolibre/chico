@@ -1,4 +1,3 @@
-
 /**
 * Zoom is a standalone UI component that shows a contextual reference to an augmented version of main declared image.
 * @name Zoom
@@ -7,8 +6,15 @@
 * @requires ch.Positioner
 * @requires ch.onImagesLoads
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+* @param {Boolean} [conf.context] Sets a reference to position and size of component that will be considered to carry out the position. By default is the viewport.
+* @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
+* @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @returns itself
+* @see ch.Modal
+* @see ch.Tooltip
+* @see ch.Layer
 */
 
 ch.zoom = function (conf) {
@@ -25,11 +31,11 @@ ch.zoom = function (conf) {
 */
 	conf = ch.clon(conf);
 	conf.fx = false;
-	
+
 	conf.aria = {};
 	conf.aria.role = "tooltip";
 	conf.aria.identifier = "aria-describedby";
-	
+
 	conf.position = {};
 	conf.position.context = conf.context || that.$element;
 	conf.position.offset = conf.offset || "20 0";
@@ -44,7 +50,7 @@ ch.zoom = function (conf) {
 
 	that = ch.floats.call(that);
 	that.parent = ch.clon(that);
-	
+
 /**
 *	Private Members
 */
@@ -69,7 +75,7 @@ ch.zoom = function (conf) {
 	var zoomed = {};
 		// Define the content source 
 		zoomed.img = that.source = $("<img src=\"" + that.element.href + "\" alt=\"Zoomed image\">");
-	
+
 	/**
 	* Seeker is the visual element that follows mouse movement for referencing to zoomable area into original image.
 	* @private
@@ -77,8 +83,8 @@ ch.zoom = function (conf) {
 	* @type object
 	*/
 	var seeker = {};
-		seeker.shape = $("<div class=\"ch-seeker ch-hide\">")
-	
+		seeker.shape = $("<div class=\"ch-seeker ch-hide\">");
+
 	/**
 	* Gets the mouse position relative to original image position, and accordingly moves the zoomed image.
 	* @private
@@ -87,11 +93,11 @@ ch.zoom = function (conf) {
 	* @param event event
 	*/
 	var move = function (event) {
-		
+
 		// Cursor coordinates relatives to original image
 		var x = event.pageX - original.offset.left;
 		var y = event.pageY - original.offset.top;
-		
+
 		// Seeker axis
 		var limit = {};
 			limit.left = parseInt(x - seeker["width"]);
@@ -104,13 +110,13 @@ ch.zoom = function (conf) {
 			zoomed.img.css("left", -((parseInt(zoomed["width"]* x) / original["width"]) - (conf.width / 2)));
 			seeker.shape.css("left", limit.left);
 		}
-		
+
 		// Vertical: keep seeker into limits
 		if (limit.top >= 0 && limit.bottom < original["height"] - 1) {
 			zoomed.img.css("top", -((parseInt(zoomed["height"]* y) / original["height"]) - (conf.height / 2)));
 			seeker.shape.css("top", limit.top);
 		}
-		
+
 	};
 
 	/**
@@ -123,15 +129,15 @@ ch.zoom = function (conf) {
 		// Zoomed image size
 		zoomed["width"] = zoomed.img.prop("width");
 		zoomed["height"] = zoomed.img.prop("height");
-		
+
 		// Anchor
 		that.$element
 			// Apend Seeker
 			.append(seeker.shape)
-			
+
 			// Show
 			.bind("mouseenter", that.show)
-			
+
 			// Hide
 			.bind("mouseleave", that.hide)
 	};
@@ -145,13 +151,13 @@ ch.zoom = function (conf) {
 		original.offset = original.img.offset();
 
 		// Move
-		that.$element.bind("mousemove", function (event) { 
-			move(event); 
+		that.$element.bind("mousemove", function (event) {
+			move(event);
 		});
 
 		// Seeker
 		seeker.shape.removeClass("ch-hide");
-		
+
 		// Floats show
 		that.parent.innerShow();
 
@@ -161,13 +167,13 @@ ch.zoom = function (conf) {
 	that.innerHide = function () {
 		// Move
 		that.$element.unbind("mousemove");
-		
+
 		// Seeker
 		seeker.shape.addClass("ch-hide");
-		
+
 		// Floats hide
 		that.parent.innerHide();
-		
+
 		return that;
 	};
 
@@ -184,7 +190,7 @@ ch.zoom = function (conf) {
 		// Do what you want...
 		return that;
 	};
-	
+
 	/**
 	* Getter and setter for size attributes of float that contains the zoomed image.
 	* @protected
@@ -266,7 +272,7 @@ ch.zoom = function (conf) {
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @function 
+	* @function
 	* @name ch.Zoom#show
 	* @returns itself
 	* @see ch.Floats#show
