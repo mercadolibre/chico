@@ -547,7 +547,6 @@ hr {
 .datagrid {
 	width:100%;
 	border:solid 1px #CECECE;
-	font-size:11px;
 	text-align:left;
 }
 
@@ -569,6 +568,7 @@ hr {
 	text-align:left;
 	height:24px;
 	padding: 0 10px;
+	font-size:11px;
 }
 
 .datagrid th.selected {

@@ -5,10 +5,25 @@
 * @augments ch.Controllers
 * @requires ch.Dropdown
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
+* @param {String} [conf.selected] Sets a date that should be selected by default. By default is the date of today.
+* @param {Array} [conf.monthsNames] By default is["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"].
+* @param {Array} [conf.weekdays] By default is ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"].
 * @returns itself
+* @see ch.Dropdown
+* @example
+* // Create a new calendar with configuration.
+* var me = $(".example").calendar({
+*     "format": "YYYY/MM/DD",
+*     "selected": "2012/12/25",
+*     "monthsNames": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+*     "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
+* });
+* @example
+* // Create a new calendar with a class name 'example'.
+* var me = $(".example").calendar();
 */
-//TODO: Examples
 ch.calendar = function (conf) {
 	
 	/**
