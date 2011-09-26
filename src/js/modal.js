@@ -4,10 +4,23 @@
 * @class Modal
 * @augments ch.Floats
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is the href attribute value  or form's action attribute.
+* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
+* @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
 * @returns itself
 * @see ch.Tooltip
 * @see ch.Layer
+* @see ch.Zoom
+* @example
+* // Create a new modal window with configuration.
+* var me = $("a.example").modal({
+*     "content": "Some content here!",
+*     "width": "500px",
+*     "height": 350,
+*     "fx": false
+* });
 * @example
 * // Create a new modal window triggered by an anchor with a class name 'example'.
 * var me = $("a.example").modal();
