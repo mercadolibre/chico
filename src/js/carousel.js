@@ -105,6 +105,9 @@ ch.carousel = function (conf) {
 	*/
 		createArrows = function () {
 			
+			// Make space for arrows
+			that.$mask.css("margin", "0 50px");
+			
 			// Previous arrow
 			var $prev = $("<p class=\"ch-prev-arrow" + (conf.rolling ? "" : " ch-hide") + "\" role=\"button\" aria-hidden=\"" + (!conf.rolling) + "\"><span>Previous</span></p>")
 				.bind("click", that.prev)
@@ -516,8 +519,8 @@ ch.carousel = function (conf) {
 			$(e).attr("aria-hidden", ~~(i / that.itemsPerPage) + 1 !== page);
 		});
 		
-		that.callbacks("onMove");
-		that.trigger("move");
+		that.callbacks("onSelect");
+		that.trigger("select");
 		
 		return that;
 	};
@@ -557,7 +560,7 @@ ch.carousel = function (conf) {
 	* @event
 	* @public
 	* @example
-	* example.on("next",function () {
+	* example.on("next", function () {
 	*	alert("Next!");
 	* });
 	*/
@@ -568,19 +571,32 @@ ch.carousel = function (conf) {
 	* @event
 	* @public
 	* @example
-	* example.on("prev",function () {
+	* example.on("prev", function () {
 	*	alert("Previous!");
 	* });
 	*/
 	
 	/**
-	* Triggers when component moves to next or previous page.
+	* Deprecated: Triggers when component moves to next or previous page.
 	* @name ch.Carousel#move
 	* @event
 	* @public
+	* @deprecated
 	* @example
-	* example.on("move",function () {
+	* example.on("move", function () {
 	*	alert("I moved!");
+	* });
+	*/
+	
+	/**
+	* Since 0.7.9: Triggers when component moves to next or previous page.
+	* @name ch.Carousel#select
+	* @event
+	* @public
+	* @since 0.7.9
+	* @example
+	* example.on("select", function () {
+	*	alert("An item was selected!");
 	* });
 	*/
 	
@@ -590,7 +606,7 @@ ch.carousel = function (conf) {
 	* @event
 	* @public
 	* @example
-	* example.on("itemsAdded",function () {
+	* example.on("itemsAdded", function () {
 	*	alert("Some asynchronous items was added.");
 	* });
 	*/
