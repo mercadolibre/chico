@@ -105,9 +105,6 @@ ch.carousel = function (conf) {
 	*/
 		createArrows = function () {
 			
-			// Make space for arrows
-			that.$mask.css("margin", "0 50px");
-			
 			// Previous arrow
 			var $prev = $("<p class=\"ch-prev-arrow" + (conf.rolling ? "" : " ch-hide") + "\" role=\"button\" aria-hidden=\"" + (!conf.rolling) + "\"><span>Previous</span></p>")
 				.bind("click", that.prev)
@@ -347,7 +344,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$mask
 	* @type jQuery Object
 	*/
-	that.$mask = $("<div class=\"ch-carousel-mask\" role=\"tabpanel\">").append(that.$content).appendTo(that.$element);
+	that.$mask = $("<div class=\"ch-carousel-mask\" role=\"tabpanel\"" + (conf.arrows ? " style=\"margin:0 50px;\"" : "") + ">").append(that.$content).appendTo(that.$element);
 	
 	/**
 	* List of items that should be loaded asynchronously on page movement.
