@@ -111,7 +111,7 @@ ch.dropdown = function (conf) {
 		
 		// WAI-ARIA for items into content
 		$content.children().attr("role", "menuitem");
-		console.log(conf.reposition);
+		
 		// Position
 		that.position = ch.positioner({
 			element: $content,
