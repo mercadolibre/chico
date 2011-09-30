@@ -28,7 +28,6 @@ ch.helper = function(conf){
 	conf.position.context = that.$element;
 	conf.position.offset = "15 0";
 	conf.position.points = "lt rt";
-	conf.position.reposition = true;
 
 	that.conf = conf;
 

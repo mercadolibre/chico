@@ -19,6 +19,9 @@ ch.dropdown = function (conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
+	
+	conf.reposition = ch.utils.hasOwn(conf, "reposition") ? conf.reposition : true;
+	
 	that.conf = conf;
 
 /**
@@ -108,14 +111,14 @@ ch.dropdown = function (conf) {
 		
 		// WAI-ARIA for items into content
 		$content.children().attr("role", "menuitem");
-		
+		console.log(conf.reposition);
 		// Position
 		that.position = ch.positioner({
 			element: $content,
 			context: that.$trigger,
 			points: (conf.points || "lt lb"),
 			offset: "0 -1",
-			reposition: true
+			reposition: conf.reposition
 		});
 		
 		return $content;

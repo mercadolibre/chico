@@ -61,7 +61,6 @@ ch.layer = function (conf) {
 	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
-	conf.position.reposition = true;
 
 	that.conf = conf;
 

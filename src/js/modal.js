@@ -44,6 +44,8 @@ ch.modal = function (conf) {
 	conf.classes = "box";
 	conf.closeButton = that.type === "modal";
 	
+	conf.reposition = false;
+	
 	conf.aria = {};
 	
 	if (conf.closeButton) {
