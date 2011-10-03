@@ -4,9 +4,14 @@
 * @class Positioner
 * @requires Viewport
 * @memberOf ch
-* @param {Configuration Object} conf Configuration object with positioning properties.
+* @param {Object} conf Configuration object with positioning properties.
+* @param {String} conf.element Reference to the DOM Element to be positioned.
+* @param {String} [conf.context] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the viewport.
+* @param {String} [conf.points] Points where element will be positioned, specified by configuration or centered by default.
+* @param {String} [conf.offset] Offset in pixels that element will be displaced from original position determined by points. It's specified by configuration or zero by default.
+* @param {Boolean} [conf.reposition] Parameter that enables or disables reposition intelligence. It's disabled by default.
 * @requires ch.Viewport
-* @returns {Positioner Control Object}
+* @returns Object
 * @example
 * // An Element centered into the Viewport (default behavior)
 * ch.positioner({
@@ -45,7 +50,7 @@ ch.positioner = (function () {
 	* @private
 	* @constant
 	* @name ch.Positioner#CLASS_MAP
-	* @type Map Object
+	* @type Object
 	*/
 	// TODO: include more specifications like ch-in ch-out
 	// TODO: analize if reduct classnames amount. example:ch-out-left-bottom
@@ -76,18 +81,18 @@ ch.positioner = (function () {
 		triggerChange = function () {
 			// No changing, no execution
 			if (!changing) { return; }
-			
+
 			// Updates viewport position
 			ch.viewport.getOffset();
-			
+
 			/**
 			* Triggers when window is being scrolled or resized.
 			* @private
-			* @name ch.Positioner#viewport.change
+			* @name ch.Positioner#change
 			* @event
 			*/
 			ch.utils.window.trigger(ch.events.VIEWPORT.CHANGE);
-			
+
 			// Change scrolling status
 			changing = false;
 		};
@@ -103,7 +108,7 @@ ch.positioner = (function () {
 
 		// Validation for required "element" parameter
 		if (!ch.utils.hasOwn(conf, "element")) {
-			alert("Chico UI error: Expected to find \"element\" as required configuration parameter on ch.Positioner.");
+			alert("Chico UI error: Expected to find \"element\" as required configuration parameter of ch.Positioner");
 
 			return;
 		}
@@ -164,7 +169,7 @@ ch.positioner = (function () {
 		* Offset in pixels that element will be displaced from original position determined by points. It's specified by configuration or zero by default.
 		* @private
 		* @name ch.Positioner#offset
-		* @type Array with XY references
+		* @type {Array} X and Y references determined by "offset" configuration parameter.
 		* @default "0 0"
 		* @example
 		* // Moves 5px to right and 5px to bottom
@@ -204,7 +209,7 @@ ch.positioner = (function () {
 					contextIsNotViewport = false;
 					return ch.viewport;
 				}
-				
+
 				// Context from configuration
 				// Object to be returned.
 				var self = {};
@@ -214,7 +219,7 @@ ch.positioner = (function () {
 				* @private
 				* @name width
 				* @type Number
-				* @memberOf context
+				* @memberOf ch.Positioner#context
 				*/
 				self.width =
 
@@ -223,7 +228,7 @@ ch.positioner = (function () {
 				* @private
 				* @name height
 				* @type Number
-				* @memberOf context
+				* @memberOf ch.Positioner#context
 				*/
 					self.height =
 
@@ -232,7 +237,7 @@ ch.positioner = (function () {
 				* @private
 				* @name left
 				* @type Number
-				* @memberOf context
+				* @memberOf ch.Positioner#context
 				*/
 					self.left =
 
@@ -241,7 +246,7 @@ ch.positioner = (function () {
 				* @private
 				* @name top
 				* @type Number
-				* @memberOf context
+				* @memberOf ch.Positioner#context
 				*/
 					self.top =
 
@@ -250,7 +255,7 @@ ch.positioner = (function () {
 				* @private
 				* @name right
 				* @type Number
-				* @memberOf context
+				* @memberOf ch.Positioner#context
 				*/
 					self.right =
 
@@ -259,16 +264,16 @@ ch.positioner = (function () {
 				* @private
 				* @name bottom
 				* @type Number
-				* @memberOf context
+				* @memberOf ch.Positioner#context
 				*/
 					self.bottom = 0;
-				
+
 				/**
 				* Context HTML Element.
 				* @private
 				* @name element
-				* @type {HTMLElement}
-				* @memberOf context
+				* @type HTMLElement
+				* @memberOf ch.Positioner#context
 				*/
 				self.element = $(conf.context);
 
@@ -277,8 +282,8 @@ ch.positioner = (function () {
 				* @private
 				* @function
 				* @name getSize
-				* @returns Size Object
-				* @memberOf context
+				* @returns Object
+				* @memberOf ch.Positioner#context
 				*/
 				self.getSize = function () {
 
@@ -294,23 +299,28 @@ ch.positioner = (function () {
 				* @private
 				* @function
 				* @name getOffset
-				* @returns Offset Object
-				* @memberOf context
+				* @returns Object
+				* @memberOf ch.Positioner#context
 				*/
 				self.getOffset = function () {
 
 					// Gets offset of context element
 					var contextOffset = self.element.offset(),
 						size = self.getSize(),
-						scrollLeft = contextOffset.left + offset[0],
-						scrollTop = contextOffset.top + offset[1];
+						scrollLeft = contextOffset.left + offset[0],// - relativeParent.left,
+						scrollTop = contextOffset.top + offset[1];// - relativeParent.top;
 
+					if (!parentIsBody) {
+						scrollLeft -= relativeParent.left,
+						scrollTop -= relativeParent.top;
+					}
+					
 					// Calculated including offset and relative parent positions
 					return {
-						left: context.left = scrollLeft,
-						top: context.top = scrollTop,
-						right: context.right = scrollLeft + size.width,
-						bottom: context.bottom = scrollTop + size.height
+						"left": context.left = scrollLeft,
+						"top": context.top = scrollTop,
+						"right": context.right = scrollLeft + size.width,
+						"bottom": context.bottom = scrollTop + size.height
 					};
 				};
 
@@ -331,16 +341,24 @@ ch.positioner = (function () {
 		* It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the viewport.
 		* @private
 		* @name ch.Positioner#context
-		* @type Context Object
-		* @default Viewport
+		* @type Object
+		* @default ch.Viewport
 		*/
 			context = getContext(),
+		
+		/**
+		* 
+		* @private
+		* @name ch.Positioner#parentIsBody
+		* @type Boolean
+		*/
+			parentIsBody,
 
 		/**
 		* It's the first of context's parents that is styled positioned. If it isn't defined through configuration, it will be the HTML Body Element.
 		* @private
 		* @name ch.Positioner#relativeParent
-		* @type Relative Parent Object
+		* @type Object
 		* @default HTMLBodyElement
 		*/
 			relativeParent = (function () {
@@ -356,7 +374,7 @@ ch.positioner = (function () {
 				* @private
 				* @name left
 				* @type Number
-				* @memberOf relativeParent
+				* @memberOf ch.Positioner#relativeParent
 				*/
 				self.left =
 
@@ -365,7 +383,7 @@ ch.positioner = (function () {
 				* @private
 				* @name top
 				* @type Number
-				* @memberOf relativeParent
+				* @memberOf ch.Positioner#relativeParent
 				*/
 					self.top = 0;
 
@@ -374,7 +392,7 @@ ch.positioner = (function () {
 				* @private
 				* @name getOffset
 				* @function
-				* @memberOf relativeParent
+				* @memberOf ch.Positioner#relativeParent
 				* @returns Offset Object
 				*/
 				// TODO: on ie6 the relativeParent border push too (also on old positioner)
@@ -393,11 +411,11 @@ ch.positioner = (function () {
 
 					// Returns left and top position of relative parent and updates offset on relativeParent object.
 					return {
-						left: relativeParent.left = parentOffset.left + borderLeft,
-						top: relativeParent.top = parentOffset.top + borderTop
+						"left": relativeParent.left = parentOffset.left + borderLeft,
+						"top": relativeParent.top = parentOffset.top + borderTop
 					};
 				};
-
+				
 				return self;
 			}()),
 
@@ -406,7 +424,7 @@ ch.positioner = (function () {
 		* @private
 		* @name ch.Positioner#getCoordinates
 		* @function
-		* @param {Points} points String with points to be calculated.
+		* @param {String} points String with points to be calculated.
 		* @returns Offset measures
 		* @example
 		* var foo = getCoordinates("lt rt");
@@ -447,8 +465,8 @@ ch.positioner = (function () {
 
 				// Calculates left and top with references to X and Y axis points (crossed points)
 				return {
-					left: calculate(splittedPoints[0].charAt(0) + splittedPoints[1].charAt(0)),
-					top: calculate(splittedPoints[0].charAt(1) + splittedPoints[1].charAt(1))
+					"left": calculate(splittedPoints[0].charAt(0) + splittedPoints[1].charAt(0)),
+					"top": calculate(splittedPoints[0].charAt(1) + splittedPoints[1].charAt(1))
 				};
 			},
 
@@ -477,8 +495,13 @@ ch.positioner = (function () {
 				// TODO: Improve and unify intelligence code
 				var newData,
 					newPoints = points,
-					offsetX = relativeParent.left + offset[0],
-					offsetY = relativeParent.top + offset[1];
+					offsetX = /*relativeParent.left + */offset[0],
+					offsetY = /*relativeParent.top + */offset[1];
+				
+				if (!parentIsBody) {
+					offsetX += relativeParent.left;
+					offsetY += relativeParent.top;
+				}
 
 				// Viewport limits (From bottom to top)
 				if (coordinates.top + offsetY + $element.outerHeight() > ch.viewport.bottom && points !== "lt rt") {
@@ -519,7 +542,7 @@ ch.positioner = (function () {
 		* Reference that stores last changes on coordinates for evaluate necesaries redraws.
 		* @private
 		* @name ch.Positioner#lastCoordinates
-		* @type Offset Object
+		* @type Object
 		*/
 			lastCoordinates = {},
 
@@ -576,7 +599,11 @@ ch.positioner = (function () {
 			init = function () {
 				// Calculates viewport position for prevent auto-scrolling
 				//ch.viewport.getOffset();
-
+				
+				// Refresh parent parameter
+				// TODO: Put this code in some better place, where it's been calculated few times
+				parentIsBody = $element.parent().length > 0 && $element.parent().prop("tagName") === "BODY";
+				
 				// Calculates relative parent position
 				relativeParent.getOffset();
 
@@ -592,7 +619,7 @@ ch.positioner = (function () {
 		* @private
 		* @name ch.Positioner#friendly
 		* @type Boolean
-		* @default ch-center
+		* @default "ch-center"
 		*/
 			friendly = CLASS_MAP[points];
 
@@ -660,11 +687,11 @@ ch.positioner = (function () {
 			// Gets current configuration
 			case "undefined":
 				r = {
-					context: context.element,
-					element: $element,
-					points: points,
-					offset: offset.join(" "),
-					reposition: conf.reposition
+					"context": context.element,
+					"element": $element,
+					"points": points,
+					"offset": offset.join(" "),
+					"reposition": conf.reposition
 				};
 
 				break;
