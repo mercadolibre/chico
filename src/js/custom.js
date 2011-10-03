@@ -4,17 +4,21 @@
 * @name Custom
 * @class Custom
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Function} function Custom function to evaluete a value.
+* @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Validator
+* @see ch.Watcher
 * @see ch.Required
 * @see ch.Number
 * @see ch.String
+* @see ch.Validator
+* @see ch.Condition
 * @example
 * // Validate a even number
-* $("input").custom(function(value){
+* $("input").custom(function (value) {
 * 	return (value%2==0) ? true : false;
 * }, "Enter a even number");
 */

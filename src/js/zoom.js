@@ -3,7 +3,6 @@
 * @name Zoom
 * @class Zoom
 * @augments ch.Floats
-* @requires ch.Positioner
 * @requires ch.onImagesLoads
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -11,6 +10,7 @@
 * @param {Boolean} [conf.context] Sets a reference to position and size of component that will be considered to carry out the position. By default is the viewport.
 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
 * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
+* @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
 * @returns itself
 * @see ch.Modal
 * @see ch.Tooltip

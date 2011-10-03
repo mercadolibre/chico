@@ -3,14 +3,17 @@
 * @name Required
 * @class Required
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Validator
+* @see ch.Watcher
 * @see ch.Custom
 * @see ch.Number
 * @see ch.String
+* @see ch.Validator
+* @see ch.Condition
 * @example
 * // Simple validation
 * $("input").required("This field is required");

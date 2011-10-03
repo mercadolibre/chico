@@ -3,8 +3,9 @@
 * @abstract
 * @name onImagesLoads
 * @class onImagesLoads
+* @standalone
 * @memberOf ch
-* @param array
+* @param Array
 * @returns jQuery
 * @example
 * $("img").onImagesLoads(function(){ ... });

@@ -2,6 +2,7 @@
 * Positioner is an utility that centralizes and manages changes related to positioned elements, and returns an utility that resolves positioning for all UI-Objects.
 * @name Positioner
 * @class Positioner
+* @requires Viewport
 * @memberOf ch
 * @param {Configuration Object} conf Configuration object with positioning properties.
 * @requires ch.Viewport

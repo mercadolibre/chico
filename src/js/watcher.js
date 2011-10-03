@@ -1,16 +1,13 @@
 /**
 * Watcher is a validation engine for html forms elements.
-* @abstract
 * @name Watcher
 * @class Watcher
 * @augments ch.Uiobject
-* @memberOf ch
 * @requires ch.Form
 * @requires ch.Validator
 * @requires ch.Helper
-* @requires ch.Positioner
-* @requires ch.Events
-* @param {object} conf Object with configuration properties
+* @memberOf ch
+* @param {Object} [conf] Object with configuration properties.
 * @returns itself
 * @see ch.Required
 * @see ch.String

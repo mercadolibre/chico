@@ -4,6 +4,7 @@
 * @abstract
 * @name Preload
 * @class Preload
+* @standalone
 * @memberOf ch
 * @param {array} [arr] Collection of image sources
 * @param {string} [str] A single image source

@@ -3,9 +3,26 @@
 * @name Dropdown
 * @class Dropdown
 * @augments ch.Navs
+* @standalone
+* @requires ch.Positioner
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Boolean} [conf.open] Shows the dropdown open when component was loaded. By default, the value is false.
+* @param {Boolean} [conf.icon] Shows an arrow as icon. By default, the value is true.
+* @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @example
+* // Create a new dropdown with configuration.
+* var me = $(".example").dropdown({
+*     "open": true,
+*     "icon": false,
+*     "points": "lt lt",
+*     "fx": true
+* });
+* @example
+* // Create a new dropdown without configuration.
+* var me = $(".example").dropdown();
 */
 
 ch.dropdown = function (conf) {

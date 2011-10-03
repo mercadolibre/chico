@@ -5,7 +5,6 @@
 * @class Viewer
 * @augments ch.Controllers
 * @requires ch.Carousel
-* @requires ch.Zoom
 * @memberOf ch
 * @requires ch.onImagesLoads
 * @param {object} conf Object with configuration properties

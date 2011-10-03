@@ -3,17 +3,19 @@
 * @name Layer
 * @class Layer
 * @augments ch.Floats
+* @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is empty.
 * @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
 * @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
-* @param {String} [conf.event] Sets the event (click or hover) that trigger method show. By default is "hover".
+* @param {String} [conf.event] Sets the event ("click" or "hover") that trigger show method. By default, the event is "hover".
 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
 * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-* @param {Number} [conf.showTime] Sets a delay time to show component's contents. By default is 400ms.
-* @param {Number} [conf.hideTime] Sets a delay time to hide component's contents. By default is 400ms.
+* @param {Number} [conf.showTime] Sets a delay time to show component's contents. By default, the value is 400ms.
+* @param {Number} [conf.hideTime] Sets a delay time to hide component's contents. By default, the value is 400ms.
+* @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
 * @returns itself
 * @see ch.Tooltip
 * @see ch.Modal
@@ -24,14 +26,16 @@
 *     "content": "Some content here!",
 *     "width": "200px",
 *     "height": 50,
+*     "event": "click",
 *     "showTime": 600,
 *     "hideTime": 200,
 *     "offset": "10 -10",
+*     "cache": false,
 *     "points": "lt rt"
 * });
 * @example
 * // Create a simple contextual layer
-* var me = $(".some-element").layer("<p>Some content.</p>");
+* var me = $(".some-element").layer("<tag>Some content.</tag>");
 * @example
 * // Now 'me' is a reference to the layer instance controller.
 * // You can set a new content by using 'me' like this: 
