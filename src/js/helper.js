@@ -4,9 +4,22 @@
 * @class Helper
 * @augments ch.Floats
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is empty.
+* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
+* @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+* @param {String} [conf.event] Sets the event ("click" or "hover") that trigger show method. By default, the event is "hover".
+* @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
+* @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
+* @param {Number} [conf.showTime] Sets a delay time to show component's contents. By default, the value is 400ms.
+* @param {Number} [conf.hideTime] Sets a delay time to hide component's contents. By default, the value is 400ms.
 * @returns itself
+* @see ch.Tooltip
+* @see ch.Modal
+* @see ch.Zoom
 */
+
 ch.helper = function(conf){
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.

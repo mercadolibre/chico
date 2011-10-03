@@ -3,12 +3,14 @@
 * @name Modal
 * @class Modal
 * @augments ch.Floats
+* @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is the href attribute value  or form's action attribute.
 * @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
 * @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+* @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
 * @returns itself
 * @see ch.Tooltip
 * @see ch.Layer
@@ -19,6 +21,7 @@
 *     "content": "Some content here!",
 *     "width": "500px",
 *     "height": 350,
+*     "cache": false,
 *     "fx": false
 * });
 * @example
@@ -328,10 +331,31 @@ ch.factory("modal");
 * Transition
 * @name Transition
 * @class Transition
-* @augments ch.Modal
+* @interface
+* @augments ch.Floats
+* @requires ch.Modal
 * @memberOf ch
+* @param {Object} [conf] Object with configuration properties.
+* @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is the href attribute value  or form's action attribute.
+* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
+* @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+* @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
 * @returns itself
+* @see ch.Tooltip
+* @see ch.Layer
+* @see ch.Zoom
+* @example
+* // Create a new modal window with configuration.
+* var me = $("a.example").transition({
+*     "content": "Some content here!",
+*     "width": "500px",
+*     "height": 350,
+*     "cache": false,
+*     "fx": false
+* });
 */
+
 ch.extend("modal").as("transition", function (conf) {
 	
 	conf.closeButton = false;

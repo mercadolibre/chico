@@ -4,6 +4,7 @@
 * @abstract
 * @name Navs
 * @class Navs
+* @standalone
 * @augments ch.Uiobject
 * @memberOf ch
 * @param {object} conf Object with configuration properties

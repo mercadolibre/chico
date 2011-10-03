@@ -4,9 +4,37 @@
 * @class Carousel
 * @augments ch.Uiobject
 * @requires ch.List
+* @standalone
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns Chico UI Object
+* @param {Object} [conf] Object with configuration properties.
+* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is elastic.
+* @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the value is the <li> element height.
+* @param {Boolean} [conf.pagination] Shows a pagination. By default, the value is false.
+* @param {Boolean} [conf.arrows] Shows arrows icons to move over the pages. By default, the value is true.
+* @param {Array} [conf.asyncData] Defines the content of each item that will be load asnchronously as array.
+* @param {Function} [conf.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+* @returns itself
+* @example
+* // Create a new expando with some configuration.
+* var me = $(".example").carousel({
+*     "width": 500,
+*     "height": "200px",
+*     "pagination": true,
+*     "arrows": false,
+*     "asyncData": [
+*         {src: 'a.png', alt: 'A'},
+*         {src: 'b.png', alt: 'B'},
+*         {src: 'c.png', alt: 'C'}
+*     ],
+*     "asyncRender": function (data) {
+*         return '<img src="' + data.src + '" alt="' + data.alt + '"/>';
+*     },
+*     "fx": false
+* });
+* @example
+* // Create a new expando without configuration.
+* var me = $(".example").carousel();
 */
 
 ch.carousel = function (conf) {

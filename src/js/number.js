@@ -4,14 +4,17 @@
 * @name Number
 * @class Number
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Validator
+* @see ch.Watcher
 * @see ch.Required
 * @see ch.Custom
 * @see ch.String
+* @see ch.Validator
+* @see ch.Condition
 * @example
 * // Create a number validation
 * $("input").number("This field must be a number.");
@@ -34,12 +37,18 @@ ch.extend("watcher").as("number", function(conf) {
 * @name Min
 * @class Min
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {number} value Minimun number value.
-* @param {string} [message] Validation message.
+* @param {Number} value Minimun number value.
+* @param {String} [message] Validation message.
 * @returns itself
+* @see ch.Watcher
+* @see ch.Required
+* @see ch.Custom
+* @see ch.String
 * @see ch.Validator
+* @see ch.Condition
 * @example
 * $("input").min(10, "Write a number bigger than 10");
 */
@@ -62,12 +71,18 @@ ch.extend("watcher").as("min", function (conf) {
 * @name Max
 * @class Max
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {number} value Minimun number value.
-* @param {string} [message] Validation message.
+* @param {Number} value Minimun number value.
+* @param {String} [message] Validation message.
 * @returns itself
+* @see ch.Watcher
+* @see ch.Required
+* @see ch.Custom
+* @see ch.String
 * @see ch.Validator
+* @see ch.Condition
 * @example
 * $("input").max(10, "Write a number smaller than 10");
 */
@@ -89,11 +104,17 @@ ch.extend("watcher").as("max", function (conf) {
 * @name Price
 * @class Price
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {string} [message] Validation message.
+* @param {String} [message] Validation message.
 * @returns itself
+* @see ch.Watcher
+* @see ch.Required
+* @see ch.Custom
+* @see ch.String
 * @see ch.Validator
+* @see ch.Condition
 * @example
 * $("input").price("Write valid price.");
 */

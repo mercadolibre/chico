@@ -4,9 +4,23 @@
 * @name Form
 * @class Form
 * @augments ch.Controllers
+* @standalone
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Object} [conf.messages]
+* @see ch.Watchers
 * @returns itself
+* @example
+* // Create a new form with configuration.
+* var me = $(".example").form({
+* 	"messages": {
+* 		"required": "Error message for all required fields.",
+* 		"email": "Show this message on email format error."
+* 	}
+* });
+* @example
+* // Create a new form without configuration.
+* var me = $(".example").form();
 */
 
 ch.form = function(conf) {

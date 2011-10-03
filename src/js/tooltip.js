@@ -3,6 +3,7 @@
 * @name Tooltip
 * @class Tooltip
 * @augments ch.Floats
+* @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
