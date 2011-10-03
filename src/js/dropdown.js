@@ -97,10 +97,7 @@ ch.dropdown = function (conf) {
 			.removeClass("ch-hide")
 		// Prevent click on content (except links)
 			.bind("click", function(event) {
-				event = event || window.event;
-				var src = event.target || event.srcElement;
-
-				if (src.tagName === "A") {
+				if ((event.target || event.srcElement).tagName === "A") {
 					that.hide();
 				}
 
@@ -110,15 +107,15 @@ ch.dropdown = function (conf) {
 			.attr({ "role": "menu", "aria-hidden": "true" });
 		
 		// WAI-ARIA for items into content
-		$content.children().attr("role", "menuitem");
-		
+		$content.children("a").attr("role", "menuitem");
+
 		// Position
 		that.position = ch.positioner({
-			element: $content,
-			context: that.$trigger,
-			points: (conf.points || "lt lb"),
-			offset: "0 -1",
-			reposition: conf.reposition
+			"element": $content,
+			"context": that.$trigger,
+			"points": (conf.points || "lt lb"),
+			"offset": "0 -1",
+			"reposition": conf.reposition
 		});
 		
 		return $content;

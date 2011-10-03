@@ -12,7 +12,7 @@
 * @see ch.Expando
 */
 
-ch.navs = function(){
+ch.navs = function () {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -20,11 +20,12 @@ ch.navs = function(){
 	* @name ch.Navs#that
 	* @type object
 	*/ 
-	var that = this;
-	var conf = that.conf;
-		conf.icon = (ch.utils.hasOwn(conf, "icon")) ? conf.icon : true;
-		conf.open = conf.open || false;
-		conf.fx = conf.fx || false;
+	var that = this,
+		conf = that.conf;
+	
+	conf.icon = ch.utils.hasOwn(conf, "icon") ? conf.icon : true;
+	conf.open = conf.open || false;
+	conf.fx = conf.fx || false;
 
 /**
 *	Inheritance
@@ -32,25 +33,6 @@ ch.navs = function(){
 
 	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
-
-
-/**
-*	Private Members
-*/
-	/**
-	* Adds icon in trigger's content.
-	* @private
-	* @name ch.Navs#createIcon
-	* @function
-	*/
-	var createIcon = function(){
-		$("<span>")
-			.addClass("ico")
-			.html("drop")
-			.appendTo( that.$trigger );
-
-		return;
-	};
 	
 /**
 *	Protected Members
@@ -69,12 +51,12 @@ ch.navs = function(){
 	* @name ch.Navs#show
 	* @returns itself
 	*/
-	that.show = function(event){
+	that.show = function (event) {
 		that.prevent(event);
 
-		if ( that.active ) {
+		if (that.active) {
 			return that.hide(event);
-		};
+		}
 		
 		that.active = true;
 
@@ -85,8 +67,8 @@ ch.navs = function(){
 		* @event
 		*/
 		// Animation
-		if( conf.fx ) {
-			that.$content.slideDown("fast", function(){
+		if (conf.fx) {
+			that.$content.slideDown("fast", function () {
 				//that.$content.removeClass("ch-hide");
 			
 				// new callbacks
@@ -100,7 +82,7 @@ ch.navs = function(){
 			that.trigger("show");
 			// old callback system
 			that.callbacks("onShow");
-		};
+		}
 		
 		return that;
 	};
@@ -110,10 +92,10 @@ ch.navs = function(){
 	* @name ch.Navs#hide
 	* @returns itself
 	*/
-	that.hide = function(event){
+	that.hide = function (event) {
 		that.prevent(event);
 		
-		if (!that.active) return;
+		if (!that.active) { return; }
 		
 		that.active = false;
 		
@@ -124,8 +106,8 @@ ch.navs = function(){
 		* @event
 		*/
 		// Animation
-		if( conf.fx ) {
-			that.$content.slideUp("fast", function(){
+		if (conf.fx) {
+			that.$content.slideUp("fast", function () {
 				//that.$content.addClass("ch-hide");
 				that.callbacks("onHide");
 			});
@@ -135,7 +117,7 @@ ch.navs = function(){
 			that.trigger("hide");
 			// old callback system
 			that.callbacks("onHide");
-		};
+		}
 		
 		return that;
 	};
@@ -145,17 +127,16 @@ ch.navs = function(){
 	* @protected
 	* @name ch.Navs#createLayout
 	*/
-	that.configBehavior = function(){
+	that.configBehavior = function () {
 		that.$trigger
 			.addClass("ch-" + that.type + "-trigger")
-			.bind("click", function(event){ that.show(event); });
+			.bind("click", function (event) { that.show(event); });
 
-		that.$content
-			.addClass("ch-" + that.type + "-content ch-hide");
+		that.$content.addClass("ch-" + that.type + "-content ch-hide");
 
 		// Visual configuration
-		if( conf.icon ) createIcon();
-		if( conf.open ) that.show();
+		if (conf.icon) { $("<span class=\"ico\">Drop</span>").appendTo(that.$trigger); }
+		if (conf.open) { that.show(); }
 
 	};
 	
@@ -170,7 +151,7 @@ ch.navs = function(){
 	* @event
 	* @public
 	* @example
-	* me.on("show",function(){
+	* me.on("show",function () {
 	*	this.content("Some new content");
 	* });
 	* @see ch.Floats#event:show
@@ -182,7 +163,7 @@ ch.navs = function(){
 	* @event
 	* @public
 	* @example
-	* me.on("hide",function(){
+	* me.on("hide",function () {
 	*	otherComponent.show();
 	* });
 	* @see ch.Floats#event:hide
