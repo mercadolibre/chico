@@ -3,9 +3,19 @@
 * @name TabNavigator
 * @class TabNavigator
 * @augments ch.Controllers
+* @requires ch.Tab
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Number} [conf.selected] Selects a child that will be open when component was loaded. By default, the value is 1.
 * @returns itself
+* @example
+* // Create a new Tab Navigator with configuration.
+* var me = $(".example").tabNavigator({
+*     "selected": 2
+* });
+* @example
+* // Create a new Tab Navigator without configuration.
+* var me = $(".example").tabNavigator();
 */
 
 ch.tabNavigator = function (conf) {

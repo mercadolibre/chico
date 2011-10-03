@@ -3,14 +3,17 @@
 * @name String 
 * @class String
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {string} msg Validation message
+* @param {String} [message] Validation message
 * @returns itself
-* @see ch.Validator
+* @see ch.Watcher
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
+* @see ch.Validator
+* @see ch.Condition
 * @example
 * // Create a string validation
 * $("input").string("This field must be a string.");
@@ -34,11 +37,17 @@ ch.extend("watcher").as("string", function (conf) {
 * @name Email
 * @class Email
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {string} [message] Validation message.
+* @param {String} [message] Validation message
 * @returns itself
+* @see ch.Watcher
+* @see ch.Required
+* @see ch.Custom
+* @see ch.Number
 * @see ch.Validator
+* @see ch.Condition
 * @example
 * // Create a email validation
 * $("input").email("This field must be a valid email.");
@@ -60,11 +69,17 @@ ch.extend("watcher").as("email", function (conf) {
 * @name Url
 * @class Url
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {string} [message] Validation message.
+* @param {String} [message] Validation message
 * @returns itself
+* @see ch.Watcher
+* @see ch.Required
+* @see ch.Custom
+* @see ch.Number
 * @see ch.Validator
+* @see ch.Condition
 * @example
 * // Create a URL validation
 * $("input").url("This field must be a valid URL.");
@@ -87,12 +102,18 @@ ch.extend("watcher").as("url", function (conf) {
 * @name MinLength
 * @class MinLength
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {number} value Minimun number value.
-* @param {string} [message] Validation message.
+* @param {Number} value Minimun number value.
+* @param {String} [message] Validation message
 * @returns itself
+* @see ch.Watcher
+* @see ch.Required
+* @see ch.Custom
+* @see ch.Number
 * @see ch.Validator
+* @see ch.Condition
 * @example
 * // Create a minLength validation
 * $("input").minLength(10, "At least 10 characters..");
@@ -116,12 +137,18 @@ ch.extend("watcher").as("minLength", function (conf) {
 * @name MaxLength
 * @class MaxLength
 * @interface
-* @augments ch.Validator
+* @augments ch.Uiobject
+* @requires ch.Watcher
 * @memberOf ch
-* @param {number} value Maximun number value.
-* @param {string} [message] Validation message.
+* @param {Number} value Maximun number value.
+* @param {String} [message] Validation message
 * @returns itself
+* @see ch.Watcher
+* @see ch.Required
+* @see ch.Custom
+* @see ch.Number
 * @see ch.Validator
+* @see ch.Condition
 * @example
 * // Create a maxLength validation
 * $("input").maxLength(10, "No more than 10 characters..");

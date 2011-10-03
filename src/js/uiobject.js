@@ -3,6 +3,7 @@
 * @abstract
 * @name Uiobject
 * @class Uiobject
+* @augments ch.Object
 * @memberOf ch
 * @see ch.Controllers
 * @see ch.Floats

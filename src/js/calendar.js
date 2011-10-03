@@ -8,8 +8,8 @@
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
 * @param {String} [conf.selected] Sets a date that should be selected by default. By default is the date of today.
-* @param {Array} [conf.monthsNames] By default is["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"].
-* @param {Array} [conf.weekdays] By default is ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"].
+* @param {Array} [conf.monthsNames] By default is ["Enero", ... , "Diciembre"].
+* @param {Array} [conf.weekdays] By default is ["Dom", ... , "Sab"].
 * @returns itself
 * @see ch.Dropdown
 * @example
