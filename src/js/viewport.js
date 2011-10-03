@@ -3,6 +3,7 @@
 * @abstract
 * @name Viewport
 * @class Viewport
+* @standalone
 * @memberOf ch
 */
 ch.viewport = {

@@ -123,6 +123,7 @@ var ch = window.ch = {
 	* @name Events
 	* @class Events
 	* @type object
+	* @standalone
 	* @memberOf ch 
 	* @see ch.Events.KEY
 	* @see ch.Events.LAYOUT

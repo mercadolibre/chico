@@ -4,9 +4,10 @@
 * @name Validator
 * @class Validator
 * @augments ch.Object
-* @memberOf ch
 * @requires ch.Condition
-* @param {Object} conf Object with configuration properties
+* @memberOf ch
+* @param {Object} conf Object with configuration properties.
+* @param {Object} conf.conditions Object with conditions.
 * @returns itself
 * @see ch.Condition
 */

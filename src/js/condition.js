@@ -3,8 +3,49 @@
 * @abstract
 * @name Condition
 * @class Condition
+* @standalone
 * @memberOf ch
+* @param {Object} condition Object with configuration properties.
+* @param {String} condition.name
+* @param {Object} [condition.patt]
+* @param {Function} [condition.expr]
+* @param {Function} [condition.func]
+* @param {Number || String} [condition.value]
+* @param {String} condition.message Validation message
+* @returns itself
+* @example
+* // Create a new condition object with patt.
+* var me = ch.condition({
+*     "name": "string",
+*     "patt": /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
+*     "message": "Some message here!"
+* });
+* @example
+* // Create a new condition object with expr.
+* var me = ch.condition({
+*     "name": "maxLength",
+*     "patt": function(a,b) { return a.length <= b },
+*     "message": "Some message here!",
+*     "value": 4
+* });
+* @example
+* // Create a new condition object with func.
+* var me = ch.condition({
+*     "name": "custom",
+*     "patt": function (value) { 
+*         if (value === "ChicoUI") {
+*
+*             // Some code here!
+*
+*             return true;
+*         };
+*
+*         return false;
+*     },
+*     "message": "Your message here!"
+* });
 */
+
 ch.condition = function(condition) {
 
 /**
