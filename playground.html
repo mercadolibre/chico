@@ -885,7 +885,13 @@
 		var ch_wch5 = $("#YOUR_SELECTOR_length").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#YOUR_SELECTOR_required_disabled, #YOUR_SELECTOR_select2, #YOUR_SELECTOR_select3, .YOUR_SELECTOR_check2, .YOUR_SELECTOR_check3, .YOUR_SELECTOR_radio2, .YOUR_SELECTOR_radio3, #YOUR_SELECTOR_textarea2, #YOUR_SELECTOR_textarea3").required();
 
-		$(".lean").modal();
+		var test = $(".lean").modal()
+
+		var test = function () {
+			alert("Una sola vez");
+		};
+
+		ch_moda[0].on("ready", test);
 
 		// Viewer
 		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer();

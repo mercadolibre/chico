@@ -129,6 +129,28 @@ ch.object = function(){
 	};
 
 	/**
+	* Add a callback function from specific event.
+	* @public
+	* @function
+	* @name ch.Object#once
+	* @param {string} event Event name.
+	* @param {function} handler Handler function.
+	* @returns itself
+	* @since version 0.8.0
+	* @example
+	* // Will add a event handler to the "contentLoad" event once
+	* me.once("contentLoad", startDoingStuff);
+	*/
+	that["public"].once = function(event, handler) {
+
+		if (event && handler) {
+			$(that["public"]).one("ch-"+event, handler);
+		}
+
+		return that["public"];
+	};
+
+	/**
 	* Removes a callback function from specific event.
 	* @public
 	* @function
@@ -139,12 +161,18 @@ ch.object = function(){
 	* @since version 0.7.1
 	* @example
 	* // Will remove event handler to the "ready" event
+	* var startDoingStuff = function () {
+	*     // Some code here!
+	* };
+	*
 	* me.off("ready", startDoingStuff);
 	*/
 	that["public"].off = function(event, handler) {
 
 		if (event && handler) {
 			$(that["public"]).unbind("ch-"+event, handler);
+		} else if (event) {
+			$(that["public"]).unbind("ch-"+event);
 		}
 
 		return that["public"];
