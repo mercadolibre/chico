@@ -102,7 +102,7 @@ ch.floats = function () {
 		container.push(" class=\"ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
 		
 		// Z-index, defined width and height, tag close
-		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + (ch.utils.hasOwn(conf, "width") ? conf.width : "") + (ch.utils.hasOwn(conf, "height") ? conf.height : "") + "\">");
+		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + ";" + (ch.utils.hasOwn(conf, "width") ? "width: " + conf.width + ";" : "") + (ch.utils.hasOwn(conf, "height") ? "height: " + conf.height : "") + "\">");
 		
 		// Create cone
 		if (ch.utils.hasOwn(conf, "cone")) { container.push("<div class=\"ch-cone\"></div>"); }

@@ -356,7 +356,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$collection
 	* @type jQuery Object
 	*/
-	that.$collection = that.$element.children("ul").addClass("ch-carousel-list").attr("role", "list").appendTo(that.$content);
+	that.$collection = that.$element.children().addClass("ch-carousel-list").attr("role", "list").appendTo(that.$content);
 	
 	/**
 	* Each item into collection.

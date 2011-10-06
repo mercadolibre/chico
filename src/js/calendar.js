@@ -258,7 +258,8 @@ ch.calendar = function (conf) {
 
 		that.children[0].position({
 			context: that.$element,
-			points: "lt lb"
+			points: "lt lb",
+			offset: "0 5"
 		});
 
 	};
