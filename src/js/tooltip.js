@@ -267,11 +267,12 @@ ch.tooltip = function (conf) {
 	* @event
 	* @public	
 	* @example
+	* // Following the first example, using 'me' as tooltip's instance controller:
 	* me.on("ready",function () {
 	*	this.show();
 	* });
 	*/
-	that.trigger("ready");
+	setTimeout(function(){ that.trigger("ready")}, 50);
 
 	return that;
 };

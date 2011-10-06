@@ -223,13 +223,27 @@ ch.dropdown = function (conf) {
 	*/
 	that["public"].position = that.position;
 
-/**
+/** 
 *  Default event delegation
 */			
 
 	that.configBehavior();
 
 	ch.utils.avoidTextSelection(that.$trigger);
+	
+	/**
+	* Triggers when the component is ready to use (Since 0.8.0).
+	* @name ch.Dropdown#ready
+	* @event
+	* @public
+	* @since 0.8.0
+	* @example
+	* // Following the first example, using 'me' as dropdown's instance controller:
+	* me.on("ready",function () {
+	*	this.show();
+	* });
+	*/
+	setTimeout(function(){ that.trigger("ready")}, 50);
 
 	return that;
 };

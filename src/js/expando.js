@@ -118,9 +118,22 @@ ch.expando = function(conf){
 	that.configBehavior();
 	that.$trigger.children().attr("role","presentation");
 	ch.utils.avoidTextSelection(that.$trigger);
+	
+	/**
+	* Triggers when the component is ready to use (Since 0.8.0).
+	* @name ch.Expando#ready
+	* @event
+	* @public
+	* @since 0.8.0
+	* @example
+	* // Following the first example, using 'me' as expando's instance controller:
+	* me.on("ready",function () {
+	*	this.show();
+	* });
+	*/
+	setTimeout(function(){ that.trigger("ready")}, 50);
 
 	return that;
-
 };
 
 ch.factory("expando");

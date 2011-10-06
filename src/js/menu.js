@@ -256,6 +256,20 @@ ch.menu = function(conf){
 
 	// Select specific item if there are a "selected" parameter on component configuration object
 	if (ch.utils.hasOwn(conf, "selected")) select(conf.selected);
+	
+	/**
+	* Triggers when the component is ready to use (Since 0.8.0).
+	* @name ch.Menu#ready
+	* @event
+	* @public
+	* @since 0.8.0
+	* @example
+	* // Following the first example, using 'me' as menu's instance controller:
+	* me.on("ready",function () {
+	*	this.select();
+	* });
+	*/
+	setTimeout(function(){ that.trigger("ready")}, 50);
 
 	return that;
 
@@ -302,4 +316,17 @@ ch.extend("menu").as("accordion");
 	* @public
 	* @name ch.Accordion#select
 	* @function
+	*/
+
+	/**
+	* Triggers when the component is ready to use (Since 0.8.0).
+	* @name ch.Accordion#ready
+	* @event
+	* @public
+	* @since 0.8.0
+	* @example
+	* // Following the first example, using 'me' as accordion's instance controller:
+	* me.on("ready",function () {
+	*	this.select();
+	* });
 	*/

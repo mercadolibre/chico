@@ -298,7 +298,7 @@ ch.modal = function (conf) {
 	*	this.show();
 	* });
 	*/
-	that.trigger("ready");
+	setTimeout(function(){ that.trigger("ready")}, 50);
 
 	return that;
 };
