@@ -5,8 +5,19 @@
 * @augments ch.Controllers
 * @requires ch.Expando
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Number} [conf.selected] Selects a child that will be open when component was loaded.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @example
+* // Create a new menu with configuration.
+* var me = $(".example").menu({
+*     "selected": 2,
+*     "fx": true
+* });
+* @example
+* // Create a new menu without configuration.
+* var me = $(".example").menu();
 */
 
 ch.menu = function(conf){
@@ -282,10 +293,23 @@ ch.factory("menu");
 * @name Accordion
 * @class Accordion
 * @interface
-* @augments ch.Menu
+* @augments ch.Controllers
+* @requires ch.Menu
+* @requires ch.Expando
 * @memberOf ch
-* @param conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Number} [conf.selected] Selects a child that will be open when component was loaded.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @example
+* // Create a new menu with configuration.
+* var me = $(".example").accordion({
+*     "selected": 2,
+*     "fx": true
+* });
+* @example
+* // Create a new menu without configuration.
+* var me = $(".example").accordion();
 */
 
 ch.extend("menu").as("accordion");

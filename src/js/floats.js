@@ -133,7 +133,7 @@ ch.floats = function () {
 		// Position component
 		conf.position = conf.position || {};
 		conf.position.element = $container;
-		conf.position.reposition = conf.position.reposition || false;
+		conf.position.reposition = ch.utils.hasOwn(conf, "reposition") ? conf.reposition : true;
 		
 		that.position = ch.positioner(conf.position);
 		

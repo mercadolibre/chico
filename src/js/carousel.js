@@ -4,9 +4,37 @@
 * @class Carousel
 * @augments ch.Uiobject
 * @requires ch.List
+* @standalone
 * @memberOf ch
-* @param {Configuration Object} conf Object with configuration properties
-* @returns Chico UI Object
+* @param {Object} [conf] Object with configuration properties.
+* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is elastic.
+* @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the value is the <li> element height.
+* @param {Boolean} [conf.pagination] Shows a pagination. By default, the value is false.
+* @param {Boolean} [conf.arrows] Shows arrows icons to move over the pages. By default, the value is true.
+* @param {Array} [conf.asyncData] Defines the content of each item that will be load asnchronously as array.
+* @param {Function} [conf.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+* @returns itself
+* @example
+* // Create a new expando with some configuration.
+* var me = $(".example").carousel({
+*     "width": 500,
+*     "height": "200px",
+*     "pagination": true,
+*     "arrows": false,
+*     "asyncData": [
+*         {src: 'a.png', alt: 'A'},
+*         {src: 'b.png', alt: 'B'},
+*         {src: 'c.png', alt: 'C'}
+*     ],
+*     "asyncRender": function (data) {
+*         return '<img src="' + data.src + '" alt="' + data.alt + '"/>';
+*     },
+*     "fx": false
+* });
+* @example
+* // Create a new expando without configuration.
+* var me = $(".example").carousel();
 */
 
 ch.carousel = function (conf) {
@@ -344,7 +372,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$mask
 	* @type jQuery Object
 	*/
-	that.$mask = $("<div class=\"ch-carousel-mask\" role=\"tabpanel\">").append(that.$content).appendTo(that.$element);
+	that.$mask = $("<div class=\"ch-carousel-mask\" role=\"tabpanel\"" + (conf.arrows ? " style=\"margin:0 50px;\"" : "") + ">").append(that.$content).appendTo(that.$element);
 	
 	/**
 	* List of items that should be loaded asynchronously on page movement.
@@ -516,8 +544,8 @@ ch.carousel = function (conf) {
 			$(e).attr("aria-hidden", ~~(i / that.itemsPerPage) + 1 !== page);
 		});
 		
-		that.callbacks("onMove");
-		that.trigger("move");
+		that.callbacks("onSelect");
+		that.trigger("select");
 		
 		return that;
 	};
@@ -557,7 +585,7 @@ ch.carousel = function (conf) {
 	* @event
 	* @public
 	* @example
-	* example.on("next",function () {
+	* example.on("next", function () {
 	*	alert("Next!");
 	* });
 	*/
@@ -568,19 +596,32 @@ ch.carousel = function (conf) {
 	* @event
 	* @public
 	* @example
-	* example.on("prev",function () {
+	* example.on("prev", function () {
 	*	alert("Previous!");
 	* });
 	*/
 	
 	/**
-	* Triggers when component moves to next or previous page.
+	* Deprecated: Triggers when component moves to next or previous page.
 	* @name ch.Carousel#move
 	* @event
 	* @public
+	* @deprecated
 	* @example
-	* example.on("move",function () {
+	* example.on("move", function () {
 	*	alert("I moved!");
+	* });
+	*/
+	
+	/**
+	* Since 0.7.9: Triggers when component moves to next or previous page.
+	* @name ch.Carousel#select
+	* @event
+	* @public
+	* @since 0.7.9
+	* @example
+	* example.on("select", function () {
+	*	alert("An item was selected!");
 	* });
 	*/
 	
@@ -590,7 +631,7 @@ ch.carousel = function (conf) {
 	* @event
 	* @public
 	* @example
-	* example.on("itemsAdded",function () {
+	* example.on("itemsAdded", function () {
 	*	alert("Some asynchronous items was added.");
 	* });
 	*/

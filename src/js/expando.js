@@ -4,9 +4,21 @@
 * @name Expando
 * @class Expando
 * @augments ch.Navs
+* @standalone
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Boolean} [conf.open] Shows the expando open when component was loaded. By default, the value is false.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @example
+* // Create a new expando with configuration.
+* var me = $(".example").expando({
+*     "open": true,
+*     "fx": true
+* });
+* @example
+* // Create a new expando without configuration.
+* var me = $(".example").expando();
 */
  
 ch.expando = function(conf){

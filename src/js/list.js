@@ -4,6 +4,7 @@
 * @abstract
 * @name List
 * @class List
+* @standalone
 * @memberOf ch
 * @param {array} [collection] Constructs a List with an optional initial collection
 */

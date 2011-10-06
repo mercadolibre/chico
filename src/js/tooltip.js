@@ -3,11 +3,23 @@
 * @name Tooltip
 * @class Tooltip
 * @augments ch.Floats
+* @standalone
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+* @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
+* @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @returns itself
 * @see ch.Modal
 * @see ch.Layer
+* @see ch.Zoom
+* @example
+* // Create a new tooltip with configuration.
+* var me = $("a.example").tooltip({
+*     "fx": false,
+*     "offset": "10 -10",
+*     "points": "lt rt"
+* });
 * @example
 * // Create a simple tooltip
 * var me = $(".some-element").tooltip();
@@ -26,24 +38,23 @@ ch.tooltip = function (conf) {
 	* @type object
 	*/
 	var that = this;
-	
+
 	conf = ch.clon(conf);
-	
-	conf.cone = true;	
+
+	conf.cone = true;
 	conf.content = "<span>" + (that.element.title || that.element.alt) + "</span>";
-	
+
 	conf.aria = {};
 	conf.aria.role = "tooltip";
 	conf.aria.identifier = "aria-describedby";
-	
+
 	conf.position = {};
 	conf.position.context = $(that.element);
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
-	conf.position.reposition = true;
-	
+
 	that.conf = conf;
-	
+
 /**
 *	Inheritance
 */
@@ -84,12 +95,12 @@ ch.tooltip = function (conf) {
 	that.innerShow = function (event) {
 		// IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 		that.element[attrReference] = "";
-		
+
 		that.parent.innerShow(event);
 
 		return that;
 	};
-	
+
 	/**
 	* Inner hide method. Hides the component and detach it from DOM tree.
 	* @protected
@@ -99,9 +110,9 @@ ch.tooltip = function (conf) {
 	*/
 	that.innerHide = function (event) {
 		that.element[attrReference] = attrContent;
-		
+
 		that.parent.innerHide(event);
-		
+
 		return that;
 	};
 
@@ -219,7 +230,7 @@ ch.tooltip = function (conf) {
 	* @name ch.Tooltip#position
 	* @example
 	* // Change component's position.
-	* me.position({ 
+	* me.position({
 	*	offset: "0 10",
 	*	points: "lt lb"
 	* });
@@ -229,7 +240,7 @@ ch.tooltip = function (conf) {
 /**
 *	Default event delegation
 */
-	
+
 	that.$element
 		.bind("mouseenter", that.innerShow)
 		.bind("mouseleave", that.innerHide);
@@ -260,12 +271,12 @@ ch.tooltip = function (conf) {
 	* });
 	* @see ch.Floats#event:hide
 	*/
-	
+
 	/**
 	* Triggers when component is ready to use.
 	* @name ch.Tooltip#ready
 	* @event
-	* @public	
+	* @public
 	* @example
 	* // Following the first example, using 'me' as tooltip's instance controller:
 	* me.on("ready",function () {

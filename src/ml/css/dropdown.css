@@ -1,14 +1,9 @@
 /**
  *	Default Styles
  */
-.ch-dropdown {
-	display: inline-block;
-    overflow: visible;
-}
-
 /* Trigger */
 .ch-dropdown-trigger {
-	display: inline-block;
+	display:inline-block;
 	position:relative;
 	cursor:pointer;
 	padding:0 23px 0 10px;
@@ -31,7 +26,6 @@
 .ch-dropdown-content {
 	background-color:#fff;
 	min-width:120px;
-	position:absolute;
 	white-space:nowrap;
 	max-height:215px;
 	overflow:auto;
@@ -53,9 +47,10 @@
 	color: #476274;
 	height:23px;
 	line-height:24px;
-	border-radius:3px;
+	-o-border-radius:3px;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
+	border-radius:3px;
 }
 
 /* Trigger Hover */
@@ -70,16 +65,18 @@
 
 .ch-dropdown-trigger-on.ch-bottom,
 .ch-dropdown-trigger-on.ch-bottom-right {
-	border-radius:3px 3px 0 0;
+	-o-border-radius:3px 3px 0 0;
 	-moz-border-radius:3px 3px 0 0;
 	-webkit-border-radius:3px 3px 0 0;
+	border-radius:3px 3px 0 0;
 }
 
 .ch-dropdown-trigger-on.ch-top,
 .ch-dropdown-trigger-on.ch-top-right {
-	border-radius:0 0 3px 3px;
+	-o-border-radius:0 0 3px 3px;
 	-moz-border-radius:0 0 3px 3px;
 	-webkit-border-radius:0 0 3px 3px;
+	border-radius:0 0 3px 3px;
 }
 
 
@@ -121,9 +118,10 @@
 	text-decoration: none;
 	border:1px solid #fff;
 	border-width:0 1px;
-	border-radius:0;
+	-o-border-radius:0;
 	-moz-border-radius:0;
 	-webkit-border-radius:0;
+	border-radius:0;
 }
 
 /* Trigger Down icon */
@@ -138,16 +136,18 @@
 
 .secondary .ch-dropdown-trigger-on,
 .secondary .ch-dropdown-trigger-on{
-	border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
+	-o-border-radius:0;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	border-radius:0;
 }
 
 /* Trigger ON */
 .secondary .ch-dropdown-trigger-on {
-	box-shadow: 2px 2px 0px #888;
+	-o-box-shadow: 2px 2px 0px #888;
 	-moz-box-shadow: 2px 0px 0px #888;
 	-webkit-box-shadow: 2px 0px 0px #888;	
+	box-shadow: 2px 2px 0px #888;
 	border-color:#ccc;
 }
 
@@ -160,9 +160,10 @@
 .secondary .ch-dropdown-content {
 	border:1px solid #ccc;
 	padding: 5px 30px 5px 10px;
-	box-shadow: 2px 2px 1px #888;
+	-o-box-shadow: 2px 2px 1px #888;
 	-moz-box-shadow: 2px 2px 1px #888;
 	-webkit-box-shadow: 2px 2px 1px #888;
+	box-shadow: 2px 2px 1px #888;
 }
 
 /* List of links */
@@ -221,9 +222,4 @@
 
 .ie8 .ch-dropdown-trigger.ch-dropdown-trigger-on {
 	background-position: 0 -486px;
-}
-
-/*No JS*/
-.no-js .ch-dropdown-content{
-	position:relative;
 }

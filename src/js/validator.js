@@ -4,9 +4,10 @@
 * @name Validator
 * @class Validator
 * @augments ch.Object
-* @memberOf ch
 * @requires ch.Condition
-* @param {Object} conf Object with configuration properties
+* @memberOf ch
+* @param {Object} conf Object with configuration properties.
+* @param {Object} conf.conditions Object with conditions.
 * @returns itself
 * @see ch.Condition
 */
@@ -117,14 +118,14 @@ ch.validator = function(conf) {
 					* @event
 					* @public
 					* @example
-					* me.on("error",function(){
+					* me.on("error",function(event, condition){
 					*	errorModal.show();
 					* });
 					*/
 					// old callback system
-					that.callbacks('error');
+					that.callbacks('onError', condition);
 					// new callback
-					that.trigger("error");
+					that.trigger("error", condition);
 
 					that.active = true;
 

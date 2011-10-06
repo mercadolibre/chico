@@ -3,33 +3,37 @@ Chico UI
 
 www.chico-ui.com.ar
 
-Build your web app in a few minutes.
-------------------------------------
-The main goal is to improve and accelerate the development process. Built on top of jQuery, 
-this toolbox brings a couple of known visual patterns for the web and takes advantages of 
-the new HTML5 and CSS3 features.
+Get things done, quickly
+------------------------
+Chico is a free and open source collection of easy-to-use web toys for developers and designers. Built on top of jQuery, this toolbox brings a couple of known visual patterns for the web and takes advantages of the new HTML5 and CSS3 features. We want to share this tool with the world to help making the web more beautiful.
 
-Some features.
---------------
+Some features
+-------------
 - UI Components, 
 - Grid System and
 - Custom Skins  
 
-Get in touch.
--------------
+Get in touch
+------------
 - chico (at) mercadolibre.com
 - @chicoui
+- IRC Chat - Server: irc.freenode.net - Room: #chicoui
+- http://groups.google.com/group/chico-ui
+- http://blog.chico-ui.com.ar/
 
-The team.
----------
-- Natan Santolo (Chief), @natos
+The team
+--------
 - Hernan Mammana (Frontender), @hmammana
 - Leandro Linares (Frontender), @lean8086
 - Guillermo Paz (Frontender), @pazguille
-- Natalia Devalle (Web Dev), @taly
+- Natalia Devalle (UX Designer), @taly
 
-Credits.
---------
+Thanks to
+---------
+- Natan Santolo (@natos). Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
+
+Credits
+-------
 ![MercadoLibre](http://static.mlstatic.com/org-img/chico/img/logo-mercadolibre.png)
 
 License

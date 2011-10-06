@@ -3,9 +3,26 @@
 * @name Dropdown
 * @class Dropdown
 * @augments ch.Navs
+* @standalone
+* @requires ch.Positioner
 * @memberOf ch
-* @param {object} conf Object with configuration properties
+* @param {Object} [conf] Object with configuration properties.
+* @param {Boolean} [conf.open] Shows the dropdown open when component was loaded. By default, the value is false.
+* @param {Boolean} [conf.icon] Shows an arrow as icon. By default, the value is true.
+* @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @example
+* // Create a new dropdown with configuration.
+* var me = $(".example").dropdown({
+*     "open": true,
+*     "icon": false,
+*     "points": "lt lt",
+*     "fx": true
+* });
+* @example
+* // Create a new dropdown without configuration.
+* var me = $(".example").dropdown();
 */
 
 ch.dropdown = function (conf) {
@@ -19,6 +36,9 @@ ch.dropdown = function (conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
+	
+	conf.reposition = ch.utils.hasOwn(conf, "reposition") ? conf.reposition : true;
+	
 	that.conf = conf;
 
 /**
@@ -93,20 +113,26 @@ ch.dropdown = function (conf) {
 		// Visible
 			.removeClass("ch-hide")
 		// Prevent click on content (except links)
-			.bind("click", function (event) { event.stopPropagation(); })
+			.bind("click", function(event) {
+				if ((event.target || event.srcElement).tagName === "A") {
+					that.hide();
+				}
+
+				event.stopPropagation();
+			})
 		// WAI-ARIA properties
 			.attr({ "role": "menu", "aria-hidden": "true" });
 		
 		// WAI-ARIA for items into content
-		$content.children().attr("role", "menuitem");
-		
+		$content.children("a").attr("role", "menuitem");
+
 		// Position
 		that.position = ch.positioner({
-			element: $content,
-			context: that.$trigger,
-			points: (conf.points || "lt lb"),
-			offset: "0 -1",
-			reposition: true
+			"element": $content,
+			"context": that.$trigger,
+			"points": (conf.points || "lt lb"),
+			"offset": "0 -1",
+			"reposition": conf.reposition
 		});
 		
 		return $content;
@@ -137,9 +163,6 @@ ch.dropdown = function (conf) {
 
 		// Close events
 		ch.utils.document.one("click " + ch.events.KEY.ESC, function (event) { that.hide(event); });
-		
-		// Close dropdown after click an option (link)
-		that.$content.find("a").one("click", that.hide);
 
 		// Keyboard support
 		var items = that.$content.find("a");
