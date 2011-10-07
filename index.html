@@ -802,45 +802,45 @@
 		// Carousel
 		var ch_caro = $(".YOUR_SELECTOR_Carousel").carousel({
 			pagination:true
-		}).on("ready",function(){console.log("ready carousel")});
+		});
 					
 		// Modal
 		var ch_moda = $(".YOUR_SELECTOR_Modal").modal({
 			width: "500px",
 			height: "300px"
-		}).on("ready",function(){console.log("ready modal")});
+		});
 		
 		// Modal with invisible DOM Content		
 		var ch_moda_invisible = $(".YOUR_SELECTOR_Modal_invisible").modal({ 
 		  content:"#invisible-content"
-		}).on("ready",function(){console.log("ready modal invisible")});
+		});
 		
 		// Transition
-		var ch_tran = $(".YOUR_SELECTOR_Transition").transition().on("ready",function(){console.log("ready transition")});
+		var ch_tran = $(".YOUR_SELECTOR_Transition").transition();
 		
 		// Layer on click
 		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
 			event: "click",
 			content: "#invisible-content"
-		}).on("ready",function(){console.log("ready layer click")});
+		});
 		
 		// Layer on mouseover
-		var ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo = bar</p>").on("ready",function(){console.log("ready layer")});
+		var ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
 
 		// Tooltip
-		var ch_tool = $(".YOUR_SELECTOR_Tooltip").tooltip().on("ready",function(){console.log("ready tooltip")});
+		var ch_tool = $(".YOUR_SELECTOR_Tooltip").tooltip();
 
 		// Tab Navigator
-		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator().on("ready",function(){console.log("ready tabNavigator")});
+		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator();
 
 		// Expando
-		var ch_expa = $(".YOUR_SELECTOR_Expando").expando().on("ready",function(){console.log("ready expando")});
+		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
 
 		// Calendar
-		var calendar = $(".myCalendar").calendar().on("ready",function(){console.log("ready calendar")});
+		var calendar = $(".myCalendar").calendar();
 
 		// Form
-		var ch_form = $('.YOUR_SELECTOR_Form').form().on("ready",function(){console.log("ready formn")});
+		var ch_form = $('.YOUR_SELECTOR_Form').form();
 			ch_form.on("validate",function(){console.log("validate event")})
 			ch_form.on("submit",function(){console.log("submit event")});
 
