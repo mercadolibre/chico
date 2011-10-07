@@ -834,6 +834,20 @@ ch.carousel = function (conf) {
 		draw();
 		
 	}, 350);
+	
+	/**
+	* Triggers when the component is ready to use (Since 0.8.0).
+	* @name ch.Carousel#ready
+	* @event
+	* @public
+	* @since 0.8.0
+	* @example
+	* // Following the first example, using 'me' as carousel's instance controller:
+	* me.on("ready",function () {
+	*	this.itemsPerPage();
+	* });
+	*/
+	setTimeout(function(){ that.trigger("ready")}, 50);
 
 	return that;
 };

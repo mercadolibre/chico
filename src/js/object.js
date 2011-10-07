@@ -119,12 +119,11 @@ ch.object = function(){
 	* // Will add a event handler to the "ready" event
 	* me.on("ready", startDoingStuff);
 	*/
-	that["public"].on = function(event, handler) {
 
+	that["public"].on = function(event, handler) {
 		if (event && handler) {
 			$(that["public"]).bind("ch-"+event, handler);
 		}
-
 		return that["public"];
 	};
 
@@ -168,13 +167,11 @@ ch.object = function(){
 	* me.off("ready", startDoingStuff);
 	*/
 	that["public"].off = function(event, handler) {
-
 		if (event && handler) {
 			$(that["public"]).unbind("ch-"+event, handler);
 		} else if (event) {
 			$(that["public"]).unbind("ch-"+event);
 		}
-
 		return that["public"];
 	};
 

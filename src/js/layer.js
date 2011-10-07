@@ -382,17 +382,18 @@ ch.layer = function (conf) {
 	*/
 
 	/**
-	* Triggers when the component is ready to use.
+	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.Layer#ready
 	* @event
 	* @public
+	* @since 0.8.0
 	* @example
-	* // Following the first example, using 'me' as Layer's instance controller:
+	* // Following the first example, using 'me' as layer's instance controller:
 	* me.on("ready",function () {
 	*	this.show();
 	* });
 	*/
-	that.trigger("ready");
+	setTimeout(function(){ that.trigger("ready")}, 50);
 
 	return that;
 
