@@ -100,7 +100,6 @@ ch.floats = function () {
 		
 		// Classname with component type and extra classes from conf.classes
 		container.push(" class=\"ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
-		
 		// Z-index
 		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + ";");
 		
@@ -414,6 +413,19 @@ ch.floats = function () {
 	that["public"].isActive = function () {
 		return that.active;
 	};
+	
+	/**
+	* Triggers when the component is ready to use.
+	* @name ch.Floats#ready
+	* @event
+	* @public
+	* @example
+	* // Following the first example, using 'me' as modal's instance controller:
+	* me.on("ready",function () {
+	*	this.show();
+	* });
+	*/
+	that.trigger("ready");
 
 	return that;
 

@@ -256,6 +256,21 @@ ch.tabNavigator = function (conf) {
 			break;
 		};
 	};
+	
+	/**
+	* Triggers when the component is ready to use (Since 0.8.0).
+	* @name ch.TabNavigator#ready
+	* @event
+	* @public
+	* @since 0.8.0
+	* @example
+	* // Following the first example, using 'me' as tabNavigator's instance controller:
+	* me.on("ready",function () {
+	*	this.show();
+	* });
+	*/
+	//This avoit to trigger execute after the component was instanciated
+	setTimeout(function(){that.trigger("ready")}, 50);
 
 	return that;
 

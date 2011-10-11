@@ -447,6 +447,20 @@ ch.uiobject = function(){
 	*/
 
 	/**
+	* Add a callback function from specific event once.
+	* @public
+	* @function
+	* @name ch.Object#once
+	* @param {string} event Event name.
+	* @param {function} handler Handler function.
+	* @returns itself
+	* @since version 0.8.0
+	* @example
+	* // Will add a event handler to the "contentLoad" event once
+	* me.once("contentLoad", startDoingStuff);
+	*/
+
+	/**
 	* Removes a callback function from specific event.
 	* @public
 	* @function

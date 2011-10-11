@@ -567,17 +567,18 @@ ch.zoom = function (conf) {
 	*/
 
 	/**
-	* Triggers when the component is ready to use.
+	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.Zoom#ready
 	* @event
 	* @public
+	* @since 0.8.0
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
+	* // Following the first example, using 'me' as zoom's instance controller:
 	* me.on("ready",function () {
 	*	this.show();
 	* });
 	*/
-	that.trigger("ready");
+	setTimeout(function(){ that.trigger("ready")}, 50);
 
 	return that;
 };
