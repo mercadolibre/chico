@@ -101,8 +101,21 @@ ch.floats = function () {
 		// Classname with component type and extra classes from conf.classes
 		container.push(" class=\"ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
 		
-		// Z-index, defined width and height, tag close
-		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + (ch.utils.hasOwn(conf, "width") ? conf.width : "") + (ch.utils.hasOwn(conf, "height") ? conf.height : "") + "\">");
+		// Z-index
+		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + ";");
+		
+		// Width
+		if (ch.utils.hasOwn(conf, "width")) {
+			container.push("width:" + conf.width + ((typeof conf.width === "number") ? "px;" : ";"));
+		}
+		
+		// Height
+		if (ch.utils.hasOwn(conf, "height")) {
+			container.push("height:" + conf.height + ((typeof conf.height === "number") ? "px;" : ";"));
+		}
+		
+		// Style and tag close
+		container.push("\">");
 		
 		// Create cone
 		if (ch.utils.hasOwn(conf, "cone")) { container.push("<div class=\"ch-cone\"></div>"); }
