@@ -23,20 +23,39 @@
 }
 
 .ch-tooltip.ch-left .ch-cone {
-	left:8px;
+	left: 8px;
 }
 
 .ch-tooltip.ch-right .ch-cone {
-	right:8px;
+	height: 16px;
+	width: 8px;
+	left: -8px;
 }
 
 .ch-tooltip.ch-top .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
+	background-position: 0 -8px;
+	bottom: -8px;
+	top: auto;
 }
 
 .ch-tooltip.ch-bottom .ch-cone {
-	top:-8px;
+	height: 8px;
+	width: 16px;
+	top: -8px;
+}
+
+.ch-tooltip.ch-right.ch-bottom .ch-cone {
+	right: 8px;
+	left: auto;
+	height: 8px;
+	width: 16px;
+}
+
+.ch-tooltip.ch-right.ch-top .ch-cone {
+	height: 8px;
+	width: 16px;
+	right: 8px;
+	left: auto;
 }
 
 /* IE6 */

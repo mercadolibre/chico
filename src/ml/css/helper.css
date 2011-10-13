@@ -1,70 +1,75 @@
-.ch-helper,
-.ch-validator {
-	background-color:#fbd9db;
-	border:1px solid #f7a9ae;
-	color:#600;
-	font-size:12px;
-}
-
 .ch-helper {
-	display:inline-block;
-	max-width:200px;
-	position:absolute;
-	z-index:300;
-	border-radius: 3px;
+	background-color: #fbd9db;
+	border: 1px solid #f7a9ae;
+	color: #600;
+	font-size: 12px;
+	display: inline-block;
+	width: 160px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
-	padding:1px 3px;
-	line-height: 18px;
-}
-
-
-.ch-validator {
+	border-radius: 3px;
 	margin-bottom:10px;
+	padding: 2px;
 }
 
 .ch-helper span {
-	padding:0;
+	padding: 0;
 }
 
-.ch-helper-content p {
-    padding-left: 22px;
-    padding-right: 5px;
-    padding-top: 2px;
-}
-
-.ch-helper .ico.error,
-.ch-validator .ico.error {
-	float:left;
-	margin:2px 5px 0 0;
+.ch-helper .ico.error{
+	float: left;
+	margin: 2px 5px 0 0;
 }
 
 /* Cone */
+
 .ch-helper .ch-cone {
-	background-image: url('../assets/helper.png');
+	background-image: url("../assets/helper.png");
+	background-position: 0 0 no-repeat;
 	display:block;
 	position:absolute;
 	width:8px;
 	height:16px;
-	top:3px;
-	left:-8px;
+}
+
+.ch-helper.ch-left .ch-cone {
+	left: 8px;
+}
+
+.ch-helper.ch-right .ch-cone {
+	height: 16px;
+	width: 8px;
+	left: -8px;
+}
+
+.ch-helper.ch-top .ch-cone {
+	background-position: 0 -8px;
+	bottom: -8px;
+	top: auto;
 }
 
 .ch-helper.ch-bottom .ch-cone {
-	width:16px;
-	height:8px;
-	top:-8px;
-	left:8px;
+	height: 8px;
+	width: 16px;
+	top: -8px;
 }
 
-/* IE 6, 7 */
+.ch-helper.ch-right.ch-bottom .ch-cone {
+	right: 8px;
+	left: auto;
+	height: 8px;
+	width: 16px;
+}
+
+.ch-helper.ch-right.ch-top .ch-cone {
+	height: 8px;
+	width: 16px;
+	right: 8px;
+	left: auto;
+}
+
+/* IE 6,7 */
 .ie6 .ch-helper,
 .ie7 .ch-helper {
 	z-index:1;
-}
-
-/* IE6 */
-.ie6 .ch-helper .ch-cone {
-	font-size:0;
-	line-height:0;
 }
