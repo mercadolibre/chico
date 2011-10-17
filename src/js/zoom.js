@@ -33,21 +33,21 @@ ch.zoom = function (conf) {
 *	Constructor
 */
 	conf = ch.clon(conf);
-	
+
 	conf.fx = conf.fx || false;
-	
+
 	// WAI-ARIA
 	conf.aria = {};
 	conf.aria.role = "tooltip";
 	conf.aria.identifier = "aria-describedby";
-	
+
 	// Position
 	conf.position = {};
 	conf.position.context = conf.context || that.$element;
 	conf.position.offset = conf.offset || "20 0";
 	conf.position.points = conf.points || "lt rt";
 	conf.reposition = false;
-	
+
 	// Transition message and size
 	conf.message = conf.message || "Loading zoom...";
 	conf.width = conf.width || 300;
@@ -65,7 +65,7 @@ ch.zoom = function (conf) {
 /**
 *	Private Members
 */
-	
+
 	/**
 	* Element showed before zoomed image is load. It's a transition message and its content can be configured through parameter "message".
 	* @private
@@ -73,7 +73,15 @@ ch.zoom = function (conf) {
 	* @type Object
 	*/
 	var $loading = $("<p class=\"ch-zoom-loading loading ch-hide\">" + conf.message + "</p>").appendTo(that.$element),
-		
+
+	/**
+	* Position of main anchor. It's for calculate cursor position hover the image.
+	* @private
+	* @name ch.Zoom#offset
+	* @type Object
+	*/
+		offset = that.$element.offset(),
+
 	/**
 	* Visual element that follows mouse movement for reference to zoomed area into original image.
 	* @private
@@ -89,7 +97,7 @@ ch.zoom = function (conf) {
 			* @type Object
 			*/
 			"$shape": $("<div class=\"ch-seeker ch-hide\">"),
-			
+
 			/**
 			* Half of width of seeker element. It's only half to facilitate move calculations.
 			* @private
@@ -98,7 +106,7 @@ ch.zoom = function (conf) {
 			* @type Number
 			*/
 			"width": 0,
-			
+
 			/**
 			* Half of height of seeker element. It's only half to facilitate move calculations.
 			* @private
@@ -108,7 +116,7 @@ ch.zoom = function (conf) {
 			*/
 			"height": 0
 		},
-	
+
 	/**
 	* Reference to main image declared on HTML code snippet.
 	* @private
@@ -118,29 +126,28 @@ ch.zoom = function (conf) {
 		original = (function () {
 			// Define the content source
 			var $img = that.$element.children("img");
-			
+
 			// Grab some data when image loads
 			$img.onImagesLoads(function () {
-				
-				// Grab size and position of original image
+
+				// Grab size of original image
 				original.width = $img.prop("width");
 				original.height = $img.prop("height");
-				original.offset = $img.offset();
-				
+
 				// Anchor size (same as image)
 				that.$element.css({
 					"width": original.width,
 					"height": original.height
 				});
-				
+
 				// Loading position centered at anchor
 				$loading.css({
 					"left": (original.width - $loading.width()) / 2,
 					"top": (original.height - $loading.height()) / 2
 				});
-				
+
 			});
-			
+
 			return {
 				/**
 				* Reference to HTML Element of original image.
@@ -150,7 +157,7 @@ ch.zoom = function (conf) {
 				* @type Object
 				*/
 				"$image": $img,
-				
+
 				/**
 				* Position of original image relative to viewport.
 				* @private
@@ -159,7 +166,7 @@ ch.zoom = function (conf) {
 				* @type Object
 				*/
 				"offset": {},
-				
+
 				/**
 				* Width of original image.
 				* @private
@@ -168,7 +175,7 @@ ch.zoom = function (conf) {
 				* @type Number
 				*/
 				"width": 0,
-				
+
 				/**
 				* Height of original image.
 				* @private
@@ -179,7 +186,7 @@ ch.zoom = function (conf) {
 				"height": 0
 			};
 		}()),
-	
+
 	/**
 	* Relative size between zoomed and original image.
 	* @private
@@ -195,7 +202,7 @@ ch.zoom = function (conf) {
 			* @type Number
 			*/
 			"width": 0,
-			
+
 			/**
 			* Relative size of Y axis.
 			* @private
@@ -215,38 +222,38 @@ ch.zoom = function (conf) {
 		zoomed = (function () {
 			// Define the content source
 			var $img = that.source = $("<img src=\"" + that.element.href + "\">");
-			
+
 			// Grab some data when zoomed image loads
 			$img.onImagesLoads(function () {
-				
+
 				// Save the zoomed image size
 				zoomed.width = $img.prop("width");
 				zoomed.height = $img.prop("height");
-				
+
 				// Save the zoom ratio
 				ratio.width = zoomed.width / original.width;
 				ratio.height = zoomed.height / original.height;
-				
+
 				// Seeker: Size relative to zoomed image respect zoomed area
 				var w = ~~(conf.width / ratio.width),
 					h = ~~(conf.height / ratio.height);
-				
+
 				// Seeker: Save half width and half height
 				seeker.width = w / 2;
 				seeker.height = h / 2;
-				
+
 				// Seeker: Set size and append it
 				seeker.$shape.css({"width": w, "height": h}).appendTo(that.$element);
-				
+
 				// Remove loading
 				$loading.remove();
-				
+
 				// Change zoomed image status to Ready
 				zoomed.ready = true;
-				
+
 				// TODO: MAGIC here! if mouse is over image show seeker and make all that innerShow do
 			});
-			
+
 			return {
 				/**
 				* Reference to HTML Element of augmented image.
@@ -256,7 +263,7 @@ ch.zoom = function (conf) {
 				* @type Object
 				*/
 				"$image": $img,
-				
+
 				/**
 				* Status of augmented image. When it's load, the status is "true".
 				* @private
@@ -265,7 +272,7 @@ ch.zoom = function (conf) {
 				* @type Boolean
 				*/
 				"ready": false,
-				
+
 				/**
 				* Width of augmented image.
 				* @private
@@ -274,7 +281,7 @@ ch.zoom = function (conf) {
 				* @type Number
 				*/
 				"width": 0,
-				
+
 				/**
 				* Height of augmented image.
 				* @private
@@ -294,51 +301,61 @@ ch.zoom = function (conf) {
 	* @param {Event} event Mouse event to take the cursor position.
 	*/
 		move = function (event) {
-			
-			var x, y, offset = original.offset;
-			
+
+			var x, y;
+
 			// Left side of seeker LESS THAN left side of image
 			if (event.pageX - seeker.width < offset.left) {
 				x = 0;
 			// Right side of seeker GREATER THAN right side of image
 			} else if (event.pageX + seeker.width > original.width + offset.left) {
-				x = original.width - (seeker.width * 2);
+				x = original.width - (seeker.width * 2) - 2;
 			// Free move
 			} else {
 				x = event.pageX - offset.left - seeker.width;
 			}
-			
+
 			// Top side of seeker LESS THAN top side of image
 			if (event.pageY - seeker.height < offset.top) {
 				y = 0;
 			// Bottom side of seeker GREATER THAN bottom side of image
 			} else if (event.pageY + seeker.height > original.height + offset.top) {
-				y = original.height - (seeker.height * 2);
+				y = original.height - (seeker.height * 2) - 2;
 			// Free move
 			} else {
 				y = event.pageY - offset.top - seeker.height;
 			}
-			
+
 			// Move seeker
 			seeker.$shape.css({"left": x, "top": y});
-			
+
 			// Move zoomed image
 			zoomed.$image.css({"left": (-ratio.width * x), "top": (-ratio.height * y)});
-			
+
 		};
 
 /**
 *	Protected Members
 */
 
+	/**
+	* Inner show method. Attach the component's layout to the DOM tree and load defined content.
+	* @protected
+	* @name ch.Zoom#innerShow
+	* @function
+	* @returns itself
+	*/
 	that.innerShow = function () {
-		
+
 		// If the component isn't loaded, show loading transition
 		if (!zoomed.ready) {
 			$loading.removeClass("ch-hide");
 			return that;
 		}
-		
+
+		// Update position of anchor here because Zoom can be inside a Carousel and its position updates
+		offset = that.$element.offset();
+
 		// Bind move calculations
 		that.$element.bind("mousemove", function (event) { move(event); });
 
@@ -349,17 +366,24 @@ ch.zoom = function (conf) {
 		that.parent.innerShow();
 
 		return that;
-		
+
 	};
 
+	/**
+	* Inner hide method. Hides the component's layout and detach it from DOM tree.
+	* @protected
+	* @name ch.Zoom#innerHide
+	* @function
+	* @returns itself
+	*/
 	that.innerHide = function () {
-		
+
 		// If the component isn't loaded, hide loading transition
 		if (!zoomed.ready) {
 			$loading.addClass("ch-hide");
 			return that;
 		}
-		
+
 		// Unbind move calculations
 		that.$element.unbind("mousemove");
 
@@ -370,7 +394,7 @@ ch.zoom = function (conf) {
 		that.parent.innerHide();
 
 		return that;
-		
+
 	};
 
 	/**
@@ -383,19 +407,19 @@ ch.zoom = function (conf) {
 	* @returns itself
 	*/
 	that.size = function (prop, data) {
-		
+
 		// Seeker: Updates styles and size value
 		if (data) {
 			// Seeker: Size relative to zoomed image respect zoomed area
 			var size = ~~(data / ratio[prop]);
-			
+
 			// Seeker: Save half width and half height
 			seeker[prop] = size / 2;
-			
+
 			// Seeker: Set size
 			seeker.$shape.css(prop, size);
 		}
-		
+
 		// Change float size
 		return that.parent.size(prop, data);
 	};
@@ -535,7 +559,7 @@ ch.zoom = function (conf) {
 
 		// Prevent click
 		.bind("click", function (event) { that.prevent(event); })
-		
+
 		// Show component or loading transition
 		.bind("mouseenter", that.innerShow)
 
@@ -578,7 +602,7 @@ ch.zoom = function (conf) {
 	*	this.show();
 	* });
 	*/
-	setTimeout(function(){ that.trigger("ready")}, 50);
+	setTimeout(function () { that.trigger("ready"); }, 50);
 
 	return that;
 };

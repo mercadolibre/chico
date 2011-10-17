@@ -29,7 +29,7 @@
 
 /* Seeker shape */
 .ch-zoom-trigger .ch-seeker {
-	border:1px solid #ccc;
+	border:1px solid #666;
 	background:#eee;
 	opacity:0.3;
 	filter:alpha(opacity=30);
