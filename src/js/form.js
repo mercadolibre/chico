@@ -414,7 +414,24 @@ ch.form = function(conf) {
 	// Bind the reset
 	that.$element.find(":reset, .resetForm").bind("click", function(event){ reset(event); });
 
+	/**
+	* Triggers when the component is ready to use (Since 0.8.0).
+	* @name ch.Form#ready
+	* @event
+	* @public
+	* @since 0.8.0
+	* @example
+	* // Following the first example, using 'me' as form's instance controller:
+	* me.on("ready",function () {
+	*	this.reset();
+	* });
+	*/
+	setTimeout(function(){ that.trigger("ready")}, 50);
+
 	return that;
 };
 
 ch.factory("form");
+
+
+
