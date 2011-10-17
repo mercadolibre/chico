@@ -188,7 +188,9 @@ ch.form = function(conf) {
 		// If an error ocurs prevent default actions
 		if (!status) {
 			that.prevent(event);
-			event.stopImmediatePropagation();
+	        if (event) {
+	            event.stopImmediatePropagation();
+	        }
 		}
 
 		// OLD CALLBACK SYSTEM!

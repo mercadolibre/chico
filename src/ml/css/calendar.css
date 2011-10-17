@@ -48,8 +48,8 @@
 /* Container */
 .ch-calendar .ch-calendar-container.ch-dropdown-content {
 	padding:0;
-	width:215px;
-	border: 1px solid #CCCCCC;
+	width: 265px;
+
 }
 
 /* Content */
@@ -66,7 +66,9 @@
 
 .ch-calendar-month caption{
 	text-align: center;
-	font-size:12px;
+	font-size: 13px;
+	height: 26px;
+	line-height: 26px;
 	margin:0;
 	background:#EEE;
 	background: -moz-linear-gradient(#FFF, #EEE);
@@ -80,32 +82,34 @@
 	border:none;
 	background:none;
 	text-align:center;
-	text-transform:uppercase;
 }
 
 .ch-calendar-month th {
 	width: 14%;
 	padding:0;
+	font-weight: normal;
+	font-size:11px;
 }
 
 .ch-calendar-month .week{
 	border:none;
 }
 
-.ch-calendar-month td{
+.ch-calendar-month td {
     text-align: right;
 	border-color: #EEE;
     border-style: solid;
-    border-width: 0 1px;
+    border-width: 1px;
     cursor: pointer;
     height: auto;
-    line-height: 20px;
-    padding: 0 8px 0 0;
+    line-height: 26px;
+    height: 26px;
+    padding: 0 11px 0 0;
     text-align: right;
     width: 14%;
 }
 
-.ch-calendar-month .day:hover{
+.ch-calendar-month .day:hover {
 	background: #F5F5F5;
 	font-weight:normal;
 	color:#333;
@@ -116,8 +120,13 @@
 	cursor:default;
 }
 
-.ch-calendar-month td.selected{
-	background: #DC7B1C;
+.ch-calendar-month td.selected {
+	background: #C64A28;
+	-moz-box-shadow: 0 0 2px #6F2917 inset;
+	-o-box-shadow: 0 0 2px #6F2917 inset;
+	-ms-box-shadow: 0 0 2px #6F2917 inset;
+	-webkit-shadow: 0 0 2px #6F2917 inset;
+	box-shadow: 0 0 2px #6F2917 inset;
 	color:#FFF;
 	font-weight: bold;
 }
@@ -140,12 +149,12 @@
 
 .ch-calendar-prev {
 	left: 5px;
-    background-position:17px -25px;
+    background-position:17px -24px;
 }
 
 .ch-calendar-next {
 	right: 5px;
-    background-position:-10px -25px;
+    background-position:-10px -24px;
 }
 
 
@@ -163,7 +172,7 @@
 
 .ie6 .ch-calendar .ch-dropdown-content{
 	padding:0;
-	width: 200px;
+	width: 265px;
 	height: auto;
 }
 

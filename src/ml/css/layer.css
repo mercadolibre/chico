@@ -26,20 +26,39 @@
 }
 
 .ch-layer.ch-left .ch-cone {
-	left:12px;
+	left: 12px;
 }
 
 .ch-layer.ch-right .ch-cone {
-	right:12px;
+	height: 16px;
+	width: 8px;
+	left: -8px;
 }
 
 .ch-layer.ch-top .ch-cone {
-	background-position:0 -8px;
-	bottom:-8px;
+	background-position: 0 -8px;
+	bottom: -8px;
+	top: auto;
 }
 
 .ch-layer.ch-bottom .ch-cone {
-	top:-8px;
+	height: 8px;
+	width: 16px;
+	top: -8px;
+}
+
+.ch-layer.ch-right.ch-bottom .ch-cone {
+	right: 12px;
+	left: auto;
+	height: 8px;
+	width: 16px;
+}
+
+.ch-layer.ch-right.ch-top .ch-cone {
+	height: 8px;
+	width: 16px;
+	right: 12px;
+	left: auto;
 }
 
 /* IE 6,7 */
