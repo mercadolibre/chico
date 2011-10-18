@@ -144,10 +144,10 @@
 
 /* Trigger ON */
 .secondary .ch-dropdown-trigger-on {
-	-o-box-shadow: 2px 2px 0px #888;
-	-moz-box-shadow: 2px 0px 0px #888;
-	-webkit-box-shadow: 2px 0px 0px #888;	
-	box-shadow: 2px 2px 0px #888;
+	-o-box-shadow: 2px 0 0 #888;
+	-moz-box-shadow: 2px 0 0 #888;
+	-webkit-box-shadow: 2px 0 0 #888;
+	box-shadow: 2px 0 0 #888;
 	border-color:#ccc;
 }
 

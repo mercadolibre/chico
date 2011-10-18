@@ -12,7 +12,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<!--link rel="stylesheet" type="text/css" href="http://chico.com:8080/versions/0.7.6/chico-0.7.6.css"-->
-	
+
 	<style> 
 		/* Carousel list size */
 		.YOUR_SELECTOR_Carousel .ch-carousel-content li {
@@ -887,11 +887,11 @@
 
 		var test = $(".lean").modal()
 
-		var test = function () {
-			alert("Una sola vez");
+		var testReady = function () {
+			console.log("Una sola vez");
 		};
 
-		ch_moda[0].on("ready", test);
+		ch_moda[0].on("ready", testReady);
 
 		// Viewer
 		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer();
