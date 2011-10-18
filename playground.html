@@ -791,7 +791,7 @@
 		
 		// Accordion
 		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
-			selected: "1#2"
+			//selected: "1#2"
 		});
 		
 		// Menu
@@ -848,7 +848,10 @@
 		});
 
 		var count = 0;
-
+		ch_form.on("submit", function(){
+			console.log(count);
+			count++;
+		});
 		// Watchers
 		var ch_wprice = $("#YOUR_SELECTOR_price").price("Price please!").and().required();
 
