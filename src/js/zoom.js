@@ -35,6 +35,8 @@ ch.zoom = function (conf) {
 	conf = ch.clon(conf);
 
 	conf.fx = conf.fx || false;
+	
+	conf.cache = false;
 
 	// WAI-ARIA
 	conf.aria = {};
