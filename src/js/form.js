@@ -179,13 +179,10 @@ ch.form = function(conf) {
 		// new callback
 		that.trigger("beforeSubmit");
 
-		// re-asign submit event
-		that.$element.one("submit", submit);
-
 		// Execute all validations
 		validate(event);
 
-		// If an error ocurs prevent default actions
+		// If an error occurs prevent default actions
 		if (!status) {
 			that.prevent(event);
 	        if (event) {
@@ -202,14 +199,6 @@ ch.form = function(conf) {
 			that.callbacks("onSubmit");
 		}
 
-		// OLD CALLBACK SYSTEM!
-		// Is there's no error but there's a onSubmit callback
-		if ( status && ch.utils.hasOwn(conf, "onSubmit")) {
-			// Avoid default actions
-			that.prevent(event);
-			// To execute defined onSubmit callback
-			that.callbacks("onSubmit");
-		}
 		/**
 		* Callback function
 		* @name ch.Form#submit
@@ -251,10 +240,8 @@ ch.form = function(conf) {
 
 		var i = 0, j = that.children.length;
 		for(i; i < j; i += 1) {
-		  that.children[i].clear();
+			that.children[i].clear();
 		}
-		
-		status = true;
 
 		status = true;
 
@@ -403,7 +390,7 @@ ch.form = function(conf) {
 	if (ch.utils.hasOwn(conf, "onSubmit")) {
 		that.$element.bind('submit', function(event){ that.prevent(event); });
 		// Delete all click handlers asociated to submit button >NATAN: Why?
-			//Because if you want do something on submit, you need that the trigger (submit button)
+			//Because if you want to do something on submit, you need that the trigger (submit button)
 			//don't have events associates. You can add funcionality on onSubmit callback
 		that.$element.find(":submit").unbind('click');
 	};
@@ -432,6 +419,3 @@ ch.form = function(conf) {
 };
 
 ch.factory("form");
-
-
-
