@@ -26,14 +26,13 @@
 		
 		.showroomIcons .ico {
 			float:left;
-			margin:5px 10px 0 0;
+			margin:2px 10px 0 0;
 		}
 	</style>
 </head>
 
 <body>
 	<h1>Chico-UI</h1>
-
 	<div class="container">
 		<h1>Header 1</h1> 
 		<h2>Header 2</h2> 
@@ -61,6 +60,8 @@
 	<div class="box clearfix">
 		<h2>Buttons</h2>
 		<div class="ch-g1-2">
+			<p><input type="button" class="btn main" value="Main button"></p>
+			<br>
 			<p><input type="button" class="btn primary" value="Primary button"></p>
 			<br>
 			<p><input type="button" class="btn secondary" value="Secondary button"></p>
@@ -68,11 +69,13 @@
 			<p><input type="button" class="btn secondary skin" value="Secondary button cyan"></p>
 		</div>
 		<div class="ch-g1-2">
-			<p><input type="button" class="btn primary disabled" disabled="disabled" value="Primary disabled"></p>
+			<p><input type="button" class="btn main disabled" disabled value="Main disabled"></p>
 			<br>
-			<p><input type="button" class="btn secondary disabled" disabled="disabled" value="Secondary disabled"></p>
+			<p><input type="button" class="btn primary disabled" disabled value="Primary disabled"></p>
 			<br>
-			<p><input type="button" class="btn secondary skin disabled" disabled="disabled" value="Secondary skin disabled"></p>
+			<p><input type="button" class="btn secondary disabled" disabled value="Secondary disabled"></p>
+			<br>
+			<p><input type="button" class="btn secondary skin disabled" disabled value="Secondary skin disabled"></p>
 		</div>
 	</div>
 	
@@ -84,7 +87,7 @@
 						<th scope="col"><input type="checkbox" name="mycheckall"/></th>
 						<th scope="col">Datos de inicio</th>
 						<th scope="col">Tipo de operación</th>
-						<th scope="col" class="selected">Contraparte</th>
+						<th scope="col" class="selected">Contraparte<span class="asc">(asc)</span></th>
 						<th scope="col">Descripción</th>
 						<th scope="col">Valor</th>
 						<th scope="col">Status de la operación</th>
@@ -244,7 +247,7 @@
 
 	<div class="box">
 		<h2>Dropdown</h2>
-
+		
 		<div class="myDropdown ch-dropdown">
 			<p class="ch-dropdown-trigger">Links primary</p>
 			<menu label="Links" class="ch-dropdown-content">
