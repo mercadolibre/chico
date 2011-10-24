@@ -98,7 +98,15 @@ ch.dropdown = function (conf) {
 	* @name ch.Dropdown#$trigger
 	* @type jQuery
 	*/
-	that.$trigger = that.$element.children().eq(0);
+	that.$trigger = (function () {
+		
+		var $el = that.$element.children().eq(0);
+		
+		if (!that.$element.hasClass("secondary")) { $el.addClass("btn skin"); }
+		
+		return $el;
+		
+	}());
 
 	/**
 	* The component's content.

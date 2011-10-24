@@ -224,9 +224,9 @@ ch.calendar = function (conf) {
 	*/
 	var arrows = {
 	
-		$prev: $("<p class=\"ch-calendar-prev\" aria-controls=\"ch-calendar-grid-"+that.uid+"\">prev</p>").bind("click", function (event) { that.prevent(event); prevMonth(); }),
+		$prev: $("<p class=\"ch-calendar-prev\" aria-controls=\"ch-calendar-grid-" + that.uid + "\"><span>Previous</span></p>").bind("click", function (event) { that.prevent(event); prevMonth(); }),
 	
-		$next: $("<p class=\"ch-calendar-next\" aria-controls=\"ch-calendar-grid-"+that.uid+"\">next</p>").bind("click", function (event) { that.prevent(event); nextMonth(); })
+		$next: $("<p class=\"ch-calendar-next\" aria-controls=\"ch-calendar-grid-" + that.uid + "\"><span>Next</span></p>").bind("click", function (event) { that.prevent(event); nextMonth(); })
 	};
 
 	/**
