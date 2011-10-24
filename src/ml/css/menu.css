@@ -62,3 +62,8 @@
 .ch-menu-on {
 	font-weight:bold;
 }
+
+/* IE */
+.ie7 .ch-menu .ch-expando {
+	line-height:0;
+}

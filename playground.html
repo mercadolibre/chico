@@ -12,7 +12,7 @@
 	
 	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
 	<!--link rel="stylesheet" type="text/css" href="http://chico.com:8080/versions/0.7.6/chico-0.7.6.css"-->
-	
+
 	<style> 
 		/* Carousel list size */
 		.YOUR_SELECTOR_Carousel .ch-carousel-content li {
@@ -791,7 +791,7 @@
 		
 		// Accordion
 		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
-			selected: "1#2"
+			//selected: "1#2"
 		});
 		
 		// Menu
@@ -848,7 +848,10 @@
 		});
 
 		var count = 0;
-
+		ch_form.on("submit", function(){
+			console.log(count);
+			count++;
+		});
 		// Watchers
 		var ch_wprice = $("#YOUR_SELECTOR_price").price("Price please!").and().required();
 
@@ -887,11 +890,11 @@
 
 		var test = $(".lean").modal()
 
-		var test = function () {
-			alert("Una sola vez");
+		var testReady = function () {
+			console.log("Una sola vez");
 		};
 
-		ch_moda[0].on("ready", test);
+		ch_moda[0].on("ready", testReady);
 
 		// Viewer
 		var ch_view = $(".YOUR_SELECTOR_Viewer").viewer();

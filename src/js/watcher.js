@@ -319,7 +319,7 @@ ch.watcher = function (conf) {
 	/**
 	* Clear all active validations.
 	* @public
-	* @name ch.Watcher#resset
+	* @name ch.Watcher#reset
 	* @function
 	* @returns itself
 	*/
