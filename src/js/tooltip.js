@@ -93,6 +93,14 @@ ch.tooltip = function (conf) {
 	* @returns itself
 	*/
 	that.innerShow = function (event) {
+		
+		// Reset all tooltip, except me
+		$.each(ch.instances.tooltip, function (i, e) {
+			if (e !== that["public"]) {
+				e.hide();
+			}
+		});
+		
 		// IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 		that.element[attrReference] = "";
 

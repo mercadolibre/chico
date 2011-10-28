@@ -181,8 +181,12 @@ ch.layer = function (conf) {
 	*/
 	that.innerShow = function (event) {
 
-		// Reset all layers
-		$.each(ch.instances.layer, function (i, e) { e.hide(); });
+		// Reset all layers, except me
+		$.each(ch.instances.layer, function (i, e) {
+			if (e !== that["public"]) {
+				e.hide();
+			}
+		});
 		
 		// conf.position.context = that.$element;
 		that.parent.innerShow(event);
