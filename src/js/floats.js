@@ -146,8 +146,25 @@ ch.floats = function () {
 		conf.position = conf.position || {};
 		conf.position.element = $container;
 		conf.position.reposition = ch.utils.hasOwn(conf, "reposition") ? conf.reposition : true;
-		
-		that.position = ch.positioner(conf.position);
+
+		that.positioner = ch.positioner(conf.position);
+		that.position = function (o) {
+			if (typeof o === "object") {
+				// New points
+				if (ch.utils.hasOwn(o, "points")) { conf.position.points = o.points; }
+
+				// New reposition
+				if (ch.utils.hasOwn(o, "reposition")) { conf.position.reposition = o.reposition; }
+
+				// New offset (splitted)
+				if (ch.utils.hasOwn(o, "offset")) { conf.position.offset = o.offset.split(" "); }
+
+				// New context
+				if (ch.utils.hasOwn(o, "context")) { conf.position.context = o.context; }
+			}
+
+			return that.positioner(conf.position);
+		};
 		
 		// Return the entire Layout
 		return $container;
