@@ -307,8 +307,8 @@ ch.positioner = (function () {
 					// Gets offset of context element
 					var contextOffset = self.element.offset(),
 						size = self.getSize(),
-						scrollLeft = contextOffset.left + offset[0],// - relativeParent.left,
-						scrollTop = contextOffset.top + offset[1];// - relativeParent.top;
+						scrollLeft = contextOffset.left, // + offset[0], // - relativeParent.left,
+						scrollTop = contextOffset.top; // + offset[1]; // - relativeParent.top;
 
 					if (!parentIsBody) {
 						scrollLeft -= relativeParent.left,
@@ -444,17 +444,17 @@ ch.positioner = (function () {
 
 					switch (reference) {
 					// X references
-					case "ll": r = context.left; break;
-					case "lr": r = context.right; break;
-					case "rl": r = context.left - $element.outerWidth(); break;
-					case "rr": r = context.right - $element.outerWidth(); break;
-					case "cc": r = context.left + (context.width / 2) - ($element.outerWidth() / 2); break;
+					case "ll": r = context.left + offset[0]; break;
+					case "lr": r = context.right + offset[0]; break;
+					case "rl": r = context.left - $element.outerWidth() + offset[0]; break;
+					case "rr": r = context.right - $element.outerWidth() + offset[0]; break;
+					case "cc": r = context.left + (context.width / 2) - ($element.outerWidth() / 2) + offset[0]; break;
 					// Y references
-					case "tt": r = context.top; break;
-					case "tb": r = context.bottom; break;
-					case "bt": r = context.top - $element.outerHeight(); break;
-					case "bb": r = context.bottom - $element.outerHeight(); break;
-					case "mm": r = context.top + (context.height / 2) - ($element.outerHeight() / 2); break;
+					case "tt": r = context.top + offset[1]; break;
+					case "tb": r = context.bottom + offset[1]; break;
+					case "bt": r = context.top - $element.outerHeight() + offset[1]; break;
+					case "bb": r = context.bottom - $element.outerHeight() + offset[1]; break;
+					case "mm": r = context.top + (context.height / 2) - ($element.outerHeight() / 2) + offset[1]; break;
 					}
 
 					return r;

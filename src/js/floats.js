@@ -100,9 +100,21 @@ ch.floats = function () {
 		
 		// Classname with component type and extra classes from conf.classes
 		container.push(" class=\"ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
+		// Z-index
+		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + ";");
 		
-		// Z-index, defined width and height, tag close
-		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + ";" + (ch.utils.hasOwn(conf, "width") ? "width: " + conf.width + ";" : "") + (ch.utils.hasOwn(conf, "height") ? "height: " + conf.height : "") + "\">");
+		// Width
+		if (ch.utils.hasOwn(conf, "width")) {
+			container.push("width:" + conf.width + ((typeof conf.width === "number") ? "px;" : ";"));
+		}
+		
+		// Height
+		if (ch.utils.hasOwn(conf, "height")) {
+			container.push("height:" + conf.height + ((typeof conf.height === "number") ? "px;" : ";"));
+		}
+		
+		// Style and tag close
+		container.push("\">");
 		
 		// Create cone
 		if (ch.utils.hasOwn(conf, "cone")) { container.push("<div class=\"ch-cone\"></div>"); }
@@ -134,8 +146,25 @@ ch.floats = function () {
 		conf.position = conf.position || {};
 		conf.position.element = $container;
 		conf.position.reposition = ch.utils.hasOwn(conf, "reposition") ? conf.reposition : true;
-		
-		that.position = ch.positioner(conf.position);
+
+		that.positioner = ch.positioner(conf.position);
+		that.position = function (o) {
+			if (typeof o === "object") {
+				// New points
+				if (ch.utils.hasOwn(o, "points")) { conf.position.points = o.points; }
+
+				// New reposition
+				if (ch.utils.hasOwn(o, "reposition")) { conf.position.reposition = o.reposition; }
+
+				// New offset (splitted)
+				if (ch.utils.hasOwn(o, "offset")) { conf.position.offset = o.offset.split(" "); }
+
+				// New context
+				if (ch.utils.hasOwn(o, "context")) { conf.position.context = o.context; }
+			}
+
+			return that.positioner(conf.position);
+		};
 		
 		// Return the entire Layout
 		return $container;

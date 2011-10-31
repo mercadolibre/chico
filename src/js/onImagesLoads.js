@@ -3,15 +3,14 @@
 * @abstract
 * @name onImagesLoads
 * @class onImagesLoads
-* @standalone
 * @memberOf ch
-* @param Array
+* @param array
 * @returns jQuery
 * @example
-* $("img").onImagesLoads(function(){ ... });
+* $("img").onImagesLoads(function () { ... });
 */
 
-ch.onImagesLoads = function(conf){
+ch.onImagesLoads = function (conf) {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
@@ -25,15 +24,15 @@ ch.onImagesLoads = function(conf){
 	
 	that.$element
 		// On load event
-		.bind("load", function(){
-			setTimeout(function(){
+		.one("load", function () {
+			setTimeout(function () {
 				if (--that.$element.length <= 0) {
 					that.conf.lambda.call(that.$element, this);
-				};
+				}
 			}, 200);
 		})
 		// For each image
-		.each(function(){
+		.each(function () {
 			// Cached images don't fire load sometimes, so we reset src.
 			if (this.complete || this.complete === undefined) {
 				var src = this.src;
@@ -41,7 +40,7 @@ ch.onImagesLoads = function(conf){
 				// Data uri fix bug in web-kit browsers
 				this.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 				this.src = src;
-			};
+			}
 		});
 	
 	return that;
