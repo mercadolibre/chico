@@ -284,47 +284,6 @@ ch.uiobject = function(){
 	};
 
 	/**
-	* Change component's position configuration. If a "refresh" {string} is recived, will refresh component's positioning with the same configuration. You can send an {object} with a new configuration.
-	* @name ch.Uiobject#position
-	* @function
-	* @protected
-	* @param {string} ["refresh"] Refresh
-	* @returns {object} Configuration object if no arguments are sended.
-	* @see ch.Positioner
-	*/
-	// TODO: Add examples!!!
-	that.position = function(o) {
-
-		switch(typeof o) {
-
-			case "object":
-				conf.position.context = o.context || conf.position.context;
-				conf.position.points = o.points || conf.position.points;
-				conf.position.offset = o.offset || conf.position.offset;
-				conf.position.fixed = o.fixed || conf.position.fixed;
-
-				ch.positioner(conf.position);
-				return that["public"];
-				break;
-
-			case "string":
-				if(o != "refresh") {
-					alert("Chico UI error: position() expected to find \"refresh\" parameter.");
-				}
-
-				ch.positioner(conf.position);
-
-				return that["public"];
-				break;
-
-			case "undefined":
-				return conf.position;
-				break;
-		};
-
-	};
-
-	/**
 	* Prevent propagation and default actions.
 	* @name ch.Uiobject#prevent
 	* @function
@@ -372,20 +331,6 @@ ch.uiobject = function(){
 	* @type string
 	* @ignore
 	*/
-
-	/**
-	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
-	* @public
-	* @name ch.Uiobject#position
-	* @example
-	* // Change component's position.
-	* me.position({ 
-	*	  offset: "0 10",
-	*	  points: "lt lb"
-	* });
-	* @see ch.Uiobject#position
-	*/
-	that["public"].position = that.position;
 
 	/**
 	* Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
