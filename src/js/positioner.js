@@ -205,7 +205,7 @@ ch.positioner = (function () {
 				offset[1] = parseInt(offset[1], 10);
 
 				// Context by default is viewport
-				if (!ch.utils.hasOwn(conf, "context")) {
+				if (!ch.utils.hasOwn(conf, "context") || !conf.context || conf.context === "viewport") {
 					contextIsNotViewport = false;
 					return ch.viewport;
 				}
@@ -293,7 +293,7 @@ ch.positioner = (function () {
 					};
 
 				};
-
+				
 				/**
 				* Recalculates left and top of context and updates offset on context object.
 				* @private
@@ -347,7 +347,7 @@ ch.positioner = (function () {
 			context = getContext(),
 		
 		/**
-		* 
+		* Reference to know if direct parent is the body HTML element.
 		* @private
 		* @name ch.Positioner#parentIsBody
 		* @type Boolean
@@ -440,21 +440,25 @@ ch.positioner = (function () {
 				// TODO: Complete cases: X -> lc, cl, rc, cr. Y -> tm, mt, bm, mb.
 				var calculate = function (reference) {
 
-					var r;
+					// Use Position or Offset of Viewport if position is fixed or absolute respectively
+					var ctx = (!contextIsNotViewport && ch.features.fixed) ? ch.viewport.getPosition() : context,
+					
+					// Returnable value
+						r;
 
 					switch (reference) {
 					// X references
-					case "ll": r = context.left + offset[0]; break;
-					case "lr": r = context.right + offset[0]; break;
-					case "rl": r = context.left - $element.outerWidth() + offset[0]; break;
-					case "rr": r = context.right - $element.outerWidth() + offset[0]; break;
-					case "cc": r = context.left + (context.width / 2) - ($element.outerWidth() / 2) + offset[0]; break;
+					case "ll": r = ctx.left + offset[0]; break;
+					case "lr": r = ctx.right + offset[0]; break;
+					case "rl": r = ctx.left - $element.outerWidth() + offset[0]; break;
+					case "rr": r = ctx.right - $element.outerWidth() + offset[0]; break;
+					case "cc": r = ctx.left + (ctx.width / 2) - ($element.outerWidth() / 2) + offset[0]; break;
 					// Y references
-					case "tt": r = context.top + offset[1]; break;
-					case "tb": r = context.bottom + offset[1]; break;
-					case "bt": r = context.top - $element.outerHeight() + offset[1]; break;
-					case "bb": r = context.bottom - $element.outerHeight() + offset[1]; break;
-					case "mm": r = context.top + (context.height / 2) - ($element.outerHeight() / 2) + offset[1]; break;
+					case "tt": r = ctx.top + offset[1]; break;
+					case "tb": r = ctx.bottom + offset[1]; break;
+					case "bt": r = ctx.top - $element.outerHeight() + offset[1]; break;
+					case "bb": r = ctx.bottom - $element.outerHeight() + offset[1]; break;
+					case "mm": r = ctx.top + (ctx.height / 2) - ($element.outerHeight() / 2) + offset[1]; break;
 					}
 
 					return r;
@@ -554,19 +558,30 @@ ch.positioner = (function () {
 		*/
 			draw = function () {
 
-				if (ch.utils.getStyles($element[0], "width") !== "auto") {
-					$element.css({ left: 0, top: 0 });
-				}
+				// New element position
+				var coordinates,
+
+				// Width of element is elastic?
+					elasticWidth = ch.utils.getStyles($element[0], "width") !== "auto",
+					
+				// Removes all classnames related to friendly positions and adds classname for new points
+				// TODO: improve this method. maybe knowing which one was the last added classname
+					updateClassName = function ($element) {
+						$element.removeClass("ch-left ch-top ch-right ch-bottom ch-center").addClass(friendly);
+					};
+				
+				// Reset position of elastic width elements for correct calculations
+				if (elasticWidth) { $element.css({ "left": 0, "top": 0 }); }
 
 				// Gets definitive coordinates for element repositioning
-				var coordinates = getPosition();
+				coordinates = getPosition();
 
 				// Coordinates equal to last coordinates means that there aren't changes on position
 				// TODO: Avoid redraw when corrdinates are same. We set to 0 the
 				// css left and top coordinates for correct width calculations
 				if (coordinates.left === lastCoordinates.left && coordinates.top === lastCoordinates.top) {
-					if (ch.utils.getStyles($element[0], "width") !== "auto") {
-						$element.css({ left: lastCoordinates.left, top: lastCoordinates.top });
+					if (elasticWidth) {
+						$element.css({ "left": lastCoordinates.left, "top": lastCoordinates.top });
 					}
 
 					return;
@@ -575,14 +590,8 @@ ch.positioner = (function () {
 				// If there are changes, it stores new coordinates on lastCoordinates
 				lastCoordinates = coordinates;
 
-				// Removes all classnames related to friendly positions and adds classname for new points
-				// TODO: improve this method. maybe knowing which one was the last added classname
-				var updateClassName = function (element) {
-					element.removeClass("ch-left ch-top ch-right ch-bottom ch-center").addClass(friendly);
-				};
-
 				// Element reposition (Updates element position based on new coordinates)
-				updateClassName($element.css({ left: coordinates.left, top: coordinates.top }));
+				updateClassName($element.css({ "left": coordinates.left, "top": coordinates.top }));
 
 				// Context class-names
 				if (contextIsNotViewport) { updateClassName(context.element); }
@@ -612,6 +621,57 @@ ch.positioner = (function () {
 
 				// Calculates coordinates and redraws if it's necessary	
 				draw();
+			},
+
+		/**
+		* Listen to LAYOUT.CHANGE and VIEWPORT.CHANGE events and recalculate data as needed.
+		* @private
+		* @function
+		* @name ch.Positioner#changesListener
+		*/
+			changesListener = function (event) {
+				// Only recalculates if element is visible
+				if (!$element.is(":visible")) { return; }
+	
+				// If context isn't the viewport...
+				if (contextIsNotViewport) {
+					// On resize and layout change, recalculates relative parent position
+					relativeParent.getOffset();
+	
+					// Recalculates its position and size
+					context.getOffset();
+				}
+	
+				draw();
+			},
+
+		/**
+		* Position "element" as fixed or absolute as needed.
+		* @private
+		* @function
+		* @name ch.Positioner#addCSSproperties
+		*/
+			addCSSproperties = function () {
+
+				// Fixed position behavior
+				if (!contextIsNotViewport && ch.features.fixed) {
+
+					// Sets position of element as fixed to avoid recalculations
+					$element.css("position", "fixed");
+
+					// Unbind reposition recalculations (scroll, resize and changeLayout)
+					ch.utils.window.unbind(ch.events.VIEWPORT.CHANGE + " " + ch.events.LAYOUT.CHANGE, changesListener);
+
+				// Absolute position behavior
+				} else {
+
+					// Sets position of element as absolute to allow continuous positioning
+					$element.css("position", "absolute");
+
+					// Bind reposition recalculations (scroll, resize and changeLayout)
+					ch.utils.window.bind(ch.events.VIEWPORT.CHANGE + " " + ch.events.LAYOUT.CHANGE, changesListener);
+				}
+
 			},
 
 		/**
@@ -664,8 +724,14 @@ ch.positioner = (function () {
 					// Sets conf value
 					conf.context = o.context;
 
+					// Clear the conf.context variable
+					if (o.context === "viewport") { conf.context = undefined; }
+
 					// Regenerate the context object
 					context = getContext();
+					
+					// Update CSS properties to element (position fixed or absolute)
+					addCSSproperties();
 				}
 
 				// Reset
@@ -676,7 +742,7 @@ ch.positioner = (function () {
 			// Refresh current position
 			case "string":
 				if (o !== "refresh") {
-					alert("Chico UI error: expected to find \"refresh\" parameter on position() method.");
+					alert("Chico UI error: expected to find \"refresh\" parameter on position() method of Positioner component.");
 				}
 
 				// Reset
@@ -686,6 +752,7 @@ ch.positioner = (function () {
 
 			// Gets current configuration
 			case "undefined":
+			default:
 				r = {
 					"context": context.element,
 					"element": $element,
@@ -704,28 +771,11 @@ ch.positioner = (function () {
 		* @ignore
 		*/
 
-		// Sets position of element as absolute to allow positioning
-		$element.css("position", "absolute");
+		// Apply CSS properties to element (position fixed or absolute)
+		addCSSproperties();
 
 		// Inits positioning
 		init();
-
-		// Layout change and Viewport change, event listeners
-		ch.utils.window.bind(ch.events.VIEWPORT.CHANGE + " " + ch.events.LAYOUT.CHANGE, function (event) {
-			// Only recalculates if element is visible
-			if (!$element.is(":visible")) { return; }
-
-			// If context isn't the viewport...
-			if (contextIsNotViewport) {
-				// On resize and layout change, recalculates relative parent position
-				relativeParent.getOffset();
-
-				// Recalculates its position and size
-				context.getOffset();
-			}
-
-			draw();
-		});
 
 		return that.position;
 	};

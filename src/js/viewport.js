@@ -57,11 +57,19 @@ ch.viewport = {
 	"bottom": ch.utils.window.scrollTop() + ch.utils.window.height(),
 
 	/**
+	* Element representing the visible area.
+	* @public
+	* @name ch.Viewport#element
+	* @type Object
+	*/
+	"element": ch.utils.window,
+
+	/**
 	* Updates width and height of the visible area and updates ch.viewport.width and ch.viewport.height
 	* @public
 	* @function
 	* @name ch.Viewport#getSize
-	* @returns Size Object
+	* @returns Object
 	*/
 	"getSize": function () {
 
@@ -73,23 +81,47 @@ ch.viewport = {
 	},
 
 	/**
-	* Updates left, top, right and bottom offset of the visible area and updates respective ch.viewport properties.
+	* Updates left, top, right and bottom coordinates of the visible area, relative to the window.
+	* @public
+	* @function
+	* @name ch.Viewport#getPosition
+	* @returns Object
+	*/
+	"getPosition": function () {
+
+		var size = this.getSize();
+
+		return {
+			"left": 0,
+			"top": 0,
+			"right": size.width,
+			"bottom": size.height,
+			// Size is for use as context on Positioner
+			// (see getCoordinates method on Positioner)
+			"width": size.width,
+			"height": size.height
+		};
+		
+	},
+	
+	/**
+	* Updates left, top, right and bottom coordinates of the visible area, relative to the document.
 	* @public
 	* @function
 	* @name ch.Viewport#getOffset
-	* @returns Offset Object
+	* @returns Object
 	*/
 	"getOffset": function () {
 
-		var size = this.getSize(),
+		var position = this.getPosition(),
 			scrollLeft = ch.utils.window.scrollLeft(),
 			scrollTop = ch.utils.window.scrollTop();
 
 		return {
 			"left": this.left = scrollLeft,
 			"top": this.top = scrollTop,
-			"right": this.right = scrollLeft + size.width,
-			"bottom": this.bottom = scrollTop + size.height
+			"right": this.right = scrollLeft + position.right,
+			"bottom": this.bottom = scrollTop + position.bottom
 		};
 		
 	}
