@@ -13,21 +13,16 @@
 	<div class="box">
 		<h2>Demo</h2>
 		
-		<form action="test.html" id="testFormForWatcher">
+		<form action="test.html" class="ch-form" id="testFormForWatcher">
 			<fieldset>
 				<legend>Casos de uso de Input</legend>
-				<ol>
-					<li class="field-box">
-						<label for="val_custom">
-							<span>Custom field:</span>												 
-							<input type="url" id="val_custom">
-						</label>
-						<p class="help">Escribe una descripción corta y clara</p>
-					</li>
-				</ol>
+				<p class="ch-form-row">
+					<label for="val_custom">Custom field:</label>
+					<input type="url" id="val_custom">
+				</p>
 			</fieldset>
 
-			<p class="actions">
+			<p class="ch-form-actions">
 				<input type="submit" value="Enviar" class="btn primary">
 				<a href="#">Cancelar</a>
 			</p>

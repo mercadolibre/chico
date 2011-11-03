@@ -19,7 +19,7 @@ progress, section, time, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	outline: 0;
+	/*outline: 0;*/
 	vertical-align: baseline;
 	
 }
@@ -40,9 +40,9 @@ q: before, q: after {
 }
 
 /* remember to define focus styles!*/
-:focus {
+/*:focus {
 	outline: 0;
-}
+}*/
 
 /* remember to highlight inserts somehow!*/
 ins {
@@ -233,7 +233,8 @@ hr {
 */
 
 /* Main styles */
-.btn {
+.btn,
+.btn:focus {
 	border: 1px solid #2C3176;
 	-o-border-radius: 3px;
 	-ms-border-radius: 3px;
@@ -269,7 +270,8 @@ hr {
 }
 
 /* Skin color gradient */
-.btn.skin {
+.btn.skin,
+.btn.skin:focus {
 	background: #C0DAEC;
 	background: -o-linear-gradient(top, #fff 0%, #D0E6F8 3%, #A6CDEE 100%);
 	background: -ms-linear-gradient(top, #fff 0%, #D0E6F8 3%, #A6CDEE 100%);
@@ -332,14 +334,10 @@ hr {
 
 /* Disabled color gradient */
 .btn:disabled,
-.btn:disabled:hover,
-.btn:disabled:active,
-.btn:disabled:focus,
-/* Reinforces disabled state */
-.btn.disabled,
-.btn.disabled:hover,
-.btn.disabled:active,
-.btn.disabled:focus {
+.btn[disabled],
+.btn[disabled]:hover,
+.btn[disabled]:active,
+.btn[disabled]:focus {
 	background: #999;
 	background: -o-linear-gradient(top, #fff 0%, #ccc 100%);
 	background: -ms-linear-gradient(top, #fff 0%, #ccc 100%);
@@ -351,7 +349,7 @@ hr {
 	color: #999;
 	cursor: not-allowed;
 	filter: alpha(opacity=50);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#cccccc');
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#cccccc', GradientType=0);
 	opacity: 0.5;
 }
 
