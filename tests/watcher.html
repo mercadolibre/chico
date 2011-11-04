@@ -15,67 +15,49 @@
 
 		<p><strong>Tipos de validación:</strong> E-mail, Url, Campo obligatorio, Campo numérico, Valor numérico mínimo, Valor numérico máximo, Rango de números, Cantidad mínima de caracteres, Cantidad máxima de caracteres.</p><br>
 
-		<form action="test.html" id="testFormForWatcher">
+		<form action="test.html" class="ch-form" id="testFormForWatcher">
 			<fieldset>
 				<legend>Casos de uso de Input</legend>
-				<p class="required">* Datos obligatorios</p>
+				<p class="ch-form-tagline">* Datos obligatorios</p>
 				<ol>
-					<li class="field-box">
-						<label for="val_custom">
-							<span>Custom field:</span>										 
-							<input type="email" id="val_custom" required="required">
-						</label>
-						<p class="help">Escribe una descripción corta y clara</p>
+					<li class="ch-form-row">
+						<label for="val_custom">Custom field:</label>
+						<input type="email" id="val_custom" required="required">
+						<p class="ch-form-row-help">Escribe una descripción corta y clara</p>
 					</li>
-					<li class="field-box">
-						<label class="required" for="val_title">
-							<span>Titulo: <em>*</em></span>					 
-							<input type="email" id="val_title" required="required">
-						</label>
-						<p class="help">Escribe una descripción corta y clara</p>
+					<li class="ch-form-row ch-form-required">
+						<label for="val_title">Titulo: <em>*</em></label>
+						<input type="email" id="val_title" required="required">
+						<p class="ch-form-row-help">Escribe una descripción corta y clara</p>
 					</li>
-					<li class="field-box">
-						<label class="required" for="val_email">
-							<span>E-mail: <em>*</em></span>					 
-							<input type="email" id="val_email" required="required">
-						</label>
-						<p class="help">Escribe una descripción corta y clara</p>
+					<li class="ch-form-row ch-form-required">
+						<label for="val_email">E-mail: <em>*</em></label>
+						<input type="email" id="val_email" required="required">
+						<p class="ch-form-row-help">Escribe una descripción corta y clara</p>
 					</li>
-					<li class="field-box">
-						<label for="val_url">
-							<span>URL:</span>
-							<input type="url" id="val_url">
-						</label>
+					<li class="ch-form-row">
+						<label for="val_url">URL:</label>
+						<input type="url" id="val_url">
 					</li>
-					<li class="field-box">
-						<label for="val_number">
-							<span>Campo numérico:</span>
-							<input type="number" id="val_number" min="20">
-						</label>
+					<li class="ch-form-row">
+						<label for="val_number">Campo numérico:</label>
+						<input type="number" id="val_number" min="20">
 					</li>
-					<li class="field-box">
-						<label for="val_range">
-							<span>Rango de números:</span>
-							<input type="range" id="val_range" min="1" max="10">
-						</label>
+					<li class="ch-form-row">
+						<label for="val_range">Rango de números:</label>
+						<input type="range" id="val_range" min="1" max="10">
 					</li>
-					<li class="field-box">
-						<label for="val_price">
-							<span>Price:</span>
-							<input type="number" id="val_price">
-						</label>
+					<li class="ch-form-row">
+						<label for="val_price">Price:</label>
+						<input type="number" id="val_price">
 					</li>
-					<li class="field-box">
-						<label class="required disabled" for="val_required_disabled">
-							<span>Required disabled: <em>*</em></span>
-							<input type="text" id="val_required_disabled" required="required" disabled="disabled">
-						</label>
+					<li class="ch-form-row ch-form-required ch-form-disabled">
+						<label for="val_required_disabled">Required disabled: <em>*</em></label>
+						<input type="text" id="val_required_disabled" required="required" disabled="disabled">
 					</li>
-					<li class="field-box">
-						<label for="val_length">
-							<span>Caracteres:</span>
-							<input type="text" id="val_length">
-						</label>
+					<li class="ch-form-row">
+						<label for="val_length">Caracteres:</label>
+						<input type="text" id="val_length">
 					</li>
 				</ol>
 			</fieldset>
@@ -83,230 +65,176 @@
 			<fieldset>
 				<legend>Casos de uso de Select</legend>
 				<ul>
-					<li class="field-box">
-						<label for="val_selectM">
-							<span>Campo múltiple:</span>
-							<select id="val_selectM" multiple="multiple" size="4">
-								<option value="1">Opción 1</option>
-								<option value="2">Opción 2</option>
-								<option value="3">Opción 3</option>
-								<option value="4">Opción 4</option>
-							</select>
-						</label>
+					<li class="ch-form-row">
+						<label for="val_selectM">Campo múltiple:</label>
+						<select id="val_selectM" class="ch-form-select-multiple" multiple="multiple" size="4">
+							<option value="1">Opción 1</option>
+							<option value="2">Opción 2</option>
+							<option value="3">Opción 3</option>
+							<option value="4">Opción 4</option>
+						</select>
 					</li>
 					
-					<li class="field-box">
-						<label for="val_select1">
-							<span>Campo común:</span>
-							<select id="val_select1">
-								<option value="-1">Selecciona...</option>
-								<option value="1">Opción 1</option>
-								<option value="2">Opción 2</option>
-								<option value="3">Opción 3</option>
-								<option value="4">Opción 4</option>
-							</select>
-						</label>
+					<li class="ch-form-row">
+						<label for="val_select1">Campo común:</label>
+						<select id="val_select1">
+							<option value="-1">Selecciona...</option>
+							<option value="1">Opción 1</option>
+							<option value="2">Opción 2</option>
+							<option value="3">Opción 3</option>
+							<option value="4">Opción 4</option>
+						</select>
 					</li>
 		
-					<li class="field-box">
-						<label for="val_select2" class="required">
-							<span>Obligatorio: <em>*</em></span>
-							<select id="val_select2" required="required">
-								<option value="-1">Selecciona...</option>
-								<option value="1">Opción 1</option>
-								<option value="2">Opción 2</option>
-								<option value="3">Opción 3</option>
-								<option value="4">Opción 4</option>
-							</select>
-						</label>
+					<li class="ch-form-row ch-form-required">
+						<label for="val_select2">Obligatorio: <em>*</em></label>
+						<select id="val_select2" required="required">
+							<option value="-1">Selecciona...</option>
+							<option value="1">Opción 1</option>
+							<option value="2">Opción 2</option>
+							<option value="3">Opción 3</option>
+							<option value="4">Opción 4</option>
+						</select>
 					</li>
 		
-					<li class="field-box">
-						<label for="val_select3" class="required disabled">
-							<span>Required disabled: <em>*</em></span>
-							<select id="val_select3" required="required" disabled="disabled">
-								<option value="-1">Selecciona...</option>
-								<option value="1">Opción 1</option>
-								<option value="2">Opción 2</option>
-								<option value="3">Opción 3</option>
-								<option value="4">Opción 4</option>
-							</select>
-						</label>
+					<li class="ch-form-row ch-form-required ch-form-disabled">
+						<label for="val_select3">Required disabled: <em>*</em></label>
+						<select id="val_select3" required="required" disabled="disabled">
+							<option value="-1">Selecciona...</option>
+							<option value="1">Opción 1</option>
+							<option value="2">Opción 2</option>
+							<option value="3">Opción 3</option>
+							<option value="4">Opción 4</option>
+						</select>
 					</li>
 		
-					<li class="field-box">
-						<label for="val_select4" class="disabled">
-							<span>Disabled:</span>
-							<select id="val_select4" disabled="disabled">
-								<option value="-1">Selecciona...</option>
-								<option value="1">Opción 1</option>
-								<option value="2">Opción 2</option>
-								<option value="3">Opción 3</option>
-								<option value="4">Opción 4</option>
-							</select>
-						</label>
+					<li class="ch-form-row ch-form-disabled">
+						<label for="val_select4">Disabled:</label>
+						<select id="val_select4" disabled="disabled">
+							<option value="-1">Selecciona...</option>
+							<option value="1">Opción 1</option>
+							<option value="2">Opción 2</option>
+							<option value="3">Opción 3</option>
+							<option value="4">Opción 4</option>
+						</select>
 					</li>
 				</ul>
 			</fieldset>
 
 			<fieldset>
 				<legend>Checkbox</legend>
-				<div class="val_check1 options">
-					<h4>Label de grupo de checkboxes:</h4>
-					<ul>
-						<li class="field-box">
-							<label for="val_check1a">
-								<input type="checkbox" value="alpha" id="val_check1a" name="version1">
-								<span>Alpha</span>
-							</label>
-						</li>
-			
-						<li class="field-box">
-							<label for="val_check1b">
-								<input type="checkbox" value="beta" id="val_check1b" name="version1">
-								<span>Beta</span>
-							</label>
-						</li>
-					</ul>
+				<div class="val_check1 ch-form-options">
+					<h4  class="ch-form-subtitle">Label de grupo de checkboxes:</h4>
+					<p class="ch-form-row">
+						<input type="checkbox" value="alpha" id="val_check1a" name="version1">
+						<label for="val_check1a">Alpha</label>
+					</p>
+
+					<p class="ch-form-row">
+						<input type="checkbox" value="beta" id="val_check1b" name="version1">
+						<label for="val_check1b">Beta</label>
+					</p>
 				</div>
 			</fieldset>
 
 			<fieldset>
 				<legend>Legend de grupo obligatorio <em>*</em></legend>
-				<div class="val_check2 options required">
-					<ul>
-						<li class="field-box">
-							<label for="val_check2a">
-								<input type="checkbox" value="alpha" id="val_check2a" name="version2">
-								<span>Alpha</span>
-							</label>
-						</li>
-			
-						<li class="field-box">
-							<label for="val_check2b">
-								<input type="checkbox" value="beta" id="val_check2b" name="version2">
-								<span>Beta</span>
-							</label>
-						</li>
-					</ul>
+				<div class="options val_check2 ch-form-options">
+					<p class="ch-form-row">
+						<input type="checkbox" value="alpha" id="val_check2a" name="version2">
+						<label for="val_check2a">Alpha</label>
+					</p>
+
+					<p class="ch-form-row">
+						<input type="checkbox" value="beta" id="val_check2b" name="version2">
+						<label for="val_check2b">Beta</label>
+					</p>
 				</div>
 			</fieldset>
 
 			<fieldset>
 				<legend>Legend de grupo de checkboxes</legend>
-				<div class="val_check3 required options">
-					<h4>Label de grupo obligatorio: <em>*</em></h4>
-					<ul>
-						<li class="field-box">
-							<label for="val_check3a">
-								<input type="radio" value="alpha" id="val_check3a" name="version3">
-								<span>Alpha</span>
-							</label>
-						</li>
-			
-						<li class="field-box">
-							<label for="val_check3b">
-								<input type="radio" value="beta" id="val_check3b" name="version3">
-								<span>Beta</span>
-							</label>
-						</li>
-					</ul>
+				<div class="val_check3 ch-form-required ch-form-options">
+					<h4  class="ch-form-subtitle">Label de grupo obligatorio: <em>*</em></h4>
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="val_check3a" name="version3">
+						<label for="val_check3a">Alpha</label>
+					</p>
+		
+					<p class="ch-form-row">
+						<input type="radio" value="beta" id="val_check3b" name="version3">
+						<label for="val_check3b">Beta</label>
+					</p>
 				</div>
 			</fieldset>
 
 			<fieldset>
 				<legend>Radio buttons</legend>
-				<div class="val_radio1 options">
-					<ul>
-						<li class="field-box">
-							<label for="val_radio1a">
-								<input type="radio" value="alpha" id="val_radio1a" name="version4">
-								<span>Alpha</span>
-							</label>
-						</li>
-			
-						<li class="field-box">
-							<label for="val_radio1b">
-								<input type="radio" value="beta" id="val_radio1b" name="version4">
-								<span>Beta</span>
-							</label>
-						</li>
-					</ul>
+				<div class="val_radio1 ch-form-options">
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="val_radio1a" name="version4">
+						<label for="val_radio1a">Alpha</label>
+					</p>
+		
+					<p class="ch-form-row">
+						<input type="radio" value="beta" id="val_radio1b" name="version4">
+						<label for="val_radio1b">Beta</label>
+					</p>
 				</div>
 			</fieldset>
 			
 			<fieldset>
 				<legend>Radio buttons obligatorios <em>*</em></legend>
-				<div class="val_radio2 options required">
-					<ul>
-						<li class="field-box">
-							<label for="val_radio2a">
-								<input type="radio" value="alpha" id="val_radio2a" name="version5">
-								<span>Alpha</span>
-							</label>
-						</li>
-			
-						<li class="field-box">
-							<label for="val_radio2b">
-								<input type="radio" value="beta" id="val_radio2b" name="version5">
-								<span>Beta</span>
-							</label>
-						</li>
-					</ul>
+				<div class="val_radio2 ch-form-options ch-form-required">
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="val_radio2a" name="version5">
+						<label for="val_radio2a">Alpha</label>	
+					</p>
+		
+					<p class="ch-form-row">
+						<input type="radio" value="beta" id="val_radio2b" name="version5">
+						<label for="val_radio2b">Beta</label>
+					</p>
 				</div>
 			</fieldset>
 			
 			<fieldset>
 				<legend>Legend de grupo de Radio buttons</legend>
-				<div class="val_radio3 options required">
-					<h4 class="required">Radio buttons obligarorios: <em>*</em></h4>
-					<ul>
-						<li class="field-box">
-							<label for="val_radio3a">
-								<input type="radio" value="alpha" id="val_radio3a" name="version6">
-								<span>Alpha</span>
-							</label>
-						</li>
-			
-						<li class="field-box">
-							<label for="val_radio3b">
-								<input type="radio" value="beta" id="val_radio3b" name="version6">
-								<span>Beta</span>
-							</label>
-						</li>
-					</ul>
+				<div class="val_radio3 ch-form-options ch-form-required">
+					<h4 class="ch-form-subtitle">Radio buttons obligarorios: <em>*</em></h4>
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="val_radio3a" name="version6">
+						<label for="val_radio3a">Alpha</label>
+					</p>
+		
+					<p class="ch-form-row">	
+						<input type="radio" value="beta" id="val_radio3b" name="version6">
+						<label for="val_radio3b">Beta</label>
+					</p>
 				</div>
 			</fieldset>
 
 			<fieldset>
 				<legend>Textarea</legend>
 				<ul>
-					<li class="field-box">
-						<label for="val_textarea1">
-							<span>Textarea:</span>
-							<textarea id="val_textarea1"></textarea>
-						</label>
+					<li class="ch-form-row">
+						<label for="val_textarea1">Textarea:</label>
+						<textarea id="val_textarea1"></textarea>
 					</li>
 		
-					<li class="field-box">
-						<label for="val_textarea2" class="required">
-							<span>Obligatorio: <em>*</em></span>
-							<textarea id="val_textarea2" required="required"></textarea>
-						</label>
+					<li class="ch-form-row ch-form-required">
+						<label for="val_textarea2">Obligatorio: <em>*</em></label>
+						<textarea id="val_textarea2" required="required"></textarea>
 					</li>
 		
-					<li class="field-box">
-						<label for="val_textarea3" class="required disabled">
-							<span>Required disabled: <em>*</em></span>
-							<textarea id="val_textarea3" required="required" disabled="disabled"></textarea>
-						</label>
+					<li class="ch-form-row ch-form-required ch-form-disabled">
+						<label for="val_textarea3">Required disabled: <em>*</em></label>
+						<textarea id="val_textarea3" required="required" disabled="disabled"></textarea>
 					</li>
 		
-					<li class="field-box">
-						<label for="val_textarea4" class="disabled">
-							<span>Disabled:</span>
-							<textarea id="val_textarea4" disabled="disabled"></textarea>
-						</label>
+					<li class="ch-form-row ch-form-disabled">
+						<label for="val_textarea4">Disabled:</label>
+						<textarea id="val_textarea4" disabled="disabled"></textarea>
 					</li>
 				</ul>
 			</fieldset>

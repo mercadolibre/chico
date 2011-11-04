@@ -26,7 +26,7 @@ ch.extend("watcher").as("required", function(conf) {
 
 			var $e = $(e);
 
-			var tag = ( $e.hasClass("options")) ? "OPTIONS" : e.tagName;
+			var tag = ( $e.hasClass("options") || $e.hasClass("ch-form-options")) ? "OPTIONS" : e.tagName;
 			switch (tag) {
 				case 'OPTIONS':
 					return $e.find('input:checked').length !== 0;
@@ -34,7 +34,7 @@ ch.extend("watcher").as("required", function(conf) {
 
 				case 'SELECT':
 					var val = $e.val();
-					return (val != "-1");
+					return (val != "-1" && val != "");
 				break;
 
 				case 'INPUT':

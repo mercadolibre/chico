@@ -97,7 +97,7 @@ ch.watcher = function (conf) {
 	* @private
 	* @name ch.Watcher#validationEvent
 	*/
-	var validationEvent = (that.$element.hasClass("options") || that.element.tagName == "SELECT") ? "change" : "blur";
+	var validationEvent = (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options") || that.element.tagName == "SELECT") ? "change" : "blur";
 
 	var hasError = function () {
 
@@ -124,7 +124,11 @@ ch.watcher = function (conf) {
 		var status = !gotError.status;
 
 		if (status) {
-			that.$element.addClass("error");
+
+			if (that.$element.prop("tagName") === "INPUT" || that.$element.prop("tagName") === "TEXTAREA") {
+				that.$element.addClass("error ch-form-error");
+			}
+
 			that.helper.show(gotError.msg || form.messages[gotError.condition] || "Error.");
 
 			// Add blur or change event only one time
@@ -148,7 +152,7 @@ ch.watcher = function (conf) {
 			that.trigger("error", gotError.condition);
 
 		} else {
-			that.$element.removeClass("error");
+			that.$element.removeClass("error ch-form-error");
 			that.helper.hide();
 		}
 
@@ -173,7 +177,7 @@ ch.watcher = function (conf) {
 
 	var clear = function() {
 
-		that.$element.removeClass("error");
+		that.$element.removeClass("error ch-form-error");
 		that.helper.hide();
 
 		// Don't work
@@ -224,21 +228,24 @@ ch.watcher = function (conf) {
 	that.$reference = (function() {
 		var reference;
 		// CHECKBOX, RADIO
-		if (that.$element.hasClass("options")) {
+		if (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options")) {
 			// Helper reference from will be fired
 			// H4
-			if (that.$element.find('h4').length > 0) {
-				var h4 = that.$element.find('h4'); // Find h4
-					h4.wrapInner('<span>'); // Wrap content with inline element
+			if (that.$element.find("h4").length > 0) {
+				var h4 = that.$element.find("h4"); // Find h4
+					h4.wrapInner("<span>"); // Wrap content with inline element
 				reference = h4.children(); // Inline element in h4 like helper reference
 			// Legend
-			} else if (that.$element.prev().prop('tagName') == 'LEGEND') {
+			} else if (that.$element.prev().prop("tagName") == "LEGEND") {
 				reference = that.$element.prev(); // Legend like helper reference
+			} else {
+				reference = $(that.$element.find("label")[0]);
 			}
 		// INPUT, SELECT, TEXTAREA
 		} else {
 			reference = that.$element;
 		}
+
 		return reference;
 	})();
 
