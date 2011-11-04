@@ -10,21 +10,16 @@
 	<!-- #body -->
 	<h1>Chico-UI: Form testcases</h1>
 		<div class="box">
-			<form id="testForm" action="../test.html">
+			<form id="testForm" class="ch-form" action="../test.html">
 				<fieldset>
-					<legend>Casos de uso de Input</legend>
-					<ol>
-						<li class="fieldBox">
-							<label for="email">
-								<span>E-mail:</span>												 
-								<input type="email" id="email">
-							</label>
-							<p class="help">Escribe una descripción corta y clara</p>
-						</li>
-					</ol>
+					<legend>Form testcases</legend>
+					<p class="ch-form-row">
+						<label for="email">E-mail:</label>
+						<input type="email" id="email">
+					</p>
 				</fieldset>
 
-				<p class="actions">
+				<p class="ch-form-actions">
 					<input type="submit" value="Enviar" class="btn primary">
 					<a href="#">Cancelar</a>
 				</p>

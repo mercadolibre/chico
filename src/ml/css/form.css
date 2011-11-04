@@ -1,32 +1,17 @@
-/* Module */
-form fieldset {
-	margin-bottom:10px;
-}
-
-/* Title module */
-form legend {
-	color:#dc7b1c;
-	font-size:14px;
-	font-weight:bold;
-	padding-bottom:15px;
-}
-
-form h4 {
-	font-size:13px;
-}
-
 /* Required specification */
 form p.required {
 	color:#999;
 	font-size:11px;
 }
+							
 
 /* Field wrapper */
-form .field-box {
+form .field-box{
 	padding:3px 0;
 }
+							
 
-form label span {
+form label span{
 	display:block;
 	float:left;
 	margin:5px 15px 5px 0;
@@ -34,12 +19,16 @@ form label span {
 	text-align:right;
 	width:130px;
 }
+						
+							
 
 /* Field label required */
 form label.required span {
 	font-weight:bold;
 	position:relative;
 }
+		
+							
 
 /* Asterisk of field label required */
 form label.required span em {
@@ -47,26 +36,38 @@ form label.required span em {
 	right:-8px;
 	top: 0px;
 }
+							
+
 
 /* Fields */
-form label input, form label textarea {
+form label input, 
+form label textarea {
 	border:1px solid #CCCCCC;
 	padding:4px;
 	margin:5px 0;
 }
+							
+							
+							
+							
 
 form label select {
 	margin:5px 0;
 }
+							
+
+
 
 form label textarea {
 	height:125px;
 	width:350px;
 }
+							
 
 /* Error */
 /* Field input error */
-form label .error, form select .error{
+form label .error, 
+form select .error{
 	border:1px solid #C62026 !important;
 }
 
@@ -74,15 +75,22 @@ form label .error.ico{
 	border:none !important;
 }
 
+							
+
+
 /* Options */
 form .options .field-box{
 	margin: 0 0 15px 20px;
 	padding:0;
 }
 
+							
+
 form .options h4{
 	margin-bottom:15px;
 }
+
+							
 
 form .options.required h4{
 	font-weight:bold;
@@ -98,12 +106,16 @@ form .options label span {
 	vertical-align:baseline;
 }
 
+							
+							
 form .options label input[type=checkbox],
 form .options label input[type=radio] {
 	border:none;
 	margin:0;
 	padding:0;
-}	
+}
+
+							
 
 
 /* Actions */
@@ -123,17 +135,25 @@ form .help{
 	line-height:11px;
 	margin-left:145px;
 }
+							
+							
 
 /* Focus */
-form label input:focus, form label textarea:focus {
-	border:2px solid #666;
+form label input:focus, 
+form label textarea:focus {
+	border:2px solid #666666;
 	padding:3px;
 }
 
-form .options label input:focus, form .options label textarea:focus {
+							
+
+form .options label input:focus, 
+form .options label textarea:focus {
 	border:none;
 	padding:0;
 }
+
+							
 
 form label select:focus{
 	box-shadow:2px #666;
@@ -184,9 +204,15 @@ form .disabled {
 	color:#999;
 }
 
+								
+
 form .disabled input{
 	background-color:#F2F2F2;
 }
+
+								
+								
+								
 
 /* IE 6  */
 .ie6 form .disabled {
@@ -251,4 +277,277 @@ form .disabled input{
 	border:none;
 	margin:0;
 	padding:0;
-}
+}						
+						input[type=search]{
+						  -webkit-appearance: textfield;
+						}
+						
+						input::-webkit-outer-spin-button,
+						input::-webkit-inner-spin-button {
+							-webkit-appearance: none;
+							margin: 0;
+						}
+						
+						/* Generic input & textarea */
+							input,
+							textarea{
+								border:1px solid #CCCCCC;
+								padding:4px;
+								margin:5px 0;
+							}
+							
+							input[type=file],
+							input[type=checkbox],
+							input[type=radio] {
+								border:none;
+								padding:0;
+							}
+							
+							input:focus, 
+							textarea:focus {
+								border:2px solid #666666;
+								padding:3px;
+							}
+							
+							input[type=file]:focus,
+							input[type=checkbox]:focus,
+							input[type=radio]:focus {
+								outline: 1;
+							}
+							
+							input[readonly]:focus, 
+							textarea[readonly]:focus {
+								border:none;
+								padding:4px;
+							}
+							
+							input[readonly],
+							input[readonly]:focus{border:none;}
+						
+form .ico{display:inline-block;}
+						
+						.ch-form-ico{display:inline-block;vertical-align:middle;margin-bottom:5px;}
+						.ch-form-ico.help{margin-left:0 !important;}
+
+							/* Module */
+							form fieldset,
+							.ch-form fieldset {
+								margin-bottom:10px;
+							}
+							
+								/* Title module */
+								form legend,
+								.ch-form legend {
+									color:#dc7b1c;
+									font-size:14px;
+									font-weight:bold;
+									padding-bottom:15px;
+								}
+								
+								/* Deprecate H4, it could not match the hierarchy */
+								.form h4,
+								.ch-form-subtitle{
+									font-size:13px;
+									font-weight:bold;
+								}
+								
+							/* Required specification or another */
+							.ch-form-tagline {
+								color:#999;
+								font-size:11px;
+							}
+							
+							/* Basic wrapper for horizontal view */
+							.ch-form-row{
+								padding:3px 0;
+							}
+							
+							
+							/* Label */
+							.ch-form-row label{
+								position:relative;
+								padding:7px 11px 5px 0;
+								display:inline-block;
+								text-align:right;
+								width:130px;
+							}
+							
+							/* Label for back compatibility */
+								.field-box label{
+									padding:0;
+									/* could be necesary to back compatibility
+									position:static;
+									*/
+								}
+							/* Label inline not used yet */
+								.ch-form-row input + label,
+								.ch-form-row select + label,
+								.ch-label-inline{
+									text-align:left;
+									width:auto;
+									padding-right:0;
+									font-weight:normal;
+									margin-left:0;
+								}
+								
+								.ie6 label.ch-label-inline{width:auto !important;}
+								
+							/* Label required **/
+								.ch-form-required label{
+									font-weight:bold;
+								}
+								
+								.ch-form-required.ch-form-options label{
+									font-weight:normal;
+								}
+								
+							/* Icon indication of required */
+								.ch-form-required em{
+									display:block;
+									position:absolute;
+									right:3px;
+									top: 3px;
+								}
+							/* Icon indication of required in options */
+								.ch-form-required.ch-form-options em{
+									display:inline;
+									position:relative;
+									vertical-align:super;
+									top: auto;
+									right:auto;
+								}
+							
+							/* Checkbox inline 
+							.ch-form-row input + input[type=checkbox],*/
+							.ch-form-checkbox-inline{
+								margin-left:11px;
+								margin-right:0;
+								border:none;
+							}
+							
+							/* Range 
+							input[type=range],*/
+							.ch-form-range{
+								padding:4px;
+								vertical-align:middle;
+							}
+							
+							/* Select */
+							.ch-form-row select {
+								margin:5px 0;
+							}
+							
+							/* Select Multiple 
+							.ch-form-row select[multiple],*/
+							.ch-form-select-multiple{
+								vertical-align:top;
+								margin-top:10px;
+								border:1px solid #999999;
+							}
+							
+							/* Textarea */
+							.ch-form-row textarea {
+								height:125px;
+								width:350px;
+								vertical-align:top;
+							}
+							
+							/* Help bottom line that helps the user */
+							.ch-form-row-help{
+								color:#666666;
+								font-size:11px;
+								line-height:11px;
+								margin-left:145px;
+								display:block;
+							}
+							
+							/* Error colorize the border */
+							form .ch-form-error,
+							form .error, 
+							form .error {
+								border:1px solid #C62026;
+							}
+							
+							form .ch-form-error:focus,
+							form .error:focus,
+							form .ch-form-error:focus {
+								border:2px solid #CC0000;
+								padding:3px;
+								box-shadow:2px #CC0000;
+								-moz-box-shadow:2px #CC0000;
+								-webkit-box-shadow:2px #CC0000;
+							}
+							
+							
+							/* Options */
+							.ch-form-options{
+								margin: 0 0 15px 20px;
+								padding:0;
+							}
+							
+							.ie6 .ch-form-options .ch-form-row {
+								vertical-align: middle;
+							}
+							
+							/* Subtitle in options */
+							.ch-form-options .ch-form-subtitle{
+								margin-bottom:15px;
+								margin-left:-20px;
+							}
+							
+							/* Subtitle in options & required */
+							.ch-form-options.ch-form-required .ch-form-subtitle{
+								font-weight:bold;
+							}
+							
+							/* Label in options */
+							.ch-form-options label {
+								margin:0;
+								padding:0;
+							}							
+
+							.ie6 .ch-form-options label {
+								text-align: left;
+								width: auto;
+							}
+							
+							/* Radio & Checkbox in options 
+							.ch-form-options input[type="checkbox"],
+							.ch-form-options input[type="radio"],*/
+							.ch-form-options input{
+								margin:8px 4px 0 0;
+								/*display:block;
+								clear:both !important;
+								float:left;
+								line-height:30px;*/
+							}
+							
+							
+							
+							.ch-form-options input:focus, 
+							.ch-form-options textarea:focus,
+							.ie6 .ch-form-options input{
+								border:none;
+								padding:0;
+							}
+							
+							
+							/* Disabled status */
+							.ch-form-disabled label{
+								color:#999999;
+							}
+							
+							.ch-form-disabled input{
+								background-color:#F2F2F2;
+							}
+
+							/* Actions */
+							.ch-form-actions {
+								margin-left:145px;
+								text-align:left;
+							}
+							
+							.ch-form-actions .btn{
+								margin-right:15px;
+							}
+
