@@ -103,13 +103,16 @@
 	cursor: default;
 }
 
-.ch-calendar-month .selected {
+.ch-calendar-month .selected,
+.ch-calendar-month .today.selected,
+.ch-calendar-month .selected:hover {
 	background: #C64A28;
-	-o-box-shadow: 0 0 2px #6F2917 inset;
-	-ms-box-shadow: 0 0 2px #6F2917 inset;
-	-moz-box-shadow: 0 0 2px #6F2917 inset;
-	-webkit-box-shadow: 0 0 2px #6F2917 inset;
-	box-shadow: 0 0 2px #6F2917 inset;
+	/*#6F2917*/
+	-o-box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
+	-ms-box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
+	-moz-box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
+	-webkit-box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
+	box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
 	color:#FFF;
 	font-weight: bold;
 }

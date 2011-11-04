@@ -88,12 +88,32 @@ ch.calendar = function (conf) {
 	var today = new Date();
 
 	/**
+	* Parse string to YY/MM/DD format date
+	* @private
+	* @function
+	* @name ch.Calendar#parseDate 	
+	*/
+	var parseDate = function (value) {
+		var date = value.split("/");
+		
+		switch (conf.format) {
+			case "DD/MM/YYYY":
+				return date[2] + "/" + date[1] + "/" + date[0];
+			break;
+			
+			case "MM/DD/YYYY":
+				return date[2] + "/" + date[0] + "/" + date[1];
+			break;
+		};
+	};
+
+	/**
 	* Date of selected day
 	* @private
 	* @name ch.Calendar#selected
 	* @type date
 	*/
-	var selected = conf.selected || conf.msg;
+	var selected = conf.selected || conf.msg || new Date(parseDate(that.element.value));
 
 	/**
 	* Creates tag thead with short name of week days
@@ -172,6 +192,7 @@ ch.calendar = function (conf) {
 
 		var classToday,
 			classSelected,
+			waiSelected,
 			weeks = ["<tbody>"];
 
 		do {
@@ -188,9 +209,9 @@ ch.calendar = function (conf) {
 				
 				classToday = (currentDate.date === today.getDate() && currentDate.month === today.getMonth() && currentDate.year === today.getFullYear()) ? " today" : "";
 
-				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected\" aria-selected=\"true\"" : "";
-				
-				weeks.push("<td class=\"day" + classToday + classSelected + "\"  role=\"gridcell\">" + currentDate.date + "</td>");
+				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected" : "";
+				waiSelected = (classSelected !== "") ? "aria-selected=\"true\"" : "";
+				weeks.push("<td class=\"day" + classToday + classSelected + "\" " + waiSelected + "  role=\"gridcell\">" + currentDate.date + "</td>");
 				
 				currentDate.fullDate.setDate(currentDate.date+1);
 				currentDate.date = currentDate.fullDate.getDate();
@@ -282,26 +303,6 @@ ch.calendar = function (conf) {
 
 		createDropdown();
 
-	};
-
-	/**
-	* Parse string to YY/MM/DD format date
-	* @private
-	* @function
-	* @name ch.Calendar#parseDate 	
-	*/
-	var parseDate = function (value) {
-		var date = value.split("/");
-		
-		switch (conf.format) {
-			case "DD/MM/YYYY":
-				return date[2] + "/" + date[1] + "/" + date[0];
-			break;
-			
-			case "MM/DD/YYYY":
-				return date[2] + "/" + date[0] + "/" + date[1];
-			break;
-		};
 	};
 
 
