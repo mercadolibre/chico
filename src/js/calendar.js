@@ -113,7 +113,8 @@ ch.calendar = function (conf) {
 	* @name ch.Calendar#selected
 	* @type date
 	*/
-	var selected = conf.selected || conf.msg || new Date(parseDate(that.element.value));
+	var selected = conf.selected || conf.msg || (that.element.value != "") ? new Date(parseDate(that.element.value)) : "";
+
 
 	/**
 	* Creates tag thead with short name of week days
@@ -125,17 +126,17 @@ ch.calendar = function (conf) {
 	//TODO: change to constant syntax
 	//TODO: subfijo de render y cambiar el nombre para que sea mas especifico, thead
 	var weekdays = (function () {
-		
+
 		var thead = ["<thead>"];
-		
+
 		thead.push("<tr role=\"row\">");
-		
+
 		for (var i = 0; i < 7; i += 1) {
 			thead.push("<th role=\"columnheader\">" + SHORT_WEEK_NAMES[i] + "</th>");
 		};
 		thead.push("</tr>");
 		thead.push("</thead>")
-		
+
 		return thead.join("");
 
 	}());
@@ -150,7 +151,7 @@ ch.calendar = function (conf) {
 		.bind("click", function (event) {
 
 			event = event || window.event;
-			
+
 			var src = event.target || event.srcElement;
 
 			if (src.nodeName !== "TD" || src.className.indexOf("day")) {

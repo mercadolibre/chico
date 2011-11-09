@@ -294,11 +294,11 @@ form .disabled input{
 							select[multiple],
 							.ch-form-select-multiple {
 								border:1px solid #CCCCCC;
-								-moz-box-shadow:1px 1px 2px rgba(204, 204, 204, 0.3) inset;
-								-ms-box-shadow:1px 1px 2px rgba(204, 204, 204, 0.3) inset;								
-								-o-box-shadow:1px 1px 2px rgba(204, 204, 204, 0.3) inset;
-								-webkit-box-shadow:1px 1px 2px rgba(204, 204, 204, 0.3) inset;
-								box-shadow:1px 1px 2px rgba(204, 204, 204, 0.3) inset;
+								-moz-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+								-ms-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;								
+								-o-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+								-webkit-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+								box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
 								padding:5px 4px;
 								margin:5px 0;
 							}
@@ -340,8 +340,7 @@ form .disabled input{
 
 form .ico{display:inline-block;}
 						
-						.ch-form-ico{display:inline-block;vertical-align:middle;margin-bottom:5px;}
-						.ch-form-ico.help{margin-left:0 !important;}
+						.ch-form-ico {display:inline-block;vertical-align:middle;margin-bottom:5px;margin-left:5px !important;}
 
 							/* Module */
 							form fieldset,
@@ -366,14 +365,16 @@ form .ico{display:inline-block;}
 								}
 								
 							/* Required specification or another */
-							.ch-form-tagline {
-								color:#999;
+							.ch-form-hint {
+								color:#666666;
 								font-size:11px;
+								line-height:11px;	
 							}
 							
 							/* Basic wrapper for horizontal view */
 							.ch-form-row{
 								padding:3px 0;
+								margin-bottom: 0;
 							}
 							
 							
@@ -466,10 +467,7 @@ form .ico{display:inline-block;}
 							}
 							
 							/* Help bottom line that helps the user */
-							.ch-form-row-help{
-								color:#666666;
-								font-size:11px;
-								line-height:11px;
+							.ch-form-row .ch-form-hint{
 								margin-left:145px;
 								display:block;
 							}

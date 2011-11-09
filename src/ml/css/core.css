@@ -115,6 +115,7 @@ a img {
 .box,
 .ico,
 .btn.close,
+.ch-btn.ch-close,
 .ch-tabNavigator .ch-tab-trigger-on {
 	background-image: url('../assets/base.png');
 }
@@ -234,7 +235,9 @@ hr {
 
 /* Main styles */
 .btn,
-.btn:focus {
+.btn:focus,
+.ch-btn,
+.ch-btn:focus {
 	border: 1px solid #2C3176;
 	-o-border-radius: 3px;
 	-ms-border-radius: 3px;
@@ -247,7 +250,8 @@ hr {
 }
 
 /* Focus style */
-.btn:focus {
+.btn:focus,
+.ch-btn:focus {
 	-o-box-shadow: 0 0 5px #4055A5;
 	-ms-box-shadow: 0 0 5px #4055A5;
 	-moz-box-shadow: 0 0 5px #4055A5;
@@ -258,7 +262,10 @@ hr {
 /* Main color gradient */
 .btn.main,
 .btn.primary,
-.btn.secondary {
+.btn.secondary,
+.ch-btn.ch-main,
+.ch-btn.ch-primary,
+.ch-btn.ch-secondary {
 	background: #2C3176;
 	background: -o-linear-gradient(top, #BACDFF 0%, #4055a5 3%, #283077 100%);
 	background: -ms-linear-gradient(top, #BACDFF 0%, #4055a5 3%, #283077 100%);
@@ -271,7 +278,9 @@ hr {
 
 /* Skin color gradient */
 .btn.skin,
-.btn.skin:focus {
+.btn.skin:focus,
+.ch-btn.ch-skin,
+.ch-btn.ch-skin:focus {
 	background: #C0DAEC;
 	background: -o-linear-gradient(top, #fff 0%, #D0E6F8 3%, #A6CDEE 100%);
 	background: -ms-linear-gradient(top, #fff 0%, #D0E6F8 3%, #A6CDEE 100%);
@@ -286,7 +295,10 @@ hr {
 
 .btn.main:hover,
 .btn.primary:hover,
-.btn.secondary:hover {
+.btn.secondary:hover,
+.ch-btn.ch-main:hover,
+.ch-btn.ch-primary:hover,
+.ch-btn.ch-secondary:hover {
 	background: #2C3176;
 	background: -o-linear-gradient(top, #BEC8FF 0%, #4255D4 3%, #2F33AE 100%);
 	background: -ms-linear-gradient(top, #BEC8FF 0%, #4255D4 3%, #2F33AE 100%);
@@ -297,7 +309,8 @@ hr {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4255D4', endColorstr='#2F33AE');
 }
 
-.btn.skin:hover {
+.btn.skin:hover,
+.ch-btn.ch-skin:hover {
 	background: #C8E5F7;
 	background: -o-linear-gradient(top, #fff 0%, #DCECFB 3%, #C2DDF5 100%);
 	background: -ms-linear-gradient(top, #fff 0%, #DCECFB 3%, #C2DDF5 100%);
@@ -310,7 +323,10 @@ hr {
 
 .btn.main:active,
 .btn.primary:active,
-.btn.secondary:active {
+.btn.secondary:active,
+.ch-btn.ch-main:active,
+.ch-btn.ch-primary:active,
+.ch-btn.ch-secondary:active  {
 	background: #2C3176;
 	background: -o-linear-gradient(top, #191F51 0%, #1C2662 3%, #171B3F 100%);
 	background: -ms-linear-gradient(top, #191F51 0%, #1C2662 3%, #171B3F 100%);
@@ -321,7 +337,8 @@ hr {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1C2662', endColorstr='#171B3F');
 }
 
-.btn.skin:active {
+.btn.skin:active,
+.ch-btn.ch-skin:active {
 	background: #C8E5F7;
 	background: -o-linear-gradient(top, #8FB0C5 0%, #A3C9E1 3%, #79B5DC 100%);
 	background: -ms-linear-gradient(top, #8FB0C5 0%, #A3C9E1 3%, #79B5DC 100%);
@@ -337,7 +354,12 @@ hr {
 .btn[disabled],
 .btn[disabled]:hover,
 .btn[disabled]:active,
-.btn[disabled]:focus {
+.btn[disabled]:focus,
+.ch-btn:disabled,
+.ch-btn[disabled],
+.ch-btn[disabled]:hover,
+.ch-btn[disabled]:active,
+.ch-btn[disabled]:focus {
 	background: #999;
 	background: -o-linear-gradient(top, #fff 0%, #ccc 100%);
 	background: -ms-linear-gradient(top, #fff 0%, #ccc 100%);
@@ -354,26 +376,30 @@ hr {
 }
 
 /* Main */
-.btn.main {
+.btn.main,
+.ch-btn.ch-main {
 	font-size: 19px;
 	height: 40px;
 }
 
 /* Primary */
-.btn.primary {
+.btn.primary,
+.ch-btn.ch-primary {
 	font-size: 18px;
 	height: 32px;
 }
 
 /* Secondary*/
-.btn.secondary {
+.btn.secondary,
+.ch-btn.ch-secondary {
 	font-size: 12px;
 	height: 25px;
 }
 
 
 /* Close*/
-.btn.close {
+.btn.close,
+.ch-btn.ch-close {
 	background-color: transparent;
 	background-repeat: no-repeat;
 	border: none;
@@ -388,18 +414,23 @@ hr {
 }
 
 .btn.close:hover,
-.btn.close:focus {
+.btn.close:focus,
+.ch-btn.ch-close:hover,
+.ch-btn.ch-close:focus {
 	background-position: 0 -16px;
 }
 
-.btn.close:active {
+.btn.close:active,
+.ch-btn.ch-close:active {
 	background-position: 0 -32px;
 	outline: none;
 }
 
 /* IE */
 .ie6 .btn,
-.ie7 .btn {
+.ie7 .btn,
+.ie6 .ch-btn,
+.ie7 .ch-btn {
 	padding: 0;
 }
 
@@ -419,7 +450,7 @@ hr {
 	border: 1px solid #ccc;
 	margin: 0 0 10px 0;
 	padding: 10px;
-	background-position: 0 -144px;
+	background-position: 0 -148px;
 	background-repeat: repeat-x;
 	background-color: #fff;
 	-o-border-radius: 5px;

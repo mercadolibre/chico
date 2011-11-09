@@ -61,22 +61,22 @@
 	<div class="box clearfix">
 		<h2>Buttons</h2>
 		<div class="ch-g1-2">
-			<p><input type="button" class="btn main" value="Main button"></p>
+			<p><input type="button" class="ch-btn ch-main" value="Main button"></p>
 			<br>
-			<p><input type="button" class="btn primary" value="Primary button"></p>
+			<p><input type="button" class="ch-btn ch-primary" value="Primary button"></p>
 			<br>
-			<p><input type="button" class="btn secondary" value="Secondary button"></p>
+			<p><input type="button" class="ch-btn ch-secondary" value="Secondary button"></p>
 			<br>
-			<p><input type="button" class="btn secondary skin" value="Secondary button cyan"></p>
+			<p><input type="button" class="ch-btn ch-secondary ch-skin" value="Secondary button cyan"></p>
 		</div>
 		<div class="ch-g1-2">
-			<p><input type="button" class="btn main disabled" disabled value="Main disabled"></p>
+			<p><input type="button" class="ch-btn ch-main disabled" disabled value="Main disabled"></p>
 			<br>
-			<p><input type="button" class="btn primary disabled" disabled value="Primary disabled"></p>
+			<p><input type="button" class="ch-btn ch-primary disabled" disabled value="Primary disabled"></p>
 			<br>
-			<p><input type="button" class="btn secondary disabled" disabled value="Secondary disabled"></p>
+			<p><input type="button" class="ch-btn ch-secondary disabled" disabled value="Secondary disabled"></p>
 			<br>
-			<p><input type="button" class="btn secondary skin disabled" disabled value="Secondary skin disabled"></p>
+			<p><input type="button" class="ch-btn ch-secondary ch-skin disabled" disabled value="Secondary skin disabled"></p>
 		</div>
 	</div>
 	
@@ -290,7 +290,7 @@
 		
 		<form action="/test.html">
 			<p class="actions">
-				<input type="submit" class="btn secondary YOUR_SELECTOR_Modal" value="Executed by submit input">
+				<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Modal" value="Executed by submit input">
 				<a href="/test.html" class="YOUR_SELECTOR_Modal">Executed by link.</a>
 			</p>
 		</form>
@@ -311,7 +311,7 @@
 	<div class="box"> 
 		<h2>Transition window</h2> 
 		<form action="/test.html"> 
-			<input type="submit" class="btn secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
+			<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
 	</div>
 
@@ -441,7 +441,7 @@
 		<form action="http://localhost:3000/test/post" class="ch-form" method="POST"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
-				<p class="ch-form-tagline">* Required fields</p> 
+				<p class="ch-form-hint">* Required fields</p> 
 					<p class="ch-form-row"> 
 						<label for="input_ico">
 							Icon:
@@ -454,8 +454,8 @@
 							Category:
 						</label>													
 						<input type="text" id="input_button" name="input_button" size="30" placeholder=""> 
-						<input type="button" name="add_category" value="Add" class="btn secondary skin"> 
-						<span class="ch-form-row-help">Add your category</span>
+						<input type="button" name="add_category" value="Add" class="ch-btn ch-secondary ch-skin"> 
+						<span class="ch-form-hint">Add your category</span>
 					</p>
 					<p class="ch-form-row ch-form-required"> 
 						<label for="price">
@@ -463,7 +463,7 @@
 							<em>*</em>
 						</label>													
 						<input type="number" id="price" name="price" required="required" size="6" placeholder="1349.43"> 
-						<span class="ch-form-row-help">Numbers and dot symbol</span>
+						<span class="ch-form-hint">Numbers and dot symbol</span>
 					</p>
 					<p class="ch-form-row ch-form-required"> 
 						<label for="email">
@@ -471,7 +471,7 @@
 							<em>*</em>
 						</label>												
 						<input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar"> 
-						<span class="ch-form-row-help">It will be your login name</span> 
+						<span class="ch-form-hint">It will be your login name</span> 
 					</p> 
 					<p class="ch-form-row"> 
 						<label for="email2">
@@ -500,7 +500,7 @@
 							Numeric range:
 						</label>
 						<input type="range" id="range" name="range" min="1" max="10">
-						<span class="ch-form-row-help">Between 1 to 10</span> 
+						<span class="ch-form-hint">Between 1 to 10</span> 
 					</p>
 					<p class="ch-form-row ch-form-required ch-form-disabled"> 
 						<label for="required_disabled">
@@ -508,7 +508,7 @@
 							<em>*</em>
 						</label>
 						<input type="text" id="required_disabled" required="required" disabled="disabled"> 
-						<span class="ch-form-row-help">It's a unknown use case</span>
+						<span class="ch-form-hint">It's a unknown use case</span>
 					</p> 
 					<p class="ch-form-row"> 
 						<label for="characters"> 
@@ -816,9 +816,9 @@
 			</fieldset> 
 
 			<p class="ch-form-actions">
-				<input type="submit" name="_eventId_confirmation" value="Webflow" class="btn primary lean">
-				<!--input type="submit" value="Send" class="btn primary"--> 
-				<input type="reset" value="Cancel" class="btn secondary"> 
+				<input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn ch-primary lean">
+				<!--input type="submit" value="Send" class="ch-btn ch-primary"--> 
+				<input type="reset" value="Cancel" class="ch-btn ch-secondary"> 
 				<a href="#" class="resetForm">Reset validations</a> 
 			</p> 
 		</form>	
