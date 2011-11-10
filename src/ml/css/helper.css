@@ -2,7 +2,7 @@
 	color: #600;
 	font-size: 12px;
 	display: inline-block;
-	min-width: 160px;
+	width: 160px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
