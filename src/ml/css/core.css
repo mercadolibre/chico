@@ -530,7 +530,7 @@ hr {
 /* Icons */
 
 .ch-ico, .ico {
-		display: block;
+		display: inline-block;
 		width: 16px;
 		height: 16px;
 		text-indent: 99px;
