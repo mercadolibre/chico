@@ -88,6 +88,52 @@ ch.calendar = function (conf) {
 	var today = new Date();
 
 	/**
+	* Date of Since
+	* @private
+	* @name ch.Calendar#since
+	* @type object
+	*/
+	var since = (function () {
+		var since;
+		if (ch.utils.hasOwn(conf, "since")) {
+
+			var temp = (conf.since === "today") ? new Date() : new Date(conf.since);
+			since = {
+				date: temp.getDate(),
+				day: temp.getDay(),
+				month: temp.getMonth(),
+				year: temp.getFullYear()
+			};
+		}
+
+		return since;
+	}());
+
+	/**
+	* Date of until
+	* @private
+	* @name ch.Calendar#until
+	* @type object
+	*/
+	var until = (function () {
+		var until;
+		if (ch.utils.hasOwn(conf, "until")) {
+			var temp = (conf.until === "today") ? new Date() : new Date(conf.until);
+			until = {
+				date: temp.getDate(),
+				day: temp.getDay(),
+				month: temp.getMonth(),
+				year: temp.getFullYear()
+			};
+		}
+
+		return until;
+	}());
+	
+
+
+
+	/**
 	* Parse string to YY/MM/DD format date
 	* @private
 	* @function
@@ -154,7 +200,7 @@ ch.calendar = function (conf) {
 
 			var src = event.target || event.srcElement;
 
-			if (src.nodeName !== "TD" || src.className.indexOf("day")) {
+			if (src.nodeName !== "TD" || src.className.indexOf("day") === -1 || src.className.indexOf("disabled") !== -1) {
 				that.prevent(event);
 				return;
 			}
@@ -182,17 +228,22 @@ ch.calendar = function (conf) {
 			currentMonth.month = currentMonth.fullDate.getMonth();
 			currentMonth.year = currentMonth.fullDate.getFullYear();
 
-		var currentDate = {};
-			currentDate.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
-			currentDate.date = currentDate.fullDate.getDate();
-			currentDate.day = currentDate.fullDate.getDay();
-			currentDate.month = currentDate.fullDate.getMonth();
-			currentDate.year = currentDate.fullDate.getFullYear();
+		// Get previous month
+		var prevMonth = {};
+			prevMonth.fullDate = new Date(currentMonth.fullDate.getFullYear(), currentMonth.fullDate.getMonth() - 1, 1);
+
+			// Get the last day of the previous month
+			prevMonth.fullDate.setTime(prevMonth.fullDate.getTime() + ((32 - prevMonth.fullDate.getDate()) * 86400000) );
+			prevMonth.fullDate.setTime(prevMonth.fullDate.getTime() - (prevMonth.fullDate.getDate() * 86400000) );
+			prevMonth.date = prevMonth.fullDate.getDate();
+
+		var currentDate = ch.clon(currentMonth);
 
 		var firstWeekday = currentMonth.day;
 
 		var classToday,
 			classSelected,
+			classDisabled,
 			waiSelected,
 			weeks = ["<tbody>"];
 
@@ -203,24 +254,41 @@ ch.calendar = function (conf) {
 			for (var i = 0; i < 7; i += 1) {
 
 				if (currentDate.date === 1) {
+					/*var last = (prevMonth.date - (firstWeekday - 1));
 					for (var i = 0; i < firstWeekday; i += 1) {
-						weeks.push("<td class=\"disable\"></td>");
+						weeks.push("<td class=\"otherMonth\" role=\"gridcell\">" + (last + i) + "</td>");
+					};*/
+					
+					for (var i = 0; i < firstWeekday; i += 1) {
+						weeks.push("<td class=\"otherMonth\" role=\"gridcell\"></td>");
 					};
 				}
 				
 				classToday = (currentDate.date === today.getDate() && currentDate.month === today.getMonth() && currentDate.year === today.getFullYear()) ? " today" : "";
 
 				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected" : "";
-				waiSelected = (classSelected !== "") ? "aria-selected=\"true\"" : "";
-				weeks.push("<td class=\"day" + classToday + classSelected + "\" " + waiSelected + "  role=\"gridcell\">" + currentDate.date + "</td>");
 				
+				classDisabled = ((since && since.date > currentDate.date && since.month === currentDate.month && since.year === currentDate.year) || (until && until.date < currentDate.date && until.month === currentDate.month && until.year === currentDate.year)) ? " disabled" : "";
+
+				waiSelected = (classSelected !== "") ? "aria-selected=\"true\"" : "";
+				
+				
+				
+				weeks.push("<td class=\"day" + classToday + classSelected + classDisabled +"\" " + waiSelected + "  role=\"gridcell\">" + currentDate.date + "</td>");
+				
+
 				currentDate.fullDate.setDate(currentDate.date+1);
 				currentDate.date = currentDate.fullDate.getDate();
 				currentDate.day = currentDate.fullDate.getDay();
 				currentDate.month = currentDate.fullDate.getMonth();
 				currentDate.year = currentDate.fullDate.getFullYear();
 
-				if (currentDate.month != currentMonth.month) { break; }
+				if (currentDate.month != currentMonth.month) {
+					for (var j = 1; j < (7-i); j += 1) {
+						weeks.push("<td class=\"otherMonth\" role=\"gridcell\"></td>");//" + j + "
+					};
+					break;
+				}
 
 			};
 
@@ -233,6 +301,8 @@ ch.calendar = function (conf) {
 		tableMonth
 			.prepend("<caption>" + MONTHS_NAMES[currentMonth.month] + " - " + currentMonth.year + "</caption>")
 			.append(weeks.join(""));
+
+		ch.utils.avoidTextSelection(tableMonth.children("caption"));
 
 		return tableMonth;
 	};
@@ -369,11 +439,19 @@ ch.calendar = function (conf) {
 	*/
 	//TODO: crear una interfaz que resuleva donde moverse
 	var nextMonth = function () {
-		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() + 1, 1);
+		var next = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() + 1, 1);
+		that.currentDate = next;
 		that.$content.html(createMonth(that.currentDate));
 
 		//Refresh position
 		that.children[0].position("refresh");
+		that.$container.prepend(arrows.$prev);
+
+		if (until && until.month <= next.getMonth() && until.year === next.getFullYear()) {
+			arrows.$next.detach();
+
+			return that;
+		}
 
 		// Callback
 		that.callbacks("onNextMonth");
@@ -391,12 +469,21 @@ ch.calendar = function (conf) {
 	* @return itself
 	*/
 	var prevMonth = function () {
-		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() - 1, 1);
-		
+
+		var prev = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() - 1, 1);
+
+		that.currentDate = prev;
 		that.$content.html(createMonth(that.currentDate));
-		
+
 		// Refresh position
 		that.children[0].position("refresh");
+		that.$container.prepend(arrows.$next);
+
+		if (since && since.month >= prev.getMonth() && since.year === prev.getFullYear()) {
+			arrows.$prev.detach();
+
+			return that;
+		}
 
 		// Callback
 		that.callbacks("onPrevMonth");

@@ -887,7 +887,10 @@
 		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
 
 		// Calendar
-		var calendar = $(".myCalendar").calendar();
+		var calendar = $(".myCalendar").calendar({
+			since: "2011/10/15",
+			until: "2012/01/15"
+		});
 
 		var ch_ico = $(".ch-form-ico").layer({content:"Help",event:"click", offset:"-12 15"});
 			

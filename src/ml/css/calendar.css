@@ -98,9 +98,16 @@
 	font-weight: normal;
 }
 
-.ch-calendar-month .disable{
+.ch-calendar-month .disabled,
+.ch-calendar-month .disabled:hover,
+.ch-calendar-month .otherMonth {
 	color: #C6C6C6;
+	background: #FFF;
 	cursor: default;
+}
+
+.ch-calendar-month .disabled:hover {
+	cursor: not-allowed;
 }
 
 .ch-calendar-month .selected,
