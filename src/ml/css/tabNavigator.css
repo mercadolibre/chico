@@ -35,7 +35,8 @@
 }
 
 /* Hover and active */
-.ch-tab-trigger:hover, .ch-tab-trigger:active {
+.ch-tab-trigger:hover,
+.ch-tab-trigger:active {
 	background-color: #dedede;
 }
 
@@ -49,9 +50,11 @@
 }
 
 /* Trigger ON */
-.ch-tabNavigator .ch-tab-trigger-on {
+.ch-tabNavigator .ch-tab-trigger-on,
+.ch-tabNavigator .ch-tab-trigger-on:hover {
 	font-weight:bold;
 	cursor:default;
+	background-color:#fff;
 	background-position:0 -535px;
 	background-repeat:repeat-x;
 	border-bottom:1px solid #FFFFFF;
