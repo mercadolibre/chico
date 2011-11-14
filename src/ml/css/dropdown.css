@@ -13,6 +13,7 @@
 /* Trigger Down icon */
 .ch-dropdown-trigger .ico {
 	background: transparent url('../assets/mini-arrows.png') 0 -3px no-repeat;
+	display: block;
 	height: 4px;
 	position: absolute;
 	right: 9px;
