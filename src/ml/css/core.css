@@ -214,12 +214,6 @@ hr {
 	background-image: -webkit-linear-gradient(top, #BACDFF, #4055A5 3%, #283077);
 	background-image: linear-gradient(top, #BACDFF, #4055A5 3%, #283077);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4055A5', endColorstr='#283077');
-	/*-o-transition: background-image 0.1s linear;
-	-ms-transition: background-image 0.1s linear;*/
-	-moz-transition: all 0.1s linear 0s;
-	transition: all 0.1s linear 0s;
-	/*-webkit-transition: background-image 0.1s linear;
-	transition: background-image 0.1s linear;*/
 }
 
 /* Skin color gradient */
@@ -309,21 +303,18 @@ hr {
 .ch-btn.ch.main, .btn.main {
 	font-size: 19px;
 	height: 40px;
-	line-height: 40px;
 }
 
 /* Primary */
 .ch-btn.ch-primary, .btn.primary {
 	font-size: 18px;
 	height: 32px;
-	line-height: 32px;
 }
 
 /* Secondary*/
 .ch-btn.ch-secondary, .btn.secondary {
 	font-size: 12px;
 	height: 25px;
-	line-height: 25px;
 }
 
 
