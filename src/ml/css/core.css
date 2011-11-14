@@ -445,94 +445,101 @@ hr {
 */
 
 		
-.ch-ico, .ch-message {
-		background: url(../assets/icons.png) no-repeat;
+.ch-ico, .ico,
+.ch-message, .message {
+	background: url(../assets/icons.png) no-repeat;
 }
 
 /* Icons */
 
 .ch-ico, .ico {
-		display: inline-block;
-		width: 16px;
-		height: 16px;
-		text-indent: 99px;
-		overflow: hidden;
-		background-repeat: no-repeat;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	text-indent: 99px;
+	overflow: hidden;
+	background-repeat: no-repeat;
 }
 
-.ch-ico.attention {
-		background-position: -77px -110px;
+.ch-ico.ch-attention,
+.ico.attention {
+	background-position: -77px -110px;
 }
 
-.ch-ico.check {
-		background-position: -43px -144px;
+.ch-ico.ch-check,
+.ico.check {
+	background-position: -43px -144px;
 }
 
-.ch-ico.error {
-		background-position: -179px -9px;
+.ch-ico.ch-error,
+.ico.error {
+	background-position: -179px -9px;
 }
 
-.ch-ico.help {
-		background-position: -111px -76px;
+.ch-ico.ch-help,
+.ico.help {
+	background-position: -111px -76px;
 }
 
-.ch-ico.information {
-		background-position: -145px -42px;
+.ch-ico.ch-information,
+.ico.information {
+	background-position: -145px -42px;
 }	
 
-.ch-ico.ok {
-		background-position: -9px -178px;
-		height: 17px;
+.ch-ico.ch-ok,
+.ico.ok {
+	background-position: -9px -178px;
+	height: 17px;
 }
 
 
 /* Message boxes */
 
 .ch-message {
-		border-radius: 3px;
-     	border-style: solid;
-     	border-width: 1px;
-     	margin: 0 0 5px;
-     	padding: 8px 10px 8px 34px;
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 1px;
+	margin: 0 0 5px;
+	padding: 8px 10px 8px 34px;
 }
 
-.ch-message.attention {	
-		background-color: #FCF8CB;
-		background-position: -68px -101px;
-		border:1px solid #E4E2B8;
+.ch-message.ch-attention {	
+	background-color: #FCF8CB;
+	background-position: -68px -101px;
+	border-color: #E4E2B8;
 }
 
 
-.ch-message.check {
-		background-color: #E8FFD7;
-		background-position: -34px -135px;
-   	border-color: #C7DDBC;
-   	color: #487210;
+.ch-message.ch-check {
+	background-color: #E8FFD7;
+	background-position: -34px -135px;
+	border-color: #C7DDBC;
+	color: #487210;
 }
 	
-.ch-message.error {	
-		background-color:#fbd9db;
-		background-position: -170px 0px;
-		border:1px solid #f7a9ae;
-		color:#600;
+.ch-message.ch-error {	
+	background-color:#fbd9db;
+	background-position: -170px 0px;
+	border-color: #f7a9ae;
+	color:#600;
 }		
 
-.ch-message.help {	
-		background-color: #F6F9F3;
-		background-position: -102px -67px;
-		border:1px solid #ccc;
+.ch-message.ch-help {	
+	background-color: #F6F9F3;
+	background-position: -102px -67px;
+	border-color: #cccccc;
 }
 	
-.ch-message.information {	
-		background-color: #E5EBFD;
-		background-position: -136px -33px;
-		border:1px solid #A0B1DE;
+.ch-message.ch-information {	
+	background-color: #E5EBFD;
+	background-position: -136px -33px;
+	border-color: #A0B1DE;
 }
 	
-.ch-message.ok {
-		background-color: #E8FFD7;
-		background-position: 0 -169px;
-   		border-color: #C7DDBC;
+.ch-message.ch-ok {
+	background-color: #E8FFD7;
+	background-position: 0 -169px;
+	border-color: #C7DDBC;
 }
 
 /*
@@ -653,9 +660,15 @@ hr {
 	content: " ";
 	clear: both;
 	height: 0;
-	}
-* html .clearfix             { zoom: 1; } /* IE6 */
-*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+}
+
+* html .clearfix { 
+	zoom: 1; /* IE6 */
+}
+ 
+*:first-child+html .clearfix { 
+	zoom: 1; /* IE7 */
+} 
 
 /*  do not select text  */
 .ch-user-no-select {
