@@ -80,6 +80,17 @@
 		</div>
 	</div>
 	
+	<div class="box"> 
+		<h2>AutoComplete</h2> 
+		<form method="get" action="/" id="asForm">
+			<div class="autoComplete">
+				<input type="text" id="autocomplete" placeholder="Write a country name" />
+				<ul></ul>
+			</div>
+				<input type="submit" class="btn secondary skin" />
+		</form>
+	</div> 
+	
 	<div class="box">
 			<table class="datagrid" summary="Listado de cobros en MercadoPago">
 				<caption>Table</caption>
@@ -870,6 +881,13 @@
         document.getElementsByTagName("h1")[0].innerHTML = title;
 
 		// Components
+		
+		// Calendar
+		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest/"});
+		
+		var autoComplete = function(data){
+			ac.suggest(data);
+		}
 		
 		// Accordion
 		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
