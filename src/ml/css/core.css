@@ -589,7 +589,7 @@ hr {
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFF), color-stop(100%, #ddd));
 	background-image: -webkit-linear-gradient(top, #FFF, #ddd 100%);
 	background-image: linear-gradient(top, #FFF, #ddd 100%);
-	/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF', endColorstr='#dddddd');*/
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF', endColorstr='#dddddd');
 	border-bottom: 1px solid #CECECE;
 	border-left: 1px solid #CECECE;
 	font-size: 11px;
@@ -601,7 +601,7 @@ hr {
 
 .datagrid th.selected {
 	background: #dedede;
-	/*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dedede', endColorstr='#dedede');*/
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dedede', endColorstr='#dedede');
 	position: relative;
 }
 

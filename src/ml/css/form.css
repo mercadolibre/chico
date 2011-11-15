@@ -290,9 +290,16 @@ form .disabled input{
 						
 						/* Generic input & textarea */
 							input,
-							textarea{
+							textarea,
+							select[multiple],
+							.ch-form-select-multiple {
 								border:1px solid #CCCCCC;
-								padding:4px;
+								-moz-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+								-ms-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;								
+								-o-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+								-webkit-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+								box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+								padding:5px 4px;
 								margin:5px 0;
 							}
 							
@@ -306,7 +313,7 @@ form .disabled input{
 							input:focus, 
 							textarea:focus {
 								border:2px solid #666666;
-								padding:3px;
+								padding:4px 3px;
 							}
 							
 							input[type=file]:focus,
@@ -317,17 +324,23 @@ form .disabled input{
 							
 							input[readonly]:focus, 
 							textarea[readonly]:focus {
-								border:none;
-								padding:4px;
+								border: none;
+								padding: 5px 4px;
 							}
-							
+
 							input[readonly],
-							input[readonly]:focus{border:none;}
-						
+							input[readonly]:focus{
+								border:none;
+								-moz-box-shadow: none;
+								-ms-box-shadow: none;
+								-o-box-shadow: none;
+								-webkit-box-shadow: none;
+								box-shadow: none;
+							}
+
 form .ico{display:inline-block;}
 						
-						.ch-form-ico{display:inline-block;vertical-align:middle;margin-bottom:5px;}
-						.ch-form-ico.help{margin-left:0 !important;}
+						.ch-form-ico {display:inline-block;vertical-align:middle;margin-bottom:5px;margin-left:5px !important;}
 
 							/* Module */
 							form fieldset,
@@ -346,25 +359,27 @@ form .ico{display:inline-block;}
 								
 								/* Deprecate H4, it could not match the hierarchy */
 								.form h4,
-								.ch-form-subtitle{
+								.ch-form-subtitle {
 									font-size:13px;
 									font-weight:bold;
 								}
 								
 							/* Required specification or another */
-							.ch-form-tagline {
-								color:#999;
+							.ch-form-hint {
+								color:#666666;
 								font-size:11px;
+								line-height:11px;	
 							}
 							
 							/* Basic wrapper for horizontal view */
 							.ch-form-row{
 								padding:3px 0;
+								margin-bottom: 0;
 							}
 							
 							
 							/* Label */
-							.ch-form-row label{
+							.ch-form-row label {
 								position:relative;
 								padding:7px 11px 5px 0;
 								display:inline-block;
@@ -437,12 +452,11 @@ form .ico{display:inline-block;}
 								margin:5px 0;
 							}
 							
-							/* Select Multiple 
-							.ch-form-row select[multiple],*/
-							.ch-form-select-multiple{
+							/* Select Multiple */
+							.ch-form-row select[multiple],
+							.ch-form-select-multiple {
 								vertical-align:top;
 								margin-top:10px;
-								border:1px solid #999999;
 							}
 							
 							/* Textarea */
@@ -453,10 +467,7 @@ form .ico{display:inline-block;}
 							}
 							
 							/* Help bottom line that helps the user */
-							.ch-form-row-help{
-								color:#666666;
-								font-size:11px;
-								line-height:11px;
+							.ch-form-row .ch-form-hint{
 								margin-left:145px;
 								display:block;
 							}
@@ -472,7 +483,7 @@ form .ico{display:inline-block;}
 							form .error:focus,
 							form .ch-form-error:focus {
 								border:2px solid #CC0000;
-								padding:3px;
+								padding:4px 3px;
 								box-shadow:2px #CC0000;
 								-moz-box-shadow:2px #CC0000;
 								-webkit-box-shadow:2px #CC0000;
@@ -537,8 +548,12 @@ form .ico{display:inline-block;}
 								color:#999999;
 							}
 							
-							.ch-form-disabled input{
+							.ch-form-disabled input,
+							.ch-form-disabled input[disabled],
+							.ch-form-disabled textarea,
+							.ch-form-disabled textarea[disabled] {
 								background-color:#F2F2F2;
+								cursor: not-allowed;
 							}
 
 							/* Actions */
