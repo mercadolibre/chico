@@ -1,0 +1,40 @@
+.ch-autoComplete 
+{
+	display:inline-block;
+	position:relative;
+	width:400px;
+}
+
+.ch-autoComplete-trigger
+{
+	border:1px solid #CCCCCC;
+	padding:1%;
+	margin:5px 0;
+	width:98%;
+	display:inline-block;
+}
+
+.ch-autoComplete-content
+{
+	background-color:#ffffff;
+	border:1px solid #CCCCCC;
+	border-top:none;
+	width:100%;
+}
+
+.ch-autoComplete-content li
+{
+	padding:3px;
+	color:#666666;
+	cursor:pointer;
+}
+
+/*.ch-autoComplete-content li:hover,
+.ch-autoComplete-content li:focus,*/
+.ch-autoComplete-selected
+{
+	padding:3px;
+	background-color: #fefbd6;
+}
+
+

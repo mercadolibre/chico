@@ -3,6 +3,10 @@
 	margin:10px 0;
 }
 
+											.ch-tabNavigator.ch-tab-vertical {
+												position:relative;
+											}
+
 /* Triggers container */
 .ch-tabNavigator .ch-tabNavigator-triggers {
 	position:relative;
@@ -12,6 +16,15 @@
 	overflow:hidden;
 }
 
+											.ch-tabNavigator.ch-tab-vertical .ch-tabNavigator-triggers {
+												margin-left:0;
+												position:absolute;
+												top:0;
+												left:0;
+												width:123px;
+												z-index:10;
+											}
+
 .ch-tabNavigator-triggers li{
 	cursor:pointer;
 	/*margin-right:5px;
@@ -19,6 +32,12 @@
 	display:inline;
 	margin-right:0;
 }
+
+										.ch-tab-vertical .ch-tabNavigator-triggers li{
+											cursor:pointer;
+											display:block;
+											margin:0 0 5px 0;
+										}
 
 /* Triggers */
 .ch-tab-trigger {
@@ -34,6 +53,18 @@
 	border-radius:5px 5px 0 0;
 }
 
+										.ch-tab-vertical .ch-tab-trigger {
+											-moz-border-radius:5px 0 0 5px;
+											-webkit-border-radius:5px 0 0 5px;
+											border-radius:5px 0 0 5px;
+											display:block;
+											padding:7px 12px 6px 12px;
+											
+										}
+										
+										.ch-tab-vertical li:first-child .ch-tab-trigger {
+										}
+
 /* Hover and active */
 .ch-tab-trigger:hover,
 .ch-tab-trigger:active {
@@ -41,13 +72,6 @@
 }
 
 /* Vertical trigger */
-.ch-tabNavigator.vertical .ch-tab-trigger {
-	-moz-border-radius:5px 0 0 5px;
-	-webkit-border-radius:5px 0 0 5px;
-	border-radius:5px 0 0 5px;
-	width:75px;
-	margin-bottom:5px;
-}
 
 /* Trigger ON */
 .ch-tabNavigator .ch-tab-trigger-on,
@@ -58,9 +82,16 @@
 	font-weight:bold;
 }
 
-.ch-tabNavigator.vertical .ch-tab-on {
-	border-right:1px solid #FFFFFF;
-}
+								.ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on {
+									border:1px solid #cccccc;
+									border-right:1px solid #ffffff;
+									background:none;
+								}
+								
+								.ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on:hover,
+								.ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on:active{
+									background-color:#ffffff;
+								}
 
 /* content */
 .ch-tabNavigator .box{
@@ -70,9 +101,13 @@
 	-webkit-border-radius:0;
 }
 
-.ch-tabNavigator.vertical .ch-tabNavigator-content{
- 	padding-left:100px;
-}
+								.ch-tabNavigator.ch-tab-vertical .box{
+								}
+
+								.ch-tabNavigator.ch-tab-vertical .ch-tabNavigator-content{
+									margin-left:120px;
+									min-height:120px;
+								}
 
 .no-js .ch-tabNavigator-triggers{
 	top:0;
