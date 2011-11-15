@@ -72,17 +72,15 @@
 
 		test("Calendar public methods", function () {
 			
-			expect(8);
+			expect(7);
 
 			ok(ch.utils.hasOwn(calendar1, "show"), "Expected to find a \"show\" method");
 			
 			ok(ch.utils.hasOwn(calendar1, "hide"), "Expected to find a \"hide\" method");
 			
 			ok(ch.utils.hasOwn(calendar1, "select"), "Expected to find a \"select\" method");
-				
-			ok(ch.utils.hasOwn(calendar1, "getSelected"), "Expected to find a \"getSelected\" method");
 
-			ok(ch.utils.hasOwn(calendar1, "getToday"), "Expected to find a \"getToday\" method");
+			ok(ch.utils.hasOwn(calendar1, "today"), "Expected to find a \"today\" method");
 
 			ok(ch.utils.hasOwn(calendar1, "next"), "Expected to find a \"next\" method");
 
