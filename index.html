@@ -429,7 +429,7 @@
 					<label for="val_date">
 						Fecha:
 					</label>													
-					<input type="date" id="val_date" class="myCalendar" value="18/11/2011" placeholder="DD/MM/YYYY"> 
+					<input type="date" id="val_date" class="myCalendar"  placeholder="DD/MM/YYYY"> <!-- value="18/11/2011" -->
 				</p>
 			</fieldset>
 		</form>
@@ -825,7 +825,7 @@
 
 	</div> 
 	
-	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="/libs/js/jquery.js"></script>
 	<script src="http://chico.com:8080/latest/js?debug=true"></script>
 	<script src="/src/plugins/gallery/chico.gallery.js"></script>
 	<script> 
@@ -888,15 +888,16 @@
 
 		// Calendar
 		var calendar = $(".myCalendar").calendar({
-			since: "2011/10/15",
-			until: "2012/01/15"
+			selected: "2011/11/15",
+			from: "2010/11/05",
+			to: "2012/11/25"
 		});
 
 		var ch_ico = $(".ch-form-ico").layer({content:"Help",event:"click", offset:"-12 15"});
 			
 		// Form
 		var ch_form = $('.form').form();
-	
+
 		// Watchers
 		var ch_wprice = $("#price").price("Price please!").and().required("algo");
 		var ch_wch1 = $("#email").required("requerid").and().email("Guachin emial").and().minLength(10);

@@ -8,6 +8,8 @@
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
 * @param {String} [conf.selected] Sets a date that should be selected by default. By default is the date of today.
+* @param {String} [conf.from] Set a maximum selectable date.
+* @param {String} [conf.to] Set a minimum selectable date.
 * @param {Array} [conf.monthsNames] By default is ["Enero", ... , "Diciembre"].
 * @param {Array} [conf.weekdays] By default is ["Dom", ... , "Sab"].
 * @returns itself
@@ -16,7 +18,9 @@
 * // Create a new calendar with configuration.
 * var me = $(".example").calendar({
 *     "format": "YYYY/MM/DD",
-*     "selected": "2012/12/25",
+*     "selected": "2011/12/25",
+*     "from": "2010/12/25",
+*     "to": "2012/12/25",
 *     "monthsNames": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
 *     "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
 * });
@@ -88,49 +92,30 @@ ch.calendar = function (conf) {
 	var today = new Date();
 
 	/**
-	* Date of Since
+	* Minimum selectable date
 	* @private
-	* @name ch.Calendar#since
-	* @type object
+	* @since 0.9
+	* @function
+	* @name ch.Calendar#from
 	*/
-	var since = (function () {
-		var since;
-		if (ch.utils.hasOwn(conf, "since")) {
-
-			var temp = (conf.since === "today") ? new Date() : new Date(conf.since);
-			since = {
-				date: temp.getDate(),
-				day: temp.getDay(),
-				month: temp.getMonth(),
-				year: temp.getFullYear()
-			};
+	var from = (function () {
+		if (ch.utils.hasOwn(conf, "from")) {
+			return (conf.from === "today") ? new Date() : new Date(conf.from);
 		}
-
-		return since;
 	}());
 
 	/**
-	* Date of until
+	* Maximum selectable date
 	* @private
-	* @name ch.Calendar#until
-	* @type object
+	* @since 0.9
+	* @function
+	* @name ch.Calendar#to
 	*/
-	var until = (function () {
-		var until;
-		if (ch.utils.hasOwn(conf, "until")) {
-			var temp = (conf.until === "today") ? new Date() : new Date(conf.until);
-			until = {
-				date: temp.getDate(),
-				day: temp.getDay(),
-				month: temp.getMonth(),
-				year: temp.getFullYear()
-			};
+	var to = (function () {
+		if (ch.utils.hasOwn(conf, "to")) {
+			return (conf.to === "today") ? new Date() : new Date(conf.to);
 		}
-
-		return until;
 	}());
-	
-
 
 
 	/**
@@ -159,8 +144,7 @@ ch.calendar = function (conf) {
 	* @name ch.Calendar#selected
 	* @type date
 	*/
-	var selected = conf.selected || conf.msg || (that.element.value != "") ? new Date(parseDate(that.element.value)) : "";
-
+	var selected = conf.selected || conf.msg || ((that.element.value != "") ? new Date(parseDate(that.element.value)) : "");
 
 	/**
 	* Creates tag thead with short name of week days
@@ -206,6 +190,8 @@ ch.calendar = function (conf) {
 			}
 
 			select(that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML);
+
+			that["public"].hide();
 		});
 
 	/**
@@ -229,6 +215,7 @@ ch.calendar = function (conf) {
 			currentMonth.year = currentMonth.fullDate.getFullYear();
 
 		// Get previous month
+		/*
 		var prevMonth = {};
 			prevMonth.fullDate = new Date(currentMonth.fullDate.getFullYear(), currentMonth.fullDate.getMonth() - 1, 1);
 
@@ -236,6 +223,7 @@ ch.calendar = function (conf) {
 			prevMonth.fullDate.setTime(prevMonth.fullDate.getTime() + ((32 - prevMonth.fullDate.getDate()) * 86400000) );
 			prevMonth.fullDate.setTime(prevMonth.fullDate.getTime() - (prevMonth.fullDate.getDate() * 86400000) );
 			prevMonth.date = prevMonth.fullDate.getDate();
+		*/
 
 		var currentDate = ch.clon(currentMonth);
 
@@ -259,7 +247,7 @@ ch.calendar = function (conf) {
 						weeks.push("<td class=\"otherMonth\" role=\"gridcell\">" + (last + i) + "</td>");
 					};*/
 					
-					for (var i = 0; i < firstWeekday; i += 1) {
+					for (i; i < firstWeekday; i += 1) {
 						weeks.push("<td class=\"otherMonth\" role=\"gridcell\"></td>");
 					};
 				}
@@ -268,11 +256,9 @@ ch.calendar = function (conf) {
 
 				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected" : "";
 				
-				classDisabled = ((since && since.date > currentDate.date && since.month === currentDate.month && since.year === currentDate.year) || (until && until.date < currentDate.date && until.month === currentDate.month && until.year === currentDate.year)) ? " disabled" : "";
+				classDisabled = ((from && from.getDate() > currentDate.date && from.getMonth() === currentDate.month && from.getFullYear() === currentDate.year) || (to && to.getDate() < currentDate.date && to.getMonth() === currentDate.month && to.getFullYear() === currentDate.year)) ? " disabled" : "";
 
 				waiSelected = (classSelected !== "") ? "aria-selected=\"true\"" : "";
-				
-				
 				
 				weeks.push("<td class=\"day" + classToday + classSelected + classDisabled +"\" " + waiSelected + "  role=\"gridcell\">" + currentDate.date + "</td>");
 				
@@ -412,9 +398,9 @@ ch.calendar = function (conf) {
 
 		that.currentDate = selected;
 		
-		that.$content.html(createMonth(selected));
-		
 		that.element.value = FORMAT_DATE[conf.format](selected);
+		
+		that.$content.html(createMonth(selected));
 
 		/**
 		* Callback function
@@ -439,18 +425,15 @@ ch.calendar = function (conf) {
 	*/
 	//TODO: crear una interfaz que resuleva donde moverse
 	var nextMonth = function () {
-		var next = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() + 1, 1);
-		that.currentDate = next;
+		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() + 1, 1);
 		that.$content.html(createMonth(that.currentDate));
 
 		//Refresh position
 		that.children[0].position("refresh");
 		that.$container.prepend(arrows.$prev);
 
-		if (until && until.month <= next.getMonth() && until.year === next.getFullYear()) {
+		if (to && to.getMonth() <= that.currentDate.getMonth() && to.getFullYear() === that.currentDate.getFullYear()) {
 			arrows.$next.detach();
-
-			return that;
 		}
 
 		// Callback
@@ -470,16 +453,15 @@ ch.calendar = function (conf) {
 	*/
 	var prevMonth = function () {
 
-		var prev = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() - 1, 1);
+		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() - 1, 1);
 
-		that.currentDate = prev;
 		that.$content.html(createMonth(that.currentDate));
 
 		// Refresh position
 		that.children[0].position("refresh");
 		that.$container.prepend(arrows.$next);
 
-		if (since && since.month >= prev.getMonth() && since.year === prev.getFullYear()) {
+		if (from && from.getMonth() >= that.currentDate.getMonth() && from.getFullYear() === that.currentDate.getFullYear()) {
 			arrows.$prev.detach();
 
 			return that;
@@ -635,27 +617,35 @@ ch.calendar = function (conf) {
 	};
 
 	/**
-	* Returns the selected date
+	* Select a specific date or returns the selected date.
 	* @public
+	* @since 0.9
 	* @function
-	* @name ch.Calendar#getSelected
+	* @name ch.Calendar#select
+	* @param {string} "YYYY/MM/DD".
 	* @return itself
-	* @TODO: Unifiy with select() method.
 	*/
-	that["public"].getSelected = function () {
-		return FORMAT_DATE[conf.format](selected);
+	that["public"].select = function (date) {
+		if (typeof date === "undefined") {
+			return FORMAT_DATE[conf.format](selected);
+		}
+
+		select((date === "today") ? today : parseDate(date));	
+		return that["public"];
+
 	};
 
 	/**
 	* Returns date of today
 	* @public
+	* @since 0.9
 	* @function
-	* @name ch.Calendar#getToday
+	* @name ch.Calendar#today
 	* @return date
 	*/
-	that["public"].getToday = function () {
+	that["public"].today = function () {
 		return FORMAT_DATE[conf.format](today);
-	};	
+	};
 
 	/**
 	* Move to the next month or year. If it isn't specified, it will be moved to next month.
@@ -717,19 +707,55 @@ ch.calendar = function (conf) {
 		return that["public"];
 	};
 
+	/**
+	* Set a minimum selectable date.
+	* @public
+	* @since 0.9
+	* @function
+	* @name ch.Calendar#from
+	* @param {string} "YYYY/MM/DD".
+	* @return itself
+	*/
+	that["public"].from = function (date) {
+		from = new Date(date);
+		return that["public"];
+	};
+
+	/**
+	* Set a maximum selectable date.
+	* @public
+	* @since 0.9
+	* @function
+	* @name ch.Calendar#to
+	* @param {string} "YYYY/MM/DD".
+	* @return itself
+	*/
+	that["public"].to = function (date) {
+		to = new Date(date);
+		return that["public"];
+	};
+
 /**
 *	Default event delegation
 */
 
 	that.element.type = "text";
 
-	that.element.value = ((selected) ? FORMAT_DATE[conf.format](selected) : "");
+	that.element.value = ((selected !== "") ? FORMAT_DATE[conf.format](selected) : "");
 
 	createLayout();
 
 	that.$content.html(createMonth(that.currentDate)).appendTo(that.$container);
 
-	that.$container.prepend(arrows.$prev).prepend(arrows.$next);
+	ch.utils.avoidTextSelection(that.$container);
+	
+	if (!from || (from.getMonth() <= that.currentDate.getMonth())) {
+		that.$container.prepend(arrows.$prev);
+	}
+
+	if (!to || (to.getMonth() >= that.currentDate.getMonth())) {
+		that.$container.prepend(arrows.$next);
+	}
 	
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
