@@ -80,6 +80,17 @@
 		</div>
 	</div>
 	
+	<div class="box"> 
+		<h2>AutoComplete</h2> 
+		<form method="get" action="/" id="asForm">
+			<div class="autoComplete">
+				<input type="text" id="autocomplete" placeholder="Write a country name" />
+				<ul></ul>
+			</div>
+				<input type="submit" class="btn secondary skin" />
+		</form>
+	</div> 
+	
 	<div class="box">
 	<h2>Pagination</h2>
 		<ul class="pagination">
@@ -387,8 +398,30 @@
 				</div>				
 			</div> 
 	
-		</div> 
-
+		</div>
+		
+		
+		
+		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator ch-tab-vertical"> 
+			<ul class="ch-tabNavigator-triggers"> 
+				<li><a href="#tab1-b" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li> 
+				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li> 
+				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
+			</ul> 
+			<div class="box"> 
+				<div id="tab1-b"> 
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
+				</div> 
+				<div id="tab2-b" class="ch-js-hide"> 
+					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p> 
+				</div> 
+				<div id="tab3-b" class="ch-js-hide"> 
+					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p> 
+				</div>				
+			</div> 
+		</div>
 	</div> 
 
 
@@ -863,6 +896,13 @@
         document.getElementsByTagName("h1")[0].innerHTML = title;
 
 		// Components
+		
+		// Calendar
+		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest/"});
+		
+		var autoComplete = function(data){
+			ac.suggest(data);
+		}
 		
 		// Accordion
 		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
