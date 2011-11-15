@@ -60,7 +60,7 @@ ch.helper = function(conf){
 *  Protected Members
 */
 
-	that.content("<span class=\"ico error\">Error: </span><p>Error.</p>");
+	that.content("<p class=\"ch-message ch-error\">Error.</p>");
 
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
@@ -127,7 +127,7 @@ ch.helper = function(conf){
 	that["public"].content = function (message) {
 
 		if (message) {
-			that.content("<span class=\"ico error\">Error: </span><p>" + message + "</p>");
+			that.content("<p class=\"ch-message ch-error\">" + message + "</p>");
 		} else {
 			return that.content();
 		}

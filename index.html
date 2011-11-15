@@ -61,22 +61,22 @@
 	<div class="box clearfix">
 		<h2>Buttons</h2>
 		<div class="ch-g1-2">
-			<p><input type="button" class="btn main" value="Main button"></p>
+			<p><input type="button" class="ch-btn ch-main" value="Main button"></p>
 			<br>
-			<p><input type="button" class="btn primary" value="Primary button"></p>
+			<p><input type="button" class="ch-btn ch-primary" value="Primary button"></p>
 			<br>
-			<p><input type="button" class="btn secondary" value="Secondary button"></p>
+			<p><input type="button" class="ch-btn ch-secondary" value="Secondary button"></p>
 			<br>
-			<p><input type="button" class="btn secondary skin" value="Secondary button cyan"></p>
+			<p><input type="button" class="ch-btn ch-secondary ch-skin" value="Secondary button cyan"></p>
 		</div>
 		<div class="ch-g1-2">
-			<p><input type="button" class="btn main disabled" disabled value="Main disabled"></p>
+			<p><input type="button" class="ch-btn ch-main disabled" disabled value="Main disabled"></p>
 			<br>
-			<p><input type="button" class="btn primary disabled" disabled value="Primary disabled"></p>
+			<p><input type="button" class="ch-btn ch-primary disabled" disabled value="Primary disabled"></p>
 			<br>
-			<p><input type="button" class="btn secondary disabled" disabled value="Secondary disabled"></p>
+			<p><input type="button" class="ch-btn ch-secondary disabled" disabled value="Secondary disabled"></p>
 			<br>
-			<p><input type="button" class="btn secondary skin disabled" disabled value="Secondary skin disabled"></p>
+			<p><input type="button" class="ch-btn ch-secondary ch-skin disabled" disabled value="Secondary skin disabled"></p>
 		</div>
 	</div>
 	
@@ -290,7 +290,7 @@
 		
 		<form action="/test.html">
 			<p class="actions">
-				<input type="submit" class="btn secondary YOUR_SELECTOR_Modal" value="Executed by submit input">
+				<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Modal" value="Executed by submit input">
 				<a href="/test.html" class="YOUR_SELECTOR_Modal">Executed by link.</a>
 			</p>
 		</form>
@@ -311,7 +311,7 @@
 	<div class="box"> 
 		<h2>Transition window</h2> 
 		<form action="/test.html"> 
-			<input type="submit" class="btn secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
+			<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
 	</div>
 
@@ -433,28 +433,38 @@
 	<div class="box"> 
 		<h2>Icons</h2>
 		<ul class="showroomIcons">
-			<li><span class="ico error">Error</span> Error</li>
-			<li><span class="ico help">Help</span> Help</li>
-			<li><span class="ico information">Info</span> Information</li>
-			<li><span class="ico attention">Attention</span> Attention</li>
-			<li><span class="ico ok">ok</span> OK</li>
-			<li><span class="ico check">check</span> Checked</li>
+			<li><span class="ch-ico ch-error">Error</span></li>
+			<li><span class="ch-ico ch-help">Help</span></li>
+			<li><span class="ch-ico ch-information">Info</span></li>
+			<li><span class="ch-ico ch-attention">Attention</span></li>
+			<li><span class="ch-ico ch-ok">ok</span></li>
+			<li><span class="ch-ico ch-check">check</span></li>
+		</ul>
+	</div> 
+	
+	<div class="box"> 
+		<h2>Message boxes</h2>
+		<ul class="showroomIcons">
+			<li><p class="ch-message ch-error">Oops, something wrong happened</p></li>
+			<li><p class="ch-message ch-help">Do you need any help?</p></li>
+			<li><p class="ch-message ch-information">Here's more information</p></li>
+			<li><p class="ch-message ch-attention">Warning! something might be wrong</p></li>
+			<li><p class="ch-message ch-ok">Everything is great!</p></li>
+			<li><p class="ch-message ch-check">Everything is okay</p></li>
 		</ul>
 	</div> 
 
 	<div class="box"> 
 		<h2>Calendar</h2>
-		<form action="/test.html" class="YOUR_SELECTOR_Formcalendar">
+		<form action="/test.html" class="YOUR_SELECTOR_Formcalendar ch-form">
 			<fieldset>
 				<legend>Calendar</legend>
-				<ol>
-					<li class="field-box"> 
-						<label for="val_date"> 
-							<span>Fecha:</span>
-							<input type="date" id="val_date" class="myCalendar">
-						</label> 
-					</li>
-				</ol>
+				<p class="ch-form-row"> 
+					<label for="val_date">
+						Fecha:
+					</label>													
+					<input type="date" id="val_date" class="myCalendar"  placeholder="DD/MM/YYYY"> <!-- value="18/11/2011" -->
+				</p>
 			</fieldset>
 		</form>
 	</div>
@@ -462,350 +472,394 @@
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
 
-		<form action="http://localhost:3000/test/post" class="YOUR_SELECTOR_Form" method="POST"> 
+		<form action="http://localhost:3000/test/post" class="ch-form" method="POST"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
-
-				<p class="required">* Required fields</p> 
-				<ol> 
-					<li class="field-box"> 
-						<label class="required" for="YOUR_SELECTOR_price"> 
-
-							<span>Price: <em>*</em></span>													
-							<input type="email" id="YOUR_SELECTOR_price" name="price" required="required"> 
+				<p class="ch-form-hint">* Required fields</p> 
+					<p class="ch-form-row"> 
+						<label for="input_ico">
+							Icon:
+						</label>													
+						<input type="text" id="input_ico" name="input_ico" size="30" placeholder=""> 
+						<span class="ch-form-ico ico help">Warning:</span>
+					</p>
+					<p class="ch-form-row"> 
+						<label for="input_button">
+							Category:
+						</label>													
+						<input type="text" id="input_button" name="input_button" size="30" placeholder=""> 
+						<input type="button" name="add_category" value="Add" class="ch-btn ch-secondary ch-skin"> 
+						<span class="ch-form-hint">Add your category</span>
+					</p>
+					<p class="ch-form-row ch-form-required"> 
+						<label for="price">
+							Price:
+							<em>*</em>
+						</label>													
+						<input type="number" id="price" name="price" required="required" size="6" placeholder="1349.43"> 
+						<span class="ch-form-hint">Numbers and dot symbol</span>
+					</p>
+					<p class="ch-form-row ch-form-required"> 
+						<label for="email">
+							E-mail: 
+							<em>*</em>
+						</label>												
+						<input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar"> 
+						<span class="ch-form-hint">It will be your login name</span> 
+					</p> 
+					<p class="ch-form-row"> 
+						<label for="email2">
+							E-mail: 
+						</label>												
+						<input type="email2" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar"> 
+						<input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline"> 
+						<label for="news" class="ch-label-inline">
+							Accept to receive weekly news
+						</label>
+					</p> 
+					<p class="ch-form-row"> 
+						<label for="url">
+							URL:
 						</label> 
-						<p class="help">Short description about field</p> 
-
-					</li> 
-					<li class="field-box"> 
-						<label class="required" for="YOUR_SELECTOR_email"> 
-
-							<span>E-mail: <em>*</em></span>													
-							<input type="email" id="YOUR_SELECTOR_email" name="email" required="required"> 
+						<input type="url" id="url" name="url" size="60" placeholder="http://www.chico-ui.com.ar"> 
+					</p>
+					<p class="ch-form-row"> 
+						<label for="number">
+							Numeric field:
+						</label>
+						<input type="number" id="number" name="number" size="2" min="18" max="99" placeholder="30"> 
+					</p> 
+					<p class="ch-form-row"> 
+						<label for="range">
+							Numeric range:
+						</label>
+						<input type="range" id="range" name="range" min="1" max="10">
+						<span class="ch-form-hint">Between 1 to 10</span> 
+					</p>
+					<p class="ch-form-row ch-form-required ch-form-disabled"> 
+						<label for="required_disabled">
+							Required disabled: 
+							<em>*</em>
+						</label>
+						<input type="text" id="required_disabled" required="required" disabled="disabled"> 
+						<span class="ch-form-hint">It's a unknown use case</span>
+					</p> 
+					<p class="ch-form-row"> 
+						<label for="characters"> 
+							Characters: 
 						</label> 
-						<p class="help">Short description about field</p> 
-
-					</li> 
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_url"> 
-							<span>URL:</span> 
-							<input type="url" id="YOUR_SELECTOR_url"> 
+						<input type="text" id="characters"> 
+					</p> 
+					<p class="ch-form-row"> 
+						<label for="custom"> 
+							Custom: 
 						</label> 
-					</li> 
-					<li class="field-box"> 
-
-						<label for="YOUR_SELECTOR_number"> 
-							<span>Numeric field:</span> 
-
-							<input type="number" id="YOUR_SELECTOR_number" min="20"> 
+						<input type="text" id="custom" placeholder="12" size="2"> 
+					</p>
+					<p class="ch-form-row"> 
+						<label for="readonly"> 
+							Readonly: 
 						</label> 
-					</li> 
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_range"> 
-							<span>Numeric range:</span> 
-
-							<input type="range" id="YOUR_SELECTOR_range" min="1" max="10"> 
+						<input type="text" readonly="readonly" id="readonly" value="its a readonly value"> 
+					</p>
+					<p class="ch-form-row"> 
+						<label for="double"> 
+							It's a input text with double line: 
 						</label> 
-
-					</li> 
-					<li class="field-box"> 
-						<label class="required disabled" for="YOUR_SELECTOR_required_disabled"> 
-							<span>Required disabled: <em>*</em></span> 
-							<input type="text" id="YOUR_SELECTOR_required_disabled" required="required" disabled="disabled"> 
-						</label> 
-
-					</li> 
-
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_length"> 
-							<span>Characters:</span> 
-							<input type="text" id="YOUR_SELECTOR_length"> 
-						</label> 
-					</li> 
-
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_custom"> 
-							<span>Characters:</span> 
-							<input type="text" id="YOUR_SELECTOR_custom"> 
-						</label> 
-					</li> 
-
-				</ol> 
-
+						<input type="text" id="double"> 
+					</p>
 			</fieldset> 
-
 			<fieldset> 
 				<legend>Selects</legend> 
-				<ul> 
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_select1"> 
-							<span>Common field:</span> 
-							<select id="YOUR_SELECTOR_select1"> 
+				<p class="ch-form-row"> 
+					<label for="select1"> 
+						Common field: 
+					</label> 
+					<select id="select1"> 
+						<option value="-1">Select one...</option> 
+						<option value="1">Option 1</option> 
+						<option value="2">Option 2</option> 
+						<option value="3">Option 3</option> 
+						<option value="4">Option 4</option> 
+					</select> 
 
-								<option value="-1">Select one...</option> 
-								<option value="1">Option 1</option> 
-								<option value="2">Option 2</option> 
-								<option value="3">Option 3</option> 
-								<option value="4">Option 4</option> 
-							</select> 
-
-						</label> 
-					</li> 
-
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_select2" class="required"> 
-							<span>Rquired: <em>*</em></span> 
-							<select id="YOUR_SELECTOR_select2" required="required"> 
-								<option value="-1">Select one...</option> 
-
-								<option value="1">Option 1</option> 
-								<option value="2">Option 2</option> 
-								<option value="3">Option 3</option> 
-								<option value="4">Option 4</option> 
-							</select> 
-						</label> 
-
-					</li> 
-
-
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_select3" class="required disabled"> 
-							<span>Required disabled: <em>*</em></span> 
-							<select id="YOUR_SELECTOR_select3" required="required" disabled="disabled"> 
-								<option value="-1">Select one...</option> 
-								<option value="1">Option 1</option> 
-								<option value="2">Option 2</option> 
-								<option value="3">Option 3</option> 
-								<option value="4">Option 4</option> 
-							</select> 
-						</label> 
-					</li> 
-
-					<li class="field-box"> 
-
-						<label for="YOUR_SELECTOR_select4" class="disabled"> 
-							<span>Disabled:</span> 
-
-							<select id="YOUR_SELECTOR_select4" disabled="disabled"> 
-								<option value="-1">Select one...</option> 
-								<option value="1">Option 1</option> 
-								<option value="2">Option 2</option> 
-								<option value="3">Option 3</option> 
-								<option value="4">Option 4</option> 
-
-							</select> 
-						</label> 
-					</li> 
-				</ul> 
+				</p> 
+				<p class="ch-form-row ch-form-required"> 
+					<label for="select2"> 
+						Rquired: <em>*</em> 
+					</label> 
+					<select id="select2" required="required" pattern="[^-1]"> 
+						<option value="">Select one...</option> 
+						<option value="1">Option 1</option> 
+						<option value="2">Option 2</option> 
+						<option value="3">Option 3</option> 
+						<option value="4">Option 4</option> 
+					</select> 
+				</p> 
+				<p class="ch-form-row ch-form-required ch-form-disabled"> 
+					<label for="select3" class="required disabled"> 
+						Required disabled: <em>*</em>
+					</label> 
+					<select id="select3" required="required" disabled="disabled"> 
+						<option value="">Select one...</option> 
+						<option value="1">Option 1</option> 
+						<option value="2">Option 2</option> 
+						<option value="3">Option 3</option> 
+						<option value="4">Option 4</option> 
+					</select> 
+				</p> 
+				<p class="ch-form-row ch-form-disabled"> 
+					<label for="select4"> 
+						Disabled: 
+					</label> 
+					<select id="select4" disabled="disabled"> 
+						<option value="0">Select one...</option> 
+						<option value="1">Option 1</option> 
+						<option value="2">Option 2</option> 
+						<option value="3">Option 3</option> 
+						<option value="4">Option 4</option> 
+					</select> 
+				</p> 
 			</fieldset> 
-
+			<fieldset> 
+				<legend>Misc</legend> 
+				<p class="ch-form-row"> 
+					<label for="street"> 
+						Domicilio: 
+					</label> 
+					<input type="text" size="30" id="street" placeholder="Av. Costanera Rafael Obligado" />
+					<input type="number" size="4" id="door" placeholder="1345" />
+					<select id="state"> 
+						<option value="">Select one state/province...</option> 
+						<option value="1">Option 1</option> 
+						<option value="2">Option 2</option> 
+						<option value="3">Option 3</option> 
+						<option value="4">Option 4</option> 
+					</select>
+				</p>
+				<p class="ch-form-row"> 
+					<label for="select5"> 
+						Common field: 
+					</label> 
+					<select id="select5"> 
+						<option value="0">Select one...</option> 
+						<option value="1">Option 1</option> 
+						<option value="2">Option 2</option> 
+						<option value="3">Option 3</option> 
+						<option value="4">Option 4</option> 
+					</select>
+					<input type="text" id="secondary_option" placeholder="Common field" />
+				</p>
+				<p class="ch-form-row"> 
+					<label for="num1"> 
+						Cuit: 
+					</label> 
+					<input type="number" size="2" id="num1" placeholder="20" /> -
+					<input type="number" size="10" id="num2" placeholder="23111399" /> / 
+					<input type="number" size="1" id="num3" placeholder="4" />
+				</p>
+				<p class="ch-form-row"> 
+					<label for="tc1"> 
+						Vencimiento: 
+					</label> 
+					<input type="number" size="2" id="tc1" min="1" max="12" placeholder="11" />
+					<input type="number" size="6" id="tc2" min="2011" max="2020" placeholder="2013" />
+				</p>
+				<p class="ch-form-row"> 
+					<label for="select6"> 
+						Características del inmueble: 
+					</label> 
+					<select id="select6" multiple="multiple" size="5" class="ch-form-select-multiple"> 
+						<option value="0">Aire acondicionado</option> 
+						<option value="1">Dormitorio en suite</option> 
+						<option value="2">Balcón</option> 
+						<option value="3">Lavadero</option> 
+						<option value="4">Cocina</option> 
+						<option value="5">Living</option> 
+						<option value="6">Comedor</option> 
+						<option value="7">Amenities</option> 
+					</select>
+				</p>
+				
+			</fieldset> 
+			<fieldset> 
+				<p class="ch-form-options ch-form-required check2"> 
+					<input type="checkbox" value="alpha" id="check4a" name="version4" required="required"> 
+					<label for="check4a"> 
+						Unique checkbox
+					</label>
+				</p>
+			</fieldset>
 			<fieldset> 
 				<legend>Checkbox</legend> 
-				<div class="YOUR_SELECTOR_check1 options"> 
-
-					<h4>Label of checkboxs group:</h4> 
-					<ul> 
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_check1a"> 
-								<input type="checkbox" value="alpha" id="YOUR_SELECTOR_check1a" name="version1"> 
-								<span>Alpha</span> 
-							</label> 
-						</li> 
-
-	
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_check1b"> 
-								<input type="checkbox" value="beta" id="YOUR_SELECTOR_check1b" name="version1"> 
-								<span>Beta</span> 
-
-							</label> 
-						</li> 
-					</ul> 
-				</div> 
-
+					<div class="ch-form-options">
+						<h4 class="ch-form-subtitle">Label of checkboxs group:</h4>
+						<p class="ch-form-row">
+							<input type="checkbox" value="alpha" id="check1a" name="version1a" required="required"> 
+							<label for="check1a"> 
+								Alpha 
+							</label>
+						</p>
+						<p class="ch-form-row">
+							<input type="checkbox" value="beta" id="check1b" name="version1b"> 
+							<label for="check1b"> 
+								Beta 
+							</label>
+						</p>
+					</div> 
 			</fieldset> 
 
 			<fieldset> 
-				<legend>Legend of required group <em>*</em></legend> 
-
-				<div class="YOUR_SELECTOR_check2 options required"> 
-					<ul> 
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_check2a"> 
-								<input type="checkbox" value="alpha" id="YOUR_SELECTOR_check2a" name="version2"> 
-
-								<span>Alpha</span> 
-							</label> 
-						</li> 
-
-	
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_check2b"> 
-								<input type="checkbox" value="beta" id="YOUR_SELECTOR_check2b" name="version2"> 
-								<span>Beta</span> 
-							</label> 
-
-						</li> 
-					</ul> 
-				</div> 
-
-			</fieldset> 
+				<legend>Legend of required group <em>*</em></legend>
+				<div class="ch-form-options check2"> 
+					<p class="ch-form-row">
+						<input type="checkbox" value="alpha" id="check2a" name="version2"> 
+						<label for="check2a"> 
+							Alpha
+						</label>
+					</p>
+					<p class="ch-form-row">
+						<input type="checkbox" value="beta" id="check2b" name="version2"> 
+						<label for="check2b"> 
+							Beta
+						</label>
+					</p>
+				</div>
+			</fieldset>
 
 			<fieldset> 
 				<legend>Legend of checkboxs group</legend> 
-				<div class="YOUR_SELECTOR_check3 required options"> 
-					<h4>Label of required group: <em>*</em></h4> 
-
-					<ul> 
-
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_check3a"> 
-								<input type="radio" value="alpha" id="YOUR_SELECTOR_check3a" name="version3"> 
-								<span>Alpha</span> 
-							</label> 
-						</li> 
-	
-						<li class="field-box"> 
-
-							<label for="YOUR_SELECTOR_check3b"> 
-
-								<input type="radio" value="beta" id="YOUR_SELECTOR_check3b" name="version3"> 
-								<span>Beta</span> 
-							</label> 
-						</li> 
-					</ul> 
-				</div> 
-			</fieldset> 
-
+				<div class="ch-form-options ch-form-required check3"> 
+					<h4 class="ch-form-subtitle">Label of required group: <em>*</em></h4> 
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="check3a" name="version3"> 
+						<label for="check3a"> 
+							Alpha 
+						</label> 
+					</p>
+					<p class="ch-form-row">
+						<input type="radio" value="beta" id="check3b" name="version3"> 
+						<label for="check3b"> 
+							Beta
+						</label>
+					</p>
+				</div>
+			</fieldset>
 
 			<fieldset> 
 				<legend>Radio buttons</legend> 
-				<div class="YOUR_SELECTOR_radio1 options"> 
-					<ul> 
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_radio1a"> 
-								<input type="radio" value="alpha" id="YOUR_SELECTOR_radio1a" name="version4"> 
-								<span>Alpha</span> 
-
-							</label> 
-						</li> 
-	
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_radio1b"> 
-								<input type="radio" value="beta" id="YOUR_SELECTOR_radio1b" name="version4"> 
-								<span>Beta</span> 
-							</label> 
-						</li> 
-
-					</ul> 
+				<div class="ch-form-options"> 
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="radio1a" name="version4"> 
+						<label for="radio1a"> 
+							Alpha
+						</label>
+					</p>
+					<p class="ch-form-row">
+						<input type="radio" value="beta" id="radio1b" name="version4"> 
+						<label for="radio1b"> 
+							Beta
+						</label>
+					</p>
 				</div> 
 			</fieldset> 
 	
 			<fieldset> 
 				<legend>Radio buttons required <em>*</em></legend> 
-				<div class="YOUR_SELECTOR_radio2 options required"> 
-					<ul> 
-
-						<li class="field-box"> 
-
-							<label for="YOUR_SELECTOR_radio2a"> 
-								<input type="radio" value="alpha" id="YOUR_SELECTOR_radio2a" name="version5"> 
-								<span>Alpha</span> 
-							</label> 
-						</li> 
-	
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_radio2b"> 
-
-								<input type="radio" value="beta" id="YOUR_SELECTOR_radio2b" name="version5"> 
-
-								<span>Beta</span> 
-							</label> 
-						</li> 
-					</ul> 
+				<div class="ch-form-options radio2"> 
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="radio2a" name="version5"> 
+						<label for="radio2a"> 
+							Alpha
+						</label>
+					</p>
+					<p class="ch-form-row">
+						<input type="radio" value="beta" id="radio2b" name="version5"> 
+						<label for="radio2b"> 
+							Beta
+						</label>
+					</p>
 				</div> 
 			</fieldset> 
 	
 			<fieldset> 
-
 				<legend>Legend of Radios group</legend> 
-
-				<div class="YOUR_SELECTOR_radio3 options required"> 
-					<h4 class="required">Radios required: <em>*</em></h4> 
-					<ul> 
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_radio3a"> 
-								<input type="radio" value="alpha" id="YOUR_SELECTOR_radio3a" name="version6"> 
-
-								<span>Alpha</span> 
-
-							</label> 
-						</li> 
-	
-						<li class="field-box"> 
-							<label for="YOUR_SELECTOR_radio3b"> 
-								<input type="radio" value="beta" id="YOUR_SELECTOR_radio3b" name="version6"> 
-								<span>Beta</span> 
-
-							</label> 
-						</li> 
-
-					</ul> 
+				<div class="ch-form-options ch-form-required radio3"> 
+					<h4 class="ch-form-subtitle">Radios required: <em>*</em></h4>
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="radio3a" name="version6"> 
+						<label for="radio3a"> 
+							Alpha
+						</label>
+					</p>
+					<p class="ch-form-row">
+						<input type="radio" value="beta" id="radio3b" name="version6"> 
+						<label for="radio3b"> 
+							Beta
+						</label>
+					</p>
 				</div> 
 			</fieldset> 
-
+			
+			<fieldset> 
+				<div class="ch-form-options radio4"> 
+					<p class="ch-form-row">
+						<input type="radio" value="alpha" id="radio4a" name="version7"> 
+						<label for="radio4a"> 
+							It's a long label to use to show where the item be positioned
+						</label>
+					</p>
+					<p class="ch-form-row">
+						<input type="radio" value="beta" id="radio4b" name="version7"> 
+						<label for="radio4b"> 
+							Beta
+						</label>
+					</p>
+				</div> 
+			</fieldset>
+			
 			<fieldset> 
 				<legend>Textarea</legend> 
+				<p class="ch-form-row"> 
+					<label for="textarea1"> 
+						Textarea: 
+					</label> 
+					<textarea id="textarea1"></textarea> 
+				</p> 
+					
+				<p class="ch-form-row ch-form-required"> 
+					<label for="textarea2"> 
+						Obligatorio: <em>*</em>
+					</label> 
+					<textarea id="textarea2" required="required"></textarea> 
+				</p> 
 
-				<ul> 
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_textarea1"> 
-
-							<span>Textarea:</span> 
-							<textarea id="YOUR_SELECTOR_textarea1"></textarea> 
-						</label> 
-					</li> 
-
-
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_textarea2" class="required"> 
-							<span>Obligatorio: <em>*</em></span> 
-
-							<textarea id="YOUR_SELECTOR_textarea2" required="required"></textarea> 
-						</label> 
-					</li> 
-
-					<li class="field-box"> 
-
-						<label for="YOUR_SELECTOR_textarea3" class="required disabled"> 
-							<span>Required disabled: <em>*</em></span> 
-							<textarea id="YOUR_SELECTOR_textarea3" required="required" disabled="disabled"></textarea> 
-
-						</label> 
-					</li> 
-
-					<li class="field-box"> 
-						<label for="YOUR_SELECTOR_textarea4" class="disabled"> 
-
-							<span>Disabled:</span> 
-							<textarea id="YOUR_SELECTOR_textarea4" disabled="disabled"></textarea> 
-						</label> 
-					</li> 
-
-				</ul> 
+				<p class="ch-form-row ch-form-required ch-form-disabled"> 
+					<label for="textarea3"> 
+						Required disabled: <em>*</em> 
+					</label> 
+					<textarea id="textarea3" required="required" disabled="disabled"></textarea> 
+				</p>
+				
+				<p class="ch-form-row ch-form-disabled"> 
+					<label for="textarea4"> 
+						Disabled: 
+					</label> 
+					<textarea id="textarea4" disabled="disabled"></textarea> 
+				</p> 
 			</fieldset> 
 
-			<p class="actions">
-                <input type="submit" name="_eventId_confirmation" value="Webflow" class="btn primary lean">
-				<!--input type="submit" value="Send" class="btn primary"--> 
-				<input type="reset" value="Cancel" class="btn secondary"> 
+			<p class="ch-form-actions">
+				<input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn ch-primary lean">
+				<!--input type="submit" value="Send" class="ch-btn ch-primary"--> 
+				<input type="reset" value="Cancel" class="ch-btn ch-secondary"> 
 				<a href="#" class="resetForm">Reset validations</a> 
 			</p> 
-		</form> 
+		</form>	
 
 	</div> 
 	
-	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="/libs/js/jquery.js"></script>
 	<script src="http://chico.com:8080/latest/js?debug=true"></script>
 	<script src="/src/plugins/gallery/chico.gallery.js"></script>
 	<script> 
@@ -867,31 +921,34 @@
 		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
 
 		// Calendar
-		var calendar = $(".myCalendar").calendar();
+		var calendar = $(".myCalendar").calendar({
+			selected: "2011/11/15",
+			from: "2010/11/05",
+			to: "2012/11/25"
+		});
 
+		var ch_ico = $(".ch-form-ico").layer({content:"Help",event:"click", offset:"-12 15"});
+			
 		// Form
-		var ch_form = $('.YOUR_SELECTOR_Form').form();
-			ch_form.on("validate",function(){console.log("validate event")})
-			ch_form.on("submit",function(){console.log("submit event")});
+		var ch_form = $('.form').form();
 
-		var count = 0;
 		// Watchers
-		var ch_wprice = $("#YOUR_SELECTOR_price").price("Price please!").and().required("algo");
-		var ch_wch1 = $("#YOUR_SELECTOR_email").required("requerid").and().email("Guachin emial").and().minLength(10);
-		var ch_wch11 = $("#YOUR_SELECTOR_custom").custom(function(v){ return (v.toString().indexOf("1")>-1) ? true : false ;},"Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja.")
-                                                .and()
-                                                .required()
-                                                .and()
-                                                .custom(function(v){ 
-                                                    count++;
-                                                    console.log("Custom " + count )
-                                                    return (v.toString().indexOf("2")>-1) ? true : false ;
-                                                },"2")
-;
-		var ch_wch3 = $("#YOUR_SELECTOR_number").number().and().min(20);
-		var ch_wch4 = $("#YOUR_SELECTOR_range").min(1).and().max(10);
-		var ch_wch5 = $("#YOUR_SELECTOR_length").maxLength(20).and().minLength(6);
-		var ch_wch6 = $("#YOUR_SELECTOR_required_disabled, #YOUR_SELECTOR_select2, #YOUR_SELECTOR_select3, .YOUR_SELECTOR_check2, .YOUR_SELECTOR_check3, .YOUR_SELECTOR_radio2, .YOUR_SELECTOR_radio3, #YOUR_SELECTOR_textarea2, #YOUR_SELECTOR_textarea3").required("Required");
+		var ch_wprice = $("#price").price("Price please!").and().required("algo");
+		var ch_wch1 = $("#email").required("requerid").and().email("Guachin emial").and().minLength(10);
+		var ch_wch11 = $("#custom").custom(function(v){ return (v.toString().indexOf("1")>-1) ? true : false ;},"Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja.")
+												.and()
+												.required()
+												.and()
+												.custom(function(v){ 
+													count++;
+													console.log("Custom " + count )
+													return (v.toString().indexOf("2")>-1) ? true : false ;
+												},"2");
+		var ch_wch3 = $("#number").number().and().min(20);
+		var ch_wch4 = $("#range").min(1).and().max(10);
+		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);
+		var ch_wch6 = $("#required_disabled, #select2, #select3, .check2, .check3, .radio2, .radio3, .radio4, #textarea2, #textarea3").required("Required");
+
 
 		// Gallery
 		var ch_gal = $(".ch-gallery").gallery();

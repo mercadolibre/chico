@@ -100,6 +100,7 @@ ch.floats = function () {
 		
 		// Classname with component type and extra classes from conf.classes
 		container.push(" class=\"ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
+		
 		// Z-index
 		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + ";");
 		
@@ -140,32 +141,16 @@ ch.floats = function () {
 		}
 		
 		// Efects configuration
-		if (ch.utils.hasOwn(conf, "fx")) { conf.fx = conf.fx; } else { conf.fx = true; }
+		conf.fx = ch.utils.hasOwn(conf, "fx") ? conf.fx : true;
 
-		// Position component
+		// Position component configuration
 		conf.position = conf.position || {};
 		conf.position.element = $container;
 		conf.position.reposition = ch.utils.hasOwn(conf, "reposition") ? conf.reposition : true;
 
-		that.positioner = ch.positioner(conf.position);
-		that.position = function (o) {
-			if (typeof o === "object") {
-				// New points
-				if (ch.utils.hasOwn(o, "points")) { conf.position.points = o.points; }
+		// Initialize positioner component
+		that.position = ch.positioner(conf.position);
 
-				// New reposition
-				if (ch.utils.hasOwn(o, "reposition")) { conf.position.reposition = o.reposition; }
-
-				// New offset (splitted)
-				if (ch.utils.hasOwn(o, "offset")) { conf.position.offset = o.offset.split(" "); }
-
-				// New context
-				if (ch.utils.hasOwn(o, "context")) { conf.position.context = o.context; }
-			}
-
-			return that.positioner(conf.position);
-		};
-		
 		// Return the entire Layout
 		return $container;
 	})();
@@ -271,7 +256,7 @@ ch.floats = function () {
 			// Old callback system
 			that.callbacks('onShow');
 		}
-		
+
 		that.position("refresh");
 		
 		that.active = true;
@@ -340,16 +325,17 @@ ch.floats = function () {
 	*/
 	that.size = function (prop, data) {
 		// Getter
-		if (!data) {
-			return that.conf[prop];
-		}
+		if (!data) { return that.conf[prop]; }
+
 		// Setter
 		that.conf[prop] = data;
-		// Container
+
+		// Container size
 		that.$container[prop](data);
-		
+
+		// Refresh position
 		that.position("refresh");
-		
+
 		return that["public"];
 	};
 
@@ -382,6 +368,60 @@ ch.floats = function () {
 	that["public"].hide = function () {
 		that.innerHide();
 		return that["public"];
+	};
+	
+	/**
+	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
+	* @public
+	* @name ch.Uiobject#position
+	* @example
+	* // Change component's position.
+	* me.position({ 
+	*	  offset: "0 10",
+	*	  points: "lt lb"
+	* });
+	* @see ch.Uiobject#position
+	*/
+	// Create a custom Positioner object to update conf.position data of Float family
+	that["public"].position = function (o) {
+
+		var r = that["public"];
+
+		switch (typeof o) {
+		// Custom Setter: It updates conf.position data
+		case "object":
+			// New points
+			if (ch.utils.hasOwn(o, "points")) { conf.position.points = o.points; }
+
+			// New reposition
+			if (ch.utils.hasOwn(o, "reposition")) { conf.position.reposition = o.reposition; }
+
+			// New offset (splitted)
+			if (ch.utils.hasOwn(o, "offset")) { conf.position.offset = o.offset.split(" "); }
+
+			// New context
+			if (ch.utils.hasOwn(o, "context")) { conf.position.context = o.context; }
+
+			// Original Positioner
+			that.position(conf.position);
+
+			break;
+
+		// Refresh
+		case "string":
+			that.position("refresh");
+			
+			break;
+
+		// Getter
+		case "undefined":
+		default:
+			r = that.position();
+			
+			break;
+		}
+
+		return r;
 	};
 
 	/**
