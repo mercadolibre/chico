@@ -402,15 +402,14 @@ hr {
 }
 			
 .pagination li {
-	float: left;
+	display: inline-block;
 	margin: 0px 4px;
 }
 
 .pagination li a, 
-.pagination li.current {
+.pagination li.current a {
 	border-radius: 3px;
-	padding: 3px 8px;
-	float: left;
+	padding: 5px 8px;
 	border: 1px solid #CCC;
 	background-color: #FFF;
 }
@@ -422,7 +421,7 @@ hr {
 	border: 1px solid #0637b3;
 }
 
-.pagination li.current {
+.pagination li.current a {
 	border: 1px solid #ededed;
 	background-color: #ededed;
 	color: #0637b3; 
