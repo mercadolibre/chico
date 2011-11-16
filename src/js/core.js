@@ -535,37 +535,37 @@ ch.extend = function (klass) {
 	"use strict";
 
 	return {
-	as: function (name, process) {
-		// Create the component in Chico-UI namespace
-		ch[name] = function (conf) {
-			// Some interfaces need a data value,
-			// others simply need to be 'true'.
-			conf[name] = conf.value || true;
-
-			// Invoke pre-proccess if is defined,
-			// or grab the raw conf argument,
-			// or just create an empty object.
-			conf = (process) ? process(conf) : conf || {};
-
-			// Here we recieve messages,
-			// or create an empty object.
-			conf.messages = conf.messages || {};
-
-			// If the interface recieve a 'msg' argument,
-			// store it in the message map.
-			if (ch.utils.hasOwn(conf, "msg")) {
-				conf.messages[name] = conf.msg;
-				conf.msg = null;
-				delete conf.msg;
-			}
-			// Here is where the magic happen,
-			// invoke the class with the new conf,
-			// and return the instance to the namespace.
-			return ch[klass].call(this, conf);
-		};
-		// Almost done, now we need expose the new component,
-		// let's ask the factory to do it for us.
-		ch.factory(name);
-	} // end as method
+		as: function (name, process) {
+			// Create the component in Chico-UI namespace
+			ch[name] = function (conf) {
+				// Some interfaces need a data value,
+				// others simply need to be 'true'.
+				conf[name] = conf.value || true;
+	
+				// Invoke pre-proccess if is defined,
+				// or grab the raw conf argument,
+				// or just create an empty object.
+				conf = (process) ? process(conf) : conf || {};
+	
+				// Here we recieve messages,
+				// or create an empty object.
+				conf.messages = conf.messages || {};
+	
+				// If the interface recieve a 'msg' argument,
+				// store it in the message map.
+				if (ch.utils.hasOwn(conf, "msg")) {
+					conf.messages[name] = conf.msg;
+					conf.msg = null;
+					delete conf.msg;
+				}
+				// Here is where the magic happen,
+				// invoke the class with the new conf,
+				// and return the instance to the namespace.
+				return ch[klass].call(this, conf);
+			};
+			// Almost done, now we need expose the new component,
+			// let's ask the factory to do it for us.
+			ch.factory(name);
+		} // end as method
 	} // end return
 };
