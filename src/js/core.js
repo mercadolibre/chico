@@ -55,35 +55,34 @@ var ch = window.ch = {
 		document: $(document),
 		zIndex: 1000,
 		index: 0, // global instantiation index
-		isTag: function(string){
-			return (/<([\w:]+)/).test(string);
+		isTag: function (tag) {
+			var el = document.createElement(tag)
+			return !(el instanceof HTMLUnknownElement);
 		},
-		isSelector: function(string){
-			if (typeof string !== "string") return false;
-			for (var regex in $.expr.match){
-				if ($.expr.match[ regex ].test(string) && !ch.utils.isTag(string)) {
-					return true;
-				};
-			};
-			return false;
+		isSelector: function (selector) {
+			if (typeof selector !== "string") { return false; }
+			var style = document.createElement("style");
+			style.innerHTML = selector + "{}";
+			document.body.appendChild(style);
+			var ret = !!style.sheet.cssRules[0];
+			document.body.removeChild(style);
+			return ret;
 		},
 		inDom: function (selector, context) {
 			if (typeof selector !== "string") return false;
-
 			// jQuery: If you wish to use any of the meta-characters ( such as !"#$%&'()*+,./:;<=>?@[\]^`{|}~ ) as a literal part of a name, you must escape the character with two backslashes: \\.
-			var selector = selector.replace(/(\!|\"|\$|\%|\&|\'|\(|\)|\*|\+|\,|\/|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)/gi, function(str, $1){
+			var selector = selector.replace(/(\!|\"|\$|\%|\&|\'|\(|\)|\*|\+|\,|\/|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)/gi, function (str, $1) {
 				return "\\\\" + $1;
 			});
-
 			return $(selector, context).length > 0;
 		},
-		isArray: function( o ) {
-			return Object.prototype.toString.apply( o ) === "[object Array]";
+		isArray: function (o) {
+			return Object.prototype.toString.apply(o) === "[object Array]";
 		},
-		isUrl: function(url){
+		isUrl: function (url) {
 			return ((/^((http(s)?|ftp|file):\/{2}(www)?|www.|((\/|\.{1,2})([\w]|\.{1,2})*\/)+|(\.\/|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
 		},
-		avoidTextSelection: function(){
+		avoidTextSelection: function () {
 			$.each(arguments, function(i, e){
 				if ( $.browser.msie ) {
 					$(e).attr('unselectable', 'on');
@@ -102,17 +101,17 @@ var ch = window.ch = {
 		getStyles: function (element, style) {
 			// Main browsers
 			if (window.getComputedStyle) {
-				
+
 				return getComputedStyle(element, "").getPropertyValue(style);
-			
+
 			// IE
 			} else {
-				
+
 				// Turn style name into camel notation
 				style = style.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
-				
+
 				return element.currentStyle[style];
-				
+
 			}
 		}
 	},
@@ -535,37 +534,37 @@ ch.extend = function (klass) {
 	"use strict";
 
 	return {
-	as: function (name, process) {
-		// Create the component in Chico-UI namespace
-		ch[name] = function (conf) {
-			// Some interfaces need a data value,
-			// others simply need to be 'true'.
-			conf[name] = conf.value || true;
-
-			// Invoke pre-proccess if is defined,
-			// or grab the raw conf argument,
-			// or just create an empty object.
-			conf = (process) ? process(conf) : conf || {};
-
-			// Here we recieve messages,
-			// or create an empty object.
-			conf.messages = conf.messages || {};
-
-			// If the interface recieve a 'msg' argument,
-			// store it in the message map.
-			if (ch.utils.hasOwn(conf, "msg")) {
-				conf.messages[name] = conf.msg;
-				conf.msg = null;
-				delete conf.msg;
-			}
-			// Here is where the magic happen,
-			// invoke the class with the new conf,
-			// and return the instance to the namespace.
-			return ch[klass].call(this, conf);
-		};
-		// Almost done, now we need expose the new component,
-		// let's ask the factory to do it for us.
-		ch.factory(name);
-	} // end as method
+		as: function (name, process) {
+			// Create the component in Chico-UI namespace
+			ch[name] = function (conf) {
+				// Some interfaces need a data value,
+				// others simply need to be 'true'.
+				conf[name] = conf.value || true;
+	
+				// Invoke pre-proccess if is defined,
+				// or grab the raw conf argument,
+				// or just create an empty object.
+				conf = (process) ? process(conf) : conf || {};
+	
+				// Here we recieve messages,
+				// or create an empty object.
+				conf.messages = conf.messages || {};
+	
+				// If the interface recieve a 'msg' argument,
+				// store it in the message map.
+				if (ch.utils.hasOwn(conf, "msg")) {
+					conf.messages[name] = conf.msg;
+					conf.msg = null;
+					delete conf.msg;
+				}
+				// Here is where the magic happen,
+				// invoke the class with the new conf,
+				// and return the instance to the namespace.
+				return ch[klass].call(this, conf);
+			};
+			// Almost done, now we need expose the new component,
+			// let's ask the factory to do it for us.
+			ch.factory(name);
+		} // end as method
 	} // end return
 };

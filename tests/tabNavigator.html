@@ -53,7 +53,7 @@
 		</div>
 	</div>
 	
-	<div id="testTabs3 vertical">
+	<div id="testTabs3" class="ch-tab-vertical">
 		<ul>
 			<li><a href="#tab2-1">Tab 1</a></li>
 			<li><a href="#tab2-2">Tab 2</a></li>
@@ -127,14 +127,6 @@
 		// **************************************
 		
 		var testTabs1 = $("#testTabs").tabNavigator();
-		
-		var testTabs2 = $("#testTabs2").tabNavigator({
-			onContentLoad: function () {
-				switch(this.getSelected()) {
-					case 4: $("body").addClass("onContentLoad"); break;
-				};
-			}
-		});
 		
 		var testTabs4 = $("#testTabs4").tabNavigator({
 			onSelect: function () {
@@ -262,13 +254,24 @@
 		
 		test("TabNavigator onContentLoad Callback", function () {			
 			
-			expect(1);
+			var testTabs2 = $("#testTabs2").tabNavigator({
+				onContentLoad: function () {
+					if (this.getSelected() === 4) {
+						$("body").addClass("onContentLoad");
+
+						start();
+
+						hasClass("body", "onContentLoad");
+							
+						$("body").removeClass("onContentLoad");
+					};
+				}
+			});
 			
 			testTabs2.select(4);
 
-			hasClass("body", "onContentLoad");
-						
-			$("body").removeClass("onContentLoad");
+			stop();
+
 		});
 		
 		test("TabNavigator onContentError Callback", function () {			

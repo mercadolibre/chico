@@ -106,7 +106,7 @@ ch.validator = function(conf) {
 			// for each condition
 			for (condition in conditions){
 
-				val = ((condition === "required") ? that.element : value);
+				val = ((condition === "required") ? that.element : value.toLowerCase());
 				tested = test(condition, val);
 
 				// return false if any test fails,

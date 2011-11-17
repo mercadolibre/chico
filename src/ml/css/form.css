@@ -108,8 +108,8 @@ form .options label span {
 
 							
 							
-form .options label input[type=checkbox],
-form .options label input[type=radio] {
+form .options label input[type="checkbox"],
+form .options label input[type="radio"] {
 	border:none;
 	margin:0;
 	padding:0;
@@ -278,7 +278,7 @@ form .disabled input{
 	margin:0;
 	padding:0;
 }						
-						input[type=search]{
+						input[type="search"]{
 						  -webkit-appearance: textfield;
 						}
 						
@@ -303,34 +303,33 @@ form .disabled input{
 								margin:5px 0;
 							}
 							
-							input[type=file],
-							input[type=checkbox],
-							input[type=radio] {
+							input[type="file"],
+							input[type="checkbox"],
+							input[type="radio"] {
 								border:none;
 								padding:0;
 							}
 							
 							input:focus, 
-							textarea:focus {
-								border:2px solid #666666;
-								padding:4px 3px;
+							textarea:focus,
+							select[multiple]:focus,
+							.ch-form-select-multiple:focus {
+								border: 2px solid #666;
+								padding: 4px 3px;
+								outline: 0;
 							}
-							
-							input[type=file]:focus,
-							input[type=checkbox]:focus,
-							input[type=radio]:focus {
-								outline: 1;
-							}
-							
-							input[readonly]:focus, 
-							textarea[readonly]:focus {
-								border: none;
-								padding: 5px 4px;
+					
+							input[type="file"]:focus,
+							input[type="checkbox"]:focus,
+							input[type="radio"]:focus,
+							input[type="range"]:focus,
+							select:focus {
+								outline: 1px dotted #666;
 							}
 
 							input[readonly],
-							input[readonly]:focus{
-								border:none;
+							input[readonly]:focus {
+								border-color:transparent;
 								-moz-box-shadow: none;
 								-ms-box-shadow: none;
 								-o-box-shadow: none;
