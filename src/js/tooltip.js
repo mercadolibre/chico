@@ -253,9 +253,6 @@ ch.tooltip = function (conf) {
 		.bind("mouseenter", that.innerShow)
 		.bind("mouseleave", that.innerHide);
 
-	// Fix: change layout problem
-	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
-
 	/**
 	* Triggers when component is visible.
 	* @name ch.Tooltip#show

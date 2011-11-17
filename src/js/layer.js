@@ -358,9 +358,6 @@ ch.layer = function (conf) {
 			.bind("mouseleave", hideTimer);
 	}
 
-	// Fix: change layout problem
-	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
-
 	/**
 	* Triggers when component is visible.
 	* @name ch.Layer#show

@@ -215,8 +215,6 @@ ch.helper = function(conf){
 *  Default event delegation
 */
 
-	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
-
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.Helper#ready
