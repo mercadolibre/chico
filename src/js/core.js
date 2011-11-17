@@ -55,35 +55,34 @@ var ch = window.ch = {
 		document: $(document),
 		zIndex: 1000,
 		index: 0, // global instantiation index
-		isTag: function(string){
-			return (/<([\w:]+)/).test(string);
+		isTag: function (tag) {
+			var el = document.createElement(tag)
+			return !(el instanceof HTMLUnknownElement);
 		},
-		isSelector: function(string){
-			if (typeof string !== "string") return false;
-			for (var regex in $.expr.match){
-				if ($.expr.match[ regex ].test(string) && !ch.utils.isTag(string)) {
-					return true;
-				};
-			};
-			return false;
+		isSelector: function (selector) {
+			if (typeof selector !== "string") { return false; }
+			var style = document.createElement("style");
+			style.innerHTML = selector + "{}";
+			document.body.appendChild(style);
+			var ret = !!style.sheet.cssRules[0];
+			document.body.removeChild(style);
+			return ret;
 		},
 		inDom: function (selector, context) {
 			if (typeof selector !== "string") return false;
-
 			// jQuery: If you wish to use any of the meta-characters ( such as !"#$%&'()*+,./:;<=>?@[\]^`{|}~ ) as a literal part of a name, you must escape the character with two backslashes: \\.
-			var selector = selector.replace(/(\!|\"|\$|\%|\&|\'|\(|\)|\*|\+|\,|\/|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)/gi, function(str, $1){
+			var selector = selector.replace(/(\!|\"|\$|\%|\&|\'|\(|\)|\*|\+|\,|\/|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)/gi, function (str, $1) {
 				return "\\\\" + $1;
 			});
-
 			return $(selector, context).length > 0;
 		},
-		isArray: function( o ) {
-			return Object.prototype.toString.apply( o ) === "[object Array]";
+		isArray: function (o) {
+			return Object.prototype.toString.apply(o) === "[object Array]";
 		},
-		isUrl: function(url){
+		isUrl: function (url) {
 			return ((/^((http(s)?|ftp|file):\/{2}(www)?|www.|((\/|\.{1,2})([\w]|\.{1,2})*\/)+|(\.\/|\/|\:\d))([\w\-]*)?(((\.|\/)[\w\-]+)+)?([\/?]\S*)?/).test(url));
 		},
-		avoidTextSelection: function(){
+		avoidTextSelection: function () {
 			$.each(arguments, function(i, e){
 				if ( $.browser.msie ) {
 					$(e).attr('unselectable', 'on');
@@ -102,17 +101,17 @@ var ch = window.ch = {
 		getStyles: function (element, style) {
 			// Main browsers
 			if (window.getComputedStyle) {
-				
+
 				return getComputedStyle(element, "").getPropertyValue(style);
-			
+
 			// IE
 			} else {
-				
+
 				// Turn style name into camel notation
 				style = style.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
-				
+
 				return element.currentStyle[style];
-				
+
 			}
 		}
 	},
