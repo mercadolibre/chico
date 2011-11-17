@@ -191,6 +191,11 @@ hr {
 .ch-btn:focus, .btn:focus {
 	border: 1px solid #2C3176;
 	border-radius: 3px;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-o-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 	color: #FFF;
 	cursor: pointer;
 	padding: 0 10px;
@@ -572,7 +577,7 @@ hr {
 .datagrid caption {
 	text-align: left;
 	font-weight: normal;
-	margin-top: 10px;
+	margin: 10px 0;
 	font-size: 18px;
 }
 
