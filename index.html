@@ -92,6 +92,13 @@
 	</div> 
 	
 	<div class="box">
+		<h2>Blink</h2>
+		<p id="example">This is a text that you can blink</p>
+		<p>
+			<button class="btn secondary skin" id="doHighlight">Blink the paragraph</button>
+		</p>
+	</div>
+	<div class="box">
 			<table class="datagrid" summary="Listado de cobros en MercadoPago">
 				<caption>Table</caption>
 				<thead>
@@ -882,12 +889,15 @@
 
 		// Components
 		
-		// Calendar
+		// AutoComplete
 		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest/"});
 		
 		var autoComplete = function(data){
 			ac.suggest(data);
 		}
+		
+		// Blink
+		$("#doHighlight").bind("mousedown",function(){$("#example").blink();});
 		
 		// Accordion
 		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
