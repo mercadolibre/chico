@@ -98,6 +98,20 @@
 			<button class="btn secondary skin" id="doHighlight">Blink the paragraph</button>
 		</p>
 	</div>
+
+	<div class="box">
+		<h2>Pagination</h2>
+		<ul class="pagination">
+			<li><a type="prev" href="/2.html">Previous</a></li>
+			<li><a href="/1.html">1</a></li>
+			<li><a href="/2.html">2</a></li>
+			<li class="current"><a href="/3.html">3</a></li>
+			<li><a href="/4.html">4</a></li>
+			<li><a href="/5.html">5</a></li>
+			<li><a type="next" href="/4.html">Next</a></li>
+		</ul>
+	</div>
+	
 	<div class="box">
 			<table class="datagrid" summary="Listado de cobros en MercadoPago">
 				<caption>Table</caption>
@@ -287,6 +301,8 @@
 			</menu>
 		</div>
 	</div>
+	
+
 
 	<div class="box"> 
 		<h2>Tooltip</h2>
@@ -300,7 +316,9 @@
 
 	<div class="box"> 
 		<h2>Layer</h2> 
-		<span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> | <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
+		<span class="YOUR_SELECTOR_LayerCloseButton">Executed on click, button closes.</span> 
+		| <span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> 
+		| <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
 	</div> 
 
 	<div class="box"> 
@@ -322,6 +340,11 @@
         </div>
 		<div id="invisible-content" class="ch-hide">
     		<h1>This content is invisible</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+		</div>
+		
+		<div id="invisible-content-for-layer" class="ch-hide">
+    		<h1>This content is invisible for layer</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
 		</div>
 	</div> 
@@ -877,6 +900,7 @@
 
 	</div> 
 	
+	<!--script src="http://code.jquery.com/jquery-1.7.js"></script-->
 	<script src="/libs/js/jquery.js"></script>
 	<script src="http://chico.com:8080/latest/js?debug=true"></script>
 	<script src="/src/plugins/gallery/chico.gallery.js"></script>
@@ -929,6 +953,13 @@
 		
 		// Transition
 		var ch_tran = $(".YOUR_SELECTOR_Transition").transition();
+		
+		// Layer on click
+		var ch_layeC = $(".YOUR_SELECTOR_LayerCloseButton").layer({
+			event: "click",
+			closeHandler: "button",
+			content: "#invisible-content-for-layer"
+		});
 		
 		// Layer on click
 		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
