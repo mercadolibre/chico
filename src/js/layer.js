@@ -206,7 +206,6 @@ ch.layer = function (conf) {
 		if (conf.event === "click" && conf.close === "button") {
 			// Document events
 			that.$container.find(".close").one("click", that.innerHide);
-			//that.$container.bind("click", stopBubble);
 		// Click anywhere
 		} else if (conf.event === "click") {
 			// Document events
