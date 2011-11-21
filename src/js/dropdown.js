@@ -125,7 +125,6 @@ ch.dropdown = function (conf) {
 				if ((event.target || event.srcElement).tagName === "A") {
 					that.hide();
 				}
-
 				event.stopPropagation();
 			})
 		// WAI-ARIA properties
@@ -170,7 +169,7 @@ ch.dropdown = function (conf) {
 		});
 
 		// Close events
-		ch.utils.document.one("click " + ch.events.KEY.ESC, function (event) { that.hide(event); });
+		ch.utils.document.one("click " + ch.events.KEY.ESC, function () { that.hide(); });
 
 		// Keyboard support
 		var items = that.$content.find("a");
@@ -183,7 +182,6 @@ ch.dropdown = function (conf) {
 	};
 
 	that.hide = function (event) {
-		that.prevent(event);
 
 		that.parent.hide(event);
 		
