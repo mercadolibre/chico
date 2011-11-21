@@ -1,13 +1,12 @@
-
 /** 
-* UI feedback utility, creates a visual highlight
-* changing background color from yellow to white.
+* Blink is a UI feedback utility. It creates a visual highlight changing background color from yellow to white.
 * @function
-* @name blink
-* @param {selector} selector CSS Selector to blink a collection
-* @param {number} [time] Amount of time to blink
-* @returns jQuery
+* @name Blink
+* @class Blink
 * @memberOf ch
+* @param {Object} conf Configuration object
+* @param {number} [conf.time] Amount of time to blink in milliseconds
+* @returns jQuery
 */
 ch.blink = function (conf) {
 
@@ -15,11 +14,11 @@ ch.blink = function (conf) {
 		// Hex start level toString(16).
 		level = 1, 
 		// Time, 200 miliseconds by default.
-		t = conf.value || 200,
+		t = conf.time || 200,
 		// Inner highlighter.
 		highlight = function (e) {
 			// Let know everyone we are active.
-			that.$element.addClass("ch-active");
+			that.$element.addClass("ch-active").attr("role","alert").attr("aria-live","polite");
 			// Color iteration.
 			function step () {
 				// New hex level.
@@ -34,9 +33,9 @@ ch.blink = function (conf) {
 					setTimeout(step, t);
 				} else {
 					// Stop right there...
-					that.$element.removeClass("ch-active");
+					that.$element.removeClass("ch-active").attr("aria-live","off").removeAttr("role");
 				}
-		};
+			};
 		// Begin steps.
 		setTimeout(step, t);
 	}
@@ -47,3 +46,4 @@ ch.blink = function (conf) {
 	// Return the element so keep chaining things.
 	return that.$element;
 }
+ch.factory("blink");
