@@ -92,7 +92,15 @@
 	</div> 
 	
 	<div class="box">
-	<h2>Pagination</h2>
+		<h2>Blink</h2>
+		<p id="example">This is a text that you can blink</p>
+		<p>
+			<button class="btn secondary skin" id="doHighlight">Blink the paragraph</button>
+		</p>
+	</div>
+
+	<div class="box">
+		<h2>Pagination</h2>
 		<ul class="pagination">
 			<li><a type="prev" href="/2.html">Previous</a></li>
 			<li><a href="/1.html">1</a></li>
@@ -308,7 +316,9 @@
 
 	<div class="box"> 
 		<h2>Layer</h2> 
-		<span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> | <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
+		<span class="YOUR_SELECTOR_LayerCloseButton">Executed on click, button closes.</span> 
+		| <span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> 
+		| <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
 	</div> 
 
 	<div class="box"> 
@@ -330,6 +340,11 @@
         </div>
 		<div id="invisible-content" class="ch-hide">
     		<h1>This content is invisible</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+		</div>
+		
+		<div id="invisible-content-for-layer" class="ch-hide">
+    		<h1>This content is invisible for layer</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
 		</div>
 	</div> 
@@ -898,12 +913,15 @@
 
 		// Components
 		
-		// Calendar
+		// AutoComplete
 		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest/"});
 		
 		var autoComplete = function(data){
 			ac.suggest(data);
 		}
+		
+		// Blink
+		$("#doHighlight").bind("mousedown",function(){$("#example").blink();});
 		
 		// Accordion
 		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
@@ -935,6 +953,13 @@
 		
 		// Transition
 		var ch_tran = $(".YOUR_SELECTOR_Transition").transition();
+		
+		// Layer on click
+		var ch_layeC = $(".YOUR_SELECTOR_LayerCloseButton").layer({
+			event: "click",
+			closeHandler: "button",
+			content: "#invisible-content-for-layer"
+		});
 		
 		// Layer on click
 		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
