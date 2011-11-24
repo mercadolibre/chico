@@ -60,10 +60,10 @@ ch.menu = function(conf){
 	* @function
 	*/
 	var createLayout = function(){
-		
+
 		// No slide efects for IE6 and IE7
 		var efects = (ch.utils.html.hasClass("ie6") || ch.utils.html.hasClass("ie7")) ? false : true;
-		
+
 		// List elements
 		that.$element.children().each(function(i, e){
 			// List element
@@ -71,22 +71,22 @@ ch.menu = function(conf){
 									  
 			// Children of list elements
 			var $child = $li.children();
-		
+
 			// Anchor inside list
 			if($child.eq(0).prop("tagName") == "A") {
-				
+
 				// Add attr role to match wai-aria
 				$li.attr("role","presentation");
-				
+
 				// Add class to list and anchor
 				$li.addClass("ch-bellows").children().addClass("ch-bellows-trigger");
-				
+
 				// Add anchor to that.children
 				that.children.push( $child[0] );
-				
+
 				return;
 			};
-		
+
 			// List inside list, inits an Expando
 			var expando = $li.expando({
 				// Show/hide on IE6/7 instead slideUp/slideDown
@@ -112,11 +112,11 @@ ch.menu = function(conf){
 				$menu = $(childs[1]);
 				if (!conf.accordion) {
 					$menu.attr("role","menu");
-					$menu.children().children().attr("role","menuitem");
-				}
-				$menu.children().attr("role","presentation");
+					$menu.children().children().attr("role", "menuitem");
+					$menu.children().attr("role", "presentation");
+				} 
 				$triggerCont.attr("role","presentation");
-			
+
 			// Add expando to that.children
 			that.children.push( expando );
 
@@ -132,13 +132,13 @@ ch.menu = function(conf){
 	var select = function(item){
 
 		var child, grandson;
-		
+
 		// Split item parameter, if it's a string with hash
 		if (typeof item === "string") {
 			var sliced = item.split("#");
 			child = sliced[0] - 1;
 			grandson = sliced[1];
-		
+
 		// Set child when item is a Number
 		} else {
 			child = item - 1;
@@ -146,16 +146,16 @@ ch.menu = function(conf){
 
 		// Specific item of that.children list
 		var itemObject = that.children[ child ];
-		
+
 		// Item as object
 		if (ch.utils.hasOwn(itemObject, "uid")) {
-			
+
 			// Show this list
 			itemObject.show();
-			
+
 			// Select grandson if splited parameter got a specific grandson
 			if (grandson) $(itemObject.element).find("a").eq(grandson - 1).addClass("ch-menu-on");
-			
+
 			// Accordion behavior
 			if (conf.accordion) {
 				// Hides every that.children list that don't be this specific list item
@@ -174,7 +174,7 @@ ch.menu = function(conf){
 				});
 				
 			};
-		
+
 		// Item as anchor
 		} else{
 			// Just selects it
@@ -183,7 +183,7 @@ ch.menu = function(conf){
 
 		return that;
 	};
-	
+
 	/**
 	* Binds controller's own click to expando triggers
 	* @private
@@ -197,7 +197,7 @@ ch.menu = function(conf){
 				select(i + 1);
 			});
 		});
-		
+
 		return;
 	};
 
@@ -244,12 +244,8 @@ ch.menu = function(conf){
 /**
 *	Default event delegation
 */
-	
+
 	// Sets component main class name
-	
-	
-	
-	
 
 	// Inits an Expando component on each list inside main HTML code snippet
 	createLayout();
