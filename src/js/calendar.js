@@ -748,12 +748,12 @@ ch.calendar = function (conf) {
 	that.$content.html(createMonth(that.currentDate)).appendTo(that.$container);
 
 	ch.utils.avoidTextSelection(that.$container);
-	
-	if (!from || (from.getMonth() <= that.currentDate.getMonth())) {
+
+	if (!from || (from.getMonth() <= that.currentDate.getMonth()) || from.getFullYear() <= that.currentDate.getFullYear()) {
 		that.$container.prepend(arrows.$prev);
 	}
 
-	if (!to || (to.getMonth() >= that.currentDate.getMonth())) {
+	if (!to || (to.getMonth() >= that.currentDate.getMonth() || to.getFullYear() >= that.currentDate.getFullYear())) {
 		that.$container.prepend(arrows.$next);
 	}
 	
