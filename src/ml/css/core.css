@@ -183,6 +183,27 @@ hr {
 }
 
 /*
+* List
+*/
+
+.ch-list {
+	margin-bottom:10px;
+}
+
+.ch-list li {
+	margin-left:10px;
+	padding:3px 0;
+}
+
+ul.ch-list {
+	list-style: disc inside;
+}
+
+ol.ch-list {
+	list-style: decimal inside;
+}
+
+/*
 * Buttons
 */
 
