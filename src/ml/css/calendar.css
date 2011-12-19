@@ -115,13 +115,12 @@
 .ch-calendar-month .selected,
 .ch-calendar-month .today.selected,
 .ch-calendar-month .selected:hover {
-	background: #C64A28;
-	/*#6F2917*/
-	-o-box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
-	-ms-box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
-	-moz-box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
-	-webkit-box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
-	box-shadow: 2px 2px 2px rgba(111, 41, 23, 0.3) inset;
+	background: #666666;
+	-o-box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.3);
+	-ms-box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.3);
 	color:#FFF;
 	font-weight: bold;
 }
