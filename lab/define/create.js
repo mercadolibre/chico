@@ -68,6 +68,7 @@ var UIObject = ch.define('UIObject')
                  .method('position', function() {})
                  .create();
 
+
 var Floats = ch.define('Floats')
                .inherits(UIObject)
                .method('show',function(){
