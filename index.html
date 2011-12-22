@@ -1,10 +1,9 @@
-<!doctype html> 
-<!--[if IE]><![endif]--> 
-<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
-<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
-<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
-<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>	<html class="no-js lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie9 ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="es"> <!--<![endif]-->
+
 <head> 
 	<script></script> 
 	<meta charset="utf-8"> 
@@ -937,7 +936,7 @@
 
 	</div> 
 	
-	<script src="http://code.jquery.com/jquery-1.7.js"></script>
+	<script src="http://code.jquery.com/jquery-1.7.1.js"></script>
 	<script src="http://chico.com:8080/latest/js?debug=true"></script>
 	<script src="/src/plugins/gallery/chico.gallery.js"></script>
 	<script> 
@@ -1051,7 +1050,7 @@
 					return false;
 				}
 
-			})//.and().required("Debes completar este campo");
+			}).and().required("Debes completar este campo");
 		var ch_wch4 = $("#range").min(1).and().max(10);
 		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#required_disabled, #select2, #select3, .check2, .check3, .radio2, .radio3, .radio4, #textarea2, #textarea3").required("Required");

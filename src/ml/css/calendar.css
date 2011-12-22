@@ -163,17 +163,24 @@
 
 
 /* IE6 & IE7 */
+.lt-ie8 .ch-calendar .ch-dropdown-trigger,
+/* Dreprecate */
 .ie6 .ch-calendar .ch-dropdown-trigger,
 .ie7 .ch-calendar .ch-dropdown-trigger {
 	font-size: 0;
 	line-height: 0;
 }
 
-.ie6 .ch-calendar .ch-dropdown-content{
+.lt-ie7 .ch-calendar .ch-dropdown-content,
+/* Dreprecate */
+.ie6 .ch-calendar .ch-dropdown-content {
 	height: auto;
 	padding: 0;
 	width: 265px;
 }
+
+.lt-ie8 .ch-calendar,
+/* Dreprecate */
 .ie6 .ch-calendar,
 .ie7 .ch-calendar {
 	display: inline;
@@ -183,4 +190,8 @@
 .ie7 .ch-calendar .ch-dropdown-trigger {
 	line-height: 1em;
 	text-indent: 0;
+}
+
+.lt-ie9 .ch-calendar-content .datagrid thead th{
+	filter: none;
 }
