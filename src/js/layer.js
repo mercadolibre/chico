@@ -203,7 +203,7 @@ ch.layer = function (conf) {
 		that.parent.innerShow(event);
 
 		// Click in the button
-		if (conf.event === "click" && conf.close === "button") {
+		if (conf.event === "click" && conf.closeHandler === "button") {
 			// Document events
 			that.$container.find(".close").one("click", that.innerHide);
 		// Click anywhere
@@ -288,12 +288,14 @@ ch.layer = function (conf) {
 	* @returns boolean
 	*/
 	that["public"].closable = function (content) {
-		if (content === true && content !== undefined) { 
-			that.closeHandler = "any"; 
-		} else if(content !== undefined) { 
+
+		if (content !== undefined) { 
 			that.closeHandler = content; 
+		} else { 
+			return that.closeHandler; 
 		}
-		return that.closeHandler;
+
+		return that["public"];
 	};
 
 	/**
