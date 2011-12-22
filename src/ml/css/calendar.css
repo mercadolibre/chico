@@ -195,3 +195,7 @@
 .lt-ie9 .ch-calendar-content .datagrid thead th{
 	filter: none;
 }
+
+.lt-ie9 .ch-calendar-content .datagrid thead tr {
+	border: none;
+}

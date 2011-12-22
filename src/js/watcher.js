@@ -324,19 +324,6 @@ ch.watcher = function (conf) {
 	};
 
 	/**
-	* Clear all active validations.
-	* @public
-	* @name ch.Watcher#reset
-	* @function
-	* @returns itself
-	*/
-	that["public"].reset = function() {
-		clear();
-
-		return that["public"];
-	};
-
-	/**
 	* Let you keep chaining methods.
 	* @public
 	* @name ch.Watcher#and
