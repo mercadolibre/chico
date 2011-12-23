@@ -28,6 +28,7 @@
 * // Create a new calendar with a class name 'example'.
 * var me = $(".example").calendar();
 */
+
 ch.calendar = function (conf) {
 	
 	/**
@@ -39,16 +40,7 @@ ch.calendar = function (conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
-
 	conf.format = conf.format || "DD/MM/YYYY";
-		
-	if (ch.utils.hasOwn(conf, "msg")) {
-		conf.msg = (conf.msg === "today") ? new Date() : new Date(conf.msg);
-	}
-	
-	if (ch.utils.hasOwn(conf, "selected")) {
-		conf.selected = (conf.selected === "today") ? new Date() : new Date(conf.selected);
-	}
 
 	that.conf = conf;
 
@@ -64,483 +56,598 @@ ch.calendar = function (conf) {
 */
 
 	/**
-	* Collection of months names
+	* Collection of months names.
 	* @private
 	* @name ch.Calendar#MONTHS_NAMES
-	* @type array
+	* @type Array
 	*/
-	//TODO: default in english and snnif browser language
-	//TODO: cambiar a sintaxis de constante
-	var MONTHS_NAMES = conf.monthsNames ||["Enero","Febero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+	//TODO: Default language should be English and then sniff browser language or something
+	var MONTHS_NAMES = conf.monthsNames || ["Enero", "Febero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
 
 	/**
-	* Collection of weekdays short names
+	* Collection of weekdays (short names).
 	* @private
-	* @name ch.Calendar#SHORT_WEEK_NAMES
-	* @type array
+	* @name ch.Calendar#DAYS_SHORTNAMES
+	* @type Array
 	*/
-	//TODO: default in english and snnif browser language
-	//TODO: cambiar a sintaxis de constante
-	var SHORT_WEEK_NAMES = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"];
+	//TODO: Default language should be English and then sniff browser language
+		DAYS_SHORTNAMES = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
 
 	/**
-	* Date of today
+	* Creates a JSON Object with reference to day, month and year, from a determinated date.
+	* @private
+	* @name ch.Calendar#createDate
+	* @function
+	* @param date
+	* @returns Object
+	*/	
+		createDate = function (date) {
+			
+			date = new Date(date);
+
+			return {
+				/**
+				* Number of day.
+				* @private
+				* @name day
+				* @type Number
+				* @memberOf ch.Calendar#createDate
+				*/
+				"day": date.getDate(),
+				
+				/**
+				* Order number of day in a week.
+				* @private
+				* @name order
+				* @type Number
+				* @memberOf ch.Calendar#createDate
+				*/
+				"order": date.getDay(),
+				
+				/**
+				* Number of month.
+				* @private
+				* @name month
+				* @type Number
+				* @memberOf ch.Calendar#createDate
+				*/
+				"month": date.getMonth(),
+				
+				/**
+				* Number of full year.
+				* @private
+				* @name year
+				* @type Number
+				* @memberOf ch.Calendar#createDate
+				*/
+				"year": date.getFullYear()
+			};
+			
+		},
+
+	/**
+	* Today's date object.
 	* @private
 	* @name ch.Calendar#today
-	* @type date
+	* @type Object
 	*/
-	var today = new Date();
+		today = createDate(),
 
 	/**
-	* Minimum selectable date
+	* Minimum selectable date.
 	* @private
 	* @since 0.9
-	* @function
 	* @name ch.Calendar#from
+	* @type Object
 	*/
-	var from = (function () {
-		if (ch.utils.hasOwn(conf, "from")) {
-			return (conf.from === "today") ? new Date() : new Date(conf.from);
-		}
-	}());
+		from = (ch.utils.hasOwn(conf, "from") && conf.from !== "today") ? createDate(conf.from) : undefined,
 
 	/**
-	* Maximum selectable date
+	* Maximum selectable date.
 	* @private
 	* @since 0.9
-	* @function
 	* @name ch.Calendar#to
+	* @type Object
 	*/
-	var to = (function () {
-		if (ch.utils.hasOwn(conf, "to")) {
-			return (conf.to === "today") ? new Date() : new Date(conf.to);
-		}
-	}());
-
+		to = (ch.utils.hasOwn(conf, "to") && conf.to !== "today") ? createDate(conf.to) : undefined,
 
 	/**
-	* Parse string to YY/MM/DD format date
+	* Parse string to YYYY/MM/DD or DD/MM/YYYY format date.
 	* @private
 	* @function
-	* @name ch.Calendar#parseDate 	
+	* @name ch.Calendar#parseDate
+	* @param value {String} The date to be parsed.
 	*/
-	var parseDate = function (value) {
-		var date = value.split("/");
-		
-		switch (conf.format) {
-			case "DD/MM/YYYY":
-				return date[2] + "/" + date[1] + "/" + date[0];
-			break;
+		parseDate = function (value) {
 			
+			// Splitted string
+			value = value.split("/");
+			
+			// Date to be returned
+			var result;
+			
+			// Parse date
+			switch (conf.format) {
+			case "DD/MM/YYYY":
+				result = value[2] + "/" + value[1] + "/" + value[0];
+				break;
 			case "MM/DD/YYYY":
-				return date[2] + "/" + date[0] + "/" + date[1];
-			break;
-		};
-	};
+				result = value[2] + "/" + value[0] + "/" + value[1];
+				break;
+			}
+			
+			return result;
+		},
 
 	/**
-	* Date of selected day
+	* Date of selected day.
 	* @private
 	* @name ch.Calendar#selected
-	* @type date
+	* @type Object
 	*/
-	var selected = conf.selected || conf.msg || ((that.element.value != "") ? new Date(parseDate(that.element.value)) : "");
-
-	/**
-	* Creates tag thead with short name of week days
-	* @private
-	* @function
-	* @name ch.Calendar#weekdays
-	* @return string
-	*/
-	//TODO: change to constant syntax
-	//TODO: subfijo de render y cambiar el nombre para que sea mas especifico, thead
-	var weekdays = (function () {
-
-		var thead = ["<thead>"];
-
-		thead.push("<tr role=\"row\">");
-
-		for (var i = 0; i < 7; i += 1) {
-			thead.push("<th role=\"columnheader\">" + SHORT_WEEK_NAMES[i] + "</th>");
-		};
-		thead.push("</tr>");
-		thead.push("</thead>")
-
-		return thead.join("");
-
-	}());
-
-	/**
-	* HTML Template to months
-	* @private
-	* @name ch.Calendar#templateMonth
-	* @type jQuery
-	*/
-	var templateMonth = $("<table class=\"ch-calendar-month datagrid\" role=\"grid\" id=\"ch-calendar-grid-"+that.uid+"\">" + weekdays + "</table>")
-		.bind("click", function (event) {
-
-			event = event || window.event;
-
-			var src = event.target || event.srcElement;
-
-			if (src.nodeName !== "TD" || src.className.indexOf("day") === -1 || src.className.indexOf("disabled") !== -1) {
-				that.prevent(event);
-				return;
-			}
-
-			select(that.currentDate.getFullYear() + "/" + (that.currentDate.getMonth() + 1) + "/" + src.innerHTML);
-
-			that["public"].hide();
-		});
-
-	/**
-	* Creates a complete month and returns it in a table
-	* @private
-	* @function
-	* @name ch.Calendar#createMonth
-	* @return string
-	*/
-	var createMonth = function (date) {
-
-		var date = new Date(date);
-
-		var tableMonth = templateMonth.clone(true);
-
-		var currentMonth = {};
-			currentMonth.fullDate = new Date(date.getFullYear(), date.getMonth(), 1);
-			currentMonth.date = currentMonth.fullDate.getDate();
-			currentMonth.day = currentMonth.fullDate.getDay();
-			currentMonth.month = currentMonth.fullDate.getMonth();
-			currentMonth.year = currentMonth.fullDate.getFullYear();
-
-		// Get previous month
-		/*
-		var prevMonth = {};
-			prevMonth.fullDate = new Date(currentMonth.fullDate.getFullYear(), currentMonth.fullDate.getMonth() - 1, 1);
-
-			// Get the last day of the previous month
-			prevMonth.fullDate.setTime(prevMonth.fullDate.getTime() + ((32 - prevMonth.fullDate.getDate()) * 86400000) );
-			prevMonth.fullDate.setTime(prevMonth.fullDate.getTime() - (prevMonth.fullDate.getDate() * 86400000) );
-			prevMonth.date = prevMonth.fullDate.getDate();
-		*/
-
-		var currentDate = ch.clon(currentMonth);
-
-		var firstWeekday = currentMonth.day;
-
-		var classToday,
-			classSelected,
-			classDisabled,
-			waiSelected,
-			weeks = ["<tbody>"];
-
-		do {
+		getSelected = function () {
 			
-			weeks.push("<tr class=\"week\" role=\"row\">");
-
+			// Get date from configuration or input value
+			var date = conf.selected || conf.msg || (that.element.value !== "" ? parseDate(that.element.value) : undefined);
+			
+			// Create date object only if there is a date to do
+			return (date ? createDate(date) : undefined);
+			
+		},
+	
+	/**
+	* Date of selected day.
+	* @private
+	* @name ch.Calendar#selected
+	* @type Object
+	*/
+		selected = getSelected(),
+	
+	/**
+	* The current date that should be shown on calendar.
+	* @private
+	* @name ch.Calendar#currentDate
+	* @type Object
+	*/
+		currentDate = selected || today;
+	
+	/**
+	* Gives main elements to create a table of a month.
+	* @private
+	* @name ch.Calendar#table
+	* @type Object
+	*/
+		table = (function () {
+			
+			// Create thead structure
+			var thead = ["<thead><tr role=\"row\">"];
+			
+			// Add week names
 			for (var i = 0; i < 7; i += 1) {
-
-				if (currentDate.date === 1) {
-					/*var last = (prevMonth.date - (firstWeekday - 1));
-					for (var i = 0; i < firstWeekday; i += 1) {
-						weeks.push("<td class=\"otherMonth\" role=\"gridcell\">" + (last + i) + "</td>");
-					};*/
-					
-					for (i; i < firstWeekday; i += 1) {
-						weeks.push("<td class=\"otherMonth\" role=\"gridcell\"></td>");
-					};
-				}
-				
-				classToday = (currentDate.date === today.getDate() && currentDate.month === today.getMonth() && currentDate.year === today.getFullYear()) ? " today" : "";
-
-				classSelected = (selected && currentDate.date === selected.getDate() && currentDate.month === selected.getMonth() && currentDate.year === selected.getFullYear()) ? " selected" : "";
-				
-				classDisabled = ((from && from.getDate() > currentDate.date && from.getMonth() === currentDate.month && from.getFullYear() === currentDate.year) || (to && to.getDate() < currentDate.date && to.getMonth() === currentDate.month && to.getFullYear() === currentDate.year)) ? " disabled" : "";
-
-				waiSelected = (classSelected !== "") ? "aria-selected=\"true\"" : "";
-				
-				weeks.push("<td class=\"day" + classToday + classSelected + classDisabled +"\" " + waiSelected + "  role=\"gridcell\">" + currentDate.date + "</td>");
-				
-
-				currentDate.fullDate.setDate(currentDate.date+1);
-				currentDate.date = currentDate.fullDate.getDate();
-				currentDate.day = currentDate.fullDate.getDay();
-				currentDate.month = currentDate.fullDate.getMonth();
-				currentDate.year = currentDate.fullDate.getFullYear();
-
-				if (currentDate.month != currentMonth.month) {
-					for (var j = 1; j < (7-i); j += 1) {
-						weeks.push("<td class=\"otherMonth\" role=\"gridcell\"></td>");//" + j + "
-					};
-					break;
-				}
-
+				thead.push("<th role=\"columnheader\">" + DAYS_SHORTNAMES[i] + "</th>");
 			};
-
-			weeks.push("</tr>");
 			
-		} while (currentDate.month === currentMonth.month);
-
-		weeks.push("</tbody>");
-
-		tableMonth
-			.prepend("<caption>" + MONTHS_NAMES[currentMonth.month] + " - " + currentMonth.year + "</caption>")
-			.append(weeks.join(""));
-
-		ch.utils.avoidTextSelection(tableMonth.children("caption"));
-
-		return tableMonth;
-	};
-
-
+			// Close thead structure
+			thead.push("</tr></thead>");
+	
+			return {
+				/**
+				* Opening table tag, including classnames, ARIA and id.
+				* @private
+				* @name opening
+				* @type String
+				* @memberOf ch.Calendar#table
+				*/
+				"opening": "<table class=\"ch-calendar-month ch-datagrid\" role=\"grid\" id=\"ch-calendar-grid-" + that.uid + "\">",
+				
+				/**
+				* Opening thead tag, including ARIA and cells with each weekday name.
+				* @private
+				* @name thead
+				* @type String
+				* @memberOf ch.Calendar#table
+				*/
+				"thead": thead.join(""),
+				
+				/**
+				* Opening tr tag, including classnames and ARIA.
+				* @private
+				* @name row
+				* @type String
+				* @memberOf ch.Calendar#table
+				*/
+				"row": "<tr class=\"week\" role=\"row\">"
+			};
+	
+		}()),
+	
 	/**
-	* Handles behavior of arrows
+	* Creates a complete month in a table.
+	* @private
+	* @function
+	* @name ch.Calendar#createTable
+	* @param date {Object} Date from will be created the entire month.
+	* @return jQuery Object
+	*/
+		createTable = function (date) {
+
+			// Total amount of days into month
+			var cells = (function () {
+				
+				// Days of current month
+				var days = new Date(date.year, date.month + 1, 0).getDate(),
+				
+				// Include previous month
+					subtotal = days + date.order,
+				
+				// Days of next month
+					remaining = subtotal % 7;
+
+				return {
+					"previous": date.order,
+					"subtotal": subtotal,
+					"total": subtotal + remaining
+				};
+			
+			}()),
+
+			// Final array with month table structure
+				r = [
+					table.opening,
+					"<caption>" + MONTHS_NAMES[date.month] + " - " + date.year + "</caption>",
+					table.thead,
+					"<tbody>",
+					table.row
+				];
+			
+			// Iteration of weekdays
+			for (var i = 0; i < cells.total; i += 1) {
+				
+				// Push an empty cell on previous and next month
+				if (i < cells.previous || i > cells.subtotal) {
+					r.push("<td role=\"gridcell\" class=\"otherMonth disabled\"></td>");
+					continue;
+				}
+				
+				// Positive number of iteration
+				var positive = i + 1,
+				
+				// Day number
+					day = positive - cells.previous,
+				
+				// Define if it's the day selected
+					isSelected = selected && date.year === selected.year && date.month === selected.month && day === selected.day;
+				
+				// Create cell
+				r.push(
+					// Open cell structure including WAI-ARIA and classnames space opening
+					"<td role=\"gridcell\"" + (isSelected ? " aria-selected=\"true\"" : "") + " class=\"day",
+					
+					// Add Today classname if it's necesary
+					(date.year === today.year && date.month === today.month && day === today.day) ? " today" : null,
+					
+					// Add Selected classname if it's necesary
+					(isSelected ? " selected" : null),
+					
+					// From/to range. Disabling cells
+					/*(
+						// Disable cell if it's out of FROM range
+						(from && day < from.day && date.month === from.month && date.year === from.year) ||
+						
+						// Disable cell if it's out of TO range
+						(to && day > to.day && date.month === to.month && date.year === to.year)
+					
+					) ? " disabled" : null,
+					*/
+					// Close classnames attribute and print content closing cell structure
+					"\">" + day + "</td>"
+				);
+				
+				// Cut week if there are seven days
+				if (positive % 7 === 0) {
+					r.push("</tr>" + table.row);
+				}
+				
+			};
+			
+			// Return table object
+			return $(r.join(""));
+			
+		},
+	
+	/**
+	* Handles behavior of arrows to move around months.
 	* @private
 	* @name ch.Calendar#arrows
-	* @type object
+	* @type Object
 	*/
-	var arrows = {
-	
-		$prev: $("<p class=\"ch-calendar-prev\" aria-controls=\"ch-calendar-grid-" + that.uid + "\"><span>Previous</span></p>").bind("click", function (event) { that.prevent(event); prevMonth(); }),
-	
-		$next: $("<p class=\"ch-calendar-next\" aria-controls=\"ch-calendar-grid-" + that.uid + "\"><span>Next</span></p>").bind("click", function (event) { that.prevent(event); nextMonth(); })
-	};
+		arrows = {
+			
+			/**
+			* Handles behavior of previous arrow to move back in months.
+			* @private
+			* @name $prev
+			* @memberOf ch.Calendar#arrows
+			* @type Object
+			*/
+			$prev: $("<p class=\"ch-calendar-prev\" aria-controls=\"ch-calendar-grid-" + that.uid + "\"><span>Previous</span></p>").bind("click", function (event) { that.prevent(event); prevMonth(); }),
+			
+			/**
+			* Handles behavior of next arrow to move forward in months.
+			* @private
+			* @name $next
+			* @memberOf ch.Calendar#arrows
+			* @type Object
+			*/
+			$next: $("<p class=\"ch-calendar-next\" aria-controls=\"ch-calendar-grid-" + that.uid + "\"><span>Next</span></p>").bind("click", function (event) { that.prevent(event); nextMonth(); })
+		},
 
+	
+	
 	/**
-	* Creates an instance of Dropdown
+	* 
 	* @private
-	* @function
-	* @name ch.Calendar#createDropdown
+	* @name ch.Calendar#
+	* @type Object
 	*/
-	var createDropdown = function () {
+		$content = $("<div class=\"ch-calendar-content\">")
+			// Append table of current month
+			.append(createTable(currentDate))
+			// Add functionality
+			.bind("click", function (event) {
+				
+				// Event
+				event = event || window.event;
+				
+				// Source event
+				var src = event.target || event.srcElement;
+	
+				/*if (src.nodeName !== "TD" || src.className.indexOf("day") === -1 || src.className.indexOf("disabled") !== -1) {
+					that.prevent(event);
+					return;
+				}*/
+				
+				// Day selection
+				if (src.nodeName === "TD" && src.className.indexOf("disabled") === -1) {
+					select(currentDate.year + "/" + currentDate.month + "/" + src.innerHTML);
+				}
+	
+				that["public"].hide();
+			}),
 
-		that.$trigger.append("<strong>Calendar</strong>").append(that.$container);
 
-		that.children[0] = that.$trigger.dropdown({
-			onShow: function () {
-				// onShow callback
-				// old callback system
-				that.callbacks.call(that, "onShow");
-				// new callback
-				that.trigger("show");
-			},
-			onHide: function () {
-				// onHide callback
-				// old callback system
-				that.callbacks.call(that, "onHide");
-				// new callback
-				that.trigger("hide");
-			}
-		});
-
-		that.children[0].position({
-			context: that.$element,
-			points: "lt lb",
-			offset: "0 5"
-		});
-
-	};
 
 	/**
-	* Create component's layout
+	* Create the component layout.
 	* @private
 	* @function
 	* @name ch.Calendar#createLayout
 	*/
-	var createLayout = function () {
-
-		that.$trigger =	$("<div class=\"secondary ch-calendar\">");
-
-		that.$container = $("<div class=\"ch-calendar-container ch-hide\">");
-
-		that.$content = $("<div class=\"ch-calendar-content\">");
-
-		that.$element.after(that.$trigger);
-
-		createDropdown();
-
-	};
-
+		createLayout = function () {
+	
+			that.float = $("<p class=\"ch-calendar\">Calendar</p>")
+				
+				// Append next to trigger
+				.insertAfter(that.$element)
+				
+				// Initialize Layer component to be showed
+				.layer({
+					"event": "click",
+					"content": $content
+				
+				// Show callback
+				}).on("show", function () {
+					// Old callback system
+					that.callbacks.call(that, "onShow");
+					// New callback
+					that.trigger("show");
+				
+				// Hide callback
+				}).on("hide", function () {
+					// Old callback
+					that.callbacks.call(that, "onHide");
+					// New callback
+					that.trigger("hide");
+				});
+			
+			ch.utils.avoidTextSelection($content);
+			
+			//if (!from || (from.getMonth() <= currentDate.getMonth())) {
+				//that.$container.prepend(arrows.$prev);
+			//}
+		
+			//if (!to || (to.getMonth() >= currentDate.getMonth())) {
+				//that.$container.prepend(arrows.$next);
+			//}
+	
+		},
+	
+	
+	// TODO: find best name
+		normalize = function (num) {
+			
+			return (parseInt(num, 10) < 10) ? "0" + num : num;
+			
+		},
 
 	/**
-	* Map of formart's date
+	* Map of date formats.
 	* @private
 	* @name ch.Calendar#FORMAT_DATE
-	* @type object
+	* @type Object
 	*/
-	var FORMAT_DATE = {
-		
-		"YYYY/MM/DD": function (date) {
-			return date.getFullYear() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + (parseInt(date.getMonth(), 10) + 1) + "/" + (parseInt(date.getDate(), 10) < 10 ? "0" : "") + date.getDate();
+		FORMAT_DATE = {
+			
+			"YYYY/MM/DD": function (date) {
+				return date.year + "/" + normalize(date.month + 1) + "/" + normalize(date.day);
+			},
+			
+			"DD/MM/YYYY": function (date) {
+				return normalize(date.day) + "/" + normalize(date.month + 1) + "/" + date.year;
+			},
+			
+			"MM/DD/YYYY": function (date) {
+				return normalize(date.month + 1) + "/" + normalize(date.day) + "/" + date.year;
+			}
+			
 		},
-		
-		"DD/MM/YYYY": function (date) {
-			return (parseInt(date.getDate(), 10) < 10 ? "0" : "") + date.getDate() + "/" + (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear();
-		},
-		
-		"MM/DD/YYYY": function (date) {
-			return (parseInt(date.getMonth(), 10) + 1 < 10 ? "0" : "") + "/" + (parseInt(date.getMonth(), 10) + 1) + "/" + date.getFullYear();
-		}
-	};
-
 
 	/**
-	* Selects an specific date to show
+	* Selects an specific date to show.
 	* @private
 	* @function
 	* @name ch.Calendar#select
+	* @param date {Date} Date to be selected.
 	* @return itself
 	*/
-	var select = function (date) {
+		select = function (date) {
 
-		selected = new Date(date);
-
-		that.currentDate = selected;
-		
-		that.element.value = FORMAT_DATE[conf.format](selected);
-		
-		that.$content.html(createMonth(selected));
-
-		/**
-		* Callback function
-		* @public
-		* @name ch.Calendar#onSelect
-		* @event
-		*/
-		// old callback system
-		that.callbacks("onSelect");
-		// new callback
-		that.trigger("select");
-
-		return that;
-	};
+			selected = createDate(date);
+			
+			that.element.value = FORMAT_DATE[conf.format](selected);
+			
+			// Go to selected month if it's different
+			if (selected.month !== currentDate.month || selected.year !== currentDate.year) {
+				that.float.content(createTable(selected));
+			}
+	
+			currentDate = selected;
+			
+			/**
+			* Callback function
+			* @public
+			* @name ch.Calendar#onSelect
+			* @event
+			*/
+			// Old callback system
+			that.callbacks("onSelect");
+			// New callback
+			that.trigger("select");
+	
+			return that;
+		},
 
 	/**
-	* Move to next month of calendar
+	* Move to next month of calendar.
 	* @private
 	* @function
 	* @name ch.Calendar#nextMonth
 	* @return itself
 	*/
 	//TODO: crear una interfaz que resuleva donde moverse
-	var nextMonth = function () {
-		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() + 1, 1);
-		that.$content.html(createMonth(that.currentDate));
-
-		//Refresh position
-		that.children[0].position("refresh");
-		that.$container.prepend(arrows.$prev);
-
-		if (to && to.getMonth() <= that.currentDate.getMonth() && to.getFullYear() === that.currentDate.getFullYear()) {
-			arrows.$next.detach();
-		}
-
-		// Callback
-		that.callbacks("onNextMonth");
-		// new callback
-		that.trigger("onNextMonth");
-		
-		return that;
-	};
+		nextMonth = function () {
+			currentDate = createDate(currentDate.year, currentDate.month + 1, 1);
+			
+			that.float.content(createTable(currentDate));
+	
+			//Refresh position
+			//that.float.position("refresh");
+			//that.$container.prepend(arrows.$prev);
+	
+			if (to && to.month <= currentDate.month && to.year === currentDate.year) {
+				arrows.$next.detach();
+			}
+	
+			// Callback
+			that.callbacks("onNextMonth");
+			// new callback
+			that.trigger("onNextMonth");
+			
+			return that;
+		},
 
 	/**
-	* Move to prev month of calendar
+	* Move to previous month of calendar.
 	* @private
 	* @function
 	* @name ch.Calendar#prevMonth
 	* @return itself
 	*/
-	var prevMonth = function () {
-
-		that.currentDate = new Date(that.currentDate.getFullYear(), that.currentDate.getMonth() - 1, 1);
-
-		that.$content.html(createMonth(that.currentDate));
-
-		// Refresh position
-		that.children[0].position("refresh");
-		that.$container.prepend(arrows.$next);
-
-		if (from && from.getMonth() >= that.currentDate.getMonth() && from.getFullYear() === that.currentDate.getFullYear()) {
-			arrows.$prev.detach();
-
+		prevMonth = function () {
+	
+			currentDate = createDate(currentDate.year, currentDate.month - 1, 1);
+	
+			that.float.content(createTable(currentDate));
+	
+			// Refresh position
+			//that.float.position("refresh");
+			//that.$container.prepend(arrows.$next);
+	
+			if (from && from.month >= currentDate.month && from.year === currentDate.year) {
+				arrows.$prev.detach();
+	
+				return that;
+			}
+	
+			// Callback
+			that.callbacks("onPrevMonth");
+			// new callback
+			that.trigger("onPrevMonth");
+			
 			return that;
-		}
-
-		// Callback
-		that.callbacks("onPrevMonth");
-		// new callback
-		that.trigger("onPrevMonth");
-		
-		return that;
-	};
+		},
 
 	/**
-	* Move to next year of calendar
+	* Move to next year of calendar.
 	* @private
 	* @function
 	* @name ch.Calendar#nextYear
 	* @return itself
 	*/
-	var nextYear = function () {
-		that.currentDate = new Date(that.currentDate.getFullYear() + 1,that.currentDate.getMonth(), 1);
-		
-		that.$content.html(createMonth(that.currentDate));
-
-		return that;
-	};
+		nextYear = function () {
+			currentDate = createDate(currentDate.year + 1, currentDate.month, 1);
+			
+			that.float.content(createTable(currentDate));
+	
+			return that;
+		},
 
 	/**
-	* Move to prev year of calendar
+	* Move to previous year of calendar.
 	* @private
 	* @function
 	* @name ch.Calendar#prevYear
 	* @return itself
 	*/
-	var prevYear = function () {
-		that.currentDate = new Date(that.currentDate.getFullYear() - 1, that.currentDate.getMonth(), 1);
-		
-		that.$content.html(createMonth(that.currentDate));
-
-		return that;
-	};
+		prevYear = function () {
+			currentDate = createDate(currentDate.year - 1, currentDate.month, 1);
+			
+			that.float.content(createTable(currentDate));
+	
+			return that;
+		},
 
 	/**
-	* Move to prev year of calendar
+	* Restart selected date.
 	* @private
 	* @function
 	* @name ch.Calendar#reset
 	* @return itself
 	*/
-	var reset = function () {
-		selected = conf.selected;
-		
-		that.currentDate = selected || today;
-		
-		that.element.value = "";
-
-		that.$content.html(createMonth(that.currentDate));
-
-		// Callback
-		that.callbacks("onReset");
-		// new callback
-		that.trigger("onReset");
-		
-		return that;
-	};
+		reset = function () {
+			
+			selected = getSelected();
+			
+			currentDate = selected || today;
+			
+			that.element.value = "";
+	
+			that.float.content(createTable(currentDate));
+	
+			// Callback
+			that.callbacks("onReset");
+			// new callback
+			that.trigger("onReset");
+			
+			return that;
+		};
 
 
 /**
 *  Protected Members
 */
 
-	/**
-	* The current date that should show on calendar
-	* @protected
-	* @name ch.Calendar#currentDate
-	* @type date
-	*/
-	that.currentDate = selected || today;
+	
 
 /**
 *  Public Members
@@ -579,7 +686,7 @@ ch.calendar = function (conf) {
 	* me.show();
 	*/
 	that["public"].show = function () {
-		that.children[0].show();
+		that.float.show();
 		
 		return that["public"];
 	};
@@ -595,23 +702,7 @@ ch.calendar = function (conf) {
 	* me.hide();
 	*/
 	that["public"].hide = function () {
-		that.children[0].hide();
-
-		return that["public"];
-	};
-
-	/**
-	* Select a specific date.
-	* @public
-	* @function
-	* @name ch.Calendar#select
-	* @param {string} "YY/MM/DD".
-	* @return itself
-	* @TODO: Make select() method a get/set member
-	*/
-	that["public"].select = function (date) {
-
-		select((date === "today") ? today : parseDate(date));
+		that.float.hide();
 
 		return that["public"];
 	};
@@ -630,7 +721,8 @@ ch.calendar = function (conf) {
 			return FORMAT_DATE[conf.format](selected);
 		}
 
-		select((date === "today") ? today : parseDate(date));	
+		select((date === "today") ? today : parseDate(date));
+		
 		return that["public"];
 
 	};
@@ -717,7 +809,7 @@ ch.calendar = function (conf) {
 	* @return itself
 	*/
 	that["public"].from = function (date) {
-		from = new Date(date);
+		from = createDate(date);
 		return that["public"];
 	};
 
@@ -731,7 +823,7 @@ ch.calendar = function (conf) {
 	* @return itself
 	*/
 	that["public"].to = function (date) {
-		to = new Date(date);
+		to = createDate(date);
 		return that["public"];
 	};
 
@@ -741,21 +833,10 @@ ch.calendar = function (conf) {
 
 	that.element.type = "text";
 
-	that.element.value = ((selected !== "") ? FORMAT_DATE[conf.format](selected) : "");
+	that.element.value = (selected !== "") ? FORMAT_DATE[conf.format](selected) : "";
 
 	createLayout();
 
-	that.$content.html(createMonth(that.currentDate)).appendTo(that.$container);
-
-	ch.utils.avoidTextSelection(that.$container);
-	
-	if (!from || (from.getMonth() <= that.currentDate.getMonth())) {
-		that.$container.prepend(arrows.$prev);
-	}
-
-	if (!to || (to.getMonth() >= that.currentDate.getMonth())) {
-		that.$container.prepend(arrows.$next);
-	}
 	
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
@@ -769,7 +850,7 @@ ch.calendar = function (conf) {
 	*	this.show();
 	* });
 	*/
-	setTimeout(function(){ that.trigger("ready")}, 50);
+	setTimeout(function () { that.trigger("ready"); }, 50);
 
 	return that;
 };

@@ -451,7 +451,7 @@ hr {
 		
 .ch-ico, .ico,
 .ch-message, .message {
-	background: url(../assets/icons.png) no-repeat;
+	background: url('http://static.weat.com.ar/assets/icons.png') no-repeat;
 }
 
 /* Icons */
