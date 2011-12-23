@@ -388,9 +388,14 @@ ch.watcher = function (conf) {
 	* @returns itself
 	* @see ch.Validator
 	*/
-	that["public"].disable = function(condition){
+	that["public"].disable = function (condition) {
+		// Clean the watcher if is active;
+		clear();
+
+		// Turn off validator
 		validator.disable(condition);
 
+		// Turn off watcher, if all conditions are disabled
 		if (!condition){
 			that.enabled = false;
 		}
