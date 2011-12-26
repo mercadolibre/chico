@@ -62,6 +62,8 @@
 }
 
 /* IE 6,7 */
+.lt-ie8 .ch-layer,
+/* Deprecate */
 .ie6 .ch-layer,
 .ie7 .ch-layer {
 	width:280px;
@@ -69,6 +71,8 @@
 
 
 /* IE6 */
+.lt-ie7 .ch-layer .ch-cone,
+/* Deprecate */
 .ie6 .ch-layer .ch-cone {
 	font-size:0;
 	line-height:0;

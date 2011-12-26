@@ -38,3 +38,10 @@
 }
 
 
+
+.lt-ie8 .ch-autoComplete 
+{
+	display: inline;
+	zoom: 1;
+}
+

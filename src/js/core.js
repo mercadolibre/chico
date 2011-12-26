@@ -55,14 +55,13 @@ var ch = window.ch = {
 		document: $(document),
 		zIndex: 1000,
 		index: 0, // global instantiation index
-		isTag: function (tag) {
-			var el = document.createElement(tag)
-			return !(el instanceof HTMLUnknownElement);
+		isTag: function(string){
+			return (/<([\w:]+)/).test(string);
 		},
 		isSelector: function (selector) {
-			if (typeof string !== "string") return false;
+			if (typeof selector !== "string") return false;
 			for (var regex in $.expr.match){
-				if ($.expr.match[ regex ].test(string) && !ch.utils.isTag(string)) {
+				if ($.expr.match[ regex ].test(selector) && !ch.utils.isTag(selector)) {
 					return true;
 				};
 			};

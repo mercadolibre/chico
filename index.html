@@ -1,10 +1,9 @@
-<!doctype html> 
-<!--[if IE]><![endif]--> 
-<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
-<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
-<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
-<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>	<html class="no-js lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie9 ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="es"> <!--<![endif]-->
+
 <head> 
 	<script></script> 
 	<meta charset="utf-8"> 
@@ -550,7 +549,7 @@
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
 
-		<form action="http://localhost:3000/test/post" class="ch-form" method="POST"> 
+		<form action="http://localhost:3000/test/post" class="ch-form myForm" method="POST"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
 				<p class="ch-form-hint">* Required fields</p> 
@@ -937,7 +936,7 @@
 
 	</div> 
 	
-	<script src="http://code.jquery.com/jquery-1.7.js"></script>
+	<script src="http://code.jquery.com/jquery-1.7.1.js"></script>
 	<script src="http://chico.com:8080/latest/js?debug=true"></script>
 	<script src="/src/plugins/gallery/chico.gallery.js"></script>
 	<script> 
@@ -1025,21 +1024,33 @@
 		var ch_ico = $(".ch-form-ico").layer({content:"Help",event:"click", offset:"-12 15"});
 			
 		// Form
-		var ch_form = $('.form').form();
+		var ch_form = $('.myForm').form();
 
 		// Watchers
 		var ch_wprice = $("#price").price("Price please!").and().required("algo");
 		var ch_wch1 = $("#email").required("requerid").and().email("Guachin emial").and().minLength(10);
-		var ch_wch11 = $("#custom").custom(function(v){ return (v.toString().indexOf("1")>-1) ? true : false ;},"Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja.")
-												.and()
-												.required()
-												.and()
-												.custom(function(v){ 
-													count++;
-													console.log("Custom " + count )
-													return (v.toString().indexOf("2")>-1) ? true : false ;
-												},"2");
-		var ch_wch3 = $("#number").number().and().min(20);
+		var ch_wch11 = $("#custom").custom(
+			function(v){
+				//console.log("Custom: " + v);
+				var value1 = (v.toString().indexOf("1")>-1) ? true : false;
+				var value2 = (v.toString().indexOf("2")>-1) ? true : false;
+
+				if (value1 && value2) {
+					return true;
+				}
+
+				if (!value1) {
+					console.log(this);
+					this.conditions.custom.message = "Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 1";
+					return false;
+				}
+
+				if (!value2) {
+					this.conditions.custom.message = "Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 2";
+					return false;
+				}
+
+			}).and().required("Debes completar este campo");
 		var ch_wch4 = $("#range").min(1).and().max(10);
 		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#required_disabled, #select2, #select3, .check2, .check3, .radio2, .radio3, .radio4, #textarea2, #textarea3").required("Required");

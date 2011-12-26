@@ -48,6 +48,8 @@
 }
 
 /* IE 6 */
+.lt-ie7 .ch-expando-trigger,
+/* Deprecate */
 .ie6 .ch-expando-trigger {
 	font-size:13px;
 	text-decoration: underline;

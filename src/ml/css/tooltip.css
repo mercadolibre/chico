@@ -59,6 +59,8 @@
 }
 
 /* IE6 */
+.lt-ie7 .ch-tooltip .ch-cone,
+/* Deprecate */
 .ie6 .ch-tooltip .ch-cone {
 	font-size:0;
 	line-height:0;

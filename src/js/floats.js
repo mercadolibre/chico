@@ -397,7 +397,7 @@ ch.floats = function () {
 			if (ch.utils.hasOwn(o, "reposition")) { conf.position.reposition = o.reposition; }
 
 			// New offset (splitted)
-			if (ch.utils.hasOwn(o, "offset")) { conf.position.offset = o.offset.split(" "); }
+			if (ch.utils.hasOwn(o, "offset")) { conf.position.offset = o.offset; }
 
 			// New context
 			if (ch.utils.hasOwn(o, "context")) { conf.position.context = o.context; }
