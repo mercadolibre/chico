@@ -560,30 +560,18 @@ ch.positioner = (function () {
 
 				// New element position
 				var coordinates,
-
-				// Width of element is elastic?
-					elasticWidth = ch.utils.getStyles($element[0], "width") !== "auto",
 					
 				// Removes all classnames related to friendly positions and adds classname for new points
 				// TODO: improve this method. maybe knowing which one was the last added classname
 					updateClassName = function ($element) {
 						$element.removeClass("ch-left ch-top ch-right ch-bottom ch-center").addClass(friendly);
 					};
-				
-				// Reset position of elastic width elements for correct calculations
-				if (elasticWidth) { $element.css({ "left": 0, "top": 0 }); }
 
 				// Gets definitive coordinates for element repositioning
 				coordinates = getPosition();
 
 				// Coordinates equal to last coordinates means that there aren't changes on position
-				// TODO: Avoid redraw when corrdinates are same. We set to 0 the
-				// css left and top coordinates for correct width calculations
 				if (coordinates.left === lastCoordinates.left && coordinates.top === lastCoordinates.top) {
-					if (elasticWidth) {
-						$element.css({ "left": lastCoordinates.left, "top": lastCoordinates.top });
-					}
-
 					return;
 				}
 
@@ -659,8 +647,8 @@ ch.positioner = (function () {
 					// Sets position of element as fixed to avoid recalculations
 					$element.css("position", "fixed");
 
-					// Unbind reposition recalculations (scroll, resize and changeLayout)
-					ch.utils.window.unbind(ch.events.VIEWPORT.CHANGE + " " + ch.events.LAYOUT.CHANGE, changesListener);
+					// Bind reposition only on resize
+					ch.utils.window.bind("resize", changesListener);
 
 				// Absolute position behavior
 				} else {
@@ -707,7 +695,7 @@ ch.positioner = (function () {
 			var r = that;
 
 			switch (typeof o) {
-
+			
 			// Changes configuration properties and repositions the element
 			case "object":
 				// New points

@@ -215,18 +215,26 @@ form .disabled input{
 								
 
 /* IE 6  */
+.lt-ie7 .disabled,
+/* Deprecate */
 .ie6 form .disabled {
 	border:none !important;
 }
 
+.lt-ie7 .help,
+/* Deprecate */
 .ie6 form .help {
 	margin-left:148px;
 }
 
+.lt-ie7 form h4,
+/* Deprecate */
 .ie6 form h4 {
 	margin-left:10px;
 }
 
+.lt-ie7 form .options label input,
+/* Deprecate */
 .ie6 form .options label input {
 	border:none;
 	margin:0;

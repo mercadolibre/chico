@@ -100,10 +100,13 @@
 }
 
 /* IE 6 */
+.lt-ie7 .ch-carousel .ch-next-arrow,
+/* Deprecate */
 .ie6 .ch-carousel .ch-next-arrow {
 	right:20px;
 }
-
+.lt-ie7 .ch-carousel .ch-prev-arrow,
+/* Deprecate */
 .ie6 .ch-carousel .ch-prev-arrow {
 	left:0;
 }
