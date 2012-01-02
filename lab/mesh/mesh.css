@@ -1,0 +1,183 @@
+/*
+ * Grid System
+ * @autor: Chico-UI
+ * @web: http://chico-ui.com.ar
+ * @version: 0.2
+ * @mod: 02/01/12
+ *
+ */
+ 
+/* about class names: 1-2 = 1/2 = 50% */
+ 
+.ch-g1,
+.ch-g9-10,
+.ch-g7-8,
+.ch-g5-6,
+.ch-g4-5, .ch-g8-10,
+.ch-g3-4, .ch-g6-8,
+.ch-g7-10,
+.ch-g2-3, .ch-g4-6,
+.ch-g5-8,
+.ch-g3-5, .ch-g6-10,
+.ch-g1-2, .ch-g2-4, .ch-g3-6, .ch-g4-8, .ch-g5-10,
+.ch-g2-5, .ch-g4-10,
+.ch-g3-8,
+.ch-g1-3r,
+.ch-g1-3, .ch-g2-6,
+.ch-g3-10,
+.ch-g1-4, .ch-g2-8,
+.ch-g1-5, .ch-g2-10,
+.ch-g1-6r,
+.ch-g1-6,
+.ch-g1-8,
+.ch-g1-10 {
+			-moz-box-sizing:border-box;
+			-webkit-box-sizing:border-box;
+			box-sizing:border-box;
+			float:left;
+			padding: 0px 10px;
+			vertical-align: top;
+}
+
+.ch-g1 { width:100%;}
+.ch-g9-10 {width: 90%;}
+.ch-g7-8 {width: 87.5%;}
+.ch-g5-6 {width: 83.3%;}
+.ch-g4-5, .ch-g8-10 {width: 80%;}
+.ch-g3-4, .ch-g6-8 { width:75%; }
+.ch-g7-10 {width: 70%; }
+.ch-g2-3, .ch-g4-6 { width:66.67%;}
+.ch-g5-8 {width: 62.5%;}
+.ch-g3-5, .ch-g6-10 {width: 60%;}
+.ch-g1-2, .ch-g2-4, .ch-g3-6, .ch-g4-8, .ch-g5-10 { width:50%;}
+.ch-g2-5, .ch-g4-10 {width: 40%;}
+.ch-g3-8 {width: 37.5%;}
+.ch-g1-3r { width:33.34%; } /* Rounding - If you want 3 equal columns, one of them has to be ch-g1-3r to reach 100% */
+.ch-g1-3, .ch-g2-6 { width:33.33%; }
+.ch-g3-10 {width: 30%;}
+.ch-g1-4, .ch-g2-8 { width:25%;}
+.ch-g1-5, .ch-g2-10 { width:20%;}
+.ch-g1-6r { width:16.7%;} /* Rounding - If you want 6 equal columns, one of them has to be ch-g1-6r to reach 100% */
+.ch-g1-6 { width:16.66%;}
+.ch-g1-8 { width:12.5%;}
+.ch-g1-10 { width:10%; }
+
+
+/* @media screen and (min-width: 760px) */
+@media screen and (max-width: 760px) {
+	.ch-g1,
+	.ch-g9-10,
+	.ch-g7-8,
+	.ch-g5-6,
+	.ch-g4-5, .ch-g8-10,
+	.ch-g7-10,
+	.ch-g5-8,
+	.ch-g3-5, .ch-g6-10,
+	.ch-g2-5, .ch-g4-10,
+	.ch-g2-8,
+	.ch-g3-10,
+	.ch-g3-8,
+	.ch-g1-5, .ch-g2-10,
+	.ch-g1-6r,
+	.ch-g1-6,
+	.ch-g1-8,
+	.ch-g1-10  {
+		float:none;
+		vertical-align: top;
+		width: 100%;
+		clear: both;
+	}
+}
+
+							
+/* @media screen and (min-width: 480px) */
+@media screen and (max-width: 480px) {			
+	.ch-g1-4 {width: 50%; float: left;}	
+	.ch-g9-10,
+	.ch-g7-8,
+	.ch-g5-6,
+	.ch-g4-5, .ch-g8-10,
+	.ch-g3-4, .ch-g6-8,
+	.ch-g7-10,
+	.ch-g5-8,
+	.ch-g3-5, .ch-g6-10,
+	.ch-g2-5, .ch-g4-10,
+	.ch-g3-8,
+	.ch-g3-10,
+	.ch-g1-5, .ch-g2-10,
+	.ch-g1-6r,
+	.ch-g1-6,
+	.ch-g1-8,
+	.ch-g1-10   {
+		float:none;
+		vertical-align: top;
+		width: 100%;
+		clear: both;
+	}
+}
+
+
+/* @media screen and (min-width: 320px) */
+@media screen and (max-width: 320px) {
+	.ch-g9-10,
+	.ch-g7-8,
+	.ch-g5-6,
+	.ch-g4-5, .ch-g8-10,
+	.ch-g3-4, .ch-g6-8,
+	.ch-g7-10,
+	.ch-g2-3, .ch-g4-6,
+	.ch-g5-8,
+	.ch-g3-5, .ch-g6-10,
+	.ch-g2-5, .ch-g4-10,
+	.ch-g3-8,
+	.ch-g1-3r,
+	.ch-g1-3, .ch-g2-6,
+	.ch-g3-10,
+	.ch-g1-4, .ch-g2-8,
+	.ch-g1-5, .ch-g2-10,
+	.ch-g1-6r,
+	.ch-g1-6,
+	.ch-g1-8,
+	.ch-g1-10  {
+		float:none;
+		vertical-align: top;
+		width: 100%;
+		clear: both;
+	}
+}
+
+
+/* IE7 fallback for box-sizing */
+
+.ie7 .ch-g1,
+.ie7 .ch-g9-10,
+.ie7 .ch-g7-8,
+.ie7 .ch-g5-6,
+.ie7 .ch-g4-5, .ie7 .ch-g8-10,
+.ie7 .ch-g3-4, .ie7 .ch-g6-8,
+.ie7 .ch-g7-10,
+.ie7 .ch-g2-3, .ie7 .ch-g4-6,
+.ie7 .ch-g5-8,
+.ie7 .ch-g3-5, .ie7 .ch-g6-10,
+.ie7 .ch-g1-2, .ie7 .ch-g2-4, .ie7 .ch-g3-6, .ie7 .ch-g4-8, .ie7 .ch-g5-10,
+.ie7 .ch-g2-5, .ie7 .ch-g4-10,
+.ie7 .ch-g3-8,
+.ie7 .ch-g1-3r,
+.ie7 .ch-g1-3, .ie7 .ch-g2-6,
+.ie7 .ch-g3-10,
+.ie7 .ch-g1-4, .ie7 .ch-g2-8,
+.ie7 .ch-g1-5, .ie7 .ch-g2-10,
+.ie7 .ch-g1-6r,
+.ie7 .ch-g1-6,
+.ie7 .ch-g1-8,
+.ie7 .ch-g1-10 {
+			float:left;
+			vertical-align: top;
+			padding: 0;
+}
+
+/* gutters: you can use these on your inner elements */
+
+.rightcolumn {margin-left: 10px;}
+.leftcolumn {margin-right: 10px;}
+.centercolumn {margin-left: 10px; margin-right: 10px;}
