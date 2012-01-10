@@ -16,6 +16,7 @@
 * @param {Number} [conf.showTime] Sets a delay time to show component's contents. By default, the value is 400ms.
 * @param {Number} [conf.hideTime] Sets a delay time to hide component's contents. By default, the value is 400ms.
 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
+* @param {String} [conf.closeHandler] Sets the way ("any" or "button") the Layer close when conf.event is set as "click". By default, the layer close "any".
 * @returns itself
 * @see ch.Tooltip
 * @see ch.Modal
@@ -54,8 +55,9 @@ ch.layer = function (conf) {
 	conf = ch.clon(conf);
 	
 	conf.cone = true;
-	conf.closeButton = conf.event === "click";
-	conf.classes = "box";
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : (conf.event === "click");
+	conf.classes = conf.classes || "box";
+	conf.closeHandler = conf.closeHandler || "any";
 	
 	conf.aria = {};
 	conf.aria.role = "tooltip";
@@ -67,6 +69,7 @@ ch.layer = function (conf) {
 	conf.position.points = conf.points || "lt lb";
 
 	that.conf = conf;
+
 
 /**
 *	Inheritance
@@ -135,7 +138,7 @@ ch.layer = function (conf) {
 				
 				if (target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") { return; }
 			}
-	
+
 			ht = setTimeout(that.innerHide, hideTime);
 		},
 
@@ -173,6 +176,15 @@ ch.layer = function (conf) {
 */
 
 	/**
+	* It sets the hablity of auto close the component or indicate who closes the component.
+	* @protected
+	* @function
+	* @name ch.Layer#closeHandler
+	* @returns itself
+	*/
+	that.closeHandler = conf.closeHandler;
+
+	/**
 	* Inner show method. Attach the component layout to the DOM tree.
 	* @protected
 	* @function
@@ -180,10 +192,9 @@ ch.layer = function (conf) {
 	* @returns itself
 	*/
 	that.innerShow = function (event) {
-
-		// Reset all layers, except me
+		// Reset all layers, except me and not auto closable layers
 		$.each(ch.instances.layer, function (i, e) {
-			if (e !== that["public"]) {
+			if (e !== that["public"] && e.closable()==="any") {
 				e.hide();
 			}
 		});
@@ -191,8 +202,12 @@ ch.layer = function (conf) {
 		// conf.position.context = that.$element;
 		that.parent.innerShow(event);
 
-		// Click
-		if (conf.event === "click") {
+		// Click in the button
+		if (conf.event === "click" && conf.closeHandler === "button") {
+			// Document events
+			that.$container.find(".close").one("click", that.innerHide);
+		// Click anywhere
+		} else if (conf.event === "click") {
 			// Document events
 			ch.utils.document.one("click", that.innerHide);
 			that.$container.bind("click", stopBubble);
@@ -214,7 +229,7 @@ ch.layer = function (conf) {
 	*/
 	that.innerHide = function (event) {
 		that.$container.unbind("click", stopBubble).unbind("mouseleave", hideTimer);
-
+		
 		that.parent.innerHide(event);
 	}
 
@@ -263,6 +278,25 @@ ch.layer = function (conf) {
 	* me.content("http://chico.com/some/content.html");
 	* @see ch.Object#content
 	*/
+
+	
+	/**
+	* Returns any if the component closes automatic. 
+	* @public
+	* @name ch.Layer#closable
+	* @function
+	* @returns boolean
+	*/
+	that["public"].closable = function (content) {
+
+		if (content !== undefined) { 
+			that.closeHandler = content; 
+		} else { 
+			return that.closeHandler; 
+		}
+
+		return that["public"];
+	};
 
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.

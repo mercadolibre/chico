@@ -33,6 +33,7 @@ ch.helper = function(conf){
 		
 	conf.cone = true;
 	conf.cache = false;
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");
 	
 	conf.aria = {};
 	conf.aria.role = "alert";

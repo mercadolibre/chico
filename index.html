@@ -1,10 +1,9 @@
-<!doctype html> 
-<!--[if IE]><![endif]--> 
-<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
-<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
-<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
-<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>	<html class="no-js lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie9 ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="es"> <!--<![endif]-->
+
 <head> 
 	<script></script> 
 	<meta charset="utf-8"> 
@@ -66,7 +65,44 @@
 		<p><a href="http://www.mercadopago.com">MercadoPago</a></p> 
 		<p><a href="http://www.mercadoshops.com">MercadoShops</a></p> 
 		<p><a href="http://www.mercadoclics.com">MercadoClics</a></p> 
-	</div> 
+	</div>
+	
+	<div class="box clearfix">
+		<h2>Lists</h2>
+		<div class="ch-g1-3">
+		    <div class="leftcolumn">
+				<h3>Unstyled</h3>
+				<ul>
+					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+				</ul>
+		    </div>
+		</div>
+		<div class="ch-g1-3r">
+		    <div class="centercolumn">
+				<h3>Unordered</h3>
+				<ul class="ch-list">
+					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+				</ul>
+		    </div>
+		</div>
+		<div class="ch-g1-3">
+		    <div class="rightcolumn">
+				<h3>Ordered</h3>
+				<ol class="ch-list">
+					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+				</ol>
+		    </div>
+		</div>
+	</div>
 
 	<div class="box"> 
 		<h2>Boxes</h2> 
@@ -114,7 +150,15 @@
 	</div>
 	
 	<div class="box">
-	<h2>Pagination</h2>
+		<h2>Blink</h2>
+		<p id="example">This is a text that you can blink</p>
+		<p>
+			<button class="btn secondary skin" id="doHighlight">Blink the paragraph</button>
+		</p>
+	</div>
+
+	<div class="box">
+		<h2>Pagination</h2>
 		<ul class="pagination">
 			<li><a type="prev" href="/2.html">Previous</a></li>
 			<li><a href="/1.html">1</a></li>
@@ -330,7 +374,9 @@
 
 	<div class="box"> 
 		<h2>Layer</h2> 
-		<span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> | <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
+		<span class="YOUR_SELECTOR_LayerCloseButton">Executed on click, button closes.</span> 
+		| <span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> 
+		| <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
 	</div> 
 
 	<div class="box"> 
@@ -352,6 +398,11 @@
         </div>
 		<div id="invisible-content" class="ch-hide">
     		<h1>This content is invisible</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+		</div>
+		
+		<div id="invisible-content-for-layer" class="ch-hide">
+    		<h1>This content is invisible for layer</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
 		</div>
 	</div> 
@@ -506,7 +557,7 @@
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
 
-		<form action="http://localhost:3000/test/post" class="ch-form" method="POST"> 
+		<form action="http://localhost:3000/test/post" class="ch-form myForm" method="POST"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
 				<p class="ch-form-hint">* Required fields</p> 
@@ -893,7 +944,7 @@
 
 	</div> 
 	
-	<script src="http://code.jquery.com/jquery-1.7.js"></script>
+	<script src="http://code.jquery.com/jquery-1.7.1.js"></script>
 	<script src="http://chico.com:8080/latest/js?debug=true"></script>
 	<script src="/src/plugins/gallery/chico.gallery.js"></script>
 	<script> 
@@ -904,92 +955,44 @@
         document.getElementsByTagName("h1")[0].innerHTML = title;
 
 		// Components
-		
-		// Autocomplete
-		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest/"});
-		var autoComplete = function(data){ ac.suggest(data); }
-		
-		// Countdown
-		/*var ch_count = $(".countdown").countdown({
-			"max": 20,
-			"plural": "Restan # caracteres.",
-			"singular": "Resta # caracter."
-		});
-		*/
-		// Accordion
-		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
-			selected: "1#2"
-		});
-		
-		// Menu
-		var ch_menu = $(".YOUR_SELECTOR_Menu").menu();
-		
-		// Dropdown
-		var ch_drop = $(".YOUR_SELECTOR_Dropdown").dropdown();
-		var ch_drop = $(".myDropdown").dropdown();
-
-		// Carousel
-		var ch_caro = $(".YOUR_SELECTOR_Carousel").carousel({
-			pagination:true
-		});
-					
-		// Modal
-		var ch_moda = $(".YOUR_SELECTOR_Modal").modal({
-			width: "500px",
-			height: "300px"
-		});
-		
-		// Modal with invisible DOM Content		
-		var ch_moda_invisible = $(".YOUR_SELECTOR_Modal_invisible").modal({ 
-		  content:"#invisible-content"
-		});
-		
-		// Transition
-		var ch_tran = $(".YOUR_SELECTOR_Transition").transition();
-		
-		// Layer on click
-		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
-			event: "click",
-			content: "#invisible-content"
-		});
-		
-		// Layer on mouseover
-		var ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
-
-		// Tooltip
-		var ch_tool = $(".YOUR_SELECTOR_Tooltip").tooltip();
-
-		// Tab Navigator
-		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator();
-
-		// Expando
-		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
-
+	
 		// Calendar
-		var calendar = $(".myCalendar").calendar({
-			"selected": "2011/11/15",
-			"from": "2010/11/05",
-			"to": "2012/11/25"
-		});
+		var calendar = $(".myCalendar").datePicker({
+		//	"selected": "2011/10/15",
+		//	"from": "2011/01/03",
+		//	"to": "2012/06/20"
+		}).show();
 
 		var ch_ico = $(".ch-form-ico").layer({content:"Help",event:"click", offset:"-12 15"});
 			
 		// Form
-		var ch_form = $('.form').form();
+		var ch_form = $('.myForm').form();
 
 		// Watchers
 		var ch_wprice = $("#price").price("Price please!").and().required("algo");
 		var ch_wch1 = $("#email").required("requerid").and().email("Guachin emial").and().minLength(10);
-		var ch_wch11 = $("#custom").custom(function(v){ return (v.toString().indexOf("1")>-1) ? true : false ;},"Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja.")
-												.and()
-												.required()
-												.and()
-												.custom(function(v){ 
-													count++;
-													console.log("Custom " + count )
-													return (v.toString().indexOf("2")>-1) ? true : false ;
-												},"2");
-		var ch_wch3 = $("#number").number().and().min(20);
+		var ch_wch11 = $("#custom").custom(
+			function(v){
+				//console.log("Custom: " + v);
+				var value1 = (v.toString().indexOf("1")>-1) ? true : false;
+				var value2 = (v.toString().indexOf("2")>-1) ? true : false;
+
+				if (value1 && value2) {
+					return true;
+				}
+
+				if (!value1) {
+					console.log(this);
+					this.conditions.custom.message = "Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 1";
+					return false;
+				}
+
+				if (!value2) {
+					this.conditions.custom.message = "Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 2";
+					return false;
+				}
+
+			}).and().required("Debes completar este campo");
 		var ch_wch4 = $("#range").min(1).and().max(10);
 		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#required_disabled, #select2, #select3, .check2, .check3, .radio2, .radio3, .radio4, #textarea2, #textarea3").required("Required");

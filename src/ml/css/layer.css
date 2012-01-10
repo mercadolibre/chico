@@ -3,12 +3,8 @@
 	background-image:none;
 	position:absolute;
 	z-index: 300;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
 	box-shadow: 3px 3px 3px #999;
 	-webkit-box-shadow: 3px 3px 3px #999;
-	-moz-box-shadow: 3px 3px 3px #999;
 }
 
 .ch-layer .close {
@@ -62,6 +58,8 @@
 }
 
 /* IE 6,7 */
+.lt-ie8 .ch-layer,
+/* Deprecate */
 .ie6 .ch-layer,
 .ie7 .ch-layer {
 	width:280px;
@@ -69,6 +67,8 @@
 
 
 /* IE6 */
+.lt-ie7 .ch-layer .ch-cone,
+/* Deprecate */
 .ie6 .ch-layer .ch-cone {
 	font-size:0;
 	line-height:0;

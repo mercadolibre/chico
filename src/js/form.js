@@ -121,7 +121,7 @@ ch.form = function(conf) {
 			// Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
 			if (childrenError[0].element.tagName === "DIV") {
 				$(childrenError[0].element).find("input:first").focus();
-			} else {
+			} else if (childrenError[0].element.type !== "hidden") {
 				childrenError[0].element.focus();
 			}
 		} else {

@@ -1,0 +1,135 @@
+/* Date Picker */
+.ch-datePicker-trigger {
+	background: transparent url('../assets/calendar.png') 0 0 no-repeat;
+	display: inline-block;
+	height: 20px;
+	margin: 0 0 5px 5px;
+	overflow: hidden;
+	text-indent: 999px;
+	vertical-align: middle;
+	width: 20px;
+}
+
+.ch-datePicker-container.ch-layer {
+	background-color: #fff;
+	border: 1px solid #cecece;
+	box-shadow: 2px 2px 1px #888!important;
+	-webkit-box-shadow: 2px 2px 1px #888!important;
+	min-width: 266px;
+}
+
+.ch-datePicker-container .ch-cone {
+	left: 125px;
+	top: -8px;
+}
+
+
+/* Calendar */
+.ch-calendar {
+	font-size: 12px;
+	text-align: center;
+	width: 266px;
+}
+
+.ch-calendar caption {
+	background: -o-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: -ms-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: -moz-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #ddd));
+	background: -webkit-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: linear-gradient(top, #fff 0%, #ddd 100%);
+	border-bottom: 1px solid #ccc;
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
+	font-size: 13px;
+	height: 26px;
+	line-height: 27px;
+	margin: 0;
+}
+
+.ch-calendar th {
+	font-size: 11px;
+	font-weight: normal;
+	width: 14.28%;
+}
+
+.ch-calendar td {
+	border: 1px solid #eee;
+	cursor: pointer;
+	height: 26px;
+	line-height: 26px;
+	width: 14.28%;
+}
+
+.ch-calendar-day:hover {
+	background-color: #F5F5F5;
+	color: #333;
+	font-weight: normal;
+}
+
+.ch-calendar-today {
+	background-color: #FEFBD6;
+}
+
+.ch-calendar .ch-disabled,
+.ch-calendar .ch-disabled:hover {
+	background-color: #FFF;
+	color: #C6C6C6;
+	cursor: not-allowed;
+	overflow: hidden;
+	text-indent: -99px;
+}
+
+
+.ch-calendar-selected,
+.ch-calendar-selected:hover,
+.ch-calendar-selected.ch-today {
+	background-color: #666;
+	-webkit-box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.3);
+	color: #FFF;
+	font-weight: bold;
+}
+
+.ch-calendar-prev,
+.ch-calendar-next {
+	cursor: pointer;
+	height: 26px;
+	position: absolute;
+}
+
+.ch-calendar-prev span,
+.ch-calendar-next span {
+	background: transparent url('../assets/mini-arrows.png') left top no-repeat;
+	display: block;
+	height: 7px;
+	margin: 10px 25px 0 25px;
+	overflow: hidden;
+	text-indent: 999px;
+	width: 4px;
+}
+
+.ch-calendar-prev {
+	left: 0;
+}
+
+.ch-calendar-next {
+	right: 0;
+}
+
+.ch-calendar-next span {
+	background-position: -3px top;
+}
+
+/* IE7 */
+.lt-ie8 .ch-datePicker-trigger,
+.ie7 .ch-datePicker-trigger {
+	display: inline;
+	margin-bottom: 4px;
+	vertical-align: text-bottom;
+	zoom: 1;
+}
+
+.lt-ie8 .ch-datePicker-container.ch-layer,
+.ie7 .ch-datePicker-container.ch-layer {
+	width: 266px;
+}

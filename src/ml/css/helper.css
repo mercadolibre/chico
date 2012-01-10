@@ -64,6 +64,8 @@
 }
 
 /* IE 6,7 */
+.lt-ie8 .ch-helper,
+/* Deprecate */
 .ie6 .ch-helper,
 .ie7 .ch-helper {
 	z-index:1;

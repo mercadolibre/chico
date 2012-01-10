@@ -43,6 +43,7 @@ ch.tooltip = function (conf) {
 
 	conf.cone = true;
 	conf.content = "<span>" + (that.element.title || that.element.alt) + "</span>";
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");
 
 	conf.aria = {};
 	conf.aria.role = "tooltip";
