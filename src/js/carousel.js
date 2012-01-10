@@ -818,22 +818,23 @@ ch.carousel = function (conf) {
 	draw();
 	
 	// Default behavior	
-	if (ch.utils.hasOwn(conf, "width")) { return that; }
-	
-	// Elastic behavior
-	// Change resize status on Window resize event
-	ch.utils.window.bind("resize", function () { resizing = true; });
-	
-	// Limit resize execution
-	setInterval(function () {
+	if (!ch.utils.hasOwn(conf, "width")) {
 		
-		if (!resizing) { return; }
+		// Elastic behavior
+		// Change resize status on Window resize event
+		ch.utils.window.bind("resize", function () { resizing = true; });
 		
-		resizing = false;
-		
-		draw();
-		
-	}, 350);
+		// Limit resize execution
+		setInterval(function () {
+			
+			if (!resizing) { return; }
+			
+			resizing = false;
+			
+			draw();
+			
+		}, 350);
+	}
 	
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).

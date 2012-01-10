@@ -532,19 +532,34 @@
 	</div> 
 
 	<div class="box"> 
-		<h2>Calendar</h2>
-		<form action="/test.html" class="YOUR_SELECTOR_Formcalendar ch-form">
+		<h2>Date Picker</h2>
+		<form action="/test.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
 			<fieldset>
-				<legend>Calendar</legend>
+				<legend>Date Picker</legend>
 				<p class="ch-form-row"> 
 					<label for="val_date">
 						Fecha:
 					</label>													
-					<input type="date" id="val_date" class="myCalendar"  placeholder="DD/MM/YYYY"> <!-- value="18/11/2011" -->
+					<input type="date" id="val_date" class="myDatePicker"  placeholder="DD/MM/YYYY"> <!-- value="18/11/2011" -->
 				</p>
 			</fieldset>
 		</form>
 	</div>
+
+	<div class="box"> 
+		<h2>Countdown</h2>
+		<form action="/test.html" class="YOUR_SELECTOR_Formcountdown ch-form">
+			<fieldset>
+				<p class="ch-form-row"> 
+					<label for="val_date">
+						Text:
+					</label>													
+					<textarea id="text_cd" class="myCountdown"></textarea>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+
 
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
@@ -1014,17 +1029,20 @@
 		// Expando
 		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
 
-		// Calendar
-		var calendar = $(".myCalendar").calendar({
-			selected: "2011/11/15",
-			from: "2010/11/05",
-			to: "2012/11/25"
+		// Date Picker
+		var datePicker = $(".myDatePicker").datePicker({
+			"selected": "2011/11/15",
+			"from": "2010/11/05",
+			"to": "2012/11/25"
 		});
 
 		var ch_ico = $(".ch-form-ico").layer({content:"Help",event:"click", offset:"-12 15"});
 			
 		// Form
 		var ch_form = $('.myForm').form();
+		
+		// Countdown
+		var cd = $(".myCountdown").countdown(100);
 
 		// Watchers
 		var ch_wprice = $("#price").price("Price please!").and().required("algo");

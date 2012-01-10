@@ -3,12 +3,8 @@
 	background-image:none;
 	position:absolute;
 	z-index: 300;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
 	box-shadow: 3px 3px 3px #999;
 	-webkit-box-shadow: 3px 3px 3px #999;
-	-moz-box-shadow: 3px 3px 3px #999;
 }
 
 .ch-layer .close {

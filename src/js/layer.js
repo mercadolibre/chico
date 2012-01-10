@@ -55,8 +55,8 @@ ch.layer = function (conf) {
 	conf = ch.clon(conf);
 	
 	conf.cone = true;
-	conf.closeButton = conf.event === "click";
-	conf.classes = "box";
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : (conf.event === "click");
+	conf.classes = conf.classes || "box";
 	conf.closeHandler = conf.closeHandler || "any";
 	
 	conf.aria = {};
@@ -391,9 +391,6 @@ ch.layer = function (conf) {
 			.bind("mouseenter", that.innerShow)
 			.bind("mouseleave", hideTimer);
 	}
-
-	// Fix: change layout problem
-	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
 
 	/**
 	* Triggers when component is visible.

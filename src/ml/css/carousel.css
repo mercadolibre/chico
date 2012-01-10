@@ -1,31 +1,25 @@
-.ch-carousel {
-	overflow:hidden;
-	position:relative;
-	-o-transition:height 0.5s ease;
-	-moz-transition:height 0.5s ease;
-	-webkit-transition:height 0.5s ease;
-	transition:height 0.5s ease;
-}
-
+.ch-carousel,
 .ch-carousel-mask {
-	/*margin:0 50px;*/
-	position:relative;
 	overflow:hidden;
+	position:relative;
 }
 
 .ch-carousel-content {
 	left:0;
 	position:absolute;
-	-o-transition:all 0.8s ease;
-	-moz-transition:all 0.8s ease;
-	-webkit-transition:all 0.8s ease;
-	transition:all 0.8s ease;
+	-webkit-transition:left 0.8s ease;
+	-moz-transition:left 0.8s ease;
+	-ms-transition:left 0.8s ease;
+	-o-transition:left 0.8s ease;
+	transition:left 0.8s ease;
+	
 }
 
-.ch-carousel-nofx{
-	-o-transition:none;
-	-moz-transition:none;
+.ch-carousel-content.ch-carousel-nofx{
 	-webkit-transition:none;
+	-moz-transition:none;
+	-ms-transition:none;
+	-o-transition:none;
 	transition:none;
 }
 
@@ -89,9 +83,6 @@
 	height:10px;
 	cursor:pointer;
 	background-color:#d1d1d1;
-	-o-border-radius:10px;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
 	border-radius:10px;
 }
 
@@ -118,6 +109,8 @@
 }
 
 .no-js .ch-carousel ul {
+	width:-o-max-content;
+	width:-ms-max-content;
 	width:-moz-max-content;
 	width:-webkit-max-content;
 }
