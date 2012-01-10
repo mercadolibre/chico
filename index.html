@@ -547,6 +547,21 @@
 	</div>
 
 	<div class="box"> 
+		<h2>Countdown</h2>
+		<form action="/test.html" class="YOUR_SELECTOR_Formcountdown ch-form">
+			<fieldset>
+				<p class="ch-form-row"> 
+					<label for="val_date">
+						Text:
+					</label>													
+					<textarea id="text_cd" class="myCountdown"></textarea>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+
+
+	<div class="box"> 
 		<h2>Form and Watchers</h2> 
 
 		<form action="http://localhost:3000/test/post" class="ch-form myForm" method="POST"> 
@@ -1025,6 +1040,9 @@
 			
 		// Form
 		var ch_form = $('.myForm').form();
+		
+		// Countdown
+		var cd = $(".myCountdown").countdown(100);
 
 		// Watchers
 		var ch_wprice = $("#price").price("Price please!").and().required("algo");
