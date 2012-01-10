@@ -32,21 +32,6 @@
 </head>
 
 <body>
-<div class="box"> 
-		<h2>Calendar</h2>
-		<form action="/test.html" class="YOUR_SELECTOR_Formcalendar ch-form">
-			<fieldset>
-				<legend>Calendar</legend>
-				<p class="ch-form-row"> 
-					<label for="val_date">
-						Fecha:
-					</label>													
-					<input type="date" id="val_date" class="myCalendar"  placeholder="DD/MM/YYYY"> <!-- value="18/11/2011" -->
-				</p>
-			</fieldset>
-		</form>
-	</div>
-
 	<h1>Chico-UI</h1>
 	<div class="container">
 		<h1>Header 1</h1> 
@@ -140,14 +125,7 @@
 			</div>
 				<input type="submit" class="btn secondary skin" />
 		</form>
-	</div>
-	
-	<div class="box"> 
-		<h2>Countdown</h2> 
-		<form action="/" id="cdForm">
-			<textarea class="countdown"></textarea>
-		</form>
-	</div>
+	</div> 
 	
 	<div class="box">
 		<h2>Blink</h2>
@@ -553,6 +531,20 @@
 		</ul>
 	</div> 
 
+	<div class="box"> 
+		<h2>Date Picker</h2>
+		<form action="/test.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
+			<fieldset>
+				<legend>Date Picker</legend>
+				<p class="ch-form-row"> 
+					<label for="val_date">
+						Fecha:
+					</label>													
+					<input type="date" id="val_date" class="myDatePicker"  placeholder="DD/MM/YYYY"> <!-- value="18/11/2011" -->
+				</p>
+			</fieldset>
+		</form>
+	</div>
 
 	<div class="box"> 
 		<h2>Form and Watchers</h2> 
@@ -955,13 +947,79 @@
         document.getElementsByTagName("h1")[0].innerHTML = title;
 
 		// Components
-	
-		// Calendar
-		var calendar = $(".myCalendar").datePicker({
-		//	"selected": "2011/10/15",
-		//	"from": "2011/01/03",
-		//	"to": "2012/06/20"
-		}).show();
+		
+		// AutoComplete
+		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest/"});
+		
+		var autoComplete = function(data){
+			ac.suggest(data);
+		}
+		
+		// Blink
+		$("#doHighlight").bind("mousedown",function(){$("#example").blink();});
+		
+		// Accordion
+		var ch_acco = $(".YOUR_SELECTOR_Accordion").accordion({
+			selected: "1#2"
+		});
+		
+		// Menu
+		var ch_menu = $(".YOUR_SELECTOR_Menu").menu();
+		
+		// Dropdown
+		var ch_drop = $(".YOUR_SELECTOR_Dropdown").dropdown();
+		var ch_drop = $(".myDropdown").dropdown();
+
+		// Carousel
+		var ch_caro = $(".YOUR_SELECTOR_Carousel").carousel({
+			pagination:true
+		});
+					
+		// Modal
+		var ch_moda = $(".YOUR_SELECTOR_Modal").modal({
+			width: "500px",
+			height: "300px"
+		});
+		
+		// Modal with invisible DOM Content		
+		var ch_moda_invisible = $(".YOUR_SELECTOR_Modal_invisible").modal({ 
+		  content:"#invisible-content"
+		});
+		
+		// Transition
+		var ch_tran = $(".YOUR_SELECTOR_Transition").transition();
+		
+		// Layer on click
+		var ch_layeC = $(".YOUR_SELECTOR_LayerCloseButton").layer({
+			event: "click",
+			closeHandler: "button",
+			content: "#invisible-content-for-layer"
+		});
+		
+		// Layer on click
+		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
+			event: "click",
+			content: "#invisible-content"
+		});
+		
+		// Layer on mouseover
+		var ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
+
+		// Tooltip
+		var ch_tool = $(".YOUR_SELECTOR_Tooltip").tooltip();
+
+		// Tab Navigator
+		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator();
+
+		// Expando
+		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
+
+		// Date Picker
+		var datePicker = $(".myDatePicker").datePicker({
+			"selected": "2011/11/15",
+			"from": "2010/11/05",
+			"to": "2012/11/25"
+		});
 
 		var ch_ico = $(".ch-form-ico").layer({content:"Help",event:"click", offset:"-12 15"});
 			
