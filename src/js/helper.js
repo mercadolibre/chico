@@ -33,6 +33,7 @@ ch.helper = function(conf){
 		
 	conf.cone = true;
 	conf.cache = false;
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");
 	
 	conf.aria = {};
 	conf.aria.role = "alert";
@@ -214,8 +215,6 @@ ch.helper = function(conf){
 /**
 *  Default event delegation
 */
-
-	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
 
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).

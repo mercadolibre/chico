@@ -43,6 +43,7 @@ ch.tooltip = function (conf) {
 
 	conf.cone = true;
 	conf.content = "<span>" + (that.element.title || that.element.alt) + "</span>";
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");
 
 	conf.aria = {};
 	conf.aria.role = "tooltip";
@@ -252,9 +253,6 @@ ch.tooltip = function (conf) {
 	that.$element
 		.bind("mouseenter", that.innerShow)
 		.bind("mouseleave", that.innerHide);
-
-	// Fix: change layout problem
-	ch.utils.body.bind(ch.events.LAYOUT.CHANGE, function () { that.position("refresh"); });
 
 	/**
 	* Triggers when component is visible.
