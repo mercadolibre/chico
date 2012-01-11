@@ -73,6 +73,8 @@ body {
 	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
 }
 
+.lt-ie7 body,
+/* Dreprecate */
 .ie6 body {
 	width: expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
 }
@@ -162,6 +164,8 @@ h5 {
 	font-weight: normal
 }
 
+.lt-ie9 .price sup,
+/* Dreprecate */
 .ie6 .price sup,
 .ie7 .price sup,
 .ie8 .price sup {
@@ -177,9 +181,32 @@ hr {
 	border-bottom: 1px dashed #CCC;
 }
 
+.lt-ie8 hr,
+/* Dreprecate */
 .ie6 hr,
 .ie7 hr {
 	height: 0;
+}
+
+/*
+* List
+*/
+
+.ch-list {
+	margin-bottom:10px;
+}
+
+.ch-list li {
+	margin-left:10px;
+	padding:3px 0;
+}
+
+ul.ch-list {
+	list-style: disc inside;
+}
+
+ol.ch-list {
+	list-style: decimal inside;
 }
 
 /*
@@ -348,6 +375,8 @@ hr {
 }
 
 /* IE */
+.lt-ie8 .ch-btn, .lt-ie8 .btn,
+/* Dreprecate */
 .ie6 .ch-btn, .ie6 .btn,
 .ie7 .ch-btn, .ie7 .btn {
 	padding: 0;
@@ -373,6 +402,8 @@ hr {
 	padding: 10px;
 }
 
+.lt-ie7 .box,
+/* Deprecate */
 .ie6 .box {
 	z-index: 1; /* Fix z-index property */
 }
@@ -390,6 +421,8 @@ hr {
 	text-align: center;
 }
 
+.lt-ie8 .actions a,
+/* Deprecate */
 .ie6 .actions a,
 .ie7 .actions a, {
 	display: inline-block;
@@ -435,12 +468,18 @@ hr {
 
 .pagination li:first-child a,
 .pagination li:last-child a {
-	border-color: #FFF;
+	border-color: #FFFFFF;
 }
 
 .pagination li:first-child a:hover,
 .pagination li:last-child a:hover {
 	border-color: #0637b3;
+}
+
+.lt-ie8 .pagination li {
+	display: inline;
+	zoom: 1;
+	padding: 5px 2px;
 }
 
 
@@ -451,7 +490,7 @@ hr {
 		
 .ch-ico, .ico,
 .ch-message, .message {
-	background: url(../assets/icons.png) no-repeat;
+	background: url('http://static.weat.com.ar/assets/icons.png') no-repeat;
 }
 
 /* Icons */
@@ -593,7 +632,6 @@ hr {
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFF), color-stop(100%, #ddd));
 	background-image: -webkit-linear-gradient(top, #FFF, #ddd 100%);
 	background-image: linear-gradient(top, #FFF, #ddd 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF', endColorstr='#dddddd');
 	border-bottom: 1px solid #CECECE;
 	border-left: 1px solid #CECECE;
 	font-size: 11px;
@@ -603,11 +641,13 @@ hr {
 	vertical-align: middle;
 }
 
-.datagrid th.selected {
+
+.datagrid .datagrid th.selected {
 	background: #dedede;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dedede', endColorstr='#dedede');
 	position: relative;
+	border-top: 1px solid #CECECE;
 }
+
 
 .datagrid th.selected .asc,
 .datagrid th.selected .desc {
@@ -645,6 +685,22 @@ hr {
 	vertical-align: middle;
 }
 
+.lt-ie9 .datagrid thead tr {
+	border: 2px solid #CECECE;
+	border-left-width: 1px;
+	border-right-width: 2px;
+}
+
+.lt-ie9 .datagrid th {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#dddddd');
+}
+
+.lt-ie9 .datagrid th.selected {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dedede', endColorstr='#dedede');
+}
+
+.lt-ie9 .datagrid td,
+/* Deprecate */
 .ie6 .datagrid td,
 .ie7 .datagrid td,
 .ie8 .datagrid td {

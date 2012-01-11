@@ -12,7 +12,7 @@ var ch = window.ch = {
 	* @type number
 	* @memberOf ch
 	*/
-	version: "0.9.1",
+	version: "0.10.1",
 	/**
 	* Here you will find a map of all component's instances created by Chico-UI.
 	* @name instances
@@ -55,18 +55,17 @@ var ch = window.ch = {
 		document: $(document),
 		zIndex: 1000,
 		index: 0, // global instantiation index
-		isTag: function (tag) {
-			var el = document.createElement(tag)
-			return !(el instanceof HTMLUnknownElement);
+		isTag: function(string){
+			return (/<([\w:]+)/).test(string);
 		},
 		isSelector: function (selector) {
-			if (typeof selector !== "string") { return false; }
-			var style = document.createElement("style");
-			style.innerHTML = selector + "{}";
-			document.body.appendChild(style);
-			var ret = !!style.sheet.cssRules[0];
-			document.body.removeChild(style);
-			return ret;
+			if (typeof selector !== "string") return false;
+			for (var regex in $.expr.match){
+				if ($.expr.match[ regex ].test(selector) && !ch.utils.isTag(selector)) {
+					return true;
+				};
+			};
+			return false;
 		},
 		inDom: function (selector, context) {
 			if (typeof selector !== "string") return false;

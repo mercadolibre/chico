@@ -56,6 +56,10 @@
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8FB0C5), color-stop(3%, #A3C9E1), color-stop(100%, #79B5DC));
 	background: -webkit-linear-gradient(top, #8FB0C5 0%, #A3C9E1 3%, #79B5DC 100%);
 	background: linear-gradient(top, #8FB0C5 0%, #A3C9E1 3%, #79B5DC 100%);
+}
+
+.lt-ie8 .ch-dropdown-trigger.ch-dropdown-trigger,
+.lt-ie8 .ch-dropdown-trigger.ch-dropdown-trigger:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A3C9E1', endColorstr='#79B5DC');
 }
 
@@ -116,11 +120,14 @@
 	-webkit-border-radius: 0;
 	border-radius: 0;
 	color: #0637B3;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff') !important;
 	font-size: 13px;
 	height: 16px;
 	line-height: 16px;
 	text-decoration: none;
+}
+
+.lt-ie8 .secondary .ch-dropdown-trigger {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff') !important;
 }
 
 /* Trigger Down icon */
@@ -190,17 +197,23 @@
 }
 
 
-/* IE 6 */
+.lt-ie8 .ch-dropdown,
+/* Deprecate */
 .ie6 .ch-dropdown {
 	display: inline;
+	zoom: 1;
 }
 
+.lt-ie7 .ch-dropdown-trigger .ico,
+/* Deprecate */
 .ie6 .ch-dropdown-trigger .ico {
 	top: 12px;
 }
 
 
 /* IE 7 */
+.lt-ie8 .ch-dropdown-trigger,
+/* Deprecate */
 .ie6 .ch-dropdown-trigger,
 .ie7 .ch-dropdown-trigger {
 	display: inline;
@@ -211,3 +224,9 @@
 	padding-top: 0;
 	padding-bottom: 0;
 }
+
+/*.lt-ie8 .ch-dropdown-content {
+	min-width: 150px;
+	width: auto !important;
+	width: 150px;
+}*/

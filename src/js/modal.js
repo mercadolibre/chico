@@ -44,8 +44,8 @@ ch.modal = function (conf) {
 	var that = this;
 	conf = ch.clon(conf);
 	
-	conf.classes = "box";
-	conf.closeButton = that.type === "modal";
+	conf.classes = conf.classes || "box";
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : (that.type === "modal");
 	
 	conf.reposition = false;
 	
