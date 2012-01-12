@@ -70,13 +70,18 @@
 	background-color: #FEFBD6;
 }
 
+.ch-calendar-other {
+	color: #C6C6C6;
+	cursor: default!important;
+	overflow: hidden;
+	text-indent: -99px;
+}
+
 .ch-calendar .ch-disabled,
 .ch-calendar .ch-disabled:hover {
 	background-color: #FFF;
 	color: #C6C6C6;
 	cursor: not-allowed;
-	overflow: hidden;
-	text-indent: -99px;
 }
 
 

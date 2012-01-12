@@ -307,7 +307,7 @@ ch.datePicker = function (conf) {
 
 				// Push an empty cell on previous and next month
 				if (i < cells.previous || i > cells.subtotal - 1) {
-					r.push("<td role=\"gridcell\" class=\"ch-disabled\">X</td>");
+					r.push("<td role=\"gridcell\" class=\"ch-calendar-other\">X</td>");
 					continue;
 				}
 
@@ -428,9 +428,11 @@ ch.datePicker = function (conf) {
 
 			// Add functionality for date selection
 			.bind("click", function (event) {
-
+				
+				var src = event.target;
+				
 				// Day selection
-				if (event.target.nodeName === "TD" && event.target.className.indexOf("ch-disabled") === -1) {
+				if (src.nodeName === "TD" && src.className.indexOf("ch-disabled") === -1 && src.className.indexOf("ch-calendar-other") === -1) {
 
 					// Select the day
 					select(createDateObject([currentDate.year, currentDate.month, event.target.innerHTML].join("/")));
