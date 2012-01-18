@@ -213,9 +213,12 @@
 		<h2>Expando</h2> 
 		<div class="YOUR_SELECTOR_Expando"> 
 			<h4>Lorem ipsum dolor sit amet.</h4> 
-			<div> 
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
-			</div> 
+			<article> 
+				<article> 
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+				</article>
+			</article> 
 		</div> 
 	</div> 
 
@@ -225,11 +228,17 @@
 		<ul class="YOUR_SELECTOR_Accordion">
 			<li>
 				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
+				<article> 
+					<article> 
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+						<ul>
+							<li><a href="#">Link 1</a></li>
+							<li><a href="#">Link 2</a></li>
+							<li><a href="#">Link 3</a></li>
+						</ul>
+					</article>
+				</article>
 			</li>
 			<li>
 				<span>Item</span>
@@ -274,7 +283,9 @@
 				<span>Item</span>
 				<ul>
 					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
+					<li>
+						<a href="#">Link 2 <span>Item 1</span> <span>Item 2</span></a>
+					</li>
 					<li><a href="#">Link 3</a></li>
 				</ul>
 			</li>
@@ -318,7 +329,7 @@
 		<h2>Dropdown</h2>
 		
 		<div class="myDropdown ch-dropdown">
-			<p class="ch-dropdown-trigger">Links primary</p>
+			<span class="ch-dropdown-trigger">Links primary</span>
 			<menu label="Links" class="ch-dropdown-content">
 			    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
 			    <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
