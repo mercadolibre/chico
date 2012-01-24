@@ -14,6 +14,7 @@
 * @param {String} [conf.points] Points to be positioned. See Positioner component. By default is "ct cb".
 * @param {Array} [conf.monthsNames] By default is ["Enero", ... , "Diciembre"].
 * @param {Array} [conf.weekdays] By default is ["Dom", ... , "Sab"].
+* @param {Boolean} [conf.closable] Defines if floated component will be closed when a date is selected or not. By default it's "true".
 * @returns itself
 * @example
 * // Create a new Date Picker with configuration.
@@ -47,6 +48,8 @@ ch.datePicker = function (conf) {
 
 	// Positioner Points by default
 	conf.points = conf.points || "ct cb";
+	
+	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
 
 	that.conf = conf;
 
@@ -76,7 +79,7 @@ ch.datePicker = function (conf) {
 		that.watcher.elements.value = calendar.selectDay(event.target.innerHTML);
 
 		// Hide float
-		that.float.hide();
+		if (conf.closable) { that.float.hide(); }
 
 	},
 	
