@@ -34,6 +34,12 @@ ch.controls = function () {
 *  Protected Members
 */
 
+	/**
+	* Reference to the elements to be watched (a.k.a. form inputs).
+	* @protected
+	* @type Object
+	* @name ch.Controls#watcher
+	*/
 	that.watcher = {
 		"elements": that.element,
 		"$elements": that.$element,
@@ -48,6 +54,12 @@ ch.controls = function () {
 		}
 	};
 	
+	/**
+	* Reference to the Float component instanced.
+	* @protected
+	* @type Object
+	* @name ch.Controls#float
+	*/
 	that.float = {};
 
 /**

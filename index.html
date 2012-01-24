@@ -532,10 +532,14 @@
 	</div> 
 
 	<div class="box"> 
+		<h2>Calendar</h2>
+		<div class="YOUR_SELECTOR_calendar"></div>
+	</div>
+
+	<div class="box"> 
 		<h2>Date Picker</h2>
 		<form action="/test.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
 			<fieldset>
-				<legend>Date Picker</legend>
 				<p class="ch-form-row"> 
 					<label for="val_date">
 						Fecha:
@@ -1028,7 +1032,14 @@
 
 		// Expando
 		var ch_expa = $(".YOUR_SELECTOR_Expando").expando();
-
+		
+		// Calendar
+		var calendar = $(".YOUR_SELECTOR_calendar").calendar({
+			"selected": "2011/11/15",
+			"from": "2010/11/05",
+			"to": "2012/11/25"
+		});
+		
 		// Date Picker
 		var datePicker = $(".myDatePicker").datePicker({
 			"selected": "2011/11/15",
