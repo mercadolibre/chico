@@ -196,7 +196,15 @@ ch.calendar = function (conf) {
 
 			return result.join("/");
 		},
-
+	
+	/**
+	* The current date that should be shown on Calendar.
+	* @private
+	* @name ch.Calendar#currentDate
+	* @type Object
+	*/
+		currentDate = today,
+	
 	/**
 	* Sets the date object of selected day.
 	* @private
@@ -204,15 +212,36 @@ ch.calendar = function (conf) {
 	* @type Object
 	*/
 		setSelected = function () {
-
+			
 			// Get date from configuration or input value
-			var date = conf.selected || conf.msg;
+			var sel = conf.selected || conf.msg;
+			
+			// Do it only if there are a "selected" parameter
+			if (!sel) { return; }
+			
+			// Simple date selection
+			if (!ch.utils.isArray(sel)) {
 
-			// Create date object only if there is a date to do
-			return (date ? createDateObject(date) : undefined);
-
+				// Return date object and update currentDate
+				return (sel !== "today") ? currentDate = createDateObject(sel) : today;
+				
+			// Multiple date selection
+			} else {
+				$.each(sel, function (i, e) {
+					// Simple date
+					if (!ch.utils.isArray(e)) {
+						sel[i] = (sel[i] !== "today") ? createDateObject(e) : today;
+					// Range
+					} else {
+						sel[i][0] = (sel[i][0] !== "today") ? createDateObject(e[0]) : today;
+						sel[i][1] = (sel[i][1] !== "today") ? createDateObject(e[1]) : today;
+					}
+				});
+				
+				return sel;
+			}
 		},
-
+		
 	/**
 	* Date of selected day.
 	* @private
@@ -222,12 +251,46 @@ ch.calendar = function (conf) {
 		selected = setSelected(),
 
 	/**
-	* The current date that should be shown on Calendar.
+	* 
 	* @private
-	* @name ch.Calendar#currentDate
-	* @type Object
+	* @name ch.Calendar#isSelectable
+	* @function
+	* @param year
+	* @param month
+	* @param day
+	* @return Boolean
 	*/
-		currentDate = selected || today,
+		isSelectable = function (year, month, day) {
+			
+			var yepnope = false;
+			
+			// Simple selection
+			if (!ch.utils.isArray(selected)) {
+				if (year === selected.year && month === selected.month && day === selected.day) {
+					return yepnope = true;
+				}
+			// Multiple selection (ranges)
+			} else {
+				$.each(selected, function (i, e) {
+					// Simple date
+					if (!ch.utils.isArray(e)) {
+						if (year === e.year && month === e.month && day === e.day) {
+							return yepnope = true;
+						}
+					// Range
+					} else {
+						if (
+							(year >= e[0].year && month >= e[0].month && day >= e[0].day) &&
+							(year <= e[1].year && month <= e[1].month && day <= e[1].day)
+						) {
+							return yepnope = true;
+						}
+					}
+				});
+			}
+			
+			return yepnope;
+		},
 
 	/**
 	* Thead tag, including ARIA and cells with each weekday name.
@@ -314,7 +377,7 @@ ch.calendar = function (conf) {
 					day = positive - cells.previous,
 
 				// Define if it's the day selected
-					isSelected = selected && date.year === selected.year && date.month === selected.month && day === selected.day;
+					isSelected = isSelectable(date.year, date.month, day);
 
 				// Create cell
 				r.push(
