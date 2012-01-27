@@ -64,12 +64,7 @@ ch.datePicker = function (conf) {
 *	Private Members
 */
 	
-	/**
-	* Pick a date in the Calendar and updates the input data.
-	* @private
-	* @function
-	* @name ch.DatePicker#select
-	*/
+	// Pick a date in the Calendar and updates the input data.
 	var select = function (event) {
 
 		// Day selection

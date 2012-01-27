@@ -127,21 +127,10 @@ ch.calendar = function (conf) {
 
 		},
 
-	/**
-	* Today's date object.
-	* @private
-	* @name ch.Calendar#today
-	* @type Object
-	*/
+	// Today's date object
 		today = createDateObject(),
 
-	/**
-	* Minimum selectable date.
-	* @private
-	* @since 0.9
-	* @name ch.Calendar#from
-	* @type Object
-	*/
+	// Minimum selectable date
 		from = (function () {
 
 			// Only works when there are a "from" parameter on configuration
@@ -152,13 +141,7 @@ ch.calendar = function (conf) {
 
 		}()),
 
-	/**
-	* Maximum selectable date.
-	* @private
-	* @since 0.9
-	* @name ch.Calendar#to
-	* @type Object
-	*/
+	// Maximum selectable date
 		to = (function () {
 
 			// Only works when there are a "to" parameter on configuration
@@ -251,7 +234,7 @@ ch.calendar = function (conf) {
 		selected = setSelected(),
 
 	/**
-	* 
+	* Indicates if an specific date is selected or not (including date ranges and simple dates).
 	* @private
 	* @name ch.Calendar#isSelectable
 	* @function

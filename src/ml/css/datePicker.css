@@ -23,13 +23,17 @@
 	top: -8px;
 }
 
+.ch-datePicker-container .ch-calendar {
+	display: block;
+}
+
 .ch-datePicker-container .ch-calendar caption,
 .ch-datePicker-container .ch-calendar thead {
-	border:none;
+	border: none;
 }
 
 .ch-datePicker-container .ch-calendar caption {
-	margin:0;
+	margin: 0;
 }
 
 .ch-datePicker-container .ch-calendar-prev span,
