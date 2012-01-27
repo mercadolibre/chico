@@ -1,7 +1,7 @@
 Chico UI
 ========
 
-chico-ui.com.ar
+http://chico-ui.com.ar
 
 Get things done, quickly
 ------------------------
