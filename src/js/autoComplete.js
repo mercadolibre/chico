@@ -36,15 +36,16 @@ ch.autoComplete = function(conf){
 	that.conf = conf;
 	that.conf.icon = false;
 	that.conf.type = "autoComplete";
+	that.conf.message = conf.message || "Please write to be suggested";
+	that.conf.suggestions = conf.suggestions;
+	that.conf.showAll = conf.showAll;
 	
 /**
 *	Inheritance
 */
-
-	that = ch.navs.call(that);
-	that.parent = ch.clon(that);
 	
-	that.$element.parent("form").bind("submit",function(e){e.preventDefault()});
+	that = ch.controls.call(that);
+	that.parent = ch.clon(that);
 	
 /**
 *  Private Members
@@ -92,23 +93,49 @@ ch.autoComplete = function(conf){
 /**
 *  Protected Members
 */ 
-	
-	var $nav = that.$element.children();
-		that.$trigger = $nav.eq(0).attr("autocomplete","off");
-		that.$content = $nav.eq(1);
+	that.suggestions = that.conf.suggestions;
+	that.$trigger = $(that.element);
+	that.$content = $("<ul>");
+	that.float = that.$element.attr("autocomplete","off")
+		// Initialize Layer component
+		.layer({
+			"event": "click",
+			"content": that.$content,
+			"points": conf.points,
+			"classes": "ch-autoComplete",
+			"closeButton": false,
+			"offset": "0 0"
+		})
+		// Show callback
+		.on("show", function () {
+			// Old callback system
+			that.callbacks.call(that, "onShow");
+			// New callback
+			that.float.width(that.$trigger.outerWidth());
+			that.trigger("show");
+		})
+		// Hide callback
+		.on("hide", function () {
+			// Old callback
+			that.callbacks.call(that, "onHide");
+			// New callback
+			that.trigger("hide");
+		}).on("ready", function () {
+			that.float.width((that.$trigger.outerWidth()));
+		});
 
 	that.populateContent = function(result){
-		that.$content.html("");
 		var content = "<li>"+result.join("</li><li>")+"</li>";
-		that.$content = $nav.eq(1).append(content);
+		that.$content.html(content);
+		that.float.content(that.$content);
 		that.items = that.$content.find("li");
 		that.selected = -1;
 		shortcuts(that.items);
 	}
-	
+
 	that.doQuery = function(event){
-		if(event.keyCode!==38 && event.keyCode!==40  && event.keyCode!==13  && event.keyCode!==27){
-			var q = that.$trigger.val(); 
+		var q = that.$trigger.val().toLowerCase();
+		if(that.conf.url!==undefined && q!==""){
 			var result = $.ajax({
 				url: that.conf.url + q,
 				dataType:"jsonp",
@@ -116,9 +143,19 @@ ch.autoComplete = function(conf){
 				crossDomain:true,
 				success: function(data){}
 			});
+		} else if(that.conf.url===undefined && q!=="") {
+			var result = [];
+			for(var a=(that.suggestions.length-1);(a+1);a--){
+				var word = that.suggestions[a].toLowerCase();
+				var exist = word.search(q);
+				if(!exist){
+					result.push(that.suggestions[a]);
+				}
+			}
+			that.populateContent(result);
 		}
 	}
-	
+
 	that.configBehavior = function () {
 		that.$trigger
 			.addClass("ch-" + that.type + "-trigger")
@@ -128,31 +165,30 @@ ch.autoComplete = function(conf){
 			.bind("blur", function (event) { 
 				 that.hide(event);
 			});
-		that.$content.addClass("ch-" + that.type + "-content ch-hide");
-		that.position = ch.positioner({element:that.$content,context:that.$trigger,points:"lt lb"});
+		that.$content.addClass("ch-" + that.type + "-content");
 	};
 	
 	that.show = function(event){
-		that.parent.show();
+		ch.utils.document.bind(ch.events.KEY.BACKSPACE, function (x, event) { if( event.target.value.length<=1 ){ that.populateContent([that.conf.message]); }});
 		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function (x, event) { selectItem("up", event); });
 		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
 		ch.utils.document.bind(ch.events.KEY.ESC, function (x, event) { that.$trigger.trigger("blur"); });
 		ch.utils.document.bind(ch.events.KEY.ENTER, function (x, event) {  that.$trigger.val(that.items.eq(that.selected).text()); that.$trigger.trigger("blur"); });
-		if(that.conf.url){
-			ch.utils.document.bind("keyup", function (event) { that.doQuery(event); });
-		}
+		ch.utils.document.bind("keyup", function (event) { 
+			if(event.keyCode!==38 && event.keyCode!==40  && event.keyCode!==13  && event.keyCode!==27){that.doQuery(event);}
+			 
+		});
 		return that;
 	}
 	
 	that.hide = function(event){
 		that.doQuery(event);
-		
-		that.parent.hide(event);
-		ch.utils.document.unbind("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW);
+		ch.utils.document.unbind("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
+		that.float.hide();
 		return that;
 	}
 	
-	that.populateContent(["Please write to be suggested"]);
+	that.populateContent([that.conf.message]);
 /**
 *  Public Members
 */
@@ -211,7 +247,8 @@ ch.autoComplete = function(conf){
 	* @returns itself
 	*/	
 	that["public"].suggest = function(data){
-		that.populateContent(data);
+		that.suggestions = data;
+		that.populateContent(that.suggestions);
 		return that["public"];
 	};
 

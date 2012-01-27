@@ -1,16 +1,22 @@
 .ch-autoComplete 
 {
-	display:inline-block;
+	/*display:inline-block;
 	position:relative;
-	width:400px;
+	width:400px;*/
 }
 
-.ch-autoComplete-trigger
+.ch-autoComplete .ch-cone
+{
+	display:none !important;
+}
+
+.ch-autoComplete-trigger,
+.ch-autoComplete-trigger:focus
 {
 	border:1px solid #CCCCCC;
-	padding:1%;
+	padding:15px;
 	margin:5px 0;
-	width:98%;
+	width:400px;
 	display:inline-block;
 }
 
@@ -19,7 +25,7 @@
 	background-color:#ffffff;
 	border:1px solid #CCCCCC;
 	border-top:none;
-	width:100%;
+	/*width:100%;*/
 }
 
 .ch-autoComplete-content li

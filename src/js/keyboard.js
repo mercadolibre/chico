@@ -22,7 +22,8 @@ ch.keyboard = function(event) {
 		"37": "LEFT_ARROW",
 		"38": "UP_ARROW",
 		"39": "RIGHT_ARROW",
-		"40": "DOWN_ARROW"
+		"40": "DOWN_ARROW",
+		 "8": "BACKSPACE"
 	};
 
 	if( !ch.utils.hasOwn(keyCodes, event.keyCode) ) return;

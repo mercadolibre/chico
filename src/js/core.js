@@ -212,7 +212,14 @@ var ch = window.ch = {
 			* @constant
 			* @memberOf ch.Events.KEY
 			*/
-			DOWN_ARROW: "down_arrow"
+			DOWN_ARROW: "down_arrow",
+			/**
+			* Backspace key event.
+			* @name BACKSPACE
+			* @constant
+			* @memberOf ch.Events.KEY
+			*/
+			BACKSPACE: "backspace"
 		}
 	}
 };

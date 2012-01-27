@@ -118,13 +118,13 @@
 	
 	<div class="box"> 
 		<h2>AutoComplete</h2> 
-		<form method="get" action="/" id="asForm">
-			<div class="autoComplete">
-				<input type="text" id="autocomplete" placeholder="Write a country name" />
-				<ul></ul>
+		<!--form method="get" action="/" id="asForm">
+			<div class="autoComplete"-->
+				<input type="text" list="list1" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
+				<!--ul></ul>
 			</div>
 				<input type="submit" class="btn secondary skin" />
-		</form>
+		</form-->
 	</div> 
 	
 	<div class="box">
@@ -975,7 +975,9 @@
 		// Components
 		
 		// AutoComplete
-		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest/"});
+		//var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest/",message:"Escribí"});
+		var ac = $(".autoComplete").autoComplete({suggestions:["Oops","Oso","Olor","ser","something","wrong","happened","B","AA","BBBB"],message:"Escribe y seras sugerido"});
+		//var ac = $(".autoComplete").autoComplete({showAll:true,suggestions:["Oops","Oso","Olor","ser","something","wrong","happened","B","AA","BBBB"],message:"Escribe y seras sugerido"});
 		
 		var autoComplete = function(data){
 			ac.suggest(data);
