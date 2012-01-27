@@ -1,25 +1,25 @@
 Chico UI
 ========
 
-www.chico-ui.com.ar
+chico-ui.com.ar
 
 Get things done, quickly
 ------------------------
-Chico is a free and open source collection of easy-to-use web toys for developers and designers. Built on top of jQuery, this toolbox brings a couple of known visual patterns for the web and takes advantages of the new HTML5 and CSS3 features. We want to share this tool with the world to help making the web more beautiful.
+Chico UI is a free and open source collection of easy-to-use web tools for developers and designers.
 
-Some features
+Features
 -------------
-- UI Components, 
-- Grid System and
-- Custom Skins  
+- UI Widgets
+- Chico Mesh: Fast and simple layouts
+- Chico Flavors: Custom CSS skins
 
 Get in touch
 ------------
-- chico (at) mercadolibre.com
-- @chicoui
-- IRC Chat - Server: irc.freenode.net - Room: #chicoui
-- http://groups.google.com/group/chico-ui
-- http://blog.chico-ui.com.ar/
+- e-mail: chico (at) mercadolibre.com
+- Twitter: @chicoui
+- IRC: irc.freenode.net, room: #chicoui
+- Google group: http://groups.google.com/group/chico-ui
+- Ninja Blog: http://blog.chico-ui.com.ar/
 
 The team
 --------
@@ -38,7 +38,7 @@ Credits
 
 License
 -------
-Copyright (c) 2011 MercadoLibre, http://www.mercadolibre.com/ 
+Copyright (c) 2012 MercadoLibre, http://www.mercadolibre.com/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -56,4 +56,4 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.  
+THE SOFTWARE.
