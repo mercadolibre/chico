@@ -1,0 +1,114 @@
+.ch-calendar {
+	position:relative;
+	display:inline-block;
+}
+
+.ch-calendar-month {
+	font-size: 12px;
+	text-align: center;
+	width: 240px;
+}
+
+.ch-calendar caption,
+.ch-calendar thead,
+.ch-calendar td {
+	border: 1px solid #dfdfdf;
+}
+
+.ch-calendar caption {
+	background: -o-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: -ms-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: -moz-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #ddd));
+	background: -webkit-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: linear-gradient(top, #fff 0%, #ddd 100%);
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
+	font-size: 13px;
+	height: 26px;
+	line-height: 28px;
+	margin-right: -1px;
+}
+
+.ch-calendar thead {
+	border-weight:0 1px;
+}
+
+.ch-calendar th {
+	font-size: 11px;
+	font-weight: normal;
+	width: 14.28%;
+}
+
+.ch-calendar td {
+	cursor: default;
+	height: 26px;
+	line-height: 26px;
+	width: 14.28%;
+}
+
+.ch-calendar-today {
+	background-color: #FEFBD6;
+}
+
+.ch-calendar-other {
+	color: #C6C6C6;
+	cursor: default!important;
+	overflow: hidden;
+	text-indent: -99px;
+}
+
+.ch-calendar .ch-disabled,
+.ch-calendar .ch-disabled:hover {
+	background-color: #FFF;
+	color: #C6C6C6;
+	cursor: not-allowed;
+}
+
+
+.ch-calendar-selected,
+.ch-calendar-selected:hover,
+.ch-calendar-selected.ch-today {
+	background-color: #666!important;
+	color: #FFF!important;
+	font-weight: bold!important;
+}
+
+.ch-calendar-prev,
+.ch-calendar-next {
+	cursor: pointer;
+	height: 26px;
+	position: absolute;
+}
+
+.ch-calendar-prev span,
+.ch-calendar-next span {
+	background: transparent url('../assets/mini-arrows.png') left top no-repeat;
+	display: block;
+	height: 7px;
+	margin: 11px 25px 0 25px;
+	overflow: hidden;
+	text-indent: 999px;
+	width: 4px;
+}
+
+.ch-calendar-prev {
+	left: 0;
+}
+
+.ch-calendar-next {
+	right: 0;
+}
+
+.ch-calendar-next span {
+	background-position: -3px top;
+}
+
+.ie9 .ch-calendar caption,
+.ie8 .ch-calendar caption {
+	margin:0;
+}
+
+.ie7 .ch-calendar {
+	display:inline;
+	zoom:1;
+}
