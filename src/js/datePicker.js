@@ -68,7 +68,7 @@ ch.datePicker = function (conf) {
 	var select = function (event) {
 
 		// Day selection
-		if (event.target.nodeName !== "TD" || event.target.className.indexOf("ch-disabled") !== -1) { return; }
+		if (event.target.nodeName !== "TD" || event.target.className.indexOf("ch-calendar-other") !== -1) { return; }
 
 		// Select the day and update input value with selected date
 		that.watcher.elements.value = calendar.selectDay(event.target.innerHTML);
