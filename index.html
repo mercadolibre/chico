@@ -10,8 +10,7 @@
 	<title>Chico-UI</title>
 	
 	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
-	<link rel="stylesheet" href="/src/plugins/gallery/chico.gallery.css">
-	
+
 	<style> 
 		/* Carousel list size */
 		.YOUR_SELECTOR_Carousel .ch-carousel-content li {
@@ -486,38 +485,6 @@
 		</div>
 	</div> 
 
-
-	<div class="box">
-		<div class="ch-gallery">
-			<ul>
-				<li>
-					<a href="http://bimg1.mlstatic.com/s_MLA_v_F_f_123861867_7560.jpg">
-						<img src="http://img2.mlstatic.com/s_MLA_v_O_f_123861867_7560.jpg" data-thumbnail="http://img2.mlstatic.com/s_MLA_v_M_f_123861867_7560.jpg">
-					</a>
-				</li>
-				<li>
-					<a href="http://bimg1.mlstatic.com/s_MLA_v_F_f_123861867_1722.jpg">
-						<img src="http://img2.mlstatic.com/s_MLA_v_O_f_123861867_1722.jpg" data-thumbnail="http://img2.mlstatic.com/s_MLA_v_M_f_123861867_1722.jpg">
-					</a>
-				</li>
-				<li>
-					<img src="http://img2.mlstatic.com/s_MLA_v_O_f_123861867_5931.jpg" data-thumbnail="http://img2.mlstatic.com/s_MLA_v_M_f_123861867_5931.jpg">
-				</li>
-				<li>
-				
-				<object height="400" width="500" style="padding: 0; margin-bottom:30px;">
-				<param name="movie" value="http://www.youtube.com/e/g2NIgwXXrrs?enablejsapi=1&version=3">
-				<param name="allowFullScreen" value="false">
-				<param name="allowScriptAccess" value="always">
-				<param name="wmode" value="opaque">
-				<embed src="http://www.youtube.com/e/g2NIgwXXrrs?enablejsapi=1&version=3" type="application/x-shockwave-flash" allowfullscreen="false" allowscriptaccess="always" height="400" width="500" wmode="opaque">
-				</object>
-				
-				</li>
-			</ul>
-		</div>
-	</div>
-
 	<div class="box"> 
 		<h2>Icons</h2>
 		<ul class="showroomIcons">
@@ -962,9 +929,8 @@
 
 	</div> 
 	
-	<script src="http://code.jquery.com/jquery-1.7.1.js"></script>
+	<script src="libs/js/jquery-debug.js"></script>
 	<script src="http://chico.com:8080/latest/js?debug=true"></script>
-	<script src="/src/plugins/gallery/chico.gallery.js"></script>
 	<script> 
 
 		// Automatic version
@@ -1083,10 +1049,6 @@
 		var ch_wch4 = $("#range").min(1).and().max(10);
 		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#required_disabled, #select2, #select3, .check2, .check3, .radio2, .radio3, .radio4, #textarea2, #textarea3").required("Required");
-
-
-		// Gallery
-		var ch_gal = $(".ch-gallery").gallery();
 
 	</script>
 </body> 
