@@ -48,6 +48,12 @@
 	cursor:pointer;
 }
 
+.ch-datePicker-container .ch-calendar-day.ch-disabled:hover {
+	background-color: white;
+	color: #C6C6C6;
+	cursor: not-allowed;
+}
+
 /* IE7 */
 .lt-ie8 .ch-datePicker-trigger,
 .ie7 .ch-datePicker-trigger {
