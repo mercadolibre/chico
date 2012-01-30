@@ -1,23 +1,11 @@
-.ch-autoComplete 
-{
-	/*display:inline-block;
-	position:relative;
-	width:400px;*/
-}
-
 .ch-autoComplete .ch-cone
 {
 	display:none !important;
 }
 
-.ch-autoComplete-trigger,
-.ch-autoComplete-trigger:focus
+.ch-autoComplete-trigger
 {
-	border:1px solid #CCCCCC;
-	padding:15px;
-	margin:5px 0;
 	width:400px;
-	display:inline-block;
 }
 
 .ch-autoComplete-content
@@ -25,7 +13,6 @@
 	background-color:#ffffff;
 	border:1px solid #CCCCCC;
 	border-top:none;
-	/*width:100%;*/
 }
 
 .ch-autoComplete-content li
@@ -35,8 +22,6 @@
 	cursor:pointer;
 }
 
-/*.ch-autoComplete-content li:hover,
-.ch-autoComplete-content li:focus,*/
 .ch-autoComplete-selected
 {
 	padding:3px;

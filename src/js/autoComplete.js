@@ -3,22 +3,20 @@
 * AutoComplete is a UI-Component.
 * @name AutoComplete
 * @class AutoComplete
-* @augments ch.Navs
+* @augments ch.Controls
 * @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {Boolean} [conf.open] Shows the autoComplete open when component was loaded. By default, the value is false.
-* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
+* @param {String} [conf.url] The url pointing to the suggestions's service.
+* @param {String} [conf.message] It represent the text when no options are shown.
+* @param {Array} [conf.suggestions] The list of suggestions. Use it when you don't have server side suggestions service. Don't use conf.url with this option.
 * @returns itself
 * @example
 * // Create a new autoComplete with configuration.
 * var me = $(".example").autoComplete({
-*     "open": true,
-*     "fx": true
+*     "url": "http://site.com/mySuggestions?q=",
+*     "message": "Write..."
 * });
-* @example
-* // Create a new autoComplete without configuration.
-* var me = $(".example").autoComplete();
 */
  
 ch.autoComplete = function(conf){
@@ -51,15 +49,12 @@ ch.autoComplete = function(conf){
 *  Private Members
 */
 
-	that.selected = -1;
-
 	/**
 	* Adds keyboard events.
 	* @private
-	* @function
+	* @type Function
 	* @name ch.AutoComplete#shortcuts
 	*/
-	
 	var shortcuts = function (items) {
 		$.each(items, function (i, e) {
 			$(e).bind("mouseenter", function () {
@@ -76,8 +71,13 @@ ch.autoComplete = function(conf){
 			});
 		});
 	};
-	
-	// move out of shortcuts
+
+	/**
+	* Select an item.
+	* @private
+	* @type Function
+	* @name ch.AutoComplete#selectItem
+	*/
 	var selectItem = function (arrow, event) {
 		that.prevent(event);
 		if (that.selected === (arrow === "bottom" ? that.items.length - 1 : 0)) { return; }
@@ -88,14 +88,49 @@ ch.autoComplete = function(conf){
 		
 		
 	};
-	
 
 /**
 *  Protected Members
-*/ 
+*/
+
+	/**
+	* The number of the selected item.
+	* @protected
+	* @type Number
+	* @name ch.AutoComplete#selected
+	*/
+	that.selected = -1;
+
+	/**
+	* List of the shown suggestions.
+	* @protected
+	* @type Array
+	* @name ch.AutoComplete#suggestions
+	*/
 	that.suggestions = that.conf.suggestions;
+
+	/**
+	* The input where the AutoComplete works.
+	* @protected
+	* @type jQuery
+	* @name ch.AutoComplete#$trigger
+	*/
 	that.$trigger = $(that.element);
+
+	/**
+	* Inner reference to content container. Here is where the content will be added.
+	* @protected
+	* @type jQuery
+	* @name ch.AutoComplete#$content
+	*/
 	that.$content = $("<ul>");
+
+	/**
+	* The Float that show the suggestions's list.
+	* @protected
+	* @type ch.Layer
+	* @name ch.AutoComplete#float
+	*/
 	that.float = that.$element.attr("autocomplete","off")
 		// Initialize Layer component
 		.layer({
@@ -124,6 +159,12 @@ ch.autoComplete = function(conf){
 			that.float.width((that.$trigger.outerWidth()));
 		});
 
+	/**
+	* It fills the content inside the element represented by the float.
+	* @protected
+	* @type Function
+	* @name ch.AutoComplete#populateContent
+	*/
 	that.populateContent = function(result){
 		var content = "<li>"+result.join("</li><li>")+"</li>";
 		that.$content.html(content);
@@ -131,10 +172,18 @@ ch.autoComplete = function(conf){
 		that.items = that.$content.find("li");
 		that.selected = -1;
 		shortcuts(that.items);
+		return that;
 	}
 
+	/**
+	* It does the query to the server if configured an URL, or it does the query inside the array given.
+	* @protected
+	* @type Function
+	* @name ch.AutoComplete#doQuery
+	*/
 	that.doQuery = function(event){
 		var q = that.$trigger.val().toLowerCase();
+		// When URL is configured it will execute an ajax request.
 		if(that.conf.url!==undefined && q!==""){
 			var result = $.ajax({
 				url: that.conf.url + q,
@@ -143,6 +192,7 @@ ch.autoComplete = function(conf){
 				crossDomain:true,
 				success: function(data){}
 			});
+		// When not URL configured and suggestions array were configured it search inside the suggestions array.
 		} else if(that.conf.url===undefined && q!=="") {
 			var result = [];
 			for(var a=(that.suggestions.length-1);(a+1);a--){
@@ -154,8 +204,15 @@ ch.autoComplete = function(conf){
 			}
 			that.populateContent(result);
 		}
+		return that;
 	}
 
+	/**
+	* It gives the main behavior(focus and blur) to the $trigger.
+	* @protected
+	* @type Function
+	* @name ch.AutoComplete#configBehavior
+	*/
 	that.configBehavior = function () {
 		that.$trigger
 			.addClass("ch-" + that.type + "-trigger")
@@ -166,28 +223,47 @@ ch.autoComplete = function(conf){
 				 that.hide(event);
 			});
 		that.$content.addClass("ch-" + that.type + "-content");
+		return that;
 	};
-	
+
+	/**
+	* Internal show method. It adds the behavior.
+	* @protected
+	* @type Function
+	* @name ch.AutoComplete#show
+	*/
 	that.show = function(event){
+		// BACKSPACE key bheavior. When backspace go to the start show the message
 		ch.utils.document.bind(ch.events.KEY.BACKSPACE, function (x, event) { if( event.target.value.length<=1 ){ that.populateContent([that.conf.message]); }});
+		// UP ARROW key behavior
 		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function (x, event) { selectItem("up", event); });
+		// DOWN ARROW key behavior
 		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
+		// ESC key behavior
 		ch.utils.document.bind(ch.events.KEY.ESC, function (x, event) { that.$trigger.trigger("blur"); });
+		// ENTER key behavior
 		ch.utils.document.bind(ch.events.KEY.ENTER, function (x, event) {  that.$trigger.val(that.items.eq(that.selected).text()); that.$trigger.trigger("blur"); });
+		// Global keyup behavior
 		ch.utils.document.bind("keyup", function (event) { 
 			if(event.keyCode!==38 && event.keyCode!==40  && event.keyCode!==13  && event.keyCode!==27){that.doQuery(event);}
 			 
 		});
 		return that;
 	}
-	
+
+	/**
+	* Internal hide method. It removes the behavior.
+	* @protected
+	* @type Function
+	* @name ch.AutoComplete#hide
+	*/
 	that.hide = function(event){
 		that.doQuery(event);
 		ch.utils.document.unbind("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
 		that.float.hide();
 		return that;
 	}
-	
+	//Fills the Float with the message.
 	that.populateContent([that.conf.message]);
 /**
 *  Public Members
@@ -237,13 +313,12 @@ ch.autoComplete = function(conf){
 		that.hide(ch.events.KEY.ESC);
 		return that["public"];
 	};
-	
-	
+
 	/**
-	* Hides component's content.
+	* Add suggestions to be shown.
 	* @public
 	* @function
-	* @name ch.AutoComplete#hide
+	* @name ch.AutoComplete#suggest
 	* @returns itself
 	*/	
 	that["public"].suggest = function(data){
@@ -263,7 +338,6 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#ready
 	* @event
 	* @public
-	* @since 0.8.0
 	* @example
 	* // Following the first example, using 'me' as autoComplete's instance controller:
 	* me.on("ready",function () {
