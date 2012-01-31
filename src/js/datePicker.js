@@ -92,7 +92,9 @@ ch.datePicker = function (conf) {
 				"format": conf.format,
 				"from": conf.from,
 				"to": conf.to,
-				"selected": conf.selected
+				"selected": conf.selected,
+				"monthsNames": conf.monthsNames,
+				"weekdays": conf.weekdays
 			});
 	
 /**
