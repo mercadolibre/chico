@@ -81,8 +81,11 @@ ch.countdown = function (conf) {
 			// Singular or Plural message depending on amount of remaining characters
 			var message = (remaining === 1) ? conf.singular : conf.plural,
 			
+			// 
+				container = that.watcher.$elements.parent();
+
 			// Create the DOM Element when message will be shown
-				$display = $("<p class=\"ch-form-hint\">" + message.replace("#", remaining) + "</p>").insertAfter(that.watcher.$elements);
+				$display = $("<p class=\"ch-form-hint\">" + message.replace("#", remaining) + "</p>").appendTo(container);
 			
 			// Real function
 			return function (num) {
