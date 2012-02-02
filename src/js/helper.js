@@ -30,7 +30,7 @@ ch.helper = function(conf){
 	var that = this,
 
 		conf = {};
-		
+
 	conf.cone = true;
 	conf.cache = false;
 	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");

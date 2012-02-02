@@ -21,7 +21,6 @@ ch.floats = function () {
 	*/
 	var that = this,
 		conf = that.conf;
-
 /**
 * Inheritance
 */
@@ -272,7 +271,7 @@ ch.floats = function () {
 	* @returns itself
 	*/
 	that.innerHide = function (event) {
-
+		
 		if (event) {
 			that.prevent(event);
 		}

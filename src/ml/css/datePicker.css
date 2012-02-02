@@ -1,4 +1,13 @@
 /* Date Picker */
+.ch-datePicker {
+	min-width:280px;
+	background-image:none;
+	position:absolute;
+	z-index: 300;
+	box-shadow: 3px 3px 3px #999;
+	-webkit-box-shadow: 3px 3px 3px #999;
+}
+
 .ch-datePicker-trigger {
 	background: transparent url('../assets/calendar.png') 0 0 no-repeat;
 	display: inline-block;
@@ -10,7 +19,7 @@
 	width: 20px;
 }
 
-.ch-datePicker-container.ch-layer {
+.ch-datePicker-container.ch-datePicker {
 	background-color: #fff;
 	border: 1px solid #cecece;
 	box-shadow: 2px 2px 1px #888!important;
@@ -54,6 +63,53 @@
 	cursor: not-allowed;
 }
 
+/* Cone */
+.ch-datePicker .ch-cone {
+	background-image: url('../assets/layer.png');
+	display:block;
+	position:absolute;
+	width:16px;
+	height:8px;
+}
+
+.ch-datePicker.ch-left .ch-cone {
+	left: 12px;
+}
+
+.ch-datePicker.ch-right .ch-cone {
+	height: 16px;
+	width: 8px;
+	left: -8px;
+}
+
+.ch-datePicker.ch-top .ch-cone {
+	background-position: 0 -8px;
+	bottom: -8px;
+	top: auto;
+}
+
+.ch-datePicker.ch-bottom .ch-cone {
+	height: 8px;
+	width: 16px;
+	top: -8px;
+}
+
+.ch-datePicker.ch-right.ch-bottom .ch-cone {
+	right: 12px;
+	left: auto;
+	height: 8px;
+	width: 16px;
+}
+
+.ch-datePicker.ch-right.ch-top .ch-cone {
+	height: 8px;
+	width: 16px;
+	right: 12px;
+	left: auto;
+}
+
+
+
 /* IE7 */
 .lt-ie8 .ch-datePicker-trigger,
 .ie7 .ch-datePicker-trigger {
@@ -63,7 +119,7 @@
 	zoom: 1;
 }
 
-.lt-ie8 .ch-datePicker-container.ch-layer,
-.ie7 .ch-datePicker-container.ch-layer {
+.lt-ie8 .ch-datePicker-container.ch-datePicker,
+.ie7 .ch-datePicker-container.ch-datePicker {
 	width: 240px;
 }

@@ -1,7 +1,7 @@
 /**
-* Watcher is a validation engine for html forms elements.
-* @name Watcher
-* @class Watcher
+* Validation is a validation engine for html forms elements.
+* @name Validation
+* @class Validation
 * @augments ch.Controls
 * @requires ch.Form
 * @requires ch.Validator
@@ -15,31 +15,70 @@
 * @see ch.Custom
 */
 
-ch.watcher = function (conf) {
+ch.validation = function (conf) {
 
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @protected
-	* @name ch.Watcher#that
+	* @name ch.Validation#that
 	* @type itself
 	*/
 	var that = this;
 
 	conf = ch.clon(conf);
+	
+	// Float configuration
+	conf.float = {
+		"$trigger": (function() {
+			var reference;
+			// CHECKBOX, RADIO
+			if (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options")) {
+				// Helper reference from will be fired
+				// H4
+				if (that.$element.find("h4").length > 0) {
+					var h4 = that.$element.find("h4"); // Find h4
+						h4.wrapInner("<span>"); // Wrap content with inline element
+					reference = h4.children(); // Inline element in h4 like helper reference
+				// Legend
+				} else if (that.$element.prev().prop("tagName") == "LEGEND") {
+					reference = that.$element.prev(); // Legend like helper reference
+				} else {
+					reference = $(that.$element.find("label")[0]);
+				}
+			// INPUT, SELECT, TEXTAREA
+			} else {
+				reference = that.$element;
+			}
+			return reference;
+		})(),
+		"type": "helper",
+		"classes": "ch-validation-container",
+		"content": "<p class=\"ch-message ch-error\">Error.</p>",
+		"cone": true,
+		"cache": false,
+		"closeButton": ch.utils.hasOwn(conf, "closeButton"),
+		"aria": {
+			"role": "alert"
+		},
+		"offset": conf.offest || "15 0",
+		"points": conf.points || "lt rt"
+
+	};
+	
 	that.conf = conf;
 
 /**
 * Inheritance
 */
 
-	that = ch.object.call(that);
+	that = ch.controls.call(that);
 	that.parent = ch.clon(that);
 
 /**
 * Private Members
 */
-	
-	// Reference to a Validator instance. If there isn't any, the Watcher instance will create one.
+
+	// Reference to a Validator instance. If there isn't any, the Validation instance will create one.
 	var validator = that.validator = (function(){
 		var c = {};
 			c.condition = conf.condition
@@ -47,16 +86,16 @@ ch.watcher = function (conf) {
 	})();
 
 	/**
-	* Search for instances of Watcher with the same trigger, and then merge it's properties with it.
+	* Search for instances of Validation with the same trigger, and then merge it's properties with it.
 	* @private
-	* @name ch.Watcher#checkInstance
+	* @name ch.Validation#checkInstance
 	* @function
 	* @returns Object
 	*/
 	var checkInstance;
 	if (checkInstance = function() {
 
-		var instance, instances = ch.instances.watcher;
+		var instance, instances = ch.instances.validation;
 		if ( instances && instances.length > 0 ) {
 			for (var i = 0, j = instances.length; i < j; i+=1) {
 				instance = instances[i];
@@ -75,7 +114,7 @@ ch.watcher = function (conf) {
 		return checkInstance;
 	};
 
-	// Reference to a Form instance. If there isn't any, the Watcher instance will create one.
+	// Reference to a Form instance. If there isn't any, the Validation instance will create one.
 	var form = that.form = (function() {
 		if (ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0) {
 			var i = 0, j = ch.instances.form.length;
@@ -95,7 +134,7 @@ ch.watcher = function (conf) {
 	/**
 	* Validation event
 	* @private
-	* @name ch.Watcher#validationEvent
+	* @name ch.Validation#validationEvent
 	*/
 	var validationEvent = (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options") || that.element.tagName == "SELECT") ? "change" : "blur";
 
@@ -106,7 +145,7 @@ ch.watcher = function (conf) {
 
 		/**
 		* Triggers before start validation process.
-		* @name ch.Watcher#beforeValidate
+		* @name ch.Validation#beforeValidate
 		* @event
 		* @public
 		* @example
@@ -129,14 +168,14 @@ ch.watcher = function (conf) {
 				that.$element.addClass("error ch-form-error");
 			}
 
-			that.helper.show(gotError.msg || form.messages[gotError.condition] || "Error.");
+			that.float["public"].show("<p class=\"ch-message ch-error\"><a href=\"http://google.com\">Google!</a> " + gotError.msg || form.messages[gotError.condition] || "Error." + "</p>");
 
 			// Add blur or change event only one time
-			if (!that.$element.data("events")) { that.$element.one(validationEvent, function(event){ hasError(); }); }
+			if (!that.$element.data("events")) { that.$element.one(validationEvent, hasError); }
 
 			/**
 			* Triggers when an error occurs on the validation process.
-			* @name ch.Watcher#error
+			* @name ch.Validation#error
 			* @event
 			* @public
 			* @example
@@ -153,12 +192,12 @@ ch.watcher = function (conf) {
 
 		} else {
 			that.$element.removeClass("error ch-form-error");
-			that.helper.hide();
+			that.float.innerHide();
 		}
 
 		/**
 		* Triggers when the validation process ends.
-		* @name ch.Watcher#afterValidate
+		* @name ch.Validation#afterValidate
 		* @event
 		* @public
 		* @example
@@ -178,7 +217,7 @@ ch.watcher = function (conf) {
 	var clear = function() {
 
 		that.$element.removeClass("error ch-form-error");
-		that.helper.hide();
+		that.float.innerHide();
 
 		// Don't work
 		//that.$element.unbind(validationEvent, hasError); // Remove blur and change event
@@ -187,7 +226,7 @@ ch.watcher = function (conf) {
 
 		/**
 		* Triggers when al validations are cleared.
-		* @name ch.Watcher#clear
+		* @name ch.Validation#clear
 		* @event
 		* @public
 		* @example
@@ -204,7 +243,7 @@ ch.watcher = function (conf) {
 	/**
 	* Returns a value of element
 	* @private
-	* @name ch.Watcher#value
+	* @name ch.Validation#value
 	* @function
 	* @returns string
 	*/
@@ -218,38 +257,12 @@ ch.watcher = function (conf) {
 */
 
 	/**
-	* Flag that let you know if the watchers is enabled or not.
+	* Flag that let you know if the validations is enabled or not.
 	* @protected
-	* @name ch.Watcher#enabled
+	* @name ch.Validation#enabled
 	* @type boolean
 	*/
 	that.enabled = true;
-
-	that.$reference = (function() {
-		var reference;
-		// CHECKBOX, RADIO
-		if (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options")) {
-			// Helper reference from will be fired
-			// H4
-			if (that.$element.find("h4").length > 0) {
-				var h4 = that.$element.find("h4"); // Find h4
-					h4.wrapInner("<span>"); // Wrap content with inline element
-				reference = h4.children(); // Inline element in h4 like helper reference
-			// Legend
-			} else if (that.$element.prev().prop("tagName") == "LEGEND") {
-				reference = that.$element.prev(); // Legend like helper reference
-			} else {
-				reference = $(that.$element.find("label")[0]);
-			}
-		// INPUT, SELECT, TEXTAREA
-		} else {
-			reference = that.$element;
-		}
-
-		return reference;
-	})();
-
-	that.helper = that.$reference.helper();
 
 /**
 *	Public Members
@@ -258,39 +271,40 @@ ch.watcher = function (conf) {
 	/**
 	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 	* @public
-	* @name ch.Watcher#uid
+	* @name ch.Validation#uid
 	* @type number
 	*/
 
 	/**
 	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 	* @public
-	* @name ch.Watcher#element
+	* @name ch.Validation#element
 	* @type HTMLElement
 	*/
 
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public
-	* @name ch.Watcher#type
+	* @name ch.Validation#type
 	* @type string
 	*/
-	that["public"].type = "watcher"; // Everything is a "watcher" type, no matter what interface is used
+	that["public"].type = "validation"; // Everything is a "validation" type, no matter what interface is used
 
 	/**
-	* Used by the helper's positioner to do his magic.
+	* Deprecated: Used by the helper's positioner to do his magic.
 	* @public
-	* @name ch.Watcher#reference
+	* @deprecated
+	* @name ch.Validation#reference
 	* @type jQuery Object
 	* @TODO: remove 'reference' from public scope
 	*/
-	that["public"].reference = that.$reference;
+	//that["public"].reference = that.$reference;
 
 	/**
 	* Run all configured validations.
 	* @public
 	* @function
-	* @name ch.Watcher#hasError
+	* @name ch.Validation#hasError
 	* @returns boolean
 	*/
 	that["public"].hasError = function(){
@@ -301,7 +315,7 @@ ch.watcher = function (conf) {
 	* Run all configured validations.
 	* @public
 	* @function
-	* @name ch.Watcher#validate
+	* @name ch.Validation#validate
 	* @returns boolean
 	*/
 	that["public"].validate = function(){
@@ -313,7 +327,7 @@ ch.watcher = function (conf) {
 	/**
 	* Clear all active validations.
 	* @public
-	* @name ch.Watcher#clear
+	* @name ch.Validation#clear
 	* @function
 	* @returns itself
 	*/
@@ -326,7 +340,7 @@ ch.watcher = function (conf) {
 	/**
 	* Let you keep chaining methods.
 	* @public
-	* @name ch.Watcher#and
+	* @name ch.Validation#and
 	* @function
 	* @returns jQuery Object
 	*/
@@ -337,7 +351,7 @@ ch.watcher = function (conf) {
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
-	* @name ch.Watcher#form
+	* @name ch.Validation#form
 	* @type ch.Form
 	* @see ch.Form
 	*/
@@ -346,7 +360,7 @@ ch.watcher = function (conf) {
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
-	* @name ch.Watcher#validator
+	* @name ch.Validation#validator
 	* @type ch.Validator
 	* @see ch.Validator
 	*/
@@ -355,17 +369,17 @@ ch.watcher = function (conf) {
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
-	* @name ch.Watcher#helper
+	* @name ch.Validation#helper
 	* @type ch.Helper
 	* @see ch.Floats
 	* @see ch.Helper
 	*/
-	that["public"].helper = that.helper;
+	that["public"].helper = that.float;
 
 	/**
-	* Turn on Watcher and Validator engine or an specific condition.
+	* Turn on Validation and Validator engine or an specific condition.
 	* @public
-	* @name ch.Watcher#enable
+	* @name ch.Validation#enable
 	* @function
 	* @returns itself
 	* @see ch.Validator
@@ -381,21 +395,21 @@ ch.watcher = function (conf) {
 	}
 
 	/**
-	* Turn off Watcher and Validator engine or an specific condition.
+	* Turn off Validation and Validator engine or an specific condition.
 	* @public
-	* @name ch.Watcher#disable
+	* @name ch.Validation#disable
 	* @function
 	* @returns itself
 	* @see ch.Validator
 	*/
 	that["public"].disable = function (condition) {
-		// Clean the watcher if is active;
+		// Clean the validation if is active;
 		clear();
 
 		// Turn off validator
 		validator.disable(condition);
 
-		// Turn off watcher, if all conditions are disabled
+		// Turn off validation, if all conditions are disabled
 		if (!condition){
 			that.enabled = false;
 		}
@@ -405,9 +419,9 @@ ch.watcher = function (conf) {
 
 
 	/**
-	* Turn off Watcher and Validator engine or an specific condition.
+	* Turn off Validation and Validator engine or an specific condition.
 	* @public
-	* @name ch.Watcher#isActive
+	* @name ch.Validation#isActive
 	* @function
 	* @returns boolean
 	* @see ch.Validator
@@ -422,7 +436,7 @@ ch.watcher = function (conf) {
 
 	/**
 	* Triggers when the component is ready to use.
-	* @name ch.Watcher#ready
+	* @name ch.Validation#ready
 	* @event
 	* @public
 	* @example
@@ -435,4 +449,4 @@ ch.watcher = function (conf) {
 
 	return that;
 };
-ch.factory("watcher");
+ch.factory("validation");

@@ -35,32 +35,29 @@ ch.controls = function () {
 */
 
 	/**
-	* Reference to the elements to be watched (a.k.a. form inputs).
-	* @protected
-	* @type Object
-	* @name ch.Controls#watcher
-	*/
-	that.watcher = {
-		"elements": that.element,
-		"$elements": that.$element,
-		"form": that.$element.parents("form"),
-		"on": function (event, callback) {
-			// TODO: pluralize this
-			this.$elements.bind(event, callback);
-		},
-		"content": function (data) {
-			// TODO: pluralize this
-			this.$elements.val(data);
-		}
-	};
-	
-	/**
 	* Reference to the Float component instanced.
 	* @protected
 	* @type Object
 	* @name ch.Controls#float
 	*/
-	that.float = {};
+
+	that.float = (function () {
+		conf.float.position = {
+			"context": conf.context || conf.float.context || conf.float.$trigger || that.$element,
+			"offset": conf.float.offset,
+			"points": conf.float.points
+		};
+
+		var float = ch.floats.call({
+			"element": conf.float.$trigger[0] || that.element,
+			"$element": conf.float.$trigger || that.$element,
+			"uid": (ch.utils.index += 1),
+			"type": conf.float.type || that.type,
+			"conf": conf.float
+		});
+
+		return float;
+	})();
 
 /**
 *  Public Members

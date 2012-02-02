@@ -3,12 +3,12 @@
 * @name Required
 * @class Required
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Custom
 * @see ch.Number
 * @see ch.String
@@ -18,7 +18,7 @@
 * // Simple validation
 * $("input").required("This field is required");
 */
-ch.extend("watcher").as("required", function(conf) {
+ch.extend("validation").as("required", function(conf) {
 
 	conf.condition = {
 		name: "required",
