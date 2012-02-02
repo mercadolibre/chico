@@ -36,7 +36,7 @@ ch.autoComplete = function(conf){
 	that.conf.type = "autoComplete";
 	that.conf.message = conf.message || "Please write to be suggested";
 	that.conf.suggestions = conf.suggestions;
-	that.conf.showAll = conf.showAll;
+	that.conf.jsonpCallback = conf.jsonpCallback || "autoComplete";
 	
 /**
 *	Inheritance
@@ -61,10 +61,6 @@ ch.autoComplete = function(conf){
 				items.eq(that.selected).removeClass("ch-autoComplete-selected");
 				that.selected = i;
 				items.eq(that.selected).addClass("ch-autoComplete-selected");
-				
-				
-			}).bind("mouseleave",function () {
-				
 			}).bind("mousedown",function () {
 				that.$trigger.val(items.eq(that.selected).text());
 				that.$trigger.blur();
@@ -115,7 +111,7 @@ ch.autoComplete = function(conf){
 	* @type jQuery
 	* @name ch.AutoComplete#$trigger
 	*/
-	that.$trigger = $(that.element);
+	that.$trigger = that.$element.addClass("ch-" + that.type + "-trigger");
 
 	/**
 	* Inner reference to content container. Here is where the content will be added.
@@ -123,7 +119,7 @@ ch.autoComplete = function(conf){
 	* @type jQuery
 	* @name ch.AutoComplete#$content
 	*/
-	that.$content = $("<ul>");
+	that.$content = $("<ul class=\"ch-" + that.type + "-content\">");
 
 	/**
 	* The Float that show the suggestions's list.
@@ -131,7 +127,7 @@ ch.autoComplete = function(conf){
 	* @type ch.Layer
 	* @name ch.AutoComplete#float
 	*/
-	that.float = that.$element.attr("autocomplete","off")
+	that.float = that.$trigger.attr("autocomplete","off")
 		// Initialize Layer component
 		.layer({
 			"event": "click",
@@ -139,23 +135,11 @@ ch.autoComplete = function(conf){
 			"points": conf.points,
 			"classes": "ch-autoComplete",
 			"closeButton": false,
-			"offset": "0 0"
+			"offset": "0 0",
+			"cache": false,
+			"closeHandler": "button"
 		})
-		// Show callback
-		.on("show", function () {
-			// Old callback system
-			that.callbacks.call(that, "onShow");
-			// New callback
-			that.float.width(that.$trigger.outerWidth());
-			that.trigger("show");
-		})
-		// Hide callback
-		.on("hide", function () {
-			// Old callback
-			that.callbacks.call(that, "onHide");
-			// New callback
-			that.trigger("hide");
-		}).on("ready", function () {
+		.on("ready", function () {
 			that.float.width((that.$trigger.outerWidth()));
 		});
 
@@ -166,12 +150,11 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#populateContent
 	*/
 	that.populateContent = function(result){
-		var content = "<li>"+result.join("</li><li>")+"</li>";
-		that.$content.html(content);
-		that.float.content(that.$content);
+		that.$content = $("<ul class=\"ch-" + that.type + "-content\"><li>"+result.join("</li><li>")+"</li></ul>");
 		that.items = that.$content.find("li");
 		that.selected = -1;
 		shortcuts(that.items);
+		that.float.content(that.$content);
 		return that;
 	}
 
@@ -188,7 +171,7 @@ ch.autoComplete = function(conf){
 			var result = $.ajax({
 				url: that.conf.url + q,
 				dataType:"jsonp",
-				jsonp:conf.doQuery,
+				jsonpCallback:that.conf.jsonpCallback,
 				crossDomain:true,
 				success: function(data){}
 			});
@@ -215,14 +198,12 @@ ch.autoComplete = function(conf){
 	*/
 	that.configBehavior = function () {
 		that.$trigger
-			.addClass("ch-" + that.type + "-trigger")
 			.bind("focus", function (event) { 
 				  that.show(event);
 			})
 			.bind("blur", function (event) { 
 				 that.hide(event);
 			});
-		that.$content.addClass("ch-" + that.type + "-content");
 		return that;
 	};
 
@@ -246,8 +227,8 @@ ch.autoComplete = function(conf){
 		// Global keyup behavior
 		ch.utils.document.bind("keyup", function (event) { 
 			if(event.keyCode!==38 && event.keyCode!==40  && event.keyCode!==13  && event.keyCode!==27){that.doQuery(event);}
-			 
 		});
+		that.doQuery(event);
 		return that;
 	}
 
@@ -258,13 +239,10 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#hide
 	*/
 	that.hide = function(event){
-		that.doQuery(event);
 		ch.utils.document.unbind("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
 		that.float.hide();
 		return that;
 	}
-	//Fills the Float with the message.
-	that.populateContent([that.conf.message]);
 /**
 *  Public Members
 */
@@ -327,10 +305,13 @@ ch.autoComplete = function(conf){
 		return that["public"];
 	};
 
+	
+	//Fills the Float with the message.
+	that.populateContent([that.conf.message]);
+
 /**
 *  Default event delegation
 */	
-	
 	that.configBehavior();
 	
 	/**
