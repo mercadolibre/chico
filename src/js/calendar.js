@@ -134,7 +134,7 @@ ch.calendar = function (conf) {
 		from = (function () {
 
 			// Only works when there are a "from" parameter on configuration
-			if (!ch.utils.hasOwn(conf, "from")) { return; }
+			if (!ch.utils.hasOwn(conf, "from") || !conf.from) { return; }
 
 			// Return date object
 			return (conf.from === "today") ? today : createDateObject(conf.from);
@@ -145,7 +145,7 @@ ch.calendar = function (conf) {
 		to = (function () {
 
 			// Only works when there are a "to" parameter on configuration
-			if (!ch.utils.hasOwn(conf, "to")) { return; }
+			if (!ch.utils.hasOwn(conf, "to") || !conf.to) { return; }
 
 			// Return date object
 			return (conf.from === "today") ? today : createDateObject(conf.to);
@@ -244,6 +244,8 @@ ch.calendar = function (conf) {
 	* @return Boolean
 	*/
 		isSelectable = function (year, month, day) {
+			
+			if (!selected) { return; }
 			
 			var yepnope = false;
 			
