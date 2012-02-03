@@ -274,7 +274,7 @@ ch.floats = function () {
 	that.innerHide = function (event) {
 
 		if (event) {
-			that.prevent(event);
+			event.stopPropagation();
 		}
 
 		if (!that.active) {
