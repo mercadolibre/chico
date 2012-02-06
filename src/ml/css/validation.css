@@ -1,0 +1,72 @@
+.ch-validation {
+	color: #600;
+	font-size: 12px;
+	display: inline-block;
+	width: 160px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-bottom:10px;
+}
+
+
+.ch-validation-content .ch-message.ch-error{
+	padding: 2px 5px 2px 27px;
+	background-position: -175px -5px;
+}
+
+/* Cone */
+
+.ch-validation .ch-cone {
+	background-image: url("../assets/helper.png");
+	background-position: 0 0 no-repeat;
+	display:block;
+	position:absolute;
+	width:8px;
+	height:16px;
+}
+
+.ch-validation.ch-left .ch-cone {
+	left: 8px;
+}
+
+.ch-validation.ch-right .ch-cone {
+	height: 16px;
+	width: 8px;
+	left: -7px;
+	top: 4px;
+}
+
+.ch-validation.ch-top .ch-cone {
+	background-position: 0 -8px;
+	bottom: -8px;
+	top: auto;
+}
+
+.ch-validation.ch-bottom .ch-cone {
+	height: 8px;
+	width: 16px;
+	top: -7px;
+}
+
+.ch-validation.ch-right.ch-bottom .ch-cone {
+	right: 8px;
+	left: auto;
+	height: 8px;
+	width: 16px;
+}
+
+.ch-validation.ch-right.ch-top .ch-cone {
+	height: 8px;
+	width: 16px;
+	right: 8px;
+	left: auto;
+}
+
+/* IE 6,7 */
+.lt-ie8 .ch-validation,
+/* Deprecate */
+.ie6 .ch-validation,
+.ie7 .ch-validation {
+	z-index:1;
+}

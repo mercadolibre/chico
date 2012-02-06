@@ -1,11 +1,13 @@
 /* Date Picker */
 .ch-datePicker {
-	min-width:280px;
 	background-image:none;
 	position:absolute;
 	z-index: 300;
-	box-shadow: 3px 3px 3px #999;
-	-webkit-box-shadow: 3px 3px 3px #999;
+	background-color: #fff;
+	border: 1px solid #cecece;
+	box-shadow: 2px 2px 1px #888!important;
+	-webkit-box-shadow: 2px 2px 1px #888!important;
+	min-width: 240px;
 }
 
 .ch-datePicker-trigger {
@@ -19,45 +21,37 @@
 	width: 20px;
 }
 
-.ch-datePicker-container.ch-datePicker {
-	background-color: #fff;
-	border: 1px solid #cecece;
-	box-shadow: 2px 2px 1px #888!important;
-	-webkit-box-shadow: 2px 2px 1px #888!important;
-	min-width: 240px;
-}
-
-.ch-datePicker-container .ch-cone {
+.ch-datePicker .ch-cone {
 	left: 112px;
 	top: -8px;
 }
 
-.ch-datePicker-container .ch-calendar {
+.ch-datePicker-content .ch-calendar {
 	display: block;
 }
 
-.ch-datePicker-container .ch-calendar caption,
-.ch-datePicker-container .ch-calendar thead {
+.ch-datePicker-content .ch-calendar caption,
+.ch-datePicker-content .ch-calendar thead {
 	border: none;
 }
 
-.ch-datePicker-container .ch-calendar caption {
+.ch-datePicker-content .ch-calendar caption {
 	margin: 0;
 }
 
-.ch-datePicker-container .ch-calendar-prev span,
-.ch-datePicker-container .ch-calendar-next span {
+.ch-datePicker-content .ch-calendar-prev span,
+.ch-datePicker-content .ch-calendar-next span {
 	margin-top: 10px;
 }
 
-.ch-datePicker-container .ch-calendar-day:hover {
+.ch-datePicker-content .ch-calendar-day:hover {
 	background-color: #F5F5F5;
 	color: #333;
 	font-weight: normal;
 	cursor:pointer;
 }
 
-.ch-datePicker-container .ch-calendar-day.ch-disabled:hover {
+.ch-datePicker-content .ch-calendar-day.ch-disabled:hover {
 	background-color: white;
 	color: #C6C6C6;
 	cursor: not-allowed;
@@ -119,7 +113,7 @@
 	zoom: 1;
 }
 
-.lt-ie8 .ch-datePicker-container.ch-datePicker,
-.ie7 .ch-datePicker-container.ch-datePicker {
+.lt-ie8 .ch-datePicker,
+.ie7 .ch-datePicker {
 	width: 240px;
 }

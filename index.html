@@ -27,6 +27,18 @@
 			float:left;
 			margin:2px 10px 0 0;
 		}
+		
+		.autoComplete {
+			width: 250px;
+		}
+		
+		.autoComplete2 {
+			width: 350px;
+		}
+		
+		.autoComplete3 {
+			width: 450px;
+		}
 	</style>
 </head>
 
@@ -53,38 +65,45 @@
 	
 	<div class="box clearfix">
 		<h2>Lists</h2>
-		<div class="ch-g1-3">
-		    <div class="leftcolumn">
-				<h3>Unstyled</h3>
-				<ul>
-					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-				</ul>
-		    </div>
+		<div class="ch-g1-4">
+			<h3>Unstyled</h3>
+			<ul>
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</ul>
 		</div>
-		<div class="ch-g1-3r">
-		    <div class="centercolumn">
-				<h3>Unordered</h3>
-				<ul class="ch-list">
-					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-				</ul>
-		    </div>
+		<div class="ch-g1-4">
+			<h3>Unordered</h3>
+			<ul class="ch-list">
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</ul>
 		</div>
-		<div class="ch-g1-3">
-		    <div class="rightcolumn">
-				<h3>Ordered</h3>
-				<ol class="ch-list">
-					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-				</ol>
-		    </div>
+		<div class="ch-g1-4">
+			<h3>Ordered</h3>
+			<ol class="ch-list">
+				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+			</ol>
+		</div>
+		<div class="ch-g1-4">
+			<h3>Description</h3>
+			<dl class="ch-list">
+				<dt>MercadoLibre</dt>
+				<dd>Donde compras y vendes de todo!</dd>
+				<dt>MercadoPago</dt>
+				<dd>La forma más simple de recibir pagos!</dd>
+				<dt>MercadoShops</dt>
+				<dd>Tu tienda virtual gratis y en minutos!</dd>
+				<dt>MercadoClics</dt>
+				<dd>Anuncia tu sitio en MercadoLibre, miles de personas buscan lo que ofreces!</dd>	
+			</dl>
 		</div>
 	</div>
 
@@ -387,7 +406,7 @@
 		<h2>Modal window</h2> 
 		
 		<form action="/test.html">
-			<p class="actions">
+			<p class="ch-form-actions">
 				<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Modal" value="Executed by submit input">
 				<a href="/test.html" class="YOUR_SELECTOR_Modal">Executed by link.</a>
 			</p>
@@ -586,7 +605,7 @@
 							Price:
 							<em>*</em>
 						</label>													
-						<input type="number" id="price" name="price" required="required" placeholder="1349.43"> 
+						<input type="text" id="price" name="price" required="required" placeholder="1349.43">
 						<span class="ch-form-hint">Numbers and dot symbol</span>
 					</p>
 					<p class="ch-form-row ch-form-required"> 
@@ -961,11 +980,9 @@
 		// Components
 		
 		// AutoComplete
-		/*
 		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest?q=",message:"Please Write",jsonpCallback:"autoComplete"});
 		var ab = $(".autoComplete2").autoComplete({url:"http://chico.com:8080/suggest?q=",message:"Please Write",jsonpCallback:"her"});
 		var ad = $(".autoComplete3").autoComplete({suggestions:["Oops","Oso","Olor","ser","something","wrong","happened","B","AA","BBBB"],message:"Escribe y seras sugerido"});
-		*/
 		
 		var her = function(data){
 			data.push("Other callback");
@@ -1058,7 +1075,7 @@
 		//var cd = $(".myCountdown").countdown(100);
 
 		// Watchers
-		var ch_wprice = $("#price").price("Price please!").and().required("algo");
+		var ch_wprice = $("#price").price().and().required();
 		var ch_wch1 = $("#email").required("requerid").and().email("Guachin emial").and().minLength(10);
 		var ch_wch11 = $("#custom").custom(
 			function(v){

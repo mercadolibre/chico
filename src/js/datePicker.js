@@ -4,7 +4,6 @@
 * @class DatePicker
 * @augments ch.Controls
 * @requires ch.Calendar
-* @requires ch.Layer
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
@@ -49,39 +48,6 @@ ch.datePicker = function (conf) {
 	// Positioner Points by default
 	conf.points = conf.points || "ct cb";
 	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
-	
-	
-	/**
-	* Reference to the Calendar component instance.
-	* @protected
-	* @type Object
-	* @name ch.DatePicker#calendar
-	*/
-	that.calendar = $("<div>")
-		// Add functionality for date selection
-		.bind("click", function (event) { select(event); })
-		// Instance Calendar component
-		.calendar({
-			"format": conf.format,
-			"from": conf.from,
-			"to": conf.to,
-			"selected": conf.selected
-		});
-	
-	// Float configuration
-	conf.float = {
-		"$trigger": $("<p class=\"ch-datePicker-trigger\">Date Picker</p>").insertAfter(that.element),
-		"content": that.calendar.element,
-		"classes": "ch-datePicker-container",
-		"points": conf.points,
-		"offset": "0 10",
-		"aria": {
-			"role": "tooltip",
-			"identifier": "aria-describedby"
-		},
-		"closeButton": false,
-		"cone": true
-	};
 
 	that.conf = conf;
 
@@ -114,6 +80,42 @@ ch.datePicker = function (conf) {
 *	Protected Members
 */
 
+	
+	/**
+	* Reference to the Calendar component instance.
+	* @protected
+	* @type Object
+	* @name ch.DatePicker#calendar
+	*/
+	that.calendar = $("<div>")
+		// Add functionality for date selection
+		.bind("click", function (event) { select(event); })
+		// Instance Calendar component
+		.calendar({
+			"format": conf.format,
+			"from": conf.from,
+			"to": conf.to,
+			"selected": conf.selected
+		});
+	
+	/**
+	* Reference to the Float component instanced.
+	* @protected
+	* @type Object
+	* @name ch.DatePicker#float
+	*/
+	that.float = that.createFloat({
+		"$element": $("<p class=\"ch-datePicker-trigger\">Date Picker</p>").insertAfter(that.element),
+		"content": that.calendar.element,
+		"points": conf.points,
+		"offset": "0 10",
+		"aria": {
+			"role": "tooltip",
+			"identifier": "aria-describedby"
+		},
+		"closeButton": false,
+		"cone": true
+	});
 
 /**
 *  Public Members

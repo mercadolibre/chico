@@ -5,7 +5,6 @@
 * @augments ch.Controls
 * @requires ch.Form
 * @requires ch.Validator
-* @requires ch.Helper
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @returns itself
@@ -26,45 +25,7 @@ ch.validation = function (conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
-	
-	// Float configuration
-	conf.float = {
-		"$trigger": (function() {
-			var reference;
-			// CHECKBOX, RADIO
-			if (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options")) {
-				// Helper reference from will be fired
-				// H4
-				if (that.$element.find("h4").length > 0) {
-					var h4 = that.$element.find("h4"); // Find h4
-						h4.wrapInner("<span>"); // Wrap content with inline element
-					reference = h4.children(); // Inline element in h4 like helper reference
-				// Legend
-				} else if (that.$element.prev().prop("tagName") == "LEGEND") {
-					reference = that.$element.prev(); // Legend like helper reference
-				} else {
-					reference = $(that.$element.find("label")[0]);
-				}
-			// INPUT, SELECT, TEXTAREA
-			} else {
-				reference = that.$element;
-			}
-			return reference;
-		})(),
-		"type": "helper",
-		"classes": "ch-validation-container",
-		"content": "<p class=\"ch-message ch-error\">Error.</p>",
-		"cone": true,
-		"cache": false,
-		"closeButton": ch.utils.hasOwn(conf, "closeButton"),
-		"aria": {
-			"role": "alert"
-		},
-		"offset": conf.offest || "15 0",
-		"points": conf.points || "lt rt"
 
-	};
-	
 	that.conf = conf;
 
 /**
@@ -168,7 +129,7 @@ ch.validation = function (conf) {
 				that.$element.addClass("error ch-form-error");
 			}
 
-			that.float["public"].show("<p class=\"ch-message ch-error\"><a href=\"http://google.com\">Google!</a> " + gotError.msg || form.messages[gotError.condition] || "Error." + "</p>");
+			that.float["public"].show("<p class=\"ch-message ch-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
 
 			// Add blur or change event only one time
 			if (!that.$element.data("events")) { that.$element.one(validationEvent, hasError); }
@@ -263,6 +224,47 @@ ch.validation = function (conf) {
 	* @type boolean
 	*/
 	that.enabled = true;
+	
+	/**
+	* Reference to the Float component instanced.
+	* @protected
+	* @type Object
+	* @name ch.Validation#float
+	*/
+	that.float = that.createFloat({
+		"$element": (function() {
+			var reference;
+			// CHECKBOX, RADIO
+			if (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options")) {
+				// Helper reference from will be fired
+				// H4
+				if (that.$element.find("h4").length > 0) {
+					var h4 = that.$element.find("h4"); // Find h4
+						h4.wrapInner("<span>"); // Wrap content with inline element
+					reference = h4.children(); // Inline element in h4 like helper reference
+				// Legend
+				} else if (that.$element.prev().prop("tagName") == "LEGEND") {
+					reference = that.$element.prev(); // Legend like helper reference
+				} else {
+					reference = $(that.$element.find("label")[0]);
+				}
+			// INPUT, SELECT, TEXTAREA
+			} else {
+				reference = that.$element;
+			}
+			return reference;
+		})(),
+		"type": "validation",
+		"content": "<p class=\"ch-message ch-error\">Error.</p>",
+		"cone": true,
+		"cache": false,
+		"closeButton": ch.utils.hasOwn(conf, "closeButton"),
+		"aria": {
+			"role": "alert"
+		},
+		"offset": conf.offset || "15 0",
+		"points": conf.points || "lt rt"
+	});
 
 /**
 *	Public Members
@@ -370,11 +372,10 @@ ch.validation = function (conf) {
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
 	* @name ch.Validation#helper
-	* @type ch.Helper
+	* @type ch.Floats
 	* @see ch.Floats
-	* @see ch.Helper
 	*/
-	that["public"].helper = that.float;
+	that["public"].helper = that.float["public"];
 
 	/**
 	* Turn on Validation and Validator engine or an specific condition.

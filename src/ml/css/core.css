@@ -404,7 +404,7 @@ dl.ch-list dd {
 .container {
 	border: none;
 	background: none;
-	margin: 10px 0;
+	margin: 0 0 10px 0;
 	padding: 10px;	
 }
 

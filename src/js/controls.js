@@ -4,6 +4,7 @@
 * @name Controls
 * @class Controls 
 * @augments ch.Uiobject
+* @requires ch.Floats
 * @memberOf ch
 * @returns itself
 * @see ch.Countdown
@@ -35,29 +36,28 @@ ch.controls = function () {
 */
 
 	/**
-	* Reference to the Float component instanced.
+	* Creates a reference to the Float component instanced.
 	* @protected
 	* @type Object
-	* @name ch.Controls#float
+	* @name ch.Controls#createFloat
 	*/
-
-	that.float = (function () {
-		conf.float.position = {
-			"context": conf.context || conf.float.context || conf.float.$trigger || that.$element,
-			"offset": conf.float.offset,
-			"points": conf.float.points
+	that.createFloat = function (c) {
+		c.position = {
+			"context": conf.context || c.context || c.$element || that.$element,
+			"offset": c.offset,
+			"points": c.points
 		};
 
 		var float = ch.floats.call({
-			"element": conf.float.$trigger[0] || that.element,
-			"$element": conf.float.$trigger || that.$element,
+			"element": (ch.utils.hasOwn(c, "$element")) ? c.$element[0] : that.element,
+			"$element": c.$element || that.$element,
 			"uid": (ch.utils.index += 1),
-			"type": conf.float.type || that.type,
-			"conf": conf.float
+			"type": c.type || that.type,
+			"conf": c
 		});
 
 		return float;
-	})();
+	};
 
 /**
 *  Public Members

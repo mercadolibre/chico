@@ -30,14 +30,14 @@ ch.autoComplete = function(conf){
 	var that = this;
 		
 	conf = ch.clon(conf);
+	conf.icon = false;
+	conf.type = "autoComplete";
+	conf.message = conf.message || "Please write to be suggested";
+	conf.suggestions = conf.suggestions;
+	conf.jsonpCallback = conf.jsonpCallback || "autoComplete";
 	
 	that.conf = conf;
-	that.conf.icon = false;
-	that.conf.type = "autoComplete";
-	that.conf.message = conf.message || "Please write to be suggested";
-	that.conf.suggestions = conf.suggestions;
-	that.conf.jsonpCallback = conf.jsonpCallback || "autoComplete";
-	
+		
 /**
 *	Inheritance
 */
@@ -62,8 +62,8 @@ ch.autoComplete = function(conf){
 				that.selected = i;
 				items.eq(that.selected).addClass("ch-autoComplete-selected");
 			}).bind("mousedown",function () {
-				that.$trigger.val(items.eq(that.selected).text());
-				that.$trigger.blur();
+				that.$element.val(items.eq(that.selected).text());
+				that.$element.blur();
 			});
 		});
 	};
@@ -111,7 +111,7 @@ ch.autoComplete = function(conf){
 	* @type jQuery
 	* @name ch.AutoComplete#$trigger
 	*/
-	that.$trigger = that.$element.addClass("ch-" + that.type + "-trigger");
+	//that.$trigger = that.$element.addClass("ch-" + that.type + "-trigger");
 
 	/**
 	* Inner reference to content container. Here is where the content will be added.
@@ -119,7 +119,7 @@ ch.autoComplete = function(conf){
 	* @type jQuery
 	* @name ch.AutoComplete#$content
 	*/
-	that.$content = $("<ul class=\"ch-" + that.type + "-content\">");
+	that.$content = $("<ul></ul>");
 
 	/**
 	* The Float that show the suggestions's list.
@@ -127,21 +127,26 @@ ch.autoComplete = function(conf){
 	* @type ch.Layer
 	* @name ch.AutoComplete#float
 	*/
-	that.float = that.$trigger.attr("autocomplete","off")
-		// Initialize Layer component
-		.layer({
-			"event": "click",
-			"content": that.$content,
-			"points": conf.points,
-			"classes": "ch-autoComplete",
-			"closeButton": false,
-			"offset": "0 0",
-			"cache": false,
-			"closeHandler": "button"
-		})
-		.on("ready", function () {
-			that.float.width((that.$trigger.outerWidth()));
-		});
+	
+	/**
+	* Reference to the Float component instanced.
+	* @protected
+	* @type Object
+	* @name ch.AutoComplete#float
+	*/
+	that.float = that.createFloat({
+		"content": that.$content,
+		"points": conf.points,
+		"closeButton": false,
+		"points": "lt lb",
+		"cache": false,
+		"closeHandler": "button",
+		"aria": {
+			"role": "tooltip",
+			"identifier": "aria-describedby"
+		},
+		"width": that.$element.outerWidth() + "px"
+	});
 
 	/**
 	* It fills the content inside the element represented by the float.
@@ -149,12 +154,17 @@ ch.autoComplete = function(conf){
 	* @type Function
 	* @name ch.AutoComplete#populateContent
 	*/
-	that.populateContent = function(result){
-		that.$content = $("<ul class=\"ch-" + that.type + "-content\"><li>"+result.join("</li><li>")+"</li></ul>");
+	that.populateContent = function (result) {
+		if (result.length === 0) {
+			that.float.innerHide();
+			return that;
+		}
+		that.$content.html("<li>" + result.join("</li><li>") + "</li>");
 		that.items = that.$content.find("li");
 		that.selected = -1;
 		shortcuts(that.items);
-		that.float.content(that.$content);
+		that.float["public"].content(that.$content);
+
 		return that;
 	}
 
@@ -165,9 +175,9 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#doQuery
 	*/
 	that.doQuery = function(event){
-		var q = that.$trigger.val().toLowerCase();
+		var q = that.$element.val().toLowerCase();
 		// When URL is configured it will execute an ajax request.
-		if(that.conf.url!==undefined && q!==""){
+		if (that.conf.url !== undefined && q !== "") {
 			var result = $.ajax({
 				url: that.conf.url + q,
 				dataType:"jsonp",
@@ -176,7 +186,7 @@ ch.autoComplete = function(conf){
 				success: function(data){}
 			});
 		// When not URL configured and suggestions array were configured it search inside the suggestions array.
-		} else if(that.conf.url===undefined && q!=="") {
+		} else if (that.conf.url === undefined && q !== "") {
 			var result = [];
 			for(var a=(that.suggestions.length-1);(a+1);a--){
 				var word = that.suggestions[a].toLowerCase();
@@ -184,26 +194,29 @@ ch.autoComplete = function(conf){
 				if(!exist){
 					result.push(that.suggestions[a]);
 				}
-			}
+			};
 			that.populateContent(result);
 		}
 		return that;
 	}
 
 	/**
-	* It gives the main behavior(focus and blur) to the $trigger.
+	* It gives the main behavior(focus, blur and turn off autocomplete attribute) to the $trigger.
 	* @protected
 	* @type Function
 	* @name ch.AutoComplete#configBehavior
 	*/
 	that.configBehavior = function () {
-		that.$trigger
+		that.$element
 			.bind("focus", function (event) { 
 				  that.show(event);
 			})
 			.bind("blur", function (event) { 
 				 that.hide(event);
-			});
+			})
+			.attr("autocomplete","off")
+			.addClass("ch-" + that.type + "-trigger");
+
 		return that;
 	};
 
@@ -221,14 +234,19 @@ ch.autoComplete = function(conf){
 		// DOWN ARROW key behavior
 		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
 		// ESC key behavior
-		ch.utils.document.bind(ch.events.KEY.ESC, function (x, event) { that.$trigger.trigger("blur"); });
+		ch.utils.document.bind(ch.events.KEY.ESC, function (x, event) { that.$element.trigger("blur"); });
 		// ENTER key behavior
-		ch.utils.document.bind(ch.events.KEY.ENTER, function (x, event) {  that.$trigger.val(that.items.eq(that.selected).text()); that.$trigger.trigger("blur"); });
+		ch.utils.document.bind(ch.events.KEY.ENTER, function (x, event) {  that.$element.val(that.items.eq(that.selected).text()); that.$element.trigger("blur"); });
 		// Global keyup behavior
 		ch.utils.document.bind("keyup", function (event) { 
-			if(event.keyCode!==38 && event.keyCode!==40  && event.keyCode!==13  && event.keyCode!==27){that.doQuery(event);}
+			if(event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
+				that.doQuery(event);
+				that.float.innerShow();
+			}
 		});
+
 		that.doQuery(event);
+
 		return that;
 	}
 
@@ -240,7 +258,7 @@ ch.autoComplete = function(conf){
 	*/
 	that.hide = function(event){
 		ch.utils.document.unbind("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
-		that.float.hide();
+		that.float.innerHide();
 		return that;
 	}
 /**
@@ -313,6 +331,10 @@ ch.autoComplete = function(conf){
 *  Default event delegation
 */	
 	that.configBehavior();
+	
+	/*that.float.on("ready", function () {
+		that.float["public"].width((that.$element.outerWidth()));
+	});*/
 	
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
