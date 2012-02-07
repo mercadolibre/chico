@@ -33,23 +33,46 @@ ch.object = function(){
 	* @protected
 	*/
 	// TODO: Add examples!!!
-	that.callbacks = function(when, data) {
+	that.callbacks = function (when, data) {
 		if( ch.utils.hasOwn(conf, when) ) {
 			var context = ( that.controller ) ? that.controller["public"] : that["public"];
 			return conf[when].call( context, data );
 		};
 	};
 
-	/**
-	* Triggers a specific event within the component public context.
-	* @name ch.Object#trigger
-	* @function
-	* @protected
-	* @param {string} event The event name you want to trigger.
-	* @since version 0.7.1
-	*/
-	that.trigger = function(event, data) {
+
+	// Triggers a specific event within the component public context.
+	that.trigger = function (event, data) {
 		$(that["public"]).trigger("ch-"+event, data);
+	};
+	
+	// Add a callback function from specific event.
+	that.on = function (event, handler) {
+		if (event && handler) {
+			$(that["public"]).bind("ch-"+event, handler);
+		}
+		return that["public"];
+	};
+
+	// Add a callback function from specific event that it will execute once.
+	that.once = function (event, handler) {
+
+		if (event && handler) {
+			$(that["public"]).one("ch-"+event, handler);
+		}
+
+		return that["public"];
+	};
+
+	
+	// Removes a callback function from specific event.
+	that.off = function (event, handler) {
+		if (event && handler) {
+			$(that["public"]).unbind("ch-"+event, handler);
+		} else if (event) {
+			$(that["public"]).unbind("ch-"+event);
+		}
+		return that["public"];
 	};
 
 	/**
@@ -88,18 +111,6 @@ ch.object = function(){
 	* Triggers a specific event within the component public context.
 	* @name ch.Object#trigger
 	* @function
-	* @public
-	* @param {string} event The event name you want to trigger.
-	* @since version 0.7.1
-	*/
-	that["public"].trigger = function(event, data) {
-		$(that["public"]).trigger("ch-"+event, data);
-	};
-	
-	/**
-	* Triggers a specific event within the component public context.
-	* @name ch.Object#trigger
-	* @function
 	* @protected
 	* @param {string} event The event name you want to trigger.
 	* @since version 0.7.1
@@ -120,15 +131,9 @@ ch.object = function(){
 	* me.on("ready", startDoingStuff);
 	*/
 
-	that["public"].on = function(event, handler) {
-		if (event && handler) {
-			$(that["public"]).bind("ch-"+event, handler);
-		}
-		return that["public"];
-	};
-
+	that["public"].on = that.on;
 	/**
-	* Add a callback function from specific event.
+	* Add a callback function from specific event that it will execute once.
 	* @public
 	* @function
 	* @name ch.Object#once
@@ -140,14 +145,7 @@ ch.object = function(){
 	* // Will add a event handler to the "contentLoad" event once
 	* me.once("contentLoad", startDoingStuff);
 	*/
-	that["public"].once = function(event, handler) {
-
-		if (event && handler) {
-			$(that["public"]).one("ch-"+event, handler);
-		}
-
-		return that["public"];
-	};
+	that["public"].once = that.once;
 
 	/**
 	* Removes a callback function from specific event.
@@ -166,14 +164,7 @@ ch.object = function(){
 	*
 	* me.off("ready", startDoingStuff);
 	*/
-	that["public"].off = function(event, handler) {
-		if (event && handler) {
-			$(that["public"]).unbind("ch-"+event, handler);
-		} else if (event) {
-			$(that["public"]).unbind("ch-"+event);
-		}
-		return that["public"];
-	};
+	that["public"].off = that.off;
 
 	return that;
 };

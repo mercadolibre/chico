@@ -84,6 +84,7 @@
 	cursor:pointer;
 	background-color:#d1d1d1;
 	border-radius:10px;
+	padding: 0;
 }
 
 .ch-carousel-pages .ch-carousel-pages-on {

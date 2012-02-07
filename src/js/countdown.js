@@ -3,6 +3,7 @@
 * @name Countdown
 * @class Countdown
 * @augments ch.Controls
+* @standalone
 * @memberOf ch
 * @param {Object} conf Object with configuration properties.
 * @param {Number} conf.max Number of the maximum amount of characters user can input in form control.
@@ -33,7 +34,8 @@ ch.countdown = function (conf) {
 	var that = this;
 	
 	conf = ch.clon(conf);
-	
+
+	// Configuration by default
 	// Max length of content
 	conf.max = parseInt(conf.max) || conf.value || parseInt(conf.msg) || 500;
 	
@@ -59,7 +61,7 @@ ch.countdown = function (conf) {
 	* @name ch.Countdown#contentLength
 	* @type Number
 	*/
-	var contentLength = that.$element.val().length,
+	var contentLength = that.element.value.length,
 	
 	/**
 	* Amount of free characters until full the field.
@@ -111,9 +113,8 @@ ch.countdown = function (conf) {
 	* @function
 	*/
 	that.process = function () {
-		
-		// TODO: fix watcher
-		var len = that.watcher.$elements.val().length;
+
+		var len = that.element.value.length;
 		
 		// Countdown or Countup
 		if ((len > contentLength && len <= conf.max) || (len < contentLength && len >= 0)) {
@@ -128,9 +129,7 @@ ch.countdown = function (conf) {
 		} else if (len > contentLength && len > conf.max) {
 			
 			// Cut the string value of form control
-			// TODO: fix watcher
-			//that.watcher.content(that.watcher.content().substr(0, conf.max));
-			that.watcher.$elements.val(that.watcher.$elements.val().substr(0, conf.max));
+			that.element.value = that.element.value.substr(0, conf.max);
 			
 		};
 		
@@ -161,20 +160,13 @@ ch.countdown = function (conf) {
 	* @name ch.Countdown#type
 	* @type String
 	*/
-	
-	/**
-	* Monitors all form controls associated with this component
-	* @public
-	* @name ch.Controls#watcher
-	* @type Object
-	*/
 
 /**
 *	Default event delegation
 */
 
-	// Bind process function to watcher
-	that.watcher.on("keyup keypress paste", function () { setTimeout(that.process, 0); });
+	// Bind process function to element
+	that.$element.on("keyup keypress paste", function () { setTimeout(that.process, 0); });
 	
 	/**
 	* Triggers when component is ready to use.
