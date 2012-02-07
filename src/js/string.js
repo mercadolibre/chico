@@ -3,12 +3,12 @@
 * @name String 
 * @class String
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {String} [message] Validation message
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
@@ -18,7 +18,7 @@
 * // Create a string validation
 * $("input").string("This field must be a string.");
 */
-ch.extend("watcher").as("string", function (conf) {
+ch.extend("validation").as("string", function (conf) {
 
 	conf.condition = {
 		name: "string",
@@ -37,12 +37,12 @@ ch.extend("watcher").as("string", function (conf) {
 * @name Email
 * @class Email
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {String} [message] Validation message
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
@@ -52,7 +52,7 @@ ch.extend("watcher").as("string", function (conf) {
 * // Create a email validation
 * $("input").email("This field must be a valid email.");
 */
-ch.extend("watcher").as("email", function (conf) {
+ch.extend("validation").as("email", function (conf) {
 
 	conf.condition = {
 		name: "email",
@@ -69,12 +69,12 @@ ch.extend("watcher").as("email", function (conf) {
 * @name Url
 * @class Url
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {String} [message] Validation message
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
@@ -84,7 +84,7 @@ ch.extend("watcher").as("email", function (conf) {
 * // Create a URL validation
 * $("input").url("This field must be a valid URL.");
 */
-ch.extend("watcher").as("url", function (conf) {
+ch.extend("validation").as("url", function (conf) {
 
 	conf.condition = {
 		name: "url",
@@ -102,13 +102,13 @@ ch.extend("watcher").as("url", function (conf) {
 * @name MinLength
 * @class MinLength
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {Number} value Minimun number value.
 * @param {String} [message] Validation message
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
@@ -118,7 +118,7 @@ ch.extend("watcher").as("url", function (conf) {
 * // Create a minLength validation
 * $("input").minLength(10, "At least 10 characters..");
 */
-ch.extend("watcher").as("minLength", function (conf) {
+ch.extend("validation").as("minLength", function (conf) {
 
 	conf.condition = {
 		name: "minLength",
@@ -137,13 +137,13 @@ ch.extend("watcher").as("minLength", function (conf) {
 * @name MaxLength
 * @class MaxLength
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {Number} value Maximun number value.
 * @param {String} [message] Validation message
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
@@ -153,7 +153,7 @@ ch.extend("watcher").as("minLength", function (conf) {
 * // Create a maxLength validation
 * $("input").maxLength(10, "No more than 10 characters..");
 */
-ch.extend("watcher").as("maxLength", function (conf) {
+ch.extend("validation").as("maxLength", function (conf) {
 
 	conf.condition = {
 		name: "maxLength",

@@ -7,7 +7,7 @@ form p.required {
 
 /* Field wrapper */
 form .field-box{
-	padding:3px 0;
+	padding:5px 0;
 }
 							
 
@@ -379,8 +379,8 @@ form .ico{display:inline-block;}
 							}
 							
 							/* Basic wrapper for horizontal view */
-							.ch-form-row{
-								padding:3px 0;
+							.ch-form-row {
+								padding: 5px 0;
 								margin-bottom: 0;
 							}
 							

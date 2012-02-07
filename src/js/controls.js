@@ -4,6 +4,7 @@
 * @name Controls
 * @class Controls 
 * @augments ch.Uiobject
+* @requires ch.Floats
 * @memberOf ch
 * @returns itself
 * @see ch.Countdown
@@ -35,44 +36,32 @@ ch.controls = function () {
 */
 
 	/**
-	* Reference to the elements to be watched (a.k.a. form inputs).
+	* Creates a reference to the Float component instanced.
 	* @protected
 	* @type Object
-	* @name ch.Controls#watcher
+	* @name ch.Controls#createFloat
 	*/
-	that.watcher = {
-		"elements": that.element,
-		"$elements": that.$element,
-		"form": that.$element.parents("form"),
-		"on": function (event, callback) {
-			// TODO: pluralize this
-			this.$elements.bind(event, callback);
-		},
-		"content": function (data) {
-			// TODO: pluralize this
-			this.$elements.val(data);
-		}
+	that.createFloat = function (c) {
+		c.position = {
+			"context": conf.context || c.context || c.$element || that.$element,
+			"offset": c.offset,
+			"points": c.points
+		};
+
+		var float = ch.floats.call({
+			"element": (ch.utils.hasOwn(c, "$element")) ? c.$element[0] : that.element,
+			"$element": c.$element || that.$element,
+			"uid": (ch.utils.index += 1),
+			"type": c.type || that.type,
+			"conf": c
+		});
+
+		return float;
 	};
-	
-	/**
-	* Reference to the Float component instanced.
-	* @protected
-	* @type Object
-	* @name ch.Controls#float
-	*/
-	that.float = {};
 
 /**
 *  Public Members
 */
-
-	/**
-	* Monitors all form controls associated with this component
-	* @public
-	* @name ch.Controls#watcher
-	* @type Object
-	*/
-	that["public"].watcher = that.watcher;
 
 	return that;
 };
