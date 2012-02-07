@@ -63,13 +63,5 @@ ch.controls = function () {
 *  Public Members
 */
 
-	/**
-	* Monitors all form controls associated with this component
-	* @public
-	* @name ch.Controls#watcher
-	* @type Object
-	*/
-	that["public"].watcher = that.watcher;
-
 	return that;
 };

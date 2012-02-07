@@ -42,10 +42,8 @@ ch.datePicker = function (conf) {
 
 	conf = ch.clon(conf);
 
-	// Format by default
+	// Configuration by default
 	conf.format = conf.format || "DD/MM/YYYY";
-
-	// Positioner Points by default
 	conf.points = conf.points || "ct cb";
 	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
 
@@ -62,8 +60,17 @@ ch.datePicker = function (conf) {
 *	Private Members
 */
 	
-	// Pick a date in the Calendar and updates the input data.
-	var select = function (event) {
+/**
+*	Protected Members
+*/
+
+	/**
+	* Pick a date in the Calendar and updates the input data.
+	* @protected
+	* @function
+	* @name ch.DatePicker#process
+	*/
+	that.process = function (event) {
 
 		// Day selection
 		if (event.target.nodeName !== "TD" || event.target.className.indexOf("ch-disabled") !== -1 || event.target.className.indexOf("ch-calendar-other") !== -1) { return; }
@@ -75,10 +82,6 @@ ch.datePicker = function (conf) {
 		if (conf.closable) { that.float.innerHide(); }
 
 	};
-	
-/**
-*	Protected Members
-*/
 
 	
 	/**
@@ -89,7 +92,7 @@ ch.datePicker = function (conf) {
 	*/
 	that.calendar = $("<div>")
 		// Add functionality for date selection
-		.bind("click", function (event) { select(event); })
+		.bind("click", function (event) { that.process(event); })
 		// Instance Calendar component
 		.calendar({
 			"format": conf.format,
@@ -184,7 +187,8 @@ ch.datePicker = function (conf) {
 	* @return itself
 	*/
 	that["public"].select = function (date) {
-		that.calendar.select(date);
+		// Select the day and update input value with selected date
+		that.element.value = that.calendar.select(date);
 
 		return that["public"];
 	};

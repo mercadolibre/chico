@@ -25,6 +25,11 @@ ch.validation = function (conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
+	
+	// Configuration by default
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");
+	conf.offset = conf.offset || "15 0";
+	conf.points = conf.points || "lt rt";
 
 	that.conf = conf;
 
@@ -99,90 +104,11 @@ ch.validation = function (conf) {
 	*/
 	var validationEvent = (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options") || that.element.tagName == "SELECT") ? "change" : "blur";
 
-	var hasError = function () {
-
-		// Pre-validation: Don't validate disabled
-		if (that.$element.attr('disabled') || !that.enabled) { return false; }
-
-		/**
-		* Triggers before start validation process.
-		* @name ch.Validation#beforeValidate
-		* @event
-		* @public
-		* @example
-		* me.on("beforeValidate",function(event) {
-		*	submitButton.disable();
-		* });
-		*/
-		// old callback system
-		that.callbacks('beforeValidate');
-		// new callback
-		that.trigger("beforeValidate");
-		
-		var gotError = validator.validate(value());
-
-		var status = !gotError.status;
-
-		if (status) {
-
-			if (that.$element.prop("tagName") === "INPUT" || that.$element.prop("tagName") === "TEXTAREA") {
-				that.$element.addClass("error ch-form-error");
-			}
-
-			that.float["public"].show("<p class=\"ch-message ch-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
-
-			// Add blur or change event only one time
-			if (!that.$element.data("events")) { that.$element.one(validationEvent, hasError); }
-
-			/**
-			* Triggers when an error occurs on the validation process.
-			* @name ch.Validation#error
-			* @event
-			* @public
-			* @example
-			* me.on("error",function(event, condition) {
-			*	if (condition === "required") {
-			* 		errorModal.show();
-			* 	}
-			* });
-			*/
-			// old callback system
-			that.callbacks('onError', gotError.condition);
-			// new callback
-			that.trigger("error", gotError.condition);
-
-		} else {
-			that.$element.removeClass("error ch-form-error");
-			that.float.innerHide();
-		}
-
-		/**
-		* Triggers when the validation process ends.
-		* @name ch.Validation#afterValidate
-		* @event
-		* @public
-		* @example
-		* me.on("afterValidate",function(){
-		*	submitButton.disable();
-		* });
-		*/
-		// old callback system
-		that.callbacks('afterValidate');
-		// new callback
-		that.trigger("afterValidate");
-
-		return status;
-
-	};
-
 	var clear = function() {
 
 		that.$element.removeClass("error ch-form-error");
 		that.float.innerHide();
 
-		// Don't work
-		//that.$element.unbind(validationEvent, hasError); // Remove blur and change event
-		
 		validator.clear();
 
 		/**
@@ -258,13 +184,101 @@ ch.validation = function (conf) {
 		"content": "<p class=\"ch-message ch-error\">Error.</p>",
 		"cone": true,
 		"cache": false,
-		"closeButton": ch.utils.hasOwn(conf, "closeButton"),
+		"closeButton": conf.closeButton,
 		"aria": {
 			"role": "alert"
 		},
-		"offset": conf.offset || "15 0",
-		"points": conf.points || "lt rt"
+		"offset": conf.offset,
+		"points": conf.points
 	});
+
+	/**
+	* Runs all validations to check if it has an error.
+	* @protected
+	* @type function
+	* @returns boolean
+	* @name ch.Validation#process
+	*/
+	that.process = function () {
+
+		// Pre-validation: Don't validate disabled
+		if (that.$element.attr('disabled') || !that.enabled) { return false; }
+
+		/**
+		* Triggers before start validation process.
+		* @name ch.Validation#beforeValidate
+		* @event
+		* @public
+		* @example
+		* me.on("beforeValidate",function(event) {
+		*	submitButton.disable();
+		* });
+		*/
+		// old callback system
+		that.callbacks('beforeValidate');
+		// new callback
+		that.trigger("beforeValidate");
+		
+		// Executes the validators engine with a specific value and returns an object.
+		var gotError = validator.validate(value());
+
+		// Save the validator's status.
+		var status = !gotError.status;
+
+		// If has Error...
+		if (status) {
+
+			if (that.$element.prop("tagName") === "INPUT" || that.$element.prop("tagName") === "TEXTAREA") {
+				that.$element.addClass("error ch-form-error");
+			}
+
+			that.float["public"].show("<p class=\"ch-message ch-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
+
+			// Add blur or change event only one time
+			if (!that.$element.data("events")) { that.$element.one(validationEvent, that.process); }
+
+			/**
+			* Triggers when an error occurs on the validation process.
+			* @name ch.Validation#error
+			* @event
+			* @public
+			* @example
+			* me.on("error",function(event, condition) {
+			*	if (condition === "required") {
+			* 		errorModal.show();
+			* 	}
+			* });
+			*/
+			// old callback system
+			that.callbacks('onError', gotError.condition);
+			// new callback
+			that.trigger("error", gotError.condition);
+
+		// else NOT Error!
+		} else {
+			that.$element.removeClass("error ch-form-error");
+			that.float.innerHide();
+		}
+
+		/**
+		* Triggers when the validation process ends.
+		* @name ch.Validation#afterValidate
+		* @event
+		* @public
+		* @example
+		* me.on("afterValidate",function(){
+		*	submitButton.disable();
+		* });
+		*/
+		// old callback system
+		that.callbacks('afterValidate');
+		// new callback
+		that.trigger("afterValidate");
+
+		return status;
+
+	};
+
 
 /**
 *	Public Members
@@ -310,7 +324,7 @@ ch.validation = function (conf) {
 	* @returns boolean
 	*/
 	that["public"].hasError = function(){
-		return hasError();
+		return that.process();
 	}
 	
 	/**
@@ -321,7 +335,7 @@ ch.validation = function (conf) {
 	* @returns boolean
 	*/
 	that["public"].validate = function(){
-		hasError();
+		that.process();
 
 		return that["public"];
 	}
@@ -371,11 +385,22 @@ ch.validation = function (conf) {
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
+	* @Deprecated
 	* @name ch.Validation#helper
-	* @type ch.Floats
+	* @type ch.Helper
 	* @see ch.Floats
 	*/
 	that["public"].helper = that.float["public"];
+	
+	/**
+	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
+	* @public
+	* @since 0.10.2
+	* @name ch.Validation#float
+	* @type ch.Floats
+	* @see ch.Floats
+	*/
+	that["public"].float = that.float["public"];
 
 	/**
 	* Turn on Validation and Validator engine or an specific condition.

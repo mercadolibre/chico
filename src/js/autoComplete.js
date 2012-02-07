@@ -163,7 +163,7 @@ ch.autoComplete = function(conf){
 		that.items = that.$content.find("li");
 		that.selected = -1;
 		shortcuts(that.items);
-		that.float["public"].content(that.$content);
+		that.float.content(that.$content);
 
 		return that;
 	}
