@@ -134,7 +134,7 @@ ch.autoComplete = function(conf){
 	* @type Object
 	* @name ch.AutoComplete#float
 	*/
-	that.float = that.createFloat({
+	that["float"] = that.createFloat({
 		"content": that.$content,
 		"points": conf.points,
 		"closeButton": false,
@@ -156,14 +156,14 @@ ch.autoComplete = function(conf){
 	*/
 	that.populateContent = function (result) {
 		if (result.length === 0) {
-			that.float.innerHide();
+			that["float"].innerHide();
 			return that;
 		}
 		that.$content.html("<li>" + result.join("</li><li>") + "</li>");
 		that.items = that.$content.find("li");
 		that.selected = -1;
 		shortcuts(that.items);
-		that.float.content(that.$content);
+		that["float"].content(that.$content);
 
 		return that;
 	}
@@ -241,7 +241,7 @@ ch.autoComplete = function(conf){
 		ch.utils.document.bind("keyup", function (event) { 
 			if(event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
 				that.doQuery(event);
-				that.float.innerShow();
+				that["float"].innerShow();
 			}
 		});
 
@@ -258,7 +258,7 @@ ch.autoComplete = function(conf){
 	*/
 	that.hide = function(event){
 		ch.utils.document.unbind("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
-		that.float.innerHide();
+		that["float"].innerHide();
 		return that;
 	}
 /**

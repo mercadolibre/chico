@@ -261,7 +261,8 @@ ch.clon = function(o) {
 * @returns collection
 * @memberOf ch
 */
-
+// TODO: Always it should receive a conf object as parameter (see Multiple component)
+// TODO: Try to deprecate .and() method on Validator
 ch.factory = function(o) {
 
 	var x = o.component || o;
