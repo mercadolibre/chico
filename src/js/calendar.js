@@ -701,7 +701,7 @@ ch.calendar = function (conf) {
 	* me.show();
 	*/
 	that["public"].show = function () {
-		that.float.show();
+		that["float"].show();
 
 		return that["public"];
 	};
@@ -717,7 +717,7 @@ ch.calendar = function (conf) {
 	* me.hide();
 	*/
 	that["public"].hide = function () {
-		that.float.hide();
+		that["float"].hide();
 
 		return that["public"];
 	};

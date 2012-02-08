@@ -79,7 +79,7 @@ ch.datePicker = function (conf) {
 		that.element.value = that.calendar.selectDay(event.target.innerHTML);
 
 		// Hide float
-		if (conf.closable) { that.float.innerHide(); }
+		if (conf.closable) { that["float"].innerHide(); }
 
 	};
 
@@ -109,7 +109,7 @@ ch.datePicker = function (conf) {
 	* @type Object
 	* @name ch.DatePicker#float
 	*/
-	that.float = that.createFloat({
+	that["float"] = that.createFloat({
 		"$element": $("<p class=\"ch-datePicker-trigger\">Date Picker</p>").insertAfter(that.element),
 		"content": that.calendar.element,
 		"points": conf.points,
@@ -158,7 +158,7 @@ ch.datePicker = function (conf) {
 	* me.show();
 	*/
 	that["public"].show = function () {
-		that.float.innerShow();
+		that["float"].innerShow();
 
 		return that["public"];
 	};
@@ -174,7 +174,7 @@ ch.datePicker = function (conf) {
 	* me.hide();
 	*/
 	that["public"].hide = function () {
-		that.float.innerHide();
+		that["float"].innerHide();
 
 		return that["public"];
 	};
@@ -293,13 +293,13 @@ ch.datePicker = function (conf) {
 	that.element.value = (conf.selected) ? that.calendar.select() : that.element.value;
 	
 	// Add show behaivor to float's trigger.
-	that.float.$element
+	that["float"].$element
 		.css("cursor", "pointer")
-		.bind("click", function (event) { that.float.innerShow(event); });
+		.bind("click", function (event) { that["float"].innerShow(event); });
 
 	// Add hide behaivor
-	that.float.on("show", function () {
-		ch.utils.document.one("click", that.float.innerHide);
+	that["float"].on("show", function () {
+		ch.utils.document.one("click", that["float"].innerHide);
 	});
 
 	/**
