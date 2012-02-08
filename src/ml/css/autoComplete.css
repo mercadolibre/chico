@@ -3,11 +3,6 @@
 	display:none !important;
 }
 
-.ch-autoComplete-trigger
-{
-	width:400px;
-}
-
 .ch-autoComplete-content
 {
 	background-color:#ffffff;
@@ -15,16 +10,18 @@
 	border-top:none;
 }
 
-.ch-autoComplete-content li
+
+.ch-autoComplete-content li,
+.ch-autoComplete-selected
 {
-	padding:3px;
+	margin: 0;
+	padding: 3px 5px;
 	color:#666666;
 	cursor:pointer;
 }
 
 .ch-autoComplete-selected
-{
-	padding:3px;
+{	
 	background-color: #fefbd6;
 }
 

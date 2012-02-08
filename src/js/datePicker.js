@@ -4,7 +4,6 @@
 * @class DatePicker
 * @augments ch.Controls
 * @requires ch.Calendar
-* @requires ch.Layer
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
@@ -43,12 +42,9 @@ ch.datePicker = function (conf) {
 
 	conf = ch.clon(conf);
 
-	// Format by default
+	// Configuration by default
 	conf.format = conf.format || "DD/MM/YYYY";
-
-	// Positioner Points by default
 	conf.points = conf.points || "ct cb";
-	
 	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
 
 	that.conf = conf;
@@ -64,78 +60,67 @@ ch.datePicker = function (conf) {
 *	Private Members
 */
 	
-	// Pick a date in the Calendar and updates the input data.
-	var select = function (event) {
+/**
+*	Protected Members
+*/
+
+	/**
+	* Pick a date in the Calendar and updates the input data.
+	* @protected
+	* @function
+	* @name ch.DatePicker#process
+	*/
+	that.process = function (event) {
 
 		// Day selection
 		if (event.target.nodeName !== "TD" || event.target.className.indexOf("ch-disabled") !== -1 || event.target.className.indexOf("ch-calendar-other") !== -1) { return; }
 
 		// Select the day and update input value with selected date
-		that.watcher.elements.value = calendar.selectDay(event.target.innerHTML);
+		that.element.value = that.calendar.selectDay(event.target.innerHTML);
 
 		// Hide float
-		if (conf.closable) { that.float.hide(); }
+		if (conf.closable) { that.float.innerHide(); }
 
-	},
+	};
+
 	
 	/**
 	* Reference to the Calendar component instance.
-	* @private
+	* @protected
 	* @type Object
 	* @name ch.DatePicker#calendar
 	*/
-		calendar = $("<div>")
-			// Add functionality for date selection
-			.bind("click", function (event) { select(event); })
-			// Instance Calendar component
-			.calendar({
-				"format": conf.format,
-				"from": conf.from,
-				"to": conf.to,
-				"selected": conf.selected,
-				"monthsNames": conf.monthsNames,
-				"weekdays": conf.weekdays
-			});
+	that.calendar = $("<div>")
+		// Add functionality for date selection
+		.bind("click", function (event) { that.process(event); })
+		// Instance Calendar component
+		.calendar({
+			"format": conf.format,
+			"from": conf.from,
+			"to": conf.to,
+			"selected": conf.selected,
+			"monthsNames": conf.monthsNames,
+			"weekdays": conf.weekdays
+		});
 	
-/**
-*	Protected Members
-*/
-
 	/**
 	* Reference to the Float component instanced.
 	* @protected
 	* @type Object
 	* @name ch.DatePicker#float
 	*/
-	that.float = $("<p class=\"ch-datePicker-trigger\">Date Picker</p>")
-
-		// Append next to trigger
-		.insertAfter(that.watcher.$elements)
-
-		// Initialize Layer component
-		.layer({
-			"event": "click",
-			"content": calendar.element,
-			"points": conf.points,
-			"classes": "ch-datePicker-container",
-			"closeButton": false
-		})
-
-		// Show callback
-		.on("show", function () {
-			// Old callback system
-			that.callbacks.call(that, "onShow");
-			// New callback
-			that.trigger("show");
-		})
-
-		// Hide callback
-		.on("hide", function () {
-			// Old callback
-			that.callbacks.call(that, "onHide");
-			// New callback
-			that.trigger("hide");
-		});
+	that.float = that.createFloat({
+		"$element": $("<p class=\"ch-datePicker-trigger\">Date Picker</p>").insertAfter(that.element),
+		"content": that.calendar.element,
+		"points": conf.points,
+		"offset": "0 10",
+		"aria": {
+			"role": "tooltip",
+			"identifier": "aria-describedby"
+		},
+		"closeButton": false,
+		"cone": true
+	});
 
 /**
 *  Public Members
@@ -173,7 +158,7 @@ ch.datePicker = function (conf) {
 	* me.show();
 	*/
 	that["public"].show = function () {
-		that.float.show();
+		that.float.innerShow();
 
 		return that["public"];
 	};
@@ -189,7 +174,7 @@ ch.datePicker = function (conf) {
 	* me.hide();
 	*/
 	that["public"].hide = function () {
-		that.float.hide();
+		that.float.innerHide();
 
 		return that["public"];
 	};
@@ -204,7 +189,8 @@ ch.datePicker = function (conf) {
 	* @return itself
 	*/
 	that["public"].select = function (date) {
-		calendar.select(date);
+		// Select the day and update input value with selected date
+		that.element.value = that.calendar.select(date);
 
 		return that["public"];
 	};
@@ -218,7 +204,7 @@ ch.datePicker = function (conf) {
 	* @return date
 	*/
 	that["public"].today = function () {
-		return calendar.today();
+		return that.calendar.today();
 	};
 
 	/**
@@ -231,7 +217,7 @@ ch.datePicker = function (conf) {
 	* @default Next month
 	*/
 	that["public"].next = function (time) {
-		calendar.next(time);		
+		that.calendar.next(time);		
 
 		return that["public"];
 	};
@@ -245,7 +231,7 @@ ch.datePicker = function (conf) {
 	* @default Previous month
 	*/
 	that["public"].prev = function (time) {
-		calendar.prev(time);
+		that.calendar.prev(time);
 
 		return that["public"];
 	};
@@ -260,9 +246,9 @@ ch.datePicker = function (conf) {
 	that["public"].reset = function () {
 		
 		// Delete input value
-		that.watcher.elements.value = "";
+		that.element.value = "";
 		
-		calendar.reset();
+		that.calendar.reset();
 
 		return that["public"];
 	};
@@ -276,7 +262,7 @@ ch.datePicker = function (conf) {
 	* @return itself
 	*/
 	that["public"].from = function (date) {
-		calendar.from(date);
+		that.calendar.from(date);
 		
 		return that["public"];
 	};
@@ -290,7 +276,7 @@ ch.datePicker = function (conf) {
 	* @return itself
 	*/
 	that["public"].to = function (date) {
-		calendar.to(date);
+		that.calendar.to(date);
 		
 		return that["public"];
 	};
@@ -301,11 +287,21 @@ ch.datePicker = function (conf) {
 */
 	
 	// Change type of input to "text"
-	that.watcher.elements.type = "text";
+	that.element.type = "text";
 
 	// Change value of input if there are a selected date
-	that.watcher.elements.value = (conf.selected) ? calendar.select() : that.element.value;
+	that.element.value = (conf.selected) ? that.calendar.select() : that.element.value;
 	
+	// Add show behaivor to float's trigger.
+	that.float.$element
+		.css("cursor", "pointer")
+		.bind("click", function (event) { that.float.innerShow(event); });
+
+	// Add hide behaivor
+	that.float.on("show", function () {
+		ch.utils.document.one("click", that.float.innerHide);
+	});
+
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.DatePicker#ready

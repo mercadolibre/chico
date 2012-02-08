@@ -4,13 +4,13 @@
 * @name Custom
 * @class Custom
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {Function} function Custom function to evaluete a value.
 * @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Number
 * @see ch.String
@@ -22,7 +22,7 @@
 * 	return (value%2==0) ? true : false;
 * }, "Enter a even number");
 */
-ch.extend("watcher").as("custom", function(conf) {
+ch.extend("validation").as("custom", function(conf) {
 	
 	if (!conf.lambda) {
 		alert("Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},\"Message\");");

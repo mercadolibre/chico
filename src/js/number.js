@@ -4,12 +4,12 @@
 * @name Number
 * @class Number
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.String
@@ -19,7 +19,7 @@
 * // Create a number validation
 * $("input").number("This field must be a number.");
 */
-ch.extend("watcher").as("number", function(conf) {
+ch.extend("validation").as("number", function(conf) {
 	
 	// Define the conditions of this interface
 	conf.condition = {
@@ -37,13 +37,13 @@ ch.extend("watcher").as("number", function(conf) {
 * @name Min
 * @class Min
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {Number} value Minimun number value.
 * @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.String
@@ -52,7 +52,7 @@ ch.extend("watcher").as("number", function(conf) {
 * @example
 * $("input").min(10, "Write a number bigger than 10");
 */
-ch.extend("watcher").as("min", function (conf) {
+ch.extend("validation").as("min", function (conf) {
 
 	conf.condition = {
 		name: "min",
@@ -71,13 +71,13 @@ ch.extend("watcher").as("min", function (conf) {
 * @name Max
 * @class Max
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {Number} value Minimun number value.
 * @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.String
@@ -86,7 +86,7 @@ ch.extend("watcher").as("min", function (conf) {
 * @example
 * $("input").max(10, "Write a number smaller than 10");
 */
-ch.extend("watcher").as("max", function (conf) {
+ch.extend("validation").as("max", function (conf) {
 
 	conf.condition = {
 		name: "max",
@@ -104,12 +104,12 @@ ch.extend("watcher").as("max", function (conf) {
 * @name Price
 * @class Price
 * @interface
-* @augments ch.Uiobject
-* @requires ch.Watcher
+* @augments ch.Controls* @augments ch.Controls
+* @requires ch.Validation
 * @memberOf ch
 * @param {String} [message] Validation message.
 * @returns itself
-* @see ch.Watcher
+* @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.String
@@ -118,7 +118,7 @@ ch.extend("watcher").as("max", function (conf) {
 * @example
 * $("input").price("Write valid price.");
 */
-ch.extend("watcher").as("price", function (conf) {
+ch.extend("validation").as("price", function (conf) {
 
 	conf.condition = {
 		name: "price",
