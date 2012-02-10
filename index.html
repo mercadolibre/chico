@@ -980,13 +980,17 @@
 		// Components
 		
 		// AutoComplete
-		var ac = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest?q=",message:"Please Write",jsonpCallback:"autoComplete"});
-		var ab = $(".autoComplete2").autoComplete({url:"http://chico.com:8080/suggest?q=",message:"Please Write",jsonpCallback:"her"});
-		var ad = $(".autoComplete3").autoComplete({suggestions:["Oops","Oso","Olor","ser","something","wrong","happened","B","AA","BBBB"],message:"Escribe y seras sugerido"});
+		var a = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest?q=",message:"Please Write",jsonpCallback:"autoComplete"});
+		var b = $(".autoComplete2").autoComplete({url:"http://chico.com:8080/suggest?q=",message:"Please Write",jsonpCallback:"her"});
+		var c = $(".autoComplete3").autoComplete({suggestions:["Oops","Oso","Olor","ser","something","wrong","happened","B","AA","BBBB"],message:"Escribe y seras sugerido"});
 		
+		var autoComplete = function(data){
+			a.suggest(data);
+		}
+
 		var her = function(data){
 			data.push("Other callback");
-			ab.suggest(data);
+			b.suggest(data);
 		}
 		
 		// Blink

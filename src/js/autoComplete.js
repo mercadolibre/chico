@@ -1,4 +1,3 @@
-
 /**
 * AutoComplete is a UI-Component.
 * @name AutoComplete
@@ -50,25 +49,6 @@ ch.autoComplete = function(conf){
 */
 
 	/**
-	* Adds keyboard events.
-	* @private
-	* @type Function
-	* @name ch.AutoComplete#shortcuts
-	*/
-	var shortcuts = function (items) {
-		$.each(items, function (i, e) {
-			$(e).bind("mouseenter", function () {
-				items.eq(that.selected).removeClass("ch-autoComplete-selected");
-				that.selected = i;
-				items.eq(that.selected).addClass("ch-autoComplete-selected");
-			}).bind("mousedown",function () {
-				that.$element.val(items.eq(that.selected).text());
-				that.$element.blur();
-			});
-		});
-	};
-
-	/**
 	* Select an item.
 	* @private
 	* @type Function
@@ -76,13 +56,12 @@ ch.autoComplete = function(conf){
 	*/
 	var selectItem = function (arrow, event) {
 		that.prevent(event);
+
 		if (that.selected === (arrow === "bottom" ? that.items.length - 1 : 0)) { return; }
-		that.items.eq(that.selected).removeClass("ch-autoComplete-selected");
+		$(that.items[that.selected]).removeClass("ch-autoComplete-selected");
 		
 		if (arrow === "bottom") { that.selected += 1; } else { that.selected -= 1; }
-		that.items.eq(that.selected).addClass("ch-autoComplete-selected");
-		
-		
+		$(that.items[that.selected]).addClass("ch-autoComplete-selected");
 	};
 
 /**
@@ -119,14 +98,23 @@ ch.autoComplete = function(conf){
 	* @type jQuery
 	* @name ch.AutoComplete#$content
 	*/
-	that.$content = $("<ul></ul>");
+	that.$content = $("<ul class=\"ch-autoComplete-list\"></ul>");
 
 	/**
-	* The Float that show the suggestions's list.
+	* It has the items loaded.
 	* @protected
-	* @type ch.Layer
-	* @name ch.AutoComplete#float
+	* @type Boolean
+	* @name ch.AutoComplete#populateContent
 	*/
+	that.behaviorActived = false;
+
+	/**
+	* It has the items loaded.
+	* @protected
+	* @type Array
+	* @name ch.AutoComplete#populateContent
+	*/
+	that.items = [];
 	
 	/**
 	* Reference to the Float component instanced.
@@ -154,17 +142,26 @@ ch.autoComplete = function(conf){
 	* @type Function
 	* @name ch.AutoComplete#populateContent
 	*/
-	that.populateContent = function (result) {
-		if (result.length === 0) {
-			that.float.innerHide();
-			return that;
-		}
-		that.$content.html("<li>" + result.join("</li><li>") + "</li>");
-		that.items = that.$content.find("li");
-		that.selected = -1;
-		shortcuts(that.items);
-		that.float.content(that.$content);
+	that.populateContent = function (event,result) {
+		// No results doesn't anything
+		if(result.length===0){return that;}
+		// Only one result and the same as the input hide float and doesn't anything
+		if(result.length===1 && result[0]===that.element.value){that.float.innerHide();return that;}
 
+		var list = "";
+		$.each(result, function (i, e) {
+			list+="<li data-index=\""+i+"\">"+e+"</li>";
+		})
+
+		that.$content.html(list);
+		that.selected = -1;
+		that.float.content(that.$content);
+		that.items = that.$content.children();
+		// Adds only once the behavior
+		if(!that.behaviorActived){
+			that.suggestionsBehavior(event);
+			that.behaviorActived = true;
+		}
 		return that;
 	}
 
@@ -177,26 +174,110 @@ ch.autoComplete = function(conf){
 	that.doQuery = function(event){
 		var q = that.$element.val().toLowerCase();
 		// When URL is configured it will execute an ajax request.
-		if (that.conf.url !== undefined && q !== "") {
-			var result = $.ajax({
-				url: that.conf.url + q,
-				dataType:"jsonp",
-				jsonpCallback:that.conf.jsonpCallback,
-				crossDomain:true,
-				success: function(data){}
-			});
-		// When not URL configured and suggestions array were configured it search inside the suggestions array.
-		} else if (that.conf.url === undefined && q !== "") {
-			var result = [];
-			for(var a=(that.suggestions.length-1);(a+1);a--){
-				var word = that.suggestions[a].toLowerCase();
-				var exist = word.search(q);
-				if(!exist){
-					result.push(that.suggestions[a]);
-				}
-			};
-			that.populateContent(result);
+		if(that.element.value !== "" && event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
+			if (that.conf.url !== undefined) {
+				var result = $.ajax({
+					url: that.conf.url + q,
+					dataType:"jsonp",
+					jsonpCallback:that.conf.jsonpCallback,
+					crossDomain:true,
+					success: function(data){}
+				});
+			// When not URL configured and suggestions array were configured it search inside the suggestions array.
+			} else if (that.conf.url === undefined) {
+				var result = [];
+				for(var a=(that.suggestions.length-1);(a+1);a--){
+					var word = that.suggestions[a].toLowerCase();
+					var exist = word.search(q);
+					if(!exist){
+						result.push(that.suggestions[a]);
+					}
+				};
+				that.populateContent(result);
+			}
 		}
+		return that;
+	}
+
+	/**
+	* Binds the behavior related to the list.
+	* @protected
+	* @type Function
+	* @name ch.AutoComplete#suggestionsBehavior
+	*/
+	that.suggestionsBehavior = function(event){
+		// BACKSPACE key bheavior. When backspace go to the start show the message
+		ch.utils.document.on(ch.events.KEY.BACKSPACE, function (x, event) { 
+			// When isn't any letter it hides the float
+			if(that.element.value.length===1){
+				that.float.innerHide();
+			}
+			// When the user make backspace with empty input autocomplete is shutting off
+			if(that.element.value.length===0){
+				that.prevent(event);
+				that.$element.trigger("blur");
+			} 
+		})
+		// ESC key behavior, it closes the suggestions's list 
+		.on(ch.events.KEY.ESC, function (x, event) { that.$element.trigger("blur"); })
+		// ENTER key behavior, it selects the item who is selected
+		.on(ch.events.KEY.ENTER, function (x, event) { that.$element.val($(that.items[that.selected]).text()); that.$element.trigger("blur"); })
+		// UP ARROW key behavior, it selects the previous item
+		.on(ch.events.KEY.UP_ARROW, function (x, event) { selectItem("up", event); })
+		// DOWN ARROW key behavior, it selects the next item
+		.on(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
+		// MouseOver & MouseDown Behavior
+		that.float.$content.on("mouseover mousedown",function(evt){
+			var event = evt || window.event;
+			var target = event.target || event.srcElement;
+			var type = event.type;
+			if(target.tagName === "LI"){
+				// mouse over behavior
+				if(type === "mouseover"){
+					// removes the class if one is selected
+					$(that.items[that.selected]).removeClass("ch-autoComplete-selected");
+					// selects the correct item
+					that.selected = parseInt(target.getAttribute("data-index"));
+					// adds the class to highlight the item
+					$(that.items[that.selected]).addClass("ch-autoComplete-selected");	
+				} 
+				// mouse down behavior
+				if(type === "mousedown") {
+					that.prevent(event);
+					that.$element.val($(that.items[that.selected]).text());
+					that.$element.trigger("blur");
+				}		
+			}
+		});
+	}
+
+	/**
+	* Internal show method. It adds the behavior.
+	* @protected
+	* @type Function
+	* @name ch.AutoComplete#show
+	*/
+	that.show = function(event){
+		var query = that.element.value;
+		that.doQuery(event);
+		// Global keyup behavior
+		ch.utils.document.on("keyup", function (event) {that.doQuery(event); that.float.innerShow(); });
+		that.$content.html("");
+		if(query!==""){that.float.innerShow();}
+		return that;
+	}
+
+	/**
+	* Internal hide method. It removes the behavior.
+	* @protected
+	* @type Function
+	* @name ch.AutoComplete#hide
+	*/
+	that.hide = function(event){
+		that.behaviorActived = false;
+		that.$content.off("mouseover mousedown");
+		ch.utils.document.off("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
+		that.float.innerHide();
 		return that;
 	}
 
@@ -208,59 +289,17 @@ ch.autoComplete = function(conf){
 	*/
 	that.configBehavior = function () {
 		that.$element
-			.bind("focus", function (event) { 
-				  that.show(event);
+			.bind("focus", function (event) { 				
+				that.show(event);
 			})
 			.bind("blur", function (event) { 
-				 that.hide(event);
+				that.hide(event);
 			})
 			.attr("autocomplete","off")
 			.addClass("ch-" + that.type + "-trigger");
-
 		return that;
 	};
 
-	/**
-	* Internal show method. It adds the behavior.
-	* @protected
-	* @type Function
-	* @name ch.AutoComplete#show
-	*/
-	that.show = function(event){
-		// BACKSPACE key bheavior. When backspace go to the start show the message
-		ch.utils.document.bind(ch.events.KEY.BACKSPACE, function (x, event) { if( event.target.value.length<=1 ){ that.populateContent([that.conf.message]); }});
-		// UP ARROW key behavior
-		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function (x, event) { selectItem("up", event); });
-		// DOWN ARROW key behavior
-		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
-		// ESC key behavior
-		ch.utils.document.bind(ch.events.KEY.ESC, function (x, event) { that.$element.trigger("blur"); });
-		// ENTER key behavior
-		ch.utils.document.bind(ch.events.KEY.ENTER, function (x, event) {  that.$element.val(that.items.eq(that.selected).text()); that.$element.trigger("blur"); });
-		// Global keyup behavior
-		ch.utils.document.bind("keyup", function (event) { 
-			if(event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
-				that.doQuery(event);
-				that.float.innerShow();
-			}
-		});
-
-		that.doQuery(event);
-
-		return that;
-	}
-
-	/**
-	* Internal hide method. It removes the behavior.
-	* @protected
-	* @type Function
-	* @name ch.AutoComplete#hide
-	*/
-	that.hide = function(event){
-		ch.utils.document.unbind("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
-		that.float.innerHide();
-		return that;
-	}
 /**
 *  Public Members
 */
@@ -319,13 +358,13 @@ ch.autoComplete = function(conf){
 	*/	
 	that["public"].suggest = function(data){
 		that.suggestions = data;
-		that.populateContent(that.suggestions);
+		that.populateContent(window.event,that.suggestions);
 		return that["public"];
 	};
 
 	
 	//Fills the Float with the message.
-	that.populateContent([that.conf.message]);
+	//that.populateContent([that.conf.message]);
 
 /**
 *  Default event delegation

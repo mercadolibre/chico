@@ -38,10 +38,7 @@
 	<div class="box"> 
 		<h2>AutoComplete</h2> 
 		<form method="get" action="/" id="asForm">
-			<div class="autoComplete">
-				<input type="text" id="autocomplete" placeholder="Write a country name" />
-				<ul></ul>
-			</div>
+				<input type="text" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
 				<input type="submit" class="btn secondary skin" />
 		</form>
 	</div> 
@@ -51,10 +48,12 @@
 	<script src="http://10.10.42.18:8080/latest/js?debug=true"></script>
 	<script> 
 	
-	var conf = {
-		//suggested: ["Option 1","Option 2","Option 3","Option 4","Option 5"],
-		url: "http://10.10.42.18:8080/suggest/"
-	}
+		var conf = {
+			//suggested: ["Option 1","Option 2","Option 3","Option 4","Option 5"],
+			url: "http://chico.com:8080/suggest?q=",
+			jsonpCallback: "autoComplete"
+		}
+
 
 		
 		// Automatic version
@@ -63,22 +62,11 @@
         document.getElementsByTagName("h1")[0].innerHTML = title;
 
 		// Calendar
-		var ac = $(".autoComplete").autoComplete({url:"http://10.10.42.18:8080/suggest/"});
+		var ac = $(".autoComplete").autoComplete(conf);
 			//ac.suggest(["Option 1","Option 2","Option 3","Option 4","Option 5"]);
 		
 		var autoComplete = function(data){
 			ac.suggest(data);
-		}
-		
-		
-		var autoSugShow = function(data){
-			
-			console.log(data.txt);
-			for(var a in data.txt){
-				data.txt[a] = data.txt[a].replace("|","").replace("¬","");
-			}
-			
-			ac.suggest(data.txt);
 		}
 
 	</script>
