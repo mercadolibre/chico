@@ -122,7 +122,7 @@ ch.autoComplete = function(conf){
 	* @type Object
 	* @name ch.AutoComplete#float
 	*/
-	that.float = that.createFloat({
+	that["float"] = that.createFloat({
 		"content": that.$content,
 		"points": conf.points,
 		"closeButton": false,
@@ -155,7 +155,7 @@ ch.autoComplete = function(conf){
 
 		that.$content.html(list);
 		that.selected = -1;
-		that.float.content(that.$content);
+		that["float"].content(that.$content);
 		that.items = that.$content.children();
 		// Adds only once the behavior
 		if(!that.behaviorActived){
@@ -277,7 +277,7 @@ ch.autoComplete = function(conf){
 		that.behaviorActived = false;
 		that.$content.off("mouseover mousedown");
 		ch.utils.document.off("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
-		that.float.innerHide();
+		that["float"].innerHide();
 		return that;
 	}
 

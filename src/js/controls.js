@@ -8,10 +8,9 @@
 * @memberOf ch
 * @returns itself
 * @see ch.Countdown
-* @see ch.Validator
+* @see ch.Validation
 * @see ch.AutoComplete
-* @see ch.Calendar
-* @see ch.Mask
+* @see ch.DatePicker
 */
 
 ch.controls = function () {

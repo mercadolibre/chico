@@ -69,7 +69,7 @@ ch.countdown = function (conf) {
 	* @name ch.Countdown#remaining
 	* @type Number
 	*/
-		remaining = conf.max - contentLength;
+		remaining = conf.max - contentLength,
 	
 	/**
 	* Change the visible message of remaining characters.
@@ -83,17 +83,20 @@ ch.countdown = function (conf) {
 			// Singular or Plural message depending on amount of remaining characters
 			var message = (remaining === 1) ? conf.singular : conf.plural,
 			
+			// Append to container to allow icon aside inputs
+				$container = that.$element.parent();
+
 			// Create the DOM Element when message will be shown
-				$display = $("<p class=\"ch-form-hint\">" + message.replace("#", remaining) + "</p>").insertAfter(that.$element);
+				$display = $("<p class=\"ch-form-hint\">" + message.replace("#", remaining) + "</p>").appendTo($container);
 			
 			// Real function
 			return function (num) {
 				
 				// Singular or Plural message depending on amount of remaining characters
-				var message = (num === 1) ? conf.singular : conf.plural;
+				var message = (num !== 1 ? conf.plural : conf.singular).replace(/\#/g, num);
 				
 				// Update DOM text
-				$display.text(message.replace("#", num));
+				$display.text(message);
 				
 				// Update amount of remaining characters
 				remaining = num;
