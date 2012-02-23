@@ -139,7 +139,7 @@ ch.layer = function (conf) {
 				if (target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") { return; }
 			}
 
-			ht = setTimeout(that.innerHide, hideTime);
+			ht = setTimeout(function(){that.innerHide()}, hideTime);
 		},
 
 	/**
