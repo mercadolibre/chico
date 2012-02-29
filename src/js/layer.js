@@ -122,7 +122,7 @@ ch.layer = function (conf) {
 	* @function
 	* @name ch.Layer#showTimer
 	*/
-		showTimer = function () { st = setTimeout(that.innerShow, showTime); },
+		showTimer = function () { st = setTimeout(function () { that.innerShow() }, showTime); },
 
 	/**
 	* Starts hide timer.
@@ -139,7 +139,7 @@ ch.layer = function (conf) {
 				if (target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") { return; }
 			}
 
-			ht = setTimeout(function(){that.innerHide()}, hideTime);
+			ht = setTimeout(function () { that.innerHide() }, hideTime);
 		},
 
 	/**
