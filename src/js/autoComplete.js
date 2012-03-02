@@ -193,7 +193,7 @@ ch.autoComplete = function(conf){
 						result.push(that.suggestions[a]);
 					}
 				};
-				that.populateContent(result);
+				that.populateContent(event,result);
 			}
 		}
 		return that;
@@ -258,6 +258,9 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#show
 	*/
 	that.show = function(event){
+		// new callbacks
+		that.trigger("show");
+		
 		var query = that.element.value;
 		that.doQuery(event);
 		// Global keyup behavior
