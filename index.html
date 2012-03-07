@@ -114,23 +114,46 @@
 
 	<div class="box clearfix">
 		<h2>Buttons</h2>
-		<div class="ch-g1-2">
+		<div class="ch-g1-4">
 			<p><input type="button" class="ch-btn ch-main" value="Main button"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-primary" value="Primary button"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-secondary" value="Secondary button"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-secondary ch-skin" value="Secondary button cyan"></p>
 		</div>
-		<div class="ch-g1-2">
+		<div class="ch-g1-4">
 			<p><input type="button" class="ch-btn ch-main disabled" disabled value="Main disabled"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-primary disabled" disabled value="Primary disabled"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-secondary disabled" disabled value="Secondary disabled"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-secondary ch-skin disabled" disabled value="Secondary skin disabled"></p>
+		</div>
+
+		<div class="ch-g1-4">
+			<div><p class="ch-btn ch-btn-big">P button</p></div>
+			<br>
+			<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
+			<br>
+			<p><input type="button" class="ch-btn" value="Button"></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-tiny" value="Tiny button"></p>
+			<br>
+			<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
+		</div>
+		<div class="ch-g1-4">
+			<div><p class="ch-btn ch-btn-big ch-btn-disabled">P button</p></div>
+			<br>
+			<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button</a></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" disabled value="Big button disabled"></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-disabled" disabled value="Button disabled"></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" disabled value="Small button disabled"></p>
+			<br>
+			<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" disabled value="Skin button disabled"></p>
 		</div>
 	</div>
 	
@@ -371,7 +394,7 @@
 			    <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
 			</menu>
 		</div>
-		
+
 		<div class="myDropdown ch-dropdown secondary">
 			<p class="ch-dropdown-trigger">Links secondary</p>
 			<menu label="Links" class="ch-dropdown-content">
@@ -523,24 +546,24 @@
 	<div class="box"> 
 		<h2>Icons</h2>
 		<ul class="showroomIcons">
-			<li><span class="ch-ico ch-error">Error</span></li>
-			<li><span class="ch-ico ch-help">Help</span></li>
-			<li><span class="ch-ico ch-information">Info</span></li>
-			<li><span class="ch-ico ch-attention">Attention</span></li>
-			<li><span class="ch-ico ch-ok">ok</span></li>
-			<li><span class="ch-ico ch-check">check</span></li>
+			<li><span class="ch-ico-error">Error</span></li>
+			<li><span class="ch-ico-help">Help</span></li>
+			<li><span class="ch-ico-information">Info</span></li>
+			<li><span class="ch-ico-attention">Attention</span></li>
+			<li><span class="ch-ico-ok">ok</span></li>
+			<li><span class="ch-ico-check">check</span></li>
 		</ul>
 	</div> 
 	
 	<div class="box"> 
 		<h2>Message boxes</h2>
 		<ul class="showroomIcons">
-			<li><p class="ch-message ch-error">Oops, something wrong happened</p></li>
-			<li><p class="ch-message ch-help">Do you need any help?</p></li>
-			<li><p class="ch-message ch-information">Here's more information</p></li>
-			<li><p class="ch-message ch-attention">Warning! something might be wrong</p></li>
-			<li><p class="ch-message ch-ok">Everything is great!</p></li>
-			<li><p class="ch-message ch-check">Everything is okay</p></li>
+			<li><p class="ch-message-error">Oops, something wrong happened</p></li>
+			<li><p class="ch-message-help">Do you need any help?</p></li>
+			<li><p class="ch-message-information">Here's more information</p></li>
+			<li><p class="ch-message-attention">Warning! something might be wrong</p></li>
+			<li><p class="ch-message-ok">Everything is great!</p></li>
+			<li><p class="ch-message-check">Everything is okay</p></li>
 		</ul>
 	</div> 
 
@@ -1103,6 +1126,7 @@
 				}
 
 			}).and().required("Debes completar este campo");
+		var ch_number = $("#number").number("Este campo tiene que ser un número.").and().min(5, "Tiene que ser mayor a 5.");
 		var ch_wch4 = $("#range").min(1).and().max(10);
 		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#required_disabled, #select2, #select3, .check2, .check3, .radio2, .radio3, .radio4, #textarea2, #textarea3").required("Required");

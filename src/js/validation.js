@@ -181,7 +181,7 @@ ch.validation = function (conf) {
 			return reference;
 		})(),
 		"type": "validation",
-		"content": "<p class=\"ch-message ch-error\">Error.</p>",
+		"content": "<p class=\"ch-message-error\">Error.</p>",
 		"cone": true,
 		"cache": false,
 		"closeButton": conf.closeButton,
@@ -232,7 +232,7 @@ ch.validation = function (conf) {
 				that.$element.addClass("error ch-form-error");
 			}
 
-			that.float["public"].show("<p class=\"ch-message ch-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
+			that.float["public"].show("<p class=\"ch-message-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
 
 			// Add blur or change event only one time
 			if (!that.$element.data("events")) { that.$element.one(validationEvent, that.process); }

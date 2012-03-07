@@ -10,7 +10,8 @@
 }
 
 
-.ch-validation-content .ch-message.ch-error{
+.ch-validation-content .ch-message.ch-error,
+.ch-validation-content .ch-message-error {
 	padding: 2px 5px 2px 27px;
 	background-position: -175px -5px;
 }
