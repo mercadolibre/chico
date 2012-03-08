@@ -98,7 +98,7 @@ ch.floats = function () {
 		}
 		
 		// Classname with component type and extra classes from conf.classes
-		container.push(" class=\"ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
+		container.push(" class=\"ch-hide ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
 		
 		// Z-index
 		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + ";");
