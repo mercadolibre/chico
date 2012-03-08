@@ -13,8 +13,6 @@
 * @param {String} [conf.event] Sets the event ("click" or "hover") that trigger show method. By default, the event is "hover".
 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
 * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-* @param {Number} [conf.showTime] Sets a delay time to show component's contents. By default, the value is 400ms.
-* @param {Number} [conf.hideTime] Sets a delay time to hide component's contents. By default, the value is 400ms.
 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
 * @param {String} [conf.closeHandler] Sets the way ("any" or "button") the Layer close when conf.event is set as "click". By default, the layer close "any".
 * @returns itself
@@ -28,8 +26,7 @@
 *     "width": "200px",
 *     "height": 50,
 *     "event": "click",
-*     "showTime": 600,
-*     "hideTime": 200,
+      "closeHandler": "button",
 *     "offset": "10 -10",
 *     "cache": false,
 *     "points": "lt rt"
@@ -83,30 +80,13 @@ ch.layer = function (conf) {
 */
 
 	/**
-	* Delay time to show component's contents.
-	* @private
-	* @name ch.Layer#showTime
-	* @type number
-	* @default 400
-	*/
-	var showTime = conf.showTime || 400,
-
-	/**
 	* Delay time to hide component's contents.
 	* @private
 	* @name ch.Layer#hideTime
 	* @type number
 	* @default 400
 	*/
-		hideTime = conf.hideTime || 400,
-
-	/**
-	* Show timer instance.
-	* @private
-	* @name ch.Layer#st
-	* @type timer
-	*/
-		st,
+	var hideTime = 400,
 
 	/**
 	* Hide timer instance.
@@ -115,14 +95,6 @@ ch.layer = function (conf) {
 	* @type timer
 	*/
 		ht,
-
-	/**
-	* Starts show timer.
-	* @private
-	* @function
-	* @name ch.Layer#showTimer
-	*/
-		showTimer = function () { st = setTimeout(function () { that.innerShow() }, showTime); },
 
 	/**
 	* Starts hide timer.
@@ -148,7 +120,7 @@ ch.layer = function (conf) {
 	* @function
 	* @name ch.Layer#clearTimers
 	*/
-		clearTimers = function () { clearTimeout(st); clearTimeout(ht); },
+		clearTimers = function () { clearTimeout(ht); },
 
 	/**
 	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
@@ -202,19 +174,17 @@ ch.layer = function (conf) {
 		// conf.position.context = that.$element;
 		that.parent.innerShow(event);
 
-		// Click in the button
-		if (conf.event === "click" && conf.closeHandler === "button") {
-			// Document events
-			that.$container.find(".close").one("click", that.innerHide);
-		// Click anywhere
-		} else if (conf.event === "click") {
-			// Document events
-			ch.utils.document.one("click", that.innerHide);
-			that.$container.bind("click", stopBubble);
-		// Hover
-		} else { 		
-			clearTimers();
-			that.$container.one("mouseenter", clearTimers).bind("mouseleave", hideTimer);
+		if (!ch.utils.hasOwn(conf, "closeHandler") || conf.closeHandler !== "button") {
+			// Click anywhere
+			if (conf.event === "click") {
+				// Document events
+				ch.utils.document.one("click", that.innerHide);
+				that.$container.bind("click", stopBubble);
+			
+			// Hover
+			} else {
+				that.$container.one("mouseenter", clearTimers).bind("mouseleave", hideTimer);
+			}
 		}
 
 		return that;
