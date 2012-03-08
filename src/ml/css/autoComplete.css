@@ -25,7 +25,11 @@
 	background-color: #fefbd6;
 }
 
-
+.ch-autoComplete-loading {
+	background: url('../assets/loading_small.gif') no-repeat right center;
+	background-size: 15px;
+	
+}
 
 .lt-ie8 .ch-autoComplete 
 {
