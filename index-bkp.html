@@ -44,7 +44,7 @@
 
 <body>
 	<h1>Chico-UI</h1>
-	<div class="ch-container">
+	<div class="container">
 		<h1>Header 1</h1> 
 		<h2>Header 2</h2> 
 		<h3>Header 3</h3> 
@@ -54,7 +54,7 @@
 		<p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 	</div> 
 
-	<div class="ch-box links"> 
+	<div class="box links"> 
 		<h2>Links</h2> 
 
 		<p><a href="http://www.mercadolibre.com">MercadoLibre</a></p> 
@@ -63,7 +63,7 @@
 		<p><a href="http://www.mercadoclics.com">MercadoClics</a></p> 
 	</div>
 	
-	<div class="ch-box clearfix">
+	<div class="box clearfix">
 		<h2>Lists</h2>
 		<div class="ch-g1-4">
 			<h3>Unstyled</h3>
@@ -107,12 +107,12 @@
 		</div>
 	</div>
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Boxes</h2> 
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 	</div> 
 
-	<div class="ch-box clearfix">
+	<div class="box clearfix">
 		<h2>Buttons</h2>
 		<div class="ch-g1-4">
 			<p><input type="button" class="ch-btn ch-main" value="Main button"></p>
@@ -128,6 +128,8 @@
 		</div>
 
 		<div class="ch-g1-4">
+			<div><p class="ch-btn ch-btn-big">P button</p></div>
+			<br>
 			<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
 			<br>
 			<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
@@ -141,6 +143,8 @@
 			<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
 		</div>
 		<div class="ch-g1-4">
+			<div><p class="ch-btn ch-btn-big ch-btn-disabled">P button</p></div>
+			<br>
 			<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button</a></p>
 			<br>
 			<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" disabled value="Big button disabled"></p>
@@ -153,7 +157,7 @@
 		</div>
 	</div>
 	
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>AutoComplete</h2> 
 		<form method="get" action="/" id="asForm" class="ch-form">
 			<p class="ch-form-row"> 
@@ -180,36 +184,36 @@
 		</form>
 	</div> 
 	
-	<div class="ch-box">
+	<div class="box">
 		<h2>Blink</h2>
 		<p id="example">This is a text that you can blink</p>
 		<p>
-			<button class="ch-btn-skin ch-btn-small" id="doHighlight">Blink the paragraph</button>
+			<button class="btn secondary skin" id="doHighlight">Blink the paragraph</button>
 		</p>
 	</div>
 
-	<div class="ch-box">
+	<div class="box">
 		<h2>Pagination</h2>
-		<ul class="ch-pagination">
+		<ul class="pagination">
 			<li><a type="prev" href="/2.html">Previous</a></li>
 			<li><a href="/1.html">1</a></li>
 			<li><a href="/2.html">2</a></li>
-			<li class="ch-pagination-current"><a href="/3.html">3</a></li>
+			<li class="current"><a href="/3.html">3</a></li>
 			<li><a href="/4.html">4</a></li>
 			<li><a href="/5.html">5</a></li>
 			<li><a type="next" href="/4.html">Next</a></li>
 		</ul>
 	</div>
 	
-	<div class="ch-box">
-			<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
+	<div class="box">
+			<table class="datagrid" summary="Listado de cobros en MercadoPago">
 				<caption>Table</caption>
 				<thead>
 					<tr>
 						<th scope="col"><input type="checkbox" name="mycheckall"/></th>
 						<th scope="col">Datos de inicio</th>
 						<th scope="col">Tipo de operación</th>
-						<th scope="col" class="ch-datagrid-selected">Contraparte<span class="ch-datagrid-asc">(asc)</span></th>
+						<th scope="col" class="selected">Contraparte<span class="asc">(asc)</span></th>
 						<th scope="col">Descripción</th>
 						<th scope="col">Valor</th>
 						<th scope="col">Status de la operación</th>
@@ -228,7 +232,7 @@
 						<td>select	
 						</td>
 					</tr>
-					<tr class="ch-datagrid-selected">
+					<tr class="selected">
 						<td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
 						<td>02/04/2011</td>
 						<td><a href="#">Valor de venta del producto</a></td>
@@ -262,7 +266,7 @@
 			</table>
 	</div>
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Expando</h2> 
 		<div class="YOUR_SELECTOR_Expando"> 
 			<h4>Lorem ipsum dolor sit amet.</h4> 
@@ -276,7 +280,7 @@
 	</div> 
 
 
-	<div class="ch-box">
+	<div class="box">
 		<h2>Accordion</h2>
 		<ul class="YOUR_SELECTOR_Accordion">
 			<li>
@@ -329,7 +333,7 @@
 	</div>
 
 
-	<div class="ch-box">
+	<div class="box">
 		<h2>Menu</h2>
 		<ul class="YOUR_SELECTOR_Menu">
 			<li>
@@ -378,7 +382,7 @@
 	</div>
 
 
-	<div class="ch-box">
+	<div class="box">
 		<h2>Dropdown</h2>
 		
 		<div class="myDropdown ch-dropdown">
@@ -391,7 +395,7 @@
 			</menu>
 		</div>
 
-		<div class="myDropdown ch-dropdown-skin">
+		<div class="myDropdown ch-dropdown secondary">
 			<p class="ch-dropdown-trigger">Links secondary</p>
 			<menu label="Links" class="ch-dropdown-content">
 			    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
@@ -404,7 +408,7 @@
 	
 
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Tooltip</h2>
 		<img class="YOUR_SELECTOR_Tooltip" alt="Playera Adidas Con Logo Nba Basketball ! !" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
 		<br>
@@ -414,14 +418,14 @@
 	</div> 
 
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Layer</h2> 
 		<span class="YOUR_SELECTOR_LayerCloseButton">Executed on click, button closes.</span> 
 		| <span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> 
 		| <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
 	</div> 
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Modal window</h2> 
 		
 		<form action="/test.html">
@@ -432,7 +436,7 @@
 		</form>
 	</div> 
 	
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Modal window with DOM Content</h2> 
 		
         <div class="container">
@@ -449,14 +453,14 @@
 		</div>
 	</div> 
 	
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Transition window</h2> 
 		<form action="/test.html"> 
 			<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
 	</div>
 
-	<div class="ch-box"> 
+	<div class="box"> 
 
 		<h2>Carousel</h2> 
 
@@ -497,7 +501,7 @@
 				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
 
 			</ul> 
-			<div class="ch-box"> 
+			<div class="box"> 
 
 				<div id="tab1-b"> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
@@ -523,7 +527,7 @@
 				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li> 
 				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
 			</ul> 
-			<div class="ch-box"> 
+			<div class="box"> 
 				<div id="tab1-b"> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
@@ -539,7 +543,7 @@
 		</div>
 	</div> 
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Icons</h2>
 		<ul class="showroomIcons">
 			<li><span class="ch-ico-error">Error</span></li>
@@ -551,7 +555,7 @@
 		</ul>
 	</div> 
 	
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Message boxes</h2>
 		<ul class="showroomIcons">
 			<li><p class="ch-message-error">Oops, something wrong happened</p></li>
@@ -563,12 +567,12 @@
 		</ul>
 	</div> 
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Calendar</h2>
 		<div class="YOUR_SELECTOR_calendar"></div>
 	</div>
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Date Picker</h2>
 		<form action="/test.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
 			<fieldset>
@@ -582,7 +586,7 @@
 		</form>
 	</div>
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Countdown</h2>
 		<form action="/test.html" class="YOUR_SELECTOR_Formcountdown ch-form">
 			<fieldset>
@@ -597,7 +601,7 @@
 	</div>
 
 
-	<div class="ch-box"> 
+	<div class="box"> 
 		<h2>Form and Watchers</h2> 
 
 		<form action="http://localhost:3000/test/post" class="ch-form myForm" method="POST"> 

@@ -48,6 +48,70 @@ ch.floats = function () {
 	* @name ch.Floats#createClose
 	*/
 
+	/**
+	* Closable behavior.
+	* @private
+	* @function
+	* @name ch.Floats#closable
+	*/
+	// TODO: Create "closable" interface
+	var closable = (function () {
+		/**
+		* Returns any if the component closes automatic. 
+		* @public
+		* @name ch.Floats#closable
+		* @function
+		* @example
+		* // to get the height
+		* me.closable() // true | false | "button"
+		* @returns boolean | string
+		*/
+		that["public"].closable = function () {
+			return that.closable;
+		};
+
+		
+		return function () {
+			
+			// Closable Off: don't anything
+			if (!that.closable) { return; }
+
+			// Closable On
+
+			if (ch.utils.hasOwn(conf, "closeButton") && conf.closeButton || ch.utils.hasOwn(conf, "event") && conf.event === "click") {
+				// Append close buttons	
+				// It will close with close button
+				that.$container
+					.prepend("<a class=\"ch-close\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\">×</a>")
+					.bind("click", function (event) {
+						if ($(event.target || event.srcElement).hasClass("ch-close")) { 
+							that.innerHide(event);
+						}
+					});
+			}
+
+			// It will close only with close button
+			if (that.closable === "button") {
+				return;
+			}
+
+			// Default Closable behavior
+			// It will close with click on document, too
+			that.on("show", function () {
+				ch.utils.document.one("click", that.innerHide);
+			});
+
+			// Stop event propatation, if click container.
+			that.$container.bind("click", function (event) {
+				event.stopPropagation();
+			});
+
+			// and ESC key support
+			ch.utils.document.bind(ch.events.KEY.ESC, that.innerHide);
+		};
+
+	})();
+
 /**
 * Protected Members
 */
@@ -58,6 +122,15 @@ ch.floats = function () {
 	* @type boolean
 	*/
 	that.active = false;
+
+	/**
+	* It sets the hablity of auto close the component or indicate who closes the component.
+	* @protected
+	* @function
+	* @name ch.Floats#closable
+	* @type boolean | string
+	*/
+	that.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable: true;
 
 	/**
 	* Content configuration property.
@@ -79,7 +152,7 @@ ch.floats = function () {
 		var $container,
 		
 		// Component with close button and keyboard binding for close
-			closable = ch.utils.hasOwn(conf, "closeButton") && conf.closeButton,
+		//	closable = ch.utils.hasOwn(conf, "closeButton") && conf.closeButton,
 		
 		// HTML Div Element with role for WAI-ARIA
 			container = ["<div role=\"" + conf.aria.role + "\""];
@@ -117,10 +190,10 @@ ch.floats = function () {
 		container.push("\">");
 		
 		// Create cone
-		if (ch.utils.hasOwn(conf, "cone")) { container.push("<div class=\"ch-cone\"></div>"); }
+		if (ch.utils.hasOwn(conf, "cone")) { container.push("<div class=\"ch-" + that.type + "-cone\"></div>"); }
 		
 		// Create close button
-		if (closable) { container.push("<div class=\"btn close\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></div>"); }
+		//if (closable) { container.push("<div class=\"btn close\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></div>"); }
 		
 		// Tag close
 		container.push("</div>");
@@ -129,7 +202,7 @@ ch.floats = function () {
 		$container = $(container.join(""));
 		
 		// Close behavior bindings
-		if (closable) {
+		/*if (closable) {
 			// Close button event delegation
 			$container.bind("click", function (event) {
 				if ($(event.target || event.srcElement).hasClass("close")) { that.innerHide(event); }
@@ -137,7 +210,7 @@ ch.floats = function () {
 			
 			// ESC key support
 			ch.utils.document.bind(ch.events.KEY.ESC, function (event) { that.innerHide(event); });
-		}
+		}*/
 		
 		// Efects configuration
 		conf.fx = ch.utils.hasOwn(conf, "fx") ? conf.fx : true;
@@ -469,6 +542,7 @@ ch.floats = function () {
 	that["public"].isActive = function () {
 		return that.active;
 	};
+
 	
 	/**
 	* Triggers when the component is ready to use.
@@ -482,6 +556,14 @@ ch.floats = function () {
 	* });
 	*/
 	that.trigger("ready");
+
+	/**
+	*	Default behavior
+	*/
+
+	// Add Closable behavior
+	closable();
+
 
 	return that;
 

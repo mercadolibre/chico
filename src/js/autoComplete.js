@@ -125,10 +125,9 @@ ch.autoComplete = function(conf){
 	that["float"] = that.createFloat({
 		"content": that.$content,
 		"points": conf.points,
-		"closeButton": false,
 		"points": "lt lb",
 		"cache": false,
-		"closeHandler": "button",
+		"closable": false,
 		"aria": {
 			"role": "tooltip",
 			"identifier": "aria-describedby"
@@ -146,7 +145,7 @@ ch.autoComplete = function(conf){
 		// No results doesn't anything
 		if(result.length===0){return that;}
 		// Only one result and the same as the input hide float and doesn't anything
-		if(result.length===1 && result[0]===that.element.value){that.float.innerHide();return that;}
+		if(result.length===1 && result[0]===that.element.value){that["float"].innerHide();return that;}
 
 		var list = "";
 		$.each(result, function (i, e) {
@@ -210,7 +209,7 @@ ch.autoComplete = function(conf){
 		ch.utils.document.on(ch.events.KEY.BACKSPACE, function (x, event) { 
 			// When isn't any letter it hides the float
 			if(that.element.value.length===1){
-				that.float.innerHide();
+				that["float"].innerHide();
 			}
 			// When the user make backspace with empty input autocomplete is shutting off
 			if(that.element.value.length===0){
@@ -227,7 +226,7 @@ ch.autoComplete = function(conf){
 		// DOWN ARROW key behavior, it selects the next item
 		.on(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
 		// MouseOver & MouseDown Behavior
-		that.float.$content.on("mouseover mousedown",function(evt){
+		that["float"].$content.on("mouseover mousedown",function(evt){
 			var event = evt || window.event;
 			var target = event.target || event.srcElement;
 			var type = event.type;
@@ -264,9 +263,9 @@ ch.autoComplete = function(conf){
 		var query = that.element.value;
 		that.doQuery(event);
 		// Global keyup behavior
-		ch.utils.document.on("keyup", function (event) {that.doQuery(event); that.float.innerShow(); });
+		ch.utils.document.on("keyup", function (event) {that.doQuery(event); that["float"].innerShow(); });
 		that.$content.html("");
-		if(query!==""){that.float.innerShow();}
+		if(query!==""){that["float"].innerShow();}
 		return that;
 	}
 
@@ -374,8 +373,8 @@ ch.autoComplete = function(conf){
 */	
 	that.configBehavior();
 	
-	/*that.float.on("ready", function () {
-		that.float["public"].width((that.$element.outerWidth()));
+	/*that["float"].on("ready", function () {
+		that["float"]["public"].width((that.$element.outerWidth()));
 	});*/
 	
 	/**
