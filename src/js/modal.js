@@ -11,6 +11,7 @@
 * @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
+* @param {String} [conf.closable] Sets the way (true, "button" or false) the Modal close. By default, the modal close true.
 * @returns itself
 * @see ch.Tooltip
 * @see ch.Layer
@@ -43,11 +44,13 @@ ch.modal = function (conf) {
 	*/
 	var that = this;
 	conf = ch.clon(conf);
-	
-	conf.classes = conf.classes || "box";
-	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : (that.type === "modal");
-	
+
+	conf.classes = conf.classes || "ch-box";
 	conf.reposition = false;
+
+	// Closable configuration
+	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : true;
+	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
 	
 	conf.aria = {};
 	
@@ -98,9 +101,9 @@ ch.modal = function (conf) {
 				.appendTo(ch.utils.body)
 				.fadeIn();
 
-			if (that.type === "modal") {
+			/*if (that.type === "modal") {
 				$dimmer.one("click", function (event) { that.innerHide(event) });
-			}
+			}*/
 			
 			// TODO: position dimmer with Positioner
 			if (!ch.features.fixed) {
@@ -151,6 +154,14 @@ ch.modal = function (conf) {
 		that.parent.innerHide(event);
 		return that;
 	};
+
+	/**
+	* Returns any if the component closes automatic. 
+	* @protected
+	* @name ch.Modal#closable
+	* @function
+	* @returns boolean
+	*/
 
 /**
 *	Public Members
@@ -274,6 +285,14 @@ ch.modal = function (conf) {
 	* @see ch.Object#position
 	*/
 
+	/**
+	* Returns any if the component closes automatic. 
+	* @public
+	* @name ch.Modal#closable
+	* @function
+	* @returns boolean
+	*/
+
 /**
 *	Default event delegation
 */
@@ -341,6 +360,7 @@ ch.factory("modal");
 * @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
+* @param {String} [conf.closable] Sets the way (true, "button" or false) the Transition close. By default, the transition close true.
 * @returns itself
 * @see ch.Tooltip
 * @see ch.Layer
@@ -357,12 +377,12 @@ ch.factory("modal");
 */
 
 ch.extend("modal").as("transition", function (conf) {
-	
-	conf.closeButton = false;
+
+	conf.closable = false;
 	
 	conf.msg = conf.msg || conf.content || "Please wait...";
 	
-	conf.content = $("<div class=\"loading\"></div><p>" + conf.msg + "</p>");
+	conf.content = $("<div class=\"ch-loading\"></div><p>" + conf.msg + "</p>");
 	
 	return conf;
 });

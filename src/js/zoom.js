@@ -55,6 +55,9 @@ ch.zoom = function (conf) {
 	conf.width = conf.width || 300;
 	conf.height = conf.height || 300;
 
+	// Closable configuration
+	conf.closable = false;
+
 	that.conf = conf;
 
 /**
@@ -74,7 +77,7 @@ ch.zoom = function (conf) {
 	* @name ch.Zoom#$loading
 	* @type Object
 	*/
-	var $loading = $("<p class=\"ch-zoom-loading loading ch-hide\">" + conf.message + "</p>").appendTo(that.$element),
+	var $loading = $("<p class=\"ch-zoom-loading ch-hide\">" + conf.message + "</p>").appendTo(that.$element),
 
 	/**
 	* Position of main anchor. It's for calculate cursor position hover the image.
@@ -98,7 +101,7 @@ ch.zoom = function (conf) {
 			* @memberOf ch.Zoom#seeker
 			* @type Object
 			*/
-			"$shape": $("<div class=\"ch-seeker ch-hide\">"),
+			"$shape": $("<div class=\"ch-zoom-seeker ch-hide\">"),
 
 			/**
 			* Half of width of seeker element. It's only half to facilitate move calculations.

@@ -16,17 +16,20 @@
 }
 
 .ch-calendar caption {
-	background: -o-linear-gradient(top, #fff 0%, #ddd 100%);
+	/*background: -o-linear-gradient(top, #fff 0%, #ddd 100%);
 	background: -ms-linear-gradient(top, #fff 0%, #ddd 100%);
 	background: -moz-linear-gradient(top, #fff 0%, #ddd 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #ddd));
 	background: -webkit-linear-gradient(top, #fff 0%, #ddd 100%);
 	background: linear-gradient(top, #fff 0%, #ddd 100%);
-	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');*/
 	font-size: 13px;
 	height: 26px;
 	line-height: 28px;
-	margin-right: -1px;
+
+	background-color: #F5F5F5;
+	text-shadow: 0 1px 0 white;
+	border-bottom: none;
 }
 
 .ch-calendar thead {
@@ -57,8 +60,8 @@
 	text-indent: -99px;
 }
 
-.ch-calendar .ch-disabled,
-.ch-calendar .ch-disabled:hover {
+.ch-calendar-disabled,
+.ch-calendar-disabled:hover {
 	background-color: #FFF;
 	color: #C6C6C6;
 	cursor: not-allowed;
@@ -103,6 +106,8 @@
 	background-position: -3px top;
 }
 
+/* IE */
+
 .ie9 .ch-calendar caption,
 .ie8 .ch-calendar caption {
 	margin:0;
@@ -111,4 +116,8 @@
 .ie7 .ch-calendar {
 	display:inline;
 	zoom:1;
+}
+
+.ie7 .ch-calendar-month {
+	border: 1px solid #dfdfdf;
 }

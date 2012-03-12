@@ -47,7 +47,7 @@ ch.controls = function () {
 			"points": c.points
 		};
 
-		var float = ch.floats.call({
+		return ch.floats.call({
 			"element": (ch.utils.hasOwn(c, "$element")) ? c.$element[0] : that.element,
 			"$element": c.$element || that.$element,
 			"uid": (ch.utils.index += 1),
@@ -55,7 +55,7 @@ ch.controls = function () {
 			"conf": c
 		});
 
-		return float;
+		
 	};
 
 /**

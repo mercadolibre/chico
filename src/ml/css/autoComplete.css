@@ -1,10 +1,8 @@
-.ch-autoComplete .ch-cone
-{
+.ch-autoComplete .ch-autoComplete-cone {
 	display:none !important;
 }
 
-.ch-autoComplete-content
-{
+.ch-autoComplete-content {
 	background-color:#ffffff;
 	border:1px solid #CCCCCC;
 	border-top:none;
@@ -12,28 +10,25 @@
 
 
 .ch-autoComplete-content li,
-.ch-autoComplete-selected
-{
+.ch-autoComplete-selected {
 	margin: 0;
 	padding: 3px 5px;
 	color:#666666;
 	cursor:pointer;
 }
 
-.ch-autoComplete-selected
-{	
+.ch-autoComplete-selected {
 	background-color: #fefbd6;
 }
 
+/* IE */
 .ch-autoComplete-loading {
 	background: url('../assets/loading_small.gif') no-repeat right center;
 	background-size: 15px;
 	
 }
 
-.lt-ie8 .ch-autoComplete 
-{
+.lt-ie8 .ch-autoComplete {
 	display: inline;
 	zoom: 1;
 }
-

@@ -48,7 +48,7 @@ ch.expando = function(conf){
 	var $nav = that.$element.children(),
 		triggerAttr = {
 			"aria-expanded":conf.open,
-			"aria-controls":"ch-expando-"+that.uid
+			"aria-controls":"ch-expando-" + that.uid
 		},
 		contentAttr = {
 			id:triggerAttr["aria-controls"],

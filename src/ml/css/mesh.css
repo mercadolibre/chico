@@ -62,6 +62,7 @@ vertical-align: top;
 
 /* gutters: you can use these on your inner elements */
 
-.rightcolumn {margin-left: 10px;}
-.leftcolumn {margin-right: 10px;}
-.centercolumn {margin-left: 10px; margin-right: 10px;}
+
+.ch-rightcolumn, .rightcolumn {margin-left: 10px;}
+.ch-leftcolumn, .leftcolumn {margin-right: 10px;}
+.ch-centercolumn, .centercolumn {margin-left: 10px; margin-right: 10px;}

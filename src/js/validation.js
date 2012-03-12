@@ -27,7 +27,6 @@ ch.validation = function (conf) {
 	conf = ch.clon(conf);
 	
 	// Configuration by default
-	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");
 	conf.offset = conf.offset || "15 0";
 	conf.points = conf.points || "lt rt";
 
@@ -107,7 +106,7 @@ ch.validation = function (conf) {
 	var clear = function() {
 
 		that.$element.removeClass("error ch-form-error");
-		that.float.innerHide();
+		that["float"].innerHide();
 
 		validator.clear();
 
@@ -157,7 +156,7 @@ ch.validation = function (conf) {
 	* @type Object
 	* @name ch.Validation#float
 	*/
-	that.float = that.createFloat({
+	that["float"] = that.createFloat({
 		"$element": (function() {
 			var reference;
 			// CHECKBOX, RADIO
@@ -181,10 +180,10 @@ ch.validation = function (conf) {
 			return reference;
 		})(),
 		"type": "validation",
-		"content": "<p class=\"ch-message ch-error\">Error.</p>",
+		"content": "<p class=\"ch-message-error\">Error.</p>",
 		"cone": true,
 		"cache": false,
-		"closeButton": conf.closeButton,
+		"closable": false,
 		"aria": {
 			"role": "alert"
 		},
@@ -232,7 +231,7 @@ ch.validation = function (conf) {
 				that.$element.addClass("error ch-form-error");
 			}
 
-			that.float["public"].show("<p class=\"ch-message ch-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
+			that["float"]["public"].show("<p class=\"ch-message-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
 
 			// Add blur or change event only one time
 			if (!that.$element.data("events")) { that.$element.one(validationEvent, that.process); }
@@ -257,7 +256,7 @@ ch.validation = function (conf) {
 		// else NOT Error!
 		} else {
 			that.$element.removeClass("error ch-form-error");
-			that.float.innerHide();
+			that["float"].innerHide();
 		}
 
 		/**
@@ -390,7 +389,7 @@ ch.validation = function (conf) {
 	* @type ch.Helper
 	* @see ch.Floats
 	*/
-	that["public"].helper = that.float["public"];
+	that["public"].helper = that["float"]["public"];
 	
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
@@ -400,7 +399,7 @@ ch.validation = function (conf) {
 	* @type ch.Floats
 	* @see ch.Floats
 	*/
-	that["public"].float = that.float["public"];
+	that["public"]["float"] = that["float"]["public"];
 
 	/**
 	* Turn on Validation and Validator engine or an specific condition.

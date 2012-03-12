@@ -125,10 +125,9 @@ ch.autoComplete = function(conf){
 	that["float"] = that.createFloat({
 		"content": that.$content,
 		"points": conf.points,
-		"closeButton": false,
 		"points": "lt lb",
 		"cache": false,
-		"closeHandler": "button",
+		"closable": false,
 		"aria": {
 			"role": "tooltip",
 			"identifier": "aria-describedby"
@@ -158,14 +157,14 @@ ch.autoComplete = function(conf){
 	*/
 	that.populateContent = function (event,result) {
 		// No results doesn't anything
-		if(result.length===0 || that.element.value===""){
+		if (result.length===0 || that.element.value==="") {
 			that.loading(false);
 			that["float"].innerHide();
 			return that;
 		}
 			
 		// Only one result and the same as the input hide float and doesn't anything
-		if(result.length===1 && result[0]===that.element.value){
+		if (result.length===1 && result[0]===that.element.value) {
 			that.loading(false);
 			that["float"].innerHide();
 			return that;
@@ -187,7 +186,7 @@ ch.autoComplete = function(conf){
 		that.items = that.$content.children();
 		
 		// Adds only once the behavior
-		if(!that.behaviorActived){
+		if (!that.behaviorActived) {
 			that.suggestionsBehavior(event);
 			that.behaviorActived = true;
 		}
@@ -206,7 +205,7 @@ ch.autoComplete = function(conf){
 	that.doQuery = function(event){
 		var q = that.$element.val().toLowerCase();
 		// When URL is configured it will execute an ajax request.
-		if(that.element.value !== "" && event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
+		if (that.element.value !== "" && event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
 			if (that.conf.url !== undefined) {
 				that.loading(true);
 				var result = $.ajax({
@@ -242,8 +241,8 @@ ch.autoComplete = function(conf){
 	*/
 	that.suggestionsBehavior = function(event){
 		// BACKSPACE key bheavior. When backspace go to the start show the message
-		ch.utils.document.on(ch.events.KEY.BACKSPACE, function (x, event) { 
-			
+		ch.utils.document.on(ch.events.KEY.BACKSPACE, function (x, event) {
+
 			// When the user make backspace with empty input autocomplete is shutting off
 			if(that.element.value.length===0){
 				that.prevent(event);
@@ -304,6 +303,7 @@ ch.autoComplete = function(conf){
 		// Global keyup behavior
 		ch.utils.document.on("keyup", function (event) {that.doQuery(event);  });
 		//that.$content.html("");
+
 		return that;
 	}
 
@@ -412,8 +412,8 @@ ch.autoComplete = function(conf){
 */	
 	that.configBehavior();
 	
-	/*that.float.on("ready", function () {
-		that.float["public"].width((that.$element.outerWidth()));
+	/*that["float"].on("ready", function () {
+		that["float"]["public"].width((that.$element.outerWidth()));
 	});*/
 	
 	/**

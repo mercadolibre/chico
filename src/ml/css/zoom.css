@@ -28,7 +28,7 @@
 }
 
 /* Seeker shape */
-.ch-zoom-trigger .ch-seeker {
+.ch-zoom-trigger .ch-zoom-seeker {
 	border:1px solid #666;
 	background:#eee;
 	opacity:0.3;
@@ -56,10 +56,10 @@
 }
 
 /* IE */
-.lt-ie9 .ch-zoom-trigger .ch-seeker,
+.lt-ie9 .ch-zoom-trigger .ch-zoom-seeker,
 /* Deprecate */
-.ie6 .ch-zoom-trigger .ch-seeker,
-.ie7 .ch-zoom-trigger .ch-seeker,
-.ie8 .ch-zoom-trigger .ch-seeker {
+.ie6 .ch-zoom-trigger .ch-zoom-seeker,
+.ie7 .ch-zoom-trigger .ch-zoom-seeker,
+.ie8 .ch-zoom-trigger .ch-zoom-seeker {
 	cursor:crosshair;
 }

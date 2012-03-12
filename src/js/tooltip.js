@@ -43,14 +43,16 @@ ch.tooltip = function (conf) {
 
 	conf.cone = true;
 	conf.content = "<span>" + (that.element.title || that.element.alt) + "</span>";
-	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");
+	
+	// Closable configuration
+	conf.closable = false;
 
 	conf.aria = {};
 	conf.aria.role = "tooltip";
 	conf.aria.identifier = "aria-describedby";
 
 	conf.position = {};
-	conf.position.context = $(that.element);
+	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
 	conf.position.points = conf.points || "lt lb";
 
@@ -253,6 +255,7 @@ ch.tooltip = function (conf) {
 	that.$element
 		.bind("mouseenter", that.innerShow)
 		.bind("mouseleave", that.innerHide);
+	
 
 	/**
 	* Triggers when component is visible.
