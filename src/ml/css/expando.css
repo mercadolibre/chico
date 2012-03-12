@@ -22,24 +22,29 @@
 }
 
 /* Trigger icon */
-.ch-expando-trigger .ico {
+.ch-expando-trigger .ch-expando-ico {
 	background-image: url('../assets/expando.png');
 	display: block;
-	width:12px;
-	height:12px;
+	width: 10px;
+	height: 12px;
 	position:absolute;
 	top:2px;
+	overflow: hidden;
+	text-indent: 14px;
 }
 
 /* Trigger icon hover */
-.ch-expando-trigger:hover .ico {
+.ch-expando-trigger:hover .ch-expando-ico {
 	background-position: 0 -17px;
 }
 
 /* Trigger icon on */
-.ch-expando-trigger-on .ico,
-.ch-expando-trigger-on:hover .ico {
-	background-position: 0 -32px;
+.ch-expando-trigger-on .ch-expando-ico,
+.ch-expando-trigger-on:hover .ch-expando-ico {
+	width: 12px;
+	height: 12px;
+	background-position: 0 -30px;
+	top: 0px;
 }
 
 /* Content */

@@ -21,11 +21,6 @@
 	width: 20px;
 }
 
-.ch-datePicker .ch-cone {
-	left: 112px;
-	top: -8px;
-}
-
 .ch-datePicker-content .ch-calendar {
 	display: block;
 }
@@ -36,6 +31,7 @@
 }
 
 .ch-datePicker-content .ch-calendar caption {
+	border-bottom: 1px solid #DFDFDF;
 	margin: 0;
 }
 
@@ -51,6 +47,8 @@
 	cursor:pointer;
 }
 
+.ch-datePicker-content .ch-calendar-day.ch-calendar-disabled:hover,
+/* Deprecated */
 .ch-datePicker-content .ch-calendar-day.ch-disabled:hover {
 	background-color: white;
 	color: #C6C6C6;
@@ -58,44 +56,57 @@
 }
 
 /* Cone */
-.ch-datePicker .ch-cone {
-	background-image: url('../assets/layer.png');
+.ch-datePicker-cone {
 	display:block;
 	position:absolute;
 	width:16px;
 	height:8px;
+	left: 112px;
+	top: -8px;
 }
 
-.ch-datePicker.ch-left .ch-cone {
+.ch-datePicker-cone:before {
+	content: "";
+	width: 12px;
+	height: 12px;
+	position: absolute;
+	background-color: whiteSmoke;
+	border: 1px solid #CECECE;
+	-webkit-transform: rotate(135deg);
+	top: 3px;
+	left: 1px;
+}
+
+.ch-datePicker.ch-left .ch-datePicker-cone {
 	left: 12px;
 }
 
-.ch-datePicker.ch-right .ch-cone {
+.ch-datePicker.ch-right .ch-datePicker-cone {
 	height: 16px;
 	width: 8px;
 	left: -8px;
 }
 
-.ch-datePicker.ch-top .ch-cone {
+.ch-datePicker.ch-top .ch-datePicker-cone {
 	background-position: 0 -8px;
 	bottom: -8px;
 	top: auto;
 }
 
-.ch-datePicker.ch-bottom .ch-cone {
+.ch-datePicker.ch-bottom .ch-datePicker-cone {
 	height: 8px;
 	width: 16px;
 	top: -8px;
 }
 
-.ch-datePicker.ch-right.ch-bottom .ch-cone {
+.ch-datePicker.ch-right.ch-bottom .ch-datePicker-cone {
 	right: 12px;
 	left: auto;
 	height: 8px;
 	width: 16px;
 }
 
-.ch-datePicker.ch-right.ch-top .ch-cone {
+.ch-datePicker.ch-right.ch-top .ch-datePicker-cone {
 	height: 8px;
 	width: 16px;
 	right: 12px;
@@ -116,4 +127,18 @@
 .lt-ie8 .ch-datePicker,
 .ie7 .ch-datePicker {
 	width: 240px;
+}
+
+.lt-ie9 .ch-datePicker-content {
+	padding-top: 1px;
+}
+
+.lt-ie9 .ch-datePicker-cone {
+	background-image: url('../assets/layer.png');
+}
+
+
+.lt-ie9 .ch-datePicker-cone:before {
+	width: auto;
+	height: auto;
 }

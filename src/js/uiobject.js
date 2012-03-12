@@ -233,7 +233,7 @@ ch.uiobject = function(){
 			}, 0);
 
 			// Return Spinner and wait for async callback
-			that.$content.html("<div class=\"loading\"></div>");
+			that.$content.html("<div class=\"ch-loading\"></div>");
 			that.staticContent = undefined;
 
 		} else {

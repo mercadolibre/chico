@@ -297,11 +297,6 @@ ch.datePicker = function (conf) {
 		.css("cursor", "pointer")
 		.bind("click", function (event) { that["float"].innerShow(event); });
 
-	// Add hide behaivor
-	that["float"].on("show", function () {
-		ch.utils.document.one("click", that["float"].innerHide);
-	});
-
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.DatePicker#ready

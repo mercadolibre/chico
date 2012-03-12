@@ -10,14 +10,14 @@
 }
 
 
-.ch-validation-content .ch-message.ch-error{
+.ch-validation-content .ch-message-error {
 	padding: 2px 5px 2px 27px;
 	background-position: -175px -5px;
 }
 
 /* Cone */
 
-.ch-validation .ch-cone {
+.ch-validation .ch-validation-cone {
 	background-image: url("../assets/validation.png");
 	background-position: 0 0 no-repeat;
 	display:block;
@@ -26,37 +26,37 @@
 	height:16px;
 }
 
-.ch-validation.ch-left .ch-cone {
+.ch-validation.ch-left .ch-validation-cone {
 	left: 8px;
 }
 
-.ch-validation.ch-right .ch-cone {
+.ch-validation.ch-right .ch-validation-cone {
 	height: 16px;
 	width: 8px;
 	left: -7px;
 	top: 4px;
 }
 
-.ch-validation.ch-top .ch-cone {
+.ch-validation.ch-top .ch-validation-cone {
 	background-position: 0 -8px;
 	bottom: -8px;
 	top: auto;
 }
 
-.ch-validation.ch-bottom .ch-cone {
+.ch-validation.ch-bottom .ch-validation-cone {
 	height: 8px;
 	width: 16px;
 	top: -7px;
 }
 
-.ch-validation.ch-right.ch-bottom .ch-cone {
+.ch-validation.ch-right.ch-bottom .ch-validation-cone {
 	right: 8px;
 	left: auto;
 	height: 8px;
 	width: 16px;
 }
 
-.ch-validation.ch-right.ch-top .ch-cone {
+.ch-validation.ch-right.ch-top .ch-validation-cone {
 	height: 8px;
 	width: 16px;
 	right: 8px;

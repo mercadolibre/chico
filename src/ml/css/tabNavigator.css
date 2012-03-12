@@ -94,22 +94,19 @@
 								}
 
 /* content */
-.ch-tabNavigator .box{
+.ch-tabNavigator .ch-box {
  	background-image:none;
  	border-radius:0;
  	-moz-border-radius:0;
 	-webkit-border-radius:0;
 }
 
-								.ch-tabNavigator.ch-tab-vertical .box{
-								}
-
-								.ch-tabNavigator.ch-tab-vertical .ch-tabNavigator-content{
+								.ch-tabNavigator.ch-tab-vertical .ch-tabNavigator-content {
 									margin-left:120px;
 									min-height:120px;
 								}
 
-.no-js .ch-tabNavigator-triggers{
+.no-js .ch-tabNavigator-triggers {
 	top:0;
 	border:1px solid #CCCCCC;
 	border-bottom:none;
@@ -119,7 +116,7 @@
 	
 }
 
-.no-js .ch-tabNavigator-triggers li{
+.no-js .ch-tabNavigator-triggers li {
 	display:list-item;
 	list-style-type:square;
 	margin-left:16px;
@@ -127,7 +124,7 @@
 	cursor:default;
 }
 
-.no-js .ch-tab-trigger{
+.no-js .ch-tab-trigger {
 	border:none;
 	border-radius:0;
 	padding:0 12px 0 2px;
@@ -136,24 +133,24 @@
 	background:transparent;
 }
 
-.no-js .ch-tab-trigger:hover{
+.no-js .ch-tab-trigger:hover {
 	background:transparent;
 	text-decoration:underline !important;
 }
 
 
-.no-js .ch-tab-trigger-on{
+.no-js .ch-tab-trigger-on {
 	background:t ransparent;
 	font-weight:normal;
 }
 
-.no-js .ch-tabNavigator .box > div{
+.no-js .ch-tabNavigator .ch-box > div {
 	border-top:1px solid #CCCCCC;
 	margin-top:10px;
 	padding-top:10px;
 }
 
-.no-js .ch-tabNavigator .box > div:first-child{
+.no-js .ch-tabNavigator .ch-box > div:first-child {
 	border-top:none;
 	margin-top:0;
 	padding-top:0;
