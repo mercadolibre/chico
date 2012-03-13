@@ -16,13 +16,13 @@
 }
 
 .ch-calendar caption {
-	/*background: -o-linear-gradient(top, #fff 0%, #ddd 100%);
+	background: -o-linear-gradient(top, #fff 0%, #ddd 100%);
 	background: -ms-linear-gradient(top, #fff 0%, #ddd 100%);
 	background: -moz-linear-gradient(top, #fff 0%, #ddd 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #ddd));
 	background: -webkit-linear-gradient(top, #fff 0%, #ddd 100%);
 	background: linear-gradient(top, #fff 0%, #ddd 100%);
-	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');*/
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
 	font-size: 13px;
 	height: 26px;
 	line-height: 28px;

@@ -534,7 +534,7 @@ button:focus {
 .ch-btn-small:focus {
 	font-size: 12px;
 	height: 25px;
-	line-height: 24px;
+	line-height: 1em;
 }
 
 /* Tiny */
@@ -640,12 +640,14 @@ button:focus {
 	width: 15px;
 	color: #898989;
 	font-size: 18px;
-	line-height: 16px;
+	line-height: 15px;
 	-webkit-text-shadow: 0 1px 0 #ffffff;
 	-o-text-shadow: 0 1px 0 #ffffff;
 	-moz-text-shadow: 0 1px 0 #ffffff;
 	text-shadow: 0 1px 0 #ffffff;
-	text-indent: 2px;
+	text-indent: 1px;
+	font-family: Arial;
+	text-align:center;
 }
 
 .ch-close:hover,
@@ -742,7 +744,7 @@ button:focus {
 /* Deprecate */
 .lt-ie8 .actions a,
 .ie6 .actions a,
-.ie7 .actions a, {
+.ie7 .actions a {
 	display: inline-block;
 	margin-bottom: 5px;
 }
@@ -1043,7 +1045,6 @@ button:focus {
 	padding: 0 10px;
 	text-align: left;
 	vertical-align: middle;
-	position: relative;
 }
 
 
@@ -1051,8 +1052,9 @@ button:focus {
 /* Deprecated */
 .datagrid th.selected {
 	background: #dedede;
-	position: relative;
 	border-top: 1px solid #CECECE;
+	display: block;
+	position: relative;
 }
 
 

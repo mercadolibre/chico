@@ -29,15 +29,7 @@
 .ch-menu .ch-expando-content a:hover,
 .ch-accordion .ch-expando-trigger:hover,
 .ch-accordion .ch-expando-content a:hover {
-	background-color:#F4F4F4;
-}
-
-.ch-bellows-trigger:active,
-.ch-menu .ch-expando-trigger:active,
-.ch-menu .ch-expando-content a:active,
-.ch-accordion .ch-expando-trigger:active,
-.ch-accordion .ch-expando-content a:active {
-	background-color: #E9E9E9;
+	background-color:#FCF8D0;
 }
 
 

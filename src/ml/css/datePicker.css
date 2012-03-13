@@ -70,9 +70,13 @@
 	width: 12px;
 	height: 12px;
 	position: absolute;
-	background-color: whiteSmoke;
+	background-color: #FFFFFF;
 	border: 1px solid #CECECE;
 	-webkit-transform: rotate(135deg);
+	-o-transform: rotate(135deg);
+	-moz-transform: rotate(135deg);
+	-ms-transform: rotate(135deg);
+	transform: rotate(135deg);
 	top: 3px;
 	left: 1px;
 }
@@ -127,10 +131,6 @@
 .lt-ie8 .ch-datePicker,
 .ie7 .ch-datePicker {
 	width: 240px;
-}
-
-.lt-ie9 .ch-datePicker-content {
-	padding-top: 1px;
 }
 
 .lt-ie9 .ch-datePicker-cone {
