@@ -7,8 +7,12 @@
 * @augments ch.Controls
 * @requires ch.Validation
 * @memberOf ch
+* @param {Object} [conf] Object with configuration properties.
+* @param {String} [conf.message] Validation message.
+* @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
+* @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
+* @param {String} [conf.context] It's a reference to position the validation-bubble
 * @param {Function} function Custom function to evaluete a value.
-* @param {String} [message] Validation message.
 * @returns itself
 * @see ch.Validation
 * @see ch.Required
