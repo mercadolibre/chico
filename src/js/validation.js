@@ -502,6 +502,40 @@ ch.validation = function (conf) {
 		return that["public"];
 	};
 
+	/**
+	* Sets or gets conditions messages
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#message
+	* @function
+	* @returns itself
+	* @example
+	* validation.message(condition, message);
+	* // Sets a new message
+	* validation.message("required", "New message for required validation");
+	* // Gets a message from a condition
+	* validation.message("required");
+	*/
+	that["public"].message = function (condition, msg) {
+		if (condition === undefined) {
+			throw "validation.message(condition, message): Please, give me a condition as parameter.";
+		}
+
+		// Get a new message from a condition
+		if (msg === undefined) {
+			return validator.conditions[condition].message;
+		}
+
+		// Sets a new message
+		validator.conditions[condition].message = msg;
+
+		if (validator.isActive()) {
+			that["public"]["float"].content("<p class=\"ch-message-error\">" + msg + "</p>");
+		}
+
+		return that["public"];
+	}
+
 /**
 *	Default event delegation
 */
