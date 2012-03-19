@@ -421,7 +421,7 @@ ch.validation = function (conf) {
 		}
 
 		return that["public"];
-	}
+	};
 
 	/**
 	* Turn off Validation and Validator engine or an specific condition.
@@ -444,8 +444,27 @@ ch.validation = function (conf) {
 		}
 
 		return that["public"];
-	}
+	};
 
+	/**
+	* Turn on/off the Validation and Validator engine.
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#toggleEnable
+	* @function
+	* @returns itself
+	* @see ch.Validator
+	*/
+	that["public"].toggleEnable = function () {
+
+		if (that.enabled) {
+			that["public"].disable();
+		} else {
+			that["public"].enable();
+		}
+
+		return that["public"];
+	};
 
 	/**
 	* Turn off Validation and Validator engine or an specific condition.
@@ -457,7 +476,31 @@ ch.validation = function (conf) {
 	*/
 	that["public"].isActive = function(){
 		return validator.isActive();
-	}
+	};
+
+	/**
+	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#position
+	* @function
+	* @returns itself
+	* @example
+	* // Change validaton bubble's position.
+	* validation.position({
+	*	  offset: "0 10",
+	*	  points: "lt lb"
+	* });
+	* @see ch.Uiobject#position
+	*/
+	that["public"].position = function (o) {
+
+		if (o === undefined) { return that["float"].position(); }
+
+		that["float"]["public"].position(o);
+
+		return that["public"];
+	};
 
 /**
 *	Default event delegation
