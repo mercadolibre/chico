@@ -6,7 +6,7 @@
 
 <head> 
 	<script></script> 
-	<meta charset="utf-8"> 
+	<meta charset="utf-8">
 	<title>Chico-UI</title>
 	
 	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
@@ -1100,9 +1100,8 @@
 		// Watchers
 		var ch_wprice = $("#price").price().and().required();
 		var ch_wch1 = $("#email").required("requerid").and().email("Guachin emial").and().minLength(10);
-		var ch_wch11 = $("#custom").custom(
-			function(v){
-				//console.log("Custom: " + v);
+		var ch_wch11 = $("#custom").required("Debes completar este campo").and().custom(
+			function (v) {
 				var value1 = (v.toString().indexOf("1")>-1) ? true : false;
 				var value2 = (v.toString().indexOf("2")>-1) ? true : false;
 
@@ -1111,17 +1110,16 @@
 				}
 
 				if (!value1) {
-					console.log(this);
-					this.conditions.custom.message = "Mensaje largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 1";
+					this.message("custom", "Mensaje largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 1");
 					return false;
 				}
 
 				if (!value2) {
-					this.conditions.custom.message = "Mensaje largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 2";
+					this.message("custom", "Mensaje largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 2");
 					return false;
 				}
 
-			}).and().required("Debes completar este campo");
+			});
 		var ch_number = $("#number").number("Este campo tiene que ser un número.").and().min(5, "Tiene que ser mayor a 5.");
 		var ch_wch4 = $("#range").min(1).and().max(10);
 		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);

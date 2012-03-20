@@ -130,18 +130,6 @@ ch.validation = function (conf) {
 		that.trigger("clear");
 	};
 
-	/**
-	* Returns a value of element
-	* @private
-	* @name ch.Validation#value
-	* @function
-	* @returns string
-	*/
-	var value = function(){
-		return that.element.value;
-	};
-
-
 /**
 * Protected Members
 */
@@ -223,7 +211,8 @@ ch.validation = function (conf) {
 		that.trigger("beforeValidate");
 		
 		// Executes the validators engine with a specific value and returns an object.
-		var gotError = validator.validate(value());
+		// Context is the validation
+		var gotError = validator.validate.call(that["public"], that.element.value);
 
 		// Save the validator's status.
 		var status = !gotError.status;
