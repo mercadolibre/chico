@@ -81,6 +81,17 @@ ch.datePicker = function (conf) {
 		// Hide float
 		if (conf.closable) { that["float"].innerHide(); }
 
+		/**
+		* Callback function
+		* @public
+		* @name ch.datePicker#select
+		* @event
+		*/
+		// Old callback system
+		that.callbacks("onSelect");
+		// New callback
+		that.trigger("select");
+
 	};
 
 	
