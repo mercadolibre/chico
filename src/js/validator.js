@@ -107,7 +107,8 @@ ch.validator = function(conf) {
 			for (condition in conditions){
 
 				val = ((condition === "required") ? that.element : value.toLowerCase());
-				tested = test(condition, val);
+				// this is the validation
+				tested = test.call(this, condition, val);
 
 				// return false if any test fails,
 				if (!tested) {
@@ -179,9 +180,11 @@ ch.validator = function(conf) {
 		if (value === "" && condition !== "required") { return true };
 		
 		var isOk = false,
+			// this is the validation
+			validation = this || window,
 			condition = conditions[condition];
 
-		isOk = condition.test(value);
+		isOk = condition.test.call(validation, value);
 
 		return isOk;
 		
@@ -290,7 +293,8 @@ ch.validator = function(conf) {
 	* @returns Status Object
 	*/
 	that["public"].validate = function(value){
-		return validate(value);
+		// this is the validation
+		return validate.call(this, value);
 	}
 
 	/**

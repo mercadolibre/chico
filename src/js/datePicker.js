@@ -81,6 +81,17 @@ ch.datePicker = function (conf) {
 		// Hide float
 		if (conf.closable) { that["float"].innerHide(); }
 
+		/**
+		* Callback function
+		* @public
+		* @name ch.datePicker#select
+		* @event
+		*/
+		// Old callback system
+		that.callbacks("onSelect");
+		// New callback
+		that.trigger("select");
+
 	};
 
 	
@@ -190,9 +201,14 @@ ch.datePicker = function (conf) {
 	*/
 	that["public"].select = function (date) {
 		// Select the day and update input value with selected date
-		that.element.value = that.calendar.select(date);
+		if (date) {
+			that.calendar.select(date);
+			that.element.value = that.calendar.select();
 
-		return that["public"];
+			return that["public"];
+		}
+
+		return that.calendar.select();
 	};
 
 	/**
