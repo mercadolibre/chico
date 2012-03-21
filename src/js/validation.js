@@ -7,6 +7,10 @@
 * @requires ch.Validator
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
+* @param {String} [conf.message] Validation message.
+* @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
+* @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
+* @param {String} [conf.context] It's a reference to position the validation-bubble.
 * @returns itself
 * @see ch.Required
 * @see ch.String
@@ -126,18 +130,6 @@ ch.validation = function (conf) {
 		that.trigger("clear");
 	};
 
-	/**
-	* Returns a value of element
-	* @private
-	* @name ch.Validation#value
-	* @function
-	* @returns string
-	*/
-	var value = function(){
-		return that.element.value;
-	};
-
-
 /**
 * Protected Members
 */
@@ -219,7 +211,8 @@ ch.validation = function (conf) {
 		that.trigger("beforeValidate");
 		
 		// Executes the validators engine with a specific value and returns an object.
-		var gotError = validator.validate(value());
+		// Context is the validation
+		var gotError = validator.validate.call(that["public"], that.element.value);
 
 		// Save the validator's status.
 		var status = !gotError.status;
@@ -417,7 +410,7 @@ ch.validation = function (conf) {
 		}
 
 		return that["public"];
-	}
+	};
 
 	/**
 	* Turn off Validation and Validator engine or an specific condition.
@@ -440,8 +433,27 @@ ch.validation = function (conf) {
 		}
 
 		return that["public"];
-	}
+	};
 
+	/**
+	* Turn on/off the Validation and Validator engine.
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#toggleEnable
+	* @function
+	* @returns itself
+	* @see ch.Validator
+	*/
+	that["public"].toggleEnable = function () {
+
+		if (that.enabled) {
+			that["public"].disable();
+		} else {
+			that["public"].enable();
+		}
+
+		return that["public"];
+	};
 
 	/**
 	* Turn off Validation and Validator engine or an specific condition.
@@ -453,6 +465,64 @@ ch.validation = function (conf) {
 	*/
 	that["public"].isActive = function(){
 		return validator.isActive();
+	};
+
+	/**
+	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#position
+	* @function
+	* @returns itself
+	* @example
+	* // Change validaton bubble's position.
+	* validation.position({
+	*	  offset: "0 10",
+	*	  points: "lt lb"
+	* });
+	* @see ch.Uiobject#position
+	*/
+	that["public"].position = function (o) {
+
+		if (o === undefined) { return that["float"].position(); }
+
+		that["float"]["public"].position(o);
+
+		return that["public"];
+	};
+
+	/**
+	* Sets or gets conditions messages
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#message
+	* @function
+	* @returns itself
+	* @example
+	* validation.message(condition, message);
+	* // Sets a new message
+	* validation.message("required", "New message for required validation");
+	* // Gets a message from a condition
+	* validation.message("required");
+	*/
+	that["public"].message = function (condition, msg) {
+		if (condition === undefined) {
+			throw "validation.message(condition, message): Please, give me a condition as parameter.";
+		}
+
+		// Get a new message from a condition
+		if (msg === undefined) {
+			return validator.conditions[condition].message;
+		}
+
+		// Sets a new message
+		validator.conditions[condition].message = msg;
+
+		if (validator.isActive()) {
+			that["public"]["float"].content("<p class=\"ch-message-error\">" + msg + "</p>");
+		}
+
+		return that["public"];
 	}
 
 /**

@@ -540,15 +540,12 @@ form .ico{display:inline-block;}
 								line-height:30px;*/
 							}
 							
-							
-							
-							.ch-form-options input:focus, 
-							.ch-form-options textarea:focus,
-							.ie6 .ch-form-options input{
+							.ch-form-options input[type="checkbox"]:focus,
+							.ch-form-options input[type="radio"]:focus {
 								border:none;
 								padding:0;
 							}
-							
+
 							
 							/* Disabled status */
 							.ch-form-disabled label{
@@ -569,7 +566,8 @@ form .ico{display:inline-block;}
 								text-align:left;
 							}
 							
-							.ch-form-actions .btn{
-								margin-right:15px;
+							.ch-form-actions .btn,
+							.ch-form-actions .ch-btn {
+								margin-right:10px;
 							}
 

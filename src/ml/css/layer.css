@@ -43,7 +43,7 @@
 	top: -8px;
 }
 
-.ch-layer.ch-layer-right-bottom .ch-layer-cone,
+.ch-layer.ch-bottom.ch-right .ch-layer-cone,
 /* Deprecated */
 .ch-layer.ch-right.ch-bottom .ch-cone {
 	right: 12px;
