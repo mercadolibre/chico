@@ -23,7 +23,7 @@ ch.navs = function () {
 	*/ 
 	var that = this,
 		conf = that.conf;
-	
+
 	conf.icon = ch.utils.hasOwn(conf, "icon") ? conf.icon : true;
 	conf.open = conf.open || false;
 	conf.fx = conf.fx || false;
@@ -47,16 +47,32 @@ ch.navs = function () {
 	that.active = false;
 
 	/**
+	* The component's trigger.
+	* @private
+	* @name ch.Navs#$trigger
+	* @type jQuery
+	*/
+	that.$trigger = that.$element.children().eq(0);
+	
+	/**
+	* The component's content.
+	* @private
+	* @name ch.Navs#$content
+	* @type jQuery
+	*/
+	that.$content = that.$element.children().eq(1);
+
+	/**
 	* Shows component's content.
 	* @protected
-	* @name ch.Navs#show
+	* @name ch.Navs#innerShow
 	* @returns itself
 	*/
-	that.show = function (event) {
+	that.innerShow = function (event) {
 		that.prevent(event);
 
 		if (that.active) {
-			return that.hide(event);
+			return that.innerHide(event);
 		}
 		
 		that.active = true;
@@ -87,13 +103,15 @@ ch.navs = function () {
 		
 		return that;
 	};
+
 	/**
 	* Hides component's content.
 	* @protected
-	* @name ch.Navs#hide
+	* @function
+	* @name ch.Navs#innerHide
 	* @returns itself
 	*/
-	that.hide = function (event) {
+	that.innerHide = function (event) {
 		that.prevent(event);
 		
 		if (!that.active) { return; }
@@ -126,24 +144,65 @@ ch.navs = function () {
 	/**
 	* Create component's layout
 	* @protected
-	* @name ch.Navs#createLayout
+	* @function
+	* @name ch.Navs#configBehavior
 	*/
 	that.configBehavior = function () {
 		that.$trigger
 			.addClass("ch-" + that.type + "-trigger")
-			.bind("click", function (event) { that.show(event); });
+			.bind("click", function (event) { that.innerShow(event); });
 
 		that.$content.addClass("ch-" + that.type + "-content ch-hide");
 
 		// Visual configuration
 		if (conf.icon) { $("<span class=\"ch-" + that.type + "-ico\">Drop</span>").appendTo(that.$trigger); }
-		if (conf.open) { that.show(); }
+		if (conf.open) { that.innerShow(); }
 
+	};
+
+/**
+* Public Members
+*/
+	/**
+	* Shows component's content.
+	* @public
+	* @function
+	* @name ch.Navs#show
+	* @returns itself
+	*/
+	that["public"].show = function(){
+		that.innerShow();
+		return that["public"];
+	};
+
+	/**
+	* Hides component's content.
+	* @public
+	* @function
+	* @name ch.Navs#hide
+	* @returns itself
+	*/	
+	that["public"].hide = function(){
+		that.innerHide();
+		return that["public"];
+	};
+
+	/**
+	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+	* @public
+	* @function
+	* @name ch.Navs#isActive
+	* @returns boolean
+	*/
+	that["public"].isActive = function () {
+		return that.active;
 	};
 	
 /**
 *	Default event delegation
 */
+
+	that.configBehavior();
 	that.$element.addClass("ch-" + that.type);
 
 	/**
@@ -153,9 +212,9 @@ ch.navs = function () {
 	* @public
 	* @example
 	* me.on("show",function () {
-	*	this.content("Some new content");
+	*	otherComponent.hide();
 	* });
-	* @see ch.Floats#event:show
+	* @see ch.Navs#event:show
 	*/
 
 	/**
@@ -167,7 +226,7 @@ ch.navs = function () {
 	* me.on("hide",function () {
 	*	otherComponent.show();
 	* });
-	* @see ch.Floats#event:hide
+	* @see ch.Navs#event:hide
 	*/
 
 	return that;
