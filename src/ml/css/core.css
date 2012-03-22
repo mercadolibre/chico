@@ -633,6 +633,7 @@ button:focus {
 	border-radius: 3px;
 	cursor: pointer;
 	padding: 0;
+	display: inline-block;
 	position: absolute;
 	right: 10px;
 	top: 10px;
