@@ -5,13 +5,13 @@
 * @augments ch.Controls
 * @requires ch.Form
 * @requires ch.Validator
+* @requires ch.Required
+* @requires ch.String
+* @requires ch.Number
+* @requires ch.Custom
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @returns itself
-* @see ch.Required
-* @see ch.String
-* @see ch.Number
-* @see ch.Custom
 */
 
 ch.validation = function (conf) {

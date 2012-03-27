@@ -4,7 +4,6 @@
 * @class String
 * @interface
 * @augments ch.Controls
-* @requires ch.Validation
 * @memberOf ch
 * @param {String} [message] Validation message
 * @returns itself

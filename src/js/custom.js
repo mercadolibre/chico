@@ -5,7 +5,6 @@
 * @class Custom
 * @interface
 * @augments ch.Controls
-* @requires ch.Validation
 * @memberOf ch
 * @param {Function} function Custom function to evaluete a value.
 * @param {String} [message] Validation message.
