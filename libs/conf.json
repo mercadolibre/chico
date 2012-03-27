@@ -1,0 +1,22 @@
+{
+	"name": "Chico UI",
+	"version": "0.10.2",
+	"input": "../../../chico/src",
+	"output": "~/development/chico.site/public/downloads",
+	"templates": {
+		"js": {
+			"min": "/*! Chico UI v<version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($){<code>;ch.init();})(jQuery);",
+			"full": "/*!\n * Chico UI v<version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <copyright>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */\n\n;(function ($) {\n\n<code>\n\n;ch.init();\n\n})(jQuery);"
+		},
+		"css": {
+			"min": "/*! Chico UI v<version> chico-ui.com.ar | chico-ui.com.ar/license */\n<code>",
+			"full": "/*!\n * Chico UI v<version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <copyright>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */\n\n<code>"
+		}
+	},
+	"packages": [{
+		"name": "chico",
+		"type": "js",
+		"min": false
+	}],
+	"filesOrder": "core,cache,condition,eraser,keyboard,list,object,onImagesLoads,positioner,preload,viewport,uiobject,validator,calendar,carousel,controllers,controls,floats,navs,autoComplete,blink,countdown,datePicker,dropdown,expando,form,layer,menu,modal,tabNavigator,tooltip,validation,zoom,custom,number,required,string"
+}
