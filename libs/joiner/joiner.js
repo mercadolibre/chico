@@ -2,7 +2,6 @@
 * Joiner
 * Proccess the Chico UI source files and returns joined code.
 */
-
 var sys = require("util"),
 	fs = require("fs"),
 	uglify = require("uglify-js"),
@@ -15,7 +14,10 @@ Array.prototype.unique = function (a) {
 	return function(){return this.filter(a)}}(function(a,b,c){return c.indexOf(a,b+1)<0
 });
 
-
+/*
+* Joiner
+* Contructor
+*/
 var Joiner = function () {
 
 	var self = this;
@@ -30,6 +32,11 @@ var Joiner = function () {
 sys.inherits(Joiner, events.EventEmitter);
 
 
+/*
+* Run
+* Read the configuration file, grab data into "self" context
+* and execute the file collector for all packages.
+*/
 Joiner.prototype.run = function (o) {
 
 	var self = this;
@@ -62,6 +69,10 @@ Joiner.prototype.run = function (o) {
 };
 
 
+/*
+* CollectFiles
+* Get the content of all requested files
+*/
 Joiner.prototype.collectFiles = function (pack) {
 
 	// Input folder
@@ -114,6 +125,10 @@ Joiner.prototype.collectFiles = function (pack) {
 };
 
 
+/*
+* GetFilesList
+* Use the inheritance map to get the dependencies of requested files.
+*/
 Joiner.prototype.getFilesList = function (pack) {
 
 /*
@@ -177,6 +192,10 @@ Joiner.prototype.getFilesList = function (pack) {
 };
 
 
+/*
+* OrderFiles
+* Check the order of files according to order specified on configuration file.
+*/
 Joiner.prototype.orderFiles = function (list, type) {
 
 	var self = this;
@@ -210,6 +229,10 @@ Joiner.prototype.orderFiles = function (list, type) {
 };
 
 
+/*
+* Minify
+* Compress content.
+*/
 Joiner.prototype.minify = function (pack, content) {
 
 	switch (pack.type) {
@@ -235,6 +258,10 @@ Joiner.prototype.minify = function (pack, content) {
 };
 
 
+/*
+* JoinFiles
+* Paste content into template specified on configuration file.
+*/
 Joiner.prototype.joinFiles = function (pack, content) {
 
 	var self = this;
