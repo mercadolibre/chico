@@ -139,6 +139,32 @@ ch.list = function( collection ) {
 	};
 
 	/**
+	* Apply a function callback to each child on the collection.
+	* @public
+	* @function
+	* @name ch.List#each
+	* @param {function} [callback] Callback function to execute for each child.
+	* @return itself
+	* @example
+	* 	var list = ch.List();
+	*   list.each(function(child, iteration){
+	*		console.log(child);
+	*	});
+	*/
+
+	var each = function(callback) {
+
+		var t = size();
+
+		while (t--) {
+			callback.call( get(t) , t );
+		};
+
+		return this;
+
+	}
+
+	/**
 	* @public
 	*/
 	var that = {
@@ -146,7 +172,8 @@ ch.list = function( collection ) {
 		add: add,
 		rem: rem,
 		get: get,
-		size: size
+		size: size,
+		each: each
 	};
 	
 	return that;
