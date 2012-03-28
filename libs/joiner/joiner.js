@@ -27,15 +27,13 @@ var Joiner = function () {
 	return self;
 };
 
-
 // Event emitter
 sys.inherits(Joiner, events.EventEmitter);
 
-
 /*
 * Run
-* Read the configuration file, grab data into "self" context
-* and execute the file collector for all packages.
+* Reads the configuration file, grabs data into "self" context
+* and executes the file collector for all packages.
 */
 Joiner.prototype.run = function (o) {
 
@@ -71,7 +69,7 @@ Joiner.prototype.run = function (o) {
 
 /*
 * CollectFiles
-* Get the content of all requested files
+* Gets the content of all requested files.
 */
 Joiner.prototype.collectFiles = function (pack) {
 
@@ -127,7 +125,7 @@ Joiner.prototype.collectFiles = function (pack) {
 
 /*
 * GetFilesList
-* Use the inheritance map to get the dependencies of requested files.
+* Uses the inheritance map to get the dependencies of requested files.
 */
 Joiner.prototype.getFilesList = function (pack) {
 
@@ -194,7 +192,7 @@ Joiner.prototype.getFilesList = function (pack) {
 
 /*
 * OrderFiles
-* Check the order of files according to order specified on configuration file.
+* Checks the order of files according to order specified on configuration file.
 */
 Joiner.prototype.orderFiles = function (list, type) {
 
@@ -260,7 +258,7 @@ Joiner.prototype.minify = function (pack, content) {
 
 /*
 * JoinFiles
-* Paste content into template specified on configuration file.
+* Pastes content into template specified on configuration file.
 */
 Joiner.prototype.joinFiles = function (pack, content) {
 
