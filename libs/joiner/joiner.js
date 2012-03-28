@@ -132,7 +132,6 @@ Joiner.prototype.getFilesList = function (pack) {
 		list = [],
 
 	// Read inheritance map
-	// TODO: use conf route
 		map = JSON.parse(fs.readFileSync(__dirname + "/../cartographer/map.json")),
 	
 	// Climb throgh inheritance of components
