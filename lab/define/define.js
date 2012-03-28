@@ -10,7 +10,9 @@ var define = function (obj) {
 
 		this.name = obj.name;
 
-		obj.initialize.apply(this, arguments);
+		obj.initialize && obj.initialize.apply(this, arguments);
+
+		return this;
 
 	}
 
@@ -24,34 +26,9 @@ var define = function (obj) {
 			continue;
 		}
 
-		if (key === 'name') {
-			continue;
-		}
-
 		Class.prototype[key] = obj[key];
 
 	}
-
-    var _helper = {
-        init: function(_constructor){
-            Class.prototype.constructor = Class;
-            return _helper;
-        },
-        inherits: function(parent){ 
-           var F = function(){};
-               F.prototype  = new parent();
-               Class.prototype = new parent();
-               Class.prototype.parent = parent; 
-           return _helper; 
-        },
-        method: function (name, func) {
-            Class.prototype[name] = func;
-            return _helper;
-        },
-        create: function(){
-            return Class;
-        }
-    };
 
     return Class;
     
@@ -67,7 +44,6 @@ var Person = define({
 
 ,	initialize: function() 
 	{
-		console.log('Initializating ' + this.name);
 		return this;
 	}
 
@@ -87,13 +63,11 @@ var Person = define({
 
 var Player = define({
 
-	name: 'Player'
+	inherits: Person
 
-,	inherits: Person
-
-,	initialize: function() 
+,	initialize: function(name) 
 	{
-		console.log('Initializating ' + this.name);
+		this.name = name;
 		return this;
 	}
 
@@ -109,7 +83,8 @@ var Player = define({
 	}
 })
 
-
-var natan = new Player();
+var natan = new Player('Natan');
+var ninja = new Player('Chico');
 
 console.log(natan)
+console.log(ninja)
