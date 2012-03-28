@@ -4,6 +4,33 @@ var fs = require("fs"),
 	app = express.createServer(),
 	Joiner = require("./joiner").Joiner;
 
+// Assets getter
+// http://localhost:3000/assets/xxxxx.*
+app.get("/assets/:file", function (req, res) {
+
+	// Read file content
+	var content = fs.readFileSync("../../src/assets/" + req.params.file),
+
+	// File extension
+		ext = req.params.file.split(".").pop();
+	
+	// Return when file not exists
+	if (!content) { return }
+	
+	res.header("Content-Type", {
+		"png": "image/png",
+		"gif": "image/gif",
+		"jpg": "image/jpeg",
+		"jpeg": "image/jpeg",
+		"html": "text/html",
+		"css": "text/css",
+		"js": "text/javascript",
+		"undefined": "text/plain"
+	}[ext]);
+
+	res.send(content);	
+});
+
 // JS and CSS getter
 // http://localhost:3000/js
 // http://localhost:3000/js/min
@@ -32,20 +59,6 @@ app.get("/:type/:min?", function (req, res) {
 	});
 
 });
-
-// Assets getter
-// http://localhost:3000/assets/xxxxx.png
-/*app.get("/assets/:img", function (req, res) {
-	
-	// Read file content
-	var content = fs.readFileSync("/assets/" + req.params.img);
-	
-	if (content) {
-		res.header("Content-Type", "image/png");
-		res.send(content);
-	}
-	
-});*/
 
 // Initialize application
 app.listen(3000);
