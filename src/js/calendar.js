@@ -339,11 +339,11 @@ ch.calendar = function (conf) {
 
 			// Final array with month table structure
 				r = [
-					"<table class=\"ch-calendar-month ch-datagrid\" role=\"grid\" id=\"ch-calendar-grid-" + that.uid + "\">",
+					"<table class=\"ch-calendar-month\" role=\"grid\" id=\"ch-calendar-grid-" + that.uid + "\">",
 					"<caption>" + MONTHS_NAMES[date.month - 1] + " - " + date.year + "</caption>",
 					thead,
 					"<tbody>",
-					"<tr class=\"week\" role=\"row\">"
+					"<tr class=\"ch-week\" role=\"row\">"
 				];
 
 			// Iteration of weekdays
@@ -383,7 +383,7 @@ ch.calendar = function (conf) {
 						// Disable cell if it's out of TO range
 						(to && day > to.day && date.month === to.month && date.year === to.year)
 
-					) ? " ch-disabled" : null,
+					) ? " ch-calendar-disabled" : null,
 
 					// Close classnames attribute and print content closing cell structure
 					"\">" + day + "</td>"

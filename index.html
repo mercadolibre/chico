@@ -6,7 +6,7 @@
 
 <head> 
 	<script></script> 
-	<meta charset="utf-8"> 
+	<meta charset="utf-8">
 	<title>Chico-UI</title>
 	
 	<link rel="stylesheet" type="text/css" href="http://localhost:3000/css">
@@ -44,7 +44,7 @@
 
 <body>
 	<h1>Chico-UI</h1>
-	<div class="container">
+	<div class="ch-container">
 		<h1>Header 1</h1> 
 		<h2>Header 2</h2> 
 		<h3>Header 3</h3> 
@@ -54,7 +54,7 @@
 		<p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 	</div> 
 
-	<div class="box links"> 
+	<div class="ch-box links"> 
 		<h2>Links</h2> 
 
 		<p><a href="http://www.mercadolibre.com">MercadoLibre</a></p> 
@@ -63,7 +63,7 @@
 		<p><a href="http://www.mercadoclics.com">MercadoClics</a></p> 
 	</div>
 	
-	<div class="box clearfix">
+	<div class="ch-box clearfix">
 		<h2>Lists</h2>
 		<div class="ch-g1-4">
 			<h3>Unstyled</h3>
@@ -107,34 +107,53 @@
 		</div>
 	</div>
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Boxes</h2> 
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 	</div> 
 
-	<div class="box clearfix">
+	<div class="ch-box clearfix">
 		<h2>Buttons</h2>
-		<div class="ch-g1-2">
+		<div class="ch-g1-4">
 			<p><input type="button" class="ch-btn ch-main" value="Main button"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-primary" value="Primary button"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-secondary" value="Secondary button"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-secondary ch-skin" value="Secondary button cyan"></p>
 		</div>
-		<div class="ch-g1-2">
+		<div class="ch-g1-4">
 			<p><input type="button" class="ch-btn ch-main disabled" disabled value="Main disabled"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-primary disabled" disabled value="Primary disabled"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-secondary disabled" disabled value="Secondary disabled"></p>
-			<br>
 			<p><input type="button" class="ch-btn ch-secondary ch-skin disabled" disabled value="Secondary skin disabled"></p>
+		</div>
+
+		<div class="ch-g1-4">
+			<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
+			<br>
+			<p><input type="button" class="ch-btn" value="Button"></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-tiny" value="Tiny button"></p>
+			<br>
+			<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
+		</div>
+		<div class="ch-g1-4">
+			<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button</a></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" disabled value="Big button disabled"></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-disabled" disabled value="Button disabled"></p>
+			<br>
+			<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" disabled value="Small button disabled"></p>
+			<br>
+			<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" disabled value="Skin button disabled"></p>
 		</div>
 	</div>
 	
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>AutoComplete</h2> 
 		<form method="get" action="/" id="asForm" class="ch-form">
 			<p class="ch-form-row"> 
@@ -161,36 +180,36 @@
 		</form>
 	</div> 
 	
-	<div class="box">
+	<div class="ch-box">
 		<h2>Blink</h2>
 		<p id="example">This is a text that you can blink</p>
 		<p>
-			<button class="btn secondary skin" id="doHighlight">Blink the paragraph</button>
+			<button class="ch-btn-skin ch-btn-small" id="doHighlight">Blink the paragraph</button>
 		</p>
 	</div>
 
-	<div class="box">
+	<div class="ch-box">
 		<h2>Pagination</h2>
-		<ul class="pagination">
+		<ul class="ch-pagination">
 			<li><a type="prev" href="/2.html">Previous</a></li>
 			<li><a href="/1.html">1</a></li>
 			<li><a href="/2.html">2</a></li>
-			<li class="current"><a href="/3.html">3</a></li>
+			<li class="ch-pagination-current"><a href="/3.html">3</a></li>
 			<li><a href="/4.html">4</a></li>
 			<li><a href="/5.html">5</a></li>
 			<li><a type="next" href="/4.html">Next</a></li>
 		</ul>
 	</div>
 	
-	<div class="box">
-			<table class="datagrid" summary="Listado de cobros en MercadoPago">
+	<div class="ch-box">
+			<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
 				<caption>Table</caption>
 				<thead>
 					<tr>
 						<th scope="col"><input type="checkbox" name="mycheckall"/></th>
 						<th scope="col">Datos de inicio</th>
 						<th scope="col">Tipo de operación</th>
-						<th scope="col" class="selected">Contraparte<span class="asc">(asc)</span></th>
+						<th scope="col" class="ch-datagrid-selected">Contraparte<span class="ch-datagrid-asc">(asc)</span></th>
 						<th scope="col">Descripción</th>
 						<th scope="col">Valor</th>
 						<th scope="col">Status de la operación</th>
@@ -209,7 +228,7 @@
 						<td>select	
 						</td>
 					</tr>
-					<tr class="selected">
+					<tr class="ch-datagrid-selected">
 						<td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
 						<td>02/04/2011</td>
 						<td><a href="#">Valor de venta del producto</a></td>
@@ -243,7 +262,7 @@
 			</table>
 	</div>
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Expando</h2> 
 		<div class="YOUR_SELECTOR_Expando"> 
 			<h4>Lorem ipsum dolor sit amet.</h4> 
@@ -257,7 +276,7 @@
 	</div> 
 
 
-	<div class="box">
+	<div class="ch-box">
 		<h2>Accordion</h2>
 		<ul class="YOUR_SELECTOR_Accordion">
 			<li>
@@ -310,7 +329,7 @@
 	</div>
 
 
-	<div class="box">
+	<div class="ch-box">
 		<h2>Menu</h2>
 		<ul class="YOUR_SELECTOR_Menu">
 			<li>
@@ -359,7 +378,7 @@
 	</div>
 
 
-	<div class="box">
+	<div class="ch-box">
 		<h2>Dropdown</h2>
 		
 		<div class="myDropdown ch-dropdown">
@@ -371,8 +390,8 @@
 			    <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
 			</menu>
 		</div>
-		
-		<div class="myDropdown ch-dropdown secondary">
+
+		<div class="myDropdown ch-dropdown-skin">
 			<p class="ch-dropdown-trigger">Links secondary</p>
 			<menu label="Links" class="ch-dropdown-content">
 			    <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
@@ -385,7 +404,7 @@
 	
 
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Tooltip</h2>
 		<img class="YOUR_SELECTOR_Tooltip" alt="Playera Adidas Con Logo Nba Basketball ! !" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
 		<br>
@@ -395,14 +414,14 @@
 	</div> 
 
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Layer</h2> 
 		<span class="YOUR_SELECTOR_LayerCloseButton">Executed on click, button closes.</span> 
 		| <span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> 
 		| <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
 	</div> 
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Modal window</h2> 
 		
 		<form action="/test.html">
@@ -413,7 +432,7 @@
 		</form>
 	</div> 
 	
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Modal window with DOM Content</h2> 
 		
         <div class="container">
@@ -430,14 +449,14 @@
 		</div>
 	</div> 
 	
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Transition window</h2> 
 		<form action="/test.html"> 
 			<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
 	</div>
 
-	<div class="box"> 
+	<div class="ch-box"> 
 
 		<h2>Carousel</h2> 
 
@@ -478,7 +497,7 @@
 				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
 
 			</ul> 
-			<div class="box"> 
+			<div class="ch-box"> 
 
 				<div id="tab1-b"> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
@@ -504,7 +523,7 @@
 				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li> 
 				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
 			</ul> 
-			<div class="box"> 
+			<div class="ch-box"> 
 				<div id="tab1-b"> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
@@ -520,36 +539,36 @@
 		</div>
 	</div> 
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Icons</h2>
 		<ul class="showroomIcons">
-			<li><span class="ch-ico ch-error">Error</span></li>
-			<li><span class="ch-ico ch-help">Help</span></li>
-			<li><span class="ch-ico ch-information">Info</span></li>
-			<li><span class="ch-ico ch-attention">Attention</span></li>
-			<li><span class="ch-ico ch-ok">ok</span></li>
-			<li><span class="ch-ico ch-check">check</span></li>
+			<li><span class="ch-ico-error">Error</span></li>
+			<li><span class="ch-ico-help">Help</span></li>
+			<li><span class="ch-ico-information">Info</span></li>
+			<li><span class="ch-ico-attention">Attention</span></li>
+			<li><span class="ch-ico-ok">ok</span></li>
+			<li><span class="ch-ico-check">check</span></li>
 		</ul>
 	</div> 
 	
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Message boxes</h2>
 		<ul class="showroomIcons">
-			<li><p class="ch-message ch-error">Oops, something wrong happened</p></li>
-			<li><p class="ch-message ch-help">Do you need any help?</p></li>
-			<li><p class="ch-message ch-information">Here's more information</p></li>
-			<li><p class="ch-message ch-attention">Warning! something might be wrong</p></li>
-			<li><p class="ch-message ch-ok">Everything is great!</p></li>
-			<li><p class="ch-message ch-check">Everything is okay</p></li>
+			<li><p class="ch-message-error">Oops, something wrong happened</p></li>
+			<li><p class="ch-message-help">Do you need any help?</p></li>
+			<li><p class="ch-message-information">Here's more information</p></li>
+			<li><p class="ch-message-attention">Warning! something might be wrong</p></li>
+			<li><p class="ch-message-ok">Everything is great!</p></li>
+			<li><p class="ch-message-check">Everything is okay</p></li>
 		</ul>
 	</div> 
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Calendar</h2>
 		<div class="YOUR_SELECTOR_calendar"></div>
 	</div>
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Date Picker</h2>
 		<form action="/test.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
 			<fieldset>
@@ -563,7 +582,7 @@
 		</form>
 	</div>
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Countdown</h2>
 		<form action="/test.html" class="YOUR_SELECTOR_Formcountdown ch-form">
 			<fieldset>
@@ -578,7 +597,7 @@
 	</div>
 
 
-	<div class="box"> 
+	<div class="ch-box"> 
 		<h2>Form and Watchers</h2> 
 
 		<form action="http://localhost:3000/test/post" class="ch-form myForm" method="POST"> 
@@ -980,8 +999,8 @@
 		// Components
 		
 		// AutoComplete
-		var a = $(".autoComplete").autoComplete({url:"http://chico.com:8080/suggest?q=",message:"Please Write",jsonpCallback:"autoComplete"});
-		var b = $(".autoComplete2").autoComplete({url:"http://chico.com:8080/suggest?q=",message:"Please Write",jsonpCallback:"her"});
+		var a = $(".autoComplete").autoComplete({url:"http://www.chico-ui.com.ar/suggest?q=",jsonpCallback:"autoComplete"});
+		var b = $(".autoComplete2").autoComplete({url:"http://www.chico-ui.com.ar/suggest?q=",jsonpCallback:"her"});
 		var c = $(".autoComplete3").autoComplete({suggestions:["Oops","Oso","Olor","ser","something","wrong","happened","B","AA","BBBB"],message:"Escribe y seras sugerido"});
 		
 		var autoComplete = function(data){
@@ -1030,7 +1049,7 @@
 		// Layer on click
 		var ch_layeC = $(".YOUR_SELECTOR_LayerCloseButton").layer({
 			event: "click",
-			closeHandler: "button",
+			closable: "button",
 			content: "#invisible-content-for-layer"
 		});
 		
@@ -1081,9 +1100,8 @@
 		// Watchers
 		var ch_wprice = $("#price").price().and().required();
 		var ch_wch1 = $("#email").required("requerid").and().email("Guachin emial").and().minLength(10);
-		var ch_wch11 = $("#custom").custom(
-			function(v){
-				//console.log("Custom: " + v);
+		var ch_wch11 = $("#custom").required("Debes completar este campo").and().custom(
+			function (v) {
 				var value1 = (v.toString().indexOf("1")>-1) ? true : false;
 				var value2 = (v.toString().indexOf("2")>-1) ? true : false;
 
@@ -1092,17 +1110,17 @@
 				}
 
 				if (!value1) {
-					console.log(this);
-					this.conditions.custom.message = "Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 1";
+					this.message("custom", "Mensaje largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 1");
 					return false;
 				}
 
 				if (!value2) {
-					this.conditions.custom.message = "Mensjae largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 2";
+					this.message("custom", "Mensaje largo para probar mensaje de varias lineas y ajustar el padding interno de la caja. 2");
 					return false;
 				}
 
-			}).and().required("Debes completar este campo");
+			});
+		var ch_number = $("#number").number("Este campo tiene que ser un número.").and().min(5, "Tiene que ser mayor a 5.");
 		var ch_wch4 = $("#range").min(1).and().max(10);
 		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);
 		var ch_wch6 = $("#required_disabled, #select2, #select3, .check2, .check3, .radio2, .radio3, .radio4, #textarea2, #textarea3").required("Required");

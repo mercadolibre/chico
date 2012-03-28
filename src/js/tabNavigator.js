@@ -179,7 +179,7 @@ ch.tabNavigator = function (conf) {
 	* @name ch.TabNavigator#$content
 	* @type jQuery
 	*/
-	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content box").attr("role", "presentation");
+	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content ch-box").attr("role", "presentation");
 
 
 /**

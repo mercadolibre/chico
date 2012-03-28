@@ -134,12 +134,12 @@ ch.carousel = function (conf) {
 		createArrows = function () {
 			
 			// Previous arrow
-			var $prev = $("<p class=\"ch-prev-arrow" + (conf.rolling ? "" : " ch-hide") + "\" role=\"button\" aria-hidden=\"" + (!conf.rolling) + "\"><span>Previous</span></p>")
+			var $prev = $("<p class=\"ch-carousel-prev" + (conf.rolling ? "" : " ch-hide") + "\" role=\"button\" aria-hidden=\"" + (!conf.rolling) + "\"><span>Previous</span></p>")
 				.bind("click", that.prev)
 				.prependTo(that.$element),
 			
 			// Next arrow
-				$next = $("<p class=\"ch-next-arrow\" role=\"button\" aria-hidden=\"false\"><span>Next</span></p>")
+				$next = $("<p class=\"ch-carousel-next\" role=\"button\" aria-hidden=\"false\"><span>Next</span></p>")
 				.bind("click", that.next)
 				.appendTo(that.$element);
 			

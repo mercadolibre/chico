@@ -1,20 +1,21 @@
-.ch-editInPlace{
+.ch-editInPlace {
 	display:inline;
 	position:relative;
 	z-index:1;
 }
-.ch-editInPlace-trigger{
+
+.ch-editInPlace-trigger {
 	cursor:pointer;
 	border:1px dotted #333;
 }
 
-.ch-editInPlace-content{
+.ch-editInPlace-content {
 	background-color:#fff;
 	position:absolute;
 	top:-5px;
 	left:-4px;
 }
 
-.ch-editInPlace-trigger.on{
+.ch-editInPlace-trigger.ch-editInPlace-on {
 	border-color:'#fff';
 }

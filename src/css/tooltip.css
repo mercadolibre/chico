@@ -14,7 +14,7 @@
 }
 
 /* Cone */
-.ch-tooltip .ch-cone {
+.ch-tooltip .ch-tooltip-cone {
 	background-image: url('../assets/tooltip.png');
 	display:block;
 	position:absolute;
@@ -22,36 +22,36 @@
 	height:8px;
 }
 
-.ch-tooltip.ch-left .ch-cone {
+.ch-tooltip.ch-left .ch-tooltip-cone {
 	left: 8px;
 }
 
-.ch-tooltip.ch-right .ch-cone {
+.ch-tooltip.ch-right .ch-tooltip-cone {
 	height: 16px;
 	width: 8px;
 	left: -8px;
 }
 
-.ch-tooltip.ch-top .ch-cone {
+.ch-tooltip.ch-top .ch-tooltip-cone {
 	background-position: 0 -8px;
 	bottom: -8px;
 	top: auto;
 }
 
-.ch-tooltip.ch-bottom .ch-cone {
+.ch-tooltip.ch-bottom .ch-tooltip-cone {
 	height: 8px;
 	width: 16px;
 	top: -8px;
 }
 
-.ch-tooltip.ch-right.ch-bottom .ch-cone {
+.ch-tooltip.ch-right.ch-bottom .ch-tooltip-cone {
 	right: 8px;
 	left: auto;
 	height: 8px;
 	width: 16px;
 }
 
-.ch-tooltip.ch-right.ch-top .ch-cone {
+.ch-tooltip.ch-right.ch-top .ch-tooltip-cone {
 	height: 8px;
 	width: 16px;
 	right: 8px;
@@ -59,8 +59,9 @@
 }
 
 /* IE6 */
+.lt-ie7 .ch-tooltip .ch-tooltip-cone,
+/* Deprecated */
 .lt-ie7 .ch-tooltip .ch-cone,
-/* Deprecate */
 .ie6 .ch-tooltip .ch-cone {
 	font-size:0;
 	line-height:0;

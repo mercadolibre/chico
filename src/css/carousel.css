@@ -33,20 +33,30 @@
 }
 
 /* Buttons */
+.ch-carousel .ch-carousel-prev,
+.ch-carousel .ch-carousel-next,
+/* Deprecated */
 .ch-carousel .ch-prev-arrow,
 .ch-carousel .ch-next-arrow {
 	position:absolute;
 	cursor:pointer;
 }
 
+.ch-carousel .ch-carousel-prev,
+/* Deprecated */
 .ch-carousel .ch-prev-arrow {
 	left:10px;
 }
 
+.ch-carousel .ch-carousel-next,
+/* Deprecated */
 .ch-carousel .ch-next-arrow {
 	right:10px;
 }
 
+.ch-carousel .ch-carousel-prev span,
+.ch-carousel .ch-carousel-next span,
+/* Deprecated */
 .ch-carousel .ch-prev-arrow span,
 .ch-carousel .ch-next-arrow span {
 	display:block;
@@ -59,10 +69,16 @@
 	background-repeat: no-repeat;
 }
 
+.ch-carousel .ch-carousel-next span,
+/* Deprecated */
 .ch-carousel .ch-next-arrow span {
 	background-position:-10px 0;
 }
 
+
+.ch-carousel .ch-carousel-prev:hover span,
+.ch-carousel .ch-carousel-next:hover span,
+/* Deprecated */
 .ch-carousel .ch-prev-arrow:hover span,
 .ch-carousel .ch-next-arrow:hover span {
 	opacity:0.5;
@@ -92,12 +108,13 @@
 }
 
 /* IE 6 */
-.lt-ie7 .ch-carousel .ch-next-arrow,
+.lt-ie7 .ch-carousel .ch-carousel-next,
 /* Deprecate */
 .ie6 .ch-carousel .ch-next-arrow {
 	right:20px;
 }
-.lt-ie7 .ch-carousel .ch-prev-arrow,
+
+.lt-ie7 .ch-carousel .ch-carousel-prev,
 /* Deprecate */
 .ie6 .ch-carousel .ch-prev-arrow {
 	left:0;

@@ -11,6 +11,10 @@
 * @requires ch.Custom
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
+* @param {String} [conf.message] Validation message.
+* @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
+* @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
+* @param {String} [conf.context] It's a reference to position the validation-bubble.
 * @returns itself
 */
 
@@ -27,7 +31,6 @@ ch.validation = function (conf) {
 	conf = ch.clon(conf);
 	
 	// Configuration by default
-	conf.closeButton = ch.utils.hasOwn(conf, "closeButton");
 	conf.offset = conf.offset || "15 0";
 	conf.points = conf.points || "lt rt";
 
@@ -107,7 +110,7 @@ ch.validation = function (conf) {
 	var clear = function() {
 
 		that.$element.removeClass("error ch-form-error");
-		that.float.innerHide();
+		that["float"].innerHide();
 
 		validator.clear();
 
@@ -127,18 +130,6 @@ ch.validation = function (conf) {
 		that.trigger("clear");
 	};
 
-	/**
-	* Returns a value of element
-	* @private
-	* @name ch.Validation#value
-	* @function
-	* @returns string
-	*/
-	var value = function(){
-		return that.element.value;
-	};
-
-
 /**
 * Protected Members
 */
@@ -157,7 +148,7 @@ ch.validation = function (conf) {
 	* @type Object
 	* @name ch.Validation#float
 	*/
-	that.float = that.createFloat({
+	that["float"] = that.createFloat({
 		"$element": (function() {
 			var reference;
 			// CHECKBOX, RADIO
@@ -181,10 +172,10 @@ ch.validation = function (conf) {
 			return reference;
 		})(),
 		"type": "validation",
-		"content": "<p class=\"ch-message ch-error\">Error.</p>",
+		"content": "<p class=\"ch-message-error\">Error.</p>",
 		"cone": true,
 		"cache": false,
-		"closeButton": conf.closeButton,
+		"closable": false,
 		"aria": {
 			"role": "alert"
 		},
@@ -220,7 +211,8 @@ ch.validation = function (conf) {
 		that.trigger("beforeValidate");
 		
 		// Executes the validators engine with a specific value and returns an object.
-		var gotError = validator.validate(value());
+		// Context is the validation
+		var gotError = validator.validate.call(that["public"], that.element.value);
 
 		// Save the validator's status.
 		var status = !gotError.status;
@@ -232,7 +224,7 @@ ch.validation = function (conf) {
 				that.$element.addClass("error ch-form-error");
 			}
 
-			that.float["public"].show("<p class=\"ch-message ch-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
+			that["float"]["public"].show("<p class=\"ch-message-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
 
 			// Add blur or change event only one time
 			if (!that.$element.data("events")) { that.$element.one(validationEvent, that.process); }
@@ -257,7 +249,7 @@ ch.validation = function (conf) {
 		// else NOT Error!
 		} else {
 			that.$element.removeClass("error ch-form-error");
-			that.float.innerHide();
+			that["float"].innerHide();
 		}
 
 		/**
@@ -390,7 +382,7 @@ ch.validation = function (conf) {
 	* @type ch.Helper
 	* @see ch.Floats
 	*/
-	that["public"].helper = that.float["public"];
+	that["public"].helper = that["float"]["public"];
 	
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
@@ -400,7 +392,7 @@ ch.validation = function (conf) {
 	* @type ch.Floats
 	* @see ch.Floats
 	*/
-	that["public"].float = that.float["public"];
+	that["public"]["float"] = that["float"]["public"];
 
 	/**
 	* Turn on Validation and Validator engine or an specific condition.
@@ -418,7 +410,7 @@ ch.validation = function (conf) {
 		}
 
 		return that["public"];
-	}
+	};
 
 	/**
 	* Turn off Validation and Validator engine or an specific condition.
@@ -441,8 +433,27 @@ ch.validation = function (conf) {
 		}
 
 		return that["public"];
-	}
+	};
 
+	/**
+	* Turn on/off the Validation and Validator engine.
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#toggleEnable
+	* @function
+	* @returns itself
+	* @see ch.Validator
+	*/
+	that["public"].toggleEnable = function () {
+
+		if (that.enabled) {
+			that["public"].disable();
+		} else {
+			that["public"].enable();
+		}
+
+		return that["public"];
+	};
 
 	/**
 	* Turn off Validation and Validator engine or an specific condition.
@@ -454,6 +465,64 @@ ch.validation = function (conf) {
 	*/
 	that["public"].isActive = function(){
 		return validator.isActive();
+	};
+
+	/**
+	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#position
+	* @function
+	* @returns itself
+	* @example
+	* // Change validaton bubble's position.
+	* validation.position({
+	*	  offset: "0 10",
+	*	  points: "lt lb"
+	* });
+	* @see ch.Uiobject#position
+	*/
+	that["public"].position = function (o) {
+
+		if (o === undefined) { return that["float"].position(); }
+
+		that["float"]["public"].position(o);
+
+		return that["public"];
+	};
+
+	/**
+	* Sets or gets conditions messages
+	* @public
+	* @since 0.10.4
+	* @name ch.Validation#message
+	* @function
+	* @returns itself
+	* @example
+	* validation.message(condition, message);
+	* // Sets a new message
+	* validation.message("required", "New message for required validation");
+	* // Gets a message from a condition
+	* validation.message("required");
+	*/
+	that["public"].message = function (condition, msg) {
+		if (condition === undefined) {
+			throw "validation.message(condition, message): Please, give me a condition as parameter.";
+		}
+
+		// Get a new message from a condition
+		if (msg === undefined) {
+			return validator.conditions[condition].message;
+		}
+
+		// Sets a new message
+		validator.conditions[condition].message = msg;
+
+		if (validator.isActive()) {
+			that["public"]["float"].content("<p class=\"ch-message-error\">" + msg + "</p>");
+		}
+
+		return that["public"];
 	}
 
 /**

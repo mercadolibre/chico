@@ -81,6 +81,17 @@ ch.datePicker = function (conf) {
 		// Hide float
 		if (conf.closable) { that["float"].innerHide(); }
 
+		/**
+		* Callback function
+		* @public
+		* @name ch.datePicker#select
+		* @event
+		*/
+		// Old callback system
+		that.callbacks("onSelect");
+		// New callback
+		that.trigger("select");
+
 	};
 
 	
@@ -190,9 +201,14 @@ ch.datePicker = function (conf) {
 	*/
 	that["public"].select = function (date) {
 		// Select the day and update input value with selected date
-		that.element.value = that.calendar.select(date);
+		if (date) {
+			that.calendar.select(date);
+			that.element.value = that.calendar.select();
 
-		return that["public"];
+			return that["public"];
+		}
+
+		return that.calendar.select();
 	};
 
 	/**
@@ -296,11 +312,6 @@ ch.datePicker = function (conf) {
 	that["float"].$element
 		.css("cursor", "pointer")
 		.bind("click", function (event) { that["float"].innerShow(event); });
-
-	// Add hide behaivor
-	that["float"].on("show", function () {
-		ch.utils.document.one("click", that["float"].innerHide);
-	});
 
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).

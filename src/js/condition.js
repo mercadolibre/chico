@@ -84,7 +84,7 @@ ch.condition = function(condition) {
 	
 			if (condition.func){
 				// Call validation function with 'this' as scope.
-				return condition.func.call(that, value);
+				return condition.func.call(this, value);
 			}
 	
 		},

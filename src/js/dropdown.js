@@ -102,7 +102,7 @@ ch.dropdown = function (conf) {
 		
 		var $el = that.$element.children().eq(0);
 		
-		if (!that.$element.hasClass("secondary")) { $el.addClass("btn skin"); }
+		if (!that.$element.hasClass("secondary") || !that.$element.hasClass("ch-dropdown-skin")) { $el.addClass("ch-btn-skin ch-btn-small"); }
 		
 		return $el;
 		
@@ -154,8 +154,8 @@ ch.dropdown = function (conf) {
 		// Z-index of content
 		that.$content.css("z-index", ch.utils.zIndex += 1).attr("aria-hidden", "false");
 		
-		// Z-index of trigger over content (secondary dropdown)
-		if (that.$element.hasClass("secondary")) { that.$trigger.css("z-index", ch.utils.zIndex += 1); }
+		// Z-index of trigger over content (secondary / skin dropdown)
+		if (that.$element.hasClass("secondary") || that.$element.hasClass("ch-dropdown-skin")) { that.$trigger.css("z-index", ch.utils.zIndex += 1); }
 		
 		// Inheritance show
 		that.parent.show(event);

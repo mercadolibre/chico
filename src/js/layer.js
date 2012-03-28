@@ -13,10 +13,8 @@
 * @param {String} [conf.event] Sets the event ("click" or "hover") that trigger show method. By default, the event is "hover".
 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
 * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-* @param {Number} [conf.showTime] Sets a delay time to show component's contents. By default, the value is 400ms.
-* @param {Number} [conf.hideTime] Sets a delay time to hide component's contents. By default, the value is 400ms.
 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
-* @param {String} [conf.closeHandler] Sets the way ("any" or "button") the Layer close when conf.event is set as "click". By default, the layer close "any".
+* @param {String} [conf.closable] Sets the way (true, "button" or false) the Layer close when conf.event is set as "click". By default, the layer close true.
 * @returns itself
 * @see ch.Tooltip
 * @see ch.Modal
@@ -28,8 +26,7 @@
 *     "width": "200px",
 *     "height": 50,
 *     "event": "click",
-*     "showTime": 600,
-*     "hideTime": 200,
+      "closable": "button",
 *     "offset": "10 -10",
 *     "cache": false,
 *     "points": "lt rt"
@@ -55,9 +52,11 @@ ch.layer = function (conf) {
 	conf = ch.clon(conf);
 	
 	conf.cone = true;
+	conf.classes = conf.classes || "ch-box";
+
+	// Closable configuration
 	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : (conf.event === "click");
-	conf.classes = conf.classes || "box";
-	conf.closeHandler = conf.closeHandler || "any";
+	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
 	
 	conf.aria = {};
 	conf.aria.role = "tooltip";
@@ -83,30 +82,13 @@ ch.layer = function (conf) {
 */
 
 	/**
-	* Delay time to show component's contents.
-	* @private
-	* @name ch.Layer#showTime
-	* @type number
-	* @default 400
-	*/
-	var showTime = conf.showTime || 400,
-
-	/**
 	* Delay time to hide component's contents.
 	* @private
 	* @name ch.Layer#hideTime
 	* @type number
 	* @default 400
 	*/
-		hideTime = conf.hideTime || 400,
-
-	/**
-	* Show timer instance.
-	* @private
-	* @name ch.Layer#st
-	* @type timer
-	*/
-		st,
+	var hideTime = 400,
 
 	/**
 	* Hide timer instance.
@@ -115,14 +97,6 @@ ch.layer = function (conf) {
 	* @type timer
 	*/
 		ht,
-
-	/**
-	* Starts show timer.
-	* @private
-	* @function
-	* @name ch.Layer#showTimer
-	*/
-		showTimer = function () { st = setTimeout(that.innerShow, showTime); },
 
 	/**
 	* Starts hide timer.
@@ -139,7 +113,7 @@ ch.layer = function (conf) {
 				if (target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") { return; }
 			}
 
-			ht = setTimeout(that.innerHide, hideTime);
+			ht = setTimeout(function () { that.innerHide() }, hideTime);
 		},
 
 	/**
@@ -148,41 +122,11 @@ ch.layer = function (conf) {
 	* @function
 	* @name ch.Layer#clearTimers
 	*/
-		clearTimers = function () { clearTimeout(st); clearTimeout(ht); },
-
-	/**
-	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
-	* @private
-	* @function
-	* @name ch.Layer#stopBubble
-	*/
-		stopBubble = function (event) { event.stopPropagation(); };
-
-	/**
-	* Stop event bubble propagation to avoid hiding the layer by click on his own layout.
-	* @private
-	* @name ch.Layer#stopBubble
-	* @function
-	*/
-/*	stopBubble = function (event) {
-		var target = event.srcElement || event.target;
-		var relatedTarget = event.relatedTarget || event.toElement;
-		if (target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") { return; };
-		hideTimer();
-	};*/
+		clearTimers = function () { clearTimeout(ht); };
 
 /**
 *	Protected Members
 */
-
-	/**
-	* It sets the hablity of auto close the component or indicate who closes the component.
-	* @protected
-	* @function
-	* @name ch.Layer#closeHandler
-	* @returns itself
-	*/
-	that.closeHandler = conf.closeHandler;
 
 	/**
 	* Inner show method. Attach the component layout to the DOM tree.
@@ -194,7 +138,7 @@ ch.layer = function (conf) {
 	that.innerShow = function (event) {
 		// Reset all layers, except me and not auto closable layers
 		$.each(ch.instances.layer, function (i, e) {
-			if (e !== that["public"] && e.closable()==="any") {
+			if (e !== that["public"] && e.closable() === true) {
 				e.hide();
 			}
 		});
@@ -202,18 +146,7 @@ ch.layer = function (conf) {
 		// conf.position.context = that.$element;
 		that.parent.innerShow(event);
 
-		// Click in the button
-		if (conf.event === "click" && conf.closeHandler === "button") {
-			// Document events
-			that.$container.find(".close").one("click", that.innerHide);
-		// Click anywhere
-		} else if (conf.event === "click") {
-			// Document events
-			ch.utils.document.one("click", that.innerHide);
-			that.$container.bind("click", stopBubble);
-		// Hover
-		} else { 		
-			clearTimers();
+		if (conf.event !== "click") {
 			that.$container.one("mouseenter", clearTimers).bind("mouseleave", hideTimer);
 		}
 
@@ -228,10 +161,19 @@ ch.layer = function (conf) {
 	* @returns itself
 	*/
 	that.innerHide = function (event) {
-		that.$container.unbind("click", stopBubble).unbind("mouseleave", hideTimer);
+		that.$container.unbind("mouseleave", hideTimer);
 		
 		that.parent.innerHide(event);
 	}
+
+
+	/**
+	* Returns any if the component closes automatic. 
+	* @protected
+	* @name ch.Layer#closable
+	* @function
+	* @returns boolean
+	*/
 
 /**
 *	Public Members
@@ -287,16 +229,6 @@ ch.layer = function (conf) {
 	* @function
 	* @returns boolean
 	*/
-	that["public"].closable = function (content) {
-
-		if (content !== undefined) { 
-			that.closeHandler = content; 
-		} else { 
-			return that.closeHandler; 
-		}
-
-		return that["public"];
-	};
 
 	/**
 	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.

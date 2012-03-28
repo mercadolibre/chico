@@ -125,10 +125,9 @@ ch.autoComplete = function(conf){
 	that["float"] = that.createFloat({
 		"content": that.$content,
 		"points": conf.points,
-		"closeButton": false,
 		"points": "lt lb",
 		"cache": false,
-		"closeHandler": "button",
+		"closable": false,
 		"aria": {
 			"role": "tooltip",
 			"identifier": "aria-describedby"
@@ -137,51 +136,86 @@ ch.autoComplete = function(conf){
 	});
 
 	/**
+	* It sets On/Off the loading icon.
+	* @protected
+	* @function
+	* @name ch.AutoComplete#loading
+	*/
+	that.loading = function(show){
+		if(show){
+			that.$element.addClass("ch-autoComplete-loading");
+		} else {
+			that.$element.removeClass("ch-autoComplete-loading");
+		}
+	}
+
+	/**
 	* It fills the content inside the element represented by the float.
 	* @protected
-	* @type Function
+	* @function
 	* @name ch.AutoComplete#populateContent
 	*/
 	that.populateContent = function (event,result) {
 		// No results doesn't anything
-		if(result.length===0){return that;}
+		if (result.length===0 || that.element.value==="") {
+			that.loading(false);
+			that["float"].innerHide();
+			return that;
+		}
+			
 		// Only one result and the same as the input hide float and doesn't anything
-		if(result.length===1 && result[0]===that.element.value){that.float.innerHide();return that;}
+		if (result.length===1 && result[0]===that.element.value) {
+			that.loading(false);
+			that["float"].innerHide();
+			return that;
+		}
 
 		var list = "";
 		$.each(result, function (i, e) {
 			list+="<li data-index=\""+i+"\">"+e+"</li>";
 		})
 
+		that.trigger("contentUnload");
 		that.$content.html(list);
 		that.selected = -1;
+		
 		that["float"].content(that.$content);
+		
+		that.trigger("contentLoaded");
+		
 		that.items = that.$content.children();
+		
 		// Adds only once the behavior
-		if(!that.behaviorActived){
+		if (!that.behaviorActived) {
 			that.suggestionsBehavior(event);
 			that.behaviorActived = true;
 		}
+
+		that["float"].innerShow();
+		that.loading(false);
 		return that;
 	}
 
 	/**
 	* It does the query to the server if configured an URL, or it does the query inside the array given.
 	* @protected
-	* @type Function
+	* @function
 	* @name ch.AutoComplete#doQuery
 	*/
 	that.doQuery = function(event){
 		var q = that.$element.val().toLowerCase();
 		// When URL is configured it will execute an ajax request.
-		if(that.element.value !== "" && event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
+		if (that.element.value !== "" && event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
 			if (that.conf.url !== undefined) {
+				that.loading(true);
 				var result = $.ajax({
-					url: that.conf.url + q,
+					url: that.conf.url + q + "&callback=" + that.conf.jsonpCallback,
 					dataType:"jsonp",
-					jsonpCallback:that.conf.jsonpCallback,
-					crossDomain:true,
-					success: function(data){}
+					cache:false,
+					global:true,
+					context: window,
+					jsonp:that.conf.jsonpCallback,
+					crossDomain:true
 				});
 			// When not URL configured and suggestions array were configured it search inside the suggestions array.
 			} else if (that.conf.url === undefined) {
@@ -193,7 +227,7 @@ ch.autoComplete = function(conf){
 						result.push(that.suggestions[a]);
 					}
 				};
-				that.populateContent(result);
+				that.populateContent(event,result);
 			}
 		}
 		return that;
@@ -202,21 +236,25 @@ ch.autoComplete = function(conf){
 	/**
 	* Binds the behavior related to the list.
 	* @protected
-	* @type Function
+	* @function
 	* @name ch.AutoComplete#suggestionsBehavior
 	*/
 	that.suggestionsBehavior = function(event){
 		// BACKSPACE key bheavior. When backspace go to the start show the message
-		ch.utils.document.on(ch.events.KEY.BACKSPACE, function (x, event) { 
-			// When isn't any letter it hides the float
-			if(that.element.value.length===1){
-				that.float.innerHide();
-			}
+		ch.utils.document.on(ch.events.KEY.BACKSPACE, function (x, event) {
+
 			// When the user make backspace with empty input autocomplete is shutting off
 			if(that.element.value.length===0){
 				that.prevent(event);
 				that.$element.trigger("blur");
-			} 
+			}
+
+			// When isn't any letter it hides the float
+			if(that.element.value.length<=1){
+				that["float"].innerHide();
+				that.loading(false);
+			}
+
 		})
 		// ESC key behavior, it closes the suggestions's list 
 		.on(ch.events.KEY.ESC, function (x, event) { that.$element.trigger("blur"); })
@@ -227,7 +265,7 @@ ch.autoComplete = function(conf){
 		// DOWN ARROW key behavior, it selects the next item
 		.on(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
 		// MouseOver & MouseDown Behavior
-		that.float.$content.on("mouseover mousedown",function(evt){
+		that["float"].$content.on("mouseover mousedown",function(evt){
 			var event = evt || window.event;
 			var target = event.target || event.srcElement;
 			var type = event.type;
@@ -254,26 +292,29 @@ ch.autoComplete = function(conf){
 	/**
 	* Internal show method. It adds the behavior.
 	* @protected
-	* @type Function
+	* @function
 	* @name ch.AutoComplete#show
 	*/
 	that.show = function(event){
+		// new callbacks
+		that.trigger("show");
 		var query = that.element.value;
 		that.doQuery(event);
 		// Global keyup behavior
-		ch.utils.document.on("keyup", function (event) {that.doQuery(event); that.float.innerShow(); });
-		that.$content.html("");
-		if(query!==""){that.float.innerShow();}
+		ch.utils.document.on("keyup", function (event) {that.doQuery(event);  });
+		//that.$content.html("");
+
 		return that;
 	}
 
 	/**
 	* Internal hide method. It removes the behavior.
 	* @protected
-	* @type Function
+	* @function
 	* @name ch.AutoComplete#hide
 	*/
 	that.hide = function(event){
+		that.trigger("hide");
 		that.behaviorActived = false;
 		that.$content.off("mouseover mousedown");
 		ch.utils.document.off("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
@@ -284,7 +325,7 @@ ch.autoComplete = function(conf){
 	/**
 	* It gives the main behavior(focus, blur and turn off autocomplete attribute) to the $trigger.
 	* @protected
-	* @type Function
+	* @function
 	* @name ch.AutoComplete#configBehavior
 	*/
 	that.configBehavior = function () {
@@ -371,8 +412,8 @@ ch.autoComplete = function(conf){
 */	
 	that.configBehavior();
 	
-	/*that.float.on("ready", function () {
-		that.float["public"].width((that.$element.outerWidth()));
+	/*that["float"].on("ready", function () {
+		that["float"]["public"].width((that.$element.outerWidth()));
 	});*/
 	
 	/**
