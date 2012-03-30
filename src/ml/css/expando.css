@@ -28,7 +28,8 @@
 	width: 10px;
 	height: 12px;
 	position:absolute;
-	top:2px;
+	top:5px;
+	left:1px;
 	overflow: hidden;
 	text-indent: 14px;
 }
@@ -44,7 +45,7 @@
 	width: 12px;
 	height: 12px;
 	background-position: 0 -30px;
-	top: 0px;
+	top: 2px;
 }
 
 /* Content */
