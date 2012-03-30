@@ -266,12 +266,12 @@
 		<h2>Expando</h2> 
 		<div class="YOUR_SELECTOR_Expando"> 
 			<h4>Lorem ipsum dolor sit amet.</h4> 
-			<article> 
+			<div> 
 				<article> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
 				</article>
-			</article> 
+			</div> 
 		</div> 
 	</div> 
 
@@ -281,7 +281,7 @@
 		<ul class="YOUR_SELECTOR_Accordion">
 			<li>
 				<span>Item</span>
-				<article> 
+				<div> 
 					<article> 
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
@@ -290,7 +290,7 @@
 							<li><a href="#">Link 2</a></li>
 							<li><a href="#">Link 3</a></li>
 						</ul>
-					</article>
+					</div>
 				</article>
 			</li>
 			<li>
@@ -1120,6 +1120,7 @@
 				}
 
 			});
+		var ch_url = $("#url").url("It must be an URL");
 		var ch_number = $("#number").number("Este campo tiene que ser un número.").and().min(5, "Tiene que ser mayor a 5.");
 		var ch_wch4 = $("#range").min(1).and().max(10);
 		var ch_wch5 = $("#characters").maxLength(20).and().minLength(6);
