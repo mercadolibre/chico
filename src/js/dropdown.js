@@ -94,13 +94,13 @@ ch.dropdown = function (conf) {
 */
 	/**
 	* The component's trigger.
-	* @private
+	* @protected
 	* @name ch.Dropdown#$trigger
 	* @type jQuery
 	*/
 	that.$trigger = (function () {
 		
-		var $el = that.$element.children().eq(0);
+		var $el = that.$trigger;
 		
 		if (!that.$element.hasClass("secondary") || !that.$element.hasClass("ch-dropdown-skin")) { $el.addClass("ch-btn-skin ch-btn-small"); }
 		
@@ -110,20 +110,18 @@ ch.dropdown = function (conf) {
 
 	/**
 	* The component's content.
-	* @private
+	* @protected
 	* @name ch.Dropdown#$content
 	* @type jQuery
 	*/
 	that.$content = (function () {
 		
 		// jQuery Object
-		var $content = that.$trigger.next()
-		// Visible
-			.removeClass("ch-hide")
+		var $content = that.$content
 		// Prevent click on content (except links)
 			.bind("click", function(event) {
 				if ((event.target || event.srcElement).tagName === "A") {
-					that.hide();
+					that.innerHide();
 				}
 				event.stopPropagation();
 			})
@@ -145,8 +143,14 @@ ch.dropdown = function (conf) {
 		return $content;
 	}());
 
-
-	that.show = function (event) {
+	/**
+	* Shows component's content.
+	* @protected
+	* @function
+	* @name ch.Dropdown#innerShow
+	* @returns itself
+	*/
+	that.innerShow = function (event) {
 		
 		// Stop propagation
 		that.prevent(event);
@@ -157,8 +161,8 @@ ch.dropdown = function (conf) {
 		// Z-index of trigger over content (secondary / skin dropdown)
 		if (that.$element.hasClass("secondary") || that.$element.hasClass("ch-dropdown-skin")) { that.$trigger.css("z-index", ch.utils.zIndex += 1); }
 		
-		// Inheritance show
-		that.parent.show(event);
+		// Inheritance innerShow
+		that.parent.innerShow(event);
 		
 		// Refresh position
 		that.position("refresh");
@@ -169,7 +173,7 @@ ch.dropdown = function (conf) {
 		});
 
 		// Close events
-		ch.utils.document.one("click " + ch.events.KEY.ESC, function () { that.hide(); });
+		ch.utils.document.one("click " + ch.events.KEY.ESC, function () { that.innerHide(); });
 
 		// Keyboard support
 		var items = that.$content.find("a");
@@ -181,9 +185,16 @@ ch.dropdown = function (conf) {
 		return that;
 	};
 
-	that.hide = function (event) {
+	/**
+	* Hides component's content.
+	* @protected
+	* @function
+	* @name ch.Dropdown#innerHide
+	* @returns itself
+	*/
+	that.innerHide = function (event) {
 
-		that.parent.hide(event);
+		that.parent.innerHide(event);
 		
 		that.$content.attr("aria-hidden", "true");
 
@@ -225,11 +236,6 @@ ch.dropdown = function (conf) {
 	* @name ch.Dropdown#show
 	* @returns itself
 	*/
-	that["public"].show = function () {
-		that.show();
-		
-		return that["public"];
-	};
 
 	/**
 	* Hides component's content.
@@ -238,11 +244,6 @@ ch.dropdown = function (conf) {
 	* @name ch.Dropdown#hide
 	* @returns itself
 	*/ 
-	that["public"].hide = function () {
-		that.hide();
-		
-		return that["public"];
-	};
 	
 	/**
 	* Positioning configuration.
@@ -255,8 +256,6 @@ ch.dropdown = function (conf) {
 /** 
 *  Default event delegation
 */			
-
-	that.configBehavior();
 
 	ch.utils.avoidTextSelection(that.$trigger);
 	
