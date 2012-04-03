@@ -16,7 +16,7 @@
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
 * @returns itself
 * @example
-* // Create a new expando with some configuration.
+* // Create a new carousel with some configuration.
 * var me = $(".example").carousel({
 *     "width": 500,
 *     "height": "200px",
@@ -33,7 +33,7 @@
 *     "fx": false
 * });
 * @example
-* // Create a new expando without configuration.
+* // Create a new carousel without configuration.
 * var me = $(".example").carousel();
 */
 
