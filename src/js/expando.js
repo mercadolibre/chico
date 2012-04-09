@@ -44,7 +44,6 @@ ch.expando = function(conf){
 /**
 *  Protected Members
 */ 
-	
 	var $nav = that.$element.children(),
 		triggerAttr = {
 			"aria-expanded":conf.open,
@@ -54,21 +53,48 @@ ch.expando = function(conf){
 			id:triggerAttr["aria-controls"],
 			"aria-hidden":!triggerAttr["aria-expanded"]
 		};
-		
-	that.$trigger = $nav.eq(0).attr("role","presentation").wrapInner("<span>").children().attr(triggerAttr);
+
+	/**
+	* The component's trigger.
+	* @protected
+	* @name ch.Expando#$trigger
+	* @type jQuery
+	*/
+	that.$trigger = that.$trigger.attr(triggerAttr);
+	
+	/**
+	* The component's trigger.
+	* @protected
+	* @name ch.Expando#$content
+	* @type jQuery
+	*/
 	that.$content = $nav.eq(1).attr(contentAttr);
 	
-	that.show = function(event){
+	/**
+	* Shows component's content.
+	* @protected
+	* @function
+	* @name ch.Expando#innerShow
+	* @returns itself
+	*/
+	that.innerShow = function(event){
 		that.$trigger.attr("aria-expanded","true");
 		that.$content.attr("aria-hidden","false");
-		that.parent.show();
+		that.parent.innerShow();
 		return that;
 	}
-	// 
-	that.hide = function(event){
+
+	/**
+	* Hides component's content.
+	* @protected
+	* @function
+	* @name ch.Expando#innerHide
+	* @returns itself
+	*/
+	that.innerHide = function(event){
 		that.$trigger.attr("aria-expanded","false");
 		that.$content.attr("aria-hidden","true");
-		that.parent.hide();
+		that.parent.innerHide();
 		return that;
 	}
 	
@@ -105,10 +131,6 @@ ch.expando = function(conf){
 	* @name ch.Expando#show
 	* @returns itself
 	*/
-	that["public"].show = function(){
-		that.show();
-		return that["public"];
-	};
 
 	/**
 	* Hides component's content.
@@ -117,17 +139,11 @@ ch.expando = function(conf){
 	* @name ch.Expando#hide
 	* @returns itself
 	*/	
-	that["public"].hide = function(){
-		that.hide();
-		return that["public"];
-	};
-	
 
 /**
 *  Default event delegation
-*/		
-	
-	that.configBehavior();
+*/
+
 	that.$trigger.children().attr("role","presentation");
 	ch.utils.avoidTextSelection(that.$trigger);
 	
@@ -143,7 +159,7 @@ ch.expando = function(conf){
 	*	this.show();
 	* });
 	*/
-	setTimeout(function(){ that.trigger("ready")}, 50);
+	setTimeout(function(){ that.trigger("ready") }, 50);
 
 	return that;
 };

@@ -139,10 +139,11 @@ ch.tabNavigator = function (conf) {
 	
 			// Hide my open bro
 			$.each(that.children, function (i, e) {
-				if (tab !== e) { e.hide(); }
+				if (tab !== e) { e.innerHide(); }
 			});
 	
-			tab.show();
+			//tab.show();
+			tab.innerShow();
 	
 			//Change location hash
 			window.location.hash = "#!" + tab.$content.attr("id");
@@ -167,7 +168,7 @@ ch.tabNavigator = function (conf) {
 
 	/**
 	* The component's triggers container.
-	* @private
+	* @protected
 	* @name ch.TabNavigator#$triggers
 	* @type jQuery
 	*/
@@ -175,7 +176,7 @@ ch.tabNavigator = function (conf) {
 
 	/**
 	* The component's content.
-	* @private
+	* @protected
 	* @name ch.TabNavigator#$content
 	* @type jQuery
 	*/
@@ -240,8 +241,6 @@ ch.tabNavigator = function (conf) {
 /**
 *	Default event delegation
 */
-
-	that.$element.addClass("ch-tabNavigator");
 
 	createTabs();
 
@@ -352,7 +351,7 @@ ch.tab = function (conf) {
 */
 	/**
 	* Reference to the trigger element.
-	* @private
+	* @protected
 	* @name ch.Tab#$trigger
 	* @type jQuery
 	*/
@@ -360,27 +359,27 @@ ch.tab = function (conf) {
 
 	/**
 	* The component's content.
-	* @private
+	* @protected
 	* @name ch.Tab#$content
 	* @type jQuery
 	*/
 	that.$content = createContent();
 
 	/**
-	* Process the show event.
-	* @private
+	* Shows component's content.
+	* @protected
 	* @function
-	* @name ch.Tab#show
-	* @returns jQuery
+	* @name ch.Tab#innerShow
+	* @returns itself
 	*/
-	that.show = function (event) {
+	that.innerShow = function (event) {
 		that.prevent(event);
 
 		// Load my content if I'need an ajax request 
 		if (ch.utils.hasOwn(that, "source")) { that.content(); }
 
 		// Show me
-		that.parent.show(event);
+		that.parent.innerShow(event);
 
 		// Set me as hidden false
 		that.$content.attr("aria-hidden", "false");
@@ -394,19 +393,19 @@ ch.tab = function (conf) {
 
 		return that;
 	};
-	
+
 	/**
-	* Process the hide event.
-	* @private
+	* Hides component's content.
+	* @protected
 	* @function
-	* @name ch.Tab#hide
-	* @returns jQuery
+	* @name ch.Tab#innerHide
+	* @returns itself
 	*/
-	that.hide = function (event) {
+	that.innerHide = function (event) {
 		that.prevent(event);
 
 		// Hide me
-		that.parent.hide(event);
+		that.parent.innerHide(event);
 
 		// Set all inactive tabs as hidden
 		that.$content.attr("aria-hidden", "true");
@@ -461,8 +460,6 @@ ch.tab = function (conf) {
 /**
 *	Default event delegation
 */
-
-	that.configBehavior();
 	
 	// Add the attributes for WAI-ARIA to the tabs and tabpanel
 	that.$content.attr({
