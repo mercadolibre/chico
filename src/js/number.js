@@ -5,7 +5,6 @@
 * @class Number
 * @interface
 * @augments ch.Controls
-* @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.message] Validation message.
