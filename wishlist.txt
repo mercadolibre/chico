@@ -1,4 +1,0 @@
-Guille:  Webworkers.
-Natan:   Crear chico lite, distribuido.
-Natan:   Componente de máscaras de entrada.
-Guille:  Componente Guide o Tour.
