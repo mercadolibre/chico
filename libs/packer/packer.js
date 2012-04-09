@@ -198,8 +198,18 @@ Packer.prototype.addJoinedFiles = function () {
 
 	// When all components are selected, don't specify a list of components.
 	// When user select some components, get the list of them and delete spaces.
-	// IMPORTANT: "totalWidgets" is a string value and "widgets.length" is a numeric value.
-		components = (params.totalWidgets === params.widgets.length) ? "all" : params.widgets.join(",").split(" ").join(""),
+		components = (function () {
+			
+			// Always keep widgets as array
+			var widgets = (Array.isArray(params.widgets)) ? params.widgets : [params.widgets];
+			
+			// All widgets was selected
+			if (parseInt(params.totalWidgets) === widgets.length) { return "all"; }
+			
+			// Delete spaces within widgets names
+			return widgets.join(",").replace(" ", "");
+			
+		}()),
 
 	// Total of packages to build
 		total = compress.length * types.length,
