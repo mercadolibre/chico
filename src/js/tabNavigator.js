@@ -3,7 +3,6 @@
 * @name TabNavigator
 * @class TabNavigator
 * @augments ch.Controllers
-* @requires ch.Tab
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Number} [conf.selected] Selects a child that will be open when component was loaded. By default, the value is 1.
