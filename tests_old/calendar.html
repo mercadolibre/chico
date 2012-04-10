@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Calendar - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
+	<link href="../src/css/doc.css" rel="stylesheet">
+	<link href="../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+
+	<!-- #body -->
+	<h1>Chico-UI: Calendar testcases</h1>
+
+	<div class="box"> 
+		<h2>Demo</h2>
+		<form action="test.html" class="form">
+			<fieldset>
+				<legend>Calendar</legend>
+				<ol>
+					<li class="field-box"> 
+						<label for="val_date"> 
+							<span>Fecha:</span>
+							<input type="date" id="val_date" class="calendar1">
+						</label> 
+					</li> 
+				</ol>
+			</fieldset>
+		</form>
+	</div>
+
+<!-- #body -->
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../libs/js/jquery.js"></script>
+	<script src="../libs/js/qunit.js"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
+	<script src="functions.js"></script>
+
+<!-- #script -->
+	<script>
+
+		var calendar1 = $(".calendar1").calendar();
+		
+		// Alert: Elements within modal are positioned after fadeIn(). With no fx, these elements are not correctly positioned.
+		$.fx.off = true;
+		
+		/**
+		 * 	Test Cases
+		 */
+
+		module("Calendar instance object");
+		
+		test("Calendar public properties", function () {
+
+			expect(3);
+
+			ok(calendar1.uid >= 0, "Expected to find a \"uid\" attribute on the layer instance");
+
+			ok(calendar1.type == "calendar", "Expected to find \"calendar\" as value of type attribute");
+			
+			ok(ch.utils.hasOwn(calendar1, "element"), "Expected to find an \"element\" property");
+
+		});
+
+		test("Calendar public methods", function () {
+			
+			expect(7);
+
+			ok(ch.utils.hasOwn(calendar1, "show"), "Expected to find a \"show\" method");
+			
+			ok(ch.utils.hasOwn(calendar1, "hide"), "Expected to find a \"hide\" method");
+			
+			ok(ch.utils.hasOwn(calendar1, "select"), "Expected to find a \"select\" method");
+
+			ok(ch.utils.hasOwn(calendar1, "today"), "Expected to find a \"today\" method");
+
+			ok(ch.utils.hasOwn(calendar1, "next"), "Expected to find a \"next\" method");
+
+			ok(ch.utils.hasOwn(calendar1, "prev"), "Expected to find a \"prev\" method");
+
+			ok(ch.utils.hasOwn(calendar1, "reset"), "Expected to find a \"reset\" method");
+
+		});
+
+		module("Calendar layout creation");
+
+		var $dropdown = $(".ch-calendar.ch-dropdown");
+		var $trigger = $dropdown.children(":first");
+		var $container = $trigger.next();
+		var $content = $container.children("div");
+
+		test("Calendar layout creation", function () {
+			expect(10);
+			
+			$trigger.click();
+			
+			hasClass($dropdown, "ch-dropdown");
+			hasClass($trigger, "ch-dropdown-trigger");
+			hasClass($container, "ch-calendar-container");
+			hasClass($content, "ch-calendar-content");
+			exists(".ch-calendar-month");
+			exists(".week");
+			exists(".day");
+			exists(".today");
+			exists(".ch-calendar-prev");
+			exists(".ch-calendar-next");
+
+			$trigger.click();
+		});
+
+		test("Trigger click to show and hide calendar", function () {
+			expect(2);
+			
+			$trigger.click();
+
+			exists(".ch-calendar .ch-dropdown-trigger-on");
+			
+			$trigger.click();
+
+			notExists(".ch-calendar .ch-dropdown-trigger-on");
+			
+		});
+
+		test("Click on document to close", function () {
+			expect(1);
+			
+			$trigger.click();
+
+			ch.utils.document.click();
+
+			hasClass($container, "ch-hide");
+			
+		});
+		
+	</script>
+
+</body>
+</html>

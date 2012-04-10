@@ -1,0 +1,365 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Viewer - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
+	<link href="../src/css/doc.css" rel="stylesheet">
+	<link href="../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+
+	<!-- #body -->
+	<h1>Chico-UI: Viewer testcases</h1>
+	<div class="testViewer">
+		<ul>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLM&f=58557491_8009.jpg&v=M" itemprop="thumb" />
+				<link rel="zoom" href="http://10.100.34.210:8080/content/chico/0.5.5/labs/zoom/prototipo2/src/58557491_8009.jpg" itemprop="zoom" />
+			</li>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_3135.jpg&v=M" itemprop="thumb" />
+				<link rel="zoom" href="http://cachepe.zzounds.com/media/quality,85/p41133-11a00daf7859d92ccd3a960b8e2262d5.jpg" itemprop="zoom" />
+			</li>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_2534.jpg&v=M" itemprop="thumb" />
+			</li>
+
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=62634838_6784.jpg&v=M" itemprop="thumb" />
+			</li>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=65213880_2657.jpg&v=M" itemprop="thumb" />
+			</li>
+			<li>
+				<a href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=O" target="_blank">
+					<img src="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=V">
+				</a>
+				<link rel="thumb" href="http://www.mercadolibre.com.ar/jm/img?s=MLA&f=93080365_1290.jpg&v=M" itemprop="thumb" />
+			</li>
+		</ul>
+	</div>
+
+<!-- #body -->
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../libs/js/jquery.js"></script>
+	<script src="../libs/js/qunit.js"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
+	<script src="functions.js"></script>
+
+<!-- #script -->
+	<script>
+		var viewer = $('.testViewer').viewer({
+			onMove: function () {
+				$("body").addClass("onMove");
+			}
+		});
+		
+		ch.features.transition = false;
+		$.fx.off = true; // Alert: Elements within modal are positioned after fadeIn(). With no fx, these elements are not correctly positioned.
+
+		/**
+		 * 	Test Cases
+		 */
+
+		module("HTML Snippet");
+		
+		test("Necesary elements to init Viewer", function () {
+
+			expect(4);
+
+			var li = $(".testViewer").find("li").eq(0);
+			
+			exists(li.children("a"));
+			
+			exists(li.find("img"));
+			
+			exists(li.children("link[rel=thumb]"));
+			
+			exists(li.children("link[rel=zoom]"));
+			
+		});
+		
+		module("Viewer instance object");
+	   
+		test("Viewer public properties", function () {
+
+			expect(4);
+
+			ok(viewer.uid >= 0, "Expected to find a \"uid\" attribute on the viewer instance");
+	
+			ok(viewer.type == "viewer", "Expected to find \"viewer\" as value of type attribute");
+	
+			ok(ch.utils.hasOwn(viewer, "element"), "Expected to find an \"element\" property");
+			
+			ok($.isArray(viewer.children), "Expected to find a \"children\" array");
+			
+		});
+		
+		test("Viewer public methods", function () {
+
+			expect(4);
+	
+			ok(ch.utils.hasOwn(viewer, "getSelected"), "Expected to find a \"getSelected\" method");
+	
+			ok(ch.utils.hasOwn(viewer, "moveTo"), "Expected to find a \"moveTo\" method");
+			
+			ok(ch.utils.hasOwn(viewer, "next"), "Expected to find a \"next\" method");
+			
+			ok(ch.utils.hasOwn(viewer, "prev"), "Expected to find a \"prev\" method");
+
+		});
+		
+	   test("Viewer chain methods", function () {
+			
+			expect (3);
+			
+			var viewerOriginal = viewer;
+			
+			var chainNext = viewer.next();
+			
+			var chainPrev = viewer.prev();
+
+			var chained = viewer.next().prev();
+			 
+			ok (chainNext === viewerOriginal, "Expected to return original instance object on next() method call");
+			
+			ok (chainPrev === viewerOriginal, "Expected to return original instance object on prev() method call");
+
+			ok (chained === viewerOriginal, "Expected to return original instance object on .next().prev() methods chained call");
+			
+		});
+		
+		
+		
+		module("Viewer basic interaction");
+	   
+		test("Next item with next() method", function () {
+			
+			expect (2);
+			
+			equal(viewer.getSelected(), 1, "Expected to return first item.");
+			
+			viewer.next();
+			
+			equal(viewer.getSelected(), 2, "Expected to return second item.");
+			
+		});
+		
+		test("Previous item width prev() method", function () {
+			
+			expect (1);
+			
+			viewer.prev();
+			
+			equal(viewer.getSelected(), 1, "Expected to return first item.");
+			
+		});
+		
+		test("Go to a specific item with moveTo() method", function () {
+			
+			expect (1);
+			
+			var itemToGo = 2;
+			
+			viewer.moveTo(itemToGo);
+			
+			equal(viewer.getSelected(), itemToGo, "Expected to return correct item when it was moved.");
+			
+			// Reset Viewer for next tests (Go to first item)
+			viewer.moveTo(1);
+		});
+		
+		test("Next page with next button", function () {
+			
+			expect (2);
+			
+			equal(viewer.children[0].getPage(), 1, "Expected to return first page.");
+						
+			$(".ch-viewer .ch-next").click();
+			
+			equal(viewer.children[0].getPage(), 2, "Expected to return second page.");
+			
+		});
+		
+		test("Previous page width prev button", function () {
+			
+			expect (1);
+			
+			$(".ch-viewer .ch-prev").click();
+			
+			equal(viewer.children[0].getPage(), 1, "Expected to return first page.");
+			
+		});
+		
+		
+		
+		module("Viewer visual interaction");
+		
+		test("Showing magnifying glass", function () {
+			
+			expect (2);
+			
+			isNotVisible(".ch-viewer .ch-lens");
+			
+			$(".ch-viewer-display img").mouseover();
+			
+			isVisible(".ch-viewer .ch-lens");
+		
+		});
+		
+		test("Hiding magnifying glass", function () {
+			
+			expect (1);
+			
+			$(".ch-viewer-display img").mouseleave();
+			
+			isNotVisible(".ch-viewer .ch-lens");
+		
+		});
+		
+		
+		
+		module("Viewer advanced interaction");
+		
+		test("Show modal on item click", function () {
+			
+			expect (2);
+			
+			notExists(".ch-viewer-modal");
+			
+			$(".ch-viewer-content a").click();
+			
+			//exists(".ch-viewer-modal");
+			
+			$(".ch-dimmer").click();
+			
+		});
+		
+		test("Show specific item on modal", function () {
+			
+			expect (2);
+			
+			var itemToGo = 6;
+			
+			viewer.moveTo(itemToGo);
+			
+			//$(".ch-lens").click();
+			
+			equal(viewer.children[2].getPage(), itemToGo, "Expected to return correct item on modal.");
+			
+			hasClass(".ch-pager li:nth-child(" + itemToGo + ")", "ch-pager-on");
+			
+		});
+		
+		test("Pager interaction", function () {
+			
+			expect (2);
+			
+			var itemToGo = 3;
+			
+			$(".ch-pager li:nth-child(" + itemToGo + ")").click();
+			
+			equal(viewer.children[2].getPage(), itemToGo, "Expected to change item on pager click.");
+			
+			hasClass(".ch-pager li:nth-child(" + itemToGo + ")", "ch-pager-on");
+			
+		});
+		
+		test("Move thumbnails on modal hide", function () {
+			
+			expect (1);
+			
+			$(".ch-dimmer").click();
+			
+			equal(viewer.getSelected(), 3, "Expected to match item on thumbnails with item on modal."); // 3 = last image selected (a.k.a. itemToGo on "Pager interaction")
+			
+		});
+		
+		test("Viewer children", function () {
+
+			expect(3);
+
+			equal(viewer.children[0].type, "carousel", "Expected to find a \"carousel\" child on first instance of children");
+			
+			equal(viewer.children[1].type, "modal", "Expected to find a \"modal\" child on second instance of children");
+			
+			equal(viewer.children[2].type, "carousel", "Expected to find a \"carousel\" child on third instance of children");
+			
+		});
+		
+		
+		
+		module("Viewer zoom interaction");
+		
+		test("Zoom on image", function () {
+			
+			expect (5);
+			
+			viewer.moveTo(1);
+			
+			//$(".ch-lens").click();
+			
+			var link = $(".ch-viewer-modal .ch-carousel-content").children().eq(0).children("a");
+			console.log($(".ch-viewer-modal .ch-carousel-content").children());
+			exists(link);
+			
+			hasClass(link, "ch-viewer-zoomable");
+			
+			equal(link.css("cursor").slice(-7), "zoom-in", "Expected to find Zoom In cursor");
+			
+			//notExists(".ch-viewer-zoomed");
+			
+			link.click();
+			
+			exists(".ch-viewer-zoomed");
+			
+			equal($(".ch-viewer-zoomed").css("cursor").slice(-8), "zoom-out", "Expected to find Zoom In cursor");
+			
+			$(".ch-dimmer").click();
+		});
+		
+		
+		
+		
+		module('Viewer callbacks');	   	
+			   	
+	   	test('Viewer callback on move', function () {
+			
+			expect (1);
+			
+			viewer.moveTo(1);
+			
+			hasClass("body", "onMove");
+			
+			$("body").removeClass("onMove");
+			
+	   	});
+		
+	</script>
+
+</body>
+</html>

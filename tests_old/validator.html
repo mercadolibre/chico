@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Validator - TestCases</title>
+	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
+	<link href="../libs/css/qunit.css" rel="stylesheet">
+</head>
+<body>
+
+	<!-- #body -->
+	<h1>Chico-UI: Validator testcases</h1>
+	<div class="box">
+		<h2>Demo</h2>
+		
+		<form action="test.html" class="ch-form" id="testFormForWatcher">
+			<fieldset>
+				<legend>Casos de uso de Input</legend>
+				<p class="ch-form-row">
+					<label for="val_custom">Custom field:</label>
+					<input type="url" id="val_custom">
+				</p>
+			</fieldset>
+
+			<p class="ch-form-actions">
+				<input type="submit" value="Enviar" class="btn primary">
+				<a href="#">Cancelar</a>
+			</p>
+		</form>
+	</div><!-- #body -->
+	<hr>
+
+	<h1 id="qunit-header">QUnit Test Suite</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup</div>
+
+	<script src="../libs/js/jquery.js"></script>
+	<script src="../libs/js/qunit.js"></script>
+	<script src="http://chico.com:8080/latest/js"></script>
+	<script src="functions.js"></script>
+
+<!-- #script -->
+	<script>
+		
+		$.fx.off = true;
+
+		var validator = $('#val_custom').validator({
+			condition: {
+				name: "urlValidator",
+				patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/,
+				message: "The url is wrong"
+			}
+		});
+
+		/**
+		 * Test Cases
+		 */
+
+		// Reuse this functions for basics tests on Validator's interfaces:
+
+		var interfaceCheck = function (e) {
+
+			ok(e.uid >= 0, "Expected to find a defined content on the validator instance");
+
+			ok(e.type == "validator", "Expected to find \"validator\" as value of type attribute");
+			
+			ok(typeof e.element, "Expected to find a HTMLElement");
+
+			ok(typeof e.validator, "Expected to find a collection of conditions");
+
+		}
+		
+		var publicMethodsCheck = function (e) {
+
+			ok(typeof e.and == "function","Expected to find a \"and\" public method");
+
+			ok(typeof e.clear == "function","Expected to find a \"clear\" public method");
+
+			ok(typeof e.disable == "function","Expected to find a \"disabled\" public method");
+
+			ok(typeof e.enable == "function","Expected to find a \"enable\" public method");
+
+			ok(typeof e.extend == "function","Expected to find a \"enable\" public method");
+
+			ok(typeof e.isActive == "function","Expected to find a \"isActive\" public method");
+
+			ok(typeof e.off == "function","Expected to find a \"off\" public method");
+
+			ok(typeof e.on == "function","Expected to find a \"on\" public method");
+
+			ok(typeof e.trigger == "function","Expected to find a \"trigger\" public method");
+
+			ok(typeof e.validate == "function","Expected to find a \"validate\" public method");
+
+		}
+
+		module("Validator basics instance object");
+
+		test("Basics for Validator instance", function () {
+
+			interfaceCheck(validator);
+
+			publicMethodsCheck(validator);
+
+		});
+
+		test("Validator chain methods", function () { 
+
+			ok(validator.disable().enable(), "Expected to work chain methods");
+
+		});
+
+
+		test("Force validator error", function () { 
+		  
+			expect(2);
+
+			ok(validator.validate("asdasda"), "Expected to recibe an status object in response of method 'validate'");
+
+			// Force error with some value
+			ok(!validator.validate("asdasda").status, "Expected to recibe false in response of method 'validate'");
+		  
+		});
+		
+		test("Force validator success", function () { 
+
+			expect(2);
+
+			ok(validator.validate("asdasda"), "Expected to recibe an status object in response of method 'validate'");
+
+			// Force success with the expected value
+			ok(validator.validate("http://www.chico-ui.com.ar").status, "Expected to recibe true in response of method 'validate'");
+
+		});
+
+	</script>
+</body>
+</html>
