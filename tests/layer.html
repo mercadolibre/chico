@@ -1,524 +1,59 @@
-<!doctype html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Layer - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
-	<link href="../libs/css/qunit.css" rel="stylesheet">
+<!doctype html> 
+<!--[if IE]><![endif]--> 
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>Chico-UI Layer Tests</title>
+	<link rel="stylesheet" type="text/css" href="http://ui.ml.com:8080/latest/css">
 </head>
 <body>
+	<h1>Chico </h1>
+        
+	<p id="layer-0">Layer</p>
+	<p class="ch-hide" id="content-0">Content 0</p>
+	
+	<p id="layer-1">Layer</p>
+	<p class="ch-hide" id="content-1">Content 1</p>
 
-<!-- #body -->
-	<h1>Chico-UI: Layer testcases</h1>
-	<hr>
-	<p class="box"><span class="layer1">Layer executed on hover (default behavior).</span></p>
-	
-	<p class="box"><span class="layer2">Layer executed on click.</span></p>
+        <p id="layer-2">Layer</p>
+        <p class="ch-hide" id="content-2">Content 2</p>
 
-	<p class="box"><span class="layer3">Layer with HTML content loaded via "content" attribute.</span></p>
-	
-	<p class="box"><span class="layer4">Layer with DOM content loaded via "content" attribute.</span></p>
-	
-	<p class="box"><span class="layer5">Layer with content loaded without configuration object.</span></p>
-	
-	<p class="box"><span class="layer6">Layer with content loaded via ajax (relative URL).</span></p>
+        <a id="layer-3" href="./test-ajax.html">Link.</a>
 
-	<p class="box"><span class="layer7">Layer with content loaded via ajax (absolute URL).</span></p>
-	
-	<p class="box"><span class="layer8">Layer with onShow and onHide callbacks.</span></p>
-	
-	<p class="box"><span class="layer9">Layer with onContentLoad callback.</span></p>
-	
-	<p class="box"><span class="layer10">Layer with onContentError callback.</span></p>
-	
-	<p class="box" style="text-align:right;"><span class="layer11">Layer without space at right.</span></p>
-	
-	<p class="box"><span class="layer12">Layer with new content.</span></p>
-	
-	<p class="content ch-hide">DOM content</p>
-	
-	<div class="list-layer ch-hide">
-		<div class="min-box pricing">
-			<p class="price"><span class="l-currency">$</span> <span class="l-price">250<sup>00</sup></span> <select class="stock"><option>casca</option><option>casca</option><option>casca</option><option>casca</option></select></p>
-			<p class="shipping"><span class="free-shipping">Gratis</span> a través de <span class="mail-sedex">Sedex</span></p>
-			<p class="total"><span class="price l-total-currency"></span> <span class="price l-total"><sup></sup></span> o 6 cuotas de <span class="price l-cuotes-currency"> </span> <span class="price l-cuotes"></span></p>
-			<ul class="cards">
-				<li title="Visa" class="payMethod visa">Visa</li>
-				<li title="Master" class="payMethod master">Master</li>
-				<li title="Amex" class="payMethod amex">Amex</li>
-				<li title="Tarjeta Naranja" class="payMethod naranja">Tarjeta Naranja</li>
-			</ul>
-		</div>
-		<p class="min-box condition">Artículo nuevo. Garantia: 90 dias conforme CDC.</p>
-		<div class="min-box seller">
-			<p><span title="MercadoLider Platinum" class="medal mlP" style="cursor: pointer;">MercadoLider Platinum</span></p>
-			<p class="meter termometer meterLay rep5"><span class="valueRep"></span></p>
-		</div>
-		<div class="min-box bpp">
-			<p>"Tu compra está 100% protegida.<br> <a title="Ver condiciones" href="http://www.mercadolibre.com.ar/jm/ml.faqs.framework.main.FaqsController?pageId=TUT&amp;faqId=2732&amp;categId=SEGPC" id="conditionsBpp">Ver condiciones</a>."</p>
-		</div>
-		<form action="../test.html">
-			<input type="submit" class="btn primary" value="Comprar">
-			<input type="text">
-			<textarea name="Name" rows="8" cols="40"></textarea>
-		</form>
-		<form action="../test.html">
-			<input type="text">
-			<textarea name="Name" rows="8" cols="40"></textarea>
-			<input type="submit" class="btn primary" value="Comprar">
-			<p class="min-box action"><input type="submit" class="btn primary" value="Comprar"></p>
-			<p class="min-box action"><input type="text"></p>
-			<p class="min-box action"><textarea name="Name" rows="8" cols="40"></textarea></p>
-			<p class="min-box action"><input type="radio" name="some_name" value="" id="some_name"/></p>
-			<p class="min-box action"><input type="checkbox" name="same" value="" id="ame"/></p>
-		</form>
-	</div>
+        <a id="layer-4" href="./test-ajax.html">Link.</a>
+        <a id="layer-5" href="./test-ajax.html">Link.</a>
+        <a id="layer-6" href="./test-ajax.html">Link.</a>
+        <a id="layer-7" href="./test-ajax.html">Link.</a>
+        <a id="layer-8" href="./test-ajax.html">Link.</a>
 
-<!-- #body -->
-	<br>
-	
-	<hr>
-	
-	<h1 id="qunit-header">QUnit Test Suite</h1>
-	<h2 id="qunit-banner"></h2>
-	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
-	<ol id="qunit-tests"></ol>
-	<div id="qunit-fixture">test markup</div>
-
+        <div id="test">This is only a DOM content test.</div>
+		
 	<script src="../libs/js/jquery.js"></script>
-	<script src="../libs/js/qunit.js"></script>
-	<script src="http://chico.com:8080/latest/js"></script>
-	<script src="functions.js"></script>
-	
-<!-- #script -->
+	<script src="http://ui.ml.com:8080/latest/js?debug=true"></script>
 	<script>
-		var layer1 = $(".layer1").layer({
-			content: ".list-layer"
-		});
-		
-		var layer2 = $(".layer2").layer({
-			event: "click",
-			content: "Layer executed on click."
-		});
-		
-		var layer3 = $(".layer3").layer({
-			content: "Layer with HTML content loaded via \"content\" attribute."
-		});
-		
-		var layer4 = $(".layer4").layer({
-			content: ".content"
-		});
-		
-		var layer5 = $(".layer5").layer("Layer with content loaded without configuration object.");
-
-		var layer6 = $(".layer6").layer({
-			content: "../test.html"
-		});
-		
-		var layer7 = $(".layer7").layer({
-			content: "http://www.google.com"
-		});
-		
-		var layer8 = $(".layer8").layer({
-			content: "Layer with onShow and onHide callbacks.",
-			onShow: function () {
-				$("body").addClass("onShow");
-			},
-			onHide: function () {
-				$("body").addClass("onHide");
-			}
-		});
-		
-		var layer9, layer10;
-		
-		var layer11 = $(".layer11").layer("Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum.");
-		
-		var layer12 = $(".layer12").layer("Lorem ipsum Lorem ipsum Lorem ipsum...");
-		
-		$.fx.off = true;
-
-		/**
-		 * 	Test Cases
-		 */
-
-		module("Layer instance object");
-
-		test("Layer common public properties", function () {
-
-			expect(4);
-
-	   		ok(layer1.uid >= 0, "Expected to find a \"uid\" attribute on the layer instance");
-
-			ok(layer1.type == "layer", "Expected to find \"layer\" as value of type attribute");
-
-			ok(ch.utils.hasOwn(layer1, "isActive"), "Expected to find an \"active\" property");
-
-			ok(ch.utils.hasOwn(layer1, "element"), "Expected to find an \"element\" property");
-
-		});
-
-		test("Layer common public methods", function () {
-
-			expect(4);
-
-			ok(ch.utils.hasOwn(layer1, "position"), "Expected to find a \"position\" method");
-
-			ok(ch.utils.hasOwn(layer1, "content"), "Expected to find an \"content\" method");
-
-			ok(ch.utils.hasOwn(layer1, "show"), "Expected to find a \"show\" method");
-
-			ok(ch.utils.hasOwn(layer1, "hide"), "Expected to find a \"hide\" method");
-
-		});
-
-		test("Content property of layer executed on hover", function () {
-
-			expect(1);
-
-			layer1.show();
-	   		
-	   		equal(layer1.content().hasClass("list-layer"), true, "Expected to find a defined content on the layer instance");
-	   		
-			layer1.hide();
-		});
-		
-		test("Content property of layer executed on click", function () {
-
-			expect(1);
-
-			layer2.show();
-
-	   		ok(layer2.content() == "Layer executed on click.", "Expected to find a defined content on the layer instance");
-	   		
-	   		layer2.hide();
-
-		});
-		
-		test("Content property of layer with HTML content loaded via \"content\" attribute", function () {
-
-			expect(1);
-			layer3.show().hide();
-	   		ok(layer3.content() == "Layer with HTML content loaded via \"content\" attribute.", "Expected to find a defined content on the layer instance");
-
-		});
-		
-		test("Content property of layer with DOM content loaded via \"content\" attribute", function () {
-
-			expect(1);
-			layer4.show().hide();
-	   		equal(layer4.content().hasClass("content"), true, "Expected to find a defined content on the layer instance");
-
-		});
-		
-		test("Content property of layer with content loaded without configuration object", function () {
-
-			expect(1);
-			layer5.show().hide();
-	   		ok(layer5.content() == "Layer with content loaded without configuration object.", "Expected to find a defined content on the layer instance");
-
-		});
-		
-		test("Set new content via show method", function () {
-
-			expect(1);
-			layer5.show("New Content via show method").hide();
-	   		ok(layer5.content() == "New Content via show method", "Expected to find a new content on the layer instance");
-
-		});		
-		
-/*  
-	TODO: Rethink and refactor all this tests.
-	
-	  test("Content property of layer with content loaded via ajax (relative URL)", function () {
-
-			expect(1);
-
-	   		ok(layer6.content() == "../test.html", "Expected to find a defined content on the layer instance");
-
-		});
-		
-		test("Content property of layer with content loaded via ajax (absolute URL)", function () {
-
-			expect(1);
-
-	   		ok(layer7.content() == "http://www.google.com", "Expected to find a defined content on the layer instance");
-
-		});
-  */
-		test("Set new content", function () {
-
-			expect(1);
-			
-			layer12.content("New content...").show().hide();
-	   		
-	   		ok(layer12.content() == "New content...", "Expected to find a new content on the layer");
-
-		});
-		
-		test("Layer chain methods", function () {
-			
-			expect (3);
-			
-			var testLayerOriginal = layer2;
-			
-			var chainShow = layer2.show();
-			
-			var chainHide = layer2.hide();
-
-			var chained = layer2.show().hide();
-			 
-			ok (chainShow === testLayerOriginal, "Expected to return original instance object on show() method call");
-			
-			ok (chainHide === testLayerOriginal, "Expected to return original instance object on hide() method call");
-
-			ok (chained === testLayerOriginal, "Expected to return original instance object on .show().hide() methods chained call");
-			
-		});
-
-		
-		module("Layer layout and interaction");		
-
-		test("Active property for layer1", function () {
-
-			ok(layer1.isActive() == false, "Expected to find \"false\" as value for active property");
-			
-			layer1.show();
-
-			ok(layer1.isActive() == true, "Expected to find \"true\" as value for active property");
-
-			layer1.hide();
-			
-		});
-
-		test("Check for the right visual elements", function () {					
-		  
-			expect(2);
-		  
-			layer2.show()
-			
-			exists(".ch-layer .close");
-			exists(".ch-layer .ch-cone");
-			
-			layer2.hide();
-			
-		});
-		
-		test("Show and hide functions", function () {
-
-			expect (4);
-			
-			notExists(".ch-layer");
-			
-			$(".layer2").click();
-
-			exists(".ch-layer");
-				
-			isVisible(".ch-layer");
-			
-			$("body").click();
-
-			notExists(".ch-layer");
-				
-		});
-		
-		test("Close button interaction", function () {
-		  
-			expect (2);
-			
-			$(".layer2").click();
-			
-			exists(".ch-layer .close");				
-		
-			$(".ch-layer .close").click();
-			
-			notExists(".ch-layer");		
-			
-		});
-		
-		test("Check for click content interaction", function () {
-		  
-			expect (1);
-			
-			$(".layer2").click();
-			
-			$(".ch-layer").click();
-					
-			exists(".ch-layer");
-			
-			$("body").click();
-
-		});
-		
-		
-		module("Layer executed on hover");
-		
-		test("Check for basic interaction", function () {
-		  		
-			expect (3);
-			
-			notExists(".ch-layer");
-			
-			$(".layer1").mouseenter();
-			
-			exists(".ch-layer");
-			
-			layer1.hide(); // TODO mouseleave por el setTimeout
-			
-			notExists(".ch-layer");
-
-		});
-		
-		test("Check for advanced interaction: mouseenter and click on inner elements", function () {
-		  		
-			expect (9);
-			
-			$(".layer1").mouseenter();
-			
-			// p
-			$(".ch-layer p").mouseenter().click();
-			
-			exists(".ch-layer");
-			
-			// p
-			$(".ch-layer select").mouseenter().click();
-			
-			exists(".ch-layer");
-			
-			// div
-			$(".ch-layer div").mouseenter().click();
-			
-			exists(".ch-layer");
-			
-			// ul
-			$(".ch-layer ul").mouseenter().click();
-			
-			exists(".ch-layer");
-			
-			// li
-			$(".ch-layer li").mouseenter().click();
-			
-			exists(".ch-layer");
-			
-			// input
-			$(".ch-layer input[type=text]").mouseenter().click();
-			
-			exists(".ch-layer");
-			
-			// submit
-			$(".ch-layer input[type=submit]").mouseenter();
-			
-			exists(".ch-layer");
-			
-			// textarea
-			$(".ch-layer textarea").mouseenter().click();
-			
-			exists(".ch-layer");
-			
-			// form
-			$(".ch-layer p").mouseenter().click();
-			
-			exists(".ch-layer");
-			
-			
-			layer1.hide();
-
-		});
-
-		module('Layer callbacks');	   	
-		
-		test('Layer callback on show', function () {
-			
-			expect (1);
-			
-			layer8.show();
-			
-			hasClass("body", "onShow");
-			
-			$("body").removeClass("onShow");
-
-	   	});
-	   	
-	   	test('Layer callback on hide', function () {
-			
-			expect (1);
-			
-			layer8.hide();
-			
-			hasClass("body", "onHide");
-			
-			$("body").removeClass("onHide");
-
-	   	});
-	   	
-	   	test("Layer callback on content loaded", function () {
-	   	
-			expect(1);
-			
-			layer9 = $('.layer9').layer({
-				content:"../test.html",
-				onContentLoad: function () { 
-					$("body").addClass("onContentLoad");
-
-					start();
-
-					hasClass("body", "onContentLoad");
-
-					$("body").removeClass("onContentLoad");
-
-					this.hide();
-				}
-			});
-
-			layer9.show();
-			
-			stop();
-		});
-		
-		test("Layer callback on content loaded error", function () {
-			
-			expect(1);
-			
-			layer10 = $('.layer10').layer({
-				content: "http://www.google.com",
-				onContentError: function () {
-
-					$("body").addClass("onContentError");
-
-					start();
-					
-					hasClass("body", "onContentError");
-
-					$("body").removeClass("onContentError");
-
-					this.hide();
-				}
-
-			});
-
-			layer10.show();
-			
-			stop();
-		});
-		
-		
-		module('Layer behavior with spaceless viewport');
-	   	
-	   	test('Position of Layer on right', function () {
-
-			expect (1);
-
-			var $trigger = $('.layer11');
-
-			layer11.show();
-
-			ok($(".ch-layer").offset().left < $trigger.offset().left, "Expected to find layer left position < trigger left position");
-
-	   		layer11.hide();
-
-	   	});
-		
+		// Automatic version
+                var title = document.title + ' ' + ch.version;
+                document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
+                document.getElementsByTagName("h1")[0].innerHTML = title;
+                
+                $.fx.off = true;
+
+                var layer = [
+                        $("#layer-0").layer({ content: "#content-0", event: "click",  }),
+                        $("#layer-1").layer({ content: "#content-1", event: "click", closable: "button",  }),
+                        $("#layer-2").layer({ content: "#content-2" }),
+                        $("#layer-3").layer(),
+                        // points
+                        $("#layer-4").layer({ points: "lt lb" }),
+                        $("#layer-5").layer({ points: "lb lt" }),
+                        $("#layer-6").layer({ points: "lt rt" }),
+                        $("#layer-7").layer({ points: "rt rb" }),
+                        $("#layer-8").layer({ points: "rb rt" })
+                ];
 	</script>
-
-</body>
+</body> 
 </html>

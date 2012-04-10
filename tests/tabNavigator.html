@@ -1,340 +1,47 @@
-<!doctype html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Tab Navigator - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
-	<link href="../libs/css/qunit.css" rel="stylesheet">
+<!doctype html> 
+<!--[if IE]><![endif]--> 
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<head> 
+        <meta charset="utf-8"> 
+        <title>Chico-UI tabNavigator Tests</title>
+        <link rel="stylesheet" type="text/css" href="http://ui.ml.com:8080/latest/css">
 </head>
 <body>
+        <h1>Chico </h1>
 
-	<!-- #body -->
-	<h1>Chico-UI: Tab Navigator testcases</h1>
+<div id="tabNavigator-0">
+<ul>
+<li><a href="#tab1">Tab 1</a></li>
+<li><a href="#tab2">Tab 2</a></li>
+<li><a href="#tab3">Tab 3</a></li>
+</ul>
+<div>
+<div id="tab1">Tab 1</div>
+<div id="tab2">Tab 2</div>
+<div id="tab3">Tab 3</div>
+</div>
+</div>
 
-	<div id="testTabs" class="ch-tabNavigator">
-		<ul class="ch-tabNavigator-triggers">
-			<li><a href="#tab1" class="ch-tab-trigger ch-tab-trigger-on">Tab 1</a></li>
-			<li><a href="#tab2" class="ch-tab-trigger">Tab 2</a></li>
-			<li><a href="#tab3" class="ch-tab-trigger">Tab 3</a></li>
-		</ul>
-		<div class="box">
-			<div id="tab1">
-				<h2>Tab 1</h2>
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-			</div>
-			<div id="tab2">
-				<h2>Tab 2</h2>
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.				
-			</div>
-			<div id="tab3">
-				<h2>Tab 3</h2>
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-			</div>
-		</div>
-	</div>
 
-	<div id="testTabs2" class="ch-tabNavigator">
-		<ul class="ch-tabNavigator-triggers">
-			<li><a href="#tab2-1" class="ch-tab-trigger">Tab 1</a></li>
-			<li><a href="#tab2-2" class="ch-tab-trigger">Tab 2</a></li>
-			<li><a href="#tab2-3" class="ch-tab-trigger">Tab 3</a></li>
-			<li><a href="../test.html" class="ch-tab-trigger">Ajax</a></li>
-		</ul>
-		<div class="ch-tabNavigator-content box">
-			<div id="tab2-1" class="">Tab 1</div>
-			<div id="tab2-2">Tab 2</div>
-			<div id="tab2-3">Tab 3</div>
-		</div>
-	</div>
-	
-	<div id="testTabs3" class="ch-tab-vertical">
-		<ul>
-			<li><a href="#tab2-1">Tab 1</a></li>
-			<li><a href="#tab2-2">Tab 2</a></li>
-			<li><a href="http://www.mercadolibre.com">Ajax</a></li>
-			
-		</ul>
-		<div>
-			<div id="tab2-1">Tab 1</div>
-			<div id="tab2-2">Tab 2</div>
-		</div>
-	</div>
-	
-	<div id="testTabs4">
-		<ul>
-			<li><a href="#tab2-1">Tab 1</a></li>
-			<li><a href="#tab2-2">Tab 2</a></li>
-		</ul>
-		<div>
-			<div id="tab2-1">Tab 1</div>
-			<div id="tab2-2">Tab 2</div>
-		</div>
-	</div>
-	
-	<div id="testTabs5">
-		<ul>
-			<li><a href="#tab2-1">Tab 1</a></li>
-			<li><a href="#tab2-2">Tab 2</a></li>
-		</ul>
-		<div>
-			<div id="tab2-1">Tab 1</div>
-			<div id="tab2-2">Tab 2</div>
-		</div>
-	</div>
+        <div id="test">This is only a DOM content test.</div>
+                
+        <script src="../libs/js/jquery.js"></script>
+        <script src="http://ui.ml.com:8080/latest/js?debug=true"></script>
+        <script>
+                // Automatic version
+                var title = document.title + ' ' + ch.version;
+                document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
+                document.getElementsByTagName("h1")[0].innerHTML = title;
+                
+                $.fx.off = true;
 
-	<div id="testTabs6">
-		<ul>
-			<li><a href="../test.html">Ajax 1</a></li>
-			<li><a href="../test.html#ajax2">Ajax 2</a></li>
-		</ul>
-		<div>
-
-		</div>
-	</div>
-
-<!-- #body -->
-	<hr>
-
-	<h1 id="qunit-header">QUnit Test Suite</h1>
-	<h2 id="qunit-banner"></h2>
-	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
-	<ol id="qunit-tests"></ol>
-	<div id="qunit-fixture">test markup</div>
-
-	<script src="../libs/js/jquery.js"></script>
-	<script src="../libs/js/qunit.js"></script>
-	<script src="http://chico.com:8080/latest/js"></script>
-	<script src="functions.js"></script>
-
-<!-- #script -->
-	<script>
-		
-		// IMPORTANT: Init tests with #!tab3 hash
-		
-		var loc = window.location;
-		
-		if(loc.hash !== "#!tab3") {
-			if(loc.hash.length == 0) window.location = loc.href + "#!tab3"; else window.location = loc.href.replace(loc.hash, "#!tab3");
-		};
-		
-		// **************************************
-		
-		var testTabs1 = $("#testTabs").tabNavigator();
-		
-		var testTabs4 = $("#testTabs4").tabNavigator({
-			onSelect: function () {
-				$("body").addClass("onSelect");
-			}
-		});		
-		var testTabs5 = $("#testTabs5").tabNavigator({
-			selected: 1
-		});
-		var testTabs6 = $("#testTabs6").tabNavigator();
-		
-		var testTabs3 = $("#testTabs3").tabNavigator();
-		$.fx.off = true;
-		
-		/**
-		 * 	Test Cases
-		*/
-		module("TabNavigator instance object");
-		
-		test("TabNavigator public properties", function () {
-
-			expect(4);
-
-	   		ok(testTabs1.uid >= 0, "Expected to find a \"uid\" attribute on the layer instance");
-	   		
-			ok(testTabs1.type == "tabNavigator", "Expected to find \"tabNavigator\" as value of type attribute");
-			
-			ok(ch.utils.hasOwn(testTabs1, "element"), "Expected to find an \"element\" property");
-			
-			ok($.isArray(testTabs1.children) && testTabs1.children.length > 0, "Expected to find an array of Tabs on the tabNavigator instance with more than 1 items on it");
-
-		});
-		
-		test("TabNavigator public methods", function () {
-			expect(2);
-			 
-			ok(ch.utils.hasOwn(testTabs1, "select"), "Expected to find a \"select\" method");
-			
-			ok(ch.utils.hasOwn(testTabs1, "getSelected"), "Expected to find a \"getSelected\" method");
-   
-		});
-				
-		test("Tab selected by default by hash", function () {
-			expect(1);
-			 
-			equal(testTabs1.getSelected(), 3, "Expected to find the third tab selected by default");
-			   
-		});
-		
-		test("TabNavigator chain methods", function () {
-
-			expect(1);
-
-			var testTabsOriginal = testTabs1;
-			
-			var chainSelect = testTabs1.select(1);
-			 
-			ok (chainSelect === testTabsOriginal, "Expected to return original instance object on select() method call");
-
-		});
-		
-		
-		module('TabNavigator layout and interaction');
-		
-		var $ul = $("#testTabs").children(':first');
-		var $triggers = $ul.find('a');
-		var $contents = $ul.next();
-
-		test('Check for right visual classes', function () {
-			
-			hasClass("#testTabs", 'ch-tabNavigator');
-			hasClass($triggers, 'ch-tab-trigger');
-			hasClass($contents, 'ch-tabNavigator-content');
-			
-		});
-		
-		test('State before click', function () {
-			
-			// Tabs state before click on any trigger
-			hasClass($triggers.eq(0), 'ch-tab-trigger-on');
-			hasNotClass($triggers.eq(1), 'ch-tab-trigger-on');
-			hasNotClass($triggers.eq(2), 'ch-tab-trigger-on');
-
-			// Contents state before click on any trigger
-			equal($contents.find($triggers.eq(0).attr('href')).css('display'), 'block', 'Expected " + selector + " to be visible');
-			equal($contents.find($triggers.eq(1).attr('href')).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated');
-			equal($contents.find($triggers.eq(2).attr('href')).css('display'), 'none', 'Content asociated to third tab shouldn\'t be activated');
-		
-		});
-		
-		test('Click on second tab', function () {
-			
-			$triggers.eq(1).click();
-			
-			// First & third tab not activated
-			hasNotClass($triggers.eq(0), 'ch-tab-trigger-on');
-			hasClass($triggers.eq(1), 'ch-tab-trigger-on');
-			hasNotClass($triggers.eq(2), 'ch-tab-trigger-on');
-
-			// Contents
-			equal($contents.find($triggers.eq(0).attr('href')).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on second tab');
-			equal($contents.find($triggers.eq(1).attr('href')).css('display'), 'block', 'Content asociated to second tab sholud be activated after click on second tab');
-			equal($contents.find($triggers.eq(2).attr('href')).css('display'), 'none', 'Content asociated to third tab shouldn\'t be activated after click on second tab');
-		
-		});
-		
-		test('Click on third tab', function () {
-		
-			$triggers.eq(2).click();
-			
-			// First & second tab not activated
-			hasNotClass($triggers.eq(0), 'ch-tab-trigger-on');
-			hasNotClass($triggers.eq(1), 'ch-tab-trigger-on');
-			hasClass($triggers.eq(2), 'ch-tab-trigger-on');
-
-			// Contents
-			equal($contents.find($triggers.eq(0).attr('href')).css('display'), 'none', 'Content asociated to first tab shouldn\'t be activated after click on third tab');
-			equal($contents.find($triggers.eq(1).attr('href')).css('display'), 'none', 'Content asociated to second tab shouldn\'t be activated after click on third tab');
-			equal($contents.find($triggers.eq(2).attr('href')).css('display'), 'block', 'Content asociated to thind tab sholud be activated after click on third tab');
-		
-			testTabs1.select(1);
-		});
-		
-		module("TabNavigator callbacks");			
-		
-		test("TabNavigator onContentLoad Callback", function () {			
-			
-			var testTabs2 = $("#testTabs2").tabNavigator({
-				onContentLoad: function () {
-					if (this.getSelected() === 4) {
-						$("body").addClass("onContentLoad");
-
-						start();
-
-						hasClass("body", "onContentLoad");
-							
-						$("body").removeClass("onContentLoad");
-					};
-				}
-			});
-			
-			testTabs2.select(4);
-
-			stop();
-
-		});
-		
-		test("TabNavigator onContentError Callback", function () {			
-			
-			expect(1);
-			
-			var testTabs3 = $("#testTabs3").tabNavigator({
-				onContentError: function () {
-					switch(this.getSelected()) {
-						case 3:
-							
-							$("body").addClass("onContentError");
-							
-							start();
-							
-							hasClass("body", "onContentError");
-							
-							$("body").removeClass("onContentError");
-													
-						break;
-					};
-				}
-			});
-			
-			testTabs3.select(3);
-
-			stop();
-		});
-		
-		test("TabNavigator onSelect Callback", function () {			
-			
-			expect(1);
-			
-			testTabs4.select(2);
-			
-			hasClass("body", "onSelect");
-
-			testTabs4.select(1);
-
-			$("body").removeClass("onSelect");
-		});
-		
-		module("TabNavigator selected tab configuration");			
-		
-		test("Selected tab configuration", function () {			
-			
-			expect (1);
-
-			equal (testTabs5.getSelected(), 1, "Expected to return the selected tab configured.");
-
-		});
-		
-		module("TabNavigator loaded content by ajax");
-		test("Create container for each tab (with or witout hash on url)", function () {			
-			
-			expect (2);
-
-			exists('#ch-tab'+testTabs6.children[0].uid.replace("#","-"));
-			exists('#ajax2');
-
-		});		
-
-	</script>
-
-</body>
+                var components = [
+                        $("#tabNavigator-0").tabNavigator()
+                ];
+        </script>
+</body> 
 </html>

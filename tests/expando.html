@@ -1,202 +1,57 @@
-<!doctype html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Expando - TestCases</title>
-	<link rel="stylesheet" type="text/css" href="http://chico.com:8080/latest/css">
-	<link href="../libs/css/qunit.css" rel="stylesheet">
+<!doctype html> 
+<!--[if IE]><![endif]--> 
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>Chico-UI tooltip Tests</title>
+	<link rel="stylesheet" type="text/css" href="http://ui.ml.com:8080/latest/css">
 </head>
 <body>
+	<h1>Chico </h1>
 
-<!-- #body -->
-	<h1>Chico-UI: Expando testcases</h1>
-	<hr />
-	<div id="testExpando">
-		<h4>Lorem ipsum dolor sit amet.</h4>
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-		</div>
-	</div>
-	
-	<div id="testExpando2">
-		<h4>Lorem ipsum dolor sit amet.</h4>
-		<div>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-		</div>
-	</div>
-<!-- #body -->
-	<hr>
+        <div id="expando-0">
+                <p>Lorem ipsum dolor sit amet.</p>
+                <div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+        </div>
 
-	<h1 id="qunit-header">QUnit Test Suite</h1>
-	<h2 id="qunit-banner"></h2>
-	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
-	<ol id="qunit-tests"></ol>
-	<div id="qunit-fixture">test markup</div>
+        <div id="expando-1">
+                <p>Lorem ipsum dolor sit amet.</p>
+                <div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+        </div>
 
+        <div id="expando-2">
+                <p>Lorem ipsum dolor sit amet.</p>
+                <div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+        </div>
+
+
+        <div id="test">This is only a DOM content test.</div>
+		
 	<script src="../libs/js/jquery.js"></script>
-	<script src="../libs/js/qunit.js"></script>
-	<script src="http://chico.com:8080/latest/js"></script>
-	<script src="functions.js"></script>
-	
-<!-- #script -->
+	<script src="http://ui.ml.com:8080/latest/js?debug=true"></script>
 	<script>
+		// Automatic version
+                var title = document.title + ' ' + ch.version;
+                document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
+                document.getElementsByTagName("h1")[0].innerHTML = title;
+                
+                $.fx.off = true;
 
-		var testExpando = $("#testExpando").expando();
-		var testExpando2 = $("#testExpando2").expando({
-			open:true,
-			onShow: function () {
-				$("body").addClass("onShow");
-			},
-			onHide: function () {
-				$("body").addClass("onHide");
-			}			
-		});
-		
-		$.fx.off = true;
-
-		/**
-		 * 	Test Cases
-		 */
-
-		module("Expando instance object");
-		
-		test("Expando public properties", function () {
-
-			expect(3);
-
-	   		ok(testExpando.uid >= 0, "Expected to find a \"uid\" attribute on the layer instance");
-	   		
-			ok(testExpando.type == "expando", "Expected to find \"expando\" as value of type attribute");
-			
-			ok(ch.utils.hasOwn(testExpando, "element"), "Expected to find an \"element\" property");
-
-		});
-		
-		test("Expando public methods", function () {
-
-			expect(2);
-			
-			ok(ch.utils.hasOwn(testExpando, "show"), "Expected to find a \"show\" method");
-			
-			ok(ch.utils.hasOwn(testExpando, "hide"), "Expected to find a \"hide\" method");
-
-		});
-		
-		
-		test("Expando chain methods", function () {
-			
-			expect (3);
-			
-			var testExpandoOriginal = testExpando;
-			
-			var chainShow = testExpando.show();
-			
-			var chainHide = testExpando.hide();
-
-			var chained = testExpando.show().hide();
-			 
-			ok (chainShow === testExpandoOriginal, "Expected to return original instance object on show() method call");
-			
-			ok (chainHide === testExpandoOriginal, "Expected to return original instance object on hide() method call");
-
-			ok (chained === testExpandoOriginal, "Expected to return original instance object on .show().hide() methods chained call");
-			
-		});
-		
-		module('Expando layout and interaction');
-
-		var $triggerExpando =  $("#testExpando").children(":first").children();
-		var $contentExpando = $triggerExpando.parent().next();
-		
-		test('Check for the right visual classes', function () {
-			
-			hasClass('#testExpando', 'ch-expando');
-			hasClass($triggerExpando, 'ch-expando-trigger');
-			hasClass($contentExpando, 'ch-expando-content');
-			
-		});
-		
-		test('Opens expando', function () {
-			
-			isNotVisible($contentExpando);
-			
-			$triggerExpando.click();
-			
-			isVisible($contentExpando);
-			hasClass($triggerExpando, 'ch-expando-trigger-on');
-			
-			$triggerExpando.click();
-			
-		});
-		
-		test('Closes expando, clicking on component trigger', function () {
-			
-			$triggerExpando.click();
-			$triggerExpando.click();
-			
-			isNotVisible($contentExpando);
-			hasNotClass($triggerExpando, 'ch-expando-trigger-on');
-			
-		});
-		
-		test('Click inside content', function () {
-			
-			$triggerExpando.click();
-			$contentExpando.click();
-			
-			isVisible($contentExpando);
-			hasClass($triggerExpando, 'ch-expando-trigger-on');
-			
-			$triggerExpando.click();
-			
-		});
-		
-		module('Expando open by configuration');
-		var $triggerExpando2 =  $("#testExpando2").children(":first").children();
-		var $contentExpando2 = $triggerExpando2.parent().next();
-		
-		test('Opened expando', function () {
-			
-			isVisible($contentExpando2);
-			hasClass($triggerExpando2, 'ch-expando-trigger-on');
-			
-			$triggerExpando2.click();
-			
-			isNotVisible($contentExpando2);
-			hasNotClass($triggerExpando2, 'ch-expando-trigger-on');
-						
-		});
-		
-		module('Expando callbacks');	
-		
-		test('Expando callback on show', function () {
-			
-			expect (1);
-			
-			testExpando2.show();
-			
-			hasClass("body", "onShow");
-			
-			$("body").removeClass("onShow");
-
-	   	});
-	   	
-	   	test('Expando callback on hide', function () {
-			
-			expect (1);
-			
-			testExpando2.hide();
-			
-			hasClass("body", "onHide");
-			
-			$("body").removeClass("onHide");
-			
-			testExpando2.show();
-
-	   	});
-
+                var expando = [
+                        $("#expando-0").expando(),
+                        $("#expando-1").expando({ icon: false }),
+                        $("#expando-2").expando({ open: true })
+                ];
 	</script>
-
-</body>
+</body> 
 </html>
