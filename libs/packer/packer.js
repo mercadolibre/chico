@@ -76,33 +76,46 @@ Packer.prototype.addAssets = function () {
 
 Packer.prototype.addRoot = function () {
 
-	var self = this;
+	var self = this,
+	
+	// URL of showroom file
+		showroom = self.folder + "/index.html",
+	
+	// Reference to root folder
+	// TODO: this url should be self.input
+		root = self.input + "/../";
 
 	// Feedback
 	sys.puts(" > Packer: Copying root elements.");
 
 	// Code execution
-	exec("cd " + self.input + "/../ && cp *.html *.txt *.md " + self.folder, function (err) {
+	// TODO: use config object
+	exec("cp " + root + "*.html " + root + "*.txt " + root + "*.md " + self.folder, function (err) {
 
 		if (err) { sys.puts(" > Packer " + err); }
+		
+		fs.readFile(showroom, function (err, data) {
 
-		// Showroom file
-		// TODO: use config object
-		var f = fs.readFileSync(".." + (self.folder.split("~/development")[1]) + "/index.html").toString();
+			if (err) { sys.puts(" > Packer " + err); }
+			
+			data = data.toString();
+			
+			// Replace routes
+			// TODO: use config object
+			// TODO: link to "min" when there is a min, or "not min" when there isn't a min.
+			data = data.replace("http://localhost:3000/css", "css/chico-min-" + self.version + ".css");
+			data = data.replace("vendor/jquery-debug.js", "js/jquery.js");
+			data = data.replace("http://localhost:3000/js", "js/chico-min-" + self.version + ".js");
 
-		// Replace routes
-		// TODO: use config object
-		f = f.replace("http://localhost:3000/css", "css/chico-min-" + self.version + ".css");
-		f = f.replace("vendor/jquery-debug.js", "js/jquery.js");
-		f = f.replace("http://localhost:3000/js", "js/chico-min-" + self.version + ".js");
+			// Writing file
+			fs.writeFile(showroom, data, encoding = "utf8", function (err) {
 
-		// TODO: use config object
-		fs.writeFileSync(".." + (self.folder.split("~/development")[1]) + "/index.html", f);
+				if (err) { sys.puts(" > Packer " + err); }
 
-		self.concludeTask();
-
+				self.concludeTask();
+			});
+		});
 	});
-
 };
 
 Packer.prototype.addExtras = function () {
@@ -111,14 +124,13 @@ Packer.prototype.addExtras = function () {
 
 	// TODO: use conf
 		bash = [
-			"cd " + self.input + "/../",
-			"cp vendor/jquery.js " + self.folder + "/js"
+			"cp " + self.input + "/../vendor/jquery.js " + self.folder + "/js"
 		];
 
 	// TODO: make scalable to API doc + mesh + tester + more...
 	// Add Chico Mesh
 	if (self.params.extras === "mesh") {
-		bash.push("cp src/css/mesh.css " + self.folder + "/css/chico-mesh.css");
+		bash.push("cp " + self.input + "/css/mesh.css " + self.folder + "/css/chico-mesh.css");
 	}
 
 	// Feedback
@@ -135,21 +147,25 @@ Packer.prototype.addExtras = function () {
 
 Packer.prototype.pack = function () {
 
-	var self = this,
-
-	// Total amount of tasks to be executed
-		total = 4,
-
-	// Tasks concluded
-		progress = 0;
+	var self = this;
 
 	// Close a specific task and analize if all tasks are done
-	self.concludeTask = function () {
-		// Compress package when all tasks are ready
-		if ((progress += 1) === total) {
-			self.compress();
-		}
-	};
+	self.concludeTask = (function () {
+		
+		// Total amount of tasks to be executed
+		var total = 4,
+
+		// Tasks concluded
+			progress = 0;
+		
+		// Return the real function
+		return function () {
+			// Compress package when all tasks are ready
+			if ((progress += 1) === total) {
+				self.compress();
+			}
+		};
+	}());
 
 	// Create a folder name to save the generated files
 	self.folder = self.output + "/temp" + ~~(Math.random() * 999999);
@@ -194,21 +210,22 @@ Packer.prototype.addJoinedFiles = function () {
 		params = self.params,
 
 	// Convert single "results" of compression level to array
+	// TODO: Replace for: compress = (Array.isArray(params.compression)) ? params.compression : [params.compression],
 		compress = (typeof params.compression === "string") ? [params.compression] : params.compression,
 
 	// When all components are selected, don't specify a list of components.
 	// When user select some components, get the list of them and delete spaces.
 		components = (function () {
-			
+
 			// Always keep widgets as array
 			var widgets = (Array.isArray(params.widgets)) ? params.widgets : [params.widgets];
-			
+
 			// All widgets was selected
 			if (parseInt(params.totalWidgets) === widgets.length) { return "all"; }
-			
+
 			// Delete spaces within widgets names
-			return widgets.join(",").replace(" ", "");
-			
+			return widgets.join(",").split(" ").join("");
+
 		}()),
 
 	// Total of packages to build
@@ -251,7 +268,7 @@ Packer.prototype.addJoinedFiles = function () {
 
 			// Put content into created file
 			// TODO: Use a parameter in conf file
-			fs.writeFile(self.folder.split("chico.site/")[1] + "/" + pack.type + "/" + file, content, encoding = "utf8", function (err) {
+			fs.writeFile(self.folder + "/" + pack.type + "/" + file, content, encoding = "utf8", function (err) {
 
 				if (err) { sys.puts(" > Packer " + err); }
 

@@ -2,7 +2,7 @@
 	"name": "Chico UI",
 	"version": "0.10.5",
 	"input": "../../../chico/src",
-	"output": "~/development/chico.site/public/downloads",
+	"output": "public/downloads",
 	"templates": {
 		"js": {
 			"min": "/*! Chico UI v<version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($){<code>;ch.init();})(jQuery);",
