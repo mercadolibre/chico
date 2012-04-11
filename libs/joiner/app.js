@@ -1,5 +1,6 @@
 // Include modules
 var fs = require("fs"),
+	sys = require("util"),
 	express = require("express"),
 	app = express.createServer(),
 	Joiner = require("./joiner").Joiner;
@@ -31,6 +32,33 @@ app.get("/assets/:file", function (req, res) {
 	res.send(content);	
 });
 
+
+// jQuery getter
+// http://localhost:3000/jquery
+app.get("/jquery/:debug?", function (req, res) {
+
+	// File and Path variable for getting the correct version
+	var file = (req.params.debug === "debug" ? "jquery-debug.js" : "jquery.js")
+		, path = "/../../vendor/";
+
+	// Read configuration object
+	fs.readFile(__dirname + path + file, function (err, data) {
+
+		if (err) { sys.puts(" > Joiner " + err); }
+
+		// Feedback
+		sys.puts(" > Joiner: Sending jQuery for " + (req.params.debug || "production") );
+
+		// Print data
+		res.send(data);
+
+	});
+
+	// Content type header
+	res.header("Content-Type", "text/javascript");
+
+});
+
 // JS and CSS getter
 // http://localhost:3000/js
 // http://localhost:3000/js/min
@@ -59,6 +87,7 @@ app.get("/:type/:min?", function (req, res) {
 	});
 
 });
+
 
 // Initialize application
 app.listen(3000);
