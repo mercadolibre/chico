@@ -1,5 +1,6 @@
 var init = require("./Config").Config
 	, Test = require("./Test").Test
+	, assert = require("assert")
 	, events = require('events')
 	, fs = require('fs')
 	, INHERITANCE_MAP = init.INHERITANCE_MAP
@@ -15,7 +16,7 @@ var Tester = function(argv){
 
 	var self = this;
 		self.testsDone = [];
-		self.RESULTS_FILE = "../../tests/index.html";
+		self.RESULTS_FILE = "./tests/index.html";
 		self.inheritanceMap = INHERITANCE_MAP;
 
 	// If params are some components
@@ -51,53 +52,55 @@ var Tester = function(argv){
 	return self;	
 }
 
-	Tester.prototype = new events.EventEmitter();
+Tester.prototype = new events.EventEmitter();
 
-	Tester.prototype.addResult = function(result){
-		var self = this;
-			self.testsDone.push(result)
-			self.emit("resultAdded");
-	}
+Tester.prototype.addResult = function(result){
+	var self = this;
+		self.testsDone.push(result)
+		self.emit("resultAdded");
+}
 
-	Tester.prototype.writeResult = function(){
-		var self = this;
-		var html = "<h1>Test results</h1><pre style=\"width:200px;\">";
-			html += JSON.stringify(self.testsDone);
-			html += "</pre>"
+Tester.prototype.writeResult = function(){
+	var self = this;
+	var html = "<h1>Test results</h1><pre style=\"width:200px;\">";
+		html += JSON.stringify(self.testsDone);
+		html += "</pre>"
 
-			fs.writeFile(self.RESULTS_FILE,html,enconding="utf8",function( err ) {
-				if(err) {
-					sys.puts(err);
-				}
-			});
-
-
-	}
-
-	Tester.prototype.runTest = function(component){
-		var self = this
-			, file = component.replace(component[0],component[0].toLowerCase())
-			, html = file+".html"
-			, name = file
-			, inheritance = self.inheritanceMap[component]
-			, testConf = { "name": name, "url": html }
-			;
-
-			if(inheritance && (inheritance.type === "abstract" || inheritance.type === "util")){
-				
-				testConf = { "name": name, "url": inheritance.type+".html", "standalone": true };
+		fs.writeFile(self.RESULTS_FILE,html,enconding="utf8",function( err ) {
+			if(err) {
+				sys.puts(err);
 			}
+		});
 
-			// Instance the test
-			var test = new Test(testConf);
-				
-				// Once the test is ended this will be added to the list of results
-				test.on("end", function () { self.addResult( this.getResult() ); } );
-				
-				test.run();
 
-		return self;
-	}
+}
+
+Tester.prototype.runTest = function(component){
+	var self = this
+		, file = component.replace(component[0],component[0].toLowerCase())
+		, html = file+".html"
+		, name = file
+		, inheritance = self.inheritanceMap[component]
+		, testConf = { "name": name, "url": html }
+		;
+
+		if(inheritance && (inheritance.type === "abstract" || inheritance.type === "util")){
+			
+			testConf = { "name": name, "url": inheritance.type+".html", "standalone": true };
+		}
+
+		// Instance the test
+		var test = new Test(testConf);
+			
+			// Once the test is ended this will be added to the list of results
+			test.on("end", function () { self.addResult( this.getResult() ); } );
+			
+			test.run();
+
+	return self;
+}
+
+var test = new Tester(process.argv);
 
 exports.Tester = Tester;
 

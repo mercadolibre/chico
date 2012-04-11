@@ -7,7 +7,8 @@ var Browser = require("zombie")
 	;
 
 	// Browser global configuration
-	Browser.site = "http://ui.ml.com/tests/";
+	Browser.site = "http://ui.ml.com/libs/tester/tests/";
+	//Browser.site = "file://"+process.cwd()+"/tests/";
 	Browser.debug = false;
 	//Browser.waitFor = 0.3;
 
@@ -68,14 +69,16 @@ Test.prototype.compileSuite = function(){
 			var test = (component.replace(component[0],component[0].toLowerCase()))
 
 			// get the tests for the
-			var batches = require("../../tests/"+test+".js").suite;
+			//var batches = require("../../tests/"+test+".js").suite;
+			var batches = require("./tests/"+test+".js").suite;
 				
 				// add the suite to the test to the suite
 				self.suite.addBatch(batches);
 
 			// exit if the 
 			if(!self.inheritanceMap[component].augments){
-				var batches = require("../../tests/core.js").suite;
+				//var batches = require("../../tests/core.js").suite;
+				var batches = require("./tests/core.js").suite;
 					self.suite.addBatch(batches);
 					self.suite.batches = self.suite.batches.reverse();
 					
