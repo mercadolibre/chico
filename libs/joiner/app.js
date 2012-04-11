@@ -35,10 +35,10 @@ app.get("/assets/:file", function (req, res) {
 
 // jQuery getter
 // http://localhost:3000/jquery
-app.get("/jquery/:debug?", function (req, res) {
+app.get("/jquery/:min?", function (req, res) {
 
 	// File and Path variable for getting the correct version
-	var file = (req.params.debug === "debug" ? "jquery-debug.js" : "jquery.js")
+	var file = (req.params.min === "min" ? "jquery.js" : "jquery-debug.js")
 		, path = "/../../vendor/";
 
 	// Read configuration object
@@ -47,7 +47,7 @@ app.get("/jquery/:debug?", function (req, res) {
 		if (err) { sys.puts(" > Joiner " + err); }
 
 		// Feedback
-		sys.puts(" > Joiner: Sending jQuery for " + (req.params.debug || "production") );
+		sys.puts(" > Joiner: Sending jQuery for " + (req.params.min ? "production" : "debug" ) );
 
 		// Print data
 		res.send(data);
