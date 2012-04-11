@@ -3,7 +3,6 @@
 * @name TabNavigator
 * @class TabNavigator
 * @augments ch.Controllers
-* @requires ch.Tab
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Number} [conf.selected] Selects a child that will be open when component was loaded. By default, the value is 1.
@@ -255,6 +254,9 @@ ch.tabNavigator = function (conf) {
 			break;
 		};
 	};
+
+	// Add CSS class 
+	that.$element.addClass("ch-tabNavigator")
 	
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
@@ -465,12 +467,14 @@ ch.tab = function (conf) {
 	// Add the attributes for WAI-ARIA to the tabs and tabpanel
 	that.$content.attr({
 		"role": "tabpanel",
-		"aria-hidden": that.$content.hasClass("ch-hide")
+		"aria-hidden": that.$content.hasClass("ch-js-hide"),
+		"class": "ch-js-hide"
 	});
-	
+
 	that.$trigger.attr({
 		"role": "tab",
-		"arial-controls": that.$content.attr("id")
+		"arial-controls": that.$content.attr("id"),
+		"class": "ch-tab ch-tab-trigger"
 	});
 		
 	return that;

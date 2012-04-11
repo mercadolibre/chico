@@ -8,7 +8,7 @@
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Object} [conf.messages]
-* @see ch.Watchers
+* @see ch.Validation
 * @returns itself
 * @example
 * // Create a new form with configuration.
