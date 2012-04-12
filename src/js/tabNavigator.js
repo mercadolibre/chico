@@ -42,6 +42,9 @@ ch.tabNavigator = function (conf) {
 *	Private Members
 */
 
+	// Add CSS class to the main element 
+	that.$element.addClass("ch-tabNavigator");
+
 	/**
 	* The actual location hash, is used to know if there's a specific tab selected.
 	* @private
@@ -65,7 +68,8 @@ ch.tabNavigator = function (conf) {
 	* @name ch.TabNavigator#selected
 	* @type number
 	*/
-		selected = conf.selected - 1 || conf.value - 1 || 0,
+		//selected = conf.selected - 1 || conf.value - 1 || 0,
+		selected = conf.selected - 1 || conf.value - 1 || -1,
 
 	/**
 	* Create controller's children.
@@ -88,7 +92,7 @@ ch.tabNavigator = function (conf) {
 	
 				// Tab configuration
 				var config = {};
-					config.open = (selected == i);
+					config.open = (selected === i);
 					config.onShow = function () { selected = i; };
 				
 				if (ch.utils.hasOwn(that.conf, "cache")) { config.cache = that.conf.cache; }
@@ -113,7 +117,7 @@ ch.tabNavigator = function (conf) {
 				that.children.push(ch.tab.call(tab, config));
 	
 				// Bind new click to have control
-				$(e).unbind("click").bind("click", function (event) {
+				$(e).on("click", function (event) {
 					that.prevent(event);
 					select(i + 1);
 				});
@@ -131,7 +135,10 @@ ch.tabNavigator = function (conf) {
 	* @function
 	*/
 		select = function (tab) {
-	
+			
+			// If select a tab that don't exist do nothing
+			if(!that.children[tab - 1]){ return; }
+
 			tab = that.children[tab - 1];
 
 			// Don't click me if I'm open
@@ -141,8 +148,8 @@ ch.tabNavigator = function (conf) {
 			$.each(that.children, function (i, e) {
 				if (tab !== e) { e.innerHide(); }
 			});
-	
-			//tab.show();
+			
+			// shows the tab
 			tab.innerShow();
 	
 			//Change location hash
@@ -155,6 +162,7 @@ ch.tabNavigator = function (conf) {
 			* @public
 			*/
 			that.callbacks("onSelect");
+
 			// new callback
 			that.trigger("select");
 	
@@ -181,7 +189,6 @@ ch.tabNavigator = function (conf) {
 	* @type jQuery
 	*/
 	that.$content = that.$triggers.next().addClass("ch-tabNavigator-content ch-box").attr("role", "presentation");
-
 
 /**
 *	Public Members
@@ -217,24 +224,39 @@ ch.tabNavigator = function (conf) {
 	that["public"].children = that.children;
 
 	/**
-	* Select a specific child.
+	* Select a specific child or get the selected tab.
 	* @public
 	* @function
 	* @name ch.TabNavigator#select
 	* @param {number} tab Tab's index.
+	* @example
+	* // Create a TabNavigator
+	* var foo = $("bar").tabNavigator();
+	* 
+	* // Select page
+	* foo.select(2);
+	* 
+	* // Get selected page
+	* var selected = foo.select();
 	*/
 	that["public"].select = function (tab) {
-		select(tab);
+		// Returns selectd tab instead set it
+		if(!tab){
+			return (selected + 1);
+		}
 
+		select(tab);
 		return that["public"];
+
 	};
 
 	/**
-	* Returns the selected child's index.
+	* Deprecated - Returns the selected child's index.
 	* @public
 	* @function
 	* @name ch.TabNavigator#getSelected
 	* @returns {number} selected Tab's index.
+	* @deprecated
 	*/
 	that["public"].getSelected = function () { return (selected + 1); };
 
@@ -244,19 +266,19 @@ ch.tabNavigator = function (conf) {
 
 	createTabs();
 
-	// Default: Load hash tab or Open first tab	
-	for(var i = that.children.length; i -= 1;) {
+	// If hash open that tab
+	for(var i = that.children.length; i--;) {
 		if (that.children[i].$content.attr("id") === hash) {
-			select(i + 1);
-
+			select(i+1);
 			hashed = true;
-
 			break;
-		};
+		}
 	};
 
-	// Add CSS class 
-	that.$element.addClass("ch-tabNavigator")
+	// Shows the first tab if not hash or it's hash and it isn't from the current tab
+	if( !hash || ( hash && !hashed ) ){
+		that.children[0].innerShow();
+	}
 	
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
@@ -328,7 +350,6 @@ ch.tab = function (conf) {
 
 		// If there are a tabContent...
 		if (content.length > 0) {
-
 			return content;
 
 		// If tabContent doesn't exists
@@ -467,8 +488,8 @@ ch.tab = function (conf) {
 	// Add the attributes for WAI-ARIA to the tabs and tabpanel
 	that.$content.attr({
 		"role": "tabpanel",
-		"aria-hidden": that.$content.hasClass("ch-js-hide"),
-		"class": "ch-js-hide"
+		"aria-hidden": that.$content.hasClass("ch-hide"),
+		"class": "ch-hide"
 	});
 
 	that.$trigger.attr({
