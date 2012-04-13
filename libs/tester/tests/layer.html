@@ -1,0 +1,59 @@
+<!doctype html> 
+<!--[if IE]><![endif]--> 
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>Chico-UI Layer Tests</title>
+	<link rel="stylesheet" type="text/css" href="http://localhost:3000/css">
+</head>
+<body>
+	<h1>Chico </h1>
+        
+	<p id="layer-0">Layer</p>
+	<p class="ch-hide" id="content-0">Content 0</p>
+	
+	<p id="layer-1">Layer</p>
+	<p class="ch-hide" id="content-1">Content 1</p>
+
+        <p id="layer-2">Layer</p>
+        <p class="ch-hide" id="content-2">Content 2</p>
+
+        <a id="layer-3" href="/ajax">Link.</a>
+
+        <a id="layer-4" href="/ajax">Link.</a>
+        <a id="layer-5" href="/ajax">Link.</a>
+        <a id="layer-6" href="/ajax">Link.</a>
+        <a id="layer-7" href="/ajax">Link.</a>
+        <a id="layer-8" href="/ajax">Link.</a>
+
+        <div id="test">This is only a DOM content test.</div>
+		
+	<script src="http://localhost:9090/jquery"></script>
+	<script src="http://localhost:3000/js"></script>
+	<script>
+		// Automatic version
+                var title = document.title + ' ' + ch.version;
+                document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
+                document.getElementsByTagName("h1")[0].innerHTML = title;
+                
+                $.fx.off = true;
+
+                var layer = [
+                        $("#layer-0").layer({ content: "#content-0", event: "click",  }),
+                        $("#layer-1").layer({ content: "#content-1", event: "click", closable: "button",  }),
+                        $("#layer-2").layer({ content: "#content-2" }),
+                        $("#layer-3").layer(),
+                        // points
+                        $("#layer-4").layer({ points: "lt lb" }),
+                        $("#layer-5").layer({ points: "lb lt" }),
+                        $("#layer-6").layer({ points: "lt rt" }),
+                        $("#layer-7").layer({ points: "rt rb" }),
+                        $("#layer-8").layer({ points: "rb rt" })
+                ];
+	</script>
+</body> 
+</html>

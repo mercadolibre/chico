@@ -1,0 +1,66 @@
+<!doctype html> 
+<!--[if IE]><![endif]--> 
+<!--[if lt IE 7 ]> <html lang="es" class="no-js ie6"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang="es" class="no-js ie7"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang="es" class="no-js ie8"> <![endif]--> 
+<!--[if IE 9 ]>    <html lang="es" class="no-js ie9"> <![endif]--> 
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="es" class="no-js"> <!--<![endif]--> 
+<head> 
+	<meta charset="utf-8"> 
+	<title>Chico-UI tooltip Tests</title>
+	<link rel="stylesheet" type="text/css" href="http://localhost:3000/css">
+</head>
+<body>
+	<h1>Chico </h1>
+
+        <div id="dropdown-0">
+                <p>Sitios</p>
+                <ul>
+                        <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+                        <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+                        <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+                        <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+                </ul>
+        </div>
+
+        <div id="dropdown-1">
+                <p>Sitios</p>
+                <ul>
+                        <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+                        <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+                        <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+                        <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+                </ul>
+        </div>
+
+        <div id="dropdown-2">
+                <p>Sitios</p>
+                <ul>
+                        <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+                        <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+                        <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+                        <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+                </ul>
+        </div>
+
+
+        <div id="test">This is only a DOM content test.</div>
+		
+	<script src="http://localhost:9090/jquery"></script>
+	<script src="http://localhost:3000/js"></script>
+	<script>
+		// Automatic version
+                var title = document.title + ' ' + ch.version;
+                document.title = title; // Use old school because IE6 dosen't work fine with DOM API.
+                document.getElementsByTagName("h1")[0].innerHTML = title;
+                
+                $.fx.off = true;
+
+                var dropdown = [
+                        $("#dropdown-0").dropdown(),
+                        $("#dropdown-1").dropdown({ icon: false }),
+                        $("#dropdown-2").dropdown({ open: true })
+                ];
+	</script>
+</body> 
+</html>

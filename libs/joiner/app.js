@@ -1,5 +1,6 @@
 // Include modules
 var fs = require("fs"),
+	sys = require("util"),
 	express = require("express"),
 	app = express.createServer(),
 	Joiner = require("./joiner").Joiner;
@@ -59,6 +60,7 @@ app.get("/:type/:min?", function (req, res) {
 	});
 
 });
+
 
 // Initialize application
 app.listen(3000);
