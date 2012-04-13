@@ -31,7 +31,8 @@ ch.menu = function(conf){
 	var that = this;
 	
 	conf = ch.clon(conf);
-	
+	conf.icon = ch.utils.hasOwn(conf, "icon") ? conf.icon : true;
+
 	that.conf = conf;
 	
 /**
@@ -89,6 +90,7 @@ ch.menu = function(conf){
 
 			// List inside list, inits an Expando
 			var expando = $li.expando({
+				icon: conf.icon,
 				// Show/hide on IE6/7 instead slideUp/slideDown
 				fx: efects,
 				onShow: function(){
