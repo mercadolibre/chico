@@ -7,8 +7,9 @@ var Browser = require("zombie")
 	;
 
 	// Browser global configuration
-	Browser.site = "http://ui.ml.com/libs/tester/tests/";
+	//Browser.site = "http://ui.ml.com/libs/tester/tests/";
 	//Browser.site = "file://"+process.cwd()+"/tests/";
+	Browser.site = "http://localhost:9090/";
 	Browser.debug = false;
 	//Browser.waitFor = 0.3;
 

@@ -78,7 +78,7 @@ Tester.prototype.writeResult = function(){
 Tester.prototype.runTest = function(component){
 	var self = this
 		, file = component.replace(component[0],component[0].toLowerCase())
-		, html = file+".html"
+		, html = file
 		, name = file
 		, inheritance = self.inheritanceMap[component]
 		, testConf = { "name": name, "url": html }
@@ -86,7 +86,7 @@ Tester.prototype.runTest = function(component){
 
 		if(inheritance && (inheritance.type === "abstract" || inheritance.type === "util")){
 			
-			testConf = { "name": name, "url": inheritance.type+".html", "standalone": true };
+			testConf = { "name": name, "url": inheritance.type, "standalone": true };
 		}
 
 		// Instance the test

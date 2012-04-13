@@ -72,7 +72,7 @@ var suite = {
 				check.on("contentLoad",function(){ this.worksContentLoad = true; });
 				
 				check.show();
-				check.content("http://ui.ml.com/tests/test-ajax.html");
+				check.content("http://localhost:9090/ajax");
 
 				this.suite.browser.wait(check.worksContentLoad,function(){
 					assert.isTrue(check.worksContentLoad);
@@ -87,7 +87,7 @@ var suite = {
 				check.on("contentError",function(){ this.worksContentError = true; });
 				
 				check.show();
-				check.content("http://ui.ml.com/tests/error.html");
+				check.content("http://localhost:9090/error");
 
 				this.suite.browser.wait(check.worksContentError,function(){
 					assert.isTrue(check.worksContentError);
