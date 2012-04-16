@@ -1,12 +1,12 @@
-/** 
-* Blink is a UI feedback utility. It creates a visual highlight changing background color from yellow to white.
-* @function
+/**
+* Is an UI feedback utility. It creates a visual highlight changing background color from yellow to white.
 * @name Blink
 * @class Blink
+* @standalone
 * @memberOf ch
 * @param {Object} conf Configuration object
 * @param {number} [conf.time] Amount of time to blink in milliseconds
-* @returns jQuery
+* @returns itself
 */
 ch.blink = function (conf) {
 
