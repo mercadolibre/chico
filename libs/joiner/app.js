@@ -3,6 +3,7 @@ var fs = require("fs"),
 	sys = require("util"),
 	express = require("express"),
 	app = express.createServer(),
+	port = process.argv[2] || 3000, // default port 3000
 	Joiner = require("./joiner").Joiner;
 
 // Assets getter
@@ -63,7 +64,7 @@ app.get("/:type/:min?", function (req, res) {
 
 
 // Initialize application
-app.listen(3000);
+app.listen(port);
 
 // Feedback
 console.log("Joiner listening on port %d...", app.address().port);
