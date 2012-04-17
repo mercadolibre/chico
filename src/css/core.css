@@ -1,5 +1,3 @@
-
-
 /*
 * Reset
 * @based: Eric Meyer
@@ -68,13 +66,24 @@ table {
 body {
 	background-color: #FFF;
 	color: #333; 
-	font: 13px/20px Arial, Helvetica, "Nimbus Sans L", sans-serif;
 	min-width: 760px;
 	max-width: 1200px;
 	margin: 0 auto;
 	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
 }
 
+body,
+input{
+	font-family:Arial, Helvetica, "Nimbus Sans L", sans-serif;
+	font-size:13px;
+	line-height:20px;
+}
+/*
+input{
+	font-size:18px;
+	line-height:22px;
+}
+*/
 .lt-ie7 body,
 /* Dreprecate */
 .ie6 body {
@@ -257,7 +266,7 @@ dl.ch-list dd {
 	box-shadow: none;
 	color: #FFF;
 	cursor: pointer;
-	padding: 0 10px;
+	/*padding: 0 10px;*/
 }
 
 /* Focus style */
@@ -385,14 +394,7 @@ dl.ch-list dd {
 .ch-btn.ch-secondary:focus, .btn.secondary:focus {
 	font-size: 12px;
 	height: 25px;
-	line-height: 24px;
 }
-
-
-
-
-
-
 
 /*
 * New Buttons
@@ -411,10 +413,12 @@ dl.ch-list dd {
 	box-shadow: none;
 	cursor: pointer;
 	display: inline-block;
-	height: 32px;
-	font-size: 18px;
-	line-height: 32px;
-	padding: 0 10px;
+	font-family:arial,helvetica,sans-serif;
+	font-size: 1.384em;
+	height: auto;
+	line-height: 1.199em;
+
+	padding: 0.305em 0.777em;
 	text-decoration: none;
 }
 
@@ -524,26 +528,54 @@ button:focus {
 /* Big */
 .ch-btn-big,
 .ch-btn-big:focus {
-	font-size: 19px;
-	height: 40px;
-	line-height: 41px;
+	font-size: 1.461em;
+	padding: 0.473em 0.842em;
+}
+
+.ch-btn,
+.ch-btn:focus{
+
 }
 
 /* Small */
 .ch-btn-small,
 .ch-btn-small:focus {
-	font-size: 12px;
-	height: 25px;
-	line-height: 1em;
+	font-size: 0.923em;
+	padding: 0.458em 0.833em;
 }
 
 /* Tiny */
 .ch-btn-tiny,
 .ch-btn-tiny:focus {
-	font-size: 11px;	
-	height: 24px;
-	line-height: 22px;
-	padding: 0 5px;
+	font-size: 0.846em;
+	padding: 0.5em 0.727em;
+}
+
+input.ch-btn::-moz-focus-inner,
+input.ch-btn-big::-moz-focus-inner,
+input.ch-btn-small::-moz-focus-inner,
+input.ch-btn-tiny::-moz-focus-inner{ 
+    border: 0;
+    padding: 0;
+}
+
+.ie7 a.ch-btn,
+.ie7 a.ch-btn-big,
+.ie7 a.ch-btn-small,
+.ie7 a.ch-btn-tiny{
+	
+}
+
+.ie7 input.ch-btn{
+	line-height: 0.85em;
+}
+
+.ie7 input.ch-btn,
+.ie7 input.ch-btn-big,
+.ie7 input.ch-btn-small,
+.ie7 input.ch-btn-tiny{
+	overflow: visible;
+	width: 1;
 }
 
 /* Disabled */
@@ -576,23 +608,6 @@ button:focus {
 	text-shadow: none;
 }
 
-
-/* IE */
-.lt-ie8 .ch-btn,
-.lt-ie8 .ch-btn:focus,
-.lt-ie8 .ch-btn-skin,
-.lt-ie8 .ch-btn-skin:focus {
-	display: inline;
-	padding: 0;
-}
-
-.lt-ie8 a.ch-btn,
-.lt-ie8 a.ch-btn:focus,
-.lt-ie8 a.ch-btn-skin,
-.lt-ie8 a.ch-btn-skin:focus {
-	padding: 0 10px;
-}
-
 .ie8 .ch-btn:focus,
 .ie8 .ch-btn-skin:focus,
 .ie8 input[type="button"]:focus,
@@ -602,22 +617,6 @@ button:focus {
 .ie8 button:focus {
 	outline: thin dotted;
 	outline-offset: -2px;
-}
-
-.lt-ie8 .ch-btn,
-.lt-ie8 .ch-btn:focus,
-.lt-ie8 .ch-btn-skin,
-.lt-ie8 .ch-btn-skin:focus,
-.lt-ie8 .ch-btn-small,
-.lt-ie8 .ch-btn-small:focus,
-.lt-ie8 .ch-btn-tiny,
-.lt-ie8 .ch-btn-tiny:focus {
-	line-height: 1em;
-}
-
-.lt-ie8 .ch-btn-big,
-.lt-ie8 .ch-btn-big:focus {
-	line-height: 40px;
 }
 
 
