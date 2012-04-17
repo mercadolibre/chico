@@ -85,19 +85,22 @@ ch.validation = function (conf) {
 
 	// Reference to a Form instance. If there isn't any, the Validation instance will create one.
 	var form = that.form = (function() {
+
 		if (ch.utils.hasOwn(ch.instances, "form") && ch.instances.form.length > 0) {
 			var i = 0, j = ch.instances.form.length;
 			for (i; i < j; i+=1) {
 				if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
 					return ch.instances.form[i]; // Get my parent
-				};
+				} 
 			};
-		} else {
-			that.$element.parents("form").form();
-			var last = (ch.instances.form.length - 1);
-			return ch.instances.form[last]; // Set my parent
-		}
+		} 
+
+		that.$element.parents("form").form();
+		var last = (ch.instances.form.length - 1);
+		return ch.instances.form[last]; // Set my parent
+
 	})();
+
 	form.children.push(that["public"]);
 
 	/**
