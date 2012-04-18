@@ -1,0 +1,16 @@
+{
+	// Source files to use
+	"_": ["../../src/js/"],
+	
+	// Document all functions, even uncommented ones
+	"a": false,
+	
+	// Including those marked @private
+	"p": true,
+	
+	// Use this directory as the output directory
+	"d": "../../../chico.dev/public/api/0.10.5",
+	
+	// Use this template
+	"t": "jsdoc-template"
+}
