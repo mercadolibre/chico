@@ -86,71 +86,73 @@ var ch = window.ch = {
 		*/
 		isUrl: function (url) {
 		/* 
-# RegExp
+		# RegExp
 
-```javascript
-1	1.1						   1.2	 1.3  1.4		1.5		  1.6					2					   3 			   4					5
-/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)(\w+=(\w?)+(&?))+)?$/
-```
+		https://github.com/mercadolibre/chico/issues/579#issuecomment-5206670
 
-## Description
-1. Checks for the start of the URL
-	1. if starts with a protocols followed by :// Example: file://chico
-	2. if start with www followed by . (dot) Example: www.chico
-	3. if starts with ./ 
-	4. if starts with ../ and can repeat one or more times
-	5. if start with double slash // Example: //chico.server
-	6. if start with an ip address
-2. Checks the domain
-  letters, dash followed by a dot or by a slash. All this group can repeat one or more times
-3. Ports
- Zero or one time
-4. Idem to point two
-5. QueryString pairs
+		```javascript
+		1	1.1						   1.2	 1.3  1.4		1.5		  1.6					2					   3 			   4					5
+		/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)(\w+=(\w?)+(&?))+)?$/
+		```
 
-## Allowed URLs
-1. http://www.mercadolibre.com
-2. http://mercadolibre.com/
-3. http://mercadolibre.com:8080?hola=
-4. http://mercadolibre.com/pepe
-5. http://localhost:2020
-6. http://192.168.1.1
-7. http://192.168.1.1:9090
-8. www.mercadolibre.com
-9. /mercadolibre
-10. /mercadolibre/mercado
-11. /tooltip?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
-12. ./pepe
-13. ../../mercado/
-14. www.mercadolibre.com?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
-15. www.mercado-libre.com
-16. http://ui.ml.com:8080/ajax.html
+		## Description
+		1. Checks for the start of the URL
+			1. if starts with a protocols followed by :// Example: file://chico
+			2. if start with www followed by . (dot) Example: www.chico
+			3. if starts with ./ 
+			4. if starts with ../ and can repeat one or more times
+			5. if start with double slash // Example: //chico.server
+			6. if start with an ip address
+		2. Checks the domain
+		  letters, dash followed by a dot or by a slash. All this group can repeat one or more times
+		3. Ports
+		 Zero or one time
+		4. Idem to point two
+		5. QueryString pairs
 
-## Forbiden URLs
-1. http://
-2. http://www&
-3. http://hola=
-4. /../../mercado/
-5. /mercado/../pepe
-6. mercadolibre.com
-7. mercado/mercado
-8. localhost:8080/mercadolibre
-9. pepe/../pepe.html
-10. /pepe/../pepe.html
-11. 192.168.1.1
-12. localhost:8080/pepe
-13. localhost:80-80
-14. www.mercadolibre.com?siteId=MLA&categId=1744&buyi ngMode=buy_it_now&listingTypeId=bronze
-15. `<asd src="www.mercadolibre.com">`
-16. Mercadolibre.................
-17. /laksjdlkasjd../
-18. /..pepe..
-19. /pepe..
-20. pepe:/
-21. /:pepe
-22. dadadas.pepe
-23. qdasdasda
-24. http://ui.ml.com:8080:8080/ajax.html
+		## Allowed URLs
+		1. http://www.mercadolibre.com
+		2. http://mercadolibre.com/
+		3. http://mercadolibre.com:8080?hola=
+		4. http://mercadolibre.com/pepe
+		5. http://localhost:2020
+		6. http://192.168.1.1
+		7. http://192.168.1.1:9090
+		8. www.mercadolibre.com
+		9. /mercadolibre
+		10. /mercadolibre/mercado
+		11. /tooltip?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
+		12. ./pepe
+		13. ../../mercado/
+		14. www.mercadolibre.com?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
+		15. www.mercado-libre.com
+		16. http://ui.ml.com:8080/ajax.html
+
+		## Forbiden URLs
+		1. http://
+		2. http://www&
+		3. http://hola=
+		4. /../../mercado/
+		5. /mercado/../pepe
+		6. mercadolibre.com
+		7. mercado/mercado
+		8. localhost:8080/mercadolibre
+		9. pepe/../pepe.html
+		10. /pepe/../pepe.html
+		11. 192.168.1.1
+		12. localhost:8080/pepe
+		13. localhost:80-80
+		14. www.mercadolibre.com?siteId=MLA&categId=1744&buyi ngMode=buy_it_now&listingTypeId=bronze
+		15. `<asd src="www.mercadolibre.com">`
+		16. Mercadolibre.................
+		17. /laksjdlkasjd../
+		18. /..pepe..
+		19. /pepe..
+		20. pepe:/
+		21. /:pepe
+		22. dadadas.pepe
+		23. qdasdasda
+		24. http://ui.ml.com:8080:8080/ajax.html
 		*/
 			return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)(\w+=(\w?)+(&?))+)?$/).test(url));
 		},
