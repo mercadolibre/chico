@@ -38,7 +38,7 @@ Packer.prototype.compress = function () {
 		bash = [
 			"cd " + self.folder,
 			"zip -r " + zip + " *",
-			"rm -r README.md LICENSE.txt index.html assets/ js/ css/"
+			"rm -r README.md LICENSE.txt *.html assets/ js/ css/"
 		].join(" && ");
 
 	// Feedback
@@ -317,6 +317,7 @@ Packer.prototype.run = function (params) {
 		sys.puts(" > Packer: Initializing on v" + self.version + " of " + self.name + ".");
 
 		self.input = self.params.input || conf.input;
+		self.output = self.params.output || conf.output;
 
 		self.pack();
 

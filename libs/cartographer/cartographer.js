@@ -16,12 +16,12 @@ var trim = function (str) {
 sys.puts(" > Cartographer: Ready to use.");
 
 // Create a temporal map of all classes
-var child = exec("cat ../../src/js/* > temp_map.js", function (err) {
+exec("cat ../../src/js/* > ../cartographer/temp_map.js", function (err) {
 	
 	if (err) { return sys.puts(err); }
 
 	// Read temporal map of classes
-	fs.readFile("temp_map.js", function (err, data) { 
+	fs.readFile("../cartographer/temp_map.js", function (err, data) { 
 		
 		sys.puts(" > Cartographer: Processing classes.");
 		
@@ -121,21 +121,19 @@ var child = exec("cat ../../src/js/* > temp_map.js", function (err) {
 			 
 		sys.puts(" > Cartographer: " + t + " classes processed.");
 		sys.puts(" > Cartographer: " + tags + " tags processed.");
-		sys.puts(" > Cartographer: Building the map.");
-		sys.puts(" > Cartographer: Updating file \"map.json\"");
-		
-		var mapData = JSON.stringify(map);
+		sys.puts(" > Cartographer: Updating map file.");
 
 		// Write the map to a file
-		fs.writeFile("map.json", mapData, function (err) {
-			if (err) { return sys.puts(err); }
-			sys.puts(" > Cartographer: DONE.")
+		fs.writeFile("../cartographer/map.json", JSON.stringify(map), encoding = "utf8", function (err) {
+			
+			if (err) { return sys.puts(" > Cartographer: " + err); }
+			
+			sys.puts(" > Cartographer: Done.")
 		});
 
 		// Erase temporal map of classes
-		fs.unlink("temp_map.js", function (){
+		fs.unlink("../cartographer/temp_map.js", function () {
 			sys.puts(" > Cartographer: Deleting temporary files.")
 		});
-
 	});
 });
