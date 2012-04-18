@@ -183,7 +183,8 @@ ch.validation = function (conf) {
 			"role": "alert"
 		},
 		"offset": conf.offset,
-		"points": conf.points
+		"points": conf.points,
+		"reposition": false
 	});
 
 	/**
