@@ -1098,7 +1098,7 @@
 		var cd = $("#text_cd").countdown(140);
 
 		// Watchers
-		var ch_wprice = $("#price").price().and().required();
+		var ch_wprice = $("#price").price("This is a message with a <a href='http://www.chico-ui.com.ar'>Chico UI</a>").and().required();
 		var ch_wch1 = $("#email").required("requerid").and().email("Please fill with your email").and().minLength(10);
 		var ch_wch11 = $("#custom").required("Fill this field").and().custom(
 			function (v) {
