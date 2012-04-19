@@ -155,6 +155,7 @@ ch.validation = function (conf) {
 		"$element": (function() {
 			var reference;
 			// CHECKBOX, RADIO
+			// TODO: when old forms be deprecated we must only support ch-form-options class
 			if (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options")) {
 				// Helper reference from will be fired
 				// H4
@@ -194,7 +195,7 @@ ch.validation = function (conf) {
 	* @returns boolean
 	* @name ch.Validation#process
 	*/
-	that.process = function () {
+	that.process = function (evt) {
 
 		// Pre-validation: Don't validate disabled
 		if (that.$element.attr('disabled') || !that.enabled) { return false; }
@@ -225,13 +226,14 @@ ch.validation = function (conf) {
 		if (status) {
 
 			if (that.$element.prop("tagName") === "INPUT" || that.$element.prop("tagName") === "TEXTAREA") {
+				// TODO: remove error class when deprecate old forms only ch-form error must be.
 				that.$element.addClass("error ch-form-error");
 			}
 
 			that["float"]["public"].show("<p class=\"ch-message-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
 
-			// Add blur or change event only one time
-			if (!that.$element.data("events")) { that.$element.one(validationEvent, that.process); }
+			// Add blur or change event only one time to the element or to the elements's group
+			if (!that.$element.data("events")) { that.$element.one(validationEvent, function(evt){that.process(evt)}); }
 
 			/**
 			* Triggers when an error occurs on the validation process.
