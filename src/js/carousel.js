@@ -298,7 +298,7 @@ ch.carousel = function (conf) {
 			// Manage Previous and Next arrows
 			if (conf.arrows) {
 				// Deletes pagination if already exists
-				that.$element.find(".ch-prev-arrow, .ch-next-arrow").remove();
+				that.$element.find(".ch-carousel-next, .ch-carousel-prev").remove();
 				
 				// Creates updated pagination
 				if (that.pages > 1) { createArrows(); }
