@@ -187,6 +187,18 @@ ch.validation = function (conf) {
 		"points": conf.points,
 		"reposition": false
 	});
+	
+
+	/**
+	* Stores the error object
+	* @protected
+	* @type Object
+	* @name ch.Validation#error
+	*/
+	that.error = { 
+		"condition": false,
+		"msg": ""
+	}
 
 	/**
 	* Runs all validations to check if it has an error.
@@ -198,7 +210,7 @@ ch.validation = function (conf) {
 	that.process = function (evt) {
 
 		// Pre-validation: Don't validate disabled
-		if (that.$element.attr('disabled') || !that.enabled) { return false; }
+		if (that.$element.attr("disabled") || !that.enabled) { return false; }
 
 		/**
 		* Triggers before start validation process.
@@ -230,10 +242,13 @@ ch.validation = function (conf) {
 				that.$element.addClass("error ch-form-error");
 			}
 
-			that["float"]["public"].show("<p class=\"ch-message-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
+			// to avoid reload the same content
+			if (!that["float"]["public"].isActive() || !that.error.condition || that.error.condition !== gotError.condition) {
+				that["float"]["public"].show("<p class=\"ch-message-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
+			} 
 
 			// Add blur or change event only one time to the element or to the elements's group
-			if (!that.$element.data("events")) { that.$element.one(validationEvent, function(evt){that.process(evt)}); }
+			if (!that.$element.data("events")) { that.$element.one(validationEvent, function(evt){that.process(evt);}); }
 
 			/**
 			* Triggers when an error occurs on the validation process.
@@ -251,6 +266,9 @@ ch.validation = function (conf) {
 			that.callbacks('onError', gotError.condition);
 			// new callback
 			that.trigger("error", gotError.condition);
+
+			// Saves gotError
+			that.error = gotError;
 
 		// else NOT Error!
 		} else {
