@@ -73,17 +73,14 @@ body {
 }
 
 body,
-input{
+input[type="button"],
+input[type="submit"],
+input[type="reset"]{
 	font-family:Arial, Helvetica, "Nimbus Sans L", sans-serif;
 	font-size:13px;
 	line-height:20px;
 }
-/*
-input{
-	font-size:18px;
-	line-height:22px;
-}
-*/
+
 .lt-ie7 body,
 /* Dreprecate */
 .ie6 body {
