@@ -73,9 +73,7 @@ body {
 }
 
 body,
-input[type="button"],
-input[type="submit"],
-input[type="reset"]{
+.ch-btn{
 	font-family:Arial, Helvetica, "Nimbus Sans L", sans-serif;
 	font-size:13px;
 	line-height:20px;
