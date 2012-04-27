@@ -53,7 +53,7 @@ Packer.prototype.compress = function () {
 		sys.puts(" > Packer: DONE!");
 
 		// TODO: Use a parameter in conf file
-		self.emit("done", self.folder.split("public/")[1] + "/" + zip);
+		self.emit("done", "/" + self.folder.split("public/")[1] + "/" + zip);
 
 	});
 
