@@ -34,7 +34,7 @@ Releaser.prototype.addZip = function () {
 		// Construct Packer
 		packer = new Packer(),
 		
-		output = "../../../chico.dev/public/downloads";
+		output = "../../../chico.site/public/downloads";
 	
 	// Feedback
 	sys.puts(" > Releaser: Creating the ZIP file.");
@@ -222,7 +222,7 @@ Releaser.prototype.run = function (params) {
 		});
 		
 		// TODO: use conf file
-		self.output = "../../../chico.dev/public/versions";
+		self.output = "../../../chico.site/public/versions";
 
 		// Feedback
 		sys.puts(" > Releaser: Initializing on v" + self.version + " of " + self.name + ".");
