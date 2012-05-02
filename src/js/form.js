@@ -1,4 +1,3 @@
-
 /**
 * Forms is a Controller of DOM's HTMLFormElement.
 * @name Form
@@ -124,6 +123,14 @@ ch.form = function(conf) {
 			} else if (childrenError[0].element.type !== "hidden") {
 				childrenError[0].element.focus();
 			}
+			// Sets scroll near Helper's position
+			var vPos = 0;
+			var oElement = childrenError[0].helper.element;
+			while (oElement != null) {
+				vPos += oElement.offsetTop;
+				oElement = oElement.offsetParent;
+			}
+			window.scrollTo(0, vPos);
 		} else {
 			status = true;
 		}
