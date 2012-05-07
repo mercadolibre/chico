@@ -112,7 +112,21 @@ var ch = window.ch = {
 				return element.currentStyle[style];
 
 			}
-		}
+		},
+		// Grab the vendor prefix
+		// Based on: http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/
+		"VENDOR_PREFIX": (function () {
+			
+			var regex = new RegExp("^(webkit|moz|ms|o)(?=[A-Z])");
+
+			for (var prop in document.getElementsByTagName("script")[0].style) {
+				if (regex.test(prop)) {
+					return prop.match(regex)[0];
+				}
+			}
+
+			return "";
+		}())
 	},
 
 	/**
