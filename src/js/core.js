@@ -491,7 +491,7 @@ ch.support = function () {
 			u = undefined;
 
 		// Analize availability of transition on all browsers
-		return style.WebkitTransition !== u || style.MozTransition !== u || style.MSTransition !== u || style.OTransition !== u || thisStyle.transition !== u;
+		return style.WebkitTransition !== u || style.MozTransition !== u || style.MSTransition !== u || style.OTransition !== u || style.transition !== u;
 	}());
 
 	/**
