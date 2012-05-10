@@ -113,15 +113,15 @@ var ch = window.ch = {
 
 			}
 		},
-		// Grab the vendor prefix
+		// Grab the vendor prefix of the current browser
 		// Based on: http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/
 		"VENDOR_PREFIX": (function () {
 			
-			var regex = new RegExp("^(webkit|moz|ms|o)(?=[A-Z])");
+			var regex = new RegExp("^(webkit|Moz|ms|O)(?=[A-Z])");
 
 			for (var prop in document.getElementsByTagName("script")[0].style) {
 				if (regex.test(prop)) {
-					return prop.match(regex)[0];
+					return prop.match(regex)[0].toLowerCase();
 				}
 			}
 
