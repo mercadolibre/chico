@@ -1,10 +1,9 @@
 /**
-* Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
+* Carousel lets you organize a large list of elements. Carousel shows many elements and many other will be hidden. The user can interact to move the list showing or hidding the elements.
 * @name Carousel
 * @class Carousel
 * @augments ch.Uiobject
 * @requires ch.List
-* @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is elastic.
@@ -15,9 +14,13 @@
 * @param {Function} [conf.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
 * @returns itself
+* @factorized
+* @exampleDescription Create a new carousel without configuration.
 * @example
-* // Create a new carousel with some configuration.
-* var me = $(".example").carousel({
+* var widget = $(".example").carousel();
+* @exampleDescription Create a new carousel with some configuration.
+* @example
+* var widget = $(".example").carousel({
 *     "width": 500,
 *     "height": "200px",
 *     "pagination": true,
@@ -32,9 +35,6 @@
 *     },
 *     "fx": false
 * });
-* @example
-* // Create a new carousel without configuration.
-* var me = $(".example").carousel();
 */
 
 ch.carousel = function (conf) {
@@ -688,7 +688,7 @@ ch.carousel = function (conf) {
 	* @public
 	* @function
 	* @name ch.Carousel#goTo
-	* @returns Chico UI Object
+	* @returns itself
 	* @param {Number} page Page to be moved.
 	* @deprecated
 	* @example
@@ -704,7 +704,7 @@ ch.carousel = function (conf) {
 	* @public
 	* @function
 	* @name ch.Carousel#select
-	* @returns Chico UI Object
+	* @returns itself
 	* @param {Number} page Page to be moved.
 	* @since 0.7.5
 	* @example
@@ -728,7 +728,7 @@ ch.carousel = function (conf) {
 	* @public
 	* @function
 	* @name ch.Carousel#page
-	* @returns Chico UI Object
+	* @returns itself
 	* @param {Number} page Page to be moved.
 	* @since 0.7.4
 	* @example
@@ -754,7 +754,7 @@ ch.carousel = function (conf) {
 	* @public
 	* @function
 	* @name ch.Carousel#prev
-	* @returns Chico UI Object
+	* @returns itself
 	* @example
 	* // Create a Carousel
 	* var foo = $("bar").carousel();
@@ -773,7 +773,7 @@ ch.carousel = function (conf) {
 	* @public
 	* @function
 	* @name ch.Carousel#next
-	* @returns Chico UI Object
+	* @returns itself
 	* @example
 	* // Create a carousel
 	* var foo = $("bar").carousel();
@@ -792,7 +792,7 @@ ch.carousel = function (conf) {
 	* @public
 	* @function
 	* @name ch.Carousel#redraw
-	* @returns Chico UI Object
+	* @returns itself
 	* @example
 	* // Create a Carousel
 	* var foo = $("bar").carousel();
@@ -843,8 +843,8 @@ ch.carousel = function (conf) {
 	* @public
 	* @since 0.8.0
 	* @example
-	* // Following the first example, using 'me' as carousel's instance controller:
-	* me.on("ready",function () {
+	* // Following the first example, using <code>widget</code> as carousel's instance controller:
+	* widget.on("ready",function () {
 	*	this.itemsPerPage();
 	* });
 	*/

@@ -1,9 +1,11 @@
 /**
-* Validate strings.
+* String validates a given text as string.
 * @name String 
 * @class String
 * @interface
 * @augments ch.Controls
+* @augments ch.Validation
+* @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.message] Validation message.
@@ -11,14 +13,15 @@
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
 * @returns itself
+* @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
 * @see ch.Validator
 * @see ch.Condition
+* @exampleDescription Create a string validation
 * @example
-* // Create a string validation
 * $("input").string("This field must be a string.");
 */
 ch.extend("validation").as("string", function (conf) {
@@ -36,11 +39,12 @@ ch.extend("validation").as("string", function (conf) {
 });
 
 /**
-* Validate email sintaxis.
+* Email validates a correct email syntax.
 * @name Email
 * @class Email
 * @interface
 * @augments ch.Controls
+* @augments ch.Validation
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -49,14 +53,15 @@ ch.extend("validation").as("string", function (conf) {
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
 * @returns itself
+* @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
 * @see ch.Validator
 * @see ch.Condition
+* @exampleDescription Create a email validation
 * @example
-* // Create a email validation
 * $("input").email("This field must be a valid email.");
 */
 ch.extend("validation").as("email", function (conf) {
@@ -71,12 +76,16 @@ ch.extend("validation").as("email", function (conf) {
 
 });
 
+	
+		
+
 /**
-* Validate URL sintaxis.
+* Url validates URL syntax.
 * @name Url
 * @class Url
 * @interface
 * @augments ch.Controls
+* @augments ch.Validation
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -85,14 +94,15 @@ ch.extend("validation").as("email", function (conf) {
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
 * @returns itself
+* @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
 * @see ch.Validator
 * @see ch.Condition
+* @exampleDescription Create a URL validation
 * @example
-* // Create a URL validation
 * $("input").url("This field must be a valid URL.");
 */
 ch.extend("validation").as("url", function (conf) {
@@ -109,11 +119,12 @@ ch.extend("validation").as("url", function (conf) {
 
 
 /**
-* Validate a minimun amount of characters.
+* MinLength validates a minimun amount of characters.
 * @name MinLength
 * @class MinLength
 * @interface
 * @augments ch.Controls
+* @augments ch.Validation
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -123,14 +134,15 @@ ch.extend("validation").as("url", function (conf) {
 * @param {String} [conf.context] It's a reference to position the validation-bubble
 * @param {Number} value Minimun number value.
 * @returns itself
+* @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
 * @see ch.Validator
 * @see ch.Condition
+* @exampleDescription Create a minLength validation
 * @example
-* // Create a minLength validation
 * $("input").minLength(10, "At least 10 characters..");
 */
 ch.extend("validation").as("minLength", function (conf) {
@@ -148,11 +160,12 @@ ch.extend("validation").as("minLength", function (conf) {
 
 
 /**
-* Validate a maximun amount of characters.
+* MaxLength validates a maximun amount of characters.
 * @name MaxLength
 * @class MaxLength
 * @interface
 * @augments ch.Controls
+* @augments ch.Validation
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -162,14 +175,15 @@ ch.extend("validation").as("minLength", function (conf) {
 * @param {String} [conf.context] It's a reference to position the validation-bubble
 * @param {Number} value Maximun number value.
 * @returns itself
+* @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
 * @see ch.Number
 * @see ch.Validator
 * @see ch.Condition
+* @exampleDescription Create a maxLength validation
 * @example
-* // Create a maxLength validation
 * $("input").maxLength(10, "No more than 10 characters..");
 */
 ch.extend("validation").as("maxLength", function (conf) {

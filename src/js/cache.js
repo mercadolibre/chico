@@ -1,7 +1,5 @@
-
 /**
 * Cache control utility.
-* @abstract
 * @name Cache
 * @class Cache
 * @memberOf ch
