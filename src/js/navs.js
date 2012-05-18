@@ -1,6 +1,5 @@
-
 /**
-* Abstract representation of navs components.
+* Navs is a representation of navs components.
 * @abstract
 * @name Navs
 * @class Navs
@@ -211,7 +210,7 @@ ch.navs = function () {
 	* @event
 	* @public
 	* @example
-	* me.on("show",function () {
+	* widget.on("show",function () {
 	*	otherComponent.hide();
 	* });
 	* @see ch.Navs#event:show
@@ -223,7 +222,7 @@ ch.navs = function () {
 	* @event
 	* @public
 	* @example
-	* me.on("hide",function () {
+	* widget.on("hide",function () {
 	*	otherComponent.show();
 	* });
 	* @see ch.Navs#event:hide

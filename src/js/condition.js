@@ -1,9 +1,7 @@
 /**
-* Description
-* @abstract
+* Condition utility.
 * @name Condition
 * @class Condition
-* @standalone
 * @memberOf ch
 * @param {Object} condition Object with configuration properties.
 * @param {String} condition.name
@@ -13,24 +11,24 @@
 * @param {Number || String} [condition.value]
 * @param {String} condition.message Validation message
 * @returns itself
+* @exampleDescription Create a new condition object with patt.
 * @example
-* // Create a new condition object with patt.
-* var me = ch.condition({
+* var widget = ch.condition({
 *     "name": "string",
 *     "patt": /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
 *     "message": "Some message here!"
 * });
+* @exampleDescription Create a new condition object with expr. 
 * @example
-* // Create a new condition object with expr.
-* var me = ch.condition({
+* var widget = ch.condition({
 *     "name": "maxLength",
 *     "patt": function(a,b) { return a.length <= b },
 *     "message": "Some message here!",
 *     "value": 4
 * });
+* @exampleDescription Create a new condition object with func.
 * @example
-* // Create a new condition object with func.
-* var me = ch.condition({
+* var widget = ch.condition({
 *     "name": "custom",
 *     "patt": function (value) { 
 *         if (value === "ChicoUI") {
@@ -63,7 +61,7 @@ ch.condition = function(condition) {
 	/**
 	* Flag that let you know if the condition is enabled or not.
 	* @private
-	* @name ch.Condition#enabled
+	* @name ch.Condition-enabled
 	* @type boolean
 	*/
 	var	enabled = true,
@@ -126,24 +124,24 @@ ch.condition = function(condition) {
 	/**
 	* Run configured condition
 	* @public
-	* @name ch.Condition#test
 	* @function
+	* @name ch.Condition#test
 	* @returns boolean
 	*/
 
 	/**
 	* Turn on condition.
 	* @public
-	* @function
 	* @name ch.Condition#enable
+	* @function
 	* @returns itself
 	*/
 
 	/**
 	* Turn off condition.
 	* @public
-	* @function
 	* @name ch.Condition#disable
+	* @function
 	* @returns itself
 	*/
 

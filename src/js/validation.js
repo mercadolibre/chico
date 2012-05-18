@@ -1,5 +1,5 @@
 /**
-* Validation is a validation engine for html forms elements.
+* Validation is a engine for HTML forms elements.
 * @name Validation
 * @class Validation
 * @augments ch.Controls
@@ -16,6 +16,7 @@
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble.
 * @returns itself
+* @factorized
 */
 
 ch.validation = function (conf) {
@@ -117,13 +118,15 @@ ch.validation = function (conf) {
 
 		validator.clear();
 
+
 		/**
 		* Triggers when al validations are cleared.
 		* @name ch.Validation#clear
 		* @event
 		* @public
+		* @exampleDescription Title
 		* @example
-		* me.on("clear",function(){
+		* widget.on("clear",function(){
 		*	submitButton.enable();
 		* });
 		*/
@@ -217,8 +220,9 @@ ch.validation = function (conf) {
 		* @name ch.Validation#beforeValidate
 		* @event
 		* @public
+		* @exampleDescription
 		* @example
-		* me.on("beforeValidate",function(event) {
+		* widget.on("beforeValidate",function(event) {
 		*	submitButton.disable();
 		* });
 		*/
@@ -255,8 +259,9 @@ ch.validation = function (conf) {
 			* @name ch.Validation#error
 			* @event
 			* @public
+			* @exampleDescription
 			* @example
-			* me.on("error",function(event, condition) {
+			* widget.on("error",function(event, condition) {
 			*	if (condition === "required") {
 			* 		errorModal.show();
 			* 	}
@@ -281,8 +286,9 @@ ch.validation = function (conf) {
 		* @name ch.Validation#afterValidate
 		* @event
 		* @public
+		* @exampleDescription
 		* @example
-		* me.on("afterValidate",function(){
+		* widget.on("afterValidate",function(){
 		*	submitButton.disable();
 		* });
 		*/
@@ -412,7 +418,8 @@ ch.validation = function (conf) {
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
 	* @since 0.10.2
-	* @name ch.Validation#float
+	* @name float
+	* @memberOf ch.Validation
 	* @type ch.Floats
 	* @see ch.Floats
 	*/
@@ -498,8 +505,8 @@ ch.validation = function (conf) {
 	* @name ch.Validation#position
 	* @function
 	* @returns itself
+	* @exampleDescription Change validaton bubble's position.
 	* @example
-	* // Change validaton bubble's position.
 	* validation.position({
 	*	  offset: "0 10",
 	*	  points: "lt lb"
@@ -522,11 +529,11 @@ ch.validation = function (conf) {
 	* @name ch.Validation#message
 	* @function
 	* @returns itself
+	* @exampleDescription Sets a new message 
 	* @example
-	* validation.message(condition, message);
-	* // Sets a new message
 	* validation.message("required", "New message for required validation");
-	* // Gets a message from a condition
+	* @exampleDescription Gets a message from a condition
+	* @example	
 	* validation.message("required");
 	*/
 	that["public"].message = function (condition, msg) {
@@ -558,9 +565,9 @@ ch.validation = function (conf) {
 	* @name ch.Validation#ready
 	* @event
 	* @public
+	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.on("ready",function(){
+	* widget.on("ready",function(){
 	*	this.show();
 	* });
 	*/

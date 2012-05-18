@@ -1,5 +1,5 @@
 /**
-* Menu is a UI-Component.
+* Menu lets you organize the links by categories.
 * @name Menu
 * @class Menu
 * @augments ch.Controllers
@@ -9,15 +9,16 @@
 * @param {Number} [conf.selected] Selects a child that will be open when component was loaded.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @factorized
+* @exampleDescription Create a new menu without configuration.
 * @example
-* // Create a new menu with configuration.
-* var me = $(".example").menu({
+* var widget = $(".example").menu();
+* @exampleDescription Create a new menu with configuration.
+* @example
+* var widget = $(".example").menu({
 *     "selected": 2,
 *     "fx": true
 * });
-* @example
-* // Create a new menu without configuration.
-* var me = $(".example").menu();
 */
 
 ch.menu = function(conf){
@@ -104,7 +105,19 @@ ch.menu = function(conf){
 					* @memberOf ch.Menu
 					*/
 					that.callbacks.call(that, "onSelect");
+					
 					// new callback
+					/**
+					* It is triggered when the a fold is selected by the user.
+					* @name ch.Menu#select
+					* @event
+					* @public
+					* @exampleDescription When the user select
+					* @example
+					* widget.on("select",function(){
+					*     app.off();
+					* });
+					*/
 					that.trigger("select");
 				}
 			});
@@ -130,6 +143,7 @@ ch.menu = function(conf){
 	* @private
 	* @function
 	* @name ch.Menu#select
+	* @ignore
 	*/
 	var select = function(item){
 
@@ -211,31 +225,24 @@ ch.menu = function(conf){
 *	Public Members
 */
 	/**
-	* The component's instance unique identifier.
-	* @public
-	* @name ch.Menu#uid
-	* @type number
+	* @borrows ch.Object#uid as ch.Menu#uid
 	*/	
 	
 	/**
-	* The element reference.
-	* @public
-	* @name ch.Menu#element
-	* @type HTMLElement
+	* @borrows ch.Object#element as ch.Menu#element
 	*/
-	
+
 	/**
-	* The component's type.
-	* @public
-	* @name ch.Menu#type
-	* @type string
+	* @borrows ch.Object#type as ch.Menu#type
 	*/
 	
 	/**
 	* Select a specific children.
 	* @public
-	* @name ch.Menu#select
-	* @function
+	* @name select
+	* @name ch.Menu
+	* @param item The number of the item to be selected
+	* @returns 
 	*/
 	that["public"].select = function(item){
 		select(item);
@@ -272,9 +279,9 @@ ch.menu = function(conf){
 	* @event
 	* @public
 	* @since 0.8.0
+	* @exampleDescription Following the first example, using <code>widget</code> as menu's instance controller:
 	* @example
-	* // Following the first example, using 'me' as menu's instance controller:
-	* me.on("ready",function () {
+	* widget.on("ready",function () {
 	*	this.select();
 	* });
 	*/
@@ -287,9 +294,10 @@ ch.menu = function(conf){
 ch.factory("menu");
 
 /**
-* Accordion is a UI-Component.
+* Accordion lets you organize the content like folds.
 * @name Accordion
 * @class Accordion
+* @factorized
 * @interface
 * @augments ch.Controllers
 * @requires ch.Menu
@@ -299,45 +307,49 @@ ch.factory("menu");
 * @param {Number} [conf.selected] Selects a child that will be open when component was loaded.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @exampleDescription Create a new Accordion.
 * @example
-* // Create a new menu with configuration.
-* var me = $(".example").accordion({
+* var widget = $(".example").accordion();
+* @exampleDescription Create a new Accordion with configuration.
+* @example
+* var widget = $(".example").accordion({
 *     "selected": 2,
 *     "fx": true
 * });
-* @example
-* // Create a new menu without configuration.
-* var me = $(".example").accordion();
 */
 
 ch.extend("menu").as("accordion");
+	/**
+	* @borrows ch.Object#uid as ch.Accordion#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.Accordion#element
+	*/
 
 	/**
-	* The component's instance unique identifier.
-	* @public
-	* @name ch.Accordion#uid
-	* @type number
+	* @borrows ch.Object#type as ch.Accordion#type
 	*/
-	
-	/**
-	* The element reference.
-	* @public
-	* @name ch.Accordion#element
-	* @type HTMLElement
-	*/
-	
-	/**
-	* The component's type.
-	* @public
-	* @name ch.Accordion#type
-	* @type string
-	*/
-	
+
 	/**
 	* Select a specific children.
 	* @public
+	* @name select
 	* @name ch.Accordion#select
-	* @function
+	* @param item The number of the item to be selected
+	* @returns 
+	*/
+
+	/**
+	* It is triggered when the a fold is selected by the user.
+	* @name ch.Accordion#select
+	* @event
+	* @public
+	* @exampleDescription When the user select
+	* @example
+	* widget.on("select",function(){
+	*     app.off();
+	* });
 	*/
 
 	/**
@@ -346,9 +358,9 @@ ch.extend("menu").as("accordion");
 	* @event
 	* @public
 	* @since 0.8.0
+	* @exampleDescription Following the first example, using <code>widget</code> as accordion's instance controller:
 	* @example
-	* // Following the first example, using 'me' as accordion's instance controller:
-	* me.on("ready",function () {
+	* widget.on("ready",function () {
 	*	this.select();
 	* });
 	*/

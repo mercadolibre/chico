@@ -1,12 +1,15 @@
 /**
-* Is an UI feedback utility. It creates a visual highlight changing background color from yellow to white.
+* Blink lets you give visual feedback to the user. Blink can be used when the user performs some action that changes some data at the screen. Blink creates a visual highlight changing background color from yellow to white.
 * @name Blink
 * @class Blink
-* @standalone
 * @memberOf ch
 * @param {Object} conf Configuration object
 * @param {number} [conf.time] Amount of time to blink in milliseconds
-* @returns itself
+* @returns jQuery Object 
+* @factorized
+* @exampleDescription Blinks a element.  
+* @example
+* var widget = $(".example").blink();
 */
 ch.blink = function (conf) {
 

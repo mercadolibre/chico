@@ -1,26 +1,25 @@
 /**
-* Counts the amount of characters that user can enter in a form control and limit the length of value of input.
+* Countdown counts the maximum of characters that user can enter in a form control. Countdown could limit the possibility to continue inserting charset.
 * @name Countdown
 * @class Countdown
 * @augments ch.Controls
-* @standalone
 * @memberOf ch
 * @param {Object} conf Object with configuration properties.
 * @param {Number} conf.max Number of the maximum amount of characters user can input in form control.
 * @param {String} [conf.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# characters left.".
 * @param {String} [conf.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# character left.".
 * @returns itself
+* @factorized
+* @exampleDescription Create a simple Countdown. Then <code>widget</code> is a reference to the Countdown instance controller.
 * @example
-* // Create a new Countdown with configuration.
-* var me = $(".some-form-control").countdown({
+* var widget = $(".some-form-control").countdown(500);
+* @exampleDescription Create a Countdown with configuration.
+* @example
+* var widget = $(".some-form-control").countdown({
 *     "max": 500,
 *     "plural": "Restan # caracteres.",
 *     "singular": "Resta # caracter."
 * });
-* @example
-* // Create a simple Countdown
-* var me = $(".some-form-control").countdown(500);
-* // Now 'me' is a reference to the Countdown instance controller.
 */
 
 ch.countdown = function (conf) {
@@ -144,24 +143,15 @@ ch.countdown = function (conf) {
 */
 
 	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.Countdown#uid
-	* @type Number
+	* @borrows ch.Object#uid as ch.Menu#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.Menu#element
 	*/
 
 	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.Countdown#element
-	* @type HTMLElement
-	*/
-
-	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.Countdown#type
-	* @type String
+	* @borrows ch.Object#type as ch.Menu#type
 	*/
 
 /**
@@ -176,9 +166,9 @@ ch.countdown = function (conf) {
 	* @name ch.Countdown#ready
 	* @event
 	* @public
+	* @exampleDescription Following the first example, using <code>widget</code> as Countdown's instance controller:
 	* @example
-	* // Following the first example, using 'me' as Countdown's instance controller:
-	* me.on("ready",function () {
+	* widget.on("ready",function () {
 	*	this.element;
 	* });
 	*/

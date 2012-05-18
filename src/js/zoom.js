@@ -15,6 +15,10 @@
 * @param {Number} [conf.width] Width of floated area of zoomed image. Example: 500, "500px", "50%". Default: 350.
 * @param {Number} [conf.height] Height of floated area of zoomed image. Example: 500, "500px", "50%". Default: 350.
 * @returns itself
+* @exampleDescription Create a Zoom component wrapping the original image with a anchor element pointing to a bigger version than the original.
+* @example
+* var widget = $(".example").zoom();
+* @factorized
 * @see ch.Modal
 * @see ch.Tooltip
 * @see ch.Layer
@@ -434,24 +438,15 @@ ch.zoom = function (conf) {
 */
 
 	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.Zoom#uid
-	* @type number
+	* @borrows ch.Object#uid as ch.Modal#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.Zoom#element
 	*/
 
 	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.Zoom#element
-	* @type HTMLElement
-	*/
-
-	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.Zoom#type
-	* @type string
+	* @borrows ch.Object#type as ch.Zoom#type
 	*/
 
 	/**
@@ -462,7 +457,7 @@ ch.zoom = function (conf) {
 	* @returns {HTMLIMGElement}
 	* @example
 	* // Get the defined content
-	* me.content();
+	* widget.content();
 	* @see ch.Object#content
 	*/
 
@@ -472,85 +467,27 @@ ch.zoom = function (conf) {
 	};
 
 	/**
-	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
-	* @public
-	* @function 
-	* @name ch.Zoom#isActive
-	* @returns boolean
+	* @borrows ch.Floats#isActive as ch.Zoom#isActive
 	*/
 
 	/**
-	* Triggers the innerShow method and returns the public scope to keep method chaining.
-	* @public
-	* @function
-	* @name ch.Zoom#show
-	* @returns itself
-	* @see ch.Floats#show
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.show();
+	* @borrows ch.Floats#show as ch.Zoom#show
 	*/
 
 	/**
-	* Triggers the innerHide method and returns the public scope to keep method chaining.
-	* @public
-	* @function
-	* @name ch.Zoom#hide
-	* @returns itself
-	* @see ch.Floats#hide
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.hide();
-	*/
-	
-	/**
-	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
-	* @public
-	* @function
-	* @name ch.Zoom#width
-	* @returns itself
-	* @see ch.Floats#size
-	* @example
-	* // Gets width of Zoom float element.
-	* foo.width();
-	* @example
-	* // Sets width of Zoom float element and updates the seeker size to keep these relation.
-	* foo.width(500);
+	* @borrows ch.Floats#hide as ch.Zoom#hide
 	*/
 
 	/**
-	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
-	* @public
-	* @function
-	* @name ch.Zoom#height
-	* @returns itself
-	* @see ch.Floats#size
-	* @example
-	* // Gets height of Zoom float element.
-	* foo.height();
-	* @example
-	* // Sets height of Zoom float element and update the seeker size to keep these relation.
-	* foo.height(500);
+	* @borrows ch.Floats#width as ch.Zoom#width
 	*/
 
 	/**
-	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
-	* @public
-	* @function
-	* @name ch.Zoom#position
-	* @example
-	* // Change default position.
-	* $("a").zoom().position({
-	*	offset: "0 10",
-	*	points: "lt lb"
-	* });
-	* @example
-	* // Refresh position.
-	* $("a").zoom().position("refresh");
-	* @example
-	* // Get current position.
-	* $("a").zoom().position();
-	* @see ch.Object#position
+	* @borrows ch.Floats#height as ch.Zoom#height
+	*/
+
+	/**
+	* @borrows ch.Floats#position as ch.Zoom#position
 	*/
 
 
@@ -577,7 +514,7 @@ ch.zoom = function (conf) {
 	* @event
 	* @public
 	* @example
-	* me.on("show",function () {
+	* widget.on("show",function () {
 	*	this.content("Some new content");
 	* });
 	* @see ch.Floats#event:show
@@ -589,7 +526,7 @@ ch.zoom = function (conf) {
 	* @event
 	* @public
 	* @example
-	* me.on("hide",function () {
+	* widget.on("hide",function () {
 	*	otherComponent.show();
 	* });
 	* @see ch.Floats#event:hide
@@ -602,8 +539,8 @@ ch.zoom = function (conf) {
 	* @public
 	* @since 0.8.0
 	* @example
-	* // Following the first example, using 'me' as zoom's instance controller:
-	* me.on("ready",function () {
+	* // Following the first example, using <code>widget</code> as zoom's instance controller:
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/

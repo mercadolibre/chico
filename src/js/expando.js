@@ -1,6 +1,5 @@
-
 /**
-* Expando is a UI-Component.
+* Expando lets you show or hide the content. Expando needs a pair: the title and the content related to that title.
 * @name Expando
 * @class Expando
 * @augments ch.Navs
@@ -10,15 +9,16 @@
 * @param {Boolean} [conf.open] Shows the expando open when component was loaded. By default, the value is false.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @factorized
+* @exampleDescription Create a new expando without configuration.
 * @example
-* // Create a new expando with configuration.
-* var me = $(".example").expando({
+* var widget = $(".example").expando();
+* @exampleDescription Create a new expando with configuration.
+* @example
+* var widget = $(".example").expando({
 *     "open": true,
 *     "fx": true
 * });
-* @example
-* // Create a new expando without configuration.
-* var me = $(".example").expando();
 */
  
 ch.expando = function(conf){
@@ -104,41 +104,24 @@ ch.expando = function(conf){
 */
  
 	/**
-	* The component's instance unique identifier.
-	* @public
-	* @name ch.Expando#uid
-	* @type number
-	*/
+	* @borrows ch.Object#uid as ch.Expando#uid
+	*/	
 	
 	/**
-	* The element reference.
-	* @public
-	* @name ch.Expando#element
-	* @type HTMLElement
-	*/
-	
-	/**
-	* The component's type.
-	* @public
-	* @name ch.Expando#type
-	* @type string
-	*/
-	
-	/**
-	* Shows component's content.
-	* @public
-	* @function
-	* @name ch.Expando#show
-	* @returns itself
+	* @borrows ch.Object#element as ch.Expando#element
 	*/
 
 	/**
-	* Hides component's content.
-	* @public
-	* @function
-	* @name ch.Expando#hide
-	* @returns itself
-	*/	
+	* @borrows ch.Object#type as ch.Expando#type
+	*/
+
+	/**
+	* @borrows ch.Navs#show as ch.Expando#show
+	*/
+
+	/**
+	* @borrows ch.Navs#hide as ch.Expando#hide
+	*/
 
 /**
 *  Default event delegation
@@ -153,9 +136,9 @@ ch.expando = function(conf){
 	* @event
 	* @public
 	* @since 0.8.0
+	* @exampleDescription Following the first example, using <code>widget</code> as expando's instance controller:
 	* @example
-	* // Following the first example, using 'me' as expando's instance controller:
-	* me.on("ready",function () {
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/

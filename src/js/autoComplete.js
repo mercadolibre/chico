@@ -1,18 +1,18 @@
 /**
-* AutoComplete is a UI-Component.
+* AutoComplete lets you suggest anything from an input element. Use a suggestion service or use a collection with the suggestions.
 * @name AutoComplete
 * @class AutoComplete
 * @augments ch.Controls
-* @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.url] The url pointing to the suggestions's service.
+* @param {String} conf.url The url pointing to the suggestions's service.
 * @param {String} [conf.message] It represent the text when no options are shown.
-* @param {Array} [conf.suggestions] The list of suggestions. Use it when you don't have server side suggestions service. Don't use conf.url with this option.
+* @param {Array} [conf.suggestions] The suggestions's collection. If a URL is set at conf.url parametter this will be omitted.
 * @returns itself
+* @factorized
+* @exampleDescription Create a new autoComplete with configuration.
 * @example
-* // Create a new autoComplete with configuration.
-* var me = $(".example").autoComplete({
+* var widget = $(".example").autoComplete({
 *     "url": "http://site.com/mySuggestions?q=",
 *     "message": "Write..."
 * });
@@ -104,7 +104,7 @@ ch.autoComplete = function(conf){
 	* It has the items loaded.
 	* @protected
 	* @type Boolean
-	* @name ch.AutoComplete#populateContent
+	* @name ch.AutoComplete#behaviorActived
 	*/
 	that.behaviorActived = false;
 
@@ -112,7 +112,7 @@ ch.autoComplete = function(conf){
 	* It has the items loaded.
 	* @protected
 	* @type Array
-	* @name ch.AutoComplete#populateContent
+	* @name ch.AutoComplete#items
 	*/
 	that.items = [];
 	
@@ -311,7 +311,7 @@ ch.autoComplete = function(conf){
 	* Internal hide method. It removes the behavior.
 	* @protected
 	* @function
-	* @name ch.AutoComplete#hide
+	* @name ch.AutoComplete-hide
 	*/
 	that.hide = function(event){
 		that.trigger("hide");
@@ -346,31 +346,22 @@ ch.autoComplete = function(conf){
 */
  
 	/**
-	* The component's instance unique identifier.
-	* @public
-	* @name ch.AutoComplete#uid
-	* @type number
-	*/
+	* @borrows ch.Object#uid as ch.Menu#uid
+	*/	
 	
 	/**
-	* The element reference.
-	* @public
-	* @name ch.AutoComplete#element
-	* @type HTMLElement
+	* @borrows ch.Object#element as ch.Menu#element
 	*/
-	
+
 	/**
-	* The component's type.
-	* @public
-	* @name ch.AutoComplete#type
-	* @type string
+	* @borrows ch.Object#type as ch.Menu#type
 	*/
 	
 	/**
 	* Shows component's content.
 	* @public
+	* @name ch.AutoComplete-show
 	* @function
-	* @name ch.AutoComplete#show
 	* @returns itself
 	*/
 	that["public"].show = function(){
@@ -381,8 +372,8 @@ ch.autoComplete = function(conf){
 	/**
 	* Hides component's content.
 	* @public
-	* @function
 	* @name ch.AutoComplete#hide
+	* @function
 	* @returns itself
 	*/	
 	that["public"].hide = function(){
@@ -393,8 +384,8 @@ ch.autoComplete = function(conf){
 	/**
 	* Add suggestions to be shown.
 	* @public
-	* @function
 	* @name ch.AutoComplete#suggest
+	* @function
 	* @returns itself
 	*/	
 	that["public"].suggest = function(data){
@@ -421,9 +412,9 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#ready
 	* @event
 	* @public
+	* @exampleDescription Following the first example, using <code>widget</code> as autoComplete's instance controller:
 	* @example
-	* // Following the first example, using 'me' as autoComplete's instance controller:
-	* me.on("ready",function () {
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/

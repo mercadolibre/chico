@@ -1,26 +1,25 @@
-
 /**
 * Forms is a Controller of DOM's HTMLFormElement.
 * @name Form
 * @class Form
 * @augments ch.Controllers
-* @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Object} [conf.messages]
 * @see ch.Validation
 * @returns itself
+* @factorized
+* @exampleDescription Create a new Form.
 * @example
-* // Create a new form with configuration.
-* var me = $(".example").form({
+* var widget = $(".example").form();
+* @exampleDescription Create a new Form with some messages that will be use the validation engine.
+* @example
+* var widget = $(".example").form({
 * 	"messages": {
 * 		"required": "Error message for all required fields.",
 * 		"email": "Show this message on email format error."
 * 	}
 * });
-* @example
-* // Create a new form without configuration.
-* var me = $(".example").form();
 */
 
 ch.form = function(conf) {
@@ -87,10 +86,15 @@ ch.form = function(conf) {
 	var validate = function(event){
 
 		/**
-		* Callback function
+		* Fired before the validations engine start. 
 		* @name ch.Form#beforeValidate
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("beforeValidate",function () {
+		*	sowidget.action();
+		* });
 		*/
 		that.callbacks("beforeValidate");
 		// new callback
@@ -129,16 +133,27 @@ ch.form = function(conf) {
 		}
 
 		/**
-		* Callback function
+		* Fired when the form validates. 
 		* @name ch.Form#validate
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("validate",function () {
+		*	sowidget.action();
+		* });
 		*/
+
 		/**
-		* Callback function
+		* Fired when the form fall on a error. 
 		* @name ch.Form#error
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("error",function () {
+		*	sowidget.action();
+		* });
 		*/
 		if (status) {
 			that.callbacks("onValidate");
@@ -151,10 +166,15 @@ ch.form = function(conf) {
 		}
 
 		/**
-		* Callback function
+		* Fired when the validations end.
 		* @name ch.Form#afterValidate
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("afterValidate",function () {
+		*	sowidget.action();
+		* });
 		*/
 		that.callbacks("afterValidate");
 		// new callback
@@ -170,10 +190,15 @@ ch.form = function(conf) {
 	var submit = function(event) {
 
 		/**
-		* Callback function
+		* Fired before the form's submition.
 		* @name ch.Form#beforeSubmit
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("beforeSubmit",function () {
+		*	sowidget.action();
+		* });
 		*/
 		that.callbacks("beforeSubmit");
 		// new callback
@@ -200,10 +225,15 @@ ch.form = function(conf) {
 		}
 
 		/**
-		* Callback function
+		* Fired when submits the form.
 		* @name ch.Form#submit
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("afterSubmit",function () {
+		*	sowidget.action();
+		* });
 		*/
 		// * New callback system *
 		// Check inside $.data if there's a handler for ch-submit event
@@ -220,10 +250,15 @@ ch.form = function(conf) {
 		};
 
 		/**
-		* Callback function
+		* Fired after the form's submition.
 		* @name ch.Form#afterSubmit
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("afterSubmit",function () {
+		*	this.reset();
+		* });
 		*/
 		that.callbacks("afterSubmit");
 		// new callback
@@ -246,10 +281,15 @@ ch.form = function(conf) {
 		status = true;
 
 		/**
-		* Callback function
-		* @name ch.Form#onClear
+		* Fired when clean the form's data.
+		* @name ch.Form#clear
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("clear",function () {
+		*	this.reset();
+		* });
 		*/
 		that.callbacks("onClear");
 		// new callback
@@ -266,10 +306,15 @@ ch.form = function(conf) {
 		that.element.reset(); // Reset html form native
 
 		/**
-		* Callback function
-		* @name ch.Form#onReset
+		* Fired when resets the form.
+		* @name ch.Form#reset
 		* @event
 		* @public
+		* @exampleDescription 
+		* @example
+		* widget.on("reset",function () {
+		*	sowidget.action();
+		* });
 		*/
 		that.callbacks("onReset");
 		// new callback
@@ -283,29 +328,21 @@ ch.form = function(conf) {
 *  Public Members
 */
 	/**
-	* The component's instance unique identifier.
-	* @public
-	* @name ch.Form#uid
-	* @type number
+	* @borrows ch.Object#uid as ch.Expando#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.Expando#element
 	*/
 
 	/**
-	* The element reference.
-	* @public
-	* @name ch.Form#element
-	* @type HTMLElement
-	*/
-
-	/**
-	* The component's type.
-	* @public
-	* @name ch.Form#type
-	* @type string
+	* @borrows ch.Object#type as ch.Expando#type
 	*/
 
 	/**
 	* Watcher instances associated to this controller.
 	* @public
+	* @function
 	* @name ch.Form#children
 	* @type collection
 	*/
@@ -314,6 +351,7 @@ ch.form = function(conf) {
 	/**
 	* Collection of messages defined.
 	* @public
+	* @function
 	* @name ch.Form#messages
 	* @type string
 	*/
@@ -359,6 +397,7 @@ ch.form = function(conf) {
 	/**
 	* Use this method to clear al validations.
 	* @public
+	* @function
 	* @function
 	* @name ch.Form#clear
 	* @returns itself
@@ -407,9 +446,9 @@ ch.form = function(conf) {
 	* @event
 	* @public
 	* @since 0.8.0
+	* @exampleDescription Following the first example, using <code>widget</code> as form's instance controller:
 	* @example
-	* // Following the first example, using 'me' as form's instance controller:
-	* me.on("ready",function () {
+	* widget.on("ready",function () {
 	*	this.reset();
 	* });
 	*/

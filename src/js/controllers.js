@@ -1,4 +1,3 @@
-
 /**
 * Abstract class
 * @abstract

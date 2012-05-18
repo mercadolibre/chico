@@ -1,5 +1,5 @@
 /**
-* Abstract class of all floats UI-Objects.
+* Floats brings the functionality of all Floats elements.
 * @abstract
 * @name ch.Floats
 * @class Floats
@@ -52,18 +52,18 @@ ch.floats = function () {
 	* Closable behavior.
 	* @private
 	* @function
-	* @name ch.Floats#closable
+	* @name ch.Floats-closable
 	*/
 	// TODO: Create "closable" interface
 	var closable = (function () {
 		/**
 		* Returns any if the component closes automatic. 
 		* @public
-		* @name ch.Floats#closable
 		* @function
+		* @methodOf ch.Floats#closabe
+		* @exampleDescription to get the height
 		* @example
-		* // to get the height
-		* me.closable() // true | false | "button"
+		* widget.closable() // true | false | "button"
 		* @returns boolean | string
 		*/
 		that["public"].closable = function () {
@@ -311,6 +311,12 @@ ch.floats = function () {
 		* @name ch.Floats#show
 		* @event
 		* @public
+		* @exampleDescription It change the content when the component was shown.
+		* @example
+		* widget.on("show",function () {
+		*	this.content("Some new content");
+		* });
+		* @see ch.Floats#show
 		*/
 		// Show component with effects
 		if (conf.fx) {
@@ -362,6 +368,11 @@ ch.floats = function () {
 		* @name ch.Floats#hide
 		* @event
 		* @public
+		* @exampleDescription When the component hides show other component.
+		* @example
+		* widget.on("hide",function () {
+		*	otherComponent.show();
+		* });
 		*/
 			// new callbacks
 			that.trigger("hide");
@@ -417,6 +428,39 @@ ch.floats = function () {
 */
 
 	/**
+	* @borrows ch.Object#on as ch.Floats#on
+	*/
+
+	/**
+	* @borrows ch.Object#once as ch.Floats#once
+	*/
+
+	/**
+	* @borrows ch.Object#off as ch.Floats#off
+	*/
+
+	//Documented again because the method works in this class
+	/**
+	* Sets and gets component content. To get the defined content just use the method without arguments, like 'widget.content()'. To define a new content pass an argument to it, like 'widget.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
+	* @public
+	* @name ch.Uiobject#content
+	* @function
+	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @exampleDescription Get the defined content
+	* @example
+	* widget.content();
+	* @exampleDescription Set static content
+	* @example
+	* widget.content("Some static content");
+	* @exampleDescription Set DOM content
+	* @example
+	* widget.content("#hiddenContent");
+	* @exampleDescription Set AJAX content
+	* @example
+	* widget.content("http://chico.com/some/content.html");
+	*/
+
+	/**
 	* Triggers the innerShow method, returns the public scope to keep method chaining and sets new content if receive a parameter.
 	* @public
 	* @function
@@ -445,14 +489,18 @@ ch.floats = function () {
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
-	* @name ch.Uiobject#position
+	* @function
+	* @name ch.Floats#position
+	* @exampleDescription Change component's position.
 	* @example
-	* // Change component's position.
-	* me.position({ 
+	* widget.position({ 
 	*	  offset: "0 10",
 	*	  points: "lt lb"
 	* });
-	* @see ch.Uiobject#position
+	* @exampleDescription Refresh position.
+	* @example
+	* widget.position("refresh");
+	* @see ch.Floats#position
 	*/
 	// Create a custom Positioner object to update conf.position data of Float family
 	that["public"].position = function (o) {
@@ -501,14 +549,16 @@ ch.floats = function () {
 	* @public
 	* @function
 	* @name ch.Floats#width
+	* @param {Number|String} [width]
 	* @returns itself
+	* @see ch.Zarasa#size
 	* @see ch.Floats#size
+	* @exampleDescription to set the width
 	* @example
-	* // to set the width
-	* me.width(700);
+	* widget.width(700);
+	* @exampleDescription to get the width
 	* @example
-	* // to get the width
-	* me.width // 700
+	* widget.width() // 700
 	*/
 	that["public"].width = function (data) {
 		return that.size("width", data) || that["public"];
@@ -521,12 +571,12 @@ ch.floats = function () {
 	* @name ch.Floats#height
 	* @returns itself
 	* @see ch.Floats#size
+	* @exampleDescription to set the height
 	* @example
-	* // to set the height
-	* me.height(300);
+	* widget.height(300);
+	* @exampleDescription to get the height
 	* @example
-	* // to get the height
-	* me.height // 300
+	* widget.height // 300
 	*/
 	that["public"].height = function (data) {
 		return that.size("height", data) || that["public"];
@@ -542,16 +592,15 @@ ch.floats = function () {
 	that["public"].isActive = function () {
 		return that.active;
 	};
-
 	
 	/**
 	* Triggers when the component is ready to use.
 	* @name ch.Floats#ready
 	* @event
 	* @public
+	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.on("ready",function () {
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/

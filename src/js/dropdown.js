@@ -1,9 +1,8 @@
 /**
-* A navegable list of items, UI-Object.
+* Dropdown shows a list of items for navigation.
 * @name Dropdown
 * @class Dropdown
 * @augments ch.Navs
-* @standalone
 * @requires ch.Positioner
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -12,17 +11,18 @@
 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
+* @factorized
+* @exampleDescription Create a new dropdown without configuration.
 * @example
-* // Create a new dropdown with configuration.
-* var me = $(".example").dropdown({
+* var widget = $(".example").dropdown();
+* @exampleDescription Create a new dropdown with configuration.
+* @example
+* var widget = $(".example").dropdown({
 *     "open": true,
 *     "icon": false,
 *     "points": "lt lt",
 *     "fx": true
 * });
-* @example
-* // Create a new dropdown without configuration.
-* var me = $(".example").dropdown();
 */
 
 ch.dropdown = function (conf) {
@@ -209,47 +209,30 @@ ch.dropdown = function (conf) {
 */
  
 	/**
-	* The component's instance unique identifier.
-	* @public
-	* @name ch.Dropdown#uid
-	* @type number
-	*/
-	
-	/**
-	* The element reference.
-	* @public
-	* @name ch.Dropdown#element
-	* @type HTMLElement
-	*/
-	
-	/**
-	* The component's type.
-	* @public
-	* @name ch.Dropdown#type
-	* @type string
+	* @borrows ch.Object#uid as ch.Menu#uid
 	*/	
 	
 	/**
-	* Shows component's content.
-	* @public
-	* @function
-	* @name ch.Dropdown#show
-	* @returns itself
+	* @borrows ch.Object#element as ch.Menu#element
 	*/
 
 	/**
-	* Hides component's content.
-	* @public
-	* @function
-	* @name ch.Dropdown#hide
-	* @returns itself
-	*/ 
+	* @borrows ch.Object#type as ch.Menu#type
+	*/
+	
+	/**
+	* @borrows ch.Navs#show as ch.Dropdown#type
+	*/
+
+	/**
+	* @borrows ch.Navs#hide as ch.Dropdown#hide
+	*/
 	
 	/**
 	* Positioning configuration.
 	* @public
-	* @function
 	* @name ch.Dropdown#position
+	* @function
 	*/
 	that["public"].position = that.position;
 
@@ -265,9 +248,9 @@ ch.dropdown = function (conf) {
 	* @event
 	* @public
 	* @since 0.8.0
+	* @exampleDescription Following the first example, using <code>widget</code> as dropdown's instance controller:
 	* @example
-	* // Following the first example, using 'me' as dropdown's instance controller:
-	* me.on("ready",function () {
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/

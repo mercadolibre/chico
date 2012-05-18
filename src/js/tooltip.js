@@ -1,32 +1,33 @@
 /**
-* Simple Tooltip UI-Object. It uses the 'alt' and 'title' attributes to grab its content.
+* Tooltip improves the native tooltips. Tooltip uses the 'alt' and 'title' attributes to grab its content.
 * @name Tooltip
 * @class Tooltip
 * @augments ch.Floats
-* @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
 * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @returns itself
+* @factorized
 * @see ch.Modal
 * @see ch.Layer
 * @see ch.Zoom
+* @exampleDescription Create a tooltip.
 * @example
-* // Create a new tooltip with configuration.
-* var me = $("a.example").tooltip({
+* var widget = $(".some-element").tooltip();
+* @exampleDescription Create a new tooltip with configuration.
+* @example
+* var widget = $("a.example").tooltip({
 *     "fx": false,
 *     "offset": "10 -10",
 *     "points": "lt rt"
 * });
+* @exampleDescription
+* Now <code>widget</code> is a reference to the tooltip instance controller.
+* You can set a new content by using <code>widget</code> like this: 
 * @example
-* // Create a simple tooltip
-* var me = $(".some-element").tooltip();
-* @example
-* // Now 'me' is a reference to the tooltip instance controller.
-* // You can set a new content by using 'me' like this: 
-* me.width(300);
+* widget.width(300);
 */
 
 ch.tooltip = function (conf) {
@@ -132,120 +133,47 @@ ch.tooltip = function (conf) {
 */
 
 	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.Tooltip#uid
-	* @type number
+	* @borrows ch.Object#uid as ch.Tooltip#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.Tooltip#element
 	*/
 
 	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.Tooltip#element
-	* @type HTMLElement
+	* @borrows ch.Object#type as ch.Tooltip#type
 	*/
 
 	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.Tooltip#type
-	* @type string
+	* @borrows ch.Object#content as ch.Tooltip#content
 	*/
 
 	/**
-	* Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
-	* @public
-	* @name ch.Tooltip#content
-	* @function
-	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
-	* @example
-	* // Get the defined content
-	* me.content();
-	* @example
-	* // Set static content
-	* me.content("Some static content");
-	* @example
-	* // Set DOM content
-	* me.content("#hiddenContent");
-	* @example
-	* // Set AJAX content
-	* me.content("http://chico.com/some/content.html");
-	* @see ch.Object#content
+	* @borrows ch.Floats#isActive as ch.Tooltip#isActive
 	*/
 
 	/**
-	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
-	* @public
-	* @name ch.Tooltip#isActive
-	* @function 
-	* @returns boolean
+	* @borrows ch.Floats#show as ch.Tooltip#show
 	*/
 
 	/**
-	* Triggers the innerShow method and returns the public scope to keep method chaining.
-	* @public
-	* @name ch.Tooltip#show
-	* @function
-	* @returns itself
-	* @see ch.Floats#show
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.show();
+	* @borrows ch.Floats#hide as ch.Tooltip#hide
 	*/
 
 	/**
-	* Triggers the innerHide method and returns the public scope to keep method chaining.
-	* @public
-	* @name ch.Tooltip#hide
-	* @function
-	* @returns itself
-	* @see ch.Floats#hide
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.hide();
+	* @borrows ch.Floats#width as ch.Tooltip#width
 	*/
 
 	/**
-	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
-	* @public
-	* @name ch.Tooltip#width
-	* @function
-	* @returns itself
-	* @see ch.Floats#size
-	* @example
-	* // to set the width
-	* me.width(700);
-	* @example
-	* // to get the width
-	* me.width // 700
+	* @borrows ch.Floats#height as ch.Tooltip#height
 	*/
 
 	/**
-	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
-	* @public
-	* @name ch.Tooltip#height
-	* @function
-	* @returns itself
-	* @see ch.Floats#size
-	* @example
-	* // to set the heigth
-	* me.height(300);
-	* @example
-	* // to get the heigth
-	* me.height // 300
+	* @borrows ch.Floats#position as ch.Tooltip#position
 	*/
 
 	/**
-	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
-	* @public
-	* @name ch.Tooltip#position
-	* @example
-	* // Change component's position.
-	* me.position({
-	*	offset: "0 10",
-	*	points: "lt lb"
-	* });
-	* @see ch.Object#position
+	* @borrows ch.Floats#closable as ch.Tooltip#closable
 	*/
 
 /**
@@ -256,39 +184,14 @@ ch.tooltip = function (conf) {
 		.bind("mouseenter", that.innerShow)
 		.bind("mouseleave", that.innerHide);
 	
-
-	/**
-	* Triggers when component is visible.
-	* @name ch.Tooltip#show
-	* @event
-	* @public
-	* @example
-	* me.on("show",function () {
-	*	this.content("Some new content");
-	* });
-	* @see ch.Floats#event:show
-	*/
-
-	/**
-	* Triggers when component is not longer visible.
-	* @name ch.Tooltip#hide
-	* @event
-	* @public
-	* @example
-	* me.on("hide",function () {
-	*	otherComponent.show();
-	* });
-	* @see ch.Floats#event:hide
-	*/
-
 	/**
 	* Triggers when component is ready to use.
 	* @name ch.Tooltip#ready
 	* @event
 	* @public
 	* @example
-	* // Following the first example, using 'me' as tooltip's instance controller:
-	* me.on("ready",function () {
+	* // Following the first example, using <code>widget</code> as tooltip's instance controller:
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/
