@@ -1,5 +1,5 @@
 /**
-* Is a UI Widget for picking dates.
+* Datepicker lets you select dates.
 * @name DatePicker
 * @class DatePicker
 * @augments ch.Controls
@@ -15,9 +15,13 @@
 * @param {Array} [conf.weekdays] By default is ["Dom", ... , "Sab"].
 * @param {Boolean} [conf.closable] Defines if floated component will be closed when a date is selected or not. By default it's "true".
 * @returns itself
+* @factorized
+* @exampleDescription Create a new datePicker.
 * @example
-* // Create a new Date Picker with configuration.
-* var me = $(".example").datePicker({
+* var widget = $(".example").datePicker();
+* @exampleDescription Create a new Date Picker with configuration.
+* @example
+* var widget = $(".example").datePicker({
 *	 "format": "MM/DD/YYYY",
 *	 "selected": "2011/12/25",
 *	 "from": "2010/12/25",
@@ -25,9 +29,6 @@
 *	 "monthsNames": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 *	 "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
 * });
-* @example
-* // Create a new datePicker with a class name 'example'.
-* var me = $(".example").datePicker();
 */
 
 ch.datePicker = function (conf) {
@@ -73,7 +74,7 @@ ch.datePicker = function (conf) {
 	that.process = function (event) {
 
 		// Day selection
-		if (event.target.nodeName !== "TD" || event.target.className.indexOf("ch-disabled") !== -1 || event.target.className.indexOf("ch-calendar-other") !== -1) { return; }
+		if (event.target.nodeName !== "TD" || event.target.classNawidget.indexOf("ch-disabled") !== -1 || event.target.classNawidget.indexOf("ch-calendar-other") !== -1) { return; }
 
 		// Select the day and update input value with selected date
 		that.element.value = that.calendar.selectDay(event.target.innerHTML);
@@ -84,7 +85,7 @@ ch.datePicker = function (conf) {
 		/**
 		* Callback function
 		* @public
-		* @name ch.datePicker#select
+		* @name ch.DatePicker#select
 		* @event
 		*/
 		// Old callback system
@@ -138,35 +139,26 @@ ch.datePicker = function (conf) {
 */
 
 	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.DatePicker#uid
-	* @type Number
+	* @borrows ch.Object#uid as ch.Menu#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.Menu#element
 	*/
 
 	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.DatePicker#element
-	* @type HTMLElement
-	*/
-
-	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.DatePicker#type
-	* @type String
+	* @borrows ch.Object#type as ch.Menu#type
 	*/
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @function
 	* @name ch.DatePicker#show
+	* @function
 	* @returns itself
+	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.show();
+	* widget.show();
 	*/
 	that["public"].show = function () {
 		that["float"].innerShow();
@@ -177,12 +169,12 @@ ch.datePicker = function (conf) {
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
+	* @name ch.DatePicker#show
 	* @function
-	* @name ch.DatePicker#hide
 	* @returns itself
+	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.hide();
+	* widget.hide();
 	*/
 	that["public"].hide = function () {
 		that["float"].innerHide();
@@ -194,8 +186,8 @@ ch.datePicker = function (conf) {
 	* Select a specific date or returns the selected date.
 	* @public
 	* @since 0.9
-	* @function
 	* @name ch.DatePicker#select
+	* @function
 	* @param {string} "YYYY/MM/DD".
 	* @return itself
 	*/
@@ -215,8 +207,8 @@ ch.datePicker = function (conf) {
 	* Returns date of today
 	* @public
 	* @since 0.9
-	* @function
 	* @name ch.DatePicker#today
+	* @function
 	* @return date
 	*/
 	that["public"].today = function () {
@@ -226,10 +218,10 @@ ch.datePicker = function (conf) {
 	/**
 	* Move to the next month or year. If it isn't specified, it will be moved to next month.
 	* @public
-	* @name ch.DatePicker#next
 	* @function
+	* @name ch.DatePicker#next
 	* @param {String} time A string that allows specify if it should move to next month or year.
-	* @return {itself}
+	* @return itself
 	* @default Next month
 	*/
 	that["public"].next = function (time) {
@@ -242,8 +234,9 @@ ch.datePicker = function (conf) {
 	* Move to the previous month or year. If it isn't specified, it will be moved to previous month.
 	* @public
 	* @function
+	* @name ch.DatePicker#prev
 	* @param {String} time A string that allows specify if it should move to previous month or year.
-	* @return {itself}
+	* @return itself
 	* @default Previous month
 	*/
 	that["public"].prev = function (time) {
@@ -255,8 +248,8 @@ ch.datePicker = function (conf) {
 	/**
 	* Reset the Date Picker to date of today
 	* @public
-	* @function
 	* @name ch.DatePicker#reset
+	* @function
 	* @return itself
 	*/
 	that["public"].reset = function () {
@@ -272,8 +265,8 @@ ch.datePicker = function (conf) {
 	/**
 	* Set a minimum selectable date.
 	* @public
-	* @function
 	* @name ch.DatePicker#from
+	* @function
 	* @param {string} "YYYY/MM/DD".
 	* @return itself
 	*/
@@ -286,8 +279,8 @@ ch.datePicker = function (conf) {
 	/**
 	* Set a maximum selectable date.
 	* @public
-	* @function
 	* @name ch.DatePicker#to
+	* @function
 	* @param {string} "YYYY/MM/DD".
 	* @return itself
 	*/
@@ -318,9 +311,9 @@ ch.datePicker = function (conf) {
 	* @name ch.DatePicker#ready
 	* @event
 	* @public
+	* @exampleDescription Following the first example, using <code>widget</code> as Date Picker's instance controller:
 	* @example
-	* // Following the first example, using 'me' as Date Picker's instance controller:
-	* me.on("ready", function () {
+	* widget.on("ready", function () {
 	* 	this.show();
 	* });
 	*/

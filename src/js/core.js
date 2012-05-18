@@ -1,7 +1,8 @@
 /**
-* Chico-UI namespace
+* ch is the namespace for Chico-UI.
 * @namespace ch
 * @name ch
+* @static
 */
 
 var ch = window.ch = {
@@ -44,7 +45,8 @@ var ch = window.ch = {
 	},
 	/**
 	* References and commons functions.
-	* @name utils
+	* @name Utils
+	* @class Utils
 	* @type object
 	* @memberOf ch
 	*/
@@ -75,13 +77,24 @@ var ch = window.ch = {
 			});
 			return $(selector, context).length > 0;
 		},
+		/**
+		* Checks if the parameter given is an Array.
+		* @name isArray
+		* @public
+		* @param o The member to be checked
+		* @function
+		* @memberOf ch.Utils
+		* @returns boolean
+		*/
 		isArray: function (o) {
 			return Object.prototype.toString.apply(o) === "[object Array]";
 		},
 		/**
 		* Checks if the url given is right to load content.
 		* @name isUrl
+		* @public
 		* @function
+		* @memberOf ch.Utils
 		* @returns boolean
 		*/
 		isUrl: function (url) {
@@ -154,7 +167,7 @@ var ch = window.ch = {
 		23. qdasdasda
 		24. http://ui.ml.com:8080:8080/ajax.html
 		*/
-			return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)(\w+=(\w?)+(&?))+)?$/).test(url));
+			return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(url));
 		},
 		avoidTextSelection: function () {
 			$.each(arguments, function(i, e){
@@ -188,116 +201,121 @@ var ch = window.ch = {
 
 			}
 		}
-	},
-
-	/**
-	* Chico-UI global events reference.
-	* @abstract
-	* @name Events
-	* @class Events
-	* @type object
-	* @standalone
-	* @memberOf ch 
-	* @see ch.Events.KEY
-	* @see ch.Events.LAYOUT
-	* @see ch.Events.VIEWPORT
-	*/	
-	events: {
-		/**
-		* Layout event collection.
-		* @name LAYOUT
-		* @namespace LAYOUT
-		* @memberOf ch.Events
-		*/
-		LAYOUT: {
-			/**
-			* Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
-			* @name CHANGE
-			* @memberOf ch.Events.LAYOUT
-			* @constant
-			* @see ch.Form
-			* @see ch.Layer
-			* @see ch.Tooltip
-			* @see ch.Helper 
-			*/
-			CHANGE: "change"
-		},
-		/**
-		* Viewport event collection.
-		* @name VIEWPORT
-		* @namespace VIEWPORT
-		* @memberOf ch.Events
-		*/
-		VIEWPORT: {
-			/**
-			* Every time Chico-UI needs to inform all visual components that window has been scrolled or resized, he triggers this event.
-			* @name CHANGE
-			* @constant
-			* @memberOf ch.Events.VIEWPORT
-			* @see ch.Positioner
-			*/
-			CHANGE: "change"
-		},
-		/**
-		* Keryboard event collection.
-		* @name KEY
-		* @constant
-		* @namespace KEY
-		* @memberOf ch.Events
-		*/
-		KEY: {
-			/**
-			* Enter key event.
-			* @name ENTER
-			* @constant
-			* @memberOf ch.Events.KEY
-			*/
-			ENTER: "enter",
-			/**
-			* Esc key event.
-			* @name ESC
-			* @constant
-			* @memberOf ch.Events.KEY
-			*/
-			ESC: "esc",
-			/**
-			* Left arrow key event.
-			* @name LEFT_ARROW
-			* @constant
-			* @memberOf ch.Events.KEY
-			*/
-			LEFT_ARROW: "left_arrow",
-			/**
-			* Up arrow key event.
-			* @name UP_ARROW
-			* @constant
-			* @memberOf ch.Events.KEY
-			*/
-			UP_ARROW: "up_arrow",
-			/**
-			* Rigth arrow key event.
-			* @name RIGHT_ARROW
-			* @constant
-			* @memberOf ch.Events.KEY
-			*/
-			RIGHT_ARROW: "right_arrow",
-			/**
-			* Down arrow key event.
-			* @name DOWN_ARROW
-			* @constant
-			* @memberOf ch.Events.KEY
-			*/
-			DOWN_ARROW: "down_arrow",
-			/**
-			* Backspace key event.
-			* @name BACKSPACE
-			* @constant
-			* @memberOf ch.Events.KEY
-			*/
-			BACKSPACE: "backspace"
-		}
 	}
 };
+/**
+* Chico-UI global events reference.
+* @name Events
+* @class Events
+* @memberOf ch
+* @static
+*/	
+ch.events: {
+	/**
+	* Layout event collection.
+	* @name LAYOUT
+	* @public
+	* @static
+	* @constant
+	* @type object
+	* @memberOf ch.Events
+	*/
+	LAYOUT: {
+		/**
+		* Every time Chico-UI needs to inform al visual components that layout has been changed, he triggers this event.
+		* @name CHANGE
+		* @memberOf ch.Events.LAYOUT
+		* @public
+		* @type string
+		* @constant
+		* @see ch.Form
+		* @see ch.Layer
+		* @see ch.Tooltip
+		* @see ch.Helper 
+		*/
+		CHANGE: "change"
+	},
+	/**
+	* Viewport event collection.
+	* @name VIEWPORT
+	* @public
+	* @static
+	* @constant
+	* @type object
+	* @memberOf ch.Events
+	*/
+	VIEWPORT: {
+		/**
+		* Every time Chico-UI needs to inform all visual components that window has been scrolled or resized, he triggers this event.
+		* @name CHANGE
+		* @constant
+		* @memberOf ch.Events.VIEWPORT
+		* @see ch.Positioner
+		*/
+		CHANGE: "change"
+	},
+	/**
+	* Keryboard event collection.
+	* @name KEY
+	* @public
+	* @static
+	* @constant
+	* @type object
+	* @memberOf ch.Events
+	*/
+	KEY: {
+		/**
+		* Enter key event.
+		* @name ENTER
+		* @constant
+		* @memberOf ch.Events.KEY
+		*/
+		ENTER: "enter",
+		/**
+		* Esc key event.
+		* @name ESC
+		* @constant
+		* @memberOf ch.Events.KEY
+		*/
+		ESC: "esc",
+		/**
+		* Left arrow key event.
+		* @name LEFT_ARROW
+		* @constant
+		* @memberOf ch.Events.KEY
+		*/
+		LEFT_ARROW: "left_arrow",
+		/**
+		* Up arrow key event.
+		* @name UP_ARROW
+		* @constant
+		* @memberOf ch.Events.KEY
+		*/
+		UP_ARROW: "up_arrow",
+		/**
+		* Rigth arrow key event.
+		* @name RIGHT_ARROW
+		* @constant
+		* @memberOf ch.Events.KEY
+		*/
+		RIGHT_ARROW: "right_arrow",
+		/**
+		* Down arrow key event.
+		* @name DOWN_ARROW
+		* @constant
+		* @memberOf ch.Events.KEY
+		*/
+		DOWN_ARROW: "down_arrow",
+		/**
+		* Backspace key event.
+		* @name BACKSPACE
+		* @constant
+		* @memberOf ch.Events.KEY
+		*/
+		BACKSPACE: "backspace"
+	}
+};
+
 
 /** 
 * Utility to clone objects
@@ -321,7 +339,6 @@ ch.clon = function(o) {
 
 /** 
 * Class to create UI Components
-* @abstract
 * @name Factory
 * @class Factory
 * @param o Configuration Object
@@ -454,7 +471,6 @@ ch.factory = function(o) {
 
 /**
 * Load components or content
-* @abstract
 * @name Get
 * @class Get
 * @param {object} o Configuration object 
@@ -510,10 +526,9 @@ ch.get = function(o) {
 
 /**
 * Returns a data object with features supported by the device
-* @abstract
 * @name Support
 * @class Support
-* @returns object
+* @returns {object}
 * @memberOf ch 
 */
 ch.support = function() {
@@ -586,7 +601,6 @@ ch.support = function() {
 
 /**
 * Extend is a utility that resolve creating interfaces problem for all UI-Objects.
-* @abstract
 * @name Extend
 * @class Extend
 * @memberOf ch
@@ -594,15 +608,14 @@ ch.support = function() {
 * @param {function} klass Class to inherit from.
 * @param {function} [process] Optional function to pre-process configuration, recieves a 'conf' param and must return the configration object.
 * @returns class
+* @exampleDescription Create an URL interface type based on String component.
 * @example
-* // Create an URL interface type based on String component.
 * ch.extend("string").as("url");
+* @exampleDescription Create an Accordion interface type based on Menu component.
 * @example
-* // Create an Accordion interface type based on Menu component.
 * ch.extend("menu").as("accordion"); 
+* @exampleDescription And the coolest one... Create an Transition interface type based on his Modal component, with some conf manipulations:
 * @example
-* // And the coolest one...
-* // Create an Transition interface type based on his Modal component, with some conf manipulations:
 * ch.extend("modal").as("transition", function(conf) {
 *	conf.closeButton = false;
 *	conf.msg = conf.msg || conf.content || "Please wait...";

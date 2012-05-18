@@ -1,8 +1,8 @@
 /**
-* Abstract class that brings the functionality of all form controls.
+* Controls brings the functionality of all form controls.
 * @abstract
 * @name Controls
-* @class Controls 
+* @class Controls
 * @augments ch.Uiobject
 * @requires ch.Floats
 * @memberOf ch

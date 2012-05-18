@@ -1,6 +1,5 @@
 /**
 * Viewport is a reference to position and size of the visible area of browser.
-* @abstract
 * @name Viewport
 * @class Viewport
 * @standalone

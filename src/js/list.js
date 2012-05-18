@@ -1,7 +1,5 @@
-
 /**
-* Manage collections with abstract lists. Create a list of objects, add, get and remove.
-* @abstract
+* List lets you manage collections. Create a list of objects, add, get and remove.
 * @name List
 * @class List
 * @standalone

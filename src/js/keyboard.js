@@ -1,10 +1,8 @@
-
 /**
-* Keyboard event controller utility to know wich keys are begin
-* @abstract
+* Keyboard event controller utility to know wich keys are begin.
 * @name Keyboard
 * @class Keyboard
-* @memberOF ch
+* @memberOf ch
 * @param event
 */ 
 

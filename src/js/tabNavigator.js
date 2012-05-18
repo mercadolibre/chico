@@ -1,5 +1,5 @@
 /**
-* TabNavigator UI-Component for static and dinamic content.
+* TabNavigator lets you create tabs for static and dynamic content.
 * @name TabNavigator
 * @class TabNavigator
 * @augments ch.Controllers
@@ -7,14 +7,15 @@
 * @param {Object} [conf] Object with configuration properties.
 * @param {Number} [conf.selected] Selects a child that will be open when component was loaded. By default, the value is 1.
 * @returns itself
+* @factorized
+* @exampleDescription Create a new Tab Navigator without configuration.
 * @example
-* // Create a new Tab Navigator with configuration.
-* var me = $(".example").tabNavigator({
+* var widget = $(".example").tabNavigator();
+* @exampleDescription Create a new Tab Navigator with configuration.
+* @example
+* var widget = $(".example").tabNavigator({
 *     "selected": 2
 * });
-* @example
-* // Create a new Tab Navigator without configuration.
-* var me = $(".example").tabNavigator();
 */
 
 ch.tabNavigator = function (conf) {
@@ -98,7 +99,7 @@ ch.tabNavigator = function (conf) {
 				if (ch.utils.hasOwn(that.conf, "cache")) { config.cache = that.conf.cache; }
 	
 				/**
-				* Callback function
+				* Fired when the content of one dynamic tab loads.
 				* @name ch.TabNavigator#onContentLoad
 				* @event
 				* @public
@@ -106,7 +107,7 @@ ch.tabNavigator = function (conf) {
 				if (ch.utils.hasOwn(that.conf, "onContentLoad")) { config.onContentLoad = that.conf.onContentLoad; }
 				
 				/**
-				* Callback function
+				* Fired when the content of one dynamic tab did not load.
 				* @name ch.TabNavigator#onContentError
 				* @event
 				* @public
@@ -156,7 +157,7 @@ ch.tabNavigator = function (conf) {
 			window.location.hash = "#!" + tab.$content.attr("id");
 	
 			/**
-			* Callback function
+			* Fired when a tab is selected.
 			* @name ch.TabNavigator#onSelect
 			* @event
 			* @public
@@ -195,24 +196,15 @@ ch.tabNavigator = function (conf) {
 */
 
 	/**
-	* The component's instance unique identifier.
-	* @public
-	* @name ch.TabNavigator#uid
-	* @type number
+	* @borrows ch.Object#uid as ch.TabNavigator#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.TabNavigator#element
 	*/
 
 	/**
-	* The element reference.
-	* @public
-	* @name ch.TabNavigator#element
-	* @type HTMLElement
-	*/
-
-	/**
-	* The component's type.
-	* @public
-	* @name ch.TabNavigator#type
-	* @type string
+	* @borrows ch.Object#type as ch.TabNavigator#type
 	*/
 
 	/**
@@ -226,18 +218,15 @@ ch.tabNavigator = function (conf) {
 	/**
 	* Select a specific child or get the selected tab.
 	* @public
-	* @function
 	* @name ch.TabNavigator#select
+	* @function
 	* @param {number} tab Tab's index.
+	* @exampleDescription Create a TabNavigator
 	* @example
-	* // Create a TabNavigator
-	* var foo = $("bar").tabNavigator();
-	* 
-	* // Select page
-	* foo.select(2);
+	* widget.select(2);
 	* 
 	* // Get selected page
-	* var selected = foo.select();
+	* var selected = widget.select();
 	*/
 	that["public"].select = function (tab) {
 		// Returns selectd tab instead set it
@@ -253,8 +242,8 @@ ch.tabNavigator = function (conf) {
 	/**
 	* Deprecated - Returns the selected child's index.
 	* @public
-	* @function
 	* @name ch.TabNavigator#getSelected
+	* @function
 	* @returns {number} selected Tab's index.
 	* @deprecated
 	*/
@@ -287,8 +276,8 @@ ch.tabNavigator = function (conf) {
 	* @public
 	* @since 0.8.0
 	* @example
-	* // Following the first example, using 'me' as tabNavigator's instance controller:
-	* me.on("ready",function () {
+	* // Following the first example, using <code>widget</code> as tabNavigator's instance controller:
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/
@@ -302,7 +291,7 @@ ch.tabNavigator = function (conf) {
 ch.factory("tabNavigator");
 
 /**
-* Simple unit of content for TabNavigators.
+* Tab is a simple unit of content for TabNavigators.
 * @abstract
 * @name Tab
 * @class Tab
@@ -310,6 +299,7 @@ ch.factory("tabNavigator");
 * @memberOf ch
 * @param {object} conf Object with configuration properties
 * @returns itself
+* @ignore
 */
 
 ch.tab = function (conf) {
@@ -318,6 +308,7 @@ ch.tab = function (conf) {
 	* @private
 	* @name ch.Tab#that
 	* @type object
+	* @ignore
 	*/
 	var that = this;
 
@@ -341,6 +332,7 @@ ch.tab = function (conf) {
 	* @private
 	* @name ch.Tab#createContent
 	* @function
+	* @ignore
 	*/
 	var createContent = function () {
 		
@@ -359,6 +351,7 @@ ch.tab = function (conf) {
 			* @public
 			* @name ch.Tab#source
 			* @type string
+			* @ignore
 			*/
 			that.source = that.element.href;
 
@@ -378,6 +371,7 @@ ch.tab = function (conf) {
 	* @protected
 	* @name ch.Tab#$trigger
 	* @type jQuery
+	* @ignore
 	*/
 	that.$trigger = that.$element;
 
@@ -386,6 +380,7 @@ ch.tab = function (conf) {
 	* @protected
 	* @name ch.Tab#$content
 	* @type jQuery
+	* @ignore
 	*/
 	that.$content = createContent();
 
@@ -395,6 +390,7 @@ ch.tab = function (conf) {
 	* @function
 	* @name ch.Tab#innerShow
 	* @returns itself
+	* @ignore
 	*/
 	that.innerShow = function (event) {
 		that.prevent(event);
@@ -424,6 +420,7 @@ ch.tab = function (conf) {
 	* @function
 	* @name ch.Tab#innerHide
 	* @returns itself
+	* @ignore
 	*/
 	that.innerHide = function (event) {
 		that.prevent(event);
@@ -441,6 +438,7 @@ ch.tab = function (conf) {
 	* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
 	* @protected
 	* @name ch.Tab#contentCallback
+	* @ignore
 	*/
 	that["public"].on("contentLoad", function (event, context) {
 
@@ -458,6 +456,7 @@ ch.tab = function (conf) {
 	* @name contentCallback
 	* @returns {Chico-UI Object}
 	* @memberOf ch.TabNavigator
+	* @ignore
 	*/
 	that["public"].on("contentError", function (event, data) {
 

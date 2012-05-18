@@ -1,10 +1,9 @@
-
 /**
-* Create custom validation interfaces for Validator validation engine.
+* Custom creates a validation interface for validation engine.
 * @name Custom
 * @class Custom
-* @interface
 * @augments ch.Controls
+* @augments ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.message] Validation message.
@@ -13,15 +12,16 @@
 * @param {String} [conf.context] It's a reference to position the validation-bubble
 * @param {Function} function Custom function to evaluete a value.
 * @returns itself
+* @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Number
 * @see ch.String
 * @see ch.Validator
 * @see ch.Condition
+* @exampleDescription Validate a even number
 * @example
-* // Validate a even number
-* $("input").custom(function (value) {
+* var widget = $("input").custom(function (value) {
 * 	return (value%2==0) ? true : false;
 * }, "Enter a even number");
 */

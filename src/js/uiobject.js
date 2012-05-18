@@ -1,10 +1,13 @@
 /**
-* Object represent the abstract class of all UI Objects.
+* Object represents the abstract class of all widgets.
 * @abstract
 * @name Uiobject
 * @class Uiobject
 * @augments ch.Object
 * @memberOf ch
+* @exampleDescription 
+* @example
+* ch.uiobject.call();
 * @see ch.Controllers
 * @see ch.Floats
 * @see ch.Navs
@@ -34,12 +37,12 @@ ch.uiobject = function(){
 
 
 /**
-*	Public Members
+*	Protected Members
 */
 
 	/**
 	* Component static content.
-	* @public
+	* @protected
 	* @name ch.Uiobject#staticContent
 	* @type string
 	*/
@@ -47,7 +50,7 @@ ch.uiobject = function(){
 
 	/**
 	* DOM Parent of content, this is useful to attach DOM Content when float is hidding.
-	* @public
+	* @protected
 	* @name ch.Uiobject#DOMParent
 	* @type HTMLElement
 	*/
@@ -55,7 +58,7 @@ ch.uiobject = function(){
 
 	/**
 	* Component original content.
-	* @public
+	* @protected
 	* @name ch.Uiobject#originalContent
 	* @type HTMLElement
 	*/
@@ -63,20 +66,21 @@ ch.uiobject = function(){
 
 	/**
 	* Set and get the content of a component. With no arguments will behave as a getter function. Send any kind of content and will be a setter function. Use a valid URL for AJAX content, use a CSS selector for a DOM content or just send a static content like HTML or Text.
+	* @ignore
 	* @name ch.Uiobject#content
 	* @protected
 	* @function
 	* @param {string} [content] Could be a simple text, html or a url to get the content with ajax.
 	* @returns {string} content
 	* @requires ch.Cache
+	* @exampleDescription Simple static content
 	* @example
-	* // Simple static content
 	* $(element).layer().content("Some static content");
+	* @exampleDescription Get DOM content
 	* @example
-	* // Get DOM content
 	* $(element).layer().content("#hiddenContent");
+	* @exampleDescription Get AJAX content
 	* @example
-	* // Get AJAX content
 	* $(element).layer().content("http://chico.com/content/layer.html");
 	*/
 	that.content = function(content) {
@@ -309,47 +313,24 @@ ch.uiobject = function(){
 	*/
 
 	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.Uiobject#uid
-	* @type number
+	* Sets and gets component content. To get the defined content just use the method without arguments, like 'widget.content()'. To define a new content pass an argument to it, like 'widget.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
 	* @ignore
-	*/
-
-	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.Uiobject#element
-	* @type HTMLElement
-	* @ignore
-	*/
-
-	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.Uiobject#type
-	* @type string
-	* @ignore
-	*/
-
-	/**
-	* Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
 	* @public
 	* @name ch.Uiobject#content
 	* @function
 	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
+	* @exampleDescription Get the defined content
 	* @example
-	* // Get the defined content
-	* me.content();
+	* widget.content();
+	* @exampleDescription Set static content
 	* @example
-	* // Set static content
-	* me.content("Some static content");
+	* widget.content("Some static content");
+	* @exampleDescription Set DOM content
 	* @example
-	* // Set DOM content
-	* me.content("#hiddenContent");
+	* widget.content("#hiddenContent");
+	* @exampleDescription Set AJAX content
 	* @example
-	* // Set AJAX content
-	* me.content("http://chico.com/some/content.html");
+	* widget.content("http://chico.com/some/content.html");
 	*/
 	that["public"].content = function(content){
 		if (content) { // sets
@@ -369,55 +350,21 @@ ch.uiobject = function(){
 	};
 	
 	/**
-	* Triggers a specific event within the component public context.
-	* @name ch.Object#trigger
-	* @function
-	* @public
-	* @param {string} event The event name you want to trigger.
-	* @since version 0.7.1
+	* @borrows ch.Object#trigger as ch.Uiobject#trigger
+	*/
+
+	/**
+	* @borrows ch.Object#on as ch.Uiobject#on
+	*/
+
+	/**
+	* @borrows ch.Object#once as ch.Uiobject#once
+	*/
+
+	/**
+	* @borrows ch.Object#off as ch.Uiobject#off
 	*/
 	
-	/**
-	* Add a callback function from specific event.
-	* @public
-	* @function
-	* @name ch.Object#on
-	* @param {string} event Event name.
-	* @param {function} handler Handler function.
-	* @returns itself
-	* @since version 0.7.1
-	* @example
-	* // Will add a event handler to the "ready" event
-	* me.on("ready", startDoingStuff);
-	*/
-
-	/**
-	* Add a callback function from specific event once.
-	* @public
-	* @function
-	* @name ch.Object#once
-	* @param {string} event Event name.
-	* @param {function} handler Handler function.
-	* @returns itself
-	* @since version 0.8.0
-	* @example
-	* // Will add a event handler to the "contentLoad" event once
-	* me.once("contentLoad", startDoingStuff);
-	*/
-
-	/**
-	* Removes a callback function from specific event.
-	* @public
-	* @function
-	* @name ch.Object#off
-	* @param {string} event Event name.
-	* @param {function} handler Handler function.
-	* @returns itself
-	* @since version 0.7.1
-	* @example
-	* // Will remove event handler to the "ready" event
-	* me.off("ready", startDoingStuff);
-	*/
 
 	return that;
 };

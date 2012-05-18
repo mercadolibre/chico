@@ -1,5 +1,5 @@
 /**
-* Is a UI Widget for show dates.
+* Calendar shows months, and lets you move across the months of the year. Calendar lets you set one or many dates as selected. 
 * @name Calendar
 * @class Calendar
 * @augments ch.Uiobject
@@ -13,9 +13,13 @@
 * @param {Array} [conf.monthsNames] By default is ["Enero", ... , "Diciembre"].
 * @param {Array} [conf.weekdays] By default is ["Dom", ... , "Sab"].
 * @returns itself
+* @factorized
+* @exampleDescription Create a new Calendar with a class name 'example'.
 * @example
-* // Create a new Calendar with configuration.
-* var me = $(".example").calendar({
+* var widget = $(".example").calendar();
+* @exampleDescription Create a new Calendar with configuration.
+* @example
+* var widget = $(".example").calendar({
 *	 "format": "MM/DD/YYYY",
 *	 "selected": "2011/12/25",
 *	 "from": "2010/12/25",
@@ -23,9 +27,6 @@
 *	 "monthsNames": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 *	 "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
 * });
-* @example
-* // Create a new Calendar with a class name 'example'.
-* var me = $(".example").calendar();
 */
 
 ch.calendar = function (conf) {
@@ -191,7 +192,7 @@ ch.calendar = function (conf) {
 	/**
 	* Sets the date object of selected day.
 	* @private
-	* @name ch.Calendar#selected
+	* @name ch.Calendar#setSelected
 	* @type Object
 	*/
 		setSelected = function () {
@@ -228,7 +229,7 @@ ch.calendar = function (conf) {
 	/**
 	* Date of selected day.
 	* @private
-	* @name ch.Calendar#selected
+	* @name ch.Calendar-selected
 	* @type Object
 	*/
 		selected = setSelected(),
@@ -278,7 +279,7 @@ ch.calendar = function (conf) {
 		},
 
 	/**
-	* Thead tag, including ARIA and cells with each weekday name.
+	* Thead tag, including ARIA and cells with each weekday nawidget.
 	* @private
 	* @name ch.Calendar#thead
 	* @type String
@@ -535,10 +536,15 @@ ch.calendar = function (conf) {
 			updateTable(selected);
 
 			/**
-			* Callback function
+			* It triggers a callback when a date is selected.
 			* @public
 			* @name ch.Calendar#select
 			* @event
+			* @exampleDescription
+			* @example
+			* widget.on("select",function(){
+			* 	sowidget.action();
+			* });
 			*/
 			// Old callback system
 			that.callbacks("onSelect");
@@ -567,10 +573,15 @@ ch.calendar = function (conf) {
 			updateTable([currentDate.year, currentDate.month + 1, "01"].join("/"));
 
 			/**
-			* Callback function
+			* It triggers a callback when a next month is shown.
 			* @public
 			* @name ch.Calendar#nextMonth
 			* @event
+			* @exampleDescription
+			* @example
+			* widget.on("nextMonth",function(){
+			* 	sowidget.action();
+			* });
 			*/
 			// Callback
 			that.callbacks("onNextMonth");
@@ -599,10 +610,15 @@ ch.calendar = function (conf) {
 			updateTable([currentDate.year, currentDate.month - 1, "01"].join("/"));
 
 			/**
-			* Callback function
+			* It triggers a callback when a previous month is shown.
 			* @public
 			* @name ch.Calendar#prevMonth
 			* @event
+			* @exampleDescription
+			* @example
+			* widget.on("prevMonth",function(){
+			* 	sowidget.action();
+			* });
 			*/
 			// Callback
 			that.callbacks("onPrevMonth");
@@ -625,10 +641,15 @@ ch.calendar = function (conf) {
 			updateTable([currentDate.year + 1, currentDate.month, "01"].join("/"));
 
 			/**
-			* Callback function
+			* It triggers a callback when a next year is shown.
 			* @public
 			* @name ch.Calendar#nextYear
 			* @event
+			* @exampleDescription
+			* @example
+			* widget.on("nextYear",function(){
+			* 	sowidget.action();
+			* });
 			*/
 			// Callback
 			that.callbacks("onNextYear");
@@ -651,10 +672,15 @@ ch.calendar = function (conf) {
 			updateTable([currentDate.year - 1, currentDate.month, "01"].join("/"));
 
 			/**
-			* Callback function
+			* It triggers a callback when a previous year is shown.
 			* @public
 			* @name ch.Calendar#prevYear
 			* @event
+			* @exampleDescription
+			* @example
+			* widget.on("prevYear",function(){
+			* 	sowidget.action();
+			* });
 			*/
 			// Callback
 			that.callbacks("onPrevYear");
@@ -670,35 +696,26 @@ ch.calendar = function (conf) {
 */
 
 	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.Calendar#uid
-	* @type Number
+	* @borrows ch.Object#uid as ch.Menu#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.Menu#element
 	*/
 
 	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.Calendar#element
-	* @type HTMLElement
-	*/
-
-	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.Calendar#type
-	* @type String
+	* @borrows ch.Object#type as ch.Menu#type
 	*/
 
 	/**
 	* Triggers the innerShow method and returns the public scope to keep method chaining.
 	* @public
-	* @function
 	* @name ch.Calendar#show
+	* @function
 	* @returns itself
+	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.show();
+	* widget.show();
 	*/
 	that["public"].show = function () {
 		that["float"].show();
@@ -709,12 +726,12 @@ ch.calendar = function (conf) {
 	/**
 	* Triggers the innerHide method and returns the public scope to keep method chaining.
 	* @public
-	* @function
 	* @name ch.Calendar#hide
+	* @function
 	* @returns itself
+	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.hide();
+	* widget.hide();
 	*/
 	that["public"].hide = function () {
 		that["float"].hide();
@@ -726,8 +743,8 @@ ch.calendar = function (conf) {
 	* Select a specific date or returns the selected date.
 	* @public
 	* @since 0.9
-	* @function
 	* @name ch.Calendar#select
+	* @function
 	* @param {string} "YYYY/MM/DD".
 	* @return itself
 	*/
@@ -747,8 +764,8 @@ ch.calendar = function (conf) {
 	* Select a specific day into current month and year.
 	* @public
 	* @since 0.10.1
-	* @function
 	* @name ch.Calendar#selectDay
+	* @function
 	* @param {string || number}
 	* @return {string} New selected date.
 	*/
@@ -766,8 +783,8 @@ ch.calendar = function (conf) {
 	* Returns date of today
 	* @public
 	* @since 0.9
-	* @function
 	* @name ch.Calendar#today
+	* @function
 	* @return date
 	*/
 	that["public"].today = function () {
@@ -780,7 +797,7 @@ ch.calendar = function (conf) {
 	* @name ch.Calendar#next
 	* @function
 	* @param {String} time A string that allows specify if it should move to next month or year.
-	* @return {itself}
+	* @return itself
 	* @default Next month
 	*/
 	that["public"].next = function (time) {
@@ -803,8 +820,9 @@ ch.calendar = function (conf) {
 	* Move to the previous month or year. If it isn't specified, it will be moved to previous month.
 	* @public
 	* @function
+	* @name ch.Calendar#prev
 	* @param {String} time A string that allows specify if it should move to previous month or year.
-	* @return {itself}
+	* @return itself
 	* @default Previous month
 	*/
 	that["public"].prev = function (time) {
@@ -826,8 +844,8 @@ ch.calendar = function (conf) {
 	/**
 	* Reset the Calendar to date of today
 	* @public
-	* @function
 	* @name ch.Calendar#reset
+	* @function
 	* @return itself
 	*/
 	that["public"].reset = function () {
@@ -840,8 +858,8 @@ ch.calendar = function (conf) {
 	* Set a minimum selectable date.
 	* @public
 	* @since 0.9
-	* @function
 	* @name ch.Calendar#from
+	* @function
 	* @param {string} "YYYY/MM/DD".
 	* @return itself
 	*/
@@ -854,8 +872,8 @@ ch.calendar = function (conf) {
 	* Set a maximum selectable date.
 	* @public
 	* @since 0.9
-	* @function
 	* @name ch.Calendar#to
+	* @function
 	* @param {string} "YYYY/MM/DD".
 	* @return itself
 	*/
@@ -887,9 +905,9 @@ ch.calendar = function (conf) {
 	* @event
 	* @public
 	* @since 0.8.0
+	* @exampleDescription Following the first example, using <code>widget</code> as Calendar's instance controller:
 	* @example
-	* // Following the first example, using 'me' as Calendar's instance controller:
-	* me.on("ready", function () {
+	* widget.on("ready", function () {
 	* 	this.show();
 	* });
 	*/

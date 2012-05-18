@@ -1,6 +1,5 @@
 /**
-* Validator is a validation engine for html forms elements.
-* @abstract
+* Validator is an engine for HTML forms elements.
 * @name Validator
 * @class Validator
 * @augments ch.Object
@@ -9,6 +8,7 @@
 * @param {Object} conf Object with configuration properties.
 * @param {Object} conf.conditions Object with conditions.
 * @returns itself
+* @factorized
 * @see ch.Condition
 */
 
@@ -93,8 +93,9 @@ ch.validator = function(conf) {
 			* @name ch.Validator#beforeValidate
 			* @event
 			* @public
+			* @exampleDescription 
 			* @example
-			* me.on("beforeValidate",function(){
+			* widget.on("beforeValidate",function(){
 			*	submitButton.disable();
 			* });
 			*/
@@ -118,8 +119,9 @@ ch.validator = function(conf) {
 					* @name ch.Validator#error
 					* @event
 					* @public
+					* @exampleDescription
 					* @example
-					* me.on("error",function(event, condition){
+					* widget.on("error",function(event, condition){
 					*	errorModal.show();
 					* });
 					*/
@@ -152,8 +154,9 @@ ch.validator = function(conf) {
 		* @name ch.Validator#afterValidate
 		* @event
 		* @public
+		* @exampleDescription
 		* @example
-		* me.on("afterValidate",function(){
+		* widget.on("afterValidate",function(){
 		*	submitButton.disable();
 		* });
 		*/
@@ -215,11 +218,8 @@ ch.validator = function(conf) {
 */
 
 	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.Validator#uid
-	* @type Number
-	*/
+	* @borrows ch.Object#uid as ch.TabNavigator#uid
+	*/	
 	
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
@@ -240,8 +240,8 @@ ch.validator = function(conf) {
 	/**
 	* Active is a boolean property that let you know if there's a validation going on.
 	* @public
-	* @name ch.Validator#isActive
 	* @function
+	* @name ch.Validator#isActive
 	* @returns itself
 	*/
 	that["public"].isActive = function() {
@@ -251,8 +251,8 @@ ch.validator = function(conf) {
 	/**
 	* Let you keep chaining methods.
 	* @public
-	* @name ch.Validator#and
 	* @function
+	* @name ch.Validator#and
 	* @returns itself
 	*/
 	that["public"].and = function(){
@@ -262,8 +262,8 @@ ch.validator = function(conf) {
 	/**
 	* Merge its conditions with a new conditions of another instance with the same trigger.
 	* @public
-	* @name ch.Validator#extend
 	* @function
+	* @name ch.Validator#extend
 	* @returns itself
 	*/
 	that["public"].extend = function(input){
@@ -275,8 +275,8 @@ ch.validator = function(conf) {
 	/**
 	* Clear all active validations.
 	* @public
-	* @name ch.Validator#clear
 	* @function
+	* @name ch.Validator#clear
 	* @returns itself
 	*/
 	that["public"].clear = function() {
@@ -300,8 +300,8 @@ ch.validator = function(conf) {
 	/**
 	* Turn on Validator engine or an specific condition.
 	* @public
+	* @name enable
 	* @name ch.Validator#enable
-	* @function
 	* @returns itself
 	*/
 	that["public"].enable = function(condition){
@@ -321,8 +321,8 @@ ch.validator = function(conf) {
 	/**
 	* Turn on Validator engine or an specific condition.
 	* @public
+	* @name disable
 	* @name ch.Validator#disable
-	* @function
 	* @returns itself
 	*/
 	that["public"].disable = function(condition){
@@ -347,9 +347,9 @@ ch.validator = function(conf) {
 	* @name ch.Validator#ready
 	* @event
 	* @public
+	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.on("ready",function(){
+	* widget.on("ready",function(){
 	*	this.show();
 	* });
 	*/

@@ -1,15 +1,15 @@
-
 /**
-* Pre-load is an utility to preload images on browser's memory. An array of sources will iterate and preload each one, a single source will do the same thing.
-* @abstract
+* Preload lets you load images on browser's memory. An array of sources will iterate and preload each one, a single source will do the same thing.
 * @name Preload
 * @class Preload
 * @standalone
 * @memberOf ch
 * @param {array} [arr] Collection of image sources
 * @param {string} [str] A single image source
+* @exampleDescription
 * @example
 * ch.preload(["img1.jpg","img2.jpg","img3.png"]);
+* @exampleDescription
 * @example
 * ch.preload("logo.jpg");
 */
