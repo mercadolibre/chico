@@ -1,0 +1,82 @@
+{+include("static/header.html")+}
+
+{!
+			
+	var divideClasses = function(data){
+			
+		var output = {
+			"w": "",
+			"n": "",
+			"s": "",
+			"a": ""
+		};
+
+		var makeHTMLMember = function(link,desc){
+			return "<article class='api-member-home-list'><h4>"+link+"</h4><p>"+desc+"</p></article>";
+		};
+
+		for(var i = 0, l = data.length; i < l; i++){
+			var thisClass = data[i];
+			var link = new Link().toSymbol(thisClass.alias);
+			var desc = resolveLinks(summarize(thisClass.desc));
+
+			if(thisClass.isAbstract){
+				output.a += makeHTMLMember(link,desc);	
+				continue;			
+			}
+
+			if(thisClass.isFactorized){
+				output.w +=	makeHTMLMember(link,desc);
+				continue;
+			}
+
+			if(thisClass.isNamespace && thisClass.name==="ch"){
+				output.n +=	makeHTMLMember(link,desc);
+				continue;	
+			}
+
+			if(thisClass.isStatic && !thisClass.isFactorized && !thisClass.isAbstract){
+				output.s +=	makeHTMLMember(link,desc);
+				continue;
+			}
+
+			
+		};
+
+		return output;
+
+	};
+
+	var classes = divideClasses(data);
+
+!}
+	
+	<section class="main" id="content">
+		
+			<h1>API Documentation</h1>
+			
+		<section class="ch-g1-2">
+			<h3>Chico Namespace</h3>
+			<div class="ch-leftcolumn">{+classes.n+}</div>
+		</section>
+		<section class="ch-g1-2 api-class-type-list">
+			<h2>Members</h2>
+			<section class="accordion">
+				<article>
+					<h3>Static</h3>
+					<div>{+classes.s+}</div>
+				</article>
+				<article>
+					<h3>Abstract</h3>
+					<div>{+classes.a+}</div>
+				</article>
+				<article>
+					<h3>Widget</h3>
+					<div>{+classes.w+}</div>
+				</article>
+			</section>
+		</section>
+	</section>
+
+	
+{+include("static/footer.html")+}
