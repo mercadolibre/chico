@@ -204,13 +204,13 @@ var ch = window.ch = {
 	}
 };
 /**
-* Chico-UI global events reference.
+* Chico UI global events reference.
 * @name Events
 * @class Events
 * @memberOf ch
 * @static
 */	
-ch.events: {
+ch.events = {
 	/**
 	* Layout event collection.
 	* @name LAYOUT
