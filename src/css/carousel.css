@@ -7,17 +7,11 @@
 	-ms-transform: translateZ(0);
 	-o-transform: translateZ(0);
 	transform: translateZ(0);
-	
-	/* TEMP */
-	background: red;
 }
 
 .ch-carousel-mask {
 	overflow: hidden;
 	position: relative;
-	
-	/* TEMP */
-	background: green;
 }
 
 .ch-carousel-adaptive {
@@ -32,9 +26,6 @@
 	-ms-transition: all .8s ease;
 	-o-transition: all .8s ease;
 	transition: all .8s ease;
-	
-	/* TEMP */
-	width: 50000px;
 }
 
 .ch-carousel ul.ch-carousel-nofx {
@@ -48,9 +39,6 @@
 .ch-carousel li {
 	display: inline-block;
 	float: left; /* Fixes the inline-block inner space between li elements */
-	
-	/* TEMP */
-	background: yellow;
 }
 
 .ch-carousel-loading {
@@ -62,9 +50,6 @@
 	cursor: pointer;
 	position: absolute;
 	z-index: 2;
-	
-	/* TEMP */
-	background: white;
 }
 
 .ch-carousel-prev { left: 0; }
@@ -101,9 +86,6 @@
 	text-align: center;
 	font-size: 0;
 	line-height: 0;
-	
-	/* TEMP */
-	background-color:orange;
 }
 
 .ch-carousel-pages span {

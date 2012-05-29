@@ -77,7 +77,16 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$list
 	* @type jQuery Object
 	*/
-		$list = that.$element.children().addClass("ch-carousel-list").attr("role", "list"),
+		$list = (function () {
+			
+			var l = that.$element.children().addClass("ch-carousel-list").attr("role", "list");
+			
+			var i = l.children();
+			
+			//l.css("width", (i.outerWidth() + (i.outerWidth() /2)) * i.length * 2);
+			
+			return l;
+		}()),
 
 	/**
 	* 
@@ -252,6 +261,10 @@ ch.carousel = function (conf) {
 			// The width of all items on a page, plus the width of all margins of items
 			pageWidth = (itemOuterWidth + extraWidth + margin) * itemsPerPage;
 			
+			// Update list width
+			// Consider one more page to get an error margin
+			$list.css("width", pageWidth * (pages + 1));
+			
 			// Update element styles
 			$items.css({
 				"width": itemWidth + extraWidth,
@@ -313,7 +326,9 @@ ch.carousel = function (conf) {
 			}
 
 			// Update the margin between items and its size
-			updateResponsiveness();
+			if (!ch.utils.hasOwn(conf, "width")) {
+				updateResponsiveness();
+			}
 		},
 
 	/**
@@ -346,7 +361,8 @@ ch.carousel = function (conf) {
 
 			}, 250);
 		},
-
+		
+	
 	/**
 	* Makes ready the component structure.
 	* @private
@@ -356,6 +372,8 @@ ch.carousel = function (conf) {
 		createLayout = function () {
 
 			setWidth();
+			
+			$list.css("width", itemOuterWidth * ($items.length + queue.length));
 
 			that.$element
 			// Wrap the list with mask
@@ -372,8 +390,9 @@ ch.carousel = function (conf) {
 			// 
 			if (!ch.features.transition) {
 				$list.css({ "position": "absolute", "left": "0" });
-				$mask.height($list.outerHeight());
 			}
+			
+			$mask.height($items.outerHeight());
 			
 			// 
 			arrowsFlow(conf.arrows);
