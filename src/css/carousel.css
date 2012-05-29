@@ -1,6 +1,6 @@
 .ch-carousel {
-	position: relative;
 	overflow: auto;
+	position: relative;
 	/* Enable hardware acceleration */
 	-webkit-transform: translateZ(0);
 	-moz-transform: translateZ(0);
@@ -19,13 +19,13 @@
 }
 
 .ch-carousel ul {
-	width: -moz-max-content;
 	overflow: hidden;
 	-webkit-transition: all .8s ease;
 	-moz-transition: all .8s ease;
 	-ms-transition: all .8s ease;
 	-o-transition: all .8s ease;
 	transition: all .8s ease;
+	width: -moz-max-content;
 }
 
 .ch-carousel ul.ch-carousel-nofx {
@@ -59,13 +59,13 @@
 .ch-carousel-next span {
 	background-image: url('../assets/carousel.png');
 	display: block;
-	text-indent: -99px;
-	overflow: hidden;
-	width: 11px;
 	height: 20px;
 	margin: 30px 18px;
+	overflow: hidden;
 	/* Bubble event to wrapper */
 	pointer-events: none;
+	text-indent: -99px;
+	width: 11px;
 }
 
 .ch-carousel-next span { background-position: -10px 0; }
@@ -81,24 +81,24 @@
 
 /* Pagination */
 .ch-carousel-pages {
-	width: 100%;
-	margin: 0 auto;
-	text-align: center;
 	font-size: 0;
 	line-height: 0;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
 }
 
 .ch-carousel-pages span {
-	width: 10px;
-	height: 10px;
-	text-indent: -99px;
-	overflow: hidden;
-	border-radius: 100%;
 	background-color: #d1d1d1;
+	border-radius: 100%;
 	box-shadow: 1px 1px #888 inset;
-	margin: 10px 5px;
 	cursor: pointer;
 	display: inline-block;
+	height: 10px;
+	margin: 10px 5px;
+	overflow: hidden;
+	text-indent: -99px;
+	width: 10px;
 }
 
 .ch-carousel-pages .ch-carousel-selected {
