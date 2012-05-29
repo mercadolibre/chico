@@ -1,5 +1,5 @@
 /**
-* Object represent the abstract class of all Objects.
+* Object represents the abstract class of all Objects.
 * @abstract
 * @name Object
 * @class Object
@@ -85,7 +85,6 @@ ch.object = function(){
 	* @public
 	* @name ch.Object#uid
 	* @type number
-	* @ignore
 	*/
 	that["public"].uid = that.uid;
 
@@ -94,7 +93,6 @@ ch.object = function(){
 	* @public
 	* @name ch.Object#element
 	* @type HTMLElement
-	* @ignore
 	*/
 	that["public"].element = that.element;
 
@@ -103,47 +101,46 @@ ch.object = function(){
 	* @public
 	* @name ch.Object#type
 	* @type string
-	* @ignore
 	*/
 	that["public"].type = that.type;
 	
 	/**
 	* Triggers a specific event within the component public context.
-	* @name ch.Object#trigger
-	* @function
-	* @protected
+	* @name trigger
+	* @name ch.Object 
+	* @public
 	* @param {string} event The event name you want to trigger.
-	* @since version 0.7.1
+	* @since 0.7.1
 	*/
 	that["public"].trigger = that.trigger;
 
 	/**
 	* Add a callback function from specific event.
 	* @public
-	* @function
 	* @name ch.Object#on
-	* @param {string} event Event name.
+	* @function
+	* @param {string} event Event nawidget.
 	* @param {function} handler Handler function.
 	* @returns itself
 	* @since version 0.7.1
+	* @exampleDescription Will add a event handler to the "ready" event
 	* @example
-	* // Will add a event handler to the "ready" event
-	* me.on("ready", startDoingStuff);
+	* widget.on("ready", startDoingStuff);
 	*/
-
 	that["public"].on = that.on;
+	
 	/**
 	* Add a callback function from specific event that it will execute once.
 	* @public
-	* @function
 	* @name ch.Object#once
-	* @param {string} event Event name.
+	* @function
+	* @param {string} event Event nawidget.
 	* @param {function} handler Handler function.
 	* @returns itself
 	* @since version 0.8.0
+	* @exampleDescription Will add a event handler to the "contentLoad" event once
 	* @example
-	* // Will add a event handler to the "contentLoad" event once
-	* me.once("contentLoad", startDoingStuff);
+	* widget.once("contentLoad", startDoingStuff);
 	*/
 	that["public"].once = that.once;
 
@@ -152,17 +149,17 @@ ch.object = function(){
 	* @public
 	* @function
 	* @name ch.Object#off
-	* @param {string} event Event name.
+	* @param {string} event Event nawidget.
 	* @param {function} handler Handler function.
 	* @returns itself
 	* @since version 0.7.1
+	* @exampleDescription Will remove event handler to the "ready" event
 	* @example
-	* // Will remove event handler to the "ready" event
 	* var startDoingStuff = function () {
 	*     // Some code here!
 	* };
 	*
-	* me.off("ready", startDoingStuff);
+	* widget.off("ready", startDoingStuff);
 	*/
 	that["public"].off = that.off;
 

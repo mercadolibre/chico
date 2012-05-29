@@ -1,8 +1,7 @@
 /**
-* Positioner is an utility that centralizes and manages changes related to positioned elements, and returns an utility that resolves positioning for all UI-Objects.
+* Positioner lets you centralize and manage changes related to positioned elements. Positioner returns an utility that resolves positioning for all widget.
 * @name Positioner
 * @class Positioner
-* @requires Viewport
 * @memberOf ch
 * @param {Object} conf Configuration object with positioning properties.
 * @param {String} conf.element Reference to the DOM Element to be positioned.
@@ -11,31 +10,40 @@
 * @param {String} [conf.offset] Offset in pixels that element will be displaced from original position determined by points. It's specified by configuration or zero by default.
 * @param {Boolean} [conf.reposition] Parameter that enables or disables reposition intelligence. It's disabled by default.
 * @requires ch.Viewport
-* @returns Object
+* @returns {Function} The Positioner returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
+* @exampleDescription
+* Instance the Positioner It requires a little configuration. 
+* The default behavior place an element centered into the Viewport. 
+*  
 * @example
-* // An Element centered into the Viewport (default behavior)
-* ch.positioner({
+* var positioned = ch.positioner({
 *     element: "#element1",
 * });
+* @exampleDescription 1. Getting the current configuration properties.
 * @example
-* // An Element positioned relative to a Context through defined points
-* // The Element left-top point will be the same as Context right-bottom point
-* ch.positioner({
+* var configuration = positioned()
+* @exampleDescription 2. Updates the current position with <code>refresh</code> as a parameter. 
+* @example
+* positioned("refresh");
+* @exampleDescription 3. Define a new position
+* @example
+* positioned({
 *     element: "#element2",
 *     context: "#context2",
 *     points: "lt rt"
 * });
+* @exampleDescription <strong>Offset</strong>: The positioner could be configurated with an offset. 
+* This example show an element displaced horizontally by 10px of defined position.
 * @example
-* // An Element displaced horizontally by 10px of defined position
-* ch.positioner({
+* var positioned = ch.positioner({
 *     element: "#element3",
 *     context: "#context3",
 *     points: "lt rt",
 *     offset: "10 0"
 * });
+* @exampleDescription <strong>Reposition</strong>: Repositionable feature moves the postioned element if it can be shown into the viewport.
 * @example
-* // Repositionable Element if it can't be shown into viewport area
-* ch.positioner({
+* var positioned = ch.positioner({
 *     element: "#element4",
 *     context: "#context4",
 *     points: "lt rt",
@@ -119,8 +127,8 @@ ch.positioner = (function () {
 		* @name ch.Positioner#reposition
 		* @type Boolean
 		* @default false
+		* @exampleDescription Repositionable Element if it can't be shown into viewport area
 		* @example
-		* // Repositionable Element if it can't be shown into viewport area
 		* ch.positioner({
 		*     element: "#element1",
 		*     reposition: true
@@ -150,14 +158,14 @@ ch.positioner = (function () {
 		* @name ch.Positioner#points
 		* @type String
 		* @default "cm cm"
+		* @exampleDescription Element left-top point = Context right-bottom point
 		* @example
-		* // Element left-top point = Context right-bottom point
 		* ch.positioner({
 		*     element: "#element1",
 		*     points: "lt rt"
 		* });
+		* @exampleDescription Element center-middle point = Context center-middle point
 		* @example
-		* // Element center-middle point = Context center-middle point
 		* ch.positioner({
 		*     element: "#element2",
 		*     points: "cm cm"
@@ -171,22 +179,24 @@ ch.positioner = (function () {
 		* @name ch.Positioner#offset
 		* @type {Array} X and Y references determined by "offset" configuration parameter.
 		* @default "0 0"
+		* @exampleDescription Moves 5px to right and 5px to bottom
 		* @example
-		* // Moves 5px to right and 5px to bottom
 		* ch.positioner({
 		*     element: "#element1",
 		*     offset: "5 5"
 		* });
-		* // It will be worth:
+		* @exampleDescription It will be worth:
+		* @example
 		* offset[0] = 5;
 		* offset[1] = 5;
+		* @exampleDescription Moves 10px to right and 5px to top
 		* @example
-		* // Moves 10px to right and 5px to top
 		* ch.positioner({
 		*     element: "#element1",
 		*     offset: "10 -5"
 		* });
-		* // It will be worth:
+		* @exampleDescription It will be worth:
+		* @example It will be worth:
 		* offset[0] = 10;
 		* offset[1] = -5;
 		*/
@@ -426,6 +436,7 @@ ch.positioner = (function () {
 		* @function
 		* @param {String} points String with points to be calculated.
 		* @returns Offset measures
+		* @exampleDescription
 		* @example
 		* var foo = getCoordinates("lt rt");
 		* 
@@ -673,22 +684,23 @@ ch.positioner = (function () {
 
 		/**
 		* Control object that allows to change configuration properties, refresh current position or get current configuration.
-		* @public
+		* @ignore
+		* @protected
 		* @name ch.Positioner#position
 		* @function
 		* @param {Object} [o] Configuration object.
 		* @param {String} ["refresh"] Refresh current position.
 		* @returns Control Object
+		* @exampleDescription Sets a new configuration
 		* @example
-		* // Sets a new configuration
 		* var foo = ch.positioner({ ... });
-		*     foo.position({ ... });
+		* foo.position({ ... });
+		* @exampleDescription Refresh current position
 		* @example
-		* // Refresh current position
-		*     foo.position("refresh");
+		* foo.position("refresh");
+		* @exampleDescription Gets current configuration properties
 		* @example
-		* // Gets current configuration properties
-		*     foo.position();
+		* foo.position();
 		*/
 		that.position = function (o) {
 
@@ -754,10 +766,6 @@ ch.positioner = (function () {
 
 			return r;
 		};
-
-		/**
-		* @ignore
-		*/
 
 		// Apply CSS properties to element (position fixed or absolute)
 		addCSSproperties();

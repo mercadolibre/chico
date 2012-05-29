@@ -1,13 +1,14 @@
 /**
-* Execute callback when images of a query selection loads
-* @abstract
+* OnImagesLoads executes a callback function when the images of a query selection loads.
 * @name onImagesLoads
 * @class onImagesLoads
 * @memberOf ch
-* @param array
+* @param callback function The function that the component will fire after the images load. 
 * @returns jQuery
+* @factorized
+* @exampleDescription
 * @example
-* $("img").onImagesLoads(function () { ... });
+* $("img").onImagesLoads(callback);
 */
 
 ch.onImagesLoads = function (conf) {

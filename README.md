@@ -11,7 +11,6 @@ Features
 -------------
 - UI Widgets
 - Chico Mesh: Fast and simple layouts
-- Chico Flavors: Custom CSS skins
 
 Get in touch
 ------------
@@ -26,11 +25,11 @@ The team
 - Hernan Mammana (Frontender), @hmammana
 - Leandro Linares (Frontender), @lean8086
 - Guillermo Paz (Frontender), @pazguille
-- Natalia Devalle (UX Designer), @taly
 
 Thanks to
 ---------
 - Natan Santolo (@natos). Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
+- Natalia Devalle (UX Designer), @taly
 
 Credits
 -------

@@ -1,9 +1,8 @@
 /**
-* Is a centered floated window with a dark gray dimmer background. This component let you handle its size, positioning and content.
+* Modal is a centered floated window with a dark gray dimmer background. Modal lets you handle its size, positioning and content.
 * @name Modal
 * @class Modal
 * @augments ch.Floats
-* @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is the href attribute value  or form's action attribute.
@@ -13,25 +12,28 @@
 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
 * @param {String} [conf.closable] Sets the way (true, "button" or false) the Modal close. By default, the modal close true.
 * @returns itself
+* @factorized
 * @see ch.Tooltip
 * @see ch.Layer
 * @see ch.Zoom
+* @exampleDescription Create a new modal window triggered by an anchor with a class name 'example'.
 * @example
-* // Create a new modal window with configuration.
-* var me = $("a.example").modal({
+* var widget = $("a.example").modal();
+* @exampleDescription Create a new modal window triggered by form.
+* @example
+* var widget = $("form").modal();
+* @exampleDescription Create a new modal window with configuration.
+* @example
+* var widget = $("a.example").modal({
 *     "content": "Some content here!",
 *     "width": "500px",
 *     "height": 350,
 *     "cache": false,
 *     "fx": false
 * });
+* @exampleDescription Now <code>widget</code> is a reference to the modal instance controller. You can set a new content by using <code>widget</code> like this:
 * @example
-* // Create a new modal window triggered by an anchor with a class name 'example'.
-* var me = $("a.example").modal();
-* @example
-* // Now 'me' is a reference to the modal instance controller.
-* // You can set a new content by using 'me' like this:
-* me.content("http://content.com/new/content");
+* widget.content("http://content.com/new/content");
 */
 
 ch.modal = function (conf) {
@@ -168,129 +170,47 @@ ch.modal = function (conf) {
 */
 
 	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.Modal#uid
-	* @type number
+	* @borrows ch.Object#uid as ch.Modal#uid
+	*/	
+	
+	/**
+	* @borrows ch.Object#element as ch.Modal#element
 	*/
 
 	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.Modal#element
-	* @type HTMLElement
+	* @borrows ch.Object#type as ch.Modal#type
 	*/
 
 	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.Modal#type
-	* @type string
+	* @borrows ch.Uiobject#content as ch.Modal#content
 	*/
 
 	/**
-	* Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
-	* @public
-	* @name ch.Modal#content
-	* @function
-	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
-	* @example
-	* // Get the defined content
-	* me.content();
-	* @example
-	* // Set static content
-	* me.content("Some static content");
-	* @example
-	* // Set DOM content
-	* me.content("#hiddenContent");
-	* @example
-	* // Set AJAX content
-	* me.content("http://chico.com/some/content.html");
-	* @see ch.Object#content
+	* @borrows ch.Floats#isActive as ch.Modal#isActive
 	*/
 
 	/**
-	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
-	* @public
-	* @name ch.Modal#isActive
-	* @function
-	* @returns boolean
+	* @borrows ch.Floats#show as ch.Modal#show
 	*/
 
 	/**
-	* Triggers the innerShow method and returns the public scope to keep method chaining.
-	* @public
-	* @name ch.Modal#show
-	* @function
-	* @returns itself
-	* @see ch.Floats#show
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.show();
+	* @borrows ch.Floats#hide as ch.Modal#hide
 	*/
 
 	/**
-	* Triggers the innerHide method and returns the public scope to keep method chaining.
-	* @public
-	* @name ch.Modal#hide
-	* @function
-	* @returns itself
-	* @see ch.Floats#hide
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.hide();
+	* @borrows ch.Floats#width as ch.Modal#width
 	*/
 
 	/**
-	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
-	* @public
-	* @name ch.Modal#width
-	* @function
-	* @returns itself
-	* @see ch.Floats#size
-	* @example
-	* // to set the width
-	* me.width(700);
-	* @example
-	* // to get the width
-	* me.width // 700
+	* @borrows ch.Floats#height as ch.Modal#height
 	*/
 
 	/**
-	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
-	* @public
-	* @name ch.Modal#height
-	* @function
-	* @returns itself
-	* @see ch.Floats#size
-	* @example
-	* // to set the heigth
-	* me.height(300);
-	* @example
-	* // to get the heigth
-	* me.height // 300
+	* @borrows ch.Floats#position as ch.Modal#position
 	*/
 
 	/**
-	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
-	* @public
-	* @name ch.Modal#position
-	* @function
-	* @example
-	* // Change component's position.
-	* me.position({
-	*	offset: "0 10",
-	*	points: "lt lb"
-	* });
-	* @see ch.Object#position
-	*/
-
-	/**
-	* Returns any if the component closes automatic. 
-	* @public
-	* @name ch.Modal#closable
-	* @function
-	* @returns boolean
+	* @borrows ch.Floats#closable as ch.Modal#closable
 	*/
 
 /**
@@ -304,37 +224,13 @@ ch.modal = function (conf) {
 	}
 
 	/**
-	* Triggers when component is visible.
-	* @name ch.Modal#show
-	* @event
-	* @public
-	* @example
-	* me.on("show",function () {
-	*	this.content("Some new content");
-	* });
-	* @see ch.Floats#event:show
-	*/
-
-	/**
-	* Triggers when component is not longer visible.
-	* @name ch.Modal#hide
-	* @event
-	* @public
-	* @example
-	* me.on("hide",function () {
-	*	otherComponent.show();
-	* });
-	* @see ch.Floats#event:hide
-	*/
-
-	/**
 	* Triggers when the component is ready to use.
 	* @name ch.Modal#ready
 	* @event
 	* @public
 	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.on("ready",function () {
+	* // Following the first example, using <code>widget</code> as modal's instance controller:
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/
@@ -347,7 +243,7 @@ ch.factory("modal");
 
 
 /**
-* Transition
+* Transition lets you give feedback to the users when their have to wait for an action. 
 * @name Transition
 * @class Transition
 * @interface
@@ -362,12 +258,16 @@ ch.factory("modal");
 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
 * @param {String} [conf.closable] Sets the way (true, "button" or false) the Transition close. By default, the transition close true.
 * @returns itself
+* @factorized
 * @see ch.Tooltip
 * @see ch.Layer
 * @see ch.Zoom
+* @exampleDescription Create a transition.
 * @example
-* // Create a new modal window with configuration.
-* var me = $("a.example").transition({
+* var widget = $("a.example").transition();
+* @exampleDescription Create a transition with configuration.
+* @example
+* var widget = $("a.example").transition({
 *     "content": "Some content here!",
 *     "width": "500px",
 *     "height": 350,

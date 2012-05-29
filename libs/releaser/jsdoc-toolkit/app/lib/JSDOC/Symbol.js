@@ -25,12 +25,15 @@ JSDOC.Symbol.prototype.init = function() {
 	this.deprecated = "";
 	this.desc = "";
 	this.example = [];
+	this.exampleDescription = [];
 	this.exceptions = [];
+	this.isFactorized = false;
 	this.fires = [];
 	this.id = JSDOC.Symbol.count++;
 	this.inherits = [];
 	this.inheritsFrom = [];
 	this.isa = "OBJECT";
+	this.isAbstract = false;
 	this.isConstant = false;
 	this.isEvent = false;
 	this.isIgnored = false;
@@ -196,6 +199,11 @@ JSDOC.Symbol.prototype.setTags = function() {
 		is(sym.since, "1.01", "@since tag, description is found.");
 	*/
 	
+	// @abstract
+	if (this.comment.getTag("abstract").length) {
+		this.isAbstract = true;
+	}
+
 	// @constant
 	if (this.comment.getTag("constant").length) {
 		this.isConstant = true;
@@ -205,6 +213,11 @@ JSDOC.Symbol.prototype.setTags = function() {
 		var sym = new JSDOC.Symbol("foo", [], "FILE", new JSDOC.DocComment("/**@constant*"+"/"));
 		is(sym.isConstant, true, "@constant tag, isConstant set.");
 	*/
+
+	// @constant
+	if (this.comment.getTag("factorized").length) {
+		this.isFactorized = true;
+	}
 	
 	// @version
 	var versions = this.comment.getTag("version");
@@ -234,12 +247,18 @@ JSDOC.Symbol.prototype.setTags = function() {
 		this.example = examples.map(
 			// trim trailing whitespace
 			function($) {
-				$.desc = $.desc.replace(/\s+$/, "");
+					$.desc = $.desc.replace(/\s+$/, "");
 				return $;
 			}
 		);
 	}
-	
+
+	// @exampleDescription
+	var exampleDescriptions = this.comment.getTag("exampleDescription");
+	if (exampleDescriptions.length) {
+		this.exampleDescription = exampleDescriptions;
+	}
+
 	/*t:
 		var sym = new JSDOC.Symbol("foo", [], "FILE", new JSDOC.DocComment("/**@example This\n  is an example. \n*"+"/"));
 		isnt(typeof sym.example[0], "undefined", "@example tag, creates sym.example array.");

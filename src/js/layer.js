@@ -1,5 +1,5 @@
 /**
-* Is a contextual floated UI-Object.
+* Layer lets you show a contextual floated data.
 * @name Layer
 * @class Layer
 * @augments ch.Floats
@@ -7,8 +7,8 @@
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is empty.
-* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
-* @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
+* @param {Number|String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
+* @param {Number|String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
 * @param {String} [conf.event] Sets the event ("click" or "hover") that trigger show method. By default, the event is "hover".
 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
@@ -16,28 +16,34 @@
 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
 * @param {String} [conf.closable] Sets the way (true, "button" or false) the Layer close when conf.event is set as "click". By default, the layer close true.
 * @returns itself
+* @factorized
 * @see ch.Tooltip
 * @see ch.Modal
 * @see ch.Zoom
+* @exampleDescription To create a ch.Layer you have to give a selector.
 * @example
-* // Create a new contextual layer with configuration.
-* var me = $(".some-element").layer({
+* var widget = $(".some-element").layer("<tag>Some content.</tag>");
+* @exampleDescription ch.Layer component can receive a parameter. It is a literal object { }, with the properties you want to configurate. 
+* @example
+* var conf = {
+*     "width": 200,
+*     "height": 50
+* };
+* @exampleDescription Create a layer with configuration.
+* @example
+* var widget = $(".some-element").layer({
 *     "content": "Some content here!",
 *     "width": "200px",
 *     "height": 50,
 *     "event": "click",
-      "closable": "button",
+*     "closable": "button",
 *     "offset": "10 -10",
 *     "cache": false,
 *     "points": "lt rt"
 * });
+* @exampleDescription Now <code>widget</code> is a reference to the layer instance controller. You can set a new content by using <code>widget</code> like this:
 * @example
-* // Create a simple contextual layer
-* var me = $(".some-element").layer("<tag>Some content.</tag>");
-* @example
-* // Now 'me' is a reference to the layer instance controller.
-* // You can set a new content by using 'me' like this: 
-* me.content("http://content.com/new/content");
+* widget.content("http://content.com/new/content");
 */
 
 ch.layer = function (conf) {
@@ -166,145 +172,14 @@ ch.layer = function (conf) {
 		that.parent.innerHide(event);
 	}
 
-
-	/**
-	* Returns any if the component closes automatic. 
-	* @protected
-	* @name ch.Layer#closable
-	* @function
-	* @returns boolean
-	*/
-
 /**
 *	Public Members
 */
-
-	/**
-	* The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-	* @public
-	* @name ch.Layer#uid
-	* @type number
-	*/
-
-	/**
-	* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-	* @public
-	* @name ch.Layer#element
-	* @type HTMLElement
-	*/
-
-	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.Layer#type
-	* @type string
-	*/
-
-	/**
-	* Sets and gets component content. To get the defined content just use the method without arguments, like 'me.content()'. To define a new content pass an argument to it, like 'me.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
-	* @public
-	* @name ch.Layer#content
-	* @function
-	* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
-	* @example
-	* // Get the defined content
-	* me.content();
-	* @example
-	* // Set static content
-	* me.content("Some static content");
-	* @example
-	* // Set DOM content
-	* me.content("#hiddenContent");
-	* @example
-	* // Set AJAX content
-	* me.content("http://chico.com/some/content.html");
-	* @see ch.Object#content
-	*/
-
 	
 	/**
-	* Returns any if the component closes automatic. 
-	* @public
-	* @name ch.Layer#closable
-	* @function
-	* @returns boolean
+	* @borrows ch.Object#on as ch.Layer#on
 	*/
 
-	/**
-	* Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
-	* @public
-	* @name ch.Layer#isActive
-	* @function
-	* @returns boolean
-	*/
-
-	/**
-	* Triggers the innerShow method and returns the public scope to keep method chaining.
-	* @public
-	* @name ch.Layer#show
-	* @function
-	* @returns itself
-	* @see ch.Floats#show
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.show();
-	*/
-
-	/**
-	* Triggers the innerHide method and returns the public scope to keep method chaining.
-	* @public
-	* @name ch.Layer#hide
-	* @function
-	* @returns itself
-	* @see ch.Floats#hide
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* me.hide();
-	*/
-
-	/**
-	* Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
-	* @public
-	* @name ch.Layer#width
-	* @function
-	* @returns itself
-	* @see ch.Floats#size
-	* @example
-	* // to set the width
-	* me.width(700);
-	* @example
-	* // to get the width
-	* me.width // 700
-	*/
-
-	/**
-	* Sets or gets the height property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '100' or '100px'.
-	* @public
-	* @name ch.Layer#height
-	* @function
-	* @returns itself
-	* @see ch.Floats#size
-	* @example
-	* // to set the height
-	* me.height(300);
-	* @example
-	* // to get the height
-	* me.height // 300
-	*/
-
-	/**
-	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
-	* @public
-	* @name ch.Layer#position
-	* @function
-	* @example
-	* // Change component's position.
-	* me.position({
-	*	offset: "0 10",
-	*	points: "lt lb"
-	* });
-	* @see ch.Object#position
-	*/
 
 /**
 *	Default event delegation
@@ -325,38 +200,14 @@ ch.layer = function (conf) {
 	}
 
 	/**
-	* Triggers when component is visible.
-	* @name ch.Layer#show
-	* @event
-	* @public
-	* @example
-	* me.on("show",function () {
-	*	this.content("Some new content");
-	* });
-	* @see ch.Floats#event:show
-	*/
-
-	/**
-	* Triggers when component is not longer visible.
-	* @name ch.Layer#hide
-	* @event
-	* @public
-	* @example
-	* me.on("hide",function () {
-	*	otherComponent.show();
-	* });
-	* @see ch.Floats#event:hide
-	*/
-
-	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.Layer#ready
 	* @event
 	* @public
 	* @since 0.8.0
-	* @example
-	* // Following the first example, using 'me' as layer's instance controller:
-	* me.on("ready",function () {
+	* @exampleDescription Following the first example, using <code>widget</code> as layer's instance controller:
+	* @example 	
+	* widget.on("ready",function () {
 	*	this.show();
 	* });
 	*/
