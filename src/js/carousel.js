@@ -4,12 +4,15 @@
 * @class Carousel
 * @augments ch.Uiobject
 * @memberOf ch
-
-* @param page
-* @param arrows
-* @param fx
-* @param pagination
-
+* @param {Object} [conf] Object with configuration properties.
+* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is elastic.
+* @param {Boolean} [conf.pagination] Shows a pagination. By default, the value is false.
+* @param {Boolean} [conf.arrows] Shows arrows icons over or outside the mask. By default, the value is "outside".
+* @param {Array} [conf.asyncData] Defines the content of each item that will be load asnchronously as array.
+* @param {Function} [conf.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
+* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enabled.
+* @param {Number} [conf.maxItems] (Since 0.10.6) Set the max amount of items to show in each page.
+* @param {Number} [conf.page] (Since 0.10.6) Initialize the Carousel in a specified page.
 * @returns itself
 * @exampleDescription Create a Carousel without configuration.
 * @example
@@ -902,6 +905,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#next
 	* @event
 	* @public
+	* @exampleDescription Using a callback when Carousel moves to the next page.
 	* @example
 	* example.on("next", function () {
 	*	alert("Next!");
@@ -913,6 +917,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#prev
 	* @event
 	* @public
+	* @exampleDescription Using a callback when Carousel moves to the previous page.
 	* @example
 	* example.on("prev", function () {
 	*	alert("Previous!");
@@ -926,6 +931,7 @@ ch.carousel = function (conf) {
 	* @public
 	* @since 0.7.9
 	* @example
+	* @exampleDescription Using a callback when Carousel moves to another page.
 	* example.on("select", function () {
 	*	alert("An item was selected!");
 	* });
@@ -937,6 +943,7 @@ ch.carousel = function (conf) {
 	* @event
 	* @public
 	* @since 0.10.6
+	* @exampleDescription Using a callback when Carousel trigger a new redraw.
 	* @example
 	* example.on("redraw", function () {
 	*	alert("Carousel was redrawn!");
@@ -948,6 +955,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#itemsAdded
 	* @event
 	* @public
+	* @exampleDescription Using a callback when Carousel add items asynchronously.
 	* @example
 	* example.on("itemsAdded", function () {
 	*	alert("Some asynchronous items was added.");
