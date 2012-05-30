@@ -46,7 +46,7 @@ Releaser.prototype.addZip = function () {
 		
 		sys.puts(" > Releaser: Adding the ZIP file to version folder.");
 		
-		exec("mv " + output + "/" + url[1] + "/" + url[2] + " " + self.folder, function (err) {
+		exec("mv " + output + "/" + url[1] + "/" + url[2] + "/* " + self.folder, function (err) {
 
 			if (err) { sys.puts(" > Releaser " + err); }
 			
