@@ -200,7 +200,29 @@ var ch = window.ch = {
 				return element.currentStyle[style];
 
 			}
-		}
+		},
+		// Grab the vendor prefix of the current browser
+		// Based on: http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/
+		"VENDOR_PREFIX": (function () {
+			
+			var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+			
+				styleDeclaration = document.getElementsByTagName("script")[0].style;
+
+			for (var prop in styleDeclaration) {
+				if (regex.test(prop)) {
+					return prop.match(regex)[0].toLowerCase();
+				}
+			}
+			
+			// Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+			// However (prop in style) returns the correct value, so we'll have to test for
+			// the precence of a specific property
+			if ("WebkitOpacity" in styleDeclaration) { return "webkit"; }
+			if ("KhtmlOpacity" in styleDeclaration) { return "khtml"; }
+
+			return "";
+		}())
 	}
 };
 /**
@@ -531,71 +553,82 @@ ch.get = function(o) {
 * @returns {object}
 * @memberOf ch 
 */
-ch.support = function() {
-	
+ch.support = function () {
+
 	/**
 	* Private reference to the <body> element
 	* @private
-	* @name thisBody
+	* @name body
 	* @type HTMLBodyElement
 	* @memberOf ch.Support
 	*/
-	var thisBody = document.body || document.documentElement;
-	
+	var body = document.body || document.documentElement,
+
 	/**
-	* Based on: http://gist.github.com/373874
-	* Verify that CSS3 transition is supported (or any of its browser-specific implementations)
-	*
-	* @private
-	* @returns boolean
+	* Public reference to features support
+	* @public
+	* @name self
+	* @type Object
 	* @memberOf ch.Support
 	*/
-	var transition = (function(){
-		var thisStyle = thisBody.style;
-		return thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.OTransition !== undefined || thisStyle.transition !== undefined;
-	})();
+		self = {};
 
 	/**
-	* Based on: http://kangax.github.com/cft/#IS_POSITION_FIXED_SUPPORTED
-	* Verify that position fixed is supported
-	* 
-	* @private
-	* @returns boolean
-	* @memberOf ch.Support
-	*/	
-	var fixed = (function(){
-		var isSupported = false;
-		var e = document.createElement("div");
-			e.style.position = "fixed";
-			e.style.top = "10px";
-			
-		thisBody.appendChild(e);
-		if (e.offsetTop === 10) { isSupported = true; };
-		thisBody.removeChild(e);
-		
+	* Verify that CSS Transitions are supported (or any of its browser-specific implementations).
+	* @basedOn http://gist.github.com/373874
+	* @public
+	* @name transition
+	* @type Boolean
+	* @memberOf ch.Support#self
+	*/
+	self.transition = (function () {
+
+		// Get reference to CSS Style Decalration
+		var style = body.style,
+		// Grab "undefined" into a privated scope
+			u = undefined;
+
+		// Analize availability of transition on all browsers
+		return style.WebkitTransition !== u || style.MozTransition !== u || style.MSTransition !== u || style.OTransition !== u || style.transition !== u;
+	}());
+
+	/**
+	* Boolean property that indicates if CSS "Fixed" positioning are supported by the device.
+	* @basedOn http://kangax.github.com/cft/#IS_POSITION_FIXED_SUPPORTED
+	* @public
+	* @name fixed
+	* @type Boolean
+	* @memberOf ch.Support#self
+	*/
+	self.fixed = (function () {
+
+		// Flag to know if position is supported
+		var isSupported = false,
+		// Create an element to test
+			el = document.createElement("div");
+
+		// Set the position fixed
+		el.style.position = "fixed";
+		// Set a top
+		el.style.top = "10px";
+
+		// Add element to DOM
+		body.appendChild(el);
+
+		// Compare setted offset with "in DOM" offset of element
+		if (el.offsetTop === 10) {
+			isSupported = true;
+		}
+
+		// Delete element from DOM
+		body.removeChild(el);
+
+		// Results
 		return isSupported;
-		
-	})();
+	}());
 
-	return {
-		/**
-		* Boolean property that indicates if CSS3 Transitions are supported by the device.
-		* @public
-		* @name transition
-		* @type boolean
-		* @memberOf ch.Support
-		*/
-		transition: transition,
-		/**
-		* Boolean property that indicates if Fixed positioning are supported by the device.
-		* @public
-		* @name fixed
-		* @type boolean
-		* @memberOf ch.Support
-		*/
-		fixed: fixed
-	};
-
+	// Return public object
+	return self;
 };
 
 
