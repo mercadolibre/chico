@@ -120,6 +120,7 @@
 	border-right-color: #333;
 	left: 10px;
 	top: 11px;
+	border-width: 5px;
 }
 
 .ch-calendar-next:after {
