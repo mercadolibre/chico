@@ -15,12 +15,10 @@
 .ch-modal, .ch-transition {
 	background-color: #fff;
 	background-image: none;
-	position:absolute;
 	overflow:auto;
 	width:500px;
-	box-shadow: 3px 3px 3px #595959;
-	-webkit-box-shadow: 3px 3px 3px #595959;
-	-moz-box-shadow: 3px 3px 3px #595959;
+	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 }
 
 

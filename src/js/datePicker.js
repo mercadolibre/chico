@@ -74,7 +74,7 @@ ch.datePicker = function (conf) {
 	that.process = function (event) {
 
 		// Day selection
-		if (event.target.nodeName !== "TD" || event.target.classNawidget.indexOf("ch-disabled") !== -1 || event.target.classNawidget.indexOf("ch-calendar-other") !== -1) { return; }
+		if (event.target.nodeName !== "TD" || event.target.className.indexOf("ch-disabled") !== -1 || event.target.className.indexOf("ch-calendar-other") !== -1) { return; }
 
 		// Select the day and update input value with selected date
 		that.element.value = that.calendar.selectDay(event.target.innerHTML);

@@ -76,10 +76,23 @@
 /* Trigger ON */
 .ch-tabNavigator .ch-tab-trigger-on,
 .ch-tabNavigator .ch-tab-trigger-on:hover {
-	background: #FFF url('../assets/gradients.png') 0 -280px repeat-x;
-	border-bottom:1px solid #FFFFFF;
+	background-image: -o-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
+	background-image: -ms-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
+	background-image: -moz-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F0F0F0), color-stop(25px, #FFFFFF));
+	background-image: -webkit-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
+	background-image: linear-gradient(top, #F0F0F0, #FFFFFF 25px);
+	-webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
+	border-bottom: 1px solid #FFFFFF;
 	cursor:default;
-	font-weight:bold;
+	font-weight: bold;
+	text-shadow: 2px 0 2px rgba(255, 255, 255, .5);
+}
+
+.lt-ie10 .ch-tabNavigator .ch-tab-trigger-on,
+.lt-ie10 .ch-tabNavigator .ch-tab-trigger-on:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F0F0F0', endColorstr='#FFFFFF');
 }
 
 								.ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on {
@@ -105,6 +118,17 @@
 									margin-left:120px;
 									min-height:120px;
 								}
+
+
+
+
+.lt-ie10 .ch-tabNavigator .ch-box {
+	filter: none;
+}
+
+
+
+
 
 .no-js .ch-tabNavigator-triggers {
 	top:0;

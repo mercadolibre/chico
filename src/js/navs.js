@@ -154,7 +154,10 @@ ch.navs = function () {
 		that.$content.addClass("ch-" + that.type + "-content ch-hide");
 
 		// Visual configuration
-		if (conf.icon) { $("<span class=\"ch-" + that.type + "-ico\">Drop</span>").appendTo(that.$trigger); }
+		if (ch.utils.html.hasClass("lt-ie8") && conf.icon) {
+			$("<span class=\"ch-" + that.type + "-ico\">Drop</span>").appendTo(that.$trigger);
+		}
+
 		if (conf.open) { that.innerShow(); }
 
 	};
