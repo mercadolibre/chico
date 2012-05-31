@@ -692,9 +692,6 @@ input.ch-btn-tiny::-moz-focus-inner{
 	cursor: pointer;
 	padding: 0;
 	display: inline-block;
-	position: absolute;
-	right: 10px;
-	top: 10px;
 	height: 15px;
 	width: 15px;
 	color: #898989;
@@ -707,14 +704,18 @@ input.ch-btn-tiny::-moz-focus-inner{
 	text-indent: 1px;
 	font-family: Arial;
 	text-align:center;
-}
 
-.lt-ie10 .ch-close {
-	text-indent: 0;
+	position: absolute;
+	right: 10px;
+	top: 10px;
 }
 
 .ie9 .ch-close {
 	line-height: 16px;
+}
+
+.lt-ie10 .ch-close {
+	text-indent: 0;
 }
 
 .ch-close:hover,

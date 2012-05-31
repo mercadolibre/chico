@@ -107,7 +107,9 @@ ch.floats = function () {
 			});
 
 			// and ESC key support
-			ch.utils.document.bind(ch.events.KEY.ESC, that.innerHide);
+			ch.utils.document.bind(ch.events.KEY.ESC, function () {
+				that.innerHide();
+			});
 		};
 
 	})();

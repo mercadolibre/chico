@@ -29,23 +29,27 @@
 	margin-bottom:10px;
 }
 
-/* IE6 */
+/* IE */
 .lt-ie7 .ch-dimmer,
 /* Deprecate */
 .ie6 .ch-dimmer {
 	filter:alpha(opacity=50) !important;
-	background-color:#000000;
-	width:150%;
+	background-color: #000000;
+	width: 150%;
 }
 
-
-* html.ie6  div.ch-modal, div.ch-transition {
-	z-index:150;
+* html.ie6  div.ch-modal, 
+* html.ie6 div.ch-transition {
+	z-index: 150;
 }
 
-/* IE 7,8 */
 .ie7 .ch-dimmer, 
 .ie8 .ch-dimmer {
 	background-color:#000;
 	filter: alpha(opacity=50) !important;
+}
+
+.ie9 .ch-modal .ch-close {
+	line-height: 18px;
+	text-indent: 1px;
 }
