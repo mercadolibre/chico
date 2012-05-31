@@ -349,13 +349,16 @@ ch.events = {
 */
 ch.clon = function(o) {
 
-	obj = {};
+	var copy = {},
+		x;
 
 	for (x in o) {
-		obj[x] = o[x]; 
+		if (ch.utils.hasOwn(o, x)) {
+			copy[x] = o[x];
+		}
 	};
-	
-	return obj;
+
+	return copy;
 };
 
 
