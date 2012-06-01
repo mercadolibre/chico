@@ -126,16 +126,16 @@ ch.navs = function () {
 		// Animation
 		if (conf.fx) {
 			that.$content.slideUp("fast", function () {
-				that.$content.addClass("ch-hide");
 				that.callbacks("onHide");
 			});
 		} else {
-			that.$content.addClass("ch-hide");
 			// new callbacks
 			that.trigger("hide");
 			// old callback system
 			that.callbacks("onHide");
 		}
+
+		that.$content.addClass("ch-hide");
 		
 		return that;
 	};
