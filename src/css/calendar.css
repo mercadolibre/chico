@@ -16,20 +16,23 @@
 }
 
 .ch-calendar caption {
-	background: -o-linear-gradient(top, #fff 0%, #ddd 100%);
-	background: -ms-linear-gradient(top, #fff 0%, #ddd 100%);
-	background: -moz-linear-gradient(top, #fff 0%, #ddd 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(100%, #ddd));
-	background: -webkit-linear-gradient(top, #fff 0%, #ddd 100%);
-	background: linear-gradient(top, #fff 0%, #ddd 100%);
-	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dddddd');
+	background: -o-linear-gradient(top, #F9F9F9 0%, #eeeeee 100%);
+	background: -ms-linear-gradient(top, #F9F9F9 0%, #eeeeee 100%);
+	background: -moz-linear-gradient(top, #F9F9F9 0%, #eeeeee 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F9F9F9), color-stop(100%, #eeeeee));
+	background: -webkit-linear-gradient(top, #F9F9F9 0%, #eeeeee 100%);
+	background: linear-gradient(top, #F9F9F9 0%, #eeeeee 100%);
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
 	font-size: 13px;
-	height: 26px;
 	line-height: 28px;
-
-	background-color: #F5F5F5;
-	text-shadow: 0 1px 0 white;
+	background-color: #F9F9F9;
+	text-shadow: 0 1px 0 #FFFFFF;
 	border-bottom: none;
+}
+
+.lt-ie10 .ch-calendar caption {
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9', endColorstr='#eeeeee');
 }
 
 .ch-calendar thead {
@@ -79,19 +82,19 @@
 .ch-calendar-prev,
 .ch-calendar-next {
 	cursor: pointer;
-	height: 26px;
+	font-size: 9px;
 	position: absolute;
+	padding: 0px 20px;
+	height: 29px;
+	line-height: 3.5em;
+	text-indent: -999px;	
 }
 
-.ch-calendar-prev span,
-.ch-calendar-next span {
-	background: transparent url('../assets/mini-arrows.png') left top no-repeat;
-	display: block;
-	height: 7px;
-	margin: 11px 25px 0 25px;
-	overflow: hidden;
-	text-indent: 999px;
-	width: 4px;
+.lt-ie8 .ch-calendar-prev,
+.lt-ie8 .ch-calendar-next {
+	text-indent: 0;
+	font-size: 18px;
+	line-height: 1.5em;
 }
 
 .ch-calendar-prev {
@@ -102,8 +105,27 @@
 	right: 0;
 }
 
-.ch-calendar-next span {
-	background-position: -3px top;
+.ch-calendar-prev:after,
+.ch-calendar-next:after {
+	content: " ";
+	position: absolute;
+	top: 12px;
+	width: 0;
+	height: 0;
+	border: solid transparent;
+	border-width: 4px;
+}
+
+.ch-calendar-prev:after {
+	border-right-color: #333;
+	left: 10px;
+	top: 11px;
+	border-width: 5px;
+}
+
+.ch-calendar-next:after {
+	border-left-color: #333;
+	right: 15px;
 }
 
 /* IE */

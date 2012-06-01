@@ -116,7 +116,9 @@ ch.layer = function (conf) {
 				
 				var relatedTarget = event.relatedTarget || event.toElement;
 				
-				if (target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") { return; }
+				if (relatedTarget === null || target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") {
+					return;
+				}
 			}
 
 			ht = setTimeout(function () { that.innerHide() }, hideTime);

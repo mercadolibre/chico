@@ -43,7 +43,7 @@ ch.tooltip = function (conf) {
 	conf = ch.clon(conf);
 
 	conf.cone = true;
-	conf.content = "<span>" + (that.element.title || that.element.alt) + "</span>";
+	conf.content = that.element.title || that.element.alt;
 	
 	// Closable configuration
 	conf.closable = false;

@@ -6,61 +6,65 @@
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	margin-bottom:10px;
-}
-
-
-.ch-validation-content .ch-message-error {
-	padding: 2px 5px 2px 27px;
-	background-position: -175px -5px;
+	padding: 2px 5px 2px 25px;
+	background-position: -332px -5px;
 }
 
 /* Cone */
-
-.ch-validation .ch-validation-cone {
-	background-image: url("../assets/validation.png");
-	background-position: 0 0 no-repeat;
-	display:block;
-	position:absolute;
-	width:8px;
-	height:16px;
+/* Bottom */
+/* ltlb, ctcb, rtrb */
+.ch-validation.ch-points-ltlb:after,
+.ch-validation.ch-points-ctcb:after,
+.ch-validation.ch-points-rtrb:after {
+	border-bottom-color: #FBD9DB;
+}
+.ch-validation.ch-points-ltlb:before,
+.ch-validation.ch-points-ctcb:before,
+.ch-validation.ch-points-rtrb:before {
+	border-bottom-color: #F7A9AE;
 }
 
-.ch-validation.ch-left .ch-validation-cone {
-	left: 8px;
+/* Top */
+/* lblt, cbct, rbrt */
+.ch-validation.ch-points-lblt:after,
+.ch-validation.ch-points-cbct:after,
+.ch-validation.ch-points-rbrt:after {
+	border-top-color: #FBD9DB;
+}
+.ch-validation.ch-points-lblt:before,
+.ch-validation.ch-points-cbct:before,
+.ch-validation.ch-points-rbrt:before {
+	border-top-color: #F7A9AE;
 }
 
-.ch-validation.ch-right .ch-validation-cone {
-	height: 16px;
-	width: 8px;
-	left: -7px;
-	top: 4px;
+/* Right */
+/* ltrt, lmrm, lbrb */
+.ch-validation.ch-points-ltrt:after,
+.ch-validation.ch-points-lmrm:after,
+.ch-validation.ch-points-lbrb:after {
+	border-right-color: #FBD9DB;
+}
+.ch-validation.ch-points-ltrt:before,
+.ch-validation.ch-points-lmrm:before,
+.ch-validation.ch-points-lbrb:before {
+	border-right-color: #F7A9AE;
 }
 
-.ch-validation.ch-top .ch-validation-cone {
-	background-position: 0 -8px;
-	bottom: -8px;
-	top: auto;
+/* Left */
+/* rtlt, rmlm, rblb */
+.ch-validation.ch-points-rtlt:after,
+.ch-validation.ch-points-rmlm:after,
+.ch-validation.ch-points-rblb:after {
+	border-left-color: #FBD9DB;
 }
 
-.ch-validation.ch-bottom .ch-validation-cone {
-	height: 8px;
-	width: 16px;
-	top: -7px;
-}
-
-.ch-validation.ch-right.ch-bottom .ch-validation-cone {
-	right: 8px;
-	left: auto;
-	height: 8px;
-	width: 16px;
-}
-
-.ch-validation.ch-right.ch-top .ch-validation-cone {
-	height: 8px;
-	width: 16px;
-	right: 8px;
-	left: auto;
+.ch-validation.ch-points-rtlt:before,
+.ch-validation.ch-points-rmlm:before,
+.ch-validation.ch-points-rblb:before {
+	border-left-color: #F7A9AE;
 }
 
 /* IE 6,7 */
@@ -69,4 +73,85 @@
 .ie6 .ch-validation,
 .ie7 .ch-validation {
 	z-index:1;
+}
+
+
+/* IE 7 */
+.lt-ie8 .ch-validation-cone {
+	background-image: url('../assets/cones.png');
+	display: block;
+	position: absolute;
+	width: 16px;
+	height: 8px;
+}
+
+.lt-ie8 .ch-points-ltlb .ch-validation-cone,
+.lt-ie8 .ch-points-ctcb .ch-validation-cone,
+.lt-ie8 .ch-points-rtrb .ch-validation-cone {
+	top: -8px;
+	background-position: 0 0;
+}
+
+.lt-ie8 .ch-points-lblt .ch-validation-cone,
+.lt-ie8 .ch-points-cbct .ch-validation-cone,
+.lt-ie8 .ch-points-rbrt .ch-validation-cone {
+	bottom: -8px;
+	background-position: 0 -8px;
+}
+
+.lt-ie8 .ch-points-ltlb .ch-validation-cone,
+.lt-ie8 .ch-points-lblt .ch-validation-cone {
+	left: 8px;
+}
+
+.lt-ie8 .ch-points-ctcb .ch-validation-cone,
+.lt-ie8 .ch-points-cbct .ch-validation-cone {
+	left: 50%;
+	margin-left: -8px;
+}
+
+.lt-ie8 .ch-points-rtrb .ch-validation-cone,
+.lt-ie8 .ch-points-rbrt .ch-validation-cone {
+	right: 8px;
+}
+
+
+.lt-ie8 .ch-points-ltrt .ch-validation-cone,
+.lt-ie8 .ch-points-lmrm .ch-validation-cone,
+.lt-ie8 .ch-points-lbrb .ch-validation-cone,
+.lt-ie8 .ch-points-rtlt .ch-validation-cone,
+.lt-ie8 .ch-points-rmlm .ch-validation-cone,
+.lt-ie8 .ch-points-rblb .ch-validation-cone {
+	width: 8px;
+	height: 16px;
+}
+
+.lt-ie8 .ch-points-ltrt .ch-validation-cone,
+.lt-ie8 .ch-points-lmrm .ch-validation-cone,
+.lt-ie8 .ch-points-lbrb .ch-validation-cone {
+	left: -8px;
+	background-position: 0 0;
+}
+
+.lt-ie8 .ch-points-rtlt .ch-validation-cone,
+.lt-ie8 .ch-points-rmlm .ch-validation-cone,
+.lt-ie8 .ch-points-rblb .ch-validation-cone {
+	right: -8px;
+	background-position: -8px 0;
+}
+
+.lt-ie8 .ch-points-ltrt .ch-validation-cone,
+.lt-ie8 .ch-points-rtlt .ch-validation-cone {
+	top: 4px;
+}
+
+.lt-ie8 .ch-points-lmrm .ch-validation-cone,
+.lt-ie8 .ch-points-rmlm .ch-validation-cone {
+	top: 50%;
+	margin-top: -8px;
+}
+
+.lt-ie8 .ch-points-lbrb .ch-validation-cone,
+.lt-ie8 .ch-points-rblb .ch-validation-cone  {
+	bottom: 4px;
 }

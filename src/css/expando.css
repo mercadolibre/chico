@@ -22,35 +22,26 @@
 }
 
 /* Trigger icon */
-.ch-expando-trigger .ch-expando-ico {
-	background-image: url('../assets/expando.png');
-	display: block;
+.ch-expando-trigger:after {
+	background-image: url("../assets/expando.png");
+	content: " ";
 	width: 10px;
 	height: 12px;
 	position:absolute;
-	top:5px;
-	left:1px;
-	overflow: hidden;
-	text-indent: 14px;
-}
-
-/* Trigger icon hover */
-.ch-expando-trigger:hover .ch-expando-ico {
-	background-position: 0 -17px;
+	top: 3px;
+	left: 0;
 }
 
 /* Trigger icon on */
-.ch-expando-trigger-on .ch-expando-ico,
-.ch-expando-trigger-on:hover .ch-expando-ico {
+.ch-expando-trigger-on:after {
 	width: 12px;
 	height: 12px;
 	background-position: 0 -30px;
-	top: 2px;
 }
 
 /* Content */
 .ch-expando-content {
-	margin:5px 0 0 16px;
+	margin: 5px 0 0 16px;
 }
 
 /* IE 6 */
@@ -64,4 +55,31 @@
 /* IE 7 */
 .ie7 .ch-expando-trigger{
 	font-size:13px;
+}
+
+/* Trigger icon */
+.lt-ie8 .ch-expando-trigger .ch-expando-ico {
+	background-image: url('../assets/expando.png');
+	display: block;
+	width: 10px;
+	height: 12px;
+	position:absolute;
+	top:5px;
+	left:1px;
+	overflow: hidden;
+	text-indent: 14px;
+}
+
+/* Trigger icon hover */
+.lt-ie8 .ch-expando-trigger:hover .ch-expando-ico {
+	background-position: 0 -17px;
+}
+
+/* Trigger icon on */
+.lt-ie8 .ch-expando-trigger-on .ch-expando-ico,
+.lt-ie8 .ch-expando-trigger-on:hover .ch-expando-ico {
+	width: 12px;
+	height: 12px;
+	background-position: 0 -30px;
+	top: 2px;
 }
