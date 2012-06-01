@@ -958,42 +958,42 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Deprecate */
 .ch-ico.ch-attention,
 .ico.attention {
-	background-position: -77px -110px;
+	background-position: -235px -110px;
 }
 
 .ch-ico-check,
 /* Deprecate */
 .ch-ico.ch-check,
 .ico.check {
-	background-position: -43px -144px;
+	background-position: -201px -144px;
 }
 
 .ch-ico-error,
 /* Deprecate */
 .ch-ico.ch-error,
 .ico.error {
-	background-position: -179px -9px;
+	background-position: -337px -9px;
 }
 
 .ch-ico-help,
 /* Deprecate */
 .ch-ico.ch-help,
 .ico.help {
-	background-position: -111px -76px;
+	background-position: -269px -76px;
 }
 
 .ch-ico-information,
 /* Deprecate */
 .ch-ico.ch-information,
 .ico.information {
-	background-position: -145px -42px;
+	background-position: -303px -42px;
 }	
 
 .ch-ico-ok,
 /* Deprecate */
 .ch-ico.ch-ok,
 .ico.ok {
-	background-position: -9px -178px;
+	background-position: -167px -178px;
 	height: 17px;
 }
 
@@ -1019,7 +1019,7 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Deprecated */
 .ch-message.ch-attention {	
 	background-color: #FCF8CB;
-	background-position: -68px -101px;
+	background-position: -225px -101px;
 	border-color: #E4E2B8;
 }
 
@@ -1028,7 +1028,7 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Deprecated */
 .ch-message.ch-check {
 	background-color: #E8FFD7;
-	background-position: -34px -135px;
+	background-position: -192px -135px;
 	border-color: #C7DDBC;
 	color: #487210;
 }
@@ -1037,7 +1037,7 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Deprecated */
 .ch-message.ch-error {	
 	background-color:#fbd9db;
-	background-position: -170px 0px;
+	background-position: -327px 0px;
 	border-color: #f7a9ae;
 	color:#600;
 }		
@@ -1046,7 +1046,7 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Deprecated */
 .ch-message.ch-help {	
 	background-color: #F6F9F3;
-	background-position: -102px -67px;
+	background-position: -259px -67px;
 	border-color: #cccccc;
 }
 	
@@ -1054,7 +1054,7 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Deprecated */
 .ch-message.ch-information {	
 	background-color: #E5EBFD;
-	background-position: -136px -33px;
+	background-position: -293px -33px;
 	border-color: #A0B1DE;
 }
 	
@@ -1062,7 +1062,7 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Deprecated */
 .ch-message.ch-ok {
 	background-color: #E8FFD7;
-	background-position: 0 -169px;
+	background-position: -157px -169px;
 	border-color: #C7DDBC;
 }
 
