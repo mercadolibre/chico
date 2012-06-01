@@ -78,8 +78,6 @@ ch.navs = function () {
 
 		that.$trigger.addClass("ch-" + that["type"] + "-trigger-on");
 
-		that.$content.removeClass("ch-hide");
-
 		/**
 		* onShow callback function
 		* @name ch.Navs#onShow
@@ -99,6 +97,8 @@ ch.navs = function () {
 			// old callback system
 			that.callbacks("onShow");
 		}
+
+		that.$content.removeClass("ch-hide");
 		
 		return that;
 	};
