@@ -76,7 +76,7 @@ ch.navs = function () {
 		
 		that.active = true;
 
-		that.$trigger.addClass("ch-" + that.type + "-trigger-on");
+		that.$trigger.addClass("ch-" + that["type"] + "-trigger-on");
 
 		that.$content.removeClass("ch-hide");
 
@@ -117,7 +117,7 @@ ch.navs = function () {
 		
 		that.active = false;
 		
-		that.$trigger.removeClass("ch-" + that.type + "-trigger-on");
+		that.$trigger.removeClass("ch-" + that["type"] + "-trigger-on");
 		/**
 		* onHide callback function
 		* @name ch.Navs#onHide
