@@ -76,7 +76,8 @@ ch.navs = function () {
 		
 		that.active = true;
 
-		that.$trigger.addClass("ch-" + that.type + "-trigger-on");
+		that.$trigger.addClass("ch-" + that["type"] + "-trigger-on");
+
 		/**
 		* onShow callback function
 		* @name ch.Navs#onShow
@@ -85,20 +86,19 @@ ch.navs = function () {
 		// Animation
 		if (conf.fx) {
 			that.$content.slideDown("fast", function () {
-				//that.$content.removeClass("ch-hide");
-			
 				// new callbacks
 				that.trigger("show");
 				// old callback system
 				that.callbacks("onShow");
 			});
 		} else {
-			that.$content.removeClass("ch-hide");
 			// new callbacks
 			that.trigger("show");
 			// old callback system
 			that.callbacks("onShow");
 		}
+
+		that.$content.removeClass("ch-hide");
 		
 		return that;
 	};
@@ -117,7 +117,7 @@ ch.navs = function () {
 		
 		that.active = false;
 		
-		that.$trigger.removeClass("ch-" + that.type + "-trigger-on");
+		that.$trigger.removeClass("ch-" + that["type"] + "-trigger-on");
 		/**
 		* onHide callback function
 		* @name ch.Navs#onHide
@@ -126,16 +126,16 @@ ch.navs = function () {
 		// Animation
 		if (conf.fx) {
 			that.$content.slideUp("fast", function () {
-				//that.$content.addClass("ch-hide");
 				that.callbacks("onHide");
 			});
 		} else {
-			that.$content.addClass("ch-hide");
 			// new callbacks
 			that.trigger("hide");
 			// old callback system
 			that.callbacks("onHide");
 		}
+
+		that.$content.addClass("ch-hide");
 		
 		return that;
 	};
@@ -154,7 +154,10 @@ ch.navs = function () {
 		that.$content.addClass("ch-" + that.type + "-content ch-hide");
 
 		// Visual configuration
-		if (conf.icon) { $("<span class=\"ch-" + that.type + "-ico\">Drop</span>").appendTo(that.$trigger); }
+		if (ch.utils.html.hasClass("lt-ie8") && conf.icon) {
+			$("<span class=\"ch-" + that.type + "-ico\">Drop</span>").appendTo(that.$trigger);
+		}
+
 		if (conf.open) { that.innerShow(); }
 
 	};

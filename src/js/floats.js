@@ -107,7 +107,9 @@ ch.floats = function () {
 			});
 
 			// and ESC key support
-			ch.utils.document.bind(ch.events.KEY.ESC, that.innerHide);
+			ch.utils.document.bind(ch.events.KEY.ESC, function () {
+				that.innerHide();
+			});
 		};
 
 	})();
@@ -190,8 +192,10 @@ ch.floats = function () {
 		container.push("\">");
 		
 		// Create cone
-		if (ch.utils.hasOwn(conf, "cone")) { container.push("<div class=\"ch-" + that.type + "-cone\"></div>"); }
-		
+		if (ch.utils.html.hasClass("lt-ie8") && ch.utils.hasOwn(conf, "cone")) {
+			container.push("<div class=\"ch-" + that.type + "-cone\"></div>");
+		}
+
 		// Create close button
 		//if (closable) { container.push("<div class=\"btn close\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></div>"); }
 		
@@ -200,6 +204,9 @@ ch.floats = function () {
 		
 		// jQuery Object generated from string
 		$container = $(container.join(""));
+
+		// Create cone
+		if (ch.utils.hasOwn(conf, "cone")) { $container.addClass("ch-cone"); }
 		
 		// Close behavior bindings
 		/*if (closable) {
@@ -321,10 +328,13 @@ ch.floats = function () {
 		// Show component with effects
 		if (conf.fx) {
 			that.$container.fadeIn("fast", function () {
+				
+				that.$container.removeClass("ch-hide");
 				// new callbacks
 				that.trigger("show");
 				// Old callback system
 				that.callbacks('onShow');
+
 			});
 		} else {
 		// Show component without effects

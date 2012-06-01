@@ -1,15 +1,16 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie6" lang="en"> <![endif]-->
-<!--[if IE 7]>	<html class="no-js lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
-<!--[if IE 8]>	<html class="no-js lt-ie9 ie8" lang="en"> <![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>	<html class="no-js  lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie10 lt-ie9 ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>	<html class="no-js lt-ie10 ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="es"> <!--<![endif]-->
 
 <head> 
 	<script></script> 
 	<meta charset="utf-8">
-	<title>Chico-UI</title>
+	<title>Chico UI</title>
 	
-	<link rel="stylesheet" type="text/css" href="http://localhost:3000/css">
+	<link rel="stylesheet" type="text/css" href="http://ui.ml.com:3000/css">
 
 	<style>
 		/**
@@ -50,7 +51,8 @@
 </head>
 
 <body>
-	<h1>Chico-UI</h1>
+	<h1>Chico UI</h1>
+
 	<div class="ch-container">
 		<h1>Header 1</h1> 
 		<h2>Header 2</h2> 
@@ -61,7 +63,7 @@
 		<p>Paragraph: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 	</div> 
 
-	<div class="ch-box links"> 
+	<div class="ch-box-lite links"> 
 		<h2>Links</h2> 
 
 		<p><a href="http://www.mercadolibre.com">MercadoLibre</a></p> 
@@ -70,7 +72,7 @@
 		<p><a href="http://www.mercadoclics.com">MercadoClics</a></p> 
 	</div>
 	
-	<div class="ch-box clearfix">
+	<div class="ch-box-lite clearfix">
 		<h2>Lists</h2>
 		<div class="ch-g1-4">
 			<h3>Unstyled</h3>
@@ -114,14 +116,24 @@
 		</div>
 	</div>
 
-	<div class="ch-box"> 
-		<h2>Boxes</h2> 
+	<div class="ch-box-container"> 
+		<h2>Box Container</h2> 
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-	</div> 
+	</div>
 
-	<div class="ch-box clearfix">
+	<div class="ch-box-lite"> 
+		<h2>Box Lite</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+	</div>
+
+	<div class="ch-box"> 
+		<h2>Box</h2> 
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+	</div>
+
+	<div class="ch-box-lite clearfix">
 		<h2>Buttons</h2>
-		<div class="ch-g1-4">
+		<!--div class="ch-g1-4">
 			<p><input type="button" class="ch-btn ch-main" value="Main button"></p>
 			<p><input type="button" class="ch-btn ch-primary" value="Primary button"></p>
 			<p><input type="button" class="ch-btn ch-secondary" value="Secondary button"></p>
@@ -132,7 +144,7 @@
 			<p><input type="button" class="ch-btn ch-primary disabled" disabled value="Primary disabled"></p>
 			<p><input type="button" class="ch-btn ch-secondary disabled" disabled value="Secondary disabled"></p>
 			<p><input type="button" class="ch-btn ch-secondary ch-skin disabled" disabled value="Secondary skin disabled"></p>
-		</div>
+		</div-->
 
 		<div class="ch-g1-4">
 			<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
@@ -160,7 +172,7 @@
 		</div>
 	</div>
 	
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>AutoComplete</h2> 
 		<form method="get" action="/" id="asForm" class="ch-form">
 			<p class="ch-form-row"> 
@@ -187,7 +199,7 @@
 		</form>
 	</div> 
 	
-	<div class="ch-box">
+	<div class="ch-box-lite">
 		<h2>Blink</h2>
 		<p id="example">This is a text that you can blink</p>
 		<p>
@@ -195,7 +207,7 @@
 		</p>
 	</div>
 
-	<div class="ch-box">
+	<div class="ch-box-lite">
 		<h2>Pagination</h2>
 		<ul class="ch-pagination">
 			<li><a type="prev" href="/2.html">Previous</a></li>
@@ -208,7 +220,7 @@
 		</ul>
 	</div>
 	
-	<div class="ch-box">
+	<div class="ch-box-lite">
 			<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
 				<caption>Table</caption>
 				<thead>
@@ -218,7 +230,7 @@
 						<th scope="col">Operation</th>
 						<th scope="col" class="ch-datagrid-selected">Seller<span class="ch-datagrid-asc">(asc)</span></th>
 						<th scope="col">Description</th>
-						<th scope="col">Price</th>
+						<th scope="col" class="ch-datagrid-selected">Price <span class="ch-datagrid-desc">(desc)</span></th>
 						<th scope="col">Status</th>
 						<th scope="col">Actions</th>
 					</tr>
@@ -269,7 +281,7 @@
 			</table>
 	</div>
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Expando</h2> 
 		<div class="YOUR_SELECTOR_Expando"> 
 			<h4>Lorem ipsum dolor sit amet.</h4> 
@@ -283,7 +295,7 @@
 	</div> 
 
 
-	<div class="ch-box">
+	<div class="ch-box-lite">
 		<h2>Accordion</h2>
 		<ul class="YOUR_SELECTOR_Accordion">
 			<li>
@@ -336,7 +348,7 @@
 	</div>
 
 
-	<div class="ch-box">
+	<div class="ch-box-lite">
 		<h2>Menu</h2>
 		<ul class="YOUR_SELECTOR_Menu">
 			<li>
@@ -385,7 +397,7 @@
 	</div>
 
 
-	<div class="ch-box">
+	<div class="ch-box-lite">
 		<h2>Dropdown</h2>
 		
 		<div class="myDropdown ch-dropdown">
@@ -411,24 +423,45 @@
 	
 
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite" style="text-align: center;"> 
 		<h2>Tooltip</h2>
-		<img class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
-		<br>
-		<img class="YOUR_SELECTOR_Tooltip" title="Goog seller" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
-		<br>
-		<img class="YOUR_SELECTOR_Tooltip" title="Good seller" alt="example image" src="http://img.mlstatic.com/org-img/rp2/termometro_vip_2/11.gif">
+
+		<h3>Bottom</h3>
+		<img id="default" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<img id="ctcb" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<img id="rtrb" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<br><br><br>
+
+
+		<h3>Top</h3>
+		<img id="lblt" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<img id="cbct" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<img id="rbrt" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<br><br><br>
+
+		<h3>Right</h3>
+		<img id="ltrt" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<img id="lmrm" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<img id="lbrb" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<br><br><br>
+
+		<h3>Left</h3>
+		<img id="rtlt" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<img id="rmlm" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<img id="rblb" class="YOUR_SELECTOR_Tooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<br><br><br>
+		
 	</div> 
 
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Layer</h2>
 		<span class="YOUR_SELECTOR_LayerCloseButton">Executed on click, button closes.</span> 
 		| <span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span> 
 		| <span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span> 
 	</div> 
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Modal window</h2> 
 		
 		<form action="/ajax.html">
@@ -439,7 +472,7 @@
 		</form>
 	</div> 
 	
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Modal window with DOM Content</h2> 
 		
         <div class="container">
@@ -456,14 +489,14 @@
 		</div>
 	</div> 
 	
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Transition window</h2> 
 		<form action="/ajax.html"> 
 			<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
 	</div>
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 
 		<h2>Carousel</h2> 
 
@@ -501,11 +534,12 @@
 		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator"> 
 			<ul class="ch-tabNavigator-triggers"> 
 				<li><a href="#tab1-b" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li> 
-				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li> 
-				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li> 
+				<li><a href="#tab2-b" class="ch-tab-trigger"><span>❤</span> Tab2</a></li> 
+				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li>
+				<li><a href="ajax.html#ajax" class="ch-tab-trigger">Tab4</a></li>
 
 			</ul> 
-			<div class="ch-box"> 
+			<div class="ch-box-lite"> 
 
 				<div id="tab1-b"> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
@@ -531,7 +565,7 @@
 				<li><a href="#tab2-c" class="ch-tab-trigger">Tab2</a></li> 
 				<li><a href="#tab3-c" class="ch-tab-trigger">Tab3</a></li> 
 			</ul> 
-			<div class="ch-box"> 
+			<div class="ch-box-lite"> 
 				<div id="tab1-c"> 
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>						
@@ -547,7 +581,7 @@
 		</div>
 	</div> 
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Icons</h2>
 		<ul class="showroomIcons">
 			<li><span class="ch-ico-error">Error</span></li>
@@ -559,7 +593,7 @@
 		</ul>
 	</div> 
 	
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Message boxes</h2>
 		<ul class="showroomIcons">
 			<li><p class="ch-message-error">Oops, something wrong happened</p></li>
@@ -571,12 +605,12 @@
 		</ul>
 	</div> 
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Calendar</h2>
 		<div class="YOUR_SELECTOR_calendar"></div>
 	</div>
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Date Picker</h2>
 		<form action="/ajax.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
 			<fieldset>
@@ -590,7 +624,7 @@
 		</form>
 	</div>
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Countdown</h2>
 		<form action="/ajax.html" class="YOUR_SELECTOR_Formcountdown ch-form">
 			<fieldset>
@@ -605,10 +639,10 @@
 	</div>
 
 
-	<div class="ch-box"> 
+	<div class="ch-box-lite"> 
 		<h2>Form and Watchers</h2> 
 
-		<form action="http://localhost:3000/test/post" class="ch-form myForm" method="POST"> 
+		<form action="http://ui.ml.com:3000/test/post" class="ch-form myForm" method="POST"> 
 			<fieldset> 
 				<legend>Inputs</legend> 
 				<p class="ch-form-hint">* Required fields</p> 
@@ -996,7 +1030,7 @@
 	</div> 
 	
 	<script src="vendor/jquery-debug.js"></script>
-	<script src="http://localhost:3000/js"></script>
+	<script src="http://ui.ml.com:3000/js"></script>
 	<script> 
 
 		// Automatic version
@@ -1071,7 +1105,58 @@
 		var ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
 
 		// Tooltip
-		var ch_tool = $(".YOUR_SELECTOR_Tooltip").tooltip();
+		//var ch_tool = $(".YOUR_SELECTOR_Tooltip").tooltip();
+		
+		// Bottom
+		$("#default").tooltip(); // lt rlb
+		$("#ctcb").tooltip({
+			"points": "ct cb"
+		});
+		$("#rtrb").tooltip({
+			"points": "rt rb"
+		});
+
+		// Top
+		$("#lblt").tooltip({
+			"points": "lb lt",
+			"offset": "0 -10"
+		});
+		$("#cbct").tooltip({
+			"points": "cb ct",
+			"offset": "0 -10"
+		});
+		$("#rbrt").tooltip({
+			"points": "rb rt",
+			"offset": "0 -10"
+		});
+
+		// Right
+		$("#ltrt").tooltip({
+			"points": "lt rt",
+			"offset": "10 0"
+		});
+		$("#lmrm").tooltip({
+			"points": "lm rm",
+			"offset": "10 0"
+		});
+		$("#lbrb").tooltip({
+			"points": "lb rb",
+			"offset": "10 0"
+		});
+
+		// Left
+		$("#rtlt").tooltip({
+			"points": "rt lt",
+			"offset": "-10 0"
+		});
+		$("#rmlm").tooltip({
+			"points": "rm lm",
+			"offset": "-10 0"
+		});
+		$("#rblb").tooltip({
+			"points": "rb lb",
+			"offset": "-10 0"
+		});
 
 		// Tab Navigator
 		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator();
@@ -1097,7 +1182,12 @@
 			"to": "2012/11/25"
 		});
 
-		var ch_ico = $(".ch-form-ico").layer({content:"Help",event:"click", offset:"-12 15"});
+		var ch_ico = $(".ch-form-ico").layer({
+			"content": "Help",
+			"event": "click",
+			"points": "lm rm",
+			"offset": "10 0"
+		});
 			
 		// Form
 		var ch_form = $('.myForm').form();
