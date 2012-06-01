@@ -52,7 +52,7 @@ ch.tabNavigator = function (conf) {
 	* @name ch.TabNavigator#hash
 	* @type string
 	*/
-	var hash = window.location.hash.replace("#!", ""),
+	var hash = window.location.hash.replace("#!/", ""),
 
 	/**
 	* A boolean property to know if the some tag should be selected.
@@ -154,7 +154,7 @@ ch.tabNavigator = function (conf) {
 			tab.innerShow();
 	
 			//Change location hash
-			window.location.hash = "#!" + tab.$content.attr("id");
+			window.location.hash = "#!/" + tab.$content.attr("id");
 	
 			/**
 			* Fired when a tab is selected.
@@ -321,7 +321,7 @@ ch.tab = function (conf) {
 *	Inheritance
 */
 
-	that = ch.navs.call(that);
+	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
 
 /**
@@ -395,21 +395,18 @@ ch.tab = function (conf) {
 	that.innerShow = function (event) {
 		that.prevent(event);
 
+		that.active = true;
+
 		// Load my content if I'need an ajax request 
 		if (ch.utils.hasOwn(that, "source")) { that.content(); }
 
 		// Show me
-		that.parent.innerShow(event);
+		that.$trigger.addClass("ch-" + that["type"] + "-trigger-on");
 
 		// Set me as hidden false
-		that.$content.attr("aria-hidden", "false");
-		
-		// It removes the class ch-js-hide because the content be visible on click
-		//that.$content.hasClass('ch-js-hide')?that.$content.removeClass('ch-js-hide'):null;
-
-		// When click or enter to the tab, then it will be focused
-		// Deprecated: Issue GH-346
-		//that.$trigger.focus();
+		that.$content
+				.attr("aria-hidden", "false")
+				.removeClass("ch-hide");
 
 		return that;
 	};
@@ -425,11 +422,17 @@ ch.tab = function (conf) {
 	that.innerHide = function (event) {
 		that.prevent(event);
 
+		if (!that.active) { return; }
+		
+		that.active = false;
+
 		// Hide me
-		that.parent.innerHide(event);
+		that.$trigger.removeClass("ch-" + that["type"] + "-trigger-on");
 
 		// Set all inactive tabs as hidden
-		that.$content.attr("aria-hidden", "true");
+		that.$content
+				.attr("aria-hidden", "true")
+				.addClass("ch-hide");
 
 		return that;
 	};
@@ -494,7 +497,7 @@ ch.tab = function (conf) {
 	that.$trigger.attr({
 		"role": "tab",
 		"arial-controls": that.$content.attr("id"),
-		"class": "ch-tab ch-tab-trigger"
+		"class": "ch-tab-trigger"
 	});
 		
 	return that;

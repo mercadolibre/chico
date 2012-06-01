@@ -86,9 +86,16 @@ var ch = window.ch = {
 		* @memberOf ch.Utils
 		* @returns boolean
 		*/
-		isArray: function (o) {
-			return Object.prototype.toString.apply(o) === "[object Array]";
-		},
+		isArray: (function () {
+
+			if (Array.hasOwnProperty("isArray")) {
+				return Array.isArray;
+			}
+
+			return function (o) {
+				return Object.prototype.toString.apply(o) === "[object Array]";
+			};
+		}()),
 		/**
 		* Checks if the url given is right to load content.
 		* @name isUrl
@@ -181,9 +188,13 @@ var ch = window.ch = {
 			});
 			return;
 		},
-		hasOwn: function(o, property) {
-			return Object.prototype.hasOwnProperty.call(o, property);
-		},
+		hasOwn: (function () {
+			var hOP = Object.prototype.hasOwnProperty;
+
+			return function (o, property) {
+				return hOP.call(o, property);
+			};
+		}()),
 		// Based on: http://www.quirksmode.org/dom/getstyles.html
 		getStyles: function (element, style) {
 			// Main browsers
@@ -349,13 +360,16 @@ ch.events = {
 */
 ch.clon = function(o) {
 
-	obj = {};
+	var copy = {},
+		x;
 
 	for (x in o) {
-		obj[x] = o[x]; 
+		if (ch.utils.hasOwn(o, x)) {
+			copy[x] = o[x];
+		}
 	};
-	
-	return obj;
+
+	return copy;
 };
 
 

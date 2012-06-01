@@ -32,7 +32,7 @@ ch.validation = function (conf) {
 	conf = ch.clon(conf);
 	
 	// Configuration by default
-	conf.offset = conf.offset || "15 0";
+	conf.offset = conf.offset || "10 0";
 	conf.points = conf.points || "lt rt";
 
 	that.conf = conf;
@@ -179,7 +179,8 @@ ch.validation = function (conf) {
 			return reference;
 		})(),
 		"type": "validation",
-		"content": "<p class=\"ch-message-error\">Error.</p>",
+		"content": "Error.",
+		"classes": "ch-message-error",
 		"cone": true,
 		"cache": false,
 		"closable": false,
@@ -248,7 +249,7 @@ ch.validation = function (conf) {
 
 			// to avoid reload the same content
 			if (!that["float"]["public"].isActive() || !that.error.condition || that.error.condition !== gotError.condition) {
-				that["float"]["public"].show("<p class=\"ch-message-error\">" + (gotError.msg || form.messages[gotError.condition] || "Error") + "</p>");
+				that["float"]["public"].show((gotError.msg || form.messages[gotError.condition] || "Error"));
 			} 
 
 			// Add blur or change event only one time to the element or to the elements's group
@@ -550,7 +551,7 @@ ch.validation = function (conf) {
 		validator.conditions[condition].message = msg;
 
 		if (validator.isActive()) {
-			that["public"]["float"].content("<p class=\"ch-message-error\">" + msg + "</p>");
+			that["public"]["float"].content(msg);
 		}
 
 		return that["public"];

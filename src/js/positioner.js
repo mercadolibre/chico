@@ -54,23 +54,15 @@
 ch.positioner = (function () {
 
 	/**
-	* Map that references the input points to an output friendly classname.
+	* Converts points in className.
 	* @private
-	* @constant
-	* @name ch.Positioner#CLASS_MAP
-	* @type Object
+	* @name ch.Positioner#classNamePoints
+	* @function
+	* @returns String
 	*/
-	// TODO: include more specifications like ch-in ch-out
-	// TODO: analize if reduct classnames amount. example:ch-out-left-bottom
-	// TODO: complete classnames with all supported positions
-	var CLASS_MAP = {
-		"lt lb": "ch-left ch-bottom",
-		"lb lt": "ch-left ch-top",
-		"lt rt": "ch-right",
-		"rt rb": "ch-right ch-bottom",
-		"rb rt": "ch-right ch-top",
-		"cm cm": "ch-center"
-	},
+	var classNamePoints = function (points) {
+			return "ch-points-" + points.replace(" ", "");
+		},
 
 	/**
 	* Reference that allows to know when window is being scrolled or resized.
@@ -497,9 +489,9 @@ ch.positioner = (function () {
 				// Gets coordinates from main points
 				var coordinates = getCoordinates(points);
 
-				// Update friendly classname
+				// Update classPoints
 				// TODO: Is this ok in this place?
-				friendly = CLASS_MAP[points];
+				classPoints = classNamePoints(points);
 
 				// Default behavior: returns left and top offset related to main points
 				if (!conf.reposition) { return coordinates; }
@@ -523,12 +515,12 @@ ch.positioner = (function () {
 					newPoints = newPoints.charAt(0) + "b " + newPoints.charAt(3) + "t";
 					newData = getCoordinates(newPoints);
 
-					newData.friendly = CLASS_MAP[newPoints];
+					newData.classPoints = classNamePoints(newPoints);
 
 					if (newData.top + offsetY > ch.viewport.top) {
 						coordinates.top = newData.top - (2 * offset[1]);
 						coordinates.left = newData.left;
-						friendly = newData.friendly;
+						classPoints = newData.classPoints;
 					}
 				}
 
@@ -540,12 +532,13 @@ ch.positioner = (function () {
 					newPoints = orientation + newPoints.charAt(1) + " " + orientation + newPoints.charAt(4);
 
 					newData = getCoordinates(newPoints);
-					newData.friendly = CLASS_MAP[newPoints];
+
+					newData.classPoints = classNamePoints(newPoints);
 
 					if (newData.left + offsetX > ch.viewport.left) {
 						coordinates.top = newData.top;
 						coordinates.left = newData.left - (2 * offset[0]);
-						friendly = newData.friendly;
+						classPoints = newData.classPoints;
 					}
 				}
 
@@ -572,11 +565,13 @@ ch.positioner = (function () {
 				// New element position
 				var coordinates,
 					
-				// Removes all classnames related to friendly positions and adds classname for new points
-				// TODO: improve this method. maybe knowing which one was the last added classname
+					// Update classname related to position
 					updateClassName = function ($element) {
-						$element.removeClass("ch-left ch-top ch-right ch-bottom ch-center").addClass(friendly);
+						$element.removeClass(lastClassPoints).addClass(classPoints);
 					};
+
+				// Save the last className before calculate new points
+				lastClassPoints = classPoints;
 
 				// Gets definitive coordinates for element repositioning
 				coordinates = getPosition();
@@ -588,7 +583,7 @@ ch.positioner = (function () {
 
 				// If there are changes, it stores new coordinates on lastCoordinates
 				lastCoordinates = coordinates;
-
+				
 				// Element reposition (Updates element position based on new coordinates)
 				updateClassName($element.css({ "left": coordinates.left, "top": coordinates.top }));
 
@@ -674,13 +669,21 @@ ch.positioner = (function () {
 			},
 
 		/**
-		* Friendly classname relative to position points.
+		* Classname relative to position points.
 		* @private
-		* @name ch.Positioner#friendly
-		* @type Boolean
-		* @default "ch-center"
+		* @name ch.Positioner#classPoints
+		* @type String
+		* @default "ch-points-cmcm"
 		*/
-			friendly = CLASS_MAP[points];
+			classPoints = classNamePoints(points),
+
+		/**
+		* The last className before calculate new points.
+		* @private
+		* @name ch.Positioner#lastClassPoints
+		* @type string
+		*/
+			lastClassPoints = classPoints;
 
 		/**
 		* Control object that allows to change configuration properties, refresh current position or get current configuration.
