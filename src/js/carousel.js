@@ -185,10 +185,10 @@ ch.carousel = function (conf) {
 	/**
 	* Calculates and set the size of items and its margin to get an adaptive Carousel.
 	* @private
-	* @name ch.Carousel#updateResponsiveness
+	* @name ch.Carousel#updateDistribution
 	* @function
 	*/
-		updateResponsiveness = function () {
+		updateDistribution = function () {
 
 			// Grabs if there are MORE THAN ONE item in a page or just one
 			var moreThanOne = itemsPerPage > 1,
@@ -288,9 +288,7 @@ ch.carousel = function (conf) {
 			}
 
 			// Update the margin between items and its size
-			if (!ch.utils.hasOwn(conf, "width")) {
-				updateResponsiveness();
-			}
+			updateDistribution();
 		},
 
 	/**

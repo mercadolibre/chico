@@ -12,11 +12,18 @@
 	
 	<link rel="stylesheet" type="text/css" href="http://ui.ml.com:3000/css">
 
-	<style> 
-		/* Carousel list size */
-		.YOUR_SELECTOR_Carousel .ch-carousel-content li {
-			width:120px;
-			height:120px;
+	<style>
+		/**
+		 * Carousel demo
+		 */
+		.myCarousel li {
+			width: 200px;
+			height: 220px;
+			padding: 10px;
+		}
+		
+		.myCarousel img {
+			max-width: 100%;
 		}
 		
 		/* Icons demo */
@@ -493,27 +500,28 @@
 
 		<h2>Carousel</h2> 
 
-		<div class="YOUR_SELECTOR_Carousel ch-carousel"> 
+		<div class="myCarousel ch-carousel"> 
 			<ul> 
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
-				<li><img src="http://img1.mlstatic.com/s_MLA_v_G_f_113049086_8640.jpg?desch=1.01"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
 			</ul> 
 		</div> 
 
@@ -1062,8 +1070,8 @@
 		var ch_drop = $(".myDropdown").dropdown();
 
 		// Carousel
-		var ch_caro = $(".YOUR_SELECTOR_Carousel").carousel({
-			pagination:true
+		var myCarousel = $(".myCarousel").carousel({
+			"pagination": true
 		});
 					
 		// Modal
