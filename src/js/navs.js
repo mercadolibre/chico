@@ -78,8 +78,6 @@ ch.navs = function () {
 
 		that.$trigger.addClass("ch-" + that["type"] + "-trigger-on");
 
-		that.$content.removeClass("ch-hide");
-
 		/**
 		* onShow callback function
 		* @name ch.Navs#onShow
@@ -99,6 +97,8 @@ ch.navs = function () {
 			// old callback system
 			that.callbacks("onShow");
 		}
+
+		that.$content.removeClass("ch-hide");
 		
 		return that;
 	};
@@ -126,16 +126,16 @@ ch.navs = function () {
 		// Animation
 		if (conf.fx) {
 			that.$content.slideUp("fast", function () {
-				that.$content.addClass("ch-hide");
 				that.callbacks("onHide");
 			});
 		} else {
-			that.$content.addClass("ch-hide");
 			// new callbacks
 			that.trigger("hide");
 			// old callback system
 			that.callbacks("onHide");
 		}
+
+		that.$content.addClass("ch-hide");
 		
 		return that;
 	};
