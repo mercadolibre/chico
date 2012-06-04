@@ -4,6 +4,7 @@
 * @class Carousel
 * @augments ch.Uiobject
 * @memberOf ch
+* @factorized
 * @param {Object} [conf] Object with configuration properties.
 * @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is elastic.
 * @param {Boolean} [conf.pagination] Shows a pagination. By default, the value is false.

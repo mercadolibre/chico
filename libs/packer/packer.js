@@ -103,9 +103,9 @@ Packer.prototype.addRoot = function () {
 			// Replace routes
 			// TODO: use config object
 			// TODO: link to "min" when there is a min, or "not min" when there isn't a min.
-			data = data.replace("http://localhost:3000/css", "css/chico-min-" + self.version + ".css");
+			data = data.replace("http://ui.ml.com:3000/css", "css/chico-min-" + self.version + ".css");
 			data = data.replace("vendor/jquery-debug.js", "js/jquery.js");
-			data = data.replace("http://localhost:3000/js", "js/chico-min-" + self.version + ".js");
+			data = data.replace("http://ui.ml.com:3000/js", "js/chico-min-" + self.version + ".js");
 
 			// Writing file
 			fs.writeFile(showroom, data, encoding = "utf8", function (err) {
