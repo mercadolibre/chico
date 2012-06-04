@@ -64,6 +64,28 @@
 	border-left-color: #CCCCCC;
 }
 
+/* Cone Y position */
+.ch-layer.ch-cone.ch-points-ltrt:after,
+.ch-layer.ch-cone.ch-points-rtlt:after {
+	top: 8px;
+}
+
+.ch-layer.ch-cone.ch-points-ltrt:before,
+.ch-layer.ch-cone.ch-points-rtlt:before {
+	top: 7px;
+}
+
+.ch-layer.ch-cone.ch-points-lbrb:after,
+.ch-layer.ch-cone.ch-points-rblb:after {
+	bottom: 8px;
+}
+
+.ch-layer.ch-cone.ch-points-lbrb:before,
+.ch-layer.ch-cone.ch-points-rblb:before {
+	bottom: 7px;
+}
+
+/* IE */
 .lt-ie10 .ch-layer {
 	filter: none;
 }
