@@ -18,5 +18,5 @@
 		"type": "js",
 		"min": false
 	}],
-	"filesOrder": "core,cache,condition,eraser,keyboard,list,object,onImagesLoads,positioner,preload,viewport,uiobject,validator,calendar,carousel,controllers,controls,floats,navs,autoComplete,blink,countdown,datePicker,dropdown,expando,form,layer,menu,modal,tabNavigator,tooltip,validation,zoom,custom,number,required,string"
+	"filesOrder": "core,cache,condition,eraser,list,object,onImagesLoads,positioner,preload,viewport,uiobject,validator,calendar,carousel,controllers,controls,floats,navs,autoComplete,blink,countdown,datePicker,dropdown,expando,form,layer,menu,modal,tabNavigator,tooltip,validation,zoom,custom,number,required,string"
 }

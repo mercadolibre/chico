@@ -349,6 +349,40 @@ ch.events = {
 	}
 };
 
+/**
+* Keyboard event controller utility to know wich keys are begin.
+* @name Keyboard
+* @class Keyboard
+* @memberOf ch
+* @param event
+*/
+ch.keyboard = (function () {
+
+	/**
+	* Map with references to key codes.
+	* @private
+	* @name ch.Keyboard#codeMap
+	* @type object
+	*/ 
+	var codeMap = {
+		"13": "ENTER",
+		"27": "ESC",
+		"37": "LEFT_ARROW",
+		"38": "UP_ARROW",
+		"39": "RIGHT_ARROW",
+		"40": "DOWN_ARROW",
+		 "8": "BACKSPACE"
+	};
+
+	return function (event) {
+
+		// Check for event existency on the map
+		if(!ch.utils.hasOwn(codeMap, event.keyCode)) { return; }
+
+		// Trigger custom event with original event as second parameter
+		ch.utils.document.trigger(ch.events.KEY[codeMap[event.keyCode]], event);
+	};
+}());
 
 /** 
 * Utility to clone objects
