@@ -3,6 +3,7 @@
 * @name Countdown
 * @class Countdown
 * @augments ch.Controls
+* @see ch.Controls
 * @memberOf ch
 * @param {Object} conf Object with configuration properties.
 * @param {Number} conf.max Number of the maximum amount of characters user can input in form control.

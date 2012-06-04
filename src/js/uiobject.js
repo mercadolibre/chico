@@ -4,10 +4,13 @@
 * @name Uiobject
 * @class Uiobject
 * @augments ch.Object
+* @requires ch.Cache
 * @memberOf ch
 * @exampleDescription 
 * @example
 * ch.uiobject.call();
+* @see ch.Object
+* @see ch.Cache
 * @see ch.Controllers
 * @see ch.Floats
 * @see ch.Navs

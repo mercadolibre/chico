@@ -3,6 +3,9 @@
 * @name Expando
 * @class Expando
 * @augments ch.Navs
+* @see ch.Dropdown
+* @see ch.TabNavigator
+* @see ch.Navs
 * @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.

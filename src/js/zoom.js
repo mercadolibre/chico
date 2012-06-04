@@ -3,7 +3,6 @@
 * @name Zoom
 * @class Zoom
 * @augments ch.Floats
-* @requires ch.Positioner
 * @requires ch.onImagesLoads
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -19,9 +18,11 @@
 * @example
 * var widget = $(".example").zoom();
 * @factorized
+* @see ch.Floats
 * @see ch.Modal
 * @see ch.Tooltip
 * @see ch.Layer
+* @see ch.OnImagesLoads
 */
 
 ch.zoom = function (conf) {

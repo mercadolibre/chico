@@ -10,6 +10,8 @@
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
 * @factorized
+* @see ch.Expando
+* @see ch.Controllers
 * @exampleDescription Create a new menu without configuration.
 * @example
 * var widget = $(".example").menu();
@@ -302,6 +304,9 @@ ch.factory("menu");
 * @augments ch.Controllers
 * @requires ch.Menu
 * @requires ch.Expando
+* @see ch.Controllers
+* @see ch.Menu
+* @see ch.Expando
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Number} [conf.selected] Selects a child that will be open when component was loaded.
