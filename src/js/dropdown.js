@@ -4,6 +4,10 @@
 * @class Dropdown
 * @augments ch.Navs
 * @requires ch.Positioner
+* @see ch.Navs
+* @see ch.Positioner
+* @see ch.Expando
+* @see ch.TabNavigator
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Boolean} [conf.open] Shows the dropdown open when component was loaded. By default, the value is false.

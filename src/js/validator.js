@@ -9,6 +9,7 @@
 * @param {Object} conf.conditions Object with conditions.
 * @returns itself
 * @factorized
+* @see ch.Object
 * @see ch.Condition
 */
 

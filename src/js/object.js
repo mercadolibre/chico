@@ -7,7 +7,8 @@
 * @see ch.Controllers
 * @see ch.Floats
 * @see ch.Navs
-* @see ch.Watcher
+* @see ch.Validator
+* @see ch.Controls
 */
 
 ch.object = function(){

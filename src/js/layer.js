@@ -17,6 +17,7 @@
 * @param {String} [conf.closable] Sets the way (true, "button" or false) the Layer close when conf.event is set as "click". By default, the layer close true.
 * @returns itself
 * @factorized
+* @see ch.Floats
 * @see ch.Tooltip
 * @see ch.Modal
 * @see ch.Zoom

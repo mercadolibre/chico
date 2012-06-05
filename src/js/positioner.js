@@ -10,6 +10,7 @@
 * @param {String} [conf.offset] Offset in pixels that element will be displaced from original position determined by points. It's specified by configuration or zero by default.
 * @param {Boolean} [conf.reposition] Parameter that enables or disables reposition intelligence. It's disabled by default.
 * @requires ch.Viewport
+* @see ch.Viewport
 * @returns {Function} The Positioner returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
 * @exampleDescription
 * Instance the Positioner It requires a little configuration. 

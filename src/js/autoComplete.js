@@ -3,6 +3,7 @@
 * @name AutoComplete
 * @class AutoComplete
 * @augments ch.Controls
+* @see ch.Controls
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} conf.url The url pointing to the suggestions's service.

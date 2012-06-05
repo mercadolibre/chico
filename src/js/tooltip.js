@@ -13,6 +13,7 @@
 * @see ch.Modal
 * @see ch.Layer
 * @see ch.Zoom
+* @see ch.Flaots
 * @exampleDescription Create a tooltip.
 * @example
 * var widget = $(".some-element").tooltip();

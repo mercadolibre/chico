@@ -17,6 +17,13 @@
 * @param {String} [conf.context] It's a reference to position the validation-bubble.
 * @returns itself
 * @factorized
+* @see ch.Controls
+* @see ch.Form
+* @see ch.Validator
+* @see ch.Required
+* @see ch.String
+* @see ch.Number
+* @see ch.Custom
 */
 
 ch.validation = function (conf) {

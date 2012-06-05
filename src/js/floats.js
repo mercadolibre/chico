@@ -9,6 +9,11 @@
 * @see ch.Tooltip
 * @see ch.Layer
 * @see ch.Modal
+* @see ch.Controls
+* @see ch.Transition
+* @see ch.Zoom
+* @see ch.Uiobject
+* @see ch.Positioner
 */
 
 ch.floats = function () {

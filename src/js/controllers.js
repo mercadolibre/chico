@@ -7,8 +7,9 @@
 * @memberOf ch
 * @returns itself
 * @see ch.Accordion
-* @see ch.Carousel
+* @see ch.Menu
 * @see ch.Form
+* @see ch.Uiobject
 */
 
 ch.controllers = function(){
