@@ -11,6 +11,8 @@
 * @see ch.Validation
 * @see ch.AutoComplete
 * @see ch.DatePicker
+* @see ch.Uiobject
+* @see ch.Floats
 */
 
 ch.controls = function () {

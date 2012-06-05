@@ -3,6 +3,7 @@
 * @name Carousel
 * @class Carousel
 * @augments ch.Uiobject
+* @see ch.Uiobject
 * @memberOf ch
 * @factorized
 * @param {Object} [conf] Object with configuration properties.

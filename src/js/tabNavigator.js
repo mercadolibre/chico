@@ -16,6 +16,7 @@
 * var widget = $(".example").tabNavigator({
 *     "selected": 2
 * });
+* @see ch.Controllers
 */
 
 ch.tabNavigator = function (conf) {

@@ -8,6 +8,7 @@
 * @memberOf ch
 * @param {object} conf Object with configuration properties
 * @returns itself
+* @see ch.Uiobject
 * @see ch.Dropdown
 * @see ch.Expando
 */

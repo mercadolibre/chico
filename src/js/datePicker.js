@@ -4,6 +4,8 @@
 * @class DatePicker
 * @augments ch.Controls
 * @requires ch.Calendar
+* @see ch.Controls
+* @see ch.Calendar
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".

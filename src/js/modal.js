@@ -13,6 +13,7 @@
 * @param {String} [conf.closable] Sets the way (true, "button" or false) the Modal close. By default, the modal close true.
 * @returns itself
 * @factorized
+* @see ch.Floats
 * @see ch.Tooltip
 * @see ch.Layer
 * @see ch.Zoom
@@ -262,6 +263,8 @@ ch.factory("modal");
 * @see ch.Tooltip
 * @see ch.Layer
 * @see ch.Zoom
+* @see ch.Modal
+* @see ch.Floats
 * @exampleDescription Create a transition.
 * @example
 * var widget = $("a.example").transition();

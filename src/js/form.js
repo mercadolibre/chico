@@ -7,6 +7,7 @@
 * @param {Object} [conf] Object with configuration properties.
 * @param {Object} [conf.messages]
 * @see ch.Validation
+* @see ch.Controllers
 * @returns itself
 * @factorized
 * @exampleDescription Create a new Form.

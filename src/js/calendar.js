@@ -3,6 +3,7 @@
 * @name Calendar
 * @class Calendar
 * @augments ch.Uiobject
+* @see ch.Uiobject
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
