@@ -846,8 +846,8 @@ ch.carousel = function (conf) {
 
 		goToPage(currentPage + 1);
 
-		that.callbacks("onPrev");
-		that.trigger("prev");
+		that.callbacks("onNext");
+		that.trigger("next");
 
 		return that;
 	};
