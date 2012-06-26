@@ -23,20 +23,19 @@
 
 /* Trigger icon */
 .ch-expando-trigger:after {
-	background-image: url("../assets/expando.png");
-	content: " ";
-	width: 10px;
-	height: 12px;
+	font-family: icons;
+	content: "\f054";
 	position:absolute;
-	top: 3px;
-	left: 0;
+	top: 2px;
+	left: 5px;
+	color: #666666;
+	text-decoration: none;
 }
 
 /* Trigger icon on */
 .ch-expando-trigger-on:after {
-	width: 12px;
-	height: 12px;
-	background-position: 0 -30px;
+	content: "\f078";
+	left: 2px;
 }
 
 /* Content */
@@ -45,9 +44,7 @@
 }
 
 /* IE 6 */
-.lt-ie7 .ch-expando-trigger,
-/* Deprecate */
-.ie6 .ch-expando-trigger {
+.lt-ie7 .ch-expando-trigger {
 	font-size:13px;
 	text-decoration: underline;
 }

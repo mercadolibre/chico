@@ -16,6 +16,7 @@
 }
 
 .ch-calendar caption {
+	background-color: #F9F9F9;
 	background: -o-linear-gradient(top, #F9F9F9 0%, #eeeeee 100%);
 	background: -ms-linear-gradient(top, #F9F9F9 0%, #eeeeee 100%);
 	background: -moz-linear-gradient(top, #F9F9F9 0%, #eeeeee 100%);
@@ -26,13 +27,12 @@
 	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
 	font-size: 13px;
 	line-height: 28px;
-	background-color: #F9F9F9;
 	text-shadow: 0 1px 0 #FFFFFF;
 	border-bottom: none;
 }
 
 .lt-ie10 .ch-calendar caption {
-	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9', endColorstr='#eeeeee');
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9', endColorstr='#eeeeee');
 }
 
 .ch-calendar thead {
@@ -82,19 +82,10 @@
 .ch-calendar-prev,
 .ch-calendar-next {
 	cursor: pointer;
-	font-size: 9px;
 	position: absolute;
 	padding: 0px 20px;
-	height: 29px;
-	line-height: 3.5em;
-	text-indent: -999px;	
-}
-
-.lt-ie8 .ch-calendar-prev,
-.lt-ie8 .ch-calendar-next {
-	text-indent: 0;
-	font-size: 18px;
-	line-height: 1.5em;
+	height: 2.5em;
+	font-size: .9em;
 }
 
 .ch-calendar-prev {
@@ -107,29 +98,24 @@
 
 .ch-calendar-prev:after,
 .ch-calendar-next:after {
-	content: " ";
+	font-family: icons;
 	position: absolute;
-	top: 12px;
-	width: 0;
-	height: 0;
-	border: solid transparent;
-	border-width: 4px;
+	top: 7px;
+	color: #666666;
+	text-shadow: 0 1px #FFFFFF;
 }
 
 .ch-calendar-prev:after {
-	border-right-color: #333;
-	left: 10px;
-	top: 11px;
-	border-width: 5px;
+	content: "\f053";
+	left: 15px;
 }
 
 .ch-calendar-next:after {
-	border-left-color: #333;
+	content: "\f054";
 	right: 15px;
 }
 
 /* IE */
-
 .ie9 .ch-calendar caption,
 .ie8 .ch-calendar caption {
 	margin:0;
@@ -142,4 +128,22 @@
 
 .ie7 .ch-calendar-month {
 	border: 1px solid #dfdfdf;
+}
+
+.lt-ie8 .ch-calendar-prev span,
+.lt-ie8 .ch-calendar-next span {
+	background-image: url("../assets/cones.png");
+	overflow: hidden;
+	display: block;
+	width: 4px;
+	height: 7px;
+	margin-top: 12px;
+}
+
+.lt-ie8 .ch-calendar-prev span{
+	background-position: -4px -48px;
+}
+
+.lt-ie8 .ch-calendar-next span{
+	background-position: -7px -48px;
 }

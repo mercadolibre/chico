@@ -50,13 +50,45 @@
 	cursor: pointer;
 	position: absolute;
 	z-index: 2;
+	width: 47px;
+	height: 80px;
+	font-size: 2em;
+	line-height: 3.3em;
+	color: #666666;
+	
 }
 
-.ch-carousel-prev { left: 0; }
-.ch-carousel-next { right: 0; }
+.ch-carousel-prev {
+	left: 0;
+}
 
-.ch-carousel-prev span,
-.ch-carousel-next span {
+.ch-carousel-next {
+	right: 0;
+}
+
+.ch-carousel-prev:after,
+.ch-carousel-next:after {
+	font-family: icons;
+	position: absolute;
+}
+
+.ch-carousel-prev:after {
+	content: "\f053";
+	left: 17px;
+}
+
+.ch-carousel-next:after {
+	content: "\f054";
+	right: 17px;
+}
+
+.ch-carousel-prev:hover,
+.ch-carousel-next:hover {
+	opacity: 0.7;
+}
+
+.lt-ie8 .ch-carousel-prev span,
+.lt-ie8 .ch-carousel-next span {
 	background-image: url('../assets/carousel.png');
 	display: block;
 	height: 20px;
@@ -68,12 +100,7 @@
 	width: 11px;
 }
 
-.ch-carousel-next span { background-position: -10px 0; }
-
-.ch-carousel-prev:hover span,
-.ch-carousel-next:hover span {
-	opacity: 0.5;
-}
+.lt-ie8 .ch-carousel-next span { background-position: -10px 0; }
 
 .ch-carousel-disabled {
 	display: none;

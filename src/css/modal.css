@@ -30,9 +30,7 @@
 }
 
 /* IE */
-.lt-ie7 .ch-dimmer,
-/* Deprecate */
-.ie6 .ch-dimmer {
+.lt-ie7 .ch-dimmer {
 	filter:alpha(opacity=50) !important;
 	background-color: #000000;
 	width: 150%;

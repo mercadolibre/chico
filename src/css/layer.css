@@ -13,75 +13,75 @@
 /* Cone */
 /* Bottom */
 /* ltlb, ctcb, rtrb */
-.ch-layer.ch-points-ltlb:after,
-.ch-layer.ch-points-ctcb:after,
-.ch-layer.ch-points-rtrb:after {
+.ch-layer.ch-points-ltlb .ch-layer-content:after,
+.ch-layer.ch-points-ctcb .ch-layer-content:after,
+.ch-layer.ch-points-rtrb .ch-layer-content:after {
 	border-bottom-color: #FFFFFF;
 }
-.ch-layer.ch-points-ltlb:before,
-.ch-layer.ch-points-ctcb:before,
-.ch-layer.ch-points-rtrb:before {
+.ch-layer.ch-points-ltlb .ch-layer-content:before,
+.ch-layer.ch-points-ctcb .ch-layer-content:before,
+.ch-layer.ch-points-rtrb .ch-layer-content:before {
 	border-bottom-color: #CCCCCC;
 }
 
 /* Top */
 /* lblt, cbct, rbrt */
-.ch-layer.ch-points-lblt:after,
-.ch-layer.ch-points-cbct:after,
-.ch-layer.ch-points-rbrt:after {
+.ch-layer.ch-points-lblt .ch-layer-content:after,
+.ch-layer.ch-points-cbct .ch-layer-content:after,
+.ch-layer.ch-points-rbrt .ch-layer-content:after {
 	border-top-color: #FFFFFF;
 }
-.ch-layer.ch-points-lblt:before,
-.ch-layer.ch-points-cbct:before,
-.ch-layer.ch-points-rbrt:before {
+.ch-layer.ch-points-lblt .ch-layer-content:before,
+.ch-layer.ch-points-cbct .ch-layer-content:before,
+.ch-layer.ch-points-rbrt .ch-layer-content:before {
 	border-top-color: #CCCCCC;
 }
 
 /* Right */
 /* ltrt, lmrm, lbrb */
-.ch-layer.ch-points-ltrt:after,
-.ch-layer.ch-points-lmrm:after,
-.ch-layer.ch-points-lbrb:after {
+.ch-layer.ch-points-ltrt .ch-layer-content:after,
+.ch-layer.ch-points-lmrm .ch-layer-content:after,
+.ch-layer.ch-points-lbrb .ch-layer-content:after {
 	border-right-color: #FFFFFF;
 }
-.ch-layer.ch-points-ltrt:before,
-.ch-layer.ch-points-lmrm:before,
-.ch-layer.ch-points-lbrb:before {
+.ch-layer.ch-points-ltrt .ch-layer-content:before,
+.ch-layer.ch-points-lmrm .ch-layer-content:before,
+.ch-layer.ch-points-lbrb .ch-layer-content:before {
 	border-right-color: #CCCCCC;
 }
 
 /* Left */
 /* rtlt, rmlm, rblb */
-.ch-layer.ch-points-rtlt:after,
-.ch-layer.ch-points-rmlm:after,
-.ch-layer.ch-points-rblb:after {
+.ch-layer.ch-points-rtlt .ch-layer-content:after,
+.ch-layer.ch-points-rmlm .ch-layer-content:after,
+.ch-layer.ch-points-rblb .ch-layer-content:after {
 	border-left-color: #FFFFFF;
 }
 
-.ch-layer.ch-points-rtlt:before,
-.ch-layer.ch-points-rmlm:before,
-.ch-layer.ch-points-rblb:before {
+.ch-layer.ch-points-rtlt .ch-layer-content:before,
+.ch-layer.ch-points-rmlm .ch-layer-content:before,
+.ch-layer.ch-points-rblb .ch-layer-content:before {
 	border-left-color: #CCCCCC;
 }
 
 /* Cone Y position */
-.ch-layer.ch-cone.ch-points-ltrt:after,
-.ch-layer.ch-cone.ch-points-rtlt:after {
+.ch-layer.ch-cone.ch-points-ltrt .ch-layer-content:after,
+.ch-layer.ch-cone.ch-points-rtlt .ch-layer-content:after {
 	top: 8px;
 }
 
-.ch-layer.ch-cone.ch-points-ltrt:before,
-.ch-layer.ch-cone.ch-points-rtlt:before {
+.ch-layer.ch-cone.ch-points-ltrt .ch-layer-content:before,
+.ch-layer.ch-cone.ch-points-rtlt .ch-layer-content:before {
 	top: 7px;
 }
 
-.ch-layer.ch-cone.ch-points-lbrb:after,
-.ch-layer.ch-cone.ch-points-rblb:after {
+.ch-layer.ch-cone.ch-points-lbrb .ch-layer-content:after,
+.ch-layer.ch-cone.ch-points-rblb .ch-layer-content:after {
 	bottom: 8px;
 }
 
-.ch-layer.ch-cone.ch-points-lbrb:before,
-.ch-layer.ch-cone.ch-points-rblb:before {
+.ch-layer.ch-cone.ch-points-lbrb .ch-layer-content:before,
+.ch-layer.ch-cone.ch-points-rblb .ch-layer-content:before {
 	bottom: 7px;
 }
 

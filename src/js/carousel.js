@@ -372,7 +372,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$prevArrow
 	* @type jQuery Object
 	*/
-		$prevArrow = $("<p class=\"ch-carousel-prev ch-carousel-disabled\" role=\"button\" aria-hidden=\"true\"><span>Previous</span></p>"),
+		$prevArrow = $("<p class=\"ch-carousel-prev ch-carousel-disabled\" role=\"button\" aria-hidden=\"true\">" + ((ch.utils.html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>"),
 
 	/**
 	* DOM element of arrow that moves the Carousel to the next page.
@@ -380,7 +380,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$nextArrow
 	* @type jQuery Object
 	*/
-		$nextArrow = $("<p class=\"ch-carousel-next\" role=\"button\" aria-hidden=\"false\"><span>Next</span></p>"),
+		$nextArrow = $("<p class=\"ch-carousel-next\" role=\"button\" aria-hidden=\"false\">" + ((ch.utils.html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>"),
 
 	/**
 	* Flag to control when arrows were created before.

@@ -11,7 +11,6 @@
 	<title>Chico UI</title>
 	
 	<link rel="stylesheet" type="text/css" href="http://ui.ml.com:3000/css">
-
 	<style>
 		/**
 		 * Carousel demo
@@ -27,13 +26,13 @@
 		}
 		
 		/* Icons demo */
-		.showroomIcons li{
-			clear:left;
+		.showroomIcons {
+			overflow: hidden;
 		}
-		
-		.showroomIcons .ico {
+		.showroomIcons li{
 			float:left;
-			margin:2px 10px 0 0;
+			width: 33%;
+			line-height: 2em;
 		}
 		
 		.autoComplete {
@@ -47,6 +46,26 @@
 		.autoComplete3 {
 			width: 450px;
 		}
+
+		/*
+
+		// Buttons with icons
+		<span class="ch-btn-icon ch-icon-search">
+			<input type="button" name="add_category" value="Comprar" class="ch-btn ch-btn-small ch-btn-skin">
+		</span>
+		.ch-btn-icon {
+			position: relative;
+		}
+
+		.ch-btn-icon[class*="ch-icon-"]::before {
+			position: absolute;	
+			top: .2em;
+			left: 10px;
+		}
+
+		.ch-btn-icon .ch-btn {
+			text-indent: 15px;
+		}*/
 	</style>
 </head>
 
@@ -131,25 +150,19 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 	</div>
 
+	<h2>Message boxes</h2>
+	<div class="ch-box-error">Oops, something wrong happened</div>
+	<div class="ch-box-help">Do you need any help?</div>
+	<div class="ch-box-information">Here's more information</div>
+	<div class="ch-box-attention">Warning! something might be wrong</div>
+	<div class="ch-box-ok">Everything is great!</div>
+
 	<div class="ch-box-lite clearfix">
 		<h2>Buttons</h2>
-		<!--div class="ch-g1-4">
-			<p><input type="button" class="ch-btn ch-main" value="Main button"></p>
-			<p><input type="button" class="ch-btn ch-primary" value="Primary button"></p>
-			<p><input type="button" class="ch-btn ch-secondary" value="Secondary button"></p>
-			<p><input type="button" class="ch-btn ch-secondary ch-skin" value="Secondary button cyan"></p>
-		</div>
-		<div class="ch-g1-4">
-			<p><input type="button" class="ch-btn ch-main disabled" disabled value="Main disabled"></p>
-			<p><input type="button" class="ch-btn ch-primary disabled" disabled value="Primary disabled"></p>
-			<p><input type="button" class="ch-btn ch-secondary disabled" disabled value="Secondary disabled"></p>
-			<p><input type="button" class="ch-btn ch-secondary ch-skin disabled" disabled value="Secondary skin disabled"></p>
-		</div-->
-
 		<div class="ch-g1-4">
 			<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
 			<br>
-			<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
+			<p><input type="button" class="ch-btn" value="Big button"></p>
 			<br>
 			<p><input type="button" class="ch-btn" value="Button"></p>
 			<br>
@@ -159,8 +172,9 @@
 			<br>
 			<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
 		</div>
+		<h2>Disabled Buttons</h2>
 		<div class="ch-g1-4">
-			<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button</a></p>
+			<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
 			<br>
 			<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" disabled value="Big button disabled"></p>
 			<br>
@@ -466,7 +480,7 @@
 		
 		<form action="/ajax.html">
 			<p class="ch-form-actions">
-				<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Modal" value="Executed by submit input">
+				<input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Modal" value="Executed by submit input">
 				<a href="/ajax.html" class="YOUR_SELECTOR_Modal">Executed by link.</a>
 			</p>
 		</form>
@@ -492,7 +506,7 @@
 	<div class="ch-box-lite"> 
 		<h2>Transition window</h2> 
 		<form action="/ajax.html"> 
-			<input type="submit" class="ch-btn ch-secondary YOUR_SELECTOR_Transition" value="Exeute it!"> 
+			<input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Transition" value="Exeute it!"> 
 		</form> 
 	</div>
 
@@ -534,7 +548,7 @@
 		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator"> 
 			<ul class="ch-tabNavigator-triggers"> 
 				<li><a href="#tab1-b" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li> 
-				<li><a href="#tab2-b" class="ch-tab-trigger"><span>❤</span> Tab2</a></li> 
+				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li> 
 				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li>
 				<li><a href="ajax.html#ajax" class="ch-tab-trigger">Tab4</a></li>
 
@@ -581,29 +595,76 @@
 		</div>
 	</div> 
 
-	<div class="ch-box-lite"> 
+	<div class="ch-box-lite clearfix"> 
 		<h2>Icons</h2>
-		<ul class="showroomIcons">
-			<li><span class="ch-ico-error">Error</span></li>
-			<li><span class="ch-ico-help">Help</span></li>
-			<li><span class="ch-ico-information">Info</span></li>
-			<li><span class="ch-ico-attention">Attention</span></li>
-			<li><span class="ch-ico-ok">Ok</span></li>
-			<li><span class="ch-ico-check">check</span></li>
+
+		<ul class="ch-g1-4 showroomIcons">
+			<li><i class="ch-icon-search"></i> ch-icon-search</li>
+			<li><i class="ch-icon-heart"></i> ch-icon-heart</li>
+			<li><i class="ch-icon-star"></i> ch-icon-star</li>
+			<li><i class="ch-icon-star-empty"></i> ch-icon-star-empty</li>
+			<li><i class="ch-icon-user"></i> ch-icon-user</li>
+			<li><i class="ch-icon-th-large"></i> ch-icon-th-large</li>
+			<li><i class="ch-icon-th"></i> ch-icon-th</li>
+			<li><i class="ch-icon-th-list"></i> ch-icon-user</li>
+			<li><i class="ch-icon-ok"></i> ch-icon-ok</li>
+			<li><i class="ch-icon-remove"></i> ch-icon-remove</li>
+			<li><i class="ch-icon-zoom-in"></i> ch-icon-zoom-in</li>
+			<li><i class="ch-icon-zoom-out"></i> ch-icon-zoom-out</li>
+			<li><i class="ch-icon-cog"></i> ch-icon-cog</li>
+			<li><i class="ch-icon-trash"></i> ch-icon-trash</li>
+			<li><i class="ch-icon-time"></i> ch-icon-time</li>
+			<li><i class="ch-icon-repeat"></i> ch-icon-repeat</li>
+			<li><i class="ch-icon-refresh"></i> ch-icon-refresh</li>
+			<li><i class="ch-icon-lock"></i> ch-icon-lock</li>
+			<li><i class="ch-icon-print"></i> ch-icon-print</li>
+			<li><i class="ch-icon-camera"></i> ch-icon-camera</li>
+			<li><i class="ch-icon-pencil"></i> ch-icon-pencil</li>
+			<li><i class="ch-icon-map-marker"></i> ch-icon-map-marker</li>
+			<li><i class="ch-icon-move"></i> ch-icon-move</li>
+			<li><i class="ch-icon-chevron-left"></i> ch-icon-chevron-left</li>
+			<li><i class="ch-icon-chevron-right"></i> ch-icon-chevron-right</li>
+			<li><i class="ch-icon-plus-sign"></i> ch-icon-plus-sign</li>
+			<li><i class="ch-icon-minus-sign"></i> ch-icon-minus-sign</li>
+			<li><i class="ch-icon-remove-sign"></i> ch-icon-remove-sign</li>
+			<li><i class="ch-icon-ok-sign"></i> ch-icon-ok-sign</li>
+			<li><i class="ch-icon-question-sign"></i> ch-icon-question-sign</li>
+			<li><i class="ch-icon-info-sign"></i> ch-icon-info-sign</li>
+			<li><i class="ch-icon-ban-circle"></i> ch-icon-ban-circle</li>
+			<li><i class="ch-icon-arrow-left"></i> ch-icon-arrow-left</li>
+			<li><i class="ch-icon-arrow-right"></i> ch-icon-arrow-right</li>
+			<li><i class="ch-icon-arrow-up"></i> ch-icon-arrow-up</li>
+			<li><i class="ch-icon-arrow-down"></i> ch-icon-arrow-down</li>
+			<li><i class="ch-icon-plus"></i> ch-icon-plus</li>
+			<li><i class="ch-icon-minus"></i> ch-icon-minus</li>			
+			<li><i class="ch-icon-exclamation-sign"></i> ch-icon-exclamation-sign</li>
+			<li><i class="ch-icon-warning-sign"></i> ch-icon-warning-sign</li>
+			<li><i class="ch-icon-calendar"></i> ch-icon-calendar</li>
+			<li><i class="ch-icon-comment"></i> ch-icon-comment</li>
+			<li><i class="ch-icon-chevron-up"></i> ch-icon-chevron-up</li>
+			<li><i class="ch-icon-chevron-down"></i> ch-icon-chevron-down</li>
+			<li><i class="ch-icon-key"></i> ch-icon-key</li>
+			<li><i class="ch-icon-comments"></i> ch-icon-comments</li>
+			<li><i class="ch-icon-unlock"></i> ch-icon-unlock</li>
+			<li><i class="ch-icon-wrench"></i> ch-icon-wrench</li>
+			<li><i class="ch-icon-group"></i> ch-icon-group</li>
+			<li><i class="ch-icon-copy"></i> ch-icon-copy</li>
+			<li><i class="ch-icon-paper-clip"></i> ch-icon-paper-clip</li>
+			<li><i class="ch-icon-reorder"></i> ch-icon-reorder</li>
+			<li><i class="ch-icon-truck"></i> ch-icon-truck</li>
+			<li><i class="ch-icon-caret-down"></i> ch-icon-caret-down</li>
+			<li><i class="ch-icon-caret-up"></i> ch-icon-caret-up</li>
+			<li><i class="ch-icon-caret-left"></i> ch-icon-caret-left</li>
+			<li><i class="ch-icon-caret-right"></i> ch-icon-caret-right</li>
+			<li><i class="ch-icon-sort"></i> ch-icon-sort</li>
+			<li><i class="ch-icon-sort-down"></i> ch-icon-sort-down</li>
+			<li><i class="ch-icon-sort-down"></i> ch-icon-sort-up</li>
+			<li><i class="ch-icon-envelope-alt"></i> ch-icon-envelope-alt</li>
+			<li><i class="ch-icon-undo"></i> ch-icon-undo</li>
+			<li><i class="ch-icon-comment-alt"></i> ch-icon-comment-alt</li>
+			<li><i class="ch-icon-comments-alt"></i> ch-icon-comments-alt</li>
 		</ul>
-	</div> 
-	
-	<div class="ch-box-lite"> 
-		<h2>Message boxes</h2>
-		<ul class="showroomIcons">
-			<li><p class="ch-message-error">Oops, something wrong happened</p></li>
-			<li><p class="ch-message-help">Do you need any help?</p></li>
-			<li><p class="ch-message-information">Here's more information</p></li>
-			<li><p class="ch-message-attention">Warning! something might be wrong</p></li>
-			<li><p class="ch-message-ok">Everything is great!</p></li>
-			<li><p class="ch-message-check">Everything is okay</p></li>
-		</ul>
-	</div> 
+	</div>
 
 	<div class="ch-box-lite"> 
 		<h2>Calendar</h2>
@@ -651,14 +712,14 @@
 							Icon:
 						</label>													
 						<input type="text" id="input_ico" name="input_ico" size="30" placeholder=""> 
-						<span class="ch-form-ico ico help">Warning:</span>
+						<i class="ch-form-ico ch-icon-question-sign"></i>
 					</p>
 					<p class="ch-form-row"> 
 						<label for="input_button">
 							Category:
 						</label>													
 						<input type="text" id="input_button" name="input_button" size="30" placeholder=""> 
-						<input type="button" name="add_category" value="Add" class="ch-btn ch-secondary ch-skin"> 
+						<input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin"> 
 						<span class="ch-form-hint">Add your category</span>
 					</p>
 					<p class="ch-form-row ch-form-required"> 
@@ -1022,7 +1083,7 @@
 			<p class="ch-form-actions">
 				<input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn ch-primary">
 				<!--input type="submit" value="Send" class="ch-btn ch-primary"--> 
-				<input type="reset" value="Cancel" class="ch-btn ch-secondary"> 
+				<input type="reset" value="Cancel" class="ch-btn ch-btn-small"> 
 				<a href="#" class="resetForm">Reset validations</a> 
 			</p> 
 		</form>	
@@ -1098,7 +1159,8 @@
 		// Layer on click
 		var ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
 			event: "click",
-			content: "#invisible-content"
+			content: "#invisible-content",
+			"width": 70
 		});
 		
 		// Layer on mouseover
