@@ -343,6 +343,10 @@ ch.carousel = function (conf) {
 
 			// TODO: Get a better reference to rendered mask
 			$mask = that.$element.children(".ch-carousel-mask");
+			
+			// Update the mask height with the list height
+			// Do it here because before, items are stacked
+			$mask.css("height", $list.outerHeight());
 
 			// If efects aren't needed, avoid transition on list
 			if (!conf.fx) { $list.addClass("ch-carousel-nofx"); }
