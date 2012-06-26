@@ -195,6 +195,7 @@ ch.datePicker = function (conf) {
 	*/
 	that["public"].select = function (date) {
 		// Select the day and update input value with selected date
+		// Setter
 		if (date) {
 			that.calendar.select(date);
 			that.element.value = that.calendar.select();
@@ -202,6 +203,7 @@ ch.datePicker = function (conf) {
 			return that["public"];
 		}
 
+		// Getter
 		return that.calendar.select();
 	};
 
