@@ -766,7 +766,10 @@ ch.carousel = function (conf) {
 		addItems = function (amount) {
 
 			// Take the sample from queue
-			var sample = queue.splice(0, amount);
+			var sample = queue.splice(0, amount),
+			
+			// Function with content processing using asyncRender or not
+				getContent = conf.asyncRender || function (data) { return data; };
 
 			// Replace sample items with Carousel item template)
 			for (var i = 0; i < amount; i += 1) {
@@ -777,7 +780,7 @@ ch.carousel = function (conf) {
 					// Add the same margin than all siblings items
 					" style=\"width: " + (itemWidth + itemExtraWidth) + "px; margin-right: " + itemMargin + "px\"",
 					// Add content (executing a template, if user specify it) and close the tag
-					">" + (conf.asyncRender(sample[i]) || sample[i]) + "</li>"
+					">" + getContent(sample[i]) + "</li>"
 				// Get it as string
 				].join("");
 			};
