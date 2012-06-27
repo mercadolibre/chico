@@ -104,7 +104,6 @@
 }
 
 /* Interaction of list */
-.ch-dropdown-content li a:hover,
 .ch-dropdown-content li a:focus {
 	background-color: #fefbd6;
 }
@@ -187,7 +186,6 @@
 }
 
 /* Interaction of list */
-.ch-dropdown-skin .ch-dropdown-content a:hover,
 .ch-dropdown-skin .ch-dropdown-content a:focus {
 	background: none;
 	text-decoration: underline;
