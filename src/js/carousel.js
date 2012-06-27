@@ -110,7 +110,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$items
 	* @type jQuery Object
 	*/
-		$items = $list.children().attr("role", "listitem"),
+		$items = $list.children().addClass("ch-carousel-item").attr("role", "listitem"),
 
 	/**
 	* The width of each item, including paddings, margins and borders. Ideal for make calculations.
@@ -793,6 +793,8 @@ ch.carousel = function (conf) {
 				sample[i] = [
 					// Open tag with ARIA role
 					"<li role=\"listitem\"",
+					// Add classname to identify this as item
+					" class=\"ch-carousel-item\"",
 					// Add the same margin than all siblings items
 					" style=\"width: " + (itemWidth + itemExtraWidth) + "px; margin-right: " + itemMargin + "px\"",
 					// Add content (executing a template, if user specify it) and close the tag
