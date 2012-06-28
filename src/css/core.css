@@ -796,10 +796,6 @@ input.ch-btn-tiny::-moz-focus-inner{
 	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
 }
 
-.lt-ie10 .ch-box {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F0F0F0', endColorstr='#FFFFFF');
-}
-
 .ch-box-container > .ch-box:first-of-type,
 .ch-box-container > .ch-box-lite:first-of-type,
 /* Deprecate */
