@@ -48,7 +48,7 @@ ch.modal = function (conf) {
 	var that = this;
 	conf = ch.clon(conf);
 
-	conf.classes = conf.classes || "ch-box";
+	conf.classes = conf.classes || "ch-box-lite";
 	conf.reposition = false;
 
 	// Closable configuration
