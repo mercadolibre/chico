@@ -12,54 +12,54 @@
 /* Cone */
 /* Bottom */
 /* ltlb, ctcb, rtrb */
-.ch-tooltip.ch-points-ltlb:after,
-.ch-tooltip.ch-points-ctcb:after,
-.ch-tooltip.ch-points-rtrb:after {
+.ch-tooltip.ch-points-ltlb .ch-tooltip-content:after,
+.ch-tooltip.ch-points-ctcb .ch-tooltip-content:after,
+.ch-tooltip.ch-points-rtrb .ch-tooltip-content:after {
 	border-bottom-color: #FCF8CB;
 }
-.ch-tooltip.ch-points-ltlb:before,
-.ch-tooltip.ch-points-ctcb:before,
-.ch-tooltip.ch-points-rtrb:before {
+.ch-tooltip.ch-points-ltlb .ch-tooltip-content:before,
+.ch-tooltip.ch-points-ctcb .ch-tooltip-content:before,
+.ch-tooltip.ch-points-rtrb .ch-tooltip-content:before {
 	border-bottom-color: #E4E2B8;
 }
 
 /* Top */
 /* lblt, cbct, rbrt */
-.ch-tooltip.ch-points-lblt:after,
-.ch-tooltip.ch-points-cbct:after,
-.ch-tooltip.ch-points-rbrt:after {
+.ch-tooltip.ch-points-lblt .ch-tooltip-content:after,
+.ch-tooltip.ch-points-cbct .ch-tooltip-content:after,
+.ch-tooltip.ch-points-rbrt .ch-tooltip-content:after {
 	border-top-color: #FCF8CB;
 }
-.ch-tooltip.ch-points-lblt:before,
-.ch-tooltip.ch-points-cbct:before,
-.ch-tooltip.ch-points-rbrt:before {
+.ch-tooltip.ch-points-lblt .ch-tooltip-content:before,
+.ch-tooltip.ch-points-cbct .ch-tooltip-content:before,
+.ch-tooltip.ch-points-rbrt .ch-tooltip-content:before {
 	border-top-color: #E4E2B8;
 }
 
 /* Right */
 /* ltrt, lmrm, lbrb */
-.ch-tooltip.ch-points-ltrt:after,
-.ch-tooltip.ch-points-lmrm:after,
-.ch-tooltip.ch-points-lbrb:after {
+.ch-tooltip.ch-points-ltrt .ch-tooltip-content:after,
+.ch-tooltip.ch-points-lmrm .ch-tooltip-content:after,
+.ch-tooltip.ch-points-lbrb .ch-tooltip-content:after {
 	border-right-color: #FCF8CB;
 }
-.ch-tooltip.ch-points-ltrt:before,
-.ch-tooltip.ch-points-lmrm:before,
-.ch-tooltip.ch-points-lbrb:before {
+.ch-tooltip.ch-points-ltrt .ch-tooltip-content:before,
+.ch-tooltip.ch-points-lmrm .ch-tooltip-content:before,
+.ch-tooltip.ch-points-lbrb .ch-tooltip-content:before {
 	border-right-color: #E4E2B8;
 }
 
 /* Left */
 /* rtlt, rmlm, rblb */
-.ch-tooltip.ch-points-rtlt:after,
-.ch-tooltip.ch-points-rmlm:after,
-.ch-tooltip.ch-points-rblb:after {
+.ch-tooltip.ch-points-rtlt .ch-tooltip-content:after,
+.ch-tooltip.ch-points-rmlm .ch-tooltip-content:after,
+.ch-tooltip.ch-points-rblb .ch-tooltip-content:after {
 	border-left-color: #FCF8CB;
 }
 
-.ch-tooltip.ch-points-rtlt:before,
-.ch-tooltip.ch-points-rmlm:before,
-.ch-tooltip.ch-points-rblb:before {
+.ch-tooltip.ch-points-rtlt .ch-tooltip-content:before,
+.ch-tooltip.ch-points-rmlm .ch-tooltip-content:before,
+.ch-tooltip.ch-points-rblb .ch-tooltip-content:before {
 	border-left-color: #E4E2B8;
 }
 

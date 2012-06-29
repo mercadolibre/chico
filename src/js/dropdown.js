@@ -1,5 +1,5 @@
 /**
-* Dropdown shows a list of items for navigation.
+* Dropdown shows a list of options for navigation.
 * @name Dropdown
 * @class Dropdown
 * @augments ch.Navs
@@ -55,42 +55,6 @@ ch.dropdown = function (conf) {
 /**
 *  Private Members
 */
-	/**
-	* Adds keyboard events.
-	* @private
-	* @function
-	* @name ch.Dropdown#shortcuts
-	*/
-	var shortcuts = function (items) {
-
-		// Keyboard support
-		var selected = 0;
-
-		// Item selected by mouseover
-		// TODO: It's over keyboard selection and it is generating double selection.
-		$.each(items, function (i, e) {
-			$(e).bind("mouseenter", function () {
-				selected = i;
-				items.eq(selected).focus();
-			});
-		});
-
-		var selectItem = function (arrow, event) {
-			that.prevent(event);
-
-			if (selected === (arrow === "bottom" ? items.length - 1 : 0)) { return; }
-
-			items.eq(selected).blur();
-
-			if (arrow === "bottom") { selected += 1; } else { selected -= 1; }
-			
-			items.eq(selected).focus();
-		};
-		
-		// Arrows
-		ch.utils.document.bind(ch.events.KEY.UP_ARROW, function (x, event) { selectItem("up", event); });
-		ch.utils.document.bind(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
-	};
 
 
 /**
@@ -132,7 +96,7 @@ ch.dropdown = function (conf) {
 		// WAI-ARIA properties
 			.attr({ "role": "menu", "aria-hidden": "true" });
 		
-		// WAI-ARIA for items into content
+		// WAI-ARIA for options into content
 		$content.children("a").attr("role", "menuitem");
 
 		// Position
@@ -147,6 +111,67 @@ ch.dropdown = function (conf) {
 		return $content;
 	}());
 
+
+	/**
+	* Dropdown options.
+	* @protected
+	* @jQuery Collection
+	* @name ch.Dropdown#$options
+	*/
+	that.$options = that.$content.find("a");
+
+
+	/**
+	* Keyboard events object.
+	* @protected
+	* @Object
+	* @name ch.Dropdown#shortcuts
+	*/
+	that.shortcuts = (function () {
+		var selected,
+			map = {},
+			arrow,
+			optionsLength = that.$options.length,
+			selectOption = function (key, event) {
+				// Validations
+				if (!that.active) { return; }
+
+				// Prevent default behaivor
+				that.prevent(event);
+				
+				// Sets the arrow that user press
+				arrow = key.type;
+
+				// Sets limits behaivor
+				if (selected === (arrow === "down_arrow" ? optionsLength - 1 : 0)) { return; }
+
+				// Unselects current option
+				that.$options[selected].blur();
+
+				if (arrow === "down_arrow") { selected += 1; } else { selected -= 1; }
+
+				// Selects new current option
+				that.$options[selected].focus();
+			};
+
+		return function () {
+			// Keyboard support initialize
+			selected = 0;
+
+			// Item selected by mouseover
+			$.each(that.$options, function (i, e) {
+				$(e).bind("mouseenter", function () {
+					that.$options[selected = i].focus();
+				});
+			});
+			
+			// Creates keyboard shortcuts map and binding events
+			map["click " + ch.events.KEY.ESC] = function () { that.innerHide(); };
+			map[ch.events.KEY.UP_ARROW + " " +ch.events.KEY.DOWN_ARROW] = selectOption;
+			ch.utils.document.on(map);
+		}
+	}());
+
 	/**
 	* Shows component's content.
 	* @protected
@@ -159,11 +184,11 @@ ch.dropdown = function (conf) {
 		// Stop propagation
 		that.prevent(event);
 		
-		// Z-index of content
+		// Z-index of content and updates aria values
 		that.$content.css("z-index", ch.utils.zIndex += 1).attr("aria-hidden", "false");
 		
 		// Z-index of trigger over content (secondary / skin dropdown)
-		if (that.$element.hasClass("secondary") || that.$element.hasClass("ch-dropdown-skin")) { that.$trigger.css("z-index", ch.utils.zIndex += 1); }
+		if (that.$element.hasClass("ch-dropdown-skin")) { that.$trigger.css("z-index", ch.utils.zIndex += 1); }
 		
 		// Inheritance innerShow
 		that.parent.innerShow(event);
@@ -176,15 +201,7 @@ ch.dropdown = function (conf) {
 			if (e.uid !== that.uid) { e.hide(); }
 		});
 
-		// Close events
-		ch.utils.document.one("click " + ch.events.KEY.ESC, function () { that.innerHide(); });
-
-		// Keyboard support
-		var items = that.$content.find("a");
-		// Select first anchor child by default
-			items.eq(0).focus();
-
-		if (items.length > 1) { shortcuts(items); };
+		that.$options[0].focus();
 
 		return that;
 	};
@@ -198,12 +215,11 @@ ch.dropdown = function (conf) {
 	*/
 	that.innerHide = function (event) {
 
+		// Inheritance innerHide
 		that.parent.innerHide(event);
 		
+		// Updates aria values
 		that.$content.attr("aria-hidden", "true");
-
-		// Unbind events
-		ch.utils.document.unbind(ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW);
 
 		return that;
 	};
@@ -245,6 +261,9 @@ ch.dropdown = function (conf) {
 */			
 
 	ch.utils.avoidTextSelection(that.$trigger);
+
+	// Inits keyboards support
+	that.shortcuts();
 	
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).

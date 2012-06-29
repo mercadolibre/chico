@@ -187,7 +187,7 @@ ch.validation = function (conf) {
 		})(),
 		"type": "validation",
 		"content": "Error.",
-		"classes": "ch-message-error",
+		"classes": conf.classes || "ch-box-error",
 		"cone": true,
 		"cache": false,
 		"closable": false,

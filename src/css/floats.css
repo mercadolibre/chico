@@ -1,5 +1,9 @@
-.ch-cone:after,
-.ch-cone:before {
+/*.ch-cone [class^="ch-"][class$="-content"] {
+	background: red !important;
+}*/
+
+.ch-cone [class^="ch-"][class$="-content"]:after,
+.ch-cone [class^="ch-"][class$="-content"]:before {
 	/* border transparent bug on FF: http://stackoverflow.com/a/6225439 */
 	border: outset transparent;
 	content: " ";
@@ -10,124 +14,124 @@
 	display: block;
 }
 
-.ch-cone:after {
+.ch-cone [class^="ch-"][class$="-content"]:after {
 	border-width: 8px;
 }
 
-.ch-cone:before {
+.ch-cone [class^="ch-"][class$="-content"]:before {
 	border-width: 9px;
 }
 
-.ch-cone.ch-points-ctcb:after,
-.ch-cone.ch-points-cbct:after,
-.ch-cone.ch-points-ctcb:before,
-.ch-cone.ch-points-cbct:before {
+.ch-cone.ch-points-ctcb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-cbct [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-ctcb [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-cbct [class^="ch-"][class$="-content"]:before {
 	left: 50%;
 }
 
-.ch-cone.ch-points-lmrm:after,
-.ch-cone.ch-points-rmlm:after,
-.ch-cone.ch-points-lmrm:before,
-.ch-cone.ch-points-rmlm:before {
+.ch-cone.ch-points-lmrm [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rmlm [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-lmrm [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rmlm [class^="ch-"][class$="-content"]:before {
 	top: 50%;
 }
 
-.ch-cone.ch-points-ctcb:after,
-.ch-cone.ch-points-ctcb:before,
-.ch-cone.ch-points-ltlb:after,
-.ch-cone.ch-points-ltlb:before,
-.ch-cone.ch-points-rtrb:after,
-.ch-cone.ch-points-rtrb:before {
+.ch-cone.ch-points-ctcb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-ctcb [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-ltlb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-ltlb [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rtrb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rtrb [class^="ch-"][class$="-content"]:before {
 	bottom: 100%;
 	border-bottom-style: solid;
 }
 
-.ch-cone.ch-points-cbct:after,
-.ch-cone.ch-points-cbct:before,
-.ch-cone.ch-points-lblt:after,
-.ch-cone.ch-points-lblt:before,
-.ch-cone.ch-points-rbrt:after,
-.ch-cone.ch-points-rbrt:before {
+.ch-cone.ch-points-cbct [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-cbct [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-lblt [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-lblt [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rbrt [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rbrt [class^="ch-"][class$="-content"]:before {
 	top: 100%;
 	border-top-style: solid;
 }
 
-.ch-cone.ch-points-lmrm:after,
-.ch-cone.ch-points-lmrm:before,
-.ch-cone.ch-points-ltrt:after,
-.ch-cone.ch-points-ltrt:before,
-.ch-cone.ch-points-lbrb:after,
-.ch-cone.ch-points-lbrb:before {
+.ch-cone.ch-points-lmrm [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-lmrm [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-ltrt [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-ltrt [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-lbrb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-lbrb [class^="ch-"][class$="-content"]:before {
 	right: 100%;
 	border-right-style: solid;
 }
 
-.ch-cone.ch-points-rmlm:after,
-.ch-cone.ch-points-rmlm:before,
-.ch-cone.ch-points-rtlt:after,
-.ch-cone.ch-points-rtlt:before,
-.ch-cone.ch-points-rblb:after,
-.ch-cone.ch-points-rblb:before {
+.ch-cone.ch-points-rmlm [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rmlm [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rtlt [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rtlt [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rblb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rblb [class^="ch-"][class$="-content"]:before {
 	left: 100%;
 	border-left-style: solid;
 }
 
-.ch-cone.ch-points-ltlb:after,
-.ch-cone.ch-points-lblt:after {
+.ch-cone.ch-points-ltlb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-lblt [class^="ch-"][class$="-content"]:after {
 	left: 8px;
 }
 
-.ch-cone.ch-points-ltlb:before,
-.ch-cone.ch-points-lblt:before {
+.ch-cone.ch-points-ltlb [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-lblt [class^="ch-"][class$="-content"]:before {
 	left: 7px;
 }
 
-.ch-cone.ch-points-rtrb:after,
-.ch-cone.ch-points-rbrt:after {
+.ch-cone.ch-points-rtrb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rbrt [class^="ch-"][class$="-content"]:after {
 	right: 8px;
 }
 
-.ch-cone.ch-points-rtrb:before,
-.ch-cone.ch-points-rbrt:before {
+.ch-cone.ch-points-rtrb [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rbrt [class^="ch-"][class$="-content"]:before {
 	right: 7px;
 }
 
-.ch-cone.ch-points-ltrt:after,
-.ch-cone.ch-points-rtlt:after {
+.ch-cone.ch-points-ltrt [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rtlt [class^="ch-"][class$="-content"]:after {
 	top: 4px;
 }
 
-.ch-cone.ch-points-ltrt:before,
-.ch-cone.ch-points-rtlt:before {
+.ch-cone.ch-points-ltrt [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rtlt [class^="ch-"][class$="-content"]:before {
 	top: 3px;
 }
 
-.ch-cone.ch-points-lbrb:after,
-.ch-cone.ch-points-rblb:after {
+.ch-cone.ch-points-lbrb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rblb [class^="ch-"][class$="-content"]:after {
 	bottom: 4px;
 }
 
-.ch-cone.ch-points-lbrb:before,
-.ch-cone.ch-points-rblb:before {
+.ch-cone.ch-points-lbrb [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rblb [class^="ch-"][class$="-content"]:before {
 	bottom: 3px;
 }
 
-.ch-cone.ch-points-ctcb:after,
-.ch-cone.ch-points-cbct:after {
+.ch-cone.ch-points-ctcb [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-cbct [class^="ch-"][class$="-content"]:after {
 	margin-left: -8px;
 }
 
-.ch-cone.ch-points-lmrm:after,
-.ch-cone.ch-points-rmlm:after {
+.ch-cone.ch-points-lmrm [class^="ch-"][class$="-content"]:after,
+.ch-cone.ch-points-rmlm [class^="ch-"][class$="-content"]:after {
 	margin-top: -8px;
 }
 
-.ch-cone.ch-points-ctcb:before,
-.ch-cone.ch-points-cbct:before {
+.ch-cone.ch-points-ctcb [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-cbct [class^="ch-"][class$="-content"]:before {
 	margin-left: -9px;
 }
 
-.ch-cone.ch-points-lmrm:before,
-.ch-cone.ch-points-rmlm:before {
+.ch-cone.ch-points-lmrm [class^="ch-"][class$="-content"]:before,
+.ch-cone.ch-points-rmlm [class^="ch-"][class$="-content"]:before {
 	margin-top: -9px;
 }

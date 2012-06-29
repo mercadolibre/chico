@@ -33,6 +33,33 @@ app.get("/assets/:file", function (req, res) {
 	res.send(content);	
 });
 
+app.get("/fonts/:file", function (req, res) {
+
+	// Read file content
+	var content = fs.readFileSync("../../src/fonts/" + req.params.file),
+
+	// File extension
+		ext = req.params.file.split(".").pop();
+	
+	// Return when file not exists
+	if (!content) { return }
+
+	res.header("Content-Type", {
+		"svg": "image/svg+xml",
+		"svgz": "image/svg+xml",
+		"eot": "application/vnd.ms-fontobject",
+		"ttf": "application/x-font-ttf",
+		"ttc": "application/x-font-ttf",
+		"otf": "font/opentype",
+		"woff": "application/x-font-woff",
+		"undefined": "text/plain"
+	}[ext]);
+
+	res.header("Access-Control-Allow-Origin", "*");
+
+	res.send(content);	
+});
+
 // JS and CSS getter
 // http://localhost:3000/js
 // http://localhost:3000/js/min

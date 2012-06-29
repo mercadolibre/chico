@@ -11,14 +11,21 @@
 }
 
 .ch-datePicker-trigger {
-	background: transparent url('../assets/calendar.png') 0 0 no-repeat;
 	display: inline-block;
-	height: 20px;
-	margin: 0 0 5px 5px;
+	height: 24px;
 	overflow: hidden;
-	text-indent: 999px;
 	vertical-align: middle;
 	width: 20px;
+	font-size: 1.5em;
+	line-height: 1em;
+	color: #666666;
+	text-align: center;
+	margin-left: 3px;
+}
+
+.ch-datePicker-trigger:before {
+	font-family: icons;
+	content: "\f073";
 }
 
 .ch-datePicker-content .ch-calendar {
@@ -52,9 +59,7 @@
 	cursor:pointer;
 }
 
-.ch-datePicker-content .ch-calendar-day.ch-calendar-disabled:hover,
-/* Deprecated */
-.ch-datePicker-content .ch-calendar-day.ch-disabled:hover {
+.ch-datePicker-content .ch-calendar-day.ch-calendar-disabled:hover {
 	background-color: white;
 	color: #C6C6C6;
 	cursor: not-allowed;
@@ -63,70 +68,71 @@
 /* Cone */
 /* Bottom */
 /* ltlb, ctcb, rtrb */
-.ch-datePicker.ch-points-ltlb:after,
-.ch-datePicker.ch-points-ctcb:after,
-.ch-datePicker.ch-points-rtrb:after {
+.ch-datePicker.ch-points-ltlb .ch-datePicker-content:after,
+.ch-datePicker.ch-points-ctcb .ch-datePicker-content:after,
+.ch-datePicker.ch-points-rtrb .ch-datePicker-content:after {
 	border-bottom-color: #F9F9F9;
 }
-.ch-datePicker.ch-points-ltlb:before,
-.ch-datePicker.ch-points-ctcb:before,
-.ch-datePicker.ch-points-rtrb:before {
+.ch-datePicker.ch-points-ltlb .ch-datePicker-content:before,
+.ch-datePicker.ch-points-ctcb .ch-datePicker-content:before,
+.ch-datePicker.ch-points-rtrb .ch-datePicker-content:before {
 	border-bottom-color: #CCCCCC;
 }
 
 /* Top */
 /* lblt, cbct, rbrt */
-.ch-datePicker.ch-points-lblt:after,
-.ch-datePicker.ch-points-cbct:after,
-.ch-datePicker.ch-points-rbrt:after {
+.ch-datePicker.ch-points-lblt .ch-datePicker-content:after,
+.ch-datePicker.ch-points-cbct .ch-datePicker-content:after,
+.ch-datePicker.ch-points-rbrt .ch-datePicker-content:after {
 	border-top-color: #F9F9F9;
 }
-.ch-datePicker.ch-points-lblt:before,
-.ch-datePicker.ch-points-cbct:before,
-.ch-datePicker.ch-points-rbrt:before {
+.ch-datePicker.ch-points-lblt .ch-datePicker-content:before,
+.ch-datePicker.ch-points-cbct .ch-datePicker-content:before,
+.ch-datePicker.ch-points-rbrt .ch-datePicker-content:before {
 	border-top-color: #CCCCCC;
 }
 
 /* Right */
 /* ltrt, lmrm, lbrb */
-.ch-datePicker.ch-points-ltrt:after,
-.ch-datePicker.ch-points-lmrm:after,
-.ch-datePicker.ch-points-lbrb:after {
+.ch-datePicker.ch-points-ltrt .ch-datePicker-content:after,
+.ch-datePicker.ch-points-lmrm .ch-datePicker-content:after,
+.ch-datePicker.ch-points-lbrb .ch-datePicker-content:after {
 	border-right-color: #F9F9F9;
 }
-.ch-datePicker.ch-points-ltrt:before,
-.ch-datePicker.ch-points-lmrm:before,
-.ch-datePicker.ch-points-lbrb:before {
+.ch-datePicker.ch-points-ltrt .ch-datePicker-content:before,
+.ch-datePicker.ch-points-lmrm .ch-datePicker-content:before,
+.ch-datePicker.ch-points-lbrb .ch-datePicker-content:before {
 	border-right-color: #CCCCCC;
 }
 
 /* Left */
 /* rtlt, rmlm, rblb */
-.ch-datePicker.ch-points-rtlt:after,
-.ch-datePicker.ch-points-rmlm:after,
-.ch-datePicker.ch-points-rblb:after {
+.ch-datePicker.ch-points-rtlt .ch-datePicker-content:after,
+.ch-datePicker.ch-points-rmlm .ch-datePicker-content:after,
+.ch-datePicker.ch-points-rblb .ch-datePicker-content:after {
 	border-left-color: #F9F9F9;
 }
 
-.ch-datePicker.ch-points-rtlt:before,
-.ch-datePicker.ch-points-rmlm:before,
-.ch-datePicker.ch-points-rblb:before {
+.ch-datePicker.ch-points-rtlt .ch-datePicker-content:before,
+.ch-datePicker.ch-points-rmlm .ch-datePicker-content:before,
+.ch-datePicker.ch-points-rblb .ch-datePicker-content:before {
 	border-left-color: #CCCCCC;
 }
 
 
+.ie9 .ch-datePicker-trigger {
+	line-height: 1.2em;
+}
 
-/* IE7 */
-.lt-ie8 .ch-datePicker-trigger,
-.ie7 .ch-datePicker-trigger {
+.lt-ie8 .ch-datePicker-trigger {
+	background: transparent url('../assets/calendar.png') 0 0 no-repeat;
+	vertical-align: top;
+	margin-top: 10px;
 	display: inline;
-	margin-bottom: 4px;
-	vertical-align: text-bottom;
 	zoom: 1;
 }
 
-.lt-ie8 .ch-datePicker,
-.ie7 .ch-datePicker {
+.lt-ie8 .ch-datePicker {
 	width: 240px;
 }
 
@@ -135,9 +141,8 @@
 	height: auto;
 }
 
-/* IE 7 */
 .lt-ie8 .ch-datePicker-cone {
-	background-image: url('../assets/layer.png');
+	background-image: url("../assets/cones.png");
 	display: block;
 	position: absolute;
 	width: 16px;
@@ -148,14 +153,14 @@
 .lt-ie8 .ch-points-ctcb .ch-datePicker-cone,
 .lt-ie8 .ch-points-rtrb .ch-datePicker-cone {
 	top: -8px;
-	background-position: 0 0;
+	background-position: 0 -16px;
 }
 
 .lt-ie8 .ch-points-lblt .ch-datePicker-cone,
 .lt-ie8 .ch-points-cbct .ch-datePicker-cone,
 .lt-ie8 .ch-points-rbrt .ch-datePicker-cone {
 	bottom: -8px;
-	background-position: 0 -8px;
+	background-position: 0 -24px;
 }
 
 .lt-ie8 .ch-points-ltlb .ch-datePicker-cone,
@@ -188,14 +193,14 @@
 .lt-ie8 .ch-points-lmrm .ch-datePicker-cone,
 .lt-ie8 .ch-points-lbrb .ch-datePicker-cone {
 	left: -8px;
-	background-position: 0 0;
+	background-position: 0 -16px;
 }
 
 .lt-ie8 .ch-points-rtlt .ch-datePicker-cone,
 .lt-ie8 .ch-points-rmlm .ch-datePicker-cone,
 .lt-ie8 .ch-points-rblb .ch-datePicker-cone {
 	right: -8px;
-	background-position: -8px 0;
+	background-position: -8px -16px;
 }
 
 .lt-ie8 .ch-points-ltrt .ch-datePicker-cone,

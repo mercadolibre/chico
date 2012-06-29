@@ -124,7 +124,7 @@ ch.datePicker = function (conf) {
 	* @name ch.DatePicker#float
 	*/
 	that["float"] = that.createFloat({
-		"$element": $("<p class=\"ch-datePicker-trigger\">Date Picker</p>").insertAfter(that.element),
+		"$element": $("<p role=\"button\" class=\"ch-datePicker-trigger\"></p>").insertAfter(that.element),
 		"content": that.calendar.element,
 		"points": conf.points,
 		"offset": "0 10",
@@ -195,6 +195,7 @@ ch.datePicker = function (conf) {
 	*/
 	that["public"].select = function (date) {
 		// Select the day and update input value with selected date
+		// Setter
 		if (date) {
 			that.calendar.select(date);
 			that.element.value = that.calendar.select();
@@ -202,6 +203,7 @@ ch.datePicker = function (conf) {
 			return that["public"];
 		}
 
+		// Getter
 		return that.calendar.select();
 	};
 

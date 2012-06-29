@@ -56,10 +56,6 @@
 }
 
 /* IE */
-.lt-ie9 .ch-zoom-trigger .ch-zoom-seeker,
-/* Deprecate */
-.ie6 .ch-zoom-trigger .ch-zoom-seeker,
-.ie7 .ch-zoom-trigger .ch-zoom-seeker,
-.ie8 .ch-zoom-trigger .ch-zoom-seeker {
+.lt-ie9 .ch-zoom-trigger .ch-zoom-seeker {
 	cursor:crosshair;
 }
