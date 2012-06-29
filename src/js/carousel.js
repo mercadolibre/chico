@@ -119,6 +119,14 @@ ch.carousel = function (conf) {
 	* @type Number
 	*/
 		itemWidth = $items.width(),
+	
+	/**
+	* The height of each item, including paddings, margins and borders. Ideal for make calculations.
+	* @private
+	* @name ch.Carousel#itemHeight
+	* @type Number
+	*/
+		itemHeight = $items.height(),
 
 	/**
 	* The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
@@ -127,6 +135,14 @@ ch.carousel = function (conf) {
 	* @type Number
 	*/
 		itemOuterWidth = $items.outerWidth(),
+	
+	/**
+	* The height of each item, without paddings, margins or borders. Ideal for manipulate CSS height property.
+	* @private
+	* @name ch.Carousel#itemOuterHeight
+	* @type Number
+	*/
+		itemOuterHeight = $items.outerHeight(),
 
 	/**
 	* Size added to each item to make it responsive.
@@ -215,16 +231,6 @@ ch.carousel = function (conf) {
 			// It's the difference between mask width and total width of all items
 				freeSpace = maskWidth - (itemOuterWidth * itemsPerPage),
 
-			// Amount of spaces to distribute the free space
-			// When there are 6 items on a page, there are 5 spaces between them
-			// Except when there are only one page that NO exist spaces
-				spaces = moreThanOne ? itemsPerPage - 1 : 0,
-
-			// Free space for each space between items
-			// Ceil to delete float numbers (not Floor, because next page is seen)
-			// There is no margin when there are only one item in a page
-				margin = moreThanOne ? Math.ceil(freeSpace / spaces / 2) : 0,
-
 			// Width to add to each item to get responsivity
 			// When there are more than one item, get extra width for each one
 			// When there are only one item, extraWidth must be just the freeSpace
@@ -233,23 +239,48 @@ ch.carousel = function (conf) {
 			// Update ONLY IF margin changed from last redraw
 			if (itemExtraWidth === extraWidth) { return; }
 
-			// Update global values
-			itemMargin = margin;
+			// Amount of spaces to distribute the free space
+			// When there are 6 items on a page, there are 5 spaces between them
+			// Except when there are only one page that NO exist spaces
+			var spaces = moreThanOne ? itemsPerPage - 1 : 0,
+
+			// The new width calculated from current width plus extraWidth
+				width = itemWidth + extraWidth;
+
+			// Update global value of width
 			itemExtraWidth = extraWidth;
+
+			// Free space for each space between items
+			// Ceil to delete float numbers (not Floor, because next page is seen)
+			// There is no margin when there are only one item in a page
+			// Update global values
+			itemMargin = moreThanOne ? Math.ceil(freeSpace / spaces / 2) : 0;
 
 			// Update distance needed to move ONLY ONE page
 			// The width of all items on a page, plus the width of all margins of items
-			pageWidth = (itemOuterWidth + extraWidth + margin) * itemsPerPage;
+			pageWidth = (itemOuterWidth + extraWidth + itemMargin) * itemsPerPage;
 
-			// Update list width
-			// Consider one more page to get an error margin
-			$list.css("width", pageWidth * (pages + 1));
+			// Update the list width
+			// Delete efects on list to change width instantly
+			// Do it before item resizing to make space to all items
+			$list.addClass("ch-carousel-nofx").css("width", pageWidth * pages);
+			
+			// Restore efects to list if it's required
+			// Use a setTimeout to be sure to do this after width change
+			if (conf.fx) {
+				setTimeout(function () { $list.removeClass("ch-carousel-nofx"); }, 0);
+			}
 
 			// Update element styles
+			// Get the height using new width and relation between width and height of item (ratio)
 			$items.css({
-				"width": itemWidth + extraWidth,
-				"margin-right": margin
+				"width": width,
+				"height": (width * itemHeight) / itemWidth,
+				"margin-right": itemMargin
 			});
+			
+			// Update the mask height with the list height
+			$mask.css("height", $list.outerHeight());
 		},
 
 	/**
