@@ -147,7 +147,7 @@ ch.menu = function(conf){
 	* @name ch.Menu#select
 	* @ignore
 	*/
-	var select = function(item){
+	var select = function (item) {
 
 		var child, grandson;
 
@@ -246,9 +246,17 @@ ch.menu = function(conf){
 	* @param item The number of the item to be selected
 	* @returns 
 	*/
-	that["public"].select = function(item){
-		select(item);
+	that["public"].select = function (item) {
+		// Getter
+		if (!item) {
+			if (isNaN(selected)) {
+				return "";
+			}
+			return selected + 1;
+		}
 
+		// Setter
+		select(item);
 		return that["public"];
 	};
 

@@ -1,573 +1,268 @@
-/* Required specification */
-form p.required {
-	color:#999;
+input[type="search"]{
+  -webkit-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Generic input & textarea */
+input,
+textarea,
+select[multiple],
+.ch-form-select-multiple {
+	border:1px solid #CCCCCC;
+	-moz-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+	-ms-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;								
+	-o-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+	-webkit-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+	box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+	padding:5px 4px;
+	margin:5px 0;
+}
+
+input[type="file"],
+input[type="checkbox"],
+input[type="radio"] {
+	border:none;
+	padding:0;
+}
+
+input:focus, 
+textarea:focus,
+select[multiple]:focus,
+.ch-form-select-multiple:focus {
+	border: 2px solid #666;
+	padding: 4px 3px;
+	outline: 0;
+}
+
+input[type="file"]:focus,
+input[type="checkbox"]:focus,
+input[type="radio"]:focus,
+input[type="range"]:focus,
+select:focus {
+	outline: 1px dotted #666;
+}
+
+input[readonly],
+input[readonly]:focus {
+	border-color:transparent;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-o-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.ch-form-ico { 
+	margin-left:5px !important;
+}
+
+/* Module */
+.ch-form fieldset {
+	margin-bottom:10px;
+}
+
+	/* Title module */
+	.ch-form legend {
+		color:#dc7b1c;
+		font-size:14px;
+		font-weight:bold;
+		padding-bottom:15px;
+	}
+	
+	.ch-form-subtitle {
+		font-size:13px;
+		font-weight:bold;
+	}
+	
+/* Required specification or another */
+.ch-form-hint {
+	color:#666666;
 	font-size:11px;
+	line-height:11px;	
 }
-							
 
-/* Field wrapper */
-form .field-box{
-	padding:5px 0;
+/* Basic wrapper for horizontal view */
+.ch-form-row {
+	padding: 5px 0;
+	margin-bottom: 0;
 }
-							
 
-form label span{
-	display:block;
-	float:left;
-	margin:5px 15px 5px 0;
-	padding:2px 0;
+/* Label */
+.ch-form-row label {
+	position:relative;
+	padding:7px 11px 5px 0;
+	display:inline-block;
 	text-align:right;
 	width:130px;
 }
-						
-							
 
-/* Field label required */
-form label.required span {
-	font-weight:bold;
-	position:relative;
+/* Label inline not used yet */
+	.ch-form-row input + label,
+	.ch-form-row select + label,
+	.ch-label-inline{
+		text-align:left;
+		width:auto;
+		padding-right:0;
+		font-weight:normal;
+		margin-left:0;
+	}
+	
+	.ie6 label.ch-label-inline{width:auto !important;}
+	
+/* Label required **/
+	.ch-form-required label{
+		font-weight:bold;
+	}
+	
+	.ch-form-required.ch-form-options label{
+		font-weight:normal;
+	}
+	
+/* Icon indication of required */
+	.ch-form-required em{
+		display:block;
+		position:absolute;
+		right:3px;
+		top: 3px;
+	}
+/* Icon indication of required in options */
+	.ch-form-required.ch-form-options em{
+		display:inline;
+		position:relative;
+		vertical-align:super;
+		top: auto;
+		right:auto;
+	}
+
+/* Checkbox inline 
+.ch-form-row input + input[type=checkbox],*/
+.ch-form-checkbox-inline{
+	margin-left:11px;
+	margin-right:0;
+	border:none;
 }
-		
-							
 
-/* Asterisk of field label required */
-form label.required span em {
-	position:absolute;
-	right:-8px;
-	top: 0px;
-}
-							
-
-
-/* Fields */
-form label input, 
-form label textarea {
-	border:1px solid #CCCCCC;
+/* Range 
+input[type=range],*/
+.ch-form-range{
 	padding:4px;
+	vertical-align:middle;
+}
+
+/* Select */
+.ch-form-row select {
 	margin:5px 0;
 }
-							
-							
-							
-							
 
-form label select {
-	margin:5px 0;
+/* Select Multiple */
+.ch-form-row select[multiple],
+.ch-form-select-multiple {
+	vertical-align:top;
+	margin-top:10px;
 }
-							
 
-
-
-form label textarea {
+/* Textarea */
+.ch-form-row textarea {
 	height:125px;
 	width:350px;
-}
-							
-
-/* Error */
-/* Field input error */
-form label .error, 
-form select .error{
-	border:1px solid #C62026 !important;
+	vertical-align:top;
 }
 
-form label .error.ico{
-	border:none !important;
-}
-
-							
-
-
-/* Options */
-form .options .field-box{
-	margin: 0 0 15px 20px;
-	padding:0;
-}
-
-							
-
-form .options h4{
-	margin-bottom:15px;
-}
-
-							
-
-form .options.required h4{
-	font-weight:bold;
-}
-
-form .options label span {
-	display:inline;
-	float:none;
-	margin:0;
-	padding:0;
-	text-align:left;
-	width:auto;
-	vertical-align:baseline;
-}
-
-							
-							
-form .options label input[type="checkbox"],
-form .options label input[type="radio"] {
-	border:none;
-	margin:0;
-	padding:0;
-}
-
-							
-
-
-/* Actions */
-form .actions {
+/* Help bottom line that helps the user */
+.ch-form-row .ch-form-hint{
 	margin-left:145px;
-	text-align:left;
+	display:block;
 }
 
-form .actions .btn{
-	margin-right:15px;
+/* Error colorize the border */
+form .ch-form-error {
+	border:1px solid #C62026;
 }
 
-/* Help */
-form .help{
-	color:#666666;
-	font-size:11px;
-	line-height:11px;
-	margin-left:145px;
-}
-							
-							
-
-/* Focus */
-form label input:focus, 
-form label textarea:focus {
-	border:2px solid #666666;
-	padding:3px;
-}
-
-							
-
-form .options label input:focus, 
-form .options label textarea:focus {
-	border:none;
-	padding:0;
-}
-
-							
-
-form label select:focus{
-	box-shadow:2px #666;
-	-moz-box-shadow:2px #666;
-	-webkit-box-shadow:2px #666;
-}
-
-form label .error:focus {
-	border:1px solid #CC0000;
-	padding:4px;
+form .ch-form-error:focus,
+form .ch-form-error:focus {
+	border:2px solid #CC0000;
+	padding:4px 3px;
 	box-shadow:2px #CC0000;
 	-moz-box-shadow:2px #CC0000;
 	-webkit-box-shadow:2px #CC0000;
 }
 
-form label select.error:focus{	
-	padding:0px;
+
+/* Options */
+.ch-form-options{
+	margin: 0 0 15px 20px;
+	padding:0;
 }
 
-/* Vertical Form*/
-form.vertical .field-box {
-	padding:7px 0;
+.ie6 .ch-form-options .ch-form-row {
+	vertical-align: middle;
 }
 
-form.vertical label span {
-	float:none;
-	line-height:13px;
+/* Subtitle in options */
+.ch-form-options .ch-form-subtitle{
+	margin-bottom:15px;
+	margin-left:-20px;
+}
+
+/* Subtitle in options & required */
+.ch-form-options.ch-form-required .ch-form-subtitle{
+	font-weight:bold;
+}
+
+/* Label in options */
+.ch-form-options label {
 	margin:0;
 	padding:0;
-	text-align:left;
-	width:auto;
+}							
+
+.ie6 .ch-form-options label {
+	text-align: left;
+	width: auto;
+}
+
+/* Radio & Checkbox in options 
+.ch-form-options input[type="checkbox"],
+.ch-form-options input[type="radio"],*/
+.ch-form-options input{
+	margin:8px 4px 0 0;
+	/*display:block;
+	clear:both !important;
+	float:left;
+	line-height:30px;*/
+}
+
+.ch-form-options input[type="checkbox"]:focus,
+.ch-form-options input[type="radio"]:focus {
+	border:none;
+	padding:0;
 }
 
 
-form.vertical label.required span em {
-	position:relative;
-	left:0;
-	top: 0px;
+/* Disabled status */
+.ch-form-disabled label{
+	color:#999999;
 }
 
-form.vertical .help{
-	margin-left:0;
-}
-
-/* Disabled*/
-/* Wrapper disabled (Don't forget to add Disabled attribute to input element) */
-form .disabled {
-	color:#999;
-}
-
-								
-
-form .disabled input{
+.ch-form-disabled input,
+.ch-form-disabled input[disabled],
+.ch-form-disabled textarea,
+.ch-form-disabled textarea[disabled] {
 	background-color:#F2F2F2;
+	cursor: not-allowed;
 }
 
-								
-								
-								
-
-/* IE 6  */
-.lt-ie7 .disabled,
-/* Deprecate */
-.ie6 form .disabled {
-	border:none !important;
+/* Actions */
+.ch-form-actions {
+	margin-left:145px;
+	text-align:left;
 }
 
-.lt-ie7 .help,
-/* Deprecate */
-.ie6 form .help {
-	margin-left:148px;
+.ch-form-actions .ch-btn {
+	margin-right:10px;
 }
-
-.lt-ie7 form h4,
-/* Deprecate */
-.ie6 form h4 {
-	margin-left:10px;
-}
-
-.lt-ie7 form .options label input,
-/* Deprecate */
-.ie6 form .options label input {
-	border:none;
-	margin:0;
-	padding:0;
-}
-
-/* IE 7*/
-.ie7 form {
-	position:relative;
-}
-
-.ie7 form .options{
-	position:relative;
-}
-
-.ie7 form .field-box{
-	position:relative;
-}
-
-.ie7 form h4 { 
-	margin-left:10px;
-	display:block;
-}
-
-.ie7 form .actions{
-	position:relative;
-}
-
-.ie7 form .options label input {
-	border:none;
-	margin:0;
-	padding:0;
-}
-
-/* IE 8 */
-.ie8 form label input:focus,
-.ie8 form label textarea:focus {
-	border:3px solid #666;
-}
-
-.ie8 form .options label input:focus,
-.ie8 form .options label textarea:focus {
-	border:none;
-	padding:0;
-}
-
-.ie8 form .options label input {
-	border:none;
-	margin:0;
-	padding:0;
-}						
-						input[type="search"]{
-						  -webkit-appearance: textfield;
-						}
-						
-						input::-webkit-outer-spin-button,
-						input::-webkit-inner-spin-button {
-							-webkit-appearance: none;
-							margin: 0;
-						}
-						
-						/* Generic input & textarea */
-							input,
-							textarea,
-							select[multiple],
-							.ch-form-select-multiple {
-								border:1px solid #CCCCCC;
-								-moz-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
-								-ms-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;								
-								-o-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
-								-webkit-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
-								box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
-								padding:5px 4px;
-								margin:5px 0;
-							}
-							
-							input[type="file"],
-							input[type="checkbox"],
-							input[type="radio"] {
-								border:none;
-								padding:0;
-							}
-							
-							input:focus, 
-							textarea:focus,
-							select[multiple]:focus,
-							.ch-form-select-multiple:focus {
-								border: 2px solid #666;
-								padding: 4px 3px;
-								outline: 0;
-							}
-					
-							input[type="file"]:focus,
-							input[type="checkbox"]:focus,
-							input[type="radio"]:focus,
-							input[type="range"]:focus,
-							select:focus {
-								outline: 1px dotted #666;
-							}
-
-							input[readonly],
-							input[readonly]:focus {
-								border-color:transparent;
-								-moz-box-shadow: none;
-								-ms-box-shadow: none;
-								-o-box-shadow: none;
-								-webkit-box-shadow: none;
-								box-shadow: none;
-							}
-
-form .ico{display:inline-block;}
-						
-						.ch-form-ico {display:inline-block;vertical-align:middle;margin-bottom:5px;margin-left:5px !important;}
-
-							/* Module */
-							form fieldset,
-							.ch-form fieldset {
-								margin-bottom:10px;
-							}
-							
-								/* Title module */
-								form legend,
-								.ch-form legend {
-									color:#dc7b1c;
-									font-size:14px;
-									font-weight:bold;
-									padding-bottom:15px;
-								}
-								
-								/* Deprecate H4, it could not match the hierarchy */
-								.form h4,
-								.ch-form-subtitle {
-									font-size:13px;
-									font-weight:bold;
-								}
-								
-							/* Required specification or another */
-							.ch-form-hint {
-								color:#666666;
-								font-size:11px;
-								line-height:11px;	
-							}
-							
-							/* Basic wrapper for horizontal view */
-							.ch-form-row {
-								padding: 5px 0;
-								margin-bottom: 0;
-							}
-							
-							
-							/* Label */
-							.ch-form-row label {
-								position:relative;
-								padding:7px 11px 5px 0;
-								display:inline-block;
-								text-align:right;
-								width:130px;
-							}
-							
-							/* Label for back compatibility */
-								.field-box label{
-									padding:0;
-									/* could be necesary to back compatibility
-									position:static;
-									*/
-								}
-							/* Label inline not used yet */
-								.ch-form-row input + label,
-								.ch-form-row select + label,
-								.ch-label-inline{
-									text-align:left;
-									width:auto;
-									padding-right:0;
-									font-weight:normal;
-									margin-left:0;
-								}
-								
-								.ie6 label.ch-label-inline{width:auto !important;}
-								
-							/* Label required **/
-								.ch-form-required label{
-									font-weight:bold;
-								}
-								
-								.ch-form-required.ch-form-options label{
-									font-weight:normal;
-								}
-								
-							/* Icon indication of required */
-								.ch-form-required em{
-									display:block;
-									position:absolute;
-									right:3px;
-									top: 3px;
-								}
-							/* Icon indication of required in options */
-								.ch-form-required.ch-form-options em{
-									display:inline;
-									position:relative;
-									vertical-align:super;
-									top: auto;
-									right:auto;
-								}
-							
-							/* Checkbox inline 
-							.ch-form-row input + input[type=checkbox],*/
-							.ch-form-checkbox-inline{
-								margin-left:11px;
-								margin-right:0;
-								border:none;
-							}
-							
-							/* Range 
-							input[type=range],*/
-							.ch-form-range{
-								padding:4px;
-								vertical-align:middle;
-							}
-							
-							/* Select */
-							.ch-form-row select {
-								margin:5px 0;
-							}
-							
-							/* Select Multiple */
-							.ch-form-row select[multiple],
-							.ch-form-select-multiple {
-								vertical-align:top;
-								margin-top:10px;
-							}
-							
-							/* Textarea */
-							.ch-form-row textarea {
-								height:125px;
-								width:350px;
-								vertical-align:top;
-							}
-							
-							/* Help bottom line that helps the user */
-							.ch-form-row .ch-form-hint{
-								margin-left:145px;
-								display:block;
-							}
-							
-							/* Error colorize the border */
-							form .ch-form-error,
-							form .error, 
-							form .error {
-								border:1px solid #C62026;
-							}
-							
-							form .ch-form-error:focus,
-							form .error:focus,
-							form .ch-form-error:focus {
-								border:2px solid #CC0000;
-								padding:4px 3px;
-								box-shadow:2px #CC0000;
-								-moz-box-shadow:2px #CC0000;
-								-webkit-box-shadow:2px #CC0000;
-							}
-							
-							
-							/* Options */
-							.ch-form-options{
-								margin: 0 0 15px 20px;
-								padding:0;
-							}
-							
-							.ie6 .ch-form-options .ch-form-row {
-								vertical-align: middle;
-							}
-							
-							/* Subtitle in options */
-							.ch-form-options .ch-form-subtitle{
-								margin-bottom:15px;
-								margin-left:-20px;
-							}
-							
-							/* Subtitle in options & required */
-							.ch-form-options.ch-form-required .ch-form-subtitle{
-								font-weight:bold;
-							}
-							
-							/* Label in options */
-							.ch-form-options label {
-								margin:0;
-								padding:0;
-							}							
-
-							.ie6 .ch-form-options label {
-								text-align: left;
-								width: auto;
-							}
-							
-							/* Radio & Checkbox in options 
-							.ch-form-options input[type="checkbox"],
-							.ch-form-options input[type="radio"],*/
-							.ch-form-options input{
-								margin:8px 4px 0 0;
-								/*display:block;
-								clear:both !important;
-								float:left;
-								line-height:30px;*/
-							}
-							
-							.ch-form-options input[type="checkbox"]:focus,
-							.ch-form-options input[type="radio"]:focus {
-								border:none;
-								padding:0;
-							}
-
-							
-							/* Disabled status */
-							.ch-form-disabled label{
-								color:#999999;
-							}
-							
-							.ch-form-disabled input,
-							.ch-form-disabled input[disabled],
-							.ch-form-disabled textarea,
-							.ch-form-disabled textarea[disabled] {
-								background-color:#F2F2F2;
-								cursor: not-allowed;
-							}
-
-							/* Actions */
-							.ch-form-actions {
-								margin-left:145px;
-								text-align:left;
-							}
-							
-							.ch-form-actions .btn,
-							.ch-form-actions .ch-btn {
-								margin-right:10px;
-							}
-

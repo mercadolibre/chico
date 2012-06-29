@@ -230,11 +230,13 @@ ch.tabNavigator = function (conf) {
 	* var selected = widget.select();
 	*/
 	that["public"].select = function (tab) {
-		// Returns selectd tab instead set it
-		if(!tab){
+		// Returns selected tab instead set it
+		// Getter
+		if (!tab) {
 			return (selected + 1);
 		}
 
+		// Setter
 		select(tab);
 		return that["public"];
 

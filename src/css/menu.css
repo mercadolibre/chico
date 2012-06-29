@@ -46,14 +46,9 @@
 /* L1 items icon */
 .ch-menu .ch-expando-trigger:after,
 .ch-accordion .ch-expando-trigger:after {
-	top: 7px;
+	top: 2px;
 	right: 5px;
 	left: auto;
-}
-
-.ch-menu .ch-expando-trigger-on:after,
-.ch-accordion .ch-expando-trigger-on:after {
-	top: 6px;
 }
 
 /* L2 items list */
@@ -64,7 +59,7 @@
 
 /* L2 items */
 .ch-menu .ch-expando-content a {
-	padding-left:20px;
+	padding-left: 20px;
 }
 
 /* Selected child */
