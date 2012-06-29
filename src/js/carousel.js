@@ -78,7 +78,23 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#queue
 	* @type Array
 	*/
-	var queue = conf.asyncData || [],
+	var queue = (function () {
+
+		// No queue
+		if (!ch.utils.hasOwn(conf, "asyncData")) { return []; }
+
+		// Validated queue
+		var q = [];
+
+		// Validate each item in queue to be different to undefined
+		$.each(conf.asyncData, function (index, item) {
+			if (item) { q.push(item); }
+		});
+
+		// Return validated queue
+		return q;
+
+	}()),
 
 	/**
 	* Element that moves across component (inside the mask).
@@ -94,7 +110,7 @@ ch.carousel = function (conf) {
 	* @name ch.Carousel#$items
 	* @type jQuery Object
 	*/
-		$items = $list.children().attr("role", "listitem"),
+		$items = $list.children().addClass("ch-carousel-item").attr("role", "listitem"),
 
 	/**
 	* The width of each item, including paddings, margins and borders. Ideal for make calculations.
@@ -103,6 +119,14 @@ ch.carousel = function (conf) {
 	* @type Number
 	*/
 		itemWidth = $items.width(),
+	
+	/**
+	* The height of each item, including paddings, margins and borders. Ideal for make calculations.
+	* @private
+	* @name ch.Carousel#itemHeight
+	* @type Number
+	*/
+		itemHeight = $items.height(),
 
 	/**
 	* The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
@@ -111,6 +135,14 @@ ch.carousel = function (conf) {
 	* @type Number
 	*/
 		itemOuterWidth = $items.outerWidth(),
+	
+	/**
+	* The height of each item, without paddings, margins or borders. Ideal for manipulate CSS height property.
+	* @private
+	* @name ch.Carousel#itemOuterHeight
+	* @type Number
+	*/
+		itemOuterHeight = $items.outerHeight(),
 
 	/**
 	* Size added to each item to make it responsive.
@@ -199,16 +231,6 @@ ch.carousel = function (conf) {
 			// It's the difference between mask width and total width of all items
 				freeSpace = maskWidth - (itemOuterWidth * itemsPerPage),
 
-			// Amount of spaces to distribute the free space
-			// When there are 6 items on a page, there are 5 spaces between them
-			// Except when there are only one page that NO exist spaces
-				spaces = moreThanOne ? itemsPerPage - 1 : 0,
-
-			// Free space for each space between items
-			// Ceil to delete float numbers (not Floor, because next page is seen)
-			// There is no margin when there are only one item in a page
-				margin = moreThanOne ? Math.ceil(freeSpace / spaces / 2) : 0,
-
 			// Width to add to each item to get responsivity
 			// When there are more than one item, get extra width for each one
 			// When there are only one item, extraWidth must be just the freeSpace
@@ -217,23 +239,48 @@ ch.carousel = function (conf) {
 			// Update ONLY IF margin changed from last redraw
 			if (itemExtraWidth === extraWidth) { return; }
 
-			// Update global values
-			itemMargin = margin;
+			// Amount of spaces to distribute the free space
+			// When there are 6 items on a page, there are 5 spaces between them
+			// Except when there are only one page that NO exist spaces
+			var spaces = moreThanOne ? itemsPerPage - 1 : 0,
+
+			// The new width calculated from current width plus extraWidth
+				width = itemWidth + extraWidth;
+
+			// Update global value of width
 			itemExtraWidth = extraWidth;
+
+			// Free space for each space between items
+			// Ceil to delete float numbers (not Floor, because next page is seen)
+			// There is no margin when there are only one item in a page
+			// Update global values
+			itemMargin = moreThanOne ? Math.ceil(freeSpace / spaces / 2) : 0;
 
 			// Update distance needed to move ONLY ONE page
 			// The width of all items on a page, plus the width of all margins of items
-			pageWidth = (itemOuterWidth + extraWidth + margin) * itemsPerPage;
+			pageWidth = (itemOuterWidth + extraWidth + itemMargin) * itemsPerPage;
 
-			// Update list width
-			// Consider one more page to get an error margin
-			$list.css("width", pageWidth * (pages + 1));
+			// Update the list width
+			// Delete efects on list to change width instantly
+			// Do it before item resizing to make space to all items
+			$list.addClass("ch-carousel-nofx").css("width", pageWidth * pages);
+			
+			// Restore efects to list if it's required
+			// Use a setTimeout to be sure to do this after width change
+			if (conf.fx) {
+				setTimeout(function () { $list.removeClass("ch-carousel-nofx"); }, 0);
+			}
 
 			// Update element styles
+			// Get the height using new width and relation between width and height of item (ratio)
 			$items.css({
-				"width": itemWidth + extraWidth,
-				"margin-right": margin
+				"width": width,
+				"height": (width * itemHeight) / itemWidth,
+				"margin-right": itemMargin
 			});
+			
+			// Update the mask height with the list height
+			$mask.css("height", $list.outerHeight());
 		},
 
 	/**
@@ -343,6 +390,10 @@ ch.carousel = function (conf) {
 
 			// TODO: Get a better reference to rendered mask
 			$mask = that.$element.children(".ch-carousel-mask");
+			
+			// Update the mask height with the list height
+			// Do it here because before, items are stacked
+			$mask.css("height", $list.outerHeight());
 
 			// If efects aren't needed, avoid transition on list
 			if (!conf.fx) { $list.addClass("ch-carousel-nofx"); }
@@ -762,7 +813,10 @@ ch.carousel = function (conf) {
 		addItems = function (amount) {
 
 			// Take the sample from queue
-			var sample = queue.splice(0, amount);
+			var sample = queue.splice(0, amount),
+			
+			// Function with content processing using asyncRender or not
+				getContent = conf.asyncRender || function (data) { return data; };
 
 			// Replace sample items with Carousel item template)
 			for (var i = 0; i < amount; i += 1) {
@@ -770,10 +824,12 @@ ch.carousel = function (conf) {
 				sample[i] = [
 					// Open tag with ARIA role
 					"<li role=\"listitem\"",
+					// Add classname to identify this as item
+					" class=\"ch-carousel-item\"",
 					// Add the same margin than all siblings items
 					" style=\"width: " + (itemWidth + itemExtraWidth) + "px; margin-right: " + itemMargin + "px\"",
 					// Add content (executing a template, if user specify it) and close the tag
-					">" + (conf.asyncRender(sample[i]) || sample[i]) + "</li>"
+					">" + getContent(sample[i]) + "</li>"
 				// Get it as string
 				].join("");
 			};
@@ -846,8 +902,8 @@ ch.carousel = function (conf) {
 
 		goToPage(currentPage + 1);
 
-		that.callbacks("onPrev");
-		that.trigger("prev");
+		that.callbacks("onNext");
+		that.trigger("next");
 
 		return that;
 	};

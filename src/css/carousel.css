@@ -36,7 +36,7 @@
 	transition: none;
 }
 
-.ch-carousel li {
+.ch-carousel-item {
 	display: inline-block;
 	float: left; /* Fixes the inline-block inner space between li elements */
 }
