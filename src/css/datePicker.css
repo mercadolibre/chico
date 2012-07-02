@@ -5,8 +5,8 @@
 	z-index: 300;
 	background-color: #fff;
 	border: 1px solid #cecece;
-	box-shadow: 2px 2px 1px #888!important;
-	-webkit-box-shadow: 2px 2px 1px #888!important;
+	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	min-width: 240px;
 }
 
