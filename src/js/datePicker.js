@@ -127,7 +127,7 @@ ch.datePicker = function (conf) {
 		"$element": $("<p role=\"button\" class=\"ch-datePicker-trigger\"></p>").insertAfter(that.element),
 		"content": that.calendar.element,
 		"points": conf.points,
-		"offset": "0 10",
+		"offset": "0 5",
 		"aria": {
 			"role": "tooltip",
 			"identifier": "aria-describedby"
