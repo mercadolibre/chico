@@ -11,22 +11,23 @@
 }
 
 .ch-datePicker-trigger {
-	display: inline-block;
-	height: 24px;
-	overflow: hidden;
-	vertical-align: middle;
-	width: 20px;
-	font-size: 1.5em;
-	line-height: 1em;
-	color: #666666;
-	text-align: center;
 	margin-left: 3px;
+	height: 24px;
+	width: 20px;
+	display: inline-block;
 }
 
-.ch-datePicker-trigger:before {
+/*.ch-datePicker-trigger:before {
+	
+	overflow: hidden;
+	vertical-align: middle;
+	color: #666666;
+	text-align: center;
+	font-size: 1.5em;
+	line-height: 1em;
 	font-family: icons;
 	content: "\f073";
-}
+}*/
 
 .ch-datePicker-content .ch-calendar {
 	display: block;
@@ -122,14 +123,6 @@
 
 .ie9 .ch-datePicker-trigger {
 	line-height: 1.2em;
-}
-
-.lt-ie8 .ch-datePicker-trigger {
-	background: transparent url('../assets/calendar.png') 0 0 no-repeat;
-	vertical-align: top;
-	margin-top: 10px;
-	display: inline;
-	zoom: 1;
 }
 
 .lt-ie8 .ch-datePicker {

@@ -124,7 +124,7 @@ ch.datePicker = function (conf) {
 	* @name ch.DatePicker#float
 	*/
 	that["float"] = that.createFloat({
-		"$element": $("<p role=\"button\" class=\"ch-datePicker-trigger\"></p>").insertAfter(that.element),
+		"$element": $("<i role=\"button\" class=\"ch-datePicker-trigger ch-icon-calendar\"></i>").insertAfter(that.element),
 		"content": that.calendar.element,
 		"points": conf.points,
 		"offset": "0 10",
