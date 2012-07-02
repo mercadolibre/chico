@@ -132,7 +132,7 @@
 
 .lt-ie8 .ch-calendar-prev span,
 .lt-ie8 .ch-calendar-next span {
-	background-image: url("../assets/cones.png");
+	background-image: url("../assets/lt-ie8-shapes.png");
 	overflow: hidden;
 	display: block;
 	width: 4px;
@@ -141,9 +141,9 @@
 }
 
 .lt-ie8 .ch-calendar-prev span{
-	background-position: -4px -48px;
+	background-position: 0 -48px;
 }
 
 .lt-ie8 .ch-calendar-next span{
-	background-position: -7px -48px;
+	background-position: -3px -48px;
 }
