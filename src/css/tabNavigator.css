@@ -95,6 +95,11 @@
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F0F0F0', endColorstr='#FFFFFF');
 }
 
+								.lt-ie10 .ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on,
+								.lt-ie10 .ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on:hover {
+									filter: none;
+								}
+
 								.ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on {
 									border:1px solid #cccccc;
 									border-right:1px solid #ffffff;
