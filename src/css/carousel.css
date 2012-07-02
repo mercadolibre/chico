@@ -89,10 +89,10 @@
 
 .lt-ie8 .ch-carousel-prev span,
 .lt-ie8 .ch-carousel-next span {
-	background-image: url('../assets/carousel.png');
+	background-image: url('../assets/lt-ie8-shapes.png');
 	display: block;
-	height: 20px;
-	margin: 30px 18px;
+	height: 18px;
+	margin: 30px 20px;
 	overflow: hidden;
 	/* Bubble event to wrapper */
 	pointer-events: none;
@@ -100,7 +100,13 @@
 	width: 11px;
 }
 
-.lt-ie8 .ch-carousel-next span { background-position: -10px 0; }
+.lt-ie8 .ch-carousel-prev span {
+	background-position: -5px -53px;
+}
+
+.lt-ie8 .ch-carousel-next span {
+	background-position: 0 -68px;
+}
 
 .ch-carousel-disabled {
 	display: none;

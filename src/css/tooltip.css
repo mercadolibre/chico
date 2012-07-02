@@ -65,7 +65,7 @@
 
 /* IE */
 .lt-ie8 .ch-tooltip-cone {
-	background-image: url('../assets/cones.png');
+	background-image: url('../assets/lt-ie8-shapes.png');
 	display: block;
 	position: absolute;
 	width: 16px;
