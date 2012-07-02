@@ -85,7 +85,7 @@
 
 /* IE 7 */
 .lt-ie8 .ch-validation-cone {
-	background-image: url('../assets/cones.png');
+	background-image: url('../assets/lt-ie8-shapes.png');
 	display: block;
 	position: absolute;
 	width: 16px;
@@ -161,4 +161,8 @@
 .lt-ie8 .ch-points-lbrb .ch-validation-cone,
 .lt-ie8 .ch-points-rblb .ch-validation-cone  {
 	bottom: 4px;
+}
+
+.lt-ie8 .ch-box-error.ch-validation {
+	background-position: -123px 4px;
 }
