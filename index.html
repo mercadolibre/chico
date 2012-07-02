@@ -11,6 +11,19 @@
 	
 	<link rel="stylesheet" href="http://ui.ml.com:3000/css">
 	<style>
+		.ch-g1-2, .ch-g1-4 {
+			display: inline-block;
+			vertical-align: top;
+		}
+		
+		.ch-g1-2 {
+			width: 49%;
+		}
+		
+		.ch-g1-4 {
+			width: 24%;
+		}
+		
 		/**
 		 * Carousel demo
 		 */
@@ -113,8 +126,6 @@
 				<dd>La forma más simple de recibir pagos!</dd>
 				<dt>MercadoShops</dt>
 				<dd>Tu tienda virtual gratis y en minutos!</dd>
-				<dt>MercadoClics</dt>
-				<dd>Anuncia tu sitio en MercadoLibre, miles de personas buscan lo que ofreces!</dd>	
 			</dl>
 		</div>
 	</div>
@@ -142,7 +153,7 @@
 	<div class="ch-box-ok">Everything is great!</div>
 
 	<div class="ch-box-lite clearfix">
-		<div class="ch-g1-2">
+		<div class="ch-g1-4">
 			<h2>Buttons</h2>
 			<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
 			<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
@@ -151,13 +162,14 @@
 			<p><input type="button" class="ch-btn ch-btn-tiny" value="Tiny button"></p>
 			<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
 		</div>
-		<div class="ch-g1-2">
+		<div class="ch-g1-4">
 			<h2>Disabled Buttons</h2>
 			<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
-			<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" disabled value="Big button disabled"></p>
-			<p><input type="button" class="ch-btn ch-btn-disabled" disabled value="Button disabled"></p>
-			<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" disabled value="Small button disabled"></p>
-			<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" disabled value="Skin button disabled"></p>
+			<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Big button disabled"></p>
+			<p><input type="button" class="ch-btn ch-btn-disabled" value="Default button disabled"></p>
+			<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled"></p>
+			<p><input type="button" class="ch-btn ch-btn-tiny ch-btn-disabled" value="Tiny button disabled"></p>
+			<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
 		</div>
 	</div>
 	
@@ -392,32 +404,36 @@
 	<div class="ch-box-lite">
 		<h2>Tooltip</h2>
 		
-		<div class="ch-box-container">
-			<h3>Bottom</h3>
-			<img id="default" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-			<img id="ctcb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-			<img id="rtrb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-		</div>
-		
-		<div class="ch-box-container">
-			<h3>Top</h3>
-			<img id="lblt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-			<img id="cbct" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-			<img id="rbrt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-		</div>
-
-		<div class="ch-box-container">
-			<h3>Right</h3>
-			<img id="ltrt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-			<img id="lmrm" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-			<img id="lbrb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<div class="ch-g1-2">
+			<div class="ch-box-container">
+				<h3>Bottom</h3>
+				<img id="default" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="ctcb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rtrb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+			</div>
+			
+			<div class="ch-box-container">
+				<h3>Top</h3>
+				<img id="lblt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="cbct" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rbrt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+			</div>
 		</div>
 
-		<div class="ch-box-container">
-			<h3>Left</h3>
-			<img id="rtlt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-			<img id="rmlm" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-			<img id="rblb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+		<div class="ch-g1-2">
+			<div class="ch-box-container">
+				<h3>Right</h3>
+				<img id="ltrt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="lmrm" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="lbrb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+			</div>
+
+			<div class="ch-box-container">
+				<h3>Left</h3>
+				<img id="rtlt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rmlm" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rblb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+			</div>
 		</div>
 	</div>
 
