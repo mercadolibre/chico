@@ -27,24 +27,6 @@ app.get("/assets/:file", function (req, res) {
 		"html": "text/html",
 		"css": "text/css",
 		"js": "text/javascript",
-		"undefined": "text/plain"
-	}[ext]);
-
-	res.send(content);	
-});
-
-app.get("/fonts/:file", function (req, res) {
-
-	// Read file content
-	var content = fs.readFileSync("../../src/fonts/" + req.params.file),
-
-	// File extension
-		ext = req.params.file.split(".").pop();
-	
-	// Return when file not exists
-	if (!content) { return }
-
-	res.header("Content-Type", {
 		"svg": "image/svg+xml",
 		"svgz": "image/svg+xml",
 		"eot": "application/vnd.ms-fontobject",
