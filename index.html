@@ -444,6 +444,10 @@
 			<li><span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span></li>
 			<li><span class="YOUR_SELECTOR_LayerCloseButton">Executed on click and only the cross button closes.</span></li>
 		</li>
+		<div id="invisible-content-for-layer" class="ch-hide">
+    		<h1>This content is invisible</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p> 
+		</div>
 	</div>
 
 	<div class="ch-box-lite">
@@ -1051,9 +1055,9 @@
 		
 		// AutoComplete
 		var a = $(".autoComplete").autoComplete({
-			"url": "http://www.chico-ui.com.ar/suggest?q=",
-			"jsonpCallback": "autoComplete"
-		}),
+				"url": "http://www.chico-ui.com.ar/suggest?q=",
+				"jsonpCallback": "autoComplete"
+			}),
 		
 			b = $(".autoComplete2").autoComplete({
 				"url": "http://www.chico-ui.com.ar/suggest?q=",
@@ -1105,68 +1109,22 @@
 			ch_layeC = $(".YOUR_SELECTOR_LayerCloseButton").layer({
 				"event": "click",
 				"closable": "button",
-				"content": "#invisible-content-for-layer"
+				"content": "#invisible-content-for-layer",
+				"width": 500
 			}),
 		
 		// Layer on click
 			ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
 				"event": "click",
 				"content": "#invisible-content",
-				"width": 70
+				"width": 70,
 			}),
 		
 		// Layer on mouseover
-			ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
-
-		// Bottom
-		$("#default").tooltip(); // lt lb
-		$("#ctcb").tooltip({"points": "ct cb"});
-		$("#rtrb").tooltip({"points": "rt rb"});
-
-		// Top
-		$("#lblt").tooltip({
-			"points": "lb lt",
-			"offset": "0 -10"
-		});
-		$("#cbct").tooltip({
-			"points": "cb ct",
-			"offset": "0 -10"
-		});
-		$("#rbrt").tooltip({
-			"points": "rb rt",
-			"offset": "0 -10"
-		});
-
-		// Right
-		$("#ltrt").tooltip({
-			"points": "lt rt",
-			"offset": "10 0"
-		});
-		$("#lmrm").tooltip({
-			"points": "lm rm",
-			"offset": "10 0"
-		});
-		$("#lbrb").tooltip({
-			"points": "lb rb",
-			"offset": "10 0"
-		});
-
-		// Left
-		$("#rtlt").tooltip({
-			"points": "rt lt",
-			"offset": "-10 0"
-		});
-		$("#rmlm").tooltip({
-			"points": "rm lm",
-			"offset": "-10 0"
-		});
-		$("#rblb").tooltip({
-			"points": "rb lb",
-			"offset": "-10 0"
-		});
+			ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>"),
 
 		// Tab Navigator
-		var ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator(),
+			ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator(),
 
 		// Expando
 			ch_expa = $(".YOUR_SELECTOR_Expando").expando(),
@@ -1236,6 +1194,53 @@
 			ch_wch5 = $("#characters").maxLength(20).and().minLength(6),
 			
 			ch_wch6 = $("#required_disabled,#select2,#select3,.check2,.check3,.radio2,.radio3,.radio4,#textarea2,#textarea3").required("Required");
+		
+		// Bottom
+		$("#default").tooltip(); // lt lb
+		$("#ctcb").tooltip({"points": "ct cb"});
+		$("#rtrb").tooltip({"points": "rt rb"});
+
+		// Top
+		$("#lblt").tooltip({
+			"points": "lb lt",
+			"offset": "0 -10"
+		});
+		$("#cbct").tooltip({
+			"points": "cb ct",
+			"offset": "0 -10"
+		});
+		$("#rbrt").tooltip({
+			"points": "rb rt",
+			"offset": "0 -10"
+		});
+
+		// Right
+		$("#ltrt").tooltip({
+			"points": "lt rt",
+			"offset": "10 0"
+		});
+		$("#lmrm").tooltip({
+			"points": "lm rm",
+			"offset": "10 0"
+		});
+		$("#lbrb").tooltip({
+			"points": "lb rb",
+			"offset": "10 0"
+		});
+
+		// Left
+		$("#rtlt").tooltip({
+			"points": "rt lt",
+			"offset": "-10 0"
+		});
+		$("#rmlm").tooltip({
+			"points": "rm lm",
+			"offset": "-10 0"
+		});
+		$("#rblb").tooltip({
+			"points": "rb lb",
+			"offset": "-10 0"
+		});
 	</script>
 </body> 
 </html>
