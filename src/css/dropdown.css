@@ -60,7 +60,6 @@
 	background-image: -moz-linear-gradient(#A3C9E1, #79B5DC);
 	background-image: -o-linear-gradient(#A3C9E1, #79B5DC);
 	background-image: linear-gradient(#A3C9E1, #79B5DC);
-	-moz-box-shadow: inset 0px 1px rgba(143, 176, 196, 0.9);
 	-webkit-box-shadow: inset 0px 1px rgba(143, 176, 196, 0.9);
 	box-shadow: inset 0px 1px rgba(143, 176, 196, 0.9);
 }

@@ -80,8 +80,8 @@
 	background-image: -moz-linear-gradient(#F0F0F0, #FFFFFF 25px);
 	background-image: -o-linear-gradient(#F0F0F0, #FFFFFF 25px);
 	background-image: linear-gradient(#F0F0F0, #FFFFFF 25px);
-	-webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
-	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
+	-webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
 	border-bottom: 1px solid #FFFFFF;
 	cursor:default;
 	font-weight: bold;

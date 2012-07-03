@@ -124,7 +124,8 @@
 .ch-carousel-pages span {
 	background-color: #d1d1d1;
 	border-radius: 100%;
-	box-shadow: 1px 1px #888 inset;
+	-webkit-box-shadow: inset 1px 1px #888;
+	box-shadow: inset 1px 1px #888;
 	cursor: pointer;
 	display: inline-block;
 	height: 10px;

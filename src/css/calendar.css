@@ -21,8 +21,8 @@
 	background: -moz-linear-gradient(#F9F9F9, #EEEEEE);
 	background: -o-linear-gradient(#F9F9F9, #EEEEEE);
 	background: linear-gradient(#F9F9F9, #EEEEEE);
-	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
-	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
 	font-size: 13px;
 	line-height: 28px;
 	text-shadow: 0 1px 0 #FFFFFF;
