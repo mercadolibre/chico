@@ -71,19 +71,11 @@
 
 .ch-dropdown-trigger-on.ch-points-ltlb,
 .ch-dropdown-trigger-on.ch-points-rtrb {
-	-o-border-radius: 3px 3px 0 0;
-	-ms-border-radius: 3px 3px 0 0;
-	-moz-border-radius: 3px 3px 0 0;
-	-webkit-border-radius: 3px 3px 0 0;
 	border-radius: 3px 3px 0 0;
 }
 
 .ch-dropdown-trigger-on.ch-points-lblt,
 .ch-dropdown-trigger-on.ch-points-rbrt {
-	-o-border-radius: 0 0 3px 3px;
-	-ms-border-radius: 0 0 3px 3px;
-	-moz-border-radius: 0 0 3px 3px;
-	-webkit-border-radius: 0 0 3px 3px;
 	border-radius: 0 0 3px 3px;
 }
 
@@ -118,10 +110,6 @@
 	background: #fff !important;
 	border: 1px solid #fff;
 	border-width: 0 1px;
-	-o-border-radius: 0;
-	-ms-border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
 	border-radius: 0;
 	color: #0637B3;
 	font-size: 13px;
@@ -152,10 +140,6 @@
 	border-width: 0 1px;
 	-webkit-box-shadow: 2px 0 0 rgba(100, 100, 100, .1);
 	box-shadow: 2px 0 0 rgba(100, 100, 100, .1);
-	-o-border-radius: 0;
-	-ms-border-radius: 0;
-	-moz-border-radius: 0;
-	-webkit-border-radius: 0;
 	border-radius: 0;
 }
 

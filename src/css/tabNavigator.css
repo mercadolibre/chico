@@ -48,15 +48,11 @@
 	text-decoration:none !important;
 	color:#333333 !important;
 	background-color:#fff;
-	-moz-border-radius:5px 5px 0 0;
-	-webkit-border-radius:5px 5px 0 0;
-	border-radius:5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
 }
 
 										.ch-tab-vertical .ch-tab-trigger {
-											-moz-border-radius:5px 0 0 5px;
-											-webkit-border-radius:5px 0 0 5px;
-											border-radius:5px 0 0 5px;
+											border-radius: 5px 0 0 5px;
 											display:block;
 											padding:7px 12px 6px 12px;
 											
@@ -112,9 +108,7 @@
 /* content */
 .ch-tabNavigator .ch-box {
  	background-image:none;
- 	border-radius:0;
- 	-moz-border-radius:0;
-	-webkit-border-radius:0;
+ 	border-radius: 0;
 }
 
 								.ch-tabNavigator.ch-tab-vertical .ch-tabNavigator-content {
@@ -153,7 +147,7 @@
 
 .no-js .ch-tab-trigger {
 	border:none;
-	border-radius:0;
+	border-radius: 0;
 	padding:0 12px 0 2px;
 	display:inline;
 	color:#0637B3 !important;
