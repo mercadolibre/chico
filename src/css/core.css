@@ -435,12 +435,10 @@ button:focus {
 .ch-btn:focus,
 .ch-btn:visited {
 	background-color: #2C3176;
-	background-image: -o-linear-gradient(top, #4055A5 3%, #283077);
-	background-image: -ms-linear-gradient(top, #4055A5 3%, #283077);
-	background-image: -moz-linear-gradient(top,  #4055A5 3%,  #283077);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #BACDFF), color-stop(3%, #4055A5), color-stop(100%, #283077));
-	background-image: -webkit-linear-gradient(top, #4055A5 3%, #283077);
-	background-image: linear-gradient(top, #4055A5 3%, #283077);
+	background-image: -webkit-linear-gradient(#4055A5, #283077);
+	background-image: -moz-linear-gradient(#4055A5, #283077);
+	background-image: -o-linear-gradient(#4055A5, #283077);
+	background-image: linear-gradient(#4055A5, #283077);
 	-webkit-box-shadow: inset 0px 1px rgba(186, 206, 255, .6);
 	box-shadow: inset 0px 1px rgba(186, 206, 255, .6);
 	border: 1px solid #2C3176;
@@ -458,12 +456,10 @@ button:focus {
 .ch-btn-skin:focus,
 .ch-btn-skin:visited {
 	background-color: #C0DAEC;
-	background-image: -o-linear-gradient(top, #D0E6F8 3%, #A6CDEE);
-	background-image: -ms-linear-gradient(top, #D0E6F8 3%, #A6CDEE);
-	background-image: -moz-linear-gradient(top, #D0E6F8 3%,  #A6CDEE);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(3%, #D0E6F8), color-stop(100%, #A6CDEE));
-	background-image: -webkit-linear-gradient(top, #D0E6F8 3%, #A6CDEE);
-	background-image: linear-gradient(top, #D0E6F8 3%, #A6CDEE);
+	background-image: -webkit-linear-gradient(#D0E6F8, #A6CDEE);
+	background-image: -moz-linear-gradient(#D0E6F8, #A6CDEE);
+	background-image: -o-linear-gradient(#D0E6F8, #A6CDEE);
+	background-image: linear-gradient(#D0E6F8, #A6CDEE);
 	border: 1px solid #79a8c7;
 	-webkit-box-shadow: inset 0px 1px rgba(255, 255, 255, .9);
 	box-shadow: inset 0px 1px rgba(255, 255, 255, .9);
@@ -487,12 +483,10 @@ button:focus {
 /* Colors on Hover */
 .ch-btn:hover {
 	background-color: #4255D4;
-	background-image: -o-linear-gradient(top, #4255D4 3%, #2F33AE);
-	background-image: -ms-linear-gradient(top, #4255D4 3%, #2F33AE);
-	background-image: -moz-linear-gradient(top,  #4255D4 3%, #2F33AE);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(3%, #4255D4), color-stop(100%, #2F33AE));
-	background-image: -webkit-linear-gradient(top, #4255D4 3%, #2F33AE);
-	background-image: linear-gradient(top, #4255D4 3%, #2F33AE);
+	background-image: -webkit-linear-gradient(#4255D4, #2F33AE);
+	background-image: -moz-linear-gradient(#4255D4, #2F33AE);
+	background-image: -o-linear-gradient(#4255D4, #2F33AE);
+	background-image: linear-gradient(#4255D4, #2F33AE);
 	-webkit-box-shadow: inset 0px 1px rgba(191, 202, 255, 0.8);
 	box-shadow: inset 0px 1px rgba(191, 202, 255, 0.8);
 }
@@ -503,12 +497,10 @@ button:focus {
 
 .ch-btn-skin:hover {
 	background-color: #DCECFB;
-	background-image: -o-linear-gradient(top, #DCECFB 3%, #C2DDF5);
-	background-image: -ms-linear-gradient(top, #DCECFB 3%, #C2DDF5);
-	background-image: -moz-linear-gradient(top, #DCECFB 3%, #C2DDF5);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(3%, #DCECFB), color-stop(100%, #C2DDF5));
-	background-image: -webkit-linear-gradient(top, #DCECFB 3%, #C2DDF5);
-	background-image: linear-gradient(top, #DCECFB 3%, #C2DDF5);
+	background-image: -webkit-linear-gradient(#DCECFB, #C2DDF5);
+	background-image: -moz-linear-gradient(#DCECFB, #C2DDF5);
+	background-image: -o-linear-gradient(#DCECFB, #C2DDF5);
+	background-image: linear-gradient(#DCECFB, #C2DDF5);
 }
 
 .lt-ie10 .ch-btn-skin:hover {
@@ -518,12 +510,10 @@ button:focus {
 /* Colors on Active */
 .ch-btn:active {
 	background-color: #2C3176;
-	background-image: -o-linear-gradient(top, #1C2662 3%, #171B3F);
-	background-image: -ms-linear-gradient(top, #1C2662 3%, #171B3F);
-	background-image: -moz-linear-gradient(top, #1C2662 3%, #171B3F);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(3%, #1C2662), color-stop(100%, #171B3F));
-	background-image: -webkit-linear-gradient(top, #1C2662 3%, #171B3F);
-	background-image: linear-gradient(top, #1C2662 3%, #171B3F);
+	background-image: -webkit-linear-gradient(#1C2662, #171B3F);
+	background-image: -moz-linear-gradient(#1C2662, #171B3F);
+	background-image: -o-linear-gradient(#1C2662, #171B3F);
+	background-image: linear-gradient(#1C2662, #171B3F);
 	-webkit-box-shadow: inset 0px 1px rgba(0, 0, 0, 0.8);
 	box-shadow: inset 0px 1px rgba(0, 0, 0, 0.8);
 	color: #eee;
@@ -535,12 +525,10 @@ button:focus {
 
 .ch-btn-skin:active {
 	background-color: #C8E5F7;
-	background-image: -o-linear-gradient(top, #8FB0C5, #A3C9E1 3%, #79B5DC);
-	background-image: -ms-linear-gradient(top, #8FB0C5, #A3C9E1 3%, #79B5DC);
-	background-image: -moz-linear-gradient(top, #8FB0C5,  #A3C9E1 3%, #79B5DC);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8FB0C5), color-stop(3%, #A3C9E1), color-stop(100%, #79B5DC));
-	background-image: -webkit-linear-gradient(top, #8FB0C5, #A3C9E1 3%, #79B5DC);
-	background-image: linear-gradient(top, #8FB0C5, #A3C9E1 3%, #79B5DC);
+	background-image: -webkit-linear-gradient(#A3C9E1, #79B5DC);
+	background-image: -moz-linear-gradient(#A3C9E1, #79B5DC);
+	background-image: -o-linear-gradient(#A3C9E1, #79B5DC);
+	background-image: linear-gradient(#A3C9E1, #79B5DC);
 	-webkit-box-shadow: inset 0px 1px rgba(143, 176, 196, 0.9);
 	box-shadow: inset 0px 1px rgba(143, 176, 196, 0.9);
 	color: #476274;
@@ -609,12 +597,10 @@ input.ch-btn-tiny::-moz-focus-inner {
 [class*="ch-btn"][disabled]:active,
 [class*="ch-btn"][disabled]:focus {
 	background-color: #CCC;
-	background-image: -o-linear-gradient(top, #FFF, #CCC);
-	background-image: -ms-linear-gradient(top, #FFF, #CCC);
-	background-image: -moz-linear-gradient(top, #FFF, #CCC);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFF), color-stop(100%, #CCC));
-	background-image: -webkit-linear-gradient(top, #FFF, #CCC);
-	background-image: linear-gradient(top, #FFF, #CCC);
+	background-image: -webkit-linear-gradient(#FFF, #CCC);
+	background-image: -moz-linear-gradient(#FFF, #CCC);
+	background-image: -o-linear-gradient(#FFF, #CCC);
+	background-image: linear-gradient(#FFF, #CCC);
 	border: 1px solid #999999 !important; /* important for links */
 	-webkit-box-shadow: inset 0px 1px rgba(240, 240, 240, 1);
 	box-shadow: inset 0px 1px rgba(240, 240, 240, 1);
@@ -651,11 +637,10 @@ input.ch-btn-tiny::-moz-focus-inner {
 /* Close*/
 .ch-close {
 	background-color: #EBEBEB;
-	background-image: -webkit-linear-gradient(top, #FFFFFF, #EBEBEB);
-	background-image: -o-linear-gradient(top, #FFFFFF, #EBEBEB);
-	background-image: -ms-linear-gradient(top, #FFFFFF, #EBEBEB);
-	background-image: -moz-linear-gradient(top, #FFFFFF, #EBEBEB);
-	background-image: linear-gradient(top, #FFFFFF, #EBEBEB);
+	background-image: -webkit-linear-gradient(#FFFFFF, #EBEBEB);
+	background-image: -moz-linear-gradient(#FFFFFF, #EBEBEB);
+	background-image: -o-linear-gradient(#FFFFFF, #EBEBEB);
+	background-image: linear-gradient(#FFFFFF, #EBEBEB);
 	border: 1px solid #CCCCCC;
 	border-radius: 3px;
 	cursor: pointer;
@@ -701,11 +686,10 @@ input.ch-btn-tiny::-moz-focus-inner {
 .ch-close:focus {
 	color: #FFFFFF;
 	background-color: #EF1D00;
-	background-image: -webkit-linear-gradient(top, #F04100, #EF1D00);
-	background-image: -o-linear-gradient(top, #F04100, #EF1D00);
-	background-image: -ms-linear-gradient(top, #F04100, #EF1D00);
-	background-image: -moz-linear-gradient(top, #F04100, #EF1D00);
-	background-image: linear-gradient(top, #F04100, #EF1D00);
+	background-image: -webkit-linear-gradient(#F04100, #EF1D00);
+	background-image: -moz-linear-gradient(#F04100, #EF1D00);
+	background-image: -o-linear-gradient(#F04100, #EF1D00);
+	background-image: linear-gradient(#F04100, #EF1D00);
 	text-decoration: none;
 }
 
@@ -758,12 +742,10 @@ input.ch-btn-tiny::-moz-focus-inner {
 }
 
 .ch-box {
-	background-image: -o-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
-	background-image: -ms-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
-	background-image: -moz-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F0F0F0), color-stop(25px, #FFFFFF));
-	background-image: -webkit-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
-	background-image: linear-gradient(top, #F0F0F0, #FFFFFF 25px);
+	background-image: -webkit-linear-gradient(#F0F0F0, #FFFFFF 25px);
+	background-image: -moz-linear-gradient(#F0F0F0, #FFFFFF 25px);
+	background-image: -o-linear-gradient(#F0F0F0, #FFFFFF 25px);
+	background-image: linear-gradient(#F0F0F0, #FFFFFF 25px);
 	-webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
 	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
 }
@@ -999,12 +981,10 @@ input.ch-btn-tiny::-moz-focus-inner {
 
 .ch-datagrid th {
 	background-color: #EEEEEE;
-	background-image: -o-linear-gradient(top, #F9F9F9, #EEEEEE 100%);
-	background-image: -ms-linear-gradient(top, #F9F9F9, #EEEEEE 100%);
-	background-image: -moz-linear-gradient(top, #F9F9F9, #EEEEEE 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F9F9F9), color-stop(100%, #EEEEEE));
-	background-image: -webkit-linear-gradient(top, #F9F9F9, #EEEEEE 100%);
-	background-image: linear-gradient(top, #F9F9F9 0%, #EEEEEE 100%);
+	background-image: -webkit-linear-gradient(#F9F9F9, #EEEEEE);
+	background-image: -moz-linear-gradient(#F9F9F9, #EEEEEE);
+	background-image: -o-linear-gradient(#F9F9F9, #EEEEEE);
+	background-image: linear-gradient(#F9F9F9, #EEEEEE);
 	border-bottom: 1px solid #CECECE;
 	border-left: 1px solid #CECECE;
 	font-size: 11px;

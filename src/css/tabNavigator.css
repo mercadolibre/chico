@@ -76,12 +76,10 @@
 /* Trigger ON */
 .ch-tabNavigator .ch-tab-trigger-on,
 .ch-tabNavigator .ch-tab-trigger-on:hover {
-	background-image: -o-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
-	background-image: -ms-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
-	background-image: -moz-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F0F0F0), color-stop(25px, #FFFFFF));
-	background-image: -webkit-linear-gradient(top, #F0F0F0, #FFFFFF 25px);
-	background-image: linear-gradient(top, #F0F0F0, #FFFFFF 25px);
+	background-image: -webkit-linear-gradient(#F0F0F0, #FFFFFF 25px);
+	background-image: -moz-linear-gradient(#F0F0F0, #FFFFFF 25px);
+	background-image: -o-linear-gradient(#F0F0F0, #FFFFFF 25px);
+	background-image: linear-gradient(#F0F0F0, #FFFFFF 25px);
 	-webkit-box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
 	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset;
 	border-bottom: 1px solid #FFFFFF;
