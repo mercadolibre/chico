@@ -14,11 +14,8 @@ textarea,
 select[multiple],
 .ch-form-select-multiple {
 	border:1px solid #CCCCCC;
-	-moz-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
-	-ms-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;								
-	-o-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
-	-webkit-box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
-	box-shadow:1px 1px 1px rgba(204, 204, 204, 0.3) inset;
+	-webkit-box-shadow: inset 1px 1px 1px rgba(204, 204, 204, 0.3);
+	box-shadow: inset 1px 1px 1px rgba(204, 204, 204, 0.3);
 	padding:5px 4px;
 	margin:5px 0;
 }
@@ -50,9 +47,6 @@ select:focus {
 input[readonly],
 input[readonly]:focus {
 	border-color:transparent;
-	-moz-box-shadow: none;
-	-ms-box-shadow: none;
-	-o-box-shadow: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
@@ -188,9 +182,8 @@ form .ch-form-error:focus,
 form .ch-form-error:focus {
 	border:2px solid #CC0000;
 	padding:4px 3px;
-	box-shadow:2px #CC0000;
-	-moz-box-shadow:2px #CC0000;
-	-webkit-box-shadow:2px #CC0000;
+	-webkit-box-shadow: 2px #CC0000;
+	box-shadow: 2px #CC0000;
 }
 
 
