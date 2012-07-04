@@ -778,7 +778,7 @@ input.ch-btn-tiny::-moz-focus-inner {
 .lt-ie8 .ch-box-information,
 .lt-ie8 .ch-box-ok {
 	position: static;
-	background-image: url("../assets/lt-ie8-icons.png");
+	background-image: url("../assets/icons.png");
 	background-repeat: no-repeat;
 }
 
@@ -1079,11 +1079,11 @@ input.ch-btn-tiny::-moz-focus-inner {
 }
 
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc {
-	background: transparent url("../assets/lt-ie8-shapes.png") 0 -51px no-repeat;
+	background: transparent url("../assets/shapes.png") 0 -51px no-repeat;
 }
 
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
-	background: transparent url("../assets/lt-ie8-shapes.png") 0 -48px no-repeat;
+	background: transparent url("../assets/shapes.png") 0 -48px no-repeat;
 }
 
 

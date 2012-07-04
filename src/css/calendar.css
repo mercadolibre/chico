@@ -130,7 +130,7 @@
 
 .lt-ie8 .ch-calendar-prev span,
 .lt-ie8 .ch-calendar-next span {
-	background-image: url("../assets/lt-ie8-shapes.png");
+	background-image: url("../assets/shapes.png");
 	overflow: hidden;
 	display: block;
 	width: 4px;

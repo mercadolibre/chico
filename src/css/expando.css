@@ -56,7 +56,7 @@
 
 /* Trigger icon */
 .lt-ie8 .ch-expando-trigger .ch-expando-ico {
-	background-image: url('../assets/lt-ie8-shapes.png');
+	background-image: url('../assets/shapes.png');
 	display: block;
 	position:absolute;
 	overflow: hidden;
