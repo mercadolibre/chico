@@ -1,6 +1,6 @@
 {
 	"name": "Chico UI",
-	"version": "0.11.0",
+	"version": "0.11",
 	"input": "../../../chico/src",
 	"output": "public/downloads",
 	"templates": {
