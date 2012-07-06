@@ -79,9 +79,7 @@ body,
 	line-height:20px;
 }
 
-.lt-ie7 body,
-/* Dreprecate */
-.ie6 body {
+.lt-ie7 body {
 	width: expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
 }
 
@@ -169,12 +167,7 @@ h5 {
 	font-weight: normal
 }
 
-.lt-ie9 .ch-price sup,
-/* Dreprecate */
-.lt-ie9 .price sup,
-.ie6 .price sup,
-.ie7 .price sup,
-.ie8 .price sup {
+.lt-ie9 .ch-price sup {
 	font-size: 12px;
 }
 
@@ -187,10 +180,7 @@ hr {
 	border-bottom: 1px dashed #CCC;
 }
 
-.lt-ie8 hr,
-/* Dreprecate */
-.ie6 hr,
-.ie7 hr {
+.lt-ie8 hr {
 	height: 0;
 }
 
@@ -340,7 +330,7 @@ hr {
 .lt-ie8 .ch-icon-chevron-down { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf078;&nbsp;');}
 .lt-ie8 .ch-icon-key { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf084;&nbsp;');}
 .lt-ie8 .ch-icon-comments { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf086;&nbsp;');}
-.ch-icon-lock:before { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf023;&nbsp;');}
+.lt-ie8 .ch-icon-lock:before { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf023;&nbsp;');}
 .lt-ie8 .ch-icon-unlock { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf09c;&nbsp;');}
 .lt-ie8 .ch-icon-wrench { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0ad;&nbsp;');}
 .lt-ie8 .ch-icon-group { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0c0;&nbsp;');}
@@ -413,7 +403,6 @@ dl.ch-list dd {
 	font-size: 1.384em;
 	height: auto;
 	line-height: 1.199em;
-
 	padding: 0.305em 0.777em;
 	text-decoration: none;
 }
