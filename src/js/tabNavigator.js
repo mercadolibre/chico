@@ -70,8 +70,7 @@ ch.tabNavigator = function (conf) {
 	* @name ch.TabNavigator#selected
 	* @type number
 	*/
-		//selected = conf.selected - 1 || conf.value - 1 || 0,
-		selected = conf.selected - 1 || conf.value - 1 || -1,
+		selected = conf.selected || conf.value || undefined,
 
 	/**
 	* Create controller's children.
@@ -101,7 +100,7 @@ ch.tabNavigator = function (conf) {
 	
 				/**
 				* Fired when the content of one dynamic tab loads.
-				* @name ch.TabNavigator#onContentLoad
+				* @name ch.TabNavigator#contentLoad
 				* @event
 				* @public
 				*/
@@ -109,7 +108,7 @@ ch.tabNavigator = function (conf) {
 				
 				/**
 				* Fired when the content of one dynamic tab did not load.
-				* @name ch.TabNavigator#onContentError
+				* @name ch.TabNavigator#contentError
 				* @event
 				* @public
 				*/
@@ -121,7 +120,7 @@ ch.tabNavigator = function (conf) {
 				// Bind new click to have control
 				$(e).on("click", function (event) {
 					that.prevent(event);
-					select(i + 1);
+					select(i);
 				});
 	
 			});
@@ -136,40 +135,43 @@ ch.tabNavigator = function (conf) {
 	* @private
 	* @function
 	*/
-		select = function (tab) {
-			
-			// If select a tab that don't exist do nothing
-			if(!that.children[tab - 1]){ return; }
+		select = function (index) {
 
-			tab = that.children[tab - 1];
+				// Sets the tab's index
+			var tab = that.children[index];
 
+			// If select a tab that doesn't exist do nothing
 			// Don't click me if I'm open
-			if (tab === that.children[selected]) { return; }
-	
-			// Hide my open bro
-			$.each(that.children, function (i, e) {
-				if (tab !== e) { e.innerHide(); }
-			});
-			
-			// shows the tab
+			if (!tab || index === selected) {
+				return that;
+			}
+
+			// Hides the open tab
+			if (typeof selected !== "undefined") {
+				that.children[selected].innerHide();
+			}
+
+			// Shows the current tab
 			tab.innerShow();
+
+			// Updated selected index
+			selected = index;
 	
 			//Change location hash
 			window.location.hash = "#!/" + tab.$content.attr("id");
 	
 			/**
 			* Fired when a tab is selected.
-			* @name ch.TabNavigator#onSelect
+			* @name ch.TabNavigator#select
 			* @event
 			* @public
 			*/
+			that.trigger("select");
+			
+			// Callback
 			that.callbacks("onSelect");
 
-			// new callback
-			that.trigger("select");
-	
-			return that;
-			
+			return that;			
 		};
 
 /**
@@ -217,40 +219,30 @@ ch.tabNavigator = function (conf) {
 	that["public"].children = that.children;
 
 	/**
-	* Select a specific child or get the selected tab.
+	* Select a specific tab or get the selected tab.
 	* @public
 	* @name ch.TabNavigator#select
 	* @function
-	* @param {number} tab Tab's index.
-	* @exampleDescription Create a TabNavigator
+	* @param {Number} [tab] Tab's index.
+	* @exampleDescription Selects a specific tab
 	* @example
 	* widget.select(2);
-	* 
-	* // Get selected page
+	* @exampleDescription Returns the selected tab's index
+	* @example
 	* var selected = widget.select();
 	*/
 	that["public"].select = function (tab) {
 		// Returns selected tab instead set it
 		// Getter
-		if (!tab) {
-			return (selected + 1);
+		if (!parseInt(tab)) {
+			return selected;
 		}
 
 		// Setter
-		select(tab);
+		select(tab -= 1);
 		return that["public"];
 
 	};
-
-	/**
-	* Deprecated - Returns the selected child's index.
-	* @public
-	* @name ch.TabNavigator#getSelected
-	* @function
-	* @returns {number} selected Tab's index.
-	* @deprecated
-	*/
-	that["public"].getSelected = function () { return (selected + 1); };
 
 /**
 *	Default event delegation
@@ -261,7 +253,7 @@ ch.tabNavigator = function (conf) {
 	// If hash open that tab
 	for(var i = that.children.length; i--;) {
 		if (that.children[i].$content.attr("id") === hash) {
-			select(i+1);
+			select(i);
 			hashed = true;
 			break;
 		}
@@ -491,9 +483,10 @@ ch.tab = function (conf) {
 */
 	
 	// Add the attributes for WAI-ARIA to the tabs and tabpanel
+	// By default is hidden
 	that.$content.attr({
 		"role": "tabpanel",
-		"aria-hidden": that.$content.hasClass("ch-hide"),
+		"aria-hidden": true,
 		"class": "ch-hide"
 	});
 
