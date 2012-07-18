@@ -10,7 +10,6 @@
 * @param {String} [conf.selected] Sets a date that should be selected by default. By default is the date of today.
 * @param {String} [conf.from] Set a maximum selectable date.
 * @param {String} [conf.to] Set a minimum selectable date.
-* @param {String} [conf.points] Points to be positioned. See Positioner component. By default is "ct cb".
 * @param {Array} [conf.monthsNames] By default is ["Enero", ... , "Diciembre"].
 * @param {Array} [conf.weekdays] By default is ["Dom", ... , "Sab"].
 * @returns itself
@@ -150,7 +149,7 @@ ch.calendar = function (conf) {
 			if (!ch.utils.hasOwn(conf, "to") || !conf.to) { return; }
 
 			// Return date object
-			return (conf.from === "today") ? today : createDateObject(conf.to);
+			return (conf.to === "today") ? today : createDateObject(conf.to);
 
 		}()),
 
@@ -312,7 +311,6 @@ ch.calendar = function (conf) {
 	* @return jQuery Object
 	*/
 		createTable = function (date) {
-
 			// Total amount of days into month
 			var cells = (function () {
 
@@ -354,46 +352,47 @@ ch.calendar = function (conf) {
 				// Push an empty cell on previous and next month
 				if (i < cells.previous || i > cells.subtotal - 1) {
 					r.push("<td role=\"gridcell\" class=\"ch-calendar-other\">X</td>");
-					continue;
-				}
+				} else {
 
-				// Positive number of iteration
-				var positive = i + 1,
+					// Positive number of iteration
+					var positive = i + 1,
 
-				// Day number
-					day = positive - cells.previous,
+					// Day number
+						day = positive - cells.previous,
 
-				// Define if it's the day selected
-					isSelected = isSelectable(date.year, date.month, day);
+					// Define if it's the day selected
+						isSelected = isSelectable(date.year, date.month, day);
 
-				// Create cell
-				r.push(
-					// Open cell structure including WAI-ARIA and classnames space opening
-					"<td role=\"gridcell\"" + (isSelected ? " aria-selected=\"true\"" : "") + " class=\"ch-calendar-day",
+					// Create cell
+					r.push(
+						// Open cell structure including WAI-ARIA and classnames space opening
+						"<td role=\"gridcell\"" + (isSelected ? " aria-selected=\"true\"" : "") + " class=\"ch-calendar-day",
 
-					// Add Today classname if it's necesary
-					(date.year === today.year && date.month === today.month && day === today.day) ? " ch-calendar-today" : null,
+						// Add Today classname if it's necesary
+						(date.year === today.year && date.month === today.month && day === today.day) ? " ch-calendar-today" : null,
 
-					// Add Selected classname if it's necesary
-					(isSelected ? " ch-calendar-selected" : null),
+						// Add Selected classname if it's necesary
+						(isSelected ? " ch-calendar-selected" : null),
 
-					// From/to range. Disabling cells
-					(
-						// Disable cell if it's out of FROM range
-						(from && day < from.day && date.month === from.month && date.year === from.year) ||
+						// From/to range. Disabling cells
+						(
+							// Disable cell if it's out of FROM range
+							(from && day < from.day && date.month === from.month && date.year === from.year) ||
 
-						// Disable cell if it's out of TO range
-						(to && day > to.day && date.month === to.month && date.year === to.year)
+							// Disable cell if it's out of TO range
+							(to && day > to.day && date.month === to.month && date.year === to.year)
 
-					) ? " ch-calendar-disabled" : null,
+						) ? " ch-calendar-disabled" : null,
 
-					// Close classnames attribute and print content closing cell structure
-					"\">" + day + "</td>"
-				);
+						// Close classnames attribute and print content closing cell structure
+						"\">" + day + "</td>"
+					);
 
-				// Cut week if there are seven days
-				if (positive % 7 === 0) {
-					r.push("</tr><tr class=\"ch-calendar-week\" role=\"row\">");
+					// Cut week if there are seven days
+					if (positive % 7 === 0) {
+						r.push("</tr><tr class=\"ch-calendar-week\" role=\"row\">");
+					}
+
 				}
 
 			};
@@ -690,7 +689,6 @@ ch.calendar = function (conf) {
 
 			return that;
 		};
-
 
 /**
 *  Public Members
