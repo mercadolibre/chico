@@ -408,6 +408,10 @@ ch.floats = function () {
 			afterHide();
 		}
 
+		// Removes the innerHide listener
+		// #708 Modal: The widget closes by itself when It's showing the second time
+		ch.utils.document.off("click", that.innerHide);
+
 		return that;
 
 	};
