@@ -46,8 +46,3 @@
 	background-color:#000;
 	filter: alpha(opacity=50) !important;
 }
-
-.ie9 .ch-modal .ch-close {
-	line-height: 18px;
-	text-indent: 1px;
-}
