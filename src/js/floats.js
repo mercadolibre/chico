@@ -87,7 +87,7 @@ ch.floats = function () {
 				// Append close buttons	
 				// It will close with close button
 				that.$container
-					.prepend("<a class=\"ch-close\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\">×</a>")
+					.prepend("<a class=\"ch-close\" role=\"button\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></a>")
 					.bind("click", function (event) {
 						if ($(event.target || event.srcElement).hasClass("ch-close")) { 
 							that.innerHide(event);
@@ -407,6 +407,10 @@ ch.floats = function () {
 			that.$container.addClass("ch-hide");
 			afterHide();
 		}
+
+		// Removes the innerHide listener
+		// #708 Modal: The widget closes by itself when It's showing the second time
+		ch.utils.document.off("click", that.innerHide);
 
 		return that;
 
