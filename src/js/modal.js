@@ -140,7 +140,7 @@ ch.modal = function (conf) {
 	*/
 	that.innerShow = function (event) {
 		dimmer.on();
-		that.parent.innerShow(event);		
+		that.parent.innerShow(event);
 		that.$element.blur();
 		return that;
 	};
