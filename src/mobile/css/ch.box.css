@@ -1,0 +1,120 @@
+/*
+* Boxes
+*/
+
+.ch-box,
+.ch-box-lite,
+.ch-box-container,
+.ch-box-attention,
+.ch-box-error,
+.ch-box-help,
+.ch-box-information,
+.ch-box-ok {
+	padding: 10px;
+	margin: 0 0 1.5em;
+}
+
+.ch-box,
+.ch-box-lite {
+	border: 1px solid #EEE;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.ch-box {
+	background: #F4F4F4;
+}
+
+/* Message boxes */
+.ch-box-attention:before,
+.ch-box-help:before,
+.ch-box-information:before,
+.ch-box-error:before,
+.ch-box-ok:before {
+	font-family: icons;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+	vertical-align: middle;
+	margin-right: 0.2em;
+	line-height: 1em;
+	font-size: 1.5em;
+}
+
+.ch-box-attention,
+.ch-box-error,
+.ch-box-help,
+.ch-box-information,
+.ch-box-ok {
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 1px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	position: relative;
+	padding-left: 35px;
+}
+
+.ch-box-attention:before,
+.ch-box-help:before,
+.ch-box-information:before,
+.ch-box-error:before,
+.ch-box-ok:before {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+}
+
+.ch-box-attention,
+.ch-box-attention:before {	
+	background-color: #FCF8CB;
+	border-color: #E4E2B8;
+	color: #9D7D00;
+}
+
+.ch-box-attention:before {	
+	content: "\f071";
+}
+	
+.ch-box-error {
+	background-color:#fbd9db;
+	border-color: #f7a9ae;
+	color:#600;
+}
+
+.ch-box-error:before {	
+	content: "\f057";
+}
+
+.ch-box-help,
+.ch-box-help:before {	
+	background-color: #F6F9F3;
+	border-color: #cccccc;
+	color: #999;
+}
+
+.ch-box-help:before {
+	content: "\f059";
+}
+	
+.ch-box-information,
+.ch-box-information:before {
+	background-color: #E5EBFD;
+	border-color: #A0B1DE;
+	color: #2E48BC;
+}
+
+.ch-box-information:before {
+	content: "\f05a";
+}
+	
+.ch-box-ok,
+.ch-box-ok:before {
+	background-color: #E8FFD7;
+	border-color: #C7DDBC;
+	color: #487210;
+}
+
+.ch-box-ok:before {
+	content: "\f058";
+}
