@@ -1,0 +1,254 @@
+input:invalid, textarea:invalid {
+	background-color: #FFFFFF;
+}
+input[type="search"]{
+  -webkit-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input,
+textarea,
+select[multiple],
+.ch-form-select-multiple {
+	padding: 5px 4px;
+	margin: 5px 0;
+}
+
+/* Generic input & textarea */
+input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
+textarea,
+select {
+	border: 1px solid #CCCCCC;
+	-webkit-box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
+	box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
+	font-size: 16px;
+	line-height: 1.4em;
+	width: 95%;
+	padding: 0.4em;
+	display: block;
+}
+
+input[type="file"],
+input[type="checkbox"],
+input[type="radio"] {
+	border: none;
+	padding: 0;
+}
+
+input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]):focus, 
+textarea:focus,
+select[multiple]:focus,
+.ch-form-select-multiple:focus {
+	border: 2px solid #666666;
+	padding: 0.325em;
+	outline: 0;
+}
+
+input[type="file"]:focus,
+input[type="checkbox"]:focus,
+input[type="radio"]:focus,
+input[type="range"]:focus,
+select:focus {
+	outline: 1px dotted #666;
+}
+
+input[readonly],
+input[readonly]:focus {
+	border-color: transparent;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.ch-form-ico { 
+
+}
+
+/* Module */
+.ch-form fieldset {
+	margin-bottom:10px;
+}
+
+	/* Title module */
+	.ch-form legend {
+		color: #dc7b1c;
+		font-size: 14px;
+		font-weight:bold;
+		padding-bottom: 1em;
+	}
+	
+	.ch-form-subtitle {
+		font-size:13px;
+		font-weight:bold;
+	}
+	
+/* Required specification or another */
+.ch-form-hint {
+	color: #666;
+	font-size: 0.85em;
+	line-height: 1em;
+}
+
+/* Basic wrapper for horizontal view */
+.ch-form-row {
+	padding: 5px 0;
+	margin-bottom: 0.5em;
+}
+
+/* Label */
+.ch-form-row label {
+}
+
+/* Label inline not used yet */
+	.ch-form-row input + label,
+	.ch-form-row select + label,
+	.ch-label-inline{
+		text-align:left;
+		width:auto;
+		padding-right:0;
+		font-weight:normal;
+		margin-left:0;
+	}
+
+/* Label required **/
+	.ch-form-required label{
+		font-weight:bold;
+	}
+	
+	.ch-form-required.ch-form-options label{
+		font-weight:normal;
+	}
+	
+/* Icon indication of required */
+	.ch-form-required em{
+
+	}
+/* Icon indication of required in options */
+	.ch-form-required.ch-form-options em{
+		display:inline;
+		position:relative;
+		vertical-align:super;
+		top: auto;
+		right:auto;
+	}
+
+/* Checkbox inline 
+.ch-form-row input + input[type=checkbox],*/
+.ch-form-checkbox-inline{
+	margin-left: 0;
+	margin-right:0;
+	border:none;
+}
+
+/* Range 
+input[type=range],*/
+.ch-form-range{
+	padding:4px;
+	vertical-align:middle;
+}
+
+/* Select */
+.ch-form-row select {
+	margin: 5px 0;
+	height: 36px;
+}
+
+/* Select Multiple */
+.ch-form-row select[multiple],
+.ch-form-select-multiple {
+	vertical-align:top;
+	margin-top:10px;
+}
+
+/* Textarea */
+.ch-form-row textarea {
+
+}
+
+/* Help bottom line that helps the user */
+.ch-form-row .ch-form-hint{
+	display:block;
+}
+
+/* Error colorize the border */
+form .ch-form-error {
+	border:1px solid #C62026;
+}
+
+form .ch-form-error:focus,
+form .ch-form-error:focus {
+	border:2px solid #CC0000;
+	padding:4px 3px;
+	-webkit-box-shadow:2px #CC0000;
+	box-shadow:2px #CC0000;
+}
+
+
+/* Options */
+.ch-form-options {
+	position: relative;
+	line-height: 1.9em;
+}
+
+/* Subtitle in options */
+.ch-form-options .ch-form-subtitle{
+	margin-bottom:15px;
+}
+
+/* Subtitle in options & required */
+.ch-form-options.ch-form-required .ch-form-subtitle{
+	font-weight:bold;
+}
+
+/* Label in options */
+.ch-form-options label {
+	margin:0;
+	padding:0;
+	font-size: 16px;
+	position: absolute;
+	left: 32px;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	text-indent: 0px;
+	line-height: 3em;
+}
+
+.ch-form-options.ch-list-menu li:active {
+	background: #e9e9e9;
+}
+
+
+/* Radio & Checkbox in options 
+.ch-form-options input[type="checkbox"],
+.ch-form-options input[type="radio"],*/
+.ch-form-options input {
+	/*display:block;
+	clear:both !important;
+	float:left;
+	line-height:30px;*/
+}
+
+.ch-form-options input[type="checkbox"]:focus,
+.ch-form-options input[type="radio"]:focus {
+	border:none;
+	padding:0;
+}
+
+
+/* Disabled status */
+.ch-form-disabled label{
+	color:#999999;
+}
+
+.ch-form-disabled input,
+.ch-form-disabled input[disabled],
+.ch-form-disabled textarea,
+.ch-form-disabled textarea[disabled] {
+	background-color:#F2F2F2;
+	cursor: not-allowed;
+}

@@ -1,0 +1,15 @@
+/*--
+	Small view
+--*/
+@media screen and (max-width: 319px){
+/* Styles */
+
+}
+
+/*--
+	Landscape view
+--*/
+@media screen and (min-width: 480px){
+/* Styles */
+
+}

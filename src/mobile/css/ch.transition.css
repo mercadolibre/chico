@@ -1,0 +1,41 @@
+/*
+* Transitions
+*/
+
+.ch-loading {
+	background: transparent url('../assets/loading_small.gif') center center no-repeat;
+	display: inline-block;
+	height: 24px;
+	width: 24px;
+	overflow: hidden;
+	text-indent: -999px;
+}
+
+.ch-loading-wrap {
+	background-color: #FFFFFF;
+	color: #999;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+}
+
+.ch-loading-wrap .ch-loading-text {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	margin-top: -1.5em;
+	line-height: 3em;
+	height: 3em;
+
+}
+
+.ch-loading-wrap .ch-loading-text::before {
+	content: url("../assets/loading_small.gif");
+	position: relative;
+	left: -10px;
+	top: 6px;
+}
