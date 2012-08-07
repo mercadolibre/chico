@@ -635,18 +635,19 @@ input.ch-btn-tiny::-moz-focus-inner {
 	border: 1px solid #CCCCCC;
 	border-radius: 3px;
 	cursor: pointer;
-	padding: 0;
 	display: inline-block;
-	height: 15px;
+
+	padding: 0;
 	width: 15px;
-	color: #898989;
-	font-size: 18px;
-	line-height: 15px;
-	text-shadow: 0 1px 0 #ffffff;
+	height: 15px;
+	font-size: 20px;
+	line-height: 16px;
 	text-indent: 1px;
+	
+	color: #898989;
+	text-shadow: 0 1px 0 #ffffff;
 	font-family: Arial;
 	text-align:center;
-	vertical-align: middle;
 
 	position: absolute;
 	right: 10px;
@@ -660,18 +661,16 @@ input.ch-btn-tiny::-moz-focus-inner {
 .lt-ie8 .ch-close {
 	zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#x00D7;');
 	display: inline;
-	font-size: 15px;
-	line-height: 12px;
-	font-weight: bold;
+	line-height: 20px;
 }
 
 .lt-ie9 .ch-close {
 	text-indent: 0;
-	line-height: 14px;
+	line-height: 13px;
 }
 
 .ie9 .ch-close {
-	line-height: 16px;
+	line-height: 17px;
 }
 
 .ch-close:hover,
