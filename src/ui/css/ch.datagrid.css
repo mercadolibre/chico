@@ -1,0 +1,129 @@
+.ch-datagrid {
+	width: 100%;
+	border: 1px solid #CECECE;
+	text-align: left;
+}
+
+.ch-datagrid caption {
+	text-align: left;
+	font-weight: normal;
+	margin: 10px 0;
+	font-size: 18px;
+}
+
+.ch-datagrid thead tr {
+	border-top: 1px solid #CECECE;
+}
+
+.ch-datagrid th {
+	background-color: #EEEEEE;
+	background-image: -webkit-linear-gradient(#F9F9F9, #EEEEEE);
+	background-image: -moz-linear-gradient(#F9F9F9, #EEEEEE);
+	background-image: -o-linear-gradient(#F9F9F9, #EEEEEE);
+	background-image: linear-gradient(#F9F9F9, #EEEEEE);
+	border-bottom: 1px solid #CECECE;
+	border-left: 1px solid #CECECE;
+	font-size: 11px;
+	line-height: 26px;
+	padding: 0 10px;
+	text-align: left;
+	text-shadow: 0 1px 0 #FFFFFF;
+	vertical-align: middle;
+
+}
+
+
+.ch-datagrid th.ch-datagrid-selected {
+	background: #dedede;
+	display: block;
+	position: relative;
+	text-shadow: none;
+}
+
+
+.ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc,
+.ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
+	display: block;
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	text-indent: -9999px;
+}
+
+.ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc:after,
+.ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc:after {
+	content: " ";
+	position: absolute;
+	right: 8px;
+	top: 1em;
+	width: 0;
+	height: 0;
+	border: solid transparent;
+	border-width: 4px;
+	margin-left: -4px;
+}
+
+.ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc:after {
+	border-top-color: #333;
+}
+
+.ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc:after {
+	border-bottom-color: #333;
+	top: 7px;
+}
+
+.ch-datagrid th:first-child {
+	border-left: none;
+}
+
+.ch-datagrid tr {
+	border-top: 1px solid #EEE;
+}
+
+.ch-datagrid tr.ch-datagrid-selected {
+	background-color: #FFC;
+}
+
+.ch-datagrid td {
+	height: 40px;
+	padding: 0 10px;
+	vertical-align: middle;
+}
+
+.lt-ie10 .ch-datagrid thead tr {
+	border: 1px solid #CECECE;
+}
+
+.lt-ie10 .ch-datagrid th.ch-datagrid-selected {
+	filter: none;
+	border: 1px solid #CECECE;
+}
+
+
+.lt-ie10 .ch-datagrid thead tr {
+	border: 1px solid #CECECE;
+}
+
+.lt-ie10 .ch-datagrid td {
+	border-top: 1px solid #EEE;
+}
+
+.lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc,
+.lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
+	display: block;
+	width: 7px;
+	height: 4px;
+	overflow: hidden;
+	position: absolute;
+	right: 10px;
+	text-indent: 99px;
+	top: 12px;
+}
+
+.lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc {
+	background: transparent url("../assets/shapes.png") 0 -51px no-repeat;
+}
+
+.lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
+	background: transparent url("../assets/shapes.png") 0 -48px no-repeat;
+}

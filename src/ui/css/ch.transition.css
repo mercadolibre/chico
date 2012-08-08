@@ -1,0 +1,12 @@
+.ch-loading {
+	background-image: url('../assets/loading.gif');
+	width: 44px;
+	height: 44px;
+	margin: 20px auto;
+}
+
+.ch-loading-small {
+	background-image: url('../assets/loading_small.gif');
+	width: 18px;
+	height: 18px;
+}
