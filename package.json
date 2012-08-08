@@ -1,6 +1,6 @@
 {
   "name": "Chico",
-  "version": "0.11.0",
+  "version": "1.0.0",
   "description": "Chico UI is a free and open source collection of easy-to-use web tools for developers and designers.",
   "author": "<chico@mercadolibre.com>",
   "contributors": [
@@ -18,14 +18,16 @@
     }
   ],
   "scripts": {
-    "start": "node ./app 80"
+    "start": "node ./app"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mercadolibre/chico.git"
   },
   "dependencies": {
-    "express": "2.5.x"
+    "express": "2.5.x",
+    "uglify-js": "x.x.x",
+    "cssmin": "x.x.x"
   },
   "devDependencies": {},
   "license": "MIT",
