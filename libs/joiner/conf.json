@@ -1,0 +1,143 @@
+{
+	"pkg": {
+		"version": "1.0"
+	},
+	"meta": {
+		"ui": {
+			"full": {
+				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {",
+				"jsClose": ";ch.init();\n\n})(jQuery, this);",
+				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
+			},
+			"min": {
+				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($, window){",
+				"jsClose": ";ch.init();})(jQuery, this);",
+				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */"
+			}
+		},
+		"mobile": {
+			"full": {
+				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {",
+				"jsClose": ";ch.init();\n\n})(Zepto, this);",
+				"css": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
+			},
+			"min": {
+				"jsOpen": "/*! Chico Mobile v<version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function($, window){",
+				"jsClose": ";ch.init();})(Zepto, this);",
+				"css": "/*! Chico Mobile v<version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */"
+			}
+		}
+	},
+	"concat": {
+		"uiJS": {
+			"src": [
+				"../../src/ui/js/ch.namespace.js",
+				"../../src/ui/js/ch.cache.js",
+				"../../src/ui/js/ch.Condition.js",
+				"../../src/ui/js/ch.eraser.js",
+				"../../src/ui/js/ch.List.js",
+				"../../src/ui/js/ch.Object.js",
+				"../../src/ui/js/ch.onImagesLoads.js",
+				"../../src/ui/js/ch.Positioner.js",
+				"../../src/ui/js/ch.preload.js",
+				"../../src/ui/js/ch.viewport.js",
+				"../../src/ui/js/ch.Uiobject.js",
+				"../../src/ui/js/ch.Validator.js",
+				"../../src/ui/js/ch.Calendar.js",
+				"../../src/ui/js/ch.Carousel.js",
+				"../../src/ui/js/ch.Controllers.js",
+				"../../src/ui/js/ch.Controls.js",
+				"../../src/ui/js/ch.Floats.js",
+				"../../src/ui/js/ch.Navs.js",
+				"../../src/ui/js/ch.AutoComplete.js",
+				"../../src/ui/js/ch.Blink.js",
+				"../../src/ui/js/ch.Countdown.js",
+				"../../src/ui/js/ch.DatePicker.js",
+				"../../src/ui/js/ch.Dropdown.js",
+				"../../src/ui/js/ch.Expando.js",
+				"../../src/ui/js/ch.Form.js",
+				"../../src/ui/js/ch.Layer.js",
+				"../../src/ui/js/ch.Menu.js",
+				"../../src/ui/js/ch.Modal.js",
+				"../../src/ui/js/ch.TabNavigator.js",
+				"../../src/ui/js/ch.Tooltip.js",
+				"../../src/ui/js/ch.Validation.js",
+				"../../src/ui/js/ch.Zoom.js",
+				"../../src/ui/js/ch.Custom.js",
+				"../../src/ui/js/ch.Number.js",
+				"../../src/ui/js/ch.Required.js",
+				"../../src/ui/js/ch.String.js"
+			],
+			"template": ["meta.ui.full.jsOpen", "src", "meta.ui.full.jsClose"]
+		},
+		"uiCSS": {
+			"src": [
+				"../../src/ui/css/ch.normalize.css",
+				"../../src/ui/css/ch.base.css",
+				"../../src/ui/css/ch.box.css",
+				"../../src/ui/css/ch.button.css",
+				"../../src/ui/css/ch.datagrid.css",
+				"../../src/ui/css/ch.icon.css",
+				"../../src/ui/css/ch.list.css",
+				"../../src/ui/css/ch.pagination.css",
+				"../../src/ui/css/ch.transition.css",
+				"../../src/ui/css/ch.Calendar.css",
+				"../../src/ui/css/ch.Carousel.css",
+				"../../src/ui/css/ch.Floats.css",
+				"../../src/ui/css/ch.AutoComplete.css",
+				"../../src/ui/css/ch.DatePicker.css",
+				"../../src/ui/css/ch.Dropdown.css",
+				"../../src/ui/css/ch.Expando.css",
+				"../../src/ui/css/ch.Form.css",
+				"../../src/ui/css/ch.Layer.css",
+				"../../src/ui/css/ch.Menu.css",
+				"../../src/ui/css/ch.Modal.css",
+				"../../src/ui/css/ch.TabNavigator.css",
+				"../../src/ui/css/ch.Tooltip.css",
+				"../../src/ui/css/ch.Validation.css",
+				"../../src/ui/css/ch.Zoom.css"
+			],
+			"template": ["meta.ui.full.css", "src"]
+		},
+		"mobileJS": {
+			"src": [
+				"../../src/mobile/js/ch.namespace.js",
+				"../../src/mobile/js/ch.helpers.js",
+				"../../src/mobile/js/ch.routes.js",
+				"../../src/mobile/js/ch.factory.js",
+				"../../src/mobile/js/ch.EventEmitter.js",
+				"../../src/mobile/js/ch.Widget.js",
+				"../../src/mobile/js/ch.Expando.js",
+				"../../src/mobile/js/ch.Layer.js",
+				"../../src/mobile/js/ch.Menu.js",
+				"../../src/mobile/js/ch.Modal.js"
+			],
+			"template": ["meta.mobile.full.jsOpen", "src", "meta.mobile.full.jsClose"]
+		},
+		"mobileCSS": {
+			"src": [
+				"../../src/mobile/css/ch.normalize.css",
+				"../../src/mobile/css/ch.base.css",
+				"../../src/mobile/css/ch.box.css",
+				"../../src/mobile/css/ch.button.css",
+				"../../src/mobile/css/ch.datagrid.css",
+				"../../src/mobile/css/ch.icon.css",
+				"../../src/mobile/css/ch.list.css",
+				"../../src/mobile/css/ch.pagination.css",
+				"../../src/mobile/css/ch.transition.css",
+				"../../src/mobile/css/ch.tag.css",
+				"../../src/mobile/css/ch.header.css",
+				"../../src/mobile/css/ch.Expando.css",
+				"../../src/mobile/css/ch.Menu.css",
+				"../../src/mobile/css/ch.Form.css",
+				"../../src/mobile/css/ch.Modal.css",
+				"../../src/mobile/css/ch.Layer.css"
+			],
+			"template": ["meta.mobile.full.css", "src"]
+		}
+	},
+	"min": {
+		"uiJS": ["meta.ui.min.jsOpen", "src", "meta.ui.min.jsClose"],
+		"uiCSS": ["meta.ui.min.cssOpen", "src"]
+	}
+}
