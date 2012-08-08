@@ -1,144 +1,135 @@
-/*
-* Joiner
-* Proccess the Chico UI source files and returns joined code.
-*/
+/*!
+ * Joiner
+ * Proccess the source files and returns joined code.
+ */
 var sys = require("util"),
 	fs = require("fs"),
-	uglify = require("uglify-js"),
-	cssmin = require("cssmin").cssmin,
+	//uglify = require("uglify-js"),
+	//cssmin = require("cssmin").cssmin,
 	events = require("events"),
 	exec = require("child_process").exec;
 
-// Extend "Array" methods to delete duplicated values
-Array.prototype.unique = function (a) {
-	return function(){return this.filter(a)}}(function(a,b,c){return c.indexOf(a,b+1)<0
-});
+// Alias for "sys.puts"
+function log(str) {
+	"use strict";
+	sys.puts(" > Joiner: " + str);
+}
 
 /*
-* Joiner
-* Contructor
-*/
-var Joiner = function () {
+ * Contructor
+ */
+function Joiner() {
+	"use strict";
 
-	var self = this;
+	log("Initializing.");
 
-	sys.puts("\n > Joiner: Ready to use.");
+	// Grab the configuration file to local reference
+	this.conf = JSON.parse(fs.readFileSync(__dirname + "/conf.json"));
 
-	return self;
-};
+	log("Ready to use.");
 
-// Event emitter
+	return this;
+}
+
+/*
+ * Event emitter
+ */
 sys.inherits(Joiner, events.EventEmitter);
 
 /*
-* Run
-* Reads the configuration file, grabs data into "self" context
-* and executes the file collector for all packages.
-*/
-Joiner.prototype.run = function (o) {
-
-	var self = this;
-
-	// Read configuration object
-	fs.readFile(__dirname + "/../conf.json", function (err, data) {
-
-		if (err) { sys.puts(" > Joiner " + err); }
-
-		// Parse JSON data of conf file
-		var conf = JSON.parse(data);
-
-		// Feedback
-		sys.puts(" > Joiner: Joining from version " + conf.version);
-
-		// Grab all object properties on self context
-		// Use "o" data if exists or "conf" data
-		Object.keys(conf).forEach(function (e) {
-			self[e] = o[e] || conf[e];
-		});
-
-		// Create all package on list
-		self.packages.forEach(function (e) {
-			// TODO: this conditional fixes issue when app wanna call a "favicon.ico"
-			if (e.type === "js" || e.type === "css") {
-				self.collectFiles(e);
-			}
-		});
-	});
-};
-
-
-/*
-* CollectFiles
-* Gets the content of all requested files.
-*/
-Joiner.prototype.collectFiles = function (pack) {
-
-	// Input folder
-	pack.folder = this.input + "/" + pack.type;
+ * JoinFiles: Pastes content into template specified on configuration file.
+ */
+Joiner.prototype.joinFiles = function (pack, content) {
+	"use strict";
 
 	var self = this,
-
-	// Get all components form folder or specific files by inheritance
-		filesList = self.getFilesList(pack).split(","),
-
-	// Amount of files to load
-		total = filesList.length,
-
+	// Amount of references to read into template
+		total = pack.template.length,
 	// Total files saved asynchronously
 		progress = 0,
-
-	// Amount of files not founded on file harvest
-		errors = 0,
-
 	// Final result of source code
-		filesContent = [];
+		result = [],
+	// String to use between files' raw data
+		separator = "\n\n";
 
-	// Iterate each file to get its raw data
-	filesList.forEach(function (file) {
+	log("Joining data with reference to the specified template.");
 
-		fs.readFile(pack.folder + "/" + file, encoding = "utf8", function (err, data) {
+	pack.template.forEach(function (ref) {
 
-			if (!err) {
-				// Add file content to final result
-				filesContent.push(data);
-			} else {
-				// Increase amount of errors
-				errors += 1;
-			}
+		// Concatenate all template references into final results
+		// TODO: Don't use eval if possible
+		// Use meta data and replace special tags
+		if (ref !== "src") {
+			// Get template located into package object
+			var tpl = eval("self.conf." + ref);
+			// Replace special tags
+			tpl = tpl.replace(/(<)(js:)?(.*)(>)/gi, function (str, $1, $2, $3) {
+				// If does exist the prefix "js", then execute it
+				// without reference to configuration object, else,
+				// add reference to self.conf object
+				return eval($2 ? $3 : "self.conf." + $3);
+			});
 
-			// Execute this after last file
-			if ((progress += 1) === total) {
+			result.push(tpl);
+		// Use concatenated raw
+		} else {
+			result.push(content.join(separator));
+		}
 
-				// Join all harved files
-				self.joinFiles(pack, filesContent.join("\n\n"));
+		// Join all harved files after last file
+		if ((progress += 1) === total) {
 
-				// Errors feedback
-				if (errors > 0) {
-					sys.puts(" > Joiner: Amount of errors on file harvest: " + errors + " file/s not found.");
-				}
-			}
-		});
-
+			log("DONE.");
+			// Send advice to client
+			self.emit("joined", result.join(separator));
+		}
 	});
 };
 
+/*
+ * Run: Executes the file collector for all packages.
+ */
+Joiner.prototype.run = function (pack) {
+	"use strict";
+
+	var self = this,
+	// Determines when use "concat" or "min" package
+		type = pack.min ? "min" : "concat",
+	// Redefine pack reference with respective package from configuration object
+		pack = self.conf[type][pack.name],
+	// Amount of files to load
+		total = pack.src.length,
+	// Total files saved asynchronously
+		progress = 0,
+	// Final result of source code
+		result = [];
+
+	log("Getting raw data from files.");
+
+	// Iterate each file to get its raw data
+	// Do it synchronously to respect the "src" order
+	pack.src.forEach(function (path) {
+		result.push(fs.readFileSync(__dirname + "/" + path));
+	});
+
+	self.joinFiles(pack, result);
+};
+
+
+
 
 /*
-* GetFilesList
-* Uses the inheritance map to get the dependencies of requested files.
-*/
-Joiner.prototype.getFilesList = function (pack) {
+ * GetFilesList
+ * Uses the inheritance map to get the dependencies of requested files.
+ */
+/*Joiner.prototype.getFilesList = function (pack) {
 
-/*
-*	All components on folder (Get the name of all files into pack folder)
-*/
+	// All components on folder (Get the name of all files into pack folder)
 	if (!pack.hasOwnProperty("components") || pack.components === "all" || pack.components.length === 0) {
 		return this.orderFiles(fs.readdirSync(pack.folder), pack.type);
 	}
 
-/*
-*	Custom components, by inheritance
-*/
+	// Custom components, by inheritance
 	var self = this,
 
 	// List of components
@@ -187,14 +178,14 @@ Joiner.prototype.getFilesList = function (pack) {
 
 	// Set order to list of files
 	return self.orderFiles(list, pack.type);
-};
+};*/
 
 
 /*
-* OrderFiles
-* Checks the order of files according to order specified on configuration file.
-*/
-Joiner.prototype.orderFiles = function (list, type) {
+ * OrderFiles
+ * Checks the order of files according to order specified on configuration file.
+ */
+/*Joiner.prototype.orderFiles = function (list, type) {
 
 	var self = this;
 
@@ -223,15 +214,14 @@ Joiner.prototype.orderFiles = function (list, type) {
 		return match;
 	
 	}).join("." + type + ",") + "." + type;
-
-};
+};*/
 
 
 /*
-* Minify
-* Compress content.
-*/
-Joiner.prototype.minify = function (pack, content) {
+ * Minify
+ * Compress content.
+ */
+/*Joiner.prototype.minify = function (pack, content) {
 
 	switch (pack.type) {
 	case "js":
@@ -249,43 +239,10 @@ Joiner.prototype.minify = function (pack, content) {
 	}
 
 	// Feedback
-	sys.puts(" > Joiner: Compressed " + pack.type + " file to " + content.length + " KB.");
+	log("Compressed " + pack.type + " file to " + content.length + " KB.");
 
 	return content;
-
-};
-
-
-/*
-* JoinFiles
-* Pastes content into template specified on configuration file.
-*/
-Joiner.prototype.joinFiles = function (pack, content) {
-
-	var self = this;
-
-	// Get template according to file type
-	var tpl = self.templates[pack.type][(pack.min ? "min" : "full")];
-
-	// Replace tags
-	tpl = tpl.replace("<version>", self.version);
-	tpl = tpl.replace("<copyright>", (new Date()).getFullYear());
-
-	// Optimize with uglify or cssmin if it's "min"
-	if (pack.min) {
-		content = self.minify(pack, content);
-	}
-
-	// Add source code to template
-	content = tpl.replace("<code>", content);
-
-	// Feedback
-	sys.puts(" > Joiner: Joined " + pack.type.toUpperCase() + " package" + (pack.min ? " minified." : "."));
-	
-	// Send content
-	self.emit("joined", content, pack);
-
-};
+};*/
 
 
 // Exports
