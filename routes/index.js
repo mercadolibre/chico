@@ -28,13 +28,13 @@ function isView (req, res, next) {
 /*
  * Views
  */
-app.get("/:version/:type?/:min?", isAnotherFile, isView, function (req, res, next) {
+app.get('/:version/:type?/:min?', isAnotherFile, isView, function (req, res, next) {
 	var name = req.params.version + req.params.type.toUpperCase(),
 		min = ((req.params.min) ? true : false),
 		joiner = new Joiner();
 
-	joiner.on("joined", function (data) {
-		res.set('Content-Type', 'text/' + (req.params.type === "js" ? "javascript" : "css"));
+	joiner.on('joined', function (data) {
+		res.set('Content-Type', 'text/' + (req.params.type === 'js' ? 'javascript' : 'css'));
 		res.send(data.raw);
 	});
 
