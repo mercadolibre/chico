@@ -74,10 +74,10 @@
 			"src": [
 				"../../src/ui/css/ch.normalize.css",
 				"../../src/ui/css/ch.base.css",
+				"../../src/ui/css/ch.icon.css",
 				"../../src/ui/css/ch.box.css",
 				"../../src/ui/css/ch.button.css",
 				"../../src/ui/css/ch.datagrid.css",
-				"../../src/ui/css/ch.icon.css",
 				"../../src/ui/css/ch.list.css",
 				"../../src/ui/css/ch.pagination.css",
 				"../../src/ui/css/ch.transition.css",
@@ -101,8 +101,8 @@
 		},
 		"mobileJS": {
 			"src": [
-				"../../src/mobile/js/ch.namespace.js",
 				"../../src/mobile/js/ch.helpers.js",
+				"../../src/mobile/js/ch.namespace.js",
 				"../../src/mobile/js/ch.routes.js",
 				"../../src/mobile/js/ch.factory.js",
 				"../../src/mobile/js/ch.EventEmitter.js",
@@ -118,10 +118,10 @@
 			"src": [
 				"../../src/mobile/css/ch.normalize.css",
 				"../../src/mobile/css/ch.base.css",
+				"../../src/mobile/css/ch.icon.css",
 				"../../src/mobile/css/ch.box.css",
 				"../../src/mobile/css/ch.button.css",
 				"../../src/mobile/css/ch.datagrid.css",
-				"../../src/mobile/css/ch.icon.css",
 				"../../src/mobile/css/ch.list.css",
 				"../../src/mobile/css/ch.pagination.css",
 				"../../src/mobile/css/ch.transition.css",
