@@ -33,12 +33,12 @@ app.get('/:version/:type?/:min?', isAnotherFile, isView, function (req, res, nex
 		min = ((req.params.min) ? true : false),
 		joiner = new Joiner();
 
-	joiner.on('joined', function (content) {
+	joiner.on('joined', function (data) {
 		res.set('Content-Type', 'text/' + (req.params.type === 'js' ? 'javascript' : 'css'));
-		res.send(content);
+		res.send(data.raw);
 	});
 
-	joiner.run({'name': name, 'min': min});
+	joiner.run(name, min);
 });
 
 /*
