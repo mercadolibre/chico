@@ -5,24 +5,24 @@
 	"meta": {
 		"ui": {
 			"full": {
-				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {\n\t\"use strict\";\n\n",
+				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {\n\n",
 				"jsClose": ";ch.init();\n\n})(jQuery, this);",
 				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($, window){\"use strict\";",
+				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($, window){",
 				"jsClose": ";ch.init();})(jQuery, this);",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
 			}
 		},
 		"mobile": {
 			"full": {
-				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {\n\t\"use strict\";\n\n",
+				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {\n\n",
 				"jsClose": ";ch.init();\n\n})(Zepto, this);",
 				"css": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function($, window){\"use strict\";",
+				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function($, window){;",
 				"jsClose": ";ch.init();})(Zepto, this);",
 				"css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
 			}
