@@ -4,7 +4,7 @@
 * @name win
 * @type Window object
 */
-var win = exports,
+var win = window,
 
 
 	/**
