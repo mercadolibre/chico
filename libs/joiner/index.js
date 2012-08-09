@@ -4,8 +4,8 @@
  */
 var sys = require("util"),
 	fs = require("fs"),
-	//uglify = require("uglify-js"),
-	//cssmin = require("cssmin").cssmin,
+	uglify = require("uglify-js"),
+	cssmin = require("cssmin").cssmin,
 	events = require("events"),
 	exec = require("child_process").exec;
 
@@ -25,6 +25,8 @@ function Joiner() {
 
 	// Grab the configuration file to local reference
 	this.conf = JSON.parse(fs.readFileSync(__dirname + "/conf.json"));
+	// Create an internal meta object
+	this.metadata = {};
 
 	log("Ready to use.");
 
@@ -37,82 +39,140 @@ function Joiner() {
 sys.inherits(Joiner, events.EventEmitter);
 
 /*
+ * Finish:
+ */
+Joiner.prototype.finish = function (content) {
+	"use strict";
+
+	log("DONE");
+
+	// Send advice to client
+	this.emit("joined", {
+		"raw": content,
+		"type": this.metadata.type
+	});
+};
+
+/*
+ * Min:
+ */
+Joiner.prototype.minify = function (content) {
+	"use strict";
+
+	var self = this,
+	// Abstract syntax tree generated from JS code (only for uglify-js)
+		ast,
+	// Final code
+		minified;
+
+	switch (self.metadata.type) {
+	// Uglify
+	case "js":
+		ast = uglify.parser.parse(content);
+		ast = uglify.uglify.ast_mangle(ast);
+		ast = uglify.uglify.ast_squeeze(ast);
+		minified = uglify.uglify.gen_code(ast);
+		break;
+	// CSS Min
+	case "css":
+		minified = cssmin(content);
+		break;
+	}
+
+	return minified
+};
+
+/*
  * JoinFiles: Pastes content into template specified on configuration file.
  */
-Joiner.prototype.joinFiles = function (pack, content) {
+Joiner.prototype.joinFiles = function (content, tpl) {
 	"use strict";
 
 	var self = this,
 	// Amount of references to read into template
-		total = pack.template.length,
+		total = tpl.length,
 	// Total files saved asynchronously
 		progress = 0,
 	// Final result of source code
 		result = [],
 	// String to use between files' raw data
-		separator = "\n\n";
+		separator = self.metadata.min ? "" : "\n\n";
 
 	log("Joining data with reference to the specified template.");
 
-	pack.template.forEach(function (ref) {
+	// Concatenate all template references into final results
+	// TODO: Don't use eval if possible
+	tpl.forEach(function (ref) {
 
-		// Concatenate all template references into final results
-		// TODO: Don't use eval if possible
 		// Use meta data and replace special tags
 		if (ref !== "src") {
-			// Get template located into package object
-			var tpl = eval("self.conf." + ref);
+			// Get template alocated into package object
+			ref = eval("self.conf." + ref);
 			// Replace special tags
-			tpl = tpl.replace(/(<)(js:)?(.*)(>)/gi, function (str, $1, $2, $3) {
+			ref = ref.replace(/(<)(js:)?(.*)(>)/gi, function (str, $1, $2, $3) {
 				// If does exist the prefix "js", then execute it
 				// without reference to configuration object, else,
 				// add reference to self.conf object
 				return eval($2 ? $3 : "self.conf." + $3);
 			});
-
-			result.push(tpl);
 		// Use concatenated raw
 		} else {
-			result.push(content.join(separator));
+			// Join all raw data
+			ref = content.join(separator);
+			// Minify code if it's necessary
+			if (self.metadata.min) {
+				ref = self.minify(ref);
+			}
 		}
+
+		// Add to final collection
+		result.push(ref);
 
 		// Join all harved files after last file
 		if ((progress += 1) === total) {
-
-			log("DONE.");
-			// Send advice to client
-			self.emit("joined", result.join(separator));
+			// Concatenate data
+			result = result.join(separator);
+			// Send results
+			self.finish(result);
 		}
 	});
 };
 
 /*
- * Run: Executes the file collector for all packages.
+ * Run: Executes the file collector for all packages or minifier.
  */
-Joiner.prototype.run = function (pack) {
+Joiner.prototype.run = function (pack, min) {
 	"use strict";
 
 	var self = this,
-	// Determines when use "concat" or "min" package
-		type = pack.min ? "min" : "concat",
-	// Redefine pack reference with respective package from configuration object
-		pack = self.conf[type][pack.name],
+	// Collection of files to be concatenated
+		src = self.conf.concat[pack].src,
+	// Collection determining the order to place all the raw data
+		tpl = !min ? self.conf.concat[pack].template : self.conf.min[pack],
 	// Amount of files to load
-		total = pack.src.length,
+		total = src.length,
 	// Total files saved asynchronously
 		progress = 0,
 	// Final result of source code
 		result = [];
 
+	// Update if this package needs to be minified
+	self.metadata.min = !!min;
+
 	log("Getting raw data from files.");
 
 	// Iterate each file to get its raw data
 	// Do it synchronously to respect the "src" order
-	pack.src.forEach(function (path) {
+	src.forEach(function (path, index) {
+		// Get the file extension to determine the type of package
+		// It allows to minify specified extensions like js or css
+		if (index === 0) { self.metadata.type = path.split(".").pop(); }
+		// Add raw data to final collection
 		result.push(fs.readFileSync(__dirname + "/" + path));
 	});
 
-	self.joinFiles(pack, result);
+	// Concatenate raw data into specified template (min or default)
+	self.joinFiles(result, tpl);
 };
 
 
@@ -216,34 +276,7 @@ Joiner.prototype.run = function (pack) {
 	}).join("." + type + ",") + "." + type;
 };*/
 
-
 /*
- * Minify
- * Compress content.
+ * Exports
  */
-/*Joiner.prototype.minify = function (pack, content) {
-
-	switch (pack.type) {
-	case "js":
-		// Uglify
-		var ast = uglify.parser.parse(content);
-		ast = uglify.uglify.ast_mangle(ast);
-		ast = uglify.uglify.ast_squeeze(ast);
-		content = uglify.uglify.gen_code(ast);
-		break;
-
-	case "css":
-		// CSS Min
-		content = cssmin(content);
-		break;
-	}
-
-	// Feedback
-	log("Compressed " + pack.type + " file to " + content.length + " KB.");
-
-	return content;
-};*/
-
-
-// Exports
 exports.Joiner = Joiner;
