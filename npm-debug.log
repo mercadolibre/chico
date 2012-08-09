@@ -1,0 +1,21 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'start' ]
+2 info using npm@1.1.48
+3 info using node@v0.8.6
+4 verbose config file /Users/lean/.npmrc
+5 verbose config file /usr/local/node/etc/npmrc
+6 verbose config file /usr/local/lib/node_modules/npm/npmrc
+7 error could not create prefix dir /usr/local/node
+8 error Error: EACCES, mkdir '/usr/local/node'
+8 error  { [Error: EACCES, mkdir '/usr/local/node'] errno: 3, code: 'EACCES', path: '/usr/local/node' }
+9 error Please try running this command again as root/Administrator.
+10 error System Darwin 11.4.0
+11 error command "node" "/usr/local/bin/npm" "start"
+12 error cwd /Users/lean/development/chico
+13 error node -v v0.8.6
+14 error npm -v 1.1.48
+15 error path /usr/local/node
+16 error code EACCES
+17 error errno 3
+18 error stack Error: EACCES, mkdir '/usr/local/node'
+19 verbose exit [ 3, true ]
