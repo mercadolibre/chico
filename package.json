@@ -25,7 +25,8 @@
     "url": "https://github.com/mercadolibre/chico.git"
   },
   "dependencies": {
-    "express": "2.5.x",
+    "express": "3.x",
+    "ejs": "*",
     "uglify-js": "x.x.x",
     "cssmin": "x.x.x"
   },
