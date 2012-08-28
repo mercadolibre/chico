@@ -5,25 +5,25 @@
 	"meta": {
 		"ui": {
 			"full": {
-				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {\n\n",
-				"jsClose": ";ch.init();\n\n})(jQuery, this);",
+				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
+				"jsClose": "})(this, jQuery);",
 				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($, window){",
-				"jsClose": ";ch.init();})(jQuery, this);",
+				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($, win){\n\t'use strict';",
+				"jsClose": "})(this, jQuery);",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
 			}
 		},
 		"mobile": {
 			"full": {
-				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {\n\n",
-				"jsClose": ";ch.init();\n\n})(Zepto, this);",
+				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
+				"jsClose": "})(this, Zepto);",
 				"css": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function($, window){;",
-				"jsClose": ";ch.init();})(Zepto, this);",
+				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function(window, $){\n\t'use strict';",
+				"jsClose": "})(this, Zepto);",
 				"css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
 			}
 		}
@@ -31,42 +31,12 @@
 	"concat": {
 		"uiJS": {
 			"src": [
-				"../../src/ui/js/ch.namespace.js",
-				"../../src/ui/js/ch.cache.js",
-				"../../src/ui/js/ch.Condition.js",
-				"../../src/ui/js/ch.eraser.js",
-				"../../src/ui/js/ch.List.js",
-				"../../src/ui/js/ch.Object.js",
-				"../../src/ui/js/ch.onImagesLoads.js",
-				"../../src/ui/js/ch.Positioner.js",
-				"../../src/ui/js/ch.preload.js",
-				"../../src/ui/js/ch.viewport.js",
-				"../../src/ui/js/ch.Uiobject.js",
-				"../../src/ui/js/ch.Validator.js",
-				"../../src/ui/js/ch.Calendar.js",
-				"../../src/ui/js/ch.Carousel.js",
-				"../../src/ui/js/ch.Controllers.js",
-				"../../src/ui/js/ch.Controls.js",
-				"../../src/ui/js/ch.Floats.js",
-				"../../src/ui/js/ch.Navs.js",
-				"../../src/ui/js/ch.AutoComplete.js",
-				"../../src/ui/js/ch.Blink.js",
-				"../../src/ui/js/ch.Countdown.js",
-				"../../src/ui/js/ch.DatePicker.js",
-				"../../src/ui/js/ch.Dropdown.js",
-				"../../src/ui/js/ch.Expando.js",
-				"../../src/ui/js/ch.Form.js",
-				"../../src/ui/js/ch.Layer.js",
-				"../../src/ui/js/ch.Menu.js",
-				"../../src/ui/js/ch.Modal.js",
-				"../../src/ui/js/ch.TabNavigator.js",
-				"../../src/ui/js/ch.Tooltip.js",
-				"../../src/ui/js/ch.Validation.js",
-				"../../src/ui/js/ch.Zoom.js",
-				"../../src/ui/js/ch.Custom.js",
-				"../../src/ui/js/ch.Number.js",
-				"../../src/ui/js/ch.Required.js",
-				"../../src/ui/js/ch.String.js"
+				"../../src/shared/js/ch.helpers.js",
+				"../../src/ui/js/ch.helpers.js",
+				"../../src/ui/js/ch.support.js",
+				"../../src/ui/js/ch.keyboard.js",
+				"../../src/shared/js/ch.exports.js",
+				"../../src/ui/js/ch.init.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "src", "meta.ui.full.jsClose"]
 		},
@@ -101,16 +71,11 @@
 		},
 		"mobileJS": {
 			"src": [
+				"../../src/shared/js/ch.helpers.js",
 				"../../src/mobile/js/ch.helpers.js",
-				"../../src/mobile/js/ch.namespace.js",
-				"../../src/mobile/js/ch.routes.js",
-				"../../src/mobile/js/ch.factory.js",
-				"../../src/mobile/js/ch.EventEmitter.js",
-				"../../src/mobile/js/ch.Widget.js",
-				"../../src/mobile/js/ch.Expando.js",
-				"../../src/mobile/js/ch.Layer.js",
-				"../../src/mobile/js/ch.Menu.js",
-				"../../src/mobile/js/ch.Modal.js"
+				"../../src/shared/js/ch.exports.js",
+				"../../src/mobile/js/ch.init.js"
+
 			],
 			"template": ["meta.mobile.full.jsOpen", "src", "meta.mobile.full.jsClose"]
 		},
