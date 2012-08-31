@@ -1,10 +1,19 @@
 /**
+ * Chico Mobile global events reference.
+ * @private
+ * @constant
+ * @name Event
+ */
+EVENT.TAP = (('ontouchend' in window) ? 'touchend' : 'click');
+EVENT.PATH_CHANGE = (('onpopstate' in window) ? 'popstate' : 'hashchange');
+
+/**
 * Private reference to the index page
 * @privated
 * @name ch.Modal#$mainView
 * @type Zepto Object
 */
-var $mainView = (function () {
+util.$mainView = (function () {
 	var $view = $('div[data-page=index]');
 
 	if ($view.length === 0) {
@@ -16,22 +25,13 @@ var $mainView = (function () {
 }());
 
 /**
- * Chico Mobile global events reference.
- * @private
- * @constant
- * @name Event
- */
-EVENT.TAP = (('ontouchend' in window) ? 'touchend' : 'click');
-EVENT.PATH_CHANGE = (('onpopstate' in window) ? 'popstate' : 'hashchange');
-
-/**
 * Fixes the broken iPad/iPhone form label click issue.
 * @private
 * @function
 * @name fixLabels
 * @see Based on: http://www.quirksmode.org/dom/getstyles.html
 */
- function fixLabels() {
+util.fixLabels = function () {
 	var labels = document.getElementsByTagName('label'),
 		target_id,
 		el,
@@ -51,22 +51,22 @@ EVENT.PATH_CHANGE = (('onpopstate' in window) ? 'popstate' : 'hashchange');
 			$(labels[i]).bind(EVENT.TAP, labelClick);
 		}
 	}
-}
+};
 
 /*
  * MBP - Mobile boilerplate helper functions
  */
-var MBP = {};
+util.MBP = {};
 
 // Fix for iPhone viewport scale bug
 // http://www.blog.highub.com/mobile-2/a-fix-for-iphone-viewport-scale-bug/
-MBP.viewportmeta = $('meta[name=viewport]');
+util.MBP.viewportmeta = $('meta[name=viewport]');
 
-MBP.gestureStart = function () {
+util.MBP.gestureStart = function () {
 	MBP.viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
 };
 
-MBP.scaleFix = function () {
+util.MBP.scaleFix = function () {
 	if (MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
 		MBP.viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
 		document.addEventListener('gesturestart', MBP.gestureStart, false);
@@ -80,23 +80,23 @@ MBP.scaleFix = function () {
 */
 // If we cache this we don't need to re-calibrate everytime we call
 // the hide url bar
-MBP.BODY_SCROLL_TOP = false;
+util.MBP.BODY_SCROLL_TOP = false;
 
 // So we don't redefine this function everytime we
 // we call hideUrlBar
-MBP.getScrollTop = function () {
+util.MBP.getScrollTop = function () {
 	return window.pageYOffset || document.compatMode === 'CSS1Compat' && document.documentElement.scrollTop || document.body.scrollTop || 0;
 };
 
 // It should be up to the mobile
-MBP.hideUrlBar = function () {
+util.MBP.hideUrlBar = function () {
 	// if there is a hash, or MBP.BODY_SCROLL_TOP hasn't been set yet, wait till that happens
 	if (!window.location.hash && MBP.BODY_SCROLL_TOP !== false) {
 		window.scrollTo( 0, MBP.BODY_SCROLL_TOP === 1 ? 0 : 1 );
 	}
 };
 
-MBP.hideUrlBarOnLoad = function () {
+util.MBP.hideUrlBarOnLoad = function () {
 	// If there's a hash, or addEventListener is undefined, stop here
 	if( !window.location.hash && window.addEventListener ) {
 
@@ -127,7 +127,7 @@ MBP.hideUrlBarOnLoad = function () {
 
 // Prevent iOS from zooming onfocus
 // https://github.com/h5bp/mobile-boilerplate/pull/108
-MBP.preventZoom = function () {
+util.MBP.preventZoom = function () {
 	var formFields = $('input, select, textarea'),
 		contentString = 'width=device-width,initial-scale=1,maximum-scale=',
 		i = 0;
