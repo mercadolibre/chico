@@ -7,27 +7,6 @@
 * @returns {object}
 */
 (function () {
-	function checkInstance() {
-		/*var instance;
-
-		instances[this.name] = instances[this.name] || [];
-
-		if (typeof this.$el !== 'undefined') {
-			$.each(instances[this.name], function (i, el) {
-				if (el.el === this.el) {
-					instance = el;
-					return false;
-				}
-			});
-		}
-
-		if (typeof instance === 'object') {
-			return instance;
-		}
-
-		instances[this.name].push(this);
-		*/
-	}
 
 	function init($el, options) {
 		if (typeof options === 'undefined') {
@@ -52,51 +31,81 @@
 			throw new window.Error('Expected 2 parameters or less');
 		}
 
-		//return checkInstance.call(this);
 	}
 
-	function toCapitalCase(name) {
+	/*function toCapitalCase(name) {
 		return name[0].toUpperCase() + name.substr(1);
-	}
+	}*/
 
 	function createPlugin(klass) {
-		var name = klass.prototype.name;
+		var name = klass.prototype.name,
+			widget,
+			map = {
+				'string': 'message',
+				'number': 'num',
+				'function': 'fn'
+			};
 
-		/*$.fn[name] = function (options) {
-			$.each(this, function (i, el) {
-				widgets.push(new ch[toCapitalCase(name)]($(el), options));
-			});
-
-			//return ((widgets.length > 1) ? widgets : widgets[0]);
-		};*/
-
-		$[name] = function ($el, options) {
-			var widget = new klass($el, options);
-			instances[this.name].push(widget);
+		// $.widget(options);
+		$[name] = function (options) {
+			widget = new klass(options);
+			instances[name].push(widget);
 
 			return widget;
 		};
 
-		$.fn.[name] = function (options) {
-			var widgets = [];
-			// ACA esta toda la papa: http://docs.jquery.com/Plugins/Authoring
-			// Aca tenemos ordenar los parametros del plugin para meterlos dentro un ub objecto.
+		// $(el).widget(options);
+		$.fn[name] = function (options) {
+			var widgets = [],
+				message = arguments[1],
+				type = typeof options;
+
+			if (type !== 'undefined' && type !== 'object') {
+				var parameter = options;
+				options = {};
+				options[map[type]] = parameter;
+
+				// Could come a messages as a second argument
+				if (typeof message === 'string') {
+					options.message = message;
+				}
+			}
+
+
+			// http://docs.jquery.com/Plugins/Authoring
+			// Aca tenemos ordenar los parametros del plugin para meterlos dentro un ub objecto
 			// Si es un string, un numbero, una funcion, o ambos (num, str), (str), (fn)
-
-			// El el siempre viene porque esto se utiliza con selector SIEMPRE!
-
-			// Here!
+			// El $el siempre viene porque esto se utiliza con selector SIEMPRE!
 
 			$.each(this, function (i, el) {
+				var $el = $(el),
+					data = $el.data(name);
 
-				widgets.push(new klass($(el), options));
-			})
+				if (!data) {
+					widget = new klass($el, options);
+					$el.data(name, widget);
+
+					instances[name].push(widget);
+
+				} else {
+					widget = data;
+				}
+
+				widgets.push(widget);
+			});
+
+			return ((widgets.length > 1) ? widgets : widget[0]);
 		};
 	}
 
 	function factory(klass) {
+		var name = klass.name.toLowerCase();
+
 		klass.prototype.constructor = klass;
 		klass.prototype.init = init;
+
+		// Gets or creates the klass's instances map
+		instances[name] = instances[name] || [];
 
 		// tiene que crear $.widget y $('').widget();
 		createPlugin(klass);
