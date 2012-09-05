@@ -36,6 +36,7 @@
 				"../../src/ui/js/ch.support.js",
 				"../../src/ui/js/ch.keyboard.js",
 				"../../src/shared/js/ch.factory.js",
+				"../../src/shared/js/ch.Widget.js",
 				"../../src/shared/js/ch.exports.js",
 				"../../src/ui/js/ch.init.js"
 			],
@@ -74,6 +75,8 @@
 			"src": [
 				"../../src/shared/js/ch.helpers.js",
 				"../../src/mobile/js/ch.helpers.js",
+				"../../src/shared/js/ch.factory.js",
+				"../../src/shared/js/ch.Widget.js",
 				"../../src/shared/js/ch.exports.js",
 				"../../src/mobile/js/ch.init.js"
 

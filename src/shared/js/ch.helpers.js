@@ -474,7 +474,7 @@ util.extend = function (obj, destination) {
 };
 
 /**
- * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super_ property.
+ * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
  * @private
  * @function
  * @name inherits
@@ -489,7 +489,11 @@ util.inherits = function (obj, superConstructor) {
 	var child = obj.prototype || {};
 	util.extend(superConstructor.prototype, child);
 	child.super = superConstructor.prototype;
-	//child.constructor = child;
+
+	/*var fn = function () {};
+	fn.prototype = superConstructor.prototype;
+	obj.prototype = new fn();
+	obj.prototype.constructor = obj;*/
 };
 
 /**

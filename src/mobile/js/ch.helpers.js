@@ -63,13 +63,13 @@ util.MBP = {};
 util.MBP.viewportmeta = $('meta[name=viewport]');
 
 util.MBP.gestureStart = function () {
-	MBP.viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+	util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
 };
 
 util.MBP.scaleFix = function () {
-	if (MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
-		MBP.viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
-		document.addEventListener('gesturestart', MBP.gestureStart, false);
+	if (util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
+		util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+		document.addEventListener('gesturestart', util.MBP.gestureStart, false);
 	}
 };
 
@@ -91,8 +91,8 @@ util.MBP.getScrollTop = function () {
 // It should be up to the mobile
 util.MBP.hideUrlBar = function () {
 	// if there is a hash, or MBP.BODY_SCROLL_TOP hasn't been set yet, wait till that happens
-	if (!window.location.hash && MBP.BODY_SCROLL_TOP !== false) {
-		window.scrollTo( 0, MBP.BODY_SCROLL_TOP === 1 ? 0 : 1 );
+	if (!window.location.hash && util.MBP.BODY_SCROLL_TOP !== false) {
+		window.scrollTo( 0, util.MBP.BODY_SCROLL_TOP === 1 ? 0 : 1 );
 	}
 };
 
@@ -102,23 +102,23 @@ util.MBP.hideUrlBarOnLoad = function () {
 
 		//scroll to 1
 		window.scrollTo(0, 1);
-		MBP.BODY_SCROLL_TOP = 1;
+		util.MBP.BODY_SCROLL_TOP = 1;
 
 		//reset to 0 on bodyready, if needed
 		var bodycheck = setInterval(function () {
 			if(body) {
 				clearInterval(bodycheck);
-				MBP.BODY_SCROLL_TOP = MBP.getScrollTop();
-				MBP.hideUrlBar();
+				util.MBP.BODY_SCROLL_TOP = util.MBP.getScrollTop();
+				util.MBP.hideUrlBar();
 			}
 		}, 15 );
 
 		window.addEventListener('load', function() {
 			setTimeout(function () {
 				//at load, if user hasn't scrolled more than 20 or so...
-				if(MBP.getScrollTop() < 20) {
+				if(util.MBP.getScrollTop() < 20) {
 					//reset to hide addr bar at onload
-					MBP.hideUrlBar();
+					util.MBP.hideUrlBar();
 				}
 			}, 0);
 		});
@@ -134,11 +134,11 @@ util.MBP.preventZoom = function () {
 	for (; i < formFields.length; i += 1) {
 
 		formFields[i].onfocus = function() {
-			MBP.viewportmeta.content = contentString + '1';
+			util.MBP.viewportmeta.content = contentString + '1';
 		};
 
 		formFields[i].onblur = function () {
-			MBP.viewportmeta.content = contentString + '10';
+			util.MBP.viewportmeta.content = contentString + '10';
 		};
 	}
 };
