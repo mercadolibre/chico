@@ -1,13 +1,9 @@
-/**
- * Creational patterns to create UI Components
- * @private
- * @static
- * @name factory
- * @param {object} [obj] Configuration Object
- * @returns {object}
- */
 (function () {
-
+	/**
+	 * Creational patterns to create UI Components
+	 * @methodOf ch
+	 * @param {Object} klass
+	 */
 	function factory(klass) {
 		// tiene que crear $.widget y $('').widget();
 		var name = klass.prototype.name,
@@ -43,10 +39,6 @@
 			}
 
 			// http://docs.jquery.com/Plugins/Authoring
-			// Aca tenemos ordenar los parametros del plugin para meterlos dentro un ub objecto
-			// Si es un string, un numbero, una funcion, o ambos (num, str), (str), (fn)
-			// El $el siempre viene porque esto se utiliza con selector SIEMPRE!
-
 			$.each(this, function (i, el) {
 				var $el = $(el),
 					data = $el.data(name);

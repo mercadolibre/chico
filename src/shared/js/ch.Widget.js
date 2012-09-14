@@ -1,14 +1,32 @@
-/**
- * Creational patterns to create UI Components
- * @private
- * @static
- * @name factory
- * @param {object} [obj] Configuration Object
- * @returns {object}
- */
 (function () {
 
+	var util = exports.util,
+
+		/**
+		 * Global instantiation widget id.
+		 * @private
+		 * @type {Number}
+		 */
+		uid = 0;
+
+	/**
+	 * Base class for all widgets.
+	 * @memberOf ch
+	 * @class ch.Widget
+	 * augments ch.EventEmitter
+	 * @param {Selector} $el Query Selector element.
+	 * @param {Object} [options] Configuration options.
+	 * @proy {Object} snippet XXXXX
+	 * @propertperty {Object} options The configuration properties.
+	 * @property {Selector} $el XXXXX
+	 * @property {Object} el XXXXX
+	 * @property {Number} uid XXXXX
+	 * @emits ready XXXXX
+	 * @emits destroy XXXXX
+	 * @returns {Object}
+	 */
 	function Widget($el, options) {
+
 		this.init($el, options);
 /*
 		// Init
@@ -43,10 +61,30 @@
 		return this;
 	}
 
+	/**
+	 *
+	 * @memberOf ch.Widget
+	 */
 	Widget.prototype = {};
+
+	/**
+	 * The name used to identify the class of this object into jQuery, Zepto or another library.
+	 * @memberOf ch.Widget.prototype
+	 */
 	Widget.prototype.name = 'widget';
+
+	/**
+	 *
+	 * @methodOf ch.Widget.prototype
+	 */
 	Widget.prototype.constructor = Widget;
 
+	/**
+	 *
+	 * @methodOf ch.Widget.prototype
+	 * @param {$Object} $el Selector
+	 * @param {Object} [options] Configuration
+	 */
 	Widget.prototype.init = function ($el, options) {
 		if (options === undefined) {
 			if ($el === undefined) {
@@ -69,7 +107,7 @@
 			this.options = util.extend(options, util.clone(this.defaults));
 
 		} else {
-			// Ver el cappítulo del libro de zakas Maintenible JavaScript para ver si nos conviene crear nuestro propios errores
+			// TODO: Ver el cappítulo del libro de zakas Maintenible JavaScript para ver si nos conviene crear nuestro propios errores
 			throw new window.Error('Expected 2 parameters or less');
 		}
 
@@ -78,41 +116,25 @@
 		// Gets or creates the klass's instances map
 		instances[this.name] = instances[this.name] || {};
 		instances[this.name][this.uid] = this;
-	}
+	};
 
+	/**
+	 * Removes and destroys the widget rendered. Also, remove all UI events and data associated to the DOM element.
+	 * @methodOf ch.Widget.prototype
+	 */
 	Widget.prototype.destroy = function () {
+		//this.emits('destroy', this);
+
 		this.$el.removeData(this.name);
 
 		delete instances[this.name][this.uid];
-	}
+
+	};
 
 	//util.require(Widget, [ch.EventEmitter]);
 
-	exports.Widget = Widget;
-}());
+	//this.emit('ready', this);
 
-
-/*(function () {
-	function EventEmitter() {
-		var pepe = 'privado';
-		this.on = function () {
-			console.log(pepe + this.name);
-		}
-	};
-
-	exports.EventEmitter = EventEmitter;
-}());*/
-(function () {
-	function A($el, options) {
-		this.init($el, options);
-	};
-
-	util.inherits(A, exports.Widget);
-
-	A.prototype.name = 'a';
-	A.prototype.constructor = A;
-	A.prototype.defaults = {};
-
-	exports.factory(A);
+	exports.factory(Widget);
 
 }());

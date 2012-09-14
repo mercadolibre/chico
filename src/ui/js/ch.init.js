@@ -1,10 +1,9 @@
 /**
 * Core constructor function.
 * @name init
-* @function
-* @memberOf ch
+* @methodOf ch
 */
-(function init() {
+(function () {
 	// unmark the no-js flag on html tag
 	$html.removeClass('no-js');
 

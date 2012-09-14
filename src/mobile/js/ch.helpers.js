@@ -2,17 +2,28 @@
  * Chico Mobile global events reference.
  * @private
  * @constant
- * @name Event
+ * @memberOf events
+ * @type {String}
  */
-EVENT.TAP = (('ontouchend' in window) ? 'touchend' : 'click');
-EVENT.PATH_CHANGE = (('onpopstate' in window) ? 'popstate' : 'hashchange');
+events.TAP = (('ontouchend' in window) ? 'touchend' : 'click');
+
 
 /**
-* Private reference to the index page
-* @privated
-* @name ch.Modal#$mainView
-* @type Zepto Object
-*/
+ *
+ * @private
+ * @constant
+ * @memberOf events
+ * @type {String}
+ */
+events.PATH_CHANGE = (('onpopstate' in window) ? 'popstate' : 'hashchange');
+
+/**
+ * Private reference to the index page
+ * @private
+ * @field
+ * @memberOf util
+ * @type {$Object}
+ */
 util.$mainView = (function () {
 	var $view = $('div[data-page=index]');
 
@@ -25,12 +36,11 @@ util.$mainView = (function () {
 }());
 
 /**
-* Fixes the broken iPad/iPhone form label click issue.
-* @private
-* @function
-* @name fixLabels
-* @see Based on: http://www.quirksmode.org/dom/getstyles.html
-*/
+ * Fixes the broken iPad/iPhone form label click issue.
+ * @private
+ * @methodOf util
+ * @see Based on: http://www.quirksmode.org/dom/getstyles.html
+ */
 util.fixLabels = function () {
 	var labels = document.getElementsByTagName('label'),
 		target_id,
@@ -53,8 +63,12 @@ util.fixLabels = function () {
 	}
 };
 
-/*
+/**
  * MBP - Mobile boilerplate helper functions
+ * @private
+ * @memberOf util
+ * @namesapce
+ * @see View on https://github.com/h5bp/mobile-boilerplate
  */
 util.MBP = {};
 
