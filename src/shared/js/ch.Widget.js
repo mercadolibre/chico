@@ -17,7 +17,7 @@
 	 * @param {Selector} $el Query Selector element.
 	 * @param {Object} [options] Configuration options.
 	 * @proy {Object} snippet XXXXX
-	 * @propertperty {Object} options The configuration properties.
+	 * @property {Object} options The configuration properties.
 	 * @property {Selector} $el XXXXX
 	 * @property {Object} el XXXXX
 	 * @property {Number} uid XXXXX

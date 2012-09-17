@@ -3,71 +3,71 @@
 	exports.util.extend({
 		/**
 		 * Keryboard event collection.
-		 * @private
+		 * @name key
 		 * @namespace
-		 * @memberOf events
+		 * @memberOf ch.events
 		 */
 		'key': {
 
 			/**
 			 * Enter key event.
-			 * @private
+			 * @name ENTER
 			 * @constant
-			 * @memberOf events.key
+			 * @memberOf ch.events.key
 			 * @type {String}
 			 */
 			'ENTER': 'enter',
 
 			/**
 			 * Esc key event.
-			 * @private
+			 * @name ESC
 			 * @constant
-			 * @memberOf events.key
+			 * @memberOf ch.events.key
 			 * @type {String}
 			 */
 			'ESC': 'esc',
 
 			/**
 			 * Left arrow key event.
-			 * @private
+			 * @name LEFT_ARROW
 			 * @constant
-			 * @memberOf events.key
+			 * @memberOf ch.events.key
 			 * @type {String}
 			 */
 			'LEFT_ARROW': 'left_arrow',
 
 			/**
 			 * Up arrow key event.
-			 * @private
+			 * @name UP_ARROW
 			 * @constant
-			 * @memberOf events.key
+			 * @memberOf ch.events.key
 			 * @type {String}
 			 */
 			'UP_ARROW': 'up_arrow',
 
 			/**
 			 * Rigth arrow key event.
-			 * @private
+			 * @name RIGHT_ARROW
 			 * @constant
-			 * @memberOf events.key
+			 * @memberOf ch.events.key
 			 * @type {String}
 			 */
 			'RIGHT_ARROW': 'right_arrow',
 
 			/**
 			 * Down arrow key event.
-			 * @private
+			 * @name DOWN_ARROW
 			 * @constant
-			 * @memberOf events.key
+			 * @memberOf ch.events.key
 			 * @type {String}
 			 */
 			'DOWN_ARROW': 'down_arrow',
 
 			/**
 			 * Backspace key event.
-			 * @private
+			 * @name BACKSPACE
 			 * @constant
-			 * @memberOf events.key
+			 * @memberOf ch.events.key
 			 * @type {String}
 			 */
 			'BACKSPACE': 'backspace'

@@ -9,7 +9,7 @@
 	/**
 	 * Returns a boolean indicating whether the object has the specified property.
 	 * @name hasOwn
-	 * @memberOf ch.util
+	 * @methodOf ch.util
 	 * @param {Object} obj The object to be checked.
 	 * @param {String} prop The name of the property to test.
 	 * @returns {Boolean}

@@ -1,10 +1,10 @@
 /**
-* Core constructor function.
-* @private
-* @function
-* @name init
-*/
+ * Core constructor function.
+ * @private
+ */
 (function init() {
+	var util = exports.util;
+
 	// Remove no-js classname
 	$html.removeClass('no-js');
 	// Iphone scale fix
