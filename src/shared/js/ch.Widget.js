@@ -85,7 +85,7 @@
 	 * @param {$Object} $el Selector
 	 * @param {Object} [options] Configuration
 	 */
-	Widget.prototype.init = function ($el, options) {
+	Widget.prototype.init = function ($el, options) {
 		if (options === undefined) {
 			if ($el === undefined) {
 				this.options = util.clone(this.defaults);
@@ -114,7 +114,7 @@
 		this.uid = (uid += 1);
 
 		// Gets or creates the klass's instances map
-		instances[this.name] = instances[this.name] || {};
+		instances[this.name] = instances[this.name] || {};
 		instances[this.name][this.uid] = this;
 	};
 
@@ -122,7 +122,7 @@
 	 * Removes and destroys the widget rendered. Also, remove all UI events and data associated to the DOM element.
 	 * @methodOf ch.Widget.prototype
 	 */
-	Widget.prototype.destroy = function () {
+	Widget.prototype.destroy = function () {
 		//this.emits('destroy', this);
 
 		this.$el.removeData(this.name);
