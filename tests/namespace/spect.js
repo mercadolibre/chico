@@ -1,4 +1,3 @@
-
 describe('ch', function () {
 	var namespace = ch;
 
@@ -99,12 +98,108 @@ describe('ch', function () {
 			expect(namespace.DatePicker).toBeDefined();
 		});
 
+		it('Dropdown', function (){
+			expect(namespace.Dropdown).toBeDefined();
+		});
+
+		it('Email', function (){
+			expect(namespace.Email).toBeDefined();
+		});
+
+		it('Expando', function (){
+			expect(namespace.Expando).toBeDefined();
+		});
+
+		it('Form', function (){
+			expect(namespace.Form).toBeDefined();
+		});
+
+		it('Layer', function (){
+			expect(namespace.Layer).toBeDefined();
+		});
+
+		it('Max', function (){
+			expect(namespace.Max).toBeDefined();
+		});
+
+		it('MaxLength', function (){
+			expect(namespace.MaxLength).toBeDefined();
+		});
+
+		it('Menu', function (){
+			expect(namespace.Menu).toBeDefined();
+		});
+
+		it('Min', function (){
+			expect(namespace.Min).toBeDefined();
+		});
+
+		it('MinLength', function (){
+			expect(namespace.MinLength).toBeDefined();
+		});
+
+		it('MinLength', function (){
+			expect(namespace.MinLength).toBeDefined();
+		});
+
 		it('Modal', function (){
 			expect(namespace.Modal).toBeDefined();
 		});
 
+		it('Number', function (){
+			expect(namespace.Number).toBeDefined();
+		});
+
+		it('onImagesLoads', function (){
+			expect(namespace.onImagesLoads).toBeDefined();
+		});
+
+		it('onImagesLoads', function (){
+			expect(namespace.onImagesLoads).toBeDefined();
+		});
+
+		it('Price', function (){
+			expect(namespace.Price).toBeDefined();
+		});
+
+		it('Required', function (){
+			expect(namespace.Required).toBeDefined();
+		});
+
+		it('String', function (){
+			expect(namespace.String).toBeDefined();
+		});
+
 		it('Suggest', function (){
 			expect(namespace.Suggest).toBeDefined();
+		});
+
+		it('TabNavigator', function (){
+			expect(namespace.TabNavigator).toBeDefined();
+		});
+
+		it('Tooltip', function (){
+			expect(namespace.Tooltip).toBeDefined();
+		});
+
+		it('Transition', function (){
+			expect(namespace.Transition).toBeDefined();
+		});
+
+		it('Url', function (){
+			expect(namespace.Url).toBeDefined();
+		});
+
+		it('Validation', function (){
+			expect(namespace.Validation).toBeDefined();
+		});
+
+		it('Validator', function (){
+			expect(namespace.Validator).toBeDefined();
+		});
+
+		it('Zoom', function (){
+			expect(namespace.Zoom).toBeDefined();
 		});
 
 		it('Widget', function (){

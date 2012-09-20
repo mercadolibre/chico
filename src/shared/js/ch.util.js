@@ -18,6 +18,15 @@
 		var hOP = Object.prototype.hasOwnProperty;
 
 		return function (obj, prop) {
+
+			if(obj === undefined || typeof obj !== 'object'){
+				throw new Error('"ch.util.hasOwn(obj, prop)": It must receive an object as first parameter.');
+			}
+
+			if(prop === undefined || typeof prop !== 'string'){
+				throw new Error('"ch.util.hasOwn(obj, prop)": It must receive a string as second parameter.');
+			}
+
 			return hOP.call(obj, prop);
 		};
 	}());
@@ -35,6 +44,10 @@
 		}
 
 		return function (obj) {
+			if(obj === undefined){
+				throw new Error('"ch.util.isArray(obj)": It must receive a parameter.');
+			}
+
 			return (Object.prototype.toString.call(obj) === '[object Array]');
 		};
 	}());
@@ -48,7 +61,9 @@
 	 * @returns {Boolean}
 	 */
 	util.inDom = function (selector, context) {
-		if (typeof selector !== 'string') { return false; }
+		if (selector === undefined || typeof selector !== 'string') {
+			throw new Error('"ch.util.inDom(selector, context)": It requires a string as first parameter.');
+		}
 		// jQuery: If you wish to use any of the meta-characters ( such as !"#$%&'()*+,./:;<=>?@[\]^`{|}~ ) as a literal part of a name, you must escape the character with two backslashes: \\.
 		selector = selector.replace(/(\!|\"|\$|\%|\&|\'|\(|\)|\*|\+|\,|\/|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)/gi, function (str, $1) {
 			return "\\\\" + $1;
@@ -64,6 +79,10 @@
 	 * @returns {Boolean}
 	 */
 	util.isUrl = function (url) {
+		if (url === undefined || typeof url !== 'string') {
+			throw new Error('"ch.util.isUrl(url)": The url parameter must be a string.');
+		}
+
 		/*
 		# RegExp
 

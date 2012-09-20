@@ -1,4 +1,7 @@
 (function () {
+
+	var util = exports.util;
+
 	/**
 	 * Map with references to key codes.
 	 * @private
@@ -23,11 +26,13 @@
 	 * @param event
 	 */
 	function keyboard(event) {
+		var keyCode = event.keyCode.toString();
+
 		// Check for event existency on the map
-		if(!hasOwn(codeMap, event.keyCode)) { return; }
+		if(!util.hasOwn(codeMap, keyCode)) { return; }
 
 		// Trigger custom event with original event as second parameter
-		$document.trigger(EVENT.KEY[codeMap[event.keyCode]], event);
+		$document.trigger(EVENT.KEY[codeMap[keyCode]], event);
 	}
 
 	exports.keyboard = keyboard;
