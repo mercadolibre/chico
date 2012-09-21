@@ -40,9 +40,9 @@ ch.dropdown = function (conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
-	
+
 	conf.reposition = ch.utils.hasOwn(conf, "reposition") ? conf.reposition : true;
-	
+
 	that.conf = conf;
 
 /**
@@ -67,13 +67,15 @@ ch.dropdown = function (conf) {
 	* @type jQuery
 	*/
 	that.$trigger = (function () {
-		
+
 		var $el = that.$trigger;
-		
-		if (!that.$element.hasClass("secondary") || !that.$element.hasClass("ch-dropdown-skin")) { $el.addClass("ch-btn-skin ch-btn-small"); }
-		
+
+		if (!that.$element.hasClass("ch-dropdown-skin")) {
+			$el.addClass("ch-btn-skin ch-btn-small");
+		}
+
 		return $el;
-		
+
 	}());
 
 	/**
@@ -83,7 +85,7 @@ ch.dropdown = function (conf) {
 	* @type jQuery
 	*/
 	that.$content = (function () {
-		
+
 		// jQuery Object
 		var $content = that.$content
 		// Prevent click on content (except links)
@@ -95,7 +97,7 @@ ch.dropdown = function (conf) {
 			})
 		// WAI-ARIA properties
 			.attr({ "role": "menu", "aria-hidden": "true" });
-		
+
 		// WAI-ARIA for options into content
 		$content.children("a").attr("role", "menuitem");
 
@@ -107,7 +109,7 @@ ch.dropdown = function (conf) {
 			"offset": "0 -1",
 			"reposition": conf.reposition
 		});
-		
+
 		return $content;
 	}());
 
@@ -138,7 +140,7 @@ ch.dropdown = function (conf) {
 
 				// Prevent default behaivor
 				that.prevent(event);
-				
+
 				// Sets the arrow that user press
 				arrow = key.type;
 
@@ -164,7 +166,7 @@ ch.dropdown = function (conf) {
 					that.$options[selected = i].focus();
 				});
 			});
-			
+
 			// Creates keyboard shortcuts map and binding events
 			map["click " + ch.events.KEY.ESC] = function () { that.innerHide(); };
 			map[ch.events.KEY.UP_ARROW + " " +ch.events.KEY.DOWN_ARROW] = selectOption;
@@ -180,24 +182,24 @@ ch.dropdown = function (conf) {
 	* @returns itself
 	*/
 	that.innerShow = function (event) {
-		
+
 		// Stop propagation
 		that.prevent(event);
-		
+
 		// Z-index of content and updates aria values
 		that.$content.css("z-index", ch.utils.zIndex += 1).attr("aria-hidden", "false");
-		
+
 		// Z-index of trigger over content (secondary / skin dropdown)
 		if (that.$element.hasClass("ch-dropdown-skin")) { that.$trigger.css("z-index", ch.utils.zIndex += 1); }
-		
+
 		// Inheritance innerShow
 		that.parent.innerShow(event);
-		
+
 		// Refresh position
 		that.position("refresh");
 
 		// Reset all dropdowns except itself
-		$.each(ch.instances.dropdown, function (i, e) { 
+		$.each(ch.instances.dropdown, function (i, e) {
 			if (e.uid !== that.uid) { e.hide(); }
 		});
 
@@ -217,21 +219,21 @@ ch.dropdown = function (conf) {
 
 		// Inheritance innerHide
 		that.parent.innerHide(event);
-		
+
 		// Updates aria values
 		that.$content.attr("aria-hidden", "true");
 
 		return that;
 	};
-	
+
 /**
 *  Public Members
 */
- 
+
 	/**
 	* @borrows ch.Object#uid as ch.Menu#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Menu#element
 	*/
@@ -239,7 +241,7 @@ ch.dropdown = function (conf) {
 	/**
 	* @borrows ch.Object#type as ch.Menu#type
 	*/
-	
+
 	/**
 	* @borrows ch.Navs#show as ch.Dropdown#type
 	*/
@@ -247,7 +249,7 @@ ch.dropdown = function (conf) {
 	/**
 	* @borrows ch.Navs#hide as ch.Dropdown#hide
 	*/
-	
+
 	/**
 	* Positioning configuration.
 	* @public
@@ -256,15 +258,15 @@ ch.dropdown = function (conf) {
 	*/
 	that["public"].position = that.position;
 
-/** 
+/**
 *  Default event delegation
-*/			
+*/
 
 	ch.utils.avoidTextSelection(that.$trigger);
 
 	// Inits keyboards support
 	that.shortcuts();
-	
+
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.Dropdown#ready

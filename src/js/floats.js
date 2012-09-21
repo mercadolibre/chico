@@ -62,7 +62,7 @@ ch.floats = function () {
 	// TODO: Create "closable" interface
 	var closable = (function () {
 		/**
-		* Returns any if the component closes automatic. 
+		* Returns any if the component closes automatic.
 		* @public
 		* @function
 		* @methodOf ch.Floats#closabe
@@ -75,21 +75,21 @@ ch.floats = function () {
 			return that.closable;
 		};
 
-		
+
 		return function () {
-			
+
 			// Closable Off: don't anything
 			if (!that.closable) { return; }
 
 			// Closable On
 
 			if (ch.utils.hasOwn(conf, "closeButton") && conf.closeButton || ch.utils.hasOwn(conf, "event") && conf.event === "click") {
-				// Append close buttons	
+				// Append close buttons
 				// It will close with close button
 				that.$container
 					.prepend("<a class=\"ch-close\" role=\"button\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></a>")
 					.bind("click", function (event) {
-						if ($(event.target || event.srcElement).hasClass("ch-close")) { 
+						if ($(event.target || event.srcElement).hasClass("ch-close")) {
 							that.innerHide(event);
 						}
 					});
@@ -154,48 +154,48 @@ ch.floats = function () {
 	* @type jQuery
 	*/
 	that.$container = (function () { // Create Layout
-		
+
 		// Final jQuery Object
 		var $container,
-		
+
 		// Component with close button and keyboard binding for close
 		//	closable = ch.utils.hasOwn(conf, "closeButton") && conf.closeButton,
-		
+
 		// HTML Div Element with role for WAI-ARIA
 			container = ["<div role=\"" + conf.aria.role + "\""];
-			
+
 		// ID for WAI-ARIA
 		if (ch.utils.hasOwn(conf.aria, "identifier")) {
-			
+
 			// Generated ID using component name and its instance order
 			var id = "ch-" + that.type + "-" + (ch.utils.hasOwn(ch.instances, that.type) ? ch.instances[that.type].length + 1 : "1");
-			
+
 			// Add ID to container element
 			container.push(" id=\"" + id + "\"");
-			
+
 			// Add aria attribute to trigger element
 			that.$element.attr(conf.aria.identifier, id);
 		}
-		
+
 		// Classname with component type and extra classes from conf.classes
 		container.push(" class=\"ch-hide ch-" + that.type + (ch.utils.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");
-		
+
 		// Z-index
 		container.push(" style=\"z-index:" + (ch.utils.zIndex += 1) + ";");
-		
+
 		// Width
 		if (ch.utils.hasOwn(conf, "width")) {
 			container.push("width:" + conf.width + ((typeof conf.width === "number") ? "px;" : ";"));
 		}
-		
+
 		// Height
 		if (ch.utils.hasOwn(conf, "height")) {
 			container.push("height:" + conf.height + ((typeof conf.height === "number") ? "px;" : ";"));
 		}
-		
+
 		// Style and tag close
 		container.push("\">");
-		
+
 		// Create cone
 		if (ch.utils.html.hasClass("lt-ie8") && ch.utils.hasOwn(conf, "cone")) {
 			container.push("<div class=\"ch-" + that.type + "-cone\"></div>");
@@ -203,27 +203,27 @@ ch.floats = function () {
 
 		// Create close button
 		//if (closable) { container.push("<div class=\"btn close\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></div>"); }
-		
+
 		// Tag close
 		container.push("</div>");
-		
+
 		// jQuery Object generated from string
 		$container = $(container.join(""));
 
 		// Create cone
 		if (ch.utils.hasOwn(conf, "cone")) { $container.addClass("ch-cone"); }
-		
+
 		// Close behavior bindings
 		/*if (closable) {
 			// Close button event delegation
 			$container.bind("click", function (event) {
 				if ($(event.target || event.srcElement).hasClass("close")) { that.innerHide(event); }
 			});
-			
+
 			// ESC key support
 			ch.utils.document.bind(ch.events.KEY.ESC, function (event) { that.innerHide(event); });
 		}*/
-		
+
 		// Efects configuration
 		conf.fx = ch.utils.hasOwn(conf, "fx") ? conf.fx : true;
 
@@ -333,7 +333,7 @@ ch.floats = function () {
 		// Show component with effects
 		if (conf.fx) {
 			that.$container.fadeIn("fast", function () {
-				
+
 				that.$container.removeClass("ch-hide");
 				// new callbacks
 				that.trigger("show");
@@ -351,7 +351,7 @@ ch.floats = function () {
 		}
 
 		that.position("refresh");
-		
+
 		that.active = true;
 
 		return that;
@@ -365,7 +365,7 @@ ch.floats = function () {
 	* @returns itself
 	*/
 	that.innerHide = function (event) {
-		
+
 		if (event) {
 			event.stopPropagation();
 		}
@@ -504,7 +504,7 @@ ch.floats = function () {
 		that.innerHide();
 		return that["public"];
 	};
-	
+
 	/**
 	* Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
 	* @public
@@ -512,7 +512,7 @@ ch.floats = function () {
 	* @name ch.Floats#position
 	* @exampleDescription Change component's position.
 	* @example
-	* widget.position({ 
+	* widget.position({
 	*	  offset: "0 10",
 	*	  points: "lt lb"
 	* });
@@ -549,14 +549,14 @@ ch.floats = function () {
 		// Refresh
 		case "string":
 			that.position("refresh");
-			
+
 			break;
 
 		// Getter
 		case "undefined":
 		default:
 			r = that.position();
-			
+
 			break;
 		}
 
@@ -611,7 +611,7 @@ ch.floats = function () {
 	that["public"].isActive = function () {
 		return that.active;
 	};
-	
+
 	/**
 	* Triggers when the component is ready to use.
 	* @name ch.Floats#ready
