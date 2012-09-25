@@ -82,18 +82,22 @@ ch.floats = function () {
 			if (!that.closable) { return; }
 
 			// Closable On
-
 			if (ch.utils.hasOwn(conf, "closeButton") && conf.closeButton || ch.utils.hasOwn(conf, "event") && conf.event === "click") {
 				// Append close buttons
 				// It will close with close button
 				that.$container
 					.prepend("<a class=\"ch-close\" role=\"button\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></a>")
-					.bind("click", function (event) {
+					.on("click", function (event) {
 						if ($(event.target || event.srcElement).hasClass("ch-close")) {
 							that.innerHide(event);
 						}
 					});
 			}
+
+			// ESC key support
+			ch.utils.document.on(ch.events.KEY.ESC, function () {
+				that.innerHide();
+			});
 
 			// It will close only with close button
 			if (that.closable === "button") {
@@ -107,13 +111,8 @@ ch.floats = function () {
 			});
 
 			// Stop event propatation, if click container.
-			that.$container.bind("click", function (event) {
+			that.$container.on("click", function (event) {
 				event.stopPropagation();
-			});
-
-			// and ESC key support
-			ch.utils.document.bind(ch.events.KEY.ESC, function () {
-				that.innerHide();
 			});
 		};
 
@@ -158,9 +157,6 @@ ch.floats = function () {
 		// Final jQuery Object
 		var $container,
 
-		// Component with close button and keyboard binding for close
-		//	closable = ch.utils.hasOwn(conf, "closeButton") && conf.closeButton,
-
 		// HTML Div Element with role for WAI-ARIA
 			container = ["<div role=\"" + conf.aria.role + "\""];
 
@@ -201,9 +197,6 @@ ch.floats = function () {
 			container.push("<div class=\"ch-" + that.type + "-cone\"></div>");
 		}
 
-		// Create close button
-		//if (closable) { container.push("<div class=\"btn close\" style=\"z-index:" + (ch.utils.zIndex += 1) + "\"></div>"); }
-
 		// Tag close
 		container.push("</div>");
 
@@ -212,17 +205,6 @@ ch.floats = function () {
 
 		// Create cone
 		if (ch.utils.hasOwn(conf, "cone")) { $container.addClass("ch-cone"); }
-
-		// Close behavior bindings
-		/*if (closable) {
-			// Close button event delegation
-			$container.bind("click", function (event) {
-				if ($(event.target || event.srcElement).hasClass("close")) { that.innerHide(event); }
-			});
-
-			// ESC key support
-			ch.utils.document.bind(ch.events.KEY.ESC, function (event) { that.innerHide(event); });
-		}*/
 
 		// Efects configuration
 		conf.fx = ch.utils.hasOwn(conf, "fx") ? conf.fx : true;

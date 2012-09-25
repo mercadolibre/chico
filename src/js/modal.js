@@ -53,7 +53,7 @@ ch.modal = function (conf) {
 
 	// Closable configuration
 	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : true;
-	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
+	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : "button";
 
 	conf.aria = {};
 
@@ -104,9 +104,9 @@ ch.modal = function (conf) {
 				.appendTo(ch.utils.body)
 				.fadeIn();
 
-			/*if (that.type === "modal") {
+			if (conf.closable) {
 				$dimmer.one("click", function (event) { that.innerHide(event) });
-			}*/
+			}
 
 			// TODO: position dimmer with Positioner
 			if (!ch.features.fixed) {
@@ -219,9 +219,9 @@ ch.modal = function (conf) {
 */
 
 	if (that.element.tagName === "INPUT" && that.element.type === "submit") {
-		that.$element.parents("form").bind("submit", function (event) { that.innerShow(event); });
+		that.$element.parents("form").on("submit", function (event) { that.innerShow(event); });
 	} else {
-		that.$element.bind("click", function (event) { that.innerShow(event); });
+		that.$element.on("click", function (event) { that.innerShow(event); });
 	}
 
 	/**
