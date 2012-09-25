@@ -702,6 +702,12 @@
 				</label>
 				<input type="date" id="val_date" class="myDatePicker" placeholder="DD/MM/YYYY">
 			</p>
+			<p class="ch-form-row">
+				<label for="val_date2">
+					Date:
+				</label>
+				<input type="date" id="val_date2" class="myDatePicker2" placeholder="DD/MM/YYYY">
+			</p>
 		</form>
 	</div>
 
@@ -1215,6 +1221,11 @@
 		// Date Picker
 			datePicker = $(".myDatePicker").datePicker({
 				"selected": "2011/11/15",
+				"to": "today"
+			}),
+
+			datePicker2 = $(".myDatePicker2").datePicker({
+				"selected": "2012/09/20",
 				"to": "today"
 			}),
 
