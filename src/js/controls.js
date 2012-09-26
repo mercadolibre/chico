@@ -57,7 +57,7 @@ ch.controls = function () {
 			"conf": c
 		});
 
-		
+
 	};
 
 /**

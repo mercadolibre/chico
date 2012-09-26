@@ -1,13 +1,12 @@
 .ch-layer {
-	min-width:1em;
-	background-image:none;
 	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	min-width: 4em;
 }
 
 .ch-layer .ch-close {
-	top:5px;
-	right:5px;
+	top: 8px;
+	right: 8px;
 }
 
 /* Cone */
@@ -21,7 +20,7 @@
 .ch-layer.ch-points-ltlb .ch-layer-content:before,
 .ch-layer.ch-points-ctcb .ch-layer-content:before,
 .ch-layer.ch-points-rtrb .ch-layer-content:before {
-	border-bottom-color: #CCCCCC;
+	border-bottom-color: #E5E5E5;
 }
 
 /* Top */
@@ -34,7 +33,7 @@
 .ch-layer.ch-points-lblt .ch-layer-content:before,
 .ch-layer.ch-points-cbct .ch-layer-content:before,
 .ch-layer.ch-points-rbrt .ch-layer-content:before {
-	border-top-color: #CCCCCC;
+	border-top-color: #E5E5E5;
 }
 
 /* Right */
@@ -47,7 +46,7 @@
 .ch-layer.ch-points-ltrt .ch-layer-content:before,
 .ch-layer.ch-points-lmrm .ch-layer-content:before,
 .ch-layer.ch-points-lbrb .ch-layer-content:before {
-	border-right-color: #CCCCCC;
+	border-right-color: #E5E5E5;
 }
 
 /* Left */
@@ -61,7 +60,7 @@
 .ch-layer.ch-points-rtlt .ch-layer-content:before,
 .ch-layer.ch-points-rmlm .ch-layer-content:before,
 .ch-layer.ch-points-rblb .ch-layer-content:before {
-	border-left-color: #CCCCCC;
+	border-left-color: #E5E5E5;
 }
 
 /* Cone Y position */

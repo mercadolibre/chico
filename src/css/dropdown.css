@@ -1,35 +1,28 @@
 /* Wrapper */
-.ch-dropdown,
-.ch-dropdown-skin {
-	display:inline-block;
+.ch-dropdown {
+	display: inline-block;
 }
 
 /* Trigger */
 .ch-dropdown-trigger {
 	cursor: pointer;
-	padding: 0 23px 0 10px;
 	position: relative;
-	display:inline-block;
+	display: inline-block;
 }
 
 /* Trigger Down icon */
 .ch-dropdown-trigger:after {
-	content: " ";
+	font-family: icons;
+	content: "\f0d7";
 	position: absolute;
+	top: 50%;
+	margin-top: -7px;
 	right: 8px;
-	top: 10px;
-	width: 0;
-	height: 0;
-	border: solid transparent;
-	border-top-color: #333;
-	border-width: 4px;
-	margin-left: -4px;
 }
 
 /* Content */
 .ch-dropdown-content {
-	background-color: #fff;
-	/*max-height: 215px;*/
+	background-color: #FFFFFF;
 	min-width: 120px;
 	overflow: auto;
 	white-space: nowrap;
@@ -47,26 +40,24 @@
 
 /* Trigger */
 .ch-dropdown-trigger {
-	font-size: 12px;
-	height: 23px;
-	line-height: 24px;
+	padding-right: 2em;
 }
 
 /* Trigger Actived */
 .ch-dropdown-trigger.ch-dropdown-trigger-on,
 .ch-dropdown-trigger.ch-dropdown-trigger-on:hover {
-	background-color: #C8E5F7;
-	background-image: -webkit-linear-gradient(#A3C9E1, #79B5DC);
-	background-image: -moz-linear-gradient(#A3C9E1, #79B5DC);
-	background-image: -o-linear-gradient(#A3C9E1, #79B5DC);
-	background-image: linear-gradient(#A3C9E1, #79B5DC);
-	-webkit-box-shadow: inset 0px 1px rgba(143, 176, 196, 0.9);
-	box-shadow: inset 0px 1px rgba(143, 176, 196, 0.9);
+	background-color: #A2C9E1;
+	background-image: -webkit-linear-gradient(#A2C9E1, #7DB7DC);
+	background-image: -moz-linear-gradient(#A2C9E1, #7DB7DC);
+	background-image: -o-linear-gradient(#A2C9E1, #7DB7DC);
+	background-image: linear-gradient(#A2C9E1, #7DB7DC);
+	-webkit-box-shadow: inset 0px 1px #9BBED5;
+	box-shadow: inset 0px 1px #9BBED5;
 }
 
 .lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on,
 .lt-ie10 .ch-dropdown-trigger.ch-dropdown-trigger-on:hover {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A3C9E1', endColorstr='#79B5DC');
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A2C9E1', endColorstr='#7DB7DC');
 }
 
 .ch-dropdown-trigger-on.ch-points-ltlb,
@@ -107,21 +98,25 @@
 
 /* Trigger */
 .ch-dropdown-skin .ch-dropdown-trigger {
-	background: #fff !important;
-	border: 1px solid #fff;
+	background: transparent;
+	border: 1px solid transparent;
 	border-width: 0 1px;
 	border-radius: 0;
 	color: #0637B3;
-	font-size: 13px;
-	height: 16px;
-	line-height: 16px;
 	text-decoration: none;
+	padding: 0 1.8em 0 0.833em;
 }
 
 .ch-dropdown-skin .ch-dropdown-trigger:after {
-	top: 6px;
+	color: #999999;
+	margin-top: -10px;
 }
 
+.ch-dropdown-skin .ch-dropdown-trigger.ch-dropdown-trigger-on,
+.ch-dropdown-skin .ch-dropdown-trigger.ch-dropdown-trigger-on:hover {
+	background-color: #FFFFFF;
+	background-image: none;
+}
 
 .lt-ie10 .ch-dropdown-skin .ch-dropdown-trigger,
 .lt-ie10 .ch-dropdown-skin .ch-dropdown-trigger-on,
@@ -136,8 +131,7 @@
 
 /* Trigger ON */
 .ch-dropdown-skin .ch-dropdown-trigger.ch-dropdown-trigger-on {
-	border-color: #ccc;
-	border-width: 0 1px;
+	border-color: #EDEDED;
 	-webkit-box-shadow: 2px 0 0 rgba(100, 100, 100, .1);
 	box-shadow: 2px 0 0 rgba(100, 100, 100, .1);
 	border-radius: 0;
@@ -155,7 +149,7 @@
 
 /* Content */
 .ch-dropdown-skin .ch-dropdown-content {
-	border: 1px solid #ccc;
+	border: 1px solid #EDEDED;
 	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	padding: 5px 30px 5px 10px;
@@ -163,7 +157,7 @@
 
 /* List of links */
 .ch-dropdown-skin .ch-dropdown-content li {
-	list-style: none;	
+	list-style: none;
 }
 
 .ch-dropdown-skin .ch-dropdown-content a {
@@ -181,31 +175,17 @@
 	text-decoration: underline;
 }
 
-
+/* IE */
 .lt-ie8 .ch-dropdown {
 	display: inline;
 	zoom: 1;
-}
-
-.lt-ie7 .ch-dropdown-trigger .ch-dropdown-ico {
-	top: 12px;
-}
-
-/* IE 7 */
-.lt-ie8 .ch-dropdown-trigger {
-	display: inline;
-	zoom: 1;
-	padding: 0 25px 0 10px;
-	line-height: 20px;
 	margin: 0 5px;
 }
 
-.ie7 .ch-dropdown-skin .ch-dropdown-trigger {
-	line-height: 1em;
-	padding-top: 0;
-	padding-bottom: 0;
+.lt-ie8 .ch-dropdown-trigger {
+	display: inline;
+	zoom: 1;
 }
-
 
 .lt-ie8 .ch-dropdown-trigger .ch-dropdown-ico {
 	background: transparent url('../assets/shapes.png') 0 -51px no-repeat;
@@ -217,8 +197,4 @@
 	width: 7px;
 	text-indent: 7px;
 	overflow: hidden;
-}
-
-.lt-ie8 .ch-dropdown-skin .ch-dropdown-ico {
-	top: 6px;
 }

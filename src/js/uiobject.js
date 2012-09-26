@@ -6,7 +6,7 @@
 * @augments ch.Object
 * @requires ch.Cache
 * @memberOf ch
-* @exampleDescription 
+* @exampleDescription
 * @example
 * ch.uiobject.call();
 * @see ch.Object
@@ -28,7 +28,7 @@ ch.uiobject = function(){
 	var that = this;
 
 	var conf = that.conf;
-	
+
 
 /**
 *	Inheritance
@@ -262,7 +262,7 @@ ch.uiobject = function(){
 
 			// Save new data to the cache
 			if (cache) {
-				ch.cache.set(that.source, that.staticContent);
+				ch.cache.set(that.uid, that.staticContent);
 			}
 
 			// First time we need to set the callbacks that append and remove the original content.
@@ -310,7 +310,7 @@ ch.uiobject = function(){
 /**
 *	Public Members
 */
-	
+
 	/**
 	* Component's public scope. In this scope you will find all public members.
 	*/
@@ -351,7 +351,7 @@ ch.uiobject = function(){
 			return that.staticContent;
 		}
 	};
-	
+
 	/**
 	* @borrows ch.Object#trigger as ch.Uiobject#trigger
 	*/
@@ -367,7 +367,7 @@ ch.uiobject = function(){
 	/**
 	* @borrows ch.Object#off as ch.Uiobject#off
 	*/
-	
+
 
 	return that;
 };

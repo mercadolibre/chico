@@ -26,7 +26,7 @@
 * });
 * @exampleDescription
 * Now <code>widget</code> is a reference to the tooltip instance controller.
-* You can set a new content by using <code>widget</code> like this: 
+* You can set a new content by using <code>widget</code> like this:
 * @example
 * widget.width(300);
 */
@@ -44,8 +44,9 @@ ch.tooltip = function (conf) {
 	conf = ch.clon(conf);
 
 	conf.cone = true;
+	conf.classes = conf.classes || "ch-box-lite";
 	conf.content = that.element.title || that.element.alt;
-	
+
 	// Closable configuration
 	conf.closable = false;
 
@@ -98,14 +99,14 @@ ch.tooltip = function (conf) {
 	* @returns itself
 	*/
 	that.innerShow = function (event) {
-		
+
 		// Reset all tooltip, except me
 		$.each(ch.instances.tooltip, function (i, e) {
 			if (e !== that["public"]) {
 				e.hide();
 			}
 		});
-		
+
 		// IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 		that.element[attrReference] = "";
 
@@ -135,8 +136,8 @@ ch.tooltip = function (conf) {
 
 	/**
 	* @borrows ch.Object#uid as ch.Tooltip#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Tooltip#element
 	*/
@@ -184,7 +185,7 @@ ch.tooltip = function (conf) {
 	that.$element
 		.bind("mouseenter", that.innerShow)
 		.bind("mouseleave", that.innerHide);
-	
+
 	/**
 	* Triggers when component is ready to use.
 	* @name ch.Tooltip#ready

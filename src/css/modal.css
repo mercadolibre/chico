@@ -22,26 +22,27 @@
 }
 
 
-.ch-modal h2 {
-    font:20px "Trebuchet MS", Verdana, "DejaVu Sans", sans-serif;
-	border-bottom:1px solid #ccc;
-	padding-bottom:5px;
-	margin-bottom:10px;
+.ch-modal h2:first-of-type,
+.lt-ie9 .ch-modal h2 {
+    font: 20px "Trebuchet MS", Verdana, "DejaVu Sans", sans-serif;
+	border-bottom: 1px solid #EDEDED;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
 }
 
 /* IE */
 .lt-ie7 .ch-dimmer {
-	filter:alpha(opacity=50) !important;
+	filter: alpha(opacity=50) !important;
 	background-color: #000000;
 	width: 150%;
 }
 
-* html.ie6  div.ch-modal, 
+* html.ie6  div.ch-modal,
 * html.ie6 div.ch-transition {
 	z-index: 150;
 }
 
-.ie7 .ch-dimmer, 
+.ie7 .ch-dimmer,
 .ie8 .ch-dimmer {
 	background-color:#000;
 	filter: alpha(opacity=50) !important;

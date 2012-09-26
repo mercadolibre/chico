@@ -51,11 +51,11 @@
 	cursor:default;
 	background-position: 0 -617px;
 	background-repeat:repeat-x;
-	border-bottom:1px solid #FFFFFF;				
+	border-bottom:1px solid #FFFFFF;
 }
 
 .ch-tabNavigator.vertical .ch-tab-on {
-	border-right:1px solid #FFFFFF;				
+	border-right:1px solid #FFFFFF;
 }
 
 /* content */
