@@ -166,7 +166,16 @@
 	util.avoidTextSelection = function () {
 		var args = arguments;
 
-		$.each(args, function(arg){
+		if (arguments.length < 1) {
+			throw new Error('"ch.util.avoidTextSelection(selector)": The selector parameter is required.');
+		}
+
+		$.each(args, function(i, arg){
+
+			if (typeof arg !== 'string') {
+				throw new Error('"ch.util.avoidTextSelection(selector)": The selector must be a string.');
+			}
+
 			if ($.browser.msie) {
 				$(arg).attr('unselectable', 'on');
 			} else if ($.browser.opera) {
@@ -187,6 +196,15 @@
 	 * @see Based on: <a href="http://www.quirksmode.org/dom/getstyles.html" target="_blank">http://www.quirksmode.org/dom/getstyles.html</a>
 	 */
 	util.getStyles = function (el, prop) {
+
+		if (el === undefined || !(el instanceof HTMLElement)) {
+			throw new Error('"ch.util.getStyles(el, prop)": The "el" parameter is required and must be a HTMLElement.');
+		}
+
+		if (prop === undefined || typeof prop !== 'string') {
+			throw new Error('"ch.util.getStyles(el, prop)": The "prop" parameter is required and must be a string.');
+		}
+
 		return window.getComputedStyle(el, '').getPropertyValue(prop);
 	};
 
@@ -198,6 +216,10 @@
 	 * @returns {Boolean}
 	 */
 	util.isTag = function (tag) {
+		if (tag === undefined || typeof tag !== 'string') {
+			throw new Error('"ch.util.isTag(tag)": The "tag" parameter is required and must be a string.');
+		}
+
 		return (/<([\w:]+)/).test(tag);
 	};
 
@@ -209,10 +231,12 @@
 	 * @returns {Boolean}
 	 */
 	util.isSelector = function (selector) {
-		if (typeof selector !== 'string') { return false; }
+		if (selector === undefined || typeof selector !== 'string') {
+			throw new Error('"ch.util.isSelector(selector)": The "selector" parameter is required and must be a string.');
+		}
 		var regex;
 		for (regex in $.expr.match) {
-			if ($.expr.match[regex].test(selector) && !isTag(selector)) {
+			if ($.expr.match[regex].test(selector) && !util.isTag(selector)) {
 				return true;
 			};
 		};
@@ -227,6 +251,9 @@
 	 * @returns {Object}
 	 */
 	util.clone = function (obj) {
+		if (obj === undefined || typeof obj !== 'object') {
+			throw new Error('"ch.util.clone(obj)": The "obj" parameter is required and must be a object.');
+		}
 		var copy = {},
 			prop;
 
@@ -274,6 +301,12 @@
 	 * // foobar: "Some string"
 	 */
 	util.extend = function (obj, destination) {
+		if (obj === undefined || typeof obj !== 'object') {
+			throw new Error('"ch.util.extend(obj, destination)": The "obj" parameter is required and must be a object.');
+		}
+		if (destination === undefined || typeof destination !== 'object') {
+			throw new Error('"ch.util.extend(obj, destination)": The "destination" parameter is required and must be a object.');
+		}
 		var prop;
 		for (prop in obj) {
 			destination[prop] = obj[prop];
@@ -293,6 +326,13 @@
 	 * inherit(obj, parent);
 	 */
 	util.inherits = function (obj, superConstructor) {
+
+		if (obj === undefined || typeof obj !== 'object') {
+			throw new Error('"ch.util.inherits(obj, superConstructor)": The "obj" parameter is required and must be a object.');
+		}
+		if (superConstructor === undefined || typeof superConstructor !== 'object') {
+			throw new Error('"ch.util.inherits(obj, superConstructor)": The "superConstructor" parameter is required and must be a object.');
+		}
 		var child = obj.prototype || {};
 		util.extend(superConstructor.prototype, child);
 		child.super = superConstructor.prototype;
@@ -315,6 +355,12 @@
 	 * require(obj, [foo, bar]);
 	 */
 	util.require = function (obj, deps) {
+		if (obj === undefined || typeof obj !== 'object') {
+			throw new Error('"ch.util.require(obj, deps)": The "obj" parameter is required and must be a object.');
+		}
+		if (deps === undefined || typeof deps !== 'object') {
+			throw new Error('"ch.util.require(obj, deps)": The "deps" parameter is required and must be a object.');
+		}
 		var context = obj.prototype;
 
 		$.each(deps, function (i, dep) {

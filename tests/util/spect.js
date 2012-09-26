@@ -128,6 +128,7 @@ describe('Util', function () {
 			expect(util.isUrl('www.mercadolibre.com?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze')).toBeTruthy();
 			expect(util.isUrl('www.mercado-libre.com')).toBeTruthy();
 			expect(util.isUrl('http://ui.ml.com:8080/ajax.html')).toBeTruthy();
+			//expect(util.isUrl('http://shipping-frontend.mercadolidesa.com.br:8080/envios/showShipments?status=handling%2Cready_to_ship&totalQuantity=&welcomeFlag=true')).toBeTruthy();
 
 		});
 
@@ -159,10 +160,258 @@ describe('Util', function () {
 
 		});
 
+		it('The method must receive a parameter and it must be a string.', function () {
+			expect(function () {
+				util.isUrl();
+			}).toThrow();
 
+			expect(function () {
+				util.isUrl({});
+			}).toThrow();
+
+			expect(function () {
+				util.isUrl('http://ui.ml.com');
+			}).not.toThrow();
+		});
 
 	});
 
+	describe('The avoidTextSelection method', function () {
+
+		it('Should be defined and it should be a function.', function () {
+			expect(util.avoidTextSelection).toBeDefined();
+			expect(typeof util.avoidTextSelection).toEqual('function');
+		});
+
+		it('The method must receive at least a parameter.', function () {
+			expect(function () {
+				util.avoidTextSelection();
+			}).toThrow();
+
+			expect(function () {
+				util.avoidTextSelection({});
+			}).toThrow();
+
+			expect(function () {
+				util.avoidTextSelection({},'.selector-test');
+			}).toThrow();
+
+			expect(function () {
+				util.avoidTextSelection('.selector-test');
+			}).not.toThrow();
+
+		});
+
+	});
+
+	describe('The getStyles method', function () {
+
+		it('Should be defined and it should be a function.', function () {
+			expect(util.getStyles).toBeDefined();
+			expect(typeof util.getStyles).toEqual('function');
+		});
+
+		it('Should get 10px for the value of the body\'s margin-top property.', function () {
+			toTest = document.getElementsByTagName('body')[0];
+			toTest.style.marginTop = '10px';
+			toTest = util.getStyles(toTest, 'margin-top');
+
+			expect(toTest).toEqual('10px');
+		});
+
+		it('The method must receive at least a parameter.', function () {
+			toTest = document.getElementsByTagName('body')[0];
+
+			expect(function () {
+				util.getStyles();
+			}).toThrow();
+
+			expect(function () {
+				util.getStyles({});
+			}).toThrow();
+
+			expect(function () {
+				util.getStyles(toTest, 'margin-top');
+			}).not.toThrow();
+
+		});
+
+	});
+
+	describe('The isTag method', function () {
+
+		it('Should be defined and it should be a function.', function () {
+			expect(util.isTag).toBeDefined();
+			expect(typeof util.isTag).toEqual('function');
+		});
+
+		it('Should be a tag.', function () {
+
+			expect(util.isTag('<input type="text">')).toBeTruthy();
+			expect(util.isTag('<div></div>')).toBeTruthy();
+			expect(util.isTag('<div>foo</div>')).toBeTruthy();
+			expect(util.isTag('<div id="foo"></div>')).toBeTruthy();
+			expect(util.isTag('<div id="foo">foo</div>')).toBeTruthy();
+			expect(util.isTag('<div id="foo"><span>foo</span></div>')).toBeTruthy();
+
+		});
+
+		it('Should not be a tag.', function () {
+
+			expect(util.isTag('<input type="text"')).toBeFalsy();
+			expect(util.isTag('<div')).toBeFalsy();
+
+		});
+
+		it('The method must receive at least a parameter.', function () {
+
+			expect(function () {
+				util.isTag();
+			}).toThrow();
+
+			expect(function () {
+				util.isTag({});
+			}).toThrow();
+
+			expect(function () {
+				util.isTag('foo');
+			}).not.toThrow();
+
+		});
+
+	});
+
+	describe('The isSelector method', function () {
+
+		it('Should be defined and it should be a function.', function () {
+			expect(util.isSelector).toBeDefined();
+			expect(typeof util.isSelector).toEqual('function');
+		});
+
+		it('The method must receive at least a parameter.', function () {
+
+			expect(function () {
+				util.isSelector();
+			}).toThrow();
+
+			expect(function () {
+				util.isSelector({});
+			}).toThrow();
+
+			expect(function () {
+				util.isSelector('foo');
+			}).not.toThrow();
+
+		});
+
+	});
+
+	describe('The clone method', function () {
+
+		it('Should be defined and it should be a function.', function () {
+			expect(util.clone).toBeDefined();
+			expect(typeof util.clone).toEqual('function');
+		});
+
+		it('Should be clone an object.', function () {
+			toTest = {
+				'name': 'test',
+				'age': 1
+			};
+
+			var copy = util. clone(toTest);
+
+			expect(copy.age).toEqual(toTest.age);
+
+			copy.age = 2;
+
+			expect(copy.age).not.toEqual(toTest.age);
+
+		});
+
+		it('The method must receive at least a parameter.', function () {
+
+			expect(function () {
+				util.clone();
+			}).toThrow();
+
+			expect(function () {
+				util.clone('foo');
+			}).toThrow();
+
+			expect(function () {
+				util.clone({});
+			}).not.toThrow();
+
+		});
+
+	});
+
+	describe('The extend method', function () {
+
+		it('Should be defined and it should be a function.', function () {
+			expect(util.extend).toBeDefined();
+			expect(typeof util.extend).toEqual('function');
+		});
+
+		it('The method must receive at least a parameter.', function () {
+
+			expect(function () {
+				util.extend();
+			}).toThrow();
+
+			expect(function () {
+				util.extend({});
+			}).toThrow();
+
+			expect(function () {
+				util.extend('foo', {});
+			}).toThrow();
+
+			expect(function () {
+				util.extend({}, 'foo');
+			}).toThrow();
+
+			expect(function () {
+				util.extend({},{});
+			}).not.toThrow();
+
+		});
+
+	});
+
+	describe('The inherits method', function () {
+
+		it('Should be defined and it should be a function.', function () {
+			expect(util.inherits).toBeDefined();
+			expect(typeof util.inherits).toEqual('function');
+		});
+
+		it('The method must receive at least a parameter.', function () {
+
+			expect(function () {
+				util.inherits();
+			}).toThrow();
+
+			expect(function () {
+				util.inherits({});
+			}).toThrow();
+
+			expect(function () {
+				util.inherits('foo', {});
+			}).toThrow();
+
+			expect(function () {
+				util.inherits({}, 'foo');
+			}).toThrow();
+
+			expect(function () {
+				util.inherits({},{});
+			}).not.toThrow();
+
+		});
+
+	});
 
 });
 
