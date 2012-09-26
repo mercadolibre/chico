@@ -35,7 +35,7 @@ var ch = window.ch = {
 	* @function
 	* @memberOf ch
 	*/
-	init: function() { 
+	init: function() {
 		// unmark the no-js flag on html tag
 		$("html").removeClass("no-js");
 		// check for browser support
@@ -105,21 +105,21 @@ var ch = window.ch = {
 		* @returns boolean
 		*/
 		isUrl: function (url) {
-		/* 
+		/*
 		# RegExp
 
 		https://github.com/mercadolibre/chico/issues/579#issuecomment-5206670
 
 		```javascript
-		1	1.1						   1.2	 1.3  1.4		1.5		  1.6					2					   3 			   4					5
-		/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)(\w+=(\w?)+(&?))+)?$/
+		1	1.1						   1.2	 1.3  1.4		1.5		  1.6					2					   3 			   4					5			5.1						5.2
+		/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?))+)((\?)((\w+)|[%(\d|\w){1,2}]+=(\w?|[%(\d|\w){1,2}]+)+(&?))+)?$/
 		```
 
 		## Description
 		1. Checks for the start of the URL
 			1. if starts with a protocols followed by :// Example: file://chico
 			2. if start with www followed by . (dot) Example: www.chico
-			3. if starts with ./ 
+			3. if starts with ./
 			4. if starts with ../ and can repeat one or more times
 			5. if start with double slash // Example: //chico.server
 			6. if start with an ip address
@@ -129,6 +129,7 @@ var ch = window.ch = {
 		 Zero or one time
 		4. Idem to point two
 		5. QueryString pairs
+		5.1 & 5.2 URL encoded
 
 		## Allowed URLs
 		1. http://www.mercadolibre.com
@@ -147,6 +148,8 @@ var ch = window.ch = {
 		14. www.mercadolibre.com?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze
 		15. www.mercado-libre.com
 		16. http://ui.ml.com:8080/ajax.html
+		17. http://shipping-front.mercado.com.br:8080/envios/showShipments?status=handling%2Cready_to_ship&totalQuantity=&welcomeFlag=true
+		18. http://shipping-front.mercado.com.br:8080/envios/showShipments?sta%2Ctus=handlingready_to_ship&totalQuantity=&welcomeFlag=true
 
 		## Forbiden URLs
 		1. http://
@@ -182,7 +185,7 @@ var ch = window.ch = {
 					$(e).attr('unselectable', 'on');
 				} else if ($.browser.opera) {
 					$(e).bind("mousedown", function(){ return false; });
-				} else { 
+				} else {
 					$(e).addClass("ch-user-no-select");
 				};
 			});
@@ -215,9 +218,9 @@ var ch = window.ch = {
 		// Grab the vendor prefix of the current browser
 		// Based on: http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/
 		"VENDOR_PREFIX": (function () {
-			
+
 			var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
-			
+
 				styleDeclaration = document.getElementsByTagName("script")[0].style;
 
 			for (var prop in styleDeclaration) {
@@ -225,7 +228,7 @@ var ch = window.ch = {
 					return prop.match(regex)[0].toLowerCase();
 				}
 			}
-			
+
 			// Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
 			// However (prop in style) returns the correct value, so we'll have to test for
 			// the precence of a specific property
@@ -242,7 +245,7 @@ var ch = window.ch = {
 * @class Events
 * @memberOf ch
 * @static
-*/	
+*/
 ch.events = {
 	/**
 	* Layout event collection.
@@ -264,7 +267,7 @@ ch.events = {
 		* @see ch.Form
 		* @see ch.Layer
 		* @see ch.Tooltip
-		* @see ch.Helper 
+		* @see ch.Helper
 		*/
 		CHANGE: "change"
 	},
@@ -363,7 +366,7 @@ ch.keyboard = (function () {
 	* @private
 	* @name ch.Keyboard#codeMap
 	* @type object
-	*/ 
+	*/
 	var codeMap = {
 		"13": "ENTER",
 		"27": "ESC",
@@ -384,7 +387,7 @@ ch.keyboard = (function () {
 	};
 }());
 
-/** 
+/**
 * Utility to clone objects
 * @function
 * @name clon
@@ -407,7 +410,7 @@ ch.clon = function(o) {
 };
 
 
-/** 
+/**
 * Class to create UI Components
 * @name Factory
 * @class Factory
@@ -418,7 +421,7 @@ ch.clon = function(o) {
 *		callback: function(){},
 *		[script]: "http://..",
 *		[style]: "http://..",
-*		[callback]: function(){}	
+*		[callback]: function(){}
 *	}
 * @returns collection
 * @memberOf ch
@@ -428,8 +431,8 @@ ch.clon = function(o) {
 ch.factory = function(o) {
 
 	var x = o.component || o;
-	
-	var create = function(x) { 
+
+	var create = function(x) {
 
 		// Send configuration to a component trough options object
 		$.fn[x] = function( options ) {
@@ -439,9 +442,9 @@ ch.factory = function(o) {
 
 			// Could be more than one argument
 			var _arguments = arguments;
-			
+
 			that.each( function(i, e) {
-				
+
 				var conf = options || {};
 
 				var context = {};
@@ -449,33 +452,33 @@ ch.factory = function(o) {
 					context.element = e;
 					context.$element = $(e);
 					context.uid = ch.utils.index += 1; // Global instantiation index
-			
+
 				switch(typeof conf) {
 					// If argument is a number, join with the conf
 					case "number":
 						var num = conf;
 						conf = {};
 						conf.value = num;
-						
+
 						// Could come a messages as a second argument
 						if (_arguments[1]) {
 							conf.msg = _arguments[1];
 						};
 					break;
-					
+
 					// This could be a message
 					case "string":
 						var msg = conf;
 						conf = {};
 						conf.msg = msg;
 					break;
-					
+
 					// This is a condition for custom validation
 					case "function":
 						var func = conf;
 						conf = {};
 						conf.lambda = func;
-						
+
 						// Could come a messages as a second argument
 						if (_arguments[1]) {
 							conf.msg = _arguments[1];
@@ -518,7 +521,7 @@ ch.factory = function(o) {
 			return ( results.length > 1 ) ? results : results[0];
 		};
 
-		// if a callback is defined 
+		// if a callback is defined
 		if ( o.callback ) { o.callback(); }
 
 	} // end create function
@@ -543,7 +546,7 @@ ch.factory = function(o) {
 * Load components or content
 * @name Get
 * @class Get
-* @param {object} o Configuration object 
+* @param {object} o Configuration object
 * @example
 *	o {
 *		component: "chat",
@@ -554,7 +557,7 @@ ch.factory = function(o) {
 * @memberOf ch
 */
 ch.get = function(o) {
-	
+
 	// ch.get: "Should I get a style?"
 	if ( o.style ) {
 		var style = document.createElement('link');
@@ -562,7 +565,7 @@ ch.get = function(o) {
 			style.rel = 'stylesheet';
 			style.type = 'text/css';
 	}
-	// ch.get: "Should I get a script?"		
+	// ch.get: "Should I get a script?"
 	if ( o.script ) {
 		var script = document.createElement("script");
 			script.src = o.script;
@@ -575,7 +578,7 @@ ch.get = function(o) {
 	// Attach handlers for all browsers
 	script.onload = script.onreadystatechange = function() {
 
-		if ( !done && (!this.readyState || 
+		if ( !done && (!this.readyState ||
 			this.readyState === "loaded" || this.readyState === "complete") ) {
 			done = true;
 			// if callback is defined call it
@@ -599,7 +602,7 @@ ch.get = function(o) {
 * @name Support
 * @class Support
 * @returns {object}
-* @memberOf ch 
+* @memberOf ch
 */
 ch.support = function () {
 
@@ -694,7 +697,7 @@ ch.support = function () {
 * ch.extend("string").as("url");
 * @exampleDescription Create an Accordion interface type based on Menu component.
 * @example
-* ch.extend("menu").as("accordion"); 
+* ch.extend("menu").as("accordion");
 * @exampleDescription And the coolest one... Create an Transition interface type based on his Modal component, with some conf manipulations:
 * @example
 * ch.extend("modal").as("transition", function(conf) {
@@ -716,16 +719,16 @@ ch.extend = function (klass) {
 				// Some interfaces need a data value,
 				// others simply need to be 'true'.
 				conf[name] = conf.value || true;
-	
+
 				// Invoke pre-proccess if is defined,
 				// or grab the raw conf argument,
 				// or just create an empty object.
 				conf = (process) ? process(conf) : conf || {};
-	
+
 				// Here we recieve messages,
 				// or create an empty object.
 				conf.messages = conf.messages || {};
-	
+
 				// If the interface recieve a 'msg' argument,
 				// store it in the message map.
 				if (ch.utils.hasOwn(conf, "msg")) {
