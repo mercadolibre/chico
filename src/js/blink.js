@@ -5,9 +5,9 @@
 * @memberOf ch
 * @param {Object} conf Configuration object
 * @param {number} [conf.time] Amount of time to blink in milliseconds
-* @returns jQuery Object 
+* @returns jQuery Object
 * @factorized
-* @exampleDescription Blinks a element.  
+* @exampleDescription Blinks a element.
 * @example
 * var widget = $(".example").blink();
 */
@@ -15,36 +15,40 @@ ch.blink = function (conf) {
 
 	var that = this,
 		// Hex start level toString(16).
-		level = 1, 
+		level = 1,
 		// Time, 200 miliseconds by default.
-		t = conf.time || 200,
-		// Inner highlighter.
-		highlight = function (e) {
-			// Let know everyone we are active.
-			that.$element.addClass("ch-active").attr("role","alert").attr("aria-live","polite");
-			// Color iteration.
-			function step () {
-				// New hex level.
-				var h = level.toString(16);
-				// Change background-color, redraw().
-				e.style.backgroundColor = '#FFFF' + h + h;
-				// Itearate for all hex levels.
-				if (level < 15) {
-					// Increment hex level.
-					level += 1;
-					// Inner recursion.
-					setTimeout(step, t);
-				} else {
-					// Stop right there...
-					that.$element.removeClass("ch-active").attr("aria-live","off").removeAttr("role");
-				}
-			};
+		t = conf.time || 200;
+
+	// Inner highlighter.
+	function highlight () {
+		// Let know everyone we are active.
+		that.$element.addClass("ch-blink").attr("role","alert").attr("aria-live","polite");
+
 		// Begin steps.
 		setTimeout(step, t);
-	}
+	};
+
+	// Color iteration.
+	function step () {
+		// New hex level.
+		var h = level.toString(16);
+		// Change background-color, redraw().
+		that.element.style.backgroundColor = '#FFFF' + h + h;
+		// Itearate for all hex levels.
+		if (level < 15) {
+			// Increment hex level.
+			level += 1;
+			// Inner recursion.
+			setTimeout(step, t);
+		} else {
+			// Stop right there...
+			that.$element.removeClass("ch-blink").attr("aria-live","off").removeAttr("role");
+		}
+	};
+
 	// Start a blink if the element isn't active.
-	if (!that.$element.hasClass("ch-active")) {
-		highlight(that.element);
+	if (!that.$element.hasClass("ch-blink")) {
+		highlight();
 	}
 	// Return the element so keep chaining things.
 	return that.$element;
