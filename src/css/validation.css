@@ -1,13 +1,11 @@
 .ch-validation {
-	color: #600;
-	font-size: 12px;
+	border: 1px solid #FCDDDF;
 	display: inline-block;
-	width: 160px;
-	border-radius: 3px;
 	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
-	margin-bottom:10px;
+	margin-bottom: 10px;
 	padding: 2px 5px 2px 25px;
+	width: 160px;
 }
 
 /* Box Messages icons */
@@ -27,12 +25,12 @@
 .ch-validation.ch-points-ltlb .ch-validation-content:after,
 .ch-validation.ch-points-ctcb .ch-validation-content:after,
 .ch-validation.ch-points-rtrb .ch-validation-content:after {
-	border-bottom-color: #FBD9DB;
+	border-bottom-color: #FDECED;
 }
 .ch-validation.ch-points-ltlb .ch-validation-content:before,
 .ch-validation.ch-points-ctcb .ch-validation-content:before,
 .ch-validation.ch-points-rtrb .ch-validation-content:before {
-	border-bottom-color: #F7A9AE;
+	border-bottom-color: #F2D6D9;
 }
 
 /* Top */
@@ -40,12 +38,12 @@
 .ch-validation.ch-points-lblt .ch-validation-content:after,
 .ch-validation.ch-points-cbct .ch-validation-content:after,
 .ch-validation.ch-points-rbrt .ch-validation-content:after {
-	border-top-color: #FBD9DB;
+	border-top-color: #FDECED;
 }
 .ch-validation.ch-points-lblt .ch-validation-content:before,
 .ch-validation.ch-points-cbct .ch-validation-content:before,
 .ch-validation.ch-points-rbrt .ch-validation-content:before {
-	border-top-color: #F7A9AE;
+	border-top-color: #F2D6D9;
 }
 
 /* Right */
@@ -53,12 +51,12 @@
 .ch-validation.ch-points-ltrt .ch-validation-content:after,
 .ch-validation.ch-points-lmrm .ch-validation-content:after,
 .ch-validation.ch-points-lbrb .ch-validation-content:after {
-	border-right-color: #FBD9DB;
+	border-right-color: #FDECED;
 }
 .ch-validation.ch-points-ltrt .ch-validation-content:before,
 .ch-validation.ch-points-lmrm .ch-validation-content:before,
 .ch-validation.ch-points-lbrb .ch-validation-content:before {
-	border-right-color: #F7A9AE;
+	border-right-color: #F2D6D9;
 }
 
 /* Left */
@@ -66,13 +64,13 @@
 .ch-validation.ch-points-rtlt .ch-validation-content:after,
 .ch-validation.ch-points-rmlm .ch-validation-content:after,
 .ch-validation.ch-points-rblb .ch-validation-content:after {
-	border-left-color: #FBD9DB;
+	border-left-color: #FDECED;
 }
 
 .ch-validation.ch-points-rtlt .ch-validation-content:before,
 .ch-validation.ch-points-rmlm .ch-validation-content:before,
 .ch-validation.ch-points-rblb .ch-validation-content:before {
-	border-left-color: #F7A9AE;
+	border-left-color: #F2D6D9;
 }
 
 /* IE 6,7 */

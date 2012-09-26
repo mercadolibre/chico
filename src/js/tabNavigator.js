@@ -44,7 +44,7 @@ ch.tabNavigator = function (conf) {
 *	Private Members
 */
 
-	// Add CSS class to the main element 
+	// Add CSS class to the main element
 	that.$element.addClass("ch-tabNavigator");
 
 	/**
@@ -79,10 +79,10 @@ ch.tabNavigator = function (conf) {
 	* @function
 	*/
 		createTabs = function () {
-	
+
 			// Children
 			that.$triggers.find("a").each(function (i, e) {
-	
+
 				// Tab context
 				var tab = {};
 					tab.uid = that.uid + "#" + i;
@@ -90,14 +90,14 @@ ch.tabNavigator = function (conf) {
 					tab.element = e;
 					tab.$element = $(e);
 					tab.controller = that["public"];
-	
+
 				// Tab configuration
 				var config = {};
 					config.open = (selected === i);
 					config.onShow = function () { selected = i; };
-				
+
 				if (ch.utils.hasOwn(that.conf, "cache")) { config.cache = that.conf.cache; }
-	
+
 				/**
 				* Fired when the content of one dynamic tab loads.
 				* @name ch.TabNavigator#contentLoad
@@ -105,7 +105,7 @@ ch.tabNavigator = function (conf) {
 				* @public
 				*/
 				if (ch.utils.hasOwn(that.conf, "onContentLoad")) { config.onContentLoad = that.conf.onContentLoad; }
-				
+
 				/**
 				* Fired when the content of one dynamic tab did not load.
 				* @name ch.TabNavigator#contentError
@@ -113,20 +113,20 @@ ch.tabNavigator = function (conf) {
 				* @public
 				*/
 				if (ch.utils.hasOwn(that.conf, "onContentError")) { config.onContentError = that.conf.onContentError; }
-	
+
 				// Create Tabs
 				that.children.push(ch.tab.call(tab, config));
-	
+
 				// Bind new click to have control
 				$(e).on("click", function (event) {
 					that.prevent(event);
 					select(i);
 				});
-	
+
 			});
-	
+
 			return;
-	
+
 		},
 
 	/**
@@ -156,10 +156,10 @@ ch.tabNavigator = function (conf) {
 
 			// Updated selected index
 			selected = index;
-	
+
 			//Change location hash
 			window.location.hash = "#!/" + tab.$content.attr("id");
-	
+
 			/**
 			* Fired when a tab is selected.
 			* @name ch.TabNavigator#select
@@ -167,11 +167,11 @@ ch.tabNavigator = function (conf) {
 			* @public
 			*/
 			that.trigger("select");
-			
+
 			// Callback
 			that.callbacks("onSelect");
 
-			return that;			
+			return that;
 		};
 
 /**
@@ -200,8 +200,8 @@ ch.tabNavigator = function (conf) {
 
 	/**
 	* @borrows ch.Object#uid as ch.TabNavigator#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.TabNavigator#element
 	*/
@@ -262,8 +262,9 @@ ch.tabNavigator = function (conf) {
 	// Shows the first tab if not hash or it's hash and it isn't from the current tab
 	if( !hash || ( hash && !hashed ) ){
 		that.children[0].innerShow();
+		selected = 0;
 	}
-	
+
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.TabNavigator#ready
@@ -330,7 +331,7 @@ ch.tab = function (conf) {
 	* @ignore
 	*/
 	var createContent = function () {
-		
+
 		var href = that.element.href.split("#"),
 			controller = that.$element.parents(".ch-tabNavigator"),
 			content = controller.find("#" + href[1]);
@@ -392,7 +393,7 @@ ch.tab = function (conf) {
 
 		that.active = true;
 
-		// Load my content if I'need an ajax request 
+		// Load my content if I'need an ajax request
 		if (ch.utils.hasOwn(that, "source")) { that.content(); }
 
 		// Show me
@@ -418,7 +419,7 @@ ch.tab = function (conf) {
 		that.prevent(event);
 
 		if (!that.active) { return; }
-		
+
 		that.active = false;
 
 		// Hide me
@@ -469,7 +470,7 @@ ch.tab = function (conf) {
 
 		// Reset content configuration
 		that.source = originalSource;
-		
+
 		that.staticContent = undefined;
 
 	});
@@ -481,7 +482,7 @@ ch.tab = function (conf) {
 /**
 *	Default event delegation
 */
-	
+
 	// Add the attributes for WAI-ARIA to the tabs and tabpanel
 	// By default is hidden
 	that.$content.attr({
@@ -495,6 +496,6 @@ ch.tab = function (conf) {
 		"arial-controls": that.$content.attr("id"),
 		"class": "ch-tab-trigger"
 	});
-		
+
 	return that;
 }

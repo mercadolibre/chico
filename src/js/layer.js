@@ -24,7 +24,7 @@
 * @exampleDescription To create a ch.Layer you have to give a selector.
 * @example
 * var widget = $(".some-element").layer("<tag>Some content.</tag>");
-* @exampleDescription ch.Layer component can receive a parameter. It is a literal object { }, with the properties you want to configurate. 
+* @exampleDescription ch.Layer component can receive a parameter. It is a literal object { }, with the properties you want to configurate.
 * @example
 * var conf = {
 *     "width": 200,
@@ -57,18 +57,18 @@ ch.layer = function (conf) {
 	*/
 	var that = this;
 	conf = ch.clon(conf);
-	
+
 	conf.cone = true;
-	conf.classes = conf.classes || "ch-box";
+	conf.classes = conf.classes || "ch-box-lite";
 
 	// Closable configuration
 	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : (conf.event === "click");
 	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
-	
+
 	conf.aria = {};
 	conf.aria.role = "tooltip";
 	conf.aria.identifier = "aria-describedby";
-	
+
 	conf.position = {};
 	conf.position.context = that.$element;
 	conf.position.offset = conf.offset || "0 10";
@@ -114,9 +114,9 @@ ch.layer = function (conf) {
 		hideTimer = function (event) {
 			if (conf.event !== "click") {
 				var target = event.srcElement || event.target;
-				
+
 				var relatedTarget = event.relatedTarget || event.toElement;
-				
+
 				if (relatedTarget === null || target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") {
 					return;
 				}
@@ -151,7 +151,7 @@ ch.layer = function (conf) {
 				e.hide();
 			}
 		});
-		
+
 		// conf.position.context = that.$element;
 		that.parent.innerShow(event);
 
@@ -171,14 +171,14 @@ ch.layer = function (conf) {
 	*/
 	that.innerHide = function (event) {
 		that.$container.unbind("mouseleave", hideTimer);
-		
+
 		that.parent.innerHide(event);
 	}
 
 /**
 *	Public Members
 */
-	
+
 	/**
 	* @borrows ch.Object#on as ch.Layer#on
 	*/
@@ -209,7 +209,7 @@ ch.layer = function (conf) {
 	* @public
 	* @since 0.8.0
 	* @exampleDescription Following the first example, using <code>widget</code> as layer's instance controller:
-	* @example 	
+	* @example
 	* widget.on("ready",function () {
 	*	this.show();
 	* });

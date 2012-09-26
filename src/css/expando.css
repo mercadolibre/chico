@@ -1,9 +1,9 @@
 /* Trigger */
 .ch-expando-trigger{
-	color:#0637B3;
-	cursor:pointer;
-	position:relative;
-	padding-left:16px;
+	color: #0637B3;
+	cursor: pointer;
+	position: relative;
+	padding-left: 16px;
 }
 
 /* Active trigger */
@@ -13,7 +13,7 @@
 
 /* Visited trigger */
 .ch-expando-trigger:visited{
-	color:#800080;
+	color: #800080;
 }
 
 /* Hover trigger */
@@ -24,17 +24,17 @@
 /* Trigger icon */
 .ch-expando-trigger:after {
 	font-family: icons;
-	content: "\f054";
+	content: "\f0da";
 	position:absolute;
 	top: 2px;
 	left: 5px;
-	color: #666666;
+	color: #999999;
 	text-decoration: none;
 }
 
 /* Trigger icon on */
 .ch-expando-trigger-on:after {
-	content: "\f078";
+	content: "\f0d7";
 	left: 2px;
 }
 
@@ -43,13 +43,12 @@
 	margin: 5px 0 0 16px;
 }
 
-/* IE 6 */
+/* IE */
 .lt-ie7 .ch-expando-trigger {
 	font-size:13px;
 	text-decoration: underline;
 }
 
-/* IE 7 */
 .ie7 .ch-expando-trigger{
 	font-size:13px;
 }
