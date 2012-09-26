@@ -30,8 +30,7 @@
 .ch-bellows-trigger:hover,
 .ch-menu .ch-expando-trigger:hover,
 .ch-menu .ch-expando-content a:hover,
-.ch-accordion .ch-expando-trigger:hover,
-.ch-accordion .ch-expando-content a:hover {
+.ch-accordion .ch-expando-trigger:hover {
 	background-color: #FDF9D5;
 	border-radius: 5px;
 }
