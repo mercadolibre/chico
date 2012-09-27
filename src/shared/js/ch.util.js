@@ -172,9 +172,9 @@
 
 		$.each(args, function(i, arg){
 
-			if (typeof arg !== 'string') {
+			/*if (typeof arg !== 'string') {
 				throw new Error('"ch.util.avoidTextSelection(selector)": The selector must be a string.');
-			}
+			}*/
 
 			if ($.browser.msie) {
 				$(arg).attr('unselectable', 'on');
@@ -368,6 +368,41 @@
 		});
 
 	};
+
+	/**
+	 * Reference to the vendor prefix of the current browser.
+	 * @private
+	 * @constant
+	 * @type {String}
+	 * @see <a href="http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/" target="_blank">http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/</a>
+	 */
+	util.VENDOR_PREFIX = (function () {
+
+		var regex = /^(Webkit|Khtml|Moz|ms|O)(?=[A-Z])/,
+			styleDeclaration = document.getElementsByTagName('script')[0].style,
+			prop;
+
+		for (prop in styleDeclaration) {
+			if (regex.test(prop)) {
+				return prop.match(regex)[0].toLowerCase();
+			}
+		}
+
+		// Nothing found so far? Webkit does not enumerate over the CSS properties of the style object.
+		// However (prop in style) returns the correct value, so we'll have to test for
+		// the precence of a specific property
+		if ('WebkitOpacity' in styleDeclaration) { return 'webkit'; }
+		if ('KhtmlOpacity' in styleDeclaration) { return 'khtml'; }
+
+		return '';
+	}());
+
+	/**
+	 * zIndex values.
+	 * @private
+	 * @type {Number}
+	 */
+	util.zIndex = 1000;
 
 	exports.util = util;
 }());
