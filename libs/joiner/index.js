@@ -172,7 +172,7 @@
 	 */
 	Joiner.prototype.run = function (pack, min) {
 		// Get all the package data (sources and template)
-		pack = self.conf.concat[pack];
+		pack = this.conf.concat[pack];
 
 		var self = this,
 			// Separate sources from package
