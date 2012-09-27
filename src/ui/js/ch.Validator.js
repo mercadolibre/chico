@@ -22,7 +22,7 @@ ch.validator = function(conf) {
 	*/
 	var that = this;
 	conf = ch.clon(conf);
-	that.conf = conf;	
+	that.conf = conf;
 
 /**
 * Inheritance
@@ -94,7 +94,7 @@ ch.validator = function(conf) {
 			* @name ch.Validator#beforeValidate
 			* @event
 			* @public
-			* @exampleDescription 
+			* @exampleDescription
 			* @example
 			* widget.on("beforeValidate",function(){
 			*	submitButton.disable();
@@ -180,9 +180,9 @@ ch.validator = function(conf) {
 	* @see ch.Condition
 	*/
 	var test = function(condition, value){
-		
+
 		if (value === "" && condition !== "required") { return true };
-		
+
 		var isOk = false,
 			// this is the validation
 			validation = this || window,
@@ -191,7 +191,7 @@ ch.validator = function(conf) {
 		isOk = condition.test.call(validation, value);
 
 		return isOk;
-		
+
 	};
 
 /**
@@ -220,8 +220,8 @@ ch.validator = function(conf) {
 
 	/**
 	* @borrows ch.Object#uid as ch.TabNavigator#uid
-	*/	
-	
+	*/
+
 	/**
 	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 	* @public

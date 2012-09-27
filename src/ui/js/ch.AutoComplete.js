@@ -18,7 +18,7 @@
 *     "message": "Write..."
 * });
 */
- 
+
 ch.autoComplete = function(conf){
 
 	/**
@@ -28,23 +28,23 @@ ch.autoComplete = function(conf){
 	* @type object
 	*/
 	var that = this;
-		
+
 	conf = ch.clon(conf);
 	conf.icon = false;
 	conf.type = "autoComplete";
 	conf.message = conf.message || "Please write to be suggested";
 	conf.suggestions = conf.suggestions;
 	conf.jsonpCallback = conf.jsonpCallback || "autoComplete";
-	
+
 	that.conf = conf;
-		
+
 /**
 *	Inheritance
 */
-	
+
 	that = ch.controls.call(that);
 	that.parent = ch.clon(that);
-	
+
 /**
 *  Private Members
 */
@@ -60,7 +60,7 @@ ch.autoComplete = function(conf){
 
 		if (that.selected === (arrow === "bottom" ? that.items.length - 1 : 0)) { return; }
 		$(that.items[that.selected]).removeClass("ch-autoComplete-selected");
-		
+
 		if (arrow === "bottom") { that.selected += 1; } else { that.selected -= 1; }
 		$(that.items[that.selected]).addClass("ch-autoComplete-selected");
 	};
@@ -116,7 +116,7 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#items
 	*/
 	that.items = [];
-	
+
 	/**
 	* Reference to the Float component instanced.
 	* @protected
@@ -163,7 +163,7 @@ ch.autoComplete = function(conf){
 			that["float"].innerHide();
 			return that;
 		}
-			
+
 		// Only one result and the same as the input hide float and doesn't anything
 		if (result.length===1 && result[0]===that.element.value) {
 			that.loading(false);
@@ -179,13 +179,13 @@ ch.autoComplete = function(conf){
 		that.trigger("contentUnload");
 		that.$content.html(list);
 		that.selected = -1;
-		
+
 		that["float"].content(that.$content);
-		
+
 		that.trigger("contentLoaded");
-		
+
 		that.items = that.$content.children();
-		
+
 		// Adds only once the behavior
 		if (!that.behaviorActived) {
 			that.suggestionsBehavior(event);
@@ -242,7 +242,7 @@ ch.autoComplete = function(conf){
 	*/
 	that.suggestionsBehavior = function(event){
 		// BACKSPACE key bheavior. When backspace go to the start show the message
-		ch.utils.document.on(ch.events.KEY.BACKSPACE, function (x, event) {
+		ch.utils.document.on(ch.events.KEY.BACKSPACE + ".autoComplete", function (x, event) {
 
 			// When the user make backspace with empty input autocomplete is shutting off
 			if(that.element.value.length===0){
@@ -257,14 +257,14 @@ ch.autoComplete = function(conf){
 			}
 
 		})
-		// ESC key behavior, it closes the suggestions's list 
-		.on(ch.events.KEY.ESC, function (x, event) { that.$element.trigger("blur"); })
+		// ESC key behavior, it closes the suggestions's list
+		.on(ch.events.KEY.ESC + ".autoComplete", function (x, event) { that.$element.trigger("blur"); })
 		// ENTER key behavior, it selects the item who is selected
-		.on(ch.events.KEY.ENTER, function (x, event) { that.$element.val($(that.items[that.selected]).text()); that.$element.trigger("blur"); })
+		.on(ch.events.KEY.ENTER + ".autoComplete", function (x, event) { that.$element.val($(that.items[that.selected]).text()); that.$element.trigger("blur"); })
 		// UP ARROW key behavior, it selects the previous item
-		.on(ch.events.KEY.UP_ARROW, function (x, event) { selectItem("up", event); })
+		.on(ch.events.KEY.UP_ARROW + ".autoComplete", function (x, event) { selectItem("up", event); })
 		// DOWN ARROW key behavior, it selects the next item
-		.on(ch.events.KEY.DOWN_ARROW, function (x, event) { selectItem("bottom", event); });
+		.on(ch.events.KEY.DOWN_ARROW + ".autoComplete", function (x, event) { selectItem("bottom", event); });
 		// MouseOver & MouseDown Behavior
 		that["float"].$content.on("mouseover mousedown",function(evt){
 			var event = evt || window.event;
@@ -278,14 +278,14 @@ ch.autoComplete = function(conf){
 					// selects the correct item
 					that.selected = parseInt(target.getAttribute("data-index"));
 					// adds the class to highlight the item
-					$(that.items[that.selected]).addClass("ch-autoComplete-selected");	
-				} 
+					$(that.items[that.selected]).addClass("ch-autoComplete-selected");
+				}
 				// mouse down behavior
 				if(type === "mousedown") {
 					that.prevent(event);
 					that.$element.val($(that.items[that.selected]).text());
 					that.$element.trigger("blur");
-				}		
+				}
 			}
 		});
 	}
@@ -302,7 +302,7 @@ ch.autoComplete = function(conf){
 		var query = that.element.value;
 		that.doQuery(event);
 		// Global keyup behavior
-		ch.utils.document.on("keyup", function (event) {that.doQuery(event);  });
+		ch.utils.document.on("keyup.autoComplete", function (event) {that.doQuery(event);  });
 		//that.$content.html("");
 
 		return that;
@@ -318,7 +318,7 @@ ch.autoComplete = function(conf){
 		that.trigger("hide");
 		that.behaviorActived = false;
 		that.$content.off("mouseover mousedown");
-		ch.utils.document.off("keyup " + ch.events.KEY.ENTER + " " + ch.events.KEY.ESC + " " + ch.events.KEY.UP_ARROW + " " + ch.events.KEY.DOWN_ARROW + " " + ch.events.KEY.BACKSPACE);
+		ch.utils.document.off(".autoComplete");
 		that["float"].innerHide();
 		return that;
 	}
@@ -331,10 +331,10 @@ ch.autoComplete = function(conf){
 	*/
 	that.configBehavior = function () {
 		that.$element
-			.bind("focus", function (event) { 				
+			.bind("focus", function (event) {
 				that.show(event);
 			})
-			.bind("blur", function (event) { 
+			.bind("blur", function (event) {
 				that.hide(event);
 			})
 			.attr("autocomplete","off")
@@ -345,11 +345,11 @@ ch.autoComplete = function(conf){
 /**
 *  Public Members
 */
- 
+
 	/**
 	* @borrows ch.Object#uid as ch.Menu#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Menu#element
 	*/
@@ -357,7 +357,7 @@ ch.autoComplete = function(conf){
 	/**
 	* @borrows ch.Object#type as ch.Menu#type
 	*/
-	
+
 	/**
 	* Shows component's content.
 	* @public
@@ -376,7 +376,7 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#hide
 	* @function
 	* @returns itself
-	*/	
+	*/
 	that["public"].hide = function(){
 		that.hide(ch.events.KEY.ESC);
 		return that["public"];
@@ -388,26 +388,26 @@ ch.autoComplete = function(conf){
 	* @name ch.AutoComplete#suggest
 	* @function
 	* @returns itself
-	*/	
+	*/
 	that["public"].suggest = function(data){
 		that.suggestions = data;
 		that.populateContent(window.event,that.suggestions);
 		return that["public"];
 	};
 
-	
+
 	//Fills the Float with the message.
 	//that.populateContent([that.conf.message]);
 
 /**
 *  Default event delegation
-*/	
+*/
 	that.configBehavior();
-	
+
 	/*that["float"].on("ready", function () {
 		that["float"]["public"].width((that.$element.outerWidth()));
 	});*/
-	
+
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.AutoComplete#ready

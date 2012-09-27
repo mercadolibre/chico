@@ -53,17 +53,17 @@ ch.modal = function (conf) {
 
 	// Closable configuration
 	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : true;
-	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
-	
+	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : "button";
+
 	conf.aria = {};
-	
+
 	if (conf.closeButton) {
 		conf.aria.role = "dialog";
 		conf.aria.identifier = "aria-label";
 	} else {
 		conf.aria.role = "alert";
 	}
-	
+
 	that.conf = conf;
 
 /**
@@ -104,10 +104,10 @@ ch.modal = function (conf) {
 				.appendTo(ch.utils.body)
 				.fadeIn();
 
-			/*if (that.type === "modal") {
+			if (conf.closable) {
 				$dimmer.one("click", function (event) { that.innerHide(event) });
-			}*/
-			
+			}
+
 			// TODO: position dimmer with Positioner
 			if (!ch.features.fixed) {
 			 	ch.positioner({ element: $dimmer });
@@ -159,7 +159,7 @@ ch.modal = function (conf) {
 	};
 
 	/**
-	* Returns any if the component closes automatic. 
+	* Returns any if the component closes automatic.
 	* @protected
 	* @name ch.Modal#closable
 	* @function
@@ -172,8 +172,8 @@ ch.modal = function (conf) {
 
 	/**
 	* @borrows ch.Object#uid as ch.Modal#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Modal#element
 	*/
@@ -219,9 +219,9 @@ ch.modal = function (conf) {
 */
 
 	if (that.element.tagName === "INPUT" && that.element.type === "submit") {
-		that.$element.parents("form").bind("submit", function (event) { that.innerShow(event); });
+		that.$element.parents("form").on("submit", function (event) { that.innerShow(event); });
 	} else {
-		that.$element.bind("click", function (event) { that.innerShow(event); });
+		that.$element.on("click", function (event) { that.innerShow(event); });
 	}
 
 	/**
@@ -244,7 +244,7 @@ ch.factory("modal");
 
 
 /**
-* Transition lets you give feedback to the users when their have to wait for an action. 
+* Transition lets you give feedback to the users when their have to wait for an action.
 * @name Transition
 * @class Transition
 * @interface
@@ -282,10 +282,10 @@ ch.factory("modal");
 ch.extend("modal").as("transition", function (conf) {
 
 	conf.closable = false;
-	
+
 	conf.msg = conf.msg || conf.content || "Please wait...";
-	
-	conf.content = $("<div class=\"ch-loading\"></div><p>" + conf.msg + "</p>");
-	
+
+	conf.content = $("<div class=\"ch-loading-big\"></div><p>" + conf.msg + "</p>");
+
 	return conf;
 });

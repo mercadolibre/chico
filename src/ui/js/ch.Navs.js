@@ -20,7 +20,7 @@ ch.navs = function () {
 	* @private
 	* @name ch.Navs#that
 	* @type object
-	*/ 
+	*/
 	var that = this,
 		conf = that.conf;
 
@@ -34,7 +34,7 @@ ch.navs = function () {
 
 	that = ch.uiobject.call(that);
 	that.parent = ch.clon(that);
-	
+
 /**
 *	Protected Members
 */
@@ -53,7 +53,7 @@ ch.navs = function () {
 	* @type jQuery
 	*/
 	that.$trigger = that.$element.children().eq(0);
-	
+
 	/**
 	* The component's content.
 	* @private
@@ -74,7 +74,7 @@ ch.navs = function () {
 		if (that.active) {
 			return that.innerHide(event);
 		}
-		
+
 		that.active = true;
 
 		that.$trigger.addClass("ch-" + that["type"] + "-trigger-on");
@@ -100,7 +100,7 @@ ch.navs = function () {
 		}
 
 		that.$content.removeClass("ch-hide");
-		
+
 		return that;
 	};
 
@@ -113,11 +113,11 @@ ch.navs = function () {
 	*/
 	that.innerHide = function (event) {
 		that.prevent(event);
-		
+
 		if (!that.active) { return; }
-		
+
 		that.active = false;
-		
+
 		that.$trigger.removeClass("ch-" + that["type"] + "-trigger-on");
 		/**
 		* onHide callback function
@@ -137,7 +137,7 @@ ch.navs = function () {
 		}
 
 		that.$content.addClass("ch-hide");
-		
+
 		return that;
 	};
 
@@ -184,7 +184,7 @@ ch.navs = function () {
 	* @function
 	* @name ch.Navs#hide
 	* @returns itself
-	*/	
+	*/
 	that["public"].hide = function(){
 		that.innerHide();
 		return that["public"];
@@ -200,7 +200,7 @@ ch.navs = function () {
 	that["public"].isActive = function () {
 		return that.active;
 	};
-	
+
 /**
 *	Default event delegation
 */

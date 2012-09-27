@@ -32,13 +32,13 @@ ch.countdown = function (conf) {
 	* @type Object
 	*/
 	var that = this;
-	
+
 	conf = ch.clon(conf);
 
 	// Configuration by default
 	// Max length of content
 	conf.max = parseInt(conf.max) || conf.value || parseInt(conf.msg) || 500;
-	
+
 	// Messages
 	conf.plural = conf.plural || "# characters left.";
 	conf.singular = conf.singular || "# character left.";
@@ -62,7 +62,7 @@ ch.countdown = function (conf) {
 	* @type Number
 	*/
 	var contentLength = that.element.value.length,
-	
+
 	/**
 	* Amount of free characters until full the field.
 	* @private
@@ -70,7 +70,7 @@ ch.countdown = function (conf) {
 	* @type Number
 	*/
 		remaining = conf.max - contentLength,
-	
+
 	/**
 	* Change the visible message of remaining characters.
 	* @private
@@ -79,30 +79,30 @@ ch.countdown = function (conf) {
 	* @param num {Number} Remaining characters.
 	*/
 		updateRemaining = (function () {
-			
+
 			// Singular or Plural message depending on amount of remaining characters
 			var message = (remaining === 1) ? conf.singular : conf.plural,
-			
+
 			// Append to container to allow icon aside inputs
 				$container = that.$element.parent();
 
 			// Create the DOM Element when message will be shown
 				$display = $("<p class=\"ch-form-hint\">" + message.replace("#", remaining) + "</p>").appendTo($container);
-			
+
 			// Real function
 			return function (num) {
-				
+
 				// Singular or Plural message depending on amount of remaining characters
 				var message = (num !== 1 ? conf.plural : conf.singular).replace(/\#/g, num);
-				
+
 				// Update DOM text
 				$display.text(message);
-				
+
 				// Update amount of remaining characters
 				remaining = num;
-				
+
 			};
-		
+
 		}());
 
 /**
@@ -118,24 +118,24 @@ ch.countdown = function (conf) {
 	that.process = function () {
 
 		var len = that.element.value.length;
-		
+
 		// Countdown or Countup
 		if ((len > contentLength && len <= conf.max) || (len < contentLength && len >= 0)) {
-			
+
 			// Change visible message of remaining characters
 			updateRemaining(remaining - (len - contentLength));
-			
+
 			// Update length of value of form control.
 			contentLength = len;
-		
+
 		// Limit Count
 		} else if (len > contentLength && len > conf.max) {
-			
+
 			// Cut the string value of form control
 			that.element.value = that.element.value.substr(0, conf.max);
-			
+
 		};
-		
+
 	};
 
 
@@ -145,8 +145,8 @@ ch.countdown = function (conf) {
 
 	/**
 	* @borrows ch.Object#uid as ch.Menu#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Menu#element
 	*/
@@ -161,7 +161,7 @@ ch.countdown = function (conf) {
 
 	// Bind process function to element
 	that.$element.on("keyup keypress paste", function () { setTimeout(that.process, 0); });
-	
+
 	/**
 	* Triggers when component is ready to use.
 	* @name ch.Countdown#ready

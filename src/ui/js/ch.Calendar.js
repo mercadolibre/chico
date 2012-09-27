@@ -1,5 +1,5 @@
 /**
-* Calendar shows months, and lets you move across the months of the year. Calendar lets you set one or many dates as selected. 
+* Calendar shows months, and lets you move across the months of the year. Calendar lets you set one or many dates as selected.
 * @name Calendar
 * @class Calendar
 * @augments ch.Uiobject
@@ -40,7 +40,7 @@ ch.calendar = function (conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
-	
+
 	// Format by default
 	conf.format = conf.format || "DD/MM/YYYY";
 
@@ -180,7 +180,7 @@ ch.calendar = function (conf) {
 
 			return result.join("/");
 		},
-	
+
 	/**
 	* The current date that should be shown on Calendar.
 	* @private
@@ -188,7 +188,7 @@ ch.calendar = function (conf) {
 	* @type Object
 	*/
 		currentDate = today,
-	
+
 	/**
 	* Sets the date object of selected day.
 	* @private
@@ -196,19 +196,19 @@ ch.calendar = function (conf) {
 	* @type Object
 	*/
 		setSelected = function () {
-			
+
 			// Get date from configuration or input value
 			var sel = conf.selected || conf.msg;
-			
+
 			// Do it only if there are a "selected" parameter
 			if (!sel) { return; }
-			
+
 			// Simple date selection
 			if (!ch.utils.isArray(sel)) {
 
 				// Return date object and update currentDate
 				return (sel !== "today") ? currentDate = createDateObject(sel) : today;
-				
+
 			// Multiple date selection
 			} else {
 				$.each(sel, function (i, e) {
@@ -221,11 +221,11 @@ ch.calendar = function (conf) {
 						sel[i][1] = (sel[i][1] !== "today") ? createDateObject(e[1]) : today;
 					}
 				});
-				
+
 				return sel;
 			}
 		},
-		
+
 	/**
 	* Date of selected day.
 	* @private
@@ -245,11 +245,11 @@ ch.calendar = function (conf) {
 	* @return Boolean
 	*/
 		isSelectable = function (year, month, day) {
-			
+
 			if (!selected) { return; }
-			
+
 			var yepnope = false;
-			
+
 			// Simple selection
 			if (!ch.utils.isArray(selected)) {
 				if (year === selected.year && month === selected.month && day === selected.day) {
@@ -274,7 +274,7 @@ ch.calendar = function (conf) {
 					}
 				});
 			}
-			
+
 			return yepnope;
 		},
 
@@ -696,8 +696,8 @@ ch.calendar = function (conf) {
 
 	/**
 	* @borrows ch.Object#uid as ch.Menu#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Menu#element
 	*/
@@ -705,38 +705,6 @@ ch.calendar = function (conf) {
 	/**
 	* @borrows ch.Object#type as ch.Menu#type
 	*/
-
-	/**
-	* Triggers the innerShow method and returns the public scope to keep method chaining.
-	* @public
-	* @name ch.Calendar#show
-	* @function
-	* @returns itself
-	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
-	* @example
-	* widget.show();
-	*/
-	that["public"].show = function () {
-		that["float"].show();
-
-		return that["public"];
-	};
-
-	/**
-	* Triggers the innerHide method and returns the public scope to keep method chaining.
-	* @public
-	* @name ch.Calendar#hide
-	* @function
-	* @returns itself
-	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
-	* @example
-	* widget.hide();
-	*/
-	that["public"].hide = function () {
-		that["float"].hide();
-
-		return that["public"];
-	};
 
 	/**
 	* Select a specific date or returns the selected date.
@@ -758,7 +726,7 @@ ch.calendar = function (conf) {
 		return that["public"];
 
 	};
-	
+
 	/**
 	* Select a specific day into current month and year.
 	* @public
@@ -771,7 +739,7 @@ ch.calendar = function (conf) {
 	that["public"].selectDay = function (day) {
 
 		var date = createDateObject([currentDate.year, currentDate.month, day].join("/"));
-		
+
 		select(date);
 
 		return FORMAT_DATE[conf.format](date);
@@ -887,14 +855,14 @@ ch.calendar = function (conf) {
 
 	// Show or hide arrows depending on "from" and "to" limits
 	arrows.update();
-	
+
 	// General creation: classname + arrows + table of month
 	that.$element
 		.addClass("ch-calendar")
 		.prepend(arrows.$prev)
 		.prepend(arrows.$next)
 		.append(createTable(currentDate));
-	
+
 	// Avoid selection on the component
 	ch.utils.avoidTextSelection(that.$element);
 

@@ -18,7 +18,7 @@
 *     "patt": /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
 *     "message": "Some message here!"
 * });
-* @exampleDescription Create a new condition object with expr. 
+* @exampleDescription Create a new condition object with expr.
 * @example
 * var widget = ch.condition({
 *     "name": "maxLength",
@@ -30,7 +30,7 @@
 * @example
 * var widget = ch.condition({
 *     "name": "custom",
-*     "patt": function (value) { 
+*     "patt": function (value) {
 *         if (value === "ChicoUI") {
 *
 *             // Some code here!
@@ -71,31 +71,31 @@ ch.condition = function(condition) {
 			if (!enabled) {
 				return true;
 			}
-	
+
 			if (condition.patt){
 				return condition.patt.test(value);
 			}
-	
+
 			if (condition.expr){
 				return condition.expr(value, condition.value);
 			}
-	
+
 			if (condition.func){
 				// Call validation function with 'this' as scope.
 				return condition.func.call(this, value);
 			}
-	
+
 		},
 
 		enable = function() {
 			enabled = true;
-			
+
 			return condition;
 		},
-	
+
 		disable = function() {
 			enabled = false;
-			
+
 			return condition;
 		};
 

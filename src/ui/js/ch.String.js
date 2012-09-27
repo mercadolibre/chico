@@ -1,6 +1,6 @@
 /**
 * String validates a given text as string.
-* @name String 
+* @name String
 * @class String
 * @interface
 * @augments ch.Controls
@@ -64,10 +64,10 @@ ch.extend("validation").as("string", function (conf) {
 * $("input").email("This field must be a valid email.");
 */
 ch.extend("validation").as("email", function (conf) {
-	// OLD RegExp 
+	// OLD RegExp
 	// /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/,
 	conf.condition = {
-		name: "email",		
+		name: "email",
 		patt: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 		message: conf.msg || conf.message
 	};
@@ -76,8 +76,8 @@ ch.extend("validation").as("email", function (conf) {
 
 });
 
-	
-		
+
+
 
 /**
 * Url validates URL syntax.

@@ -1,12 +1,27 @@
+/**
+ * Transitions
+ */
+.ch-loading-big,
+.ch-loading {
+	margin: 20px auto;
+	display: block;
+}
+
+.ch-loading-big {
+	background-image: url('../assets/loading-big.gif');
+	width: 36px;
+	height: 36px;
+}
+
 .ch-loading {
 	background-image: url('../assets/loading.gif');
-	width: 44px;
-	height: 44px;
-	margin: 20px auto;
+	width: 24px;
+	height: 24px;
 }
 
 .ch-loading-small {
-	background-image: url('../assets/loading_small.gif');
-	width: 18px;
-	height: 18px;
+	background-image: url('../assets/loading-small.gif');
+	display: inline-block;
+	width: 16px;
+	height: 16px;
 }

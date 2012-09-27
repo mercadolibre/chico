@@ -13,9 +13,9 @@
 * @see ch.Viewport
 * @returns {Function} The Positioner returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
 * @exampleDescription
-* Instance the Positioner It requires a little configuration. 
-* The default behavior place an element centered into the Viewport. 
-*  
+* Instance the Positioner It requires a little configuration.
+* The default behavior place an element centered into the Viewport.
+*
 * @example
 * var positioned = ch.positioner({
 *     element: "#element1",
@@ -23,7 +23,7 @@
 * @exampleDescription 1. Getting the current configuration properties.
 * @example
 * var configuration = positioned()
-* @exampleDescription 2. Updates the current position with <code>refresh</code> as a parameter. 
+* @exampleDescription 2. Updates the current position with <code>refresh</code> as a parameter.
 * @example
 * positioned("refresh");
 * @exampleDescription 3. Define a new position
@@ -33,7 +33,7 @@
 *     context: "#context2",
 *     points: "lt rt"
 * });
-* @exampleDescription <strong>Offset</strong>: The positioner could be configurated with an offset. 
+* @exampleDescription <strong>Offset</strong>: The positioner could be configurated with an offset.
 * This example show an element displaced horizontally by 10px of defined position.
 * @example
 * var positioned = ch.positioner({
@@ -296,7 +296,7 @@ ch.positioner = (function () {
 					};
 
 				};
-				
+
 				/**
 				* Recalculates left and top of context and updates offset on context object.
 				* @private
@@ -317,7 +317,7 @@ ch.positioner = (function () {
 						scrollLeft -= relativeParent.left,
 						scrollTop -= relativeParent.top;
 					}
-					
+
 					// Calculated including offset and relative parent positions
 					return {
 						"left": context.left = scrollLeft,
@@ -348,7 +348,7 @@ ch.positioner = (function () {
 		* @default ch.Viewport
 		*/
 			context = getContext(),
-		
+
 		/**
 		* Reference to know if direct parent is the body HTML element.
 		* @private
@@ -418,7 +418,7 @@ ch.positioner = (function () {
 						"top": relativeParent.top = parentOffset.top + borderTop
 					};
 				};
-				
+
 				return self;
 			}()),
 
@@ -432,7 +432,7 @@ ch.positioner = (function () {
 		* @exampleDescription
 		* @example
 		* var foo = getCoordinates("lt rt");
-		* 
+		*
 		* foo = {
 		*     left: Number,
 		*     top: Number
@@ -446,7 +446,7 @@ ch.positioner = (function () {
 
 					// Use Position or Offset of Viewport if position is fixed or absolute respectively
 					var ctx = (!contextIsNotViewport && ch.features.fixed) ? ch.viewport.getPosition() : context,
-					
+
 					// Returnable value
 						r;
 
@@ -505,7 +505,7 @@ ch.positioner = (function () {
 					newPoints = points,
 					offsetX = /*relativeParent.left + */offset[0],
 					offsetY = /*relativeParent.top + */offset[1];
-				
+
 				if (!parentIsBody) {
 					offsetX += relativeParent.left;
 					offsetY += relativeParent.top;
@@ -565,7 +565,7 @@ ch.positioner = (function () {
 
 				// New element position
 				var coordinates,
-					
+
 					// Update classname related to position
 					updateClassName = function ($element) {
 						$element.removeClass(lastClassPoints).addClass(classPoints);
@@ -584,7 +584,7 @@ ch.positioner = (function () {
 
 				// If there are changes, it stores new coordinates on lastCoordinates
 				lastCoordinates = coordinates;
-				
+
 				// Element reposition (Updates element position based on new coordinates)
 				updateClassName($element.css({ "left": coordinates.left, "top": coordinates.top }));
 
@@ -603,18 +603,18 @@ ch.positioner = (function () {
 			init = function () {
 				// Calculates viewport position for prevent auto-scrolling
 				//ch.viewport.getOffset();
-				
+
 				// Refresh parent parameter
 				// TODO: Put this code in some better place, where it's been calculated few times
 				parentIsBody = $element.parent().length > 0 && $element.parent().prop("tagName") === "BODY";
-				
+
 				// Calculates relative parent position
 				relativeParent.getOffset();
 
 				// If context isn't the viewport, calculates its position and size
 				if (contextIsNotViewport) { context.getOffset(); }
 
-				// Calculates coordinates and redraws if it's necessary	
+				// Calculates coordinates and redraws if it's necessary
 				draw();
 			},
 
@@ -627,16 +627,16 @@ ch.positioner = (function () {
 			changesListener = function (event) {
 				// Only recalculates if element is visible
 				if (!$element.is(":visible")) { return; }
-	
+
 				// If context isn't the viewport...
 				if (contextIsNotViewport) {
 					// On resize and layout change, recalculates relative parent position
 					relativeParent.getOffset();
-	
+
 					// Recalculates its position and size
 					context.getOffset();
 				}
-	
+
 				draw();
 			},
 
@@ -711,7 +711,7 @@ ch.positioner = (function () {
 			var r = that;
 
 			switch (typeof o) {
-			
+
 			// Changes configuration properties and repositions the element
 			case "object":
 				// New points
@@ -733,7 +733,7 @@ ch.positioner = (function () {
 
 					// Regenerate the context object
 					context = getContext();
-					
+
 					// Update CSS properties to element (position fixed or absolute)
 					addCSSproperties();
 				}

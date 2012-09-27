@@ -40,7 +40,7 @@ ch.zoom = function (conf) {
 	conf = ch.clon(conf);
 
 	conf.fx = conf.fx || false;
-	
+
 	conf.cache = false;
 
 	// WAI-ARIA
@@ -440,8 +440,8 @@ ch.zoom = function (conf) {
 
 	/**
 	* @borrows ch.Object#uid as ch.Modal#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Zoom#element
 	*/
@@ -507,7 +507,7 @@ ch.zoom = function (conf) {
 		.bind("mouseenter", that.innerShow)
 
 		// Hide component or loading transition
-		.bind("mouseleave", that.innerHide);	
+		.bind("mouseleave", that.innerHide);
 
 	/**
 	* Triggers when component is visible.

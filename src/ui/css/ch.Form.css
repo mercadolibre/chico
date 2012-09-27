@@ -1,3 +1,6 @@
+/**
+ * Form
+ */
 input[type="search"]{
   -webkit-appearance: textfield;
 }
@@ -13,11 +16,13 @@ input,
 textarea,
 select[multiple],
 .ch-form-select-multiple {
-	border:1px solid #CCCCCC;
+	border: 1px solid #CDCDCD;
+	font-size: 13px;
+	border-radius: 3px;
 	-webkit-box-shadow: inset 1px 1px 1px rgba(204, 204, 204, 0.3);
 	box-shadow: inset 1px 1px 1px rgba(204, 204, 204, 0.3);
-	padding:5px 4px;
-	margin:5px 0;
+	padding: 6px;
+	margin: 5px 0;
 }
 
 input[type="file"],
@@ -27,12 +32,12 @@ input[type="radio"] {
 	padding:0;
 }
 
-input:focus, 
+input:focus,
 textarea:focus,
 select[multiple]:focus,
 .ch-form-select-multiple:focus {
-	border: 2px solid #666;
-	padding: 4px 3px;
+	border: 2px solid #9A9A9A;
+	padding: 5px;
 	outline: 0;
 }
 
@@ -41,18 +46,26 @@ input[type="checkbox"]:focus,
 input[type="radio"]:focus,
 input[type="range"]:focus,
 select:focus {
-	outline: 1px dotted #666;
+	outline: 1px dotted #9A9A9A;
+}
+
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+	border: none;
+	padding: 0;
 }
 
 input[readonly],
 input[readonly]:focus {
-	border-color:transparent;
+	border: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
+	color: #999999;
+	padding: 5px 0;
 }
 
-.ch-form-ico { 
-	margin-left:5px !important;
+.ch-form-ico {
+	margin-left: 5px !important;
 }
 
 /* Module */
@@ -67,17 +80,17 @@ input[readonly]:focus {
 		font-weight:bold;
 		padding-bottom:15px;
 	}
-	
+
 	.ch-form-subtitle {
 		font-size:13px;
 		font-weight:bold;
 	}
-	
+
 /* Required specification or another */
 .ch-form-hint {
-	color:#666666;
-	font-size:11px;
-	line-height:11px;	
+	color: #999999;
+	font-size: 12px;
+	line-height: 12px;
 }
 
 /* Basic wrapper for horizontal view */
@@ -105,18 +118,16 @@ input[readonly]:focus {
 		font-weight:normal;
 		margin-left:0;
 	}
-	
-	.ie6 label.ch-label-inline{width:auto !important;}
-	
+
 /* Label required **/
 	.ch-form-required label{
 		font-weight:bold;
 	}
-	
+
 	.ch-form-required.ch-form-options label{
 		font-weight:normal;
 	}
-	
+
 /* Icon indication of required */
 	.ch-form-required em{
 		display:block;
@@ -133,7 +144,7 @@ input[readonly]:focus {
 		right:auto;
 	}
 
-/* Checkbox inline 
+/* Checkbox inline
 .ch-form-row input + input[type=checkbox],*/
 .ch-form-checkbox-inline{
 	margin-left:11px;
@@ -141,7 +152,7 @@ input[readonly]:focus {
 	border:none;
 }
 
-/* Range 
+/* Range
 input[type=range],*/
 .ch-form-range{
 	padding:4px;
@@ -175,15 +186,14 @@ input[type=range],*/
 
 /* Error colorize the border */
 form .ch-form-error {
-	border:1px solid #C62026;
+	border: 1px solid #FF9999;
 }
 
 form .ch-form-error:focus,
 form .ch-form-error:focus {
-	border:2px solid #CC0000;
-	padding:4px 3px;
-	-webkit-box-shadow: 2px #CC0000;
-	box-shadow: 2px #CC0000;
+	border-width: 2px;
+	-webkit-box-shadow: 2px #FF9999;
+	box-shadow: 2px #FF9999;
 }
 
 
@@ -191,10 +201,6 @@ form .ch-form-error:focus {
 .ch-form-options{
 	margin: 0 0 15px 20px;
 	padding:0;
-}
-
-.ie6 .ch-form-options .ch-form-row {
-	vertical-align: middle;
 }
 
 /* Subtitle in options */
@@ -212,14 +218,10 @@ form .ch-form-error:focus {
 .ch-form-options label {
 	margin:0;
 	padding:0;
-}							
-
-.ie6 .ch-form-options label {
-	text-align: left;
-	width: auto;
 }
 
-/* Radio & Checkbox in options 
+
+/* Radio & Checkbox in options
 .ch-form-options input[type="checkbox"],
 .ch-form-options input[type="radio"],*/
 .ch-form-options input{
@@ -258,4 +260,22 @@ form .ch-form-error:focus {
 
 .ch-form-actions .ch-btn {
 	margin-right:10px;
+}
+
+
+/* Big inputs */
+.ch-form-big .ch-form-row input,
+.ch-form-big .ch-form-row textarea,
+.ch-form-big .ch-form-row select[multiple],
+.ch-form-big .ch-form-row .ch-form-select-multiple {
+	border-radius: 3px;
+	padding: 12px 10px;
+	margin: 5px 0;
+}
+
+.ch-form-big .ch-form-row input:focus,
+.ch-form-big .ch-form-row textarea:focus,
+.ch-form-big .ch-form-row select[multiple]:focus,
+.ch-form-big .ch-form-row .ch-form-select-multiple:focus {
+	padding: 11px 9px;
 }

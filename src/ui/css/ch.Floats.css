@@ -1,3 +1,6 @@
+/**
+ * Floats
+ */
 .ch-cone [class^="ch-"][class$="-content"]:after,
 .ch-cone [class^="ch-"][class$="-content"]:before {
 	/* border transparent bug on FF: http://stackoverflow.com/a/6225439 */

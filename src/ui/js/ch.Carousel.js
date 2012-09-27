@@ -103,7 +103,7 @@ ch.carousel = function (conf) {
 	* @type jQuery Object
 	*/
 		$list = that.$element.children().addClass("ch-carousel-list").attr("role", "list"),
-	
+
 	/**
 	* Collection of each child of the list.
 	* @private
@@ -119,7 +119,7 @@ ch.carousel = function (conf) {
 	* @type Number
 	*/
 		itemWidth = $items.width(),
-	
+
 	/**
 	* The height of each item, including paddings, margins and borders. Ideal for make calculations.
 	* @private
@@ -135,7 +135,7 @@ ch.carousel = function (conf) {
 	* @type Number
 	*/
 		itemOuterWidth = $items.outerWidth(),
-	
+
 	/**
 	* The height of each item, without paddings, margins or borders. Ideal for manipulate CSS height property.
 	* @private
@@ -264,7 +264,7 @@ ch.carousel = function (conf) {
 			// Delete efects on list to change width instantly
 			// Do it before item resizing to make space to all items
 			$list.addClass("ch-carousel-nofx").css("width", pageWidth * pages);
-			
+
 			// Restore efects to list if it's required
 			// Use a setTimeout to be sure to do this after width change
 			if (conf.fx) {
@@ -278,7 +278,7 @@ ch.carousel = function (conf) {
 				"height": (width * itemHeight) / itemWidth,
 				"margin-right": itemMargin
 			});
-			
+
 			// Update the mask height with the list height
 			$mask.css("height", $list.outerHeight());
 		},
@@ -390,7 +390,7 @@ ch.carousel = function (conf) {
 
 			// TODO: Get a better reference to rendered mask
 			$mask = that.$element.children(".ch-carousel-mask");
-			
+
 			// Update the mask height with the list height
 			// Do it here because before, items are stacked
 			$mask.css("height", $list.outerHeight());
@@ -565,7 +565,7 @@ ch.carousel = function (conf) {
 	* @private
 	* @name ch.Carousel#$pagination
 	* @jQuery Object
-	*/	
+	*/
 		$pagination = $("<p class=\"ch-carousel-pages\" role=\"tablist\">").on("click", function (event) {
 			goToPage($(event.target).attr("data-page"));
 		}),
@@ -662,7 +662,7 @@ ch.carousel = function (conf) {
 			// Check pagination as created
 			paginationCreated = true;
 		},
-	
+
 	/**
 	* Delete pagination from DOM and change the flag "paginationCreated".
 	* @private
@@ -814,7 +814,7 @@ ch.carousel = function (conf) {
 
 			// Take the sample from queue
 			var sample = queue.splice(0, amount),
-			
+
 			// Function with content processing using asyncRender or not
 				getContent = conf.asyncRender || function (data) { return data; };
 
@@ -892,7 +892,7 @@ ch.carousel = function (conf) {
 
 		return that;
 	};
-	
+
 	/**
 	* Moves to the next page.
 	* @protected

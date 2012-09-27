@@ -62,7 +62,7 @@ ch.datePicker = function (conf) {
 /**
 *	Private Members
 */
-	
+
 /**
 *	Protected Members
 */
@@ -76,9 +76,12 @@ ch.datePicker = function (conf) {
 	that.process = function (event) {
 
 		// Day selection
-		if (event.target.nodeName !== "TD" || event.target.className.indexOf("ch-disabled") !== -1 || event.target.className.indexOf("ch-calendar-other") !== -1) { return; }
+		if (event.target.nodeName !== "TD" || event.target.className.indexOf("ch-calendar-disabled") !== -1 || event.target.className.indexOf("ch-calendar-other") !== -1) {
+			return;
+		}
 
 		// Select the day and update input value with selected date
+
 		that.element.value = that.calendar.selectDay(event.target.innerHTML);
 
 		// Hide float
@@ -97,7 +100,7 @@ ch.datePicker = function (conf) {
 
 	};
 
-	
+
 	/**
 	* Reference to the Calendar component instance.
 	* @protected
@@ -106,7 +109,7 @@ ch.datePicker = function (conf) {
 	*/
 	that.calendar = $("<div>")
 		// Add functionality for date selection
-		.bind("click", function (event) { that.process(event); })
+		.on("click", function (event) { that.process(event); })
 		// Instance Calendar component
 		.calendar({
 			"format": conf.format,
@@ -116,7 +119,7 @@ ch.datePicker = function (conf) {
 			"monthsNames": conf.monthsNames,
 			"weekdays": conf.weekdays
 		});
-	
+
 	/**
 	* Reference to the Float component instanced.
 	* @protected
@@ -142,8 +145,8 @@ ch.datePicker = function (conf) {
 
 	/**
 	* @borrows ch.Object#uid as ch.Menu#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Menu#element
 	*/
@@ -163,6 +166,7 @@ ch.datePicker = function (conf) {
 	* widget.show();
 	*/
 	that["public"].show = function () {
+
 		that["float"].innerShow();
 
 		return that["public"];
@@ -229,7 +233,7 @@ ch.datePicker = function (conf) {
 	* @default Next month
 	*/
 	that["public"].next = function (time) {
-		that.calendar.next(time);		
+		that.calendar.next(time);
 
 		return that["public"];
 	};
@@ -257,10 +261,10 @@ ch.datePicker = function (conf) {
 	* @return itself
 	*/
 	that["public"].reset = function () {
-		
+
 		// Delete input value
 		that.element.value = "";
-		
+
 		that.calendar.reset();
 
 		return that["public"];
@@ -276,7 +280,7 @@ ch.datePicker = function (conf) {
 	*/
 	that["public"].from = function (date) {
 		that.calendar.from(date);
-		
+
 		return that["public"];
 	};
 
@@ -290,25 +294,25 @@ ch.datePicker = function (conf) {
 	*/
 	that["public"].to = function (date) {
 		that.calendar.to(date);
-		
+
 		return that["public"];
 	};
 
-	
+
 /**
 *	Default event delegation
 */
-	
+
 	// Change type of input to "text"
 	that.element.type = "text";
 
 	// Change value of input if there are a selected date
 	that.element.value = (conf.selected) ? that.calendar.select() : that.element.value;
-	
+
 	// Add show behaivor to float's trigger.
-	that["float"].$element
-		.css("cursor", "pointer")
-		.bind("click", function (event) { that["float"].innerShow(event); });
+	that["float"].$element.on("click", function (event) {
+		that["float"].innerShow(event);
+	});
 
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).

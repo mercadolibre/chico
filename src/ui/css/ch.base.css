@@ -1,6 +1,9 @@
+/**
+ * Base
+ */
 body {
 	background-color: #FFF;
-	color: #333; 
+	color: #333;
 	min-width: 760px;
 	max-width: 1200px;
 	margin: 0 auto;
@@ -10,16 +13,15 @@ body {
 body,
 .ch-btn {
 	font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
-	font-size:13px;
-	line-height:20px;
+	font-size: 13px;
+	line-height: 20px;
 }
 
 .lt-ie7 body {
 	width: expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
 }
 
-/* IMPORTANT: .ch-hide class allows components to be shown and hidden*/
-
+/* IMPORTANT: .ch-hide class allows components to be shown and hidden */
 .ch-hide {
 	display: none;
 }
@@ -28,10 +30,9 @@ body,
 	visibility: hidden;
 }
 
-/*
-* Anchors
-*/
-
+/**
+ * Anchors
+ */
 a {
 	color: #0637B3;
 	text-decoration: none;
@@ -54,16 +55,15 @@ a img {
 	border: none;
 }
 
-/*
-* Typography
-*/
-
+/**
+ * Typography
+ */
 h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
 	margin-top: 10px;
 }
 
-/* Arial Headers*/
+/* Arial Headers */
 h1 {
 	font-size: 20px;
 }
@@ -80,10 +80,9 @@ h5 {
 	font-size: 11px;
 }
 
-/*
-* Price
-*/
-
+/**
+ * Price
+ */
 .ch-price {
 	color: #900;
 	font-size: 16px;
@@ -106,10 +105,9 @@ h5 {
 	font-size: 12px;
 }
 
-/*
-* Misc
-*/
-
+/**
+ * Misc
+ */
 hr {
 	border: none;
 	border-bottom: 1px dashed #CCC;
@@ -119,11 +117,10 @@ hr {
 	height: 0;
 }
 
-
-/*
-* Clear Fix
-* @based: http://perishablepress.com/press/2009/12/06/new-clearfix-hack/
-*/
+/**
+ * Clear Fix
+ * @based: http://perishablepress.com/press/2009/12/06/new-clearfix-hack/
+ */
 .ch-clearfix:after {
 	visibility: hidden;
 	display: block;
@@ -134,16 +131,16 @@ hr {
 }
 
 /* IE6 */
-* html .ch-clearfix { 
-	zoom: 1; 
+* html .ch-clearfix {
+	zoom: 1;
 }
- 
-/* IE7 */
-*:first-child+html .ch-clearfix { 
-	zoom: 1; 
-} 
 
-/*  do not select text  */
+/* IE7 */
+*:first-child+html .ch-clearfix {
+	zoom: 1;
+}
+
+/* do not select text */
 .ch-user-no-select {
 	-o-user-select: none;
 	-ms-user-select: none;

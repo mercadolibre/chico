@@ -12,17 +12,15 @@
 .ch-calendar caption,
 .ch-calendar thead,
 .ch-calendar td {
-	border: 1px solid #dfdfdf;
+	border: 1px solid #EDEDED;
 }
 
 .ch-calendar caption {
-	background-color: #F9F9F9;
-	background: -webkit-linear-gradient(#F9F9F9, #EEEEEE);
-	background: -moz-linear-gradient(#F9F9F9, #EEEEEE);
-	background: -o-linear-gradient(#F9F9F9, #EEEEEE);
-	background: linear-gradient(#F9F9F9, #EEEEEE);
-	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+	background-color: #EEEEEE;
+	background: -webkit-linear-gradient(#FFFFFF, #EEEEEE);
+	background: -moz-linear-gradient(#FFFFFF, #EEEEEE);
+	background: -o-linear-gradient(#FFFFFF, #EEEEEE);
+	background: linear-gradient(#FFFFFF, #EEEEEE);
 	font-size: 13px;
 	line-height: 28px;
 	text-shadow: 0 1px 0 #FFFFFF;
@@ -30,11 +28,11 @@
 }
 
 .lt-ie10 .ch-calendar caption {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9', endColorstr='#EEEEEE');
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#EEEEEE');
 }
 
 .ch-calendar thead {
-	border-weight:0 1px;
+	border-weight: 0 1px;
 }
 
 .ch-calendar th {
@@ -72,7 +70,7 @@
 .ch-calendar-selected,
 .ch-calendar-selected:hover,
 .ch-calendar-selected.ch-today {
-	background-color: #666!important;
+	background-color: #A9A9A9!important;
 	color: #FFF!important;
 	font-weight: bold!important;
 }
@@ -125,7 +123,7 @@
 }
 
 .ie7 .ch-calendar-month {
-	border: 1px solid #dfdfdf;
+	border: 1px solid #EDEDED;
 }
 
 .lt-ie8 .ch-calendar-prev span,

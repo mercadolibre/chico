@@ -1,44 +1,44 @@
+/**
+ * Pagination
+ */
 .ch-pagination {
 	clear: both;
 	margin: 10px 0;
 }
-			
+
 .ch-pagination li {
 	display: inline-block;
 	margin: 0px 4px;
 }
 
-
 .ch-pagination li a,
 .ch-pagination li.ch-pagination-current a {
 	border-radius: 3px;
 	padding: 5px 8px;
-	border: 1px solid #CCC;
+	border: 1px solid #EDEDED;
 	background-color: #FFF;
 }
 
 .ch-pagination li a:hover {
 	color: #FFF;
 	text-decoration: none;
-	background-color: #0637b3;
-	border: 1px solid #0637b3;
+	background-color: #2B37B2;
+	border: 1px solid #2B37B2;
 }
 
 .ch-pagination li.ch-pagination-current a {
-	border: 1px solid #ededed;
-	background-color: #ededed;
-	color: #0637b3; 
-	font-weight: bold;
+	border: 1px solid #EDEDED;
+	background-color: #EDEDED;
+	color: #0637b3;
 }
 
-
-.ch-pagination li:first-child a,
-.ch-pagination li:last-child a {
+.ch-pagination a[type="prev"],
+.ch-pagination a[type="next"] {
 	border-color: #FFFFFF;
 }
 
-.ch-pagination li:first-child a:hover,
-.ch-pagination li:last-child a:hover {
+.ch-pagination a[type="prev"]:hover,
+.ch-pagination a[type="next"]:hover {
 	border-color: #0637b3;
 }
 

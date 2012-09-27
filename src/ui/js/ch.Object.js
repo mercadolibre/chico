@@ -46,7 +46,7 @@ ch.object = function(){
 	that.trigger = function (event, data) {
 		$(that["public"]).trigger("ch-"+event, data);
 	};
-	
+
 	// Add a callback function from specific event.
 	that.on = function (event, handler) {
 		if (event && handler) {
@@ -65,7 +65,7 @@ ch.object = function(){
 		return that["public"];
 	};
 
-	
+
 	// Removes a callback function from specific event.
 	that.off = function (event, handler) {
 		if (event && handler) {
@@ -104,11 +104,11 @@ ch.object = function(){
 	* @type string
 	*/
 	that["public"].type = that.type;
-	
+
 	/**
 	* Triggers a specific event within the component public context.
 	* @name trigger
-	* @name ch.Object 
+	* @name ch.Object
 	* @public
 	* @param {string} event The event name you want to trigger.
 	* @since 0.7.1
@@ -129,7 +129,7 @@ ch.object = function(){
 	* widget.on("ready", startDoingStuff);
 	*/
 	that["public"].on = that.on;
-	
+
 	/**
 	* Add a callback function from specific event that it will execute once.
 	* @public

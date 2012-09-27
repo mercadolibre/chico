@@ -1,12 +1,13 @@
+/**
+ * Tooltip
+ */
 .ch-tooltip {
-	font-size: 11px;
-	background-color: #FCF8CB;
-	border: 1px solid #E4E2B8;
-	border-radius: 3px;
+	background-color: #FDF9D5;
+	border-color: #EAE8C8;
 	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
-	min-width: 30px;
-	padding: 2px 5px;
+	min-width: 1em;
+	padding: 8px 10px;
 }
 
 /* Cone */
@@ -15,12 +16,12 @@
 .ch-tooltip.ch-points-ltlb .ch-tooltip-content:after,
 .ch-tooltip.ch-points-ctcb .ch-tooltip-content:after,
 .ch-tooltip.ch-points-rtrb .ch-tooltip-content:after {
-	border-bottom-color: #FCF8CB;
+	border-bottom-color: #FDF9D5;
 }
 .ch-tooltip.ch-points-ltlb .ch-tooltip-content:before,
 .ch-tooltip.ch-points-ctcb .ch-tooltip-content:before,
 .ch-tooltip.ch-points-rtrb .ch-tooltip-content:before {
-	border-bottom-color: #E4E2B8;
+	border-bottom-color: #EAE8C8;
 }
 
 /* Top */
@@ -28,12 +29,12 @@
 .ch-tooltip.ch-points-lblt .ch-tooltip-content:after,
 .ch-tooltip.ch-points-cbct .ch-tooltip-content:after,
 .ch-tooltip.ch-points-rbrt .ch-tooltip-content:after {
-	border-top-color: #FCF8CB;
+	border-top-color: #FDF9D5;
 }
 .ch-tooltip.ch-points-lblt .ch-tooltip-content:before,
 .ch-tooltip.ch-points-cbct .ch-tooltip-content:before,
 .ch-tooltip.ch-points-rbrt .ch-tooltip-content:before {
-	border-top-color: #E4E2B8;
+	border-top-color: #EAE8C8;
 }
 
 /* Right */
@@ -41,12 +42,12 @@
 .ch-tooltip.ch-points-ltrt .ch-tooltip-content:after,
 .ch-tooltip.ch-points-lmrm .ch-tooltip-content:after,
 .ch-tooltip.ch-points-lbrb .ch-tooltip-content:after {
-	border-right-color: #FCF8CB;
+	border-right-color: #FDF9D5;
 }
 .ch-tooltip.ch-points-ltrt .ch-tooltip-content:before,
 .ch-tooltip.ch-points-lmrm .ch-tooltip-content:before,
 .ch-tooltip.ch-points-lbrb .ch-tooltip-content:before {
-	border-right-color: #E4E2B8;
+	border-right-color: #EAE8C8;
 }
 
 /* Left */
@@ -54,13 +55,13 @@
 .ch-tooltip.ch-points-rtlt .ch-tooltip-content:after,
 .ch-tooltip.ch-points-rmlm .ch-tooltip-content:after,
 .ch-tooltip.ch-points-rblb .ch-tooltip-content:after {
-	border-left-color: #FCF8CB;
+	border-left-color: #FDF9D5;
 }
 
 .ch-tooltip.ch-points-rtlt .ch-tooltip-content:before,
 .ch-tooltip.ch-points-rmlm .ch-tooltip-content:before,
 .ch-tooltip.ch-points-rblb .ch-tooltip-content:before {
-	border-left-color: #E4E2B8;
+	border-left-color: #EAE8C8;
 }
 
 /* IE */
