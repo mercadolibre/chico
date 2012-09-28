@@ -170,18 +170,18 @@
 			throw new Error('"ch.util.avoidTextSelection(selector)": The selector parameter is required.');
 		}
 
-		$.each(args, function(i, arg){
+		$.each(args, function(i, $arg){
 
-			/*if (typeof arg !== 'string') {
-				throw new Error('"ch.util.avoidTextSelection(selector)": The selector must be a string.');
-			}*/
+			if (!($arg instanceof $)) {
+				throw new Error('"ch.util.avoidTextSelection(selector)": The parameter must be a query selector.');
+			}
 
 			if ($.browser.msie) {
-				$(arg).attr('unselectable', 'on');
+				$arg.attr('unselectable', 'on');
 			} else if ($.browser.opera) {
-				$(arg).bind('mousedown', function () { return false; });
+				$arg.bind('mousedown', function () { return false; });
 			} else {
-				$(arg).addClass('ch-user-no-select');
+				$arg.addClass('ch-user-no-select');
 			};
 		});
 	};

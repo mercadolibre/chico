@@ -175,15 +175,11 @@ describe('Util', function () {
 			}).toThrow();
 
 			expect(function () {
-				util.avoidTextSelection({});
-			}).toThrow();
-
-			expect(function () {
-				util.avoidTextSelection({},'.selector-test');
-			}).toThrow();
-
-			expect(function () {
 				util.avoidTextSelection('.selector-test');
+			}).toThrow();
+
+			expect(function () {
+				util.avoidTextSelection($('.version'));
 			}).not.toThrow();
 
 		});
