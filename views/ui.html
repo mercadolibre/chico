@@ -1051,30 +1051,26 @@
 			});
 
 		// Carousel
-		/*var myCarousel = $(".myCarousel").carousel({
-			"pagination": true
-		});
-		var a = new ch.Carousel($(".myCarousel"), {
-			"pagination": true
+		//var carousel = $(".myCarousel").carousel({"pagination": true});*/
+		var carousel = new ch.Carousel($(".myCarousel"), {"pagination": true});
+
+		// Layer
+		var layer1 = $(".YOUR_SELECTOR_LayerOnclick").layer({
+			"event": "click",
+			"content": $("#invisible-content")
 		});
 
-		// Layer on click
-		var ch_layeC = $(".YOUR_SELECTOR_LayerCloseButton").layer({
+		var layer2 = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
+
+		var layer3 = $(".YOUR_SELECTOR_LayerCloseButton").layer({
 			"event": "click",
 			"closable": "button",
 			"content": "#invisible-content-for-layer",
 			"width": 500
-		}),
+		});
 
-		// Layer on click
-			ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
-				"event": "click",
-				"content": "#invisible-content"
-			}),
-
-		// Layer on mouseover
-			ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
-		*/
+		// Expando
+		var expando = $(".YOUR_SELECTOR_Expando").expando();
 	</script>
 	<!--script>
 		// Automatic version
