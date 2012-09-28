@@ -62,7 +62,7 @@
 	 */
 	util.inDom = function (selector, context) {
 		if (selector === undefined || typeof selector !== 'string') {
-			throw new Error('"ch.util.inDom(selector, context)": It requires a string as first parameter.');
+			return false;
 		}
 		// jQuery: If you wish to use any of the meta-characters ( such as !"#$%&'()*+,./:;<=>?@[\]^`{|}~ ) as a literal part of a name, you must escape the character with two backslashes: \\.
 		selector = selector.replace(/(\!|\"|\$|\%|\&|\'|\(|\)|\*|\+|\,|\/|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)/gi, function (str, $1) {
@@ -80,7 +80,7 @@
 	 */
 	util.isUrl = function (url) {
 		if (url === undefined || typeof url !== 'string') {
-			throw new Error('"ch.util.isUrl(url)": The url parameter must be a string.');
+			return false;
 		}
 
 		/*
@@ -217,7 +217,7 @@
 	 */
 	util.isTag = function (tag) {
 		if (tag === undefined || typeof tag !== 'string') {
-			throw new Error('"ch.util.isTag(tag)": The "tag" parameter is required and must be a string.');
+			return false;
 		}
 
 		return (/<([\w:]+)/).test(tag);
@@ -232,8 +232,9 @@
 	 */
 	util.isSelector = function (selector) {
 		if (selector === undefined || typeof selector !== 'string') {
-			throw new Error('"ch.util.isSelector(selector)": The "selector" parameter is required and must be a string.');
+			return false;
 		}
+
 		var regex;
 		for (regex in $.expr.match) {
 			if ($.expr.match[regex].test(selector) && !util.isTag(selector)) {

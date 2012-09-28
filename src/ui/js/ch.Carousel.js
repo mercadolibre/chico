@@ -1,45 +1,44 @@
 /**
-* Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
-* @name Carousel
-* @class Carousel
-* @augments ch.Uiobject
-* @see ch.Uiobject
-* @memberOf ch
-* @factorized
-* @param {Object} [conf] Object with configuration properties.
-* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is elastic.
-* @param {Boolean} [conf.pagination] Shows a pagination. By default, the value is false.
-* @param {Boolean} [conf.arrows] Shows arrows icons over or outside the mask. By default, the value is "outside".
-* @param {Array} [conf.asyncData] Defines the content of each item that will be load asnchronously as array.
-* @param {Function} [conf.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
-* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enabled.
-* @param {Number} [conf.maxItems] (Since 0.10.6) Set the max amount of items to show in each page.
-* @param {Number} [conf.page] (Since 0.10.6) Initialize the Carousel in a specified page.
-* @returns itself
-* @exampleDescription Create a Carousel without configuration.
-* @example
-* var foo = $("#example").carousel();
-* @exampleDescription Create a Carousel with configuration parameters.
-* @example
-* var foo = $("#example").carousel({
-*     "width": 500,
-*     "pagination": true,
-*     "arrows": "over"
-* });
-* @exampleDescription Create a Carousel with items asynchronously loaded.
-* @example
-* var foo = $("#example").carousel({
-*     "asyncData": [
-*         {"src": "a.png", "alt": "A"},
-*         {"src": "b.png", "alt": "B"},
-*         {"src": "c.png", "alt": "C"}
-*     ],
-*     "asyncRender": function (data) {
-*         return "<img src=\"" + data.src + "\" alt=\"" + data.alt + "\" />";
-*     }
-* });
-*/
-
+ * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
+ * @name Carousel
+ * @class Carousel
+ * @augments ch.Uiobject
+ * @see ch.Uiobject
+ * @memberOf ch
+ * @factorized
+ * @param {Object} [conf] Object with configuration properties.
+ * @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is elastic.
+ * @param {Boolean} [conf.pagination] Shows a pagination. By default, the value is false.
+ * @param {Boolean} [conf.arrows] Shows arrows icons over or outside the mask. By default, the value is "outside".
+ * @param {Array} [conf.asyncData] Defines the content of each item that will be load asnchronously as array.
+ * @param {Function} [conf.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
+ * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enabled.
+ * @param {Number} [conf.maxItems] (Since 0.10.6) Set the max amount of items to show in each page.
+ * @param {Number} [conf.page] (Since 0.10.6) Initialize the Carousel in a specified page.
+ * @returns itself
+ * @exampleDescription Create a Carousel without configuration.
+ * @example
+ * var foo = $("#example").carousel();
+ * @exampleDescription Create a Carousel with configuration parameters.
+ * @example
+ * var foo = $("#example").carousel({
+ *     "width": 500,
+ *     "pagination": true,
+ *     "arrows": "over"
+ * });
+ * @exampleDescription Create a Carousel with items asynchronously loaded.
+ * @example
+ * var foo = $("#example").carousel({
+ *     "asyncData": [
+ *         {"src": "a.png", "alt": "A"},
+ *         {"src": "b.png", "alt": "B"},
+ *         {"src": "c.png", "alt": "C"}
+ *     ],
+ *     "asyncRender": function (data) {
+ *         return "<img src=\"" + data.src + "\" alt=\"" + data.alt + "\" />";
+ *     }
+ * });
+ */
 (function (window, $, ch) {
 	'use strict';
 
@@ -56,15 +55,16 @@
 	function Carousel($el, conf) {
 
 		/**
-		* Reference to a internal component instance, saves all the information and configuration properties.
-		* @protected
-		* @name ch.Carousel#that
-		* @type Object
-		*/
+		 * Reference to a internal component instance, saves all the information and configuration properties.
+		 * @protected
+		 * @name ch.Carousel#that
+		 * @type Object
+		 */
 		var that = this;
 		that.$element = $el;
 		that.element = $el[0];
 		that.type = 'carousel';
+		conf = conf || {};
 
 		conf = ch.util.clone(conf);
 
@@ -78,22 +78,22 @@
 		that.conf = conf;
 
 	/**
-	*  Inheritance
-	*/
+	 *  Inheritance
+	 */
 
 		that = ch.Uiobject.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
-	*  Private Members
-	*/
+	 *  Private Members
+	 */
 
 		/**
-		* List of items that should be loaded asynchronously on page movement.
-		* @private
-		* @name ch.Carousel#queue
-		* @type Array
-		*/
+		 * List of items that should be loaded asynchronously on page movement.
+		 * @private
+		 * @name ch.Carousel#queue
+		 * @type Array
+		 */
 		var queue = (function () {
 
 			// No queue
@@ -113,131 +113,131 @@
 		}()),
 
 		/**
-		* Element that moves across component (inside the mask).
-		* @private
-		* @name ch.Carousel#$list
-		* @type jQuery Object
-		*/
+		 * Element that moves across component (inside the mask).
+		 * @private
+		 * @name ch.Carousel#$list
+		 * @type jQuery Object
+		 */
 			$list = that.$element.children().addClass("ch-carousel-list").attr("role", "list"),
 
 		/**
-		* Collection of each child of the list.
-		* @private
-		* @name ch.Carousel#$items
-		* @type jQuery Object
-		*/
+		 * Collection of each child of the list.
+		 * @private
+		 * @name ch.Carousel#$items
+		 * @type jQuery Object
+		 */
 			$items = $list.children().addClass("ch-carousel-item").attr("role", "listitem"),
 
 		/**
-		* The width of each item, including paddings, margins and borders. Ideal for make calculations.
-		* @private
-		* @name ch.Carousel#itemWidth
-		* @type Number
-		*/
+		 * The width of each item, including paddings, margins and borders. Ideal for make calculations.
+		 * @private
+		 * @name ch.Carousel#itemWidth
+		 * @type Number
+		 */
 			itemWidth = $items.width(),
 
 		/**
-		* The height of each item, including paddings, margins and borders. Ideal for make calculations.
-		* @private
-		* @name ch.Carousel#itemHeight
-		* @type Number
-		*/
+		 * The height of each item, including paddings, margins and borders. Ideal for make calculations.
+		 * @private
+		 * @name ch.Carousel#itemHeight
+		 * @type Number
+		 */
 			itemHeight = $items.height(),
 
 		/**
-		* The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
-		* @private
-		* @name ch.Carousel#itemOuterWidth
-		* @type Number
-		*/
+		 * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
+		 * @private
+		 * @name ch.Carousel#itemOuterWidth
+		 * @type Number
+		 */
 			itemOuterWidth = $items.outerWidth(),
 
 		/**
-		* The height of each item, without paddings, margins or borders. Ideal for manipulate CSS height property.
-		* @private
-		* @name ch.Carousel#itemOuterHeight
-		* @type Number
-		*/
+		 * The height of each item, without paddings, margins or borders. Ideal for manipulate CSS height property.
+		 * @private
+		 * @name ch.Carousel#itemOuterHeight
+		 * @type Number
+		 */
 			itemOuterHeight = $items.outerHeight(),
 
 		/**
-		* Size added to each item to make it responsive.
-		* @private
-		* @name ch.Carousel#itemExtraWidth
-		* @type Number
-		*/
+		 * Size added to each item to make it responsive.
+		 * @private
+		 * @name ch.Carousel#itemExtraWidth
+		 * @type Number
+		 */
 			itemExtraWidth,
 
 		/**
-		* The margin of all items. Updated in each redraw only if it's necessary.
-		* @private
-		* @name ch.Carousel#itemMargin
-		* @type Number
-		*/
+		 * The margin of all items. Updated in each redraw only if it's necessary.
+		 * @private
+		 * @name ch.Carousel#itemMargin
+		 * @type Number
+		 */
 			itemMargin,
 
 		/**
-		* Element that denies the list overflow.
-		* @private
-		* @name ch.Carousel#$mask
-		* @type jQuery Object
-		*/
+		 * Element that denies the list overflow.
+		 * @private
+		 * @name ch.Carousel#$mask
+		 * @type jQuery Object
+		 */
 			$mask = $("<div class=\"ch-carousel-mask\" role=\"tabpanel\" style=\"height:" + $items.outerHeight() + "px\">"),
 
 		/**
-		* Amount of items in only one page. Updated in each redraw.
-		* @private
-		* @name ch.Carousel#itemsPerPage
-		* @type Number
-		*/
+		 * Amount of items in only one page. Updated in each redraw.
+		 * @private
+		 * @name ch.Carousel#itemsPerPage
+		 * @type Number
+		 */
 			itemsPerPage,
 
 		/**
-		* Distance needed to move ONLY ONE page. Data updated in each redraw.
-		* @private
-		* @name ch.Carousel#pageWidth
-		* @type Number
-		*/
+		 * Distance needed to move ONLY ONE page. Data updated in each redraw.
+		 * @private
+		 * @name ch.Carousel#pageWidth
+		 * @type Number
+		 */
 			pageWidth,
 
 		/**
-		* Size of the mask. Updated in each redraw.
-		* @private
-		* @name ch.Carousel#maskWidth
-		* @type Number
-		*/
+		 * Size of the mask. Updated in each redraw.
+		 * @private
+		 * @name ch.Carousel#maskWidth
+		 * @type Number
+		 */
 			maskWidth,
 
 		/**
-		* Total amount of pages. Data updated in each redraw.
-		* @private
-		* @name ch.Carousel#pages
-		* @type Number
-		*/
+		 * Total amount of pages. Data updated in each redraw.
+		 * @private
+		 * @name ch.Carousel#pages
+		 * @type Number
+		 */
 			pages,
 
 		/**
-		* Page currently showed.
-		* @private
-		* @name ch.Carousel#currentPage
-		* @type Number
-		*/
+		 * Page currently showed.
+		 * @private
+		 * @name ch.Carousel#currentPage
+		 * @type Number
+		 */
 			currentPage = 1,
 
 		/**
-		* Interval used to animate the component autamatically.
-		* @private
-		* @name ch.Carousel#timer
-		* @type Object
-		*/
+		 * Interval used to animate the component autamatically.
+		 * @private
+		 * @name ch.Carousel#timer
+		 * @type Object
+		 */
 			timer,
 
 		/**
-		* Calculates and set the size of items and its margin to get an adaptive Carousel.
-		* @private
-		* @name ch.Carousel#updateDistribution
-		* @function
-		*/
+		 * Calculates and set the size of items and its margin to get an adaptive Carousel.
+		 * @private
+		 * @name ch.Carousel#updateDistribution
+		 * @function
+		 */
 			updateDistribution = function () {
 
 				// Grabs if there are MORE THAN ONE item in a page or just one
@@ -300,11 +300,11 @@
 			},
 
 		/**
-		* Trigger all recalculations to get the functionality measures.
-		* @private
-		* @name ch.Carousel#draw
-		* @function
-		*/
+		 * Trigger all recalculations to get the functionality measures.
+		 * @private
+		 * @name ch.Carousel#draw
+		 * @function
+		 */
 			draw = function () {
 
 				// Avoid wrong calculations going to first page
@@ -357,11 +357,11 @@
 			},
 
 		/**
-		* Defines the sizing behavior of Carousel. It can be elastic and responsive or fixed.
-		* @private
-		* @name ch.Carousel#setWidth
-		* @function
-		*/
+		 * Defines the sizing behavior of Carousel. It can be elastic and responsive or fixed.
+		 * @private
+		 * @name ch.Carousel#setWidth
+		 * @function
+		 */
 			setWidth = function () {
 
 				// Width by configuration
@@ -388,11 +388,11 @@
 			},
 
 		/**
-		* Makes ready the component structure.
-		* @private
-		* @name ch.Carousel#createLayout
-		* @function
-		*/
+		 * Makes ready the component structure.
+		 * @private
+		 * @name ch.Carousel#createLayout
+		 * @function
+		 */
 			createLayout = function () {
 
 				// Defines the sizing behavior of Carousel
@@ -434,35 +434,35 @@
 			},
 
 		/**
-		* DOM element of arrow that moves the Carousel to the previous page.
-		* @private
-		* @name ch.Carousel#$prevArrow
-		* @type jQuery Object
-		*/
+		 * DOM element of arrow that moves the Carousel to the previous page.
+		 * @private
+		 * @name ch.Carousel#$prevArrow
+		 * @type jQuery Object
+		 */
 			$prevArrow = $("<p class=\"ch-carousel-prev ch-carousel-disabled\" role=\"button\" aria-hidden=\"true\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>"),
 
 		/**
-		* DOM element of arrow that moves the Carousel to the next page.
-		* @private
-		* @name ch.Carousel#$nextArrow
-		* @type jQuery Object
-		*/
+		 * DOM element of arrow that moves the Carousel to the next page.
+		 * @private
+		 * @name ch.Carousel#$nextArrow
+		 * @type jQuery Object
+		 */
 			$nextArrow = $("<p class=\"ch-carousel-next\" role=\"button\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>"),
 
 		/**
-		* Flag to control when arrows were created before.
-		* @private
-		* @name ch.Carousel#arrowsCreated
-		* @type Boolean
-		*/
+		 * Flag to control when arrows were created before.
+		 * @private
+		 * @name ch.Carousel#arrowsCreated
+		 * @type Boolean
+		 */
 			arrowsCreated = false,
 
 		/**
-		* Add arrows to DOM, bind these event and change the flag "arrowsCreated".
-		* @private
-		* @name ch.Carousel#addArrows
-		* @function
-		*/
+		 * Add arrows to DOM, bind these event and change the flag "arrowsCreated".
+		 * @private
+		 * @name ch.Carousel#addArrows
+		 * @function
+		 */
 			addArrows = function () {
 
 				// Check arrows existency
@@ -484,11 +484,11 @@
 			},
 
 		/**
-		* Delete arrows from DOM, unbind these event and change the flag "arrowsCreated".
-		* @private
-		* @name ch.Carousel#removeArrows
-		* @function
-		*/
+		 * Delete arrows from DOM, unbind these event and change the flag "arrowsCreated".
+		 * @private
+		 * @name ch.Carousel#removeArrows
+		 * @function
+		 */
 			removeArrows = function () {
 
 				// Check arrows existency
@@ -504,11 +504,11 @@
 			},
 
 		/**
-		* Check for arrows behavior on first, last and middle pages, and update class name and ARIA values.
-		* @private
-		* @name ch.Carousel#updateArrows
-		* @function
-		*/
+		 * Check for arrows behavior on first, last and middle pages, and update class name and ARIA values.
+		 * @private
+		 * @name ch.Carousel#updateArrows
+		 * @function
+		 */
 			updateArrows = function () {
 
 				// Check arrows existency
@@ -534,12 +534,12 @@
 			},
 
 		/**
-		* Allows to render the arrows over the mask or not.
-		* @private
-		* @name ch.Carousel#arrowsFlow
-		* @function
-		* @param {String || Boolean} config Defines the arrows behavior. It can be "outside", "over", "none", true or false. By default it's "outside".
-		*/
+		 * Allows to render the arrows over the mask or not.
+		 * @private
+		 * @name ch.Carousel#arrowsFlow
+		 * @function
+		 * @param {String || Boolean} config Defines the arrows behavior. It can be "outside", "over", "none", true or false. By default it's "outside".
+		 */
 			arrowsFlow = function (config) {
 
 				// Getter
@@ -577,31 +577,31 @@
 			},
 
 		/**
-		* HTML Element that contains all thumbnails for pagination.
-		* @private
-		* @name ch.Carousel#$pagination
-		* @jQuery Object
-		*/
+		 * HTML Element that contains all thumbnails for pagination.
+		 * @private
+		 * @name ch.Carousel#$pagination
+		 * @jQuery Object
+		 */
 			$pagination = $("<p class=\"ch-carousel-pages\" role=\"tablist\">").on("click", function (event) {
 				goToPage($(event.target).attr("data-page"));
 			}),
 
 		/**
-		* Flag to control if pagination was created before.
-		* @private
-		* @name ch.Carousel#paginationCreated
-		* @type Boolean
-		*/
+		 * Flag to control if pagination was created before.
+		 * @private
+		 * @name ch.Carousel#paginationCreated
+		 * @type Boolean
+		 */
 			paginationCreated = false,
 
 		/**
-		* Updates the selected page on pagination.
-		* @private
-		* @name ch.Carousel#switchPagination
-		* @function
-		* @param {Number} from Page previously selected. It will be unselected.
-		* @param {Number} to Page to be selected.
-		*/
+		 * Updates the selected page on pagination.
+		 * @private
+		 * @name ch.Carousel#switchPagination
+		 * @function
+		 * @param {Number} from Page previously selected. It will be unselected.
+		 * @param {Number} to Page to be selected.
+		 */
 			switchPagination = function (from, to) {
 
 				// Avoid to change something that not exists
@@ -618,11 +618,11 @@
 			},
 
 		/**
-		* Executed when total amount of pages change, this redraw the thumbnails.
-		* @private
-		* @name ch.Carousel#updatePagination
-		* @function
-		*/
+		 * Executed when total amount of pages change, this redraw the thumbnails.
+		 * @private
+		 * @name ch.Carousel#updatePagination
+		 * @function
+		 */
 			updatePagination = function () {
 
 				// Avoid to change something that not exists
@@ -636,11 +636,11 @@
 			},
 
 		/**
-		* Create the pagination on DOM and change the flag "paginationCreated".
-		* @private
-		* @name ch.Carousel#addPagination
-		* @function
-		*/
+		 * Create the pagination on DOM and change the flag "paginationCreated".
+		 * @private
+		 * @name ch.Carousel#addPagination
+		 * @function
+		 */
 			addPagination = function () {
 
 				// Collection of thumbnails strings
@@ -680,11 +680,11 @@
 			},
 
 		/**
-		* Delete pagination from DOM and change the flag "paginationCreated".
-		* @private
-		* @name ch.Carousel#removePagination
-		* @function
-		*/
+		 * Delete pagination from DOM and change the flag "paginationCreated".
+		 * @private
+		 * @name ch.Carousel#removePagination
+		 * @function
+		 */
 			removePagination = function () {
 
 				// Avoid to change something that not exists
@@ -698,11 +698,11 @@
 			},
 
 		/**
-		* Set WAI-ARIA properties to each item depending on the page in which these are.
-		* @private
-		* @name ch.Carousel#updateARIA
-		* @function
-		*/
+		 * Set WAI-ARIA properties to each item depending on the page in which these are.
+		 * @private
+		 * @name ch.Carousel#updateARIA
+		 * @function
+		 */
 			updateARIA = function () {
 
 				// Amount of items when ARIA is updated
@@ -725,23 +725,23 @@
 			},
 
 		/**
-		* Calculates the page corresponding to a specific item.
-		* @private
-		* @name ch.Carousel#getPage
-		* @function
-		* @param {Number} item Order of item from which calculate the page. Starts in 0.
-		*/
+		 * Calculates the page corresponding to a specific item.
+		 * @private
+		 * @name ch.Carousel#getPage
+		 * @function
+		 * @param {Number} item Order of item from which calculate the page. Starts in 0.
+		 */
 			getPage = function (item) {
 				return ~~(item / itemsPerPage) + 1;
 			},
 
 		/**
-		* Moves the list corresponding to specified displacement.
-		* @private
-		* @name ch.Carousel#translate
-		* @function
-		* @param {Number} displacement Distance to move the list.
-		*/
+		 * Moves the list corresponding to specified displacement.
+		 * @private
+		 * @name ch.Carousel#translate
+		 * @function
+		 * @param {Number} displacement Distance to move the list.
+		 */
 			translate = (function () {
 
 				// CSS property written as string to use on CSS movement
@@ -767,12 +767,12 @@
 			}()),
 
 		/**
-		* Updates all necessary data to move to a specified page.
-		* @private
-		* @name ch.Carousel#goToPage
-		* @function
-		* @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
-		*/
+		 * Updates all necessary data to move to a specified page.
+		 * @private
+		 * @name ch.Carousel#goToPage
+		 * @function
+		 * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
+		 */
 			goToPage = function (page) {
 
 				// Page getter
@@ -820,12 +820,12 @@
 			},
 
 		/**
-		* Move items from queue to collection.
-		* @private
-		* @name ch.Carousel#addItems
-		* @function
-		* @param {Number} amount Amount of items that will be added.
-		*/
+		 * Move items from queue to collection.
+		 * @private
+		 * @name ch.Carousel#addItems
+		 * @function
+		 * @param {Number} amount Amount of items that will be added.
+		 */
 			addItems = function (amount) {
 
 				// Take the sample from queue
@@ -864,11 +864,11 @@
 			},
 
 		/**
-		* Analizes if next page needs to load items from queue and execute addItems() method.
-		* @private
-		* @name ch.Carousel#loadAsyncItems
-		* @function
-		*/
+		 * Analizes if next page needs to load items from queue and execute addItems() method.
+		 * @private
+		 * @name ch.Carousel#loadAsyncItems
+		 * @function
+		 */
 			loadAsyncItems = function () {
 
 				// Load only when there are items in queue
@@ -891,14 +891,14 @@
 			};
 
 	/**
-	*  Protected Members
-	*/
+	 *  Protected Members
+	 */
 
 		/**
-		* Moves to the previous page.
-		* @protected
-		* @function
-		*/
+		 * Moves to the previous page.
+		 * @protected
+		 * @function
+		 */
 		that.prev = function () {
 
 			goToPage(currentPage - 1);
@@ -910,10 +910,10 @@
 		};
 
 		/**
-		* Moves to the next page.
-		* @protected
-		* @function
-		*/
+		 * Moves to the next page.
+		 * @protected
+		 * @function
+		 */
 		that.next = function () {
 
 			goToPage(currentPage + 1);
@@ -925,12 +925,12 @@
 		};
 
 		/**
-		* Animates the Carousel automatically. (Since 0.10.6)
-		* @protected
-		* @since 0.10.6
-		* @function
-		* @param {Number} t Delay of transition between pages, expressed in milliseconds.
-		*/
+		 * Animates the Carousel automatically. (Since 0.10.6)
+		 * @protected
+		 * @since 0.10.6
+		 * @function
+		 * @param {Number} t Delay of transition between pages, expressed in milliseconds.
+		 */
 		that.play = (function () {
 
 			// Set a default delay
@@ -954,169 +954,169 @@
 		}());
 
 		/**
-		* Pause the Carousel automatic playing. (Since 0.10.6)
-		* @protected
-		* @since 0.10.6
-		* @function
-		*/
+		 * Pause the Carousel automatic playing. (Since 0.10.6)
+		 * @protected
+		 * @since 0.10.6
+		 * @function
+		 */
 		that.pause = function () {
 			window.clearInterval(timer);
 		};
 
 	/**
-	*  Public Members
-	*/
+	 *  Public Members
+	 */
 		/**
-		* @borrows ch.Object#uid as ch.Carousel#uid
-		* @borrows ch.Object#element as ch.Carousel#element
-		* @borrows ch.Object#type as ch.Carousel#type
-		*/
+		 * @borrows ch.Object#uid as ch.Carousel#uid
+		 * @borrows ch.Object#element as ch.Carousel#element
+		 * @borrows ch.Object#type as ch.Carousel#type
+		 */
 
 		/**
-		* Triggers when component moves to next page.
-		* @name ch.Carousel#next
-		* @event
-		* @public
-		* @exampleDescription Using a callback when Carousel moves to the next page.
-		* @example
-		* example.on("next", function () {
+		 * Triggers when component moves to next page.
+		 * @name ch.Carousel#next
+		 * @event
+		 * @public
+		 * @exampleDescription Using a callback when Carousel moves to the next page.
+		 * @example
+		 * example.on("next", function () {
 		*	alert("Next!");
-		* });
-		*/
+		 * });
+		 */
 
 		/**
-		* Triggers when component moves to previous page.
-		* @name ch.Carousel#prev
-		* @event
-		* @public
-		* @exampleDescription Using a callback when Carousel moves to the previous page.
-		* @example
-		* example.on("prev", function () {
+		 * Triggers when component moves to previous page.
+		 * @name ch.Carousel#prev
+		 * @event
+		 * @public
+		 * @exampleDescription Using a callback when Carousel moves to the previous page.
+		 * @example
+		 * example.on("prev", function () {
 		*	alert("Previous!");
-		* });
-		*/
+		 * });
+		 */
 
 		/**
-		* Since 0.7.9: Triggers when component moves to next or previous page.
-		* @name ch.Carousel#select
-		* @event
-		* @public
-		* @since 0.7.9
-		* @example
-		* @exampleDescription Using a callback when Carousel moves to another page.
-		* example.on("select", function () {
+		 * Since 0.7.9: Triggers when component moves to next or previous page.
+		 * @name ch.Carousel#select
+		 * @event
+		 * @public
+		 * @since 0.7.9
+		 * @example
+		 * @exampleDescription Using a callback when Carousel moves to another page.
+		 * example.on("select", function () {
 		*	alert("An item was selected!");
-		* });
-		*/
+		 * });
+		 */
 
 		/**
-		* Since 0.10.6: Triggers when component redraws.
-		* @name ch.Carousel#redraw
-		* @event
-		* @public
-		* @since 0.10.6
-		* @exampleDescription Using a callback when Carousel trigger a new redraw.
-		* @example
-		* example.on("redraw", function () {
+		 * Since 0.10.6: Triggers when component redraws.
+		 * @name ch.Carousel#redraw
+		 * @event
+		 * @public
+		 * @since 0.10.6
+		 * @exampleDescription Using a callback when Carousel trigger a new redraw.
+		 * @example
+		 * example.on("redraw", function () {
 		*	alert("Carousel was redrawn!");
-		* });
-		*/
+		 * });
+		 */
 
 		/**
-		* Triggers when component adds items asynchronously from queue.
-		* @name ch.Carousel#itemsAdded
-		* @event
-		* @public
-		* @exampleDescription Using a callback when Carousel add items asynchronously.
-		* @example
-		* example.on("itemsAdded", function () {
+		 * Triggers when component adds items asynchronously from queue.
+		 * @name ch.Carousel#itemsAdded
+		 * @event
+		 * @public
+		 * @exampleDescription Using a callback when Carousel add items asynchronously.
+		 * @example
+		 * example.on("itemsAdded", function () {
 		*	alert("Some asynchronous items was added.");
-		* });
-		*/
+		 * });
+		 */
 
 		/**
-		* Same as "select". Gets the current page or moves to a defined page (Since 0.7.4).
-		* @public
-		* @function
-		* @name ch.Carousel#page
-		* @returns Chico UI Object
-		* @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
-		* @since 0.7.4
-		* @exampleDescription Go to second page.
-		* @example
-		* foo.page(2);
-		* @exampleDescription Get the current page.
-		* @example
-		* foo.page();
-		*/
+		 * Same as "select". Gets the current page or moves to a defined page (Since 0.7.4).
+		 * @public
+		 * @function
+		 * @name ch.Carousel#page
+		 * @returns Chico UI Object
+		 * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
+		 * @since 0.7.4
+		 * @exampleDescription Go to second page.
+		 * @example
+		 * foo.page(2);
+		 * @exampleDescription Get the current page.
+		 * @example
+		 * foo.page();
+		 */
 		/**
-		* Same as "page". Moves to a defined page (Since 0.7.5).
-		* @public
-		* @function
-		* @name ch.Carousel#select
-		* @returns Current page number or Chico UI Object
-		* @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
-		* @since 0.7.5
-		* @exampleDescription Go to second page.
-		* @example
-		* foo.select(2);
-		*/
+		 * Same as "page". Moves to a defined page (Since 0.7.5).
+		 * @public
+		 * @function
+		 * @name ch.Carousel#select
+		 * @returns Current page number or Chico UI Object
+		 * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
+		 * @since 0.7.5
+		 * @exampleDescription Go to second page.
+		 * @example
+		 * foo.select(2);
+		 */
 		that["public"].page = that["public"].select = function (page) {
 			return goToPage(page) || that["public"];
 		};
 
 		/**
-		* Moves to the previous page.
-		* @public
-		* @function
-		* @name ch.Carousel#prev
-		* @returns Chico UI Object
-		* @exampleDescription Go to previous page.
-		* @example
-		* foo.prev();
-		*/
+		 * Moves to the previous page.
+		 * @public
+		 * @function
+		 * @name ch.Carousel#prev
+		 * @returns Chico UI Object
+		 * @exampleDescription Go to previous page.
+		 * @example
+		 * foo.prev();
+		 */
 		that["public"].prev = function () {
 			that.prev();
 			return that["public"];
 		};
 
 		/**
-		* Moves to the next page.
-		* @public
-		* @function
-		* @name ch.Carousel#next
-		* @returns Chico UI Object
-		* @exampleDescription Go to next page.
-		* @example
-		* foo.next();
-		*/
+		 * Moves to the next page.
+		 * @public
+		 * @function
+		 * @name ch.Carousel#next
+		 * @returns Chico UI Object
+		 * @exampleDescription Go to next page.
+		 * @example
+		 * foo.next();
+		 */
 		that["public"].next = function () {
 			that.next();
 			return that["public"];
 		};
 
 		/**
-		* Allow to manage or disable the "Next" and "Previous" buttons flow ("over" the mask, "outside" it or "none"). (Since 0.10.6).
-		* @public
-		* @function
-		* @name ch.Carousel#arrows
-		* @since 0.10.6
-		* @returns Chico UI Object
-		* @param {String || Boolean} config CSS transition properties. By default it's "outside".
-		* @exampleDescription Put arrows outside the mask.
-		* @example
-		* foo.arrows("outside");
-		* // or
-		* foo.arrows(true);
-		* @exampleDescription Put arrows over the mask.
-		* @example
-		* foo.arrows("over");
-		* @exampleDescription Disable arrows.
-		* @example
-		* foo.arrows("none");
-		* or
-		* foo.arrows(false);
-		*/
+		 * Allow to manage or disable the "Next" and "Previous" buttons flow ("over" the mask, "outside" it or "none"). (Since 0.10.6).
+		 * @public
+		 * @function
+		 * @name ch.Carousel#arrows
+		 * @since 0.10.6
+		 * @returns Chico UI Object
+		 * @param {String || Boolean} config CSS transition properties. By default it's "outside".
+		 * @exampleDescription Put arrows outside the mask.
+		 * @example
+		 * foo.arrows("outside");
+		 * // or
+		 * foo.arrows(true);
+		 * @exampleDescription Put arrows over the mask.
+		 * @example
+		 * foo.arrows("over");
+		 * @exampleDescription Disable arrows.
+		 * @example
+		 * foo.arrows("none");
+		 * or
+		 * foo.arrows(false);
+		 */
 		that["public"].arrows = function (config) {
 			arrowsFlow(config);
 			draw();
@@ -1124,68 +1124,68 @@
 		};
 
 		/**
-		* Trigger all recalculations to get the functionality measures.
-		* @public
-		* @function
-		* @name ch.Carousel#redraw
-		* @returns Chico UI Object
-		* @exampleDescription Re-draw the Carousel.
-		* @example
-		* foo.redraw();
-		*/
+		 * Trigger all recalculations to get the functionality measures.
+		 * @public
+		 * @function
+		 * @name ch.Carousel#redraw
+		 * @returns Chico UI Object
+		 * @exampleDescription Re-draw the Carousel.
+		 * @example
+		 * foo.redraw();
+		 */
 		that["public"].redraw = function () {
 			draw();
 			return that["public"];
 		};
 
 		/**
-		* Animates the Carousel automatically.
-		* @public
-		* @function
-		* @name ch.Carousel#play
-		* @param {Number} t Delay of transition between pages, expressed in milliseconds.
-		* @returns Chico UI Object
-		* @exampleDescription Start automatic animation.
-		* @example
-		* foo.play();
-		* @exampleDescription Start automatic animation with a 5 seconds delay between pages.
-		* @example
-		* foo.play(5000);
-		*/
+		 * Animates the Carousel automatically.
+		 * @public
+		 * @function
+		 * @name ch.Carousel#play
+		 * @param {Number} t Delay of transition between pages, expressed in milliseconds.
+		 * @returns Chico UI Object
+		 * @exampleDescription Start automatic animation.
+		 * @example
+		 * foo.play();
+		 * @exampleDescription Start automatic animation with a 5 seconds delay between pages.
+		 * @example
+		 * foo.play(5000);
+		 */
 		that["public"].play = function (t) {
 			that.play(t);
 			return that["public"];
 		};
 
 		/**
-		* Pause the Carousel automatic playing.
-		* @public
-		* @function
-		* @name ch.Carousel#pause
-		* @returns Chico UI Object
-		* @exampleDescription Pause automatic animation.
-		* @example
-		* foo.pause();
-		*/
+		 * Pause the Carousel automatic playing.
+		 * @public
+		 * @function
+		 * @name ch.Carousel#pause
+		 * @returns Chico UI Object
+		 * @exampleDescription Pause automatic animation.
+		 * @example
+		 * foo.pause();
+		 */
 		that["public"].pause = function () {
 			that.pause();
 			return that["public"];
 		};
 
 		/**
-		* Get the items amount of each page (Since 0.7.4).
-		* @public
-		* @since 0.7.4
-		* @name ch.Carousel#itemsPerPage
-		* @returns Number
-		*/
+		 * Get the items amount of each page (Since 0.7.4).
+		 * @public
+		 * @since 0.7.4
+		 * @name ch.Carousel#itemsPerPage
+		 * @returns Number
+		 */
 		that["public"].itemsPerPage = function () {
 			return itemsPerPage;
 		};
 
 	/**
-	*  Default event delegation
-	*/
+	 *  Default event delegation
+	 */
 		// Get ready the component structure.
 		createLayout();
 

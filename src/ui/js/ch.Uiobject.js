@@ -27,19 +27,19 @@
 	function Uiobject() {
 
 		/**
-		* Reference to a internal component instance, saves all the information and configuration properties.
-		* @private
-		* @name ch.Uiobject#that
-		* @type object
-		*/
+		 * Reference to a internal component instance, saves all the information and configuration properties.
+		 * @private
+		 * @name ch.Uiobject#that
+		 * @type object
+		 */
 		var that = this;
 
 		var conf = that.conf;
 
 
 	/**
-	*	Inheritance
-	*/
+	 * Inheritance
+	 */
 
 		that = ch.Object.call(that);
 		that.parent = ch.util.clone(that);
@@ -47,52 +47,52 @@
 
 
 	/**
-	*	Protected Members
-	*/
+	 * Protected Members
+	 */
 
 		/**
-		* Component static content.
-		* @protected
-		* @name ch.Uiobject#staticContent
-		* @type string
-		*/
+		 * Component static content.
+		 * @protected
+		 * @name ch.Uiobject#staticContent
+		 * @type string
+		 */
 		that.staticContent;
 
 		/**
-		* DOM Parent of content, this is useful to attach DOM Content when float is hidding.
-		* @protected
-		* @name ch.Uiobject#DOMParent
-		* @type HTMLElement
-		*/
+		 * DOM Parent of content, this is useful to attach DOM Content when float is hidding.
+		 * @protected
+		 * @name ch.Uiobject#DOMParent
+		 * @type HTMLElement
+		 */
 		that.DOMParent;
 
 		/**
-		* Component original content.
-		* @protected
-		* @name ch.Uiobject#originalContent
-		* @type HTMLElement
-		*/
+		 * Component original content.
+		 * @protected
+		 * @name ch.Uiobject#originalContent
+		 * @type HTMLElement
+		 */
 		that.originalContent;
 
 		/**
-		* Set and get the content of a component. With no arguments will behave as a getter function. Send any kind of content and will be a setter function. Use a valid URL for AJAX content, use a CSS selector for a DOM content or just send a static content like HTML or Text.
-		* @ignore
-		* @name ch.Uiobject#content
-		* @protected
-		* @function
-		* @param {string} [content] Could be a simple text, html or a url to get the content with ajax.
-		* @returns {string} content
-		* @requires ch.Cache
-		* @exampleDescription Simple static content
-		* @example
-		* $(element).layer().content("Some static content");
-		* @exampleDescription Get DOM content
-		* @example
-		* $(element).layer().content("#hiddenContent");
-		* @exampleDescription Get AJAX content
-		* @example
-		* $(element).layer().content("http://chico.com/content/layer.html");
-		*/
+		 * Set and get the content of a component. With no arguments will behave as a getter function. Send any kind of content and will be a setter function. Use a valid URL for AJAX content, use a CSS selector for a DOM content or just send a static content like HTML or Text.
+		 * @ignore
+		 * @name ch.Uiobject#content
+		 * @protected
+		 * @function
+		 * @param {string} [content] Could be a simple text, html or a url to get the content with ajax.
+		 * @returns {string} content
+		 * @requires ch.Cache
+		 * @exampleDescription Simple static content
+		 * @example
+		 * $(element).layer().content("Some static content");
+		 * @exampleDescription Get DOM content
+		 * @example
+		 * $(element).layer().content("#hiddenContent");
+		 * @exampleDescription Get AJAX content
+		 * @example
+		 * $(element).layer().content("http://chico.com/content/layer.html");
+		 */
 		that.content = function(content) {
 
 			var _get = (content) ? false : true,
@@ -113,8 +113,8 @@
 				cache = ( ch.util.hasOwn(conf, "cache") ) ? conf.cache : true;
 
 			/**
-			* Get content
-			*/
+			 * Get content
+			 */
 
 			// return defined content
 			if (_get) {
@@ -155,8 +155,8 @@
 			}
 
 			/**
-			* Set content
-			*/
+			 * Set content
+			 */
 
 			// Reset cache to overwrite content
 			conf.cache = false;
@@ -298,12 +298,12 @@
 		};
 
 		/**
-		* Prevent propagation and default actions.
-		* @name ch.Uiobject#prevent
-		* @function
-		* @protected
-		* @param {event} event Recieves a event object
-		*/
+		 * Prevent propagation and default actions.
+		 * @name ch.Uiobject#prevent
+		 * @function
+		 * @protected
+		 * @param {event} event Recieves a event object
+		 */
 		that.prevent = function(event) {
 
 			if (event && typeof event == "object") {
@@ -315,33 +315,33 @@
 		};
 
 	/**
-	*	Public Members
-	*/
+	 * Public Members
+	 */
 
 		/**
-		* Component's public scope. In this scope you will find all public members.
-		*/
+		 * Component's public scope. In this scope you will find all public members.
+		 */
 
 		/**
-		* Sets and gets component content. To get the defined content just use the method without arguments, like 'widget.content()'. To define a new content pass an argument to it, like 'widget.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
-		* @ignore
-		* @public
-		* @name ch.Uiobject#content
-		* @function
-		* @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
-		* @exampleDescription Get the defined content
-		* @example
-		* widget.content();
-		* @exampleDescription Set static content
-		* @example
-		* widget.content("Some static content");
-		* @exampleDescription Set DOM content
-		* @example
-		* widget.content("#hiddenContent");
-		* @exampleDescription Set AJAX content
-		* @example
-		* widget.content("http://chico.com/some/content.html");
-		*/
+		 * Sets and gets component content. To get the defined content just use the method without arguments, like 'widget.content()'. To define a new content pass an argument to it, like 'widget.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
+		 * @ignore
+		 * @public
+		 * @name ch.Uiobject#content
+		 * @function
+		 * @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
+		 * @exampleDescription Get the defined content
+		 * @example
+		 * widget.content();
+		 * @exampleDescription Set static content
+		 * @example
+		 * widget.content("Some static content");
+		 * @exampleDescription Set DOM content
+		 * @example
+		 * widget.content("#hiddenContent");
+		 * @exampleDescription Set AJAX content
+		 * @example
+		 * widget.content("http://chico.com/some/content.html");
+		 */
 		that["public"].content = function(content){
 			if (content) { // sets
 				// Reset content data
@@ -360,24 +360,27 @@
 		};
 
 		/**
-		* @borrows ch.Object#trigger as ch.Uiobject#trigger
-		*/
+		 * @borrows ch.Object#trigger as ch.Uiobject#trigger
+		 */
 
 		/**
-		* @borrows ch.Object#on as ch.Uiobject#on
-		*/
+		 * @borrows ch.Object#on as ch.Uiobject#on
+		 */
 
 		/**
-		* @borrows ch.Object#once as ch.Uiobject#once
-		*/
+		 * @borrows ch.Object#once as ch.Uiobject#once
+		 */
 
 		/**
-		* @borrows ch.Object#off as ch.Uiobject#off
-		*/
+		 * @borrows ch.Object#off as ch.Uiobject#off
+		 */
 
 
 		return that;
 	}
+
+	Uiobject.prototype.name = 'uiobject';
+	Uiobject.prototype.constructor = Uiobject;
 
 	ch.Uiobject = Uiobject;
 
