@@ -1,11 +1,15 @@
 .ch-autoComplete .ch-autoComplete-cone {
-	display:none !important;
+	display: none !important;
 }
 
 .ch-autoComplete-content {
-	background-color:#ffffff;
-	border:1px solid #CCCCCC;
-	border-top:none;
+	background-color: #ffffff;
+	border: 1px solid #EDEDED;
+	border-top: none;
+	padding: 5px;
+	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	border-radius: 0 0 5px 5px;
 }
 
 
@@ -13,19 +17,19 @@
 .ch-autoComplete-selected {
 	margin: 0;
 	padding: 3px 5px;
-	color:#666666;
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .ch-autoComplete-selected {
-	background-color: #fefbd6;
+	background-color: #FDF9D5;
+	border-radius: 5px;
 }
 
 /* IE */
 .ch-autoComplete-loading {
-	background: url('../assets/loading_small.gif') no-repeat right center;
-	background-size: 15px;
-	
+	background: url('../assets/loading-small.gif') no-repeat right center;
+	background-size: 16px;
+
 }
 
 .lt-ie8 .ch-autoComplete {

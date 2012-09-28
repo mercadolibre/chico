@@ -1,7 +1,7 @@
-/*
-* Reset
-* @based: Eric Meyer
-*/
+/**
+ * Reset
+ * @based: Eric Meyer
+ */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -11,7 +11,7 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-abbr, article, aside, audio, bb, canvas, datagrid, 
+abbr, article, aside, audio, bb, canvas, datagrid,
 datalist, details, dialog, eventsource, figure, footer,
 header, hgroup, mark, menu, meter, nav, output,
 progress, section, time, video {
@@ -21,7 +21,7 @@ progress, section, time, video {
 	border: 0;
 	outline: 0;
 	vertical-align: baseline;
-	
+
 }
 
 ol, ul, menu {
@@ -32,7 +32,7 @@ blockquote, q {
 	quotes: none;
 }
 
-blockquote:before, 
+blockquote:before,
 blockquote:after,
 q:before, q:after {
 	content: '';

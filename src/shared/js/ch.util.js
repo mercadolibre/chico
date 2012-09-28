@@ -172,9 +172,9 @@
 
 		$.each(args, function(i, arg){
 
-			if (typeof arg !== 'string') {
+			/*if (typeof arg !== 'string') {
 				throw new Error('"ch.util.avoidTextSelection(selector)": The selector must be a string.');
-			}
+			}*/
 
 			if ($.browser.msie) {
 				$(arg).attr('unselectable', 'on');

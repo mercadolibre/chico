@@ -100,9 +100,9 @@ ch.viewport = {
 			"width": size.width,
 			"height": size.height
 		};
-		
+
 	},
-	
+
 	/**
 	* Updates left, top, right and bottom coordinates of the visible area, relative to the document.
 	* @public
@@ -122,6 +122,6 @@ ch.viewport = {
 			"right": this.right = scrollLeft + position.right,
 			"bottom": this.bottom = scrollTop + position.bottom
 		};
-		
+
 	}
 };

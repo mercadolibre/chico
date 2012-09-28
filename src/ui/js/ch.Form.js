@@ -68,7 +68,7 @@ ch.form = function(conf) {
 
 	that = ch.controllers.call(that);
 	that.parent = ch.clon(that);
-	
+
 /**
 *  Private Members
 */
@@ -87,11 +87,11 @@ ch.form = function(conf) {
 	var validate = function(event){
 
 		/**
-		* Fired before the validations engine start. 
+		* Fired before the validations engine start.
 		* @name ch.Form#beforeValidate
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("beforeValidate",function () {
 		*	sowidget.action();
@@ -134,11 +134,11 @@ ch.form = function(conf) {
 		}
 
 		/**
-		* Fired when the form validates. 
+		* Fired when the form validates.
 		* @name ch.Form#validate
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("validate",function () {
 		*	sowidget.action();
@@ -146,11 +146,11 @@ ch.form = function(conf) {
 		*/
 
 		/**
-		* Fired when the form fall on a error. 
+		* Fired when the form fall on a error.
 		* @name ch.Form#error
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("error",function () {
 		*	sowidget.action();
@@ -171,7 +171,7 @@ ch.form = function(conf) {
 		* @name ch.Form#afterValidate
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("afterValidate",function () {
 		*	sowidget.action();
@@ -195,7 +195,7 @@ ch.form = function(conf) {
 		* @name ch.Form#beforeSubmit
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("beforeSubmit",function () {
 		*	sowidget.action();
@@ -230,7 +230,7 @@ ch.form = function(conf) {
 		* @name ch.Form#submit
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("afterSubmit",function () {
 		*	sowidget.action();
@@ -255,7 +255,7 @@ ch.form = function(conf) {
 		* @name ch.Form#afterSubmit
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("afterSubmit",function () {
 		*	this.reset();
@@ -286,7 +286,7 @@ ch.form = function(conf) {
 		* @name ch.Form#clear
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("clear",function () {
 		*	this.reset();
@@ -311,7 +311,7 @@ ch.form = function(conf) {
 		* @name ch.Form#reset
 		* @event
 		* @public
-		* @exampleDescription 
+		* @exampleDescription
 		* @example
 		* widget.on("reset",function () {
 		*	sowidget.action();
@@ -330,8 +330,8 @@ ch.form = function(conf) {
 */
 	/**
 	* @borrows ch.Object#uid as ch.Expando#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Expando#element
 	*/

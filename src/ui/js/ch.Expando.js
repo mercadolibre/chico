@@ -23,7 +23,7 @@
 *     "fx": true
 * });
 */
- 
+
 ch.expando = function (conf) {
 
 	/**
@@ -33,10 +33,10 @@ ch.expando = function (conf) {
 	* @type object
 	*/
 	var that = this;
-		
+
 	conf = ch.clon(conf);
 	that.conf = conf;
-	
+
 /**
 *	Inheritance
 */
@@ -46,7 +46,7 @@ ch.expando = function (conf) {
 
 /**
 *  Protected Members
-*/ 
+*/
 	var $nav = that.$element.children(),
 		triggerAttr = {
 			"aria-expanded":conf.open,
@@ -64,7 +64,7 @@ ch.expando = function (conf) {
 	* @type jQuery
 	*/
 	that.$trigger = that.$trigger.attr(triggerAttr);
-	
+
 	/**
 	* The component's trigger.
 	* @protected
@@ -72,7 +72,7 @@ ch.expando = function (conf) {
 	* @type jQuery
 	*/
 	that.$content = $nav.eq(1).attr(contentAttr);
-	
+
 	/**
 	* Shows component's content.
 	* @protected
@@ -100,16 +100,16 @@ ch.expando = function (conf) {
 		that.parent.innerHide();
 		return that;
 	}
-	
-	
+
+
 /**
 *  Public Members
 */
- 
+
 	/**
 	* @borrows ch.Object#uid as ch.Expando#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Expando#element
 	*/
@@ -132,7 +132,7 @@ ch.expando = function (conf) {
 
 	that.$trigger.children().attr("role","presentation");
 	ch.utils.avoidTextSelection(that.$trigger);
-	
+
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.Expando#ready

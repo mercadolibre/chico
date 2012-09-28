@@ -32,12 +32,12 @@ ch.menu = function(conf){
 	* @type object
 	*/
 	var that = this;
-	
+
 	conf = ch.clon(conf);
 	conf.icon = ch.utils.hasOwn(conf, "icon") ? conf.icon : true;
 
 	that.conf = conf;
-	
+
 /**
 *	Inheritance
 */
@@ -72,7 +72,7 @@ ch.menu = function(conf){
 		that.$element.children().each(function(i, e){
 			// List element
 			var $li = $(e);
-									  
+
 			// Children of list elements
 			var $child = $li.children();
 
@@ -107,7 +107,7 @@ ch.menu = function(conf){
 					* @memberOf ch.Menu
 					*/
 					that.callbacks.call(that, "onSelect");
-					
+
 					// new callback
 					/**
 					* It is triggered when the a fold is selected by the user.
@@ -123,7 +123,7 @@ ch.menu = function(conf){
 					that.trigger("select");
 				}
 			});
-			
+
 			var childs = $li.children(),
 				$triggerCont = $(childs[0]),
 				$menu = $(childs[1]);
@@ -131,7 +131,7 @@ ch.menu = function(conf){
 					$menu.attr("role","menu");
 					$menu.children().children().attr("role", "menuitem");
 					$menu.children().attr("role", "presentation");
-				} 
+				}
 				$triggerCont.attr("role","presentation");
 
 			// Add expando to that.children
@@ -139,7 +139,7 @@ ch.menu = function(conf){
 
 		});
 	};
-	
+
 	/**
 	* Opens specific Expando child and optionally grandson
 	* @private
@@ -190,7 +190,7 @@ ch.menu = function(conf){
 						e.hide();
 					};
 				});
-				
+
 			};
 
 		// Item as anchor
@@ -228,8 +228,8 @@ ch.menu = function(conf){
 */
 	/**
 	* @borrows ch.Object#uid as ch.Menu#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Menu#element
 	*/
@@ -237,14 +237,14 @@ ch.menu = function(conf){
 	/**
 	* @borrows ch.Object#type as ch.Menu#type
 	*/
-	
+
 	/**
 	* Select a specific children.
 	* @public
 	* @name select
 	* @name ch.Menu
 	* @param item The number of the item to be selected
-	* @returns 
+	* @returns
 	*/
 	that["public"].select = function (item) {
 		// Getter
@@ -282,7 +282,7 @@ ch.menu = function(conf){
 
 	// Select specific item if there are a "selected" parameter on component configuration object
 	if (ch.utils.hasOwn(conf, "selected")) select(conf.selected);
-	
+
 	/**
 	* Triggers when the component is ready to use (Since 0.8.0).
 	* @name ch.Menu#ready
@@ -334,8 +334,8 @@ ch.factory("menu");
 ch.extend("menu").as("accordion");
 	/**
 	* @borrows ch.Object#uid as ch.Accordion#uid
-	*/	
-	
+	*/
+
 	/**
 	* @borrows ch.Object#element as ch.Accordion#element
 	*/
@@ -350,7 +350,7 @@ ch.extend("menu").as("accordion");
 	* @name select
 	* @name ch.Accordion#select
 	* @param item The number of the item to be selected
-	* @returns 
+	* @returns
 	*/
 
 	/**

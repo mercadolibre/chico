@@ -1044,6 +1044,33 @@
 
 	<script src="vendor/jquery-debug.js"></script>
 	<script src="/ui/js"></script>
+	<script>
+		// Carousel
+		/*var myCarousel = $(".myCarousel").carousel({
+			"pagination": true
+		});*/
+		var a = new ch.Carousel($(".myCarousel"), {
+			"pagination": true
+		});
+		/*
+		// Layer on click
+		var ch_layeC = $(".YOUR_SELECTOR_LayerCloseButton").layer({
+			"event": "click",
+			"closable": "button",
+			"content": "#invisible-content-for-layer",
+			"width": 500
+		}),
+
+		// Layer on click
+			ch_laye = $(".YOUR_SELECTOR_LayerOnclick").layer({
+				"event": "click",
+				"content": "#invisible-content"
+			}),
+
+		// Layer on mouseover
+			ch_layr = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
+		*/
+	</script>
 	<!--script>
 		// Automatic version
 		document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;

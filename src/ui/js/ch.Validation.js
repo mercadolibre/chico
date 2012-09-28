@@ -37,7 +37,7 @@ ch.validation = function (conf) {
 	var that = this;
 
 	conf = ch.clon(conf);
-	
+
 	// Configuration by default
 	conf.offset = conf.offset || "10 0";
 	conf.points = conf.points || "lt rt";
@@ -99,9 +99,9 @@ ch.validation = function (conf) {
 			for (i; i < j; i+=1) {
 				if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
 					return ch.instances.form[i]; // Get my parent
-				} 
+				}
 			};
-		} 
+		}
 
 		that.$element.parents("form").form();
 		var last = (ch.instances.form.length - 1);
@@ -154,7 +154,7 @@ ch.validation = function (conf) {
 	* @type boolean
 	*/
 	that.enabled = true;
-	
+
 	/**
 	* Reference to the Float component instanced.
 	* @protected
@@ -198,7 +198,7 @@ ch.validation = function (conf) {
 		"points": conf.points,
 		"reposition": false
 	});
-	
+
 
 	/**
 	* Stores the error object
@@ -206,7 +206,7 @@ ch.validation = function (conf) {
 	* @type Object
 	* @name ch.Validation#error
 	*/
-	that.error = { 
+	that.error = {
 		"condition": false,
 		"msg": ""
 	}
@@ -238,7 +238,7 @@ ch.validation = function (conf) {
 		that.callbacks('beforeValidate');
 		// new callback
 		that.trigger("beforeValidate");
-		
+
 		// Executes the validators engine with a specific value and returns an object.
 		// Context is the validation
 		var gotError = validator.validate.call(that["public"], that.element.value);
@@ -257,7 +257,7 @@ ch.validation = function (conf) {
 			// to avoid reload the same content
 			if (!that["float"]["public"].isActive() || !that.error.condition || that.error.condition !== gotError.condition) {
 				that["float"]["public"].show((gotError.msg || form.messages[gotError.condition] || "Error"));
-			} 
+			}
 
 			// Add blur or change event only one time to the element or to the elements's group
 			if (!that.$element.data("events")) { that.$element.one(validationEvent, function(evt){that.process(evt);}); }
@@ -356,7 +356,7 @@ ch.validation = function (conf) {
 	that["public"].hasError = function(){
 		return that.process();
 	}
-	
+
 	/**
 	* Run all configured validations.
 	* @public
@@ -411,7 +411,7 @@ ch.validation = function (conf) {
 	* @see ch.Validator
 	*/
 	that["public"].validator = validator;
-	
+
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
@@ -421,7 +421,7 @@ ch.validation = function (conf) {
 	* @see ch.Floats
 	*/
 	that["public"].helper = that["float"]["public"];
-	
+
 	/**
 	* Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
 	* @public
@@ -537,11 +537,11 @@ ch.validation = function (conf) {
 	* @name ch.Validation#message
 	* @function
 	* @returns itself
-	* @exampleDescription Sets a new message 
+	* @exampleDescription Sets a new message
 	* @example
 	* validation.message("required", "New message for required validation");
 	* @exampleDescription Gets a message from a condition
-	* @example	
+	* @example
 	* validation.message("required");
 	*/
 	that["public"].message = function (condition, msg) {

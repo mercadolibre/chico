@@ -26,7 +26,7 @@
 * }, "Enter a even number");
 */
 ch.extend("validation").as("custom", function(conf) {
-	
+
 	if (!conf.lambda) {
 		alert("Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},\"Message\");");
 	}

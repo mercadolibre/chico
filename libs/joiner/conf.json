@@ -30,7 +30,7 @@
 	},
 	"concat": {
 		"uiJS": {
-			"src": [
+			"core": [
 				"../../src/shared/js/ch.helpers.js",
 				"../../src/shared/js/ch.util.js",
 				"../../src/shared/js/ch.events.js",
@@ -38,11 +38,15 @@
 				"../../src/ui/js/ch.support.js",
 				"../../src/ui/js/ch.keyboard.js",
 				"../../src/shared/js/ch.factory.js",
-				"../../src/shared/js/ch.Widget.js",
-				"../../src/shared/js/ch.exports.js",
-				"../../src/ui/js/ch.init.js"
+				"../../src/ui/js/ch.init.js",
+				"../../src/shared/js/ch.exports.js"
 			],
-			"template": ["meta.ui.full.jsOpen", "src", "meta.ui.full.jsClose"]
+			"widgets": [
+				"../../src/ui/js/ch.Object.js",
+				"../../src/ui/js/ch.Uiobject.js",
+				"../../src/ui/js/ch.Carousel.js"
+			],
+			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]
 		},
 		"uiCSS": {
 			"src": [

@@ -24,7 +24,7 @@
 * $("input").number("This field must be a number.");
 */
 ch.extend("validation").as("number", function(conf) {
-	
+
 	// Define the conditions of this interface
 	conf.condition = {
 		name: "number",
