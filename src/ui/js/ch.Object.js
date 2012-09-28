@@ -11,14 +11,20 @@
 * @see ch.Controls
 */
 
-(function (window) {
+(function (window, $, ch) {
 	'use strict';
 
-	if (window.ch === undefined) {
+	if (ch === undefined) {
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var ch = window.ch;
+	/**
+	 * Global instantiation widget id.
+	 * @private
+	 * @type {Number}
+	 */
+	var uid = 0;
+
 
 	function _Object() {
 
@@ -96,7 +102,7 @@
 		* @name ch.Object#uid
 		* @type number
 		*/
-		that["public"].uid = that.uid;
+		that["public"].uid = that.uid = (uid += 1);
 
 		/**
 		* Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
@@ -173,9 +179,13 @@
 		*/
 		that["public"].off = that.off;
 
+		// Gets or creates the klass's instances map
+		ch.instances[that.name] = ch.instances[that.name] || {};
+		ch.instances[that.name][uid] = that['public'];
+
 		return that;
 	}
 
 	ch.Object = _Object;
 
-}(this));
+}(this, this.jQuery, this.ch));

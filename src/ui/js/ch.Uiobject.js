@@ -17,14 +17,12 @@
 * @see ch.Watcher
 */
 
-(function (window) {
+(function (window, $, ch) {
 	'use strict';
 
-	if (window.ch === undefined) {
+	if (ch === undefined) {
 		throw new window.Error('Expected ch namespace defined.');
 	}
-
-	var ch = window.ch;
 
 	function Uiobject() {
 
@@ -102,11 +100,11 @@
 				// Local argument
 				content = content,
 				// Local isURL
-				sourceIsUrl = ch.utils.isUrl(that.source),
+				sourceIsUrl = ch.util.isUrl(that.source),
 				// Local isSelector
-				sourceIsSelector = ch.utils.isSelector(that.source),
+				sourceIsSelector = ch.util.isSelector(that.source),
 				// Local inDom
-				sourceInDom = (!sourceIsUrl) ? ch.utils.inDom(that.source) : false,
+				sourceInDom = (!sourceIsUrl) ? ch.util.inDom(that.source) : false,
 				// Get context, could be a single component or a controller
 				context = ( ch.util.hasOwn(that, "controller") ) ? that.controller : that["public"],
 				// undefined, for comparison.
@@ -164,11 +162,11 @@
 			conf.cache = false;
 
 			// Local isURL
-			var isUrl = ch.utils.isUrl(content),
+			var isUrl = ch.util.isUrl(content),
 				// Local isSelector
-				isSelector = ch.utils.isSelector(content),
+				isSelector = ch.util.isSelector(content),
 				// Local inDom
-				inDom = (!isUrl) ? ch.utils.inDom(content) : false;
+				inDom = (!isUrl) ? ch.util.inDom(content) : false;
 
 			/* Evaluate static content*/
 
@@ -383,4 +381,4 @@
 
 	ch.Uiobject = Uiobject;
 
-}(this));
+}(this, this.jQuery, this.ch));
