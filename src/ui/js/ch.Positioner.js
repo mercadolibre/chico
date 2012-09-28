@@ -52,7 +52,15 @@
 * });
 */
 
-ch.positioner = (function () {
+(function (window, $, ch) {
+	'use strict';
+
+	if (ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
+
+	var $window = $(window),
+		parseInt = window.parseInt;
 
 	/**
 	* Converts points in className.
@@ -62,8 +70,8 @@ ch.positioner = (function () {
 	* @returns String
 	*/
 	var classNamePoints = function (points) {
-			return "ch-points-" + points.replace(" ", "");
-		},
+		return "ch-points-" + points.replace(" ", "");
+	},
 
 	/**
 	* Reference that allows to know when window is being scrolled or resized.
@@ -92,24 +100,24 @@ ch.positioner = (function () {
 			* @name ch.Positioner#change
 			* @event
 			*/
-			ch.utils.window.trigger(ch.events.VIEWPORT.CHANGE);
+			$window.trigger(ch.events.viewport.CHANGE);
 
 			// Change scrolling status
 			changing = false;
 		};
 
 	// Resize and Scroll events binding. These updates respectives boolean variables
-	ch.utils.window.bind("resize scroll", function () { changing = true; });
+	$window.bind("resize scroll", function () { changing = true; });
 
 	// Interval that checks for resizing status and triggers specific events
-	setInterval(triggerChange, 350);
+	window.setInterval(triggerChange, 350);
 
 	// Returns Positioner Abstract Component
-	return function (conf) {
+	function Positioner(conf) {
 
 		// Validation for required "element" parameter
-		if (!ch.utils.hasOwn(conf, "element")) {
-			alert("Chico UI error: Expected to find \"element\" as required configuration parameter of ch.Positioner");
+		if (!ch.util.hasOwn(conf, "element")) {
+			throw new window.Error('Chico UI error: Expected to find \"element\" as required configuration parameter of ch.Positioner.');
 
 			return;
 		}
@@ -208,7 +216,7 @@ ch.positioner = (function () {
 				offset[1] = parseInt(offset[1], 10);
 
 				// Context by default is viewport
-				if (!ch.utils.hasOwn(conf, "context") || !conf.context || conf.context === "viewport") {
+				if (!ch.util.hasOwn(conf, "context") || !conf.context || conf.context === "viewport") {
 					contextIsNotViewport = false;
 					return ch.viewport;
 				}
@@ -367,7 +375,7 @@ ch.positioner = (function () {
 			relativeParent = (function () {
 
 				// Context's parent that's positioned.
-				var element = (contextIsNotViewport) ? context.element.offsetParent()[0] : ch.utils.body[0],
+				var element = (contextIsNotViewport) ? context.element.offsetParent()[0] : window.document.body,
 
 				// Object to be returned.
 					self = {};
@@ -445,7 +453,7 @@ ch.positioner = (function () {
 				var calculate = function (reference) {
 
 					// Use Position or Offset of Viewport if position is fixed or absolute respectively
-					var ctx = (!contextIsNotViewport && ch.features.fixed) ? ch.viewport.getPosition() : context,
+					var ctx = (!contextIsNotViewport && ch.support.fixed) ? ch.viewport.getPosition() : context,
 
 					// Returnable value
 						r;
@@ -649,13 +657,13 @@ ch.positioner = (function () {
 			addCSSproperties = function () {
 
 				// Fixed position behavior
-				if (!contextIsNotViewport && ch.features.fixed) {
+				if (!contextIsNotViewport && ch.support.fixed) {
 
 					// Sets position of element as fixed to avoid recalculations
 					$element.css("position", "fixed");
 
 					// Bind reposition only on resize
-					ch.utils.window.bind("resize", changesListener);
+					$window.bind("resize", changesListener);
 
 				// Absolute position behavior
 				} else {
@@ -664,7 +672,7 @@ ch.positioner = (function () {
 					$element.css("position", "absolute");
 
 					// Bind reposition recalculations (scroll, resize and changeLayout)
-					ch.utils.window.bind(ch.events.VIEWPORT.CHANGE + " " + ch.events.LAYOUT.CHANGE, changesListener);
+					$window.bind(ch.events.viewport.CHANGE + " " + ch.events.layout.CHANGE, changesListener);
 				}
 
 			},
@@ -715,16 +723,16 @@ ch.positioner = (function () {
 			// Changes configuration properties and repositions the element
 			case "object":
 				// New points
-				if (ch.utils.hasOwn(o, "points")) { points = o.points; }
+				if (ch.util.hasOwn(o, "points")) { points = o.points; }
 
 				// New reposition
-				if (ch.utils.hasOwn(o, "reposition")) { conf.reposition = o.reposition; }
+				if (ch.util.hasOwn(o, "reposition")) { conf.reposition = o.reposition; }
 
 				// New offset (splitted)
-				if (ch.utils.hasOwn(o, "offset")) { offset = o.offset.split(" "); }
+				if (ch.util.hasOwn(o, "offset")) { offset = o.offset.split(" "); }
 
 				// New context
-				if (ch.utils.hasOwn(o, "context")) {
+				if (ch.util.hasOwn(o, "context")) {
 					// Sets conf value
 					conf.context = o.context;
 
@@ -746,7 +754,7 @@ ch.positioner = (function () {
 			// Refresh current position
 			case "string":
 				if (o !== "refresh") {
-					alert("Chico UI error: expected to find \"refresh\" parameter on position() method of Positioner component.");
+					window.alert("Chico UI error: expected to find \"refresh\" parameter on position() method of Positioner component.");
 				}
 
 				// Reset
@@ -778,6 +786,8 @@ ch.positioner = (function () {
 		init();
 
 		return that.position;
-	};
+	}
 
-}());
+	ch.Positioner = Positioner;
+
+}(this, this.jQuery, this.ch));
