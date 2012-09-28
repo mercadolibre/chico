@@ -1,8 +1,6 @@
 (function () {
-	var util = exports.util;
 
-	util.extend({
-
+	exports.util = $.extend(exports.util, {
 
 		/**
 		 * Reference to the index page
@@ -63,13 +61,13 @@
 			'viewportmeta': $('meta[name=viewport]'),
 
 			'gestureStart': function () {
-				util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
+				exports.util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=0.25, maximum-scale=1.6';
 			},
 
 			'scaleFix': function () {
-				if (util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
-					util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
-					document.addEventListener('gesturestart', util.MBP.gestureStart, false);
+				if (exports.util.MBP.viewportmeta && /iPhone|iPad|iPod/.test(userAgent) && !/Opera Mini/.test(userAgent)) {
+					exports.util.MBP.viewportmeta.content = 'width=device-width, minimum-scale=1.0, maximum-scale=1.0';
+					document.addEventListener('gesturestart', exports.util.MBP.gestureStart, false);
 				}
 			},
 
@@ -91,8 +89,8 @@
 			// It should be up to the mobile
 			'hideUrlBar': function () {
 				// if there is a hash, or MBP.BODY_SCROLL_TOP hasn't been set yet, wait till that happens
-				if (!window.location.hash && util.MBP.BODY_SCROLL_TOP !== false) {
-					window.scrollTo( 0, util.MBP.BODY_SCROLL_TOP === 1 ? 0 : 1 );
+				if (!window.location.hash && exports.util.MBP.BODY_SCROLL_TOP !== false) {
+					window.scrollTo( 0, exports.util.MBP.BODY_SCROLL_TOP === 1 ? 0 : 1 );
 				}
 			},
 
@@ -102,23 +100,23 @@
 
 					//scroll to 1
 					window.scrollTo(0, 1);
-					util.MBP.BODY_SCROLL_TOP = 1;
+					exports.util.MBP.BODY_SCROLL_TOP = 1;
 
 					//reset to 0 on bodyready, if needed
 					var bodycheck = setInterval(function () {
 						if(body) {
 							clearInterval(bodycheck);
-							util.MBP.BODY_SCROLL_TOP = util.MBP.getScrollTop();
-							util.MBP.hideUrlBar();
+							exports.util.MBP.BODY_SCROLL_TOP = exports.util.MBP.getScrollTop();
+							exports.util.MBP.hideUrlBar();
 						}
 					}, 15 );
 
 					window.addEventListener('load', function() {
 						setTimeout(function () {
 							//at load, if user hasn't scrolled more than 20 or so...
-							if(util.MBP.getScrollTop() < 20) {
+							if(exports.util.MBP.getScrollTop() < 20) {
 								//reset to hide addr bar at onload
-								util.MBP.hideUrlBar();
+								exports.util.MBP.hideUrlBar();
 							}
 						}, 0);
 					});
@@ -134,16 +132,16 @@
 				for (; i < formFields.length; i += 1) {
 
 					formFields[i].onfocus = function() {
-						util.MBP.viewportmeta.content = contentString + '1';
+						exports.util.MBP.viewportmeta.content = contentString + '1';
 					};
 
 					formFields[i].onblur = function () {
-						util.MBP.viewportmeta.content = contentString + '10';
+						exports.util.MBP.viewportmeta.content = contentString + '10';
 					};
 				}
 			}
 		}
 
-	}, exports.util);
+	});
 
 }());

@@ -97,14 +97,14 @@
 				this.options = util.clone(this.defaults);
 
 			} else if (typeof $el === 'object') {
-				this.options = util.extend($el, util.clone(this.defaults));
+				this.options = $.extend($el, this.defaults);
 			}
 
 		} else if ($el instanceof $ && typeof options === 'object') {
 			this.$el = $el;
 			this.el = $el[0];
 			this.snippet = this.el.cloneNode();
-			this.options = util.extend(options, util.clone(this.defaults));
+			this.options = $.extend(options, this.defaults);
 
 		} else {
 			// TODO: Ver el cappítulo del libro de zakas Maintenible JavaScript para ver si nos conviene crear nuestro propios errores
@@ -131,7 +131,7 @@
 
 	};
 
-	//util.require(Widget, [ch.EventEmitter]);
+	//util.use(Widget, [ch.EventEmitter]);
 
 	//this.emit('ready', this);
 

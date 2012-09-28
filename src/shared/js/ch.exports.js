@@ -10,5 +10,7 @@
 		return exports;
 	}
 
+	exports.instances = instances;
+
 	window.ch = exports;
 }());

@@ -1,6 +1,6 @@
 (function () {
 
-	exports.util.extend({
+	exports.events = $.extend(exports.events, {
 		/**
 		 *
 		 * @name TAP
@@ -19,6 +19,6 @@
 		 */
 		'PATH_CHANGE': (('onpopstate' in window) ? 'popstate' : 'hashchange')
 
-	}, exports.events);
+	});
 
 }());
