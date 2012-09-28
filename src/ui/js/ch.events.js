@@ -1,6 +1,6 @@
 (function () {
 
-	exports.util.extend({
+	exports.events = $.extend(exports.events, {
 		/**
 		 * Keryboard event collection.
 		 * @name key
@@ -73,6 +73,6 @@
 			'BACKSPACE': 'backspace'
 		}
 
-	}, exports.events);
+	});
 
 }());

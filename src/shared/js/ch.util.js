@@ -170,18 +170,18 @@
 			throw new Error('"ch.util.avoidTextSelection(selector)": The selector parameter is required.');
 		}
 
-		$.each(args, function(i, arg){
+		$.each(args, function(i, $arg){
 
-			/*if (typeof arg !== 'string') {
-				throw new Error('"ch.util.avoidTextSelection(selector)": The selector must be a string.');
-			}*/
+			if (!($arg instanceof $)) {
+				throw new Error('"ch.util.avoidTextSelection(selector)": The parameter must be a query selector.');
+			}
 
 			if ($.browser.msie) {
-				$(arg).attr('unselectable', 'on');
+				$arg.attr('unselectable', 'on');
 			} else if ($.browser.opera) {
-				$(arg).bind('mousedown', function () { return false; });
+				$arg.bind('mousedown', function () { return false; });
 			} else {
-				$(arg).addClass('ch-user-no-select');
+				$arg.addClass('ch-user-no-select');
 			};
 		});
 	};
@@ -267,60 +267,11 @@
 	};
 
 	/**
-	 * Copy all of properties from an object to a destination object, and returns the destination object.
-	 * @name extend
-	 * @methodOf ch.util
-	 * @param {Object} obj The object that have new members.
-	 * @param {Object} destination The destination object.
-	 * @returns {Object}
-	 * @exampleDescription
-	 * @example
-	 * var Gizmo = {"name": "foo"};
-	 * ch.extend({
-	 *     "sayName": function () { console.log(this.name); },
-	 *     "foobar": "Some string"
-	 * }, Gizmo);
-	 *
-	 * // Returns Gizmo
-	 * console.dir(gizmo);
-	 *
-	 * // Gizmo Object
-	 * // foobar: "Some string"
-	 * // name: "foo"
-	 * // sayName: function () {}
-	 * @exampleDescription
-	 * @example
-	 * // Add new funcionality to CH
-	 * ch.extend({
-	 *     "foobar": "Some string"
-	 * });
-	 *
-	 * // Returns ch
-	 * console.dir(ch);
-	 *
-	 * // ch Object
-	 * // foobar: "Some string"
-	 */
-	util.extend = function (obj, destination) {
-		if (obj === undefined || typeof obj !== 'object') {
-			throw new Error('"ch.util.extend(obj, destination)": The "obj" parameter is required and must be a object.');
-		}
-		if (destination === undefined || typeof destination !== 'object') {
-			throw new Error('"ch.util.extend(obj, destination)": The "destination" parameter is required and must be a object.');
-		}
-		var prop;
-		for (prop in obj) {
-			destination[prop] = obj[prop];
-		}
-		return destination;
-	};
-
-	/**
 	 * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
 	 * @name inherits
 	 * @methodOf ch.util
-	 * @param {Object} obj The object that have new members.
-	 * @param {Object} superConstructor The construsctor Class.
+	 * @param {Function} obj The object that have new members.
+	 * @param {Function} superConstructor The construsctor Class.
 	 * @returns {Object}
 	 * @exampleDescription
 	 * @example
@@ -328,15 +279,16 @@
 	 */
 	util.inherits = function (obj, superConstructor) {
 
-		if (obj === undefined || typeof obj !== 'object') {
-			throw new Error('"ch.util.inherits(obj, superConstructor)": The "obj" parameter is required and must be a object.');
+		if (obj === undefined || typeof obj !== 'function') {
+			throw new Error('"ch.util.inherits(obj, superConstructor)": The "obj" parameter is required and must be a constructor function.');
 		}
-		if (superConstructor === undefined || typeof superConstructor !== 'object') {
-			throw new Error('"ch.util.inherits(obj, superConstructor)": The "superConstructor" parameter is required and must be a object.');
+		if (superConstructor === undefined || typeof superConstructor !== 'function') {
+			throw new Error('"ch.util.inherits(obj, superConstructor)": The "superConstructor" parameter is required and must be a constructor function.');
 		}
+
 		var child = obj.prototype || {};
-		util.extend(superConstructor.prototype, child);
-		child.super = superConstructor.prototype;
+		obj.prototype = $.extend(child, superConstructor.prototype);
+		obj.prototype.super = superConstructor.prototype;
 
 		/*var fn = function () {};
 		fn.prototype = superConstructor.prototype;
@@ -346,23 +298,26 @@
 
 	/**
 	 * Uses a spesific class or collecton of classes
-	 * @name require
+	 * @name use
 	 * @methodOf ch.util
 	 * @param {Object} obj The object that have new members.
-	 * @param {Object} deps The dependecies objects.
+	 * @param {Function} deps The dependecies objects.
 	 * @returns {Object}
 	 * @exampleDescription
 	 * @example
-	 * require(obj, [foo, bar]);
+	 * use(obj, [foo, bar]);
 	 */
-	util.require = function (obj, deps) {
-		if (obj === undefined || typeof obj !== 'object') {
-			throw new Error('"ch.util.require(obj, deps)": The "obj" parameter is required and must be a object.');
+	util.use = function (obj, deps) {
+		if (obj === undefined) {
+			throw new Error('"ch.util.use(obj, deps)": The "obj" parameter is required and must be an object or constructor function.');
 		}
-		if (deps === undefined || typeof deps !== 'object') {
-			throw new Error('"ch.util.require(obj, deps)": The "deps" parameter is required and must be a object.');
+
+		if (deps === undefined) {
+			throw new Error('"ch.util.use(obj, deps)": The "deps" parameter is required and must be a function or collection.');
 		}
-		var context = obj.prototype;
+
+		var context = obj.prototype
+			deps = (util.isArray(deps)) ? deps : [deps];
 
 		$.each(deps, function (i, dep) {
 			dep.call(context);
@@ -372,8 +327,9 @@
 
 	/**
 	 * Reference to the vendor prefix of the current browser.
-	 * @private
+	 * @name VENDOR_PREFIX
 	 * @constant
+	 * @methodOf ch.util
 	 * @type {String}
 	 * @see <a href="http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/" target="_blank">http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/</a>
 	 */
@@ -400,7 +356,8 @@
 
 	/**
 	 * zIndex values.
-	 * @private
+	 * name zIndex
+	 * @methodOf ch.util
 	 * @type {Number}
 	 */
 	util.zIndex = 1000;

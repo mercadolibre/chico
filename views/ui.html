@@ -1060,9 +1060,12 @@
 		var layer3 = $(".YOUR_SELECTOR_LayerCloseButton").layer({
 			"event": "click",
 			"closable": "button",
-			"content": "Test using a content based only on literal strings.",
+			"content": "#invisible-content-for-layer",
 			"width": 500
 		});
+
+		// Expando
+		var expando = $(".YOUR_SELECTOR_Expando").expando();
 	</script>
 	<!--script>
 		// Automatic version
