@@ -44,7 +44,10 @@
 			"widgets": [
 				"../../src/ui/js/ch.Object.js",
 				"../../src/ui/js/ch.Uiobject.js",
+				"../../src/ui/js/ch.Navs.js",
+				"../../src/ui/js/ch.Expando.js",
 				"../../src/ui/js/ch.Carousel.js"
+
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]
 		},
