@@ -40,18 +40,17 @@
 * });
 */
 
-(function (window) {
+(function (window, $, ch) {
 	'use strict';
 
-	if (window.ch === undefined) {
+	if (ch === undefined) {
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var ch = window.ch,
-		Math = window.Math,
+	var Math = window.Math,
 		setTimeout = window.setTimeout,
 		setInterval = window.setInterval,
-		$html = $(window.document.getElementsByTagName('html')[0]),
+		$html = $('html'),
 		$window = $(window);
 
 	function Carousel($el, conf) {
@@ -1205,4 +1204,4 @@
 
 	ch.factory(Carousel);
 
-}(this));
+}(this, this.jQuery, this.ch));
