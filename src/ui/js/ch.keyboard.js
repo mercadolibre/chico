@@ -1,6 +1,7 @@
 (function () {
 
-	var util = exports.util;
+	var util = exports.util,
+		events = exports.events;
 
 	/**
 	 * Map with references to key codes.
@@ -32,7 +33,7 @@
 		if(!util.hasOwn(codeMap, keyCode)) { return; }
 
 		// Trigger custom event with original event as second parameter
-		$document.trigger(EVENT.KEY[codeMap[keyCode]], event);
+		$document.trigger(events.key[codeMap[keyCode]], event);
 	}
 
 	exports.keyboard = keyboard;
