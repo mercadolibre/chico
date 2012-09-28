@@ -44,6 +44,8 @@
 			"widgets": [
 				"../../src/ui/js/ch.Object.js",
 				"../../src/ui/js/ch.Uiobject.js",
+				"../../src/ui/js/ch.Controls.js",
+				"../../src/ui/js/ch.AutoComplete.js",
 				"../../src/ui/js/ch.Carousel.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]

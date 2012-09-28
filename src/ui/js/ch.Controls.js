@@ -14,55 +14,64 @@
 * @see ch.Uiobject
 * @see ch.Floats
 */
+(function (window, $, ch) {
+	'use strict';
 
-ch.controls = function () {
+	if (ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	/**
-	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @name ch.Controls#that
-	* @type Object
-	*/
-	var that = this,
+	function Controls($el, conf) {
 
-		conf = that.conf;
-
-/**
-*  Inheritance
-*/
-	that = ch.uiobject.call(that);
-	that.parent = ch.clon(that);
-
-/**
-*  Protected Members
-*/
+		/**
+		* Reference to a internal component instance, saves all the information and configuration properties.
+		* @name ch.Controls#that
+		* @type Object
+		*/
+		var that = this;
+		var	conf = conf || {};
 
 	/**
-	* Creates a reference to the Float component instanced.
-	* @protected
-	* @type Object
-	* @name ch.Controls#createFloat
+	*  Inheritance
 	*/
-	that.createFloat = function (c) {
-		c.position = {
-			"context": conf.context || c.context || c.$element || that.$element,
-			"offset": c.offset,
-			"points": c.points
+		that = ch.Uiobject.call(that);
+		that.parent = ch.util.clone(that);
+
+	/**
+	*  Protected Members
+	*/
+
+		/**
+		* Creates a reference to the Float component instanced.
+		* @protected
+		* @type Object
+		* @name ch.Controls#createFloat
+		*/
+		that.createFloat = function (c) {
+			c.position = {
+				"context": conf.context || c.context || c.$element || that.$element,
+				"offset": c.offset,
+				"points": c.points
+			};
+
+			return ch.floats.call({
+				"element": (ch.util.hasOwn(c, "$element")) ? c.$element[0] : that.element,
+				"$element": c.$element || that.$element,
+				"uid": (ch.util.index += 1),
+				"type": c.type || that.type,
+				"conf": c
+			});
+
+
 		};
 
-		return ch.floats.call({
-			"element": (ch.utils.hasOwn(c, "$element")) ? c.$element[0] : that.element,
-			"$element": c.$element || that.$element,
-			"uid": (ch.utils.index += 1),
-			"type": c.type || that.type,
-			"conf": c
-		});
+	/**
+	*  Public Members
+	*/
 
+		return that;
+	}
 
-	};
+	ch.Controls = Controls;
 
-/**
-*  Public Members
-*/
-
-	return that;
-};
+}(this, this.jQuery, this.ch));

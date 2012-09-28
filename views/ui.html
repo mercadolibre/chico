@@ -1042,17 +1042,22 @@
 		</form>
 	</div>
 
-	<script src="vendor/jquery-debug.js"></script>
+	<script src="../vendor/jquery-debug.js"></script>
 	<script src="/ui/js"></script>
 	<script>
+		var a = $(".autoComplete").autoComplete({
+				"url": "http://www.chico-ui.com.ar/suggest?q=",
+				"jsonpCallback": "autoComplete"
+			});
+
 		// Carousel
 		/*var myCarousel = $(".myCarousel").carousel({
 			"pagination": true
-		});*/
+		});
 		var a = new ch.Carousel($(".myCarousel"), {
 			"pagination": true
 		});
-		/*
+
 		// Layer on click
 		var ch_layeC = $(".YOUR_SELECTOR_LayerCloseButton").layer({
 			"event": "click",
