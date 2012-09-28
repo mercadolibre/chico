@@ -62,6 +62,9 @@
 		* @type Object
 		*/
 		var that = this;
+		that.$element = $el;
+		that.element = $el[0];
+		that.type = 'carousel';
 
 		conf = ch.util.clone(conf);
 
@@ -73,10 +76,6 @@
 		conf.pagination = ch.util.hasOwn(conf, "pagination") ? conf.pagination : false;
 
 		that.conf = conf;
-
-		that.$element = $el;
-		that.element = $el[0];
-		that.type = 'carousel';
 
 	/**
 	*  Inheritance
