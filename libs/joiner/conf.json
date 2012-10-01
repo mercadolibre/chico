@@ -10,7 +10,7 @@
 				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($, win){\n\t'use strict';",
+				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function(window,$){'use strict';",
 				"jsClose": "})(this, jQuery);",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
 			}
@@ -58,7 +58,6 @@
 				"../../src/ui/js/ch.Dropdown.js",
 				"../../src/ui/js/ch.Blink.js",
 				"../../src/ui/js/ch.Carousel.js"
-
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]
 		},
@@ -102,7 +101,6 @@
 				"../../src/shared/js/ch.Widget.js",
 				"../../src/shared/js/ch.exports.js",
 				"../../src/mobile/js/ch.init.js"
-
 			],
 			"template": ["meta.mobile.full.jsOpen", "src", "meta.mobile.full.jsClose"]
 		},
@@ -129,7 +127,7 @@
 		}
 	},
 	"min": {
-		"uiJS": ["meta.ui.min.jsOpen", "src", "meta.ui.min.jsClose"],
+		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.min.jsClose", "widgets"],
 		"uiCSS": ["meta.ui.min.css", "src"],
 		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.min.jsClose"],
 		"mobileCSS": ["meta.mobile.min.css", "src"]
