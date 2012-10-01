@@ -53,7 +53,9 @@
 				"../../src/ui/js/ch.Expandable.js",
 				"../../src/ui/js/ch.Dropdown.js",
 				"../../src/ui/js/ch.Blink.js",
+				"../../src/ui/js/ch.TabNavigator.js",
 				"../../src/ui/js/ch.Carousel.js"
+
 
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]
