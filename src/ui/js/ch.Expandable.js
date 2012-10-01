@@ -169,4 +169,6 @@
 
 	ch.factory(Expandable);
 
+	$.fn.expando = $.fn.expandable;
+
 }(this, this.jQuery, this.ch));

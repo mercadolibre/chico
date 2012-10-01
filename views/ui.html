@@ -515,8 +515,8 @@
 	<div class="ch-box-container">
 		<h2>Tab Navigator (horizontal)</h2>
 
-		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator">
-			<ul class="ch-tabNavigator-triggers">
+		<div class="YOUR_SELECTOR_Tabs ch-tabs">
+			<ul class="ch-tabs-triggers">
 				<li><a href="#tab1-b" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li>
 				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li>
 				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li>
@@ -541,8 +541,8 @@
 	<div class="ch-box-container">
 		<h2>Tab Navigator (vertical)</h2>
 
-		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator ch-tab-vertical">
-			<ul class="ch-tabNavigator-triggers">
+		<div class="YOUR_SELECTOR_Tabs ch-tabs ch-tab-vertical">
+			<ul class="ch-tabs-triggers">
 				<li><a href="#tab1-c" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li>
 				<li><a href="#tab2-c" class="ch-tab-trigger">Tab2</a></li>
 				<li><a href="#tab3-c" class="ch-tab-trigger">Tab3</a></li>
@@ -1135,7 +1135,7 @@
 		var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
 
 		// Expandable
-		var expandable = $(".YOUR_SELECTOR_Expandable").expandable();
+		var expandable = $(".YOUR_SELECTOR_Expandable").expando();
 
 		// Dropdown
 		var dropdown = $(".myDropdown").dropdown();
@@ -1144,6 +1144,21 @@
 		$("#doHighlight").on("click", function(){
 			$("#example").blink();
 		});
+
+		// Tabs
+		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
+
+		// Accordion
+		var accordion = $(".YOUR_SELECTOR_Accordion").accordion({
+			"selected": "1#2"
+		});
+
+		// Menu
+		var menu = $(".YOUR_SELECTOR_Menu").menu();
+
+		// Form
+		var form = $('.myForm').form();
+
 	</script>
 	<!--script>
 		// Automatic version

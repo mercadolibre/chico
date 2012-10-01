@@ -58,6 +58,9 @@
 				"../../src/ui/js/ch.Expandable.js",
 				"../../src/ui/js/ch.Dropdown.js",
 				"../../src/ui/js/ch.Blink.js",
+				"../../src/ui/js/ch.Tabs.js",
+				"../../src/ui/js/ch.Menu.js",
+				"../../src/ui/js/ch.Form.js",
 				"../../src/ui/js/ch.Carousel.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]
@@ -84,7 +87,7 @@
 				"../../src/ui/css/ch.Layer.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Modal.css",
-				"../../src/ui/css/ch.TabNavigator.css",
+				"../../src/ui/css/ch.Tabs.css",
 				"../../src/ui/css/ch.Tooltip.css",
 				"../../src/ui/css/ch.Validation.css",
 				"../../src/ui/css/ch.Zoom.css"
