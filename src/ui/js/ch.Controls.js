@@ -54,7 +54,7 @@
 				"points": c.points
 			};
 
-			return ch.floats.call({
+			return ch.Floats.call({
 				"element": (ch.util.hasOwn(c, "$element")) ? c.$element[0] : that.element,
 				"$element": c.$element || that.$element,
 				"uid": (ch.util.index += 1),

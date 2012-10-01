@@ -22,160 +22,178 @@
 *     "singular": "Resta # caracter."
 * });
 */
+(function (window, $, ch) {
+	'use strict';
 
-ch.countdown = function (conf) {
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	/**
-	* Reference to an internal component instance, saves all the information and configuration properties.
-	* @private
-	* @name ch.Countdown#that
-	* @type Object
-	*/
-	var that = this;
+	var setTimeout = window.setTimeout;
 
-	conf = ch.clon(conf);
+	function Countdown($el, conf) {
 
-	// Configuration by default
-	// Max length of content
-	conf.max = parseInt(conf.max) || conf.value || parseInt(conf.msg) || 500;
+		/**
+		* Reference to an internal component instance, saves all the information and configuration properties.
+		* @private
+		* @name ch.Countdown#that
+		* @type Object
+		*/
+		var that = this;
 
-	// Messages
-	conf.plural = conf.plural || "# characters left.";
-	conf.singular = conf.singular || "# character left.";
+		that.$element = $el;
+		that.element = $el[0];
+		that.type = 'countdown';
+		conf = conf || {};
 
-	that.conf = conf;
+		conf = ch.util.clone(conf);
 
-/**
-*	Inheritance
-*/
+		// Configuration by default
+		// Max length of content
+		conf.max = parseInt(conf.max) || conf.value || parseInt(conf.msg) || 500;
 
-	that = ch.controls.call(that);
-	that.parent = ch.clon(that);
+		// Messages
+		conf.plural = conf.plural || "# characters left.";
+		conf.singular = conf.singular || "# character left.";
 
-/**
-*	Private Members
-*/
-	/**
-	* Length of value of form control.
-	* @private
-	* @name ch.Countdown#contentLength
-	* @type Number
-	*/
-	var contentLength = that.element.value.length,
+		that.conf = conf;
 
 	/**
-	* Amount of free characters until full the field.
-	* @private
-	* @name ch.Countdown#remaining
-	* @type Number
+	*	Inheritance
 	*/
-		remaining = conf.max - contentLength,
+
+		that = ch.Controls.call(that);
+		that.parent = ch.util.clone(that);
 
 	/**
-	* Change the visible message of remaining characters.
-	* @private
-	* @name ch.Countdown#updateRemaining
-	* @function
-	* @param num {Number} Remaining characters.
+	*	Private Members
 	*/
-		updateRemaining = (function () {
+		/**
+		* Length of value of form control.
+		* @private
+		* @name ch.Countdown#contentLength
+		* @type Number
+		*/
+		var contentLength = that.element.value.length,
 
-			// Singular or Plural message depending on amount of remaining characters
-			var message = (remaining === 1) ? conf.singular : conf.plural,
+		/**
+		* Amount of free characters until full the field.
+		* @private
+		* @name ch.Countdown#remaining
+		* @type Number
+		*/
+			remaining = conf.max - contentLength,
 
-			// Append to container to allow icon aside inputs
-				$container = that.$element.parent();
-
-			// Create the DOM Element when message will be shown
-				$display = $("<p class=\"ch-form-hint\">" + message.replace("#", remaining) + "</p>").appendTo($container);
-
-			// Real function
-			return function (num) {
+		/**
+		* Change the visible message of remaining characters.
+		* @private
+		* @name ch.Countdown#updateRemaining
+		* @function
+		* @param num {Number} Remaining characters.
+		*/
+			updateRemaining = (function () {
 
 				// Singular or Plural message depending on amount of remaining characters
-				var message = (num !== 1 ? conf.plural : conf.singular).replace(/\#/g, num);
+				var message = (remaining === 1) ? conf.singular : conf.plural,
 
-				// Update DOM text
-				$display.text(message);
+				// Append to container to allow icon aside inputs
+					$container = that.$element.parent(),
 
-				// Update amount of remaining characters
-				remaining = num;
+				// Create the DOM Element when message will be shown
+					$display = $("<p class=\"ch-form-hint\">" + message.replace("#", remaining) + "</p>").appendTo($container);
+
+				// Real function
+				return function (num) {
+
+					// Singular or Plural message depending on amount of remaining characters
+					var message = (num !== 1 ? conf.plural : conf.singular).replace(/\#/g, num);
+
+					// Update DOM text
+					$display.text(message);
+
+					// Update amount of remaining characters
+					remaining = num;
+
+				};
+
+			}());
+
+	/**
+	*	Protected Members
+	*/
+
+		/**
+		* Process input of data on form control and updates remaining amount of characters or limits the content length
+		* @protected
+		* @name ch.Countdown#process
+		* @function
+		*/
+		that.process = function () {
+
+			var len = that.element.value.length;
+
+			// Countdown or Countup
+			if ((len > contentLength && len <= conf.max) || (len < contentLength && len >= 0)) {
+
+				// Change visible message of remaining characters
+				updateRemaining(remaining - (len - contentLength));
+
+				// Update length of value of form control.
+				contentLength = len;
+
+			// Limit Count
+			} else if (len > contentLength && len > conf.max) {
+
+				// Cut the string value of form control
+				that.element.value = that.element.value.substr(0, conf.max);
 
 			};
 
-		}());
-
-/**
-*	Protected Members
-*/
-
-	/**
-	* Process input of data on form control and updates remaining amount of characters or limits the content length
-	* @protected
-	* @name ch.Countdown#process
-	* @function
-	*/
-	that.process = function () {
-
-		var len = that.element.value.length;
-
-		// Countdown or Countup
-		if ((len > contentLength && len <= conf.max) || (len < contentLength && len >= 0)) {
-
-			// Change visible message of remaining characters
-			updateRemaining(remaining - (len - contentLength));
-
-			// Update length of value of form control.
-			contentLength = len;
-
-		// Limit Count
-		} else if (len > contentLength && len > conf.max) {
-
-			// Cut the string value of form control
-			that.element.value = that.element.value.substr(0, conf.max);
-
 		};
 
+
+	/**
+	*	Public Members
+	*/
+
+		/**
+		* @borrows ch.Object#uid as ch.Menu#uid
+		*/
+
+		/**
+		* @borrows ch.Object#element as ch.Menu#element
+		*/
+
+		/**
+		* @borrows ch.Object#type as ch.Menu#type
+		*/
+
+	/**
+	*	Default event delegation
+	*/
+
+		// Bind process function to element
+		that.$element.on("keyup keypress paste", function () { setTimeout(that.process, 0); });
+
+		/**
+		* Triggers when component is ready to use.
+		* @name ch.Countdown#ready
+		* @event
+		* @public
+		* @exampleDescription Following the first example, using <code>widget</code> as Countdown's instance controller:
+		* @example
+		* widget.on("ready",function () {
+		*	this.element;
+		* });
+		*/
+		setTimeout(function () { that.trigger("ready"); }, 50);
+
+		return that;
 	};
 
+	Countdown.prototype.name = 'countdown';
+	Countdown.prototype.constructor = Countdown;
 
-/**
-*	Public Members
-*/
+	ch.factory(Countdown);
 
-	/**
-	* @borrows ch.Object#uid as ch.Menu#uid
-	*/
-
-	/**
-	* @borrows ch.Object#element as ch.Menu#element
-	*/
-
-	/**
-	* @borrows ch.Object#type as ch.Menu#type
-	*/
-
-/**
-*	Default event delegation
-*/
-
-	// Bind process function to element
-	that.$element.on("keyup keypress paste", function () { setTimeout(that.process, 0); });
-
-	/**
-	* Triggers when component is ready to use.
-	* @name ch.Countdown#ready
-	* @event
-	* @public
-	* @exampleDescription Following the first example, using <code>widget</code> as Countdown's instance controller:
-	* @example
-	* widget.on("ready",function () {
-	*	this.element;
-	* });
-	*/
-	setTimeout(function () { that.trigger("ready"); }, 50);
-
-	return that;
-};
-
-ch.factory("countdown");
+}(this, this.jQuery, this.ch));

@@ -23,18 +23,54 @@
 * @example
 * $("input").number("This field must be a number.");
 */
-ch.extend("validation").as("number", function(conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	// Define the conditions of this interface
-	conf.condition = {
-		name: "number",
-		patt: /^(-?[0-9\s]+)$/,
-		message: conf.msg || conf.message
-	};
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	return conf;
+	var setTimeout = window.setTimeout,
+		setInterval = window.setInterval,
+		$document = $(window.document);
 
-});
+	function Num($el, conf){
+
+		var conf = conf || {};
+
+		// Define the conditions of this interface
+		conf.condition = {
+			name: "number",
+			patt: /^(-?[0-9\s]+)$/,
+			message: conf.msg || conf.message
+		};
+
+		var instance = new ch.Validation($el, conf);
+
+		return instance;
+	}
+
+	Num.prototype.name = 'number';
+	Num.prototype.constructor = Num;
+
+	ch.factory(Num);
+
+}(this, this.jQuery, this.ch));
+
+// ch.extend("validation").as("number", function(conf) {
+
+// 	// Define the conditions of this interface
+// 	conf.condition = {
+// 		name: "number",
+// 		patt: /^(-?[0-9\s]+)$/,
+// 		message: conf.msg || conf.message
+// 	};
+
+// 	return conf;
+
+// });
+
+
 
 /**
 * Min validates a number with a minimun value.
@@ -63,18 +99,18 @@ ch.extend("validation").as("number", function(conf) {
 * @example
 * $("input").min(10, "Write a number bigger than 10");
 */
-ch.extend("validation").as("min", function (conf) {
+// ch.extend("validation").as("min", function (conf) {
 
-	conf.condition = {
-		name: "min",
-		expr: function(a,b) { return a >= b },
-		message: conf.msg || conf.message,
-		value: conf.value
-	};
+// 	conf.condition = {
+// 		name: "min",
+// 		expr: function(a,b) { return a >= b },
+// 		message: conf.msg || conf.message,
+// 		value: conf.value
+// 	};
 
-	return conf;
+// 	return conf;
 
-});
+// });
 
 
 /**
@@ -104,18 +140,18 @@ ch.extend("validation").as("min", function (conf) {
 * @example
 * $("input").max(10, "Write a number smaller than 10");
 */
-ch.extend("validation").as("max", function (conf) {
+// ch.extend("validation").as("max", function (conf) {
 
-	conf.condition = {
-		name: "max",
-		expr: function(a,b) { return a <= b },
-		message: conf.msg || conf.message,
-		value: conf.value
-	};
+// 	conf.condition = {
+// 		name: "max",
+// 		expr: function(a,b) { return a <= b },
+// 		message: conf.msg || conf.message,
+// 		value: conf.value
+// 	};
 
-	return conf;
+// 	return conf;
 
-});
+// });
 
 /**
 * Price validates a number like the price format.
@@ -143,14 +179,14 @@ ch.extend("validation").as("max", function (conf) {
 * @example
 * $("input").price("Write valid price.");
 */
-ch.extend("validation").as("price", function (conf) {
+// ch.extend("validation").as("price", function (conf) {
 
-	conf.condition = {
-		name: "price",
-		patt: /^(\d+)[.,]?(\d?\d?)$/,
-		message: conf.msg || conf.message
-	};
+// 	conf.condition = {
+// 		name: "price",
+// 		patt: /^(\d+)[.,]?(\d?\d?)$/,
+// 		message: conf.msg || conf.message
+// 	};
 
-	return conf;
+// 	return conf;
 
-});
+// });

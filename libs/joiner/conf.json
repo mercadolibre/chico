@@ -51,9 +51,15 @@
 				"../../src/ui/js/ch.Floats.js",
 				"../../src/ui/js/ch.Layer.js",
 				"../../src/ui/js/ch.Navs.js",
-				"../../src/ui/js/ch.Expando.js",
 				"../../src/ui/js/ch.AutoComplete.js",
-				"../../src/ui/js/ch.Carousel.js"
+				"../../src/ui/js/ch.Carousel.js",
+				"../../src/ui/js/ch.Calendar.js",
+				"../../src/ui/js/ch.DatePicker.js",
+				"../../src/ui/js/ch.Countdown.js",
+				"../../src/ui/js/ch.Condition.js",
+				"../../src/ui/js/ch.Validator.js",
+				"../../src/ui/js/ch.Validation.js",
+				"../../src/ui/js/ch.Number.js"
 
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]

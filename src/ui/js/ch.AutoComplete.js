@@ -26,7 +26,8 @@
 	}
 
 	var setTimeout = window.setTimeout,
-		setInterval = window.setInterval;
+		setInterval = window.setInterval,
+		$document = $(window.document);
 
 	function AutoComplete($el, conf){
 
@@ -40,7 +41,7 @@
 
 		that.$element = $el;
 		that.element = $el[0];
-		that.type = 'autocomplete';
+		that.type = 'autoComplete';
 		conf = conf || {};
 
 
@@ -256,7 +257,7 @@
 		*/
 		that.suggestionsBehavior = function(event){
 			// BACKSPACE key bheavior. When backspace go to the start show the message
-			ch.util.document.on(ch.events.KEY.BACKSPACE + ".autoComplete", function (x, event) {
+			$document.on(ch.events.key.BACKSPACE + ".autoComplete", function (x, event) {
 
 				// When the user make backspace with empty input autocomplete is shutting off
 				if(that.element.value.length===0){
@@ -272,13 +273,13 @@
 
 			})
 			// ESC key behavior, it closes the suggestions's list
-			.on(ch.events.KEY.ESC + ".autoComplete", function (x, event) { that.$element.trigger("blur"); })
+			.on(ch.events.key.ESC + ".autoComplete", function (x, event) { that.$element.trigger("blur"); })
 			// ENTER key behavior, it selects the item who is selected
-			.on(ch.events.KEY.ENTER + ".autoComplete", function (x, event) { that.$element.val($(that.items[that.selected]).text()); that.$element.trigger("blur"); })
+			.on(ch.events.key.ENTER + ".autoComplete", function (x, event) { that.$element.val($(that.items[that.selected]).text()); that.$element.trigger("blur"); })
 			// UP ARROW key behavior, it selects the previous item
-			.on(ch.events.KEY.UP_ARROW + ".autoComplete", function (x, event) { selectItem("up", event); })
+			.on(ch.events.key.UP_ARROW + ".autoComplete", function (x, event) { selectItem("up", event); })
 			// DOWN ARROW key behavior, it selects the next item
-			.on(ch.events.KEY.DOWN_ARROW + ".autoComplete", function (x, event) { selectItem("bottom", event); });
+			.on(ch.events.key.DOWN_ARROW + ".autoComplete", function (x, event) { selectItem("bottom", event); });
 			// MouseOver & MouseDown Behavior
 			that["float"].$content.on("mouseover mousedown",function(evt){
 				var event = evt || window.event;
@@ -316,7 +317,7 @@
 			var query = that.element.value;
 			that.doQuery(event);
 			// Global keyup behavior
-			ch.util.document.on("keyup.autoComplete", function (event) {that.doQuery(event);  });
+			$document.on("keyup.autoComplete", function (event) {that.doQuery(event);  });
 			//that.$content.html("");
 
 			return that;
@@ -332,7 +333,7 @@
 			that.trigger("hide");
 			that.behaviorActived = false;
 			that.$content.off("mouseover mousedown");
-			ch.util.document.off(".autoComplete");
+			$document.off(".autoComplete");
 			that["float"].innerHide();
 			return that;
 		}
@@ -392,7 +393,7 @@
 		* @returns itself
 		*/
 		that["public"].hide = function(){
-			that.hide(ch.events.KEY.ESC);
+			that.hide(ch.events.key.ESC);
 			return that["public"];
 		};
 

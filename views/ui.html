@@ -1045,14 +1045,47 @@
 	<script src="../vendor/jquery-debug.js"></script>
 	<script src="/ui/js"></script>
 	<script>
+
 		var a = $(".autoComplete").autoComplete({
-				"url": "http://www.chico-ui.com.ar/suggest?q=",
-				"jsonpCallback": "autoComplete"
-			});
+			"url": "http://www.chico-ui.com.ar/suggest?q=",
+			"jsonpCallback": "autoComplete"
+		});
+
+		var b = $(".autoComplete2").autoComplete({
+			"url": "http://www.chico-ui.com.ar/suggest?q=",
+			"jsonpCallback": "customComplete"
+		});
+
+		var c = $(".autoComplete3").autoComplete({
+			"suggestions": ["Apple","Beer","Bear","Bee","Custom","Country","Day","Date","Empire","Future"]
+		});
+
+		function autoComplete(data) {
+			a['public'].suggest(data);
+		}
+
+		function customComplete(data) {
+			data.push("Other callback");
+			b['public'].suggest(data);
+		}
+
+		// Calendar
+		var	calendar = $(".YOUR_SELECTOR_calendar").calendar({
+			"from": "today"
+		});
 
 		// Carousel
 		//var carousel = $(".myCarousel").carousel({"pagination": true});*/
 		var carousel = new ch.Carousel($(".myCarousel"), {"pagination": true});
+
+		// Countdown
+		var	cd = $("#text_cd").countdown(140)
+
+		// Date Picker
+		var	datePicker = $(".myDatePicker").datePicker({
+			"selected": "2011/11/15",
+			"to": "today"
+		});
 
 		// Layer
 		var layer1 = $(".YOUR_SELECTOR_LayerOnclick").layer({
@@ -1070,7 +1103,7 @@
 		});
 
 		// Expando
-		var expando = $(".YOUR_SELECTOR_Expando").expando();
+		//var expando = $(".YOUR_SELECTOR_Expando").expando();
 	</script>
 	<!--script>
 		// Automatic version
