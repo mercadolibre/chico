@@ -18,11 +18,11 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Blink($el, conf) {
+	function blink($el, conf) {
 
 		conf = conf || {};
 
-		var that = this,
+		var that = {},
 			// Hex start level toString(16).
 			level = 1,
 			// Time, 200 miliseconds by default.
@@ -30,7 +30,6 @@
 
 		that.$element = $el;
 		that.element = $el[0];
-		that.type = 'blink';
 
 		// Inner highlighter.
 		function highlight () {
@@ -63,13 +62,15 @@
 		if (!that.$element.hasClass("ch-blink")) {
 			highlight();
 		}
+
 		// Return the element so keep chaining things.
 		return that.$element;
 	}
 
-	Blink.prototype.name = 'blink';
-	Blink.prototype.constructor = Blink;
-
-	ch.factory(Blink);
+	$.fn.blink = function (conf) {
+		$.each(this, function (i, el) {
+			blink($(el), conf);
+		});
+	};
 
 }(this, this.jQuery, this.ch));
