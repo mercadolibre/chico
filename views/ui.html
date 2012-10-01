@@ -283,8 +283,8 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Expando</h2>
-		<div class="YOUR_SELECTOR_Expando">
+		<h2>Expandable</h2>
+		<div class="YOUR_SELECTOR_Expandable">
 			<h4>Lorem ipsum dolor sit amet.</h4>
 			<div>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p><p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.</p>
@@ -1071,9 +1071,6 @@
 			"width": 500
 		});
 
-		// Expando
-		//var expando = $(".YOUR_SELECTOR_Expando").expando();
-
 		// Tooltip
 		// Bottom
 		$("#default").tooltip(); // lt lb
@@ -1136,6 +1133,17 @@
 
 		// Zoom
 		var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
+
+		// Expandable
+		var expandable = $(".YOUR_SELECTOR_Expandable").expandable();
+
+		// Dropdown
+		var dropdown = $(".myDropdown").dropdown();
+
+		// BLink
+		$("#doHighlight").on("click", function(){
+			$("#example").blink();
+		});
 	</script>
 	<!--script>
 		// Automatic version
@@ -1218,8 +1226,8 @@
 		// Tab Navigator
 			ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator(),
 
-		// Expando
-			ch_expa = $(".YOUR_SELECTOR_Expando").expando(),
+		// expandable
+			ch_expa = $(".YOUR_SELECTOR_expandable").expandable(),
 
 		// Calendar
 			calendar = $(".YOUR_SELECTOR_calendar").calendar({

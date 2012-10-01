@@ -53,6 +53,10 @@
 				"../../src/ui/js/ch.Tooltip.js",
 				"../../src/ui/js/ch.Modal.js",
 				"../../src/ui/js/ch.Zoom.js",
+				"../../src/ui/js/ch.Navs.js",
+				"../../src/ui/js/ch.Expandable.js",
+				"../../src/ui/js/ch.Dropdown.js",
+				"../../src/ui/js/ch.Blink.js",
 				"../../src/ui/js/ch.Carousel.js"
 
 			],
@@ -75,7 +79,7 @@
 				"../../src/ui/css/ch.AutoComplete.css",
 				"../../src/ui/css/ch.DatePicker.css",
 				"../../src/ui/css/ch.Dropdown.css",
-				"../../src/ui/css/ch.Expando.css",
+				"../../src/ui/css/ch.Expandable.css",
 				"../../src/ui/css/ch.Form.css",
 				"../../src/ui/css/ch.Layer.css",
 				"../../src/ui/css/ch.Menu.css",
@@ -115,7 +119,7 @@
 				"../../src/mobile/css/ch.transition.css",
 				"../../src/mobile/css/ch.tag.css",
 				"../../src/mobile/css/ch.header.css",
-				"../../src/mobile/css/ch.Expando.css",
+				"../../src/mobile/css/ch.Expandable.css",
 				"../../src/mobile/css/ch.Menu.css",
 				"../../src/mobile/css/ch.Form.css",
 				"../../src/mobile/css/ch.Modal.css",
