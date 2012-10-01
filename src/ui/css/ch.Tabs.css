@@ -1,17 +1,17 @@
 /**
  * Tab Navigator
  */
-/* TabNavigator container */
-.ch-tabNavigator {
+/* tabs container */
+.ch-tabs {
 	margin: 10px 0;
 }
 
-											.ch-tabNavigator.ch-tab-vertical {
+											.ch-tabs.ch-tab-vertical {
 												position: relative;
 											}
 
 /* Triggers container */
-.ch-tabNavigator .ch-tabNavigator-triggers {
+.ch-tabs .ch-tabs-triggers {
 	position: relative;
 	top: 1px;
 	z-index: 10;
@@ -19,7 +19,7 @@
 	overflow: hidden;
 }
 
-											.ch-tabNavigator.ch-tab-vertical .ch-tabNavigator-triggers {
+											.ch-tabs.ch-tab-vertical .ch-tabs-triggers {
 												margin-left: 0;
 												position: absolute;
 												top: 0;
@@ -28,13 +28,13 @@
 												z-index: 10;
 											}
 
-.ch-tabNavigator-triggers li{
+.ch-tabs-triggers li{
 	cursor: pointer;
 	display: inline;
 	margin-right: 0;
 }
 
-										.ch-tab-vertical .ch-tabNavigator-triggers li{
+										.ch-tab-vertical .ch-tabs-triggers li{
 											cursor: pointer;
 											display: block;
 											margin: 0 0 5px 0;
@@ -71,8 +71,8 @@
 /* Vertical trigger */
 
 /* Trigger ON */
-.ch-tabNavigator .ch-tab-trigger-on,
-.ch-tabNavigator .ch-tab-trigger-on:hover {
+.ch-tabs .ch-tab-trigger-on,
+.ch-tabs .ch-tab-trigger-on:hover {
 	background-image: -webkit-linear-gradient(#EEEEEE, #FFFFFF 25px);
 	background-image: -moz-linear-gradient(#EEEEEE, #FFFFFF 25px);
 	background-image: -o-linear-gradient(#EEEEEE, #FFFFFF 25px);
@@ -83,34 +83,34 @@
 	text-shadow: 2px 0 2px rgba(255, 255, 255, .5);
 }
 
-.lt-ie10 .ch-tabNavigator .ch-tab-trigger-on,
-.lt-ie10 .ch-tabNavigator .ch-tab-trigger-on:hover {
+.lt-ie10 .ch-tabs .ch-tab-trigger-on,
+.lt-ie10 .ch-tabs .ch-tab-trigger-on:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#FFFFFF');
 }
 
-								.lt-ie10 .ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on,
-								.lt-ie10 .ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on:hover {
+								.lt-ie10 .ch-tabs.ch-tab-vertical .ch-tab-trigger-on,
+								.lt-ie10 .ch-tabs.ch-tab-vertical .ch-tab-trigger-on:hover {
 									filter: none;
 								}
 
-								.ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on {
+								.ch-tabs.ch-tab-vertical .ch-tab-trigger-on {
 									border: 1px solid #EDEDED;
 									border-right: 1px solid #ffffff;
 									background: none;
 								}
 
-								.ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on:hover,
-								.ch-tabNavigator.ch-tab-vertical .ch-tab-trigger-on:active{
+								.ch-tabs.ch-tab-vertical .ch-tab-trigger-on:hover,
+								.ch-tabs.ch-tab-vertical .ch-tab-trigger-on:active{
 									background-color: #ffffff;
 								}
 
 /* content */
-.ch-tabNavigator .ch-box {
+.ch-tabs .ch-box {
  	background-image: none;
  	border-radius: 0;
 }
 
-								.ch-tabNavigator.ch-tab-vertical .ch-tabNavigator-content {
+								.ch-tabs.ch-tab-vertical .ch-tabs-content {
 									margin-left: 120px;
 									min-height: 120px;
 								}
@@ -118,11 +118,11 @@
 
 
 
-.lt-ie10 .ch-tabNavigator .ch-box {
+.lt-ie10 .ch-tabs .ch-box {
 	filter: none;
 }
 
-.no-js .ch-tabNavigator-triggers {
+.no-js .ch-tabs-triggers {
 	top: 0;
 	border: 1px solid #EDEDED;
 	border-bottom: none;
@@ -132,7 +132,7 @@
 
 }
 
-.no-js .ch-tabNavigator-triggers li {
+.no-js .ch-tabs-triggers li {
 	display: list-item;
 	list-style-type: square;
 	margin-left: 16px;
@@ -160,13 +160,13 @@
 	font-weight: normal;
 }
 
-.no-js .ch-tabNavigator .ch-box > div {
+.no-js .ch-tabs .ch-box > div {
 	border-top: 1px solid #EDEDED;
 	margin-top: 10px;
 	padding-top: 10px;
 }
 
-.no-js .ch-tabNavigator .ch-box > div:first-child {
+.no-js .ch-tabs .ch-box > div:first-child {
 	border-top: none;
 	margin-top: 0;
 	padding-top: 0;

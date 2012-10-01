@@ -1,7 +1,7 @@
 /**
-* TabNavigator lets you create tabs for static and dynamic content.
-* @name TabNavigator
-* @class TabNavigator
+* Tabs lets you create tabs for static and dynamic content.
+* @name Tabs
+* @class Tabs
 * @augments ch.Uiobject
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -10,10 +10,10 @@
 * @factorized
 * @exampleDescription Create a new Tab Navigator without configuration.
 * @example
-* var widget = $(".example").tabNavigator();
+* var widget = $(".example").tabs();
 * @exampleDescription Create a new Tab Navigator with configuration.
 * @example
-* var widget = $(".example").tabNavigator({
+* var widget = $(".example").tabs({
 *     "selected": 2
 * });
 * @see ch.Uiobject
@@ -25,18 +25,18 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function TabNavigator($el, conf) {
+	function Tabs($el, conf) {
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
 		 * @private
-		 * @name ch.TabNavigator#that
+		 * @name ch.Tabs#that
 		 * @type object
 		 */
 		var that = this;
 
 		that.$element = $el;
 		that.element = $el[0];
-		that.type = 'tabNavigator';
+		that.type = 'tabs';
 		conf = conf || {};
 
 		conf = ch.util.clone(conf);
@@ -55,12 +55,12 @@
 	*/
 
 		// Add CSS class to the main element
-		that.$element.addClass("ch-tabNavigator");
+		that.$element.addClass("ch-tabs");
 
 		/**
 		* The actual location hash, is used to know if there's a specific tab selected.
 		* @private
-		* @name ch.TabNavigator#hash
+		* @name ch.Tabs#hash
 		* @type string
 		*/
 		var hash = window.location.hash.replace("#!/", ""),
@@ -68,7 +68,7 @@
 		/**
 		* A boolean property to know if the some tag should be selected.
 		* @private
-		* @name ch.TabNavigator#hashed
+		* @name ch.Tabs#hashed
 		* @type boolean
 		* @default false
 		*/
@@ -77,7 +77,7 @@
 		/**
 		* Get wich tab is selected.
 		* @private
-		* @name ch.TabNavigator#selected
+		* @name ch.Tabs#selected
 		* @type number
 		*/
 			selected = conf.selected || conf.value || undefined,
@@ -85,7 +85,7 @@
 		/**
 		* Create controller's children.
 		* @private
-		* @name ch.TabNavigator#createTabs
+		* @name ch.Tabs#createTabs
 		* @function
 		*/
 			createTabs = function () {
@@ -96,7 +96,7 @@
 					// Tab context
 					var tab = {};
 						tab.uid = that.uid + "#" + i;
-						tab.type = "tab";
+						tab.type = tab.name = "tab";
 						tab.element = e;
 						tab.$element = $(e);
 						tab.controller = that["public"];
@@ -110,7 +110,7 @@
 
 					/**
 					* Fired when the content of one dynamic tab loads.
-					* @name ch.TabNavigator#contentLoad
+					* @name ch.Tabs#contentLoad
 					* @event
 					* @public
 					*/
@@ -118,7 +118,7 @@
 
 					/**
 					* Fired when the content of one dynamic tab did not load.
-					* @name ch.TabNavigator#contentError
+					* @name ch.Tabs#contentError
 					* @event
 					* @public
 					*/
@@ -141,7 +141,7 @@
 
 		/**
 		* Select a child to show its content.
-		* @name ch.TabNavigator#select
+		* @name ch.Tabs#select
 		* @private
 		* @function
 		*/
@@ -172,7 +172,7 @@
 
 				/**
 				* Fired when a tab is selected.
-				* @name ch.TabNavigator#select
+				* @name ch.Tabs#select
 				* @event
 				* @public
 				*/
@@ -199,39 +199,39 @@
 		/**
 		* The component's triggers container.
 		* @protected
-		* @name ch.TabNavigator#$triggers
+		* @name ch.Tabs#$triggers
 		* @type jQuery
 		*/
-		that.$triggers = that.$element.children(":first").addClass("ch-tabNavigator-triggers").attr("role", "tablist");
+		that.$triggers = that.$element.children(":first").addClass("ch-tabs-triggers").attr("role", "tablist");
 
 		/**
 		* The component's content.
 		* @protected
-		* @name ch.TabNavigator#$content
+		* @name ch.Tabs#$content
 		* @type jQuery
 		*/
-		that.$content = that.$triggers.next().addClass("ch-tabNavigator-content ch-box").attr("role", "presentation");
+		that.$content = that.$triggers.next().addClass("ch-tabs-content ch-box").attr("role", "presentation");
 
 	/**
 	*	Public Members
 	*/
 
 		/**
-		* @borrows ch.Object#uid as ch.TabNavigator#uid
+		* @borrows ch.Object#uid as ch.Tabs#uid
 		*/
 
 		/**
-		* @borrows ch.Object#element as ch.TabNavigator#element
+		* @borrows ch.Object#element as ch.Tabs#element
 		*/
 
 		/**
-		* @borrows ch.Object#type as ch.TabNavigator#type
+		* @borrows ch.Object#type as ch.Tabs#type
 		*/
 
 		/**
 		* Children instances associated to this controller.
 		* @public
-		* @name ch.TabNavigator#children
+		* @name ch.Tabs#children
 		* @type collection
 		*/
 		that["public"].children = that.children;
@@ -239,7 +239,7 @@
 		/**
 		* Select a specific tab or get the selected tab.
 		* @public
-		* @name ch.TabNavigator#select
+		* @name ch.Tabs#select
 		* @function
 		* @param {Number} [tab] Tab's index.
 		* @exampleDescription Selects a specific tab
@@ -285,12 +285,12 @@
 
 		/**
 		* Triggers when the component is ready to use (Since 0.8.0).
-		* @name ch.TabNavigator#ready
+		* @name ch.Tabs#ready
 		* @event
 		* @public
 		* @since 0.8.0
 		* @example
-		* // Following the first example, using <code>widget</code> as tabNavigator's instance controller:
+		* // Following the first example, using <code>widget</code> as Tabs's instance controller:
 		* widget.on("ready",function () {
 		*	this.show();
 		* });
@@ -301,16 +301,18 @@
 		return that;
 	}
 
-	TabNavigator.prototype.name = 'tabNavigator';
-	TabNavigator.prototype.constructor = TabNavigator;
+	Tabs.prototype.name = 'tabs';
+	Tabs.prototype.constructor = Tabs;
 
-	ch.factory(TabNavigator);
+	ch.factory(Tabs);
+
+	$.fn.tabNavigator = $.fn.tabs;
 
 }(this, this.jQuery, this.ch));
 
 
 /**
-* Tab is a simple unit of content for TabNavigators.
+* Tab is a simple unit of content for Tabs.
 * @abstract
 * @name Tab
 * @class Tab
@@ -327,7 +329,7 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Tab($el, conf) {
+	function Tab(conf) {
 		/**
 		* Reference to a internal component instance, saves all the information and configuration properties.
 		* @private
@@ -336,9 +338,6 @@
 		* @ignore
 		*/
 		var that = this;
-
-		conf = conf || {};
-
 		conf = ch.util.clone(conf);
 		conf.icon = false;
 
@@ -364,7 +363,7 @@
 		var createContent = function () {
 
 			var href = that.element.href.split("#"),
-				controller = that.$element.parents(".ch-tabNavigator"),
+				controller = that.$element.parents(".ch-tabs"),
 				content = controller.find("#" + href[1]);
 
 			// If there are a tabContent...
@@ -432,8 +431,8 @@
 
 			// Set me as hidden false
 			that.$content
-					.attr("aria-hidden", "false")
-					.removeClass("ch-hide");
+				.attr("aria-hidden", "false")
+				.removeClass("ch-hide");
 
 			return that;
 		};
@@ -458,8 +457,8 @@
 
 			// Set all inactive tabs as hidden
 			that.$content
-					.attr("aria-hidden", "true")
-					.addClass("ch-hide");
+				.attr("aria-hidden", "true")
+				.addClass("ch-hide");
 
 			return that;
 		};
@@ -485,7 +484,7 @@
 		* @public
 		* @name contentCallback
 		* @returns {Chico-UI Object}
-		* @memberOf ch.TabNavigator
+		* @memberOf ch.Tabs
 		* @ignore
 		*/
 		that["public"].on("contentError", function (event, data) {
