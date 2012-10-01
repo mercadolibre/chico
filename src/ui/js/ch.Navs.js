@@ -19,9 +19,7 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var document = window.document,
-		$html = $('html'),
-		body = document.body;
+	var $html = $('html');
 
 	function Navs($el, conf) {
 		/**

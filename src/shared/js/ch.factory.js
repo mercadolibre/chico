@@ -5,7 +5,7 @@
 	 * @param {Object} klass
 	 */
 	function factory(klass) {
-		// tiene que crear $.widget y $('').widget();
+		// $.widget y $('').widget();
 		var name = klass.prototype.name,
 			map = {
 				'string': 'message',
