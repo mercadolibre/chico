@@ -1,7 +1,7 @@
 /**
-* Expando lets you show or hide the content. Expando needs a pair: the title and the content related to that title.
-* @name Expando
-* @class Expando
+* Expandable lets you show or hide the content. Expandable needs a pair: the title and the content related to that title.
+* @name Expandable
+* @class Expandable
 * @augments ch.Navs
 * @see ch.Dropdown
 * @see ch.TabNavigator
@@ -9,16 +9,16 @@
 * @standalone
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {Boolean} [conf.open] Shows the expando open when component was loaded. By default, the value is false.
+* @param {Boolean} [conf.open] Shows the expandable open when component was loaded. By default, the value is false.
 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
 * @returns itself
 * @factorized
-* @exampleDescription Create a new expando without configuration.
+* @exampleDescription Create a new expandable without configuration.
 * @example
-* var widget = $(".example").expando();
-* @exampleDescription Create a new expando with configuration.
+* var widget = $(".example").expandable();
+* @exampleDescription Create a new expandable with configuration.
 * @example
-* var widget = $(".example").expando({
+* var widget = $(".example").expandable({
 *     "open": true,
 *     "fx": true
 * });
@@ -31,22 +31,20 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var document = window.document,
-		body = document.body;
 
-	function Expando($el, conf) {
+	function Expandable($el, conf) {
 
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
 		 * @private
-		 * @name ch.Expando#that
+		 * @name ch.Expandable#that
 		 * @type object
 		 */
 		var that = this;
 
 		that.$element = $el;
 		that.element = $el[0];
-		that.type = 'expando';
+		that.type = 'expandable';
 		conf = conf || {};
 
 		conf = ch.util.clone(conf);
@@ -65,7 +63,7 @@
 		var $nav = that.$element.children(),
 			triggerAttr = {
 				"aria-expanded":conf.open,
-				"aria-controls":"ch-expando-" + that.uid
+				"aria-controls":"ch-expandable-" + that.uid
 			},
 			contentAttr = {
 				id:triggerAttr["aria-controls"],
@@ -75,7 +73,7 @@
 		/**
 		 * The component's trigger.
 		 * @protected
-		 * @name ch.Expando#$trigger
+		 * @name ch.Expandable#$trigger
 		 * @type jQuery
 		 */
 		that.$trigger = that.$trigger.attr(triggerAttr);
@@ -83,7 +81,7 @@
 		/**
 		 * The component's trigger.
 		 * @protected
-		 * @name ch.Expando#$content
+		 * @name ch.Expandable#$content
 		 * @type jQuery
 		 */
 		that.$content = $nav.eq(1).attr(contentAttr);
@@ -92,7 +90,7 @@
 		 * Shows component's content.
 		 * @protected
 		 * @function
-		 * @name ch.Expando#innerShow
+		 * @name ch.Expandable#innerShow
 		 * @returns itself
 		 */
 		that.innerShow = function(event){
@@ -106,7 +104,7 @@
 		 * Hides component's content.
 		 * @protected
 		 * @function
-		 * @name ch.Expando#innerHide
+		 * @name ch.Expandable#innerHide
 		 * @returns itself
 		 */
 		that.innerHide = function(event){
@@ -122,23 +120,23 @@
 		 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Expando#uid
+		 * @borrows ch.Object#uid as ch.Expandable#uid
 		 */
 
 		/**
-		 * @borrows ch.Object#element as ch.Expando#element
+		 * @borrows ch.Object#element as ch.Expandable#element
 		 */
 
 		/**
-		 * @borrows ch.Object#type as ch.Expando#type
+		 * @borrows ch.Object#type as ch.Expandable#type
 		 */
 
 		/**
-		 * @borrows ch.Navs#show as ch.Expando#show
+		 * @borrows ch.Navs#show as ch.Expandable#show
 		 */
 
 		/**
-		 * @borrows ch.Navs#hide as ch.Expando#hide
+		 * @borrows ch.Navs#hide as ch.Expandable#hide
 		 */
 
 		/**
@@ -150,11 +148,11 @@
 
 		/**
 		 * Triggers when the component is ready to use (Since 0.8.0).
-		 * @name ch.Expando#ready
+		 * @name ch.Expandable#ready
 		 * @event
 		 * @public
 		 * @since 0.8.0
-		 * @exampleDescription Following the first example, using <code>widget</code> as expando's instance controller:
+		 * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
 		 * @example
 		 * widget.on("ready",function () {
 		 *	this.show();
@@ -166,9 +164,11 @@
 
 	}
 
-	Expando.prototype.name = 'expando';
-	Expando.prototype.constructor = Expando;
+	Expandable.prototype.name = 'expandable';
+	Expandable.prototype.constructor = Expandable;
 
-	ch.factory(Expando);
+	ch.factory(Expandable);
+
+	$.fn.expando = $.fn.expandable;
 
 }(this, this.jQuery, this.ch));

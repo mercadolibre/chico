@@ -283,8 +283,8 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Expando</h2>
-		<div class="YOUR_SELECTOR_Expando">
+		<h2>Expandable</h2>
+		<div class="YOUR_SELECTOR_Expandable">
 			<h4>Lorem ipsum dolor sit amet.</h4>
 			<div>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p><p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.</p>
@@ -477,6 +477,13 @@
 	</div>
 
 	<div class="ch-box-lite">
+		<h2>Zoom</h2>
+		<a id="YOUR_SELECTOR_Zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+			<img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+		</a>
+	</div>
+
+	<div class="ch-box-lite">
 		<h2>Carousel</h2>
 
 		<div class="myCarousel ch-carousel">
@@ -508,8 +515,8 @@
 	<div class="ch-box-container">
 		<h2>Tab Navigator (horizontal)</h2>
 
-		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator">
-			<ul class="ch-tabNavigator-triggers">
+		<div class="YOUR_SELECTOR_Tabs ch-tabs">
+			<ul class="ch-tabs-triggers">
 				<li><a href="#tab1-b" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li>
 				<li><a href="#tab2-b" class="ch-tab-trigger">Tab2</a></li>
 				<li><a href="#tab3-b" class="ch-tab-trigger">Tab3</a></li>
@@ -534,8 +541,8 @@
 	<div class="ch-box-container">
 		<h2>Tab Navigator (vertical)</h2>
 
-		<div class="YOUR_SELECTOR_TabNavigator ch-tabNavigator ch-tab-vertical">
-			<ul class="ch-tabNavigator-triggers">
+		<div class="YOUR_SELECTOR_Tabs ch-tabs ch-tab-vertical">
+			<ul class="ch-tabs-triggers">
 				<li><a href="#tab1-c" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li>
 				<li><a href="#tab2-c" class="ch-tab-trigger">Tab2</a></li>
 				<li><a href="#tab3-c" class="ch-tab-trigger">Tab3</a></li>
@@ -1102,8 +1109,94 @@
 			"width": 500
 		});
 
-		// Expando
-		//var expando = $(".YOUR_SELECTOR_Expando").expando();
+		// Tooltip
+		// Bottom
+		$("#default").tooltip(); // lt lb
+		$("#ctcb").tooltip({"points": "ct cb"});
+		$("#rtrb").tooltip({"points": "rt rb"});
+
+		// Top
+		$("#lblt").tooltip({
+			"points": "lb lt",
+			"offset": "0 -10"
+		});
+		$("#cbct").tooltip({
+			"points": "cb ct",
+			"offset": "0 -10"
+		});
+		$("#rbrt").tooltip({
+			"points": "rb rt",
+			"offset": "0 -10"
+		});
+
+		// Right
+		$("#ltrt").tooltip({
+			"points": "lt rt",
+			"offset": "10 0"
+		});
+		$("#lmrm").tooltip({
+			"points": "lm rm",
+			"offset": "10 0"
+		});
+		$("#lbrb").tooltip({
+			"points": "lb rb",
+			"offset": "10 0"
+		});
+
+		// Left
+		$("#rtlt").tooltip({
+			"points": "rt lt",
+			"offset": "-10 0"
+		});
+		$("#rmlm").tooltip({
+			"points": "rm lm",
+			"offset": "-10 0"
+		});
+		$("#rblb").tooltip({
+			"points": "rb lb",
+			"offset": "-10 0"
+		});
+
+		// Modal
+		var modal1 = $(".YOUR_SELECTOR_Modal").modal({
+			"width": "500px",
+			"height": "300px"
+		});
+
+		// Modal with invisible DOM Content
+		var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal("#invisible-content");
+
+		// Trasition
+		//var transition = $(".YOUR_SELECTOR_Transition").transition();
+
+		// Zoom
+		var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
+
+		// Expandable
+		var expandable = $(".YOUR_SELECTOR_Expandable").expando();
+
+		// Dropdown
+		var dropdown = $(".myDropdown").dropdown();
+
+		// BLink
+		$("#doHighlight").on("click", function(){
+			$("#example").blink();
+		});
+
+		// Tabs
+		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
+
+		// Accordion
+		var accordion = $(".YOUR_SELECTOR_Accordion").accordion({
+			"selected": "1#2"
+		});
+
+		// Menu
+		var menu = $(".YOUR_SELECTOR_Menu").menu();
+
+		// Form
+		var form = $('.myForm').form();
+
 	</script>
 	<!--script>
 		// Automatic version
@@ -1186,8 +1279,8 @@
 		// Tab Navigator
 			ch_tabs = $(".YOUR_SELECTOR_TabNavigator").tabNavigator(),
 
-		// Expando
-			ch_expa = $(".YOUR_SELECTOR_Expando").expando(),
+		// expandable
+			ch_expa = $(".YOUR_SELECTOR_expandable").expandable(),
 
 		// Calendar
 			calendar = $(".YOUR_SELECTOR_calendar").calendar({

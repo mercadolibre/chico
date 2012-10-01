@@ -59,7 +59,7 @@
 	Joiner.prototype.minify = function (content) {
 		// Abstract Syntax Tree generated from JS code (only for uglify-js)
 		var ast,
-		// Final code
+			// Final code
 			minified;
 
 		log('Minifying the raw data.');
@@ -88,14 +88,16 @@
 	Joiner.prototype.joinFiles = function (sources, template) {
 
 		var self = this,
-		// Amount of references to read into template
+			// Grab locally the minificator boolean
+			min = self.metadata.min,
+			// Amount of references to read into template
 			total = template.length,
-		// Total files saved asynchronously
+			// Total files saved asynchronously
 			progress = 0,
-		// Final result of source code
+			// Final result of source code
 			result = [],
-		// String to use between the raw data of files
-			separator = self.metadata.min ? '' : '\n\n';
+			// String to use between the raw data of files
+			separator = min ? '' : '\n\n';
 
 		log('Joining data with reference to the specified template.');
 
@@ -107,10 +109,6 @@
 			if (sources.hasOwnProperty(ref)) {
 				// Join all raw data
 				ref = sources[ref].join(separator);
-				// Minify code if it's necessary
-				if (self.metadata.min) {
-					ref = self.minify(ref);
-				}
 			// When doesn't exist on sources map, use meta data and replace special tags
 			} else {
 				// Get template alocated into package object
@@ -122,11 +120,13 @@
 				 * @example
 				 * Copyright (c) <js:(new Date().getFullYear())>
 				 */
-				ref = ref.replace(/(<)(js:)?(.*)(>)/gi, function (str, $1, $2, $3) {
-					// If does exist the prefix 'js', then execute it without reference to
-					// configuration object, else, add reference to self.conf object
-					return eval($2 ? $3 : 'self.conf.' + $3);
-				});
+				if (ref) {
+					ref = ref.replace(/(<)(js:)?(.*)(>)/gi, function (str, $1, $2, $3) {
+						// If does exist the prefix 'js', then execute it without reference to
+						// configuration object, else, add reference to self.conf object
+						return eval($2 ? $3 : 'self.conf.' + $3);
+					});
+				}
 			}
 			// Add the data to the final collection
 			result.push(ref);
@@ -134,6 +134,10 @@
 			if ((progress += 1) === total) {
 				// Concatenate data
 				result = result.join(separator);
+				// Minify code if it's necessary
+				if (min) {
+					result = self.minify(result);
+				}
 				// Send results
 				self.finish(result);
 			}
@@ -156,6 +160,9 @@
 
 		log('Getting raw data from files.');
 
+		// Get the file extension to determine the type of package
+		// It allows to minify specified extensions like js or css
+		this.metadata.type = files[0].split('.').pop();
 		// Iterate each file to get its raw data
 		// Do it synchronously to respect the source order
 		files.forEach(function (path) {
@@ -170,15 +177,15 @@
 	 * Run
 	 * Executes the file collector for all packages or minifier.
 	 */
-	Joiner.prototype.run = function (pack, min) {
-		// Get all the package data (sources and template)
-		pack = this.conf.concat[pack];
+	Joiner.prototype.run = function (packname, min) {
 
 		var self = this,
+			// Get all the package data (sources and template)
+			pack = this.conf.concat[packname],
 			// Separate sources from package
 			sources = {},
 			// Separate template from package
-			template = !min ? pack.template : self.conf.min[pack];
+			template = !min ? pack.template : self.conf.min[packname];
 
 		log('Getting data from each source.');
 
@@ -191,9 +198,6 @@
 			// Run the file collector for each source into package
 			sources[src] = self.collect(pack[src]);
 		});
-		// Get the file extension to determine the type of package
-		// It allows to minify specified extensions like js or css
-		self.metadata.type = Object.keys(sources)[0].split('.').pop();
 		// Concatenate raw data into specified template (min or default)
 		self.joinFiles(sources, template);
 	};

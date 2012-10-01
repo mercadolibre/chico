@@ -10,7 +10,7 @@
 				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($, win){\n\t'use strict';",
+				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function(window,$){'use strict';",
 				"jsClose": "})(this, jQuery);",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
 			}
@@ -45,22 +45,31 @@
 				"../../src/ui/js/ch.cache.js",
 				"../../src/ui/js/ch.viewport.js",
 				"../../src/ui/js/ch.Positioner.js",
+				"../../src/ui/js/ch.OnImagesLoads.js",
 				"../../src/ui/js/ch.Object.js",
 				"../../src/ui/js/ch.Uiobject.js",
 				"../../src/ui/js/ch.Controls.js",
 				"../../src/ui/js/ch.Floats.js",
 				"../../src/ui/js/ch.Layer.js",
+				"../../src/ui/js/ch.Tooltip.js",
+				"../../src/ui/js/ch.Modal.js",
+				"../../src/ui/js/ch.Zoom.js",
 				"../../src/ui/js/ch.Navs.js",
 				"../../src/ui/js/ch.AutoComplete.js",
-				"../../src/ui/js/ch.Carousel.js",
 				"../../src/ui/js/ch.Calendar.js",
 				"../../src/ui/js/ch.DatePicker.js",
 				"../../src/ui/js/ch.Countdown.js",
 				"../../src/ui/js/ch.Condition.js",
 				"../../src/ui/js/ch.Validator.js",
 				"../../src/ui/js/ch.Validation.js",
-				"../../src/ui/js/ch.Number.js"
-
+				"../../src/ui/js/ch.Number.js",
+				"../../src/ui/js/ch.Expandable.js",
+				"../../src/ui/js/ch.Dropdown.js",
+				"../../src/ui/js/ch.Blink.js",
+				"../../src/ui/js/ch.Tabs.js",
+				"../../src/ui/js/ch.Menu.js",
+				"../../src/ui/js/ch.Form.js",
+				"../../src/ui/js/ch.Carousel.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]
 		},
@@ -81,12 +90,12 @@
 				"../../src/ui/css/ch.AutoComplete.css",
 				"../../src/ui/css/ch.DatePicker.css",
 				"../../src/ui/css/ch.Dropdown.css",
-				"../../src/ui/css/ch.Expando.css",
+				"../../src/ui/css/ch.Expandable.css",
 				"../../src/ui/css/ch.Form.css",
 				"../../src/ui/css/ch.Layer.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Modal.css",
-				"../../src/ui/css/ch.TabNavigator.css",
+				"../../src/ui/css/ch.Tabs.css",
 				"../../src/ui/css/ch.Tooltip.css",
 				"../../src/ui/css/ch.Validation.css",
 				"../../src/ui/css/ch.Zoom.css"
@@ -104,7 +113,6 @@
 				"../../src/shared/js/ch.Widget.js",
 				"../../src/shared/js/ch.exports.js",
 				"../../src/mobile/js/ch.init.js"
-
 			],
 			"template": ["meta.mobile.full.jsOpen", "src", "meta.mobile.full.jsClose"]
 		},
@@ -121,7 +129,7 @@
 				"../../src/mobile/css/ch.transition.css",
 				"../../src/mobile/css/ch.tag.css",
 				"../../src/mobile/css/ch.header.css",
-				"../../src/mobile/css/ch.Expando.css",
+				"../../src/mobile/css/ch.Expandable.css",
 				"../../src/mobile/css/ch.Menu.css",
 				"../../src/mobile/css/ch.Form.css",
 				"../../src/mobile/css/ch.Modal.css",
@@ -131,7 +139,7 @@
 		}
 	},
 	"min": {
-		"uiJS": ["meta.ui.min.jsOpen", "src", "meta.ui.min.jsClose"],
+		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.min.jsClose", "widgets"],
 		"uiCSS": ["meta.ui.min.css", "src"],
 		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.min.jsClose"],
 		"mobileCSS": ["meta.mobile.min.css", "src"]
