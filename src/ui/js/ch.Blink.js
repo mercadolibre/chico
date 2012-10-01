@@ -11,46 +11,65 @@
 * @example
 * var widget = $(".example").blink();
 */
-ch.blink = function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	var that = this,
-		// Hex start level toString(16).
-		level = 1,
-		// Time, 200 miliseconds by default.
-		t = conf.time || 200;
-
-	// Inner highlighter.
-	function highlight () {
-		// Let know everyone we are active.
-		that.$element.addClass("ch-blink").attr("role","alert").attr("aria-live","polite");
-
-		// Begin steps.
-		setTimeout(step, t);
-	};
-
-	// Color iteration.
-	function step () {
-		// New hex level.
-		var h = level.toString(16);
-		// Change background-color, redraw().
-		that.element.style.backgroundColor = '#FFFF' + h + h;
-		// Itearate for all hex levels.
-		if (level < 15) {
-			// Increment hex level.
-			level += 1;
-			// Inner recursion.
-			setTimeout(step, t);
-		} else {
-			// Stop right there...
-			that.$element.removeClass("ch-blink").attr("aria-live","off").removeAttr("role");
-		}
-	};
-
-	// Start a blink if the element isn't active.
-	if (!that.$element.hasClass("ch-blink")) {
-		highlight();
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
 	}
-	// Return the element so keep chaining things.
-	return that.$element;
-}
-ch.factory("blink");
+
+	function Blink($el, conf) {
+
+		conf = conf || {};
+
+		var that = this,
+			// Hex start level toString(16).
+			level = 1,
+			// Time, 200 miliseconds by default.
+			t = conf.time || 200;
+
+		that.$element = $el;
+		that.element = $el[0];
+		that.type = 'blink';
+
+		// Inner highlighter.
+		function highlight () {
+			// Let know everyone we are active.
+			that.$element.addClass("ch-blink").attr("role","alert").attr("aria-live","polite");
+
+			// Begin steps.
+			window.setTimeout(step, t);
+		};
+
+		// Color iteration.
+		function step () {
+			// New hex level.
+			var h = level.toString(16);
+			// Change background-color, redraw().
+			that.element.style.backgroundColor = '#FFFF' + h + h;
+			// Itearate for all hex levels.
+			if (level < 15) {
+				// Increment hex level.
+				level += 1;
+				// Inner recursion.
+				window.setTimeout(step, t);
+			} else {
+				// Stop right there...
+				that.$element.removeClass("ch-blink").attr("aria-live","off").removeAttr("role");
+			}
+		};
+
+		// Start a blink if the element isn't active.
+		if (!that.$element.hasClass("ch-blink")) {
+			highlight();
+		}
+		// Return the element so keep chaining things.
+		return that.$element;
+	}
+
+	Blink.prototype.name = 'blink';
+	Blink.prototype.constructor = Blink;
+
+	ch.factory(Blink);
+
+}(this, this.jQuery, this.ch));
