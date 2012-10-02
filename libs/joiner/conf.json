@@ -60,6 +60,7 @@
 				"../../src/ui/js/ch.Blink.js",
 				"../../src/ui/js/ch.Tabs.js",
 				"../../src/ui/js/ch.Menu.js",
+				"../../src/ui/js/ch.Accordion.js",
 				"../../src/ui/js/ch.Form.js",
 				"../../src/ui/js/ch.Carousel.js"
 			],
