@@ -73,4 +73,6 @@
 		});
 	};
 
+	ch.blink = blink;
+
 }(this, this.jQuery, this.ch));
