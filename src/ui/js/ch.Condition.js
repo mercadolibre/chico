@@ -43,114 +43,129 @@
 *     "message": "Your message here!"
 * });
 */
+(function (window, $, ch) {
+	'use strict';
 
-ch.condition = function(condition) {
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-/**
-* Reference to a internal component instance, saves all the information and configuration properties.
-* @protected
-* @name ch.Condition#that
-* @type itself
-*/
-	var that = this;
+	var setTimeout = window.setTimeout;
 
-/**
-* Private Members
-*/
+	function Condition(condition) {
 
 	/**
-	* Flag that let you know if the condition is enabled or not.
-	* @private
-	* @name ch.Condition-enabled
-	* @type boolean
+	* Reference to a internal component instance, saves all the information and configuration properties.
+	* @protected
+	* @name ch.Condition#that
+	* @type itself
 	*/
-	var	enabled = true,
-
-		test = function (value) {
-
-			if (!enabled) {
-				return true;
-			}
-
-			if (condition.patt){
-				return condition.patt.test(value);
-			}
-
-			if (condition.expr){
-				return condition.expr(value, condition.value);
-			}
-
-			if (condition.func){
-				// Call validation function with 'this' as scope.
-				return condition.func.call(this, value);
-			}
-
-		},
-
-		enable = function() {
-			enabled = true;
-
-			return condition;
-		},
-
-		disable = function() {
-			enabled = false;
-
-			return condition;
-		};
-
-/**
-* Protected Members
-*/
-
-/**
-* Public Members
-*/
+		var that = this;
 
 	/**
-	* Flag that let you know if the all conditions are enabled or not.
-	* @public
-	* @name ch.Condition#name
-	* @type string
+	* Private Members
+	*/
+
+		/**
+		* Flag that let you know if the condition is enabled or not.
+		* @private
+		* @name ch.Condition-enabled
+		* @type boolean
+		*/
+		var	enabled = true,
+
+			test = function (value) {
+
+				if (!enabled) {
+					return true;
+				}
+
+				if (condition.patt){
+					return condition.patt.test(value);
+				}
+
+				if (condition.expr){
+					return condition.expr(value, condition.value);
+				}
+
+				if (condition.func){
+					// Call validation function with 'this' as scope.
+					return condition.func.call(this, value);
+				}
+
+			},
+
+			enable = function() {
+				enabled = true;
+
+				return condition;
+			},
+
+			disable = function() {
+				enabled = false;
+
+				return condition;
+			};
+
+	/**
+	* Protected Members
 	*/
 
 	/**
-	* Message defined for this condition
-	* @public
-	* @name ch.Condition#message
-	* @type string
+	* Public Members
 	*/
 
-	/**
-	* Run configured condition
-	* @public
-	* @function
-	* @name ch.Condition#test
-	* @returns boolean
-	*/
+		/**
+		* Flag that let you know if the all conditions are enabled or not.
+		* @public
+		* @name ch.Condition#name
+		* @type string
+		*/
 
-	/**
-	* Turn on condition.
-	* @public
-	* @name ch.Condition#enable
-	* @function
-	* @returns itself
-	*/
+		/**
+		* Message defined for this condition
+		* @public
+		* @name ch.Condition#message
+		* @type string
+		*/
 
-	/**
-	* Turn off condition.
-	* @public
-	* @name ch.Condition#disable
-	* @function
-	* @returns itself
-	*/
+		/**
+		* Run configured condition
+		* @public
+		* @function
+		* @name ch.Condition#test
+		* @returns boolean
+		*/
 
-	condition = $.extend(condition, {
-		test: test,
-		enable: enable,
-		disable: disable
-	});
+		/**
+		* Turn on condition.
+		* @public
+		* @name ch.Condition#enable
+		* @function
+		* @returns itself
+		*/
 
-	return condition;
+		/**
+		* Turn off condition.
+		* @public
+		* @name ch.Condition#disable
+		* @function
+		* @returns itself
+		*/
 
-};
+		condition = $.extend(condition, {
+			test: test,
+			enable: enable,
+			disable: disable
+		});
+
+		return condition;
+
+	};
+
+	Condition.prototype.name = 'condition';
+	Condition.prototype.constructor = Condition;
+
+	ch.Condition = Condition;
+
+}(this, this.jQuery, this.ch));
