@@ -298,7 +298,7 @@
 		//This avoit to trigger execute after the component was instanciated
 		setTimeout(function(){that.trigger("ready")}, 50);
 
-		return that;
+		return that['public'];
 	}
 
 	Tabs.prototype.name = 'tabs';
