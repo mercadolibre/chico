@@ -292,12 +292,12 @@
 		if (conf.accordion) {
 			// Sets the interface main class name for avoid
 			configureAccordion();
-			that.$element.addClass('ch-accordion')
 		} else {
-			that.$element.addClass('ch-menu');
 			// Set the wai-aria for Menu
-			that.$element.attr("role","navigation");
+			that.$element.attr("role", "navigation");
 		}
+
+		that.$element.addClass('ch-' + that.type + (ch.util.hasOwn(conf, 'classes') ? ' ' + conf.classes : ''));
 
 		// Select specific item if there are a "selected" parameter on component configuration object
 		if (ch.util.hasOwn(conf, "selected")) { select(conf.selected); }
@@ -363,8 +363,10 @@
 	function Accordion($el, conf) {
 		conf = conf || {};
 		conf.accordion = true;
+		conf.classes = 'ch-accordion';
 
-		return new ch.Menu($el, conf);
+		var i = new ch.Menu($el, conf);
+
 	}
 
 	Accordion.prototype.name = 'accordion';
