@@ -133,7 +133,7 @@
 				"selected": conf.selected,
 				"monthsNames": conf.monthsNames,
 				"weekdays": conf.weekdays
-			})['public'];
+			});
 
 		/**
 		* Reference to the Float component instanced.
