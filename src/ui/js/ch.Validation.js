@@ -74,8 +74,9 @@
 		// Reference to a Validator instance. If there isn't any, the Validation instance will create one.
 		var validator = that.validator = (function(){
 			var c = {};
-				c.condition = conf.condition
-		 	return that.$element.validator(c);
+				c.condition = conf.condition;
+		 	return that.$element.validator(c)['public'];
+		 	//return ch.Validator(that.$element, c);
 		})();
 
 		/**
@@ -110,18 +111,31 @@
 		// Reference to a Form instance. If there isn't any, the Validation instance will create one.
 		var form = that.form = (function() {
 
-			if (ch.util.hasOwn(ch.instances, "form") && ch.instances.form.length > 0) {
-				var i = 0, j = ch.instances.form.length;
-				for (i; i < j; i+=1) {
-					if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
-						return ch.instances.form[i]; // Get my parent
+			if (ch.util.hasOwn(ch.instances, "form")) {
+
+				// var i = 0, j = ch.instances.form.length;
+				// for (i; i < j; i+=1) {
+				// 	if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
+				// 		return ch.instances.form[i]; // Get my parent
+				// 	}
+				// };
+
+				for (var instance in ch.instances.form) {
+					if (ch.instances.form[instance].element === that.$element.parents("form")[0]) {
+
+						return ch.instances.form[instance]; // Get my parent
 					}
-				};
+				}
 			}
 
-			that.$element.parents("form").form();
-			var last = (ch.instances.form.length - 1);
-			return ch.instances.form[last]; // Set my parent
+			var instance = that.$element.parents("form").form();
+
+			for (var i in ch.instances.form) {
+				if (ch.instances.form[i].element === instance.element) {
+
+					return ch.instances.form[i]; // Get my parent
+				}
+			}
 
 		})();
 
@@ -597,8 +611,8 @@
 		*/
 		that.trigger("ready");
 
-		return that;
-	};
+		return that['public'];
+	}
 
 	Validation.prototype.name = 'validation';
 	Validation.prototype.constructor = Validation;

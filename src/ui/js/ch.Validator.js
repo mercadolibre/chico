@@ -33,7 +33,7 @@
 		that.$element = $el;
 		that.element = $el[0];
 		that.type = 'validator';
-		conf = conf || {};
+		var conf = conf || {};
 
 		conf = ch.util.clone(conf);
 		that.conf = conf;
@@ -41,8 +41,7 @@
 	/**
 	* Inheritance
 	*/
-
-		that = ch._Object.call(that);
+		that = ch.Object.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -371,7 +370,7 @@
 		that.trigger("ready");
 
 		return that;
-	};
+	}
 
 	Validator.prototype.name = 'validator';
 	Validator.prototype.constructor = Validator;

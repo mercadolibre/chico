@@ -896,8 +896,8 @@
 		*/
 		setTimeout(function () { that.trigger("ready"); }, 50);
 
-		return that;
-	};
+		return that['public'];
+	}
 
 	Calendar.prototype.name = 'calendar';
 	Calendar.prototype.constructor = Calendar;
