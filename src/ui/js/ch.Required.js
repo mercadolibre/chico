@@ -23,35 +23,51 @@
 * @example
 * $("input").required("This field is required");
 */
-ch.extend("validation").as("required", function(conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "required",
-		expr: function(e) {
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-			var $e = $(e);
+	function Required($el, conf) {
 
-			var tag = ( $e.hasClass("options") || $e.hasClass("ch-form-options")) ? "OPTIONS" : e.tagName;
-			switch (tag) {
-				case 'OPTIONS':
-					return $e.find('input:checked').length !== 0;
-				break;
+		var conf = conf || {};
 
-				case 'SELECT':
-					var val = $e.val();
-					return (val != "-1" && val != "");
-				break;
+		conf.condition = {
+			name: "required",
+			expr: function(e) {
 
-				case 'INPUT':
-				case 'TEXTAREA':
-					return $.trim($e.val()).length !== 0;
-				break;
-			};
-		},
-		message: conf.msg || conf.message,
-		value: conf.value
-	};
+				var $e = $(e);
 
-	return conf;
+				var tag = ( $e.hasClass("options") || $e.hasClass("ch-form-options")) ? "OPTIONS" : e.tagName;
+				switch (tag) {
+					case 'OPTIONS':
+						return $e.find('input:checked').length !== 0;
+					break;
 
-});
+					case 'SELECT':
+						var val = $e.val();
+						return (val != "-1" && val != "");
+					break;
+
+					case 'INPUT':
+					case 'TEXTAREA':
+						return $.trim($e.val()).length !== 0;
+					break;
+				};
+			},
+			message: conf.msg || conf.message,
+			value: conf.value
+		};
+
+		return new ch.Validation($el, conf);
+
+	}
+
+	Required.prototype.name = 'required';
+	Required.prototype.constructor = Required;
+
+	ch.factory(Required);
+
+}(this, this.jQuery, this.ch));

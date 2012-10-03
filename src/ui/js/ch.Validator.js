@@ -12,350 +12,369 @@
 * @see ch.Object
 * @see ch.Condition
 */
+(function (window, $, ch) {
+	'use strict';
 
-ch.validator = function(conf) {
-	/**
-	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @protected
-	* @name ch.Validator#that
-	* @type Object
-	*/
-	var that = this;
-	conf = ch.clon(conf);
-	that.conf = conf;
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-/**
-* Inheritance
-*/
+	var setTimeout = window.setTimeout;
 
-	that = ch.object.call(that);
-	that.parent = ch.clon(that);
+	function Validator($el, conf) {
+		/**
+		* Reference to a internal component instance, saves all the information and configuration properties.
+		* @protected
+		* @name ch.Validator#that
+		* @type Object
+		*/
+		var that = this;
 
-/**
-* Private Members
-*/
-	var conditions = (function(){
-		var c = {}; // temp collection
-		var condition = ch.condition.call(that["public"], conf.condition);
+		that.$element = $el;
+		that.element = $el[0];
+		that.type = 'validator';
+		var conf = conf || {};
 
-		c[condition.name] = condition;
-
-		// return all the configured conditions
-		return c;
-	})(); // Love this ;)
+		conf = ch.util.clone(conf);
+		that.conf = conf;
 
 	/**
-	* Search for instances of Validators with the same trigger, and then merge it's properties with it.
-	* @private
-	* @name ch.Validator#checkInstance
-	* @function
-	* @returns Object
+	* Inheritance
 	*/
-	var checkInstance;
-	if (checkInstance = function() {
+		that = ch.Object.call(that);
+		that.parent = ch.util.clone(that);
 
-		var instance, instances = ch.instances.validator;
-		if ( instances && instances.length > 0 ) {
-			for (var i = 0, j = instances.length; i < j; i+=1) {
-				instance = instances[i];
+	/**
+	* Private Members
+	*/
+		var conditions = (function(){
+			var c = {}; // temp collection
+			var condition = ch.Condition.call(that["public"], conf.condition);
 
-				if (instance.element !== that.element) {
+			c[condition.name] = condition;
 
-					continue;
-				}
+			// return all the configured conditions
+			return c;
+		})(); // Love this ;)
 
-				// Extend instance's conditions
-				instance.extend(conditions);
+		/**
+		* Search for instances of Validators with the same trigger, and then merge it's properties with it.
+		* @private
+		* @name ch.Validator#checkInstance
+		* @function
+		* @returns Object
+		*/
+		var checkInstance;
+		if (checkInstance = function() {
 
-				// To let know the ch.Factory that already exists,
-				// this way we avoid to have duplicated references.
-				return {
-					exists: true,
-					object: instance
+			var instance, instances = ch.instances.validator;
+			if ( instances && instances.length > 0 ) {
+				for (var i = 0, j = instances.length; i < j; i+=1) {
+					instance = instances[i];
+
+					if (instance.element !== that.element) {
+
+						continue;
+					}
+
+					// Extend instance's conditions
+					instance.extend(conditions);
+
+					// To let know the ch.Factory that already exists,
+					// this way we avoid to have duplicated references.
+					return {
+						exists: true,
+						object: instance
+					}
 				}
 			}
-		}
-	}()){
-		return checkInstance;
-	};
+		}()){
+			return checkInstance;
+		};
 
-	var validate = function(value) {
+		var validate = function(value) {
 
-		if (!that.enabled) { return true; }
+			if (!that.enabled) { return true; }
 
-		var condition, tested, empty, val, message, required = conditions["required"];
+			var condition, tested, empty, val, message, required = conditions["required"];
 
-		// Avoid fields that aren't required when they are empty or de-activated
-		if (!required && value === "" && that.active === false) { return {"status": true}; }
+			// Avoid fields that aren't required when they are empty or de-activated
+			if (!required && value === "" && that.active === false) { return {"status": true}; }
 
-		if (that.enabled && (!that.active || value !== "" || required)) {
+			if (that.enabled && (!that.active || value !== "" || required)) {
+				/**
+				* Triggers before start validation process.
+				* @name ch.Validator#beforeValidate
+				* @event
+				* @public
+				* @exampleDescription
+				* @example
+				* widget.on("beforeValidate",function(){
+				*	submitButton.disable();
+				* });
+				*/
+				// old callback system
+				that.callbacks('beforeValidate');
+				// new callback
+				that.trigger("beforeValidate");
+
+				// for each condition
+				for (condition in conditions){
+
+					val = ((condition === "required") ? that.element : value.toLowerCase());
+					// this is the validation
+					tested = test.call(this, condition, val);
+
+					// return false if any test fails,
+					if (!tested) {
+
+						/**
+						* Triggers when an error occurs on the validation process.
+						* @name ch.Validator#error
+						* @event
+						* @public
+						* @exampleDescription
+						* @example
+						* widget.on("error",function(event, condition){
+						*	errorModal.show();
+						* });
+						*/
+						// old callback system
+						that.callbacks('onError', condition);
+						// new callback
+						that.trigger("error", condition);
+
+						that.active = true;
+
+						// stops the proccess
+						//return false;
+						return {
+							"status": false,
+							"condition": condition,
+							"msg": conditions[condition].message
+						}
+					};
+				}
+			}
+
+			// Status OK (with previous error)
+			if (that.active || !that.enabled) {
+				// Public status OK
+				that.active = false;
+			}
+
 			/**
-			* Triggers before start validation process.
-			* @name ch.Validator#beforeValidate
+			* Triggers when the validation process ends.
+			* @name ch.Validator#afterValidate
 			* @event
 			* @public
 			* @exampleDescription
 			* @example
-			* widget.on("beforeValidate",function(){
+			* widget.on("afterValidate",function(){
 			*	submitButton.disable();
 			* });
 			*/
 			// old callback system
-			that.callbacks('beforeValidate');
+			that.callbacks('afterValidate');
 			// new callback
-			that.trigger("beforeValidate");
+			that.trigger("afterValidate");
 
-			// for each condition
-			for (condition in conditions){
-
-				val = ((condition === "required") ? that.element : value.toLowerCase());
-				// this is the validation
-				tested = test.call(this, condition, val);
-
-				// return false if any test fails,
-				if (!tested) {
-
-					/**
-					* Triggers when an error occurs on the validation process.
-					* @name ch.Validator#error
-					* @event
-					* @public
-					* @exampleDescription
-					* @example
-					* widget.on("error",function(event, condition){
-					*	errorModal.show();
-					* });
-					*/
-					// old callback system
-					that.callbacks('onError', condition);
-					// new callback
-					that.trigger("error", condition);
-
-					that.active = true;
-
-					// stops the proccess
-					//return false;
-					return {
-						"status": false,
-						"condition": condition,
-						"msg": conditions[condition].message
-					}
-				};
+			// It's all good ;)
+			//return true;
+			return {
+				"status": true
 			}
-		}
-
-		// Status OK (with previous error)
-		if (that.active || !that.enabled) {
-			// Public status OK
-			that.active = false;
 		}
 
 		/**
-		* Triggers when the validation process ends.
-		* @name ch.Validator#afterValidate
-		* @event
-		* @public
-		* @exampleDescription
-		* @example
-		* widget.on("afterValidate",function(){
-		*	submitButton.disable();
-		* });
+		* Test a condition looking for error.
+		* @private
+		* @name ch.Validator#test
+		* @see ch.Condition
 		*/
-		// old callback system
-		that.callbacks('afterValidate');
-		// new callback
-		that.trigger("afterValidate");
+		var test = function(condition, value){
 
-		// It's all good ;)
-		//return true;
-		return {
-			"status": true
-		}
-	}
+			if (value === "" && condition !== "required") { return true };
 
-	/**
-	* Test a condition looking for error.
-	* @private
-	* @name ch.Validator#test
-	* @see ch.Condition
-	*/
-	var test = function(condition, value){
+			var isOk = false,
+				// this is the validation
+				validation = this || window,
+				condition = conditions[condition];
 
-		if (value === "" && condition !== "required") { return true };
+			isOk = condition.test.call(validation, value);
 
-		var isOk = false,
-			// this is the validation
-			validation = this || window,
-			condition = conditions[condition];
+			return isOk;
 
-		isOk = condition.test.call(validation, value);
-
-		return isOk;
-
-	};
-
-/**
-* Protected Members
-*/
+		};
 
 	/**
-	* Flag that let you know if there's a validation going on.
-	* @protected
-	* @name ch.Validator#active
-	* @type boolean
-	*/
-	that.active = false;
-
-	/**
-	* Flag that let you know if the all conditions are enabled or not.
-	* @protected
-	* @name ch.Validator#enabled
-	* @type boolean
-	*/
-	that.enabled = true;
-
-/**
-*	Public Members
-*/
-
-	/**
-	* @borrows ch.Object#uid as ch.TabNavigator#uid
+	* Protected Members
 	*/
 
-	/**
-	* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-	* @public
-	* @name ch.Validator#type
-	* @type String
-	*/
-	that["public"].type = "validator";
-
-	/**
-	* This public Map saves all the validation configurations from this instance.
-	* @public
-	* @name ch.Validator#conditions
-	* @type object
-	*/
-	that["public"].conditions = conditions;
-
-	/**
-	* Active is a boolean property that let you know if there's a validation going on.
-	* @public
-	* @function
-	* @name ch.Validator#isActive
-	* @returns itself
-	*/
-	that["public"].isActive = function() {
-		return that.active;
-	};
-
-	/**
-	* Let you keep chaining methods.
-	* @public
-	* @function
-	* @name ch.Validator#and
-	* @returns itself
-	*/
-	that["public"].and = function(){
-		return that.$element;
-	};
-
-	/**
-	* Merge its conditions with a new conditions of another instance with the same trigger.
-	* @public
-	* @function
-	* @name ch.Validator#extend
-	* @returns itself
-	*/
-	that["public"].extend = function(input){
-		$.extend(conditions, input);
-
-		return that["public"];
-	};
-
-	/**
-	* Clear all active validations.
-	* @public
-	* @function
-	* @name ch.Validator#clear
-	* @returns itself
-	*/
-	that["public"].clear = function() {
+		/**
+		* Flag that let you know if there's a validation going on.
+		* @protected
+		* @name ch.Validator#active
+		* @type boolean
+		*/
 		that.active = false;
 
-		return that["public"];
-	};
+		/**
+		* Flag that let you know if the all conditions are enabled or not.
+		* @protected
+		* @name ch.Validator#enabled
+		* @type boolean
+		*/
+		that.enabled = true;
 
 	/**
-	* Runs all configured conditions and returns an object with a status value, condition name and a message.
-	* @public
-	* @function
-	* @name ch.Validator#validate
-	* @returns Status Object
+	*	Public Members
 	*/
-	that["public"].validate = function(value){
-		// this is the validation
-		return validate.call(this, value);
-	}
 
-	/**
-	* Turn on Validator engine or an specific condition.
-	* @public
-	* @name enable
-	* @name ch.Validator#enable
-	* @returns itself
-	*/
-	that["public"].enable = function(condition){
-		if (condition && conditions[condition]){
-			// Enable specific condition
-			conditions[condition].enable();
-		} else {
-			// enable all
-			that.enabled = true;
-			for (condition in conditions){
+		/**
+		* @borrows ch.Object#uid as ch.TabNavigator#uid
+		*/
+
+		/**
+		* This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
+		* @public
+		* @name ch.Validator#type
+		* @type String
+		*/
+		that["public"].type = "validator";
+
+		/**
+		* This public Map saves all the validation configurations from this instance.
+		* @public
+		* @name ch.Validator#conditions
+		* @type object
+		*/
+		that["public"].conditions = conditions;
+
+		/**
+		* Active is a boolean property that let you know if there's a validation going on.
+		* @public
+		* @function
+		* @name ch.Validator#isActive
+		* @returns itself
+		*/
+		that["public"].isActive = function() {
+			return that.active;
+		};
+
+		/**
+		* Let you keep chaining methods.
+		* @public
+		* @function
+		* @name ch.Validator#and
+		* @returns itself
+		*/
+		that["public"].and = function(){
+			return that.$element;
+		};
+
+		/**
+		* Merge its conditions with a new conditions of another instance with the same trigger.
+		* @public
+		* @function
+		* @name ch.Validator#extend
+		* @returns itself
+		*/
+		that["public"].extend = function(input){
+			$.extend(conditions, input);
+
+			return that["public"];
+		};
+
+		/**
+		* Clear all active validations.
+		* @public
+		* @function
+		* @name ch.Validator#clear
+		* @returns itself
+		*/
+		that["public"].clear = function() {
+			that.active = false;
+
+			return that["public"];
+		};
+
+		/**
+		* Runs all configured conditions and returns an object with a status value, condition name and a message.
+		* @public
+		* @function
+		* @name ch.Validator#validate
+		* @returns Status Object
+		*/
+		that["public"].validate = function(value){
+			// this is the validation
+			return validate.call(this, value);
+		}
+
+		/**
+		* Turn on Validator engine or an specific condition.
+		* @public
+		* @name enable
+		* @name ch.Validator#enable
+		* @returns itself
+		*/
+		that["public"].enable = function(condition){
+			if (condition && conditions[condition]){
+				// Enable specific condition
 				conditions[condition].enable();
+			} else {
+				// enable all
+				that.enabled = true;
+				for (condition in conditions){
+					conditions[condition].enable();
+				}
 			}
+			return that["public"];
 		}
-		return that["public"];
-	}
 
-	/**
-	* Turn on Validator engine or an specific condition.
-	* @public
-	* @name disable
-	* @name ch.Validator#disable
-	* @returns itself
-	*/
-	that["public"].disable = function(condition){
-		if (condition && conditions[condition]){
-			// disable specific condition
-			conditions[condition].disable();
-		} else {
-			// disable all
-			that.enabled = false;
-			for (condition in conditions){
+		/**
+		* Turn on Validator engine or an specific condition.
+		* @public
+		* @name disable
+		* @name ch.Validator#disable
+		* @returns itself
+		*/
+		that["public"].disable = function(condition){
+			if (condition && conditions[condition]){
+				// disable specific condition
 				conditions[condition].disable();
+			} else {
+				// disable all
+				that.enabled = false;
+				for (condition in conditions){
+					conditions[condition].disable();
+				}
 			}
+			return that["public"];
 		}
-		return that["public"];
+
+	/**
+	*	Default event delegation
+	*/
+		/**
+		* Triggers when the component is ready to use.
+		* @name ch.Validator#ready
+		* @event
+		* @public
+		* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
+		* @example
+		* widget.on("ready",function(){
+		*	this.show();
+		* });
+		*/
+		that.trigger("ready");
+
+		return that;
 	}
 
-/**
-*	Default event delegation
-*/
-	/**
-	* Triggers when the component is ready to use.
-	* @name ch.Validator#ready
-	* @event
-	* @public
-	* @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
-	* @example
-	* widget.on("ready",function(){
-	*	this.show();
-	* });
-	*/
-	that.trigger("ready");
+	Validator.prototype.name = 'validator';
+	Validator.prototype.constructor = Validator;
 
-	return that;
-};
-ch.factory("validator");
+	ch.factory(Validator);
+
+}(this, this.jQuery, this.ch));

@@ -25,19 +25,35 @@
 * 	return (value%2==0) ? true : false;
 * }, "Enter a even number");
 */
-ch.extend("validation").as("custom", function(conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	if (!conf.lambda) {
-		alert("Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},\"Message\");");
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	// Define the conditions of this interface
-	conf.condition = {
-		// I don't have pre-conditions, comes within conf.lambda argument
-		name: "custom",
-		func: conf.lambda,
-		message: conf.msg || conf.message || "Error"
-	};
+	function Custom($el, conf) {
 
-	return conf;
-});
+		var conf = conf || {};
+
+		if (!conf.lambda) {
+			alert("Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},\"Message\");");
+		}
+
+		// Define the conditions of this interface
+		conf.condition = {
+			// I don't have pre-conditions, comes within conf.lambda argument
+			name: "custom",
+			func: conf.lambda,
+			message: conf.msg || conf.message || "Error"
+		};
+
+		return new ch.Validation($el, conf);
+	}
+
+	Custom.prototype.name = 'custom';
+	Custom.prototype.constructor = Custom;
+
+	ch.factory(Custom);
+
+}(this, this.jQuery, this.ch));

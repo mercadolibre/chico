@@ -8,39 +8,18 @@
 		// $.widget y $('').widget();
 		var name = klass.prototype.name,
 			map = {
-				'string': 'message',
+				'string': 'content',
+				'object': 'content', // Only if it's an instanceof $.
 				'number': 'num',
 				'function': 'fn'
 			};
-
-		function checkParams($el, options) {
-
-			var obj = {};
-
-			// Only first parameter
-			if (options === undefined) {
-				// DOM object as first parameter
-				if ($el instanceof $) {
-					obj.$el = $el;
-				// Options object as first parameter
-				} else if (typeof $el === 'object') {
-					obj.options = $el;
-				}
-			// Two spected parameters (a DOM element + options object)
-			} else if ($el instanceof $ && typeof options === 'object') {
-				obj.$el = $el;
-				obj.options = options;
-			}
-
-			return obj;
-		};
 
 		/**
 		 *
 		 * @example
 		 * ch.widget(el, options);
 		 */
-		exports[klass.name] = klass;
+		exports[klass.name || (name[0].toUpperCase() + name.substr(1))] = klass;
 
 		/**
 		 *
@@ -51,12 +30,13 @@
 		 * $.widget();
 		 */
 		$[name] = function ($el, options) {
+			// Only first parameter with the options object
+			// TODO: This should be done by the init() method on each widget
+			if (options === undefined && typeof $el === 'object') {
+				options = $el;
+				$el = undefined;
+			}
 
-			//var params = checkParams($el, options);
-
-			//console.log(params.$el+","+ params.options);
-
-			//return new klass(params.$el, params.options);
 			return new klass($el, options);
 		};
 
@@ -74,17 +54,18 @@
 		$.fn[name] = function (options) {
 			var widgets = [],
 				widget,
-				message = arguments[1],
+				content = arguments[1],
 				type = typeof options;
 
-			if (options !== undefined && type !== 'object') {
+			// $(el).widget(string); || $(el).widget(number); || $(el).widget(fn); || $(el).widget($(selector));
+			if ((options !== undefined && type !== 'object') || options instanceof $) {
 				var parameter = options;
 				options = {};
 				options[map[type]] = parameter;
 
-				// Could come a messages as a second argument
-				if (typeof message === 'string') {
-					options.message = message;
+				// Could come a content as a second argument
+				if (typeof content === 'string' || content instanceof $) {
+					options.content = content;
 				}
 			}
 
@@ -95,8 +76,6 @@
 					params;
 
 				if (!data) {
-					//params = checkParams($el, options);
-					//new klass(params.$el, params.options);
 					new klass($el, options);
 					$el.data(name, widget);
 

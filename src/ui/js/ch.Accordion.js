@@ -37,7 +37,7 @@
 		conf.accordion = true;
 		conf.classes = 'ch-accordion';
 
-		var i = new ch.Menu($el, conf);
+		return (new ch.Menu($el, conf));
 
 	}
 
