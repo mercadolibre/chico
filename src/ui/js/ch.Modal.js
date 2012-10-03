@@ -210,7 +210,7 @@
 		 */
 		window.setTimeout(function(){ that.trigger("ready")}, 50);
 
-		return that;
+		return that['public'];
 	}
 
 	Modal.prototype.name = 'modal';
