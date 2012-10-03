@@ -475,7 +475,7 @@
 		*	this.reset();
 		* });
 		*/
-		setTimeout(function(){ that.trigger("ready")}, 50);
+		window.setTimeout(function(){ that.trigger("ready")}, 50);
 
 		return that['public'];
 	}
