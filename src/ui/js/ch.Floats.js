@@ -154,7 +154,7 @@
 		 * @name ch.Floats#source
 		 * @type string
 		 */
-		that.source = conf.content || conf.msg || conf.ajax || that.element.href || that.$element.parents("form").attr("action");
+		that.source = conf.content || that.element.href || that.$element.parents("form").attr("action");
 
 		/**
 		 * Inner function that resolves the component's layout and returns a static reference.

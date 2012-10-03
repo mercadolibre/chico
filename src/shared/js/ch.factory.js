@@ -13,14 +13,64 @@
 				'function': 'fn'
 			};
 
-		exports[klass.name] = klass;
+		function checkParams($el, options) {
 
-		// $.widget(options);
-		$[name] = function (options) {
-			return new klass(options);
+			var obj = {};
+
+			// Only first parameter
+			if (options === undefined) {
+				// DOM object as first parameter
+				if ($el instanceof $) {
+					obj.$el = $el;
+				// Options object as first parameter
+				} else if (typeof $el === 'object') {
+					obj.options = $el;
+				}
+			// Two spected parameters (a DOM element + options object)
+			} else if ($el instanceof $ && typeof options === 'object') {
+				obj.$el = $el;
+				obj.options = options;
+			}
+
+			return obj;
 		};
 
-		// $(el).widget(options);
+		/**
+		 *
+		 * @example
+		 * ch.widget(el, options);
+		 */
+		exports[klass.name] = klass;
+
+		/**
+		 *
+		 * @example
+		 * $.widget(el, options);
+		 * $.widget(el);
+		 * $.widget(options);
+		 * $.widget();
+		 */
+		$[name] = function ($el, options) {
+
+			//var params = checkParams($el, options);
+
+			//console.log(params.$el+","+ params.options);
+
+			//return new klass(params.$el, params.options);
+			return new klass($el, options);
+		};
+
+		/**
+		 *
+		 * @example
+		 * $(el).widget(options);
+		 * $(el).widget(string);
+		 * $(el).widget(number);
+		 * $(el).widget(number, string);
+		 * $(el).widget(function);
+		 * $(el).widget(function, string);
+		 * $(el).widget();
+		 */
 		$.fn[name] = function (options) {
 			var widgets = [],
 				widget,
@@ -41,10 +91,13 @@
 			// http://docs.jquery.com/Plugins/Authoring
 			$.each(this, function (i, el) {
 				var $el = $(el),
-					data = $el.data(name);
+					data = $el.data(name),
+					params;
 
 				if (!data) {
-					widget = new klass($el, options);
+					//params = checkParams($el, options);
+					//new klass(params.$el, params.options);
+					new klass($el, options);
 					$el.data(name, widget);
 
 				} else {
