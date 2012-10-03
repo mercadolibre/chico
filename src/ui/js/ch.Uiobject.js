@@ -99,12 +99,6 @@
 
 				// Local argument
 				content = content,
-				// Local isURL
-				sourceIsUrl = ch.util.isUrl(that.source),
-				// Local isSelector
-				sourceIsSelector = ch.util.isSelector(that.source),
-				// Local inDom
-				sourceInDom = (!sourceIsUrl) ? ch.util.inDom(that.source) : false,
 				// Get context, could be a single component or a controller
 				context = ( ch.util.hasOwn(that, "controller") ) ? that.controller : that["public"],
 				// undefined, for comparison.
@@ -161,13 +155,6 @@
 			// Reset cache to overwrite content
 			conf.cache = false;
 
-			// Local isURL
-			var isUrl = ch.util.isUrl(content),
-				// Local isSelector
-				isSelector = ch.util.isSelector(content),
-				// Local inDom
-				inDom = (!isUrl) ? ch.util.inDom(content) : false;
-
 			/* Evaluate static content*/
 
 			// Set 'that.staticContent' and overwrite 'that.source'
@@ -177,7 +164,7 @@
 
 			/* Evaluate AJAX content*/
 
-			if (isUrl) {
+			if (typeof content === 'string' && ch.util.isUrl(content)) {
 
 				// First check Cache
 				// Check if this source is in our cache
@@ -254,10 +241,10 @@
 
 				/* Evaluate DOM content*/
 
-				if (isSelector && inDom) {
+				if (content instanceof $) {
 
 					// Save original DOMFragment.
-					that.originalContent = $(content);
+					that.originalContent = content;
 
 					// Save DOMParent, so we know where to re-insert the content.
 					that.DOMParent = that.originalContent.parent();

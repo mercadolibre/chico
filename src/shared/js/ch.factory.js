@@ -8,12 +8,13 @@
 		// $.widget y $('').widget();
 		var name = klass.prototype.name,
 			map = {
-				'string': 'message',
+				'string': 'content',
+				'object': 'content', // Only if it's an instanceof $.
 				'number': 'num',
 				'function': 'fn'
 			};
 
-		exports[klass.name] = klass;
+		exports[klass.name || (name[0].toUpperCase() + name.substr(1))] = klass;
 
 		// $.widget(options);
 		$[name] = function (options) {
@@ -24,17 +25,18 @@
 		$.fn[name] = function (options) {
 			var widgets = [],
 				widget,
-				message = arguments[1],
+				content = arguments[1],
 				type = typeof options;
 
-			if (options !== undefined && type !== 'object') {
+			// $(el).widget(string); || $(el).widget(number); || $(el).widget(fn); || $(el).widget($(selector));
+			if ((options !== undefined && type !== 'object') || options instanceof $) {
 				var parameter = options;
 				options = {};
 				options[map[type]] = parameter;
 
-				// Could come a messages as a second argument
-				if (typeof message === 'string') {
-					options.message = message;
+				// Could come a content as a second argument
+				if (typeof content === 'string' || content instanceof $) {
+					options.content = content;
 				}
 			}
 
