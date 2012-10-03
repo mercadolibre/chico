@@ -76,7 +76,7 @@
 					params;
 
 				if (!data) {
-					new klass($el, options);
+					widget = new klass($el, options);
 					$el.data(name, widget);
 
 				} else {
