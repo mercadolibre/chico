@@ -22,286 +22,295 @@
 *     "content": "#someDivHidden"
 * });
 */
+(function (window, $, ch) {
+	'use strict';
 
-ch.Modal = function (conf) {
+	if (ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	/**
-	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @private
-	* @name ch.Modal-that
-	* @type object
-	*/
-	var that = this,
-
+	function Modal($el, conf) {
 		/**
-		* Reference to Parent Class.
+		* Reference to a internal component instance, saves all the information and configuration properties.
 		* @private
-		* @name ch.Modal-parent
+		* @name ch.Modal-that
 		* @type object
 		*/
-		parent,
+		var that = this,
 
-		/**
-		* Reference to configuration object.
-		* @private
-		* @name ch.Modal-conf
-		* @type object
-		*/
-		conf = clone(conf) || {};
+			/**
+			* Reference to Parent Class.
+			* @private
+			* @name ch.Modal-parent
+			* @type object
+			*/
+			parent;
 
-	that.conf = conf;
+		that.$element = $el;
+		that.element = $el[0];
+		that.type = that.type || 'modal';
+		conf = conf || {};
 
-/**
-*	Inheritance
-*/
-	// Borrow a constructor and return a parent
-	parent = ch.inherit(ch.Widget, that);
-
-/**
-*  Private Members
-*/
+		conf = ch.util.clone(conf);
+		that.conf = conf;
 
 	/**
-	* Private reference to the element
-	* @privated
-	* @name ch.Modal-el
-	* @type HTMLElement
+	*	Inheritance
 	*/
-	var el = that.el,
+		that = ch.Widget.call(that);
+		parent = ch.util.clone(that);
 
+	/**
+	*  Private Members
+	*/
 
 		/**
-		* Private reference to the Zepto element
+		* Private reference to the element
 		* @privated
-		* @name ch.Modal-$el
+		* @name ch.Modal-el
+		* @type HTMLElement
+		*/
+		var el = that.element,
+
+
+			/**
+			* Private reference to the Zepto element
+			* @privated
+			* @name ch.Modal-$el
+			* @type Zepto Object
+			*/
+			$el = that.$element,
+
+			/**
+			* Hides component's content.
+			* @privated
+			* @function
+			* @name ch.Modal-hide
+			* @returns itself
+			*/
+			hide = function () {
+
+				if (!that.active) { return; }
+
+				that.active = false;
+
+				that.$container.addClass("ch-hide");
+
+				ch.util.$mainView.removeClass("ch-hide");
+				ch.util.$mainView[0].setAttribute("aria-hidden", false);
+
+				return that;
+			},
+
+			/**
+			* Hash name
+			* @privated
+			* @name ch.Modal-hash
+			* @type String
+			*/
+			hash = conf.hash || el.href.split("#")[1] || that["type"] + "-" + that.uid,
+
+			/**
+			* Routes maps
+			* @privated
+			* @name ch.Modal-routes
+			* @type Object
+			*/
+			routes = {};
+
+
+	/**
+	*  Protected Members
+	*/
+
+
+		/**
+		* The component's source.
+		* @protected
+		* @name ch.Modal#$source
 		* @type Zepto Object
 		*/
-		$el = that.$el,
+		that.source = $(conf.content).removeClass("ch-hide");
+
+		/**
+		* The component's content.
+		* @protected
+		* @name ch.Modal#$content
+		* @type Zepto Object
+		*/
+		that.$content = $("<div class=\"ch-modal-content\">").append(that.source);
+
+		/**
+		* The component's container
+		* @protected
+		* @name ch.Modal#$container
+		* @type Zepto Object
+		*/
+		that.$container = (function () {
+			var $container = $("<div data-page=\"ch-" + that["type"] + "-" + that.uid +"\" role=\"dialog\" aria-hidden=\"true\" class=\"ch-modal ch-hide\" id=\"ch-" + that["type"] + "-" + that.uid +"\">");
+
+			$container.append(that.$content);
+
+			return $container;
+		}())
+
+		/**
+		* Shows component's content.
+		* @protected
+		* @function
+		* @name ch.Modal#innerShow
+		* @returns itself
+		*/
+		that.innerShow = function (event) {
+
+			if (that.active) { return; }
+
+			that.active = true;
+
+			ch.routes.update(hash);
+
+			ch.util.$mainView.addClass("ch-hide");
+			ch.util.$mainView[0].setAttribute("aria-hidden", true);
+
+			that.$container.removeClass("ch-hide");
+
+			return that;
+		};
 
 		/**
 		* Hides component's content.
-		* @privated
+		* @protected
 		* @function
-		* @name ch.Modal-hide
+		* @name ch.Modal#innerHide
 		* @returns itself
 		*/
-		hide = function () {
-
-			if (!that.active) { return; }
-
-			that.active = false;
-			
-			that.$container.addClass("ch-hide");
-
-			$mainView.removeClass("ch-hide");
-			$mainView[0].setAttribute("aria-hidden", false);
+		that.innerHide = function (hash) {
+			hide();
+			ch.routes.update(hash);
 
 			return that;
-		},
+		};
 
 		/**
-		* Hash name
-		* @privated
-		* @name ch.Modal-hash
-		* @type String
+		* Create component's layout and add behaivor
+		* @protected
+		* @function
+		* @name ch.Modal#configBehavior
 		*/
-		hash = conf.hash || el.href.split("#")[1] || that["type"] + "-" + that.uid,
+		that.configBehavior = function () {
+
+			// ARIA
+			el.setAttribute("aria-label", "ch-" + that["type"] + "-" + that.uid);
+
+			// Update hash
+			el.href = "#!/" + hash;
+
+			// Content behaivor
+			// ClassNames
+			that.$content
+				.addClass("ch-" + that.type + "-content")
+				.removeClass("ch-hide");
+
+			ch.util.$mainView.after(that.$container);
+
+			// Visual configuration
+			if (conf.open) { that.innerShow(); }
+
+			// Sets hash routes
+			routes[""] = hide;
+			routes[hash] = that.innerShow;
+			ch.routes.add(routes);
+		};
+
+	/**
+	*  Public Members
+	*/
 
 		/**
-		* Routes maps
-		* @privated
-		* @name ch.Modal-routes
-		* @type Object
+		* @borrows ch.Widget#uid as ch.Modal#uid
 		*/
-		routes = {};
 
+		/**
+		* @borrows ch.Widget#el as ch.Modal#el
+		*/
 
-/**
-*  Protected Members
-*/
+		/**
+		* @borrows ch.Widget#type as ch.Modal#type
+		*/
 
+		/**
+		* @borrows ch.Widget#emit as ch.Modal#emit
+		*/
 
-	/**
-	* The component's source.
-	* @protected
-	* @name ch.Modal#$source
-	* @type Zepto Object
-	*/
-	that.source = $(conf.content).removeClass("ch-hide");
+		/**
+		* @borrows ch.Widget#on as ch.Modal#on
+		*/
 
-	/**
-	* The component's content.
-	* @protected
-	* @name ch.Modal#$content
-	* @type Zepto Object
-	*/
-	that.$content = $("<div class=\"ch-modal-content\">").append(that.source);
+		/**
+		* @borrows ch.Widget#once as ch.Modal#once
+		*/
 
-	/**
-	* The component's container
-	* @protected
-	* @name ch.Modal#$container
-	* @type Zepto Object
-	*/
-	that.$container = (function () {
-		var $container = $("<div data-page=\"ch-" + that["type"] + "-" + that.uid +"\" role=\"dialog\" aria-hidden=\"true\" class=\"ch-modal ch-hide\" id=\"ch-" + that["type"] + "-" + that.uid +"\">");
+		/**
+		* @borrows ch.Widget#off as ch.Modal#off
+		*/
 
-		$container.append(that.$content);
+		/**
+		* @borrows ch.Widget#offAll as ch.Modal#offAll
+		*/
 
-		return $container;
-	}())
+		/**
+		* @borrows ch.Widget#setMaxListeners as ch.Modal#setMaxListeners
+		*/
 
-	/**
-	* Shows component's content.
-	* @protected
-	* @function
-	* @name ch.Modal#innerShow
-	* @returns itself
-	*/
-	that.innerShow = function (event) {
+		/**
+		* Shows component's content.
+		* @public
+		* @function
+		* @name ch.Modal#show
+		* @returns itself
+		*/
+		that["public"].show = function () {
+			that.innerShow();
+			return that["public"];
+		};
 
-		if (that.active) { return; }
-
-		that.active = true;
-
-		ch.routes.update(hash);
-
-		$mainView.addClass("ch-hide");
-		$mainView[0].setAttribute("aria-hidden", true);
-
-		that.$container.removeClass("ch-hide");
-
-		return that;
-	};
+		/**
+		* Hides component's content.
+		* @public
+		* @function
+		* @name ch.Modal#hide
+		* @returns itself
+		*/
+		that["public"].hide = function (page) {
+			that.innerHide(page);
+			return that["public"];
+		};
 
 	/**
-	* Hides component's content.
-	* @protected
-	* @function
-	* @name ch.Modal#innerHide
-	* @returns itself
-	*/
-	that.innerHide = function (hash) {
-		hide();
-		ch.routes.update(hash);
-
-		return that;
-	};
-
-	/**
-	* Create component's layout and add behaivor
-	* @protected
-	* @function
-	* @name ch.Modal#configBehavior
-	*/
-	that.configBehavior = function () {
-
-		// ARIA
-		el.setAttribute("aria-label", "ch-" + that["type"] + "-" + that.uid);
-
-		// Update hash
-		el.href = "#!/" + hash; 
-
-		// Content behaivor
-		// ClassNames
-		that.$content
-			.addClass("ch-" + that.type + "-content")
-			.removeClass("ch-hide");
-
-		$mainView.after(that.$container);
-
-		// Visual configuration
-		if (conf.open) { that.innerShow(); }
-
-		// Sets hash routes
-		routes[""] = hide;
-		routes[hash] = that.innerShow;
-		ch.routes.add(routes);
-	};
-
-/**
-*  Public Members
-*/
- 
-	/**
-	* @borrows ch.Widget#uid as ch.Modal#uid
-	*/	
-	
-	/**
-	* @borrows ch.Widget#el as ch.Modal#el
+	*  Default behaivor
 	*/
 
-	/**
-	* @borrows ch.Widget#type as ch.Modal#type
-	*/
+		that.configBehavior();
 
-	/**
-	* @borrows ch.Widget#emit as ch.Modal#emit
-	*/
+		/**
+		* Emits an event when the component is ready to use.
+		* @name ch.Modal#ready
+		* @event
+		* @public
+		* @example
+		* // Following the first example, using 'me' as modal's instance controller:
+		* widget.on("ready",function () {
+		*	this.show();
+		* });
+		*/
+		window.setTimeout(function(){ that.emit("ready")}, 50);
 
-	/**
-	* @borrows ch.Widget#on as ch.Modal#on
-	*/
+		return that['public'];
+	}
 
-	/**
-	* @borrows ch.Widget#once as ch.Modal#once
-	*/
+	Modal.prototype.name = 'modal';
+	Modal.prototype.constructor = Modal;
 
-	/**
-	* @borrows ch.Widget#off as ch.Modal#off
-	*/
+	ch.factory(Modal);
 
-	/**
-	* @borrows ch.Widget#offAll as ch.Modal#offAll
-	*/
-
-	/**
-	* @borrows ch.Widget#setMaxListeners as ch.Modal#setMaxListeners
-	*/
-
-	/**
-	* Shows component's content.
-	* @public
-	* @function
-	* @name ch.Modal#show
-	* @returns itself
-	*/
-	that["public"].show = function () {
-		that.innerShow();
-		return that["public"];
-	};
-
-	/**
-	* Hides component's content.
-	* @public
-	* @function
-	* @name ch.Modal#hide
-	* @returns itself
-	*/	
-	that["public"].hide = function (page) {
-		that.innerHide(page);
-		return that["public"];
-	};
-
-/**
-*  Default behaivor
-*/
-	
-	that.configBehavior();
-
-	/**
-	* Emits an event when the component is ready to use.
-	* @name ch.Modal#ready
-	* @event
-	* @public
-	* @example
-	* // Following the first example, using 'me' as modal's instance controller:
-	* widget.on("ready",function () {
-	*	this.show();
-	* });
-	*/
-	setTimeout(function(){ that.emit("ready")}, 50);
-
-	return that;
-};
-ch.factory("Modal");
+}(this, this.Zepto, this.ch));

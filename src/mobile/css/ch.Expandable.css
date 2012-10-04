@@ -1,9 +1,9 @@
 /*
-* Expando
+* Expandable
 */
 
 .ch-bellows,
-.ch-expando {
+.ch-expandable {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	padding: 0;
@@ -12,13 +12,13 @@
 
 
 .ch-bellows-trigger,
-.ch-expando-trigger,
-.ch-expando-trigger a {
+.ch-expandable-trigger,
+.ch-expandable-trigger a {
 	color: #555;
 }
 
 .ch-bellows-trigger,
-.ch-expando-trigger {
+.ch-expandable-trigger {
 	cursor: pointer;
 	display: block;
 	font-weight: bold;
@@ -32,7 +32,7 @@
 	font-size: 1em;
 }
 
-.ch-expando-trigger:after {
+.ch-expandable-trigger:after {
 	color: #999999;
 	font-family: icons;
 	content: "\f078";
@@ -43,7 +43,7 @@
 	top: 15px;
 }
 
-.ch-expando-trigger-on {
+.ch-expandable-trigger-on {
 	border-bottom: 1px solid #EEE;
 	background-color: #EEE;
 	color: #333;
@@ -53,36 +53,36 @@
 	border-bottom-right-radius: 0px;
 }
 
-.ch-expando-trigger-on:after {
+.ch-expandable-trigger-on:after {
 	content: "\f077";
 	color: #333;
 }
 
-.ch-expando-content {
+.ch-expandable-content {
 	margin: 0;
 }
 
-.ch-expando-content.ch-list-menu,
-.ch-expando-content .ch-list-menu {
+.ch-expandable-content.ch-list-menu,
+.ch-expandable-content .ch-list-menu {
 	margin: 0;
 	background: none;
 	border: none;
 }
 
 /* Support no-js */
-.no-js .ch-expando .ch-bellows-trigger,
-.no-js .ch-expando .ch-expando-trigger {
+.no-js .ch-expandable .ch-bellows-trigger,
+.no-js .ch-expandable .ch-expandable-trigger {
   cursor: default;
   border-bottom: 1px solid #DDD;
   background-color: #EEE;
   color: #333;
 }
 
-.no-js .ch-expando .ch-bellows-trigger:after,
-.no-js .ch-expando .ch-expando-trigger:after {
+.no-js .ch-expandable .ch-bellows-trigger:after,
+.no-js .ch-expandable .ch-expandable-trigger:after {
 
 }
 
-.no-js .ch-expando .ch-hide {
+.no-js .ch-expandable .ch-hide {
 	display: block;
 }

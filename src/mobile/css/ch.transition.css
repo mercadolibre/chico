@@ -3,7 +3,7 @@
 */
 
 .ch-loading {
-	background: transparent url('../assets/loading_small.gif') center center no-repeat;
+	background: transparent url('../assets/loading-small.gif') center center no-repeat;
 	display: inline-block;
 	height: 24px;
 	width: 24px;
@@ -34,8 +34,8 @@
 }
 
 .ch-loading-wrap .ch-loading-text::before {
-	content: url("../assets/loading_small.gif");
+	content: url("../assets/loading.gif");
 	position: relative;
-	left: -10px;
-	top: 6px;
+	left: -5px;
+	top: 8px;
 }
