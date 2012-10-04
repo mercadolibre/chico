@@ -10,7 +10,7 @@
 * @param {Boolean} [conf.context] Sets a reference to position of component that will be considered to carry out the position. By default is the anchor of HTML snippet.
 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or "lt rt" by default.
 * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or "20 0" by default.
-* @param {String} [conf.message] This message will be shown when component needs to communicate that is in process of load. It's "Loading zoom..." by default.
+* @param {String} [conf.content] This message will be shown when component needs to communicate that is in process of load. It's "Loading zoom..." by default.
 * @param {Number} [conf.width] Width of floated area of zoomed image. Example: 500, "500px", "50%". Default: 350.
 * @param {Number} [conf.height] Height of floated area of zoomed image. Example: 500, "500px", "50%". Default: 350.
 * @returns itself
@@ -67,7 +67,7 @@
 		conf.reposition = false;
 
 		// Transition message and size
-		conf.message = conf.message || "Loading zoom...";
+		conf.content = conf.content || "Loading zoom...";
 		conf.width = conf.width || 300;
 		conf.height = conf.height || 300;
 
@@ -93,7 +93,7 @@
 		 * @name ch.Zoom#$loading
 		 * @type Object
 		 */
-		var $loading = $("<p class=\"ch-zoom-loading ch-hide\">" + conf.message + "</p>").appendTo(that.$element),
+		var $loading = $("<p class=\"ch-zoom-loading ch-hide\">" + conf.content + "</p>").appendTo(that.$element),
 
 		/**
 		 * Position of main anchor. It's for calculate cursor position hover the image.
@@ -530,7 +530,7 @@
 		 */
 		window.setTimeout(function () { that.trigger("ready"); }, 50);
 
-		return that;
+		return that['public'];
 	}
 
 	Zoom.prototype.name = 'zoom';

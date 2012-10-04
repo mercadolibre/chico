@@ -7,7 +7,7 @@
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} conf.url The url pointing to the suggestions's service.
-* @param {String} [conf.message] It represent the text when no options are shown.
+* @param {String} [conf.content] It represent the text when no options are shown.
 * @param {Array} [conf.suggestions] The suggestions's collection. If a URL is set at conf.url parametter this will be omitted.
 * @returns itself
 * @factorized
@@ -48,7 +48,7 @@
 		conf = ch.util.clone(conf);
 		conf.icon = false;
 		conf.type = "autoComplete";
-		conf.message = conf.message || "Please write to be suggested";
+		conf.content = conf.content || "Please write to be suggested";
 		conf.suggestions = conf.suggestions;
 		conf.jsonpCallback = conf.jsonpCallback || "autoComplete";
 
@@ -412,7 +412,7 @@
 
 
 		//Fills the Float with the message.
-		//that.populateContent([that.conf.message]);
+		//that.populateContent([that.conf.content]);
 
 	/**
 	*  Default event delegation

@@ -214,7 +214,7 @@
 			setSelected = function () {
 
 				// Get date from configuration or input value
-				var sel = conf.selected || conf.msg;
+				var sel = conf.selected || conf.content;
 
 				// Do it only if there are a "selected" parameter
 				if (!sel) { return; }

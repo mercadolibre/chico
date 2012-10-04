@@ -1195,7 +1195,7 @@
 		// Shoot the ready event
 		setTimeout(function () { that.trigger("ready"); }, 50);
 
-		return that;
+		return that['public'];
 	}
 
 	Carousel.prototype.name = 'carousel';

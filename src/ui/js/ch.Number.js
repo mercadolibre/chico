@@ -7,7 +7,7 @@
 * @augments ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -38,7 +38,7 @@
 		conf.condition = {
 			name: "number",
 			patt: /^(-?[0-9\s]+)$/,
-			message: conf.msg || conf.message
+			message: conf.content
 		};
 
 		return new ch.Validation($el, conf);
@@ -62,7 +62,7 @@
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -93,7 +93,7 @@
 		conf.condition = {
 			name: "min",
 			expr: function(a,b) { return a >= b },
-			message: conf.msg || conf.message,
+			message: conf.content,
 			value: conf.value
 		};
 
@@ -117,7 +117,7 @@
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -148,7 +148,7 @@
 		conf.condition = {
 			name: "max",
 			expr: function(a,b) { return a <= b },
-			message: conf.msg || conf.message,
+			message: conf.content,
 			value: conf.value
 		};
 
@@ -173,7 +173,7 @@
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -203,7 +203,7 @@
 		conf.condition = {
 			name: "price",
 			patt: /^(\d+)[.,]?(\d?\d?)$/,
-			message: conf.msg || conf.message
+			message: conf.content
 		};
 
 		return new ch.Validation($el, conf);
