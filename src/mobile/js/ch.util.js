@@ -1,6 +1,6 @@
 (function () {
 
-	exports.util = $.extend(exports.util, {
+	$.extend(exports.util, {
 
 		/**
 		 * Reference to the index page
