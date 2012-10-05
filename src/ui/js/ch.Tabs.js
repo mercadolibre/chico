@@ -80,7 +80,7 @@
 		* @name ch.Tabs#selected
 		* @type number
 		*/
-			selected = conf.selected || conf.value || undefined,
+			selected = conf.selected || conf.num || undefined,
 
 		/**
 		* Create controller's children.
@@ -351,6 +351,46 @@
 		that.parent = ch.util.clone(that);
 
 	/**
+	 * Abilities
+	 */
+
+		ch.Content.call(that);
+
+		/**
+		 * This callback is triggered when content request have finished.
+		 * @protected
+		 * @name ch.Floats#onmessage
+		 * @function
+		 * @returns {this}
+		 */
+		that.content.onmessage = function (data) {
+
+			that.$content.html(data);
+
+			that.trigger("contentLoad");
+			if (ch.util.hasOwn(conf, "onContentLoad")) {
+				conf.onContentLoad.call((that.controller || that), data);
+			}
+		};
+
+		/**
+		 * This callback is triggered when async request fails.
+		 * @protected
+		 * @name ch.Floats#onerror
+		 * @function
+		 * @returns {this}
+		 */
+		that.content.onerror = function (data) {
+
+			that.$content.html(data);
+
+			that.trigger("contentError");
+			if (ch.util.hasOwn(conf, "onContentError")) {
+				conf.onContentError.call((that.controller || that), data.jqXHR, data.textStatus, data.errorThrown);
+			}
+		};
+
+	/**
 	*	Private Members
 	*/
 		/**
@@ -380,6 +420,10 @@
 				* @ignore
 				*/
 				that.source = that.element.href;
+
+				that.content.configure({
+					'input': that.source
+				});
 
 				var id = (href.length === 2) ? href[1] : "ch-tab" + that.uid.replace("#", "-");
 
@@ -424,7 +468,7 @@
 			that.active = true;
 
 			// Load my content if I'need an ajax request
-			if (ch.util.hasOwn(that, "source")) { that.content(); }
+			if (ch.util.hasOwn(that, "source")) { that.content.set(); }
 
 			// Show me
 			that.$trigger.addClass("ch-" + that["type"] + "-trigger-on");
