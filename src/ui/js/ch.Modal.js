@@ -66,7 +66,7 @@
 
 		// Closable configuration
 		conf.closeButton = ch.util.hasOwn(conf, "closeButton") ? conf.closeButton : true;
-		conf.closable = ch.util.hasOwn(conf, "closable") ? conf.closable : "button";
+		conf.closable = ch.util.hasOwn(conf, "closable") ? conf.closable : true;
 
 		conf.aria = {};
 
@@ -114,7 +114,7 @@
 						.appendTo($('body'))
 						.fadeIn();
 
-					if (conf.closable) {
+					if (conf.closable && conf.closable !== 'button') {
 						$dimmer.one("click", function (event) { that.innerHide(event) });
 					}
 
