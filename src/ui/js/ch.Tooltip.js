@@ -54,7 +54,6 @@
 
 		conf.cone = true;
 		conf.classes = conf.classes || "ch-box-lite";
-		conf.content = that.element.title || that.element.alt;
 
 		// Closable configuration
 		conf.closable = false;
@@ -69,6 +68,13 @@
 		conf.position.points = conf.points || "lt lb";
 
 		that.conf = conf;
+
+		/**
+		 * Content configuration property.
+		 * @protected
+		 * @name ch.Modal#source
+		 */
+		that.source = conf.content || that.element.title || that.element.alt;
 
 	/**
 	 *	Inheritance

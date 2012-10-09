@@ -79,6 +79,13 @@
 
 		that.conf = conf;
 
+		/**
+		 * Content configuration property.
+		 * @protected
+		 * @name ch.Modal#source
+		 */
+		that.source = conf.content || that.element.href || that.$element.parents("form").attr("action");
+
 	/**
 	 * Inheritance
 	 */

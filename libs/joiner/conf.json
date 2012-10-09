@@ -41,6 +41,9 @@
 				"../../src/ui/js/ch.init.js",
 				"../../src/shared/js/ch.exports.js"
 			],
+			"abilities": [
+				"../../src/ui/js/ch.Content.js"
+			],
 			"widgets": [
 				"../../src/ui/js/ch.cache.js",
 				"../../src/ui/js/ch.viewport.js",
@@ -76,7 +79,7 @@
 				"../../src/ui/js/ch.Form.js",
 				"../../src/ui/js/ch.Carousel.js"
 			],
-			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "widgets"]
+			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},
 		"uiCSS": {
 			"src": [
