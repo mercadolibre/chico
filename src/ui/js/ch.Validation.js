@@ -549,7 +549,6 @@
 		*	  offset: "0 10",
 		*	  points: "lt lb"
 		* });
-		* @see ch.Uiobject#position
 		*/
 		that["public"].position = function (o) {
 

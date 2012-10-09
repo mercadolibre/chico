@@ -157,16 +157,10 @@
 	*/
 
 		/**
-		* @borrows ch.Object#uid as ch.Menu#uid
-		*/
-
-		/**
-		* @borrows ch.Object#element as ch.Menu#element
-		*/
-
-		/**
-		* @borrows ch.Object#type as ch.Menu#type
-		*/
+		 * @borrows ch.Widget#uid as ch.Menu#uid
+		 * @borrows ch.Widget#element as ch.Menu#element
+		 * @borrows ch.Widget#type as ch.Menu#type
+		 */
 
 	/**
 	*	Default event delegation

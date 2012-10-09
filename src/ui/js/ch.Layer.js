@@ -196,7 +196,7 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#on as ch.Layer#on
+		 * @borrows ch.Widget#on as ch.Layer#on
 		 */
 
 

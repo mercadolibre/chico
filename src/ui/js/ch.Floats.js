@@ -3,7 +3,7 @@
  * @abstract
  * @name ch.Floats
  * @class Floats
- * @augments ch.Uiobject
+ * @augments ch.Widget
  * @requires ch.Positioner
  * @returns itself
  * @see ch.Tooltip
@@ -12,7 +12,7 @@
  * @see ch.Controls
  * @see ch.Transition
  * @see ch.Zoom
- * @see ch.Uiobject
+ * @see ch.Widget
  * @see ch.Positioner
  */
 (function (window, $, ch) {
@@ -40,7 +40,7 @@
 	 * Inheritance
 	 */
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -275,7 +275,7 @@
 		 * @protected
 		 * @name ch.Floats#$content
 		 * @type jQuery
-		 * @see ch.Object#content
+		 * @see ch.Content
 		 */
 		that.$content = $("<div class=\"ch-" + that.type + "-content\">").appendTo(that.$container);
 
@@ -288,7 +288,7 @@
 		 */
 		that.innerShow = function (event) {
 			if (event) {
-				that.prevent(event);
+				ch.util.prevent(event);
 			}
 
 			// Avoid showing things that are already shown
@@ -432,22 +432,16 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#on as ch.Floats#on
-		 */
-
-		/**
-		 * @borrows ch.Object#once as ch.Floats#once
-		 */
-
-		/**
-		 * @borrows ch.Object#off as ch.Floats#off
+		 * @borrows ch.Widget#on as ch.Floats#on
+		 * @borrows ch.Widget#once as ch.Floats#once
+		 * @borrows ch.Widget#off as ch.Floats#off
 		 */
 
 		//Documented again because the method works in this class
 		/**
 		 * Sets and gets component content. To get the defined content just use the method without arguments, like 'widget.content()'. To define a new content pass an argument to it, like 'widget.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
 		 * @public
-		 * @name ch.Uiobject#content
+		 * @name ch.Content
 		 * @function
 		 * @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 		 * @exampleDescription Get the defined content

@@ -181,10 +181,9 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Modal#uid
-		 * @borrows ch.Object#element as ch.Modal#element
-		 * @borrows ch.Object#type as ch.Modal#type
-		 * @borrows ch.Uiobject#content as ch.Modal#content
+		 * @borrows ch.Widget#uid as ch.Modal#uid
+		 * @borrows ch.Widget#element as ch.Modal#element
+		 * @borrows ch.Widget#type as ch.Modal#type
 		 * @borrows ch.Floats#isActive as ch.Modal#isActive
 		 * @borrows ch.Floats#show as ch.Modal#show
 		 * @borrows ch.Floats#hide as ch.Modal#hide

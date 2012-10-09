@@ -459,9 +459,9 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Modal#uid
-		 * @borrows ch.Object#element as ch.Zoom#element
-		 * @borrows ch.Object#type as ch.Zoom#type
+		 * @borrows ch.Widget#uid as ch.Modal#uid
+		 * @borrows ch.Widget#element as ch.Zoom#element
+		 * @borrows ch.Widget#type as ch.Zoom#type
 		 * @borrows ch.Floats#isActive as ch.Zoom#isActive
 		 * @borrows ch.Floats#show as ch.Zoom#show
 		 * @borrows ch.Floats#hide as ch.Zoom#hide
@@ -479,7 +479,7 @@
 		 * @example
 		 * // Get the defined content
 		 * widget.content();
-		 * @see ch.Object#content
+		 * @see ch.Content
 		 */
 
 		that["public"].content = function () {
@@ -495,7 +495,7 @@
 		that.$element
 			.addClass("ch-zoom-trigger")
 			// Prevent click
-			.bind("click", function (event) { that.prevent(event); })
+			.bind("click", function (event) { ch.util.prevent(event); })
 			// Show component or loading transition
 			.bind("mouseenter", that.innerShow)
 			// Hide component or loading transition

@@ -3,7 +3,7 @@
 * @abstract
 * @name Controls
 * @class Controls
-* @augments ch.Uiobject
+* @augments ch.Widget
 * @requires ch.Floats
 * @memberOf ch
 * @returns itself
@@ -11,7 +11,7 @@
 * @see ch.Validation
 * @see ch.AutoComplete
 * @see ch.DatePicker
-* @see ch.Uiobject
+* @see ch.Widget
 * @see ch.Floats
 */
 (function (window, $, ch) {
@@ -34,7 +34,7 @@
 	/**
 	*  Inheritance
 	*/
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**

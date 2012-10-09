@@ -2,8 +2,8 @@
  * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
  * @name Carousel
  * @class Carousel
- * @augments ch.Uiobject
- * @see ch.Uiobject
+ * @augments ch.Widget
+ * @see ch.Widget
  * @memberOf ch
  * @factorized
  * @param {Object} [conf] Object with configuration properties.
@@ -81,7 +81,7 @@
 	 *  Inheritance
 	 */
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -967,9 +967,9 @@
 	 *  Public Members
 	 */
 		/**
-		 * @borrows ch.Object#uid as ch.Carousel#uid
-		 * @borrows ch.Object#element as ch.Carousel#element
-		 * @borrows ch.Object#type as ch.Carousel#type
+		 * @borrows ch.Widget#uid as ch.Carousel#uid
+		 * @borrows ch.Widget#element as ch.Carousel#element
+		 * @borrows ch.Widget#type as ch.Carousel#type
 		 */
 
 		/**

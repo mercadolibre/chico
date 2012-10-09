@@ -2,7 +2,7 @@
 * Tabs lets you create tabs for static and dynamic content.
 * @name Tabs
 * @class Tabs
-* @augments ch.Uiobject
+* @augments ch.Widget
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Number} [conf.selected] Selects a child that will be open when component was loaded. By default, the value is 1.
@@ -16,7 +16,7 @@
 * var widget = $(".example").tabs({
 *     "selected": 2
 * });
-* @see ch.Uiobject
+* @see ch.Widget
 */
 (function (window, $, ch) {
 	'use strict';
@@ -47,7 +47,7 @@
 		 * Inheritance
 		 */
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -129,7 +129,7 @@
 
 					// Bind new click to have control
 					$(e).on("click", function (event) {
-						that.prevent(event);
+						ch.util.prevent(event);
 						select(i);
 					});
 
@@ -217,16 +217,10 @@
 	*/
 
 		/**
-		* @borrows ch.Object#uid as ch.Tabs#uid
-		*/
-
-		/**
-		* @borrows ch.Object#element as ch.Tabs#element
-		*/
-
-		/**
-		* @borrows ch.Object#type as ch.Tabs#type
-		*/
+		 * @borrows ch.Widget#uid as ch.Tabs#uid
+		 * @borrows ch.Widget#element as ch.Tabs#element
+		 * @borrows ch.Widget#type as ch.Tabs#type
+		 */
 
 		/**
 		* Children instances associated to this controller.
@@ -347,7 +341,7 @@
 	*	Inheritance
 	*/
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -463,7 +457,7 @@
 		* @ignore
 		*/
 		that.innerShow = function (event) {
-			that.prevent(event);
+			ch.util.prevent(event);
 
 			that.active = true;
 
@@ -490,7 +484,7 @@
 		* @ignore
 		*/
 		that.innerHide = function (event) {
-			that.prevent(event);
+			ch.util.prevent(event);
 
 			if (!that.active) { return; }
 

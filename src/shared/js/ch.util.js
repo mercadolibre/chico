@@ -326,6 +326,21 @@
 	};
 
 	/**
+	 * Prevent propagation and default actions.
+	 * @name prevent
+	 * @methodOf ch.util
+	 * @param {Event} event The event ot be prevented.
+	 * @returns {Object}
+	 */
+	util.prevent = function (event) {
+
+		if (typeof event === 'object') {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+	};
+
+	/**
 	 * Reference to the vendor prefix of the current browser.
 	 * @name VENDOR_PREFIX
 	 * @constant
