@@ -111,18 +111,28 @@
 			"template": ["meta.ui.full.css", "src"]
 		},
 		"mobileJS": {
-			"src": [
+			"core": [
 				"../../src/shared/js/ch.helpers.js",
 				"../../src/shared/js/ch.util.js",
 				"../../src/mobile/js/ch.util.js",
 				"../../src/shared/js/ch.events.js",
 				"../../src/mobile/js/ch.events.js",
 				"../../src/shared/js/ch.factory.js",
-				"../../src/shared/js/ch.Widget.js",
-				"../../src/shared/js/ch.exports.js",
-				"../../src/mobile/js/ch.init.js"
+				"../../src/mobile/js/ch.init.js",
+				"../../src/shared/js/ch.exports.js"
 			],
-			"template": ["meta.mobile.full.jsOpen", "src", "meta.mobile.full.jsClose"]
+			"abilities": [
+				"../../src/mobile/js/ch.EventEmitter.js",
+				"../../src/mobile/js/ch.routes.js"
+			],
+			"widgets": [
+				"../../src/mobile/js/ch.Widget.js",
+				"../../src/mobile/js/ch.Expandable.js",
+				"../../src/mobile/js/ch.Layer.js",
+				"../../src/mobile/js/ch.Menu.js",
+				"../../src/mobile/js/ch.Modal.js"
+			],
+			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.full.jsClose", "abilities", "widgets"]
 		},
 		"mobileCSS": {
 			"src": [

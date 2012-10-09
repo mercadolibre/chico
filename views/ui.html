@@ -63,7 +63,7 @@
 </head>
 
 <body>
-	<h1 class="ch-box-container">Chico UI</h1>
+<h1 class="ch-box-container">Chico UI</h1>
 
 	<div class="ch-box-lite">
 		<h1>Header 1</h1>
@@ -145,6 +145,13 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 	</div>
 
+	<div class="ch-box-lite">
+		<h2>Spinner control</h2>
+		<span class="ch-loading-small"></span>
+		<span class="ch-loading"></span>
+		<span class="ch-loading-big"></span>
+	</div>
+
 	<h2>Message boxes</h2>
 	<div class="ch-box-error">Oops, something wrong happened</div>
 	<div class="ch-box-help">Do you need any help?</div>
@@ -195,7 +202,7 @@
 				<input type="text" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
 			</p>
 			<p class="ch-form-actions">
-				<input type="submit" name="autoCompleteSubmit" class="ch-btn ch-primary">
+				<input type="submit" name="autoCompleteSubmit" class="ch-btn">
 			</p>
 		</form>
 	</div>
@@ -222,7 +229,61 @@
 	</div>
 
 	<div class="ch-box-lite">
-			<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
+		<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
+				<caption>Table</caption>
+				<thead>
+					<tr>
+						<th scope="col">Data</th>
+						<th scope="col">Operation</th>
+						<th scope="col">Seller</th>
+						<th scope="col">Description</th>
+						<th scope="col">Price</th>
+						<th scope="col">Status</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>02/04/2011</td>
+						<td><a href="#">Sale</a></td>
+						<td><a href="#">mail@example.com</a></td>
+						<td>Shopping at MercadoLibre</td>
+						<td><span class="value">$1200,30</span></td>
+						<td>Pending</td>
+						<td>select
+						</td>
+					</tr>
+					<tr>
+						<td>02/04/2011</td>
+						<td><a href="#">Purchase</a></td>
+						<td><a href="#">mail@example.com</a></td>
+						<td>Shopping at MercadoLibre</td>
+						<td><span class="value">$1200,30</span></td>
+						<td>Pending</td>
+						<td>select</td>
+					</tr>
+					<tr>
+						<td>02/04/2011</td>
+						<td><a href="#">Sale</a></td>
+						<td><a href="#">mail@example.com</a></td>
+						<td>Shopping at MercadoLibre</td>
+						<td><span class="value">$1200,30</span></td>
+						<td>Pending</td>
+						<td>select</td>
+					</tr>
+					<tr>
+						<td>02/04/2011</td>
+						<td><a href="#">Sale</a></td>
+						<td><a href="#">mail@example.com</a></td>
+						<td>Shopping at MercadoLibre</td>
+						<td><span class="value">$1200,30</span></td>
+						<td>Pending</td>
+						<td>select</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table class="ch-datagrid-controls" summary="Listado de cobros en MercadoPago">
 				<caption>Table</caption>
 				<thead>
 					<tr>
@@ -231,7 +292,7 @@
 						<th scope="col">Operation</th>
 						<th scope="col">Seller</th>
 						<th scope="col">Description</th>
-						<th scope="col" class="ch-datagrid-selected">Price <span class="ch-datagrid-desc">(desc)</span></th>
+						<th scope="col" class="ch-datagrid-selected">Price <i class="ch-datagrid-desc"></i></th>
 						<th scope="col">Status</th>
 						<th scope="col">Actions</th>
 					</tr>
@@ -293,7 +354,7 @@
 	</div>
 
 
-	<div class="ch-box-lite">
+	<div class="ch-box-container">
 		<h2>Accordion</h2>
 		<ul class="YOUR_SELECTOR_Accordion">
 			<li>
@@ -330,7 +391,7 @@
 	</div>
 
 
-	<div class="ch-box-lite">
+	<div class="ch-box-container">
 		<h2>Menu</h2>
 		<ul class="YOUR_SELECTOR_Menu">
 			<li>
@@ -407,32 +468,32 @@
 		<div class="ch-g1-2">
 			<div class="ch-box-container">
 				<h3>Bottom</h3>
-				<img id="default" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-				<img id="ctcb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-				<img id="rtrb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="default" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="ctcb" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rtrb" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
 			</div>
 
 			<div class="ch-box-container">
 				<h3>Top</h3>
-				<img id="lblt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-				<img id="cbct" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-				<img id="rbrt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="lblt" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="cbct" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rbrt" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
 			</div>
 		</div>
 
 		<div class="ch-g1-2">
 			<div class="ch-box-container">
 				<h3>Right</h3>
-				<img id="ltrt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-				<img id="lmrm" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-				<img id="lbrb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="ltrt" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="lmrm" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="lbrb" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
 			</div>
 
 			<div class="ch-box-container">
 				<h3>Left</h3>
-				<img id="rtlt" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-				<img id="rmlm" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
-				<img id="rblb" class="myTooltip" alt="MercadoLibre" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rtlt" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rmlm" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
+				<img id="rblb" class="myTooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150">
 			</div>
 		</div>
 	</div>
@@ -641,19 +702,25 @@
 
 	<div class="ch-box-lite">
 		<h2>Date Picker</h2>
-		<form action="/ajax" class="YOUR_SELECTOR_FormdatePicker ch-form">
+		<form action="/ajax.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
 			<p class="ch-form-row">
 				<label for="val_date">
 					Date:
 				</label>
 				<input type="date" id="val_date" class="myDatePicker" placeholder="DD/MM/YYYY">
 			</p>
+			<p class="ch-form-row">
+				<label for="val_date2">
+					Date:
+				</label>
+				<input type="date" id="val_date2" class="myDatePicker2" placeholder="DD/MM/YYYY">
+			</p>
 		</form>
 	</div>
 
 	<div class="ch-box-lite">
 		<h2>Countdown</h2>
-		<form action="/ajax" class="YOUR_SELECTOR_Formcountdown ch-form">
+		<form action="/ajax.html" class="YOUR_SELECTOR_Formcountdown ch-form">
 			<p class="ch-form-row">
 				<label for="val_date">Text:</label>
 				<textarea id="text_cd" class="myCountdown"></textarea>
@@ -1041,12 +1108,30 @@
 			</fieldset>
 
 			<p class="ch-form-actions">
-				<input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn ch-primary">
-				<!--input type="submit" value="Send" class="ch-btn ch-primary"-->
+				<input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn">
 				<input type="reset" value="Cancel" class="ch-btn ch-btn-small">
 				<a href="#" class="resetForm">Reset validations</a>
 			</p>
 		</form>
+
+		<form action="/ajax.html" class="ch-form ch-form-big">
+			<fieldset>
+				<legend>Big inputs</legend>
+				<p class="ch-form-row">
+					<label for="input_user">User:</label>
+					<input type="text" id="input_user" name="input_user" size="50">
+				</p>
+				<p class="ch-form-row">
+					<label for="input_pass">Password:</label>
+					<input type="password" id="input_pass" name="input_pass" size="50">
+				</p>
+				<p class="ch-form-actions">
+					<input type="submit" name="confirmation" value="Login" class="ch-btn">
+					<a href="#">Cancel</a>
+				</p>
+			</fieldset>
+		</form>
+
 	</div>
 
 	<script src="../vendor/jquery-debug.js"></script>
@@ -1090,7 +1175,12 @@
 		var	countdown = $("#text_cd").countdown(140);
 
 		// Date Picker
-		var	datePicker = $(".myDatePicker").datePicker({
+		var	datePicker = $("#val_date").datePicker({
+			"selected": "2011/11/15",
+			"to": "today"
+		});
+
+		var	datePicker2 = $("#val_date2").datePicker({
 			"selected": "2011/11/15",
 			"to": "today"
 		});

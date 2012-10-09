@@ -1,6 +1,6 @@
 (function () {
 
-	exports.util = $.extend(exports.util, {
+	$.extend(exports.util, {
 
 		/**
 		 * Reference to the index page
@@ -42,7 +42,7 @@
 
 			for (; labels[i]; i += 1) {
 				if (labels[i].getAttribute('for')) {
-					$(labels[i]).bind(ch.events.TAP, labelClick);
+					$(labels[i]).bind(exports.events.TAP, labelClick);
 				}
 			}
 		},

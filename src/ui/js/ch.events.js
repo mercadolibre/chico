@@ -1,6 +1,6 @@
 (function () {
 
-	exports.events = $.extend(exports.events, {
+	$.extend(exports.events, {
 		/**
 		 * Keryboard event collection.
 		 * @name key
