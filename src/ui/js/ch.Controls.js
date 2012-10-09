@@ -57,6 +57,7 @@
 			return ch.Floats.call({
 				"element": (ch.util.hasOwn(c, "$element")) ? c.$element[0] : that.element,
 				"$element": c.$element || that.$element,
+				"source": c.content,
 				"uid": (ch.util.index += 1),
 				"type": c.type || that.type,
 				"conf": c

@@ -588,7 +588,7 @@
 			validator.conditions[condition].message = msg;
 
 			if (validator.isActive()) {
-				that["public"]["float"].content(msg);
+				that["public"]["float"].content.update(msg);
 			}
 
 			return that["public"];

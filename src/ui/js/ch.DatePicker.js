@@ -143,7 +143,7 @@
 		*/
 		that["float"] = that.createFloat({
 			"$element": $("<i role=\"button\" class=\"ch-datePicker-trigger ch-icon-calendar\"></i>").insertAfter(that.element),
-			"content": that.calendar.element,
+			"content": $(that.calendar.element),
 			"points": conf.points,
 			"offset": "-1 8",
 			"aria": {

@@ -195,7 +195,9 @@
 			that.$content.html(list);
 			that.selected = -1;
 
-			that["float"].content(that.$content);
+			that["float"].content.update({
+				'input': that.$content
+			});
 
 			that.trigger("contentLoaded");
 
