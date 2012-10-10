@@ -90,13 +90,21 @@
 		}
 
 		/**
-		 * Merges the default options with the options specified by user.
+		 * Merges the current options with the options specified by user.
 		 * @name configure
 		 * @methodOf content
 		 * @param {Object} userOptions Options specified by user.
 		 */
 		content.configure = function (userOptions) {
+			// Merge the defaults options with user options
 			options = $.extend(userOptions, defaults);
+			// Since second time, just merge the current options with user options
+			content.configure = function (userOptions) {
+				// Merge currento options with the new ones
+				$.extend(options, userOptions);
+				// Execute the content setter again
+				content.set();
+			};
 		};
 
 		/**
@@ -121,19 +129,6 @@
 			} else {
 				postMessage('Chico Error: Content is not defined.');
 			}
-		};
-
-		/**
-		 * Merges the current options with new options specified by user, and executes the content set() method.
-		 * @name update
-		 * @methodOf content
-		 * @param {Object} userOptions Options specified by user.
-		 */
-		content.update = function (userOptions) {
-			// Merge currento options with the new ones
-			$.extend(options, userOptions);
-			// Execute the content setter again
-			content.set();
 		};
 
 		/**

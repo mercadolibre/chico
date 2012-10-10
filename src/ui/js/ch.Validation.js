@@ -587,7 +587,9 @@
 			validator.conditions[condition].message = msg;
 
 			if (validator.isActive()) {
-				that["public"]["float"].content.update(msg);
+				that["public"]["float"].content.configure({
+					'input': msg
+				});
 			}
 
 			return that["public"];

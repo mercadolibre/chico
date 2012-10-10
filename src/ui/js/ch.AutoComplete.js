@@ -195,7 +195,7 @@
 			that.$content.html(list);
 			that.selected = -1;
 
-			that["float"].content.update({
+			that["float"].content.configure({
 				'input': that.$content
 			});
 

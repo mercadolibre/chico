@@ -252,7 +252,7 @@
 				// Grab some data when zoomed image loads
 				$img.onImagesLoads(function () {
 
-					that.content.update({
+					that.content.configure({
 						'input': that.source
 					});
 
@@ -469,23 +469,6 @@
 		 * @borrows ch.Floats#height as ch.Zoom#height
 		 * @borrows ch.Floats#position as ch.Zoom#position
 		 */
-
-		/**
-		 * Gets the Float component content.
-		 * @public
-		 * @name ch.Zoom#content
-		 * @function
-		 * @returns {HTMLIMGElement}
-		 * @example
-		 * // Get the defined content
-		 * widget.content();
-		 * @see ch.Content
-		 */
-
-		that["public"].content = function () {
-			// Only on Zoom it's limmited to be a getter
-			return that.content();
-		};
 
 	/**
 	 * Default event delegation
