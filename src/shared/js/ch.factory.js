@@ -57,6 +57,7 @@
 				content = arguments[1],
 				type = typeof options;
 
+			// TODO: This should be done by the init() method on each widget
 			// $(el).widget(string); || $(el).widget(number); || $(el).widget(fn); || $(el).widget($(selector));
 			if ((options !== undefined && type !== 'object') || options instanceof $) {
 				var parameter = options;
