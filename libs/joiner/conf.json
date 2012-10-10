@@ -42,7 +42,7 @@
 				"../../src/shared/js/ch.exports.js"
 			],
 			"abilities": [
-				"../../src/ui/js/ch.Content.js"
+				"../../src/shared/js/ch.Content.js"
 			],
 			"widgets": [
 				"../../src/ui/js/ch.cache.js",

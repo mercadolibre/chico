@@ -63,7 +63,7 @@
 		that.content.onmessage = function (data) {
 
 			if (!that.active) { return; }
-console.log("okdata");
+
 			that.$content.html(data);
 
 			that.trigger("contentLoad");
@@ -84,7 +84,7 @@ console.log("okdata");
 		that.content.onerror = function (data) {
 
 			if (!that.active) { return; }
-console.log("errordata");
+
 			that.$content.html(data);
 
 			that.trigger("contentError");
