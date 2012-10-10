@@ -100,10 +100,8 @@
 			options = $.extend(userOptions, defaults);
 			// Since second time, just merge the current options with user options
 			content.configure = function (userOptions) {
-				// Merge currento options with the new ones
+				// Merge current options with the new ones
 				$.extend(options, userOptions);
-				// Execute the content setter again
-				content.set();
 			};
 		};
 
