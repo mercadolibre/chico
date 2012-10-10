@@ -50,7 +50,7 @@
 
 		// Configuration by default
 		// Max length of content
-		conf.max = parseInt(conf.max) || conf.value || parseInt(conf.content) || 500;
+		conf.max = parseInt(conf.max) || conf.num || parseInt(conf.content) || 500;
 
 		// Messages
 		conf.plural = conf.plural || "# characters left.";
