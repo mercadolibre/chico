@@ -549,7 +549,6 @@
 		*	  offset: "0 10",
 		*	  points: "lt lb"
 		* });
-		* @see ch.Uiobject#position
 		*/
 		that["public"].position = function (o) {
 
@@ -588,7 +587,9 @@
 			validator.conditions[condition].message = msg;
 
 			if (validator.isActive()) {
-				that["public"]["float"].content(msg);
+				that["public"]["float"].content.configure({
+					'input': msg
+				});
 			}
 
 			return that["public"];

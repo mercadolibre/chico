@@ -120,22 +120,10 @@
 		 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Expandable#uid
-		 */
-
-		/**
-		 * @borrows ch.Object#element as ch.Expandable#element
-		 */
-
-		/**
-		 * @borrows ch.Object#type as ch.Expandable#type
-		 */
-
-		/**
+		 * @borrows ch.Widget#uid as ch.Expandable#uid
+		 * @borrows ch.Widget#element as ch.Expandable#element
+		 * @borrows ch.Widget#type as ch.Expandable#type
 		 * @borrows ch.Navs#show as ch.Expandable#show
-		 */
-
-		/**
 		 * @borrows ch.Navs#hide as ch.Expandable#hide
 		 */
 

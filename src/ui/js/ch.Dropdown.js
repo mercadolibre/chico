@@ -152,7 +152,7 @@
 					if (!that.active) { return; }
 
 					// Prevent default behaivor
-					that.prevent(event);
+					ch.util.prevent(event);
 
 					// Sets the arrow that user press
 					arrow = key.type;
@@ -197,7 +197,7 @@
 		that.innerShow = function (event) {
 
 			// Stop propagation
-			that.prevent(event);
+			ch.util.prevent(event);
 
 			// Z-index of content and updates aria values
 			that.$content.css("z-index", ch.util.zIndex += 1).attr("aria-hidden", "false");
@@ -244,22 +244,10 @@
 		 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Menu#uid
-		 */
-
-		/**
-		 * @borrows ch.Object#element as ch.Menu#element
-		 */
-
-		/**
-		 * @borrows ch.Object#type as ch.Menu#type
-		 */
-
-		/**
+		 * @borrows ch.Widget#uid as ch.Menu#uid
+		 * @borrows ch.Widget#element as ch.Menu#element
+		 * @borrows ch.Widget#type as ch.Menu#type
 		 * @borrows ch.Navs#show as ch.Dropdown#type
-		 */
-
-		/**
 		 * @borrows ch.Navs#hide as ch.Dropdown#hide
 		 */
 

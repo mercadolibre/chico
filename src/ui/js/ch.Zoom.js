@@ -252,7 +252,7 @@
 				// Grab some data when zoomed image loads
 				$img.onImagesLoads(function () {
 
-					that.content.update({
+					that.content.configure({
 						'input': that.source
 					});
 
@@ -459,9 +459,9 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Modal#uid
-		 * @borrows ch.Object#element as ch.Zoom#element
-		 * @borrows ch.Object#type as ch.Zoom#type
+		 * @borrows ch.Widget#uid as ch.Modal#uid
+		 * @borrows ch.Widget#element as ch.Zoom#element
+		 * @borrows ch.Widget#type as ch.Zoom#type
 		 * @borrows ch.Floats#isActive as ch.Zoom#isActive
 		 * @borrows ch.Floats#show as ch.Zoom#show
 		 * @borrows ch.Floats#hide as ch.Zoom#hide
@@ -469,23 +469,6 @@
 		 * @borrows ch.Floats#height as ch.Zoom#height
 		 * @borrows ch.Floats#position as ch.Zoom#position
 		 */
-
-		/**
-		 * Gets the Float component content.
-		 * @public
-		 * @name ch.Zoom#content
-		 * @function
-		 * @returns {HTMLIMGElement}
-		 * @example
-		 * // Get the defined content
-		 * widget.content();
-		 * @see ch.Object#content
-		 */
-
-		that["public"].content = function () {
-			// Only on Zoom it's limmited to be a getter
-			return that.content();
-		};
 
 	/**
 	 * Default event delegation
@@ -495,7 +478,7 @@
 		that.$element
 			.addClass("ch-zoom-trigger")
 			// Prevent click
-			.bind("click", function (event) { that.prevent(event); })
+			.bind("click", function (event) { ch.util.prevent(event); })
 			// Show component or loading transition
 			.bind("mouseenter", that.innerShow)
 			// Hide component or loading transition

@@ -1,16 +1,10 @@
 /**
-* Object represents the abstract class of all Objects.
+* Represents the abstract class of all widgets.
 * @abstract
-* @name Object
-* @class Object
+* @name Widget
+* @class Widget
 * @memberOf ch
-* @see ch.Controllers
-* @see ch.Floats
-* @see ch.Navs
-* @see ch.Validator
-* @see ch.Controls
 */
-
 (function (window, $, ch) {
 	'use strict';
 
@@ -26,12 +20,12 @@
 	var uid = 0;
 
 
-	function _Object() {
+	function Widget() {
 
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
 		 * @private
-		 * @name ch.Object#that
+		 * @name ch.Widget#that
 		 * @type object
 		 */
 		var that = this;
@@ -44,7 +38,7 @@
 
 		/**
 		 * This method will be deprecated soon. Triggers a specific callback inside component's context.
-		 * @name ch.Object#callbacks
+		 * @name ch.Widget#callbacks
 		 * @function
 		 * @protected
 		 */
@@ -99,7 +93,7 @@
 		/**
 		 * The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
 		 * @public
-		 * @name ch.Object#uid
+		 * @name ch.Widget#uid
 		 * @type number
 		 */
 		that["public"].uid = that.uid = (uid += 1);
@@ -107,7 +101,7 @@
 		/**
 		 * Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
 		 * @public
-		 * @name ch.Object#element
+		 * @name ch.Widget#element
 		 * @type HTMLElement
 		 */
 		that["public"].element = that.element;
@@ -115,7 +109,7 @@
 		/**
 		 * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
 		 * @public
-		 * @name ch.Object#type
+		 * @name ch.Widget#type
 		 * @type string
 		 */
 		that["public"].type = that.type;
@@ -123,7 +117,7 @@
 		/**
 		 * Triggers a specific event within the component public context.
 		 * @name trigger
-		 * @name ch.Object
+		 * @name ch.Widget
 		 * @public
 		 * @param {string} event The event name you want to trigger.
 		 * @since 0.7.1
@@ -133,7 +127,7 @@
 		/**
 		 * Add a callback function from specific event.
 		 * @public
-		 * @name ch.Object#on
+		 * @name ch.Widget#on
 		 * @function
 		 * @param {string} event Event nawidget.
 		 * @param {function} handler Handler function.
@@ -148,7 +142,7 @@
 		/**
 		 * Add a callback function from specific event that it will execute once.
 		 * @public
-		 * @name ch.Object#once
+		 * @name ch.Widget#once
 		 * @function
 		 * @param {string} event Event nawidget.
 		 * @param {function} handler Handler function.
@@ -164,7 +158,7 @@
 		 * Removes a callback function from specific event.
 		 * @public
 		 * @function
-		 * @name ch.Object#off
+		 * @name ch.Widget#off
 		 * @param {string} event Event nawidget.
 		 * @param {function} handler Handler function.
 		 * @returns itself
@@ -186,9 +180,9 @@
 		return that;
 	}
 
-	_Object.prototype.name = 'object';
-	_Object.prototype.constructor = _Object;
+	Widget.prototype.name = 'widget';
+	Widget.prototype.constructor = Widget;
 
-	ch.Object = _Object;
+	ch.Widget = Widget;
 
 }(this, this.jQuery, this.ch));

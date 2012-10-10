@@ -2,8 +2,8 @@
 * Calendar shows months, and lets you move across the months of the year. Calendar lets you set one or many dates as selected.
 * @name Calendar
 * @class Calendar
-* @augments ch.Uiobject
-* @see ch.Uiobject
+* @augments ch.Widget
+* @see ch.Widget
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
@@ -66,7 +66,7 @@
 	*	Inheritance
 	*/
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -433,7 +433,7 @@
 				* @memberOf ch.Calendar#arrows
 				* @type Object
 				*/
-				"$prev": $("<p class=\"ch-calendar-prev\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>").bind("click", function (event) { that.prevent(event); prevMonth(); }),
+				"$prev": $("<p class=\"ch-calendar-prev\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>").bind("click", function (event) { ch.util.prevent(event); prevMonth(); }),
 
 				/**
 				* Handles behavior of next arrow to move forward in months.
@@ -442,7 +442,7 @@
 				* @memberOf ch.Calendar#arrows
 				* @type Object
 				*/
-				"$next": $("<p class=\"ch-calendar-next\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>").bind("click", function (event) { that.prevent(event); nextMonth(); }),
+				"$next": $("<p class=\"ch-calendar-next\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>").bind("click", function (event) { ch.util.prevent(event); nextMonth(); }),
 
 				/**
 				* Refresh arrows visibility depending on "from" and "to" limits.
@@ -711,16 +711,10 @@
 	*/
 
 		/**
-		* @borrows ch.Object#uid as ch.Menu#uid
-		*/
-
-		/**
-		* @borrows ch.Object#element as ch.Menu#element
-		*/
-
-		/**
-		* @borrows ch.Object#type as ch.Menu#type
-		*/
+		 * @borrows ch.Widget#uid as ch.Menu#uid
+		 * @borrows ch.Widget#element as ch.Menu#element
+		 * @borrows ch.Widget#type as ch.Menu#type
+		 */
 
 		/**
 		* Select a specific date or returns the selected date.

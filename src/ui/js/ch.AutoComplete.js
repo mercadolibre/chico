@@ -72,7 +72,7 @@
 		* @name ch.AutoComplete#selectItem
 		*/
 		var selectItem = function (arrow, event) {
-			that.prevent(event);
+			ch.util.prevent(event);
 
 			if (that.selected === (arrow === "bottom" ? that.items.length - 1 : 0)) { return; }
 			$(that.items[that.selected]).removeClass("ch-autoComplete-selected");
@@ -195,7 +195,9 @@
 			that.$content.html(list);
 			that.selected = -1;
 
-			that["float"].content(that.$content);
+			that["float"].content.configure({
+				'input': that.$content
+			});
 
 			that.trigger("contentLoaded");
 
@@ -261,7 +263,7 @@
 
 				// When the user make backspace with empty input autocomplete is shutting off
 				if(that.element.value.length===0){
-					that.prevent(event);
+					ch.util.prevent(event);
 					that.$element.trigger("blur");
 				}
 
@@ -297,7 +299,7 @@
 					}
 					// mouse down behavior
 					if(type === "mousedown") {
-						that.prevent(event);
+						ch.util.prevent(event);
 						that.$element.val($(that.items[that.selected]).text());
 						that.$element.trigger("blur");
 					}
@@ -362,16 +364,10 @@
 	*/
 
 		/**
-		* @borrows ch.Object#uid as ch.Menu#uid
-		*/
-
-		/**
-		* @borrows ch.Object#element as ch.Menu#element
-		*/
-
-		/**
-		* @borrows ch.Object#type as ch.Menu#type
-		*/
+		 * @borrows ch.Widget#uid as ch.Menu#uid
+		 * @borrows ch.Widget#element as ch.Menu#element
+		 * @borrows ch.Widget#type as ch.Menu#type
+		 */
 
 		/**
 		* Shows component's content.

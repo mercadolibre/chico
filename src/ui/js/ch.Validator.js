@@ -2,14 +2,14 @@
 * Validator is an engine for HTML forms elements.
 * @name Validator
 * @class Validator
-* @augments ch.Object
+* @augments ch.Widget
 * @requires ch.Condition
 * @memberOf ch
 * @param {Object} conf Object with configuration properties.
 * @param {Object} conf.conditions Object with conditions.
 * @returns itself
 * @factorized
-* @see ch.Object
+* @see ch.Widget
 * @see ch.Condition
 */
 (function (window, $, ch) {
@@ -41,7 +41,7 @@
 	/**
 	* Inheritance
 	*/
-		that = ch.Object.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -232,7 +232,7 @@
 	*/
 
 		/**
-		* @borrows ch.Object#uid as ch.TabNavigator#uid
+		* @borrows ch.Widget#uid as ch.TabNavigator#uid
 		*/
 
 		/**
