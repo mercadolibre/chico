@@ -62,6 +62,8 @@
 		 */
 		that.content.onmessage = function (data) {
 
+			if (!that.active) { return; }
+
 			that.$content.html(data);
 
 			that.trigger("contentLoad");
@@ -80,6 +82,8 @@
 		 * @returns {this}
 		 */
 		that.content.onerror = function (data) {
+
+			if (!that.active) { return; }
 
 			that.$content.html(data);
 
@@ -294,6 +298,8 @@
 			// Avoid showing things that are already shown
 			if (that.active) return;
 
+			that.active = true;
+
 			// Add layout to DOM tree
 			// Increment zIndex
 			that.$container
@@ -337,8 +343,6 @@
 
 			that.position("refresh");
 
-			that.active = true;
-
 			return that;
 		};
 
@@ -355,25 +359,22 @@
 				event.stopPropagation();
 			}
 
-			if (!that.active) {
-				return;
-			}
+			if (!that.active) { return; }
+
+			that.active = false;
 
 			var afterHide = function () {
-
-				that.active = false;
-
-			/**
-			 * Triggers when component is not longer visible.
-			 * @name ch.Floats#hide
-			 * @event
-			 * @public
-			 * @exampleDescription When the component hides show other component.
-			 * @example
-			 * widget.on("hide",function () {
-			 * otherComponent.show();
-			 * });
-			 */
+				/**
+				 * Triggers when component is not longer visible.
+				 * @name ch.Floats#hide
+				 * @event
+				 * @public
+				 * @exampleDescription When the component hides show other component.
+				 * @example
+				 * widget.on("hide",function () {
+				 * otherComponent.show();
+				 * });
+				 */
 				// new callbacks
 				that.trigger("hide");
 				// Old callback system
