@@ -41,5 +41,5 @@
 	 */
 	events.viewport.CHANGE = 'change';
 
-	exports.events = events;
+	ch.events = events;
 }());

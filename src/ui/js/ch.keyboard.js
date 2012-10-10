@@ -1,7 +1,7 @@
 (function () {
 
-	var util = exports.util,
-		events = exports.events;
+	var util = ch.util,
+		events = ch.events;
 
 	/**
 	 * Map with references to key codes.
@@ -36,5 +36,5 @@
 		$document.trigger(events.key[codeMap[keyCode]], event);
 	}
 
-	exports.keyboard = keyboard;
+	ch.keyboard = keyboard;
 }());

@@ -1,6 +1,6 @@
 (function () {
 
-	var util = exports.util,
+	var util = ch.util,
 
 		/**
 		 * Global instantiation widget id.
@@ -135,6 +135,6 @@
 
 	//this.emit('ready', this);
 
-	exports.factory(Widget);
+	ch.factory(Widget);
 
 }());

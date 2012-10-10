@@ -19,7 +19,7 @@
 		 * @example
 		 * ch.widget(el, options);
 		 */
-		exports[klass.name || (name[0].toUpperCase() + name.substr(1))] = klass;
+		ch[klass.name || (name[0].toUpperCase() + name.substr(1))] = klass;
 
 		/**
 		 *
@@ -91,5 +91,5 @@
 		};
 	}
 
-	exports.factory = factory;
+	ch.factory = factory;
 }());

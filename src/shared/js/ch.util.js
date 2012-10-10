@@ -377,5 +377,5 @@
 	 */
 	util.zIndex = 1000;
 
-	exports.util = util;
+	ch.util = util;
 }());
