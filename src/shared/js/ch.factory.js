@@ -6,7 +6,12 @@
 	 */
 	function factory(klass) {
 		// $.widget y $('').widget();
+
 		var name = klass.prototype.name,
+			constructor = klass.prototype.constructor.name || (function(){
+					var name = klass.prototype.constructor.prototype.name;
+					return name[0].toUpperCase() + name.substr(1);
+				}()),
 			map = {
 				'string': 'content',
 				'object': 'content', // Only if it's an instanceof $.
@@ -72,15 +77,19 @@
 			// http://docs.jquery.com/Plugins/Authoring
 			$.each(this, function (i, el) {
 				var $el = $(el),
-					data = $el.data(name),
+					data = $el.data(constructor),
 					params;
 
 				if (!data) {
 					widget = new klass($el, options);
-					$el.data(name, widget);
+					$el.data(constructor, widget);
 
 				} else {
 					widget = data;
+					widget.trigger('exists', {
+						'type': name,
+						'options': options
+					});
 				}
 
 				widgets.push(widget);

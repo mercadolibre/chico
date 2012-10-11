@@ -13,7 +13,7 @@ function isAnotherFile (req, res, next) {
 	if (req.params.version === 'assets' || req.params.version === 'vendor') {
 		next('route');
 	} else {
-		next();		
+		next();
 	}
 };
 

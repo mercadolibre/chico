@@ -75,51 +75,14 @@
 		var validator = that.validator = (function(){
 			var c = {};
 				c.condition = conf.condition;
+
 		 	return that.$element.validator(c)['public'];
-		 	//return ch.Validator(that.$element, c);
 		})();
-
-		/**
-		* Search for instances of Validation with the same trigger, and then merge it's properties with it.
-		* @private
-		* @name ch.Validation#checkInstance
-		* @function
-		* @returns Object
-		*/
-		var checkInstance;
-		if (checkInstance = function() {
-
-			var instance, instances = ch.instances.validation;
-			if ( instances && instances.length > 0 ) {
-				for (var i = 0, j = instances.length; i < j; i+=1) {
-					instance = instances[i];
-
-					if (instance.element !== that.element) {
-						continue;
-					}
-
-					return {
-						exists: true,
-						object: instance
-					}
-				}
-			}
-		}()){
-			return checkInstance;
-		};
 
 		// Reference to a Form instance. If there isn't any, the Validation instance will create one.
 		var form = that.form = (function() {
 
 			if (ch.util.hasOwn(ch.instances, "form")) {
-
-				// var i = 0, j = ch.instances.form.length;
-				// for (i; i < j; i+=1) {
-				// 	if (ch.instances.form[i].element === that.$element.parents("form")[0]) {
-				// 		return ch.instances.form[i]; // Get my parent
-				// 	}
-				// };
-
 				for (var instance in ch.instances.form) {
 					if (ch.instances.form[instance].element === that.$element.parents("form")[0]) {
 
@@ -146,7 +109,7 @@
 		* @private
 		* @name ch.Validation#validationEvent
 		*/
-		var validationEvent = (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options") || that.element.tagName == "SELECT") ? "change" : "blur";
+		var validationEvent = (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options") || that.element.tagName == "SELECT" || ( that.element.tagName == "INPUT" && that.element.type === 'range') ) ? "change" : "blur";
 
 		var clear = function() {
 
@@ -191,6 +154,9 @@
 		* @type Object
 		* @name ch.Validation#float
 		*/
+
+
+
 		that["float"] = that.createFloat({
 			"$element": (function() {
 				var reference;
@@ -213,6 +179,7 @@
 				} else {
 					reference = that.$element;
 				}
+
 				return reference;
 			})(),
 			"type": "validation",
@@ -338,7 +305,6 @@
 			return status;
 
 		};
-
 
 	/**
 	*	Public Members
@@ -594,6 +560,10 @@
 			return that["public"];
 		}
 
+		that['public'].and = function () {
+			return that.$element;
+		}
+
 	/**
 	*	Default event delegation
 	*/
@@ -610,6 +580,25 @@
 		* });
 		*/
 		that.trigger("ready");
+
+		that.on('exists', function (e, data){
+
+			var condition = {};
+				condition.message = data.options.content || 'Error';
+				condition.name = data.type;
+
+				if (data.options.num) {
+					condition.value = data.options.num;
+				}
+
+				if (data.options.fn) {
+					condition.func = data.options.fn;
+				}
+
+
+			validator.extend(condition);
+
+		});
 
 		return that['public'];
 	}

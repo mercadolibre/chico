@@ -36,37 +36,16 @@
 
 		conf.condition = {
 			name: "required",
-			expr: function(e) {
-
-				var $e = $(e);
-
-				var tag = ( $e.hasClass("options") || $e.hasClass("ch-form-options")) ? "OPTIONS" : e.tagName;
-				switch (tag) {
-					case 'OPTIONS':
-						return $e.find('input:checked').length !== 0;
-					break;
-
-					case 'SELECT':
-						var val = $e.val();
-						return (val != "-1" && val != "");
-					break;
-
-					case 'INPUT':
-					case 'TEXTAREA':
-						return $.trim($e.val()).length !== 0;
-					break;
-				};
-			},
 			message: conf.content,
 			value: conf.value
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 
 	}
 
 	Required.prototype.name = 'required';
-	Required.prototype.constructor = Required;
+	Required.prototype.constructor = ch.Validation;
 
 	ch.factory(Required);
 

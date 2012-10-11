@@ -45,14 +45,14 @@
 			// I don't have pre-conditions, comes within conf.fn argument
 			name: "custom",
 			func: conf.fn,
-			message: conf.content || "Error"
+			message: conf.content
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 	}
 
 	Custom.prototype.name = 'custom';
-	Custom.prototype.constructor = Custom;
+	Custom.prototype.constructor = ch.Validation;
 
 	ch.factory(Custom);
 
