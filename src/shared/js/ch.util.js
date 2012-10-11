@@ -19,11 +19,11 @@
 
 		return function (obj, prop) {
 
-			if(obj === undefined || typeof obj !== 'object'){
+			if (obj === undefined) {
 				throw new Error('"ch.util.hasOwn(obj, prop)": It must receive an object as first parameter.');
 			}
 
-			if(prop === undefined || typeof prop !== 'string'){
+			if (prop === undefined || typeof prop !== 'string') {
 				throw new Error('"ch.util.hasOwn(obj, prop)": It must receive a string as second parameter.');
 			}
 
@@ -377,5 +377,5 @@
 	 */
 	util.zIndex = 1000;
 
-	exports.util = util;
+	ch.util = util;
 }());

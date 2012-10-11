@@ -3,7 +3,7 @@
  * @private
  */
 (function init() {
-	var util = exports.util;
+	var util = ch.util;
 
 	// Remove no-js classname
 	$html.removeClass('no-js');

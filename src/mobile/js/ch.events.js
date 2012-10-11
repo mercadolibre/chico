@@ -1,6 +1,6 @@
 (function () {
 
-	$.extend(exports.events, {
+	$.extend(ch.events, {
 		/**
 		 *
 		 * @name TAP

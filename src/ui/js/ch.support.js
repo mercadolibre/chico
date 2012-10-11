@@ -47,5 +47,5 @@
 		return isSupported;
 	}());
 
-	exports.support = support;
+	ch.support = support;
 }());

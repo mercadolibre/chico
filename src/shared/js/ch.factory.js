@@ -24,7 +24,7 @@
 		 * @example
 		 * ch.widget(el, options);
 		 */
-		exports[klass.name || (name[0].toUpperCase() + name.substr(1))] = klass;
+		ch[klass.name || (name[0].toUpperCase() + name.substr(1))] = klass;
 
 		/**
 		 *
@@ -62,6 +62,7 @@
 				content = arguments[1],
 				type = typeof options;
 
+			// TODO: This should be done by the init() method on each widget
 			// $(el).widget(string); || $(el).widget(number); || $(el).widget(fn); || $(el).widget($(selector));
 			if ((options !== undefined && type !== 'object') || options instanceof $) {
 				var parameter = options;
@@ -99,5 +100,5 @@
 		};
 	}
 
-	exports.factory = factory;
+	ch.factory = factory;
 }());

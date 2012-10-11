@@ -1,9 +1,8 @@
 /**
  * An object which contains all the public members.
- * @exports exports as ch
  * @namespace
  */
-var exports = {},
+var ch = {},
 	/**
 	 * A map of all widget's instances created by Chico.
 	 * @memberOf ch
