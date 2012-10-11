@@ -594,11 +594,11 @@
 				condition.name = data.type;
 
 				if (data.options.num) {
-					condition.value = data.options.num;
+					condition.num = data.options.num;
 				}
 
 				if (data.options.fn) {
-					condition.func = data.options.fn;
+					condition.fn = data.options.fn;
 				}
 
 

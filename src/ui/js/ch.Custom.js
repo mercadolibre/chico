@@ -44,7 +44,7 @@
 		conf.condition = {
 			// I don't have pre-conditions, comes within conf.fn argument
 			name: "custom",
-			func: conf.fn,
+			fn: conf.fn,
 			message: conf.content
 		};
 

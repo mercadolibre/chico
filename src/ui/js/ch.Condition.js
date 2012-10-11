@@ -7,7 +7,7 @@
 * @param {String} condition.name
 * @param {Object} [condition.patt]
 * @param {Function} [condition.expr]
-* @param {Function} [condition.func]
+* @param {Function} [condition.fn]
 * @param {Number || String} [condition.value]
 * @param {String} condition.message Validation message
 * @returns itself
@@ -143,12 +143,12 @@
 				}
 
 				if (condition.expr){
-					return condition.expr(value, condition.value);
+					return condition.expr(value, condition.num);
 				}
 
-				if (condition.func){
+				if (condition.fn){
 					// Call validation function with 'this' as scope.
-					return condition.func.call(this, value);
+					return condition.fn.call(this, value);
 				}
 
 			},

@@ -93,7 +93,7 @@
 		conf.condition = {
 			name: "min",
 			message: conf.content,
-			value: conf.num
+			num: conf.num
 		};
 
 		return $el.validation(conf);
@@ -148,7 +148,7 @@
 		conf.condition = {
 			name: "max",
 			message: conf.content,
-			value: conf.num
+			num: conf.num
 		};
 
 		return $el.validation(conf);

@@ -36,8 +36,9 @@
 
 		conf.condition = {
 			name: "required",
-			message: conf.content,
-			value: conf.value
+			message: conf.content
+			//,
+			//value: conf.value
 		};
 
 		return $el.validation(conf);
