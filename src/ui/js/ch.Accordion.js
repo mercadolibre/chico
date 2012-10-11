@@ -4,10 +4,10 @@
 * @class Accordion
 * @factorized
 * @interface
-* @augments ch.Uiobject
+* @augments ch.Widget
 * @requires ch.Menu
 * @requires ch.Expandable
-* @see ch.Uiobject
+* @see ch.Widget
 * @see ch.Menu
 * @see ch.Expandable
 * @memberOf ch
@@ -50,16 +50,10 @@
 
 
 /**
-* @borrows ch.Object#uid as ch.Accordion#uid
-*/
-
-/**
-* @borrows ch.Object#element as ch.Accordion#element
-*/
-
-/**
-* @borrows ch.Object#type as ch.Accordion#type
-*/
+ * @borrows ch.Widget#uid as ch.Accordion#uid
+ * @borrows ch.Widget#element as ch.Accordion#element
+ * @borrows ch.Widget#type as ch.Accordion#type
+ */
 
 /**
 * Select a specific children.

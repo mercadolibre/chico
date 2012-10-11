@@ -3,7 +3,7 @@
  * @abstract
  * @name ch.Floats
  * @class Floats
- * @augments ch.Uiobject
+ * @augments ch.Widget
  * @requires ch.Positioner
  * @returns itself
  * @see ch.Tooltip
@@ -12,7 +12,7 @@
  * @see ch.Controls
  * @see ch.Transition
  * @see ch.Zoom
- * @see ch.Uiobject
+ * @see ch.Widget
  * @see ch.Positioner
  */
 (function (window, $, ch) {
@@ -40,8 +40,60 @@
 	 * Inheritance
 	 */
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
+
+	/**
+	 * Abilities
+	 */
+
+		ch.Content.call(that);
+
+		that.content.configure({
+			'input': that.source
+		});
+
+		/**
+		 * This callback is triggered when content request have finished.
+		 * @protected
+		 * @name ch.Floats#onmessage
+		 * @function
+		 * @returns {this}
+		 */
+		that.content.onmessage = function (data) {
+
+			if (!that.active) { return; }
+
+			that.$content.html(data);
+
+			that.trigger("contentLoad");
+			if (ch.util.hasOwn(conf, "onContentLoad")) {
+				conf.onContentLoad.call((that.controller || that), data);
+			}
+
+			that.position('refresh');
+		};
+
+		/**
+		 * This callback is triggered when async request fails.
+		 * @protected
+		 * @name ch.Floats#onerror
+		 * @function
+		 * @returns {this}
+		 */
+		that.content.onerror = function (data) {
+
+			if (!that.active) { return; }
+
+			that.$content.html(data);
+
+			that.trigger("contentError");
+			if (ch.util.hasOwn(conf, "onContentError")) {
+				conf.onContentError.call((that.controller || that), data.jqXHR, data.textStatus, data.errorThrown);
+			}
+
+			that.position('refresh');
+		};
 
 	/**
 	 * Private Members
@@ -149,20 +201,12 @@
 		that.closable = ch.util.hasOwn(conf, "closable") ? conf.closable: true;
 
 		/**
-		 * Content configuration property.
-		 * @protected
-		 * @name ch.Floats#source
-		 * @type string
-		 */
-		that.source = conf.content || that.element.href || that.$element.parents("form").attr("action");
-
-		/**
 		 * Inner function that resolves the component's layout and returns a static reference.
 		 * @protected
 		 * @name ch.Floats#$container
 		 * @type jQuery
 		 */
-		that.$container = (function () { // Create Layout
+		that.$container = (function () {
 
 			// Final jQuery Object
 			var $container,
@@ -235,54 +279,9 @@
 		 * @protected
 		 * @name ch.Floats#$content
 		 * @type jQuery
-		 * @see ch.Object#content
+		 * @see ch.Content
 		 */
 		that.$content = $("<div class=\"ch-" + that.type + "-content\">").appendTo(that.$container);
-
-		/**
-		 * This callback is triggered when async data is loaded into component's content, when ajax content comes back.
-		 * @protected
-		 * @function
-		 * @name ch.Floats#contentCallback
-		 * @returns itself
-		 */
-		that["public"].on("contentLoad", function (event, context) {
-			that.$content.html(that.staticContent);
-
-			if (ch.util.hasOwn(conf, "onContentLoad")) {
-				conf.onContentLoad.call(context, that.staticContent);
-			}
-
-			that.position("refresh");
-		});
-
-		/**
-		 * This callback is triggered when async request fails.
-		 * @protected
-		 * @name ch.Floats#contentError
-		 * @function
-		 * @returns {this}
-		 */
-		that["public"].on("contentError", function (event, data) {
-
-			that.$content.html(that.staticContent);
-
-			// Get the original that.source
-			var originalSource = that.source;
-
-			if (ch.util.hasOwn(conf, "onContentError")) {
-				conf.onContentError.call(data.context, data.jqXHR, data.textStatus, data.errorThrown);
-			}
-
-			// Reset content configuration
-			that.source = originalSource;
-			that.staticContent = undefined;
-
-			if (ch.util.hasOwn(conf, "position")) {
-			   ch.Positioner(conf.position);
-			}
-
-		});
 
 		/**
 		 * Inner show method. Attach the component layout to the DOM tree.
@@ -293,11 +292,13 @@
 		 */
 		that.innerShow = function (event) {
 			if (event) {
-				that.prevent(event);
+				ch.util.prevent(event);
 			}
 
 			// Avoid showing things that are already shown
 			if (that.active) return;
+
+			that.active = true;
 
 			// Add layout to DOM tree
 			// Increment zIndex
@@ -305,9 +306,8 @@
 				.appendTo("body")
 				.css("z-index", ch.util.zIndex++);
 
-			// This make a reflow, but we need that the static content appends to DOM
-			// Get content
-			that.content();
+			// Request the content
+			that.content.set();
 
 			/**
 			 * Triggers when component is visible.
@@ -343,8 +343,6 @@
 
 			that.position("refresh");
 
-			that.active = true;
-
 			return that;
 		};
 
@@ -361,25 +359,22 @@
 				event.stopPropagation();
 			}
 
-			if (!that.active) {
-				return;
-			}
+			if (!that.active) { return; }
+
+			that.active = false;
 
 			var afterHide = function () {
-
-				that.active = false;
-
-			/**
-			 * Triggers when component is not longer visible.
-			 * @name ch.Floats#hide
-			 * @event
-			 * @public
-			 * @exampleDescription When the component hides show other component.
-			 * @example
-			 * widget.on("hide",function () {
-			 * otherComponent.show();
-			 * });
-			 */
+				/**
+				 * Triggers when component is not longer visible.
+				 * @name ch.Floats#hide
+				 * @event
+				 * @public
+				 * @exampleDescription When the component hides show other component.
+				 * @example
+				 * widget.on("hide",function () {
+				 * otherComponent.show();
+				 * });
+				 */
 				// new callbacks
 				that.trigger("hide");
 				// Old callback system
@@ -438,22 +433,16 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#on as ch.Floats#on
-		 */
-
-		/**
-		 * @borrows ch.Object#once as ch.Floats#once
-		 */
-
-		/**
-		 * @borrows ch.Object#off as ch.Floats#off
+		 * @borrows ch.Widget#on as ch.Floats#on
+		 * @borrows ch.Widget#once as ch.Floats#once
+		 * @borrows ch.Widget#off as ch.Floats#off
 		 */
 
 		//Documented again because the method works in this class
 		/**
 		 * Sets and gets component content. To get the defined content just use the method without arguments, like 'widget.content()'. To define a new content pass an argument to it, like 'widget.content("new content")'. Use a valid URL to get content using AJAX. Use a CSS selector to get content from a DOM Element. Or just use a String with HTML code.
 		 * @public
-		 * @name ch.Uiobject#content
+		 * @name ch.Content
 		 * @function
 		 * @param {string} content Static content, DOM selector or URL. If argument is empty then will return the content.
 		 * @exampleDescription Get the defined content
@@ -479,7 +468,11 @@
 		 * @see ch.Floats#content
 		 */
 		that["public"].show = function (content) {
-			if (content !== undefined) { that["public"].content(content); }
+			if (content !== undefined) {
+				that["public"].content.configure({
+					'input': content
+				});
+			}
 			that.innerShow();
 			return that["public"];
 		};
@@ -602,6 +595,15 @@
 		that["public"].isActive = function () {
 			return that.active;
 		};
+
+		/**
+		 * Merges the current options with new options specified by user, and requires the content again.
+		 * @public
+		 * @name ch.Floats#content
+		 * @function
+		 * @param {Object} userOptions Options specified by user.
+		 */
+		that['public'].content = that.content;
 
 		/**
 		 * Triggers when the component is ready to use.

@@ -50,7 +50,7 @@
 
 		// Configuration by default
 		// Max length of content
-		conf.max = parseInt(conf.max) || conf.value || parseInt(conf.content) || 500;
+		conf.max = parseInt(conf.max) || conf.num || parseInt(conf.content) || 500;
 
 		// Messages
 		conf.plural = conf.plural || "# characters left.";
@@ -157,16 +157,10 @@
 	*/
 
 		/**
-		* @borrows ch.Object#uid as ch.Menu#uid
-		*/
-
-		/**
-		* @borrows ch.Object#element as ch.Menu#element
-		*/
-
-		/**
-		* @borrows ch.Object#type as ch.Menu#type
-		*/
+		 * @borrows ch.Widget#uid as ch.Menu#uid
+		 * @borrows ch.Widget#element as ch.Menu#element
+		 * @borrows ch.Widget#type as ch.Menu#type
+		 */
 
 	/**
 	*	Default event delegation

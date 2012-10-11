@@ -54,7 +54,6 @@
 
 		conf.cone = true;
 		conf.classes = conf.classes || "ch-box-lite";
-		conf.content = that.element.title || that.element.alt;
 
 		// Closable configuration
 		conf.closable = false;
@@ -69,6 +68,13 @@
 		conf.position.points = conf.points || "lt lb";
 
 		that.conf = conf;
+
+		/**
+		 * Content configuration property.
+		 * @protected
+		 * @name ch.Modal#source
+		 */
+		that.source = conf.content || that.element.title || that.element.alt;
 
 	/**
 	 *	Inheritance
@@ -144,46 +150,15 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Tooltip#uid
-		 */
-
-		/**
-		 * @borrows ch.Object#element as ch.Tooltip#element
-		 */
-
-		/**
-		 * @borrows ch.Object#type as ch.Tooltip#type
-		 */
-
-		/**
-		 * @borrows ch.Object#content as ch.Tooltip#content
-		 */
-
-		/**
+		 * @borrows ch.Widget#uid as ch.Tooltip#uid
+		 * @borrows ch.Widget#element as ch.Tooltip#element
+		 * @borrows ch.Widget#type as ch.Tooltip#type
 		 * @borrows ch.Floats#isActive as ch.Tooltip#isActive
-		 */
-
-		/**
 		 * @borrows ch.Floats#show as ch.Tooltip#show
-		 */
-
-		/**
 		 * @borrows ch.Floats#hide as ch.Tooltip#hide
-		 */
-
-		/**
 		 * @borrows ch.Floats#width as ch.Tooltip#width
-		 */
-
-		/**
 		 * @borrows ch.Floats#height as ch.Tooltip#height
-		 */
-
-		/**
 		 * @borrows ch.Floats#position as ch.Tooltip#position
-		 */
-
-		/**
 		 * @borrows ch.Floats#closable as ch.Tooltip#closable
 		 */
 

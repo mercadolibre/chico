@@ -2,12 +2,12 @@
 * Forms is a Controller of DOM's HTMLFormElement.
 * @name Form
 * @class Form
-* @augments ch.Uiobject
+* @augments ch.Widget
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
 * @param {Object} [conf.messages]
 * @see ch.Validation
-* @see ch.Uiobject
+* @see ch.Widget
 * @returns itself
 * @factorized
 * @exampleDescription Create a new Form.
@@ -77,7 +77,7 @@
 	*  Inheritance
 	*/
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -221,7 +221,7 @@
 
 			// If an error occurs prevent default actions
 			if (!status) {
-				that.prevent(event);
+				ch.util.prevent(event);
 		        if (event) {
 		            event.stopImmediatePropagation();
 		        }
@@ -231,7 +231,7 @@
 			// Is there's no error but there's a onSubmit callback
 			if ( status && ch.util.hasOwn(conf, "onSubmit")) {
 				// Avoid default actions
-				that.prevent(event);
+				ch.util.prevent(event);
 				// To execute defined onSubmit callback
 				that.callbacks("onSubmit");
 			}
@@ -256,7 +256,7 @@
 
 			if (status && isSubmitEventDefined){
 				// Avoid default actions
-				that.prevent(event);
+				ch.util.prevent(event);
 				// new callback
 				that.trigger("submit");
 			};
@@ -351,16 +351,10 @@
 	*  Public Members
 	*/
 		/**
-		* @borrows ch.Object#uid as ch.Expando#uid
-		*/
-
-		/**
-		* @borrows ch.Object#element as ch.Expando#element
-		*/
-
-		/**
-		* @borrows ch.Object#type as ch.Expando#type
-		*/
+		 * @borrows ch.Widget#uid as ch.Expando#uid
+		 * @borrows ch.Widget#element as ch.Expando#element
+		 * @borrows ch.Widget#type as ch.Expando#type
+		 */
 
 		/**
 		* Watcher instances associated to this controller.
@@ -450,7 +444,7 @@
 
 		// patch exists because the components need a trigger
 		if (ch.util.hasOwn(conf, "onSubmit")) {
-			that.$element.bind('submit', function(event){ that.prevent(event); });
+			that.$element.bind('submit', function(event){ ch.util.prevent(event); });
 			// Delete all click handlers asociated to submit button >NATAN: Why?
 				//Because if you want to do something on submit, you need that the trigger (submit button)
 				//don't have events associates. You can add funcionality on onSubmit callback

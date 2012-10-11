@@ -4,11 +4,11 @@
 * @name Navs
 * @class Navs
 * @standalone
-* @augments ch.Uiobject
+* @augments ch.Widget
 * @memberOf ch
 * @param {object} conf Object with configuration properties
 * @returns itself
-* @see ch.Uiobject
+* @see ch.Widget
 * @see ch.Dropdown
 * @see ch.Expando
 */
@@ -39,7 +39,7 @@
 		 *	Inheritance
 		 */
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 		/**
@@ -77,7 +77,7 @@
 		 * @returns itself
 		 */
 		that.innerShow = function (event) {
-			that.prevent(event);
+			ch.util.prevent(event);
 
 			if (that.active) {
 				return that.innerHide(event);
@@ -120,7 +120,7 @@
 		 * @returns itself
 		 */
 		that.innerHide = function (event) {
-			that.prevent(event);
+			ch.util.prevent(event);
 
 			if (!that.active) { return; }
 

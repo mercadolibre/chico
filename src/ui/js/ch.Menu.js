@@ -2,7 +2,7 @@
 * Menu lets you organize the links by categories.
 * @name Menu
 * @class Menu
-* @augments ch.Uiobject
+* @augments ch.Widget
 * @requires ch.Expandable
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
@@ -11,7 +11,7 @@
 * @returns itself
 * @factorized
 * @see ch.Expandable
-* @see ch.Uiobject
+* @see ch.Widget
 * @exampleDescription Create a new menu without configuration.
 * @example
 * var widget = $(".example").menu();
@@ -54,7 +54,7 @@
 		 * Inheritance
 		 */
 
-		that = ch.Uiobject.call(that);
+		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
@@ -246,16 +246,10 @@
 	*	Public Members
 	*/
 		/**
-		* @borrows ch.Object#uid as ch.Menu#uid
-		*/
-
-		/**
-		* @borrows ch.Object#element as ch.Menu#element
-		*/
-
-		/**
-		* @borrows ch.Object#type as ch.Menu#type
-		*/
+		 * @borrows ch.Widget#uid as ch.Menu#uid
+		 * @borrows ch.Widget#element as ch.Menu#element
+		 * @borrows ch.Widget#type as ch.Menu#type
+		 */
 
 		/**
 		* Select a specific children.

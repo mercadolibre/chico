@@ -76,6 +76,19 @@
 
 		that.conf = conf;
 
+		/**
+		 * Element showed before zoomed image is load. It's a transition message and its content can be configured through parameter "message".
+		 * @private
+		 * @name ch.Zoom#$loading
+		 * @type Object
+		 */
+		/**
+		 * Content configuration property.
+		 * @protected
+		 * @name ch.Modal#source
+		 */
+		var $loading = that.source = $("<p class=\"ch-zoom-loading ch-hide\">" + conf.content + "</p>").appendTo(that.$element);
+
 	/**
 	 * Inheritance
 	 */
@@ -88,20 +101,12 @@
 	 */
 
 		/**
-		 * Element showed before zoomed image is load. It's a transition message and its content can be configured through parameter "message".
-		 * @private
-		 * @name ch.Zoom#$loading
-		 * @type Object
-		 */
-		var $loading = $("<p class=\"ch-zoom-loading ch-hide\">" + conf.content + "</p>").appendTo(that.$element),
-
-		/**
 		 * Position of main anchor. It's for calculate cursor position hover the image.
 		 * @private
 		 * @name ch.Zoom#offset
 		 * @type Object
 		 */
-			offset = that.$element.offset(),
+		var offset = that.$element.offset(),
 
 		/**
 		 * Visual element that follows mouse movement for reference to zoomed area into original image.
@@ -246,6 +251,10 @@
 
 				// Grab some data when zoomed image loads
 				$img.onImagesLoads(function () {
+
+					that.content.configure({
+						'input': that.source
+					});
 
 					// Save the zoomed image size
 					zoomed.width = $img.prop("width");
@@ -450,9 +459,9 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Modal#uid
-		 * @borrows ch.Object#element as ch.Zoom#element
-		 * @borrows ch.Object#type as ch.Zoom#type
+		 * @borrows ch.Widget#uid as ch.Modal#uid
+		 * @borrows ch.Widget#element as ch.Zoom#element
+		 * @borrows ch.Widget#type as ch.Zoom#type
 		 * @borrows ch.Floats#isActive as ch.Zoom#isActive
 		 * @borrows ch.Floats#show as ch.Zoom#show
 		 * @borrows ch.Floats#hide as ch.Zoom#hide
@@ -460,23 +469,6 @@
 		 * @borrows ch.Floats#height as ch.Zoom#height
 		 * @borrows ch.Floats#position as ch.Zoom#position
 		 */
-
-		/**
-		 * Gets the Float component content.
-		 * @public
-		 * @name ch.Zoom#content
-		 * @function
-		 * @returns {HTMLIMGElement}
-		 * @example
-		 * // Get the defined content
-		 * widget.content();
-		 * @see ch.Object#content
-		 */
-
-		that["public"].content = function () {
-			// Only on Zoom it's limmited to be a getter
-			return that.content();
-		};
 
 	/**
 	 * Default event delegation
@@ -486,7 +478,7 @@
 		that.$element
 			.addClass("ch-zoom-trigger")
 			// Prevent click
-			.bind("click", function (event) { that.prevent(event); })
+			.bind("click", function (event) { ch.util.prevent(event); })
 			// Show component or loading transition
 			.bind("mouseenter", that.innerShow)
 			// Hide component or loading transition

@@ -66,7 +66,7 @@
 
 		// Closable configuration
 		conf.closeButton = ch.util.hasOwn(conf, "closeButton") ? conf.closeButton : true;
-		conf.closable = ch.util.hasOwn(conf, "closable") ? conf.closable : "button";
+		conf.closable = ch.util.hasOwn(conf, "closable") ? conf.closable : true;
 
 		conf.aria = {};
 
@@ -78,6 +78,13 @@
 		}
 
 		that.conf = conf;
+
+		/**
+		 * Content configuration property.
+		 * @protected
+		 * @name ch.Modal#source
+		 */
+		that.source = conf.content || that.element.href || that.$element.parents("form").attr("action");
 
 	/**
 	 * Inheritance
@@ -114,7 +121,7 @@
 						.appendTo($('body'))
 						.fadeIn();
 
-					if (conf.closable) {
+					if (conf.closable && conf.closable !== 'button') {
 						$dimmer.one("click", function (event) { that.innerHide(event) });
 					}
 
@@ -174,10 +181,9 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#uid as ch.Modal#uid
-		 * @borrows ch.Object#element as ch.Modal#element
-		 * @borrows ch.Object#type as ch.Modal#type
-		 * @borrows ch.Uiobject#content as ch.Modal#content
+		 * @borrows ch.Widget#uid as ch.Modal#uid
+		 * @borrows ch.Widget#element as ch.Modal#element
+		 * @borrows ch.Widget#type as ch.Modal#type
 		 * @borrows ch.Floats#isActive as ch.Modal#isActive
 		 * @borrows ch.Floats#show as ch.Modal#show
 		 * @borrows ch.Floats#hide as ch.Modal#hide

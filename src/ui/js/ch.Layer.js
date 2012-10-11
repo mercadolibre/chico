@@ -86,6 +86,13 @@
 		conf.position.points = conf.points || "lt lb";
 
 		that.conf = conf;
+
+		/**
+		 * Content configuration property.
+		 * @protected
+		 * @name ch.Modal#source
+		 */
+		that.source = conf.content;
 	/**
 	 * Inheritance
 	 */
@@ -189,7 +196,7 @@
 	 */
 
 		/**
-		 * @borrows ch.Object#on as ch.Layer#on
+		 * @borrows ch.Widget#on as ch.Layer#on
 		 */
 
 
