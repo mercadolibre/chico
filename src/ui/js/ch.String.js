@@ -44,7 +44,8 @@
 	}
 
 	String.prototype.name = 'string';
-	String.prototype.constructor = ch.Validation;
+	String.prototype.constructor = String;
+	String.prototype.interface = 'validation';
 
 	ch.factory(String);
 
@@ -99,7 +100,8 @@
 	}
 
 	Email.prototype.name = 'email';
-	Email.prototype.constructor = ch.Validation;
+	Email.prototype.constructor = Email;
+	Email.prototype.interface = 'validation';
 
 	ch.factory(Email);
 
@@ -154,7 +156,8 @@
 	}
 
 	URL.prototype.name = 'url';
-	URL.prototype.constructor = ch.Validation;
+	URL.prototype.constructor = URL;
+	URL.prototype.interface = 'validation';
 
 	ch.factory(URL);
 
@@ -209,7 +212,8 @@
 	}
 
 	MinLength.prototype.name = 'minLength';
-	MinLength.prototype.constructor = ch.Validation;
+	MinLength.prototype.constructor = MinLength;
+	MinLength.prototype.interface = 'validation';
 
 	ch.factory(MinLength);
 
@@ -264,7 +268,8 @@
 	}
 
 	MaxLength.prototype.name = 'maxLength';
-	MaxLength.prototype.constructor = ch.Validation;
+	MaxLength.prototype.constructor = MaxLength;
+	MaxLength.prototype.interface = 'validation';
 
 	ch.factory(MaxLength);
 

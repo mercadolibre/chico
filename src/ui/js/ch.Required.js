@@ -45,7 +45,8 @@
 	}
 
 	Required.prototype.name = 'required';
-	Required.prototype.constructor = ch.Validation;
+	Required.prototype.constructor = Required;
+	Required.prototype.interface = 'validation';
 
 	ch.factory(Required);
 

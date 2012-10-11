@@ -52,7 +52,8 @@
 	}
 
 	Custom.prototype.name = 'custom';
-	Custom.prototype.constructor = ch.Validation;
+	Custom.prototype.constructor = Custom;
+	Custom.prototype.interface = 'validation';
 
 	ch.factory(Custom);
 

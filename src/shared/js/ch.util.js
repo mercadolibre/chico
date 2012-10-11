@@ -197,7 +197,7 @@
 	 */
 	util.getStyles = function (el, prop) {
 
-		if (el === undefined || !(el instanceof HTMLElement)) {
+		if (el === undefined || !(el.nodeType === 1)) {
 			throw new Error('"ch.util.getStyles(el, prop)": The "el" parameter is required and must be a HTMLElement.');
 		}
 
@@ -205,7 +205,14 @@
 			throw new Error('"ch.util.getStyles(el, prop)": The "prop" parameter is required and must be a string.');
 		}
 
-		return window.getComputedStyle(el, '').getPropertyValue(prop);
+		if (window.getComputedStyle) {
+			return window.getComputedStyle(el, "").getPropertyValue(prop);
+		// IE
+		} else {
+			// Turn style name into camel notation
+			prop = prop.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
+			return el.currentStyle[prop];
+		}
 	};
 
 	/**
@@ -288,7 +295,7 @@
 
 		var child = obj.prototype || {};
 		obj.prototype = $.extend(child, superConstructor.prototype);
-		obj.prototype.super = superConstructor.prototype;
+		obj.prototype.uber = superConstructor.prototype;
 
 		/*var fn = function () {};
 		fn.prototype = superConstructor.prototype;

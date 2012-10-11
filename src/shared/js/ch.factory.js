@@ -8,10 +8,7 @@
 		// $.widget y $('').widget();
 
 		var name = klass.prototype.name,
-			constructor = klass.prototype.constructor.name || (function(){
-					var name = klass.prototype.constructor.prototype.name;
-					return name[0].toUpperCase() + name.substr(1);
-				}()),
+			constructor = klass.prototype.interface || name,
 			map = {
 				'string': 'content',
 				'object': 'content', // Only if it's an instanceof $.
@@ -24,7 +21,7 @@
 		 * @example
 		 * ch.widget(el, options);
 		 */
-		ch[klass.name || (name[0].toUpperCase() + name.substr(1))] = klass;
+		ch[klass.name || (name.charAt(0).toUpperCase() + name.substr(1))] = klass;
 
 		/**
 		 *

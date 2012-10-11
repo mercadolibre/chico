@@ -44,7 +44,8 @@
 	}
 
 	Number.prototype.name = 'number';
-	Number.prototype.constructor = ch.Validation;
+	Number.prototype.constructor = Number;
+	Number.prototype.interface = 'validation';
 
 	ch.factory(Number);
 
@@ -99,7 +100,8 @@
 	}
 
 	Min.prototype.name = 'min';
-	Min.prototype.constructor = ch.Validation;
+	Min.prototype.constructor = Min;
+	Min.prototype.interface = 'validation';
 
 	ch.factory(Min);
 
@@ -154,7 +156,8 @@
 	}
 
 	Max.prototype.name = 'max';
-	Max.prototype.constructor = ch.Validation;
+	Max.prototype.constructor = Max;
+	Max.prototype.interface = 'validation';
 
 	ch.factory(Max);
 
@@ -207,7 +210,8 @@
 	}
 
 	Price.prototype.name = 'price';
-	Price.prototype.constructor = ch.Validation;
+	Price.prototype.constructor = Price;
+	Price.prototype.interface = 'validation';
 
 	ch.factory(Price);
 

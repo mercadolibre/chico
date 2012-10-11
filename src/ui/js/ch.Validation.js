@@ -253,7 +253,11 @@
 
 				// to avoid reload the same content
 				if (!that["float"]["public"].isActive() || !that.error.condition || that.error.condition !== gotError.condition) {
-					that["float"]["public"].show((gotError.msg || form.messages[gotError.condition] || "Error"));
+					//that["float"]["public"].show((gotError.msg || form.messages[gotError.condition] || "Error"));
+					that["float"]["public"].content.configure({'input': (gotError.msg || form.messages[gotError.condition] || "Error")});
+					that["float"]["public"].content.set();
+					that["float"]["public"].show();
+
 				}
 
 				// Add blur or change event only one time to the element or to the elements's group
@@ -556,6 +560,7 @@
 				that["public"]["float"].content.configure({
 					'input': msg
 				});
+				that["public"]["float"].content.set();
 			}
 
 			return that["public"];
