@@ -10,10 +10,11 @@ var app = module.parent.exports,
  */
 
 function isAnotherFile (req, res, next) {
-	if (req.params.version === 'assets' || req.params.version === 'vendor') {
+	var folder = req.params.version;
+	if (folder === 'assets' || folder === 'vendor' || folder === 'test' || folder === 'libs') {
 		next('route');
 	} else {
-		next();		
+		next();
 	}
 };
 

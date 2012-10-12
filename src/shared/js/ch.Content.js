@@ -4,7 +4,7 @@
 	// Initial options to be merged with the user's options
 	var defaults = {
 		'method': 'GET',
-		'params': 'x=x',
+		'params': '',
 		'cache': true,
 		'async': true
 	};
@@ -22,7 +22,7 @@
 			// Merged options of each instance
 			options,
 			// The lastest data sent to the client. Used to return on the .get() method
-			current,
+			current = 'Chico Error: Content is not defined.',
 			/**
 			 * Allows to manage the widgets content.
 			 * @namespace
@@ -37,7 +37,7 @@
 			// Update the lastest reference of data sent to the user
 			content.onmessage(current = data);
 			// TODO: Trigger the "message" event to allow multiple suscription
-			//that.trigger('message', data)
+			// that.trigger('message', data)
 		}
 
 		/**
@@ -57,7 +57,7 @@
 			$.ajax({
 				'url': options.input,
 				'type': options.method,
-				'data': options.params,
+				'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
 				'cache': options.cache,
 				'async': options.async,
 				'beforeSend': function (jqXHR) {
@@ -84,7 +84,7 @@
 						content.onerror(data);
 					}
 					// TODO: Trigger the "error" event to allow multiple suscription
-					//that.trigger('error', data)
+					//that.trigger('error', data);
 				}
 			});
 		}
@@ -100,9 +100,19 @@
 			options = $.extend(userOptions, defaults);
 			// Since second time, just merge the current options with user options
 			content.configure = function (userOptions) {
-				// Merge current options with the new ones
+
+				// Getter: return the current configuration (options)
+				if (userOptions === undefined) {
+					return options;
+				}
+
+				// Setter: Merge current options with the new ones
 				$.extend(options, userOptions);
+
+				return content;
 			};
+
+			return content;
 		};
 
 		/**
@@ -110,7 +120,12 @@
 		 * @name set
 		 * @methodOf content
 		 */
-		content.set = function () {
+		content.set = function (userOptions) {
+
+			if (userOptions !== undefined) {
+				content.configure(userOptions);
+			}
+
 			// Input as string
 			if (typeof options.input === 'string') {
 				// Case 1: AJAX call
@@ -122,11 +137,13 @@
 				}
 			// Case 3: DOM element
 			} else if (options.input instanceof $) {
-				postMessage(options.input.removeClass('ch-hide'));
+				postMessage(options.input.detach().removeClass('ch-hide'));
 			// Default: No message
 			} else {
-				postMessage('Chico Error: Content is not defined.');
+				postMessage(current);
 			}
+
+			return content;
 		};
 
 		/**
