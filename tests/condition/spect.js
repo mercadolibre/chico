@@ -348,18 +348,4 @@ describe('Condition', function () {
 
 	});
 
-
-		// it('The method must receive two parameters. The first parameter must be an object and the second one must be a string. Both are required', function () {
-
-		// 	expect(function () {
-		// 		util.hasOwn(ch, ch);
-		// 	}).toThrow();
-
-		// 	expect(function () {
-		// 		util.hasOwn(ch, 'foo');
-		// 	}).not.toThrow();
-		// });
-
-
-
 });
