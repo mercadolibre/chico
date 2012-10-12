@@ -62,8 +62,6 @@
 				"type": c.type || that.type,
 				"conf": c
 			});
-
-
 		};
 
 	/**
