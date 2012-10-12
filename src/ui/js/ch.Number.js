@@ -37,15 +37,15 @@
 		// Define the conditions of this interface
 		conf.condition = {
 			name: "number",
-			patt: /^(-?[0-9\s]+)$/,
 			message: conf.content
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 	}
 
 	Number.prototype.name = 'number';
 	Number.prototype.constructor = Number;
+	Number.prototype.interface = 'validation';
 
 	ch.factory(Number);
 
@@ -92,16 +92,16 @@
 
 		conf.condition = {
 			name: "min",
-			expr: function(a,b) { return a >= b },
 			message: conf.content,
-			value: conf.value
+			num: conf.num
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 	}
 
 	Min.prototype.name = 'min';
 	Min.prototype.constructor = Min;
+	Min.prototype.interface = 'validation';
 
 	ch.factory(Min);
 
@@ -147,17 +147,17 @@
 
 		conf.condition = {
 			name: "max",
-			expr: function(a,b) { return a <= b },
 			message: conf.content,
-			value: conf.value
+			num: conf.num
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 
 	}
 
 	Max.prototype.name = 'max';
 	Max.prototype.constructor = Max;
+	Max.prototype.interface = 'validation';
 
 	ch.factory(Max);
 
@@ -202,16 +202,16 @@
 
 		conf.condition = {
 			name: "price",
-			patt: /^(\d+)[.,]?(\d?\d?)$/,
 			message: conf.content
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 
 	}
 
 	Price.prototype.name = 'price';
 	Price.prototype.constructor = Price;
+	Price.prototype.interface = 'validation';
 
 	ch.factory(Price);
 

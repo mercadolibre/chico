@@ -788,12 +788,13 @@
 						</label>
 						<input type="number" id="number" name="number" min="18" max="99" placeholder="30">
 					</p>
-					<p class="ch-form-row">
+					<p class="ch-form-row ch-form-required">
 						<label for="range">
 							Numeric range:
+							<em>*</em>
 						</label>
-						<input type="range" id="range" name="range" min="1" max="10">
-						<span class="ch-form-hint">Between 1 to 10</span>
+						<input type="range" id="range" name="range" min="1" max="20">
+						<span class="ch-form-hint">Between 8 to 10</span>
 					</p>
 					<p class="ch-form-row ch-form-required ch-form-disabled">
 						<label for="required_disabled">
@@ -846,7 +847,7 @@
 					<label for="select2">
 						Rquired: <em>*</em>
 					</label>
-					<select id="select2" required="required" pattern="[^-1]">
+					<select class="required-option" id="select2" required="required" pattern="[^-1]">
 						<option value="">Select one...</option>
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
@@ -941,7 +942,7 @@
 
 			</fieldset>
 			<fieldset>
-				<p class="ch-form-options ch-form-required check2">
+				<p class="ch-form-options ch-form-required required-check">
 					<input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
 					<label for="check4a">
 						Unique checkbox
@@ -950,8 +951,8 @@
 			</fieldset>
 			<fieldset>
 				<legend>Checkbox</legend>
-					<div class="ch-form-options">
-						<h4 class="ch-form-subtitle">Label of checkboxs group:</h4>
+					<div class="ch-form-options required-option">
+						<h4 class="ch-form-subtitle">Label of checkboxs group:<em>*</em></h4>
 						<p class="ch-form-row">
 							<input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
 							<label for="check1a">
@@ -969,7 +970,7 @@
 
 			<fieldset>
 				<legend>Legend of required group <em>*</em></legend>
-				<div class="ch-form-options check2">
+				<div class="ch-form-options ch-form-required check2 required-option">
 					<p class="ch-form-row">
 						<input type="checkbox" value="alpha" id="check2a" name="version2">
 						<label for="check2a">
@@ -987,7 +988,7 @@
 
 			<fieldset>
 				<legend>Legend of checkboxs group</legend>
-				<div class="ch-form-options ch-form-required check3">
+				<div class="ch-form-options ch-form-required check3 required-option">
 					<h4 class="ch-form-subtitle">Label of required group: <em>*</em></h4>
 					<p class="ch-form-row">
 						<input type="radio" value="alpha" id="check3a" name="version3">
@@ -1024,7 +1025,7 @@
 
 			<fieldset>
 				<legend>Radio buttons required<em>*</em></legend>
-				<div class="ch-form-options radio2">
+				<div class="ch-form-options radio2 required-option">
 					<p class="ch-form-row">
 						<input type="radio" value="alpha" id="radio2a" name="version5">
 						<label for="radio2a">
@@ -1042,7 +1043,7 @@
 
 			<fieldset>
 				<legend>Legend of radio group</legend>
-				<div class="ch-form-options ch-form-required radio3">
+				<div class="ch-form-options ch-form-required radio3 required-option">
 					<h4 class="ch-form-subtitle">Radios required: <em>*</em></h4>
 					<p class="ch-form-row">
 						<input type="radio" value="alpha" id="radio3a" name="version6">
@@ -1138,6 +1139,7 @@
 	<script src="/ui/js"></script>
 	<script>
 		// Automatic version
+		ch.version = ' Add the version to the core.';
 		document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;
 
 		// Autocomplete
@@ -1287,14 +1289,44 @@
 		// Form
 		var form = $('.myForm').form();
 
+
+		// Messages
+		var message = (function (message, value) {
+
+			var messages = {
+				'required': 'Fill in this information.',
+				'option': 'Choose an option.',
+				'requiredCheck': 'Accept the Terms of Use.',
+				'string': 'Use only letters.',
+				'price': 'Use a valid price such as (1,00).',
+				'email': 'Use a valid e-mail such as name@example.com.',
+				'url': 'It must be a valid URL.',
+				'number': 'Use only numbers.',
+				'min': 'The amount must be higher than {#num#}.',
+				'max': 'The amount must be smaller than {#num#}.',
+				'maxLength': 'The maximum amount of characters is {#num#}.',
+				'minLength': 'Enter at least {#num#} characters.',
+				'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
+			};
+
+			return function (message, value) {
+				var message = messages[message] || message;
+				if(value){
+					return message.replace('{#num#}',value)
+				}
+				return message;
+			}
+
+		}());
+
 		// Validators
-		var	validation1 = $("#input_ico").required("This is a message with a <a href='http://www.chico-ui.com.ar'>Chico UI</a>");
+		var	validation1 = $('#input_ico').required(message('required')).and().string(message('string'));
 
-		var	validation2 = $("#price").price("This is a message with a <a href='#price'>Chico UI</a>").and().required();
+		var	validation2 = $('#price').price(message('price')).and().required(message('required'));
 
-		var	validation3 = $("#email").required("requerid").and().email("Please fill with your email").and().minLength(10);
+		var	validation3 = $('#email').required(message('required')).and().email(message('email'));
 
-		var	validation4 = $("#custom").required("Fill this field").and().custom(function (v) {
+		var	validation4 = $('#custom').required(message('required')).and().custom(function (v) {
 
 				var value1 = v.toString().indexOf("1") > -1;
 				var value2 = v.toString().indexOf("2") > -1;
@@ -1302,25 +1334,35 @@
 				if (value1 && value2) { return true; }
 
 				if (!value1) {
-					this.message("custom", "Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus");
+					this.message('custom', message('The number needs a {#num#}.', 1));
 					return false;
 				}
 
 				if (!value2) {
-					this.message("custom", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales");
+					this.message('custom', message('The number must contain a {#num#}.', 2));
 					return false;
 				}
+
 			});
 
-		var	validation5 = $("#url").url("It must be an URL");
+		var	validation5 = $('#url').url(message('url'));
 
-		var	validation6 = $("#number").number("This is a message with a <a href='#number'>Chico UI</a>").and().min(5, "The number must be greater than 5");
+		var	validation6 = $('#number').number(message('number')).and().min(5, message('min',5));
 
-		var	validation7 = $("#range").min(1).and().max(10);
+		var	validation7 = $('#range').min(8, message('min', 8)).and().max(10, message('max',10));
 
-		var	validation8 = $("#characters").maxLength(20).and().minLength(6);
+		var	validation8 = $('#characters').maxLength(20, message('maxLength', 20)).and().minLength(6, message('minLength', 6));
 
-		var	validation9 = $("#required_disabled,#select2,#select3,.check2,.check3,.radio2,.radio3,.radio4,#textarea2,#textarea3").required("Required");
+		var	validation9 = $('#double,#textarea2').required(message('required'));
+
+		var	validation9 = $('.required-check').required(message('requiredCheck'));
+
+		var	validation10 = $('.required-option').required(message('option'));
+
+		var validation11 = $('#double').required(message('link'));
+
+		var validation12 = $('#double').number(message('number'));
+
 	</script>
 </body>
 </html>

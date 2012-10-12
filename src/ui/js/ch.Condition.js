@@ -7,7 +7,7 @@
 * @param {String} condition.name
 * @param {Object} [condition.patt]
 * @param {Function} [condition.expr]
-* @param {Function} [condition.func]
+* @param {Function} [condition.fn]
 * @param {Number || String} [condition.value]
 * @param {String} condition.message Validation message
 * @returns itself
@@ -66,6 +66,64 @@
 	* Private Members
 	*/
 
+		var conditions = {
+			'string': {
+				// the following regular expression has the utf code for the lating characters
+				// the ranges are A,EI,O,U,a,ei,o,u,ç,Ç please for reference see http://www.fileformat.info/info/charset/UTF-8/list.htm
+				patt: /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/
+			},
+			'email': {
+				patt: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+			},
+			'url': {
+				patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/
+			},
+			'minLength': {
+				expr: function(a,b) { return a.length >= b }
+			},
+			'maxLength': {
+				expr: function(a,b) { return a.length <= b }
+			},
+			'number': {
+				patt: /^(-?[0-9\s]+)$/
+			},
+			'max': {
+				expr: function(a,b) { return a <= b }
+			},
+			'min': {
+				expr: function(a,b) { return a >= b }
+			},
+			'price': {
+				patt: /^(\d+)[.,]?(\d?\d?)$/
+			},
+			'required': {
+				expr: function(e) {
+
+					var $e = $(e);
+
+					var tag = ( $e.hasClass("options") || $e.hasClass("ch-form-options")) ? "OPTIONS" : e.tagName;
+					switch (tag) {
+						case 'OPTIONS':
+							return $e.find('input:checked').length !== 0;
+						break;
+
+						case 'SELECT':
+							var val = $e.val();
+							return (val != "-1" && val != "");
+						break;
+
+						case 'INPUT':
+						case 'TEXTAREA':
+							return $.trim($e.val()).length !== 0;
+						break;
+					};
+				}
+			},
+			'custom': {
+				// I don't have pre-conditions, comes within conf.fn argument
+			}
+		};
+
 		/**
 		* Flag that let you know if the condition is enabled or not.
 		* @private
@@ -85,12 +143,12 @@
 				}
 
 				if (condition.expr){
-					return condition.expr(value, condition.value);
+					return condition.expr(value, condition.num);
 				}
 
-				if (condition.func){
+				if (condition.fn){
 					// Call validation function with 'this' as scope.
-					return condition.func.call(this, value);
+					return condition.fn.call(this, value);
 				}
 
 			},
@@ -153,7 +211,7 @@
 		* @returns itself
 		*/
 
-		condition = $.extend(condition, {
+		$.extend(condition, conditions[condition.name], {
 			test: test,
 			enable: enable,
 			disable: disable

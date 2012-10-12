@@ -49,6 +49,7 @@
 	*/
 		var conditions = (function(){
 			var c = {}; // temp collection
+
 			var condition = ch.Condition.call(that["public"], conf.condition);
 
 			c[condition.name] = condition;
@@ -56,41 +57,6 @@
 			// return all the configured conditions
 			return c;
 		})(); // Love this ;)
-
-		/**
-		* Search for instances of Validators with the same trigger, and then merge it's properties with it.
-		* @private
-		* @name ch.Validator#checkInstance
-		* @function
-		* @returns Object
-		*/
-		var checkInstance;
-		if (checkInstance = function() {
-
-			var instance, instances = ch.instances.validator;
-			if ( instances && instances.length > 0 ) {
-				for (var i = 0, j = instances.length; i < j; i+=1) {
-					instance = instances[i];
-
-					if (instance.element !== that.element) {
-
-						continue;
-					}
-
-					// Extend instance's conditions
-					instance.extend(conditions);
-
-					// To let know the ch.Factory that already exists,
-					// this way we avoid to have duplicated references.
-					return {
-						exists: true,
-						object: instance
-					}
-				}
-			}
-		}()){
-			return checkInstance;
-		};
 
 		var validate = function(value) {
 
@@ -267,7 +233,7 @@
 		* @public
 		* @function
 		* @name ch.Validator#and
-		* @returns itself
+		* @returns Object
 		*/
 		that["public"].and = function(){
 			return that.$element;
@@ -280,8 +246,9 @@
 		* @name ch.Validator#extend
 		* @returns itself
 		*/
-		that["public"].extend = function(input){
-			$.extend(conditions, input);
+		that["public"].extend = function(condition){
+
+			conditions[condition.name] = ch.Condition.call(that["public"], condition);
 
 			return that["public"];
 		};

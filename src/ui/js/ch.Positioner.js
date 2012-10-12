@@ -415,10 +415,10 @@
 					var parentOffset = $(element).offset(),
 
 					// Left border width of context's parent.
-						borderLeft = parseInt(ch.utils.getStyles(element, "border-left-width"), 10),
+						borderLeft = parseInt(ch.util.getStyles(element, "border-left-width"), 10),
 
 					// Top border width of context's parent.
-						borderTop = parseInt(ch.utils.getStyles(element, "border-top-width"), 10);
+						borderTop = parseInt(ch.util.getStyles(element, "border-top-width"), 10);
 
 					// Returns left and top position of relative parent and updates offset on relativeParent object.
 					return {

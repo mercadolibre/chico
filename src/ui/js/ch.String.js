@@ -36,18 +36,16 @@
 
 		conf.condition = {
 			name: "string",
-			// the following regular expression has the utf code for the lating characters
-			// the ranges are A,EI,O,U,a,ei,o,u,ç,Ç please for reference see http://www.fileformat.info/info/charset/UTF-8/list.htm
-			patt: /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
 			message: conf.content
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 
 	}
 
 	String.prototype.name = 'string';
 	String.prototype.constructor = String;
+	String.prototype.interface = 'validation';
 
 	ch.factory(String);
 
@@ -94,16 +92,16 @@
 		// /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/,
 		conf.condition = {
 			name: "email",
-			patt: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 			message: conf.content
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 
 	}
 
 	Email.prototype.name = 'email';
 	Email.prototype.constructor = Email;
+	Email.prototype.interface = 'validation';
 
 	ch.factory(Email);
 
@@ -150,16 +148,16 @@
 
 		conf.condition = {
 			name: "url",
-			patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/,
 			message: conf.content
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 
 	}
 
 	URL.prototype.name = 'url';
 	URL.prototype.constructor = URL;
+	URL.prototype.interface = 'validation';
 
 	ch.factory(URL);
 
@@ -179,7 +177,7 @@
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
-* @param {Number} value Minimun number value.
+* @param {Number} num Minimun number characters.
 * @returns itself
 * @factorized
 * @see ch.Validation
@@ -205,17 +203,17 @@
 
 		conf.condition = {
 			name: "minLength",
-			expr: function(a,b) { return a.length >= b },
 			message: conf.content,
-			value: conf.value
+			num: conf.num
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 
 	}
 
 	MinLength.prototype.name = 'minLength';
 	MinLength.prototype.constructor = MinLength;
+	MinLength.prototype.interface = 'validation';
 
 	ch.factory(MinLength);
 
@@ -235,7 +233,7 @@
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
-* @param {Number} value Maximun number value.
+* @param {Number} num Maximun number of characters.
 * @returns itself
 * @factorized
 * @see ch.Validation
@@ -261,17 +259,17 @@
 
 		conf.condition = {
 			name: "maxLength",
-			expr: function(a,b) { return a.length <= b },
 			message: conf.content,
-			value: conf.value
+			num: conf.num
 		};
 
-		return new ch.Validation($el, conf);
+		return $el.validation(conf);
 
 	}
 
 	MaxLength.prototype.name = 'maxLength';
 	MaxLength.prototype.constructor = MaxLength;
+	MaxLength.prototype.interface = 'validation';
 
 	ch.factory(MaxLength);
 
