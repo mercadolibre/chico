@@ -54,6 +54,30 @@
 
 	function Condition(condition) {
 
+		if (condition === undefined) {
+			throw new window.Error('"ch.Condition(condition)": Expected condition be defined and be an object.');
+		}
+
+		if ((condition.name === undefined) || (typeof condition.name !== 'string')) {
+			throw new window.Error('"ch.Condition({ \'name\': \'custom\' })": Expected property name be defined and be a string.');
+		}
+
+		if ((condition.message === undefined) || (typeof condition.message !== 'string')) {
+			throw new window.Error('"ch.Condition({ \'message\': \'custom\' })": Expected property message be defined and be a string.');
+		}
+
+		if ((condition.name === 'custom') && (typeof condition.fn !== 'function')) {
+			throw new window.Error('"ch.Condition({ \'name\': \'custom\', \'fn\': function(){} })": Expected property "fn" be defined as a function with "custom" condition name.');
+		}
+
+		if ((condition.name === 'min') && ((condition.num === undefined) || (typeof condition.num !== 'number'))) {
+			throw new window.Error('"ch.Condition({ \'name\': \'min\', \'num\': 10 })": Expected property "num" be defined as a number with "min" condition name.');
+		}
+
+		if ((condition.name === 'max') && ((condition.num === undefined) || (typeof condition.num !== 'number'))) {
+			throw new window.Error('"ch.Condition({ \'name\': \'max\', \'num\': 10 })": Expected property "num" be defined as a number with "max" condition name.');
+		}
+
 	/**
 	* Reference to a internal component instance, saves all the information and configuration properties.
 	* @protected
@@ -99,9 +123,13 @@
 			'required': {
 				expr: function(e) {
 
+					if (e === undefined) {
+						throw new window.Error('"instance.test(HTMLElement)": The "HTMLElement" parameter must be defined and be HTMLElement object.');
+					}
+
 					var $e = $(e);
 
-					var tag = ( $e.hasClass("options") || $e.hasClass("ch-form-options")) ? "OPTIONS" : e.tagName;
+					var tag = $e.hasClass("ch-form-options") ? "OPTIONS" : e.tagName;
 					switch (tag) {
 						case 'OPTIONS':
 							return $e.find('input:checked').length !== 0;
@@ -133,6 +161,10 @@
 		var	enabled = true,
 
 			test = function (value) {
+
+				if (value === undefined) {
+					throw new window.Error('"instance.test(value)": The "value" parameter must be defined.');
+				}
 
 				if (!enabled) {
 					return true;
@@ -210,6 +242,10 @@
 		* @function
 		* @returns itself
 		*/
+
+		if (conditions[condition.name] === undefined) {
+			throw new window.Error('"ch.Condition({ \'name\': \''+condition.name+'\' })": "'+condition.name+'" Condition is not defined. Use "custom" to define your own condition.');
+		}
 
 		$.extend(condition, conditions[condition.name], {
 			test: test,
