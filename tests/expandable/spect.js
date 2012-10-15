@@ -10,70 +10,58 @@ describe('Expandable', function () {
 		expect(typeof ch.Expandable).toEqual('function');
 	});
 
-	describe('By defult', function () {
-		it('Shold have a icon', function () {
-			expect(document.querySelector('.ch-expandable-trigger.ch-expandable-ico').nodeType).toEqual(1);
-		});
-
-		it('Shold be closed', function () {
-			expect(document.querySelector('.ch-expandable-content.ch-hide').nodeType).toEqual(1);
-		});
-	});
-
 	describe('Shold have the following public properties:', function () {
-		var widget = expandable[0];
 
 		it('.element', function () {
-			expect(ch.util.hasOwn(widget, 'element')).toBeTruthy();
-			expect(widget.element.nodeType).toEqual(1);
+			expect(ch.util.hasOwn(expandable[0], 'element')).toBeTruthy();
+			expect(expandable[0].element.nodeType).toEqual(1);
 		});
 
 		it('.type / .name', function () {
-			expect(ch.util.hasOwn(widget, 'type')).toBeTruthy();
-			expect(typeof widget.type).toEqual('string');
-			expect(widget.type).toEqual('expandable');
+			expect(ch.util.hasOwn(expandable[0], 'type')).toBeTruthy();
+			expect(typeof expandable[0].type).toEqual('string');
+			expect(expandable[0].type).toEqual('expandable');
 		});
 
 		it('.constructor', function () {
-			expect(ch.util.hasOwn(widget, 'constructor')).toBeTruthy();
-			expect(typeof widget.constructor).toEqual('function');
+			expect(ch.util.hasOwn(expandable[0], 'constructor')).toBeTruthy();
+			expect(typeof expandable[0].constructor).toEqual('function');
 		});
 
 		it('.uid', function () {
-			expect(typeof widget.uid).toEqual('number');
+			expect(typeof expandable[0].uid).toEqual('number');
 		});
 
 	});
 
 	describe('Shold have the following public methods:', function () {
-		var widget = expandable[0];
 
 		it('.hide()', function () {
-			expect(ch.util.hasOwn(widget, 'hide')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable[0], 'hide')).toBeTruthy();
 		});
 
 		it('.isActive()', function () {
-			expect(ch.util.hasOwn(widget, 'isActive')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable[0], 'isActive')).toBeTruthy();
 		});
 
 		it('.off()', function () {
-			expect(ch.util.hasOwn(widget, 'off')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable[0], 'off')).toBeTruthy();
 		});
 
 		it('.on()', function () {
-			expect(ch.util.hasOwn(widget, 'on')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable[0], 'on')).toBeTruthy();
 		});
 
 		it('.once()', function () {
-			expect(ch.util.hasOwn(widget, 'once')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable[0], 'once')).toBeTruthy();
 		});
 
 		it('.show()', function () {
-			expect(ch.util.hasOwn(widget, 'show')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable[0], 'show')).toBeTruthy();
 		});
 
 		it('.trigger()', function () {
-			expect(ch.util.hasOwn(widget, 'trigger')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable[0], 'trigger')).toBeTruthy();
 		});
 	});
 
@@ -105,6 +93,43 @@ describe('Expandable', function () {
 
 		it('.ch-hide', function () {
 			expect(document.querySelector('.ch-expandable-content.ch-hide').nodeType).toEqual(1);
+		});
+	});
+
+	describe('By defult', function () {
+		it('Shold have a icon', function () {
+			expect(document.querySelector('.ch-expandable-trigger.ch-expandable-ico').nodeType).toEqual(1);
+		});
+
+		it('Shold be closed', function () {
+			expect(document.querySelector('.ch-expandable-content.ch-hide').nodeType).toEqual(1);
+		});
+	});
+
+	describe('Show method', function () {
+		it('Show', function () {
+			expect(document.querySelector('#expandable-1 .ch-expandable-trigger-on')).toBe(null);
+			expandable[0].show();
+			expect(document.querySelector('#expandable-1 .ch-expandable-trigger-on').nodeType).toEqual(1);
+		});
+	});
+
+	describe('Hide method', function () {
+		it('Hide', function () {
+			expandable[0].hide();
+			expect(document.querySelector('#expandable-1 .ch-expandable-trigger-on')).toBe(null);
+		});
+	});
+
+	describe('A intance configured without icon', function () {
+		it('Shouldn\'t have the icon classname', function () {
+			expect(document.querySelector('#expandable-2 .ch-expandable-trigger.ch-expandable-ico')).toBe(null);
+		});
+	});
+
+	describe('A instance configured open by default', function () {
+		it('Should have the open classname', function () {
+			expect(document.querySelector('#expandable-3 .ch-expandable-trigger-on').nodeType).toEqual(1);
 		});
 	});
 
