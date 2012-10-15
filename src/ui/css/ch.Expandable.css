@@ -25,7 +25,7 @@
 }
 
 /* Trigger icon */
-.ch-expandable-trigger:after {
+.ch-expandable-trigger.ch-expandable-ico:after {
 	font-family: icons;
 	content: "\f0da";
 	position:absolute;
@@ -36,14 +36,14 @@
 }
 
 /* Trigger icon on */
-.ch-expandable-trigger-on:after {
+.ch-expandable-trigger-on.ch-expandable-ico:after {
 	content: "\f0d7";
 	left: 2px;
 }
 
 /* Content */
 .ch-expandable-content {
-	margin: 5px 0 0 16px;
+	margin: 0 0 5px 16px;
 }
 
 /* IE */
