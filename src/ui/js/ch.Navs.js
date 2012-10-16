@@ -163,9 +163,11 @@
 
 			that.$content.addClass("ch-" + that.type + "-content ch-hide");
 
-			// Visual configuration
+			// Icon configuration
 			if ($html.hasClass("lt-ie8") && conf.icon) {
 				$("<span class=\"ch-" + that.type + "-ico\">Drop</span>").appendTo(that.$trigger);
+			} else if (conf.icon) {
+				that.$trigger.addClass("ch-" + that.type + "-ico");
 			}
 
 			if (conf.open) { that.innerShow(); }

@@ -31,7 +31,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-
 	function Expandable($el, conf) {
 
 		/**
@@ -62,12 +61,12 @@
 		 */
 		var $nav = that.$element.children(),
 			triggerAttr = {
-				"aria-expanded":conf.open,
+				"aria-expanded": conf.open,
 				"aria-controls":"ch-expandable-" + that.uid
 			},
 			contentAttr = {
-				id:triggerAttr["aria-controls"],
-				"aria-hidden":!triggerAttr["aria-expanded"]
+				"id": triggerAttr["aria-controls"],
+				"aria-hidden": !triggerAttr["aria-expanded"]
 			};
 
 		/**
