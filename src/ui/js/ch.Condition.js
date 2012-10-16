@@ -50,8 +50,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var setTimeout = window.setTimeout;
-
 	function Condition(condition) {
 
 		if (condition === undefined) {
@@ -76,6 +74,14 @@
 
 		if ((condition.name === 'max') && ((condition.num === undefined) || (typeof condition.num !== 'number'))) {
 			throw new window.Error('"ch.Condition({ \'name\': \'max\', \'num\': 10 })": Expected property "num" be defined as a number with "max" condition name.');
+		}
+
+		if ((condition.name === 'minLength') && ((condition.num === undefined) || (typeof condition.num !== 'number'))) {
+			throw new window.Error('"ch.Condition({ \'name\': \'minLength\', \'num\': 10 })": Expected property "num" be defined as a number with "minLength" condition name.');
+		}
+
+		if ((condition.name === 'maxLength') && ((condition.num === undefined) || (typeof condition.num !== 'number'))) {
+			throw new window.Error('"ch.Condition({ \'name\': \'maxLength\', \'num\': 10 })": Expected property "num" be defined as a number with "maxLength" condition name.');
 		}
 
 	/**
@@ -112,10 +118,10 @@
 				patt: /^(-?[0-9\s]+)$/
 			},
 			'max': {
-				expr: function(a,b) { return a <= b }
+				expr: function(a, b) { return a <= b }
 			},
 			'min': {
-				expr: function(a,b) { return a >= b }
+				expr: function(a, b) { return a >= b }
 			},
 			'price': {
 				patt: /^(\d+)[.,]?(\d?\d?)$/
