@@ -14,7 +14,11 @@
 }
 
 /* Trigger Down icon */
-.ch-dropdown-trigger:after {
+.ch-dropdown-trigger.ch-dropdown-ico {
+	padding-right: 2em;
+}
+
+.ch-dropdown-trigger.ch-dropdown-ico:after {
 	font-family: icons;
 	content: "\f0d7";
 	position: absolute;
@@ -40,11 +44,6 @@
 /**
 *	Primary skin
 */
-
-/* Trigger */
-.ch-dropdown-trigger {
-	padding-right: 2em;
-}
 
 /* Trigger Actived */
 .ch-dropdown-trigger.ch-dropdown-trigger-on,

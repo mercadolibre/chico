@@ -68,68 +68,93 @@ describe('Expandable', function () {
 	describe('Shold have the following ID and Classnames:', function () {
 
 		it('#ch-expandable-1', function () {
-			expect(document.querySelector('#ch-expandable-1').nodeType).toEqual(1);
+			expect($('#ch-expandable-1')[0].nodeType).toEqual(1);
 		});
 
 		it('.ch-expandable', function () {
-			expect(document.querySelector('.ch-expandable').nodeType).toEqual(1);
+			expect($('.ch-expandable')[0].nodeType).toEqual(1);
 		});
 
 		it('.ch-expandable-trigger', function () {
-			expect(document.querySelector('.ch-expandable-trigger').nodeType).toEqual(1);
+			expect($('.ch-expandable-trigger')[0].nodeType).toEqual(1);
 		});
 
 		it('.ch-user-no-select', function () {
-			expect(document.querySelector('.ch-expandable-trigger.ch-user-no-select').nodeType).toEqual(1);
+			expect($('.ch-expandable-trigger.ch-user-no-select')[0].nodeType).toEqual(1);
 		});
 
 		it('.ch-expandable-content', function () {
-			expect(document.querySelector('.ch-expandable-content').nodeType).toEqual(1);
+			expect($('.ch-expandable-content')[0].nodeType).toEqual(1);
 		});
 
 		it('.ch-expandable-ico', function () {
-			expect(document.querySelector('.ch-expandable-trigger.ch-expandable-ico').nodeType).toEqual(1);
+			expect($('.ch-expandable-trigger.ch-expandable-ico')[0].nodeType).toEqual(1);
 		});
 
 		it('.ch-hide', function () {
-			expect(document.querySelector('.ch-expandable-content.ch-hide').nodeType).toEqual(1);
+			expect($('.ch-expandable-content.ch-hide')[0].nodeType).toEqual(1);
+		});
+	});
+
+	describe('Shold have the following ARIA attributes:', function () {
+		it('aria-expanded="false"', function () {
+			expect($('.ch-expandable-trigger').attr("aria-expanded")).toEqual("false");
+		});
+
+		it('aria-hidden="true"', function () {
+			expect($('.ch-expandable-content.ch-hide').attr("aria-hidden")).toEqual("true");
 		});
 	});
 
 	describe('By defult', function () {
 		it('Shold have a icon', function () {
-			expect(document.querySelector('.ch-expandable-trigger.ch-expandable-ico').nodeType).toEqual(1);
+			expect($('.ch-expandable-trigger.ch-expandable-ico')[0].nodeType).toEqual(1);
 		});
 
 		it('Shold be closed', function () {
-			expect(document.querySelector('.ch-expandable-content.ch-hide').nodeType).toEqual(1);
+			expect($('.ch-expandable-content.ch-hide')[0].nodeType).toEqual(1);
 		});
 	});
 
-	describe('Show method', function () {
-		it('Show', function () {
-			expect(document.querySelector('#expandable-1 .ch-expandable-trigger-on')).toBe(null);
+	describe('Public methods', function () {
+		it('.show()', function () {
+			expect($('#expandable-1 .ch-expandable-trigger-on')[0]).not.toBeDefined();
+			var show = expandable[0].show();
+			expect($('#expandable-1 .ch-expandable-trigger-on')[0].nodeType).toEqual(1);
+			expect($('#expandable-1 .ch-expandable-trigger').attr("aria-expanded")).toEqual("true");
+			expect(show).toEqual(expandable[0]);
+		});
+
+		it('.hide()', function () {
+			var hide = expandable[0].hide();
+			expect($('#expandable-1 .ch-expandable-trigger-on')[0]).not.toBeDefined();
+			expect($('#expandable-1 .ch-expandable-content').attr("aria-hidden")).toEqual("true");
+			expect(hide).toEqual(expandable[0]);
+		});
+
+		it('.isActive()', function () {
+			var isActive = expandable[0].isActive();
+			expect(isActive).toBeFalsy();
+
 			expandable[0].show();
-			expect(document.querySelector('#expandable-1 .ch-expandable-trigger-on').nodeType).toEqual(1);
-		});
-	});
+			isActive = expandable[0].isActive();
+			expect(isActive).toBeTruthy();
 
-	describe('Hide method', function () {
-		it('Hide', function () {
 			expandable[0].hide();
-			expect(document.querySelector('#expandable-1 .ch-expandable-trigger-on')).toBe(null);
+			isActive = expandable[0].isActive();
+			expect(isActive).toBeFalsy();
 		});
 	});
 
 	describe('A intance configured without icon', function () {
 		it('Shouldn\'t have the icon classname', function () {
-			expect(document.querySelector('#expandable-2 .ch-expandable-trigger.ch-expandable-ico')).toBe(null);
+			expect($('#expandable-2 .ch-expandable-trigger.ch-expandable-ico')[0]).not.toBeDefined();
 		});
 	});
 
 	describe('A instance configured open by default', function () {
 		it('Should have the open classname', function () {
-			expect(document.querySelector('#expandable-3 .ch-expandable-trigger-on').nodeType).toEqual(1);
+			expect($('#expandable-3 .ch-expandable-trigger-on')[0].nodeType).toEqual(1);
 		});
 	});
 

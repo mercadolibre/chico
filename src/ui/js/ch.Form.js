@@ -95,7 +95,7 @@
 		/**
 		* Executes all children's validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
 		*/
-		var validate = function(event){
+		var validate = function (event) {
 
 			/**
 			* Fired before the validations engine start.
@@ -244,7 +244,7 @@
 			* @exampleDescription
 			* @example
 			* widget.on("afterSubmit",function () {
-			*	sowidget.action();
+			*	widget.action();
 			* });
 			*/
 			// * New callback system *
@@ -394,20 +394,20 @@
 		* @name ch.Form#submit
 		* @returns itself
 		*/
-		that["public"].submit = function() {
+		that["public"].submit = function () {
 			submit();
 
 			return that["public"];
 		};
 
 		/**
-		* Return the status value.
+		* Returns the status value of the form.
 		* @public
 		* @function
-		* @name ch.Form#getStatus
-		* @returns itself
+		* @name ch.Form#isValidated
+		* @returns {Boolean}
 		*/
-		that["public"].getStatus = function(){
+		that["public"].isValidated = function () {
 			return status;
 		};
 
@@ -456,6 +456,11 @@
 
 		// Bind the reset
 		that.$element.find(":reset, .resetForm").bind("click", function(event){ reset(event); });
+
+		// Listen the event "validate" from validations
+		that.on('validated', function () {
+			status = true;
+		});
 
 		/**
 		* Triggers when the component is ready to use (Since 0.8.0).

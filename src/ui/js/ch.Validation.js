@@ -288,6 +288,7 @@
 			} else {
 				that.$element.removeClass("error ch-form-error");
 				that["float"].innerHide();
+				form.trigger('validated');
 			}
 
 			/**
