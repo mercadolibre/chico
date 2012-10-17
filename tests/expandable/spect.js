@@ -68,67 +68,68 @@ describe('Expandable', function () {
 	describe('Shold have the following ID and Classnames:', function () {
 
 		it('#ch-expandable-1', function () {
-			expect($('#ch-expandable-1')[0].nodeType).toEqual(1);
+			expect(expandable[0].element.children[1].id).toBeTruthy();
+
 		});
 
 		it('.ch-expandable', function () {
-			expect($('.ch-expandable')[0].nodeType).toEqual(1);
+			expect($(expandable[0].element).hasClass('ch-expandable')).toBeTruthy();
 		});
 
 		it('.ch-expandable-trigger', function () {
-			expect($('.ch-expandable-trigger')[0].nodeType).toEqual(1);
+			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-trigger')).toBeTruthy();
 		});
 
 		it('.ch-user-no-select', function () {
-			expect($('.ch-expandable-trigger.ch-user-no-select')[0].nodeType).toEqual(1);
-		});
-
-		it('.ch-expandable-content', function () {
-			expect($('.ch-expandable-content')[0].nodeType).toEqual(1);
+			expect($(expandable[0].element.children[0]).hasClass('ch-user-no-select')).toBeTruthy();
 		});
 
 		it('.ch-expandable-ico', function () {
-			expect($('.ch-expandable-trigger.ch-expandable-ico')[0].nodeType).toEqual(1);
+			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-ico')).toBeTruthy();
+		});
+
+		it('.ch-expandable-content', function () {
+			expect($(expandable[0].element.children[1]).hasClass('ch-expandable-content')).toBeTruthy();
 		});
 
 		it('.ch-hide', function () {
-			expect($('.ch-expandable-content.ch-hide')[0].nodeType).toEqual(1);
+			expect($(expandable[0].element.children[1]).hasClass('ch-hide')).toBeTruthy();
 		});
 	});
 
 	describe('Shold have the following ARIA attributes:', function () {
 		it('aria-expanded="false"', function () {
-			expect($('.ch-expandable-trigger').attr("aria-expanded")).toEqual("false");
+			expect($(expandable[0].element.children[0]).attr('aria-expanded')).toEqual('false');
 		});
 
 		it('aria-hidden="true"', function () {
-			expect($('.ch-expandable-content.ch-hide').attr("aria-hidden")).toEqual("true");
+			expect($(expandable[0].element.children[1]).attr('aria-hidden')).toEqual('true');
 		});
 	});
 
 	describe('By defult', function () {
 		it('Shold have a icon', function () {
-			expect($('.ch-expandable-trigger.ch-expandable-ico')[0].nodeType).toEqual(1);
+			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-ico')).toBeTruthy();
 		});
 
 		it('Shold be closed', function () {
-			expect($('.ch-expandable-content.ch-hide')[0].nodeType).toEqual(1);
+			expect($(expandable[0].element.children[1]).hasClass('ch-hide')).toBeTruthy();
 		});
 	});
 
 	describe('Public methods', function () {
 		it('.show()', function () {
-			expect($('#expandable-1 .ch-expandable-trigger-on')[0]).not.toBeDefined();
+			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-trigger-on')).toBeFalsy();
 			var show = expandable[0].show();
-			expect($('#expandable-1 .ch-expandable-trigger-on')[0].nodeType).toEqual(1);
-			expect($('#expandable-1 .ch-expandable-trigger').attr("aria-expanded")).toEqual("true");
+			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-trigger-on')).toBeTruthy();
+			expect($(expandable[0].element.children[1]).attr("aria-hidden")).toEqual("false");
 			expect(show).toEqual(expandable[0]);
 		});
 
 		it('.hide()', function () {
 			var hide = expandable[0].hide();
-			expect($('#expandable-1 .ch-expandable-trigger-on')[0]).not.toBeDefined();
-			expect($('#expandable-1 .ch-expandable-content').attr("aria-hidden")).toEqual("true");
+			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-trigger-on')).toBeFalsy();
+			expect($(expandable[0].element.children[1]).attr("aria-hidden")).toEqual("true");
 			expect(hide).toEqual(expandable[0]);
 		});
 
@@ -148,14 +149,14 @@ describe('Expandable', function () {
 
 	describe('A intance configured without icon', function () {
 		it('Shouldn\'t have the icon classname', function () {
-			expect($('#expandable-2 .ch-expandable-trigger.ch-expandable-ico')[0]).not.toBeDefined();
+			expect($(expandable[1].element.children[0]).hasClass('ch-expandable-ico')).toBeFalsy();
 		});
 	});
 
 	describe('A instance configured open by default', function () {
 		it('Should have the open classname', function () {
-			expect($('#expandable-3 .ch-expandable-trigger-on')[0].nodeType).toEqual(1);
+			expect($(expandable[2].element.children[0]).hasClass('ch-expandable-trigger-on')).toBeTruthy();
+			expect($(expandable[2].element.children[1]).hasClass('ch-hide')).toBeFalsy();
 		});
 	});
-
 });
