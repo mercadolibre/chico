@@ -589,9 +589,14 @@
 
 		that.on('exists', function (e, data){
 
-			var condition = {};
-				condition.message = data.options.content;
-				condition.name = data.type;
+			var condition = {
+				'name': data.type
+			};
+
+			if(data.options !== undefined){
+				if(data.options.content){
+					condition.message = data.options.content;
+				}
 
 				if (data.options.num) {
 					condition.num = data.options.num;
@@ -600,7 +605,7 @@
 				if (data.options.fn) {
 					condition.fn = data.options.fn;
 				}
-
+			}
 
 			validator.extend(condition);
 
