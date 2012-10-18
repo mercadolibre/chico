@@ -591,7 +591,7 @@
 		that.on('exists', function (e, data){
 
 			var condition = {};
-				condition.message = data.options.content || 'Error';
+				condition.message = data.options.content;
 				condition.name = data.type;
 
 				if (data.options.num) {

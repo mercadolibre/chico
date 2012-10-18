@@ -10,9 +10,8 @@ describe('Condition', function () {
 		var c = {
 			'name': 'string',
 			'message': 'Error'
-		};
-
-		var condition = new Condition(c);
+		},
+		condition = new Condition(c);
 
 		it('Should be an object.', function () {
 			expect(typeof condition).toEqual('object');
@@ -37,15 +36,20 @@ describe('Condition', function () {
 			expect(typeof condition.test).toEqual('function');
 		});
 
+		it('The test method without value. It expected to throw.', function () {
+			expect(function () {
+				condition.test();
+			}).toThrow();
+		});
+
 	});
 
 	describe('The string Condition.', function () {
 		var c = {
 			'name': 'string',
 			'message': 'Error'
-		};
-
-		var condition = new Condition(c);
+		},
+		condition = new Condition(c);
 
 		it('Should be valid.', function () {
 			expect(condition.test('foo')).toBeTruthy();
@@ -66,9 +70,8 @@ describe('Condition', function () {
 		var c = {
 			'name': 'email',
 			'message': 'Error'
-		};
-
-		var condition = new Condition(c);
+		},
+		condition = new Condition(c);
 
 		it('Should be valid.', function () {
 			expect(condition.test('foo@foo.bar')).toBeTruthy();
@@ -100,9 +103,8 @@ describe('Condition', function () {
 		var c = {
 			'name': 'url',
 			'message': 'Error'
-		};
-
-		var condition = new Condition(c);
+		},
+		condition = new Condition(c);
 
 		it('Should be valid.', function () {
 			expect(condition.test('http://www.foo.bar')).toBeTruthy();
@@ -161,9 +163,18 @@ describe('Condition', function () {
 			'name': 'minLength',
 			'message': 'Error',
 			'num': 10
-		};
+		},
+		e = {
+			'name': 'minLength',
+			'message': 'Error'
+		},
+		condition = new Condition(c);
 
-		var condition = new Condition(c);
+		it('Error handling. It expected to throw.', function () {
+			expect(function () {
+				new Condition(e);
+			}).toThrow();
+		});
 
 		it('Should be valid.', function () {
 			expect(condition.test('012345678910')).toBeTruthy();
@@ -184,9 +195,18 @@ describe('Condition', function () {
 			'name': 'maxLength',
 			'message': 'Error',
 			'num': 10
-		};
+		},
+		e = {
+			'name': 'maxLength',
+			'message': 'Error'
+		},
+		condition = new Condition(c);
 
-		var condition = new Condition(c);
+		it('Error handling. It expected to throw.', function () {
+			expect(function () {
+				new Condition(e);
+			}).toThrow();
+		});
 
 		it('Should be valid.', function () {
 			expect(condition.test('012345')).toBeTruthy();
@@ -206,9 +226,8 @@ describe('Condition', function () {
 		var c = {
 			'name': 'number',
 			'message': 'Error'
-		};
-
-		var condition = new Condition(c);
+		},
+		condition = new Condition(c);
 
 		it('Should be valid.', function () {
 			expect(condition.test(10)).toBeTruthy();
@@ -230,16 +249,27 @@ describe('Condition', function () {
 			'name': 'min',
 			'message': 'Error',
 			'num': 10
-		};
+		},
+		e = {
+			'name': 'min',
+			'message': 'Error'
+		},
+		condition = new Condition(c);
 
-		var condition = new Condition(c);
+		it('Error handling. It expected to throw.', function () {
+			expect(function () {
+				new Condition(e);
+			}).toThrow();
+		});
 
 		it('Should be valid.', function () {
 			expect(condition.test(15)).toBeTruthy();
+			expect(condition.test('15')).toBeTruthy();
 		});
 
 		it('Should be invalid.', function () {
 			expect(condition.test(1)).toBeFalsy();
+			expect(condition.test('1')).toBeFalsy();
 			expect(condition.test(-1)).toBeFalsy();
 		});
 
@@ -250,16 +280,27 @@ describe('Condition', function () {
 			'name': 'max',
 			'message': 'Error',
 			'num': 10
-		};
+		},
+		e = {
+			'name': 'max',
+			'message': 'Error'
+		},
+		condition = new Condition(c);
 
-		var condition = new Condition(c);
+		it('Error handling. It expected to throw.', function () {
+			expect(function () {
+				new Condition(e);
+			}).toThrow();
+		});
 
 		it('Should be valid.', function () {
 			expect(condition.test(5)).toBeTruthy();
+			expect(condition.test('5')).toBeTruthy();
 			expect(condition.test(-5)).toBeTruthy();
 		});
 
 		it('Should be invalid.', function () {
+			expect(condition.test('11')).toBeFalsy();
 			expect(condition.test(11)).toBeFalsy();
 		});
 
@@ -269,9 +310,8 @@ describe('Condition', function () {
 		var c = {
 			'name': 'price',
 			'message': 'Error'
-		};
-
-		var condition = new Condition(c);
+		},
+		condition = new Condition(c);
 
 		it('Should be valid.', function () {
 			expect(condition.test(5)).toBeTruthy();
@@ -305,16 +345,15 @@ describe('Condition', function () {
 		var c = {
 			'name': 'required',
 			'message': 'Error'
-		};
+		},
+		condition = new Condition(c);
 
-		var inputFull = document.createElement('INPUT');
+		var inputFull = inputEmpty = document.createElement('INPUT');
 			inputFull.setAttribute('type','text');
 			inputFull.setAttribute('value','1');
 
 		var inputEmpty = document.createElement('INPUT');
 			inputEmpty.setAttribute('type','text');
-
-		var condition = new Condition(c);
 
 		it('Should be valid.', function () {
 			expect(condition.test(inputFull)).toBeTruthy();
@@ -334,9 +373,18 @@ describe('Condition', function () {
 			'fn': function (value) {
 				return (value>=0)?true:false;
 			}
-		};
+		},
+		e = {
+			'name': 'custom',
+			'message': 'Error'
+		},
+		condition = new Condition(c);
 
-		var condition = new Condition(c);
+		it('Error handling. It expected to throw.', function () {
+			expect(function () {
+				new Condition(e);
+			}).toThrow();
+		});
 
 		it('Should be valid.', function () {
 			expect(condition.test(2)).toBeTruthy();
@@ -346,6 +394,10 @@ describe('Condition', function () {
 			expect(condition.test(-2)).toBeFalsy();
 		});
 
+
+
 	});
+
+
 
 });
