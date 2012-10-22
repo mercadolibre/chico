@@ -50,8 +50,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var setTimeout = window.setTimeout;
-
 	function Condition(condition) {
 
 		if (condition === undefined) {
@@ -60,10 +58,6 @@
 
 		if ((condition.name === undefined) || (typeof condition.name !== 'string')) {
 			throw new window.Error('"ch.Condition({ \'name\': \'custom\' })": Expected property name be defined and be a string.');
-		}
-
-		if ((condition.message === undefined) || (typeof condition.message !== 'string')) {
-			throw new window.Error('"ch.Condition({ \'message\': \'custom\' })": Expected property message be defined and be a string.');
 		}
 
 		if ((condition.name === 'custom') && (typeof condition.fn !== 'function')) {
@@ -76,6 +70,14 @@
 
 		if ((condition.name === 'max') && ((condition.num === undefined) || (typeof condition.num !== 'number'))) {
 			throw new window.Error('"ch.Condition({ \'name\': \'max\', \'num\': 10 })": Expected property "num" be defined as a number with "max" condition name.');
+		}
+
+		if ((condition.name === 'minLength') && ((condition.num === undefined) || (typeof condition.num !== 'number'))) {
+			throw new window.Error('"ch.Condition({ \'name\': \'minLength\', \'num\': 10 })": Expected property "num" be defined as a number with "minLength" condition name.');
+		}
+
+		if ((condition.name === 'maxLength') && ((condition.num === undefined) || (typeof condition.num !== 'number'))) {
+			throw new window.Error('"ch.Condition({ \'name\': \'maxLength\', \'num\': 10 })": Expected property "num" be defined as a number with "maxLength" condition name.');
 		}
 
 	/**
@@ -94,34 +96,43 @@
 			'string': {
 				// the following regular expression has the utf code for the lating characters
 				// the ranges are A,EI,O,U,a,ei,o,u,ç,Ç please for reference see http://www.fileformat.info/info/charset/UTF-8/list.htm
-				patt: /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/
+				'patt': /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
+				'message': 'Use only letters.'
 			},
 			'email': {
-				patt: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+				'patt': /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+				'message': 'Use a valid e-mail such as name@example.com.'
 			},
 			'url': {
-				patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/
+				'patt': /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/,
+				'message': 'It must be a valid URL.'
 			},
 			'minLength': {
-				expr: function(a,b) { return a.length >= b }
+				'expr': function(a,b) { return a.length >= b },
+				'message': 'Enter at least {#num#} characters.'
 			},
 			'maxLength': {
-				expr: function(a,b) { return a.length <= b }
+				'expr': function(a,b) { return a.length <= b },
+				'message': 'The maximum amount of characters is {#num#}.'
 			},
 			'number': {
-				patt: /^(-?[0-9\s]+)$/
+				'patt': /^(-?[0-9\s]+)$/,
+				'message': 'Use only numbers.'
 			},
 			'max': {
-				expr: function(a,b) { return a <= b }
+				'expr': function(a, b) { return a <= b },
+				'message': 'The amount must be smaller than {#num#}.'
 			},
 			'min': {
-				expr: function(a,b) { return a >= b }
+				'expr': function(a, b) { return a >= b },
+				'message': 'The amount must be higher than {#num#}.'
 			},
 			'price': {
-				patt: /^(\d+)[.,]?(\d?\d?)$/
+				'patt': /^(\d+)[.,]?(\d?\d?)$/,
+				'message': 'Use a valid price such as (1,00).'
 			},
 			'required': {
-				expr: function(e) {
+				'expr': function(e) {
 
 					if (e === undefined) {
 						throw new window.Error('"instance.test(HTMLElement)": The "HTMLElement" parameter must be defined and be HTMLElement object.');
@@ -145,10 +156,12 @@
 							return $.trim($e.val()).length !== 0;
 						break;
 					};
-				}
+				},
+				'message': 'Fill in this information.'
 			},
 			'custom': {
 				// I don't have pre-conditions, comes within conf.fn argument
+				'message': 'Error'
 			}
 		};
 
@@ -247,7 +260,15 @@
 			throw new window.Error('"ch.Condition({ \'name\': \''+condition.name+'\' })": "'+condition.name+'" Condition is not defined. Use "custom" to define your own condition.');
 		}
 
-		$.extend(condition, conditions[condition.name], {
+		// replaces the condition default message in the following conditions max, min, minLenght, maxLenght
+		if(!condition.message && (condition.name === 'min' || condition.name === 'max' || condition.name === 'minLength' || condition.name === 'maxLength')){
+
+			conditions[condition.name].message = conditions[condition.name].message.replace('{#num#}', condition.num);
+
+		}
+
+		// condition override the default conditions configuration
+		condition = $.extend({}, conditions[condition.name], condition, {
 			test: test,
 			enable: enable,
 			disable: disable
