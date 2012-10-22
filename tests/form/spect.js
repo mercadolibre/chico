@@ -58,38 +58,47 @@ describe('Form', function () {
 
 		it('.clear()', function () {
 			expect(ch.util.hasOwn(form, 'clear')).toBeTruthy();
+			expect(typeof form.clear).toEqual('function');
 		});
 
 		it('.isValidated()', function () {
 			expect(ch.util.hasOwn(form, 'isValidated')).toBeTruthy();
+			expect(typeof form.isValidated).toEqual('function');
 		});
 
 		it('.off()', function () {
 			expect(ch.util.hasOwn(form, 'off')).toBeTruthy();
+			expect(typeof form.off).toEqual('function');
 		});
 
 		it('.on()', function () {
 			expect(ch.util.hasOwn(form, 'on')).toBeTruthy();
+			expect(typeof form.on).toEqual('function');
 		});
 
 		it('.once()', function () {
 			expect(ch.util.hasOwn(form, 'once')).toBeTruthy();
+			expect(typeof form.once).toEqual('function');
 		});
 
 		it('.reset()', function () {
 			expect(ch.util.hasOwn(form, 'reset')).toBeTruthy();
+			expect(typeof form.reset).toEqual('function');
 		});
 
 		it('.submit()', function () {
 			expect(ch.util.hasOwn(form, 'submit')).toBeTruthy();
+			expect(typeof form.submit).toEqual('function');
 		});
 
 		it('.trigger()', function () {
 			expect(ch.util.hasOwn(form, 'trigger')).toBeTruthy();
+			expect(typeof form.trigger).toEqual('function');
 		});
 
 		it('.validate()', function () {
 			expect(ch.util.hasOwn(form, 'validate')).toBeTruthy();
+			expect(typeof form.validate).toEqual('function');
 		});
 	});
 
@@ -109,7 +118,6 @@ describe('Form', function () {
 
 		it('.validate()', function () {
 			form.validate();
-
 			expect(listener).toHaveBeenCalled();
 			expect(validation.isActive()).toBeTruthy();
 		});

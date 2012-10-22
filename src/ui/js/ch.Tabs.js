@@ -210,7 +210,7 @@
 		* @name ch.Tabs#$content
 		* @type jQuery
 		*/
-		that.$content = that.$triggers.next().addClass("ch-tabs-content ch-box").attr("role", "presentation");
+		that.$content = that.$triggers.next().addClass("ch-tabs-content ch-box-lite").attr("role", "presentation");
 
 	/**
 	*	Public Members
@@ -247,13 +247,12 @@
 			// Returns selected tab instead set it
 			// Getter
 			if (!parseInt(tab)) {
-				return selected;
+				return selected + 1;
 			}
 
 			// Setter
 			select(tab -= 1);
 			return that["public"];
-
 		};
 
 	/**
