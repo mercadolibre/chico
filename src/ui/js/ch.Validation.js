@@ -289,6 +289,7 @@
 				that.$element.removeClass("ch-form-error");
 				that.$element.removeAttr('aria-label');
 				that["float"].innerHide();
+				form.trigger('validated');
 			}
 
 			/**

@@ -71,6 +71,7 @@
 		$.each(this, function (i, el) {
 			blink($(el), conf);
 		});
+		return this;
 	};
 
 	ch.blink = blink;
