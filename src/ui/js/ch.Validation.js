@@ -113,11 +113,10 @@
 
 		var clear = function() {
 
-			that.$element.removeClass("error ch-form-error");
+			that.$element.removeClass("ch-form-error");
 			that["float"].innerHide();
 
 			validator.clear();
-
 
 			/**
 			* Triggers when al validations are cleared.
@@ -248,7 +247,7 @@
 
 				if (that.$element.prop("tagName") === "INPUT" || that.$element.prop("tagName") === "TEXTAREA") {
 					// TODO: remove error class when deprecate old forms only ch-form error must be.
-					that.$element.addClass("error ch-form-error");
+					that.$element.addClass("ch-form-error");
 				}
 
 				// to avoid reload the same content
@@ -257,7 +256,8 @@
 					that["float"]["public"].content.configure({'input': (gotError.msg || form.messages[gotError.condition] || "Error")});
 					that["float"]["public"].content.set();
 					that["float"]["public"].show();
-
+					// the aria-label attr should get the message element id, but is not public
+					that.$element.attr('aria-label', 'ch-' + that["float"]["public"].type + '-' + that["float"]["public"].uid );
 				}
 
 				// Add blur or change event only one time to the element or to the elements's group
@@ -286,7 +286,8 @@
 
 			// else NOT Error!
 			} else {
-				that.$element.removeClass("error ch-form-error");
+				that.$element.removeClass("ch-form-error");
+				that.$element.removeAttr('aria-label');
 				that["float"].innerHide();
 			}
 
