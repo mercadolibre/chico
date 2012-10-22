@@ -223,7 +223,7 @@
 		var configureAccordion = function(){
 
 			$.each(that.children, function(i, e){
-				$(e.element).find(".ch-expandable-trigger").unbind("click").bind("click", function(){
+				$(e.element).find(".ch-expandable-trigger").unbind("click").bind("click", function () {
 					select(i + 1);
 				});
 			});

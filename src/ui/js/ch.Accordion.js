@@ -35,14 +35,14 @@
 	function Accordion($el, conf) {
 		conf = conf || {};
 		conf.accordion = true;
-		conf.classes = 'ch-accordion';
+		conf.classes = conf.classes || 'ch-accordion';
 
-		return (new ch.Menu($el, conf));
-
+		return $el.menu(conf);
 	}
 
 	Accordion.prototype.name = 'accordion';
 	Accordion.prototype.constructor = Accordion;
+	Accordion.prototype.preset = 'Menu';
 
 	ch.factory(Accordion);
 
