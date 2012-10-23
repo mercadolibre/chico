@@ -1,11 +1,25 @@
 describe('Tabs', function () {
-	var tabs1 = $("#tabs-1").tabs(),
-		tabs2 = $("#tabs-2").tabs({'selected': 2}),
+	var tabs1 = $('#tabs-1').tabs(),
+		tabs2 = $('#tabs-2').tabs({'selected': 2}),
+		tabs4 = $('#tabs-4').tabs({
+			'onSelect': function () { selectListener(); },
+			'onContentError': function () { listener(); },
+			'onContentLoad': function () { listener(); }
+		}),
 		$el = $(tabs1.element),
 		$tabList = $el.children(':first-child'),
 		$triggers = $tabList.children().children(),
 		$tabsContent = $el.children(':last-child'),
-		$contents = $tabsContent.children();
+		$contents = $tabsContent.children(),
+		readyListener = jasmine.createSpy('readyListener'),
+		selectListener = jasmine.createSpy('selectListener'),
+		listener;
+
+	tabs4
+		.on('ready', function () { readyListener(); })
+		.on('select', function () { selectListener(); })
+		.on('contentLoad', function () { listener(); })
+		.on('contentError', function () { listener(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Tabs')).toBeTruthy();
@@ -188,6 +202,75 @@ describe('Tabs', function () {
 			tabs3.select(2);
 			waitsFor(function() {
 				return done.callCount > 0;
+			});
+		});
+	});
+
+	describe('Should execute the following callbacks:', function () {
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('select', function () {
+			tabs4.select(2);
+			expect(selectListener).toHaveBeenCalled();
+			tabs4.select(1);
+		});
+
+		it('contentLoad', function () {
+			tabs4.select(3);
+			waits(500);
+			runs(function () {
+				expect(listener).toHaveBeenCalled();
+				tabs4.select(1);
+			});
+		});
+
+		it('contentError', function () {
+			tabs4.select(4);
+			waits(500);
+			runs(function () {
+				expect(listener).toHaveBeenCalled();
+				tabs4.select(1);
+			});
+		});
+
+	});
+
+	describe('Should execute the following events:', function () {
+
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('ready', function () {
+			waits(50);
+			runs(function () {
+				expect(readyListener).toHaveBeenCalled();
+			});
+		});
+
+		it('select', function () {
+			tabs4.select(2);
+			expect(selectListener).toHaveBeenCalled();
+			tabs4.select(1);
+		});
+
+		it('contentLoad', function () {
+			tabs4.select(3);
+			waits(500);
+			runs(function () {
+				expect(listener).toHaveBeenCalled();
+				tabs4.select(1);
+			});
+		});
+
+		it('contentError', function () {
+			tabs4.select(4);
+			waits(500);
+			runs(function () {
+				expect(listener).toHaveBeenCalled();
+				tabs4.select(1);
 			});
 		});
 	});

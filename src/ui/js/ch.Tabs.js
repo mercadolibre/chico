@@ -374,10 +374,12 @@
 		 * @returns {this}
 		 */
 		that.content.onerror = function (data) {
+			data.context = (that.controller || that);
 
 			that.$content.html(data);
 
-			that.trigger("contentError");
+			that.trigger("contentError", data);
+
 			if (ch.util.hasOwn(conf, "onContentError")) {
 				conf.onContentError.call((that.controller || that), data.jqXHR, data.textStatus, data.errorThrown);
 			}
