@@ -2,9 +2,23 @@ describe('Dropdown', function () {
 	var dropdown1 = $("#dropdown-1").dropdown(),
 		dropdown2 = $("#dropdown-2").dropdown({'icon': false}),
 		dropdown3 = $("#dropdown-3").dropdown({'open': true }),
+		dropdown4 = $("#dropdown-4").dropdown({
+			'onShow': function () {
+				listener();
+			},
+			'onHide': function () {
+				listener();
+			}
+		}),
 		$el = $(dropdown1.element),
 		$trigger = $el.children(':first-child'),
-		$content = $el.children(':last-child');
+		$content = $el.children(':last-child'),
+		listener;
+
+	dropdown4
+		.on('ready', function () { listener(); })
+		.on('show', function () { listener(); })
+		.on('hide', function () { listener(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Dropdown')).toBeTruthy();
@@ -177,5 +191,44 @@ describe('Dropdown', function () {
 		});
 	});
 
+	describe('Should execute the following callbacks:', function () {
+
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('show', function () {
+			dropdown4.show();
+			expect(listener).toHaveBeenCalled();
+		});
+
+		it('hide', function () {
+			dropdown4.hide();
+			expect(listener).toHaveBeenCalled();
+		});
+	});
+
+	describe('Should execute the following events:', function () {
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('ready', function () {
+			waits(50);
+			runs(function () {
+				expect(listener).toHaveBeenCalled();
+			});
+		});
+
+		it('show', function () {
+			dropdown4.show();
+			expect(listener).toHaveBeenCalled();
+		});
+
+		it('hide', function () {
+			dropdown4.hide();
+			expect(listener).toHaveBeenCalled();
+		});
+	});
 
 });

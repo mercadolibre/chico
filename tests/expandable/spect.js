@@ -2,9 +2,19 @@ describe('Expandable', function () {
 	var expandable1 = $("#expandable-1").expandable(),
 		expandable2 = $("#expandable-2").expandable({'icon': false}),
 		expandable3 = $("#expandable-3").expandable({'open': true }),
+		expandable4 = $("#expandable-4").expandable({
+			'onShow': function () { listener(); },
+			'onHide': function () { listener(); }
+		}),
 		$el = $(expandable1.element),
 		$trigger = $el.children(':first-child'),
-		$content = $el.children(':last-child');
+		$content = $el.children(':last-child'),
+		listener;
+
+	expandable4
+		.on('ready', function () { listener(); })
+		.on('show', function () { listener(); })
+		.on('hide', function () { listener(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Expandable')).toBeTruthy();
@@ -164,6 +174,47 @@ describe('Expandable', function () {
 		it('Should have the open classname', function () {
 			expect($(expandable3.element).children(':first-child').hasClass('ch-expandable-trigger-on')).toBeTruthy();
 			expect($(expandable3.element).children(':last-child').hasClass('ch-hide')).toBeFalsy();
+		});
+	});
+
+	describe('Should execute the following callbacks:', function () {
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('show', function () {
+			expandable4.show();
+			expect(listener).toHaveBeenCalled();
+		});
+
+		it('hide', function () {
+			expandable4.hide();
+			expect(listener).toHaveBeenCalled();
+		});
+	});
+
+	describe('Should execute the following events:', function () {
+
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('ready', function () {
+			waits(75);
+			runs(function () {
+				expect(listener).toHaveBeenCalled();
+			});
+
+		});
+
+		it('show', function () {
+			expandable4.show();
+			expect(listener).toHaveBeenCalled();
+		});
+
+		it('hide', function () {
+			expandable4.hide();
+			expect(listener).toHaveBeenCalled();
 		});
 	});
 });
