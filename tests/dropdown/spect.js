@@ -2,24 +2,25 @@ describe('Dropdown', function () {
 	var dropdown1 = $("#dropdown-1").dropdown(),
 		dropdown2 = $("#dropdown-2").dropdown({'icon': false}),
 		dropdown3 = $("#dropdown-3").dropdown({'open': true }),
-		dropdown4 = $("#dropdown-4").dropdown({
-			'onShow': function () {
-				listener();
-			},
-			'onHide': function () {
-				listener();
-			}
-		}),
 		$el = $(dropdown1.element),
 		$trigger = $el.children(':first-child'),
 		$content = $el.children(':last-child'),
-		readyListener = jasmine.createSpy('readyListener'),
-		listener;
+
+		showCallback = jasmine.createSpy('showCallback'),
+		showEvent = jasmine.createSpy('showEvent'),
+		hideCallback = jasmine.createSpy('hideCallback'),
+		hideEvent = jasmine.createSpy('hideEvent'),
+		readyEvent = jasmine.createSpy('readyEvent'),
+
+		dropdown4 = $("#dropdown-4").dropdown({
+			'onShow': function () { showCallback(); },
+			'onHide': function () { hideCallback(); }
+		});
 
 	dropdown4
-		.on('ready', function () { readyListener(); })
-		.on('show', function () { listener(); })
-		.on('hide', function () { listener(); });
+		.on('ready', function () { readyEvent(); })
+		.on('show', function () { showEvent(); })
+		.on('hide', function () { hideEvent(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Dropdown')).toBeTruthy();
@@ -194,41 +195,34 @@ describe('Dropdown', function () {
 
 	describe('Should execute the following callbacks:', function () {
 
-		beforeEach(function () {
-			listener = jasmine.createSpy('listener');
-		});
-
 		it('show', function () {
 			dropdown4.show();
-			expect(listener).toHaveBeenCalled();
+			expect(showCallback).toHaveBeenCalled();
 		});
 
 		it('hide', function () {
 			dropdown4.hide();
-			expect(listener).toHaveBeenCalled();
+			expect(hideCallback).toHaveBeenCalled();
 		});
 	});
 
 	describe('Should execute the following events:', function () {
-		beforeEach(function () {
-			listener = jasmine.createSpy('listener');
-		});
 
 		it('ready', function () {
 			waits(50);
 			runs(function () {
-				expect(readyListener).toHaveBeenCalled();
+				expect(readyEvent).toHaveBeenCalled();
 			});
 		});
 
 		it('show', function () {
 			dropdown4.show();
-			expect(listener).toHaveBeenCalled();
+			expect(showEvent).toHaveBeenCalled();
 		});
 
 		it('hide', function () {
 			dropdown4.hide();
-			expect(listener).toHaveBeenCalled();
+			expect(hideEvent).toHaveBeenCalled();
 		});
 	});
 

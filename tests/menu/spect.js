@@ -2,20 +2,24 @@ describe('Menu', function () {
 	var menu1 = $("#menu-1").menu(),
 		menu2 = $("#menu-2").menu({'icon': false}),
 		menu3 = $("#menu-3").menu({'selected': '1#1'}),
-		menu4 = $("#menu-4").menu({
-			'onSelect': function () { listener(); }
-		}),
+
 		$el = $(menu1.element),
 		$children = $el.children(),
 		$bellows = $el.children(':last-child'),
 		$trigger = $el.children().children(':first-child').eq(0),
 		$content = $el.children().children(':last-child').eq(0),
-		readyListener = jasmine.createSpy('readyListener'),
-		listener;
+
+		selectCallback = jasmine.createSpy('selectCallback'),
+		selectEvent = jasmine.createSpy('selectEvent'),
+		readyEvent = jasmine.createSpy('readyEvent'),
+
+		menu4 = $("#menu-4").menu({
+			'onSelect': function () { selectCallback(); }
+		});
 
 	menu4
-		.on('ready', function () { readyListener(); })
-		.on('select', function () { listener(); });
+		.on('ready', function () { readyEvent(); })
+		.on('select', function () { selectEvent(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Menu')).toBeTruthy();
@@ -150,7 +154,7 @@ describe('Menu', function () {
 			menu4.select(1);
 			waits(500)
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(selectCallback).toHaveBeenCalled();
 				menu4.select(1);
 			});
 
@@ -167,7 +171,7 @@ describe('Menu', function () {
 		it('ready', function () {
 			waits(50);
 			runs(function () {
-				expect(readyListener).toHaveBeenCalled();
+				expect(readyEvent).toHaveBeenCalled();
 			});
 
 		});
@@ -176,7 +180,7 @@ describe('Menu', function () {
 			menu4.select(1);
 			waits(500)
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(selectEvent).toHaveBeenCalled();
 			});
 		});
 	});

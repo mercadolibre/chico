@@ -2,20 +2,24 @@ describe('Accordion', function () {
 	var accordion1 = $("#accordion-1").accordion(),
 		accordion2 = $("#accordion-2").accordion({'icon': false}),
 		accordion3 = $("#accordion-3").accordion({'selected': '1#1'}),
-		accordion4 = $("#accordion-4").menu({
-			'onSelect': function () { listener(); }
-		}),
+
 		$el = $(accordion1.element),
 		$children = $el.children(),
 		$bellows = $el.children(':last-child'),
 		$trigger = $el.children().children(':first-child').eq(0),
 		$content = $el.children().children(':last-child').eq(0),
-		readyListener = jasmine.createSpy('readyListener'),
-		listener;
+
+		selectCallback = jasmine.createSpy('selectCallback'),
+		selectEvent = jasmine.createSpy('selectEvent'),
+		readyEvent = jasmine.createSpy('readyEvent'),
+
+		accordion4 = $("#accordion-4").accordion({
+			'onSelect': function () { selectCallback(); }
+		});
 
 	accordion4
-		.on('ready', function () { readyListener(); })
-		.on('select', function () { listener(); });
+		.on('ready', function () { readyEvent(); })
+		.on('select', function () { selectEvent(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Accordion')).toBeTruthy();
@@ -149,7 +153,7 @@ describe('Accordion', function () {
 			accordion4.select(1);
 			waits(500)
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(selectCallback).toHaveBeenCalled();
 				accordion4.select(1);
 			});
 
@@ -166,7 +170,7 @@ describe('Accordion', function () {
 		it('ready', function () {
 			waits(50);
 			runs(function () {
-				expect(readyListener).toHaveBeenCalled();
+				expect(readyEvent).toHaveBeenCalled();
 			});
 
 		});
@@ -175,7 +179,7 @@ describe('Accordion', function () {
 			accordion4.select(1);
 			waits(500)
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(selectEvent).toHaveBeenCalled();
 			});
 		});
 	});

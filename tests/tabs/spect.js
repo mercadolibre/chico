@@ -1,25 +1,32 @@
 describe('Tabs', function () {
 	var tabs1 = $('#tabs-1').tabs(),
 		tabs2 = $('#tabs-2').tabs({'selected': 2}),
-		tabs4 = $('#tabs-4').tabs({
-			'onSelect': function () { selectListener(); },
-			'onContentError': function () { listener(); },
-			'onContentLoad': function () { listener(); }
-		}),
+
 		$el = $(tabs1.element),
 		$tabList = $el.children(':first-child'),
 		$triggers = $tabList.children().children(),
 		$tabsContent = $el.children(':last-child'),
 		$contents = $tabsContent.children(),
-		readyListener = jasmine.createSpy('readyListener'),
-		selectListener = jasmine.createSpy('selectListener'),
-		listener;
+
+		selectCallback = jasmine.createSpy('selectCallback'),
+		selectEvent = jasmine.createSpy('selectEvent'),
+		contentLoadCallback = jasmine.createSpy('contentLoadCallback'),
+		contentLoadEvent = jasmine.createSpy('contentLoadEvent'),
+		contentErrorCallback = jasmine.createSpy('contentErrorCallback'),
+		contentErrorEvent = jasmine.createSpy('contentErrorEvent'),
+		readyEvent = jasmine.createSpy('readyEvent'),
+
+		tabs4 = $('#tabs-4').tabs({
+			'onSelect': function () { selectCallback(); },
+			'onContentError': function () { contentErrorCallback(); },
+			'onContentLoad': function () { contentLoadCallback(); }
+		});
 
 	tabs4
-		.on('ready', function () { readyListener(); })
-		.on('select', function () { selectListener(); })
-		.on('contentLoad', function () { listener(); })
-		.on('contentError', function () { listener(); });
+		.on('ready', function () { readyEvent(); })
+		.on('select', function () { selectEvent(); })
+		.on('contentError', function () { contentErrorEvent(); })
+		.on('contentLoad', function () { contentLoadEvent(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Tabs')).toBeTruthy();
@@ -207,13 +214,10 @@ describe('Tabs', function () {
 	});
 
 	describe('Should execute the following callbacks:', function () {
-		beforeEach(function () {
-			listener = jasmine.createSpy('listener');
-		});
 
 		it('select', function () {
 			tabs4.select(2);
-			expect(selectListener).toHaveBeenCalled();
+			expect(selectCallback).toHaveBeenCalled();
 			tabs4.select(1);
 		});
 
@@ -221,7 +225,7 @@ describe('Tabs', function () {
 			tabs4.select(3);
 			waits(500);
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(contentLoadCallback).toHaveBeenCalled();
 				tabs4.select(1);
 			});
 		});
@@ -230,7 +234,7 @@ describe('Tabs', function () {
 			tabs4.select(4);
 			waits(500);
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(contentErrorCallback).toHaveBeenCalled();
 				tabs4.select(1);
 			});
 		});
@@ -239,20 +243,16 @@ describe('Tabs', function () {
 
 	describe('Should execute the following events:', function () {
 
-		beforeEach(function () {
-			listener = jasmine.createSpy('listener');
-		});
-
 		it('ready', function () {
 			waits(50);
 			runs(function () {
-				expect(readyListener).toHaveBeenCalled();
+				expect(readyEvent).toHaveBeenCalled();
 			});
 		});
 
 		it('select', function () {
 			tabs4.select(2);
-			expect(selectListener).toHaveBeenCalled();
+			expect(selectEvent).toHaveBeenCalled();
 			tabs4.select(1);
 		});
 
@@ -260,7 +260,7 @@ describe('Tabs', function () {
 			tabs4.select(3);
 			waits(500);
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(contentLoadEvent).toHaveBeenCalled();
 				tabs4.select(1);
 			});
 		});
@@ -269,7 +269,7 @@ describe('Tabs', function () {
 			tabs4.select(4);
 			waits(500);
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(contentErrorEvent).toHaveBeenCalled();
 				tabs4.select(1);
 			});
 		});
