@@ -9,10 +9,11 @@ describe('Expandable', function () {
 		$el = $(expandable1.element),
 		$trigger = $el.children(':first-child'),
 		$content = $el.children(':last-child'),
+		readyListener = jasmine.createSpy('readyListener'),
 		listener;
 
 	expandable4
-		.on('ready', function () { listener(); })
+		.on('ready', function () { readyListener(); })
 		.on('show', function () { listener(); })
 		.on('hide', function () { listener(); });
 
@@ -200,11 +201,10 @@ describe('Expandable', function () {
 		});
 
 		it('ready', function () {
-			waits(75);
+			waits(50);
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(readyListener).toHaveBeenCalled();
 			});
-
 		});
 
 		it('show', function () {

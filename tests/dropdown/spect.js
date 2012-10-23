@@ -13,10 +13,11 @@ describe('Dropdown', function () {
 		$el = $(dropdown1.element),
 		$trigger = $el.children(':first-child'),
 		$content = $el.children(':last-child'),
+		readyListener = jasmine.createSpy('readyListener'),
 		listener;
 
 	dropdown4
-		.on('ready', function () { listener(); })
+		.on('ready', function () { readyListener(); })
 		.on('show', function () { listener(); })
 		.on('hide', function () { listener(); });
 
@@ -216,7 +217,7 @@ describe('Dropdown', function () {
 		it('ready', function () {
 			waits(50);
 			runs(function () {
-				expect(listener).toHaveBeenCalled();
+				expect(readyListener).toHaveBeenCalled();
 			});
 		});
 

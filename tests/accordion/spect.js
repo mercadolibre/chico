@@ -2,11 +2,20 @@ describe('Accordion', function () {
 	var accordion1 = $("#accordion-1").accordion(),
 		accordion2 = $("#accordion-2").accordion({'icon': false}),
 		accordion3 = $("#accordion-3").accordion({'selected': '1#1'}),
+		accordion4 = $("#accordion-4").menu({
+			'onSelect': function () { listener(); }
+		}),
 		$el = $(accordion1.element),
 		$children = $el.children(),
 		$bellows = $el.children(':last-child'),
 		$trigger = $el.children().children(':first-child').eq(0),
-		$content = $el.children().children(':last-child').eq(0);
+		$content = $el.children().children(':last-child').eq(0),
+		readyListener = jasmine.createSpy('readyListener'),
+		listener;
+
+	accordion4
+		.on('ready', function () { readyListener(); })
+		.on('select', function () { listener(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Accordion')).toBeTruthy();
@@ -128,6 +137,46 @@ describe('Accordion', function () {
 		it('Should have the open classname', function () {
 			expect($(accordion3.element).children(':first-child').children(':first-child').hasClass('ch-expandable-trigger-on')).toBeTruthy();
 			expect($(accordion3.element).children(':first-child').children(':last-child').hasClass('ch-hide')).toBeFalsy();
+		});
+	});
+
+	describe('Should execute the following callbacks:', function () {
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('select', function () {
+			accordion4.select(1);
+			waits(500)
+			runs(function () {
+				expect(listener).toHaveBeenCalled();
+				accordion4.select(1);
+			});
+
+		});
+
+	});
+
+	describe('Should execute the following events:', function () {
+
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('ready', function () {
+			waits(50);
+			runs(function () {
+				expect(readyListener).toHaveBeenCalled();
+			});
+
+		});
+
+		it('select', function () {
+			accordion4.select(1);
+			waits(500)
+			runs(function () {
+				expect(listener).toHaveBeenCalled();
+			});
 		});
 	});
 });
