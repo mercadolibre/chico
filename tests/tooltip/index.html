@@ -10,7 +10,12 @@
 	</head>
 	<body>
 		<h1>Tooltip</h1>
-		<img id="tooltip" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+		<img id="tooltip1" alt="This is a default tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+		<img id="tooltip2" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+		<img id="tooltip3" title="Tooltip with closable:false and a title attibute as content" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+		<img id="tooltip4" alt="This should be overshadowed by the title attr" title="Tooltip with closable:'button' and title+alt attributes as content at the same time." src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+
+		<div id="invisibleContent" class="ch-hide">Some text!</div>
 
 		<script src="/libs/jasmine-1.2.0/jasmine.js"></script>
 		<script src="/libs/jasmine-1.2.0/jasmine-html.js"></script>
