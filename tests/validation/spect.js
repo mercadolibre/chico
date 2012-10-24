@@ -1,4 +1,4 @@
-describe('Validation', function () {
+describe('ch.Validation', function () {
 	var Validation = ch.Validation,
 		form = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="validation{ID}" type="text"><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
 		idGenerator = (function(){
@@ -28,18 +28,18 @@ describe('Validation', function () {
 			}
 		};
 
-	describe('Validation global initialization and returned object.', function () {
+	describe('ch.Validation global initialization and returned object.', function () {
 		var n = idGenerator();
 		var f = $(form.replace(/{ID}/g, n));
 		var input = f.find('#validation' + n);
 		var validation = new Validation(input, email);
 		$('body').prepend(f);
 
-		it('Validation should be a function.', function () {
+		it('ch.Validation should be a function.', function () {
 			expect(typeof Validation).toEqual('function');
 		});
 
-		it('Validation should return an object.', function () {
+		it('ch.Validation should return an object.', function () {
 			expect(typeof validation).toEqual('object');
 		});
 
