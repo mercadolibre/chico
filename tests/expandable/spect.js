@@ -1,9 +1,26 @@
 describe('Expandable', function () {
-	var expandable = [
-		$("#expandable-1").expandable(),
-		$("#expandable-2").expandable({'icon': false}),
-		$("#expandable-3").expandable({'open': true })
-	];
+	var expandable1 = $("#expandable-1").expandable(),
+		expandable2 = $("#expandable-2").expandable({'icon': false}),
+		expandable3 = $("#expandable-3").expandable({'open': true }),
+		$el = $(expandable1.element),
+		$trigger = $el.children(':first-child'),
+		$content = $el.children(':last-child'),
+
+		showCallback = jasmine.createSpy('showCallback'),
+		showEvent = jasmine.createSpy('showEvent'),
+		hideCallback = jasmine.createSpy('hideCallback'),
+		hideEvent = jasmine.createSpy('hideEvent'),
+		readyEvent = jasmine.createSpy('readyEvent'),
+
+		expandable4 = $("#expandable-4").expandable({
+			'onShow': function () { showCallback(); },
+			'onHide': function () { hideCallback(); }
+		});
+
+	expandable4
+		.on('ready', function () { readyEvent(); })
+		.on('show', function () { showEvent(); })
+		.on('hide', function () { hideEvent(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Expandable')).toBeTruthy();
@@ -13,23 +30,23 @@ describe('Expandable', function () {
 	describe('Shold have the following public properties:', function () {
 
 		it('.element', function () {
-			expect(ch.util.hasOwn(expandable[0], 'element')).toBeTruthy();
-			expect(expandable[0].element.nodeType).toEqual(1);
+			expect(ch.util.hasOwn(expandable1, 'element')).toBeTruthy();
+			expect(expandable1.element.nodeType).toEqual(1);
 		});
 
 		it('.type / .name', function () {
-			expect(ch.util.hasOwn(expandable[0], 'type')).toBeTruthy();
-			expect(typeof expandable[0].type).toEqual('string');
-			expect(expandable[0].type).toEqual('expandable');
+			expect(ch.util.hasOwn(expandable1, 'type')).toBeTruthy();
+			expect(typeof expandable1.type).toEqual('string');
+			expect(expandable1.type).toEqual('expandable');
 		});
 
 		it('.constructor', function () {
-			expect(ch.util.hasOwn(expandable[0], 'constructor')).toBeTruthy();
-			expect(typeof expandable[0].constructor).toEqual('function');
+			expect(ch.util.hasOwn(expandable1, 'constructor')).toBeTruthy();
+			expect(typeof expandable1.constructor).toEqual('function');
 		});
 
 		it('.uid', function () {
-			expect(typeof expandable[0].uid).toEqual('number');
+			expect(typeof expandable1.uid).toEqual('number');
 		});
 
 	});
@@ -37,126 +54,164 @@ describe('Expandable', function () {
 	describe('Shold have the following public methods:', function () {
 
 		it('.hide()', function () {
-			expect(ch.util.hasOwn(expandable[0], 'hide')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable1, 'hide')).toBeTruthy();
+			expect(typeof expandable1.hide).toEqual('function');
 		});
 
 		it('.isActive()', function () {
-			expect(ch.util.hasOwn(expandable[0], 'isActive')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable1, 'isActive')).toBeTruthy();
+			expect(typeof expandable1.isActive).toEqual('function');
 		});
 
 		it('.off()', function () {
-			expect(ch.util.hasOwn(expandable[0], 'off')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable1, 'off')).toBeTruthy();
+			expect(typeof expandable1.off).toEqual('function');
 		});
 
 		it('.on()', function () {
-			expect(ch.util.hasOwn(expandable[0], 'on')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable1, 'on')).toBeTruthy();
+			expect(typeof expandable1.on).toEqual('function');
 		});
 
 		it('.once()', function () {
-			expect(ch.util.hasOwn(expandable[0], 'once')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable1, 'once')).toBeTruthy();
+			expect(typeof expandable1.once).toEqual('function');
 		});
 
 		it('.show()', function () {
-			expect(ch.util.hasOwn(expandable[0], 'show')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable1, 'show')).toBeTruthy();
+			expect(typeof expandable1.show).toEqual('function');
 		});
 
 		it('.trigger()', function () {
-			expect(ch.util.hasOwn(expandable[0], 'trigger')).toBeTruthy();
+			expect(ch.util.hasOwn(expandable1, 'trigger')).toBeTruthy();
+			expect(typeof expandable1.trigger).toEqual('function');
 		});
 	});
 
 	describe('Shold have the following ID and Classnames:', function () {
 
 		it('#ch-expandable-1', function () {
-			expect(expandable[0].element.children[1].id).toBeTruthy();
-
+			expect(expandable1.element.children[1].id).toBeTruthy();
 		});
 
 		it('.ch-expandable', function () {
-			expect($(expandable[0].element).hasClass('ch-expandable')).toBeTruthy();
+			expect($el.hasClass('ch-expandable')).toBeTruthy();
 		});
 
 		it('.ch-expandable-trigger', function () {
-			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-trigger')).toBeTruthy();
+			expect($trigger.hasClass('ch-expandable-trigger')).toBeTruthy();
 		});
 
 		it('.ch-user-no-select', function () {
-			expect($(expandable[0].element.children[0]).hasClass('ch-user-no-select')).toBeTruthy();
+			expect($trigger.hasClass('ch-user-no-select')).toBeTruthy();
 		});
 
 		it('.ch-expandable-ico', function () {
-			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-ico')).toBeTruthy();
+			expect($trigger.hasClass('ch-expandable-ico')).toBeTruthy();
 		});
 
 		it('.ch-expandable-content', function () {
-			expect($(expandable[0].element.children[1]).hasClass('ch-expandable-content')).toBeTruthy();
+			expect($content.hasClass('ch-expandable-content')).toBeTruthy();
 		});
 
 		it('.ch-hide', function () {
-			expect($(expandable[0].element.children[1]).hasClass('ch-hide')).toBeTruthy();
+			expect($content.hasClass('ch-hide')).toBeTruthy();
 		});
 	});
 
 	describe('Shold have the following ARIA attributes:', function () {
 		it('aria-expanded="false"', function () {
-			expect($(expandable[0].element.children[0]).attr('aria-expanded')).toEqual('false');
+			expect($trigger.attr('aria-expanded')).toEqual('false');
 		});
 
 		it('aria-hidden="true"', function () {
-			expect($(expandable[0].element.children[1]).attr('aria-hidden')).toEqual('true');
+			expect($content.attr('aria-hidden')).toEqual('true');
 		});
 	});
 
 	describe('By defult', function () {
 		it('Shold have a icon', function () {
-			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-ico')).toBeTruthy();
+			expect($trigger.hasClass('ch-expandable-ico')).toBeTruthy();
 		});
 
 		it('Shold be closed', function () {
-			expect($(expandable[0].element.children[1]).hasClass('ch-hide')).toBeTruthy();
+			expect($content.hasClass('ch-hide')).toBeTruthy();
 		});
 	});
 
 	describe('Public methods', function () {
 		it('.show()', function () {
-			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-trigger-on')).toBeFalsy();
-			var show = expandable[0].show();
-			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-trigger-on')).toBeTruthy();
-			expect($(expandable[0].element.children[1]).attr("aria-hidden")).toEqual("false");
-			expect(show).toEqual(expandable[0]);
+			expect($trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+			var show = expandable1.show();
+			expect($trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+			expect($content.attr("aria-hidden")).toEqual("false");
+			expect(show).toEqual(expandable1);
 		});
 
 		it('.hide()', function () {
-			var hide = expandable[0].hide();
-			expect($(expandable[0].element.children[0]).hasClass('ch-expandable-trigger-on')).toBeFalsy();
-			expect($(expandable[0].element.children[1]).attr("aria-hidden")).toEqual("true");
-			expect(hide).toEqual(expandable[0]);
+			var hide = expandable1.hide();
+			expect($trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+			expect($content.attr("aria-hidden")).toEqual("true");
+			expect(hide).toEqual(expandable1);
 		});
 
 		it('.isActive()', function () {
-			var isActive = expandable[0].isActive();
+			var isActive = expandable1.isActive();
 			expect(isActive).toBeFalsy();
 
-			expandable[0].show();
-			isActive = expandable[0].isActive();
+			expandable1.show();
+			isActive = expandable1.isActive();
 			expect(isActive).toBeTruthy();
 
-			expandable[0].hide();
-			isActive = expandable[0].isActive();
+			expandable1.hide();
+			isActive = expandable1.isActive();
 			expect(isActive).toBeFalsy();
 		});
 	});
 
 	describe('A intance configured without icon', function () {
 		it('Shouldn\'t have the icon classname', function () {
-			expect($(expandable[1].element.children[0]).hasClass('ch-expandable-ico')).toBeFalsy();
+			expect($(expandable2.element).children(':first-child').hasClass('ch-expandable-ico')).toBeFalsy();
 		});
 	});
 
 	describe('A instance configured open by default', function () {
 		it('Should have the open classname', function () {
-			expect($(expandable[2].element.children[0]).hasClass('ch-expandable-trigger-on')).toBeTruthy();
-			expect($(expandable[2].element.children[1]).hasClass('ch-hide')).toBeFalsy();
+			expect($(expandable3.element).children(':first-child').hasClass('ch-expandable-trigger-on')).toBeTruthy();
+			expect($(expandable3.element).children(':last-child').hasClass('ch-hide')).toBeFalsy();
+		});
+	});
+
+	describe('Should execute the following callbacks:', function () {
+		it('show', function () {
+			expandable4.show();
+			expect(showCallback).toHaveBeenCalled();
+		});
+
+		it('hide', function () {
+			expandable4.hide();
+			expect(hideCallback).toHaveBeenCalled();
+		});
+	});
+
+	describe('Should execute the following events:', function () {
+
+		it('ready', function () {
+			waits(50);
+			runs(function () {
+				expect(readyEvent).toHaveBeenCalled();
+			});
+		});
+
+		it('show', function () {
+			expandable4.show();
+			expect(showEvent).toHaveBeenCalled();
+		});
+
+		it('hide', function () {
+			expandable4.hide();
+			expect(hideEvent).toHaveBeenCalled();
 		});
 	});
 });

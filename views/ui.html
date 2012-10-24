@@ -1281,7 +1281,7 @@
 		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
 
 		// Accordion
-		var accordion = $(".YOUR_SELECTOR_Accordion").accordion({"selected": 1});
+		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
 
 		// Menu
 		var menu = $(".YOUR_SELECTOR_Menu").menu();
@@ -1294,18 +1294,8 @@
 		var message = (function (message, value) {
 
 			var messages = {
-				'required': 'Fill in this information.',
 				'option': 'Choose an option.',
 				'requiredCheck': 'Accept the Terms of Use.',
-				'string': 'Use only letters.',
-				'price': 'Use a valid price such as (1,00).',
-				'email': 'Use a valid e-mail such as name@example.com.',
-				'url': 'It must be a valid URL.',
-				'number': 'Use only numbers.',
-				'min': 'The amount must be higher than {#num#}.',
-				'max': 'The amount must be smaller than {#num#}.',
-				'maxLength': 'The maximum amount of characters is {#num#}.',
-				'minLength': 'Enter at least {#num#} characters.',
 				'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
 			};
 
@@ -1320,13 +1310,13 @@
 		}());
 
 		// Validators
-		var	validation1 = $('#input_ico').required(message('required')).and().string(message('string'));
+		var	validation1 = $('#input_ico').required().and().string();
 
-		var	validation2 = $('#price').price(message('price')).and().required(message('required'));
+		var	validation2 = $('#price').price().and().required();
 
-		var	validation3 = $('#email').required(message('required')).and().email(message('email'));
+		var	validation3 = $('#email').required().and().email();
 
-		var	validation4 = $('#custom').required(message('required')).and().custom(function (v) {
+		var	validation4 = $('#custom').required().and().custom(function (v) {
 
 				var value1 = v.toString().indexOf("1") > -1;
 				var value2 = v.toString().indexOf("2") > -1;
@@ -1345,15 +1335,15 @@
 
 			});
 
-		var	validation5 = $('#url').url(message('url'));
+		var	validation5 = $('#url').url();
 
-		var	validation6 = $('#number').number(message('number')).and().min(5, message('min',5));
+		var	validation6 = $('#number').number().and().min(5);
 
-		var	validation7 = $('#range').min(8, message('min', 8)).and().max(10, message('max',10));
+		var	validation7 = $('#range').min(8).and().max(10);
 
-		var	validation8 = $('#characters').maxLength(20, message('maxLength', 20)).and().minLength(6, message('minLength', 6));
+		var	validation8 = $('#characters').maxLength(20).and().minLength(6);
 
-		var	validation9 = $('#double,#textarea2').required(message('required'));
+		var	validation9 = $('#double,#textarea2').required();
 
 		var	validation9 = $('.required-check').required(message('requiredCheck'));
 
@@ -1361,7 +1351,7 @@
 
 		var validation11 = $('#double').required(message('link'));
 
-		var validation12 = $('#double').number(message('number'));
+		var validation12 = $('#double').number();
 
 	</script>
 </body>

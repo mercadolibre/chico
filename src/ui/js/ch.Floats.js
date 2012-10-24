@@ -212,19 +212,19 @@
 			var $container,
 
 			// HTML Div Element with role for WAI-ARIA
-				container = ["<div role=\"" + conf.aria.role + "\""];
+			container = ["<div role=\"" + conf.aria.role + "\""];
 
+			var id = "ch-" + that.type + "-" + that.uid;
 			// ID for WAI-ARIA
 			if (ch.util.hasOwn(conf.aria, "identifier")) {
 				// Generated ID using component name and its instance order
-				var id = "ch-" + that.type + "-" + that.uid;
-
-				// Add ID to container element
-				container.push(" id=\"" + id + "\"");
 
 				// Add aria attribute to trigger element
 				that.$element.attr(conf.aria.identifier, id);
 			}
+
+			// Add ID to container element
+			container.push(" id=\"" + id + "\"");
 
 			// Classname with component type and extra classes from conf.classes
 			container.push(" class=\"ch-hide ch-" + that.type + (ch.util.hasOwn(conf, "classes") ? " " + conf.classes : "") + "\"");

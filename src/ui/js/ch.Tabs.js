@@ -210,7 +210,7 @@
 		* @name ch.Tabs#$content
 		* @type jQuery
 		*/
-		that.$content = that.$triggers.next().addClass("ch-tabs-content ch-box").attr("role", "presentation");
+		that.$content = that.$triggers.next().addClass("ch-tabs-content ch-box-lite").attr("role", "presentation");
 
 	/**
 	*	Public Members
@@ -247,13 +247,12 @@
 			// Returns selected tab instead set it
 			// Getter
 			if (!parseInt(tab)) {
-				return selected;
+				return selected + 1;
 			}
 
 			// Setter
 			select(tab -= 1);
 			return that["public"];
-
 		};
 
 	/**
@@ -361,9 +360,10 @@
 
 			that.$content.html(data);
 
-			that.trigger("contentLoad");
+			that.controller.trigger("contentLoad");
+
 			if (ch.util.hasOwn(conf, "onContentLoad")) {
-				conf.onContentLoad.call((that.controller || that), data);
+				conf.onContentLoad.call(that.controller, data);
 			}
 		};
 
@@ -378,9 +378,10 @@
 
 			that.$content.html(data);
 
-			that.trigger("contentError");
+			that.controller.trigger("contentError", data);
+
 			if (ch.util.hasOwn(conf, "onContentError")) {
-				conf.onContentError.call((that.controller || that), data.jqXHR, data.textStatus, data.errorThrown);
+				conf.onContentError.call(that.controller, data.jqXHR, data.textStatus, data.errorThrown);
 			}
 		};
 
@@ -501,47 +502,6 @@
 			return that;
 		};
 
-		/**
-		* This callback is triggered when async data is loaded into component's content, when ajax content comes back.
-		* @protected
-		* @name ch.Tab#contentCallback
-		* @ignore
-		*/
-		that["public"].on("contentLoad", function (event, context) {
-
-			that.$content.html(that.staticContent);
-
-			if (ch.util.hasOwn(conf, "onContentLoad")) {
-				conf.onContentLoad.call(context, that.staticContent);
-			}
-
-		});
-
-		/**
-		* This callback is triggered when async request fails.
-		* @public
-		* @name contentCallback
-		* @returns {Chico-UI Object}
-		* @memberOf ch.Tabs
-		* @ignore
-		*/
-		that["public"].on("contentError", function (event, data) {
-
-			that.$content.html(that.staticContent);
-
-			// Get the original that.source
-			var originalSource = that.source;
-
-			if (ch.util.hasOwn(conf, "onContentError")) {
-				conf.onContentError.call(data.context, data.jqXHR, data.textStatus, data.errorThrown);
-			}
-
-			// Reset content configuration
-			that.source = originalSource;
-
-			that.staticContent = undefined;
-
-		});
 
 	/**
 	*	Public Members
