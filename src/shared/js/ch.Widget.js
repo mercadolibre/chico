@@ -12,14 +12,14 @@
 	/**
 	 * Base class for all widgets.
 	 * @memberOf ch
-	 * @class ch.Widget
+	 * @constructor ch.Widget
 	 * augments ch.EventEmitter
 	 * @param {Selector} $el Query Selector element.
 	 * @param {Object} [options] Configuration options.
-	 * @proy {Object} snippet XXXXX
+	 * @property {Object} snippet XXXXX
 	 * @property {Object} options The configuration properties.
-	 * @property {Selector} $el XXXXX
-	 * @property {Object} el XXXXX
+	 * @property {Object} el DOM element
+	 * @property {Selector} $el The cached jQuery/Zepto object.
 	 * @property {Number} uid XXXXX
 	 * @emits ready XXXXX
 	 * @emits destroy XXXXX
