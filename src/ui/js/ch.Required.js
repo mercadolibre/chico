@@ -7,7 +7,7 @@
 * @augments ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -23,35 +23,31 @@
 * @example
 * $("input").required("This field is required");
 */
-ch.extend("validation").as("required", function(conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "required",
-		expr: function(e) {
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-			var $e = $(e);
+	function Required($el, conf) {
 
-			var tag = ( $e.hasClass("options") || $e.hasClass("ch-form-options")) ? "OPTIONS" : e.tagName;
-			switch (tag) {
-				case 'OPTIONS':
-					return $e.find('input:checked').length !== 0;
-				break;
+		var conf = conf || {};
 
-				case 'SELECT':
-					var val = $e.val();
-					return (val != "-1" && val != "");
-				break;
+		conf.condition = {
+			name: "required",
+			message: conf.content
+			//,value: conf.value
+		};
 
-				case 'INPUT':
-				case 'TEXTAREA':
-					return $.trim($e.val()).length !== 0;
-				break;
-			};
-		},
-		message: conf.msg || conf.message,
-		value: conf.value
-	};
+		return $el.validation(conf);
 
-	return conf;
+	}
 
-});
+	Required.prototype.name = 'required';
+	Required.prototype.constructor = Required;
+	Required.prototype.interface = 'validation';
+
+	ch.factory(Required);
+
+}(this, this.jQuery, this.ch));

@@ -41,7 +41,7 @@ ch.list = function( collection ) {
 			q--; // _children is a Zero-index based collection
 			return ( a ) ? a.call( that , q ) : _children[q] ;
 		}
-		
+
 		// string? ok, let's find it
 		var t = size(), _prop, child;
 		if ( c === "string" || c === "object" ) {
@@ -74,17 +74,17 @@ ch.list = function( collection ) {
 	* @returns collection Returns the entire collecction if the input is an array.
 	*/
 	var add = function( child ) {
-		
+
 		if ( ch.utils.isArray( child ) ) {
 			var i = 0, t = child.length;
 			for ( i; i < t; i++ ) {
 				_children.push( child[i] );
-			}			
+			}
 			return _children;
 		}
 		return _children.push( child );
 	};
-	
+
 	/**
 	* Removes a child from the collection by index, query string or object comparison.
 	* @public
@@ -100,7 +100,7 @@ ch.list = function( collection ) {
 		if ( !q ) {
 			return that;
 		}
-		
+
 		var remove = function( t ) {
 			return _children.splice( t , 1 )[0];
 		}
@@ -147,7 +147,7 @@ ch.list = function( collection ) {
 		get: get,
 		size: size
 	};
-	
+
 	return that;
-	
+
 };

@@ -13,9 +13,9 @@
 * @see ch.Viewport
 * @returns {Function} The Positioner returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
 * @exampleDescription
-* Instance the Positioner It requires a little configuration. 
-* The default behavior place an element centered into the Viewport. 
-*  
+* Instance the Positioner It requires a little configuration.
+* The default behavior place an element centered into the Viewport.
+*
 * @example
 * var positioned = ch.positioner({
 *     element: "#element1",
@@ -23,7 +23,7 @@
 * @exampleDescription 1. Getting the current configuration properties.
 * @example
 * var configuration = positioned()
-* @exampleDescription 2. Updates the current position with <code>refresh</code> as a parameter. 
+* @exampleDescription 2. Updates the current position with <code>refresh</code> as a parameter.
 * @example
 * positioned("refresh");
 * @exampleDescription 3. Define a new position
@@ -33,7 +33,7 @@
 *     context: "#context2",
 *     points: "lt rt"
 * });
-* @exampleDescription <strong>Offset</strong>: The positioner could be configurated with an offset. 
+* @exampleDescription <strong>Offset</strong>: The positioner could be configurated with an offset.
 * This example show an element displaced horizontally by 10px of defined position.
 * @example
 * var positioned = ch.positioner({
@@ -52,33 +52,41 @@
 * });
 */
 
-ch.positioner = (function () {
+(function (window, $, ch) {
+	'use strict';
+
+	if (ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
+
+	var $window = $(window),
+		parseInt = window.parseInt;
 
 	/**
-	* Converts points in className.
-	* @private
-	* @name ch.Positioner#classNamePoints
-	* @function
-	* @returns String
-	*/
+	 * Converts points in className.
+	 * @private
+	 * @name ch.Positioner#classNamePoints
+	 * @function
+	 * @returns String
+	 */
 	var classNamePoints = function (points) {
-			return "ch-points-" + points.replace(" ", "");
-		},
+		return "ch-points-" + points.replace(" ", "");
+	},
 
 	/**
-	* Reference that allows to know when window is being scrolled or resized.
-	* @private
-	* @name ch.Positioner#changing
-	* @type Boolean
-	*/
+	 * Reference that allows to know when window is being scrolled or resized.
+	 * @private
+	 * @name ch.Positioner#changing
+	 * @type Boolean
+	 */
 		changing = false,
 
 	/**
-	* Checks if window is being scrolled or resized, updates viewport position and triggers internal Change event.
-	* @private
-	* @name ch.Positioner#triggerScroll
-	* @function
-	*/
+	 * Checks if window is being scrolled or resized, updates viewport position and triggers internal Change event.
+	 * @private
+	 * @name ch.Positioner#triggerScroll
+	 * @function
+	 */
 		triggerChange = function () {
 			// No changing, no execution
 			if (!changing) { return; }
@@ -87,120 +95,120 @@ ch.positioner = (function () {
 			ch.viewport.getOffset();
 
 			/**
-			* Triggers when window is being scrolled or resized.
-			* @private
-			* @name ch.Positioner#change
-			* @event
-			*/
-			ch.utils.window.trigger(ch.events.VIEWPORT.CHANGE);
+			 * Triggers when window is being scrolled or resized.
+			 * @private
+			 * @name ch.Positioner#change
+			 * @event
+			 */
+			$window.trigger(ch.events.viewport.CHANGE);
 
 			// Change scrolling status
 			changing = false;
 		};
 
 	// Resize and Scroll events binding. These updates respectives boolean variables
-	ch.utils.window.bind("resize scroll", function () { changing = true; });
+	$window.bind("resize scroll", function () { changing = true; });
 
 	// Interval that checks for resizing status and triggers specific events
-	setInterval(triggerChange, 350);
+	window.setInterval(triggerChange, 350);
 
 	// Returns Positioner Abstract Component
-	return function (conf) {
+	function Positioner(conf) {
 
 		// Validation for required "element" parameter
-		if (!ch.utils.hasOwn(conf, "element")) {
-			alert("Chico UI error: Expected to find \"element\" as required configuration parameter of ch.Positioner");
+		if (!ch.util.hasOwn(conf, "element")) {
+			throw new window.Error('Chico UI error: Expected to find \"element\" as required configuration parameter of ch.Positioner.');
 
 			return;
 		}
 
 		/**
-		* Configuration parameter that enables or disables reposition intelligence. It's disabled by default.
-		* @private
-		* @name ch.Positioner#reposition
-		* @type Boolean
-		* @default false
-		* @exampleDescription Repositionable Element if it can't be shown into viewport area
-		* @example
-		* ch.positioner({
-		*     element: "#element1",
-		*     reposition: true
-		* });
-		*/
+		 * Configuration parameter that enables or disables reposition intelligence. It's disabled by default.
+		 * @private
+		 * @name ch.Positioner#reposition
+		 * @type Boolean
+		 * @default false
+		 * @exampleDescription Repositionable Element if it can't be shown into viewport area
+		 * @example
+		 * ch.positioner({
+		 *     element: "#element1",
+		 *     reposition: true
+		 * });
+		 */
 		conf.reposition = conf.reposition || false;
 
 		/**
-		* Reference that saves all members to be published.
-		* @private
-		* @name ch.Positioner#that
-		* @type Object
-		*/
+		 * Reference that saves all members to be published.
+		 * @private
+		 * @name ch.Positioner#that
+		 * @type Object
+		 */
 		var that = {},
 
 		/**
-		* Reference to the DOM Element to be positioned.
-		* @private
-		* @name ch.Positioner#$element
-		* @type jQuery Object
-		*/
+		 * Reference to the DOM Element to be positioned.
+		 * @private
+		 * @name ch.Positioner#$element
+		 * @type jQuery Object
+		 */
 			$element = $(conf.element),
 
 		/**
-		* Points where element will be positioned, specified by configuration or centered by default.
-		* @private
-		* @name ch.Positioner#points
-		* @type String
-		* @default "cm cm"
-		* @exampleDescription Element left-top point = Context right-bottom point
-		* @example
-		* ch.positioner({
-		*     element: "#element1",
-		*     points: "lt rt"
-		* });
-		* @exampleDescription Element center-middle point = Context center-middle point
-		* @example
-		* ch.positioner({
-		*     element: "#element2",
-		*     points: "cm cm"
-		* });
-		*/
+		 * Points where element will be positioned, specified by configuration or centered by default.
+		 * @private
+		 * @name ch.Positioner#points
+		 * @type String
+		 * @default "cm cm"
+		 * @exampleDescription Element left-top point = Context right-bottom point
+		 * @example
+		 * ch.positioner({
+		 *     element: "#element1",
+		 *     points: "lt rt"
+		 * });
+		 * @exampleDescription Element center-middle point = Context center-middle point
+		 * @example
+		 * ch.positioner({
+		 *     element: "#element2",
+		 *     points: "cm cm"
+		 * });
+		 */
 			points = conf.points || "cm cm",
 
 		/**
-		* Offset in pixels that element will be displaced from original position determined by points. It's specified by configuration or zero by default.
-		* @private
-		* @name ch.Positioner#offset
-		* @type {Array} X and Y references determined by "offset" configuration parameter.
-		* @default "0 0"
-		* @exampleDescription Moves 5px to right and 5px to bottom
-		* @example
-		* ch.positioner({
-		*     element: "#element1",
-		*     offset: "5 5"
-		* });
-		* @exampleDescription It will be worth:
-		* @example
-		* offset[0] = 5;
-		* offset[1] = 5;
-		* @exampleDescription Moves 10px to right and 5px to top
-		* @example
-		* ch.positioner({
-		*     element: "#element1",
-		*     offset: "10 -5"
-		* });
-		* @exampleDescription It will be worth:
-		* @example It will be worth:
-		* offset[0] = 10;
-		* offset[1] = -5;
-		*/
+		 * Offset in pixels that element will be displaced from original position determined by points. It's specified by configuration or zero by default.
+		 * @private
+		 * @name ch.Positioner#offset
+		 * @type {Array} X and Y references determined by "offset" configuration parameter.
+		 * @default "0 0"
+		 * @exampleDescription Moves 5px to right and 5px to bottom
+		 * @example
+		 * ch.positioner({
+		 *     element: "#element1",
+		 *     offset: "5 5"
+		 * });
+		 * @exampleDescription It will be worth:
+		 * @example
+		 * offset[0] = 5;
+		 * offset[1] = 5;
+		 * @exampleDescription Moves 10px to right and 5px to top
+		 * @example
+		 * ch.positioner({
+		 *     element: "#element1",
+		 *     offset: "10 -5"
+		 * });
+		 * @exampleDescription It will be worth:
+		 * @example It will be worth:
+		 * offset[0] = 10;
+		 * offset[1] = -5;
+		 */
 			offset = (conf.offset || "0 0").split(" "),
 
 		/**
-		* Defines context element, its size, position, and methods to recalculate all.
-		* @function
-		* @name ch.Positioner#getContext
-		* @returns Context Object
-		*/
+		 * Defines context element, its size, position, and methods to recalculate all.
+		 * @function
+		 * @name ch.Positioner#getContext
+		 * @returns Context Object
+		 */
 			getContext = function () {
 
 				// Parse as Integer offset values
@@ -208,7 +216,7 @@ ch.positioner = (function () {
 				offset[1] = parseInt(offset[1], 10);
 
 				// Context by default is viewport
-				if (!ch.utils.hasOwn(conf, "context") || !conf.context || conf.context === "viewport") {
+				if (!ch.util.hasOwn(conf, "context") || !conf.context || conf.context === "viewport") {
 					contextIsNotViewport = false;
 					return ch.viewport;
 				}
@@ -218,76 +226,76 @@ ch.positioner = (function () {
 				var self = {};
 
 				/**
-				* Width of context.
-				* @private
-				* @name width
-				* @type Number
-				* @memberOf ch.Positioner#context
-				*/
+				 * Width of context.
+				 * @private
+				 * @name width
+				 * @type Number
+				 * @memberOf ch.Positioner#context
+				 */
 				self.width =
 
 				/**
-				* Height of context.
-				* @private
-				* @name height
-				* @type Number
-				* @memberOf ch.Positioner#context
-				*/
+				 * Height of context.
+				 * @private
+				 * @name height
+				 * @type Number
+				 * @memberOf ch.Positioner#context
+				 */
 					self.height =
 
 				/**
-				* Left offset of context.
-				* @private
-				* @name left
-				* @type Number
-				* @memberOf ch.Positioner#context
-				*/
+				 * Left offset of context.
+				 * @private
+				 * @name left
+				 * @type Number
+				 * @memberOf ch.Positioner#context
+				 */
 					self.left =
 
 				/**
-				* Top offset of context.
-				* @private
-				* @name top
-				* @type Number
-				* @memberOf ch.Positioner#context
-				*/
+				 * Top offset of context.
+				 * @private
+				 * @name top
+				 * @type Number
+				 * @memberOf ch.Positioner#context
+				 */
 					self.top =
 
 				/**
-				* Right offset of context.
-				* @private
-				* @name right
-				* @type Number
-				* @memberOf ch.Positioner#context
-				*/
+				 * Right offset of context.
+				 * @private
+				 * @name right
+				 * @type Number
+				 * @memberOf ch.Positioner#context
+				 */
 					self.right =
 
 				/**
-				* Bottom offset of context.
-				* @private
-				* @name bottom
-				* @type Number
-				* @memberOf ch.Positioner#context
-				*/
+				 * Bottom offset of context.
+				 * @private
+				 * @name bottom
+				 * @type Number
+				 * @memberOf ch.Positioner#context
+				 */
 					self.bottom = 0;
 
 				/**
-				* Context HTML Element.
-				* @private
-				* @name element
-				* @type HTMLElement
-				* @memberOf ch.Positioner#context
-				*/
+				 * Context HTML Element.
+				 * @private
+				 * @name element
+				 * @type HTMLElement
+				 * @memberOf ch.Positioner#context
+				 */
 				self.element = $(conf.context);
 
 				/**
-				* Recalculates width and height of context and updates size on context object.
-				* @private
-				* @function
-				* @name getSize
-				* @returns Object
-				* @memberOf ch.Positioner#context
-				*/
+				 * Recalculates width and height of context and updates size on context object.
+				 * @private
+				 * @function
+				 * @name getSize
+				 * @returns Object
+				 * @memberOf ch.Positioner#context
+				 */
 				self.getSize = function () {
 
 					return {
@@ -296,15 +304,15 @@ ch.positioner = (function () {
 					};
 
 				};
-				
+
 				/**
-				* Recalculates left and top of context and updates offset on context object.
-				* @private
-				* @function
-				* @name getOffset
-				* @returns Object
-				* @memberOf ch.Positioner#context
-				*/
+				 * Recalculates left and top of context and updates offset on context object.
+				 * @private
+				 * @function
+				 * @name getOffset
+				 * @returns Object
+				 * @memberOf ch.Positioner#context
+				 */
 				self.getOffset = function () {
 
 					// Gets offset of context element
@@ -317,7 +325,7 @@ ch.positioner = (function () {
 						scrollLeft -= relativeParent.left,
 						scrollTop -= relativeParent.top;
 					}
-					
+
 					// Calculated including offset and relative parent positions
 					return {
 						"left": context.left = scrollLeft,
@@ -333,71 +341,71 @@ ch.positioner = (function () {
 			},
 
 		/**
-		* Reference that allows to know if context is different to viewport.
-		* @private
-		* @name ch.Positioner#contextIsNotViewport
-		* @type Boolean
-		*/
+		 * Reference that allows to know if context is different to viewport.
+		 * @private
+		 * @name ch.Positioner#contextIsNotViewport
+		 * @type Boolean
+		 */
 			contextIsNotViewport,
 
 		/**
-		* It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the viewport.
-		* @private
-		* @name ch.Positioner#context
-		* @type Object
-		* @default ch.Viewport
-		*/
+		 * It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the viewport.
+		 * @private
+		 * @name ch.Positioner#context
+		 * @type Object
+		 * @default ch.Viewport
+		 */
 			context = getContext(),
-		
+
 		/**
-		* Reference to know if direct parent is the body HTML element.
-		* @private
-		* @name ch.Positioner#parentIsBody
-		* @type Boolean
-		*/
+		 * Reference to know if direct parent is the body HTML element.
+		 * @private
+		 * @name ch.Positioner#parentIsBody
+		 * @type Boolean
+		 */
 			parentIsBody,
 
 		/**
-		* It's the first of context's parents that is styled positioned. If it isn't defined through configuration, it will be the HTML Body Element.
-		* @private
-		* @name ch.Positioner#relativeParent
-		* @type Object
-		* @default HTMLBodyElement
-		*/
+		 * It's the first of context's parents that is styled positioned. If it isn't defined through configuration, it will be the HTML Body Element.
+		 * @private
+		 * @name ch.Positioner#relativeParent
+		 * @type Object
+		 * @default HTMLBodyElement
+		 */
 			relativeParent = (function () {
 
 				// Context's parent that's positioned.
-				var element = (contextIsNotViewport) ? context.element.offsetParent()[0] : ch.utils.body[0],
+				var element = (contextIsNotViewport) ? context.element.offsetParent()[0] : window.document.body,
 
 				// Object to be returned.
 					self = {};
 
 				/**
-				* Left offset of relative parent.
-				* @private
-				* @name left
-				* @type Number
-				* @memberOf ch.Positioner#relativeParent
-				*/
+				 * Left offset of relative parent.
+				 * @private
+				 * @name left
+				 * @type Number
+				 * @memberOf ch.Positioner#relativeParent
+				 */
 				self.left =
 
 				/**
-				* Top offset of relative parent.
-				* @private
-				* @name top
-				* @type Number
-				* @memberOf ch.Positioner#relativeParent
-				*/
+				 * Top offset of relative parent.
+				 * @private
+				 * @name top
+				 * @type Number
+				 * @memberOf ch.Positioner#relativeParent
+				 */
 					self.top = 0;
 
 				/**
-				* Recalculates left and top of relative parent of context and updates offset on relativeParent object.
-				* @private
-				* @name getOffset
-				* @function
-				* @memberOf ch.Positioner#relativeParent
-				* @returns Offset Object
-				*/
+				 * Recalculates left and top of relative parent of context and updates offset on relativeParent object.
+				 * @private
+				 * @name getOffset
+				 * @function
+				 * @memberOf ch.Positioner#relativeParent
+				 * @returns Offset Object
+				 */
 				// TODO: on ie6 the relativeParent border push too (also on old positioner)
 				self.getOffset = function () {
 					// If first parent relative is Body, don't recalculate position
@@ -407,10 +415,10 @@ ch.positioner = (function () {
 					var parentOffset = $(element).offset(),
 
 					// Left border width of context's parent.
-						borderLeft = parseInt(ch.utils.getStyles(element, "border-left-width"), 10),
+						borderLeft = parseInt(ch.util.getStyles(element, "border-left-width"), 10),
 
 					// Top border width of context's parent.
-						borderTop = parseInt(ch.utils.getStyles(element, "border-top-width"), 10);
+						borderTop = parseInt(ch.util.getStyles(element, "border-top-width"), 10);
 
 					// Returns left and top position of relative parent and updates offset on relativeParent object.
 					return {
@@ -418,26 +426,26 @@ ch.positioner = (function () {
 						"top": relativeParent.top = parentOffset.top + borderTop
 					};
 				};
-				
+
 				return self;
 			}()),
 
 		/**
-		* Calculates left and top position from specific points.
-		* @private
-		* @name ch.Positioner#getCoordinates
-		* @function
-		* @param {String} points String with points to be calculated.
-		* @returns Offset measures
-		* @exampleDescription
-		* @example
-		* var foo = getCoordinates("lt rt");
-		* 
-		* foo = {
-		*     left: Number,
-		*     top: Number
-		* };
-		*/
+		 * Calculates left and top position from specific points.
+		 * @private
+		 * @name ch.Positioner#getCoordinates
+		 * @function
+		 * @param {String} points String with points to be calculated.
+		 * @returns Offset measures
+		 * @exampleDescription
+		 * @example
+		 * var foo = getCoordinates("lt rt");
+		*
+		 * foo = {
+		 *     left: Number,
+		 *     top: Number
+		 * };
+		 */
 			getCoordinates = function (pts) {
 
 				// Calculates left or top position from points related to specific axis (X or Y).
@@ -445,8 +453,8 @@ ch.positioner = (function () {
 				var calculate = function (reference) {
 
 					// Use Position or Offset of Viewport if position is fixed or absolute respectively
-					var ctx = (!contextIsNotViewport && ch.features.fixed) ? ch.viewport.getPosition() : context,
-					
+					var ctx = (!contextIsNotViewport && ch.support.fixed) ? ch.viewport.getPosition() : context,
+
 					// Returnable value
 						r;
 
@@ -479,12 +487,12 @@ ch.positioner = (function () {
 			},
 
 		/**
-		* Gets new coordinates and checks its space into viewport.
-		* @private
-		* @name ch.Positioner#getPosition
-		* @function
-		* @returns Offset measures
-		*/
+		 * Gets new coordinates and checks its space into viewport.
+		 * @private
+		 * @name ch.Positioner#getPosition
+		 * @function
+		 * @returns Offset measures
+		 */
 			getPosition = function () {
 
 				// Gets coordinates from main points
@@ -505,7 +513,7 @@ ch.positioner = (function () {
 					newPoints = points,
 					offsetX = /*relativeParent.left + */offset[0],
 					offsetY = /*relativeParent.top + */offset[1];
-				
+
 				if (!parentIsBody) {
 					offsetX += relativeParent.left;
 					offsetY += relativeParent.top;
@@ -548,24 +556,24 @@ ch.positioner = (function () {
 			},
 
 		/**
-		* Reference that stores last changes on coordinates for evaluate necesaries redraws.
-		* @private
-		* @name ch.Positioner#lastCoordinates
-		* @type Object
-		*/
+		 * Reference that stores last changes on coordinates for evaluate necesaries redraws.
+		 * @private
+		 * @name ch.Positioner#lastCoordinates
+		 * @type Object
+		 */
 			lastCoordinates = {},
 
 		/**
-		* Checks if there are changes on coordinates to reposition the element.
-		* @private
-		* @name ch.Positioner#draw
-		* @function
-		*/
+		 * Checks if there are changes on coordinates to reposition the element.
+		 * @private
+		 * @name ch.Positioner#draw
+		 * @function
+		 */
 			draw = function () {
 
 				// New element position
 				var coordinates,
-					
+
 					// Update classname related to position
 					updateClassName = function ($element) {
 						$element.removeClass(lastClassPoints).addClass(classPoints);
@@ -584,7 +592,7 @@ ch.positioner = (function () {
 
 				// If there are changes, it stores new coordinates on lastCoordinates
 				lastCoordinates = coordinates;
-				
+
 				// Element reposition (Updates element position based on new coordinates)
 				updateClassName($element.css({ "left": coordinates.left, "top": coordinates.top }));
 
@@ -593,69 +601,69 @@ ch.positioner = (function () {
 			},
 
 		/**
-		* Constructs a new position, gets viewport size, checks for relative parent's offset,
-		* finds the context and sets the position to a given element.
-		* @private
-		* @function
-		* @constructs
-		* @name ch.Positioner#init
-		*/
+		 * Constructs a new position, gets viewport size, checks for relative parent's offset,
+		 * finds the context and sets the position to a given element.
+		 * @private
+		 * @function
+		 * @constructs
+		 * @name ch.Positioner#init
+		 */
 			init = function () {
 				// Calculates viewport position for prevent auto-scrolling
 				//ch.viewport.getOffset();
-				
+
 				// Refresh parent parameter
 				// TODO: Put this code in some better place, where it's been calculated few times
 				parentIsBody = $element.parent().length > 0 && $element.parent().prop("tagName") === "BODY";
-				
+
 				// Calculates relative parent position
 				relativeParent.getOffset();
 
 				// If context isn't the viewport, calculates its position and size
 				if (contextIsNotViewport) { context.getOffset(); }
 
-				// Calculates coordinates and redraws if it's necessary	
+				// Calculates coordinates and redraws if it's necessary
 				draw();
 			},
 
 		/**
-		* Listen to LAYOUT.CHANGE and VIEWPORT.CHANGE events and recalculate data as needed.
-		* @private
-		* @function
-		* @name ch.Positioner#changesListener
-		*/
+		 * Listen to LAYOUT.CHANGE and VIEWPORT.CHANGE events and recalculate data as needed.
+		 * @private
+		 * @function
+		 * @name ch.Positioner#changesListener
+		 */
 			changesListener = function (event) {
 				// Only recalculates if element is visible
 				if (!$element.is(":visible")) { return; }
-	
+
 				// If context isn't the viewport...
 				if (contextIsNotViewport) {
 					// On resize and layout change, recalculates relative parent position
 					relativeParent.getOffset();
-	
+
 					// Recalculates its position and size
 					context.getOffset();
 				}
-	
+
 				draw();
 			},
 
 		/**
-		* Position "element" as fixed or absolute as needed.
-		* @private
-		* @function
-		* @name ch.Positioner#addCSSproperties
-		*/
+		 * Position "element" as fixed or absolute as needed.
+		 * @private
+		 * @function
+		 * @name ch.Positioner#addCSSproperties
+		 */
 			addCSSproperties = function () {
 
 				// Fixed position behavior
-				if (!contextIsNotViewport && ch.features.fixed) {
+				if (!contextIsNotViewport && ch.support.fixed) {
 
 					// Sets position of element as fixed to avoid recalculations
 					$element.css("position", "fixed");
 
 					// Bind reposition only on resize
-					ch.utils.window.bind("resize", changesListener);
+					$window.bind("resize", changesListener);
 
 				// Absolute position behavior
 				} else {
@@ -664,67 +672,67 @@ ch.positioner = (function () {
 					$element.css("position", "absolute");
 
 					// Bind reposition recalculations (scroll, resize and changeLayout)
-					ch.utils.window.bind(ch.events.VIEWPORT.CHANGE + " " + ch.events.LAYOUT.CHANGE, changesListener);
+					$window.bind(ch.events.viewport.CHANGE + " " + ch.events.layout.CHANGE, changesListener);
 				}
 
 			},
 
 		/**
-		* Classname relative to position points.
-		* @private
-		* @name ch.Positioner#classPoints
-		* @type String
-		* @default "ch-points-cmcm"
-		*/
+		 * Classname relative to position points.
+		 * @private
+		 * @name ch.Positioner#classPoints
+		 * @type String
+		 * @default "ch-points-cmcm"
+		 */
 			classPoints = classNamePoints(points),
 
 		/**
-		* The last className before calculate new points.
-		* @private
-		* @name ch.Positioner#lastClassPoints
-		* @type string
-		*/
+		 * The last className before calculate new points.
+		 * @private
+		 * @name ch.Positioner#lastClassPoints
+		 * @type string
+		 */
 			lastClassPoints = classPoints;
 
 		/**
-		* Control object that allows to change configuration properties, refresh current position or get current configuration.
-		* @ignore
-		* @protected
-		* @name ch.Positioner#position
-		* @function
-		* @param {Object} [o] Configuration object.
-		* @param {String} ["refresh"] Refresh current position.
-		* @returns Control Object
-		* @exampleDescription Sets a new configuration
-		* @example
-		* var foo = ch.positioner({ ... });
-		* foo.position({ ... });
-		* @exampleDescription Refresh current position
-		* @example
-		* foo.position("refresh");
-		* @exampleDescription Gets current configuration properties
-		* @example
-		* foo.position();
-		*/
+		 * Control object that allows to change configuration properties, refresh current position or get current configuration.
+		 * @ignore
+		 * @protected
+		 * @name ch.Positioner#position
+		 * @function
+		 * @param {Object} [o] Configuration object.
+		 * @param {String} ["refresh"] Refresh current position.
+		 * @returns Control Object
+		 * @exampleDescription Sets a new configuration
+		 * @example
+		 * var foo = ch.positioner({ ... });
+		 * foo.position({ ... });
+		 * @exampleDescription Refresh current position
+		 * @example
+		 * foo.position("refresh");
+		 * @exampleDescription Gets current configuration properties
+		 * @example
+		 * foo.position();
+		 */
 		that.position = function (o) {
 
 			var r = that;
 
 			switch (typeof o) {
-			
+
 			// Changes configuration properties and repositions the element
 			case "object":
 				// New points
-				if (ch.utils.hasOwn(o, "points")) { points = o.points; }
+				if (ch.util.hasOwn(o, "points")) { points = o.points; }
 
 				// New reposition
-				if (ch.utils.hasOwn(o, "reposition")) { conf.reposition = o.reposition; }
+				if (ch.util.hasOwn(o, "reposition")) { conf.reposition = o.reposition; }
 
 				// New offset (splitted)
-				if (ch.utils.hasOwn(o, "offset")) { offset = o.offset.split(" "); }
+				if (ch.util.hasOwn(o, "offset")) { offset = o.offset.split(" "); }
 
 				// New context
-				if (ch.utils.hasOwn(o, "context")) {
+				if (ch.util.hasOwn(o, "context")) {
 					// Sets conf value
 					conf.context = o.context;
 
@@ -733,7 +741,7 @@ ch.positioner = (function () {
 
 					// Regenerate the context object
 					context = getContext();
-					
+
 					// Update CSS properties to element (position fixed or absolute)
 					addCSSproperties();
 				}
@@ -746,7 +754,7 @@ ch.positioner = (function () {
 			// Refresh current position
 			case "string":
 				if (o !== "refresh") {
-					alert("Chico UI error: expected to find \"refresh\" parameter on position() method of Positioner component.");
+					window.alert("Chico UI error: expected to find \"refresh\" parameter on position() method of Positioner component.");
 				}
 
 				// Reset
@@ -778,6 +786,11 @@ ch.positioner = (function () {
 		init();
 
 		return that.position;
-	};
+	}
 
-}());
+	Positioner.prototype.name = 'positioner';
+	Positioner.prototype.constructor = Positioner;
+
+	ch.Positioner = Positioner;
+
+}(this, this.jQuery, this.ch));

@@ -1,204 +1,194 @@
 /**
-* Tooltip improves the native tooltips. Tooltip uses the 'alt' and 'title' attributes to grab its content.
-* @name Tooltip
-* @class Tooltip
-* @augments ch.Floats
-* @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
-* @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
-* @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-* @returns itself
-* @factorized
-* @see ch.Modal
-* @see ch.Layer
-* @see ch.Zoom
-* @see ch.Flaots
-* @exampleDescription Create a tooltip.
-* @example
-* var widget = $(".some-element").tooltip();
-* @exampleDescription Create a new tooltip with configuration.
-* @example
-* var widget = $("a.example").tooltip({
-*     "fx": false,
-*     "offset": "10 -10",
-*     "points": "lt rt"
-* });
-* @exampleDescription
-* Now <code>widget</code> is a reference to the tooltip instance controller.
-* You can set a new content by using <code>widget</code> like this: 
-* @example
-* widget.width(300);
-*/
+ * Tooltip improves the native tooltips. Tooltip uses the 'alt' and 'title' attributes to grab its content.
+ * @name Tooltip
+ * @class Tooltip
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Object} [conf] Object with configuration properties.
+ * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+ * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
+ * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
+ * @returns itself
+ * @factorized
+ * @see ch.Modal
+ * @see ch.Layer
+ * @see ch.Zoom
+ * @see ch.Flaots
+ * @exampleDescription Create a tooltip.
+ * @example
+ * var widget = $(".some-element").tooltip();
+ * @exampleDescription Create a new tooltip with configuration.
+ * @example
+ * var widget = $("a.example").tooltip({
+ *     "fx": false,
+ *     "offset": "10 -10",
+ *     "points": "lt rt"
+ * });
+ * @exampleDescription
+ * Now <code>widget</code> is a reference to the tooltip instance controller.
+ * You can set a new content by using <code>widget</code> like this:
+ * @example
+ * widget.width(300);
+ */
+(function (window, $, ch) {
+	'use strict';
 
-ch.tooltip = function (conf) {
+	if (ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	/**
-	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @private
-	* @name ch.Tooltip#that
-	* @type object
-	*/
-	var that = this;
+	function Tooltip($el, conf) {
+		/**
+		 * Reference to a internal component instance, saves all the information and configuration properties.
+		 * @private
+		 * @name ch.Tooltip#that
+		 * @type object
+		 */
+		var that = this;
+		that.$element = $el;
+		that.element = $el[0];
+		that.type = 'tooltip';
+		conf = conf || {};
 
-	conf = ch.clon(conf);
+		conf = ch.util.clone(conf);
 
-	conf.cone = true;
-	conf.content = that.element.title || that.element.alt;
-	
-	// Closable configuration
-	conf.closable = false;
+		conf.cone = true;
+		conf.classes = conf.classes || "ch-box-lite";
 
-	conf.aria = {};
-	conf.aria.role = "tooltip";
-	conf.aria.identifier = "aria-describedby";
+		// Closable configuration
+		conf.closable = false;
 
-	conf.position = {};
-	conf.position.context = that.$element;
-	conf.position.offset = conf.offset || "0 10";
-	conf.position.points = conf.points || "lt lb";
+		conf.aria = {};
+		conf.aria.role = "tooltip";
+		conf.aria.identifier = "aria-describedby";
 
-	that.conf = conf;
+		conf.position = {};
+		conf.position.context = that.$element;
+		conf.position.offset = conf.offset || "0 10";
+		conf.position.points = conf.points || "lt lb";
 
-/**
-*	Inheritance
-*/
+		that.conf = conf;
 
-	that = ch.floats.call(that);
-	that.parent = ch.clon(that);
-
-/**
-*	Private Members
-*/
-	/**
-	* The attribute that will provide the content. It can be "title" or "alt" attributes.
-	* @protected
-	* @name ch.Tooltip#attrReference
-	* @type string
-	*/
-	var attrReference = (that.element.title) ? "title" : "alt",
+		/**
+		 * Content configuration property.
+		 * @protected
+		 * @name ch.Modal#source
+		 */
+		that.source = conf.content || that.element.title || that.element.alt;
 
 	/**
-	* The original attribute content.
-	* @private
-	* @name ch.Tooltip#attrContent
-	* @type string
-	*/
-		attrContent = that.element.title || that.element.alt;
+	 *	Inheritance
+	 */
 
-/**
-*	Protected Members
-*/
+		that = ch.Floats.call(that);
+		that.parent = ch.util.clone(that);
 
 	/**
-	* Inner show method. Attach the component layout to the DOM tree.
-	* @protected
-	* @name ch.Tooltip#innerShow
-	* @function
-	* @returns itself
-	*/
-	that.innerShow = function (event) {
-		
-		// Reset all tooltip, except me
-		$.each(ch.instances.tooltip, function (i, e) {
-			if (e !== that["public"]) {
-				e.hide();
-			}
-		});
-		
-		// IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
-		that.element[attrReference] = "";
+	 *	Private Members
+	 */
+		/**
+		 * The attribute that will provide the content. It can be "title" or "alt" attributes.
+		 * @protected
+		 * @name ch.Tooltip#attrReference
+		 * @type string
+		 */
+		var attrReference = (that.element.title) ? "title" : "alt",
 
-		that.parent.innerShow(event);
-
-		return that;
-	};
+		/**
+		 * The original attribute content.
+		 * @private
+		 * @name ch.Tooltip#attrContent
+		 * @type string
+		 */
+			attrContent = that.element.title || that.element.alt;
 
 	/**
-	* Inner hide method. Hides the component and detach it from DOM tree.
-	* @protected
-	* @name ch.Tooltip#innerHide
-	* @function
-	* @returns itself
-	*/
-	that.innerHide = function (event) {
-		that.element[attrReference] = attrContent;
+	 *	Protected Members
+	 */
 
-		that.parent.innerHide(event);
+		/**
+		 * Inner show method. Attach the component layout to the DOM tree.
+		 * @protected
+		 * @name ch.Tooltip#innerShow
+		 * @function
+		 * @returns itself
+		 */
+		that.innerShow = function (event) {
 
-		return that;
-	};
+			// Reset all tooltip, except me
+			$.each(ch.instances.tooltip, function (i, e) {
+				if (e !== that["public"]) {
+					e.hide();
+				}
+			});
 
-/**
-*	Public Members
-*/
+			// IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
+			that.element[attrReference] = "";
 
-	/**
-	* @borrows ch.Object#uid as ch.Tooltip#uid
-	*/	
-	
-	/**
-	* @borrows ch.Object#element as ch.Tooltip#element
-	*/
+			that.parent.innerShow(event);
 
-	/**
-	* @borrows ch.Object#type as ch.Tooltip#type
-	*/
+			return that;
+		};
 
-	/**
-	* @borrows ch.Object#content as ch.Tooltip#content
-	*/
+		/**
+		 * Inner hide method. Hides the component and detach it from DOM tree.
+		 * @protected
+		 * @name ch.Tooltip#innerHide
+		 * @function
+		 * @returns itself
+		 */
+		that.innerHide = function (event) {
+			that.element[attrReference] = attrContent;
 
-	/**
-	* @borrows ch.Floats#isActive as ch.Tooltip#isActive
-	*/
+			that.parent.innerHide(event);
 
-	/**
-	* @borrows ch.Floats#show as ch.Tooltip#show
-	*/
-
-	/**
-	* @borrows ch.Floats#hide as ch.Tooltip#hide
-	*/
+			return that;
+		};
 
 	/**
-	* @borrows ch.Floats#width as ch.Tooltip#width
-	*/
+	 *	Public Members
+	 */
+
+		/**
+		 * @borrows ch.Widget#uid as ch.Tooltip#uid
+		 * @borrows ch.Widget#element as ch.Tooltip#element
+		 * @borrows ch.Widget#type as ch.Tooltip#type
+		 * @borrows ch.Floats#isActive as ch.Tooltip#isActive
+		 * @borrows ch.Floats#show as ch.Tooltip#show
+		 * @borrows ch.Floats#hide as ch.Tooltip#hide
+		 * @borrows ch.Floats#width as ch.Tooltip#width
+		 * @borrows ch.Floats#height as ch.Tooltip#height
+		 * @borrows ch.Floats#position as ch.Tooltip#position
+		 * @borrows ch.Floats#closable as ch.Tooltip#closable
+		 */
 
 	/**
-	* @borrows ch.Floats#height as ch.Tooltip#height
-	*/
+	 *	Default event delegation
+	 */
 
-	/**
-	* @borrows ch.Floats#position as ch.Tooltip#position
-	*/
+		that.$element
+			.bind("mouseenter", that.innerShow)
+			.bind("mouseleave", that.innerHide);
 
-	/**
-	* @borrows ch.Floats#closable as ch.Tooltip#closable
-	*/
+		/**
+		 * Triggers when component is ready to use.
+		 * @name ch.Tooltip#ready
+		 * @event
+		 * @public
+		 * @example
+		 * // Following the first example, using <code>widget</code> as tooltip's instance controller:
+		 * widget.on("ready",function () {
+		 *	this.show();
+		 * });
+		 */
+		window.setTimeout(function(){ that.trigger("ready")}, 50);
 
-/**
-*	Default event delegation
-*/
+		return that['public'];
+	}
 
-	that.$element
-		.bind("mouseenter", that.innerShow)
-		.bind("mouseleave", that.innerHide);
-	
-	/**
-	* Triggers when component is ready to use.
-	* @name ch.Tooltip#ready
-	* @event
-	* @public
-	* @example
-	* // Following the first example, using <code>widget</code> as tooltip's instance controller:
-	* widget.on("ready",function () {
-	*	this.show();
-	* });
-	*/
-	setTimeout(function(){ that.trigger("ready")}, 50);
+	Tooltip.prototype.name = 'tooltip';
+	Tooltip.prototype.constructor = Tooltip;
 
-	return that;
-};
+	ch.factory(Tooltip);
 
-ch.factory("tooltip");
+}(this, this.jQuery, this.ch));

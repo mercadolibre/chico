@@ -1,13 +1,13 @@
 /**
 * String validates a given text as string.
-* @name String 
+* @name String
 * @class String
 * @interface
 * @augments ch.Controls
 * @augments ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -23,19 +23,33 @@
 * @example
 * $("input").string("This field must be a string.");
 */
-ch.extend("validation").as("string", function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "string",
-		// the following regular expression has the utf code for the lating characters
-		// the ranges are A,EI,O,U,a,ei,o,u,ç,Ç please for reference see http://www.fileformat.info/info/charset/UTF-8/list.htm
-		patt: /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
-		message: conf.msg || conf.message
-	};
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	return conf;
+	function String($el, conf) {
 
-});
+		var conf = conf || {};
+
+		conf.condition = {
+			name: "string",
+			message: conf.content
+		};
+
+		return $el.validation(conf);
+
+	}
+
+	String.prototype.name = 'string';
+	String.prototype.constructor = String;
+	String.prototype.interface = 'validation';
+
+	ch.factory(String);
+
+}(this, this.jQuery, this.ch));
 
 /**
 * Email validates a correct email syntax.
@@ -47,7 +61,7 @@ ch.extend("validation").as("string", function (conf) {
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -63,21 +77,37 @@ ch.extend("validation").as("string", function (conf) {
 * @example
 * $("input").email("This field must be a valid email.");
 */
-ch.extend("validation").as("email", function (conf) {
-	// OLD RegExp 
-	// /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/,
-	conf.condition = {
-		name: "email",		
-		patt: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-		message: conf.msg || conf.message
-	};
+(function (window, $, ch) {
+	'use strict';
 
-	return conf;
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-});
+	function Email($el, conf) {
 
-	
-		
+		var conf = conf || {};
+
+		// OLD RegExp
+		// /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/,
+		conf.condition = {
+			name: "email",
+			message: conf.content
+		};
+
+		return $el.validation(conf);
+
+	}
+
+	Email.prototype.name = 'email';
+	Email.prototype.constructor = Email;
+	Email.prototype.interface = 'validation';
+
+	ch.factory(Email);
+
+}(this, this.jQuery, this.ch));
+
+
 
 /**
 * Url validates URL syntax.
@@ -89,7 +119,7 @@ ch.extend("validation").as("email", function (conf) {
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -105,18 +135,33 @@ ch.extend("validation").as("email", function (conf) {
 * @example
 * $("input").url("This field must be a valid URL.");
 */
-ch.extend("validation").as("url", function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "url",
-		patt: /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/,
-		message: conf.msg || conf.message
-	};
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	return conf;
+	function URL($el, conf) {
 
-});
+		var conf = conf || {};
 
+		conf.condition = {
+			name: "url",
+			message: conf.content
+		};
+
+		return $el.validation(conf);
+
+	}
+
+	URL.prototype.name = 'url';
+	URL.prototype.constructor = URL;
+	URL.prototype.interface = 'validation';
+
+	ch.factory(URL);
+
+}(this, this.jQuery, this.ch));
 
 /**
 * MinLength validates a minimun amount of characters.
@@ -128,11 +173,11 @@ ch.extend("validation").as("url", function (conf) {
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
-* @param {Number} value Minimun number value.
+* @param {Number} num Minimun number characters.
 * @returns itself
 * @factorized
 * @see ch.Validation
@@ -145,19 +190,34 @@ ch.extend("validation").as("url", function (conf) {
 * @example
 * $("input").minLength(10, "At least 10 characters..");
 */
-ch.extend("validation").as("minLength", function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "minLength",
-		expr: function(a,b) { return a.length >= b },
-		message: conf.msg || conf.message,
-		value: conf.value
-	};
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	return conf;
+	function MinLength($el, conf) {
 
-});
+		var conf = conf || {};
 
+		conf.condition = {
+			name: "minLength",
+			message: conf.content,
+			num: conf.num
+		};
+
+		return $el.validation(conf);
+
+	}
+
+	MinLength.prototype.name = 'minLength';
+	MinLength.prototype.constructor = MinLength;
+	MinLength.prototype.interface = 'validation';
+
+	ch.factory(MinLength);
+
+}(this, this.jQuery, this.ch));
 
 /**
 * MaxLength validates a maximun amount of characters.
@@ -169,11 +229,11 @@ ch.extend("validation").as("minLength", function (conf) {
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
-* @param {Number} value Maximun number value.
+* @param {Number} num Maximun number of characters.
 * @returns itself
 * @factorized
 * @see ch.Validation
@@ -186,15 +246,31 @@ ch.extend("validation").as("minLength", function (conf) {
 * @example
 * $("input").maxLength(10, "No more than 10 characters..");
 */
-ch.extend("validation").as("maxLength", function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "maxLength",
-		expr: function(a,b) { return a.length <= b },
-		message: conf.msg || conf.message,
-		value: conf.value
-	};
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	return conf;
+	function MaxLength($el, conf) {
 
-});
+		var conf = conf || {};
+
+		conf.condition = {
+			name: "maxLength",
+			message: conf.content,
+			num: conf.num
+		};
+
+		return $el.validation(conf);
+
+	}
+
+	MaxLength.prototype.name = 'maxLength';
+	MaxLength.prototype.constructor = MaxLength;
+	MaxLength.prototype.interface = 'validation';
+
+	ch.factory(MaxLength);
+
+}(this, this.jQuery, this.ch));

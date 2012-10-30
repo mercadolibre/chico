@@ -5,70 +5,80 @@
 	"meta": {
 		"ui": {
 			"full": {
-				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {\n\n",
-				"jsClose": ";ch.init();\n\n})(jQuery, this);",
+				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
+				"jsClose": "\n\twindow.ch = ch;\n})(this, jQuery);",
 				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function($, window){",
-				"jsClose": ";ch.init();})(jQuery, this);",
+				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function(window,$){'use strict';",
+				"jsClose": "window.ch = ch;})(this, jQuery);",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
 			}
 		},
 		"mobile": {
 			"full": {
-				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function ($, window) {\n\n",
-				"jsClose": ";ch.init();\n\n})(Zepto, this);",
+				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
+				"jsClose": "\n\twindow.ch = ch;\n})(this, Zepto);",
 				"css": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function($, window){;",
-				"jsClose": ";ch.init();})(Zepto, this);",
+				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function(window, $){\n\t'use strict';",
+				"jsClose": "window.ch = ch;})(this, Zepto);",
 				"css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
 			}
 		}
 	},
 	"concat": {
 		"uiJS": {
-			"src": [
-				"../../src/ui/js/ch.namespace.js",
+			"core": [
+				"../../src/shared/js/ch.helpers.js",
+				"../../src/shared/js/ch.util.js",
+				"../../src/shared/js/ch.events.js",
+				"../../src/ui/js/ch.events.js",
+				"../../src/ui/js/ch.support.js",
+				"../../src/ui/js/ch.keyboard.js",
+				"../../src/shared/js/ch.factory.js",
+				"../../src/shared/js/ch.debug.js",
+				"../../src/ui/js/ch.init.js"
+			],
+			"abilities": [
+				"../../src/shared/js/ch.Content.js"
+			],
+			"widgets": [
 				"../../src/ui/js/ch.cache.js",
-				"../../src/ui/js/ch.Condition.js",
-				"../../src/ui/js/ch.eraser.js",
-				"../../src/ui/js/ch.List.js",
-				"../../src/ui/js/ch.Object.js",
-				"../../src/ui/js/ch.onImagesLoads.js",
-				"../../src/ui/js/ch.Positioner.js",
-				"../../src/ui/js/ch.preload.js",
 				"../../src/ui/js/ch.viewport.js",
-				"../../src/ui/js/ch.Uiobject.js",
-				"../../src/ui/js/ch.Validator.js",
-				"../../src/ui/js/ch.Calendar.js",
-				"../../src/ui/js/ch.Carousel.js",
-				"../../src/ui/js/ch.Controllers.js",
+				"../../src/ui/js/ch.Positioner.js",
+				"../../src/ui/js/ch.OnImagesLoads.js",
+				"../../src/ui/js/ch.Widget.js",
 				"../../src/ui/js/ch.Controls.js",
 				"../../src/ui/js/ch.Floats.js",
+				"../../src/ui/js/ch.Layer.js",
+				"../../src/ui/js/ch.Tooltip.js",
+				"../../src/ui/js/ch.Modal.js",
+				"../../src/ui/js/ch.Transition.js",
+				"../../src/ui/js/ch.Zoom.js",
 				"../../src/ui/js/ch.Navs.js",
 				"../../src/ui/js/ch.AutoComplete.js",
-				"../../src/ui/js/ch.Blink.js",
-				"../../src/ui/js/ch.Countdown.js",
+				"../../src/ui/js/ch.Calendar.js",
 				"../../src/ui/js/ch.DatePicker.js",
-				"../../src/ui/js/ch.Dropdown.js",
-				"../../src/ui/js/ch.Expando.js",
-				"../../src/ui/js/ch.Form.js",
-				"../../src/ui/js/ch.Layer.js",
-				"../../src/ui/js/ch.Menu.js",
-				"../../src/ui/js/ch.Modal.js",
-				"../../src/ui/js/ch.TabNavigator.js",
-				"../../src/ui/js/ch.Tooltip.js",
+				"../../src/ui/js/ch.Countdown.js",
+				"../../src/ui/js/ch.Condition.js",
+				"../../src/ui/js/ch.Validator.js",
 				"../../src/ui/js/ch.Validation.js",
-				"../../src/ui/js/ch.Zoom.js",
 				"../../src/ui/js/ch.Custom.js",
 				"../../src/ui/js/ch.Number.js",
+				"../../src/ui/js/ch.String.js",
 				"../../src/ui/js/ch.Required.js",
-				"../../src/ui/js/ch.String.js"
+				"../../src/ui/js/ch.Expandable.js",
+				"../../src/ui/js/ch.Dropdown.js",
+				"../../src/ui/js/ch.Blink.js",
+				"../../src/ui/js/ch.Tabs.js",
+				"../../src/ui/js/ch.Menu.js",
+				"../../src/ui/js/ch.Accordion.js",
+				"../../src/ui/js/ch.Form.js",
+				"../../src/ui/js/ch.Carousel.js"
 			],
-			"template": ["meta.ui.full.jsOpen", "src", "meta.ui.full.jsClose"]
+			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},
 		"uiCSS": {
 			"src": [
@@ -87,12 +97,12 @@
 				"../../src/ui/css/ch.AutoComplete.css",
 				"../../src/ui/css/ch.DatePicker.css",
 				"../../src/ui/css/ch.Dropdown.css",
-				"../../src/ui/css/ch.Expando.css",
+				"../../src/ui/css/ch.Expandable.css",
 				"../../src/ui/css/ch.Form.css",
 				"../../src/ui/css/ch.Layer.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Modal.css",
-				"../../src/ui/css/ch.TabNavigator.css",
+				"../../src/ui/css/ch.Tabs.css",
 				"../../src/ui/css/ch.Tooltip.css",
 				"../../src/ui/css/ch.Validation.css",
 				"../../src/ui/css/ch.Zoom.css"
@@ -100,19 +110,28 @@
 			"template": ["meta.ui.full.css", "src"]
 		},
 		"mobileJS": {
-			"src": [
-				"../../src/mobile/js/ch.helpers.js",
-				"../../src/mobile/js/ch.namespace.js",
-				"../../src/mobile/js/ch.routes.js",
-				"../../src/mobile/js/ch.factory.js",
+			"core": [
+				"../../src/shared/js/ch.helpers.js",
+				"../../src/shared/js/ch.util.js",
+				"../../src/mobile/js/ch.util.js",
+				"../../src/shared/js/ch.events.js",
+				"../../src/mobile/js/ch.events.js",
+				"../../src/shared/js/ch.factory.js",
+				"../../src/shared/js/ch.debug.js",
+				"../../src/mobile/js/ch.init.js"
+			],
+			"abilities": [
 				"../../src/mobile/js/ch.EventEmitter.js",
+				"../../src/mobile/js/ch.routes.js"
+			],
+			"widgets": [
 				"../../src/mobile/js/ch.Widget.js",
-				"../../src/mobile/js/ch.Expando.js",
+				"../../src/mobile/js/ch.Expandable.js",
 				"../../src/mobile/js/ch.Layer.js",
 				"../../src/mobile/js/ch.Menu.js",
 				"../../src/mobile/js/ch.Modal.js"
 			],
-			"template": ["meta.mobile.full.jsOpen", "src", "meta.mobile.full.jsClose"]
+			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.full.jsClose", "abilities", "widgets"]
 		},
 		"mobileCSS": {
 			"src": [
@@ -127,7 +146,7 @@
 				"../../src/mobile/css/ch.transition.css",
 				"../../src/mobile/css/ch.tag.css",
 				"../../src/mobile/css/ch.header.css",
-				"../../src/mobile/css/ch.Expando.css",
+				"../../src/mobile/css/ch.Expandable.css",
 				"../../src/mobile/css/ch.Menu.css",
 				"../../src/mobile/css/ch.Form.css",
 				"../../src/mobile/css/ch.Modal.css",
@@ -137,7 +156,7 @@
 		}
 	},
 	"min": {
-		"uiJS": ["meta.ui.min.jsOpen", "src", "meta.ui.min.jsClose"],
+		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.min.jsClose", "widgets"],
 		"uiCSS": ["meta.ui.min.css", "src"],
 		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.min.jsClose"],
 		"mobileCSS": ["meta.mobile.min.css", "src"]

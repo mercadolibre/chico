@@ -1,32 +1,39 @@
 /**
-* Cache control utility.
-* @name Cache
-* @class Cache
-* @memberOf ch
-*/
+ * Cache control utility.
+ * @name Cache
+ * @class Cache
+ * @memberOf ch
+ */
+(function (window, ch) {
+	'use strict';
 
-ch.cache = {
+	if (ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
+
+	// Cache control utility.
+	var cache = {};
 
 	/**
 	* Map of cached resources
 	* @public
-	* @name ch.Cache#map 
+	* @name ch.Cache#map
 	* @type object
 	*/
-	map: {},
-	
+	cache.map = {};
+
 	/**
 	* Set a resource to the cache control
 	* @public
-	* @function 
+	* @function
 	* @name ch.Cache#set
 	* @param {string} url Resource location
 	* @param {string} data Resource information
 	*/
-	set: function(url, data) {
-		ch.cache.map[url] = data;
-	},
-	
+	cache.set = function (url, data) {
+		cache.map[url] = data;
+	};
+
 	/**
 	* Get a resource from the cache
 	* @public
@@ -35,10 +42,10 @@ ch.cache = {
 	* @param {string} url Resource location
 	* @returns data Resource information
 	*/
-	get: function(url) {
-		return ch.cache.map[url];
-	},
-	
+	cache.get = function (url) {
+		return cache.map[url];
+	};
+
 	/**
 	* Remove a resource from the cache
 	* @public
@@ -46,19 +53,22 @@ ch.cache = {
 	* @name ch.Cache#rem
 	* @param {string} url Resource location
 	*/
-	rem: function(url) {
-		ch.cache.map[url] = null;
-		delete ch.cache.map[url];
-	},
-	
+	cache.rem = function (url) {
+		cache.map[url] = null;
+		delete cache.map[url];
+	};
+
 	/**
 	* Clears the cache map
 	* @public
 	* @function
 	* @name ch.Cache#flush
 	*/
-	flush: function() {
-		delete ch.cache.map;
-		ch.cache.map = {};
-	}
-};
+	cache.flush = function () {
+		delete cache.map;
+		cache.map = {};
+	};
+
+	ch.cache = cache;
+
+}(this, this.ch));
