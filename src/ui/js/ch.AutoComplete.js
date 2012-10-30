@@ -221,6 +221,12 @@
 		* @name ch.AutoComplete#doQuery
 		*/
 		that.doQuery = function(event){
+
+			if(!event){
+				that.populateContent(window.event,that.suggestions);
+				return that;
+			}
+
 			var q = that.$element.val().toLowerCase();
 			// When URL is configured it will execute an ajax request.
 			if (that.element.value !== "" && event.keyCode !== 38 && event.keyCode !== 40  && event.keyCode !== 13  && event.keyCode !== 27) {
@@ -319,7 +325,7 @@
 			var query = that.element.value;
 			that.doQuery(event);
 			// Global keyup behavior
-			$document.on("keyup.autoComplete", function (event) {that.doQuery(event);  });
+			$document.on("keyup.autoComplete", function (event) { that.doQuery(event); });
 			//that.$content.html("");
 
 			return that;

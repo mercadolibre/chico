@@ -587,7 +587,7 @@
 		*	this.show();
 		* });
 		*/
-		that.trigger("ready");
+		setTimeout(function(){ that.trigger("ready")}, 50);
 
 		that.on('exists', function (e, data){
 
