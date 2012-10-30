@@ -1,27 +1,27 @@
 /**
-* Menu lets you organize the links by categories.
-* @name Menu
-* @class Menu
-* @augments ch.Widget
-* @requires ch.Expandable
-* @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {Number} [conf.selected] Selects a child that will be open when component was loaded.
-* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
-* @returns itself
-* @factorized
-* @see ch.Expandable
-* @see ch.Widget
-* @exampleDescription Create a new menu without configuration.
-* @example
-* var widget = $(".example").menu();
-* @exampleDescription Create a new menu with configuration.
-* @example
-* var widget = $(".example").menu({
-*     "selected": 2,
-*     "fx": true
-* });
-*/
+ * Menu lets you organize the links by categories.
+ * @name Menu
+ * @class Menu
+ * @augments ch.Widget
+ * @requires ch.Expandable
+ * @memberOf ch
+ * @param {Object} [options] Object with configuration properties.
+ * @param {Number} [options.selected] Selects a child that will be open when component was loaded.
+ * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
+ * @returns itself
+ * @factorized
+ * @see ch.Expandable
+ * @see ch.Widget
+ * @exampleDescription Create a new menu without configuration.
+ * @example
+ * var widget = $('.example').menu();
+ * @exampleDescription Create a new menu with configuration.
+ * @example
+ * var widget = $('.example').menu({
+ *     'selected': 2,
+ *     'fx': true
+ * });
+ */
 (function (window, $, ch) {
 	'use strict';
 
@@ -29,253 +29,232 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var $html = $("html");
+	var $html = $('html');
 
-	function Menu($el, conf) {
+	function Menu($el, options) {
+
+		this.init($el, options);
+
+		/**
+		 * Private Members
+		 */
+
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
 		 * @private
 		 * @name ch.Menu#that
 		 * @type object
 		 */
-		var that = this;
+		var that = this,
 
-		that.$element = $el;
-		that.element = $el[0];
-		that.type = 'menu';
-		conf = conf || {};
+			/**
+			 * Inits an Expandable component on each list inside main HTML code snippet
+			 * @private
+			 * @name ch.Menu#createLayout
+			 * @function
+			 */
+			createLayout = function () {
 
-		conf = ch.util.clone(conf);
-		conf.icon = ch.util.hasOwn(conf, "icon") ? conf.icon : true;
+				// No slide efects for IE8-
+				var efects = ($html.hasClass('lt-ie8')) ? false : that.options.fx;
 
-		that.conf = conf;
+				// List elements
+				that.$el.children().each(function(i, e){
+					// List element
+					var $li = $(e);
 
-		/**
-		 * Inheritance
-		 */
+					// Children of list elements
+					var $child = $li.children();
 
-		that = ch.Widget.call(that);
-		that.parent = ch.util.clone(that);
+					// Anchor inside list
+					if($child.eq(0).prop('tagName') == 'A') {
 
-	/**
-	*	Private Members
-	*/
+						// Add attr role to match wai-aria
+						$li.attr('role', 'presentation');
 
-		/**
-		* Indicates witch child is opened
-		* @private
-		* @name ch.Menu#selected
-		* @type number
-		*/
-		var selected = conf.selected - 1;
+						// Add class to list and anchor
+						$li.addClass('ch-bellows').children().addClass('ch-bellows-trigger');
 
-		/**
-		* Inits an Expandable component on each list inside main HTML code snippet
-		* @private
-		* @name ch.Menu#createLayout
-		* @function
-		*/
-		var createLayout = function(){
+						// Add anchor to that.children
+						that.children.push( $child[0] );
 
-			// No slide efects for IE8-
-			var efects = ($html.hasClass("lt-ie8")) ? false : true;
+						return;
+					};
 
-			// List elements
-			that.$element.children().each(function(i, e){
-				// List element
-				var $li = $(e);
+					// List inside list, inits an Expandable
+					var expandable = $li.expandable({
+						'icon': that.options.icon,
+						// Show/hide on IE8- instead slideUp/slideDown
+						'fx': efects,
+						'onShow': function () {
+							// Updates selected tab when it's opened
+							that.selected = i;
 
-				// Children of list elements
-				var $child = $li.children();
+							/**
+							 * Callback function
+							 * @name onSelect
+							 * @type {Function}
+							 * @memberOf ch.Menu
+							 */
+							that.callbacks.call(that, 'onSelect');
 
-				// Anchor inside list
-				if($child.eq(0).prop("tagName") == "A") {
-
-					// Add attr role to match wai-aria
-					$li.attr("role","presentation");
-
-					// Add class to list and anchor
-					$li.addClass("ch-bellows").children().addClass("ch-bellows-trigger");
-
-					// Add anchor to that.children
-					that.children.push( $child[0] );
-
-					return;
-				};
-
-				// List inside list, inits an Expandable
-				var expandable = $li.expandable({
-					icon: conf.icon,
-					// Show/hide on IE8- instead slideUp/slideDown
-					fx: efects,
-					onShow: function(){
-						// Updates selected tab when it's opened
-						selected = i;
-
-						/**
-						* Callback function
-						* @name onSelect
-						* @type {Function}
-						* @memberOf ch.Menu
-						*/
-						that.callbacks.call(that, "onSelect");
-
-						// new callback
-						/**
-						* It is triggered when the a fold is selected by the user.
-						* @name ch.Menu#select
-						* @event
-						* @public
-						* @exampleDescription When the user select
-						* @example
-						* widget.on("select",function(){
-						*     app.off();
-						* });
-						*/
-						that.trigger("select");
-					}
-				});
-
-				var childs = $li.children(),
-					$triggerCont = $(childs[0]),
-					$menu = $(childs[1]);
-					if (!conf.accordion) {
-						$menu.attr("role","menu");
-						$menu.children().children().attr("role", "menuitem");
-						$menu.children().attr("role", "presentation");
-					}
-					$triggerCont.attr("role","presentation");
-
-				// Add expandable to that.children
-				that.children.push( expandable );
-
-			});
-		};
-
-		/**
-		* Opens specific Expandable child and optionally grandson
-		* @private
-		* @function
-		* @name ch.Menu#select
-		* @ignore
-		*/
-		var select = function (item) {
-
-			var child, grandson;
-
-			// Split item parameter, if it's a string with hash
-			if (typeof item === "string") {
-				var sliced = item.split("#");
-				child = sliced[0] - 1;
-				grandson = sliced[1];
-
-			// Set child when item is a Number
-			} else {
-				child = item - 1;
-			}
-
-			// Specific item of that.children list
-			var itemObject = that.children[ child ];
-
-			// Item as object
-			if (ch.util.hasOwn(itemObject, "uid")) {
-
-				// Show this list
-				itemObject.show();
-
-				// Select grandson if splited parameter got a specific grandson
-				if (grandson) $(itemObject.element).find("a").eq(grandson - 1).addClass("ch-menu-on");
-				// Accordion behavior
-				if (conf.accordion) {
-
-					// Hides every that.children list that don't be this specific list item
-					$.each(that.children, function(i, e){
-						if(
-							// If it isn't an anchor...
-							(e.tagName != "A") &&
-							// If there are an unique id...
-							(ch.util.hasOwn(e, "uid")) &&
-							// If unique id is different to unique id on that.children list...
-							(that.children[child].uid != that.children[i].uid)
-						){
-							// ...hide it
-							e.hide();
-						};
+							// new callback
+							/**
+							 * It is triggered when the a fold is selected by the user.
+							 * @name ch.Menu#select
+							 * @event
+							 * @public
+							 * @exampleDescription When the user select
+							 * @example
+							 * widget.on('select',function(){
+							 *     app.off();
+							 * });
+							 */
+							that.trigger('select');
+						}
 					});
 
+					var childs = $li.children(),
+						$triggerCont = $(childs[0]),
+						$menu = $(childs[1]);
+						if (!that.options.accordion) {
+							$menu.attr('role', 'menu');
+							$menu.children().children().attr('role', 'menuitem');
+							$menu.children().attr('role', 'presentation');
+						}
+						$triggerCont.attr('role', 'presentation');
+
+					// Add expandable to that.children
+					that.children.push(expandable);
+
+				});
+			},
+
+			/**
+			 * Opens specific Expandable child and optionally grandson
+			 * @private
+			 * @function
+			 * @name ch.Menu#select
+			 * @ignore
+			 */
+			select = function (item) {
+
+				var child, grandson;
+
+				// Split item parameter, if it's a string with hash
+				if (typeof item === 'string') {
+					var sliced = item.split('#');
+					child = sliced[0] - 1;
+					grandson = sliced[1];
+
+				// Set child when item is a Number
+				} else {
+					child = item - 1;
+				}
+
+				// Specific item of that.children list
+				var itemObject = that.children[child];
+
+				// Item as object
+				if (ch.util.hasOwn(itemObject, 'uid')) {
+
+					// Show this list
+					itemObject.show();
+
+					// Select grandson if splited parameter got a specific grandson
+
+					if (grandson) {
+						itemObject.$el.find('a').eq(grandson - 1).addClass('ch-menu-on');
+					}
+
+					// Accordion behavior
+					if (that.options.accordion) {
+
+						// Hides every that.children list that don't be this specific list item
+						$.each(that.children, function (i, e) {
+							if(
+								// If it isn't an anchor...
+								(e.tagName != 'A') &&
+								// If there are an unique id...
+								(ch.util.hasOwn(e, 'uid')) &&
+								// If unique id is different to unique id on that.children list...
+								(that.children[child].uid != that.children[i].uid)
+							){
+								// ...hide it
+								e.hide();
+							};
+						});
+
+					};
+
+				// Item as anchor
+				} else{
+					// Just selects it
+					that.children[child].addClass('ch-menu-on');
 				};
 
-			// Item as anchor
-			} else{
-				// Just selects it
-				that.children[child].addClass("ch-menu-on");
+				return this;
+			},
+
+			/**
+			 * Binds controller's own click to expandable triggers
+			 * @private
+			 * @function
+			 */
+			configureAccordion = function () {
+				$.each(that.children, function (i, e) {
+					if (ch.util.hasOwn(e, '$el')) {
+						e.$el.find('.ch-expandable-trigger').off('click').on('click', function () {
+							select(i + 1);
+						});
+					}
+				});
 			};
 
-			return that;
-		};
-
-		/**
-		* Binds controller's own click to expandable triggers
-		* @private
-		* @name ch.Menu#configureAccordion
-		* @function
-		*/
-		var configureAccordion = function(){
-
-			$.each(that.children, function(i, e){
-				$(e.element).find(".ch-expandable-trigger").unbind("click").bind("click", function () {
-					select(i + 1);
-				});
-			});
-
-			return;
-		};
-
 	/**
-	*	Protected Members
-	*/
+	 * Protected Members
+	 */
 		/**
-		* Collection of children.
-		* @name ch.Form#children
-		* @type {Array}
-		*/
-		that.children = [];
-
-
-	/**
-	*	Public Members
-	*/
-		/**
-		 * @borrows ch.Widget#uid as ch.Menu#uid
-		 * @borrows ch.Widget#element as ch.Menu#element
-		 * @borrows ch.Widget#type as ch.Menu#type
+		 * Collection of children.
+		 * @name ch.Form#children
+		 * @type {Array}
 		 */
+		this.children = [];
 
 		/**
-		* Select a specific children.
-		* @public
-		* @name select
-		* @name ch.Menu
-		* @param item The number of the item to be selected
-		* @returns
-		*/
-		that["public"].select = function (item) {
+		 * Indicates witch child is opened
+		 * @private
+		 * @name ch.Menu#selected
+		 * @type number
+		 */
+		this.selected = this.options.selected - 1;
+
+		/**
+		 * Select a specific children.
+		 * @public
+		 * @name select
+		 * @name ch.Menu
+		 * @param item The number of the item to be selected
+		 * @returns
+		 */
+		this.select = function (item) {
 			// Getter
 			if (!item) {
-				if (isNaN(selected)) {
-					return "";
+				if (isNaN(this.selected)) {
+					return '';
 				}
-				return selected + 1;
+				return this.selected + 1;
 			}
 
 			// Setter
 			select(item);
-			return that["public"];
+
+			return this;
 		};
 
 	/**
-	*	Default event delegation
-	*/
+	 * Default event delegation
+	 */
 
 		// Sets component main class name
 
@@ -283,38 +262,50 @@
 		createLayout();
 
 		// Accordion behavior
-		if (conf.accordion) {
+		if (this.options.accordion) {
 			// Sets the interface main class name for avoid
 			configureAccordion();
 		} else {
 			// Set the wai-aria for Menu
-			that.$element.attr("role", "navigation");
+			this.$el.attr('role', 'navigation');
 		}
 
-		that.$element.addClass('ch-' + that.type + (ch.util.hasOwn(conf, 'classes') ? ' ' + conf.classes : ''));
+		this.$el.addClass('ch-' + this['name'] + (ch.util.hasOwn(this.options, 'classes') ? ' ' + this.options.classes : ''));
 
 		// Select specific item if there are a "selected" parameter on component configuration object
-		if (ch.util.hasOwn(conf, "selected")) { select(conf.selected); }
+		if (ch.util.hasOwn(this.options, 'selected')) { select(this.options.selected); }
 
 		/**
-		* Triggers when the component is ready to use (Since 0.8.0).
-		* @name ch.Menu#ready
-		* @event
-		* @public
-		* @since 0.8.0
-		* @exampleDescription Following the first example, using <code>widget</code> as menu's instance controller:
-		* @example
-		* widget.on("ready",function () {
-		*	this.select();
-		* });
-		*/
-		setTimeout(function(){ that.trigger("ready")}, 50);
+		 * Triggers when the component is ready to use (Since 0.8.0).
+		 * @name ch.Menu#ready
+		 * @event
+		 * @public
+		 * @since 0.8.0
+		 * @exampleDescription Following the first example, using <code>widget</code> as menu's instance controller:
+		 * @example
+		 * widget.on('ready',function () {
+		 *	this.select();
+		 * });
+		 */
+		setTimeout(function(){ that.trigger('ready')}, 50);
 
-		return that['public'];
+		return this;
 	}
 
+	/**
+	 * Inheritance
+	 */
+	ch.util.inherits(Menu, ch.Widget);
+
 	Menu.prototype.name = 'menu';
+
 	Menu.prototype.constructor = Menu;
+
+	Menu.prototype.defaults = {
+		'icon': true,
+		'fx': false,
+		'accordion': false
+	};
 
 	ch.factory(Menu);
 
