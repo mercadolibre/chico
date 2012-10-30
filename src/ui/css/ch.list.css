@@ -1,3 +1,6 @@
+/**
+ * List
+ */
 .ch-list {
 	margin-bottom:10px;
 }
@@ -17,15 +20,18 @@ ol.ch-list {
 }
 
 dl.ch-list {
-  margin-bottom: 18px;
+	margin-bottom: 18px;
 }
+
 dl.ch-list dt,
 dl.ch-list dd {
-  line-height: 18px;
+	line-height: 18px;
 }
+
 dl.ch-list dt {
-  font-weight: bold;
+	font-weight: bold;
 }
+
 dl.ch-list dd {
-  margin-left: 9px;
+	margin-left: 9px;
 }

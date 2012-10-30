@@ -1,9 +1,14 @@
+/**
+ * Tables
+ */
+.ch-datagrid-controls,
 .ch-datagrid {
 	width: 100%;
-	border: 1px solid #CECECE;
+	border: 1px solid #EDEDED;
 	text-align: left;
 }
 
+.ch-datagrid-controls caption,
 .ch-datagrid caption {
 	text-align: left;
 	font-weight: normal;
@@ -11,101 +16,115 @@
 	font-size: 18px;
 }
 
+.ch-datagrid-controls thead tr,
 .ch-datagrid thead tr {
-	border-top: 1px solid #CECECE;
+	border-top: 1px solid #EDEDED;
 }
 
+.ch-datagrid-controls th,
 .ch-datagrid th {
-	background-color: #EEEEEE;
-	background-image: -webkit-linear-gradient(#F9F9F9, #EEEEEE);
-	background-image: -moz-linear-gradient(#F9F9F9, #EEEEEE);
-	background-image: -o-linear-gradient(#F9F9F9, #EEEEEE);
-	background-image: linear-gradient(#F9F9F9, #EEEEEE);
-	border-bottom: 1px solid #CECECE;
-	border-left: 1px solid #CECECE;
+	background-color: #F7F7F7;
+	border-bottom: 1px solid #EDEDED;
+	border-left: 1px solid #EDEDED;
 	font-size: 11px;
 	line-height: 26px;
 	padding: 0 10px;
 	text-align: left;
 	text-shadow: 0 1px 0 #FFFFFF;
 	vertical-align: middle;
-
+	color: #666666;
 }
 
+.ch-datagrid-controls th {
+	background-color: #FAFAFA;
+	background-image: -webkit-linear-gradient(#FAFAFA, #ECECEC);
+	background-image: -moz-linear-gradient(#FAFAFA, #ECECEC);
+	background-image: -o-linear-gradient(#FAFAFA, #ECECEC);
+	background-image: linear-gradient(#FAFAFA, #ECECEC);
+	cursor: pointer;
+}
 
-.ch-datagrid th.ch-datagrid-selected {
-	background: #dedede;
-	display: block;
+.lt-ie10 .ch-datagrid-controls th {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#ECECEC');
+}
+
+.ch-datagrid-controls th:hover {
+	background: #FEFEFE;
+	background-image: -webkit-linear-gradient(#FEFEFE, #F2F2F2);
+	background-image: -moz-linear-gradient(#FEFEFE, #F2F2F2);
+	background-image: -o-linear-gradient(#FEFEFE, #F2F2F2);
+	background-image: linear-gradient(#FEFEFE, #F2F2F2);
+}
+
+.lt-ie10 .ch-datagrid-controls th:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEFEFE', endColorstr='#F2F2F2');
+}
+
+.ch-datagrid-controls th:active,
+.ch-datagrid-controls th.ch-datagrid-selected {
+	background: #E5E5E5;
+	background-image: -webkit-linear-gradient(#E5E5E5, #D8D8D8);
+	background-image: -moz-linear-gradient(#E5E5E5, #D8D8D8);
+	background-image: -o-linear-gradient(#E5E5E5, #D8D8D8);
+	background-image: linear-gradient(#E5E5E5, #D8D8D8);
+	border-top: 1px solid #DCDCDC;
+}
+
+.lt-ie10 .ch-datagrid-controls th:active,
+.lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E5E5E5', endColorstr='#D8D8D8');
+}
+
+.ch-datagrid-controls th.ch-datagrid-selected {
 	position: relative;
-	text-shadow: none;
 }
 
-
-.ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc,
-.ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
-	display: block;
-	position: absolute;
-	right: 10px;
-	top: 0px;
-	text-indent: -9999px;
+.ch-datagrid-selected .ch-datagrid-asc,
+.ch-datagrid-selected .ch-datagrid-desc {
+	float: right;
 }
 
-.ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc:after,
-.ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc:after {
-	content: " ";
-	position: absolute;
-	right: 8px;
-	top: 1em;
-	width: 0;
-	height: 0;
-	border: solid transparent;
-	border-width: 4px;
-	margin-left: -4px;
+.ch-datagrid-selected .ch-datagrid-asc:after,
+.ch-datagrid-selected .ch-datagrid-desc:after {
+	font-family: icons;
+	font-style: normal;
+	content: "\f0dc";
 }
 
-.ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc:after {
-	border-top-color: #333;
-}
-
-.ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc:after {
-	border-bottom-color: #333;
-	top: 7px;
-}
-
+.ch-datagrid-controls th:first-child,
 .ch-datagrid th:first-child {
 	border-left: none;
 }
 
+.ch-datagrid-controls tr,
 .ch-datagrid tr {
-	border-top: 1px solid #EEE;
+	border-top: 1px solid #EDEDED;
 }
 
-.ch-datagrid tr.ch-datagrid-selected {
-	background-color: #FFC;
+
+.ch-datagrid-selected {
+	background-color: #FDF9D5;
 }
 
+.ch-datagrid-controls td,
 .ch-datagrid td {
 	height: 40px;
 	padding: 0 10px;
 	vertical-align: middle;
 }
 
-.lt-ie10 .ch-datagrid thead tr {
-	border: 1px solid #CECECE;
+.lt-ie9 .ch-datagrid-controls thead tr,
+.lt-ie9 .ch-datagrid thead tr {
+	border: 1px solid #EDEDED;
 }
 
-.lt-ie10 .ch-datagrid th.ch-datagrid-selected {
-	filter: none;
-	border: 1px solid #CECECE;
+.lt-ie10 .ch-datagrid-selected {
+	border: 1px solid #EDEDED;
 }
 
-
-.lt-ie10 .ch-datagrid thead tr {
-	border: 1px solid #CECECE;
-}
-
+.lt-ie10 .ch-datagrid-controls td,
 .lt-ie10 .ch-datagrid td {
-	border-top: 1px solid #EEE;
+	border-top: 1px solid #EDEDED;
 }
 
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc,

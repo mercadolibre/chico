@@ -1,291 +1,227 @@
 /**
-* Modal is a centered floated window with a dark gray dimmer background. Modal lets you handle its size, positioning and content.
-* @name Modal
-* @class Modal
-* @augments ch.Floats
-* @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is the href attribute value  or form's action attribute.
-* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
-* @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
-* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
-* @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
-* @param {String} [conf.closable] Sets the way (true, "button" or false) the Modal close. By default, the modal close true.
-* @returns itself
-* @factorized
-* @see ch.Floats
-* @see ch.Tooltip
-* @see ch.Layer
-* @see ch.Zoom
-* @exampleDescription Create a new modal window triggered by an anchor with a class name 'example'.
-* @example
-* var widget = $("a.example").modal();
-* @exampleDescription Create a new modal window triggered by form.
-* @example
-* var widget = $("form").modal();
-* @exampleDescription Create a new modal window with configuration.
-* @example
-* var widget = $("a.example").modal({
-*     "content": "Some content here!",
-*     "width": "500px",
-*     "height": 350,
-*     "cache": false,
-*     "fx": false
-* });
-* @exampleDescription Now <code>widget</code> is a reference to the modal instance controller. You can set a new content by using <code>widget</code> like this:
-* @example
-* widget.content("http://content.com/new/content");
-*/
+ * Modal is a centered floated window with a dark gray dimmer background. Modal lets you handle its size, positioning and content.
+ * @name Modal
+ * @class Modal
+ * @augments ch.Floats
+ * @memberOf ch
+ * @param {Object} [conf] Object with configuration properties.
+ * @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is the href attribute value  or form's action attribute.
+ * @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
+ * @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
+ * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+ * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
+ * @param {String} [conf.closable] Sets the way (true, "button" or false) the Modal close. By default, the modal close true.
+ * @returns itself
+ * @factorized
+ * @see ch.Floats
+ * @see ch.Tooltip
+ * @see ch.Layer
+ * @see ch.Zoom
+ * @exampleDescription Create a new modal window triggered by an anchor with a class name 'example'.
+ * @example
+ * var widget = $("a.example").modal();
+ * @exampleDescription Create a new modal window triggered by form.
+ * @example
+ * var widget = $("form").modal();
+ * @exampleDescription Create a new modal window with configuration.
+ * @example
+ * var widget = $("a.example").modal({
+ *     "content": "Some content here!",
+ *     "width": "500px",
+ *     "height": 350,
+ *     "cache": false,
+ *     "fx": false
+ * });
+ * @exampleDescription Now <code>widget</code> is a reference to the modal instance controller. You can set a new content by using <code>widget</code> like this:
+ * @example
+ * widget.content("http://content.com/new/content");
+ */
+(function (window, $, ch) {
+	'use strict';
 
-ch.modal = function (conf) {
-
-	/**
-	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @private
-	* @name ch.Modal#that
-	* @type object
-	*/
-	var that = this;
-	conf = ch.clon(conf);
-
-	conf.classes = conf.classes || "ch-box";
-	conf.reposition = false;
-
-	// Closable configuration
-	conf.closeButton = ch.utils.hasOwn(conf, "closeButton") ? conf.closeButton : true;
-	conf.closable = ch.utils.hasOwn(conf, "closable") ? conf.closable : true;
-	
-	conf.aria = {};
-	
-	if (conf.closeButton) {
-		conf.aria.role = "dialog";
-		conf.aria.identifier = "aria-label";
-	} else {
-		conf.aria.role = "alert";
+	if (ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
 	}
-	
-	that.conf = conf;
 
-/**
-*	Inheritance
-*/
+	var $html = $('html');
 
-	that = ch.floats.call(that);
-	that.parent = ch.clon(that);
+	function Modal($el, conf) {
 
-/**
-*	Private Members
-*/
+		/**
+		 * Reference to a internal component instance, saves all the information and configuration properties.
+		 * @private
+		 * @name ch.Modal#that
+		 * @type object
+		 */
+		var that = this;
+		that.$element = $el;
+		that.element = $el[0];
+		that.type = 'modal';
+		conf = conf || {};
 
-	/**
-	* Reference to the dimmer object, the gray background element.
-	* @private
-	* @name ch.Modal#$dimmer
-	* @type jQuery
-	*/
-	var $dimmer = $("<div class=\"ch-dimmer\">");
+		conf = ch.util.clone(conf);
 
-	// Set dimmer height for IE6
-	if (ch.utils.html.hasClass("ie6")) { $dimmer.height(parseInt(document.documentElement.clientHeight, 10) * 3); }
+		conf.classes = conf.classes || "ch-box";
+		conf.reposition = false;
 
-	/**
-	* Reference to dimmer control, turn on/off the dimmer object.
-	* @private
-	* @name ch.Modal#dimmer
-	* @type object
-	*/
-	var dimmer = {
-		on: function () {
+		// Closable configuration
+		conf.closeButton = ch.util.hasOwn(conf, "closeButton") ? conf.closeButton : true;
+		conf.closable = ch.util.hasOwn(conf, "closable") ? conf.closable : true;
 
-			if (that.active) { return; }
+		conf.aria = {};
 
-			$dimmer
-				.css("z-index", ch.utils.zIndex += 1)
-				.appendTo(ch.utils.body)
-				.fadeIn();
-
-			/*if (that.type === "modal") {
-				$dimmer.one("click", function (event) { that.innerHide(event) });
-			}*/
-			
-			// TODO: position dimmer with Positioner
-			if (!ch.features.fixed) {
-			 	ch.positioner({ element: $dimmer });
-			}
-
-			if (ch.utils.html.hasClass("ie6")) {
-				$("select, object").css("visibility", "hidden");
-			}
-		},
-		off: function () {
-			$dimmer.fadeOut("normal", function () {
-				$dimmer.detach();
-				if (ch.utils.html.hasClass("ie6")) {
-					$("select, object").css("visibility", "visible");
-				}
-			});
+		if (conf.closeButton) {
+			conf.aria.role = "dialog";
+			conf.aria.identifier = "aria-label";
+		} else {
+			conf.aria.role = "alert";
 		}
-	};
 
-/**
-*	Protected Members
-*/
+		that.conf = conf;
 
-	/**
-	* Inner show method. Attach the component's layout to the DOM tree and load defined content.
-	* @protected
-	* @name ch.Modal#innerShow
-	* @function
-	* @returns itself
-	*/
-	that.innerShow = function (event) {
-		dimmer.on();
-		that.parent.innerShow(event);
-		that.$element.blur();
-		return that;
-	};
+		/**
+		 * Content configuration property.
+		 * @protected
+		 * @name ch.Modal#source
+		 */
+		that.source = conf.content || that.element.href || that.$element.parents("form").attr("action");
 
 	/**
-	* Inner hide method. Hides the component's layout and detach it from DOM tree.
-	* @protected
-	* @name ch.Modal#innerHide
-	* @function
-	* @returns itself
-	*/
-	that.innerHide = function (event) {
-		dimmer.off();
-		that.parent.innerHide(event);
-		return that;
-	};
+	 * Inheritance
+	 */
+
+		that = ch.Floats.call(that);
+		that.parent = ch.util.clone(that);
 
 	/**
-	* Returns any if the component closes automatic. 
-	* @protected
-	* @name ch.Modal#closable
-	* @function
-	* @returns boolean
-	*/
+	 * Private Members
+	 */
 
-/**
-*	Public Members
-*/
+		/**
+		 * Reference to the dimmer object, the gray background element.
+		 * @private
+		 * @name ch.Modal#$dimmer
+		 * @type jQuery
+		 */
+		var $dimmer = $("<div class=\"ch-dimmer\">"),
 
-	/**
-	* @borrows ch.Object#uid as ch.Modal#uid
-	*/	
-	
-	/**
-	* @borrows ch.Object#element as ch.Modal#element
-	*/
+			/**
+			 * Reference to dimmer control, turn on/off the dimmer object.
+			 * @private
+			 * @name ch.Modal#dimmer
+			 * @type object
+			 */
+			dimmer = {
+				on: function () {
 
-	/**
-	* @borrows ch.Object#type as ch.Modal#type
-	*/
+					if (that.active) { return; }
 
-	/**
-	* @borrows ch.Uiobject#content as ch.Modal#content
-	*/
+					$dimmer
+						.css("z-index", ch.util.zIndex += 1)
+						.appendTo($('body'))
+						.fadeIn();
 
-	/**
-	* @borrows ch.Floats#isActive as ch.Modal#isActive
-	*/
+					if (conf.closable && conf.closable !== 'button') {
+						$dimmer.one("click", function (event) { that.innerHide(event) });
+					}
 
-	/**
-	* @borrows ch.Floats#show as ch.Modal#show
-	*/
-
-	/**
-	* @borrows ch.Floats#hide as ch.Modal#hide
-	*/
-
-	/**
-	* @borrows ch.Floats#width as ch.Modal#width
-	*/
-
-	/**
-	* @borrows ch.Floats#height as ch.Modal#height
-	*/
+					// TODO: position dimmer with Positioner
+					if (!ch.support.fixed) {
+					 	ch.positioner({ element: $dimmer });
+					}
+				},
+				off: function () {
+					$dimmer.fadeOut("normal", function () {
+						$dimmer.detach();
+					});
+				}
+			};
 
 	/**
-	* @borrows ch.Floats#position as ch.Modal#position
-	*/
+	 * Protected Members
+	 */
+
+		/**
+		 * Inner show method. Attach the component's layout to the DOM tree and load defined content.
+		 * @protected
+		 * @name ch.Modal#innerShow
+		 * @function
+		 * @returns itself
+		 */
+		that.innerShow = function (event) {
+			dimmer.on();
+			that.parent.innerShow(event);
+			that.$element.blur();
+			return that;
+		};
+
+		/**
+		 * Inner hide method. Hides the component's layout and detach it from DOM tree.
+		 * @protected
+		 * @name ch.Modal#innerHide
+		 * @function
+		 * @returns itself
+		 */
+		that.innerHide = function (event) {
+			dimmer.off();
+			that.parent.innerHide(event);
+			return that;
+		};
+
+		/**
+		 * Returns any if the component closes automatic.
+		 * @protected
+		 * @name ch.Modal#closable
+		 * @function
+		 * @returns boolean
+		 */
 
 	/**
-	* @borrows ch.Floats#closable as ch.Modal#closable
-	*/
+	 * Public Members
+	 */
 
-/**
-*	Default event delegation
-*/
+		/**
+		 * @borrows ch.Widget#uid as ch.Modal#uid
+		 * @borrows ch.Widget#element as ch.Modal#element
+		 * @borrows ch.Widget#type as ch.Modal#type
+		 * @borrows ch.Floats#isActive as ch.Modal#isActive
+		 * @borrows ch.Floats#show as ch.Modal#show
+		 * @borrows ch.Floats#hide as ch.Modal#hide
+		 * @borrows ch.Floats#width as ch.Modal#width
+		 * @borrows ch.Floats#height as ch.Modal#height
+		 * @borrows ch.Floats#position as ch.Modal#position
+		 * @borrows ch.Floats#closable as ch.Modal#closable
+		 */
 
-	if (that.element.tagName === "INPUT" && that.element.type === "submit") {
-		that.$element.parents("form").bind("submit", function (event) { that.innerShow(event); });
-	} else {
-		that.$element.bind("click", function (event) { that.innerShow(event); });
+	/**
+	 * Default event delegation
+	 */
+
+		if (that.element.tagName === "INPUT" && that.element.type === "submit") {
+			that.$element.parents("form").on("submit", function (event) { that.innerShow(event); });
+		} else {
+			that.$element.on("click", function (event) { that.innerShow(event); });
+		}
+
+		/**
+		 * Triggers when the component is ready to use.
+		 * @name ch.Modal#ready
+		 * @event
+		 * @public
+		 * @example
+		 * // Following the first example, using <code>widget</code> as modal's instance controller:
+		 * widget.on("ready",function () {
+		 *	this.show();
+		 * });
+		 */
+		window.setTimeout(function(){ that.trigger("ready")}, 50);
+
+		return that['public'];
 	}
 
-	/**
-	* Triggers when the component is ready to use.
-	* @name ch.Modal#ready
-	* @event
-	* @public
-	* @example
-	* // Following the first example, using <code>widget</code> as modal's instance controller:
-	* widget.on("ready",function () {
-	*	this.show();
-	* });
-	*/
-	setTimeout(function(){ that.trigger("ready")}, 50);
+	Modal.prototype.name = 'modal';
+	Modal.prototype.constructor = Modal;
 
-	return that;
-};
+	ch.factory(Modal);
 
-ch.factory("modal");
-
-
-/**
-* Transition lets you give feedback to the users when their have to wait for an action. 
-* @name Transition
-* @class Transition
-* @interface
-* @augments ch.Floats
-* @requires ch.Modal
-* @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is the href attribute value  or form's action attribute.
-* @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
-* @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
-* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
-* @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
-* @param {String} [conf.closable] Sets the way (true, "button" or false) the Transition close. By default, the transition close true.
-* @returns itself
-* @factorized
-* @see ch.Tooltip
-* @see ch.Layer
-* @see ch.Zoom
-* @see ch.Modal
-* @see ch.Floats
-* @exampleDescription Create a transition.
-* @example
-* var widget = $("a.example").transition();
-* @exampleDescription Create a transition with configuration.
-* @example
-* var widget = $("a.example").transition({
-*     "content": "Some content here!",
-*     "width": "500px",
-*     "height": 350,
-*     "cache": false,
-*     "fx": false
-* });
-*/
-
-ch.extend("modal").as("transition", function (conf) {
-
-	conf.closable = false;
-	
-	conf.msg = conf.msg || conf.content || "Please wait...";
-	
-	conf.content = $("<div class=\"ch-loading\"></div><p>" + conf.msg + "</p>");
-	
-	return conf;
-});
+}(this, this.jQuery, this.ch));

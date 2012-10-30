@@ -16,7 +16,7 @@
 
 .ch-box,
 .ch-box-lite {
-	border: 1px solid #EEE;
+	border: 1px solid #EDEDED;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
@@ -48,8 +48,6 @@
 .ch-box-ok {
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
-	border-style: solid;
-	border-width: 1px;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 	position: relative;
 	padding-left: 35px;
@@ -66,55 +64,55 @@
 }
 
 .ch-box-attention,
-.ch-box-attention:before {	
-	background-color: #FCF8CB;
-	border-color: #E4E2B8;
-	color: #9D7D00;
+.ch-box-attention:before {
+	background-color: #FDF9D5;
+	color: #996600;
 }
 
-.ch-box-attention:before {	
+.ch-box-attention:before {
 	content: "\f071";
-}
-	
-.ch-box-error {
-	background-color:#fbd9db;
-	border-color: #f7a9ae;
-	color:#600;
+	color: #F5CC00;
 }
 
-.ch-box-error:before {	
+.ch-box-error {
+	background-color:#FDECED;
+	color:#990000;
+}
+
+.ch-box-error:before {
 	content: "\f057";
+	color: #DA1A20;
 }
 
 .ch-box-help,
-.ch-box-help:before {	
-	background-color: #F6F9F3;
-	border-color: #cccccc;
-	color: #999;
+.ch-box-help:before {
+	background-color: #F7F7F7;
+	color: #666666;
 }
 
 .ch-box-help:before {
 	content: "\f059";
+	color: #999999;
 }
-	
+
 .ch-box-information,
 .ch-box-information:before {
-	background-color: #E5EBFD;
-	border-color: #A0B1DE;
-	color: #2E48BC;
+	background-color: #EAEFFD;
+	color: #003366;
 }
 
 .ch-box-information:before {
 	content: "\f05a";
+	color: #2F419E;
 }
-	
+
 .ch-box-ok,
 .ch-box-ok:before {
-	background-color: #E8FFD7;
-	border-color: #C7DDBC;
-	color: #487210;
+	background-color: #F0FFE5;
+	color: #006633;
 }
 
 .ch-box-ok:before {
 	content: "\f058";
+	color: #31792D;
 }

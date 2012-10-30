@@ -7,7 +7,7 @@
 * @augments ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -23,18 +23,34 @@
 * @example
 * $("input").number("This field must be a number.");
 */
-ch.extend("validation").as("number", function(conf) {
-	
-	// Define the conditions of this interface
-	conf.condition = {
-		name: "number",
-		patt: /^(-?[0-9\s]+)$/,
-		message: conf.msg || conf.message
-	};
+(function (window, $, ch) {
+	'use strict';
 
-	return conf;
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-});
+	function Number($el, conf){
+
+		var conf = conf || {};
+
+		// Define the conditions of this interface
+		conf.condition = {
+			name: "number",
+			message: conf.content
+		};
+
+		return $el.validation(conf);
+	}
+
+	Number.prototype.name = 'number';
+	Number.prototype.constructor = Number;
+	Number.prototype.interface = 'validation';
+
+	ch.factory(Number);
+
+}(this, this.jQuery, this.ch));
+
 
 /**
 * Min validates a number with a minimun value.
@@ -46,7 +62,7 @@ ch.extend("validation").as("number", function(conf) {
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -63,19 +79,33 @@ ch.extend("validation").as("number", function(conf) {
 * @example
 * $("input").min(10, "Write a number bigger than 10");
 */
-ch.extend("validation").as("min", function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "min",
-		expr: function(a,b) { return a >= b },
-		message: conf.msg || conf.message,
-		value: conf.value
-	};
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	return conf;
+	function Min($el, conf) {
 
-});
+		var conf = conf || {};
 
+		conf.condition = {
+			name: "min",
+			message: conf.content,
+			num: conf.num
+		};
+
+		return $el.validation(conf);
+	}
+
+	Min.prototype.name = 'min';
+	Min.prototype.constructor = Min;
+	Min.prototype.interface = 'validation';
+
+	ch.factory(Min);
+
+}(this, this.jQuery, this.ch));
 
 /**
 * Max validates a number with a maximun value.
@@ -87,7 +117,7 @@ ch.extend("validation").as("min", function (conf) {
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -104,18 +134,34 @@ ch.extend("validation").as("min", function (conf) {
 * @example
 * $("input").max(10, "Write a number smaller than 10");
 */
-ch.extend("validation").as("max", function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "max",
-		expr: function(a,b) { return a <= b },
-		message: conf.msg || conf.message,
-		value: conf.value
-	};
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	return conf;
+	function Max($el, conf) {
 
-});
+		var conf = conf || {};
+
+		conf.condition = {
+			name: "max",
+			message: conf.content,
+			num: conf.num
+		};
+
+		return $el.validation(conf);
+
+	}
+
+	Max.prototype.name = 'max';
+	Max.prototype.constructor = Max;
+	Max.prototype.interface = 'validation';
+
+	ch.factory(Max);
+
+}(this, this.jQuery, this.ch));
 
 /**
 * Price validates a number like the price format.
@@ -127,7 +173,7 @@ ch.extend("validation").as("max", function (conf) {
 * @requires ch.Validation
 * @memberOf ch
 * @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.message] Validation message.
+* @param {String} [conf.content] Validation message.
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -143,14 +189,30 @@ ch.extend("validation").as("max", function (conf) {
 * @example
 * $("input").price("Write valid price.");
 */
-ch.extend("validation").as("price", function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	conf.condition = {
-		name: "price",
-		patt: /^(\d+)[.,]?(\d?\d?)$/,
-		message: conf.msg || conf.message
-	};
+	if (window.ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
-	return conf;
+	function Price($el, conf) {
 
-});
+		var conf = conf || {};
+
+		conf.condition = {
+			name: "price",
+			message: conf.content
+		};
+
+		return $el.validation(conf);
+
+	}
+
+	Price.prototype.name = 'price';
+	Price.prototype.constructor = Price;
+	Price.prototype.interface = 'validation';
+
+	ch.factory(Price);
+
+}(this, this.jQuery, this.ch));

@@ -14,103 +14,107 @@
 * @example
 * var widget = $(".some-element").layer();
 */
-ch.Layer = function (conf) {
+(function (window, $, ch) {
+	'use strict';
 
-	/**
-	* Reference to a internal component instance, saves all the information and configuration properties.
-	* @private
-	* @name ch.Layer-that
-	* @type object
-	*/
-	var that = this,
+	if (ch === undefined) {
+		throw new window.Error('Expected ch namespace defined.');
+	}
 
+	function Layer($el, conf) {
 		/**
-		* Reference to Parent Class.
+		* Reference to a internal component instance, saves all the information and configuration properties.
 		* @private
-		* @name ch.Layer-parent
+		* @name ch.Layer-that
 		* @type object
 		*/
-		parent,
+		var that = this,
+
+			/**
+			* Reference to Parent Class.
+			* @private
+			* @name ch.Layer-parent
+			* @type object
+			*/
+			parent;
+
+		conf = conf || {};
+
+		conf.icon = false;
+		conf.aria = {};
+		conf.aria.role = "tooltip";
+		conf.aria.identifier = "aria-describedby";
+		conf.classes = conf.classes || "ch-box ch-cone ch-points-ltlb";
+
+		that.type = "layer";
+
+	/**
+	*	Inheritance
+	*/
+		// Borrow a constructor and return a parent
+		parent = ch.Expandable.call(that, $el, conf);
+
 
 		/**
-		* Reference to configuration object.
-		* @private
-		* @name ch.Layer-conf
-		* @type object
+		* @borrows ch.Widget#uid as ch.Layer#uid
 		*/
-		conf = clone(conf) || {};
 
-	conf.icon = false;
+		/**
+		* @borrows ch.Widget#el as ch.Layer#el
+		*/
 
-	conf.aria = {};
-	conf.aria.role = "tooltip";
-	conf.aria.identifier = "aria-describedby";
-	conf.classes = conf.classes || "ch-box ch-cone ch-points-ltlb";
+		/**
+		* @borrows ch.Widget#type as ch.Layer#type
+		*/
 
-	that.conf = conf;
-	that.type = "layer"
+		/**
+		* @borrows ch.Widget#emit as ch.Layer#emit
+		*/
 
-/**
-*	Inheritance
-*/
-	// Borrow a constructor and return a parent
-	parent = ch.inherit(ch.Expando, that);
+		/**
+		* @borrows ch.Widget#on as ch.Layer#on
+		*/
 
+		/**
+		* @borrows ch.Widget#once as ch.Layer#once
+		*/
 
-	/**
-	* @borrows ch.Widget#uid as ch.Layer#uid
-	*/	
-	
-	/**
-	* @borrows ch.Widget#el as ch.Layer#el
-	*/
+		/**
+		* @borrows ch.Widget#off as ch.Layer#off
+		*/
 
-	/**
-	* @borrows ch.Widget#type as ch.Layer#type
-	*/
+		/**
+		* @borrows ch.Widget#offAll as ch.Layer#offAll
+		*/
 
-	/**
-	* @borrows ch.Widget#emit as ch.Layer#emit
-	*/
+		/**
+		* @borrows ch.Expando#show as ch.Layer#show
+		*/
 
-	/**
-	* @borrows ch.Widget#on as ch.Layer#on
-	*/
-
-	/**
-	* @borrows ch.Widget#once as ch.Layer#once
-	*/
-
-	/**
-	* @borrows ch.Widget#off as ch.Layer#off
-	*/
-
-	/**
-	* @borrows ch.Widget#offAll as ch.Layer#offAll
-	*/
-
-	/**
-	* @borrows ch.Expando#show as ch.Layer#show
-	*/
-
-	/**
-	* @borrows ch.Expando#hide as ch.Layer#hide
-	*/
+		/**
+		* @borrows ch.Expando#hide as ch.Layer#hide
+		*/
 
 
-	/**
-	* Emits an event when the component is ready to use.
-	* @name ch.Layer#ready
-	* @event
-	* @public
-	* @example
-	* // Following the first example, using 'me' as layer's instance controller:
-	* widget.on("ready",function () {
-	*	this.show();
-	* });
-	*/
-	setTimeout(function(){ that.emit("ready")}, 50);
+		/**
+		* Emits an event when the component is ready to use.
+		* @name ch.Layer#ready
+		* @event
+		* @public
+		* @example
+		* // Following the first example, using 'me' as layer's instance controller:
+		* widget.on("ready",function () {
+		*	this.show();
+		* });
+		*/
+		setTimeout(function(){ that.emit("ready")}, 50);
 
-	return that;
-};
-ch.factory("Layer");
+		return that['public'];
+	}
+
+	Layer.prototype.name = 'layer';
+	Layer.prototype.constructor = Layer;
+
+	ch.factory(Layer);
+
+}(this, this.Zepto, this.ch));

@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  2</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>  3</span> 	 * Map with references to key codes.
+<span class='line'>  4</span> 	 * @private
+<span class='line'>  5</span> 	 * @name ch.Keyboard#codeMap
+<span class='line'>  6</span> 	 * @type object
+<span class='line'>  7</span> 	 */</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">codeMap</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  9</span> </span><span class="WHIT">		</span><span class="STRN">"13"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"ENTER"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 10</span> </span><span class="WHIT">		</span><span class="STRN">"27"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"ESC"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="WHIT">		</span><span class="STRN">"37"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"LEFT_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="WHIT">		</span><span class="STRN">"38"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"UP_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="WHIT">		</span><span class="STRN">"39"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"RIGHT_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">		</span><span class="STRN">"40"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"DOWN_ARROW"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">		 </span><span class="STRN">"8"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"BACKSPACE"</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> 
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'> 19</span> 	 * Keyboard event controller utility to know wich keys are begin.
+<span class='line'> 20</span> 	 * @name Keyboard
+<span class='line'> 21</span> 	 * @class Keyboard
+<span class='line'> 22</span> 	 * @memberOf ch
+<span class='line'> 23</span> 	 * @param event
+<span class='line'> 24</span> 	 */</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">keyboard</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">		</span><span class="COMM">// Check for event existency on the map</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">hasOwn</span><span class="PUNC">(</span><span class="NAME">codeMap</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event.keyCode</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="KEYW">return</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="WHIT">		</span><span class="COMM">// Trigger custom event with original event as second parameter</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">		</span><span class="NAME">$document.trigger</span><span class="PUNC">(</span><span class="NAME">EVENT.KEY</span><span class="PUNC">[</span><span class="NAME">codeMap</span><span class="PUNC">[</span><span class="NAME">event.keyCode</span><span class="PUNC">]</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">event</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 32</span> 
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">exports.keyboard</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">keyboard</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="PUNC">}</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span></pre></body></html>
