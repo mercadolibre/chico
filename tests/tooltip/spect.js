@@ -1,3 +1,7 @@
+/**
+ * @todo "width" and "height" as parameter
+ * @todo delete closable=button tests?
+ */
 describe('Tooltip', function () {
 	var tooltip1 = $('#tooltip1').tooltip(),
 		tooltip2 = $('#tooltip2').tooltip({
@@ -110,15 +114,8 @@ describe('Tooltip', function () {
 		});
 	});
 
-	describe('Should have the following ID and Classnames:', function () {
-
-		it('#ch-tooltip-1', function () {
-			expect(tooltip1.element.id).toEqual('tooltip1');
-		});
-
-		it('.ch-points-ltlb', function () {
-			expect($(tooltip1.element).hasClass('ch-points-ltlb')).toBeTruthy();
-		});
+	it('Should have the "ch-points-ltlb" classname:', function () {
+		expect($(tooltip1.element).hasClass('ch-points-ltlb')).toBeTruthy();
 	});
 
 	describe('Show method', function () {
@@ -144,7 +141,7 @@ describe('Tooltip', function () {
 				expect($content.attr('role')).toEqual('tooltip');
 			});
 
-			describe('Should have the following class names:', function () {
+			describe('Should have the following classnames:', function () {
 
 				it('.ch-tooltip', function () {
 					expect($content.hasClass('ch-tooltip')).toBeTruthy();
