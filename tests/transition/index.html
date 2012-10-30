@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Transition Test</title>
+		<link rel="shortcut icon" type="image/png" href="../../libs/jasmine-1.2.0/jasmine_favicon.png">
+		<link rel="stylesheet" type="text/css" href="../../libs/jasmine-1.2.0/jasmine.css">
+		<link rel="stylesheet" type="text/css" href="http://localhost:3040/ui/css">
+	</head>
+	<body>
+
+		<p id="transition1">Transition 1</p>
+		<p id="transition2">Transition 2</p>
+
+	<script type="text/javascript" src="../../libs/jasmine-1.2.0/jasmine.js"></script>
+	<script type="text/javascript" src="../../libs/jasmine-1.2.0/jasmine-html.js"></script>
+	<script type="text/javascript" src="../../vendor/jquery-debug.js"></script>
+	<script type="text/javascript" src="http://localhost:3040/ui/js"></script>
+
+	<script type="text/javascript" src="spect.js"></script>
+	<script type="text/javascript">
+	(function() {
+		var jasmineEnv = jasmine.getEnv();
+		jasmineEnv.updateInterval = 1000;
+
+		var htmlReporter = new jasmine.HtmlReporter();
+
+		jasmineEnv.addReporter(htmlReporter);
+
+		jasmineEnv.specFilter = function(spec) {
+			return htmlReporter.specFilter(spec);
+		};
+
+		var currentWindowOnload = window.onload;
+
+		window.onload = function() {
+			if (currentWindowOnload) {
+				currentWindowOnload();
+			}
+			execJasmine();
+		};
+
+		function execJasmine() {
+			jasmineEnv.execute();
+		}
+	})();
+	</script>
+	</body>
+</html>

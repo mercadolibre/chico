@@ -46,11 +46,9 @@
 
 		conf.closable = false;
 
-		conf.content = conf.content || "Please wait...";
-
 		conf.classes = 'ch-box-lite ch-transition';
 
-		conf.content = $("<div class=\"ch-loading-big\"></div><p>" + conf.content + "</p>");
+		conf.content = $('<div class="ch-loading-big"></div><p>' + (conf.content || 'Please wait...') + '</p>');
 
 		return new ch.Modal($el, conf);
 	}
