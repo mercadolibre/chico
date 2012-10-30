@@ -2,11 +2,24 @@ describe('Accordion', function () {
 	var accordion1 = $("#accordion-1").accordion(),
 		accordion2 = $("#accordion-2").accordion({'icon': false}),
 		accordion3 = $("#accordion-3").accordion({'selected': '1#1'}),
+
 		$el = $(accordion1.element),
 		$children = $el.children(),
 		$bellows = $el.children(':last-child'),
 		$trigger = $el.children().children(':first-child').eq(0),
-		$content = $el.children().children(':last-child').eq(0);
+		$content = $el.children().children(':last-child').eq(0),
+
+		selectCallback = jasmine.createSpy('selectCallback'),
+		selectEvent = jasmine.createSpy('selectEvent'),
+		readyEvent = jasmine.createSpy('readyEvent'),
+
+		accordion4 = $("#accordion-4").accordion({
+			'onSelect': function () { selectCallback(); }
+		});
+
+	accordion4
+		.on('ready', function () { readyEvent(); })
+		.on('select', function () { selectEvent(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Accordion')).toBeTruthy();
@@ -128,6 +141,46 @@ describe('Accordion', function () {
 		it('Should have the open classname', function () {
 			expect($(accordion3.element).children(':first-child').children(':first-child').hasClass('ch-expandable-trigger-on')).toBeTruthy();
 			expect($(accordion3.element).children(':first-child').children(':last-child').hasClass('ch-hide')).toBeFalsy();
+		});
+	});
+
+	describe('Should execute the following callbacks:', function () {
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('select', function () {
+			accordion4.select(1);
+			waits(500)
+			runs(function () {
+				expect(selectCallback).toHaveBeenCalled();
+				accordion4.select(1);
+			});
+
+		});
+
+	});
+
+	describe('Should execute the following events:', function () {
+
+		beforeEach(function () {
+			listener = jasmine.createSpy('listener');
+		});
+
+		it('ready', function () {
+			waits(50);
+			runs(function () {
+				expect(readyEvent).toHaveBeenCalled();
+			});
+
+		});
+
+		it('select', function () {
+			accordion4.select(1);
+			waits(500)
+			runs(function () {
+				expect(selectEvent).toHaveBeenCalled();
+			});
 		});
 	});
 });

@@ -1,11 +1,32 @@
 describe('Tabs', function () {
-	var tabs1 = $("#tabs-1").tabs(),
-		tabs2 = $("#tabs-2").tabs({'selected': 2}),
+	var tabs1 = $('#tabs-1').tabs(),
+		tabs2 = $('#tabs-2').tabs({'selected': 2}),
+
 		$el = $(tabs1.element),
 		$tabList = $el.children(':first-child'),
 		$triggers = $tabList.children().children(),
 		$tabsContent = $el.children(':last-child'),
-		$contents = $tabsContent.children();
+		$contents = $tabsContent.children(),
+
+		selectCallback = jasmine.createSpy('selectCallback'),
+		selectEvent = jasmine.createSpy('selectEvent'),
+		contentLoadCallback = jasmine.createSpy('contentLoadCallback'),
+		contentLoadEvent = jasmine.createSpy('contentLoadEvent'),
+		contentErrorCallback = jasmine.createSpy('contentErrorCallback'),
+		contentErrorEvent = jasmine.createSpy('contentErrorEvent'),
+		readyEvent = jasmine.createSpy('readyEvent'),
+
+		tabs4 = $('#tabs-4').tabs({
+			'onSelect': function () { selectCallback(); },
+			'onContentError': function () { contentErrorCallback(); },
+			'onContentLoad': function () { contentLoadCallback(); }
+		});
+
+	tabs4
+		.on('ready', function () { readyEvent(); })
+		.on('select', function () { selectEvent(); })
+		.on('contentError', function () { contentErrorEvent(); })
+		.on('contentLoad', function () { contentLoadEvent(); });
 
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Tabs')).toBeTruthy();
@@ -188,6 +209,68 @@ describe('Tabs', function () {
 			tabs3.select(2);
 			waitsFor(function() {
 				return done.callCount > 0;
+			});
+		});
+	});
+
+	describe('Should execute the following callbacks:', function () {
+
+		it('select', function () {
+			tabs4.select(2);
+			expect(selectCallback).toHaveBeenCalled();
+			tabs4.select(1);
+		});
+
+		it('contentLoad', function () {
+			tabs4.select(3);
+			waits(500);
+			runs(function () {
+				expect(contentLoadCallback).toHaveBeenCalled();
+				tabs4.select(1);
+			});
+		});
+
+		it('contentError', function () {
+			tabs4.select(4);
+			waits(500);
+			runs(function () {
+				expect(contentErrorCallback).toHaveBeenCalled();
+				tabs4.select(1);
+			});
+		});
+
+	});
+
+	describe('Should execute the following events:', function () {
+
+		it('ready', function () {
+			waits(50);
+			runs(function () {
+				expect(readyEvent).toHaveBeenCalled();
+			});
+		});
+
+		it('select', function () {
+			tabs4.select(2);
+			expect(selectEvent).toHaveBeenCalled();
+			tabs4.select(1);
+		});
+
+		it('contentLoad', function () {
+			tabs4.select(3);
+			waits(500);
+			runs(function () {
+				expect(contentLoadEvent).toHaveBeenCalled();
+				tabs4.select(1);
+			});
+		});
+
+		it('contentError', function () {
+			tabs4.select(4);
+			waits(500);
+			runs(function () {
+				expect(contentErrorEvent).toHaveBeenCalled();
+				tabs4.select(1);
 			});
 		});
 	});
