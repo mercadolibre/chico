@@ -42,7 +42,11 @@
 				"../../src/ui/js/ch.init.js"
 			],
 			"abilities": [
-				"../../src/shared/js/ch.Content.js"
+				"../../src/ui/js/ch.EventEmitter.js",
+				"../../src/shared/js/ch.Content.js",
+				"../../src/shared/js/ch.Collapsible.js",
+				"../../src/shared/js/ch.Closable.js"
+
 			],
 			"widgets": [
 				"../../src/ui/js/ch.cache.js",
@@ -51,7 +55,7 @@
 				"../../src/ui/js/ch.OnImagesLoads.js",
 				"../../src/ui/js/ch.Positioner.js",
 				"../../src/ui/js/ch.Blink.js",
-				"../../src/ui/js/ch.Widget.js",
+				"../../src/shared/js/ch.Widget.js",
 				"../../src/ui/js/ch.Navs.js",
 				"../../src/ui/js/ch.Expandable.js",
 				"../../src/ui/js/ch.Dropdown.js",

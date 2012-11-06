@@ -43,37 +43,7 @@
 	 * @example
 	 * widget.on('show', fn);
 	 */
-	Navs.prototype.show = function () {
 
-		var that = this;
-
-		if (this.active) {
-			return this.hide();
-		}
-
-		this.active = true;
-
-		this.$trigger.addClass('ch-' + this.name + '-trigger-on');
-
-		// Animation
-		if (this.options.fx) {
-			this.$content.slideDown('fast', function () {
-				// new callbacks
-				that.trigger('show');
-				// old callback system
-				that.callbacks('onShow');
-			});
-		} else {
-			// new callbacks
-			this.trigger('show');
-			// old callback system
-			this.callbacks('onShow');
-		}
-
-		this.$content.removeClass('ch-hide');
-
-		return this;
-	};
 
 	/**
 	 * Hides component's content.
@@ -88,34 +58,6 @@
 	 * @example
 	 * widget.on('hide', fn);
 	 */
-	Navs.prototype.hide = function () {
-
-		var that = this;
-
-		if (!this.active) { return; }
-
-		this.active = false;
-
-		this.$trigger.removeClass('ch-' + this.name + '-trigger-on');
-
-		// Animation
-		if (this.options.fx) {
-			this.$content.slideUp('fast', function () {
-				that.callbacks('onHide');
-				// new callbacks
-				that.trigger('hide');
-			});
-		} else {
-			// new callbacks
-			this.trigger('hide');
-			// old callback system
-			this.callbacks('onHide');
-		}
-
-		this.$content.addClass('ch-hide');
-
-		return this;
-	};
 
 	/**
 	 * Create component's layout
@@ -123,28 +65,6 @@
 	 * @function
 	 * @ignore
 	 */
-	Navs.prototype.configBehavior = function () {
-		var that = this;
-
-		this.$trigger
-			.addClass('ch-' + this.name + '-trigger')
-			.on('click.' + this.name, function (event) {
-				ch.util.prevent(event);
-				that.show();
-			});
-
-		this.$content.addClass('ch-' + this.name + '-content ch-hide');
-
-		// Icon configuration
-		if ($html.hasClass('lt-ie8') && this.options.icon) {
-			$('<span class="ch-' + this.name + '-ico">Drop</span>').appendTo(this.$trigger);
-		} else if (this.options.icon) {
-			this.$trigger.addClass('ch-' + this.name + '-ico');
-		}
-
-		if (this.options.open) { this.show(); }
-
-	};
 
 	/**
 	 * Public Members

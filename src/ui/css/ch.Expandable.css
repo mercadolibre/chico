@@ -41,9 +41,10 @@
 	left: 2px;
 }
 
-/* Content */
-.ch-expandable-content {
+/* Container */
+.ch-expandable-container {
 	margin: 0 0 5px 16px;
+	position: relative;
 }
 
 /* IE */

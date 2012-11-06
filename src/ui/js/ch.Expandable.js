@@ -5,8 +5,10 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
+	var $html = $('html');
+
 	/**
-	 * Expandable lets you show or hide the content. Expandable needs a pair: the title and the content related to that title.
+	 * Expandable lets you show or hide the container. Expandable needs a pair: the title and the container related to that title.
 	 * @constructor
 	 * @memberOf ch
 	 * @augments ch.Navs
@@ -25,9 +27,48 @@
 	 * });
 	 */
 	function Expandable($el, options) {
-
 		this.init($el, options);
 
+		/**
+		 * Reference to a internal component instance, saves all the information and configuration properties.
+		 * @private
+		 * @type {Object}
+		 */
+		var that = this;
+
+		/**
+		 * Triggers when the component is ready to use (Since 0.8.0).
+		 * @fires ch.Expandable#ready
+		 * @since 0.8.0
+		 * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
+		 * @example
+		 * widget.on('ready',function () {
+		 *	this.show();
+		 * });
+		 */
+		window.setTimeout(function () { that.emitter.emit('ready'); }, 50);
+	}
+
+	/**
+	 *	Inheritance
+	 */
+	ch.util.inherits(Expandable, ch.Navs);
+
+	Expandable.prototype.name = 'expandable';
+
+	Expandable.prototype.constructor = Expandable;
+
+	Expandable.prototype.defaults = {
+		'icon': true,
+		'open': false,
+		'fx': false
+	};
+
+	Expandable.prototype.init = function ($el, options) {
+
+		this.uber.init.call(this, $el, options);
+
+		this.require('Collapsible', 'Closable', 'Content');
 
 		/**
 		 * Private Members
@@ -46,16 +87,16 @@
 			 * @type {Object}
 			 */
 			triggerAttr = {
-				'aria-expanded': this.options.open,
-				'aria-controls': 'ch-expandable-' + this.uid
+				'aria-expanded': that.options.open,
+				'aria-controls': 'ch-expandable-' + that.uid
 			},
 
 			/**
-			 * Map that contains the ARIA attributes for the content element
+			 * Map that contains the ARIA attributes for the container element
 			 * @private
 			 * @type {Object}
 			 */
-			contentAttr = {
+			containerAttr = {
 				'id': triggerAttr['aria-controls'],
 				'aria-hidden': !triggerAttr['aria-expanded']
 			};
@@ -65,20 +106,20 @@
 		 */
 
 		/**
-		 * Status of component
-		 * @protected
-		 * @type {Boolean}
-		 * @ignore
-		 */
-		this.active = false;
-
-		/**
 		 * The component's trigger.
 		 * @protected
 		 * @type {Selector}
 		 * @ignore
 		 */
-		this.$trigger = this.$el.children().eq(0).attr(triggerAttr);
+		that.$trigger = that.$el.children(':first-child');
+
+		/**
+		 * The component's container.
+		 * @protected
+		 * @type {Selector}
+		 * @ignore
+		 */
+		that.$container = that.$el.children(':last-child').wrapInner('<div class="ch-expandable-content">');
 
 		/**
 		 * The component's content.
@@ -86,67 +127,86 @@
 		 * @type {Selector}
 		 * @ignore
 		 */
-		this.$content = this.$el.children(':last-child').attr(contentAttr);
+		that.$content = that.$container.children(':last-child');
 
 		/**
-		 *  Default behaivor
+		 *  Default behavior
 		 */
-		this.configBehavior();
-		this.$el.addClass('ch-' + this.name);
-		this.$trigger.children().attr('role', 'presentation');
-		ch.util.avoidTextSelection(this.$trigger);
+		that.$el.addClass('ch-expandable');
 
-		/**
-		 * Triggers when the component is ready to use (Since 0.8.0).
-		 * @fires ch.Expandable#ready
-		 * @since 0.8.0
-		 * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
-		 * @example
-		 * widget.on('ready',function () {
-		 *	this.show();
-		 * });
-		 */
-		window.setTimeout(function () { that.trigger('ready'); }, 50);
+		that.$trigger
+			.attr(triggerAttr)
+			.addClass('ch-expandable-trigger')
+			.on('click.expandable', function (event) {
+				ch.util.prevent(event);
+				that.show();
+			})
+			.children()
+				.attr('role', 'presentation');
 
-		return this;
+		that.$container
+			.attr(containerAttr)
+			.addClass('ch-expandable-container ch-hide');
 
-	}
 
-	/**
-	 *	Inheritance
-	 */
-	ch.util.inherits(Expandable, ch.Navs);
+		// Closable
+		that.options.closable = true; // test
+		that.closable();
 
-	Expandable.prototype.name = 'expandable';
 
-	Expandable.prototype.constructor = Expandable;
+		// Content
+		that.content.configure({
+			'input': that.$container.html()
+		});
 
-	Expandable.prototype.defaults = {
-		'icon': true,
-		'open': false,
-		'fx': false
+		that.content.onmessage = function (data) {
+			that.$content.html(data);
+		};
+
+		// Icon configuration
+		if (this.options.icon) {
+			if ($html.hasClass('lt-ie8')) {
+				$('<span class="ch-expandable-ico">Drop</span>').appendTo(this.$trigger);
+
+			} else {
+				this.$trigger.addClass('ch-expandable-ico');
+			}
+		}
+
+		if (this.options.open) {
+			this.show();
+		}
+
+		ch.util.avoidTextSelection(that.$trigger);
+
 	};
 
-	Expandable.prototype.show = function () {
-		this.$trigger.attr('aria-expanded', 'true');
-		this.$content.attr('aria-hidden', 'false');
 
-		// Call the superClass method
-		this.uber.show.call(this);
+	Expandable.prototype.show = function () {
+		if (this.collapsible.active) {
+			return this.hide();
+		}
+
+		this.content.set();
+
+		this.collapsible.show();
 
 		return this;
 	};
 
 	Expandable.prototype.hide = function () {
-		this.$trigger.attr('aria-expanded', 'false');
-		this.$content.attr('aria-hidden', 'true');
+		if (!this.collapsible.active) {
+			return;
+		}
 
-		// Call the superClass method
-		this.uber.hide.call(this);
+		this.collapsible.hide();
 
 		return this;
 	};
 
+	Expandable.prototype.isActive = function () {
+		return this.collapsible.active;
+	};
 
 	ch.factory(Expandable);
 

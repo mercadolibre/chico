@@ -224,7 +224,7 @@
 		 *	this.show();
 		 * });
 		 */
-		window.setTimeout(function(){ that.trigger('ready')}, 50);
+		window.setTimeout(function(){ that.emit('ready')}, 50);
 
 		return this;
 	}

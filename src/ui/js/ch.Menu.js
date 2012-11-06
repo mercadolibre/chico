@@ -110,7 +110,7 @@
 							 *     app.off();
 							 * });
 							 */
-							that.trigger('select');
+							that.emit('select');
 						}
 					});
 
@@ -287,7 +287,7 @@
 		 *	this.select();
 		 * });
 		 */
-		setTimeout(function(){ that.trigger('ready')}, 50);
+		setTimeout(function(){ that.emit('ready')}, 50);
 
 		return this;
 	}

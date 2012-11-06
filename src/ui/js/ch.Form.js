@@ -110,7 +110,7 @@
 			*/
 			that.callbacks("beforeValidate");
 			// new callback
-			that.trigger("beforeValidate");
+			that.emit("beforeValidate");
 
 			// Status OK (with previous error)
 			if ( !status ) {
@@ -170,11 +170,11 @@
 			if (status) {
 				that.callbacks("onValidate");
 				// new callback
-				that.trigger("validate");
+				that.emit("validate");
 			} else {
 				that.callbacks("onError");
 				// new callback
-				that.trigger("error");
+				that.emit("error");
 			}
 
 			/**
@@ -190,7 +190,7 @@
 			*/
 			that.callbacks("afterValidate");
 			// new callback
-			that.trigger("afterValidate");
+			that.emit("afterValidate");
 
 			return that;
 		};
@@ -214,7 +214,7 @@
 			*/
 			that.callbacks("beforeSubmit");
 			// new callback
-			that.trigger("beforeSubmit");
+			that.emit("beforeSubmit");
 
 			// Execute all validations
 			validate(event);
@@ -258,7 +258,7 @@
 				// Avoid default actions
 				ch.util.prevent(event);
 				// new callback
-				that.trigger("submit");
+				that.emit("submit");
 			};
 
 			/**
@@ -274,7 +274,7 @@
 			*/
 			that.callbacks("afterSubmit");
 			// new callback
-			that.trigger("afterSubmit");
+			that.emit("afterSubmit");
 
 			// Return that to chain methods
 			return that;
@@ -305,7 +305,7 @@
 			*/
 			that.callbacks("onClear");
 			// new callback
-			that.trigger("clear");
+			that.emit("clear");
 
 			return that;
 		};
@@ -330,7 +330,7 @@
 			*/
 			that.callbacks("onReset");
 			// new callback
-			that.trigger("reset");
+			that.emit("reset");
 
 			return that;
 		};
@@ -474,7 +474,7 @@
 		*	this.reset();
 		* });
 		*/
-		window.setTimeout(function(){ that.trigger("ready")}, 50);
+		window.setTimeout(function(){ that.emit("ready")}, 50);
 
 		return that['public'];
 	}

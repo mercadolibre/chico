@@ -22,12 +22,13 @@
 			// Merged options of each instance
 			options,
 			// The lastest data sent to the client. Used to return on the .get() method
-			current = 'Chico Error: Content is not defined.',
-			/**
-			 * Allows to manage the widgets content.
-			 * @namespace
-			 */
-			content = {};
+			current = 'Chico Error: Content is not defined.';
+
+		/**
+		 * Allows to manage the widgets content.
+		 * @namespace
+		 */
+		that.content = {};
 
 		/**
 		 * Send the result data to the "client".
@@ -35,7 +36,7 @@
 		 */
 		function postMessage(data) {
 			// Update the lastest reference of data sent to the user
-			content.onmessage(current = data);
+			that.content.onmessage(current = data);
 			// TODO: Trigger the "message" event to allow multiple suscription
 			// that.trigger('message', data)
 		}
@@ -80,8 +81,8 @@
 					// Send a defined error message
 					postMessage('<p>Error on ajax call.</p>');
 					// Execute the 'onerror' method if exists
-					if (ch.util.hasOwn(content, 'onerror')) {
-						content.onerror(data);
+					if (ch.util.hasOwn(that.content, 'onerror')) {
+						that.content.onerror(data);
 					}
 					// TODO: Trigger the "error" event to allow multiple suscription
 					//that.trigger('error', data);
@@ -95,11 +96,11 @@
 		 * @methodOf content
 		 * @param {Object} userOptions Options specified by user.
 		 */
-		content.configure = function (userOptions) {
+		that.content.configure = function (userOptions) {
 			// Merge the defaults options with user options
 			options = $.extend(userOptions, defaults);
 			// Since second time, just merge the current options with user options
-			content.configure = function (userOptions) {
+			that.content.configure = function (userOptions) {
 
 				// Getter: return the current configuration (options)
 				if (userOptions === undefined) {
@@ -109,10 +110,10 @@
 				// Setter: Merge current options with the new ones
 				$.extend(options, userOptions);
 
-				return content;
+				return that.content;
 			};
 
-			return content;
+			return that.content;
 		};
 
 		/**
@@ -120,10 +121,10 @@
 		 * @name set
 		 * @methodOf content
 		 */
-		content.set = function (userOptions) {
+		that.content.set = function (userOptions) {
 
 			if (userOptions !== undefined) {
-				content.configure(userOptions);
+				that.content.configure(userOptions);
 			}
 
 			// Input as string
@@ -143,7 +144,7 @@
 				postMessage(current);
 			}
 
-			return content;
+			return that.content;
 		};
 
 		/**
@@ -151,11 +152,9 @@
 		 * @name get
 		 * @methodOf content
 		 */
-		content.get = function () {
+		that.content.get = function () {
 			return current;
 		};
-
-		that.content = content;
 	}
 
 	ch.Content = Content;
