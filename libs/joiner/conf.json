@@ -47,7 +47,7 @@
 				"../../src/shared/js/ch.Content.js"
 			],
 			"widgets": [
-				"../../src/ui/js/ch.cache.js",
+				"../../src/shared/js/ch.cache.js",
 				"../../src/ui/js/ch.viewport.js",
 				"../../src/ui/js/ch.Positioner.js",
 				"../../src/ui/js/ch.OnImagesLoads.js",
