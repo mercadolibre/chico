@@ -1,6 +1,6 @@
 {
 	"pkg": {
-		"version": "1.0"
+		"version": "0.12"
 	},
 	"meta": {
 		"ui": {
@@ -13,7 +13,8 @@
 				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function(window,$){'use strict';",
 				"jsClose": "window.ch = ch;})(this, jQuery);",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
-			}
+			},
+			"temp_version": "ch.version = '0.12';"
 		},
 		"mobile": {
 			"full": {
@@ -25,7 +26,8 @@
 				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function(window, $){\n\t'use strict';",
 				"jsClose": "window.ch = ch;})(this, Zepto);",
 				"css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
-			}
+			},
+			"temp_version": "ch.version = '0.6';"
 		}
 	},
 	"concat": {
@@ -78,7 +80,7 @@
 				"../../src/ui/js/ch.Form.js",
 				"../../src/ui/js/ch.Carousel.js"
 			],
-			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.full.jsClose", "abilities", "widgets"]
+			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},
 		"uiCSS": {
 			"src": [
@@ -131,7 +133,7 @@
 				"../../src/mobile/js/ch.Menu.js",
 				"../../src/mobile/js/ch.Modal.js"
 			],
-			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.full.jsClose", "abilities", "widgets"]
+			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
 		},
 		"mobileCSS": {
 			"src": [
@@ -156,9 +158,9 @@
 		}
 	},
 	"min": {
-		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.min.jsClose", "widgets"],
+		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.temp_version", "meta.ui.min.jsClose", "widgets"],
 		"uiCSS": ["meta.ui.min.css", "src"],
-		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.min.jsClose"],
+		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.temp_version", "meta.mobile.min.jsClose"],
 		"mobileCSS": ["meta.mobile.min.css", "src"]
 	}
 }
