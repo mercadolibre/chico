@@ -49,7 +49,8 @@
 		// Send advice to client
 		this.emit('joined', {
 			'raw': content,
-			'type': this.metadata.type
+			'type': this.metadata.type,
+			'min': this.metadata.min
 		});
 	};
 
