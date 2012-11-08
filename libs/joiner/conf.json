@@ -50,10 +50,9 @@
 			],
 			"widgets": [
 				"../../src/ui/js/ch.cache.js",
-				"../../src/ui/js/ch.viewport.js",
+				"../../src/shared/js/ch.viewport.js",
 				"../../src/ui/js/ch.Positioner.js",
 				"../../src/ui/js/ch.OnImagesLoads.js",
-				"../../src/ui/js/ch.Positioner.js",
 				"../../src/ui/js/ch.Blink.js",
 				"../../src/shared/js/ch.Widget.js",
 				"../../src/ui/js/ch.Navs.js",
