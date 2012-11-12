@@ -16,7 +16,7 @@
 	} else {
 		classType.push("Class");
 	}
-	
+
 	classType.join(" ");
 
 	var ownProperties = data.properties.filter(function ($) { return !$.isNamespace; }).sort( makeSortby("name") );
@@ -43,7 +43,7 @@
 		var contributers = [];
 
 		borrowedMembers.map(function($) {if (contributers.indexOf($.memberOf) < 0) contributers.push($.memberOf)});
-		
+
 		for (var i = 0, l = contributers.length; i < l; i++) {
 			borrowedProperties +=
 				"<p>Fields borrowed from class "+new Link().toSymbol(contributers[i])+": "
@@ -59,10 +59,10 @@
 				+
 				"</p>";
 		}
-			borrowedProperties += arr.join(""); 
+			borrowedProperties += arr.join("");
 		return borrowedProperties;
 	};
-	
+
 	var indexCont = 3;
 
 !}
@@ -99,7 +99,7 @@
 				</if>
 				{+resolveLinks(data.desc)+}
 			</p>
-			<a class="ch-btn-skin ch-btn-small" href="https://github.com/mercadolibre/chico/blob/master/src/js/{+data.classDesc.toLowerCase()+}.js#L1" target="_blank">View source on GitHub</a>
+			<!--a class="ch-btn-skin ch-btn-small" href="https://github.com/mercadolibre/chico/blob/master/src/js/{+data.classDesc.toLowerCase()+}.js#L1" target="_blank">View source on GitHub</a-->
 			<if test="data.requires.length">
 				<h3>Requires</h3>
 				<ul class="ch-list">
@@ -111,19 +111,19 @@
 
 			<if test="data.returns.length">
 				<h3>Returns</h3>
-				
+
 				<for each="item" in="data.returns">
 					<article>
 						{+(item.type ? " <code>" + (new Link().toSymbol(item.type)) + "</code>" : "")+}
 						<p>{+resolveLinks(item.desc)+}</p>
 					</article>
 				</for>
-				
+
 			</if>
 
 			<!-- Instanciation -->
-			
-			
+
+
 			<if test="data.example.length">
 				<h3 id="use">Use</h3>
 				{! var examples = getExamplesAndDescriptions(data); !}
@@ -132,7 +132,7 @@
 					<pre>{+index.code+}</pre>
 				</for>
 			</if>
-			
+
 			<if test="data.params.length">
 				<h3 id="configuration">Configuration</h3>
 				<p>The following options lets you create a customized {+data.alias+}:</p>
@@ -144,8 +144,8 @@
 					</for>
 				</ul>
 			</if>
-			
-			
+
+
 			<!--if test="data.exceptions.length">
 				<h4>Throws</h4>
 				<ul class="ch-list">
@@ -168,8 +168,8 @@
 				<h4>Properties</h4>
 				<!-- Accordion -->
 				<section class="api-members properties">
-					<for each="member" in="ownProperties">				
-						<if test="member.comment.getTag('public')[0]">	
+					<for each="member" in="ownProperties">
+						<if test="member.comment.getTag('public')[0]">
 						<article id="{+Link.symbolNameToLinkName(member)+}">
 							<h5>
 								<!--if test="member.isStatic && member.memberOf != '_global_'">{+member.memberOf+}.</if-->
@@ -180,26 +180,26 @@
 								<p><em class="{+member.type+}">{+member.type+}</em></p>
 								<p>
 									<if test="member.deprecated">(Deprecated)</if>
-									
-									<if test="member.since"> (Since {+ member.since +}</if> 
-									
-									
-									
+
+									<if test="member.since"> (Since {+ member.since +}</if>
+
+
+
 									<if test="member.isOptional">, <em>Optional</em></if>
-									
+
 
 									<if test="member.defaultValue"> <em>Default: {+member.defaultValue+}</em></if>
 
-								</p>	
+								</p>
 								<if test="member.see.length">
-									<p><strong>See also:</strong> 
+									<p><strong>See also:</strong>
 										<for each="item" in="member.see">
 											<span>{+ new Link().toSymbol(item) +}</span>
 											<if test="!$item_last">,</if>
 										</for>
 									</p>
 								</if>
-								
+
 								<if test="member.example.length">
 									<h4>Examples</h4>
 									{! var examples = getExamplesAndDescriptions(member); !}
@@ -207,7 +207,7 @@
 										<p>{+index.description+}</p>
 										<pre>{+index.code+}</pre>
 									</for>
-									
+
 								</if>
 							</div>
 						</article>
@@ -227,7 +227,7 @@
 								</h5>
 								<div>
 									<p>{+resolveLinks(member.desc)+}</p>
-									<if test="member.memberOf != data.alias">											
+									<if test="member.memberOf != data.alias">
 										<p>It method borrows {+ new Link().toSymbol(member.memberOf+'#'+member.name) +}.</p>
 									</if>
 									<if test="member.params.length">
@@ -270,7 +270,7 @@
 										</ul>
 									</if>
 									<if test="member.see.length">
-										<h4>See also:</h4> 
+										<h4>See also:</h4>
 										<p>
 											<for each="item" in="member.see">
 												<span>{+ new Link().toSymbol(item) +}</span>
@@ -285,10 +285,10 @@
 											<p>{+index.description+}</p>
 											<pre>{+index.code+}</pre>
 										</for>
-										
+
 									</if>
 								</div>
-							</article>						
+							</article>
 						</if>
 					</for>
 				</section>
@@ -321,7 +321,7 @@
 										</div>
 									</div>
 								</if>
-								
+
 								<if test="member.params.length">
 									<h4>Parameters</h4>
 									<ul class="ch-list parameters">
@@ -332,7 +332,7 @@
 										</for>
 									</ul>
 								</if>
-								
+
 								<if test="member.exceptions.length">
 									<h4>Throws</h4>
 									<ul class="ch-list">
@@ -376,7 +376,7 @@
 				</for>
 			</section>
 		</if>
-		
+
 	</if>
 </if>
 
@@ -386,26 +386,26 @@
 	<h3>Overview</h3>
 	<p>{+resolveLinks(summarize(data.desc))+}</p>
 
-	
+
 		{!
 			var nsp = data.properties.filter(function ($) { return $; }).sort( makeSortby("name") );
 		!}
-	
+
 		<for each="item" in="nsp">
 			<article>
 				<h3>{+ item.name +}</h3>
 				<p><code>{+ item.alias +}</code> {+ item.desc +}</p>
-				
+
 			</article>
 		</for>
-	
+
 </if>
 
 
 
 
 
-	
+
 
 
 
