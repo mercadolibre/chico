@@ -29,9 +29,9 @@ function isView (req, res, next) {
 /*
  * Views
  */
-app.get('/:version/:type?/:min?', isAnotherFile, isView, function (req, res, next) {
+app.get('/:version/:type?', isAnotherFile, isView, function (req, res, next) {
 	var name = req.params.version + req.params.type.toUpperCase(),
-		min = ((req.params.min) ? true : false),
+		min = ((req.query.min) ? req.query.min : false),
 		joiner = new Joiner();
 
 	joiner.on('joined', function (data) {
