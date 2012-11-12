@@ -504,7 +504,7 @@
 			<li><span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span></li>
 			<li><span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span></li>
 			<li><span class="YOUR_SELECTOR_LayerCloseButton">Executed on click and only the cross button closes.</span></li>
-		</li>
+		</ul>
 		<div id="invisible-content-for-layer" class="ch-hide">
     		<h1>This content is invisible</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
@@ -735,99 +735,99 @@
 			<fieldset>
 				<legend>Inputs</legend>
 				<p class="ch-form-hint">* Required fields</p>
-					<p class="ch-form-row">
-						<label for="input_ico">
-							Icon:
-						</label>
-						<input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
-						<i class="ch-form-ico ch-icon-question-sign"></i>
-					</p>
-					<p class="ch-form-row">
-						<label for="input_button">
-							Category:
-						</label>
-						<input type="text" id="input_button" name="input_button" size="30" placeholder="">
-						<input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin">
-						<span class="ch-form-hint">Add your category</span>
-					</p>
-					<p class="ch-form-row ch-form-required">
-						<label for="price">
-							Price:
-							<em>*</em>
-						</label>
-						<input type="text" id="price" name="price" required="required" placeholder="1349.43">
-						<span class="ch-form-hint">Numbers and dot symbol</span>
-					</p>
-					<p class="ch-form-row ch-form-required">
-						<label for="email">
-							E-mail:
-							<em>*</em>
-						</label>
-						<input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
-						<span class="ch-form-hint">It will be your login name</span>
-					</p>
-					<p class="ch-form-row">
-						<label for="email2">
-							E-mail:
-						</label>
-						<input type="email2" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
-						<input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline">
-						<label for="news" class="ch-label-inline">
-							Accept to receive weekly news
-						</label>
-					</p>
-					<p class="ch-form-row">
-						<label for="url">
-							URL:
-						</label>
-						<input type="url" id="url" name="url" size="60" placeholder="http://www.chico-ui.com.ar">
-					</p>
-					<p class="ch-form-row">
-						<label for="number">
-							Numeric field:
-						</label>
-						<input type="number" id="number" name="number" min="18" max="99" placeholder="30">
-					</p>
-					<p class="ch-form-row ch-form-required">
-						<label for="range">
-							Numeric range:
-							<em>*</em>
-						</label>
-						<input type="range" id="range" name="range" min="1" max="20">
-						<span class="ch-form-hint">Between 8 to 10</span>
-					</p>
-					<p class="ch-form-row ch-form-required ch-form-disabled">
-						<label for="required_disabled">
-							Required disabled:
-							<em>*</em>
-						</label>
-						<input type="text" id="required_disabled" required="required" disabled="disabled">
-						<span class="ch-form-hint">It's a unknown use case</span>
-					</p>
-					<p class="ch-form-row">
-						<label for="characters">
-							Characters:
-						</label>
-						<input type="text" id="characters">
-					</p>
-					<p class="ch-form-row">
-						<label for="custom">
-							Custom:
-						</label>
-						<input type="text" id="custom" placeholder="12" size="2">
-					</p>
-					<p class="ch-form-row">
-						<label for="readonly">
-							Readonly:
-						</label>
-						<input type="text" readonly="readonly" id="readonly" value="its a readonly value">
-					</p>
-					<p class="ch-form-row">
-						<label for="double">
-							It's a input text with double line:
-						</label>
-						<input type="text" id="double">
-					</p>
+				<p class="ch-form-row">
+					<label for="input_ico">
+						Icon:
+					</label>
+					<input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
+					<i class="ch-form-ico ch-icon-question-sign"></i>
+				</p>
+				<p class="ch-form-row">
+					<label for="input_button">
+						Category:
+					</label>
+					<input type="text" id="input_button" name="input_button" size="30" placeholder="">
+					<input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin">
+					<span class="ch-form-hint">Add your category</span>
+				</p>
+				<p class="ch-form-row ch-form-required">
+					<label for="price">
+						Price:
+						<em>*</em>
+					</label>
+					<input type="text" id="price" name="price" required="required" placeholder="1349.43">
+					<span class="ch-form-hint">Numbers and dot symbol</span>
+				</p>
+				<p class="ch-form-row ch-form-required">
+					<label for="email">
+						E-mail:
+						<em>*</em>
+					</label>
+					<input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+					<span class="ch-form-hint">It will be your login name</span>
+				</p>
+				<p class="ch-form-row">
+					<label for="email2">
+						E-mail:
+					</label>
+					<input type="email2" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+					<input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline">
+					<label for="news" class="ch-label-inline">
+						Accept to receive weekly news
+					</label>
+				</p>
+				<p class="ch-form-row">
+					<label for="url">
+						URL:
+					</label>
+					<input type="url" id="url" name="url" size="60" placeholder="http://www.chico-ui.com.ar">
+				</p>
+				<p class="ch-form-row">
+					<label for="number">
+						Numeric field:
+					</label>
+					<input type="number" id="number" name="number" min="18" max="99" placeholder="30">
+				</p>
+				<p class="ch-form-row ch-form-required">
+					<label for="range">
+						Numeric range:
+						<em>*</em>
+					</label>
+					<input type="range" id="range" name="range" min="1" max="20">
+					<span class="ch-form-hint">Between 8 to 10</span>
+				</p>
+				<p class="ch-form-row ch-form-required ch-form-disabled">
+					<label for="required_disabled">
+						Required disabled:
+						<em>*</em>
+					</label>
+					<input type="text" id="required_disabled" required="required" disabled="disabled">
+					<span class="ch-form-hint">It's a unknown use case</span>
+				</p>
+				<p class="ch-form-row">
+					<label for="characters">
+						Characters:
+					</label>
+					<input type="text" id="characters">
+				</p>
+				<p class="ch-form-row">
+					<label for="custom">
+						Custom:
+					</label>
+					<input type="text" id="custom" placeholder="12" size="2">
+				</p>
+				<p class="ch-form-row">
+					<label for="readonly">
+						Readonly:
+					</label>
+					<input type="text" readonly="readonly" id="readonly" value="its a readonly value">
+				</p>
+				<p class="ch-form-row">
+					<label for="double">
+						It's a input text with double line:
+					</label>
+					<input type="text" id="double">
+				</p>
 			</fieldset>
 			<fieldset>
 				<legend>Selects</legend>
@@ -845,7 +845,7 @@
 				</p>
 				<p class="ch-form-row ch-form-required">
 					<label for="select2">
-						Rquired: <em>*</em>
+						Required: <em>*</em>
 					</label>
 					<select class="required-option" id="select2" required="required" pattern="[^-1]">
 						<option value="">Select one...</option>

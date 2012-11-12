@@ -158,7 +158,7 @@
 		}
 	},
 	"min": {
-		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.temp_version", "meta.ui.min.jsClose", "widgets"],
+		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.temp_version", "meta.ui.min.jsClose", "abilities", "widgets"],
 		"uiCSS": ["meta.ui.min.css", "src"],
 		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.temp_version", "meta.mobile.min.jsClose"],
 		"mobileCSS": ["meta.mobile.min.css", "src"]
