@@ -247,7 +247,7 @@
 		 */
 			zoomed = (function () {
 				// Define the content source
-				var $img = that.source = $("<img src=\"" + that.element.href + "\">");
+				var $img = that.source = $("<img src=\"" + that.element.href + "\">").insertAfter(original.$image);
 
 				// Grab some data when zoomed image loads
 				$img.onImagesLoads(function () {
