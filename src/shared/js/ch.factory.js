@@ -59,7 +59,7 @@
 		 */
 		// Uses the function.name property (non-standard) on the newest browsers OR
 		// uppercases the first letter from the identification name of the constructor
-		ch[Klass.name || (name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
+		ch[(name.charAt(0).toUpperCase() + name.substr(1))] = Klass;
 
 		/**
 		 * The class constructor exposed into the "$" namespace.

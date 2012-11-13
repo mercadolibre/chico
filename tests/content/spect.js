@@ -46,10 +46,24 @@ describe('Content', function () {
 
 				expect(current.input).toEqual(options2.input);
 			});
-
 		});
 
 		describe('.set()', function () {
+
+			it('Should should be able to configure the instance as .configure() method', function () {
+				var options = {'input': 'Some text!'},
+					options2 = {'input': 'Another text!'};
+
+				content.set(options);
+				current = content.configure();
+
+				expect(current.input).toEqual(options.input);
+
+				content.configure(options2);
+				current = content.configure();
+
+				expect(current.input).toEqual(options2.input);
+			});
 
 			it('Should be defined into public instance', function () {
 				expect(ch.util.hasOwn(content, 'set')).toBeTruthy();
