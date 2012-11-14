@@ -1,4 +1,4 @@
-describe('Condition', function () {
+describe('ch.Condition', function () {
 	var Condition = ch.Condition,
 		toTest;
 
@@ -6,7 +6,7 @@ describe('Condition', function () {
 		expect(typeof Condition).toEqual('function');
 	});
 
-	describe('The Condition returned object', function () {
+	describe('The ch.Condition will return an object', function () {
 		var c = {
 			'name': 'string',
 			'message': 'Error'

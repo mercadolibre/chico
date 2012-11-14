@@ -101,6 +101,9 @@
 		*/
 			createDateObject = function (date) {
 
+				if(!/^\d{4}\/((0?[1-9])|(1?[0-2]))\/([0-2]?[0-9]|3[0-1])$/.test(date) && date !== undefined){
+					throw new window.Error('The date "'+date+'" is not valid format. It must follow this format YYYY/MM/DD.');
+				}
 				// Uses date parameter or create a date from today
 				date = (date) ? new Date(date) : new Date();
 

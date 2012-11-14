@@ -147,12 +147,13 @@
 			"points": conf.points,
 			"offset": "-1 8",
 			"aria": {
-				"role": "tooltip",
-				"identifier": "aria-describedby"
+				"role": "tooltip"
 			},
 			"closeButton": false,
 			"cone": true
 		});
+		// The input element is described by the float
+		that.$element.attr('aria-describedby', 'ch-' + that.type + '-' + that['float'].uid)
 
 	/**
 	*  Public Members
