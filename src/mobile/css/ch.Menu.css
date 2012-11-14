@@ -1,0 +1,66 @@
+/*
+* Menu
+*/
+
+.ch-menu {
+	border: 1px solid #EEE;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 0;
+}
+
+.ch-menu .ch-bellows,
+.ch-menu .ch-expandable,
+.ch-menu .ch-bellows-trigger,
+.ch-menu .ch-expandable-trigger {
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+
+.ch-menu .ch-bellows:first-of-type,
+.ch-menu .ch-expandable:first-of-type,
+.ch-menu .ch-bellows:first-of-type .ch-bellows-trigger,
+.ch-menu .ch-expandable:first-of-type .ch-expandable-trigger {
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.ch-menu .ch-bellows,
+.ch-menu .ch-expandable {
+	border-top: 1px dotted #CCC;
+	border-right: none;
+	border-left: none;
+	border-bottom: none;
+}
+
+.ch-menu .ch-bellows:first-of-type,
+.ch-menu .ch-expandable:first-of-type {
+	border-top: none;
+}
+
+.ch-menu .ch-bellows:last-of-type,
+.ch-menu .ch-expandable:last-of-type,
+.ch-menu .ch-bellows:last-of-type .ch-bellows-trigger,
+.ch-menu .ch-expandable:last-of-type .ch-expandable-trigger {
+	-webkit-border-bottom-left-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.ch-menu .ch-expandable:last-of-type .ch-expandable-trigger-on {
+	-webkit-border-bottom-left-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.ch-menu .ch-expandable-content {
+	padding: 10px;
+}
+
+.ch-menu .ch-expandable-content .ch-list-menu {
+	margin: -10px;
+}

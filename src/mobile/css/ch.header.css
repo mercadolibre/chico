@@ -1,0 +1,74 @@
+/*
+* Headers
+*/
+
+.ch-header,
+.ch-header-skin {
+	position: relative;
+}
+
+.ch-header,
+.ch-header-skin {
+	position:relative;
+	margin-bottom: 15px;
+	height: 38px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 3px 0;
+	text-align: center;
+}
+
+/* Colors */
+.ch-header {
+	background-color: #fdee4c;
+	background-image: -webkit-linear-gradient(#fdee4c 44%, #f0da16 90%);
+	background-image: -moz-linear-gradient(#fdee4c 44%, #f0da16 90%);
+	background-image: -o-linear-gradient(#fdee4c 44%, #f0da16 90%);
+	background-image: linear-gradient(#fdee4c 44%, #f0da16 90%);
+	color: #5B562F;
+}
+
+.ch-header-skin {
+	background-color: #efefef;
+	background-image: -webkit-linear-gradient(#efefef 10%, #e2e2e2 56%);
+	background-image: -moz-linear-gradient(#efefef 10%, #e2e2e2 56%);
+	background-image: -o-linear-gradient(#efefef 10%, #e2e2e2 56%);
+	background-image: linear-gradient(#efefef 10%, #e2e2e2 56%);
+	color: #666666;
+}
+
+/*[class*="ch-header"] h1,*/
+.ch-header h1,
+.ch-header-skin h1 {
+	font-size: 1.143em;
+	line-height: 2.5em;
+	text-shadow: 0 1px 0 #FFF;
+}
+
+.ch-header nav,
+.ch-header-skin nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+}
+
+.ch-header .ch-action-left,
+.ch-header-skin .ch-action-left,
+.ch-header .ch-action-right,
+.ch-header-skin .ch-action-right {
+	position: absolute;
+	top: 7px;
+}
+
+.ch-header .ch-action-left,
+.ch-header-skin .ch-action-left {
+	left: 5px;
+}
+
+.ch-header .ch-action-right,
+.ch-header-skin .ch-action-right {
+	right: 5px;
+}

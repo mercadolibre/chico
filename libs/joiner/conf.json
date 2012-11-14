@@ -1,0 +1,166 @@
+{
+	"pkg": {
+		"version": "0.12.1"
+	},
+	"meta": {
+		"ui": {
+			"full": {
+				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
+				"jsClose": "\n\twindow.ch = ch;\n})(this, jQuery);",
+				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
+			},
+			"min": {
+				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function(window,$){'use strict';",
+				"jsClose": "window.ch = ch;})(this, jQuery);",
+				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
+			},
+			"temp_version": "ch.version = '0.12.1';"
+		},
+		"mobile": {
+			"full": {
+				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
+				"jsClose": "\n\twindow.ch = ch;\n})(this, Zepto);",
+				"css": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
+			},
+			"min": {
+				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function(window, $){\n\t'use strict';",
+				"jsClose": "window.ch = ch;})(this, Zepto);",
+				"css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
+			},
+			"temp_version": "ch.version = '0.6';"
+		}
+	},
+	"concat": {
+		"uiJS": {
+			"core": [
+				"../../src/shared/js/ch.helpers.js",
+				"../../src/shared/js/ch.util.js",
+				"../../src/shared/js/ch.events.js",
+				"../../src/ui/js/ch.events.js",
+				"../../src/ui/js/ch.support.js",
+				"../../src/ui/js/ch.keyboard.js",
+				"../../src/shared/js/ch.factory.js",
+				"../../src/shared/js/ch.debug.js",
+				"../../src/ui/js/ch.init.js"
+			],
+			"abilities": [
+				"../../src/shared/js/ch.Content.js"
+			],
+			"widgets": [
+				"../../src/shared/js/ch.cache.js",
+				"../../src/ui/js/ch.viewport.js",
+				"../../src/ui/js/ch.Positioner.js",
+				"../../src/ui/js/ch.onImagesLoads.js",
+				"../../src/ui/js/ch.Widget.js",
+				"../../src/ui/js/ch.Controls.js",
+				"../../src/ui/js/ch.Floats.js",
+				"../../src/ui/js/ch.Layer.js",
+				"../../src/ui/js/ch.Tooltip.js",
+				"../../src/ui/js/ch.Modal.js",
+				"../../src/ui/js/ch.Transition.js",
+				"../../src/ui/js/ch.Zoom.js",
+				"../../src/ui/js/ch.Navs.js",
+				"../../src/ui/js/ch.AutoComplete.js",
+				"../../src/ui/js/ch.Calendar.js",
+				"../../src/ui/js/ch.DatePicker.js",
+				"../../src/ui/js/ch.Countdown.js",
+				"../../src/ui/js/ch.Condition.js",
+				"../../src/ui/js/ch.Validator.js",
+				"../../src/ui/js/ch.Validation.js",
+				"../../src/ui/js/ch.Custom.js",
+				"../../src/ui/js/ch.Number.js",
+				"../../src/ui/js/ch.String.js",
+				"../../src/ui/js/ch.Required.js",
+				"../../src/ui/js/ch.Expandable.js",
+				"../../src/ui/js/ch.Dropdown.js",
+				"../../src/ui/js/ch.blink.js",
+				"../../src/ui/js/ch.Tabs.js",
+				"../../src/ui/js/ch.Menu.js",
+				"../../src/ui/js/ch.Accordion.js",
+				"../../src/ui/js/ch.Form.js",
+				"../../src/ui/js/ch.Carousel.js"
+			],
+			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
+		},
+		"uiCSS": {
+			"src": [
+				"../../src/ui/css/ch.normalize.css",
+				"../../src/ui/css/ch.base.css",
+				"../../src/ui/css/ch.icon.css",
+				"../../src/ui/css/ch.box.css",
+				"../../src/ui/css/ch.button.css",
+				"../../src/ui/css/ch.datagrid.css",
+				"../../src/ui/css/ch.list.css",
+				"../../src/ui/css/ch.pagination.css",
+				"../../src/ui/css/ch.transition.css",
+				"../../src/ui/css/ch.Calendar.css",
+				"../../src/ui/css/ch.Carousel.css",
+				"../../src/ui/css/ch.Floats.css",
+				"../../src/ui/css/ch.AutoComplete.css",
+				"../../src/ui/css/ch.DatePicker.css",
+				"../../src/ui/css/ch.Dropdown.css",
+				"../../src/ui/css/ch.Expandable.css",
+				"../../src/ui/css/ch.Form.css",
+				"../../src/ui/css/ch.Layer.css",
+				"../../src/ui/css/ch.Menu.css",
+				"../../src/ui/css/ch.Modal.css",
+				"../../src/ui/css/ch.Tabs.css",
+				"../../src/ui/css/ch.Tooltip.css",
+				"../../src/ui/css/ch.Validation.css",
+				"../../src/ui/css/ch.Zoom.css"
+			],
+			"template": ["meta.ui.full.css", "src"]
+		},
+		"mobileJS": {
+			"core": [
+				"../../src/shared/js/ch.helpers.js",
+				"../../src/shared/js/ch.util.js",
+				"../../src/mobile/js/ch.util.js",
+				"../../src/shared/js/ch.events.js",
+				"../../src/mobile/js/ch.events.js",
+				"../../src/shared/js/ch.factory.js",
+				"../../src/shared/js/ch.debug.js",
+				"../../src/mobile/js/ch.init.js"
+			],
+			"abilities": [
+				"../../src/mobile/js/ch.EventEmitter.js",
+				"../../src/mobile/js/ch.routes.js"
+			],
+			"widgets": [
+				"../../src/mobile/js/ch.Widget.js",
+				"../../src/mobile/js/ch.Expandable.js",
+				"../../src/mobile/js/ch.Layer.js",
+				"../../src/mobile/js/ch.Menu.js",
+				"../../src/mobile/js/ch.Modal.js"
+			],
+			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
+		},
+		"mobileCSS": {
+			"src": [
+				"../../src/mobile/css/ch.normalize.css",
+				"../../src/mobile/css/ch.base.css",
+				"../../src/mobile/css/ch.icon.css",
+				"../../src/mobile/css/ch.box.css",
+				"../../src/mobile/css/ch.button.css",
+				"../../src/mobile/css/ch.datagrid.css",
+				"../../src/mobile/css/ch.list.css",
+				"../../src/mobile/css/ch.pagination.css",
+				"../../src/mobile/css/ch.transition.css",
+				"../../src/mobile/css/ch.tag.css",
+				"../../src/mobile/css/ch.header.css",
+				"../../src/mobile/css/ch.Expandable.css",
+				"../../src/mobile/css/ch.Menu.css",
+				"../../src/mobile/css/ch.Form.css",
+				"../../src/mobile/css/ch.Modal.css",
+				"../../src/mobile/css/ch.Layer.css"
+			],
+			"template": ["meta.mobile.full.css", "src"]
+		}
+	},
+	"min": {
+		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.temp_version", "meta.ui.min.jsClose", "abilities", "widgets"],
+		"uiCSS": ["meta.ui.min.css", "src"],
+		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.temp_version", "meta.mobile.min.jsClose"],
+		"mobileCSS": ["meta.mobile.min.css", "src"]
+	}
+}

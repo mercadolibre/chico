@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Tooltip Test</title>
+		<link rel="shortcut icon" type="image/png" href="/libs/jasmine-1.2.0/jasmine_favicon.png">
+		<link rel="stylesheet" type="text/css" href="/ui/css">
+		<link rel="stylesheet" type="text/css" href="/libs/jasmine-1.2.0/jasmine.css">
+
+	</head>
+	<body>
+		<h1>Tooltip</h1>
+		<img id="tooltip1" alt="This is a default tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+		<img id="tooltip2" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+		<img id="tooltip3" title="Tooltip with closable:false and a title attibute as content" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+		<img id="tooltip4" alt="This should be overshadowed by the title attr" title="Tooltip with closable:'button' and title+alt attributes as content at the same time." src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+
+		<div id="invisibleContent" class="ch-hide">Some text!</div>
+
+		<script src="/libs/jasmine-1.2.0/jasmine.js"></script>
+		<script src="/libs/jasmine-1.2.0/jasmine-html.js"></script>
+		<script src="/vendor/jquery-debug.js"></script>
+		<script src="/ui/js"></script>
+		<script src="./spect.js"></script>
+		<script>
+			(function() {
+				var jasmineEnv = jasmine.getEnv();
+				jasmineEnv.updateInterval = 1000;
+
+				var htmlReporter = new jasmine.HtmlReporter();
+
+				jasmineEnv.addReporter(htmlReporter);
+
+				jasmineEnv.specFilter = function(spec) {
+					return htmlReporter.specFilter(spec);
+				};
+
+				var currentWindowOnload = window.onload;
+
+				window.onload = function() {
+					if (currentWindowOnload) {
+						currentWindowOnload();
+					}
+					execJasmine();
+				};
+
+				function execJasmine() {
+					jasmineEnv.execute();
+				}
+			})();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+/*
+* Pagination
+*/
+.ch-pagination {
+	margin: 15px 0;
+	text-align: center;
+}
+
+.ch-pagination li {
+	display: inline-block;
+	margin: 0px 4px;
+}
+
+.ch-pagination a,
+.ch-pagination-current a {
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font-size: 1.13em;
+	padding: 5px 8px;
+	border: 1px solid #EDEDED;
+	background-color: #FFF;
+}
+
+.ch-pagination a {
+	background-color: #FFF;
+}
+
+.ch-pagination-current a {
+	border: 1px solid #EDEDED;
+	background-color: #EDEDED;
+	color: #0637b3;
+	font-weight: bold;
+}
+
+.ch-pagination a[type="prev"],
+.ch-pagination a[type="next"] {
+	border-color: #FFFFFF;
+}

@@ -1,0 +1,172 @@
+/**
+ * Layer
+ */
+.ch-layer {
+	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	min-width: 4em;
+}
+
+.ch-layer .ch-close {
+	top: 8px;
+	right: 8px;
+}
+
+/* Cone */
+/* Bottom */
+/* ltlb, ctcb, rtrb */
+.ch-layer.ch-points-ltlb .ch-layer-content:after,
+.ch-layer.ch-points-ctcb .ch-layer-content:after,
+.ch-layer.ch-points-rtrb .ch-layer-content:after {
+	border-bottom-color: #FFFFFF;
+}
+.ch-layer.ch-points-ltlb .ch-layer-content:before,
+.ch-layer.ch-points-ctcb .ch-layer-content:before,
+.ch-layer.ch-points-rtrb .ch-layer-content:before {
+	border-bottom-color: #E5E5E5;
+}
+
+/* Top */
+/* lblt, cbct, rbrt */
+.ch-layer.ch-points-lblt .ch-layer-content:after,
+.ch-layer.ch-points-cbct .ch-layer-content:after,
+.ch-layer.ch-points-rbrt .ch-layer-content:after {
+	border-top-color: #FFFFFF;
+}
+.ch-layer.ch-points-lblt .ch-layer-content:before,
+.ch-layer.ch-points-cbct .ch-layer-content:before,
+.ch-layer.ch-points-rbrt .ch-layer-content:before {
+	border-top-color: #E5E5E5;
+}
+
+/* Right */
+/* ltrt, lmrm, lbrb */
+.ch-layer.ch-points-ltrt .ch-layer-content:after,
+.ch-layer.ch-points-lmrm .ch-layer-content:after,
+.ch-layer.ch-points-lbrb .ch-layer-content:after {
+	border-right-color: #FFFFFF;
+}
+.ch-layer.ch-points-ltrt .ch-layer-content:before,
+.ch-layer.ch-points-lmrm .ch-layer-content:before,
+.ch-layer.ch-points-lbrb .ch-layer-content:before {
+	border-right-color: #E5E5E5;
+}
+
+/* Left */
+/* rtlt, rmlm, rblb */
+.ch-layer.ch-points-rtlt .ch-layer-content:after,
+.ch-layer.ch-points-rmlm .ch-layer-content:after,
+.ch-layer.ch-points-rblb .ch-layer-content:after {
+	border-left-color: #FFFFFF;
+}
+
+.ch-layer.ch-points-rtlt .ch-layer-content:before,
+.ch-layer.ch-points-rmlm .ch-layer-content:before,
+.ch-layer.ch-points-rblb .ch-layer-content:before {
+	border-left-color: #E5E5E5;
+}
+
+/* Cone Y position */
+.ch-layer.ch-cone.ch-points-ltrt .ch-layer-content:after,
+.ch-layer.ch-cone.ch-points-rtlt .ch-layer-content:after {
+	top: 8px;
+}
+
+.ch-layer.ch-cone.ch-points-ltrt .ch-layer-content:before,
+.ch-layer.ch-cone.ch-points-rtlt .ch-layer-content:before {
+	top: 7px;
+}
+
+.ch-layer.ch-cone.ch-points-lbrb .ch-layer-content:after,
+.ch-layer.ch-cone.ch-points-rblb .ch-layer-content:after {
+	bottom: 8px;
+}
+
+.ch-layer.ch-cone.ch-points-lbrb .ch-layer-content:before,
+.ch-layer.ch-cone.ch-points-rblb .ch-layer-content:before {
+	bottom: 7px;
+}
+
+/* IE */
+.lt-ie10 .ch-layer {
+	filter: none;
+}
+
+/* IE 7 */
+.lt-ie8 .ch-layer-cone {
+	background-image: url('../assets/shapes.png');
+	display: block;
+	position: absolute;
+	width: 16px;
+	height: 8px;
+}
+
+.lt-ie8 .ch-points-ltlb .ch-layer-cone,
+.lt-ie8 .ch-points-ctcb .ch-layer-cone,
+.lt-ie8 .ch-points-rtrb .ch-layer-cone {
+	top: -8px;
+	background-position: 0 -16px;
+}
+
+.lt-ie8 .ch-points-lblt .ch-layer-cone,
+.lt-ie8 .ch-points-cbct .ch-layer-cone,
+.lt-ie8 .ch-points-rbrt .ch-layer-cone {
+	bottom: -8px;
+	background-position: 0 -24px;
+}
+
+.lt-ie8 .ch-points-ltlb .ch-layer-cone,
+.lt-ie8 .ch-points-lblt .ch-layer-cone {
+	left: 8px;
+}
+
+.lt-ie8 .ch-points-ctcb .ch-layer-cone,
+.lt-ie8 .ch-points-cbct .ch-layer-cone {
+	left: 50%;
+	margin-left: -8px;
+}
+
+.lt-ie8 .ch-points-rtrb .ch-layer-cone,
+.lt-ie8 .ch-points-rbrt .ch-layer-cone {
+	right: 8px;
+}
+
+.lt-ie8 .ch-points-ltrt .ch-layer-cone,
+.lt-ie8 .ch-points-lmrm .ch-layer-cone,
+.lt-ie8 .ch-points-lbrb .ch-layer-cone,
+.lt-ie8 .ch-points-rtlt .ch-layer-cone,
+.lt-ie8 .ch-points-rmlm .ch-layer-cone,
+.lt-ie8 .ch-points-rblb .ch-layer-cone {
+	width: 8px;
+	height: 16px;
+}
+
+.lt-ie8 .ch-points-ltrt .ch-layer-cone,
+.lt-ie8 .ch-points-lmrm .ch-layer-cone,
+.lt-ie8 .ch-points-lbrb .ch-layer-cone {
+	left: -8px;
+	background-position: 0 -16px;
+}
+
+.lt-ie8 .ch-points-rtlt .ch-layer-cone,
+.lt-ie8 .ch-points-rmlm .ch-layer-cone,
+.lt-ie8 .ch-points-rblb .ch-layer-cone {
+	right: -8px;
+	background-position: -8px -16px;
+}
+
+.lt-ie8 .ch-points-ltrt .ch-layer-cone,
+.lt-ie8 .ch-points-rtlt .ch-layer-cone {
+	top: 4px;
+}
+
+.lt-ie8 .ch-points-lmrm .ch-layer-cone,
+.lt-ie8 .ch-points-rmlm .ch-layer-cone {
+	top: 50%;
+	margin-top: -8px;
+}
+
+.lt-ie8 .ch-points-lbrb .ch-layer-cone,
+.lt-ie8 .ch-points-rblb .ch-layer-cone  {
+	bottom: 4px;
+}

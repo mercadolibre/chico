@@ -1,0 +1,95 @@
+/*
+* Lists
+*/
+
+.ch-list {
+	margin-bottom:10px;
+}
+
+.ch-list li {
+	margin-left: 10px;
+	padding: 3px 0;
+	line-height: 18px;
+}
+
+ul.ch-list li {
+	list-style: disc inside;
+}
+
+ol.ch-list li {
+	list-style: decimal inside;
+}
+
+dl.ch-list {
+  margin-bottom: 18px;
+}
+
+dl.ch-list dt, dl.ch-list dd {
+  line-height: 18px;
+}
+
+dl.ch-list dt {
+  font-weight: bold;
+}
+
+dl.ch-list dd {
+  margin-left: 9px;
+}
+
+/*
+* List Menu
+*/
+.ch-list-menu {
+	background-color: #f4f4f4;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin: 0 0 1.5em;
+	border: 1px solid #EEEEEE;
+}
+
+.ch-list-menu li {
+	border-bottom: 1px dotted #CCC;
+	min-height: 3em;
+	line-height: 3.5em;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	position: relative;
+}
+
+.ch-list-menu li:last-child {
+    border-bottom: none;
+}
+
+.ch-list-menu li,
+.ch-list-menu li a {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-indent: 10px;
+}
+
+.ch-list-menu li a {
+	padding-right: 3em;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.ch-list-menu li a:active {
+	background: #e9e9e9;
+}
+
+.ch-list-menu li a:after {
+	content: "\f054";
+	line-height: 1em;
+	margin-top: -0.4em;
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	font-size: 1em;
+}
+
+.ch-list-menu [class*="ch-icon"]:before {
+	margin-right: 0.4em;
+}

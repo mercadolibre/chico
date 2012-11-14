@@ -1,0 +1,164 @@
+/**
+ * Icons
+ */
+@font-face {
+	font-family: "icons";
+	src: url('../assets/icons.eot');
+	src: url('../assets/icons.eot?#iefix') format('embedded-opentype'),
+		 url('../assets/icons.woff') format('woff'),
+		 url('../assets/icons.ttf') format('truetype'),
+		 url('../assets/icons.svg#icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.lt-ie8 [class*="ch-icon-"],
+[class*="ch-icon-"]:before,
+.ch-box-attention:before,
+.ch-box-help:before,
+.ch-box-information:before,
+.ch-box-error:before,
+.ch-box-ok:before {
+	font-family: icons;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: none;
+	vertical-align: middle;
+	margin-right: 0.2em;
+	line-height: 1em;
+	font-size: 1.5em;
+}
+
+/*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+    readers do not read off random characters that represent icons */
+.ch-icon-search:before               { content: "\f002"; }
+.ch-icon-heart:before                { content: "\f004"; }
+.ch-icon-star:before                 { content: "\f005"; }
+.ch-icon-star-empty:before           { content: "\f006"; }
+.ch-icon-user:before                 { content: "\f007"; }
+.ch-icon-th-large:before             { content: "\f009"; }
+.ch-icon-th:before                   { content: "\f00a"; }
+.ch-icon-th-list:before              { content: "\f00b"; }
+.ch-icon-ok:before                   { content: "\f00c"; }
+.ch-icon-remove:before               { content: "\f00d"; }
+.ch-icon-zoom-in:before              { content: "\f00e"; }
+.ch-icon-zoom-out:before             { content: "\f010"; }
+.ch-icon-cog:before                  { content: "\f013"; }
+.ch-icon-trash:before                { content: "\f014"; }
+.ch-icon-time:before                 { content: "\f017"; }
+.ch-icon-repeat:before               { content: "\f01e"; }
+/* \f020 is not a valid unicode character. all shifted one down */
+.ch-icon-refresh:before              { content: "\f021"; }
+.ch-icon-print:before                { content: "\f02f"; }
+.ch-icon-camera:before               { content: "\f030"; }
+.ch-icon-pencil:before               { content: "\f040"; }
+.ch-icon-map-marker:before           { content: "\f041"; }
+.ch-icon-move:before                 { content: "\f047"; }
+.ch-icon-chevron-left:before         { content: "\f053"; }
+.ch-icon-chevron-right:before        { content: "\f054"; }
+.ch-icon-plus-sign:before            { content: "\f055"; }
+.ch-icon-minus-sign:before           { content: "\f056"; }
+.ch-icon-remove-sign:before          { content: "\f057"; }
+.ch-icon-ok-sign:before              { content: "\f058"; }
+.ch-icon-question-sign:before        { content: "\f059"; }
+.ch-icon-info-sign:before            { content: "\f05a"; }
+.ch-icon-ban-circle:before           { content: "\f05e"; }
+.ch-icon-arrow-left:before           { content: "\f060"; }
+.ch-icon-arrow-right:before          { content: "\f061"; }
+.ch-icon-arrow-up:before             { content: "\f062"; }
+.ch-icon-arrow-down:before           { content: "\f063"; }
+.ch-icon-plus:before                 { content: "\f067"; }
+.ch-icon-minus:before                { content: "\f068"; }
+.ch-icon-exclamation-sign:before     { content: "\f06a"; }
+.ch-icon-warning-sign:before         { content: "\f071"; }
+.ch-icon-calendar:before             { content: "\f073"; }
+.ch-icon-comment:before              { content: "\f075"; }
+.ch-icon-chevron-up:before           { content: "\f077"; }
+.ch-icon-chevron-down:before         { content: "\f078"; }
+.ch-icon-key:before                  { content: "\f084"; }
+.ch-icon-comments:before             { content: "\f086"; }
+.ch-icon-lock:before                 { content: "\f023"; }
+.ch-icon-unlock:before               { content: "\f09c"; }
+.ch-icon-wrench:before               { content: "\f0ad"; }
+.ch-icon-group:before                { content: "\f0c0"; }
+.ch-icon-copy:before                 { content: "\f0c5"; }
+.ch-icon-paper-clip:before           { content: "\f0c6"; }
+.ch-icon-reorder:before              { content: "\f0c9"; }
+.ch-icon-truck:before                { content: "\f0d1"; }
+.ch-icon-caret-down:before           { content: "\f0d7"; }
+.ch-icon-caret-up:before             { content: "\f0d8"; }
+.ch-icon-caret-left:before           { content: "\f0d9"; }
+.ch-icon-caret-right:before          { content: "\f0da"; }
+.ch-icon-sort:before                 { content: "\f0dc"; }
+.ch-icon-sort-down:before            { content: "\f0dd"; }
+.ch-icon-sort-up:before              { content: "\f0de"; }
+.ch-icon-envelope-alt:before         { content: "\f0e0"; }
+.ch-icon-undo:before                 { content: "\f0e2"; }
+.ch-icon-comment-alt:before          { content: "\f0e5"; }
+.ch-icon-comments-alt:before         { content: "\f0e6"; }
+
+.lt-ie8 .ch-icon-search { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf002;&nbsp;');}
+.lt-ie8 .ch-icon-heart { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf004;&nbsp;');}
+.lt-ie8 .ch-icon-star { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf005;&nbsp;');}
+.lt-ie8 .ch-icon-star-empty { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf006;&nbsp;');}
+.lt-ie8 .ch-icon-user { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf007;&nbsp;');}
+.lt-ie8 .ch-icon-th-large { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf009;&nbsp;');}
+.lt-ie8 .ch-icon-th { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf00a;&nbsp;');}
+.lt-ie8 .ch-icon-th-list { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf00b;&nbsp;');}
+.lt-ie8 .ch-icon-ok { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf00c;&nbsp;');}
+.lt-ie8 .ch-icon-remove { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf00d;&nbsp;');}
+.lt-ie8 .ch-icon-zoom-in { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf00e;&nbsp;');}
+.lt-ie8 .ch-icon-zoom-out { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf010;&nbsp;');}
+.lt-ie8 .ch-icon-cog { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf013;&nbsp;');}
+.lt-ie8 .ch-icon-trash { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf014;&nbsp;');}
+.lt-ie8 .ch-icon-time { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf017;&nbsp;');}
+.lt-ie8 .ch-icon-repeat { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf01e;&nbsp;');}
+/* \f020 is not a valid unicode character. all shifted one down */
+.lt-ie8 .ch-icon-refresh { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf021;&nbsp;');}
+.lt-ie8 .ch-icon-print { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf02f;&nbsp;');}
+.lt-ie8 .ch-icon-camera { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf030;&nbsp;');}
+.lt-ie8 .ch-icon-pencil { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf040;&nbsp;');}
+.lt-ie8 .ch-icon-map-marker { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf041;&nbsp;');}
+.lt-ie8 .ch-icon-move { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf047;&nbsp;');}
+.lt-ie8 .ch-icon-chevron-left { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf053;&nbsp;');}
+.lt-ie8 .ch-icon-chevron-right { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf054;&nbsp;');}
+.lt-ie8 .ch-icon-plus-sign { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf055;&nbsp;');}
+.lt-ie8 .ch-icon-minus-sign { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf056;&nbsp;');}
+.lt-ie8 .ch-icon-remove-sign { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf057;&nbsp;');}
+.lt-ie8 .ch-icon-ok-sign { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf058;&nbsp;');}
+.lt-ie8 .ch-icon-question-sign { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf059;&nbsp;');}
+.lt-ie8 .ch-icon-info-sign { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf05a;&nbsp;');}
+.lt-ie8 .ch-icon-ban-circle { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf05e;&nbsp;');}
+.lt-ie8 .ch-icon-arrow-left { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf060;&nbsp;');}
+.lt-ie8 .ch-icon-arrow-right { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf061;&nbsp;');}
+.lt-ie8 .ch-icon-arrow-up { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf062;&nbsp;');}
+.lt-ie8 .ch-icon-arrow-down { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf063;&nbsp;');}
+.lt-ie8 .ch-icon-plus { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf067;&nbsp;');}
+.lt-ie8 .ch-icon-minus { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf068;&nbsp;');}
+.lt-ie8 .ch-icon-exclamation-sign { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf06a;&nbsp;');}
+.lt-ie8 .ch-icon-warning-sign { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf071;&nbsp;');}
+.lt-ie8 .ch-icon-calendar { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf073;&nbsp;');}
+.lt-ie8 .ch-icon-comment { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf075;&nbsp;');}
+.lt-ie8 .ch-icon-chevron-up { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf077;&nbsp;');}
+.lt-ie8 .ch-icon-chevron-down { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf078;&nbsp;');}
+.lt-ie8 .ch-icon-key { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf084;&nbsp;');}
+.lt-ie8 .ch-icon-comments { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf086;&nbsp;');}
+.lt-ie8 .ch-icon-lock:before { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf023;&nbsp;');}
+.lt-ie8 .ch-icon-unlock { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf09c;&nbsp;');}
+.lt-ie8 .ch-icon-wrench { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0ad;&nbsp;');}
+.lt-ie8 .ch-icon-group { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0c0;&nbsp;');}
+.lt-ie8 .ch-icon-copy { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0c5;&nbsp;');}
+.lt-ie8 .ch-icon-paper-clip { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0c6;&nbsp;');}
+.lt-ie8 .ch-icon-reorder { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0c9;&nbsp;');}
+.lt-ie8 .ch-icon-truck { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0d1;&nbsp;');}
+.lt-ie8 .ch-icon-caret-down { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0d7;&nbsp;');}
+.lt-ie8 .ch-icon-caret-up { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0d8;&nbsp;');}
+.lt-ie8 .ch-icon-caret-left { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0d9;&nbsp;');}
+.lt-ie8 .ch-icon-caret-right { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0da;&nbsp;');}
+.lt-ie8 .ch-icon-sort { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0dc;&nbsp;');}
+.lt-ie8 .ch-icon-sort-down { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0dd;&nbsp;');}
+.lt-ie8 .ch-icon-sort-up { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0de;&nbsp;');}
+.lt-ie8 .ch-icon-envelope-alt { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0e0;&nbsp;');}
+.lt-ie8 .ch-icon-undo { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0e2;&nbsp;');}
+.lt-ie8 .ch-icon-comment-alt { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0e5;&nbsp;');}
+.lt-ie8 .ch-icon-comments-alt:before { *zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#xf0e6;&nbsp;');}

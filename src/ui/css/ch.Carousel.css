@@ -1,0 +1,140 @@
+.ch-carousel {
+	overflow: auto;
+	position: relative;
+	/* Enable hardware acceleration */
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+}
+
+.ch-carousel-mask {
+	overflow: hidden;
+	position: relative;
+}
+
+.ch-carousel-adaptive {
+	margin: 0 50px;
+}
+
+.ch-carousel ul {
+	overflow: hidden;
+	-webkit-transition: all .8s ease;
+	-moz-transition: all .8s ease;
+	-ms-transition: all .8s ease;
+	-o-transition: all .8s ease;
+	transition: all .8s ease;
+	width: -moz-max-content;
+}
+
+.ch-carousel ul.ch-carousel-nofx {
+	-webkit-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+
+.ch-carousel-item {
+	display: inline-block;
+	float: left; /* Fixes the inline-block inner space between li elements */
+}
+
+.ch-carousel-loading {
+	background: transparent url('../assets/loading_small.gif') center center no-repeat;
+}
+
+.ch-carousel-prev,
+.ch-carousel-next {
+	cursor: pointer;
+	position: absolute;
+	z-index: 2;
+	width: 47px;
+	height: 80px;
+	font-size: 2em;
+	line-height: 3.3em;
+	color: #666666;
+
+}
+
+.ch-carousel-prev {
+	left: 0;
+}
+
+.ch-carousel-next {
+	right: 0;
+}
+
+.ch-carousel-prev:after,
+.ch-carousel-next:after {
+	font-family: icons;
+	position: absolute;
+}
+
+.ch-carousel-prev:after {
+	content: "\f053";
+	left: 17px;
+}
+
+.ch-carousel-next:after {
+	content: "\f054";
+	right: 17px;
+}
+
+.ch-carousel-prev:hover,
+.ch-carousel-next:hover {
+	opacity: 0.7;
+}
+
+.lt-ie8 .ch-carousel-prev span,
+.lt-ie8 .ch-carousel-next span {
+	background-image: url('../assets/shapes.png');
+	display: block;
+	height: 18px;
+	margin: 30px 20px;
+	overflow: hidden;
+	/* Bubble event to wrapper */
+	pointer-events: none;
+	text-indent: -99px;
+	width: 11px;
+}
+
+.lt-ie8 .ch-carousel-prev span {
+	background-position: -5px -53px;
+}
+
+.lt-ie8 .ch-carousel-next span {
+	background-position: 0 -68px;
+}
+
+.ch-carousel-disabled {
+	display: none;
+}
+
+/* Pagination */
+.ch-carousel-pages {
+	font-size: 0;
+	line-height: 0;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+}
+
+.ch-carousel-pages span {
+	background-color: #d1d1d1;
+	border-radius: 100%;
+	-webkit-box-shadow: inset 1px 1px #888;
+	box-shadow: inset 1px 1px #888;
+	cursor: pointer;
+	display: inline-block;
+	height: 10px;
+	margin: 10px 5px;
+	overflow: hidden;
+	text-indent: -99px;
+	width: 10px;
+}
+
+.ch-carousel-pages .ch-carousel-selected {
+	background-color: #16232f;
+}

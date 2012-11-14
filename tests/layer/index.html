@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Layer Test</title>
+		<link rel="shortcut icon" type="image/png" href="/libs/jasmine-1.2.0/jasmine_favicon.png">
+		<link rel="stylesheet" type="text/css" href="/ui/css">
+		<link rel="stylesheet" type="text/css" href="/libs/jasmine-1.2.0/jasmine.css">
+
+	</head>
+	<body>
+		<h1>Layer</h1>
+		<p id="layer1">Layer 1</p>
+		<p id="layer2">Layer 2</p>
+		<p id="layer3">Layer 3</p>
+		<p id="layer4">Layer 4</p>
+		<p id="layer5">Layer 5</p>
+
+		<div id="invisibleContent" class="ch-hide">Some text!</div>
+
+		<script src="/libs/jasmine-1.2.0/jasmine.js"></script>
+		<script src="/libs/jasmine-1.2.0/jasmine-html.js"></script>
+		<script src="/vendor/jquery-debug.js"></script>
+		<script src="/ui/js"></script>
+		<script src="./spect.js"></script>
+		<script>
+			(function() {
+				var jasmineEnv = jasmine.getEnv();
+				jasmineEnv.updateInterval = 1000;
+
+				var htmlReporter = new jasmine.HtmlReporter();
+
+				jasmineEnv.addReporter(htmlReporter);
+
+				jasmineEnv.specFilter = function(spec) {
+					return htmlReporter.specFilter(spec);
+				};
+
+				var currentWindowOnload = window.onload;
+
+				window.onload = function() {
+					if (currentWindowOnload) {
+						currentWindowOnload();
+					}
+					execJasmine();
+				};
+
+				function execJasmine() {
+					jasmineEnv.execute();
+				}
+			})();
+		</script>
+	</body>
+</html>

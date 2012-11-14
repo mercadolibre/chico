@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Modal Test</title>
+		<link rel="shortcut icon" type="image/png" href="/libs/jasmine-1.2.0/jasmine_favicon.png">
+		<link rel="stylesheet" type="text/css" href="/ui/css">
+		<link rel="stylesheet" type="text/css" href="/libs/jasmine-1.2.0/jasmine.css">
+
+	</head>
+	<body>
+		<h1>Modal</h1>
+		<p id="modal1">Modal 1</p>
+		<p id="modal2">Modal 2</p>
+		<p id="modal3">Modal 3</p>
+		<p id="modal4">Modal 4</p>
+		<p id="modal5">Modal 5</p>
+
+		<div id="invisibleContent" class="ch-hide">Some text!</div>
+
+		<script src="/libs/jasmine-1.2.0/jasmine.js"></script>
+		<script src="/libs/jasmine-1.2.0/jasmine-html.js"></script>
+		<script src="/vendor/jquery-debug.js"></script>
+		<script src="/ui/js"></script>
+		<script src="./spect.js"></script>
+		<script>
+			(function() {
+				var jasmineEnv = jasmine.getEnv();
+				jasmineEnv.updateInterval = 1000;
+
+				var htmlReporter = new jasmine.HtmlReporter();
+
+				jasmineEnv.addReporter(htmlReporter);
+
+				jasmineEnv.specFilter = function(spec) {
+					return htmlReporter.specFilter(spec);
+				};
+
+				var currentWindowOnload = window.onload;
+
+				window.onload = function() {
+					if (currentWindowOnload) {
+						currentWindowOnload();
+					}
+					execJasmine();
+				};
+
+				function execJasmine() {
+					jasmineEnv.execute();
+				}
+			})();
+		</script>
+	</body>
+</html>
