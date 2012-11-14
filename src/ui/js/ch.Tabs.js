@@ -4,8 +4,8 @@
 * @class Tabs
 * @augments ch.Widget
 * @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {Number} [conf.selected] Selects a child that will be open when component was loaded. By default, the value is 1.
+* @param {Object} [options] Object with configuration properties.
+* @param {Number} [options.selected] Selects a child that will be open when component was loaded. By default, the value is 1.
 * @returns itself
 * @factorized
 * @exampleDescription Create a new Tab Navigator without configuration.
@@ -25,7 +25,14 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Tabs($el, conf) {
+	function Tabs($el, options) {
+
+		this.init($el, options);
+
+		/**
+		 * Private Members
+		 */
+
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
 		 * @private
@@ -34,28 +41,9 @@
 		 */
 		var that = this;
 
-		that.$element = $el;
-		that.element = $el[0];
-		that.type = 'tabs';
-		conf = conf || {};
-
-		conf = ch.util.clone(conf);
-
-		that.conf = conf;
-
-		/**
-		 * Inheritance
-		 */
-
-		that = ch.Widget.call(that);
-		that.parent = ch.util.clone(that);
-
 	/**
-	*	Private Members
-	*/
-
-		// Add CSS class to the main element
-		that.$element.addClass("ch-tabs");
+	 * Protected Members
+	 */
 
 		/**
 		* The actual location hash, is used to know if there's a specific tab selected.
@@ -80,7 +68,7 @@
 		* @name ch.Tabs#selected
 		* @type number
 		*/
-			selected = conf.selected || conf.num || undefined,
+			selected = this.options.selected || this.options.num || undefined,
 
 		/**
 		* Create controller's children.
@@ -88,7 +76,7 @@
 		* @name ch.Tabs#createTabs
 		* @function
 		*/
-			createTabs = function () {
+			createTabPanel = function () {
 
 				// Children
 				that.$triggers.find("a").each(function (i, e) {
@@ -202,7 +190,7 @@
 		* @name ch.Tabs#$triggers
 		* @type jQuery
 		*/
-		that.$triggers = that.$element.children(":first").addClass("ch-tabs-triggers").attr("role", "tablist");
+		that.$triggers = that.$element.children(":first-child").addClass("ch-tabs-triggers").attr("role", "tablist");
 
 		/**
 		* The component's content.
@@ -210,25 +198,11 @@
 		* @name ch.Tabs#$content
 		* @type jQuery
 		*/
-		that.$content = that.$triggers.next().addClass("ch-tabs-content ch-box-lite").attr("role", "presentation");
+		that.$content = that.$element.children(":last-child").addClass("ch-tabs-content ch-box-lite").attr("role", "presentation");
 
 	/**
 	*	Public Members
 	*/
-
-		/**
-		 * @borrows ch.Widget#uid as ch.Tabs#uid
-		 * @borrows ch.Widget#element as ch.Tabs#element
-		 * @borrows ch.Widget#type as ch.Tabs#type
-		 */
-
-		/**
-		* Children instances associated to this controller.
-		* @public
-		* @name ch.Tabs#children
-		* @type collection
-		*/
-		that["public"].children = that.children;
 
 		/**
 		* Select a specific tab or get the selected tab.
@@ -243,35 +217,40 @@
 		* @example
 		* var selected = widget.select();
 		*/
-		that["public"].select = function (tab) {
+		this.select = function (tab) {
 			// Returns selected tab instead set it
 			// Getter
-			if (!parseInt(tab)) {
+			if (parseInt(tab) === undefined) {
 				return selected + 1;
 			}
 
 			// Setter
 			select(tab -= 1);
-			return that["public"];
+
+			return that;
 		};
 
-	/**
-	*	Default event delegation
-	*/
+		/**
+		 * Default behaivor
+		 */
 
-		createTabs();
+		// Add CSS class to the main element
+		that.$el.addClass("ch-tabs");
+
+		// Create tabs
+		createTabPanel();
 
 		// If hash open that tab
-		for(var i = that.children.length; i--;) {
+		for (var i = that.children.length; i-=1;) {
 			if (that.children[i].$content.attr("id") === hash) {
 				select(i);
 				hashed = true;
 				break;
 			}
-		};
+		}
 
 		// Shows the first tab if not hash or it's hash and it isn't from the current tab
-		if( !hash || ( hash && !hashed ) ){
+		if (!hash || ( hash && !hashed )) {
 			that.children[0].innerShow();
 			selected = 0;
 		}
@@ -289,13 +268,20 @@
 		* });
 		*/
 		//This avoit to trigger execute after the component was instanciated
-		setTimeout(function(){that.trigger("ready")}, 50);
+		setTimeout(function () { that.trigger("ready"); }, 50);
 
 		return that['public'];
 	}
 
+	ch.util.inherits(Tabs, ch.Widget);
+
 	Tabs.prototype.name = 'tabs';
+
 	Tabs.prototype.constructor = Tabs;
+
+	Tabs.prototype.defaults = {
+		'cache': true
+	};
 
 	ch.factory(Tabs);
 
@@ -337,7 +323,7 @@
 		that.conf = conf;
 
 	/**
-	*	Inheritance
+	 *Inheritance
 	*/
 
 		that = ch.Widget.call(that);
