@@ -1,6 +1,6 @@
 {
 	"pkg": {
-		"version": "0.12.1"
+		"version": "0.12.2"
 	},
 	"meta": {
 		"ui": {
@@ -14,7 +14,7 @@
 				"jsClose": "window.ch = ch;})(this, jQuery);",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
 			},
-			"temp_version": "ch.version = '0.12.1';"
+			"temp_version": "ch.version = '0.12.2';"
 		},
 		"mobile": {
 			"full": {

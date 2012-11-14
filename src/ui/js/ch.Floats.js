@@ -603,7 +603,24 @@
 		 * @function
 		 * @param {Object} userOptions Options specified by user.
 		 */
-		that['public'].content = that.content;
+		that['public'].content = function ($content) {
+			// Gets a new content
+			if ($content === undefined) {
+				return that.content.get();
+			}
+
+			// Configures a new content
+			that.content.configure({
+				'input': $content
+			});
+
+			// Sets the new content only if it's active
+			if (that.active) {
+				that.content.set();
+			}
+
+			return that["public"];
+		};
 
 		/**
 		 * Triggers when the component is ready to use.
