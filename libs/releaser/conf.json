@@ -4,7 +4,6 @@
 		"../../src/shared/js/",
 		"../../src/ui/js/"
 	],
-
 	// Document all functions, even uncommented ones
 	"a": false,
 
@@ -12,7 +11,7 @@
 	"p": true,
 
 	// Use this directory as the output directory
-	"d": "../../../chico.site/public/api/0.12",
+	"d": "../../../chico.site/public/api/0.12.1",
 
 	// Use this template
 	"t": "jsdoc-template"
