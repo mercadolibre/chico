@@ -252,10 +252,7 @@
 
 				// to avoid reload the same content
 				if (!that["float"]["public"].isActive() || !that.error.condition || that.error.condition !== gotError.condition) {
-					//that["float"]["public"].show((gotError.msg || form.messages[gotError.condition] || "Error"));
-					that["float"]["public"].content.configure({'input': (gotError.msg || form.messages[gotError.condition] || "Error")});
-					that["float"]["public"].content.set();
-					that["float"]["public"].show();
+					that["float"]["public"].show((gotError.msg || form.messages[gotError.condition] || "Error"));
 					// the aria-label attr should get the message element id, but is not public
 					that.$element.attr('aria-label', 'ch-' + that["float"]["public"].type + '-' + that["float"]["public"].uid );
 				}
@@ -559,10 +556,7 @@
 			validator.conditions[condition].message = msg;
 
 			if (validator.isActive()) {
-				that["public"]["float"].content.configure({
-					'input': msg
-				});
-				that["public"]["float"].content.set();
+				that["public"]["float"].content(msg);
 			}
 
 			return that["public"];
