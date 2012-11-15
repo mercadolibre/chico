@@ -4,16 +4,16 @@
 		"../../src/shared/js/",
 		"../../src/ui/js/"
 	],
-	
+
 	// Document all functions, even uncommented ones
 	"a": false,
-	
+
 	// Including those marked @private
 	"p": true,
-	
+
 	// Use this directory as the output directory
-	"d": "../../../chico.site/public/api/0.12.1",
-	
+	"d": "../../../chico.site/public/api/0.12.2",
+
 	// Use this template
 	"t": "jsdoc-template"
 }
