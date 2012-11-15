@@ -95,7 +95,6 @@
 
 					// Tab context
 					var tab = {};
-						tab.uid = that.uid + "#" + i;
 						tab.type = tab.name = "tab";
 						tab.element = e;
 						tab.$element = $(e);
@@ -420,7 +419,7 @@
 					'input': that.source
 				});
 
-				var id = (href.length === 2) ? href[1] : "ch-tab" + that.uid.replace("#", "-");
+				var id = (href.length === 2) ? href[1] : "ch-tab-" + that.uid;
 
 				// Create tabContent
 				return $("<div id=\"" + id + "\" role=\"tabpanel\" class=\"ch-hide\">").appendTo(controller.children().eq(1));
