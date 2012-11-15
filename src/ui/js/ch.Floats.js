@@ -469,10 +469,11 @@
 		 */
 		that["public"].show = function (content) {
 			if (content !== undefined) {
-				that["public"].content.configure({
+				that.content.configure({
 					'input': content
 				});
 			}
+
 			that.innerShow();
 			return that["public"];
 		};
