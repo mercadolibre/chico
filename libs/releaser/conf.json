@@ -12,7 +12,7 @@
 	"p": true,
 
 	// Use this directory as the output directory
-	"d": "../../../chico.site/public/api/0.12.2",
+	"d": "../../../chico.site/public/api/0.13",
 
 	// Use this template
 	"t": "jsdoc-template"
