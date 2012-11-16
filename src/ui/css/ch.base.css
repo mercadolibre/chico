@@ -117,29 +117,6 @@ hr {
 	height: 0;
 }
 
-/**
- * Clear Fix
- * @based: http://perishablepress.com/press/2009/12/06/new-clearfix-hack/
- */
-.ch-clearfix:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-}
-
-/* IE6 */
-* html .ch-clearfix {
-	zoom: 1;
-}
-
-/* IE7 */
-*:first-child+html .ch-clearfix {
-	zoom: 1;
-}
-
 /* do not select text */
 .ch-user-no-select {
 	-o-user-select: none;
