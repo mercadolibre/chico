@@ -27,7 +27,7 @@
 .ch-box-ok {
 	-webkit-border-radius: 0.357em; /* Android 2.1 */
 	border-radius: 0.357em; /* 5px */
-	text-shadow: 0.071em 0.071em 0 #fff; /* 1px */
+	text-shadow: 0.071em 0.071em 0 rgba(255, 255, 255, 0.75); /* 1px */
 	position: relative;
 	padding-left: 2.5em; /* 35px */
 }

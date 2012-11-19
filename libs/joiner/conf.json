@@ -89,7 +89,7 @@
 				"../../src/shared/css/ch.typography.css",
 				"../../src/shared/css/ch.icons.css",
 				"../../src/shared/css/ch.boxes.css",
-				"../../src/ui/css/ch.button.css",
+				"../../src/shared/css/ch.buttons.css",
 				"../../src/ui/css/ch.datagrid.css",
 				"../../src/ui/css/ch.list.css",
 				"../../src/ui/css/ch.pagination.css",
