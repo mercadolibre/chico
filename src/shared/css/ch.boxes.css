@@ -25,8 +25,8 @@
 .ch-box-help,
 .ch-box-information,
 .ch-box-ok {
-	-webkit-border-radius: 0.214em; /* Android 2.1 */
-	border-radius: 0.214em; /* 3px */
+	-webkit-border-radius: 0.357em; /* Android 2.1 */
+	border-radius: 0.357em; /* 5px */
 	text-shadow: 0.071em 0.071em 0 #fff; /* 1px */
 	position: relative;
 	padding-left: 2.5em; /* 35px */
