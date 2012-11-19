@@ -49,7 +49,6 @@
 			"widgets": [
 				"../../src/shared/js/ch.cache.js",
 				"../../src/ui/js/ch.viewport.js",
-				"../../src/ui/js/ch.Positioner.js",
 				"../../src/ui/js/ch.OnImagesLoads.js",
 				"../../src/ui/js/ch.Positioner.js",
 				"../../src/ui/js/ch.Blink.js",

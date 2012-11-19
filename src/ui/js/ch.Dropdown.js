@@ -108,12 +108,20 @@
 			$content.children('a').attr('role', 'menuitem');
 
 			// Position
-			that.position = ch.Positioner({
-				'element': $content,
-				'context': that.$trigger,
-				'points': that.options.points,
-				'offset': '0 -1',
-				'reposition': that.options.reposition
+			// that.position = ch.Positioner({
+			// 	'element': $content,
+			// 	'context': that.$trigger,
+			// 	'points': that.options.points,
+			// 	'offset': '0 -1',
+			// 	'reposition': that.options.reposition
+			// });
+
+			that.position = new ch.Positioner({
+				'target': $content,
+				'reference': that.$trigger,
+				'side': 'bottom',
+				'aligned': 'left',
+				'offset': '0 -1'
 			});
 
 			return $content;
@@ -259,7 +267,9 @@
 		this.uber.show.call(this);
 
 		// Refresh position
-		this.position('refresh');
+		//this.position('refresh');
+
+		this.position.locate({'side': 'bottom', 'aligned': 'left'});
 
 		// Reset all dropdowns except itself
 		$.each(ch.instances.dropdown, function (i, e) {
