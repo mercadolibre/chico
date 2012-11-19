@@ -2,15 +2,22 @@
  * Buttons
  */
 /* Global */
+
+.ch-actions {
+	margin-top: 10px;
+	text-align: center;
+}
+
 [class*="ch-btn"],
 [class*="ch-btn"]:focus {
+	-webkit-border-radius: 4px; /* Android 2.1 */
 	border-radius: 4px;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	cursor: pointer;
 	display: inline-block;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 1.384em;
+	font-size: 1.286em; /* 18px */
 	height: auto;
 	line-height: 1.199em;
 	padding: 0.305em 0.777em;
@@ -42,13 +49,6 @@ button:focus {
 	box-shadow: inset 0px 1px #8EA2DF;
 	border: 1px solid #2D3277;
 	color: #FFFFFF;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
-}
-
-.lt-ie10 .ch-btn,
-.lt-ie10 .ch-btn:focus,
-.lt-ie10 .ch-btn:visited {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3E52A1', endColorstr='#2D3277');
 }
 
 .ch-btn-skin,
@@ -66,10 +66,19 @@ button:focus {
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
 
-.lt-ie10 .ch-btn-skin,
-.lt-ie10 .ch-btn-skin:focus,
-.lt-ie10 .ch-btn-skin:visited {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCE3F7', endColorstr='#AAD0EF');
+.ch-btn-action,
+.ch-btn-action:focus,
+.ch-btn-action:visited {
+	background-color: #EFEFEF;
+	background-image: -webkit-linear-gradient(#EFEFEF, #D0D0D0);
+	background-image: -moz-linear-gradient(#EFEFEF, #D0D0D0);
+	background-image: -o-linear-gradient(#EFEFEF, #D0D0D0);
+	background-image: linear-gradient(#EFEFEF, #D0D0D0);
+	border: 1px solid #BBBBBB;
+	-webkit-box-shadow: inset 0px 1px #FFFFFF;
+	box-shadow: inset 0px 1px #FFFFFF;
+	color: #666666;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
 
 
@@ -90,10 +99,6 @@ button:focus {
 	box-shadow: inset 0px 1px #7A89E8;
 }
 
-.lt-ie10 .ch-btn:hover {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4355D2', endColorstr='#2F33AE');
-}
-
 .ch-btn-skin:hover {
 	background-color: #DCECFB;
 	background-image: -webkit-linear-gradient(#DCECFB, #C5DFF5);
@@ -104,54 +109,71 @@ button:focus {
 	box-shadow: inset 0px 1px #ECF5FD;
 }
 
-.lt-ie10 .ch-btn-skin:hover {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DCECFB', endColorstr='#C5DFF5');
+/* Colors on Hover */
+.ch-btn-action:hover {
+	background-color: #FEFEFE;
+	background-image: -webkit-linear-gradient(#FEFEFE, #E6E6E6);
+	background-image: -moz-linear-gradient(#FEFEFE, #E6E6E6);
+	background-image: -o-linear-gradient(#FEFEFE, #E6E6E6);
+	background-image: linear-gradient(#FEFEFE, #E6E6E6);
 }
 
 /* Colors on Active */
 .ch-btn:active {
-	background-color: #0F1534;
-	background-image: -webkit-linear-gradient(#0F1534, #171C41);
-	background-image: -moz-linear-gradient(#0F1534, #171C41);
-	background-image: -o-linear-gradient(#0F1534, #171C41);
-	background-image: linear-gradient(#0F1534, #171C41);
-	-webkit-box-shadow: inset 0px 1px rgba(0, 0, 0, 0.8);
-	box-shadow: inset 0px 1px rgba(0, 0, 0, 0.8);
-	color: #eee;
-}
-
-.lt-ie10 .ch-btn:active {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0F1534', endColorstr='#171C41');
+	background-color: #292F66;
+	background-image: -webkit-linear-gradient(#292F66, #202388);
+	background-image: -moz-linear-gradient(#292F66, #202388);
+	background-image: -o-linear-gradient(#292F66, #202388);
+	background-image: linear-gradient(#292F66, #202388);
+	-webkit-box-shadow: inset 0 1px 6px #141452;
+	box-shadow: inset 0 1px 6px #141452;
+	border-color: #181E39;
 }
 
 .ch-btn-skin:active {
-	background-color: #A2C9E1;
-	background-image: -webkit-linear-gradient(#A2C9E1, #7DB7DC);
-	background-image: -moz-linear-gradient(#A2C9E1, #7DB7DC);
-	background-image: -o-linear-gradient(#A2C9E1, #7DB7DC);
-	background-image: linear-gradient(#A2C9E1, #7DB7DC);
-	-webkit-box-shadow: inset 0px 1px #9BBED5;
-	box-shadow: inset 0px 1px #9BBED5;
-	color: #476274;
+	background-color: #7AB6DC;
+	background-image: -webkit-linear-gradient(#A2C9E1, #7AB6DC);
+	background-image: -moz-linear-gradient(#A2C9E1, #7AB6DC);
+	background-image: -o-linear-gradient(#A2C9E1, #7AB6DC);
+	background-image: linear-gradient(#A2C9E1, #7AB6DC);
+	-webkit-box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+	box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+	border-color: #79A8C7;
 }
 
-.lt-ie10 .ch-btn-skin:active {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A2C9E1', endColorstr='#7DB7DC');
+.ch-btn-action:active {
+	background-color: #ADADAD;
+	background-image: -webkit-linear-gradient(#ADADAD, #B1B1B1);
+	background-image: -moz-linear-gradient(#ADADAD, #B1B1B1);
+	background-image: -o-linear-gradient(#ADADAD, #B1B1B1);
+	background-image: linear-gradient(#ADADAD, #B1B1B1);
+	-webkit-box-shadow: inset 0 1px 6px #949494;
+	box-shadow: inset 0 1px 6px #949494;
+	border-color: #969696;
 }
-
 
 /* Size */
+input.ch-btn::-moz-focus-inner,
+input.ch-btn-big::-moz-focus-inner,
+input.ch-btn-small::-moz-focus-inner,
+input.ch-btn-tiny::-moz-focus-inner{
+    border: 0;
+    padding: 0;
+}
 
 /* Big */
 .ch-btn-big,
 .ch-btn-big:focus {
 	font-size: 1.461em;
 	padding: 0.473em 0.842em;
+	text-align: center;
+	width: 100%;
 }
 
-.ch-btn,
-.ch-btn:focus{
-
+a.ch-btn-big,
+a.ch-btn-big:focus {
+	display: block;
+	width: auto;
 }
 
 /* Small */
@@ -176,18 +198,6 @@ input.ch-btn-tiny::-moz-focus-inner {
     padding: 0;
 }
 
-.ie7 input.ch-btn {
-	line-height: 0.85em;
-}
-
-.ie7 input.ch-btn,
-.ie7 input.ch-btn-big,
-.ie7 input.ch-btn-small,
-.ie7 input.ch-btn-tiny{
-	overflow: visible;
-	width: 1;
-}
-
 /* Disabled */
 [class*="ch-btn"].ch-btn-disabled,
 .ch-btn-disabled:hover,
@@ -209,29 +219,6 @@ input.ch-btn-tiny::-moz-focus-inner {
 	cursor: not-allowed;
 	opacity: 0.5;
 	text-shadow: none;
-}
-
-.lt-ie10 .ch-btn.ch-btn-disabled,
-.lt-ie10 .ch-btn-skin.ch-btn-disabled,
-.lt-ie10 .ch-btn-disabled:hover,
-.lt-ie10 .ch-btn-disabled:active,
-.lt-ie10 .ch-btn-disabled:focus,
-.lt-ie10 [class*="ch-btn"][disabled],
-.lt-ie10 [class*="ch-btn"][disabled]:hover,
-.lt-ie10 [class*="ch-btn"][disabled]:active,
-.lt-ie10 [class*="ch-btn"][disabled]:focus {
-	filter: alpha(opacity=50);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEFEFE', endColorstr='#E6E6E6');
-}
-
-.ie8 [class*="ch-btn"]:focus,
-.ie8 input[type="button"]:focus,
-.ie8 input[type="submit"]:focus,
-.ie8 input[type="reset"]:focus,
-.ie8 input[type="file"]:focus,
-.ie8 button:focus {
-	outline: thin dotted;
-	outline-offset: -2px;
 }
 
 /* Close*/
@@ -297,7 +284,96 @@ input.ch-btn-tiny::-moz-focus-inner {
 
 }
 
+
+/* Tablet */
+@media all and (min-width: 34.286em) {
+	.ch-btn-big,
+	.ch-btn-big:focus {
+		width: auto;
+	}
+
+	a.ch-btn-big,
+	a.ch-btn-big:focus {
+		display: inline-block;
+	}
+}
+
+/* Desktop */
+@media all and (min-width: 52.857em) {
+
+}
+
+
 /* IE */
+.lt-ie10 .ch-btn,
+.lt-ie10 .ch-btn:focus,
+.lt-ie10 .ch-btn:visited {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3E52A1', endColorstr='#2D3277');
+}
+
+.lt-ie10 .ch-btn-skin,
+.lt-ie10 .ch-btn-skin:focus,
+.lt-ie10 .ch-btn-skin:visited {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCE3F7', endColorstr='#AAD0EF');
+}
+
+.lt-ie10 .ch-btn:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4355D2', endColorstr='#2F33AE');
+}
+
+.lt-ie10 .ch-btn-skin:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DCECFB', endColorstr='#C5DFF5');
+}
+
+.lt-ie10 .ch-btn:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0F1534', endColorstr='#171C41');
+}
+
+.lt-ie10 .ch-btn-skin:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A2C9E1', endColorstr='#7DB7DC');
+}
+
+
+.ie7 input.ch-btn {
+	line-height: 0.85em;
+}
+
+.ie7 input.ch-btn,
+.ie7 input.ch-btn-big,
+.ie7 input.ch-btn-small,
+.ie7 input.ch-btn-tiny{
+	overflow: visible;
+	width: 1;
+}
+
+.lt-ie10 .ch-btn.ch-btn-disabled,
+.lt-ie10 .ch-btn-skin.ch-btn-disabled,
+.lt-ie10 .ch-btn-disabled:hover,
+.lt-ie10 .ch-btn-disabled:active,
+.lt-ie10 .ch-btn-disabled:focus,
+.lt-ie10 [class*="ch-btn"][disabled],
+.lt-ie10 [class*="ch-btn"][disabled]:hover,
+.lt-ie10 [class*="ch-btn"][disabled]:active,
+.lt-ie10 [class*="ch-btn"][disabled]:focus {
+	filter: alpha(opacity=50);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEFEFE', endColorstr='#E6E6E6');
+}
+
+.ie8 [class*="ch-btn"]:focus,
+.ie8 input[type="button"]:focus,
+.ie8 input[type="submit"]:focus,
+.ie8 input[type="reset"]:focus,
+.ie8 input[type="file"]:focus,
+.ie8 button:focus {
+	outline: thin dotted;
+	outline-offset: -2px;
+}
+
+.lt-ie8 .ch-actions a {
+	display: inline-block;
+	margin-bottom: 5px;
+}
+
 .lt-ie8 .ch-close {
 	zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#x00D7;');
 	display: inline;
