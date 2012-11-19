@@ -1,0 +1,75 @@
+/**
+ * Base
+ */
+body,
+.ch-btn {
+	font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
+	font-size: 14px;
+	line-height: 1.5em; /* 21px */
+}
+
+body {
+	background-color: #FFF;
+	color: #333;
+	margin: 0 auto;
+	padding: 0 0.714em; /* 10px */ /* Prevent layout "sticking" to the edge of the browser */
+}
+
+.ch-layout {
+	margin: 0 0.357em; /* 5px */
+}
+
+/* IMPORTANT: .ch-hide class allows components to be shown and hidden */
+.ch-hide {
+	display: none;
+}
+
+.ch-hidden {
+	visibility: hidden;
+}
+
+/**
+ * Misc
+ */
+hr {
+	border: none;
+	border-bottom: 1px dashed #CCC;
+}
+
+a img {
+	border: none;
+}
+
+img {
+	max-width: 100%;
+}
+
+/* Tablet */
+@media all and (min-width: 34.286em) {
+	body {
+		max-width: 85.714em; /* 1200px */
+	}
+}
+
+/* Desktop */
+@media all and (min-width: 52.857em) {
+
+}
+
+/* do not select text */
+.ch-user-no-select {
+	-o-user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+/* IE */
+.lt-ie8 hr {
+	height: 0;
+}
+
+.lt-ie7 body {
+	width: expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
+}
