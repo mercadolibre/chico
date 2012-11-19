@@ -528,7 +528,7 @@
 		<h2>Modal with AJAX content</h2>
 
 		<form action="/ajax">
-			<p><input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Modal" value="Executed by submit input"> or <a href="/ajax" class="YOUR_SELECTOR_Modal">Executed by link</a>.</p>
+			<p><input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Modal" value="Executed by submit a form"> or <a href="/ajax" class="YOUR_SELECTOR_Modal">Executed by a link</a>.</p>
 		</form>
 	</div>
 
@@ -538,9 +538,18 @@
 		<button class="YOUR_SELECTOR_Modal_invisible ch-btn ch-btn-small">Get content from DOM</button>
 
 		<div id="invisible-content" class="ch-hide">
-			<h1>This content is invisible</h1>
+			<h1>Caption heading</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+			<p class="ch-actions">
+				<button class="ch-btn">Primary Action</button>
+				<a href="#">Secondary Action</a>
+			</p>
 		</div>
+	</div>
+
+	<div class="ch-box-lite">
+		<h2>Modal Lite</h2>
+		<button class="YOUR_SELECTOR_Modal_lite ch-btn ch-btn-small">Show me</button>
 	</div>
 
 	<div class="ch-box-lite">
@@ -1271,6 +1280,12 @@
 
 		// Modal with invisible DOM Content
 		var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal($("#invisible-content"));
+
+		// Modal lite
+		var modal3 = $('.YOUR_SELECTOR_Modal_lite').modal({
+			'content': '<h2>Heading or content</h2>',
+			'classes': 'ch-box ch-modal-lite'
+		});
 
 		// Trasition
 		var transition = $(".YOUR_SELECTOR_Transition").transition();
