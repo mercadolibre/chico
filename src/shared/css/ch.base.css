@@ -4,7 +4,7 @@
 body,
 .ch-btn {
 	font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
-	font-size: 14px;
+	font-size: 14px; /* 1em */
 	line-height: 1.5em; /* 21px */
 }
 
