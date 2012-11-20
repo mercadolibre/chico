@@ -12,8 +12,8 @@
 .ch-datagrid caption {
 	text-align: left;
 	font-weight: normal;
-	margin: 10px 0;
-	font-size: 18px;
+	margin: 10px 0; /* 10px */
+	font-size: 18px; /* 18px */
 }
 
 .ch-datagrid-controls thead tr,
@@ -26,9 +26,9 @@
 	background-color: #F7F7F7;
 	border-bottom: 1px solid #EDEDED;
 	border-left: 1px solid #EDEDED;
-	font-size: 11px;
-	line-height: 26px;
-	padding: 0 10px;
+	font-size: 0.786em; /* 11px */
+	line-height: 2.364em; /* 26px */
+	padding: 0 0.909em; /* 0 10px */
 	text-align: left;
 	text-shadow: 0 1px 0 #FFFFFF;
 	vertical-align: middle;
@@ -44,20 +44,12 @@
 	cursor: pointer;
 }
 
-.lt-ie10 .ch-datagrid-controls th {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#ECECEC');
-}
-
 .ch-datagrid-controls th:hover {
 	background: #FEFEFE;
 	background-image: -webkit-linear-gradient(#FEFEFE, #F2F2F2);
 	background-image: -moz-linear-gradient(#FEFEFE, #F2F2F2);
 	background-image: -o-linear-gradient(#FEFEFE, #F2F2F2);
 	background-image: linear-gradient(#FEFEFE, #F2F2F2);
-}
-
-.lt-ie10 .ch-datagrid-controls th:hover {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEFEFE', endColorstr='#F2F2F2');
 }
 
 .ch-datagrid-controls th:active,
@@ -68,11 +60,6 @@
 	background-image: -o-linear-gradient(#E5E5E5, #D8D8D8);
 	background-image: linear-gradient(#E5E5E5, #D8D8D8);
 	border-top: 1px solid #DCDCDC;
-}
-
-.lt-ie10 .ch-datagrid-controls th:active,
-.lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E5E5E5', endColorstr='#D8D8D8');
 }
 
 .ch-datagrid-controls th.ch-datagrid-selected {
@@ -108,9 +95,24 @@
 
 .ch-datagrid-controls td,
 .ch-datagrid td {
-	height: 40px;
-	padding: 0 10px;
+	height: 2.857em; /* 40px */
+	padding: 0 0.714em; /* 0 10px */
 	vertical-align: middle;
+}
+
+
+/* IE */
+.lt-ie10 .ch-datagrid-controls th {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#ECECEC');
+}
+
+.lt-ie10 .ch-datagrid-controls th:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEFEFE', endColorstr='#F2F2F2');
+}
+
+.lt-ie10 .ch-datagrid-controls th:active,
+.lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E5E5E5', endColorstr='#D8D8D8');
 }
 
 .lt-ie9 .ch-datagrid-controls thead tr,
@@ -130,13 +132,13 @@
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc,
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
 	display: block;
-	width: 7px;
-	height: 4px;
+	width: 0.5em; /* 7px */
+	height: 0.286em; /* 4px */
 	overflow: hidden;
 	position: absolute;
-	right: 10px;
-	text-indent: 99px;
-	top: 12px;
+	right: 0.714em; /* 10px */
+	text-indent: 7.071em; /* 99px */
+	top: 0.857em; /* 12px */
 }
 
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc {

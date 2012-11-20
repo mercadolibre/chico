@@ -1,44 +1,6 @@
 /*
-* Lists
-*/
-
-.ch-list {
-	margin-bottom:10px;
-}
-
-.ch-list li {
-	margin-left: 10px;
-	padding: 3px 0;
-	line-height: 18px;
-}
-
-ul.ch-list li {
-	list-style: disc inside;
-}
-
-ol.ch-list li {
-	list-style: decimal inside;
-}
-
-dl.ch-list {
-  margin-bottom: 18px;
-}
-
-dl.ch-list dt, dl.ch-list dd {
-  line-height: 18px;
-}
-
-dl.ch-list dt {
-  font-weight: bold;
-}
-
-dl.ch-list dd {
-  margin-left: 9px;
-}
-
-/*
-* List Menu
-*/
+ * List Menu
+ */
 .ch-list-menu {
 	background-color: #f4f4f4;
 	-webkit-border-radius: 5px;
