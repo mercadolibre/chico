@@ -2,16 +2,10 @@
  * Buttons
  */
 /* Global */
-
-.ch-actions {
-	margin-top: 10px;
-	text-align: center;
-}
-
 [class*="ch-btn"],
 [class*="ch-btn"]:focus {
-	-webkit-border-radius: 4px; /* Android 2.1 */
-	border-radius: 4px;
+	-webkit-border-radius: 0.286em; /* Android 2.1 */ /* 4px */
+	border-radius: 0.286em; /* 0 4px */
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	cursor: pointer;
@@ -19,8 +13,8 @@
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.286em; /* 18px */
 	height: auto;
-	line-height: 1.199em;
-	padding: 0.305em 0.777em;
+	line-height: 1.143em; /* 16px */
+	padding: 0.305em 0.714em; /* 4px 10px */
 	text-decoration: none;
 }
 
@@ -32,8 +26,8 @@ input[type="reset"]:focus,
 input[type="file"]::-webkit-file-upload-button:focus,
 button:focus {
 	outline: thin dotted;
-	outline: 5px auto -webkit-focus-ring-color;
-	outline-offset: -2px;
+	outline: 0.357em auto -webkit-focus-ring-color; /* 5px */
+	outline-offset: -0.143em; /* -2px */
 }
 
 /* Colors */
@@ -45,8 +39,8 @@ button:focus {
 	background-image: -moz-linear-gradient(#3E52A1, #2D3277);
 	background-image: -o-linear-gradient(#3E52A1, #2D3277);
 	background-image: linear-gradient(#3E52A1, #2D3277);
-	-webkit-box-shadow: inset 0px 1px #8EA2DF;
-	box-shadow: inset 0px 1px #8EA2DF;
+	-webkit-box-shadow: inset 0 1px #8EA2DF;
+	box-shadow: inset 0 1px #8EA2DF;
 	border: 1px solid #2D3277;
 	color: #FFFFFF;
 }
@@ -60,8 +54,8 @@ button:focus {
 	background-image: -o-linear-gradient(#CCE3F7, #AAD0EF);
 	background-image: linear-gradient(#CCE3F7, #AAD0EF);
 	border: 1px solid #79A8C7;
-	-webkit-box-shadow: inset 0px 1px #E5F2FC;
-	box-shadow: inset 0px 1px #E5F2FC;
+	-webkit-box-shadow: inset 0 1px #E5F2FC;
+	box-shadow: inset 0 1px #E5F2FC;
 	color: #476274;
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
@@ -75,8 +69,8 @@ button:focus {
 	background-image: -o-linear-gradient(#EFEFEF, #D0D0D0);
 	background-image: linear-gradient(#EFEFEF, #D0D0D0);
 	border: 1px solid #BBBBBB;
-	-webkit-box-shadow: inset 0px 1px #FFFFFF;
-	box-shadow: inset 0px 1px #FFFFFF;
+	-webkit-box-shadow: inset 0 1px #FFFFFF;
+	box-shadow: inset 0 1px #FFFFFF;
 	color: #666666;
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
@@ -95,8 +89,8 @@ button:focus {
 	background-image: -moz-linear-gradient(#4355D2, #2F33AE);
 	background-image: -o-linear-gradient(#4355D2, #2F33AE);
 	background-image: linear-gradient(#4355D2, #2F33AE);
-	-webkit-box-shadow: inset 0px 1px #7A89E8;
-	box-shadow: inset 0px 1px #7A89E8;
+	-webkit-box-shadow: inset 0 1px #7A89E8;
+	box-shadow: inset 0 1px #7A89E8;
 }
 
 .ch-btn-skin:hover {
@@ -105,8 +99,8 @@ button:focus {
 	background-image: -moz-linear-gradient(#DCECFB, #C5DFF5);
 	background-image: -o-linear-gradient(#DCECFB, #C5DFF5);
 	background-image: linear-gradient(#DCECFB, #C5DFF5);
-	-webkit-box-shadow: inset 0px 1px #ECF5FD;
-	box-shadow: inset 0px 1px #ECF5FD;
+	-webkit-box-shadow: inset 0 1px #ECF5FD;
+	box-shadow: inset 0 1px #ECF5FD;
 }
 
 /* Colors on Hover */
@@ -164,8 +158,8 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Big */
 .ch-btn-big,
 .ch-btn-big:focus {
-	font-size: 1.461em;
-	padding: 0.473em 0.842em;
+	font-size: 1.461em; /* 20px */
+	padding: 0.429em 0.786em; /* 6px 11px */
 	text-align: center;
 	width: 100%;
 }
@@ -179,15 +173,15 @@ a.ch-btn-big:focus {
 /* Small */
 .ch-btn-small,
 .ch-btn-small:focus {
-	font-size: 0.923em;
-	padding: 0.458em 0.833em;
+	font-size: 0.857em; /* 12px */
+	padding: 0.429em 0.786em; /* 6px 12px */
 }
 
 /* Tiny */
 .ch-btn-tiny,
 .ch-btn-tiny:focus {
-	font-size: 0.846em;
-	padding: 0.5em 0.727em;
+	font-size: 0.786em; /* 11px */
+	padding: 0.5em 0.714em; /* 7px 10px */
 }
 
 input.ch-btn::-moz-focus-inner,
@@ -232,24 +226,24 @@ input.ch-btn-tiny::-moz-focus-inner {
 	background-image: linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
 
 	border: 1px solid #EDEDED;
-	border-radius: 3px;
+	border-radius: 0.214em; /* 3px */
 	cursor: pointer;
 	display: inline-block;
 
 	padding: 0;
-	width: 15px;
-	height: 16px;
-	font-size: 20px;
-	line-height: 16px;
-	text-indent: 1px;
+	width: 1.071em; /* 15px */
+	height: 1.143em; /* 16px */
+	font-size: 1.429em; /* 20px */
+	line-height: 1.143em; /* 16px */
+	text-indent: 0.071em; /* 1px */
 
 	color: #CCCCCC;
 	font-family: Arial;
 	text-align:center;
 
 	position: absolute;
-	right: 10px;
-	top: 10px;
+	right: 0.714em; /* 10px */
+	top: 0.714em; /* 10px */
 }
 
 .ch-close:before {
@@ -259,7 +253,7 @@ input.ch-btn-tiny::-moz-focus-inner {
 .ch-close:hover,
 .ch-close:focus,
 .ch-close:active {
-	text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+	text-shadow: 0 1px 0 rgba(0,0,0,.5);
 	border: none;
 }
 
@@ -335,7 +329,7 @@ input.ch-btn-tiny::-moz-focus-inner {
 
 
 .ie7 input.ch-btn {
-	line-height: 0.85em;
+	line-height: 0.786em; /* 11px */
 }
 
 .ie7 input.ch-btn,
@@ -366,27 +360,27 @@ input.ch-btn-tiny::-moz-focus-inner {
 .ie8 input[type="file"]:focus,
 .ie8 button:focus {
 	outline: thin dotted;
-	outline-offset: -2px;
+	outline-offset: -0.143em; /* -2px */
 }
 
 .lt-ie8 .ch-actions a {
 	display: inline-block;
-	margin-bottom: 5px;
+	margin-bottom: 0.357em; /* 5px */
 }
 
 .lt-ie8 .ch-close {
 	zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#x00D7;');
 	display: inline;
-	line-height: 20px;
+	line-height: 1.429em; /* 20px */
 }
 
 .lt-ie9 .ch-close {
 	text-indent: 0;
-	line-height: 13px;
+	line-height: 0.929em; /* 13px */
 }
 
 .ie9 .ch-close {
-	line-height: 17px;
+	line-height: 1.214em; /* 17px */
 }
 
 .lt-ie10 .ch-close {
