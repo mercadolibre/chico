@@ -269,7 +269,7 @@
 		// Refresh position
 		//this.position('refresh');
 
-		this.position.locate({'side': 'bottom', 'aligned': 'left'});
+		//this.position.update({'side': 'bottom', 'aligned': 'left'});
 
 		// Reset all dropdowns except itself
 		$.each(ch.instances.dropdown, function (i, e) {

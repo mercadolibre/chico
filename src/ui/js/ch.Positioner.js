@@ -63,29 +63,33 @@
 
 
 	// calcula las coordenadas y devuelve un objeto, el contexto va a ser coords
-	function calcCoords(side, aligned, data) {
-		console.log(data)
-		if(this[side]){
-			return this[side];
-		}
+	function getCSSPoint(options) {
+
+		var side = options.side,
+			aligned = options.aligned,
+			data = options.data,
+			oriented = (side === 'top' || side === 'bottom')?'horizontal':((side === 'right' || side === 'left')?'vertical':'centered');
+
+
+		//console.log(data)
+		// if(this[oriented] && options.force === true){
+		// 	return this[oriented];
+		// }
 
 
 		// take the side and calculate the alignment and make the CSSpoint
-		if (side === 'centered') {
+		if (oriented === 'centered') {
 			// calculates the coordinates related to the center side to locate the target
 			this.centered = {
 				top: (data.target.offset.top + (data.reference.height / 2 - data.target.height / 2)),
 				left: (data.target.offset.left + (data.reference.width / 2 - data.target.width / 2))
 			};
 
-			return {
-				'top': this.centered.top,
-				'left': this.centered.left
-			}
+			return this.centered;
 
-		} else if (side === 'top' || side === 'bottom') {
+		} else if (oriented === 'horizontal') {
 			// calculates the coordinates related to the top or bottom side to locate the target
-			this.top = this.bottom = {
+			this.horizontal = {
 				left: data.target.offset.left,
 				centered: (data.target.offset.left + (data.reference.width / 2 - data.target.width / 2)),
 				right: (data.target.offset.left + data.reference.width - data.target.width),
@@ -94,13 +98,13 @@
 			};
 
 			return {
-				'top': this.top[side],
-				'left': this.top[aligned]
+				'top': this.horizontal[side],
+				'left': this.horizontal[aligned]
 			}
 
 		} else {
 			// calculates the coordinates related to the right or left side to locate the target
-			this.right = this.left = {
+			this.vertical = {
 				top: data.target.offset.top,
 				centered: (data.target.offset.top + (data.reference.height / 2 - data.target.height / 2)),
 				bottom: (data.target.offset.top + data.reference.height - data.target.height),
@@ -109,9 +113,17 @@
 			};
 
 			return {
-				'top': this.right[aligned],
-				'left': this.right[side]
+				'top': this.vertical[aligned],
+				'left': this.vertical[side]
 			}
+		}
+	}
+
+	function addOffset(offset) {
+		if(offset !== ''){
+			var setOffset = offset.split(' ');
+			this.CSSPoint.top = (this.CSSPoint.top + (parseInt(setOffset[0], 10) || 0));
+			this.CSSPoint.left = (this.CSSPoint.left + (parseInt(setOffset[1], 10) || 0));
 		}
 	}
 
@@ -122,22 +134,15 @@
 		this.$context = this.$reference.offsetParent();
 		this.offset = options.offset || this.offset;
 
-
-
 		// sets position absolute before doing the calcs to avoid calcs with the element making space
 		this.$target.css('position', 'absolute');
-		//this.init(options);
 
-		this.updateData()
-		// this.locate() > getter / setter
-		// this.data
-		this.init(options)
-
+		this.init(options);
 
 		return this;
 	}
 
-	Positioner.prototype.updateData = function(){
+	Positioner.prototype.getData = function(){
 		var data = {
 			'context': {
 				'$element': this.$context,
@@ -180,37 +185,18 @@
 
 	Positioner.prototype.init = function (options) {
 
-		var that = this,
-			side = options.side,
-			aligned = options.aligned,
-			setOffset,
-			// the object that stores the top, left reference to set to the target
-			CSSPoint = {},
-			// the object that stores the alignments related to the location's side
-			coordinates = {};
-			// the offsets to the parent, if where relative or absolute
-			//offsetParent = target.offset;
+		this.getData()
 
-
-		/// this.setData()
-
-		/// llamar a calcCoords pasarle como contexto la variable que guarda las coordenadas para ESTA instancia
-		var CSSPoint = calcCoords.apply(this.coords, [side, aligned, this.data]);
-
-		console.log(CSSPoint);
+		// the object that stores the top, left reference to set to the target
+		this.CSSPoint = getCSSPoint.call(this.coords, {'side': options.side, 'aligned': options.aligned, 'data': this.data});
 
 		// add offset if there is any
-		if(this.offset !== ''){
-			setOffset = this.offset.split(' ');
-			CSSPoint.top = (CSSPoint.top + (parseInt(setOffset[0], 10) || 0));
-			CSSPoint.left = (CSSPoint.left + (parseInt(setOffset[1], 10) || 0));
-		}
+		addOffset.call(this, (options.offset || this.offset));
 
-		this.$target.css(CSSPoint);
+		this.$target.css(this.CSSPoint);
+
 		return this;
 	}
-
-	Positioner.prototype.locate = Positioner.prototype.init;
 
 	Positioner.prototype.offset = '';
 	Positioner.prototype.coords = {};
