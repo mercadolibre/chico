@@ -13,6 +13,11 @@
 	border: 1px solid #ededed;
 }
 
+.ch-box-container,
+.ch-box-lite {
+	background-color: #fff;
+}
+
 .ch-box {
 	background-color: #f4f4f4;
 }
