@@ -161,13 +161,11 @@ input.ch-btn-tiny::-moz-focus-inner{
 	font-size: 1.461em; /* 20px */
 	padding: 0.429em 0.786em; /* 6px 11px */
 	text-align: center;
-	width: 100%;
 }
 
 a.ch-btn-big,
 a.ch-btn-big:focus {
-	display: block;
-	width: auto;
+	display: inline-block;
 }
 
 /* Small */
@@ -231,11 +229,11 @@ input.ch-btn-tiny::-moz-focus-inner {
 	display: inline-block;
 
 	padding: 0;
-	width: 1.071em; /* 15px */
-	height: 1.143em; /* 16px */
+	width: 15px; /* 15px */
+	height: 16px; /* 16px */
 	font-size: 1.429em; /* 20px */
-	line-height: 1.143em; /* 16px */
-	text-indent: 0.071em; /* 1px */
+	line-height: 16px; /* 16px */
+	text-indent: 1px; /* 1px */
 
 	color: #CCCCCC;
 	font-family: Arial;
@@ -280,20 +278,22 @@ input.ch-btn-tiny::-moz-focus-inner {
 
 
 /* Tablet */
-@media all and (min-width: 34.286em) {
+@media all and (min-width: 34.286em) and (max-width: 52.857em) {
+
+}
+
+/* Mobile */
+@media all and (max-width: 34.286em) {
 	.ch-btn-big,
 	.ch-btn-big:focus {
-		width: auto;
+		width: 100%;
 	}
 
 	a.ch-btn-big,
 	a.ch-btn-big:focus {
-		display: inline-block;
+		display: block;
+		width: auto;
 	}
-}
-
-/* Desktop */
-@media all and (min-width: 52.857em) {
 
 }
 

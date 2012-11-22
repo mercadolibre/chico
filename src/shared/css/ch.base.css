@@ -13,10 +13,7 @@ body {
 	color: #333;
 	margin: 0 auto;
 	padding: 0 0.714em; /* 10px */ /* Prevent layout "sticking" to the edge of the browser */
-}
-
-.ch-layout {
-	margin: 0 0.357em; /* 5px */
+	max-width: 85.714em; /* 1200px */
 }
 
 /* IMPORTANT: .ch-hide class allows components to be shown and hidden */
@@ -40,20 +37,20 @@ a img {
 	border: none;
 }
 
-img {
-	max-width: 100%;
-}
-
 /* Tablet */
-@media all and (min-width: 34.286em) {
-	body {
-		max-width: 85.714em; /* 1200px */
-	}
+@media all and (min-width: 34.286em) and (max-width: 52.857em) {
+
 }
 
-/* Desktop */
-@media all and (min-width: 52.857em) {
+/* Mobile */
+@media all and (max-width: 34.286em) {
+	.ch-layout {
+		margin: 0 0.357em; /* 5px */
+	}
 
+	img {
+		max-width: 100%;
+	}
 }
 
 /* do not select text */

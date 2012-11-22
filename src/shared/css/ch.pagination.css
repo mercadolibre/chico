@@ -2,8 +2,8 @@
  * Pagination
  */
 .ch-pagination {
-	clear: both;
 	margin: 10px 0;
+	text-align: center;
 }
 
 .ch-pagination li {
@@ -12,7 +12,7 @@
 }
 
 .ch-pagination li a,
-.ch-pagination li.ch-pagination-current a {
+.ch-pagination-current a {
 	border-radius: 3px;
 	padding: 5px 8px;
 	border: 1px solid #EDEDED;
@@ -26,8 +26,7 @@
 	border: 1px solid #2B37B2;
 }
 
-.ch-pagination li.ch-pagination-current a {
-	border: 1px solid #EDEDED;
+.ch-pagination-current a {
 	background-color: #EDEDED;
 	color: #0637b3;
 }

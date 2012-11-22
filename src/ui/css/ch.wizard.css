@@ -1,0 +1,131 @@
+.ch-wizard {
+	border: 1px solid #EDEDED;
+	border-bottom: none;
+	border-radius: 0.357em; /* 5px */
+	margin-bottom: 0.714em; /* 10px */
+}
+
+.ch-wizard .ch-actions {
+	background-color: #f2f2f2;
+	border-top: 1px solid #EDEDED;
+	padding: 0.714em 1.429em; /* 10px 20px */
+
+}
+
+.ch-wizard .ch-actions {
+	margin-top: 1.429em; /* 20px */
+}
+
+.ch-wizard .ch-actions a {
+	margin-left: 1.071em; /* 15px */
+}
+
+.ch-wizard-breadcrumb {
+	list-style: none;
+	margin-bottom: 0.357em; /* 5px */
+	overflow: hidden;
+}
+
+.ch-wizard-breadcrumb li {
+	float: left;
+	padding: 0;
+	position: relative;
+	color: #CCCCCC;
+	text-align: center;
+}
+
+.ch-steps-two li {
+	width: 50%;
+}
+
+.ch-steps-three li {
+	width: 33.333333%;
+}
+
+.ch-steps-four li {
+	width: 25%;
+}
+
+.ch-steps-five li {
+	width: 20%;
+}
+
+.ch-steps-six li {
+	width: 16.666666%;
+}
+
+.ch-wizard-breadcrumb a,
+.ch-wizard-current,
+.ch-wizard-step {
+	border-bottom: 1px solid #EDEDED;
+	display: block;
+	line-height: 3em; /* 42px */
+}
+
+.ch-wizard-breadcrumb a {
+	background: #f2f2f2;
+}
+
+.ch-wizard-breadcrumb .ch-wizard-current {
+	font-weight: bold;
+	color: #333333;
+	border-bottom-color: transparent;
+}
+
+.ch-wizard-step:after,
+.ch-wizard-step:before,
+.ch-wizard-current:after,
+.ch-wizard-current:before,
+.ch-wizard-breadcrumb li a:after,
+.ch-wizard-breadcrumb li a:before {
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	top: -0.071em; /* -1px */
+	right: -1.714em; /* -24px */
+	z-index: 1;
+}
+
+.ch-wizard-step:before,
+.ch-wizard-current:before {
+	border-width: 1.643em 0.786em; /* 23px 11px */
+	border-left-color: #DDD;
+}
+
+.ch-wizard-step:after,
+.ch-wizard-current:after {
+	border-left-color: #FFFFFF;
+	border-width: 1.714em 0.857em; /* 24px 12px */
+	top: -0.143em; /* -2px */
+}
+
+.ch-wizard-breadcrumb li a:before {
+	border-width: 1.643em 0.786em; /* 23px 11px */
+	border-left-color: #DDD;
+}
+
+.ch-wizard-breadcrumb li a:after {
+	border-left-color: #f2f2f2;
+	border-width: 1.714em 0.857em; /* 24px 12px */
+	top: -0.143em; /* -2px */
+}
+
+
+/* IE */
+.ie7 .ch-steps-six li {
+	width: 16.65%;
+}
+
+.ie9 .ch-wizard-step:after,
+.ie9 .ch-wizard-step:before,
+.ie9 .ch-wizard-current:after,
+.ie9 .ch-wizard-current:before,
+.ie9 .ch-wizard-breadcrumb li a:after,
+.ie9 .ch-wizard-breadcrumb li a:before {
+	right: 1.643em; /* 23px */
+}
+
+.ie8 .ch-wizard-breadcrumb li a {
+	position: relative;
+	zoom: 1;
+}
