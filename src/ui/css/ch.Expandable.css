@@ -48,11 +48,6 @@
 }
 
 /* IE */
-.lt-ie7 .ch-expandable-trigger {
-	font-size:13px;
-	text-decoration: underline;
-}
-
 .ie7 .ch-expandable-trigger{
 	font-size:13px;
 }
