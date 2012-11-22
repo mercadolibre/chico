@@ -100,6 +100,79 @@
 	vertical-align: middle;
 }
 
+/* Tablet */
+@media all and (min-width: 34.286em) and (max-width: 52.857em) {
+
+}
+
+/* Mobile */
+@media only screen and (max-width: 34.286em) { /* 480px */
+
+	.ch-datagrid-controls,
+	.ch-datagrid {
+		display: block;
+		position: relative;
+		width: 100%;
+		margin: 0.714em 0; /* 10px 0 */
+		border: none;
+	}
+
+	.ch-datagrid-controls thead,
+	.ch-datagrid thead {
+		display: block;
+		float: left;
+		border: solid #EDEDED;
+		border-width: 0 1px;
+	}
+
+	.ch-datagrid-controls thead tr,
+	.ch-datagrid thead tr {
+		display: block;
+	}
+
+	.ch-datagrid-controls thead th,
+	.ch-datagrid thead th {
+		display: block;
+		border: solid #EDEDED;
+		border-width: 0 0 1px 0;
+		height: 3.64em; /* 50px */
+		padding: 0 0.714em; /* 0 10px*/
+		line-height: 4em; /* 56px */
+	}
+
+	.ch-datagrid-controls tbody,
+	.ch-datagrid tbody {
+		display: -webkit-box;
+		display: -moz-box;
+		display: -o-box;
+		display: box;
+		width: auto;
+		overflow-x: auto;
+		border: solid #EDEDED;
+		border-width: 1px 1px 1px 0;
+	}
+
+	.ch-datagrid-controls tbody tr,
+	.ch-datagrid tbody tr {
+		display: block;
+		vertical-align: top;
+		border: solid #EDEDED;
+		border-width: 0 1px 0 0;
+	}
+
+	.ch-datagrid-controls tbody tr td,
+	.ch-datagrid tbody tr td {
+		display: block;
+		border: solid #EDEDED;
+		border-width: 0 0 1px 0;
+		line-height: 3em; /* 42px */
+	}
+
+	.ch-datagrid-controls tbody tr td:last-child,
+	.ch-datagrid tbody tr td:last-child {
+		border-width: 0;
+	}
+}
 
 /* IE */
 .lt-ie10 .ch-datagrid-controls th {
