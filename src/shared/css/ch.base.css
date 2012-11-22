@@ -66,7 +66,3 @@ a img {
 .lt-ie8 hr {
 	height: 0;
 }
-
-.lt-ie7 body {
-	width: expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
-}

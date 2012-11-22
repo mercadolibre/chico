@@ -12,6 +12,11 @@
 	<meta http-equiv="cleartype" content="on">
 	<title>Chico UI</title>
 
+	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="cleartype" content="on">
+
 	<link rel="stylesheet" href="/ui/css">
 	<style>
 		/**
@@ -507,7 +512,7 @@
 		<h2>Menu</h2>
 		<ul class="YOUR_SELECTOR_Menu">
 			<li>
-				<span>Item</span>
+				<span>Collapsible</span>
 				<ul>
 					<li><a href="#">Link 1</a></li>
 					<li><a href="#">Link 2</a></li>
@@ -515,23 +520,7 @@
 				</ul>
 			</li>
 			<li>
-				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
+				<span>Collapsible</span>
 				<ul>
 					<li><a href="#">Link 1</a></li>
 					<li><a href="#">Link 2</a></li>
@@ -542,7 +531,20 @@
 				<a href="#">Link</a>
 			</li>
 			<li>
-				<a href="#">Link</a>
+				<span>Collapsible</span>
+				<ul>
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Collapsible</span>
+				<ul>
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+				</ul>
 			</li>
 		</ul>
 	</div>
@@ -1410,7 +1412,9 @@
 		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
 
 		// Menu
-		var menu = $(".YOUR_SELECTOR_Menu").menu();
+		var menu = $(".YOUR_SELECTOR_Menu").menu({
+			'selected': 5
+		});
 
 		// Form
 		var form = $('.myForm').form();

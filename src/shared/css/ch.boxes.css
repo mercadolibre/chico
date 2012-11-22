@@ -6,6 +6,12 @@
 	margin: 0 0 0.714em 0; /* 10px */
 }
 
+.ch-box-container,
+.ch-box-lite,
+.ch-box {
+	background-color: #fff;
+}
+
 .ch-box-lite,
 .ch-box {
 	-webkit-border-radius: 0.357em; /* Android 2.1 */
@@ -14,7 +20,10 @@
 }
 
 .ch-box {
-	background-color: #f4f4f4;
+	background-image: -webkit-linear-gradient(#eee, #fff 1.786em); /* 25px */
+	background-image: -moz-linear-gradient(#eee, #fff 1.786em); /* 25px */
+	background-image: -o-linear-gradient(#eee, #fff 1.786em); /* 25px */
+	background-image: linear-gradient(#eee, #fff 1.786em); /* 25px */
 }
 
 /**
@@ -66,7 +75,7 @@
 
 .ch-box-help,
 .ch-box-help:before {
-	background-color: #fff;
+	background-color: #f7f7f7;
 	color: #999999;
 }
 
@@ -95,25 +104,21 @@
 }
 
 /* Tablet */
-@media all and (min-width: 34.286em) {
+@media all and (min-width: 34.286em) and (max-width: 52.857em) {
+	
+}
+
+/* Mobile */
+@media all and (max-width: 34.286em) {
 	.ch-box {
-		background-color: #fff;
-		/* 1.786em = 25px */
-		background-image: -webkit-linear-gradient(#eee, #fff 1.786em);
-		background-image: -moz-linear-gradient(#eee, #fff 1.786em);
-		background-image: -o-linear-gradient(#eee, #fff 1.786em);
-		background-image: linear-gradient(#eee, #fff 1.786em);
+		background-color: #f4f4f4;
+		background-image: none;
 	}
 
 	.ch-box-help,
 	.ch-box-help:before {
-		background-color: #f7f7f7;
+		background-color: #fff;
 	}
-}
-
-/* Desktop */
-@media all and (min-width: 52.857em) {
-
 }
 
 
@@ -131,21 +136,21 @@
 }
 
 .lt-ie8 .ch-box-attention {
-	background-position: 1.5em 6em; /* -21px -84px; */
+	background-position: -21px -84px;
 }
 
 .lt-ie8 .ch-box-error {
-	background-position: 8.357em 0.929em; /* -117px 13px; */
+	background-position: -117px 13px;
 }
 
 .lt-ie8 .ch-box-help {
-	background-position: 6.071em 1.357em; /* -85px -19px; */
+	background-position: -85px -19px;
 }
 
 .lt-ie8 .ch-box-information {
-	background-position: 3.786em 3.643em; /* -53px -51px; */
+	background-position: -53px -51px;
 }
 
 .lt-ie8 .ch-box-ok {
-	background-position: 0.786em 8.214em; /* 11px -115px; */
+	background-position: 11px -115px;
 }
