@@ -45,7 +45,7 @@
 .ch-list-menu li a:after {
 	content: "\f054";
 	line-height: 1em;
-	margin-top: -0.4em;
+	margin-top: -5px;
 	position: absolute;
 	top: 50%;
 	right: 15px;
@@ -53,5 +53,5 @@
 }
 
 .ch-list-menu [class*="ch-icon"]:before {
-	margin-right: 0.4em;
+	margin-right: 5px;
 }

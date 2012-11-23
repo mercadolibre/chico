@@ -25,11 +25,11 @@
 }
 
 .ch-g1-3 {
-	width: 33.3%;
+	width: 33.334%;
 }
 
 .ch-g2-3 {
-	width: 66.67%;
+	width: 66.669%;
 }
 
 .ch-g1-4 {
@@ -52,12 +52,12 @@
 
 [class^="ch-g"] .ch-rightcolumn,
 [class^="ch-g"] .ch-centercolumn {
-	margin-left: 0.357em; /* 5px */
+	margin-left: 5px;
 }
 
 [class^="ch-g"] .ch-leftcolumn,
 [class^="ch-g"] .ch-centercolumn {
-	margin-right: 0.357em; /* 5px */
+	margin-right: 5px;
 }
 
 /**
@@ -74,12 +74,8 @@
 	zoom: 1;
 }
 
-/* Tablet */
-@media all and (min-width: 34.286em) and (max-width: 52.857em) {
-}
-
 /* Mobile */
-@media all and (max-width: 34.286em) {
+@media all and (max-width: 480px) {
 
 	[class^="ch-g"] {
 		width: 100%;

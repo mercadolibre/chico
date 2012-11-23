@@ -5,10 +5,10 @@
 .ch-loading {
 	background: transparent url('../assets/loading-small.gif') center center no-repeat;
 	display: inline-block;
-	height: 24px;
-	width: 24px;
+	height: 1em; /* 14px */
+	width: 1em; /* 14px */
 	overflow: hidden;
-	text-indent: -999px;
+	text-indent: -71.357em; /* -999px */
 }
 
 .ch-loading-wrap {
@@ -27,15 +27,15 @@
 	position: absolute;
 	top: 50%;
 	width: 100%;
-	margin-top: -1.5em;
-	line-height: 3em;
-	height: 3em;
+	margin-top: -1.5em; /* 21px */
+	line-height: 3em; /* 42px */
+	height: 3em; /* 42px */
 
 }
 
 .ch-loading-wrap .ch-loading-text::before {
 	content: url("../assets/loading.gif");
 	position: relative;
-	left: -5px;
-	top: 8px;
+	left: -0.357em; /* -5px */
+	top: 0.571em; /* 8px */
 }

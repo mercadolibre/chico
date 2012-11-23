@@ -4,10 +4,10 @@
 .ch-tooltip {
 	background-color: #FCF8E3;
 	border-color: #FBEED5;
-	-webkit-box-shadow: 0.143em 0.143em 0.143em rgba(100, 100, 100, .1);
-	box-shadow: 0.143em 0.143em 0.143em rgba(100, 100, 100, .1); /* 2px */
+	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	min-width: 1em;
-	padding: 0.571em 0.714em; /* 8px 10px */
+	padding: 8px 10px;
 	color: #AA8749;
 }
 
@@ -74,38 +74,38 @@
 	background-image: url('../assets/shapes.png');
 	display: block;
 	position: absolute;
-	width: 1.143em; /* 16px */
-	height: 0.571em; /* 8px */
+	width: 16px;
+	height: 8px;
 }
 
 .lt-ie8 .ch-points-ltlb .ch-tooltip-cone,
 .lt-ie8 .ch-points-ctcb .ch-tooltip-cone,
 .lt-ie8 .ch-points-rtrb .ch-tooltip-cone {
-	top: -0.571em; /* -8px */
-	background-position: 0 -2.286em; /* 0 -32px */
+	top: -8px;
+	background-position: 0 -32px;
 }
 
 .lt-ie8 .ch-points-lblt .ch-tooltip-cone,
 .lt-ie8 .ch-points-cbct .ch-tooltip-cone,
 .lt-ie8 .ch-points-rbrt .ch-tooltip-cone {
-	bottom: -0.571em; /* -8px */
-	background-position: 0 -2.857em; /* -40px */
+	bottom: -8px;
+	background-position: 0 -40px;
 }
 
 .lt-ie8 .ch-points-ltlb .ch-tooltip-cone,
 .lt-ie8 .ch-points-lblt .ch-tooltip-cone {
-	left: 0.571em; /* 8px */
+	left: 8px;
 }
 
 .lt-ie8 .ch-points-ctcb .ch-tooltip-cone,
 .lt-ie8 .ch-points-cbct .ch-tooltip-cone {
 	left: 50%;
-	margin-left: -0.571em; /* -8px */
+	margin-left: -8px;
 }
 
 .lt-ie8 .ch-points-rtrb .ch-tooltip-cone,
 .lt-ie8 .ch-points-rbrt .ch-tooltip-cone {
-	right: 0.571em; /* 8px */
+	right: 8px;
 }
 
 
@@ -115,36 +115,36 @@
 .lt-ie8 .ch-points-rtlt .ch-tooltip-cone,
 .lt-ie8 .ch-points-rmlm .ch-tooltip-cone,
 .lt-ie8 .ch-points-rblb .ch-tooltip-cone {
-	width: 0.571em; /* 8px */
-	height: 1.143em; /* 16px */
+	width: 8px;
+	height: 16px;
 }
 
 .lt-ie8 .ch-points-ltrt .ch-tooltip-cone,
 .lt-ie8 .ch-points-lmrm .ch-tooltip-cone,
 .lt-ie8 .ch-points-lbrb .ch-tooltip-cone {
-	left: -0.571em; /* -8px */
-	background-position: 0 -2.286em; /* 0 -32px */
+	left: -8px;
+	background-position:  0 -32px;
 }
 
 .lt-ie8 .ch-points-rtlt .ch-tooltip-cone,
 .lt-ie8 .ch-points-rmlm .ch-tooltip-cone,
 .lt-ie8 .ch-points-rblb .ch-tooltip-cone {
-	right: -0.571em; /* -8px */
-	background-position: -0.571em -2.286em; /* -8px -32px */
+	right: -8px;
+	background-position: -8px -32px;
 }
 
 .lt-ie8 .ch-points-ltrt .ch-tooltip-cone,
 .lt-ie8 .ch-points-rtlt .ch-tooltip-cone {
-	top: 0.286em; /* 4px */
+	top: 4px;
 }
 
 .lt-ie8 .ch-points-lmrm .ch-tooltip-cone,
 .lt-ie8 .ch-points-rmlm .ch-tooltip-cone {
 	top: 50%;
-	margin-top: -0.571em; /* -8px */
+	margin-top: -8px;
 }
 
 .lt-ie8 .ch-points-lbrb .ch-tooltip-cone,
 .lt-ie8 .ch-points-rblb .ch-tooltip-cone  {
-	bottom: 0.286em; /* 4px */
+	bottom: 4px;
 }

@@ -12,8 +12,8 @@ body {
 	background-color: #FFF;
 	color: #333;
 	margin: 0 auto;
-	padding: 0 0.714em; /* 10px */ /* Prevent layout "sticking" to the edge of the browser */
-	max-width: 85.714em; /* 1200px */
+	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
+	max-width: 1200px;
 }
 
 /* IMPORTANT: .ch-hide class allows components to be shown and hidden */
@@ -37,15 +37,10 @@ a img {
 	border: none;
 }
 
-/* Tablet */
-@media all and (min-width: 34.286em) and (max-width: 52.857em) {
-
-}
-
 /* Mobile */
-@media all and (max-width: 34.286em) {
+@media all and (max-width: 480px) {
 	.ch-layout {
-		margin: 0 0.357em; /* 5px */
+		margin: 0 5px;
 	}
 
 	img {

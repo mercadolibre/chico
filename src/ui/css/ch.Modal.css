@@ -15,23 +15,23 @@
 	background-color: #fff;
 	background-image: none;
 	overflow: auto;
-	padding: 1.429em; /* 20px */
-	width: 35.714em; /* 500px */
-	-webkit-box-shadow: 0 0.214em 1em #444;
-	box-shadow: 0 0.214em 1em #444; /* 0 3px 14px */
+	padding: 20px;
+	width: 500px;
+	-webkit-box-shadow: 0 3px 14px #444;
+	box-shadow: 0 3px 14px #444;
 }
 
 .ch-modal .ch-actions {
-	margin-top: 1.429em; /* 20px */
+	margin-top: 20px;
 }
 
 .ch-modal .ch-actions a {
-	margin-left: 1.071em; /* 15px */
+	margin-left: 15px;
 }
 
 .ch-modal-lite {
 	text-align: center;
-	padding: 2.857em; /* 40px */
+	padding: 40px;
 }
 
 .ch-modal-lite h2 {

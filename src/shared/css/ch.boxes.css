@@ -2,8 +2,10 @@
  * Boxes
  */
 [class*='ch-box'] {
-	padding: 0.714em; /* 10px */
-	margin: 0 0 0.714em 0; /* 10px */
+	-webkit-border-radius: 5px; /* Android 2.1 */
+	border-radius: 5px;
+	padding: 10px;
+	margin: 0 0 10px 0;
 }
 
 .ch-box-container,
@@ -14,8 +16,6 @@
 
 .ch-box-lite,
 .ch-box {
-	-webkit-border-radius: 0.357em; /* Android 2.1 */
-	border-radius: 0.357em; /* 5px */
 	border: 1px solid #ededed;
 }
 
@@ -34,11 +34,9 @@
 .ch-box-help,
 .ch-box-information,
 .ch-box-ok {
-	-webkit-border-radius: 0.357em; /* Android 2.1 */
-	border-radius: 0.357em; /* 5px */
-	text-shadow: 0.071em 0.071em 0 rgba(255, 255, 255, 0.75); /* 1px */
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
 	position: relative;
-	padding-left: 2.5em; /* 35px */
+	padding-left: 35px;
 }
 
 .ch-box-attention:before,
@@ -47,8 +45,8 @@
 .ch-box-error:before,
 .ch-box-ok:before {
 	position: absolute;
-	top: 0.65em; /* 13px of 1.429em (icons size) */
-	left: 0.5em; /* 10px of 1.429em (icons size) */
+	top: 13px;
+	left: 10px;
 	text-shadow: none;
 }
 
@@ -103,13 +101,8 @@
 	content: '\f058';
 }
 
-/* Tablet */
-@media all and (min-width: 34.286em) and (max-width: 52.857em) {
-	
-}
-
 /* Mobile */
-@media all and (max-width: 34.286em) {
+@media all and (max-width: 480px) {
 	.ch-box {
 		background-color: #f4f4f4;
 		background-image: none;

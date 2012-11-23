@@ -8,11 +8,10 @@
 
 .ch-pagination li {
 	display: inline-block;
-	margin: 0px 4px;
+	margin:  0 4px;
 }
 
-.ch-pagination li a,
-.ch-pagination-current a {
+.ch-pagination li a {
 	border-radius: 3px;
 	padding: 5px 8px;
 	border: 1px solid #EDEDED;
@@ -26,7 +25,9 @@
 	border: 1px solid #2B37B2;
 }
 
-.ch-pagination-current a {
+.ch-pagination .ch-pagination-current a,
+.ch-pagination .ch-pagination-current a:hover {
+	border: 1px solid #EDEDED;
 	background-color: #EDEDED;
 	color: #0637b3;
 }
