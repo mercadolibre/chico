@@ -3,15 +3,15 @@
  */
 .ch-menu {
 	max-width: 300px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	-webkit-box-shadow: 0px 2px 2px -1px rgba(100, 100, 100, .1);
+	box-shadow: 0px 2px 2px -1px rgba(100, 100, 100, .1);
 }
 
 .ch-accordion {
 	max-width: none;
-}
-
-.ch-menu {
-	-webkit-box-shadow: 0px 2px 2px -1px rgba(100, 100, 100, .1);
-	box-shadow: 0px 2px 2px -1px rgba(100, 100, 100, .1);
 }
 
 .ch-menu .ch-expandable {

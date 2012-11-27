@@ -39,6 +39,11 @@ q:before, q:after {
 	content: none;
 }
 
+/* remember to define focus styles!*/
+/*:focus {
+	outline: 0;
+}*/
+
 /* remember to highlight inserts somehow!*/
 ins {
 	text-decoration: none;
@@ -52,4 +57,58 @@ del {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+/**
+ * Base
+ */
+
+/*
+ * 1. Sets default font family to sans-serif.
+ * 2. Prevents iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+	font-family: sans-serif; /* 1 */
+	-webkit-text-size-adjust: 100%; /* 2 */
+	-ms-text-size-adjust: 100%; /* 2 */
+}
+
+body {
+	font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
+	font-size: 14px; /* 1em */
+	line-height: 1.5em; /* 21px */
+	background-color: #FFF;
+	color: #333;
+	margin: 0 auto;
+	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
+	max-width: 1200px;
+}
+
+/**
+ * Misc
+ */
+hr {
+	border: none;
+	border-bottom: 1px dashed #CCC;
+}
+
+a img {
+	border: none;
+}
+
+/* Mobile */
+@media all and (max-width: 480px) {
+	.ch-layout {
+		margin: 0 5px;
+	}
+
+	img {
+		max-width: 100%;
+	}
+}
+
+/* IE */
+.lt-ie8 hr {
+	height: 0;
 }

@@ -48,13 +48,6 @@ h6 {
 }
 
 /**
- * Paragraphs
- */
-p + p {
-	margin-top: 14px;
-}
-
-/**
  * Links
  */
 a {

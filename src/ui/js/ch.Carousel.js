@@ -439,7 +439,7 @@
 		 * @name ch.Carousel#$prevArrow
 		 * @type jQuery Object
 		 */
-			$prevArrow = $("<p class=\"ch-carousel-prev ch-carousel-disabled\" role=\"button\" aria-hidden=\"true\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>"),
+			$prevArrow = $("<div class=\"ch-carousel-prev ch-carousel-disabled\" role=\"button\" aria-hidden=\"true\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</div>"),
 
 		/**
 		 * DOM element of arrow that moves the Carousel to the next page.
@@ -447,7 +447,7 @@
 		 * @name ch.Carousel#$nextArrow
 		 * @type jQuery Object
 		 */
-			$nextArrow = $("<p class=\"ch-carousel-next\" role=\"button\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>"),
+			$nextArrow = $("<div class=\"ch-carousel-next\" role=\"button\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</div>"),
 
 		/**
 		 * Flag to control when arrows were created before.
@@ -582,7 +582,7 @@
 		 * @name ch.Carousel#$pagination
 		 * @jQuery Object
 		 */
-			$pagination = $("<p class=\"ch-carousel-pages\" role=\"tablist\">").on("click", function (event) {
+			$pagination = $("<div class=\"ch-carousel-pages\" role=\"tablist\">").on("click", function (event) {
 				goToPage($(event.target).attr("data-page"));
 			}),
 

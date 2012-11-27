@@ -9,7 +9,6 @@
 	background-color: #f2f2f2;
 	border-top: 1px solid #EDEDED;
 	padding: 10px 20px;
-
 }
 
 .ch-wizard .ch-actions {
@@ -22,13 +21,13 @@
 
 .ch-wizard-breadcrumb {
 	list-style: none;
-	margin-bottom: 5px;
+	margin: 0 0 5px;
 	overflow: hidden;
+	padding: 0;
 }
 
 .ch-wizard-breadcrumb li {
 	float: left;
-	padding: 0;
 	position: relative;
 	color: #CCCCCC;
 	text-align: center;
@@ -59,7 +58,7 @@
 .ch-wizard-step {
 	border-bottom: 1px solid #EDEDED;
 	display: block;
-	line-height: 3em; /* 42px */
+	line-height: 44px;
 }
 
 .ch-wizard-breadcrumb a {
@@ -112,6 +111,10 @@
 
 
 /* IE */
+.ie7 .ch-steps-four li {
+	width: 24.9%;
+}
+
 .ie7 .ch-steps-six li {
 	width: 16.65%;
 }

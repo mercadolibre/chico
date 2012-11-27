@@ -83,19 +83,23 @@
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},
 		"uiCSS": {
-			"src": [
-				"../../src/shared/css/ch.normalize.css",
-				"../../src/shared/css/ch.base.css",
+			"resetML": [
+				"../../src/shared/css/ch.reset.css",
+				"../../src/shared/css/ch.typography.css"
+			],
+			"core": [
 				"../../src/shared/css/ch.mesh.css",
-				"../../src/shared/css/ch.typography.css",
+				"../../src/shared/css/ch.base.css",
+				"../../src/shared/css/ch.icons.css",
+				"../../src/shared/css/ch.boxes.css",
+				"../../src/ui/css/ch.transitions.css"
+			],
+			"widgets": [
 				"../../src/shared/css/ch.buttons.css",
 				"../../src/shared/css/ch.datagrid.css",
 				"../../src/shared/css/ch.lists.css",
-				"../../src/shared/css/ch.icons.css",
-				"../../src/shared/css/ch.boxes.css",
 				"../../src/shared/css/ch.pagination.css",
 				"../../src/ui/css/ch.wizard.css",
-				"../../src/ui/css/ch.transition.css",
 				"../../src/ui/css/ch.Calendar.css",
 				"../../src/ui/css/ch.Carousel.css",
 				"../../src/ui/css/ch.Floats.css",
@@ -112,7 +116,7 @@
 				"../../src/ui/css/ch.Validation.css",
 				"../../src/ui/css/ch.Zoom.css"
 			],
-			"template": ["meta.ui.full.css", "src"]
+			"template": ["meta.ui.full.css", "resetML", "core", "widgets"]
 		},
 		"mobileJS": {
 			"core": [
@@ -139,19 +143,24 @@
 			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
 		},
 		"mobileCSS": {
-			"src": [
-				"../../src/shared/css/ch.normalize.css",
+			"resetML": [
+				"../../src/shared/css/ch.reset.css",
+				"../../src/shared/css/ch.typography.css"
+			],
+			"core": [
+				"../../src/shared/css/ch.mesh.css",
 				"../../src/shared/css/ch.base.css",
-				"../../src/shared/css/ch.typography.css",
 				"../../src/shared/css/ch.icons.css",
-				"../../src/shared/css/ch.boxes.css",
+				"../../src/shared/css/ch.boxes.css"
+			],
+			"widgets": [
 				"../../src/shared/css/ch.buttons.css",
 				"../../src/shared/css/ch.datagrid.css",
 				"../../src/shared/css/ch.lists.css",
 				"../../src/shared/css/ch.pagination.css",
 				"../../src/mobile/css/ch.list-menu.css",
-				"../../src/mobile/css/ch.transition.css",
-				"../../src/mobile/css/ch.tag.css",
+				"../../src/mobile/css/ch.transitions.css",
+				"../../src/mobile/css/ch.tags.css",
 				"../../src/mobile/css/ch.header.css",
 				"../../src/mobile/css/ch.Expandable.css",
 				"../../src/mobile/css/ch.Menu.css",
@@ -159,7 +168,7 @@
 				"../../src/mobile/css/ch.Modal.css",
 				"../../src/mobile/css/ch.Layer.css"
 			],
-			"template": ["meta.mobile.full.css", "src"]
+			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
 		}
 	},
 	"min": {
