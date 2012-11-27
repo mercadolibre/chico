@@ -1,0 +1,149 @@
+/**
+ * Boxes
+ */
+[class*='ch-box'] {
+	-webkit-border-radius: 5px; /* Android 2.1 */
+	border-radius: 5px;
+	padding: 10px;
+	margin: 0 0 10px 0;
+}
+
+.ch-box-container,
+.ch-box-lite,
+.ch-box {
+	background-color: #fff;
+}
+
+.ch-box-lite,
+.ch-box {
+	border: 1px solid #ededed;
+}
+
+.ch-box {
+	background-image: -webkit-linear-gradient(#eee, #fff 1.786em); /* 25px */
+	background-image: -moz-linear-gradient(#eee, #fff 1.786em); /* 25px */
+	background-image: -o-linear-gradient(#eee, #fff 1.786em); /* 25px */
+	background-image: linear-gradient(#eee, #fff 1.786em); /* 25px */
+}
+
+/**
+ * Message boxes
+ */
+.ch-box-attention,
+.ch-box-error,
+.ch-box-help,
+.ch-box-information,
+.ch-box-ok {
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
+	position: relative;
+	padding-left: 35px;
+}
+
+.ch-box-attention:before,
+.ch-box-help:before,
+.ch-box-information:before,
+.ch-box-error:before,
+.ch-box-ok:before {
+	position: absolute;
+	top: 13px;
+	left: 10px;
+	text-shadow: none;
+}
+
+.ch-box-attention,
+.ch-box-attention:before {
+	background-color: #FCF8E3;
+	color: #AA8749;
+}
+
+.ch-box-attention:before {
+	content: '\f071';
+	color: #F5CC00;
+}
+
+.ch-box-error,
+.ch-box-error:before {
+	background-color: #F2DEDE;
+	color: #B94A48;
+}
+
+.ch-box-error:before {
+	content: '\f057';
+}
+
+.ch-box-help,
+.ch-box-help:before {
+	background-color: #f7f7f7;
+	color: #999999;
+}
+
+.ch-box-help:before {
+	content: '\f059';
+}
+
+.ch-box-information,
+.ch-box-information:before {
+	background-color: #D9EDF7;
+	color: #3A87AD;
+}
+
+.ch-box-information:before {
+	content: '\f05a';
+}
+
+.ch-box-ok,
+.ch-box-ok:before {
+	background-color: #DFF0D8;
+	color: #468847;
+}
+
+.ch-box-ok:before {
+	content: '\f058';
+}
+
+/* Mobile */
+@media all and (max-width: 480px) {
+	.ch-box {
+		background-color: #f4f4f4;
+		background-image: none;
+	}
+
+	.ch-box-help,
+	.ch-box-help:before {
+		background-color: #fff;
+	}
+}
+
+
+/**
+ * Message boxes IE7
+ */
+.lt-ie8 .ch-box-attention,
+.lt-ie8 .ch-box-error,
+.lt-ie8 .ch-box-help,
+.lt-ie8 .ch-box-information,
+.lt-ie8 .ch-box-ok {
+	position: static;
+	background-image: url('../assets/icons.png');
+	background-repeat: no-repeat;
+}
+
+.lt-ie8 .ch-box-attention {
+	background-position: -21px -84px;
+}
+
+.lt-ie8 .ch-box-error {
+	background-position: -117px 13px;
+}
+
+.lt-ie8 .ch-box-help {
+	background-position: -85px -19px;
+}
+
+.lt-ie8 .ch-box-information {
+	background-position: -53px -51px;
+}
+
+.lt-ie8 .ch-box-ok {
+	background-position: 11px -115px;
+}

@@ -12,11 +12,8 @@ body {
 	background-color: #FFF;
 	color: #333;
 	margin: 0 auto;
-	padding: 0 0.714em; /* 10px */ /* Prevent layout "sticking" to the edge of the browser */
-}
-
-.ch-layout {
-	margin: 0 0.357em; /* 5px */
+	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
+	max-width: 1200px;
 }
 
 /* IMPORTANT: .ch-hide class allows components to be shown and hidden */
@@ -40,20 +37,15 @@ a img {
 	border: none;
 }
 
-img {
-	max-width: 100%;
-}
-
-/* Tablet */
-@media all and (min-width: 34.286em) {
-	body {
-		max-width: 85.714em; /* 1200px */
+/* Mobile */
+@media all and (max-width: 480px) {
+	.ch-layout {
+		margin: 0 5px;
 	}
-}
 
-/* Desktop */
-@media all and (min-width: 52.857em) {
-
+	img {
+		max-width: 100%;
+	}
 }
 
 /* do not select text */
@@ -68,8 +60,4 @@ img {
 /* IE */
 .lt-ie8 hr {
 	height: 0;
-}
-
-.lt-ie7 body {
-	width: expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
 }

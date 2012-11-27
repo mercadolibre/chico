@@ -12,8 +12,8 @@
 .ch-datagrid caption {
 	text-align: left;
 	font-weight: normal;
-	margin: 10px 0; /* 10px */
-	font-size: 18px; /* 18px */
+	margin: 10px 0;
+	font-size: 1.286em; /* 18px */
 }
 
 .ch-datagrid-controls thead tr,
@@ -28,7 +28,7 @@
 	border-left: 1px solid #EDEDED;
 	font-size: 0.786em; /* 11px */
 	line-height: 2.364em; /* 26px */
-	padding: 0 0.909em; /* 0 10px */
+	padding: 0 10px;
 	text-align: left;
 	text-shadow: 0 1px 0 #FFFFFF;
 	vertical-align: middle;
@@ -95,11 +95,79 @@
 
 .ch-datagrid-controls td,
 .ch-datagrid td {
-	height: 2.857em; /* 40px */
-	padding: 0 0.714em; /* 0 10px */
+	height: 40px;
+	padding: 0 10px;
 	vertical-align: middle;
 }
 
+/* Mobile */
+@media only screen and (max-width: 480px) {
+
+	.ch-datagrid-controls,
+	.ch-datagrid {
+		display: block;
+		position: relative;
+		width: 100%;
+		margin: 10px 0;
+		border: none;
+	}
+
+	.ch-datagrid-controls thead,
+	.ch-datagrid thead {
+		display: block;
+		float: left;
+		border: solid #EDEDED;
+		border-width: 0 1px;
+	}
+
+	.ch-datagrid-controls thead tr,
+	.ch-datagrid thead tr {
+		display: block;
+	}
+
+	.ch-datagrid-controls thead th,
+	.ch-datagrid thead th {
+		display: block;
+		border: solid #EDEDED;
+		border-width: 0 0 1px 0;
+		height: 40px;
+		padding: 0 10px;
+		line-height: 4em; /* 56px */
+	}
+
+	.ch-datagrid-controls tbody,
+	.ch-datagrid tbody {
+		display: -webkit-box;
+		display: -moz-box;
+		display: -o-box;
+		display: box;
+		width: auto;
+		overflow-x: auto;
+		border: solid #EDEDED;
+		border-width: 1px 1px 1px 0;
+	}
+
+	.ch-datagrid-controls tbody tr,
+	.ch-datagrid tbody tr {
+		display: block;
+		vertical-align: top;
+		border: solid #EDEDED;
+		border-width: 0 1px 0 0;
+	}
+
+	.ch-datagrid-controls tbody tr td,
+	.ch-datagrid tbody tr td {
+		display: block;
+		border: solid #EDEDED;
+		border-width: 0 0 1px 0;
+		line-height: 3em; /* 42px */
+	}
+
+	.ch-datagrid-controls tbody tr td:last-child,
+	.ch-datagrid tbody tr td:last-child {
+		border-width: 0;
+	}
+}
 
 /* IE */
 .lt-ie10 .ch-datagrid-controls th {
@@ -132,13 +200,13 @@
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc,
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
 	display: block;
-	width: 0.5em; /* 7px */
-	height: 0.286em; /* 4px */
+	width: 7px;
+	height: 4px;
 	overflow: hidden;
 	position: absolute;
-	right: 0.714em; /* 10px */
-	text-indent: 7.071em; /* 99px */
-	top: 0.857em; /* 12px */
+	right: 10px;
+	text-indent: 99px;
+	top: 12px;
 }
 
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-asc {

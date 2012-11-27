@@ -4,8 +4,8 @@
 /* Global */
 [class*="ch-btn"],
 [class*="ch-btn"]:focus {
-	-webkit-border-radius: 0.286em; /* Android 2.1 */ /* 4px */
-	border-radius: 0.286em; /* 0 4px */
+	-webkit-border-radius: 4px; /* Android 2.1 */
+	border-radius: 4px;
 	-webkit-box-shadow: none;
 	box-shadow: none;
 	cursor: pointer;
@@ -27,8 +27,8 @@ input[type="reset"]:focus,
 input[type="file"]::-webkit-file-upload-button:focus,
 button:focus {
 	outline: thin dotted;
-	outline: 0.357em auto -webkit-focus-ring-color; /* 5px */
-	outline-offset: -0.143em; /* -2px */
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
 }
 
 /* Colors */
@@ -163,13 +163,11 @@ input.ch-btn-tiny::-moz-focus-inner{
 	margin-right:.5em; /* 10px */
 	padding: 0.429em 0.786em; /* 6px 11px */
 	text-align: center;
-	width: 100%;
 }
 
 a.ch-btn-big,
 a.ch-btn-big:focus {
-	display: block;
-	width: auto;
+	display: inline-block;
 }
 
 /* Small */
@@ -230,24 +228,24 @@ input.ch-btn-tiny::-moz-focus-inner {
 	background-image: linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
 
 	border: 1px solid #EDEDED;
-	border-radius: 0.214em; /* 3px */
+	border-radius: 3px;
 	cursor: pointer;
 	display: inline-block;
 
 	padding: 0;
-	width: 1.071em; /* 15px */
-	height: 1.143em; /* 16px */
-	font-size: 1.429em; /* 20px */
-	line-height: 1.143em; /* 16px */
-	text-indent: 0.071em; /* 1px */
+	width: 15px;
+	height: 16px;
+	font-size: 1.429em;
+	line-height: 16px;
+	text-indent: 1px;
 
 	color: #CCCCCC;
 	font-family: Arial;
 	text-align:center;
 
 	position: absolute;
-	right: 0.714em; /* 10px */
-	top: 0.714em; /* 10px */
+	right: 10px;
+	top: 10px;
 }
 
 .ch-close:before {
@@ -282,25 +280,20 @@ input.ch-btn-tiny::-moz-focus-inner {
 
 }
 
-
-/* Tablet */
-@media all and (min-width: 34.286em) {
+/* Mobile */
+@media all and (max-width: 480px) {
 	.ch-btn-big,
 	.ch-btn-big:focus {
-		width: auto;
+		width: 100%;
 	}
 
 	a.ch-btn-big,
 	a.ch-btn-big:focus {
-		display: inline-block;
+		display: block;
+		width: auto;
 	}
-}
-
-/* Desktop */
-@media all and (min-width: 52.857em) {
 
 }
-
 
 /* IE */
 .lt-ie10 .ch-btn,
@@ -364,12 +357,12 @@ input.ch-btn-tiny::-moz-focus-inner {
 .ie8 input[type="file"]:focus,
 .ie8 button:focus {
 	outline: thin dotted;
-	outline-offset: -0.143em; /* -2px */
+	outline-offset: -2px;
 }
 
 .lt-ie8 .ch-actions a {
 	display: inline-block;
-	margin-bottom: 0.357em; /* 5px */
+	margin-bottom: 5px;
 }
 
 .lt-ie8 .ch-close {

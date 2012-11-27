@@ -7,23 +7,18 @@
 <head>
 	<script></script>
 	<meta charset="utf-8" />
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="cleartype" content="on">
 	<title>Chico UI</title>
+
+	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="cleartype" content="on">
 
 	<link rel="stylesheet" href="/ui/css">
 	<style>
-		.ch-g1-2, .ch-g1-4 {
-			display: inline-block;
-			vertical-align: top;
-		}
-
-		.ch-g1-2 {
-			width: 49%;
-		}
-
-		.ch-g1-4 {
-			width: 24%;
-		}
-
 		/**
 		 * Carousel demo
 		 */
@@ -63,15 +58,84 @@
 </head>
 
 <body>
-<h1 class="ch-box-container">Chico UI</h1>
+	<h1>Chico UI</h1>
 
-	<h1>Headings</h1>
-	<h1>Header 1</h1>
-	<h2>Header 2</h2>
-	<h3>Header 3</h3>
-	<h4>Header 4</h4>
-	<h5>Header 5</h5>
-	<h6>Header 6</h6>
+	<article class="ch-clearfix">
+		<h1>Mesh</h1>
+		<div class="ch-g1">
+			<div class="ch-box-lite">1/1</div>
+		</div>
+		<div class="ch-g1-2">
+			<div class="ch-box-lite ch-leftcolumn">1/2</div>
+		</div>
+		<div class="ch-g1-2">
+			<div class="ch-box-lite ch-rightcolumn">1/2</div>
+		</div>
+		<div class="ch-g1-3">
+			<div class="ch-box-lite ch-leftcolumn">1/3</div>
+		</div>
+		<div class="ch-g1-3">
+			<div class="ch-box-lite ch-centercolumn">1/3</div>
+		</div>
+		<div class="ch-g1-3">
+			<div class="ch-box-lite ch-rightcolumn">1/3</div>
+		</div>
+
+		<div class="ch-g1-4">
+			<div class="ch-box-lite ch-leftcolumn">1/4</div>
+		</div>
+		<div class="ch-g1-4">
+			<div class="ch-box-lite ch-centercolumn">1/4</div>
+		</div>
+		<div class="ch-g1-4">
+			<div class="ch-box-lite ch-centercolumn">1/4</div>
+		</div>
+		<div class="ch-g1-4">
+			<div class="ch-box-lite ch-rightcolumn">1/4</div>
+		</div>
+
+		<div class="ch-g1-5">
+			<div class="ch-box-lite ch-leftcolumn">1/5</div>
+		</div>
+		<div class="ch-g1-5">
+			<div class="ch-box-lite ch-centercolumn">1/5</div>
+		</div>
+		<div class="ch-g1-5">
+			<div class="ch-box-lite ch-centercolumn">1/5</div>
+		</div>
+		<div class="ch-g1-5">
+			<div class="ch-box-lite ch-centercolumn">1/5</div>
+		</div>
+		<div class="ch-g1-5">
+			<div class="ch-box-lite ch-rightcolumn">1/5</div>
+		</div>
+
+		<div class="ch-g1-5">
+			<div class="ch-box-lite ch-leftcolumn">1/5</div>
+		</div>
+		<div class="ch-g4-5">
+			<div class="ch-box-lite ch-rightcolumn">4/5</div>
+		</div>
+
+		<div class="ch-g1-4">
+			<div class="ch-box-lite ch-leftcolumn">1/4</div>
+		</div>
+		<div class="ch-g3-4">
+			<div class="ch-box-lite ch-rightcolumn">3/4</div>
+		</div>
+
+		<div class="ch-g1-3">
+			<div class="ch-box-lite ch-leftcolumn">1/3</div>
+		</div>
+		<div class="ch-g2-3">
+			<div class="ch-box-lite ch-rightcolumn">2/3</div>
+		</div>
+
+
+		<div class="ch-g1">
+			<div class="ch-box-lite">1/1</div>
+		</div>
+	</article>
 
 	<div class="ch-box-lite">
 		<h1>Header 1</h1>
@@ -96,7 +160,7 @@
 		<p><a href="http://www.mercadoclics.com">MercadoClics</a></p>
 	</div>
 
-	<div class="ch-box-lite">
+	<div class="ch-box-lite ch-clearfix">
 		<h2>Lists</h2>
 		<div class="ch-g1-4">
 			<h3>Unstyled</h3>
@@ -139,19 +203,40 @@
 	</div>
 
 	<div class="ch-box-container">
-		<h2>Box Container</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		<h2>Container Box</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
 	</div>
-
 	<div class="ch-box-lite">
 		<h2>Box Lite</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
 	</div>
 
 	<div class="ch-box">
 		<h2>Box</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>. Curabitur dui velit, cursus in <a href="#">adipiscing</a> sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
 	</div>
+
+	<h2>Wizard</h2>
+	<div class="ch-wizard">
+		<ol class="ch-wizard-breadcrumb ch-steps-four">
+			<li><a href="#1">Step 1</a></li>
+			<li><a href="#2">Step 2</a></li>
+			<li class="ch-wizard-current">Step 3</li>
+			<li class="ch-wizard-step">Step 4</li>
+		</ol>
+
+		<div class="ch-box-container">
+			<h2>Caption heading</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+		</div>
+
+		<div class="ch-actions">
+			<!-- Corregir las calles entre las acciones (sacar del modal) -->
+			<button class="ch-btn">Primary Action</button>
+			<a href="#">Secondary Action</a>
+		</div>
+	</div>
+
 
 	<div class="ch-box-lite">
 		<h2>Spinner control</h2>
@@ -160,31 +245,55 @@
 		<span class="ch-loading-big"></span>
 	</div>
 
-	<h2>Message boxes</h2>
-	<div class="ch-box-error">Oops, something wrong happened</div>
-	<div class="ch-box-help">Do you need any help?</div>
-	<div class="ch-box-information">Here's more information</div>
-	<div class="ch-box-attention">Warning! something might be wrong</div>
-	<div class="ch-box-ok">Everything is great!</div>
-
-	<div class="ch-box-lite clearfix">
-		<div class="ch-g1-4">
-			<h2>Buttons</h2>
-			<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
-			<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
-			<p><input type="button" class="ch-btn" value="Default button"></p>
-			<p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
-			<p><input type="button" class="ch-btn ch-btn-tiny" value="Tiny button"></p>
-			<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
+	<div class="ch-box-lite ch-clearfix">
+		<div class="ch-g1-2">
+			<div class="ch-leftcolumn">
+				<h2>Message boxes</h2>
+				<div class="ch-box-error">Oops, something wrong happened</div>
+				<div class="ch-box-help">Do you need any help?</div>
+				<div class="ch-box-information">Here's more information</div>
+				<div class="ch-box-attention">Warning! something might be wrong</div>
+				<div class="ch-box-ok">Everything is great!</div>
+			</div>
 		</div>
-		<div class="ch-g1-4">
-			<h2>Disabled Buttons</h2>
-			<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
-			<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Big button disabled"></p>
-			<p><input type="button" class="ch-btn ch-btn-disabled" value="Default button disabled"></p>
-			<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled"></p>
-			<p><input type="button" class="ch-btn ch-btn-tiny ch-btn-disabled" value="Tiny button disabled"></p>
-			<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
+
+		<div class="ch-g1-2">
+			<div class="ch-rightcolumn">
+				<h2>Big message boxes</h2>
+				<div class="ch-box-attention">
+					<h2>Warning!</h2>
+					<p>This is a big warning message, be careful!</p>
+				</div>
+				<div class="ch-box-ok">
+					<h2>Congratulations!</h2>
+					<p>This went really well. You're awesome!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ch-box-lite ch-clearfix">
+		<div class="ch-g1-2">
+			<div class="ch-leftcolumn">
+				<h2>Buttons</h2>
+				<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
+				<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
+				<p><input type="button" class="ch-btn" value="Default button"></p>
+				<p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
+				<p><input type="button" class="ch-btn ch-btn-tiny" value="Tiny button"></p>
+				<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
+			</div>
+		</div>
+		<div class="ch-g1-2">
+			<div class="ch-rightcolumn">
+				<h2>Disabled Buttons</h2>
+				<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
+				<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Big button disabled"></p>
+				<p><input type="button" class="ch-btn ch-btn-disabled" value="Default button disabled"></p>
+				<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled"></p>
+				<p><input type="button" class="ch-btn ch-btn-tiny ch-btn-disabled" value="Tiny button disabled"></p>
+				<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
+			</div>
 		</div>
 	</div>
 
@@ -403,7 +512,7 @@
 		<h2>Menu</h2>
 		<ul class="YOUR_SELECTOR_Menu">
 			<li>
-				<span>Item</span>
+				<span>Collapsible</span>
 				<ul>
 					<li><a href="#">Link 1</a></li>
 					<li><a href="#">Link 2</a></li>
@@ -411,23 +520,7 @@
 				</ul>
 			</li>
 			<li>
-				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Item</span>
+				<span>Collapsible</span>
 				<ul>
 					<li><a href="#">Link 1</a></li>
 					<li><a href="#">Link 2</a></li>
@@ -438,7 +531,20 @@
 				<a href="#">Link</a>
 			</li>
 			<li>
-				<a href="#">Link</a>
+				<span>Collapsible</span>
+				<ul>
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+				</ul>
+			</li>
+			<li>
+				<span>Collapsible</span>
+				<ul>
+					<li><a href="#">Link 1</a></li>
+					<li><a href="#">Link 2</a></li>
+					<li><a href="#">Link 3</a></li>
+				</ul>
 			</li>
 		</ul>
 	</div>
@@ -470,7 +576,7 @@
 
 
 
-	<div class="ch-box-lite">
+	<div class="ch-box-lite ch-clearfix">
 		<h2>Tooltip</h2>
 
 		<div class="ch-g1-2">
@@ -523,7 +629,7 @@
 		<h2>Modal with AJAX content</h2>
 
 		<form action="/ajax">
-			<p><input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Modal" value="Executed by submit input"> or <a href="/ajax" class="YOUR_SELECTOR_Modal">Executed by link</a>.</p>
+			<p><input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Modal" value="Executed by submit a form"> or <a href="/ajax" class="YOUR_SELECTOR_Modal">Executed by a link</a>.</p>
 		</form>
 	</div>
 
@@ -533,9 +639,18 @@
 		<button class="YOUR_SELECTOR_Modal_invisible ch-btn ch-btn-small">Get content from DOM</button>
 
 		<div id="invisible-content" class="ch-hide">
-			<h1>This content is invisible</h1>
+			<h1>Caption heading</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+			<p class="ch-actions">
+				<button class="ch-btn">Primary Action</button>
+				<a href="#">Secondary Action</a>
+			</p>
 		</div>
+	</div>
+
+	<div class="ch-box-lite">
+		<h2>Modal Lite</h2>
+		<button class="YOUR_SELECTOR_Modal_lite ch-btn ch-btn-small">Show me</button>
 	</div>
 
 	<div class="ch-box-lite">
@@ -1290,6 +1405,12 @@
 		// Modal with invisible DOM Content
 		var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal($("#invisible-content"));
 
+		// Modal lite
+		var modal3 = $('.YOUR_SELECTOR_Modal_lite').modal({
+			'content': '<h2>Heading or content</h2>',
+			'classes': 'ch-box ch-modal-lite'
+		});
+
 		// Trasition
 		var transition = $(".YOUR_SELECTOR_Transition").transition();
 
@@ -1314,7 +1435,9 @@
 		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
 
 		// Menu
-		var menu = $(".YOUR_SELECTOR_Menu").menu();
+		var menu = $(".YOUR_SELECTOR_Menu").menu({
+			'selected': 5
+		});
 
 		// Form
 		var form = $('.myForm').form();

@@ -8,7 +8,7 @@ h4,
 h5,
 h6 {
 	font-weight: normal;
-	margin: 0.714em 0; /* 10px */
+	margin: 10px 0;
 }
 
 h1 {
@@ -51,7 +51,7 @@ h6 {
  * Paragraphs
  */
 p + p {
-	margin-top: 1em; /* 14px */
+	margin-top: 14px;
 }
 
 /**
@@ -98,5 +98,5 @@ a:focus {
 
 /* IE */
 .lt-ie9 .ch-price sup {
-	font-size: 0.857em; /* 12 */
+	font-size: 0.857em; /* 12px */
 }

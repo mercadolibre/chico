@@ -1,67 +1,92 @@
 /*!
- * Chico Mesh v0.1
+ * Chico Mesh v0.2
  * http://chico-ui.com.ar/mesh
  *
  * Copyright (c) 2012, MercadoLibre.com
  * Released under the MIT license.
  * http://chico-ui.com.ar/license
  *
- * Team: Hernan Mammana, Leandro Linares, Guillermo Paz, Natalia Devalle.
+ * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.
  */
 
 /* About classnames: 1-2 = 1/2 = 50% */
-.ch-g1,
-.ch-g9-10,
-.ch-g7-8,
-.ch-g5-6,
-.ch-g4-5, .ch-g8-10,
-.ch-g3-4, .ch-g6-8,
-.ch-g7-10,
-.ch-g2-3, .ch-g4-6,
-.ch-g5-8,
-.ch-g3-5, .ch-g6-10,
-.ch-g1-2, .ch-g2-4, .ch-g3-6, .ch-g4-8, .ch-g5-10,
-.ch-g2-5, .ch-g4-10,
-.ch-g3-8,
-.ch-g1-3r,
-.ch-g1-3, .ch-g2-6,
-.ch-g3-10,
-.ch-g1-4, .ch-g2-8,
-.ch-g1-5, .ch-g2-10,
-.ch-g1-6r,
-.ch-g1-6,
-.ch-g1-8,
-.ch-g1-10 {
+
+[class^="ch-g"] {
 	float: left;
 	vertical-align: top;
 }
 
-.ch-g1 { width: 100%; }
-.ch-g9-10 { width: 90%; }
-.ch-g7-8 { width: 87.5%; }
-.ch-g5-6 { width: 83.3%; }
-.ch-g4-5, .ch-g8-10 { width: 80%; }
-.ch-g3-4, .ch-g6-8 { width: 75%; }
-.ch-g7-10 { width: 70%; }
-.ch-g2-3, .ch-g4-6 { width: 66.67%; }
-.ch-g5-8 { width: 62.5%; }
-.ch-g3-5, .ch-g6-10 { width: 60%; }
-.ch-g1-2, .ch-g2-4, .ch-g3-6, .ch-g4-8, .ch-g5-10 { width: 50%; }
-.ch-g2-5, .ch-g4-10 { width: 40%; }
-.ch-g3-8 { width: 37.5%; }
-/* Rounding - If you want 3 equal columns, one of them has to be ch-g1-3r to reach 100% */
-.ch-g1-3r { width: 33.34%; }
-.ch-g1-3, .ch-g2-6 { width: 33.33%; }
-.ch-g3-10 { width: 30%; }
-.ch-g1-4, .ch-g2-8 { width: 25%; }
-.ch-g1-5, .ch-g2-10 { width: 20%; }
-/* Rounding - If you want 6 equal columns, one of them has to be ch-g1-6r to reach 100% */
-.ch-g1-6r { width: 16.7%; }
-.ch-g1-6 { width: 16.66%; }
-.ch-g1-8 { width: 12.5%; }
-.ch-g1-10 { width: 10%; }
+.ch-g1 {
+	width: 100%;
+}
+
+.ch-g1-2 {
+	width: 50%;
+}
+
+.ch-g1-3 {
+	width: 33.334%;
+}
+
+.ch-g2-3 {
+	width: 66.669%;
+}
+
+.ch-g1-4 {
+	width: 25%;
+}
+
+.ch-g3-4 {
+	width: 75%;
+}
+
+.ch-g1-5 {
+	width: 20%;
+}
+
+.ch-g4-5 {
+	width: 80%;
+}
 
 /* Gutters: You can use these on your inner elements */
-.ch-rightcolumn, .rightcolumn { margin-left: 10px; }
-.ch-leftcolumn, .leftcolumn { margin-right: 10px; }
-.ch-centercolumn, .centercolumn { margin-left: 10px; margin-right: 10px; }
+
+[class^="ch-g"] .ch-rightcolumn,
+[class^="ch-g"] .ch-centercolumn {
+	margin-left: 5px;
+}
+
+[class^="ch-g"] .ch-leftcolumn,
+[class^="ch-g"] .ch-centercolumn {
+	margin-right: 5px;
+}
+
+/**
+ * Clearfix
+ */
+.ch-clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* IE7 */
+*:first-child+html .ch-clearfix {
+	zoom: 1;
+}
+
+/* Mobile */
+@media all and (max-width: 480px) {
+
+	[class^="ch-g"] {
+		width: 100%;
+		float: none;
+		clear: both;
+	}
+
+	[class^="ch-g"] .ch-rightcolumn,
+	[class^="ch-g"] .ch-leftcolumn,
+	[class^="ch-g"] .ch-centercolumn {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
