@@ -107,14 +107,15 @@
 				"../../src/ui/css/ch.DatePicker.css",
 				"../../src/ui/css/ch.Dropdown.css",
 				"../../src/ui/css/ch.Expandable.css",
-				"../../src/ui/css/ch.Form.css",
+				"../../src/shared/css/ch.Form.css",
 				"../../src/ui/css/ch.Layer.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Modal.css",
 				"../../src/ui/css/ch.Tabs.css",
 				"../../src/ui/css/ch.Tooltip.css",
 				"../../src/ui/css/ch.Validation.css",
-				"../../src/ui/css/ch.Zoom.css"
+				"../../src/ui/css/ch.Zoom.css",
+				"../../src/mobile/css/ch.list-menu.css"
 			],
 			"template": ["meta.ui.full.css", "resetML", "core", "widgets"]
 		},
@@ -164,7 +165,7 @@
 				"../../src/mobile/css/ch.header.css",
 				"../../src/mobile/css/ch.Expandable.css",
 				"../../src/mobile/css/ch.Menu.css",
-				"../../src/mobile/css/ch.Form.css",
+				"../../src/shared/css/ch.Form.css",
 				"../../src/mobile/css/ch.Modal.css",
 				"../../src/mobile/css/ch.Layer.css"
 			],

@@ -845,7 +845,7 @@
 		<form action="/ajax.html" class="YOUR_SELECTOR_Formcountdown ch-form">
 			<p class="ch-form-row">
 				<label for="val_date">Text:</label>
-				<textarea id="text_cd" class="myCountdown"></textarea>
+				<textarea id="text_cd" cols="35" rows="4" class="myCountdown"></textarea>
 			</p>
 		</form>
 	</div>
@@ -857,38 +857,45 @@
 			<fieldset>
 				<legend>Inputs</legend>
 				<p class="ch-form-hint">* Required fields</p>
-				<p class="ch-form-row">
+				<div class="ch-form-row">
 					<label for="input_ico">
 						Icon:
 					</label>
 					<input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
 					<i class="ch-form-ico ch-icon-question-sign"></i>
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
+					<label for="input_ico_inside">
+						Icon inside:
+					</label>
+					<input class="ch-form-ico-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
+					<i class="ch-form-ico-inner ch-icon-question-sign"></i>
+				</div>
+				<div class="ch-form-row">
 					<label for="input_button">
 						Category:
 					</label>
 					<input type="text" id="input_button" name="input_button" size="30" placeholder="">
 					<input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin">
 					<span class="ch-form-hint">Add your category</span>
-				</p>
-				<p class="ch-form-row ch-form-required">
+				</div>
+				<div class="ch-form-row ch-form-required">
 					<label for="price">
 						Price:
 						<em>*</em>
 					</label>
 					<input type="text" id="price" name="price" required="required" placeholder="1349.43">
 					<span class="ch-form-hint">Numbers and dot symbol</span>
-				</p>
-				<p class="ch-form-row ch-form-required">
+				</div>
+				<div class="ch-form-row ch-form-required">
 					<label for="email">
 						E-mail:
 						<em>*</em>
 					</label>
 					<input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
 					<span class="ch-form-hint">It will be your login name</span>
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
 					<label for="email2">
 						E-mail:
 					</label>
@@ -897,63 +904,63 @@
 					<label for="news" class="ch-label-inline">
 						Accept to receive weekly news
 					</label>
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
 					<label for="url">
 						URL:
 					</label>
 					<input type="url" id="url" name="url" size="60" placeholder="http://www.chico-ui.com.ar">
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
 					<label for="number">
 						Numeric field:
 					</label>
 					<input type="number" id="number" name="number" min="18" max="99" placeholder="30">
-				</p>
-				<p class="ch-form-row ch-form-required">
+				</div>
+				<div class="ch-form-row ch-form-required">
 					<label for="range">
 						Numeric range:
 						<em>*</em>
 					</label>
 					<input type="range" id="range" name="range" min="1" max="20">
 					<span class="ch-form-hint">Between 8 to 10</span>
-				</p>
-				<p class="ch-form-row ch-form-required ch-form-disabled">
+				</div>
+				<div class="ch-form-row ch-form-required ch-form-disabled">
 					<label for="required_disabled">
 						Required disabled:
 						<em>*</em>
 					</label>
 					<input type="text" id="required_disabled" required="required" disabled="disabled">
 					<span class="ch-form-hint">It's a unknown use case</span>
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
 					<label for="characters">
 						Characters:
 					</label>
 					<input type="text" id="characters">
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
 					<label for="custom">
 						Custom:
 					</label>
 					<input type="text" id="custom" placeholder="12" size="2">
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
 					<label for="readonly">
 						Readonly:
 					</label>
 					<input type="text" readonly="readonly" id="readonly" value="its a readonly value">
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
 					<label for="double">
 						It's a input text with double line:
 					</label>
 					<input type="text" id="double">
-				</p>
+				</div>
 			</fieldset>
 			<fieldset>
 				<legend>Selects</legend>
-				<p class="ch-form-row">
+				<div class="ch-form-row">
 					<label for="select1">
 						Common field:
 					</label>
@@ -964,8 +971,8 @@
 						<option value="3">Option 3</option>
 						<option value="4">Option 4</option>
 					</select>
-				</p>
-				<p class="ch-form-row ch-form-required">
+				</div>
+				<div class="ch-form-row ch-form-required">
 					<label for="select2">
 						Required: <em>*</em>
 					</label>
@@ -976,8 +983,8 @@
 						<option value="3">Option 3</option>
 						<option value="4">Option 4</option>
 					</select>
-				</p>
-				<p class="ch-form-row ch-form-required ch-form-disabled">
+				</div>
+				<div class="ch-form-row ch-form-required ch-form-disabled">
 					<label for="select3" class="required disabled">
 						Required disabled: <em>*</em>
 					</label>
@@ -988,8 +995,8 @@
 						<option value="3">Option 3</option>
 						<option value="4">Option 4</option>
 					</select>
-				</p>
-				<p class="ch-form-row ch-form-disabled">
+				</div>
+				<div class="ch-form-row ch-form-disabled">
 					<label for="select4">
 						Disabled:
 					</label>
@@ -1000,11 +1007,11 @@
 						<option value="3">Option 3</option>
 						<option value="4">Option 4</option>
 					</select>
-				</p>
+				</div>
 			</fieldset>
 			<fieldset>
 				<legend>Misc</legend>
-				<p class="ch-form-row">
+				<div class="ch-form-row">
 					<label for="street">
 						Domicilio:
 					</label>
@@ -1017,8 +1024,8 @@
 						<option value="3">Option 3</option>
 						<option value="4">Option 4</option>
 					</select>
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row ch-form-row-inline">
 					<label for="select5">
 						Common field:
 					</label>
@@ -1030,23 +1037,23 @@
 						<option value="4">Option 4</option>
 					</select>
 					<input type="text" id="secondary_option" placeholder="Common field" />
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row ch-form-row-inline">
 					<label for="num1">
 						CUIT:
 					</label>
-					<input type="number" id="num1" placeholder="20" /> -
-					<input type="number" id="num2" placeholder="23111399" /> /
-					<input type="number" id="num3" placeholder="4" />
-				</p>
-				<p class="ch-form-row">
+					<input type="number" id="num1" placeholder="20" max="30" min="20" /> -
+					<input type="number" id="num2" placeholder="23111399" max="99999999" min="0" /> /
+					<input type="number" id="num3" placeholder="4" max="9" min="0" />
+				</div>
+				<div class="ch-form-row ch-form-row-inline">
 					<label for="tc1">
 						Expires:
 					</label>
 					<input type="number" id="tc1" min="1" max="12" placeholder="11" />
 					<input type="number" id="tc2" min="2011" max="2020" placeholder="2013" />
-				</p>
-				<p class="ch-form-row">
+				</div>
+				<div class="ch-form-row">
 					<label for="select6">
 						House features:
 					</label>
@@ -1060,51 +1067,55 @@
 						<option value="6">Dining room</option>
 						<option value="7">Amenities</option>
 					</select>
-				</p>
+				</div>
 
 			</fieldset>
 			<fieldset>
-				<p class="ch-form-options ch-form-required required-check">
+				<div class="ch-form-options ch-form-row ch-form-required required-check">
 					<input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
 					<label for="check4a">
 						Unique checkbox
 					</label>
-				</p>
+				</div>
 			</fieldset>
 			<fieldset>
 				<legend>Checkbox</legend>
 					<div class="ch-form-options required-option">
 						<h4 class="ch-form-subtitle">Label of checkboxs group:<em>*</em></h4>
-						<p class="ch-form-row">
-							<input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
-							<label for="check1a">
-								Alpha
-							</label>
-						</p>
-						<p class="ch-form-row">
-							<input type="checkbox" value="beta" id="check1b" name="version1b">
-							<label for="check1b">
-								Beta
-							</label>
-						</p>
+						<ul>
+							<li class="ch-form-row">
+								<input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
+								<label for="check1a">
+									Alpha
+								</label>
+							</li>
+							<li class="ch-form-row">
+								<input type="checkbox" value="beta" id="check1b" name="version1b">
+								<label for="check1b">
+									Beta
+								</label>
+							</li>
+						</ul>
 					</div>
 			</fieldset>
 
 			<fieldset>
 				<legend>Legend of required group <em>*</em></legend>
 				<div class="ch-form-options ch-form-required check2 required-option">
-					<p class="ch-form-row">
-						<input type="checkbox" value="alpha" id="check2a" name="version2">
-						<label for="check2a">
-							Alpha
-						</label>
-					</p>
-					<p class="ch-form-row">
-						<input type="checkbox" value="beta" id="check2b" name="version2">
-						<label for="check2b">
-							Beta
-						</label>
-					</p>
+					<ul>
+						<li class="ch-form-row">
+							<input type="checkbox" value="alpha" id="check2a" name="version2">
+							<label for="check2a">
+								Alpha
+							</label>
+						</li>
+						<li class="ch-form-row">
+							<input type="checkbox" value="beta" id="check2b" name="version2">
+							<label for="check2b">
+								Beta
+							</label>
+						</li>
+					</ul>
 				</div>
 			</fieldset>
 
@@ -1112,54 +1123,60 @@
 				<legend>Legend of checkboxs group</legend>
 				<div class="ch-form-options ch-form-required check3 required-option">
 					<h4 class="ch-form-subtitle">Label of required group: <em>*</em></h4>
-					<p class="ch-form-row">
-						<input type="radio" value="alpha" id="check3a" name="version3">
-						<label for="check3a">
-							Alpha
-						</label>
-					</p>
-					<p class="ch-form-row">
-						<input type="radio" value="beta" id="check3b" name="version3">
-						<label for="check3b">
-							Beta
-						</label>
-					</p>
+					<ul>
+						<li class="ch-form-row">
+							<input type="radio" value="alpha" id="check3a" name="version3">
+							<label for="check3a">
+								Alpha
+							</label>
+						</li>
+						<li class="ch-form-row">
+							<input type="radio" value="beta" id="check3b" name="version3">
+							<label for="check3b">
+								Beta
+							</label>
+						</li>
+					</ul>
 				</div>
 			</fieldset>
 
 			<fieldset>
 				<legend>Radio buttons</legend>
 				<div class="ch-form-options">
-					<p class="ch-form-row">
-						<input type="radio" value="alpha" id="radio1a" name="version4">
-						<label for="radio1a">
-							Alpha
-						</label>
-					</p>
-					<p class="ch-form-row">
-						<input type="radio" value="beta" id="radio1b" name="version4">
-						<label for="radio1b">
-							Beta
-						</label>
-					</p>
+					<ul>
+						<li class="ch-form-row">
+							<input type="radio" value="alpha" id="radio1a" name="version4">
+							<label for="radio1a">
+								Alpha
+							</label>
+						</li>
+						<li class="ch-form-row">
+							<input type="radio" value="beta" id="radio1b" name="version4">
+							<label for="radio1b">
+								Beta
+							</label>
+						</li>
+					</ul>
 				</div>
 			</fieldset>
 
 			<fieldset>
 				<legend>Radio buttons required<em>*</em></legend>
 				<div class="ch-form-options radio2 required-option">
-					<p class="ch-form-row">
-						<input type="radio" value="alpha" id="radio2a" name="version5">
-						<label for="radio2a">
-							Alpha
-						</label>
-					</p>
-					<p class="ch-form-row">
-						<input type="radio" value="beta" id="radio2b" name="version5">
-						<label for="radio2b">
-							Beta
-						</label>
-					</p>
+					<ul>
+						<li class="ch-form-row">
+							<input type="radio" value="alpha" id="radio2a" name="version5">
+							<label for="radio2a">
+								Alpha
+							</label>
+						</li>
+						<li class="ch-form-row">
+							<input type="radio" value="beta" id="radio2b" name="version5">
+							<label for="radio2b">
+								Beta
+							</label>
+						</li>
+					</ul>
 				</div>
 			</fieldset>
 
@@ -1167,91 +1184,97 @@
 				<legend>Legend of radio group</legend>
 				<div class="ch-form-options ch-form-required radio3 required-option">
 					<h4 class="ch-form-subtitle">Radios required: <em>*</em></h4>
-					<p class="ch-form-row">
-						<input type="radio" value="alpha" id="radio3a" name="version6">
-						<label for="radio3a">
-							Alpha
-						</label>
-					</p>
-					<p class="ch-form-row">
-						<input type="radio" value="beta" id="radio3b" name="version6">
-						<label for="radio3b">
-							Beta
-						</label>
-					</p>
+					<ul>
+						<li class="ch-form-row">
+							<input type="radio" value="alpha" id="radio3a" name="version6">
+							<label for="radio3a">
+								Alpha
+							</label>
+						</li>
+						<li class="ch-form-row">
+							<input type="radio" value="beta" id="radio3b" name="version6">
+							<label for="radio3b">
+								Beta
+							</label>
+						</li>
+					</ul>
 				</div>
 			</fieldset>
 
 			<fieldset>
 				<div class="ch-form-options radio4">
-					<p class="ch-form-row">
-						<input type="radio" value="alpha" id="radio4a" name="version7">
-						<label for="radio4a">
-							Lorem ipsum dolor sit amet
-						</label>
-					</p>
-					<p class="ch-form-row">
-						<input type="radio" value="beta" id="radio4b" name="version7">
-						<label for="radio4b">
-							Beta
-						</label>
-					</p>
+					<ul>
+						<li class="ch-form-row">
+							<input type="radio" value="alpha" id="radio4a" name="version7">
+							<label for="radio4a">
+								Lorem ipsum dolor sit amet
+							</label>
+						</li>
+						<li class="ch-form-row">
+							<input type="radio" value="beta" id="radio4b" name="version7">
+							<label for="radio4b">
+								Beta
+							</label>
+						</li>
+					</ul>
 				</div>
 			</fieldset>
 
 			<fieldset>
 				<legend>Textarea</legend>
-				<p class="ch-form-row">
+				<div class="ch-form-row">
 					<label for="textarea1">
 						Textarea:
 					</label>
-					<textarea id="textarea1"></textarea>
-				</p>
+					<textarea id="textarea1" cols="40" rows="4"></textarea>
+				</div>
 
-				<p class="ch-form-row ch-form-required">
+				<div class="ch-form-row ch-form-required">
 					<label for="textarea2">
 						Required: <em>*</em>
 					</label>
-					<textarea id="textarea2" required="required"></textarea>
-				</p>
+					<textarea id="textarea2" cols="40" rows="4" required="required"></textarea>
+				</div>
 
-				<p class="ch-form-row ch-form-required ch-form-disabled">
+				<div class="ch-form-row ch-form-required ch-form-disabled">
 					<label for="textarea3">
 						Required disabled: <em>*</em>
 					</label>
-					<textarea id="textarea3" required="required" disabled="disabled"></textarea>
-				</p>
+					<textarea id="textarea3" cols="40" rows="4" required="required" disabled="disabled"></textarea>
+				</div>
 
-				<p class="ch-form-row ch-form-disabled">
+				<div class="ch-form-row ch-form-disabled">
 					<label for="textarea4">
 						Disabled:
 					</label>
-					<textarea id="textarea4" disabled="disabled"></textarea>
-				</p>
+					<textarea id="textarea4" cols="40" rows="4" disabled="disabled"></textarea>
+				</div>
 			</fieldset>
 
-			<p class="ch-form-actions">
+			<div class="ch-form-actions">
 				<input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn">
 				<input type="reset" value="Cancel" class="ch-btn ch-btn-small">
 				<a href="#" class="resetForm">Reset validations</a>
-			</p>
+			</div>
 		</form>
 
 		<form action="/ajax.html" class="ch-form ch-form-big">
 			<fieldset>
 				<legend>Big inputs</legend>
-				<p class="ch-form-row">
+				<div class="ch-form-row">
 					<label for="input_user">User:</label>
-					<input type="text" id="input_user" name="input_user" size="50">
-				</p>
-				<p class="ch-form-row">
+					<input class="ch-form-ico-input" type="text" id="input_user" name="input_user" size="50">
+					<i class="ch-form-ico-inner ch-icon-user"></i>
+				</div>
+				<div class="ch-form-row">
 					<label for="input_pass">Password:</label>
-					<input type="password" id="input_pass" name="input_pass" size="50">
-				</p>
-				<p class="ch-form-actions">
+					<input class="ch-form-ico-input" type="password" id="input_pass" name="input_pass" size="50">
+					<i class="ch-form-ico-inner ch-icon-lock"></i>
+				</div>
+				<div class="ch-form-actions">
 					<input type="submit" name="confirmation" value="Login" class="ch-btn">
 					<a href="#">Cancel</a>
-				</p>
+				</div>
 			</fieldset>
 		</form>
 
@@ -1441,11 +1464,13 @@
 		// Validators
 		var	validation1 = $('#input_ico').required().and().string();
 
-		var	validation2 = $('#price').price().and().required();
+		var	validation2 = $('#input_ico_inside').required().and().string();
 
-		var	validation3 = $('#email').required().and().email();
+		var	validation3 = $('#price').price().and().required();
 
-		var	validation4 = $('#custom').required().and().custom(function (v) {
+		var	validation4 = $('#email').required().and().email();
+
+		var	validation5 = $('#custom').required().and().custom(function (v) {
 
 				var value1 = v.toString().indexOf("1") > -1;
 				var value2 = v.toString().indexOf("2") > -1;
@@ -1464,23 +1489,23 @@
 
 			});
 
-		var	validation5 = $('#url').url();
+		var	validation6 = $('#url').url();
 
-		var	validation6 = $('#number').number().and().min(5);
+		var	validation7 = $('#number').number().and().min(5);
 
-		var	validation7 = $('#range').min(8).and().max(10);
+		var	validation8 = $('#range').min(8).and().max(10);
 
-		var	validation8 = $('#characters').maxLength(20).and().minLength(6);
+		var	validation9 = $('#characters').maxLength(20).and().minLength(6);
 
-		var	validation9 = $('#double,#textarea2').required();
+		var	validation10 = $('#double,#textarea2').required();
 
-		var	validation9 = $('.required-check').required(message('requiredCheck'));
+		var	validation11 = $('.required-check').required(message('requiredCheck'));
 
-		var	validation10 = $('.required-option').required(message('option'));
+		var	validation12 = $('.required-option').required(message('option'));
 
-		var validation11 = $('#double').required(message('link'));
+		var validation13 = $('#double').required(message('link'));
 
-		var validation12 = $('#double').number();
+		var validation14 = $('#double').number();
 
 	</script>
 </body>
