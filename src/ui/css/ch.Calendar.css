@@ -80,9 +80,9 @@
 	cursor: pointer;
 	position: absolute;
 	padding: 0px 20px;
-	height: 2.5em;
+	height: 28px;
+	line-height: 18px;
 	font-size: .9em;
-	margin: 0;
 }
 
 .ch-calendar-prev {

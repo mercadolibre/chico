@@ -69,11 +69,6 @@
 	clear: both;
 }
 
-/* IE7 */
-*:first-child+html .ch-clearfix {
-	zoom: 1;
-}
-
 /* Mobile */
 @media all and (max-width: 480px) {
 
@@ -89,4 +84,13 @@
 		margin-left: 0;
 		margin-right: 0;
 	}
+}
+
+/* IE7 */
+*:first-child+html.ie7 .ch-clearfix {
+	zoom: 1;
+}
+
+.ie7 .ch-g1-5 {
+	width: 19.9%;
 }
