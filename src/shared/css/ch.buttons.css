@@ -15,7 +15,6 @@
 	font-size: 1.286em; /* 18px */
 	height: auto;
 	line-height: 1.143em; /* 16px */
-	margin-right: 0.714em; /* 10px */
 	padding: 0.305em 0.571em; /* 4px 8px */
 	text-decoration: none;
 }
@@ -167,7 +166,6 @@ input.ch-btn-tiny::-moz-focus-inner{
 .ch-btn-big,
 .ch-btn-big:focus {
 	font-size: 1.429em; /* 20px */
-	margin-right: 0.5em; /* 10px */
 	padding: 0.429em 0.786em; /* 6px 11px */
 	text-align: center;
 }
@@ -181,7 +179,6 @@ a.ch-btn-big:focus {
 .ch-btn-small,
 .ch-btn-small:focus {
 	font-size: 0.857em; /* 12px */
-	margin-right:.833em; /* 10px */
 	padding: 0.429em 0.786em; /* 6px 12px */
 }
 
@@ -189,7 +186,6 @@ a.ch-btn-big:focus {
 .ch-btn-tiny,
 .ch-btn-tiny:focus {
 	font-size: 0.786em; /* 11px */
-	margin-right: 0.909em; /* 10px */
 	padding: 0.5em 0.714em; /* 7px 10px */
 }
 
@@ -239,7 +235,6 @@ input.ch-btn-tiny::-moz-focus-inner {
 	.ch-btn-big:focus {
 		width: 100%;
 		line-height: 1.5em;
-		margin: 0;
 	}
 
 	a.ch-btn-big,
