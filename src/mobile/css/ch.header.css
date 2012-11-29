@@ -16,6 +16,7 @@
 /* Colors */
 .ch-header {
 	background-color: #fdee4c;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(44%, #fdee4c), color-stop(90%, #f0da16));
 	background-image: -webkit-linear-gradient(#fdee4c 44%, #f0da16 90%);
 	background-image: -moz-linear-gradient(#fdee4c 44%, #f0da16 90%);
 	background-image: -o-linear-gradient(#fdee4c 44%, #f0da16 90%);
@@ -25,6 +26,7 @@
 
 .ch-header-skin {
 	background-color: #efefef;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #efefef), color-stop(56%, #e2e2e2));
 	background-image: -webkit-linear-gradient(#efefef 10%, #e2e2e2 56%);
 	background-image: -moz-linear-gradient(#efefef 10%, #e2e2e2 56%);
 	background-image: -o-linear-gradient(#efefef 10%, #e2e2e2 56%);
@@ -50,7 +52,7 @@
 [class*="ch-header"] .ch-action-left,
 [class*="ch-header"] .ch-action-right {
 	position: absolute;
-	top: 7px;
+	top: 6px;
 }
 
 [class*="ch-header"] .ch-action-left {
@@ -59,14 +61,13 @@
 
 [class*="ch-header"] .ch-action-right {
 	right: 5px;
+	margin-right: 0;
 }
 
 /* BTN Header */
 .ch-btn-header,
 .ch-btn-header:focus {
-	font-weight: normal;
-	width: auto !important;
-	padding: 7px 10px 6px;
+	padding: 9px 10px 8px;
 	font-size: .92em;
 }
 
@@ -77,6 +78,7 @@ a.ch-btn-header,
 a.ch-btn-header:focus,
 a.ch-btn-header:visited {
 	background-color: transparent;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(25%, transparent), color-stop(rgba(100, 100, 100, 0.12)));
 	background-image: -webkit-linear-gradient(transparent 25%, rgba(100, 100, 100, 0.12));
 	background-image: -moz-linear-gradient(transparent 25%, rgba(100, 100, 100, 0.12));
 	background-image: -o-linear-gradient(transparent 25%, rgba(100, 100, 100, 0.12));
@@ -99,6 +101,7 @@ a.ch-btn-header:visited {
 
 /* Active */
 .ch-btn-header:active {
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(25%, rgba(100,100,100, 0.12)), color-stop(rgba(100, 100, 100, 0.2)));
 	background-image: -webkit-linear-gradient(rgba(100,100,100, 0.12) 25%, rgba(100,100,100, 0.2));
 	background-image: -moz-linear-gradient(rgba(100,100,100, 0.12) 25%, rgba(100,100,100, 0.2));
 	background-image: -o-linear-gradient(rgba(100,100,100, 0.12) 25%, rgba(100,100,100, 0.2));

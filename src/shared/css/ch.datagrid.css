@@ -48,6 +48,7 @@ table {
 
 .ch-datagrid-controls th {
 	background-color: #FAFAFA;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FAFAFA), color-stop(100%, #ECECEC));
 	background-image: -webkit-linear-gradient(#FAFAFA, #ECECEC);
 	background-image: -moz-linear-gradient(#FAFAFA, #ECECEC);
 	background-image: -o-linear-gradient(#FAFAFA, #ECECEC);
@@ -57,6 +58,7 @@ table {
 
 .ch-datagrid-controls th:hover {
 	background: #FEFEFE;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FEFEFE), color-stop(100%, #F2F2F2));
 	background-image: -webkit-linear-gradient(#FEFEFE, #F2F2F2);
 	background-image: -moz-linear-gradient(#FEFEFE, #F2F2F2);
 	background-image: -o-linear-gradient(#FEFEFE, #F2F2F2);
@@ -66,6 +68,7 @@ table {
 .ch-datagrid-controls th:active,
 .ch-datagrid-controls th.ch-datagrid-selected {
 	background: #E5E5E5;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #E5E5E5), color-stop(100%, #D8D8D8));
 	background-image: -webkit-linear-gradient(#E5E5E5, #D8D8D8);
 	background-image: -moz-linear-gradient(#E5E5E5, #D8D8D8);
 	background-image: -o-linear-gradient(#E5E5E5, #D8D8D8);
@@ -109,75 +112,6 @@ table {
 	height: 40px;
 	padding: 0 10px;
 	vertical-align: middle;
-}
-
-/* Mobile */
-@media only screen and (max-width: 480px) {
-
-	.ch-datagrid-controls,
-	.ch-datagrid {
-		display: block;
-		position: relative;
-		width: 100%;
-		margin: 10px 0;
-		border: none;
-	}
-
-	.ch-datagrid-controls thead,
-	.ch-datagrid thead {
-		display: block;
-		float: left;
-		border: solid #EDEDED;
-		border-width: 0 1px;
-	}
-
-	.ch-datagrid-controls thead tr,
-	.ch-datagrid thead tr {
-		display: block;
-	}
-
-	.ch-datagrid-controls thead th,
-	.ch-datagrid thead th {
-		display: block;
-		border: solid #EDEDED;
-		border-width: 0 0 1px 0;
-		height: 40px;
-		padding: 0 10px;
-		line-height: 4em; /* 56px */
-	}
-
-	.ch-datagrid-controls tbody,
-	.ch-datagrid tbody {
-		display: -webkit-box;
-		display: -moz-box;
-		display: -o-box;
-		display: box;
-		width: auto;
-		overflow-x: auto;
-		border: solid #EDEDED;
-		border-width: 1px 1px 1px 0;
-	}
-
-	.ch-datagrid-controls tbody tr,
-	.ch-datagrid tbody tr {
-		display: block;
-		vertical-align: top;
-		border: solid #EDEDED;
-		border-width: 0 1px 0 0;
-	}
-
-	.ch-datagrid-controls tbody tr td,
-	.ch-datagrid tbody tr td {
-		display: block;
-		border: solid #EDEDED;
-		border-width: 0 0 1px 0;
-		line-height: 3em; /* 42px */
-	}
-
-	.ch-datagrid-controls tbody tr td:last-child,
-	.ch-datagrid tbody tr td:last-child {
-		border-width: 0;
-	}
 }
 
 /* IE */
@@ -226,4 +160,8 @@ table {
 
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
 	background: transparent url("../assets/shapes.png") 0 -48px no-repeat;
+}
+
+.ie7 .ch-datagrid-controls th {
+	line-height: 14px;
 }

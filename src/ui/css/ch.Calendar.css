@@ -17,6 +17,7 @@
 
 .ch-calendar caption {
 	background-color: #EEEEEE;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #EEEEEE));
 	background: -webkit-linear-gradient(#FFFFFF, #EEEEEE);
 	background: -moz-linear-gradient(#FFFFFF, #EEEEEE);
 	background: -o-linear-gradient(#FFFFFF, #EEEEEE);
