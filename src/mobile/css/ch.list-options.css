@@ -1,8 +1,6 @@
 /*
  * List Options
  */
-
-
 .ch-list-options {
 	background-color: #f4f4f4;
 	-webkit-border-radius: 5px;
@@ -24,57 +22,16 @@
 	border-bottom: none;
 }
 
-/*.ch-list-options li,
-.ch-list-options li a {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	text-indent: 10px;
-	padding: 14px 0 12px 0;
-	padding-right: 3em;
-}
-
-.ch-list-options li a {
-	line-height: 24px;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	text-decoration: none;
-}*/
-
-.ch-list-options li {
-	padding: 14px 32px 12px 32px;
-
-}
-
-.ch-list-options li .ch-ellipsis {
-	margin-right: 10px;
-}
-
 .ch-list-options li a {
 	line-height: 24px;
 	text-decoration: none;
-	display: inline-block;
+	display: block;
+	padding: 14px 32px 12px 10px;
+	position: relative;
+	z-index: 1;
 }
 
-.ch-list-options li [class*="ch-icon"] {
-	padding: 14px 0 16px 32px;
-	margin: -14px 0 -16px -32px;
-}
-
-/*.ch-list-options li a {
-	line-height: 24px;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	text-decoration: none;
-}*/
-
-.ch-list-options li a:active {
+.ch-list-options li:active {
 	background: #e9e9e9;
 }
 
@@ -89,24 +46,17 @@
 	margin-top:-11px;
 }
 
-/*.ch-list-options li a:after {
-	content: "\f054";
-	line-height: 1em;
-	margin-top: -5px;
-	position: absolute;
-	top: 50%;
-	right: 15px;
-	font-size: 1em;
-}*/
-
-.ch-list-options [class*="ch-icon"]:before {
+.ch-list-options [class*="ch-icon"] {
 	display: block;
-	position:absolute;
-	top:19px;
-	left:7px;
+	position: absolute;
+	top: 16px;
+	left: 7px;
+	z-index: 0;
 }
 
-
+.ch-list-options [class*="ch-icon"] + a {
+	padding-left: 32px;
+}
 
 
 
