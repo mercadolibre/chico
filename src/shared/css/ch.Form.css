@@ -288,7 +288,6 @@ form .ch-form-error:focus {
 
 /* Options */
 .ch-list-options {
-	font-size: .929em; /* 13px */
 	margin: 0 0 15px 20px;
 	padding: 0;
 }
@@ -388,11 +387,11 @@ form .ch-form-error:focus {
 	textarea,
 	select,
 	select[multiple] {
-		-ms-box-sizing:border-box;
-		-o-box-sizing:border-box;
-		-webkit-box-sizing:border-box;
-		-moz-box-sizing:border-box;
-		box-sizing:border-box;
+		-ms-box-sizing: border-box;
+		-o-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
 		display: block;
 		font-size: 1.143em;
 		line-height: 1.4em;
@@ -519,6 +518,7 @@ form .ch-form-error:focus {
 		line-height: 24px;
 		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 		color: #5F5F5F;
+		padding:0;
 	}
 
 	.ch-list-options .ch-form-row:last-child {
@@ -537,13 +537,13 @@ form .ch-form-error:focus {
 		line-height: 24px;
 		width: 100%;
 		text-indent: 32px;
-		padding: 13px 0  11px 0;
+		padding: 14px 0  11px 0;
 	}
 
 	.ch-list-options input {
 		position: absolute;
 		left: 8px;
-		top: 22px;
+		top: 20px;
 		margin: 0;
 	}
 
