@@ -19,7 +19,7 @@
 .ch-box-information:before,
 .ch-box-error:before,
 .ch-box-ok:before,
-.ch-list-menu li a:after,
+.ch-list-options li a:after,
 .ch-tag:after {
 	font-family: icons;
 	font-weight: normal;
@@ -32,7 +32,7 @@
 }
 
 [class*='ch-icon-']:before,
-.ch-list-menu li a:after,
+.ch-list-options li a:after,
 .ch-tag:after {
 	color: #666;
 }

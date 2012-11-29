@@ -114,8 +114,7 @@
 				"../../src/ui/css/ch.Tabs.css",
 				"../../src/ui/css/ch.Tooltip.css",
 				"../../src/ui/css/ch.Validation.css",
-				"../../src/ui/css/ch.Zoom.css",
-				"../../src/mobile/css/ch.list-menu.css"
+				"../../src/ui/css/ch.Zoom.css"
 			],
 			"template": ["meta.ui.full.css", "resetML", "core", "widgets"]
 		},
@@ -159,7 +158,7 @@
 				"../../src/shared/css/ch.datagrid.css",
 				"../../src/shared/css/ch.lists.css",
 				"../../src/shared/css/ch.pagination.css",
-				"../../src/mobile/css/ch.list-menu.css",
+				"../../src/mobile/css/ch.list-options.css",
 				"../../src/mobile/css/ch.transitions.css",
 				"../../src/mobile/css/ch.tags.css",
 				"../../src/mobile/css/ch.header.css",

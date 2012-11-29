@@ -1,0 +1,126 @@
+/*
+ * List Options
+ */
+
+
+.ch-list-options {
+	background-color: #f4f4f4;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin: 0 0 20px;
+	border: 1px solid #EEEEEE;
+}
+
+.ch-list-options li {
+	border-bottom: 1px dotted #CCC;
+	min-height: 26px;
+	line-height: 24px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	position: relative;
+	color:#5F5F5F;
+}
+
+.ch-list-options li:last-child {
+	border-bottom: none;
+}
+
+/*.ch-list-options li,
+.ch-list-options li a {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-indent: 10px;
+	padding: 14px 0 12px 0;
+	padding-right: 3em;
+}
+
+.ch-list-options li a {
+	line-height: 24px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	text-decoration: none;
+}*/
+
+.ch-list-options li {
+	padding: 14px 32px 12px 32px;
+
+}
+
+.ch-list-options li .ch-ellipsis {
+	margin-right: 10px;
+}
+
+.ch-list-options li a {
+	line-height: 24px;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.ch-list-options li [class*="ch-icon"] {
+	padding: 14px 0 16px 32px;
+	margin: -14px 0 -16px -32px;
+}
+
+/*.ch-list-options li a {
+	line-height: 24px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	text-decoration: none;
+}*/
+
+.ch-list-options li a:active {
+	background: #e9e9e9;
+}
+
+.ch-list-options li a:after {
+	content: "\f054";
+	line-height: 24px;
+	font-size: 14px;
+	display: block;
+	position:absolute;
+	right: 12px;
+	top: 50%;
+	margin-top:-11px;
+}
+
+/*.ch-list-options li a:after {
+	content: "\f054";
+	line-height: 1em;
+	margin-top: -5px;
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	font-size: 1em;
+}*/
+
+.ch-list-options [class*="ch-icon"]:before {
+	display: block;
+	position:absolute;
+	top:19px;
+	left:7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
