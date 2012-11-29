@@ -204,11 +204,13 @@
 				<h2>List Menu icons</h2>
 				<nav>
 					<ul class="ch-list-options">
-						<li><a href="#" class="ch-icon-heart">Heart. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.</a></li>
-						<li><a href="#">No icon</a></li>
+						<li><a href="#" class="ch-icon-heart">Multiline text. This is an example that shows how a works a long text inside a list options.</a></li>
+						<li><a href="#" class="ch-icon-heart ch-ellipsis">Heart. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.</a></li>
 						<li><a href="#" class="ch-icon-cog">Settings</a></li>
-						<li>No icon</li>
 						<li class="ch-icon-map-marker">Marker</li>
+						<li><a href="#">No icon</a></li>
+						<li>No icon</li>
+						<li>No icon with <a href="#">link</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -482,7 +484,7 @@
 
 					<fieldset>
 						<h4 class="ch-form-subtitle">Unique checkbox:</h4>
-						<p class="ch-form-options ch-form-required check2 ch-box">
+						<p class="ch-list-options ch-form-row ch-form-required check2 ch-box">
 							<input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
 							<label for="check4a">
 								Unique checkbox
@@ -492,13 +494,13 @@
 					<fieldset>
 						<legend>Checkboxs</legend>
 						<ul class="ch-form-options ch-list-options">
-							<li>
+							<li class="ch-form-row">
 								<input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
 								<label for="check1a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="checkbox" value="beta" id="check1b" name="version1b">
 								<label for="check1b">
 									Beta
@@ -510,13 +512,13 @@
 					<fieldset>
 						<legend>Radios</legend>
 						<ul class="ch-form-options ch-list-options">
-							<li>
+							<li class="ch-form-row">
 								<input type="radio" value="alpha" id="radio1a" name="version1a" required="required">
 								<label for="radio1a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="radio" value="beta" id="radio1b" name="version1a">
 								<label for="radio1b">
 									Beta
@@ -528,13 +530,13 @@
 					<fieldset>
 						<legend>Legend of required group <em>*</em></legend>
 						<ul class="ch-form-options ch-list-options">
-							<li>
+							<li class="ch-form-row">
 								<input type="checkbox" value="alpha" id="check2a" name="version2a" required="required">
 								<label for="check2a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="checkbox" value="beta" id="check2b" name="version2b">
 								<label for="check2b">
 									Beta
