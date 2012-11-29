@@ -239,6 +239,7 @@ input.ch-btn-tiny::-moz-focus-inner {
 	.ch-btn-big:focus {
 		width: 100%;
 		line-height: 1.5em;
+		margin: 0;
 	}
 
 	a.ch-btn-big,
