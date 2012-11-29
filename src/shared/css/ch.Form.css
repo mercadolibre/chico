@@ -55,10 +55,6 @@ input {
  *    `input` and others.
  */
 
-
-
-body{min-width:0;}
-
 input[type="search"]{
   -webkit-appearance: textfield;
 }
@@ -273,19 +269,6 @@ input[type=range],*/
 	display: block;
 }
 
-/* Error colorize the border */
-form .ch-form-error {
-	border: 1px solid #FF9999;
-}
-
-form .ch-form-error:focus,
-form .ch-form-error:focus {
-	border-width: 2px;
-	-webkit-box-shadow: 2px #FF9999;
-	box-shadow: 2px #FF9999;
-}
-
-
 /* Options */
 .ch-list-options {
 	margin: 0 0 15px 20px;
@@ -310,9 +293,7 @@ form .ch-form-error:focus {
 }
 
 
-/* Radio & Checkbox in options
-.ch-list-options input[type="checkbox"],
-.ch-list-options input[type="radio"],*/
+/* Radio & Checkbox in options */
 .ch-list-options input {
 	margin: 8px 4px 0 0;
 }
@@ -543,8 +524,11 @@ form .ch-form-error:focus {
 	.ch-list-options input {
 		position: absolute;
 		left: 8px;
-		top: 20px;
-		margin: 0;
+		top: 50%;
+		margin: -8px 0 0 0;
+		height: 20px;
+		background-color: transparent;
+		box-shadow: none;
 	}
 
 	.ch-list-options .ch-form-subtitle + * {
