@@ -7,6 +7,13 @@
 	visibility: hidden;
 }
 
+.ch-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+}
+
 /* do not select text */
 .ch-user-no-select {
 	-o-user-select: none;
