@@ -16,7 +16,7 @@
 }
 
 .ch-wizard .ch-actions a {
-	margin-left: 15px;
+	margin-left: 10px;
 }
 
 .ch-wizard-breadcrumb {
@@ -119,13 +119,8 @@
 	width: 16.65%;
 }
 
-.ie9 .ch-wizard-step:after,
-.ie9 .ch-wizard-step:before,
-.ie9 .ch-wizard-current:after,
-.ie9 .ch-wizard-current:before,
-.ie9 .ch-wizard-breadcrumb li a:after,
-.ie9 .ch-wizard-breadcrumb li a:before {
-	right: 23px;
+.ie7 .ch-wizard-breadcrumb li {
+	border-right: 1px solid #ededed;
 }
 
 .ie8 .ch-wizard-breadcrumb li a {
