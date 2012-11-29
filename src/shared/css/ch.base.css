@@ -13,6 +13,14 @@
 	white-space: nowrap;
 }
 
+.ch-actions {
+	margin-top: 20px;
+}
+
+.ch-actions a {
+	margin-left: 15px;
+}
+
 /* do not select text */
 .ch-user-no-select {
 	-o-user-select: none;
