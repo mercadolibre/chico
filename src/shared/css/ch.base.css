@@ -80,6 +80,19 @@
 	background-image: linear-gradient(#BF0602, #8F2F00);
 }
 
+
+@media all and (max-width: 480px) {
+	.ch-close,
+	.ch-close:visited,
+	.ch-close:focus {
+		width: 20px;
+		height: 21px;
+		font-size: 22px;
+		line-height: 22px;
+	}
+}
+
+
 /* IE */
 .lt-ie8 .ch-close {
 	zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#x00D7;');

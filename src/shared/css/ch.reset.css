@@ -97,8 +97,18 @@ a img {
 	border: none;
 }
 
+p + p {
+	margin-top: 14px;
+}
+
 /* Mobile */
 @media all and (max-width: 480px) {
+
+	body {
+		padding: 0;
+		max-width: auto;
+	}
+
 	.ch-layout {
 		margin: 0 5px;
 	}
