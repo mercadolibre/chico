@@ -8,7 +8,6 @@
 	margin: 0 0 10px 0;
 }
 
-.ch-box-container,
 .ch-box-lite,
 .ch-box {
 	background-color: #fff;
@@ -104,8 +103,11 @@
 /* Mobile */
 @media all and (max-width: 480px) {
 	.ch-box {
-		background-color: #f4f4f4;
 		background-image: none;
+	}
+
+	.ch-box-lite {
+		background-color: #f4f4f4;
 	}
 
 	.ch-box-help,

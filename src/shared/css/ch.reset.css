@@ -107,6 +107,7 @@ p + p {
 	body {
 		padding: 0;
 		max-width: auto;
+		background-color: #f7f7f7;
 	}
 
 	.ch-layout {

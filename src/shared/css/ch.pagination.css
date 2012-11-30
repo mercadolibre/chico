@@ -49,3 +49,14 @@
 	zoom: 1;
 	padding: 5px 2px;
 }
+
+@media all and (max-width: 480px) {
+
+	.ch-pagination a[type="prev"],
+	.ch-pagination a[type="next"] {
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+}
+
