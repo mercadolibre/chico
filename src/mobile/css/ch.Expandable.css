@@ -1,3 +1,4 @@
+
 /*
 * Expandable
 */
@@ -60,13 +61,22 @@
 
 .ch-expandable-content {
 	margin: 0;
+	background-color: #fff;
+	padding: 10px;
+	overflow: hidden;
 }
 
-.ch-expandable-content.ch-list-menu,
-.ch-expandable-content .ch-list-menu {
-	margin: 0;
-	background: none;
+.ch-expandable-content .ch-list-options,
+.ch-expandable-content.ch-list-options {
+	background-color: #fff;
+	-webkit-border-radius: 0;
+	border-radius: 0;
 	border: none;
+	margin: -10px;
+}
+
+.ch-expandable-content.ch-list-options {
+	margin: 0;
 }
 
 /* Support no-js */
