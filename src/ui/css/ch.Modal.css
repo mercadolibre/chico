@@ -12,8 +12,6 @@
 
 .ch-modal,
 .ch-transition {
-	background-color: #fff;
-	background-image: none;
 	overflow: auto;
 	padding: 20px;
 	width: 500px;
