@@ -27,7 +27,25 @@
 			 * Allows to manage the widgets content.
 			 * @namespace
 			 */
-			content = {};
+			content = function ($content) {
+				// Gets a new content
+				if ($content === undefined) {
+					return that.content.get();
+				}
+
+				// Configures a new content
+				that.content.configure({
+					'input': $content
+				});
+
+				// Sets the new content only if the component is active
+				if (that.active) {
+					that.content.set();
+				}
+
+				return that["public"];
+
+			};
 
 		/**
 		 * Send the result data to the "client".
@@ -155,7 +173,8 @@
 			return current;
 		};
 
-		that.content = content;
+		that.content = that['public'].content = content;
+
 	}
 
 	ch.Content = Content;

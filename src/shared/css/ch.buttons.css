@@ -15,14 +15,8 @@
 	font-size: 1.286em; /* 18px */
 	height: auto;
 	line-height: 1.143em; /* 16px */
-	margin-right:.556em; /* 10px */
-	padding: 0.305em 0.714em; /* 4px 10px */
+	padding: 0.305em 0.571em; /* 4px 8px */
 	text-decoration: none;
-}
-
-.ch-btn {
-	font-size: 1em;
-	line-height: 1.5em;
 }
 
 /* Focus */
@@ -42,6 +36,7 @@ button:focus {
 .ch-btn:focus,
 .ch-btn:visited {
 	background-color: #3E52A1;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4055A5), color-stop(100%, #283077));
 	background-image: -webkit-linear-gradient(#3E52A1, #2D3277);
 	background-image: -moz-linear-gradient(#3E52A1, #2D3277);
 	background-image: -o-linear-gradient(#3E52A1, #2D3277);
@@ -56,6 +51,7 @@ button:focus {
 .ch-btn-skin:focus,
 .ch-btn-skin:visited {
 	background-color: #CCE3F7;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #CCE3F7), color-stop(100%, #AAD0EF));
 	background-image: -webkit-linear-gradient(#CCE3F7, #AAD0EF);
 	background-image: -moz-linear-gradient(#CCE3F7, #AAD0EF);
 	background-image: -o-linear-gradient(#CCE3F7, #AAD0EF);
@@ -71,6 +67,7 @@ button:focus {
 .ch-btn-action:focus,
 .ch-btn-action:visited {
 	background-color: #EFEFEF;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EFEFEF), color-stop(100%, #D0D0D0));
 	background-image: -webkit-linear-gradient(#EFEFEF, #D0D0D0);
 	background-image: -moz-linear-gradient(#EFEFEF, #D0D0D0);
 	background-image: -o-linear-gradient(#EFEFEF, #D0D0D0);
@@ -122,6 +119,7 @@ button:focus {
 /* Colors on Active */
 .ch-btn:active {
 	background-color: #292F66;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #292F66), color-stop(100%, #202388));
 	background-image: -webkit-linear-gradient(#292F66, #202388);
 	background-image: -moz-linear-gradient(#292F66, #202388);
 	background-image: -o-linear-gradient(#292F66, #202388);
@@ -133,6 +131,7 @@ button:focus {
 
 .ch-btn-skin:active {
 	background-color: #7AB6DC;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #A2C9E1), color-stop(100%, #7AB6DC));
 	background-image: -webkit-linear-gradient(#A2C9E1, #7AB6DC);
 	background-image: -moz-linear-gradient(#A2C9E1, #7AB6DC);
 	background-image: -o-linear-gradient(#A2C9E1, #7AB6DC);
@@ -144,6 +143,7 @@ button:focus {
 
 .ch-btn-action:active {
 	background-color: #ADADAD;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ADADAD), color-stop(100%, #B1B1B1));
 	background-image: -webkit-linear-gradient(#ADADAD, #B1B1B1);
 	background-image: -moz-linear-gradient(#ADADAD, #B1B1B1);
 	background-image: -o-linear-gradient(#ADADAD, #B1B1B1);
@@ -165,8 +165,7 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Big */
 .ch-btn-big,
 .ch-btn-big:focus {
-	font-size: 1.461em; /* 20px */
-	margin-right:.5em; /* 10px */
+	font-size: 1.429em; /* 20px */
 	padding: 0.429em 0.786em; /* 6px 11px */
 	text-align: center;
 }
@@ -180,7 +179,6 @@ a.ch-btn-big:focus {
 .ch-btn-small,
 .ch-btn-small:focus {
 	font-size: 0.857em; /* 12px */
-	margin-right:.833em; /* 10px */
 	padding: 0.429em 0.786em; /* 6px 12px */
 }
 
@@ -188,7 +186,6 @@ a.ch-btn-big:focus {
 .ch-btn-tiny,
 .ch-btn-tiny:focus {
 	font-size: 0.786em; /* 11px */
-	margin-right:.909em; /* 10px */
 	padding: 0.5em 0.714em; /* 7px 10px */
 }
 
@@ -210,6 +207,7 @@ input.ch-btn-tiny::-moz-focus-inner {
 [class*="ch-btn"][disabled]:active,
 [class*="ch-btn"][disabled]:focus {
 	background-color: #FEFEFE;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FEFEFE), color-stop(100%, #E6E6E6));
 	background-image: -webkit-linear-gradient(#FEFEFE, #E6E6E6);
 	background-image: -moz-linear-gradient(#FEFEFE, #E6E6E6);
 	background-image: -o-linear-gradient(#FEFEFE, #E6E6E6);
@@ -225,17 +223,38 @@ input.ch-btn-tiny::-moz-focus-inner {
 
 /* Mobile */
 @media all and (max-width: 480px) {
+
+	.ch-btn,
+	.ch-btn:focus {
+		line-height: 1.4em;
+		padding: 0.429em 0.786em; /* 6px 11px */
+	}
+
+	/* Big */
 	.ch-btn-big,
 	.ch-btn-big:focus {
 		width: 100%;
+		line-height: 1.5em;
 	}
 
 	a.ch-btn-big,
 	a.ch-btn-big:focus {
-		display: block;
-		width: auto;
+		-webkit-box-sizing: border-box;	/* Safari/Chrome/Opera, other WebKit */
+		-moz-box-sizing: border-box;	/* Firefox, other Gecko */
+		box-sizing: border-box;
 	}
 
+	/* Small */
+	.ch-btn-small,
+	.ch-btn-small:focus {
+		font-size: 0.929em; /* 13px */
+		line-height: 1.8em;
+	}
+
+	.ch-btn-tiny,
+	.ch-btn-tiny:focus {
+		line-height: 1.8em;
+	}
 }
 
 /* IE */

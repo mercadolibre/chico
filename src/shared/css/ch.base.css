@@ -7,6 +7,20 @@
 	visibility: hidden;
 }
 
+.ch-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ch-actions {
+	margin-top: 20px;
+}
+
+.ch-actions a {
+	margin-left: 15px;
+}
+
 /* do not select text */
 .ch-user-no-select {
 	-o-user-select: none;
@@ -79,6 +93,19 @@
 	background-image: -o-linear-gradient(#BF0602, #8F2F00);
 	background-image: linear-gradient(#BF0602, #8F2F00);
 }
+
+
+@media all and (max-width: 480px) {
+	.ch-close,
+	.ch-close:visited,
+	.ch-close:focus {
+		width: 20px;
+		height: 21px;
+		font-size: 22px;
+		line-height: 22px;
+	}
+}
+
 
 /* IE */
 .lt-ie8 .ch-close {

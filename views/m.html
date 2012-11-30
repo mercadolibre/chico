@@ -141,8 +141,10 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
 			</div>
 
-			<h2>Box</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+			<div class="ch-box">
+				<h2>Box</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+			</div>
 
 			<h2>Message boxes</h2>
 			<div class="ch-box-error">Oops, something wrong happened</div>
@@ -192,23 +194,37 @@
 
 				<h3>List Menu</h3>
 				<nav>
-					<ul class="ch-list-menu">
+					<ul class="ch-list-options">
 						<li><a href="#">Autos, Motos y Otros</a></li>
 						<li><a href="#">Inmuebles</a></li>
 						<li><a href="#">Servicios</a></li>
-						<li>Computación</li>
-						<li>Hogar</li>
 					</ul>
 				</nav>
 
 				<h2>List Menu icons</h2>
 				<nav>
-					<ul class="ch-list-menu">
-						<li><a href="#" class="ch-icon-heart">Heart. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.</a></li>
-						<li><a href="#">No icon</a></li>
-						<li><a href="#" class="ch-icon-cog">Settings</a></li>
-						<li>No icon</li>
-						<li class="ch-icon-map-marker">Marker</li>
+					<ul class="ch-list-options">
+						<li>
+							<i class="ch-icon-heart"></i>
+							<a href="#">
+								Multiline text. This is an example that shows how a works a long text inside a list options.
+							</a>
+						</li>
+						<li>
+							<i class="ch-icon-heart"></i>
+							<a href="#" class="ch-ellipsis">
+								Heart. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.
+							</a>
+						</li>
+						<li>
+							<i class="ch-icon-cog"></i>
+							<a href="#">
+								Settings
+							</a>
+						</li>
+						<li>
+							<a href="#">No icon</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -287,7 +303,7 @@
 				<h2>Expando</h2>
 				<div class="categories">
 					<h3>Expandible</h3>
-					<ul class="ch-list-menu">
+					<ul class="ch-list-options">
 						<li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
 						<li><a href="#" data-categ-id="1459">Inmuebles</a></li>
 						<li><a href="#" data-categ-id="1540">Servicios</a></li>
@@ -301,7 +317,7 @@
 					<li>
 						<h3>List Menu</h3>
 						<nav>
-							<ul class="ch-list-menu">
+							<ul class="ch-list-options">
 						        <li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
 						        <li><a href="#" data-categ-id="1459">Inmuebles</a></li>
 						        <li><a href="#" data-categ-id="1540">Servicios</a></li>
@@ -482,7 +498,7 @@
 
 					<fieldset>
 						<h4 class="ch-form-subtitle">Unique checkbox:</h4>
-						<p class="ch-form-options ch-form-required check2 ch-box">
+						<p class="ch-list-options ch-form-row ch-form-required check2 ch-box">
 							<input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
 							<label for="check4a">
 								Unique checkbox
@@ -491,14 +507,14 @@
 					</fieldset>
 					<fieldset>
 						<legend>Checkboxs</legend>
-						<ul class="ch-form-options ch-list-menu">
-							<li>
+						<ul class="ch-form-options ch-list-options">
+							<li class="ch-form-row">
 								<input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
 								<label for="check1a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="checkbox" value="beta" id="check1b" name="version1b">
 								<label for="check1b">
 									Beta
@@ -509,14 +525,14 @@
 
 					<fieldset>
 						<legend>Radios</legend>
-						<ul class="ch-form-options ch-list-menu">
-							<li>
+						<ul class="ch-form-options ch-list-options">
+							<li class="ch-form-row">
 								<input type="radio" value="alpha" id="radio1a" name="version1a" required="required">
 								<label for="radio1a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="radio" value="beta" id="radio1b" name="version1a">
 								<label for="radio1b">
 									Beta
@@ -527,14 +543,14 @@
 
 					<fieldset>
 						<legend>Legend of required group <em>*</em></legend>
-						<ul class="ch-form-options ch-list-menu">
-							<li>
+						<ul class="ch-form-options ch-list-options">
+							<li class="ch-form-row">
 								<input type="checkbox" value="alpha" id="check2a" name="version2a" required="required">
 								<label for="check2a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="checkbox" value="beta" id="check2b" name="version2b">
 								<label for="check2b">
 									Beta
