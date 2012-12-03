@@ -7,6 +7,7 @@
 	cursor: pointer;
 	position: relative;
 	padding-left: 16px;
+	font-size: 1em;
 }
 
 /* Active trigger */
@@ -47,35 +48,30 @@
 }
 
 /* IE */
-.lt-ie7 .ch-expandable-trigger {
-	font-size:13px;
-	text-decoration: underline;
-}
-
 .ie7 .ch-expandable-trigger{
-	font-size:13px;
+	font-size: 13px;
 }
 
 /* Trigger icon */
 .lt-ie8 .ch-expandable-trigger .ch-expandable-ico {
 	background-image: url('../assets/shapes.png');
 	display: block;
-	position:absolute;
+	position: absolute;
 	overflow: hidden;
 	text-indent: 14px;
-	background-position: -10px -85px;
-	width: 6px;
-	height: 10px;
-	top: 3px;
-	left: 3px;
+	background-position: -3px -48px;
+	width: 4px;
+	height: 7px;
+	top: 5px;
+	left: 5px;
 }
 
 /* Trigger icon on */
 .lt-ie8 .ch-expandable-trigger-on .ch-expandable-ico,
 .lt-ie8 .ch-expandable-trigger-on:hover .ch-expandable-ico {
-	background-position: 0 -87px;
-	width: 10px;
-	height: 6px;
-	top: 5px;
-	left: 1px;
+	background-position: 0 -51px;
+	width: 7px;
+	height: 4px;
+	top: 7px;
+	left: 3px;
 }

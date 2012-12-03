@@ -17,6 +17,7 @@
 
 .ch-calendar caption {
 	background-color: #EEEEEE;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #EEEEEE));
 	background: -webkit-linear-gradient(#FFFFFF, #EEEEEE);
 	background: -moz-linear-gradient(#FFFFFF, #EEEEEE);
 	background: -o-linear-gradient(#FFFFFF, #EEEEEE);
@@ -54,7 +55,7 @@
 
 .ch-calendar-other {
 	color: #C6C6C6;
-	cursor: default!important;
+	cursor: default !important;
 	overflow: hidden;
 	text-indent: -99px;
 }
@@ -70,9 +71,9 @@
 .ch-calendar-selected,
 .ch-calendar-selected:hover,
 .ch-calendar-selected.ch-today {
-	background-color: #A9A9A9!important;
-	color: #FFF!important;
-	font-weight: bold!important;
+	background-color: #A9A9A9 !important;
+	color: #FFF !important;
+	font-weight: bold !important;
 }
 
 .ch-calendar-prev,
@@ -80,7 +81,8 @@
 	cursor: pointer;
 	position: absolute;
 	padding: 0px 20px;
-	height: 2.5em;
+	height: 28px;
+	line-height: 18px;
 	font-size: .9em;
 }
 

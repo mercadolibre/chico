@@ -32,11 +32,6 @@
 	<!-- For unsupported devices -->
 	<!--link rel="stylesheet" href="src/css/chico-compatible.css"-->
 
-	<!-- Active for phones -->
-	<!--link rel="stylesheet" media="only screen and (min-width: 240px)" href="src/css/mobile.css" /-->
-	<!-- Active for tablets -->
-	<!--link rel="stylesheet" media="only screen and (min-width: 768px)" href="src/css/tablet.css"-->
-
 	<style>
 		.body {
 			position: relative;
@@ -85,8 +80,16 @@
 		</div>
 
 		<div class="ch-layout" role="main">
-
-			<div class="widgets">
+			<div class="ch-box-lite">
+				<h1>Headings</h1>
+				<h1>Header 1</h1>
+				<h2>Header 2</h2>
+				<h3>Header 3</h3>
+				<h4>Header 4</h4>
+				<h5>Header 5</h5>
+				<h6>Header 6</h6>
+			</div>
+			<div class="ch-box-lite">
 				<h1>Titles</h1>
 				<h1>h1</h1>
 				<h2>h2</h2>
@@ -104,71 +107,60 @@
 				<p><a href="http://www.mercadoclics.com">MercadoClics</a></p>
 			</div>
 
-			<div class="widgets">
+			<div class="widgets ch-clearfix">
 				<h2>Buttons</h2>
-				<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
-				<br>
-				<p><a href="" class="ch-btn">Link button</a></p>
-				<br>
-				<p><a href="" class="ch-btn ch-btn-small">Link button</a></p>
-				<br>
 
-				<p><input type="button" class="ch-btn ch-btn-big" value="Button"></p>
-				<p><input type="button" class="ch-btn" value="Button"></p>
-				<p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
-
-				<p><input type="button" class="ch-btn-skin ch-btn-big" value="Skin button"></p>
-				<p><input type="button" class="ch-btn-skin" value="Skin button"></p>
-				<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
-
-				<p><input type="button" class="ch-btn-action ch-btn-big" value="Action button"></p>
-				<p><input type="button" class="ch-btn-action" value="Action button"></p>
-				<p><input type="button" class="ch-btn-action ch-btn-small" value="Action button"></p>
-
-
-				<h2>Disable Buttons</h2>
-				<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
-				<br>
-				<p><a href="" class="ch-btn ch-btn-disabled">Link button disabled</a></p>
-				<br>
-				<p><a href="" class="ch-btn ch-btn-small ch-btn-disabled">Link button disabled</a></p>
-				<br>
-
-				<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Button disabled" disabled></p>
-				<p><input type="button" class="ch-btn ch-btn-disabled" value="Button disabled" disabled></p>
-				<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled" disabled></p>
-
-				<p><input type="button" class="ch-btn-skin ch-btn-big ch-btn-disabled" value="Skin button disabled" disabled></p>
-				<p><input type="button" class="ch-btn-skin ch-btn-disabled" value="Skin button disabled" disabled></p>
-				<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled" disabled></p>
-
-				<p><input type="button" class="ch-btn-action ch-btn-big ch-btn-disabled" disabled value="Action button disabled"></p>
-				<p><input type="button" class="ch-btn-action ch-btn-disabled" disabled value="Action button disabled"></p>
-				<p><input type="button" class="ch-btn-action ch-btn-small ch-btn-disabled" disabled value="Action button disabled"></p>
+				<div class="ch-g1-2">
+					<h2>Buttons</h2>
+					<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
+					<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
+					<p><input type="button" class="ch-btn" value="Default button"></p>
+					<p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
+					<p><input type="button" class="ch-btn ch-btn-tiny" value="Tiny button"></p>
+					<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
+					<p><input type="button" class="ch-btn-action ch-btn-small" value="Action button"></p>
+				</div>
+				<div class="ch-g1-2">
+					<h2>Disabled Buttons</h2>
+					<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
+					<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Big button disabled"></p>
+					<p><input type="button" class="ch-btn ch-btn-disabled" value="Default button disabled"></p>
+					<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled"></p>
+					<p><input type="button" class="ch-btn ch-btn-tiny ch-btn-disabled" value="Tiny button disabled"></p>
+					<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
+					<p><input type="button" class="ch-btn-action ch-btn-small ch-btn-disabled" value="Action button disabled" disabled></p>
+				</div>
 			</div>
 
-			<div class="widgets">
-				<h2>Boxes</h2>
-				<div class="ch-box-container">
-					<h3>Container Box</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-				</div>
-				<div class="ch-box-lite">
-					<h3>Box Lite</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-				</div>
+			<div class="ch-box-container">
+				<h2>Container Box</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+			</div>
+			<div class="ch-box-lite">
+				<h2>Box Lite</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+			</div>
 
-				<div class="ch-box">
-					<h3>Box</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-				</div>
+			<div class="ch-box">
+				<h2>Box</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+			</div>
 
-				<h3>Message Boxes</h3>
-				<div class="ch-box-help">Do you need any help?</div>
-				<div class="ch-box-information">Here's more information</div>
-				<div class="ch-box-error">Oops! something went wrong</div>
-				<div class="ch-box-attention">Attention! be careful!</div>
-				<div class="ch-box-ok">Everything is fine</div>
+			<h2>Message boxes</h2>
+			<div class="ch-box-error">Oops, something wrong happened</div>
+			<div class="ch-box-help">Do you need any help?</div>
+			<div class="ch-box-information">Here's more information</div>
+			<div class="ch-box-attention">Warning! something might be wrong</div>
+			<div class="ch-box-ok">Everything is great!</div>
+
+			<h2>Big message boxes</h2>
+			<div class="ch-box-attention">
+				<h2>Warning!</h2>
+				<p>This is a big warning message, be careful!</p>
+			</div>
+			<div class="ch-box-ok">
+				<h2>Congratulations!</h2>
+				<p>This went really well. You're awesome!</p>
 			</div>
 
 			<div class="widgets">
@@ -200,25 +192,39 @@
 					<li>Hogar</li>
 				</ol>
 
-				<h3>List Menu</h3>
+				<h3>List Options</h3>
 				<nav>
-					<ul class="ch-list-menu">
+					<ul class="ch-list-options">
 						<li><a href="#">Autos, Motos y Otros</a></li>
 						<li><a href="#">Inmuebles</a></li>
 						<li><a href="#">Servicios</a></li>
-						<li>Computación</li>
-						<li>Hogar</li>
 					</ul>
 				</nav>
 
-				<h2>List Menu icons</h2>
+				<h2>List Options with icons</h2>
 				<nav>
-					<ul class="ch-list-menu">
-						<li><a href="#" class="ch-icon-heart">Heart. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.</a></li>
-						<li><a href="#">No icon</a></li>
-						<li><a href="#" class="ch-icon-cog">Settings</a></li>
-						<li>No icon</li>
-						<li class="ch-icon-map-marker">Marker</li>
+					<ul class="ch-list-options">
+						<li>
+							<i class="ch-icon-heart"></i>
+							<a href="#">
+								Multiline text. This is an example that shows how a works a long text inside a list options.
+							</a>
+						</li>
+						<li>
+							<i class="ch-icon-heart"></i>
+							<a href="#" class="ch-ellipsis">
+								Heart. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing. Lorem ipsum dolor sit amet, consectetur adipiscing elit. adipiscing. Donec sit amet purus in sapien luctus sodales adipiscing.
+							</a>
+						</li>
+						<li>
+							<i class="ch-icon-cog"></i>
+							<a href="#">
+								Settings
+							</a>
+						</li>
+						<li>
+							<a href="#">No icon</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -256,7 +262,7 @@
 					<thead>
 						<tr>
 							<th scope="col">Operation</th>
-							<th scope="col" class="ch-datagrid-selected">Seller <span class="ch-datagrid-asc">(asc)</span></th>
+							<th scope="col">Seller</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -294,14 +300,20 @@
 			</div>
 
 			<div class="widgets">
-				<h2>Expando</h2>
+				<h2>Expandable</h2>
 				<div class="categories">
-					<h3>Expandible</h3>
-					<ul class="ch-list-menu">
+					<h3>Expandable</h3>
+					<ul class="ch-list-options">
 						<li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
 						<li><a href="#" data-categ-id="1459">Inmuebles</a></li>
 						<li><a href="#" data-categ-id="1540">Servicios</a></li>
 					</ul>
+				</div>
+				<div class="categories">
+					<h3>Expandable</h3>
+					<div>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+					</div>
 				</div>
 			</div>
 
@@ -309,9 +321,9 @@
 				<h2>Menu</h2>
 				<ul class="myMenu">
 					<li>
-						<h3>List Menu</h3>
+						<h3>List Options</h3>
 						<nav>
-							<ul class="ch-list-menu">
+							<ul class="ch-list-options">
 						        <li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
 						        <li><a href="#" data-categ-id="1459">Inmuebles</a></li>
 						        <li><a href="#" data-categ-id="1540">Servicios</a></li>
@@ -492,7 +504,7 @@
 
 					<fieldset>
 						<h4 class="ch-form-subtitle">Unique checkbox:</h4>
-						<p class="ch-form-options ch-form-required check2 ch-box">
+						<p class="ch-list-options ch-form-row ch-form-required check2 ch-box">
 							<input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
 							<label for="check4a">
 								Unique checkbox
@@ -501,14 +513,14 @@
 					</fieldset>
 					<fieldset>
 						<legend>Checkboxs</legend>
-						<ul class="ch-form-options ch-list-menu">
-							<li>
+						<ul class="ch-form-options ch-list-options">
+							<li class="ch-form-row">
 								<input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
 								<label for="check1a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="checkbox" value="beta" id="check1b" name="version1b">
 								<label for="check1b">
 									Beta
@@ -519,14 +531,14 @@
 
 					<fieldset>
 						<legend>Radios</legend>
-						<ul class="ch-form-options ch-list-menu">
-							<li>
+						<ul class="ch-form-options ch-list-options">
+							<li class="ch-form-row">
 								<input type="radio" value="alpha" id="radio1a" name="version1a" required="required">
 								<label for="radio1a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="radio" value="beta" id="radio1b" name="version1a">
 								<label for="radio1b">
 									Beta
@@ -537,14 +549,14 @@
 
 					<fieldset>
 						<legend>Legend of required group <em>*</em></legend>
-						<ul class="ch-form-options ch-list-menu">
-							<li>
+						<ul class="ch-form-options ch-list-options">
+							<li class="ch-form-row">
 								<input type="checkbox" value="alpha" id="check2a" name="version2a" required="required">
 								<label for="check2a">
 									Alpha
 								</label>
 							</li>
-							<li>
+							<li class="ch-form-row">
 								<input type="checkbox" value="beta" id="check2b" name="version2b">
 								<label for="check2b">
 									Beta

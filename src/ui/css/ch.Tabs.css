@@ -15,7 +15,9 @@
 	position: relative;
 	top: 1px;
 	z-index: 10;
-	margin-left: 10px;
+	padding: 0;
+	margin: 0 0 0 10px;
+	list-style: none;
 	overflow: hidden;
 }
 
@@ -73,6 +75,7 @@
 /* Trigger ON */
 .ch-tabs .ch-tab-trigger-on,
 .ch-tabs .ch-tab-trigger-on:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EEEEEE), color-stop(100%, #FFFFFF));
 	background-image: -webkit-linear-gradient(#EEEEEE, #FFFFFF 25px);
 	background-image: -moz-linear-gradient(#EEEEEE, #FFFFFF 25px);
 	background-image: -o-linear-gradient(#EEEEEE, #FFFFFF 25px);
@@ -133,7 +136,7 @@
 }
 
 .no-js .ch-tab-trigger {
-	border:none;
+	border: none;
 	border-radius: 0;
 	padding: 0 12px 0 2px;
 	display: inline;

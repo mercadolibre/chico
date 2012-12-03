@@ -1,0 +1,59 @@
+/*
+ * List Options
+ */
+.ch-list-options {
+	background-color: #f4f4f4;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin: 0 0 20px;
+	border: 1px solid #EEEEEE;
+}
+
+.ch-list-options li {
+	border-bottom: 1px dotted #CCC;
+	min-height: 26px;
+	line-height: 24px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	position: relative;
+	color:#5F5F5F;
+}
+
+.ch-list-options li:last-child {
+	border-bottom: none;
+}
+
+.ch-list-options li a {
+	line-height: 24px;
+	text-decoration: none;
+	display: block;
+	padding: 14px 32px 12px 10px;
+	position: relative;
+	z-index: 1;
+}
+
+.ch-list-options li:active {
+	background: #e9e9e9;
+}
+
+.ch-list-options li a:after {
+	content: "\f054";
+	line-height: 24px;
+	font-size: 14px;
+	display: block;
+	position:absolute;
+	right: 12px;
+	top: 50%;
+	margin-top:-11px;
+}
+
+.ch-list-options [class*="ch-icon"] {
+	display: block;
+	position: absolute;
+	top: 16px;
+	left: 7px;
+	z-index: 0;
+}
+
+.ch-list-options [class*="ch-icon"] + a {
+	padding-left: 32px;
+}
