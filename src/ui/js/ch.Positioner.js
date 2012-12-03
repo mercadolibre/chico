@@ -406,7 +406,6 @@
 				 * @memberOf ch.Positioner#relativeParent
 				 * @returns Offset Object
 				 */
-				// TODO: on ie6 the relativeParent border push too (also on old positioner)
 				self.getOffset = function () {
 					// If first parent relative is Body, don't recalculate position
 					if (element.tagName === "BODY") { return; }

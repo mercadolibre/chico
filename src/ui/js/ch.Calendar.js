@@ -436,7 +436,7 @@
 				* @memberOf ch.Calendar#arrows
 				* @type Object
 				*/
-				"$prev": $("<p class=\"ch-calendar-prev\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>").bind("click", function (event) { ch.util.prevent(event); prevMonth(); }),
+				"$prev": $("<div class=\"ch-calendar-prev\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</div>").bind("click", function (event) { ch.util.prevent(event); prevMonth(); }),
 
 				/**
 				* Handles behavior of next arrow to move forward in months.
@@ -445,7 +445,7 @@
 				* @memberOf ch.Calendar#arrows
 				* @type Object
 				*/
-				"$next": $("<p class=\"ch-calendar-next\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</p>").bind("click", function (event) { ch.util.prevent(event); nextMonth(); }),
+				"$next": $("<div class=\"ch-calendar-next\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</div>").bind("click", function (event) { ch.util.prevent(event); nextMonth(); }),
 
 				/**
 				* Refresh arrows visibility depending on "from" and "to" limits.

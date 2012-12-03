@@ -109,7 +109,7 @@
 		* @private
 		* @name ch.Validation#validationEvent
 		*/
-		var validationEvent = (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options") || that.element.tagName == "SELECT" || ( that.element.tagName == "INPUT" && that.element.type === 'range') ) ? "change" : "blur";
+		var validationEvent = (that.$element.hasClass("ch-form-options") || that.$element.hasClass("ch-list-options") || that.element.tagName == "SELECT" || ( that.element.tagName == "INPUT" && that.element.type === 'range') ) ? "change" : "blur";
 
 		var clear = function() {
 
@@ -160,8 +160,8 @@
 			"$element": (function() {
 				var reference;
 				// CHECKBOX, RADIO
-				// TODO: when old forms be deprecated we must only support ch-form-options class
-				if (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options")) {
+				// TODO: when old forms be deprecated we must only support ch-list-options class
+				if (that.$element.hasClass("ch-form-options") || that.$element.hasClass("ch-list-options")) {
 					// Helper reference from will be fired
 					// H4
 					if (that.$element.find("h4").length > 0) {
@@ -555,7 +555,9 @@
 			// Sets a new message
 			validator.conditions[condition].message = msg;
 
+			// TODO: check if the conditions seted is active
 			if (validator.isActive()) {
+
 				that["public"]["float"].content(msg);
 			}
 

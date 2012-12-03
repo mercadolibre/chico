@@ -1,6 +1,17 @@
 /**
  * Tables
  */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+}
+
 .ch-datagrid-controls,
 .ch-datagrid {
 	width: 100%;
@@ -13,7 +24,7 @@
 	text-align: left;
 	font-weight: normal;
 	margin: 10px 0;
-	font-size: 18px;
+	font-size: 1.286em; /* 18px */
 }
 
 .ch-datagrid-controls thead tr,
@@ -26,8 +37,8 @@
 	background-color: #F7F7F7;
 	border-bottom: 1px solid #EDEDED;
 	border-left: 1px solid #EDEDED;
-	font-size: 11px;
-	line-height: 26px;
+	font-size: 0.786em; /* 11px */
+	line-height: 2.364em; /* 26px */
 	padding: 0 10px;
 	text-align: left;
 	text-shadow: 0 1px 0 #FFFFFF;
@@ -37,6 +48,7 @@
 
 .ch-datagrid-controls th {
 	background-color: #FAFAFA;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FAFAFA), color-stop(100%, #ECECEC));
 	background-image: -webkit-linear-gradient(#FAFAFA, #ECECEC);
 	background-image: -moz-linear-gradient(#FAFAFA, #ECECEC);
 	background-image: -o-linear-gradient(#FAFAFA, #ECECEC);
@@ -44,35 +56,24 @@
 	cursor: pointer;
 }
 
-.lt-ie10 .ch-datagrid-controls th {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#ECECEC');
-}
-
 .ch-datagrid-controls th:hover {
 	background: #FEFEFE;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FEFEFE), color-stop(100%, #F2F2F2));
 	background-image: -webkit-linear-gradient(#FEFEFE, #F2F2F2);
 	background-image: -moz-linear-gradient(#FEFEFE, #F2F2F2);
 	background-image: -o-linear-gradient(#FEFEFE, #F2F2F2);
 	background-image: linear-gradient(#FEFEFE, #F2F2F2);
 }
 
-.lt-ie10 .ch-datagrid-controls th:hover {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEFEFE', endColorstr='#F2F2F2');
-}
-
 .ch-datagrid-controls th:active,
 .ch-datagrid-controls th.ch-datagrid-selected {
 	background: #E5E5E5;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #E5E5E5), color-stop(100%, #D8D8D8));
 	background-image: -webkit-linear-gradient(#E5E5E5, #D8D8D8);
 	background-image: -moz-linear-gradient(#E5E5E5, #D8D8D8);
 	background-image: -o-linear-gradient(#E5E5E5, #D8D8D8);
 	background-image: linear-gradient(#E5E5E5, #D8D8D8);
 	border-top: 1px solid #DCDCDC;
-}
-
-.lt-ie10 .ch-datagrid-controls th:active,
-.lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E5E5E5', endColorstr='#D8D8D8');
 }
 
 .ch-datagrid-controls th.ch-datagrid-selected {
@@ -113,6 +114,20 @@
 	vertical-align: middle;
 }
 
+/* IE */
+.lt-ie10 .ch-datagrid-controls th {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#ECECEC');
+}
+
+.lt-ie10 .ch-datagrid-controls th:hover {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FEFEFE', endColorstr='#F2F2F2');
+}
+
+.lt-ie10 .ch-datagrid-controls th:active,
+.lt-ie10 .ch-datagrid-controls th.ch-datagrid-selected {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#E5E5E5', endColorstr='#D8D8D8');
+}
+
 .lt-ie9 .ch-datagrid-controls thead tr,
 .lt-ie9 .ch-datagrid thead tr {
 	border: 1px solid #EDEDED;
@@ -145,4 +160,8 @@
 
 .lt-ie8 .ch-datagrid th.ch-datagrid-selected .ch-datagrid-desc {
 	background: transparent url("../assets/shapes.png") 0 -48px no-repeat;
+}
+
+.ie7 .ch-datagrid-controls th {
+	line-height: 14px;
 }

@@ -61,7 +61,7 @@
 
 		conf = ch.util.clone(conf);
 
-		conf.classes = conf.classes || "ch-box";
+		conf.classes = conf.classes || "ch-box-lite";
 		conf.reposition = false;
 
 		// Closable configuration

@@ -1,0 +1,95 @@
+/**
+ * Headings
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	margin: 10px 0;
+}
+
+h1 {
+	font-size: 1.571em; /* 22px */
+}
+
+h2 {
+	font-size: 1.429em; /* 20px */
+}
+
+h3 {
+	font-size: 1.286em; /* 18px */
+}
+
+h4 {
+	font-size: 1.143em; /* 16px */
+}
+
+h5 {
+	font-size: 1.071em; /* 15px */
+}
+
+h6 {
+	font-size: 1.000em; /* 14px */
+}
+
+/**
+ * Box Headings
+ */
+[class*="ch-box"] h1,
+[class*="ch-box"] h2,
+[class*="ch-box"] h3,
+[class*="ch-box"] h4,
+[class*="ch-box"] h5,
+[class*="ch-box"] h6 {
+	margin-top: 0;
+}
+
+/**
+ * Links
+ */
+a {
+	color: #0637B3;
+	text-decoration: none;
+}
+
+a:active {
+	color: #0000DD;
+}
+
+a:visited {
+	color: #800080;
+}
+
+a:hover,
+a:focus {
+	text-decoration: underline;
+}
+
+/**
+ * Price
+ */
+.ch-price {
+	color: #900;
+	font-size: 1.143em; /* 16px */
+	font-weight: bold;
+}
+
+.ch-price sup {
+	font-size: 0.714em; /* 10px */
+	vertical-align: text-top;
+	line-height: 1em; /* 14px */
+}
+
+.ch-price span {
+	color: #999;
+	font-size: 0.929em; /* 13px */
+	font-weight: normal
+}
+
+/* IE */
+.lt-ie9 .ch-price sup {
+	font-size: 0.857em; /* 12px */
+}
