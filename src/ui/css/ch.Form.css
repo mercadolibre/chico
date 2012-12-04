@@ -49,6 +49,11 @@ input[readonly]:focus {
 	vertical-align: middle;
 }
 
+/* Select */
+.ch-form-row select {
+	margin: 5px 0;
+}
+
 /* Help bottom line that helps the user */
 .ch-form-row .ch-form-hint {
 	margin-left: 145px;

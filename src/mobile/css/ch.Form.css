@@ -40,11 +40,6 @@ input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):no
 	top: 54px;
 }
 
-/* Class to add to the input that has a inner icon */
-/*input.ch-form-ico-input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
-input.ch-form-ico-input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]):focus {
-	padding-right: 24px;
-}*/
 
 /* Icon & button alignment */
 .ch-form-row input + .ch-btn,

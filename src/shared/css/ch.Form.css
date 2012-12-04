@@ -231,11 +231,6 @@ input[type=range],*/
 	vertical-align: middle;
 }
 
-/* Select */
-.ch-form-row select {
-	margin: 5px 0;
-}
-
 /* Select Multiple */
 .ch-form-row select[multiple],
 .ch-form-select-multiple {
@@ -280,7 +275,6 @@ input[type=range],*/
 	padding: 0;
 }
 
-
 /* Disabled status */
 .ch-form-disabled label {
 	color: #999999;
@@ -298,7 +292,6 @@ input[type=range],*/
 .ch-form-actions {
 	text-align: left;
 }
-
 
 /* Big inputs */
 .ch-form-big .ch-form-row input,
