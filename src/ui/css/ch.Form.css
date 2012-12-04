@@ -1,0 +1,94 @@
+/* Generic input & textarea */
+input,
+textarea,
+select[multiple],
+.ch-form-select-multiple {
+	border: 1px solid #CDCDCD;
+	font-size: .929em;
+	margin: 5px 0;
+}
+
+input[readonly],
+input[readonly]:focus {
+	padding: 5px 0;
+}
+
+/* Inner Icons */
+.ch-form-ico-inner {
+	display: inline-block;
+	left: -25px;
+	top: 1px;
+	position: relative;
+}
+
+/* BigForm Inner Icons */
+.ch-form-big .ch-form-ico-inner {
+	top: 2px;
+}
+
+/* Title module */
+.ch-form legend {
+	padding-bottom: 15px;
+}
+
+/* Label */
+.ch-form-row label {
+	font-size: 13px;
+	text-align: right;
+	width: 130px;
+}
+
+/* Checkbox inline */
+.ch-form-checkbox-inline {
+	margin-left: 11px;
+}
+
+/* Range */
+.ch-form-range {
+	padding: 4px;
+	vertical-align: middle;
+}
+
+/* Help bottom line that helps the user */
+.ch-form-row .ch-form-hint {
+	margin-left: 145px;
+}
+
+/* Options */
+.ch-list-options {
+	margin: 0 0 15px 20px;
+}
+
+/* Subtitle in options */
+.ch-list-options .ch-form-subtitle {
+	margin-bottom: 15px;
+	margin-left: -20px;
+}
+
+/* Label in options */
+.ch-list-options label {
+	padding: 0;
+}
+
+/* Radio & Checkbox in options */
+.ch-list-options input {
+	margin: 8px 4px 0 0;
+}
+
+/* Disabled status */
+.ch-form-disabled label {
+	color: #999999;
+}
+
+.ch-form-disabled input,
+.ch-form-disabled input[disabled],
+.ch-form-disabled textarea,
+.ch-form-disabled textarea[disabled] {
+	background-color: #F2F2F2;
+	cursor: not-allowed;
+}
+
+/* Actions */
+.ch-form-actions {
+	margin-left: 145px;
+}
