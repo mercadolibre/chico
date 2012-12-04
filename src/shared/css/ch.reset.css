@@ -78,11 +78,10 @@ body {
 	font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
 	font-size: 14px; /* 1em */
 	line-height: 1.5em; /* 21px */
+	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
 	background-color: #FFF;
 	color: #333;
 	margin: 0 auto;
-	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
-	max-width: 1200px;
 }
 
 /**
@@ -99,27 +98,4 @@ a img {
 
 p + p {
 	margin-top: 14px;
-}
-
-/* Mobile */
-@media all and (max-width: 480px) {
-
-	body {
-		padding: 0;
-		max-width: auto;
-		background-color: #f7f7f7;
-	}
-
-	.ch-layout {
-		margin: 0 5px;
-	}
-
-	img {
-		max-width: 100%;
-	}
-}
-
-/* IE */
-.lt-ie8 hr {
-	height: 0;
 }

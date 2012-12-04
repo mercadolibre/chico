@@ -1,0 +1,11 @@
+/**
+ * Reset
+ */
+body {
+	max-width: 1200px;
+}
+
+/* IE */
+.lt-ie8 hr {
+	height: 0;
+}

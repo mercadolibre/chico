@@ -1,0 +1,8 @@
+/**
+ * Pagination
+ */
+.ch-pagination a[type="prev"],
+.ch-pagination a[type="next"] {
+	background-color: transparent;
+	border-color: transparent;
+}

@@ -1,0 +1,96 @@
+/*!
+ * Chico Mesh v0.2
+ * http://chico-ui.com.ar/mesh
+ *
+ * Copyright (c) 2012, MercadoLibre.com
+ * Released under the MIT license.
+ * http://chico-ui.com.ar/license
+ *
+ * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.
+ */
+
+/* About classnames: 1-2 = 1/2 = 50% */
+
+[class^="ch-g"] {
+	float: left;
+	vertical-align: top;
+}
+
+.ch-g1 {
+	width: 100%;
+}
+
+.ch-g1-2 {
+	width: 50%;
+}
+
+.ch-g1-3 {
+	width: 33.334%;
+}
+
+.ch-g2-3 {
+	width: 66.669%;
+}
+
+.ch-g1-4 {
+	width: 25%;
+}
+
+.ch-g3-4 {
+	width: 75%;
+}
+
+.ch-g1-5 {
+	width: 20%;
+}
+
+.ch-g4-5 {
+	width: 80%;
+}
+
+/* Gutters: You can use these on your inner elements */
+
+[class^="ch-g"] .ch-rightcolumn,
+[class^="ch-g"] .ch-centercolumn {
+	margin-left: 5px;
+}
+
+[class^="ch-g"] .ch-leftcolumn,
+[class^="ch-g"] .ch-centercolumn {
+	margin-right: 5px;
+}
+
+/**
+ * Clearfix
+ */
+.ch-clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Mobile */
+@media all and (max-width: 480px) {
+
+	[class^="ch-g"] {
+		width: 100%;
+		float: none;
+		clear: both;
+	}
+
+	[class^="ch-g"] .ch-rightcolumn,
+	[class^="ch-g"] .ch-leftcolumn,
+	[class^="ch-g"] .ch-centercolumn {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+/* IE7 */
+*:first-child+html.ie7 .ch-clearfix {
+	zoom: 1;
+}
+
+.ie7 .ch-g1-5 {
+	width: 19.9%;
+}

@@ -34,11 +34,6 @@
 	color: #0637b3;
 }
 
-.ch-pagination a[type="prev"],
-.ch-pagination a[type="next"] {
-	border-color: #FFFFFF;
-}
-
 .ch-pagination a[type="prev"]:hover,
 .ch-pagination a[type="next"]:hover {
 	border-color: #0637b3;
@@ -49,14 +44,3 @@
 	zoom: 1;
 	padding: 5px 2px;
 }
-
-@media all and (max-width: 480px) {
-
-	.ch-pagination a[type="prev"],
-	.ch-pagination a[type="next"] {
-		background-color: transparent;
-		border-color: transparent;
-	}
-
-}
-
