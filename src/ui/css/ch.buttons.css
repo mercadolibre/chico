@@ -2,24 +2,33 @@
  * Buttons
  */
 /* Global */
-[class*="ch-btn"],
-[class*="ch-btn"]:focus {
-	line-height: 1.143em; /* 16px */
-	padding: 0.305em 0.571em; /* 4px 8px */
+/* Size */
+
+/* Default h: ~30px*/
+.ch-btn,
+.ch-btn:focus {
+	line-height: 1.12em; /* ~20px */
+	padding: 5px 10px;
 }
 
-/* Size */
-/* Big */
+/* Big h: ~39px */
+.ch-btn-big,
+.ch-btn-big:focus {
+	line-height: 1.25em; /* ~23px */
+	padding: 6px 12px;
+}
+
 a.ch-btn-big,
 a.ch-btn-big:focus {
 	display: inline-block;
 }
 
-/* Small */
+/* Small h: ~23px */
 .ch-btn-small,
 .ch-btn-small:focus {
-	font-size: 0.857em; /* 12px */
-	padding: 0.429em 0.786em; /* 6px 12px */
+	font-size: 12px;
+	line-height: 1em;
+	padding: 5px 8px;
 }
 
 /* IE */
@@ -53,13 +62,12 @@ a.ch-btn-big:focus {
 
 
 .ie7 input.ch-btn {
-	line-height: 0.786em; /* 11px */
+	line-height: 11px;
 }
 
 .ie7 input.ch-btn,
 .ie7 input.ch-btn-big,
-.ie7 input.ch-btn-small,
-.ie7 input.ch-btn-tiny{
+.ie7 input.ch-btn-small {
 	overflow: visible;
 	width: 1;
 }

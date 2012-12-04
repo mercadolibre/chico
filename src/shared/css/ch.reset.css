@@ -76,8 +76,6 @@ html {
 
 body {
 	font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
-	font-size: 14px; /* 1em */
-	line-height: 1.5em; /* 21px */
 	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
 	background-color: #FFF;
 	color: #333;
@@ -97,5 +95,5 @@ a img {
 }
 
 p + p {
-	margin-top: 14px;
+	margin-top: 1em;
 }

@@ -14,7 +14,7 @@
 	font-family: Arial, Helvetica, sans-serif;
 	height: auto;
 	text-decoration: none;
-	font-size: 1.286em; /* 18px */
+	font-size: 18px;
 }
 
 /* Focus */
@@ -154,8 +154,7 @@ button:focus {
 /* Size */
 input.ch-btn::-moz-focus-inner,
 input.ch-btn-big::-moz-focus-inner,
-input.ch-btn-small::-moz-focus-inner,
-input.ch-btn-tiny::-moz-focus-inner{
+input.ch-btn-small::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
@@ -163,22 +162,13 @@ input.ch-btn-tiny::-moz-focus-inner{
 /* Big */
 .ch-btn-big,
 .ch-btn-big:focus {
-	font-size: 1.429em; /* 20px */
-	padding: 0.429em 0.786em; /* 6px 11px */
+	font-size: 20px;
 	text-align: center;
-}
-
-/* Tiny */
-.ch-btn-tiny,
-.ch-btn-tiny:focus {
-	font-size: 0.786em; /* 11px */
-	padding: 0.5em 0.714em; /* 7px 10px */
 }
 
 input.ch-btn::-moz-focus-inner,
 input.ch-btn-big::-moz-focus-inner,
-input.ch-btn-small::-moz-focus-inner,
-input.ch-btn-tiny::-moz-focus-inner {
+input.ch-btn-small::-moz-focus-inner {
     border: 0;
     padding: 0;
 }

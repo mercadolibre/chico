@@ -164,8 +164,8 @@ input[readonly]:focus {
 /* Required specification or another */
 .ch-form-hint {
 	color: #999999;
-	font-size: .857em;
-	line-height: 1em;
+	font-size: 12px;
+	line-height: 12px;
 }
 
 /* Basic wrapper for horizontal view */

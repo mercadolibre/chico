@@ -9,8 +9,8 @@ select[multiple] {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	display: block;
-	font-size: 1.143em;
-	line-height: 1.4em;
+	font-size: 16px;
+	line-height: 22px;
 	margin: 0 0 5px 0;
 	width: 100%;
 }
