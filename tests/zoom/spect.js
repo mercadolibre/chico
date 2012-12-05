@@ -38,7 +38,7 @@ describe('Zoom widget', function () {
 
 		it('.content', function () {
 			expect(ch.util.hasOwn(zoom1, 'content')).toBeTruthy();
-			expect(typeof zoom1.content).toEqual('object');
+			expect(typeof zoom1.content).toEqual('function');
 		});
 	});
 
@@ -389,7 +389,7 @@ describe('Zoom widget', function () {
 
 			it('reposition', function () {
 
-				var newReposition = false;
+				var newReposition = 'test';
 
 				expect(zoom1.position().reposition).not.toEqual(newReposition);
 
@@ -397,7 +397,7 @@ describe('Zoom widget', function () {
 					'reposition': newReposition
 				});
 
-				expect(zoom1.position().reposition).toEqual(newReposition);
+				expect(zoom1.position().reposition).toEqual('test');
 			});
 		});
 	});
