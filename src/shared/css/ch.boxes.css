@@ -14,10 +14,10 @@
 }
 
 .ch-box {
-	background-image: -webkit-linear-gradient(#eee, #fff 1.786em); /* 25px */
-	background-image: -moz-linear-gradient(#eee, #fff 1.786em); /* 25px */
-	background-image: -o-linear-gradient(#eee, #fff 1.786em); /* 25px */
-	background-image: linear-gradient(#eee, #fff 1.786em); /* 25px */
+	background-image: -webkit-linear-gradient(#eee, #fff 25px);
+	background-image: -moz-linear-gradient(#eee, #fff 25px);
+	background-image: -o-linear-gradient(#eee, #fff 25px);
+	background-image: linear-gradient(#eee, #fff 25px);
 }
 
 /**
@@ -28,7 +28,7 @@
 .ch-box-help,
 .ch-box-information,
 .ch-box-ok {
-	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
 	position: relative;
 	padding-left: 35px;
 }
