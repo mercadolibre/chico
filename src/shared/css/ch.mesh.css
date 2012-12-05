@@ -1,4 +1,4 @@
-[class^="ch-g"] {
+[class*="ch-g"] {
 	float: left;
 	vertical-align: top;
 }
@@ -59,15 +59,15 @@
 /* Mobile */
 @media all and (max-width: 480px) {
 
-	[class^="ch-g"] {
+	[class*="ch-g"] {
 		width: 100%;
 		float: none;
 		clear: both;
 	}
 
-	[class^="ch-g"] .ch-rightcolumn,
-	[class^="ch-g"] .ch-leftcolumn,
-	[class^="ch-g"] .ch-centercolumn {
+	[class*="ch-g"] .ch-rightcolumn,
+	[class*="ch-g"] .ch-leftcolumn,
+	[class*="ch-g"] .ch-centercolumn {
 		margin-left: 0;
 		margin-right: 0;
 	}
