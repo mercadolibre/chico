@@ -1,14 +1,14 @@
 /**
  * Buttons
  */
-/* Global */
+/* Default h: ~38px */
 .ch-btn,
 .ch-btn:focus {
 	line-height: 1.4em;
-	padding: 0.429em 0.786em; /* 6px 11px */
+	padding: 7px 14px;
 }
 
-/* Big */
+/* Big h: ~44px */
 .ch-btn-big,
 .ch-btn-big:focus {
 	width: 100%;
@@ -22,14 +22,10 @@ a.ch-btn-big:focus {
 	box-sizing: border-box;
 }
 
-/* Small */
+/* Small h: ~26px */
 .ch-btn-small,
 .ch-btn-small:focus {
-	font-size: 0.929em; /* 13px */
-	line-height: 1.8em;
-}
-
-.ch-btn-tiny,
-.ch-btn-tiny:focus {
-	line-height: 1.8em;
+	font-size: 13px;
+	line-height: 1.4em;
+	padding: 5px 10px;
 }
