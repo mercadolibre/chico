@@ -1,16 +1,3 @@
-/*!
- * Chico Mesh v0.2
- * http://chico-ui.com.ar/mesh
- *
- * Copyright (c) 2012, MercadoLibre.com
- * Released under the MIT license.
- * http://chico-ui.com.ar/license
- *
- * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.
- */
-
-/* About classnames: 1-2 = 1/2 = 50% */
-
 [class^="ch-g"] {
 	float: left;
 	vertical-align: top;
