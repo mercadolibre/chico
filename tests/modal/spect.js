@@ -53,7 +53,7 @@ describe('Modal', function () {
 
 		it('.content', function () {
 			expect(ch.util.hasOwn(modal1, 'content')).toBeTruthy();
-			expect(typeof modal1.content).toEqual('object');
+			expect(typeof modal1.content).toEqual('function');
 		});
 	});
 
@@ -150,8 +150,8 @@ describe('Modal', function () {
 					expect($content.hasClass('ch-modal')).toBeTruthy();
 				});
 
-				it('.ch-box', function () {
-					expect($content.hasClass('ch-box')).toBeTruthy();
+				it('.ch-box-lite', function () {
+					expect($content.hasClass('ch-box-lite')).toBeTruthy();
 				});
 
 				it('.ch-points-cmcm', function () {
@@ -337,10 +337,19 @@ describe('Modal', function () {
 		});
 
 		it('an AJAX response', function () {
+			var done = jasmine.createSpy('done');
 
 			modal5.content.set();
 
-			expect(modal5.content.get()).toMatch(/This is an example for AJAX calls./);
+			waitsFor(function(){
+				var text = modal5.content.get(),
+					test = text.match(/This is an example for AJAX calls./);
+
+				isLoaded = (test !== null?test.length:false);
+
+				return isLoaded;
+			});
+
 		});
 	});
 
@@ -595,7 +604,7 @@ describe('Modal', function () {
 
 			it('reposition', function () {
 
-				var newReposition = false;
+				var newReposition = true;
 
 				expect(modal1.position().reposition).not.toEqual(newReposition);
 
