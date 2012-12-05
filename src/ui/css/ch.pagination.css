@@ -1,0 +1,14 @@
+/**
+ * Pagination
+ */
+.ch-pagination a[type="prev"],
+.ch-pagination a[type="next"] {
+	border-color: #FFFFFF;
+}
+
+/* IE */
+.lt-ie8 .ch-pagination li {
+	display: inline;
+	zoom: 1;
+	padding: 5px 2px;
+}

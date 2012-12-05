@@ -68,7 +68,8 @@
 .ch-btn-header,
 .ch-btn-header:focus {
 	padding: 9px 10px 8px;
-	font-size: .92em;
+	font-size: .929em;
+	line-height: 1em;
 }
 
 .ch-btn-header,
