@@ -71,12 +71,10 @@ textarea,
 select[multiple],
 .ch-form-select-multiple {
 	border: 1px solid #CDCDCD;
-	font-size: .929em;
 	border-radius: 3px;
 	-webkit-box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
 	box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
 	padding: 6px;
-	margin: 5px 0;
 }
 
 input[type="file"],
@@ -124,15 +122,7 @@ input[readonly]:focus {
 }
 
 .ch-form-ico-inner {
-	display: inline-block;
-	left: -25px;
-	top: 1px;
 	opacity: 0.3;
-	position: relative;
-}
-
-.ch-form-big .ch-form-ico-inner {
-	top: 2px;
 }
 
 .ch-form-ico-input:focus + .ch-form-ico-inner {
@@ -164,19 +154,18 @@ input[readonly]:focus {
 	.ch-form legend {
 		color: #dc7b1c;
 		font-weight: bold;
-		padding-bottom: 15px;
 	}
 
 	.ch-form-subtitle {
-		font-size: .929em; /* 13px */
+		font-size: 13px;
 		font-weight: bold;
 	}
 
 /* Required specification or another */
 .ch-form-hint {
 	color: #999999;
-	font-size: .857em;
-	line-height: 1em;
+	font-size: 12px;
+	line-height: 12px;
 }
 
 /* Basic wrapper for horizontal view */
@@ -188,11 +177,8 @@ input[readonly]:focus {
 /* Label */
 .ch-form-row label {
 	display:inline-block;
-	font-size: .929em; /* 13px */
 	position:relative;
 	padding: 7px 11px 5px 0;
-	text-align: right;
-	width: 130px;
 }
 
 /* Label inline not used yet */
@@ -234,7 +220,6 @@ input[readonly]:focus {
 /* Checkbox inline
 .ch-form-row input + input[type=checkbox],*/
 .ch-form-checkbox-inline {
-	margin-left: 11px;
 	margin-right: 0;
 	border: none;
 }
@@ -244,11 +229,6 @@ input[type=range],*/
 .ch-form-range {
 	padding: 4px;
 	vertical-align: middle;
-}
-
-/* Select */
-.ch-form-row select {
-	margin: 5px 0;
 }
 
 /* Select Multiple */
@@ -265,14 +245,12 @@ input[type=range],*/
 
 /* Help bottom line that helps the user */
 .ch-form-row .ch-form-hint {
-	margin-left: 145px;
 	display: block;
 }
 
 /* Options */
 .ch-list-options {
 	margin: 0 0 15px 20px;
-	padding: 0;
 }
 
 /* Subtitle in options */
@@ -289,13 +267,6 @@ input[type=range],*/
 /* Label in options */
 .ch-list-options label {
 	margin: 0;
-	padding: 0;
-}
-
-
-/* Radio & Checkbox in options */
-.ch-list-options input {
-	margin: 8px 4px 0 0;
 }
 
 .ch-list-options input[type="checkbox"]:focus,
@@ -303,7 +274,6 @@ input[type=range],*/
 	border: none;
 	padding: 0;
 }
-
 
 /* Disabled status */
 .ch-form-disabled label {
@@ -320,10 +290,8 @@ input[type=range],*/
 
 /* Actions */
 .ch-form-actions {
-	margin-left: 145px;
 	text-align: left;
 }
-
 
 /* Big inputs */
 .ch-form-big .ch-form-row input,
@@ -341,224 +309,3 @@ input[type=range],*/
 .ch-form-big .ch-form-row .ch-form-select-multiple:focus {
 	padding: 11px 9px;
 }
-
-
-
-/* Tablet */
-@media all and (min-width: 34.286em) and (max-width: 52.857em) {
-
-}
-
-/* Mobile */
-@media all and (max-width: 34.286em) {
-
-	.ch-form-row {
-		position: relative;
-	}
-
-	.ch-form-row input,
-	.ch-form-row textarea,
-	.ch-form-row select,
-	.ch-form-select-multiple {
-		margin-top: 0;
-	}
-
-	/* Generic input & textarea */
-	input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
-	textarea,
-	select,
-	select[multiple] {
-		-ms-box-sizing: border-box;
-		-o-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-		display: block;
-		font-size: 1.143em;
-		line-height: 1.4em;
-		padding: 6px;
-		width: 100%;
-	}
-
-	input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]):not([readonly]):focus,
-	textarea:focus,
-	select[multiple]:focus,
-	.ch-form-select-multiple:focus {
-		border-width: 2px;
-		padding: 5px;
-		outline: 0;
-	}
-
-	.ch-form-row-inline input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
-	.ch-form-row-inline select{
-		display: inline-block;
-		width: auto;
-	}
-
-	input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
-	input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]):focus {
-		border: none;
-		-webkit-box-shadow: none;
-		box-shadow: none;
-		color: #999;
-		padding: 6px 0;
-	}
-
-	/* Inner Icons */
-	.ch-form-ico-inner {
-		display: block;
-		left: auto;
-		right: 2px;
-		top: 48px;
-		opacity: .3;
-		position: absolute;
-	}
-
-	/* BigForm Inner Icons */
-	.ch-form-big .ch-form-ico-inner {
-		top: 54px;
-	}
-
-	/* Class to add to the input that has a inner icon */
-	input.ch-form-ico-input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
-	input.ch-form-ico-input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]):focus {
-		padding-right: 24px;
-	}
-
-	/* Icon & button alignment */
-	.ch-form-row input + .ch-btn,
-	.ch-form-row input + .ch-form-ico {
-		position: absolute;
-		top: 76px;
-		right: 0;
-		margin-right: 0;
-		z-index: 2;
-	}
-
-	/* Title module */
-	.ch-form legend {
-		font-size: 1.143em;
-		padding-bottom: 8px;
-	}
-
-	.ch-form-subtitle {
-		font-size: 13px;
-	}
-
-	/* Label */
-	.ch-form-row label {
-		width: auto;
-		font-size: 1em;
-	}
-
-	/* Icon indication of required in options */
-		.ch-form-required.ch-list-options em {
-			display: inline;
-			position: relative;
-			vertical-align: super;
-			top: auto;
-			right: auto;
-		}
-
-	/* Checkbox inline
-	.ch-form-row input + input[type=checkbox],*/
-	.ch-form-checkbox-inline{
-		margin-left: 0;
-	}
-
-	/* Select */
-	.ch-form-row select {
-		height: 36px;
-		border-color: #ccc;
-	}
-
-	/* Select Multiple */
-	.ch-form-row select[multiple],
-	.ch-form-select-multiple {
-		margin-top: 10px;
-		height: auto;
-	}
-
-	.ch-form-row .ch-form-hint {
-		margin-left: 5px;
-	}
-
-	/* Options */
-
-	.ch-list-options {
-		background-color: #f4f4f4;
-		-webkit-border-radius: 5px;
-		border-radius: 5px;
-		margin: 0 0 20px;
-		border: 1px solid #EEEEEE;
-	}
-
-	.ch-list-options .ch-form-row {
-		border-bottom: 1px dotted #CCC;
-		min-height: 40px;
-		line-height: 24px;
-		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-		color: #5F5F5F;
-		padding:0;
-	}
-
-	.ch-list-options .ch-form-row:last-child {
-		border-bottom: none;
-	}
-
-	.ch-form .ch-list-options {
-		position: relative;
-		line-height: 24px;
-	}
-
-	/* Label in options */
-	.ch-list-options input + label {
-		font-size: 16px;
-		position: relative;
-		line-height: 24px;
-		width: 100%;
-		text-indent: 32px;
-		padding: 14px 0  11px 0;
-	}
-
-	.ch-list-options input {
-		position: absolute;
-		left: 8px;
-		top: 50%;
-		margin: -8px 0 0 0;
-		height: 20px;
-		background-color: transparent;
-		box-shadow: none;
-	}
-
-	.ch-list-options .ch-form-subtitle + * {
-		margin-top: 29px;
-	}
-
-	/* Subtitle in options */
-	.ch-list-options .ch-form-subtitle {
-		border-radius: 5px 5px 0 0;
-		margin-left: 0;
-		margin-bottom: 0;
-		position: absolute;
-		left: 0;
-		top: 0;
-		right: 0;
-		background-color: #E9E9E9;
-		text-indent: 5px;
-		color: #5F5F5F;
-		margin-bottom: 15px;
-		border-bottom: solid 1px #eeeeee;
-	}
-
-	.ch-list-options li:active {
-		background: #e9e9e9;
-	}
-
-	.ch-form-actions {
-		margin-left: 0;
-	}
-
-
-}
-

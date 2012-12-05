@@ -1,0 +1,159 @@
+/* Generic input & textarea */
+input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
+textarea,
+select,
+select[multiple] {
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: block;
+	font-size: 16px;
+	line-height: 22px;
+	margin: 0 0 5px 0;
+	width: 100%;
+}
+
+.ch-form-row-inline input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
+.ch-form-row-inline select{
+	display: inline-block;
+	width: auto;
+}
+
+input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
+input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]):focus {
+	padding: 6px 0;
+}
+
+/* Inner Icons */
+.ch-form-ico-inner {
+	display: block;
+	left: auto;
+	right: 2px;
+	top: 48px;
+	position: absolute;
+}
+
+/* BigForm Inner Icons */
+.ch-form-big .ch-form-ico-inner {
+	top: 54px;
+}
+
+
+/* Icon & button alignment */
+.ch-form-row input + .ch-btn,
+.ch-form-row input + .ch-form-ico {
+	position: absolute;
+	top: 76px;
+	right: 0;
+	margin-right: 0;
+	z-index: 2;
+}
+
+/* Title module */
+.ch-form legend {
+	font-size: 16px;
+	padding-bottom: 8px;
+}
+
+.ch-form-row {
+	position: relative;
+}
+
+/* Label */
+.ch-form-row label {
+	font-size: 14px;
+	padding-bottom: 2px;
+}
+
+
+/* Checkbox inline */
+.ch-form-checkbox-inline{
+	margin-left: 0;
+}
+
+/* Select */
+.ch-form-row select {
+	height: 36px;
+	border-color: #ccc;
+	margin: 0 0 5px 0;
+}
+
+/* Select Multiple */
+.ch-form-row select[multiple],
+.ch-form-select-multiple {
+	height: auto;
+}
+
+.ch-form-row .ch-form-hint {
+	margin-left: 2px;
+}
+
+/* Options */
+.ch-list-options {
+	background-color: #f4f4f4;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin: 0 0 20px;
+	border: 1px solid #EEEEEE;
+}
+
+.ch-form .ch-list-options {
+	position: relative;
+	line-height: 24px;
+}
+
+.ch-list-options .ch-form-row {
+	border-bottom: 1px dotted #CCC;
+	min-height: 40px;
+	line-height: 24px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	color: #5F5F5F;
+	padding:0;
+}
+
+.ch-list-options .ch-form-row:last-child {
+	border-bottom: none;
+}
+
+/* Label in options */
+.ch-list-options input + label {
+	font-size: 16px;
+	position: relative;
+	line-height: 24px;
+	width: 100%;
+	text-indent: 32px;
+	padding: 16px 0  9px 0;
+}
+
+.ch-list-options input {
+	position: absolute;
+	left: 8px;
+	top: 50%;
+	margin: -8px 0 0 0;
+	height: 20px;
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.ch-list-options .ch-form-subtitle + * {
+	margin-top: 29px;
+}
+
+/* Subtitle in options */
+.ch-list-options .ch-form-subtitle {
+	border-radius: 5px 5px 0 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	background-color: #E9E9E9;
+	text-indent: 5px;
+	color: #5F5F5F;
+	border-bottom: solid 1px #eeeeee;
+}
+
+.ch-list-options .ch-form-row:active {
+	background: #e9e9e9;
+}

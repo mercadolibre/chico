@@ -1,0 +1,14 @@
+/**
+ * Reset
+ */
+body {
+	font-size: 13px;
+	line-height: 20px;
+	max-width: 1200px;
+	min-width: 760px;
+}
+
+/* IE */
+.lt-ie8 hr {
+	height: 0;
+}
