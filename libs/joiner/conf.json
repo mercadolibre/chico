@@ -28,6 +28,10 @@
 				"css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
 			},
 			"temp_version": "ch.version = '0.6';"
+		},
+		"mesh": {
+			"full": "/*!\n * Chico Mesh v0.2\n * http://chico-ui.com.ar/mesh\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */",
+			"min": "/*! Chico Mesh v0.2 chico-ui.com.ar/mesh | chico-ui.com.ar/license\n */"
 		}
 	},
 	"concat": {
@@ -85,20 +89,24 @@
 		"uiCSS": {
 			"resetML": [
 				"../../src/shared/css/ch.reset.css",
+				"../../src/ui/css/ch.reset.css",
 				"../../src/shared/css/ch.typography.css"
 			],
 			"core": [
-				"../../src/shared/css/ch.mesh.css",
 				"../../src/shared/css/ch.base.css",
+				"../../src/ui/css/ch.base.css",
 				"../../src/shared/css/ch.icons.css",
 				"../../src/shared/css/ch.boxes.css",
+				"../../src/ui/css/ch.boxes.css",
 				"../../src/ui/css/ch.transitions.css"
 			],
 			"widgets": [
 				"../../src/shared/css/ch.buttons.css",
+				"../../src/ui/css/ch.buttons.css",
 				"../../src/shared/css/ch.datagrid.css",
 				"../../src/shared/css/ch.lists.css",
 				"../../src/shared/css/ch.pagination.css",
+				"../../src/ui/css/ch.pagination.css",
 				"../../src/ui/css/ch.wizard.css",
 				"../../src/ui/css/ch.Calendar.css",
 				"../../src/ui/css/ch.Carousel.css",
@@ -108,6 +116,7 @@
 				"../../src/ui/css/ch.Dropdown.css",
 				"../../src/ui/css/ch.Expandable.css",
 				"../../src/shared/css/ch.Form.css",
+				"../../src/ui/css/ch.Form.css",
 				"../../src/ui/css/ch.Layer.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Modal.css",
@@ -145,19 +154,23 @@
 		"mobileCSS": {
 			"resetML": [
 				"../../src/shared/css/ch.reset.css",
+				"../../src/mobile/css/ch.reset.css",
 				"../../src/shared/css/ch.typography.css"
 			],
 			"core": [
-				"../../src/shared/css/ch.mesh.css",
 				"../../src/shared/css/ch.base.css",
+				"../../src/mobile/css/ch.base.css",
 				"../../src/shared/css/ch.icons.css",
-				"../../src/shared/css/ch.boxes.css"
+				"../../src/shared/css/ch.boxes.css",
+				"../../src/mobile/css/ch.boxes.css"
 			],
 			"widgets": [
 				"../../src/shared/css/ch.buttons.css",
+				"../../src/mobile/css/ch.buttons.css",
 				"../../src/shared/css/ch.datagrid.css",
 				"../../src/shared/css/ch.lists.css",
 				"../../src/shared/css/ch.pagination.css",
+				"../../src/mobile/css/ch.pagination.css",
 				"../../src/mobile/css/ch.list-options.css",
 				"../../src/mobile/css/ch.transitions.css",
 				"../../src/mobile/css/ch.tags.css",
@@ -165,16 +178,24 @@
 				"../../src/mobile/css/ch.Expandable.css",
 				"../../src/mobile/css/ch.Menu.css",
 				"../../src/shared/css/ch.Form.css",
+				"../../src/mobile/css/ch.Form.css",
 				"../../src/mobile/css/ch.Modal.css",
 				"../../src/mobile/css/ch.Layer.css"
 			],
 			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
+		},
+		"sharedMESH": {
+			"mesh": [
+				"../../src/shared/css/ch.mesh.css"
+			],
+			"template": ["meta.mesh.full", "mesh"]
 		}
 	},
 	"min": {
 		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.temp_version", "meta.ui.min.jsClose", "abilities", "widgets"],
-		"uiCSS": ["meta.ui.min.css", "src"],
+		"uiCSS": ["meta.ui.min.css", "resetML", "core", "widgets"],
 		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.temp_version", "meta.mobile.min.jsClose"],
-		"mobileCSS": ["meta.mobile.min.css", "src"]
+		"mobileCSS": ["meta.mobile.min.css", "resetML", "core", "widgets"],
+		"sharedMESH": ["meta.mesh.min", "mesh"]
 	}
 }
