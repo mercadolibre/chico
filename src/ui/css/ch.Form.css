@@ -72,12 +72,18 @@ input[readonly]:focus {
 
 /* Label in options */
 .ch-list-options label {
-	padding: 0;
+	padding: 0 0 0 22px;
 }
 
 /* Radio & Checkbox in options */
 .ch-list-options input {
-	margin: 8px 4px 0 0;
+	display: block;
+	width: 16px;
+	height: 16px;
+}
+
+.ch-list-options input[type=radio] {
+	margin-top: -9px;
 }
 
 /* Disabled status */

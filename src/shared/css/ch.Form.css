@@ -170,8 +170,9 @@ input[readonly]:focus {
 
 /* Basic wrapper for horizontal view */
 .ch-form-row {
-	padding: 5px 0;
 	margin-bottom: 0;
+	padding: 5px 0;
+	position: relative;
 }
 
 /* Label */
@@ -267,6 +268,15 @@ input[type=range],*/
 /* Label in options */
 .ch-list-options label {
 	margin: 0;
+}
+
+.ch-list-options input {
+	position: absolute;
+	top: 50%;
+	margin: -8px 0 0 0;
+}
+
+.ch-list-options input {
 }
 
 .ch-list-options input[type="checkbox"]:focus,
