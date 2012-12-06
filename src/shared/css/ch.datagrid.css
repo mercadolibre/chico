@@ -24,7 +24,7 @@ table {
 	text-align: left;
 	font-weight: normal;
 	margin: 10px 0;
-	font-size: 1.286em; /* 18px */
+	font-size: 18px;
 }
 
 .ch-datagrid-controls thead tr,
@@ -37,8 +37,8 @@ table {
 	background-color: #F7F7F7;
 	border-bottom: 1px solid #EDEDED;
 	border-left: 1px solid #EDEDED;
-	font-size: 0.786em; /* 11px */
-	line-height: 2.364em; /* 26px */
+	font-size: 11px;
+	line-height: 26px;
 	padding: 0 10px;
 	text-align: left;
 	text-shadow: 0 1px 0 #FFFFFF;
