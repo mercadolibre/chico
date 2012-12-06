@@ -194,7 +194,7 @@
 	"min": {
 		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.temp_version", "meta.ui.min.jsClose", "abilities", "widgets"],
 		"uiCSS": ["meta.ui.min.css", "resetML", "core", "widgets"],
-		"mobileJS": ["meta.mobile.min.jsOpen", "src", "meta.mobile.temp_version", "meta.mobile.min.jsClose"],
+		"mobileJS": ["meta.mobile.min.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.min.jsClose", "abilities", "widgets"],
 		"mobileCSS": ["meta.mobile.min.css", "resetML", "core", "widgets"],
 		"sharedMESH": ["meta.mesh.min", "mesh"]
 	}

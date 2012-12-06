@@ -4,13 +4,14 @@
 
 [class*="ch-header"] {
 	position:relative;
-	margin-bottom: 15px;
 	height: 38px;
-	margin-bottom: 10px;
 	overflow: hidden;
 	border-bottom: 1px solid #CCCCCC;
 	padding: 3px 0;
 	text-align: center;
+	margin-bottom: 10px;
+	margin-left: -10px;
+	margin-right: -10px;
 }
 
 /* Colors */
