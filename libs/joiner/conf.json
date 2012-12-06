@@ -30,8 +30,8 @@
 			"temp_version": "ch.version = '0.6';"
 		},
 		"mesh": {
-			"full": "/*!\n * Chico Mesh v0.2\n * http://chico-ui.com.ar/mesh\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */",
-			"min": "/*! Chico Mesh v0.2 chico-ui.com.ar/mesh | chico-ui.com.ar/license\n */"
+			"full": "/*!\n * Chico Mesh v2.0\n * http://chico-ui.com.ar/mesh\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */",
+			"min": "/*! Chico Mesh v2.0 chico-ui.com.ar/mesh | chico-ui.com.ar/license\n */"
 		}
 	},
 	"concat": {
