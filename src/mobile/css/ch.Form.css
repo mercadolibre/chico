@@ -57,10 +57,6 @@ input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):no
 	padding-bottom: 8px;
 }
 
-.ch-form-row {
-	position: relative;
-}
-
 /* Label */
 .ch-form-row label {
 	font-size: 14px;
@@ -128,10 +124,7 @@ input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):no
 }
 
 .ch-list-options input {
-	position: absolute;
 	left: 8px;
-	top: 50%;
-	margin: -8px 0 0 0;
 	height: 20px;
 	background-color: transparent;
 	box-shadow: none;
