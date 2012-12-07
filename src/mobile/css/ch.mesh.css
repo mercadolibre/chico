@@ -1,4 +1,17 @@
-[class*="ch-g"] {
+/*!
+ * Chico Mesh v0.2
+ * http://chico-ui.com.ar/mesh
+ *
+ * Copyright (c) 2012, MercadoLibre.com
+ * Released under the MIT license.
+ * http://chico-ui.com.ar/license
+ *
+ * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.
+ */
+
+/* About classnames: 1-2 = 1/2 = 50% */
+
+[class^="ch-g"] {
 	float: left;
 	vertical-align: top;
 }
@@ -7,8 +20,7 @@
 	width: 100%;
 }
 
-.ch-g1-2,
-.ch-g2-4 {
+.ch-g1-2 {
 	width: 50%;
 }
 
@@ -30,14 +42,6 @@
 
 .ch-g1-5 {
 	width: 20%;
-}
-
-.ch-g2-5 {
-	width: 40%;
-}
-
-.ch-g3-5 {
-	width: 60%;
 }
 
 .ch-g4-5 {
@@ -68,15 +72,15 @@
 /* Mobile */
 @media all and (max-width: 480px) {
 
-	[class*="ch-g"] {
+	[class^="ch-g"] {
 		width: 100%;
 		float: none;
 		clear: both;
 	}
 
-	[class*="ch-g"] .ch-rightcolumn,
-	[class*="ch-g"] .ch-leftcolumn,
-	[class*="ch-g"] .ch-centercolumn {
+	[class^="ch-g"] .ch-rightcolumn,
+	[class^="ch-g"] .ch-leftcolumn,
+	[class^="ch-g"] .ch-centercolumn {
 		margin-left: 0;
 		margin-right: 0;
 	}

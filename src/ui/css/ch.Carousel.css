@@ -18,7 +18,7 @@
 	margin: 0 50px;
 }
 
-.ch-carousel ul {
+.ch-carousel-list {
 	overflow: hidden;
 	-webkit-transition: all .8s ease;
 	-moz-transition: all .8s ease;
@@ -26,6 +26,9 @@
 	-o-transition: all .8s ease;
 	transition: all .8s ease;
 	width: -moz-max-content;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 .ch-carousel ul.ch-carousel-nofx {

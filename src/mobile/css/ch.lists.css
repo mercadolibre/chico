@@ -2,13 +2,13 @@
  * List
  */
 .ch-list {
-	margin-bottom:10px;
+	margin-bottom: 10px;
 }
 
 .ch-list li {
-	margin-left:10px;
-	padding:3px 0;
-	line-height: 18px;
+	margin-left: 10px;
+	padding: 3px 0;
+	line-height: 1.286em; /* 18px */
 }
 
 ul.ch-list {
@@ -25,7 +25,7 @@ dl.ch-list {
 
 dl.ch-list dt,
 dl.ch-list dd {
-	line-height: 18px;
+	line-height: 1.286em; /* 18px */
 }
 
 dl.ch-list dt {
@@ -33,5 +33,5 @@ dl.ch-list dt {
 }
 
 dl.ch-list dd {
-	margin-left: 9px;
+	margin: 5px 0 10px 10px;
 }
