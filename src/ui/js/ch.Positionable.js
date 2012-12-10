@@ -62,72 +62,7 @@
 	var $window = $(window);
 
 
-	// calcula las coordenadas y devuelve un objeto, el contexto va a ser coords
-	function getCSSPoint(options) {
-
-		var side = options.side,
-			aligned = options.aligned,
-			data = options.data,
-			oriented = (side === 'top' || side === 'bottom')?'horizontal':((side === 'right' || side === 'left')?'vertical':'centered');
-
-
-		//console.log(data)
-		// if(this[oriented] && options.force === true){
-		// 	return this[oriented];
-		// }
-
-
-		// take the side and calculate the alignment and make the CSSpoint
-		if (oriented === 'centered') {
-			// calculates the coordinates related to the center side to locate the target
-			this.centered = {
-				top: (data.target.offset.top + (data.reference.height / 2 - data.target.height / 2)),
-				left: (data.target.offset.left + (data.reference.width / 2 - data.target.width / 2))
-			};
-
-			return this.centered;
-
-		} else if (oriented === 'horizontal') {
-			// calculates the coordinates related to the top or bottom side to locate the target
-			this.horizontal = {
-				left: data.target.offset.left,
-				centered: (data.target.offset.left + (data.reference.width / 2 - data.target.width / 2)),
-				right: (data.target.offset.left + data.reference.width - data.target.width),
-				top: data.target.offset.top - data.target.height,
-				bottom: (data.target.offset.top + data.reference.height)
-			};
-
-			return {
-				'top': this.horizontal[side],
-				'left': this.horizontal[aligned]
-			}
-
-		} else {
-			// calculates the coordinates related to the right or left side to locate the target
-			this.vertical = {
-				top: data.target.offset.top,
-				centered: (data.target.offset.top + (data.reference.height / 2 - data.target.height / 2)),
-				bottom: (data.target.offset.top + data.reference.height - data.target.height),
-				right: (data.target.offset.left + data.reference.width),
-				left: (data.target.offset.left - data.target.width)
-			};
-
-			return {
-				'top': this.vertical[aligned],
-				'left': this.vertical[side]
-			}
-		}
-	}
-
-	function addOffset(offset) {
-		if(offset !== ''){
-			var setOffset = offset.split(' ');
-			this.CSSPoint.top = (this.CSSPoint.top + (parseInt(setOffset[0], 10) || 0));
-			this.CSSPoint.left = (this.CSSPoint.left + (parseInt(setOffset[1], 10) || 0));
-		}
-	}
-
-	function Positioner(options) {
+	function Positionable(options) {
 
 		this.$reference = options.reference;
 		this.$target = options.target;
@@ -135,14 +70,14 @@
 		this.offset = options.offset || this.offset;
 
 		// sets position absolute before doing the calcs to avoid calcs with the element making space
-		this.$target.css('position', 'absolute');
+		this.$target.css({'position': 'absolute'});
 
 		this.init(options);
 
 		return this;
 	}
 
-	Positioner.prototype.getData = function(){
+	Positionable.prototype.getData = function(){
 		var data = {
 			'context': {
 				'$element': this.$context,
@@ -183,27 +118,88 @@
 
 	}
 
-	Positioner.prototype.init = function (options) {
+	Positionable.prototype.init = function (options) {
 
-		this.getData()
+		this.getData();
 
 		// the object that stores the top, left reference to set to the target
-		this.CSSPoint = getCSSPoint.call(this.coords, {'side': options.side, 'aligned': options.aligned, 'data': this.data});
+		this.CSSPoint = this.setPoint({'side': options.side, 'aligned': options.aligned });
 
 		// add offset if there is any
-		addOffset.call(this, (options.offset || this.offset));
+		this.addOffset((options.offset || this.offset));
 
 		this.$target.css(this.CSSPoint);
 
 		return this;
 	}
 
-	Positioner.prototype.offset = '';
-	Positioner.prototype.coords = {};
+		// calcula las coordenadas y devuelve un objeto, el contexto va a ser coords
+	Positionable.prototype.setPoint = function(options) {
 
-	Positioner.prototype.name = 'positioner';
-	Positioner.prototype.constructor = Positioner;
+		var side = options.side,
+			aligned = options.aligned,
+			data = this.data,
+			oriented = (side === 'top' || side === 'bottom')?'horizontal':((side === 'right' || side === 'left')?'vertical':'centered');
 
-	ch.Positioner = Positioner;
+
+		// take the side and calculate the alignment and make the CSSpoint
+		if (oriented === 'centered') {
+			// calculates the coordinates related to the center side to locate the target
+			this.centered = {
+				'top': (data.target.offset.top + (data.reference.height / 2 - data.target.height / 2)),
+				'left': (data.target.offset.left + (data.reference.width / 2 - data.target.width / 2))
+			};
+
+			return this.centered;
+
+		} else if (oriented === 'horizontal') {
+			// calculates the coordinates related to the top or bottom side to locate the target
+			this.horizontal = {
+				'left': data.target.offset.left,
+				'centered': (data.target.offset.left + (data.reference.width / 2 - data.target.width / 2)),
+				'right': (data.target.offset.left + data.reference.width - data.target.width),
+				'top': data.target.offset.top - data.target.height,
+				'bottom': (data.target.offset.top + data.reference.height)
+			};
+
+			return {
+				'top': this.horizontal[side],
+				'left': this.horizontal[aligned]
+			}
+
+		} else {
+			// calculates the coordinates related to the right or left side to locate the target
+			this.vertical = {
+				'top': data.target.offset.top,
+				'centered': (data.target.offset.top + (data.reference.height / 2 - data.target.height / 2)),
+				'bottom': (data.target.offset.top + data.reference.height - data.target.height),
+				'right': (data.target.offset.left + data.reference.width),
+				'left': (data.target.offset.left - data.target.width)
+			};
+
+			return {
+				'top': this.vertical[aligned],
+				'left': this.vertical[side]
+			}
+		}
+	}
+
+	Positionable.prototype.addOffset = function(offset) {
+		if(offset !== ''){
+			var setOffset = offset.split(' ');
+			this.CSSPoint.top = (this.CSSPoint.top + (parseInt(setOffset[0], 10) || 0));
+			this.CSSPoint.left = (this.CSSPoint.left + (parseInt(setOffset[1], 10) || 0));
+		} else {
+			return this.offset;
+		}
+	}
+
+	Positionable.prototype.offset = '';
+	Positionable.prototype.coords = {};
+
+	Positionable.prototype.name = 'positionable';
+	Positionable.prototype.constructor = Positionable;
+
+	ch.Positionable = Positionable;
 
 }(this, this.jQuery, this.ch));
