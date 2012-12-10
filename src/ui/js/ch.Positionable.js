@@ -69,9 +69,6 @@
 		this.$context = this.$reference.offsetParent();
 		this.offset = options.offset || this.offset;
 
-		// sets position absolute before doing the calcs to avoid calcs with the element making space
-		this.$target.css({'position': 'absolute'});
-
 		this.init(options);
 
 		return this;
@@ -119,6 +116,9 @@
 	}
 
 	Positionable.prototype.init = function (options) {
+
+		// sets position absolute before doing the calcs to avoid calcs with the element making space
+		this.$target.css({'position': 'absolute'});
 
 		this.getData();
 

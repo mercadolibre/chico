@@ -257,13 +257,17 @@
 		// Z-index of trigger over content (secondary / skin dropdown)
 		if (this.$el.hasClass('ch-dropdown-skin')) { this.$trigger.css('z-index', ch.util.zIndex += 1); }
 
-		this.position = new ch.Positionable({
-			'target': that.$content,
-			'reference': that.$trigger,
-			'side': 'bottom',
-			'aligned': 'left',
-			'offset': '-1 0'
-		});
+		// TODO: this implementation will be re done
+		if (!this.position) {
+			this.position = new ch.Positionable({
+				'target': that.$content,
+				'reference': that.$trigger,
+				'side': 'bottom',
+				'aligned': 'left',
+				'offset': '-1 0'
+			});
+		}
+
 
 		// Inheritance innerShow
 		this.uber.show.call(this);
