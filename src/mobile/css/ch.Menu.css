@@ -56,11 +56,3 @@
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 }
-
-.ch-menu .ch-expandable-content {
-	padding: 10px;
-}
-
-.ch-menu .ch-expandable-content .ch-list-menu {
-	margin: -10px;
-}

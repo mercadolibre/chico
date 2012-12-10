@@ -1,7 +1,7 @@
 /**
-* Positioner lets you centralize and manage changes related to positioned elements. Positioner returns an utility that resolves positioning for all widget.
-* @name Positioner
-* @class Positioner
+* Positionable lets you centralize and manage changes related to positioned elements. Positionable returns an utility that resolves positioning for all widget.
+* @name Positionable
+* @class Positionable
 * @memberOf ch
 * @param {Object} conf Configuration object with positioning properties.
 * @param {String} conf.element Reference to the DOM Element to be positioned.
@@ -11,13 +11,13 @@
 * @param {Boolean} [conf.reposition] Parameter that enables or disables reposition intelligence. It's disabled by default.
 * @requires ch.Viewport
 * @see ch.Viewport
-* @returns {Function} The Positioner returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
+* @returns {Function} The Positionable returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
 * @exampleDescription
-* Instance the Positioner It requires a little configuration.
+* Instance the Positionable It requires a little configuration.
 * The default behavior place an element centered into the Viewport.
 *
 * @example
-* var positioned = ch.positioner({
+* var positioned = ch.Positionable({
 *     element: "#element1",
 * });
 * @exampleDescription 1. Getting the current configuration properties.
@@ -33,10 +33,10 @@
 *     context: "#context2",
 *     points: "lt rt"
 * });
-* @exampleDescription <strong>Offset</strong>: The positioner could be configurated with an offset.
+* @exampleDescription <strong>Offset</strong>: The Positionable could be configurated with an offset.
 * This example show an element displaced horizontally by 10px of defined position.
 * @example
-* var positioned = ch.positioner({
+* var positioned = ch.Positionable({
 *     element: "#element3",
 *     context: "#context3",
 *     points: "lt rt",
@@ -44,7 +44,7 @@
 * });
 * @exampleDescription <strong>Reposition</strong>: Repositionable feature moves the postioned element if it can be shown into the viewport.
 * @example
-* var positioned = ch.positioner({
+* var positioned = ch.Positionable({
 *     element: "#element4",
 *     context: "#context4",
 *     points: "lt rt",
@@ -77,7 +77,7 @@
 		return this;
 	}
 
-	Positionable.prototype.getData = function(){
+	Positionable.prototype.getData = function () {
 		var data = {
 			'context': {
 				'$element': this.$context,
@@ -102,9 +102,9 @@
 				'width': this.$target.outerWidth(),
 				'offset': {}
 			}
-		}
+		};
 
-		if ( data.context.isPositioned ) {
+		if (data.context.isPositioned) {
 			data.target.offset.top = (data.reference.offset.top - data.context.border.top - data.context.offset.top);
 			data.target.offset.left = (data.reference.offset.left - data.context.border.left - data.context.offset.left);
 		} else {
@@ -133,8 +133,7 @@
 		return this;
 	}
 
-		// calcula las coordenadas y devuelve un objeto, el contexto va a ser coords
-	Positionable.prototype.setPoint = function(options) {
+	Positionable.prototype.setPoint = function (options) {
 
 		var side = options.side,
 			aligned = options.aligned,
@@ -184,7 +183,7 @@
 		}
 	}
 
-	Positionable.prototype.addOffset = function(offset) {
+	Positionable.prototype.addOffset = function (offset) {
 		if(offset !== ''){
 			var setOffset = offset.split(' ');
 			this.CSSPoint.top = (this.CSSPoint.top + (parseInt(setOffset[0], 10) || 0));

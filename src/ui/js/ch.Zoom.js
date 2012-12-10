@@ -76,6 +76,8 @@
 
 		that.conf = conf;
 
+		var isIE = $('html').hasClass('lt-ie10');
+
 		/**
 		 * Element showed before zoomed image is load. It's a transition message and its content can be configured through parameter "message".
 		 * @private
@@ -247,18 +249,22 @@
 		 */
 			zoomed = (function () {
 				// Define the content source
-				var $img = that.source = $("<img src=\"" + that.element.href + "\">");
+				var $img = $("<img src=\"" + that.element.href + "\" class=\"ch-hide\">").appendTo(that.$element);
+
+				if (isIE) { $img.css('visibility', 'hidden').removeClass('ch-hide'); }
 
 				// Grab some data when zoomed image loads
 				$img.onImagesLoads(function () {
 
-					that.content.configure({
-						'input': that.source
-					});
-
 					// Save the zoomed image size
 					zoomed.width = $img.prop("width");
 					zoomed.height = $img.prop("height");
+
+					if (isIE) { $img.css('visibility', 'visible').addClass('ch-hide'); }
+
+					that.content.configure({
+						'input': $img
+					});
 
 					// Save the zoom ratio
 					ratio.width = zoomed.width / original.width;
@@ -358,7 +364,7 @@
 
 				// Move seeker
 				seeker.$shape.css({"left": x, "top": y});
-
+				
 				// Move zoomed image
 				zoomed.$image.css({"left": (-ratio.width * x), "top": (-ratio.height * y)});
 
@@ -396,7 +402,6 @@
 			that.parent.innerShow();
 
 			return that;
-
 		};
 
 		/**

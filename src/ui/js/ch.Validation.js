@@ -109,7 +109,7 @@
 		* @private
 		* @name ch.Validation#validationEvent
 		*/
-		var validationEvent = (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options") || that.element.tagName == "SELECT" || ( that.element.tagName == "INPUT" && that.element.type === 'range') ) ? "change" : "blur";
+		var validationEvent = (that.$element.hasClass("ch-form-options") || that.$element.hasClass("ch-list-options") || that.element.tagName == "SELECT" || ( that.element.tagName == "INPUT" && that.element.type === 'range') ) ? "change" : "blur";
 
 		var clear = function() {
 
@@ -160,8 +160,8 @@
 			"$element": (function() {
 				var reference;
 				// CHECKBOX, RADIO
-				// TODO: when old forms be deprecated we must only support ch-form-options class
-				if (that.$element.hasClass("options") || that.$element.hasClass("ch-form-options")) {
+				// TODO: when old forms be deprecated we must only support ch-list-options class
+				if (that.$element.hasClass("ch-form-options") || that.$element.hasClass("ch-list-options")) {
 					// Helper reference from will be fired
 					// H4
 					if (that.$element.find("h4").length > 0) {
@@ -252,10 +252,7 @@
 
 				// to avoid reload the same content
 				if (!that["float"]["public"].isActive() || !that.error.condition || that.error.condition !== gotError.condition) {
-					//that["float"]["public"].show((gotError.msg || form.messages[gotError.condition] || "Error"));
-					that["float"]["public"].content.configure({'input': (gotError.msg || form.messages[gotError.condition] || "Error")});
-					that["float"]["public"].content.set();
-					that["float"]["public"].show();
+					that["float"]["public"].show((gotError.msg || form.messages[gotError.condition] || "Error"));
 					// the aria-label attr should get the message element id, but is not public
 					that.$element.attr('aria-label', 'ch-' + that["float"]["public"].type + '-' + that["float"]["public"].uid );
 				}
@@ -558,11 +555,10 @@
 			// Sets a new message
 			validator.conditions[condition].message = msg;
 
+			// TODO: check if the conditions seted is active
 			if (validator.isActive()) {
-				that["public"]["float"].content.configure({
-					'input': msg
-				});
-				that["public"]["float"].content.set();
+
+				that["public"]["float"].content(msg);
 			}
 
 			return that["public"];

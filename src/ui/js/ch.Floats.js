@@ -469,10 +469,9 @@
 		 */
 		that["public"].show = function (content) {
 			if (content !== undefined) {
-				that["public"].content.configure({
-					'input': content
-				});
+				that["public"].content(content);
 			}
+
 			that.innerShow();
 			return that["public"];
 		};
@@ -603,7 +602,6 @@
 		 * @function
 		 * @param {Object} userOptions Options specified by user.
 		 */
-		that['public'].content = that.content;
 
 		/**
 		 * Triggers when the component is ready to use.
