@@ -1,4 +1,5 @@
 (function () {
+
 	/**
 	 * Provides varies utilities and commons functions that are used across all widgets.
 	 * @name ch.util

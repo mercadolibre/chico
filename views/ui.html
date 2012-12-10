@@ -1309,226 +1309,226 @@
 		// Automatic version
 		document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;
 
-		// Autocomplete
-		function autoComplete(data) {
-			autoComplete1.suggest(data);
-		}
+		// // Autocomplete
+		// function autoComplete(data) {
+		// 	autoComplete1.suggest(data);
+		// }
 
-		function customComplete(data) {
-			data.push("Other callback");
-			autoComplete2.suggest(data);
-		}
+		// function customComplete(data) {
+		// 	data.push("Other callback");
+		// 	autoComplete2.suggest(data);
+		// }
 
-		var autoComplete1 = $(".autoComplete").autoComplete({
-			"url": "http://www.chico-ui.com.ar/suggest?q=",
-			"jsonpCallback": "autoComplete"
-		});
+		// var autoComplete1 = $(".autoComplete").autoComplete({
+		// 	"url": "http://www.chico-ui.com.ar/suggest?q=",
+		// 	"jsonpCallback": "autoComplete"
+		// });
 
-		var autoComplete2 = $(".autoComplete2").autoComplete({
-			"url": "http://www.chico-ui.com.ar/suggest?q=",
-			"jsonpCallback": "customComplete"
-		});
+		// var autoComplete2 = $(".autoComplete2").autoComplete({
+		// 	"url": "http://www.chico-ui.com.ar/suggest?q=",
+		// 	"jsonpCallback": "customComplete"
+		// });
 
-		var autoComplete3 = $(".autoComplete3").autoComplete({
-			"suggestions": ["Apple","Beer","Bear","Bee","Custom","Country","Day","Date","Empire","Future"]
-		});
+		// var autoComplete3 = $(".autoComplete3").autoComplete({
+		// 	"suggestions": ["Apple","Beer","Bear","Bee","Custom","Country","Day","Date","Empire","Future"]
+		// });
 
-		// Calendar
-		var	calendar = $(".YOUR_SELECTOR_calendar").calendar({"from": "today"});
+		// // Calendar
+		// var	calendar = $(".YOUR_SELECTOR_calendar").calendar({"from": "today"});
 
-		// Carousel
-		//var carousel = $(".myCarousel").carousel({"pagination": true});
-		var carousel = $.carousel($(".myCarousel"), {"pagination": true});
+		// // Carousel
+		// //var carousel = $(".myCarousel").carousel({"pagination": true});
+		// var carousel = $.carousel($(".myCarousel"), {"pagination": true});
 
-		// Countdown
-		var	countdown = $("#text_cd").countdown(140);
+		// // Countdown
+		// var	countdown = $("#text_cd").countdown(140);
 
-		// Date Picker
-		var	datePicker = $("#val_date").datePicker({
-			"selected": "2011/11/15",
-			"to": "today"
-		});
+		// // Date Picker
+		// var	datePicker = $("#val_date").datePicker({
+		// 	"selected": "2011/11/15",
+		// 	"to": "today"
+		// });
 
-		var	datePicker2 = $("#val_date2").datePicker({
-			"selected": "2011/11/15",
-			"to": "today"
-		});
+		// var	datePicker2 = $("#val_date2").datePicker({
+		// 	"selected": "2011/11/15",
+		// 	"to": "today"
+		// });
 
-		// Layer
-		var layer1 = $(".YOUR_SELECTOR_LayerOnclick").layer({
-			"event": "click",
-			"content": $("#invisible-content")
-		});
+		// // Layer
+		// var layer1 = $(".YOUR_SELECTOR_LayerOnclick").layer({
+		// 	"event": "click",
+		// 	"content": $("#invisible-content")
+		// });
 
-		//var layer2 = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
-		var layer2 = $.layer($(".YOUR_SELECTOR_LayerOnmouseover"), {content:"<p>foo</p>"});
+		// //var layer2 = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
+		// var layer2 = $.layer($(".YOUR_SELECTOR_LayerOnmouseover"), {content:"<p>foo</p>"});
 
-		var layer3 = $(".YOUR_SELECTOR_LayerCloseButton").layer({
-			"event": "click",
-			"closable": "button",
-			"content": $("#invisible-content-for-layer"),
-			"width": 500
-		});
+		// var layer3 = $(".YOUR_SELECTOR_LayerCloseButton").layer({
+		// 	"event": "click",
+		// 	"closable": "button",
+		// 	"content": $("#invisible-content-for-layer"),
+		// 	"width": 500
+		// });
 
-		// Tooltip
-		// Bottom
-		$("#default").tooltip(); // lt lb
-		$("#ctcb").tooltip({"points": "ct cb"});
-		$("#rtrb").tooltip({"points": "rt rb"});
+		// // Tooltip
+		// // Bottom
+		// $("#default").tooltip(); // lt lb
+		// $("#ctcb").tooltip({"points": "ct cb"});
+		// $("#rtrb").tooltip({"points": "rt rb"});
 
-		// Top
-		$("#lblt").tooltip({
-			"points": "lb lt",
-			"offset": "0 -10"
-		});
-		$("#cbct").tooltip({
-			"points": "cb ct",
-			"offset": "0 -10"
-		});
-		$("#rbrt").tooltip({
-			"points": "rb rt",
-			"offset": "0 -10"
-		});
+		// // Top
+		// $("#lblt").tooltip({
+		// 	"points": "lb lt",
+		// 	"offset": "0 -10"
+		// });
+		// $("#cbct").tooltip({
+		// 	"points": "cb ct",
+		// 	"offset": "0 -10"
+		// });
+		// $("#rbrt").tooltip({
+		// 	"points": "rb rt",
+		// 	"offset": "0 -10"
+		// });
 
-		// Right
-		$("#ltrt").tooltip({
-			"points": "lt rt",
-			"offset": "10 0"
-		});
-		$("#lmrm").tooltip({
-			"points": "lm rm",
-			"offset": "10 0"
-		});
-		$("#lbrb").tooltip({
-			"points": "lb rb",
-			"offset": "10 0"
-		});
+		// // Right
+		// $("#ltrt").tooltip({
+		// 	"points": "lt rt",
+		// 	"offset": "10 0"
+		// });
+		// $("#lmrm").tooltip({
+		// 	"points": "lm rm",
+		// 	"offset": "10 0"
+		// });
+		// $("#lbrb").tooltip({
+		// 	"points": "lb rb",
+		// 	"offset": "10 0"
+		// });
 
-		// Left
-		$("#rtlt").tooltip({
-			"points": "rt lt",
-			"offset": "-10 0"
-		});
-		$("#rmlm").tooltip({
-			"points": "rm lm",
-			"offset": "-10 0"
-		});
-		$("#rblb").tooltip({
-			"points": "rb lb",
-			"offset": "-10 0"
-		});
+		// // Left
+		// $("#rtlt").tooltip({
+		// 	"points": "rt lt",
+		// 	"offset": "-10 0"
+		// });
+		// $("#rmlm").tooltip({
+		// 	"points": "rm lm",
+		// 	"offset": "-10 0"
+		// });
+		// $("#rblb").tooltip({
+		// 	"points": "rb lb",
+		// 	"offset": "-10 0"
+		// });
 
-		// Modal
-		var modal1 = $(".YOUR_SELECTOR_Modal").modal({
-			"width": "500px",
-			"height": "300px"
-		});
+		// // Modal
+		// var modal1 = $(".YOUR_SELECTOR_Modal").modal({
+		// 	"width": "500px",
+		// 	"height": "300px"
+		// });
 
-		// Modal with invisible DOM Content
-		var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal($("#invisible-content"));
+		// // Modal with invisible DOM Content
+		// var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal($("#invisible-content"));
 
-		// Modal lite
-		var modal3 = $('.YOUR_SELECTOR_Modal_lite').modal({
-			'content': '<h2>Heading or content</h2>',
-			'classes': 'ch-box ch-modal-lite'
-		});
+		// // Modal lite
+		// var modal3 = $('.YOUR_SELECTOR_Modal_lite').modal({
+		// 	'content': '<h2>Heading or content</h2>',
+		// 	'classes': 'ch-box ch-modal-lite'
+		// });
 
-		// Trasition
-		var transition = $(".YOUR_SELECTOR_Transition").transition();
+		// // Trasition
+		// var transition = $(".YOUR_SELECTOR_Transition").transition();
 
-		// Zoom
-		var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
+		// // Zoom
+		// var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
 
-		// expandable
-		var expandable = $(".YOUR_SELECTOR_expandable").expandable();
+		// // expandable
+		// var expandable = $(".YOUR_SELECTOR_expandable").expandable();
 
-		// Dropdown
-		var dropdown = $(".myDropdown").dropdown();
+		// // Dropdown
+		// var dropdown = $(".myDropdown").dropdown();
 
-		// Blink
-		$("#doHighlight").on("click", function () {
-			$("#example").blink();
-		});
+		// // Blink
+		// $("#doHighlight").on("click", function () {
+		// 	$("#example").blink();
+		// });
 
-		// Tabs
-		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
+		// // Tabs
+		// var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
 
-		// Accordion
-		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
+		// // Accordion
+		// var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
 
-		// Menu
-		var menu = $(".YOUR_SELECTOR_Menu").menu({
-			'selected': 5
-		});
+		// // Menu
+		// var menu = $(".YOUR_SELECTOR_Menu").menu({
+		// 	'selected': 5
+		// });
 
-		// Form
-		var form = $('.myForm').form();
+		// // Form
+		// var form = $('.myForm').form();
 
 
-		// Messages
-		var message = (function (message, value) {
+		// // Messages
+		// var message = (function (message, value) {
 
-			var messages = {
-				'option': 'Choose an option.',
-				'requiredCheck': 'Accept the Terms of Use.',
-				'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
-			};
+		// 	var messages = {
+		// 		'option': 'Choose an option.',
+		// 		'requiredCheck': 'Accept the Terms of Use.',
+		// 		'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
+		// 	};
 
-			return function (message, value) {
-				var message = messages[message] || message;
-				if(value){
-					return message.replace('{#num#}',value)
-				}
-				return message;
-			}
+		// 	return function (message, value) {
+		// 		var message = messages[message] || message;
+		// 		if(value){
+		// 			return message.replace('{#num#}',value)
+		// 		}
+		// 		return message;
+		// 	}
 
-		}());
+		// }());
 
-		// Validators
-		var	validation1 = $('#input_ico').required().and().string();
+		// // Validators
+		// var	validation1 = $('#input_ico').required().and().string();
 
-		var	validation2 = $('#input_ico_inside').required().and().string();
+		// var	validation2 = $('#input_ico_inside').required().and().string();
 
-		var	validation3 = $('#price').price().and().required();
+		// var	validation3 = $('#price').price().and().required();
 
-		var	validation4 = $('#email').required().and().email();
+		// var	validation4 = $('#email').required().and().email();
 
-		var	validation5 = $('#custom').required().and().custom(function (v) {
+		// var	validation5 = $('#custom').required().and().custom(function (v) {
 
-				var value1 = v.toString().indexOf("1") > -1;
-				var value2 = v.toString().indexOf("2") > -1;
+		// 		var value1 = v.toString().indexOf("1") > -1;
+		// 		var value2 = v.toString().indexOf("2") > -1;
 
-				if (value1 && value2) { return true; }
+		// 		if (value1 && value2) { return true; }
 
-				if (!value1) {
-					this.message('custom', message('The number needs a {#num#}.', 1));
-					return false;
-				}
+		// 		if (!value1) {
+		// 			this.message('custom', message('The number needs a {#num#}.', 1));
+		// 			return false;
+		// 		}
 
-				if (!value2) {
-					this.message('custom', message('The number must contain a {#num#}.', 2));
-					return false;
-				}
+		// 		if (!value2) {
+		// 			this.message('custom', message('The number must contain a {#num#}.', 2));
+		// 			return false;
+		// 		}
 
-			});
+		// 	});
 
-		var	validation6 = $('#url').url();
+		// var	validation6 = $('#url').url();
 
-		var	validation7 = $('#number').number().and().min(5);
+		// var	validation7 = $('#number').number().and().min(5);
 
-		var	validation8 = $('#range').min(8).and().max(10);
+		// var	validation8 = $('#range').min(8).and().max(10);
 
-		var	validation9 = $('#characters').maxLength(20).and().minLength(6);
+		// var	validation9 = $('#characters').maxLength(20).and().minLength(6);
 
-		var	validation10 = $('#double,#textarea2').required();
+		// var	validation10 = $('#double,#textarea2').required();
 
-		var	validation11 = $('.required-check').required(message('requiredCheck'));
+		// var	validation11 = $('.required-check').required(message('requiredCheck'));
 
-		var	validation12 = $('.required-option').required(message('option'));
+		// var	validation12 = $('.required-option').required(message('option'));
 
-		var validation13 = $('#double').required(message('link'));
+		// var validation13 = $('#double').required(message('link'));
 
-		var validation14 = $('#double').number();
+		// var validation14 = $('#double').number();
 
 	</script>
 </body>
