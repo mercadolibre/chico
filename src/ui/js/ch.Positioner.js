@@ -1,7 +1,7 @@
 /**
-* Positionable lets you centralize and manage changes related to positioned elements. Positionable returns an utility that resolves positioning for all widget.
-* @name Positionable
-* @class Positionable
+* Positioner lets you centralize and manage changes related to positioned elements. Positioner returns an utility that resolves positioning for all widget.
+* @name Positioner
+* @class Positioner
 * @memberOf ch
 * @param {Object} conf Configuration object with positioning properties.
 * @param {String} conf.element Reference to the DOM Element to be positioned.
@@ -11,13 +11,13 @@
 * @param {Boolean} [conf.reposition] Parameter that enables or disables reposition intelligence. It's disabled by default.
 * @requires ch.Viewport
 * @see ch.Viewport
-* @returns {Function} The Positionable returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
+* @returns {Function} The Positioner returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
 * @exampleDescription
-* Instance the Positionable It requires a little configuration.
+* Instance the Positioner It requires a little configuration.
 * The default behavior place an element centered into the Viewport.
 *
 * @example
-* var positioned = ch.Positionable({
+* var positioned = ch.Positioner({
 *     element: "#element1",
 * });
 * @exampleDescription 1. Getting the current configuration properties.
@@ -33,18 +33,18 @@
 *     context: "#context2",
 *     points: "lt rt"
 * });
-* @exampleDescription <strong>Offset</strong>: The Positionable could be configurated with an offset.
+* @exampleDescription <strong>Offset</strong>: The Positioner could be configurated with an offset.
 * This example show an element displaced horizontally by 10px of defined position.
 * @example
-* var positioned = ch.Positionable({
+* var positioned = ch.Positioner({
 *     element: "#element3",
 *     context: "#context3",
 *     points: "lt rt",
 *     offset: "10 0"
 * });
-* @exampleDescription <strong>Reposition</strong>: Repositionable feature moves the postioned element if it can be shown into the viewport.
+* @exampleDescription <strong>Reposition</strong>: RePositioner feature moves the postioned element if it can be shown into the viewport.
 * @example
-* var positioned = ch.Positionable({
+* var positioned = ch.Positioner({
 *     element: "#element4",
 *     context: "#context4",
 *     points: "lt rt",
@@ -62,7 +62,7 @@
 	var $window = $(window);
 
 
-	function Positionable(options) {
+	function Positioner(options) {
 
 		this.$reference = options.reference;
 		this.$target = options.target;
@@ -74,7 +74,7 @@
 		return this;
 	}
 
-	Positionable.prototype.getData = function () {
+	Positioner.prototype.getData = function () {
 		var data = {
 			'context': {
 				'$element': this.$context,
@@ -115,7 +115,7 @@
 
 	}
 
-	Positionable.prototype.init = function (options) {
+	Positioner.prototype.init = function (options) {
 
 		// sets position absolute before doing the calcs to avoid calcs with the element making space
 		this.$target.css({'position': 'absolute'});
@@ -133,7 +133,7 @@
 		return this;
 	}
 
-	Positionable.prototype.setPoint = function (options) {
+	Positioner.prototype.setPoint = function (options) {
 
 		var side = options.side,
 			aligned = options.aligned,
@@ -183,7 +183,7 @@
 		}
 	}
 
-	Positionable.prototype.addOffset = function (offset) {
+	Positioner.prototype.addOffset = function (offset) {
 		if(offset !== ''){
 			var setOffset = offset.split(' ');
 			this.CSSPoint.top = (this.CSSPoint.top + (parseInt(setOffset[0], 10) || 0));
@@ -193,12 +193,12 @@
 		}
 	}
 
-	Positionable.prototype.offset = '';
-	Positionable.prototype.coords = {};
+	Positioner.prototype.offset = '';
+	Positioner.prototype.coords = {};
 
-	Positionable.prototype.name = 'positionable';
-	Positionable.prototype.constructor = Positionable;
+	Positioner.prototype.name = 'Positioner';
+	Positioner.prototype.constructor = Positioner;
 
-	ch.Positionable = Positionable;
+	ch.Positioner = Positioner;
 
 }(this, this.jQuery, this.ch));

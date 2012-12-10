@@ -259,7 +259,7 @@
 
 		// TODO: this implementation will be re done
 		if (!this.position) {
-			this.position = new ch.Positionable({
+			this.position = new ch.Positioner({
 				'target': that.$content,
 				'reference': that.$trigger,
 				'side': 'bottom',
