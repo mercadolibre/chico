@@ -140,7 +140,7 @@
 
 					var $e = $(e);
 
-					var tag = $e.hasClass("ch-form-options") ? "OPTIONS" : e.tagName;
+					var tag = ($e.hasClass("ch-form-options") || $e.hasClass("ch-list-options")) ? "OPTIONS" : e.tagName;
 					switch (tag) {
 						case 'OPTIONS':
 							return $e.find('input:checked').length !== 0;

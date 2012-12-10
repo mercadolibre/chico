@@ -3,59 +3,59 @@
  */
 /* Anchor */
 .ch-zoom-trigger {
-	position:relative;
-	overflow:hidden;
-	display:block;
-	cursor:crosshair;
+	position: relative;
+	overflow: hidden;
+	display: block;
+	cursor: crosshair;
 }
 
 /* Loading transition */
 .ch-zoom-loading {
-	background-color:#fff;
-	background-position:center 20px;
-	background-repeat:no-repeat;
-	width:120px;
-	height:100px;
-	line-height:160px;
-	opacity:0.75;
-	filter:alpha(opacity=75);
-	z-index:2;
-	border-radius:5px;
-	position:absolute;
-	font-size:11px;
-	color:#333;
-	text-align:center;
+	background-color: #fff;
+	background-position: center 20px;
+	background-repeat: no-repeat;
+	width: 120px;
+	height: 100px;
+	line-height: 160px;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	z-index: 2;
+	border-radius: 5px;
+	position: absolute;
+	font-size: 11px;
+	color: #333;
+	text-align: center;
 }
 
 /* Seeker shape */
 .ch-zoom-trigger .ch-zoom-seeker {
-	border:1px solid #666;
-	background:#eee;
-	opacity:0.3;
-	filter:alpha(opacity=30);
-	position:absolute;
+	border: 1px solid #666;
+	background: #eee;
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+	position: absolute;
 }
 
 /* Zoomed area */
 .ch-zoom {
-	border:1px solid #ccc;
-	background-color:#fff;
+	border: 1px solid #ccc;
+	background-color: #fff;
 }
 
 /* Zoomed container */
 .ch-zoom-content {
-	overflow:hidden;
-	position:relative;
-	width:100%;
-	height:100%;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 /* Zoomed image */
 .ch-zoom-content img {
-	position:absolute;
+	position: absolute;
 }
 
 /* IE */
 .lt-ie9 .ch-zoom-trigger .ch-zoom-seeker {
-	cursor:crosshair;
+	cursor: crosshair;
 }

@@ -46,7 +46,7 @@ describe('Tooltip', function () {
 
 		it('.content', function () {
 			expect(ch.util.hasOwn(tooltip1, 'content')).toBeTruthy();
-			expect(typeof tooltip1.content).toEqual('object');
+			expect(typeof tooltip1.content).toEqual('function');
 		});
 	});
 

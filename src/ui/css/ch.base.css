@@ -1,150 +1,38 @@
-/**
- * Base
- */
-body {
-	background-color: #FFF;
-	color: #333;
-	min-width: 760px;
-	max-width: 1200px;
-	margin: 0 auto;
-	padding: 0 10px; /* Prevent layout "sticking" to the edge of the browser */
+/* Close*/
+.ch-close,
+.ch-close:visited,
+.ch-close:focus {
+	width: 15px;
+	height: 16px;
+	font-size: 20px;
+	line-height: 16px;
 }
 
-body,
-.ch-btn {
-	font-family: Arial, Helvetica, "Nimbus Sans L", sans-serif;
-	font-size: 13px;
+/* IE */
+.lt-ie8 .ch-close {
+	zoom: expression( this.runtimeStyle['zoom'] = "1", this.innerHTML = '&#x00D7;');
+	display: inline;
 	line-height: 20px;
 }
 
-.lt-ie7 body {
-	width: expression( (document.documentElement.clientWidth >1202)? "1200px": (document.documentElement.clientWidth <742)? "740px": "auto" );
+.lt-ie9 .ch-close {
+	text-indent: 0;
+	line-height: 13px;
 }
 
-/* IMPORTANT: .ch-hide class allows components to be shown and hidden */
-.ch-hide {
-	display: none;
+.ie9 .ch-close {
+	line-height: 17px;
 }
 
-.ch-hidden {
-	visibility: hidden;
+.lt-ie10 .ch-close {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F7F7', endColorstr='#EEEEEE');
 }
 
-/**
- * Anchors
- */
-a {
-	color: #0637B3;
-	text-decoration: none;
+.lt-ie10 .ch-close:hover,
+.lt-ie10 .ch-close:focus {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FA5900', endColorstr='#CA0C02');
 }
 
-a:active {
-	color: #0000DD;
-}
-
-a:visited {
-	color: #800080;
-}
-
-a:hover,
-a:focus {
-	text-decoration: underline;
-}
-
-a img {
-	border: none;
-}
-
-/**
- * Typography
- */
-h1, h2, h3, h4, h5, h6 {
-	font-weight: normal;
-	margin-top: 10px;
-}
-
-/* Arial Headers */
-h1 {
-	font-size: 20px;
-}
-
-h2 {
-	font-size: 18px;
-}
-
-h3 {
-	font-size: 16px;
-}
-
-h5 {
-	font-size: 11px;
-}
-
-/**
- * Price
- */
-.ch-price {
-	color: #900;
-	font-size: 16px;
-	font-weight: bold;
-}
-
-.ch-price sup {
-	font-size: 10px;
-	vertical-align: text-top;
-	line-height: 1em;
-}
-
-.ch-price span {
-	color: #999;
-	font-size: 13px;
-	font-weight: normal
-}
-
-.lt-ie9 .ch-price sup {
-	font-size: 12px;
-}
-
-/**
- * Misc
- */
-hr {
-	border: none;
-	border-bottom: 1px dashed #CCC;
-}
-
-.lt-ie8 hr {
-	height: 0;
-}
-
-/**
- * Clear Fix
- * @based: http://perishablepress.com/press/2009/12/06/new-clearfix-hack/
- */
-.ch-clearfix:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-}
-
-/* IE6 */
-* html .ch-clearfix {
-	zoom: 1;
-}
-
-/* IE7 */
-*:first-child+html .ch-clearfix {
-	zoom: 1;
-}
-
-/* do not select text */
-.ch-user-no-select {
-	-o-user-select: none;
-	-ms-user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
+.lt-ie10 .ch-close:active {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BF0602', endColorstr='#8F2F00');
 }
