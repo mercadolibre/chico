@@ -577,7 +577,7 @@
 
 		<div class="myDropdown ch-dropdown">
 			<span class="ch-dropdown-trigger">Default</span>
-			<menu label="Links" class="ch-dropdown-content">
+			<menu label="Links" class="ch-dropdown-container">
 				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
 				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
@@ -587,7 +587,7 @@
 
 		<div class="myDropdown ch-dropdown-skin">
 			<p class="ch-dropdown-trigger">With skin</p>
-			<menu label="Links" class="ch-dropdown-content">
+			<menu label="Links" class="ch-dropdown-container">
 				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
 				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
 				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
@@ -1309,6 +1309,25 @@
 		// Automatic version
 		document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;
 
+		// Expandable
+		var expandable = $(".YOUR_SELECTOR_expandable").expandable();
+
+		// Accordion
+		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
+
+		// Menu
+		var menu = $(".YOUR_SELECTOR_Menu").menu({
+			'selected': 5
+		});
+
+		// Blink
+		$("#doHighlight").on("click", function () {
+			$("#example").blink();
+		});
+
+		// Dropdown
+		var dropdown = $(".myDropdown").dropdown();
+
 		// // Autocomplete
 		// function autoComplete(data) {
 		// 	autoComplete1.suggest(data);
@@ -1439,27 +1458,11 @@
 		// // Zoom
 		// var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
 
-		// // expandable
-		// var expandable = $(".YOUR_SELECTOR_expandable").expandable();
-
 		// // Dropdown
 		// var dropdown = $(".myDropdown").dropdown();
 
-		// // Blink
-		// $("#doHighlight").on("click", function () {
-		// 	$("#example").blink();
-		// });
-
 		// // Tabs
 		// var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
-
-		// // Accordion
-		// var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
-
-		// // Menu
-		// var menu = $(".YOUR_SELECTOR_Menu").menu({
-		// 	'selected': 5
-		// });
 
 		// // Form
 		// var form = $('.myForm').form();

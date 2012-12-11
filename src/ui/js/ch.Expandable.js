@@ -1,29 +1,3 @@
-/**
-* Expandable lets you show or hide the content. Expandable needs a pair: the title and the content related to that title.
-* @name Expandable
-* @class Expandable
-* @augments ch.Navs
-* @see ch.Dropdown
-* @see ch.TabNavigator
-* @see ch.Navs
-* @standalone
-* @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {Boolean} [conf.open] Shows the expandable open when component was loaded. By default, the value is false.
-* @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are disable.
-* @returns itself
-* @factorized
-* @exampleDescription Create a new expandable without configuration.
-* @example
-* var widget = $(".example").expandable();
-* @exampleDescription Create a new expandable with configuration.
-* @example
-* var widget = $(".example").expandable({
-*     "open": true,
-*     "fx": true
-* });
-*/
-
 (function (window, $, ch) {
 	'use strict';
 
@@ -31,128 +5,215 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Expandable($el, conf) {
+	var $html = $('html');
+
+	/**
+	 * Expandable lets you show or hide the container. Expandable needs a pair: the title and the container related to that title.
+	 * @constructor
+	 * @memberOf ch
+	 * @augments ch.Navs
+	 * @param {Object} [options] Object with configuration properties.
+	 * @param {Boolean} [options.open] Shows the expandable open when component was loaded. By default, the value is false.
+	 * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
+	 * @returns {Object}
+	 * @exampleDescription Create a new expandable without configuration.
+	 * @example
+	 * var widget = $('.example').expandable();
+	 * @exampleDescription Create a new expandable with configuration.
+	 * @example
+	 * var widget = $('.example').expandable({
+	 *     'open': true,
+	 *     'fx': true
+	 * });
+	 */
+	function Expandable($el, options) {
+
+		this.init($el, options);
 
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
 		 * @private
-		 * @name ch.Expandable#that
-		 * @type object
+		 * @type {Object}
 		 */
 		var that = this;
 
-		that.$element = $el;
-		that.element = $el[0];
-		that.type = 'expandable';
-		conf = conf || {};
-
-		conf = ch.util.clone(conf);
-		that.conf = conf;
-
-		/**
-		 *	Inheritance
-		 */
-
-		that = ch.Navs.call(that);
-		that.parent = ch.util.clone(that);
-
-		/**
-		 *  Protected Members
-		 */
-		var $nav = that.$element.children(),
-			triggerAttr = {
-				"aria-expanded": conf.open,
-				"aria-controls":"ch-expandable-" + that.uid
-			},
-			contentAttr = {
-				"id": triggerAttr["aria-controls"],
-				"aria-hidden": !triggerAttr["aria-expanded"]
-			};
-
-		/**
-		 * The component's trigger.
-		 * @protected
-		 * @name ch.Expandable#$trigger
-		 * @type jQuery
-		 */
-		that.$trigger = that.$trigger.attr(triggerAttr);
-
-		/**
-		 * The component's trigger.
-		 * @protected
-		 * @name ch.Expandable#$content
-		 * @type jQuery
-		 */
-		that.$content = $nav.eq(1).attr(contentAttr);
-
-		/**
-		 * Shows component's content.
-		 * @protected
-		 * @function
-		 * @name ch.Expandable#innerShow
-		 * @returns itself
-		 */
-		that.innerShow = function(event){
-			that.$trigger.attr("aria-expanded","true");
-			that.$content.attr("aria-hidden","false");
-			that.parent.innerShow();
-			return that;
-		}
-
-		/**
-		 * Hides component's content.
-		 * @protected
-		 * @function
-		 * @name ch.Expandable#innerHide
-		 * @returns itself
-		 */
-		that.innerHide = function(event){
-			that.$trigger.attr("aria-expanded","false");
-			that.$content.attr("aria-hidden","true");
-			that.parent.innerHide();
-			return that;
-		}
-
-
-		/**
-		 *  Public Members
-		 */
-
-		/**
-		 * @borrows ch.Widget#uid as ch.Expandable#uid
-		 * @borrows ch.Widget#element as ch.Expandable#element
-		 * @borrows ch.Widget#type as ch.Expandable#type
-		 * @borrows ch.Navs#show as ch.Expandable#show
-		 * @borrows ch.Navs#hide as ch.Expandable#hide
-		 */
-
-		/**
-		 *  Default event delegation
-		 */
-
-		that.$trigger.children().attr("role","presentation");
-		ch.util.avoidTextSelection(that.$trigger);
-
 		/**
 		 * Triggers when the component is ready to use (Since 0.8.0).
-		 * @name ch.Expandable#ready
-		 * @event
-		 * @public
+		 * @fires ch.Expandable#ready
 		 * @since 0.8.0
 		 * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
 		 * @example
-		 * widget.on("ready",function () {
+		 * widget.on('ready',function () {
 		 *	this.show();
 		 * });
 		 */
-		window.setTimeout(function(){ that.trigger("ready") }, 50);
-
-		return that['public'];
-
+		window.setTimeout(function () { that.emit('ready'); }, 50);
 	}
 
+	/**
+	 * Inheritance
+	 */
+	ch.util.inherits(Expandable, ch.Widget);
+
 	Expandable.prototype.name = 'expandable';
+
 	Expandable.prototype.constructor = Expandable;
+
+	Expandable.prototype.defaults = {
+		'icon': true,
+		'open': false,
+		'fx': false
+	};
+
+	Expandable.prototype.init = function ($el, options) {
+		this.uber.init.call(this, $el, options);
+		this.require('Collapsible', 'Content');
+
+		/**
+		 * Private Members
+		 */
+
+		/**
+		 * Reference to a internal component instance, saves all the information and configuration properties.
+		 * @private
+		 * @type {Object}
+		 */
+		var that = this,
+
+			/**
+			 * Map that contains the ARIA attributes for the trigger element
+			 * @private
+			 * @type {Object}
+			 */
+			triggerAttr = {
+				'aria-expanded': that.options.open,
+				'aria-controls': 'ch-expandable-' + that.uid
+			},
+
+			/**
+			 * Map that contains the ARIA attributes for the container element
+			 * @private
+			 * @type {Object}
+			 */
+			containerAttr = {
+				'id': triggerAttr['aria-controls'],
+				'aria-hidden': !triggerAttr['aria-expanded']
+			};
+
+		/**
+		 * Protected Members
+		 */
+
+		 /**
+		  * Status of component
+		  * @protected
+		  * @type {Boolean}
+		  * @ignore
+		  */
+		 that.active = this.options.open;
+
+		/**
+		 * The component's trigger.
+		 * @protected
+		 * @type {Selector}
+		 * @ignore
+		 */
+		that.$trigger = that.$el.children(':first-child');
+
+		/**
+		 * The component's container.
+		 * @protected
+		 * @type {Selector}
+		 * @ignore
+		 */
+		that.$container = that.$el.children(':last-child').wrapInner('<div class="ch-expandable-content">');
+
+		/**
+		 * The component's content.
+		 * @protected
+		 * @type {Selector}
+		 * @ignore
+		 */
+		that.$content = that.$container.children(':last-child');
+
+		/**
+		 * Default behavior
+		 */
+		that.$el.addClass('ch-expandable');
+
+		that.$trigger
+			.attr(triggerAttr)
+			.addClass('ch-expandable-trigger')
+			.on('click.expandable', function (event) {
+				ch.util.prevent(event);
+				that.show();
+			})
+			.children()
+				.attr('role', 'presentation');
+
+		that.$container
+			.attr(containerAttr)
+			.addClass('ch-expandable-container ch-hide');
+
+		that.content.onmessage = function (data) {
+			that.$content.html(data);
+		};
+
+		// Icon configuration
+
+		if (this.options.icon) {
+			if ($html.hasClass('lt-ie8')) {
+				$('<span class="ch-expandable-ico">Drop</span>').appendTo(this.$trigger);
+
+			} else {
+				this.$trigger.addClass('ch-expandable-ico');
+			}
+		}
+
+		if (this.options.open) {
+			this.show();
+		}
+
+		ch.util.avoidTextSelection(that.$trigger);
+
+	};
+
+
+	Expandable.prototype.show = function () {
+		if (this.active) {
+			return this.hide();
+		}
+
+		this.collapsible.show();
+
+		return this;
+	};
+
+	Expandable.prototype.hide = function () {
+		if (!this.active) {
+			return;
+		}
+
+		this.collapsible.hide();
+
+		return this;
+	};
+
+
+	/**
+	 * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+	 * @name isActive
+	 * @methodOf ch.Expandable#isActive
+	 * @returns {boolean}
+	 * @exampleDescription
+	 * @example
+	 * if (widget.isActive()) {
+	 *     fn();
+	 * }
+	 */
+	Expandable.prototype.isActive = function () {
+		return this.active;
+	};
 
 	ch.factory(Expandable);
 
