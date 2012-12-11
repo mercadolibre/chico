@@ -74,6 +74,29 @@
 		return this;
 	}
 
+	// inits the component
+	Positioner.prototype.init = function (options) {
+
+		// sets position absolute before doing the calcs to avoid calcs with the element making space
+		this.$target.css({'position': 'absolute'});
+
+		this.getData();
+
+		// the object that stores the top, left reference to set to the target
+		this.CSSPoint = this.setPoint({'side': options.side, 'aligned': options.aligned });
+
+		// add offset if there is any
+		this.addOffset((options.offset || this.offset));
+
+		this.$target.css(this.CSSPoint);
+
+		return this;
+	}
+
+	// gets the data from all the elements in the layout
+	// stores the data in the
+	// returns the positioner
+	// could be an update method
 	Positioner.prototype.getData = function () {
 		var data = {
 			'context': {
@@ -81,7 +104,7 @@
 				'height': this.$context.outerHeight(),
 				'width': this.$context.outerWidth(),
 				'offset': this.$context.offset(),
-				'isPositioned': (ch.util.getStyles(this.$target.offsetParent()[0], 'position') !== 'static'),
+				'isPositioned': (ch.util.getStyles(this.$context[0], 'position') !== 'static'),
 				'border': {
 					'top': parseInt(this.$reference.offsetParent().css('border-top-width'), 10),
 					'left': parseInt(this.$reference.offsetParent().css('border-left-width'), 10)
@@ -115,24 +138,8 @@
 
 	}
 
-	Positioner.prototype.init = function (options) {
-
-		// sets position absolute before doing the calcs to avoid calcs with the element making space
-		this.$target.css({'position': 'absolute'});
-
-		this.getData();
-
-		// the object that stores the top, left reference to set to the target
-		this.CSSPoint = this.setPoint({'side': options.side, 'aligned': options.aligned });
-
-		// add offset if there is any
-		this.addOffset((options.offset || this.offset));
-
-		this.$target.css(this.CSSPoint);
-
-		return this;
-	}
-
+	// returns an object with the references to the top and left
+	// could be return this
 	Positioner.prototype.setPoint = function (options) {
 
 		var side = options.side,
@@ -183,6 +190,7 @@
 		}
 	}
 
+	// must be called offset and be setter and getter
 	Positioner.prototype.addOffset = function (offset) {
 		if(offset !== ''){
 			var setOffset = offset.split(' ');
@@ -193,8 +201,8 @@
 		}
 	}
 
+	// must be stored with other name and use this name for setter/getter property
 	Positioner.prototype.offset = '';
-	Positioner.prototype.coords = {};
 
 	Positioner.prototype.name = 'Positioner';
 	Positioner.prototype.constructor = Positioner;
