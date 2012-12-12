@@ -54,7 +54,8 @@
 				"../../src/ui/js/ch.EventEmitter.js"
 			],
 			"widgets": [
-				"../../src/shared/js/ch.Widget.js"
+				"../../src/shared/js/ch.Widget.js",
+				"../../src/ui/js/ch.Carousel.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},

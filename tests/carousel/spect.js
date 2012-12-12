@@ -13,75 +13,77 @@ describe('Carousel', function () {
 	it('Should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Carousel')).toBeTruthy();
 		expect(typeof ch.Carousel).toEqual('function');
+		expect(carousel1 instanceof ch.Carousel).toBeTruthy();
 	});
 
 	describe('Should have the following public properties:', function () {
 
 		it('.element', function () {
-			expect(ch.util.hasOwn(carousel1, 'element')).toBeTruthy();
+			expect(carousel1.element).not.toEqual(undefined);
 			expect(carousel1.element.nodeType).toEqual(1);
 		});
 
-		it('.type / .name', function () {
-			expect(ch.util.hasOwn(carousel1, 'type')).toBeTruthy();
-			expect(typeof carousel1.type).toEqual('string');
-			expect(carousel1.type).toEqual('carousel');
+		it('.name', function () {
+			expect(carousel1.name).not.toEqual(undefined);
+			expect(typeof carousel1.name).toEqual('string');
+			expect(carousel1.name).toEqual('carousel');
 		});
 
-		/*it('.constructor', function () {
-			expect(ch.util.hasOwn(carousel1, 'constructor')).toBeTruthy();
+		it('.constructor', function () {
+			expect(carousel1.constructor).not.toEqual(undefined);
 			expect(typeof carousel1.constructor).toEqual('function');
-		});*/
+		});
 
 		it('.uid', function () {
+			expect(carousel1.uid).not.toEqual(undefined);
 			expect(typeof carousel1.uid).toEqual('number');
+		});
+
+		it('.itemsPerPage', function () {
+			expect(carousel1.itemsPerPage).not.toEqual(undefined);
+			expect(typeof carousel1.itemsPerPage).toEqual('number');
 		});
 	});
 
 	describe('Shold have the following public methods:', function () {
 
 		it('.arrows()', function () {
-			expect(ch.util.hasOwn(carousel1, 'arrows')).toBeTruthy();
+			expect(carousel1.arrows).not.toEqual(undefined);
 			expect(typeof carousel1.arrows).toEqual('function');
 		});
 
-		it('.itemsPerPage()', function () {
-			expect(ch.util.hasOwn(carousel1, 'itemsPerPage')).toBeTruthy();
-			expect(typeof carousel1.itemsPerPage).toEqual('function');
-		});
-
 		it('.next()', function () {
-			expect(ch.util.hasOwn(carousel1, 'next')).toBeTruthy();
+			expect(carousel1.next).not.toEqual(undefined);
 			expect(typeof carousel1.next).toEqual('function');
 		});
 
 		it('.page()', function () {
-			expect(ch.util.hasOwn(carousel1, 'page')).toBeTruthy();
+			expect(carousel1.page).not.toEqual(undefined);
 			expect(typeof carousel1.page).toEqual('function');
 		});
 
 		it('.pause()', function () {
-			expect(ch.util.hasOwn(carousel1, 'pause')).toBeTruthy();
+			expect(carousel1.pause).not.toEqual(undefined);
 			expect(typeof carousel1.pause).toEqual('function');
 		});
 
 		it('.play()', function () {
-			expect(ch.util.hasOwn(carousel1, 'play')).toBeTruthy();
+			expect(carousel1.play).not.toEqual(undefined);
 			expect(typeof carousel1.play).toEqual('function');
 		});
 
 		it('.prev()', function () {
-			expect(ch.util.hasOwn(carousel1, 'prev')).toBeTruthy();
+			expect(carousel1.prev).not.toEqual(undefined);
 			expect(typeof carousel1.prev).toEqual('function');
 		});
 
 		it('.redraw()', function () {
-			expect(ch.util.hasOwn(carousel1, 'redraw')).toBeTruthy();
+			expect(carousel1.redraw).not.toEqual(undefined);
 			expect(typeof carousel1.redraw).toEqual('function');
 		});
 
 		it('.select()', function () {
-			expect(ch.util.hasOwn(carousel1, 'select')).toBeTruthy();
+			expect(carousel1.select).not.toEqual(undefined);
 			expect(typeof carousel1.select).toEqual('function');
 		});
 	});
@@ -354,10 +356,10 @@ describe('Carousel', function () {
 		});
 	});
 
-	describe('itemsPerPage() method', function () {
+	describe('itemsPerPage property', function () {
 
 		it('Should return the same number of configuration object', function () {
-			expect(carousel1.itemsPerPage()).toEqual(4);
+			expect(carousel1.itemsPerPage).toEqual(4);
 		});
 	});
 
@@ -403,8 +405,8 @@ describe('Carousel', function () {
 	describe('Shouldn\'t have the navigation controls when it is specified by configuration', function () {
 
 		it('Shouldn\'t exists on DOM', function () {
-			expect($el2.find('#.ch-carousel-prev').length).toEqual(0);
-			expect($el2.find('#.ch-carousel-next').length).toEqual(0);
+			expect($el2.find('.ch-carousel-prev').length).toEqual(0);
+			expect($el2.find('.ch-carousel-next').length).toEqual(0);
 		});
 
 		it('The mask shouldn\'t have the "ch-carousel-adaptive" classname', function () {
