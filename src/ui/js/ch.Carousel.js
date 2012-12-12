@@ -1,44 +1,3 @@
-/**
- * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
- * @name Carousel
- * @class Carousel
- * @augments ch.Widget
- * @see ch.Widget
- * @memberOf ch
- * @factorized
- * @param {Object} [options] Object with configuration properties.
- * @param {Number || String} [options.width] Sets width property of the component's layout. By default, the width is elastic.
- * @param {Boolean} [options.pagination] Shows a pagination. By default, the value is false.
- * @param {Boolean} [options.arrows] Shows arrows icons over or outside the mask. By default, the value is 'outside'.
- * @param {Array} [options.asyncData] Defines the content of each item that will be load asnchronously as array.
- * @param {Function} [options.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
- * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are enabled.
- * @param {Number} [options.maxItems] (Since 0.10.6) Set the max amount of items to show in each page.
- * @param {Number} [options.page] (Since 0.10.6) Initialize the Carousel in a specified page.
- * @returns itself
- * @exampleDescription Create a Carousel without configuration.
- * @example
- * var foo = $('#example').carousel();
- * @exampleDescription Create a Carousel with configuration parameters.
- * @example
- * var foo = $('#example').carousel({
- *     'width': 500,
- *     'pagination': true,
- *     'arrows': 'over'
- * });
- * @exampleDescription Create a Carousel with items asynchronously loaded.
- * @example
- * var foo = $('#example').carousel({
- *     'asyncData': [
- *         {'src': 'a.png', 'alt': 'A'},
- *         {'src': 'b.png', 'alt': 'B'},
- *         {'src': 'c.png', 'alt': 'C'}
- *     ],
- *     'asyncRender': function (data) {
- *         return '<img src="' + data.src + '" alt="' + data.alt + '"/>';
- *     }
- * });
- */
 (function (window, $, ch) {
 	'use strict';
 
@@ -52,6 +11,47 @@
 		$html = $('html'),
 		$window = $(window);
 
+	/**
+	 * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
+	 * @name Carousel
+	 * @class Carousel
+	 * @augments ch.Widget
+	 * @see ch.Widget
+	 * @memberOf ch
+	 * @factorized
+	 * @param {Object} [options] Object with configuration properties.
+	 * @param {Number || String} [options.width] Sets width property of the component's layout. By default, the width is elastic.
+	 * @param {Boolean} [options.pagination] Shows a pagination. By default, the value is false.
+	 * @param {Boolean} [options.arrows] Shows arrows icons over or outside the mask. By default, the value is 'outside'.
+	 * @param {Array} [options.asyncData] Defines the content of each item that will be load asnchronously as array.
+	 * @param {Function} [options.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
+	 * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are enabled.
+	 * @param {Number} [options.maxItems] (Since 0.10.6) Set the max amount of items to show in each page.
+	 * @param {Number} [options.page] (Since 0.10.6) Initialize the Carousel in a specified page.
+	 * @returns itself
+	 * @exampleDescription Create a Carousel without configuration.
+	 * @example
+	 * var foo = $('#example').carousel();
+	 * @exampleDescription Create a Carousel with configuration parameters.
+	 * @example
+	 * var foo = $('#example').carousel({
+	 *     'width': 500,
+	 *     'pagination': true,
+	 *     'arrows': 'over'
+	 * });
+	 * @exampleDescription Create a Carousel with items asynchronously loaded.
+	 * @example
+	 * var foo = $('#example').carousel({
+	 *     'asyncData': [
+	 *         {'src': 'a.png', 'alt': 'A'},
+	 *         {'src': 'b.png', 'alt': 'B'},
+	 *         {'src': 'c.png', 'alt': 'C'}
+	 *     ],
+	 *     'asyncRender': function (data) {
+	 *         return '<img src="' + data.src + '" alt="' + data.alt + '"/>';
+	 *     }
+	 * });
+	 */
 	function Carousel($el, options) {
 
 		this.init($el, options);
