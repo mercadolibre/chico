@@ -56,7 +56,7 @@
 			createLayout = function () {
 
 				// No slide efects for IE8-
-				var efects = ($html.hasClass('lt-ie8')) ? false : that.options.fx;
+				var fx = ($html.hasClass('lt-ie8')) ? false : that.options.fx;
 
 				// List elements
 				that.$el.children().each(function(i, e){
@@ -85,7 +85,7 @@
 					var expandable = $li.expandable({
 						'icon': that.options.icon,
 						// Show/hide on IE8- instead slideUp/slideDown
-						'fx': efects,
+						'fx': fx,
 						'onShow': function () {
 							// Updates selected tab when it's opened
 							that.selected = i;
@@ -110,7 +110,7 @@
 							 *     app.off();
 							 * });
 							 */
-							that.trigger('select');
+							that.emit('select');
 						}
 					});
 
@@ -273,7 +273,7 @@
 		this.$el.addClass('ch-' + this['name'] + (ch.util.hasOwn(this.options, 'classes') ? ' ' + this.options.classes : ''));
 
 		// Select specific item if there are a "selected" parameter on component configuration object
-		if (ch.util.hasOwn(this.options, 'selected')) { select(this.options.selected); }
+		if (ch.util.hasOwn(this.options, 'selected')) { select(this.options.selected); }
 
 		/**
 		 * Triggers when the component is ready to use (Since 0.8.0).
@@ -287,7 +287,7 @@
 		 *	this.select();
 		 * });
 		 */
-		setTimeout(function(){ that.trigger('ready')}, 50);
+		setTimeout(function(){ that.emit('ready')}, 50);
 
 		return this;
 	}
@@ -303,7 +303,7 @@
 
 	Menu.prototype.defaults = {
 		'icon': true,
-		'fx': false,
+		'fx': true,
 		'accordion': false
 	};
 

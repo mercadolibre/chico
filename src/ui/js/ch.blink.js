@@ -19,7 +19,7 @@
 	 */
 	function blink($el, options) {
 
-		options = options || {};
+		options = options || {};
 
 		var that = {},
 			// Hex start level toString(16).

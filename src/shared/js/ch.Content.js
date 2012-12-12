@@ -43,7 +43,7 @@
 					that.content.set();
 				}
 
-				return that["public"];
+				return that;
 
 			};
 
@@ -173,7 +173,7 @@
 			return current;
 		};
 
-		that.content = that['public'].content = content;
+		that.content = content;
 
 	}
 

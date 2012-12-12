@@ -32,8 +32,8 @@
 	function Accordion($el, options) {
 		options = options || {};
 		options.accordion = true;
-		options.fx = (ch.util.hasOwn(options, 'fx')) ? options.fx : true;
-		options.classes = options.classes || 'ch-accordion';
+		options.fx = (ch.util.hasOwn(options, 'fx')) ? options.fx : true;
+		options.classes = options.classes || 'ch-accordion';
 
 		return $el.menu(options);
 	}

@@ -36,15 +36,12 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var $document = $(window.document);
+	var $document = $(window.document),
+		$html = $('html');
 
 	function Dropdown($el, options) {
 
 		this.init($el, options);
-
-		/**
-		 * Private Members
-		 */
 
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
@@ -55,186 +52,23 @@
 
 
 		/**
-		 *  Protected Members
-		 */
-
-		/**
-		 * Status of component
-		 * @protected
-		 * @type {Boolean}
-		 * @ignore
-		 */
-		 that.active = false;
-
-		/**
-		 * The component's trigger.
-		 * @protected
-		 * @name ch.Dropdown#$trigger
-		 * @type jQuery
-		 */
-		this.$trigger = (function () {
-
-			var $trigger = that.$el.children(':first-child');
-
-			if (!that.$el.hasClass('ch-dropdown-skin')) {
-				$trigger.addClass('ch-btn-skin ch-btn-small');
-			}
-
-			return $trigger;
-
-		}());
-
-		/**
-		 * The component's content.
-		 * @protected
-		 * @name ch.Dropdown#$content
-		 * @type jQuery
-		 */
-		this.$content = (function () {
-
-			// jQuery Object
-			var $content = that.$el.children(':last-child')
-			// Prevent click on content (except links)
-				.on('click.dropdown', function (event) {
-					if ((event.target || event.srcElement).tagName === 'A') {
-						that.hide();
-					}
-					event.stopPropagation();
-				})
-			// WAI-ARIA properties
-				.attr({'role': 'menu', 'aria-hidden': 'true' });
-
-			// WAI-ARIA for options into content
-			$content.children('a').attr('role', 'menuitem');
-
-			// Position
-			// that.position = ch.Positioner({
-			// 	'element': $content,
-			// 	'context': that.$trigger,
-			// 	'points': that.options.points,
-			// 	'offset': '0 -1',
-			// 	'reposition': that.options.reposition
-			// });
-
-
-
-			return $content;
-		}());
-
-
-		/**
-		 * Dropdown options.
-		 * @protected
-		 * @type {Selector}
-		 */
-		that.$options = this.$content.find('a');
-
-		/**
-		 * Keyboard events object.
-		 * @protected
-		 * @Object
-		 * @name ch.Dropdown#shortcuts
-		 */
-		this.shortcuts = {};
-
-		/**
-		 * Turns on keyboard shortcuts
-		 * @protected
-		 * @Object
-		 * @memberOf ch.dropdown#shortcuts
-		 * @name on
-		 */
-		this.shortcuts.on = (function () {
-			var selected,
-				map = {},
-				arrow,
-				optionsLength = that.$options.length,
-				selectOption = function (key) {
-
-					// Sets the arrow that user press
-					arrow = key.type;
-
-					// Sets limits behaivor
-					if (selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
-
-					// Unselects current option
-					that.$options[selected].blur();
-
-					if (arrow === 'down_arrow') { selected += 1; } else { selected -= 1; }
-
-					// Selects new current option
-					that.$options[selected].focus();
-				};
-
-			return function () {
-				// Keyboard support initialize
-				selected = 0;
-
-				// Item selected by mouseover
-				$.each(that.$options, function (i, e) {
-					$(e).on('mouseenter.dropdown', function () {
-						that.$options[selected = i].focus();
-					});
-				});
-
-				// Creates keyboard shortcuts map and binding events
-				map['click.dropdown ' + ch.events.key.ESC + '.dropdown'] = function () {
-					that.hide();
-				};
-
-				map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
-
-					// Validations
-					if (!that.active) { return; }
-
-					// Prevent default behaivor
-					ch.util.prevent(event);
-					selectOption(key);
-				}
-
-				$document.on(map);
-			}
-		}());
-
-		/**
-		 * Turns off keyboard shortcuts
-		 * @protected
-		 * @Object
-		 * @memberOf ch.dropdown#shortcuts
-		 * @name off
-		 */
-		this.shortcuts.off = function () {
-			$document.off('.dropdown');
-		};
-
-		/**
-		 *  Default behaivor
-		 */
-		that.configBehavior();
-		that.$el.addClass('ch-' + that['name']);
-		ch.util.avoidTextSelection(this.$trigger);
-
-		/**
 		 * Triggers when the component is ready to use (Since 0.8.0).
-		 * @name ch.Dropdown#ready
-		 * @event
-		 * @public
+		 * @fires ch.Dropdown#ready
 		 * @since 0.8.0
-		 * @exampleDescription Following the first example, using <code>widget</code> as dropdown's instance controller:
+		 * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
 		 * @example
 		 * widget.on('ready',function () {
 		 *	this.show();
 		 * });
 		 */
-		window.setTimeout(function(){ that.trigger('ready')}, 50);
+		window.setTimeout(function () { that.emit('ready'); }, 50);
 
-		return this;
 	}
 
 	/**
-	 *	Inheritance
+	 * Inheritance
 	 */
-	ch.util.inherits(Dropdown, ch.Navs);
+	ch.util.inherits(Dropdown, ch.Widget);
 
 	Dropdown.prototype.name = 'dropdown';
 
@@ -244,64 +78,274 @@
 		'icon': true,
 		'open': false,
 		'fx': false,
-		'reposition': true,
-		'points': 'lt lb'
+		'side': 'bottom',
+		'aligned': 'left',
+		'offset': '-1 0',
+		'closable': true
+	};
+
+	Dropdown.prototype.init = function ($el, options) {
+		this.uber.init.call(this, $el, options);
+
+		this.require('Collapsible', 'Closable');
+
+		/**
+		 * Private Members
+		 */
+
+		/**
+		 * Reference to a internal component instance, saves all the information and configuration properties.
+		 * @private
+		 * @type {Object}
+		 */
+		var that = this,
+
+			/**
+			 * Map that contains the ARIA attributes for the trigger element
+			 * @private
+			 * @type {Object}
+			 */
+			triggerAttr = {
+				'aria-expanded': that.options.open,
+				'aria-controls': 'ch-dropdown-' + that.uid
+			},
+
+			/**
+			 * Map that contains the ARIA attributes for the container element
+			 * @private
+			 * @type {Object}
+			 */
+			containerAttr = {
+				'role': 'menu',
+				'id': triggerAttr['aria-controls'],
+				'aria-hidden': !triggerAttr['aria-expanded']
+			};
+
+		/**
+		 * Protected Members
+		 */
+
+		 /**
+		  * Status of component
+		  * @protected
+		  * @type {Boolean}
+		  * @ignore
+		  */
+		 that.active = this.options.open;
+
+		 /**
+		 * The component's trigger.
+		 * @protected
+		 * @type {Selector}
+		 * @ignore
+		 */
+		that.$trigger = that.$el.children(':first-child');
+
+		/**
+		 * The component's container.
+		 * @protected
+		 * @type {Selector}
+		 * @ignore
+		 */
+		that.$container = that.$el.children(':last-child');
+
+		/**
+		 * Dropdown options.
+		 * @protected
+		 * @type {Selector}
+		 */
+		that.$options = this.$container.find('a');
+
+		/**
+		 * Default behavior
+		 */
+
+		that.$el.addClass('ch-dropdown');
+
+		if (!that.$el.hasClass('ch-dropdown-skin')) {
+			that.$trigger.addClass('ch-btn-skin ch-btn-small');
+		}
+
+		that.$trigger
+			.attr(triggerAttr)
+			.addClass('ch-dropdown-trigger')
+			.on('click.dropdown', function (event) {
+				ch.util.prevent(event);
+				that.show();
+			});
+
+		that.$container
+			.attr(containerAttr)
+			.addClass('ch-dropdown-container ch-hide')
+			.on('click.dropdown', function (event) {
+				if ((event.target || event.srcElement).tagName === 'A') {
+					that.hide();
+				}
+			});
+
+		that.$options.attr('role', 'menuitem');
+
+
+		// Icon configuration
+		if (this.options.icon) {
+			if ($html.hasClass('lt-ie8')) {
+				$('<span class="ch-dropdown-ico">Drop</span>').appendTo(this.$trigger);
+
+			} else {
+				this.$trigger.addClass('ch-dropdown-ico');
+			}
+		}
+
+		that.closable();
+
+		ch.util.avoidTextSelection(this.$trigger);
 	};
 
 	Dropdown.prototype.show = function () {
 		var that = this;
 
-		// Z-index of content and updates aria values
-		this.$content.css('z-index', ch.util.zIndex += 1).attr('aria-hidden', 'false');
+		if (that.active) {
+			return that.hide();
+		}
 
-		// Z-index of trigger over content (secondary / skin dropdown)
-		if (this.$el.hasClass('ch-dropdown-skin')) { this.$trigger.css('z-index', ch.util.zIndex += 1); }
-
-		// TODO: this implementation will be re done
-		if (!this.position) {
-			this.position = new ch.Positioner({
-				'target': that.$content,
+		// TODO: Move this code outside show method
+		if (that.position === undefined) {
+			// TODO: this implementation will be re done
+			that.position = new ch.Positioner({
+				'target': that.$container,
 				'reference': that.$trigger,
-				'side': 'bottom',
-				'aligned': 'left',
-				'offset': '-1 0'
+				'side': that.options.side,
+				'aligned': that.options.aligned,
+				'offset': that.options.offset
 			});
 		}
 
+		that.collapsible.show();
 
-		// Inheritance innerShow
-		this.uber.show.call(this);
+		// Z-index of content and updates aria values
+		that.$container.css('z-index', ch.util.zIndex += 1);
 
-		// Refresh position
-		//this.position('refresh');
-
-
-		//this.position.update({'side': 'bottom', 'aligned': 'left'});
+		// Z-index of trigger over content (secondary / skin dropdown)
+		if (that.$el.hasClass('ch-dropdown-skin')) {
+			that.$trigger.css('z-index', ch.util.zIndex += 1);
+		}
 
 		// Reset all dropdowns except itself
-		$.each(ch.instances.dropdown, function (i, e) {
-			if (e.uid !== that.uid) { e.hide(); }
+		$.each(ch.instances.dropdown, function (i, widget) {
+			if (widget.uid !== that.uid) {
+				widget.hide();
+			}
 		});
 
-		this.$options[0].focus();
+		that.$options[0].focus();
 
 		// Turn on keyboards shortcuts
-		this.shortcuts.on();
-
-		return this;
+		that.shortcutsOn();
 	};
 
 	Dropdown.prototype.hide = function () {
-		// Call to uber method
-		this.uber.hide.call(this);
+		var that = this;
 
-		// Updates aria values
-		this.$content.attr('aria-hidden', 'true');
+		if (!that.active) {
+			return that;
+		}
+
+		that.collapsible.hide();
 
 		// Turn off keyboards shortcuts
-		this.shortcuts.off();
+		that.shortcutsOff();
+	};
 
-		return this;
+	/**
+	 * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+	 * @name isActive
+	 * @methodOf ch.Dropdown#isActive
+	 * @returns {boolean}
+	 * @exampleDescription
+	 * @example
+	 * if (widget.isActive()) {
+	 *     fn();
+	 * }
+	 */
+	Dropdown.prototype.isActive = function () {
+		return this.active;
+	};
+
+	/**
+	 * Turns on keyboard shortcuts
+	 * @protected
+	 * @Object
+	 * @memberOf ch.dropdown#shortcuts
+	 * @name on
+	 */
+	Dropdown.prototype.shortcutsOn = (function () {
+		var selected,
+			map = {},
+			arrow,
+			optionsLength,
+			selectOption = function (key) {
+				var that = this;
+
+				// Sets the arrow that user press
+				arrow = key.type;
+
+				// Sets limits behaivor
+				if (selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
+
+				// Unselects current option
+				that.$options[selected].blur();
+
+				if (arrow === 'down_arrow') { selected += 1; } else { selected -= 1; }
+
+				// Selects new current option
+				that.$options[selected].focus();
+			};
+
+		return function () {
+			var that = this;
+
+			// Keyboard support initialize
+			selected = 0;
+
+			optionsLength = that.$options.length;
+
+			// Item selected by mouseover
+			$.each(that.$options, function (i, e) {
+				$(e).on('mouseenter.dropdown', function () {
+					that.$options[selected = i].focus();
+				});
+			});
+
+			// Creates keyboard shortcuts map and binding events
+			map['click.dropdown ' + ch.events.key.ESC + '.dropdown'] = function () {
+				that.hide();
+			};
+
+			map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
+
+				// Validations
+				if (!that.active) { return; }
+
+				// Prevent default behaivor
+				ch.util.prevent(event);
+				selectOption.call(that, key);
+			}
+
+			$document.on(map);
+
+			return that;
+		}
+	}());
+
+	/**
+	 * Turns off keyboard shortcuts
+	 * @protected
+	 * @Object
+	 * @memberOf ch.dropdown#shortcuts
+	 * @name off
+	 */
+	Dropdown.prototype.shortcutsOff = function () {
+		$document.off('.dropdown');
 	};
 
 	ch.factory(Dropdown);

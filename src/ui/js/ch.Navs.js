@@ -59,13 +59,13 @@
 		if (this.options.fx) {
 			this.$content.slideDown('fast', function () {
 				// new callbacks
-				that.trigger('show');
+				that.emit('show');
 				// old callback system
 				that.callbacks('onShow');
 			});
 		} else {
 			// new callbacks
-			this.trigger('show');
+			this.emit('show');
 			// old callback system
 			this.callbacks('onShow');
 		}
@@ -103,11 +103,11 @@
 			this.$content.slideUp('fast', function () {
 				that.callbacks('onHide');
 				// new callbacks
-				that.trigger('hide');
+				that.emit('hide');
 			});
 		} else {
 			// new callbacks
-			this.trigger('hide');
+			this.emit('hide');
 			// old callback system
 			this.callbacks('onHide');
 		}
