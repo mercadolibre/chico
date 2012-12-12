@@ -856,10 +856,18 @@
 
 	/**
 	 * Animates the Carousel automatically. (Since 0.10.6)
-	 * @protected
 	 * @since 0.10.6
 	 * @function
 	 * @param {Number} t Delay of transition between pages, expressed in milliseconds.
+	 * @public
+	 * @name ch.Carousel#play
+	 * @returns Chico UI Object
+	 * @exampleDescription Start automatic animation.
+	 * @example
+	 * foo.play();
+	 * @exampleDescription Start automatic animation with a 5 seconds delay between pages.
+	 * @example
+	 * foo.play(5000);
 	 */
 	Carousel.prototype.play = (function () {
 
@@ -885,9 +893,14 @@
 
 	/**
 	 * Pause the Carousel automatic playing. (Since 0.10.6)
-	 * @protected
 	 * @since 0.10.6
 	 * @function
+	 * @public
+	 * @name ch.Carousel#pause
+	 * @returns Chico UI Object
+	 * @exampleDescription Pause automatic animation.
+	 * @example
+	 * foo.pause();
 	 */
 	Carousel.prototype.pause = function () {
 		window.clearInterval(this.timer);
@@ -961,103 +974,6 @@
 	Carousel.prototype.page = Carousel.prototype.select = function (page) {
 		return this.goToPage(page) || this;
 	};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* *************************************************************** */
-
-	// /**
-	//  *  Public Members
-	//  */
-	// 	/**
-	// 	 * @borrows ch.Widget#uid as ch.Carousel#uid
-	// 	 * @borrows ch.Widget#element as ch.Carousel#element
-	// 	 * @borrows ch.Widget#type as ch.Carousel#type
-	// 	 */
-
-
-
-
-
-
-
-
-
-
-	//
-	// 	that["public"].redraw = function () {
-	// 		draw();
-	// 		return that["public"];
-	// 	};
-
-	// 	/**
-	// 	 * Animates the Carousel automatically.
-	// 	 * @public
-	// 	 * @function
-	// 	 * @name ch.Carousel#play
-	// 	 * @param {Number} t Delay of transition between pages, expressed in milliseconds.
-	// 	 * @returns Chico UI Object
-	// 	 * @exampleDescription Start automatic animation.
-	// 	 * @example
-	// 	 * foo.play();
-	// 	 * @exampleDescription Start automatic animation with a 5 seconds delay between pages.
-	// 	 * @example
-	// 	 * foo.play(5000);
-	// 	 */
-	// 	that["public"].play = function (t) {
-	// 		that.play(t);
-	// 		return that["public"];
-	// 	};
-
-	// 	/**
-	// 	 * Pause the Carousel automatic playing.
-	// 	 * @public
-	// 	 * @function
-	// 	 * @name ch.Carousel#pause
-	// 	 * @returns Chico UI Object
-	// 	 * @exampleDescription Pause automatic animation.
-	// 	 * @example
-	// 	 * foo.pause();
-	// 	 */
-	// 	that["public"].pause = function () {
-	// 		that.pause();
-	// 		return that["public"];
-	// 	};
-
-	// 	/**
-	// 	 * Get the items amount of each page (Since 0.7.4).
-	// 	 * @public
-	// 	 * @since 0.7.4
-	// 	 * @name ch.Carousel#itemsPerPage
-	// 	 * @returns Number
-	// 	 */
-	// 	that["public"].itemsPerPage = function () {
-	// 		return itemsPerPage;
-	// 	};
-
-	// /**
-	//  *  Default event delegation
-	//  */
-	// 	// Get ready the component structure.
-	// 	createLayout();
-
-	// 	// Put Carousel on specified page or at the beginning
-	// 	this.goToPage(that.options.page || 1);
-
-	// 	return that['public'];
-	// }
 
 	ch.factory(Carousel);
 
