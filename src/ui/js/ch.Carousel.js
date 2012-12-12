@@ -88,7 +88,6 @@
 
 		this.uber.init.call(this, $el, options);
 
-		this.element = this.el;
 		var that = this;
 
 		/**

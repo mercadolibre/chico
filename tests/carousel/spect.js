@@ -6,8 +6,8 @@ describe('Carousel', function () {
 			'arrows': false,
 			'pagination': true
 		}),
-		$el1 = $(carousel1.element),
-		$el2 = $(carousel2.element);
+		$el1 = $(carousel1.el),
+		$el2 = $(carousel2.el);
 
 
 	it('Should be defined', function () {
@@ -18,9 +18,9 @@ describe('Carousel', function () {
 
 	describe('Should have the following public properties:', function () {
 
-		it('.element', function () {
-			expect(carousel1.element).not.toEqual(undefined);
-			expect(carousel1.element.nodeType).toEqual(1);
+		it('.el', function () {
+			expect(carousel1.el).not.toEqual(undefined);
+			expect(carousel1.el.nodeType).toEqual(1);
 		});
 
 		it('.name', function () {
