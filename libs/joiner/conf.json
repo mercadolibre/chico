@@ -48,11 +48,12 @@
 				"../../src/ui/js/ch.init.js"
 			],
 			"abilities": [
+				"../../src/ui/js/ch.EventEmitter.js",
 				"../../src/shared/js/ch.Content.js",
 				"../../src/shared/js/ch.Closable.js",
 				"../../src/shared/js/ch.Collapsible.js",
 				"../../src/shared/js/ch.Positioner.js",
-				"../../src/ui/js/ch.EventEmitter.js"
+				"../../src/shared/js/ch.Viewport.js"
 			],
 			"widgets": [
 				"../../src/shared/js/ch.Widget.js",
