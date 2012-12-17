@@ -33,7 +33,7 @@
 		scrolled = false;
 
 		// Emits the current event
-		this.emitter.emit(eve);
+		this.emit(eve);
 	}
 
 	/**
@@ -45,6 +45,8 @@
 		this.init();
 	}
 
+	Viewport.prototype.constructor = Viewport;
+
 	Viewport.prototype.init = function () {
 		var that = this;
 
@@ -54,7 +56,7 @@
 		 * @name ch.Viewport#element
 		 * @type Object
 		 */
-		that.$element = $window;
+		that.$el = $window;
 
 		that.refresh();
 
@@ -70,7 +72,7 @@
 		 * @name ch.Viewport#height
 		 * @type Number
 		 */
-		this.height = this.$element.height();
+		this.height = this.$el.height();
 
 		/**
 		 * Width of the visible area.
@@ -78,7 +80,7 @@
 		 * @name ch.Viewport#width
 		 * @type Number
 		 */
-		this.width = this.$element.width();
+		this.width = this.$el.width();
 	};
 
 	Viewport.prototype.calculateOffset = function () {
@@ -89,7 +91,7 @@
 		 * @name ch.Viewport#top
 		 * @type Number
 		 */
-		this.top = this.$element.scrollTop();
+		this.top = this.$el.scrollTop();
 
 		/**
 		 * Left offset of the visible area.
@@ -97,7 +99,7 @@
 		 * @name ch.Viewport#left
 		 * @type Number
 		 */
-		this.left = this.$element.scrollLeft();
+		this.left = this.$el.scrollLeft();
 
 		/**
 		 * Right offset of the visible area.
@@ -117,7 +119,7 @@
 	};
 
 	Viewport.prototype.calculateOrientation = function () {
-		this.orientation = (Math.abs(this.$element.orientation) === 90) ? 'landscape' : 'portrait';
+		this.orientation = (Math.abs(this.$el.orientation) === 90) ? 'landscape' : 'portrait';
 	};
 
 	Viewport.prototype.inViewport = function (el) {

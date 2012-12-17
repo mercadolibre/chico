@@ -28,8 +28,8 @@
 	line-height: 1.2em;
 }
 
-/* Content */
-.ch-dropdown-content {
+/* Container */
+.ch-dropdown-container {
 	background-color: #FFFFFF;
 	min-width: 120px;
 	overflow: auto;
@@ -41,7 +41,7 @@
 	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 }
 
-.ch-dropdown-content-hide {
+.ch-dropdown-container-hide {
 	display: none;
 }
 
@@ -60,9 +60,10 @@
 	-webkit-box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
 	box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
 	border-color: #79A8C7;
+	border-radius: 3px 3px 0 0;
 }
 
-.ch-dropdown-trigger-on.ch-points-ltlb,
+/*.ch-dropdown-trigger-on.ch-points-ltlb,
 .ch-dropdown-trigger-on.ch-points-rtrb {
 	border-radius: 3px 3px 0 0;
 }
@@ -70,27 +71,27 @@
 .ch-dropdown-trigger-on.ch-points-lblt,
 .ch-dropdown-trigger-on.ch-points-rbrt {
 	border-radius: 0 0 3px 3px;
-}
+}*/
 
-/* Content */
-.ch-dropdown-content {
+/* Container */
+.ch-dropdown-container {
 	border: 1px solid #C8C8C8;
 	border-radius: 0 5px 5px 5px;
 }
 
 /* List of links */
-.ch-dropdown-content li a {
+.ch-dropdown-container li a {
 	color: #000;
 	display: block;
 	height: 25px;
-	line-height: 1.786em; /* 25px */
+	line-height: 25px;
 	margin: 5px 0;
 	padding: 2px 35px 2px 10px;
 	text-decoration: none;
 }
 
 /* Interaction of list */
-.ch-dropdown-content li a:focus {
+.ch-dropdown-container li a:focus {
 	background-color: #fefbd6;
 	outline: none;
 }
@@ -143,8 +144,8 @@
 	text-decoration: underline;
 }
 
-/* Content */
-.ch-dropdown-skin .ch-dropdown-content {
+/* Container */
+.ch-dropdown-skin .ch-dropdown-container {
 	border: 1px solid #EDEDED;
 	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
 	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
@@ -152,21 +153,21 @@
 }
 
 /* List of links */
-.ch-dropdown-skin .ch-dropdown-content li {
+.ch-dropdown-skin .ch-dropdown-container li {
 	list-style: none;
 	margin: 5px 0;
 }
 
-.ch-dropdown-skin .ch-dropdown-content a {
+.ch-dropdown-skin .ch-dropdown-container a {
 	background: none;
 	color: #0637B3;
 	display: inline;
-	line-height: 1.429em; /* 20px */
+	line-height: 20px;
 	padding: 0;
 }
 
 /* Interaction of list */
-.ch-dropdown-skin .ch-dropdown-content a:focus {
+.ch-dropdown-skin .ch-dropdown-container a:focus {
 	background: none;
 	text-decoration: underline;
 }

@@ -16,7 +16,7 @@
 			}
 
 			// Closable On
-			if (that.options.closable || ch.util.hasOwn(that.options, 'event') && that.options.event === 'click') {
+			if (that.options.closable && ch.util.hasOwn(that.options, 'event') && that.options.event === 'click') {
 				// Append close buttons
 				// It will close with close button
 				that.$container
@@ -37,7 +37,7 @@
 
 			// Default Closable behavior
 			// It will close with click on document, too
-			that.emitter.on('show.' + that.name, function () {
+			that.on('show.' + that.name, function () {
 				$document.one('click.' + that.name + ' ' + ch.events.key.ESC + '.' + that.name, function () {
 					that.hide();
 				});

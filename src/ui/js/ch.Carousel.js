@@ -65,7 +65,7 @@
 		var that = this;
 
 		// Shoot the ready event
-		setTimeout(function () { that.emitter.emit('ready'); }, 50);
+		setTimeout(function () { that.emit('ready'); }, 50);
 	}
 
 	/**
@@ -312,7 +312,7 @@
 		 *	alert("Some asynchronous items was added.");
 		 * });
 		 */
-		that.emitter.emit('itemsAdded');
+		that.emit('itemsAdded');
 	};
 
 	/**
@@ -504,7 +504,7 @@
 		 *	alert("Carousel was redrawn!");
 		 * });
 		 */
-		that.emitter.emit('draw');
+		that.emit('draw');
 		// Update the width of the mask
 		that.maskWidth = that.$mask.outerWidth();
 		/**
@@ -811,7 +811,7 @@
 		 *	alert("An item was selected!");
 		 * });
 		 */
-		this.emitter.emit('select');
+		this.emit('select');
 	};
 
 	/**
@@ -827,7 +827,7 @@
 	 */
 	Carousel.prototype.prev = function () {
 		this.goToPage(this.currentPage - 1);
-		this.emitter.emit('prev');
+		this.emit('prev');
 	};
 
 	/**
@@ -843,7 +843,7 @@
 	 */
 	Carousel.prototype.next = function () {
 		this.goToPage(this.currentPage + 1);
-		this.emitter.emit('next');
+		this.emit('next');
 	};
 
 	/**

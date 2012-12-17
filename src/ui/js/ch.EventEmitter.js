@@ -14,8 +14,6 @@
 	function EventEmitter() {
 		var that = this;
 
-		that.emitter = {};
-
 		/**
 		 * Triggers a specific event within the component public context.
 		 * @name trigger
@@ -27,7 +25,7 @@
 		 * @example
 		 * widget.trigger('someEvent', data);
 		 */
-		that.emitter.emit = function (event, data) {
+		that.emit = function (event, data) {
 			$(that).trigger('ch-' + event, data);
 
 			return that;
@@ -46,7 +44,7 @@
 		 * @example
 		 * widget.on('ready', startDoingStuff);
 		 */
-		that.emitter.on = function (event, handler) {
+		that.on = function (event, handler) {
 
 			if (event !== undefined && handler !== undefined) {
 				$(that).on('ch-' + event, handler);
@@ -67,7 +65,7 @@
 		 * @example
 		 * widget.once('contentLoad', startDoingStuff);
 		 */
-		that.emitter.once = function (event, handler) {
+		that.once = function (event, handler) {
 
 			if (event !== undefined && handler !== undefined) {
 				$(that).one('ch-' + event, handler);
@@ -92,7 +90,7 @@
 		 *
 		 * widget.off('ready', startDoingStuff);
 		 */
-		that.emitter.off = function (event, handler) {
+		that.off = function (event, handler) {
 			if (event !== undefined && handler !== undefined) {
 				$(that).off('ch-' + event, handler);
 			} else if (event !== undefined) {

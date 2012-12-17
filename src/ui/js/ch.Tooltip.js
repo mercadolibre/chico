@@ -50,7 +50,7 @@
 		 */
 		var that = this;
 
-		window.setTimeout(function () { that.emitter.emit('ready'); }, 50);
+		window.setTimeout(function () { that.emit('ready'); }, 50);
 	}
 
 	/**
@@ -97,7 +97,7 @@
 
 			that.$content.html(data);
 
-			that.emitter.emit('contentLoad');
+			that.emit('contentLoad');
 
 			//that.position('refresh');
 		};
@@ -113,7 +113,7 @@
 
 			that.$content.html(data);
 
-			that.emitter.emit('contentError');
+			that.emit('contentError');
 
 			//that.position('refresh');
 		};
@@ -226,7 +226,7 @@
 			 * });
 			 * @see ch.Floats#show
 			 */
-			that.emitter.emit('show');
+			that.emit('show');
 		}
 
 		if (this.options.fx) {
@@ -270,7 +270,7 @@
 			 * otherComponent.show();
 			 * });
 			 */
-			that.emitter.emit('hide');
+			that.emit('hide');
 		}
 
 		if (this.options.fx) {
