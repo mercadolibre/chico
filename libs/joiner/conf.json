@@ -55,7 +55,8 @@
 			],
 			"widgets": [
 				"../../src/shared/js/ch.Widget.js",
-				"../../src/ui/js/ch.Carousel.js"
+				"../../src/ui/js/ch.Carousel.js",
+				"../../src/ui/js/ch.Tooltip.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},
