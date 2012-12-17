@@ -145,7 +145,7 @@
 			.attr(triggerAttr)
 			.addClass('ch-expandable-trigger')
 			.on('click.expandable', function (event) {
-				ch.util.prevent(event);
+				event.preventDefault();
 				that.show();
 			})
 			.children()
