@@ -61,7 +61,6 @@
 	var $window = $(window),
 		$html = $('html');
 
-
 	function Positioner(options) {
 		if (options === undefined) {
 			throw new window.Error('ch.Positioner: Expected options defined.');
@@ -99,15 +98,11 @@
 
 		that.position = options.position;
 
-
-
 		if (that.reference !== ch.viewport) {
 			that.position = 'absolute';
 		}
 
 		that.$target.css('position', that.position);
-
-		that.refresh();
 
 		return this;
 
@@ -142,7 +137,10 @@
 		}
 
 		var that = this,
-			$target = that.$target;
+			$target = that.$target.attr({
+				'data-side': that.side,
+				'data-aligned': that.aligned
+			});
 
 		that.target = {
 			'$el': $target,

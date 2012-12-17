@@ -80,7 +80,7 @@
 		'fx': false,
 		'side': 'bottom',
 		'aligned': 'left',
-		'offset': '-1 0',
+		'offsetY': '-1',
 		'closable': true
 	};
 
@@ -216,9 +216,12 @@
 				'reference': that.$trigger,
 				'side': that.options.side,
 				'aligned': that.options.aligned,
-				'offset': that.options.offset
+				'offsetY': that.options.offsetY,
+				'offsetX': that.options.offsetX
 			});
 		}
+
+		that.position.refresh();
 
 		that.collapsible.show();
 
@@ -317,10 +320,6 @@
 			});
 
 			// Creates keyboard shortcuts map and binding events
-			map['click.dropdown ' + ch.events.key.ESC + '.dropdown'] = function () {
-				that.hide();
-			};
-
 			map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
 
 				// Validations
