@@ -72,7 +72,10 @@
 
 	Expandable.prototype.init = function ($el, options) {
 		parent.init.call(this, $el, options);
+<<<<<<< HEAD
 
+=======
+>>>>>>> chicollinares/v1.0
 		this.require('Collapsible', 'Content');
 
 		/**

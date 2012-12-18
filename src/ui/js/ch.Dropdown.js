@@ -35,7 +35,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-
 	function Dropdown($el, options) {
 
 		this.init($el, options);
