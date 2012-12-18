@@ -5,8 +5,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var $html = $('html');
-
 	/**
 	 * Expandable lets you show or hide the container. Expandable needs a pair: the title and the container related to that title.
 	 * @constructor
@@ -50,10 +48,11 @@
 		window.setTimeout(function () { that.emit('ready'); }, 50);
 	}
 
-	/**
-	 * Inheritance
-	 */
-	ch.util.inherits(Expandable, ch.Widget);
+	var $html = $('html'),
+		/**
+		 * Inheritance
+		 */
+		parent = ch.util.inherits(Expandable, ch.Widget);
 
 	Expandable.prototype.name = 'expandable';
 
@@ -66,7 +65,7 @@
 	};
 
 	Expandable.prototype.init = function ($el, options) {
-		this.uber.init.call(this, $el, options);
+		parent.init.call(this, $el, options);
 		this.require('Collapsible', 'Content');
 
 		/**

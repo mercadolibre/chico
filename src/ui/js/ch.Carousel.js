@@ -5,12 +5,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var Math = window.Math,
-		setTimeout = window.setTimeout,
-		setInterval = window.setInterval,
-		$html = $('html'),
-		$window = $(window);
-
 	/**
 	 * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
 	 * @name Carousel
@@ -69,9 +63,17 @@
 	}
 
 	/**
-	 *	Inheritance
+	 * Private members
 	 */
-	ch.util.inherits(Carousel, ch.Widget);
+	var Math = window.Math,
+		setTimeout = window.setTimeout,
+		setInterval = window.setInterval,
+		$html = $('html'),
+		$window = $(window),
+		/**
+		 *	Inheritance
+		 */
+		parent = ch.util.inherits(Carousel, ch.Widget);
 
 	Carousel.prototype.name = 'carousel';
 
@@ -86,7 +88,7 @@
 
 	Carousel.prototype.init = function ($el, options) {
 
-		this.uber.init.call(this, $el, options);
+		parent.init.call(this, $el, options);
 
 		var that = this;
 

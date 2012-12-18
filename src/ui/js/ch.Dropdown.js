@@ -36,9 +36,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var $document = $(window.document),
-		$html = $('html');
-
 	function Dropdown($el, options) {
 
 		this.init($el, options);
@@ -65,10 +62,12 @@
 
 	}
 
-	/**
-	 * Inheritance
-	 */
-	ch.util.inherits(Dropdown, ch.Widget);
+	var $document = $(window.document),
+		$html = $('html'),
+		/**
+		 * Inheritance
+		 */
+		parent = ch.util.inherits(Dropdown, ch.Widget);
 
 	Dropdown.prototype.name = 'dropdown';
 
@@ -85,7 +84,7 @@
 	};
 
 	Dropdown.prototype.init = function ($el, options) {
-		this.uber.init.call(this, $el, options);
+		parent.init.call(this, $el, options);
 
 		this.require('Collapsible', 'Closable');
 

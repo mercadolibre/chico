@@ -5,8 +5,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var $body = $('body');
-
 	/**
 	 * Tooltip improves the native tooltips. Tooltip uses the 'alt' and 'title' attributes to grab its content.
 	 * @name Tooltip
@@ -54,10 +52,17 @@
 	}
 
 	/**
-	 *	Inheritance
+	 * Private members
 	 */
-	ch.util.inherits(Tooltip, ch.Widget);
+	var $body = $('body'),
+		/**
+		 *	Inheritance
+		 */
+		parent = ch.util.inherits(Tooltip, ch.Widget);
 
+	/**
+	 * Public members
+	 */
 	Tooltip.prototype.name = 'tooltip';
 
 	Tooltip.prototype.constructor = Tooltip;
@@ -66,19 +71,23 @@
 		'fx': true,
 		'classes': 'ch-box-lite',
 		'width': 'auto',
-		'height': 'auto'
+		'height': 'auto',
+		'side': 'bottom',
+		'aligned': 'left',
+		'offsetY': 10,
+		'offsetX': 0
 	};
 
 	Tooltip.prototype.init = function ($el, options) {
 
-		this.uber.init.call(this, $el, options);
+		parent.init.call(this, $el, options);
 
 		this.require('Content');
 
 		/**
 		 * Content configuration property.
 		 * @protected
-		 * @name ch.Modal#source
+		 * @name ch.Tooltip#source
 		 */
 		this.content.configure({
 			'input': this.options.content || this.el.title || this.el.alt
@@ -172,6 +181,15 @@
 		 * @see ch.Content
 		 */
 		this.$content = $('<div class="ch-tooltip-content">').appendTo(this.$container);
+
+		this.position = new ch.Positioner({
+			'target': this.$container,
+			'reference': this.$el,
+			'side': this.options.side,
+			'aligned': this.options.aligned,
+			'offsetY': this.options.offsetY,
+			'offsetX': this.options.offsetX
+		});
 	};
 
 	Tooltip.prototype.active = false;
@@ -207,6 +225,8 @@
 
 		// Request the content
 		this.content.set();
+
+		this.position.refresh();
 
 		function afterShow() {
 

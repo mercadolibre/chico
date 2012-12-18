@@ -296,7 +296,8 @@
 
 		var child = obj.prototype || {};
 		obj.prototype = $.extend(child, superConstructor.prototype);
-		obj.prototype.uber = superConstructor.prototype;
+
+		return superConstructor.prototype;
 
 		/*var fn = function () {};
 		fn.prototype = superConstructor.prototype;
