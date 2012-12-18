@@ -8,7 +8,8 @@
 	var $document = $(document);
 
 	function Closable() {
-		var that = this;
+		var that = this,
+			events = 'click.' + that.name + ' ' + ch.events.key.ESC + '.' + that.name;
 
 		that.closable = function () {
 			if (!that.options.closable) {
@@ -24,7 +25,6 @@
 					.on('click.' + that.name, function (event) {
 						if ($(event.target || event.srcElement).hasClass('ch-close')) {
 							ch.util.prevent(event);
-
 							that.hide();
 						}
 					});
@@ -38,9 +38,11 @@
 			// Default Closable behavior
 			// It will close with click on document, too
 			that.on('show.' + that.name, function () {
-				$document.one('click.' + that.name + ' ' + ch.events.key.ESC + '.' + that.name, function () {
-					that.hide();
-				});
+				$document
+					.off(events)
+					.one(events, function () {
+						that.hide();
+					});
 			});
 
 			// Stop event propatation, if click container.
@@ -52,4 +54,4 @@
 
 	ch.Closable = Closable;
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

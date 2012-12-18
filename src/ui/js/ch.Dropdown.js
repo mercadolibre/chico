@@ -11,7 +11,6 @@
  * @memberOf ch
  * @param {Object} [options] Object with configuration properties.
  * @param {Boolean} [options.open] Shows the dropdown open when component was loaded. By default, the value is false.
- * @param {Boolean} [options.icon] Shows an arrow as icon. By default, the value is true.
  * @param {Boolean} [options.reposition]
  * @param {String} [options.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
  * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
@@ -36,8 +35,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var $document = $(window.document),
-		$html = $('html');
 
 	function Dropdown($el, options) {
 
@@ -66,16 +63,24 @@
 	}
 
 	/**
-	 * Inheritance
+	 * Private
 	 */
-	ch.util.inherits(Dropdown, ch.Widget);
+	var $document = $(window.document),
+		$html = $('html'),
 
+		/**
+		 * Inheritance
+		 */
+		parent = ch.util.inherits(Dropdown, ch.Widget);
+
+	/**
+	 * Prototype
+	 */
 	Dropdown.prototype.name = 'dropdown';
 
 	Dropdown.prototype.constructor = Dropdown;
 
 	Dropdown.prototype.defaults = {
-		'icon': true,
 		'open': false,
 		'fx': false,
 		'side': 'bottom',
@@ -85,7 +90,7 @@
 	};
 
 	Dropdown.prototype.init = function ($el, options) {
-		this.uber.init.call(this, $el, options);
+		parent.init.call(this, $el, options);
 
 		this.require('Collapsible', 'Closable');
 
@@ -185,15 +190,12 @@
 
 		that.$options.attr('role', 'menuitem');
 
-
 		// Icon configuration
-		if (this.options.icon) {
-			if ($html.hasClass('lt-ie8')) {
-				$('<span class="ch-dropdown-ico">Drop</span>').appendTo(this.$trigger);
+		if ($html.hasClass('lt-ie8')) {
+			$('<span class="ch-dropdown-ico">Drop</span>').appendTo(this.$trigger);
 
-			} else {
-				this.$trigger.addClass('ch-dropdown-ico');
-			}
+		} else {
+			this.$trigger.addClass('ch-dropdown-ico');
 		}
 
 		that.closable();
@@ -242,8 +244,8 @@
 
 		that.$options[0].focus();
 
-		// Turn on keyboards shortcuts
-		that.shortcutsOn();
+		// Turn on keyboards arrows
+		that.arrowsOn();
 	};
 
 	Dropdown.prototype.hide = function () {
@@ -255,8 +257,8 @@
 
 		that.collapsible.hide();
 
-		// Turn off keyboards shortcuts
-		that.shortcutsOff();
+		// Turn off keyboards arrows
+		that.arrowsOff();
 	};
 
 	/**
@@ -275,13 +277,13 @@
 	};
 
 	/**
-	 * Turns on keyboard shortcuts
+	 * Turns on keyboard arrows
 	 * @protected
 	 * @Object
-	 * @memberOf ch.dropdown#shortcuts
+	 * @memberOf ch.dropdown#arrowsOn
 	 * @name on
 	 */
-	Dropdown.prototype.shortcutsOn = (function () {
+	Dropdown.prototype.arrowsOn = (function () {
 		var selected,
 			map = {},
 			arrow,
@@ -337,14 +339,14 @@
 	}());
 
 	/**
-	 * Turns off keyboard shortcuts
+	 * Turns off keyboard arrows
 	 * @protected
 	 * @Object
-	 * @memberOf ch.dropdown#shortcuts
+	 * @memberOf ch.dropdown#arrowsOff
 	 * @name off
 	 */
-	Dropdown.prototype.shortcutsOff = function () {
-		$document.off('.dropdown');
+	Dropdown.prototype.arrowsOff = function () {
+		$document.off(ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown');
 	};
 
 	ch.factory(Dropdown);
