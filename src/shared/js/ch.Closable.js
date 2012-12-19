@@ -1,3 +1,10 @@
+/**
+ * The Closable class gives to widgets the ability to be closed.
+ * @name Closable
+ * @class Closable
+ * @standalone
+ * @memberOf ch
+ */
 (function (window, $, ch) {
 	'use strict';
 

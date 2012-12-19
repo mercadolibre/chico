@@ -28,13 +28,20 @@
 	}
 
 	Widget.prototype.name = 'widget';
-
 	Widget.prototype.constructor = Widget;
 
+	/**
+	 * Initialize the instance and merges the user options with defaults options.
+	 * @public
+	 * @function
+	 * @name ch.Widget#init
+	 */
 	Widget.prototype.init = function ($el, options) {
 
+		// Clones defaults or creates a defaults object
 		var defaults = (this.defaults) ? util.clone(this.defaults) : {};
 
+		// Clones the defaults options or creates a new object
 		if (options === undefined) {
 			if ($el === undefined) {
 				this.options = defaults;
@@ -69,6 +76,12 @@
 
 	};
 
+	/**
+	 * Destroys the widget instance and remove data from the element.
+	 * @public
+	 * @function
+	 * @name ch.Widget#destroy
+	 */
 	Widget.prototype.destroy = function () {
 
 		this.$el.removeData(this.name);
@@ -77,6 +90,12 @@
 
 	};
 
+	/**
+	 * Executes a specific listener when an event has been emitted.
+	 * @public
+	 * @function
+	 * @name ch.Widget#callbacks
+	 */
 	Widget.prototype.callbacks = function (when, data) {
 
 		if (ch.util.hasOwn(this.options, when)) {
@@ -87,6 +106,12 @@
 
 	};
 
+	/**
+	 * Adds functionality or abilities from other classes.
+	 * @public
+	 * @function
+	 * @name ch.Widget#require
+	 */
 	Widget.prototype.require = function () {
 		var that = this;
 		$.each(arguments, function (i, arg) {

@@ -1,3 +1,10 @@
+/**
+ * The Collapsible class gives to widgets the ability to shown or hidden its container.
+ * @name Collapsible
+ * @class Collapsible
+ * @standalone
+ * @memberOf ch
+ */
 (function (window, $, ch) {
 	'use strict';
 
@@ -14,6 +21,12 @@
 		 */
 		that.collapsible = {};
 
+		/**
+		 * Shows component's container.
+		 * @public
+		 * @function
+		 * @name that.collapsible#show
+		 */
 		that.collapsible.show = function () {
 
 			that.active = true;
@@ -39,6 +52,12 @@
 			that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
 		};
 
+		/**
+		 * Hides component's container.
+		 * @public
+		 * @function
+		 * @name that.collapsible#hide
+		 */
 		that.collapsible.hide = function () {
 
 			that.active = false;
@@ -51,7 +70,6 @@
 
 			// TODO: The emit() method must be execute that.callbacks()
 			// TODO: The events must be in lowercase
-
 			// Animation
 			if (that.options.fx) {
 				that.$container.slideUp('fast', function () {
