@@ -68,21 +68,21 @@
 	Tooltip.prototype.constructor = Tooltip;
 
 	Tooltip.prototype.defaults = {
-		'fx': true,
+		'fx': false,
 		'classes': 'ch-box-lite',
 		'width': 'auto',
 		'height': 'auto',
 		'side': 'bottom',
 		'aligned': 'left',
-		'offsetY': 10,
-		'offsetX': 0
+		'offsetX': 0,
+		'offsetY': 10
 	};
 
 	Tooltip.prototype.init = function ($el, options) {
 
 		parent.init.call(this, $el, options);
 
-		this.require('Content');
+		this.require('Collapsible', 'Content');
 
 		/**
 		 * Content configuration property.
@@ -103,12 +103,12 @@
 		 * @returns {this}
 		 */
 		this.content.onmessage = function (data) {
-
+			//
 			that.$content.html(data);
-
+			//
 			that.emit('contentLoad');
-
-			//that.position('refresh');
+			//
+			that.position.refresh();
 		};
 
 		/**
@@ -119,12 +119,12 @@
 		 * @returns {this}
 		 */
 		this.content.onerror = function (data) {
-
+			//
 			that.$content.html(data);
-
+			//
 			that.emit('contentError');
-
-			//that.position('refresh');
+			//
+			that.position.refresh();
 		};
 
 		/**
@@ -202,59 +202,15 @@
 	 * @returns itself
 	 */
 	Tooltip.prototype.show = function () {
-
-		var that = this;
-
-		// Avoid showing things that are already shown
-		if (this.active) { return; }
-
-		this.active = true;
-
-		// Reset all tooltip, except me
-		$.each(ch.instances.tooltip, function (i, e) {
-			if (e !== that) {
-				e.hide();
-			}
-		});
-
 		// IE8 remembers the attribute even when is removed, so ... empty the attribute to fix the bug.
 		this.el[this.attrReference] = '';
-
-		// Add layout to DOM tree and increment zIndex
+		// Do it before content.set, because content.set triggers the position.refresh)
 		this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
-
 		// Request the content
 		this.content.set();
-
-		this.position.refresh();
-
-		function afterShow() {
-
-			that.$container.removeClass('ch-hide');
-
-			//that.position("refresh");
-
-			/**
-			 * Triggers when component is visible.
-			 * @name ch.Floats#show
-			 * @event
-			 * @public
-			 * @exampleDescription It change the content when the component was shown.
-			 * @example
-			 * widget.on("show",function () {
-			 * this.content("Some new content");
-			 * });
-			 * @see ch.Floats#show
-			 */
-			that.emit('show');
-		}
-
-		if (this.options.fx) {
-			this.$container.fadeIn('fast', afterShow);
-		} else {
-			afterShow();
-		}
-
+		//
+		this.collapsible.show();
+		//
 		return this;
 	};
 
@@ -266,40 +222,13 @@
 	 * @returns itself
 	 */
 	Tooltip.prototype.hide = function () {
-
-		var that = this;
-
-		if (!this.active) { return; }
-
-		this.active = false;
-
+		//
 		this.el[this.attrReference] = this.attrContent;
-
-		function afterHide() {
-
-			that.$container.detach();
-
-			/**
-			 * Triggers when component is not longer visible.
-			 * @name ch.Floats#hide
-			 * @event
-			 * @public
-			 * @exampleDescription When the component hides show other component.
-			 * @example
-			 * widget.on("hide",function () {
-			 * otherComponent.show();
-			 * });
-			 */
-			that.emit('hide');
-		}
-
-		if (this.options.fx) {
-			that.$container.fadeOut('fast', afterHide);
-		} else {
-			that.$container.addClass('ch-hide');
-			afterHide();
-		}
-
+		//
+		this.collapsible.hide();
+		//
+		this.$container.detach();
+		//
 		return this;
 	};
 
