@@ -82,7 +82,7 @@
 		'open': false,
 		'fx': false,
 		'side': 'bottom',
-		'aligned': 'left',
+		'align': 'left',
 		'offsetY': '-1',
 		'closable': true
 	};
@@ -215,7 +215,7 @@
 				'target': that.$container,
 				'reference': that.$trigger,
 				'side': that.options.side,
-				'aligned': that.options.aligned,
+				'align': that.options.align,
 				'offsetY': that.options.offsetY,
 				'offsetX': that.options.offsetX
 			});
