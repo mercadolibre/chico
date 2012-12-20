@@ -84,11 +84,6 @@
 
 		this.require('Collapsible', 'Content');
 
-		/**
-		 * Content configuration property.
-		 * @protected
-		 * @name ch.Tooltip#source
-		 */
 		this.content.configure({
 			'input': this.options.content || this.el.title || this.el.alt
 		});
