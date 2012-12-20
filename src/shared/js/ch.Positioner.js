@@ -79,6 +79,7 @@
 		'offsetX': 0,
 		'offsetY': 0,
 		'side': 'center',
+		'align': 'center',
 		'reference': ch.viewport,
 		'position': 'fixed'
 	};
@@ -91,7 +92,7 @@
 		that.offsetX = parseInt(options.offsetX, 10);
 		that.offsetY = parseInt(options.offsetY, 10);
 		that.side = options.side;
-		that.aligned = options.aligned;
+		that.align = options.align;
 		that.$target = options.target;
 		// Default is the viewport
 		that.$reference = that.reference = options.reference;
@@ -115,7 +116,7 @@
 			that.offsetX = parseInt(options.offsetX, 10) || that.offsetX;
 			that.offsetY = parseInt(options.offsetY, 10) || that.offsetY;
 			that.side = options.side || that.side;
-			that.aligned = options.aligned || that.aligned;
+			that.align = options.align || that.align;
 			that.$reference = options.reference || that.$reference;
 			that.$target = options.target || that.$target;
 		}
@@ -139,7 +140,7 @@
 		var that = this,
 			$target = that.$target.attr({
 				'data-side': that.side,
-				'data-aligned': that.aligned
+				'data-align': that.align
 			});
 
 		that.target = {
@@ -230,7 +231,7 @@
 
 			coors = {
 				'top': oritentationMap[that.side],
-				'left': oritentationMap[that.aligned]
+				'left': oritentationMap[that.align]
 			}
 
 		} else {
@@ -244,7 +245,7 @@
 			};
 
 			coors = {
-				'top': oritentationMap[that.aligned],
+				'top': oritentationMap[that.align],
 				'left': oritentationMap[that.side]
 			}
 		}
