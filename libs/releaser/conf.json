@@ -4,7 +4,6 @@
 		"../../src/shared/js/",
 		"../../src/ui/js/"
 	],
-
 	// Document all functions, even uncommented ones
 	"a": false,
 

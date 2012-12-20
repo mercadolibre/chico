@@ -1,5 +1,5 @@
 /**
- * Viewport is a reference to position and size of the visible area of browser.
+ * The Viewport is a component to ease viewport management. You can get the dimensions of the viewport and beyond, which can be quite helpful to perform some checks with JavaScript.
  * @name Viewport
  * @class Viewport
  * @standalone
@@ -16,8 +16,9 @@
 		resized = false,
 		scrolled = false;
 
-	$window.on('resize', function () { resized = true; });
-	$window.on('scroll', function () { scrolled = true; });
+	$window
+		.on('resize', function () { resized = true; })
+		.on('scroll', function () { scrolled = true; });
 
 	function update() {
 		// No changing, exit
@@ -33,17 +34,15 @@
 		scrolled = false;
 
 		// Emits the current event
-		this.emitter.emit(eve);
+		this.emit(eve);
 	}
 
-	/**
-	 * Viewport is a reference to position and size of the visible area of browser.
-	 *
-	 */
 	function Viewport() {
 		ch.EventEmitter.call(this);
 		this.init();
 	}
+
+	Viewport.prototype.constructor = Viewport;
 
 	Viewport.prototype.init = function () {
 		var that = this;
@@ -54,7 +53,7 @@
 		 * @name ch.Viewport#element
 		 * @type Object
 		 */
-		that.$element = $window;
+		that.$el = $window;
 
 		that.refresh();
 
@@ -63,6 +62,12 @@
 		}, 350);
 	};
 
+	/**
+	 * Calculates/updates the dimensions (width and height) of viewport (in pixels).
+	 * @public
+	 * @function
+	 * @name ch.Viewport#calculateDimensions
+	 */
 	Viewport.prototype.calculateDimensions = function () {
 		/**
 		 * Height of the visible area.
@@ -70,7 +75,7 @@
 		 * @name ch.Viewport#height
 		 * @type Number
 		 */
-		this.height = this.$element.height();
+		this.height = this.$el.height();
 
 		/**
 		 * Width of the visible area.
@@ -78,9 +83,15 @@
 		 * @name ch.Viewport#width
 		 * @type Number
 		 */
-		this.width = this.$element.width();
+		this.width = this.$el.width();
 	};
 
+	/**
+	 * Calculates/updates the viewport position.
+	 * @public
+	 * @function
+	 * @name ch.Viewport#calculateOffset
+	 */
 	Viewport.prototype.calculateOffset = function () {
 
 		/**
@@ -89,7 +100,7 @@
 		 * @name ch.Viewport#top
 		 * @type Number
 		 */
-		this.top = this.$element.scrollTop();
+		this.top = this.$el.scrollTop();
 
 		/**
 		 * Left offset of the visible area.
@@ -97,7 +108,7 @@
 		 * @name ch.Viewport#left
 		 * @type Number
 		 */
-		this.left = this.$element.scrollLeft();
+		this.left = this.$el.scrollLeft();
 
 		/**
 		 * Right offset of the visible area.
@@ -116,22 +127,49 @@
 		this.bottom = this.top + this.height;
 	};
 
+	/**
+	 * Rertuns the device orientation: landscape or portrait.
+	 * @public
+	 * @function
+	 * @name ch.Viewport#calculateOrientation
+	 * @returns {String}
+	 */
 	Viewport.prototype.calculateOrientation = function () {
-		this.orientation = (Math.abs(this.$element.orientation) === 90) ? 'landscape' : 'portrait';
+		this.orientation = (Math.abs(this.$el.orientation) === 90) ? 'landscape' : 'portrait';
 	};
 
+	/**
+	 * Calculates if an element is completely located in the viewport.
+	 * @public
+	 * @function
+	 * @name ch.Viewport#inViewport
+	 * @returns {Boolean}
+	 */
 	Viewport.prototype.inViewport = function (el) {
 		var r = el.getBoundingClientRect();
 
 		return (r.top > 0) && (r.right < this.width) && (r.bottom < this.height) && (r.left > 0);
 	};
 
+	/**
+	 * Calculates if an element is visible in the viewport.
+	 * @public
+	 * @function
+	 * @name ch.Viewport#isVisible
+	 * @returns {Boolean}
+	 */
 	Viewport.prototype.isVisible = function (el) {
 		var r = el.getBoundingClientRect();
 
 		return (r.height >= this.top);
 	};
 
+	/**
+	 * Upadtes the viewport dimension, viewport positions and orietation.
+	 * @public
+	 * @function
+	 * @name ch.Viewport#refresh
+	 */
 	Viewport.prototype.refresh = function () {
 		this.calculateDimensions();
 		this.calculateOffset();
@@ -140,4 +178,4 @@
 
 	ch.viewport = new Viewport();
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

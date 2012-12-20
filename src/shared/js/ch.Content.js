@@ -179,4 +179,4 @@
 
 	ch.Content = Content;
 
-}(this.jQuery, this.ch));
+}((this.jQuery || this.Zepto), this.ch));
