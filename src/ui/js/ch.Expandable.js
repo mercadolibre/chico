@@ -26,14 +26,14 @@
 	 */
 	function Expandable($el, options) {
 
-		this.init($el, options);
-
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
 		 * @private
 		 * @type {Object}
 		 */
 		var that = this;
+
+		that.init($el, options);
 
 		/**
 		 * Triggers when the component is ready to use (Since 0.8.0).
