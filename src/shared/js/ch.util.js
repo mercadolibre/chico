@@ -298,11 +298,6 @@
 		obj.prototype = $.extend(child, superConstructor.prototype);
 
 		return superConstructor.prototype;
-
-		/*var fn = function () {};
-		fn.prototype = superConstructor.prototype;
-		obj.prototype = new fn();
-		obj.prototype.constructor = obj;*/
 	};
 
 	/**

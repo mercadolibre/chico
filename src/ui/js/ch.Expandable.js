@@ -48,24 +48,31 @@
 		window.setTimeout(function () { that.emit('ready'); }, 50);
 	}
 
+	/**
+	 * Private
+	 */
 	var $html = $('html'),
+
 		/**
 		 * Inheritance
 		 */
 		parent = ch.util.inherits(Expandable, ch.Widget);
 
+	/**
+	 * Prototype
+	 */
 	Expandable.prototype.name = 'expandable';
 
 	Expandable.prototype.constructor = Expandable;
 
 	Expandable.prototype.defaults = {
-		'icon': true,
 		'open': false,
 		'fx': false
 	};
 
 	Expandable.prototype.init = function ($el, options) {
 		parent.init.call(this, $el, options);
+
 		this.require('Collapsible', 'Content');
 
 		/**
@@ -159,14 +166,10 @@
 		};
 
 		// Icon configuration
-
-		if (this.options.icon) {
-			if ($html.hasClass('lt-ie8')) {
-				$('<span class="ch-expandable-ico">Drop</span>').appendTo(this.$trigger);
-
-			} else {
-				this.$trigger.addClass('ch-expandable-ico');
-			}
+		if ($html.hasClass('lt-ie8')) {
+			$('<span class="ch-expandable-ico">Drop</span>').appendTo(this.$trigger);
+		} else {
+			this.$trigger.addClass('ch-expandable-ico');
 		}
 
 		if (this.options.open) {

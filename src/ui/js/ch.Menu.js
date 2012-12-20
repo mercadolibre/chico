@@ -29,8 +29,6 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var $html = $('html');
-
 	function Menu($el, options) {
 
 		this.init($el, options);
@@ -293,10 +291,18 @@
 	}
 
 	/**
-	 * Inheritance
+	 * Private
 	 */
-	ch.util.inherits(Menu, ch.Widget);
+	var $html = $('html'),
 
+		/**
+		 * Inheritance
+		 */
+		parent = ch.util.inherits(Menu, ch.Widget);
+
+	/**
+	 * Prototype
+	 */
 	Menu.prototype.name = 'menu';
 
 	Menu.prototype.constructor = Menu;
