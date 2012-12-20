@@ -83,7 +83,7 @@
 		'fx': false,
 		'side': 'bottom',
 		'align': 'left',
-		'offsetY': '-1',
+		'offsetY': -1,
 		'closable': true
 	};
 
@@ -199,6 +199,8 @@
 		that.closable();
 
 		ch.util.avoidTextSelection(this.$trigger);
+
+		return that;
 	};
 
 	Dropdown.prototype.show = function () {
@@ -244,6 +246,8 @@
 
 		// Turn on keyboards arrows
 		that.arrowsOn();
+
+		return that;
 	};
 
 	Dropdown.prototype.hide = function () {
@@ -257,6 +261,8 @@
 
 		// Turn off keyboards arrows
 		that.arrowsOff();
+
+		return that;
 	};
 
 	/**
@@ -345,6 +351,8 @@
 	 */
 	Dropdown.prototype.arrowsOff = function () {
 		$document.off(ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown');
+
+		return this;
 	};
 
 	ch.factory(Dropdown);

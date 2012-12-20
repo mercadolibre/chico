@@ -87,25 +87,22 @@
 	Positioner.prototype.init = function (options) {
 		var that = this;
 
-		options = $.extend(ch.util.clone(that.defaults), options);
+		that.options = $.extend(ch.util.clone(that.defaults), options);
 
-		that.offsetX = parseInt(options.offsetX, 10);
-		that.offsetY = parseInt(options.offsetY, 10);
-		that.side = options.side;
-		that.align = options.align;
-		that.$target = options.target;
+		that.options.offsetX = parseInt(that.options.offsetX, 10);
+		that.options.offsetY = parseInt(that.options.offsetY, 10);
+
+		that.$target = that.options.target;
 		// Default is the viewport
-		that.$reference = that.reference = options.reference;
-
-		that.position = options.position;
+		that.$reference = that.reference = that.options.reference;
 
 		if (that.reference !== ch.viewport) {
-			that.position = 'absolute';
+			that.options.position = 'absolute';
 		}
 
-		that.$target.css('position', that.position);
+		that.$target.css('position', that.options.position);
 
-		return this;
+		return that;
 
 	};
 
@@ -113,12 +110,12 @@
 		var that = this;
 
 		if (options !== undefined) {
-			that.offsetX = parseInt(options.offsetX, 10) || that.offsetX;
-			that.offsetY = parseInt(options.offsetY, 10) || that.offsetY;
-			that.side = options.side || that.side;
-			that.align = options.align || that.align;
-			that.$reference = options.reference || that.$reference;
+			that.options = $.extend(that.options, options);
+			that.options.offsetX = parseInt(that.options.offsetX, 10);
+			that.options.offsetY = parseInt(that.options.offsetY, 10);
+
 			that.$target = options.target || that.$target;
+			that.$reference = options.reference || that.$reference;
 		}
 
 		that.calculateTarget();
@@ -130,6 +127,8 @@
 
 		// the object that stores the top, left reference to set to the target
 		that.setPoint();
+
+		return that;
 	};
 
 	Positioner.prototype.calculateTarget = function ($target) {
@@ -139,8 +138,8 @@
 
 		var that = this,
 			$target = that.$target.attr({
-				'data-side': that.side,
-				'data-align': that.align
+				'data-side': that.options.side,
+				'data-align': that.options.align
 			});
 
 		that.target = {
@@ -149,7 +148,7 @@
 			'height': $target.outerHeight()
 		};
 
-		return this;
+		return that;
 	};
 
 	Positioner.prototype.calculateReference = function ($reference) {
@@ -158,7 +157,10 @@
 		}
 
 		var that = this,
-			$reference = that.$reference;
+			$reference = that.$reference.attr({
+				'data-side': that.options.side,
+				'data-align': that.options.align
+			});
 
 		that.reference = {
 			'$el': $reference,
@@ -183,7 +185,7 @@
 			offset.left = that.$reference[0].offsetLeft
 		}*/
 
-		return this;
+		return that;
 	};
 
 	/*Positioner.prototype.calculateContext = function () {
@@ -207,7 +209,8 @@
 	Positioner.prototype.setPoint = function () {
 
 		var that = this,
-			oritentation = (that.side === 'top' || that.side === 'bottom') ? 'horizontal' : ((that.side === 'right' || that.side === 'left') ? 'vertical' : 'center'),
+			side = that.options.side,
+			oritentation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
 			coors,
 			oritentationMap;
 
@@ -230,8 +233,8 @@
 			};
 
 			coors = {
-				'top': oritentationMap[that.side],
-				'left': oritentationMap[that.align]
+				'top': oritentationMap[side],
+				'left': oritentationMap[that.options.align]
 			}
 
 		} else {
@@ -245,15 +248,17 @@
 			};
 
 			coors = {
-				'top': oritentationMap[that.align],
-				'left': oritentationMap[that.side]
+				'top': oritentationMap[that.options.align],
+				'left': oritentationMap[side]
 			}
 		}
 
-		coors.top += that.offsetY;
-		coors.left += that.offsetX;
+		coors.top += that.options.offsetY;
+		coors.left += that.options.offsetX;
 
 		that.target.$el.css(coors);
+
+		return that;
 	};
 
 	ch.Positioner = Positioner;
