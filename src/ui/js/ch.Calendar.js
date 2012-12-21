@@ -40,119 +40,47 @@
 		$html = $('html'),
 		$document = $(window.document);
 
-
-
-	/**
-	*	Private Members
-	*/
-
 		/**
-		* Collection of months names.
+		* Completes with zero the numbers less than 10.
 		* @private
-		* @name ch.Calendar#MONTHS_NAMES
-		* @type Array
-		*/
-		//TODO: Default language should be English and then sniff browser language or something
-		//var MONTHS_NAMES = conf.monthsNames || ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-
-		/**
-		* Collection of weekdays (short names).
-		* @private
-		* @name ch.Calendar#DAYS_SHORTNAMES
-		* @type Array
-		*/
-		//TODO: Default language should be English and then sniff browser language
-		//	DAYS_SHORTNAMES = conf.weekdays || ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-
-		/**
-		* Creates a JSON Object with reference to day, month and year, from a determinated date.
-		* @private
-		* @name ch.Calendar#createDateObject
+		* @name ch.Calendar#addZero
 		* @function
-		* @param date
-		* @returns Object
+		* @param num Number
+		* @returns String
 		*/
-			//createDateObject = function (date) {
-
-			//	if(!/^\d{4}\/((0?[1-9])|(1?[0-2]))\/([0-2]?[0-9]|3[0-1])$/.test(date) && date !== undefined){
-			//		throw new window.Error('The date "'+date+'" is not valid format. It must follow this format YYYY/MM/DD.');
-			//	}
-				// Uses date parameter or create a date from today
-			//	date = (date) ? new Date(date) : new Date();
-
-			//	return {
-					/**
-					* Number of day.
-					* @private
-					* @name day
-					* @type Number
-					* @memberOf ch.Calendar#createDateObject
-					*/
-			//		"day": date.getDate(),
-
-					/**
-					* Order of day in a week.
-					* @private
-					* @name order
-					* @type Number
-					* @memberOf ch.Calendar#createDateObject
-					*/
-			//		"order": date.getDay(),
-
-					/**
-					* Number of month.
-					* @private
-					* @name month
-					* @type Number
-					* @memberOf ch.Calendar#createDateObject
-					*/
-			//		"month": date.getMonth() + 1,
-
-					/**
-					* Number of full year.
-					* @private
-					* @name year
-					* @type Number
-					* @memberOf ch.Calendar#createDateObject
-					*/
-			//		"year": date.getFullYear()
-			//	};
-
-			//},
-
-		// Today's date object
-		//	today = createDateObject(),
-
-		// Minimum selectable date
-			//from = (function () {
-
-				// Only works when there are a "from" parameter on configuration
-			//	if (!ch.util.hasOwn(conf, "from") || !conf.from) { return; }
-
-				// Return date object
-			//	return (conf.from === "today") ? today : createDateObject(conf.from);
-
-			//}()),
-
-		// Maximum selectable date
-			//to = (function () {
-
-				// Only works when there are a "to" parameter on configuration
-			//	if (!ch.util.hasOwn(conf, "to") || !conf.to) { return; }
-
-				// Return date object
-			//	return (conf.to === "today") ? today : createDateObject(conf.to);
-
-			//}()),
+		var	addZero = function (num) {
+				return (parseInt(num, 10) < 10) ? "0" + num : num;
+			},
 
 		/**
-		* Parse string to YYYY/MM/DD or DD/MM/YYYY format date.
+		* Map of date formats.
 		* @private
-		* @function
-		* @name ch.Calendar#parseDate
-		* @param value {String} The date to be parsed.
+		* @name ch.Calendar#FORMAT_DATE
+		* @type Object
 		*/
-		var	parseDate = function (value) {
+			FORMAT_DATE = {
+
+				'YYYY/MM/DD': function (date) {
+					return [date.year, addZero(date.month), addZero(date.day)].join("/");
+				},
+
+				'DD/MM/YYYY': function (date) {
+					return [addZero(date.day), addZero(date.month), date.year].join("/");
+				},
+
+				'MM/DD/YYYY': function (date) {
+					return [addZero(date.month), addZero(date.day), date.year].join("/");
+				}
+
+			},
+			/**
+			* Parse string to YYYY/MM/DD or DD/MM/YYYY format date.
+			* @private
+			* @function
+			* @name ch.Calendar#parseDate
+			* @param value {String} The date to be parsed.
+			*/
+			parseDate = function (value, format) {
 
 				// Splitted string
 				value = value.split("/");
@@ -161,7 +89,7 @@
 				var result = [];
 
 				// Parse date
-				switch (conf.format) {
+				switch (format) {
 					case "DD/MM/YYYY":
 						result.push(value[2], value[1], value[0]);
 						break;
@@ -172,25 +100,288 @@
 
 				return result.join("/");
 			},
+			/**
+			* Creates a JSON Object with reference to day, month and year, from a determinated date.
+			* @private
+			* @name ch.Calendar#createDateObject
+			* @function
+			* @param date
+			* @returns Object
+			*/
+			createDateObject = function (date) {
+
+				if(!/^\d{4}\/((0?[1-9])|(1?[0-2]))\/([0-2]?[0-9]|3[0-1])$/.test(date) && date !== undefined){
+					throw new window.Error('The date "'+date+'" is not valid format. It must follow this format YYYY/MM/DD.');
+				}
+				// Uses date parameter or create a date from today
+				date = (date) ? new Date(date) : new Date();
+
+				return {
+					/**
+					* Number of day.
+					* @private
+					* @name day
+					* @type Number
+					* @memberOf ch.Calendar#createDateObject
+					*/
+					"day": date.getDate(),
+
+					/**
+					* Order of day in a week.
+					* @private
+					* @name order
+					* @type Number
+					* @memberOf ch.Calendar#createDateObject
+					*/
+					"order": date.getDay(),
+
+					/**
+					* Number of month.
+					* @private
+					* @name month
+					* @type Number
+					* @memberOf ch.Calendar#createDateObject
+					*/
+					"month": date.getMonth() + 1,
+
+					/**
+					* Number of full year.
+					* @private
+					* @name year
+					* @type Number
+					* @memberOf ch.Calendar#createDateObject
+					*/
+					"year": date.getFullYear()
+				};
+			},
+
+			template = {
+
+				/**
+				* Handles behavior of arrows to move around months.
+				* @private
+				* @name ch.Calendar#arrows
+				* @type Object
+				*/
+				'arrows': {
+
+					/**
+					* Handles behavior of previous arrow to move back in months.
+					* @private
+					* @name prev
+					* @memberOf ch.Calendar#arrows
+					* @type Object
+					*/
+					'prev': '<div class="ch-calendar-prev" role="button" aria-controls="ch-calendar-grid-$uid$ aria-hidden="false">' + (($html.hasClass('lt-ie8')) ? '<span></span>' : '') + '</div>',
+
+					/**
+					* Handles behavior of next arrow to move forward in months.
+					* @private
+					* @name next
+					* @memberOf ch.Calendar#arrows
+					* @type Object
+					*/
+					'next': '<div class="ch-calendar-next" role="button" aria-controls="ch-calendar-grid-$uid$ aria-hidden="false">' + (($html.hasClass('lt-ie8')) ? '<span></span>' : '') + '</div>'
+				},
+				/**
+				* Refresh the structure of Calendar's table with a new date.
+				* @private
+				* @function
+				* @name ch.Calendar#updateTable
+				* @param date {String} Date to be selected.
+				*/
+				'update': function (date) {
+					var that = this;
+
+					// Update "currentDate" object
+					that.date.current = (typeof date === 'string') ? createDateObject(date) : date;
+
+					// Delete old table
+					that.$el.children('table').remove();
+
+					// Append new table to content
+					that.$el.append(template.create.call(that, that.date.current));
+
+					// Refresh arrows
+					that._updateControls();
+
+				},
+				/**
+				* Creates a complete month in a table.
+				* @private
+				* @function
+				* @name ch.Calendar#createTable
+				* @param date {Object} Date from will be created the entire month.
+				* @return jQuery Object
+				*/
+				'create': function (date) {
+					var that = this;
+
+					var thead = (function () {
+
+							// Create thead structure
+							var t = ["<thead><tr role=\"row\">"];
+
+							// Add week names
+							for (var i = 0; i < 7; i += 1) {
+								t.push("<th role=\"columnheader\">" + that._defaults.weekdays[i] + "</th>");
+							};
+
+							// Close thead structure
+							t.push("</tr></thead>");
+
+							// Join structure and return
+							return t.join("");
+
+						}());
+
+					var table = [
+						'<table class="ch-calendar-month" role="grid" id="ch-calendar-grid-'+ that.uid +'">',
+						'<caption>' + that._defaults.monthsNames[date.month - 1] + ' - ' + date.year + '</caption>',
+						thead
+						];
+
+
+
+					// Total amount of days into month
+					var cells = (function () {
+
+						// Amount of days of current month
+						var currentMonth = new Date(date.year, date.month, 0).getDate(),
+
+						// Amount of days of previous month
+							prevMonth = new Date([date.year, date.month, '01'].join('/')).getDay(),
+
+						// Merge amount of previous and current month
+							subtotal = prevMonth + currentMonth,
+
+						// Amount of days into last week of month
+							latest = subtotal % 7,
+
+						// Amount of days of next month
+							nextMonth = (latest > 0) ? 7 - latest : 0;
+
+						return {
+							'previous': prevMonth,
+							'subtotal': subtotal,
+							'total': subtotal + nextMonth
+						};
+
+					}());
+
+					table.push('<tbody><tr class="ch-calendar-week" role="row">');
+
+					// Iteration of weekdays
+					for (var i = 0; i < cells.total; i += 1) {
+
+						// Push an empty cell on previous and next month
+						if (i < cells.previous || i > cells.subtotal - 1) {
+							table.push('<td role="gridcell" class="ch-calendar-other">X</td>');
+						} else {
+
+							// Positive number of iteration
+							var positive = i + 1,
+
+							// Day number
+								day = positive - cells.previous,
+
+							// Define if it's the day selected
+								isSelected = that.date.isSelected(date.year, date.month, day);
+
+							// Create cell
+							table.push(
+								// Open cell structure including WAI-ARIA and classnames space opening
+								'<td role="gridcell"' + (isSelected ? ' aria-selected="true"' : '') + ' class="ch-calendar-day',
+
+								// Add Today classname if it's necesary
+								(date.year === that.date.today.year && date.month === that.date.today.month && day === that.date.today.day) ? ' ch-calendar-today' : null,
+
+								// Add Selected classname if it's necesary
+								(isSelected ? ' ch-calendar-selected ': null),
+
+								// From/to range. Disabling cells
+								(
+									// Disable cell if it's out of FROM range
+									(that.date.range.from && day < that.date.range.from.day && date.month === that.date.range.from.month && date.year === that.date.range.from.year) ||
+
+									// Disable cell if it's out of TO range
+									(that.date.range.to && day > that.date.range.to.day && date.month === that.date.range.to.month && date.year === that.date.range.to.year)
+
+								) ? ' ch-calendar-disabled': null,
+
+								// Close classnames attribute and print content closing cell structure
+								'">' + day + '</td>'
+							);
+
+							// Cut week if there are seven days
+							if (positive % 7 === 0) {
+								table.push('</tr><tr class="ch-calendar-week" role="row">');
+							}
+
+						}
+
+					};
+
+					table.push('</tr></tbody></table>');
+
+					// Return table object
+					return table.join('');
+
+				}
+			};
+
+	function Calendar($el, options) {
+
+		this.init($el, options)
+		/**
+		 * Reference to a internal component instance, saves all the information and configuration properties.
+		 * @private
+		 * @type {Object}
+		 */
+		var that = this;
+
 
 		/**
-		* The current date that should be shown on Calendar.
-		* @private
-		* @name ch.Calendar#currentDate
-		* @type Object
-		*/
-			currentDate = today,
+		 * Triggers when the component is ready to use (Since 0.8.0).
+		 * @fires ch.Dropdown#ready
+		 * @since 0.8.0
+		 * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
+		 * @example
+		 * widget.on('ready',function () {
+		 *	this.show();
+		 * });
+		 */
+		window.setTimeout(function () { that.emit('ready'); }, 50);
+	}
+
+
+	/**
+	 * Private
+	 */
+	var $document = $(window.document),
+		$html = $('html'),
 
 		/**
-		* Sets the date object of selected day.
-		* @private
-		* @name ch.Calendar#setSelected
-		* @type Object
-		*/
+		 * Inheritance
+		 */
+		parent = ch.util.inherits(Calendar, ch.Widget);
+
+
+	Calendar.prototype._defaults = {
+		'monthsNames': ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+		'weekdays': ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+		'format': 'DD/MM/YYYY'
+	};
+
+	Calendar.prototype.init = function ($el, options) {
+		parent.init.call(this, $el, options);
+
+		var that = this,
+			options = that.options,
 			setSelected = function () {
 
 				// Get date from configuration or input value
-				var sel = conf.selected || conf.content;
+				var sel = options.selected || options.content;
 
 				// Do it only if there are a "selected" parameter
 				if (!sel) { return; }
@@ -199,7 +390,7 @@
 				if (!ch.util.isArray(sel)) {
 
 					// Return date object and update currentDate
-					return (sel !== "today") ? currentDate = createDateObject(sel) : today;
+					return (sel !== "today") ? that.date.current = createDateObject(sel) : today;
 
 				// Multiple date selection
 				} else {
@@ -216,7 +407,11 @@
 
 					return sel;
 				}
-			},
+		};
+
+		that.date.today = createDateObject();
+
+		that.date.current = that.date.today;
 
 		/**
 		* Date of selected day.
@@ -224,523 +419,54 @@
 		* @name ch.Calendar-selected
 		* @type Object
 		*/
-			selected = setSelected(),
+		that.date.selected = setSelected();
 
-		/**
-		* Indicates if an specific date is selected or not (including date ranges and simple dates).
-		* @private
-		* @name ch.Calendar#isSelectable
-		* @function
-		* @param year
-		* @param month
-		* @param day
-		* @return Boolean
-		*/
-			isSelectable = function (year, month, day) {
+		// Today's date object
+		that.date.today = createDateObject();
 
-				if (!selected) { return; }
+		// Minimum selectable date
+		that.date.range.from = (function () {
 
-				var yepnope = false;
+			// Only works when there are a "from" parameter on configuration
+			if (!ch.util.hasOwn(options, "from") || !options.from) { return; }
 
-				// Simple selection
-				if (!ch.util.isArray(selected)) {
-					if (year === selected.year && month === selected.month && day === selected.day) {
-						return yepnope = true;
-					}
-				// Multiple selection (ranges)
-				} else {
-					$.each(selected, function (i, e) {
-						// Simple date
-						if (!ch.util.isArray(e)) {
-							if (year === e.year && month === e.month && day === e.day) {
-								return yepnope = true;
-							}
-						// Range
-						} else {
-							if (
-								(year >= e[0].year && month >= e[0].month && day >= e[0].day) &&
-								(year <= e[1].year && month <= e[1].month && day <= e[1].day)
-							) {
-								return yepnope = true;
-							}
-						}
-					});
-				}
+			// Return date object
+			return (options.from === "today") ? that.date.today : createDateObject(options.from);
 
-				return yepnope;
-			},
+		}());
 
-		/**
-		* Thead tag, including ARIA and cells with each weekday nawidget.
-		* @private
-		* @name ch.Calendar#thead
-		* @type String
-		*/
-			thead = (function () {
+		// Maximum selectable date
+		that.date.range.to = (function () {
 
-				// Create thead structure
-				var t = ["<thead><tr role=\"row\">"];
+			// Only works when there are a "to" parameter on configuration
+			if (!ch.util.hasOwn(options, "to") || !options.to) { return; }
 
-				// Add week names
-				for (var i = 0; i < 7; i += 1) {
-					t.push("<th role=\"columnheader\">" + DAYS_SHORTNAMES[i] + "</th>");
-				};
+			// Return date object
+			return (options.to === "today") ? today : createDateObject(options.to);
 
-				// Close thead structure
-				t.push("</tr></thead>");
+		}());
 
-				// Join structure and return
-				return t.join("");
 
-			}()),
 
-		/**
-		* Creates a complete month in a table.
-		* @private
-		* @function
-		* @name ch.Calendar#createTable
-		* @param date {Object} Date from will be created the entire month.
-		* @return jQuery Object
-		*/
-			createTable = function (date) {
-				// Total amount of days into month
-				var cells = (function () {
-
-					// Amount of days of current month
-					var currentMonth = new Date(date.year, date.month, 0).getDate(),
-
-					// Amount of days of previous month
-						prevMonth = new Date([date.year, date.month, "01"].join("/")).getDay(),
-
-					// Merge amount of previous and current month
-						subtotal = prevMonth + currentMonth,
-
-					// Amount of days into last week of month
-						latest = subtotal % 7,
-
-					// Amount of days of next month
-						nextMonth = (latest > 0) ? 7 - latest : 0;
-
-					return {
-						"previous": prevMonth,
-						"subtotal": subtotal,
-						"total": subtotal + nextMonth
-					};
-
-				}()),
-
-				// Final array with month table structure
-					r = [
-						"<table class=\"ch-calendar-month\" role=\"grid\" id=\"ch-calendar-grid-" + that.uid + "\">",
-						"<caption>" + MONTHS_NAMES[date.month - 1] + " - " + date.year + "</caption>",
-						thead,
-						"<tbody>",
-						"<tr class=\"ch-week\" role=\"row\">"
-					];
-
-				// Iteration of weekdays
-				for (var i = 0; i < cells.total; i += 1) {
-
-					// Push an empty cell on previous and next month
-					if (i < cells.previous || i > cells.subtotal - 1) {
-						r.push("<td role=\"gridcell\" class=\"ch-calendar-other\">X</td>");
-					} else {
-
-						// Positive number of iteration
-						var positive = i + 1,
-
-						// Day number
-							day = positive - cells.previous,
-
-						// Define if it's the day selected
-							isSelected = isSelectable(date.year, date.month, day);
-
-						// Create cell
-						r.push(
-							// Open cell structure including WAI-ARIA and classnames space opening
-							"<td role=\"gridcell\"" + (isSelected ? " aria-selected=\"true\"" : "") + " class=\"ch-calendar-day",
-
-							// Add Today classname if it's necesary
-							(date.year === today.year && date.month === today.month && day === today.day) ? " ch-calendar-today" : null,
-
-							// Add Selected classname if it's necesary
-							(isSelected ? " ch-calendar-selected" : null),
-
-							// From/to range. Disabling cells
-							(
-								// Disable cell if it's out of FROM range
-								(from && day < from.day && date.month === from.month && date.year === from.year) ||
-
-								// Disable cell if it's out of TO range
-								(to && day > to.day && date.month === to.month && date.year === to.year)
-
-							) ? " ch-calendar-disabled" : null,
-
-							// Close classnames attribute and print content closing cell structure
-							"\">" + day + "</td>"
-						);
-
-						// Cut week if there are seven days
-						if (positive % 7 === 0) {
-							r.push("</tr><tr class=\"ch-calendar-week\" role=\"row\">");
-						}
-
-					}
-
-				};
-
-				// Return table object
-				return r.join("");
-
-			},
-
-		/**
-		* Handles behavior of arrows to move around months.
-		* @private
-		* @name ch.Calendar#arrows
-		* @type Object
-		*/
-			arrows = {
-
-				/**
-				* Handles behavior of previous arrow to move back in months.
-				* @private
-				* @name $prev
-				* @memberOf ch.Calendar#arrows
-				* @type Object
-				*/
-				"$prev": $("<div class=\"ch-calendar-prev\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</div>").bind("click", function (event) { ch.util.prevent(event); prevMonth(); }),
-
-				/**
-				* Handles behavior of next arrow to move forward in months.
-				* @private
-				* @name $next
-				* @memberOf ch.Calendar#arrows
-				* @type Object
-				*/
-				"$next": $("<div class=\"ch-calendar-next\" role=\"button\" aria-controls=\"ch-calendar-grid-" + that.uid + "\" aria-hidden=\"false\">" + (($html.hasClass("lt-ie8")) ? "<span></span>" : "") + "</div>").bind("click", function (event) { ch.util.prevent(event); nextMonth(); }),
-
-				/**
-				* Refresh arrows visibility depending on "from" and "to" limits.
-				* @private
-				* @name update
-				* @memberOf ch.Calendar#arrows
-				* @function
-				*/
-				"update": function () {
-
-					// "From" limit
-					if (from) {
-						// Hide previous arrow when it's out of limit
-						if (from.month >= currentDate.month && from.year >= currentDate.year) {
-							arrows.$prev.addClass("ch-hide").attr("aria-hidden", "true");
-						// Show previous arrow when it's out of limit
-						} else {
-							arrows.$prev.removeClass("ch-hide").attr("aria-hidden", "false");
-						}
-					}
-
-					// "To" limit
-					if (to) {
-						// Hide next arrow when it's out of limit
-						if (to.month <= currentDate.month && to.year <= currentDate.year) {
-							arrows.$next.addClass("ch-hide").attr("aria-hidden", "true");
-						// Show next arrow when it's out of limit
-						} else {
-							arrows.$next.removeClass("ch-hide").attr("aria-hidden", "false");
-						}
-					}
-				}
-			},
-
-		/**
-		* Completes with zero the numbers less than 10.
-		* @private
-		* @name ch.Calendar#addZero
-		* @function
-		* @param num Number
-		* @returns String
-		*/
-			addZero = function (num) {
-				return (parseInt(num, 10) < 10) ? "0" + num : num;
-			},
-
-		/**
-		* Map of date formats.
-		* @private
-		* @name ch.Calendar#FORMAT_DATE
-		* @type Object
-		*/
-			FORMAT_DATE = {
-
-				"YYYY/MM/DD": function (date) {
-					return [date.year, addZero(date.month), addZero(date.day)].join("/");
-				},
-
-				"DD/MM/YYYY": function (date) {
-					return [addZero(date.day), addZero(date.month), date.year].join("/");
-				},
-
-				"MM/DD/YYYY": function (date) {
-					return [addZero(date.month), addZero(date.day), date.year].join("/");
-				}
-
-			},
-
-		/**
-		* Refresh the structure of Calendar's table with a new date.
-		* @private
-		* @function
-		* @name ch.Calendar#updateTable
-		* @param date {String} Date to be selected.
-		*/
-			updateTable = function (date) {
-
-				// Update "currentDate" object
-				currentDate = (typeof date === "string") ? createDateObject(date) : date;
-
-				// Delete old table
-				that.$element.children("table").remove();
-
-				// Append new table to content
-				that.$element.append(createTable(currentDate));
-
-				// Refresh arrows
-				arrows.update();
-
-			};
-
-
-
-
-
-
-
-
-
-
-
-
-
-	function Calendar($el, conf) {
-
-		/**
-		* Reference to a internal component instance, saves all the information and configuration properties.
-		* @private
-		* @name ch.Calendar#that
-		* @type object
-		*/
-		var that = this;
-
-		that.$element = $el;
-		that.element = $el[0];
-		that.type = 'calendar';
-		conf = conf || {};
-
-		conf = ch.util.clone(conf);
-
-		// Format by default
-		conf.format = conf.format || "DD/MM/YYYY";
-
-		that.conf = conf;
-
-	/**
-	*	Inheritance
-	*/
-
-		that = ch.Widget.call(that);
-		that.parent = ch.util.clone(that);
-
-
-
-		/**
-		* Selects an specific date to show.
-		* @private
-		* @function
-		* @name ch.Calendar#select
-		* @param date {Date} Date to be selected.
-		* @return itself
-		*/
-		// TODO: Check "from" and "to" range
-			//select = function (date) {
-
-				// Update selected date
-			//	selected = date;
-
-				// Create a new table of selected month
-			//	updateTable(selected);
-
-				/**
-				* It triggers a callback when a date is selected.
-				* @public
-				* @name ch.Calendar#select
-				* @event
-				* @exampleDescription
-				* @example
-				* widget.on("select",function(){
-				* 	sowidget.action();
-				* });
-				*/
-				// Old callback system
-			//	that.callbacks("onSelect");
-				// New callback
-			//	that.trigger("select");
-
-			//	return that;
-			//},
-
-		/**
-		* Move to next month of Calendar.
-		* @private
-		* @function
-		* @name ch.Calendar#nextMonth
-		* @return itself
-		*/
-			//nextMonth = function () {
-
-				// Next year
-			//	if (currentDate.month === 12) {
-			//		currentDate.month = 0;
-			//		currentDate.year += 1;
-			//	}
-
-				// Create a new table of selected month
-			//	updateTable([currentDate.year, currentDate.month + 1, "01"].join("/"));
-
-				/**
-				* It triggers a callback when a next month is shown.
-				* @public
-				* @name ch.Calendar#nextMonth
-				* @event
-				* @exampleDescription
-				* @example
-				* widget.on("nextMonth",function(){
-				* 	sowidget.action();
-				* });
-				*/
-				// Callback
-			//	that.callbacks("onNextMonth");
-				// New callback
-			//	that.trigger("nextMonth");
-
-			//	return that;
-			//},
-
-		/**
-		* Move to previous month of Calendar.
-		* @private
-		* @function
-		* @name ch.Calendar#prevMonth
-		* @return itself
-		*/
-			//prevMonth = function () {
-
-				// Previous year
-			//	if (currentDate.month === 1) {
-			//		currentDate.month = 13;
-			//		currentDate.year -= 1;
-			//	}
-
-				// Create a new table of selected month
-			//	updateTable([currentDate.year, currentDate.month - 1, "01"].join("/"));
-
-				/**
-				* It triggers a callback when a previous month is shown.
-				* @public
-				* @name ch.Calendar#prevMonth
-				* @event
-				* @exampleDescription
-				* @example
-				* widget.on("prevMonth",function(){
-				* 	sowidget.action();
-				* });
-				*/
-				// Callback
-			//	that.callbacks("onPrevMonth");
-				// New callback
-			//	that.trigger("prevMonth");
-
-			//	return that;
-			//},
-
-		/**
-		* Move to next year of Calendar.
-		* @private
-		* @function
-		* @name ch.Calendar#nextYear
-		* @return itself
-		*/
-			//nextYear = function () {
-
-				// Create a new table of selected month
-			//	updateTable([currentDate.year + 1, currentDate.month, "01"].join("/"));
-
-				/**
-				* It triggers a callback when a next year is shown.
-				* @public
-				* @name ch.Calendar#nextYear
-				* @event
-				* @exampleDescription
-				* @example
-				* widget.on("nextYear",function(){
-				* 	sowidget.action();
-				* });
-				*/
-				// Callback
-			//	that.callbacks("onNextYear");
-				// New callback
-			//	that.trigger("nextYear");
-
-			//	return that;
-			//},
-
-		/**
-		* Move to previous year of Calendar.
-		* @private
-		* @function
-		* @name ch.Calendar#prevYear
-		* @return itself
-		*/
-			//prevYear = function () {
-
-				// Create a new table of selected month
-			//	updateTable([currentDate.year - 1, currentDate.month, "01"].join("/"));
-
-				/**
-				* It triggers a callback when a previous year is shown.
-				* @public
-				* @name ch.Calendar#prevYear
-				* @event
-				* @exampleDescription
-				* @example
-				* widget.on("prevYear",function(){
-				* 	sowidget.action();
-				* });
-				*/
-				// Callback
-			//	that.callbacks("onPrevYear");
-				// New callback
-			//	that.trigger("prevYear");
-
-			//	return that;
-			//};
-
-		/**
-		*	Default event delegation
-		*/
 
 		// Show or hide arrows depending on "from" and "to" limits
-		arrows.update();
+
 
 		// General creation: classname + arrows + table of month
-		that.$element
+
+		that._$prev = $(template.arrows.prev).bind('click', function (event) { ch.util.prevent(event); that.prev('month'); });
+		that._$next = $(template.arrows.next).bind('click', function (event) { ch.util.prevent(event); that.next('month'); });
+
+		that.$el
 			.addClass("ch-calendar")
-			.prepend(arrows.$prev)
-			.prepend(arrows.$next)
-			.append(createTable(currentDate));
+			.prepend(that._$prev)
+			.prepend(that._$next)
+			.append(template.create.call(that, that.date.current));
+
+		that._updateControls(that);
 
 		// Avoid selection on the component
-		ch.util.avoidTextSelection(that.$element);
+		ch.util.avoidTextSelection(that.$el);
 
 		/**
 		* Triggers when the component is ready to use (Since 0.8.0).
@@ -754,106 +480,101 @@
 		* 	this.show();
 		* });
 		*/
-		setTimeout(function () { that.emitter.emit('select'); }, 50);
-
-		return that['public'];
-	}
-
-	Calendar.prototype.init = function ($el, options) {
-
-		// Today's date object
-		var	today = createDateObject(),
-
-		// Minimum selectable date
-			from = (function () {
-
-				// Only works when there are a "from" parameter on configuration
-				if (!ch.util.hasOwn(options, "from") || !options.from) { return; }
-
-				// Return date object
-				return (options.from === "today") ? today : createDateObject(options.from);
-
-			}()),
-
-		// Maximum selectable date
-			to = (function () {
-
-				// Only works when there are a "to" parameter on configuration
-				if (!ch.util.hasOwn(options, "to") || !options.to) { return; }
-
-				// Return date object
-				return (options.to === "today") ? today : createDateObject(options.to);
-
-			}());
-
-
-
-
+		setTimeout(function () { that.emit('select'); }, 50);
 
 	}
 
 
 	/**
-	* Creates a JSON Object with reference to day, month and year, from a determinated date.
+	* Refresh arrows visibility depending on "from" and "to" limits.
 	* @private
-	* @name ch.Calendar#createDateObject
+	* @name update
+	* @memberOf ch.Calendar#arrows
 	* @function
-	* @param date
+	*/
+	Calendar.prototype._updateControls = function () {
+		var that = this;
+
+		// "From" limit
+		if (that.date.range.from) {
+			// Hide previous arrow when it's out of limit
+			if (that.date.range.from.month >= that.date.current.month && that.date.range.from.year >= that.date.current.year) {
+				that._$prev.addClass('ch-hide').attr('aria-hidden', 'true');
+			// Show previous arrow when it's out of limit
+			} else {
+				that._$prev.removeClass('ch-hide').attr('aria-hidden', 'false');
+			}
+		}
+
+		// "To" limit
+		if (that.date.range.to) {
+			// Hide next arrow when it's out of limit
+			if (that.date.range.to.month <= that.date.current.month && that.date.range.to.year <= that.date.current.year) {
+				that._$next.addClass('ch-hide').attr('aria-hidden', 'true');
+			// Show next arrow when it's out of limit
+			} else {
+				that._$next.removeClass('ch-hide').attr('aria-hidden', 'false');
+			}
+		}
+
+		return this;
+	}
+
+
+	/**
+	* Object to mange the date and its ranges.
+	* @private
+	* @name ch.Calendar#date
 	* @returns Object
 	*/
-	Calendar.prototype.createDateObject = function (date) {
+	Calendar.prototype.date = {
+		'range': {}
+	};
 
-		if(!/^\d{4}\/((0?[1-9])|(1?[0-2]))\/([0-2]?[0-9]|3[0-1])$/.test(date) && date !== undefined){
-			throw new window.Error('The date "'+date+'" is not valid format. It must follow this format YYYY/MM/DD.');
+	/**
+	* Indicates if an specific date is selected or not (including date ranges and simple dates).
+	* @private
+	* @name ch.Calendar#isSelected
+	* @function
+	* @param year
+	* @param month
+	* @param day
+	* @return Boolean
+	*/
+	Calendar.prototype.date.isSelected = function (year, month, day) {
+		var that = this;
+
+		if (!that.selected) { return; }
+
+		var yepnope = false;
+
+		// Simple selection
+		if (!ch.util.isArray(that.selected)) {
+			if (year === that.selected.year && month === that.selected.month && day === that.selected.day) {
+				return yepnope = true;
+			}
+		// Multiple selection (ranges)
+		} else {
+			$.each(that.selected, function (i, e) {
+				// Simple date
+				if (!ch.util.isArray(e)) {
+					if (year === e.year && month === e.month && day === e.day) {
+						return yepnope = true;
+					}
+				// Range
+				} else {
+					if (
+						(year >= e[0].year && month >= e[0].month && day >= e[0].day) &&
+						(year <= e[1].year && month <= e[1].month && day <= e[1].day)
+					) {
+						return yepnope = true;
+					}
+				}
+			});
 		}
-		// Uses date parameter or create a date from today
-		date = (date) ? new Date(date) : new Date();
 
-		return {
-			/**
-			* Number of day.
-			* @private
-			* @name day
-			* @type Number
-			* @memberOf ch.Calendar#createDateObject
-			*/
-			"day": date.getDate(),
-
-			/**
-			* Order of day in a week.
-			* @private
-			* @name order
-			* @type Number
-			* @memberOf ch.Calendar#createDateObject
-			*/
-			"order": date.getDay(),
-
-			/**
-			* Number of month.
-			* @private
-			* @name month
-			* @type Number
-			* @memberOf ch.Calendar#createDateObject
-			*/
-			"month": date.getMonth() + 1,
-
-			/**
-			* Number of full year.
-			* @private
-			* @name year
-			* @type Number
-			* @memberOf ch.Calendar#createDateObject
-			*/
-			"year": date.getFullYear()
-		};
-
-	};
-
-
-	Calendar.prototype.defaults = {
-		'monthsNames': ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-		'weekdays': ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"]
-	};
+		return yepnope;
+	}
 
 /**
 *  Public Members
@@ -875,14 +596,15 @@
 	* @return itself
 	*/
 	Calendar.prototype.select = function (date) {
+		var that = this;
 
 		// Getter
-		if (!date) { return FORMAT_DATE[conf.format](selected); }
+		if (!date) { return FORMAT_DATE[that.options.format](selected); }
 
 		// Setter
 
 		// Update selected date
-		selected = (date === "today") ? today : createDateObject(parseDate(date));
+		that.date.selected = (date === "today") ? that.date.today : createDateObject(parseDate(date, that.options.format));
 
 		// Create a new table of selected month
 		updateTable(selected);
@@ -895,10 +617,10 @@
 		* @exampleDescription
 		* @example
 		* widget.on("select",function(){
-		* 	sowidget.action();
+		* 	widget.action();
 		* });
 		*/
-		this.emitter.emit('select');
+		that.emit('select');
 
 		return this;
 
@@ -915,7 +637,8 @@
 	*/
 	Calendar.prototype.selectDay = function (day) {
 
-		var date = createDateObject([currentDate.year, currentDate.month, day].join("/"));
+		var that = this,
+			date = createDateObject([that.date.current.year, that.date.current.month, day].join("/"));
 
 		select(date);
 
@@ -945,19 +668,20 @@
 	* @default Next month
 	*/
 	Calendar.prototype.next = function (time) {
+		var that = this;
 
 		switch (time) {
 			case "month":
 			case undefined:
 			default:
 				// Next year
-				if (currentDate.month === 12) {
-					currentDate.month = 0;
-					currentDate.year += 1;
+				if (that.date.current.month === 12) {
+					that.date.current.month = 0;
+					that.date.current.year += 1;
 				}
 
 				// Create a new table of selected month
-				updateTable([currentDate.year, currentDate.month + 1, "01"].join("/"));
+				template.update.call(that, [that.date.current.year, that.date.current.month + 1, "01"].join("/"));
 
 				/**
 				* It triggers a callback when a next month is shown.
@@ -970,11 +694,11 @@
 				* 	sowidget.action();
 				* });
 				*/
-				this.emitter.emit('nextMonth');
+				that.emit('nextMonth');
 				break;
 			case "year":
 				// Create a new table of selected month
-				updateTable([currentDate.year + 1, currentDate.month, "01"].join("/"));
+				template.update.call(that, [that.date.current.year + 1, that.date.current.month, "01"].join("/"));
 
 				/**
 				* It triggers a callback when a next year is shown.
@@ -987,11 +711,11 @@
 				* 	sowidget.action();
 				* });
 				*/
-				this.emitter.emit('nextYear');
+				that.emit('nextYear');
 				break;
 		}
 
-		return that["public"];
+		return this;
 	};
 
 	/**
@@ -1004,6 +728,7 @@
 	* @default Previous month
 	*/
 	Calendar.prototype.prev = function (time) {
+		var that = this;
 
 		switch (time) {
 			case "month":
@@ -1012,13 +737,13 @@
 
 
 				// Previous year
-				if (currentDate.month === 1) {
-					currentDate.month = 13;
-					currentDate.year -= 1;
+				if (that.date.current.month === 1) {
+					that.date.current.month = 13;
+					that.date.current.year -= 1;
 				}
 
 				// Create a new table of selected month
-				updateTable([currentDate.year, currentDate.month - 1, "01"].join("/"));
+				template.update.call(that, [that.date.current.year, that.date.current.month - 1, "01"].join("/"));
 
 				/**
 				* It triggers a callback when a previous month is shown.
@@ -1031,12 +756,12 @@
 				* 	sowidget.action();
 				* });
 				*/
-				this.emitter.emit('prevMonth');
+				that.emit('prevMonth');
 				break;
 
 			case "year":
 				// Create a new table of selected month
-				updateTable([currentDate.year - 1, currentDate.month, "01"].join("/"));
+				template.update.call(that, [that.date.current.year - 1, that.date.current.month, "01"].join("/"));
 
 				/**
 				* It triggers a callback when a previous year is shown.
@@ -1049,7 +774,7 @@
 				* 	sowidget.action();
 				* });
 				*/
-				this.emitter.emit('prevYear');
+				that.emit('prevYear');
 				break;
 		}
 
@@ -1066,7 +791,7 @@
 	Calendar.prototype.reset = function () {
 		reset();
 
-		return that["public"];
+		return this;
 	};
 
 	/**
@@ -1079,8 +804,11 @@
 	* @return itself
 	*/
 	Calendar.prototype.from = function (date) {
-		from = createDateObject(date);
-		return that["public"];
+		var that = this;
+		// this from is a reference to the global form
+		that.date.range.from = createDateObject(date);
+
+		return this;
 	};
 
 	/**
@@ -1093,8 +821,10 @@
 	* @return itself
 	*/
 	Calendar.prototype.to = function (date) {
-		to = createDateObject(date);
-		return that["public"];
+		var that = this;
+		// this to is a reference to the global to
+		that.date.range.to = createDateObject(date);
+		return this;
 	};
 
 
