@@ -1305,6 +1305,17 @@
 		// // Tabs
 		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
 
+		// // Form
+		var form = $('.myForm').form();
+
+		form
+			.on('submit', function () {
+				console.log('Validated');
+			})
+			.on('error', function () {
+				console.log('Error');
+			})
+
 		// // Autocomplete
 		// function autoComplete(data) {
 		// 	autoComplete1.suggest(data);
@@ -1333,7 +1344,7 @@
 		// var	calendar = $(".YOUR_SELECTOR_calendar").calendar({"from": "today"});
 
 		// Carousel
-		var carousel = $(".myCarousel").carousel({"pagination": true});
+		// var carousel = $(".myCarousel").carousel({"pagination": true});
 		// var carousel = $.carousel($(".myCarousel"), {"pagination": true});
 
 		// // Countdown
@@ -1368,66 +1379,66 @@
 
 		// Tooltip
 		// Bottom
-		$('#default').tooltip(); // lt lb
-		$('#ctcb').tooltip({
-			'side': 'bottom',
-			'aligned': 'center'
-		});
-		$('#rtrb').tooltip({
-			'side': 'bottom',
-			'aligned': 'right'
-		});
+		// $('#default').tooltip(); // lt lb
+		// $('#ctcb').tooltip({
+		// 	'side': 'bottom',
+		// 	'aligned': 'center'
+		// });
+		// $('#rtrb').tooltip({
+		// 	'side': 'bottom',
+		// 	'aligned': 'right'
+		// });
 
-		// Top
-		$('#lblt').tooltip({
-			'side': 'top',
-			'aligned': 'left',
-			'offset': '0 -10'
-		});
-		$('#cbct').tooltip({
-			'side': 'top',
-			'aligned': 'center',
-			'offset': '0 -10'
-		});
-		$('#rbrt').tooltip({
-			'side': 'top',
-			'aligned': 'right',
-			'offset': '0 -10'
-		});
+		// // Top
+		// $('#lblt').tooltip({
+		// 	'side': 'top',
+		// 	'aligned': 'left',
+		// 	'offset': '0 -10'
+		// });
+		// $('#cbct').tooltip({
+		// 	'side': 'top',
+		// 	'aligned': 'center',
+		// 	'offset': '0 -10'
+		// });
+		// $('#rbrt').tooltip({
+		// 	'side': 'top',
+		// 	'aligned': 'right',
+		// 	'offset': '0 -10'
+		// });
 
-		// Right
-		$('#ltrt').tooltip({
-			'side': 'right',
-			'aligned': 'top',
-			'offset': '10 0'
-		});
-		$('#lmrm').tooltip({
-			'side': 'right',
-			'aligned': 'center',
-			'offset': '10 0'
-		});
-		$('#lbrb').tooltip({
-			'side': 'right',
-			'aligned': 'bottom',
-			'offset': '10 0'
-		});
+		// // Right
+		// $('#ltrt').tooltip({
+		// 	'side': 'right',
+		// 	'aligned': 'top',
+		// 	'offset': '10 0'
+		// });
+		// $('#lmrm').tooltip({
+		// 	'side': 'right',
+		// 	'aligned': 'center',
+		// 	'offset': '10 0'
+		// });
+		// $('#lbrb').tooltip({
+		// 	'side': 'right',
+		// 	'aligned': 'bottom',
+		// 	'offset': '10 0'
+		// });
 
-		// Left
-		$('#rtlt').tooltip({
-			'side': 'left',
-			'aligned': 'top',
-			'offset': '-10 0'
-		});
-		$('#rmlm').tooltip({
-			'side': 'left',
-			'aligned': 'center',
-			'offset': '-10 0'
-		});
-		$('#rblb').tooltip({
-			'side': 'left',
-			'aligned': 'bottom',
-			'offset': '-10 0'
-		});
+		// // Left
+		// $('#rtlt').tooltip({
+		// 	'side': 'left',
+		// 	'aligned': 'top',
+		// 	'offset': '-10 0'
+		// });
+		// $('#rmlm').tooltip({
+		// 	'side': 'left',
+		// 	'aligned': 'center',
+		// 	'offset': '-10 0'
+		// });
+		// $('#rblb').tooltip({
+		// 	'side': 'left',
+		// 	'aligned': 'bottom',
+		// 	'offset': '-10 0'
+		// });
 
 		// // Modal
 		// var modal1 = $(".YOUR_SELECTOR_Modal").modal({

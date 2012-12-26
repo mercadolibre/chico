@@ -63,7 +63,7 @@
 
 	Tabs.prototype.constructor = Tabs;
 
-	Tabs.prototype.defaults = {
+	Tabs.prototype._defaults = {
 		'selected': 0,
 		'cache': true
 	};
@@ -101,7 +101,7 @@
 		* @name ch.Tabs#selected
 		* @type {Number}
 		*/
-		that.selected = that.options.selected || that.options.num || undefined;
+		that.selected = that._options.selected || that._options.num || undefined;
 
 		/**
 		 * Children instances associated to this controller.
@@ -166,7 +166,7 @@
 			config.onShow = function () { that.selected = i; };
 			config.controller = that;
 
-			if (ch.util.hasOwn(that.options, 'cache')) { config.cache = that.options.cache; }
+			if (ch.util.hasOwn(that._options, 'cache')) { config.cache = that._options.cache; }
 
 			/**
 			* Fired when the content of one dynamic tab loads.
@@ -174,7 +174,7 @@
 			* @event
 			* @public
 			*/
-			if (ch.util.hasOwn(that.options, 'onContentLoad')) { config.onContentLoad = that.options.onContentLoad; }
+			if (ch.util.hasOwn(that._options, 'onContentLoad')) { config.onContentLoad = that._options.onContentLoad; }
 
 			/**
 			* Fired when the content of one dynamic tab did not load.
@@ -182,7 +182,7 @@
 			* @event
 			* @public
 			*/
-			if (ch.util.hasOwn(that.options, 'onContentError')) { config.onContentError = that.options.onContentError; }
+			if (ch.util.hasOwn(that._options, 'onContentError')) { config.onContentError = that._options.onContentError; }
 
 			// Create Tabs
 			that.children.push(new ch.Tab($(e), config));
@@ -297,27 +297,9 @@
 	if (window.ch === undefined) {
 		throw new window.Error('Expected ch namespace defined.');
 	}
+
 	function Tab($el, options) {
-		/**
-		 * Reference to a internal component instance, saves all the information and configuration properties.
-		 * @private
-		 * @type {Object}
-		 */
-		var that = this;
-
-		that.init($el, options);
-
-		/**
-		 * Triggers when the component is ready to use (Since 0.8.0).
-		 * @fires Tab#ready
-		 * @since 0.8.0
-		 * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
-		 * @example
-		 * widget.on('ready',function () {
-		 *	this.show();
-		 * });
-		 */
-		window.setTimeout(function () { that.emit('ready'); }, 50);
+		this.init($el, options);
 	}
 
 	/**
@@ -382,10 +364,10 @@
 
 			that.$container.html(data);
 
-			that.options.controller.emit('contentLoad');
+			that._options.controller.emit('contentLoad');
 
-			if (ch.util.hasOwn(that.options, 'onContentLoad')) {
-				that.options.onContentLoad.call(that.options.controller, data);
+			if (ch.util.hasOwn(that._options, 'onContentLoad')) {
+				that._options.onContentLoad.call(that._options.controller, data);
 			}
 		};
 
@@ -402,8 +384,8 @@
 
 			that.controller.trigger("contentError", data);
 
-			if (ch.util.hasOwn(that.options, "onContentError")) {
-				that.options.onContentError.call(that.controller, data.jqXHR, data.textStatus, data.errorThrown);
+			if (ch.util.hasOwn(that._options, "onContentError")) {
+				that._options.onContentError.call(that.controller, data.jqXHR, data.textStatus, data.errorThrown);
 			}
 		};
 
@@ -476,12 +458,12 @@
 	Tab.prototype.show = function () {
 		var that = this;
 
-		that.active = true;
+		that._active = true;
 
 		// Load my content if I'need an ajax request
 		if (ch.util.hasOwn(that, 'source')) { that.content.set(); }
 
-		that.collapsible.show();
+		that._collapsible.show();
 
 		return that;
 	};
@@ -496,9 +478,9 @@
 	*/
 	Tab.prototype.hide = function () {
 
-		if (!this.active) { return; }
+		if (!this._active) { return; }
 
-		this.collapsible.hide();
+		this._collapsible.hide();
 
 		return this;
 	};

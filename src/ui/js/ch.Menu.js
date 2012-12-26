@@ -54,7 +54,7 @@
 			createLayout = function () {
 
 				// No slide efects for IE8-
-				var fx = ($html.hasClass('lt-ie8')) ? false : that.options.fx;
+				var fx = ($html.hasClass('lt-ie8')) ? false : that._options.fx;
 
 				// List elements
 				that.$el.children().each(function(i, e){
@@ -81,7 +81,7 @@
 
 					// List inside list, inits an Expandable
 					var expandable = $li.expandable({
-						'icon': that.options.icon,
+						'icon': that._options.icon,
 						// Show/hide on IE8- instead slideUp/slideDown
 						'fx': fx,
 						'onShow': function () {
@@ -115,7 +115,7 @@
 					var childs = $li.children(),
 						$triggerCont = $(childs[0]),
 						$menu = $(childs[1]);
-						if (!that.options.accordion) {
+						if (!that._options.accordion) {
 							$menu.attr('role', 'menu');
 							$menu.children().children().attr('role', 'menuitem');
 							$menu.children().attr('role', 'presentation');
@@ -166,7 +166,7 @@
 					}
 
 					// Accordion behavior
-					if (that.options.accordion) {
+					if (that._options.accordion) {
 
 						// Hides every that.children list that don't be this specific list item
 						$.each(that.children, function (i, e) {
@@ -225,7 +225,7 @@
 		 * @name ch.Menu#selected
 		 * @type number
 		 */
-		this.selected = this.options.selected - 1;
+		this.selected = this._options.selected - 1;
 
 		/**
 		 * Select a specific children.
@@ -260,7 +260,7 @@
 		createLayout();
 
 		// Accordion behavior
-		if (this.options.accordion) {
+		if (this._options.accordion) {
 			// Sets the interface main class name for avoid
 			configureAccordion();
 		} else {
@@ -268,10 +268,10 @@
 			this.$el.attr('role', 'navigation');
 		}
 
-		this.$el.addClass('ch-' + this['name'] + (ch.util.hasOwn(this.options, 'classes') ? ' ' + this.options.classes : ''));
+		this.$el.addClass('ch-' + this['name'] + (ch.util.hasOwn(this._options, 'classes') ? ' ' + this._options.classes : ''));
 
 		// Select specific item if there are a "selected" parameter on component configuration object
-		if (ch.util.hasOwn(this.options, 'selected')) { select(this.options.selected); }
+		if (ch.util.hasOwn(this._options, 'selected')) { select(this._options.selected); }
 
 		/**
 		 * Triggers when the component is ready to use (Since 0.8.0).
@@ -307,7 +307,7 @@
 
 	Menu.prototype.constructor = Menu;
 
-	Menu.prototype.defaults = {
+	Menu.prototype._defaults = {
 		'icon': true,
 		'fx': true,
 		'accordion': false

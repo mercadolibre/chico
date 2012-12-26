@@ -50,7 +50,7 @@
 		 * Triggers when the component is ready to use (Since 0.8.0).
 		 * @fires ch.Dropdown#ready
 		 * @since 0.8.0
-		 * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
+		 * @exampleDescription Following the first example, using <code>widget</code> as dropdown's instance controller:
 		 * @example
 		 * widget.on('ready',function () {
 		 *	this.show();
@@ -78,7 +78,7 @@
 
 	Dropdown.prototype.constructor = Dropdown;
 
-	Dropdown.prototype.defaults = {
+	Dropdown.prototype._defaults = {
 		'open': false,
 		'fx': false,
 		'side': 'bottom',
@@ -109,7 +109,7 @@
 			 * @type {Object}
 			 */
 			triggerAttr = {
-				'aria-expanded': that.options.open,
+				'aria-expanded': that._options.open,
 				'aria-controls': 'ch-dropdown-' + that.uid
 			},
 
@@ -134,7 +134,7 @@
 		  * @type {Boolean}
 		  * @ignore
 		  */
-		 that.active = this.options.open;
+		 that._active = this._options.open;
 
 		 /**
 		 * The component's trigger.
@@ -206,7 +206,7 @@
 	Dropdown.prototype.show = function () {
 		var that = this;
 
-		if (that.active) {
+		if (that._active) {
 			return that.hide();
 		}
 
@@ -216,16 +216,16 @@
 			that.position = new ch.Positioner({
 				'target': that.$container,
 				'reference': that.$trigger,
-				'side': that.options.side,
-				'align': that.options.align,
-				'offsetY': that.options.offsetY,
-				'offsetX': that.options.offsetX
+				'side': that._options.side,
+				'align': that._options.align,
+				'offsetY': that._options.offsetY,
+				'offsetX': that._options.offsetX
 			});
 		}
 
 		that.position.refresh();
 
-		that.collapsible.show();
+		that._collapsible.show();
 
 		// Z-index of content and updates aria values
 		that.$container.css('z-index', ch.util.zIndex += 1);
@@ -253,11 +253,11 @@
 	Dropdown.prototype.hide = function () {
 		var that = this;
 
-		if (!that.active) {
+		if (!that._active) {
 			return that;
 		}
 
-		that.collapsible.hide();
+		that._collapsible.hide();
 
 		// Turn off keyboards arrows
 		that.arrowsOff();
@@ -277,7 +277,7 @@
 	 * }
 	 */
 	Dropdown.prototype.isActive = function () {
-		return this.active;
+		return this._active;
 	};
 
 	/**
@@ -329,7 +329,7 @@
 			map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
 
 				// Validations
-				if (!that.active) { return; }
+				if (!that._active) { return; }
 
 				// Prevent default behaivor
 				ch.util.prevent(event);
