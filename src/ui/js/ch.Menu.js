@@ -89,15 +89,6 @@
 							that.selected = i;
 
 							/**
-							 * Callback function
-							 * @name onSelect
-							 * @type {Function}
-							 * @memberOf ch.Menu
-							 */
-							that.callbacks.call(that, 'onSelect');
-
-							// new callback
-							/**
 							 * It is triggered when the a fold is selected by the user.
 							 * @name ch.Menu#select
 							 * @event
@@ -108,7 +99,7 @@
 							 *     app.off();
 							 * });
 							 */
-							that.emit('select');
+							that.emit.call(that, 'select');
 						}
 					});
 

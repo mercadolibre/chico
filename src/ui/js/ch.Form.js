@@ -174,8 +174,7 @@
          *  sowidget.action();
          * });
          */
-        that.callbacks('beforeSubmit');
-        that.emit('beforeSubmit');
+        that.emit('beforesubmit');
 
         // Execute all validations
         // that.validate();
@@ -207,8 +206,6 @@
         if (that._status && that.listeners('submit') !== undefined) {
             // Avoid default actions
             ch.util.prevent(event);
-
-            that.callbacks('onSubmit');
             that.emit('submit');
         }
 
@@ -219,12 +216,11 @@
          * @public
          * @exampleDescription
          * @example
-         * widget.on("afterSubmit",function () {
+         * widget.on("aftersubmit",function () {
          *  this.reset();
          * });
          */
-        that.callbacks('afterSubmit');
-        that.emit('afterSubmit');
+        that.emit('aftersubmit');
 
         // Return that to chain methods
         return that;
@@ -251,12 +247,11 @@
          * @public
          * @exampleDescription
          * @example
-         * widget.on("beforeValidate",function () {
+         * widget.on("beforevalidate",function () {
          *  sowidget.action();
          * });
          */
-        that.callbacks('beforeValidate');
-        that.emit('beforeValidate');
+        that.emit('beforevalidate');
 
         // Status OK (with previous error)
         if (!that._status) {
@@ -301,7 +296,6 @@
          * });
          */
         if (that._status) {
-            that.callbacks('onValidate');
             that.emit('validate');
 
         /**
@@ -316,7 +310,6 @@
          * });
          */
         } else {
-            that.callbacks('onError');
             that.emit('error');
         }
 
@@ -327,12 +320,11 @@
          * @public
          * @exampleDescription
          * @example
-         * widget.on("afterValidate",function () {
+         * widget.on("aftervalidate",function () {
          *  sowidget.action();
          * });
          */
-        that.callbacks('afterValidate');
-        that.emit('afterValidate');
+        that.emit('aftervalidate');
 
         return that;
     };
@@ -366,7 +358,6 @@
          *  this.reset();
          * });
          */
-        that.callbacks('onClear');
         that.emit('clear');
 
         return that;
@@ -396,7 +387,6 @@
          *   sowidget.action();
          * });
          */
-        that.callbacks('onReset');
         that.emit('reset');
 
         return that;

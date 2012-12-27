@@ -40,12 +40,10 @@
 			// Animation
 			if (that._options.fx) {
 				that.$container.slideDown('fast', function () {
-					that.callbacks('onShow');
 					that.emit('show');
 				});
 
 			} else {
-				that.callbacks('onShow');
 				that.emit('show');
 			}
 
@@ -73,15 +71,10 @@
 			// Animation
 			if (that._options.fx) {
 				that.$container.slideUp('fast', function () {
-					that.callbacks('onHide');
-					// new callbacks
 					that.emit('hide');
 				});
 			} else {
-				// new callbacks
 				that.emit('hide');
-				// old callback system
-				that.callbacks('onHide');
 			}
 
 		}

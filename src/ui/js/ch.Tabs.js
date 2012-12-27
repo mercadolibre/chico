@@ -269,9 +269,6 @@
 		 */
 		that.emit('select');
 
-		// Callback
-		that.callbacks('onSelect');
-
 		return that;
 
 	};

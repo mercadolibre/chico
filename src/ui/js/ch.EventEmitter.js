@@ -26,6 +26,13 @@
 		 * widget.trigger('someEvent', data);
 		 */
 		that.emit = function (event, data) {
+
+			var fn = (that._options) ? that._options['on' + event] : undefined;
+
+			if (fn !== undefined) {
+				fn.call((that._options.controller || that), data);
+			}
+
 			$(that).trigger('ch-' + event, data);
 
 			return that;
