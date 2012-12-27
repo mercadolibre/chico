@@ -22,7 +22,7 @@
 			// Merged options of each instance
 			options,
 			// The lastest data sent to the client. Used to return on the .get() method
-			current = 'Chico Error: Content is not defined.',
+			current,
 			/**
 			 * Allows to manage the widgets content.
 			 * @namespace
@@ -115,7 +115,8 @@
 		 */
 		content.configure = function (userOptions) {
 			// Merge the defaults options with user options
-			options = $.extend(userOptions, defaults);
+			options = $.extend(ch.util.clone(defaults), userOptions);
+
 			// Since second time, just merge the current options with user options
 			content.configure = function (userOptions) {
 

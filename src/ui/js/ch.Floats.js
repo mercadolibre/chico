@@ -35,23 +35,27 @@
 		 * @type object
 		 */
 		var that = this,
-			conf = that.conf;
+			conf = that.conf,
+			contentOptions = {
+				'input': that.source,
+				'method': conf.method,
+				'params': conf.params,
+				'cache': conf.cache,
+				'async': conf.async
+			};
+
 	/**
 	 * Inheritance
 	 */
-
 		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
 	/**
 	 * Abilities
 	 */
-
 		ch.Content.call(that);
 
-		that.content.configure({
-			'input': that.source
-		});
+		that.content.configure(contentOptions);
 
 		/**
 		 * This callback is triggered when content request have finished.
