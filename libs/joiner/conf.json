@@ -171,6 +171,12 @@
 			],
 			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
 		},
+		"mobileCOMPATIBLECSS": {
+			"compatiblecss": [
+				"../../src/mobile/css/ch.compatible.css"
+			],
+			"template": ["meta.mobile.full.css", "compatiblecss"]
+		},
 		"sharedMESH": {
 			"mesh": [
 				"../../src/shared/css/ch.mesh.css"
