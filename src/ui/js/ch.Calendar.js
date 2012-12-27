@@ -154,7 +154,6 @@
 					"year": date.getFullYear()
 				};
 			},
-
 			template = {
 
 				/**
