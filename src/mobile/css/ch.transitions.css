@@ -26,11 +26,11 @@
 .ch-loading-wrap .ch-loading-text {
 	position: absolute;
 	top: 50%;
+	left: 0;
 	width: 100%;
 	margin-top: -1.5em; /* 21px */
 	line-height: 3em; /* 42px */
 	height: 3em; /* 42px */
-
 }
 
 .ch-loading-wrap .ch-loading-text::before {

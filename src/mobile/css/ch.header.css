@@ -42,6 +42,7 @@
 	margin: 0;
 }
 
+[class*="ch-header"] .ch-nav,
 [class*="ch-header"] nav {
 	position: absolute;
 	top: 0;
