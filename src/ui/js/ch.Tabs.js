@@ -65,6 +65,7 @@
 
 	Tabs.prototype._defaults = {
 		'selected': 0,
+        'method': 'GET',
 		'cache': true
 	};
 
@@ -168,6 +169,8 @@
 
 			if (ch.util.hasOwn(that._options, 'cache')) { config.cache = that._options.cache; }
 
+            if (ch.util.hasOwn(that._options, 'method')) { config.method = that._options.method; }
+
 			/**
 			* Fired when the content of one dynamic tab loads.
 			* @name ch.Tabs#contentLoad
@@ -256,7 +259,7 @@
 		tab.show();
 
 		// Updated selected index
-		selected = index;
+        that.selected = index;
 
 		//Change location hash
 		window.location.hash = '#!/' + tab.$container.attr('id');
@@ -414,7 +417,8 @@
 		var that = this,
 			href = that.el.href.split("#"),
 			controller = that.$el.parents(".ch-tabs"),
-			content = controller.find("#" + href[1]);
+			content = controller.find("#" + href[1]),
+            contentOptions;
 
 		// If there are a tabContent...
 		if (content.length > 0) {
@@ -431,9 +435,13 @@
 			*/
 			that.source = that.el.href;
 
-			that.content.configure({
-				'input': that.source
-			});
+            contentOptions = {
+                'input': that.source,
+                'method': that._options.method,
+                'cache': that._options.cache
+            };
+
+            that.content.configure(contentOptions);
 
 			var id = (href.length === 2) ? href[1] : "ch-tab-" + that.uid;
 
