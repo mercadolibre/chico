@@ -200,6 +200,7 @@ input[readonly]:focus {
 
 	.ch-form-required.ch-list-options label {
 		font-weight: normal;
+		z-index: 1;
 	}
 
 /* Icon indication of required */

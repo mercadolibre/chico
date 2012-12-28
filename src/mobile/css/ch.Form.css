@@ -128,6 +128,7 @@ input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):no
 	height: 20px;
 	background-color: transparent;
 	box-shadow: none;
+	z-index: 2;
 }
 
 .ch-list-options .ch-form-subtitle + * {
