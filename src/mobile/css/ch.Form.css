@@ -125,10 +125,18 @@ input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):no
 
 .ch-list-options input {
 	left: 8px;
-	height: 20px;
+	line-height: 20px;
 	background-color: transparent;
 	box-shadow: none;
 	z-index: 2;
+}
+
+.ch-list-options input[type="checkbox"] {
+	margin-top: -4px;
+}
+
+.ch-list-options input[type="radio"] {
+	margin-top: -5px;
 }
 
 .ch-list-options .ch-form-subtitle + * {

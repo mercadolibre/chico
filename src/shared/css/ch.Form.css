@@ -277,9 +277,6 @@ input[type=range],*/
 	margin: -8px 0 0 0;
 }
 
-.ch-list-options input {
-}
-
 .ch-list-options input[type="checkbox"]:focus,
 .ch-list-options input[type="radio"]:focus {
 	border: none;
