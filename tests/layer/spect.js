@@ -25,105 +25,104 @@ describe('Layer', function () {
 
 
 	it('should be defined', function () {
-		expect(ch.util.hasOwn(ch, 'Layer')).toBeTruthy();
-		expect(typeof ch.Layer).toEqual('function');
-	});
+        expect(ch.util.hasOwn(ch, 'Layer')).toBeTruthy();
+        expect(typeof ch.Layer).toEqual('function');
+        expect(layer1 instanceof ch.Layer).toBeTruthy();
+    });
 
 	describe('Should have the following public properties:', function () {
 
-		it('.element', function () {
-			expect(ch.util.hasOwn(layer1, 'element')).toBeTruthy();
-			expect(layer1.element.nodeType).toEqual(1);
-		});
+        it('.el', function () {
+            expect(layer1.el).not.toEqual(undefined);
+            expect(layer1.el.nodeType).toEqual(1);
+        });
 
-		it('.type / .name', function () {
-			expect(ch.util.hasOwn(layer1, 'type')).toBeTruthy();
-			expect(typeof layer1.type).toEqual('string');
-			expect(layer1.type).toEqual('layer');
-		});
+        it('.name', function () {
+            expect(layer1.name).not.toEqual(undefined);
+            expect(typeof layer1.name).toEqual('string');
+            expect(layer1.name).toEqual('layer');
+        });
 
-		/*it('.constructor', function () {
-			expect(ch.util.hasOwn(tooltip, 'constructor')).toBeTruthy();
-			expect(typeof tooltip.constructor).toEqual('function');
-		});*/
+        it('.constructor', function () {
+            expect(layer1.constructor).not.toEqual(undefined);
+            expect(typeof layer1.constructor).toEqual('function');
+        });
 
-		it('.uid', function () {
-			expect(typeof layer1.uid).toEqual('number');
-		});
+        it('.uid', function () {
+            expect(layer1.uid).not.toEqual(undefined);
+            expect(typeof layer1.uid).toEqual('number');
+        });
 
-		it('.content', function () {
-			expect(ch.util.hasOwn(layer1, 'content')).toBeTruthy();
-			expect(typeof layer1.content).toEqual('object');
-		});
-	});
+        it('.content', function () {
+            expect(layer1.content).not.toEqual(undefined);
+            expect(typeof layer1.content).toEqual('function');
+        });
 
-	describe('Shold have the following public methods:', function () {
+        it('.position', function () {
+            expect(layer1.position).not.toEqual(undefined);
+            expect(typeof layer1.position).toEqual('object');
+            expect(layer1.position instanceof ch.Positioner).toBeTruthy();
+        });
+    });
 
-		it('.off()', function () {
-			expect(ch.util.hasOwn(layer1, 'off')).toBeTruthy();
-			expect(typeof layer1.off).toEqual('function');
-		});
+	describe('Should have the following public methods:', function () {
 
-		it('.on()', function () {
-			expect(ch.util.hasOwn(layer1, 'on')).toBeTruthy();
-			expect(typeof layer1.on).toEqual('function');
-		});
+        it('.off()', function () {
+            expect(layer1.off).not.toEqual(undefined);
+            expect(typeof layer1.off).toEqual('function');
+        });
 
-		it('.once()', function () {
-			expect(ch.util.hasOwn(layer1, 'once')).toBeTruthy();
-			expect(typeof layer1.once).toEqual('function');
-		});
+        it('.on()', function () {
+            expect(layer1.on).not.toEqual(undefined);
+            expect(typeof layer1.on).toEqual('function');
+        });
 
-		it('.trigger()', function () {
-			expect(ch.util.hasOwn(layer1, 'trigger')).toBeTruthy();
-			expect(typeof layer1.trigger).toEqual('function');
-		});
+        it('.once()', function () {
+            expect(layer1.once).not.toEqual(undefined);
+            expect(typeof layer1.once).toEqual('function');
+        });
 
-		it('.closable()', function () {
-			expect(ch.util.hasOwn(layer1, 'closable')).toBeTruthy();
-			expect(typeof layer1.closable).toEqual('function');
-		});
+        it('.emit()', function () {
+            expect(layer1.emit).not.toEqual(undefined);
+            expect(typeof layer1.emit).toEqual('function');
+        });
 
-		it('.height()', function () {
-			expect(ch.util.hasOwn(layer1, 'height')).toBeTruthy();
-			expect(typeof layer1.height).toEqual('function');
-		});
+        it('.height()', function () {
+            expect(layer1.height).not.toEqual(undefined);
+            expect(typeof layer1.height).toEqual('function');
+        });
 
-		it('.hide()', function () {
-			expect(ch.util.hasOwn(layer1, 'hide')).toBeTruthy();
-			expect(typeof layer1.hide).toEqual('function');
-		});
+        it('.hide()', function () {
+            expect(layer1.hide).not.toEqual(undefined);
+            expect(typeof layer1.hide).toEqual('function');
+        });
 
-		it('.isActive()', function () {
-			expect(ch.util.hasOwn(layer1, 'isActive')).toBeTruthy();
-			expect(typeof layer1.isActive).toEqual('function');
-		});
+        it('.isActive()', function () {
+            expect(layer1.isActive).not.toEqual(undefined);
+            expect(typeof layer1.isActive).toEqual('function');
+        });
 
-		it('.position()', function () {
-			expect(ch.util.hasOwn(layer1, 'position')).toBeTruthy();
-			expect(typeof layer1.position).toEqual('function');
-		});
+        it('.show()', function () {
+            expect(layer1.show).not.toEqual(undefined);
+            expect(typeof layer1.show).toEqual('function');
+        });
 
-		it('.show()', function () {
-			expect(ch.util.hasOwn(layer1, 'show')).toBeTruthy();
-			expect(typeof layer1.show).toEqual('function');
-		});
-
-		it('.width()', function () {
-			expect(ch.util.hasOwn(layer1, 'width')).toBeTruthy();
-			expect(typeof layer1.width).toEqual('function');
-		});
-	});
+        it('.width()', function () {
+            expect(layer1.width).not.toEqual(undefined);
+            expect(typeof layer1.width).toEqual('function');
+        });
+    });
 
 	describe('Should have the following WAI-ARIA roles and properties:', function () {
-		it('aria-describedby', function () {
-			expect($(layer1.element).attr("aria-describedby")).toEqual('ch-layer-1');
-		});
-	});
+        it('aria-describedby', function () {
+            expect(layer1.$el.attr('aria-describedby')).toEqual('ch-layer-1');
+        });
+    });
 
-	it('Should have the "ch-points-ltlb" classname:', function () {
-		expect($(layer1.element).hasClass('ch-points-ltlb')).toBeTruthy();
-	});
+	it('Should have the datasets to position the container:', function () {
+        expect(layer1.$el.attr('data-side')).toEqual('bottom');
+        expect(layer1.$el.attr('data-align')).toEqual('right');
+    });
 
 	describe('Show method', function () {
 
@@ -161,10 +160,6 @@ describe('Layer', function () {
 				it('.ch-cone', function () {
 					expect($content.hasClass('ch-cone')).toBeTruthy();
 				});
-
-				it('.ch-points-ltlb', function () {
-					expect($content.hasClass('ch-points-ltlb')).toBeTruthy();
-				});
 			});
 
 			describe('Should have a child as container of the widget content:', function () {
@@ -176,8 +171,8 @@ describe('Layer', function () {
 					$child = $content.children(':first');
 				});
 
-				it('Should have the "ch-layer-content" classname.', function () {
-					expect($child.hasClass('ch-layer-content')).toBeTruthy();
+				it('Should have the "ch-tooltip-content" classname.', function () {
+					expect($child.hasClass('ch-tooltip-content')).toBeTruthy();
 				});
 
 				it('Should contain the default content.', function () {

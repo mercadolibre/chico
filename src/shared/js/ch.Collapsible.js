@@ -29,7 +29,7 @@
 		 */
 		that.collapsible.show = function () {
 
-			that.active = true;
+			that._active = true;
 
 			if (that.$trigger) {
 				that.$trigger.addClass('ch-' + that.name + '-trigger-on').attr('aria-expanded', 'true');
@@ -38,7 +38,7 @@
 			// TODO: The emit() method must be execute that.callbacks()
 			// TODO: The events must be in lowercase
 			// Animation
-			if (that.options.fx) {
+			if (that._options.fx) {
 				that.$container.slideDown('fast', function () {
 					that.callbacks('onShow');
 					that.emit('show');
@@ -60,7 +60,7 @@
 		 */
 		that.collapsible.hide = function () {
 
-			that.active = false;
+			that._active = false;
 
 			if (that.$trigger) {
 				that.$trigger.removeClass('ch-' + that.name + '-trigger-on').attr('aria-expanded', 'false');
@@ -71,7 +71,7 @@
 			// TODO: The emit() method must be execute that.callbacks()
 			// TODO: The events must be in lowercase
 			// Animation
-			if (that.options.fx) {
+			if (that._options.fx) {
 				that.$container.slideUp('fast', function () {
 					that.callbacks('onHide');
 					// new callbacks

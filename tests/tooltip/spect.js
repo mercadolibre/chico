@@ -45,6 +45,12 @@ describe('Tooltip', function () {
 			expect(tooltip1.content).not.toEqual(undefined);
 			expect(typeof tooltip1.content).toEqual('function');
 		});
+
+        it('.position', function () {
+            expect(tooltip1.position).not.toEqual(undefined);
+            expect(typeof tooltip1.position).toEqual('object');
+            expect(tooltip1.position instanceof ch.Positioner).toBeTruthy();
+        });
 	});
 
 	describe('Should have the following public methods:', function () {
@@ -84,11 +90,6 @@ describe('Tooltip', function () {
 			expect(typeof tooltip1.isActive).toEqual('function');
 		});
 
-		it('.position()', function () {
-			expect(tooltip1.position).not.toEqual(undefined);
-			expect(typeof tooltip1.position).toEqual('function');
-		});
-
 		it('.show()', function () {
 			expect(tooltip1.show).not.toEqual(undefined);
 			expect(typeof tooltip1.show).toEqual('function');
@@ -102,12 +103,13 @@ describe('Tooltip', function () {
 
 	describe('Should have the following WAI-ARIA roles and properties:', function () {
 		it('aria-describedby', function () {
-			expect($(tooltip1.el).attr("aria-describedby")).toEqual('ch-tooltip-1');
+			expect(tooltip1.$el.attr("aria-describedby")).toEqual('ch-tooltip-1');
 		});
 	});
 
-	it('Should have the "ch-points-ltlb" classname:', function () {
-		expect($(tooltip1.el).hasClass('ch-points-ltlb')).toBeTruthy();
+	it('Should have the datasets to position the container:', function () {
+        expect(tooltip1.$el.attr('data-side')).toEqual('bottom');
+		expect(tooltip1.$el.attr('data-align')).toEqual('right');
 	});
 
 	describe('Show method', function () {
@@ -145,10 +147,6 @@ describe('Tooltip', function () {
 
 				it('.ch-cone', function () {
 					expect($content.hasClass('ch-cone')).toBeTruthy();
-				});
-
-				it('.ch-points-ltlb', function () {
-					expect($content.hasClass('ch-points-ltlb')).toBeTruthy();
 				});
 			});
 
@@ -227,7 +225,7 @@ describe('Tooltip', function () {
 			expect(tooltip1.isActive()).not.toBeTruthy();
 		});
 
-		it('Should return "false" when the widget is hiden', function () {
+		it('Should return "false" when the widget is hidden', function () {
 
 			tooltip1.show();
 

@@ -139,7 +139,7 @@
 		var that = this,
 			$target = that.$target.attr({
 				'data-side': that.side,
-				'data-aligned': that.aligned
+				'data-align': that.aligned
 			});
 
 		that.target = {
