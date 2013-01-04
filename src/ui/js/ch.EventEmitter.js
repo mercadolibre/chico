@@ -26,6 +26,13 @@
 		 * widget.trigger('someEvent', data);
 		 */
 		that.emit = function (event, data) {
+
+			var fn = (that._options) ? that._options['on' + event] : undefined;
+
+			if (fn !== undefined) {
+				fn.call((that._options.controller || that), data);
+			}
+
 			$(that).trigger('ch-' + event, data);
 
 			return that;
@@ -98,6 +105,23 @@
 			}
 
 			return that;
+		};
+
+		/**
+		 * Returns all listeners from the collection for a specified event.
+		 * @name listeners
+		 * @methodOf ch.Widget#
+		 * @param {string} event Event name.
+		 * @returns Array
+		 * @example
+		 * me.listeners('ready');
+		 */
+		that.listeners = function (event) {
+			if (event === undefined) {
+				throw new Error('EventEmitter - "listeners(event)": It should receive an event.');
+			}
+
+			return $._data(that, 'events')['ch-' + event];
 		};
 
 	}

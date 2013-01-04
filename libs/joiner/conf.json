@@ -49,6 +49,7 @@
 			],
 			"abilities": [
 				"../../src/ui/js/ch.EventEmitter.js",
+				"../../src/shared/js/ch.cache.js",
 				"../../src/shared/js/ch.Content.js",
 				"../../src/shared/js/ch.Closable.js",
 				"../../src/shared/js/ch.Collapsible.js",
@@ -68,8 +69,10 @@
 				"../../src/ui/js/ch.Calendar.js",
 				"../../src/ui/js/ch.blink.js",
 				"../../src/ui/js/ch.Dropdown.js",
+				"../../src/ui/js/ch.Tabs.js",
 				"../../src/ui/js/ch.Carousel.js",
-				"../../src/ui/js/ch.Tooltip.js"
+				"../../src/ui/js/ch.Tooltip.js",
+				"../../src/ui/js/ch.Form.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},

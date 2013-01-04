@@ -179,10 +179,6 @@
 				throw new Error('jvent - "listeners(event)": It should receive an event.');
 			}
 
-			if (collection[event] === undefined) {
-				throw new Error('jvent - "listeners(event)": The event must exist into the collection.');
-			}
-
 			return collection[event];
 		};
 
@@ -198,11 +194,13 @@
 		 * me.emit("ready", "param1", "param2");
 		 */
 		that.emit = function (event, data) {
-			var args = arguments,
+			var that = this,
+				args = arguments,
 				event = args[0],
 				listeners,
 				i,
-				len;
+				len,
+				fn = that._options['on' + event];
 
 			if (event === undefined) {
 				throw new Error('jvent - "emit(event)": It should receive an event.');
@@ -230,6 +228,10 @@
 						i -= 1;
 					}
 				}
+			}
+
+			if (fn !== undefined) {
+				fn.call(that._options.controller || that, data);
 			}
 
 			return that;

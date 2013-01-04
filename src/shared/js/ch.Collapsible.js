@@ -19,7 +19,7 @@
 		 * Allows to manage the widgets collapsible status.
 		 * @namespace
 		 */
-		that.collapsible = {};
+		that._collapsible = {};
 
 		/**
 		 * Shows component's container.
@@ -27,9 +27,9 @@
 		 * @function
 		 * @name that.collapsible#show
 		 */
-		that.collapsible.show = function () {
+		that._collapsible.show = function () {
 
-			that.active = true;
+			that._active = true;
 
 			if (that.$trigger) {
 				that.$trigger.addClass('ch-' + that.name + '-trigger-on').attr('aria-expanded', 'true');
@@ -38,14 +38,12 @@
 			// TODO: The emit() method must be execute that.callbacks()
 			// TODO: The events must be in lowercase
 			// Animation
-			if (that.options.fx) {
+			if (that._options.fx) {
 				that.$container.slideDown('fast', function () {
-					that.callbacks('onShow');
 					that.emit('show');
 				});
 
 			} else {
-				that.callbacks('onShow');
 				that.emit('show');
 			}
 
@@ -58,9 +56,9 @@
 		 * @function
 		 * @name that.collapsible#hide
 		 */
-		that.collapsible.hide = function () {
+		that._collapsible.hide = function () {
 
-			that.active = false;
+			that._active = false;
 
 			if (that.$trigger) {
 				that.$trigger.removeClass('ch-' + that.name + '-trigger-on').attr('aria-expanded', 'false');
@@ -71,17 +69,12 @@
 			// TODO: The emit() method must be execute that.callbacks()
 			// TODO: The events must be in lowercase
 			// Animation
-			if (that.options.fx) {
+			if (that._options.fx) {
 				that.$container.slideUp('fast', function () {
-					that.callbacks('onHide');
-					// new callbacks
 					that.emit('hide');
 				});
 			} else {
-				// new callbacks
 				that.emit('hide');
-				// old callback system
-				that.callbacks('onHide');
 			}
 
 		}

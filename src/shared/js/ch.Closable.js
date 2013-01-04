@@ -19,12 +19,12 @@
 			events = 'click.' + that.name + ' ' + ch.events.key.ESC + '.' + that.name;
 
 		that.closable = function () {
-			if (!that.options.closable) {
+			if (!that._options.closable) {
 				return;
 			}
 
 			// Closable On
-			if (that.options.closable && ch.util.hasOwn(that.options, 'event') && that.options.event === 'click') {
+			if (that._options.closable && ch.util.hasOwn(that._options, 'event') && that._options.event === 'click') {
 				// Append close buttons
 				// It will close with close button
 				that.$container
@@ -38,7 +38,7 @@
 			}
 
 			// It will close only with close button
-			if (that.options.closable === 'button') {
+			if (that._options.closable === 'button') {
 				return;
 			}
 

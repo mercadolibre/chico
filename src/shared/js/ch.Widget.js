@@ -39,28 +39,28 @@
 	Widget.prototype.init = function ($el, options) {
 
 		// Clones defaults or creates a defaults object
-		var defaults = (this.defaults) ? util.clone(this.defaults) : {};
+		var defaults = (this._defaults) ? util.clone(this._defaults) : {};
 
 		// Clones the defaults options or creates a new object
 		if (options === undefined) {
 			if ($el === undefined) {
-				this.options = defaults;
+				this._options = defaults;
 
 			} else if ($el instanceof $) {
 				this.$el = $el;
 				this.el = $el[0];
-				this.snippet = this.el.cloneNode();
-				this.options = defaults;
+				this._snippet = this.el.cloneNode();
+				this._options = defaults;
 
 			} else if (typeof $el === 'object') {
-				this.options = $.extend(defaults, $el);
+				this._options = $.extend(defaults, $el);
 			}
 
 		} else if ($el instanceof $ && typeof options === 'object') {
 			this.$el = $el;
 			this.el = $el[0];
-			this.snippet = this.el.cloneNode();
-			this.options = $.extend(defaults, options);
+			this._snippet = this.el.cloneNode();
+			this._options = $.extend(defaults, options);
 
 		} else {
 			throw new window.Error('Expected 2 parameters or less');
@@ -87,22 +87,6 @@
 		this.$el.removeData(this.name);
 
 		delete ch.instances[this.name][this.uid];
-
-	};
-
-	/**
-	 * Executes a specific listener when an event has been emitted.
-	 * @public
-	 * @function
-	 * @name ch.Widget#callbacks
-	 */
-	Widget.prototype.callbacks = function (when, data) {
-
-		if (ch.util.hasOwn(this.options, when)) {
-			var context = (this.controller) ? this.controller : this;
-
-			return this.options[when].call(context, data);
-		}
 
 	};
 

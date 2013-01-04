@@ -6,10 +6,6 @@
 	margin: 10px 0;
 }
 
-											.ch-tabs.ch-tab-vertical {
-												position: relative;
-											}
-
 /* Triggers container */
 .ch-tabs .ch-tabs-triggers {
 	position: relative;
@@ -21,26 +17,12 @@
 	overflow: hidden;
 }
 
-											.ch-tabs.ch-tab-vertical .ch-tabs-triggers {
-												margin-left: 0;
-												position: absolute;
-												top: 0;
-												left: 0;
-												width: 123px;
-												z-index: 10;
-											}
-
 .ch-tabs-triggers li{
 	cursor: pointer;
 	display: inline;
 	margin-right: 0;
 }
 
-										.ch-tab-vertical .ch-tabs-triggers li{
-											cursor: pointer;
-											display: block;
-											margin: 0 0 5px 0;
-										}
 
 /* Triggers */
 .ch-tab-trigger {
@@ -54,23 +36,12 @@
 	border-radius: 5px 5px 0 0;
 }
 
-										.ch-tab-vertical .ch-tab-trigger {
-											border-radius: 5px 0 0 5px;
-											display: block;
-											padding: 7px 12px 6px 12px;
-
-										}
-
-										.ch-tab-vertical li:first-child .ch-tab-trigger {
-										}
-
 /* Hover and active */
 .ch-tab-trigger:hover,
 .ch-tab-trigger:active {
 	background-color: #F7F7F7;
 }
 
-/* Vertical trigger */
 
 /* Trigger ON */
 .ch-tabs .ch-tab-trigger-on,
@@ -91,78 +62,7 @@
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#FFFFFF');
 }
 
-								.lt-ie10 .ch-tabs.ch-tab-vertical .ch-tab-trigger-on,
-								.lt-ie10 .ch-tabs.ch-tab-vertical .ch-tab-trigger-on:hover {
-									filter: none;
-								}
-
-								.ch-tabs.ch-tab-vertical .ch-tab-trigger-on {
-									border: 1px solid #EDEDED;
-									border-right: 1px solid #ffffff;
-									background: none;
-								}
-
-								.ch-tabs.ch-tab-vertical .ch-tab-trigger-on:hover,
-								.ch-tabs.ch-tab-vertical .ch-tab-trigger-on:active{
-									background-color: #ffffff;
-								}
-
-/* content */
+/* Container */
 .ch-tabs .ch-box-lite {
  	border-radius: 0;
-}
-
-								.ch-tabs.ch-tab-vertical .ch-tabs-content {
-									margin-left: 120px;
-									min-height: 120px;
-								}
-
-.no-js .ch-tabs-triggers {
-	top: 0;
-	border: 1px solid #EDEDED;
-	border-bottom: none;
-	margin: 0;
-	padding-left: 10px;
-	background: #EEEEEE;
-
-}
-
-.no-js .ch-tabs-triggers li {
-	display: list-item;
-	list-style-type: square;
-	margin-left: 16px;
-	margin-right: 16px;
-	cursor: default;
-}
-
-.no-js .ch-tab-trigger {
-	border: none;
-	border-radius: 0;
-	padding: 0 12px 0 2px;
-	display: inline;
-	color: #0637B3 !important;
-	background: transparent;
-}
-
-.no-js .ch-tab-trigger:hover {
-	background: transparent;
-	text-decoration: underline !important;
-}
-
-
-.no-js .ch-tab-trigger-on {
-	background: transparent;
-	font-weight: normal;
-}
-
-.no-js .ch-tabs .ch-box-lite > div {
-	border-top: 1px solid #EDEDED;
-	margin-top: 10px;
-	padding-top: 10px;
-}
-
-.no-js .ch-tabs .ch-box-lite > div:first-child {
-	border-top: none;
-	margin-top: 0;
-	padding-top: 0;
 }

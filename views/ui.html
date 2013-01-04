@@ -571,7 +571,6 @@
 		</ul>
 	</div>
 
-
 	<div class="ch-box-lite">
 		<h2>Dropdown</h2>
 
@@ -719,7 +718,7 @@
 	</div>
 
 	<div class="ch-box-container">
-		<h2>Tab Navigator (horizontal)</h2>
+		<h2>Tabs</h2>
 
 		<div class="YOUR_SELECTOR_Tabs ch-tabs">
 			<ul class="ch-tabs-triggers">
@@ -738,31 +737,6 @@
 				</div>
 
 				<div id="tab3-b" class="ch-js-hide">
-					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="ch-box-container">
-		<h2>Tab Navigator (vertical)</h2>
-
-		<div class="YOUR_SELECTOR_Tabs ch-tabs ch-tab-vertical">
-			<ul class="ch-tabs-triggers">
-				<li><a href="#tab1-c" class="ch-tab-trigger ch-tab-trigger-on">Tab1</a></li>
-				<li><a href="#tab2-c" class="ch-tab-trigger">Tab2</a></li>
-				<li><a href="#tab3-c" class="ch-tab-trigger">Tab3</a></li>
-			</ul>
-			<div class="ch-box-lite">
-				<div id="tab1-c">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
-				<div id="tab2-c" class="ch-js-hide">
-					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
-				</div>
-				<div id="tab3-c" class="ch-js-hide">
 					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
 				</div>
 			</div>
@@ -1342,6 +1316,20 @@
 		// Dropdown
 		var dropdown = $(".myDropdown").dropdown();
 
+		// // Tabs
+		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
+
+		// // Form
+		var form = $('.myForm').form();
+
+		form
+			.on('submit', function () {
+				console.log('Validated');
+			})
+			.on('error', function () {
+				console.log('Error');
+			})
+
 		// // Autocomplete
 		// function autoComplete(data) {
 		// 	autoComplete1.suggest(data);
@@ -1370,7 +1358,7 @@
 		// var	calendar = $(".YOUR_SELECTOR_calendar").calendar({"from": "today"});
 
 		// Carousel
-		var carousel = $(".myCarousel").carousel({"pagination": true});
+		// var carousel = $(".myCarousel").carousel({"pagination": true});
 		// var carousel = $.carousel($(".myCarousel"), {"pagination": true});
 
 		// // Countdown
@@ -1405,66 +1393,66 @@
 
 		// Tooltip
 		// Bottom
-		$('#default').tooltip(); // lt lb
-		$('#ctcb').tooltip({
-			'side': 'bottom',
-			'aligned': 'center'
-		});
-		$('#rtrb').tooltip({
-			'side': 'bottom',
-			'aligned': 'right'
-		});
+		// $('#default').tooltip(); // lt lb
+		// $('#ctcb').tooltip({
+		// 	'side': 'bottom',
+		// 	'aligned': 'center'
+		// });
+		// $('#rtrb').tooltip({
+		// 	'side': 'bottom',
+		// 	'aligned': 'right'
+		// });
 
-		// Top
-		$('#lblt').tooltip({
-			'side': 'top',
-			'aligned': 'left',
-			'offsetY': -10
-		});
-		$('#cbct').tooltip({
-			'side': 'top',
-			'aligned': 'center',
-			'offsetY': -10
-		});
-		$('#rbrt').tooltip({
-			'side': 'top',
-			'aligned': 'right',
-			'offsetY': -10
-		});
+		// // Top
+		// $('#lblt').tooltip({
+		// 	'side': 'top',
+		// 	'aligned': 'left',
+		// 	'offset': '0 -10'
+		// });
+		// $('#cbct').tooltip({
+		// 	'side': 'top',
+		// 	'aligned': 'center',
+		// 	'offset': '0 -10'
+		// });
+		// $('#rbrt').tooltip({
+		// 	'side': 'top',
+		// 	'aligned': 'right',
+		// 	'offset': '0 -10'
+		// });
 
-		// Right
-		$('#ltrt').tooltip({
-			'side': 'right',
-			'aligned': 'top',
-			'offsetX': 10
-		});
-		$('#lmrm').tooltip({
-			'side': 'right',
-			'aligned': 'center',
-			'offsetX': 10
-		});
-		$('#lbrb').tooltip({
-			'side': 'right',
-			'aligned': 'bottom',
-			'offsetX': 10
-		});
+		// // Right
+		// $('#ltrt').tooltip({
+		// 	'side': 'right',
+		// 	'aligned': 'top',
+		// 	'offset': '10 0'
+		// });
+		// $('#lmrm').tooltip({
+		// 	'side': 'right',
+		// 	'aligned': 'center',
+		// 	'offset': '10 0'
+		// });
+		// $('#lbrb').tooltip({
+		// 	'side': 'right',
+		// 	'aligned': 'bottom',
+		// 	'offset': '10 0'
+		// });
 
-		// Left
-		$('#rtlt').tooltip({
-			'side': 'left',
-			'aligned': 'top',
-			'offsetX': -10
-		});
-		$('#rmlm').tooltip({
-			'side': 'left',
-			'aligned': 'center',
-			'offsetX': -10
-		});
-		$('#rblb').tooltip({
-			'side': 'left',
-			'aligned': 'bottom',
-			'offsetX': -10
-		});
+		// // Left
+		// $('#rtlt').tooltip({
+		// 	'side': 'left',
+		// 	'aligned': 'top',
+		// 	'offset': '-10 0'
+		// });
+		// $('#rmlm').tooltip({
+		// 	'side': 'left',
+		// 	'aligned': 'center',
+		// 	'offset': '-10 0'
+		// });
+		// $('#rblb').tooltip({
+		// 	'side': 'left',
+		// 	'aligned': 'bottom',
+		// 	'offset': '-10 0'
+		// });
 
 		// // Modal
 		// var modal1 = $(".YOUR_SELECTOR_Modal").modal({
