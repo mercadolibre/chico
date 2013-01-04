@@ -57,12 +57,33 @@
 		}
 	</style>
 </head>
-
 <body>
 	<div data-page="index" role="region" aria-hidden="false">
-
+		<h1>Chico Mobile</h1>
 		<div class="widgets">
-			<h2>Headers</h2>
+			<h2>List of components</h2>
+			<ul class="ch-list">
+				<li><a href="#headers">Headers</a></li>
+				<li><a href="#headings">Headings</a></li>
+				<li><a href="#links">Links</a></li>
+				<li><a href="#buttons">Buttons</a></li>
+				<li><a href="#boxes">Boxes</a></li>
+				<li><a href="#message-boxes">Message Boxes</a></li>
+				<li><a href="#big-message-boxes">Big Message Boxes</a></li>
+				<li><a href="#lists">Lists</a></li>
+				<li><a href="#list-options">Lists Options</a></li>
+				<li><a href="#list-options-icon">Lists Options Icons</a></li>
+				<li><a href="#transitions">Transitions</a></li>
+				<li><a href="#tags">Tags</a></li>
+				<li><a href="#pagination">Pagination</a></li>
+				<li><a href="#tables">Tables</a></li>
+				<li><a href="#layer">Layer</a></li>
+				<li><a href="#expandable">Expandable</a></li>
+				<li><a href="#menu">Menu</a></li>
+				<li><a href="#forms">Forms</a></li>
+				<li><a href="#icons">Icons</a></li>
+			</ul>
+			<h2 id="headers">Headers</h2>
 			<div class="ch-header">
 				<h1>Preguntas</h1>
 				<nav>
@@ -80,27 +101,20 @@
 		</div>
 
 		<div class="ch-layout" role="main">
-			<div class="ch-box-lite">
-				<h1>Headings</h1>
-				<h1>Header 1</h1>
-				<h2>Header 2</h2>
-				<h3>Header 3</h3>
-				<h4>Header 4</h4>
-				<h5>Header 5</h5>
-				<h6>Header 6</h6>
-			</div>
-			<div class="ch-box-lite">
-				<h1>Titles</h1>
-				<h1>h1</h1>
-				<h2>h2</h2>
-				<h3>h3</h3>
-				<h4>h4</h4>
-				<h5>h5</h5>
-				<h6>h6</h6>
+			<div class="widgets">
+				<h2 id="headings">Headings</h2>
+				<div class="ch-box-container">
+					<h1>Header 1</h1>
+					<h2>Header 2</h2>
+					<h3>Header 3</h3>
+					<h4>Header 4</h4>
+					<h5>Header 5</h5>
+					<h6>Header 6</h6>
+				</div>
 			</div>
 
 			<div class="widgets">
-				<h2>Links</h2>
+				<h2 id="links">Links</h2>
 				<p><a href="http://www.mercadolibre.com">MercadoLibre</a></p>
 				<p><a href="http://www.mercadopago.com">MercadoPago</a></p>
 				<p><a href="http://www.mercadoshops.com">MercadoShops</a></p>
@@ -108,10 +122,9 @@
 			</div>
 
 			<div class="widgets ch-clearfix">
-				<h2>Buttons</h2>
-
+				<h2 id="buttons">Buttons</h2>
 				<div class="ch-g1-2">
-					<h2>Buttons</h2>
+					<h3>Default Buttons</h3>
 					<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
 					<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
 					<p><input type="button" class="ch-btn" value="Default button"></p>
@@ -120,7 +133,7 @@
 					<p><input type="button" class="ch-btn-action ch-btn-small" value="Action button"></p>
 				</div>
 				<div class="ch-g1-2">
-					<h2>Disabled Buttons</h2>
+					<h3>Disabled Buttons</h3>
 					<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
 					<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Big button disabled"></p>
 					<p><input type="button" class="ch-btn ch-btn-disabled" value="Default button disabled"></p>
@@ -130,39 +143,46 @@
 				</div>
 			</div>
 
-			<div class="ch-box-container">
-				<h2>Container Box</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-			</div>
-			<div class="ch-box-lite">
-				<h2>Box Lite</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-			</div>
+			<div class="widgets">
+				<h2 id="boxes">Boxes</h2>
+				<div class="ch-box-container">
+					<h2>Container Box</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+				</div>
+				<div class="ch-box-lite">
+					<h2>Box Lite</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+				</div>
 
-			<div class="ch-box">
-				<h2>Box</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-			</div>
-
-			<h2>Message boxes</h2>
-			<div class="ch-box-error">Oops, something wrong happened</div>
-			<div class="ch-box-help">Do you need any help?</div>
-			<div class="ch-box-information">Here's more information</div>
-			<div class="ch-box-attention">Warning! something might be wrong</div>
-			<div class="ch-box-ok">Everything is great!</div>
-
-			<h2>Big message boxes</h2>
-			<div class="ch-box-attention">
-				<h2>Warning!</h2>
-				<p>This is a big warning message, be careful!</p>
-			</div>
-			<div class="ch-box-ok">
-				<h2>Congratulations!</h2>
-				<p>This went really well. You're awesome!</p>
+				<div class="ch-box">
+					<h2>Box</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+				</div>
 			</div>
 
 			<div class="widgets">
-				<h2>Lists</h2>
+				<h2 id="message-boxes">Message boxes</h2>
+				<div class="ch-box-error">Oops, something wrong happened</div>
+				<div class="ch-box-help">Do you need any help?</div>
+				<div class="ch-box-information">Here's more information</div>
+				<div class="ch-box-attention">Warning! something might be wrong</div>
+				<div class="ch-box-ok">Everything is great!</div>
+			</div>
+
+			<div class="widgets">
+				<h2 id="big-message-boxes">Big message boxes</h2>
+				<div class="ch-box-attention">
+					<h2>Warning!</h2>
+					<p>This is a big warning message, be careful!</p>
+				</div>
+				<div class="ch-box-ok">
+					<h2>Congratulations!</h2>
+					<p>This went really well. You're awesome!</p>
+				</div>
+			</div>
+
+			<div class="widgets">
+				<h2 id="lists">Lists</h2>
 				<h3>Unstyled</h3>
 				<ul>
 					<li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
@@ -189,8 +209,10 @@
 					<li>Computación</li>
 					<li>Hogar</li>
 				</ol>
+			</div>
 
-				<h3>List Options</h3>
+			<div class="widgets">
+				<h2 id="list-options">List Options</h2>
 				<div>
 					<ul class="ch-list-options">
 						<li><a href="#">Autos, Motos y Otros</a></li>
@@ -198,8 +220,10 @@
 						<li><a href="#">Servicios</a></li>
 					</ul>
 				</div>
+			</div>
 
-				<h2>List Options with icons</h2>
+			<div class="widgets">
+				<h2 id="list-options-icon">List Options with icons</h2>
 				<div>
 					<ul class="ch-list-options">
 						<li>
@@ -228,7 +252,7 @@
 			</div>
 
 			<div class="widgets">
-				<h2>Transitions <span class="ch-loading">Cargando...</span></h2>
+				<h2 id="transitions">Transitions <span class="ch-loading">Cargando...</span></h2>
 				<div class="body">
 					<div class="ch-loading-wrap">
 						<p class="ch-loading-text">Cargando...</p>
@@ -237,13 +261,13 @@
 			</div>
 
 			<div class="widgets">
-				<h2>Tags</h2>
+				<h2 id="tags">Tags</h2>
 				<a class="ch-tag" href="#">Chico</a>
 				<a class="ch-tag" href="#">Mobile</a>
 			</div>
 
 			<div class="widgets">
-				<h2>Pagination</h2>
+				<h2 id="pagination">Pagination</h2>
 				<ul class="ch-pagination">
 				  <li><a type="prev" href="#">Previous</a></li>
 				  <li><a href="#">1</a></li>
@@ -254,7 +278,7 @@
 			</div>
 
 			<div class="widgets">
-				<h2>Tables</h2>
+				<h2 id="tables">Tables</h2>
 				<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
 					<caption>Summary</caption>
 					<thead>
@@ -286,7 +310,7 @@
 
 
 			<div class="widgets">
-				<h2>Layer</h2>
+				<h2 id="layer">Layer</h2>
 				<div class="myLayer">
 					<p><a href="#asd">It's a Layer</a></p>
 					<div>
@@ -298,7 +322,7 @@
 			</div>
 
 			<div class="widgets">
-				<h2>Expandable</h2>
+				<h2 id="expandable">Expandable</h2>
 				<div class="categories">
 					<h3>Expandable</h3>
 					<ul class="ch-list-options">
@@ -316,7 +340,7 @@
 			</div>
 
 			<div class="widgets">
-				<h2>Menu</h2>
+				<h2 id="menu">Menu</h2>
 				<ul class="myMenu">
 					<li>
 						<h3>List Options</h3>
@@ -349,7 +373,7 @@
 			</div>
 
 			<div class="widgets">
-				<h2>Forms</h2>
+				<h2 id="forms">Forms</h2>
 				<form action="http://ui.ml.com:3000/test/post" class="ch-form myForm" method="POST">
 					<fieldset>
 						<legend>Inputs</legend>
@@ -597,7 +621,7 @@
 			</div>
 
 			<div class="widgets">
-				<h2>Icons</h2>
+				<h2 id="icons">Icons</h2>
 				<ul class="showroomIcons">
 					<li><i class="ch-icon-search"></i> ch-icon-search</li>
 					<li><i class="ch-icon-heart"></i> ch-icon-heart</li>
@@ -663,7 +687,7 @@
 					<li><i class="ch-icon-undo"></i> ch-icon-undo</li>
 					<li><i class="ch-icon-comment-alt"></i> ch-icon-comment-alt</li>
 					<li><i class="ch-icon-comments-alt"></i> ch-icon-comments-alt</li>
-	            </ul>
+				</ul>
 			</div>
 		</div>
 	</div>
