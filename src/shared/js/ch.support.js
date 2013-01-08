@@ -15,5 +15,15 @@
 	 */
 	support.transition = body.style.WebkitTransition !== undefined || body.style.MozTransition !== undefined || body.style.MSTransition !== undefined || body.style.OTransition !== undefined || body.style.transition !== undefined;
 
+	support.fx = !!$.fn.slideDown;
+
+	/**
+	 *
+	 * @name touch
+	 * @memberOf ch.support
+	 * @type {Boolean}
+	 */
+	support.touch = 'createTouch' in document;
+
 	ch.support = support;
 }());
