@@ -171,7 +171,7 @@
             'offsetX': this._options.offsetX
         });
 
-        this.closable();
+        this._closable();
     };
 
     /**
@@ -187,7 +187,7 @@
         // Request the content
         this.content.set();
         //
-        this._collapsible.show();
+        this._show();
         //
         return this;
     };
@@ -201,7 +201,7 @@
      */
     Layer.prototype.hide = function () {
         //
-        this._collapsible.hide();
+        this._hide();
         //
         this.$container.detach();
         //
