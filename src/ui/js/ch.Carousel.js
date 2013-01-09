@@ -148,11 +148,11 @@
          */
         this.queue = (function () {
             // No queue
-            if (that.options.asyncData === undefined) { return []; }
+            if (that._options.asyncData === undefined) { return []; }
             // Validated queue
             var q = [];
             // Validate each item in queue to be different to undefined
-            $.each(that.options.asyncData, function (index, item) {
+            $.each(that._options.asyncData, function (index, item) {
                 if (item) { q.push(item); }
             });
             // Return validated queue
@@ -188,8 +188,8 @@
         // Defines the sizing behavior of Carousel. It can be elastic and responsive or fixed.
         (function setWidth() {
             // Width by configuration
-            if (that.options.width !== undefined) {
-                return that.$el.css('width', that.options.width);
+            if (that._options.width !== undefined) {
+                return that.$el.css('width', that._options.width);
             }
 
             // Elastic width
@@ -221,12 +221,12 @@
         this.$mask.css('height', this.$list.outerHeight());
 
         // If efects aren't needed, avoid transition on list
-        if (!this.options.fx) { this.$list.addClass('ch-carousel-nofx'); }
+        if (!this._options.fx) { this.$list.addClass('ch-carousel-nofx'); }
         // Position absolutelly the list when CSS transitions aren't supported
         if (!ch.support.transition) { this.$list.css({'position': 'absolute', 'left': '0'}); }
 
         // Allow to render the arrows over the mask or not
-        this.arrowsFlow(this.options.arrows);
+        this.arrowsFlow(this._options.arrows);
         // Trigger all recalculations to get the functionality measures
         this.redraw();
         // Analizes if next page needs to load items from queue and execute addItems() method
@@ -235,10 +235,10 @@
         this.updateARIA();
 
         // If there are a parameter specifying a pagination, add it
-        if (this.options.pagination) { this.addPagination(); }
+        if (this._options.pagination) { this.addPagination(); }
 
         // Put Carousel on specified page or at the beginning
-        this.goToPage(this.options.page);
+        this.goToPage(this._options.page);
     };
 
     /**
@@ -279,7 +279,7 @@
             // Take the sample from queue
             sample = that.queue.splice(0, amount),
             // Function with content processing using asyncRender or not
-            getContent = that.options.asyncRender || function (data) { return data; },
+            getContent = that._options.asyncRender || function (data) { return data; },
             // Index
             i = 0;
 
@@ -465,7 +465,7 @@
 
         // Restore efects to list if it's required
         // Use a setTimeout to be sure to do this after width change
-        if (this.options.fx) {
+        if (this._options.fx) {
             setTimeout(function () { that.$list.removeClass('ch-carousel-nofx'); }, 0);
         }
 
@@ -492,6 +492,9 @@
      * foo.redraw();
      */
     Carousel.prototype.redraw = function () {
+
+        var that = this;
+
         // Avoid wrong calculations going to first page
         this.goToPage(1);
         /**
@@ -518,12 +521,12 @@
         // Update amount of items into a single page (from conf or auto calculations)
         this.itemsPerPage = (function () {
             // The width of each item into the width of the mask
-            var i = Math.floor(this.maskWidth / this.itemOuterWidth);
+            var i = Math.floor(that.maskWidth / that.itemOuterWidth);
             // Avoid zero items in a page
             if (i === 0) { return 1; }
             // Limit amount of items when user set a maxItems amount
-            if (this.options.maxItems !== undefined && i > this.options.maxItems) {
-                return this.options.maxItems;
+            if (that._options.maxItems !== undefined && i > that._options.maxItems) {
+                return that._options.maxItems;
             }
             // Default calculation
             return i;
@@ -594,9 +597,9 @@
      */
     Carousel.prototype.arrowsFlow = function (config) {
         // Getter
-        if (config === undefined) { return this.options.arrows; }
+        if (config === undefined) { return this._options.arrows; }
         // Setter
-        this.options.arrows = config;
+        this._options.arrows = config;
         switch (config) {
         // The arrows are on the sides of the mask
         case 'outside':
@@ -738,7 +741,7 @@
         // Translate with JS
         return function (displacement) {
             // Translate using jQuery animation
-            if (this.options.fx !== undefined) {
+            if (this._options.fx !== undefined) {
                 this.$list.animate({'left': displacement});
             // Translate without efects
             } else {

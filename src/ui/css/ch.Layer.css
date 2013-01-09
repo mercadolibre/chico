@@ -3,48 +3,170 @@
  */
 .ch-layer {
     box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
-    min-width: 4em;
-}
-
-/**
- * Close
- */
-.ch-layer .ch-close {
-    top: 8px;
-    right: 8px;
 }
 
 /**
  * Cone
  */
-.ch-layer.ch-cone[data-side=bottom] .ch-tooltip-content:before {
-    border-bottom-color: #e5e5e5;
+.ch-layer-content:before,
+.ch-layer-content:after {
+    border: outset transparent; /* border transparent bug on FF: http://stackoverflow.com/a/6225439 */
+    content: '';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+    border-width: 8px;
 }
 
-.ch-layer.ch-cone[data-side=bottom] .ch-tooltip-content:after {
-    border-bottom-color: #fff;
+/**
+ * Bottom side
+ * ltlb, ctcb, rtrb
+ */
+[data-side=bottom] .ch-layer-content:before,
+[data-side=bottom] .ch-layer-content:after {
+    bottom: 100%;
+    border-bottom-style: solid;
 }
 
-.ch-layer.ch-cone[data-side=top] .ch-tooltip-content:before {
+[data-side=bottom] .ch-layer-content:before {
+    border-bottom-color: red;/*#e5e5e5;*/
+}
+
+[data-side=bottom] .ch-layer-content:after {
+    border-bottom-color: yellow;/*#fff;*/
+}
+
+/**
+ * Top side
+ * lblt, cbct, rbrt
+ */
+[data-side=top] .ch-layer-content:before,
+[data-side=top] .ch-layer-content:after {
+    top: 100%;
+    border-top-style: solid;
+}
+
+[data-side=top] .ch-layer-content:before {
     border-top-color: #e5e5e5;
 }
 
-.ch-layer.ch-cone[data-side=top] .ch-tooltip-content:after {
+[data-side=top] .ch-layer-content:after {
     border-top-color: #fff;
 }
 
-.ch-layer.ch-cone[data-side=right] .ch-tooltip-content:before {
+/**
+ * Right side
+ * ltrt, lmrm, lbrb
+ */
+[data-side=right] .ch-layer-content:before,
+[data-side=right] .ch-layer-content:after {
+    right: 100%;
+    border-right-style: solid;
+}
+
+[data-side=right] .ch-layer-content:before {
     border-right-color: #e5e5e5;
 }
 
-.ch-layer.ch-cone[data-side=right] .ch-tooltip-content:after {
+[data-side=right] .ch-layer-content:after {
     border-right-color: #fff;
 }
 
-.ch-layer.ch-cone[data-side=left] .ch-tooltip-content:before {
+/**
+ * Left side
+ * rtlt, rmlm, rblb
+ */
+[data-side=left] .ch-layer-content:before,
+[data-side=left] .ch-layer-content:after {
+    left: 100%;
+    border-left-style: solid;
+}
+
+[data-side=left] .ch-layer-content:before {
     border-left-color: #e5e5e5;
 }
 
-.ch-layer.ch-cone[data-side=left] .ch-tooltip-content:after {
+[data-side=left] .ch-layer-content:after {
     border-left-color: #fff;
+}
+
+/**
+ * Left alignment
+ */
+[data-side=bottom][data-align=left] .ch-layer-content:after,
+[data-side=top][data-align=left] .ch-layer-content:after {
+    left: 8px;
+}
+
+[data-side=bottom][data-align=left] .ch-layer-content:before,
+[data-side=top][data-align=left] .ch-layer-content:before {
+    left: 7px;
+}
+
+/**
+ * Center alignment
+ */
+[data-side=bottom][data-align=center] .ch-layer-content:after,
+[data-side=top][data-align=center] .ch-layer-content:after {
+    margin-left: -8px;
+    left: 50%;
+}
+
+[data-side=bottom][data-align=center] .ch-layer-content:before,
+[data-side=top][data-align=center] .ch-layer-content:before {
+    margin-left: -9px;
+    left: 50%;
+}
+
+[data-side=right][data-align=center] .ch-layer-content:after,
+[data-side=left][data-align=center] .ch-layer-content:after {
+    margin-top: -8px;
+    top: 50%;
+}
+
+[data-side=right][data-align=center] .ch-layer-content:before,
+[data-side=left][data-align=center] .ch-layer-content:before {
+    margin-top: -9px;
+    top: 50%;
+}
+
+/**
+ * Right alignment
+ */
+[data-side=bottom][data-align=right] .ch-layer-content:after,
+[data-side=top][data-align=right] .ch-layer-content:after {
+    right: 8px;
+}
+
+[data-side=bottom][data-align=right] .ch-layer-content:before,
+[data-side=top][data-align=right] .ch-layer-content:before {
+    right: 7px;
+}
+
+/**
+ * Top alignment
+ */
+[data-side=right][data-align=top] .ch-layer-content:after,
+[data-side=left][data-align=top] .ch-layer-content:after {
+    top: 5px;
+}
+
+[data-side=right][data-align=top] .ch-layer-content:before,
+[data-side=left][data-align=top] .ch-layer-content:before {
+    top: 4px;
+}
+
+/**
+ * Bottom alignment
+ */
+[data-side=right][data-align=bottom] .ch-layer-content:after,
+[data-side=left][data-align=bottom] .ch-layer-content:after {
+    bottom: 5px;
+}
+
+[data-side=right][data-align=bottom] .ch-layer-content:before,
+[data-side=left][data-align=bottom] .ch-layer-content:before {
+    bottom: 4px;
 }

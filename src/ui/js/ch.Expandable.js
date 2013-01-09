@@ -26,14 +26,14 @@
 	 */
 	function Expandable($el, options) {
 
-		this.init($el, options);
-
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
 		 * @private
 		 * @type {Object}
 		 */
 		var that = this;
+
+		that.init($el, options);
 
 		/**
 		 * Triggers when the component is ready to use (Since 0.8.0).
@@ -65,7 +65,7 @@
 
 	Expandable.prototype.constructor = Expandable;
 
-	Expandable.prototype.defaults = {
+	Expandable.prototype._defaults = {
 		'open': false,
 		'fx': false
 	};
@@ -92,7 +92,7 @@
 			 * @type {Object}
 			 */
 			triggerAttr = {
-				'aria-expanded': that.options.open,
+				'aria-expanded': that._options.open,
 				'aria-controls': 'ch-expandable-' + that.uid
 			},
 
@@ -116,7 +116,7 @@
 		  * @type {Boolean}
 		  * @ignore
 		  */
-		 that.active = this.options.open;
+		 that._active = this._options.open;
 
 		/**
 		 * The component's trigger.
@@ -172,7 +172,7 @@
 			this.$trigger.addClass('ch-expandable-ico');
 		}
 
-		if (this.options.open) {
+		if (this._options.open) {
 			this.show();
 		}
 
@@ -182,21 +182,21 @@
 
 
 	Expandable.prototype.show = function () {
-		if (this.active) {
+		if (this._active) {
 			return this.hide();
 		}
 
-		this.collapsible.show();
+		this._collapsible.show();
 
 		return this;
 	};
 
 	Expandable.prototype.hide = function () {
-		if (!this.active) {
+		if (!this._active) {
 			return;
 		}
 
-		this.collapsible.hide();
+		this._collapsible.hide();
 
 		return this;
 	};
@@ -214,7 +214,7 @@
 	 * }
 	 */
 	Expandable.prototype.isActive = function () {
-		return this.active;
+		return this._active;
 	};
 
 	ch.factory(Expandable);

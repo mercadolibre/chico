@@ -91,22 +91,6 @@
 	};
 
 	/**
-	 * Executes a specific listener when an event has been emitted.
-	 * @public
-	 * @function
-	 * @name ch.Widget#callbacks
-	 */
-	Widget.prototype.callbacks = function (when, data) {
-
-		if (ch.util.hasOwn(this._options, when)) {
-			var context = (this.controller) ? this.controller : this;
-
-			return this._options[when].call(context, data);
-		}
-
-	};
-
-	/**
 	 * Adds functionality or abilities from other classes.
 	 * @public
 	 * @function
