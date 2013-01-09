@@ -53,9 +53,6 @@
 			 */
 			createLayout = function () {
 
-				// No slide efects for IE8-
-				var fx = ($html.hasClass('lt-ie8')) ? false : that._options.fx;
-
 				// List elements
 				that.$el.children().each(function(i, e){
 					// List element
@@ -83,7 +80,7 @@
 					var expandable = $li.expandable({
 						'icon': that._options.icon,
 						// Show/hide on IE8- instead slideUp/slideDown
-						'fx': fx,
+						'fx': that._options.fx,
 						'onShow': function () {
 							// Updates selected tab when it's opened
 							that.selected = i;
