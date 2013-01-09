@@ -429,14 +429,14 @@
 			/**
 			* Content configuration property.
 			* @public
-			* @name Tab#source
+			* @name Tab#_source
 			* @type string
 			* @ignore
 			*/
-			that.source = that.el.href;
+			that._source = that.el.href;
 
             contentOptions = {
-                'input': that.source,
+                'input': that._source,
                 'method': that._options.method,
                 'cache': that._options.cache
             };
@@ -466,9 +466,9 @@
 		that._active = true;
 
 		// Load my content if I'need an ajax request
-		if (ch.util.hasOwn(that, 'source')) { that.content.set(); }
+		if (ch.util.hasOwn(that, '_source')) { that.content.set(); }
 
-		that._collapsible.show();
+		that._show();
 
 		return that;
 	};
@@ -485,7 +485,7 @@
 
 		if (!this._active) { return; }
 
-		this._collapsible.hide();
+		this._hide();
 
 		return this;
 	};

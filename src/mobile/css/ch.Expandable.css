@@ -2,6 +2,9 @@
 /*
 * Expandable
 */
+.ch-expandable {
+	 margin: 10px 0;
+}
 
 .ch-bellows,
 .ch-expandable {
@@ -10,7 +13,6 @@
 	padding: 0;
 	border: 1px solid #EEE;
 }
-
 
 .ch-bellows-trigger,
 .ch-expandable-trigger,
@@ -59,15 +61,15 @@
 	color: #333;
 }
 
-.ch-expandable-content {
+.ch-expandable-container {
 	margin: 0;
 	background-color: #fff;
 	padding: 10px;
 	overflow: hidden;
 }
 
-.ch-expandable-content .ch-list-options,
-.ch-expandable-content.ch-list-options {
+.ch-expandable-container .ch-list-options,
+.ch-expandable-container.ch-list-options {
 	background-color: #fff;
 	-webkit-border-radius: 0;
 	border-radius: 0;
@@ -75,24 +77,6 @@
 	margin: -10px;
 }
 
-.ch-expandable-content.ch-list-options {
+.ch-expandable-container.ch-list-options {
 	margin: 0;
-}
-
-/* Support no-js */
-.no-js .ch-expandable .ch-bellows-trigger,
-.no-js .ch-expandable .ch-expandable-trigger {
-  cursor: default;
-  border-bottom: 1px solid #DDD;
-  background-color: #EEE;
-  color: #333;
-}
-
-.no-js .ch-expandable .ch-bellows-trigger:after,
-.no-js .ch-expandable .ch-expandable-trigger:after {
-
-}
-
-.no-js .ch-expandable .ch-hide {
-	display: block;
 }

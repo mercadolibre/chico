@@ -2,12 +2,11 @@
  * Dropdown shows a list of options for navigation.
  * @name Dropdown
  * @class Dropdown
- * @augments ch.Navs
+ * @augments ch.Widget
  * @requires ch.Positioner
- * @see ch.Navs
+* @requires ch.Collapsible
+ * @requires ch.Closable
  * @see ch.Positioner
- * @see ch.Expando
- * @see ch.TabNavigator
  * @memberOf ch
  * @param {Object} [options] Object with configuration properties.
  * @param {Boolean} [options.open] Shows the dropdown open when component was loaded. By default, the value is false.
@@ -129,20 +128,18 @@
 		 */
 
 		 /**
-		  * Status of component
-		  * @protected
-		  * @type {Boolean}
-		  * @ignore
-		  */
-		 that._active = this._options.open;
-
-		 /**
 		 * The component's trigger.
 		 * @protected
 		 * @type {Selector}
 		 * @ignore
 		 */
-		that.$trigger = that.$el.children(':first-child');
+		that.$trigger = that.$el.children(':first-child')
+			.attr(triggerAttr)
+			.addClass('ch-dropdown-trigger ch-dropdown-ico')
+			.on(ch.events.pointer.TAP + '.dropdown', function (event) {
+				ch.util.prevent(event);
+				that.show();
+			});
 
 		/**
 		 * The component's container.
@@ -150,14 +147,22 @@
 		 * @type {Selector}
 		 * @ignore
 		 */
-		that.$container = that.$el.children(':last-child');
+		that.$container = that.$el.children(':last-child')
+			.attr(containerAttr)
+			.addClass('ch-dropdown-container ch-hide')
+			.on(ch.events.pointer.TAP + '.dropdown', function (event) {
+				if ((event.target || event.srcElement).tagName === 'A') {
+					that.hide();
+				}
+			});
 
 		/**
 		 * Dropdown options.
 		 * @protected
 		 * @type {Selector}
 		 */
-		that.$options = this.$container.find('a');
+		that.$options = this.$container.find('a')
+			.attr('role', 'menuitem');
 
 		/**
 		 * Default behavior
@@ -169,34 +174,7 @@
 			that.$trigger.addClass('ch-btn-skin ch-btn-small');
 		}
 
-		that.$trigger
-			.attr(triggerAttr)
-			.addClass('ch-dropdown-trigger')
-			.on('click.dropdown', function (event) {
-				ch.util.prevent(event);
-				that.show();
-			});
-
-		that.$container
-			.attr(containerAttr)
-			.addClass('ch-dropdown-container ch-hide')
-			.on('click.dropdown', function (event) {
-				if ((event.target || event.srcElement).tagName === 'A') {
-					that.hide();
-				}
-			});
-
-		that.$options.attr('role', 'menuitem');
-
-		// Icon configuration
-		if ($html.hasClass('lt-ie8')) {
-			$('<span class="ch-dropdown-ico">Drop</span>').appendTo(this.$trigger);
-
-		} else {
-			this.$trigger.addClass('ch-dropdown-ico');
-		}
-
-		that.closable();
+		that._closable();
 
 		ch.util.avoidTextSelection(this.$trigger);
 
@@ -225,7 +203,7 @@
 
 		that.position.refresh();
 
-		that._collapsible.show();
+		that._show();
 
 		// Z-index of content and updates aria values
 		that.$container.css('z-index', ch.util.zIndex += 1);
@@ -257,7 +235,7 @@
 			return that;
 		}
 
-		that._collapsible.hide();
+		that._hide();
 
 		// Turn off keyboards arrows
 		that.arrowsOff();

@@ -39,7 +39,7 @@
                 });
 
                 // Sets the new content only if the component is active
-                if (that.active) {
+                if (that._active) {
                     that.content.set();
                 }
 
@@ -150,13 +150,16 @@
                 // Case 1: AJAX call
                 if (ch.util.isUrl(options.input)) {
                     getContentFromAJAX();
+
                 // Case 2: Plain text
                 } else {
                     postMessage(options.input);
                 }
+
             // Case 3: DOM element
-            } else if (options.input instanceof $) {
+            } else if (options.input instanceof $ || $.zepto.isZ(options.input)) {
                 postMessage(options.input.detach().removeClass('ch-hide'));
+
             // Default: No message
             } else {
                 postMessage(current);
@@ -180,4 +183,4 @@
 
     ch.Content = Content;
 
-}((this.jQuery || this.Zepto), this.ch));
+}(this.jQuery || this.Zepto, this.ch));

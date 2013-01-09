@@ -53,11 +53,9 @@
 			 */
 			createLayout = function () {
 
-				// No slide efects for IE8-
-				var fx = ($html.hasClass('lt-ie8')) ? false : that._options.fx;
-
 				// List elements
-				that.$el.children().each(function(i, e){
+				that.$el.children().each(function (i, e) {
+
 					// List element
 					var $li = $(e);
 
@@ -83,8 +81,8 @@
 					var expandable = $li.expandable({
 						'icon': that._options.icon,
 						// Show/hide on IE8- instead slideUp/slideDown
-						'fx': fx,
-						'onShow': function () {
+						'fx': that._options.fx,
+						'onshow': function () {
 							// Updates selected tab when it's opened
 							that.selected = i;
 
@@ -284,12 +282,11 @@
 	/**
 	 * Private
 	 */
-	var $html = $('html'),
 
-		/**
-		 * Inheritance
-		 */
-		parent = ch.util.inherits(Menu, ch.Widget);
+	/**
+	 * Inheritance
+	 */
+	var parent = ch.util.inherits(Menu, ch.Widget);
 
 	/**
 	 * Prototype
@@ -306,4 +303,4 @@
 
 	ch.factory(Menu);
 
-}(this, this.jQuery, this.ch));
+}(this, this.jQuery || this.Zepto, this.ch));
