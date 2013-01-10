@@ -12,50 +12,50 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	var $document = $(document);
+	var $document = $(document),
+        pointerTap = ch.events.pointer.TAP,
+        keyEsc = ch.events.key.ESC;
 
 	function Closable() {
+
 		var that = this,
-			events = 'click.' + that.name + ' ' + ch.events.key.ESC + '.' + that.name;
+            tapEvent = pointerTap + '.' + this.name,
+            escEvent = keyEsc + '.' + this.name;
+
+        function close(event) {
+            ch.util.prevent(event);
+            that.hide();
+        }
 
 		that._closable = function () {
-			if (!that._options.closable) {
-				return;
+
+            /**
+             * Closable none
+             */
+            if (!that._options.closable || that._options.closable === 'none') { return; }
+
+            /**
+             * Closable button-only
+             */
+			if (that._options.closable === 'button-only' || that._options.closable === 'all') {
+				// Append a close button
+				$('<a class="ch-close" role="button"></a>').on(tapEvent, close).prependTo(that.$container);
 			}
 
-			// Closable On
-			if (that._options.closable && ch.util.hasOwn(that._options, 'event') && that._options.event === 'click') {
-				// Append close buttons
-				// It will close with close button
-				that.$container
-					.prepend('<a class="ch-close" role="button"></a>')
-					.on(ch.events.pointer.TAP + '.' + that.name, function (event) {
-						if ($(event.target || event.srcElement).hasClass('ch-close')) {
-							ch.util.prevent(event);
-							that.hide();
-						}
-					});
-			}
+            /**
+             * Closable keys-only
+             */
+            if (that._options.closable === 'keys-only' || that._options.closable === 'all') {
 
-			// It will close only with close button
-			if (that._options.closable === 'button') {
-				return;
-			}
+                that.on('show', function () {
+                    $document.one(tapEvent + ' ' + escEvent, close);
+                });
 
-			// Default Closable behavior
-			// It will close with click on document, too
-			that.on('show.' + that.name, function () {
-				$document
-					.off(events)
-					.one(events, function () {
-						that.hide();
-					});
-			});
-
-			// Stop event propatation, if click container.
-			that.$container.on(ch.events.pointer.TAP + '.' + that.name, function (event) {
-				event.stopPropagation();
-			});
+                // Avoid to close when user clicks into the component
+                that.$container.on(tapEvent, function (event) {
+                    event.stopPropagation();
+                });
+            }
 		}
 	}
 

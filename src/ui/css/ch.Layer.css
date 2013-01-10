@@ -31,11 +31,11 @@
 }
 
 [data-side=bottom] .ch-layer-content:before {
-    border-bottom-color: red;/*#e5e5e5;*/
+    border-bottom-color: blue;/*#E5E5E5;*/
 }
 
 [data-side=bottom] .ch-layer-content:after {
-    border-bottom-color: yellow;/*#fff;*/
+    border-bottom-color: #fff;
 }
 
 /**
@@ -49,7 +49,7 @@
 }
 
 [data-side=top] .ch-layer-content:before {
-    border-top-color: #e5e5e5;
+    border-top-color: blue;/*#E5E5E5;*/
 }
 
 [data-side=top] .ch-layer-content:after {
@@ -67,7 +67,7 @@
 }
 
 [data-side=right] .ch-layer-content:before {
-    border-right-color: #e5e5e5;
+    border-right-color: blue;/*#E5E5E5;*/
 }
 
 [data-side=right] .ch-layer-content:after {
@@ -85,7 +85,7 @@
 }
 
 [data-side=left] .ch-layer-content:before {
-    border-left-color: #e5e5e5;
+    border-left-color: blue;/*#E5E5E5;*/
 }
 
 [data-side=left] .ch-layer-content:after {

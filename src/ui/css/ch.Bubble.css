@@ -21,7 +21,7 @@
  * ltlb, ctcb, rtrb
  */
 .ch-bubble[data-side=bottom] .ch-layer-content:before {
-    border-bottom-color: #EED3D7;
+    border-bottom-color: red;/*#EED3D7;*/
 }
 
 .ch-bubble[data-side=bottom] .ch-layer-content:after {
@@ -33,7 +33,7 @@
  * lblt, cbct, rbrt
  */
 .ch-bubble[data-side=top] .ch-layer-content:before {
-    border-top-color: #EED3D7;
+    border-top-color: red;/*#EED3D7;*/
 }
 
 .ch-bubble[data-side=top] .ch-layer-content:after {
@@ -45,7 +45,7 @@
  * ltrt, lmrm, lbrb
  */
 .ch-bubble[data-side=right] .ch-layer-content:before {
-    border-right-color: #EED3D7;
+    border-right-color: red;/*#EED3D7;*/
 }
 
 .ch-bubble[data-side=right] .ch-layer-content:after {
@@ -57,7 +57,7 @@
  * rtlt, rmlm, rblb
  */
 .ch-bubble[data-side=left] .ch-layer-content:before {
-    border-left-color: #EED3D7;
+    border-left-color: red;/*#EED3D7;*/
 }
 
 .ch-bubble[data-side=left] .ch-layer-content:after {
