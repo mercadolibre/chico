@@ -32,23 +32,23 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Custom($el, conf) {
+	function Custom($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		if (!conf.fn) {
-			alert("Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},\"Message\");");
+		if (!options.fn) {
+			alert('Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},"Message");');
 		}
 
 		// Define the conditions of this interface
-		conf.condition = {
+		options.condition = {
 			// I don't have pre-conditions, comes within conf.fn argument
-			name: "custom",
-			fn: conf.fn,
-			message: conf.content
+			'name': 'custom',
+			'fn': options.fn,
+			'message': options.content
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 	}
 
 	Custom.prototype.name = 'custom';
