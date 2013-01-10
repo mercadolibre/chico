@@ -23,7 +23,7 @@
 		 * @since 0.7.1
 		 * @exampleDescription Emits an event with data
 		 * @example
-		 * widget.trigger('someEvent', data);
+		 * widget.trigger('someevent', data);
 		 */
 		that.emit = function (event, data) {
 
@@ -121,7 +121,9 @@
 				throw new Error('EventEmitter - "listeners(event)": It should receive an event.');
 			}
 
-			return $._data(that, 'events')['ch-' + event];
+			var events = $._data(that, 'events');
+
+			return (events) ? events['ch-' + event] : undefined;
 		};
 
 	}
