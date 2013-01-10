@@ -172,8 +172,7 @@
 		}
 
 		$.each(args, function(i, $arg){
-
-			if (!($arg instanceof $)) {
+			if (!($arg instanceof $ || $.zepto.isZ($arg))) {
 				throw new Error('"ch.util.avoidTextSelection(selector)": The parameter must be a query selector.');
 			}
 

@@ -41,5 +41,49 @@
 	 */
 	events.viewport.CHANGE = 'change';
 
+	/**
+	 * Pointer events collection.
+	 * @name pointer
+	 * @namespace
+	 * @memberOf ch.events
+	 */
+	events.pointer = {};
+
+	/**
+	 *
+	 * @name DOWN
+	 * @constant
+	 * @memberOf ch.events.pointers
+	 * @type {String}
+	 */
+	events.pointer.DOWN = (ch.support.touch) ? 'touchstart' : 'mousedown';
+
+	/**
+	 *
+	 * @name TAP
+	 * @constant
+	 * @memberOf ch.events.pointers
+	 * @type {String}
+	 */
+	events.pointer.TAP = (ch.support.touch) ? 'touchend' : 'click';
+
+	/**
+	 *
+	 * @name UP
+	 * @constant
+	 * @memberOf ch.events.pointers
+	 * @type {String}
+	 */
+	events.pointer.UP = (ch.support.touch) ? 'touchend' : 'mouseup';
+
+	/**
+	 *
+	 * @name MOVE
+	 * @constant
+	 * @memberOf ch.events.pointers
+	 * @type {String}
+	 */
+	events.pointer.MOVE = (ch.support.touch) ? 'touchmove' : 'mousemove';
+
 	ch.events = events;
 }());

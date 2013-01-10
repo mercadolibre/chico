@@ -18,7 +18,7 @@
 		var that = this,
 			events = 'click.' + that.name + ' ' + ch.events.key.ESC + '.' + that.name;
 
-		that.closable = function () {
+		that._closable = function () {
 			if (!that._options.closable) {
 				return;
 			}
@@ -29,7 +29,7 @@
 				// It will close with close button
 				that.$container
 					.prepend('<a class="ch-close" role="button"></a>')
-					.on('click.' + that.name, function (event) {
+					.on(ch.events.pointer.TAP + '.' + that.name, function (event) {
 						if ($(event.target || event.srcElement).hasClass('ch-close')) {
 							ch.util.prevent(event);
 							that.hide();
@@ -53,7 +53,7 @@
 			});
 
 			// Stop event propatation, if click container.
-			that.$container.on('click.' + that.name, function (event) {
+			that.$container.on(ch.events.pointer.TAP + '.' + that.name, function (event) {
 				event.stopPropagation();
 			});
 		}

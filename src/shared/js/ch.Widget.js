@@ -46,7 +46,7 @@
 			if ($el === undefined) {
 				this._options = defaults;
 
-			} else if ($el instanceof $) {
+			} else if ($el instanceof $ || $.zepto.isZ($el)) {
 				this.$el = $el;
 				this.el = $el[0];
 				this._snippet = this.el.cloneNode();
@@ -56,7 +56,7 @@
 				this._options = $.extend(defaults, $el);
 			}
 
-		} else if ($el instanceof $ && typeof options === 'object') {
+		} else if (($el instanceof $ || $.zepto.isZ($el)) && typeof options === 'object') {
 			this.$el = $el;
 			this.el = $el[0];
 			this._snippet = this.el.cloneNode();

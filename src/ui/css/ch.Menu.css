@@ -22,7 +22,7 @@
 /* L1 and L2 items */
 .ch-bellows-trigger,
 .ch-menu .ch-expandable-trigger,
-.ch-menu .ch-expandable-content a {
+.ch-menu .ch-expandable-container a {
 	cursor: pointer;
 	text-decoration: none!important;
 	color: #333!important;
@@ -33,7 +33,7 @@
 /* L1 and L2 items hover */
 .ch-bellows-trigger:hover,
 .ch-menu .ch-expandable-trigger:hover,
-.ch-menu .ch-expandable-content a:hover {
+.ch-menu .ch-expandable-container a:hover {
 	background-color: #FDF9D5;
 	border-radius: 5px;
 }
@@ -42,7 +42,7 @@
 /* L1 items */
 .ch-bellows-trigger,
 .ch-menu .ch-expandable-trigger,
-.ch-menu .ch-expandable-content {
+.ch-menu .ch-expandable-container {
 	position: relative;
 }
 
@@ -55,13 +55,13 @@
 }
 
 /* L2 items list */
-.ch-menu .ch-expandable-content {
+.ch-menu .ch-expandable-container {
 	font-size: 0.9em;
 	margin: 10px 0;
 }
 
 /* L2 items */
-.ch-menu .ch-expandable-content a {
+.ch-menu .ch-expandable-container a {
 	padding: 2px 15px;
 	/*
 		Fix based on David Baron comment on the Firefox bug:
