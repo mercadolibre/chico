@@ -30,16 +30,16 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function String($el, conf) {
+	function String($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		conf.condition = {
-			name: "string",
-			message: conf.content
+		options.condition = {
+			'name': 'string',
+			'message': options.content
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 
 	}
 
@@ -84,18 +84,16 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Email($el, conf) {
+	function Email($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		// OLD RegExp
-		// /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/,
-		conf.condition = {
-			name: "email",
-			message: conf.content
+		options.condition = {
+			'name': 'email',
+			'message': options.content
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 
 	}
 
@@ -142,16 +140,16 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function URL($el, conf) {
+	function URL($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		conf.condition = {
-			name: "url",
-			message: conf.content
+		options.condition = {
+			'name': 'url',
+			'message': options.content
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 
 	}
 
@@ -197,17 +195,17 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function MinLength($el, conf) {
+	function MinLength($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		conf.condition = {
-			name: "minLength",
-			message: conf.content,
-			num: conf.num
+		options.condition = {
+			'name': 'minLength',
+			'message': options.content,
+			'num': options.num
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 
 	}
 
@@ -253,17 +251,17 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function MaxLength($el, conf) {
+	function MaxLength($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		conf.condition = {
-			name: "maxLength",
-			message: conf.content,
-			num: conf.num
+		options.condition = {
+			'name': 'maxLength',
+			'message': options.content,
+			'num': options.num
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 
 	}
 

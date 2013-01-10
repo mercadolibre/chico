@@ -30,17 +30,17 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Number($el, conf){
+	function Number($el, options){
 
-		var conf = conf || {};
+		var options = options || {};
 
 		// Define the conditions of this interface
-		conf.condition = {
-			name: "number",
-			message: conf.content
+		options.condition = {
+			'name': 'number',
+			'message': options.content
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 	}
 
 	Number.prototype.name = 'number';
@@ -86,17 +86,17 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Min($el, conf) {
+	function Min($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		conf.condition = {
-			name: "min",
-			message: conf.content,
-			num: conf.num
+		options.condition = {
+			'name': 'min',
+			'message': options.content,
+			'num': options.num
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 	}
 
 	Min.prototype.name = 'min';
@@ -141,17 +141,17 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Max($el, conf) {
+	function Max($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		conf.condition = {
-			name: "max",
-			message: conf.content,
-			num: conf.num
+		options.condition = {
+			'name': 'max',
+			'message': options.content,
+			'num': options.num
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 
 	}
 
@@ -196,16 +196,16 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Price($el, conf) {
+	function Price($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		conf.condition = {
-			name: "price",
-			message: conf.content
+		options.condition = {
+			'name': 'price',
+			'message': options.content
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 
 	}
 

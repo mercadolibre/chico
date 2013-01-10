@@ -30,17 +30,16 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Required($el, conf) {
+	function Required($el, options) {
 
-		var conf = conf || {};
+		var options = options || {};
 
-		conf.condition = {
-			name: "required",
-			message: conf.content
-			//,value: conf.value
+		options.condition = {
+			'name': 'required',
+			'message': options.content
 		};
 
-		return $el.validation(conf);
+		return $el.validation(options);
 
 	}
 
