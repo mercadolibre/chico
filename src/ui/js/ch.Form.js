@@ -233,11 +233,14 @@
 
         // Is there's an error
         if (validationsError.length > 0) {
+
             that._hasError = true;
+
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
             if (validationsError[0].el.tagName === 'DIV') {
                 $(validationsError[0].el).find('input:first').focus();
+
             } else if (validationsError[0].el.type !== 'hidden') {
                 validationsError[0].el.focus();
             }
@@ -267,12 +270,12 @@
          * @public
          * @exampleDescription
          * @example
-         * widget.on("error",function () {
-         *  sowidget.action();
+         * widget.on("error",function (chicoEvent, data) {
+         *    console.log(data.errors.length);
          * });
          */
         } else {
-            that.emit('error');
+            that.emit('error', {'errors': validationsError});
         }
 
         /**
