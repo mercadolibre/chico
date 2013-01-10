@@ -156,64 +156,35 @@
     Form.prototype._submit = function (event) {
         var that = this;
 
-        /**
-         * Fired before the form's submition.
-         * @name ch.Form#beforeSubmit
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("beforeSubmit",function () {
-         *  sowidget.action();
-         * });
-         */
-        that.emit('beforesubmit');
-
-        // Execute all validations
+        // Runs validations
         that.validate();
 
-        // Stops submit event only if it has error
+        // Stops submit event only when it has errors
         if (that._hasError) {
             ch.util.prevent(event);
 
-        /**
-         * Fired when submits the form.
-         * @name ch.Form#submit
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("submit",function (chicoEvent, event) {
-         *  this.action();
-         * });
-         * @exampleDescription
-         * @example
-         * widget.on("submit",function (chicoEvent, event) {
-         *  event.preventDefault();
-         *  this.action();
-         * });
-         */
-        // * New callback system *
-        // Check inside $._data if there's a handler for ch-submit event or onsubmit callback
+        // Check inside $._data if there's a handler for 'ch-submit' event or 'onsubmit' callback is set.
         } else if (that.listeners('submit') !== undefined || that._options.onsubmit) {
-            // if something found there, avoid submit.
+            /**
+             * Fired when submits the form.
+             * @name ch.Form#submit
+             * @event
+             * @public
+             * @exampleDescription
+             * @example
+             * widget.on("submit",function (chicoEvent, event) {
+             *  this.action();
+             * });
+             * @exampleDescription
+             * @example
+             * widget.on("submit",function (chicoEvent, event) {
+             *  event.preventDefault();
+             *  this.action();
+             * });
+             */
             that.emit('submit', event);
         }
 
-        /**
-         * Fired after the form's submition.
-         * @name ch.Form#afterSubmit
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("aftersubmit",function () {
-         *  this.reset();
-         * });
-         */
-        that.emit('aftersubmit');
-
-        // Return that to chain methods
         return that;
     };
 
