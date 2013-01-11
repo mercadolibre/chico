@@ -62,12 +62,33 @@
     /**
      * Prototype
      */
+
+    /**
+     * The name of the widget. All instances are saved into a 'map', grouped by its name. You can reach for any or all of the components from a specific name with 'ch.instances'.
+     * @public
+     * @type {String}
+     */
     Form.prototype.name = 'form';
 
+    /**
+     * Returns a reference to the Constructor function that created the instance's prototype.
+     * @public
+     * @function
+     */
     Form.prototype.constructor = Form;
 
+    /**
+     * Configuration by default.
+     * @private
+     * @type {Object}
+     */
     Form.prototype._defaults = {};
 
+    /**
+     * Constructs a new Form.
+     * @public
+     * @function
+     */
     Form.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
 
@@ -76,16 +97,7 @@
          * @private
          * @type {Object}
          */
-        var that = this,
-            $submit = that.$el.find('input:submit');
-
-        /**
-         * Preconditions
-         */
-        // Are there action and submit type?
-        if ($submit.length === 0 || that.$el.attr('action') === '') {
-            throw new Error('ch.Form: The <input type=submit> is missing, or need to define a action attribute on the form tag.');
-        }
+        var that = this
 
         /**
          * Private Members
@@ -96,7 +108,7 @@
          * @private
          * @type {Boolean}
          */
-        that._status = true;
+        that._hasError = false;
 
         /**
          * Collection of messages defined.
@@ -117,38 +129,19 @@
         /**
          * Default behavior
          */
-        // patch exists because the components need a trigger
-        if (ch.util.hasOwn(that._options, 'onSubmit')) {
-            that.$el.on('submit.form', function (event) {
-                ch.util.prevent(event);
-            });
-
-            // Delete all click handlers asociated to submit button >NATAN: Why?
-            // Because if you want to do something on submit, you need that the trigger (submit button)
-            // don't have events associates. You can add funcionality on onSubmit callback
-            $submit.off('click.form');
-        }
 
         that.$el
             // Disable HTML5 browser-native validations
             .attr('novalidate', 'novalidate')
-
             // Bind the submit
             .on('submit.form', function (event) {
-                ch.util.prevent(event);
-                that.submit();
+                that._submit(event);
             })
-
             // Bind the reset
-            .find(':reset, .resetForm').on('click.form', function (event) {
-                //ch.util.prevent(event);
+            .find(':reset, .resetForm').on(ch.events.pointer.TAP + '.form', function (event) {
+                ch.util.prevent(event);
                 that.reset();
             });
-
-        // Listen the event "validate" from validations
-        // that.on('validate', function () {
-        //     that._status = true;
-        // });
 
         return that;
     };
@@ -160,69 +153,38 @@
      * @name ch.Form#submit
      * @returns {Object}
      */
-    Form.prototype.submit = function (event) {
+    Form.prototype._submit = function (event) {
         var that = this;
 
-        /**
-         * Fired before the form's submition.
-         * @name ch.Form#beforeSubmit
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("beforeSubmit",function () {
-         *  sowidget.action();
-         * });
-         */
-        that.emit('beforesubmit');
+        // Runs validations
+        that.validate();
 
-        // Execute all validations
-        // that.validate();
-
-        that._status = false;
-
-        // If an error occurs prevent default actions
-        if (!that._status) {
+        // Stops submit event only when it has errors
+        if (that._hasError) {
             ch.util.prevent(event);
-            if (event) {
-                event.stopImmediatePropagation();
-            }
+
+        // Check inside $._data if there's a handler for 'ch-submit' event or 'onsubmit' callback is set.
+        } else if (that.listeners('submit') !== undefined || that._options.onsubmit) {
+            /**
+             * Fired when submits the form.
+             * @name ch.Form#submit
+             * @event
+             * @public
+             * @exampleDescription
+             * @example
+             * widget.on("submit",function (chicoEvent, event) {
+             *  this.action();
+             * });
+             * @exampleDescription
+             * @example
+             * widget.on("submit",function (chicoEvent, event) {
+             *  event.preventDefault();
+             *  this.action();
+             * });
+             */
+            that.emit('submit', event);
         }
 
-        /**
-         * Fired when submits the form.
-         * @name ch.Form#submit
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("afterSubmit",function () {
-         *  widget.action();
-         * });
-         */
-        // * New callback system *
-        // Check inside $.data if there's a handler for ch-submit event
-        // if something found there, avoid submit.
-        if (that._status && that.listeners('submit') !== undefined) {
-            // Avoid default actions
-            ch.util.prevent(event);
-            that.emit('submit');
-        }
-
-        /**
-         * Fired after the form's submition.
-         * @name ch.Form#afterSubmit
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("aftersubmit",function () {
-         *  this.reset();
-         * });
-         */
-        that.emit('aftersubmit');
-
-        // Return that to chain methods
         return that;
     };
 
@@ -254,8 +216,8 @@
         that.emit('beforevalidate');
 
         // Status OK (with previous error)
-        if (!that._status) {
-            that._status = true;
+        if (that._hasError) {
+            that._hasError = false;
         }
 
         // Run validations
@@ -264,24 +226,27 @@
 
             // Validate
             // Store validations with errors
-            if (child.hasError()) {
+            if (child.validate()) {
                 validationsError.push(child);
             }
         }
 
         // Is there's an error
         if (validationsError.length > 0) {
-            that._status = false;
+
+            that._hasError = true;
+
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
             if (validationsError[0].el.tagName === 'DIV') {
                 $(validationsError[0].el).find('input:first').focus();
+
             } else if (validationsError[0].el.type !== 'hidden') {
                 validationsError[0].el.focus();
             }
 
         } else {
-            that._status = true;
+            that._hasError = false;
         }
 
         /**
@@ -295,7 +260,7 @@
          *  sowidget.action();
          * });
          */
-        if (that._status) {
+        if (!that._hasError) {
             that.emit('validate');
 
         /**
@@ -305,12 +270,12 @@
          * @public
          * @exampleDescription
          * @example
-         * widget.on("error",function () {
-         *  sowidget.action();
+         * widget.on("error",function (chicoEvent, data) {
+         *    console.log(data.errors.length);
          * });
          */
         } else {
-            that.emit('error');
+            that.emit('error', {'errors': validationsError});
         }
 
         /**
@@ -345,7 +310,7 @@
             that._validations[i].clear();
         }
 
-        that._status = true;
+        that._hasError = false;
 
         /**
          * Fired when clean the form's data.
@@ -373,8 +338,11 @@
     Form.prototype.reset = function () {
         var that = this;
 
+        // Clears all active validations
         that.clear();
-        that.el.reset(); // Reset input
+
+        // Executes the native reset() method
+        that.el.reset();
 
         /**
          * Fired when resets the form.
@@ -399,8 +367,8 @@
     * @name ch.Form#isValidated
     * @returns {Boolean}
     */
-    Form.prototype.isValidated = function () {
-        return this._status;
+    Form.prototype.hasError = function () {
+        return this._hasError;
     };
 
     ch.factory(Form);
