@@ -57,16 +57,26 @@
 				"../../src/shared/js/ch.Positioner.js"
 			],
 			"widgets": [
+				"../../src/shared/js/ch.cache.js",
+				"../../src/ui/js/ch.onImagesLoads.js",
 				"../../src/shared/js/ch.Widget.js",
+				"../../src/ui/js/ch.Validation.js",
+				"../../src/ui/js/ch.Required.js",
+				"../../src/ui/js/ch.String.js",
+				"../../src/ui/js/ch.Number.js",
+				"../../src/ui/js/ch.Custom.js",
 				"../../src/ui/js/ch.Navs.js",
 				"../../src/shared/js/ch.Expandable.js",
 				"../../src/shared/js/ch.Menu.js",
 				"../../src/ui/js/ch.Accordion.js",
+				"../../src/ui/js/ch.Calendar.js",
 				"../../src/ui/js/ch.blink.js",
 				"../../src/ui/js/ch.Dropdown.js",
 				"../../src/ui/js/ch.Tabs.js",
 				"../../src/ui/js/ch.Carousel.js",
+
                 "../../src/ui/js/ch.Form.js",
+                "../../src/ui/js/ch.Condition.js",
 
                 "../../src/ui/js/ch.Layer.js",
                 "../../src/ui/js/ch.Tooltip.js",
@@ -172,6 +182,12 @@
 				"../../src/mobile/css/ch.Layer.css"
 			],
 			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
+		},
+		"mobileCOMPATIBLECSS": {
+			"compatiblecss": [
+				"../../src/mobile/css/ch.compatible.css"
+			],
+			"template": ["meta.mobile.full.css", "compatiblecss"]
 		},
 		"sharedMESH": {
 			"mesh": [

@@ -857,7 +857,7 @@
 	<div class="ch-box-lite">
 		<h2>Form and Watchers</h2>
 
-		<form action="http://ui.ml.com:3000/test/post" class="ch-form myForm" method="POST">
+		<form action="./ajax" class="ch-form myForm" method="GET">
 			<fieldset>
 				<legend>Inputs</legend>
 				<p class="ch-form-hint">* Required fields</p>
@@ -1290,11 +1290,26 @@
 		// Automatic version
 		document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;
 
+		// Blink
+		$("#doHighlight").on("click", function () {
+			$("#example").blink();
+		});
+
+		// expandable
+		//var expandable = $(".YOUR_SELECTOR_expandable").expandable();
+
+		// Dropdown
+		var dropdown = $(".myDropdown").dropdown();
+
+		var	calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
+		//var	calendar = $(".YOUR_SELECTOR_calendar").calendar({'from': 'today', 'selected': '2013/01/22'});
+
 		// Expandable
 		var expandable = $(".YOUR_SELECTOR_expandable").expandable();
 
+
 		// Accordion
-		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
+		//var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
 
 		// Menu
 		var menu = $(".YOUR_SELECTOR_Menu").menu({
@@ -1313,15 +1328,14 @@
 		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
 
 		// Form
-		var form = $('.myForm').form();
-
-		form
-			.on('submit', function () {
-				console.log('Validated');
-			})
-			.on('error', function () {
-				console.log('Error');
-			})
+		var form = $('.myForm').form()
+				.on('submit', function (chicoEvent, event) {
+					alert('Event Submit stopped');
+					event.preventDefault();
+				})
+				.on('error', function (chicoEvent, data) {
+					console.log(data.errors.length);
+				});
 
 		// // Autocomplete
 		// function autoComplete(data) {
@@ -1499,70 +1513,70 @@
 		// var form = $('.myForm').form();
 
 
-		// // Messages
-		// var message = (function (message, value) {
+		// Messages
+		var message = (function (message, value) {
 
-		// 	var messages = {
-		// 		'option': 'Choose an option.',
-		// 		'requiredCheck': 'Accept the Terms of Use.',
-		// 		'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
-		// 	};
+			var messages = {
+				'option': 'Choose an option.',
+				'requiredCheck': 'Accept the Terms of Use.',
+				'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
+			};
 
-		// 	return function (message, value) {
-		// 		var message = messages[message] || message;
-		// 		if(value){
-		// 			return message.replace('{#num#}',value)
-		// 		}
-		// 		return message;
-		// 	}
+			return function (message, value) {
+				var message = messages[message] || message;
+				if(value){
+					return message.replace('{#num#}',value)
+				}
+				return message;
+			}
 
-		// }());
+		}());
 
-		// // Validators
-		// var	validation1 = $('#input_ico').required().and().string();
+		// Validators
+		var	validation1 = $('#input_ico').required().and().string();
 
-		// var	validation2 = $('#input_ico_inside').required().and().string();
+		var	validation2 = $('#input_ico_inside').required().and().string();
 
-		// var	validation3 = $('#price').price().and().required();
+		var	validation3 = $('#price').price().and().required();
 
-		// var	validation4 = $('#email').required().and().email();
+		var	validation4 = $('#email').required().and().email();
 
-		// var	validation5 = $('#custom').required().and().custom(function (v) {
+		var	validation5 = $('#custom').required().and().custom(function (v) {
 
-		// 		var value1 = v.toString().indexOf("1") > -1;
-		// 		var value2 = v.toString().indexOf("2") > -1;
+				var value1 = v.toString().indexOf("1") > -1;
+				var value2 = v.toString().indexOf("2") > -1;
 
-		// 		if (value1 && value2) { return true; }
+				if (value1 && value2) { return true; }
 
-		// 		if (!value1) {
-		// 			this.message('custom', message('The number needs a {#num#}.', 1));
-		// 			return false;
-		// 		}
+				if (!value1) {
+					this.message('custom', message('The number needs a {#num#}.', 1));
+					return false;
+				}
 
-		// 		if (!value2) {
-		// 			this.message('custom', message('The number must contain a {#num#}.', 2));
-		// 			return false;
-		// 		}
+				if (!value2) {
+					this.message('custom', message('The number must contain a {#num#}.', 2));
+					return false;
+				}
 
-		// 	});
+			});
 
-		// var	validation6 = $('#url').url();
+		var	validation6 = $('#url').url();
 
-		// var	validation7 = $('#number').number().and().min(5);
+		var	validation7 = $('#number').number().and().min(5);
 
-		// var	validation8 = $('#range').min(8).and().max(10);
+		var	validation8 = $('#range').min(8).and().max(10);
 
-		// var	validation9 = $('#characters').maxLength(20).and().minLength(6);
+		var	validation9 = $('#characters').maxLength(20).and().minLength(6);
 
-		// var	validation10 = $('#double,#textarea2').required();
+		var	validation10 = $('#double,#textarea2').required();
 
-		// var	validation11 = $('.required-check').required(message('requiredCheck'));
+		var	validation11 = $('.required-check').required(message('requiredCheck'));
 
-		// var	validation12 = $('.required-option').required(message('option'));
+		var	validation12 = $('.required-option').required(message('option'));
 
-		// var validation13 = $('#double').required(message('link'));
+		var validation13 = $('#double').required(message('link'));
 
-		// var validation14 = $('#double').number();
+		var validation14 = $('#double').number();
 
 	</script>
 </body>

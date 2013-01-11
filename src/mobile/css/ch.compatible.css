@@ -73,3 +73,41 @@
 	top: -0.15em;
 	font-size: 1.2em;
 }
+
+/*
+* Forms
+*/
+input[type=text],
+textarea,
+select,
+select[multiple] {
+	display: block;
+	font-size: 16px;
+	line-height: 22px;
+	margin: 0 0 5px 0;
+	width: 97%;
+}
+
+/*
+* Buttons
+*/
+.ch-btn,
+.ch-btn-big,
+.ch-btn-big:focus {
+	padding-left:0;
+	padding-right:0;
+}
+
+.ch-btn-big,
+.ch-btn-big:focus {
+	width: 99%;
+}
+
+/*
+* Pagination
+*/
+.ch-pagination li {
+	display: inline;
+	zoom: 1;
+	padding: 5px 2px;
+}

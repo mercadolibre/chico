@@ -200,6 +200,7 @@ input[readonly]:focus {
 
 	.ch-form-required.ch-list-options label {
 		font-weight: normal;
+		z-index: 1;
 	}
 
 /* Icon indication of required */
@@ -274,9 +275,6 @@ input[type=range],*/
 	position: absolute;
 	top: 50%;
 	margin: -8px 0 0 0;
-}
-
-.ch-list-options input {
 }
 
 .ch-list-options input[type="checkbox"]:focus,

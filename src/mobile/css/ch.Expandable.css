@@ -12,6 +12,7 @@
 	border-radius: 5px;
 	padding: 0;
 	border: 1px solid #EEE;
+	overflow: hidden;
 }
 
 .ch-bellows-trigger,
@@ -77,6 +78,15 @@
 	margin: -10px;
 }
 
-.ch-expandable-container.ch-list-options {
-	margin: 0;
+/* Support no-js */
+.no-js .ch-expandable .ch-bellows-trigger,
+.no-js .ch-expandable .ch-expandable-trigger {
+	cursor: default;
+	border-bottom: 1px solid #DDD;
+	background-color: #EEE;
+	color: #333;
+}
+
+.no-js .ch-expandable .ch-hide {
+	display: block;
 }

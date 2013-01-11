@@ -30,7 +30,7 @@
 	<link rel="stylesheet" href="/mobile/css">
 
 	<!-- For unsupported devices -->
-	<!--link rel="stylesheet" href="src/css/chico-compatible.css"-->
+	<link rel="stylesheet" href="/mobile/compatiblecss">
 
 	<style>
 		.body {
@@ -103,7 +103,7 @@
 		<div class="ch-layout" role="main">
 			<div class="widgets">
 				<h2 id="headings">Headings</h2>
-				<div class="ch-box-container">
+				<div class="ch-box-lite">
 					<h1>Header 1</h1>
 					<h2>Header 2</h2>
 					<h3>Header 3</h3>
@@ -708,11 +708,11 @@
 	<script src="/mobile/js"></script>
 	<script>
 		var expado = $(".categories").expandable();
+		var layer = $(".myLayer").layer();
 		var menu = $(".myMenu").menu();
-		// var layer = $(".myLayer").layer();
-		// var modal = $(".makeAnswer").modal({
-		// 	"content": "#make-answer"
-		// });
+		var modal = $(".makeAnswer").modal({
+			"content": "#make-answer"
+		});
 	</script>
 </body>
 </html>
