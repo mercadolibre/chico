@@ -19,6 +19,7 @@
 	function Closable() {
 
 		var that = this,
+            closableType = this._options.closable,
             tapEvent = pointerTap + '.' + this.name,
             escEvent = keyEsc + '.' + this.name;
 
@@ -27,17 +28,22 @@
             that.hide();
         }
 
-		that._closable = function () {
+		this._closable = function () {
 
             /**
              * Closable none
              */
-            if (!that._options.closable || that._options.closable === 'none') { return; }
+            if (closableType === undefined || closableType === 'none') { return; }
 
             /**
              * Closable button-only
              */
-			if (that._options.closable === 'button-only' || that._options.closable === 'all') {
+
+
+            /**
+             * Closable button-only
+             */
+			if (closableType === 'button-only' || closableType === 'all') {
 				// Append a close button
 				$('<a class="ch-close" role="button"></a>').on(tapEvent, close).prependTo(that.$container);
 			}
@@ -45,7 +51,7 @@
             /**
              * Closable keys-only
              */
-            if (that._options.closable === 'keys-only' || that._options.closable === 'all') {
+            if (closableType === 'keys-only' || closableType === 'all') {
 
                 that.on('show', function () {
                     $document.one(tapEvent + ' ' + escEvent, close);

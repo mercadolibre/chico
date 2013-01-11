@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     if (ch === undefined) {
@@ -80,7 +80,7 @@
 
         options.content = options.content || 'Error';
 
-        //openable false
+        //TODO:openable false
         options.closable = false;
 
         parent.init.call(this, $el, options);
@@ -88,4 +88,4 @@
 
     ch.factory(Bubble);
 
-}(this, this.jQuery, this.ch));
+}(this, this.ch));

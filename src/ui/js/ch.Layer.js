@@ -89,7 +89,7 @@
         'offsetX': 0,
         'offsetY': 10,
         'event': 'mouseenter',
-        'closable': true
+        'closable': 'keys-only'
     };
 
     Layer.prototype.init = function ($el, options) {
@@ -102,15 +102,7 @@
             //
             id = ['ch', this.name, this.uid].join('-');
 
-        /**
-         *
-         */
-        this.$el
-            .attr('aria-describedby', id)
-            .on(this._options.event + '.layer', function (event) {
-                ch.util.prevent(event);
-                that.show();
-            });
+        this._instances = ch.instances[this.name];
 
         /**
          * Inner function that resolves the component's layout and returns a static reference.
@@ -139,16 +131,32 @@
          */
         this._$content = $('<div class="ch-layer-content">').appendTo(this.$container);
 
+        /**
+         *
+         */
+        if (this.$el !== undefined) {
+
+            this.$el
+                .attr('aria-describedby', id)
+                .on(this._options.event + '.layer', function (event) {
+                    ch.util.prevent(event);
+                    that.show();
+                });
+
+            this._options.reference = this._options.reference || this.$el;
+            this._options.content = this._options.content || this.el.title || this.el.alt;
+
+            // TODO: Use a data-* attribute to grab these values
+            this.el.title = this.el.alt = '';
+        }
+
         this.content.configure({
-            'input': this._options.content || this.el.title || this.el.alt,
+            'input': this._options.content,
             'method': this._options.method,
             'params': this._options.params,
             'cache': this._options.cache,
             'async': this._options.async
         });
-
-        // TODO: Use a data-* attribute to grab these values
-        this.el.title = this.el.alt = '';
 
         this.content.onmessage = function (data) {
             that._$content.html(data);
@@ -164,7 +172,7 @@
 
         this.position = new ch.Positioner({
             'target': this.$container,
-            'reference': this.$el,
+            'reference': this._options.reference,
             'side': this._options.side,
             'align': this._options.align,
             'offsetY': this._options.offsetY,
@@ -182,13 +190,29 @@
      * @returns itself
      */
     Layer.prototype.show = function () {
+
+        var that = this,
+            instance,
+            uid;
+
+        // Close another opened widgets
+        for (uid in this._instances) {
+
+            instance = that._instances[uid];
+
+            // TODO: This "closable" conditional must be in ch.Closable.js
+            if (uid !== that.uid && instance._options.closable !== 'none') {
+                instance.hide();
+            }
+        }
+
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Request the content
         this.content.set();
-        //
+        // Open the collapsible
         this._show();
-        //
+
         return this;
     };
 
@@ -241,7 +265,9 @@
             return this._options.width;
         }
 
-        this.$container.css('width', this._options.width = data);
+        this.$container.css('width', data);
+
+        this._options.width = data;
 
         return this;
     };
@@ -266,7 +292,9 @@
             return this._options.height;
         }
 
-        this.$container.css('height', this._options.height = data);
+        this.$container.css('height', data);
+
+        this._options.height = data;
 
         return this;
     };

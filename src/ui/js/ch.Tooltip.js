@@ -1,4 +1,4 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     if (ch === undefined) {
@@ -80,4 +80,4 @@
 
     ch.factory(Tooltip);
 
-}(this, this.jQuery, this.ch));
+}(this, this.ch));
