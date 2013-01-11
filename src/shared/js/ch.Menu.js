@@ -175,7 +175,7 @@
                 $child.addClass('ch-bellows-trigger');
 
                 // Add anchor to that._children
-                that._children.push($child[0]);
+                that._children.push($child.eq(0));
 
             } else {
 
@@ -232,29 +232,15 @@
     * @param item The number of the item to be selected
     * @returns
     */
-    Menu.prototype.select = function (item) {
+    Menu.prototype.select = function (child, grandson) {
         // Getter
-        if (item === undefined) {
+        if (child === undefined) {
             return this._selected;
         }
 
         // Setter
         var that = this,
-            child,
-            grandson,
-            sliced,
             expandable;
-
-        // Split item parameter, if it's a string with hash
-        if (typeof item === 'string') {
-            sliced = item.split('#');
-            child = sliced[0];
-            grandson = sliced[1];
-
-        // Set child when item is a Number
-        } else {
-            child = item;
-        }
 
         // Specific item of that._children list
         expandable = that._children[child];
@@ -263,14 +249,17 @@
         if (ch.util.hasOwn(expandable, 'uid')) {
 
             // Show this list
-            expandable.show();
+            // si esta abierto y le paso un hijo que no se abra
+            if (!(expandable.isActive() && grandson)) {
+                expandable.show();
+            }
 
-            // Select grandson if splited parameter got a specific grandson
-            if (grandson) {
+            // Select grandson
+            if (!isNaN(grandson)) {
                 expandable.$el
                     .find('a')
                     .eq(grandson)
-                    .addClass('ch-menu-on');
+                    .addClass('ch-' + that.name + '-on');
             }
 
             // Accordion behavior
@@ -296,7 +285,7 @@
         // Item as anchor
         } else{
             // Just selects it
-            that._children[child].addClass('ch-menu-on');
+            expandable.addClass('ch-' + that.name + '-on');
         };
 
         return that;
