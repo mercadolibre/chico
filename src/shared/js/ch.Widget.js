@@ -38,7 +38,7 @@
 	 */
 	Widget.prototype.init = function ($el, options) {
 
-		// Clones defaults or creates a defaults object
+        // Clones defaults or creates a defaults object
 		var defaults = (this._defaults) ? util.clone(this._defaults) : {};
 
 		// Clones the defaults options or creates a new object
@@ -46,17 +46,19 @@
 			if ($el === undefined) {
 				this._options = defaults;
 
-			} else if ($el instanceof $ || $.zepto.isZ($el)) {
+			} else if ($el instanceof $ || ($.zepto !== undefined && $.zepto.isZ($el))) {
 				this.$el = $el;
 				this.el = $el[0];
 				this._snippet = this.el.cloneNode();
 				this._options = defaults;
 
 			} else if (typeof $el === 'object') {
-				this._options = $.extend(defaults, $el);
+                options = $el;
+                $el = undefined;
+				this._options = $.extend(defaults, options);
 			}
 
-		} else if (($el instanceof $ || $.zepto.isZ($el)) && typeof options === 'object') {
+        } else if (($el instanceof $ || ($.zepto !== undefined && $.zepto.isZ($el))) && typeof options === 'object') {
 			this.$el = $el;
 			this.el = $el[0];
 			this._snippet = this.el.cloneNode();

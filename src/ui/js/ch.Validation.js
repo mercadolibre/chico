@@ -68,83 +68,7 @@
     /**
      * Inheritance
      */
-    var parent = ch.util.inherits(Validation, ch.Widget),
-
-    /**
-    * Private Members
-    */
-
-    hasError = function(value) {
-        var that = this;
-
-        if (!that._enabled) { return true; }
-
-        var condition, tested, empty, val, message, required = that.conditions['required'];
-
-        // Avoid fields that aren't required when they are empty or de-activated
-        if (!required && value === '' && that._active === false) { return {'status': false}; }
-
-        if (that._enabled && (!that._active || value !== '' || required)) {
-
-            // for each condition
-            for (condition in that.conditions){
-
-                val = ((condition === 'required') ? that.el : value.toLowerCase());
-                // this is the validation
-
-                // no value and no required don't validate the field
-                if (value === '' && condition !== 'required') {
-
-                    tested = true;
-
-                } else {
-
-                    tested = that.conditions[condition].test(val);
-
-                    // return false if any test fails,
-                    if (!tested) {
-
-                        /**
-                         * Triggers when an error occurs on the validation process.
-                         * @name ch.Validator#error
-                         * @event
-                         * @public
-                         * @exampleDescription
-                         * @example
-                         * widget.on("error",function(event, condition){
-                         *  errorModal.show();
-                         * });
-                         */
-                        that.emit('error', condition);
-
-                        that._active = true;
-
-                        // stops the proccess
-                        this._error = {
-                            'status': true,
-                            'condition': condition,
-                            'msg': that.conditions[condition].message
-                        }
-
-                        return this._error;
-                    };
-                };
-            }
-        }
-
-        // Status OK (with previous error)
-        if (that._active || !that._enabled) {
-            // Public status OK
-            that._active = false;
-        }
-
-        // It's all good ;)
-        this._error = {
-            'status': false
-        }
-
-        return this._error;
-    };
+    var parent = ch.util.inherits(Validation, ch.Widget);
 
     /**
     * Protected Members
@@ -152,17 +76,6 @@
     Validation.prototype._defaults = {
         'offset': '10 0',
         'points': 'lt rt'
-    }
-
-    /**
-     * Stores the error object
-     * @private
-     * @type Object
-     * @name ch.Validation#error
-     */
-    Validation.prototype._error = {
-        'condition': false,
-        'msg': ''
     }
 
     /**
@@ -258,7 +171,15 @@
          */
         that._validationEvent = (that.$el.hasClass("ch-form-options") || that.$el.hasClass("ch-list-options") || that.el.tagName == "SELECT" || ( that.el.tagName == "INPUT" && that.el.type === 'range') ) ? "change" : "blur";
 
-        return this;
+        /**
+         * Stores the error object
+         * @private
+         * @type Object
+         * @name ch.Validation#error
+         */
+         that._error = {};
+
+        return that;
     }
 
     /**
@@ -337,13 +258,13 @@
 
         // Executes the validators engine with a specific value and returns an object.
         // Context is the validation
-        var gotError = hasError.call(that, that.el.value);
+        var previousError = ch.util.clone(this._error);
 
-        // Save the validator's status.
-        var status = gotError.status;
+        // Saves gotError
+        that.hasError();
 
         // If has Error...
-        if (status) {
+        if (that._error.status) {
 
             if (that.$el.prop("tagName") === "INPUT" || that.$el.prop("tagName") === "TEXTAREA") {
                 // TODO: remove error class when deprecate old forms only ch-form error must be.
@@ -351,16 +272,18 @@
             }
 
             // to avoid reload the same content
-            //if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== gotError.condition) {
-            if (!that._error.condition || that._error.condition !== gotError.condition) { // delete when bubble will be done
-                //that.bubble.show((gotError.msg || form.messages[gotError.condition] || "Error"));
+            //if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) {
+            if (!previousError.condition || that._error.condition !== previousError.condition) { // delete when bubble will be done
+                //that.bubble.show((previousError.msg || form.messages[previousError.condition] || "Error"));
                 // the aria-label attr should get the message element id, but is not public
                 //that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid );
-                console.log( gotError.msg || form.messages[gotError.condition] || "Error" )
+                console.log( this._error.msg || form.messages[this._error.condition] || "Error" );
             }
 
-            // Add blur or change event only one time to the element or to the elements's group
-            if (!that.$el.data("events")) { that.$el.one(that._validationEvent, function(){that.validate();}); }
+            // Add blur or change event to the element or to the elements's group
+            if(!$._data(that.el).events){
+                that.$el.on(that._validationEvent + '.validation', function(){that.validate();});
+            }
 
             /**
              * Triggers when an error occurs on the validation process.
@@ -375,10 +298,7 @@
              *  }
              * });
              */
-            that.emit("error", gotError.condition);
-
-            // Saves gotError
-            that._error = gotError;
+            that.emit("error", previousError.condition);
 
         // else NOT Error!
         } else {
@@ -401,7 +321,7 @@
          */
         that.emit("aftervalidate");
 
-        return this;
+        return that._error.status;
 
     };
 
@@ -439,7 +359,79 @@
      * @returns boolean
      */
     Validation.prototype.hasError = function(){
-        return hasError.call(this, this.el.value).status;
+        var that = this;
+
+        if (!that._enabled) { return true; }
+
+        var condition,
+            tested,
+            empty,
+            val,
+            message,
+            required = that.conditions['required'],
+            value = that.el.value;
+
+        // Avoid fields that aren't required when they are empty or de-activated
+        if (!required && value === '' && that._active === false) { return {'status': false}; }
+
+        if (that._enabled && (!that._active || value !== '' || required)) {
+
+            // for each condition
+            for (condition in that.conditions){
+
+                val = ((condition === 'required') ? that.el : value.toLowerCase());
+                // this is the validation
+
+                // no value and no required don't validate the field
+                if (value === '' && condition !== 'required') {
+
+                    tested = true;
+
+                } else {
+
+                    tested = that.conditions[condition].test(val);
+
+                    // return false if any test fails,
+                    if (!tested) {
+
+                        /**
+                         * Triggers when an error occurs on the validation process.
+                         * @name ch.Validator#error
+                         * @event
+                         * @public
+                         * @exampleDescription
+                         * @example
+                         * widget.on("error",function(event, condition){
+                         *  errorModal.show();
+                         * });
+                         */
+                        that.emit('error', condition);
+
+                        that._active = true;
+
+                        // stops the proccess
+                        this._error.status = true;
+                        this._error.condition = condition;
+                        this._error.msg = that.conditions[condition].message;
+
+                        return this._error.status;
+                    };
+                };
+            }
+        }
+
+        // Status OK (with previous error)
+        if (that._active || !that._enabled) {
+            // Public status OK
+            that._active = false;
+        }
+
+        // It's all good ;)
+        this._error.status = false;
+        this._error.condition = undefined;
+        this._error.msg = undefined;
+
+        return this._error.status;
     }
 
     /**

@@ -6,9 +6,9 @@
     }
 
     /**
-     * Tooltip improves the native tooltips. Tooltip uses the 'alt' and 'title' attributes to grab its content.
-     * @name Tooltip
-     * @class Tooltip
+     * Bubble improves the native bubbles. Bubble uses the 'alt' and 'title' attributes to grab its content.
+     * @name Bubble
+     * @class Bubble
      * @augments ch.Floats
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
@@ -21,23 +21,23 @@
      * @see ch.Layer
      * @see ch.Zoom
      * @see ch.Flaots
-     * @exampleDescription Create a tooltip.
+     * @exampleDescription Create a bubble.
      * @example
-     * var widget = $(".some-element").tooltip();
-     * @exampleDescription Create a new tooltip with configuration.
+     * var widget = $(".some-element").bubble();
+     * @exampleDescription Create a new bubble with configuration.
      * @example
-     * var widget = $("a.example").tooltip({
+     * var widget = $("a.example").bubble({
      *     "fx": false,
      *     "offset": "10 -10",
      *     "points": "lt rt"
      * });
      * @exampleDescription
-     * Now <code>widget</code> is a reference to the tooltip instance controller.
+     * Now <code>widget</code> is a reference to the bubble instance controller.
      * You can set a new content by using <code>widget</code> like this:
      * @example
      * widget.width(300);
      */
-    function Tooltip($el, options) {
+    function Bubble($el, options) {
 
         this.init($el, options);
 
@@ -63,21 +63,29 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    var parent = ch.util.inherits(Tooltip, ch.Layer);
+    var parent = ch.util.inherits(Bubble, ch.Layer);
 
-    Tooltip.prototype.name = 'tooltip';
+    Bubble.prototype.name = 'bubble';
 
-    Tooltip.prototype.constructor = Tooltip;
+    Bubble.prototype.constructor = Bubble;
 
-    Tooltip.prototype.init = function ($el, options) {
+    Bubble.prototype.init = function ($el, options) {
 
         options = options || {};
 
-        options.classes = 'ch-tooltip';
+        options.classes = 'ch-bubble ch-box-error';
+        options.side = 'right';
+        options.align = 'top';
+        options.offsetX = 10;
+
+        options.content = options.content || 'Error';
+
+        //TODO:openable false
+        options.closable = false;
 
         parent.init.call(this, $el, options);
     };
 
-    ch.factory(Tooltip);
+    ch.factory(Bubble);
 
 }(this, this.ch));

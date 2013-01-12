@@ -81,13 +81,6 @@
 		 * $.widget();
 		 */
 		$[name] = function ($el, options) {
-			// When exists only the first parameter containing the options object
-			// ($.widget({'key': 'value'})), then accommodate the resources
-			// TODO: This should be in the init() method of each widget
-			if (options === undefined && typeof $el === 'object') {
-				options = $el;
-				$el = undefined;
-			}
 			// Create a new instance of the constructor and return it
 			return new Klass($el, options);
 		};

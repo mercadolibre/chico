@@ -6,7 +6,8 @@
         'method': 'GET',
         'params': '',
         'cache': true,
-        'async': true
+        'async': true,
+        'input': ''
     };
 
     /**

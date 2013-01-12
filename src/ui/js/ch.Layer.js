@@ -1,240 +1,304 @@
 (function (window, $, ch) {
-	'use strict';
+    'use strict';
 
-	if (ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
-	/**
-	 * Layer lets you show a contextual floated data.
-	 * @name Layer
-	 * @class Layer
-	 * @augments ch.Floats
-	 * @standalone
-	 * @memberOf ch
-	 * @param {Object} [conf] Object with configuration properties.
-	 * @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is empty.
-	 * @param {Number|String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
-	 * @param {Number|String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
-	 * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
-	 * @param {String} [conf.event] Sets the event ("click" or "hover") that trigger show method. By default, the event is "hover".
-	 * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
-	 * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-	 * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
-	 * @param {String} [conf.closable] Sets the way (true, "button" or false) the Layer close when conf.event is set as "click". By default, the layer close true.
-	 * @returns itself
-	 * @factorized
-	 * @see ch.Floats
-	 * @see ch.Tooltip
-	 * @see ch.Modal
-	 * @see ch.Zoom
-	 * @exampleDescription To create a ch.Layer you have to give a selector.
-	 * @example
-	 * var widget = $(".some-element").layer("<tag>Some content.</tag>");
-	 * @exampleDescription ch.Layer component can receive a parameter. It is a literal object { }, with the properties you want to configurate.
-	 * @example
-	 * var conf = {
-	 *     "width": 200,
-	 *     "height": 50
-	 * };
-	 * @exampleDescription Create a layer with configuration.
-	 * @example
-	 * var widget = $(".some-element").layer({
-	 *     "content": "Some content here!",
-	 *     "width": "200px",
-	 *     "height": 50,
-	 *     "event": "click",
-	 *     "closable": "button",
-	 *     "offset": "10 -10",
-	 *     "cache": false,
-	 *     "points": "lt rt"
-	 * });
-	 * @exampleDescription Now <code>widget</code> is a reference to the layer instance controller. You can set a new content by using <code>widget</code> like this:
-	 * @example
-	 * widget.content("http://content.com/new/content");
-	 */
-	function Layer($el, options) {
+    /**
+     * Layer improves the native layers. Layer uses the 'alt' and 'title' attributes to grab its content.
+     * @name Layer
+     * @class Layer
+     * @augments ch.Floats
+     * @memberOf ch
+     * @param {Object} [conf] Object with configuration properties.
+     * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
+     * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
+     * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
+     * @returns itself
+     * @factorized
+     * @see ch.Modal
+     * @see ch.Layer
+     * @see ch.Zoom
+     * @see ch.Flaots
+     * @exampleDescription Create a layer.
+     * @example
+     * var widget = $(".some-element").layer();
+     * @exampleDescription Create a new layer with configuration.
+     * @example
+     * var widget = $("a.example").layer({
+     *     "fx": false,
+     *     "offset": "10 -10",
+     *     "points": "lt rt"
+     * });
+     * @exampleDescription
+     * Now <code>widget</code> is a reference to the layer instance controller.
+     * You can set a new content by using <code>widget</code> like this:
+     * @example
+     * widget.width(300);
+     */
+    function Layer($el, options) {
 
-		this.init($el, options);
+        this.init($el, options);
 
-		/**
-		 * Reference to a internal component instance, saves all the information and configuration properties.
-		 * @private
-		 * @type {Object}
-		 */
-		var that = this;
+        /**
+         * Reference to a internal component instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this;
 
-		/**
-		 * Triggers when the component is ready to use (Since 0.8.0).
-		 * @name ch.Layer#ready
-		 * @event
-		 * @public
-		 * @since 0.8.0
-		 * @exampleDescription Following the first example, using <code>widget</code> as layer's instance controller:
-		 * @example
-		 * widget.on("ready",function () {
-		 * this.show();
-		 * });
-		 */
-		window.setTimeout(function () { that.emit('ready'); }, 50);
-	}
+        /**
+         * Triggers when the component is ready to use (Since 0.8.0).
+         * @name ch.Layer#ready
+         * @event
+         * @public
+         * @since 0.8.0
+         * @exampleDescription Following the first example, using <code>widget</code> as layer's instance controller:
+         * @example
+         * widget.on("ready",function () {
+         * this.show();
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
+    }
 
-	/**
-	 * Private members
-	 */
-	var $body = $('body'),
-		/**
-		 *	Inheritance
-		 */
-		parent = ch.util.inherits(Layer, ch.Tooltip);
+    /**
+     * Private members
+     */
+    var $body = $('body'),
+        /**
+         * Inheritance
+         */
+        parent = ch.util.inherits(Layer, ch.Widget);
 
-	/**
-	 * Public members
-	 */
-	Layer.prototype.name = 'layer';
+    /**
+     * Public members
+     */
+    Layer.prototype.name = 'layer';
 
-	Layer.prototype.constructor = Layer;
+    Layer.prototype.constructor = Layer;
 
-	Layer.prototype.defaults = {
-		'fx': true,
-		'classes': 'ch-box-lite',
-		'closable': true,
-		'width': 'auto',
-		'height': 'auto'
-	};
+    Layer.prototype._defaults = {
+        'fx': false,
+        'classes': 'ch-box-lite',
+        'width': 'auto',
+        'height': 'auto',
+        'side': 'bottom',
+        'align': 'left',
+        'offsetX': 0,
+        'offsetY': 10,
+        'event': 'mouseenter',
+        'closable': 'keys-only'
+    };
 
-	Layer.prototype.init = function ($el, options) {
+    Layer.prototype.init = function ($el, options) {
 
-		parent.foo.call(this, $el, options);
+        parent.init.call(this, $el, options);
 
-		var that = this;
+        this.require('Collapsible', 'Content', 'Closable');
 
-		this.options.closeButton = this.options.closeButton || (this.options.event === 'click');
+        var that = this,
+            //
+            id = ['ch', this.name, this.uid].join('-');
 
-		// conf.aria = {};
-		// conf.aria.role = "tooltip";
-		// conf.aria.identifier = "aria-describedby";
+        this._instances = ch.instances[this.name];
 
-		// conf.position = {};
-		// conf.position.context = that.$element;
-		// conf.position.offset = conf.offset || "0 10";
-		// conf.position.points = conf.points || "lt lb";
+        /**
+         * Inner function that resolves the component's layout and returns a static reference.
+         * @protected
+         * @name ch.Floats#$container
+         * @type jQuery
+         */
+        this.$container = $('<div>')
+            .addClass('ch-layer ch-hide ' + this._options.classes)
+            .attr({
+                'role': 'tooltip',
+                'id': id
+            })
+            .css({
+                'z-index': (ch.util.zIndex += 1),
+                'width': this._options.width,
+                'height': this._options.height
+            });
 
-		/**
-		 * Content configuration property.
-		 * @protected
-		 * @name ch.Tooltip#source
-		 */
-		// this.content.configure({
-		// 	'input': this.options.content
-		// });
+        /**
+         * Inner reference to content container. Here is where the content will be added.
+         * @protected
+         * @name ch.Floats#$content
+         * @type jQuery
+         * @see ch.Content
+         */
+        this._$content = $('<div class="ch-layer-content">').appendTo(this.$container);
 
-		/**
-		 * Delay time to hide component's contents.
-		 * @private
-		 * @name ch.Layer#hideTime
-		 * @type number
-		 * @default 400
-		 */
-		var hideTime = 400,
+        /**
+         *
+         */
+        if (this.$el !== undefined) {
 
-		/**
-		 * Hide timer instance.
-		 * @private
-		 * @name ch.Layer#ht
-		 * @type timer
-		 */
-			ht,
+            this.$el
+                .attr('aria-describedby', id)
+                .on(this._options.event + '.layer', function (event) {
+                    ch.util.prevent(event);
+                    that.show();
+                });
 
-		/**
-		 * Starts hide timer.
-		 * @private
-		 * @function
-		 * @name ch.Layer#hideTimer
-		 */
-			hideTimer = function (event) {
-				if (conf.event !== "click") {
-					var target = event.srcElement || event.target;
+            this._options.reference = this._options.reference || this.$el;
+            this._options.content = this._options.content || this.el.title || this.el.alt;
 
-					var relatedTarget = event.relatedTarget || event.toElement;
+            // TODO: Use a data-* attribute to grab these values
+            this.el.title = this.el.alt = '';
+        }
 
-					if (relatedTarget === null || target === relatedTarget || relatedTarget === undefined || relatedTarget.parentNode === null || target.nodeName === "SELECT") {
-						return;
-					}
-				}
+        this.content.configure({
+            'input': this._options.content,
+            'method': this._options.method,
+            'params': this._options.params,
+            'cache': this._options.cache,
+            'async': this._options.async
+        });
 
-				ht = setTimeout(function () { that.innerHide() }, hideTime);
-			},
+        this.content.onmessage = function (data) {
+            that._$content.html(data);
+            that.emit('contentLoad');
+            that.position.refresh();
+        };
 
-		/**
-		 * Clear all timers.
-		 * @private
-		 * @function
-		 * @name ch.Layer#clearTimers
-		 */
-			clearTimers = function () { clearTimeout(ht); };
+        this.content.onerror = function (data) {
+            that._$content.html(data);
+            that.emit('contentError');
+            that.position.refresh();
+        };
 
-		// Click vs. Hover
-		if (this.options.event === 'click') {
-			this.$el
-				.css('cursor', 'pointer')
-				.on('click.layer', function (event) {
-					ch.util.prevent(event);
-					that.show();
-				});
-		} else {
-			that.$el
-				.css('cursor', 'default')
-				.on('mouseenter.layer', function (event) {
-					ch.util.prevent(event);
-					that.show();
-				})
-				.on('mouseleave.layer', function (event) {
-					ch.util.prevent(event);
-					that.hideTimer();
-				});
-		}
-	};
+        this.position = new ch.Positioner({
+            'target': this.$container,
+            'reference': this._options.reference,
+            'side': this._options.side,
+            'align': this._options.align,
+            'offsetY': this._options.offsetY,
+            'offsetX': this._options.offsetX
+        });
 
-	/**
-	 * Inner show method. Attach the component layout to the DOM tree.
-	 * @protected
-	 * @function
-	 * @name ch.Layer#innerShow
-	 * @returns itself
-	 */
-	Layer.prototype.show = function (event) {
+        this._closable();
+    };
 
-		// // Reset all layers, except me and not auto closable layers
-		// $.each(ch.instances.layer, function (i, e) {
-		// 	if (e !== that["public"] && e.closable() === true) {
-		// 		e.hide();
-		// 	}
-		// });
+    /**
+     * Inner show method. Attach the component layout to the DOM tree.
+     * @protected
+     * @name ch.Layer#innerShow
+     * @function
+     * @returns itself
+     */
+    Layer.prototype.show = function () {
 
-		// // conf.position.context = that.$element;
-		// that.parent.innerShow(event);
+        var that = this,
+            instance,
+            uid;
 
-		// if (conf.event !== "click") {
-		// 	that.$container.one("mouseenter", clearTimers).bind("mouseleave", hideTimer);
-		// }
+        // Close another opened widgets
+        for (uid in this._instances) {
 
-		// return that;
-	};
+            instance = that._instances[uid];
 
-	/**
-	 * Inner hide method. Hides the component and detach it from DOM tree.
-	 * @protected
-	 * @function
-	 * @name ch.Layer#innerHide
-	 * @returns itself
-	 */
-	Layer.prototype.hide = function (event) {
-		// that.$container.unbind("mouseleave", hideTimer);
+            // TODO: This "closable" conditional must be in ch.Closable.js
+            if (uid !== that.uid && instance._options.closable !== 'none') {
+                instance.hide();
+            }
+        }
 
-		// that.parent.innerHide(event);
-	}
+        // Do it before content.set, because content.set triggers the position.refresh)
+        this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
+        // Request the content
+        this.content.set();
+        // Open the collapsible
+        this._show();
 
-	ch.factory(Layer);
+        return this;
+    };
+
+    /**
+     * Inner hide method. Hides the component and detach it from DOM tree.
+     * @protected
+     * @name ch.Layer#innerHide
+     * @function
+     * @returns itself
+     */
+    Layer.prototype.hide = function () {
+        //
+        this._hide();
+        //
+        this.$container.detach();
+        //
+        return this;
+    };
+
+    /**
+     * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+     * @public
+     * @function
+     * @name ch.Floats#isActive
+     * @returns boolean
+     */
+    Layer.prototype.isActive = function () {
+        return this._active;
+    };
+
+    /**
+     * Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
+     * @public
+     * @function
+     * @name ch.Floats#width
+     * @param {Number|String} [width]
+     * @returns itself
+     * @see ch.Zarasa#size
+     * @see ch.Floats#size
+     * @exampleDescription to set the width
+     * @example
+     * widget.width(700);
+     * @exampleDescription to get the width
+     * @example
+     * widget.width() // 700
+     */
+    Layer.prototype.width = function (data) {
+
+        if (data === undefined) {
+            return this._options.width;
+        }
+
+        this.$container.css('width', data);
+
+        this._options.width = data;
+
+        return this;
+    };
+
+    /**
+     * Sets or gets the height of the Float element.
+     * @public
+     * @function
+     * @name ch.Floats#height
+     * @returns itself
+     * @see ch.Floats#size
+     * @exampleDescription to set the height
+     * @example
+     * widget.height(300);
+     * @exampleDescription to get the height
+     * @example
+     * widget.height // 300
+     */
+    Layer.prototype.height = function (data) {
+
+        if (data === undefined) {
+            return this._options.height;
+        }
+
+        this.$container.css('height', data);
+
+        this._options.height = data;
+
+        return this;
+    };
+
+    ch.factory(Layer);
 
 }(this, this.jQuery, this.ch));

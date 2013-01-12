@@ -226,7 +226,7 @@
 
             // Validate
             // Store validations with errors
-            if (child.hasError()) {
+            if (child.validate()) {
                 validationsError.push(child);
             }
         }

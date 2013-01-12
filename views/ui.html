@@ -636,15 +636,22 @@
 	<div class="ch-box-lite">
 		<h2>Layer</h2>
 		<ul class="ch-list">
-			<li><span class="YOUR_SELECTOR_LayerOnclick">Executed on click.</span></li>
-			<li><span class="YOUR_SELECTOR_LayerOnmouseover">Executed on mouseover.</span></li>
-			<li><span class="YOUR_SELECTOR_LayerCloseButton">Executed on click and only the cross button closes.</span></li>
+            <li><span id="layer1">Default Layer, executed on <strong>hover</strong>.</span></li>
+            <li><span id="layer2">Executed on <strong>click</strong>. <em>(close:all)</em></span></li>
+			<li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(close:none)</em>.</span></li>
+			<li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(close:button-only)</em>.</span></li>
+            <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:keys-only)</em></span></li>
 		</ul>
 		<div id="invisible-content-for-layer" class="ch-hide">
     		<h1>This content is invisible</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 		</div>
 	</div>
+
+    <div class="ch-box-lite">
+        <h2>Bubble</h2>
+        <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
+    </div>
 
 	<div class="ch-box-lite">
 		<h2>Modal with AJAX content</h2>
@@ -1329,7 +1336,6 @@
 					console.log(data.errors.length);
 				});
 
-
 		// // Autocomplete
 		// function autoComplete(data) {
 		// 	autoComplete1.suggest(data);
@@ -1358,7 +1364,7 @@
 		// var	calendar = $(".YOUR_SELECTOR_calendar").calendar({"from": "today"});
 
 		// Carousel
-		// var carousel = $(".myCarousel").carousel({"pagination": true});
+		var carousel = $(".myCarousel").carousel({"pagination": true});
 		// var carousel = $.carousel($(".myCarousel"), {"pagination": true});
 
 		// // Countdown
@@ -1376,83 +1382,104 @@
 		// });
 
 		// Layer
-		// var layer1 = $(".YOUR_SELECTOR_LayerOnclick").layer({
-		// 	"event": "click",
-		// 	"content": $("#invisible-content")
-		// });
+		var layer1 = $('#layer1').layer('foo');
 
-		// //var layer2 = $(".YOUR_SELECTOR_LayerOnmouseover").layer("<p>foo</p>");
-		// var layer2 = $.layer($(".YOUR_SELECTOR_LayerOnmouseover"), {content:"<p>foo</p>"});
+        var layer2 = $('#layer2').layer({
+            'content': 'foo',
+            'event': 'click',
+            'closable': 'all'
+        });
 
-		// var layer3 = $(".YOUR_SELECTOR_LayerCloseButton").layer({
-		// 	"event": "click",
-		// 	"closable": "button",
-		// 	"content": $("#invisible-content-for-layer"),
-		// 	"width": 500
-		// });
+        var layer3 = $('#layer3').layer({
+            'content': $('#invisible-content-for-layer'),
+            'event': 'click',
+            'closable': 'none'
+        });
+
+        var layer4 = $('#layer4').layer({
+            'content': 'Static content.',
+            'event': 'click',
+            'closable': 'button-only'
+        });
+
+        var layer5 = $('#layer5').layer({
+            'content': '/ajax',
+            'event': 'click',
+            'closable': 'keys-only'
+        });
+
+        var layerX = $.layer({
+            'content': 'Layer without trigger!',
+            'reference': $('#layer5')
+        });
+
+        // var bubble = $.bubble({
+        //     'event': 'click',
+        //     'reference': $('#bubble')
+        // });
 
 		// Tooltip
 		// Bottom
-		// $('#default').tooltip(); // lt lb
-		// $('#ctcb').tooltip({
-		// 	'side': 'bottom',
-		// 	'aligned': 'center'
-		// });
-		// $('#rtrb').tooltip({
-		// 	'side': 'bottom',
-		// 	'aligned': 'right'
-		// });
+		$('#default').tooltip(); // lt lb
+		$('#ctcb').tooltip({
+			'side': 'bottom',
+			'align': 'center',
+		});
+		$('#rtrb').tooltip({
+			'side': 'bottom',
+			'align': 'right'
+		});
 
-		// // Top
-		// $('#lblt').tooltip({
-		// 	'side': 'top',
-		// 	'aligned': 'left',
-		// 	'offset': '0 -10'
-		// });
-		// $('#cbct').tooltip({
-		// 	'side': 'top',
-		// 	'aligned': 'center',
-		// 	'offset': '0 -10'
-		// });
-		// $('#rbrt').tooltip({
-		// 	'side': 'top',
-		// 	'aligned': 'right',
-		// 	'offset': '0 -10'
-		// });
+		// Top
+		$('#lblt').tooltip({
+			'side': 'top',
+			'align': 'left',
+			'offsetY': -10
+		});
+		$('#cbct').tooltip({
+			'side': 'top',
+			'align': 'center',
+			'offsetY': -10
+		});
+		$('#rbrt').tooltip({
+			'side': 'top',
+			'align': 'right',
+			'offsetY': -10
+		});
 
-		// // Right
-		// $('#ltrt').tooltip({
-		// 	'side': 'right',
-		// 	'aligned': 'top',
-		// 	'offset': '10 0'
-		// });
-		// $('#lmrm').tooltip({
-		// 	'side': 'right',
-		// 	'aligned': 'center',
-		// 	'offset': '10 0'
-		// });
-		// $('#lbrb').tooltip({
-		// 	'side': 'right',
-		// 	'aligned': 'bottom',
-		// 	'offset': '10 0'
-		// });
+		// Right
+		$('#ltrt').tooltip({
+			'side': 'right',
+			'align': 'top',
+			'offsetX': 10
+		});
+		$('#lmrm').tooltip({
+			'side': 'right',
+			'align': 'center',
+			'offsetX': 10
+		});
+		$('#lbrb').tooltip({
+			'side': 'right',
+			'align': 'bottom',
+			'offsetX': 10
+		});
 
-		// // Left
-		// $('#rtlt').tooltip({
-		// 	'side': 'left',
-		// 	'aligned': 'top',
-		// 	'offset': '-10 0'
-		// });
-		// $('#rmlm').tooltip({
-		// 	'side': 'left',
-		// 	'aligned': 'center',
-		// 	'offset': '-10 0'
-		// });
-		// $('#rblb').tooltip({
-		// 	'side': 'left',
-		// 	'aligned': 'bottom',
-		// 	'offset': '-10 0'
-		// });
+		// Left
+		$('#rtlt').tooltip({
+			'side': 'left',
+			'align': 'top',
+			'offsetX': -10
+		});
+		$('#rmlm').tooltip({
+			'side': 'left',
+			'align': 'center',
+			'offsetX': -10
+		});
+		$('#rblb').tooltip({
+			'side': 'left',
+			'align': 'bottom',
+			'offsetX': -10
+		});
 
 		// // Modal
 		// var modal1 = $(".YOUR_SELECTOR_Modal").modal({
