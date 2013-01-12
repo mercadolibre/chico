@@ -185,7 +185,7 @@
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx,
                     'onshow': function () {
-                        // Updates selected tab when it's opened
+                        // Updates selected when it's opened
                         that._selected = i;
 
                         /**
@@ -195,7 +195,7 @@
                          * @public
                          * @exampleDescription When the user select
                          * @example
-                         * widget.on('select',function(){
+                         * widget.on('select',function () {
                          *     app.off();
                          * });
                          */
@@ -232,7 +232,7 @@
     * @param item The number of the item to be selected
     * @returns
     */
-    Menu.prototype.select = function (child, grandson) {
+    Menu.prototype.select = function (child) {
         // Getter
         if (child === undefined) {
             return this._selected;
@@ -240,53 +240,30 @@
 
         // Setter
         var that = this,
-            expandable;
+            // Specific item of that._children list
+            item = that._children[child];
 
-        // Specific item of that._children list
-        expandable = that._children[child];
+        // Item as expandable
+        if (item instanceof ch.Expandable) {
+            // Show
+            item.show();
+        }
 
-        // Item as object
-        if (ch.util.hasOwn(expandable, 'uid')) {
+        // Update selected item
+        that._selected = child;
 
-            // Show this list
-            // si esta abierto y le paso un hijo que no se abra
-            if (!(expandable.isActive() && grandson)) {
-                expandable.show();
-            }
-
-            // Select grandson
-            if (!isNaN(grandson)) {
-                expandable.$el
-                    .find('a')
-                    .eq(grandson)
-                    .addClass('ch-' + that.name + '-on');
-            }
-
-            // Accordion behavior
-            if (that._options.accordion) {
-
-                // Hides every that._children list that don't be this specific list item
-                $.each(that._children, function (i, e) {
-                    if(
-                        // If it isn't an anchor...
-                        (e.tagName != 'A') &&
-                        // If there are an unique id...
-                        (ch.util.hasOwn(e, 'uid')) &&
-                        // If unique id is different to unique id on that._children list...
-                        (that._children[child].uid != that._children[i].uid)
-                    ){
-                        // ...hide it
-                        e.hide();
-                    };
-                });
-
-            };
-
-        // Item as anchor
-        } else{
-            // Just selects it
-            expandable.addClass('ch-' + that.name + '-on');
-        };
+        /**
+         * It is triggered when the a fold is selected by the user.
+         * @name ch.Menu#select
+         * @event
+         * @public
+         * @exampleDescription When the user select
+         * @example
+         * widget.on('select',function(){
+         *     app.off();
+         * });
+         */
+        that.emit('select');
 
         return that;
     };
@@ -299,11 +276,19 @@
     Menu.prototype._configureAccordion = function () {
         var that = this;
 
-        $.each(that._children, function (i, e) {
-            if (ch.util.hasOwn(e, '$el')) {
-                e.$el.find('.ch-expandable-trigger').off(ch.events.pointer.TAP).on(ch.events.pointer.TAP + '.' + that.name, function () {
-                    that.select(i);
-                });
+        $.each(that._children, function (i, expandable) {
+            if (expandable instanceof ch.Expandable) {
+                expandable.$el
+                    .find('.ch-expandable-trigger')
+                    .off('.expandable')
+                    .on(ch.events.pointer.TAP + '.accordion', function () {
+
+                        if (that._selected !== undefined && expandable !== that._children[that._selected]) {
+                            that._children[that._selected].hide();
+                        }
+
+                        that.select(i);
+                    });
             }
         });
     };
