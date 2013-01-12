@@ -46,18 +46,18 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-/**
- * Private
- */
+    /**
+     * Private
+     */
 
     /**
      * Inheritance
      */
     var parent = ch.util.inherits(Expandable, ch.Widget);
 
-/**
- * Prototype
- */
+    /**
+     * Prototype
+     */
 
     /**
      * The name of the widget. All instances are saved into a 'map', grouped by its name. You can reach for any or all of the components from a specific name with 'ch.instances'.

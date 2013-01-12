@@ -68,7 +68,7 @@
 				"../../src/ui/js/ch.Navs.js",
 				"../../src/shared/js/ch.Expandable.js",
 				"../../src/shared/js/ch.Menu.js",
-				"../../src/ui/js/ch.Accordion.js",
+				"../../src/shared/js/ch.Accordion.js",
 				"../../src/ui/js/ch.Calendar.js",
 				"../../src/ui/js/ch.blink.js",
 				"../../src/ui/js/ch.Dropdown.js",
@@ -143,7 +143,8 @@
 			"widgets": [
 				"../../src/shared/js/ch.Widget.js",
 				"../../src/shared/js/ch.Expandable.js",
-				"../../src/shared/js/ch.Menu.js"
+				"../../src/shared/js/ch.Menu.js",
+				"../../src/shared/js/ch.Accordion.js"
 			],
 			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
 		},
