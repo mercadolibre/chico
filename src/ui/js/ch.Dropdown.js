@@ -83,7 +83,7 @@
 		'side': 'bottom',
 		'align': 'left',
 		'offsetY': -1,
-		'closable': true
+		'closable': 'keys-only'
 	};
 
 	Dropdown.prototype.init = function ($el, options) {
