@@ -6,6 +6,13 @@
 }
 
 /**
+ * Close button must generate a space
+ */
+.ch-layer .ch-close + div {
+    margin-right: 24px;
+}
+
+/**
  * Cone
  */
 .ch-layer-content:before,

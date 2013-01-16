@@ -14,12 +14,13 @@
 
 	var $document = $(document),
         pointerTap = ch.events.pointer.TAP,
+        pointerLeave = ch.events.pointer.LEAVE,
         keyEsc = ch.events.key.ESC;
 
 	function Closable() {
 
 		var that = this,
-            closableType = this._options.closable,
+            closableType = this._options.close,
             tapEvent = pointerTap + '.' + this.name,
             escEvent = keyEsc + '.' + this.name;
 
@@ -33,17 +34,22 @@
             /**
              * Closable none
              */
-            if (closableType === undefined || closableType === 'none') { return; }
+            if (closableType === 'none' || !closableType) { return; }
+
+            /**
+             * Closable by leaving the widget
+             */
+            if (closableType === 'mouseleave' && that.$el !== undefined) {
+                //
+                that.$el.on(pointerLeave, function () { that.hide(); });
+                // Don't analize another case
+                return;
+            }
 
             /**
              * Closable button-only
              */
-
-
-            /**
-             * Closable button-only
-             */
-			if (closableType === 'button-only' || closableType === 'all') {
+			if (closableType === 'button-only' || closableType === 'all' || closableType === true) {
 				// Append a close button
 				$('<a class="ch-close" role="button"></a>').on(tapEvent, close).prependTo(that.$container);
 			}
@@ -51,7 +57,7 @@
             /**
              * Closable keys-only
              */
-            if (closableType === 'keys-only' || closableType === 'all') {
+            if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
 
                 that.on('show', function () {
                     $document.one(tapEvent + ' ' + escEvent, close);

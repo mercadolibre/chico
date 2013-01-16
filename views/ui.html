@@ -636,11 +636,11 @@
 	<div class="ch-box-lite">
 		<h2>Layer</h2>
 		<ul class="ch-list">
-            <li><span id="layer1">Default Layer, executed on <strong>hover</strong>.</span></li>
+            <li><span id="layer1">Default Layer, executed on <strong>mouseenter</strong>.</span></li>
             <li><span id="layer2">Executed on <strong>click</strong>. <em>(close:all)</em></span></li>
 			<li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(close:none)</em>.</span></li>
 			<li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(close:button-only)</em>.</span></li>
-            <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:keys-only)</em></span></li>
+            <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:pointers-only)</em></span></li>
 		</ul>
 		<div id="invisible-content-for-layer" class="ch-hide">
     		<h1>This content is invisible</h1>
@@ -649,7 +649,7 @@
 	</div>
 
     <div class="ch-box-lite">
-        <h2>Bubble</h2>
+        <h2>Validation Bubble</h2>
         <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
     </div>
 
@@ -1387,26 +1387,26 @@
 
         var layer2 = $('#layer2').layer({
             'content': 'foo',
-            'event': 'click',
-            'closable': 'all'
+            'open': 'click',
+            'close': 'all'
         });
 
         var layer3 = $('#layer3').layer({
             'content': $('#invisible-content-for-layer'),
-            'event': 'click',
-            'closable': 'none'
+            'open': 'click',
+            'close': 'none'
         });
 
         var layer4 = $('#layer4').layer({
             'content': 'Static content.',
-            'event': 'click',
-            'closable': 'button-only'
+            'open': 'click',
+            'close': 'button-only'
         });
 
         var layer5 = $('#layer5').layer({
             'content': '/ajax',
-            'event': 'click',
-            'closable': 'keys-only'
+            'open': 'click',
+            'close': 'pointers-only'
         });
 
         var layerX = $.layer({
@@ -1414,10 +1414,13 @@
             'reference': $('#layer5')
         });
 
-        // var bubble = $.bubble({
-        //     'event': 'click',
-        //     'reference': $('#bubble')
-        // });
+        var bubble = $.validationBubble({
+            'reference': $('#bubble')
+        });
+
+        $('#bubble').on('click', function () {
+            bubble.show();
+        });
 
 		// Tooltip
 		// Bottom
@@ -1481,6 +1484,11 @@
 			'align': 'bottom',
 			'offsetX': -10
 		});
+
+        var tooltipX = $.tooltip({
+            'content': 'Tooltip without trigger!',
+            'reference': $('#default')
+        });
 
 		// // Modal
 		// var modal1 = $(".YOUR_SELECTOR_Modal").modal({

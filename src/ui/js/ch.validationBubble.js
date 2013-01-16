@@ -6,14 +6,20 @@
     }
 
     var defaults = {
-        'classes': 'ch-tooltip'
+        'classes': 'ch-validation-bubble ch-box-error',
+        'side': 'right',
+        'align': 'top',
+        'offsetX': 10,
+        'offsetY': 0,
+        'open': 'none',
+        'close': 'none',
+        'content': 'Error.'
     };
 
     /**
-     * Tooltip improves the native tooltips. Tooltip uses the 'alt' and 'title' attributes to grab its content.
-     * @name Tooltip
-     * @class Tooltip
-     * @augments ch.Floats
+     *
+     * @name validationBubble
+     * @class validationBubble
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
      * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
@@ -25,23 +31,23 @@
      * @see ch.Layer
      * @see ch.Zoom
      * @see ch.Flaots
-     * @exampleDescription Create a tooltip.
+     * @exampleDescription Create a bubble.
      * @example
-     * var widget = $(".some-element").tooltip();
-     * @exampleDescription Create a new tooltip with configuration.
+     * var widget = $(".some-element").bubble();
+     * @exampleDescription Create a new bubble with configuration.
      * @example
-     * var widget = $("a.example").tooltip({
+     * var widget = $("a.example").bubble({
      *     "fx": false,
      *     "offset": "10 -10",
      *     "points": "lt rt"
      * });
      * @exampleDescription
-     * Now <code>widget</code> is a reference to the tooltip instance controller.
+     * Now <code>widget</code> is a reference to the bubble instance controller.
      * You can set a new content by using <code>widget</code> like this:
      * @example
      * widget.width(300);
      */
-    function Tooltip($el, options) {
+    function validationBubble($el, options) {
 
         if (options === undefined && !ch.util.is$($el)) {
             options = $el;
@@ -53,11 +59,10 @@
         return new ch.Layer($el, options);
     }
 
+    validationBubble.prototype.name = 'validationBubble';
+    validationBubble.prototype.constructor = validationBubble;
+    validationBubble.prototype.preset = 'Layer';
 
-    Tooltip.prototype.name = 'tooltip';
-    Tooltip.prototype.constructor = Tooltip;
-    Tooltip.prototype.preset = 'Layer';
-
-    ch.factory(Tooltip);
+    ch.factory(validationBubble);
 
 }(this, (this.zepto || this.jQuery), this.ch));

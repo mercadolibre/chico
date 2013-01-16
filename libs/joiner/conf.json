@@ -80,7 +80,7 @@
 
                 "../../src/ui/js/ch.Layer.js",
                 "../../src/ui/js/ch.Tooltip.js",
-                "../../src/ui/js/ch.Bubble.js"
+                "../../src/ui/js/ch.validationBubble.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},
@@ -118,7 +118,7 @@
 				"../../src/ui/css/ch.Tabs.css",
 				"../../src/ui/css/ch.Layer.css",
                 "../../src/ui/css/ch.Tooltip.css",
-                "../../src/ui/css/ch.Bubble.css",
+                "../../src/ui/css/ch.validationBubble.css",
                 "../../src/ui/css/ch.Modal.css",
 				"../../src/ui/css/ch.Zoom.css"
 			],

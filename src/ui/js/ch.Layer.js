@@ -5,6 +5,11 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    var openEvent = {
+        'click': ch.events.pointer.TAP,
+        'mouseenter': ch.events.pointer.ENTER
+    };
+
     /**
      * Layer improves the native layers. Layer uses the 'alt' and 'title' attributes to grab its content.
      * @name Layer
@@ -88,8 +93,8 @@
         'align': 'left',
         'offsetX': 0,
         'offsetY': 10,
-        'event': 'mouseenter',
-        'closable': 'keys-only'
+        'open': 'mouseenter',
+        'close': 'mouseleave'
     };
 
     Layer.prototype.init = function ($el, options) {
@@ -99,9 +104,10 @@
         this.require('Collapsible', 'Content', 'Closable');
 
         var that = this,
-            //
+            // Used to ARIA attributes
             id = ['ch', this.name, this.uid].join('-');
 
+        // Grab the instances map to close all sibling on show
         this._instances = ch.instances[this.name];
 
         /**
@@ -131,25 +137,36 @@
          */
         this._$content = $('<div class="ch-layer-content">').appendTo(this.$container);
 
-        /**
-         *
-         */
+        // Add functionality to the trigger if it exists
         if (this.$el !== undefined) {
 
-            this.$el
-                .attr('aria-describedby', id)
-                .on(this._options.event + '.layer', function (event) {
+            // Bind the open event when configured as openable
+            if (this._options.open !== 'none' && this._options.open !== false) {
+                this.$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
                     ch.util.prevent(event);
                     that.show();
                 });
+            }
 
-            this._options.reference = this._options.reference || this.$el;
-            this._options.content = this._options.content || this.el.title || this.el.alt;
+            // Use the trigger as the positioning reference
+            if (this._options.reference === undefined) {
+                this._options.reference = this.$el;
+            }
 
-            // TODO: Use a data-* attribute to grab these values
-            this.el.title = this.el.alt = '';
+            // Use the "title" or "alt" attributes when a content was not defined
+            if (this._options.content === undefined) {
+                this._options.content = this.el.title || this.el.alt;
+                // Keep the attributes content into the element for possible usage
+                this.el.setAttribute('data-title', this._options.content);
+                // Avoid to trigger the native tooltip
+                this.el.title = this.el.alt = '';
+            }
         }
 
+        // Set WAI-ARIA to the main element (trigger or position reference)
+        this._options.reference.attr('aria-describedby', id);
+
+        // Configure Content
         this.content.configure({
             'input': this._options.content,
             'method': this._options.method,
@@ -170,6 +187,7 @@
             that.position.refresh();
         };
 
+        // Configure Positioner
         this.position = new ch.Positioner({
             'target': this.$container,
             'reference': this._options.reference,
@@ -179,6 +197,7 @@
             'offsetX': this._options.offsetX
         });
 
+        // Configure Closable
         this._closable();
     };
 
@@ -200,8 +219,8 @@
 
             instance = that._instances[uid];
 
-            // TODO: This "closable" conditional must be in ch.Closable.js
-            if (uid !== that.uid && instance._options.closable !== 'none') {
+            // TODO: This "close !== none" conditional must be in ch.Closable.js
+            if (uid !== that.uid && instance._options.close !== 'none') {
                 instance.hide();
             }
         }

@@ -1,0 +1,78 @@
+/**
+ * Input colorizing
+ */
+.ch-validation-error {
+    border: 1px solid #f99;
+}
+
+.ch-validation-error:focus {
+    border-width: 2px;
+    -webkit-box-shadow: 2px #f99;
+    box-shadow: 2px #f99;
+}
+
+/**
+ * Bubble
+ */
+.ch-validation-bubble {
+	font-size: .929em;
+	padding: 2px 5px 2px 25px;
+}
+
+/* Error icon */
+.ch-validation-bubble:before {
+	top: 5px;
+	left: 5px;
+}
+
+.ch-validation-bubble a:visited {
+	color: #0637B3;
+}
+
+/**
+ * Bottom side
+ * ltlb, ctcb, rtrb
+ */
+.ch-validation-bubble[data-side=bottom] .ch-layer-content:before {
+    border-bottom-color: #EED3D7;
+}
+
+.ch-validation-bubble[data-side=bottom] .ch-layer-content:after {
+    border-bottom-color: #F2DEDE;
+}
+
+/**
+ * Top side
+ * lblt, cbct, rbrt
+ */
+.ch-validation-bubble[data-side=top] .ch-layer-content:before {
+    border-top-color: #EED3D7;
+}
+
+.ch-validation-bubble[data-side=top] .ch-layer-content:after {
+    border-top-color: #F2DEDE;
+}
+
+/**
+ * Right side
+ * ltrt, lmrm, lbrb
+ */
+.ch-validation-bubble[data-side=right] .ch-layer-content:before {
+    border-right-color: #EED3D7;
+}
+
+.ch-validation-bubble[data-side=right] .ch-layer-content:after {
+    border-right-color: #F2DEDE;
+}
+
+/**
+ * Left side
+ * rtlt, rmlm, rblb
+ */
+.ch-validation-bubble[data-side=left] .ch-layer-content:before {
+    border-left-color: #EED3D7;
+}
+
+.ch-validation-bubble[data-side=left] .ch-layer-content:after {
+    border-left-color: #F2DEDE;
+}

@@ -156,6 +156,26 @@
 		return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(url));
 	};
 
+    /**
+     * Determines if a specified element is an instance of $.
+     * @name is$
+     * @methodOf ch.util
+     * @param {Object} $el The element to be checked as instance of $.
+     * @returns {Boolean}
+     */
+    util.is$ = (function () {
+
+        if ($.zepto === undefined) {
+            return function ($el) {
+                return $el instanceof $;
+            };
+        } else {
+            return function ($el) {
+                return $.zepto.isZ($el);
+            };
+        }
+    }());
+
 	/**
 	 * Adds CSS rules to disable text selection highlighting.
 	 * @name avoidTextSelection

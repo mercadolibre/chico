@@ -125,8 +125,8 @@
 			// Put the specified parameters into corresponding options object
 			// when the "options" parameter is not the configuration object or
 			// it's a query selector
-			// TODO: This should be in the init() method of each widget
-			if ((options !== undefined && type !== 'object') || options instanceof $) {
+			// TODO: This must be in the init() method of each widget
+			if ((options !== undefined && type !== 'object') || ch.util.is$(options)) {
 				// Grab temporally the received parameter
 				var parameter = options,
 					// Grab the second parameter
@@ -137,7 +137,7 @@
 				options[map[type]] = parameter;
 
 				// Could have a content as a second argument when it receives a string or a query selector
-				if (typeof content === 'string' || content instanceof $) {
+				if (typeof content === 'string' || ch.util.is$(content)) {
 					options.content = content;
 				}
 			}
