@@ -206,7 +206,7 @@
      * @function
      * @returns itself
      */
-    Popover.prototype.show = function () {
+    Popover.prototype.show = function (content) {
 
         var that = this,
             uid;
@@ -222,7 +222,7 @@
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Request the content
-        this.content.set();
+        this.content.set({'input': content});
         // Open the collapsible
         this._show();
 
