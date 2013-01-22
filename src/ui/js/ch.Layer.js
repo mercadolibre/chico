@@ -208,7 +208,7 @@
      * @function
      * @returns itself
      */
-    Layer.prototype.show = function () {
+    Layer.prototype.show = function (content) {
 
         var that = this,
             instance,
@@ -228,7 +228,7 @@
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Request the content
-        this.content.set();
+        this.content.set({'input': content});
         // Open the collapsible
         this._show();
 
