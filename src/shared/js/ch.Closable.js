@@ -41,7 +41,7 @@
              */
             if (closableType === 'mouseleave' && that.$el !== undefined) {
                 //
-                that.$el.on(pointerLeave, function () { that.hide(); });
+                that.$el.on(pointerLeave, close);
                 // Don't analize another case
                 return;
             }

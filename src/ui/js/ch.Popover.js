@@ -85,7 +85,7 @@
     Popover.prototype.constructor = Popover;
 
     Popover.prototype._defaults = {
-        'fx': false,
+        'fx': 'fadeIn',
         'classes': 'ch-box-lite',
         'width': 'auto',
         'height': 'auto',
@@ -123,6 +123,10 @@
                 'width': this._options.width,
                 'height': this._options.height
             });
+
+        this.on('hide', function () {
+            that.$container.detach();
+        });
 
         /**
          * Inner reference to content container. Here is where the content will be added.
@@ -213,11 +217,11 @@
 
         // Close another opened widgets
         // TODO: This "close !== none" conditional must be in ch.Closable.js
-        for (uid in this._instances) {
-            if (this._instances[uid] !== undefined && uid !== that.uid && that._instances[uid]._options.close !== 'none') {
-                that._instances[uid].hide();
-            }
-        }
+        // for (uid in this._instances) {
+        //     if (this._instances[uid] !== undefined && uid !== that.uid && that._instances[uid]._options.close !== 'none') {
+        //         that._instances[uid].hide();
+        //     }
+        // }
 
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
@@ -239,8 +243,6 @@
     Popover.prototype.hide = function () {
         //
         this._hide();
-        //
-        this.$container.detach();
         //
         return this;
     };
