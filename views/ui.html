@@ -657,7 +657,7 @@
 		<h2>Modal with AJAX content</h2>
 
 		<form action="/ajax">
-			<p><input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Modal" value="Executed by submit a form"> or <a href="/ajax" class="YOUR_SELECTOR_Modal">Executed by a link</a>.</p>
+			<p><input type="submit" class="ch-btn ch-btn-small modal1" value="Executed by submit a form"> or <a href="/ajax" class="modal1">Executed by a link</a>.</p>
 		</form>
 	</div>
 
@@ -684,7 +684,7 @@
 	<div class="ch-box-lite">
 		<h2>Transition window</h2>
 		<form action="/ajax">
-			<input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Transition" value="Exeute it!">
+			<input type="submit" id="transition" class="ch-btn ch-btn-small" value="Exeute it!">
 		</form>
 	</div>
 
@@ -1489,23 +1489,31 @@
             'reference': $('#default')
         });
 
-		// // Modal
-		// var modal1 = $(".YOUR_SELECTOR_Modal").modal({
-		// 	"width": "500px",
-		// 	"height": "300px"
-		// });
+		// Modal
+		var modal1 = $('.modal1').modal({
+			'width': '500px',
+			'height': '300px'
+		});
 
-		// // Modal with invisible DOM Content
-		// var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal($("#invisible-content"));
+        // Modal with invisible DOM Content
+		var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal($("#invisible-content"));
 
-		// // Modal lite
-		// var modal3 = $('.YOUR_SELECTOR_Modal_lite').modal({
-		// 	'content': '<h2>Heading or content</h2>',
-		// 	'classes': 'ch-box ch-modal-lite'
-		// });
+		// Modal lite
+		var modal3 = $('.YOUR_SELECTOR_Modal_lite').modal({
+			'content': '<h2>Heading or content</h2>',
+			'classes': 'ch-box-lite ch-modal-lite ch-dimmer'
+		});
 
-		// // Trasition
-		// var transition = $(".YOUR_SELECTOR_Transition").transition();
+        var modalX = $.modal({
+            'content': 'Modal without trigger!'
+        });
+
+		// Trasition
+		var transition = $('#transition').transition();
+
+        var transitionX = $.transition({
+            'content': 'Transition without trigger!'
+        });
 
 		// // Zoom
 		// var zoom = $("#YOUR_SELECTOR_Zoom").zoom();

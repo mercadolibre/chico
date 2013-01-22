@@ -6,7 +6,7 @@
     }
 
     var defaults = {
-        'classes': 'ch-validation-bubble ch-box-error',
+        'classes': 'ch-validation-bubble ch-box-error ch-cone',
         'side': 'right',
         'align': 'top',
         'offsetX': 10,
@@ -47,7 +47,7 @@
      * @example
      * widget.width(300);
      */
-    function validationBubble($el, options) {
+    function ValidationBubble($el, options) {
 
         if (options === undefined && !ch.util.is$($el)) {
             options = $el;
@@ -56,13 +56,13 @@
 
         options = $.extend(ch.util.clone(defaults), options);
 
-        return new ch.Layer($el, options);
+        return new ch.Popover($el, options);
     }
 
-    validationBubble.prototype.name = 'validationBubble';
-    validationBubble.prototype.constructor = validationBubble;
-    validationBubble.prototype.preset = 'Layer';
+    ValidationBubble.prototype.name = 'validationBubble';
+    ValidationBubble.prototype.constructor = ValidationBubble;
+    ValidationBubble.prototype.preset = 'Popover';
 
-    ch.factory(validationBubble);
+    ch.factory(ValidationBubble);
 
 }(this, (this.zepto || this.jQuery), this.ch));
