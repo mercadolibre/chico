@@ -165,6 +165,41 @@
         that.form._validations.push(that);
 
         /**
+         * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
+         * @public
+         * @name ch.Validation#bubble
+         * @type ch.Helper
+         * @see ch.Floats
+         */
+        that.bubble = $.validationBubble({
+            'reference': (function() {
+                var reference
+                    $el = that.$el;
+                // CHECKBOX, RADIO
+                // TODO: when old forms be deprecated we must only support ch-list-options class
+                if ($el.hasClass("ch-form-options") || $el.hasClass("ch-list-options")) {
+                // Helper reference from will be fired
+                // H4
+                    if ($el.find("h4").length > 0) {
+                        var h4 = $el.find("h4"); // Find h4
+                        h4.wrapInner("<span>"); // Wrap content with inline element
+                        reference = h4.children(); // Inline element in h4 like helper reference
+                    // Legend
+                    } else if ($el.prev().prop("tagName") == "LEGEND") {
+                        reference = $el.prev(); // Legend like helper reference
+                    } else {
+                        reference = $($el.find("label")[0]);
+                    }
+                // INPUT, SELECT, TEXTAREA
+                } else {
+                    reference = $el;
+                }
+
+                return reference;
+            })()
+        });
+
+        /**
          * Validation event
          * @private
          * @name ch.Validation#_validationEvent
@@ -181,54 +216,6 @@
 
         return that;
     }
-
-    /**
-     * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
-     * @public
-     * @name ch.Validation#bubble
-     * @type ch.Helper
-     * @see ch.Floats
-     */
-    Validation.prototype.bubble = {};
-
-        // that["float"] = that.createFloat({
-        //  "$element": (function() {
-        //      var reference;
-        //      // CHECKBOX, RADIO
-        //      // TODO: when old forms be deprecated we must only support ch-list-options class
-        //      if (that.$element.hasClass("ch-form-options") || that.$element.hasClass("ch-list-options")) {
-        //          // Helper reference from will be fired
-        //          // H4
-        //          if (that.$element.find("h4").length > 0) {
-        //              var h4 = that.$element.find("h4"); // Find h4
-        //                  h4.wrapInner("<span>"); // Wrap content with inline element
-        //              reference = h4.children(); // Inline element in h4 like helper reference
-        //          // Legend
-        //          } else if (that.$element.prev().prop("tagName") == "LEGEND") {
-        //              reference = that.$element.prev(); // Legend like helper reference
-        //          } else {
-        //              reference = $(that.$element.find("label")[0]);
-        //          }
-        //      // INPUT, SELECT, TEXTAREA
-        //      } else {
-        //          reference = that.$element;
-        //      }
-
-        //      return reference;
-        //  })(),
-        //  "type": "validation",
-        //  "content": "Error.",
-        //  "classes": conf.classes || "ch-box-error",
-        //  "cone": true,
-        //  "cache": false,
-        //  "closable": false,
-        //  "aria": {
-        //      "role": "alert"
-        //  },
-        //  "offset": conf.offset,
-        //  "points": conf.points,
-        //  "reposition": false
-        // });
 
     /**
      * Run all configured validations.
@@ -274,10 +261,12 @@
             // to avoid reload the same content
             //if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) {
             if (!previousError.condition || that._error.condition !== previousError.condition) { // delete when bubble will be done
-                //that.bubble.show((previousError.msg || form.messages[previousError.condition] || "Error"));
+
+                //console.log(previousError);
+                that.bubble.show((previousError.msg || that.form._messages[previousError.condition] || "Error"));
                 // the aria-label attr should get the message element id, but is not public
-                //that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid );
-                console.log( this._error.msg || form.messages[this._error.condition] || "Error" );
+                that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid );
+                //console.log( this._error.msg || form.messages[this._error.condition] || "Error" );
             }
 
             // Add blur or change event to the element or to the elements's group
@@ -627,8 +616,8 @@
         that.conditions[condition].message = msg;
 
         if (that.isActive() && that._error.condition === condition) {
-            console.log( msg );
-            //that.bubble.content(msg);
+            //console.log( msg );
+            that.bubble.content(msg);
         }
 
         return this;
