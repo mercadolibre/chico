@@ -81,7 +81,7 @@
      */
     Menu.prototype._defaults = {
         'icon': true,
-        'fx': true,
+        'fx': 'slideDown',
         'accordion': false
     };
 

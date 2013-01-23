@@ -78,9 +78,12 @@
                 "../../src/ui/js/ch.Form.js",
                 "../../src/ui/js/ch.Condition.js",
 
+                "../../src/ui/js/ch.Popover.js",
                 "../../src/ui/js/ch.Layer.js",
                 "../../src/ui/js/ch.Tooltip.js",
-                "../../src/ui/js/ch.validationBubble.js"
+                "../../src/ui/js/ch.ValidationBubble.js",
+                "../../src/ui/js/ch.Modal.js",
+                "../../src/ui/js/ch.Transition.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},
@@ -116,10 +119,12 @@
 				"../../src/ui/css/ch.Form.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Tabs.css",
-				"../../src/ui/css/ch.Layer.css",
+
+                "../../src/ui/css/ch.Popover.css",
                 "../../src/ui/css/ch.Tooltip.css",
                 "../../src/ui/css/ch.validationBubble.css",
                 "../../src/ui/css/ch.Modal.css",
+                "../../src/ui/css/ch.Transition.css",
 				"../../src/ui/css/ch.Zoom.css"
 			],
 			"template": ["meta.ui.full.css", "resetML", "core", "widgets"]

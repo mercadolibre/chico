@@ -1,0 +1,200 @@
+/**
+ * Popover
+ */
+.ch-popover {
+    box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
+}
+
+/**
+ * Close button: must generate a space
+ */
+.ch-popover .ch-close + div {
+    margin-right: 24px;
+}
+
+/**
+ * Dimmer
+ */
+.ch-dimmer:before {
+    /*outline: 100px solid rgba(0, 0, 0, 0.3);*/
+    content: '';
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/**
+ * Cone
+ */
+.ch-cone .ch-popover-content:before,
+.ch-cone .ch-popover-content:after {
+    border: outset transparent; /* border transparent bug on FF: http://stackoverflow.com/a/6225439 */
+    content: '';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+}
+
+.ch-cone .ch-popover-content:before {
+    border-width: 8px;
+}
+
+.ch-cone .ch-popover-content:after {
+    border-width: 7px;
+}
+
+/**
+ * Bottom side
+ * ltlb, ctcb, rtrb
+ */
+.ch-cone[data-side=bottom] .ch-popover-content:before,
+.ch-cone[data-side=bottom] .ch-popover-content:after {
+    bottom: 100%;
+    border-bottom-style: solid;
+}
+
+.ch-cone[data-side=bottom] .ch-popover-content:before {
+    border-bottom-color: #E5E5E5;
+}
+
+.ch-cone[data-side=bottom] .ch-popover-content:after {
+    border-bottom-color: #fff;
+}
+
+/**
+ * Top side
+ * lblt, cbct, rbrt
+ */
+.ch-cone[data-side=top] .ch-popover-content:before,
+.ch-cone[data-side=top] .ch-popover-content:after {
+    top: 100%;
+    border-top-style: solid;
+}
+
+.ch-cone[data-side=top] .ch-popover-content:before {
+    border-top-color: #E5E5E5;
+}
+
+.ch-cone[data-side=top] .ch-popover-content:after {
+    border-top-color: #fff;
+}
+
+/**
+ * Right side
+ * ltrt, lmrm, lbrb
+ */
+.ch-cone[data-side=right] .ch-popover-content:before,
+.ch-cone[data-side=right] .ch-popover-content:after {
+    right: 100%;
+    border-right-style: solid;
+}
+
+.ch-cone[data-side=right] .ch-popover-content:before {
+    border-right-color: #E5E5E5;
+}
+
+.ch-cone[data-side=right] .ch-popover-content:after {
+    border-right-color: #fff;
+}
+
+/**
+ * Left side
+ * rtlt, rmlm, rblb
+ */
+.ch-cone[data-side=left] .ch-popover-content:before,
+.ch-cone[data-side=left] .ch-popover-content:after {
+    left: 100%;
+    border-left-style: solid;
+}
+
+.ch-cone[data-side=left] .ch-popover-content:before {
+    border-left-color: #E5E5E5;
+}
+
+.ch-cone[data-side=left] .ch-popover-content:after {
+    border-left-color: #fff;
+}
+
+/**
+ * Left alignment
+ */
+.ch-cone[data-side=bottom][data-align=left] .ch-popover-content:after,
+.ch-cone[data-side=top][data-align=left] .ch-popover-content:after {
+    left: 8px;
+}
+
+.ch-cone[data-side=bottom][data-align=left] .ch-popover-content:before,
+.ch-cone[data-side=top][data-align=left] .ch-popover-content:before {
+    left: 7px;
+}
+
+/**
+ * Center alignment
+ */
+.ch-cone[data-side=bottom][data-align=center] .ch-popover-content:after,
+.ch-cone[data-side=top][data-align=center] .ch-popover-content:after {
+    margin-left: -8px;
+    left: 50%;
+}
+
+.ch-cone[data-side=bottom][data-align=center] .ch-popover-content:before,
+.ch-cone[data-side=top][data-align=center] .ch-popover-content:before {
+    margin-left: -9px;
+    left: 50%;
+}
+
+.ch-cone[data-side=right][data-align=center] .ch-popover-content:after,
+.ch-cone[data-side=left][data-align=center] .ch-popover-content:after {
+    margin-top: -8px;
+    top: 50%;
+}
+
+.ch-cone[data-side=right][data-align=center] .ch-popover-content:before,
+.ch-cone[data-side=left][data-align=center] .ch-popover-content:before {
+    margin-top: -9px;
+    top: 50%;
+}
+
+/**
+ * Right alignment
+ */
+.ch-cone[data-side=bottom][data-align=right] .ch-popover-content:after,
+.ch-cone[data-side=top][data-align=right] .ch-popover-content:after {
+    right: 8px;
+}
+
+.ch-cone[data-side=bottom][data-align=right] .ch-popover-content:before,
+.ch-cone[data-side=top][data-align=right] .ch-popover-content:before {
+    right: 7px;
+}
+
+/**
+ * Top alignment
+ */
+.ch-cone[data-side=right][data-align=top] .ch-popover-content:after,
+.ch-cone[data-side=left][data-align=top] .ch-popover-content:after {
+    top: 5px;
+}
+
+.ch-cone[data-side=right][data-align=top] .ch-popover-content:before,
+.ch-cone[data-side=left][data-align=top] .ch-popover-content:before {
+    top: 4px;
+}
+
+/**
+ * Bottom alignment
+ */
+.ch-cone[data-side=right][data-align=bottom] .ch-popover-content:after,
+.ch-cone[data-side=left][data-align=bottom] .ch-popover-content:after {
+    bottom: 5px;
+}
+
+.ch-cone[data-side=right][data-align=bottom] .ch-popover-content:before,
+.ch-cone[data-side=left][data-align=bottom] .ch-popover-content:before {
+    bottom: 4px;
+}

@@ -6,7 +6,14 @@
     }
 
     var defaults = {
-        'classes': 'ch-tooltip'
+        'classes': 'ch-tooltip ch-cone',
+        'side': 'bottom',
+        'align': 'left',
+        'offsetX': 0,
+        'offsetY': 10,
+        'open': 'mouseenter',
+        'close': 'mouseleave',
+        'cone': true
     };
 
     /**
@@ -50,13 +57,13 @@
 
         options = $.extend(ch.util.clone(defaults), options);
 
-        return new ch.Layer($el, options);
+        return new ch.Popover($el, options);
     }
 
 
     Tooltip.prototype.name = 'tooltip';
     Tooltip.prototype.constructor = Tooltip;
-    Tooltip.prototype.preset = 'Layer';
+    Tooltip.prototype.preset = 'Popover';
 
     ch.factory(Tooltip);
 
