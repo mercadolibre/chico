@@ -74,8 +74,7 @@
     * Protected Members
     */
     Validation.prototype._defaults = {
-        'offset': '10 0',
-        'points': 'lt rt'
+        'offsetX': 10
     }
 
     /**
@@ -171,6 +170,7 @@
          * @type ch.Helper
          * @see ch.Floats
          */
+
         that.bubble = $.validationBubble({
             'reference': (function() {
                 var reference
@@ -196,7 +196,11 @@
                 }
 
                 return reference;
-            })()
+            })(),
+            'align': that._options.align,
+            'side': that._options.side,
+            'offsetY': that._options.offsetY,
+            'offsetX': that._options.offsetX
         });
 
         /**
@@ -245,13 +249,15 @@
 
         // Executes the validators engine with a specific value and returns an object.
         // Context is the validation
-        var previousError = ch.util.clone(this._error);
+        var previousError = ch.util.clone(that._error);
 
         // Saves gotError
         that.hasError();
 
+
+
         // If has Error...
-        if (that._error.status) {
+        if (that._error.status && that._error.condition !== previousError.condition) {
 
             if (that.$el.prop("tagName") === "INPUT" || that.$el.prop("tagName") === "TEXTAREA") {
                 // TODO: remove error class when deprecate old forms only ch-form error must be.
@@ -260,13 +266,11 @@
 
             // to avoid reload the same content
             //if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) {
-            if (!previousError.condition || that._error.condition !== previousError.condition) { // delete when bubble will be done
+            if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) { // delete when bubble will be done
 
-                //console.log(previousError);
-                that.bubble.show((previousError.msg || that.form._messages[previousError.condition] || "Error"));
+                that.bubble.show((that._error.msg || that.form._messages[previousError.condition] || "Error"));
                 // the aria-label attr should get the message element id, but is not public
                 that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid );
-                //console.log( this._error.msg || form.messages[this._error.condition] || "Error" );
             }
 
             // Add blur or change event to the element or to the elements's group
@@ -289,11 +293,14 @@
              */
             that.emit("error", previousError.condition);
 
+
+        }
+
         // else NOT Error!
-        } else {
+        if (!that._error.status) {
             that.$el.removeClass("ch-form-error");
             that.$el.removeAttr('aria-label');
-            //that.bubble.innerHide(); // uncoment when bubble were done
+            that.bubble.hide(); // uncoment when bubble were done
             form.emit('validated');
         }
 
@@ -572,16 +579,17 @@
      * @exampleDescription Change validaton bubble's position.
      * @example
      * validation.position({
-     *    offset: "0 10",
-     *    points: "lt lb"
+     *    offsetY: -10,
+     *    side: "top",
+     *    align: "left"
      * });
      */
     Validation.prototype.position = function (o) {
         var that = this;
 
-        if (o === undefined) { return that.bubble.position(); }
+        if (o === undefined) { return that.bubble.position; }
 
-        that.bubble.position(o);
+        that.bubble.position.refresh(o);
 
         return this;
     };
@@ -604,7 +612,7 @@
         var that = this;
 
         if (condition === undefined) {
-            throw "validation.message(condition, message): Please, give me a condition as parameter.";
+            throw new Error("validation.message(condition, message): Please, give me a condition as parameter.");
         }
 
         // Get a new message from a condition
@@ -616,7 +624,6 @@
         that.conditions[condition].message = msg;
 
         if (that.isActive() && that._error.condition === condition) {
-            //console.log( msg );
             that.bubble.content(msg);
         }
 
