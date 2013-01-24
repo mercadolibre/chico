@@ -42,7 +42,7 @@
 
 			for (; labels[i]; i += 1) {
 				if (labels[i].getAttribute('for')) {
-					$(labels[i]).bind(ch.events.TAP, labelClick);
+					$(labels[i]).bind(ch.events.pointer.TAP, labelClick);
 				}
 			}
 		},
