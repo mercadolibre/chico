@@ -316,4 +316,4 @@
 
     ch.factory(Popover);
 
-}(this, (this.zepto || this.jQuery), this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

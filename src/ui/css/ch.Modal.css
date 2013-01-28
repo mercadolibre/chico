@@ -15,3 +15,15 @@
 .ch-modal-lite h2 {
     margin-bottom: 0;
 }
+
+/**
+ * Dimmer
+ */
+.ch-dimmer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}

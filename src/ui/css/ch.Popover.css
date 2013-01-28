@@ -13,20 +13,6 @@
 }
 
 /**
- * Dimmer
- */
-.ch-dimmer:before {
-    /*outline: 100px solid rgba(0, 0, 0, 0.3);*/
-    content: '';
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-/**
  * Cone
  */
 .ch-cone .ch-popover-content:before,

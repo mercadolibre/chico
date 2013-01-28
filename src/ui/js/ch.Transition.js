@@ -6,9 +6,11 @@
     }
 
     var defaults = {
-        'classes': 'ch-transition ch-box-lite ch-dimmer',
-        'open': 'click',
+        'fx': 'fadeIn',
+        'classes': 'ch-transition ch-box-lite',
         'width': '500px',
+        'height': 'auto',
+        'open': 'click',
         'close': 'none',
         'content': 'Please wait...'
     };
@@ -59,14 +61,13 @@
 
         options.content = $('<div class="ch-loading-big"></div><p>' + options.content + '</p>')
 
-        return new ch.Popover($el, options);
+        return new ch.Modal($el, options);
     }
-
 
     Transition.prototype.name = 'transition';
     Transition.prototype.constructor = Transition;
-    Transition.prototype.preset = 'Popover';
+    Transition.prototype.preset = 'Modal';
 
     ch.factory(Transition);
 
-}(this, (this.zepto || this.jQuery), this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));
