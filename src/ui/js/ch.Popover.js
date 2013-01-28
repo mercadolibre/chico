@@ -140,6 +140,9 @@
         // Add functionality to the trigger if it exists
         if (this.$el !== undefined) {
 
+            // Set WAI-ARIA to the main element
+            this.$el.attr('aria-describedby', id);
+
             // Bind the open event when configured as openable
             if (this._options.open !== 'none' && this._options.open !== false) {
                 this.$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
@@ -163,11 +166,6 @@
             }
         }
 
-        // Set WAI-ARIA to the main element (trigger or position reference)
-        if (this._options.reference !== undefined) {
-            this._options.reference.attr('aria-describedby', id);
-        }
-
         // Configure Content
         this.content.configure({
             'input': this._options.content,
@@ -188,6 +186,8 @@
             that.emit('contentError');
             that.position.refresh();
         };
+
+        //if(this.name === 'popover'){ console.log(this._options.reference, that.uid) }
 
         // Configure Positioner
         this.position = new ch.Positioner({

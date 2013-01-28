@@ -123,6 +123,10 @@
 		if (that.reference !== ch.viewport) {
 			that.calculateReference();
 			// that.calculateContext();
+		} else {
+			// TODO: remove this and review the viewport
+			that.reference.top = 0;
+			that.reference.left = 0;
 		}
 
 		// the object that stores the top, left reference to set to the target
@@ -157,17 +161,34 @@
 		}
 
 		var that = this,
+			offset = {},
 			$reference = that.$reference.attr({
 				'data-side': that._options.side,
 				'data-align': that._options.align
 			});
 
+
+		// target and reference are in the same element
+		if (that.$target[0].offsetParent === that.$reference[0].offsetParent) {
+			offset.top = $reference[0].offsetTop;
+			offset.left = $reference[0].offsetLeft;
+
+		// target in the body
+		} else if (that.$target[0].parentNode.nodeName === 'BODY' ){
+			offset.top = that.$reference.offset().top;
+			offset.left = that.$reference.offset().left;
+
+		} else {
+			// TODO: review the case where the element is in other element positioned absolute and the targe is in other that is the same situation
+			throw new window.Error('Target and Reference must be at the same element, or target must be at the BODY elment.');
+		}
+
 		that.reference = {
 			'$el': $reference,
 			'width': $reference.outerWidth(),
 			'height': $reference.outerHeight(),
-			'left': $reference[0].offsetLeft,
-			'top': $reference[0].offsetTop
+			'left': offset.left,
+			'top': offset.top
 		};
 
 		return that;
