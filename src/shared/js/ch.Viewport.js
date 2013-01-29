@@ -100,7 +100,7 @@
 		 * @name ch.Viewport#top
 		 * @type Number
 		 */
-		this.top = this.$el.scrollTop();
+		this.top = ch.util.getScrollTop();
 
 		/**
 		 * Left offset of the visible area.
@@ -108,7 +108,7 @@
 		 * @name ch.Viewport#left
 		 * @type Number
 		 */
-		this.left = this.$el.scrollLeft();
+		this.left = ch.util.getScrollLeft();
 
 		/**
 		 * Right offset of the visible area.
