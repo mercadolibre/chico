@@ -308,19 +308,6 @@
 				</table>
 			</div>
 
-
-			<div class="widgets">
-				<h2 id="layer">Layer</h2>
-				<div class="myLayer">
-					<p><a href="#asd">It's a Layer</a></p>
-					<div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-					</div>
-				</div>
-			</div>
-
 			<div class="widgets">
 				<h2 id="expandable">Expandable</h2>
 				<div class="categories">
@@ -407,6 +394,97 @@
 					</li>
 				</ul>
 			</div>
+
+            <div class="ch-box-lite ch-clearfix">
+                <h2>Tooltip</h2>
+
+                <div class="ch-g1-2">
+                    <div class="ch-box-container">
+                        <h3>Bottom</h3>
+                        <img id="default" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                        <img id="ctcb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                        <img id="rtrb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                    </div>
+
+                    <div class="ch-box-container">
+                        <h3>Top</h3>
+                        <img id="lblt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                        <img id="cbct" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                        <img id="rbrt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                    </div>
+                </div>
+
+                <div class="ch-g1-2">
+                    <div class="ch-box-container">
+                        <h3>Right</h3>
+                        <img id="ltrt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                        <img id="lmrm" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                        <img id="lbrb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                    </div>
+
+                    <div class="ch-box-container">
+                        <h3>Left</h3>
+                        <img id="rtlt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                        <img id="rmlm" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                        <img id="rblb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="ch-box-lite">
+                <h2>Layer</h2>
+                <ul class="ch-list">
+                    <li><span id="layer1">Default Layer, executed on <strong>mouseenter</strong>.</span></li>
+                    <li><span id="layer2">Executed on <strong>click</strong>. <em>(close:all)</em></span></li>
+                    <li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(close:none)</em>.</span></li>
+                    <li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(close:button-only)</em>.</span></li>
+                    <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:pointers-only)</em></span></li>
+                </ul>
+                <div id="invisible-content-for-layer" class="ch-hide">
+                    <h1>This content is invisible</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+                </div>
+            </div>
+
+            <div class="ch-box-lite">
+                <h2>Validation Bubble</h2>
+                <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
+            </div>
+
+            <div class="ch-box-lite">
+                <h2>Modal with AJAX content</h2>
+
+                <form action="/ajax">
+                    <p><input type="submit" class="ch-btn ch-btn-small modal1" value="Executed by submit a form"> or <a href="/ajax" class="modal1">Executed by a link</a>.</p>
+                </form>
+            </div>
+
+            <div class="ch-box-lite">
+                <h2>Modal with DOM content</h2>
+
+                <button id="modal2" class="ch-btn ch-btn-small">Get content from DOM</button>
+
+                <div id="invisible-content" class="ch-hide">
+                    <h1>Caption heading</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+                    <div class="ch-actions">
+                        <button class="ch-btn">Primary Action</button>
+                        <a href="#">Secondary Action</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ch-box-lite">
+                <h2>Modal Lite</h2>
+                <button id="modal3" class="ch-btn ch-btn-small">Show me</button>
+            </div>
+
+            <div class="ch-box-lite">
+                <h2>Transition window</h2>
+                <form action="/ajax">
+                    <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Exeute it!">
+                </form>
+            </div>
 
 			<div class="widgets">
 				<h2 id="forms">Forms</h2>
@@ -743,10 +821,104 @@
 	<script src="/vendor/zepto.data.js"></script>
 	<script src="/mobile/js"></script>
 	<script>
-		var expado = $(".categories").expandable();
-		var menu = $(".myMenu").menu();
-		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
-		// var layer = $(".myLayer").layer();
+		// var expandable = $('.categories').expandable();
+		// var menu = $('.myMenu').menu();
+		// var accordion = $('.YOUR_SELECTOR_Accordion').accordion();
+
+        // Tooltip
+        // Bottom
+        $('#default').tooltip(); // lt lb
+        $('#ctcb').tooltip({
+            'side': 'bottom',
+            'align': 'center',
+        });
+        $('#rtrb').tooltip({
+            'side': 'bottom',
+            'align': 'right'
+        });
+
+        // Top
+        $('#lblt').tooltip({
+            'side': 'top',
+            'align': 'left',
+            'offsetY': -10
+        });
+        $('#cbct').tooltip({
+            'side': 'top',
+            'align': 'center',
+            'offsetY': -10
+        });
+        $('#rbrt').tooltip({
+            'side': 'top',
+            'align': 'right',
+            'offsetY': -10
+        });
+
+        // Right
+        $('#ltrt').tooltip({
+            'side': 'right',
+            'align': 'top',
+            'offsetX': 10
+        });
+        $('#lmrm').tooltip({
+            'side': 'right',
+            'align': 'center',
+            'offsetX': 10
+        });
+        $('#lbrb').tooltip({
+            'side': 'right',
+            'align': 'bottom',
+            'offsetX': 10
+        });
+
+        // Left
+        $('#rtlt').tooltip({
+            'side': 'left',
+            'align': 'top',
+            'offsetX': -10
+        });
+        $('#rmlm').tooltip({
+            'side': 'left',
+            'align': 'center',
+            'offsetX': -10
+        });
+        $('#rblb').tooltip({
+            'side': 'left',
+            'align': 'bottom',
+            'offsetX': -10
+        });
+
+        var tooltipX = $.tooltip({
+            'content': 'Tooltip without trigger!',
+            'reference': $('#default')
+        });
+
+        // Modal
+        var modal1 = $('.modal1').modal({
+            'width': '500px',
+            'height': '300px'
+        });
+
+        // Modal with invisible DOM Content
+        var modal2 = $('#modal2').modal($('#invisible-content'));
+
+        // Modal lite
+        var modal3 = $('#modal3').modal({
+            'content': '<h2>Heading or content</h2>',
+            'classes': 'ch-box-lite ch-modal-lite'
+        });
+
+        var modalX = $.modal({
+            'content': 'Modal without trigger!'
+        });
+
+        // Trasition
+        var transition = $('#transition').transition();
+
+        var transitionX = $.transition({
+            'content': 'Transition without trigger!'
+        });
+  //       var layer = $(".myLayer").layer();
 		// var modal = $(".makeAnswer").modal({
 		// 	"content": "#make-answer"
 		// });
