@@ -60,11 +60,13 @@
 				"../../src/shared/js/ch.cache.js",
 				"../../src/ui/js/ch.onImagesLoads.js",
 				"../../src/shared/js/ch.Widget.js",
-				"../../src/ui/js/ch.Validation.js",
-				"../../src/ui/js/ch.Required.js",
-				"../../src/ui/js/ch.String.js",
-				"../../src/ui/js/ch.Number.js",
-				"../../src/ui/js/ch.Custom.js",
+                "../../src/shared/js/ch.Form.js",
+                "../../src/shared/js/ch.Condition.js",
+				"../../src/shared/js/ch.Validation.js",
+				"../../src/shared/js/ch.Required.js",
+				"../../src/shared/js/ch.String.js",
+				"../../src/shared/js/ch.Number.js",
+				"../../src/shared/js/ch.Custom.js",
 				"../../src/ui/js/ch.Navs.js",
 				"../../src/shared/js/ch.Expandable.js",
 				"../../src/shared/js/ch.Menu.js",
@@ -74,10 +76,6 @@
 				"../../src/ui/js/ch.Dropdown.js",
 				"../../src/ui/js/ch.Tabs.js",
 				"../../src/ui/js/ch.Carousel.js",
-
-                "../../src/ui/js/ch.Form.js",
-                "../../src/ui/js/ch.Condition.js",
-
                 "../../src/ui/js/ch.Popover.js",
                 "../../src/ui/js/ch.Layer.js",
                 "../../src/ui/js/ch.Tooltip.js",
@@ -119,7 +117,6 @@
 				"../../src/ui/css/ch.Form.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Tabs.css",
-
                 "../../src/ui/css/ch.Popover.css",
                 "../../src/ui/css/ch.Tooltip.css",
                 "../../src/ui/css/ch.validationBubble.css",
@@ -146,13 +143,26 @@
 				"../../src/shared/js/ch.cache.js",
 				"../../src/shared/js/ch.Content.js",
 				"../../src/shared/js/ch.Collapsible.js",
-				"../../src/mobile/js/ch.routes.js"
+				"../../src/mobile/js/ch.routes.js",
+				"../../src/shared/js/ch.Closable.js",
+                "../../src/shared/js/ch.Viewport.js",
+				"../../src/shared/js/ch.Positioner.js"
 			],
 			"widgets": [
 				"../../src/shared/js/ch.Widget.js",
 				"../../src/shared/js/ch.Expandable.js",
 				"../../src/shared/js/ch.Menu.js",
-				"../../src/shared/js/ch.Accordion.js"
+				"../../src/shared/js/ch.Accordion.js",
+                "../../src/ui/js/ch.Popover.js",
+                "../../src/ui/js/ch.validationBubble.js",
+				"../../src/shared/js/ch.Condition.js",
+				"../../src/shared/js/ch.Form.js",
+				"../../src/shared/js/ch.Validation.js",
+				"../../src/shared/js/ch.String.js",
+				"../../src/shared/js/ch.Number.js",
+				"../../src/shared/js/ch.Custom.js",
+				"../../src/shared/js/ch.Required.js"
+
 			],
 			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
 		},
@@ -185,7 +195,8 @@
 				"../../src/shared/css/ch.Form.css",
 				"../../src/mobile/css/ch.Form.css",
 				"../../src/mobile/css/ch.Modal.css",
-				"../../src/mobile/css/ch.Layer.css"
+				"../../src/mobile/css/ch.Layer.css",
+				"../../src/ui/css/ch.validationBubble.css"
 			],
 			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
 		},
