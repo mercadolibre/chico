@@ -174,7 +174,7 @@
          * @see ch.Floats
          */
 
-        that.bubble = $.validationBubble({
+        that.bubble = $.bubble({
             'reference': (function() {
                 var reference
                     $el = that.$el;

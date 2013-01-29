@@ -79,7 +79,7 @@
                 "../../src/ui/js/ch.Popover.js",
                 "../../src/ui/js/ch.Layer.js",
                 "../../src/ui/js/ch.Tooltip.js",
-                "../../src/ui/js/ch.ValidationBubble.js",
+                "../../src/ui/js/ch.Bubble.js",
                 "../../src/ui/js/ch.Modal.js",
                 "../../src/ui/js/ch.Transition.js"
 			],
@@ -119,7 +119,7 @@
 				"../../src/ui/css/ch.Tabs.css",
                 "../../src/ui/css/ch.Popover.css",
                 "../../src/ui/css/ch.Tooltip.css",
-                "../../src/ui/css/ch.validationBubble.css",
+                "../../src/ui/css/ch.Bubble.css",
                 "../../src/ui/css/ch.Modal.css",
                 "../../src/ui/css/ch.Transition.css",
 				"../../src/ui/css/ch.Zoom.css"

@@ -6,20 +6,23 @@
     }
 
     var defaults = {
-        'classes': 'ch-validation-bubble ch-box-error ch-cone',
+        'fx': 'fadeIn',
+        'classes': 'ch-bubble ch-box-error ch-cone',
+        'width': 'auto',
+        'height': 'auto',
+        'open': 'none',
+        'close': 'none',
         'side': 'right',
         'align': 'top',
         'offsetX': 10,
         'offsetY': 0,
-        'open': 'none',
-        'close': 'none',
         'content': 'Error.'
     };
 
     /**
      *
-     * @name validationBubble
-     * @class validationBubble
+     * @name Bubble
+     * @class Bubble
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
      * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
@@ -47,7 +50,7 @@
      * @example
      * widget.width(300);
      */
-    function ValidationBubble($el, options) {
+    function Bubble($el, options) {
 
         if (options === undefined && !ch.util.is$($el)) {
             options = $el;
@@ -59,10 +62,10 @@
         return new ch.Popover($el, options);
     }
 
-    ValidationBubble.prototype.name = 'validationBubble';
-    ValidationBubble.prototype.constructor = ValidationBubble;
-    ValidationBubble.prototype.preset = 'Popover';
+    Bubble.prototype.name = 'bubble';
+    Bubble.prototype.constructor = Bubble;
+    Bubble.prototype.preset = 'Popover';
 
-    ch.factory(ValidationBubble);
+    ch.factory(Bubble);
 
-}(this, (this.zepto || this.jQuery), this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

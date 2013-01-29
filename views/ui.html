@@ -664,7 +664,7 @@
 	<div class="ch-box-lite">
 		<h2>Modal with DOM content</h2>
 
-		<button class="YOUR_SELECTOR_Modal_invisible ch-btn ch-btn-small">Get content from DOM</button>
+		<button id="modal2" class="ch-btn ch-btn-small">Get content from DOM</button>
 
 		<div id="invisible-content" class="ch-hide">
 			<h1>Caption heading</h1>
@@ -678,7 +678,7 @@
 
 	<div class="ch-box-lite">
 		<h2>Modal Lite</h2>
-		<button class="YOUR_SELECTOR_Modal_lite ch-btn ch-btn-small">Show me</button>
+		<button id="modal3" class="ch-btn ch-btn-small">Show me</button>
 	</div>
 
 	<div class="ch-box-lite">
@@ -1413,7 +1413,7 @@
             'reference': $('#layer5')
         });
 
-        var bubble = $.validationBubble({
+        var bubble = $.bubble({
             'reference': $('#bubble')
         });
 
@@ -1496,12 +1496,12 @@
 		});
 
         // Modal with invisible DOM Content
-		var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal($("#invisible-content"));
+		var modal2 = $('#modal2').modal($('#invisible-content'));
 
 		// Modal lite
-		var modal3 = $('.YOUR_SELECTOR_Modal_lite').modal({
+		var modal3 = $('#modal3').modal({
 			'content': '<h2>Heading or content</h2>',
-			'classes': 'ch-box-lite ch-modal-lite ch-dimmer'
+			'classes': 'ch-box-lite ch-modal-lite'
 		});
 
         var modalX = $.modal({
