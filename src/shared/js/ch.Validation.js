@@ -4,7 +4,7 @@
 * @class Validation
 * @augments ch.Controls
 * @requires ch.Form
-* @requires ch.Validator
+* @requires ch.Condition
 * @requires ch.Required
 * @requires ch.String
 * @requires ch.Number
@@ -19,7 +19,7 @@
 * @factorized
 * @see ch.Controls
 * @see ch.Form
-* @see ch.Validator
+* @see ch.Condition
 * @see ch.Required
 * @see ch.String
 * @see ch.Number
@@ -74,7 +74,9 @@
     * Protected Members
     */
     Validation.prototype._defaults = {
-        'offsetX': 10
+        'offsetX': 10,
+        'side': 'bottom',
+        'align': 'left'
     }
 
     /**
@@ -106,6 +108,7 @@
         parent.init.call(this, $el, options);
 
         that.conditions = {};
+
         that.conditions[options.condition.name] = new ch.Condition(options.condition);
 
         that.on('exists', function (e, data){
@@ -247,14 +250,10 @@
          */
         that.emit('beforevalidate');
 
-        // Executes the validators engine with a specific value and returns an object.
-        // Context is the validation
         var previousError = ch.util.clone(that._error);
 
         // Saves gotError
         that.hasError();
-
-
 
         // If has Error...
         if (that._error.status && that._error.condition !== previousError.condition) {
@@ -265,16 +264,14 @@
             }
 
             // to avoid reload the same content
-            //if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) {
             if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) { // delete when bubble will be done
-
                 that.bubble.show((that._error.msg || that.form._messages[previousError.condition] || "Error"));
                 // the aria-label attr should get the message element id, but is not public
                 that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid );
             }
 
             // Add blur or change event to the element or to the elements's group
-            if(!$._data(that.el).events){
+            if(!that.listeners('events')){
                 that.$el.on(that._validationEvent + '.validation', function(){that.validate();});
             }
 
@@ -292,7 +289,6 @@
              * });
              */
             that.emit("error", previousError.condition);
-
 
         }
 
@@ -385,14 +381,14 @@
 
                 } else {
 
-                    tested = that.conditions[condition].test(val);
+                    tested = that.conditions[condition].test(val, that);
 
                     // return false if any test fails,
                     if (!tested) {
 
                         /**
                          * Triggers when an error occurs on the validation process.
-                         * @name ch.Validator#error
+                         * @name ch.Validation#error
                          * @event
                          * @public
                          * @exampleDescription
@@ -473,12 +469,12 @@
     };
 
     /**
-     * Turn on Validation and Validator engine or an specific condition.
+     * Turn on Validation and a specific condition.
      * @public
      * @name ch.Validation#enable
      * @function
      * @returns itself
-     * @see ch.Validator
+     * @see ch.Condition
      */
     Validation.prototype.enable = function(condition){
         var that = this;
@@ -498,20 +494,19 @@
     };
 
     /**
-     * Turn off Validation and Validator engine or an specific condition.
+     * Turn off Validation and a specific Condition.
      * @public
      * @name ch.Validation#disable
      * @function
      * @returns itself
-     * @see ch.Validator
+     * @see ch.Condition
      */
     Validation.prototype.disable = function (condition) {
         var that = this;
         // Clean the validation if is active;
         clear();
 
-        // Turn off validator
-        //validator.disable(condition);
+        // Turn off conditions
         if (condition && that.conditions[condition]){
             // disable specific condition
             that.conditions[condition].disable();
@@ -527,13 +522,13 @@
     };
 
     /**
-     * Turn on/off the Validation and Validator engine.
+     * Turn on/off the Validation and Condition engine.
      * @public
      * @since 0.10.4
      * @name ch.Validation#toggleEnable
      * @function
      * @returns itself
-     * @see ch.Validator
+     * @see ch.Condition
      */
     Validation.prototype.toggleEnable = function () {
         var that = this;
@@ -548,11 +543,12 @@
     };
 
     /**
-     * Turn off Validation and Validator engine or an specific condition.
+     * Turn off Validation and a specific condition.
      * @public
      * @name ch.Validation#isActive
      * @function
      * @returns boolean
+     * @see ch.Condition
      */
     Validation.prototype.isActive = function(){
         return this._active;
@@ -635,4 +631,4 @@
 
     ch.factory(Validation);
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));
