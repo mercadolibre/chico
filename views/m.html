@@ -421,6 +421,13 @@
 								<input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
 
 							</p>
+							<div class="ch-form-row">
+								<label for="input_ico_inside">
+									Icon inside:
+								</label>
+								<input class="ch-form-ico-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
+								<i class="ch-form-ico-inner ch-icon-question-sign"></i>
+							</div>
 							<p class="ch-form-row">
 								<label for="input_button">
 									Category:
@@ -653,6 +660,7 @@
 							<textarea id="textarea4" disabled="disabled"></textarea>
 						</p>
 					</fieldset>
+					<input type="submit" class="ch-btn">
 				</form>
 			</div>
 
@@ -743,6 +751,56 @@
 	<script src="/vendor/zepto.data.js"></script>
 	<script src="/mobile/js"></script>
 	<script>
+		// Messages
+		var message = (function (message, value) {
+			var messages = {
+				'option': 'Choose an option.',
+				'requiredCheck': 'Accept the Terms of Use.',
+				'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
+			};
+
+			return function (message, value) {
+				var message = messages[message] || message;
+				if(value){
+					return message.replace('{#num#}',value)
+				}
+				return message;
+			}
+		}());
+
+		var form = $('.myForm').form();
+		var	validation1 = $('#input_ico').required().and().string();
+		var	validation2 = $('#input_ico_inside').required().and().string();
+		var	validation3 = $('#price').price().and().required();
+		var	validation4 = $('#email').required().and().email();
+		var	validation5 = $('#custom').required().and().custom(function (v) {
+
+			var value1 = v.toString().indexOf("1") > -1;
+			var value2 = v.toString().indexOf("2") > -1;
+
+			if (value1 && value2) { return true; }
+
+			if (!value1) {
+				this.message('custom', message('The number needs a {#num#}.', 1));
+				return false;
+			}
+
+			if (!value2) {
+				this.message('custom', message('The number must contain a {#num#}.', 2));
+				return false;
+			}
+
+		});
+		var	validation6 = $('#url').url();
+		var	validation7 = $('#number').number().and().min(5);
+		var	validation8 = $('#range').min(8).and().max(10);
+		var	validation9 = $('#characters').maxLength(20).and().minLength(6);
+		var	validation10 = $('#double,#textarea2').required();
+		var	validation11 = $('.required-check').required(message('requiredCheck'));
+		var	validation12 = $('.required-option').required(message('option'));
+		var validation13 = $('#double').required(message('link'));
+		var validation14 = $('#double').number();
+
 		var expado = $(".categories").expandable();
 		var menu = $(".myMenu").menu();
 		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
