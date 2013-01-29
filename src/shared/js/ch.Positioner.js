@@ -52,203 +52,216 @@
 * });
 */
 (function (window, $, ch) {
-	'use strict';
+    'use strict';
 
-	if (ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
-	var $window = $(window),
-		$html = $('html');
+    var $window = $(window),
+        $html = $('html');
 
-	function Positioner(options) {
-		if (options === undefined) {
-			throw new window.Error('ch.Positioner: Expected options defined.');
-		}
+    function Positioner(options) {
+        if (options === undefined) {
+            throw new window.Error('ch.Positioner: Expected options defined.');
+        }
 
-		ch.EventEmitter.call(this);
+        ch.EventEmitter.call(this);
 
-		this.init(options);
-	}
+        this.init(options);
+    }
 
-	Positioner.prototype.name = 'positioner';
+    function getOuterDimensions(el) {
+        var outer = el.getBoundingClientRect();
 
-	Positioner.prototype.constructor = Positioner;
+        return {
+            'width': (outer.right - outer.left),
+            'height': (outer.bottom - outer.top)
+        }
+    }
 
-	Positioner.prototype._defaults = {
-		'offsetX': 0,
-		'offsetY': 0,
-		'side': 'center',
-		'align': 'center',
-		'reference': ch.viewport,
-		'position': 'fixed'
-	};
+    Positioner.prototype.name = 'positioner';
 
-	Positioner.prototype.init = function (options) {
-		var that = this;
+    Positioner.prototype.constructor = Positioner;
 
-		that._options = $.extend(ch.util.clone(that._defaults), options);
+    Positioner.prototype._defaults = {
+        'offsetX': 0,
+        'offsetY': 0,
+        'side': 'center',
+        'align': 'center',
+        'reference': ch.viewport,
+        'position': 'fixed'
+    };
 
-		that._options.offsetX = parseInt(that._options.offsetX, 10);
-		that._options.offsetY = parseInt(that._options.offsetY, 10);
+    Positioner.prototype.init = function (options) {
+        var that = this;
 
-		that.$target = that._options.target;
-		// Default is the viewport
-		that.$reference = that.reference = that._options.reference;
+        that._options = $.extend(ch.util.clone(that._defaults), options);
 
-		if (that.reference !== ch.viewport) {
-			that._options.position = 'absolute';
-		}
+        that._options.offsetX = parseInt(that._options.offsetX, 10);
+        that._options.offsetY = parseInt(that._options.offsetY, 10);
 
-		that.$target.css('position', that._options.position);
+        that.$target = that._options.target;
+        // Default is the viewport
+        that.$reference = that.reference = that._options.reference;
 
-		return that;
+        if (that.reference !== ch.viewport) {
+            that._options.position = 'absolute';
+        }
 
-	};
+        that.$target.css('position', that._options.position);
 
-	Positioner.prototype.refresh = function (options) {
-		var that = this;
+        return that;
 
-		if (options !== undefined) {
-			that._options = $.extend(that._options, options);
-			that._options.offsetX = parseInt(that._options.offsetX, 10);
-			that._options.offsetY = parseInt(that._options.offsetY, 10);
+    };
 
-			that.$target = options.target || that.$target;
-			that.$reference = options.reference || that.$reference;
-		}
+    Positioner.prototype.refresh = function (options) {
+        var that = this;
 
-		that.calculateTarget();
+        if (options !== undefined) {
+            that._options = $.extend(that._options, options);
+            that._options.offsetX = parseInt(that._options.offsetX, 10);
+            that._options.offsetY = parseInt(that._options.offsetY, 10);
 
-		if (that.reference !== ch.viewport) {
-			that.calculateReference();
-			// that.calculateContext();
-		} else {
-			// TODO: remove this and review the viewport
-			that.reference.top = 0;
-			that.reference.left = 0;
-		}
+            that.$target = options.target || that.$target;
+            that.$reference = options.reference || that.$reference;
+        }
 
-		// the object that stores the top, left reference to set to the target
-		that.setPoint();
+        that.calculateTarget();
 
-		return that;
-	};
+        if (that.reference !== ch.viewport) {
+            that.calculateReference();
+            // that.calculateContext();
+        } else {
+            // TODO: remove this and review the viewport
+            that.reference.top = 0;
+            that.reference.left = 0;
+        }
 
-	Positioner.prototype.calculateTarget = function ($target) {
-		if ($target !== undefined) {
-			this.$target = $target;
-		}
+        // the object that stores the top, left reference to set to the target
+        that.setPoint();
 
-		var that = this,
-			$target = that.$target.attr({
-				'data-side': that._options.side,
-				'data-align': that._options.align
-			});
+        return that;
+    };
 
-		that.target = {
-			'$el': $target,
-			'width': $target.outerWidth(),
-			'height': $target.outerHeight()
-		};
+    Positioner.prototype.calculateTarget = function ($target) {
+        if ($target !== undefined) {
+            this.$target = $target;
+        }
 
-		return that;
-	};
+        var that = this,
+            $target = that.$target.attr({
+                'data-side': that._options.side,
+                'data-align': that._options.align
+            });
 
-	Positioner.prototype.calculateReference = function ($reference) {
-		if ($reference !== undefined) {
-			this.$reference = $reference;
-		}
+        var outer = getOuterDimensions($target[0]);
 
-		var that = this,
-			offset = {},
-			$reference = that.$reference.attr({
-				'data-side': that._options.side,
-				'data-align': that._options.align
-			});
+        that.target = {
+            '$el': $target,
+            'width': outer.width,
+            'height': outer.height
+        };
+
+        return that;
+    };
+
+    Positioner.prototype.calculateReference = function ($reference) {
+        if ($reference !== undefined) {
+            this.$reference = $reference;
+        }
+
+        var that = this,
+            offset = {},
+            $reference = that.$reference.attr({
+                'data-side': that._options.side,
+                'data-align': that._options.align
+            });
 
 
-		// target and reference are in the same element
-		if (that.$target[0].offsetParent === that.$reference[0].offsetParent) {
-			offset.top = $reference[0].offsetTop;
-			offset.left = $reference[0].offsetLeft;
+        // target and reference are in the same element
+        if (that.$target[0].offsetParent === that.$reference[0].offsetParent) {
+            offset.top = $reference[0].offsetTop;
+            offset.left = $reference[0].offsetLeft;
 
-		// target in the body
-		} else if (that.$target[0].parentNode.nodeName === 'BODY' ){
-			offset.top = that.$reference.offset().top;
-			offset.left = that.$reference.offset().left;
+        // target in the body
+        } else if (that.$target[0].parentNode.nodeName === 'BODY' ){
+            offset.top = that.$reference.offset().top;
+            offset.left = that.$reference.offset().left;
 
-		} else {
-			// TODO: review the case where the element is in other element positioned absolute and the targe is in other that is the same situation
-			throw new window.Error('Target and Reference must be at the same element, or target must be at the BODY elment.');
-		}
+        } else {
+            // TODO: review the case where the element is in other element positioned absolute and the targe is in other that is the same situation
+            throw new window.Error('Target and Reference must be at the same element, or target must be at the BODY elment.');
+        }
 
-		that.reference = {
-			'$el': $reference,
-			'width': $reference.outerWidth(),
-			'height': $reference.outerHeight(),
-			'left': offset.left,
-			'top': offset.top
-		};
+         var outer = getOuterDimensions($reference[0]);
 
-		return that;
-	};
+        that.reference = {
+            '$el': $reference,
+            'width': outer.width,
+            'height': outer.height,
+            'left': offset.left,
+            'top': offset.top
+        };
 
-	Positioner.prototype.setPoint = function () {
+        return that;
+    };
 
-		var that = this,
-			side = that._options.side,
-			oritentation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
-			coors,
-			oritentationMap;
+    Positioner.prototype.setPoint = function () {
 
-		// take the side and calculate the alignment and make the CSSpoint
-		if (oritentation === 'center') {
-			// calculates the coordinates related to the center side to locate the target
-			coors = {
-				'top': (that.reference.top + (that.reference.height / 2 - that.target.height / 2)),
-				'left': (that.reference.left + (that.reference.width / 2 - that.target.width / 2))
-			};
+        var that = this,
+            side = that._options.side,
+            oritentation = (side === 'top' || side === 'bottom') ? 'horizontal' : ((side === 'right' || side === 'left') ? 'vertical' : 'center'),
+            coors,
+            oritentationMap;
 
-		} else if (oritentation === 'horizontal') {
-			// calculates the coordinates related to the top or bottom side to locate the target
-			oritentationMap = {
-				'left': that.reference.left,
-				'center': (that.reference.left + (that.reference.width / 2 - that.target.width / 2)),
-				'right': (that.reference.left + that.reference.width - that.target.width),
-				'top': that.reference.top - that.target.height,
-				'bottom': (that.reference.top + that.reference.height)
-			};
+        // take the side and calculate the alignment and make the CSSpoint
+        if (oritentation === 'center') {
+            // calculates the coordinates related to the center side to locate the target
+            coors = {
+                'top': (that.reference.top + (that.reference.height / 2 - that.target.height / 2)),
+                'left': (that.reference.left + (that.reference.width / 2 - that.target.width / 2))
+            };
 
-			coors = {
-				'top': oritentationMap[side],
-				'left': oritentationMap[that._options.align]
-			}
+        } else if (oritentation === 'horizontal') {
+            // calculates the coordinates related to the top or bottom side to locate the target
+            oritentationMap = {
+                'left': that.reference.left,
+                'center': (that.reference.left + (that.reference.width / 2 - that.target.width / 2)),
+                'right': (that.reference.left + that.reference.width - that.target.width),
+                'top': that.reference.top - that.target.height,
+                'bottom': (that.reference.top + that.reference.height)
+            };
 
-		} else {
-			// calculates the coordinates related to the right or left side to locate the target
-			oritentationMap = {
-				'top': that.reference.top,
-				'center': (that.reference.top + (that.reference.height / 2 - that.target.height / 2)),
-				'bottom': (that.reference.top + that.reference.height - that.target.height),
-				'right': (that.reference.left + that.reference.width),
-				'left': (that.reference.left - that.target.width)
-			};
+            coors = {
+                'top': oritentationMap[side],
+                'left': oritentationMap[that._options.align]
+            }
 
-			coors = {
-				'top': oritentationMap[that._options.align],
-				'left': oritentationMap[side]
-			}
-		}
+        } else {
+            // calculates the coordinates related to the right or left side to locate the target
+            oritentationMap = {
+                'top': that.reference.top,
+                'center': (that.reference.top + (that.reference.height / 2 - that.target.height / 2)),
+                'bottom': (that.reference.top + that.reference.height - that.target.height),
+                'right': (that.reference.left + that.reference.width),
+                'left': (that.reference.left - that.target.width)
+            };
 
-		coors.top += that._options.offsetY;
-		coors.left += that._options.offsetX;
+            coors = {
+                'top': oritentationMap[that._options.align],
+                'left': oritentationMap[side]
+            }
+        }
 
-		that.target.$el.css(coors);
+        coors.top += that._options.offsetY;
+        coors.left += that._options.offsetX;
 
-		return that;
-	};
+        that.target.$el.css(coors);
 
-	ch.Positioner = Positioner;
+        return that;
+    };
+
+    ch.Positioner = Positioner;
 
 }(this, (this.jQuery || this.Zepto), this.ch));
