@@ -49,4 +49,4 @@
 
 	ch.factory(Required);
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));
