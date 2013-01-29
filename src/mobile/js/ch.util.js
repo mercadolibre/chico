@@ -42,7 +42,7 @@
 
 			for (; labels[i]; i += 1) {
 				if (labels[i].getAttribute('for')) {
-					$(labels[i]).bind(ch.events.TAP, labelClick);
+					$(labels[i]).bind(ch.events.pointer.TAP, labelClick);
 				}
 			}
 		},
@@ -80,12 +80,6 @@
 			// the hide url bar
 			'BODY_SCROLL_TOP': false,
 
-			// So we don't redefine this function everytime we
-			// we call hideUrlBar
-			'getScrollTop': function () {
-				return window.pageYOffset || document.compatMode === 'CSS1Compat' && document.documentElement.scrollTop || document.body.scrollTop || 0;
-			},
-
 			// It should be up to the mobile
 			'hideUrlBar': function () {
 				// if there is a hash, or MBP.BODY_SCROLL_TOP hasn't been set yet, wait till that happens
@@ -106,7 +100,7 @@
 					var bodycheck = setInterval(function () {
 						if(body) {
 							clearInterval(bodycheck);
-							ch.util.MBP.BODY_SCROLL_TOP = ch.util.MBP.getScrollTop();
+							ch.util.MBP.BODY_SCROLL_TOP = ch.util.getScrollTop();
 							ch.util.MBP.hideUrlBar();
 						}
 					}, 15 );
@@ -114,7 +108,7 @@
 					window.addEventListener('load', function() {
 						setTimeout(function () {
 							//at load, if user hasn't scrolled more than 20 or so...
-							if(ch.util.MBP.getScrollTop() < 20) {
+							if(ch.util.getScrollTop() < 20) {
 								//reset to hide addr bar at onload
 								ch.util.MBP.hideUrlBar();
 							}

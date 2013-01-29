@@ -363,6 +363,24 @@
 		}
 	};
 
+    /**
+     * Get the current vertical position of the scroll bar.
+     * @name getScrollTop
+     * @returns {Number}
+     */
+    util.getScrollTop = function () {
+        return window.pageYOffset || document.compatMode === 'CSS1Compat' && document.documentElement.scrollTop || body.scrollTop || body.scrollY || 0;
+    };
+
+    /**
+     * Get the current horizontal position of the scroll bar.
+     * @name getScrollLeft
+     * @returns {Number}
+     */
+    util.getScrollLeft = function () {
+        return window.pageXOffset || document.compatMode === 'CSS1Compat' && document.documentElement.scrollLeft || body.scrollLeft || body.scrollX || 0;
+    };
+
 	/**
 	 * Reference to the vendor prefix of the current browser.
 	 * @name VENDOR_PREFIX
