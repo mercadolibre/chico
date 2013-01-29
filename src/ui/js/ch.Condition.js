@@ -134,7 +134,7 @@
 
 
 
-	function Condition(condition) {
+	function Condition(condition, reference) {
 
 		if (condition === undefined) {
 			throw new window.Error('"ch.Condition(condition)": Expected condition be defined and be an object.');
@@ -190,6 +190,15 @@
 
 	};
 
+	/**
+	 * Flag that let you know if the all conditions are enabled or not.
+	 * @public
+	 * @name ch.Condition#name
+	 * @type string
+	 */
+	Condition.prototype.name = 'condition';
+
+	Condition.prototype.constructor = Condition;
 
 	/**
 	 * Flag that let you know if the condition is enabled or not.
@@ -244,7 +253,7 @@
 	 * @name ch.Condition#test
 	 * @returns boolean
 	 */
-	Condition.prototype.test = function (value) {
+	Condition.prototype.test = function (value, reference) {
 
 		var that = this;
 
@@ -266,21 +275,10 @@
 
 		if (that.fn){
 			// Call validation function with 'that' as scope.
-			return that.fn.call(that, value);
+			return that.fn.call(reference, value);
 		}
-
 	}
-
-
-	/**
-	 * Flag that let you know if the all conditions are enabled or not.
-	 * @public
-	 * @name ch.Condition#name
-	 * @type string
-	 */
-	Condition.prototype.name = 'condition';
-	Condition.prototype.constructor = Condition;
 
 	ch.Condition = Condition;
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));
