@@ -212,9 +212,6 @@
      */
     Popover.prototype.show = function (content) {
 
-        var that = this,
-            uid;
-
         // Close another opened widgets
         // TODO: This "close !== none" conditional must be in ch.Closable.js
         // for (uid in this._instances) {
@@ -229,6 +226,8 @@
         this.content.set({'input': content});
         // Open the collapsible
         this._show();
+        // excute and refresh the position of the Popover
+        this.position.refresh();
 
         return this;
     };
