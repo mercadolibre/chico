@@ -85,7 +85,8 @@
         'width': '50%',
         'height': 'auto',
         'open': 'click',
-        'close': 'all'
+        'close': 'all',
+        'reference': ch.viewport
     };
 
     Modal.prototype.init = function ($el, options) {
