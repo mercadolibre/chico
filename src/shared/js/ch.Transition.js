@@ -8,7 +8,7 @@
     var defaults = {
         'fx': 'fadeIn',
         'classes': 'ch-transition ch-box-lite',
-        'width': '500px',
+        'width': '50%',
         'height': 'auto',
         'open': 'click',
         'close': 'none',

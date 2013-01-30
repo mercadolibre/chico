@@ -82,7 +82,7 @@
     Modal.prototype._defaults = {
         'fx': 'fadeIn',
         'classes': 'ch-modal ch-box-lite',
-        'width': '500px',
+        'width': '50%',
         'height': 'auto',
         'open': 'click',
         'close': 'all'
@@ -116,7 +116,14 @@
         }
 
         // Append dimmer element
-        $dimmer.css('z-index', ch.util.zIndex).appendTo($body).fadeIn();
+        $dimmer.css('z-index', ch.util.zIndex).appendTo($body);
+
+        if (ch.support.fx) {
+            $dimmer.fadeIn();
+        } else {
+            $dimmer.show();
+        }
+
         // Execute the original show()
         parent.show.call(this, content);
         // Return the instance
@@ -132,7 +139,11 @@
      */
     Modal.prototype.hide = function () {
         // Delete the dimmer element
-        $dimmer.fadeOut('normal', $dimmer.detach);
+        if (ch.support.fx) {
+            $dimmer.fadeOut('normal', $dimmer.detach);
+        } else {
+            $dimmer.hide();
+        }
         // Execute the original hide()
         parent.hide.call(this);
         // Return the instance
