@@ -15,7 +15,8 @@
 	var $document = $(document),
         pointerTap = ch.events.pointer.TAP,
         pointerLeave = ch.events.pointer.LEAVE,
-        keyEsc = ch.events.key.ESC;
+        // keyEsc = ch.events.key.ESC;
+        keyEsc = ch.events.key ? ch.events.key.ESC : 'touchend';
 
 	function Closable() {
 

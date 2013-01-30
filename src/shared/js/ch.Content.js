@@ -158,8 +158,8 @@
                 }
 
             // Case 3: DOM element
-            } else if (options.input instanceof $ || $.zepto.isZ(options.input)) {
-                postMessage(options.input.detach().removeClass('ch-hide'));
+            } else if (ch.util.is$(options.input)) {
+                postMessage(options.input.remove(null, true).removeClass('ch-hide'));
 
             // Default: No message
             } else {
@@ -184,4 +184,4 @@
 
     ch.Content = Content;
 
-}(this.jQuery || this.Zepto, this.ch));
+}((this.jQuery || this.Zepto), this.ch));

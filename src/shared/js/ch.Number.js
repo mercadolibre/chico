@@ -1,7 +1,7 @@
 /**
-* String validates a given text as string.
-* @name String
-* @class String
+* Number validates a given number.
+* @name Number
+* @class Number
 * @interface
 * @augments ch.Controls
 * @augments ch.Validation
@@ -16,12 +16,12 @@
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
-* @see ch.Number
+* @see ch.String
 * @see ch.Validator
 * @see ch.Condition
-* @exampleDescription Create a string validation
+* @exampleDescription Create a number validation
 * @example
-* $("input").string("This field must be a string.");
+* $("input").number("This field must be a number.");
 */
 (function (window, $, ch) {
 	'use strict';
@@ -30,31 +30,32 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function String($el, options) {
+	function Number($el, options){
 
 		var options = options || {};
 
+		// Define the conditions of this interface
 		options.condition = {
-			'name': 'string',
+			'name': 'number',
 			'message': options.content
 		};
 
 		return $el.validation(options);
-
 	}
 
-	String.prototype.name = 'string';
-	String.prototype.constructor = String;
-	String.prototype.interface = 'validation';
+	Number.prototype.name = 'number';
+	Number.prototype.constructor = Number;
+	Number.prototype.interface = 'validation';
 
-	ch.factory(String);
+	ch.factory(Number);
 
 }(this, this.jQuery, this.ch));
 
+
 /**
-* Email validates a correct email syntax.
-* @name Email
-* @class Email
+* Min validates a number with a minimun value.
+* @name Min
+* @class Min
 * @interface
 * @augments ch.Controls
 * @augments ch.Validation
@@ -65,17 +66,18 @@
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
+* @param {Number} value Minimun number value.
 * @returns itself
 * @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
-* @see ch.Number
+* @see ch.String
 * @see ch.Validator
 * @see ch.Condition
-* @exampleDescription Create a email validation
+* @exampleDescription
 * @example
-* $("input").email("This field must be a valid email.");
+* $("input").min(10, "Write a number bigger than 10");
 */
 (function (window, $, ch) {
 	'use strict';
@@ -84,33 +86,31 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Email($el, options) {
+	function Min($el, options) {
 
 		var options = options || {};
 
 		options.condition = {
-			'name': 'email',
-			'message': options.content
+			'name': 'min',
+			'message': options.content,
+			'num': options.num
 		};
 
 		return $el.validation(options);
-
 	}
 
-	Email.prototype.name = 'email';
-	Email.prototype.constructor = Email;
-	Email.prototype.interface = 'validation';
+	Min.prototype.name = 'min';
+	Min.prototype.constructor = Min;
+	Min.prototype.interface = 'validation';
 
-	ch.factory(Email);
+	ch.factory(Min);
 
 }(this, this.jQuery, this.ch));
 
-
-
 /**
-* Url validates URL syntax.
-* @name Url
-* @class Url
+* Max validates a number with a maximun value.
+* @name Max
+* @class Max
 * @interface
 * @augments ch.Controls
 * @augments ch.Validation
@@ -121,17 +121,18 @@
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
+* @param {Number} value Minimun number value.
 * @returns itself
 * @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
-* @see ch.Number
+* @see ch.String
 * @see ch.Validator
 * @see ch.Condition
-* @exampleDescription Create a URL validation
+* @exampleDescription
 * @example
-* $("input").url("This field must be a valid URL.");
+* $("input").max(10, "Write a number smaller than 10");
 */
 (function (window, $, ch) {
 	'use strict';
@@ -140,67 +141,12 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function URL($el, options) {
+	function Max($el, options) {
 
 		var options = options || {};
 
 		options.condition = {
-			'name': 'url',
-			'message': options.content
-		};
-
-		return $el.validation(options);
-
-	}
-
-	URL.prototype.name = 'url';
-	URL.prototype.constructor = URL;
-	URL.prototype.interface = 'validation';
-
-	ch.factory(URL);
-
-}(this, this.jQuery, this.ch));
-
-/**
-* MinLength validates a minimun amount of characters.
-* @name MinLength
-* @class MinLength
-* @interface
-* @augments ch.Controls
-* @augments ch.Validation
-* @requires ch.Validation
-* @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.content] Validation message.
-* @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
-* @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-* @param {String} [conf.context] It's a reference to position the validation-bubble
-* @param {Number} num Minimun number characters.
-* @returns itself
-* @factorized
-* @see ch.Validation
-* @see ch.Required
-* @see ch.Custom
-* @see ch.Number
-* @see ch.Validator
-* @see ch.Condition
-* @exampleDescription Create a minLength validation
-* @example
-* $("input").minLength(10, "At least 10 characters..");
-*/
-(function (window, $, ch) {
-	'use strict';
-
-	if (window.ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
-
-	function MinLength($el, options) {
-
-		var options = options || {};
-
-		options.condition = {
-			'name': 'minLength',
+			'name': 'max',
 			'message': options.content,
 			'num': options.num
 		};
@@ -209,18 +155,18 @@
 
 	}
 
-	MinLength.prototype.name = 'minLength';
-	MinLength.prototype.constructor = MinLength;
-	MinLength.prototype.interface = 'validation';
+	Max.prototype.name = 'max';
+	Max.prototype.constructor = Max;
+	Max.prototype.interface = 'validation';
 
-	ch.factory(MinLength);
+	ch.factory(Max);
 
 }(this, this.jQuery, this.ch));
 
 /**
-* MaxLength validates a maximun amount of characters.
-* @name MaxLength
-* @class MaxLength
+* Price validates a number like the price format.
+* @name Price
+* @class Price
 * @interface
 * @augments ch.Controls
 * @augments ch.Validation
@@ -231,18 +177,17 @@
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
-* @param {Number} num Maximun number of characters.
 * @returns itself
 * @factorized
 * @see ch.Validation
 * @see ch.Required
 * @see ch.Custom
-* @see ch.Number
+* @see ch.String
 * @see ch.Validator
 * @see ch.Condition
-* @exampleDescription Create a maxLength validation
+* @exampleDescription
 * @example
-* $("input").maxLength(10, "No more than 10 characters..");
+* $("input").price("Write valid price.");
 */
 (function (window, $, ch) {
 	'use strict';
@@ -251,24 +196,23 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function MaxLength($el, options) {
+	function Price($el, options) {
 
 		var options = options || {};
 
 		options.condition = {
-			'name': 'maxLength',
-			'message': options.content,
-			'num': options.num
+			'name': 'price',
+			'message': options.content
 		};
 
 		return $el.validation(options);
 
 	}
 
-	MaxLength.prototype.name = 'maxLength';
-	MaxLength.prototype.constructor = MaxLength;
-	MaxLength.prototype.interface = 'validation';
+	Price.prototype.name = 'price';
+	Price.prototype.constructor = Price;
+	Price.prototype.interface = 'validation';
 
-	ch.factory(MaxLength);
+	ch.factory(Price);
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

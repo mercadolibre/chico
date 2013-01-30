@@ -138,7 +138,7 @@
                 that._submit(event);
             })
             // Bind the reset
-            .find(':reset, .resetForm').on(ch.events.pointer.TAP + '.form', function (event) {
+            .find('input[type="reset"]').on(ch.events.pointer.TAP + '.form', function (event) {
                 ch.util.prevent(event);
                 that.reset();
             });

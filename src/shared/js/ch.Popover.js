@@ -125,7 +125,7 @@
             });
 
         this.on('hide', function () {
-            that.$container.detach();
+            that.$container.remove(null, true);
         });
 
         /**
