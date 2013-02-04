@@ -23,12 +23,9 @@
 
         var that = this,
 
-            hasTrigger = (this.$trigger !== undefined),
+            triggerClass = 'ch-' + that.name + '-trigger-on',
 
-            triggerClass = 'ch-' + this.name + '-trigger-on',
-
-            fx = this._options.fx;
-
+            fx = that._options.fx;
 
         function showCallback() {
             that.emit('show');
@@ -50,7 +47,7 @@
 
 			that._active = true;
 
-			if (hasTrigger) {
+			if (that.$trigger !== undefined) {
 				that.$trigger.addClass(triggerClass).attr('aria-expanded', 'true');
 			}
 
@@ -72,7 +69,7 @@
 
 			that._active = false;
 
-			if (hasTrigger) {
+			if (that.$trigger !== undefined) {
 				that.$trigger.removeClass(triggerClass).attr('aria-expanded', 'false');
 			}
 
