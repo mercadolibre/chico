@@ -31,9 +31,9 @@
 				el,
 				i = 0;
 
-			function labelClick() {
+			function labelTap() {
 				el = document.getElementById(this.getAttribute('for'));
-				if (['radio', 'checkbox'].indexOf(el.getAttribute('type')) != -1) {
+				if (['radio', 'checkbox'].indexOf(el.getAttribute('type')) !== -1) {
 					el.setAttribute('selected', !el.getAttribute('selected'));
 				} else {
 					el.focus();
@@ -42,7 +42,7 @@
 
 			for (; labels[i]; i += 1) {
 				if (labels[i].getAttribute('for')) {
-					$(labels[i]).bind(ch.events.TAP, labelClick);
+					$(labels[i]).on(ch.events.pointer.TAP, labelTap);
 				}
 			}
 		},
@@ -129,6 +129,7 @@
 				var formFields = $('input, select, textarea'),
 					contentString = 'width=device-width,initial-scale=1,maximum-scale=',
 					i = 0;
+
 				for (; i < formFields.length; i += 1) {
 
 					formFields[i].onfocus = function() {

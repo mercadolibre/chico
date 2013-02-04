@@ -152,7 +152,7 @@
 			$container.append(that.$content);
 
 			return $container;
-		}())
+		}());
 
 		/**
 		* Shows component's content.
