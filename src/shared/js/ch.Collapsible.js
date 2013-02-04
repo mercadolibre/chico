@@ -12,8 +12,33 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
+    var toggle = {
+        'slideDown': 'slideUp',
+        'slideUp': 'slideDown',
+        'fadeIn': 'fadeOut',
+        'fadeOut': 'fadeIn'
+    };
+
 	function Collapsible() {
-		var that = this;
+
+        var that = this,
+
+            hasTrigger = (this.$trigger !== undefined),
+
+            triggerClass = 'ch-' + this.name + '-trigger-on',
+
+            fx = this._options.fx;
+
+
+        function showCallback() {
+            that.emit('show');
+            that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
+        }
+
+        function hideCallback() {
+            that.emit('hide');
+            that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
+        }
 
 		/**
 		 * Shows component's container.
@@ -25,21 +50,16 @@
 
 			that._active = true;
 
-			if (that.$trigger) {
-				that.$trigger.addClass('ch-' + that.name + '-trigger-on').attr('aria-expanded', 'true');
+			if (hasTrigger) {
+				that.$trigger.addClass(triggerClass).attr('aria-expanded', 'true');
 			}
 
-			// Animation
-			if (ch.support.fx && that._options.fx) {
-				that.$container.slideDown('fast', function () {
-					that.emit('show');
-				});
-
+			// Animate or not
+			if (ch.support.fx && typeof fx === 'string') {
+				that.$container[fx]('fast', showCallback);
 			} else {
-				that.emit('show');
+				showCallback();
 			}
-
-			that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
 		};
 
 		/**
@@ -52,21 +72,16 @@
 
 			that._active = false;
 
-			if (that.$trigger) {
-				that.$trigger.removeClass('ch-' + that.name + '-trigger-on').attr('aria-expanded', 'false');
+			if (hasTrigger) {
+				that.$trigger.removeClass(triggerClass).attr('aria-expanded', 'false');
 			}
 
-			that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
-
-			// Animation
-			if (ch.support.fx && that._options.fx) {
-				that.$container.slideUp('fast', function () {
-					that.emit('hide');
-				});
+			// Animate or not
+			if (ch.support.fx && typeof fx === 'string') {
+				that.$container[toggle[fx]]('fast', hideCallback);
 			} else {
-				that.emit('hide');
+				hideCallback();
 			}
-
 		};
 	}
 

@@ -1,15 +1,28 @@
-(function (window, ch) {
+(function (window, $, ch) {
     'use strict';
 
     if (ch === undefined) {
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    var defaults = {
+        'fx': 'fadeIn',
+        'classes': 'ch-bubble ch-box-error ch-cone',
+        'width': 'auto',
+        'height': 'auto',
+        'open': 'none',
+        'close': 'none',
+        'side': 'right',
+        'align': 'top',
+        'offsetX': 10,
+        'offsetY': 0,
+        'content': 'Error.'
+    };
+
     /**
-     * Bubble improves the native bubbles. Bubble uses the 'alt' and 'title' attributes to grab its content.
+     *
      * @name Bubble
      * @class Bubble
-     * @augments ch.Floats
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
      * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
@@ -39,53 +52,20 @@
      */
     function Bubble($el, options) {
 
-        this.init($el, options);
+        if (options === undefined && !ch.util.is$($el)) {
+            options = $el;
+            $el = undefined;
+        }
 
-        /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
-         * @type {Object}
-         */
-        var that = this;
+        options = $.extend(ch.util.clone(defaults), options);
 
-        /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.Layer#ready
-         * @event
-         * @public
-         * @since 0.8.0
-         * @exampleDescription Following the first example, using <code>widget</code> as layer's instance controller:
-         * @example
-         * widget.on("ready",function () {
-         * this.show();
-         * });
-         */
-        window.setTimeout(function () { that.emit('ready'); }, 50);
+        return new ch.Popover($el, options);
     }
 
-    var parent = ch.util.inherits(Bubble, ch.Layer);
-
     Bubble.prototype.name = 'bubble';
-
     Bubble.prototype.constructor = Bubble;
-
-    Bubble.prototype.init = function ($el, options) {
-
-        options = options || {};
-
-        options.classes = 'ch-bubble ch-box-error';
-        options.side = 'right';
-        options.align = 'top';
-        options.offsetX = 10;
-
-        options.content = options.content || 'Error';
-
-        //TODO:openable false
-        options.closable = false;
-
-        parent.init.call(this, $el, options);
-    };
+    Bubble.prototype.preset = 'Popover';
 
     ch.factory(Bubble);
 
-}(this, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

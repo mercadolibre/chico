@@ -156,6 +156,26 @@
 		return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(url));
 	};
 
+    /**
+     * Determines if a specified element is an instance of $.
+     * @name is$
+     * @methodOf ch.util
+     * @param {Object} $el The element to be checked as instance of $.
+     * @returns {Boolean}
+     */
+    util.is$ = (function () {
+
+        if ($.zepto === undefined) {
+            return function ($el) {
+                return $el instanceof $;
+            };
+        } else {
+            return function ($el) {
+                return $.zepto.isZ($el);
+            };
+        }
+    }());
+
 	/**
 	 * Adds CSS rules to disable text selection highlighting.
 	 * @name avoidTextSelection
@@ -342,6 +362,24 @@
 			event.stopPropagation();
 		}
 	};
+
+    /**
+     * Get the current vertical position of the scroll bar.
+     * @name getScrollTop
+     * @returns {Number}
+     */
+    util.getScrollTop = function () {
+        return window.pageYOffset || document.compatMode === 'CSS1Compat' && document.documentElement.scrollTop || body.scrollTop || body.scrollY || 0;
+    };
+
+    /**
+     * Get the current horizontal position of the scroll bar.
+     * @name getScrollLeft
+     * @returns {Number}
+     */
+    util.getScrollLeft = function () {
+        return window.pageXOffset || document.compatMode === 'CSS1Compat' && document.documentElement.scrollLeft || body.scrollLeft || body.scrollX || 0;
+    };
 
 	/**
 	 * Reference to the vendor prefix of the current browser.

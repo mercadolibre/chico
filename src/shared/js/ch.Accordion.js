@@ -32,7 +32,7 @@
     function Accordion($el, options) {
         options = options || {};
         options.accordion = true;
-        options.fx = (options.fx !== undefined) ? options.fx : true;
+        options.fx = (options.fx !== undefined) ? options.fx : 'slideDown';
         options.classes = options.classes || 'ch-accordion';
 
         return new ch.Menu($el, options);

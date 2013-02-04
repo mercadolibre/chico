@@ -1,0 +1,83 @@
+/**
+ * Input colorizing
+ */
+.ch-form .ch-validation-error {
+    border: 1px solid #f99;
+}
+
+.ch-form .ch-validation-error:focus {
+    border-width: 2px;
+    -webkit-box-shadow: 2px #f99;
+    box-shadow: 2px #f99;
+}
+
+.ch-form .ch-countdown-exceeded {
+    color: #B94A48;
+    color: #f99;
+}
+
+/**
+ * Bubble
+ */
+.ch-bubble {
+	font-size: .929em;
+	padding: 2px 5px 2px 25px;
+}
+
+/* Error icon */
+.ch-bubble:before {
+	top: 5px;
+	left: 5px;
+}
+
+.ch-bubble a:visited {
+	color: #0637B3;
+}
+
+/**
+ * Bottom side
+ * ltlb, ctcb, rtrb
+ */
+.ch-bubble.ch-cone[data-side=bottom] .ch-popover-content:before {
+    border-bottom-color: #EED3D7;
+}
+
+.ch-bubble.ch-cone[data-side=bottom] .ch-popover-content:after {
+    border-bottom-color: #F2DEDE;
+}
+
+/**
+ * Top side
+ * lblt, cbct, rbrt
+ */
+.ch-bubble.ch-cone[data-side=top] .ch-popover-content:before {
+    border-top-color: #EED3D7;
+}
+
+.ch-bubble.ch-cone[data-side=top] .ch-popover-content:after {
+    border-top-color: #F2DEDE;
+}
+
+/**
+ * Right side
+ * ltrt, lmrm, lbrb
+ */
+.ch-bubble.ch-cone[data-side=right] .ch-popover-content:before {
+    border-right-color: #EED3D7;
+}
+
+.ch-bubble.ch-cone[data-side=right] .ch-popover-content:after {
+    border-right-color: #F2DEDE;
+}
+
+/**
+ * Left side
+ * rtlt, rmlm, rblb
+ */
+.ch-bubble.ch-cone[data-side=left] .ch-popover-content:before {
+    border-left-color: #EED3D7;
+}
+
+.ch-bubble.ch-cone[data-side=left] .ch-popover-content:after {
+    border-left-color: #F2DEDE;
+}

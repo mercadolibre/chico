@@ -6,9 +6,9 @@
     }
 
     /**
-     * Layer improves the native layers. Layer uses the 'alt' and 'title' attributes to grab its content.
-     * @name Layer
-     * @class Layer
+     * Popover improves the native popovers. Popover uses the 'alt' and 'title' attributes to grab its content.
+     * @name Popover
+     * @class Popover
      * @augments ch.Floats
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
@@ -18,26 +18,26 @@
      * @returns itself
      * @factorized
      * @see ch.Modal
-     * @see ch.Layer
+     * @see ch.Popover
      * @see ch.Zoom
      * @see ch.Flaots
-     * @exampleDescription Create a layer.
+     * @exampleDescription Create a popover.
      * @example
-     * var widget = $(".some-element").layer();
-     * @exampleDescription Create a new layer with configuration.
+     * var widget = $(".some-element").popover();
+     * @exampleDescription Create a new popover with configuration.
      * @example
-     * var widget = $("a.example").layer({
+     * var widget = $("a.example").popover({
      *     "fx": false,
      *     "offset": "10 -10",
      *     "points": "lt rt"
      * });
      * @exampleDescription
-     * Now <code>widget</code> is a reference to the layer instance controller.
+     * Now <code>widget</code> is a reference to the popover instance controller.
      * You can set a new content by using <code>widget</code> like this:
      * @example
      * widget.width(300);
      */
-    function Layer($el, options) {
+    function Popover($el, options) {
 
         this.init($el, options);
 
@@ -50,11 +50,11 @@
 
         /**
          * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.Layer#ready
+         * @name ch.Popover#ready
          * @event
          * @public
          * @since 0.8.0
-         * @exampleDescription Following the first example, using <code>widget</code> as layer's instance controller:
+         * @exampleDescription Following the first example, using <code>widget</code> as popover's instance controller:
          * @example
          * widget.on("ready",function () {
          * this.show();
@@ -70,38 +70,40 @@
         /**
          * Inheritance
          */
-        parent = ch.util.inherits(Layer, ch.Widget);
+        parent = ch.util.inherits(Popover, ch.Widget),
+
+        openEvent = {
+            'click': ch.events.pointer.TAP,
+            'mouseenter': ch.events.pointer.ENTER
+        };
 
     /**
      * Public members
      */
-    Layer.prototype.name = 'layer';
+    Popover.prototype.name = 'popover';
 
-    Layer.prototype.constructor = Layer;
+    Popover.prototype.constructor = Popover;
 
-    Layer.prototype._defaults = {
-        'fx': false,
+    Popover.prototype._defaults = {
+        'fx': 'fadeIn',
         'classes': 'ch-box-lite',
         'width': 'auto',
         'height': 'auto',
-        'side': 'bottom',
-        'align': 'left',
-        'offsetX': 0,
-        'offsetY': 10,
-        'event': 'mouseenter',
-        'closable': 'keys-only'
+        'open': 'click',
+        'close': 'button-only'
     };
 
-    Layer.prototype.init = function ($el, options) {
+    Popover.prototype.init = function ($el, options) {
 
         parent.init.call(this, $el, options);
 
         this.require('Collapsible', 'Content', 'Closable');
 
         var that = this,
-            //
+            // Used to ARIA attributes
             id = ['ch', this.name, this.uid].join('-');
 
+        // Grab the instances map to close all sibling on show
         this._instances = ch.instances[this.name];
 
         /**
@@ -111,7 +113,7 @@
          * @type jQuery
          */
         this.$container = $('<div>')
-            .addClass('ch-layer ch-hide ' + this._options.classes)
+            .addClass('ch-popover ch-hide ' + this._options.classes)
             .attr({
                 'role': 'tooltip',
                 'id': id
@@ -122,6 +124,10 @@
                 'height': this._options.height
             });
 
+        this.on('hide', function () {
+            that.$container.remove(null, true);
+        });
+
         /**
          * Inner reference to content container. Here is where the content will be added.
          * @protected
@@ -129,27 +135,38 @@
          * @type jQuery
          * @see ch.Content
          */
-        this._$content = $('<div class="ch-layer-content">').appendTo(this.$container);
+        this._$content = $('<div class="ch-popover-content">').appendTo(this.$container);
 
-        /**
-         *
-         */
+        // Add functionality to the trigger if it exists
         if (this.$el !== undefined) {
 
-            this.$el
-                .attr('aria-describedby', id)
-                .on(this._options.event + '.layer', function (event) {
+            // Set WAI-ARIA to the main element
+            this.$el.attr('aria-describedby', id);
+
+            // Bind the open event when configured as openable
+            if (this._options.open !== 'none' && this._options.open !== false) {
+                this.$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
                     ch.util.prevent(event);
                     that.show();
                 });
+            }
 
-            this._options.reference = this._options.reference || this.$el;
-            this._options.content = this._options.content || this.el.title || this.el.alt;
+            // Use the trigger as the positioning reference
+            if (this._options.reference === undefined) {
+                this._options.reference = this.$el;
+            }
 
-            // TODO: Use a data-* attribute to grab these values
-            this.el.title = this.el.alt = '';
+            // Use the "title" or "alt" attributes when a content was not defined
+            if (this._options.content === undefined) {
+                this._options.content = this.el.title || this.el.alt;
+                // Keep the attributes content into the element for possible usage
+                this.el.setAttribute('data-title', this._options.content);
+                // Avoid to trigger the native tooltip
+                this.el.title = this.el.alt = '';
+            }
         }
 
+        // Configure Content
         this.content.configure({
             'input': this._options.content,
             'method': this._options.method,
@@ -170,48 +187,47 @@
             that.position.refresh();
         };
 
+        //if(this.name === 'popover'){ console.log(this._options.reference, that.uid) }
+
+        // Configure Positioner
         this.position = new ch.Positioner({
             'target': this.$container,
             'reference': this._options.reference,
             'side': this._options.side,
             'align': this._options.align,
-            'offsetY': this._options.offsetY,
-            'offsetX': this._options.offsetX
+            'offsetX': this._options.offsetX,
+            'offsetY': this._options.offsetY
         });
 
+        // Configure Closable
         this._closable();
     };
 
     /**
      * Inner show method. Attach the component layout to the DOM tree.
      * @protected
-     * @name ch.Layer#innerShow
+     * @name ch.Popover#innerShow
      * @function
      * @returns itself
      */
-    Layer.prototype.show = function () {
-
-        var that = this,
-            instance,
-            uid;
+    Popover.prototype.show = function (content) {
 
         // Close another opened widgets
-        for (uid in this._instances) {
-
-            instance = that._instances[uid];
-
-            // TODO: This "closable" conditional must be in ch.Closable.js
-            if (uid !== that.uid && instance._options.closable !== 'none') {
-                instance.hide();
-            }
-        }
+        // TODO: This "close !== none" conditional must be in ch.Closable.js
+        // for (uid in this._instances) {
+        //     if (this._instances[uid] !== undefined && uid !== that.uid && that._instances[uid]._options.close !== 'none') {
+        //         that._instances[uid].hide();
+        //     }
+        // }
 
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Request the content
-        this.content.set();
+        this.content.set({'input': content});
         // Open the collapsible
         this._show();
+        // excute and refresh the position of the Popover
+        this.position.refresh();
 
         return this;
     };
@@ -219,15 +235,13 @@
     /**
      * Inner hide method. Hides the component and detach it from DOM tree.
      * @protected
-     * @name ch.Layer#innerHide
+     * @name ch.Popover#innerHide
      * @function
      * @returns itself
      */
-    Layer.prototype.hide = function () {
+    Popover.prototype.hide = function () {
         //
         this._hide();
-        //
-        this.$container.detach();
         //
         return this;
     };
@@ -239,7 +253,7 @@
      * @name ch.Floats#isActive
      * @returns boolean
      */
-    Layer.prototype.isActive = function () {
+    Popover.prototype.isActive = function () {
         return this._active;
     };
 
@@ -259,7 +273,7 @@
      * @example
      * widget.width() // 700
      */
-    Layer.prototype.width = function (data) {
+    Popover.prototype.width = function (data) {
 
         if (data === undefined) {
             return this._options.width;
@@ -286,7 +300,7 @@
      * @example
      * widget.height // 300
      */
-    Layer.prototype.height = function (data) {
+    Popover.prototype.height = function (data) {
 
         if (data === undefined) {
             return this._options.height;
@@ -299,6 +313,6 @@
         return this;
     };
 
-    ch.factory(Layer);
+    ch.factory(Popover);
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

@@ -1,7 +1,8 @@
 /**
-* Custom creates a validation interface for validation engine.
-* @name Custom
-* @class Custom
+* Required validates that a must be filled.
+* @name Required
+* @class Required
+* @interface
 * @augments ch.Controls
 * @augments ch.Validation
 * @memberOf ch
@@ -10,20 +11,17 @@
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
-* @param {Function} [conf.fn] Custom function to evaluete a value.
 * @returns itself
 * @factorized
 * @see ch.Validation
-* @see ch.Required
+* @see ch.Custom
 * @see ch.Number
 * @see ch.String
 * @see ch.Validator
 * @see ch.Condition
-* @exampleDescription Validate a even number
+* @exampleDescription Simple validation
 * @example
-* var widget = $("input").custom(function (value) {
-* 	return (value%2==0) ? true : false;
-* }, "Enter a even number");
+* $("input").required("This field is required");
 */
 (function (window, $, ch) {
 	'use strict';
@@ -32,29 +30,23 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Custom($el, options) {
+	function Required($el, options) {
 
 		var options = options || {};
 
-		if (!options.fn) {
-			alert('Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},"Message");');
-		}
-
-		// Define the conditions of this interface
 		options.condition = {
-			// I don't have pre-conditions, comes within conf.fn argument
-			'name': 'custom',
-			'fn': options.fn,
+			'name': 'required',
 			'message': options.content
 		};
 
 		return $el.validation(options);
+
 	}
 
-	Custom.prototype.name = 'custom';
-	Custom.prototype.constructor = Custom;
-	Custom.prototype.interface = 'validation';
+	Required.prototype.name = 'required';
+	Required.prototype.constructor = Required;
+	Required.prototype.interface = 'validation';
 
-	ch.factory(Custom);
+	ch.factory(Required);
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

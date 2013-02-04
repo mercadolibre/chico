@@ -1,8 +1,7 @@
 /**
-* Required validates that a must be filled.
-* @name Required
-* @class Required
-* @interface
+* Custom creates a validation interface for validation engine.
+* @name Custom
+* @class Custom
 * @augments ch.Controls
 * @augments ch.Validation
 * @memberOf ch
@@ -11,17 +10,20 @@
 * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
 * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
 * @param {String} [conf.context] It's a reference to position the validation-bubble
+* @param {Function} [conf.fn] Custom function to evaluete a value.
 * @returns itself
 * @factorized
 * @see ch.Validation
-* @see ch.Custom
+* @see ch.Required
 * @see ch.Number
 * @see ch.String
 * @see ch.Validator
 * @see ch.Condition
-* @exampleDescription Simple validation
+* @exampleDescription Validate a even number
 * @example
-* $("input").required("This field is required");
+* var widget = $("input").custom(function (value) {
+* 	return (value%2==0) ? true : false;
+* }, "Enter a even number");
 */
 (function (window, $, ch) {
 	'use strict';
@@ -30,23 +32,29 @@
 		throw new window.Error('Expected ch namespace defined.');
 	}
 
-	function Required($el, options) {
+	function Custom($el, options) {
 
 		var options = options || {};
 
+		if (!options.fn) {
+			alert('Custom Validation fatal error: Need a function to evaluate, try $().custom(function(){},"Message");');
+		}
+
+		// Define the conditions of this interface
 		options.condition = {
-			'name': 'required',
+			// I don't have pre-conditions, comes within conf.fn argument
+			'name': 'custom',
+			'fn': options.fn,
 			'message': options.content
 		};
 
 		return $el.validation(options);
-
 	}
 
-	Required.prototype.name = 'required';
-	Required.prototype.constructor = Required;
-	Required.prototype.interface = 'validation';
+	Custom.prototype.name = 'custom';
+	Custom.prototype.constructor = Custom;
+	Custom.prototype.interface = 'validation';
 
-	ch.factory(Required);
+	ch.factory(Custom);
 
-}(this, this.jQuery, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

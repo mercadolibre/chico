@@ -636,11 +636,11 @@
 	<div class="ch-box-lite">
 		<h2>Layer</h2>
 		<ul class="ch-list">
-            <li><span id="layer1">Default Layer, executed on <strong>hover</strong>.</span></li>
+            <li><span id="layer1">Default Layer, executed on <strong>mouseenter</strong>.</span></li>
             <li><span id="layer2">Executed on <strong>click</strong>. <em>(close:all)</em></span></li>
 			<li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(close:none)</em>.</span></li>
 			<li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(close:button-only)</em>.</span></li>
-            <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:keys-only)</em></span></li>
+            <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:pointers-only)</em></span></li>
 		</ul>
 		<div id="invisible-content-for-layer" class="ch-hide">
     		<h1>This content is invisible</h1>
@@ -649,7 +649,7 @@
 	</div>
 
     <div class="ch-box-lite">
-        <h2>Bubble</h2>
+        <h2>Validation Bubble</h2>
         <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
     </div>
 
@@ -657,14 +657,14 @@
 		<h2>Modal with AJAX content</h2>
 
 		<form action="/ajax">
-			<p><input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Modal" value="Executed by submit a form"> or <a href="/ajax" class="YOUR_SELECTOR_Modal">Executed by a link</a>.</p>
+			<p><input type="submit" class="ch-btn ch-btn-small modal1" value="Executed by submit a form"> or <a href="/ajax" class="modal1">Executed by a link</a>.</p>
 		</form>
 	</div>
 
 	<div class="ch-box-lite">
 		<h2>Modal with DOM content</h2>
 
-		<button class="YOUR_SELECTOR_Modal_invisible ch-btn ch-btn-small">Get content from DOM</button>
+		<button id="modal2" class="ch-btn ch-btn-small">Get content from DOM</button>
 
 		<div id="invisible-content" class="ch-hide">
 			<h1>Caption heading</h1>
@@ -678,13 +678,13 @@
 
 	<div class="ch-box-lite">
 		<h2>Modal Lite</h2>
-		<button class="YOUR_SELECTOR_Modal_lite ch-btn ch-btn-small">Show me</button>
+		<button id="modal3" class="ch-btn ch-btn-small">Show me</button>
 	</div>
 
 	<div class="ch-box-lite">
 		<h2>Transition window</h2>
 		<form action="/ajax">
-			<input type="submit" class="ch-btn ch-btn-small YOUR_SELECTOR_Transition" value="Exeute it!">
+			<input type="submit" id="transition" class="ch-btn ch-btn-small" value="Exeute it!">
 		</form>
 	</div>
 
@@ -1367,8 +1367,8 @@
 		var carousel = $(".myCarousel").carousel({"pagination": true});
 		// var carousel = $.carousel($(".myCarousel"), {"pagination": true});
 
-		// // Countdown
-		// var	countdown = $("#text_cd").countdown(140);
+		// Countdown
+		var	countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
 
 		// // Date Picker
 		// var	datePicker = $("#val_date").datePicker({
@@ -1386,26 +1386,26 @@
 
         var layer2 = $('#layer2').layer({
             'content': 'foo',
-            'event': 'click',
-            'closable': 'all'
+            'open': 'click',
+            'close': 'all'
         });
 
         var layer3 = $('#layer3').layer({
             'content': $('#invisible-content-for-layer'),
-            'event': 'click',
-            'closable': 'none'
+            'open': 'click',
+            'close': 'none'
         });
 
         var layer4 = $('#layer4').layer({
             'content': 'Static content.',
-            'event': 'click',
-            'closable': 'button-only'
+            'open': 'click',
+            'close': 'button-only'
         });
 
         var layer5 = $('#layer5').layer({
             'content': '/ajax',
-            'event': 'click',
-            'closable': 'keys-only'
+            'open': 'click',
+            'close': 'pointers-only'
         });
 
         var layerX = $.layer({
@@ -1413,10 +1413,13 @@
             'reference': $('#layer5')
         });
 
-        // var bubble = $.bubble({
-        //     'event': 'click',
-        //     'reference': $('#bubble')
-        // });
+        var bubble = $.bubble({
+            'reference': $('#bubble')
+        });
+
+        $('#bubble').on('click', function () {
+            bubble.show();
+        });
 
 		// Tooltip
 		// Bottom
@@ -1481,23 +1484,36 @@
 			'offsetX': -10
 		});
 
-		// // Modal
-		// var modal1 = $(".YOUR_SELECTOR_Modal").modal({
-		// 	"width": "500px",
-		// 	"height": "300px"
-		// });
+        var tooltipX = $.tooltip({
+            'content': 'Tooltip without trigger!',
+            'reference': $('#default')
+        });
 
-		// // Modal with invisible DOM Content
-		// var modal2 = $(".YOUR_SELECTOR_Modal_invisible").modal($("#invisible-content"));
+		// Modal
+		var modal1 = $('.modal1').modal({
+			'width': '500px',
+			'height': '300px'
+		});
 
-		// // Modal lite
-		// var modal3 = $('.YOUR_SELECTOR_Modal_lite').modal({
-		// 	'content': '<h2>Heading or content</h2>',
-		// 	'classes': 'ch-box ch-modal-lite'
-		// });
+        // Modal with invisible DOM Content
+		var modal2 = $('#modal2').modal($('#invisible-content'));
 
-		// // Trasition
-		// var transition = $(".YOUR_SELECTOR_Transition").transition();
+		// Modal lite
+		var modal3 = $('#modal3').modal({
+			'content': '<h2>Heading or content</h2>',
+			'classes': 'ch-box-lite ch-modal-lite'
+		});
+
+        var modalX = $.modal({
+            'content': 'Modal without trigger!'
+        });
+
+		// Trasition
+		var transition = $('#transition').transition();
+
+        var transitionX = $.transition({
+            'content': 'Transition without trigger!'
+        });
 
 		// // Zoom
 		// var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
@@ -1514,7 +1530,6 @@
 
 		// Messages
 		var message = (function (message, value) {
-
 			var messages = {
 				'option': 'Choose an option.',
 				'requiredCheck': 'Accept the Terms of Use.',
@@ -1528,53 +1543,39 @@
 				}
 				return message;
 			}
-
 		}());
 
 		// Validators
 		var	validation1 = $('#input_ico').required().and().string();
-
 		var	validation2 = $('#input_ico_inside').required().and().string();
-
 		var	validation3 = $('#price').price().and().required();
-
 		var	validation4 = $('#email').required().and().email();
+		var	validation5 = $('#custom').custom(function (v) {
 
-		var	validation5 = $('#custom').required().and().custom(function (v) {
+			var value1 = v.toString().indexOf("1") > -1;
+			var value2 = v.toString().indexOf("2") > -1;
 
-				var value1 = v.toString().indexOf("1") > -1;
-				var value2 = v.toString().indexOf("2") > -1;
+			if (value1 && value2) { return true; }
 
-				if (value1 && value2) { return true; }
+			if (!value1) {
+				this.message('custom', message('The number needs a {#num#}.', 1));
+				return false;
+			}
 
-				if (!value1) {
-					this.message('custom', message('The number needs a {#num#}.', 1));
-					return false;
-				}
+			if (!value2) {
+				this.message('custom', message('The number must contain a {#num#}.', 2));
+				return false;
+			}
 
-				if (!value2) {
-					this.message('custom', message('The number must contain a {#num#}.', 2));
-					return false;
-				}
-
-			});
-
-		var	validation6 = $('#url').url();
-
+		});
+		var	validation6 = $('#url').url()
 		var	validation7 = $('#number').number().and().min(5);
-
 		var	validation8 = $('#range').min(8).and().max(10);
-
 		var	validation9 = $('#characters').maxLength(20).and().minLength(6);
-
 		var	validation10 = $('#double,#textarea2').required();
-
 		var	validation11 = $('.required-check').required(message('requiredCheck'));
-
 		var	validation12 = $('.required-option').required(message('option'));
-
 		var validation13 = $('#double').required(message('link'));
-
 		var validation14 = $('#double').number();
 
 	</script>

@@ -46,7 +46,7 @@
 			if ($el === undefined) {
 				this._options = defaults;
 
-			} else if ($el instanceof $ || ($.zepto !== undefined && $.zepto.isZ($el))) {
+			} else if (util.is$($el)) {
 				this.$el = $el;
 				this.el = $el[0];
 				this._snippet = this.el.cloneNode();
@@ -58,11 +58,16 @@
 				this._options = $.extend(defaults, options);
 			}
 
-        } else if (($el instanceof $ || ($.zepto !== undefined && $.zepto.isZ($el))) && typeof options === 'object') {
-			this.$el = $el;
-			this.el = $el[0];
-			this._snippet = this.el.cloneNode();
-			this._options = $.extend(defaults, options);
+        } else if (typeof options === 'object') {
+            if ($el === undefined) {
+                this._options = $.extend(defaults, options);
+
+            } else if (util.is$($el)) {
+    			this.$el = $el;
+    			this.el = $el[0];
+    			this._snippet = this.el.cloneNode();
+    			this._options = $.extend(defaults, options);
+            }
 
 		} else {
 			throw new window.Error('Expected 2 parameters or less');

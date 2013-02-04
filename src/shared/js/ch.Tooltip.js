@@ -1,9 +1,23 @@
-(function (window, ch) {
+(function (window, $, ch) {
     'use strict';
 
     if (ch === undefined) {
         throw new window.Error('Expected ch namespace defined.');
     }
+
+    var defaults = {
+        'fx': 'fadeIn',
+        'classes': 'ch-tooltip ch-cone',
+        'width': 'auto',
+        'height': 'auto',
+        'open': 'mouseenter',
+        'close': 'mouseleave',
+        'side': 'bottom',
+        'align': 'left',
+        'offsetX': 0,
+        'offsetY': 10,
+        'cone': true
+    };
 
     /**
      * Tooltip improves the native tooltips. Tooltip uses the 'alt' and 'title' attributes to grab its content.
@@ -39,45 +53,20 @@
      */
     function Tooltip($el, options) {
 
-        this.init($el, options);
+        if (options === undefined && !ch.util.is$($el)) {
+            options = $el;
+            $el = undefined;
+        }
 
-        /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
-         * @type {Object}
-         */
-        var that = this;
+        options = $.extend(ch.util.clone(defaults), options);
 
-        /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.Layer#ready
-         * @event
-         * @public
-         * @since 0.8.0
-         * @exampleDescription Following the first example, using <code>widget</code> as layer's instance controller:
-         * @example
-         * widget.on("ready",function () {
-         * this.show();
-         * });
-         */
-        window.setTimeout(function () { that.emit('ready'); }, 50);
+        return new ch.Layer($el, options);
     }
 
-    var parent = ch.util.inherits(Tooltip, ch.Layer);
-
     Tooltip.prototype.name = 'tooltip';
-
     Tooltip.prototype.constructor = Tooltip;
-
-    Tooltip.prototype.init = function ($el, options) {
-
-        options = options || {};
-
-        options.classes = 'ch-tooltip';
-
-        parent.init.call(this, $el, options);
-    };
+    Tooltip.prototype.interface = 'Layer';
 
     ch.factory(Tooltip);
 
-}(this, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));
