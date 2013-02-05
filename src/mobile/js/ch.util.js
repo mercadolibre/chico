@@ -92,6 +92,8 @@
 				// If there's a hash, or addEventListener is undefined, stop here
 				if( !window.location.hash && window.addEventListener ) {
 
+					var scrollTop = ch.util.getScroll().top;
+
 					//scroll to 1
 					window.scrollTo(0, 1);
 					ch.util.MBP.BODY_SCROLL_TOP = 1;
@@ -100,7 +102,7 @@
 					var bodycheck = setInterval(function () {
 						if(body) {
 							clearInterval(bodycheck);
-							ch.util.MBP.BODY_SCROLL_TOP = ch.util.getScrollTop();
+							ch.util.MBP.BODY_SCROLL_TOP = scrollTop;
 							ch.util.MBP.hideUrlBar();
 						}
 					}, 15 );
@@ -108,7 +110,7 @@
 					window.addEventListener('load', function() {
 						setTimeout(function () {
 							//at load, if user hasn't scrolled more than 20 or so...
-							if(ch.util.getScrollTop() < 20) {
+							if(scrollTop < 20) {
 								//reset to hide addr bar at onload
 								ch.util.MBP.hideUrlBar();
 							}
