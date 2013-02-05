@@ -71,15 +71,6 @@
         this.init(options);
     }
 
-    function getOuterDimensions(el) {
-        var outer = el.getBoundingClientRect();
-
-        return {
-            'width': (outer.right - outer.left),
-            'height': (outer.bottom - outer.top)
-        }
-    }
-
     Positioner.prototype.name = 'positioner';
 
     Positioner.prototype.constructor = Positioner;
@@ -102,6 +93,7 @@
         that._options.offsetY = parseInt(that._options.offsetY, 10);
 
         that.$target = that._options.target;
+
         // Default is the viewport
         that.$reference = that.reference = that._options.reference;
 
@@ -153,9 +145,8 @@
             $target = that.$target.attr({
                 'data-side': that._options.side,
                 'data-align': that._options.align
-            });
-
-        var outer = getOuterDimensions($target[0]);
+            }),
+            outer = ch.util.getOuterDimensions($target[0]);
 
         that.target = {
             '$el': $target,
@@ -172,37 +163,27 @@
         }
 
         var that = this,
-            offset = {},
             $reference = that.$reference.attr({
                 'data-side': that._options.side,
                 'data-align': that._options.align
-            });
-
-
-        // target and reference are in the same element
-        if (that.$target[0].offsetParent === that.$reference[0].offsetParent) {
-            offset.top = $reference[0].offsetTop;
-            offset.left = $reference[0].offsetLeft;
-
-        // target in the body
-        } else if (that.$target[0].parentNode.nodeName === 'BODY' ){
-            offset.top = that.$reference.offset().top;
-            offset.left = that.$reference.offset().left;
-
-        } else {
-            // TODO: review the case where the element is in other element positioned absolute and the targe is in other that is the same situation
-            throw new window.Error('Target and Reference must be at the same element, or target must be at the BODY elment.');
-        }
-
-         var outer = getOuterDimensions($reference[0]);
+            }),
+            reference = $reference[0],
+            outer = ch.util.getOuterDimensions(reference),
+            offset = ch.util.getOffset(reference);
 
         that.reference = {
             '$el': $reference,
             'width': outer.width,
-            'height': outer.height,
-            'left': offset.left,
-            'top': offset.top
+            'height': outer.height
         };
+
+        if (reference.offsetParent === that.$target[0].offsetParent) {
+            that.reference.left = reference.offsetLeft;
+            that.reference.top = reference.offsetTop;
+        } else {
+            that.reference.left = offset.left;
+            that.reference.top = offset.top;
+        }
 
         return that;
     };
