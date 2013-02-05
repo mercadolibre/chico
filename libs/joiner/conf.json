@@ -76,7 +76,7 @@
                 "../../src/shared/js/ch.Bubble.js",
                 "../../src/shared/js/ch.Modal.js",
                 "../../src/shared/js/ch.Transition.js",
-                "../../src/ui/js/ch.Calendar.js",
+                "../../src/shared/js/ch.Calendar.js",
 				"../../src/ui/js/ch.blink.js",
 				"../../src/ui/js/ch.Dropdown.js",
 				"../../src/ui/js/ch.Tabs.js",
@@ -114,7 +114,7 @@
                 "../../src/shared/css/ch.Modal.css",
                 "../../src/shared/css/ch.Transition.css",
 				"../../src/ui/css/ch.wizard.css",
-				"../../src/ui/css/ch.Calendar.css",
+				"../../src/shared/css/ch.Calendar.css",
 				"../../src/ui/css/ch.Carousel.css",
 				"../../src/ui/css/ch.AutoComplete.css",
 				"../../src/ui/css/ch.DatePicker.css",
@@ -167,7 +167,7 @@
 				"../../src/shared/js/ch.Custom.js",
 				"../../src/shared/js/ch.Required.js",
 				"../../src/shared/js/ch.Countdown.js",
-				"../../src/ui/js/ch.Calendar.js"
+				"../../src/shared/js/ch.Calendar.js"
 			],
 			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
 		},
@@ -204,7 +204,7 @@
                 "../../src/shared/css/ch.Bubble.css",
                 "../../src/shared/css/ch.Modal.css",
                 "../../src/shared/css/ch.Transition.css",
-                "../../src/ui/css/ch.Calendar.css"
+                "../../src/shared/css/ch.Calendar.css"
 			],
 			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
 		},
