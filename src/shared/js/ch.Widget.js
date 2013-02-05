@@ -49,7 +49,7 @@
 			} else if (util.is$($el)) {
 				this.$el = $el;
 				this.el = $el[0];
-				this._snippet = this.el.cloneNode();
+				this._snippet = this.el.cloneNode(true);
 				this._options = defaults;
 
 			} else if (typeof $el === 'object') {
@@ -65,7 +65,7 @@
             } else if (util.is$($el)) {
     			this.$el = $el;
     			this.el = $el[0];
-    			this._snippet = this.el.cloneNode();
+    			this._snippet = this.el.cloneNode(true);
     			this._options = $.extend(defaults, options);
             }
 
