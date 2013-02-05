@@ -69,13 +69,15 @@
      * @name ch.Viewport#calculateDimensions
      */
     Viewport.prototype.calculateDimensions = function () {
+        this.calculateClientRect();
+
         /**
          * Height of the visible area.
          * @public
          * @name ch.Viewport#height
          * @type Number
          */
-        this.height = this.$el.height();
+        this.height = this.bottom;
 
         /**
          * Width of the visible area.
@@ -83,8 +85,41 @@
          * @name ch.Viewport#width
          * @type Number
          */
-        this.width = this.$el.width();
+        this.width = this.right;
     };
+
+     Viewport.prototype.calculateClientRect = function () {
+        /**
+         * Top rect.
+         * @public
+         * @name ch.Viewport#top
+         * @type Number
+         */
+
+         /**
+         * Left rect.
+         * @public
+         * @name ch.Viewport#left
+         * @type Number
+         */
+        this.top = this.left = 0;
+
+        /**
+         * Bottom rect.
+         * @public
+         * @name ch.Viewport#bottom
+         * @type Number
+         */
+        this.bottom = this.$el.height();
+
+        /**
+         * Right rect.
+         * @public
+         * @name ch.Viewport#right
+         * @type Number
+         */
+        this.right = this.$el.width();
+     };
 
     /**
      * Calculates/updates the viewport position.
@@ -93,7 +128,8 @@
      * @name ch.Viewport#calculateOffset
      */
     Viewport.prototype.calculateOffset = function () {
-        var that = this;
+        var that = this,
+            scroll = ch.util.getScroll();
 
         /**
          * Top offset of the visible area.
@@ -101,7 +137,7 @@
          * @name ch.Viewport#top
          * @type Number
          */
-        this.top = ch.util.getScrollTop();
+        this.offsetTop = scroll.top;
 
         /**
          * Left offset of the visible area.
@@ -109,7 +145,7 @@
          * @name ch.Viewport#left
          * @type Number
          */
-        this.left = ch.util.getScrollLeft();
+        this.offsetLeft = scroll.left;
 
         /**
          * Right offset of the visible area.
@@ -117,7 +153,7 @@
          * @name ch.Viewport#right
          * @type Number
          */
-        this.right = this.left + this.width;
+        this.offsetRight = this.left + this.width;
 
         /**
          * Bottom offset of the visible area.
@@ -125,7 +161,7 @@
          * @name ch.Viewport#bottom
          * @type Number
          */
-        this.bottom = this.top + this.height;
+        this.offsetBottom = this.offsetTop + this.height;
     };
 
     /**
@@ -162,7 +198,7 @@
     Viewport.prototype.isVisible = function (el) {
         var r = el.getBoundingClientRect();
 
-        return (r.height >= this.top);
+        return (r.height >= this.offsetTop);
     };
 
     /**
