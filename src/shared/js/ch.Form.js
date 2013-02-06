@@ -1,27 +1,3 @@
-/**
- * Forms is a Controller of DOM's HTMLFormElement.
- * @name Form
- * @class Form
- * @augments ch.Widget
- * @memberOf ch
- * @param {Object} [options] Object with configuration properties.
- * @param {Object} [options.messages]
- * @see ch.Validation
- * @see ch.Widget
- * @returns itself
- * @factorized
- * @exampleDescription Create a new Form.
- * @example
- * var widget = $(".example").form();
- * @exampleDescription Create a new Form with some messages that will be use the validation engine.
- * @example
- * var widget = $(".example").form({
- *  "messages": {
- *      "required": "Error message for all required fields.",
- *      "email": "Show this message on email format error."
- *  }
- * });
- */
 (function (window, $, ch) {
     'use strict';
 
@@ -29,6 +5,30 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    /**
+     * Forms is a Controller of DOM's HTMLFormElement.
+     * @name Form
+     * @class Form
+     * @augments ch.Widget
+     * @memberOf ch
+     * @param {Object} [options] Object with configuration properties.
+     * @param {Object} [options.messages]
+     * @see ch.Validation
+     * @see ch.Widget
+     * @returns itself
+     * @factorized
+     * @exampleDescription Create a new Form.
+     * @example
+     * var widget = $(".example").form();
+     * @exampleDescription Create a new Form with some messages that will be use the validation engine.
+     * @example
+     * var widget = $(".example").form({
+     *  "messages": {
+     *      "required": "Error message for all required fields.",
+     *      "email": "Show this message on email format error."
+     *  }
+     * });
+     */
     function Form($el, options) {
         /**
          * Reference to a internal component instance, saves all the information and configuration properties.
@@ -51,7 +51,7 @@
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
 
-        return that;
+        return this;
     }
 
     /**
@@ -97,7 +97,7 @@
          * @private
          * @type {Object}
          */
-        var that = this
+        var that = this;
 
         /**
          * Private Members
