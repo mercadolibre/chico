@@ -1,31 +1,3 @@
-/**
-* Validation is a engine for HTML forms elements.
-* @name Validation
-* @class Validation
-* @augments ch.Controls
-* @requires ch.Form
-* @requires ch.Condition
-* @requires ch.Required
-* @requires ch.String
-* @requires ch.Number
-* @requires ch.Custom
-* @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {String} [conf.content] Validation message.
-* @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
-* @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-* @param {String} [conf.context] It's a reference to position the validation-bubble.
-* @returns itself
-* @factorized
-* @see ch.Controls
-* @see ch.Form
-* @see ch.Condition
-* @see ch.Required
-* @see ch.String
-* @see ch.Number
-* @see ch.Custom
-*/
-
 (function (window, $, ch) {
     'use strict';
 
@@ -33,37 +5,60 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    var setTimeout = window.setTimeout;
-
+    /**
+     * Validation is a engine for HTML forms elements.
+     * @name Validation
+     * @class Validation
+     * @augments ch.Controls
+     * @requires ch.Form
+     * @requires ch.Condition
+     * @requires ch.Required
+     * @requires ch.String
+     * @requires ch.Number
+     * @requires ch.Custom
+     * @memberOf ch
+     * @param {Object} [conf] Object with configuration properties.
+     * @param {String} [conf.content] Validation message.
+     * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
+     * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
+     * @param {String} [conf.context] It's a reference to position the validation-bubble.
+     * @returns itself
+     * @factorized
+     * @see ch.Controls
+     * @see ch.Form
+     * @see ch.Condition
+     * @see ch.Required
+     * @see ch.String
+     * @see ch.Number
+     * @see ch.Custom
+     */
     function Validation($el, options) {
         /**
-        * Reference to a internal component instance, saves all the information and configuration properties.
-        * @protected
-        * @name ch.Validation#that
-        * @type itself
-        */
+         * Reference to a internal component instance, saves all the information and configuration properties.
+         * @protected
+         * @name ch.Validation#that
+         * @type itself
+         */
         var that = this;
-
 
         that.init($el, options);
 
-
         /**
-        * Triggers when the component is ready to use.
-        * @name ch.Validation#ready
-        * @event
-        * @public
-        * @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
-        * @example
-        * widget.on("ready",function(){
-        *   this.show();
-        * });
-        */
-        setTimeout(function(){ that.emit("ready")}, 50);
+         * Triggers when the component is ready to use.
+         * @name ch.Validation#ready
+         * @event
+         * @public
+         * @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
+         * @example
+         * widget.on("ready",function(){
+         *   this.show();
+         * });
+         */
+        window.setTimeout(function () { that.emit("ready"); }, 50);
 
         return this;
 
-    };
+    }
 
     /**
      * Inheritance
@@ -71,13 +66,20 @@
     var parent = ch.util.inherits(Validation, ch.Widget);
 
     /**
-    * Protected Members
-    */
+     * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
+     * @public
+     * @name ch.Validation#name
+     * @type string
+     */
+    Validation.prototype.name = "validation"; // Everything is a "validation" type, no matter what interface is used
+
+    Validation.prototype.constructor = Validation;
+
     Validation.prototype._defaults = {
         'offsetX': 10,
         'side': 'bottom',
         'align': 'left'
-    }
+    };
 
     /**
      * Flag that let you know if there's a validation going on.
@@ -96,29 +98,28 @@
     Validation.prototype._enabled = true;
 
     /**
-    * Public Members
-    */
-    /**
      * Constructs a new Validation.
      * @public
      * @function
      */
-    Validation.prototype.init = function($el, options) {
+    Validation.prototype.init = function ($el, options) {
+
         var that = this;
+
         parent.init.call(this, $el, options);
 
         that.conditions = {};
 
         that.conditions[options.condition.name] = new ch.Condition(options.condition);
 
-        that.on('exists', function (e, data){
+        that.on('exists', function (e, data) {
 
             var condition = {
                 'name': data.type
             };
 
-            if(data.options !== undefined){
-                if(data.options.content){
+            if (data.options !== undefined) {
+                if (data.options.content) {
                     condition.message = data.options.content;
                 }
 
@@ -143,26 +144,28 @@
          * @see ch.Form
          */
         // Reference to a Form instance. If there isn't any, the Validation instance will create one.
-        that.form = (function() {
+        that.form = (function () {
+            var instance,
+                i;
 
             if (ch.util.hasOwn(ch.instances, "form")) {
-                for (var instance in ch.instances.form) {
+                for (instance in ch.instances.form) {
                     if (ch.instances.form[instance].el === that.$el.parents("form")[0]) {
                         return ch.instances.form[instance]; // Get my parent
                     }
                 }
             }
 
-            var instance = that.$el.parents("form").form();
+            // instance a new form when there isn't one instantiated
+            instance = that.$el.parents("form").form();
 
-            for (var i in ch.instances.form) {
+            for (i in ch.instances.form) {
                 if (ch.instances.form[i].el === instance.el) {
-
                     return ch.instances.form[i]; // Get my parent
                 }
             }
 
-        })();
+        }());
 
         that.form._validations.push(that);
 
@@ -175,23 +178,24 @@
          */
 
         that.bubble = $.bubble({
-            'reference': (function() {
-                var reference
-                    $el = that.$el;
+            'reference': (function () {
+                var reference,
+                    $el = that.$el,
+                    h4;
                 // CHECKBOX, RADIO
                 // TODO: when old forms be deprecated we must only support ch-list-options class
-                if ($el.hasClass("ch-form-options") || $el.hasClass("ch-list-options")) {
+                if ($el.hasClass('ch-form-options') || $el.hasClass('ch-list-options')) {
                 // Helper reference from will be fired
                 // H4
-                    if ($el.find("h4").length > 0) {
-                        var h4 = $el.find("h4"); // Find h4
-                        h4.wrapInner("<span>"); // Wrap content with inline element
+                    if ($el.find('h4').length > 0) {
+                        h4 = $el.find('h4'); // Find h4
+                        h4.wrapInner('<span>'); // Wrap content with inline element
                         reference = h4.children(); // Inline element in h4 like helper reference
                     // Legend
-                    } else if ($el.prev().prop("tagName") == "LEGEND") {
+                    } else if ($el.prev().prop('tagName') === 'LEGEND') {
                         reference = $el.prev(); // Legend like helper reference
                     } else {
-                        reference = $($el.find("label")[0]);
+                        reference = $($el.find('label')[0]);
                     }
                 // INPUT, SELECT, TEXTAREA
                 } else {
@@ -199,7 +203,7 @@
                 }
 
                 return reference;
-            })(),
+            }()),
             'align': that._options.align,
             'side': that._options.side,
             'offsetY': that._options.offsetY,
@@ -211,7 +215,7 @@
          * @private
          * @name ch.Validation#_validationEvent
          */
-        that._validationEvent = (that.$el.hasClass("ch-form-options") || that.$el.hasClass("ch-list-options") || that.el.tagName == "SELECT" || ( that.el.tagName == "INPUT" && that.el.type === 'range') ) ? "change" : "blur";
+        that._validationEvent = (that.$el.hasClass('ch-form-options') || that.$el.hasClass('ch-list-options') || that.el.tagName === 'SELECT' || (that.el.tagName === 'INPUT' && that.el.type === 'range')) ? 'change' : 'blur';
 
         /**
          * Stores the error object
@@ -219,10 +223,10 @@
          * @type Object
          * @name ch.Validation#error
          */
-         that._error = {};
+        that._error = {};
 
-        return that;
-    }
+        return this;
+    };
 
     /**
      * Run all configured validations.
@@ -232,10 +236,14 @@
      * @returns boolean
      */
     Validation.prototype.validate = function () {
-        var that = this;
+        var that = this,
+            previousError;
 
         // Pre-validation: Don't validate disabled
-        if (that.$el.attr("disabled") || !that._enabled) { return false; }
+        if (that.$el.attr('disabled') || !that._enabled) { return false; }
+
+        // saves the previous error
+        previousError = ch.util.clone(that._error);
 
         /**
          * Triggers before start validation process.
@@ -250,29 +258,27 @@
          */
         that.emit('beforevalidate');
 
-        var previousError = ch.util.clone(that._error);
-
         // Saves gotError
         that.hasError();
 
         // If has Error...
         if (that._error.status && that._error.condition !== previousError.condition) {
 
-            if (that.$el.prop("tagName") === "INPUT" || that.$el.prop("tagName") === "TEXTAREA") {
+            if (that.$el.prop('tagName') === 'INPUT' || that.$el.prop('tagName') === 'TEXTAREA') {
                 // TODO: remove error class when deprecate old forms only ch-form error must be.
-                that.$el.addClass("ch-form-error");
+                that.$el.addClass('ch-form-error');
             }
 
             // to avoid reload the same content
             if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) { // delete when bubble will be done
-                that.bubble.show((that._error.msg || that.form._messages[previousError.condition] || "Error"));
+                that.bubble.show((that._error.msg || that.form._messages[previousError.condition] || 'Error'));
                 // the aria-label attr should get the message element id, but is not public
-                that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid );
+                that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid);
             }
 
             // Add blur or change event to the element or to the elements's group
-            if(!that.listeners('events')){
-                that.$el.on(that._validationEvent + '.validation', function(){that.validate();});
+            if (!that.listeners('events')) {
+                that.$el.on(that._validationEvent + '.validation', function () { that.validate(); });
             }
 
             /**
@@ -288,16 +294,16 @@
              *  }
              * });
              */
-            that.emit("error", previousError.condition);
+            that.emit('error', previousError.condition);
 
         }
 
         // else NOT Error!
         if (!that._error.status) {
-            that.$el.removeClass("ch-form-error");
+            that.$el.removeClass('ch-form-error');
             that.$el.removeAttr('aria-label');
             that.bubble.hide(); // uncoment when bubble were done
-            form.emit('validated');
+            that.form.emit('validated');
         }
 
         /**
@@ -311,37 +317,11 @@
          *  submitButton.disable();
          * });
          */
-        that.emit("aftervalidate");
+        that.emit('aftervalidate');
 
         return that._error.status;
 
     };
-
-    /**
-    *   Public Members
-    */
-
-    /**
-     * The 'uid' is the Chico's unique instance identifier. Every instance has a different 'uid' property. You can see its value by reading the 'uid' property on any public instance.
-     * @public
-     * @name ch.Validation#uid
-     * @type number
-     */
-
-    /**
-     * Reference to a DOM Element. This binding between the component and the HTMLElement, defines context where the component will be executed. Also is usual that this element triggers the component default behavior.
-     * @public
-     * @name ch.Validation#element
-     * @type HTMLElement
-     */
-
-    /**
-     * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-     * @public
-     * @name ch.Validation#type
-     * @type string
-     */
-    Validation.prototype.type = "validation"; // Everything is a "validation" type, no matter what interface is used
 
     /**
      * Run all configured validations.
@@ -350,18 +330,16 @@
      * @name ch.Validation#hasError
      * @returns boolean
      */
-    Validation.prototype.hasError = function(){
-        var that = this;
+    Validation.prototype.hasError = function () {
+        var that,
+            condition,
+            tested,
+            val,
+            required = that.conditions.required,
+            value = that.el.value;
 
         if (!that._enabled) { return true; }
 
-        var condition,
-            tested,
-            empty,
-            val,
-            message,
-            required = that.conditions['required'],
-            value = that.el.value;
 
         // Avoid fields that aren't required when they are empty or de-activated
         if (!required && value === '' && that._active === false) { return {'status': false}; }
@@ -369,7 +347,7 @@
         if (that._enabled && (!that._active || value !== '' || required)) {
 
             // for each condition
-            for (condition in that.conditions){
+            for (condition in that.conditions) {
 
                 val = ((condition === 'required') ? that.el : value.toLowerCase());
                 // this is the validation
@@ -407,8 +385,8 @@
                         this._error.msg = that.conditions[condition].message;
 
                         return this._error.status;
-                    };
-                };
+                    }
+                }
             }
         }
 
@@ -424,7 +402,7 @@
         this._error.msg = undefined;
 
         return this._error.status;
-    }
+    };
 
     /**
      * Clear all active validations.
@@ -433,10 +411,10 @@
      * @function
      * @returns itself
      */
-    Validation.prototype.clear = function() {
+    Validation.prototype.clear = function () {
         var that = this;
 
-        that.$el.removeClass("ch-form-error");
+        that.$el.removeClass('ch-form-error');
         that.bubble.innerHide();
 
         this._active = false;
@@ -452,7 +430,7 @@
          *  submitButton.enable();
          * });
          */
-         that.emit('clear');
+        that.emit('clear');
 
         return this;
     };
@@ -464,7 +442,7 @@
      * @function
      * @returns jQuery Object
      */
-    Validation.prototype.and = function(){
+    Validation.prototype.and = function () {
         return this.$el;
     };
 
@@ -476,16 +454,16 @@
      * @returns itself
      * @see ch.Condition
      */
-    Validation.prototype.enable = function(condition){
+    Validation.prototype.enable = function (condition) {
         var that = this;
 
-        if (condition && that.conditions[condition]){
+        if (condition && that.conditions[condition]) {
             // Enable specific condition
             that.conditions[condition].enable();
         } else {
             // enable all
             that._enabled = true;
-            for (condition in that.conditions){
+            for (condition in that.conditions) {
                 that.conditions[condition].enable();
             }
         }
@@ -507,13 +485,13 @@
         clear();
 
         // Turn off conditions
-        if (condition && that.conditions[condition]){
+        if (condition && that.conditions[condition]) {
             // disable specific condition
             that.conditions[condition].disable();
         } else {
             // disable all
             that._enabled = false;
-            for (condition in that.conditions){
+            for (condition in that.conditions) {
                 that.conditions[condition].disable();
             }
         }
@@ -550,7 +528,7 @@
      * @returns boolean
      * @see ch.Condition
      */
-    Validation.prototype.isActive = function(){
+    Validation.prototype.isActive = function () {
         return this._active;
     };
 
@@ -561,7 +539,7 @@
      * @function
      * @returns object
      */
-    Validation.prototype.getError = function(){
+    Validation.prototype.getError = function () {
         return this._error;
     };
 
@@ -624,10 +602,7 @@
         }
 
         return this;
-    }
-
-    Validation.prototype.name = 'validation';
-    Validation.prototype.constructor = Validation;
+    };
 
     ch.factory(Validation);
 
