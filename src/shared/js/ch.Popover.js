@@ -97,7 +97,7 @@
 
         parent.init.call(this, $el, options);
 
-        this.require('Collapsible', 'Content', 'Closable');
+        this.require('Collapsible', 'Content', 'Closable', 'Positioner');
 
         var that = this,
             // Used to ARIA attributes
@@ -190,7 +190,7 @@
         //if(this.name === 'popover'){ console.log(this._options.reference, that.uid) }
 
         // Configure Positioner
-        this.position = new ch.Positioner({
+        this.position({
             'target': this.$container,
             'reference': this._options.reference,
             'side': this._options.side,

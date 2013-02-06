@@ -28,311 +28,307 @@
  * });
  */
 (function (window, $, ch) {
-	'use strict';
+    'use strict';
 
-	if (window.ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (window.ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
-	function Dropdown($el, options) {
+    function Dropdown($el, options) {
 
-		/**
-		 * Reference to a internal component instance, saves all the information and configuration properties.
-		 * @private
-		 * @type {Object}
-		 */
-		var that = this;
+        /**
+         * Reference to a internal component instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this;
 
-		that.init($el, options);
+        that.init($el, options);
 
-		/**
-		 * Triggers when the component is ready to use (Since 0.8.0).
-		 * @fires ch.Dropdown#ready
-		 * @since 0.8.0
-		 * @exampleDescription Following the first example, using <code>widget</code> as dropdown's instance controller:
-		 * @example
-		 * widget.on('ready',function () {
-		 *	this.show();
-		 * });
-		 */
-		window.setTimeout(function () { that.emit('ready'); }, 50);
+        /**
+         * Triggers when the component is ready to use (Since 0.8.0).
+         * @fires ch.Dropdown#ready
+         * @since 0.8.0
+         * @exampleDescription Following the first example, using <code>widget</code> as dropdown's instance controller:
+         * @example
+         * widget.on('ready',function () {
+         *  this.show();
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
 
-	}
+    }
 
-	/**
-	 * Private
-	 */
-	var $document = $(window.document),
-		$html = $('html'),
+    /**
+     * Private
+     */
+    var $document = $(window.document),
+        $html = $('html'),
 
-		/**
-		 * Inheritance
-		 */
-		parent = ch.util.inherits(Dropdown, ch.Widget);
+        /**
+         * Inheritance
+         */
+        parent = ch.util.inherits(Dropdown, ch.Widget);
 
-	/**
-	 * Prototype
-	 */
-	Dropdown.prototype.name = 'dropdown';
+    /**
+     * Prototype
+     */
+    Dropdown.prototype.name = 'dropdown';
 
-	Dropdown.prototype.constructor = Dropdown;
+    Dropdown.prototype.constructor = Dropdown;
 
-	Dropdown.prototype._defaults = {
-		'open': false,
-		'fx': false,
-		'side': 'bottom',
-		'align': 'left',
-		'offsetY': -1,
-		'closable': 'keys-only'
-	};
+    Dropdown.prototype._defaults = {
+        'open': false,
+        'fx': false,
+        'side': 'bottom',
+        'align': 'left',
+        'offsetY': -1,
+        'close': 'pointers-only'
+    };
 
-	Dropdown.prototype.init = function ($el, options) {
-		parent.init.call(this, $el, options);
+    Dropdown.prototype.init = function ($el, options) {
+        parent.init.call(this, $el, options);
 
-		this.require('Collapsible', 'Closable');
+        this.require('Collapsible', 'Closable', 'Positioner');
 
-		/**
-		 * Private Members
-		 */
+        /**
+         * Private Members
+         */
 
-		/**
-		 * Reference to a internal component instance, saves all the information and configuration properties.
-		 * @private
-		 * @type {Object}
-		 */
-		var that = this,
+        /**
+         * Reference to a internal component instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this,
 
-			/**
-			 * Map that contains the ARIA attributes for the trigger element
-			 * @private
-			 * @type {Object}
-			 */
-			triggerAttr = {
-				'aria-expanded': that._options.open,
-				'aria-controls': 'ch-dropdown-' + that.uid
-			},
+            /**
+             * Map that contains the ARIA attributes for the trigger element
+             * @private
+             * @type {Object}
+             */
+            triggerAttr = {
+                'aria-expanded': that._options.open,
+                'aria-controls': 'ch-dropdown-' + that.uid
+            },
 
-			/**
-			 * Map that contains the ARIA attributes for the container element
-			 * @private
-			 * @type {Object}
-			 */
-			containerAttr = {
-				'role': 'menu',
-				'id': triggerAttr['aria-controls'],
-				'aria-hidden': !triggerAttr['aria-expanded']
-			};
+            /**
+             * Map that contains the ARIA attributes for the container element
+             * @private
+             * @type {Object}
+             */
+            containerAttr = {
+                'role': 'menu',
+                'id': triggerAttr['aria-controls'],
+                'aria-hidden': !triggerAttr['aria-expanded']
+            };
 
-		/**
-		 * Protected Members
-		 */
+        /**
+         * Protected Members
+         */
 
-		 /**
-		 * The component's trigger.
-		 * @protected
-		 * @type {Selector}
-		 * @ignore
-		 */
-		that.$trigger = that.$el.children(':first-child')
-			.attr(triggerAttr)
-			.addClass('ch-dropdown-trigger ch-dropdown-ico')
-			.on(ch.events.pointer.TAP + '.dropdown', function (event) {
-				ch.util.prevent(event);
-				that.show();
-			});
+         /**
+         * The component's trigger.
+         * @protected
+         * @type {Selector}
+         * @ignore
+         */
+        that.$trigger = that.$el.children(':first-child')
+            .attr(triggerAttr)
+            .addClass('ch-dropdown-trigger ch-dropdown-ico')
+            .on(ch.events.pointer.TAP + '.dropdown', function (event) {
+                ch.util.prevent(event);
+                that.show();
+            });
 
-		/**
-		 * The component's container.
-		 * @protected
-		 * @type {Selector}
-		 * @ignore
-		 */
-		that.$container = that.$el.children(':last-child')
-			.attr(containerAttr)
-			.addClass('ch-dropdown-container ch-hide')
-			.on(ch.events.pointer.TAP + '.dropdown', function (event) {
-				if ((event.target || event.srcElement).tagName === 'A') {
-					that.hide();
-				}
-			});
+        /**
+         * The component's container.
+         * @protected
+         * @type {Selector}
+         * @ignore
+         */
+        that.$container = that.$el.children(':last-child')
+            .attr(containerAttr)
+            .addClass('ch-dropdown-container ch-hide')
+            .on(ch.events.pointer.TAP + '.dropdown', function (event) {
+                if ((event.target || event.srcElement).tagName === 'A') {
+                    that.hide();
+                }
+            });
 
-		/**
-		 * Dropdown options.
-		 * @protected
-		 * @type {Selector}
-		 */
-		that.$options = this.$container.find('a')
-			.attr('role', 'menuitem');
+        /**
+         * Dropdown options.
+         * @protected
+         * @type {Selector}
+         */
+        that.$options = this.$container.find('a')
+            .attr('role', 'menuitem');
 
-		/**
-		 * Default behavior
-		 */
+        /**
+         * Default behavior
+         */
 
-		that.$el.addClass('ch-dropdown');
+        that.$el.addClass('ch-dropdown');
 
-		if (!that.$el.hasClass('ch-dropdown-skin')) {
-			that.$trigger.addClass('ch-btn-skin ch-btn-small');
-		}
+        if (!that.$el.hasClass('ch-dropdown-skin')) {
+            that.$trigger.addClass('ch-btn-skin ch-btn-small');
+        }
 
-		that._closable();
+        that._closable();
 
-		ch.util.avoidTextSelection(this.$trigger);
+        that.position({
+            'target': that.$container,
+            'reference': that.$trigger,
+            'side': that._options.side,
+            'align': that._options.align,
+            'offsetY': that._options.offsetY,
+            'offsetX': that._options.offsetX
+        });
 
-		return that;
-	};
+        ch.util.avoidTextSelection(this.$trigger);
 
-	Dropdown.prototype.show = function () {
-		var that = this;
+        return that;
+    };
 
-		if (that._active) {
-			return that.hide();
-		}
+    Dropdown.prototype.show = function () {
+        var that = this;
 
-		// TODO: Move this code outside show method
-		if (that.position === undefined) {
-			// TODO: this implementation will be re done
-			that.position = new ch.Positioner({
-				'target': that.$container,
-				'reference': that.$trigger,
-				'side': that._options.side,
-				'align': that._options.align,
-				'offsetY': that._options.offsetY,
-				'offsetX': that._options.offsetX
-			});
-		}
+        if (that._active) {
+            return that.hide();
+        }
 
-		that.position.refresh();
+        that.position.refresh();
 
-		that._show();
+        that._show();
 
-		// Z-index of content and updates aria values
-		that.$container.css('z-index', ch.util.zIndex += 1);
+        // Z-index of content and updates aria values
+        that.$container.css('z-index', ch.util.zIndex += 1);
 
-		// Z-index of trigger over content (secondary / skin dropdown)
-		if (that.$el.hasClass('ch-dropdown-skin')) {
-			that.$trigger.css('z-index', ch.util.zIndex += 1);
-		}
+        // Z-index of trigger over content (secondary / skin dropdown)
+        if (that.$el.hasClass('ch-dropdown-skin')) {
+            that.$trigger.css('z-index', ch.util.zIndex += 1);
+        }
 
-		// Reset all dropdowns except itself
-		$.each(ch.instances.dropdown, function (i, widget) {
-			if (widget.uid !== that.uid) {
-				widget.hide();
-			}
-		});
+        // Reset all dropdowns except itself
+        $.each(ch.instances.dropdown, function (i, widget) {
+            if (widget.uid !== that.uid) {
+                widget.hide();
+            }
+        });
 
-		that.$options[0].focus();
+        that.$options[0].focus();
 
-		// Turn on keyboards arrows
-		that.arrowsOn();
+        // Turn on keyboards arrows
+        that.arrowsOn();
 
-		return that;
-	};
+        return that;
+    };
 
-	Dropdown.prototype.hide = function () {
-		var that = this;
+    Dropdown.prototype.hide = function () {
+        var that = this;
 
-		if (!that._active) {
-			return that;
-		}
+        if (!that._active) {
+            return that;
+        }
 
-		that._hide();
+        that._hide();
 
-		// Turn off keyboards arrows
-		that.arrowsOff();
+        // Turn off keyboards arrows
+        that.arrowsOff();
 
-		return that;
-	};
+        return that;
+    };
 
-	/**
-	 * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
-	 * @name isActive
-	 * @methodOf ch.Dropdown#isActive
-	 * @returns {boolean}
-	 * @exampleDescription
-	 * @example
-	 * if (widget.isActive()) {
-	 *     fn();
-	 * }
-	 */
-	Dropdown.prototype.isActive = function () {
-		return this._active;
-	};
+    /**
+     * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+     * @name isActive
+     * @methodOf ch.Dropdown#isActive
+     * @returns {boolean}
+     * @exampleDescription
+     * @example
+     * if (widget.isActive()) {
+     *     fn();
+     * }
+     */
+    Dropdown.prototype.isActive = function () {
+        return this._active;
+    };
 
-	/**
-	 * Turns on keyboard arrows
-	 * @protected
-	 * @Object
-	 * @memberOf ch.dropdown#arrowsOn
-	 * @name on
-	 */
-	Dropdown.prototype.arrowsOn = (function () {
-		var selected,
-			map = {},
-			arrow,
-			optionsLength,
-			selectOption = function (key) {
-				var that = this;
+    /**
+     * Turns on keyboard arrows
+     * @protected
+     * @Object
+     * @memberOf ch.dropdown#arrowsOn
+     * @name on
+     */
+    Dropdown.prototype.arrowsOn = (function () {
+        var selected,
+            map = {},
+            arrow,
+            optionsLength,
+            selectOption = function (key) {
+                var that = this;
 
-				// Sets the arrow that user press
-				arrow = key.type;
+                // Sets the arrow that user press
+                arrow = key.type;
 
-				// Sets limits behaivor
-				if (selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
+                // Sets limits behaivor
+                if (selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
 
-				// Unselects current option
-				that.$options[selected].blur();
+                // Unselects current option
+                that.$options[selected].blur();
 
-				if (arrow === 'down_arrow') { selected += 1; } else { selected -= 1; }
+                if (arrow === 'down_arrow') { selected += 1; } else { selected -= 1; }
 
-				// Selects new current option
-				that.$options[selected].focus();
-			};
+                // Selects new current option
+                that.$options[selected].focus();
+            };
 
-		return function () {
-			var that = this;
+        return function () {
+            var that = this;
 
-			// Keyboard support initialize
-			selected = 0;
+            // Keyboard support initialize
+            selected = 0;
 
-			optionsLength = that.$options.length;
+            optionsLength = that.$options.length;
 
-			// Item selected by mouseover
-			$.each(that.$options, function (i, e) {
-				$(e).on('mouseenter.dropdown', function () {
-					that.$options[selected = i].focus();
-				});
-			});
+            // Item selected by mouseover
+            $.each(that.$options, function (i, e) {
+                $(e).on('mouseenter.dropdown', function () {
+                    that.$options[selected = i].focus();
+                });
+            });
 
-			// Creates keyboard shortcuts map and binding events
-			map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
+            // Creates keyboard shortcuts map and binding events
+            map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
 
-				// Validations
-				if (!that._active) { return; }
+                // Validations
+                if (!that._active) { return; }
 
-				// Prevent default behaivor
-				ch.util.prevent(event);
-				selectOption.call(that, key);
-			}
+                // Prevent default behaivor
+                ch.util.prevent(event);
+                selectOption.call(that, key);
+            }
 
-			$document.on(map);
+            $document.on(map);
 
-			return that;
-		}
-	}());
+            return that;
+        }
+    }());
 
-	/**
-	 * Turns off keyboard arrows
-	 * @protected
-	 * @Object
-	 * @memberOf ch.dropdown#arrowsOff
-	 * @name off
-	 */
-	Dropdown.prototype.arrowsOff = function () {
-		$document.off(ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown');
+    /**
+     * Turns off keyboard arrows
+     * @protected
+     * @Object
+     * @memberOf ch.dropdown#arrowsOff
+     * @name off
+     */
+    Dropdown.prototype.arrowsOff = function () {
+        $document.off(ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown');
 
-		return this;
-	};
+        return this;
+    };
 
-	ch.factory(Dropdown);
+    ch.factory(Dropdown);
 
 }(this, this.jQuery, this.ch));
