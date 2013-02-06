@@ -47,7 +47,7 @@
 			 * Reference to the class name. When it's a interface, take its constructor name via the "interface" property.
 			 * @type {String}
 			 */
-			constructorName = Klass.prototype['interface'] || name;
+			constructorName = Klass.prototype.preset || name;
 
 		/**
 		 * The class constructor exposed directly into the "ch" namespace.
