@@ -6,52 +6,52 @@
     }
 
     /**
-    * Countdown counts the maximum of characters that user can enter in a form control. Countdown could limit the possibility to continue inserting charset.
-    * @name Countdown
-    * @class Countdown
-    * @augments ch.Controls
-    * @see ch.Controls
-    * @memberOf ch
-    * @param {Object} conf Object with configuration properties.
-    * @param {Number} conf.max Number of the maximum amount of characters user can input in form control.
-    * @param {String} [conf.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# characters left.".
-    * @param {String} [conf.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# character left.".
-    * @returns itself
-    * @factorized
-    * @exampleDescription Create a simple Countdown. Then <code>widget</code> is a reference to the Countdown instance controller.
-    * @example
-    * var widget = $(".some-form-control").countdown(500);
-    * @exampleDescription Create a Countdown with configuration.
-    * @example
-    * var widget = $(".some-form-control").countdown({
-    *     "max": 500,
-    *     "plural": "Restan # caracteres.",
-    *     "singular": "Resta # caracter."
-    * });
-    */
+     * Countdown counts the maximum of characters that user can enter in a form control. Countdown could limit the possibility to continue inserting charset.
+     * @name Countdown
+     * @class Countdown
+     * @augments ch.Controls
+     * @see ch.Controls
+     * @memberOf ch
+     * @param {Object} conf Object with configuration properties.
+     * @param {Number} conf.max Number of the maximum amount of characters user can input in form control.
+     * @param {String} [conf.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# characters left.".
+     * @param {String} [conf.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# character left.".
+     * @returns itself
+     * @factorized
+     * @exampleDescription Create a simple Countdown. Then <code>widget</code> is a reference to the Countdown instance controller.
+     * @example
+     * var widget = $(".some-form-control").countdown(500);
+     * @exampleDescription Create a Countdown with configuration.
+     * @example
+     * var widget = $(".some-form-control").countdown({
+     *     "max": 500,
+     *     "plural": "Restan # caracteres.",
+     *     "singular": "Resta # caracter."
+     * });
+     */
     function Countdown($el, options) {
 
         /**
-        * Reference to an internal component instance, saves all the information and configuration properties.
-        * @private
-        * @name ch.Countdown#that
-        * @type Object
-        */
+         * Reference to an internal component instance, saves all the information and configuration properties.
+         * @private
+         * @name ch.Countdown#that
+         * @type Object
+         */
         var that = this;
 
         that.init($el, options);
 
         /**
-        * Triggers when component is ready to use.
-        * @name ch.Countdown#ready
-        * @event
-        * @public
-        * @exampleDescription Following the first example, using <code>widget</code> as Countdown's instance controller:
-        * @example
-        * widget.on("ready",function () {
-        *   this.el;
-        * });
-        */
+         * Triggers when component is ready to use.
+         * @name ch.Countdown#ready
+         * @event
+         * @public
+         * @exampleDescription Following the first example, using <code>widget</code> as Countdown's instance controller:
+         * @example
+         * widget.on("ready",function () {
+         *   this.el;
+         * });
+         */
         window.setTimeout(function () { that.emit("ready"); }, 50);
 
         return that;
@@ -59,8 +59,8 @@
     }
 
     /**
-    *   Private Members
-    */
+     *   Private Members
+     */
         /**
          * Inheritance
          */
@@ -94,11 +94,11 @@
         }
 
         /**
-        * Amount of free characters until full the field.
-        * @private
-        * @name ch.Countdown#_remaining
-        * @type Number
-        */
+         * Amount of free characters until full the field.
+         * @private
+         * @name ch.Countdown#_remaining
+         * @type Number
+         */
         that._remaining = that._options.max - that._contentLength();
 
         // Singular or Plural message depending on amount of remaining characters
@@ -112,21 +112,21 @@
     };
 
     /**
-    * Length of value of form control.
-    * @private
-    * @name ch.Countdown#_contentLength
-    * @type Number
-    */
+     * Length of value of form control.
+     * @private
+     * @name ch.Countdown#_contentLength
+     * @type Number
+     */
     Countdown.prototype._contentLength = function () {
         return this.el.value.length;
     };
 
     /**
-    * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
-    * @public
-    * @name ch.Countdown#update
-    * @function
-    */
+     * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
+     * @public
+     * @name ch.Countdown#update
+     * @function
+     */
     Countdown.prototype.update = function () {
         var that = this,
             length = that._contentLength(),
