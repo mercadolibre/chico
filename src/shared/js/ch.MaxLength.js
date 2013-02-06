@@ -6,18 +6,20 @@
     }
 
     /**
-     * String validates a given text as string.
-     * @name String
-     * @class String
+     * MaxLength validates a maximun amount of characters.
+     * @name MaxLength
+     * @class MaxLength
      * @interface
      * @augments ch.Controls
      * @augments ch.Validation
+     * @requires ch.Validation
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
      * @param {String} [conf.content] Validation message.
      * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
      * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
      * @param {String} [conf.context] It's a reference to position the validation-bubble
+     * @param {Number} num Maximun number of characters.
      * @returns itself
      * @factorized
      * @see ch.Validation
@@ -26,27 +28,28 @@
      * @see ch.Number
      * @see ch.Validator
      * @see ch.Condition
-     * @exampleDescription Create a string validation
+     * @exampleDescription Create a maxLength validation
      * @example
-     * $("input").string("This field must be a string.");
+     * $("input").maxLength(10, "No more than 10 characters..");
      */
-    function String($el, options) {
+    function MaxLength($el, options) {
 
         var opts = options || {};
 
         opts.condition = {
-            'name': 'string',
-            'message': opts.content
+            'name': 'maxLength',
+            'message': opts.content,
+            'num': opts.num
         };
 
         return $el.validation(opts);
 
     }
 
-    String.prototype.name = 'string';
-    String.prototype.constructor = String;
-    String.prototype.preset = 'validation';
+    MaxLength.prototype.name = 'maxLength';
+    MaxLength.prototype.constructor = MaxLength;
+    MaxLength.prototype.preset = 'validation';
 
-    ch.factory(String);
+    ch.factory(MaxLength);
 
 }(this, this.ch));

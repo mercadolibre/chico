@@ -6,12 +6,13 @@
     }
 
     /**
-     * String validates a given text as string.
-     * @name String
-     * @class String
+     * Price validates a number like the price format.
+     * @name Price
+     * @class Price
      * @interface
      * @augments ch.Controls
      * @augments ch.Validation
+     * @requires ch.Validation
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
      * @param {String} [conf.content] Validation message.
@@ -23,19 +24,19 @@
      * @see ch.Validation
      * @see ch.Required
      * @see ch.Custom
-     * @see ch.Number
+     * @see ch.String
      * @see ch.Validator
      * @see ch.Condition
-     * @exampleDescription Create a string validation
+     * @exampleDescription
      * @example
-     * $("input").string("This field must be a string.");
+     * $("input").price("Write valid price.");
      */
-    function String($el, options) {
+    function Price($el, options) {
 
         var opts = options || {};
 
         opts.condition = {
-            'name': 'string',
+            'name': 'price',
             'message': opts.content
         };
 
@@ -43,10 +44,10 @@
 
     }
 
-    String.prototype.name = 'string';
-    String.prototype.constructor = String;
-    String.prototype.preset = 'validation';
+    Price.prototype.name = 'price';
+    Price.prototype.constructor = Price;
+    Price.prototype.preset = 'validation';
 
-    ch.factory(String);
+    ch.factory(Price);
 
 }(this, this.ch));

@@ -53,9 +53,7 @@
     }
 
     Custom.prototype.name = 'custom';
-
     Custom.prototype.constructor = Custom;
-
     Custom.prototype.preset = 'validation';
 
     ch.factory(Custom);

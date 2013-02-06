@@ -6,12 +6,13 @@
     }
 
     /**
-     * String validates a given text as string.
-     * @name String
-     * @class String
+     * Email validates a correct email syntax.
+     * @name Email
+     * @class Email
      * @interface
      * @augments ch.Controls
      * @augments ch.Validation
+     * @requires ch.Validation
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
      * @param {String} [conf.content] Validation message.
@@ -26,16 +27,16 @@
      * @see ch.Number
      * @see ch.Validator
      * @see ch.Condition
-     * @exampleDescription Create a string validation
+     * @exampleDescription Create a email validation
      * @example
-     * $("input").string("This field must be a string.");
+     * $("input").email("This field must be a valid email.");
      */
-    function String($el, options) {
+    function Email($el, options) {
 
         var opts = options || {};
 
         opts.condition = {
-            'name': 'string',
+            'name': 'email',
             'message': opts.content
         };
 
@@ -43,10 +44,10 @@
 
     }
 
-    String.prototype.name = 'string';
-    String.prototype.constructor = String;
-    String.prototype.preset = 'validation';
+    Email.prototype.name = 'email';
+    Email.prototype.constructor = Email;
+    Email.prototype.preset = 'validation';
 
-    ch.factory(String);
+    ch.factory(Email);
 
 }(this, this.ch));
