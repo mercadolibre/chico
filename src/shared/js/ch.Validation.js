@@ -331,7 +331,7 @@
      * @returns boolean
      */
     Validation.prototype.hasError = function () {
-        var that,
+        var that = this,
             condition,
             tested,
             val,
