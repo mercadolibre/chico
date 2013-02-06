@@ -31,9 +31,9 @@
 				el,
 				i = 0;
 
-			function labelClick() {
+			function labelTap() {
 				el = document.getElementById(this.getAttribute('for'));
-				if (['radio', 'checkbox'].indexOf(el.getAttribute('type')) != -1) {
+				if (['radio', 'checkbox'].indexOf(el.getAttribute('type')) !== -1) {
 					el.setAttribute('selected', !el.getAttribute('selected'));
 				} else {
 					el.focus();
@@ -42,7 +42,7 @@
 
 			for (; labels[i]; i += 1) {
 				if (labels[i].getAttribute('for')) {
-					$(labels[i]).bind(ch.events.pointer.TAP, labelClick);
+					$(labels[i]).on(ch.events.pointer.TAP, labelTap);
 				}
 			}
 		},
@@ -92,6 +92,8 @@
 				// If there's a hash, or addEventListener is undefined, stop here
 				if( !window.location.hash && window.addEventListener ) {
 
+					var scrollTop = ch.util.getScroll().top;
+
 					//scroll to 1
 					window.scrollTo(0, 1);
 					ch.util.MBP.BODY_SCROLL_TOP = 1;
@@ -100,7 +102,7 @@
 					var bodycheck = setInterval(function () {
 						if(body) {
 							clearInterval(bodycheck);
-							ch.util.MBP.BODY_SCROLL_TOP = ch.util.getScrollTop();
+							ch.util.MBP.BODY_SCROLL_TOP = scrollTop;
 							ch.util.MBP.hideUrlBar();
 						}
 					}, 15 );
@@ -108,7 +110,7 @@
 					window.addEventListener('load', function() {
 						setTimeout(function () {
 							//at load, if user hasn't scrolled more than 20 or so...
-							if(ch.util.getScrollTop() < 20) {
+							if(scrollTop < 20) {
 								//reset to hide addr bar at onload
 								ch.util.MBP.hideUrlBar();
 							}
@@ -123,6 +125,7 @@
 				var formFields = $('input, select, textarea'),
 					contentString = 'width=device-width,initial-scale=1,maximum-scale=',
 					i = 0;
+
 				for (; i < formFields.length; i += 1) {
 
 					formFields[i].onfocus = function() {

@@ -92,7 +92,9 @@
         // Call to its parents init method
         parent.init.call(this, $el, options);
 
-        // Set the required abilities
+        /**
+         * Set required abilities
+         */
         this.require('Collapsible', 'Content');
 
         /**
