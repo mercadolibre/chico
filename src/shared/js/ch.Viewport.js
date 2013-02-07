@@ -34,7 +34,7 @@
         scrolled = false;
 
         // Emits the current event
-        //this.emit(eve);
+        this.emit(eve);
     }
 
     function Viewport() {
