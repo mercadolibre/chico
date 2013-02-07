@@ -21,25 +21,7 @@
 	 * @memberOf ch.events.layout
 	 * @type {String}
 	 */
-	events.layout.CHANGE = 'change';
-
-	/**
-	 * Viewport events collection.
-	 * @name viewport
-	 * @namespace
-	 * @memberOf ch.events
-	 */
-	events.viewport = {};
-
-	/**
-	 * Every time Chico UI needs to inform all visual components that window has been scrolled or resized, it emits this event.
-	 * @name CHANGE
-	 * @constant
-	 * @memberOf ch.events.viewport
-	 * @type {String}
-	 * @see ch.Positioner
-	 */
-	events.viewport.CHANGE = 'change';
+	events.layout.CHANGE = 'changeLayout';
 
 	/**
 	 * Pointer events collection.

@@ -66,7 +66,9 @@
     /**
      * Private members
      */
-    var $body = $('body'),
+    var $document = $(window.document),
+
+        $body = $('body'),
         /**
          * Inheritance
          */
@@ -97,7 +99,7 @@
 
         parent.init.call(this, $el, options);
 
-        this.require('Collapsible', 'Content', 'Closable', 'Positioner');
+        this.require('Collapsible', 'Content', 'Closable');
 
         var that = this,
             // Used to ARIA attributes
@@ -189,8 +191,11 @@
 
         //if(this.name === 'popover'){ console.log(this._options.reference, that.uid) }
 
+        // Configure Closable
+        this._closable();
+
         // Configure Positioner
-        this.position({
+        this.position = new ch.Positioner({
             'target': this.$container,
             'reference': this._options.reference,
             'side': this._options.side,
@@ -199,8 +204,12 @@
             'offsetY': this._options.offsetY
         });
 
-        // Configure Closable
-        this._closable();
+
+        $document.on(ch.events.layout.CHANGE, function () {
+            if (that._active) {
+                that.position.refresh();
+            }
+        });
     };
 
     /**

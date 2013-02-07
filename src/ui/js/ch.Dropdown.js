@@ -89,7 +89,7 @@
     Dropdown.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
 
-        this.require('Collapsible', 'Closable', 'Positioner');
+        this.require('Collapsible', 'Closable');
 
         /**
          * Private Members
@@ -174,9 +174,11 @@
             that.$trigger.addClass('ch-btn-skin ch-btn-small');
         }
 
+        ch.util.avoidTextSelection(this.$trigger);
+
         that._closable();
 
-        that.position({
+        that.position = new ch.Positioner({
             'target': that.$container,
             'reference': that.$trigger,
             'side': that._options.side,
@@ -185,10 +187,20 @@
             'offsetX': that._options.offsetX
         });
 
-        ch.util.avoidTextSelection(this.$trigger);
+        $document.on(ch.events.layout.CHANGE, function () {
+            if (that._active) {
+                that.position.refresh();
+            }
+        });
 
         return that;
     };
+
+    // Dropdown.prototype.position = function (options) {
+    //     this._positioner.refresh(options);
+
+    //     return this;
+    // };
 
     Dropdown.prototype.show = function () {
         var that = this;
