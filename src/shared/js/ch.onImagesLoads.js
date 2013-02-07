@@ -10,57 +10,32 @@
  * @example
  * $("img").onImagesLoads(callback);
  */
-(function (window, $, ch) {
-	'use strict';
+(function (window, ch) {
+    'use strict';
 
-	if (ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
-	function OnImagesLoads($el, conf) {
+    function onImagesLoads($el, callback) {
 
-		/**
-		 * Reference to a internal component instance, saves all the information and configuration properties.
-		 * @private
-		 * @name ch.onImagesLoads#that
-		 * @type object
-		 */
-		var that = this;
-		that.$element = $el;
-		that.element = $el[0];
-		that.type = 'onImagesLoads';
-		conf = conf || {};
+        $el
+            .one('load', function () {
+                window.setTimeout(function () {
+                    if (--$el.length <= 0) { callback.call($el); }
+                }, 200);
+            })
+            .each(function () {
+                // Cached images don't fire load sometimes, so we reset src.
+                if (this.complete || this.complete === undefined) {
+                    var src = this.src;
+                    // Data uri fix bug in web-kit browsers
+                    this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+                    this.src = src;
+                }
+            });
+    }
 
-		conf = ch.util.clone(conf);
-		that.conf = conf;
+    ch.onImagesLoads = onImagesLoads;
 
-		that.$element
-			// On load event
-			.one("load", function () {
-				window.setTimeout(function () {
-					if (--that.$element.length <= 0) {
-						that.conf.fn.call(that.$element, this);
-					}
-				}, 200);
-			})
-			// For each image
-			.each(function () {
-				// Cached images don't fire load sometimes, so we reset src.
-				if (this.complete || this.complete === undefined) {
-					var src = this.src;
-
-					// Data uri fix bug in web-kit browsers
-					this.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-					this.src = src;
-				}
-			});
-
-		return that;
-	}
-
-	OnImagesLoads.prototype.name = 'onImagesLoads';
-	OnImagesLoads.prototype.constructor = OnImagesLoads;
-
-	ch.factory(OnImagesLoads);
-
-}(this, this.jQuery, this.ch));
+}(this, this.ch));
