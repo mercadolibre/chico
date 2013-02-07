@@ -204,7 +204,6 @@
             'offsetY': this._options.offsetY
         });
 
-
         $document.on(ch.events.layout.CHANGE, function () {
             if (that._active) {
                 that.position.refresh();

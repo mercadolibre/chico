@@ -53,7 +53,8 @@
     /**
      * Inheritance
      */
-    var parent = ch.util.inherits(Expandable, ch.Widget);
+    var $document = $(window.document);
+        parent = ch.util.inherits(Expandable, ch.Widget);
 
     /**
      * Prototype
@@ -173,11 +174,19 @@
         });
 
         // Is it open by default?
-        if (this._options.open) {
-            this.show();
+        if (that._options.open) {
+            that.show();
         }
 
         ch.util.avoidTextSelection(that.$trigger);
+
+        that
+            .on('show', function () {
+                $document.trigger(ch.events.layout.CHANGE);
+            })
+            .on('hide', function () {
+                $document.trigger(ch.events.layout.CHANGE);
+            })
 
     };
 

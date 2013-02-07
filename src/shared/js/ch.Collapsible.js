@@ -28,13 +28,13 @@
             fx = that._options.fx;
 
         function showCallback() {
-            that.emit('show');
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
+            that.emit('show');
         }
 
         function hideCallback() {
-            that.emit('hide');
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
+            that.emit('hide');
         }
 
 		/**
