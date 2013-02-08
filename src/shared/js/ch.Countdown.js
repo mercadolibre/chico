@@ -108,7 +108,7 @@
         that._$message = $('<p class="ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>').appendTo($container);
 
         // Bind process function to element
-        that.$el.on('keyup keypress keydown paste cut', function () { that.update(); });
+        that.$el.on('keyup keypress keydown paste cut', function () { that._count(); });
     };
 
     /**
@@ -124,10 +124,10 @@
     /**
      * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
      * @public
-     * @name ch.Countdown#update
+     * @name ch.Countdown#_count
      * @function
      */
-    Countdown.prototype.update = function () {
+    Countdown.prototype._count = function () {
         var that = this,
             length = that._contentLength(),
             message;
