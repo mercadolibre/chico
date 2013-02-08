@@ -89,7 +89,7 @@
         'classes': 'ch-box-lite',
         'width': 'auto',
         'height': 'auto',
-        'open': 'click',
+        'open': 'click', // mouseenter
         'close': 'button-only'
     };
 
@@ -176,18 +176,16 @@
         });
 
         this.content.onmessage = function (data) {
-            that._$content.html(data);
+            that._$content.append(data);
             that.emit('contentLoad');
             that.position.refresh();
         };
 
         this.content.onerror = function (data) {
-            that._$content.html(data);
+            that._$content.append(data);
             that.emit('contentError');
             that.position.refresh();
         };
-
-        //if(this.name === 'popover'){ console.log(this._options.reference, that.uid) }
 
         // Configure Positioner
         this.position({
