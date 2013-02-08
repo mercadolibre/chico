@@ -44,7 +44,7 @@
 		 */
 		var name = Klass.prototype.name,
 			/**
-			 * Reference to the class name. When it's a interface, take its constructor name via the "interface" property.
+			 * Reference to the class name. When it's a interface, take its constructor name via the "preset" property.
 			 * @type {String}
 			 */
 			constructorName = Klass.prototype.preset || name;
