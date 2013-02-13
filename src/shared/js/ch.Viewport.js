@@ -42,8 +42,7 @@
         this.init();
     }
 
-    Viewport.prototype.constructor = Viewport;
-
+    ch.util.inherits(Viewport, ch.EventEmitter);
     Viewport.prototype.init = function () {
         var that = this;
 

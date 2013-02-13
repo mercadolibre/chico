@@ -27,6 +27,8 @@
 		return this;
 	}
 
+	ch.util.inherits(Widget, ch.EventEmitter);
+
 	Widget.prototype.name = 'widget';
 	Widget.prototype.constructor = Widget;
 
@@ -78,8 +80,6 @@
 		// Gets or creates the klass's instances map
 		ch.instances[this.name] = ch.instances[this.name] || {};
 		ch.instances[this.name][this.uid] = this;
-
-		this.require('EventEmitter');
 
 	};
 
