@@ -66,7 +66,9 @@
     /**
      * Private members
      */
-    var $body = $('body'),
+    var $document = $(window.document),
+
+        $body = $('body'),
         /**
          * Inheritance
          */
@@ -97,7 +99,7 @@
 
         parent.init.call(this, $el, options);
 
-        this.require('Collapsible', 'Content', 'Closable', 'Positioner');
+        this.require('Collapsible', 'Content', 'Closable');
 
         var that = this,
             // Used to ARIA attributes
@@ -187,8 +189,11 @@
             that.position.refresh();
         };
 
+        // Configure Closable
+        this._closable();
+
         // Configure Positioner
-        this.position({
+        this.position = new ch.Positioner({
             'target': this.$container,
             'reference': this._options.reference,
             'side': this._options.side,
@@ -197,8 +202,11 @@
             'offsetY': this._options.offsetY
         });
 
-        // Configure Closable
-        this._closable();
+        $document.on(ch.events.layout.CHANGE, function () {
+            if (that._active) {
+                that.position.refresh();
+            }
+        });
     };
 
     /**
@@ -209,15 +217,6 @@
      * @returns itself
      */
     Popover.prototype.show = function (content) {
-
-        // Close another opened widgets
-        // TODO: This "close !== none" conditional must be in ch.Closable.js
-        // for (uid in this._instances) {
-        //     if (this._instances[uid] !== undefined && uid !== that.uid && that._instances[uid]._options.close !== 'none') {
-        //         that._instances[uid].hide();
-        //     }
-        // }
-
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Open the collapsible
@@ -236,9 +235,7 @@
      * @returns itself
      */
     Popover.prototype.hide = function () {
-        //
         this._hide();
-        //
         return this;
     };
 
