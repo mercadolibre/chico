@@ -364,22 +364,45 @@
 	};
 
     /**
-     * Get the current vertical position of the scroll bar.
-     * @name getScrollTop
-     * @returns {Number}
+     * Get the current vertical and horizontal positions of the scroll bar.
+     * @name getScroll
+     * @returns {Object}
      */
-    util.getScrollTop = function () {
-        return window.pageYOffset || document.compatMode === 'CSS1Compat' && document.documentElement.scrollTop || body.scrollTop || body.scrollY || 0;
+    util.getScroll = function () {
+    	return {
+    		'left': window.pageXOffset || document.documentElement.scrollLeft || 0,
+    		'top': window.pageYOffset || document.documentElement.scrollTop || 0
+    	}
     };
 
     /**
-     * Get the current horizontal position of the scroll bar.
-     * @name getScrollLeft
-     * @returns {Number}
+     * Get the current outer dimensions of an element.
+     * @name getOuterDimensions
+     * @returns {Object}
      */
-    util.getScrollLeft = function () {
-        return window.pageXOffset || document.compatMode === 'CSS1Compat' && document.documentElement.scrollLeft || body.scrollLeft || body.scrollX || 0;
+	util.getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        }
     };
+
+    /**
+     * Get the current offset of an element.
+     * @name getOffset
+     * @returns {Object}
+     */
+	util.getOffset = function (el) {
+		var obj = el.getBoundingClientRect(),
+			scroll = util.getScroll();
+
+		return {
+			'left': obj.left + scroll.left,
+			'top': obj.top + scroll.top
+		}
+	};
 
 	/**
 	 * Reference to the vendor prefix of the current browser.

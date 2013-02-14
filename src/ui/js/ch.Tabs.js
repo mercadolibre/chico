@@ -326,7 +326,10 @@
 	Tab.prototype.init = function ($el, options) {
 		parent.init.call(this, $el, options);
 
-		this.require('Collapsible', 'Content');
+        /**
+         * Set required abilities
+         */
+        this.require('Collapsible', 'Content');
 
 		/**
 		 * Reference to a internal component instance, saves all the information and configuration properties.
@@ -382,9 +385,9 @@
 
 			that.$container.html(data);
 
-			that.controller.trigger("contentError", data);
+			that.controller.trigger('contentError', data);
 
-			if (ch.util.hasOwn(that._options, "onContentError")) {
+			if (ch.util.hasOwn(that._options, 'onContentError')) {
 				that._options.onContentError.call(that.controller, data.jqXHR, data.textStatus, data.errorThrown);
 			}
 		};
@@ -392,15 +395,15 @@
 		// Add the attributes for WAI-ARIA to the tabs and tabpanel
 		// By default is hidden
 		that.$container.attr({
-			"role": "tabpanel",
-			"aria-hidden": true,
-			"class": "ch-hide"
+			'role': 'tabpanel',
+			'aria-hidden': true,
+			'class': 'ch-hide'
 		});
 
 		that.$trigger.attr({
-			"role": "tab",
-			"arial-controls": that.$container.attr("id"),
-			"class": "ch-tab-trigger"
+			'role': 'tab',
+			'arial-controls': that.$container.attr('id'),
+			'class': 'ch-tab-trigger'
 		});
 
 		return that;
@@ -415,9 +418,9 @@
 	 */
 	Tab.prototype.createContent = function () {
 		var that = this,
-			href = that.el.href.split("#"),
-			controller = that.$el.parents(".ch-tabs"),
-			content = controller.find("#" + href[1]),
+			href = that.el.href.split('#'),
+			controller = that.$el.parents('.ch-tabs'),
+			content = controller.find('#' + href[1]),
             contentOptions;
 
 		// If there are a tabContent...
@@ -443,10 +446,10 @@
 
             that.content.configure(contentOptions);
 
-			var id = (href.length === 2) ? href[1] : "ch-tab-" + that.uid;
+			var id = (href.length === 2) ? href[1] : 'ch-tab-' + that.uid;
 
 			// Create tabContent
-			return $("<div id=\"" + id + "\" role=\"tabpanel\" class=\"ch-hide\">").appendTo(controller.children().eq(1));
+			return $('<div id="' + id + '" role="tabpanel" class="ch-hide">').appendTo(controller.children().eq(1));
 		}
 
 		return that;

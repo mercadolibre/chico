@@ -89,7 +89,7 @@
         'classes': 'ch-box-lite',
         'width': 'auto',
         'height': 'auto',
-        'open': 'click',
+        'open': 'click', // mouseenter
         'close': 'button-only'
     };
 
@@ -97,7 +97,7 @@
 
         parent.init.call(this, $el, options);
 
-        this.require('Collapsible', 'Content', 'Closable');
+        this.require('Collapsible', 'Content', 'Closable', 'Positioner');
 
         var that = this,
             // Used to ARIA attributes
@@ -176,21 +176,19 @@
         });
 
         this.content.onmessage = function (data) {
-            that._$content.html(data);
+            that._$content.append(data);
             that.emit('contentLoad');
             that.position.refresh();
         };
 
         this.content.onerror = function (data) {
-            that._$content.html(data);
+            that._$content.append(data);
             that.emit('contentError');
             that.position.refresh();
         };
 
-        //if(this.name === 'popover'){ console.log(this._options.reference, that.uid) }
-
         // Configure Positioner
-        this.position = new ch.Positioner({
+        this.position({
             'target': this.$container,
             'reference': this._options.reference,
             'side': this._options.side,
@@ -212,9 +210,6 @@
      */
     Popover.prototype.show = function (content) {
 
-        var that = this,
-            uid;
-
         // Close another opened widgets
         // TODO: This "close !== none" conditional must be in ch.Closable.js
         // for (uid in this._instances) {
@@ -225,10 +220,10 @@
 
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
-        // Request the content
-        this.content.set({'input': content});
         // Open the collapsible
         this._show();
+        // Request the content
+        this.content.set({'input': content});
 
         return this;
     };

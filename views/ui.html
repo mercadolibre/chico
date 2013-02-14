@@ -56,6 +56,10 @@
 			display: block;
 			margin:0 auto;
 		}
+
+		#bubble-box {
+			position: relative;
+		}
 	</style>
 </head>
 
@@ -648,7 +652,7 @@
 		</div>
 	</div>
 
-    <div class="ch-box-lite">
+    <div class="ch-box-lite" id="bubble-box">
         <h2>Validation Bubble</h2>
         <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
     </div>
@@ -1301,8 +1305,8 @@
 		// Dropdown
 		var dropdown = $(".myDropdown").dropdown();
 
+		// Calendar
 		var	calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
-		//var	calendar = $(".YOUR_SELECTOR_calendar").calendar({'from': 'today', 'selected': '2013/01/22'});
 
 		// Expandable
 		var expandable = $(".YOUR_SELECTOR_expandable").expandable();
@@ -1360,26 +1364,23 @@
 		// 	"suggestions": ["Apple","Beer","Bear","Bee","Custom","Country","Day","Date","Empire","Future"]
 		// });
 
-		// // Calendar
-		// var	calendar = $(".YOUR_SELECTOR_calendar").calendar({"from": "today"});
-
 		// Carousel
 		var carousel = $(".myCarousel").carousel({"pagination": true});
 		// var carousel = $.carousel($(".myCarousel"), {"pagination": true});
 
-		// // Countdown
-		// var	countdown = $("#text_cd").countdown(140);
+		// Countdown
+		var	countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
 
-		// // Date Picker
-		// var	datePicker = $("#val_date").datePicker({
-		// 	"selected": "2011/11/15",
-		// 	"to": "today"
-		// });
+		// Date Picker
+		var	datePicker = $("#val_date").datePicker({
+			"selected": "2011/11/15",
+			"to": "today"
+		});
 
-		// var	datePicker2 = $("#val_date2").datePicker({
-		// 	"selected": "2011/11/15",
-		// 	"to": "today"
-		// });
+		var	datePicker2 = $("#val_date2").datePicker({
+			"selected": "2011/11/15",
+			"to": "today"
+		});
 
 		// Layer
 		var layer1 = $('#layer1').layer('foo');

@@ -45,6 +45,10 @@
 			margin-bottom: 20px;
 
 		}
+
+		#bubble-box {
+			position: relative;
+		}
 	</style>
 </head>
 <body>
@@ -75,7 +79,9 @@
 				<li><a href="#expandable">Expandable</a></li>
 				<li><a href="#menu">Menu</a></li>
 				<li><a href="#forms">Forms</a></li>
-				<li><a href="#icons">Icons</a></li>
+                <li><a href="#icons">Icons</a></li>
+                <li><a href="#countdown">Countdown</a></li>
+				<li><a href="#calendar">Calendar</a></li>
 			</ul>
 			<h2 id="headers">Headers</h2>
 			<div class="ch-header">
@@ -440,7 +446,7 @@
                 </div>
             </div>
 
-            <div class="ch-box-lite" id="bubble">
+            <div class="ch-box-lite" id="bubble-box">
                 <h2>Validation Bubble</h2>
                 <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
             </div>
@@ -808,6 +814,21 @@
 		</div>
 	</div>
 
+    <div class="ch-box-lite" id="countdown">
+        <h2>Countdown</h2>
+        <form action="/ajax.html" class="YOUR_SELECTOR_Formcountdown ch-form">
+            <p class="ch-form-row">
+                <label for="val_date">Text:</label>
+                <textarea id="text_cd" cols="35" rows="4" class="myCountdown"></textarea>
+            </p>
+        </form>
+    </div>
+
+    <div class="ch-box-lite" id="calendar">
+        <h2>Calendar</h2>
+        <div class="YOUR_SELECTOR_calendar"></div>
+    </div>
+
 	<div id="make-answer">
 		<div class="ch-header-skin">
 			<h1>Pregunta</h1>
@@ -824,9 +845,11 @@
 	<script src="/mobile/js"></script>
 	<script>
 
-		// var expandable = $('.categories').expandable();
-		// var menu = $('.myMenu').menu();
-		// var accordion = $('.YOUR_SELECTOR_Accordion').accordion();
+        // Calendar
+        var calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
+
+        // Countdown
+        var countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
 
         // Tooltip
         // Bottom

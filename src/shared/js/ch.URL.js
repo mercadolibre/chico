@@ -6,12 +6,13 @@
     }
 
     /**
-     * String validates a given text as string.
-     * @name String
-     * @class String
+     * Url validates URL syntax.
+     * @name Url
+     * @class Url
      * @interface
      * @augments ch.Controls
      * @augments ch.Validation
+     * @requires ch.Validation
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
      * @param {String} [conf.content] Validation message.
@@ -26,16 +27,16 @@
      * @see ch.Number
      * @see ch.Validator
      * @see ch.Condition
-     * @exampleDescription Create a string validation
+     * @exampleDescription Create a URL validation
      * @example
-     * $("input").string("This field must be a string.");
+     * $("input").url("This field must be a valid URL.");
      */
-    function String($el, options) {
+    function URL($el, options) {
 
         var opts = options || {};
 
         opts.condition = {
-            'name': 'string',
+            'name': 'url',
             'message': opts.content
         };
 
@@ -43,10 +44,10 @@
 
     }
 
-    String.prototype.name = 'string';
-    String.prototype.constructor = String;
-    String.prototype.preset = 'validation';
+    URL.prototype.name = 'url';
+    URL.prototype.constructor = URL;
+    URL.prototype.preset = 'validation';
 
-    ch.factory(String);
+    ch.factory(URL);
 
 }(this, this.ch));
