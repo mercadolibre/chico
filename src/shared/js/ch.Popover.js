@@ -69,9 +69,7 @@
     var $document = $(window.document),
 
         $body = $('body'),
-        /**
-         * Inheritance
-         */
+
         parent = ch.util.inherits(Popover, ch.Widget),
 
         openEvent = {
@@ -91,7 +89,7 @@
         'classes': 'ch-box-lite',
         'width': 'auto',
         'height': 'auto',
-        'open': 'click', // mouseenter
+        'open': 'click',
         'close': 'button-only'
     };
 
@@ -104,9 +102,6 @@
         var that = this,
             // Used to ARIA attributes
             id = ['ch', this.name, this.uid].join('-');
-
-        // Grab the instances map to close all sibling on show
-        this._instances = ch.instances[this.name];
 
         /**
          * Inner function that resolves the component's layout and returns a static reference.
@@ -126,10 +121,6 @@
                 'height': this._options.height
             });
 
-        this.on('hide', function () {
-            that.$container.remove(null, true);
-        });
-
         /**
          * Inner reference to content container. Here is where the content will be added.
          * @protected
@@ -139,7 +130,9 @@
          */
         this._$content = $('<div class="ch-popover-content">').appendTo(this.$container);
 
-        // Add functionality to the trigger if it exists
+        /**
+         * Trigger: Add functionality to the trigger if it exists
+         */
         if (this.$el !== undefined) {
 
             // Set WAI-ARIA to the main element
@@ -158,8 +151,8 @@
                 this._options.reference = this.$el;
             }
 
-            // Use the "title" or "alt" attributes when a content was not defined
-            if (this._options.content === undefined) {
+            if (this._options.content === undefined && (this.el.title || this.el.alt)) {
+                // Use the "title" or "alt" attributes when a content was not defined
                 this._options.content = this.el.title || this.el.alt;
                 // Keep the attributes content into the element for possible usage
                 this.el.setAttribute('data-title', this._options.content);
@@ -168,7 +161,9 @@
             }
         }
 
-        // Configure Content
+        /**
+         * Configure abilities
+         */
         this.content.configure({
             'input': this._options.content,
             'method': this._options.method,
@@ -189,10 +184,8 @@
             that.position.refresh();
         };
 
-        // Configure Closable
         this._closable();
 
-        // Configure Positioner
         this.position = new ch.Positioner({
             'target': this.$container,
             'reference': this._options.reference,
@@ -202,10 +195,17 @@
             'offsetY': this._options.offsetY
         });
 
+        /**
+         * Bind behaviors
+         */
         $document.on(ch.events.layout.CHANGE, function () {
             if (that._active) {
                 that.position.refresh();
             }
+        });
+
+        this.on('hide', function () {
+            that.$container.remove(null, true);
         });
     };
 
@@ -222,7 +222,9 @@
         // Open the collapsible
         this._show();
         // Request the content
-        this.content.set({'input': content});
+        this.content.set({
+            'input': content
+        });
 
         return this;
     };
@@ -235,7 +237,9 @@
      * @returns itself
      */
     Popover.prototype.hide = function () {
+
         this._hide();
+
         return this;
     };
 
