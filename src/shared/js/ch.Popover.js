@@ -95,13 +95,11 @@
 
     Popover.prototype.init = function ($el, options) {
 
+        var that = this;
+
         parent.init.call(this, $el, options);
 
         this.require('Collapsible', 'Content', 'Closable');
-
-        var that = this,
-            // Used to ARIA attributes
-            id = ['ch', this.name, this.uid].join('-');
 
         /**
          * Inner function that resolves the component's layout and returns a static reference.
@@ -109,17 +107,14 @@
          * @name ch.Floats#$container
          * @type jQuery
          */
-        this.$container = $('<div>')
-            .addClass('ch-popover ch-hide ' + this._options.classes)
-            .attr({
-                'role': 'tooltip',
-                'id': id
-            })
-            .css({
-                'z-index': (ch.util.zIndex += 1),
-                'width': this._options.width,
-                'height': this._options.height
-            });
+        this.$container = $([
+            '<div',
+            ' class="ch-popover ch-hide ' + this._options.classes + '"',
+            ' role="tooltip"',
+            ' id="ch-' + this.name + '-' + this.uid + '"',
+            ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
+            '>'
+        ].join());
 
         /**
          * Inner reference to content container. Here is where the content will be added.
@@ -133,40 +128,7 @@
         /**
          * Trigger: Add functionality to the trigger if it exists
          */
-        if (this.$el !== undefined) {
-
-            // Set WAI-ARIA to the main element
-            this.$el.attr('aria-describedby', id);
-
-            // Bind the open event when configured as openable
-            if (this._options.open !== 'none' && this._options.open !== false) {
-                this.$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
-                    ch.util.prevent(event);
-                    that.show();
-                });
-            }
-
-            // Use the trigger as the positioning reference
-            if (this._options.reference === undefined) {
-                this._options.reference = this.$el;
-            }
-
-            if (this._options.content === undefined) {
-                // Use the link href or the form action
-                if (this.el.href || this.$el.parents('form').length > 0) {
-                    // Set the configuration parameter
-                    this._options.content = this.el.href || this.$el.parents('form')[0].action;
-                // Use the "title" or "alt" attributes when a content was not defined
-                } else if (this.el.title || this.el.alt) {
-                    // Set the configuration parameter
-                    this._options.content = this.el.title || this.el.alt;
-                    // Keep the attributes content into the element for possible usage
-                    this.el.setAttribute('data-title', this._options.content);
-                    // Avoid to trigger the native tooltip
-                    this.el.title = this.el.alt = '';
-                }
-            }
-        }
+        if (this.el !== undefined) { this.configureTrigger(); }
 
         /**
          * Configure abilities
@@ -214,6 +176,47 @@
         this.on('hide', function () {
             that.$container.remove(null, true);
         });
+    };
+
+    /**
+     *
+     *
+     */
+    Popover.prototype.configureTrigger = function () {
+
+        var that = this;
+
+        // Add ARIA
+        this.el.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this.uid);
+        // Use the trigger as the positioning reference
+        this._options.reference = this._options.reference || this.$el;
+
+        // Open event when configured as openable
+        if (this._options.open !== 'none' && this._options.open !== false) {
+            this.$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
+                ch.util.prevent(event);
+                that.show();
+            });
+        }
+
+        // Get a content if it's not defined
+        if (this._options.content === undefined) {
+            // Content from anchor href
+            if (this.el.href) {
+                this._options.content = this.el.href;
+            // Content from form action
+            } else if (this.$el.parents('form').length > 0) {
+                this._options.content = this.$el.parents('form')[0].action;
+            // Content from title or alt
+            } else if (this.el.title || this.el.alt) {
+                // Set the configuration parameter
+                this._options.content = this.el.title || this.el.alt;
+                // Keep the attributes content into the element for possible usage
+                this.el.setAttribute('data-title', this._options.content);
+                // Avoid to trigger the native tooltip
+                this.el.title = this.el.alt = '';
+            }
+        }
     };
 
     /**
