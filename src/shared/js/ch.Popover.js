@@ -151,13 +151,20 @@
                 this._options.reference = this.$el;
             }
 
-            if (this._options.content === undefined && (this.el.title || this.el.alt)) {
+            if (this._options.content === undefined) {
+                // Use the link href or the form action
+                if (this.el.href || this.$el.parents('form').length > 0) {
+                    // Set the configuration parameter
+                    this._options.content = this.el.href || this.$el.parents('form')[0].action;
                 // Use the "title" or "alt" attributes when a content was not defined
-                this._options.content = this.el.title || this.el.alt;
-                // Keep the attributes content into the element for possible usage
-                this.el.setAttribute('data-title', this._options.content);
-                // Avoid to trigger the native tooltip
-                this.el.title = this.el.alt = '';
+                } else if (this.el.title || this.el.alt) {
+                    // Set the configuration parameter
+                    this._options.content = this.el.title || this.el.alt;
+                    // Keep the attributes content into the element for possible usage
+                    this.el.setAttribute('data-title', this._options.content);
+                    // Avoid to trigger the native tooltip
+                    this.el.title = this.el.alt = '';
+                }
             }
         }
 
@@ -173,13 +180,13 @@
         });
 
         this.content.onmessage = function (data) {
-            that._$content.append(data);
+            that._$content.html(data);
             that.emit('contentLoad');
             that.position.refresh();
         };
 
         this.content.onerror = function (data) {
-            that._$content.append(data);
+            that._$content.html(data);
             that.emit('contentError');
             that.position.refresh();
         };
