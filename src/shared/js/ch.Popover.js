@@ -69,9 +69,7 @@
     var $document = $(window.document),
 
         $body = $('body'),
-        /**
-         * Inheritance
-         */
+
         parent = ch.util.inherits(Popover, ch.Widget),
 
         openEvent = {
@@ -97,16 +95,11 @@
 
     Popover.prototype.init = function ($el, options) {
 
+        var that = this;
+
         parent.init.call(this, $el, options);
 
         this.require('Collapsible', 'Content', 'Closable');
-
-        var that = this,
-            // Used to ARIA attributes
-            id = ['ch', this.name, this.uid].join('-');
-
-        // Grab the instances map to close all sibling on show
-        this._instances = ch.instances[this.name];
 
         /**
          * Inner function that resolves the component's layout and returns a static reference.
@@ -114,21 +107,14 @@
          * @name ch.Floats#$container
          * @type jQuery
          */
-        this.$container = $('<div>')
-            .addClass('ch-popover ch-hide ' + this._options.classes)
-            .attr({
-                'role': 'tooltip',
-                'id': id
-            })
-            .css({
-                'z-index': (ch.util.zIndex += 1),
-                'width': this._options.width,
-                'height': this._options.height
-            });
-
-        this.on('hide', function () {
-            that.$container.remove(null, true);
-        });
+        this.$container = $([
+            '<div',
+            ' class="ch-popover ch-hide ' + this._options.classes + '"',
+            ' role="tooltip"',
+            ' id="ch-' + this.name + '-' + this.uid + '"',
+            ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
+            '>'
+        ].join());
 
         /**
          * Inner reference to content container. Here is where the content will be added.
@@ -139,36 +125,14 @@
          */
         this._$content = $('<div class="ch-popover-content">').appendTo(this.$container);
 
-        // Add functionality to the trigger if it exists
-        if (this.$el !== undefined) {
+        /**
+         * Trigger: Add functionality to the trigger if it exists
+         */
+        if (this.el !== undefined) { this.configureTrigger(); }
 
-            // Set WAI-ARIA to the main element
-            this.$el.attr('aria-describedby', id);
-
-            // Bind the open event when configured as openable
-            if (this._options.open !== 'none' && this._options.open !== false) {
-                this.$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
-                    ch.util.prevent(event);
-                    that.show();
-                });
-            }
-
-            // Use the trigger as the positioning reference
-            if (this._options.reference === undefined) {
-                this._options.reference = this.$el;
-            }
-
-            // Use the "title" or "alt" attributes when a content was not defined
-            if (this._options.content === undefined) {
-                this._options.content = this.el.title || this.el.alt;
-                // Keep the attributes content into the element for possible usage
-                this.el.setAttribute('data-title', this._options.content);
-                // Avoid to trigger the native tooltip
-                this.el.title = this.el.alt = '';
-            }
-        }
-
-        // Configure Content
+        /**
+         * Configure abilities
+         */
         this.content.configure({
             'input': this._options.content,
             'method': this._options.method,
@@ -189,12 +153,8 @@
             that.position.refresh();
         };
 
-        //if(this.name === 'popover'){ console.log(this._options.reference, that.uid) }
-
-        // Configure Closable
         this._closable();
 
-        // Configure Positioner
         this.position = new ch.Positioner({
             'target': this.$container,
             'reference': this._options.reference,
@@ -204,11 +164,59 @@
             'offsetY': this._options.offsetY
         });
 
+        /**
+         * Bind behaviors
+         */
         $document.on(ch.events.layout.CHANGE, function () {
             if (that._active) {
                 that.position.refresh();
             }
         });
+
+        this.on('hide', function () {
+            that.$container.remove(null, true);
+        });
+    };
+
+    /**
+     *
+     *
+     */
+    Popover.prototype.configureTrigger = function () {
+
+        var that = this;
+
+        // Add ARIA
+        this.el.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this.uid);
+        // Use the trigger as the positioning reference
+        this._options.reference = this._options.reference || this.$el;
+
+        // Open event when configured as openable
+        if (this._options.open !== 'none' && this._options.open !== false) {
+            this.$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
+                ch.util.prevent(event);
+                that.show();
+            });
+        }
+
+        // Get a content if it's not defined
+        if (this._options.content === undefined) {
+            // Content from anchor href
+            if (this.el.href) {
+                this._options.content = this.el.href;
+            // Content from form action
+            } else if (this.$el.parents('form').length > 0) {
+                this._options.content = this.$el.parents('form')[0].action;
+            // Content from title or alt
+            } else if (this.el.title || this.el.alt) {
+                // Set the configuration parameter
+                this._options.content = this.el.title || this.el.alt;
+                // Keep the attributes content into the element for possible usage
+                this.el.setAttribute('data-title', this._options.content);
+                // Avoid to trigger the native tooltip
+                this.el.title = this.el.alt = '';
+            }
+        }
     };
 
     /**
@@ -219,21 +227,14 @@
      * @returns itself
      */
     Popover.prototype.show = function (content) {
-
-        // Close another opened widgets
-        // TODO: This "close !== none" conditional must be in ch.Closable.js
-        // for (uid in this._instances) {
-        //     if (this._instances[uid] !== undefined && uid !== that.uid && that._instances[uid]._options.close !== 'none') {
-        //         that._instances[uid].hide();
-        //     }
-        // }
-
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Open the collapsible
         this._show();
         // Request the content
-        this.content.set({'input': content});
+        this.content.set({
+            'input': content
+        });
 
         return this;
     };
@@ -246,9 +247,9 @@
      * @returns itself
      */
     Popover.prototype.hide = function () {
-        //
+
         this._hide();
-        //
+
         return this;
     };
 
