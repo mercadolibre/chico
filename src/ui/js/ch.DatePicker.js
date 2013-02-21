@@ -86,8 +86,9 @@
     DatePicker.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
 
-        var that = this,
-            $popover = $('<i role="button" class="ch-datePicker-trigger ch-icon-calendar"></i>').insertAfter(this.el);
+        var that = this;
+
+        this.$trigger = $('<i role="button" class="ch-datePicker-trigger ch-icon-calendar"></i>').insertAfter(this.el);
 
         /**
          * Reference to the Calendar component instance.
@@ -103,12 +104,12 @@
          * @type Object
          * @name ch.DatePicker#float
          */
-        this.bubble = $popover.popover({
+        this.bubble = this.$trigger.popover({
             'content': this.calendar.$el,
             'side': this._options.side,
             'align': this._options.align,
-            'offsetX': '-1',
-            'offsetY': '8',
+            'offsetX': -1,
+            'offsetY': 8,
             'aria': {
                 'role': 'tooltip'
             },
@@ -128,9 +129,9 @@
         this.el.value = (this._options.selected) ? this.calendar.select() : this.el.value;
 
         // Add show behaivor to float's trigger.
-        this.bubble.$el.on('click', function (event) {
-            that.bubble.show(event);
-        });
+        // this.bubble.$el.on('click', function (event) {
+        //     that.bubble.show(event);
+        // });
 
         return this;
 
