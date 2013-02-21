@@ -223,9 +223,9 @@
         var that = this,
             options = that._options;
 
-        that._date.today = createDateObject();
+        this._date.today = createDateObject();
 
-        that._date.current = that._date.today;
+        this._date.current = this._date.today;
 
         /**
          * Date of selected day.
@@ -233,10 +233,10 @@
          * @name ch.Calendar-selected
          * @type Object
          */
-        that._date.selected = (function () {
+        this._date.selected = (function () {
 
             // Get date from configuration or input value
-            var sel = that._options.selected || that._options.content;
+            var sel = options.selected || options.content;
 
             // Do it only if there are a "selected" parameter
             if (!sel) { return sel; }
@@ -265,10 +265,10 @@
         }());
 
         // Today's date object
-        that._date.today = createDateObject();
+        this._date.today = createDateObject();
 
         // Minimum selectable date
-        that._date.range.from = (function () {
+        this._date.range.from = (function () {
 
             // Only works when there are a "from" parameter on configuration
             if (!ch.util.hasOwn(options, 'from') || !options.from) { return; }
@@ -279,7 +279,7 @@
         }());
 
         // Maximum selectable date
-        that._date.range.to = (function () {
+        this._date.range.to = (function () {
 
             // Only works when there are a "to" parameter on configuration
             if (!ch.util.hasOwn(options, 'to') || !options.to) { return; }
@@ -291,16 +291,16 @@
 
         // Show or hide arrows depending on "from" and "to" limits
 
-        that._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).bind('click', function (event) { ch.util.prevent(event); that.prev('month'); });
-        that._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).bind('click', function (event) { ch.util.prevent(event); that.next('month'); });
+        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).bind('click', function (event) { ch.util.prevent(event); that.prev('month'); });
+        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).bind('click', function (event) { ch.util.prevent(event); that.next('month'); });
 
-        that.$el
+        this.$el
             .addClass('ch-calendar')
-            .prepend(that._$prev)
-            .prepend(that._$next)
-            .append(this._createTemplate(that._date.current));
+            .prepend(this._$prev)
+            .prepend(this._$next)
+            .append(this._createTemplate(this._date.current));
 
-        that._updateControls(that);
+        this._updateControls();
 
         // Avoid selection on the component
         ch.util.avoidTextSelection(that.$el);
@@ -330,27 +330,26 @@
      * @function
      */
     Calendar.prototype._updateControls = function () {
-        var that = this;
 
         // "From" limit
-        if (that._date.range.from) {
+        if (this._date.range.from) {
             // Hide previous arrow when it's out of limit
-            if (that._date.range.from.month >= that._date.current.month && that._date.range.from.year >= that._date.current.year) {
-                that._$prev.addClass('ch-hide').attr('aria-hidden', 'true');
+            if (this._date.range.from.month >= this._date.current.month && this._date.range.from.year >= this._date.current.year) {
+                this._$prev.addClass('ch-hide').attr('aria-hidden', 'true');
             // Show previous arrow when it's out of limit
             } else {
-                that._$prev.removeClass('ch-hide').attr('aria-hidden', 'false');
+                this._$prev.removeClass('ch-hide').attr('aria-hidden', 'false');
             }
         }
 
         // "To" limit
-        if (that._date.range.to) {
+        if (this._date.range.to) {
             // Hide next arrow when it's out of limit
-            if (that._date.range.to.month <= that._date.current.month && that._date.range.to.year <= that._date.current.year) {
-                that._$next.addClass('ch-hide').attr('aria-hidden', 'true');
+            if (this._date.range.to.month <= this._date.current.month && this._date.range.to.year <= this._date.current.year) {
+                this._$next.addClass('ch-hide').attr('aria-hidden', 'true');
             // Show next arrow when it's out of limit
             } else {
-                that._$next.removeClass('ch-hide').attr('aria-hidden', 'false');
+                this._$next.removeClass('ch-hide').attr('aria-hidden', 'false');
             }
         }
 
@@ -365,20 +364,17 @@
      * @param date {String} Date to be selected.
      */
     Calendar.prototype._updateTemplate = function (date) {
-            var that = this;
-
             // Update "currentDate" object
-            that._date.current = (typeof date === 'string') ? createDateObject(date) : date;
+            this._date.current = (typeof date === 'string') ? createDateObject(date) : date;
 
             // Delete old table
-            that.$el.children('table').remove();
+            this.$el.children('table').remove();
 
             // Append new table to content
-            that.$el.append(this._createTemplate(that._date.current));
+            this.$el.append(this._createTemplate(this._date.current));
 
             // Refresh arrows
-            that._updateControls();
-
+            this._updateControls();
     };
 
     /**
@@ -528,22 +524,21 @@
      * @return Boolean
      */
     Calendar.prototype._date.isSelected = function (year, month, day) {
-        var that = this,
-            yepnope;
+        var yepnope;
 
-        if (!that.selected) { return; }
+        if (!this.selected) { return; }
 
         yepnope = false;
 
         // Simple selection
-        if (!ch.util.isArray(that.selected)) {
-            if (year === that.selected.year && month === that.selected.month && day === that.selected.day) {
+        if (!ch.util.isArray(this.selected)) {
+            if (year === this.selected.year && month === this.selected.month && day === this.selected.day) {
                 yepnope = true;
                 return yepnope;
             }
         // Multiple selection (ranges)
         } else {
-            $.each(that.selected, function (i, e) {
+            $.each(this.selected, function (i, e) {
                 // Simple date
                 if (!ch.util.isArray(e)) {
                     if (year === e.year && month === e.month && day === e.day) {
@@ -586,22 +581,20 @@
      * @return itself
      */
     Calendar.prototype.select = function (date) {
-        var that = this;
-
         // Getter
         if (!date) {
-            if (that._date.selected === undefined) {
+            if (this._date.selected === undefined) {
                 return;
             }
-            return FORMAT_DATE[that._options.format](that._date.selected);
+            return FORMAT_DATE[this._options.format](this._date.selected);
         }
 
         // Setter
         // Update selected date
-        that._date.selected = (date === 'today') ? that._date.today : createDateObject(date);
+        this._date.selected = (date === 'today') ? this._date.today : createDateObject(date);
 
         // Create a new table of selected month
-        this._updateTemplate(that._date.selected);
+        this._updateTemplate(this._date.selected);
 
         /**
          * It triggers a callback when a date is selected.
@@ -614,9 +607,9 @@
          *   widget.action();
          * });
          */
-        that.emit('select');
+        this.emit('select');
 
-        return that;
+        return this;
 
     };
 
@@ -635,12 +628,11 @@
             throw new window.Error('ch.Calendar.selectDay(day): day parameter is required and must be a number or string.');
         }
 
-        var that = this,
-            date = [that._date.current.year, that._date.current.month, day].join('/');
+        var date = [this._date.current.year, this._date.current.month, day].join('/');
 
-        that.select(date);
+        this.select(date);
 
-        return FORMAT_DATE[that._options.format](createDateObject(date));
+        return FORMAT_DATE[this._options.format](createDateObject(date));
 
     };
 
@@ -666,12 +658,11 @@
      * @default Next month
      */
     Calendar.prototype.next = function (time) {
-        var that = this;
 
         switch (time) {
         case 'year':
             // Create a new table of selected month
-            this._updateTemplate([that._date.current.year + 1, that._date.current.month, '01'].join('/'));
+            this._updateTemplate([this._date.current.year + 1, this._date.current.month, '01'].join('/'));
 
             /**
              * It triggers a callback when a next year is shown.
@@ -684,19 +675,19 @@
              *   sowidget.action();
              * });
              */
-            that.emit('nextYear');
+            this.emit('nextYear');
             break;
         case 'month':
         case undefined:
         default:
             // Next year
-            if (that._date.current.month === 12) {
-                that._date.current.month = 0;
-                that._date.current.year += 1;
+            if (this._date.current.month === 12) {
+                this._date.current.month = 0;
+                this._date.current.year += 1;
             }
 
             // Create a new table of selected month
-            this._updateTemplate([that._date.current.year, that._date.current.month + 1, '01'].join('/'));
+            this._updateTemplate([this._date.current.year, this._date.current.month + 1, '01'].join('/'));
 
             /**
              * It triggers a callback when a next month is shown.
@@ -709,11 +700,11 @@
              *   sowidget.action();
              * });
              */
-            that.emit('nextMonth');
+            this.emit('nextMonth');
             break;
         }
 
-        return that;
+        return this;
     };
 
     /**
@@ -726,12 +717,11 @@
      * @default Previous month
      */
     Calendar.prototype.prev = function (time) {
-        var that = this;
 
         switch (time) {
         case 'year':
             // Create a new table of selected month
-            this._updateTemplate([that._date.current.year - 1, that._date.current.month, '01'].join('/'));
+            this._updateTemplate([this._date.current.year - 1, this._date.current.month, '01'].join('/'));
 
             /**
              * It triggers a callback when a previous year is shown.
@@ -744,7 +734,7 @@
              *   sowidget.action();
              * });
              */
-            that.emit('prevYear');
+            this.emit('prevYear');
             break;
         case 'month':
         case undefined:
@@ -752,13 +742,13 @@
 
 
             // Previous year
-            if (that._date.current.month === 1) {
-                that._date.current.month = 13;
-                that._date.current.year -= 1;
+            if (this._date.current.month === 1) {
+                this._date.current.month = 13;
+                this._date.current.year -= 1;
             }
 
             // Create a new table of selected month
-            this._updateTemplate([that._date.current.year, that._date.current.month - 1, '01'].join('/'));
+            this._updateTemplate([this._date.current.year, this._date.current.month - 1, '01'].join('/'));
 
             /**
              * It triggers a callback when a previous month is shown.
@@ -771,7 +761,7 @@
              *   sowidget.action();
              * });
              */
-            that.emit('prevMonth');
+            this.emit('prevMonth');
             break;
         }
 
@@ -801,11 +791,9 @@
      * @return itself
      */
     Calendar.prototype.from = function (date) {
-        var that = this;
         // this from is a reference to the global form
-        that._date.range.from = createDateObject(date);
-        this._updateTemplate(that._date.current);
-
+        this._date.range.from = createDateObject(date);
+        this._updateTemplate(this._date.current);
         return this;
     };
 
@@ -819,11 +807,9 @@
      * @return itself
      */
     Calendar.prototype.to = function (date) {
-        var that = this;
         // this to is a reference to the global to
-        that._date.range.to = createDateObject(date);
-        this._updateTemplate(that._date.current);
-
+        this._date.range.to = createDateObject(date);
+        this._updateTemplate(this._date.current);
         return this;
     };
 
