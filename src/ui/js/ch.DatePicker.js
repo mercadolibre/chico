@@ -155,11 +155,11 @@
         }
 
         /**
-        * Callback function
-        * @public
-        * @name ch.DatePicker#select
-        * @event
-        */
+         * Callback function
+         * @public
+         * @name ch.DatePicker#select
+         * @event
+         */
         this.emit('select');
     };
 
@@ -176,6 +176,14 @@
     DatePicker.prototype.show = function () {
         this._popover.show();
 
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#show
+         * @event
+         */
+        this.emit('show');
+
         return this;
     };
 
@@ -191,6 +199,14 @@
      */
     DatePicker.prototype.hide = function () {
         this._popover.hide();
+
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#hide
+         * @event
+         */
+        this.emit('hide');
 
         return this;
     };
@@ -243,6 +259,14 @@
     DatePicker.prototype.next = function (time) {
         this._calendar.next(time);
 
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#next
+         * @event
+         */
+        this.emit('next');
+
         return this;
     };
 
@@ -258,6 +282,14 @@
     DatePicker.prototype.prev = function (time) {
         this._calendar.prev(time);
 
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#next
+         * @event
+         */
+        this.emit('prev');
+
         return this;
     };
 
@@ -272,6 +304,14 @@
         // Delete input value
         this.el.value = '';
         this._calendar.reset();
+
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#next
+         * @event
+         */
+        this.emit('reset');
 
         return this;
     };
