@@ -48,7 +48,7 @@
          */
         var that = this;
 
-        that.init($el, options);
+        this.init($el, options);
 
         /**
          * Triggers when the component is ready to use (Since 0.8.0).
@@ -118,9 +118,11 @@
             'close': this._options.close
         });
 
-        this._popover._$content.on('click', function (event) { that._pick(event); });
+        this._popover._$content.on(ch.events.pointer.TAP, function (event) {
+            that._pick(event.target);
+        });
 
-        this.el.setAttribute('aria-describedby', 'ch-' + this.type + '-' + this._popover.uid);
+        this.el.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this._popover.uid);
 
         // Change type of input to "text"
         this.el.type = 'text';
@@ -137,18 +139,20 @@
      * @function
      * @name ch.DatePicker#_pick
      */
-    DatePicker.prototype._pick = function (event) {
+    DatePicker.prototype._pick = function (target) {
         // Day selection
-        if (event.target.nodeName !== 'TD' || event.target.className.indexOf('ch-calendar-disabled') !== -1 || event.target.className.indexOf('ch-calendar-other') !== -1) {
+        if (target.nodeName !== 'TD' || target.className.indexOf('ch-calendar-disabled') !== -1 || target.className.indexOf('ch-calendar-other') !== -1) {
             return;
         }
 
         // Select the day and update input value with selected date
 
-        this.el.value = this._calendar.selectDay(event.target.innerHTML);
+        this.el.value = this._calendar.selectDay(target.innerHTML);
 
         // Hide float
-        if (this._options.close) { this._popover.hide(); }
+        if (this._options.close) {
+            this._popover.hide();
+        }
 
         /**
         * Callback function
@@ -202,6 +206,7 @@
     */
     DatePicker.prototype.select = function (date) {
         // Select the day and update input value with selected date
+
         // Setter
         if (date) {
             this._calendar.select(date);
