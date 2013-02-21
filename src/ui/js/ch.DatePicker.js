@@ -96,7 +96,7 @@
          * @type Object
          * @name ch.DatePicker#calendar
          */
-        this.calendar = $('<div>').calendar(options);
+        this._calendar = $('<div>').calendar(options);
 
         /**
          * Reference to the Float component instanced.
@@ -104,8 +104,8 @@
          * @type Object
          * @name ch.DatePicker#float
          */
-        this.bubble = this.$trigger.popover({
-            'content': this.calendar.$el,
+        this._popover = this.$trigger.popover({
+            'content': this._calendar.$el,
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': -1,
@@ -118,23 +118,17 @@
             'close': this._options.close
         });
 
-        this.bubble._$content.on('click', function (event) { that._pick(event); });
+        this._popover._$content.on('click', function (event) { that._pick(event); });
 
-        this.el.setAttribute('aria-describedby', 'ch-' + this.type + '-' + this.bubble.uid);
+        this.el.setAttribute('aria-describedby', 'ch-' + this.type + '-' + this._popover.uid);
 
         // Change type of input to "text"
         this.el.type = 'text';
 
         // Change value of input if there are a selected date
-        this.el.value = (this._options.selected) ? this.calendar.select() : this.el.value;
-
-        // Add show behaivor to float's trigger.
-        // this.bubble.$el.on('click', function (event) {
-        //     that.bubble.show(event);
-        // });
+        this.el.value = (this._options.selected) ? this._calendar.select() : this.el.value;
 
         return this;
-
     };
 
     /**
@@ -151,10 +145,10 @@
 
         // Select the day and update input value with selected date
 
-        this.el.value = this.calendar.selectDay(event.target.innerHTML);
+        this.el.value = this._calendar.selectDay(event.target.innerHTML);
 
         // Hide float
-        if (this._options.close) { this.bubble.hide(); }
+        if (this._options.close) { this._popover.hide(); }
 
         /**
         * Callback function
@@ -176,7 +170,8 @@
      * widget.show();
      */
     DatePicker.prototype.show = function () {
-        this.bubble.show();
+        this._popover.show();
+
         return this;
     };
 
@@ -191,7 +186,8 @@
      * widget.hide();
      */
     DatePicker.prototype.hide = function () {
-        this.bubble.hide();
+        this._popover.hide();
+
         return this;
     };
 
@@ -208,14 +204,14 @@
         // Select the day and update input value with selected date
         // Setter
         if (date) {
-            this.calendar.select(date);
-            this.el.value = this.calendar.select();
+            this._calendar.select(date);
+            this.el.value = this._calendar.select();
 
             return this;
         }
 
         // Getter
-        return this.calendar.select();
+        return this._calendar.select();
     };
 
     /**
@@ -227,7 +223,7 @@
      * @return date
      */
     DatePicker.prototype.today = function () {
-        return this.calendar.today();
+        return this._calendar.today();
     };
 
     /**
@@ -240,7 +236,8 @@
      * @default Next month
      */
     DatePicker.prototype.next = function (time) {
-        this.calendar.next(time);
+        this._calendar.next(time);
+
         return this;
     };
 
@@ -254,7 +251,8 @@
      * @default Previous month
      */
     DatePicker.prototype.prev = function (time) {
-        this.calendar.prev(time);
+        this._calendar.prev(time);
+
         return this;
     };
 
@@ -268,7 +266,8 @@
     DatePicker.prototype.reset = function () {
         // Delete input value
         this.el.value = '';
-        this.calendar.reset();
+        this._calendar.reset();
+
         return this;
     };
 
@@ -281,7 +280,8 @@
      * @return itself
      */
     DatePicker.prototype.from = function (date) {
-        this.calendar.from(date);
+        this._calendar.from(date);
+
         return this;
     };
 
@@ -294,7 +294,8 @@
      * @return itself
      */
     DatePicker.prototype.to = function (date) {
-        this.calendar.to(date);
+        this._calendar.to(date);
+
         return this;
     };
 
