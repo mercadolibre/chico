@@ -43,7 +43,7 @@
          */
         var that = this;
 
-        that.init($el, options);
+        this.init($el, options);
 
         /**
          * Triggers when the component is ready to use (Since 0.8.0).
@@ -176,182 +176,32 @@
                 'year': date.getFullYear()
             };
         },
-        template = {
+        /**
+         * Handles behavior of arrows to move around months.
+         * @private
+         * @name ch.Calendar#arrows
+         * @type Object
+         */
+        arrows = {
 
             /**
-             * Handles behavior of arrows to move around months.
+             * Handles behavior of previous arrow to move back in months.
              * @private
-             * @name ch.Calendar#arrows
+             * @name prev
+             * @memberOf ch.Calendar#arrows
              * @type Object
              */
-            'arrows': {
+            'prev': '<div class="ch-calendar-prev" role="button" aria-hidden="false"></div>',
 
-                /**
-                 * Handles behavior of previous arrow to move back in months.
-                 * @private
-                 * @name prev
-                 * @memberOf ch.Calendar#arrows
-                 * @type Object
-                 */
-                'prev': '<div class="ch-calendar-prev" role="button" aria-controls="ch-calendar-grid-$uid$" aria-hidden="false"></div>',
-
-                /**
-                 * Handles behavior of next arrow to move forward in months.
-                 * @private
-                 * @name next
-                 * @memberOf ch.Calendar#arrows
-                 * @type Object
-                 */
-                'next': '<div class="ch-calendar-next" role="button" aria-controls="ch-calendar-grid-$uid$" aria-hidden="false"></div>'
-            },
             /**
-             * Refresh the structure of Calendar's table with a new date.
+             * Handles behavior of next arrow to move forward in months.
              * @private
-             * @function
-             * @name ch.Calendar#updateTable
-             * @param date {String} Date to be selected.
+             * @name next
+             * @memberOf ch.Calendar#arrows
+             * @type Object
              */
-            'update': function (date) {
-                var that = this;
-
-                // Update "currentDate" object
-                that._date.current = (typeof date === 'string') ? createDateObject(date) : date;
-
-                // Delete old table
-                that.$el.children('table').remove();
-
-                // Append new table to content
-                that.$el.append(template.create.call(that, that._date.current));
-
-                // Refresh arrows
-                that._updateControls();
-
-            },
-            /**
-             * Creates a complete month in a table.
-             * @private
-             * @function
-             * @name ch.Calendar#createTable
-             * @param date {Object} Date from will be created the entire month.
-             * @return jQuery Object
-             */
-            'create': function (date) {
-                var that = this,
-                    cell,
-                    positive,
-                    day,
-                    isSelected,
-                    thead = (function () {
-
-                        // Create thead structure
-                        var t = ['<thead><tr role="row">'],
-                            day;
-
-                        // Add week names
-                        for (day = 0; day < 7; day += 1) {
-                            t.push('<th role="columnheader">' + that._defaults.weekdays[day] + '</th>');
-                        }
-
-                        // Close thead structure
-                        t.push('</tr></thead>');
-
-                        // Join structure and return
-                        return t.join('');
-
-                    }()),
-
-                    table = [
-                        '<table class="ch-calendar-month" role="grid" id="ch-calendar-grid-' + that.uid + '">',
-                        '<caption>' + that._defaults.monthsNames[date.month - 1] + ' - ' + date.year + '</caption>',
-                        thead
-                    ],
-
-                // Total amount of days into month
-                    cells = (function () {
-
-                        // Amount of days of current month
-                        var currentMonth = new Date(date.year, date.month, 0).getDate(),
-
-                        // Amount of days of previous month
-                            prevMonth = new Date([date.year, date.month, '01'].join('/')).getDay(),
-
-                        // Merge amount of previous and current month
-                            subtotal = prevMonth + currentMonth,
-
-                        // Amount of days into last week of month
-                            latest = subtotal % 7,
-
-                        // Amount of days of next month
-                            nextMonth = (latest > 0) ? 7 - latest : 0;
-
-                        return {
-                            'previous': prevMonth,
-                            'subtotal': subtotal,
-                            'total': subtotal + nextMonth
-                        };
-
-                    }());
-
-                table.push('<tbody><tr class="ch-calendar-week" role="row">');
-
-                // Iteration of weekdays
-                for (cell = 0; cell < cells.total; cell += 1) {
-
-                    // Push an empty cell on previous and next month
-                    if (cell < cells.previous || cell > cells.subtotal - 1) {
-                        table.push('<td role="gridcell" class="ch-calendar-other">X</td>');
-                    } else {
-
-                        // Positive number of iteration
-                        positive = cell + 1;
-
-                        // Day number
-                        day = positive - cells.previous;
-
-                        // Define if it's the day selected
-                        isSelected = that._date.isSelected(date.year, date.month, day);
-
-                        // Create cell
-                        table.push(
-                            // Open cell structure including WAI-ARIA and classnames space opening
-                            '<td role="gridcell"' + (isSelected ? ' aria-selected="true"' : '') + ' class="ch-calendar-day',
-
-                            // Add Today classname if it's necesary
-                            (date.year === that._date.today.year && date.month === that._date.today.month && day === that._date.today.day) ? ' ch-calendar-today' : null,
-
-                            // Add Selected classname if it's necesary
-                            (isSelected ? ' ch-calendar-selected ' : null),
-
-                            // From/to range. Disabling cells
-                            (
-                                // Disable cell if it's out of FROM range
-                                (that._date.range.from && day < that._date.range.from.day && date.month === that._date.range.from.month && date.year === that._date.range.from.year) ||
-
-                                // Disable cell if it's out of TO range
-                                (that._date.range.to && day > that._date.range.to.day && date.month === that._date.range.to.month && date.year === that._date.range.to.year)
-
-                            ) ? ' ch-calendar-disabled' : null,
-
-                            // Close classnames attribute and print content closing cell structure
-                            '">' + day + '</td>'
-                        );
-
-                        // Cut week if there are seven days
-                        if (positive % 7 === 0) {
-                            table.push('</tr><tr class="ch-calendar-week" role="row">');
-                        }
-
-                    }
-
-                }
-
-                table.push('</tr></tbody></table>');
-
-                // Return table object
-                return table.join('');
-
-            }
-        },
+            'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
+        }
         /**
          * Inheritance
          */
@@ -441,14 +291,14 @@
 
         // Show or hide arrows depending on "from" and "to" limits
 
-        that._$prev = $(template.arrows.prev.replace('$uid$', that.uid)).bind('click', function (event) { ch.util.prevent(event); that.prev('month'); });
-        that._$next = $(template.arrows.next.replace('$uid$', that.uid)).bind('click', function (event) { ch.util.prevent(event); that.next('month'); });
+        that._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).bind('click', function (event) { ch.util.prevent(event); that.prev('month'); });
+        that._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).bind('click', function (event) { ch.util.prevent(event); that.next('month'); });
 
         that.$el
             .addClass('ch-calendar')
             .prepend(that._$prev)
             .prepend(that._$next)
-            .append(template.create.call(that, that._date.current));
+            .append(this._createTemplate(that._date.current));
 
         that._updateControls(that);
 
@@ -505,6 +355,155 @@
         }
 
         return this;
+    };
+
+    /**
+     * Refresh the structure of Calendar's table with a new date.
+     * @private
+     * @function
+     * @name ch.Calendar#updateTable
+     * @param date {String} Date to be selected.
+     */
+    Calendar.prototype._updateTemplate = function (date) {
+            var that = this;
+
+            // Update "currentDate" object
+            that._date.current = (typeof date === 'string') ? createDateObject(date) : date;
+
+            // Delete old table
+            that.$el.children('table').remove();
+
+            // Append new table to content
+            that.$el.append(this._createTemplate(that._date.current));
+
+            // Refresh arrows
+            that._updateControls();
+
+    };
+
+    /**
+     * Creates a complete month in a table.
+     * @private
+     * @function
+     * @name ch.Calendar#createTable
+     * @param date {Object} Date from will be created the entire month.
+     * @return jQuery Object
+     */
+    Calendar.prototype._createTemplate = function (date) {
+        var that = this,
+            cell,
+            positive,
+            day,
+            isSelected,
+            thead = (function () {
+
+                // Create thead structure
+                var t = ['<thead><tr role="row">'],
+                    day;
+
+                // Add week names
+                for (day = 0; day < 7; day += 1) {
+                    t.push('<th role="columnheader">' + that._defaults.weekdays[day] + '</th>');
+                }
+
+                // Close thead structure
+                t.push('</tr></thead>');
+
+                // Join structure and return
+                return t.join('');
+
+            }()),
+
+            table = [
+                '<table class="ch-calendar-month" role="grid" id="ch-calendar-grid-' + that.uid + '">',
+                '<caption>' + that._defaults.monthsNames[date.month - 1] + ' - ' + date.year + '</caption>',
+                thead
+            ],
+
+        // Total amount of days into month
+            cells = (function () {
+
+                // Amount of days of current month
+                var currentMonth = new Date(date.year, date.month, 0).getDate(),
+
+                // Amount of days of previous month
+                    prevMonth = new Date([date.year, date.month, '01'].join('/')).getDay(),
+
+                // Merge amount of previous and current month
+                    subtotal = prevMonth + currentMonth,
+
+                // Amount of days into last week of month
+                    latest = subtotal % 7,
+
+                // Amount of days of next month
+                    nextMonth = (latest > 0) ? 7 - latest : 0;
+
+                return {
+                    'previous': prevMonth,
+                    'subtotal': subtotal,
+                    'total': subtotal + nextMonth
+                };
+
+            }());
+
+        table.push('<tbody><tr class="ch-calendar-week" role="row">');
+
+        // Iteration of weekdays
+        for (cell = 0; cell < cells.total; cell += 1) {
+
+            // Push an empty cell on previous and next month
+            if (cell < cells.previous || cell > cells.subtotal - 1) {
+                table.push('<td role="gridcell" class="ch-calendar-other">X</td>');
+            } else {
+
+                // Positive number of iteration
+                positive = cell + 1;
+
+                // Day number
+                day = positive - cells.previous;
+
+                // Define if it's the day selected
+                isSelected = that._date.isSelected(date.year, date.month, day);
+
+                // Create cell
+                table.push(
+                    // Open cell structure including WAI-ARIA and classnames space opening
+                    '<td role="gridcell"' + (isSelected ? ' aria-selected="true"' : '') + ' class="ch-calendar-day',
+
+                    // Add Today classname if it's necesary
+                    (date.year === that._date.today.year && date.month === that._date.today.month && day === that._date.today.day) ? ' ch-calendar-today' : null,
+
+                    // Add Selected classname if it's necesary
+                    (isSelected ? ' ch-calendar-selected ' : null),
+
+                    // From/to range. Disabling cells
+                    (
+                        // Disable cell if it's out of FROM range
+                        (that._date.range.from && day < that._date.range.from.day && date.month === that._date.range.from.month && date.year === that._date.range.from.year) ||
+
+                        // Disable cell if it's out of TO range
+                        (that._date.range.to && day > that._date.range.to.day && date.month === that._date.range.to.month && date.year === that._date.range.to.year)
+
+                    ) ? ' ch-calendar-disabled' : null,
+
+                    // Close classnames attribute and print content closing cell structure
+                    '">' + day + '</td>'
+                );
+
+                // Cut week if there are seven days
+                if (positive % 7 === 0) {
+                    table.push('</tr><tr class="ch-calendar-week" role="row">');
+                }
+
+            }
+
+        }
+
+        table.push('</tr></tbody></table>');
+
+        // Return table object
+        return table.join('');
+
     };
 
 
@@ -602,7 +601,7 @@
         that._date.selected = (date === 'today') ? that._date.today : createDateObject(date);
 
         // Create a new table of selected month
-        template.update.call(that, that._date.selected);
+        this._updateTemplate(that._date.selected);
 
         /**
          * It triggers a callback when a date is selected.
@@ -672,7 +671,7 @@
         switch (time) {
         case 'year':
             // Create a new table of selected month
-            template.update.call(that, [that._date.current.year + 1, that._date.current.month, '01'].join('/'));
+            this._updateTemplate([that._date.current.year + 1, that._date.current.month, '01'].join('/'));
 
             /**
              * It triggers a callback when a next year is shown.
@@ -697,7 +696,7 @@
             }
 
             // Create a new table of selected month
-            template.update.call(that, [that._date.current.year, that._date.current.month + 1, '01'].join('/'));
+            this._updateTemplate([that._date.current.year, that._date.current.month + 1, '01'].join('/'));
 
             /**
              * It triggers a callback when a next month is shown.
@@ -732,7 +731,7 @@
         switch (time) {
         case 'year':
             // Create a new table of selected month
-            template.update.call(that, [that._date.current.year - 1, that._date.current.month, '01'].join('/'));
+            this._updateTemplate([that._date.current.year - 1, that._date.current.month, '01'].join('/'));
 
             /**
              * It triggers a callback when a previous year is shown.
@@ -759,7 +758,7 @@
             }
 
             // Create a new table of selected month
-            template.update.call(that, [that._date.current.year, that._date.current.month - 1, '01'].join('/'));
+            this._updateTemplate([that._date.current.year, that._date.current.month - 1, '01'].join('/'));
 
             /**
              * It triggers a callback when a previous month is shown.
@@ -805,7 +804,7 @@
         var that = this;
         // this from is a reference to the global form
         that._date.range.from = createDateObject(date);
-        template.update.call(that, that._date.current);
+        this._updateTemplate(that._date.current);
 
         return this;
     };
@@ -823,7 +822,7 @@
         var that = this;
         // this to is a reference to the global to
         that._date.range.to = createDateObject(date);
-        template.update.call(that, that._date.current);
+        this._updateTemplate(that._date.current);
 
         return this;
     };
