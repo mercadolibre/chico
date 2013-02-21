@@ -201,7 +201,7 @@
              * @type Object
              */
             'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
-        }
+        },
         /**
          * Inheritance
          */
@@ -220,8 +220,7 @@
     Calendar.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
 
-        var that = this,
-            options = that._options;
+        var that = this;
 
         this._date.today = createDateObject();
 
@@ -235,33 +234,33 @@
          */
         this._date.selected = (function () {
 
-            // Get date from configuration or input value
-            var sel = options.selected || options.content;
+            // Get date from configuration or input value, if configured could be an Array with multiple selections
+            var selected = that._options.selected || that._options.content;
 
             // Do it only if there are a "selected" parameter
-            if (!sel) { return sel; }
+            if (!selected) { return selected; }
 
             // Simple date selection
-            if (!ch.util.isArray(sel)) {
+            if (!ch.util.isArray(selected)) {
 
                 // Return date object and update currentDate
-                return (sel !== 'today') ? that._date.current = createDateObject(sel) : that._date.today;
+                selected = (selected !== 'today') ? that._date.current = createDateObject(selected) : that._date.today;
 
             // Multiple date selection
             } else {
-                $.each(sel, function (i, e) {
+                $.each(selected, function (i, e) {
                     // Simple date
                     if (!ch.util.isArray(e)) {
-                        sel[i] = (sel[i] !== 'today') ? createDateObject(e) : that._date.today;
+                        selected[i] = (selected[i] !== 'today') ? createDateObject(e) : that._date.today;
                     // Range
                     } else {
-                        sel[i][0] = (sel[i][0] !== 'today') ? createDateObject(e[0]) : that._date.today;
-                        sel[i][1] = (sel[i][1] !== 'today') ? createDateObject(e[1]) : that._date.today;
+                        selected[i][0] = (selected[i][0] !== 'today') ? createDateObject(e[0]) : that._date.today;
+                        selected[i][1] = (selected[i][1] !== 'today') ? createDateObject(e[1]) : that._date.today;
                     }
                 });
-
-                return sel;
             }
+
+            return selected;
         }());
 
         // Today's date object
@@ -271,10 +270,10 @@
         this._date.range.from = (function () {
 
             // Only works when there are a "from" parameter on configuration
-            if (!ch.util.hasOwn(options, 'from') || !options.from) { return; }
+            if (!ch.util.hasOwn(that._options, 'from') || !that._options.from) { return; }
 
             // Return date object
-            return (options.from === 'today') ? that._date.today : createDateObject(options.from);
+            return (that._options.from === 'today') ? that._date.today : createDateObject(that._options.from);
 
         }());
 
@@ -282,17 +281,17 @@
         this._date.range.to = (function () {
 
             // Only works when there are a "to" parameter on configuration
-            if (!ch.util.hasOwn(options, 'to') || !options.to) { return; }
+            if (!ch.util.hasOwn(that._options, 'to') || !that._options.to) { return; }
 
             // Return date object
-            return (options.to === 'today') ? that._date.today : createDateObject(options.to);
+            return (that._options.to === 'today') ? that._date.today : createDateObject(that._options.to);
 
         }());
 
         // Show or hide arrows depending on "from" and "to" limits
 
-        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).bind('click', function (event) { ch.util.prevent(event); that.prev('month'); });
-        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).bind('click', function (event) { ch.util.prevent(event); that.next('month'); });
+        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.events.pointer.TAP, function (event) { ch.util.prevent(event); that.prev('month'); });
+        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.events.pointer.TAP, function (event) { ch.util.prevent(event); that.next('month'); });
 
         this.$el
             .addClass('ch-calendar')
@@ -364,17 +363,17 @@
      * @param date {String} Date to be selected.
      */
     Calendar.prototype._updateTemplate = function (date) {
-            // Update "currentDate" object
-            this._date.current = (typeof date === 'string') ? createDateObject(date) : date;
+        // Update "currentDate" object
+        this._date.current = (typeof date === 'string') ? createDateObject(date) : date;
 
-            // Delete old table
-            this.$el.children('table').remove();
+        // Delete old table
+        this.$el.children('table').remove();
 
-            // Append new table to content
-            this.$el.append(this._createTemplate(this._date.current));
+        // Append new table to content
+        this.$el.append(this._createTemplate(this._date.current));
 
-            // Refresh arrows
-            this._updateControls();
+        // Refresh arrows
+        this._updateControls();
     };
 
     /**
