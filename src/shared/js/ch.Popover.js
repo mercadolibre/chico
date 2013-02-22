@@ -114,7 +114,7 @@
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
             '>'
-        ].join());
+        ].join(''));
 
         /**
          * Inner reference to content container. Here is where the content will be added.
