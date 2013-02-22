@@ -5,12 +5,12 @@
  * @standalone
  * @memberOf ch
  */
-(function (window, $, ch) {
-	'use strict';
+(function (window, ch) {
+    'use strict';
 
-	if (ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
     var toggle = {
         'slideDown': 'slideUp',
@@ -19,69 +19,73 @@
         'fadeOut': 'fadeIn'
     };
 
-	function Collapsible() {
+    function Collapsible() {
 
         var that = this,
 
-            triggerClass = 'ch-' + that.name + '-trigger-on',
+            triggerClass = 'ch-' + this.name + '-trigger-on',
 
-            fx = that._options.fx;
+            fx = this._options.fx;
 
         function showCallback() {
-            that.emit('show');
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
+            that.emit('show');
         }
 
         function hideCallback() {
-            that.emit('hide');
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
+            that.emit('hide');
         }
 
-		/**
-		 * Shows component's container.
-		 * @public
-		 * @function
-		 * @name that#_show
-		 */
-		that._show = function () {
+        /**
+         * Shows component's container.
+         * @public
+         * @function
+         * @name that#_show
+         */
+        this._show = function () {
 
-			that._active = true;
+            that._active = true;
 
-			if (that.$trigger !== undefined) {
-				that.$trigger.addClass(triggerClass).attr('aria-expanded', 'true');
-			}
+            if (that.$trigger !== undefined) {
+                that.$trigger.addClass(triggerClass).attr('aria-expanded', 'true');
+            }
 
-			// Animate or not
-			if (ch.support.fx && typeof fx === 'string') {
-				that.$container[fx]('fast', showCallback);
-			} else {
-				showCallback();
-			}
-		};
+            // Animate or not
+            if (ch.support.fx && typeof fx === 'string') {
+                that.$container[fx]('fast', showCallback);
+            } else {
+                showCallback();
+            }
 
-		/**
-		 * Hides component's container.
-		 * @public
-		 * @function
-		 * @name that#_hide
-		 */
-		that._hide = function () {
+            return that;
+        };
 
-			that._active = false;
+        /**
+         * Hides component's container.
+         * @public
+         * @function
+         * @name that#_hide
+         */
+        this._hide = function () {
 
-			if (that.$trigger !== undefined) {
-				that.$trigger.removeClass(triggerClass).attr('aria-expanded', 'false');
-			}
+            that._active = false;
 
-			// Animate or not
-			if (ch.support.fx && typeof fx === 'string') {
-				that.$container[toggle[fx]]('fast', hideCallback);
-			} else {
-				hideCallback();
-			}
-		};
-	}
+            if (that.$trigger !== undefined) {
+                that.$trigger.removeClass(triggerClass).attr('aria-expanded', 'false');
+            }
 
-	ch.Collapsible = Collapsible;
+            // Animate or not
+            if (ch.support.fx && typeof fx === 'string') {
+                that.$container[toggle[fx]]('fast', hideCallback);
+            } else {
+                hideCallback();
+            }
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+            return that;
+        };
+    }
+
+    ch.Collapsible = Collapsible;
+
+}(this, this.ch));

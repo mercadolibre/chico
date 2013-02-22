@@ -34,7 +34,7 @@
         scrolled = false;
 
         // Emits the current event
-        //this.emit(eve);
+        this.emit(eve);
     }
 
     function Viewport() {
@@ -42,8 +42,7 @@
         this.init();
     }
 
-    Viewport.prototype.constructor = Viewport;
-
+    ch.util.inherits(Viewport, ch.EventEmitter);
     Viewport.prototype.init = function () {
         var that = this;
 

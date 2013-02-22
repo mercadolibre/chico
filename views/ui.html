@@ -65,7 +65,6 @@
 
 <body>
 	<h1>Chico UI</h1>
-
 	<div class="ch-clearfix">
 		<h1>Mesh</h1>
 		<div class="ch-g1">
@@ -578,25 +577,49 @@
 	<div class="ch-box-lite">
 		<h2>Dropdown</h2>
 
-		<div class="myDropdown ch-dropdown">
-			<span class="ch-dropdown-trigger">Default</span>
-			<menu label="Links" class="ch-dropdown-container">
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-			</menu>
-		</div>
+		<h3 class="myDropdown">Default</h3>
+		<menu label="Links" class="ch-hide">
+			<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+			<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+			<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+			<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+		</menu>
 
-		<div class="myDropdown ch-dropdown-skin">
-			<p class="ch-dropdown-trigger">With skin</p>
-			<menu label="Links" class="ch-dropdown-container">
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-			</menu>
-		</div>
+		<i class="ch-icon-heart myDropdownNav"></i>
+		<ul class="ch-hide">
+			<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+				<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
+					<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+					<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+					<p class="ch-price">$ 259<sup>90</sup></p>
+				</a>
+				<i class="favorite-menu-remove"></i>
+			</li>
+			<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+				<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
+					<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+					<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+					<p class="ch-price">$ 259<sup>90</sup></p>
+				</a>
+				<i class="favorite-menu-remove"></i>
+			</li>
+			<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+				<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
+					<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+					<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+					<p class="ch-price">$ 259<sup>90</sup></p>
+				</a>
+				<i class="favorite-menu-remove"></i>
+			</li>
+		</ul>
+
+		<p class="myDropdownSkin">With skin</p>
+		<menu label="Links" class="ch-hide">
+			<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+			<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+			<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+			<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+		</menu>
 	</div>
 
 
@@ -694,7 +717,7 @@
 
 	<div class="ch-box-lite">
 		<h2>Zoom</h2>
-		<a id="YOUR_SELECTOR_Zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+		<a id="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
 			<img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
 		</a>
 	</div>
@@ -1299,13 +1322,6 @@
 			$("#example").blink();
 		});
 
-		// expandable
-		//var expandable = $(".YOUR_SELECTOR_expandable").expandable();
-
-		// Dropdown
-		var dropdown = $(".myDropdown").dropdown();
-
-		// Calendar
 		var	calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
 
 		// Expandable
@@ -1325,7 +1341,11 @@
 		});
 
 		// Dropdown
-		var dropdown = $(".myDropdown").dropdown();
+		var dropdown1 = $(".myDropdown").dropdown();
+
+		var dropdown2 = $(".myDropdownNav").dropdown({'navigation': false, 'skin': true});
+
+		var dropdown3 = $(".myDropdownSkin").dropdown({'skin': true});
 
 		// Tabs
 		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
@@ -1516,18 +1536,8 @@
             'content': 'Transition without trigger!'
         });
 
-		// // Zoom
-		// var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
-
-		// // Dropdown
-		// var dropdown = $(".myDropdown").dropdown();
-
-		// // Tabs
-		// var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
-
-		// // Form
-		// var form = $('.myForm').form();
-
+		// Zoom
+		var zoom = $('#zoom').zoom();
 
 		// Messages
 		var message = (function (message, value) {

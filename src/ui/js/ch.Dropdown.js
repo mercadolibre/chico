@@ -63,12 +63,11 @@
      * Private
      */
     var $document = $(window.document),
-        $html = $('html'),
 
         /**
          * Inheritance
          */
-        parent = ch.util.inherits(Dropdown, ch.Widget);
+        parent = ch.util.inherits(Dropdown, ch.Layer);
 
     /**
      * Prototype
@@ -78,180 +77,87 @@
     Dropdown.prototype.constructor = Dropdown;
 
     Dropdown.prototype._defaults = {
-        'open': false,
+        'open': 'click',
         'fx': false,
         'side': 'bottom',
         'align': 'left',
         'offsetY': -1,
-        'close': 'pointers-only'
+        'close': 'pointers-only',
+        'classes': 'ch-dropdown ch-box-lite',
+        'skin': false,
+        'navigation': true
     };
 
     Dropdown.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
 
-        this.require('Collapsible', 'Closable', 'Positioner');
-
-        /**
-         * Private Members
-         */
-
-        /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
-         * @type {Object}
-         */
-        var that = this,
-
-            /**
-             * Map that contains the ARIA attributes for the trigger element
-             * @private
-             * @type {Object}
-             */
-            triggerAttr = {
-                'aria-expanded': that._options.open,
-                'aria-controls': 'ch-dropdown-' + that.uid
-            },
-
-            /**
-             * Map that contains the ARIA attributes for the container element
-             * @private
-             * @type {Object}
-             */
-            containerAttr = {
-                'role': 'menu',
-                'id': triggerAttr['aria-controls'],
-                'aria-hidden': !triggerAttr['aria-expanded']
-            };
-
-        /**
-         * Protected Members
-         */
-
-         /**
-         * The component's trigger.
-         * @protected
-         * @type {Selector}
-         * @ignore
-         */
-        that.$trigger = that.$el.children(':first-child')
-            .attr(triggerAttr)
-            .addClass('ch-dropdown-trigger ch-dropdown-ico')
-            .on(ch.events.pointer.TAP + '.dropdown', function (event) {
-                ch.util.prevent(event);
-                that.show();
-            });
-
-        /**
-         * The component's container.
-         * @protected
-         * @type {Selector}
-         * @ignore
-         */
-        that.$container = that.$el.children(':last-child')
-            .attr(containerAttr)
-            .addClass('ch-dropdown-container ch-hide')
-            .on(ch.events.pointer.TAP + '.dropdown', function (event) {
-                if ((event.target || event.srcElement).tagName === 'A') {
-                    that.hide();
-                }
-            });
-
-        /**
-         * Dropdown options.
-         * @protected
-         * @type {Selector}
-         */
-        that.$options = this.$container.find('a')
-            .attr('role', 'menuitem');
-
-        /**
-         * Default behavior
-         */
-
-        that.$el.addClass('ch-dropdown');
-
-        if (!that.$el.hasClass('ch-dropdown-skin')) {
-            that.$trigger.addClass('ch-btn-skin ch-btn-small');
-        }
-
-        that._closable();
-
-        that.position({
-            'target': that.$container,
-            'reference': that.$trigger,
-            'side': that._options.side,
-            'align': that._options.align,
-            'offsetY': that._options.offsetY,
-            'offsetX': that._options.offsetX
-        });
+        //TODO: $trigger should be defined in Popover class.
+        this.$trigger = this.$el.addClass('ch-dropdown-trigger');
 
         ch.util.avoidTextSelection(this.$trigger);
 
-        return that;
+        // Default Skin
+        if (this._options.skin) {
+            this.$trigger.addClass('ch-dropdown-trigger-skin');
+            this.$container.addClass('ch-dropdown-skin');
+
+        // Secondary Skin
+        } else {
+            this.$trigger.addClass('ch-btn-skin ch-btn-small');
+        }
+
+        // Configure content
+        this.content.configure({
+            'input': this.$el.next()
+        });
+
+        /**
+         * Dropdown navigation.
+         * @protected
+         * @type {Selector}
+         */
+        if (this._options.navigation) {
+            this._$navigation = this.$el.next().find('a').attr('role', 'menuitem');
+        }
+
+        return this;
     };
 
     Dropdown.prototype.show = function () {
-        var that = this;
 
-        if (that._active) {
-            return that.hide();
+        if (this._active) {
+            return this.hide();
         }
 
-        that.position.refresh();
-
-        that._show();
+        parent.show.call(this);
 
         // Z-index of content and updates aria values
-        that.$container.css('z-index', ch.util.zIndex += 1);
+        this.$container.css('z-index', ch.util.zIndex += 1);
 
         // Z-index of trigger over content (secondary / skin dropdown)
-        if (that.$el.hasClass('ch-dropdown-skin')) {
-            that.$trigger.css('z-index', ch.util.zIndex += 1);
+        if (this._options.skin) {
+            this.$trigger.css('z-index', ch.util.zIndex += 1);
         }
 
-        // Reset all dropdowns except itself
-        $.each(ch.instances.dropdown, function (i, widget) {
-            if (widget.uid !== that.uid) {
-                widget.hide();
-            }
-        });
+        if (this._options.navigation) {
+            this._$navigation[0].focus();
 
-        that.$options[0].focus();
+            // Turn on keyboards arrows
+            this.arrowsOn();
+        }
 
-        // Turn on keyboards arrows
-        that.arrowsOn();
-
-        return that;
+        return this;
     };
 
     Dropdown.prototype.hide = function () {
-        var that = this;
+        parent.hide.call(this);
 
-        if (!that._active) {
-            return that;
+        if (this._options.navigation) {
+            // Turn off keyboards arrows
+            this.arrowsOff();
         }
 
-        that._hide();
-
-        // Turn off keyboards arrows
-        that.arrowsOff();
-
-        return that;
-    };
-
-    /**
-     * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
-     * @name isActive
-     * @methodOf ch.Dropdown#isActive
-     * @returns {boolean}
-     * @exampleDescription
-     * @example
-     * if (widget.isActive()) {
-     *     fn();
-     * }
-     */
-    Dropdown.prototype.isActive = function () {
-        return this._active;
+        return this;
     };
 
     /**
@@ -267,7 +173,6 @@
             arrow,
             optionsLength,
             selectOption = function (key) {
-                var that = this;
 
                 // Sets the arrow that user press
                 arrow = key.type;
@@ -276,12 +181,12 @@
                 if (selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
 
                 // Unselects current option
-                that.$options[selected].blur();
+                this._$navigation[selected].blur();
 
                 if (arrow === 'down_arrow') { selected += 1; } else { selected -= 1; }
 
                 // Selects new current option
-                that.$options[selected].focus();
+                this._$navigation[selected].focus();
             };
 
         return function () {
@@ -290,12 +195,12 @@
             // Keyboard support initialize
             selected = 0;
 
-            optionsLength = that.$options.length;
+            optionsLength = this._$navigation.length;
 
             // Item selected by mouseover
-            $.each(that.$options, function (i, e) {
+            $.each(this._$navigation, function (i, e) {
                 $(e).on('mouseenter.dropdown', function () {
-                    that.$options[selected = i].focus();
+                    that._$navigation[selected = i].focus();
                 });
             });
 
@@ -308,12 +213,12 @@
                 // Prevent default behaivor
                 ch.util.prevent(event);
                 selectOption.call(that, key);
-            }
+            };
 
             $document.on(map);
 
-            return that;
-        }
+            return this;
+        };
     }());
 
     /**
