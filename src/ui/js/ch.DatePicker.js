@@ -48,7 +48,7 @@
          */
         var that = this;
 
-        that.init($el, options);
+        this.init($el, options);
 
         /**
          * Triggers when the component is ready to use (Since 0.8.0).
@@ -86,8 +86,9 @@
     DatePicker.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
 
-        var that = this,
-            $popover = $('<i role="button" class="ch-datePicker-trigger ch-icon-calendar"></i>').insertAfter(this.el);
+        var that = this;
+
+        this.$trigger = $('<i role="button" class="ch-datePicker-trigger ch-icon-calendar"></i>').insertAfter(this.el);
 
         /**
          * Reference to the Calendar component instance.
@@ -95,7 +96,7 @@
          * @type Object
          * @name ch.DatePicker#calendar
          */
-        this.calendar = $('<div>').calendar(options);
+        this._calendar = $('<div>').calendar(options);
 
         /**
          * Reference to the Float component instanced.
@@ -103,12 +104,12 @@
          * @type Object
          * @name ch.DatePicker#float
          */
-        this.bubble = $popover.popover({
-            'content': this.calendar.$el,
+        this._popover = this.$trigger.popover({
+            'content': this._calendar.$el,
             'side': this._options.side,
             'align': this._options.align,
-            'offsetX': '-1',
-            'offsetY': '8',
+            'offsetX': -1,
+            'offsetY': 8,
             'aria': {
                 'role': 'tooltip'
             },
@@ -117,23 +118,19 @@
             'close': this._options.close
         });
 
-        this.bubble._$content.on('click', function (event) { that._pick(event); });
+        this._popover._$content.on(ch.events.pointer.TAP, function (event) {
+            that._pick(event.target);
+        });
 
-        this.el.setAttribute('aria-describedby', 'ch-' + this.type + '-' + this.bubble.uid);
+        this.el.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this._popover.uid);
 
         // Change type of input to "text"
         this.el.type = 'text';
 
         // Change value of input if there are a selected date
-        this.el.value = (this._options.selected) ? this.calendar.select() : this.el.value;
-
-        // Add show behaivor to float's trigger.
-        this.bubble.$el.on('click', function (event) {
-            that.bubble.show(event);
-        });
+        this.el.value = (this._options.selected) ? this._calendar.select() : this.el.value;
 
         return this;
-
     };
 
     /**
@@ -142,25 +139,27 @@
      * @function
      * @name ch.DatePicker#_pick
      */
-    DatePicker.prototype._pick = function (event) {
+    DatePicker.prototype._pick = function (target) {
         // Day selection
-        if (event.target.nodeName !== 'TD' || event.target.className.indexOf('ch-calendar-disabled') !== -1 || event.target.className.indexOf('ch-calendar-other') !== -1) {
+        if (target.nodeName !== 'TD' || target.className.indexOf('ch-calendar-disabled') !== -1 || target.className.indexOf('ch-calendar-other') !== -1) {
             return;
         }
 
         // Select the day and update input value with selected date
 
-        this.el.value = this.calendar.selectDay(event.target.innerHTML);
+        this.el.value = this._calendar.selectDay(target.innerHTML);
 
         // Hide float
-        if (this._options.close) { this.bubble.hide(); }
+        if (this._options.close) {
+            this._popover.hide();
+        }
 
         /**
-        * Callback function
-        * @public
-        * @name ch.DatePicker#select
-        * @event
-        */
+         * Callback function
+         * @public
+         * @name ch.DatePicker#select
+         * @event
+         */
         this.emit('select');
     };
 
@@ -175,7 +174,16 @@
      * widget.show();
      */
     DatePicker.prototype.show = function () {
-        this.bubble.show();
+        this._popover.show();
+
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#show
+         * @event
+         */
+        this.emit('show');
+
         return this;
     };
 
@@ -190,7 +198,16 @@
      * widget.hide();
      */
     DatePicker.prototype.hide = function () {
-        this.bubble.hide();
+        this._popover.hide();
+
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#hide
+         * @event
+         */
+        this.emit('hide');
+
         return this;
     };
 
@@ -205,16 +222,17 @@
     */
     DatePicker.prototype.select = function (date) {
         // Select the day and update input value with selected date
+
         // Setter
         if (date) {
-            this.calendar.select(date);
-            this.el.value = this.calendar.select();
+            this._calendar.select(date);
+            this.el.value = this._calendar.select();
 
             return this;
         }
 
         // Getter
-        return this.calendar.select();
+        return this._calendar.select();
     };
 
     /**
@@ -226,7 +244,7 @@
      * @return date
      */
     DatePicker.prototype.today = function () {
-        return this.calendar.today();
+        return this._calendar.today();
     };
 
     /**
@@ -239,7 +257,16 @@
      * @default Next month
      */
     DatePicker.prototype.next = function (time) {
-        this.calendar.next(time);
+        this._calendar.next(time);
+
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#next
+         * @event
+         */
+        this.emit('next');
+
         return this;
     };
 
@@ -253,7 +280,16 @@
      * @default Previous month
      */
     DatePicker.prototype.prev = function (time) {
-        this.calendar.prev(time);
+        this._calendar.prev(time);
+
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#next
+         * @event
+         */
+        this.emit('prev');
+
         return this;
     };
 
@@ -267,7 +303,16 @@
     DatePicker.prototype.reset = function () {
         // Delete input value
         this.el.value = '';
-        this.calendar.reset();
+        this._calendar.reset();
+
+        /**
+         * Callback function
+         * @public
+         * @name ch.DatePicker#next
+         * @event
+         */
+        this.emit('reset');
+
         return this;
     };
 
@@ -280,7 +325,8 @@
      * @return itself
      */
     DatePicker.prototype.from = function (date) {
-        this.calendar.from(date);
+        this._calendar.from(date);
+
         return this;
     };
 
@@ -293,7 +339,8 @@
      * @return itself
      */
     DatePicker.prototype.to = function (date) {
-        this.calendar.to(date);
+        this._calendar.to(date);
+
         return this;
     };
 

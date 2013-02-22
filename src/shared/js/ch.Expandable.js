@@ -1,4 +1,4 @@
-(function (window, ch) {
+(function (window, $, ch) {
     'use strict';
 
     if (window.ch === undefined) {
@@ -32,7 +32,7 @@
          */
         var that = this;
 
-        that.init($el, options);
+        this.init($el, options);
 
         /**
          * Emits the event 'ready' when the component is ready to use.
@@ -53,7 +53,7 @@
     /**
      * Inheritance
      */
-    var $document = $(window.document);
+    var $document = $(window.document),
         parent = ch.util.inherits(Expandable, ch.Widget);
 
     /**
@@ -116,8 +116,8 @@
              * @ignore
              */
             triggerAttr = {
-                'aria-expanded': that._options.open,
-                'aria-controls': 'ch-expandable-' + that.uid
+                'aria-expanded': this._options.open,
+                'aria-controls': 'ch-' + this.name + '-' + this.uid
             },
 
             /**
@@ -141,10 +141,10 @@
          * @type {Selector}
          * @ignore
          */
-        that.$trigger = that.$el.children(':first-child')
+        this.$trigger = this.$el.children(':first-child')
             .attr(triggerAttr)
-            .addClass('ch-expandable-trigger ch-expandable-ico')
-            .on(ch.events.pointer.TAP + '.expandable', function (event) {
+            .addClass('ch-' + this.name + '-trigger ch-' + this.name + '-ico')
+            .on(ch.events.pointer.TAP + '.' + this.name, function (event) {
                 event.preventDefault();
                 that.show();
             });
@@ -155,39 +155,38 @@
          * @type {Selector}
          * @ignore
          */
-        that.$container = that.$el.children(':last-child')
+        this.$container = this.$el.children(':last-child')
             .attr(containerAttr)
-            .addClass('ch-expandable-container ch-hide');
+            .addClass('ch-' + this.name + '-container ch-hide');
 
         /**
          * Default behavior
          */
-        that.$el.addClass('ch-expandable');
+        this.$el.addClass('ch-' + this.name);
 
         // Content configuration
-        that.content.onmessage = function (data) {
+        this.content.onmessage = function (data) {
             that.$container.html(data);
         };
 
-        that.content.set({
-            'input': that.$container.html()
+        this.content.set({
+            'input': this.$container.html()
         });
 
         // Is it open by default?
-        if (that._options.open) {
-            that.show();
+        if (this._options.open) {
+            this.show();
         }
 
-        ch.util.avoidTextSelection(that.$trigger);
+        ch.util.avoidTextSelection(this.$trigger);
 
-        that
+        this
             .on('show', function () {
                 $document.trigger(ch.events.layout.CHANGE);
             })
             .on('hide', function () {
                 $document.trigger(ch.events.layout.CHANGE);
-            })
-
+            });
     };
 
     /**
@@ -201,6 +200,7 @@
      * widget.show();
      */
     Expandable.prototype.show = function () {
+
         if (this._active) {
             return this.hide();
         }
@@ -247,4 +247,4 @@
 
     ch.factory(Expandable);
 
-}(this, this.ch));
+}(this, (this.jQuery || this.Zepto), this.ch));

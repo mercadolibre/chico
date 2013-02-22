@@ -103,7 +103,7 @@
      */
     Layer.prototype.show = function (content) {
         // Only hide if there was a widget opened before
-        if (lastOpen !== undefined) {
+        if (lastOpen !== undefined && lastOpen.name === this.name) {
             lastOpen.hide();
         }
         // Only save to future close if this widget is closable
