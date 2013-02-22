@@ -23,30 +23,30 @@
             // Merged options of each instance
             options,
             // The lastest data sent to the client. Used to return on the .get() method
-            current,
-            /**
-             * Allows to manage the widgets content.
-             * @namespace
-             */
-            content = function ($content) {
-                // Gets a new content
-                if ($content === undefined) {
-                    return that.content.get();
-                }
+            current;
 
-                // Configures a new content
-                that.content.configure({
-                    'input': $content
-                });
+        /**
+         * Allows to manage the widgets content.
+         * @namespace
+         */
+        function content($content) {
+            // Gets a new content
+            if ($content === undefined) {
+                return that.content.get();
+            }
 
-                // Sets the new content only if the component is active
-                if (that._active) {
-                    that.content.set();
-                }
+            // Configures a new content
+            that.content.configure({
+                'input': $content
+            });
 
-                return that;
+            // Sets the new content only if the component is active
+            if (that._active) {
+                that.content.set();
+            }
 
-            };
+            return that;
+        }
 
         /**
          * Send the result data to the "client".
@@ -54,9 +54,11 @@
          */
         function postMessage(data) {
             // Update the lastest reference of data sent to the user
-            content.onmessage(current = data);
+            current = data
+            // Send data to the client
+            content.onmessage(data);
             // TODO: Trigger the "message" event to allow multiple suscription
-            // that.trigger('message', data)
+            // that.trigger('message', data);
         }
 
         /**
