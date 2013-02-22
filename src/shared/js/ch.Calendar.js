@@ -469,7 +469,7 @@
                 day = positive - cells.previous;
 
                 // Define if it's the day selected
-                isSelected = that._isSelected(date.year, date.month, day);
+                isSelected = this._isSelected(date.year, date.month, day);
 
                 // Create cell
                 table.push(
@@ -522,7 +522,7 @@
      * @param day
      * @return Boolean
      */
-    Calendar._isSelected = function (year, month, day) {
+    Calendar.prototype._isSelected = function (year, month, day) {
         var yepnope;
 
         if (!this._dates.selected) { return; }
