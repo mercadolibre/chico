@@ -80,7 +80,6 @@
      * @type {Object}
      */
     Menu.prototype._defaults = {
-        'icon': true,
         'fx': 'slideDown',
         'accordion': false
     };
@@ -181,7 +180,6 @@
 
                 // List inside list, inits an Expandable
                 var expandable = $li.expandable({
-                    'icon': that._options.icon,
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx,
                     'onshow': function () {
