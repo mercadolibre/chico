@@ -52,13 +52,6 @@
      */
     Accordion.prototype.constructor = Accordion;
 
-    /**
-     * Name
-     * @private
-     * @type {String}
-     */
-    Accordion.prototype.preset = 'Menu';
-
     ch.factory(Accordion);
 
 }(this, this.ch));

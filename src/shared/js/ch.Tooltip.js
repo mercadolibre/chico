@@ -65,7 +65,6 @@
 
     Tooltip.prototype.name = 'tooltip';
     Tooltip.prototype.constructor = Tooltip;
-    Tooltip.prototype.interface = 'Layer';
 
     ch.factory(Tooltip);
 
