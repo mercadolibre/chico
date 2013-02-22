@@ -76,17 +76,15 @@
 
     Dropdown.prototype.constructor = Dropdown;
 
-    Dropdown.prototype._defaults = {
-        'open': 'click',
+    Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         'fx': false,
-        'side': 'bottom',
-        'align': 'left',
-        'offsetY': -1,
-        'close': 'pointers-only',
         'classes': 'ch-dropdown ch-box-lite',
+        'open': 'click',
+        'close': 'pointers-only',
+        'offsetY': -1,
         'skin': false,
         'navigation': true
-    };
+    });
 
     Dropdown.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);

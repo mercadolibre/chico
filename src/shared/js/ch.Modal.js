@@ -79,15 +79,11 @@
 
     Modal.prototype.constructor = Modal;
 
-    Modal.prototype._defaults = {
-        'fx': 'fadeIn',
+    Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         'classes': 'ch-modal ch-box-lite',
         'width': '50%',
-        'height': 'auto',
-        'open': 'click',
-        'close': 'all',
-        'reference': ch.viewport
-    };
+        'close': 'all'
+    });
 
     Modal.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
