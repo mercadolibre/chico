@@ -768,19 +768,6 @@
     };
 
     /**
-     * Reset the Calendar to date of today
-     * @public
-     * @name ch.Calendar#reset
-     * @function
-     * @return itself
-     */
-    Calendar.prototype.reset = function () {
-        reset();
-
-        return this;
-    };
-
-    /**
      * Set a minimum selectable date.
      * @public
      * @since 0.9
