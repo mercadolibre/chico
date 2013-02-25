@@ -123,14 +123,15 @@
         return this;
     };
 
-    Dropdown.prototype.show = function () {
+    Dropdown.prototype.show = function (content) {
 
         if (this._active) {
             return this.hide();
         }
 
-        parent.show.call(this);
+        parent.show.call(this, content);
 
+        // Esto capaz deberia pasar en el contentLoad
         // Z-index of content and updates aria values
         this.$container.css('z-index', ch.util.zIndex += 1);
 
