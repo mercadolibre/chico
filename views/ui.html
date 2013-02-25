@@ -1356,8 +1356,8 @@
 					alert('Event Submit stopped');
 					event.preventDefault();
 				})
-				.on('error', function (chicoEvent, data) {
-					console.log(data.errors.length);
+				.on('error', function (chicoEvent, errors) {
+					console.log(errors);
 				});
 
 		// // Autocomplete

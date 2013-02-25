@@ -275,7 +275,7 @@
          * });
          */
         } else {
-            that.emit('error', {'errors': validationsError});
+            that.emit('error', validationsError);
         }
 
         /**

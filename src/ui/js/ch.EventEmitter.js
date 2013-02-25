@@ -31,10 +31,12 @@
 
         // TODO: The widget should add this event - on('on' + event, this._options['on' + event]);
         if (fn !== undefined) {
-            fn.call((this._options.controller || this), data);
+            // http://bugs.jquery.com/ticket/10320
+            fn.call((this._options.controller || this), [data]);
         }
 
-        $(this).trigger('ch-' + event, data);
+        // http://bugs.jquery.com/ticket/10320
+        $(this).trigger('ch-' + event, [data]);
 
         return this;
     };
