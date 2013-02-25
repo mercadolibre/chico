@@ -217,6 +217,14 @@
                 this.el.title = this.el.alt = '';
             }
         }
+
+        /**
+         *
+         * @protected
+         * @name ch.Floats#
+         * @type jQuery
+         */
+        this.$trigger = this.$el;
     };
 
     /**

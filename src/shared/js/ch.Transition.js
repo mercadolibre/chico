@@ -49,7 +49,7 @@
 
         options = $.extend(ch.util.clone(this._defaults), options);
 
-        options.content = $('<div class="ch-loading-big"></div><p>' + options.content + '</p>')
+        options.content = $('<div class="ch-loading-big"></div><p>' + options.content + '</p>');
 
         return new ch.Modal($el, options);
     }
