@@ -231,10 +231,15 @@
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Open the collapsible
         this._show();
+
         // Request the content
-        this.content.set({
-            'input': content
-        });
+        if (content !== undefined) {
+            this.content.configure({
+                'input': content
+            });
+        }
+
+        this.content.set();
 
         return this;
     };
