@@ -94,10 +94,7 @@
 
         // Prevent to redirect to href
         bindings[pointerEvents.TAP] = function (event) { ch.util.prevent(event); };
-        // Show component or loading transition
-        bindings[pointerEvents.ENTER] = function () { that.show(); };
-        // Hide component or loading transition
-        bindings[pointerEvents.LEAVE] = function () { that.hide(); };
+
         // Bind move calculations
         bindings[pointerEvents.MOVE] = function (event) { that.move(event); };
 
