@@ -62,7 +62,6 @@
 
     Transition.prototype.name = 'transition';
     Transition.prototype.constructor = Transition;
-    Transition.prototype.preset = 'Modal';
 
     ch.factory(Transition);
 
