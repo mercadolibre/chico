@@ -219,11 +219,11 @@
 
         /**
          * Stores the error object
-         * @private
+         * @public
          * @type Object
          * @name ch.Validation#error
          */
-        that._error = {};
+        that.error = {};
 
         return this;
     };
@@ -243,7 +243,7 @@
         if (that.$el.attr('disabled') || !that._enabled) { return false; }
 
         // saves the previous error
-        previousError = ch.util.clone(that._error);
+        previousError = ch.util.clone(that.error);
 
         /**
          * Triggers before start validation process.
@@ -262,7 +262,7 @@
         that.hasError();
 
         // If has Error...
-        if (that._error.status && that._error.condition !== previousError.condition) {
+        if (that.error.status && that.error.condition !== previousError.condition) {
 
             if (that.$el.prop('tagName') === 'INPUT' || that.$el.prop('tagName') === 'TEXTAREA') {
                 // TODO: remove error class when deprecate old forms only ch-form error must be.
@@ -270,8 +270,8 @@
             }
 
             // to avoid reload the same content
-            if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) { // delete when bubble will be done
-                that.bubble.show((that._error.msg || that.form._messages[previousError.condition] || 'Error'));
+            if (!that.bubble.isActive() || !that.error.condition || that.error.condition !== previousError.condition) { // delete when bubble will be done
+                that.bubble.show((that.error.msg || that.form._messages[previousError.condition] || 'Error'));
                 // the aria-label attr should get the message element id, but is not public
                 that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid);
             }
@@ -299,7 +299,7 @@
         }
 
         // else NOT Error!
-        if (!that._error.status) {
+        if (!that.error.status) {
             that.$el.removeClass('ch-form-error');
             that.$el.removeAttr('aria-label');
             that.bubble.hide(); // uncoment when bubble were done
@@ -319,7 +319,7 @@
          */
         that.emit('aftervalidate');
 
-        return that._error.status;
+        return that.error.status;
 
     };
 
@@ -380,11 +380,11 @@
                         that._active = true;
 
                         // stops the proccess
-                        this._error.status = true;
-                        this._error.condition = condition;
-                        this._error.msg = that.conditions[condition].message;
+                        this.error.status = true;
+                        this.error.condition = condition;
+                        this.error.msg = that.conditions[condition].message;
 
-                        return this._error.status;
+                        return this.error.status;
                     }
                 }
             }
@@ -397,11 +397,11 @@
         }
 
         // It's all good ;)
-        this._error.status = false;
-        this._error.condition = undefined;
-        this._error.msg = undefined;
+        this.error.status = false;
+        this.error.condition = undefined;
+        this.error.msg = undefined;
 
-        return this._error.status;
+        return this.error.status;
     };
 
     /**
@@ -540,7 +540,7 @@
      * @returns object
      */
     Validation.prototype.getError = function () {
-        return this._error;
+        return this.error;
     };
 
     /**
@@ -597,7 +597,7 @@
         // Sets a new message
         that.conditions[condition].message = msg;
 
-        if (that.isActive() && that._error.condition === condition) {
+        if (that.isActive() && that.error.condition === condition) {
             that.bubble.content(msg);
         }
 
