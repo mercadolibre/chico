@@ -1350,16 +1350,6 @@
 		// Tabs
 		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
 
-		// Form
-		var form = $('.myForm').form()
-				.on('submit', function (chicoEvent, event) {
-					alert('Event Submit stopped');
-					event.preventDefault();
-				})
-				.on('error', function (chicoEvent, errors) {
-					console.log(errors);
-				});
-
 		// // Autocomplete
 		// function autoComplete(data) {
 		// 	autoComplete1.suggest(data);
@@ -1555,6 +1545,16 @@
 				return message;
 			}
 		}());
+
+// Form
+		var form = $('.myForm').form()
+					.on('submit', function (chicoEvent, event) {
+						alert('Event Submit stopped');
+						event.preventDefault();
+					})
+					.on('error', function (chicoEvent, validations) {
+						console.log(validations);
+					});
 
 		// Validators
 		var	validation1 = $('#input_ico').required().and().string();
