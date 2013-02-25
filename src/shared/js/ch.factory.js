@@ -160,7 +160,7 @@
 					// Get the data as the widget itself
 					widget = data;
 					// By dispatching an event, widgets can know when it already exists
-					if (ch.util.hasOwn(widget, 'emit')) {
+					if (widget.emit !== undefined) {
 						widget.emit('exists', {
 							'type': name,
 							'options': options
