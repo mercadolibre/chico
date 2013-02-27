@@ -129,10 +129,6 @@
 
         parent.show.call(this, content);
 
-        // Esto capaz deberia pasar en el contentLoad
-        // Z-index of content and updates aria values
-        this.$container.css('z-index', ch.util.zIndex += 1);
-
         // Z-index of trigger over content (secondary / skin dropdown)
         if (this._options.skin) {
             this.$trigger.css('z-index', ch.util.zIndex += 1);
