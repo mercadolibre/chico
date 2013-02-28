@@ -27,16 +27,25 @@
     EventEmitter.prototype.emit = function (event, data) {
 
         // TODO: The widget should add this event - on('on' + event, this._options['on' + event]);
-        var fn = (this._options) ? this._options['on' + event] : undefined;
+        var fn = (this._options) ? this._options['on' + event] : undefined,
+            listeners = this.listeners(event),
+            len,
+            i = 0,
+            // TODO: Tabs use a controller.
+            context = (this._options) ? this._options.controller : this;
 
         // TODO: The widget should add this event - on('on' + event, this._options['on' + event]);
         if (fn !== undefined) {
-            // http://bugs.jquery.com/ticket/10320
-            fn.call((this._options.controller || this), [data]);
+            fn.call(context, data);
         }
 
-        // http://bugs.jquery.com/ticket/10320
-        $(this).trigger('ch-' + event, [data]);
+        if (listeners !== undefined) {
+            len = listeners.length;
+
+            for (i; i < len; i+=1) {
+                listeners[i].handler.call(context, data);
+            }
+        }
 
         return this;
     };

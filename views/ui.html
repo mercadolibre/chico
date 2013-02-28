@@ -1007,7 +1007,7 @@
 					<label for="select2">
 						Required: <em>*</em>
 					</label>
-					<select class="required-option" id="select2" required="required" pattern="[^-1]">
+					<select id="select2" required="required" pattern="[^-1]">
 						<option value="">Select one...</option>
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
@@ -1546,48 +1546,58 @@
 			}
 		}());
 
-// Form
+		// Form
+		var m = $.modal();
 		var form = $('.myForm').form()
-					.on('submit', function (chicoEvent, event) {
-						alert('Event Submit stopped');
+					.on('success', function (event) {
 						event.preventDefault();
+						m.show();
 					})
-					.on('error', function (chicoEvent, validations) {
-						console.log(validations);
+					.on('error', function (errors) {
+						console.log(errors);
 					});
+
+		$('.myForm').on('submit', function (event) {
+			console.log('Esto siempre se dispara siempre');
+			if (!form.hasError()) {
+				event.preventDefault();
+				console.log('Ademas hago otra cosa en el submit');
+			}
+		});
 
 		// Validators
 		var	validation1 = $('#input_ico').required().and().string();
-		var	validation2 = $('#input_ico_inside').required().and().string();
-		var	validation3 = $('#price').price().and().required();
-		var	validation4 = $('#email').required().and().email();
-		var	validation5 = $('#custom').custom(function (v) {
+		// var	validation2 = $('#input_ico_inside').required().and().string();
+		// var	validation3 = $('#price').price().and().required();
+		// var	validation4 = $('#email').required().and().email();
+		// var	validation5 = $('#custom').custom(function (v) {
 
-			var value1 = v.toString().indexOf("1") > -1;
-			var value2 = v.toString().indexOf("2") > -1;
+		// 	var value1 = v.toString().indexOf("1") > -1;
+		// 	var value2 = v.toString().indexOf("2") > -1;
 
-			if (value1 && value2) { return true; }
+		// 	if (value1 && value2) { return true; }
 
-			if (!value1) {
-				this.message('custom', message('The number needs a {#num#}.', 1));
-				return false;
-			}
+		// 	if (!value1) {
+		// 		this.message('custom', message('The number needs a {#num#}.', 1));
+		// 		return false;
+		// 	}
 
-			if (!value2) {
-				this.message('custom', message('The number must contain a {#num#}.', 2));
-				return false;
-			}
+		// 	if (!value2) {
+		// 		this.message('custom', message('The number must contain a {#num#}.', 2));
+		// 		return false;
+		// 	}
 
-		});
-		var	validation6 = $('#url').url()
-		var	validation7 = $('#number').number().and().min(5);
-		var	validation8 = $('#range').min(8).and().max(10);
-		var	validation9 = $('#characters').maxLength(20).and().minLength(6);
-		var	validation10 = $('#double,#textarea2').required();
-		var	validation11 = $('.required-check').required(message('requiredCheck'));
-		var	validation12 = $('.required-option').required(message('option'));
-		var validation13 = $('#double').required(message('link'));
-		var validation14 = $('#double').number();
+		// });
+		// var	validation6 = $('#url').url()
+		// var	validation7 = $('#number').number().and().min(5);
+		// var	validation8 = $('#range').min(8).and().max(10);
+		// var	validation9 = $('#characters').maxLength(20).and().minLength(6);
+		// var	validation10 = $('#select2').required(message('option'));
+		// var	validation11 = $('.required-check').required(message('requiredCheck'));
+		// var	validation12 = $('.required-option').required(message('option'));
+		// var validation13 = $('#double').required(message('link'));
+		// var validation14 = $('#double').number();
+		// var	validation15 = $('#double, #textarea2').required();
 
 	</script>
 </body>
