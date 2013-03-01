@@ -48,7 +48,7 @@
 				"../../src/ui/js/ch.init.js"
 			],
 			"abilities": [
-				"../../src/ui/js/ch.EventEmitter.js",
+				"../../src/shared/js/ch.EventEmitter.js",
                 "../../src/shared/js/ch.onImagesLoads.js",
 				"../../src/shared/js/ch.cache.js",
 				"../../src/shared/js/ch.Content.js",
@@ -149,7 +149,7 @@
 				"../../src/mobile/js/ch.init.js"
 			],
 			"abilities": [
-                "../../src/mobile/js/ch.EventEmitter.js",
+                "../../src/shared/js/ch.EventEmitter.js",
                 "../../src/mobile/js/ch.routes.js",
                 "../../src/shared/js/ch.cache.js",
                 "../../src/shared/js/ch.Content.js",
