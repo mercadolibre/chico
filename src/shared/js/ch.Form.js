@@ -234,17 +234,20 @@
 
         // Is there's an error
         if (that._validationsError.length > 0) {
+            var firstError = that._validationsError[0];
 
             that._hasError = true;
 
+            firstError.bubble.$container[0].scrollIntoView();
+
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            if (that._validationsError[0].el.tagName === 'DIV') {
-                $(that._validationsError[0].el).find('input:first').focus();
+            if (firstError.el.tagName === 'DIV') {
+                firstError.$el.find('input:first').focus();
             }
 
-            if (that._validationsError[0].el.type !== 'hidden' || that._validationsError[0].el.tagName === 'SELECT') {
-                that._validationsError[0].el.focus();
+            if (firstError.el.type !== 'hidden' || firstError.el.tagName === 'SELECT') {
+                firstError.el.focus();
             }
 
         } else {

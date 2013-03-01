@@ -66,7 +66,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Generic input & textarea */
-input,
+input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
 textarea,
 select[multiple],
 .ch-form-select-multiple {
@@ -77,14 +77,7 @@ select[multiple],
 	padding: 6px;
 }
 
-input[type="file"],
-input[type="checkbox"],
-input[type="radio"] {
-	border: none;
-	padding: 0;
-}
-
-input:focus,
+input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]):focus,
 textarea:focus,
 select[multiple]:focus,
 .ch-form-select-multiple:focus {
@@ -99,12 +92,6 @@ input[type="radio"]:focus,
 input[type="range"]:focus,
 select:focus {
 	outline: 1px dotted #9A9A9A;
-}
-
-input[type="checkbox"]:focus,
-input[type="radio"]:focus {
-	border: none;
-	padding: 0;
 }
 
 input[readonly],
@@ -275,12 +262,6 @@ input[type=range],*/
 	position: absolute;
 	top: 50%;
 	margin: -8px 0 0 0;
-}
-
-.ch-list-options input[type="checkbox"]:focus,
-.ch-list-options input[type="radio"]:focus {
-	border: none;
-	padding: 0;
 }
 
 /* Disabled status */

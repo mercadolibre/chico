@@ -16,7 +16,7 @@ select[multiple] {
 }
 
 .ch-form-row-inline input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
-.ch-form-row-inline select{
+.ch-form-row-inline select {
 	display: inline-block;
 	width: auto;
 }
@@ -126,8 +126,6 @@ input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):no
 .ch-list-options input {
 	left: 8px;
 	line-height: 20px;
-	background-color: transparent;
-	box-shadow: none;
 	z-index: 2;
 }
 

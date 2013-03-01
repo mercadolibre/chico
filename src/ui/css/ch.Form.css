@@ -3,14 +3,49 @@ input,
 textarea,
 select[multiple],
 .ch-form-select-multiple {
-	border: 1px solid #CDCDCD;
 	font-size: 13px;
 	margin: 5px 0;
 }
 
-input[readonly],
-input[readonly]:focus {
-	padding: 5px 0;
+.lt-ie10 input,
+.lt-ie10 textarea,
+.lt-ie10 select[multiple],
+.lt-ie10 .ch-form-select-multiple {
+	border: 1px solid #CDCDCD;
+	border-radius: 3px;
+	-webkit-box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
+	box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
+	padding: 6px;
+}
+
+.lt-ie10 input:focus,
+.lt-ie10 textarea:focus,
+.lt-ie10 select[multiple]:focus,
+.lt-ie10 .ch-form-select-multiple:focus {
+	border: 2px solid #9A9A9A;
+	padding: 5px;
+	outline: 0;
+}
+
+.lt-ie10 input:focus {
+	border: 2px solid #9A9A9A;
+	padding: 5px;
+	outline: 0;
+}
+
+.lt-ie10 .ch-list-options input {
+	display: block;
+	width: 16px;
+	height: 16px;
+	border: none;
+	padding: 0;
+}
+
+.lt-ie10 input[type="radio"],
+.lt-ie10 input[type="checkbox"],
+.lt-ie10 input[type="radio"]:focus,
+.lt-ie10 input[type="checkbox"]:focus {
+	border: none;
 }
 
 /* Inner Icons */
@@ -102,4 +137,21 @@ input[readonly]:focus {
 /* Actions */
 .ch-form-actions {
 	margin-left: 145px;
+}
+
+/* Big inputs */
+.lt-ie10 .ch-form-big .ch-form-row input,
+.lt-ie10 .ch-form-big .ch-form-row textarea,
+.lt-ie10 .ch-form-big .ch-form-row select[multiple],
+.lt-ie10 .ch-form-big .ch-form-row .ch-form-select-multiple {
+	border-radius: 3px;
+	padding: 12px 10px;
+	margin: 5px 0;
+}
+
+.lt-ie10 .ch-form-big .ch-form-row input:focus,
+.lt-ie10 .ch-form-big .ch-form-row textarea:focus,
+.lt-ie10 .ch-form-big .ch-form-row select[multiple]:focus,
+.lt-ie10 .ch-form-big .ch-form-row .ch-form-select-multiple:focus {
+	padding: 11px 9px;
 }
