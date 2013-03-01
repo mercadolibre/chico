@@ -147,10 +147,9 @@
     EventEmitter.prototype.emit = function () {
 
         var args = Array.prototype.slice.call(arguments, 0), // converted to array
-            event = args[0],
+            event = args.shift(), // Store and remove events from args
             listeners,
-            listenerArgs,
-            i,
+            i = 0,
             len,
             // TODO: The widget should add this event - on('on' + event, this._options['on' + event]);
             fn = (this._options) ? this._options['on' + event] : undefined;
@@ -169,12 +168,10 @@
 
         if (this._eventsCollection !== undefined && this._eventsCollection[event.type] !== undefined) {
             listeners = this._eventsCollection[event.type];
-            i = 0;
             len = listeners.length;
-            listenerArgs = args.splice(1); //remove event name
 
             for (i; i < len; i += 1) {
-                listeners[i].apply(this, listenerArgs);
+                listeners[i].apply(this, args);
 
                 if (listeners[i].once) {
                     this.off(event.type, listeners[i]);
@@ -186,7 +183,7 @@
 
         // TODO: The widget should add this event - on('on' + event, this._options['on' + event]);
         if (fn !== undefined) {
-            fn.call(this._options.controller || this, listenerArgs);
+            fn.call(this._options.controller || this, args);
         }
 
         return this;
