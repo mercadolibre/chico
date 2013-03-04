@@ -82,7 +82,8 @@
     Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         'classes': 'ch-modal ch-box-lite',
         'width': '50%',
-        'close': 'all'
+        'close': 'all',
+        'reference': ch.viewport
     });
 
     Modal.prototype.init = function ($el, options) {
