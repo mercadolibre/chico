@@ -64,7 +64,6 @@
 
     Bubble.prototype.name = 'bubble';
     Bubble.prototype.constructor = Bubble;
-    Bubble.prototype.preset = 'Popover';
 
     ch.factory(Bubble);
 
