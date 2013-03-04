@@ -77,18 +77,15 @@
 
     Layer.prototype.constructor = Layer;
 
-    Layer.prototype._defaults = {
-        'fx': 'fadeIn',
+    Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         'classes': 'ch-box-lite ch-cone',
-        'width': 'auto',
-        'height': 'auto',
         'open': 'mouseenter',
         'close': 'mouseleave',
         'side': 'bottom',
         'align': 'left',
         'offsetX': 0,
         'offsetY': 10
-    };
+    });
 
     Layer.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);

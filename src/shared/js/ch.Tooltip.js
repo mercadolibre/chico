@@ -5,20 +5,6 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    var defaults = {
-        'fx': 'fadeIn',
-        'classes': 'ch-tooltip ch-cone',
-        'width': 'auto',
-        'height': 'auto',
-        'open': 'mouseenter',
-        'close': 'mouseleave',
-        'side': 'bottom',
-        'align': 'left',
-        'offsetX': 0,
-        'offsetY': 10,
-        'cone': true
-    };
-
     /**
      * Tooltip improves the native tooltips. Tooltip uses the 'alt' and 'title' attributes to grab its content.
      * @name Tooltip
@@ -58,10 +44,14 @@
             $el = undefined;
         }
 
-        options = $.extend(ch.util.clone(defaults), options);
+        options = $.extend(ch.util.clone(this._defaults), options);
 
         return new ch.Layer($el, options);
     }
+
+    Tooltip.prototype._defaults = $.extend(ch.util.clone(ch.Layer.prototype._defaults), {
+        'classes': 'ch-tooltip ch-cone'
+    });
 
     Tooltip.prototype.name = 'tooltip';
     Tooltip.prototype.constructor = Tooltip;

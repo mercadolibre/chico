@@ -70,7 +70,7 @@
 
     Zoom.prototype.constructor = Zoom;
 
-    Zoom.prototype._defaults = {
+    Zoom.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         'fx': false,
         'classes': 'ch-zoom',
         'width': '300px',
@@ -82,7 +82,7 @@
         'offsetX': 20,
         'offsetY': 0,
         'content': 'Loading zoom...'
-    };
+    });
 
     Zoom.prototype.init = function ($el, options) {
 
