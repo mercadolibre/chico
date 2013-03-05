@@ -71,6 +71,7 @@
 				<li><a href="#tags">Tags</a></li>
 				<li><a href="#pagination">Pagination</a></li>
 				<li><a href="#tables">Tables</a></li>
+				<li><a href="#dropdown">Dropdown</a></li>
 				<li><a href="#tooltip">Tooltip</a></li>
                 <li><a href="#layer">Layer</a></li>
                 <li><a href="#bubble">Bubble</a></li>
@@ -395,6 +396,54 @@
 				</ul>
 			</div>
 
+			<div id="dropdown" class="ch-box-lite">
+				<h2>Dropdown</h2>
+
+				<h3 class="myDropdown">Default</h3>
+				<menu label="Links" class="ch-hide">
+					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+				</menu>
+
+				<i class="ch-icon-heart myDropdownNav"></i>
+				<ul class="ch-hide">
+					<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+						<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
+							<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+							<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+							<p class="ch-price">$ 259<sup>90</sup></p>
+						</a>
+						<i class="favorite-menu-remove"></i>
+					</li>
+					<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+						<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
+							<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+							<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+							<p class="ch-price">$ 259<sup>90</sup></p>
+						</a>
+						<i class="favorite-menu-remove"></i>
+					</li>
+					<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+						<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
+							<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+							<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+							<p class="ch-price">$ 259<sup>90</sup></p>
+						</a>
+						<i class="favorite-menu-remove"></i>
+					</li>
+				</ul>
+
+				<p class="myDropdownSkin">With skin</p>
+				<menu label="Links" class="ch-hide">
+					<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+					<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+					<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+					<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+				</menu>
+			</div>
+
             <div class="ch-box-lite ch-clearfix" id="tooltip">
                 <h2>Tooltip</h2>
 
@@ -534,7 +583,7 @@
 								<label for="email2">
 									E-mail:
 								</label>
-								<input type="email2" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+								<input type="email" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
 								<input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline">
 								<label for="news" class="ch-label-inline">
 									Accept to receive weekly news
@@ -850,6 +899,13 @@
 
         // Countdown
         var countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
+
+		// Dropdown
+		var dropdown1 = $(".myDropdown").dropdown({'navigation': false});
+
+		var dropdown2 = $(".myDropdownNav").dropdown({'navigation': false, 'skin': true});
+
+		var dropdown3 = $(".myDropdownSkin").dropdown({'navigation': false, 'skin': true});
 
         // Tooltip
         // Bottom

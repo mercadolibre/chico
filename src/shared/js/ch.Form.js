@@ -147,7 +147,7 @@
     };
 
     /**
-     * This methods triggers the 'beforSubmit' callback, then will execute validate() method, and if is defined triggers 'onSubmit' callback, at the end will trigger the 'afterSubmit' callback.
+     * This methods execute validate() method, and if is defined triggers 'onSubmit' callback.
      * @public
      * @function
      * @name ch.Form#submit
@@ -163,8 +163,20 @@
         if (that._hasError) {
             ch.util.prevent(event);
 
-        // Check inside $._data if there's a handler for 'ch-submit' event or 'onsubmit' callback is set.
-        } else if (that.listeners('submit') !== undefined || that._options.onsubmit) {
+            /**
+             * Fired when the form fall on a error.
+             * @name ch.Form#error
+             * @event
+             * @public
+             * @exampleDescription
+             * @example
+             * widget.on("error",function (chicoEvent, data) {
+             *    console.log(data.errors.length);
+             * });
+             */
+            that.emit('error', that._validationsError);
+
+        } else {
             /**
              * Fired when submits the form.
              * @name ch.Form#submit
@@ -182,14 +194,15 @@
              *  this.action();
              * });
              */
-            that.emit('submit', event);
+            that.emit('success', event);
+
         }
 
         return that;
     };
 
     /**
-     * Executes all validations, if finds a error will trigger 'onError' callback, if no error is found will trigger 'onValidate' callback, and allways trigger 'afterValidate' callback.
+     * Executes all validations, if finds a error will trigger 'onerror' callback, if no error is found will trigger 'onsuccess' callback.
      * @public
      * @function
      * @name ch.Form#validate
@@ -199,21 +212,9 @@
         var that = this,
             i = 0,
             j = that._validations.length,
-            validationsError = [],
             child;
 
-        /**
-         * Fired before the validations engine start.
-         * @name ch.Form#beforeValidate
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("beforevalidate",function () {
-         *  sowidget.action();
-         * });
-         */
-        that.emit('beforevalidate');
+        that._validationsError = [];
 
         // Status OK (with previous error)
         if (that._hasError) {
@@ -226,70 +227,32 @@
 
             // Validate
             // Store validations with errors
-            if (child.validate()) {
-                validationsError.push(child);
+            if (child.validate() === false) {
+                that._validationsError.push(child);
             }
         }
 
         // Is there's an error
-        if (validationsError.length > 0) {
+        if (that._validationsError.length > 0) {
+            var firstError = that._validationsError[0];
 
             that._hasError = true;
 
+            firstError.bubble.$container[0].scrollIntoView();
+
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            if (validationsError[0].el.tagName === 'DIV') {
-                $(validationsError[0].el).find('input:first').focus();
+            if (firstError.el.tagName === 'DIV') {
+                firstError.$el.find('input:first').focus();
+            }
 
-            } else if (validationsError[0].el.type !== 'hidden') {
-                validationsError[0].el.focus();
+            if (firstError.el.type !== 'hidden' || firstError.el.tagName === 'SELECT') {
+                firstError.el.focus();
             }
 
         } else {
             that._hasError = false;
         }
-
-        /**
-         * Fired when the form validates.
-         * @name ch.Form#validate
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("validate",function () {
-         *  sowidget.action();
-         * });
-         */
-        if (!that._hasError) {
-            that.emit('validate');
-
-        /**
-         * Fired when the form fall on a error.
-         * @name ch.Form#error
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("error",function (chicoEvent, data) {
-         *    console.log(data.errors.length);
-         * });
-         */
-        } else {
-            that.emit('error', validationsError);
-        }
-
-        /**
-         * Fired when the validations end.
-         * @name ch.Form#afterValidate
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("aftervalidate",function () {
-         *  sowidget.action();
-         * });
-         */
-        that.emit('aftervalidate');
 
         return that;
     };

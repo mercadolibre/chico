@@ -1,22 +1,4 @@
 /**
- * Input colorizing
- */
-.ch-form .ch-validation-error {
-    border: 1px solid #f99;
-}
-
-.ch-form .ch-validation-error:focus {
-    border-width: 2px;
-    -webkit-box-shadow: 2px #f99;
-    box-shadow: 2px #f99;
-}
-
-.ch-form .ch-countdown-exceeded {
-    color: #B94A48;
-    color: #f99;
-}
-
-/**
  * Bubble
  */
 .ch-bubble {

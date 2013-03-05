@@ -1,5 +1,5 @@
 <!doctype html>
-<!--[if IE 7]>	<html class="no-js  lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>	<html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
 <!--[if IE 8]>	<html class="no-js lt-ie10 lt-ie9 ie8" lang="en"> <![endif]-->
 <!--[if IE 9]>	<html class="no-js lt-ie10 ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="es"> <!--<![endif]-->
@@ -930,7 +930,7 @@
 					<label for="email2">
 						E-mail:
 					</label>
-					<input type="email2" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+					<input type="email" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
 					<input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline">
 					<label for="news" class="ch-label-inline">
 						Accept to receive weekly news
@@ -1007,7 +1007,7 @@
 					<label for="select2">
 						Required: <em>*</em>
 					</label>
-					<select class="required-option" id="select2" required="required" pattern="[^-1]">
+					<select id="select2" required="required" pattern="[^-1]">
 						<option value="">Select one...</option>
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
@@ -1546,15 +1546,24 @@
 			}
 		}());
 
-// Form
+		// Form
+		var m = $.modal();
 		var form = $('.myForm').form()
-					.on('submit', function (chicoEvent, event) {
-						alert('Event Submit stopped');
+					.on('success', function (event) {
 						event.preventDefault();
+						m.show();
 					})
-					.on('error', function (chicoEvent, validations) {
-						console.log(validations);
+					.on('error', function (errors) {
+						console.log(errors);
 					});
+
+		$('.myForm').on('submit', function (event) {
+			console.log('Esto siempre se dispara siempre');
+			if (!form.hasError()) {
+				event.preventDefault();
+				console.log('Ademas hago otra cosa en el submit');
+			}
+		});
 
 		// Validators
 		var	validation1 = $('#input_ico').required().and().string();
@@ -1583,11 +1592,12 @@
 		var	validation7 = $('#number').number().and().min(5);
 		var	validation8 = $('#range').min(8).and().max(10);
 		var	validation9 = $('#characters').maxLength(20).and().minLength(6);
-		var	validation10 = $('#double,#textarea2').required();
+		var	validation10 = $('#select2').required(message('option'));
 		var	validation11 = $('.required-check').required(message('requiredCheck'));
 		var	validation12 = $('.required-option').required(message('option'));
 		var validation13 = $('#double').required(message('link'));
 		var validation14 = $('#double').number();
+		var	validation15 = $('#double, #textarea2').required();
 
 	</script>
 </body>
