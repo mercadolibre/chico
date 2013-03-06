@@ -113,7 +113,7 @@
             'aria': {
                 'role': 'tooltip'
             },
-            'classes': 'ch-datePicker ch-cone',
+            '_className': 'ch-datePicker ch-cone',
             'open': 'click',
             'close': this._options.close
         });

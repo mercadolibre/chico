@@ -86,7 +86,6 @@
 
     Popover.prototype._defaults = {
         'fx': 'fadeIn',
-        'classes': 'ch-box-lite',
         'width': 'auto',
         'height': 'auto',
         'open': 'click',
@@ -109,7 +108,7 @@
          */
         this.$container = $([
             '<div',
-            ' class="ch-popover ch-hide ' + this._options.classes + '"',
+            ' class="ch-popover ch-hide ' + (this._options._className || '') + ' ' + (this._options.addClass || '') + '"',
             ' role="tooltip"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',

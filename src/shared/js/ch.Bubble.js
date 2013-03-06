@@ -38,7 +38,7 @@
      */
     function Bubble($el, options) {
 
-        if (options === undefined && !ch.util.is$($el)) {
+        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
             options = $el;
             $el = undefined;
         }
@@ -49,7 +49,7 @@
     }
 
     Bubble.prototype._defaults = $.extend(ch.util.clone(ch.Popover.prototype._defaults), {
-        'classes': 'ch-bubble ch-box-error ch-cone',
+        '_className': 'ch-bubble ch-box-error ch-cone',
         'open': 'none',
         'close': 'none',
         'side': 'right',

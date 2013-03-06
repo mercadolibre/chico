@@ -78,7 +78,7 @@
     Layer.prototype.constructor = Layer;
 
     Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
-        'classes': 'ch-box-lite ch-cone',
+        '_className': 'ch-layer ch-box-lite ch-cone',
         'open': 'mouseenter',
         'close': 'mouseleave',
         'side': 'bottom',

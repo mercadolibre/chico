@@ -72,7 +72,7 @@
 
     Zoom.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         'fx': false,
-        'classes': 'ch-zoom',
+        '_className': 'ch-zoom',
         'width': '300px',
         'height': '300px',
         'open': 'mouseenter',

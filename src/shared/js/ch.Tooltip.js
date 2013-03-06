@@ -39,7 +39,7 @@
      */
     function Tooltip($el, options) {
 
-        if (options === undefined && !ch.util.is$($el)) {
+        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
             options = $el;
             $el = undefined;
         }
@@ -50,7 +50,7 @@
     }
 
     Tooltip.prototype._defaults = $.extend(ch.util.clone(ch.Layer.prototype._defaults), {
-        'classes': 'ch-tooltip ch-cone'
+        '_className': 'ch-tooltip ch-cone'
     });
 
     Tooltip.prototype.name = 'tooltip';

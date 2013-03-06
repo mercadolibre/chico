@@ -42,7 +42,7 @@
      */
     function Transition($el, options) {
 
-        if (options === undefined && !ch.util.is$($el)) {
+        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
             options = $el;
             $el = undefined;
         }
@@ -55,7 +55,7 @@
     }
 
     Transition.prototype._defaults = $.extend(ch.util.clone(ch.Modal.prototype._defaults), {
-        'classes': 'ch-transition ch-box-lite',
+        '_className': 'ch-transition ch-box-lite',
         'close': 'none',
         'content': 'Please wait...'
     });
