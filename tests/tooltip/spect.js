@@ -1,121 +1,115 @@
 /**
  * @todo "width" and "height" as parameter
- * @todo delete closable=button tests?
  */
 describe('Tooltip', function () {
-	var tooltip1 = $('#tooltip1').tooltip(),
+	var $body = $('body'),
+		tooltip1 = $('#tooltip1').tooltip(),
 		tooltip2 = $('#tooltip2').tooltip({
 			'classes': 'test',
-			'closable': true,
-			'content': 'Tooltip with closable:true and a defined content.'
+			'content': 'Tooltip with a defined content.'
 		}),
-		tooltip3 = $('#tooltip3').tooltip({
-			'closable': false
-		}),
-		tooltip4 = $('#tooltip4').tooltip({
-			'closable': 'button'
-		});
+		tooltip3 = $('#tooltip3').tooltip(),
+		tooltip4 = $('#tooltip4').tooltip();
 
 
 	it('should be defined', function () {
 		expect(ch.util.hasOwn(ch, 'Tooltip')).toBeTruthy();
 		expect(typeof ch.Tooltip).toEqual('function');
+		expect(tooltip1 instanceof ch.Tooltip).toBeTruthy();
 	});
 
 	describe('Should have the following public properties:', function () {
 
-		it('.element', function () {
-			expect(ch.util.hasOwn(tooltip1, 'element')).toBeTruthy();
-			expect(tooltip1.element.nodeType).toEqual(1);
+		it('.el', function () {
+			expect(tooltip1.el).not.toEqual(undefined);
+			expect(tooltip1.el.nodeType).toEqual(1);
 		});
 
-		it('.type / .name', function () {
-			expect(ch.util.hasOwn(tooltip1, 'type')).toBeTruthy();
-			expect(typeof tooltip1.type).toEqual('string');
-			expect(tooltip1.type).toEqual('tooltip');
+		it('.name', function () {
+			expect(tooltip1.name).not.toEqual(undefined);
+			expect(typeof tooltip1.name).toEqual('string');
+			expect(tooltip1.name).toEqual('tooltip');
 		});
 
-		/*it('.constructor', function () {
-			expect(ch.util.hasOwn(tooltip, 'constructor')).toBeTruthy();
-			expect(typeof tooltip.constructor).toEqual('function');
-		});*/
+		it('.constructor', function () {
+			expect(tooltip1.constructor).not.toEqual(undefined);
+			expect(typeof tooltip1.constructor).toEqual('function');
+		});
 
 		it('.uid', function () {
+			expect(tooltip1.uid).not.toEqual(undefined);
 			expect(typeof tooltip1.uid).toEqual('number');
 		});
 
 		it('.content', function () {
-			expect(ch.util.hasOwn(tooltip1, 'content')).toBeTruthy();
+			expect(tooltip1.content).not.toEqual(undefined);
 			expect(typeof tooltip1.content).toEqual('function');
 		});
+
+        it('.position', function () {
+            expect(tooltip1.position).not.toEqual(undefined);
+            expect(typeof tooltip1.position).toEqual('object');
+            expect(tooltip1.position instanceof ch.Positioner).toBeTruthy();
+        });
 	});
 
-	describe('Shold have the following public methods:', function () {
+	describe('Should have the following public methods:', function () {
 
 		it('.off()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'off')).toBeTruthy();
+			expect(tooltip1.off).not.toEqual(undefined);
 			expect(typeof tooltip1.off).toEqual('function');
 		});
 
 		it('.on()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'on')).toBeTruthy();
+			expect(tooltip1.on).not.toEqual(undefined);
 			expect(typeof tooltip1.on).toEqual('function');
 		});
 
 		it('.once()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'once')).toBeTruthy();
+			expect(tooltip1.once).not.toEqual(undefined);
 			expect(typeof tooltip1.once).toEqual('function');
 		});
 
-		it('.trigger()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'trigger')).toBeTruthy();
-			expect(typeof tooltip1.trigger).toEqual('function');
-		});
-
-		it('.closable()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'closable')).toBeTruthy();
-			expect(typeof tooltip1.closable).toEqual('function');
+		it('.emit()', function () {
+			expect(tooltip1.emit).not.toEqual(undefined);
+			expect(typeof tooltip1.emit).toEqual('function');
 		});
 
 		it('.height()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'height')).toBeTruthy();
+			expect(tooltip1.height).not.toEqual(undefined);
 			expect(typeof tooltip1.height).toEqual('function');
 		});
 
 		it('.hide()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'hide')).toBeTruthy();
+			expect(tooltip1.hide).not.toEqual(undefined);
 			expect(typeof tooltip1.hide).toEqual('function');
 		});
 
 		it('.isActive()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'isActive')).toBeTruthy();
+			expect(tooltip1.isActive).not.toEqual(undefined);
 			expect(typeof tooltip1.isActive).toEqual('function');
 		});
 
-		it('.position()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'position')).toBeTruthy();
-			expect(typeof tooltip1.position).toEqual('function');
-		});
-
 		it('.show()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'show')).toBeTruthy();
+			expect(tooltip1.show).not.toEqual(undefined);
 			expect(typeof tooltip1.show).toEqual('function');
 		});
 
 		it('.width()', function () {
-			expect(ch.util.hasOwn(tooltip1, 'width')).toBeTruthy();
+			expect(tooltip1.width).not.toEqual(undefined);
 			expect(typeof tooltip1.width).toEqual('function');
 		});
 	});
 
 	describe('Should have the following WAI-ARIA roles and properties:', function () {
 		it('aria-describedby', function () {
-			expect($(tooltip1.element).attr("aria-describedby")).toEqual('ch-tooltip-1');
+			expect(tooltip1.$el.attr("aria-describedby")).toEqual('ch-tooltip-1');
 		});
 	});
 
-	it('Should have the "ch-points-ltlb" classname:', function () {
-		expect($(tooltip1.element).hasClass('ch-points-ltlb')).toBeTruthy();
+	it('Should have the datasets to position the container:', function () {
+        expect(tooltip1.$el.attr('data-side')).toEqual('bottom');
+		expect(tooltip1.$el.attr('data-align')).toEqual('right');
 	});
 
 	describe('Show method', function () {
@@ -125,7 +119,7 @@ describe('Tooltip', function () {
 			var $content;
 
 			beforeEach(function () {
-				$content = $(document.body).children().last();
+				$content = $body.children().last();
 			});
 
 			it('Should have the same ID than the "describedby" ARIA attribute', function () {
@@ -134,7 +128,7 @@ describe('Tooltip', function () {
 
 				tooltip1.show();
 
-				expect($(document.body).children().last().attr('id')).toEqual('ch-tooltip-1');
+				expect($body.children().last().attr('id')).toEqual('ch-tooltip-1');
 			});
 
 			it('Should have the ARIA role "tooltip".', function () {
@@ -153,10 +147,6 @@ describe('Tooltip', function () {
 
 				it('.ch-cone', function () {
 					expect($content.hasClass('ch-cone')).toBeTruthy();
-				});
-
-				it('.ch-points-ltlb', function () {
-					expect($content.hasClass('ch-points-ltlb')).toBeTruthy();
 				});
 			});
 
@@ -178,7 +168,7 @@ describe('Tooltip', function () {
 				});
 
 				it('Should empty temporally the "alt" attribute of the instantiation element.', function () {
-					expect(tooltip1.element.alt).toEqual('');
+					expect(tooltip1.el.alt).toEqual('');
 				});
 
 				it('Should contain the content (via ch.Content) of the "alt" attribute of the instantiation element.', function () {
@@ -201,14 +191,14 @@ describe('Tooltip', function () {
 
 			var flag = false;
 
-			expect($(document.body).children().last().attr('id')).toEqual('ch-tooltip-1');
+			expect($body.children().last().attr('id')).toEqual('ch-tooltip-1');
 
 			tooltip1.hide();
 
 			waits(500);
 
 			runs(function () {
-				expect($(document.body).children().last().attr('id')).not.toEqual('ch-tooltip-1');
+				expect($body.children().last().attr('id')).not.toEqual('ch-tooltip-1');
 			});
 		});
 
@@ -235,7 +225,7 @@ describe('Tooltip', function () {
 			expect(tooltip1.isActive()).not.toBeTruthy();
 		});
 
-		it('Should return "false" when the widget is hiden', function () {
+		it('Should return "false" when the widget is hidden', function () {
 
 			tooltip1.show();
 
@@ -251,16 +241,16 @@ describe('Tooltip', function () {
 		beforeEach(function () {
 			tooltip1.show();
 
-			$content = $(document.body).children().last();
+			$content = $body.children().last();
 		});
 
 		it('As a getter', function () {
-			expect(tooltip1.width()).toEqual($content.width());
+			expect(tooltip1.width()).toEqual('auto');
 		});
 
 		it('As a setter', function () {
 
-			var finalWidth = 123;
+			var finalWidth = '123px';
 
 			expect(tooltip1.width()).not.toEqual(finalWidth);
 
@@ -279,16 +269,16 @@ describe('Tooltip', function () {
 		beforeEach(function () {
 			tooltip1.show();
 
-			$content = $(document.body).children().last();
+			$content = $body.children().last();
 		});
 
 		it('As a getter', function () {
-			expect(tooltip1.height()).toEqual($content.height());
+			expect(tooltip1.height()).toEqual('auto');
 		});
 
 		it('As a setter', function () {
 
-			var finalHeight = 55;
+			var finalHeight = '55px';
 
 			expect(tooltip1.height()).not.toEqual(finalHeight);
 
@@ -300,35 +290,6 @@ describe('Tooltip', function () {
 		});
 	});
 
-	describe('Closable method', function () {
-
-		var closable;
-
-		it('When configuration says "true"', function () {
-
-			closable = tooltip2.closable();
-
-			expect(typeof closable).toEqual('boolean');
-			expect(closable).toBeTruthy();
-		});
-
-		it('When configuration says "false"', function () {
-
-			closable = tooltip3.closable();
-
-			expect(typeof closable).toEqual('boolean');
-			expect(closable).not.toBeTruthy();
-		});
-
-		it('When configuration says "button"', function () {
-
-			closable = tooltip4.closable();
-
-			expect(typeof closable).toEqual('string');
-			expect(closable).toEqual('button');
-		});
-	});
-
 	describe('Different configurations of content.', function () {
 
 		describe('When a "content" parameter is defined into the configuration object.', function () {
@@ -337,7 +298,7 @@ describe('Tooltip', function () {
 
 				tooltip2.content.set();
 
-				expect(tooltip2.content.get()).toEqual('Tooltip with closable:true and a defined content.');
+				expect(tooltip2.content.get()).toEqual('Tooltip with a defined content.');
 			});
 		});
 
@@ -347,16 +308,16 @@ describe('Tooltip', function () {
 
 				tooltip3.content.set();
 
-				expect(tooltip3.content.get()).toEqual(tooltip3.element.title);
+				expect(tooltip3.content.get()).toEqual(tooltip3.el.title);
 			});
 
 			it('Should empty temporally the "title" attribute of the instantiation element at show().', function () {
 
-				expect(tooltip3.element.title).not.toEqual('');
+				expect(tooltip3.el.title).not.toEqual('');
 
 				tooltip3.show();
 
-				expect(tooltip3.element.title).toEqual('');
+				expect(tooltip3.el.title).toEqual('');
 			});
 		});
 
@@ -368,17 +329,17 @@ describe('Tooltip', function () {
 
 				var content = tooltip4.content.get();
 
-				expect(content).not.toEqual(tooltip4.element.alt);
-				expect(content).toEqual(tooltip4.element.title);
+				expect(content).not.toEqual(tooltip4.el.alt);
+				expect(content).toEqual(tooltip4.el.title);
 			});
 
 			it('Should empty temporally the "title" attribute of the instantiation element at show()', function () {
 
-				expect(tooltip4.element.title).not.toEqual('');
+				expect(tooltip4.el.title).not.toEqual('');
 
 				tooltip4.show();
 
-				expect(tooltip4.element.title).toEqual('');
+				expect(tooltip4.el.title).toEqual('');
 			});
 		});
 	});
@@ -446,7 +407,7 @@ describe('Tooltip', function () {
 
 			tooltip2.show();
 
-			var $container = $(document.body).children().last();
+			var $container = $body.children().last();
 
 			expect($container.hasClass('ch-box-lite')).not.toBeTruthy();
 			expect($container.hasClass('test')).toBeTruthy();

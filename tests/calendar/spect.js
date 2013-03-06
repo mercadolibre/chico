@@ -13,7 +13,28 @@ describe('The ch.Calendar', function () {
 			var snippet = f.find(selector + n);
 			$('body').prepend(f);
 			return snippet;
-		};
+		},
+		addZero = function(num) {
+			return (parseInt(num, 10) < 10) ? "0" + num : num;
+		},
+		DATE = (function(){
+			var date = new Date(),
+				TODAY =  {
+					'day': addZero(date.getDate()),
+					'month': addZero((date.getMonth() + 1)),
+					'year': date.getFullYear()
+				},
+				FORMAT = {
+					'ddmmyyyy': [TODAY.day, TODAY.month, TODAY.year].join('/'),
+					'yyyymmdd': [TODAY.year, TODAY.month, TODAY.day].join('/')
+				};
+			return {
+				'TODAY': TODAY,
+				'FORMAT': FORMAT
+			}
+		})();
+
+
 
 	describe('constructor', function () {
 
@@ -32,15 +53,15 @@ describe('The ch.Calendar', function () {
 
 			describe('with the property',function () {
 
-				it('"element" that it should be a instanceof a HTMLElement', function () {
-					expect(calendar.element).toBeDefined();
-					expect(calendar.element instanceof HTMLElement).toBeTruthy();
+				it('"el" that it should be a instanceof a HTMLElement', function () {
+					expect(calendar.el).toBeDefined();
+					expect(calendar.el instanceof HTMLElement).toBeTruthy();
 				});
 
-				it('"type" that it should be calendar', function () {
-					expect(calendar.type).toBeDefined();
-					expect(typeof calendar.type).toEqual('string');
-					expect(calendar.type).toEqual('calendar');
+				it('"name" that it should be calendar', function () {
+					expect(calendar.name).toBeDefined();
+					expect(typeof calendar.name).toEqual('string');
+					expect(calendar.name).toEqual('calendar');
 				});
 
 				it('"uid" that should be a number', function () {
@@ -97,14 +118,14 @@ describe('The ch.Calendar', function () {
 				it('"select" that it should return a string when a is getter and object when is setter', function () {
 					expect(calendar.select).toBeDefined();
 					expect(typeof calendar.select).toEqual('function');
-					expect(typeof calendar.select('7/12/2002')).toEqual('object');
+					expect(typeof calendar.select('2012/12/7')).toEqual('object');
 					expect(typeof calendar.select()).toEqual('string');
 				});
 
 				it('"selectDay" that it return a string', function () {
 					expect(calendar.selectDay).toBeDefined();
 					expect(typeof calendar.selectDay).toEqual('function');
-					expect(typeof calendar.selectDay(20)).toEqual('string');
+					expect(typeof calendar.selectDay(3)).toEqual('string');
 				});
 
 				it('"to" that it should return an object', function () {
@@ -119,9 +140,9 @@ describe('The ch.Calendar', function () {
 					expect(typeof calendar.today()).toEqual('string');
 				});
 
-				it('"trigger"', function () {
-					expect(calendar.trigger).toBeDefined();
-					expect(typeof calendar.trigger).toEqual('function');
+				it('"emit"', function () {
+					expect(calendar.emit).toBeDefined();
+					expect(typeof calendar.emit).toEqual('function');
 				});
 			});
 
@@ -134,48 +155,47 @@ describe('The ch.Calendar', function () {
 	describe('method', function () {
 
 		var calendar1 = getSnippet('#calendar').calendar(),
-			calendar1Selector = '#' + calendar1.element.id,
+			calendar1Selector = '#' + calendar1.el.id,
 			calendar2 = getSnippet('#calendar').calendar(),
-			calendar2Selector = '#' + calendar2.element.id,
+			calendar2Selector = '#' + calendar2.el.id,
 			calendar3 = getSnippet('#calendar').calendar({
 				'format': 'YYYY/MM/DD',
-				'selected': '2012/10/10',
+				'selected': '2012/10/08',
 				'from': '2012/10/03',
 				'to': '2012/10/13',
 
 			}),
-			calendar3Selector = '#' + calendar3.element.id,
+			calendar3Selector = '#' + calendar3.el.id,
 			calendar4 = getSnippet('#calendar').calendar(),
-			calendar4Selector = '#' + calendar4.element.id;
+			calendar4Selector = '#' + calendar4.el.id;
 
 		describe('select', function(){
 			it('should return the date pre configured when it was instantiated', function () {
-				expect( calendar3.select() ).toEqual('2012/10/10');
+				expect( calendar3.select() ).toEqual('2012/10/01');
 			});
 
-			it('should set a date as datePicker.select(\'22/10/2012\')', function () {
-				calendar2.select('22/10/2012');
-				expect(calendar2.select()).toEqual('22/10/2012');
+			it('should set a date as calendar.select(\'2013/01/07\')', function () {
+				calendar2.select('2013/01/07');
+				expect(calendar2.select()).toEqual('07/01/2013');
 			});
 		});
 
 		describe('selectDay', function(){
-			it('should set a date as datePicker.select(\'22\'), it returns the complete date as a string', function () {
-				var currentDate = new Date(),
-					month = (currentDate.getMonth() + 1),
-					year = currentDate.getFullYear(),
-					date = calendar2.selectDay(22);
-
-				expect(date).toEqual(('22/' + month + '/' + year));
+			it('should set a date as calendar.select(\'22\'), it returns the complete date as a string', function () {
+				expect(calendar2.selectDay('22')).toEqual(('22/' + DATE.TODAY.month + '/' + DATE.TODAY.year));
 			});
 		});
 
 		describe('from', function(){
 			it('should do dates unselectable with class "ch-calendar-disabled"', function () {
 
-				calendar1.from('2012/10/10');
+				var day = parseInt(DATE.TODAY.day, 10) - 1,
+					dayFrom = (day > 0)?addZero(day):DATE.TODAY.day,
+					dateFrom = [DATE.TODAY.year, DATE.TODAY.month, dayFrom ].join('/');
+
+				calendar1.select('today');
+				calendar1.from(dateFrom);
 				// This test fails because the is not refreshing the table after the from method is executed
-				//datePicker1.select('11/10/2012');
 
 				var days = $(calendar1Selector).find('tbody td');
 
@@ -183,24 +203,29 @@ describe('The ch.Calendar', function () {
 					var $day = $(day),
 						dayNum = parseInt($day.text());
 
-					if( dayNum<10 ){
+					if( dayNum<dayFrom ){
 						expect($day.hasClass('ch-calendar-disabled')).toBeTruthy();
 					}
 
 				});
 			});
 
-			it('should throw an error when date is set as a invalid format datePicker.from(\'22/10/2012\').', function () {
+			it('should throw an error when date is set as a invalid format calendar.from(\'22/10/2012\').', function () {
 				expect(function(){ calendar4.from('20/10/2012'); }).toThrow();
 			});
 		});
 
 		describe('to', function(){
 			it('should do dates unselectable with class "ch-calendar-disabled".', function () {
+				var day = parseInt(DATE.TODAY.day, 10) + 1,
+					dayTo = (day > 28)?addZero(day):DATE.TODAY.day,
+					dateTo = [DATE.TODAY.year, DATE.TODAY.month, dayTo ].join('/');
 
-				calendar1.to('2012/10/20');
+				// select the day of tody today
+				calendar1.select('today');
+
+				calendar1.to(dateTo);
 				// This test fails because the is not refreshing the table after the to method is executed
-				//datePicker1.select('11/10/2012');
 
 				var days = $(calendar1Selector).find('tbody td');
 
@@ -208,14 +233,14 @@ describe('The ch.Calendar', function () {
 					var $day = $(day),
 						dayNum = parseInt($day.text());
 
-					if( dayNum>20 ){
+					if( dayNum>dayTo ){
 						expect($day.hasClass('ch-calendar-disabled')).toBeTruthy();
 					}
 
 				});
 			});
 
-			it('should throw an error when date is set as a invalid format datePicker.to(\'22/10/2012\').', function () {
+			it('should throw an error when date is set as a invalid format calendar.to(\'22/10/2012\').', function () {
 				expect(function(){ calendar4.to('25/10/2012'); }).toThrow();
 			});
 		});
@@ -243,15 +268,8 @@ describe('The ch.Calendar', function () {
 
 		describe('today', function(){
 			it('should return the current date in the pre configured format DD/MM/YYYY or YYYY/MM/DD', function () {
-				var today = new Date(),
-					day = today.getDate(),
-					month = (today.getMonth() + 1),
-					year = today.getFullYear(),
-					ddmmyyyy = [day, month, year].join('/'),
-					yyyymmdd = [year, month, day].join('/');
-
-				expect(calendar3.today()).toEqual(yyyymmdd);
-				expect(calendar2.today()).toEqual(ddmmyyyy);
+				expect(calendar3.today()).toEqual(DATE.FORMAT.yyyymmdd);
+				expect(calendar2.today()).toEqual(DATE.FORMAT.ddmmyyyy);
 			});
 		});
 
@@ -266,7 +284,7 @@ describe('The ch.Calendar', function () {
 
 	describe('class', function(){
 		var calendar = getSnippet('#calendar').calendar(),
-			calendarSelector = '#' + calendar.element.id,
+			calendarSelector = '#' + calendar.el.id,
 			$calendar = $(calendarSelector);
 
 		describe('ch-calendar', function () {
@@ -332,7 +350,7 @@ describe('The ch.Calendar', function () {
 
 	describe('WAI-ARIA attribute', function(){
 		var calendar = getSnippet('#calendar').calendar(),
-			calendarSelector = '#' + calendar.element.id,
+			calendarSelector = '#' + calendar.el.id,
 			$calendar = $(calendarSelector),
 			$table = $calendar.find('table'),
 			$next = $calendar.find('.ch-calendar-next'),
@@ -413,7 +431,7 @@ describe('The ch.Calendar', function () {
 
 	describe('event', function () {
 		var calendar = getSnippet('#calendar').calendar(),
-			calendarSelector = '#' + calendar.element.id,
+			calendarSelector = '#' + calendar.el.id,
 			readyEvent,
 			selectEvent;
 
@@ -431,7 +449,7 @@ describe('The ch.Calendar', function () {
 		});
 
 		it('"select" should been called', function () {
-			calendar.select('22/10/2012');
+			calendar.select('2013/01/07');
 			expect(selectEvent).toHaveBeenCalled();
 		});
 	});
@@ -443,7 +461,7 @@ describe('The ch.Calendar', function () {
 				'ready': readyEvent,
 				'onSelect': selectEvent
 			}),
-			calendarSelector = '#' + calendar.element.id;
+			calendarSelector = '#' + calendar.el.id;
 
 		it('"ready" should been called', function () {
 			waits(75);
@@ -453,7 +471,7 @@ describe('The ch.Calendar', function () {
 		});
 
 		it('"select" should been called', function () {
-			calendar.select('22/10/2012');
+			calendar.select('2013/01/07');
 			expect(selectEvent).toHaveBeenCalled();
 		});
 	});

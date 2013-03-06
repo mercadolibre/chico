@@ -21,25 +21,70 @@
 	 * @memberOf ch.events.layout
 	 * @type {String}
 	 */
-	events.layout.CHANGE = 'change';
+	events.layout.CHANGE = 'changeLayout';
 
 	/**
-	 * Viewport events collection.
-	 * @name viewport
+	 * Pointer events collection.
+	 * @name pointer
 	 * @namespace
 	 * @memberOf ch.events
+     * @see <a href="http://www.w3.org/TR/2013/WD-pointerevents-20130115/#list-of-pointer-events">Pointer Events W3C Working Draft</a>
 	 */
-	events.viewport = {};
+	events.pointer = {};
 
 	/**
-	 * Every time Chico UI needs to inform all visual components that window has been scrolled or resized, it emits this event.
-	 * @name CHANGE
+	 *
+	 * @name DOWN
 	 * @constant
-	 * @memberOf ch.events.viewport
+	 * @memberOf ch.events.pointer
 	 * @type {String}
-	 * @see ch.Positioner
 	 */
-	events.viewport.CHANGE = 'change';
+	events.pointer.DOWN = (ch.support.touch) ? 'touchstart' : 'mousedown';
+
+	/**
+	 *
+	 * @name UP
+	 * @constant
+	 * @memberOf ch.events.pointer
+	 * @type {String}
+	 */
+	events.pointer.UP = (ch.support.touch) ? 'touchend' : 'mouseup';
+
+	/**
+	 *
+	 * @name MOVE
+	 * @constant
+	 * @memberOf ch.events.pointer
+	 * @type {String}
+	 */
+	events.pointer.MOVE = (ch.support.touch) ? 'touchmove' : 'mousemove';
+
+    /**
+     *
+     * @name TAP
+     * @constant
+     * @memberOf ch.events.pointer
+     * @type {String}
+     */
+    events.pointer.TAP = (ch.support.touch) ? 'touchend' : 'click';
+
+    /**
+     *
+     * @name ENTER
+     * @constant
+     * @memberOf ch.events.pointer
+     * @type {String}
+     */
+    events.pointer.ENTER = (ch.support.touch) ? 'touchstart' : 'mouseenter';
+
+    /**
+     *
+     * @name LEAVE
+     * @constant
+     * @memberOf ch.events.pointer
+     * @type {String}
+     */
+    events.pointer.LEAVE = (ch.support.touch) ? 'touchend' : 'mouseleave';
 
 	ch.events = events;
 }());

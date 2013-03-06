@@ -1,4 +1,5 @@
 (function () {
+
 	/**
 	 * Provides varies utilities and commons functions that are used across all widgets.
 	 * @name ch.util
@@ -155,6 +156,26 @@
 		return ((/^(((https|http|ftp|file):\/\/)|www\.|\.\/|(\.\.\/)+|(\/{1,2})|(\d{1,3}\.){3}\d{1,3})(((\w+|-)(\.?)(\/?))+)(\:\d{1,5}){0,1}(((\w+|-)(\.?)(\/?)(#?))+)((\?)(\w+=(\w?)+(&?))+)?(\w+#\w+)?$/).test(url));
 	};
 
+    /**
+     * Determines if a specified element is an instance of $.
+     * @name is$
+     * @methodOf ch.util
+     * @param {Object} $el The element to be checked as instance of $.
+     * @returns {Boolean}
+     */
+    util.is$ = (function () {
+
+        if ($.zepto === undefined) {
+            return function ($el) {
+                return $el instanceof $;
+            };
+        } else {
+            return function ($el) {
+                return $.zepto.isZ($el);
+            };
+        }
+    }());
+
 	/**
 	 * Adds CSS rules to disable text selection highlighting.
 	 * @name avoidTextSelection
@@ -171,8 +192,7 @@
 		}
 
 		$.each(args, function(i, $arg){
-
-			if (!($arg instanceof $)) {
+			if (!($arg instanceof $ || $.zepto.isZ($arg))) {
 				throw new Error('"ch.util.avoidTextSelection(selector)": The parameter must be a query selector.');
 			}
 
@@ -295,12 +315,8 @@
 
 		var child = obj.prototype || {};
 		obj.prototype = $.extend(child, superConstructor.prototype);
-		obj.prototype.uber = superConstructor.prototype;
 
-		/*var fn = function () {};
-		fn.prototype = superConstructor.prototype;
-		obj.prototype = new fn();
-		obj.prototype.constructor = obj;*/
+		return superConstructor.prototype;
 	};
 
 	/**
@@ -344,6 +360,47 @@
 		if (typeof event === 'object') {
 			event.preventDefault();
 			event.stopPropagation();
+		}
+	};
+
+    /**
+     * Get the current vertical and horizontal positions of the scroll bar.
+     * @name getScroll
+     * @returns {Object}
+     */
+    util.getScroll = function () {
+    	return {
+    		'left': window.pageXOffset || document.documentElement.scrollLeft || 0,
+    		'top': window.pageYOffset || document.documentElement.scrollTop || 0
+    	}
+    };
+
+    /**
+     * Get the current outer dimensions of an element.
+     * @name getOuterDimensions
+     * @returns {Object}
+     */
+	util.getOuterDimensions = function (el) {
+        var obj = el.getBoundingClientRect();
+
+        return {
+            'width': (obj.right - obj.left),
+            'height': (obj.bottom - obj.top)
+        }
+    };
+
+    /**
+     * Get the current offset of an element.
+     * @name getOffset
+     * @returns {Object}
+     */
+	util.getOffset = function (el) {
+		var obj = el.getBoundingClientRect(),
+			scroll = util.getScroll();
+
+		return {
+			'left': obj.left + scroll.left,
+			'top': obj.top + scroll.top
 		}
 	};
 

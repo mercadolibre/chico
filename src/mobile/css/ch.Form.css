@@ -1,5 +1,17 @@
 /* Generic input & textarea */
-input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="search"],
+input[type="date"],
+input[type="datatime"],
+input[type="datatime-local"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
 textarea,
 select,
 select[multiple] {
@@ -15,15 +27,34 @@ select[multiple] {
 	width: 100%;
 }
 
-.ch-form-row-inline input:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
-.ch-form-row-inline select{
+.ch-form-row-inline input[type="text"],
+.ch-form-row-inline input[type="url"],
+.ch-form-row-inline input[type="email"],
+.ch-form-row-inline input[type="search"],
+.ch-form-row-inline input[type="date"],
+.ch-form-row-inline input[type="datatime"],
+.ch-form-row-inline input[type="datatime-local"],
+.ch-form-row-inline input[type="month"],
+.ch-form-row-inline input[type="week"],
+.ch-form-row-inline input[type="time"],
+.ch-form-row-inline input[type="tel"],
+.ch-form-row-inline input[type="number"],
+.ch-form-row-inline input[type="password"],
+.ch-form-row-inline select {
 	display: inline-block;
 	width: auto;
 }
 
-input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]),
-input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]):focus {
+input,
+input:focus {
 	padding: 6px 0;
+}
+
+input[type="radio"],
+input[type="checkbox"],
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+	padding: 0;
 }
 
 /* Inner Icons */
@@ -123,11 +154,19 @@ input[readonly]:not([type="submit"]):not([type="reset"]):not([type="button"]):no
 	padding: 16px 0  9px 0;
 }
 
-.ch-list-options input {
+.ch-list-options input[type="radio"],
+.ch-list-options input[type="checkbox"] {
 	left: 8px;
-	height: 20px;
-	background-color: transparent;
-	box-shadow: none;
+	line-height: 20px;
+	z-index: 2;
+}
+
+.ch-list-options input[type="checkbox"] {
+	margin-top: -4px;
+}
+
+.ch-list-options input[type="radio"] {
+	margin-top: -5px;
 }
 
 .ch-list-options .ch-form-subtitle + * {
