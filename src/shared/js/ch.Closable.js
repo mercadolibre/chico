@@ -13,21 +13,29 @@
 	}
 
 	var $document = $(document),
-        pointerTap = ch.events.pointer.TAP,
-        pointerLeave = ch.events.pointer.LEAVE,
         // keyEsc = ch.events.key.ESC;
         keyEsc = ch.events.key ? ch.events.key.ESC : 'touchend';
 
 	function Closable() {
 
 		var that = this,
+            setTimeout = window.setTimeout,
+            clearTimeout = window.clearTimeout,
             closableType = this._options.close,
-            tapEvent = pointerTap + '.' + this.name,
-            escEvent = keyEsc + '.' + this.name;
+            delay = this._options.closeDelay,
+            pointerTap = ch.events.pointer.TAP + '.' + this.name,
+            pointerEnter = ch.events.pointer.ENTER + '.' + this.name,
+            pointerLeave = ch.events.pointer.LEAVE + '.' + this.name,
+            escEvent = keyEsc + '.' + this.name,
+            timeOut;
 
         function close(event) {
             ch.util.prevent(event);
             that.hide();
+        }
+
+        function closeTimer() {
+            timeOut = setTimeout(close, delay);
         }
 
 		this._closable = function () {
@@ -41,9 +49,26 @@
              * Closable by leaving the widget
              */
             if (closableType === 'mouseleave' && that.$el !== undefined) {
-                //
-                that.$el.on(pointerLeave, close);
-                // Don't analize another case
+
+                // this.$el.on(pointerLeave, close);
+
+                var events = {};
+
+                if (delay === 0) {
+                    events[pointerLeave] = close;
+
+                } else {
+                    events[pointerEnter] = function () {
+                        clearTimeout(timeOut);
+                    };
+
+                    events[pointerLeave] = closeTimer;
+
+                    that.$container.on(events);
+                }
+
+                that.$el.on(events);
+
                 return;
             }
 
@@ -52,7 +77,7 @@
              */
 			if (closableType === 'button-only' || closableType === 'all' || closableType === true) {
 				// Append a close button
-				$('<a class="ch-close" role="button"></a>').on(tapEvent, close).prependTo(that.$container);
+				$('<a class="ch-close" role="button"></a>').on(pointerTap, close).prependTo(that.$container);
 			}
 
             /**
@@ -61,11 +86,11 @@
             if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
 
                 that.on('show', function () {
-                    $document.one(tapEvent + ' ' + escEvent, close);
+                    $document.one(pointerTap + ' ' + escEvent, close);
                 });
 
                 // Avoid to close when user clicks into the component
-                that.$container.on(tapEvent, function (event) {
+                that.$container.on(pointerTap, function (event) {
                     event.stopPropagation();
                 });
             }

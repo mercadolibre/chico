@@ -89,7 +89,8 @@
         'width': 'auto',
         'height': 'auto',
         'open': 'click',
-        'close': 'button-only'
+        'close': 'button-only',
+        'closeDelay': 400
     };
 
     Popover.prototype.init = function ($el, options) {
