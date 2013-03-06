@@ -9,6 +9,10 @@
 	padding: 0;
 }
 
+.ch-menu .ch-expandable {
+	margin: 0;
+}
+
 .ch-menu .ch-bellows,
 .ch-menu .ch-expandable,
 .ch-menu .ch-bellows-trigger,

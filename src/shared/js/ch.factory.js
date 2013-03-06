@@ -44,10 +44,10 @@
 		 */
 		var name = Klass.prototype.name,
 			/**
-			 * Reference to the class name. When it's a interface, take its constructor name via the "interface" property.
+			 * Reference to the class name. When it's a interface, take its constructor name via the "preset" property.
 			 * @type {String}
 			 */
-			constructorName = Klass.prototype['interface'] || name;
+			constructorName = Klass.prototype.preset || name;
 
 		/**
 		 * The class constructor exposed directly into the "ch" namespace.
@@ -81,13 +81,6 @@
 		 * $.widget();
 		 */
 		$[name] = function ($el, options) {
-			// When exists only the first parameter containing the options object
-			// ($.widget({'key': 'value'})), then accommodate the resources
-			// TODO: This should be in the init() method of each widget
-			if (options === undefined && typeof $el === 'object') {
-				options = $el;
-				$el = undefined;
-			}
 			// Create a new instance of the constructor and return it
 			return new Klass($el, options);
 		};
@@ -132,8 +125,8 @@
 			// Put the specified parameters into corresponding options object
 			// when the "options" parameter is not the configuration object or
 			// it's a query selector
-			// TODO: This should be in the init() method of each widget
-			if ((options !== undefined && type !== 'object') || options instanceof $) {
+			// TODO: This must be in the init() method of each widget
+			if ((options !== undefined && type !== 'object') || ch.util.is$(options)) {
 				// Grab temporally the received parameter
 				var parameter = options,
 					// Grab the second parameter
@@ -144,7 +137,7 @@
 				options[map[type]] = parameter;
 
 				// Could have a content as a second argument when it receives a string or a query selector
-				if (typeof content === 'string' || content instanceof $) {
+				if (typeof content === 'string' || ch.util.is$(content)) {
 					options.content = content;
 				}
 			}
@@ -167,8 +160,8 @@
 					// Get the data as the widget itself
 					widget = data;
 					// By dispatching an event, widgets can know when it already exists
-					if (ch.util.hasOwn(widget, 'trigger')) {
-						widget.trigger('exists', {
+					if (widget.emit !== undefined) {
+						widget.emit('exists', {
 							'type': name,
 							'options': options
 						});
