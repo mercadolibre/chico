@@ -77,6 +77,7 @@
         'height': '300px',
         'open': 'mouseenter',
         'close': 'mouseleave',
+        'closeDelay': 0,
         'side': 'right',
         'align': 'top',
         'offsetX': 20,
