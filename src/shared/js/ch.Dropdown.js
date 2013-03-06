@@ -78,7 +78,7 @@
 
     Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         'fx': false,
-        'classes': 'ch-dropdown ch-box-lite',
+        '_className': 'ch-dropdown ch-box-lite',
         'open': 'click',
         'close': 'pointers-only',
         'offsetY': -1,
