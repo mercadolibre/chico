@@ -70,7 +70,24 @@
     /**
      *   Inheritance
      */
-    var parent = ch.util.inherits(DatePicker, ch.Widget);
+    var parent = ch.util.inherits(DatePicker, ch.Widget),
+
+    /**
+     * Creates methods enable and disable into the prototype.
+     */
+        methods = ['enable', 'disable'],
+        len = methods.length;
+
+    function createMethods(method) {
+        DatePicker.prototype[method] = function () {
+
+            this._popover[method]();
+
+            parent[method].call(this);
+
+            return this;
+        };
+    }
 
     DatePicker.prototype.name = 'datePicker';
 
@@ -130,6 +147,9 @@
         // Change value of input if there are a selected date
         this.el.value = (this._options.selected) ? this._calendar.select() : this.el.value;
 
+        // Hide popover
+        this.on('disable', this.hide);
+
         return this;
     };
 
@@ -174,6 +194,11 @@
      * widget.show();
      */
     DatePicker.prototype.show = function () {
+
+        if (!this._enabled) {
+            return this;
+        }
+
         this._popover.show();
 
         /**
@@ -343,6 +368,27 @@
 
         return this;
     };
+
+    /**
+     * Turn on DatePicker.
+     * @public
+     * @name ch.DatePicker#enable
+     * @function
+     * @returns itself
+     * @see ch.Condition
+     */
+
+    /**
+     * Turn off DatePicker.
+     * @public
+     * @name ch.DatePicker#disable
+     * @function
+     * @returns itself
+     * @see ch.Condition
+     */
+    while (len) {
+        createMethods(methods[len -= 1]);
+    }
 
     ch.factory(DatePicker);
 

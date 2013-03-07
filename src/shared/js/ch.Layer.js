@@ -99,6 +99,11 @@
      * @returns itself
      */
     Layer.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
+
         // Only hide if there was a widget opened before
         if (lastOpen !== undefined && lastOpen.name === this.name) {
             lastOpen.hide();

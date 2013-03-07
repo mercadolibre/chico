@@ -63,7 +63,38 @@
     /**
      * Inheritance
      */
-    var parent = ch.util.inherits(Validation, ch.Widget);
+    var parent = ch.util.inherits(Validation, ch.Widget),
+
+    /**
+     * Creates methods enable and disable into the prototype.
+     */
+        methods = ['enable', 'disable'],
+        len = methods.length;
+
+    function createMethods(method) {
+        Validation.prototype[method] = function (condition) {
+            var key;
+
+            // Turn off conditions
+            if (condition !== undefined && this.conditions[condition] !== undefined) {
+                // disable specific condition
+                this.conditions[condition][method]();
+
+            } else {
+
+                for (key in this.conditions) {
+                    if (this.conditions[key] !== undefined) {
+                        this.conditions[key][method]();
+                    }
+                }
+
+                // enable all
+                parent[method].call(this);
+            }
+
+            return this;
+        };
+    }
 
     /**
      * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
@@ -119,29 +150,32 @@
          */
         this.error = {};
 
-        this.on('exists', function (data) {
+        this
+            .on('exists', function (data) {
 
-            var condition = {
-                'name': data.type
-            };
+                var condition = {
+                    'name': data.type
+                };
 
-            if (data.options !== undefined) {
-                if (data.options.content) {
-                    condition.message = data.options.content;
+                if (data.options !== undefined) {
+                    if (data.options.content) {
+                        condition.message = data.options.content;
+                    }
+
+                    if (data.options.num) {
+                        condition.num = data.options.num;
+                    }
+
+                    if (data.options.fn) {
+                        condition.fn = data.options.fn;
+                    }
                 }
 
-                if (data.options.num) {
-                    condition.num = data.options.num;
-                }
+                that.conditions[condition.name] = new ch.Condition(condition);
 
-                if (data.options.fn) {
-                    condition.fn = data.options.fn;
-                }
-            }
-
-            that.conditions[condition.name] = new ch.Condition(condition);
-
-        });
+            })
+            // Clean the validation if is active;
+            .on('disable', this.clear);
 
         /**
          * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
@@ -407,88 +441,6 @@
     };
 
     /**
-     * Turn on Validation and a specific condition.
-     * @public
-     * @name ch.Validation#enable
-     * @function
-     * @returns itself
-     * @see ch.Condition
-     */
-    Validation.prototype.enable = function (condition) {
-        var key;
-
-        if (condition !== undefined && this.conditions[condition] !== undefined) {
-            // Enable specific condition
-            this.conditions[condition].enable();
-
-        } else {
-            // enable all
-            this._enabled = true;
-
-            for (key in this.conditions) {
-                if (this.conditions[key] !== undefined) {
-                    this.conditions[key].enable();
-                }
-            }
-        }
-
-        return this;
-    };
-
-    /**
-     * Turn off Validation and a specific Condition.
-     * @public
-     * @name ch.Validation#disable
-     * @function
-     * @returns itself
-     * @see ch.Condition
-     */
-    Validation.prototype.disable = function (condition) {
-        var key;
-
-        // Clean the validation if is active;
-        this.clear();
-
-        // Turn off conditions
-        if (condition && this.conditions[condition]) {
-            // disable specific condition
-            this.conditions[condition].disable();
-
-        } else {
-            // disable all
-            this._enabled = false;
-
-            for (key in this.conditions) {
-                if (this.conditions[key] !== undefined) {
-                    this.conditions[key].disable();
-                }
-            }
-        }
-
-        return this;
-    };
-
-    /**
-     * Turn on/off the Validation and Condition engine.
-     * @public
-     * @since 0.10.4
-     * @name ch.Validation#toggleEnable
-     * @function
-     * @returns itself
-     * @see ch.Condition
-     */
-    Validation.prototype.toggleEnable = function () {
-
-        if (this._enabled) {
-            this.disable();
-        } else {
-            this.enable();
-        }
-
-        return this;
-    };
-
-    /**
      * Turn off Validation and a specific condition.
      * @public
      * @name ch.Validation#isActive
@@ -556,6 +508,48 @@
 
         if (this.isActive() && this.error.condition === condition) {
             this.bubble.content(msg);
+        }
+
+        return this;
+    };
+
+
+    /**
+     * Turn on Validation and a specific condition.
+     * @public
+     * @name ch.Validation#enable
+     * @function
+     * @returns itself
+     * @see ch.Condition
+     */
+
+    /**
+     * Turn off Validation and a specific Condition.
+     * @public
+     * @name ch.Validation#disable
+     * @function
+     * @returns itself
+     * @see ch.Condition
+     */
+     while (len) {
+        createMethods(methods[len -= 1]);
+     }
+
+    /**
+     * Turn on/off the Validation and Condition engine.
+     * @public
+     * @since 0.10.4
+     * @name ch.Validation#toggleEnable
+     * @function
+     * @returns itself
+     * @see ch.Condition
+     */
+    Validation.prototype.toggleEnable = function () {
+
+        if (this._enabled) {
+            this.disable();
+        } else {
+            this.enable();
         }
 
         return this;

@@ -99,6 +99,10 @@
      */
     Modal.prototype.show = function (content) {
 
+        if (!this._enabled) {
+            return this;
+        }
+
         var that = this,
             close = this._options.close;
 
