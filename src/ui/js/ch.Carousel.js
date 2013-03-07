@@ -98,7 +98,7 @@
          * @name ch.Carousel#$list
          * @type jQuery Object
          */
-        this._$list = this.$el.children().addClass('ch-carousel-list').attr('role', 'list');
+        this._$list = this.$el.children().addClass('ch-carousel-list');
 
         /**
          * Collection of each child of the list.
@@ -106,7 +106,7 @@
          * @name ch.Carousel#$items
          * @type jQuery Object
          */
-        this._$items = this._$list.children().addClass('ch-carousel-item').attr('role', 'listitem');
+        this._$items = this._$list.children().addClass('ch-carousel-item');
 
         /**
          * Element that denies the list overflow.
@@ -181,7 +181,7 @@
          * @name ch.Carousel#$pagination
          * @jQuery Object
          */
-        this._$pagination = $('<div class="ch-carousel-pages" role="tablist">').on('click', function (event) {
+        this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on('click', function (event) {
             that.goToPage($(event.target).attr('data-page'));
         });
 
@@ -279,23 +279,20 @@
             // Take the sample from queue
             sample = that._queue.splice(0, amount),
             // Function with content processing using asyncRender or not
-            getContent = that._options.asyncRender || function (data) { return data; },
+            hasTemplate = (that._options.asyncRender !== undefined),
             // Index
             i = 0;
 
         // Replace sample items with Carousel item template)
         for (i; i < amount; i += 1) {
             // Replace sample item
+            // Add the same margin than all siblings items
+            // Add content (executing a template, if user specify it) and close the tag
             sample[i] = [
-                // Open tag with ARIA role
-                '<li role="listitem"',
-                // Add classname to identify this as item
+                '<li',
                 ' class="ch-carousel-item"',
-                // Add the same margin than all siblings items
                 ' style="width:' + (that._itemWidth + that._itemExtraWidth) + 'px;margin-right:' + that._itemMargin + 'px"',
-                // Add content (executing a template, if user specify it) and close the tag
-                '>' + getContent(sample[i]) + '</li>'
-            // Get it as string
+                '>' + (hasTemplate ? that._options.asyncRender(sample[i]) : sample[i]) + '</li>'
             ].join('');
         }
 
@@ -364,7 +361,7 @@
             // Add string to collection
             thumbs.push(
                 // Tag opening with ARIA role
-                '<span role="tab"',
+                '<span role="button"',
                 // Selection depends on current page
                 ' aria-selected="' + isCurrentPage + '"',
                 // WAI-ARIA reference to page that this thumbnail controls

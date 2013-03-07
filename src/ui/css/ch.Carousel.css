@@ -3,9 +3,7 @@
 	position: relative;
 	/* Enable hardware acceleration */
 	-webkit-transform: translateZ(0);
-	-moz-transform: translateZ(0);
 	-ms-transform: translateZ(0);
-	-o-transform: translateZ(0);
 	transform: translateZ(0);
 }
 
@@ -21,9 +19,6 @@
 .ch-carousel-list {
 	overflow: hidden;
 	-webkit-transition: all .8s ease;
-	-moz-transition: all .8s ease;
-	-ms-transition: all .8s ease;
-	-o-transition: all .8s ease;
 	transition: all .8s ease;
 	width: -moz-max-content;
 	margin: 0;
@@ -33,19 +28,12 @@
 
 .ch-carousel ul.ch-carousel-nofx {
 	-webkit-transition: none;
-	-moz-transition: none;
-	-ms-transition: none;
-	-o-transition: none;
 	transition: none;
 }
 
 .ch-carousel-item {
 	display: inline-block;
 	float: left; /* Fixes the inline-block inner space between li elements */
-}
-
-.ch-carousel-loading {
-	background: transparent url('../assets/loading_small.gif') center center no-repeat;
 }
 
 .ch-carousel-prev,
@@ -88,27 +76,6 @@
 .ch-carousel-prev:hover,
 .ch-carousel-next:hover {
 	opacity: 0.7;
-}
-
-.lt-ie8 .ch-carousel-prev span,
-.lt-ie8 .ch-carousel-next span {
-	background-image: url('../assets/shapes.png');
-	display: block;
-	height: 18px;
-	margin: 30px 20px;
-	overflow: hidden;
-	/* Bubble event to wrapper */
-	pointer-events: none;
-	text-indent: -99px;
-	width: 11px;
-}
-
-.lt-ie8 .ch-carousel-prev span {
-	background-position: -5px -53px;
-}
-
-.lt-ie8 .ch-carousel-next span {
-	background-position: 0 -68px;
 }
 
 .ch-carousel-disabled {
