@@ -143,6 +143,9 @@
                 that.reset();
             });
 
+        // Clean validations
+        this.on('disable', this.clear);
+
         return that;
     };
 
@@ -154,13 +157,13 @@
      * @returns {Object}
      */
     Form.prototype._submit = function (event) {
-        var that = this;
 
         // Runs validations
-        that.validate();
+        this.validate();
+
 
         // Stops submit event only when it has errors
-        if (that._hasError) {
+        if (this._hasError) {
             ch.util.prevent(event);
 
             /**
@@ -174,7 +177,7 @@
              *    console.log(data.errors.length);
              * });
              */
-            that.emit('error', that._validationsError);
+            this.emit('error', this._validationsError);
 
         } else {
             /**
@@ -194,11 +197,11 @@
              *  this.action();
              * });
              */
-            that.emit('success', event);
+            this.emit('success', event);
 
         }
 
-        return that;
+        return this;
     };
 
     /**
@@ -209,6 +212,10 @@
      * @returns {Object}
      */
     Form.prototype.validate = function () {
+        if (!this._enabled) {
+            return this;
+        }
+
         var that = this,
             i = 0,
             j = that._validations.length,

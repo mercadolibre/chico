@@ -124,6 +124,10 @@
 
     Dropdown.prototype.show = function (content) {
 
+        if (!this._enabled) {
+            return this;
+        }
+
         if (this._active) {
             return this.hide();
         }

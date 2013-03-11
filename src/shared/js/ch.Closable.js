@@ -6,19 +6,19 @@
  * @memberOf ch
  */
 (function (window, $, ch) {
-	'use strict';
+    'use strict';
 
-	if (ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
-	var $document = $(document),
+    var $document = $(window.document),
         // keyEsc = ch.events.key.ESC;
         keyEsc = ch.events.key ? ch.events.key.ESC : 'touchend';
 
-	function Closable() {
+    function Closable() {
 
-		var that = this,
+        var that = this,
             setTimeout = window.setTimeout,
             clearTimeout = window.clearTimeout,
             closableType = this._options.close,
@@ -38,7 +38,7 @@
             timeOut = setTimeout(close, delay);
         }
 
-		this._closable = function () {
+        this._closable = function () {
 
             /**
              * Closable none
@@ -75,10 +75,10 @@
             /**
              * Closable button-only
              */
-			if (closableType === 'button-only' || closableType === 'all' || closableType === true) {
-				// Append a close button
-				$('<a class="ch-close" role="button"></a>').on(pointerTap, close).prependTo(that.$container);
-			}
+            if (closableType === 'button-only' || closableType === 'all' || closableType === true) {
+                // Append a close button
+                $('<a class="ch-close" role="button"></a>').on(pointerTap, close).prependTo(that.$container);
+            }
 
             /**
              * Closable keys-only
@@ -94,9 +94,9 @@
                     event.stopPropagation();
                 });
             }
-		}
-	}
+        };
+    }
 
-	ch.Closable = Closable;
+    ch.Closable = Closable;
 
 }(this, (this.jQuery || this.Zepto), this.ch));

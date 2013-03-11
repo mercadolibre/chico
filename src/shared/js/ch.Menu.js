@@ -54,7 +54,45 @@
     /**
      * Inheritance
      */
-    var parent = ch.util.inherits(Menu, ch.Widget);
+    var parent = ch.util.inherits(Menu, ch.Widget),
+
+    /**
+     * Creates methods enable and disable into the prototype.
+     */
+        methods = ['enable', 'disable'],
+        len = methods.length;
+
+    function createMethods(method) {
+        Menu.prototype[method] = function (child) {
+            var i,
+                expandable = this._children[child];
+
+            // enable specific expandable
+            if (expandable && expandable.name === 'expandable') {
+
+                expandable[method]();
+
+            } else {
+
+                i = this._children.length;
+
+                while (i) {
+
+                    expandable = this._children[i -= 1];
+
+                    if (expandable.name === 'expandable') {
+                        expandable[method]();
+                    }
+
+                }
+
+                // enable all
+                parent[method].call(this);
+            }
+
+            return this;
+        };
+    }
 
     /**
      * Prototype
@@ -149,7 +187,7 @@
      * @name ch.Menu#_createExpandables
      * @function
      */
-    Menu.prototype._createExpandables = function (i, e) {
+    Menu.prototype._createExpandables = function () {
         var that = this,
             $li,
             $child,
@@ -164,7 +202,7 @@
             $child = $li.children();
 
             // Anchor inside list
-            if ($child[0].tagName == 'A') {
+            if ($child[0].tagName === 'A') {
 
                 // Add attr role to match wai-aria
                 $li.attr('role', 'presentation')
@@ -231,6 +269,11 @@
     * @returns
     */
     Menu.prototype.select = function (child) {
+
+        if (!this._enabled) {
+            return this;
+        }
+
         // Getter
         if (child === undefined) {
             return this._selected;
@@ -290,6 +333,24 @@
             }
         });
     };
+
+    /**
+     *
+     * @public
+     * @name ch.Menu#enable
+     * @function
+     * @returns itself
+     */
+    /**
+     *
+     * @public
+     * @name ch.Menu#disable
+     * @function
+     * @returns itself
+     */
+    while (len) {
+        createMethods(methods[len -= 1]);
+    }
 
     ch.factory(Menu);
 

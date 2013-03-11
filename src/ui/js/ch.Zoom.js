@@ -241,7 +241,11 @@
      * @function
      */
     Zoom.prototype.show = function (content) {
-        //
+
+        if (!this._enabled) {
+            return this;
+        }
+
         if (!this._ready) { return this._$loading.removeClass('ch-hide'); }
 
         this._$loading.addClass('ch-hide');

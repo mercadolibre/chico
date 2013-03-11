@@ -177,6 +177,9 @@
         this.on('hide', function () {
             that.$container.remove(null, true);
         });
+
+        return this;
+
     };
 
     /**
@@ -236,6 +239,11 @@
      * @returns itself
      */
     Popover.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
+
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Open the collapsible
