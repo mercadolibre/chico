@@ -336,11 +336,14 @@
 					return i;
 				}());
 
+                // Update the items collection
+                $items = $list.children();
+
 				// Update amount of total pages
 				// The ratio between total amount of items and items in each page
 				var totalPages = Math.ceil(($items.length + queue.length) / itemsPerPage);
 
-				// Update only if pages amount changed from last redraw
+                // Update only if pages amount changed from last redraw
 				if (pages !== totalPages) {
 					// Update value
 					pages = totalPages;
@@ -351,6 +354,9 @@
 					// Update pagination
 					updatePagination();
 				}
+
+                // Analizes if next page needs to load items from queue and execute addItems() method
+                loadAsyncItems();
 
 				// Update the margin between items and its size
 				updateDistribution();
@@ -422,9 +428,6 @@
 
 				// Trigger all recalculations to get the functionality measures
 				draw();
-
-				// Analizes if next page needs to load items from queue and execute addItems() method
-				loadAsyncItems();
 
 				// Set WAI-ARIA properties to each item depending on the page in which these are
 				updateARIA();
