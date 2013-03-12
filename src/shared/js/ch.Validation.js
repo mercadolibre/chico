@@ -148,7 +148,7 @@
          * @name ch.Validation#error
          * @type {Object}
          */
-        this.error = {};
+        this.error = null;
 
         this
             .on('exists', function (data) {
@@ -247,13 +247,117 @@
      */
     Validation.prototype.validate = function () {
 
+        if (this.hasError()) {
+
+            this._error();
+
+        } else {
+
+            this._success();
+        }
+
+        return this;
+    };
+
+    /**
+     *
+     * @private
+     * @function
+     * @name ch.Validation#_error
+     * @returns boolean
+     */
+    Validation.prototype._error = function () {
+        var that = this,
+            previousValue;
+
+        // It must happen only once.
+        this.$el.on(this._validationEvent + '.validation', function () {
+            if (previousValue !== this.value || that._validationEvent === 'change') {
+                previousValue = this.value;
+                that.validate();
+            }
+        });
+
+        // Lazy Loading pattern
+        this._error = function () {
+
+            if (!that._previousError.condition || !that._active) {
+                if (that.el.nodeName === 'INPUT' || that.el.nodeName === 'TEXTAREA') {
+                    that.$el.addClass('ch-validation-error');
+                }
+
+                that.bubble.show(that.error.msg || 'Error');
+            }
+
+            if (that.error.condition !== that._previousError.condition) {
+                that.bubble.content((that.error.msg || that.form._messages[that.error.condition] || 'Error'));
+                // the aria-label attr should get the message element id, but is not public
+                that.$el.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
+            }
+
+            that._active = true;
+
+            /**
+             * Triggers when an error occurs on the validation process.
+             * @name ch.Validation#error
+             * @event
+             * @public
+             * @exampleDescription
+             * @example
+             * widget.on("error",function(event, condition){
+             *  errorModal.show();
+             * });
+             */
+            that.emit('error', that.error);
+
+            return that;
+        };
+
+        this._error();
+
+        return this;
+    };
+
+    /**
+     *
+     * @private
+     * @function
+     * @name ch.Validation#_success
+     * @returns boolean
+     */
+    Validation.prototype._success = function () {
+
+        // Status OK (with previous error) this._previousError
+        if (this._active || !this._enabled) {
+            // Public status OK
+            this._active = false;
+        }
+
+        this.$el.removeClass('ch-validation-error')
+            .removeAttr('aria-label');
+
+        this.bubble.hide(); // uncoment when bubble were done
+
+        this.emit('success');
+
+        return this;
+    };
+
+    /**
+     *
+     * @private
+     * @function
+     * @name ch.Validation#hasError
+     * @returns {Boolean}
+     */
+    Validation.prototype.hasError = function () {
+
         // Pre-validation: Don't validate disabled
         if (this.$el.attr('disabled') || !this._enabled) {
             return true;
         }
 
         var condition,
-            tested,
             val,
             required = this.conditions.required,
             value = this.el.value;
@@ -268,7 +372,8 @@
 
         // Avoid fields that aren't required when they are empty or de-activated
         if (!required && value === '' && this._active === false) {
-            return true;
+            // Has got an error? Nop
+            return false;
         }
 
         // for each condition
@@ -280,123 +385,28 @@
                 // this is the validation
 
                 // no value and no required don't validate the field
-                if (value === '' && condition !== 'required') {
+                if ((value === '' && condition === 'required') || !this.conditions[condition].test(val, this)) {
 
-                    tested = true;
-
-                } else {
-
-                    tested = this.conditions[condition].test(val, this);
-
-                    // return false if any test fails,
-                    if (!tested) {
-                        this._hasError(condition);
-
-                        // Is validated? Nop
-                        return false;
+                    // Update the error object
+                    this.error = {
+                        'condition': condition,
+                        'msg': this.conditions[condition].message
                     }
-                }
-            }
-        }
 
-        // It's all good ;)
-        this._success();
-
-        // Is validated? Yeah
-        return true;
-
-    };
-
-    /**
-     *
-     * @private
-     * @function
-     * @name ch.Validation#_hasError
-     * @returns boolean
-     */
-    Validation.prototype._hasError = function (condition) {
-        var that = this,
-            previousValue;
-
-        // It must happen only once.
-        this.$el.on(this._validationEvent + '.validation', function () {
-            if (previousValue !== this.value || that._validationEvent === 'change') {
-                previousValue = this.value;
-                that.validate();
-            }
-        });
-
-        // Lazy Loading pattern
-        this._hasError = function (condition) {
-
-            that._active = true;
-
-            // Update the error object
-            that.error.condition = condition;
-            that.error.msg = that.conditions[condition].message;
-
-            if (!that._previousError.condition) {
-                if (that.el.nodeName === 'INPUT' || that.el.nodeName === 'TEXTAREA') {
-                    that.$el.addClass('ch-validation-error');
+                    // Has got an error? Yeah
+                    return true;
                 }
 
-                that.bubble.show(that.error.msg || 'Error');
             }
 
-            if (condition !== that._previousError.condition) {
-                that.bubble.content((that.error.msg || that.form._messages[condition] || 'Error'));
-                // the aria-label attr should get the message element id, but is not public
-                that.$el.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
-            }
-
-            /**
-             * Triggers when an error occurs on the validation process.
-             * @name ch.Validation#error
-             * @event
-             * @public
-             * @exampleDescription
-             * @example
-             * widget.on("error",function(event, condition){
-             *  errorModal.show();
-             * });
-             */
-            that.emit('error', condition);
-
-            return that;
-        };
-
-        this._hasError(condition);
-
-        return this;
-    };
-
-    /**
-     *
-     * @private
-     * @function
-     * @name ch.Validation#_success
-     * @returns boolean
-     */
-    Validation.prototype._success = function () {
-        // Status OK (with previous error) this._previousError
-        if (this._active || !this._enabled) {
-            // Public status OK
-            this._active = false;
         }
 
-        this.error.condition = undefined;
-        this.error.msg = undefined;
+        // Update the error object
+        this.error = null;
 
-        this.$el.removeClass('ch-validation-error')
-            .removeAttr('aria-label');
-
-        this.bubble.hide(); // uncoment when bubble were done
-
-        this.emit('success');
-
-        return this;
-    };
-
+        // Has got an error? Nop
+        return false;
+    }
 
     /**
      * Clear all active validations.
