@@ -307,6 +307,13 @@
 		 */
 			draw = function () {
 
+                // Save the current amount of items to know if restore the page after calculations
+                var lastItemsPerPage = itemsPerPage,
+                    // Restore if itemsPerPage is the same after calculations
+                    lastPage = currentPage,
+                    // Restore if itemsPerPage is NOT the same after calculations (go to the current first item page)
+                    firstItemOnPage = ((currentPage - 1) * itemsPerPage) + 1;
+
 				// Avoid wrong calculations going to first page
 				goToPage(1);
 
@@ -360,6 +367,14 @@
 
 				// Update the margin between items and its size
 				updateDistribution();
+
+                // Restore the page after calculations
+                if (lastItemsPerPage === itemsPerPage) {
+                    goToPage(lastPage);
+                // Restore the page of the first item before recalculations
+                } else {
+                    goToPage(Math.ceil(firstItemOnPage / itemsPerPage));
+                }
 			},
 
 		/**
