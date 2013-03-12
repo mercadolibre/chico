@@ -106,6 +106,7 @@
 						config.onShow = function () { selected = i; };
 
 					if (ch.util.hasOwn(that.conf, "cache")) { config.cache = that.conf.cache; }
+					if (ch.util.hasOwn(that.conf, "method")) { config.method = that.conf.method; }
 
 					/**
 					* Fired when the content of one dynamic tab loads.
@@ -330,6 +331,7 @@
 		* @ignore
 		*/
 		var that = this;
+
 		conf = ch.util.clone(conf);
 		conf.icon = false;
 
@@ -338,7 +340,6 @@
 	/**
 	*	Inheritance
 	*/
-
 		that = ch.Widget.call(that);
 		that.parent = ch.util.clone(that);
 
@@ -398,7 +399,8 @@
 
 			var href = that.element.href.split("#"),
 				controller = that.$element.parents(".ch-tabs"),
-				content = controller.find("#" + href[1]);
+				content = controller.find("#" + href[1]),
+				contentOptions;
 
 			// If there are a tabContent...
 			if (content.length > 0) {
@@ -415,9 +417,13 @@
 				*/
 				that.source = that.element.href;
 
-				that.content.configure({
-					'input': that.source
-				});
+				contentOptions = {
+					'input': that.source,
+					'method': that.conf.method,
+					'cache': that.conf.cache
+				};
+
+				that.content.configure(contentOptions);
 
 				var id = (href.length === 2) ? href[1] : "ch-tab-" + that.uid;
 
