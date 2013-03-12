@@ -68,7 +68,6 @@
     var Math = window.Math,
         setTimeout = window.setTimeout,
         setInterval = window.setInterval,
-        $html = $('html'),
         $window = $(window),
         /**
          *    Inheritance
@@ -147,16 +146,24 @@
          * @type Array
          */
         this._queue = (function () {
+
+            var asyncData = that._options.asyncData,
+                queue = [],
+                i;
+
             // No queue
-            if (that._options.asyncData === undefined) { return []; }
-            // Validated queue
-            var q = [];
-            // Validate each item in queue to be different to undefined
-            $.each(that._options.asyncData, function (index, item) {
-                if (item) { q.push(item); }
-            });
-            // Return validated queue
-            return q;
+            if (asyncData === undefined) { return []; }
+
+            i = asyncData.length;
+
+            // Clean the user's asyncData to not contain 'undefined'
+            while (i) {
+                if (asyncData[i -= 1] !== undefined) {
+                    queue.unshift(asyncData[i]);
+                }
+            }
+
+            return queue;
         }());
 
         /**
@@ -211,7 +218,7 @@
         }());
 
         // Set initial width of the list, to make space to all items
-        this._$list.css('width', this._itemOuterWidth * (this._$items.length + this._queue.length));
+        //this._$list.css('width', this._itemOuterWidth * (this._$items.length + this._queue.length));
         // Wrap the list with mask and change overflow to translate that feature to mask
         this.$el.wrapInner(this._$mask).css('overflow', 'hidden');
         // TODO: Get a better reference to rendered mask
@@ -458,7 +465,9 @@
         // Update the list width
         // Delete efects on list to change width instantly
         // Do it before item resizing to make space to all items
-        this._$list.addClass('ch-carousel-nofx').css('width', this._pageWidth * this._pages);
+        if (this._$list.outerWidth() <= this._pageWidth) {
+            this._$list.addClass('ch-carousel-nofx').css('width', this._pageWidth * this._pages);
+        }
 
         // Restore efects to list if it's required
         // Use a setTimeout to be sure to do this after width change
@@ -490,7 +499,8 @@
      */
     Carousel.prototype.redraw = function () {
 
-        var that = this;
+        var that = this,
+            totalPages;
 
         // Avoid wrong calculations going to first page
         this.goToPage(1);
@@ -531,7 +541,7 @@
 
         // Update amount of total pages
         // The ratio between total amount of items and items in each page
-        var totalPages = Math.ceil((this._$items.length + this._queue.length) / this._itemsPerPage);
+        totalPages = Math.ceil((this._$items.length + this._queue.length) / this._itemsPerPage);
 
         // Update only if pages amount changed from last redraw
         if (this._pages !== totalPages) {
@@ -578,7 +588,6 @@
         // Check arrows existency
         if (!this._arrowsCreated) { return; }
         // Delete arrows only from DOM and keep in variables and unbind events too
-        // TODO: Bind only once when arrows are created
         this._$prevArrow.detach();
         this._$nextArrow.detach();
         // Check arrows as deleted
@@ -602,7 +611,6 @@
         switch (config) {
         // The arrows are on the sides of the mask
         case 'outside':
-        default:
             // Add the adaptive class to mask
             this._$mask.addClass('ch-carousel-adaptive');
             // Append arrows if previously were deleted
@@ -717,7 +725,7 @@
      * @name ch.Carousel#itemMargin
      * @type Number
      */
-    Carousel.prototype._itemMargin = 0,
+    Carousel.prototype._itemMargin = 0;
 
     /**
      * Moves the list corresponding to specified displacement.
@@ -766,7 +774,7 @@
         children.eq(from - 1).attr('aria-selected', 'false').removeClass('ch-carousel-selected');
         // Select the new thumbnail
         children.eq(to - 1).attr('aria-selected', 'true').addClass('ch-carousel-selected');
-    }
+    };
 
     /**
      * Updates all necessary data to move to a specified page.
@@ -778,10 +786,15 @@
     Carousel.prototype.goToPage = function (page) {
         // Page getter
         if (!page) { return this._currentPage; }
+
         // Page setter
         // Change to number the text pages ("first" and "last")
-        if (page === 'first') { page = 1; }
-        else if (page === 'last') { page = this._pages; }
+        if (page === 'first') {
+            page = 1;
+        } else if (page === 'last') {
+            page = this._pages;
+        }
+
         // Avoid strings from here
         page = window.parseInt(page);
         // Avoid to select:
@@ -887,9 +900,12 @@
             // Set the interval on private property
             that._timer = setInterval(function () {
                 // Normal behavior: Move to next page
-                if (that._currentPage < that._pages) { that.next.call(that); }
+                if (that._currentPage < that._pages) {
+                    that.next();
                 // On last page: Move to first page
-                else { that.goToPage(1); }
+                } else {
+                    that.goToPage(1);
+                }
             // Use the setted timing
             }, delay);
         };

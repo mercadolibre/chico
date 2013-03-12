@@ -16,11 +16,15 @@
 	margin: 0 50px;
 }
 
+/* Both are the same elements, but it can apply styles before the widget initialization */
+.ch-carousel > ul,
 .ch-carousel-list {
 	overflow: hidden;
 	-webkit-transition: all .8s ease;
 	transition: all .8s ease;
+    width: -webkit-max-content;
 	width: -moz-max-content;
+    width: max-content;
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -31,6 +35,8 @@
 	transition: none;
 }
 
+/* Both are the same elements, but it can apply styles before the widget initialization */
+.ch-carousel > ul > li,
 .ch-carousel-item {
 	display: inline-block;
 	float: left; /* Fixes the inline-block inner space between li elements */
