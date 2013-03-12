@@ -71,8 +71,9 @@
     Zoom.prototype.constructor = Zoom;
 
     Zoom.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
-        'fx': false,
         '_className': 'ch-zoom',
+        'ariaRole': 'tooltip',
+        'fx': false,
         'width': '300px',
         'height': '300px',
         'open': 'mouseenter',

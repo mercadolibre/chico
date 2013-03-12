@@ -167,9 +167,9 @@
 			config.onShow = function () { that.selected = i; };
 			config.controller = that;
 
-			if (ch.util.hasOwn(that._options, 'cache')) { config.cache = that._options.cache; }
+			if (that._options.cache !== undefined) { config.cache = that._options.cache; }
 
-            if (ch.util.hasOwn(that._options, 'method')) { config.method = that._options.method; }
+            if (that._options.method !== undefined) { config.method = that._options.method; }
 
 			/**
 			* Fired when the content of one dynamic tab loads.
@@ -177,7 +177,7 @@
 			* @event
 			* @public
 			*/
-			if (ch.util.hasOwn(that._options, 'onContentLoad')) { config.onContentLoad = that._options.onContentLoad; }
+			if (that._options.onContentLoad !== undefined) { config.onContentLoad = that._options.onContentLoad; }
 
 			/**
 			* Fired when the content of one dynamic tab did not load.
@@ -185,7 +185,7 @@
 			* @event
 			* @public
 			*/
-			if (ch.util.hasOwn(that._options, 'onContentError')) { config.onContentError = that._options.onContentError; }
+			if (that._options.onContentError !== undefined) { config.onContentError = that._options.onContentError; }
 
 			// Create Tabs
 			that.children.push(new ch.Tab($(e), config));
@@ -369,7 +369,7 @@
 
 			that._options.controller.emit('contentLoad');
 
-			if (ch.util.hasOwn(that._options, 'onContentLoad')) {
+			if (that._options.onContentLoad !== undefined) {
 				that._options.onContentLoad.call(that._options.controller, data);
 			}
 		};
@@ -387,7 +387,7 @@
 
 			that.controller.trigger('contentError', data);
 
-			if (ch.util.hasOwn(that._options, 'onContentError')) {
+			if (that._options.onContentError !== undefined) {
 				that._options.onContentError.call(that.controller, data.jqXHR, data.textStatus, data.errorThrown);
 			}
 		};
@@ -469,7 +469,7 @@
 		that._active = true;
 
 		// Load my content if I'need an ajax request
-		if (ch.util.hasOwn(that, '_source')) { that.content.set(); }
+		if (that._source !== undefined) { that.content.set(); }
 
 		that._show();
 

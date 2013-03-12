@@ -122,15 +122,13 @@
          * @name ch.DatePicker#float
          */
         this._popover = this.$trigger.popover({
+            '_className': 'ch-datePicker ch-cone',
+            'ariaRole': 'tooltip',
             'content': this._calendar.$el,
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': -1,
             'offsetY': 8,
-            'aria': {
-                'role': 'tooltip'
-            },
-            '_className': 'ch-datePicker ch-cone',
             'open': 'click',
             'close': this._options.close
         });

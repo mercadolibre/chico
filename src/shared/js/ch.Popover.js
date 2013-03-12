@@ -85,6 +85,7 @@
     Popover.prototype.constructor = Popover;
 
     Popover.prototype._defaults = {
+        'ariaRole': 'dialog',
         'fx': 'fadeIn',
         'width': 'auto',
         'height': 'auto',
@@ -110,7 +111,7 @@
         this.$container = $([
             '<div',
             ' class="ch-popover ch-hide ' + (this._options._className || '') + ' ' + (this._options.addClass || '') + '"',
-            ' role="tooltip"',
+            ' role="' + this._options.ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
             '>'

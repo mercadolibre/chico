@@ -174,10 +174,10 @@
             that.$el.attr('role', 'navigation');
         }
 
-        that.$el.addClass('ch-' + that.name + (ch.util.hasOwn(that._options, 'classes') ? ' ' + that._options.classes : ''));
+        that.$el.addClass('ch-' + that.name + (that._options.classes !== undefined) ? ' ' + that._options.classes : '');
 
         // Select specific item if there are a "selected" parameter on component configuration object
-        if (ch.util.hasOwn(that._options, 'selected')) { that.select(that._options.selected); }
+        if (that._options.selected !== undefined) { that.select(that._options.selected); }
 
     };
 
