@@ -312,7 +312,11 @@
                     // Restore if itemsPerPage is the same after calculations
                     lastPage = currentPage,
                     // Restore if itemsPerPage is NOT the same after calculations (go to the current first item page)
-                    firstItemOnPage = ((currentPage - 1) * itemsPerPage) + 1;
+                    firstItemOnPage = ((currentPage - 1) * itemsPerPage) + 1,
+                    restoreFX = conf.fx;
+
+                $list.addClass("ch-carousel-nofx");
+                conf.fx = false;
 
 				// Avoid wrong calculations going to first page
 				goToPage(1);
@@ -374,6 +378,11 @@
                 // Restore the page of the first item before recalculations
                 } else {
                     goToPage(Math.ceil(firstItemOnPage / itemsPerPage));
+                }
+
+                if (restoreFX) {
+                    setTimeout(function () { $list.removeClass("ch-carousel-nofx"); }, 0);
+                    conf.fx = restoreFX;
                 }
 			},
 
@@ -490,9 +499,6 @@
 				// TODO: Bind only once when arrows are created
 				$prevArrow.prependTo(that.$element).on("click", that.prev);
 				$nextArrow.appendTo(that.$element).on("click", that.next);
-
-				// Positions arrows vertically in middle of Carousel
-				$prevArrow[0].style.top = $nextArrow[0].style.top = (that.$element.height() - $prevArrow.height()) / 2 + "px";
 
 				// Avoid selection on the arrows
 				ch.util.avoidTextSelection($prevArrow, $nextArrow);
@@ -770,18 +776,17 @@
 					$list.css(transform, "translateX(" + displacement + "px)");
 				}
 
-				// Translate using jQuery animation
-				function jQueryMove(displacement) {
-					$list.animate({"left": displacement});
-				}
-
-				// Translate without efects
-				function directMove(displacement) {
-					$list.css("left", displacement);
+				// Translate using jQuery animation or without efects
+				function JSMove(displacement) {
+                    if (conf.fx) {
+					   $list.animate({"left": displacement});
+                    } else {
+					   $list.css("left", displacement);
+                    }
 				}
 
 				// Use CSS transition with JS animate to move as fallback
-				return ch.support.transition ? CSSMove : (conf.fx ? jQueryMove : directMove);
+				return (ch.support.transition) ? CSSMove : JSMove;
 			}()),
 
 		/**
