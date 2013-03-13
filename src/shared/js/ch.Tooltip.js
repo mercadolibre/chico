@@ -50,7 +50,8 @@
     }
 
     Tooltip.prototype._defaults = $.extend(ch.util.clone(ch.Layer.prototype._defaults), {
-        '_className': 'ch-tooltip ch-cone'
+        '_className': 'ch-tooltip ch-cone',
+        'ariaRole': 'tooltip'
     });
 
     Tooltip.prototype.name = 'tooltip';

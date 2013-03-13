@@ -101,7 +101,7 @@
                     // Send a defined error message
                     postMessage('<p>Error on ajax call.</p>');
                     // Execute the 'onerror' method if exists
-                    if (ch.util.hasOwn(content, 'onerror')) {
+                    if (content.onerror !== undefined) {
                         content.onerror(data);
                     }
                     // TODO: Trigger the "error" event to allow multiple suscription

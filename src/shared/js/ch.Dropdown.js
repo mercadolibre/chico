@@ -77,8 +77,9 @@
     Dropdown.prototype.constructor = Dropdown;
 
     Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
-        'fx': false,
         '_className': 'ch-dropdown ch-box-lite',
+        'ariaRole': 'menu',
+        'fx': false,
         'open': 'click',
         'close': 'pointers-only',
         'offsetY': -1,
@@ -122,6 +123,10 @@
     };
 
     Dropdown.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
 
         if (this._active) {
             return this.hide();

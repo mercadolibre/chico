@@ -81,6 +81,7 @@
 
     Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
+        'ariaRole': 'dialog',
         'width': '50%',
         'close': 'all',
         'reference': ch.viewport
@@ -98,6 +99,10 @@
      * @returns itself
      */
     Modal.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
 
         var that = this,
             close = this._options.close;

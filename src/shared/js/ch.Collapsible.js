@@ -88,6 +88,8 @@
 
             return that;
         };
+
+        this.on('disable', this.hide);
     }
 
     ch.Collapsible = Collapsible;

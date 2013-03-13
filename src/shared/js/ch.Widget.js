@@ -78,6 +78,9 @@
 
         this.uid = (uid += 1);
 
+
+        this._enabled = true;
+
         // Gets or creates the klass's instances map
         ch.instances[this.name] = ch.instances[this.name] || {};
         ch.instances[this.name][this.uid] = this;
@@ -111,6 +114,58 @@
                 ch[arg].call(that);
             }
         });
+    };
+
+    /**
+     * Turn on the Widget.
+     * @public
+     * @name ch.Widget#enable
+     * @function
+     * @returns itself
+     */
+    Widget.prototype.enable = function (condition) {
+        this._enabled = true;
+
+        /**
+         * Triggers when the widget is enable.
+         * @name ch.Widget#enable
+         * @event
+         * @public
+         * @exampleDescription
+         * @example
+         * widget.on("enable", function(){
+         *  // Some code here!
+         * });
+         */
+        this.emit('enable');
+
+        return this;
+    };
+
+    /**
+     * Turn off the Widget.
+     * @public
+     * @name ch.Widget#disable
+     * @function
+     * @returns itself
+     */
+    Widget.prototype.disable = function (condition) {
+        this._enabled = false;
+
+        /**
+         * Triggers when the widget is disable.
+         * @name ch.Widget#disable
+         * @event
+         * @public
+         * @exampleDescription
+         * @example
+         * widget.on("disable", function(){
+         *  // Some code here!
+         * });
+         */
+        this.emit('disable');
+
+        return this;
     };
 
     ch.Widget = Widget;

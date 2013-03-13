@@ -8,31 +8,6 @@
 	var util = {};
 
 	/**
-	 * Returns a boolean indicating whether the object has the specified property.
-	 * @name hasOwn
-	 * @methodOf ch.util
-	 * @param {Object} obj The object to be checked.
-	 * @param {String} prop The name of the property to test.
-	 * @returns {Boolean}
-	 */
-	util.hasOwn = (function () {
-		var hOP = Object.prototype.hasOwnProperty;
-
-		return function (obj, prop) {
-
-			if (obj === undefined) {
-				throw new Error('"ch.util.hasOwn(obj, prop)": It must receive an object as first parameter.');
-			}
-
-			if (prop === undefined || typeof prop !== 'string') {
-				throw new Error('"ch.util.hasOwn(obj, prop)": It must receive a string as second parameter.');
-			}
-
-			return hOP.call(obj, prop);
-		};
-	}());
-
-	/**
 	 * Returns true if an object is an array, false if it is not.
 	 * @name isArray
 	 * @methodOf ch.util
@@ -286,7 +261,7 @@
 			prop;
 
 		for (prop in obj) {
-			if (util.hasOwn(obj, prop)) {
+			if (obj[prop] !== undefined) {
 				copy[prop] = obj[prop];
 			}
 		}
