@@ -1,6 +1,6 @@
 {
 	"pkg": {
-		"version": "0.13"
+		"version": "0.13.2"
 	},
 	"meta": {
 		"ui": {
@@ -14,7 +14,7 @@
 				"jsClose": "window.ch = ch;})(this, jQuery);",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
 			},
-			"temp_version": "ch.version = '0.13';"
+			"temp_version": "ch.version = '0.13.2';"
 		},
 		"mobile": {
 			"full": {
@@ -30,7 +30,7 @@
 			"temp_version": "ch.version = '0.6';"
 		},
 		"mesh": {
-			"full": "/*!\n * Chico Mesh v2.0\n * http://chico-ui.com.ar/mesh\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */",
+			"full": "/*!\n * Chico Mesh v2.1\n * http://chico-ui.com.ar/mesh\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */",
 			"min": "/*! Chico Mesh v2.0 chico-ui.com.ar/mesh | chico-ui.com.ar/license\n */"
 		}
 	},
@@ -183,6 +183,12 @@
 				"../../src/mobile/css/ch.Layer.css"
 			],
 			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
+		},
+		"mobileCOMPATIBLECSS": {
+			"compatiblecss": [
+				"../../src/mobile/css/ch.compatible.css"
+			],
+			"template": ["meta.mobile.full.css", "compatiblecss"]
 		},
 		"sharedMESH": {
 			"mesh": [
