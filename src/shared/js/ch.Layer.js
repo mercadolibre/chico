@@ -79,6 +79,7 @@
 
     Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
+        'ariaRole': 'tooltip',
         'open': 'mouseenter',
         'close': 'mouseleave',
         'side': 'bottom',
@@ -99,6 +100,11 @@
      * @returns itself
      */
     Layer.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
+
         // Only hide if there was a widget opened before
         if (lastOpen !== undefined && lastOpen.name === this.name) {
             lastOpen.hide();

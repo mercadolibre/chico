@@ -27,13 +27,14 @@
 	 * @param event
 	 */
 	function keyboard(event) {
+
 		var keyCode = event.keyCode.toString();
 
 		// Check for event existency on the map
-		if(!util.hasOwn(codeMap, keyCode)) { return; }
-
-		// Trigger custom event with original event as second parameter
-		$document.trigger(events.key[codeMap[keyCode]], event);
+		if(codeMap[keyCode] !== undefined) {
+    		// Trigger custom event with original event as second parameter
+    		$document.trigger(events.key[codeMap[keyCode]], event);
+        }
 	}
 
 	ch.keyboard = keyboard;
