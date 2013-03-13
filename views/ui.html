@@ -1276,7 +1276,7 @@
 
 			<div class="ch-form-actions">
 				<input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn">
-				<input type="reset" value="Cancel" class="ch-btn ch-btn-small">
+				<input type="reset" value="Cancel" class="ch-btn ch-btn-skin">
 				<a href="#" class="resetForm">Reset validations</a>
 			</div>
 		</form>
@@ -1372,48 +1372,48 @@
 
 		// Tooltip
 		// Bottom
-		$("#default").tooltip(); // lt lb
-		$("#ctcb").tooltip({"points": "ct cb"});
-		$("#rtrb").tooltip({"points": "rt rb"});
+		var tooltip1 = $("#default").tooltip(); // lt lb
+		var tooltip2 = $("#ctcb").tooltip({"points": "ct cb"});
+		var tooltip3 = $("#rtrb").tooltip({"points": "rt rb"});
 
 		// Top
-		$("#lblt").tooltip({
+		var tooltip4 = $("#lblt").tooltip({
 			"points": "lb lt",
 			"offset": "0 -10"
 		});
-		$("#cbct").tooltip({
+		var tooltip5 = $("#cbct").tooltip({
 			"points": "cb ct",
 			"offset": "0 -10"
 		});
-		$("#rbrt").tooltip({
+		var tooltip6 = $("#rbrt").tooltip({
 			"points": "rb rt",
 			"offset": "0 -10"
 		});
 
 		// Right
-		$("#ltrt").tooltip({
+		var tooltip7 = $("#ltrt").tooltip({
 			"points": "lt rt",
 			"offset": "10 0"
 		});
-		$("#lmrm").tooltip({
+		var tooltip8 = $("#lmrm").tooltip({
 			"points": "lm rm",
 			"offset": "10 0"
 		});
-		$("#lbrb").tooltip({
+		var tooltip9 = $("#lbrb").tooltip({
 			"points": "lb rb",
 			"offset": "10 0"
 		});
 
 		// Left
-		$("#rtlt").tooltip({
+		var tooltip10 = $("#rtlt").tooltip({
 			"points": "rt lt",
 			"offset": "-10 0"
 		});
-		$("#rmlm").tooltip({
+		var tooltip11 = $("#rmlm").tooltip({
 			"points": "rm lm",
 			"offset": "-10 0"
 		});
-		$("#rblb").tooltip({
+		var tooltip12 = $("#rblb").tooltip({
 			"points": "rb lb",
 			"offset": "-10 0"
 		});
