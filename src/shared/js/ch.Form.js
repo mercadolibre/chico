@@ -108,7 +108,7 @@
          * @private
          * @type {Boolean}
          */
-        that._hasError = false;
+        that.errors = [];
 
         /**
          * Collection of messages defined.
@@ -135,7 +135,11 @@
             .attr('novalidate', 'novalidate')
             // Bind the submit
             .on('submit.form', function (event) {
-                that._submit(event);
+
+                that.emit('beforevalidate');
+
+                // Runs validations
+                that.validate(event);
             })
             // Bind the reset
             .find('input[type="reset"]').on(ch.events.pointer.TAP + '.form', function (event) {
@@ -150,20 +154,57 @@
     };
 
     /**
-     * This methods execute validate() method, and if is defined triggers 'onSubmit' callback.
+     * Executes all validations, if finds a error will trigger 'onerror' callback, if no error is found will trigger 'onsuccess' callback.
      * @public
      * @function
-     * @name ch.Form#submit
+     * @name ch.Form#validate
      * @returns {Object}
      */
-    Form.prototype._submit = function (event) {
+    Form.prototype.validate = function (event) {
 
-        // Runs validations
-        this.validate();
+        if (!this._enabled) {
+            return this;
+        }
 
+        var that = this,
+            i = 0,
+            j = that._validations.length,
+            validation,
+            firstError;
 
-        // Stops submit event only when it has errors
-        if (this._hasError) {
+        this.errors.length = 0;
+
+        // Run validations
+        for (i; i < j; i += 1) {
+            validation = that._validations[i];
+
+            // Validate
+            validation.validate();
+
+            // Store validations with errors
+            if (validation.error !== null) {
+                that.errors.push(validation);
+            }
+        }
+
+        // Is there's an error
+        if (that.errors !== null) {
+            firstError = that.errors[0];
+
+            that._hasError = true;
+
+            firstError.bubble.$container[0].scrollIntoView();
+
+            // Issue UI-332: On validation must focus the first field with errors.
+            // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
+            if (firstError.el.tagName === 'DIV') {
+                firstError.$el.find('input:first').focus();
+            }
+
+            if (firstError.el.type !== 'hidden' || firstError.el.tagName === 'SELECT') {
+                firstError.el.focus();
+            }
+
             ch.util.prevent(event);
 
             /**
@@ -177,9 +218,10 @@
              *    console.log(data.errors.length);
              * });
              */
-            this.emit('error', this._validationsError);
+            this.emit('error', this.errors);
 
         } else {
+
             /**
              * Fired when submits the form.
              * @name ch.Form#submit
@@ -198,70 +240,46 @@
              * });
              */
             this.emit('success', event);
-
         }
 
         return this;
     };
 
     /**
-     * Executes all validations, if finds a error will trigger 'onerror' callback, if no error is found will trigger 'onsuccess' callback.
+     * Returns the status value of the form.
      * @public
      * @function
-     * @name ch.Form#validate
+     * @name ch.Form#hasError
      * @returns {Object}
      */
-    Form.prototype.validate = function () {
+    Form.prototype.hasError = function () {
+
         if (!this._enabled) {
-            return this;
+            return false;
         }
 
-        var that = this,
-            i = 0,
-            j = that._validations.length,
-            child;
+        this.errors.length = 0;
 
-        that._validationsError = [];
+        var i = 0,
+            j = this._validations.length,
+            validation;
 
-        // Status OK (with previous error)
-        if (that._hasError) {
-            that._hasError = false;
-        }
-
-        // Run validations
+        // Run hasError
         for (i; i < j; i += 1) {
-            child = that._validations[i];
 
-            // Validate
-            // Store validations with errors
-            if (child.validate() === false) {
-                that._validationsError.push(child);
+            validation = this._validations[i];
+
+            if (validation.hasError()) {
+                this.errors.push(validation);
             }
+
         }
 
-        // Is there's an error
-        if (that._validationsError.length > 0) {
-            var firstError = that._validationsError[0];
-
-            that._hasError = true;
-
-            firstError.bubble.$container[0].scrollIntoView();
-
-            // Issue UI-332: On validation must focus the first field with errors.
-            // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            if (firstError.el.tagName === 'DIV') {
-                firstError.$el.find('input:first').focus();
-            }
-
-            if (firstError.el.type !== 'hidden' || firstError.el.tagName === 'SELECT') {
-                firstError.el.focus();
-            }
-
-        } else {
-            that._hasError = false;
+        if (this.errors.length > 0) {
+            return true;
         }
 
-        return that;
+        return false;
     };
 
     /**
@@ -328,17 +346,6 @@
         that.emit('reset');
 
         return that;
-    };
-
-    /**
-    * Returns the status value of the form.
-    * @public
-    * @function
-    * @name ch.Form#isValidated
-    * @returns {Boolean}
-    */
-    Form.prototype.hasError = function () {
-        return this._hasError;
     };
 
     ch.factory(Form);
