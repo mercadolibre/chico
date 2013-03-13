@@ -307,6 +307,17 @@
 		 */
 			draw = function () {
 
+                // Save the current amount of items to know if restore the page after calculations
+                var lastItemsPerPage = itemsPerPage,
+                    // Restore if itemsPerPage is the same after calculations
+                    lastPage = currentPage,
+                    // Restore if itemsPerPage is NOT the same after calculations (go to the current first item page)
+                    firstItemOnPage = ((currentPage - 1) * itemsPerPage) + 1,
+                    restoreFX = conf.fx;
+
+                $list.addClass("ch-carousel-nofx");
+                conf.fx = false;
+
 				// Avoid wrong calculations going to first page
 				goToPage(1);
 
@@ -336,11 +347,14 @@
 					return i;
 				}());
 
+                // Update the items collection
+                $items = $list.children();
+
 				// Update amount of total pages
 				// The ratio between total amount of items and items in each page
 				var totalPages = Math.ceil(($items.length + queue.length) / itemsPerPage);
 
-				// Update only if pages amount changed from last redraw
+                // Update only if pages amount changed from last redraw
 				if (pages !== totalPages) {
 					// Update value
 					pages = totalPages;
@@ -352,8 +366,24 @@
 					updatePagination();
 				}
 
+                // Analizes if next page needs to load items from queue and execute addItems() method
+                loadAsyncItems();
+
 				// Update the margin between items and its size
 				updateDistribution();
+
+                // Restore the page after calculations
+                if (lastItemsPerPage === itemsPerPage) {
+                    goToPage(lastPage);
+                // Restore the page of the first item before recalculations
+                } else {
+                    goToPage(Math.ceil(firstItemOnPage / itemsPerPage));
+                }
+
+                if (restoreFX) {
+                    setTimeout(function () { $list.removeClass("ch-carousel-nofx"); }, 0);
+                    conf.fx = restoreFX;
+                }
 			},
 
 		/**
@@ -423,9 +453,6 @@
 				// Trigger all recalculations to get the functionality measures
 				draw();
 
-				// Analizes if next page needs to load items from queue and execute addItems() method
-				loadAsyncItems();
-
 				// Set WAI-ARIA properties to each item depending on the page in which these are
 				updateARIA();
 
@@ -472,9 +499,6 @@
 				// TODO: Bind only once when arrows are created
 				$prevArrow.prependTo(that.$element).on("click", that.prev);
 				$nextArrow.appendTo(that.$element).on("click", that.next);
-
-				// Positions arrows vertically in middle of Carousel
-				$prevArrow[0].style.top = $nextArrow[0].style.top = (that.$element.height() - $prevArrow.height()) / 2 + "px";
 
 				// Avoid selection on the arrows
 				ch.util.avoidTextSelection($prevArrow, $nextArrow);
@@ -752,18 +776,17 @@
 					$list.css(transform, "translateX(" + displacement + "px)");
 				}
 
-				// Translate using jQuery animation
-				function jQueryMove(displacement) {
-					$list.animate({"left": displacement});
-				}
-
-				// Translate without efects
-				function directMove(displacement) {
-					$list.css("left", displacement);
+				// Translate using jQuery animation or without efects
+				function JSMove(displacement) {
+                    if (conf.fx) {
+					   $list.animate({"left": displacement});
+                    } else {
+					   $list.css("left", displacement);
+                    }
 				}
 
 				// Use CSS transition with JS animate to move as fallback
-				return ch.support.transition ? CSSMove : (conf.fx ? jQueryMove : directMove);
+				return (ch.support.transition) ? CSSMove : JSMove;
 			}()),
 
 		/**

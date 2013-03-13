@@ -303,6 +303,12 @@ input[type=range],*/
 	text-align: left;
 }
 
+.ch-form-actions input,
+.ch-form-actions button,
+.ch-form-actions a {
+    margin-right: 15px;
+}
+
 /* Big inputs */
 .ch-form-big .ch-form-row input,
 .ch-form-big .ch-form-row textarea,
