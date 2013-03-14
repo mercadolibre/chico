@@ -76,17 +76,16 @@
 
     Dropdown.prototype.constructor = Dropdown;
 
-    Dropdown.prototype._defaults = {
-        'open': 'click',
+    Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+        '_className': 'ch-dropdown ch-box-lite',
+        'ariaRole': 'menu',
         'fx': false,
-        'side': 'bottom',
-        'align': 'left',
-        'offsetY': -1,
+        'open': 'click',
         'close': 'pointers-only',
-        'classes': 'ch-dropdown ch-box-lite',
+        'offsetY': -1,
         'skin': false,
         'navigation': true
-    };
+    });
 
     Dropdown.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
@@ -123,16 +122,17 @@
         return this;
     };
 
-    Dropdown.prototype.show = function () {
+    Dropdown.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
 
         if (this._active) {
             return this.hide();
         }
 
-        parent.show.call(this);
-
-        // Z-index of content and updates aria values
-        this.$container.css('z-index', ch.util.zIndex += 1);
+        parent.show.call(this, content);
 
         // Z-index of trigger over content (secondary / skin dropdown)
         if (this._options.skin) {
@@ -236,4 +236,4 @@
 
     ch.factory(Dropdown);
 
-}(this, this.jQuery, this.ch));
+}(this, this.jQuery || this.Zepto, this.ch));

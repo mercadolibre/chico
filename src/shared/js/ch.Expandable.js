@@ -199,13 +199,26 @@
      * @example
      * widget.show();
      */
-    Expandable.prototype.show = function () {
+    Expandable.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
 
         if (this._active) {
             return this.hide();
         }
 
         this._show();
+
+        // Request the content
+        if (content !== undefined) {
+            this.content.configure({
+                'input': content
+            });
+        }
+
+        this.content.set();
 
         return this;
     };

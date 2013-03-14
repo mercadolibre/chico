@@ -41,7 +41,7 @@
          */
         var that = this;
 
-        that.init($el, options);
+        this.init($el, options);
 
         /**
          * Triggers when the component is ready to use.
@@ -63,7 +63,38 @@
     /**
      * Inheritance
      */
-    var parent = ch.util.inherits(Validation, ch.Widget);
+    var parent = ch.util.inherits(Validation, ch.Widget),
+
+    /**
+     * Creates methods enable and disable into the prototype.
+     */
+        methods = ['enable', 'disable'],
+        len = methods.length;
+
+    function createMethods(method) {
+        Validation.prototype[method] = function (condition) {
+            var key;
+
+            // Turn off conditions
+            if (condition !== undefined && this.conditions[condition] !== undefined) {
+                // disable specific condition
+                this.conditions[condition][method]();
+
+            } else {
+
+                for (key in this.conditions) {
+                    if (this.conditions[key] !== undefined) {
+                        this.conditions[key][method]();
+                    }
+                }
+
+                // enable all
+                parent[method].call(this);
+            }
+
+            return this;
+        };
+    }
 
     /**
      * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
@@ -77,25 +108,9 @@
 
     Validation.prototype._defaults = {
         'offsetX': 10,
-        'side': 'bottom',
-        'align': 'left'
+        'side': 'right',
+        'align': 'top'
     };
-
-    /**
-     * Flag that let you know if there's a validation going on.
-     * @private
-     * @name ch.Validation#active
-     * @type boolean
-     */
-    Validation.prototype._active = false;
-
-    /**
-     * Flag that let you know if the validations is enabled or not.
-     * @private
-     * @name ch.Validation#_enabled
-     * @type boolean
-     */
-    Validation.prototype._enabled = true;
 
     /**
      * Constructs a new Validation.
@@ -108,33 +123,59 @@
 
         parent.init.call(this, $el, options);
 
-        that.conditions = {};
+        this.conditions = {};
+        this.conditions[options.condition.name] = new ch.Condition(options.condition);
 
-        that.conditions[options.condition.name] = new ch.Condition(options.condition);
+        /**
+         * Flag that let you know if there's a validation going on.
+         * @private
+         * @name ch.Validation#_active
+         * @type {Boolean}
+         */
+        this._active = false;
 
-        that.on('exists', function (e, data) {
+        /**
+         * Flag that let you know if the validations is enabled or not.
+         * @private
+         * @name ch.Validation#_enabled
+         * @type {Boolean}
+         */
+        this._enabled = true;
 
-            var condition = {
-                'name': data.type
-            };
+        /**
+         *
+         * @public
+         * @name ch.Validation#error
+         * @type {Object}
+         */
+        this.error = null;
 
-            if (data.options !== undefined) {
-                if (data.options.content) {
-                    condition.message = data.options.content;
+        this
+            .on('exists', function (data) {
+
+                var condition = {
+                    'name': data.type
+                };
+
+                if (data.options !== undefined) {
+                    if (data.options.content) {
+                        condition.message = data.options.content;
+                    }
+
+                    if (data.options.num) {
+                        condition.num = data.options.num;
+                    }
+
+                    if (data.options.fn) {
+                        condition.fn = data.options.fn;
+                    }
                 }
 
-                if (data.options.num) {
-                    condition.num = data.options.num;
-                }
+                that.conditions[condition.name] = new ch.Condition(condition);
 
-                if (data.options.fn) {
-                    condition.fn = data.options.fn;
-                }
-            }
-
-            that.conditions[condition.name] = new ch.Condition(condition);
-
-        });
+            })
+            // Clean the validation if is active;
+            .on('disable', this.clear);
 
         /**
          * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
@@ -144,30 +185,7 @@
          * @see ch.Form
          */
         // Reference to a Form instance. If there isn't any, the Validation instance will create one.
-        that.form = (function () {
-            var instance,
-                i;
-
-            if (ch.util.hasOwn(ch.instances, "form")) {
-                for (instance in ch.instances.form) {
-                    if (ch.instances.form[instance].el === that.$el.parents("form")[0]) {
-                        return ch.instances.form[instance]; // Get my parent
-                    }
-                }
-            }
-
-            // instance a new form when there isn't one instantiated
-            instance = that.$el.parents("form").form();
-
-            for (i in ch.instances.form) {
-                if (ch.instances.form[i].el === instance.el) {
-                    return ch.instances.form[i]; // Get my parent
-                }
-            }
-
-        }());
-
-        that.form._validations.push(that);
+        this.form = that.$el.parents('form').form()._validations.push(this);
 
         /**
          * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
@@ -177,7 +195,7 @@
          * @see ch.Floats
          */
 
-        that.bubble = $.bubble({
+        this.bubble = $.bubble({
             'reference': (function () {
                 var reference,
                     $el = that.$el,
@@ -215,15 +233,7 @@
          * @private
          * @name ch.Validation#_validationEvent
          */
-        that._validationEvent = (that.$el.hasClass('ch-form-options') || that.$el.hasClass('ch-list-options') || that.el.tagName === 'SELECT' || (that.el.tagName === 'INPUT' && that.el.type === 'range')) ? 'change' : 'blur';
-
-        /**
-         * Stores the error object
-         * @private
-         * @type Object
-         * @name ch.Validation#error
-         */
-        that._error = {};
+        this._validationEvent = (this.$el.hasClass('ch-form-options') || this.$el.hasClass('ch-list-options') || this.el.tagName === 'SELECT' || (this.el.tagName === 'INPUT' && this.el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -233,53 +243,59 @@
      * @public
      * @function
      * @name ch.Validation#validate
-     * @returns boolean
+     * @returns {Boolean}
      */
     Validation.prototype.validate = function () {
+
+        if (this.hasError()) {
+
+            this._error();
+
+        } else {
+
+            this._success();
+        }
+
+        return this;
+    };
+
+    /**
+     *
+     * @private
+     * @function
+     * @name ch.Validation#_error
+     * @returns boolean
+     */
+    Validation.prototype._error = function () {
         var that = this,
-            previousError;
+            previousValue;
 
-        // Pre-validation: Don't validate disabled
-        if (that.$el.attr('disabled') || !that._enabled) { return false; }
+        // It must happen only once.
+        this.$el.on(this._validationEvent + '.validation', function () {
+            if (previousValue !== this.value || that._validationEvent === 'change') {
+                previousValue = this.value;
+                that.validate();
+            }
+        });
 
-        // saves the previous error
-        previousError = ch.util.clone(that._error);
+        // Lazy Loading pattern
+        this._error = function () {
 
-        /**
-         * Triggers before start validation process.
-         * @name ch.Validation#beforeValidate
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("beforeValidate",function(event) {
-         *  submitButton.disable();
-         * });
-         */
-        that.emit('beforevalidate');
+            if (!that._previousError.condition || !that._active) {
+                if (that.el.nodeName === 'INPUT' || that.el.nodeName === 'TEXTAREA') {
+                    that.$el.addClass('ch-validation-error');
+                }
 
-        // Saves gotError
-        that.hasError();
-
-        // If has Error...
-        if (that._error.status && that._error.condition !== previousError.condition) {
-
-            if (that.$el.prop('tagName') === 'INPUT' || that.$el.prop('tagName') === 'TEXTAREA') {
-                // TODO: remove error class when deprecate old forms only ch-form error must be.
-                that.$el.addClass('ch-form-error');
+                that.bubble.show(that.error.msg || 'Error');
             }
 
-            // to avoid reload the same content
-            if (!that.bubble.isActive() || !that._error.condition || that._error.condition !== previousError.condition) { // delete when bubble will be done
-                that.bubble.show((that._error.msg || that.form._messages[previousError.condition] || 'Error'));
+            if (that.error.condition !== that._previousError.condition) {
+                that.bubble.content((that.error.msg || that.form._messages[that.error.condition] || 'Error'));
                 // the aria-label attr should get the message element id, but is not public
-                that.$el.attr('aria-label', 'ch-' + that.bubble.type + '-' + that.bubble.uid);
+                that.$el.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
             }
 
-            // Add blur or change event to the element or to the elements's group
-            if (!that.listeners('events')) {
-                that.$el.on(that._validationEvent + '.validation', function () { that.validate(); });
-            }
+            that._active = true;
 
             /**
              * Triggers when an error occurs on the validation process.
@@ -288,121 +304,109 @@
              * @public
              * @exampleDescription
              * @example
-             * widget.on("error",function(event, condition) {
-             *  if (condition === "required") {
-             *      errorModal.show();
-             *  }
+             * widget.on("error",function(event, condition){
+             *  errorModal.show();
              * });
              */
-            that.emit('error', previousError.condition);
+            that.emit('error', that.error);
 
-        }
+            return that;
+        };
 
-        // else NOT Error!
-        if (!that._error.status) {
-            that.$el.removeClass('ch-form-error');
-            that.$el.removeAttr('aria-label');
-            that.bubble.hide(); // uncoment when bubble were done
-            that.form.emit('validated');
-        }
+        this._error();
 
-        /**
-         * Triggers when the validation process ends.
-         * @name ch.Validation#afterValidate
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on("afterValidate",function(){
-         *  submitButton.disable();
-         * });
-         */
-        that.emit('aftervalidate');
-
-        return that._error.status;
-
+        return this;
     };
 
     /**
-     * Run all configured validations.
-     * @public
+     *
+     * @private
      * @function
-     * @name ch.Validation#hasError
+     * @name ch.Validation#_success
      * @returns boolean
      */
+    Validation.prototype._success = function () {
+
+        // Status OK (with previous error) this._previousError
+        if (this._active || !this._enabled) {
+            // Public status OK
+            this._active = false;
+        }
+
+        this.$el.removeClass('ch-validation-error')
+            .removeAttr('aria-label');
+
+        this.bubble.hide(); // uncoment when bubble were done
+
+        this.emit('success');
+
+        return this;
+    };
+
+    /**
+     *
+     * @private
+     * @function
+     * @name ch.Validation#hasError
+     * @returns {Boolean}
+     */
     Validation.prototype.hasError = function () {
-        var that = this,
-            condition,
-            tested,
+
+        // Pre-validation: Don't validate disabled
+        if (this.$el.attr('disabled') || !this._enabled) {
+            return true;
+        }
+
+        var condition,
             val,
-            required = that.conditions.required,
-            value = that.el.value;
+            required = this.conditions.required,
+            value = this.el.value;
 
-        if (!that._enabled) { return true; }
-
+        /**
+         * Stores the previous error object
+         * @private
+         * @type Object
+         * @name ch.Validation#_previousError
+         */
+        this._previousError = ch.util.clone(this.error);
 
         // Avoid fields that aren't required when they are empty or de-activated
-        if (!required && value === '' && that._active === false) { return {'status': false}; }
+        if (!required && value === '' && this._active === false) {
+            // Has got an error? Nop
+            return false;
+        }
 
-        if (that._enabled && (!that._active || value !== '' || required)) {
+        // for each condition
+        for (condition in this.conditions) {
 
-            // for each condition
-            for (condition in that.conditions) {
+            if (this.conditions[condition] !== undefined) {
 
-                val = ((condition === 'required') ? that.el : value.toLowerCase());
+                val = ((condition === 'required') ? this.el : value.toLowerCase());
                 // this is the validation
 
                 // no value and no required don't validate the field
-                if (value === '' && condition !== 'required') {
+                if ((value === '' && condition === 'required') || !this.conditions[condition].test(val, this)) {
 
-                    tested = true;
-
-                } else {
-
-                    tested = that.conditions[condition].test(val, that);
-
-                    // return false if any test fails,
-                    if (!tested) {
-
-                        /**
-                         * Triggers when an error occurs on the validation process.
-                         * @name ch.Validation#error
-                         * @event
-                         * @public
-                         * @exampleDescription
-                         * @example
-                         * widget.on("error",function(event, condition){
-                         *  errorModal.show();
-                         * });
-                         */
-                        that.emit('error', condition);
-
-                        that._active = true;
-
-                        // stops the proccess
-                        this._error.status = true;
-                        this._error.condition = condition;
-                        this._error.msg = that.conditions[condition].message;
-
-                        return this._error.status;
+                    // Update the error object
+                    this.error = {
+                        'condition': condition,
+                        'msg': this.conditions[condition].message
                     }
+
+                    // Has got an error? Yeah
+                    return true;
                 }
+
             }
+
         }
 
-        // Status OK (with previous error)
-        if (that._active || !that._enabled) {
-            // Public status OK
-            that._active = false;
-        }
+        // Update the error object
+        this.error = null;
 
-        // It's all good ;)
-        this._error.status = false;
-        this._error.condition = undefined;
-        this._error.msg = undefined;
-
-        return this._error.status;
-    };
+        // Has got an error? Nop
+        return false;
+    }
 
     /**
      * Clear all active validations.
@@ -412,10 +416,10 @@
      * @returns itself
      */
     Validation.prototype.clear = function () {
-        var that = this;
 
-        that.$el.removeClass('ch-form-error');
-        that.bubble.innerHide();
+        this.$el.removeClass('ch-validation-error');
+
+        this.bubble.hide();
 
         this._active = false;
 
@@ -430,7 +434,7 @@
          *  submitButton.enable();
          * });
          */
-        that.emit('clear');
+        this.emit('clear');
 
         return this;
     };
@@ -447,80 +451,6 @@
     };
 
     /**
-     * Turn on Validation and a specific condition.
-     * @public
-     * @name ch.Validation#enable
-     * @function
-     * @returns itself
-     * @see ch.Condition
-     */
-    Validation.prototype.enable = function (condition) {
-        var that = this;
-
-        if (condition && that.conditions[condition]) {
-            // Enable specific condition
-            that.conditions[condition].enable();
-        } else {
-            // enable all
-            that._enabled = true;
-            for (condition in that.conditions) {
-                that.conditions[condition].enable();
-            }
-        }
-
-        return this;
-    };
-
-    /**
-     * Turn off Validation and a specific Condition.
-     * @public
-     * @name ch.Validation#disable
-     * @function
-     * @returns itself
-     * @see ch.Condition
-     */
-    Validation.prototype.disable = function (condition) {
-        var that = this;
-        // Clean the validation if is active;
-        clear();
-
-        // Turn off conditions
-        if (condition && that.conditions[condition]) {
-            // disable specific condition
-            that.conditions[condition].disable();
-        } else {
-            // disable all
-            that._enabled = false;
-            for (condition in that.conditions) {
-                that.conditions[condition].disable();
-            }
-        }
-
-        return this;
-    };
-
-    /**
-     * Turn on/off the Validation and Condition engine.
-     * @public
-     * @since 0.10.4
-     * @name ch.Validation#toggleEnable
-     * @function
-     * @returns itself
-     * @see ch.Condition
-     */
-    Validation.prototype.toggleEnable = function () {
-        var that = this;
-
-        if (that._enabled) {
-            that.disable();
-        } else {
-            that.enable();
-        }
-
-        return this;
-    };
-
-    /**
      * Turn off Validation and a specific condition.
      * @public
      * @name ch.Validation#isActive
@@ -530,17 +460,6 @@
      */
     Validation.prototype.isActive = function () {
         return this._active;
-    };
-
-    /**
-     * Returns an object with the errors that the validation has.
-     * @public
-     * @name ch.Validation#getError
-     * @function
-     * @returns object
-     */
-    Validation.prototype.getError = function () {
-        return this._error;
     };
 
     /**
@@ -558,12 +477,13 @@
      *    align: "left"
      * });
      */
-    Validation.prototype.position = function (o) {
-        var that = this;
+    Validation.prototype.position = function (options) {
 
-        if (o === undefined) { return that.bubble.position; }
+        if (options === undefined) {
+            return this.bubble.position;
+        }
 
-        that.bubble.position.refresh(o);
+        this.bubble.position.refresh(options);
 
         return this;
     };
@@ -583,7 +503,6 @@
      * validation.message("required");
      */
     Validation.prototype.message = function (condition, msg) {
-        var that = this;
 
         if (condition === undefined) {
             throw new Error("validation.message(condition, message): Please, give me a condition as parameter.");
@@ -591,14 +510,56 @@
 
         // Get a new message from a condition
         if (msg === undefined) {
-            return that.conditions[condition].message;
+            return this.conditions[condition].message;
         }
 
         // Sets a new message
-        that.conditions[condition].message = msg;
+        this.conditions[condition].message = msg;
 
-        if (that.isActive() && that._error.condition === condition) {
-            that.bubble.content(msg);
+        if (this.isActive() && this.error.condition === condition) {
+            this.bubble.content(msg);
+        }
+
+        return this;
+    };
+
+
+    /**
+     * Turn on Validation and a specific condition.
+     * @public
+     * @name ch.Validation#enable
+     * @function
+     * @returns itself
+     * @see ch.Condition
+     */
+
+    /**
+     * Turn off Validation and a specific Condition.
+     * @public
+     * @name ch.Validation#disable
+     * @function
+     * @returns itself
+     * @see ch.Condition
+     */
+     while (len) {
+        createMethods(methods[len -= 1]);
+     }
+
+    /**
+     * Turn on/off the Validation and Condition engine.
+     * @public
+     * @since 0.10.4
+     * @name ch.Validation#toggleEnable
+     * @function
+     * @returns itself
+     * @see ch.Condition
+     */
+    Validation.prototype.toggleEnable = function () {
+
+        if (this._enabled) {
+            this.disable();
+        } else {
+            this.enable();
         }
 
         return this;

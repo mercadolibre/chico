@@ -281,7 +281,7 @@
         this._dates.range.from = (function () {
 
             // Only works when there are a "from" parameter on configuration
-            if (!ch.util.hasOwn(that._options, 'from') || !that._options.from) { return; }
+            if (that._options.from === undefined || !that._options.from) { return; }
 
             // Return date object
             return (that._options.from === 'today') ? that._dates.today : createDateObject(that._options.from);
@@ -292,7 +292,7 @@
         this._dates.range.to = (function () {
 
             // Only works when there are a "to" parameter on configuration
-            if (!ch.util.hasOwn(that._options, 'to') || !that._options.to) { return; }
+            if (that._options.to === undefined || !that._options.to) { return; }
 
             // Return date object
             return (that._options.to === 'today') ? that._dates.today : createDateObject(that._options.to);

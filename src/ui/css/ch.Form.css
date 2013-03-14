@@ -1,16 +1,22 @@
 /* Generic input & textarea */
-input,
+input[type="text"],
+input[type="url"],
+input[type="email"],
+input[type="search"],
+input[type="date"],
+input[type="datatime"],
+input[type="datatime-local"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
 textarea,
 select[multiple],
 .ch-form-select-multiple {
-	border: 1px solid #CDCDCD;
 	font-size: 13px;
 	margin: 5px 0;
-}
-
-input[readonly],
-input[readonly]:focus {
-	padding: 5px 0;
 }
 
 /* Inner Icons */
@@ -76,7 +82,8 @@ input[readonly]:focus {
 }
 
 /* Radio & Checkbox in options */
-.ch-list-options input {
+.ch-list-options input[type="radio"],
+.ch-list-options input[type="checkbox"] {
 	display: block;
 	width: 16px;
 	height: 16px;

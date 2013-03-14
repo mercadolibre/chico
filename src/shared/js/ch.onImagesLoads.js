@@ -21,8 +21,10 @@
 
         $el
             .one('load', function () {
+                var len = $el.length;
+
                 window.setTimeout(function () {
-                    if (--$el.length <= 0) { callback.call($el); }
+                    if (--len <= 0) { callback.call($el); }
                 }, 200);
             })
             .each(function () {

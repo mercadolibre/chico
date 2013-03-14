@@ -70,19 +70,21 @@
 
     Zoom.prototype.constructor = Zoom;
 
-    Zoom.prototype._defaults = {
+    Zoom.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+        '_className': 'ch-zoom',
+        'ariaRole': 'tooltip',
         'fx': false,
-        'classes': 'ch-zoom',
         'width': '300px',
         'height': '300px',
         'open': 'mouseenter',
         'close': 'mouseleave',
+        'closeDelay': 0,
         'side': 'right',
         'align': 'top',
         'offsetX': 20,
         'offsetY': 0,
         'content': 'Loading zoom...'
-    };
+    });
 
     Zoom.prototype.init = function ($el, options) {
 
@@ -94,10 +96,7 @@
 
         // Prevent to redirect to href
         bindings[pointerEvents.TAP] = function (event) { ch.util.prevent(event); };
-        // Show component or loading transition
-        bindings[pointerEvents.ENTER] = function () { that.show(); };
-        // Hide component or loading transition
-        bindings[pointerEvents.LEAVE] = function () { that.hide(); };
+
         // Bind move calculations
         bindings[pointerEvents.MOVE] = function (event) { that.move(event); };
 
@@ -242,7 +241,11 @@
      * @function
      */
     Zoom.prototype.show = function (content) {
-        //
+
+        if (!this._enabled) {
+            return this;
+        }
+
         if (!this._ready) { return this._$loading.removeClass('ch-hide'); }
 
         this._$loading.addClass('ch-hide');

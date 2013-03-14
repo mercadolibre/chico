@@ -48,7 +48,7 @@
 				"../../src/ui/js/ch.init.js"
 			],
 			"abilities": [
-				"../../src/ui/js/ch.EventEmitter.js",
+				"../../src/shared/js/ch.EventEmitter.js",
                 "../../src/shared/js/ch.onImagesLoads.js",
 				"../../src/shared/js/ch.cache.js",
 				"../../src/shared/js/ch.Content.js",
@@ -86,7 +86,7 @@
                 "../../src/ui/js/ch.Zoom.js",
                 "../../src/shared/js/ch.Calendar.js",
 				"../../src/ui/js/ch.blink.js",
-				"../../src/ui/js/ch.Dropdown.js",
+				"../../src/shared/js/ch.Dropdown.js",
 				"../../src/ui/js/ch.Tabs.js",
 				"../../src/ui/js/ch.Carousel.js",
 				"../../src/shared/js/ch.Countdown.js",
@@ -129,7 +129,7 @@
 				"../../src/ui/css/ch.Carousel.css",
 				"../../src/ui/css/ch.AutoComplete.css",
 				"../../src/ui/css/ch.DatePicker.css",
-				"../../src/ui/css/ch.Dropdown.css",
+				"../../src/shared/css/ch.Dropdown.css",
 				"../../src/ui/css/ch.Expandable.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Tabs.css",
@@ -151,7 +151,7 @@
 				"../../src/mobile/js/ch.init.js"
 			],
 			"abilities": [
-                "../../src/mobile/js/ch.EventEmitter.js",
+                "../../src/shared/js/ch.EventEmitter.js",
                 "../../src/mobile/js/ch.routes.js",
                 "../../src/shared/js/ch.cache.js",
                 "../../src/shared/js/ch.Content.js",
@@ -171,6 +171,7 @@
                 "../../src/shared/js/ch.Bubble.js",
                 "../../src/shared/js/ch.Modal.js",
                 "../../src/shared/js/ch.Transition.js",
+                "../../src/shared/js/ch.Dropdown.js",
 				"../../src/shared/js/ch.Form.js",
                 "../../src/shared/js/ch.Condition.js",
 				"../../src/shared/js/ch.Validation.js",
@@ -225,8 +226,9 @@
                 "../../src/shared/css/ch.Bubble.css",
                 "../../src/shared/css/ch.Modal.css",
                 "../../src/shared/css/ch.Transition.css",
-                "../../src/shared/css/ch.Calendar.css",
                 "../../src/mobile/css/ch.AutoComplete.css"
+                "../../src/shared/css/ch.Dropdown.css",
+                "../../src/shared/css/ch.Calendar.css"
 			],
 			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
 		},

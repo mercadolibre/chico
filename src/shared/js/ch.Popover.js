@@ -85,12 +85,13 @@
     Popover.prototype.constructor = Popover;
 
     Popover.prototype._defaults = {
+        'ariaRole': 'dialog',
         'fx': 'fadeIn',
-        'classes': 'ch-box-lite',
         'width': 'auto',
         'height': 'auto',
         'open': 'click',
-        'close': 'button-only'
+        'close': 'button-only',
+        'closeDelay': 400
     };
 
     Popover.prototype.init = function ($el, options) {
@@ -109,8 +110,8 @@
          */
         this.$container = $([
             '<div',
-            ' class="ch-popover ch-hide ' + this._options.classes + '"',
-            ' role="tooltip"',
+            ' class="ch-popover ch-hide ' + (this._options._className || '') + ' ' + (this._options.addClass || '') + '"',
+            ' role="' + this._options.ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
             '>'
@@ -176,6 +177,9 @@
         this.on('hide', function () {
             that.$container.remove(null, true);
         });
+
+        return this;
+
     };
 
     /**
@@ -217,6 +221,14 @@
                 this.el.title = this.el.alt = '';
             }
         }
+
+        /**
+         *
+         * @protected
+         * @name ch.Floats#
+         * @type jQuery
+         */
+        this.$trigger = this.$el;
     };
 
     /**
@@ -227,14 +239,24 @@
      * @returns itself
      */
     Popover.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
+
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
         // Open the collapsible
         this._show();
+
         // Request the content
-        this.content.set({
-            'input': content
-        });
+        if (content !== undefined) {
+            this.content.configure({
+                'input': content
+            });
+        }
+
+        this.content.set();
 
         return this;
     };

@@ -5,20 +5,6 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    var defaults = {
-        'fx': 'fadeIn',
-        'classes': 'ch-bubble ch-box-error ch-cone',
-        'width': 'auto',
-        'height': 'auto',
-        'open': 'none',
-        'close': 'none',
-        'side': 'right',
-        'align': 'top',
-        'offsetX': 10,
-        'offsetY': 0,
-        'content': 'Error.'
-    };
-
     /**
      *
      * @name Bubble
@@ -52,15 +38,27 @@
      */
     function Bubble($el, options) {
 
-        if (options === undefined && !ch.util.is$($el)) {
+        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
             options = $el;
             $el = undefined;
         }
 
-        options = $.extend(ch.util.clone(defaults), options);
+        options = $.extend(ch.util.clone(this._defaults), options);
 
         return new ch.Popover($el, options);
     }
+
+    Bubble.prototype._defaults = $.extend(ch.util.clone(ch.Popover.prototype._defaults), {
+        '_className': 'ch-bubble ch-box-error ch-cone',
+        'ariaRole': 'alert',
+        'open': 'none',
+        'close': 'none',
+        'side': 'right',
+        'align': 'top',
+        'offsetX': 10,
+        'offsetY': 0,
+        'content': 'Error.'
+    });
 
     Bubble.prototype.name = 'bubble';
     Bubble.prototype.constructor = Bubble;

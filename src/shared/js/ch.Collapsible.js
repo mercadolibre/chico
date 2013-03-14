@@ -25,7 +25,10 @@
 
             triggerClass = 'ch-' + this.name + '-trigger-on',
 
-            fx = this._options.fx;
+            fx = this._options.fx,
+
+            canUseFx = (ch.support.fx && typeof fx === 'string');
+
 
         function showCallback() {
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
@@ -36,6 +39,7 @@
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
             that.emit('hide');
         }
+
 
         /**
          * Shows component's container.
@@ -52,7 +56,7 @@
             }
 
             // Animate or not
-            if (ch.support.fx && typeof fx === 'string') {
+            if (canUseFx) {
                 that.$container[fx]('fast', showCallback);
             } else {
                 showCallback();
@@ -76,7 +80,7 @@
             }
 
             // Animate or not
-            if (ch.support.fx && typeof fx === 'string') {
+            if (canUseFx) {
                 that.$container[toggle[fx]]('fast', hideCallback);
             } else {
                 hideCallback();
@@ -84,6 +88,8 @@
 
             return that;
         };
+
+        this.on('disable', this.hide);
     }
 
     ch.Collapsible = Collapsible;

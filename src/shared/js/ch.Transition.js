@@ -5,16 +5,6 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    var defaults = {
-        'fx': 'fadeIn',
-        'classes': 'ch-transition ch-box-lite',
-        'width': '50%',
-        'height': 'auto',
-        'open': 'click',
-        'close': 'none',
-        'content': 'Please wait...'
-    };
-
     /**
      * Transition lets you give feedback to the users when their have to wait for an action.
      * @name Transition
@@ -52,17 +42,24 @@
      */
     function Transition($el, options) {
 
-        if (options === undefined && !ch.util.is$($el)) {
+        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
             options = $el;
             $el = undefined;
         }
 
-        options = $.extend(ch.util.clone(defaults), options);
+        options = $.extend(ch.util.clone(this._defaults), options);
 
-        options.content = $('<div class="ch-loading-big"></div><p>' + options.content + '</p>')
+        options.content = $('<div class="ch-loading-big"></div><p>' + options.content + '</p>');
 
         return new ch.Modal($el, options);
     }
+
+    Transition.prototype._defaults = $.extend(ch.util.clone(ch.Modal.prototype._defaults), {
+        '_className': 'ch-transition ch-box-lite',
+        'ariaRole': 'alert',
+        'close': 'none',
+        'content': 'Please wait...'
+    });
 
     Transition.prototype.name = 'transition';
     Transition.prototype.constructor = Transition;

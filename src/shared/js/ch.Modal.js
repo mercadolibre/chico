@@ -79,15 +79,13 @@
 
     Modal.prototype.constructor = Modal;
 
-    Modal.prototype._defaults = {
-        'fx': 'fadeIn',
-        'classes': 'ch-modal ch-box-lite',
+    Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
+        '_className': 'ch-modal ch-box-lite',
+        'ariaRole': 'dialog',
         'width': '50%',
-        'height': 'auto',
-        'open': 'click',
         'close': 'all',
         'reference': ch.viewport
-    };
+    });
 
     Modal.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
@@ -101,6 +99,10 @@
      * @returns itself
      */
     Modal.prototype.show = function (content) {
+
+        if (!this._enabled) {
+            return this;
+        }
 
         var that = this,
             close = this._options.close;
