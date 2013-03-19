@@ -58,7 +58,8 @@
      * Inheritance
      */
     var $document = $(window.document),
-        parent = ch.util.inherits(AutoComplete, ch.Widget);
+        parent = ch.util.inherits(AutoComplete, ch.Widget),
+        INPUT_EVENT = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
 
 
     AutoComplete.prototype.name = 'autoComplete';
@@ -82,12 +83,12 @@
             DOWN_ARROW = ch.events.key.DOWN_ARROW + '.' + this.name, // UI
             BACKSPACE = ch.events.key.BACKSPACE + '.' + this.name,
             MOUSEDOWN = ch.events.pointer.DOWN + '.' + this.name,
-            MOUSEENTER = 'mouseover' + '.' + this.name, // UI
-            KEYUP = 'keyup.' + this.name,
-            KEYDOWN = 'keydown.' + this.name;
+            MOUSEENTER = 'mouseover' + '.' + this.name;
 
         parent.init.call(this, $el, options);
 
+        // add shortcuts to the input
+        this.shortcuts = new ch.Shortcuts({'target': this.$el});
 
         this._$suggestionsList = $('<ul class="ch-autoComplete-list"></ul>');
 
@@ -102,7 +103,7 @@
             'content': this._$suggestionsList,
             'side': this._options.side,
             'align': this._options.align,
-            'classes': 'ch-box-lite ch-autoComplete',
+            'addClass': 'ch-box-lite ch-autoComplete',
             'close': this._options.closable,
             'width': (this.el.getBoundingClientRect().width - 22) + 'px'
         });
@@ -149,40 +150,20 @@
         // behavior binding
         this.$el
             .on('focus.' + this.name, function (event) {
-
-                // ch.keyboard.on y ch.keyboard.off recibe como paramentro
-                // this, que es el elmento de jQuery en este contexto
-                // ch.keyboard.on(this) // this es el elemento de jQuery
-
-                    // dentro del ch.keyboard.on y ch.keyboard.off el es lo que recibio
-                    // como paramentro
-                    // $(el).on('keydown', function () { // aca va lo que hace ch.keyboard() } )
-
-                // ch.keyboard.off(this) // this es el elemento de jQuery
-
-
-
-
-
-
                 that._originalQuery = that.el.value;
 
-                that.$el.on(KEYUP, function (event) {
+                that.$el
+                // when the user writes
+                    .on(INPUT_EVENT, function (event) {
+                        window.clearTimeout(that._stopTyping);
 
-                    if (that._checkTyping(event)) {
                         that._stopTyping = window.setTimeout(function () {
-                            that.emit('typing', that.el.value);
+                            if (that.el.value !== '') {
+                                that.emit('typing', that.el.value);
+                            }
                         }, 400);
-                    }
 
-                });
-
-                that.$el.on(KEYDOWN, function (event) {
-                    window.clearInterval(that._stopTyping);
-                });
-
-
-                $document
+                    })
                 // back the value to the inputs previous value
                     .on(ESC, function (event) {
 
@@ -192,8 +173,6 @@
                     })
                 // apply the highlighted item
                     .on(ENTER, function (event) {
-
-                        that.el.blur();
 
                         that._setQuery(event);
 
@@ -221,18 +200,17 @@
             })
             .on('blur.' + this.name, function (event) {
 
-                that.$el.off(KEYUP);
-
-                that.$el.off(KEYDOWN);
+                that.$el
+                    .off(INPUT_EVENT)
+                    .off(ESC)
+                    .off(ENTER)
+                    .off(BACKSPACE);
 
                 that._popover.$container
                     .off(MOUSEDOWN)
                     .off(MOUSEENTER);
 
-                $document
-                    .off(ESC)
-                    .off(ENTER)
-                    .off(BACKSPACE);
+                that.hide();
 
             })
             .attr('autocomplete', 'off')
@@ -249,6 +227,8 @@
      */
     AutoComplete.prototype._setQuery = function (event) {
 
+        window.clearTimeout(this._stopTyping);
+
         if (!this._options.html) {
             this.el.value = this._suggestions[this._selected];
         }
@@ -257,7 +237,7 @@
 
         this.emit('select', event);
 
-        this.hide();
+        this.el.blur();
 
     };
 
@@ -269,12 +249,13 @@
      */
     AutoComplete.prototype._highlightSuggestion = function (event) {
         var $target = $(event.target),
-            item = $target.hasClass('ch-autoComplete-item') ? $target : $target.parents('li.ch-autoComplete-item'),
+            $item = $target.hasClass('ch-autoComplete-item') ? $target : $target.parents('li.ch-autoComplete-item'),
             current;
 
-        if (item[0] !== undefined && item.length > 0) {
+        if ($item.length > 0) {
 
-            current = parseInt(item.attr('data-suggestion'), 10);
+            // the number in aria-posinset start at 1 and not 0, decrease in 1 the value to then match with .children
+            current = (parseInt($item.attr('aria-posinset'), 10) - 1);
 
             if (this._selected !== current) {
 
@@ -282,48 +263,13 @@
                     $(this._$suggestionsList[0].children[this._selected]).removeClass('ch-autoComplete-selected');
                 }
 
-                item.addClass('ch-autoComplete-selected');
+                $item.addClass('ch-autoComplete-selected');
 
+                // _highlited
                 this._selected = current;
             }
 
         }
-
-    };
-
-    /**
-     * Check if the user is typing and it emits the 'typing' event.
-     * @private
-     * @function
-     * @name ch.AutoComplete#_checkTyping
-     */
-    AutoComplete.prototype._checkTyping = function (event) {
-        var keyCode = event.keyCode,
-            inputValue = event.target.value;
-
-        // si el chabon escribe a velocidad rápida no sugerir
-        // entonces tengo que escuchar cuando se detiene de escribir
-        // si el keyup se ejecuta muchas veces en x cantidad de tiempo disparar el evento
-        // o sea medir la diferencia de tiempo entre keyups
-
-        if (inputValue !== ''
-                && keyCode !== 13 // ENTER event.keyCode
-                && keyCode !== 16 //
-                && keyCode !== 17 // CTRL
-                && keyCode !== 18 // ALT
-                && keyCode !== 20 //
-                && keyCode !== 27 // ESC
-                && keyCode !== 37 // left arrow
-                && keyCode !== 38 // top arrow
-                && keyCode !== 39 // right arrow
-                && keyCode !== 40 // bottom arrow
-                && keyCode !== 93) { // CMND >>> revisar en windows
-
-            return true;
-
-        }
-
-        return false;
 
     };
 
@@ -338,8 +284,9 @@
 
         var that = this,
             items = [],
-            query = this.el.value,
-            matchedRegExp = new RegExp('(' + query + ')', 'ig');
+            query = this.el.value.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1"),
+            matchedRegExp = new RegExp('(' + query + ')', 'ig'),
+            totalItems = 0;
 
         if (query === '') {
             return this;
@@ -351,6 +298,7 @@
 
         this.$el.removeClass('ch-autoComplete-loading');
         this._suggestions = suggestions;
+        totalItems = this._suggestions.length;
 
         this._suggestions.forEach(function (term, i) {
 
@@ -358,7 +306,7 @@
                 term = term.replace(matchedRegExp, '<strong>$1</strong>');
             }
 
-            items.push('<li data-suggestion="' + i + '" class="ch-autoComplete-item">' + term + '</li>');
+            items.push('<li aria-setsize="' + totalItems + '" aria-posinset="' + (i + 1) + '" class="ch-autoComplete-item">' + term + '</li>');
         });
 
         this._$suggestionsList.html($(items.join('')));
@@ -374,11 +322,8 @@
      * @returns itself
      */
     AutoComplete.prototype.show = function () {
-
         this.emit('show');
-
         this._popover.show();
-
         return this;
     };
 
@@ -390,11 +335,8 @@
      * @returns itself
      */
     AutoComplete.prototype.hide = function () {
-
         this.emit('hide');
-
         this._popover.hide();
-
         return this;
     };
 
