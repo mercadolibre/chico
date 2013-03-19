@@ -202,7 +202,7 @@
                     h4;
                 // CHECKBOX, RADIO
                 // TODO: when old forms be deprecated we must only support ch-list-options class
-                if ($el.hasClass('ch-form-options') || $el.hasClass('ch-list-options')) {
+                if ($el.hasClass('ch-list-options')) {
                 // Helper reference from will be fired
                 // H4
                     if ($el.find('h4').length > 0) {
@@ -233,7 +233,7 @@
          * @private
          * @name ch.Validation#_validationEvent
          */
-        this._validationEvent = (this.$el.hasClass('ch-form-options') || this.$el.hasClass('ch-list-options') || this.el.tagName === 'SELECT' || (this.el.tagName === 'INPUT' && this.el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (this.$el.hasClass('ch-list-options') || this.el.tagName === 'SELECT' || (this.el.tagName === 'INPUT' && this.el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -286,11 +286,11 @@
                     that.$el.addClass('ch-validation-error');
                 }
 
-                that.bubble.show(that.error.msg || 'Error');
+                that.bubble.show(that.error.message || 'Error');
             }
 
             if (that.error.condition !== that._previousError.condition) {
-                that.bubble.content((that.error.msg || that.form._messages[that.error.condition] || 'Error'));
+                that.bubble.content((that.error.message || that.form._messages[that.error.condition] || 'Error'));
                 // the aria-label attr should get the message element id, but is not public
                 that.$el.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
             }
@@ -358,9 +358,14 @@
         }
 
         var condition,
-            val,
             required = this.conditions.required,
             value = this.el.value;
+
+        // Avoid fields that aren't required when they are empty or de-activated
+        if (!required && value === '' && this._active === false) {
+            // Has got an error? Nop
+            return false;
+        }
 
         /**
          * Stores the previous error object
@@ -370,41 +375,26 @@
          */
         this._previousError = ch.util.clone(this.error);
 
-        // Avoid fields that aren't required when they are empty or de-activated
-        if (!required && value === '' && this._active === false) {
-            // Has got an error? Nop
-            return false;
-        }
-
         // for each condition
         for (condition in this.conditions) {
 
-            if (this.conditions[condition] !== undefined) {
+            if (this.conditions[condition] !== undefined && !this.conditions[condition].test(value, this)) {
+                // Update the error object
+                this.error = {
+                    'condition': condition,
+                    'message': this.conditions[condition].message
+                };
 
-                val = ((condition === 'required') ? this.el : value.toLowerCase());
-                // this is the validation
-
-                // no value and no required don't validate the field
-                if ((value === '' && condition === 'required') || !this.conditions[condition].test(val, this)) {
-
-                    // Update the error object
-                    this.error = {
-                        'condition': condition,
-                        'msg': this.conditions[condition].message
-                    }
-
-                    // Has got an error? Yeah
-                    return true;
-                }
-
+                // Has got an error? Yeah
+                return true;
             }
 
         }
 
-        // Update the error object
+        // // // Update the error object
         this.error = null;
 
-        // Has got an error? Nop
+        // // // Has got an error? Nop
         return false;
     }
 
@@ -502,22 +492,22 @@
      * @example
      * validation.message("required");
      */
-    Validation.prototype.message = function (condition, msg) {
+    Validation.prototype.message = function (condition, message) {
 
         if (condition === undefined) {
             throw new Error("validation.message(condition, message): Please, give me a condition as parameter.");
         }
 
         // Get a new message from a condition
-        if (msg === undefined) {
+        if (message === undefined) {
             return this.conditions[condition].message;
         }
 
         // Sets a new message
-        this.conditions[condition].message = msg;
+        this.conditions[condition].message = message;
 
         if (this.isActive() && this.error.condition === condition) {
-            this.bubble.content(msg);
+            this.bubble.content(message);
         }
 
         return this;
