@@ -6,6 +6,45 @@
     }
 
     /**
+     * Normalizes and creates an options object
+     * @private
+     * @function
+     * @returns {Object}
+     */
+    function normalizeOptions(num, message) {
+        var options,
+            condition = {
+                'name': 'number'
+            };
+
+        // If the first paramater is an object, it creates a condition and append to options
+        if (typeof num === 'object') {
+
+            // Stores the current options
+            options = num;
+
+            // Creates condition properties
+            condition.num = options.num;
+            condition.message = options.message;
+
+            // Removes the keys that has been stored into the condition
+            delete options.num;
+            delete options.message;
+
+        // Creates an option object if receive more than one parameter
+        } else {
+            options = {};
+            condition.num = num;
+            condition.message = message;
+        }
+
+        // Appends condition object into conditions collection
+        options.conditions = [condition];
+
+        return options;
+    }
+
+    /**
      * Number validates a given number.
      * @name Number
      * @class Number
@@ -31,22 +70,12 @@
      * $("input").number("This field must be a number.");
      */
     function Number($el, options) {
-
-        var opts = options || {};
-
-        // Define the conditions of this interface
-        opts.condition = {
-            'name': 'number',
-            'message': opts.content
-        };
-
-        return $el.validation(opts);
+        return $el.validation(options);
     }
 
     Number.prototype.name = 'number';
     Number.prototype.constructor = Number;
-    Number.prototype.preset = 'validation';
 
-    ch.factory(Number);
+    ch.factory(Number, normalizeOptions);
 
 }(this, this.ch));

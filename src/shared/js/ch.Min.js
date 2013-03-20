@@ -6,6 +6,45 @@
     }
 
     /**
+     * Normalizes and creates an options object
+     * @private
+     * @function
+     * @returns {Object}
+     */
+    function normalizeOptions(num, message) {
+        var options,
+            condition = {
+                'name': 'min'
+            };
+
+        // If the first paramater is an object, it creates a condition and append to options
+        if (typeof num === 'object') {
+
+            // Stores the current options
+            options = num;
+
+            // Creates condition properties
+            condition.num = options.num;
+            condition.message = options.message;
+
+            // Removes the keys that has been stored into the condition
+            delete options.num;
+            delete options.message;
+
+        // Creates an option object if receive more than one parameter
+        } else {
+            options = {};
+            condition.num = num;
+            condition.message = message;
+        }
+
+        // Appends condition object into conditions collection
+        options.conditions = [condition];
+
+        return options;
+    }
+
+    /**
      * Min validates a number with a minimun value.
      * @name Min
      * @class Min
@@ -33,22 +72,12 @@
      * $("input").min(10, "Write a number bigger than 10");
      */
     function Min($el, options) {
-
-        var opts = options || {};
-
-        opts.condition = {
-            'name': 'min',
-            'message': opts.content,
-            'num': opts.num
-        };
-
-        return $el.validation(opts);
+        return $el.validation(options);
     }
 
     Min.prototype.name = 'min';
     Min.prototype.constructor = Min;
-    Min.prototype.preset = 'validation';
 
-    ch.factory(Min);
+    ch.factory(Min, normalizeOptions);
 
 }(this, this.ch));

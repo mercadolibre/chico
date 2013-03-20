@@ -102,7 +102,7 @@
 		* @name ch.Tabs#selected
 		* @type {Number}
 		*/
-		that.selected = that._options.selected || that._options.num || undefined;
+		that.selected = that._options.selected;
 
 		/**
 		 * Children instances associated to this controller.
@@ -205,7 +205,7 @@
 		var that = this;
 
 		// If hash open that tab
-		for(var i = that.children.length; i--;) {
+		for (var i = that.children.length; i--;) {
 			if (that.children[i].$container.attr('id') === that.hash) {
 				that.select(i);
 				that.hashed = true;
@@ -214,7 +214,7 @@
 		};
 
 		// Shows the first tab if not hash or it's hash and it isn't from the current tab
-		if( !that.hash || ( that.hash && !that.hashed ) ){
+		if (!that.hash || (that.hash && !that.hashed)) {
 			that.children[0].show();
 			that.selected = 0;
 		}
@@ -234,6 +234,7 @@
 	 * var selected = widget.select();
 	 */
 	Tabs.prototype.select = function (index) {
+
 		if (index === undefined) {
 			return this.selected;
 		}
@@ -246,7 +247,7 @@
 
 		// If select a tab that doesn't exist do nothing
 		// Don't click me if I'm open
-		if (!tab || index === selected) {
+		if (tab === undefined || tab.isActive()) {
 			return that;
 		}
 
@@ -276,7 +277,23 @@
 
 	};
 
-	ch.factory(Tabs);
+	Tabs.prototype._normalizeOptions = function (options) {
+
+        var num = window.parseInt(options, 10);
+
+        if (!window.isNaN(num)) {
+            options = {
+                'selected': num
+            };
+        }
+
+        return options;
+    };
+
+    /**
+     * Factory
+     */
+    ch.factory(Tabs, Tabs.prototype._normalizeOptions);
 
 }(this, this.jQuery, this.ch));
 
@@ -491,6 +508,17 @@
 		this._hide();
 
 		return this;
+	};
+
+    /**
+     * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+     * @public
+     * @function
+     * @name ch.Tab#isActive
+     * @returns boolean
+     */
+	Tab.prototype.isActive = function () {
+		return this._active;
 	};
 
 	ch.Tab = Tab;

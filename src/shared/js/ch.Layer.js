@@ -119,6 +119,9 @@
         return this;
     };
 
-    ch.factory(Layer);
+    /**
+     * Factory
+     */
+    ch.factory(Layer, parent._normalizeOptions);
 
 }(this, (this.jQuery || this.Zepto), this.ch));

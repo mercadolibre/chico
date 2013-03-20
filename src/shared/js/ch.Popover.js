@@ -342,6 +342,18 @@
         return this;
     };
 
-    ch.factory(Popover);
+    Popover.prototype._normalizeOptions = function (options) {
+        if (typeof options === 'string' || ch.util.is$(options)) {
+            options = {
+                'content': options
+            };
+        }
+        return options;
+    };
+
+    /**
+     * Factory
+     */
+    ch.factory(Popover, Popover.prototype._normalizeOptions);
 
 }(this, (this.jQuery || this.Zepto), this.ch));

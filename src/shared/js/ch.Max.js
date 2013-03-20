@@ -6,6 +6,45 @@
     }
 
     /**
+     * Normalizes and creates an options object
+     * @private
+     * @function
+     * @returns {Object}
+     */
+    function normalizeOptions(num, message) {
+        var options,
+            condition = {
+                'name': 'max'
+            };
+
+        // If the first paramater is an object, it creates a condition and append to options
+        if (typeof num === 'object') {
+
+            // Stores the current options
+            options = num;
+
+            // Creates condition properties
+            condition.num = options.num;
+            condition.message = options.message;
+
+            // Removes the keys that has been stored into the condition
+            delete options.num;
+            delete options.message;
+
+        // Creates an option object if receive more than one parameter
+        } else {
+            options = {};
+            condition.num = num;
+            condition.message = message;
+        }
+
+        // Appends condition object into conditions collection
+        options.conditions = [condition];
+
+        return options;
+    }
+
+    /**
      * Max validates a number with a maximun value.
      * @name Max
      * @class Max
@@ -33,23 +72,12 @@
      * $("input").max(10, "Write a number smaller than 10");
      */
     function Max($el, options) {
-
-        var opts = options || {};
-
-        opts.condition = {
-            'name': 'max',
-            'message': opts.content,
-            'num': opts.num
-        };
-
-        return $el.validation(opts);
-
+        return $el.validation(options);
     }
 
     Max.prototype.name = 'max';
     Max.prototype.constructor = Max;
-    Max.prototype.preset = 'validation';
 
-    ch.factory(Max);
+    ch.factory(Max, normalizeOptions);
 
 }(this, this.ch));

@@ -18,7 +18,7 @@
      * @requires ch.Custom
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.content] Validation message.
+     * @param {String} [conf.message] Validation message.
      * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
      * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
      * @param {String} [conf.context] It's a reference to position the validation-bubble.
@@ -124,7 +124,8 @@
         parent.init.call(this, $el, options);
 
         this.conditions = {};
-        this.conditions[options.condition.name] = new ch.Condition(options.condition);
+
+        this._mergeConditions(options.conditions);
 
         /**
          * Flag that let you know if there's a validation going on.
@@ -152,27 +153,7 @@
 
         this
             .on('exists', function (data) {
-
-                var condition = {
-                    'name': data.type
-                };
-
-                if (data.options !== undefined) {
-                    if (data.options.content) {
-                        condition.message = data.options.content;
-                    }
-
-                    if (data.options.num) {
-                        condition.num = data.options.num;
-                    }
-
-                    if (data.options.fn) {
-                        condition.fn = data.options.fn;
-                    }
-                }
-
-                that.conditions[condition.name] = new ch.Condition(condition);
-
+                this._mergeConditions(data.conditions);
             })
             // Clean the validation if is active;
             .on('disable', this.clear);
@@ -239,6 +220,24 @@
     };
 
     /**
+     * Merges the conditions collection with given conditions.
+     * @private
+     * @name ch.Validation#_mergeConditions
+     * @function
+     * @returns {Object}
+     */
+    Validation.prototype._mergeConditions = function (conditions) {
+        var i = 0,
+            j = conditions.length;
+
+        for (i; i < j; i += 1) {
+            this.conditions[conditions[i].name] = new ch.Condition(conditions[i]);
+        }
+
+        return this;
+    };
+
+    /**
      * Run all configured validations.
      * @public
      * @function
@@ -248,11 +247,8 @@
     Validation.prototype.validate = function () {
 
         if (this.hasError()) {
-
             this._error();
-
         } else {
-
             this._success();
         }
 
@@ -396,7 +392,7 @@
 
         // // // Has got an error? Nop
         return false;
-    }
+    };
 
     /**
      * Clear all active validations.
@@ -531,9 +527,9 @@
      * @returns itself
      * @see ch.Condition
      */
-     while (len) {
+    while (len) {
         createMethods(methods[len -= 1]);
-     }
+    }
 
     /**
      * Turn on/off the Validation and Condition engine.
@@ -555,6 +551,9 @@
         return this;
     };
 
+    /**
+     * Factory
+     */
     ch.factory(Validation);
 
 }(this, (this.jQuery || this.Zepto), this.ch));

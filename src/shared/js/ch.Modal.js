@@ -153,6 +153,9 @@
         return this;
     };
 
-    ch.factory(Modal);
+    /**
+     * Factory
+     */
+    ch.factory(Modal, parent._normalizeOptions);
 
 }(this, (this.jQuery || this.Zepto), this.ch));
