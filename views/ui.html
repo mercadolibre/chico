@@ -715,7 +715,7 @@
 
     <div class="ch-box-lite" id="bubble-box">
         <h2 id="bubble">Validation Bubble</h2>
-        <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
+        <button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
     </div>
 
 	<div class="ch-box-lite">
@@ -1521,10 +1521,10 @@
         });
 
         var bubble = $.bubble({
-            'reference': $('#bubble')
+            'reference': $('#bubble1')
         });
 
-        $('#bubble').on('click', function () {
+        $('#bubble1').on('click', function () {
             bubble.show();
         });
 
