@@ -131,7 +131,7 @@
 			 * Returns any if the component closes automatic.
 			 * @public
 			 * @function
-			 * @methodOf ch.Floats#closabe
+			 * @methodOf ch.Floats#closable
 			 * @exampleDescription to get the height
 			 * @example
 			 * widget.closable() // true | false | "button"
@@ -151,13 +151,11 @@
 				if (ch.util.hasOwn(conf, "closeButton") && conf.closeButton || ch.util.hasOwn(conf, "event") && conf.event === "click") {
 					// Append close buttons
 					// It will close with close button
-					that.$container
-						.prepend("<a class=\"ch-close\" role=\"button\" style=\"z-index:" + (ch.util.zIndex += 1) + "\"></a>")
-						.on("click", function (event) {
-							if ($(event.target || event.srcElement).hasClass("ch-close")) {
-								that.innerHide(event);
-							}
-						});
+                    $('<a class="ch-close" role="button" style="z-index:' + (ch.util.zIndex += 1) + '"></a>')
+                        .on('click', function (event) {
+                            that.innerHide(event);
+                        })
+                        .prependTo(that.$container);
 				}
 
 				// ESC key support
