@@ -6,6 +6,42 @@
     }
 
     /**
+     * Normalizes and creates an options object
+     * @private
+     * @function
+     * @returns {Object}
+     */
+    function normalizeOptions(message) {
+        var options,
+            condition = {
+                'name': 'price'
+            };
+
+        // If the first paramater is an object, it creates a condition and append to options
+        if (typeof message === 'object') {
+
+            // Stores the current options
+            options = message;
+
+            // Creates condition properties
+            condition.message = options.message;
+
+            // Removes the keys that has been stored into the condition
+            delete options.message;
+
+        // Creates an option object if receive more than one parameter
+        } else {
+            options = {};
+            condition.message = message;
+        }
+
+        // Appends condition object into conditions collection
+        options.conditions = [condition];
+
+        return options;
+    }
+
+    /**
      * Price validates a number like the price format.
      * @name Price
      * @class Price
@@ -32,22 +68,12 @@
      * $("input").price("Write valid price.");
      */
     function Price($el, options) {
-
-        var opts = options || {};
-
-        opts.condition = {
-            'name': 'price',
-            'message': opts.content
-        };
-
-        return $el.validation(opts);
-
+        return $el.validation(options);
     }
 
     Price.prototype.name = 'price';
     Price.prototype.constructor = Price;
-    Price.prototype.preset = 'validation';
 
-    ch.factory(Price);
+    ch.factory(Price, normalizeOptions);
 
 }(this, this.ch));

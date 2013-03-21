@@ -57,6 +57,9 @@
     Tooltip.prototype.name = 'tooltip';
     Tooltip.prototype.constructor = Tooltip;
 
-    ch.factory(Tooltip);
+    /**
+     * Factory
+     */
+    ch.factory(Tooltip, parent._normalizeOptions);
 
 }(this, (this.jQuery || this.Zepto), this.ch));

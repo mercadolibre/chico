@@ -1,19 +1,14 @@
+.ch-autoComplete {
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	border-top: none;
+}
+
 .ch-autoComplete .ch-autoComplete-cone {
 	display: none !important;
 }
 
-.ch-autoComplete-content {
-	background-color: #ffffff;
-	border: 1px solid #EDEDED;
-	border-top: none;
-	padding: 5px;
-	-webkit-box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
-	box-shadow: 2px 2px 2px rgba(100, 100, 100, .1);
-	border-radius: 0 0 5px 5px;
-}
-
-
-.ch-autoComplete-content li,
+.ch-popover-content li,
 .ch-autoComplete-selected {
 	margin: 0;
 	padding: 3px 5px;

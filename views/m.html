@@ -61,6 +61,7 @@
 				<li><a href="#headings">Headings</a></li>
 				<li><a href="#links">Links</a></li>
 				<li><a href="#buttons">Buttons</a></li>
+				<li><a href="#autoComplete">AutoComplete</a></li>
 				<li><a href="#boxes">Boxes</a></li>
 				<li><a href="#message-boxes">Message Boxes</a></li>
 				<li><a href="#big-message-boxes">Big Message Boxes</a></li>
@@ -142,6 +143,42 @@
 					<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
 					<p><input type="button" class="ch-btn-action ch-btn-small ch-btn-disabled" value="Action button disabled" disabled></p>
 				</div>
+			</div>
+
+			<div class="ch-box-lite">
+				<h2 id="autoComplete">AutoComplete</h2>
+				<form method="get" action="/" id="asForm" class="ch-form">
+					<div class="ch-form-row">
+						<label for="country1">
+							Where do you live?:
+						</label>
+						<input type="text" id="country1" placeholder="Write a country name" />
+						<div>
+							<ul></ul>
+							<nav>
+								<a href="/">Hide Suggestions</a>
+							</nav>
+						</div>
+					</div>
+					<div class="ch-form-row">
+						<label for="country2">
+							Where did you live?:
+						</label>
+						<input type="text" id="country2" placeholder="Write a country name" />
+						<div>
+							<ul></ul>
+						</div>
+					</div>
+					<div class="ch-form-row">
+						<label for="country3">
+							Where are you?:
+						</label>
+						<input type="text" id="country3" placeholder="Write a country name" />
+					</div>
+					<p class="ch-form-actions">
+						<input type="submit" name="autoCompleteSubmit" class="ch-btn">
+					</p>
+				</form>
 			</div>
 
 			<div class="widgets">
@@ -893,6 +930,50 @@
 	<script src="/vendor/zepto.data.js"></script>
 	<script src="/mobile/js"></script>
 	<script>
+
+		var a = $('#country1').autoComplete({'html': true});
+		var b = $('#country2').autoComplete();
+
+
+		var parseResults = function (results) {
+			var data = results.slice(0),
+				template = [null, '<div><h3>', null, '</h3><p>Click to select!</p></div></a>'];
+			data.forEach(function (e, i) {
+				template[0] =  '<a href="http://www.google.com/#output=search&q=' + e + '">'
+				template[2] = e;
+				data[i] = template.join('');
+			});
+			a.setData(data);
+		}
+
+		var parseResultsB = function (data) { b.setData(data); };
+
+
+		a.on('typing', function (e, b) {
+			$.ajax({
+				'url': 'http://www.chico-ui.com.ar/suggest?q=' + b + '&callback=?',
+				'dataType': 'jsonp',
+				'cache': false,
+				'global': true,
+				'context': window,
+				'success': parseResults,
+				'crossDomain': true
+			});
+
+		});
+
+		b.on('typing', function (e, b) {
+			$.ajax({
+				'url': 'http://www.chico-ui.com.ar/suggest?q=' + b + '&callback=?',
+				'dataType': 'jsonp',
+				'cache': false,
+				'global': true,
+				'context': window,
+				'success': parseResultsB,
+				'crossDomain': true
+			});
+		});
+
 
         // Calendar
         var calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});

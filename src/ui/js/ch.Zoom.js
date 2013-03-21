@@ -313,6 +313,9 @@
         this._$zoomed.css({'left': (-this._ratioX * left), 'top': (-this._ratioY * top)});
     };
 
-    ch.factory(Zoom);
+    /**
+     * Factory
+     */
+    ch.factory(Zoom, parent._normalizeOptions);
 
 }(this, this.jQuery, this.ch));

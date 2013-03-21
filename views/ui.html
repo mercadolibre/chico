@@ -60,13 +60,58 @@
 		#bubble-box {
 			position: relative;
 		}
+
+		.component-list li{
+			margin-left:0;
+		}
+
 	</style>
 </head>
 
 <body>
 	<h1>Chico UI</h1>
+	<div class="ch-box-lite">
+		<h2>List of components</h2>
+		<ul class="ch-list component-list ch-clearfix">
+			<li class="ch-g1-5"><a href="#mesh">Mesh</a></li>
+			<li class="ch-g1-5"><a href="#headers">Headers</a></li>
+			<li class="ch-g1-5"><a href="#headings">Headings</a></li>
+			<li class="ch-g1-5"><a href="#links">Links</a></li>
+			<li class="ch-g1-5"><a href="#buttons">Buttons</a></li>
+			<li class="ch-g1-5"><a href="#autoComplete">AutoComplete</a></li>
+			<li class="ch-g1-5"><a href="#blink">Blink</a></li>
+			<li class="ch-g1-5"><a href="#boxes">Boxes</a></li>
+			<li class="ch-g1-5"><a href="#spinner">Spinners</a></li>
+			<li class="ch-g1-5"><a href="#message-boxes">Message Boxes</a></li>
+			<li class="ch-g1-5"><a href="#big-message-boxes">Big Message Boxes</a></li>
+			<li class="ch-g1-5"><a href="#lists">Lists</a></li>
+			<li class="ch-g1-5"><a href="#list-options">Lists Options</a></li>
+			<li class="ch-g1-5"><a href="#list-options-icon">Lists Options Icons</a></li>
+			<li class="ch-g1-5"><a href="#transitions">Transitions</a></li>
+			<li class="ch-g1-5"><a href="#tags">Tags</a></li>
+			<li class="ch-g1-5"><a href="#pagination">Pagination</a></li>
+			<li class="ch-g1-5"><a href="#tables">Tables</a></li>
+			<li class="ch-g1-5"><a href="#dropdown">Dropdown</a></li>
+			<li class="ch-g1-5"><a href="#tooltip">Tooltip</a></li>
+            <li class="ch-g1-5"><a href="#layer">Layer</a></li>
+            <li class="ch-g1-5"><a href="#bubble">Bubble</a></li>
+            <li class="ch-g1-5"><a href="#modal">Modal</a></li>
+            <li class="ch-g1-5"><a href="#transition">Transition</a></li>
+			<li class="ch-g1-5"><a href="#expandable">Expandable</a></li>
+			<li class="ch-g1-5"><a href="#accordion">Accordion</a></li>
+			<li class="ch-g1-5"><a href="#zoom">Zoom</a></li>
+			<li class="ch-g1-5"><a href="#menu">Menu</a></li>
+			<li class="ch-g1-5"><a href="#forms">Forms</a></li>
+            <li class="ch-g1-5"><a href="#icons">Icons</a></li>
+            <li class="ch-g1-5"><a href="#tabs">Tabs</a></li>
+            <li class="ch-g1-5"><a href="#countdown">Countdown</a></li>
+			<li class="ch-g1-5"><a href="#calendar">Calendar</a></li>
+			<li class="ch-g1-5"><a href="#datePicker">DatePicker</a></li>
+		</ul>
+	</div>
+
 	<div class="ch-clearfix">
-		<h1>Mesh</h1>
+		<h1 id="mesh">Mesh</h1>
 		<div class="ch-g1">
 			<div class="ch-box-lite">1/1</div>
 		</div>
@@ -156,22 +201,13 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h1>Headings</h1>
+		<h1 id="#headers">Headings</h1>
 		<h1>Header 1</h1>
 		<h2>Header 2</h2>
 		<h3>Header 3</h3>
 		<h4>Header 4</h4>
 		<h5>Header 5</h5>
 		<h6>Header 6</h6>
-	</div>
-	<div class="ch-box-lite">
-		<h1>Titles</h1>
-		<h1>h1</h1>
-		<h2>h2</h2>
-		<h3>h3</h3>
-		<h4>h4</h4>
-		<h5>h5</h5>
-		<h6>h6</h6>
 	</div>
 
 	<div class="ch-box-lite">
@@ -180,7 +216,7 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Links</h2>
+		<h2 id="#links">Links</h2>
 
 		<p><a href="http://www.mercadolibre.com">MercadoLibre</a></p>
 		<p><a href="http://www.mercadopago.com">MercadoPago</a></p>
@@ -189,7 +225,7 @@
 	</div>
 
 	<div class="ch-box-lite ch-clearfix">
-		<h2>Lists</h2>
+		<h2 id="#list">Lists</h2>
 		<div class="ch-g1-4">
 			<h3>Unstyled</h3>
 			<ul>
@@ -230,21 +266,22 @@
 		</div>
 	</div>
 
+	<h2 id="#boxes">Boxes</h2>
 	<div class="ch-box-container">
-		<h2>Container Box</h2>
+		<h3>Container Box</h3>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
 	</div>
 	<div class="ch-box-lite">
-		<h2>Box Lite</h2>
+		<h3>Box Lite</h3>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
 	</div>
 
 	<div class="ch-box">
-		<h2>Box</h2>
+		<h3>Box</h3>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
 	</div>
 
-	<h2>Wizard</h2>
+	<h2 id="#wizard">Wizard</h2>
 	<div class="ch-wizard">
 		<ol class="ch-wizard-breadcrumb ch-steps-four">
 			<li><a href="#1">Step 1</a></li>
@@ -266,7 +303,7 @@
 
 
 	<div class="ch-box-lite">
-		<h2>Spinner control</h2>
+		<h2 id="#spinner">Spinner control</h2>
 		<span class="ch-loading-small"></span>
 		<span class="ch-loading"></span>
 		<span class="ch-loading-big"></span>
@@ -275,7 +312,7 @@
 	<div class="ch-box-lite ch-clearfix">
 		<div class="ch-g1-2">
 			<div class="ch-leftcolumn">
-				<h2>Message boxes</h2>
+				<h2 id="message-boxes">Message boxes</h2>
 				<div class="ch-box-error">Oops, something wrong happened</div>
 				<div class="ch-box-help">Do you need any help?</div>
 				<div class="ch-box-information">Here's more information</div>
@@ -286,7 +323,7 @@
 
 		<div class="ch-g1-2">
 			<div class="ch-rightcolumn">
-				<h2>Big message boxes</h2>
+				<h2 id="big-message-boxes">Big message boxes</h2>
 				<div class="ch-box-attention">
 					<h2>Warning!</h2>
 					<p>This is a big warning message, be careful!</p>
@@ -302,7 +339,7 @@
 	<div class="ch-box-lite ch-clearfix">
 		<div class="ch-g1-2">
 			<div class="ch-leftcolumn">
-				<h2>Buttons</h2>
+				<h2 id="buttons">Buttons</h2>
 				<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
 				<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
 				<p><input type="button" class="ch-btn" value="Default button"></p>
@@ -323,26 +360,26 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>AutoComplete</h2>
+		<h2 id="autoComplete">AutoComplete</h2>
 		<form method="get" action="/" id="asForm" class="ch-form">
-			<p class="ch-form-row">
+			<div class="ch-form-row">
 				<label for="autocomplete">
 					Your country:
 				</label>
 				<input type="text" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
-			</p>
-			<p class="ch-form-row">
+			</div>
+			<div class="ch-form-row">
 				<label for="autocomplete2">
 					Other callback:
 				</label>
 				<input type="text" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
-			</p>
-			<p class="ch-form-row">
+			</div>
+			<div class="ch-form-row">
 				<label for="autocomplete3">
 					With an array:
 				</label>
 				<input type="text" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
-			</p>
+			</div>
 			<p class="ch-form-actions">
 				<input type="submit" name="autoCompleteSubmit" class="ch-btn">
 			</p>
@@ -350,7 +387,7 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Blink</h2>
+		<h2 id="blink">Blink</h2>
 		<p id="example">This is a text that you can blink</p>
 		<p>
 			<button class="ch-btn-skin ch-btn-small" id="doHighlight">Blink the paragraph</button>
@@ -358,7 +395,7 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Pagination</h2>
+		<h2 id="pagination">Pagination</h2>
 		<ul class="ch-pagination">
 			<li><a type="prev" href="/2.html">Previous</a></li>
 			<li><a href="/1.html">1</a></li>
@@ -371,6 +408,7 @@
 	</div>
 
 	<div class="ch-box-lite">
+		<h2 id="tables">Tables</h2>
 		<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
 				<caption>Table</caption>
 				<thead>
@@ -486,7 +524,7 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Expandable</h2>
+		<h2 id="expandable">Expandable</h2>
 		<div class="YOUR_SELECTOR_expandable">
 			<h4>Lorem ipsum dolor sit amet.</h4>
 			<div>
@@ -497,7 +535,7 @@
 
 
 	<div class="ch-box-container">
-		<h2>Accordion</h2>
+		<h2 id="accordion">Accordion</h2>
 		<ul class="YOUR_SELECTOR_Accordion">
 			<li>
 				<span>Item</span>
@@ -534,7 +572,7 @@
 
 
 	<div class="ch-box-container">
-		<h2>Menu</h2>
+		<h2 id="menu">Menu</h2>
 		<ul class="YOUR_SELECTOR_Menu">
 			<li>
 				<span>Collapsible</span>
@@ -575,7 +613,7 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Dropdown</h2>
+		<h2 id="dropdown">Dropdown</h2>
 
 		<h3 class="myDropdown">Default</h3>
 		<menu label="Links" class="ch-hide">
@@ -625,7 +663,7 @@
 
 
 	<div class="ch-box-lite ch-clearfix">
-		<h2>Tooltip</h2>
+		<h2 id="tooltip">Tooltip</h2>
 
 		<div class="ch-g1-2">
 			<div class="ch-box-container">
@@ -661,7 +699,7 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Layer</h2>
+		<h2 id="layer">Layer</h2>
 		<ul class="ch-list">
             <li><span id="layer1">Default Layer, executed on <strong>mouseenter</strong>.</span></li>
             <li><span id="layer2">Executed on <strong>click</strong>. <em>(close:all)</em></span></li>
@@ -676,12 +714,12 @@
 	</div>
 
     <div class="ch-box-lite" id="bubble-box">
-        <h2>Validation Bubble</h2>
-        <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
+        <h2 id="bubble">Validation Bubble</h2>
+        <button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
     </div>
 
 	<div class="ch-box-lite">
-		<h2>Modal with AJAX content</h2>
+		<h2 id="modal">Modal with AJAX content</h2>
 
 		<form action="/ajax">
 			<p><input type="submit" class="ch-btn ch-btn-small modal1" value="Executed by submit a form"> or <a href="/ajax" class="modal1">Executed by a link</a>.</p>
@@ -716,14 +754,14 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Zoom</h2>
-		<a id="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+		<h2 id="zoom">Zoom</h2>
+		<a id="zoom1" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
 			<img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
 		</a>
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Carousel</h2>
+		<h2 id="carousel">Carousel</h2>
 
 		<div class="myCarousel ch-carousel">
 			<ul>
@@ -752,7 +790,7 @@
 	</div>
 
 	<div class="ch-box-container">
-		<h2>Tabs</h2>
+		<h2 id="tabs">Tabs</h2>
 
 		<div class="YOUR_SELECTOR_Tabs ch-tabs">
 			<ul class="ch-tabs-triggers">
@@ -778,7 +816,7 @@
 	</div>
 
 	<div class="ch-box-lite clearfix">
-		<h2>Icons</h2>
+		<h2 id="icons">Icons</h2>
 
 		<ul class="showroomIcons">
 			<li><i class="ch-icon-search"></i> ch-icon-search</li>
@@ -849,12 +887,12 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Calendar</h2>
+		<h2 id="calendar">Calendar</h2>
 		<div class="YOUR_SELECTOR_calendar"></div>
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Date Picker</h2>
+		<h2 id="datePicker">Date Picker</h2>
 		<form action="./ajax.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
 			<p class="ch-form-row">
 				<label for="val_date">
@@ -882,7 +920,7 @@
 	</div>
 
 	<div class="ch-box-lite">
-		<h2>Forms and Validations</h2>
+		<h2 id="form">Forms and Validations</h2>
 
 		<form action="./ajax" class="ch-form myForm" method="GET">
 			<fieldset>
@@ -1359,6 +1397,64 @@
 		// 	data.push("Other callback");
 		// 	autoComplete2.suggest(data);
 		// }
+		var suggestions = ['argentina', 'chile', 'bolivia', 'brasil', 'colombia'];
+
+		//var ac = $('.autoComplete').autoComplete({'suggestions': suggestions});
+
+
+
+		var a = $('.autoComplete').autoComplete({
+			'html': true,
+			'beforeSuggestions': $('<p>Hi, please choose and option!</p>'),
+			'afterSuggestions': $('<div><ul><li>Other options</li><li>Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>')
+		});
+
+		var b = $('.autoComplete2').autoComplete();
+
+		//var b = $('.autoComplete2').autoComplete({'suggestions': []});
+
+
+		var parseResults = function (results) {
+
+			var data = results.slice(0),
+				template = [null, '<div><h3>', null, '</h3><p>Hey you! Click to select!</p><ul><li><span>This is a span!</span></li></ul></div></a>'];
+
+			data.forEach(function (e, i) {
+				template[0] =  '<a href="http://www.google.com/#output=search&q=' + e + '">'
+				template[2] = e;
+				data[i] = template.join('');
+			});
+
+			a.suggest(data);
+
+		}
+
+
+			a.on('typing', function (userInput) {
+				$.ajax({
+					'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=parseResults',
+					'dataType': 'jsonp',
+					'cache': false,
+					'global': true,
+					'context': window,
+					'jsonp': 'parseResults',
+					'crossDomain': true
+				});
+			});
+
+			b.on('typing', function (userInput) {
+				$.ajax({
+					'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=b.suggest',
+					'dataType': 'jsonp',
+					'cache': false,
+					'global': true,
+					'context': window,
+					'jsonp': 'b.suggest',
+					'crossDomain': true
+				});
+			});
+
+			//ac.setData(suggestions);
 
 		// var autoComplete1 = $(".autoComplete").autoComplete({
 		// 	"url": "http://www.chico-ui.com.ar/suggest?q=",
@@ -1425,10 +1521,10 @@
         });
 
         var bubble = $.bubble({
-            'reference': $('#bubble')
+            'reference': $('#bubble1')
         });
 
-        $('#bubble').on('click', function () {
+        $('#bubble1').on('click', function () {
             bubble.show();
         });
 
@@ -1527,7 +1623,7 @@
         });
 
 		// Zoom
-		var zoom = $('#zoom').zoom();
+		var zoom = $('#zoom1').zoom();
 
 		// Messages
 		var message = (function (message, value) {
@@ -1566,28 +1662,51 @@
 		});
 
 		// Validators
+		// var	validation1 = $('#input_ico').validation({
+		// 	'conditions': [
+		// 		{
+		// 			'name': 'required'
+		// 		},
+		// 		{
+		// 			'name': 'guille',
+		// 			'fn': function (value) { return value === "guille";},
+		// 			'message': 'Esto es un guille!'
+		// 		}
+		// 	]
+		// });
+
+		// var	validation1 = $('#input_ico')
+		// 		.required("Mensaje de requerido.").and()
+		// 		.custom('guille', function (value) { return value === "guille";}, 'Esto es un guille!').and()
+		// 		.custom('lean', function (value) { return value === "lean";}, 'Esto es un lean!');
+
+
+
 		var	validation1 = $('#input_ico').required().and().string();
 		var	validation2 = $('#input_ico_inside').required().and().string();
 		var	validation3 = $('#price').price().and().required();
 		var	validation4 = $('#email').required().and().email();
-		var	validation5 = $('#custom').custom(function (v) {
+		var	validation5 = $('#custom')
+			.custom(
+				'myCustom1',
+				function (v) {
+					if (v.toString().indexOf("1") > -1) {
+						return true;
+					}
+					return false;
+				},
+				'The number must contain a 1.')
+			.and()
+			.custom(
+				'myCustom2',
+				function (v) {
+					if (v.toString().indexOf("2") > -1) {
+						return true;
+					}
+					return false;
+				},
+				'The number must contain a 2.');
 
-			var value1 = v.toString().indexOf("1") > -1;
-			var value2 = v.toString().indexOf("2") > -1;
-
-			if (value1 && value2) { return true; }
-
-			if (!value1) {
-				this.message('custom', message('The number needs a {#num#}.', 1));
-				return false;
-			}
-
-			if (!value2) {
-				this.message('custom', message('The number must contain a {#num#}.', 2));
-				return false;
-			}
-
-		});
 		var	validation6 = $('#url').url()
 		var	validation7 = $('#number').number().and().min(5);
 		var	validation8 = $('#range').min(8).and().max(10);
@@ -1598,6 +1717,8 @@
 		var validation13 = $('#double').required(message('link'));
 		var validation14 = $('#double').number();
 		var	validation15 = $('#double, #textarea2').required();
+
+
 
 	</script>
 </body>

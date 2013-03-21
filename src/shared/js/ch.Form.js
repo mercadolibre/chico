@@ -182,16 +182,14 @@
             validation.validate();
 
             // Store validations with errors
-            if (validation.error !== null) {
+            if (validation.isActive()) {
                 that.errors.push(validation);
             }
         }
 
         // Is there's an error
-        if (that.errors !== null) {
+        if (that.errors.length > 0) {
             firstError = that.errors[0];
-
-            that._hasError = true;
 
             firstError.bubble.$container[0].scrollIntoView();
 
@@ -297,8 +295,6 @@
         for (i; i < j; i += 1) {
             that._validations[i].clear();
         }
-
-        that._hasError = false;
 
         /**
          * Fired when clean the form's data.

@@ -18,7 +18,7 @@
      * @requires ch.Custom
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.content] Validation message.
+     * @param {String} [conf.message] Validation message.
      * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
      * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
      * @param {String} [conf.context] It's a reference to position the validation-bubble.
@@ -124,7 +124,8 @@
         parent.init.call(this, $el, options);
 
         this.conditions = {};
-        this.conditions[options.condition.name] = new ch.Condition(options.condition);
+
+        this._mergeConditions(options.conditions);
 
         /**
          * Flag that let you know if there's a validation going on.
@@ -152,27 +153,7 @@
 
         this
             .on('exists', function (data) {
-
-                var condition = {
-                    'name': data.type
-                };
-
-                if (data.options !== undefined) {
-                    if (data.options.content) {
-                        condition.message = data.options.content;
-                    }
-
-                    if (data.options.num) {
-                        condition.num = data.options.num;
-                    }
-
-                    if (data.options.fn) {
-                        condition.fn = data.options.fn;
-                    }
-                }
-
-                that.conditions[condition.name] = new ch.Condition(condition);
-
+                this._mergeConditions(data.conditions);
             })
             // Clean the validation if is active;
             .on('disable', this.clear);
@@ -202,7 +183,7 @@
                     h4;
                 // CHECKBOX, RADIO
                 // TODO: when old forms be deprecated we must only support ch-list-options class
-                if ($el.hasClass('ch-form-options') || $el.hasClass('ch-list-options')) {
+                if ($el.hasClass('ch-list-options')) {
                 // Helper reference from will be fired
                 // H4
                     if ($el.find('h4').length > 0) {
@@ -233,7 +214,25 @@
          * @private
          * @name ch.Validation#_validationEvent
          */
-        this._validationEvent = (this.$el.hasClass('ch-form-options') || this.$el.hasClass('ch-list-options') || this.el.tagName === 'SELECT' || (this.el.tagName === 'INPUT' && this.el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (this.$el.hasClass('ch-list-options') || this.el.tagName === 'SELECT' || (this.el.tagName === 'INPUT' && this.el.type === 'range')) ? 'change' : 'blur';
+
+        return this;
+    };
+
+    /**
+     * Merges the conditions collection with given conditions.
+     * @private
+     * @name ch.Validation#_mergeConditions
+     * @function
+     * @returns {Object}
+     */
+    Validation.prototype._mergeConditions = function (conditions) {
+        var i = 0,
+            j = conditions.length;
+
+        for (i; i < j; i += 1) {
+            this.conditions[conditions[i].name] = new ch.Condition(conditions[i]);
+        }
 
         return this;
     };
@@ -248,11 +247,8 @@
     Validation.prototype.validate = function () {
 
         if (this.hasError()) {
-
             this._error();
-
         } else {
-
             this._success();
         }
 
@@ -286,11 +282,11 @@
                     that.$el.addClass('ch-validation-error');
                 }
 
-                that.bubble.show(that.error.msg || 'Error');
+                that.bubble.show(that.error.message || 'Error');
             }
 
             if (that.error.condition !== that._previousError.condition) {
-                that.bubble.content((that.error.msg || that.form._messages[that.error.condition] || 'Error'));
+                that.bubble.content((that.error.message || that.form._messages[that.error.condition] || 'Error'));
                 // the aria-label attr should get the message element id, but is not public
                 that.$el.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
             }
@@ -358,9 +354,14 @@
         }
 
         var condition,
-            val,
             required = this.conditions.required,
             value = this.el.value;
+
+        // Avoid fields that aren't required when they are empty or de-activated
+        if (!required && value === '' && this._active === false) {
+            // Has got an error? Nop
+            return false;
+        }
 
         /**
          * Stores the previous error object
@@ -370,43 +371,28 @@
          */
         this._previousError = ch.util.clone(this.error);
 
-        // Avoid fields that aren't required when they are empty or de-activated
-        if (!required && value === '' && this._active === false) {
-            // Has got an error? Nop
-            return false;
-        }
-
         // for each condition
         for (condition in this.conditions) {
 
-            if (this.conditions[condition] !== undefined) {
+            if (this.conditions[condition] !== undefined && !this.conditions[condition].test(value, this)) {
+                // Update the error object
+                this.error = {
+                    'condition': condition,
+                    'message': this.conditions[condition].message
+                };
 
-                val = ((condition === 'required') ? this.el : value.toLowerCase());
-                // this is the validation
-
-                // no value and no required don't validate the field
-                if ((value === '' && condition === 'required') || !this.conditions[condition].test(val, this)) {
-
-                    // Update the error object
-                    this.error = {
-                        'condition': condition,
-                        'msg': this.conditions[condition].message
-                    }
-
-                    // Has got an error? Yeah
-                    return true;
-                }
-
+                // Has got an error? Yeah
+                return true;
             }
 
         }
 
-        // Update the error object
+        // // // Update the error object
         this.error = null;
 
-        // Has got an error? Nop
+        // // // Has got an error? Nop
         return false;
-    }
+    };
 
     /**
      * Clear all active validations.
@@ -502,22 +488,22 @@
      * @example
      * validation.message("required");
      */
-    Validation.prototype.message = function (condition, msg) {
+    Validation.prototype.message = function (condition, message) {
 
         if (condition === undefined) {
             throw new Error("validation.message(condition, message): Please, give me a condition as parameter.");
         }
 
         // Get a new message from a condition
-        if (msg === undefined) {
+        if (message === undefined) {
             return this.conditions[condition].message;
         }
 
         // Sets a new message
-        this.conditions[condition].message = msg;
+        this.conditions[condition].message = message;
 
         if (this.isActive() && this.error.condition === condition) {
-            this.bubble.content(msg);
+            this.bubble.content(message);
         }
 
         return this;
@@ -541,9 +527,9 @@
      * @returns itself
      * @see ch.Condition
      */
-     while (len) {
+    while (len) {
         createMethods(methods[len -= 1]);
-     }
+    }
 
     /**
      * Turn on/off the Validation and Condition engine.
@@ -565,6 +551,9 @@
         return this;
     };
 
+    /**
+     * Factory
+     */
     ch.factory(Validation);
 
 }(this, (this.jQuery || this.Zepto), this.ch));
