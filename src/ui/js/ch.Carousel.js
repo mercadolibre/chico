@@ -201,6 +201,19 @@
         this._pageWidth = 0;
 
         /**
+         * Interval used to animate the component autamatically.
+         * @private
+         * @name ch.Carousel#timer
+         * @type Object
+         */
+        this._timer = null;
+
+        /**
+         *
+         */
+        this._delay = 3000;
+
+        /**
          * List of items that should be loaded asynchronously on page movement.
          * @private
          * @name ch.Carousel#queue
@@ -847,14 +860,6 @@
     };
 
     /**
-     * Interval used to animate the component autamatically.
-     * @private
-     * @name ch.Carousel#timer
-     * @type Object
-     */
-    Carousel.prototype._timer = null;
-
-    /**
      * Animates the Carousel automatically. (Since 0.10.6)
      * @since 0.10.6
      * @function
@@ -869,30 +874,28 @@
      * @example
      * foo.play(5000);
      */
-    Carousel.prototype.play = (function () {
+    Carousel.prototype.play = function (delay) {
 
-        var delay = 3000;
+        var that = this;
 
-        return function (t) {
+        // User timing over the default
+        if (delay) { this._delay = delay; }
 
-            var that = this;
-            // User timing over the default
-            if (t) { delay = t; }
-            // Clear the timer
-            that.pause();
-            // Set the interval on private property
-            that._timer = setInterval(function () {
-                // Normal behavior: Move to next page
-                if (that._currentPage < that._pages) {
-                    that.next();
-                // On last page: Move to first page
-                } else {
-                    that._goToPage(1);
-                }
-            // Use the setted timing
-            }, delay);
-        };
-    }());
+        // Clear the timer
+        this.pause();
+
+        // Set the interval on private property
+        this._timer = setInterval(function () {
+            // Normal behavior: Move to next page
+            if (that._currentPage < that._pages) {
+                that.next();
+            // On last page: Move to first page
+            } else {
+                that._goToPage(1);
+            }
+        // Use the setted timing
+        }, this._delay);
+    };
 
     /**
      * Pause the Carousel automatic playing. (Since 0.10.6)
