@@ -715,7 +715,7 @@
 
     <div class="ch-box-lite" id="bubble-box">
         <h2 id="bubble">Validation Bubble</h2>
-        <button id="bubble" class="ch-btn ch-btn-small">Show an error message</button>
+        <button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
     </div>
 
 	<div class="ch-box-lite">
@@ -755,7 +755,7 @@
 
 	<div class="ch-box-lite">
 		<h2 id="zoom">Zoom</h2>
-		<a id="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+		<a id="zoom1" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
 			<img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
 		</a>
 	</div>
@@ -1521,10 +1521,10 @@
         });
 
         var bubble = $.bubble({
-            'reference': $('#bubble')
+            'reference': $('#bubble1')
         });
 
-        $('#bubble').on('click', function () {
+        $('#bubble1').on('click', function () {
             bubble.show();
         });
 
@@ -1623,7 +1623,7 @@
         });
 
 		// Zoom
-		var zoom = $('#zoom').zoom();
+		var zoom = $('#zoom1').zoom();
 
 		// Messages
 		var message = (function (message, value) {
@@ -1662,28 +1662,51 @@
 		});
 
 		// Validators
+		// var	validation1 = $('#input_ico').validation({
+		// 	'conditions': [
+		// 		{
+		// 			'name': 'required'
+		// 		},
+		// 		{
+		// 			'name': 'guille',
+		// 			'fn': function (value) { return value === "guille";},
+		// 			'message': 'Esto es un guille!'
+		// 		}
+		// 	]
+		// });
+
+		// var	validation1 = $('#input_ico')
+		// 		.required("Mensaje de requerido.").and()
+		// 		.custom('guille', function (value) { return value === "guille";}, 'Esto es un guille!').and()
+		// 		.custom('lean', function (value) { return value === "lean";}, 'Esto es un lean!');
+
+
+
 		var	validation1 = $('#input_ico').required().and().string();
 		var	validation2 = $('#input_ico_inside').required().and().string();
 		var	validation3 = $('#price').price().and().required();
 		var	validation4 = $('#email').required().and().email();
-		var	validation5 = $('#custom').custom(function (v) {
+		var	validation5 = $('#custom')
+			.custom(
+				'myCustom1',
+				function (v) {
+					if (v.toString().indexOf("1") > -1) {
+						return true;
+					}
+					return false;
+				},
+				'The number must contain a 1.')
+			.and()
+			.custom(
+				'myCustom2',
+				function (v) {
+					if (v.toString().indexOf("2") > -1) {
+						return true;
+					}
+					return false;
+				},
+				'The number must contain a 2.');
 
-			var value1 = v.toString().indexOf("1") > -1;
-			var value2 = v.toString().indexOf("2") > -1;
-
-			if (value1 && value2) { return true; }
-
-			if (!value1) {
-				this.message('custom', message('The number needs a {#num#}.', 1));
-				return false;
-			}
-
-			if (!value2) {
-				this.message('custom', message('The number must contain a {#num#}.', 2));
-				return false;
-			}
-
-		});
 		var	validation6 = $('#url').url()
 		var	validation7 = $('#number').number().and().min(5);
 		var	validation8 = $('#range').min(8).and().max(10);

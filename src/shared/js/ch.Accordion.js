@@ -52,6 +52,9 @@
      */
     Accordion.prototype.constructor = Accordion;
 
-    ch.factory(Accordion);
+    /**
+     * Factory
+     */
+    ch.factory(Accordion, ch.Menu.prototype._normalizeOptions);
 
 }(this, this.ch));

@@ -30,6 +30,7 @@
     }
 
     function Menu($el, options) {
+
         /**
          * Reference to a internal component instance, saves all the information and configuration properties.
          * @private
@@ -174,11 +175,10 @@
             that.$el.attr('role', 'navigation');
         }
 
-        that.$el.addClass('ch-' + that.name + (that._options.classes !== undefined) ? ' ' + that._options.classes : '');
+        that.$el.addClass('ch-' + that.name + ((that._options.classes !== undefined) ? ' ' + that._options.classes : ''));
 
         // Select specific item if there are a "selected" parameter on component configuration object
-        if (that._options.selected !== undefined) { that.select(that._options.selected); }
-
+        if (that._selected !== undefined) { that.select(that._selected); }
     };
 
     /**
@@ -352,6 +352,22 @@
         createMethods(methods[len -= 1]);
     }
 
-    ch.factory(Menu);
+    Menu.prototype._normalizeOptions = function (options) {
+
+        var num = window.parseInt(options, 10);
+
+        if (!window.isNaN(num)) {
+            options = {
+                'selected': num
+            };
+        }
+
+        return options;
+    };
+
+    /**
+     * Factory
+     */
+    ch.factory(Menu, Menu.prototype._normalizeOptions);
 
 }(this, this.jQuery || this.Zepto, this.ch));

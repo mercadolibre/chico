@@ -84,7 +84,8 @@
         'ariaRole': 'dialog',
         'width': '50%',
         'close': 'all',
-        'reference': ch.viewport
+        'reference': ch.viewport,
+        'waiting': '<div class="ch-loading-big ch-loading-centered"></div>'
     });
 
     Modal.prototype.init = function ($el, options) {
@@ -153,6 +154,9 @@
         return this;
     };
 
-    ch.factory(Modal);
+    /**
+     * Factory
+     */
+    ch.factory(Modal, parent._normalizeOptions);
 
 }(this, (this.jQuery || this.Zepto), this.ch));

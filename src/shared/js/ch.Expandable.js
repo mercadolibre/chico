@@ -165,8 +165,15 @@
         this.$el.addClass('ch-' + this.name);
 
         // Content configuration
-        this.content.onmessage = function (data) {
-            that.$container.html(data);
+        this.content.onmessage = function (event) {
+            var status = 'content' + event.status;
+
+            that.$container.html(event.response);
+            that.emit(status, event);
+
+            if (that._options['on' + status] !== undefined) {
+                that._options['on' + status].call(that, event);
+            }
         };
 
         this.content.set({

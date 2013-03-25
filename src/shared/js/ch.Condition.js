@@ -8,25 +8,24 @@
     /**
     * Private Members
     */
-
     var conditions = {
         'string': {
             'fn': function (value) {
                 // the following regular expression has the utf code for the lating characters
                 // the ranges are A,EI,O,U,a,ei,o,u,ç,Ç please for reference see http://www.fileformat.info/info/charset/UTF-8/list.htm
-                return /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/i.test(value);
+                return (/^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/i).test(value);
             },
             'message': 'Use only letters.'
         },
         'email': {
             'fn': function (value) {
-                return /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(value);
+                return (/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i).test(value);
             },
             'message': 'Use a valid e-mail such as name@example.com.'
         },
         'url': {
             'fn': function (value) {
-                return /^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/i.test(value);
+                return (/^((https?|ftp|file):\/\/|((www|ftp)\.)|(\/|.*\/)*)[a-z0-9-]+((\.|\/)[a-z0-9-]+)+([/?].*)?$/i).test(value);
             },
             'message': 'It must be a valid URL.'
         },
@@ -40,7 +39,7 @@
         },
         'number': {
             'fn': function (value) {
-                return /^(-?[0-9\s]+)$/i.test(value);
+                return (/^(-?[0-9\s]+)$/i).test(value);
             },
             'message': 'Use only numbers.'
         },
@@ -54,7 +53,7 @@
         },
         'price': {
             'fn': function (value) {
-                return /^(\d+)[.,]?(\d?\d?)$/i.test(value);
+                return (/^(\d+)[.,]?(\d?\d?)$/i).test(value);
             },
             'message': 'Use a valid price such as (1,00).'
         },
@@ -140,7 +139,7 @@
 
 
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
-        if (!condition.message && (condition.name === 'min' || condition.name === 'max' || condition.name === 'minLength' || condition.name === 'maxLength')) {
+        if (!this.message && (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength')) {
 
             /**
              * Message defined for this condition
@@ -148,7 +147,7 @@
              * @name ch.Condition#message
              * @type string
              */
-            this.message = conditions[condition.name].message.replace('{#num#}', condition.num);
+            this.message = conditions[this.name].message.replace('{#num#}', this.num);
 
         }
 

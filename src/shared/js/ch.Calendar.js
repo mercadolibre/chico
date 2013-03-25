@@ -246,7 +246,7 @@
         this._dates.selected = (function () {
 
             // Get date from configuration or input value, if configured could be an Array with multiple selections
-            var selected = that._options.selected || that._options.content;
+            var selected = that._options.selected;
 
             // Do it only if there are a "selected" parameter
             if (!selected) { return selected; }
@@ -799,6 +799,19 @@
         return this;
     };
 
-    ch.factory(Calendar);
+
+    Calendar.prototype._normalizeOptions = function (options) {
+        if (typeof options === 'string' || ch.util.isArray(options)) {
+            options = {
+                'selected': options
+            };
+        }
+        return options;
+    };
+
+    /**
+     * Factory
+     */
+    ch.factory(Calendar, Calendar.prototype._normalizeOptions);
 
 }(this, (this.jQuery || this.Zepto), this.ch));
