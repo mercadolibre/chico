@@ -98,10 +98,10 @@
                     if (options.cache) { ch.cache.set(options.input, data); }
 
                     // Send the result data to the client
-                    // postMessage({
-                    //     'status': 'done',
-                    //     'response': data
-                    // });
+                    postMessage({
+                        'status': 'done',
+                        'response': data
+                    });
 
                 },
                 'error': function (jqXHR, textStatus, errorThrown) {
