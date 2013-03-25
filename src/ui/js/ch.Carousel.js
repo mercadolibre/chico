@@ -570,8 +570,6 @@
         if (this._arrowsCreated) { return; }
         // Add arrows to DOM
         this.$el.prepend(this._$prevArrow).append(this._$nextArrow);
-        // Positions arrows vertically in the middle of Carousel
-        this._$prevArrow[0].style.top = this._$nextArrow[0].style.top = (this.$el.height() - this._$prevArrow.height()) / 2 + 'px';
         // Avoid selection on the arrows
         ch.util.avoidTextSelection(this._$prevArrow, this._$nextArrow);
         // Check arrows as created
