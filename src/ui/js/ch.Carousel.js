@@ -739,16 +739,14 @@
             };
         }
 
-        // Use jQuery animate to move
-        if (this._options.fx) {
-            return function (displacement) {
-                this._$list.animate({'left': displacement});
-            };
-        }
-
         // Use plain javascript to move
         return function (displacement) {
-            this._$list.css('left', displacement);
+            // Use jQuery animate to move
+            if (this._options.fx) {
+                this._$list.animate({'left': displacement});
+            } else {
+                this._$list.css('left', displacement);
+            }
         };
     }());
 
