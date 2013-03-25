@@ -65,7 +65,8 @@
     /**
      * Private members
      */
-    var Math = window.Math,
+    var pointertap = ch.events.pointer.TAP + '.carousel';
+        Math = window.Math,
         setTimeout = window.setTimeout,
         setInterval = window.setInterval,
         $window = $(window),
@@ -246,7 +247,7 @@
          * @name ch.Carousel#$prevArrow
          * @type jQuery Object
          */
-        this._$prevArrow = $('<div class="ch-carousel-prev ch-carousel-disabled" role="button" aria-hidden="true">').on('click.carousel', function () { that.prev(); });
+        this._$prevArrow = $('<div class="ch-carousel-prev ch-carousel-disabled" role="button" aria-hidden="true">').on(pointertap, function () { that.prev(); });
 
         /**
          * DOM element of arrow that moves the Carousel to the next page.
@@ -254,7 +255,7 @@
          * @name ch.Carousel#$nextArrow
          * @type jQuery Object
          */
-        that._$nextArrow = $('<div class="ch-carousel-next" role="button" aria-hidden="false">').on('click.carousel', function () { that.next(); });
+        that._$nextArrow = $('<div class="ch-carousel-next" role="button" aria-hidden="false">').on(pointertap, function () { that.next(); });
 
         /**
          * HTML Element that contains all thumbnails for pagination.
@@ -262,7 +263,7 @@
          * @name ch.Carousel#$pagination
          * @jQuery Object
          */
-        this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on('click', function (event) {
+        this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on(pointertap, function (event) {
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
@@ -281,7 +282,7 @@
             var resizing = false;
 
             // Change resize status on Window resize event
-            $window.on('resize', function () { resizing = true; });
+            $window.on('resize.carousel', function () { resizing = true; });
 
             // Limit resize execution
             setInterval(function () {
