@@ -85,7 +85,8 @@
         'side': 'bottom',
         'align': 'left',
         'offsetX': 0,
-        'offsetY': 10
+        'offsetY': 10,
+        'waiting': '<div class="ch-loading-small"></div>'
     });
 
     Layer.prototype.init = function ($el, options) {

@@ -3,25 +3,46 @@
  */
 .ch-loading-big,
 .ch-loading {
-	margin: 20px auto;
-	display: block;
+    margin: 20px auto;
+    display: block;
 }
 
 .ch-loading-big {
-	background-image: url('../assets/loading-big.gif');
-	width: 36px;
-	height: 36px;
+    background-image: url('../assets/loading-big.gif');
+    width: 36px;
+    height: 36px;
 }
 
 .ch-loading {
-	background-image: url('../assets/loading.gif');
-	width: 24px;
-	height: 24px;
+    background-image: url('../assets/loading.gif');
+    width: 24px;
+    height: 24px;
 }
 
 .ch-loading-small {
-	background-image: url('../assets/loading-small.gif');
-	display: inline-block;
-	width: 16px;
-	height: 16px;
+    background-image: url('../assets/loading-small.gif');
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+.ch-loading-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.ch-loading-big.ch-loading-centered {
+    margin-top: -18px;
+    margin-left: -18px;
+}
+
+.ch-loading.ch-loading-centered {
+    margin-top: -12px;
+    margin-left: -12px;
+}
+
+.ch-loading-small.ch-loading-centered {
+    margin-top: -8px;
+    margin-left: -8px;
 }
