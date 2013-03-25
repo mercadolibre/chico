@@ -65,11 +65,10 @@
     /**
      * Private members
      */
-    var pointertap = ch.events.pointer.TAP + '.carousel';
+    var pointertap = ch.events.pointer.TAP + '.carousel',
         Math = window.Math,
         setTimeout = window.setTimeout,
         setInterval = window.setInterval,
-        $window = $(window),
         parent = ch.util.inherits(Carousel, ch.Widget);
 
     Carousel.prototype.name = 'carousel';
@@ -270,30 +269,12 @@
             if (page !== null) { that._goToPage(page); }
         });
 
-        // Defines the sizing behavior of Carousel. It can be elastic and responsive or fixed.
-        (function setWidth() {
-            // Width by configuration
-            if (that._options.width !== undefined) {
-                return that.$el.css('width', that._options.width);
-            }
-
-            // Elastic width
-            // Flag to know when resize happens
-            var resizing = false;
-
-            // Change resize status on Window resize event
-            $window.on('resize.carousel', function () { resizing = true; });
-
-            // Limit resize execution
-            setInterval(function () {
-
-                if (!resizing) { return; }
-
-                resizing = false;
-                that.redraw();
-
-            }, 250);
-        }());
+        // Width by configuration
+        if (this._options.width !== undefined) {
+            this.$el.css('width', this._options.width);
+        } else {
+            ch.viewport.on('resize', function () { that.redraw(); });
+        }
 
         // Set initial width of the list, to make space to all items
         //this._$list.css('width', this._itemOuterWidth * (this._$items.length + this._queue.length));
