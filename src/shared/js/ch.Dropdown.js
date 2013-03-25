@@ -206,7 +206,7 @@
 
             // Creates keyboard shortcuts map and binding events
             //map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
-            map.DOWN_ARROW = map.UP_ARROW = function (key, event) {
+            map.onkeyuparrow = map.onkeydownarrow = function (key, event) {
 
                 // Validations
                 if (!that._active) { return; }

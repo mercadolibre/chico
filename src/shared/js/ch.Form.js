@@ -142,7 +142,7 @@
                 that.validate(event);
             })
             // Bind the reset
-            .find('input[type="reset"]').on(ch.events.pointer.TAP + '.form', function (event) {
+            .find('input[type="reset"]').on(ch.onpointertap + '.form', function (event) {
                 ch.util.prevent(event);
                 that.reset();
             });

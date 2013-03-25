@@ -322,7 +322,7 @@
                 expandable.$el
                     .find('.ch-expandable-trigger')
                     .off('.expandable')
-                    .on(ch.events.pointer.TAP + '.accordion', function () {
+                    .on(ch.onpointertap + '.accordion', function () {
 
                         if (that._selected !== undefined && expandable !== that._children[that._selected]) {
                             that._children[that._selected].hide();

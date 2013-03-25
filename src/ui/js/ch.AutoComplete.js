@@ -76,12 +76,12 @@
 
     AutoComplete.prototype.init = function ($el, options) {
         var that = this,
-            ESC = ch.events.key.ESC + '.' + this.name, // UI
-            UP_ARROW = ch.events.key.UP_ARROW + '.' + this.name, // UI
-            DOWN_ARROW = ch.events.key.DOWN_ARROW + '.' + this.name, // UI
-            ENTER = ch.events.key.ENTER + '.' + this.name,
-            BACKSPACE = ch.events.key.BACKSPACE + '.' + this.name,
-            MOUSEDOWN = ch.events.pointer.DOWN + '.' + this.name,
+            ESC = ch.onkeyesc + '.' + this.name, // UI
+            UP_ARROW = ch.onkeyuparrow + '.' + this.name, // UI
+            DOWN_ARROW = ch.onkeydownarrow + '.' + this.name, // UI
+            ENTER = ch.onkeyenter + '.' + this.name,
+            BACKSPACE = ch.onkeybackspace + '.' + this.name,
+            MOUSEDOWN = ch.onpointerdown + '.' + this.name,
             MOUSEENTER = 'mouseover' + '.' + this.name,
             events;
 
@@ -176,23 +176,23 @@
             .addClass('ch-' + this.name + '-trigger');
 
         events = {
-            'BACKSPACE': function () {
+            'onkeybackspace': function () {
             // hides and clear the list
                 if (that.el.value.length <= 1) {
                     that._$suggestionsList.html('');
                     that._popover.hide();
                 }
             },
-            'ENTER': function (event) {
+            'onkeyenter': function (event) {
             // apply the highlighted item
                 that._setQuery(event);
             },
-            'ESC': function (event) {
+            'onkeyesc': function (event) {
             // back the value to the inputs previous value
                 that.hide();
                 that.el.value = that._originalQuery;
             },
-            'INPUT': function (event) {
+            'onkeyinput': function (event) {
             // when the user writes
                 window.clearTimeout(that._stopTyping);
                 that._stopTyping = window.setTimeout(function () {
@@ -201,10 +201,10 @@
                     }
                 }, 400);
             },
-            'UP_ARROW': function (event) {
+            'onkeyuparrow': function (event) {
                 that._select(event);
             },
-            'DOWN_ARROW': function (event) {
+            'onkeydownarrow': function (event) {
                 that._select(event);
             }
         };

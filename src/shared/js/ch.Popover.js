@@ -73,8 +73,8 @@
         parent = ch.util.inherits(Popover, ch.Widget),
 
         openEvent = {
-            'click': ch.events.pointer.TAP,
-            'mouseenter': ch.events.pointer.ENTER
+            'click': ch.onpointertap,
+            'mouseenter': ch.onpointerenter
         };
 
     /**
@@ -177,7 +177,7 @@
         /**
          * Bind behaviors
          */
-        $document.on(ch.events.layout.CHANGE, function () {
+        $document.on(ch.onchangelayout, function () {
             if (that._active) {
                 that.position.refresh();
             }

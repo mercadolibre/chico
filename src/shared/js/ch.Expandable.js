@@ -144,7 +144,7 @@
         this.$trigger = this.$el.children(':first-child')
             .attr(triggerAttr)
             .addClass('ch-' + this.name + '-trigger ch-' + this.name + '-ico')
-            .on(ch.events.pointer.TAP + '.' + this.name, function (event) {
+            .on(ch.onpointertap + '.' + this.name, function (event) {
                 event.preventDefault();
                 that.show();
             });
@@ -189,10 +189,10 @@
 
         this
             .on('show', function () {
-                $document.trigger(ch.events.layout.CHANGE);
+                $document.trigger(ch.onchangelayout);
             })
             .on('hide', function () {
-                $document.trigger(ch.events.layout.CHANGE);
+                $document.trigger(ch.onchangelayout);
             });
     };
 

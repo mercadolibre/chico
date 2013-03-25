@@ -29,7 +29,7 @@
 
 		pages[""] = [];
 
-		$window.bind(ch.events.PATH_CHANGE, resolvePaths);
+		$window.bind(ch.onpathchange, resolvePaths);
 
 		return {
 

@@ -13,8 +13,8 @@
     }
 
     var $document = $(window.document),
-        // keyEsc = ch.events.key.ESC;
-        keyEsc = ch.events.key ? ch.events.key.ESC : 'touchend';
+        // keyEsc = ch.onkeyesc;
+        keyEsc = ch.onkeyesc ? ch.onkeyesc : 'touchend';
 
     function Closable() {
 
@@ -23,9 +23,9 @@
             clearTimeout = window.clearTimeout,
             closableType = this._options.close,
             delay = this._options.closeDelay,
-            pointerTap = ch.events.pointer.TAP + '.' + this.name,
-            pointerEnter = ch.events.pointer.ENTER + '.' + this.name,
-            pointerLeave = ch.events.pointer.LEAVE + '.' + this.name,
+            pointerTap = ch.onpointertap + '.' + this.name,
+            pointerEnter = ch.onpointerenter + '.' + this.name,
+            pointerLeave = ch.onpointerleave + '.' + this.name,
             escEvent = keyEsc + '.' + this.name,
             timeOut;
 

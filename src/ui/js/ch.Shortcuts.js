@@ -18,8 +18,8 @@
 * });
 *
 * $('.myCarousel')
-*     .on(ch.events.key.RIGHT_ARROW, function () { carousel.next() })
-*     .on(ch.events.key.LEFT_ARROW, function () { carousel.prev() });
+*     .on(ch.onkeyrightarrow, function () { carousel.next() })
+*     .on(ch.onkeyleftarrow, function () { carousel.prev() });
 */
 (function (window, $, ch) {
 
@@ -30,14 +30,14 @@
      * @type object
      */
     var codeMap = {
-         '8': 'BACKSPACE',
-         '9': 'TAB',
-        '13': 'ENTER',
-        '27': 'ESC',
-        '37': 'LEFT_ARROW',
-        '38': 'UP_ARROW',
-        '39': 'RIGHT_ARROW',
-        '40': 'DOWN_ARROW'
+         '8': ch.onkeybackspace,
+         '9': ch.onkeytab,
+        '13': ch.onkeyenter,
+        '27': ch.onkeyesc,
+        '37': ch.onkeyleftarrow,
+        '38': ch.onkeyuparrow,
+        '39': ch.onkeyrightarrow,
+        '40': ch.onkeydownarrow
     };
 
     /**
@@ -99,7 +99,6 @@
 
     Shortcuts.prototype.on = function () {
         var that = this,
-            keyEvents = ch.events.key,
             keyCode,
             event;
 
@@ -107,9 +106,11 @@
         this._$target.on('keydown.shortcuts', function (event) {
             keyCode = event.keyCode.toString();
 
+            console.log(ch[codeMap[keyCode]], codeMap[keyCode], keyCode);
             if(codeMap[keyCode] !== undefined) {
                 // Trigger custom event with original event as second parameter
-                that._$target.trigger(keyEvents[codeMap[keyCode]], event);
+
+                that._$target.trigger(codeMap[keyCode], event);
             }
 
         });
@@ -118,20 +119,19 @@
         // event emitter guarda con ch-nombre de evento
         //
         for (event in this._options.events) {
-            this._$target.on(keyEvents[event] + '.shortcuts', this._options.events[event]);
+            this._$target.on(ch[event] + '.shortcuts', this._options.events[event]);
         }
 
     };
 
     Shortcuts.prototype.off = function () {
-        var keyEvents = ch.events.key,
-            event;
+        var event;
 
         // stop to emits predefined events
         this._$target.off('keydown.shortcuts');
 
         for (event in this._options.events) {
-            this._$target.off(keyEvents[event], this._options.events[event]);
+            this._$target.off(ch[event], this._options.events[event]);
         }
 
     };
