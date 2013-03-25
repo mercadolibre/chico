@@ -69,9 +69,6 @@
         setTimeout = window.setTimeout,
         setInterval = window.setInterval,
         $window = $(window),
-        /**
-         *    Inheritance
-         */
         parent = ch.util.inherits(Carousel, ch.Widget);
 
     Carousel.prototype.name = 'carousel';
@@ -116,12 +113,12 @@
         this._$mask = $('<div class="ch-carousel-mask" role="tabpanel" style="height:' + this._$items.outerHeight() + 'px">');
 
         /**
-         * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
+         * Size of the mask. Updated in each redraw.
          * @private
-         * @name ch.Carousel#itemOuterWidth
+         * @name ch.Carousel#maskWidth
          * @type Number
          */
-        this._itemOuterWidth = this._$items.outerWidth();
+        this._maskWidth = 0;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
@@ -132,12 +129,76 @@
         this._itemWidth = this._$items.width();
 
         /**
+         * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
+         * @private
+         * @name ch.Carousel#itemOuterWidth
+         * @type Number
+         */
+        this._itemOuterWidth = this._$items.outerWidth();
+
+        /**
+         * Size added to each item to make it responsive.
+         * @private
+         * @name ch.Carousel#itemExtraWidth
+         * @type Number
+         */
+        this._itemExtraWidth = 0;
+
+        /**
          * The height of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
          * @name ch.Carousel#itemHeight
          * @type Number
          */
         this._itemHeight = this._$items.height();
+
+        /**
+         * The margin of all items. Updated in each redraw only if it's necessary.
+         * @private
+         * @name ch.Carousel#itemMargin
+         * @type Number
+         */
+        this._itemMargin = 0;
+
+        /**
+         * Flag to control when arrows were created before.
+         * @private
+         * @name ch.Carousel#arrowsCreated
+         * @type Boolean
+         */
+        this._arrowsCreated = false;
+
+        /**
+         * Flag to control if pagination was created before.
+         * @private
+         * @name ch.Carousel#paginationCreated
+         * @type Boolean
+         */
+        this._paginationCreated = false;
+
+        /**
+         * Page currently showed.
+         * @private
+         * @name ch.Carousel#currentPage
+         * @type Number
+         */
+        this._currentPage = 1;
+
+        /**
+         * Total amount of pages. Data updated in each redraw.
+         * @private
+         * @name ch.Carousel#pages
+         * @type Number
+         */
+        this._pages = 0;
+
+        /**
+         * Distance needed to move ONLY ONE page. Data updated in each redraw.
+         * @private
+         * @name ch.Carousel#pageWidth
+         * @type Number
+         */
+        this._pageWidth = 0;
 
         /**
          * List of items that should be loaded asynchronously on page movement.
@@ -189,7 +250,7 @@
          * @jQuery Object
          */
         this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on('click', function (event) {
-            that.goToPage($(event.target).attr('data-page'));
+            that._goToPage($(event.target).attr('data-page'));
         });
 
         // Defines the sizing behavior of Carousel. It can be elastic and responsive or fixed.
@@ -245,7 +306,7 @@
         if (this._options.pagination) { this._addPagination(); }
 
         // Put Carousel on specified page or at the beginning
-        this.goToPage(this._options.page);
+        this._goToPage(this._options.page);
     };
 
     /**
@@ -503,7 +564,7 @@
             totalPages;
 
         // Avoid wrong calculations going to first page
-        this.goToPage(1);
+        this._goToPage(1);
         /**
          * Since 0.10.6: Triggers when component redraws.
          * @name ch.Carousel#redraw
@@ -520,10 +581,11 @@
         // Update the width of the mask
         this._maskWidth = this._$mask.outerWidth();
         /**
-         * Amount of items in only one page. Updated in each redraw.
+         * (Since 0.7.4) Amount of items in only one page. Updated in each redraw.
          * @private
          * @name ch.Carousel#itemsPerPage
          * @type Number
+         * @since 0.7.4
          */
         // Update amount of items into a single page (from conf or auto calculations)
         this._itemsPerPage = (function () {
@@ -662,70 +724,6 @@
     };
 
     /**
-     * Flag to control when arrows were created before.
-     * @private
-     * @name ch.Carousel#arrowsCreated
-     * @type Boolean
-     */
-    Carousel.prototype._arrowsCreated = false;
-
-    /**
-     * Flag to control if pagination was created before.
-     * @private
-     * @name ch.Carousel#paginationCreated
-     * @type Boolean
-     */
-    Carousel.prototype._paginationCreated = false;
-
-    /**
-     * Page currently showed.
-     * @private
-     * @name ch.Carousel#currentPage
-     * @type Number
-     */
-    Carousel.prototype._currentPage = 1;
-
-    /**
-     * Total amount of pages. Data updated in each redraw.
-     * @private
-     * @name ch.Carousel#pages
-     * @type Number
-     */
-    Carousel.prototype._pages = 0;
-
-    /**
-     * Distance needed to move ONLY ONE page. Data updated in each redraw.
-     * @private
-     * @name ch.Carousel#pageWidth
-     * @type Number
-     */
-    Carousel.prototype._pageWidth = 0;
-
-    /**
-     * Size of the mask. Updated in each redraw.
-     * @private
-     * @name ch.Carousel#maskWidth
-     * @type Number
-     */
-    Carousel.prototype._maskWidth = 0;
-
-    /**
-     * Size added to each item to make it responsive.
-     * @private
-     * @name ch.Carousel#itemExtraWidth
-     * @type Number
-     */
-    Carousel.prototype._itemExtraWidth = 0;
-
-    /**
-     * The margin of all items. Updated in each redraw only if it's necessary.
-     * @private
-     * @name ch.Carousel#itemMargin
-     * @type Number
-     */
-    Carousel.prototype._itemMargin = 0;
-
-    /**
      * Moves the list corresponding to specified displacement.
      * @private
      * @name ch.Carousel#translate
@@ -781,20 +779,7 @@
      * @function
      * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
      */
-    Carousel.prototype.goToPage = function (page) {
-        // Page getter
-        if (!page) { return this._currentPage; }
-
-        // Page setter
-        // Change to number the text pages ("first" and "last")
-        if (page === 'first') {
-            page = 1;
-        } else if (page === 'last') {
-            page = this._pages;
-        }
-
-        // Avoid strings from here
-        page = window.parseInt(page);
+    Carousel.prototype._goToPage = function (page) {
         // Avoid to select:
         // - The same page that is selected yet
         // - A page less than 1
@@ -841,7 +826,7 @@
      * });
      */
     Carousel.prototype.prev = function () {
-        this.goToPage(this._currentPage - 1);
+        this._goToPage(this._currentPage - 1);
         this.emit('prev');
     };
 
@@ -857,7 +842,7 @@
      * });
      */
     Carousel.prototype.next = function () {
-        this.goToPage(this._currentPage + 1);
+        this._goToPage(this._currentPage + 1);
         this.emit('next');
     };
 
@@ -902,7 +887,7 @@
                     that.next();
                 // On last page: Move to first page
                 } else {
-                    that.goToPage(1);
+                    that._goToPage(1);
                 }
             // Use the setted timing
             }, delay);
@@ -952,17 +937,6 @@
     };
 
     /**
-     * Get the items amount of each page (Since 0.7.4).
-     * @public
-     * @since 0.7.4
-     * @name ch.Carousel#itemsPerPage
-     * @returns Number
-     */
-    Carousel.prototype._itemsPerPage = function () {
-        return this._itemsPerPage;
-    };
-
-    /**
      * Same as "select". Gets the current page or moves to a defined page (Since 0.7.4).
      * @public
      * @function
@@ -990,7 +964,24 @@
      * foo.select(2);
      */
     Carousel.prototype.page = Carousel.prototype.select = function (page) {
-        return this.goToPage(page) || this;
+        // Getter
+        if (page === undefined) {
+            return this._currentPage;
+        }
+        // Setter
+        switch (page) {
+        case 'first':
+            this._goToPage(1);
+            break;
+        case 'last':
+            this._goToPage(this._pages);
+            break;
+        default:
+            this._goToPage(window.parseInt(page));
+            break;
+        }
+
+        return this;
     };
 
     ch.factory(Carousel);
