@@ -747,22 +747,23 @@
         // CSS property written as string to use on CSS movement
         var transform = '-' + ch.util.VENDOR_PREFIX + '-transform';
 
-        // Translate list using CSS translate transform
+        // Use CSS transform to move
         if (ch.support.transition) {
             return function (displacement) {
                 this._$list.css(transform, 'translateX(' + displacement + 'px)');
             };
         }
 
-        // Translate with JS
-        return function (displacement) {
-            // Translate using jQuery animation
-            if (this._options.fx !== undefined) {
+        // Use jQuery animate to move
+        if (this._options.fx) {
+            return function (displacement) {
                 this._$list.animate({'left': displacement});
-            // Translate without efects
-            } else {
-                this._$list.css('left', displacement);
-            }
+            };
+        }
+
+        // Use plain javascript to move
+        return function (displacement) {
+            this._$list.css('left', displacement);
         };
     }());
 
