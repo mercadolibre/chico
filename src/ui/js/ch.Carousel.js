@@ -110,7 +110,10 @@
          * @name ch.Carousel#$mask
          * @type jQuery Object
          */
-        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel" style="height:' + this._$items.outerHeight() + 'px">');
+        // Use .html().appendTo() instead wrapInner() to keep the reference to the mask element
+        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel" style="height:' + this._$items.outerHeight() + 'px">')
+            .html(this._$list)
+            .appendTo(this.$el);
 
         /**
          * Size of the mask. Updated in each redraw.
@@ -275,16 +278,6 @@
         } else {
             ch.viewport.on('resize', function () { that.redraw(); });
         }
-
-        // Set initial width of the list, to make space to all items
-        //this._$list.css('width', this._itemOuterWidth * (this._$items.length + this._queue.length));
-        // Wrap the list with mask and change overflow to translate that feature to mask
-        this.$el.wrapInner(this._$mask).css('overflow', 'hidden');
-        // TODO: Get a better reference to rendered mask
-        this._$mask = this.$el.children('.ch-carousel-mask');
-        // Update the mask height with the list height
-        // Do it here because before, items are stacked
-        this._$mask.css('height', this._$list.outerHeight());
 
         // If efects aren't needed, avoid transition on list
         if (!this._options.fx) { this._$list.addClass('ch-carousel-nofx'); }
