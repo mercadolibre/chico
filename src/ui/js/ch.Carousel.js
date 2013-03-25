@@ -269,7 +269,7 @@
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
-            if (page !== null) { that._goToPage(page); }
+            if (page !== null) { that._goToPage(window.parseInt(page, 10)); }
         });
 
         // Width by configuration
