@@ -770,17 +770,16 @@
      * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
      */
     Carousel.prototype._goToPage = function (page) {
+        // Set an error when the page is out of range
+        if (window.isNaN(page)) {
+            throw new window.Error('Chico Carousel: Invalid parameter (' + page + ') received in _goToPage(). Provide a Number between 1 and ' + this._pages + '.');
+        }
         // Avoid to select the same page that is selected yet
-        if (page === this._currentPage) {
+        if (page === this._currentPage || page < 1 || page > this._pages) {
             return;
         }
-        // Set an error when the page is out of range
-        if (page < 1 || page > this._pages || window.isNaN(page)) {
-            throw new window.Error('Chico Carousel: Invalid parameter (' + page + ') received in _goToPage(). Provide a number between 1 and '  + this._pages + '.');
-        }
         // Perform these tasks in the following order:
-        // Task 1: Move the list!!!
-        // Position from 0 (zero), to page to move (page number beginning in zero)
+        // Task 1: Move the list from 0 (zero), to page to move (page number beginning in zero)
         this._translate(-this._pageWidth * (page - 1));
         // Task 2: Update selected thumbnail on pagination
         this._switchPagination(this._currentPage, page);
