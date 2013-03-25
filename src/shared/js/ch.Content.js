@@ -7,7 +7,8 @@
         'params': '',
         'cache': true,
         'async': true,
-        'input': ''
+        'input': '',
+        'waiting': '<div class="ch-loading-big"></div>'
     };
 
     /**
@@ -23,7 +24,9 @@
             // Merged options of each instance
             options,
             // The lastest data sent to the client. Used to return on the .get() method
-            current;
+            current,
+
+            error = '<p>Error on ajax call.</p>';
 
         /**
          * Allows to manage the widgets content.
@@ -52,14 +55,13 @@
          * Send the result data to the "client".
          * @private
          */
-        function postMessage(data) {
+        function postMessage(event) {
             // Update the lastest reference of data sent to the user
-            current = data
+            current = event.response;
             // Send data to the client
-            content.onmessage(data);
-            // TODO: Trigger the "message" event to allow multiple suscription
-            // that.trigger('message', data);
+            content.onmessage(event);
         }
+
 
         /**
          * Serves data from cache or AJAX.
@@ -71,8 +73,14 @@
             if (options.cache) {
                 // Try to get data from cache
                 var cached = ch.cache.get(options.input);
+
                 // If there are data, then send to the client and avoid the AJAX request
-                if (cached) { return postMessage(cached); }
+                if (cached) {
+                    return postMessage({
+                        'status': 'done',
+                        'response': cached
+                    });
+                }
             }
 
             $.ajax({
@@ -88,25 +96,33 @@
                 'success': function (data) {
                     // Grab the data on the cache if it's necessary
                     if (options.cache) { ch.cache.set(options.input, data); }
+
                     // Send the result data to the client
-                    postMessage(data);
+                    // postMessage({
+                    //     'status': 'done',
+                    //     'response': data
+                    // });
+
                 },
                 'error': function (jqXHR, textStatus, errorThrown) {
-                    // Grab all the parameters into a JSON to send to the client
-                    var data = {
-                        'jqXHR': jqXHR,
-                        'textStatus': textStatus,
-                        'errorThrown': errorThrown
-                    };
                     // Send a defined error message
-                    postMessage('<p>Error on ajax call.</p>');
-                    // Execute the 'onerror' method if exists
-                    if (content.onerror !== undefined) {
-                        content.onerror(data);
-                    }
-                    // TODO: Trigger the "error" event to allow multiple suscription
-                    //that.trigger('error', data);
+                    postMessage({
+                        'status': 'error',
+                        'response': error,
+
+                         // Grab all the parameters into a JSON to send to the client
+                        'data': {
+                            'jqXHR': jqXHR,
+                            'textStatus': textStatus,
+                            'errorThrown': errorThrown
+                        }
+                    });
                 }
+            });
+
+            postMessage({
+                'status': 'waiting',
+                'response': options.waiting
             });
         }
 
@@ -156,16 +172,25 @@
 
                 // Case 2: Plain text
                 } else {
-                    postMessage(options.input);
+                    postMessage({
+                        'status': 'done',
+                        'response': options.input
+                    });
                 }
 
             // Case 3: DOM element
             } else if (ch.util.is$(options.input)) {
-                postMessage(options.input.remove(null, true).removeClass('ch-hide'));
+                postMessage({
+                    'status': 'done',
+                    'response': options.input.remove(null, true).removeClass('ch-hide')
+                });
 
             // Default: No message
             } else {
-                postMessage(current);
+                postMessage({
+                    'status': 'done',
+                    'response': current
+                });
             }
 
             return content;
