@@ -78,7 +78,7 @@
     Carousel.prototype._defaults = {
         'pagination': false,
         'arrows': 'outside',
-        'page': 1,
+        'selected': 1,
         'fx': true
     };
 
@@ -304,7 +304,7 @@
         if (this._options.pagination) { this._addPagination(); }
 
         // Put Carousel on specified page or at the beginning
-        this._goToPage(this._options.page);
+        this._goToPage(this._options.selected);
     };
 
     /**
