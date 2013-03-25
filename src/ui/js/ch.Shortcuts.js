@@ -48,16 +48,18 @@
      * @param event
      */
 
-    function Shortcuts(options) {
+    function Shortcuts($target, events, config) {
 
-        if (options === undefined) {
-            throw new window.Error('ch.Shortcuts: Expected options defined.');
+        if ($target === undefined) {
+            throw new window.Error('ch.Shortcuts(target): the "target" parameter is required.');
         }
 
         // Creates its private options
         this._options = ch.util.clone(this._defaults);
 
-        this.configure(options);
+
+
+        this.configure($target, events, config);
 
     }
 
@@ -66,38 +68,40 @@
     Shortcuts.prototype.constructor = Shortcuts;
 
     Shortcuts.prototype._defaults = {
-        'activate': 'focus.shortcuts',
-        'deactivate': 'blur.shortcuts',
+        'on': 'focus.shortcuts',
+        'off': 'blur.shortcuts',
         'tabindex': 0
     };
 
-    Shortcuts.prototype.configure = function (options) {
+    Shortcuts.prototype.configure = function ($target, events, config) {
         var that = this;
 
         // Merge user options with its options
-        $.extend(this._options, options);
+        $.extend(this._options, {'events': events}, config);
 
-        this._$target = this._options.target;
+        this._$target = $target;
 
         if (this._$target.attr('tabindex') === undefined) {
             this._$target.attr('tabindex', this._options.tabindex);
         }
 
         // default behavior to activate the feature
-        if (this._options.activate !== 'none') {
-            this._$target.on(this._options.activate, function () { that.on(); });
+        if (this._options.on !== 'none') {
+            this._$target.on(this._options.on, function () { that.on(); });
         }
 
         // default behavior to deactivate the feature
-        if (this._options.deactivate !== 'none') {
-            this._$target.on(this._options.deactivate, function () { that.off(); });
+        if (this._options.off !== 'none') {
+            this._$target.on(this._options.off, function () { that.off(); });
         }
 
     };
 
     Shortcuts.prototype.on = function () {
         var that = this,
-            keyCode;
+            keyEvents = ch.events.key,
+            keyCode,
+            event;
 
         // start to emits predefined events
         this._$target.on('keydown.shortcuts', function (event) {
@@ -105,17 +109,30 @@
 
             if(codeMap[keyCode] !== undefined) {
                 // Trigger custom event with original event as second parameter
-                that._$target.trigger(ch.events.key[codeMap[keyCode]], event);
+                that._$target.trigger(keyEvents[codeMap[keyCode]], event);
             }
 
         });
 
+        // sacar y pasar un objeto
+        // event emitter guarda con ch-nombre de evento
+        //
+        for (event in this._options.events) {
+            this._$target.on(keyEvents[event] + '.shortcuts', this._options.events[event]);
+        }
+
     };
 
     Shortcuts.prototype.off = function () {
+        var keyEvents = ch.events.key,
+            event;
 
         // stop to emits predefined events
         this._$target.off('keydown.shortcuts');
+
+        for (event in this._options.events) {
+            this._$target.off(keyEvents[event], this._options.events[event]);
+        }
 
     };
 
