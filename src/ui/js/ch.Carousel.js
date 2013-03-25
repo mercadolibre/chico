@@ -263,7 +263,10 @@
          * @jQuery Object
          */
         this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on('click', function (event) {
-            that._goToPage($(event.target).attr('data-page'));
+            // Get the page from the element
+            var page = event.target.getAttribute('data-page');
+            // Allow interactions from a valid page of pagination
+            if (page !== null) { that._goToPage(page); }
         });
 
         // Defines the sizing behavior of Carousel. It can be elastic and responsive or fixed.
