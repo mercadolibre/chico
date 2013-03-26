@@ -106,7 +106,6 @@
         this._$target.on('keydown.shortcuts', function (event) {
             keyCode = event.keyCode.toString();
 
-            console.log(ch[codeMap[keyCode]], codeMap[keyCode], keyCode);
             if(codeMap[keyCode] !== undefined) {
                 // Trigger custom event with original event as second parameter
 

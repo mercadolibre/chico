@@ -86,13 +86,29 @@
             if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
 
                 that.on('show', function () {
-                    $document.one(pointerTap + ' ' + escEvent, close);
+
+                    if (that._shortcuts === undefined) {
+                        that._shortcuts = new ch.Shortcuts(
+                                            that.$container,
+                                            {'onkeyesc': function () {
+                                                that.hide();
+                                                that._shortcuts.off();
+                                            }},
+                                            {'on': 'none', 'off': 'none'}
+                                            );
+                    }
+                    that._shortcuts.on();
+                    that.$container.focus();
+
+                    $document.one(pointerTap, close);
+
                 });
 
                 // Avoid to close when user clicks into the component
                 that.$container.on(pointerTap, function (event) {
                     event.stopPropagation();
                 });
+
             }
         };
     }
