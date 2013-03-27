@@ -219,6 +219,14 @@
 
         this._children[this._selected - 1].show();
 
+        /**
+         * Fired when a tab is selected.
+         * @name ch.Tabs#select
+         * @event
+         * @public
+         */
+        this.emit('select');
+
         return this;
     };
 
