@@ -175,10 +175,14 @@
             that.$el.attr('role', 'navigation');
         }
 
-        that.$el.addClass('ch-' + that.name + ((that._options.classes !== undefined) ? ' ' + that._options.classes : ''));
+        that.$el.addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
 
         // Select specific item if there are a "selected" parameter on component configuration object
-        if (that._selected !== undefined) { that.select(that._selected); }
+        if (that._selected !== undefined) {
+            that.select(that._selected);
+        }
+
+        return this;
     };
 
     /**
@@ -221,7 +225,7 @@
                     'fx': that._options.fx,
                     'onshow': function () {
                         // Updates selected when it's opened
-                        that._selected = i;
+                        that._selected = i + 1;
 
                         /**
                          * It is triggered when the a fold is selected by the user.
@@ -278,13 +282,13 @@
         // Setter
         var that = this,
             // Specific item of that._children list
-            item = that._children[child];
+            item = that._children[child - 1];
 
         // Item as expandable
         if (item instanceof ch.Expandable) {
 
             if (this._options.accordion && this._selected !== undefined && this._selected !== child) {
-                this._children[this._selected].hide();
+                this._children[this._selected - 1].hide();
             }
 
             // Show
@@ -323,11 +327,13 @@
                 expandable.$el
                     .off('.expandable')
                     .on(ch.events.pointer.TAP + '.accordion', function () {
-                        if (that._selected !== undefined && expandable !== that._children[that._selected]) {
-                            that._children[that._selected].hide();
+                        var opened = that._children[that._selected - 1];
+
+                        if (that._selected !== undefined && expandable !== opened) {
+                            opened.hide();
                         }
 
-                        that.select(i);
+                        that.select(i + 1);
                     });
             }
         });

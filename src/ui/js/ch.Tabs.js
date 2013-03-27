@@ -80,7 +80,7 @@
     Tabs.prototype.constructor = Tabs;
 
     Tabs.prototype._defaults = {
-        'defaults': 0
+        'selected': 1
     };
 
     Tabs.prototype.init = function ($el, options) {
@@ -94,16 +94,7 @@
         * @name ch.Tabs#hash
         * @type {String}
         */
-        this._hash = window.location.hash.replace('#!/', '');
-
-        /**
-        * A boolean property to know if some tab should be selected.
-        * @private
-        * @name ch.Tabs#_hashed
-        * @type {Boolean}
-        * @default false
-        */
-        this._hashed = false;
+        this._initialHash = window.location.hash.replace('#!/', '');
 
         /**
          * Children instances associated to this controller.
@@ -129,7 +120,13 @@
          */
         this.$container = this.$el.children(':last-child');
 
-        this.$tabsContainers = this.$container.children();
+        /**
+         * The tabpanel's containers.
+         * @private
+         * @name ch.Tabs#_$tabsContainers
+         * @type {jQuery}
+         */
+        this._$tabsContainers = this.$container.children();
 
         /**
          * Default behavior
@@ -149,6 +146,8 @@
             that._createTab(i, e);
         });
 
+        this._selected = this._options.selected;
+
         this._hasHash();
 
         return this;
@@ -165,7 +164,7 @@
 
             tab,
 
-            $container = this.$tabsContainers.eq(i),
+            $container = this._$tabsContainers.eq(i),
 
             // Create Tab's options
             options = {
@@ -197,7 +196,7 @@
         // Binds tap and focus events
         tab.$el
             .on(ch.events.pointer.TAP + '.tabs focus.tabs', function () {
-                that.select(i);
+                that.select(i + 1);
             });
 
         // Adds tabs to the collection
@@ -208,22 +207,19 @@
 
     Tabs.prototype._hasHash = function () {
         var i = 0,
+            // Shows the first tab if not hash or it's hash and it isn't from the current tab,
             len = this._children.length;
-
         // If hash open that tab
         for (i; i < len; i += 1) {
-            if (this._children[i].hash === this._hash) {
-                this.select(i);
-                this._hashed = true;
+            if (this._children[i]._hash === this._initialHash) {
+                this._selected = i + 1;
                 break;
             }
         }
 
-        // Shows the first tab if not hash or it's hash and it isn't from the current tab
-        if (!this._hash || (this._hash && !this._hashed)) {
-            this._children[this._options.defaults].show();
-            this._selected = this._options.defaults;
-        }
+        this._children[this._selected - 1].show();
+
+        return this;
     };
 
     /**
@@ -247,7 +243,7 @@
 
         var selected = this._selected,
             // Sets the tab's index
-            tab = this._children[index];
+            tab = this._children[index - 1];
 
         // If select a tab that doesn't exist do nothing
         // Don't click me if I'm open
@@ -257,7 +253,7 @@
 
         // Hides the open tab
         if (selected !== undefined) {
-            this._children[selected].hide();
+            this._children[selected - 1].hide();
         }
 
         /**

@@ -799,10 +799,32 @@
 
 		<div class="YOUR_SELECTOR_Tabs ch-tabs">
 			<ul class="ch-tabs-triggers">
+				<li><a href="#tab1-a" class="ch-tab">Tab1</a></li>
+				<li><a href="#tab2-a" class="ch-tab">Tab2</a></li>
+				<li><a href="#tab3-a" class="ch-tab">Tab3</a></li>
+				<li><a href="./ajax#ajax-a" class="ch-tab">Tab4</a></li>
+			</ul>
+			<div class="ch-box-lite">
+				<div id="tab1-a">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+				</div>
+
+				<div id="tab2-a" class="ch-hide">
+					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
+				</div>
+
+				<div id="tab3-a" class="ch-hide">
+					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="YOUR_SELECTOR_Tabs2 ch-tabs">
+			<ul class="ch-tabs-triggers">
 				<li><a href="#tab1-b" class="ch-tab">Tab1</a></li>
 				<li><a href="#tab2-b" class="ch-tab">Tab2</a></li>
 				<li><a href="#tab3-b" class="ch-tab">Tab3</a></li>
-				<li><a href="./ajax#ajax" class="ch-tab">Tab4</a></li>
+				<li><a href="./ajax#ajax-b" class="ch-tab">Tab4</a></li>
 			</ul>
 			<div class="ch-box-lite">
 				<div id="tab1-b">
@@ -1401,6 +1423,7 @@
 
 		// Tabs
 		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
+		var tabs2 = $(".YOUR_SELECTOR_Tabs2").tabs(3);
 
 		// // Autocomplete
 		// function autoComplete(data) {

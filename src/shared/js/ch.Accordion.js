@@ -30,10 +30,17 @@
      * });
      */
     function Accordion($el, options) {
-        options = options || {};
-        options.accordion = true;
-        options.fx = (options.fx !== undefined) ? options.fx : 'slideDown';
-        options.classes = options.classes || 'ch-accordion';
+
+        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
+            options = $el;
+            $el = undefined;
+        }
+
+        options = $.extend({
+            'accordion': true,
+            '_className': 'ch-accordion',
+            'fx' : 'slideDown'
+        }, options || {});
 
         return new ch.Menu($el, options);
     }
