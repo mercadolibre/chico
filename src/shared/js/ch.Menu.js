@@ -191,7 +191,6 @@
         var that = this,
             $li,
             $child,
-            $triggerCont,
             $menu;
 
         function createExpandable(i, li) {
@@ -199,7 +198,7 @@
             $li = $(li);
 
             // Children of list elements
-            $child = $li.children();
+            $child = $li.children(':first-child');
 
             // Anchor inside list
             if ($child[0].tagName === 'A') {
@@ -212,12 +211,12 @@
                 $child.addClass('ch-bellows-trigger');
 
                 // Add anchor to that._children
-                that._children.push($child.eq(0));
+                that._children.push($child);
 
             } else {
 
                 // List inside list, inits an Expandable
-                var expandable = $li.expandable({
+                var expandable = $child.expandable({
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx,
                     'onshow': function () {
@@ -239,15 +238,12 @@
                     }
                 });
 
-                $triggerCont = $child.eq(0)
-                    .attr('role', 'presentation');
-
-                $menu = $child.eq(1);
-
                 if (!that._options.accordion) {
-                    $menu.attr('role', 'menu');
-                    $menu.children().children().attr('role', 'menuitem');
-                    $menu.children().attr('role', 'presentation');
+                    $child.next()
+                        .attr('role', 'menu')
+                        .children().attr('role', 'presentation')
+                            .children()
+                                .attr('role', 'menuitem');
                 }
 
                 // Add expandable to that._children
@@ -286,6 +282,11 @@
 
         // Item as expandable
         if (item instanceof ch.Expandable) {
+
+            if (this._options.accordion && this._selected !== undefined && this._selected !== child) {
+                this._children[this._selected].hide();
+            }
+
             // Show
             item.show();
         }
@@ -320,10 +321,8 @@
         $.each(that._children, function (i, expandable) {
             if (expandable instanceof ch.Expandable) {
                 expandable.$el
-                    .find('.ch-expandable-trigger')
                     .off('.expandable')
                     .on(ch.events.pointer.TAP + '.accordion', function () {
-
                         if (that._selected !== undefined && expandable !== that._children[that._selected]) {
                             that._children[that._selected].hide();
                         }

@@ -40,7 +40,6 @@
             that.emit('hide');
         }
 
-
         /**
          * Shows component's container.
          * @public
@@ -52,7 +51,7 @@
             that._active = true;
 
             if (that.$trigger !== undefined) {
-                that.$trigger.addClass(triggerClass).attr('aria-expanded', 'true');
+                that.$trigger.addClass(triggerClass);
             }
 
             // Animate or not
@@ -76,7 +75,7 @@
             that._active = false;
 
             if (that.$trigger !== undefined) {
-                that.$trigger.removeClass(triggerClass).attr('aria-expanded', 'false');
+                that.$trigger.removeClass(triggerClass);
             }
 
             // Animate or not

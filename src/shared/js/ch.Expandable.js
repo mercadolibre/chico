@@ -5,13 +5,22 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    function normalizeOptions(options) {
+        if (typeof options === 'string' || ch.util.is$(options)) {
+            options = {
+                'content': options
+            };
+        }
+        return options;
+    };
+
     /**
      * Expandable lets you show or hide the container. Expandable needs a pair: the title and the container related to that title.
      * @constructor
      * @memberOf ch
      * @augments ch.Navs
      * @param {Object} [options] Object with configuration properties.
-     * @param {Boolean} [options.open] Shows the expandable open when component was loaded. By default, the value is false.
+     * @param {Boolean} [options.open] Shows the Expandable open when component was loaded. By default, the value is false.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
      * @returns {Object}
      * @exampleDescription Create a new Expandable.
@@ -37,7 +46,7 @@
         /**
          * Emits the event 'ready' when the component is ready to use.
          * @fires ch.Expandable#ready
-         * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
+         * @exampleDescription Following the first example, using <code>widget</code> as Expandable's instance controller:
          * @example
          * widget.on('ready',function () {
          *  this.show();
@@ -47,7 +56,7 @@
     }
 
     /**
-     * Private
+     * Private Expandable
      */
 
     /**
@@ -80,8 +89,11 @@
      * @type {Object}
      */
     Expandable.prototype._defaults = {
+        '_classNameTrigger': 'ch-expandable-trigger ch-expandable-ico',
+        '_classNameContainer': 'ch-expandable-container ch-hide',
         'open': false,
-        'fx': false
+        'fx': false,
+        'toggle': true
     };
 
     /**
@@ -107,29 +119,7 @@
          * @private
          * @type {Object}
          */
-        var that = this,
-
-            /**
-             * Map that contains the ARIA attributes for the trigger element
-             * @private
-             * @type {Object}
-             * @ignore
-             */
-            triggerAttr = {
-                'aria-expanded': this._options.open,
-                'aria-controls': 'ch-' + this.name + '-' + this.uid
-            },
-
-            /**
-             * Map that contains the ARIA attributes for the container element
-             * @private
-             * @type {Object}
-             * @ignore
-             */
-            containerAttr = {
-                'id': triggerAttr['aria-controls'],
-                'aria-hidden': !triggerAttr['aria-expanded']
-            };
+        var that = this;
 
         /**
          * Protected Members
@@ -141,9 +131,8 @@
          * @type {Selector}
          * @ignore
          */
-        this.$trigger = this.$el.children(':first-child')
-            .attr(triggerAttr)
-            .addClass('ch-' + this.name + '-trigger ch-' + this.name + '-ico')
+        this.$trigger = this.$el
+            .addClass(this._options._classNameTrigger)
             .on(ch.events.pointer.TAP + '.' + this.name, function (event) {
                 event.preventDefault();
                 that.show();
@@ -155,15 +144,12 @@
          * @type {Selector}
          * @ignore
          */
-        this.$container = this.$el.children(':last-child')
-            .attr(containerAttr)
-            .addClass('ch-' + this.name + '-container ch-hide');
+        this.$container = (this._options.container || this.$el.next())
+            .addClass(this._options._classNameContainer);
 
         /**
          * Default behavior
          */
-        this.$el.addClass('ch-' + this.name);
-
         // Content configuration
         this.content.onmessage = function (event) {
             var status = 'content' + event.status;
@@ -176,9 +162,17 @@
             }
         };
 
-        this.content.set({
-            'input': this.$container.html()
+        this.content.configure({
+            'input': this._options.content || this.$container.html(),
+            'method': this._options.method,
+            'params': this._options.params,
+            'cache': this._options.cache,
+            'async': this._options.async,
+            'waiting': this._options.waiting
         });
+
+        // Is it toggleable?
+        this._toggle = this._options.toggle;
 
         // Is it open by default?
         if (this._options.open) {
@@ -200,7 +194,7 @@
      * Shows component's content.
      * @public
      * @function
-     * @name ch.Expabdable#show
+     * @name ch.Expandable#show
      * @returns {Object}
      * @exampleDescription Open the Expandable widget.
      * @example
@@ -212,7 +206,7 @@
             return this;
         }
 
-        if (this._active) {
+        if (this._active && this._toggle) {
             return this.hide();
         }
 
@@ -241,6 +235,7 @@
      * widget.hide();
      */
     Expandable.prototype.hide = function () {
+
         if (!this._active) {
             return;
         }
@@ -255,7 +250,7 @@
      * @name isActive
      * @methodOf ch.Expandable#isActive
      * @returns {Boolean}
-     * @exampleDescription
+     * @exampleDescriptiong
      * @example
      * if (widget.isActive()) {
      *     fn();
@@ -265,6 +260,6 @@
         return this._active;
     };
 
-    ch.factory(Expandable);
+    ch.factory(Expandable, normalizeOptions);
 
 }(this, (this.jQuery || this.Zepto), this.ch));
