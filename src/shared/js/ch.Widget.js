@@ -123,7 +123,7 @@
      * @function
      * @returns itself
      */
-    Widget.prototype.enable = function (condition) {
+    Widget.prototype.enable = function () {
         this._enabled = true;
 
         /**
@@ -149,7 +149,7 @@
      * @function
      * @returns itself
      */
-    Widget.prototype.disable = function (condition) {
+    Widget.prototype.disable = function () {
         this._enabled = false;
 
         /**
