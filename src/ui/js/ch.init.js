@@ -8,5 +8,6 @@
 
     ch.instances = instances;
 
-    ch.$ = window.jQuery || window.$;
+    // Exposse private $ (jQuery) into ch.$
+    ch.$ = $;
 }());
