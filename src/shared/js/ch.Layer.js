@@ -125,4 +125,4 @@
      */
     ch.factory(Layer, parent._normalizeOptions);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+}(this, this.ch.$, this.ch));

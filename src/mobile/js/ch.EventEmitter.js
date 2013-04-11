@@ -4,7 +4,7 @@
 * @class EventEmitter
 * @memberOf ch
 */
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
 
     if (ch === undefined) {
@@ -190,4 +190,4 @@
 
     ch.EventEmitter = EventEmitter;
 
-}(this, this.Zepto, this.ch));
+}(this, this.ch));

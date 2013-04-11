@@ -346,4 +346,4 @@
 
     ch.factory(Form);
 
-}(this, this.jQuery, this.ch));
+}(this, this.ch.$, this.ch));

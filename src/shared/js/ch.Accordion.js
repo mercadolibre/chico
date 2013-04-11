@@ -1,4 +1,4 @@
-(function (window, ch) {
+(function (window, $, ch) {
     'use strict';
 
     if (window.ch === undefined) {
@@ -64,4 +64,4 @@
      */
     ch.factory(Accordion, ch.Menu.prototype._normalizeOptions);
 
-}(this, this.ch));
+}(this, this.ch.$, this.ch));

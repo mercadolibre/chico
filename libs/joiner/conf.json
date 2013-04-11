@@ -43,7 +43,6 @@
 				"../../src/shared/js/ch.events.js",
 				"../../src/ui/js/ch.events.js",
 				"../../src/shared/js/ch.factory.js",
-				"../../src/shared/js/ch.debug.js",
 				"../../src/ui/js/ch.init.js"
 			],
 			"abilities": [
@@ -147,7 +146,6 @@
 				"../../src/shared/js/ch.events.js",
 				"../../src/mobile/js/ch.events.js",
 				"../../src/shared/js/ch.factory.js",
-				"../../src/shared/js/ch.debug.js",
 				"../../src/mobile/js/ch.init.js"
 			],
 			"abilities": [

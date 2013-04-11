@@ -318,4 +318,4 @@
      */
     ch.factory(Zoom, parent._normalizeOptions);
 
-}(this, this.jQuery, this.ch));
+}(this, this.ch.$, this.ch));
