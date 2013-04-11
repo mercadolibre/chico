@@ -1,4 +1,4 @@
-(function ($) {
+(function () {
 
 	$.extend(ch.events, {
 		/**
@@ -83,4 +83,4 @@
 		}
 
 	});
-}(ch.$));
+}());

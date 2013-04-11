@@ -211,4 +211,4 @@
 
     ch.Content = Content;
 
-}((this.jQuery || this.Zepto), this.ch));
+}(this.ch.$, this.ch));
