@@ -1,8 +1,5 @@
-[hidden] {
-    display: none;
-}
-
 /* IMPORTANT: .ch-hide class allows components to be shown and hidden */
+[hidden],
 .ch-hide {
 	display: none;
 }
