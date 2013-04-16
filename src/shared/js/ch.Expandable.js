@@ -10,7 +10,7 @@
             options = {
                 'content': options
             };
-        }
+        }2
         return options;
     };
 
@@ -20,7 +20,7 @@
      * @memberOf ch
      * @augments ch.Navs
      * @param {Object} [options] Object with configuration properties.
-     * @param {Boolean} [options.open] Shows the Expandable open when component was loaded. By default, the value is false.
+     * @param {Boolean} [options.active] Shows the Expandable shown when component was loaded. By default, the value is false.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
      * @returns {Object}
      * @exampleDescription Create a new Expandable.
@@ -144,42 +144,17 @@
          * @type {Selector}
          * @ignore
          */
-        this.$container = (this._options.container || this.$el.next())
+        this.$container = this._$content = (this._options.container || this.$el.next())
             .addClass(this._options._classNameContainer);
 
         /**
          * Default behavior
          */
-        // Content configuration
-        this.content.onmessage = function (event) {
-            var status = 'content' + event.status;
-
-            that.$container.html(event.response);
-            that.emit(status, event);
-
-            if (that._options['on' + status] !== undefined) {
-                that._options['on' + status].call(that, event);
-            }
-        };
-
-        this.content.configure({
-            'input': this._options.content || this.$container.html(),
-            'method': this._options.method,
-            'params': this._options.params,
-            'cache': this._options.cache,
-            'async': this._options.async,
-            'waiting': this._options.waiting
-        });
-
-        // Is it toggleable?
-        this._toggle = this._options.toggle;
-
-        // Is it open by default?
-        if (this._options.open) {
-            this.show();
+        if (this._options.content !== undefined) {
+            this.once('show', function () {
+                that.content(this._options.content);
+            });
         }
-
-        ch.util.avoidTextSelection(this.$trigger);
 
         this
             .on('show', function () {
@@ -188,6 +163,14 @@
             .on('hide', function () {
                 $document.trigger(ch.events.layout.CHANGE);
             });
+
+        ch.util.avoidTextSelection(this.$trigger);
+
+        // Is it open by default?
+        if (this._options.open) {
+            this.show();
+        }
+
     };
 
     /**
@@ -196,7 +179,7 @@
      * @function
      * @name ch.Expandable#show
      * @returns {Object}
-     * @exampleDescription Open the Expandable widget.
+     * @exampleDescription Show the Expandable widget.
      * @example
      * widget.show();
      */
@@ -206,20 +189,16 @@
             return this;
         }
 
-        if (this._active && this._toggle) {
+        if (this._active && this._options.toggle) {
             return this.hide();
         }
 
         this._show();
 
-        // Request the content
+        // Set new content
         if (content !== undefined) {
-            this.content.configure({
-                'input': content
-            });
+            this.content(content);
         }
-
-        this.content.set();
 
         return this;
     };
@@ -237,7 +216,7 @@
     Expandable.prototype.hide = function () {
 
         if (!this._active) {
-            return;
+            return this;
         }
 
         this._hide();

@@ -135,33 +135,6 @@
         /**
          * Configure abilities
          */
-        this.content.configure({
-            'input': this._options.content,
-            'method': this._options.method,
-            'params': this._options.params,
-            'cache': this._options.cache,
-            'async': this._options.async,
-            'waiting': this._options.waiting
-        });
-
-        /**
-         * This callback is triggered when content request have finished.
-         * @protected
-         * @name ch.Popover#content#onmessage
-         * @function
-         * @returns {this}
-         */
-        this.content.onmessage = function (event) {
-            var status = 'content' + event.status;
-
-            that._$content.html(event.response);
-            that.emit(status, event);
-            that.position.refresh();
-
-            if (that._options['on' + status] !== undefined) {
-                that._options['on' + status].call(that, event);
-            }
-        };
 
         this._closable();
 
@@ -181,6 +154,10 @@
             if (that._active) {
                 that.position.refresh();
             }
+        });
+
+        this.on('contentdone', function () {
+            that.position.refresh();
         });
 
         this.on('hide', function () {
@@ -261,12 +238,8 @@
 
         // Request the content
         if (content !== undefined) {
-            this.content.configure({
-                'input': content
-            });
+            this.content(content);
         }
-
-        this.content.set();
 
         return this;
     };

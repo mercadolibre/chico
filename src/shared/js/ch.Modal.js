@@ -70,7 +70,7 @@
 
         $body = $('body'),
 
-        $dimmer = $('<div class="ch-dimmer">');
+        $dimmer = $('<div class="ch-dimmer ch-hide">');
 
     /**
      * Public members
@@ -125,7 +125,7 @@
         if (ch.support.fx) {
             $dimmer.fadeIn();
         } else {
-            $dimmer.show();
+            $dimmer.removeClass('ch-hide');
         }
 
         // Execute the original show()
@@ -146,7 +146,7 @@
         if (ch.support.fx) {
             $dimmer.fadeOut('normal', $dimmer.detach);
         } else {
-            $dimmer.hide();
+            $dimmer.addClass('ch-hide').detach();
         }
         // Execute the original hide()
         parent.hide.call(this);

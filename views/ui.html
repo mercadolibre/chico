@@ -1,1532 +1,1550 @@
 <!doctype html>
-<!--[if IE 7]>	<html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
-<!--[if IE 8]>	<html class="no-js lt-ie10 lt-ie9 ie8" lang="en"> <![endif]-->
-<!--[if IE 9]>	<html class="no-js lt-ie10 ie9" lang="en"> <![endif]-->
+<!--[if IE 7]>  <html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>  <html class="no-js lt-ie10 lt-ie9 ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>  <html class="no-js lt-ie10 ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="es"> <!--<![endif]-->
 <head>
-	<script></script>
-	<meta charset="utf-8" />
-	<title>Chico UI</title>
+    <script></script>
+    <meta charset="utf-8" />
+    <title>Chico UI</title>
 
-	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
-	<meta name="HandheldFriendly" content="True">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<meta http-equiv="cleartype" content="on">
+    <!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="cleartype" content="on">
 
-	<link rel="stylesheet" href="/ui/css">
-	<link rel="stylesheet" href="/shared/mesh">
-	<style>
-		/**
-		 * Carousel demo
-		 */
-		.myCarousel .ch-carousel-item {
-			width: 250px;
-			height: 250px;
-		}
+    <link rel="stylesheet" href="/ui/css">
+    <link rel="stylesheet" href="/shared/mesh">
+    <style>
+        /**
+         * Carousel demo
+         */
+        .myCarousel .ch-carousel-item {
+            width: 250px;
+            height: 250px;
+        }
 
-		.myCarousel img {
-			max-width: 100%;
-			max-height: 100%;
-		}
+        .myCarousel img {
+            max-width: 100%;
+            max-height: 100%;
+        }
 
-		/* Icons demo */
-		.showroomIcons {
-			overflow: hidden;
-		}
+        /* Icons demo */
+        .showroomIcons {
+            overflow: hidden;
+        }
 
-		.showroomIcons li{
-			float:left;
-			width: 33%;
-			line-height: 2em;
-		}
+        .showroomIcons li{
+            float:left;
+            width: 33%;
+            line-height: 2em;
+        }
 
-		.autoComplete {
-			width: 250px;
-		}
+        .autoComplete {
+            width: 250px;
+        }
 
-		.autoComplete2 {
-			width: 350px;
-		}
+        .autoComplete2 {
+            width: 350px;
+        }
 
-		.autoComplete3 {
-			width: 450px;
-		}
+        .autoComplete3 {
+            width: 450px;
+        }
 
-		.ch-loading-small {
-			display: block;
-			margin:0 auto;
-		}
+        .ch-loading-small {
+            display: block;
+            margin:0 auto;
+        }
 
-		#bubble-box {
-			position: relative;
-		}
+        #bubble-box {
+            position: relative;
+        }
 
-		.component-list li{
-			margin-left:0;
-		}
+        .component-list li{
+            margin-left:0;
+        }
 
-	</style>
+    </style>
 </head>
 
 <body>
-	<h1>Chico UI</h1>
-	<div class="ch-box-lite">
-		<h2>List of components</h2>
-		<ul class="ch-list component-list ch-clearfix">
-			<li class="ch-g1-5"><a href="#mesh">Mesh</a></li>
-			<li class="ch-g1-5"><a href="#headers">Headers</a></li>
-			<li class="ch-g1-5"><a href="#headings">Headings</a></li>
-			<li class="ch-g1-5"><a href="#links">Links</a></li>
-			<li class="ch-g1-5"><a href="#buttons">Buttons</a></li>
-			<li class="ch-g1-5"><a href="#autoComplete">AutoComplete</a></li>
-			<li class="ch-g1-5"><a href="#blink">Blink</a></li>
-			<li class="ch-g1-5"><a href="#boxes">Boxes</a></li>
-			<li class="ch-g1-5"><a href="#spinner">Spinners</a></li>
-			<li class="ch-g1-5"><a href="#message-boxes">Message Boxes</a></li>
-			<li class="ch-g1-5"><a href="#big-message-boxes">Big Message Boxes</a></li>
-			<li class="ch-g1-5"><a href="#lists">Lists</a></li>
-			<li class="ch-g1-5"><a href="#list-options">Lists Options</a></li>
-			<li class="ch-g1-5"><a href="#list-options-icon">Lists Options Icons</a></li>
-			<li class="ch-g1-5"><a href="#transitions">Transitions</a></li>
-			<li class="ch-g1-5"><a href="#tags">Tags</a></li>
-			<li class="ch-g1-5"><a href="#pagination">Pagination</a></li>
-			<li class="ch-g1-5"><a href="#tables">Tables</a></li>
-			<li class="ch-g1-5"><a href="#dropdown">Dropdown</a></li>
-			<li class="ch-g1-5"><a href="#tooltip">Tooltip</a></li>
+    <h1>Chico UI</h1>
+    <div class="ch-box-lite">
+        <h2>List of components</h2>
+        <ul class="ch-list component-list ch-clearfix">
+            <li class="ch-g1-5"><a href="#mesh">Mesh</a></li>
+            <li class="ch-g1-5"><a href="#headers">Headers</a></li>
+            <li class="ch-g1-5"><a href="#headings">Headings</a></li>
+            <li class="ch-g1-5"><a href="#links">Links</a></li>
+            <li class="ch-g1-5"><a href="#buttons">Buttons</a></li>
+            <li class="ch-g1-5"><a href="#autoComplete">AutoComplete</a></li>
+            <li class="ch-g1-5"><a href="#blink">Blink</a></li>
+            <li class="ch-g1-5"><a href="#boxes">Boxes</a></li>
+            <li class="ch-g1-5"><a href="#spinner">Spinners</a></li>
+            <li class="ch-g1-5"><a href="#message-boxes">Message Boxes</a></li>
+            <li class="ch-g1-5"><a href="#big-message-boxes">Big Message Boxes</a></li>
+            <li class="ch-g1-5"><a href="#lists">Lists</a></li>
+            <li class="ch-g1-5"><a href="#list-options">Lists Options</a></li>
+            <li class="ch-g1-5"><a href="#list-options-icon">Lists Options Icons</a></li>
+            <li class="ch-g1-5"><a href="#transitions">Transitions</a></li>
+            <li class="ch-g1-5"><a href="#tags">Tags</a></li>
+            <li class="ch-g1-5"><a href="#pagination">Pagination</a></li>
+            <li class="ch-g1-5"><a href="#tables">Tables</a></li>
+            <li class="ch-g1-5"><a href="#dropdown">Dropdown</a></li>
+            <li class="ch-g1-5"><a href="#tooltip">Tooltip</a></li>
             <li class="ch-g1-5"><a href="#layer">Layer</a></li>
             <li class="ch-g1-5"><a href="#bubble">Bubble</a></li>
             <li class="ch-g1-5"><a href="#modal">Modal</a></li>
             <li class="ch-g1-5"><a href="#transition">Transition</a></li>
-			<li class="ch-g1-5"><a href="#expandable">Expandable</a></li>
-			<li class="ch-g1-5"><a href="#accordion">Accordion</a></li>
-			<li class="ch-g1-5"><a href="#zoom">Zoom</a></li>
-			<li class="ch-g1-5"><a href="#menu">Menu</a></li>
-			<li class="ch-g1-5"><a href="#forms">Forms</a></li>
+            <li class="ch-g1-5"><a href="#expandable">Expandable</a></li>
+            <li class="ch-g1-5"><a href="#zoom">Zoom</a></li>
+            <li class="ch-g1-5"><a href="#menu">Menu</a></li>
+            <li class="ch-g1-5"><a href="#forms">Forms</a></li>
             <li class="ch-g1-5"><a href="#icons">Icons</a></li>
             <li class="ch-g1-5"><a href="#tabs">Tabs</a></li>
             <li class="ch-g1-5"><a href="#countdown">Countdown</a></li>
-			<li class="ch-g1-5"><a href="#calendar">Calendar</a></li>
-			<li class="ch-g1-5"><a href="#datePicker">DatePicker</a></li>
-		</ul>
-	</div>
+            <li class="ch-g1-5"><a href="#calendar">Calendar</a></li>
+            <li class="ch-g1-5"><a href="#datePicker">DatePicker</a></li>
+        </ul>
+    </div>
 
-	<div class="ch-clearfix">
-		<h1 id="mesh">Mesh</h1>
-		<div class="ch-g1">
-			<div class="ch-box-lite">1/1</div>
-		</div>
-		<div class="ch-g1-2">
-			<div class="ch-box-lite ch-leftcolumn">1/2</div>
-		</div>
-		<div class="ch-g1-2">
-			<div class="ch-box-lite ch-rightcolumn">1/2</div>
-		</div>
-		<div class="ch-g1-3">
-			<div class="ch-box-lite ch-leftcolumn">1/3</div>
-		</div>
-		<div class="ch-g1-3">
-			<div class="ch-box-lite ch-centercolumn">1/3</div>
-		</div>
-		<div class="ch-g1-3">
-			<div class="ch-box-lite ch-rightcolumn">1/3</div>
-		</div>
+    <div class="ch-clearfix">
+        <h1 id="mesh">Mesh</h1>
+        <div class="ch-g1">
+            <div class="ch-box-lite">1/1</div>
+        </div>
+        <div class="ch-g1-2">
+            <div class="ch-box-lite ch-leftcolumn">1/2</div>
+        </div>
+        <div class="ch-g1-2">
+            <div class="ch-box-lite ch-rightcolumn">1/2</div>
+        </div>
+        <div class="ch-g1-3">
+            <div class="ch-box-lite ch-leftcolumn">1/3</div>
+        </div>
+        <div class="ch-g1-3">
+            <div class="ch-box-lite ch-centercolumn">1/3</div>
+        </div>
+        <div class="ch-g1-3">
+            <div class="ch-box-lite ch-rightcolumn">1/3</div>
+        </div>
 
-		<div class="ch-g1-4">
-			<div class="ch-box-lite ch-leftcolumn">1/4</div>
-		</div>
-		<div class="ch-g1-4">
-			<div class="ch-box-lite ch-centercolumn">1/4</div>
-		</div>
-		<div class="ch-g1-4">
-			<div class="ch-box-lite ch-centercolumn">1/4</div>
-		</div>
-		<div class="ch-g1-4">
-			<div class="ch-box-lite ch-rightcolumn">1/4</div>
-		</div>
+        <div class="ch-g1-4">
+            <div class="ch-box-lite ch-leftcolumn">1/4</div>
+        </div>
+        <div class="ch-g1-4">
+            <div class="ch-box-lite ch-centercolumn">1/4</div>
+        </div>
+        <div class="ch-g1-4">
+            <div class="ch-box-lite ch-centercolumn">1/4</div>
+        </div>
+        <div class="ch-g1-4">
+            <div class="ch-box-lite ch-rightcolumn">1/4</div>
+        </div>
 
-		<div class="ch-g1-5">
-			<div class="ch-box-lite ch-leftcolumn">1/5</div>
-		</div>
-		<div class="ch-g1-5">
-			<div class="ch-box-lite ch-centercolumn">1/5</div>
-		</div>
-		<div class="ch-g1-5">
-			<div class="ch-box-lite ch-centercolumn">1/5</div>
-		</div>
-		<div class="ch-g1-5">
-			<div class="ch-box-lite ch-centercolumn">1/5</div>
-		</div>
-		<div class="ch-g1-5">
-			<div class="ch-box-lite ch-rightcolumn">1/5</div>
-		</div>
+        <div class="ch-g1-5">
+            <div class="ch-box-lite ch-leftcolumn">1/5</div>
+        </div>
+        <div class="ch-g1-5">
+            <div class="ch-box-lite ch-centercolumn">1/5</div>
+        </div>
+        <div class="ch-g1-5">
+            <div class="ch-box-lite ch-centercolumn">1/5</div>
+        </div>
+        <div class="ch-g1-5">
+            <div class="ch-box-lite ch-centercolumn">1/5</div>
+        </div>
+        <div class="ch-g1-5">
+            <div class="ch-box-lite ch-rightcolumn">1/5</div>
+        </div>
 
-		<div class="ch-g1-5">
-			<div class="ch-box-lite ch-leftcolumn">1/5</div>
-		</div>
-		<div class="ch-g4-5">
-			<div class="ch-box-lite ch-rightcolumn">4/5</div>
-		</div>
+        <div class="ch-g1-5">
+            <div class="ch-box-lite ch-leftcolumn">1/5</div>
+        </div>
+        <div class="ch-g4-5">
+            <div class="ch-box-lite ch-rightcolumn">4/5</div>
+        </div>
 
-		<div class="ch-g1-4">
-			<div class="ch-box-lite ch-leftcolumn">1/4</div>
-		</div>
-		<div class="ch-g3-4">
-			<div class="ch-box-lite ch-rightcolumn">3/4</div>
-		</div>
+        <div class="ch-g1-4">
+            <div class="ch-box-lite ch-leftcolumn">1/4</div>
+        </div>
+        <div class="ch-g3-4">
+            <div class="ch-box-lite ch-rightcolumn">3/4</div>
+        </div>
 
-		<div class="ch-g1-3">
-			<div class="ch-box-lite ch-leftcolumn">1/3</div>
-		</div>
-		<div class="ch-g2-3">
-			<div class="ch-box-lite ch-rightcolumn">2/3</div>
-		</div>
+        <div class="ch-g1-3">
+            <div class="ch-box-lite ch-leftcolumn">1/3</div>
+        </div>
+        <div class="ch-g2-3">
+            <div class="ch-box-lite ch-rightcolumn">2/3</div>
+        </div>
 
-		<div class="ch-g2-5">
-			<div class="ch-box-lite ch-leftcolumn">1/5</div>
-		</div>
-		<div class="ch-g3-5">
-			<div class="ch-box-lite ch-rightcolumn">3/5</div>
-		</div>
-
-
-		<div class="ch-g2-4">
-			<div class="ch-box-lite ch-leftcolumn">2/4</div>
-		</div>
-		<div class="ch-g1-4">
-			<div class="ch-box-lite ch-rightcolumn">1/4</div>
-		</div>
-		<div class="ch-g1-4">
-			<div class="ch-box-lite ch-rightcolumn">1/4</div>
-		</div>
-	</div>
-
-	<div class="ch-box-lite">
-		<h1 id="#headers">Headings</h1>
-		<h1>Header 1</h1>
-		<h2>Header 2</h2>
-		<h3>Header 3</h3>
-		<h4>Header 4</h4>
-		<h5>Header 5</h5>
-		<h6>Header 6</h6>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2>Paragraphs</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p><p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.</p><p>Phasellus ornare lacus ut purus elementum eget sodales dui placerat. Nunc ultrices porttitor mi, eu varius quam tristique in. Etiam tempor porta sodales.</p><p>Phasellus dui nisi, hendrerit a porta vel, tempus bibendum mauris.</p><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2 id="#links">Links</h2>
-
-		<p><a href="http://www.mercadolibre.com">MercadoLibre</a></p>
-		<p><a href="http://www.mercadopago.com">MercadoPago</a></p>
-		<p><a href="http://www.mercadoshops.com">MercadoShops</a></p>
-		<p><a href="http://www.mercadoclics.com">MercadoClics</a></p>
-	</div>
-
-	<div class="ch-box-lite ch-clearfix">
-		<h2 id="#list">Lists</h2>
-		<div class="ch-g1-4">
-			<h3>Unstyled</h3>
-			<ul>
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-			</ul>
-		</div>
-		<div class="ch-g1-4">
-			<h3>Unordered</h3>
-			<ul class="ch-list">
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-			</ul>
-		</div>
-		<div class="ch-g1-4">
-			<h3>Ordered</h3>
-			<ol class="ch-list">
-				<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-				<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-				<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-				<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-			</ol>
-		</div>
-		<div class="ch-g1-4">
-			<h3>Description</h3>
-			<dl class="ch-list">
-				<dt>MercadoLibre</dt>
-				<dd>Donde compras y vendes de todo!</dd>
-				<dt>MercadoPago</dt>
-				<dd>La forma más simple de recibir pagos!</dd>
-				<dt>MercadoShops</dt>
-				<dd>Tu tienda virtual gratis y en minutos!</dd>
-			</dl>
-		</div>
-	</div>
-
-	<h2 id="#boxes">Boxes</h2>
-	<div class="ch-box-container">
-		<h3>Container Box</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-	</div>
-	<div class="ch-box-lite">
-		<h3>Box Lite</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-	</div>
-
-	<div class="ch-box">
-		<h3>Box</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
-	</div>
-
-	<h2 id="#wizard">Wizard</h2>
-	<div class="ch-wizard">
-		<ol class="ch-wizard-breadcrumb ch-steps-four">
-			<li><a href="#1">Step 1</a></li>
-			<li><a href="#2">Step 2</a></li>
-			<li class="ch-wizard-current">Step 3</li>
-			<li class="ch-wizard-step">Step 4</li>
-		</ol>
-
-		<div class="ch-box-container">
-			<h2>Caption heading</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-		</div>
-
-		<div class="ch-actions">
-			<button class="ch-btn">Primary Action</button>
-			<a href="#">Secondary Action</a>
-		</div>
-	</div>
+        <div class="ch-g2-5">
+            <div class="ch-box-lite ch-leftcolumn">1/5</div>
+        </div>
+        <div class="ch-g3-5">
+            <div class="ch-box-lite ch-rightcolumn">3/5</div>
+        </div>
 
 
-	<div class="ch-box-lite">
-		<h2 id="#spinner">Spinner control</h2>
-		<span class="ch-loading-small"></span>
-		<span class="ch-loading"></span>
-		<span class="ch-loading-big"></span>
-	</div>
+        <div class="ch-g2-4">
+            <div class="ch-box-lite ch-leftcolumn">2/4</div>
+        </div>
+        <div class="ch-g1-4">
+            <div class="ch-box-lite ch-rightcolumn">1/4</div>
+        </div>
+        <div class="ch-g1-4">
+            <div class="ch-box-lite ch-rightcolumn">1/4</div>
+        </div>
+    </div>
 
-	<div class="ch-box-lite ch-clearfix">
-		<div class="ch-g1-2">
-			<div class="ch-leftcolumn">
-				<h2 id="message-boxes">Message boxes</h2>
-				<div class="ch-box-error">Oops, something wrong happened</div>
-				<div class="ch-box-help">Do you need any help?</div>
-				<div class="ch-box-information">Here's more information</div>
-				<div class="ch-box-attention">Warning! something might be wrong</div>
-				<div class="ch-box-ok">Everything is great!</div>
-			</div>
-		</div>
+    <div class="ch-box-lite">
+        <h1 id="#headers">Headings</h1>
+        <h1>Header 1</h1>
+        <h2>Header 2</h2>
+        <h3>Header 3</h3>
+        <h4>Header 4</h4>
+        <h5>Header 5</h5>
+        <h6>Header 6</h6>
+    </div>
 
-		<div class="ch-g1-2">
-			<div class="ch-rightcolumn">
-				<h2 id="big-message-boxes">Big message boxes</h2>
-				<div class="ch-box-attention">
-					<h2>Warning!</h2>
-					<p>This is a big warning message, be careful!</p>
-				</div>
-				<div class="ch-box-ok">
-					<h2>Congratulations!</h2>
-					<p>This went really well. You're awesome!</p>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="ch-box-lite">
+        <h2>Paragraphs</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p><p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.</p><p>Phasellus ornare lacus ut purus elementum eget sodales dui placerat. Nunc ultrices porttitor mi, eu varius quam tristique in. Etiam tempor porta sodales.</p><p>Phasellus dui nisi, hendrerit a porta vel, tempus bibendum mauris.</p><p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus bibendum consectetur dignissim.</p>
+    </div>
 
-	<div class="ch-box-lite ch-clearfix">
-		<div class="ch-g1-2">
-			<div class="ch-leftcolumn">
-				<h2 id="buttons">Buttons</h2>
-				<p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
-				<p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
-				<p><input type="button" class="ch-btn" value="Default button"></p>
-				<p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
-				<p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
-			</div>
-		</div>
-		<div class="ch-g1-2">
-			<div class="ch-rightcolumn">
-				<h2>Disabled Buttons</h2>
-				<p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
-				<p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Big button disabled"></p>
-				<p><input type="button" class="ch-btn ch-btn-disabled" value="Default button disabled"></p>
-				<p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled"></p>
-				<p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
-			</div>
-		</div>
-	</div>
+    <div class="ch-box-lite">
+        <h2 id="#links">Links</h2>
 
-	<div class="ch-box-lite">
-		<h2 id="autoComplete">AutoComplete</h2>
-		<form method="get" action="/" id="asForm" class="ch-form">
-			<div class="ch-form-row">
-				<label for="autocomplete">
-					Your country:
-				</label>
-				<input type="text" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
-			</div>
-			<div class="ch-form-row">
-				<label for="autocomplete2">
-					Other callback:
-				</label>
-				<input type="text" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
-			</div>
-			<div class="ch-form-row">
-				<label for="autocomplete3">
-					With an array:
-				</label>
-				<input type="text" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
-			</div>
-			<p class="ch-form-actions">
-				<input type="submit" name="autoCompleteSubmit" class="ch-btn">
-			</p>
-		</form>
-	</div>
+        <p><a href="http://www.mercadolibre.com">MercadoLibre</a></p>
+        <p><a href="http://www.mercadopago.com">MercadoPago</a></p>
+        <p><a href="http://www.mercadoshops.com">MercadoShops</a></p>
+        <p><a href="http://www.mercadoclics.com">MercadoClics</a></p>
+    </div>
 
-	<div class="ch-box-lite">
-		<h2 id="blink">Blink</h2>
-		<p id="example">This is a text that you can blink</p>
-		<p>
-			<button class="ch-btn-skin ch-btn-small" id="doHighlight">Blink the paragraph</button>
-		</p>
-	</div>
+    <div class="ch-box-lite ch-clearfix">
+        <h2 id="#list">Lists</h2>
+        <div class="ch-g1-4">
+            <h3>Unstyled</h3>
+            <ul>
+                <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+                <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+                <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+                <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+            </ul>
+        </div>
+        <div class="ch-g1-4">
+            <h3>Unordered</h3>
+            <ul class="ch-list">
+                <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+                <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+                <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+                <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+            </ul>
+        </div>
+        <div class="ch-g1-4">
+            <h3>Ordered</h3>
+            <ol class="ch-list">
+                <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+                <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+                <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+                <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+            </ol>
+        </div>
+        <div class="ch-g1-4">
+            <h3>Description</h3>
+            <dl class="ch-list">
+                <dt>MercadoLibre</dt>
+                <dd>Donde compras y vendes de todo!</dd>
+                <dt>MercadoPago</dt>
+                <dd>La forma más simple de recibir pagos!</dd>
+                <dt>MercadoShops</dt>
+                <dd>Tu tienda virtual gratis y en minutos!</dd>
+            </dl>
+        </div>
+    </div>
 
-	<div class="ch-box-lite">
-		<h2 id="pagination">Pagination</h2>
-		<ul class="ch-pagination">
-			<li><a type="prev" href="/2.html">Previous</a></li>
-			<li><a href="/1.html">1</a></li>
-			<li><a href="/2.html">2</a></li>
-			<li class="ch-pagination-current"><a href="/3.html">3</a></li>
-			<li><a href="/4.html">4</a></li>
-			<li><a href="/5.html">5</a></li>
-			<li><a type="next" href="/4.html">Next</a></li>
-		</ul>
-	</div>
+    <h2 id="#boxes">Boxes</h2>
+    <div class="ch-box-container">
+        <h3>Container Box</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+    </div>
+    <div class="ch-box-lite">
+        <h3>Box Lite</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+    </div>
 
-	<div class="ch-box-lite">
-		<h2 id="tables">Tables</h2>
-		<table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
-				<caption>Table</caption>
-				<thead>
-					<tr>
-						<th scope="col">Data</th>
-						<th scope="col">Operation</th>
-						<th scope="col">Seller</th>
-						<th scope="col">Description</th>
-						<th scope="col">Price</th>
-						<th scope="col">Status</th>
-						<th scope="col">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>02/04/2011</td>
-						<td><a href="#">Sale</a></td>
-						<td><a href="#">mail@example.com</a></td>
-						<td>Shopping at MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pending</td>
-						<td>select
-						</td>
-					</tr>
-					<tr>
-						<td>02/04/2011</td>
-						<td><a href="#">Purchase</a></td>
-						<td><a href="#">mail@example.com</a></td>
-						<td>Shopping at MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pending</td>
-						<td>select</td>
-					</tr>
-					<tr>
-						<td>02/04/2011</td>
-						<td><a href="#">Sale</a></td>
-						<td><a href="#">mail@example.com</a></td>
-						<td>Shopping at MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pending</td>
-						<td>select</td>
-					</tr>
-					<tr>
-						<td>02/04/2011</td>
-						<td><a href="#">Sale</a></td>
-						<td><a href="#">mail@example.com</a></td>
-						<td>Shopping at MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pending</td>
-						<td>select</td>
-					</tr>
-				</tbody>
-			</table>
+    <div class="ch-box">
+        <h3>Box</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#">adipiscing</a>. Donec sit amet purus in sapien luctus sodales <a href="#">adipiscing</a>.</p>
+    </div>
 
-			<table class="ch-datagrid-controls" summary="Listado de cobros en MercadoPago">
-				<caption>Table</caption>
-				<thead>
-					<tr>
-						<th scope="col"><input type="checkbox" name="mycheckall"/></th>
-						<th scope="col">Data</th>
-						<th scope="col">Operation</th>
-						<th scope="col">Seller</th>
-						<th scope="col">Description</th>
-						<th scope="col" class="ch-datagrid-selected">Price <i class="ch-datagrid-desc"></i></th>
-						<th scope="col">Status</th>
-						<th scope="col">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td scope="row"><input type="checkbox" name="mycheck"/></td>
-						<td>02/04/2011</td>
-						<td><a href="#">Sale</a></td>
-						<td><a href="#">mail@example.com</a></td>
-						<td>Shopping at MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pending</td>
-						<td>select
-						</td>
-					</tr>
-					<tr class="ch-datagrid-selected">
-						<td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
-						<td>02/04/2011</td>
-						<td><a href="#">Purchase</a></td>
-						<td><a href="#">mail@example.com</a></td>
-						<td>Shopping at MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pending</td>
-						<td>select</td>
-					</tr>
-					<tr>
-						<td scope="row"><input type="checkbox" name="mycheck"/></td>
-						<td>02/04/2011</td>
-						<td><a href="#">Sale</a></td>
-						<td><a href="#">mail@example.com</a></td>
-						<td>Shopping at MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pending</td>
-						<td>select</td>
-					</tr>
-					<tr>
-						<td scope="row"><input type="checkbox" name="mycheck"/></td>
-						<td>02/04/2011</td>
-						<td><a href="#">Sale</a></td>
-						<td><a href="#">mail@example.com</a></td>
-						<td>Shopping at MercadoLibre</td>
-						<td><span class="value">$1200,30</span></td>
-						<td>Pending</td>
-						<td>select</td>
-					</tr>
-				</tbody>
-			</table>
-	</div>
+    <h2 id="#wizard">Wizard</h2>
+    <div class="ch-wizard">
+        <ol class="ch-wizard-breadcrumb ch-steps-four">
+            <li><a href="#1">Step 1</a></li>
+            <li><a href="#2">Step 2</a></li>
+            <li class="ch-wizard-current">Step 3</li>
+            <li class="ch-wizard-step">Step 4</li>
+        </ol>
 
-	<div class="ch-box-lite">
-		<h2 id="expandable">Expandable</h2>
-		<h4 class="YOUR_SELECTOR_expandable">Lorem ipsum dolor sit amet.</h4>
-		<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.
-		</div>
+        <div class="ch-box-container">
+            <h2>Caption heading</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+        </div>
 
-		<h4 class="YOUR_SELECTOR_expandable2">Lorem ipsum dolor sit amet.</h4>
-		<div>
-			<div id="container">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</div>
-		</div>
-
-		<h4 class="YOUR_SELECTOR_expandable3">Lorem ipsum dolor sit amet.</h4>
-		<div id="container-ajax"></div>
-	</div>
+        <div class="ch-actions">
+            <button class="ch-btn">Primary Action</button>
+            <a href="#">Secondary Action</a>
+        </div>
+    </div>
 
 
-	<div class="ch-box-container">
-		<h2 id="accordion">Accordion</h2>
-		<ul class="YOUR_SELECTOR_Accordion">
-			<li>
-				<span>Item</span>
-				<div class="ch-box-container">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p><p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.</p>
-				</div>
-			</li>
-			<li>
-				<span>Item</span>
-				<div class="ch-box-container">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p><p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.</p>
-				</div>
-			</li>
-			<li>
-				<span>Item</span>
-				<div class="ch-box-container">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p><p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.</p>
-				</div>
-			</li>
-			<li>
-				<span>Item</span>
-				<div class="ch-box-container">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p><p>Nam porta nunc vitae orci sollicitudin a ullamcorper purus dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed libero eget purus dictum fringilla non sed lectus. Etiam commodo quam in neque vehicula dapibus.</p>
-				</div>
-			</li>
-			<li>
-				<a href="#">Link</a>
-			</li>
-			<li>
-				<a href="#">Link</a>
-			</li>
-		</ul>
-	</div>
+    <div class="ch-box-lite">
+        <h2 id="#spinner">Spinner control</h2>
+        <span class="ch-loading-small"></span>
+        <span class="ch-loading"></span>
+        <span class="ch-loading-big"></span>
+    </div>
 
+    <div class="ch-box-lite ch-clearfix">
+        <div class="ch-g1-2">
+            <div class="ch-leftcolumn">
+                <h2 id="message-boxes">Message boxes</h2>
+                <div class="ch-box-error">Oops, something wrong happened</div>
+                <div class="ch-box-help">Do you need any help?</div>
+                <div class="ch-box-information">Here's more information</div>
+                <div class="ch-box-attention">Warning! something might be wrong</div>
+                <div class="ch-box-ok">Everything is great!</div>
+            </div>
+        </div>
 
-	<div class="ch-box-container">
-		<h2 id="menu">Menu</h2>
-		<ul class="YOUR_SELECTOR_Menu">
-			<li>
-				<span>Collapsible</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Collapsible</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#">Link</a>
-			</li>
-			<li>
-				<span>Collapsible</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<span>Collapsible</span>
-				<ul>
-					<li><a href="#">Link 1</a></li>
-					<li><a href="#">Link 2</a></li>
-					<li><a href="#">Link 3</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
+        <div class="ch-g1-2">
+            <div class="ch-rightcolumn">
+                <h2 id="big-message-boxes">Big message boxes</h2>
+                <div class="ch-box-attention">
+                    <h2>Warning!</h2>
+                    <p>This is a big warning message, be careful!</p>
+                </div>
+                <div class="ch-box-ok">
+                    <h2>Congratulations!</h2>
+                    <p>This went really well. You're awesome!</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div class="ch-box-lite">
-		<h2 id="dropdown">Dropdown</h2>
+    <div class="ch-box-lite ch-clearfix">
+        <div class="ch-g1-2">
+            <div class="ch-leftcolumn">
+                <h2 id="buttons">Buttons</h2>
+                <p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
+                <p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
+                <p><input type="button" class="ch-btn" value="Default button"></p>
+                <p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
+                <p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
+            </div>
+        </div>
+        <div class="ch-g1-2">
+            <div class="ch-rightcolumn">
+                <h2>Disabled Buttons</h2>
+                <p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
+                <p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Big button disabled"></p>
+                <p><input type="button" class="ch-btn ch-btn-disabled" value="Default button disabled"></p>
+                <p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled"></p>
+                <p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
+            </div>
+        </div>
+    </div>
 
-		<h3 class="myDropdown">Default</h3>
-		<menu label="Links" class="ch-hide">
-			<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-			<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-			<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-			<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-		</menu>
+    <div class="ch-box-lite">
+        <h2 id="autoComplete">AutoComplete</h2>
+        <form method="get" action="/" id="asForm" class="ch-form">
+            <div class="ch-form-row">
+                <label for="autocomplete">
+                    Your country:
+                </label>
+                <input type="text" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
+            </div>
+            <div class="ch-form-row">
+                <label for="autocomplete2">
+                    Other callback:
+                </label>
+                <input type="text" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
+            </div>
+            <div class="ch-form-row">
+                <label for="autocomplete3">
+                    With an array:
+                </label>
+                <input type="text" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
+            </div>
+            <p class="ch-form-actions">
+                <input type="submit" name="autoCompleteSubmit" class="ch-btn">
+            </p>
+        </form>
+    </div>
 
-		<i class="ch-icon-heart myDropdownNav"></i>
-		<ul class="ch-hide">
-			<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
-				<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
-					<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
-					<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
-					<p class="ch-price">$ 259<sup>90</sup></p>
-				</a>
-				<i class="favorite-menu-remove"></i>
-			</li>
-			<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
-				<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
-					<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
-					<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
-					<p class="ch-price">$ 259<sup>90</sup></p>
-				</a>
-				<i class="favorite-menu-remove"></i>
-			</li>
-			<li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
-				<a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-	subwoofer-remoto-usb-sd-_JM">
-					<img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
-					<p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
-					<p class="ch-price">$ 259<sup>90</sup></p>
-				</a>
-				<i class="favorite-menu-remove"></i>
-			</li>
-		</ul>
+    <div class="ch-box-lite">
+        <h2 id="blink">Blink</h2>
+        <p id="example">This is a text that you can blink</p>
+        <p>
+            <button class="ch-btn-skin ch-btn-small" id="doHighlight">Blink the paragraph</button>
+        </p>
+    </div>
 
-		<p class="myDropdownSkin">With skin</p>
-		<menu label="Links" class="ch-hide">
-			<li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-			<li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-			<li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-			<li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-		</menu>
-	</div>
+    <div class="ch-box-lite">
+        <h2 id="pagination">Pagination</h2>
+        <ul class="ch-pagination">
+            <li><a type="prev" href="/2.html">Previous</a></li>
+            <li><a href="/1.html">1</a></li>
+            <li><a href="/2.html">2</a></li>
+            <li class="ch-pagination-current"><a href="/3.html">3</a></li>
+            <li><a href="/4.html">4</a></li>
+            <li><a href="/5.html">5</a></li>
+            <li><a type="next" href="/4.html">Next</a></li>
+        </ul>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2 id="tables">Tables</h2>
+        <table class="ch-datagrid" summary="Listado de cobros en MercadoPago">
+                <caption>Table</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">Operation</th>
+                        <th scope="col">Seller</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>02/04/2011</td>
+                        <td><a href="#">Sale</a></td>
+                        <td><a href="#">mail@example.com</a></td>
+                        <td>Shopping at MercadoLibre</td>
+                        <td><span class="value">$1200,30</span></td>
+                        <td>Pending</td>
+                        <td>select
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>02/04/2011</td>
+                        <td><a href="#">Purchase</a></td>
+                        <td><a href="#">mail@example.com</a></td>
+                        <td>Shopping at MercadoLibre</td>
+                        <td><span class="value">$1200,30</span></td>
+                        <td>Pending</td>
+                        <td>select</td>
+                    </tr>
+                    <tr>
+                        <td>02/04/2011</td>
+                        <td><a href="#">Sale</a></td>
+                        <td><a href="#">mail@example.com</a></td>
+                        <td>Shopping at MercadoLibre</td>
+                        <td><span class="value">$1200,30</span></td>
+                        <td>Pending</td>
+                        <td>select</td>
+                    </tr>
+                    <tr>
+                        <td>02/04/2011</td>
+                        <td><a href="#">Sale</a></td>
+                        <td><a href="#">mail@example.com</a></td>
+                        <td>Shopping at MercadoLibre</td>
+                        <td><span class="value">$1200,30</span></td>
+                        <td>Pending</td>
+                        <td>select</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="ch-datagrid-controls" summary="Listado de cobros en MercadoPago">
+                <caption>Table</caption>
+                <thead>
+                    <tr>
+                        <th scope="col"><input type="checkbox" name="mycheckall"/></th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Operation</th>
+                        <th scope="col">Seller</th>
+                        <th scope="col">Description</th>
+                        <th scope="col" class="ch-datagrid-selected">Price <i class="ch-datagrid-desc"></i></th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                        <td>02/04/2011</td>
+                        <td><a href="#">Sale</a></td>
+                        <td><a href="#">mail@example.com</a></td>
+                        <td>Shopping at MercadoLibre</td>
+                        <td><span class="value">$1200,30</span></td>
+                        <td>Pending</td>
+                        <td>select
+                        </td>
+                    </tr>
+                    <tr class="ch-datagrid-selected">
+                        <td scope="row"><input type="checkbox" name="mycheck" checked="checked"></td>
+                        <td>02/04/2011</td>
+                        <td><a href="#">Purchase</a></td>
+                        <td><a href="#">mail@example.com</a></td>
+                        <td>Shopping at MercadoLibre</td>
+                        <td><span class="value">$1200,30</span></td>
+                        <td>Pending</td>
+                        <td>select</td>
+                    </tr>
+                    <tr>
+                        <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                        <td>02/04/2011</td>
+                        <td><a href="#">Sale</a></td>
+                        <td><a href="#">mail@example.com</a></td>
+                        <td>Shopping at MercadoLibre</td>
+                        <td><span class="value">$1200,30</span></td>
+                        <td>Pending</td>
+                        <td>select</td>
+                    </tr>
+                    <tr>
+                        <td scope="row"><input type="checkbox" name="mycheck"/></td>
+                        <td>02/04/2011</td>
+                        <td><a href="#">Sale</a></td>
+                        <td><a href="#">mail@example.com</a></td>
+                        <td>Shopping at MercadoLibre</td>
+                        <td><span class="value">$1200,30</span></td>
+                        <td>Pending</td>
+                        <td>select</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2 id="expandable">Expandable</h2>
+
+        <h4 class="YOUR_SELECTOR_expandable">Lorem ipsum dolor sit amet.</h4>
+        <div id="container1" class="ch-hide">
+            <div id="content">
+                <h2 class="test">Lorem</h2>
+                <p>ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p>
+            </div>
+        </div>
+
+        <h4 class="YOUR_SELECTOR_expandable2">Lorem ipsum dolor sit amet.</h4>
+        <div>
+            <div id="container">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</div>
+        </div>
+
+        <h4 class="YOUR_SELECTOR_expandable3">Lorem ipsum dolor sit amet.</h4>
+        <div id="container-ajax"></div>
+    </div>
+
+    <div class="ch-box-container">
+        <h2 id="menu">Menu</h2>
+        <ul class="YOUR_SELECTOR_Menu">
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Link</a>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Collapsible</span>
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2 id="dropdown">Dropdown</h2>
+
+        <h3 class="myDropdown">Default</h3>
+        <menu label="Links" class="ch-hide">
+            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        </menu>
+
+        <i class="ch-icon-heart myDropdownNav"></i>
+        <ul class="ch-hide">
+            <li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+                <a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-    subwoofer-remoto-usb-sd-_JM">
+                    <img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+                    <p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+                    <p class="ch-price">$ 259<sup>90</sup></p>
+                </a>
+                <i class="favorite-menu-remove"></i>
+            </li>
+            <li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+                <a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-    subwoofer-remoto-usb-sd-_JM">
+                    <img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+                    <p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+                    <p class="ch-price">$ 259<sup>90</sup></p>
+                </a>
+                <i class="favorite-menu-remove"></i>
+            </li>
+            <li data-id="MLA446649788" style="overflow: hidden; margin: 15px 0;">
+                <a href="http://articulo.mercadolibre.com.ar/MLA-446649788-parlantes-overtech-sg-122-21-    subwoofer-remoto-usb-sd-_JM">
+                    <img src="http://img1.mlstatic.com/s_MLA_v_I_f_3161875330_092012.jpg" style="float:left;">
+                    <p class="title">Parlantes Overtech Sg-122 2.1 Subwoofer Remoto Usb Sd</p>
+                    <p class="ch-price">$ 259<sup>90</sup></p>
+                </a>
+                <i class="favorite-menu-remove"></i>
+            </li>
+        </ul>
+
+        <p class="myDropdownSkin">With skin</p>
+        <menu label="Links" class="ch-hide">
+            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        </menu>
+    </div>
 
 
 
-	<div class="ch-box-lite ch-clearfix">
-		<h2 id="tooltip">Tooltip</h2>
+    <div class="ch-box-lite ch-clearfix">
+        <h2 id="tooltip">Tooltip</h2>
 
-		<div class="ch-g1-2">
-			<div class="ch-box-container">
-				<h3>Bottom</h3>
-				<img id="default" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-				<img id="ctcb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-				<img id="rtrb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-			</div>
+        <div class="ch-g1-2">
+            <div class="ch-box-container">
+                <h3>Bottom</h3>
+                <img id="default" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                <img id="ctcb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                <img id="rtrb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+            </div>
 
-			<div class="ch-box-container">
-				<h3>Top</h3>
-				<img id="lblt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-				<img id="cbct" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-				<img id="rbrt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-			</div>
-		</div>
+            <div class="ch-box-container">
+                <h3>Top</h3>
+                <img id="lblt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                <img id="cbct" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                <img id="rbrt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+            </div>
+        </div>
 
-		<div class="ch-g1-2">
-			<div class="ch-box-container">
-				<h3>Right</h3>
-				<img id="ltrt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-				<img id="lmrm" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-				<img id="lbrb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-			</div>
+        <div class="ch-g1-2">
+            <div class="ch-box-container">
+                <h3>Right</h3>
+                <img id="ltrt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                <img id="lmrm" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                <img id="lbrb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+            </div>
 
-			<div class="ch-box-container">
-				<h3>Left</h3>
-				<img id="rtlt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-				<img id="rmlm" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-				<img id="rblb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
-			</div>
-		</div>
-	</div>
+            <div class="ch-box-container">
+                <h3>Left</h3>
+                <img id="rtlt" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                <img id="rmlm" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+                <img id="rblb" alt="This is a tooltip" src="http://chico-ui.com.ar/src/assets/ninja.png" width="150" />
+            </div>
+        </div>
+    </div>
 
-	<div class="ch-box-lite">
-		<h2 id="layer">Layer</h2>
-		<ul class="ch-list">
+    <div class="ch-box-lite">
+        <h2 id="layer">Layer</h2>
+        <ul class="ch-list">
             <li><span id="layer1">Default Layer, executed on <strong>mouseenter</strong>.</span></li>
             <li><span id="layer2">Executed on <strong>click</strong>. <em>(close:all)</em></span></li>
-			<li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(close:none)</em>.</span></li>
-			<li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(close:button-only)</em>.</span></li>
+            <li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(close:none)</em>.</span></li>
+            <li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(close:button-only)</em>.</span></li>
             <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:pointers-only)</em></span></li>
-		</ul>
-		<div id="invisible-content-for-layer" class="ch-hide">
-    		<h1>This content is invisible</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-		</div>
-	</div>
+        </ul>
+        <div id="invisible-content-for-layer" class="ch-hide">
+            <h1>This content is invisible</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+        </div>
+    </div>
 
     <div class="ch-box-lite" id="bubble-box">
         <h2 id="bubble">Validation Bubble</h2>
         <button id="bubble1" class="ch-btn ch-btn-small">Show an error message</button>
     </div>
 
-	<div class="ch-box-lite">
-		<h2 id="modal">Modal with AJAX content</h2>
-
-		<form action="/ajax">
-			<p><input type="submit" class="ch-btn ch-btn-small modal1" value="Executed by submit a form"> or <a href="/ajax" class="modal1">Executed by a link</a>.</p>
-		</form>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2>Modal with DOM content</h2>
-
-		<button id="modal2" class="ch-btn ch-btn-small">Get content from DOM</button>
-
-		<div id="invisible-content" class="ch-hide">
-			<h1>Caption heading</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-			<div class="ch-actions">
-				<button class="ch-btn">Primary Action</button>
-				<a href="#">Secondary Action</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2>Modal Lite</h2>
-		<button id="modal3" class="ch-btn ch-btn-small">Show me</button>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2>Transition window</h2>
-		<form action="/ajax">
-			<input type="submit" id="transition" class="ch-btn ch-btn-small" value="Exeute it!">
-		</form>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2 id="zoom">Zoom</h2>
-		<a id="zoom1" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
-			<img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
-		</a>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2 id="carousel">Carousel</h2>
-
-		<div class="myCarousel ch-carousel">
-			<ul>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-				<li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="ch-box-container">
-		<h2 id="tabs">Tabs</h2>
-
-		<div class="YOUR_SELECTOR_Tabs ch-tabs">
-			<ul class="ch-tabs-triggers">
-				<li><a href="#tab1-a" class="ch-tab">Tab1</a></li>
-				<li><a href="#tab2-a" class="ch-tab">Tab2</a></li>
-				<li><a href="#tab3-a" class="ch-tab">Tab3</a></li>
-				<li><a href="./ajax#ajax-a" class="ch-tab">Tab4</a></li>
-			</ul>
-			<div class="ch-box-lite">
-				<div id="tab1-a">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
-
-				<div id="tab2-a" class="ch-hide">
-					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
-				</div>
-
-				<div id="tab3-a" class="ch-hide">
-					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="YOUR_SELECTOR_Tabs2 ch-tabs">
-			<ul class="ch-tabs-triggers">
-				<li><a href="#tab1-b" class="ch-tab">Tab1</a></li>
-				<li><a href="#tab2-b" class="ch-tab">Tab2</a></li>
-				<li><a href="#tab3-b" class="ch-tab">Tab3</a></li>
-				<li><a href="./ajax#ajax-b" class="ch-tab">Tab4</a></li>
-			</ul>
-			<div class="ch-box-lite">
-				<div id="tab1-b">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
-
-				<div id="tab2-b" class="ch-hide">
-					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
-				</div>
-
-				<div id="tab3-b" class="ch-hide">
-					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="ch-box-lite clearfix">
-		<h2 id="icons">Icons</h2>
-
-		<ul class="showroomIcons">
-			<li><i class="ch-icon-search"></i> ch-icon-search</li>
-			<li><i class="ch-icon-heart"></i> ch-icon-heart</li>
-			<li><i class="ch-icon-star"></i> ch-icon-star</li>
-			<li><i class="ch-icon-star-empty"></i> ch-icon-star-empty</li>
-			<li><i class="ch-icon-user"></i> ch-icon-user</li>
-			<li><i class="ch-icon-th-large"></i> ch-icon-th-large</li>
-			<li><i class="ch-icon-th"></i> ch-icon-th</li>
-			<li><i class="ch-icon-th-list"></i> ch-icon-user</li>
-			<li><i class="ch-icon-ok"></i> ch-icon-ok</li>
-			<li><i class="ch-icon-remove"></i> ch-icon-remove</li>
-			<li><i class="ch-icon-zoom-in"></i> ch-icon-zoom-in</li>
-			<li><i class="ch-icon-zoom-out"></i> ch-icon-zoom-out</li>
-			<li><i class="ch-icon-cog"></i> ch-icon-cog</li>
-			<li><i class="ch-icon-trash"></i> ch-icon-trash</li>
-			<li><i class="ch-icon-time"></i> ch-icon-time</li>
-			<li><i class="ch-icon-repeat"></i> ch-icon-repeat</li>
-			<li><i class="ch-icon-refresh"></i> ch-icon-refresh</li>
-			<li><i class="ch-icon-lock"></i> ch-icon-lock</li>
-			<li><i class="ch-icon-print"></i> ch-icon-print</li>
-			<li><i class="ch-icon-camera"></i> ch-icon-camera</li>
-			<li><i class="ch-icon-pencil"></i> ch-icon-pencil</li>
-			<li><i class="ch-icon-map-marker"></i> ch-icon-map-marker</li>
-			<li><i class="ch-icon-move"></i> ch-icon-move</li>
-			<li><i class="ch-icon-chevron-left"></i> ch-icon-chevron-left</li>
-			<li><i class="ch-icon-chevron-right"></i> ch-icon-chevron-right</li>
-			<li><i class="ch-icon-plus-sign"></i> ch-icon-plus-sign</li>
-			<li><i class="ch-icon-minus-sign"></i> ch-icon-minus-sign</li>
-			<li><i class="ch-icon-remove-sign"></i> ch-icon-remove-sign</li>
-			<li><i class="ch-icon-ok-sign"></i> ch-icon-ok-sign</li>
-			<li><i class="ch-icon-question-sign"></i> ch-icon-question-sign</li>
-			<li><i class="ch-icon-info-sign"></i> ch-icon-info-sign</li>
-			<li><i class="ch-icon-ban-circle"></i> ch-icon-ban-circle</li>
-			<li><i class="ch-icon-arrow-left"></i> ch-icon-arrow-left</li>
-			<li><i class="ch-icon-arrow-right"></i> ch-icon-arrow-right</li>
-			<li><i class="ch-icon-arrow-up"></i> ch-icon-arrow-up</li>
-			<li><i class="ch-icon-arrow-down"></i> ch-icon-arrow-down</li>
-			<li><i class="ch-icon-plus"></i> ch-icon-plus</li>
-			<li><i class="ch-icon-minus"></i> ch-icon-minus</li>
-			<li><i class="ch-icon-exclamation-sign"></i> ch-icon-exclamation-sign</li>
-			<li><i class="ch-icon-warning-sign"></i> ch-icon-warning-sign</li>
-			<li><i class="ch-icon-calendar"></i> ch-icon-calendar</li>
-			<li><i class="ch-icon-comment"></i> ch-icon-comment</li>
-			<li><i class="ch-icon-chevron-up"></i> ch-icon-chevron-up</li>
-			<li><i class="ch-icon-chevron-down"></i> ch-icon-chevron-down</li>
-			<li><i class="ch-icon-key"></i> ch-icon-key</li>
-			<li><i class="ch-icon-comments"></i> ch-icon-comments</li>
-			<li><i class="ch-icon-unlock"></i> ch-icon-unlock</li>
-			<li><i class="ch-icon-wrench"></i> ch-icon-wrench</li>
-			<li><i class="ch-icon-group"></i> ch-icon-group</li>
-			<li><i class="ch-icon-copy"></i> ch-icon-copy</li>
-			<li><i class="ch-icon-paper-clip"></i> ch-icon-paper-clip</li>
-			<li><i class="ch-icon-reorder"></i> ch-icon-reorder</li>
-			<li><i class="ch-icon-truck"></i> ch-icon-truck</li>
-			<li><i class="ch-icon-caret-down"></i> ch-icon-caret-down</li>
-			<li><i class="ch-icon-caret-up"></i> ch-icon-caret-up</li>
-			<li><i class="ch-icon-caret-left"></i> ch-icon-caret-left</li>
-			<li><i class="ch-icon-caret-right"></i> ch-icon-caret-right</li>
-			<li><i class="ch-icon-sort"></i> ch-icon-sort</li>
-			<li><i class="ch-icon-sort-down"></i> ch-icon-sort-down</li>
-			<li><i class="ch-icon-sort-down"></i> ch-icon-sort-up</li>
-			<li><i class="ch-icon-envelope-alt"></i> ch-icon-envelope-alt</li>
-			<li><i class="ch-icon-undo"></i> ch-icon-undo</li>
-			<li><i class="ch-icon-comment-alt"></i> ch-icon-comment-alt</li>
-			<li><i class="ch-icon-comments-alt"></i> ch-icon-comments-alt</li>
-		</ul>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2 id="calendar">Calendar</h2>
-		<div class="YOUR_SELECTOR_calendar"></div>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2 id="datePicker">Date Picker</h2>
-		<form action="./ajax.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
-			<p class="ch-form-row">
-				<label for="val_date">
-					Date:
-				</label>
-				<input type="date" id="val_date" class="myDatePicker" placeholder="DD/MM/YYYY">
-			</p>
-			<p class="ch-form-row">
-				<label for="val_date2">
-					Date:
-				</label>
-				<input type="date" id="val_date2" class="myDatePicker2" placeholder="DD/MM/YYYY">
-			</p>
-		</form>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2>Countdown</h2>
-		<form action="/ajax.html" class="YOUR_SELECTOR_Formcountdown ch-form">
-			<p class="ch-form-row">
-				<label for="val_date">Text:</label>
-				<textarea id="text_cd" cols="35" rows="4" class="myCountdown"></textarea>
-			</p>
-		</form>
-	</div>
-
-	<div class="ch-box-lite">
-		<h2 id="form">Forms and Validations</h2>
-
-		<form action="./ajax" class="ch-form myForm" method="GET">
-			<fieldset>
-				<legend>Inputs</legend>
-				<p class="ch-form-hint">* Required fields</p>
-				<div class="ch-form-row">
-					<label for="input_ico">
-						Icon:
-					</label>
-					<input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
-					<i class="ch-form-ico ch-icon-question-sign"></i>
-				</div>
-				<div class="ch-form-row">
-					<label for="input_ico_inside">
-						Icon inside:
-					</label>
-					<input class="ch-form-ico-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
-					<i class="ch-form-ico-inner ch-icon-question-sign"></i>
-				</div>
-				<div class="ch-form-row">
-					<label for="input_button">
-						Category:
-					</label>
-					<input type="text" id="input_button" name="input_button" size="30" placeholder="">
-					<input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin">
-					<span class="ch-form-hint">Add your category</span>
-				</div>
-				<div class="ch-form-row ch-form-required">
-					<label for="price">
-						Price:
-						<em>*</em>
-					</label>
-					<input type="text" id="price" name="price" required="required" placeholder="1349.43">
-					<span class="ch-form-hint">Numbers and dot symbol</span>
-				</div>
-				<div class="ch-form-row ch-form-required">
-					<label for="email">
-						E-mail:
-						<em>*</em>
-					</label>
-					<input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
-					<span class="ch-form-hint">It will be your login name</span>
-				</div>
-				<div class="ch-form-row">
-					<label for="email2">
-						E-mail:
-					</label>
-					<input type="email" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
-					<input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline">
-					<label for="news" class="ch-label-inline">
-						Accept to receive weekly news
-					</label>
-				</div>
-				<div class="ch-form-row">
-					<label for="url">
-						URL:
-					</label>
-					<input type="url" id="url" name="url" size="60" placeholder="http://www.chico-ui.com.ar">
-				</div>
-				<div class="ch-form-row">
-					<label for="number">
-						Numeric field:
-					</label>
-					<input type="number" id="number" name="number" min="18" max="99" placeholder="30">
-				</div>
-				<div class="ch-form-row ch-form-required">
-					<label for="range">
-						Numeric range:
-						<em>*</em>
-					</label>
-					<input type="range" id="range" name="range" min="1" max="20">
-					<span class="ch-form-hint">Between 8 to 10</span>
-				</div>
-				<div class="ch-form-row ch-form-required ch-form-disabled">
-					<label for="required_disabled">
-						Required disabled:
-						<em>*</em>
-					</label>
-					<input type="text" id="required_disabled" required="required" disabled="disabled">
-					<span class="ch-form-hint">It's a unknown use case</span>
-				</div>
-				<div class="ch-form-row">
-					<label for="characters">
-						Characters:
-					</label>
-					<input type="text" id="characters">
-				</div>
-				<div class="ch-form-row">
-					<label for="custom">
-						Custom:
-					</label>
-					<input type="text" id="custom" placeholder="12" size="2">
-				</div>
-				<div class="ch-form-row">
-					<label for="readonly">
-						Readonly:
-					</label>
-					<input type="text" readonly="readonly" id="readonly" value="its a readonly value">
-				</div>
-				<div class="ch-form-row">
-					<label for="double">
-						It's a input text with double line:
-					</label>
-					<input type="text" id="double">
-				</div>
-			</fieldset>
-			<fieldset>
-				<legend>Selects</legend>
-				<div class="ch-form-row">
-					<label for="select1">
-						Common field:
-					</label>
-					<select id="select1">
-						<option value="-1">Select one...</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-						<option value="4">Option 4</option>
-					</select>
-				</div>
-				<div class="ch-form-row ch-form-required">
-					<label for="select2">
-						Required: <em>*</em>
-					</label>
-					<select id="select2" required="required" pattern="[^-1]">
-						<option value="">Select one...</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-						<option value="4">Option 4</option>
-					</select>
-				</div>
-				<div class="ch-form-row ch-form-required ch-form-disabled">
-					<label for="select3" class="required disabled">
-						Required disabled: <em>*</em>
-					</label>
-					<select id="select3" required="required" disabled="disabled">
-						<option value="">Select one...</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-						<option value="4">Option 4</option>
-					</select>
-				</div>
-				<div class="ch-form-row ch-form-disabled">
-					<label for="select4">
-						Disabled:
-					</label>
-					<select id="select4" disabled="disabled">
-						<option value="0">Select one...</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-						<option value="4">Option 4</option>
-					</select>
-				</div>
-			</fieldset>
-			<fieldset>
-				<legend>Misc</legend>
-				<div class="ch-form-row">
-					<label for="street">
-						Domicilio:
-					</label>
-					<input type="text" size="30" id="street" placeholder="Av. Costanera Rafael Obligado" />
-					<input type="number" id="door" placeholder="1345" />
-					<select id="state">
-						<option value="">Select one state/province...</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-						<option value="4">Option 4</option>
-					</select>
-				</div>
-				<div class="ch-form-row ch-form-row-inline">
-					<label for="select5">
-						Common field:
-					</label>
-					<select id="select5">
-						<option value="0">Select one...</option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-						<option value="4">Option 4</option>
-					</select>
-					<input type="text" id="secondary_option" placeholder="Common field" />
-				</div>
-				<div class="ch-form-row ch-form-row-inline">
-					<label for="num1">
-						CUIT:
-					</label>
-					<input type="number" id="num1" placeholder="20" max="30" min="20" /> -
-					<input type="number" id="num2" placeholder="23111399" max="99999999" min="0" /> /
-					<input type="number" id="num3" placeholder="4" max="9" min="0" />
-				</div>
-				<div class="ch-form-row ch-form-row-inline">
-					<label for="tc1">
-						Expires:
-					</label>
-					<input type="number" id="tc1" min="1" max="12" placeholder="11" />
-					<input type="number" id="tc2" min="2011" max="2020" placeholder="2013" />
-				</div>
-				<div class="ch-form-row">
-					<label for="select6">
-						House features:
-					</label>
-					<select id="select6" multiple="multiple" size="5" class="ch-form-select-multiple">
-						<option value="0">Air conditioning</option>
-						<option value="1">Rooms</option>
-						<option value="2">Balcony</option>
-						<option value="3">Laundry</option>
-						<option value="4">Kitchen</option>
-						<option value="5">Living</option>
-						<option value="6">Dining room</option>
-						<option value="7">Amenities</option>
-					</select>
-				</div>
-
-			</fieldset>
-			<fieldset>
-				<div class="ch-list-options ch-form-row ch-form-required required-check">
-					<input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
-					<label for="check4a">
-						Unique checkbox
-					</label>
-				</div>
-			</fieldset>
-			<fieldset>
-				<legend>Checkbox</legend>
-					<div class="ch-list-options ch-form-required required-option">
-						<h4 class="ch-form-subtitle">Label of checkboxs group: <em>*</em></h4>
-						<ul>
-							<li class="ch-form-row">
-								<input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
-								<label for="check1a">
-									Alpha
-								</label>
-							</li>
-							<li class="ch-form-row">
-								<input type="checkbox" value="beta" id="check1b" name="version1b">
-								<label for="check1b">
-									Beta
-								</label>
-							</li>
-						</ul>
-					</div>
-			</fieldset>
-
-			<fieldset>
-				<legend>Legend of required group <em>*</em></legend>
-				<div class="ch-list-options ch-form-required check2 required-option">
-					<ul>
-						<li class="ch-form-row">
-							<input type="checkbox" value="alpha" id="check2a" name="version2">
-							<label for="check2a">
-								Alpha
-							</label>
-						</li>
-						<li class="ch-form-row">
-							<input type="checkbox" value="beta" id="check2b" name="version2">
-							<label for="check2b">
-								Beta
-							</label>
-						</li>
-					</ul>
-				</div>
-			</fieldset>
-
-			<fieldset>
-				<legend>Legend of checkboxs group</legend>
-				<div class="ch-list-options ch-form-required check3 required-option">
-					<h4 class="ch-form-subtitle">Label of required group: <em>*</em></h4>
-					<ul>
-						<li class="ch-form-row">
-							<input type="radio" value="alpha" id="check3a" name="version3">
-							<label for="check3a">
-								Alpha
-							</label>
-						</li>
-						<li class="ch-form-row">
-							<input type="radio" value="beta" id="check3b" name="version3">
-							<label for="check3b">
-								Beta
-							</label>
-						</li>
-					</ul>
-				</div>
-			</fieldset>
-
-			<fieldset>
-				<legend>Radio buttons</legend>
-				<div class="ch-list-options">
-					<ul>
-						<li class="ch-form-row">
-							<input type="radio" value="alpha" id="radio1a" name="version4">
-							<label for="radio1a">
-								Alpha
-							</label>
-						</li>
-						<li class="ch-form-row">
-							<input type="radio" value="beta" id="radio1b" name="version4">
-							<label for="radio1b">
-								Beta
-							</label>
-						</li>
-					</ul>
-				</div>
-			</fieldset>
-
-			<fieldset>
-				<legend>Radio buttons required<em>*</em></legend>
-				<div class="ch-list-options radio2 required-option">
-					<ul>
-						<li class="ch-form-row">
-							<input type="radio" value="alpha" id="radio2a" name="version5">
-							<label for="radio2a">
-								Alpha
-							</label>
-						</li>
-						<li class="ch-form-row">
-							<input type="radio" value="beta" id="radio2b" name="version5">
-							<label for="radio2b">
-								Beta
-							</label>
-						</li>
-					</ul>
-				</div>
-			</fieldset>
-
-			<fieldset>
-				<legend>Legend of radio group</legend>
-				<div class="ch-list-options ch-form-required radio3 required-option">
-					<h4 class="ch-form-subtitle">Radios required: <em>*</em></h4>
-					<ul>
-						<li class="ch-form-row">
-							<input type="radio" value="alpha" id="radio3a" name="version6">
-							<label for="radio3a">
-								Alpha
-							</label>
-						</li>
-						<li class="ch-form-row">
-							<input type="radio" value="beta" id="radio3b" name="version6">
-							<label for="radio3b">
-								Beta
-							</label>
-						</li>
-					</ul>
-				</div>
-			</fieldset>
-
-			<fieldset>
-				<div class="ch-list-options radio4">
-					<ul>
-						<li class="ch-form-row">
-							<input type="radio" value="alpha" id="radio4a" name="version7">
-							<label for="radio4a">
-								Lorem ipsum dolor sit amet
-							</label>
-						</li>
-						<li class="ch-form-row">
-							<input type="radio" value="beta" id="radio4b" name="version7">
-							<label for="radio4b">
-								Beta
-							</label>
-						</li>
-					</ul>
-				</div>
-			</fieldset>
-
-			<fieldset>
-				<legend>Textarea</legend>
-				<div class="ch-form-row">
-					<label for="textarea1">
-						Textarea:
-					</label>
-					<textarea id="textarea1" cols="40" rows="4"></textarea>
-				</div>
-
-				<div class="ch-form-row ch-form-required">
-					<label for="textarea2">
-						Required: <em>*</em>
-					</label>
-					<textarea id="textarea2" cols="40" rows="4" required="required"></textarea>
-				</div>
-
-				<div class="ch-form-row ch-form-required ch-form-disabled">
-					<label for="textarea3">
-						Required disabled: <em>*</em>
-					</label>
-					<textarea id="textarea3" cols="40" rows="4" required="required" disabled="disabled"></textarea>
-				</div>
-
-				<div class="ch-form-row ch-form-disabled">
-					<label for="textarea4">
-						Disabled:
-					</label>
-					<textarea id="textarea4" cols="40" rows="4" disabled="disabled"></textarea>
-				</div>
-			</fieldset>
-
-			<div class="ch-form-actions">
-				<input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn">
-				<input type="reset" value="Cancel" class="ch-btn ch-btn-small">
-				<a href="#" class="resetForm">Reset validations</a>
-			</div>
-		</form>
-
-		<form action="/ajax.html" class="ch-form ch-form-big">
-			<fieldset>
-				<legend>Big inputs</legend>
-				<div class="ch-form-row">
-					<label for="input_user">User:</label>
-					<input class="ch-form-ico-input" type="text" id="input_user" name="input_user" size="50">
-					<i class="ch-form-ico-inner ch-icon-user"></i>
-				</div>
-				<div class="ch-form-row">
-					<label for="input_pass">Password:</label>
-					<input class="ch-form-ico-input" type="password" id="input_pass" name="input_pass" size="50">
-					<i class="ch-form-ico-inner ch-icon-lock"></i>
-				</div>
-				<div class="ch-form-actions">
-					<input type="submit" name="confirmation" value="Login" class="ch-btn">
-					<a href="#">Cancel</a>
-				</div>
-			</fieldset>
-		</form>
-
-	</div>
-
-	<script src="../vendor/jquery-debug.js"></script>
-	<script src="/ui/js"></script>
-	<script>
-		// Automatic version
-		document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;
-
-		// Blink
-		$("#doHighlight").on("click", function () {
-			$("#example").blink();
-		});
-
-		var	calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
-
-		// Expandable
-		var expandable1 = $(".YOUR_SELECTOR_expandable").expandable();
-
-		var expandable2 = $(".YOUR_SELECTOR_expandable2").expandable({
-			'container': $('#container'),
-		});
-
-		var expandable3 = $(".YOUR_SELECTOR_expandable3").expandable({
-			'container': $('#container-ajax'),
-			'content': './ajax'
-		});
-
-		// Accordion
-		var accordion = $(".YOUR_SELECTOR_Accordion").accordion();
-
-		// Menu
-		var menu = $(".YOUR_SELECTOR_Menu").menu({
-			'selected': 4
-		});
-
-		// Blink
-		$("#doHighlight").on("click", function () {
-			$("#example").blink();
-		});
-
-		// Dropdown
-		var dropdown1 = $(".myDropdown").dropdown();
-
-		var dropdown2 = $(".myDropdownNav").dropdown({'navigation': false, 'skin': true});
-
-		var dropdown3 = $(".myDropdownSkin").dropdown({'skin': true});
-
-		// Tabs
-		var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
-		var tabs2 = $(".YOUR_SELECTOR_Tabs2").tabs(3);
-
-		// // Autocomplete
-		// function autoComplete(data) {
-		// 	autoComplete1.suggest(data);
-		// }
-
-		// function customComplete(data) {
-		// 	data.push("Other callback");
-		// 	autoComplete2.suggest(data);
-		// }
-		var suggestions = ['argentina', 'chile', 'bolivia', 'brasil', 'colombia'];
-
-		//var ac = $('.autoComplete').autoComplete({'suggestions': suggestions});
-
-
-
-		var a = $('.autoComplete').autoComplete({
-			'html': true,
-			'beforeSuggestions': $('<p>Hi, please choose and option!</p>'),
-			'afterSuggestions': $('<div><ul><li>Other options</li><li>Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>')
-		});
-
-		var b = $('.autoComplete2').autoComplete();
-
-		//var b = $('.autoComplete2').autoComplete({'suggestions': []});
-
-
-		var parseResults = function (results) {
-
-			var data = results.slice(0),
-				template = [null, '<div><h3>', null, '</h3><p>Hey you! Click to select!</p><ul><li><span>This is a span!</span></li></ul></div></a>'];
-
-			data.forEach(function (e, i) {
-				template[0] =  '<a href="http://www.google.com/#output=search&q=' + e + '">'
-				template[2] = e;
-				data[i] = template.join('');
-			});
-
-			a.suggest(data);
-
-		}
-
-
-			a.on('typing', function (userInput) {
-				$.ajax({
-					'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=parseResults',
-					'dataType': 'jsonp',
-					'cache': false,
-					'global': true,
-					'context': window,
-					'jsonp': 'parseResults',
-					'crossDomain': true
-				});
-			});
-
-			b.on('typing', function (userInput) {
-				$.ajax({
-					'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=b.suggest',
-					'dataType': 'jsonp',
-					'cache': false,
-					'global': true,
-					'context': window,
-					'jsonp': 'b.suggest',
-					'crossDomain': true
-				});
-			});
-
-			//ac.setData(suggestions);
-
-		// var autoComplete1 = $(".autoComplete").autoComplete({
-		// 	"url": "http://www.chico-ui.com.ar/suggest?q=",
-		// 	"jsonpCallback": "autoComplete"
-		// });
-
-		// var autoComplete2 = $(".autoComplete2").autoComplete({
-		// 	"url": "http://www.chico-ui.com.ar/suggest?q=",
-		// 	"jsonpCallback": "customComplete"
-		// });
-
-		// var autoComplete3 = $(".autoComplete3").autoComplete({
-		// 	"suggestions": ["Apple","Beer","Bear","Bee","Custom","Country","Day","Date","Empire","Future"]
-		// });
-
-		// Carousel
-		var carousel = $(".myCarousel").carousel({"pagination": true});
-		// var carousel = $.carousel($(".myCarousel"), {"pagination": true});
-
-		// Countdown
-		var	countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
-
-		// Date Picker
-		var	datePicker = $("#val_date").datePicker({
-			"selected": "2011/11/15",
-			"to": "today"
-		});
-
-		var	datePicker2 = $("#val_date2").datePicker({
-			"selected": "2011/11/15",
-			"to": "today"
-		});
-
-		// Layer
-		var layer1 = $('#layer1').layer('foo');
+    <div class="ch-box-lite">
+        <h2 id="modal">Modal with AJAX content</h2>
+
+        <form action="/ajax">
+            <p><input type="submit" class="ch-btn ch-btn-small modal1" value="Executed by submit a form"> or <a href="/ajax" class="modal1">Executed by a link</a>.</p>
+        </form>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2>Modal with DOM content</h2>
+
+        <button id="modal2" class="ch-btn ch-btn-small">Get content from DOM</button>
+
+        <div id="invisible-content" class="ch-hide">
+            <h1>Caption heading</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+            <div class="ch-actions">
+                <button class="ch-btn">Primary Action</button>
+                <a href="#">Secondary Action</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2>Modal Lite</h2>
+        <button id="modal3" class="ch-btn ch-btn-small">Show me</button>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2>Transition window</h2>
+        <form action="/ajax">
+            <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Exeute it!">
+        </form>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2 id="zoom">Zoom</h2>
+        <a id="zoom1" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+        </a>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2 id="carousel">Carousel</h2>
+
+        <div class="myCarousel ch-carousel">
+            <ul>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+                <li><img src="http://bimg1.mlstatic.com/s_MLA_v_F_f_135696209_8751.jpg"></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="ch-box-container">
+        <h2 id="tabs">Tabs</h2>
+
+        <div class="YOUR_SELECTOR_Tabs ch-tabs">
+            <ul class="ch-tabs-triggers">
+                <li><a href="#tab1-a" class="ch-tab">Tab1</a></li>
+                <li><a href="#tab2-a" class="ch-tab">Tab2</a></li>
+                <li><a href="#tab3-a" class="ch-tab">Tab3</a></li>
+                <li><a href="./ajax#ajax-a" class="ch-tab">Tab4</a></li>
+            </ul>
+            <div class="ch-box-lite">
+                <div id="tab1-a">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+                </div>
+
+                <div id="tab2-a" class="ch-hide">
+                    <p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
+                </div>
+
+                <div id="tab3-a" class="ch-hide">
+                    <p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="YOUR_SELECTOR_Tabs2 ch-tabs">
+            <ul class="ch-tabs-triggers">
+                <li><a href="#tab1-b" class="ch-tab">Tab1</a></li>
+                <li><a href="#tab2-b" class="ch-tab">Tab2</a></li>
+                <li><a href="#tab3-b" class="ch-tab">Tab3</a></li>
+                <li><a href="./ajax#ajax-b" class="ch-tab">Tab4</a></li>
+            </ul>
+            <div class="ch-box-lite">
+                <div id="tab1-b">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+                </div>
+
+                <div id="tab2-b" class="ch-hide">
+                    <p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
+                </div>
+
+                <div id="tab3-b" class="ch-hide">
+                    <p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ch-box-lite clearfix">
+        <h2 id="icons">Icons</h2>
+
+        <ul class="showroomIcons">
+            <li><i class="ch-icon-search"></i> ch-icon-search</li>
+            <li><i class="ch-icon-heart"></i> ch-icon-heart</li>
+            <li><i class="ch-icon-star"></i> ch-icon-star</li>
+            <li><i class="ch-icon-star-empty"></i> ch-icon-star-empty</li>
+            <li><i class="ch-icon-user"></i> ch-icon-user</li>
+            <li><i class="ch-icon-th-large"></i> ch-icon-th-large</li>
+            <li><i class="ch-icon-th"></i> ch-icon-th</li>
+            <li><i class="ch-icon-th-list"></i> ch-icon-user</li>
+            <li><i class="ch-icon-ok"></i> ch-icon-ok</li>
+            <li><i class="ch-icon-remove"></i> ch-icon-remove</li>
+            <li><i class="ch-icon-zoom-in"></i> ch-icon-zoom-in</li>
+            <li><i class="ch-icon-zoom-out"></i> ch-icon-zoom-out</li>
+            <li><i class="ch-icon-cog"></i> ch-icon-cog</li>
+            <li><i class="ch-icon-trash"></i> ch-icon-trash</li>
+            <li><i class="ch-icon-time"></i> ch-icon-time</li>
+            <li><i class="ch-icon-repeat"></i> ch-icon-repeat</li>
+            <li><i class="ch-icon-refresh"></i> ch-icon-refresh</li>
+            <li><i class="ch-icon-lock"></i> ch-icon-lock</li>
+            <li><i class="ch-icon-print"></i> ch-icon-print</li>
+            <li><i class="ch-icon-camera"></i> ch-icon-camera</li>
+            <li><i class="ch-icon-pencil"></i> ch-icon-pencil</li>
+            <li><i class="ch-icon-map-marker"></i> ch-icon-map-marker</li>
+            <li><i class="ch-icon-move"></i> ch-icon-move</li>
+            <li><i class="ch-icon-chevron-left"></i> ch-icon-chevron-left</li>
+            <li><i class="ch-icon-chevron-right"></i> ch-icon-chevron-right</li>
+            <li><i class="ch-icon-plus-sign"></i> ch-icon-plus-sign</li>
+            <li><i class="ch-icon-minus-sign"></i> ch-icon-minus-sign</li>
+            <li><i class="ch-icon-remove-sign"></i> ch-icon-remove-sign</li>
+            <li><i class="ch-icon-ok-sign"></i> ch-icon-ok-sign</li>
+            <li><i class="ch-icon-question-sign"></i> ch-icon-question-sign</li>
+            <li><i class="ch-icon-info-sign"></i> ch-icon-info-sign</li>
+            <li><i class="ch-icon-ban-circle"></i> ch-icon-ban-circle</li>
+            <li><i class="ch-icon-arrow-left"></i> ch-icon-arrow-left</li>
+            <li><i class="ch-icon-arrow-right"></i> ch-icon-arrow-right</li>
+            <li><i class="ch-icon-arrow-up"></i> ch-icon-arrow-up</li>
+            <li><i class="ch-icon-arrow-down"></i> ch-icon-arrow-down</li>
+            <li><i class="ch-icon-plus"></i> ch-icon-plus</li>
+            <li><i class="ch-icon-minus"></i> ch-icon-minus</li>
+            <li><i class="ch-icon-exclamation-sign"></i> ch-icon-exclamation-sign</li>
+            <li><i class="ch-icon-warning-sign"></i> ch-icon-warning-sign</li>
+            <li><i class="ch-icon-calendar"></i> ch-icon-calendar</li>
+            <li><i class="ch-icon-comment"></i> ch-icon-comment</li>
+            <li><i class="ch-icon-chevron-up"></i> ch-icon-chevron-up</li>
+            <li><i class="ch-icon-chevron-down"></i> ch-icon-chevron-down</li>
+            <li><i class="ch-icon-key"></i> ch-icon-key</li>
+            <li><i class="ch-icon-comments"></i> ch-icon-comments</li>
+            <li><i class="ch-icon-unlock"></i> ch-icon-unlock</li>
+            <li><i class="ch-icon-wrench"></i> ch-icon-wrench</li>
+            <li><i class="ch-icon-group"></i> ch-icon-group</li>
+            <li><i class="ch-icon-copy"></i> ch-icon-copy</li>
+            <li><i class="ch-icon-paper-clip"></i> ch-icon-paper-clip</li>
+            <li><i class="ch-icon-reorder"></i> ch-icon-reorder</li>
+            <li><i class="ch-icon-truck"></i> ch-icon-truck</li>
+            <li><i class="ch-icon-caret-down"></i> ch-icon-caret-down</li>
+            <li><i class="ch-icon-caret-up"></i> ch-icon-caret-up</li>
+            <li><i class="ch-icon-caret-left"></i> ch-icon-caret-left</li>
+            <li><i class="ch-icon-caret-right"></i> ch-icon-caret-right</li>
+            <li><i class="ch-icon-sort"></i> ch-icon-sort</li>
+            <li><i class="ch-icon-sort-down"></i> ch-icon-sort-down</li>
+            <li><i class="ch-icon-sort-down"></i> ch-icon-sort-up</li>
+            <li><i class="ch-icon-envelope-alt"></i> ch-icon-envelope-alt</li>
+            <li><i class="ch-icon-undo"></i> ch-icon-undo</li>
+            <li><i class="ch-icon-comment-alt"></i> ch-icon-comment-alt</li>
+            <li><i class="ch-icon-comments-alt"></i> ch-icon-comments-alt</li>
+        </ul>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2 id="calendar">Calendar</h2>
+        <div class="YOUR_SELECTOR_calendar"></div>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2 id="datePicker">Date Picker</h2>
+        <form action="./ajax.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
+            <p class="ch-form-row">
+                <label for="val_date">
+                    Date:
+                </label>
+                <input type="date" id="val_date" class="myDatePicker" placeholder="DD/MM/YYYY">
+            </p>
+            <p class="ch-form-row">
+                <label for="val_date2">
+                    Date:
+                </label>
+                <input type="date" id="val_date2" class="myDatePicker2" placeholder="DD/MM/YYYY">
+            </p>
+        </form>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2>Countdown</h2>
+        <form action="/ajax.html" class="YOUR_SELECTOR_Formcountdown ch-form">
+            <p class="ch-form-row">
+                <label for="val_date">Text:</label>
+                <textarea id="text_cd" cols="35" rows="4" class="myCountdown"></textarea>
+            </p>
+        </form>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2 id="form">Forms and Validations</h2>
+
+        <form action="./ajax" class="ch-form myForm" method="GET">
+            <fieldset>
+                <legend>Inputs</legend>
+                <p class="ch-form-hint">* Required fields</p>
+                <div class="ch-form-row">
+                    <label for="input_ico">
+                        Icon:
+                    </label>
+                    <input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
+                    <i class="ch-form-ico ch-icon-question-sign"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_ico_inside">
+                        Icon inside:
+                    </label>
+                    <input class="ch-form-ico-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
+                    <i class="ch-form-ico-inner ch-icon-question-sign"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_button">
+                        Category:
+                    </label>
+                    <input type="text" id="input_button" name="input_button" size="30" placeholder="">
+                    <input type="button" name="add_category" value="Add" class="ch-btn ch-btn-small ch-btn-skin">
+                    <span class="ch-form-hint">Add your category</span>
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="price">
+                        Price:
+                        <em>*</em>
+                    </label>
+                    <input type="text" id="price" name="price" required="required" placeholder="1349.43">
+                    <span class="ch-form-hint">Numbers and dot symbol</span>
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="email">
+                        E-mail:
+                        <em>*</em>
+                    </label>
+                    <input type="email" id="email" name="email" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+                    <span class="ch-form-hint">It will be your login name</span>
+                </div>
+                <div class="ch-form-row">
+                    <label for="email2">
+                        E-mail:
+                    </label>
+                    <input type="email" id="email2" name="email2" required="required" size="35" placeholder="juan.perez@chico-ui.com.ar">
+                    <input type="checkbox" id="news" name="news" checked="checked" class="ch-form-checkbox-inline">
+                    <label for="news" class="ch-label-inline">
+                        Accept to receive weekly news
+                    </label>
+                </div>
+                <div class="ch-form-row">
+                    <label for="url">
+                        URL:
+                    </label>
+                    <input type="url" id="url" name="url" size="60" placeholder="http://www.chico-ui.com.ar">
+                </div>
+                <div class="ch-form-row">
+                    <label for="number">
+                        Numeric field:
+                    </label>
+                    <input type="number" id="number" name="number" min="18" max="99" placeholder="30">
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="range">
+                        Numeric range:
+                        <em>*</em>
+                    </label>
+                    <input type="range" id="range" name="range" min="1" max="20">
+                    <span class="ch-form-hint">Between 8 to 10</span>
+                </div>
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="required_disabled">
+                        Required disabled:
+                        <em>*</em>
+                    </label>
+                    <input type="text" id="required_disabled" required="required" disabled="disabled">
+                    <span class="ch-form-hint">It's a unknown use case</span>
+                </div>
+                <div class="ch-form-row">
+                    <label for="characters">
+                        Characters:
+                    </label>
+                    <input type="text" id="characters">
+                </div>
+                <div class="ch-form-row">
+                    <label for="custom">
+                        Custom:
+                    </label>
+                    <input type="text" id="custom" placeholder="12" size="2">
+                </div>
+                <div class="ch-form-row">
+                    <label for="readonly">
+                        Readonly:
+                    </label>
+                    <input type="text" readonly="readonly" id="readonly" value="its a readonly value">
+                </div>
+                <div class="ch-form-row">
+                    <label for="double">
+                        It's a input text with double line:
+                    </label>
+                    <input type="text" id="double">
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Selects</legend>
+                <div class="ch-form-row">
+                    <label for="select1">
+                        Common field:
+                    </label>
+                    <select id="select1">
+                        <option value="-1">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-required">
+                    <label for="select2">
+                        Required: <em>*</em>
+                    </label>
+                    <select id="select2" required="required" pattern="[^-1]">
+                        <option value="">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="select3" class="required disabled">
+                        Required disabled: <em>*</em>
+                    </label>
+                    <select id="select3" required="required" disabled="disabled">
+                        <option value="">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-disabled">
+                    <label for="select4">
+                        Disabled:
+                    </label>
+                    <select id="select4" disabled="disabled">
+                        <option value="0">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Misc</legend>
+                <div class="ch-form-row">
+                    <label for="street">
+                        Domicilio:
+                    </label>
+                    <input type="text" size="30" id="street" placeholder="Av. Costanera Rafael Obligado" />
+                    <input type="number" id="door" placeholder="1345" />
+                    <select id="state">
+                        <option value="">Select one state/province...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="select5">
+                        Common field:
+                    </label>
+                    <select id="select5">
+                        <option value="0">Select one...</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                        <option value="4">Option 4</option>
+                    </select>
+                    <input type="text" id="secondary_option" placeholder="Common field" />
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="num1">
+                        CUIT:
+                    </label>
+                    <input type="number" id="num1" placeholder="20" max="30" min="20" /> -
+                    <input type="number" id="num2" placeholder="23111399" max="99999999" min="0" /> /
+                    <input type="number" id="num3" placeholder="4" max="9" min="0" />
+                </div>
+                <div class="ch-form-row ch-form-row-inline">
+                    <label for="tc1">
+                        Expires:
+                    </label>
+                    <input type="number" id="tc1" min="1" max="12" placeholder="11" />
+                    <input type="number" id="tc2" min="2011" max="2020" placeholder="2013" />
+                </div>
+                <div class="ch-form-row">
+                    <label for="select6">
+                        House features:
+                    </label>
+                    <select id="select6" multiple="multiple" size="5" class="ch-form-select-multiple">
+                        <option value="0">Air conditioning</option>
+                        <option value="1">Rooms</option>
+                        <option value="2">Balcony</option>
+                        <option value="3">Laundry</option>
+                        <option value="4">Kitchen</option>
+                        <option value="5">Living</option>
+                        <option value="6">Dining room</option>
+                        <option value="7">Amenities</option>
+                    </select>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <div class="ch-list-options ch-form-row ch-form-required required-check">
+                    <input type="checkbox" value="alpha" id="check4a" name="version4" required="required">
+                    <label for="check4a">
+                        Unique checkbox
+                    </label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Checkbox</legend>
+                    <div class="ch-list-options ch-form-required required-option">
+                        <h4 class="ch-form-subtitle">Label of checkboxs group: <em>*</em></h4>
+                        <ul>
+                            <li class="ch-form-row">
+                                <input type="checkbox" value="alpha" id="check1a" name="version1a" required="required">
+                                <label for="check1a">
+                                    Alpha
+                                </label>
+                            </li>
+                            <li class="ch-form-row">
+                                <input type="checkbox" value="beta" id="check1b" name="version1b">
+                                <label for="check1b">
+                                    Beta
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of required group <em>*</em></legend>
+                <div class="ch-list-options ch-form-required check2 required-option">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="alpha" id="check2a" name="version2">
+                            <label for="check2a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="checkbox" value="beta" id="check2b" name="version2">
+                            <label for="check2b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of checkboxs group</legend>
+                <div class="ch-list-options ch-form-required check3 required-option">
+                    <h4 class="ch-form-subtitle">Label of required group: <em>*</em></h4>
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="check3a" name="version3">
+                            <label for="check3a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="check3b" name="version3">
+                            <label for="check3b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Radio buttons</legend>
+                <div class="ch-list-options">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio1a" name="version4">
+                            <label for="radio1a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio1b" name="version4">
+                            <label for="radio1b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Radio buttons required<em>*</em></legend>
+                <div class="ch-list-options radio2 required-option">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio2a" name="version5">
+                            <label for="radio2a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio2b" name="version5">
+                            <label for="radio2b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Legend of radio group</legend>
+                <div class="ch-list-options ch-form-required radio3 required-option">
+                    <h4 class="ch-form-subtitle">Radios required: <em>*</em></h4>
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio3a" name="version6">
+                            <label for="radio3a">
+                                Alpha
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio3b" name="version6">
+                            <label for="radio3b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="ch-list-options radio4">
+                    <ul>
+                        <li class="ch-form-row">
+                            <input type="radio" value="alpha" id="radio4a" name="version7">
+                            <label for="radio4a">
+                                Lorem ipsum dolor sit amet
+                            </label>
+                        </li>
+                        <li class="ch-form-row">
+                            <input type="radio" value="beta" id="radio4b" name="version7">
+                            <label for="radio4b">
+                                Beta
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Textarea</legend>
+                <div class="ch-form-row">
+                    <label for="textarea1">
+                        Textarea:
+                    </label>
+                    <textarea id="textarea1" cols="40" rows="4"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-required">
+                    <label for="textarea2">
+                        Required: <em>*</em>
+                    </label>
+                    <textarea id="textarea2" cols="40" rows="4" required="required"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-required ch-form-disabled">
+                    <label for="textarea3">
+                        Required disabled: <em>*</em>
+                    </label>
+                    <textarea id="textarea3" cols="40" rows="4" required="required" disabled="disabled"></textarea>
+                </div>
+
+                <div class="ch-form-row ch-form-disabled">
+                    <label for="textarea4">
+                        Disabled:
+                    </label>
+                    <textarea id="textarea4" cols="40" rows="4" disabled="disabled"></textarea>
+                </div>
+            </fieldset>
+
+            <div class="ch-form-actions">
+                <input type="submit" name="_eventId_confirmation" value="Webflow" class="ch-btn">
+                <input type="reset" value="Cancel" class="ch-btn ch-btn-small">
+                <a href="#" class="resetForm">Reset validations</a>
+            </div>
+        </form>
+
+        <form action="/ajax.html" class="ch-form ch-form-big">
+            <fieldset>
+                <legend>Big inputs</legend>
+                <div class="ch-form-row">
+                    <label for="input_user">User:</label>
+                    <input class="ch-form-ico-input" type="text" id="input_user" name="input_user" size="50">
+                    <i class="ch-form-ico-inner ch-icon-user"></i>
+                </div>
+                <div class="ch-form-row">
+                    <label for="input_pass">Password:</label>
+                    <input class="ch-form-ico-input" type="password" id="input_pass" name="input_pass" size="50">
+                    <i class="ch-form-ico-inner ch-icon-lock"></i>
+                </div>
+                <div class="ch-form-actions">
+                    <input type="submit" name="confirmation" value="Login" class="ch-btn">
+                    <a href="#">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+
+    </div>
+
+    <script src="../vendor/jquery-debug.js"></script>
+    <script src="/ui/js"></script>
+    <script>
+        // Automatic version
+        document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;
+
+        // // Autocomplete
+        // function autoComplete(data) {
+        //   autoComplete1.suggest(data);
+        // }
+
+        // function customComplete(data) {
+        //   data.push("Other callback");
+        //   autoComplete2.suggest(data);
+        // }
+        var suggestions = ['argentina', 'chile', 'bolivia', 'brasil', 'colombia'];
+
+        //var ac = $('.autoComplete').autoComplete({'suggestions': suggestions});
+
+
+
+        var a = $('.autoComplete').autoComplete({
+         'html': true,
+         'beforeSuggestions': $('<p>Hi, please choose and option!</p>'),
+         'afterSuggestions': $('<div><ul><li>Other options</li><li>Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>')
+        });
+
+        var b = $('.autoComplete2').autoComplete();
+
+        //var b = $('.autoComplete2').autoComplete({'suggestions': []});
+
+
+        var parseResults = function (results) {
+
+         var data = results.slice(0),
+             template = [null, '<div><h3>', null, '</h3><p>Hey you! Click to select!</p><ul><li><span>This is a span!</span></li></ul></div></a>'];
+
+         data.forEach(function (e, i) {
+             template[0] =  '<a href="http://www.google.com/#output=search&q=' + e + '">'
+             template[2] = e;
+             data[i] = template.join('');
+         });
+
+         a.suggest(data);
+
+        }
+
+
+         a.on('typing', function (userInput) {
+             $.ajax({
+                 'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=parseResults',
+                 'dataType': 'jsonp',
+                 'cache': false,
+                 'global': true,
+                 'context': window,
+                 'jsonp': 'parseResults',
+                 'crossDomain': true
+             });
+         });
+
+         b.on('typing', function (userInput) {
+             $.ajax({
+                 'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=b.suggest',
+                 'dataType': 'jsonp',
+                 'cache': false,
+                 'global': true,
+                 'context': window,
+                 'jsonp': 'b.suggest',
+                 'crossDomain': true
+             });
+         });
+
+         //ac.setData(suggestions);
+
+        // var autoComplete1 = $(".autoComplete").autoComplete({
+        //   "url": "http://www.chico-ui.com.ar/suggest?q=",
+        //   "jsonpCallback": "autoComplete"
+        // });
+
+        // var autoComplete2 = $(".autoComplete2").autoComplete({
+        //   "url": "http://www.chico-ui.com.ar/suggest?q=",
+        //   "jsonpCallback": "customComplete"
+        // });
+
+        // var autoComplete3 = $(".autoComplete3").autoComplete({
+        //   "suggestions": ["Apple","Beer","Bear","Bee","Custom","Country","Day","Date","Empire","Future"]
+        // });
+
+        // Blink
+        $("#doHighlight").on("click", function () {
+            $("#example").blink();
+        });
+
+        // var  calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
+
+        // // Expandable
+        var expandable1 = $(".YOUR_SELECTOR_expandable").expandable();
+
+        // expandable1.on('contentdone', function () {
+        //     $(".test").click(function () {
+        //         console.log("contentdone");
+        //     });
+        // });
+
+        // var expandable1 = $(".YOUR_SELECTOR_expandable").expandable('http://ui.ml.com:3040/ajax');
+        // expandable1.on('contentdone', function () {
+        //  $("h2").click(function () {
+        //      console.log("ContentDone");
+        //  });
+        // });
+
+        var expandable2 = $(".YOUR_SELECTOR_expandable2").expandable({
+         'container': $('#container'),
+        });
+
+        var expandable3 = $(".YOUR_SELECTOR_expandable3").expandable({
+         'container': $('#container-ajax'),
+         'content': './ajax'
+        });
+
+        // Menu
+        var menu = $(".YOUR_SELECTOR_Menu").menu({
+         'selected': 4
+        });
+
+        // Dropdown
+        var dropdown1 = $(".myDropdown").dropdown();
+
+        var dropdown2 = $(".myDropdownNav").dropdown({'navigation': false, 'skin': true});
+
+        var dropdown3 = $(".myDropdownSkin").dropdown({'skin': true});
+
+        // Tooltip
+        // Bottom
+        var tooltip1 = $('#default').tooltip(); // lt lb
+        var tooltip2 = $('#ctcb').tooltip({
+         'side': 'bottom',
+         'align': 'center'
+        });
+        var tooltip3 = $('#rtrb').tooltip({
+         'side': 'bottom',
+         'align': 'right'
+        });
+
+        // Top
+        var tooltip4 = $('#lblt').tooltip({
+         'side': 'top',
+         'align': 'left',
+         'offsetY': -10
+        });
+        var tooltip5 = $('#cbct').tooltip({
+         'side': 'top',
+         'align': 'center',
+         'offsetY': -10
+        });
+        var tooltip6 = $('#rbrt').tooltip({
+         'side': 'top',
+         'align': 'right',
+         'offsetY': -10
+        });
+
+        // Right
+        var tooltip7 = $('#ltrt').tooltip({
+         'side': 'right',
+         'align': 'top',
+         'offsetX': 10
+        });
+        var tooltip8 = $('#lmrm').tooltip({
+         'side': 'right',
+         'align': 'center',
+         'offsetX': 10
+        });
+        var tooltip9 = $('#lbrb').tooltip({
+         'side': 'right',
+         'align': 'bottom',
+         'offsetX': 10
+        });
+
+        // Left
+        var tooltip10 = $('#rtlt').tooltip({
+         'side': 'left',
+         'align': 'top',
+         'offsetX': -10
+        });
+        var tooltip11 = $('#rmlm').tooltip({
+         'side': 'left',
+         'align': 'center',
+         'offsetX': -10
+        });
+        var tooltip12 = $('#rblb').tooltip({
+         'side': 'left',
+         'align': 'bottom',
+         'offsetX': -10
+        });
+
+        var tooltipX = $.tooltip({
+            'content': 'Tooltip without trigger!',
+            'reference': $('#default')
+        });
+
+
+        // Layer
+        var layer1 = $('#layer1').layer('foo');
 
         var layer2 = $('#layer2').layer({
             'content': 'foo',
@@ -1565,198 +1583,150 @@
             bubble.show();
         });
 
-		// Tooltip
-		// Bottom
-		var tooltip1 = $('#default').tooltip(); // lt lb
-		var tooltip2 = $('#ctcb').tooltip({
-			'side': 'bottom',
-			'align': 'center'
-		});
-		var tooltip3 = $('#rtrb').tooltip({
-			'side': 'bottom',
-			'align': 'right'
-		});
-
-		// Top
-		var tooltip4 = $('#lblt').tooltip({
-			'side': 'top',
-			'align': 'left',
-			'offsetY': -10
-		});
-		var tooltip5 = $('#cbct').tooltip({
-			'side': 'top',
-			'align': 'center',
-			'offsetY': -10
-		});
-		var tooltip6 = $('#rbrt').tooltip({
-			'side': 'top',
-			'align': 'right',
-			'offsetY': -10
-		});
-
-		// Right
-		var tooltip7 = $('#ltrt').tooltip({
-			'side': 'right',
-			'align': 'top',
-			'offsetX': 10
-		});
-		var tooltip8 = $('#lmrm').tooltip({
-			'side': 'right',
-			'align': 'center',
-			'offsetX': 10
-		});
-		var tooltip9 = $('#lbrb').tooltip({
-			'side': 'right',
-			'align': 'bottom',
-			'offsetX': 10
-		});
-
-		// Left
-		var tooltip10 = $('#rtlt').tooltip({
-			'side': 'left',
-			'align': 'top',
-			'offsetX': -10
-		});
-		var tooltip11 = $('#rmlm').tooltip({
-			'side': 'left',
-			'align': 'center',
-			'offsetX': -10
-		});
-		var tooltip12 = $('#rblb').tooltip({
-			'side': 'left',
-			'align': 'bottom',
-			'offsetX': -10
-		});
-
-        var tooltipX = $.tooltip({
-            'content': 'Tooltip without trigger!',
-            'reference': $('#default')
+        // Modal
+        var modal1 = $('.modal1').modal({
+         'width': '500px',
+         'height': '300px'
         });
 
-		// Modal
-		var modal1 = $('.modal1').modal({
-			'width': '500px',
-			'height': '300px'
-		});
-
         // Modal with invisible DOM Content
-		var modal2 = $('#modal2').modal($('#invisible-content'));
+        var modal2 = $('#modal2').modal($('#invisible-content'));
 
-		// Modal lite
-		var modal3 = $('#modal3').modal({
-			'content': '<h2>Heading or content</h2>',
-			'addClass': 'ch-modal-lite'
-		});
+        // Modal lite
+        var modal3 = $('#modal3').modal({
+         'content': '<h2>Heading or content</h2>',
+         'addClass': 'ch-modal-lite'
+        });
 
         var modalX = $.modal({
             'content': 'Modal without trigger!'
         });
 
-		// Trasition
-		var transition = $('#transition').transition();
+
+        // Trasition
+        var transition = $('#transition').transition();
 
         var transitionX = $.transition({
             'content': 'Transition without trigger!'
         });
 
-		// Zoom
-		var zoom = $('#zoom1').zoom();
+        // Zoom
+        var zoom = $('#zoom1').zoom();
 
-		// Messages
-		var message = (function (message, value) {
-			var messages = {
-				'option': 'Choose an option.',
-				'requiredCheck': 'Accept the Terms of Use.',
-				'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
-			};
+        // Carousel
+        var carousel = $(".myCarousel").carousel({"pagination": true});
 
-			return function (message, value) {
-				var message = messages[message] || message;
-				if(value){
-					return message.replace('{#num#}',value)
-				}
-				return message;
-			}
-		}());
+        // Tabs
+        var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
+        var tabs2 = $(".YOUR_SELECTOR_Tabs2").tabs(3);
 
-		// Form
-		var m = $.modal();
-		var form = $('.myForm').form()
-					.on('success', function (event) {
-						event.preventDefault();
-						m.show();
-					})
-					.on('error', function (errors) {
-						console.log(errors);
-					});
+        // Date Picker
+        var  datePicker = $("#val_date").datePicker({
+         "selected": "2011/11/15",
+         "to": "today"
+        });
 
-		$('.myForm').on('submit', function (event) {
-			console.log('Esto siempre se dispara siempre');
-			if (!form.hasError()) {
-				event.preventDefault();
-				console.log('Ademas hago otra cosa en el submit');
-			}
-		});
+        var  datePicker2 = $("#val_date2").datePicker({
+         "selected": "2011/11/15",
+         "to": "today"
+        });
 
-		// Validators
-		// var	validation1 = $('#input_ico').validation({
-		// 	'conditions': [
-		// 		{
-		// 			'name': 'required'
-		// 		},
-		// 		{
-		// 			'name': 'guille',
-		// 			'fn': function (value) { return value === "guille";},
-		// 			'message': 'Esto es un guille!'
-		// 		}
-		// 	]
-		// });
+        // Countdown
+        var  countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
 
-		// var	validation1 = $('#input_ico')
-		// 		.required("Mensaje de requerido.").and()
-		// 		.custom('guille', function (value) { return value === "guille";}, 'Esto es un guille!').and()
-		// 		.custom('lean', function (value) { return value === "lean";}, 'Esto es un lean!');
+        // Messages
+        var message = (function (message, value) {
+         var messages = {
+             'option': 'Choose an option.',
+             'requiredCheck': 'Accept the Terms of Use.',
+             'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
+         };
 
+         return function (message, value) {
+             var message = messages[message] || message;
+             if(value){
+                 return message.replace('{#num#}',value)
+             }
+             return message;
+         }
+        }());
 
+        // Form
+        var m = $.modal();
+        var form = $('.myForm').form()
+                 .on('success', function (event) {
+                     event.preventDefault();
+                     m.show();
+                 })
+                 .on('error', function (errors) {
+                     console.log(errors);
+                 });
 
-		var	validation1 = $('#input_ico').required().and().string();
-		var	validation2 = $('#input_ico_inside').required().and().string();
-		var	validation3 = $('#price').price().and().required();
-		var	validation4 = $('#email').required().and().email();
-		var	validation5 = $('#custom')
-			.custom(
-				'myCustom1',
-				function (v) {
-					if (v.toString().indexOf("1") > -1) {
-						return true;
-					}
-					return false;
-				},
-				'The number must contain a 1.')
-			.and()
-			.custom(
-				'myCustom2',
-				function (v) {
-					if (v.toString().indexOf("2") > -1) {
-						return true;
-					}
-					return false;
-				},
-				'The number must contain a 2.');
+        $('.myForm').on('submit', function (event) {
+         console.log('Esto siempre se dispara siempre');
+         if (!form.hasError()) {
+             event.preventDefault();
+             console.log('Ademas hago otra cosa en el submit');
+         }
+        });
 
-		var	validation6 = $('#url').url()
-		var	validation7 = $('#number').number().and().min(5);
-		var	validation8 = $('#range').min(8).and().max(10);
-		var	validation9 = $('#characters').maxLength(20).and().minLength(6);
-		var	validation10 = $('#select2').required(message('option'));
-		var	validation11 = $('.required-check').required(message('requiredCheck'));
-		var	validation12 = $('.required-option').required(message('option'));
-		var validation13 = $('#double').required(message('link'));
-		var validation14 = $('#double').number();
-		var	validation15 = $('#double, #textarea2').required();
+        // Validators
+        // var   validation1 = $('#input_ico').validation({
+        //   'conditions': [
+        //       {
+        //           'name': 'required'
+        //       },
+        //       {
+        //           'name': 'guille',
+        //           'fn': function (value) { return value === "guille";},
+        //           'message': 'Esto es un guille!'
+        //       }
+        //   ]
+        // });
+
+        // var   validation1 = $('#input_ico')
+        //       .required("Mensaje de requerido.").and()
+        //       .custom('guille', function (value) { return value === "guille";}, 'Esto es un guille!').and()
+        //       .custom('lean', function (value) { return value === "lean";}, 'Esto es un lean!');
 
 
 
-	</script>
+        var  validation1 = $('#input_ico').required().and().string();
+        var  validation2 = $('#input_ico_inside').required().and().string();
+        var  validation3 = $('#price').price().and().required();
+        var  validation4 = $('#email').required().and().email();
+        var  validation5 = $('#custom')
+         .custom(
+             'myCustom1',
+             function (v) {
+                 if (v.toString().indexOf("1") > -1) {
+                     return true;
+                 }
+                 return false;
+             },
+             'The number must contain a 1.')
+         .and()
+         .custom(
+             'myCustom2',
+             function (v) {
+                 if (v.toString().indexOf("2") > -1) {
+                     return true;
+                 }
+                 return false;
+             },
+             'The number must contain a 2.');
+
+        var  validation6 = $('#url').url()
+        var  validation7 = $('#number').number().and().min(5);
+        var  validation8 = $('#range').min(8).and().max(10);
+        var  validation9 = $('#characters').maxLength(20).and().minLength(6);
+        var  validation10 = $('#select2').required(message('option'));
+        var  validation11 = $('.required-check').required(message('requiredCheck'));
+        var  validation12 = $('.required-option').required(message('option'));
+        var validation13 = $('#double').required(message('link'));
+        var validation14 = $('#double').number();
+        var  validation15 = $('#double, #textarea2').required();
+
+    </script>
 </body>
 </html>

@@ -1,16 +1,6 @@
 (function ($, ch) {
     'use strict';
 
-    // Initial options to be merged with the user's options
-    var defaults = {
-        'method': 'GET',
-        'params': '',
-        'cache': true,
-        'async': true,
-        'input': '',
-        'waiting': '<div class="ch-loading-big"></div>'
-    };
-
     /**
      * Creates a component to manage content through 3 ways: plain text, DOM elements, AJAX requests.
      * @memberOf ch
@@ -21,70 +11,90 @@
     function Content() {
 
         var that = this,
-            // Merged options of each instance
-            options,
-            // The lastest data sent to the client. Used to return on the .get() method
-            current,
-
-            error = '<p>Error on ajax call.</p>';
+            defaults = {
+                'method': this._options.method,
+                'params': this._options.params,
+                'cache': this._options.cache,
+                'async': this._options.async,
+                'waiting': this._options.waiting
+            };
 
         /**
          * Allows to manage the widgets content.
          * @namespace
          */
-        function content($content) {
-            // Gets a new content
-            if ($content === undefined) {
-                return that.content.get();
+        function content(content, options) {
+
+            // Returns the last updated content.
+            if (content === undefined) {
+                return that._$content.html();
             }
 
-            // Configures a new content
-            that.content.configure({
-                'input': $content
-            });
+            // ESTo lo deberiamos sacar de aca
+            that._options.content = content;
 
-            // Sets the new content only if the component is active
-            if (that._active) {
-                that.content.set();
+            if (typeof content === 'string') {
+                // Case 1: AJAX call
+                if (ch.util.isUrl(content)) {
+                    getAsyncContent(content, options);
+
+                // Case 2: Plain text
+                } else {
+                    that._$content.html(content);
+
+                    that._options.cache = false;
+
+                    that.emit('contentdone');
+
+                    if (that._options['oncontentdone'] !== undefined) {
+                        that._options['oncontentdone'].call(that);
+                    }
+                }
+            // Case 3: DOM element
+            } else if (ch.util.is$(content)) {
+
+                that._$content.html(content.remove(null, true).removeClass('ch-hide'));
+
+                that._options.cache = false;
+
+                that.emit('contentdone');
+
+                if (that._options['oncontentdone'] !== undefined) {
+                    that._options['oncontentdone'].call(that);
+                }
+
             }
 
             return that;
         }
 
-        /**
-         * Send the result data to the "client".
-         * @private
-         */
-        function postMessage(event) {
-            // Update the lastest reference of data sent to the user
-            current = event.response;
-            // Send data to the client
-            content.onmessage(event);
-        }
-
+        that.content = content;
 
         /**
-         * Serves data from cache or AJAX.
+         * Get async content with given URL.
          * @private
          */
-        function getContentFromAJAX() {
+        function getAsyncContent(url, options) {
+            // Initial options to be merged with the user's options
+            options = $.extend({
+                'method': 'GET',
+                'params': '',
+                'cache': true,
+                'async': true,
+                'waiting': '<div class="ch-loading-big"></div>'
+            }, options || defaults);
 
-            // When exists posibilities of find something saved into ch.cache...
-            if (options.cache) {
-                // Try to get data from cache
-                var cached = ch.cache.get(options.input);
+            that._options.cache = options.cache;
 
-                // If there are data, then send to the client and avoid the AJAX request
-                if (cached) {
-                    return postMessage({
-                        'status': 'done',
-                        'response': cached
-                    });
-                }
-            }
+            // Set loading
+            setAsyncContent({
+                'status': 'waiting',
+                'response': options.waiting
+            });
 
+            // Make async request
             $.ajax({
-                'url': options.input,
+                'url': url,
                 'type': options.method,
                 'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
                 'cache': options.cache,
@@ -95,20 +105,19 @@
                 },
                 'success': function (data) {
                     // Grab the data on the cache if it's necessary
-                    if (options.cache) { ch.cache.set(options.input, data); }
+                    // if (options.cache) { ch.cache.set(options.input, data); }
 
                     // Send the result data to the client
-                    postMessage({
+                    setAsyncContent({
                         'status': 'done',
                         'response': data
                     });
-
                 },
                 'error': function (jqXHR, textStatus, errorThrown) {
                     // Send a defined error message
-                    postMessage({
+                    setAsyncContent({
                         'status': 'error',
-                        'response': error,
+                        'response': '<p>Error on ajax call.</p>',
 
                          // Grab all the parameters into a JSON to send to the client
                         'data': {
@@ -119,94 +128,36 @@
                     });
                 }
             });
-
-            postMessage({
-                'status': 'waiting',
-                'response': options.waiting
-            });
         }
 
         /**
-         * Merges the current options with the options specified by user.
-         * @name configure
-         * @methodOf content
-         * @param {Object} userOptions Options specified by user.
+         * Set async content into widget's container and emits the current event.
+         * @private
          */
-        content.configure = function (userOptions) {
-            // Merge the defaults options with user options
-            options = $.extend(ch.util.clone(defaults), userOptions);
+        function setAsyncContent(event) {
 
-            // Since second time, just merge the current options with user options
-            content.configure = function (userOptions) {
+            var status = 'content' + event.status;
 
-                // Getter: return the current configuration (options)
-                if (userOptions === undefined) {
-                    return options;
-                }
+            that._$content.html(event.response);
 
-                // Setter: Merge current options with the new ones
-                $.extend(options, userOptions);
-
-                return content;
-            };
-
-            return content;
-        };
+            that.emit(status, event);
+        }
 
         /**
-         * Determines what kind of input have to use, and send to client plain text, DOM element or the result of an AJAX request.
-         * @name set
-         * @methodOf content
+         * Loads content once. If the cache is disabled the content loads in each show.
+         * @private
          */
-        content.set = function (userOptions) {
+        function showContent() {
+            that.content(that._options.content);
 
-            if (userOptions !== undefined) {
-                content.configure(userOptions);
-            }
-
-            // Input as string
-            if (typeof options.input === 'string') {
-                // Case 1: AJAX call
-                if (ch.util.isUrl(options.input)) {
-                    getContentFromAJAX();
-
-                // Case 2: Plain text
-                } else {
-                    postMessage({
-                        'status': 'done',
-                        'response': options.input
-                    });
+            that.on('show', function () {
+                if (!that._options.cache) {
+                    that.content(that._options.content);
                 }
+            });
+        }
 
-            // Case 3: DOM element
-            } else if (ch.util.is$(options.input)) {
-                postMessage({
-                    'status': 'done',
-                    'response': options.input.remove(null, true).removeClass('ch-hide')
-                });
-
-            // Default: No message
-            } else {
-                postMessage({
-                    'status': 'done',
-                    'response': current
-                });
-            }
-
-            return content;
-        };
-
-        /**
-         * Returns the last updated content.
-         * @name get
-         * @methodOf content
-         */
-        content.get = function () {
-            return current;
-        };
-
-        that.content = content;
-
+        that.once('show', showContent);
     }
 
     ch.Content = Content;
