@@ -20,7 +20,7 @@
 }
 
 /* L1 and L2 items */
-.ch-bellows-trigger,
+.ch-fold-trigger,
 .ch-menu .ch-expandable-trigger,
 .ch-menu .ch-expandable-container a {
 	cursor: pointer;
@@ -31,16 +31,15 @@
 }
 
 /* L1 and L2 items hover */
-.ch-bellows-trigger:hover,
+.ch-fold-trigger:hover,
 .ch-menu .ch-expandable-trigger:hover,
 .ch-menu .ch-expandable-container a:hover {
 	background-color: #FDF9D5;
 	border-radius: 5px;
 }
 
-
 /* L1 items */
-.ch-bellows-trigger,
+.ch-fold-trigger,
 .ch-menu .ch-expandable-trigger,
 .ch-menu .ch-expandable-container {
 	position: relative;

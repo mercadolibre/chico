@@ -348,19 +348,16 @@
 
 			<div class="widgets">
 				<h2 id="expandable">Expandable</h2>
-				<div class="categories">
-					<h3>Expandable</h3>
-					<ul class="ch-list-options">
-						<li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
-						<li><a href="#" data-categ-id="1459">Inmuebles</a></li>
-						<li><a href="#" data-categ-id="1540">Servicios</a></li>
-					</ul>
-				</div>
-				<div class="categories">
-					<h3>Expandable</h3>
-					<div>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-					</div>
+				<h3 class="categories">Expandable</h3>
+				<ul class="ch-list-options">
+					<li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
+					<li><a href="#" data-categ-id="1459">Inmuebles</a></li>
+					<li><a href="#" data-categ-id="1540">Servicios</a></li>
+				</ul>
+				<br>
+				<h3 class="categories">Expandable</h3>
+				<div>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 				</div>
 			</div>
 
@@ -931,48 +928,47 @@
 	<script src="/mobile/js"></script>
 	<script>
 
-		var a = $('#country1').autoComplete({'html': true});
-		var b = $('#country2').autoComplete();
+		// var a = $('#country1').autoComplete({'html': true});
+		// var b = $('#country2').autoComplete();
+
+		// var parseResults = function (results) {
+		// 	var data = results.slice(0),
+		// 		template = [null, '<div><h3>', null, '</h3><p>Click to select!</p></div></a>'];
+		// 	data.forEach(function (e, i) {
+		// 		template[0] =  '<a href="http://www.google.com/#output=search&q=' + e + '">'
+		// 		template[2] = e;
+		// 		data[i] = template.join('');
+		// 	});
+		// 	a.setData(data);
+		// }
+
+		// var parseResultsB = function (data) { b.setData(data); };
 
 
-		var parseResults = function (results) {
-			var data = results.slice(0),
-				template = [null, '<div><h3>', null, '</h3><p>Click to select!</p></div></a>'];
-			data.forEach(function (e, i) {
-				template[0] =  '<a href="http://www.google.com/#output=search&q=' + e + '">'
-				template[2] = e;
-				data[i] = template.join('');
-			});
-			a.setData(data);
-		}
+		// a.on('typing', function (e, b) {
+		// 	$.ajax({
+		// 		'url': 'http://www.chico-ui.com.ar/suggest?q=' + b + '&callback=?',
+		// 		'dataType': 'jsonp',
+		// 		'cache': false,
+		// 		'global': true,
+		// 		'context': window,
+		// 		'success': parseResults,
+		// 		'crossDomain': true
+		// 	});
 
-		var parseResultsB = function (data) { b.setData(data); };
+		// });
 
-
-		a.on('typing', function (e, b) {
-			$.ajax({
-				'url': 'http://www.chico-ui.com.ar/suggest?q=' + b + '&callback=?',
-				'dataType': 'jsonp',
-				'cache': false,
-				'global': true,
-				'context': window,
-				'success': parseResults,
-				'crossDomain': true
-			});
-
-		});
-
-		b.on('typing', function (e, b) {
-			$.ajax({
-				'url': 'http://www.chico-ui.com.ar/suggest?q=' + b + '&callback=?',
-				'dataType': 'jsonp',
-				'cache': false,
-				'global': true,
-				'context': window,
-				'success': parseResultsB,
-				'crossDomain': true
-			});
-		});
+		// b.on('typing', function (e, b) {
+		// 	$.ajax({
+		// 		'url': 'http://www.chico-ui.com.ar/suggest?q=' + b + '&callback=?',
+		// 		'dataType': 'jsonp',
+		// 		'cache': false,
+		// 		'global': true,
+		// 		'context': window,
+		// 		'success': parseResultsB,
+		// 		'crossDomain': true
+		// 	});
+		// });
 
 
         // Calendar

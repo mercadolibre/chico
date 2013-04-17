@@ -199,7 +199,7 @@
 
         function createExpandable(i, li) {
             // List element
-            $li = $(li);
+            $li = $(li).addClass('ch-menu-fold');
 
             // Children of list elements
             $child = $li.children(':first-child');
@@ -208,11 +208,9 @@
             if ($child[0].tagName === 'A') {
 
                 // Add attr role to match wai-aria
-                $li.attr('role', 'presentation')
-                    // Add class to list and anchor
-                    .addClass('ch-bellows');
+                $li.attr('role', 'presentation');
 
-                $child.addClass('ch-bellows-trigger');
+                $child.addClass('ch-fold-trigger');
 
                 // Add anchor to that._children
                 that._children.push($child);
