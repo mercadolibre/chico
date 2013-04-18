@@ -54,7 +54,7 @@
          *   this.show();
          * });
          */
-        window.setTimeout(function () { that.emit("ready"); }, 50);
+        window.setTimeout(function () { that.emit('ready'); }, 50);
 
         return this;
 
@@ -387,10 +387,10 @@
 
         }
 
-        // // // Update the error object
+        // Update the error object
         this.error = null;
 
-        // // // Has got an error? Nop
+        // Has got an error? Nop
         return false;
     };
 
