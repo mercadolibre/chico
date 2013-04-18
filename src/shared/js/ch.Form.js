@@ -78,13 +78,6 @@
     Form.prototype.constructor = Form;
 
     /**
-     * Configuration by default.
-     * @private
-     * @type {Object}
-     */
-    Form.prototype._defaults = {};
-
-    /**
      * Constructs a new Form.
      * @public
      * @function
