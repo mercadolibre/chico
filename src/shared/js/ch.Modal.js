@@ -144,9 +144,11 @@
     Modal.prototype.hide = function () {
         // Delete the dimmer element
         if (ch.support.fx) {
-            $dimmer.fadeOut('normal', $dimmer.detach);
+            $dimmer.fadeOut('normal', function () {
+                $dimmer.detach.remove(null, true);
+            });
         } else {
-            $dimmer.addClass('ch-hide').detach();
+            $dimmer.addClass('ch-hide').remove(null, true);
         }
         // Execute the original hide()
         parent.hide.call(this);
