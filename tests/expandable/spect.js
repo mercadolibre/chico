@@ -7,7 +7,7 @@ describe('Expandable', function () {
             'container': $('#container-2')
         }),
         expandable3 = $("#expandable-3").expandable({
-            'open': true,
+            'shown': true,
             'toggle': false
         });
 
@@ -67,7 +67,7 @@ describe('Expandable', function () {
 
     });
 
-    describe('Shold have the following public methods:', function () {
+    describe('Should have the following public methods:', function () {
 
         it('.show()', function () {
             expect(expandable1.show).not.toEqual(undefined);
@@ -252,9 +252,9 @@ describe('Expandable', function () {
     });
 
     describe('An instance configured', function () {
-        var $container = expandable2.$container;
 
         it('with custom container', function () {
+            var $container = expandable2.$container;
             expect($container).not.toEqual(undefined);
             expect($container[0].nodeType).toEqual(1);
             expect($container instanceof $).toBeTruthy();
