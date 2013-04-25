@@ -1,8 +1,11 @@
 describe('Expandable', function () {
-    var expandable1 = $("#expandable-1").expandable()
+    var expandable1 = $("#expandable-1").expandable(),
         showEvent = jasmine.createSpy('showEvent'),
         hideEvent = jasmine.createSpy('hideEvent'),
-        readyEvent = jasmine.createSpy('readyEvent');
+        readyEvent = jasmine.createSpy('readyEvent'),
+        expandable2 = $("#expandable-2").expandable({
+            'container': $('#container-2')
+        });
 
     expandable1
         .on('ready', function () { readyEvent(); })
@@ -234,5 +237,17 @@ describe('Expandable', function () {
         });
 
         expandable1.hide();
+    });
+
+    describe('An instance configured with custom container', function () {
+        var $container = expandable2.$container;
+
+        it('It should have a container.', function () {
+            expect($container).not.toEqual(undefined);
+            expect($container[0].nodeType).toEqual(1);
+            expect($container instanceof $).toBeTruthy();
+            expect($container).toEqual($('#container-2'));
+        });
+
     });
 });
