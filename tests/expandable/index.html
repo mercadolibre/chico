@@ -1,74 +1,49 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Expandable Test</title>
-		<link rel="shortcut icon" type="image/png" href="/libs/jasmine-1.2.0/jasmine_favicon.png">
-		<link rel="stylesheet" type="text/css" href="/ui/css">
-		<link rel="stylesheet" type="text/css" href="/libs/jasmine-1.2.0/jasmine.css">
+    <head>
+        <meta charset="utf-8">
+        <title>Expandable Tests</title>
+        <link rel="stylesheet" type="text/css" href="/ui/css">
+        <link rel="stylesheet" type="text/css" href="/vendor/jasmine/jasmine.css">
+    </head>
+    <body>
+        <h1>Expandable</h1>
+        <h4 id="expandable-1">Lorem ipsum dolor sit amet.</h4>
+        <div id="container-1">
+            <p>ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p>
+        </div>
 
-	</head>
-	<body>
-		<h1>Expandable</h1>
-		<div id="expandable-1">
-			<p>Lorem ipsum dolor sit amet.</p>
-			<div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			</div>
-		</div>
+        <script src="/vendor/jasmine/jasmine.js"></script>
+        <script src="/vendor/jasmine/jasmine-html.js"></script>
+        <script src="/vendor/jquery-debug.js"></script>
+        <script src="/ui/js"></script>
+        <script src="./spect.js"></script>
+        <script>
+            (function() {
+                var jasmineEnv = jasmine.getEnv();
+                jasmineEnv.updateInterval = 1000;
 
-		<div id="expandable-2">
-			<p>Lorem ipsum dolor sit amet.</p>
-			<div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			</div>
-		</div>
+                var htmlReporter = new jasmine.HtmlReporter();
 
-		<div id="expandable-3">
-			<p>Lorem ipsum dolor sit amet.</p>
-			<div>
-			 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			</div>
-		</div>
+                jasmineEnv.addReporter(htmlReporter);
 
-		<div id="expandable-4">
-			<p>Lorem ipsum dolor sit amet.</p>
-			<div>
-			 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			</div>
-		</div>
+                jasmineEnv.specFilter = function(spec) {
+                    return htmlReporter.specFilter(spec);
+                };
 
-		<script src="/libs/jasmine-1.2.0/jasmine.js"></script>
-		<script src="/libs/jasmine-1.2.0/jasmine-html.js"></script>
-		<script src="/vendor/jquery-debug.js"></script>
-		<script src="/ui/js"></script>
-		<script src="./spect.js"></script>
-		<script>
-			(function() {
-				var jasmineEnv = jasmine.getEnv();
-				jasmineEnv.updateInterval = 1000;
+                var currentWindowOnload = window.onload;
 
-				var htmlReporter = new jasmine.HtmlReporter();
+                window.onload = function() {
+                    if (currentWindowOnload) {
+                      currentWindowOnload();
+                    }
+                    execJasmine();
+                };
 
-				jasmineEnv.addReporter(htmlReporter);
-
-				jasmineEnv.specFilter = function(spec) {
-					return htmlReporter.specFilter(spec);
-				};
-
-				var currentWindowOnload = window.onload;
-
-				window.onload = function() {
-					if (currentWindowOnload) {
-						currentWindowOnload();
-					}
-					execJasmine();
-				};
-
-				function execJasmine() {
-					jasmineEnv.execute();
-				}
-			})();
-		</script>
-	</body>
+                function execJasmine() {
+                    jasmineEnv.execute();
+                }
+            })();
+        </script>
+    </body>
 </html>
