@@ -5,6 +5,10 @@ describe('Expandable', function () {
         readyEvent = jasmine.createSpy('readyEvent'),
         expandable2 = $("#expandable-2").expandable({
             'container': $('#container-2')
+        }),
+        expandable3 = $("#expandable-3").expandable({
+            'open': true,
+            'toggle': false
         });
 
     expandable1
@@ -12,13 +16,21 @@ describe('Expandable', function () {
         .on('show', function () { showEvent(); })
         .on('hide', function () { hideEvent(); });
 
-    it('Should be defined', function () {
+    it('Should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Expandable')).toBeTruthy();
         expect(typeof ch.Expandable).toEqual('function');
+    });
+
+    it('Should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('expandable')).toBeTruthy();
+        expect(typeof $.fn.expandable).toEqual('function');
+    });
+
+    it('Should be return a new instance', function () {
         expect(expandable1 instanceof ch.Expandable).toBeTruthy();
     });
 
-    it('Should emit the "ready" event', function () {
+    it('Should emit the "ready" event when it\'s ready', function () {
         waits(50);
         runs(function () {
             expect(readyEvent).toHaveBeenCalled();
@@ -111,7 +123,7 @@ describe('Expandable', function () {
            expect($trigger.attr('aria-controls')).toEqual(expandable1.$container[0].id);
         });
 
-        describe('It should have the following Classnames:', function () {
+        describe('It should have the following class names:', function () {
 
             it('.ch-expandable-trigger', function () {
                 expect($trigger.hasClass('ch-expandable-trigger')).toBeTruthy();
@@ -149,7 +161,7 @@ describe('Expandable', function () {
            expect($container.attr('aria-expanded')).toEqual('false');
         });
 
-        describe('It should have the following Classnames:', function () {
+        describe('It should have the following class names:', function () {
 
             it('.ch-expandable-container', function () {
                 expect($container.hasClass('ch-expandable-container')).toBeTruthy();
@@ -239,14 +251,26 @@ describe('Expandable', function () {
         expandable1.hide();
     });
 
-    describe('An instance configured with custom container', function () {
+    describe('An instance configured', function () {
         var $container = expandable2.$container;
 
-        it('It should have a container.', function () {
+        it('with custom container', function () {
             expect($container).not.toEqual(undefined);
             expect($container[0].nodeType).toEqual(1);
             expect($container instanceof $).toBeTruthy();
             expect($container).toEqual($('#container-2'));
+        });
+
+        it('shown by default', function () {
+            expect(expandable3.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        });
+
+        it('without toggle', function () {
+            expandable3.show();
+            expect(expandable3.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+
+            expandable3.hide();
+            expect(expandable3.$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
         });
 
     });
