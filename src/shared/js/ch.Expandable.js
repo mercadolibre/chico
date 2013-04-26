@@ -10,7 +10,7 @@
             options = {
                 'content': options
             };
-        }2
+        }
         return options;
     };
 
