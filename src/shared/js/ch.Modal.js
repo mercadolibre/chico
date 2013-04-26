@@ -70,7 +70,7 @@
 
         $body = $('body'),
 
-        $dimmer = $('<div class="ch-dimmer">');
+        $dimmer = $('<div class="ch-dimmer ch-hide">');
 
     /**
      * Public members
@@ -84,7 +84,8 @@
         'ariaRole': 'dialog',
         'width': '50%',
         'close': 'all',
-        'reference': ch.viewport
+        'reference': ch.viewport,
+        'waiting': '<div class="ch-loading-big ch-loading-centered"></div>'
     });
 
     Modal.prototype.init = function ($el, options) {
@@ -124,7 +125,7 @@
         if (ch.support.fx) {
             $dimmer.fadeIn();
         } else {
-            $dimmer.show();
+            $dimmer.removeClass('ch-hide');
         }
 
         // Execute the original show()
@@ -143,9 +144,11 @@
     Modal.prototype.hide = function () {
         // Delete the dimmer element
         if (ch.support.fx) {
-            $dimmer.fadeOut('normal', $dimmer.detach);
+            $dimmer.fadeOut('normal', function () {
+                $dimmer.detach.remove(null, true);
+            });
         } else {
-            $dimmer.hide();
+            $dimmer.addClass('ch-hide').remove(null, true);
         }
         // Execute the original hide()
         parent.hide.call(this);
@@ -153,6 +156,9 @@
         return this;
     };
 
-    ch.factory(Modal);
+    /**
+     * Factory
+     */
+    ch.factory(Modal, parent._normalizeOptions);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+}(this, this.ch.$, this.ch));

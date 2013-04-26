@@ -78,13 +78,6 @@
     Form.prototype.constructor = Form;
 
     /**
-     * Configuration by default.
-     * @private
-     * @type {Object}
-     */
-    Form.prototype._defaults = {};
-
-    /**
      * Constructs a new Form.
      * @public
      * @function
@@ -182,16 +175,14 @@
             validation.validate();
 
             // Store validations with errors
-            if (validation.error !== null) {
+            if (validation.isActive()) {
                 that.errors.push(validation);
             }
         }
 
         // Is there's an error
-        if (that.errors !== null) {
+        if (that.errors.length > 0) {
             firstError = that.errors[0];
-
-            that._hasError = true;
 
             firstError.bubble.$container[0].scrollIntoView();
 
@@ -298,8 +289,6 @@
             that._validations[i].clear();
         }
 
-        that._hasError = false;
-
         /**
          * Fired when clean the form's data.
          * @name ch.Form#clear
@@ -350,4 +339,4 @@
 
     ch.factory(Form);
 
-}(this, this.jQuery, this.ch));
+}(this, this.ch.$, this.ch));

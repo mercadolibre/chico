@@ -83,7 +83,7 @@
         'align': 'top',
         'offsetX': 20,
         'offsetY': 0,
-        'content': 'Loading zoom...'
+        'waiting': 'Loading zoom...'
     });
 
     Zoom.prototype.init = function ($el, options) {
@@ -108,7 +108,7 @@
          * @private
          * @name ch.Zoom#_$loading
          */
-        this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-big"></div><p>' + this._options.content + '</p></div>').appendTo(this.$el);
+        this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-big"></div><p>' + this._options.waiting + '</p></div>').appendTo(this.$el);
 
         /**
          * Element shown as seeker.
@@ -160,7 +160,7 @@
          * @private
          * @name ch.Zoom#_$zoomed
          */
-        this._$zoomed = $('<img src="' + this.el.href + '" class="ch-hide">').appendTo(that.$el);
+        this._$zoomed = this._options.content = $('<img src="' + this.el.href + '" class="ch-hide">').appendTo(that.$el);
 
         //
         ch.onImagesLoads(this._$zoomed, function () {
@@ -313,6 +313,9 @@
         this._$zoomed.css({'left': (-this._ratioX * left), 'top': (-this._ratioY * top)});
     };
 
-    ch.factory(Zoom);
+    /**
+     * Factory
+     */
+    ch.factory(Zoom, parent._normalizeOptions);
 
-}(this, this.jQuery, this.ch));
+}(this, this.ch.$, this.ch));

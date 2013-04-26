@@ -23,9 +23,8 @@
 	margin-right: 0;
 }
 
-
 /* Triggers */
-.ch-tab-trigger {
+.ch-tab {
 	border: 1px solid #EDEDED;
 	display: inline-block;
 	padding: 3px 12px;
@@ -37,15 +36,15 @@
 }
 
 /* Hover and active */
-.ch-tab-trigger:hover,
-.ch-tab-trigger:active {
+.ch-tab:hover,
+.ch-tab:active {
 	background-color: #F7F7F7;
 }
 
 
 /* Trigger ON */
-.ch-tabs .ch-tab-trigger-on,
-.ch-tabs .ch-tab-trigger-on:hover {
+.ch-tabs .ch-tab.ch-expandable-trigger-on,
+.ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EEEEEE), color-stop(100%, #FFFFFF));
 	background-image: -webkit-linear-gradient(#EEEEEE, #FFFFFF 25px);
 	background-image: -moz-linear-gradient(#EEEEEE, #FFFFFF 25px);
@@ -57,8 +56,8 @@
 	text-shadow: 2px 0 2px rgba(255, 255, 255, .5);
 }
 
-.lt-ie10 .ch-tabs .ch-tab-trigger-on,
-.lt-ie10 .ch-tabs .ch-tab-trigger-on:hover {
+.lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
+.lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#FFFFFF');
 }
 

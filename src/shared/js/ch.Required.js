@@ -5,6 +5,28 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    function normalizeOptions(message) {
+        var options,
+            condition = {
+                'name': 'required'
+            };
+
+        if (typeof message === 'object') {
+
+            options = message;
+            condition.message = options.message;
+            delete options.message;
+
+        } else {
+            options = {};
+            condition.message = message;
+        }
+
+        options.conditions = [condition];
+
+        return options;
+    }
+
     /**
      * Required validates that a must be filled.
      * @name Required
@@ -31,22 +53,12 @@
      * $("input").required("This field is required");
      */
     function Required($el, options) {
-
-        var opts = options || {};
-
-        opts.condition = {
-            'name': 'required',
-            'message': opts.content
-        };
-
-        return $el.validation(opts);
-
+        return $el.validation(options);
     }
 
     Required.prototype.name = 'required';
     Required.prototype.constructor = Required;
-    Required.prototype.preset = 'validation';
 
-    ch.factory(Required);
+    ch.factory(Required, normalizeOptions);
 
 }(this, this.ch));

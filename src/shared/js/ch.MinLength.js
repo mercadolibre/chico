@@ -6,6 +6,45 @@
     }
 
     /**
+     * Normalizes and creates an options object
+     * @private
+     * @function
+     * @returns {Object}
+     */
+    function normalizeOptions(num, message) {
+        var options,
+            condition = {
+                'name': 'minLength'
+            };
+
+        // If the first paramater is an object, it creates a condition and append to options
+        if (typeof num === 'object') {
+
+            // Stores the current options
+            options = num;
+
+            // Creates condition properties
+            condition.num = options.num;
+            condition.message = options.message;
+
+            // Removes the keys that has been stored into the condition
+            delete options.num;
+            delete options.message;
+
+        // Creates an option object if receive more than one parameter
+        } else {
+            options = {};
+            condition.num = num;
+            condition.message = message;
+        }
+
+        // Appends condition object into conditions collection
+        options.conditions = [condition];
+
+        return options;
+    }
+
+    /**
      * MinLength validates a minimun amount of characters.
      * @name MinLength
      * @class MinLength
@@ -33,23 +72,12 @@
      * $("input").minLength(10, "At least 10 characters..");
      */
     function MinLength($el, options) {
-
-        var opts = options || {};
-
-        opts.condition = {
-            'name': 'minLength',
-            'message': opts.content,
-            'num': opts.num
-        };
-
-        return $el.validation(opts);
-
+        return $el.validation(options);
     }
 
     MinLength.prototype.name = 'minLength';
     MinLength.prototype.constructor = MinLength;
-    MinLength.prototype.preset = 'validation';
 
-    ch.factory(MinLength);
+    ch.factory(MinLength, normalizeOptions);
 
 }(this, this.ch));

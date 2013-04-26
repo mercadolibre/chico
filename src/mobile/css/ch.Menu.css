@@ -1,7 +1,6 @@
 /*
-* Menu
-*/
-
+ * Menu
+ */
 .ch-menu {
 	border: 1px solid #EEE;
 	-webkit-border-radius: 5px;
@@ -9,54 +8,34 @@
 	padding: 0;
 }
 
-.ch-menu .ch-expandable {
-	margin: 0;
-}
-
-.ch-menu .ch-bellows,
-.ch-menu .ch-expandable,
-.ch-menu .ch-bellows-trigger,
-.ch-menu .ch-expandable-trigger {
+.ch-menu .ch-fold-trigger,
+.ch-menu .ch-expandable-trigger,
+.ch-menu .ch-expandable-container {
+	border: none;
 	-webkit-border-radius: 0;
 	border-radius: 0;
 }
 
-.ch-menu .ch-bellows:first-of-type,
-.ch-menu .ch-expandable:first-of-type,
-.ch-menu .ch-bellows:first-of-type .ch-bellows-trigger,
-.ch-menu .ch-expandable:first-of-type .ch-expandable-trigger {
-	-webkit-border-top-left-radius: 3px;
-	-webkit-border-top-right-radius: 3px;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-}
-
-.ch-menu .ch-bellows,
-.ch-menu .ch-expandable {
+.ch-menu .ch-menu-fold {
+	border: none;
 	border-top: 1px dotted #CCC;
-	border-right: none;
-	border-left: none;
-	border-bottom: none;
 }
 
-.ch-menu .ch-bellows:first-of-type,
-.ch-menu .ch-expandable:first-of-type {
+.ch-menu .ch-menu-fold:first-of-type {
 	border-top: none;
 }
 
-.ch-menu .ch-bellows:last-of-type,
-.ch-menu .ch-expandable:last-of-type,
-.ch-menu .ch-bellows:last-of-type .ch-bellows-trigger,
-.ch-menu .ch-expandable:last-of-type .ch-expandable-trigger {
-	-webkit-border-bottom-left-radius: 3px;
-	-webkit-border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
+.ch-menu .ch-menu-fold:last-of-type .ch-expandable-container {
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
-.ch-menu .ch-expandable:last-of-type .ch-expandable-trigger-on {
-	-webkit-border-bottom-left-radius: 0;
-	-webkit-border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
+.ch-menu .ch-expandable-container .ch-list-options {
+	background-color: #FFF;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	border: 0;
+	margin: -10px;
 }

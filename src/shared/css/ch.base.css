@@ -1,10 +1,13 @@
 /* IMPORTANT: .ch-hide class allows components to be shown and hidden */
+[hidden],
 .ch-hide {
 	display: none;
 }
 
 .ch-hidden {
 	visibility: hidden;
+	position: absolute !important;
+	top: -9999px !important;
 }
 
 .ch-ellipsis {

@@ -6,6 +6,42 @@
     }
 
     /**
+     * Normalizes and creates an options object
+     * @private
+     * @function
+     * @returns {Object}
+     */
+    function normalizeOptions(message) {
+        var options,
+            condition = {
+                'name': 'url'
+            };
+
+        // If the first paramater is an object, it creates a condition and append to options
+        if (typeof message === 'object') {
+
+            // Stores the current options
+            options = message;
+
+            // Creates condition properties
+            condition.message = options.message;
+
+            // Removes the keys that has been stored into the condition
+            delete options.message;
+
+        // Creates an option object if receive more than one parameter
+        } else {
+            options = {};
+            condition.message = message;
+        }
+
+        // Appends condition object into conditions collection
+        options.conditions = [condition];
+
+        return options;
+    }
+
+    /**
      * Url validates URL syntax.
      * @name Url
      * @class Url
@@ -32,22 +68,12 @@
      * $("input").url("This field must be a valid URL.");
      */
     function URL($el, options) {
-
-        var opts = options || {};
-
-        opts.condition = {
-            'name': 'url',
-            'message': opts.content
-        };
-
-        return $el.validation(opts);
-
+        return $el.validation(options);
     }
 
     URL.prototype.name = 'url';
     URL.prototype.constructor = URL;
-    URL.prototype.preset = 'validation';
 
-    ch.factory(URL);
+    ch.factory(URL, normalizeOptions);
 
 }(this, this.ch));

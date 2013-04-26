@@ -6,6 +6,45 @@
     }
 
     /**
+     * Normalizes and creates an options object
+     * @private
+     * @function
+     * @returns {Object}
+     */
+    function normalizeOptions(num, message) {
+        var options,
+            condition = {
+                'name': 'maxLength'
+            };
+
+        // If the first paramater is an object, it creates a condition and append to options
+        if (typeof num === 'object') {
+
+            // Stores the current options
+            options = num;
+
+            // Creates condition properties
+            condition.num = options.num;
+            condition.message = options.message;
+
+            // Removes the keys that has been stored into the condition
+            delete options.num;
+            delete options.message;
+
+        // Creates an option object if receive more than one parameter
+        } else {
+            options = {};
+            condition.num = num;
+            condition.message = message;
+        }
+
+        // Appends condition object into conditions collection
+        options.conditions = [condition];
+
+        return options;
+    }
+
+    /**
      * MaxLength validates a maximun amount of characters.
      * @name MaxLength
      * @class MaxLength
@@ -33,23 +72,12 @@
      * $("input").maxLength(10, "No more than 10 characters..");
      */
     function MaxLength($el, options) {
-
-        var opts = options || {};
-
-        opts.condition = {
-            'name': 'maxLength',
-            'message': opts.content,
-            'num': opts.num
-        };
-
-        return $el.validation(opts);
-
+        return $el.validation(options);
     }
 
     MaxLength.prototype.name = 'maxLength';
     MaxLength.prototype.constructor = MaxLength;
-    MaxLength.prototype.preset = 'validation';
 
-    ch.factory(MaxLength);
+    ch.factory(MaxLength, normalizeOptions);
 
 }(this, this.ch));

@@ -75,4 +75,4 @@
 
 	ch.blink = blink;
 
-}(this, this.jQuery, this.ch));
+}(this, this.ch.$, this.ch));

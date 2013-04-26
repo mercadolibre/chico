@@ -5,6 +5,28 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    function normalizeOptions(message) {
+        var options,
+            condition = {
+                'name': 'email'
+            };
+
+        if (typeof message === 'object') {
+
+            options = message;
+            condition.message = options.message;
+            delete options.message;
+
+        } else {
+            options = {};
+            condition.message = message;
+        }
+
+        options.conditions = [condition];
+
+        return options;
+    }
+
     /**
      * Email validates a correct email syntax.
      * @name Email
@@ -15,7 +37,7 @@
      * @requires ch.Validation
      * @memberOf ch
      * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.content] Validation message.
+     * @param {String} [conf.message] Validation message.
      * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
      * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
      * @param {String} [conf.context] It's a reference to position the validation-bubble
@@ -32,22 +54,12 @@
      * $("input").email("This field must be a valid email.");
      */
     function Email($el, options) {
-
-        var opts = options || {};
-
-        opts.condition = {
-            'name': 'email',
-            'message': opts.content
-        };
-
-        return $el.validation(opts);
-
+        return $el.validation(options);
     }
 
     Email.prototype.name = 'email';
     Email.prototype.constructor = Email;
-    Email.prototype.preset = 'validation';
 
-    ch.factory(Email);
+    ch.factory(Email, normalizeOptions);
 
 }(this, this.ch));
