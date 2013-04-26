@@ -128,7 +128,7 @@
             return this;
         }
 
-        if (this._active) {
+        if (this._shown) {
             return this.hide();
         }
 
@@ -208,7 +208,7 @@
             map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
 
                 // Validations
-                if (!that._active) { return; }
+                if (!that._shown) { return; }
 
                 // Prevent default behaivor
                 ch.util.prevent(event);
