@@ -91,7 +91,8 @@
         'height': 'auto',
         'open': 'click',
         'close': 'button-only',
-        'closeDelay': 400
+        'closeDelay': 400,
+        'waiting': '<div class="ch-loading ch-loading-centered"></div>'
     };
 
     Popover.prototype.init = function ($el, options) {
@@ -134,25 +135,6 @@
         /**
          * Configure abilities
          */
-        this.content.configure({
-            'input': this._options.content,
-            'method': this._options.method,
-            'params': this._options.params,
-            'cache': this._options.cache,
-            'async': this._options.async
-        });
-
-        this.content.onmessage = function (data) {
-            that._$content.html(data);
-            that.emit('contentLoad');
-            that.position.refresh();
-        };
-
-        this.content.onerror = function (data) {
-            that._$content.html(data);
-            that.emit('contentError');
-            that.position.refresh();
-        };
 
         this._closable();
 
@@ -172,6 +154,10 @@
             if (that._active) {
                 that.position.refresh();
             }
+        });
+
+        this.on('contentdone', function () {
+            that.position.refresh();
         });
 
         this.on('hide', function () {
@@ -246,17 +232,14 @@
 
         // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
+
         // Open the collapsible
         this._show();
 
         // Request the content
         if (content !== undefined) {
-            this.content.configure({
-                'input': content
-            });
+            this.content(content);
         }
-
-        this.content.set();
 
         return this;
     };
@@ -342,6 +325,18 @@
         return this;
     };
 
-    ch.factory(Popover);
+    Popover.prototype._normalizeOptions = function (options) {
+        if (typeof options === 'string' || ch.util.is$(options)) {
+            options = {
+                'content': options
+            };
+        }
+        return options;
+    };
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+    /**
+     * Factory
+     */
+    ch.factory(Popover, Popover.prototype._normalizeOptions);
+
+}(this, this.ch.$, this.ch));

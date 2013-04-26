@@ -10,6 +10,15 @@
 		'key': {
 
 			/**
+			 * Tab key event.
+			 * @name TAB
+			 * @constant
+			 * @memberOf ch.events.key
+			 * @type {String}
+			 */
+			'TAB': 'tab',
+
+			/**
 			 * Enter key event.
 			 * @name ENTER
 			 * @constant

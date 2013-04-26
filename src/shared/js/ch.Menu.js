@@ -30,6 +30,7 @@
     }
 
     function Menu($el, options) {
+
         /**
          * Reference to a internal component instance, saves all the information and configuration properties.
          * @private
@@ -174,11 +175,14 @@
             that.$el.attr('role', 'navigation');
         }
 
-        that.$el.addClass('ch-' + that.name + (that._options.classes !== undefined) ? ' ' + that._options.classes : '');
+        that.$el.addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
 
         // Select specific item if there are a "selected" parameter on component configuration object
-        if (that._options.selected !== undefined) { that.select(that._options.selected); }
+        if (that._selected !== undefined) {
+            that.select(that._selected);
+        }
 
+        return this;
     };
 
     /**
@@ -191,38 +195,35 @@
         var that = this,
             $li,
             $child,
-            $triggerCont,
             $menu;
 
         function createExpandable(i, li) {
             // List element
-            $li = $(li);
+            $li = $(li).addClass('ch-menu-fold');
 
             // Children of list elements
-            $child = $li.children();
+            $child = $li.children(':first-child');
 
             // Anchor inside list
             if ($child[0].tagName === 'A') {
 
                 // Add attr role to match wai-aria
-                $li.attr('role', 'presentation')
-                    // Add class to list and anchor
-                    .addClass('ch-bellows');
+                $li.attr('role', 'presentation');
 
-                $child.addClass('ch-bellows-trigger');
+                $child.addClass('ch-fold-trigger');
 
                 // Add anchor to that._children
-                that._children.push($child.eq(0));
+                that._children.push($child);
 
             } else {
 
                 // List inside list, inits an Expandable
-                var expandable = $li.expandable({
+                var expandable = $child.expandable({
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx,
                     'onshow': function () {
                         // Updates selected when it's opened
-                        that._selected = i;
+                        that._selected = i + 1;
 
                         /**
                          * It is triggered when the a fold is selected by the user.
@@ -239,15 +240,12 @@
                     }
                 });
 
-                $triggerCont = $child.eq(0)
-                    .attr('role', 'presentation');
-
-                $menu = $child.eq(1);
-
                 if (!that._options.accordion) {
-                    $menu.attr('role', 'menu');
-                    $menu.children().children().attr('role', 'menuitem');
-                    $menu.children().attr('role', 'presentation');
+                    $child.next()
+                        .attr('role', 'menu')
+                        .children().attr('role', 'presentation')
+                            .children()
+                                .attr('role', 'menuitem');
                 }
 
                 // Add expandable to that._children
@@ -282,10 +280,15 @@
         // Setter
         var that = this,
             // Specific item of that._children list
-            item = that._children[child];
+            item = that._children[child - 1];
 
         // Item as expandable
         if (item instanceof ch.Expandable) {
+
+            if (this._options.accordion && this._selected !== undefined && this._selected !== child) {
+                this._children[this._selected - 1].hide();
+            }
+
             // Show
             item.show();
         }
@@ -320,15 +323,15 @@
         $.each(that._children, function (i, expandable) {
             if (expandable instanceof ch.Expandable) {
                 expandable.$el
-                    .find('.ch-expandable-trigger')
                     .off('.expandable')
                     .on(ch.events.pointer.TAP + '.accordion', function () {
+                        var opened = that._children[that._selected - 1];
 
-                        if (that._selected !== undefined && expandable !== that._children[that._selected]) {
-                            that._children[that._selected].hide();
+                        if (that._selected !== undefined && expandable !== opened) {
+                            opened.hide();
                         }
 
-                        that.select(i);
+                        that.select(i + 1);
                     });
             }
         });
@@ -352,6 +355,22 @@
         createMethods(methods[len -= 1]);
     }
 
-    ch.factory(Menu);
+    Menu.prototype._normalizeOptions = function (options) {
 
-}(this, this.jQuery || this.Zepto, this.ch));
+        var num = window.parseInt(options, 10);
+
+        if (!window.isNaN(num)) {
+            options = {
+                'selected': num
+            };
+        }
+
+        return options;
+    };
+
+    /**
+     * Factory
+     */
+    ch.factory(Menu, Menu.prototype._normalizeOptions);
+
+}(this, this.ch.$, this.ch));

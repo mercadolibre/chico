@@ -19,480 +19,281 @@
  * @see ch.Widget
  */
 (function (window, $, ch) {
-	'use strict';
+    'use strict';
 
-	if (window.ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (window.ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
-	function Tabs($el, options) {
-		/**
-		 * Reference to a internal component instance, saves all the information and configuration properties.
-		 * @private
-		 * @type {Object}
-		 */
-		var that = this;
+    function normalizeOptions(options) {
 
-		that.init($el, options);
+        var num = window.parseInt(options, 10);
 
-		/**
-		 * Triggers when the component is ready to use (Since 0.8.0).
-		 * @name ch.Tabs#ready
-		 * @event
-		 * @public
-		 * @since 0.8.0
-		 * @example
-		 * // Following the first example, using <code>widget</code> as Tabs's instance controller:
-		 * widget.on('ready',function () {
-		 *	this.show();
-		 * });
-		 */
-		//This avoit to trigger execute after the component was instanciated
-		window.setTimeout(function () { that.emit('ready'); }, 50);
-	}
+        if (!window.isNaN(num)) {
+            options = {
+                'selected': num
+            };
+        }
 
-	/**
-	 * Inheritance
-	 */
-	var	parent = ch.util.inherits(Tabs, ch.Widget);
-
-	/**
-	 * Prototype
-	 */
-	Tabs.prototype.name = 'tabs';
-
-	Tabs.prototype.constructor = Tabs;
-
-	Tabs.prototype._defaults = {
-		'selected': 0,
-        'method': 'GET',
-		'cache': true
-	};
-
-	Tabs.prototype.init = function ($el, options) {
-		parent.init.call(this, $el, options);
-
-		/**
-		 * Reference to a internal component instance, saves all the information and configuration properties.
-		 * @private
-		 * @type {Object}
-		 */
-		var that = this;
-
-		/**
-		* The actual location hash, is used to know if there's a specific tab selected.
-		* @protected
-		* @name ch.Tabs#hash
-		* @type {String}
-		*/
-		that.hash = window.location.hash.replace('#!/', ''),
-
-		/**
-		* A boolean property to know if the some tag should be selected.
-		* @protected
-		* @name ch.Tabs#hashed
-		* @type {Boolean}
-		* @default false
-		*/
-		that.hashed = false,
-
-		/**
-		* Get wich tab is selected.
-		* @protected
-		* @name ch.Tabs#selected
-		* @type {Number}
-		*/
-		that.selected = that._options.selected || that._options.num || undefined;
-
-		/**
-		 * Children instances associated to this controller.
-		 * @name ch.Form#children
-		 * @type {Array}
-		 */
-		that.children = [];
-
-		/**
-		 * The component's triggers container.
-		 * @protected
-		 * @name ch.Tabs#$triggers
-		 * @type {jQuery}
-		 */
-		that.$triggers = that.$el.children(':first-child');
-
-		/**
-		 * The component's container.
-		 * @protected
-		 * @name ch.Tabs#$container
-		 * @type {jQuery}
-		 */
-		that.$container = that.$el.children(':last-child');
-
-		/**
-		 * Default behavior
-		 */
-		that.$el.addClass('ch-tabs');
-
-		that.$triggers
-			.addClass('ch-tabs-triggers')
-			.attr('role', 'tablist');
-
-		that.$container
-			.addClass('ch-tabs-container ch-box-lite')
-			.attr('role', 'presentation');
+        return options;
+    }
 
 
-		// Creates individual tab
-		that.createTabs();
+    function Tabs($el, options) {
 
-		that.hasHash();
-
-		return this;
-	};
-
-	/**
-	 * Create controller's children.
-	 * @protected
-	 * @name ch.Tabs#createTabs
-	 * @function
-	 */
-	Tabs.prototype.createTabs = function () {
-		var that = this;
-
-		// Children
-		that.$triggers.find('a').each(function (i, e) {
-
-			// Tab configuration
-			var config = {};
-			config.open = (that.selected === i);
-			config.onShow = function () { that.selected = i; };
-			config.controller = that;
-
-			if (that._options.cache !== undefined) { config.cache = that._options.cache; }
-
-            if (that._options.method !== undefined) { config.method = that._options.method; }
-
-			/**
-			* Fired when the content of one dynamic tab loads.
-			* @name ch.Tabs#contentLoad
-			* @event
-			* @public
-			*/
-			if (that._options.onContentLoad !== undefined) { config.onContentLoad = that._options.onContentLoad; }
-
-			/**
-			* Fired when the content of one dynamic tab did not load.
-			* @name ch.Tabs#contentError
-			* @event
-			* @public
-			*/
-			if (that._options.onContentError !== undefined) { config.onContentError = that._options.onContentError; }
-
-			// Create Tabs
-			that.children.push(new ch.Tab($(e), config));
-
-			// Bind new click to have control
-			$(e).on('click', function (event) {
-				ch.util.prevent(event);
-				that.select(i);
-			});
-
-		});
-
-		return that;
-	};
-
-	Tabs.prototype.hasHash = function () {
-		var that = this;
-
-		// If hash open that tab
-		for(var i = that.children.length; i--;) {
-			if (that.children[i].$container.attr('id') === that.hash) {
-				that.select(i);
-				that.hashed = true;
-				break;
-			}
-		};
-
-		// Shows the first tab if not hash or it's hash and it isn't from the current tab
-		if( !that.hash || ( that.hash && !that.hashed ) ){
-			that.children[0].show();
-			that.selected = 0;
-		}
-	};
-
-	/**
-	 * Select a specific tab or get the selected tab.
-	 * @public
-	 * @name ch.Tabs#select
-	 * @function
-	 * @param {Number} [tab] Tab's index.
-	 * @exampleDescription Selects a specific tab
-	 * @example
-	 * widget.select(0);
-	 * @exampleDescription Returns the selected tab's index
-	 * @example
-	 * var selected = widget.select();
-	 */
-	Tabs.prototype.select = function (index) {
-		if (index === undefined) {
-			return this.selected;
-		}
-
-		var that = this,
-			selected = that.selected,
-
-			// Sets the tab's index
-			tab = that.children[index];
-
-		// If select a tab that doesn't exist do nothing
-		// Don't click me if I'm open
-		if (!tab || index === selected) {
-			return that;
-		}
-
-		// Hides the open tab
-		if (typeof selected !== 'undefined') {
-			that.children[selected].hide();
-		}
-
-		// Shows the current tab
-		tab.show();
-
-		// Updated selected index
-        that.selected = index;
-
-		//Change location hash
-		window.location.hash = '#!/' + tab.$container.attr('id');
-
-		/**
-		 * Fired when a tab is selected.
-		 * @name ch.Tabs#select
-		 * @event
-		 * @public
-		 */
-		that.emit('select');
-
-		return that;
-
-	};
-
-	ch.factory(Tabs);
-
-}(this, this.jQuery, this.ch));
-
-/**
- * Tab is a simple unit of content for Tabs.
- * @abstract
- * @name Tab
- * @class Tab
- * @augments ch.Navs
- * @memberOf ch
- * @param {object} options Object with configuration properties
- * @returns itself
- * @ignore
- */
- (function (window, $, ch) {
-	'use strict';
-
-	if (window.ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
-
-	function Tab($el, options) {
-		this.init($el, options);
-	}
-
-	/**
-	 * Private
-	 */
-	var $html = $('html'),
-
-		/**
-		 * Inheritance
-		 */
-		parent = ch.util.inherits(Tab, ch.Widget);
-
-	/**
-	 * Prototype
-	 */
-	Tab.prototype.name = 'tab';
-
-	Tab.prototype.constructor = Tab;
-
-	Tab.prototype.defaults = {
-		'icon': false
-	};
-
-	Tab.prototype.init = function ($el, options) {
-		parent.init.call(this, $el, options);
+        this.init($el, options);
 
         /**
-         * Set required abilities
+         * Reference to a internal component instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
          */
-        this.require('Collapsible', 'Content');
+        var that = this;
 
-		/**
-		 * Reference to a internal component instance, saves all the information and configuration properties.
-		 * @private
-		 * @type {Object}
-		 */
-		var that = this;
+        /**
+         * Triggers when the component is ready to use (Since 0.8.0).
+         * @name ch.Tabs#ready
+         * @event
+         * @public
+         * @since 0.8.0
+         * @example
+         * // Following the first example, using <code>widget</code> as Tabs's instance controller:
+         * widget.on('ready',function () {
+         *  this.show();
+         * });
+         */
+        //This avoit to trigger execute after the component was instanciated
+        window.setTimeout(function () { that.emit('ready'); }, 50);
+    }
 
-		/**
-		 * Reference to the trigger element.
-		 * @protected
-		 * @name Tab#$trigger
-		 * @type jQuery
-		 * @ignore
-		 */
-		that.$trigger = that.$el;
 
-		/**
-		 * The component's content.
-		 * @protected
-		 * @name Tab#$content
-		 * @type jQuery
-		 * @ignore
-		 */
-		that.$container = that.createContent();
+    /**
+     * Inheritance
+     */
+    var parent = ch.util.inherits(Tabs, ch.Widget);
 
-		/**
-		 * This callback is triggered when content request have finished.
-		 * @protected
-		 * @name ch.Floats#onmessage
-		 * @function
-		 * @returns {this}
-		 */
-		that.content.onmessage = function (data) {
+    /**
+     * Prototype
+     */
+    Tabs.prototype.name = 'tabs';
 
-			that.$container.html(data);
+    Tabs.prototype.constructor = Tabs;
 
-			that._options.controller.emit('contentLoad');
+    Tabs.prototype._defaults = {
+        'selected': 1
+    };
 
-			if (that._options.onContentLoad !== undefined) {
-				that._options.onContentLoad.call(that._options.controller, data);
-			}
-		};
+    Tabs.prototype.init = function ($el, options) {
+        parent.init.call(this, $el, options);
 
-		/**
-		 * This callback is triggered when async request fails.
-		 * @protected
-		 * @name ch.Floats#onerror
-		 * @function
-		 * @returns {this}
-		 */
-		that.content.onerror = function (data) {
+        var that = this;
 
-			that.$container.html(data);
+        /**
+        * The actual location hash, is used to know if there's a specific tab selected.
+        * @private
+        * @name ch.Tabs#hash
+        * @type {String}
+        */
+        this._initialHash = window.location.hash.replace('#!/', '');
 
-			that.controller.trigger('contentError', data);
+        /**
+         * Children instances associated to this controller.
+         * @public
+         * @name ch.Form#children
+         * @type {Array}
+         */
+        this._children = [];
 
-			if (that._options.onContentError !== undefined) {
-				that._options.onContentError.call(that.controller, data.jqXHR, data.textStatus, data.errorThrown);
-			}
-		};
+        /**
+         * The component's triggers container.
+         * @protected
+         * @name ch.Tabs#$triggers
+         * @type {jQuery}
+         */
+        this.$triggers = this.$el.children(':first-child');
 
-		// Add the attributes for WAI-ARIA to the tabs and tabpanel
-		// By default is hidden
-		that.$container.attr({
-			'role': 'tabpanel',
-			'aria-hidden': true,
-			'class': 'ch-hide'
-		});
+        /**
+         * The component's container.
+         * @protected
+         * @name ch.Tabs#$container
+         * @type {jQuery}
+         */
+        this.$container = this.$el.children(':last-child');
 
-		that.$trigger.attr({
-			'role': 'tab',
-			'arial-controls': that.$container.attr('id'),
-			'class': 'ch-tab-trigger'
-		});
+        /**
+         * The tabpanel's containers.
+         * @private
+         * @name ch.Tabs#_$tabsContainers
+         * @type {jQuery}
+         */
+        this._$tabsContainers = this.$container.children();
 
-		return that;
-	};
+        /**
+         * Default behavior
+         */
+        this.$el.addClass('ch-tabs');
 
-	/**
-	 * Creates the basic structure for the tab's content.
-	 * @private
-	 * @name Tab#createContent
-	 * @function
-	 * @ignore
-	 */
-	Tab.prototype.createContent = function () {
-		var that = this,
-			href = that.el.href.split('#'),
-			controller = that.$el.parents('.ch-tabs'),
-			content = controller.find('#' + href[1]),
-            contentOptions;
+        this.$triggers
+            .addClass('ch-tabs-triggers')
+            .attr('role', 'tablist');
 
-		// If there are a tabContent...
-		if (content.length > 0) {
-			return content;
+        this.$container
+            .addClass('ch-tabs-container ch-box-lite')
+            .attr('role', 'presentation');
 
-		// If tabContent doesn't exists
-		} else {
-			/**
-			* Content configuration property.
-			* @public
-			* @name Tab#_source
-			* @type string
-			* @ignore
-			*/
-			that._source = that.el.href;
+        // Creates children tab
+        this.$triggers.find('a').each(function (i, e) {
+            that._createTab(i, e);
+        });
 
-            contentOptions = {
-                'input': that._source,
-                'method': that._options.method,
-                'cache': that._options.cache
+        this._selected = this._options.selected;
+
+        this._hasHash();
+
+        return this;
+    };
+
+    /**
+     * Create controller's children.
+     * @private
+     * @name ch.Tabs#_createTabs
+     * @function
+     */
+    Tabs.prototype._createTab = function (i, e) {
+        var that = this,
+
+            tab,
+
+            $container = this._$tabsContainers.eq(i),
+
+            // Create Tab's options
+            options = {
+                '_classNameTrigger': 'ch-tab',
+                '_classNameContainer': 'ch-tabpanel ch-hide',
+                'toggle': false
             };
 
-            that.content.configure(contentOptions);
+        // Tab async configuration
+        if ($container[0] === undefined) {
 
-			var id = (href.length === 2) ? href[1] : 'ch-tab-' + that.uid;
+            $container = $('<div id="' + e.href.split('#')[1] + '" class="ch-hide">').appendTo(this.$container);
 
-			// Create tabContent
-			return $('<div id="' + id + '" role="tabpanel" class="ch-hide">').appendTo(controller.children().eq(1));
-		}
+            options.content = e.href;
+            options.waiting = this._options.waiting;
+            options.cache = this._options.cache;
+            options.method = this._options.method;
+        }
 
-		return that;
-	};
+        // Tab container configuration
+        options.container = $container;
 
-	/**
-	* Shows component's content.
-	* @protected
-	* @function
-	* @name Tab#innerShow
-	* @returns itself
-	* @ignore
-	*/
-	Tab.prototype.show = function () {
-		var that = this;
+        // Creates new tab
+        tab = new ch.Expandable($(e), options);
 
-		that._active = true;
+        // Creates tab's hash
+        tab._hash = tab.el.href.split('#')[1];
 
-		// Load my content if I'need an ajax request
-		if (that._source !== undefined) { that.content.set(); }
+        // Binds tap and focus events
+        tab.$el
+            .on(ch.events.pointer.TAP + '.tabs focus.tabs', function () {
+                that.select(i + 1);
+            });
 
-		that._show();
+        // Adds tabs to the collection
+        this._children.push(tab);
 
-		return that;
-	};
+        return this;
+    };
 
-	/**
-	* Hides component's content.
-	* @protected
-	* @function
-	* @name Tab#innerHide
-	* @returns itself
-	* @ignore
-	*/
-	Tab.prototype.hide = function () {
+    Tabs.prototype._hasHash = function () {
+        var i = 0,
+            // Shows the first tab if not hash or it's hash and it isn't from the current tab,
+            len = this._children.length;
+        // If hash open that tab
+        for (i; i < len; i += 1) {
+            if (this._children[i]._hash === this._initialHash) {
+                this._selected = i + 1;
+                break;
+            }
+        }
 
-		if (!this._active) { return; }
+        this._children[this._selected - 1].show();
 
-		this._hide();
+        /**
+         * Fired when a tab is selected.
+         * @name ch.Tabs#select
+         * @event
+         * @public
+         */
+        this.emit('select');
 
-		return this;
-	};
+        return this;
+    };
 
-	ch.Tab = Tab;
+    /**
+     * Select a specific tab or get the selected tab.
+     * @public
+     * @name ch.Tabs#select
+     * @function
+     * @param {Number} [tab] Tab's index.
+     * @exampleDescription Selects a specific tab
+     * @example
+     * widget.select(0);
+     * @exampleDescription Returns the selected tab's index
+     * @example
+     * var selected = widget.select();
+     */
+    Tabs.prototype.select = function (index) {
 
-}(this, this.jQuery, this.ch));
+        if (index === undefined) {
+            return this._selected;
+        }
+
+        var selected = this._selected,
+            // Sets the tab's index
+            tab = this._children[index - 1];
+
+        // If select a tab that doesn't exist do nothing
+        // Don't click me if I'm open
+        if (tab === undefined || selected === index) {
+            return this;
+        }
+
+        // Hides the open tab
+        if (selected !== undefined) {
+            this._children[selected - 1].hide();
+        }
+
+        /**
+         * Get wich tab is selected.
+         * @private
+         * @name ch.Tabs#_selected
+         * @type {Number}
+         */
+        this._selected = index;
+
+        if (!tab.isActive()) {
+            tab.show();
+        }
+
+        //Change location hash
+        window.location.hash = '#!/' + tab._hash;
+
+        /**
+         * Fired when a tab is selected.
+         * @name ch.Tabs#select
+         * @event
+         * @public
+         */
+        this.emit('select');
+
+        return this;
+
+    };
+
+    /**
+     * Factory
+     */
+    ch.factory(Tabs, normalizeOptions);
+
+}(this, this.ch.$, this.ch));

@@ -85,7 +85,8 @@
         'side': 'bottom',
         'align': 'left',
         'offsetX': 0,
-        'offsetY': 10
+        'offsetY': 10,
+        'waiting': '<div class="ch-loading-small"></div>'
     });
 
     Layer.prototype.init = function ($el, options) {
@@ -119,6 +120,9 @@
         return this;
     };
 
-    ch.factory(Layer);
+    /**
+     * Factory
+     */
+    ch.factory(Layer, parent._normalizeOptions);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+}(this, this.ch.$, this.ch));

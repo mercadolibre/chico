@@ -87,12 +87,6 @@
             $container = that.$el.parent(),
             message;
 
-
-
-        if (that._options.num !== undefined && that._options.num !== that._options.max) {
-            that._options.max = that._options.num;
-        }
-
         /**
          * Amount of free characters until full the field.
          * @private
@@ -186,6 +180,21 @@
      * @borrows ch.Widget#type as ch.Countdown#type
      */
 
-    ch.factory(Countdown);
+    Countdown.prototype._normalizeOptions = function (options) {
+        var num = window.parseInt(options, 10);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+        if (!window.isNaN(num)) {
+            options = {
+                'max': num
+            };
+        }
+
+        return options;
+    };
+
+    /**
+     * Factory
+     */
+    ch.factory(Countdown, Countdown.prototype._normalizeOptions);
+
+}(this, this.ch.$, this.ch));

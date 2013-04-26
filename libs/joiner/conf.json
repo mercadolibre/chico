@@ -42,12 +42,11 @@
 				"../../src/shared/js/ch.support.js",
 				"../../src/shared/js/ch.events.js",
 				"../../src/ui/js/ch.events.js",
-				"../../src/ui/js/ch.keyboard.js",
 				"../../src/shared/js/ch.factory.js",
-				"../../src/shared/js/ch.debug.js",
 				"../../src/ui/js/ch.init.js"
 			],
 			"abilities": [
+				"../../src/ui/js/ch.Shortcuts.js",
 				"../../src/shared/js/ch.EventEmitter.js",
                 "../../src/shared/js/ch.onImagesLoads.js",
 				"../../src/shared/js/ch.cache.js",
@@ -90,7 +89,8 @@
 				"../../src/ui/js/ch.Tabs.js",
 				"../../src/ui/js/ch.Carousel.js",
 				"../../src/shared/js/ch.Countdown.js",
-				"../../src/ui/js/ch.DatePicker.js"
+				"../../src/ui/js/ch.DatePicker.js",
+				"../../src/ui/js/ch.AutoComplete.js"
 			],
 			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
 		},
@@ -132,7 +132,8 @@
 				"../../src/ui/css/ch.Expandable.css",
 				"../../src/ui/css/ch.Menu.css",
 				"../../src/ui/css/ch.Tabs.css",
-				"../../src/ui/css/ch.DatePicker.css"
+				"../../src/ui/css/ch.DatePicker.css",
+				"../../src/ui/css/ch.AutoComplete.css"
 			],
 			"template": ["meta.ui.full.css", "resetML", "core", "widgets"]
 		},
@@ -145,7 +146,6 @@
 				"../../src/shared/js/ch.events.js",
 				"../../src/mobile/js/ch.events.js",
 				"../../src/shared/js/ch.factory.js",
-				"../../src/shared/js/ch.debug.js",
 				"../../src/mobile/js/ch.init.js"
 			],
 			"abilities": [
@@ -185,7 +185,8 @@
 				"../../src/shared/js/ch.Custom.js",
 				"../../src/shared/js/ch.Required.js",
 				"../../src/shared/js/ch.Countdown.js",
-				"../../src/shared/js/ch.Calendar.js"
+				"../../src/shared/js/ch.Calendar.js",
+				"../../src/ui/js/ch.AutoComplete.js"
 			],
 			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
 		},
@@ -223,6 +224,7 @@
                 "../../src/shared/css/ch.Bubble.css",
                 "../../src/shared/css/ch.Modal.css",
                 "../../src/shared/css/ch.Transition.css",
+                "../../src/mobile/css/ch.AutoComplete.css",
                 "../../src/shared/css/ch.Dropdown.css",
                 "../../src/shared/css/ch.Calendar.css"
 			],

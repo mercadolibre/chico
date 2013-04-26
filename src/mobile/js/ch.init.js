@@ -15,4 +15,9 @@
 	util.MBP.preventZoom();
 	// Fix the broken iPad/iPhone form label click issue
 	util.fixLabels();
+
+	ch.instances = instances;
+
+	// Exposse private $ (Zepto) into ch.$
+	ch.$ = $;
 }());
