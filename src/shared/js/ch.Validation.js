@@ -54,7 +54,7 @@
          *   this.show();
          * });
          */
-        window.setTimeout(function () { that.emit("ready"); }, 50);
+        window.setTimeout(function () { that.emit('ready'); }, 50);
 
         return this;
 
@@ -130,10 +130,10 @@
         /**
          * Flag that let you know if there's a validation going on.
          * @private
-         * @name ch.Validation#_active
+         * @name ch.Validation#_shown
          * @type {Boolean}
          */
-        this._active = false;
+        this._shown = false;
 
         /**
          * Flag that let you know if the validations is enabled or not.
@@ -155,7 +155,7 @@
             .on('exists', function (data) {
                 this._mergeConditions(data.conditions);
             })
-            // Clean the validation if is active;
+            // Clean the validation if is shown;
             .on('disable', this.clear);
 
         /**
@@ -277,7 +277,7 @@
         // Lazy Loading pattern
         this._error = function () {
 
-            if (!that._previousError.condition || !that._active) {
+            if (!that._previousError.condition || !that._shown) {
                 if (that.el.nodeName === 'INPUT' || that.el.nodeName === 'TEXTAREA') {
                     that.$el.addClass('ch-validation-error');
                 }
@@ -291,7 +291,7 @@
                 that.$el.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
             }
 
-            that._active = true;
+            that._shown = true;
 
             /**
              * Triggers when an error occurs on the validation process.
@@ -324,9 +324,9 @@
     Validation.prototype._success = function () {
 
         // Status OK (with previous error) this._previousError
-        if (this._active || !this._enabled) {
+        if (this._shown || !this._enabled) {
             // Public status OK
-            this._active = false;
+            this._shown = false;
         }
 
         this.$el.removeClass('ch-validation-error')
@@ -358,7 +358,7 @@
             value = this.el.value;
 
         // Avoid fields that aren't required when they are empty or de-activated
-        if (!required && value === '' && this._active === false) {
+        if (!required && value === '' && this._shown === false) {
             // Has got an error? Nop
             return false;
         }
@@ -387,15 +387,15 @@
 
         }
 
-        // // // Update the error object
+        // Update the error object
         this.error = null;
 
-        // // // Has got an error? Nop
+        // Has got an error? Nop
         return false;
     };
 
     /**
-     * Clear all active validations.
+     * Clear all shown validations.
      * @public
      * @name ch.Validation#clear
      * @function
@@ -407,7 +407,7 @@
 
         this.bubble.hide();
 
-        this._active = false;
+        this._shown = false;
 
         /**
          * Triggers when al validations are cleared.
@@ -439,13 +439,13 @@
     /**
      * Turn off Validation and a specific condition.
      * @public
-     * @name ch.Validation#isActive
+     * @name ch.Validation#isShown
      * @function
      * @returns boolean
      * @see ch.Condition
      */
-    Validation.prototype.isActive = function () {
-        return this._active;
+    Validation.prototype.isShown = function () {
+        return this._shown;
     };
 
     /**
@@ -502,7 +502,7 @@
         // Sets a new message
         this.conditions[condition].message = message;
 
-        if (this.isActive() && this.error.condition === condition) {
+        if (this.isShown() && this.error.condition === condition) {
             this.bubble.content(message);
         }
 
@@ -556,4 +556,4 @@
      */
     ch.factory(Validation);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+}(this, this.ch.$, this.ch));

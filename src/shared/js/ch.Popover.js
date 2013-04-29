@@ -89,6 +89,7 @@
         'fx': 'fadeIn',
         'width': 'auto',
         'height': 'auto',
+        'shown': false,
         'open': 'click',
         'close': 'button-only',
         'closeDelay': 400,
@@ -135,33 +136,6 @@
         /**
          * Configure abilities
          */
-        this.content.configure({
-            'input': this._options.content,
-            'method': this._options.method,
-            'params': this._options.params,
-            'cache': this._options.cache,
-            'async': this._options.async,
-            'waiting': this._options.waiting
-        });
-
-        /**
-         * This callback is triggered when content request have finished.
-         * @protected
-         * @name ch.Popover#content#onmessage
-         * @function
-         * @returns {this}
-         */
-        this.content.onmessage = function (event) {
-            var status = 'content' + event.status;
-
-            that._$content.html(event.response);
-            that.emit(status, event);
-            that.position.refresh();
-
-            if (that._options['on' + status] !== undefined) {
-                that._options['on' + status].call(that, event);
-            }
-        };
 
         this._closable();
 
@@ -178,9 +152,13 @@
          * Bind behaviors
          */
         $document.on(ch.events.layout.CHANGE, function () {
-            if (that._active) {
+            if (that._shown) {
                 that.position.refresh();
             }
+        });
+
+        this.on('contentdone', function () {
+            that.position.refresh();
         });
 
         this.on('hide', function () {
@@ -261,12 +239,8 @@
 
         // Request the content
         if (content !== undefined) {
-            this.content.configure({
-                'input': content
-            });
+            this.content(content);
         }
-
-        this.content.set();
 
         return this;
     };
@@ -286,14 +260,14 @@
     };
 
     /**
-     * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
      * @public
      * @function
-     * @name ch.Floats#isActive
+     * @name ch.Floats#isShown
      * @returns boolean
      */
-    Popover.prototype.isActive = function () {
-        return this._active;
+    Popover.prototype.isShown = function () {
+        return this._shown;
     };
 
     /**
@@ -366,4 +340,4 @@
      */
     ch.factory(Popover, Popover.prototype._normalizeOptions);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+}(this, this.ch.$, this.ch));

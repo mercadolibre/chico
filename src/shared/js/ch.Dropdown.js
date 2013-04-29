@@ -88,6 +88,9 @@
     });
 
     Dropdown.prototype.init = function ($el, options) {
+
+        var that = this;
+
         parent.init.call(this, $el, options);
 
         //TODO: $trigger should be defined in Popover class.
@@ -105,11 +108,6 @@
             this.$trigger.addClass('ch-btn-skin ch-btn-small');
         }
 
-        // Configure content
-        this.content.configure({
-            'input': this.$el.next()
-        });
-
         /**
          * Dropdown navigation.
          * @protected
@@ -118,6 +116,8 @@
         if (this._options.navigation) {
             this._$navigation = this.$el.next().find('a').attr('role', 'menuitem');
         }
+
+        this._options.content = this.$el.next();
 
         return this;
     };
@@ -128,7 +128,7 @@
             return this;
         }
 
-        if (this._active) {
+        if (this._shown) {
             return this.hide();
         }
 
@@ -209,7 +209,7 @@
             map.DOWN_ARROW = map.UP_ARROW = function (key, event) {
 
                 // Validations
-                if (!that._active) { return; }
+                if (!that._shown) { return; }
 
                 // Prevent default behaivor
                 ch.util.prevent(event);
@@ -242,4 +242,4 @@
 
     ch.factory(Dropdown);
 
-}(this, this.jQuery || this.Zepto, this.ch));
+}(this, this.ch.$, this.ch));

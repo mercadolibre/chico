@@ -70,7 +70,7 @@
 
         $body = $('body'),
 
-        $dimmer = $('<div class="ch-dimmer">');
+        $dimmer = $('<div class="ch-dimmer ch-hide">');
 
     /**
      * Public members
@@ -125,7 +125,7 @@
         if (ch.support.fx) {
             $dimmer.fadeIn();
         } else {
-            $dimmer.show();
+            $dimmer.removeClass('ch-hide');
         }
 
         // Execute the original show()
@@ -144,9 +144,11 @@
     Modal.prototype.hide = function () {
         // Delete the dimmer element
         if (ch.support.fx) {
-            $dimmer.fadeOut('normal', $dimmer.detach);
+            $dimmer.fadeOut('normal', function () {
+                $dimmer.remove(null, true);
+            });
         } else {
-            $dimmer.hide();
+            $dimmer.addClass('ch-hide').remove(null, true);
         }
         // Execute the original hide()
         parent.hide.call(this);
@@ -159,4 +161,4 @@
      */
     ch.factory(Modal, parent._normalizeOptions);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+}(this, this.ch.$, this.ch));

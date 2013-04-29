@@ -5,13 +5,22 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    function normalizeOptions(options) {
+        if (typeof options === 'string' || ch.util.is$(options)) {
+            options = {
+                'content': options
+            };
+        }
+        return options;
+    };
+
     /**
      * Expandable lets you show or hide the container. Expandable needs a pair: the title and the container related to that title.
      * @constructor
      * @memberOf ch
      * @augments ch.Navs
      * @param {Object} [options] Object with configuration properties.
-     * @param {Boolean} [options.open] Shows the expandable open when component was loaded. By default, the value is false.
+     * @param {Boolean} [options.shown] Shows the Expandable shown when component was loaded. By default, the value is false.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
      * @returns {Object}
      * @exampleDescription Create a new Expandable.
@@ -20,7 +29,7 @@
      * @exampleDescription Create a new Expandable with configuration.
      * @example
      * var widget = $('.example').expandable({
-     *     'open': true,
+     *     'shown': true,
      *     'fx': true
      * });
      */
@@ -37,7 +46,7 @@
         /**
          * Emits the event 'ready' when the component is ready to use.
          * @fires ch.Expandable#ready
-         * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
+         * @exampleDescription Following the first example, using <code>widget</code> as Expandable's instance controller:
          * @example
          * widget.on('ready',function () {
          *  this.show();
@@ -47,7 +56,7 @@
     }
 
     /**
-     * Private
+     * Private Expandable
      */
 
     /**
@@ -80,8 +89,11 @@
      * @type {Object}
      */
     Expandable.prototype._defaults = {
-        'open': false,
-        'fx': false
+        '_classNameTrigger': 'ch-expandable-trigger ch-expandable-ico',
+        '_classNameContainer': 'ch-expandable-container ch-hide',
+        'shown': false,
+        'fx': false,
+        'toggle': true
     };
 
     /**
@@ -107,29 +119,7 @@
          * @private
          * @type {Object}
          */
-        var that = this,
-
-            /**
-             * Map that contains the ARIA attributes for the trigger element
-             * @private
-             * @type {Object}
-             * @ignore
-             */
-            triggerAttr = {
-                'aria-expanded': this._options.open,
-                'aria-controls': 'ch-' + this.name + '-' + this.uid
-            },
-
-            /**
-             * Map that contains the ARIA attributes for the container element
-             * @private
-             * @type {Object}
-             * @ignore
-             */
-            containerAttr = {
-                'id': triggerAttr['aria-controls'],
-                'aria-hidden': !triggerAttr['aria-expanded']
-            };
+        var that = this;
 
         /**
          * Protected Members
@@ -141,9 +131,8 @@
          * @type {Selector}
          * @ignore
          */
-        this.$trigger = this.$el.children(':first-child')
-            .attr(triggerAttr)
-            .addClass('ch-' + this.name + '-trigger ch-' + this.name + '-ico')
+        this.$trigger = this.$el
+            .addClass(this._options._classNameTrigger)
             .on(ch.events.pointer.TAP + '.' + this.name, function (event) {
                 event.preventDefault();
                 that.show();
@@ -155,37 +144,17 @@
          * @type {Selector}
          * @ignore
          */
-        this.$container = this.$el.children(':last-child')
-            .attr(containerAttr)
-            .addClass('ch-' + this.name + '-container ch-hide');
+        this.$container = this._$content = (this._options.container || this.$el.next())
+            .addClass(this._options._classNameContainer);
 
         /**
          * Default behavior
          */
-        this.$el.addClass('ch-' + this.name);
-
-        // Content configuration
-        this.content.onmessage = function (event) {
-            var status = 'content' + event.status;
-
-            that.$container.html(event.response);
-            that.emit(status, event);
-
-            if (that._options['on' + status] !== undefined) {
-                that._options['on' + status].call(that, event);
-            }
-        };
-
-        this.content.set({
-            'input': this.$container.html()
-        });
-
-        // Is it open by default?
-        if (this._options.open) {
-            this.show();
+        if (this._options.content !== undefined) {
+            this.once('show', function () {
+                that.content(this._options.content);
+            });
         }
-
-        ch.util.avoidTextSelection(this.$trigger);
 
         this
             .on('show', function () {
@@ -194,15 +163,23 @@
             .on('hide', function () {
                 $document.trigger(ch.events.layout.CHANGE);
             });
+
+        ch.util.avoidTextSelection(this.$trigger);
+
+        // Is it shown by default?
+        if (this._options.shown) {
+            this.show();
+        }
+
     };
 
     /**
      * Shows component's content.
      * @public
      * @function
-     * @name ch.Expabdable#show
+     * @name ch.Expandable#show
      * @returns {Object}
-     * @exampleDescription Open the Expandable widget.
+     * @exampleDescription Show the Expandable widget.
      * @example
      * widget.show();
      */
@@ -212,20 +189,16 @@
             return this;
         }
 
-        if (this._active) {
+        if (this._shown && this._options.toggle) {
             return this.hide();
         }
 
         this._show();
 
-        // Request the content
+        // Set new content
         if (content !== undefined) {
-            this.content.configure({
-                'input': content
-            });
+            this.content(content);
         }
-
-        this.content.set();
 
         return this;
     };
@@ -241,8 +214,9 @@
      * widget.hide();
      */
     Expandable.prototype.hide = function () {
-        if (!this._active) {
-            return;
+
+        if (!this._shown) {
+            return this;
         }
 
         this._hide();
@@ -251,20 +225,20 @@
     };
 
     /**
-     * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
-     * @name isActive
-     * @methodOf ch.Expandable#isActive
+     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
+     * @name isShown
+     * @methodOf ch.Expandable#isShown
      * @returns {Boolean}
-     * @exampleDescription
+     * @exampleDescriptiong
      * @example
-     * if (widget.isActive()) {
+     * if (widget.isShown()) {
      *     fn();
      * }
      */
-    Expandable.prototype.isActive = function () {
-        return this._active;
+    Expandable.prototype.isShown = function () {
+        return this._shown;
     };
 
-    ch.factory(Expandable);
+    ch.factory(Expandable, normalizeOptions);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+}(this, this.ch.$, this.ch));

@@ -62,4 +62,4 @@
 
 	ch.routes = routes
 
-}(this, this.Zepto, this.ch));
+}(this, this.ch.$, this.ch));
