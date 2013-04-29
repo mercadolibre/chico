@@ -89,6 +89,7 @@
         'fx': 'fadeIn',
         'width': 'auto',
         'height': 'auto',
+        'shown': false,
         'open': 'click',
         'close': 'button-only',
         'closeDelay': 400,
@@ -151,7 +152,7 @@
          * Bind behaviors
          */
         $document.on(ch.events.layout.CHANGE, function () {
-            if (that._active) {
+            if (that._shown) {
                 that.position.refresh();
             }
         });
@@ -259,14 +260,14 @@
     };
 
     /**
-     * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
+     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
      * @public
      * @function
-     * @name ch.Floats#isActive
+     * @name ch.Floats#isShown
      * @returns boolean
      */
-    Popover.prototype.isActive = function () {
-        return this._active;
+    Popover.prototype.isShown = function () {
+        return this._shown;
     };
 
     /**

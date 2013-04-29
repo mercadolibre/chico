@@ -10,6 +10,15 @@
 		'key': {
 
 			/**
+			 * Alphanumeric keys event.
+			 * @name INPUT
+			 * @constant
+			 * @memberOf ch.events.key
+			 * @type {String}
+			 */
+			'INPUT': ('oninput' in document.createElement('input')) ? 'input' : 'keydown',
+
+			/**
 			 * Tab key event.
 			 * @name TAB
 			 * @constant

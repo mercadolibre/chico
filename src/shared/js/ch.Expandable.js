@@ -10,7 +10,7 @@
             options = {
                 'content': options
             };
-        }2
+        }
         return options;
     };
 
@@ -20,7 +20,7 @@
      * @memberOf ch
      * @augments ch.Navs
      * @param {Object} [options] Object with configuration properties.
-     * @param {Boolean} [options.active] Shows the Expandable shown when component was loaded. By default, the value is false.
+     * @param {Boolean} [options.shown] Shows the Expandable shown when component was loaded. By default, the value is false.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
      * @returns {Object}
      * @exampleDescription Create a new Expandable.
@@ -29,7 +29,7 @@
      * @exampleDescription Create a new Expandable with configuration.
      * @example
      * var widget = $('.example').expandable({
-     *     'open': true,
+     *     'shown': true,
      *     'fx': true
      * });
      */
@@ -91,7 +91,7 @@
     Expandable.prototype._defaults = {
         '_classNameTrigger': 'ch-expandable-trigger ch-expandable-ico',
         '_classNameContainer': 'ch-expandable-container ch-hide',
-        'open': false,
+        'shown': false,
         'fx': false,
         'toggle': true
     };
@@ -166,8 +166,8 @@
 
         ch.util.avoidTextSelection(this.$trigger);
 
-        // Is it open by default?
-        if (this._options.open) {
+        // Is it shown by default?
+        if (this._options.shown) {
             this.show();
         }
 
@@ -189,7 +189,7 @@
             return this;
         }
 
-        if (this._active && this._options.toggle) {
+        if (this._shown && this._options.toggle) {
             return this.hide();
         }
 
@@ -215,7 +215,7 @@
      */
     Expandable.prototype.hide = function () {
 
-        if (!this._active) {
+        if (!this._shown) {
             return this;
         }
 
@@ -225,18 +225,18 @@
     };
 
     /**
-     * Returns a Boolean if the component's core behavior is active. That means it will return 'true' if the component is on and it will return false otherwise.
-     * @name isActive
-     * @methodOf ch.Expandable#isActive
+     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
+     * @name isShown
+     * @methodOf ch.Expandable#isShown
      * @returns {Boolean}
      * @exampleDescriptiong
      * @example
-     * if (widget.isActive()) {
+     * if (widget.isShown()) {
      *     fn();
      * }
      */
-    Expandable.prototype.isActive = function () {
-        return this._active;
+    Expandable.prototype.isShown = function () {
+        return this._shown;
     };
 
     ch.factory(Expandable, normalizeOptions);

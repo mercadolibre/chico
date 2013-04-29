@@ -237,15 +237,15 @@ describe('Expandable', function () {
             isShown = expandable1.isShown();
 
             expect(typeof isShown).toEqual('boolean');
-            expect(isShown).not.toBeTruthy();
+            expect(isShown).toBeTruthy();
         });
 
-        it('Should return "false" when the widget is hiden', function () {
+        it('Should return "false" when the widget is hidden', function () {
             expandable1.hide();
             isShown = expandable1.isShown();
 
             expect(typeof isShown).toEqual('boolean');
-            expect(isShown).toBeTruthy();
+            expect(isShown).toBeFalsy();
         });
 
         expandable1.hide();

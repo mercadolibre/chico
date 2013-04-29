@@ -128,7 +128,7 @@
             return this;
         }
 
-        if (this._active) {
+        if (this._shown) {
             return this.hide();
         }
 
@@ -205,17 +205,23 @@
             });
 
             // Creates keyboard shortcuts map and binding events
-            map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
+            //map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
+            map.DOWN_ARROW = map.UP_ARROW = function (key, event) {
 
                 // Validations
-                if (!that._active) { return; }
+                if (!that._shown) { return; }
 
                 // Prevent default behaivor
                 ch.util.prevent(event);
                 selectOption.call(that, key);
+
             };
 
-            $document.on(map);
+            //$document.on(map);
+            if (this._shortcuts === undefined) {
+                this._shortcuts = new ch.Shortcuts(this.$container, map, {'on': 'none', 'off': 'none'});
+            }
+            this._shortcuts.on();
 
             return this;
         };
@@ -229,8 +235,8 @@
      * @name off
      */
     Dropdown.prototype.arrowsOff = function () {
-        $document.off(ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown');
-
+        //$document.off(ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown');
+        this._shortcuts.off();
         return this;
     };
 
