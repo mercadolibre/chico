@@ -68,46 +68,18 @@ describe('Expandable', function () {
     });
 
     describe('Should have the following public methods:', function () {
+        var methods = ['init', 'destroy', 'show', 'hide', 'isShown', 'on', 'once', 'off', 'emit', 'listeners', 'content', 'enable', 'disable'],
+            i = 0,
+            len = methods.length;
 
-        it('.show()', function () {
-            expect(expandable1.show).not.toEqual(undefined);
-            expect(typeof expandable1.show).toEqual('function');
-        });
-
-        it('.hide()', function () {
-            expect(expandable1.hide).not.toEqual(undefined);
-            expect(typeof expandable1.hide).toEqual('function');
-        });
-
-        it('.isShown()', function () {
-            expect(expandable1.isShown).not.toEqual(undefined);
-            expect(typeof expandable1.isShown).toEqual('function');
-        });
-
-        it('.on()', function () {
-            expect(expandable1.on).not.toEqual(undefined);
-            expect(typeof expandable1.on).toEqual('function');
-        });
-
-        it('.once()', function () {
-            expect(expandable1.once).not.toEqual(undefined);
-            expect(typeof expandable1.once).toEqual('function');
-        });
-
-        it('.off()', function () {
-            expect(expandable1.off).not.toEqual(undefined);
-            expect(typeof expandable1.off).toEqual('function');
-        });
-
-        it('.emit()', function () {
-            expect(expandable1.emit).not.toEqual(undefined);
-            expect(typeof expandable1.emit).toEqual('function');
-        });
-
-        it('.content()', function () {
-            expect(expandable1.content).not.toEqual(undefined);
-            expect(typeof expandable1.content).toEqual('function');
-        });
+        for (i; i < len; i += 1) {
+            (function (i){
+                it('.' + methods[i] + '()', function () {
+                    expect(expandable1[methods[i]]).not.toEqual(undefined);
+                    expect(typeof expandable1[methods[i]]).toEqual('function');
+                });
+            }(i));
+        }
     });
 
     describe('Should have a trigger:', function () {
