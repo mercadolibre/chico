@@ -153,10 +153,6 @@ describe('Expandable', function () {
             expect($container.hasClass('ch-hide')).toBeTruthy();
         });
 
-        it('It should have the WAI-ARIA role "region".', function () {
-           expect($container.attr('role')).toEqual('region');
-        });
-
         it('It should have the WAI-ARIA attribute "aria-expanded" in "false"', function () {
            expect($container.attr('aria-expanded')).toEqual('false');
         });
