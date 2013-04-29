@@ -145,7 +145,8 @@
          * @ignore
          */
         this.$container = this._$content = (this._options.container || this.$el.next())
-            .addClass(this._options._classNameContainer);
+            .addClass(this._options._classNameContainer)
+            .attr('aria-expanded', this._shown);
 
         /**
          * Default behavior
@@ -155,6 +156,12 @@
                 that.content(this._options.content);
             });
         }
+
+        if (this.$container.prop('id') === '') {
+            this.$container.prop('id', 'ch-expandable-' + this.uid);
+        }
+
+        this.$trigger.attr('aria-controls', this.$container.prop('id'));
 
         this
             .on('show', function () {
@@ -195,6 +202,9 @@
 
         this._show();
 
+        // Update ARIA
+        this.$container.attr('aria-expanded', 'true');
+
         // Set new content
         if (content !== undefined) {
             this.content(content);
@@ -220,6 +230,8 @@
         }
 
         this._hide();
+
+        this.$container.attr('aria-expanded', 'false');
 
         return this;
     };
