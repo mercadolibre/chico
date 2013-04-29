@@ -219,6 +219,23 @@ describe('Expandable', function () {
         expandable1.hide();
     });
 
+    describe('Disable method', function () {
+        it('Should prevent to show its container', function () {
+            expandable1.disable();
+            expandable1.show();
+            expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        });
+    });
+
+    describe('Enable method', function () {
+        it('Should prevent to show its container', function () {
+            expandable1.enable();
+            expandable1.show();
+            expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        });
+        expandable1.hide();
+    });
+
     describe('An instance configured', function () {
 
         it('with custom container', function () {
