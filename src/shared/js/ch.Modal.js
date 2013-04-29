@@ -145,7 +145,7 @@
         // Delete the dimmer element
         if (ch.support.fx) {
             $dimmer.fadeOut('normal', function () {
-                $dimmer.detach.remove(null, true);
+                $dimmer.remove(null, true);
             });
         } else {
             $dimmer.addClass('ch-hide').remove(null, true);

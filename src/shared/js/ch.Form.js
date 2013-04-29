@@ -175,7 +175,7 @@
             validation.validate();
 
             // Store validations with errors
-            if (validation.isActive()) {
+            if (validation.isShown()) {
                 that.errors.push(validation);
             }
         }
@@ -315,7 +315,7 @@
     Form.prototype.reset = function () {
         var that = this;
 
-        // Clears all active validations
+        // Clears all shown validations
         that.clear();
 
         // Executes the native reset() method

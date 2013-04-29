@@ -272,7 +272,7 @@
          */
         this._selected = index;
 
-        if (!tab.isActive()) {
+        if (!tab.isShown()) {
             tab.show();
         }
 
