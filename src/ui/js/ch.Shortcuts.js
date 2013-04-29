@@ -29,16 +29,17 @@
      * @name ch.Keyboard#codeMap
      * @type object
      */
-    var codeMap = {
-         '8': ch.onkeybackspace,
-         '9': ch.onkeytab,
-        '13': ch.onkeyenter,
-        '27': ch.onkeyesc,
-        '37': ch.onkeyleftarrow,
-        '38': ch.onkeyuparrow,
-        '39': ch.onkeyrightarrow,
-        '40': ch.onkeydownarrow
-    };
+    var $document = $(window.document),
+        codeMap = {
+             '8': ch.onkeybackspace,
+             '9': ch.onkeytab,
+            '13': ch.onkeyenter,
+            '27': ch.onkeyesc,
+            '37': ch.onkeyleftarrow,
+            '38': ch.onkeyuparrow,
+            '39': ch.onkeyrightarrow,
+            '40': ch.onkeydownarrow
+        },
 
     /**
      * Keyboard event controller utility to know wich keys are begin.
@@ -48,92 +49,64 @@
      * @param event
      */
 
-    function Shortcuts($target, events, config) {
+    Shortcuts = {
 
-        if ($target === undefined) {
-            throw new window.Error('ch.Shortcuts(target): the "target" parameter is required.');
-        }
+        '_active': null,
 
-        // Creates its private options
-        this._options = ch.util.clone(this._defaults);
+        '_queue': [],
 
+        'configure': function () {
+            var that = this;
 
+            $document.on('keydown.shortcuts', function (event) {
+                keyCode = event.keyCode.toString();
 
-        this.configure($target, events, config);
+                if(codeMap[keyCode] !== undefined && that._active !== null) {
+                    // Trigger custom event with original event as second parameter
+                    event.type = codeMap[keyCode];
+                    that._active.emit(codeMap[keyCode], event);
+                }
+            });
 
-    }
+        },
 
-    Shortcuts.prototype.name = 'shortcuts';
+        'on': function (instance) {
+            var queueLength = this._queue.length
+                item = queueLength -1;
 
-    Shortcuts.prototype.constructor = Shortcuts;
-
-    Shortcuts.prototype._defaults = {
-        'on': 'focus.shortcuts',
-        'off': 'blur.shortcuts',
-        'tabindex': 0
-    };
-
-    Shortcuts.prototype.configure = function ($target, events, config) {
-        var that = this;
-
-        // Merge user options with its options
-        $.extend(this._options, {'events': events}, config);
-
-        this._$target = $target;
-
-        if (this._$target.attr('tabindex') === undefined) {
-            this._$target.attr('tabindex', this._options.tabindex);
-        }
-
-        // default behavior to activate the feature
-        if (this._options.on !== 'none') {
-            this._$target.on(this._options.on, function () { that.on(); });
-        }
-
-        // default behavior to deactivate the feature
-        if (this._options.off !== 'none') {
-            this._$target.on(this._options.off, function () { that.off(); });
-        }
-
-    };
-
-    Shortcuts.prototype.on = function () {
-        var that = this,
-            keyCode,
-            event;
-
-        // start to emits predefined events
-        this._$target.on('keydown.shortcuts', function (event) {
-            keyCode = event.keyCode.toString();
-
-            if(codeMap[keyCode] !== undefined) {
-                // Trigger custom event with original event as second parameter
-
-                that._$target.trigger(codeMap[keyCode], event);
+            // check if the instance exist and move the order, adds it at the las position and removes the current
+            for (item; item >= 0; item--) {
+                if (this._queue[item] === instance) {
+                    this._queue.splice(item, 1);
+                }
             }
 
-        });
+            this._queue.push(instance);
+            this._active = instance;
+        },
 
-        // sacar y pasar un objeto
-        // event emitter guarda con ch-nombre de evento
-        //
-        for (event in this._options.events) {
-            this._$target.on(ch[event] + '.shortcuts', this._options.events[event]);
+        'off': function (instance) {
+            var queueLength = this._queue.length,
+                item = queueLength -1;
+
+            for (item; item >= 0; item--) {
+                if (this._queue[item] === instance) {
+                    // removes the instance that I'm setting off
+                    this._queue.splice(item, 1);
+
+                    // the queue is full
+                    if (this._queue.length > 0) {
+                        this._active = this._queue[this._queue.length - 1];
+                    } else {
+                    // the queue no has elements
+                        this._active = null;
+                    }
+                }
+            }
         }
-
     };
 
-    Shortcuts.prototype.off = function () {
-        var event;
-
-        // stop to emits predefined events
-        this._$target.off('keydown.shortcuts');
-
-        for (event in this._options.events) {
-            this._$target.off(ch[event], this._options.events[event]);
-        }
-
-    };
+    Shortcuts.configure();
 
     ch.Shortcuts = Shortcuts;
 

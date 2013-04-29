@@ -70,7 +70,7 @@
         'side': 'bottom',
         'align': 'left',
         'keystrokesTime': 1000,
-        'closable': 'pointers-only',
+        'closable': 'none',
         'html': false
     };
 
@@ -83,7 +83,7 @@
             BACKSPACE = ch.onkeybackspace + '.' + this.name,
             MOUSEDOWN = ch.onpointerdown + '.' + this.name,
             MOUSEENTER = 'mouseover' + '.' + this.name,
-            events;
+            keyboard = {};
 
         parent.init.call(this, $el, options);
 
@@ -105,13 +105,15 @@
             'width': (this.el.getBoundingClientRect().width - 22) + 'px'
         });
 
+        this.$container = this._popover.$container;
+
         /**
          * The number of the selected item.
          * @private
          * @type Number
          * @name ch.AutoComplete#_selected
          */
-        this._selected = null; // null
+        this._selected = null;
 
         /**
          * Collection of suggestions to be shown.
@@ -120,16 +122,6 @@
          * @name ch.AutoComplete#_suggestions
          */
         this._suggestions = [];
-
-        // adds the content before the list of suggestions
-        if (this._options.beforeSuggestions !== undefined) {
-            this._popover.$container.prepend(this._options.beforeSuggestions);
-        }
-
-        // adds the content after the list of suggestions
-        if (this._options.afterSuggestions !== undefined) {
-            this._popover.$container.append(this._options.afterSuggestions);
-        }
 
         // the user can set an array with suggestions in the configuration object
         if (this._options.suggestions !== undefined && this._options.suggestions.length > 0) {
@@ -144,73 +136,107 @@
          */
         this._originalQuery = this.el.value;
 
+
+        this.on(ch.onkeybackspace, function () {
+            // hides and clear the list
+            if (that.el.value.length <= 1) {
+                that._$suggestionsList.html('');
+                that._popover.hide();
+            }
+        });
+
+        this.on(ch.onkeyenter, function (event) {
+        // apply the highlighted item
+            that._setQuery(event);
+        });
+
+        this.on(ch.onkeyesc, function (event) {
+        // back the value to the inputs previous value
+            that.hide();
+            that.el.value = that._originalQuery;
+        });
+
+        this.on(ch.onkeyuparrow, function (event) {
+            var current;
+
+            if (that._selected > 0 && that._selected !== null) {
+                current = that._selected - 1;
+            } else {
+                current = that._suggestionsQuantity;
+            }
+
+            that._select(current);
+        });
+
+        this.on(ch.onkeydownarrow, function (event) {
+            var current;
+
+            if (that._selected < that._suggestionsQuantity && that._selected !== null) {
+                current = that._selected + 1;
+            } else {
+                current = 0;
+            }
+
+            that._select(current);
+        });
+
+
+        that._popover.$container
+            .on(MOUSEDOWN, function (event) {
+
+                that._setQuery(event);
+
+            })
+            // no se lo puedo pasar a shortcuts por los nombres de los eventos que tenemos que standarizar
+            .on(MOUSEENTER, function (event) {
+                var $target = $(event.target),
+                    $item,
+                    current;
+
+                $item = $target.attr('aria-posinset') ? $target : $target.parents('li[aria-posinset]');
+
+                if ($item[0] !== undefined) {
+                    current = (parseInt($item.attr('aria-posinset'), 10) - 1);
+                }
+
+
+                that._select(current);
+
+            });
+
+
         // behavior binding
         this.$el
             .on('focus.' + this.name, function (event) {
                 that._originalQuery = that.el.value;
 
-                that._popover.$container
-                    .on(MOUSEDOWN, function (event) {
+                ch.Shortcuts.on(that);
 
-                        that._setQuery(event);
-
-                    })
-                    // no se lo puedo pasar a shortcuts por los nombres de los eventos que tenemos que standarizar
-                    .on(MOUSEENTER, function (event) {
-                        that._select(event);
-                    });
+                that.$el.on(ch.onkeyinput, function (event) {
+                // when the user writes
+                    //console.log(event.type);
+                    window.clearTimeout(that._stopTyping);
+                    that._stopTyping = window.setTimeout(function () {
+                        if (that.el.value !== '') {
+                            that.emit('typing', that.el.value);
+                        }
+                    }, 400);
+                });
 
                 that.on('typing', function () { that.$el.addClass('ch-autoComplete-loading'); });
 
             })
             .on('blur.' + this.name, function (event) {
 
-                that._popover.$container
-                    .off(MOUSEDOWN)
-                    .off(MOUSEENTER);
-
                 that.hide();
+                that.$el.off(ch.onkeyinput);
+                ch.Shortcuts.off(that);
 
             })
             .attr('autocomplete', 'off')
             .addClass('ch-' + this.name + '-trigger');
 
-        events = {
-            'onkeybackspace': function () {
-            // hides and clear the list
-                if (that.el.value.length <= 1) {
-                    that._$suggestionsList.html('');
-                    that._popover.hide();
-                }
-            },
-            'onkeyenter': function (event) {
-            // apply the highlighted item
-                that._setQuery(event);
-            },
-            'onkeyesc': function (event) {
-            // back the value to the inputs previous value
-                that.hide();
-                that.el.value = that._originalQuery;
-            },
-            'onkeyinput': function (event) {
-            // when the user writes
-                window.clearTimeout(that._stopTyping);
-                that._stopTyping = window.setTimeout(function () {
-                    if (that.el.value !== '') {
-                        that.emit('typing', that.el.value);
-                    }
-                }, 400);
-            },
-            'onkeyuparrow': function (event) {
-                that._select(event);
-            },
-            'onkeydownarrow': function (event) {
-                that._select(event);
-            }
-        };
-
         // add shortcuts to the input
-        this._shortcuts = new ch.Shortcuts(this.$el, events);
 
         return this;
     };
@@ -244,49 +270,15 @@
      * @name ch.AutoComplete#_select
      */
 
-    AutoComplete.prototype._select = function (event) {
-        var type = event.type,
-            $target = $(event.target),
-            list = this._$suggestionsList.children(),
-            listLength = list.length - 1,
-            $item,
-            previous = function (number) { return function () { return number; } }(this._selected);
+    AutoComplete.prototype._select = function (current) {
 
-            switch (type) {
+        var previous = this._selected;
 
-            case 'up_arrow':
-
-                if (this._selected > 0 && this._selected !== null) {
-                    this._selected -= 1;
-                } else {
-                    this._selected = listLength;
-                }
-
-                break;
-            case 'down_arrow':
-
-                if (this._selected < listLength && this._selected !== null) {
-                    this._selected += 1;
-                } else {
-                    this._selected = 0;
-                }
-
-                break;
-            case 'mouseover':
-                $item = $target.attr('aria-posinset') ? $target : $target.parents('li[aria-posinset]');
-
-                if ($item[0] !== undefined) {
-
-                    this._selected = (parseInt($item.attr('aria-posinset'), 10) - 1);
-
-                }
-                break;
-            }
-
-            if (previous() !== this._selected) {
-                $(list[previous()]).removeClass('ch-autoComplete-selected');
-                $(list[this._selected]).addClass('ch-autoComplete-selected');
-            }
+        if (previous !== current) {
+            $(this._suggestionsList[previous]).removeClass('ch-autoComplete-selected');
+            $(this._suggestionsList[current]).addClass('ch-autoComplete-selected');
+            this._selected = current;
+        }
 
     }
 
@@ -303,30 +295,24 @@
             items = [],
             query = this.el.value.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1"),
             matchedRegExp = new RegExp('(' + query + ')', 'ig'),
-            totalItems = 0;
+            totalItems = 0,
+            extraItems;
 
         if (query === '') {
             return this;
         }
 
         if (!this._popover.isActive()) {
-            this.show();
+            this._show();
         }
+
+        this._$suggestionsList.html('');
+        extraItems = this.$container.find('.ch-autoComplete-item');
 
         this.$el.removeClass('ch-autoComplete-loading');
         this._suggestions = suggestions;
-        totalItems = this._suggestions.length;
 
-        // if (this._options.afterSuggestions !== undefined) {
-        //     afterOptions = this._options.afterSuggestions.find('.ch-autoComplete-item').splice(0);
-        //     totalItems = totalItems + afterOptions.length - 1;
-        //     // recorrer
-        // }
-
-        // if (this._options.beforeSuggestions !== undefined) {
-        //     beforeOptions = this._options.beforeSuggestions.find('.ch-autoComplete-item').splice(0);
-        //     totalItems = totalItems + beforeOptions.length - 1;
-        // }
+        totalItems = (extraItems.length > 0) ? (totalItems + extraItems.length - 1) : this._suggestions.length;
 
         this._suggestions.forEach(function (term, i) {
 
@@ -337,24 +323,30 @@
             items.push($('<li aria-setsize="' + totalItems + '" aria-posinset="' + (i + 1) + '" class="ch-autoComplete-item">' + term + '</li>'));
         });
 
+        extraItems.each(function (index, e) {
+            var pos = that._suggestions.length + index + 1;
 
+            items.push($(e).attr('aria-posinset', pos));
+
+        });
 
         this._selected = null;
-        this._$suggestionsList.html(items);
+        this._suggestionsList = this._$suggestionsList.html(items).children();
+        this._suggestionsQuantity = this._suggestionsList.length - 1;
 
         return this;
     };
 
     /**
      * Shows component's content.
-     * @public
-     * @name ch.AutoComplete-show
+     * @private
+     * @name ch.AutoComplete-_show
      * @function
      * @returns itself
      */
-    AutoComplete.prototype.show = function () {
-        this.emit('show');
+    AutoComplete.prototype._show = function () {
         this._popover.show();
+        this.emit('show');
         return this;
     };
 

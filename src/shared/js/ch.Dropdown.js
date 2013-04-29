@@ -88,6 +88,8 @@
     });
 
     Dropdown.prototype.init = function ($el, options) {
+        var that = this;
+
         parent.init.call(this, $el, options);
 
         //TODO: $trigger should be defined in Popover class.
@@ -117,10 +119,55 @@
          */
         if (this._options.navigation) {
             this._$navigation = this.$el.next().find('a').attr('role', 'menuitem');
+
+            // Keyboard support initialize
+            var selected = 0,
+
+                optionsLength = this._$navigation.length;
+
+            // Item selected by mouseover
+            $.each(this._$navigation, function (i, e) {
+                $(e).on('mouseenter.dropdown', function () {
+                    that._$navigation[that._selected = i].focus();
+                });
+            });
+
+            this.arrowsOn();
+
         }
 
         return this;
     };
+
+    Dropdown.prototype._select  = function (key) {
+        var selected,
+            map = {},
+            arrow,
+            optionsLength = this._$navigation.length;
+
+            // Validations
+            if (!this._active) { return; }
+
+            // Prevent default behaivor
+            ch.util.prevent(event);
+
+            // Sets the arrow that user press
+            arrow = key.type;
+
+            // Sets limits behaivor
+            if (this._selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
+
+            // Unselects current option
+            if (this._selected !== -1) {
+                this._$navigation[this._selected].blur();
+            }
+
+            if (arrow === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
+
+            // Selects new current option
+            this._$navigation[this._selected].focus();
+
+    }
 
     Dropdown.prototype.show = function (content) {
 
@@ -139,23 +186,13 @@
             this.$trigger.css('z-index', ch.util.zIndex += 1);
         }
 
-        if (this._options.navigation) {
-            this._$navigation[0].focus();
-
-            // Turn on keyboards arrows
-            this.arrowsOn();
-        }
+        this._selected = -1;
 
         return this;
     };
 
     Dropdown.prototype.hide = function () {
         parent.hide.call(this);
-
-        if (this._options.navigation) {
-            // Turn off keyboards arrows
-            this.arrowsOff();
-        }
 
         return this;
     };
@@ -167,65 +204,14 @@
      * @memberOf ch.dropdown#arrowsOn
      * @name on
      */
-    Dropdown.prototype.arrowsOn = (function () {
-        var selected,
-            map = {},
-            arrow,
-            optionsLength,
-            selectOption = function (key) {
 
-                // Sets the arrow that user press
-                arrow = key.type;
+    Dropdown.prototype.arrowsOn = function () {
 
-                // Sets limits behaivor
-                if (selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
+        this.on(ch.onkeyuparrow, this._select);
+        this.on(ch.onkeydownarrow, this._select);
 
-                // Unselects current option
-                this._$navigation[selected].blur();
-
-                if (arrow === 'down_arrow') { selected += 1; } else { selected -= 1; }
-
-                // Selects new current option
-                this._$navigation[selected].focus();
-            };
-
-        return function () {
-            var that = this;
-
-            // Keyboard support initialize
-            selected = 0;
-
-            optionsLength = this._$navigation.length;
-
-            // Item selected by mouseover
-            $.each(this._$navigation, function (i, e) {
-                $(e).on('mouseenter.dropdown', function () {
-                    that._$navigation[selected = i].focus();
-                });
-            });
-
-            // Creates keyboard shortcuts map and binding events
-            //map[ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown'] = function (key, event) {
-            map.onkeyuparrow = map.onkeydownarrow = function (key, event) {
-
-                // Validations
-                if (!that._active) { return; }
-
-                // Prevent default behaivor
-                ch.util.prevent(event);
-                selectOption.call(that, key);
-
-            };
-
-            //$document.on(map);
-            if (this._shortcuts === undefined) {
-                this._shortcuts = new ch.Shortcuts(this.$container, map, {'on': 'none', 'off': 'none'});
-            }
-            this._shortcuts.on();
-
-            return this;
-        };
-    }());
+        return this;
+    };
 
     /**
      * Turns off keyboard arrows
@@ -235,8 +221,10 @@
      * @name off
      */
     Dropdown.prototype.arrowsOff = function () {
-        //$document.off(ch.events.key.UP_ARROW + '.dropdown ' + ch.events.key.DOWN_ARROW + '.dropdown');
-        this._shortcuts.off();
+
+        this.off(ch.onkeyuparrow, this._select);
+        this.off(ch.onkeydownarrow, this._select);
+
         return this;
     };
 

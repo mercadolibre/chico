@@ -55,6 +55,7 @@
                 var events = {};
 
                 if (delay === 0) {
+
                     events[pointerLeave] = close;
 
                 } else {
@@ -85,24 +86,20 @@
              */
             if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
 
+                that.on(ch.onkeyesc, function(event) {
+                    that.hide();
+                    ch.Shortcuts.off(that);
+                });
+
                 that.on('show', function () {
 
-                    if (that._shortcuts === undefined) {
-                        that._shortcuts = new ch.Shortcuts(
-                                            that.$container,
-                                            {'onkeyesc': function () {
-                                                that.hide();
-                                                that._shortcuts.off();
-                                            }},
-                                            {'on': 'none', 'off': 'none'}
-                                            );
-                    }
-                    that._shortcuts.on();
-                    that.$container.focus();
+                    ch.Shortcuts.on(that);
 
                     $document.one(pointerTap, close);
 
                 });
+
+                that.on('hide', function () { ch.Shortcuts.off(that); });
 
                 // Avoid to close when user clicks into the component
                 that.$container.on(pointerTap, function (event) {
