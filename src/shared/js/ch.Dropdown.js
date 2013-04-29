@@ -88,6 +88,7 @@
     });
 
     Dropdown.prototype.init = function ($el, options) {
+
         var that = this;
 
         parent.init.call(this, $el, options);
@@ -106,11 +107,6 @@
         } else {
             this.$trigger.addClass('ch-btn-skin ch-btn-small');
         }
-
-        // Configure content
-        this.content.configure({
-            'input': this.$el.next()
-        });
 
         /**
          * Dropdown navigation.
@@ -136,6 +132,8 @@
 
         }
 
+        this._options.content = this.$el.next();
+
         return this;
     };
 
@@ -146,7 +144,7 @@
             optionsLength = this._$navigation.length;
 
             // Validations
-            if (!this._active) { return; }
+            if (!this._shown) { return; }
 
             // Prevent default behaivor
             ch.util.prevent(event);
@@ -175,7 +173,7 @@
             return this;
         }
 
-        if (this._active) {
+        if (this._shown) {
             return this.hide();
         }
 
@@ -213,6 +211,7 @@
         return this;
     };
 
+
     /**
      * Turns off keyboard arrows
      * @protected
@@ -230,4 +229,4 @@
 
     ch.factory(Dropdown);
 
-}(this, this.jQuery || this.Zepto, this.ch));
+}(this, this.ch.$, this.ch));

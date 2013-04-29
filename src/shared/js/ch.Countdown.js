@@ -197,4 +197,4 @@
      */
     ch.factory(Countdown, Countdown.prototype._normalizeOptions);
 
-}(this, (this.jQuery || this.Zepto), this.ch));
+}(this, this.ch.$, this.ch));

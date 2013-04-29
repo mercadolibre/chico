@@ -78,13 +78,6 @@
     Form.prototype.constructor = Form;
 
     /**
-     * Configuration by default.
-     * @private
-     * @type {Object}
-     */
-    Form.prototype._defaults = {};
-
-    /**
      * Constructs a new Form.
      * @public
      * @function
@@ -182,7 +175,7 @@
             validation.validate();
 
             // Store validations with errors
-            if (validation.isActive()) {
+            if (validation.isShown()) {
                 that.errors.push(validation);
             }
         }
@@ -322,7 +315,7 @@
     Form.prototype.reset = function () {
         var that = this;
 
-        // Clears all active validations
+        // Clears all shown validations
         that.clear();
 
         // Executes the native reset() method
@@ -346,4 +339,4 @@
 
     ch.factory(Form);
 
-}(this, this.jQuery, this.ch));
+}(this, this.ch.$, this.ch));

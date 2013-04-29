@@ -1,39 +1,29 @@
-
 /*
 * Expandable
 */
-.ch-expandable {
-	 margin: 10px 0;
-}
-
-.ch-bellows,
-.ch-expandable {
+.ch-expandable-trigger {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
-	padding: 0;
 	border: 1px solid #EEE;
-	overflow: hidden;
 }
 
-.ch-bellows-trigger,
 .ch-expandable-trigger,
 .ch-expandable-trigger a {
 	color: #555;
 }
 
-.ch-bellows-trigger,
+.ch-fold-trigger,
 .ch-expandable-trigger {
 	cursor: pointer;
 	display: block;
 	font-weight: bold;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
 	margin: 0;
 	position: relative;
 	text-shadow: 0 1px 1px #FFF;
 	padding: 15px 10px;
 	background: #F4F4F4;
 	font-size: 1em;
+	border: 1px solid #EEE;
 }
 
 .ch-expandable-trigger:after {
@@ -51,10 +41,10 @@
 	border-bottom: 1px solid #EEE;
 	background-color: #EEE;
 	color: #333;
-	-webkit-border-bottom-left-radius: 0px;
-	-webkit-border-bottom-right-radius: 0px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
+	-webkit-border-bottom-left-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 .ch-expandable-trigger-on:after {
@@ -64,29 +54,20 @@
 
 .ch-expandable-container {
 	margin: 0;
-	background-color: #fff;
 	padding: 10px;
 	overflow: hidden;
+	border: 1px solid #EEE;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
-.ch-expandable-container .ch-list-options,
+.ch-expandable-container,
 .ch-expandable-container.ch-list-options {
-	background-color: #fff;
-	-webkit-border-radius: 0;
-	border-radius: 0;
-	border: none;
-	margin: -10px;
-}
-
-/* Support no-js */
-.no-js .ch-expandable .ch-bellows-trigger,
-.no-js .ch-expandable .ch-expandable-trigger {
-	cursor: default;
-	border-bottom: 1px solid #DDD;
-	background-color: #EEE;
-	color: #333;
-}
-
-.no-js .ch-expandable .ch-hide {
-	display: block;
+	background-color: #FFF;
+	-webkit-border-top-left-radius: 0;
+	-webkit-border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
