@@ -65,7 +65,7 @@
     /**
      * Private members
      */
-    var pointertap = ch.events.pointer.TAP + '.carousel',
+    var pointertap = ch.onpointertap + '.carousel',
         Math = window.Math,
         setTimeout = window.setTimeout,
         setInterval = window.setInterval,

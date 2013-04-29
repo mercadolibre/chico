@@ -195,7 +195,7 @@
 
         // Binds tap and focus events
         tab.$el
-            .on(ch.events.pointer.TAP + '.tabs focus.tabs', function () {
+            .on(ch.onpointertap + '.tabs focus.tabs', function () {
                 that.select(i + 1);
             });
 
