@@ -79,7 +79,7 @@ describe('Expandable', function () {
             expect(typeof expandable1.hide).toEqual('function');
         });
 
-        it('.isShow()', function () {
+        it('.isShown()', function () {
             expect(expandable1.isShown).not.toEqual(undefined);
             expect(typeof expandable1.isShown).toEqual('function');
         });
