@@ -36,6 +36,23 @@ describe('Expandable', function () {
             expect(readyEvent).toHaveBeenCalled();
         });
     });
+
+    describe('should use the following abilities:', function () {
+        it('EventEmitter', function () {
+            expect(expandable1.on).not.toEqual(undefined);
+            expect(typeof expandable1.on).toEqual('function');
+        });
+
+        it('Content', function () {
+            expect(expandable1.content).not.toEqual(undefined);
+            expect(typeof expandable1.content).toEqual('function');
+        });
+
+        it('Collapsible', function () {
+            expect(expandable1._show).not.toEqual(undefined);
+            expect(typeof expandable1._show).toEqual('function');
+        });
+    });
 });
 
 describe('It should have the following public properties:', function () {
@@ -81,23 +98,6 @@ describe('It should have the following public methods:', function () {
             });
         }(i));
     }
-});
-
-describe('It should use the following abilities:', function () {
-    it('EventEmitter', function () {
-        expect(expandable1.on).not.toEqual(undefined);
-        expect(typeof expandable1.on).toEqual('function');
-    });
-
-    it('Content', function () {
-        expect(expandable1.content).not.toEqual(undefined);
-        expect(typeof expandable1.content).toEqual('function');
-    });
-
-    it('Collapsible', function () {
-        expect(expandable1._show).not.toEqual(undefined);
-        expect(typeof expandable1._show).toEqual('function');
-    });
 });
 
 describe('It should have a trigger and', function () {
