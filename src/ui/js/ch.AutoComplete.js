@@ -134,7 +134,7 @@
          * @type String
          * @name ch.AutoComplete#_query
          */
-        this._originalQuery = this.el.value;
+        this._originalQuery = this._currentQuery = this.el.value;
 
 
         this.on(ch.onkeybackspace, function () {
@@ -161,11 +161,18 @@
 
             if (that._selected > 0 && that._selected !== null) {
                 current = that._selected - 1;
+            } else if (that._selected === 0) {
+                current = -1;
             } else {
                 current = that._suggestionsQuantity;
             }
 
             that._select(current);
+
+            if (!this._options.html) {
+                that.el.value = (current !== -1) ? that._suggestions[current] : that._currentQuery;
+            }
+
         });
 
         this.on(ch.onkeydownarrow, function (event) {
@@ -173,11 +180,18 @@
 
             if (that._selected < that._suggestionsQuantity && that._selected !== null) {
                 current = that._selected + 1;
+            } else if (that._selected === that._suggestionsQuantity) {
+                current = -1;
             } else {
                 current = 0;
             }
 
             that._select(current);
+
+            if (!this._options.html) {
+                that.el.value = (current !== -1) ? that._suggestions[current] : that._currentQuery;
+            }
+
         });
 
 
@@ -197,8 +211,9 @@
 
                 if ($item[0] !== undefined) {
                     current = (parseInt($item.attr('aria-posinset'), 10) - 1);
+                } else {
+                    current = -1;
                 }
-
 
                 that._select(current);
 
@@ -214,22 +229,27 @@
 
                 that.$el.on(ch.onkeyinput, function (event) {
                 // when the user writes
-                    //console.log(event.type);
+
                     window.clearTimeout(that._stopTyping);
                     that._stopTyping = window.setTimeout(function () {
                         if (that.el.value !== '') {
                             that.emit('typing', that.el.value);
                         }
                     }, 400);
+
                 });
 
-                that.on('typing', function () { that.$el.addClass('ch-autoComplete-loading'); });
+                that.on('typing', function (currentQuery) {
+                    that._currentQuery = currentQuery;
+                    that.$el.addClass('ch-autoComplete-loading');
+                });
 
             })
             .on('blur.' + this.name, function (event) {
 
                 that.hide();
                 that.$el.off(ch.onkeyinput);
+
                 ch.Shortcuts.off(that);
 
             })
@@ -296,23 +316,25 @@
             query = this.el.value.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1"),
             matchedRegExp = new RegExp('(' + query + ')', 'ig'),
             totalItems = 0,
-            extraItems;
+            $extraItems,
+            extraItems = [];
 
         if (query === '') {
             return this;
         }
 
-        if (!this._popover.isActive()) {
+        if (!this._popover.isShown()) {
             this._show();
         }
 
-        this._$suggestionsList.html('');
-        extraItems = this.$container.find('.ch-autoComplete-item');
+        this._$suggestionsList.css('visibility', 'hidden').html('');
+
+        $extraItems = this.$container.find('.ch-autoComplete-item').removeClass('ch-autoComplete-selected');
 
         this.$el.removeClass('ch-autoComplete-loading');
         this._suggestions = suggestions;
 
-        totalItems = (extraItems.length > 0) ? (totalItems + extraItems.length - 1) : this._suggestions.length;
+        totalItems = ($extraItems.length > 0) ? (totalItems + $extraItems.length - 1) : this._suggestions.length;
 
         this._suggestions.forEach(function (term, i) {
 
@@ -323,15 +345,19 @@
             items.push($('<li aria-setsize="' + totalItems + '" aria-posinset="' + (i + 1) + '" class="ch-autoComplete-item">' + term + '</li>'));
         });
 
-        extraItems.each(function (index, e) {
+        $extraItems.each(function (index, e) {
             var pos = that._suggestions.length + index + 1;
 
-            items.push($(e).attr('aria-posinset', pos));
+            extraItems.push($(e).attr('aria-posinset', pos));
 
         });
 
         this._selected = null;
-        this._suggestionsList = this._$suggestionsList.html(items).children();
+
+        this._$suggestionsList.html(items).css('visibility', 'visible');
+
+        this._suggestionsList = items.concat(extraItems);
+
         this._suggestionsQuantity = this._suggestionsList.length - 1;
 
         return this;
