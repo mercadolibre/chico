@@ -16,21 +16,21 @@ describe('Expandable', function () {
         .on('show', function () { showEvent(); })
         .on('hide', function () { hideEvent(); });
 
-    it('Should be defined on ch object', function () {
+    it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Expandable')).toBeTruthy();
         expect(typeof ch.Expandable).toEqual('function');
     });
 
-    it('Should be defined on $ object', function () {
+    it('should be defined on $ object', function () {
         expect($.fn.hasOwnProperty('expandable')).toBeTruthy();
         expect(typeof $.fn.expandable).toEqual('function');
     });
 
-    it('Should be return a new instance', function () {
+    it('should be return a new instance', function () {
         expect(expandable1 instanceof ch.Expandable).toBeTruthy();
     });
 
-    it('Should emit the "ready" event when it\'s ready', function () {
+    it('should emit the "ready" event when it\'s ready', function () {
         waits(50);
         runs(function () {
             expect(readyEvent).toHaveBeenCalled();
@@ -68,7 +68,7 @@ describe('Expandable', function () {
     });
 
     describe('Should have the following public methods:', function () {
-        var methods = ['init', 'destroy', 'show', 'hide', 'isShown', 'on', 'once', 'off', 'emit', 'listeners', 'content', 'enable', 'disable'],
+        var methods = ['init', 'destroy', 'show', 'hide', 'isShown', 'enable', 'disable'],
             i = 0,
             len = methods.length;
 
@@ -82,20 +82,37 @@ describe('Expandable', function () {
         }
     });
 
-    describe('Should have a trigger:', function () {
+    describe('Should use the following abilities:', function () {
+        it('EventEmitter', function () {
+            expect(expandable1.on).not.toEqual(undefined);
+            expect(typeof expandable1.on).toEqual('function');
+        });
+
+        it('Content', function () {
+            expect(expandable1.content).not.toEqual(undefined);
+            expect(typeof expandable1.content).toEqual('function');
+        });
+
+        it('Collapsible', function () {
+            expect(expandable1._show).not.toEqual(undefined);
+            expect(typeof expandable1._show).toEqual('function');
+        });
+    });
+
+    describe('Should have a trigger and', function () {
         var $trigger = expandable1.$trigger;
 
-        it('It should exist.', function () {
+        it('should exist', function () {
             expect($trigger).not.toEqual(undefined);
             expect($trigger[0].nodeType).toEqual(1);
             expect($trigger instanceof $).toBeTruthy();
         });
 
-        it('It should have the WAI-ARIA attribute "aria-controls"', function () {
+        it('should have the WAI-ARIA attribute "aria-controls"', function () {
            expect($trigger.attr('aria-controls')).toEqual(expandable1.$container[0].id);
         });
 
-        describe('It should have the following class names:', function () {
+        describe('should have the following class names:', function () {
 
             it('.ch-expandable-trigger', function () {
                 expect($trigger.hasClass('ch-expandable-trigger')).toBeTruthy();
@@ -112,24 +129,24 @@ describe('Expandable', function () {
 
     });
 
-    describe('Should have a container:', function () {
+    describe('Should have a container and', function () {
         var $container = expandable1.$container;
 
-        it('It should exist.', function () {
+        it('should exist', function () {
             expect($container).not.toEqual(undefined);
             expect($container[0].nodeType).toEqual(1);
             expect($container instanceof $).toBeTruthy();
         });
 
-        it('It shold be hidden.', function () {
+        it('shold be hidden.', function () {
             expect($container.hasClass('ch-hide')).toBeTruthy();
         });
 
-        it('It should have the WAI-ARIA attribute "aria-expanded" in "false"', function () {
+        it('should have the WAI-ARIA attribute "aria-expanded" in "false"', function () {
            expect($container.attr('aria-expanded')).toEqual('false');
         });
 
-        describe('It should have the following class names:', function () {
+        describe('Should have the following class names:', function () {
 
             it('.ch-expandable-container', function () {
                 expect($container.hasClass('ch-expandable-container')).toBeTruthy();
@@ -143,26 +160,26 @@ describe('Expandable', function () {
             $container = expandable1.$container,
             show;
 
-        it('Should add "ch-expandable-trigger-on" class name to trigger', function () {
+        it('should add "ch-expandable-trigger-on" class name to trigger', function () {
             expect($trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
             show = expandable1.show();
             expect($trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
         });
 
-        it('Should remove "ch-hide" class name from container.', function () {
+        it('should remove "ch-hide" class name from container.', function () {
             expect($container.hasClass('ch-hide')).toBeFalsy();
         });
 
-        it('Should update the WAI-ARIA attribute "aria-expanded" to "true" on container', function () {
+        it('should update the WAI-ARIA attribute "aria-expanded" to "true" on container', function () {
             expect($container.attr('aria-expanded')).toEqual('true');
         });
 
-        it('Should emit the "show" event', function () {
+        it('should emit the "show" event', function () {
             expect(showEvent).toHaveBeenCalled();
         });
 
         describe('Public instance', function () {
-            it('Should return the same instance than initialized widget', function () {
+            it('should return the same instance than initialized widget', function () {
                 expect(show).toEqual(expandable1);
             });
         });
@@ -173,25 +190,25 @@ describe('Expandable', function () {
             $container = expandable1.$container,
             hide;
 
-        it('Should remove "ch-expandable-trigger-on" class name to trigger', function () {
+        it('should remove "ch-expandable-trigger-on" class name to trigger', function () {
             hide = expandable1.hide();
             expect($trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
         });
 
-        it('Should add "ch-hide" class name to container', function () {
+        it('should add "ch-hide" class name to container', function () {
             expect($container.hasClass('ch-hide')).toBeTruthy();
         });
 
-        it('Should update the WAI-ARIA attribute "aria-expanded" to "false" on container', function () {
+        it('should update the WAI-ARIA attribute "aria-expanded" to "false" on container', function () {
             expect($container.attr('aria-expanded')).toEqual('false');
         });
 
-        it('Should emit the "hide" event', function () {
+        it('should emit the "hide" event', function () {
             expect(showEvent).toHaveBeenCalled();
         });
 
         describe('Public instance', function () {
-            it('Should return the same instance than initialized widget', function () {
+            it('should return the same instance than initialized widget', function () {
                 expect(hide).toEqual(expandable1);
             });
         });
@@ -200,7 +217,7 @@ describe('Expandable', function () {
     describe('isShown method', function () {
         var isShown;
 
-        it('Should return "true" when the widget is shown', function () {
+        it('should return "true" when the widget is shown', function () {
             expandable1.show();
             isShown = expandable1.isShown();
 
@@ -208,7 +225,7 @@ describe('Expandable', function () {
             expect(isShown).toBeTruthy();
         });
 
-        it('Should return "false" when the widget is hidden', function () {
+        it('should return "false" when the widget is hidden', function () {
             expandable1.hide();
             isShown = expandable1.isShown();
 
@@ -220,7 +237,7 @@ describe('Expandable', function () {
     });
 
     describe('Disable method', function () {
-        it('Should prevent to show its container', function () {
+        it('should prevent to show its container', function () {
             expandable1.disable();
             expandable1.show();
             expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
@@ -228,7 +245,7 @@ describe('Expandable', function () {
     });
 
     describe('Enable method', function () {
-        it('Should prevent to show its container', function () {
+        it('should prevent to show its container', function () {
             expandable1.enable();
             expandable1.show();
             expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
