@@ -119,8 +119,7 @@
      * @type {Object}
      */
     Menu.prototype._defaults = {
-        'fx': 'slideDown',
-        'accordion': false
+        'fx': 'slideDown'
     };
 
     /**
@@ -165,17 +164,9 @@
         // Inits an expandable component on each list inside main HTML code snippet
         that._createExpandables();
 
-        // Accordion behavior
-        if (this._options.accordion) {
-            // Sets the interface main class name for avoid
-            that._configureAccordion();
-
-        } else {
-            // Set the wai-aria for Menu
-            that.$el.attr('role', 'navigation');
-        }
-
-        that.$el.addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
+        that.$el
+            .attr('role', 'navigation')
+            .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
 
         // Select specific item if there are a "shown" parameter on component configuration object
         if (that._shown !== undefined) {
@@ -240,13 +231,11 @@
                     }
                 });
 
-                if (!that._options.accordion) {
-                    $child.next()
-                        .attr('role', 'menu')
-                        .children().attr('role', 'presentation')
-                            .children()
-                                .attr('role', 'menuitem');
-                }
+                $child.next()
+                    .attr('role', 'menu')
+                    .children().attr('role', 'presentation')
+                        .children()
+                            .attr('role', 'menuitem');
 
                 // Add expandable to that._children
                 that._children.push(expandable);
@@ -259,12 +248,12 @@
     };
 
    /**
-    * Selects a specific expandable to be shown or hidden.
+    * Shows a specific child.
     * @public
-    * @name select
-    * @name ch.Menu
-    * @param item The number of the item to be shown
-    * @returns
+    * @name show
+    * @name ch.Menu#show
+    * @param {Number} child - The number of the item to be shown
+    * @returns {Object}
     */
     Menu.prototype.show = function (child) {
 
@@ -279,12 +268,6 @@
 
         // Item as expandable
         if (item instanceof ch.Expandable) {
-
-            if (this._options.accordion && this._shown !== undefined && this._shown !== child) {
-                this._children[this._shown - 1].hide();
-            }
-
-            // Show
             item.show();
         }
 
@@ -292,28 +275,28 @@
         that._shown = child;
 
         /**
-         * It is triggered when the a fold is shown by the user.
-         * @name ch.Menu#select
+         * It is triggered when a children is shown.
+         * @name ch.Menu#show
          * @event
          * @public
-         * @exampleDescription When the user select
+         * @exampleDescription
          * @example
-         * widget.on('select',function(){
+         * widget.on('show',function(){
          *     app.off();
          * });
          */
-        that.emit('show');
+        that.emit('show', item);
 
         return that;
     };
 
 /**
-    * Selects a specific expandable to be shown or hidden.
+    * Hides a specific child.
     * @public
-    * @name select
+    * @name hide
     * @name ch.Menu
-    * @param item The number of the item to be shown
-    * @returns
+    * @param {Number} child - The number of the item to be hidden
+    * @returns {Object}
     */
     Menu.prototype.hide = function (child) {
 
@@ -336,17 +319,17 @@
         that._shown = undefined;
 
         /**
-         * It is triggered when the a fold is shown by the user.
-         * @name ch.Menu#select
+         * It is triggered when a children is hidden.
+         * @name ch.Menu#hide
          * @event
          * @public
-         * @exampleDescription When the user select
+         * @exampleDescription
          * @example
-         * widget.on('select',function(){
+         * widget.on('hide',function(){
          *     app.off();
          * });
          */
-        that.emit('hide');
+        that.emit('hide', item);
 
         return that;
     };
@@ -372,37 +355,12 @@
      */
     Menu.prototype.content = function (child, content) {
         if (child === undefined) {
-            return this._children[child].content();
+            return this._children[child - 1].content();
         }
 
-        this._children[child].content(content);
+        this._children[child - 1].content(content);
 
         return this;
-    };
-
-    /**
-     * Binds controller's own click to expandable triggers
-     * @private
-     * @function
-     */
-    Menu.prototype._configureAccordion = function () {
-        var that = this;
-
-        $.each(that._children, function (i, expandable) {
-            if (expandable instanceof ch.Expandable) {
-                expandable.$el
-                    .off('.expandable')
-                    .on(ch.events.pointer.TAP + '.accordion', function () {
-                        var opened = that._children[that._shown - 1];
-
-                        if (that._shown !== undefined && expandable !== opened) {
-                            opened.hide();
-                        }
-
-                        that.select(i + 1);
-                    });
-            }
-        });
     };
 
     /**
