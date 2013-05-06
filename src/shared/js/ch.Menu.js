@@ -6,7 +6,7 @@
  * @requires ch.Expandable
  * @memberOf ch
  * @param {Object} [options] Object with configuration properties.
- * @param {Number} [options.selected] Selects a child that will be open when component was loaded.
+ * @param {Number} [options.shown] Selects a child that will be open when component was loaded.
  * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
  * @returns itself
  * @factorized
@@ -18,7 +18,7 @@
  * @exampleDescription Create a new menu with configuration.
  * @example
  * var widget = $('.example').menu({
- *     'selected': 2,
+ *     'shown': 2,
  *     'fx': true
  * });
  */
@@ -151,12 +151,12 @@
         that._children = [];
 
         /**
-         * Stores witch expandable is selected.
+         * Stores witch expandable is shown.
          * @private
-         * @name ch.Menu#_selected
+         * @name ch.Menu#_shown
          * @type number
          */
-        that._selected = that._options.selected;
+        that._shown = that._options.shown;
 
         /**
          * Default behavior
@@ -177,9 +177,9 @@
 
         that.$el.addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
 
-        // Select specific item if there are a "selected" parameter on component configuration object
-        if (that._selected !== undefined) {
-            that.select(that._selected);
+        // Select specific item if there are a "shown" parameter on component configuration object
+        if (that._shown !== undefined) {
+            that.select(that._shown);
         }
 
         return this;
@@ -222,11 +222,11 @@
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx,
                     'onshow': function () {
-                        // Updates selected when it's opened
-                        that._selected = i + 1;
+                        // Updates shown when it's opened
+                        that._shown = i + 1;
 
                         /**
-                         * It is triggered when the a fold is selected by the user.
+                         * It is triggered when the a fold is shown by the user.
                          * @name ch.Menu#select
                          * @event
                          * @public
@@ -263,18 +263,13 @@
     * @public
     * @name select
     * @name ch.Menu
-    * @param item The number of the item to be selected
+    * @param item The number of the item to be shown
     * @returns
     */
-    Menu.prototype.select = function (child) {
+    Menu.prototype.show = function (child) {
 
         if (!this._enabled) {
             return this;
-        }
-
-        // Getter
-        if (child === undefined) {
-            return this._selected;
         }
 
         // Setter
@@ -285,19 +280,19 @@
         // Item as expandable
         if (item instanceof ch.Expandable) {
 
-            if (this._options.accordion && this._selected !== undefined && this._selected !== child) {
-                this._children[this._selected - 1].hide();
+            if (this._options.accordion && this._shown !== undefined && this._shown !== child) {
+                this._children[this._shown - 1].hide();
             }
 
             // Show
             item.show();
         }
 
-        // Update selected item
-        that._selected = child;
+        // Update shown item
+        that._shown = child;
 
         /**
-         * It is triggered when the a fold is selected by the user.
+         * It is triggered when the a fold is shown by the user.
          * @name ch.Menu#select
          * @event
          * @public
@@ -307,9 +302,82 @@
          *     app.off();
          * });
          */
-        that.emit('select');
+        that.emit('show');
 
         return that;
+    };
+
+/**
+    * Selects a specific expandable to be shown or hidden.
+    * @public
+    * @name select
+    * @name ch.Menu
+    * @param item The number of the item to be shown
+    * @returns
+    */
+    Menu.prototype.hide = function (child) {
+
+        if (!this._enabled) {
+            return this;
+        }
+
+        // Setter
+        var that = this,
+            // Specific item of that._children list
+            item = that._children[child - 1];
+
+        // Item as expandable
+        if (item instanceof ch.Expandable) {
+            // Hide
+            item.hide();
+        }
+
+        // Update shown item
+        that._shown = undefined;
+
+        /**
+         * It is triggered when the a fold is shown by the user.
+         * @name ch.Menu#select
+         * @event
+         * @public
+         * @exampleDescription When the user select
+         * @example
+         * widget.on('select',function(){
+         *     app.off();
+         * });
+         */
+        that.emit('hide');
+
+        return that;
+    };
+
+
+    /**
+     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
+     * @name getShown
+     * @methodOf ch.Menu#getShown
+     * @returns {Boolean}
+     * @exampleDescriptiong
+     * @example
+     * if (widget.getShown() === 1) {
+     *     fn();
+     * }
+     */
+    Menu.prototype.getShown = function () {
+        return this._shown;
+    };
+
+    /**
+     *
+     */
+    Menu.prototype.content = function (child, content) {
+        if (child === undefined) {
+            return this._children[child].content();
+        }
+
+        this._children[child].content(content);
+
+        return this;
     };
 
     /**
@@ -325,9 +393,9 @@
                 expandable.$el
                     .off('.expandable')
                     .on(ch.events.pointer.TAP + '.accordion', function () {
-                        var opened = that._children[that._selected - 1];
+                        var opened = that._children[that._shown - 1];
 
-                        if (that._selected !== undefined && expandable !== opened) {
+                        if (that._shown !== undefined && expandable !== opened) {
                             opened.hide();
                         }
 
@@ -361,7 +429,7 @@
 
         if (!window.isNaN(num)) {
             options = {
-                'selected': num
+                'shown': num
             };
         }
 
