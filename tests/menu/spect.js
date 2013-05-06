@@ -158,13 +158,8 @@ describe('Its getShown() method', function () {
         expect(menu1.getShown()).toEqual(jasmine.any(Number));
     });
 
-    it('should return a collection of shown children', function () {
-        menu1.show(1);
-        expect(ch.util.isArray(menu1.getShown())).toBeTruthy();
-    });
-
     it('should return a undefined when its children are hidden', function () {
-        menu1.hide(1).hide(2);
+        menu1.hide(1);
         expect(menu1.getShown()).toBeUndefined();
     });
 });
