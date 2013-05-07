@@ -78,7 +78,7 @@
     Carousel.prototype._defaults = {
         'pagination': false,
         'arrows': 'outside',
-        'selected': 1,
+        'goTo': 1,
         'fx': true
     };
 
@@ -116,7 +116,7 @@
             .appendTo(this.$el);
 
         /**
-         * Size of the mask. Updated in each redraw.
+         * Size of the mask. Updated in each refresh.
          * @private
          * @name ch.Carousel#maskWidth
          * @type Number
@@ -156,7 +156,7 @@
         this._itemHeight = this._$items.height();
 
         /**
-         * The margin of all items. Updated in each redraw only if it's necessary.
+         * The margin of all items. Updated in each refresh only if it's necessary.
          * @private
          * @name ch.Carousel#itemMargin
          * @type Number
@@ -180,13 +180,13 @@
         this._paginationCreated = false;
 
         /**
-         * (Since 0.7.4) Amount of items in only one page. Updated in each redraw.
+         * (Since 0.7.4) Amount of items in only one page. Updated in each refresh.
          * @private
-         * @name ch.Carousel#itemsPerPage
+         * @name ch.Carousel#_limitPerPage
          * @type Number
          * @since 0.7.4
          */
-        this._itemsPerPage = 0;
+        this._limitPerPage = 0;
 
         /**
          * Page currently showed.
@@ -197,7 +197,7 @@
         this._currentPage = 1;
 
         /**
-         * Total amount of pages. Data updated in each redraw.
+         * Total amount of pages. Data updated in each refresh.
          * @private
          * @name ch.Carousel#pages
          * @type Number
@@ -205,7 +205,7 @@
         this._pages = 0;
 
         /**
-         * Distance needed to move ONLY ONE page. Data updated in each redraw.
+         * Distance needed to move ONLY ONE page. Data updated in each refresh.
          * @private
          * @name ch.Carousel#pageWidth
          * @type Number
@@ -277,14 +277,14 @@
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
-            if (page !== null) { that._goToPage(window.parseInt(page, 10)); }
+            if (page !== null) { that.goTo(window.parseInt(page, 10)); }
         });
 
         // Width by configuration
         if (this._options.width !== undefined) {
             this.$el.css('width', this._options.width);
         } else {
-            ch.viewport.on('resize', function () { that.redraw(); });
+            ch.viewport.on('resize', function () { that.refresh(); });
         }
 
         // If efects aren't needed, avoid transition on list
@@ -309,7 +309,7 @@
         this._updateDistribution();
 
         // Put Carousel on specified page or at the beginning
-        this._goToPage(this._options.selected);
+        this.goTo(this._options.goTo);
     };
 
     /**
@@ -326,7 +326,7 @@
         // Update ARIA properties on all items
         this._$items.each(function (i, item) {
             // Update page where this item is in
-            var page = Math.floor(i / that._itemsPerPage) + 1;
+            var page = Math.floor(i / that._limitPerPage) + 1;
             // Update ARIA attributes
             $(item).attr({
                 'aria-hidden': page !== that._currentPage,
@@ -382,7 +382,7 @@
          *    alert("Some asynchronous items was added.");
          * });
          */
-        that.emit('itemsAdded');
+        that.emit('itemsdone');
     };
 
     /**
@@ -396,7 +396,7 @@
         if (this._queue.length === 0) { return; }
 
         // Amount of items from the beginning to current page
-        var total = this._currentPage * this._itemsPerPage,
+        var total = this._currentPage * this._limitPerPage,
         // How many items needs to add to items rendered to complete to this page
             amount = total - this._$items.length;
 
@@ -469,7 +469,7 @@
     };
 
     /**
-     * Executed when total amount of pages change, this redraw the thumbnails.
+     * Executed when total amount of pages change, this refresh the thumbnails.
      * @private
      * @name ch.Carousel#updatePagination
      * @function
@@ -521,12 +521,12 @@
         if (max !== undefined && itemsPerPage > max) { itemsPerPage = max; }
 
         // Set data and calculate pages, only when the amount of items was changed
-        if (itemsPerPage === this._itemsPerPage) { return; }
+        if (itemsPerPage === this._limitPerPage) { return; }
 
         // Restore if itemsPerPage is NOT the same after calculations (go to the current first item page)
-        firstItemOnPage = ((this._currentPage - 1) * this._itemsPerPage) + 1;
+        firstItemOnPage = ((this._currentPage - 1) * this._limitPerPage) + 1;
         // Update amount of items into a single page (from conf or auto calculations)
-        this._itemsPerPage = itemsPerPage;
+        this._limitPerPage = itemsPerPage;
 
         // Update the amount of total pages
         // The ratio between total amount of items and items in each page
@@ -539,7 +539,7 @@
         // Update pagination
         this._updatePagination();
         // Go to the current first item page
-        this._goToPage(Math.ceil(firstItemOnPage / itemsPerPage));
+        this.goTo(Math.ceil(firstItemOnPage / itemsPerPage));
     };
 
     /**
@@ -552,20 +552,20 @@
 
         var that = this,
             // Grabs if there are MORE THAN ONE item in a page or just one
-            moreThanOne = this._itemsPerPage > 1,
+            moreThanOne = this._limitPerPage > 1,
             // Total space to use as margin into mask
             // It's the difference between mask width and total width of all items
-            freeSpace = this._maskWidth - (this._itemOuterWidth * this._itemsPerPage),
+            freeSpace = this._maskWidth - (this._itemOuterWidth * this._limitPerPage),
             // Width to add to each item to get responsivity
             // When there are more than one item, get extra width for each one
             // When there are only one item, extraWidth must be just the freeSpace
-            extraWidth = moreThanOne ? Math.ceil(freeSpace / this._itemsPerPage / 2) : Math.ceil(freeSpace),
+            extraWidth = moreThanOne ? Math.ceil(freeSpace / this._limitPerPage / 2) : Math.ceil(freeSpace),
             // Amount of spaces to distribute the free space
             spaces,
             // The new width calculated from current width plus extraWidth
             width;
 
-        // Update ONLY IF margin changed from last redraw
+        // Update ONLY IF margin changed from last refresh
         // If *new* and *old* extra width are 0, continue too
         if (extraWidth === this._itemExtraWidth && extraWidth > 0) { return; }
 
@@ -574,7 +574,7 @@
 
         // When there are 6 items on a page, there are 5 spaces between them
         // Except when there are only one page that NO exist spaces
-        spaces = moreThanOne ? this._itemsPerPage - 1 : 0;
+        spaces = moreThanOne ? this._limitPerPage - 1 : 0;
         // The new width calculated from current width plus extraWidth
         width = this._itemWidth + extraWidth;
 
@@ -585,7 +585,7 @@
         this._itemMargin = moreThanOne ? Math.ceil(freeSpace / spaces / 2) : 0;
         // Update distance needed to move ONLY ONE page
         // The width of all items on a page, plus the width of all margins of items
-        this._pageWidth = (this._itemOuterWidth + extraWidth + this._itemMargin) * this._itemsPerPage;
+        this._pageWidth = (this._itemOuterWidth + extraWidth + this._itemMargin) * this._limitPerPage;
 
         // Update the list width
         // Do it before item resizing to make space to all items
@@ -615,21 +615,15 @@
      * Trigger all recalculations to get the functionality measures.
      * @public
      * @function
-     * @name ch.Carousel#redraw
+     * @name ch.Carousel#refresh
      * @returns Chico UI Object
-     * @exampleDescription Re-draw the Carousel.
+     * @exampleDescription Refresh the Carousel.
      * @example
-     * foo.redraw();
+     * foo.refresh();
      */
-    Carousel.prototype.redraw = function () {
+    Carousel.prototype.refresh = function () {
 
-        var //that = this,
-            maskWidth = this._$mask.outerWidth();
-            //restorePage = this._currentPage;
-
-        // Avoid wrong calculations going to first page
-        // if (this._options.fx) { this._$list.addClass('ch-carousel-nofx'); }
-        // this._goToPage(1);
+        var maskWidth = this._$mask.outerWidth();
 
         // Check for changes on the width of mask, for the elastic carousel
         if (maskWidth !== this._maskWidth) {
@@ -640,23 +634,21 @@
             // Update the margin between items and its size
             this._updateDistribution();
             /**
-             * Since 0.10.6: Triggers when component redraws.
-             * @name ch.Carousel#redraw
+             * Since 0.10.6: Triggers when component refreshs.
+             * @name ch.Carousel#refresh
              * @event
              * @public
              * @since 0.10.6
-             * @exampleDescription Using a callback when Carousel trigger a new redraw.
+             * @exampleDescription Using a callback when Carousel trigger a new refresh.
              * @example
-             * example.on("redraw", function () {
-             *    alert("Carousel was redrawn!");
+             * example.on("refresh", function () {
+             *    alert("Carousel was refreshed!");
              * });
              */
-            this.emit('draw');
+            this.emit('refresh');
         }
 
-        // Restore the page before redraw
-        // if (this._options.fx) { this._$list.removeClass('ch-carousel-nofx'); }
-        // this._goToPage(restorePage);
+        return this;
     };
 
     /**
@@ -806,16 +798,24 @@
     };
 
     /**
-     * Updates all necessary data to move to a specified page.
-     * @private
-     * @name ch.Carousel#goToPage
+     *
+     * @public
      * @function
+     * @name ch.Carousel#page
+     * @returns Chico UI Object
      * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
+     * @since 0.7.4
+     * @exampleDescription Go to second page.
+     * @example
+     * foo.page(2);
+     * @exampleDescription Get the current page.
+     * @example
+     * foo.page();
      */
-    Carousel.prototype._goToPage = function (page) {
+    Carousel.prototype.goTo = function (page) {
         // Set an error when the page is out of range
         if (window.isNaN(page)) {
-            throw new window.Error('Chico Carousel: Invalid parameter (' + page + ') received in _goToPage(). Provide a Number between 1 and ' + this._pages + '.');
+            throw new window.Error('Chico Carousel: Invalid parameter (' + page + ') received in goTo(). Provide a Number between 1 and ' + this._pages + '.');
         }
         // Avoid to select the same page that is selected yet
         if (page === this._currentPage || page < 1 || page > this._pages) {
@@ -847,6 +847,8 @@
          * });
          */
         this.emit('select');
+
+        return this;
     };
 
     /**
@@ -861,8 +863,9 @@
      * });
      */
     Carousel.prototype.prev = function () {
-        this._goToPage(this._currentPage - 1);
+        this.goTo(this._currentPage - 1);
         this.emit('prev');
+        return this;
     };
 
     /**
@@ -877,8 +880,9 @@
      * });
      */
     Carousel.prototype.next = function () {
-        this._goToPage(this._currentPage + 1);
+        this.goTo(this._currentPage + 1);
         this.emit('next');
+        return this;
     };
 
     /**
@@ -913,10 +917,12 @@
                 that.next();
             // On last page: Move to first page
             } else {
-                that._goToPage(1);
+                that.goTo(1);
             }
         // Use the setted timing
         }, this._delay);
+
+        return this;
     };
 
     /**
@@ -932,6 +938,7 @@
      */
     Carousel.prototype.pause = function () {
         window.clearInterval(this._timer);
+        return this;
     };
 
     /**
@@ -958,54 +965,7 @@
      */
     Carousel.prototype.arrows = function (config) {
         this._arrowsFlow(config);
-        this.redraw();
-    };
-
-    /**
-     * Same as "select". Gets the current page or moves to a defined page (Since 0.7.4).
-     * @public
-     * @function
-     * @name ch.Carousel#page
-     * @returns Chico UI Object
-     * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
-     * @since 0.7.4
-     * @exampleDescription Go to second page.
-     * @example
-     * foo.page(2);
-     * @exampleDescription Get the current page.
-     * @example
-     * foo.page();
-     */
-    /**
-     * Same as "page". Moves to a defined page (Since 0.7.5).
-     * @public
-     * @function
-     * @name ch.Carousel#select
-     * @returns Current page number or Chico UI Object
-     * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
-     * @since 0.7.5
-     * @exampleDescription Go to second page.
-     * @example
-     * foo.select(2);
-     */
-    Carousel.prototype.page = Carousel.prototype.select = function (page) {
-        // Getter
-        if (page === undefined) {
-            return this._currentPage;
-        }
-        // Setter
-        switch (page) {
-        case 'first':
-            this._goToPage(1);
-            break;
-        case 'last':
-            this._goToPage(this._pages);
-            break;
-        default:
-            this._goToPage(window.parseInt(page));
-            break;
-        }
-
+        this.refresh();
         return this;
     };
 
