@@ -194,11 +194,11 @@
 
         });
 
-
         that._popover.$container
             .on(MOUSEDOWN, function (event) {
-
-                that._setQuery(event);
+                if ( event.target.nodeName === 'LI' && event.target.className.indexOf('ch-autoComplete-item') !== -1) {
+                    that._setQuery(event);
+                }
 
             })
             // no se lo puedo pasar a shortcuts por los nombres de los eventos que tenemos que standarizar
@@ -218,7 +218,6 @@
                 that._select(current);
 
             });
-
 
         // behavior binding
         this.$el
@@ -271,16 +270,21 @@
 
         window.clearTimeout(this._stopTyping);
 
+        if (this._selected === null) {
+            return this;
+        }
+
+        ch.util.prevent(event);
+
         if (!this._options.html) {
             this.el.value = this._suggestions[this._selected];
         }
 
         this._selected = null;
-
         this.emit('select', event);
-
         this.el.blur();
 
+        return this;
     };
 
     /**
@@ -299,6 +303,8 @@
             $(this._suggestionsList[current]).addClass('ch-autoComplete-selected');
             this._selected = current;
         }
+
+        return this;
 
     }
 
