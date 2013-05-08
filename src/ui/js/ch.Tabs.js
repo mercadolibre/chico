@@ -97,12 +97,12 @@
         this._initialHash = window.location.hash.replace('#!/', '');
 
         /**
-         * Children instances associated to this controller.
+         * Children tab instances associated to this controller.
          * @public
-         * @name ch.Form#children
+         * @name ch.Form#tab
          * @type {Array}
          */
-        this._children = [];
+        this.tab = [];
 
         /**
          * The component's triggers container.
@@ -161,7 +161,7 @@
      */
     Tabs.prototype._createTab = function (i, e) {
         var that = this,
-
+            index,
             tab,
 
             $container = this._$tabsContainers.eq(i),
@@ -193,17 +193,17 @@
         // Creates tab's hash
         tab._hash = tab.el.href.split('#')[1];
 
-        // Binds tap and focus events
-        tab.$el
-            .attr('role', 'tab')
-            .on(ch.events.pointer.TAP + '.tabs focus.tabs', function () {
-                that.show(i + 1);
-            });
-
+        // Add ARIA roles
+        tab.$el.attr('role', 'tab');
         tab.$container.attr('role', 'tabpanel');
 
+        // Binds events
+        tab.on('show', function () {
+            that._updateShown(i + 1);
+        });
+
         // Adds tabs to the collection
-        this._children.push(tab);
+        this.tab.push(tab);
 
         return this;
     };
@@ -211,16 +211,16 @@
     Tabs.prototype._hasHash = function () {
         var i = 0,
             // Shows the first tab if not hash or it's hash and it isn't from the current tab,
-            len = this._children.length;
+            len = this.tab.length;
         // If hash open that tab
         for (i; i < len; i += 1) {
-            if (this._children[i]._hash === this._initialHash) {
+            if (this.tab[i]._hash === this._initialHash) {
                 this._shown = i + 1;
                 break;
             }
         }
 
-        this._children[this._shown - 1].show();
+        this.tab[this._shown - 1].show();
 
         /**
          * Fired when a tab is shown.
@@ -251,18 +251,25 @@
         var shown = this._shown,
 
             // Sets the tab's index
-            tab = this._children[index - 1];
+            tab = this.tab[index - 1];
+
+        // Shows the current tab
+        tab.show();
+
+        this._updateShown(index);
+
+        return this;
+    };
+
+    Tabs.prototype._updateShown = function (index) {
 
         // If tab doesn't exist or if it's shown do nothing
-        if (tab === undefined || shown === index) {
+        if (this._shown === index) {
             return this;
         }
 
         // Hides the shown tab
-        this._children[shown - 1].hide();
-
-        // Shows the current tab
-        tab.show();
+        this.tab[this._shown - 1].hide();
 
         /**
          * Get wich tab is shown.
@@ -273,7 +280,7 @@
         this._shown = index;
 
         // Update window location hash
-        window.location.hash = '#!/' + tab._hash;
+        window.location.hash = '#!/' + this.tab[this._shown - 1]._hash;
 
         /**
          * Fired when a tab is shown.
@@ -284,7 +291,7 @@
         this.emit('show', this._shown);
 
         return this;
-    };
+    }
 
     /**
      * Returns the number of current Tab.
@@ -299,6 +306,23 @@
      */
     Tabs.prototype.getShown = function () {
         return this._shown;
+    };
+
+    /**
+     *
+     */
+    Tabs.prototype.content = function (child, content, options) {
+        if (child === undefined || typeof child !== 'number') {
+            throw new window.Error('Tabs.content(child, content, options): Expected number of tab.');
+        }
+
+        if (content === undefined) {
+            return this.tab[child - 1].content();
+        }
+
+        this.tab[child - 1].content(content, options);
+
+        return this;
     };
 
     /**

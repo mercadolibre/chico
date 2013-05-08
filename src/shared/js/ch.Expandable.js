@@ -134,7 +134,7 @@
         this.$trigger = this.$el
             .addClass(this._options._classNameTrigger)
             .on(ch.events.pointer.TAP + '.' + this.name, function (event) {
-                event.preventDefault();
+                ch.util.prevent(event);
                 that.show();
             });
 
@@ -151,12 +151,6 @@
         /**
          * Default behavior
          */
-        if (this._options.content !== undefined) {
-            this.once('show', function () {
-                that.content(this._options.content);
-            });
-        }
-
         if (this.$container.prop('id') === '') {
             this.$container.prop('id', 'ch-expandable-' + this.uid);
         }
@@ -190,7 +184,7 @@
      * @example
      * widget.show();
      */
-    Expandable.prototype.show = function (content) {
+    Expandable.prototype.show = function (content, options) {
 
         if (!this._enabled) {
             return this;
@@ -207,7 +201,7 @@
 
         // Set new content
         if (content !== undefined) {
-            this.content(content);
+            this.content(content, options);
         }
 
         return this;
