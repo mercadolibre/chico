@@ -356,21 +356,21 @@
                 <label for="autocomplete">
                     Fill your country:
                 </label>
-                <input type="text" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
+                <input type="text" name="autocomplete1" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
                 <p class="ch-form-hint">This is configured to use HTML</p>
             </div>
             <div class="ch-form-row">
                 <label for="autocomplete2">
                     Fill your country:
                 </label>
-                <input type="text" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
+                <input type="text" name="autocomplete2" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
                 <p class="ch-form-hint">This is the default</p>
             </div>
             <div class="ch-form-row">
                 <label for="autocomplete3">
                     Find on MercadoLibre:
                 </label>
-                <input type="text" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
+                <input type="text" name="autocomplete3" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
                 <p class="ch-form-hint">This is working with the MercadoLibre API</p>
             </div>
             <p class="ch-form-actions">
@@ -1373,23 +1373,25 @@
         });
 
         var autocomplete2 = $('.autoComplete2').autoComplete();
+        autocomplete2.$container.append('<button class="ch-btn-skin ch-btn-small">Don\'t show again</button>');
 
-         autocomplete2.on('typing', function (userInput) {
-             $.ajax({
-                 'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=autocomplete2.suggest',
-                 'dataType': 'jsonp',
-                 'cache': false,
-                 'global': true,
-                 'context': window,
-                 'jsonp': 'autocomplete2.suggest',
-                 'crossDomain': true
-             });
-         });
+        autocomplete2.on('typing', function (userInput) {
+            $.ajax({
+                'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=autocomplete2.suggest',
+                'dataType': 'jsonp',
+                'cache': false,
+                'global': true,
+                'context': window,
+                'jsonp': 'autocomplete2.suggest',
+                'crossDomain': true
+            });
+        });
+
+
 
         var autocomplete3 = $('.autoComplete3').autoComplete();
 
         var parseMLAPIResults = function (results) {
-            console.log(results);
             var data = [];
             results[2].suggested_queries.forEach(function (e, i) {
                 data.push(e.q);
