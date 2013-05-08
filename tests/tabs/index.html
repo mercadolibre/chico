@@ -3,84 +3,33 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Tabs Test</title>
-		<link rel="shortcut icon" type="image/png" href="/libs/jasmine-1.2.0/jasmine_favicon.png">
-		<link rel="stylesheet" type="text/css" href="/ui/css">
-		<link rel="stylesheet" type="text/css" href="/libs/jasmine-1.2.0/jasmine.css">
-
+        <link rel="stylesheet" type="text/css" href="/ui/css">
+        <link rel="stylesheet" type="text/css" href="/vendor/jasmine/jasmine.css">
 	</head>
+	<body>
 	<body>
 		<h1>Tabs</h1>
 		<div id="tabs-1">
 			<ul>
-				<li><a href="#tab1-a">Tab1</a></li>
-				<li><a href="#tab2-a">Tab2</a></li>
-				<li><a href="#tab3-a">Tab3</a></li>
+				<li><a href="#tab1">Tab1</a></li>
+				<li><a href="#tab2">Tab2</a></li>
+				<li><a href="http://ui.ml.com:3040/ajax#ajax">Ajax</a></li>
 			</ul>
 			<div>
-				<div id="tab1-a">
+				<div id="tab1">
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
 				</div>
-
-				<div id="tab2-a">
-					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
-				</div>
-
-				<div id="tab3-a">
-					<p>Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
+				<div id="tab2">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar.</p>
 				</div>
 			</div>
 		</div>
 
-		<div id="tabs-2">
-			<ul>
-				<li><a href="#tab1-b">Tab1</a></li>
-				<li><a href="#tab2-b">Tab2</a></li>
-			</ul>
-			<div>
-				<div id="tab1-b">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
-
-				<div id="tab2-b">
-					<p>Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a.</p>
-				</div>
-			</div>
-		</div>
-
-		<div id="tabs-3">
-			<ul>
-				<li><a href="#tab1-c">Tab1</a></li>
-				<li><a href="http://ui.ml.com:3040/ajax#ajax">Tab4</a></li>
-			</ul>
-			<div>
-				<div id="tab1-c">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
-			</div>
-		</div>
-
-		<div id="tabs-4">
-			<ul>
-				<li><a href="#tab1-d">Tab1</a></li>
-				<li><a href="#tab2-d">Tab2</a></li>
-				<li><a href="http://ui.ml.com:3040/ajax#ajaxCallbacks">Tab3</a></li>
-				<li><a href="http://ui.ml.com:3040/ajaxError#ajaxError">Tab4</a></li>
-			</ul>
-			<div>
-				<div id="tab1-d">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
-				<div id="tab2-d">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
-				</div>
-			</div>
-		</div>
-
-		<script src="/libs/jasmine-1.2.0/jasmine.js"></script>
-		<script src="/libs/jasmine-1.2.0/jasmine-html.js"></script>
-		<script src="/vendor/jquery-debug.js"></script>
-		<script src="/ui/js"></script>
-		<script src="./spect.js"></script>
+        <script src="/vendor/jasmine/jasmine.js"></script>
+        <script src="/vendor/jasmine/jasmine-html.js"></script>
+        <script src="/vendor/jquery-debug.js"></script>
+        <script src="/ui/js"></script>
+        <script src="./spect.js"></script>
 		<script>
 			(function() {
 				var jasmineEnv = jasmine.getEnv();
