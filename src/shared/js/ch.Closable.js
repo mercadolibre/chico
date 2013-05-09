@@ -13,7 +13,6 @@
     }
 
     var $document = $(window.document),
-        // keyEsc = ch.onkeyesc;
         keyEsc = ch.onkeyesc ? ch.onkeyesc : 'touchend';
 
     function Closable() {
@@ -88,7 +87,6 @@
 
                 that.on(ch.onkeyesc, function(event) {
                     that.hide();
-                    ch.Shortcuts.off(that);
                 });
 
                 that.on('show', function () {
