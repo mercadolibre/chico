@@ -5,7 +5,7 @@
  * @augments ch.Widget
  * @memberOf ch
  * @param {Object} [options] Object with configuration properties.
- * @param {Number} [options.selected] Selects a child that will be open when component was loaded. By default, the value is 1.
+ * @param {Number} [options.shown] Show a child that will be open when component was loaded. By default, the value is 1.
  * @returns itself
  * @factorized
  * @exampleDescription Create a new Tab Navigator without configuration.
@@ -14,7 +14,7 @@
  * @exampleDescription Create a new Tab Navigator with configuration.
  * @example
  * var widget = $('.example').tabs({
- *     'selected': 2
+ *     'shown': 2
  * });
  * @see ch.Widget
  */
@@ -31,7 +31,7 @@
 
         if (!window.isNaN(num)) {
             options = {
-                'selected': num
+                'shown': num
             };
         }
 
@@ -80,7 +80,7 @@
     Tabs.prototype.constructor = Tabs;
 
     Tabs.prototype._defaults = {
-        'selected': 1
+        'shown': 1
     };
 
     Tabs.prototype.init = function ($el, options) {
@@ -89,7 +89,7 @@
         var that = this;
 
         /**
-        * The actual location hash, is used to know if there's a specific tab selected.
+        * The actual location hash, is used to know if there's a specific tab shwown.
         * @private
         * @name ch.Tabs#hash
         * @type {String}
@@ -97,12 +97,12 @@
         this._initialHash = window.location.hash.replace('#!/', '');
 
         /**
-         * Children instances associated to this controller.
+         * Children tab instances associated to this controller.
          * @public
-         * @name ch.Form#children
+         * @name ch.Form#tab
          * @type {Array}
          */
-        this._children = [];
+        this.tab = [];
 
         /**
          * The component's triggers container.
@@ -146,7 +146,7 @@
             that._createTab(i, e);
         });
 
-        this._selected = this._options.selected;
+        this._shown = this._options.shown;
 
         this._hasHash();
 
@@ -161,7 +161,7 @@
      */
     Tabs.prototype._createTab = function (i, e) {
         var that = this,
-
+            index,
             tab,
 
             $container = this._$tabsContainers.eq(i),
@@ -176,7 +176,7 @@
         // Tab async configuration
         if ($container[0] === undefined) {
 
-            $container = $('<div id="' + e.href.split('#')[1] + '" class="ch-hide">').appendTo(this.$container);
+            $container = $('<div id="' + e.href.split('#')[1] + '">').appendTo(this.$container);
 
             options.content = e.href;
             options.waiting = this._options.waiting;
@@ -193,14 +193,17 @@
         // Creates tab's hash
         tab._hash = tab.el.href.split('#')[1];
 
-        // Binds tap and focus events
-        tab.$el
-            .on(ch.onpointertap + '.tabs focus.tabs', function () {
-                that.select(i + 1);
-            });
+        // Add ARIA roles
+        tab.$el.attr('role', 'tab');
+        tab.$container.attr('role', 'tabpanel');
+
+        // Binds events
+        tab.on('show', function () {
+            that._updateShown(i + 1);
+        });
 
         // Adds tabs to the collection
-        this._children.push(tab);
+        this.tab.push(tab);
 
         return this;
     };
@@ -208,87 +211,118 @@
     Tabs.prototype._hasHash = function () {
         var i = 0,
             // Shows the first tab if not hash or it's hash and it isn't from the current tab,
-            len = this._children.length;
+            len = this.tab.length;
         // If hash open that tab
         for (i; i < len; i += 1) {
-            if (this._children[i]._hash === this._initialHash) {
-                this._selected = i + 1;
+            if (this.tab[i]._hash === this._initialHash) {
+                this._shown = i + 1;
                 break;
             }
         }
 
-        this._children[this._selected - 1].show();
+        this.tab[this._shown - 1].show();
 
         /**
-         * Fired when a tab is selected.
-         * @name ch.Tabs#select
+         * Fired when a tab is shown.
+         * @name ch.Tabs#show
          * @event
          * @public
          */
-        this.emit('select');
+        this.emit('show', this._shown);
 
         return this;
     };
 
     /**
-     * Select a specific tab or get the selected tab.
+     * Show a specific tab or get the shown tab.
      * @public
-     * @name ch.Tabs#select
+     * @name ch.Tabs#show
      * @function
      * @param {Number} [tab] Tab's index.
-     * @exampleDescription Selects a specific tab
+     * @exampleDescription Shows a specific tab
      * @example
-     * widget.select(0);
-     * @exampleDescription Returns the selected tab's index
+     * widget.show(0);
+     * @exampleDescription Returns the shown tab's index
      * @example
-     * var selected = widget.select();
+     * var shown = widget.show();
      */
-    Tabs.prototype.select = function (index) {
+    Tabs.prototype.show = function (index) {
 
-        if (index === undefined) {
-            return this._selected;
-        }
+        var shown = this._shown,
 
-        var selected = this._selected,
             // Sets the tab's index
-            tab = this._children[index - 1];
+            tab = this.tab[index - 1];
 
-        // If select a tab that doesn't exist do nothing
-        // Don't click me if I'm open
-        if (tab === undefined || selected === index) {
+        // Shows the current tab
+        tab.show();
+
+        this._updateShown(index);
+
+        return this;
+    };
+
+    Tabs.prototype._updateShown = function (index) {
+
+        // If tab doesn't exist or if it's shown do nothing
+        if (this._shown === index) {
             return this;
         }
 
-        // Hides the open tab
-        if (selected !== undefined) {
-            this._children[selected - 1].hide();
-        }
+        // Hides the shown tab
+        this.tab[this._shown - 1].hide();
 
         /**
-         * Get wich tab is selected.
+         * Get wich tab is shown.
          * @private
-         * @name ch.Tabs#_selected
+         * @name ch.Tabs#_shown
          * @type {Number}
          */
-        this._selected = index;
+        this._shown = index;
 
-        if (!tab.isShown()) {
-            tab.show();
-        }
-
-        //Change location hash
-        window.location.hash = '#!/' + tab._hash;
+        // Update window location hash
+        window.location.hash = '#!/' + this.tab[this._shown - 1]._hash;
 
         /**
-         * Fired when a tab is selected.
-         * @name ch.Tabs#select
+         * Fired when a tab is shown.
+         * @name ch.Tabs#show
          * @event
          * @public
          */
-        this.emit('select');
+        this.emit('show', this._shown);
 
         return this;
+    }
 
+    /**
+     * Returns the number of current Tab.
+     * @name getShown
+     * @methodOf ch.Tabs#getShown
+     * @returns {Number}
+     * @exampleDescription
+     * @example
+     * if (widget.getShown() === 1) {
+     *     fn();
+     * }
+     */
+    Tabs.prototype.getShown = function () {
+        return this._shown;
+    };
+
+    /**
+     *
+     */
+    Tabs.prototype.content = function (child, content, options) {
+        if (child === undefined || typeof child !== 'number') {
+            throw new window.Error('Tabs.content(child, content, options): Expected number of tab.');
+        }
+
+        if (content === undefined) {
+            return this.tab[child - 1].content();
+        }
+
+        this.tab[child - 1].content(content, options);
+
+        return this;
     };
 
     /**

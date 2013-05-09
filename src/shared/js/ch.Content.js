@@ -42,27 +42,18 @@
                 } else {
                     that._$content.html(content);
 
-                    that._options.cache = false;
+                    that._options.cache = true;
 
                     that.emit('contentdone');
-
-                    if (that._options['oncontentdone'] !== undefined) {
-                        that._options['oncontentdone'].call(that);
-                    }
                 }
             // Case 3: DOM element
             } else if (ch.util.is$(content)) {
 
                 that._$content.html(content.remove(null, true).removeClass('ch-hide'));
 
-                that._options.cache = false;
+                that._options.cache = true;
 
                 that.emit('contentdone');
-
-                if (that._options['oncontentdone'] !== undefined) {
-                    that._options['oncontentdone'].call(that);
-                }
-
             }
 
             return that;
@@ -104,9 +95,6 @@
                     jqXHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 },
                 'success': function (data) {
-                    // Grab the data on the cache if it's necessary
-                    // if (options.cache) { ch.cache.set(options.input, data); }
-
                     // Send the result data to the client
                     setAsyncContent({
                         'status': 'done',
