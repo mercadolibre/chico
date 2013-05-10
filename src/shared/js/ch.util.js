@@ -29,25 +29,6 @@
 	}());
 
 	/**
-	 * Returns a boolean indicating whether the selector is into DOM.
-	 * @name inDom
-	 * @methodOf ch.util
-	 * @param {String} selector The selector to be checked.
-	 * @param {String} [context=document] Explicit context to the selector.
-	 * @returns {Boolean}
-	 */
-	util.inDom = function (selector, context) {
-		if (selector === undefined || typeof selector !== 'string') {
-			return false;
-		}
-		// jQuery: If you wish to use any of the meta-characters ( such as !"#$%&'()*+,./:;<=>?@[\]^`{|}~ ) as a literal part of a name, you must escape the character with two backslashes: \\.
-		selector = selector.replace(/(\!|\"|\$|\%|\&|\'|\(|\)|\*|\+|\,|\/|\;|\<|\=|\>|\?|\@|\[|\\|\]|\^|\`|\{|\||\}|\~)/gi, function (str, $1) {
-			return "\\\\" + $1;
-		});
-		return $(selector, context).length > 0;
-	};
-
-	/**
 	 * Checks if the url given is right to load content.
 	 * @name isUrl
 	 * @methodOf ch.util
@@ -208,42 +189,6 @@
 			prop = prop.replace(/\-(\w)/g, function (str, $1) { return $1.toUpperCase(); });
 			return el.currentStyle[prop];
 		}
-	};
-
-	/**
-	 * Returns a boolean indicating whether the string is a HTML tag.
-	 * @name isTag
-	 * @methodOf ch.util
-	 * @param {String} tag The name of the tag to be checked.
-	 * @returns {Boolean}
-	 */
-	util.isTag = function (tag) {
-		if (tag === undefined || typeof tag !== 'string') {
-			return false;
-		}
-
-		return (/<([\w:]+)/).test(tag);
-	};
-
-	/**
-	 * Returns a boolean indicating whether the string is a CSS selector.
-	 * @name isSelector
-	 * @methodOf ch.util
-	 * @param {String} selector The selector to be checked.
-	 * @returns {Boolean}
-	 */
-	util.isSelector = function (selector) {
-		if (selector === undefined || typeof selector !== 'string') {
-			return false;
-		}
-
-		var regex;
-		for (regex in $.expr.match) {
-			if ($.expr.match[regex].test(selector) && !util.isTag(selector)) {
-				return true;
-			};
-		};
-		return false;
 	};
 
 	/**
