@@ -161,7 +161,7 @@
      */
     Tabs.prototype._createTab = function (i, e) {
         var that = this,
-            index,
+            child,
             tab,
 
             $container = this._$tabsContainers.eq(i),
@@ -197,7 +197,7 @@
         tab.$el.attr('role', 'tab');
         tab.$container.attr('role', 'tabpanel');
 
-        // Binds events
+        // Binds show event
         tab.on('show', function () {
             that._updateShown(i + 1);
         });
@@ -212,6 +212,7 @@
         var i = 0,
             // Shows the first tab if not hash or it's hash and it isn't from the current tab,
             len = this.tab.length;
+
         // If hash open that tab
         for (i; i < len; i += 1) {
             if (this.tab[i]._hash === this._initialHash) {
@@ -238,33 +239,33 @@
      * @public
      * @name ch.Tabs#show
      * @function
-     * @param {Number} [tab] Tab's index.
+     * @param {Number} [tab] Tab's child.
      * @exampleDescription Shows a specific tab
      * @example
      * widget.show(0);
-     * @exampleDescription Returns the shown tab's index
+     * @exampleDescription Returns the shown tab's child
      * @example
      * var shown = widget.show();
      */
-    Tabs.prototype.show = function (index) {
-
-        var shown = this._shown,
-
-            // Sets the tab's index
-            tab = this.tab[index - 1];
+    Tabs.prototype.show = function (child) {
 
         // Shows the current tab
-        tab.show();
-
-        this._updateShown(index);
+        this.tab[child - 1].show();
 
         return this;
     };
 
-    Tabs.prototype._updateShown = function (index) {
+    /**
+     * Updates the shown tab, hides the previous tab, changes window location and emits "show" event.
+     * @private
+     * @name ch.Tabs#_updateShown
+     * @function
+     * @param {Number} [child] Tab's child.
+     */
+    Tabs.prototype._updateShown = function (child) {
 
         // If tab doesn't exist or if it's shown do nothing
-        if (this._shown === index) {
+        if (this._shown === child) {
             return this;
         }
 
@@ -277,7 +278,7 @@
          * @name ch.Tabs#_shown
          * @type {Number}
          */
-        this._shown = index;
+        this._shown = child;
 
         // Update window location hash
         window.location.hash = '#!/' + this.tab[this._shown - 1]._hash;
