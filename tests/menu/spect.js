@@ -127,28 +127,40 @@ describe('It should have children and it', function () {
 });
 
 describe('Its show() method', function () {
+    var instance;
+
     menu1.on('show', function () { showEvent(); })
 
     it('should be call with parameters', function () {
-        menu1.show(1);
+        instance = menu1.show(1);
         expect($children.eq(0).children(':last-child').hasClass('ch-hide')).toBeFalsy();
     });
 
     it('should emit the "show" event', function () {
         expect(showEvent).toHaveBeenCalled();
     });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(menu1);
+    });
 });
 
 describe('Its hide() method', function () {
+    var instance;
+
     menu1.on('hide', function () { hideEvent(); })
 
     it('should be call with parameters', function () {
-        menu1.hide(1);
+        instance = menu1.hide(1);
         expect($children.eq(0).children(':last-child').hasClass('ch-hide')).toBeTruthy();
     });
 
     it('should emit the "hide" event', function () {
         expect(hideEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(menu1);
     });
 });
 
