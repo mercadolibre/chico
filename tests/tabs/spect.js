@@ -167,7 +167,7 @@ describe('It should have a list of panels and', function () {
 
 describe('Its show() method', function () {
     tabs1.on('show', function () { showEvent(); });
-    tabs1.show(2);
+    var instance = tabs1.show(2);
 
     it('should set a hash on window location', function () {
         expect(window.location.hash).not.toEqual('');
@@ -175,6 +175,10 @@ describe('Its show() method', function () {
 
     it('should emit the "show" event', function () {
         expect(showEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(tabs1);
     });
 });
 
