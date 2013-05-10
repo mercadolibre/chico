@@ -5,29 +5,29 @@
 	"meta": {
 		"ui": {
 			"full": {
-				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
-				"jsClose": "\n\twindow.ch = ch;\n}(this, jQuery));",
+				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n(function (window, $) {\n    'use strict';",
+				"jsClose": "    window.ch = ch;\n}(this, this.jQuery));",
 				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function(window,$){'use strict';",
-				"jsClose": "window.ch = ch;}(this, jQuery));",
+				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n(function(window,$){'use strict';",
+				"jsClose": "window.ch = ch;}(this, this.jQuery));",
 				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
 			},
-			"temp_version": "ch.version = '1.0';"
+			"temp_version": "    ch.version = '1.0';"
 		},
 		"mobile": {
 			"full": {
-				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
-				"jsClose": "\n\twindow.ch = ch;\n}(this, Zepto));",
+				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n(function (window, $) {\n    'use strict';",
+				"jsClose": "    window.ch = ch;\n}(this, this.Zepto));",
 				"css": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
 			},
 			"min": {
-				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function(window, $){\n\t'use strict';",
-				"jsClose": "window.ch = ch;}(this, Zepto));",
+				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n(function(window, $){\n    'use strict';",
+				"jsClose": "window.ch = ch;}(this, this.Zepto));",
 				"css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
 			},
-			"temp_version": "ch.version = '1.0';"
+			"temp_version": "    ch.version = '1.0';"
 		},
 		"mesh": {
 			"full": "/*!\n * Chico Mesh v2.1\n * http://chico-ui.com.ar/mesh\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */",
