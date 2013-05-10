@@ -4,7 +4,7 @@ var menu1 = $("#menu-1").menu({'fx': false}),
     hideEvent = jasmine.createSpy('hideEvent'),
     $el = menu1.$el,
     $children = menu1.$el.children(),
-    $expandable = menu1._children[0],
+    $expandable = menu1.fold[0],
     $bellows = menu1.$el.children(':last-child');
 
 describe('Menu', function () {
@@ -68,7 +68,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['init', 'destroy', 'show', 'hide', 'getShown', 'content', 'enable', 'disable'],
+    var methods = ['init', 'destroy', 'show', 'hide', 'content', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 
@@ -149,18 +149,6 @@ describe('Its hide() method', function () {
 
     it('should emit the "hide" event', function () {
         expect(hideEvent).toHaveBeenCalled();
-    });
-});
-
-describe('Its getShown() method', function () {
-    it('should return a number of current shown child', function () {
-        menu1.show(1);
-        expect(menu1.getShown()).toEqual(jasmine.any(Number));
-    });
-
-    it('should return a undefined when its children are hidden', function () {
-        menu1.hide(1);
-        expect(menu1.getShown()).toBeUndefined();
     });
 });
 
