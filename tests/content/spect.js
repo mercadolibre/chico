@@ -1,196 +1,112 @@
+var test = new ch.Expandable($('#demo')),
+    current;
+
 describe('Content', function () {
-	var test = new ch.Content();
 
-	beforeEach(function () {
-		test.content.onmessage = function () {};
-		test.content.onerror = function () {};
-		test.content.set({'input': 'Content'});
-	});
+    it('should be defined as a function', function () {
+        expect(ch.hasOwnProperty('Content')).toBeTruthy();
+        expect(typeof ch.Content).toEqual('function');
+    });
 
-	it('Should be defined as a function', function () {
-		expect(ch.util.hasOwn(ch, 'Content')).toBeTruthy();
-		expect(typeof ch.Content).toEqual('function');
-	});
+    it('should be into test widget', function () {
+        expect(test).toBeDefined();
+        expect(test.hasOwnProperty('content')).toBeTruthy();
+    });
 
-	it('Should return a new instance of \'ch.Content()\'', function () {
-		expect(test).toBeDefined();
-		expect(test instanceof ch.Content).toBeTruthy();
-	});
+     it('should return the current content', function () {
+        current = test.content();
+        expect(current).toEqual('Some text!');
+    });
 
-	it('Should has a ".content" property', function () {
-		expect(ch.util.hasOwn(test, 'content')).toBeTruthy();
-		expect(typeof test.content).toEqual('object');
-	});
+    describe('should set a new content', function () {
 
-	describe('Methods of public instance', function () {
-		var content = test.content,
-			current;
+        it('like plain text', function () {
+            test.content('Plain Text!');
+            current = test.content();
+            expect(current).toEqual('Plain Text!');
+        });
 
-		describe('.configure()', function () {
+        it('like jQuery/Zepto Selector', function () {
+            test.content($('#invisible-content'));
+            current = test.content();
 
-			it('Should be defined into public instance', function () {
-				expect(ch.util.hasOwn(content, 'configure')).toBeTruthy();
-			});
+            expect($(current)[0].nodeType).toEqual(1);
+        });
 
-			it('Should configure the instance', function () {
-				var options = {'input': 'Some text!'},
-					options2 = {'input': 'Another text!'};
+    });
+});
 
-				content.configure(options);
-				current = content.configure();
+describe('If content loads async content', function () {
+    it('should load it successfully', function () {
+        var waitEvent = jasmine.createSpy('waitEvent'),
+            doneEvent = jasmine.createSpy('doneEvent');
 
-				expect(current.input).toEqual(options.input);
+        test.once('contentwaiting', function (event) {
+            waitEvent();
+            expect(waitEvent).toHaveBeenCalled();
+        });
 
-				content.configure(options2);
-				current = content.configure();
+        test.once('contentdone', function (event) {
+            expect(typeof event).toEqual('object');
 
-				expect(current.input).toEqual(options2.input);
-			});
-		});
+            expect(typeof event.status).toEqual('string');
+            expect(event.status).toEqual('done');
 
-		describe('.set()', function () {
+            expect(typeof event.response).toEqual('string');
+            expect(event.response).toMatch(/This is an example for AJAX calls./);
 
-			it('Should should be able to configure the instance as .configure() method', function () {
-				var options = {'input': 'Some text!'},
-					options2 = {'input': 'Another text!'};
+            doneEvent();
+        });
 
-				content.set(options);
-				current = content.configure();
+        test.content('http://ui.ml.com:3040/ajax');
 
-				expect(current.input).toEqual(options.input);
+        waitsFor(function() {
+            return doneEvent.callCount > 0;
+        });
+    });
 
-				content.configure(options2);
-				current = content.configure();
+    it('should set "<p>Error on ajax call.</p>" when AJAX request fail', function () {
+        var fail = jasmine.createSpy('fail');
 
-				expect(current.input).toEqual(options2.input);
-			});
+        test.once('contenterror', function (event) {
+            fail();
 
-			it('Should be defined into public instance', function () {
-				expect(ch.util.hasOwn(content, 'set')).toBeTruthy();
-			});
+            expect(fail).toHaveBeenCalled();
+            expect(typeof event).toEqual('object');
 
-			it('Should set a new plain text as content', function () {
-				content.set({'input': 'Some text!'});
-				current = content.get();
+            expect(typeof event.status).toEqual('string');
+            expect(event.status).toEqual('error');
 
-				expect(current).toEqual('Some text!');
-			});
+            expect(typeof event.response).toEqual('string');
+            expect(event.response).toMatch(/Error on ajax call./);
 
-			it('Should set a new query Selector as content', function () {
-				content.set({'input': $('#invisibleContent')});
-				current = content.get();
+            expect(typeof event.data).toEqual('object');
 
-				expect(current[0].nodeType).toEqual(1);
-			});
+        });
 
-			it('Should set a new AJAX as content', function () {
-				var done = jasmine.createSpy('done');
-				content.onmessage = function (data) {
-					expect(typeof data).toEqual('string');
-					expect(data).toMatch(/This is an example for AJAX calls./);
-					done();
-				};
+        test.content('http://ui.ml.com:3040/ajaxFail');
 
-				content.set({'input': 'http://ui.ml.com:3040/ajax'});
+        waitsFor(function() {
+            return fail.callCount > 0;
+        });
+    });
 
-				waitsFor(function() {
-					return done.callCount > 0;
-				});
-			});
+});
 
-			it('Should use ch.Cache to store the AJAX content', function () {
-				var done = jasmine.createSpy('done');
-				content.onmessage = function (data) {
-					expect(data).toEqual(ch.cache.map['http://ui.ml.com:3040/ajax']);
-					done();
-				};
+describe('Load content without cache', function () {
+    it('should load on every show', function () {
+        var doneCache = jasmine.createSpy('doneCache');
 
-				content.set({'input': 'http://ui.ml.com:3040/ajax'});
+        test.on('contentdone', function () {
+            doneCache();
+        });
 
-				waitsFor(function() {
-					return done.callCount > 0;
-				});
-			});
+        test.content('http://ui.ml.com:3040/ajax', {'cache': false});
 
-			it('Should set content from the ch.Cache if the input was cached', function () {
-				// Gets the content form the cache
-				content.set({'input': 'http://ui.ml.com:3040/ajax'});
-				current = content.get();
-				expect(ch.cache.map['http://ui.ml.com:3040/ajax']).toBeDefined();
-				expect(current).toEqual(ch.cache.map['http://ui.ml.com:3040/ajax']);
-			});
+        waitsFor(function() {
+            test.show().hide();
 
-			it('Should set content always from AJAX when cache is false', function () {
-				ch.cache.rem('http://ui.ml.com:3040/ajax');
-
-				var done = jasmine.createSpy('done');
-
-				content.onmessage = function (data) {
-					expect(ch.cache.map['http://ui.ml.com:3040/ajax']).not.toBeDefined();
-					expect(data).toMatch(/This is an example for AJAX calls./);
-					done();
-				};
-
-				content.set({
-					'input': 'http://ui.ml.com:3040/ajax',
-					'cache': false
-				});
-
-				waitsFor(function() {
-					return done.callCount > 0;
-				});
-
-			});
-
-			it('Should set "<p>Error on ajax call.</p>" as content when AJAX request fail', function () {
-				var fail = jasmine.createSpy('fail'),
-					onError = jasmine.createSpy('onError');
-
-				content.onmessage = function (data) {
-					expect(typeof data).toEqual('string');
-					expect(data).toMatch(/Error on ajax call./);
-					fail();
-				};
-
-				content.onerror = function (data) {
-					expect(typeof data).toEqual('object');
-
-					expect(ch.util.hasOwn(data, 'jqXHR')).toBeTruthy();
-					expect(data.jqXHR).toBeDefined();
-
-					expect(ch.util.hasOwn(data, 'textStatus')).toBeTruthy();
-					expect(data.textStatus).toBeDefined();
-
-					expect(ch.util.hasOwn(data, 'errorThrown')).toBeTruthy();
-					expect(data.errorThrown).toBeDefined();
-
-					onError();
-				};
-
-				content.set({'input': 'http://ui.ml.com:3040/ajaxFail'});
-
-				waitsFor(function() {
-					return fail.callCount > 0;
-				});
-
-				waitsFor(function() {
-					return onError.callCount > 0;
-				});
-			});
-
-		});
-
-		describe('.get()', function () {
-			it('Should be defined into public instance', function () {
-				expect(ch.util.hasOwn(content, 'get')).toBeTruthy();
-			});
-
-			it('Should be return the current content', function () {
-				content.set({'input': 'Some text!'});
-				current = content.get();
-				expect(current).toEqual('Some text!');
-			});
-		});
-
-	});
+            return doneCache.callCount > 2;
+        });
+    });
 });
