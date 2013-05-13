@@ -36,7 +36,7 @@ describe('Content', function () {
     });
 });
 
-describe('If content loads async content', function () {
+describe('If content is loaded async', function () {
     it('should load it successfully', function () {
         var waitEvent = jasmine.createSpy('waitEvent'),
             doneEvent = jasmine.createSpy('doneEvent');
