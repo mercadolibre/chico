@@ -166,7 +166,7 @@
          * @see ch.Form
          */
         // Reference to a Form instance. If there isn't any, the Validation instance will create one.
-        this.form = that.$el.parents('form').form()._validations.push(this);
+        this.form = that.$el.parents('form').form().validations.push(this);
 
         /**
          * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
