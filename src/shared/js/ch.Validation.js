@@ -75,20 +75,20 @@
         Validation.prototype[method] = function (condition) {
             var key;
 
-            // Turn off conditions
+            // Specific condition
             if (condition !== undefined && this.conditions[condition] !== undefined) {
-                // disable specific condition
+
                 this.conditions[condition][method]();
 
             } else {
 
+                // all conditions
                 for (key in this.conditions) {
                     if (this.conditions[key] !== undefined) {
                         this.conditions[key][method]();
                     }
                 }
 
-                // enable all
                 parent[method].call(this);
             }
 
@@ -350,7 +350,7 @@
 
         // Pre-validation: Don't validate disabled
         if (this.$el.attr('disabled') || !this._enabled) {
-            return true;
+            return false;
         }
 
         var condition,
@@ -403,7 +403,11 @@
      */
     Validation.prototype.clear = function () {
 
-        this.$el.removeClass('ch-validation-error');
+        this.$el
+            .removeClass('ch-validation-error')
+            .removeAttr('aria-label');
+
+        this.error = null;
 
         this.bubble.hide();
 
@@ -530,26 +534,6 @@
     while (len) {
         createMethods(methods[len -= 1]);
     }
-
-    /**
-     * Turn on/off the Validation and Condition engine.
-     * @public
-     * @since 0.10.4
-     * @name ch.Validation#toggleEnable
-     * @function
-     * @returns itself
-     * @see ch.Condition
-     */
-    Validation.prototype.toggleEnable = function () {
-
-        if (this._enabled) {
-            this.disable();
-        } else {
-            this.enable();
-        }
-
-        return this;
-    };
 
     /**
      * Factory
