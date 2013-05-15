@@ -113,7 +113,7 @@ describe('When the form is submited it', function () {
     });
 });
 
-describe('Its validation() method', function () {
+describe('Its validate() method', function () {
     form
         .once('beforevalidate', beforevalidateEvent)
         .once('success', successEvent)
@@ -147,13 +147,13 @@ describe('Its validation() method', function () {
 
 describe('Its hasError() method', function () {
 
-    it('should return "false" when it doesn\'t have errors', function () {
+    it('should return "false" when it hasn\'t got', function () {
         $input.val('test');
         expect(form.hasError()).toBeFalsy();
 
     });
 
-    it('should return a boolean "true" when it has errors', function () {
+    it('should return a boolean "true" when it has got errors', function () {
         $input.val('');
         expect(form.hasError()).toBeTruthy();
     });
@@ -164,7 +164,7 @@ describe('Its clear() method', function () {
     var instance = form.clear();
 
     it('should clear all validations', function () {
-        expect(form.errors[0].isActive).toBeFalsy();
+        expect(form.errors[0].isShown()).toBeFalsy();
     });
 
     it('should emit "clear" event', function () {
@@ -217,108 +217,3 @@ describe('Its enable() method', function () {
     form.reset();
 
 });
-
-// describe('Form', function () {
-//     describe('Public methods', function () {
-//         it('.reset()', function () {
-//             $input.val('reset');
-//             expect($input.val()).toEqual('reset');
-//             form.reset();
-//             expect($input.val()).toEqual('');
-//         });
-
-//         it('.submit()', function () {
-//             $input.val('submit');
-//             form.submit();
-//             expect(submitEvent).toHaveBeenCalled();
-//         });
-
-//         it('.validate()', function () {
-//             form.reset();
-//             form.validate();
-//             expect(validateEvent).toHaveBeenCalled();
-//             expect(validation.isActive()).toBeTruthy();
-//         });
-
-//         it('.clear()', function () {
-//             $input.val('clear');
-//             form.clear();
-//             expect($input.val()).toEqual('clear');
-//             expect(validation.isActive()).toBeFalsy();
-//             form.reset();
-//         });
-
-//         it('.isValidated()', function () {
-//             form.validate();
-//             expect(form.isValidated()).toBeFalsy();
-//             $input.val('Validated!');
-//             form.validate();
-//             expect(form.isValidated()).toBeTruthy();
-//             form.clear();
-//         });
-//     });
-
-//     describe('Should emit the following events:', function () {
-
-//         it('ready', function () {
-//             waits(50);
-//             runs(function () {
-//                 expect(readyEvent).toHaveBeenCalled();
-//             });
-//         });
-
-//         it('beforeSubmit', function () {
-//             form.submit();
-//             expect(beforeSubmitEvent).toHaveBeenCalled();
-//             form.clear();
-//         });
-
-//         it('submit', function () {
-//             form.submit();
-//             expect(submitEvent).toHaveBeenCalled();
-//             form.clear();
-//         });
-
-//         it('afterSubmit', function () {
-//             form.submit();
-//             expect(afterSubmitEvent).toHaveBeenCalled();
-//             form.clear();
-//         });
-
-//         it('beforeValidate', function () {
-//             form.validate();
-//             expect(beforeValidateEvent).toHaveBeenCalled();
-//             form.clear();
-//         });
-
-//         it('validate', function () {
-//             form.validate();
-//             expect(validateEvent).toHaveBeenCalled();
-//             form.clear();
-//         });
-
-//         it('afterValidate', function () {
-//             form.validate();
-//             expect(afterValidateEvent).toHaveBeenCalled();
-//             form.clear();
-//         });
-
-//         it('error', function () {
-//             form.validate();
-//             expect(errorEvent).toHaveBeenCalled();
-//             form.reset();
-//         });
-
-//         it('clear', function () {
-//             form.clear();
-//             expect(clearEvent).toHaveBeenCalled();
-//         });
-
-//         it('reset', function () {
-//             form.reset();
-//             expect(resetEvent).toHaveBeenCalled();
-//         });
-
-//     });
-
-// });
