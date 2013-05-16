@@ -19,12 +19,12 @@ describe('ch.String', function () {
         expect(string instanceof ch.Validation).toBeTruthy();
     });
 
-    it('should have got an error when the value is empty', function () {
+    it('should have got an error when the value is not a string', function () {
         string.$el.val(2);
         expect(string.hasError()).toBeTruthy();
     });
 
-    it('shouldn\'t have got an error when the value is set', function () {
+    it('shouldn\'t have got an error when the value is a string', function () {
         string.$el.val('Some value');
         expect(string.hasError()).toBeFalsy();
     });
