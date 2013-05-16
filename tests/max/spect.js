@@ -1,4 +1,4 @@
-var max = $('#input_user').max(10);
+var max = $('#input_user').max(10, 'Some text {#num#}.');
 
 describe('ch.Max', function () {
     it('should be a function', function () {
@@ -19,13 +19,17 @@ describe('ch.Max', function () {
         expect(max instanceof ch.Validation).toBeTruthy();
     });
 
-    it('should return an error when the value is a number smaller than "max" number', function () {
+    it('should have got an error when the value is a number smaller than "max" number', function () {
         max.$el.val(22);
         expect(max.hasError()).toBeTruthy();
     });
 
-    it('should return an error when the value is a number higher than "max" number', function () {
+    it('shouldn\'t have got an error an error when the value is a number higher than "max" number', function () {
         max.$el.val(6);
         expect(max.hasError()).toBeFalsy();
+    });
+
+    it('should set an error message', function () {
+        expect(max.message('max')).toEqual('Some text 10.');
     });
 });

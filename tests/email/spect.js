@@ -28,4 +28,8 @@ describe('ch.Email', function () {
         email.$el.val('chico@mercadolibre.com');
         expect(email.hasError()).toBeFalsy();
     });
+
+    it('should set an error message', function () {
+        expect(email.message('email')).toEqual('Please, enter a valid email.');
+    });
 });

@@ -1,4 +1,4 @@
-var maxLength = $('#input_user').maxLength(30);
+var maxLength = $('#input_user').maxLength(30, 'Some text {#num#}.');
 
 describe('ch.MaxLength', function () {
     it('should be a function', function () {
@@ -24,9 +24,12 @@ describe('ch.MaxLength', function () {
         expect(maxLength.hasError()).toBeTruthy();
     });
 
-    it('should return an error when the value is smaller than "maxLength" number', function () {
+    it('shouldn\'t have got an error when the value is smaller than "maxLength" number', function () {
         maxLength.$el.val('The string length is smaller');
         expect(maxLength.hasError()).toBeFalsy();
     });
 
+    it('should set an error message', function () {
+        expect(maxLength.message('maxLength')).toEqual('Some text 30.');
+    });
 });

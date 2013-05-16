@@ -19,7 +19,6 @@ describe('ch.Custom', function () {
         expect(custom instanceof ch.Validation).toBeTruthy();
     });
 
-
     it('should return an error when the value is diferent to "jasmine"', function () {
         custom.$el.val('Test');
         expect(custom.hasError()).toBeTruthy();
@@ -28,5 +27,9 @@ describe('ch.Custom', function () {
     it('should remove the error when the value is "jasmine"', function () {
         custom.$el.val('jasmine');
         expect(custom.hasError()).toBeFalsy();
+    });
+
+    it('should set an error message', function () {
+        expect(custom.message('jasmine')).toEqual('Jasmine rules!');
     });
 });

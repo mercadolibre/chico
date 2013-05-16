@@ -1,4 +1,4 @@
-var min = $('#input_user').min(10);
+var min = $('#input_user').min(10, 'Some text {#num#}.');
 
 describe('ch.Min', function () {
     it('should be a function', function () {
@@ -24,8 +24,12 @@ describe('ch.Min', function () {
         expect(min.hasError()).toBeTruthy();
     });
 
-    it('should return an error when the value is a number higher than "min" number', function () {
+    it('shouldn\'t have got an error when the value is a number higher than "min" number', function () {
         min.$el.val(22);
         expect(min.hasError()).toBeFalsy();
+    });
+
+    it('should set an error message', function () {
+        expect(min.message('min')).toEqual('Some text 10.');
     });
 });

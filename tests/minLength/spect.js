@@ -1,4 +1,4 @@
-var minLength = $('#input_user').minLength(30);
+var minLength = $('#input_user').minLength(30, 'Some text {#num#}.');
 
 describe('ch.MinLength', function () {
     it('should be a function', function () {
@@ -24,9 +24,13 @@ describe('ch.MinLength', function () {
         expect(minLength.hasError()).toBeFalsy();
     });
 
-    it('should return an error when the value is smaller than "minLength" number', function () {
+    it('shouldn\'t have got an error when the value is smaller than "minLength" number', function () {
         minLength.$el.val('The string length is smaller');
         expect(minLength.hasError()).toBeTruthy();
+    });
+
+    it('should set an error message', function () {
+        expect(minLength.message('minLength')).toEqual('Some text 30.');
     });
 
 });
