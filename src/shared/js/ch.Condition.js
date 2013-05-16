@@ -137,9 +137,8 @@
 
         $.extend(this, conditions[condition.name], condition);
 
-
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
-        if (!this.message && (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength')) {
+        if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {
 
             /**
              * Message defined for this condition
@@ -147,8 +146,8 @@
              * @name ch.Condition#message
              * @type string
              */
-            this.message = conditions[this.name].message.replace('{#num#}', this.num);
 
+            this.message = conditions[this.name].message.replace('{#num#}', this.num);
         }
 
         return this;
@@ -206,13 +205,13 @@
      * @name ch.Condition#test
      * @returns boolean
      */
-    Condition.prototype.test = function (value, context) {
+    Condition.prototype.test = function (value, validation) {
 
         if (!this._enabled) {
             return true;
         }
 
-        return this.fn.call(context, value);
+        return this.fn.call(validation, value, this.num);
     };
 
     ch.Condition = Condition;
