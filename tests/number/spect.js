@@ -24,7 +24,7 @@ describe('ch.Number', function () {
         expect(number.hasError()).toBeTruthy();
     });
 
-    it('shouldn\'t have got an error when the value is not a number', function () {
+    it('shouldn\'t have got an error when the value is a number', function () {
         number.$el.val(2);
         expect(number.hasError()).toBeFalsy();
     });
