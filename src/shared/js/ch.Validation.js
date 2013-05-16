@@ -268,10 +268,18 @@
 
         // It must happen only once.
         this.$el.on(this._validationEvent + '.validation', function () {
-            if (previousValue !== this.value || that._validationEvent === 'change') {
-                previousValue = this.value;
-                that.validate();
+
+            if (that.conditions['required'] !== undefined) {
+
+                if (previousValue !== this.value || that._validationEvent === 'change') {
+                    previousValue = this.value;
+                    that.validate();
+                }
+
+            } else if (this.value === '') {
+                that.clear();
             }
+
         });
 
         // Lazy Loading pattern

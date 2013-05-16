@@ -139,19 +139,10 @@
 
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
         if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {
-
-            /**
-             * Message defined for this condition
-             * @public
-             * @name ch.Condition#message
-             * @type string
-             */
-
-            this.message = conditions[this.name].message.replace('{#num#}', this.num);
+            this.message = this.message.replace('{#num#}', this.num);
         }
 
         return this;
-
     }
 
     /**
