@@ -408,6 +408,7 @@
 
 			// If tabContent doesn't exists
 			} else {
+
 				/**
 				* Content configuration property.
 				* @public
@@ -415,7 +416,7 @@
 				* @type string
 				* @ignore
 				*/
-				that.source = that.element.href;
+				that.source = href[0];
 
 				contentOptions = {
 					'input': that.source,
