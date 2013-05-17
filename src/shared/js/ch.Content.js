@@ -6,7 +6,8 @@
 		'method': 'GET',
 		'params': '',
 		'cache': true,
-		'async': true
+		'async': true,
+		'waiting': '<div class="ch-loading-big"></div>'
 	};
 
 	/**
@@ -71,6 +72,8 @@
 				// If there are data, then send to the client and avoid the AJAX request
 				if (cached) { return postMessage(cached); }
 			}
+
+			that.$content.html(options.waiting);
 
 			$.ajax({
 				'url': options.input,
