@@ -591,16 +591,16 @@
 				'name': data.type
 			};
 
-			if(data.options !== undefined){
-				if(data.options.content){
+			if (data.options !== undefined) {
+				if (data.options.content !== undefined) {
 					condition.message = data.options.content;
 				}
 
-				if (data.options.num) {
+				if (data.options.num !== undefined) {
 					condition.num = data.options.num;
 				}
 
-				if (data.options.fn) {
+				if (data.options.fn !== undefined) {
 					condition.fn = data.options.fn;
 				}
 			}

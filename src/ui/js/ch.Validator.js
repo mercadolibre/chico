@@ -87,7 +87,7 @@
 				// for each condition
 				for (condition in conditions){
 
-					val = ((condition === "required") ? that.element : value.toLowerCase());
+					val = ((condition === "required") ? that.element : value);
 					// this is the validation
 					tested = test.call(this, condition, val);
 
