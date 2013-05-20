@@ -33,3 +33,18 @@ describe('ch.Min', function () {
         expect(min.message('min')).toEqual('Some text 10.');
     });
 });
+
+describe('The test of some values', function () {
+    var condition = min.conditions.min;
+
+    it('should be valid', function () {
+        expect(condition.test(15)).toBeTruthy();
+        expect(condition.test('15')).toBeTruthy();
+    });
+
+    it('should be invalid', function () {
+        expect(condition.test(1)).toBeFalsy();
+        expect(condition.test('1')).toBeFalsy();
+        expect(condition.test(-1)).toBeFalsy();
+    });
+});

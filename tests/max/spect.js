@@ -33,3 +33,18 @@ describe('ch.Max', function () {
         expect(max.message('max')).toEqual('Some text 10.');
     });
 });
+
+describe('The test of some values', function () {
+    var condition = max.conditions.max;
+
+    it('should be valid', function () {
+        expect(condition.test(5)).toBeTruthy();
+        expect(condition.test('5')).toBeTruthy();
+        expect(condition.test(-5)).toBeTruthy();
+    });
+
+    it('should be invalid', function () {
+        expect(condition.test('11')).toBeFalsy();
+        expect(condition.test(11)).toBeFalsy();
+    });
+});

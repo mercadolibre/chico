@@ -33,3 +33,31 @@ describe('ch.Email', function () {
         expect(email.message('email')).toEqual('Please, enter a valid email.');
     });
 });
+
+describe('The test of some values', function () {
+    var condition = email.conditions.email;
+
+    it('should be valid', function () {
+        expect(condition.test('foo@foo.bar')).toBeTruthy();
+        expect(condition.test('foo@foo.ba')).toBeTruthy();
+        expect(condition.test('foo@fo.ba')).toBeTruthy();
+        expect(condition.test('o@fo.ba')).toBeTruthy();
+        expect(condition.test('o@o.r')).toBeTruthy();
+        expect(condition.test('foo21bar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo21.bar@foo.bar')).toBeTruthy();
+        expect(condition.test('21.bar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo.bar@foo.bar')).toBeTruthy();
+        expect(condition.test('fo-o.bar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo.b-ar@foo.bar')).toBeTruthy();
+        expect(condition.test('fo-o.b-ar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo-bar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo_bar@foo.bar')).toBeTruthy();
+    });
+
+    it('should be invalid', function () {
+        expect(condition.test('@.foo')).toBeFalsy();
+        expect(condition.test('foo@bar.')).toBeFalsy();
+        expect(condition.test('.bar@')).toBeFalsy();
+        expect(condition.test('@')).toBeFalsy();
+    });
+});

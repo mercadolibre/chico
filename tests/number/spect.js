@@ -33,3 +33,20 @@ describe('ch.Number', function () {
         expect(number.message('number')).toEqual('Some text.');
     });
 });
+
+describe('The test of some values', function () {
+    var condition = number.conditions.number;
+
+    it('should be valid', function () {
+        expect(condition.test(10)).toBeTruthy();
+        expect(condition.test(0)).toBeTruthy();
+        expect(condition.test(10.0)).toBeTruthy();
+        expect(condition.test(-10)).toBeTruthy();
+    });
+
+    it('should be invalid', function () {
+        expect(condition.test(false)).toBeFalsy();
+        expect(condition.test({})).toBeFalsy();
+        expect(condition.test([])).toBeFalsy();
+    });
+});

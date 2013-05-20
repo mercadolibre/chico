@@ -53,7 +53,7 @@
         },
         'price': {
             'fn': function (value) {
-                return (/^([0-9\s]+)[.,]?([0-9]{2})$/i).test(value);
+                return (/^([0-9\s]+)[.,]?([0-9]+)$/i).test(value);
             },
             'message': 'Use a valid price such as (1,00).'
         },

@@ -33,3 +33,20 @@ describe('ch.String', function () {
         expect(string.message('string')).toEqual('Some text.');
     });
 });
+
+describe('The test of some values', function () {
+    var condition = string.conditions.string;
+
+    it('should be valid', function () {
+        expect(condition.test('foo')).toBeTruthy();
+        expect(condition.test('foo bar')).toBeTruthy();
+    });
+
+    it('should be invalid', function () {
+        expect(condition.test('.foo')).toBeFalsy();
+        expect(condition.test('foo bar.')).toBeFalsy();
+        expect(condition.test('foo .bar')).toBeFalsy();
+        expect(condition.test('foo@bar')).toBeFalsy();
+        expect(condition.test('foo"bar')).toBeFalsy();
+    });
+});

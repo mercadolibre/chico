@@ -33,3 +33,57 @@ describe('ch.Url', function () {
         expect(url.message('url')).toEqual('Some text.');
     });
 });
+
+describe('The test of some values', function () {
+    var condition = url.conditions.url;
+
+    it('should be valid', function () {
+        expect(condition.test('http://www.foo.bar')).toBeTruthy();
+        expect(condition.test('http://www.foo.bar/foo')).toBeTruthy();
+        expect(condition.test('http://www.foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('http://www.foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('http://www.foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('ftp://www.foo.bar')).toBeTruthy();
+        expect(condition.test('ftp://www.foo.bar/foo')).toBeTruthy();
+        expect(condition.test('ftp://www.foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('ftp://www.foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('ftp://www.foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('www.foo.bar')).toBeTruthy();
+        expect(condition.test('www.foo.bar/foo')).toBeTruthy();
+        expect(condition.test('www.foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('www.foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('www.foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('foo.bar')).toBeTruthy();
+        expect(condition.test('foo.bar/foo')).toBeTruthy();
+        expect(condition.test('foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('/foo.bar')).toBeTruthy();
+        expect(condition.test('/foo.bar/foo')).toBeTruthy();
+        expect(condition.test('/foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('/foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('/foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('./foo.bar')).toBeTruthy();
+        expect(condition.test('./foo.bar/foo')).toBeTruthy();
+        expect(condition.test('./foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('./foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('./foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('../foo.bar')).toBeTruthy();
+        expect(condition.test('../foo.bar/foo')).toBeTruthy();
+        expect(condition.test('../foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('../foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('../foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+    });
+
+    it('should be invalid', function () {
+        expect(condition.test('@.foo')).toBeFalsy();
+        expect(condition.test('//wwww')).toBeFalsy();
+        expect(condition.test('wwww//.com')).toBeFalsy();
+    });
+});
