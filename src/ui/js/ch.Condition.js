@@ -128,7 +128,7 @@
 				'message': 'The amount must be higher than {#num#}.'
 			},
 			'price': {
-				'patt': /^([0-9\s]+)[.,]?([0-9]{2})$/,
+				'patt': /^([0-9\s]+)[.,]?([0-9]+)$/,
 				'message': 'Use a valid price such as (1,00).'
 			},
 			'required': {
