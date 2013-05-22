@@ -137,7 +137,7 @@
         this._originalQuery = this._currentQuery = this.el.value;
 
 
-        this.on(ch.onkeybackspace, function () {
+        ch.shortcuts.add(ch.onkeybackspace, this.uid, function () {
             // hides and clear the list
             if (that.el.value.length <= 1) {
                 that._$suggestionsList.html('');
@@ -145,18 +145,18 @@
             }
         });
 
-        this.on(ch.onkeyenter, function (event) {
+        ch.shortcuts.add(ch.onkeyenter, this.uid, function (event) {
         // apply the highlighted item
             that._setQuery(event);
         });
 
-        this.on(ch.onkeyesc, function (event) {
+        ch.shortcuts.add(ch.onkeyesc, this.uid, function (event) {
         // back the value to the inputs previous value
             that.hide();
             that.el.value = that._originalQuery;
         });
 
-        this.on(ch.onkeyuparrow, function (event) {
+        ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
             var current;
 
             if (that._selected > 0 && that._selected !== null) {
@@ -169,13 +169,13 @@
 
             that._select(current);
 
-            if (!this._options.html) {
+            if (!that._options.html) {
                 that.el.value = (current !== -1) ? that._suggestions[current] : that._currentQuery;
             }
 
         });
 
-        this.on(ch.onkeydownarrow, function (event) {
+        ch.shortcuts.add(ch.onkeydownarrow, this.uid, function (event) {
             var current;
 
             if (that._selected < that._suggestionsQuantity && that._selected !== null) {
@@ -188,7 +188,7 @@
 
             that._select(current);
 
-            if (!this._options.html) {
+            if (!that._options.html) {
                 that.el.value = (current !== -1) ? that._suggestions[current] : that._currentQuery;
             }
 
@@ -201,7 +201,6 @@
                 }
 
             })
-            // no se lo puedo pasar a shortcuts por los nombres de los eventos que tenemos que standarizar
             .on(MOUSEENTER, function (event) {
                 var $target = $(event.target),
                     $item,
@@ -224,11 +223,10 @@
             .on('focus.' + this.name, function (event) {
                 that._originalQuery = that.el.value;
 
-                ch.Shortcuts.on(that);
+                ch.shortcuts.on(that.uid);
 
                 that.$el.on(ch.onkeyinput, function (event) {
                 // when the user writes
-
                     window.clearTimeout(that._stopTyping);
                     that._stopTyping = window.setTimeout(function () {
                         if (that.el.value !== '') {
@@ -249,13 +247,12 @@
                 that.hide();
                 that.$el.off(ch.onkeyinput);
 
-                ch.Shortcuts.off(that);
+                ch.shortcuts.off(that.uid);
 
             })
             .attr('autocomplete', 'off')
             .addClass('ch-' + this.name + '-trigger');
 
-        // add shortcuts to the input
 
         return this;
     };
@@ -333,8 +330,6 @@
             this._show();
         }
 
-        this._$suggestionsList.css('visibility', 'hidden').html('');
-
         $extraItems = this.$container.find('.ch-autoComplete-item').removeClass('ch-autoComplete-selected');
 
         this.$el.removeClass('ch-autoComplete-loading');
@@ -359,8 +354,6 @@
         });
 
         this._selected = null;
-
-        this._$suggestionsList.html(items).css('visibility', 'visible');
 
         this._suggestionsList = items.concat(extraItems);
 
