@@ -8,6 +8,8 @@
 
     ch.instances = instances;
 
+	ch.shortcuts.init();
+
     // Exposse private $ (jQuery) into ch.$
     ch.$ = $;
 }());

@@ -60,7 +60,7 @@
 
         '_collection': {},
 
-        'configure': function () {
+        'init': function () {
             var that = this;
 
             $document.on('keydown.shortcuts', function (event) {
@@ -71,9 +71,8 @@
 
                 if(eventType !== undefined && that._active !== null) {
                     callbacks = that._collection[that._active][eventType];
-                    // Trigger custom event with original event as second parameter
+
                     event.type = codeMap[keyCode];
-                    //that._active.emit(codeMap[keyCode], event);
 
                     if (callbacks !== undefined) {
                         for (i = 0; i < callbacks.length; i++) {
@@ -166,8 +165,6 @@
             }
         }
     };
-
-    shortcuts.configure();
 
     ch.shortcuts = shortcuts;
 
