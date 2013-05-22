@@ -112,7 +112,6 @@
             }
 
             if (callback === undefined) {
-                // borra todos los eventos
                 delete this._collection[name][event];
             }
 
