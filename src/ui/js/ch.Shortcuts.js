@@ -49,48 +49,109 @@
      * @param event
      */
 
-    Shortcuts = {
+
+//
+
+    shortcuts = {
 
         '_active': null,
 
         '_queue': [],
 
+        '_collection': {},
+
         'configure': function () {
             var that = this;
 
             $document.on('keydown.shortcuts', function (event) {
-                keyCode = event.keyCode.toString();
+                var keyCode = event.keyCode.toString(),
+                    eventType = codeMap[keyCode],
+                    callbacks,
+                    i;
 
-                if(codeMap[keyCode] !== undefined && that._active !== null) {
+                if(eventType !== undefined && that._active !== null) {
+                    callbacks = that._collection[that._active][eventType];
                     // Trigger custom event with original event as second parameter
                     event.type = codeMap[keyCode];
-                    that._active.emit(codeMap[keyCode], event);
+                    //that._active.emit(codeMap[keyCode], event);
+
+                    if (callbacks !== undefined) {
+                        for (i = 0; i < callbacks.length; i++) {
+                            callbacks[i](event);
+                        }
+                    }
+
                 }
             });
 
         },
 
-        'on': function (instance) {
+        'add': function (event, name, callback) {
+
+            if (this._collection[name] === undefined) {
+                this._collection[name] = {};
+            }
+
+            if (this._collection[name][event] === undefined) {
+                this._collection[name][event] = [];
+            }
+
+            this._collection[name][event].push(callback);
+
+        },
+
+        'remove': function (event, name, callback) {
+            var evt,
+                evtCollectionLenght;
+
+            if (event === undefined){
+                throw new Error('Shortcuts - "remove(event, name, callback)": "event" parameter must be defined.');
+            }
+
+            if (name === undefined){
+                throw new Error('Shortcuts - "remove(event, name, callback)": "name" parameter must be defined.');
+            }
+
+            if (callback === undefined) {
+                // borra todos los eventos
+                delete this._collection[name][event];
+            }
+
+            evtCollection = this._collection[name][event];
+
+            evtCollectionLenght = evtCollection.length;
+
+            for (evt = 0; evt < evtCollectionLenght; evt++) {
+
+                if (evtCollection[evt] === callback) {
+                    evtCollection.splice(evt, 1);
+                }
+            }
+
+        },
+
+        'on': function (name) {
             var queueLength = this._queue.length
                 item = queueLength -1;
 
             // check if the instance exist and move the order, adds it at the las position and removes the current
             for (item; item >= 0; item--) {
-                if (this._queue[item] === instance) {
+                if (this._queue[item] === name) {
                     this._queue.splice(item, 1);
                 }
             }
 
-            this._queue.push(instance);
-            this._active = instance;
+            this._queue.push(name);
+            this._active = name;
+
         },
 
-        'off': function (instance) {
+        'off': function (name) {
             var queueLength = this._queue.length,
                 item = queueLength -1;
 
             for (item; item >= 0; item--) {
-                if (this._queue[item] === instance) {
+                if (this._queue[item] === name) {
                     // removes the instance that I'm setting off
                     this._queue.splice(item, 1);
 
@@ -106,8 +167,8 @@
         }
     };
 
-    Shortcuts.configure();
+    shortcuts.configure();
 
-    ch.Shortcuts = Shortcuts;
+    ch.shortcuts = shortcuts;
 
 }(this, this.ch.$, this.ch));
