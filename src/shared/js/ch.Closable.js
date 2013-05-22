@@ -85,19 +85,17 @@
              */
             if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
 
-                that.on(ch.onkeyesc, function(event) {
-                    that.hide();
-                });
+                ch.shortcuts.add(ch.onkeyesc, that.uid, function() {that.hide(); });
 
                 that.on('show', function () {
 
-                    ch.Shortcuts.on(that);
+                    ch.shortcuts.on(that.uid);
 
                     $document.one(pointerTap, close);
 
                 });
 
-                that.on('hide', function () { ch.Shortcuts.off(that); });
+                that.on('hide', function () { ch.shortcuts.off(that.uid); });
 
                 // Avoid to close when user clicks into the component
                 that.$container.on(pointerTap, function (event) {

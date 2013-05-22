@@ -84,7 +84,7 @@
         'close': 'pointers-only',
         'offsetY': -1,
         'skin': false,
-        'navigation': true
+        'shortcuts': true
     });
 
     Dropdown.prototype.init = function ($el, options) {
@@ -113,7 +113,7 @@
          * @protected
          * @type {Selector}
          */
-        if (this._options.navigation) {
+        if (this._options.shortcuts) {
             this._$navigation = this.$el.next().find('a').attr('role', 'menuitem');
 
             // Keyboard support initialize
@@ -128,7 +128,8 @@
                 });
             });
 
-            this.arrowsOn();
+            ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) { that._select(event); });
+            ch.shortcuts.add(ch.onkeydownarrow, this.uid, function (event) { that._select(event); });
 
         }
 
@@ -202,30 +203,6 @@
      * @memberOf ch.dropdown#arrowsOn
      * @name on
      */
-
-    Dropdown.prototype.arrowsOn = function () {
-
-        this.on(ch.onkeyuparrow, this._select);
-        this.on(ch.onkeydownarrow, this._select);
-
-        return this;
-    };
-
-
-    /**
-     * Turns off keyboard arrows
-     * @protected
-     * @Object
-     * @memberOf ch.dropdown#arrowsOff
-     * @name off
-     */
-    Dropdown.prototype.arrowsOff = function () {
-
-        this.off(ch.onkeyuparrow, this._select);
-        this.off(ch.onkeydownarrow, this._select);
-
-        return this;
-    };
 
     ch.factory(Dropdown);
 
