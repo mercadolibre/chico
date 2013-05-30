@@ -43,10 +43,10 @@
 				"../../src/shared/js/ch.events.js",
 				"../../src/ui/js/ch.events.js",
 				"../../src/shared/js/ch.factory.js",
+				"../../src/ui/js/ch.Shortcuts.js",
 				"../../src/ui/js/ch.init.js"
 			],
 			"abilities": [
-				"../../src/ui/js/ch.Shortcuts.js",
 				"../../src/shared/js/ch.EventEmitter.js",
                 "../../src/shared/js/ch.onImagesLoads.js",
 				"../../src/shared/js/ch.cache.js",
