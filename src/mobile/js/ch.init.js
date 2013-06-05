@@ -3,21 +3,23 @@
  * @private
  */
 (function init() {
-	var util = ch.util;
+    var util = ch.util;
 
-	// Remove no-js classname
-	$html.removeClass('no-js');
-	// Iphone scale fix
-	util.MBP.scaleFix();
-	// Hide navigation url bar
-	util.MBP.hideUrlBarOnLoad();
-	// Prevent zoom onfocus
-	util.MBP.preventZoom();
-	// Fix the broken iPad/iPhone form label click issue
-	util.fixLabels();
+    // Remove no-js classname
+    $html.removeClass('no-js');
+    // Iphone scale fix
+    util.MBP.scaleFix();
+    // Hide navigation url bar
+    util.MBP.hideUrlBarOnLoad();
+    // Prevent zoom onfocus
+    util.MBP.preventZoom();
+    // Fix the broken iPad/iPhone form label click issue
+    util.fixLabels();
 
-	ch.instances = instances;
+    ch.shortcuts.init();
 
-	// Exposse private $ (Zepto) into ch.$
-	ch.$ = $;
+    ch.instances = instances;
+
+    // Exposse private $ (Zepto) into ch.$
+    ch.$ = $;
 }());
