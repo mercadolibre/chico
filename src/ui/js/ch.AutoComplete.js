@@ -60,7 +60,6 @@
     var $document = $(window.document),
         parent = ch.util.inherits(AutoComplete, ch.Widget);
 
-
     AutoComplete.prototype.name = 'autoComplete';
 
     AutoComplete.prototype.constructor = AutoComplete;
@@ -81,7 +80,8 @@
             DOWN_ARROW = ch.onkeydownarrow + '.' + this.name, // UI
             ENTER = ch.onkeyenter + '.' + this.name,
             BACKSPACE = ch.onkeybackspace + '.' + this.name,
-            MOUSEDOWN = ch.onpointerdown + '.' + this.name,
+            MOUSEDOWN = ch.onpointertap + '.' + this.name,
+            MOUSEDOWN = 'mousedown' + '.' + this.name,
             MOUSEENTER = 'mouseover' + '.' + this.name,
             keyboard = {};
 
@@ -136,11 +136,10 @@
          */
         this._originalQuery = this._currentQuery = this.el.value;
 
-
         ch.shortcuts.add(ch.onkeybackspace, this.uid, function () {
             // hides and clear the list
             if (that.el.value.length <= 1) {
-                that._$suggestionsList.html('');
+                that._$suggestionsList[0].innerHTML = '';
                 that._popover.hide();
             }
         });
@@ -157,73 +156,112 @@
         });
 
         ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
-            var current;
+            var value;
 
-            if (that._selected > 0 && that._selected !== null) {
-                current = that._selected - 1;
-            } else if (that._selected === 0) {
-                current = -1;
+            if (that._selected === null) {
+
+                that._selected = that._suggestionsQuantity -1;
+                value = that._suggestions[that._selected];
+
+            } else if (that._selected <= 0) {
+
+                that._selected = null;
+                value = that._currentQuery;
+
             } else {
-                current = that._suggestionsQuantity;
+                // dafault
+                that._selected -= 1;
+                value = that._suggestions[that._selected];
             }
 
-            that._select(current);
+            that._toogleSelection();
 
             if (!that._options.html) {
-                that.el.value = (current !== -1) ? that._suggestions[current] : that._currentQuery;
+                that.el.value = value;
             }
 
         });
 
         ch.shortcuts.add(ch.onkeydownarrow, this.uid, function (event) {
-            var current;
+            var current,
+                value;
 
-            if (that._selected < that._suggestionsQuantity && that._selected !== null) {
-                current = that._selected + 1;
-            } else if (that._selected === that._suggestionsQuantity) {
-                current = -1;
+            if (that._selected === null) {
+                // re init
+                that._selected = 0;
+                value = that._suggestions[that._selected];
+
+            } else if (that._selected >= that._suggestionsQuantity - 1) {
+                // reset to the current query
+                that._selected = null;
+                value = that._currentQuery;
+
             } else {
-                current = 0;
+                // dafault
+                that._selected += 1;
+                value = that._suggestions[that._selected];
             }
 
-            that._select(current);
+            that._toogleSelection(current);
 
             if (!that._options.html) {
-                that.el.value = (current !== -1) ? that._suggestions[current] : that._currentQuery;
+                that.el.value = value;
             }
 
         });
 
-        that._popover.$container
-            .on(MOUSEDOWN, function (event) {
-                if ( event.target.nodeName === 'LI' && event.target.className.indexOf('ch-autoComplete-item') !== -1) {
-                    that._setQuery(event);
-                }
+        var mousedownHandler = function (event) {
 
-            })
-            .on(MOUSEENTER, function (event) {
-                var $target = $(event.target),
-                    $item,
-                    current;
+            if (event.target.nodeName === 'I' && !that._options.html) {
+                ch.util.prevent(event);
+                that.el.value = that._suggestions[that._selected];
+                that.emit('typing', that.el.value);
+                return ;
+            }
 
-                $item = $target.attr('aria-posinset') ? $target : $target.parents('li[aria-posinset]');
+            if ((event.target.nodeName === 'LI' && event.target.className.indexOf('ch-autoComplete-item') !== -1) || (event.target.parentElement.nodeName === 'LI' && event.target.parentElement.className.indexOf('ch-autoComplete-item') !== -1)) {
+                that._setQuery(event);
+            }
+        };
 
-                if ($item[0] !== undefined) {
-                    current = (parseInt($item.attr('aria-posinset'), 10) - 1);
-                } else {
-                    current = -1;
-                }
+        var mouseenterHandler = function (event) {
+            var $target = $(event.target),
+                $item;
 
-                that._select(current);
+            ch.util.prevent(event);
 
-            });
+            $item = $target.attr('aria-posinset') ? $target : $target.parents('li[aria-posinset]');
+
+            if ($item[0] !== undefined) {
+                that._selected = (parseInt($item.attr('aria-posinset'), 10) - 1);
+            } else {
+                that._selected = null;
+            }
+
+            that._toogleSelection();
+
+        };
+
+        if (window.jQuery !== undefined) {
+            that._popover.$container
+                .on(MOUSEDOWN, mousedownHandler)
+                .on(MOUSEENTER, mouseenterHandler);
+        } else if (window.Zepto !== undefined) {
+            that._popover.$container
+                .on(MOUSEDOWN, function (event) {
+                    mouseenterHandler(event);
+                    mousedownHandler(event);
+                });
+        }
+
+        this._popover.on('show', function () { ch.shortcuts.on(that.uid); });
+
+        this._popover.on('hide', function () { ch.shortcuts.off(that.uid); });
 
         // behavior binding
         this.$el
             .on('focus.' + this.name, function (event) {
                 that._originalQuery = that.el.value;
-
-                ch.shortcuts.on(that.uid);
 
                 that.$el.on(ch.onkeyinput, function (event) {
                 // when the user writes
@@ -246,8 +284,6 @@
 
                 that.hide();
                 that.$el.off(ch.onkeyinput);
-
-                ch.shortcuts.off(that.uid);
 
             })
             .attr('autocomplete', 'off')
@@ -277,7 +313,6 @@
             this.el.value = this._suggestions[this._selected];
         }
 
-        this._selected = null;
         this.emit('select', event);
         this.el.blur();
 
@@ -291,15 +326,12 @@
      * @name ch.AutoComplete#_select
      */
 
-    AutoComplete.prototype._select = function (current) {
+    AutoComplete.prototype._toogleSelection = function () {
+        var id = '#' + this.$container[0].id,
+            current = (this._selected === null) ? null : (this._selected + 1);
 
-        var previous = this._selected;
-
-        if (previous !== current) {
-            $(this._suggestionsList[previous]).removeClass('ch-autoComplete-selected');
-            $(this._suggestionsList[current]).addClass('ch-autoComplete-selected');
-            this._selected = current;
-        }
+        $(id + ' [aria-posinset].ch-autoComplete-selected').removeClass('ch-autoComplete-selected');
+        $(id + ' [aria-posinset="'+ current +'"]').addClass('ch-autoComplete-selected');
 
         return this;
 
@@ -323,6 +355,12 @@
             extraItems = [];
 
         if (query === '') {
+            this.el.blur();
+            return this;
+        }
+
+        if (suggestions.length === 0) {
+            this._popover.hide();
             return this;
         }
 
@@ -330,34 +368,29 @@
             this._show();
         }
 
-        $extraItems = this.$container.find('.ch-autoComplete-item').removeClass('ch-autoComplete-selected');
-
-        this.$el.removeClass('ch-autoComplete-loading');
+        this._$suggestionsList[0].innerHTML = '';
         this._suggestions = suggestions;
+        this.$el.removeClass('ch-autoComplete-loading');
+
+        $extraItems = this.$container.find('.ch-autoComplete-item').removeClass('ch-autoComplete-selected');
 
         totalItems = ($extraItems.length > 0) ? (totalItems + $extraItems.length - 1) : this._suggestions.length;
 
         this._suggestions.forEach(function (term, i) {
-
             if (!that._options.html) {
                 term = term.replace(matchedRegExp, '<strong>$1</strong>');
             }
-
-            items.push($('<li aria-setsize="' + totalItems + '" aria-posinset="' + (i + 1) + '" class="ch-autoComplete-item">' + term + '</li>'));
+            items.push('<li aria-setsize="' + totalItems + '" aria-posinset="' + (i + 1) + '" class="ch-autoComplete-item">' + term + '<i class="ch-icon-arrow-up" data-js="ch-autoComplete-complete-query"></i></li>');
         });
 
         $extraItems.each(function (index, e) {
-            var pos = that._suggestions.length + index + 1;
-
-            extraItems.push($(e).attr('aria-posinset', pos));
-
+            extraItems.push(e.setAttribute('aria-posinset', (that._suggestions.length + index + 1)));
         });
 
         this._selected = null;
-
         this._suggestionsList = items.concat(extraItems);
-
-        this._suggestionsQuantity = this._suggestionsList.length - 1;
+        this._$suggestionsList[0].innerHTML = items.join('');
+        this._suggestionsQuantity = this._suggestionsList.length;
 
         return this;
     };
