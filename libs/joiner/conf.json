@@ -1,80 +1,80 @@
 {
-	"pkg": {
-		"version": "1.0"
-	},
-	"meta": {
-		"ui": {
-			"full": {
-				"jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
-				"jsClose": "\n\twindow.ch = ch;\n}(this, jQuery));",
-				"css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
-			},
-			"min": {
-				"jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function(window,$){'use strict';",
-				"jsClose": "window.ch = ch;}(this, jQuery));",
-				"css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
-			},
-			"temp_version": "ch.version = '1.0';"
-		},
-		"mobile": {
-			"full": {
-				"jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
-				"jsClose": "\n\twindow.ch = ch;\n}(this, Zepto));",
-				"css": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
-			},
-			"min": {
-				"jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function(window, $){\n\t'use strict';",
-				"jsClose": "window.ch = ch;}(this, Zepto));",
-				"css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
-			},
-			"temp_version": "ch.version = '1.0';"
-		},
-		"mesh": {
-			"full": "/*!\n * Chico Mesh v2.1\n * http://chico-ui.com.ar/mesh\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */",
-			"min": "/*! Chico Mesh v2.1 chico-ui.com.ar/mesh | chico-ui.com.ar/license\n */"
-		}
-	},
-	"concat": {
-		"uiJS": {
-			"core": [
-				"../../src/shared/js/ch.helpers.js",
-				"../../src/shared/js/ch.util.js",
-				"../../src/shared/js/ch.support.js",
-				"../../src/shared/js/ch.events.js",
-				"../../src/ui/js/ch.events.js",
-				"../../src/shared/js/ch.factory.js",
-				"../../src/ui/js/ch.shortcuts.js",
-				"../../src/ui/js/ch.init.js"
-			],
-			"abilities": [
-				"../../src/shared/js/ch.EventEmitter.js",
+    "pkg": {
+        "version": "1.0"
+    },
+    "meta": {
+        "ui": {
+            "full": {
+                "jsOpen": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
+                "jsClose": "\n\twindow.ch = ch;\n}(this, jQuery));",
+                "css": "/*!\n * Chico UI v<pkg.version>\n * http://chico-ui.com.ar/\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
+            },
+            "min": {
+                "jsOpen": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n;(function(window,$){'use strict';",
+                "jsClose": "window.ch = ch;}(this, jQuery));",
+                "css": "/*! Chico UI v<pkg.version> chico-ui.com.ar | chico-ui.com.ar/license */\n"
+            },
+            "temp_version": "ch.version = '1.0';"
+        },
+        "mobile": {
+            "full": {
+                "jsOpen": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */\n\n;(function (window, $) {\n\t'use strict';",
+                "jsClose": "\n\twindow.ch = ch;\n}(this, Zepto));",
+                "css": "/*!\n * Chico Mobile v<pkg.version>\n * http://chico-ui.com.ar/mobile\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n */"
+            },
+            "min": {
+                "jsOpen": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n;(function(window, $){\n\t'use strict';",
+                "jsClose": "window.ch = ch;}(this, Zepto));",
+                "css": "/*! Chico Mobile v<pkg.version> chico-ui.com.ar/mobile | chico-ui.com.ar/license */\n"
+            },
+            "temp_version": "ch.version = '1.0';"
+        },
+        "mesh": {
+            "full": "/*!\n * Chico Mesh v2.1\n * http://chico-ui.com.ar/mesh\n *\n * Copyright (c) <js:(new Date().getFullYear())>, MercadoLibre.com\n * Released under the MIT license.\n * http://chico-ui.com.ar/license\n *\n * Team: Hernan Mammana, Leandro Linares, Guillermo Paz.\n */",
+            "min": "/*! Chico Mesh v2.1 chico-ui.com.ar/mesh | chico-ui.com.ar/license\n */"
+        }
+    },
+    "concat": {
+        "uiJS": {
+            "core": [
+                "../../src/shared/js/ch.helpers.js",
+                "../../src/shared/js/ch.util.js",
+                "../../src/shared/js/ch.support.js",
+                "../../src/shared/js/ch.events.js",
+                "../../src/ui/js/ch.events.js",
+                "../../src/shared/js/ch.factory.js",
+                "../../src/ui/js/ch.shortcuts.js",
+                "../../src/ui/js/ch.init.js"
+            ],
+            "abilities": [
+                "../../src/shared/js/ch.EventEmitter.js",
                 "../../src/shared/js/ch.onImagesLoads.js",
-				"../../src/shared/js/ch.cache.js",
-				"../../src/shared/js/ch.Content.js",
-				"../../src/shared/js/ch.Closable.js",
-				"../../src/shared/js/ch.Collapsible.js",
+                "../../src/shared/js/ch.cache.js",
+                "../../src/shared/js/ch.Content.js",
+                "../../src/shared/js/ch.Closable.js",
+                "../../src/shared/js/ch.Collapsible.js",
                 "../../src/shared/js/ch.Viewport.js",
-				"../../src/shared/js/ch.Positioner.js"
-			],
-			"widgets": [
-				"../../src/shared/js/ch.cache.js",
-				"../../src/shared/js/ch.Widget.js",
+                "../../src/shared/js/ch.Positioner.js"
+            ],
+            "widgets": [
+                "../../src/shared/js/ch.cache.js",
+                "../../src/shared/js/ch.Widget.js",
                 "../../src/shared/js/ch.Form.js",
                 "../../src/shared/js/ch.Condition.js",
-				"../../src/shared/js/ch.Validation.js",
-				"../../src/shared/js/ch.String.js",
-				"../../src/shared/js/ch.MaxLength.js",
-				"../../src/shared/js/ch.MinLength.js",
-				"../../src/shared/js/ch.Email.js",
-				"../../src/shared/js/ch.URL.js",
-				"../../src/shared/js/ch.Number.js",
-				"../../src/shared/js/ch.Min.js",
-				"../../src/shared/js/ch.Max.js",
-				"../../src/shared/js/ch.Price.js",
-				"../../src/shared/js/ch.Custom.js",
-				"../../src/shared/js/ch.Required.js",
-				"../../src/shared/js/ch.Expandable.js",
-				"../../src/shared/js/ch.Menu.js",
+                "../../src/shared/js/ch.Validation.js",
+                "../../src/shared/js/ch.String.js",
+                "../../src/shared/js/ch.MaxLength.js",
+                "../../src/shared/js/ch.MinLength.js",
+                "../../src/shared/js/ch.Email.js",
+                "../../src/shared/js/ch.URL.js",
+                "../../src/shared/js/ch.Number.js",
+                "../../src/shared/js/ch.Min.js",
+                "../../src/shared/js/ch.Max.js",
+                "../../src/shared/js/ch.Price.js",
+                "../../src/shared/js/ch.Custom.js",
+                "../../src/shared/js/ch.Required.js",
+                "../../src/shared/js/ch.Expandable.js",
+                "../../src/shared/js/ch.Menu.js",
                 "../../src/shared/js/ch.Popover.js",
                 "../../src/shared/js/ch.Layer.js",
                 "../../src/shared/js/ch.Tooltip.js",
@@ -83,36 +83,36 @@
                 "../../src/shared/js/ch.Transition.js",
                 "../../src/ui/js/ch.Zoom.js",
                 "../../src/shared/js/ch.Calendar.js",
-				"../../src/ui/js/ch.blink.js",
-				"../../src/shared/js/ch.Dropdown.js",
-				"../../src/ui/js/ch.Tabs.js",
-				"../../src/ui/js/ch.Carousel.js",
-				"../../src/shared/js/ch.Countdown.js",
-				"../../src/ui/js/ch.DatePicker.js",
-				"../../src/ui/js/ch.AutoComplete.js"
-			],
-			"template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
-		},
-		"uiCSS": {
-			"resetML": [
-				"../../src/shared/css/ch.reset.css",
-				"../../src/ui/css/ch.reset.css",
-				"../../src/shared/css/ch.typography.css"
-			],
-			"core": [
-				"../../src/shared/css/ch.base.css",
-				"../../src/ui/css/ch.base.css",
-				"../../src/shared/css/ch.icons.css",
-				"../../src/shared/css/ch.boxes.css",
-				"../../src/ui/css/ch.boxes.css",
-				"../../src/shared/css/ch.loading.css"
-			],
-			"widgets": [
-				"../../src/shared/css/ch.buttons.css",
-				"../../src/ui/css/ch.buttons.css",
-				"../../src/shared/css/ch.datagrid.css",
-				"../../src/shared/css/ch.lists.css",
-				"../../src/shared/css/ch.pagination.css",
+                "../../src/ui/js/ch.blink.js",
+                "../../src/shared/js/ch.Dropdown.js",
+                "../../src/ui/js/ch.Tabs.js",
+                "../../src/ui/js/ch.Carousel.js",
+                "../../src/shared/js/ch.Countdown.js",
+                "../../src/ui/js/ch.DatePicker.js",
+                "../../src/shared/js/ch.AutoComplete.js"
+            ],
+            "template": ["meta.ui.full.jsOpen", "core", "meta.ui.temp_version", "meta.ui.full.jsClose", "abilities", "widgets"]
+        },
+        "uiCSS": {
+            "resetML": [
+                "../../src/shared/css/ch.reset.css",
+                "../../src/ui/css/ch.reset.css",
+                "../../src/shared/css/ch.typography.css"
+            ],
+            "core": [
+                "../../src/shared/css/ch.base.css",
+                "../../src/ui/css/ch.base.css",
+                "../../src/shared/css/ch.icons.css",
+                "../../src/shared/css/ch.boxes.css",
+                "../../src/ui/css/ch.boxes.css",
+                "../../src/shared/css/ch.loading.css"
+            ],
+            "widgets": [
+                "../../src/shared/css/ch.buttons.css",
+                "../../src/ui/css/ch.buttons.css",
+                "../../src/shared/css/ch.datagrid.css",
+                "../../src/shared/css/ch.lists.css",
+                "../../src/shared/css/ch.pagination.css",
                 "../../src/ui/css/ch.pagination.css",
                 "../../src/shared/css/ch.Form.css",
                 "../../src/ui/css/ch.Form.css",
@@ -122,34 +122,34 @@
                 "../../src/shared/css/ch.Modal.css",
                 "../../src/shared/css/ch.Transition.css",
                 "../../src/ui/css/ch.Zoom.css",
-				"../../src/ui/css/ch.wizard.css",
-				"../../src/shared/css/ch.Calendar.css",
-				"../../src/ui/css/ch.Carousel.css",
-				"../../src/ui/css/ch.AutoComplete.css",
-				"../../src/ui/css/ch.DatePicker.css",
-				"../../src/shared/css/ch.Dropdown.css",
-				"../../src/ui/css/ch.Expandable.css",
-				"../../src/ui/css/ch.Menu.css",
-				"../../src/ui/css/ch.Tabs.css",
-				"../../src/ui/css/ch.DatePicker.css",
-				"../../src/ui/css/ch.AutoComplete.css"
-			],
-			"template": ["meta.ui.full.css", "resetML", "core", "widgets"]
-		},
-		"mobileJS": {
-			"core": [
-				"../../src/shared/js/ch.helpers.js",
-				"../../src/shared/js/ch.util.js",
-				"../../src/mobile/js/ch.util.js",
-				"../../src/shared/js/ch.support.js",
-				"../../src/shared/js/ch.events.js",
-				"../../src/mobile/js/ch.events.js",
-				"../../src/ui/js/ch.events.js",
-				"../../src/shared/js/ch.factory.js",
-				"../../src/ui/js/ch.shortcuts.js",
-				"../../src/mobile/js/ch.init.js"
-			],
-			"abilities": [
+                "../../src/ui/css/ch.wizard.css",
+                "../../src/shared/css/ch.Calendar.css",
+                "../../src/ui/css/ch.Carousel.css",
+                "../../src/ui/css/ch.AutoComplete.css",
+                "../../src/ui/css/ch.DatePicker.css",
+                "../../src/shared/css/ch.Dropdown.css",
+                "../../src/ui/css/ch.Expandable.css",
+                "../../src/ui/css/ch.Menu.css",
+                "../../src/ui/css/ch.Tabs.css",
+                "../../src/ui/css/ch.DatePicker.css",
+                "../../src/ui/css/ch.AutoComplete.css"
+            ],
+            "template": ["meta.ui.full.css", "resetML", "core", "widgets"]
+        },
+        "mobileJS": {
+            "core": [
+                "../../src/shared/js/ch.helpers.js",
+                "../../src/shared/js/ch.util.js",
+                "../../src/mobile/js/ch.util.js",
+                "../../src/shared/js/ch.support.js",
+                "../../src/shared/js/ch.events.js",
+                "../../src/mobile/js/ch.events.js",
+                "../../src/ui/js/ch.events.js",
+                "../../src/shared/js/ch.factory.js",
+                "../../src/ui/js/ch.shortcuts.js",
+                "../../src/mobile/js/ch.init.js"
+            ],
+            "abilities": [
                 "../../src/shared/js/ch.EventEmitter.js",
                 "../../src/mobile/js/ch.routes.js",
                 "../../src/shared/js/ch.cache.js",
@@ -158,11 +158,11 @@
                 "../../src/shared/js/ch.Collapsible.js",
                 "../../src/shared/js/ch.Viewport.js",
                 "../../src/shared/js/ch.Positioner.js"
-			],
-			"widgets": [
-				"../../src/shared/js/ch.Widget.js",
-				"../../src/shared/js/ch.Expandable.js",
-				"../../src/shared/js/ch.Menu.js",
+            ],
+            "widgets": [
+                "../../src/shared/js/ch.Widget.js",
+                "../../src/shared/js/ch.Expandable.js",
+                "../../src/shared/js/ch.Menu.js",
                 "../../src/shared/js/ch.Popover.js",
                 "../../src/shared/js/ch.Layer.js",
                 "../../src/shared/js/ch.Tooltip.js",
@@ -170,56 +170,56 @@
                 "../../src/shared/js/ch.Modal.js",
                 "../../src/shared/js/ch.Transition.js",
                 "../../src/shared/js/ch.Dropdown.js",
-				"../../src/shared/js/ch.Form.js",
+                "../../src/shared/js/ch.Form.js",
                 "../../src/shared/js/ch.Condition.js",
-				"../../src/shared/js/ch.Validation.js",
-				"../../src/shared/js/ch.String.js",
-				"../../src/shared/js/ch.MaxLength.js",
-				"../../src/shared/js/ch.MinLength.js",
-				"../../src/shared/js/ch.Email.js",
-				"../../src/shared/js/ch.URL.js",
-				"../../src/shared/js/ch.Number.js",
-				"../../src/shared/js/ch.Min.js",
-				"../../src/shared/js/ch.Max.js",
-				"../../src/shared/js/ch.Price.js",
-				"../../src/shared/js/ch.Custom.js",
-				"../../src/shared/js/ch.Required.js",
-				"../../src/shared/js/ch.Countdown.js",
-				"../../src/shared/js/ch.Calendar.js",
-				"../../src/ui/js/ch.AutoComplete.js"
-			],
-			"template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
-		},
-		"mobileCSS": {
-			"resetML": [
-				"../../src/shared/css/ch.reset.css",
-				"../../src/mobile/css/ch.reset.css",
-				"../../src/shared/css/ch.typography.css"
-			],
-			"core": [
-				"../../src/shared/css/ch.base.css",
-				"../../src/mobile/css/ch.base.css",
-				"../../src/shared/css/ch.icons.css",
-				"../../src/shared/css/ch.boxes.css",
-				"../../src/mobile/css/ch.boxes.css",
-				"../../src/shared/css/ch.loading.css",
-				"../../src/mobile/css/ch.loading.css"
-			],
-			"widgets": [
-				"../../src/shared/css/ch.buttons.css",
-				"../../src/mobile/css/ch.buttons.css",
-				"../../src/shared/css/ch.datagrid.css",
-				"../../src/shared/css/ch.lists.css",
-				"../../src/shared/css/ch.pagination.css",
-				"../../src/mobile/css/ch.pagination.css",
-				"../../src/mobile/css/ch.list-options.css",
-				"../../src/mobile/css/ch.tags.css",
-				"../../src/mobile/css/ch.header.css",
-				"../../src/mobile/css/ch.Expandable.css",
-				"../../src/mobile/css/ch.Menu.css",
-				"../../src/shared/css/ch.Form.css",
-				"../../src/mobile/css/ch.Form.css",
-				"../../src/shared/css/ch.Popover.css",
+                "../../src/shared/js/ch.Validation.js",
+                "../../src/shared/js/ch.String.js",
+                "../../src/shared/js/ch.MaxLength.js",
+                "../../src/shared/js/ch.MinLength.js",
+                "../../src/shared/js/ch.Email.js",
+                "../../src/shared/js/ch.URL.js",
+                "../../src/shared/js/ch.Number.js",
+                "../../src/shared/js/ch.Min.js",
+                "../../src/shared/js/ch.Max.js",
+                "../../src/shared/js/ch.Price.js",
+                "../../src/shared/js/ch.Custom.js",
+                "../../src/shared/js/ch.Required.js",
+                "../../src/shared/js/ch.Countdown.js",
+                "../../src/shared/js/ch.Calendar.js",
+                "../../src/shared/js/ch.AutoComplete.js"
+            ],
+            "template": ["meta.mobile.full.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.full.jsClose", "abilities", "widgets"]
+        },
+        "mobileCSS": {
+            "resetML": [
+                "../../src/shared/css/ch.reset.css",
+                "../../src/mobile/css/ch.reset.css",
+                "../../src/shared/css/ch.typography.css"
+            ],
+            "core": [
+                "../../src/shared/css/ch.base.css",
+                "../../src/mobile/css/ch.base.css",
+                "../../src/shared/css/ch.icons.css",
+                "../../src/shared/css/ch.boxes.css",
+                "../../src/mobile/css/ch.boxes.css",
+                "../../src/shared/css/ch.loading.css",
+                "../../src/mobile/css/ch.loading.css"
+            ],
+            "widgets": [
+                "../../src/shared/css/ch.buttons.css",
+                "../../src/mobile/css/ch.buttons.css",
+                "../../src/shared/css/ch.datagrid.css",
+                "../../src/shared/css/ch.lists.css",
+                "../../src/shared/css/ch.pagination.css",
+                "../../src/mobile/css/ch.pagination.css",
+                "../../src/mobile/css/ch.list-options.css",
+                "../../src/mobile/css/ch.tags.css",
+                "../../src/mobile/css/ch.header.css",
+                "../../src/mobile/css/ch.Expandable.css",
+                "../../src/mobile/css/ch.Menu.css",
+                "../../src/shared/css/ch.Form.css",
+                "../../src/mobile/css/ch.Form.css",
+                "../../src/shared/css/ch.Popover.css",
                 "../../src/shared/css/ch.Tooltip.css",
                 "../../src/shared/css/ch.Bubble.css",
                 "../../src/shared/css/ch.Modal.css",
@@ -227,27 +227,27 @@
                 "../../src/mobile/css/ch.AutoComplete.css",
                 "../../src/shared/css/ch.Dropdown.css",
                 "../../src/shared/css/ch.Calendar.css"
-			],
-			"template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
-		},
-		"mobileCOMPATIBLECSS": {
-			"compatiblecss": [
-				"../../src/mobile/css/ch.compatible.css"
-			],
-			"template": ["meta.mobile.full.css", "compatiblecss"]
-		},
-		"sharedMESH": {
-			"mesh": [
-				"../../src/shared/css/ch.mesh.css"
-			],
-			"template": ["meta.mesh.full", "mesh"]
-		}
-	},
-	"min": {
-		"uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.temp_version", "meta.ui.min.jsClose", "abilities", "widgets"],
-		"uiCSS": ["meta.ui.min.css", "resetML", "core", "widgets"],
-		"mobileJS": ["meta.mobile.min.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.min.jsClose", "abilities", "widgets"],
-		"mobileCSS": ["meta.mobile.min.css", "resetML", "core", "widgets"],
-		"sharedMESH": ["meta.mesh.min", "mesh"]
-	}
+            ],
+            "template": ["meta.mobile.full.css", "resetML", "core", "widgets"]
+        },
+        "mobileCOMPATIBLECSS": {
+            "compatiblecss": [
+                "../../src/mobile/css/ch.compatible.css"
+            ],
+            "template": ["meta.mobile.full.css", "compatiblecss"]
+        },
+        "sharedMESH": {
+            "mesh": [
+                "../../src/shared/css/ch.mesh.css"
+            ],
+            "template": ["meta.mesh.full", "mesh"]
+        }
+    },
+    "min": {
+        "uiJS": ["meta.ui.min.jsOpen", "core", "meta.ui.temp_version", "meta.ui.min.jsClose", "abilities", "widgets"],
+        "uiCSS": ["meta.ui.min.css", "resetML", "core", "widgets"],
+        "mobileJS": ["meta.mobile.min.jsOpen", "core", "meta.mobile.temp_version", "meta.mobile.min.jsClose", "abilities", "widgets"],
+        "mobileCSS": ["meta.mobile.min.css", "resetML", "core", "widgets"],
+        "sharedMESH": ["meta.mesh.min", "mesh"]
+    }
 }
