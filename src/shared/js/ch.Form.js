@@ -114,22 +114,21 @@
         /**
          * Collection of validators.
          * @private
-         * @name ch.Form#_validations
+         * @name ch.Form#validations
          * @type {Array}
          */
-        that._validations = [];
+        that.validations = [];
 
         /**
          * Default behavior
          */
-
         that.$el
+            // Add classname
+            .addClass('ch-form')
             // Disable HTML5 browser-native validations
             .attr('novalidate', 'novalidate')
             // Bind the submit
             .on('submit.form', function (event) {
-
-                that.emit('beforevalidate');
 
                 // Runs validations
                 that.validate(event);
@@ -147,7 +146,7 @@
     };
 
     /**
-     * Executes all validations, if finds a error will trigger 'onerror' callback, if no error is found will trigger 'onsuccess' callback.
+     * Executes all validations, if finds a error will trigger 'error' event, if no error is found will trigger 'success' event.
      * @public
      * @function
      * @name ch.Form#validate
@@ -159,9 +158,11 @@
             return this;
         }
 
+        this.emit('beforevalidate');
+
         var that = this,
             i = 0,
-            j = that._validations.length,
+            j = that.validations.length,
             validation,
             firstError;
 
@@ -169,7 +170,7 @@
 
         // Run validations
         for (i; i < j; i += 1) {
-            validation = that._validations[i];
+            validation = that.validations[i];
 
             // Validate
             validation.validate();
@@ -252,13 +253,13 @@
         this.errors.length = 0;
 
         var i = 0,
-            j = this._validations.length,
+            j = this.validations.length,
             validation;
 
         // Run hasError
         for (i; i < j; i += 1) {
 
-            validation = this._validations[i];
+            validation = this.validations[i];
 
             if (validation.hasError()) {
                 this.errors.push(validation);
@@ -283,10 +284,10 @@
     Form.prototype.clear = function () {
         var that = this,
             i = 0,
-            j = that._validations.length;
+            j = that.validations.length;
 
         for (i; i < j; i += 1) {
-            that._validations[i].clear();
+            that.validations[i].clear();
         }
 
         /**
@@ -313,13 +314,12 @@
      * @returns {Object}
      */
     Form.prototype.reset = function () {
-        var that = this;
 
         // Clears all shown validations
-        that.clear();
+        this.clear();
 
         // Executes the native reset() method
-        that.el.reset();
+        this.el.reset();
 
         /**
          * Fired when resets the form.
@@ -332,9 +332,9 @@
          *   sowidget.action();
          * });
          */
-        that.emit('reset');
+        this.emit('reset');
 
-        return that;
+        return this;
     };
 
     ch.factory(Form);

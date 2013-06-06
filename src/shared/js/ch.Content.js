@@ -33,6 +33,10 @@
             // ESTo lo deberiamos sacar de aca
             that._options.content = content;
 
+            if (that._options.cache === undefined) {
+                that._options.cache = true;
+            }
+
             if (typeof content === 'string') {
                 // Case 1: AJAX call
                 if (ch.util.isUrl(content)) {
@@ -70,12 +74,13 @@
             options = $.extend({
                 'method': 'GET',
                 'params': '',
-                'cache': true,
                 'async': true,
                 'waiting': '<div class="ch-loading-big"></div>'
             }, options || defaults);
 
-            that._options.cache = options.cache;
+            if (options.cache !== undefined) {
+                that._options.cache = options.cache;
+            }
 
             // Set loading
             setAsyncContent({
@@ -88,7 +93,7 @@
                 'url': url,
                 'type': options.method,
                 'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
-                'cache': options.cache,
+                'cache': that._options.cache,
                 'async': options.async,
                 'beforeSend': function (jqXHR) {
                     // Set the AJAX default HTTP headers

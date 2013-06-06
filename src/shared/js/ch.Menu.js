@@ -66,7 +66,7 @@
     function createMethods(method) {
         Menu.prototype[method] = function (child) {
             var i,
-                expandable = this._children[child];
+                expandable = this.fold[child];
 
             // enable specific expandable
             if (expandable && expandable.name === 'expandable') {
@@ -75,11 +75,11 @@
 
             } else {
 
-                i = this._children.length;
+                i = this.fold.length;
 
                 while (i) {
 
-                    expandable = this._children[i -= 1];
+                    expandable = this.fold[i -= 1];
 
                     if (expandable.name === 'expandable') {
                         expandable[method]();
@@ -131,13 +131,6 @@
         // Call to its parents init method
         parent.init.call(this, $el, options);
 
-        /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
-         * @type {Object}
-         */
-        var that = this;
-
     /**
      * Protected Members
      */
@@ -147,30 +140,22 @@
          * @name ch.Menu#expdanbles
          * @type {Array}
          */
-        that._children = [];
-
-        /**
-         * Stores witch expandable is shown.
-         * @private
-         * @name ch.Menu#_shown
-         * @type number
-         */
-        that._shown = that._options.shown;
+        this.fold = [];
 
         /**
          * Default behavior
          */
 
         // Inits an expandable component on each list inside main HTML code snippet
-        that._createExpandables();
+        this._createExpandables();
 
-        that.$el
+        this.$el
             .attr('role', 'navigation')
             .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
 
         // Select specific item if there are a "shown" parameter on component configuration object
-        if (that._shown !== undefined) {
-            that.select(that._shown);
+        if (this._options.shown !== undefined) {
+            this.show(this._options.shown);
         }
 
         return this;
@@ -203,33 +188,46 @@
 
                 $child.addClass('ch-fold-trigger');
 
-                // Add anchor to that._children
-                that._children.push($child);
+                // Add anchor to that.fold
+                that.fold.push($child);
 
             } else {
 
-                // List inside list, inits an Expandable
+                    // List inside list, inits an Expandable
                 var expandable = $child.expandable({
                     // Show/hide on IE8- instead slideUp/slideDown
-                    'fx': that._options.fx,
-                    'onshow': function () {
-                        // Updates shown when it's opened
-                        that._shown = i + 1;
+                    'fx': that._options.fx
+                });
 
+                expandable
+                    .on('show', function () {
                         /**
-                         * It is triggered when the a fold is shown by the user.
-                         * @name ch.Menu#select
+                         * It is triggered when a children is shown.
+                         * @name ch.Menu#show
                          * @event
                          * @public
-                         * @exampleDescription When the user select
+                         * @exampleDescription
                          * @example
-                         * widget.on('select',function () {
+                         * widget.on('show',function(){
                          *     app.off();
                          * });
                          */
-                        that.emit('select');
-                    }
-                });
+                        that.emit('show', i+1);
+                    })
+                    .on('hide', function () {
+                        /**
+                         * It is triggered when a children is hidden.
+                         * @name ch.Menu#hide
+                         * @event
+                         * @public
+                         * @exampleDescription
+                         * @example
+                         * widget.on('hide',function(){
+                         *     app.off();
+                         * });
+                         */
+                        that.emit('hide');
+                    });
 
                 $child.next()
                     .attr('role', 'menu')
@@ -237,8 +235,8 @@
                         .children()
                             .attr('role', 'menuitem');
 
-                // Add expandable to that._children
-                that._children.push(expandable);
+                // Add expandable to that.fold
+                that.fold.push(expandable);
             }
         }
 
@@ -261,105 +259,46 @@
             return this;
         }
 
-        // Setter
-        var that = this,
-            // Specific item of that._children list
-            item = that._children[child - 1];
+        // Specific item of this.fold list
+        this.fold[child - 1].show();
 
-        // Item as expandable
-        if (item instanceof ch.Expandable) {
-            item.show();
-        }
-
-        // Update shown item
-        that._shown = child;
-
-        /**
-         * It is triggered when a children is shown.
-         * @name ch.Menu#show
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on('show',function(){
-         *     app.off();
-         * });
-         */
-        that.emit('show', item);
-
-        return that;
+        return this;
     };
 
-/**
-    * Hides a specific child.
-    * @public
-    * @name hide
-    * @name ch.Menu
-    * @param {Number} child - The number of the item to be hidden
-    * @returns {Object}
-    */
+    /**
+     * Hides a specific child.
+     * @public
+     * @name hide
+     * @name ch.Menu
+     * @param {Number} child - The number of the item to be hidden
+     * @returns {Object}
+     */
     Menu.prototype.hide = function (child) {
 
         if (!this._enabled) {
             return this;
         }
 
-        // Setter
-        var that = this,
-            // Specific item of that._children list
-            item = that._children[child - 1];
+        // Specific item of this.fold list
+        this.fold[child - 1].hide();
 
-        // Item as expandable
-        if (item instanceof ch.Expandable) {
-            // Hide
-            item.hide();
-        }
-
-        // Update shown item
-        that._shown = undefined;
-
-        /**
-         * It is triggered when a children is hidden.
-         * @name ch.Menu#hide
-         * @event
-         * @public
-         * @exampleDescription
-         * @example
-         * widget.on('hide',function(){
-         *     app.off();
-         * });
-         */
-        that.emit('hide', item);
-
-        return that;
-    };
-
-
-    /**
-     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
-     * @name getShown
-     * @methodOf ch.Menu#getShown
-     * @returns {Boolean}
-     * @exampleDescriptiong
-     * @example
-     * if (widget.getShown() === 1) {
-     *     fn();
-     * }
-     */
-    Menu.prototype.getShown = function () {
-        return this._shown;
+        return this;
     };
 
 
     /**
      *
      */
-    Menu.prototype.content = function (child, content) {
-        if (child === undefined) {
-            return this._children[child - 1].content();
+    Menu.prototype.content = function (child, content, options) {
+        if (child === undefined || typeof child !== 'number') {
+            throw new window.Error('Menu.content(child, content, options): Expected number of fold.');
         }
 
-        this._children[child - 1].content(content);
+        if (content === undefined) {
+            return this.fold[child - 1].content();
+        }
+
+        this.fold[child - 1].content(content, options);
 
         return this;
     };

@@ -75,20 +75,20 @@
         Validation.prototype[method] = function (condition) {
             var key;
 
-            // Turn off conditions
+            // Specific condition
             if (condition !== undefined && this.conditions[condition] !== undefined) {
-                // disable specific condition
+
                 this.conditions[condition][method]();
 
             } else {
 
+                // all conditions
                 for (key in this.conditions) {
                     if (this.conditions[key] !== undefined) {
                         this.conditions[key][method]();
                     }
                 }
 
-                // enable all
                 parent[method].call(this);
             }
 
@@ -166,7 +166,7 @@
          * @see ch.Form
          */
         // Reference to a Form instance. If there isn't any, the Validation instance will create one.
-        this.form = that.$el.parents('form').form()._validations.push(this);
+        this.form = that.$el.parents('form').form().validations.push(this);
 
         /**
          * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
@@ -268,10 +268,18 @@
 
         // It must happen only once.
         this.$el.on(this._validationEvent + '.validation', function () {
-            if (previousValue !== this.value || that._validationEvent === 'change') {
-                previousValue = this.value;
-                that.validate();
+
+            if (that.conditions['required'] !== undefined) {
+
+                if (previousValue !== this.value || that._validationEvent === 'change') {
+                    previousValue = this.value;
+                    that.validate();
+                }
+
+            } else if (this.value === '') {
+                that.clear();
             }
+
         });
 
         // Lazy Loading pattern
@@ -350,7 +358,7 @@
 
         // Pre-validation: Don't validate disabled
         if (this.$el.attr('disabled') || !this._enabled) {
-            return true;
+            return false;
         }
 
         var condition,
@@ -403,7 +411,11 @@
      */
     Validation.prototype.clear = function () {
 
-        this.$el.removeClass('ch-validation-error');
+        this.$el
+            .removeClass('ch-validation-error')
+            .removeAttr('aria-label');
+
+        this.error = null;
 
         this.bubble.hide();
 
@@ -530,26 +542,6 @@
     while (len) {
         createMethods(methods[len -= 1]);
     }
-
-    /**
-     * Turn on/off the Validation and Condition engine.
-     * @public
-     * @since 0.10.4
-     * @name ch.Validation#toggleEnable
-     * @function
-     * @returns itself
-     * @see ch.Condition
-     */
-    Validation.prototype.toggleEnable = function () {
-
-        if (this._enabled) {
-            this.disable();
-        } else {
-            this.enable();
-        }
-
-        return this;
-    };
 
     /**
      * Factory

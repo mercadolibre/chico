@@ -1,53 +1,63 @@
+var email = $('#input_user').email('Please, enter a valid email.');
+
 describe('ch.Email', function () {
-	var form = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="validation{ID}" type="text"></div><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
-		idGenerator = (function(){
-			var count = 0;
+    it('should be a function', function () {
+        expect(typeof ch.Email).toEqual('function');
+    });
 
-			return function(){
-				return count++;
-			}
-		}());
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Email')).toBeTruthy();
+        expect(typeof ch.Email).toEqual('function');
+    });
 
-	describe('ch.Email global initialization and returned object.', function () {
-		var n = idGenerator();
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.email();
-		$('body').prepend(f);
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('email')).toBeTruthy();
+        expect(typeof $.fn.email).toEqual('function');
+    });
 
-		it('ch.Email should be a function.', function () {
-			expect(typeof ch.Email).toEqual('function');
-		});
+    it('should be return a new instance', function () {
+        expect(email instanceof ch.Validation).toBeTruthy();
+    });
 
-		it('ch.Email should return an object.', function () {
-			expect(typeof validation).toEqual('object');
-		});
+    it('should return an error when the value is diferent to a valid email', function () {
+        email.$el.val('Test');
+        expect(email.hasError()).toBeTruthy();
+    });
 
-	});
+    it('should remove the error when the value is a valid email', function () {
+        email.$el.val('chico@mercadolibre.com');
+        expect(email.hasError()).toBeFalsy();
+    });
 
-	describe('ch.Email working and configuration.', function () {
-		var n = idGenerator();
-		var message = 'This is a new test!.';
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.email(message);
-		$('body').prepend(f);
+    it('should set an error message', function () {
+        expect(email.message('email')).toEqual('Please, enter a valid email.');
+    });
+});
 
-		it('ch.Email should return an error when numbers are set.', function () {
-			input.attr('value', 1234);
-			expect(validation.hasError()).toBeTruthy();
-		});
+describe('The test of some values', function () {
+    var condition = email.conditions.email;
 
-		it('ch.Email should return the same text send as a parameter when it was initalized.', function () {
-			expect(validation.validator.conditions.email.message).toEqual(message);
-		});
+    it('should be valid', function () {
+        expect(condition.test('foo@foo.bar')).toBeTruthy();
+        expect(condition.test('foo@foo.ba')).toBeTruthy();
+        expect(condition.test('foo@fo.ba')).toBeTruthy();
+        expect(condition.test('o@fo.ba')).toBeTruthy();
+        expect(condition.test('o@o.r')).toBeTruthy();
+        expect(condition.test('foo21bar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo21.bar@foo.bar')).toBeTruthy();
+        expect(condition.test('21.bar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo.bar@foo.bar')).toBeTruthy();
+        expect(condition.test('fo-o.bar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo.b-ar@foo.bar')).toBeTruthy();
+        expect(condition.test('fo-o.b-ar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo-bar@foo.bar')).toBeTruthy();
+        expect(condition.test('foo_bar@foo.bar')).toBeTruthy();
+    });
 
-		it('ch.Email should not return an error when string are set.', function () {
-			input.attr('value', 'foo@foo.bar');
-			expect(validation.hasError()).toBeFalsy();
-		});
-
-	});
-
-
+    it('should be invalid', function () {
+        expect(condition.test('@.foo')).toBeFalsy();
+        expect(condition.test('foo@bar.')).toBeFalsy();
+        expect(condition.test('.bar@')).toBeFalsy();
+        expect(condition.test('@')).toBeFalsy();
+    });
 });

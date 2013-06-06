@@ -1,53 +1,50 @@
+var min = $('#input_user').min(10, 'Some text {#num#}.');
+
 describe('ch.Min', function () {
-	var form = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="validation{ID}" type="text"></div><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
-		idGenerator = (function(){
-			var count = 0;
+    it('should be a function', function () {
+        expect(typeof ch.Min).toEqual('function');
+    });
 
-			return function(){
-				return count++;
-			}
-		}());
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Min')).toBeTruthy();
+        expect(typeof ch.Min).toEqual('function');
+    });
 
-	describe('ch.Min global initialization and returned object.', function () {
-		var n = idGenerator();
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.min(5);
-		$('body').prepend(f);
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('min')).toBeTruthy();
+        expect(typeof $.fn.min).toEqual('function');
+    });
 
-		it('ch.Min should be a function.', function () {
-			expect(typeof ch.Min).toEqual('function');
-		});
+    it('should be return a new instance', function () {
+        expect(min instanceof ch.Validation).toBeTruthy();
+    });
 
-		it('ch.Min should return an object.', function () {
-			expect(typeof validation).toEqual('object');
-		});
+    it('should return an error when the value is a number smaller than "min" number', function () {
+        min.$el.val(6);
+        expect(min.hasError()).toBeTruthy();
+    });
 
-	});
+    it('shouldn\'t have got an error when the value is a number higher than "min" number', function () {
+        min.$el.val(22);
+        expect(min.hasError()).toBeFalsy();
+    });
 
-	describe('ch.Min working and configuration.', function () {
-		var n = idGenerator();
-		var message = 'This is a new test!.';
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.min(10,message);
-		$('body').prepend(f);
+    it('should set an error message', function () {
+        expect(min.message('min')).toEqual('Some text 10.');
+    });
+});
 
-		it('ch.Min should return an error when numbers are set.', function () {
-			input.attr('value', 9);
-			expect(validation.hasError()).toBeTruthy();
-		});
+describe('The test of some values', function () {
+    var condition = min.conditions.min;
 
-		it('ch.Min should return the same text send as a parameter when it was initalized.', function () {
-			expect(validation.validator.conditions.min.message).toEqual(message);
-		});
+    it('should be valid', function () {
+        expect(condition.test(15)).toBeTruthy();
+        expect(condition.test('15')).toBeTruthy();
+    });
 
-		it('ch.Min should not return an error when string are set.', function () {
-			input.attr('value', 20);
-			expect(validation.hasError()).toBeFalsy();
-		});
-
-	});
-
-
+    it('should be invalid', function () {
+        expect(condition.test(1)).toBeFalsy();
+        expect(condition.test('1')).toBeFalsy();
+        expect(condition.test(-1)).toBeFalsy();
+    });
 });

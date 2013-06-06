@@ -159,11 +159,11 @@ describe('It should have a container and', function () {
 describe('Its show() method', function () {
     var $trigger = expandable1.$trigger,
         $container = expandable1.$container,
-        show;
+        instance;
 
     it('should add "ch-expandable-trigger-on" class name to trigger', function () {
         expect($trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
-        show = expandable1.show();
+        instance = expandable1.show();
         expect($trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
     });
 
@@ -179,20 +179,18 @@ describe('Its show() method', function () {
         expect(showEvent).toHaveBeenCalled();
     });
 
-    describe('Public instance', function () {
-        it('should return the same instance than initialized widget', function () {
-            expect(show).toEqual(expandable1);
-        });
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(expandable1);
     });
 });
 
 describe('Its hide() method', function () {
     var $trigger = expandable1.$trigger,
         $container = expandable1.$container,
-        hide;
+        instance;
 
     it('should remove "ch-expandable-trigger-on" class name to trigger', function () {
-        hide = expandable1.hide();
+        instance = expandable1.hide();
         expect($trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
     });
 
@@ -208,10 +206,8 @@ describe('Its hide() method', function () {
         expect(showEvent).toHaveBeenCalled();
     });
 
-    describe('Public instance', function () {
-        it('should return the same instance than initialized widget', function () {
-            expect(hide).toEqual(expandable1);
-        });
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(expandable1);
     });
 });
 
@@ -238,19 +234,32 @@ describe('Its isShown() method', function () {
 });
 
 describe('Its disable() method', function () {
+    var instance;
+
     it('should prevent to show its container', function () {
-        expandable1.disable();
+        instance = expandable1.disable();
         expandable1.show();
         expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(expandable1);
     });
 });
 
 describe('Its enable() method', function () {
+    var instance;
+
     it('should prevent to show its container', function () {
-        expandable1.enable();
+        instance = expandable1.enable();
         expandable1.show();
         expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
     });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(expandable1);
+    });
+
     expandable1.hide();
 });
 

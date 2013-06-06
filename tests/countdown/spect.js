@@ -1,93 +1,131 @@
-describe('ch.Countdown', function () {
-	var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="countdown{ID}" type="text"></div><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
-		idGenerator = (function(){
-			var count = 0;
+var countdown = $('#input_user').countdown(),
+    countdown2 = $('#input_location').countdown(10),
+    readyEvent = jasmine.createSpy('readyEvent');
 
-			return function(){
-				return count++;
-			}
-		}()),
-		getSnippet = function(selector){
-			var n = idGenerator();
-			var f = $(template.replace(/{ID}/g, n));
-			var snippet = f.find(selector + n);
-			$('body').prepend(f);
-			return snippet;
-		};
+describe('Countdown', function () {
+    countdown.once('ready', readyEvent);
 
-	describe('Constructor.', function () {
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Countdown')).toBeTruthy();
+        expect(typeof ch.Countdown).toEqual('function');
+    });
 
-		it('ch.Countdown should be defined as a function.', function () {
-			expect(ch.Countdown).toBeDefined();
-			expect(typeof ch.Countdown).toEqual('function');
-		});
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('countdown')).toBeTruthy();
+        expect(typeof $.fn.countdown).toEqual('function');
+    });
 
-		var countdown1 = getSnippet('#countdown').countdown(),
-		countdown2 = getSnippet('#countdown').countdown(20);
+    it('should be return a new instance', function () {
+        expect(countdown instanceof ch.Countdown).toBeTruthy();
+    });
 
-		describe('Returned Object',function(){
+    it('should emit the "ready" event when it\'s created', function () {
+        waits(50);
+        runs(function () {
+            expect(readyEvent).toHaveBeenCalled();
+        });
+    });
+});
 
-			it('should be an object.', function () {
-				expect(typeof countdown1).toEqual('object');
-			});
+describe('It should have the following public properties:', function () {
 
-			it('has a "element" property and it should be a instanceof a HTMLElement.', function () {
-				expect(countdown1.element).toBeDefined();
-				expect(countdown1.element instanceof HTMLElement).toBeTruthy();
-			});
+    it('.el', function () {
+        expect(countdown.el).not.toEqual(undefined);
+        expect(countdown.el.nodeType).toEqual(1);
+    });
 
-			it('has a "type" property and it should be autoComplete.', function () {
-				expect(countdown1.type).toBeDefined();
-				expect(typeof countdown1.type).toEqual('string');
-				expect(countdown1.type).toEqual('countdown');
-			});
+    it('.$el', function () {
+        expect(countdown.$el).not.toEqual(undefined);
+        expect(countdown.$el instanceof $).toBeTruthy();
+    });
 
-			it('has a "uid" property.', function () {
-				expect(countdown1.uid).toBeDefined();
-				expect(typeof countdown1.uid).toEqual('number');
-			});
+    it('.name', function () {
+        expect(countdown.name).not.toEqual(undefined);
+        expect(typeof countdown.name).toEqual('string');
+        expect(countdown.name).toEqual('countdown');
+    });
 
-			it('should show, by default, the text "500 characters left." at ".ch-form-hint".', function () {
-				var text = $(countdown1.element).next().text();
-				expect(text).toEqual('500 characters left.');
-			});
+    it('.constructor', function () {
+        expect(countdown.constructor).not.toEqual(undefined);
+        expect(typeof countdown.constructor).toEqual('function');
+    });
 
-		});
-
-		describe('Working',function(){
-
-			it('should add an HTMLElement with class ".ch-form-hint".', function () {
-				var p = $('.ch-form-hint');
-				expect(p.length === 2).toBeTruthy();
-			});
-
-			it('should show the text "20 characters left." at ".ch-form-hint".', function () {
-				var text = $(countdown2.element).next().text();
-				expect(text).toEqual('20 characters left.');
-			});
-
-			it('should show the text "0 characters left." at ".ch-form-hint". when 20 characters were added.', function () {
-				$(countdown2.element).attr('value', '12345678901234567890').keyup();
-				waits(50);
-				runs(function(){
-					var text = $(countdown2.element).next().text();
-					expect(text).toEqual('0 characters left.');
-				});
-			});
-
-			it('should show the text "0 characters left." at ".ch-form-hint". when more than 20 characters were added.', function () {
-				$(countdown2.element).attr('value', '123456789012345678901234567890').keyup();
-				waits(50);
-				runs(function(){
-					var text = $(countdown2.element).next().text();
-					expect(text).toEqual('0 characters left.');
-				});
-			});
-
-		});
-
-	});
+    it('.uid', function () {
+        expect(countdown.uid).not.toEqual(undefined);
+        expect(typeof countdown.uid).toEqual('number');
+    });
 
 });
 
+describe('It should have the following public methods:', function () {
+    var methods = ['init', 'destroy', 'enable', 'disable'],
+        i = 0,
+        len = methods.length;
 
+    for (i; i < len; i += 1) {
+        (function (i){
+            it('.' + methods[i] + '()', function () {
+                expect(countdown[methods[i]]).not.toEqual(undefined);
+                expect(typeof countdown[methods[i]]).toEqual('function');
+            });
+        }(i));
+    }
+});
+
+describe('It should create a message container', function () {
+    var $message = $('.ch-form-hint').eq(0);
+
+    it('should exists.', function () {
+        expect($message).not.toEqual(undefined);
+        expect($message[0].nodeType).toEqual(1);
+    });
+
+    it('should add "ch-form-hint" classname to the element', function () {
+       expect($message.hasClass('ch-form-hint')).toBeTruthy();
+    });
+
+    it('should set this message by default: "500 characters left."', function () {
+       expect($message.text()).toEqual('500 characters left.');
+    });
+});
+
+describe('It should create a message container', function () {
+    var $message = $('.ch-form-hint').eq(0);
+
+    it('should exists.', function () {
+        expect($message).not.toEqual(undefined);
+        expect($message[0].nodeType).toEqual(1);
+    });
+
+    it('should add "ch-form-hint" classname to the element', function () {
+       expect($message.hasClass('ch-form-hint')).toBeTruthy();
+    });
+
+    it('should set this message by default: "500 characters left."', function () {
+       expect($message.text()).toEqual('500 characters left.');
+    });
+});
+
+describe('It should update the number on the message', function () {
+    var $message = $('.ch-form-hint').eq(1);
+
+    it('if it exceeds the number should add errors classnames: "ch-countdown-exceeded" and "ch-validation-error"', function () {
+        countdown2.$el.attr('value', '12345678901234567890').keyup();
+        waits(50);
+        runs(function(){
+            expect($message.text()).toEqual('-10 characters left.');
+            expect($message.hasClass('ch-countdown-exceeded')).toBeTruthy();
+            expect(countdown2.$el.hasClass('ch-validation-error')).toBeTruthy();
+
+        });
+    });
+
+    it('if doesn\'t exceed the number should update the number to 0', function () {
+        countdown2.$el.attr('value', '1234567890').keyup();
+        waits(50);
+        runs(function(){
+            expect($message.text()).toEqual('0 characters left.');
+        });
+    });
+
+});

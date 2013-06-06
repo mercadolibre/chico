@@ -1,43 +1,41 @@
-(function () {
+    /**
+     * Every time Chico-UI needs to inform all visual components that layout has been changed, it emits this event.
+     * @name onlayoutchange
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onchangelayout = 'changeLayout';
 
-	/**
-	 * Every time Chico-UI needs to inform all visual components that layout has been changed, it emits this event.
-	 * @name onlayoutchange
-	 * @constant
-	 * @memberOf ch
-	 * @type {String}
-	 */
-	ch.onchangelayout = 'changeLayout';
+    /**
+     *
+     * @name onpointerdown
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     * @see <a href="http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerdown">Pointer Events W3C Working Draft</a>
+     */
+    ch.onpointerdown = (ch.support.touch) ? 'touchstart' : 'mousedown';
 
-	/**
-	 *
-	 * @name onpointerdown
-	 * @constant
-	 * @memberOf ch
-	 * @type {String}
-	 * @see <a href="http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerdown">Pointer Events W3C Working Draft</a>
-	 */
-	ch.onpointerdown = (ch.support.touch) ? 'touchstart' : 'mousedown';
+    /**
+     *
+     * @name onpointerup
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     * @see <a href="http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerup">Pointer Events W3C Working Draft</a>
+     */
+    ch.onpointerup = (ch.support.touch) ? 'touchend' : 'mouseup';
 
-	/**
-	 *
-	 * @name onpointerup
-	 * @constant
-	 * @memberOf ch
-	 * @type {String}
-	 * @see <a href="http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerup">Pointer Events W3C Working Draft</a>
-	 */
-	ch.onpointerup = (ch.support.touch) ? 'touchend' : 'mouseup';
-
-	/**
-	 *
-	 * @name onpointermove
-	 * @constant
-	 * @memberOf ch
-	 * @type {String}
-	 * @see <a href="http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointermove">Pointer Events W3C Working Draft</a>
-	 */
-	ch.onpointermove = (ch.support.touch) ? 'touchmove' : 'mousemove';
+    /**
+     *
+     * @name onpointermove
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     * @see <a href="http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointermove">Pointer Events W3C Working Draft</a>
+     */
+    ch.onpointermove = (ch.support.touch) ? 'touchmove' : 'mousemove';
 
     /**
      *
@@ -68,5 +66,3 @@
      * @see <a href="http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerleave">Pointer Events W3C Working Draft</a>
      */
     ch.onpointerleave = (ch.support.touch) ? 'touchend' : 'mouseleave';
-
-}());

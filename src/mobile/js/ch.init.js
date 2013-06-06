@@ -1,20 +1,17 @@
-/**
- * Core constructor function.
- * @private
- */
-(function init() {
-    var util = ch.util;
-
+    /**
+     * Core constructor function.
+     * @private
+     */
     // Remove no-js classname
     $html.removeClass('no-js');
     // Iphone scale fix
-    util.MBP.scaleFix();
+    ch.util.MBP.scaleFix();
     // Hide navigation url bar
-    util.MBP.hideUrlBarOnLoad();
+    ch.util.MBP.hideUrlBarOnLoad();
     // Prevent zoom onfocus
-    util.MBP.preventZoom();
+    ch.util.MBP.preventZoom();
     // Fix the broken iPad/iPhone form label click issue
-    util.fixLabels();
+    ch.util.fixLabels();
 
     ch.shortcuts.init();
 
@@ -22,4 +19,3 @@
 
     // Exposse private $ (Zepto) into ch.$
     ch.$ = $;
-}());
