@@ -83,7 +83,6 @@
                 "../../src/shared/js/ch.Transition.js",
                 "../../src/ui/js/ch.Zoom.js",
                 "../../src/shared/js/ch.Calendar.js",
-                "../../src/ui/js/ch.blink.js",
                 "../../src/shared/js/ch.Dropdown.js",
                 "../../src/ui/js/ch.Tabs.js",
                 "../../src/ui/js/ch.Carousel.js",
