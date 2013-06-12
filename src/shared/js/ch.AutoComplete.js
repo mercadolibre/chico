@@ -57,7 +57,8 @@
     /**
      * Inheritance
      */
-    var $document = $(window.document),
+    var document = window.document,
+        $document = $(document),
         parent = ch.util.inherits(AutoComplete, ch.Widget);
 
     AutoComplete.prototype.name = 'autoComplete';
@@ -102,10 +103,11 @@
             'align': this._options.align,
             'addClass': 'ch-box-lite ch-autoComplete',
             'close': this._options.closable,
-            'width': (this.el.getBoundingClientRect().width - 22) + 'px'
+            'width': (this.el.getBoundingClientRect().width - 22) + 'px',
+            'fx': this._options.fx
         });
 
-        this.$container = this._popover.$container;
+        this.$container = this._popover.$container.attr('aria-hidden', 'true');
 
         /**
          * The number of the selected item.
@@ -258,37 +260,53 @@
 
         this._popover.on('hide', function () { ch.shortcuts.off(that.uid); });
 
+        this.on('disable', function () {
+
+            if (that.isShown()) {
+                that.hide();
+                that.el.blur();
+            }
+
+        });
+
+        this.on('typing', function (currentQuery) {
+            if (that._enabled) {
+                that._currentQuery = currentQuery;
+                that.$el.addClass('ch-autoComplete-loading');
+            }
+        });
+
         // behavior binding
         this.$el
+            .attr({
+                'aria-autocomplete': 'list',
+                'aria-haspopup': 'true',
+                'aria-owns': this.$container[0].id,
+                'autocomplete': 'off'
+            })
             .on('focus.' + this.name, function (event) {
-                that._originalQuery = that.el.value;
+                if (that._enabled) {
+                    that._originalQuery = that.el.value;
 
-                that.$el.on(ch.onkeyinput, function (event) {
-                // when the user writes
-                    window.clearTimeout(that._stopTyping);
-                    that._stopTyping = window.setTimeout(function () {
-                        if (that.el.value !== '') {
-                            that.emit('typing', that.el.value);
-                        }
-                    }, 400);
+                    that.$el.on(ch.onkeyinput, function (event) {
+                    // when the user writes
+                        window.clearTimeout(that._stopTyping);
+                        that._stopTyping = window.setTimeout(function () {
+                            if (that.el.value !== '') {
+                                that.emit('typing', that.el.value);
+                            }
+                        }, 400);
 
-                });
-
-                that.on('typing', function (currentQuery) {
-                    that._currentQuery = currentQuery;
-                    that.$el.addClass('ch-autoComplete-loading');
-                });
+                    });
+                }
 
             })
             .on('blur.' + this.name, function (event) {
-
-                that.hide();
-                that.$el.off(ch.onkeyinput);
-
-            })
-            .attr('autocomplete', 'off')
-            .addClass('ch-' + this.name + '-trigger');
-
+                if (that._enabled) {
+                    that.hide();
+                    that.$el.off(ch.onkeyinput);
+                }
+            });
 
         return this;
     };
@@ -354,6 +372,8 @@
             $extraItems,
             extraItems = [];
 
+        this.$el.removeClass('ch-autoComplete-loading');
+
         if (query === '') {
             this.el.blur();
             return this;
@@ -364,13 +384,14 @@
             return this;
         }
 
-        if (!this._popover.isShown()) {
+        if (!this._popover.isShown() && document.activeElement === this.el) {
             this._show();
+        } else {
+            return this;
         }
 
         this._$suggestionsList[0].innerHTML = '';
         this._suggestions = suggestions;
-        this.$el.removeClass('ch-autoComplete-loading');
 
         $extraItems = this.$container.find('.ch-autoComplete-item').removeClass('ch-autoComplete-selected');
 
@@ -419,6 +440,17 @@
         this.emit('hide');
         this._popover.hide();
         return this;
+    };
+
+    /**
+     * Hides component's content.
+     * @public
+     * @name ch.AutoComplete#isShown
+     * @function
+     * @returns itself
+     */
+    AutoComplete.prototype.isShown = function () {
+        return this._popover.isShown();
     };
 
     ch.factory(AutoComplete);
