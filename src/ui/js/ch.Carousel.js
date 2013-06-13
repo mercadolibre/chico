@@ -794,16 +794,16 @@
      *
      * @public
      * @function
-     * @name ch.Carousel#page
+     * @name ch.Carousel#goTo
      * @returns Chico UI Object
-     * @param {Number || String} page Reference of page to go. It can be specified as number or "first" or "last" string.
-     * @since 0.7.4
+     * @param {Number || String} page Reference of page to go.
+     * @since 1.0
      * @exampleDescription Go to second page.
      * @example
-     * foo.page(2);
+     * foo.goTo(2);
      * @exampleDescription Get the current page.
      * @example
-     * foo.page();
+     * foo.goTo();
      */
     Carousel.prototype.goTo = function (page) {
         // Set an error when the page is out of range
