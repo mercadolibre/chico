@@ -15,7 +15,6 @@
      * @factorized
      * @param {Object} [options] Object with configuration properties.
      * @param {Boolean} [options.pagination] Shows a pagination. By default, the value is false.
-     * @param {Boolean} [options.arrows] Shows arrows icons over or outside the mask. By default, the value is 'outside'.
      * @param {Array} [options.asyncData] Defines the content of each item that will be load asnchronously as array.
      * @param {Function} [options.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are enabled.
@@ -28,8 +27,7 @@
      * @exampleDescription Create a Carousel with configuration parameters.
      * @example
      * var foo = $('#example').carousel({
-     *     'pagination': true,
-     *     'arrows': 'over'
+     *     'pagination': true
      * });
      * @exampleDescription Create a Carousel with items asynchronously loaded.
      * @example
@@ -75,7 +73,6 @@
 
     Carousel.prototype._defaults = {
         'pagination': false,
-        'arrows': 'outside',
         'initialPage': 1,
         'fx': true
     };
@@ -288,7 +285,7 @@
         if (this._options.pagination !== undefined) { this._addPagination(); }
 
         // Allow to render the arrows over the mask or not
-        this._arrowsFlow(this._options.arrows);
+        this._addArrows();
 
         // Trigger all calculations to get the functionality measures
         this._maskWidth = this._$mask.outerWidth();
@@ -678,47 +675,6 @@
     };
 
     /**
-     * Allows to render the arrows over the mask or not.
-     * @private
-     * @name ch.Carousel#arrowsFlow
-     * @function
-     * @param {String || Boolean} config Defines the arrows behavior. It can be 'outside', 'over', 'none', true or false. By default it's 'outside'.
-     */
-    Carousel.prototype._arrowsFlow = function (config) {
-        // Getter
-        if (config === undefined) { return this._options.arrows; }
-
-        // Setter
-        this._options.arrows = config;
-
-        switch (config) {
-        // The arrows are on the sides of the mask
-        case 'outside':
-            // Add the adaptive class to mask
-            this._$mask.addClass('ch-carousel-adaptive');
-            // Append arrows if previously were deleted
-            this._addArrows();
-            break;
-        // The arrows are over the mask
-        case 'over':
-        case true:
-            // Remove the adaptive class to mask
-            this._$mask.removeClass('ch-carousel-adaptive');
-            // Append arrows if previously were deleted
-            this._addArrows();
-            break;
-        // No arrows
-        case 'none':
-        case false:
-            // Remove the adaptive class to mask
-            this._$mask.removeClass('ch-carousel-adaptive');
-            // Detach arrows from DOM and continue to remove adaptive class
-            this._removeArrows();
-            break;
-        }
-    };
-
-    /**
      * Check for arrows behavior on first, last and middle pages, and update class name and ARIA values.
      * @private
      * @name ch.Carousel#updateArrows
@@ -931,34 +887,6 @@
      */
     Carousel.prototype.pause = function () {
         window.clearInterval(this._timer);
-        return this;
-    };
-
-    /**
-     * Allow to manage or disable the "Next" and "Previous" buttons flow ("over" the mask, "outside" it or "none"). (Since 0.10.6).
-     * @public
-     * @function
-     * @name ch.Carousel#arrows
-     * @since 0.10.6
-     * @returns Chico UI Object
-     * @param {String || Boolean} config CSS transition properties. By default it's "outside".
-     * @exampleDescription Put arrows outside the mask.
-     * @example
-     * foo.arrows('outside');
-     * // or
-     * foo.arrows(true);
-     * @exampleDescription Put arrows over the mask.
-     * @example
-     * foo.arrows('over');
-     * @exampleDescription Disable arrows.
-     * @example
-     * foo.arrows('none');
-     * or
-     * foo.arrows(false);
-     */
-    Carousel.prototype.arrows = function (config) {
-        this._arrowsFlow(config);
-        this.refresh();
         return this;
     };
 
