@@ -21,7 +21,7 @@
      * @param {Function} [options.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are enabled.
      * @param {Number} [options.maxItems] (Since 0.10.6) Set the max amount of items to show in each page.
-     * @param {Number} [options.page] (Since 0.10.6) Initialize the Carousel in a specified page.
+     * @param {Number} [options.initialPage] (Since 0.10.6) Initialize the Carousel in a specified page.
      * @returns itself
      * @exampleDescription Create a Carousel without configuration.
      * @example
@@ -78,7 +78,7 @@
     Carousel.prototype._defaults = {
         'pagination': false,
         'arrows': 'outside',
-        'goTo': 1,
+        'initialPage': 1,
         'fx': true
     };
 
@@ -309,7 +309,7 @@
         this._updateDistribution();
 
         // Put Carousel on specified page or at the beginning
-        this.goTo(this._options.goTo);
+        this.goTo(this._options.initialPage);
     };
 
     /**
