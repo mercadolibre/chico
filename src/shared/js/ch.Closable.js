@@ -77,7 +77,7 @@
              */
             if (closableType === 'button-only' || closableType === 'all' || closableType === true) {
                 // Append a close button
-                $('<a class="ch-close" role="button"></a>').on(pointerTap, close).prependTo(that.$container);
+                $('<a class="ch-close" role="button" aria-label="Close"></a>').on(pointerTap, close).prependTo(that.$container);
             }
 
             /**

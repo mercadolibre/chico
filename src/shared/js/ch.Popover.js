@@ -131,7 +131,7 @@
         /**
          * Trigger: Add functionality to the trigger if it exists
          */
-        if (this.el !== undefined) { this.configureTrigger(); }
+        if (this.el !== undefined) { this._configureTrigger(); }
 
         /**
          * Configure abilities
@@ -173,12 +173,10 @@
      *
      *
      */
-    Popover.prototype.configureTrigger = function () {
+    Popover.prototype._configureTrigger = function () {
 
         var that = this;
 
-        // Add ARIA
-        this.el.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this.uid);
         // Use the trigger as the positioning reference
         this._options.reference = this._options.reference || this.$el;
 
@@ -215,7 +213,11 @@
          * @name ch.Floats#
          * @type jQuery
          */
-        this.$trigger = this.$el;
+        this.$trigger = this.$el.attr({
+            'aria-owns': 'ch-' + this.name + '-' + this.uid,
+            'aria-haspopup': 'true',
+            'role': 'button'
+        });
     };
 
     /**
