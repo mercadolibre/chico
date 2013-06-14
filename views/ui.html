@@ -691,10 +691,7 @@
 
     <div class="ch-box-lite">
         <h2 id="modal">Modal with AJAX content</h2>
-
-        <form action="/ajax">
-            <p><input type="submit" class="ch-btn ch-btn-small modal1" value="Executed by submit a form"> or <a href="/ajax" class="modal1">Executed by a link</a>.</p>
-        </form>
+        <p><a id="modal1" href="/ajax">Executed by a link</a>.</p>
     </div>
 
     <div class="ch-box-lite">
@@ -715,6 +712,14 @@
     <div class="ch-box-lite">
         <h2>Modal Lite</h2>
         <button id="modal3" class="ch-btn ch-btn-small">Show me</button>
+    </div>
+
+    <div class="ch-box-lite">
+        <h2>Modal from Form without trigger</h2>
+
+        <form id="modal-form" action="/ajax">
+            <p><input id="modalX" type="submit" class="ch-btn ch-btn-small" value="Executed by submit a form"></p>
+        </form>
     </div>
 
     <div class="ch-box-lite">
@@ -1584,9 +1589,9 @@
         });
 
         // Modal
-        var modal1 = $('.modal1').modal({
-         'width': '500px',
-         'height': '300px'
+        var modal1 = $('#modal1').modal({
+            'width': '500px',
+            'height': '300px'
         });
 
         // Modal with invisible DOM Content
@@ -1599,9 +1604,14 @@
         });
 
         var modalX = $.modal({
-            'content': 'Modal without trigger!'
+            'closable': 'button-only'
         });
 
+        // $('#modal-form [type=submit]').on('click', function (e) {
+        $('#modal-form').on('submit', function (e) {
+            e.preventDefault();
+            modalX.show('asd');
+        });
 
         // Trasition
         var transition = $('#transition').transition();

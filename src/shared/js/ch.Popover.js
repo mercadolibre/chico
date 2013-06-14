@@ -195,9 +195,7 @@
             // Content from anchor href
             if (this.el.href) {
                 this._options.content = this.el.href;
-            // Content from form action
-            } else if (this.$el.parents('form').length > 0) {
-                this._options.content = this.$el.parents('form')[0].action;
+
             // Content from title or alt
             } else if (this.el.title || this.el.alt) {
                 // Set the configuration parameter

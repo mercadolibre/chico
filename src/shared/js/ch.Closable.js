@@ -86,13 +86,15 @@
             if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
 
                 that.on('show', function () {
-                    $document.one(pointerTap + ' ' + escEvent, close);
-                });
-
-                // Avoid to close when user clicks into the component
-                that.$container.on(pointerTap, function (event) {
-                    event.stopPropagation();
-                });
+                        $document.one(pointerTap + ' ' + escEvent, close);
+                    })
+                    .on('hide', function () {
+                        $document.off(pointerTap + ' ' + escEvent, close);
+                    })
+                    // Avoid to close when user clicks into the component
+                    .$container.on(pointerTap, function (event) {
+                        event.stopPropagation();
+                    });
             }
         };
     }
