@@ -48,7 +48,9 @@
 
                     that._options.cache = true;
 
+                    that.emit('_contentchange');
                     that.emit('contentdone');
+
                 }
             // Case 3: DOM element
             } else if (ch.util.is$(content)) {
@@ -57,7 +59,9 @@
 
                 that._options.cache = true;
 
+                that.emit('_contentchange');
                 that.emit('contentdone');
+
             }
 
             return that;
