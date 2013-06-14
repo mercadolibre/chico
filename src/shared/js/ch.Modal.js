@@ -112,8 +112,6 @@
         if (close === 'all' || close === 'pointers-only' || close === true) {
             // Allow only one click to analize the config every time
             $dimmer.one(ch.onpointertap, function (event) {
-                // Deny to close the widget via document touch
-                ch.util.prevent(event);
                 // Close dimmer and execute the original hide()
                 that.hide();
             });
@@ -130,6 +128,7 @@
 
         // Execute the original show()
         parent.show.call(this, content);
+
         // Return the instance
         return this;
     };

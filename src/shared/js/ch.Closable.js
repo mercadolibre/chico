@@ -85,23 +85,20 @@
              */
             if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
 
-                ch.shortcuts.add(ch.onkeyesc, that.uid, function() {that.hide(); });
+                ch.shortcuts.add(ch.onkeyesc, that.uid, function() { that.hide(); });
 
                 that.on('show', function () {
-
                     ch.shortcuts.on(that.uid);
-
                     $document.one(pointerTap, close);
-
-                });
-
-                that.on('hide', function () { ch.shortcuts.off(that.uid); });
-
+                })
+                .on('hide', function () {
+                    ch.shortcuts.off(that.uid);
+                    $document.off(pointerTap, close);
+                })
                 // Avoid to close when user clicks into the component
-                that.$container.on(pointerTap, function (event) {
+                .$container.on(pointerTap, function (event) {
                     event.stopPropagation();
                 });
-
             }
         };
     }
