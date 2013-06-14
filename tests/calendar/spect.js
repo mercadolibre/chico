@@ -3,12 +3,12 @@ function addZero(num) {
 }
 
 var calendar1 = $("#calendar-1").calendar(),
-    showEvent = jasmine.createSpy('showEvent'),
-    hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
     selectEvent = jasmine.createSpy('selectEvent'),
-    nextEvent = jasmine.createSpy('nextEvent'),
-    prevEvent = jasmine.createSpy('prevEvent'),
+    nextmonthEvent = jasmine.createSpy('nextmonthEvent'),
+    prevmonthEvent = jasmine.createSpy('prevmonthEvent'),
+    nextyearEvent = jasmine.createSpy('nextYearEvent'),
+    prevyearEvent = jasmine.createSpy('prevYearEvent'),
     DATE = (function(){
         var date = new Date(),
             TODAY =  {
@@ -29,7 +29,11 @@ var calendar1 = $("#calendar-1").calendar(),
 describe('Calendar', function () {
     calendar1
         .on('ready', function () { readyEvent(); })
-        .on('select', function () { selectEvent(); });
+        .on('select', function () { selectEvent(); })
+        .on('nextmonth', function () { nextmonthEvent(); })
+        .on('prevmonth', function () { prevmonthEvent(); })
+        .on('nextyear', function () { nextyearEvent(); })
+        .on('prevyear', function () { prevyearEvent(); });
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Calendar')).toBeTruthy();
@@ -91,7 +95,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['init', 'destroy', 'from', 'to', 'next', 'prev', 'select', 'today', 'enable', 'disable'],
+    var methods = ['init', 'destroy', 'setFrom', 'setTo', 'nextMonth', 'nextYear', 'prevMonth', 'prevYear', 'select', 'getToday', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 
@@ -207,67 +211,119 @@ describe('It should have an element/container and', function () {
 });
 
 describe('Its select() method', function () {
+    it('should return "undefined" when it hasn\'t got a date selected', function () {
+        expect(calendar1.select()).not.toBeDefined();
+    });
+
+    it('should set a date as calendar.select(\'yyyy/mm/dd\')', function () {
+        calendar1.select(DATE.FORMAT['yyyymmdd']);
+        expect(calendar1.select()).toEqual(DATE.FORMAT['ddmmyyyy']);
+    });
 
     it('should emit the "select" event', function () {
         calendar1.select();
         expect(selectEvent).toHaveBeenCalled();
     });
-
-    it('should return "undefined" when it hasn\'t got a date selected', function () {
-        expect(calendar1.select()).not.toBeDefined();
-    });
-
-    it('should set a date as calendar.select(\'2013/01/07\')', function () {
-        calendar1.select(DATE.FORMAT['yyyymmdd']);
-        expect(calendar1.select()).toEqual(DATE.FORMAT['ddmmyyyy']);
-    });
 });
 
-describe('Its next() method', function(){
-    var current = calendar1.$el.find('caption').text(),
-        next;
+describe('Its nextMonth() method', function(){
+    var instance;
 
     it('should show the next month', function () {
-        calendar1.next('month');
+        var month = calendar1._dates.current.month,
+            next;
 
-        next = calendar1.$el.find('caption').text();
-        expect(current).not.toEqual(next);
+        instance = calendar1.nextMonth();
+        next = calendar1._dates.current.month;
+
+        expect(month + 1).toEqual(next);
     });
 
-    it('should show the next year', function () {
+    it('should emit the "nextmonth" event', function () {
+        expect(nextmonthEvent).toHaveBeenCalled();
+    });
 
-        calendar1.next('year');
-
-        next = calendar1.$el.find('caption').text();
-        expect(current).not.toEqual(next);
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
     });
 });
 
-describe('Its prev() method', function(){
-    var current = calendar1.$el.find('caption').text(),
-        prev;
+describe('Its prevMonth() method', function(){
+    var instance;
 
     it('should show the previous month', function () {
-        calendar1.prev('month');
+        var month = calendar1._dates.current.month,
+            prev;
 
-        prev = calendar1.$el.find('caption').text();
-        expect(current).not.toEqual(prev);
+        instance = calendar1.prevMonth();
+        prev = calendar1._dates.current.month;
+
+        expect(month - 1).toEqual(prev);
     });
 
-    it('should show the previous year', function () {
-        calendar1.prev('year');
+    it('should emit the "prevmonth" event', function () {
+        expect(prevmonthEvent).toHaveBeenCalled();
+    });
 
-        prev = calendar1.$el.find('caption').text();
-        expect(current).toEqual(prev);
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
     });
 });
 
-describe('Its from() method', function () {
-    it('should do dates unselectable with class "ch-calendar-disabled"', function () {
-        calendar1.select('today');
-        calendar1.from(DATE.FORMAT['yyyymmdd']);
-        // This test fails because the is not refreshing the table after the from method is executed
+describe('Its nextYear() method', function(){
+    var instance;
 
+    it('should show the next year', function () {
+        var current = calendar1._dates.current.year,
+            next;
+
+        instance = calendar1.nextYear();
+        next = calendar1._dates.current.year;
+
+        expect(current + 1).toEqual(next);
+    });
+
+    it('should emit the "nextyear" event', function () {
+        expect(nextyearEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
+    });
+});
+
+describe('Its prevYear() method', function(){
+    var instance;
+
+    it('should show the previous month', function () {
+        var current = calendar1._dates.current.year,
+            prev;
+
+        instance = calendar1.prevYear();
+        prev = calendar1._dates.current.year;
+
+        expect(current - 1).toEqual(prev);
+    });
+
+    it('should emit the "prevyear" event', function () {
+        expect(prevyearEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
+    });
+});
+
+describe('Its setFrom() method', function () {
+    var instance;
+
+    it('should do dates unselectable with class "ch-calendar-disabled"', function () {
+
+        calendar1.select('today');
+
+        instance = calendar1.setFrom(DATE.FORMAT['yyyymmdd']);
+
+        // This test fails because the is not refreshing the table after the from method is executed
         var days = calendar1.$el.find('tbody td');
 
         days.each(function (i, day) {
@@ -280,19 +336,31 @@ describe('Its from() method', function () {
         });
     });
 
-    it('should throw an error when date is set as a invalid format calendar.from(\'22/10/2012\').', function () {
+    it('should remove the "from" date if receive \'reset\' as parameter', function () {
+        calendar1.setFrom('reset');
+        expect(calendar1._hasPrevMonth()).toBeTruthy();
+    });
+
+    it('should throw an error when date is set as a invalid format calendar.from(\'DD/MM/YYYY\').', function () {
         expect(function(){ calendar4.from('20/10/2012'); }).toThrow();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
     });
 });
 
-describe('Its to() method', function(){
+describe('Its setTo() method', function(){
+    var instance;
+
     it('should do dates unselectable with class "ch-calendar-disabled".', function () {
 
         // select the day of tody today
         calendar1.select('today');
 
-        calendar1.to(DATE.TODAY.year + 1 + '/' + DATE.TODAY.month + '/' + DATE.TODAY.day);
-        calendar1.next('year');
+        instance = calendar1.setTo(DATE.TODAY.year + 1 + '/' + DATE.TODAY.month + '/' + DATE.TODAY.day);
+
+        calendar1.nextYear();
         // This test fails because the is not refreshing the table after the to method is executed
 
         var days = calendar1.$el.find('tbody td');
@@ -308,13 +376,22 @@ describe('Its to() method', function(){
         });
     });
 
-    it('should throw an error when date is set as a invalid format calendar.to(\'22/10/2012\').', function () {
+    it('should remove the "to" date if receive \'reset\' as parameter', function () {
+        calendar1.setTo('reset');
+        expect(calendar1._hasNextMonth()).toBeTruthy();
+    });
+
+    it('should throw an error when date is set as a invalid format calendar.to(\'DD/MM/YYYY\').', function () {
         expect(function(){ calendar4.to('25/10/2012'); }).toThrow();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
     });
 });
 
-describe('Its today() method', function(){
+describe('Its getToday() method', function(){
     it('should return the current date in the pre configured format DD/MM/YYYY or YYYY/MM/DD', function () {
-        expect(calendar1.today()).toEqual(DATE.FORMAT.ddmmyyyy);
+        expect(calendar1.getToday()).toEqual(DATE.FORMAT.ddmmyyyy);
     });
 });

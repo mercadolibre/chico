@@ -93,35 +93,8 @@
             'MM/DD/YYYY': function (date) {
                 return [addZero(date.month), addZero(date.day), date.year].join('/');
             }
-
         },
-        /**
-         * Parse string to YYYY/MM/DD or DD/MM/YYYY format date.
-         * @private
-         * @function
-         * @name ch.Calendar#parseDate
-         * @param value {String} The date to be parsed.
-         */
-        parseDate = function (value, format) {
 
-            // Splitted string
-            value = value.split('/');
-
-            // Date to be returned
-            var result = [];
-
-            // Parse date
-            switch (format) {
-            case 'DD/MM/YYYY':
-                result.push(value[2], value[1], value[0]);
-                break;
-            case 'MM/DD/YYYY':
-                result.push(value[2], value[0], value[1]);
-                break;
-            }
-
-            return result.join('/');
-        },
         /**
          * Creates a JSON Object with reference to day, month and year, from a determinated date.
          * @private
@@ -254,8 +227,13 @@
             // Simple date selection
             if (!ch.util.isArray(selected)) {
 
-                // Return date object and update currentDate
-                selected = (selected !== 'today') ? that._dates.current = createDateObject(selected) : that._dates.today;
+                if (selected !== 'today') {
+                    // Return date object and update currentDate
+                    selected = that._dates.current = createDateObject(selected);
+
+                } else {
+                    selected = that._dates.today;
+                }
 
             // Multiple date selection
             } else {
@@ -300,9 +278,8 @@
         }());
 
         // Show or hide arrows depending on "from" and "to" limits
-
-        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { console.log(event); ch.util.prevent(event); that.prev('month'); });
-        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { console.log(event); ch.util.prevent(event); that.next('month'); });
+        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.prevMonth(); });
+        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.nextMonth(); });
 
         this.$el
             .addClass('ch-calendar')
@@ -331,6 +308,27 @@
 
     };
 
+    /**
+     * Checks if it has got a previous month to show depending on "from" limit.
+     * @private
+     * @name _hasPrevMonth
+     * @memberOf ch.Calendar#_hasPrevMonth
+     * @function
+     */
+    Calendar.prototype._hasPrevMonth = function () {
+        return this._dates.range.from === undefined || !(this._dates.range.from.month >= this._dates.current.month && this._dates.range.from.year >= this._dates.current.year);
+    };
+
+    /**
+     * Checks if it has got a next month to show depending on "to" limits.
+     * @private
+     * @name _hasNextMonth
+     * @memberOf ch.Calendar#_hasNextMonth
+     * @function
+     */
+    Calendar.prototype._hasNextMonth = function () {
+        return this._dates.range.to === undefined || !(this._dates.range.to.month <= this._dates.current.month && this._dates.range.to.year <= this._dates.current.year);
+    };
 
     /**
      * Refresh arrows visibility depending on "from" and "to" limits.
@@ -341,26 +339,22 @@
      */
     Calendar.prototype._updateControls = function () {
 
-        // "From" limit
-        if (this._dates.range.from) {
-            // Hide previous arrow when it's out of limit
-            if (this._dates.range.from.month >= this._dates.current.month && this._dates.range.from.year >= this._dates.current.year) {
-                this._$prev.addClass('ch-hide').attr('aria-hidden', 'true');
-            // Show previous arrow when it's out of limit
-            } else {
-                this._$prev.removeClass('ch-hide').attr('aria-hidden', 'false');
-            }
+        // Show previous arrow when it's out of limit
+        if (this._hasPrevMonth()) {
+            this._$prev.removeClass('ch-hide').attr('aria-hidden', 'false');
+
+        // Hide previous arrow when it's out of limit
+        } else {
+            this._$prev.addClass('ch-hide').attr('aria-hidden', 'true');
         }
 
-        // "To" limit
-        if (this._dates.range.to) {
-            // Hide next arrow when it's out of limit
-            if (this._dates.range.to.month <= this._dates.current.month && this._dates.range.to.year <= this._dates.current.year) {
-                this._$next.addClass('ch-hide').attr('aria-hidden', 'true');
-            // Show next arrow when it's out of limit
-            } else {
-                this._$next.removeClass('ch-hide').attr('aria-hidden', 'false');
-            }
+        // Show next arrow when it's out of limit
+        if (this._hasNextMonth()) {
+            this._$next.removeClass('ch-hide').attr('aria-hidden', 'false');
+
+        // Hide next arrow when it's out of limit
+        } else {
+            this._$next.addClass('ch-hide').attr('aria-hidden', 'true');
         }
 
         return this;
@@ -385,6 +379,8 @@
 
         // Refresh arrows
         this._updateControls();
+
+        return this;
     };
 
     /**
@@ -613,29 +609,6 @@
     };
 
     /**
-     * Select a specific day into current month and year.
-     * @public
-     * @since 0.10.1
-     * @name ch.Calendar#selectDay
-     * @function
-     * @param {string || number}
-     * @return {string} New selected date.
-     */
-    Calendar.prototype.selectDay = function (day) {
-
-        if (!day) {
-            throw new window.Error('ch.Calendar.selectDay(day): day parameter is required and must be a number or string.');
-        }
-
-        var date = [this._dates.current.year, this._dates.current.month, day].join('/');
-
-        this.select(date);
-
-        return FORMAT_dates[this._options.format](createDateObject(date));
-
-    };
-
-    /**
      * Returns date of today
      * @public
      * @since 0.9
@@ -643,126 +616,149 @@
      * @function
      * @return date
      */
-    Calendar.prototype.today = function () {
+    Calendar.prototype.getToday = function () {
         return FORMAT_dates[this._options.format](this._dates.today);
     };
 
     /**
-     * Move to the next month or year. If it isn't specified, it will be moved to next month.
+     * Move to the next month.
      * @public
-     * @name ch.Calendar#next
+     * @name ch.Calendar#nextMonth
      * @function
-     * @param {String} time A string that allows specify if it should move to next month or year.
      * @return itself
      * @default Next month
      */
-    Calendar.prototype.next = function (time) {
-
-        switch (time) {
-        case 'year':
-            // Create a new table of selected month
-            this._updateTemplate([this._dates.current.year + 1, this._dates.current.month, '01'].join('/'));
-
-            /**
-             * It triggers a callback when a next year is shown.
-             * @public
-             * @name ch.Calendar#nextYear
-             * @event
-             * @exampleDescription
-             * @example
-             * widget.on("nextYear",function(){
-             *   sowidget.action();
-             * });
-             */
-            this.emit('nextYear');
-            break;
-        case 'month':
-        case undefined:
-        default:
-            // Next year
-            if (this._dates.current.month === 12) {
-                this._dates.current.month = 0;
-                this._dates.current.year += 1;
-            }
-
-            // Create a new table of selected month
-            this._updateTemplate([this._dates.current.year, this._dates.current.month + 1, '01'].join('/'));
-
-            /**
-             * It triggers a callback when a next month is shown.
-             * @public
-             * @name ch.Calendar#nextMonth
-             * @event
-             * @exampleDescription
-             * @example
-             * widget.on("nextMonth",function(){
-             *   sowidget.action();
-             * });
-             */
-            this.emit('nextMonth');
-            break;
+    Calendar.prototype.nextMonth = function () {
+        if (!this._enabled || !this._hasNextMonth()) {
+            return this;
         }
+
+        // Next year
+        if (this._dates.current.month === 12) {
+            this._dates.current.month = 0;
+            this._dates.current.year += 1;
+        }
+
+        // Create a new table of selected month
+        this._updateTemplate([this._dates.current.year, this._dates.current.month + 1, '01'].join('/'));
+
+        /**
+         * It triggers a callback when a next month is shown.
+         * @public
+         * @name ch.Calendar#nextMonth
+         * @event
+         * @exampleDescription
+         * @example
+         * widget.on("nextMonth",function(){
+         *   sowidget.action();
+         * });
+         */
+        this.emit('nextmonth');
 
         return this;
     };
 
     /**
-     * Move to the previous month or year. If it isn't specified, it will be moved to previous month.
+     * Move to the previous month.
      * @public
      * @function
-     * @name ch.Calendar#prev
-     * @param {String} time A string that allows specify if it should move to previous month or year.
+     * @name ch.Calendar#prevMonth
      * @return itself
      * @default Previous month
      */
-    Calendar.prototype.prev = function (time) {
+    Calendar.prototype.prevMonth = function () {
 
-        switch (time) {
-        case 'year':
-            // Create a new table of selected month
-            this._updateTemplate([this._dates.current.year - 1, this._dates.current.month, '01'].join('/'));
-
-            /**
-             * It triggers a callback when a previous year is shown.
-             * @public
-             * @name ch.Calendar#prevYear
-             * @event
-             * @exampleDescription
-             * @example
-             * widget.on("prevYear",function(){
-             *   sowidget.action();
-             * });
-             */
-            this.emit('prevYear');
-            break;
-        case 'month':
-        case undefined:
-        default:
-
-
-            // Previous year
-            if (this._dates.current.month === 1) {
-                this._dates.current.month = 13;
-                this._dates.current.year -= 1;
-            }
-
-            // Create a new table of selected month
-            this._updateTemplate([this._dates.current.year, this._dates.current.month - 1, '01'].join('/'));
-
-            /**
-             * It triggers a callback when a previous month is shown.
-             * @public
-             * @name ch.Calendar#prevMonth
-             * @event
-             * @exampleDescription
-             * @example
-             * widget.on("prevMonth",function(){
-             *   sowidget.action();
-             * });
-             */
-            this.emit('prevMonth');
-            break;
+        if (!this._enabled || !this._hasPrevMonth()) {
+            return this;
         }
+
+        // Previous year
+        if (this._dates.current.month === 1) {
+            this._dates.current.month = 13;
+            this._dates.current.year -= 1;
+        }
+
+        // Create a new table to the prev month
+        this._updateTemplate([this._dates.current.year, this._dates.current.month - 1, '01'].join('/'));
+
+        /**
+         * It triggers a callback when a previous month is shown.
+         * @public
+         * @name ch.Calendar#prevMonth
+         * @event
+         * @exampleDescription
+         * @example
+         * widget.on("prevMonth",function(){
+         *   sowidget.action();
+         * });
+         */
+        this.emit('prevmonth');
+
+        return this;
+    };
+
+    /**
+     * Move to the next year.
+     * @public
+     * @name ch.Calendar#nextYear
+     * @function
+     * @return itself
+     * @default Next month
+     */
+    Calendar.prototype.nextYear = function () {
+
+        if (!this._enabled || !this._hasNextMonth()) {
+            return this;
+        }
+
+        // Create a new table of selected month
+        this._updateTemplate([this._dates.current.year + 1, this._dates.current.month, '01'].join('/'));
+
+        /**
+         * It triggers a callback when a next year is shown.
+         * @public
+         * @name ch.Calendar#nextYear
+         * @event
+         * @exampleDescription
+         * @example
+         * widget.on("nextYear",function(){
+         *   sowidget.action();
+         * });
+         */
+        this.emit('nextyear');
+
+        return this;
+    };
+
+    /**
+     * Move to the previous year.
+     * @public
+     * @function
+     * @name ch.Calendar#prevYear
+     * @return itself
+     * @default Previous year
+     */
+    Calendar.prototype.prevYear = function () {
+
+        if (!this._enabled || !this._hasPrevMonth()) {
+            return this;
+        }
+
+        // Create a new table to the prev year
+        this._updateTemplate([this._dates.current.year - 1, this._dates.current.month, '01'].join('/'));
+
+        /**
+         * It triggers a callback when a previous year is shown.
+         * @public
+         * @name ch.Calendar#prevYear
+         * @event
+         * @exampleDescription
+         * @example
+         * widget.on("prevYear",function(){
+         *   sowidget.action();
+         * });
+         */
+        this.emit('prevyear');
 
         return this;
     };
@@ -776,10 +772,11 @@
      * @param {string} "YYYY/MM/DD".
      * @return itself
      */
-    Calendar.prototype.from = function (date) {
+    Calendar.prototype.setFrom = function (date) {
         // this from is a reference to the global form
-        this._dates.range.from = createDateObject(date);
+        this._dates.range.from = (date === 'reset') ? undefined : createDateObject(date);
         this._updateTemplate(this._dates.current);
+
         return this;
     };
 
@@ -792,13 +789,13 @@
      * @param {string} "YYYY/MM/DD".
      * @return itself
      */
-    Calendar.prototype.to = function (date) {
+    Calendar.prototype.setTo = function (date) {
         // this to is a reference to the global to
-        this._dates.range.to = createDateObject(date);
+        this._dates.range.to = (date === 'reset') ? undefined : createDateObject(date);
         this._updateTemplate(this._dates.current);
+
         return this;
     };
-
 
     Calendar.prototype._normalizeOptions = function (options) {
         if (typeof options === 'string' || ch.util.isArray(options)) {
