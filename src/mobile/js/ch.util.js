@@ -38,7 +38,7 @@
 
         for (; labels[i]; i += 1) {
             if (labels[i].getAttribute('for')) {
-                $(labels[i]).on(ch.events.pointer.TAP, labelTap);
+                $(labels[i]).on(ch.onpointertap, labelTap);
             }
         }
     };

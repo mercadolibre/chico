@@ -133,7 +133,7 @@
             'close': this._options.close
         });
 
-        this._popover._$content.on(ch.events.pointer.TAP, function (event) {
+        this._popover._$content.on(ch.onpointertap, function (event) {
             that._pick(event.target);
         });
 

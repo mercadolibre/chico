@@ -1,8 +1,8 @@
     /**
      *
-     * @name PATH_CHANGE
+     * @name onpathchange
      * @constant
-     * @memberOf ch.events
+     * @memberOf ch
      * @type {String}
      */
-    ch.events.PATH_CHANGE = (('onpopstate' in window) ? 'popstate' : 'hashchange');
+    ch.onpathchange = (('onpopstate' in window) ? 'popstate' : 'hashchange')

@@ -1,5 +1,5 @@
 <!doctype html>
-<!--[if IE 7]>  <html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>  <html class="no-js  lt-ie10 lt-ie9 lt-ie8 ie7" lang="en"> <![endif]-->
 <!--[if IE 8]>  <html class="no-js lt-ie10 lt-ie9 ie8" lang="en"> <![endif]-->
 <!--[if IE 9]>  <html class="no-js lt-ie10 ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="es"> <!--<![endif]-->
@@ -56,15 +56,6 @@
             display: block;
             margin:0 auto;
         }
-
-        #bubble-box {
-            position: relative;
-        }
-
-        .component-list li{
-            margin-left:0;
-        }
-
     </style>
 </head>
 
@@ -363,21 +354,24 @@
         <form method="get" action="/" id="asForm" class="ch-form">
             <div class="ch-form-row">
                 <label for="autocomplete">
-                    Your country:
+                    Fill your country:
                 </label>
-                <input type="text" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
+                <input type="text" name="autocomplete1" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
+                <p class="ch-form-hint">This is configured to use HTML</p>
             </div>
             <div class="ch-form-row">
                 <label for="autocomplete2">
-                    Other callback:
+                    Fill your country:
                 </label>
-                <input type="text" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
+                <input type="text" name="autocomplete2" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
+                <p class="ch-form-hint">This is the default</p>
             </div>
             <div class="ch-form-row">
                 <label for="autocomplete3">
-                    With an array:
+                    Find on MercadoLibre:
                 </label>
-                <input type="text" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
+                <input type="text" name="autocomplete3" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
+                <p class="ch-form-hint">This is working with the MercadoLibre API</p>
             </div>
             <p class="ch-form-actions">
                 <input type="submit" name="autoCompleteSubmit" class="ch-btn">
@@ -1353,49 +1347,25 @@
         // Automatic version
         document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;
 
-        // // Autocomplete
-        // function autoComplete(data) {
-        //   autoComplete1.suggest(data);
-        // }
+        var autocomplete1 = $('.autoComplete').autoComplete({'html': true});
+            autocomplete1.$container.prepend('<p>Hi, please choose and option!</p>');
 
-        // function customComplete(data) {
-        //   data.push("Other callback");
-        //   autoComplete2.suggest(data);
-        // }
-        var suggestions = ['argentina', 'chile', 'bolivia', 'brasil', 'colombia'];
-
-        //var ac = $('.autoComplete').autoComplete({'suggestions': suggestions});
-
-
-
-        var a = $('.autoComplete').autoComplete({
-         'html': true,
-         'beforeSuggestions': $('<p>Hi, please choose and option!</p>'),
-         'afterSuggestions': $('<div><ul><li>Other options</li><li>Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>')
-        });
-
-        var b = $('.autoComplete2').autoComplete();
-
-        //var b = $('.autoComplete2').autoComplete({'suggestions': []});
-
+            autocomplete1.$container.append('<div><ul data-js="extraSuggestions"><li class="ch-autoComplete-item">Other options</li><li class="ch-autoComplete-item">Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>');
 
         var parseResults = function (results) {
-
-         var data = results.slice(0),
+            var data = results.slice(0),
              template = [null, '<div><h3>', null, '</h3><p>Hey you! Click to select!</p><ul><li><span>This is a span!</span></li></ul></div></a>'];
 
-         data.forEach(function (e, i) {
-             template[0] =  '<a href="http://www.google.com/#output=search&q=' + e + '">'
-             template[2] = e;
-             data[i] = template.join('');
-         });
+            data.forEach(function (e, i) {
+                template[0] =  '<a href="http://www.google.com/#output=search&q=' + e + '">'
+                template[2] = e;
+                data[i] = template.join('');
+            });
 
-         a.suggest(data);
-
+            autocomplete1.suggest(data);
         }
 
-
-         a.on('typing', function (userInput) {
+        autocomplete1.on('typing', function (userInput) {
              $.ajax({
                  'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=parseResults',
                  'dataType': 'jsonp',
@@ -1405,35 +1375,45 @@
                  'jsonp': 'parseResults',
                  'crossDomain': true
              });
-         });
+        });
 
-         b.on('typing', function (userInput) {
+        var autocomplete2 = $('.autoComplete2').autoComplete();
+        autocomplete2.$container.append('<button class="ch-btn-skin ch-btn-small">Don\'t show again</button>');
+
+        autocomplete2.on('typing', function (userInput) {
+            $.ajax({
+                'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=autocomplete2.suggest',
+                'dataType': 'jsonp',
+                'cache': false,
+                'global': true,
+                'context': window,
+                'jsonp': 'autocomplete2.suggest',
+                'crossDomain': true
+            });
+        });
+
+        var autocomplete3 = $('.autoComplete3').autoComplete();
+
+        var parseMLAPIResults = function (results) {
+            var data = [];
+            results[2].suggested_queries.forEach(function (e, i) {
+                data.push(e.q);
+            });
+
+            autocomplete3.suggest(data);
+        }
+
+        autocomplete3.on('typing', function (userInput) {
              $.ajax({
-                 'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=b.suggest',
+                 'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1&callback=parseMLAPIResults',
                  'dataType': 'jsonp',
                  'cache': false,
                  'global': true,
                  'context': window,
-                 'jsonp': 'b.suggest',
+                 'jsonp': 'parseMLAPIResults',
                  'crossDomain': true
              });
-         });
-
-         //ac.setData(suggestions);
-
-        // var autoComplete1 = $(".autoComplete").autoComplete({
-        //   "url": "http://www.chico-ui.com.ar/suggest?q=",
-        //   "jsonpCallback": "autoComplete"
-        // });
-
-        // var autoComplete2 = $(".autoComplete2").autoComplete({
-        //   "url": "http://www.chico-ui.com.ar/suggest?q=",
-        //   "jsonpCallback": "customComplete"
-        // });
-
-        // var autoComplete3 = $(".autoComplete3").autoComplete({
-        //   "suggestions": ["Apple","Beer","Bear","Bee","Custom","Country","Day","Date","Empire","Future"]
-        // });
+        });
 
         // Blink
         $("#doHighlight").on("click", function () {
@@ -1475,7 +1455,7 @@
         // Dropdown
         var dropdown1 = $(".myDropdown").dropdown();
 
-        var dropdown2 = $(".myDropdownNav").dropdown({'navigation': false, 'skin': true});
+        var dropdown2 = $(".myDropdownNav").dropdown({'shortcuts': false, 'skin': true});
 
         var dropdown3 = $(".myDropdownSkin").dropdown({'skin': true});
 

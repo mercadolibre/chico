@@ -111,7 +111,7 @@
         // Add to the dimmer the ability to close the widget only if the closable config. allows
         if (close === 'all' || close === 'pointers-only' || close === true) {
             // Allow only one click to analize the config every time
-            $dimmer.one(ch.events.pointer.TAP, function (event) {
+            $dimmer.one(ch.onpointertap, function (event) {
                 // Close dimmer and execute the original hide()
                 that.hide();
             });

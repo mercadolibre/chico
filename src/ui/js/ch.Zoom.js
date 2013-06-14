@@ -60,8 +60,7 @@
     /**
      * Private members
      */
-    var parent = ch.util.inherits(Zoom, ch.Popover),
-        pointerEvents = ch.events.pointer;
+    var parent = ch.util.inherits(Zoom, ch.Popover);
 
     /**
      * Public members
@@ -95,10 +94,10 @@
             bindings = {};
 
         // Prevent to redirect to href
-        bindings[pointerEvents.TAP] = function (event) { ch.util.prevent(event); };
+        bindings[ch.onpointertap] = function (event) { ch.util.prevent(event); };
 
         // Bind move calculations
-        bindings[pointerEvents.MOVE] = function (event) { that.move(event); };
+        bindings[ch.onpointermove] = function (event) { that.move(event); };
 
         //
         this.$el.addClass('ch-zoom-trigger').on(bindings);

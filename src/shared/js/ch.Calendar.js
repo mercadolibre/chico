@@ -278,9 +278,8 @@
         }());
 
         // Show or hide arrows depending on "from" and "to" limits
-
-        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.events.pointer.TAP + '.' + this.name, function (event) { ch.util.prevent(event); that.prevMonth(); });
-        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.events.pointer.TAP + '.' + this.name, function (event) { ch.util.prevent(event); that.nextMonth(); });
+        this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.prevMonth(); });
+        this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.nextMonth(); });
 
         this.$el
             .addClass('ch-calendar')

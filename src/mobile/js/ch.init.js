@@ -13,6 +13,8 @@
     // Fix the broken iPad/iPhone form label click issue
     ch.util.fixLabels();
 
+    ch.shortcuts.init();
+
     ch.instances = instances;
 
     // Exposse private $ (Zepto) into ch.$

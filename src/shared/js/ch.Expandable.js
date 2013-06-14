@@ -131,9 +131,10 @@
          * @type {Selector}
          * @ignore
          */
+
         this.$trigger = this.$el
             .addClass(this._options._classNameTrigger)
-            .on(ch.events.pointer.TAP + '.' + this.name, function (event) {
+            .on(ch.onpointertap + '.' + this.name, function (event) {
                 ch.util.prevent(event);
                 that.show();
             });
@@ -159,10 +160,10 @@
 
         this
             .on('show', function () {
-                $document.trigger(ch.events.layout.CHANGE);
+                $document.trigger(ch.onchangelayout);
             })
             .on('hide', function () {
-                $document.trigger(ch.events.layout.CHANGE);
+                $document.trigger(ch.onchangelayout);
             });
 
         ch.util.avoidTextSelection(this.$trigger);
