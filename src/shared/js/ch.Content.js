@@ -133,6 +133,8 @@
 
             that._$content.html(event.response);
 
+            that.emit('_contentchange');
+
             that.emit(status, event);
         }
 

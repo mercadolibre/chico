@@ -157,13 +157,12 @@
             }
         });
 
-        this.on('contentdone', function () {
-            that.position.refresh();
-        });
-
-        this.on('hide', function () {
-            that.$container.remove(null, true);
-        });
+        this.on('_contentchange', function () {
+                that.position.refresh();
+            })
+            .on('hide', function () {
+                that.$container.remove(null, true);
+            });
 
         return this;
 
