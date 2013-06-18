@@ -144,28 +144,29 @@
             arrow,
             optionsLength = this._$navigation.length;
 
-            // Validations
-            if (!this._shown) { return; }
+        // Validations
+        if (!this._shown) { return; }
 
-            // Prevent default behaivor
-            ch.util.prevent(event);
+        // Prevent default behaivor
+        ch.util.prevent(event);
 
-            // Sets the arrow that user press
-            arrow = key.type;
+        // Sets the arrow that user press
+        arrow = key.type;
 
-            // Sets limits behaivor
-            if (this._selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
+        // Sets limits behaivor
+        if (this._selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
 
-            // Unselects current option
-            if (this._selected !== -1) {
-                this._$navigation[this._selected].blur();
-            }
+        // Unselects current option
+        if (this._selected !== -1) {
+            this._$navigation[this._selected].blur();
+        }
 
-            if (arrow === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
+        if (arrow === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
 
-            // Selects new current option
-            this._$navigation[this._selected].focus();
+        // Selects new current option
+        this._$navigation[this._selected].focus();
 
+        return this;
     }
 
     Dropdown.prototype.show = function (content) {
