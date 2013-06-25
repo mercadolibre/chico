@@ -313,6 +313,21 @@
     };
 
     /**
+     * Destroys an Zoom instance.
+     * @public
+     * @function
+     * @name ch.Zoom#destroy
+     */
+    Zoom.prototype.destroy = function () {
+
+        this._$seeker.remove();
+
+        this._$loading.remove();
+
+        parent.destroy.call(this);
+    };
+
+    /**
      * Factory
      */
     ch.factory(Zoom, parent._normalizeOptions);

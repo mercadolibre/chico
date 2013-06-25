@@ -104,16 +104,11 @@
         that.$container = $('<p class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>').appendTo($container);
 
         // Bind process function to element
-        that.$trigger.on('keyup keypress keydown paste cut', function () { that._count(); });
-    };
+        that.$trigger.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown', function () { that._count(); });
 
-    /**
-     *
-     *
-     */
-    Countdown.prototype.destroy = function () {
-        this.$container.remove();
-        parent.destroy.call(this);
+        this.on('disable', this._removeError);
+
+        return this;
     };
 
     /**
@@ -133,6 +128,11 @@
      * @function
      */
     Countdown.prototype._count = function () {
+
+        if (!this._enabled) {
+            return this;
+        }
+
         var that = this,
             length = that._contentLength(),
             message;
@@ -142,13 +142,9 @@
         // Limit Count alert the user
         if (length <= that._options.max) {
 
-            if (that.$trigger.hasClass('ch-validation-error')) {
-
-                that.$trigger
-                    .removeClass('ch-validation-error')
-                    .attr('aria-invalid', 'false');
-
-                that.$container.removeClass('ch-countdown-exceeded');
+            if (that._exceeded) {
+                that._exceeded = false;
+                that._removeError();
             }
 
         } else if (length > that._options.max) {
@@ -165,6 +161,8 @@
              * });
              */
             that.emit('exceeded');
+
+            that._exceeded = true;
 
             that.$trigger
                 .addClass('ch-validation-error')
@@ -184,6 +182,20 @@
 
     };
 
+     /**
+     * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
+     * @public
+     * @name ch.Countdown#_count
+     * @function
+     */
+    Countdown.prototype._removeError = function () {
+        this.$trigger
+            .removeClass('ch-validation-error')
+            .attr('aria-invalid', 'false');
+
+        this.$container.removeClass('ch-countdown-exceeded');
+    };
+
     /**
      * @borrows ch.Widget#uid as ch.Countdown#uid
      * @borrows ch.Widget#element as ch.Countdown#element
@@ -200,6 +212,21 @@
         }
 
         return options;
+    };
+
+    /**
+     * Destroys a Countdown instance.
+     * @public
+     * @function
+     * @name ch.Countdown#destroy
+     */
+    Countdown.prototype.destroy = function () {
+
+        this.$trigger.off('.countdown');
+
+        this.$container.remove();
+
+        parent.destroy.call(this);
     };
 
     /**

@@ -547,6 +547,25 @@
     }
 
     /**
+     * Destroys a Validation instance.
+     * @public
+     * @function
+     * @name ch.Validation#destroy
+     */
+    Validation.prototype.destroy = function () {
+
+        this.bubble.destroy();
+
+        this.$trigger
+            .off('.validation')
+            .removeAttr('data-side')
+            .removeAttr('data-align');
+
+        parent.destroy.call(this);
+
+    };
+
+    /**
      * Factory
      */
     ch.factory(Validation);

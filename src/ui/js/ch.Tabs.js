@@ -330,6 +330,19 @@
     };
 
     /**
+     * Destroys a Tabs instance.
+     * @public
+     * @function
+     * @name ch.Tabs#destroy
+     */
+    Tabs.prototype.destroy = function () {
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        parent.destroy.call(this);
+    };
+
+    /**
      * Factory
      */
     ch.factory(Tabs, normalizeOptions);

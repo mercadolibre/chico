@@ -890,6 +890,20 @@
         return this;
     };
 
+
+    /**
+     * Destroys a Carousel instance.
+     * @public
+     * @function
+     * @name ch.Carousel#destroy
+     */
+    Carousel.prototype.destroy = function () {
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        parent.destroy.call(this);
+    };
+
     ch.factory(Carousel);
 
 }(this, this.ch.$, this.ch));

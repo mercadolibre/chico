@@ -246,6 +246,27 @@
         return this._shown;
     };
 
+    /**
+     * Destroys an Expandable instance.
+     * @public
+     * @function
+     * @name ch.Expandable#destroy
+     */
+    Expandable.prototype.destroy = function () {
+
+        this.$trigger
+            .off('.expandable')
+            .removeClass('ch-expandable-trigger ch-expandable-ico ch-user-no-select')
+            .removeAttr('aria-controls');
+
+        this.$container
+            .off('.expandable')
+            .removeClass('ch-expandable-container ch-hide')
+            .removeAttr('aria-expanded');
+
+        parent.destroy.call(this);
+    };
+
     ch.factory(Expandable, normalizeOptions);
 
 }(this, this.ch.$, this.ch));

@@ -453,6 +453,28 @@
         return this._popover.isShown();
     };
 
+    /**
+     * Destroys an AutoComplete instance.
+     * @public
+     * @function
+     * @name ch.AutoComplete#destroy
+     */
+    AutoComplete.prototype.destroy = function () {
+
+        this._popover.destroy();
+
+        ch.shortcuts.off(this.uid);
+
+        this._$el
+            .off('.autoComplete')
+            .removeAttr('aria-autocomplete')
+            .removeAttr('autocomplete')
+            .removeAttr('aria-haspopup')
+            .removeAttr('aria-owns');
+
+        parent.destroy.call(this);
+    };
+
     ch.factory(AutoComplete);
 
 }(this, this.ch.$, this.ch));

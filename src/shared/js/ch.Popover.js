@@ -361,6 +361,31 @@
     };
 
     /**
+     * Destroys an Popover instance.
+     * @public
+     * @function
+     * @name ch.Popover#destroy
+     */
+    Popover.prototype.destroy = function () {
+
+        if (this._el !== undefined) {
+            this.$trigger
+                .off('.' + this.name)
+                .removeClass('ch-' + this.name + '-trigger')
+                .removeAttr('data-title')
+                .removeAttr('aria-owns')
+                .removeAttr('aria-haspopup')
+                .removeAttr('data-side')
+                .removeAttr('data-align')
+                .removeAttr('role')
+                .attr('alt', this._snippet.alt)
+                .attr('title', this._snippet.title);
+        }
+
+        parent.destroy.call(this);
+    };
+
+    /**
      * Factory
      */
     ch.factory(Popover, Popover.prototype._normalizeOptions);

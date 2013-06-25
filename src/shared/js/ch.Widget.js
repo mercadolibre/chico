@@ -84,23 +84,6 @@
         this._enabled = true;
 	};
 
-    /**
-     * Destroys the widget instance and remove data from the element.
-     * @public
-     * @function
-     * @name ch.Widget#destroy
-     */
-    Widget.prototype.destroy = function () {
-
-        this.disable();
-
-        if (this._el !== undefined) {
-            this._$el.removeData(this.name);
-            return this._el.parentNode.replaceChild(this._snippet, this._el);
-        }
-
-        this.emit('destroy');
-    };
 
     /**
      * Adds functionality or abilities from other classes.
@@ -169,6 +152,23 @@
         this.emit('disable');
 
         return this;
+    };
+
+    /**
+     * Destroys a widget instance and remove data from its element.
+     * @public
+     * @function
+     * @name ch.Widget#destroy
+     */
+    Widget.prototype.destroy = function () {
+
+        this.disable();
+
+        if (this._el !== undefined) {
+            this._$el.removeData(this.name);
+        }
+
+        this.emit('destroy');
     };
 
     ch.Widget = Widget;

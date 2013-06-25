@@ -335,6 +335,25 @@
     };
 
     /**
+     * Destroys a Menu instance.
+     * @public
+     * @function
+     * @name ch.Menu#destroy
+     */
+    Menu.prototype.destroy = function () {
+
+        $.each(this.fold, function (i, e) {
+            if (e.destroy !== undefined) {
+                e.destroy();
+            }
+        });
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        parent.destroy.call(this);
+    };
+
+    /**
      * Factory
      */
     ch.factory(Menu, Menu.prototype._normalizeOptions);

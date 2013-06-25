@@ -830,6 +830,19 @@
     };
 
     /**
+     * Destroys an Calendar instance.
+     * @public
+     * @function
+     * @name ch.Calendar#destroy
+     */
+    Calendar.prototype.destroy = function () {
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        parent.destroy.call(this);
+    };
+
+    /**
      * Factory
      */
     ch.factory(Calendar, Calendar.prototype._normalizeOptions);

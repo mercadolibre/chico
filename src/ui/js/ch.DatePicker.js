@@ -389,6 +389,25 @@
         createMethods(methods[len -= 1]);
     }
 
+    /**
+     * Destroys an DatePicker instance.
+     * @public
+     * @function
+     * @name ch.DatePicker#destroy
+     */
+    DatePicker.prototype.destroy = function () {
+
+        this._popover.destroy();
+
+        this.$trigger.remove();
+
+        this._$el
+            .removeClass('ch-expandable-container ch-hide')
+            .removeAttr('aria-describedby');
+
+        parent.destroy.call(this);
+    };
+
     ch.factory(DatePicker);
 
 }(this, this.ch.$, this.ch));

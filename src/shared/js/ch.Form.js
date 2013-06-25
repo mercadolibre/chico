@@ -341,6 +341,25 @@
         return this;
     };
 
+    /**
+     * Destroys a Form instance.
+     * @public
+     * @function
+     * @name ch.Form#destroy
+     */
+    Form.prototype.destroy = function () {
+
+        this.$container
+            .off('.form')
+            .removeAttr('novalidate');
+
+        $.each(this.validations, function (i, e) {
+            e.destroy();
+        });
+
+        parent.destroy.call(this);
+    };
+
     ch.factory(Form);
 
 }(this, this.ch.$, this.ch));

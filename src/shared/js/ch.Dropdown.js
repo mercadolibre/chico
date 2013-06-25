@@ -135,6 +135,8 @@
 
         this._options.content = this.$trigger.next();
 
+        this._snippetContainer = this._options.content[0].cloneNode();
+
         return this;
     };
 
@@ -198,12 +200,23 @@
     };
 
     /**
-     * Turns on keyboard arrows
-     * @protected
-     * @Object
-     * @memberOf ch.dropdown#arrowsOn
-     * @name on
+     * Destroys a Dropdown instance.
+     * @public
+     * @function
+     * @name ch.Dropdown#destroy
      */
+    Dropdown.prototype.destroy = function () {
+
+        this.$trigger
+            .off('.dropdown')
+            .removeClass('ch-dropdown-trigger ch-dropdown-trigger-skin ch-user-no-select ch-btn-skin ch-btn-small')
+            .removeAttr('aria-controls')
+            .after(this._snippetContainer);
+
+        this.$container.off('.dropdown');
+
+        parent.destroy.call(this);
+    };
 
     ch.factory(Dropdown);
 
