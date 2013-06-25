@@ -94,7 +94,7 @@
         parent.init.call(this, $el, options);
 
         //TODO: $trigger should be defined in Popover class.
-        this.$trigger = this.$el.addClass('ch-dropdown-trigger');
+        this.$trigger.addClass('ch-dropdown-trigger');
 
         ch.util.avoidTextSelection(this.$trigger);
 
@@ -114,7 +114,7 @@
          * @type {Selector}
          */
         if (this._options.shortcuts) {
-            this._$navigation = this.$el.next().find('a').attr('role', 'menuitem');
+            this._$navigation = this.$trigger.next().find('a').attr('role', 'menuitem');
 
             // Keyboard support initialize
             var selected = 0,
@@ -133,7 +133,7 @@
 
         }
 
-        this._options.content = this.$el.next();
+        this._options.content = this.$trigger.next();
 
         return this;
     };

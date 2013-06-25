@@ -132,7 +132,7 @@
          * @ignore
          */
 
-        this.$trigger = this.$el
+        this.$trigger = this._$el
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
                 ch.util.prevent(event);
@@ -145,7 +145,7 @@
          * @type {Selector}
          * @ignore
          */
-        this.$container = this._$content = (this._options.container || this.$el.next())
+        this.$container = this._$content = (this._options.container || this._$el.next())
             .addClass(this._options._classNameContainer)
             .attr('aria-expanded', this._shown);
 

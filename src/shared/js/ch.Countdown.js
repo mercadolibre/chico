@@ -84,8 +84,10 @@
 
         var that = this,
             messageID = 'ch-countdown-message-' + that.uid,
-            $container = that.$el.parent(),
+            $container = that._$el.parent(),
             message;
+
+        this.$trigger = this._$el;
 
         /**
          * Amount of free characters until full the field.
@@ -99,10 +101,19 @@
         message = ((that._remaining === 1) ? that._options.singular : that._options.plural);
 
         // Create the DOM Element when message will be shown
-        that._$message = $('<p class="ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>').appendTo($container);
+        that.$container = $('<p class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>').appendTo($container);
 
         // Bind process function to element
-        that.$el.on('keyup keypress keydown paste cut', function () { that._count(); });
+        that.$trigger.on('keyup keypress keydown paste cut', function () { that._count(); });
+    };
+
+    /**
+     *
+     *
+     */
+    Countdown.prototype.destroy = function () {
+        this.$container.remove();
+        parent.destroy.call(this);
     };
 
     /**
@@ -112,7 +123,7 @@
      * @type Number
      */
     Countdown.prototype._contentLength = function () {
-        return this.el.value.length;
+        return this._el.value.length;
     };
 
     /**
@@ -131,14 +142,13 @@
         // Limit Count alert the user
         if (length <= that._options.max) {
 
-            if (that.$el.hasClass('ch-validation-error')) {
+            if (that.$trigger.hasClass('ch-validation-error')) {
 
-                that.$el.removeClass('ch-validation-error');
+                that.$trigger
+                    .removeClass('ch-validation-error')
+                    .attr('aria-invalid', 'false');
 
-                that._$message.removeClass('ch-countdown-exceeded');
-
-                that.$el.attr('aria-invalid', 'false');
-
+                that.$container.removeClass('ch-countdown-exceeded');
             }
 
         } else if (length > that._options.max) {
@@ -156,11 +166,11 @@
              */
             that.emit('exceeded');
 
-            that.$el.addClass('ch-validation-error');
+            that.$trigger
+                .addClass('ch-validation-error')
+                .attr('aria-invalid', 'true');
 
-            that.$el.attr('aria-invalid', 'true');
-
-            that._$message.addClass('ch-countdown-exceeded');
+            that.$container.addClass('ch-countdown-exceeded');
         }
 
         // Change visible message of remaining characters
@@ -168,7 +178,7 @@
         message = (that._remaining !== 1 ? that._options.plural : that._options.singular).replace(/\#/g, that._remaining);
 
         // Update DOM text
-        that._$message.text(message);
+        that.$container.text(message);
 
         return that;
 

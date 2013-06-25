@@ -60,12 +60,12 @@
         'required': {
             'fn': function (value) {
 
-                var tag = this.$el.hasClass('ch-list-options') ? 'OPTIONS' : this.el.tagName,
+                var tag = this.$trigger.hasClass('ch-list-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
                 case 'OPTIONS':
-                    validated = this.$el.find('input:checked').length !== 0;
+                    validated = this.$trigger.find('input:checked').length !== 0;
                     break;
 
                 case 'SELECT':

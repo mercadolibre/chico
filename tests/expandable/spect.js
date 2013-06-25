@@ -57,14 +57,16 @@ describe('Expandable', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.el', function () {
-        expect(expandable1.el).not.toEqual(undefined);
-        expect(expandable1.el.nodeType).toEqual(1);
+    it('.$trigger', function () {
+        expect(expandable1.$trigger).not.toEqual(undefined);
+        expect(expandable1.$trigger[0].nodeType).toEqual(1);
+        expect(expandable1.$trigger instanceof $).toBeTruthy();
     });
 
-    it('.$el', function () {
-        expect(expandable1.$el).not.toEqual(undefined);
-        expect(expandable1.$el instanceof $).toBeTruthy();
+    it('.$container', function () {
+        expect(expandable1.$container).not.toEqual(undefined);
+        expect(expandable1.$container[0].nodeType).toEqual(1);
+        expect(expandable1.$container instanceof $).toBeTruthy();
     });
 
     it('.name', function () {
@@ -103,12 +105,6 @@ describe('It should have the following public methods:', function () {
 describe('It should have a trigger and', function () {
     var $trigger = expandable1.$trigger;
 
-    it('should exist', function () {
-        expect($trigger).not.toEqual(undefined);
-        expect($trigger[0].nodeType).toEqual(1);
-        expect($trigger instanceof $).toBeTruthy();
-    });
-
     it('should have the WAI-ARIA attribute "aria-controls"', function () {
        expect($trigger.attr('aria-controls')).toEqual(expandable1.$container[0].id);
     });
@@ -132,12 +128,6 @@ describe('It should have a trigger and', function () {
 
 describe('It should have a container and', function () {
     var $container = expandable1.$container;
-
-    it('should exist', function () {
-        expect($container).not.toEqual(undefined);
-        expect($container[0].nodeType).toEqual(1);
-        expect($container instanceof $).toBeTruthy();
-    });
 
     it('shold be hidden', function () {
         expect($container.hasClass('ch-hide')).toBeTruthy();

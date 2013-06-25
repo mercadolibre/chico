@@ -89,7 +89,7 @@
          * @name ch.Carousel#$list
          * @type jQuery Object
          */
-        this._$list = this.$el.children().addClass('ch-carousel-list');
+        this._$list = this._$el.children().addClass('ch-carousel-list');
 
         /**
          * Collection of each child of the list.
@@ -108,7 +108,7 @@
         // Use .html().appendTo() instead wrapInner() to keep the reference to the mask element
         this._$mask = $('<div class="ch-carousel-mask" role="tabpanel" style="height:' + this._$items.outerHeight() + 'px">')
             .html(this._$list)
-            .appendTo(this.$el);
+            .appendTo(this._$el);
 
         /**
          * Size of the mask. Updated in each refresh.
@@ -436,7 +436,7 @@
             );
         }
         // Append thumbnails to pagination and append this to Carousel
-        that._$pagination.html(thumbs.join('')).appendTo(that.$el);
+        that._$pagination.html(thumbs.join('')).appendTo(that._$el);
         // Avoid selection on the pagination
         ch.util.avoidTextSelection(that._$pagination);
         // Check pagination as created
@@ -651,7 +651,7 @@
         // Check arrows existency
         if (this._arrowsCreated) { return; }
         // Add arrows to DOM
-        this.$el.prepend(this._$prevArrow).append(this._$nextArrow);
+        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
         // Avoid selection on the arrows
         ch.util.avoidTextSelection(this._$prevArrow, this._$nextArrow);
         // Check arrows as created

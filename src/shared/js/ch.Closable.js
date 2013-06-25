@@ -47,9 +47,9 @@
             /**
              * Closable by leaving the widget
              */
-            if (closableType === 'mouseleave' && that.$el !== undefined) {
+            if (closableType === 'mouseleave' && that.$trigger !== undefined) {
 
-                // this.$el.on(pointerLeave, close);
+                // this.$trigger.on(pointerLeave, close);
 
                 var events = {};
 
@@ -67,7 +67,7 @@
                     that.$container.on(events);
                 }
 
-                that.$el.on(events);
+                that.$trigger.on(events);
 
                 return;
             }

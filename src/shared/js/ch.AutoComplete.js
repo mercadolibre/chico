@@ -97,13 +97,13 @@
          * @name ch.AutoComplete#_popover
          */
         this._popover = $.popover({
-            'reference': this.$el,
+            'reference': this._$el,
             'content': this._$suggestionsList,
             'side': this._options.side,
             'align': this._options.align,
             'addClass': 'ch-box-lite ch-autoComplete',
             'close': this._options.closable,
-            'width': (this.el.getBoundingClientRect().width - 22) + 'px',
+            'width': (this._el.getBoundingClientRect().width - 22) + 'px',
             'fx': this._options.fx
         });
 
@@ -136,11 +136,11 @@
          * @type String
          * @name ch.AutoComplete#_query
          */
-        this._originalQuery = this._currentQuery = this.el.value;
+        this._originalQuery = this._currentQuery = this._el.value;
 
         ch.shortcuts.add(ch.onkeybackspace, this.uid, function () {
             // hides and clear the list
-            if (that.el.value.length <= 1) {
+            if (that._el.value.length <= 1) {
                 that._$suggestionsList[0].innerHTML = '';
                 that._popover.hide();
             }
@@ -154,7 +154,7 @@
         ch.shortcuts.add(ch.onkeyesc, this.uid, function (event) {
         // back the value to the inputs previous value
             that.hide();
-            that.el.value = that._originalQuery;
+            that._el.value = that._originalQuery;
         });
 
         ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
@@ -179,7 +179,7 @@
             that._toogleSelection();
 
             if (!that._options.html) {
-                that.el.value = value;
+                that._el.value = value;
             }
 
         });
@@ -207,7 +207,7 @@
             that._toogleSelection(current);
 
             if (!that._options.html) {
-                that.el.value = value;
+                that._el.value = value;
             }
 
         });
@@ -216,8 +216,8 @@
 
             if (event.target.nodeName === 'I' && !that._options.html) {
                 ch.util.prevent(event);
-                that.el.value = that._suggestions[that._selected];
-                that.emit('typing', that.el.value);
+                that._el.value = that._suggestions[that._selected];
+                that.emit('typing', that._el.value);
                 return ;
             }
 
@@ -264,7 +264,7 @@
 
             if (that.isShown()) {
                 that.hide();
-                that.el.blur();
+                that._el.blur();
             }
 
         });
@@ -272,12 +272,12 @@
         this.on('typing', function (currentQuery) {
             if (that._enabled) {
                 that._currentQuery = currentQuery;
-                that.$el.addClass('ch-autoComplete-loading');
+                that._$el.addClass('ch-autoComplete-loading');
             }
         });
 
         // behavior binding
-        this.$el
+        this._$el
             .attr({
                 'aria-autocomplete': 'list',
                 'aria-haspopup': 'true',
@@ -286,14 +286,14 @@
             })
             .on('focus.' + this.name, function (event) {
                 if (that._enabled) {
-                    that._originalQuery = that.el.value;
+                    that._originalQuery = that._el.value;
 
-                    that.$el.on(ch.onkeyinput, function (event) {
+                    that._$el.on(ch.onkeyinput, function (event) {
                     // when the user writes
                         window.clearTimeout(that._stopTyping);
                         that._stopTyping = window.setTimeout(function () {
-                            if (that.el.value !== '') {
-                                that.emit('typing', that.el.value);
+                            if (that._el.value !== '') {
+                                that.emit('typing', that._el.value);
                             }
                         }, 400);
 
@@ -304,7 +304,7 @@
             .on('blur.' + this.name, function (event) {
                 if (that._enabled) {
                     that.hide();
-                    that.$el.off(ch.onkeyinput);
+                    that._$el.off(ch.onkeyinput);
                 }
             });
 
@@ -328,11 +328,11 @@
         ch.util.prevent(event);
 
         if (!this._options.html) {
-            this.el.value = this._suggestions[this._selected];
+            this._el.value = this._suggestions[this._selected];
         }
 
         this.emit('select', event);
-        this.el.blur();
+        this._el.blur();
 
         return this;
     };
@@ -366,16 +366,16 @@
 
         var that = this,
             items = [],
-            query = this.el.value.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1"),
+            query = this._el.value.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1"),
             matchedRegExp = new RegExp('(' + query + ')', 'ig'),
             totalItems = 0,
             $extraItems,
             extraItems = [];
 
-        this.$el.removeClass('ch-autoComplete-loading');
+        this._$el.removeClass('ch-autoComplete-loading');
 
         if (query === '') {
-            this.el.blur();
+            this._el.blur();
             return this;
         }
 
@@ -384,7 +384,7 @@
             return this;
         }
 
-        if (!this._popover.isShown() && document.activeElement === this.el) {
+        if (!this._popover.isShown() && document.activeElement === this._el) {
             this._show();
         } else {
             return this;

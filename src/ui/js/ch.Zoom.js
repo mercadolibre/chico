@@ -100,14 +100,14 @@
         bindings[ch.onpointermove] = function (event) { that.move(event); };
 
         //
-        this.$el.addClass('ch-zoom-trigger').on(bindings);
+        this.$trigger.addClass('ch-zoom-trigger').on(bindings);
 
         /**
          * Element showed before zoomed image is load. It's a transition message and its content can be configured through parameter "message".
          * @private
          * @name ch.Zoom#_$loading
          */
-        this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-big"></div><p>' + this._options.waiting + '</p></div>').appendTo(this.$el);
+        this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-big"></div><p>' + this._options.waiting + '</p></div>').appendTo(this.$trigger);
 
         /**
          * Element shown as seeker.
@@ -115,14 +115,14 @@
          * @name shape
          * @memberOf ch.Zoom#_$seeker
          */
-        this._$seeker = $('<div class="ch-zoom-seeker ch-hide">').appendTo(this.$el);
+        this._$seeker = $('<div class="ch-zoom-seeker ch-hide">').appendTo(this.$trigger);
 
         /**
          *
          * @private
          * @name ch.Zoom#_$original
          */
-        this._$original = this.$el.children().eq(0);
+        this._$original = this.$trigger.children().eq(0);
 
         //
         ch.onImagesLoads(this._$original, function () {
@@ -142,7 +142,7 @@
             that._originalHeight = this[0].height;
 
             // Anchor size (same as image)
-            that.$el.css({
+            that.$trigger.css({
                 'width': that._originalWidth,
                 'height': that._originalHeight
             });
@@ -159,7 +159,7 @@
          * @private
          * @name ch.Zoom#_$zoomed
          */
-        this._$zoomed = this._options.content = $('<img src="' + this.el.href + '" class="ch-hide">').appendTo(that.$el);
+        this._$zoomed = this._options.content = $('<img src="' + this._el.href + '" class="ch-hide">').appendTo(that.$trigger);
 
         //
         ch.onImagesLoads(this._$zoomed, function () {

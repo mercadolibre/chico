@@ -1415,14 +1415,9 @@
              });
         });
 
-        // Blink
-        $("#doHighlight").on("click", function () {
-            $("#example").blink();
-        });
-
         var calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
 
-        // // Expandable
+        // Expandable
         var expandable1 = $(".YOUR_SELECTOR_expandable").expandable();
 
         // expandable1.on('contentdone', function () {
@@ -1587,7 +1582,6 @@
             'closable': 'button-only'
         });
 
-        // $('#modal-form [type=submit]').on('click', function (e) {
         $('#modal-form').on('submit', function (e) {
             e.preventDefault();
             modalX.show('asd');
@@ -1622,11 +1616,11 @@
         });
 
         // Countdown
-        var  countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
+        var countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
 
         // Messages
         var message = (function (message, value) {
-         var messages = {
+        var messages = {
              'option': 'Choose an option.',
              'requiredCheck': 'Accept the Terms of Use.',
              'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
@@ -1653,11 +1647,11 @@
                  });
 
         $('.myForm').on('submit', function (event) {
-         console.log('Esto siempre se dispara siempre');
-         if (!form.hasError()) {
-             event.preventDefault();
-             console.log('Ademas hago otra cosa en el submit');
-         }
+            console.log('Esto siempre se dispara siempre');
+            if (!form.hasError()) {
+                event.preventDefault();
+                console.log('Ademas hago otra cosa en el submit');
+            }
         });
 
         // Validators

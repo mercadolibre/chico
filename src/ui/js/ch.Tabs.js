@@ -96,6 +96,8 @@
         */
         this._initialHash = window.location.hash.replace('#!/', '');
 
+        this.$container = this._$el;
+
         /**
          * Children tab instances associated to this controller.
          * @public
@@ -105,40 +107,41 @@
         this.tab = [];
 
         /**
-         * The component's triggers container.
+         * The component's triggers.
          * @protected
          * @name ch.Tabs#$triggers
          * @type {jQuery}
          */
-        this.$triggers = this.$el.children(':first-child');
+        this.$triggers = this.$container.children(':first-child');
 
         /**
-         * The component's container.
+         * The component's panel.
          * @protected
-         * @name ch.Tabs#$container
+         * @name ch.Tabs#$panel
          * @type {jQuery}
          */
-        this.$container = this.$el.children(':last-child');
+        this.$panel = this.$container.children(':last-child');
 
         /**
          * The tabpanel's containers.
          * @private
-         * @name ch.Tabs#_$tabsContainers
+         * @name ch.Tabs#_$tabsPanels
          * @type {jQuery}
          */
-        this._$tabsContainers = this.$container.children();
+        this._$tabsPanels = this.$panel.children();
 
         /**
          * Default behavior
          */
-        this.$el.addClass('ch-tabs');
+
+        this.$container.addClass('ch-tabs');
 
         this.$triggers
             .addClass('ch-tabs-triggers')
             .attr('role', 'tablist');
 
-        this.$container
-            .addClass('ch-tabs-container ch-box-lite')
+        this.$panel
+            .addClass('ch-tabs-panel ch-box-lite')
             .attr('role', 'presentation');
 
         // Creates children tab
@@ -164,7 +167,7 @@
             child,
             tab,
 
-            $container = this._$tabsContainers.eq(i),
+            $panel = this._$tabsPanels.eq(i),
 
             // Create Tab's options
             options = {
@@ -174,9 +177,9 @@
             };
 
         // Tab async configuration
-        if ($container[0] === undefined) {
+        if ($panel[0] === undefined) {
 
-            $container = $('<div id="' + e.href.split('#')[1] + '">').appendTo(this.$container);
+            $panel = $('<div id="' + e.href.split('#')[1] + '">').appendTo(this.$panel);
 
             options.content = e.href;
             options.waiting = this._options.waiting;
@@ -185,16 +188,16 @@
         }
 
         // Tab container configuration
-        options.container = $container;
+        options.container = $panel;
 
         // Creates new tab
         tab = new ch.Expandable($(e), options);
 
         // Creates tab's hash
-        tab._hash = tab.el.href.split('#')[1];
+        tab._hash = e.href.split('#')[1];
 
         // Add ARIA roles
-        tab.$el.attr('role', 'tab');
+        tab.$trigger.attr('role', 'tab');
         tab.$container.attr('role', 'tabpanel');
 
         // Binds show event

@@ -28,11 +28,11 @@ describe('Form', function () {
     });
 
     it('should have the "ch-form" classname', function () {
-        expect(form.$el.hasClass('ch-form')).toBeTruthy();
+        expect(form.$container.hasClass('ch-form')).toBeTruthy();
     });
 
     it('should disable HTML5 validations', function () {
-        expect(form.$el.attr('novalidate')).toEqual('novalidate');
+        expect(form.$container.attr('novalidate')).toEqual('novalidate');
     });
 
     it('should emit the "ready" event when it\'s created', function () {
@@ -52,14 +52,10 @@ describe('Form', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.el', function () {
-        expect(form.el).not.toEqual(undefined);
-        expect(form.el.nodeType).toEqual(1);
-    });
-
-    it('.$el', function () {
-        expect(form.$el).not.toEqual(undefined);
-        expect(form.$el instanceof $).toBeTruthy();
+    it('.$container', function () {
+        expect(form.$container).not.toEqual(undefined);
+        expect(form.$container[0].nodeType).toEqual(1);
+        expect(form.$container instanceof $).toBeTruthy();
     });
 
     it('.name', function () {
@@ -108,7 +104,7 @@ describe('It should have the following public methods:', function () {
 describe('When the form is submited it', function () {
     it('should run "validate" method', function () {
         spyOn(form, 'validate').andCallThrough();
-        form.$el.submit();
+        form.$container.submit();
         expect(form.validate).toHaveBeenCalled();
     });
 });
@@ -134,12 +130,12 @@ describe('Its validate() method', function () {
     });
 
     it('should set focus to the input that has got an error', function () {
-        expect(document.activeElement).toEqual(form.errors[0].$el[0]);
+        expect(document.activeElement).toEqual(form.errors[0].$trigger[0]);
     });
 
     it('should emit "success" event when it has not got errors', function () {
         $input.val('success');
-        form.$el.submit();
+        form.$container.submit();
         expect(successEvent).toHaveBeenCalled();
         form.reset();
     });

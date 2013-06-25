@@ -66,14 +66,10 @@ describe('Calendar', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.el', function () {
-        expect(calendar1.el).not.toEqual(undefined);
-        expect(calendar1.el.nodeType).toEqual(1);
-    });
-
-    it('.$el', function () {
-        expect(calendar1.$el).not.toEqual(undefined);
-        expect(calendar1.$el instanceof $).toBeTruthy();
+    it('.$container', function () {
+        expect(calendar1.$container).not.toEqual(undefined);
+        expect(calendar1.$container[0].nodeType).toEqual(1);
+        expect(calendar1.$container instanceof $).toBeTruthy();
     });
 
     it('.name', function () {
@@ -110,27 +106,21 @@ describe('It should have the following public methods:', function () {
 });
 
 describe('It should have an element/container and', function () {
-    var $el = calendar1.$el;
-
-    it('should exist', function () {
-        expect($el).not.toEqual(undefined);
-        expect($el[0].nodeType).toEqual(1);
-        expect($el instanceof $).toBeTruthy();
-    });
+    var $container = calendar1.$container;
 
     describe('should have the following class names:', function () {
 
         it('.ch-calenaar', function () {
-            expect($el.hasClass('ch-calendar')).toBeTruthy();
+            expect($container.hasClass('ch-calendar')).toBeTruthy();
         });
 
         it('.ch-user-no-select', function () {
-            expect($el.hasClass('ch-user-no-select')).toBeTruthy();
+            expect($container.hasClass('ch-user-no-select')).toBeTruthy();
         });
     });
 
     describe('should have got a next button', function () {
-        var $month = $el.find('.ch-calendar-next');
+        var $month = $container.find('.ch-calendar-next');
 
         it('it should have got the ".ch-calendar-next" class name', function () {
             expect($month.length).toEqual(1);
@@ -150,7 +140,7 @@ describe('It should have an element/container and', function () {
     });
 
     describe('should have got a prev button', function () {
-        var $month = $el.find('.ch-calendar-prev');
+        var $month = $container.find('.ch-calendar-prev');
 
         it('it should have got the ".ch-calendar-prev" class name', function () {
             expect($month.length).toEqual(1);
@@ -171,7 +161,7 @@ describe('It should have an element/container and', function () {
 
     describe('should have got a calendar table', function () {
 
-        var $table = $el.find('.ch-calendar-month');
+        var $table = $container.find('.ch-calendar-month');
 
         it('it should have got the ".ch-calendar-prev" class name', function () {
             expect($table.length).toEqual(1);
@@ -189,7 +179,7 @@ describe('It should have an element/container and', function () {
         });
 
         it('it should have got the days', function () {
-            var days = $el.find('tbody td');
+            var days = $container.find('tbody td');
             days.each(function(i, day){
                 var $day = $(day);
                 var dayNum = parseInt($day.text());
@@ -201,7 +191,7 @@ describe('It should have an element/container and', function () {
 
         it('it should have got the day of today', function () {
             var date = new Date(),
-                $todayElement = $('.ch-calendar-today', $el);
+                $todayElement = $('.ch-calendar-today', $container);
             expect($todayElement.length ).toEqual(1);
             expect(parseInt($todayElement.text())).toEqual(date.getDate());
         });
@@ -324,7 +314,7 @@ describe('Its setFrom() method', function () {
         instance = calendar1.setFrom(DATE.FORMAT['yyyymmdd']);
 
         // This test fails because the is not refreshing the table after the from method is executed
-        var days = calendar1.$el.find('tbody td');
+        var days = calendar1.$container.find('tbody td');
 
         days.each(function (i, day) {
             var $day = $(day),
@@ -363,7 +353,7 @@ describe('Its setTo() method', function(){
         calendar1.nextYear();
         // This test fails because the is not refreshing the table after the to method is executed
 
-        var days = calendar1.$el.find('tbody td');
+        var days = calendar1.$container.find('tbody td');
 
         days.each(function(i, day){
             var $day = $(day),

@@ -49,10 +49,11 @@
                 this._options = defaults;
 
             } else if (util.is$($el)) {
-                this.$el = $el;
-                this.el = $el[0];
+                this._$el = $el;
+                this._el = $el[0];
+
                 // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
-                this._snippet = this.el.cloneNode(true);
+                this._snippet = this._el.cloneNode(true);
                 this._options = defaults;
 
             } else if (typeof $el === 'object') {
@@ -66,9 +67,11 @@
                 this._options = $.extend(defaults, options);
 
             } else if (util.is$($el)) {
-                this.$el = $el;
-                this.el = $el[0];
-                this._snippet = this.el.cloneNode(true);
+                this._$el = $el;
+                this._el = $el[0];
+
+                // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+                this._snippet = this._el.cloneNode(true);
                 this._options = $.extend(defaults, options);
             }
 
@@ -78,12 +81,7 @@
 
         this.uid = (uid += 1);
 
-
         this._enabled = true;
-
-        // Gets or creates the klass's instances map
-        ch.instances[this.name] = ch.instances[this.name] || {};
-        ch.instances[this.name][this.uid] = this;
 	};
 
     /**
@@ -94,9 +92,14 @@
      */
     Widget.prototype.destroy = function () {
 
-        this.$el.removeData(this.name);
+        this.disable();
 
-        delete ch.instances[this.name][this.uid];
+        if (this._el !== undefined) {
+            this._$el.removeData(this.name);
+            return this._el.parentNode.replaceChild(this._snippet, this._el);
+        }
+
+        this.emit('destroy');
     };
 
     /**
