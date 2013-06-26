@@ -797,7 +797,7 @@
      */
     Calendar.prototype.setFrom = function (date) {
         // this from is a reference to the global form
-        this._dates.range.from = (date === 'reset') ? undefined : createDateObject(date);
+        this._dates.range.from = (date === 'auto') ? undefined : createDateObject(date);
         this._updateTemplate(this._dates.current);
 
         return this;
@@ -814,7 +814,7 @@
      */
     Calendar.prototype.setTo = function (date) {
         // this to is a reference to the global to
-        this._dates.range.to = (date === 'reset') ? undefined : createDateObject(date);
+        this._dates.range.to = (date === 'auto') ? undefined : createDateObject(date);
         this._updateTemplate(this._dates.current);
 
         return this;
@@ -838,6 +838,8 @@
     Calendar.prototype.destroy = function () {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        $(window.document).trigger(ch.onchangelayout);
 
         parent.destroy.call(this);
     };

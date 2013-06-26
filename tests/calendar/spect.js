@@ -9,6 +9,8 @@ var calendar1 = $("#calendar-1").calendar(),
     prevmonthEvent = jasmine.createSpy('prevmonthEvent'),
     nextyearEvent = jasmine.createSpy('nextYearEvent'),
     prevyearEvent = jasmine.createSpy('prevYearEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
     DATE = (function(){
         var date = new Date(),
             TODAY =  {
@@ -26,6 +28,8 @@ var calendar1 = $("#calendar-1").calendar(),
         }
     })();
 
+$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+
 describe('Calendar', function () {
     calendar1
         .on('ready', function () { readyEvent(); })
@@ -33,7 +37,8 @@ describe('Calendar', function () {
         .on('nextmonth', function () { nextmonthEvent(); })
         .on('prevmonth', function () { prevmonthEvent(); })
         .on('nextyear', function () { nextyearEvent(); })
-        .on('prevyear', function () { prevyearEvent(); });
+        .on('prevyear', function () { prevyearEvent(); })
+        .on('destroy', function () { destroyEvent(); });
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Calendar')).toBeTruthy();
@@ -326,8 +331,8 @@ describe('Its setFrom() method', function () {
         });
     });
 
-    it('should remove the "from" date if receive \'reset\' as parameter', function () {
-        calendar1.setFrom('reset');
+    it('should remove the "from" date if receive \'auto\' as parameter', function () {
+        calendar1.setFrom('auto');
         expect(calendar1._hasPrevMonth()).toBeTruthy();
     });
 
@@ -366,8 +371,8 @@ describe('Its setTo() method', function(){
         });
     });
 
-    it('should remove the "to" date if receive \'reset\' as parameter', function () {
-        calendar1.setTo('reset');
+    it('should remove the "to" date if receive \'auto\' as parameter', function () {
+        calendar1.setTo('auto');
         expect(calendar1._hasNextMonth()).toBeTruthy();
     });
 
@@ -383,5 +388,21 @@ describe('Its setTo() method', function(){
 describe('Its getToday() method', function(){
     it('should return the current date in the pre configured format DD/MM/YYYY or YYYY/MM/DD', function () {
         expect(calendar1.getToday()).toEqual(DATE.FORMAT.ddmmyyyy);
+    });
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $container by the original snippet', function () {
+        calendar1.destroy();
+        expect(calendar1.$container.parent().length === 0).toBeTruthy();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(calendar1._$el.data('calendar')).toBeUndefined();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
     });
 });

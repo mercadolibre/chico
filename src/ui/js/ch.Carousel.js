@@ -901,6 +901,8 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
+        $(window.document).trigger(ch.onchangelayout);
+
         parent.destroy.call(this);
     };
 

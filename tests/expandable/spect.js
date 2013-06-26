@@ -2,13 +2,18 @@ var expandable1 = $("#expandable-1").expandable(),
     showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
     expandable2 = $("#expandable-2").expandable({
         'container': $('#container-2')
     }),
     expandable3 = $("#expandable-3").expandable({
-        'shown': true,
-        'toggle': false
-    });
+            'shown': true,
+            'toggle': false
+        })
+        .on('destroy', destroyEvent);
+
+$(window.document).on(ch.onchangelayout, changeLayoutEvent);
 
 describe('Expandable', function () {
     expandable1
@@ -273,5 +278,36 @@ describe('Instance an Expandable configured', function () {
 
         expandable3.hide();
         expect(expandable3.$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+    });
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $trigger', function () {
+        expandable3.destroy();
+        expect(expandable3.$trigger.hasClass('ch-expandable-trigger ch-expandable-ico ch-user-no-select')).toBeFalsy();
+        expect(expandable3.$trigger.attr('aria-controls')).toBeUndefined();
+    });
+
+    it('should reset the $container', function () {
+        expect(expandable3.$container.hasClass('ch-expandable-container')).toBeFalsy();
+        expect(expandable3.$container.attr('aria-expanded')).toBeUndefined();
+        expect(expandable3.$container.attr('aria-hidden')).toBeUndefined();
+    });
+
+    it('should remove ".expandable" events', function () {
+        expect($._data(expandable3.$trigger[0], 'events')).toBeUndefined();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(expandable3._$el.data('expandable')).toBeUndefined();
+    });
+
+    it('should emit the "changeLayout" event', function () {
+        expect(changeLayoutEvent).toHaveBeenCalled();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
     });
 });

@@ -260,9 +260,11 @@
             .removeAttr('aria-controls');
 
         this.$container
-            .off('.expandable')
             .removeClass('ch-expandable-container ch-hide')
-            .removeAttr('aria-expanded');
+            .removeAttr('aria-expanded')
+            .removeAttr('aria-hidden');
+
+        $document.trigger(ch.onchangelayout);
 
         parent.destroy.call(this);
     };

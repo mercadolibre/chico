@@ -215,6 +215,8 @@
 
         this.$container.off('.dropdown');
 
+        $document.trigger(ch.onchangelayout);
+
         parent.destroy.call(this);
     };
 

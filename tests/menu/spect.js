@@ -2,13 +2,19 @@ var menu1 = $("#menu-1").menu({'fx': false}),
     readyEvent = jasmine.createSpy('readyEvent'),
     showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
     $container = menu1.$container,
     $children = menu1.$container.children(),
     $expandable = menu1.fold[0],
     $bellows = menu1.$container.children(':last-child');
 
+$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+
 describe('Menu', function () {
-    menu1.on('ready', function () { readyEvent(); })
+    menu1
+        .on('ready', function () { readyEvent(); })
+        .on('destroy', function () { destroyEvent(); });
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Menu')).toBeTruthy();
@@ -157,5 +163,25 @@ describe('Its hide() method', function () {
 describe('An instance by default', function () {
     it('should has its containers hidden', function () {
         expect($children.eq(0).children(':last-child').hasClass('ch-hide')).toBeTruthy();
+    });
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $container', function () {
+        menu1.destroy();
+        expect(menu1.$container.parent().length === 0).toBeTruthy();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(menu1._$el.data('menu')).toBeUndefined();
+    });
+
+    it('should emit the "changeLayout" event', function () {
+        expect(changeLayoutEvent).toHaveBeenCalled();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
     });
 });

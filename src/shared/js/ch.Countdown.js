@@ -226,6 +226,8 @@
 
         this.$container.remove();
 
+        $(window.document).trigger(ch.onchangelayout);
+
         parent.destroy.call(this);
     };
 

@@ -5,12 +5,14 @@ var form = $('#form-test').form(),
     errorEvent = jasmine.createSpy('errorEvent'),
     clearEvent = jasmine.createSpy('clearEvent'),
     resetEvent = jasmine.createSpy('resetEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
     validation = $('#input_user').required('This field is required.'),
     $input = $('#input_user');
 
 describe('Form', function () {
     form
-        .on('ready', function () { readyEvent(); })
+        .on('ready', readyEvent)
+        .on('destroy', destroyEvent)
         .on('success', function (e) { e.preventDefault(); });
 
     it('should be defined on ch object', function () {
@@ -212,4 +214,28 @@ describe('Its enable() method', function () {
 
     form.reset();
 
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $container', function () {
+        form.destroy();
+        expect(form.$container.attr('novalidate')).toBeUndefined();
+    });
+
+    it('should remove ".form" events', function () {
+        expect($._data(form.$container[0], 'events')).toBeUndefined();
+    });
+
+    it('should destroy its validations', function () {
+        expect(form.validations[0]._enabled).toBeFalsy();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(form._$el.data('form')).toBeUndefined();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
 });

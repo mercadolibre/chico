@@ -12,12 +12,15 @@ var validation1 = $('#input_user').validation({
           ]
     }),
     readyEvent = jasmine.createSpy('readyEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
     successEvent = jasmine.createSpy('successEvent'),
     errorEvent = jasmine.createSpy('errorEvent'),
     clearEvent = jasmine.createSpy('clearEvent');
 
 describe('Validation', function () {
-    validation1.once('ready', readyEvent);
+    validation1
+        .once('ready', readyEvent)
+        .once('destroy', destroyEvent);
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Validation')).toBeTruthy();
@@ -286,4 +289,26 @@ describe('Its enable() method', function () {
         expect(instance).toEqual(validation1);
     });
 
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $trigger', function () {
+        validation1.destroy();
+        expect($._data(validation1.$trigger[0], 'events')).toBeUndefined();
+        expect(validation1.$trigger.attr('data-side')).toBeUndefined();
+        expect(validation1.$trigger.attr('data-align')).toBeUndefined();
+    });
+
+    it('should remove ".validation" events', function () {
+        expect($._data(validation1.$trigger[0], 'events')).toBeUndefined();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(validation1._$el.data('validation')).toBeUndefined();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
 });

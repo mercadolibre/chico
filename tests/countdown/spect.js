@@ -1,9 +1,19 @@
 var countdown = $('#input_user').countdown(),
     countdown2 = $('#input_location').countdown(10),
-    readyEvent = jasmine.createSpy('readyEvent');
+    readyEvent = jasmine.createSpy('readyEvent'),
+    exceededEvent = jasmine.createSpy('exceededEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent');
+
+$(window.document).on(ch.onchangelayout, changeLayoutEvent);
 
 describe('Countdown', function () {
-    countdown.once('ready', readyEvent);
+    countdown
+        .once('ready', readyEvent);
+
+    countdown2
+        .on('exceeded', exceededEvent)
+        .on('destroy', destroyEvent);
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Countdown')).toBeTruthy();
@@ -28,7 +38,6 @@ describe('Countdown', function () {
 });
 
 describe('It should have the following public properties:', function () {
-
 
     it('.$trigger', function () {
         expect(countdown.$trigger).not.toEqual(undefined);
@@ -119,9 +128,13 @@ describe('It should update the number on the message', function () {
             expect($container.text()).toEqual('-10 characters left.');
             expect($container.hasClass('ch-countdown-exceeded')).toBeTruthy();
             expect(countdown2.$trigger.hasClass('ch-validation-error')).toBeTruthy();
-
         });
     });
+
+    it('and should emit the \'exceeded\' event', function () {
+        expect(exceededEvent).toHaveBeenCalled();
+    });
+
 
     it('if doesn\'t exceed the number should update the number to 0', function () {
         countdown2.$trigger.attr('value', '1234567890').keyup();
@@ -131,4 +144,28 @@ describe('It should update the number on the message', function () {
         });
     });
 
+});
+
+describe('Its destroy() method', function () {
+
+    it('should remove the $container', function () {
+        countdown2.destroy();
+        expect(countdown2.$container.parent().length === 0).toBeTruthy();
+    });
+
+    it('should remove ".countdown" events', function () {
+        expect($._data(countdown2.$trigger[0], 'events')).toBeUndefined();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(countdown2._$el.data('countdown')).toBeUndefined();
+    });
+
+    it('should emit the "changeLayout" event', function () {
+        expect(changeLayoutEvent).toHaveBeenCalled();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
 });
