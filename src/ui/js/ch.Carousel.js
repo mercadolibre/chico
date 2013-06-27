@@ -83,6 +83,9 @@
 
         var that = this;
 
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
+
         /**
          * Element that moves across component (inside the mask).
          * @private

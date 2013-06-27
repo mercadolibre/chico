@@ -135,7 +135,8 @@
 
         this._options.content = this.$trigger.next();
 
-        this._snippetContainer = this._options.content[0].cloneNode();
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._options.content[0].cloneNode();
 
         return this;
     };
@@ -211,7 +212,7 @@
             .off('.dropdown')
             .removeClass('ch-dropdown-trigger ch-dropdown-trigger-skin ch-user-no-select ch-btn-skin ch-btn-small')
             .removeAttr('aria-controls')
-            .after(this._snippetContainer);
+            .after(this._snippet);
 
         this.$container.off('.dropdown');
 

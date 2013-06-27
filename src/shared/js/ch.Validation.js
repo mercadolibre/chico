@@ -554,12 +554,12 @@
      */
     Validation.prototype.destroy = function () {
 
-        this.bubble.destroy();
-
         this.$trigger
             .off('.validation')
             .removeAttr('data-side')
             .removeAttr('data-align');
+
+        this.bubble.destroy();
 
         parent.destroy.call(this);
 

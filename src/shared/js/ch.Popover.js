@@ -131,7 +131,9 @@
         /**
          * Trigger: Add functionality to the trigger if it exists
          */
-        if (this._el !== undefined) { this._configureTrigger(); }
+        if (this._el !== undefined) {
+            this._configureTrigger();
+        }
 
         /**
          * Configure abilities
@@ -178,15 +180,6 @@
         return this;
     };
 
-    /**
-     *
-     *
-     */
-    Popover.prototype.destroy = function () {
-
-        $document.off(ch.onchangelayout, this._refreshPosition);
-        parent.destroy.call(this);
-    };
 
     /**
      *
@@ -195,6 +188,9 @@
     Popover.prototype._configureTrigger = function () {
 
         var that = this;
+
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
 
         // Use the trigger as the positioning reference
         this._options.reference = this._options.reference || this._$el;
@@ -368,7 +364,7 @@
      */
     Popover.prototype.destroy = function () {
 
-        if (this._el !== undefined) {
+        if (this.$trigger !== undefined) {
             this.$trigger
                 .off('.' + this.name)
                 .removeClass('ch-' + this.name + '-trigger')

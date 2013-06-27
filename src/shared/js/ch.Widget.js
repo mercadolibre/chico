@@ -51,9 +51,6 @@
             } else if (util.is$($el)) {
                 this._$el = $el;
                 this._el = $el[0];
-
-                // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
-                this._snippet = this._el.cloneNode(true);
                 this._options = defaults;
 
             } else if (typeof $el === 'object') {
@@ -69,9 +66,6 @@
             } else if (util.is$($el)) {
                 this._$el = $el;
                 this._el = $el[0];
-
-                // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
-                this._snippet = this._el.cloneNode(true);
                 this._options = $.extend(defaults, options);
             }
 

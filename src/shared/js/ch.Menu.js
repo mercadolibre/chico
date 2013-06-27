@@ -135,6 +135,9 @@
      * Protected Members
      */
 
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
+
         this.$container = this._$el
             .attr('role', 'navigation')
             .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
