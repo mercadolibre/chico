@@ -122,17 +122,18 @@
         /**
          * Default behavior
          */
-        that.$el
+        that.$container = that._$el
             // Add classname
             .addClass('ch-form')
             // Disable HTML5 browser-native validations
             .attr('novalidate', 'novalidate')
             // Bind the submit
             .on('submit.form', function (event) {
-
                 // Runs validations
                 that.validate(event);
-            })
+            });
+
+        that.$container
             // Bind the reset
             .find('input[type="reset"]').on(ch.onpointertap + '.form', function (event) {
                 ch.util.prevent(event);
@@ -164,7 +165,8 @@
             i = 0,
             j = that.validations.length,
             validation,
-            firstError;
+            firstError,
+            triggerError;
 
         this.errors.length = 0;
 
@@ -189,12 +191,14 @@
 
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error
-            if (firstError.el.tagName === 'DIV') {
-                firstError.$el.find('input:first').focus();
+            triggerError = firstError.$trigger[0];
+
+            if (triggerError.tagName === 'DIV') {
+                firstError.$trigger.find('input:first').focus();
             }
 
-            if (firstError.el.type !== 'hidden' || firstError.el.tagName === 'SELECT') {
-                firstError.el.focus();
+            if (triggerError.type !== 'hidden' || triggerError.tagName === 'SELECT') {
+                triggerError.focus();
             }
 
             ch.util.prevent(event);
@@ -319,7 +323,7 @@
         this.clear();
 
         // Executes the native reset() method
-        this.el.reset();
+        this._el.reset();
 
         /**
          * Fired when resets the form.
@@ -335,6 +339,25 @@
         this.emit('reset');
 
         return this;
+    };
+
+    /**
+     * Destroys a Form instance.
+     * @public
+     * @function
+     * @name ch.Form#destroy
+     */
+    Form.prototype.destroy = function () {
+
+        this.$container
+            .off('.form')
+            .removeAttr('novalidate');
+
+        $.each(this.validations, function (i, e) {
+            e.destroy();
+        });
+
+        parent.destroy.call(this);
     };
 
     ch.factory(Form);

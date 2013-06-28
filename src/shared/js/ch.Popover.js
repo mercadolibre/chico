@@ -131,7 +131,9 @@
         /**
          * Trigger: Add functionality to the trigger if it exists
          */
-        if (this.el !== undefined) { this._configureTrigger(); }
+        if (this._el !== undefined) {
+            this._configureTrigger();
+        }
 
         /**
          * Configure abilities
@@ -151,11 +153,22 @@
         /**
          * Bind behaviors
          */
-        $document.on(ch.onchangelayout, function () {
+
+
+        /**
+         * Refresh the position of the popover if it's shown.
+         * @protected
+         * @name ch.Popover#$_refreshPosition
+         * TODO: Declare this function on prototye and use bind
+         * $document.on(ch.onchangelayout, this._refreshPosition.bind(this));
+         */
+        this._refreshPosition = function () {
             if (that._shown) {
                 that.position.refresh();
             }
-        });
+        };
+
+        $document.on(ch.onchangelayout, this._refreshPosition);
 
         this.on('_contentchange', function () {
                 that.position.refresh();
@@ -165,8 +178,8 @@
             });
 
         return this;
-
     };
+
 
     /**
      *
@@ -176,12 +189,15 @@
 
         var that = this;
 
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
+
         // Use the trigger as the positioning reference
-        this._options.reference = this._options.reference || this.$el;
+        this._options.reference = this._options.reference || this._$el;
 
         // Open event when configured as openable
         if (this._options.open !== 'none' && this._options.open !== false) {
-            this.$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
+            this._$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
                 ch.util.prevent(event);
                 that.show();
             });
@@ -190,17 +206,17 @@
         // Get a content if it's not defined
         if (this._options.content === undefined) {
             // Content from anchor href
-            if (this.el.href) {
-                this._options.content = this.el.href;
+            if (this._el.href) {
+                this._options.content = this._el.href;
 
             // Content from title or alt
-            } else if (this.el.title || this.el.alt) {
+            } else if (this._el.title || this._el.alt) {
                 // Set the configuration parameter
-                this._options.content = this.el.title || this.el.alt;
+                this._options.content = this._el.title || this._el.alt;
                 // Keep the attributes content into the element for possible usage
-                this.el.setAttribute('data-title', this._options.content);
+                this._el.setAttribute('data-title', this._options.content);
                 // Avoid to trigger the native tooltip
-                this.el.title = this.el.alt = '';
+                this._el.title = this._el.alt = '';
             }
         }
 
@@ -210,11 +226,17 @@
          * @name ch.Floats#
          * @type jQuery
          */
-        this.$trigger = this.$el.attr({
+        this.$trigger = this._$el.attr({
             'aria-owns': 'ch-' + this.name + '-' + this.uid,
             'aria-haspopup': 'true',
             'role': 'button'
         });
+    };
+
+    Popover.prototype._refreshPosition = function () {
+        if (this._shown) {
+            this.position.refresh();
+        }
     };
 
     /**
@@ -332,6 +354,31 @@
             };
         }
         return options;
+    };
+
+    /**
+     * Destroys an Popover instance.
+     * @public
+     * @function
+     * @name ch.Popover#destroy
+     */
+    Popover.prototype.destroy = function () {
+
+        if (this.$trigger !== undefined) {
+            this.$trigger
+                .off('.' + this.name)
+                .removeClass('ch-' + this.name + '-trigger')
+                .removeAttr('data-title')
+                .removeAttr('aria-owns')
+                .removeAttr('aria-haspopup')
+                .removeAttr('data-side')
+                .removeAttr('data-align')
+                .removeAttr('role')
+                .attr('alt', this._snippet.alt)
+                .attr('title', this._snippet.title);
+        }
+
+        parent.destroy.call(this);
     };
 
     /**

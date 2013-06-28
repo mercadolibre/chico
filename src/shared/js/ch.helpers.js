@@ -4,13 +4,6 @@
      */
     var ch = {},
         /**
-         * A map of all widget's instances created by Chico.
-         * @memberOf ch
-         * @type {Object}
-         */
-        instances = {},
-
-        /**
          * Reference to the window Selector Object.
          * @private
          * @type {Selector}

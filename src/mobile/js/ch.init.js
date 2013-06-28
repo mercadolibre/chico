@@ -15,7 +15,5 @@
 
     ch.shortcuts.init();
 
-    ch.instances = instances;
-
     // Exposse private $ (Zepto) into ch.$
     ch.$ = $;

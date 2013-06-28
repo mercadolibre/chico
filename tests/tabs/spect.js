@@ -1,9 +1,14 @@
 var tabs1 = $('#tabs-1').tabs(),
     readyEvent = jasmine.createSpy('readyEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
     showEvent = jasmine.createSpy('showEvent');
 
+$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+
 describe('Tabs', function () {
-    tabs1.on('ready', function () { readyEvent(); });
+    tabs1
+        .on('ready', function () { readyEvent(); })
+        .on('destroy', function () { destroyEvent(); });
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Tabs')).toBeTruthy();
@@ -29,14 +34,10 @@ describe('Tabs', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.el', function () {
-        expect(tabs1.el).not.toEqual(undefined);
-        expect(tabs1.el.nodeType).toEqual(1);
-    });
-
-    it('.$el', function () {
-        expect(tabs1.$el).not.toEqual(undefined);
-        expect(tabs1.$el instanceof $).toBeTruthy();
+    it('.$container', function () {
+        expect(tabs1.$container).not.toEqual(undefined);
+        expect(tabs1.$container[0].nodeType).toEqual(1);
+        expect(tabs1.$container instanceof $).toBeTruthy();
     });
 
     it('.name', function () {
@@ -72,16 +73,10 @@ describe('It should have the following public methods:', function () {
 });
 
 describe('It should have a wrapper and', function () {
-    var $el = tabs1.$el;
-
-    it('should exist', function () {
-        expect($el).not.toEqual(undefined);
-        expect($el[0].nodeType).toEqual(1);
-        expect($el instanceof $).toBeTruthy();
-    });
+    var $container = tabs1.$container;
 
     it('should have the ".ch-tabs" class name', function () {
-        expect($el.hasClass('ch-tabs')).toBeTruthy();
+        expect($container.hasClass('ch-tabs')).toBeTruthy();
     });
 
 });
@@ -129,21 +124,21 @@ describe('It should have a list of triggers and', function () {
 });
 
 describe('It should have a list of panels and', function () {
-    var $container = tabs1.$container,
-        $tabpanel = tabs1.$container.children(':first-child');
+    var $panel = tabs1.$panel,
+        $tabpanel = tabs1.$panel.children(':first-child');
 
     it('should exist', function () {
-        expect($container).not.toEqual(undefined);
-        expect($container[0].nodeType).toEqual(1);
-        expect($container instanceof $).toBeTruthy();
+        expect($panel).not.toEqual(undefined);
+        expect($panel[0].nodeType).toEqual(1);
+        expect($panel instanceof $).toBeTruthy();
     });
 
     it('should have the WAI-ARIA role "presentation"', function () {
-       expect($container.attr('role')).toEqual('presentation');
+       expect($panel.attr('role')).toEqual('presentation');
     });
 
-    it('should have the "ch-tabs-container" class name', function () {
-        expect($container.hasClass('ch-tabs-container')).toBeTruthy();
+    it('should have the "ch-tabs-panel" class name', function () {
+        expect($panel.hasClass('ch-tabs-panel')).toBeTruthy();
     });
 
     describe('its tabpanel', function () {
@@ -187,5 +182,25 @@ describe('Its getShown() method', function () {
         tabs1.show(1);
         expect(tabs1.getShown()).toEqual(jasmine.any(Number));
         expect(tabs1.getShown()).toEqual(1);
+    });
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $container', function () {
+        tabs1.destroy();
+        expect(tabs1.$container.parent().length === 0).toBeTruthy();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(tabs1._$el.data('tabs')).toBeUndefined();
+    });
+
+    it('should emit the "changeLayout" event', function () {
+        expect(changeLayoutEvent).toHaveBeenCalled();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
     });
 });

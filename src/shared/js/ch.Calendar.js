@@ -195,6 +195,8 @@
 
         var that = this;
 
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
 
         /**
          * Object to mange the date and its ranges.
@@ -281,7 +283,7 @@
         this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.prevMonth(); });
         this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.nextMonth(); });
 
-        this.$el
+        this.$container = this._$el
             .addClass('ch-calendar')
             .prepend(this._$prev)
             .prepend(this._$next)
@@ -290,7 +292,7 @@
         this._updateControls();
 
         // Avoid selection on the component
-        ch.util.avoidTextSelection(that.$el);
+        ch.util.avoidTextSelection(that.$container);
 
         /**
          * Triggers when the component is ready to use (Since 0.8.0).
@@ -372,10 +374,10 @@
         this._dates.current = (typeof date === 'string') ? createDateObject(date) : date;
 
         // Delete old table
-        this.$el.children('table').remove();
+        this.$container.children('table').remove();
 
         // Append new table to content
-        this.$el.append(this._createTemplate(this._dates.current));
+        this.$container.append(this._createTemplate(this._dates.current));
 
         // Refresh arrows
         this._updateControls();
@@ -609,6 +611,29 @@
     };
 
     /**
+     * Select a specific day into current month and year.
+     * @public
+     * @since 0.10.1
+     * @name ch.Calendar#selectDay
+     * @function
+     * @param {string || number}
+     * @return {string} New selected date.
+     */
+    Calendar.prototype.selectDay = function (day) {
+
+        if (!day) {
+            throw new window.Error('ch.Calendar.selectDay(day): day parameter is required and must be a number or string.');
+        }
+
+        var date = [this._dates.current.year, this._dates.current.month, day].join('/');
+
+        this.select(date);
+
+        return FORMAT_dates[this._options.format](createDateObject(date));
+
+    };
+
+    /**
      * Returns date of today
      * @public
      * @since 0.9
@@ -774,7 +799,7 @@
      */
     Calendar.prototype.setFrom = function (date) {
         // this from is a reference to the global form
-        this._dates.range.from = (date === 'reset') ? undefined : createDateObject(date);
+        this._dates.range.from = (date === 'auto') ? undefined : createDateObject(date);
         this._updateTemplate(this._dates.current);
 
         return this;
@@ -791,7 +816,7 @@
      */
     Calendar.prototype.setTo = function (date) {
         // this to is a reference to the global to
-        this._dates.range.to = (date === 'reset') ? undefined : createDateObject(date);
+        this._dates.range.to = (date === 'auto') ? undefined : createDateObject(date);
         this._updateTemplate(this._dates.current);
 
         return this;
@@ -804,6 +829,21 @@
             };
         }
         return options;
+    };
+
+    /**
+     * Destroys an Calendar instance.
+     * @public
+     * @function
+     * @name ch.Calendar#destroy
+     */
+    Calendar.prototype.destroy = function () {
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        $(window.document).trigger(ch.onchangelayout);
+
+        parent.destroy.call(this);
     };
 
     /**

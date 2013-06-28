@@ -5,12 +5,14 @@ var form = $('#form-test').form(),
     errorEvent = jasmine.createSpy('errorEvent'),
     clearEvent = jasmine.createSpy('clearEvent'),
     resetEvent = jasmine.createSpy('resetEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
     validation = $('#input_user').required('This field is required.'),
     $input = $('#input_user');
 
 describe('Form', function () {
     form
-        .on('ready', function () { readyEvent(); })
+        .on('ready', readyEvent)
+        .on('destroy', destroyEvent)
         .on('success', function (e) { e.preventDefault(); });
 
     it('should be defined on ch object', function () {
@@ -28,11 +30,11 @@ describe('Form', function () {
     });
 
     it('should have the "ch-form" classname', function () {
-        expect(form.$el.hasClass('ch-form')).toBeTruthy();
+        expect(form.$container.hasClass('ch-form')).toBeTruthy();
     });
 
     it('should disable HTML5 validations', function () {
-        expect(form.$el.attr('novalidate')).toEqual('novalidate');
+        expect(form.$container.attr('novalidate')).toEqual('novalidate');
     });
 
     it('should emit the "ready" event when it\'s created', function () {
@@ -52,14 +54,10 @@ describe('Form', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.el', function () {
-        expect(form.el).not.toEqual(undefined);
-        expect(form.el.nodeType).toEqual(1);
-    });
-
-    it('.$el', function () {
-        expect(form.$el).not.toEqual(undefined);
-        expect(form.$el instanceof $).toBeTruthy();
+    it('.$container', function () {
+        expect(form.$container).not.toEqual(undefined);
+        expect(form.$container[0].nodeType).toEqual(1);
+        expect(form.$container instanceof $).toBeTruthy();
     });
 
     it('.name', function () {
@@ -108,7 +106,7 @@ describe('It should have the following public methods:', function () {
 describe('When the form is submited it', function () {
     it('should run "validate" method', function () {
         spyOn(form, 'validate').andCallThrough();
-        form.$el.submit();
+        form.$container.submit();
         expect(form.validate).toHaveBeenCalled();
     });
 });
@@ -134,12 +132,12 @@ describe('Its validate() method', function () {
     });
 
     it('should set focus to the input that has got an error', function () {
-        expect(document.activeElement).toEqual(form.errors[0].$el[0]);
+        expect(document.activeElement).toEqual(form.errors[0].$trigger[0]);
     });
 
     it('should emit "success" event when it has not got errors', function () {
         $input.val('success');
-        form.$el.submit();
+        form.$container.submit();
         expect(successEvent).toHaveBeenCalled();
         form.reset();
     });
@@ -216,4 +214,28 @@ describe('Its enable() method', function () {
 
     form.reset();
 
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $container', function () {
+        form.destroy();
+        expect(form.$container.attr('novalidate')).toBeUndefined();
+    });
+
+    it('should remove ".form" events', function () {
+        expect($._data(form.$container[0], 'events')).toBeUndefined();
+    });
+
+    it('should destroy its validations', function () {
+        expect(form.validations[0]._enabled).toBeFalsy();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(form._$el.data('form')).toBeUndefined();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
 });

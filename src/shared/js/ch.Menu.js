@@ -135,6 +135,13 @@
      * Protected Members
      */
 
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
+
+        this.$container = this._$el
+            .attr('role', 'navigation')
+            .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
+
         /**
          * Collection of expandables.
          * @name ch.Menu#expdanbles
@@ -148,10 +155,6 @@
 
         // Inits an expandable component on each list inside main HTML code snippet
         this._createExpandables();
-
-        this.$el
-            .attr('role', 'navigation')
-            .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
 
         // Select specific item if there are a "shown" parameter on component configuration object
         if (this._options.shown !== undefined) {
@@ -240,7 +243,7 @@
             }
         }
 
-        $.each(that.$el.children(), createExpandable);
+        $.each(that.$container.children(), createExpandable);
 
         return that;
     };
@@ -332,6 +335,27 @@
         }
 
         return options;
+    };
+
+    /**
+     * Destroys a Menu instance.
+     * @public
+     * @function
+     * @name ch.Menu#destroy
+     */
+    Menu.prototype.destroy = function () {
+
+        $.each(this.fold, function (i, e) {
+            if (e.destroy !== undefined) {
+                e.destroy();
+            }
+        });
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        $(window.document).trigger(ch.onchangelayout);
+
+        parent.destroy.call(this);
     };
 
     /**

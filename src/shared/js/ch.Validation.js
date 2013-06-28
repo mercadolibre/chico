@@ -123,6 +123,8 @@
 
         parent.init.call(this, $el, options);
 
+        this.$trigger = this._$el;
+
         this.conditions = {};
 
         this._mergeConditions(options.conditions);
@@ -166,7 +168,7 @@
          * @see ch.Form
          */
         // Reference to a Form instance. If there isn't any, the Validation instance will create one.
-        this.form = that.$el.parents('form').form().validations.push(this);
+        this.form = that.$trigger.parents('form').form().validations.push(this);
 
         /**
          * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
@@ -179,26 +181,26 @@
         this.bubble = $.bubble({
             'reference': (function () {
                 var reference,
-                    $el = that.$el,
+                    $trigger = that.$trigger,
                     h4;
                 // CHECKBOX, RADIO
                 // TODO: when old forms be deprecated we must only support ch-list-options class
-                if ($el.hasClass('ch-list-options')) {
+                if ($trigger.hasClass('ch-list-options')) {
                 // Helper reference from will be fired
                 // H4
-                    if ($el.find('h4').length > 0) {
-                        h4 = $el.find('h4'); // Find h4
+                    if ($trigger.find('h4').length > 0) {
+                        h4 = $trigger.find('h4'); // Find h4
                         h4.wrapInner('<span>'); // Wrap content with inline element
                         reference = h4.children(); // Inline element in h4 like helper reference
                     // Legend
-                    } else if ($el.prev().prop('tagName') === 'LEGEND') {
-                        reference = $el.prev(); // Legend like helper reference
+                    } else if ($trigger.prev().prop('tagName') === 'LEGEND') {
+                        reference = $trigger.prev(); // Legend like helper reference
                     } else {
-                        reference = $($el.find('label')[0]);
+                        reference = $($trigger.find('label')[0]);
                     }
                 // INPUT, SELECT, TEXTAREA
                 } else {
-                    reference = $el;
+                    reference = $trigger;
                 }
 
                 return reference;
@@ -214,7 +216,7 @@
          * @private
          * @name ch.Validation#_validationEvent
          */
-        this._validationEvent = (this.$el.hasClass('ch-list-options') || this.el.tagName === 'SELECT' || (this.el.tagName === 'INPUT' && this.el.type === 'range')) ? 'change' : 'blur';
+        this._validationEvent = (this.$trigger.hasClass('ch-list-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
         return this;
     };
@@ -267,7 +269,7 @@
             previousValue;
 
         // It must happen only once.
-        this.$el.on(this._validationEvent + '.validation', function () {
+        this.$trigger.on(this._validationEvent + '.validation', function () {
 
             if (that.conditions['required'] !== undefined) {
 
@@ -286,8 +288,8 @@
         this._error = function () {
 
             if (!that._previousError.condition || !that._shown) {
-                if (that.el.nodeName === 'INPUT' || that.el.nodeName === 'TEXTAREA') {
-                    that.$el.addClass('ch-validation-error');
+                if (that._el.nodeName === 'INPUT' || that._el.nodeName === 'TEXTAREA') {
+                    that.$trigger.addClass('ch-validation-error');
                 }
 
                 that.bubble.show(that.error.message || 'Error');
@@ -296,7 +298,7 @@
             if (that.error.condition !== that._previousError.condition) {
                 that.bubble.content((that.error.message || that.form._messages[that.error.condition] || 'Error'));
                 // the aria-label attr should get the message element id, but is not public
-                that.$el.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
+                that.$trigger.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
             }
 
             that._shown = true;
@@ -337,7 +339,8 @@
             this._shown = false;
         }
 
-        this.$el.removeClass('ch-validation-error')
+        this.$trigger
+            .removeClass('ch-validation-error')
             .removeAttr('aria-label');
 
         this.bubble.hide(); // uncoment when bubble were done
@@ -357,13 +360,13 @@
     Validation.prototype.hasError = function () {
 
         // Pre-validation: Don't validate disabled
-        if (this.$el.attr('disabled') || !this._enabled) {
+        if (this.$trigger.attr('disabled') || !this._enabled) {
             return false;
         }
 
         var condition,
             required = this.conditions.required,
-            value = this.el.value;
+            value = this._el.value;
 
         // Avoid fields that aren't required when they are empty or de-activated
         if (!required && value === '' && this._shown === false) {
@@ -411,7 +414,7 @@
      */
     Validation.prototype.clear = function () {
 
-        this.$el
+        this.$trigger
             .removeClass('ch-validation-error')
             .removeAttr('aria-label');
 
@@ -445,7 +448,7 @@
      * @returns jQuery Object
      */
     Validation.prototype.and = function () {
-        return this.$el;
+        return this.$trigger;
     };
 
     /**
@@ -542,6 +545,25 @@
     while (len) {
         createMethods(methods[len -= 1]);
     }
+
+    /**
+     * Destroys a Validation instance.
+     * @public
+     * @function
+     * @name ch.Validation#destroy
+     */
+    Validation.prototype.destroy = function () {
+
+        this.$trigger
+            .off('.validation')
+            .removeAttr('data-side')
+            .removeAttr('data-align');
+
+        this.bubble.destroy();
+
+        parent.destroy.call(this);
+
+    };
 
     /**
      * Factory

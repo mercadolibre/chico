@@ -82,13 +82,16 @@
 
         var that = this;
 
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
+
         /**
          * Element that moves across component (inside the mask).
          * @private
          * @name ch.Carousel#$list
          * @type jQuery Object
          */
-        this._$list = this.$el.addClass('ch-carousel').children().addClass('ch-carousel-list');
+        this._$list = this._$el.addClass('ch-carousel').children().addClass('ch-carousel-list');
 
         /**
          * Collection of each child of the list.
@@ -106,7 +109,7 @@
          */
         this._$mask = $('<div class="ch-carousel-mask" role="tabpanel" style="height:' + this._$items.outerHeight() + 'px">')
             .html(this._$list)
-            .appendTo(this.$el);
+            .appendTo(this._$el);
 
         /**
          * Size of the mask. Updated in each refresh.
@@ -432,7 +435,7 @@
             );
         }
         // Append thumbnails to pagination and append this to Carousel
-        that._$pagination.html(thumbs.join('')).appendTo(that.$el);
+        that._$pagination.html(thumbs.join('')).appendTo(that._$el);
 
         // Avoid selection on the pagination
         ch.util.avoidTextSelection(that._$pagination);
@@ -654,7 +657,7 @@
         // Check arrows existency
         if (this._arrowsCreated) { return; }
         // Add arrows to DOM
-        this.$el.prepend(this._$prevArrow).append(this._$nextArrow);
+        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
         // Avoid selection on the arrows
         ch.util.avoidTextSelection(this._$prevArrow, this._$nextArrow);
         // Check arrows as created
@@ -897,6 +900,22 @@
     Carousel.prototype.pause = function () {
         window.clearInterval(this._timer);
         return this;
+    };
+
+
+    /**
+     * Destroys a Carousel instance.
+     * @public
+     * @function
+     * @name ch.Carousel#destroy
+     */
+    Carousel.prototype.destroy = function () {
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        $(window.document).trigger(ch.onchangelayout);
+
+        parent.destroy.call(this);
     };
 
     ch.factory(Carousel);

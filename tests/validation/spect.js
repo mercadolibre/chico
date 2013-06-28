@@ -12,12 +12,15 @@ var validation1 = $('#input_user').validation({
           ]
     }),
     readyEvent = jasmine.createSpy('readyEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
     successEvent = jasmine.createSpy('successEvent'),
     errorEvent = jasmine.createSpy('errorEvent'),
     clearEvent = jasmine.createSpy('clearEvent');
 
 describe('Validation', function () {
-    validation1.once('ready', readyEvent);
+    validation1
+        .once('ready', readyEvent)
+        .once('destroy', destroyEvent);
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Validation')).toBeTruthy();
@@ -43,14 +46,10 @@ describe('Validation', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.el', function () {
-        expect(validation1.el).not.toEqual(undefined);
-        expect(validation1.el.nodeType).toEqual(1);
-    });
-
-    it('.$el', function () {
-        expect(validation1.$el).not.toEqual(undefined);
-        expect(validation1.$el instanceof $).toBeTruthy();
+    it('.$trigger', function () {
+        expect(validation1.$trigger).not.toEqual(undefined);
+        expect(validation1.$trigger[0].nodeType).toEqual(1);
+        expect(validation1.$trigger instanceof $).toBeTruthy();
     });
 
     it('.name', function () {
@@ -109,20 +108,20 @@ describe('It should have the following public methods:', function () {
 
 describe('Its and() method', function () {
     it('shoud return the input element', function () {
-        expect(validation1.and()).toEqual(validation1.$el);
+        expect(validation1.and()).toEqual(validation1.$trigger);
     });
 });
 
 describe('Its hasError() method', function () {
 
     it('should return "false" when it hasn\'t got error', function () {
-        validation1.$el.val('Jasmine');
+        validation1.$trigger.val('Jasmine');
         expect(validation1.hasError()).toBeFalsy();
 
     });
 
     it('should return a boolean "true" when it has got error', function () {
-        validation1.$el.val('');
+        validation1.$trigger.val('');
         expect(validation1.hasError()).toBeTruthy();
     });
 });
@@ -140,11 +139,11 @@ describe('Its validate() method', function () {
         });
 
         it('should add "ch-validation-error" to the element', function () {
-            expect(validation1.$el.hasClass('ch-validation-error')).toBeTruthy();
+            expect(validation1.$trigger.hasClass('ch-validation-error')).toBeTruthy();
         });
 
         it('should add the ARIA attribute "aria-label" to the element', function () {
-            expect(validation1.$el.attr('aria-label')).toEqual('ch-popover-' + validation1.bubble.uid);
+            expect(validation1.$trigger.attr('aria-label')).toEqual('ch-popover-' + validation1.bubble.uid);
         });
 
         it('should show a message', function () {
@@ -163,7 +162,7 @@ describe('Its validate() method', function () {
 
     describe('if it hasn\'t got error', function () {
         beforeEach(function () {
-            validation1.$el.val('Jasmine');
+            validation1.$trigger.val('Jasmine');
             validation1.validate();
         });
 
@@ -172,11 +171,11 @@ describe('Its validate() method', function () {
         });
 
         it('should remove "ch-validation-error" from the element', function () {
-            expect(validation1.$el.hasClass('ch-validation-error')).toBeFalsy();
+            expect(validation1.$trigger.hasClass('ch-validation-error')).toBeFalsy();
         });
 
         it('should remove the ARIA attribute "aria-label" to the element', function () {
-            expect(validation1.$el.attr('aria-label')).toEqual(undefined);
+            expect(validation1.$trigger.attr('aria-label')).toEqual(undefined);
         });
 
         it('should hide a message', function () {
@@ -208,11 +207,11 @@ describe('Its clear() method', function () {
     });
 
     it('should remove "ch-validation-error" from the element', function () {
-        expect(validation1.$el.hasClass('ch-validation-error')).toBeFalsy();
+        expect(validation1.$trigger.hasClass('ch-validation-error')).toBeFalsy();
     });
 
     it('should remove the ARIA attribute "aria-label" to the element', function () {
-        expect(validation1.$el.attr('aria-label')).toEqual(undefined);
+        expect(validation1.$trigger.attr('aria-label')).toEqual(undefined);
     });
 
     it('should hide a message', function () {
@@ -231,13 +230,13 @@ describe('Its clear() method', function () {
 describe('Its isShown() method', function () {
 
     it('should return "false" when it hasn\'t got error', function () {
-        validation1.$el.val('Jasmine');
+        validation1.$trigger.val('Jasmine');
         expect(validation1.hasError()).toBeFalsy();
 
     });
 
     it('should return a boolean "true" when it has got error', function () {
-        validation1.$el.val('');
+        validation1.$trigger.val('');
         expect(validation1.hasError()).toBeTruthy();
     });
 });
@@ -290,4 +289,26 @@ describe('Its enable() method', function () {
         expect(instance).toEqual(validation1);
     });
 
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $trigger', function () {
+        validation1.destroy();
+        expect($._data(validation1.$trigger[0], 'events')).toBeUndefined();
+        expect(validation1.$trigger.attr('data-side')).toBeUndefined();
+        expect(validation1.$trigger.attr('data-align')).toBeUndefined();
+    });
+
+    it('should remove ".validation" events', function () {
+        expect($._data(validation1.$trigger[0], 'events')).toBeUndefined();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(validation1._$el.data('validation')).toBeUndefined();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
 });

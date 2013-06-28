@@ -520,7 +520,7 @@
         <h2 id="expandable">Expandable</h2>
 
         <h4 class="YOUR_SELECTOR_expandable">Lorem ipsum dolor sit amet.</h4>
-        <div id="container1" class="ch-hide">
+        <div id="container1">
             <div id="content">
                 <h2 class="test">Lorem</h2>
                 <p>ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ipsum tellus, quis ultricies nunc. Vestibulum ornare porta nunc, vitae tincidunt massa ornare vel. Nam ut felis odio.</p>
@@ -1415,14 +1415,9 @@
              });
         });
 
-        // Blink
-        $("#doHighlight").on("click", function () {
-            $("#example").blink();
-        });
-
         var calendar = $(".YOUR_SELECTOR_calendar").calendar({'selected': '2012/01/22'});
 
-        // // Expandable
+        // Expandable
         var expandable1 = $(".YOUR_SELECTOR_expandable").expandable();
 
         // expandable1.on('contentdone', function () {
@@ -1587,7 +1582,6 @@
             'closable': 'button-only'
         });
 
-        // $('#modal-form [type=submit]').on('click', function (e) {
         $('#modal-form').on('submit', function (e) {
             e.preventDefault();
             modalX.show('asd');
@@ -1622,11 +1616,11 @@
         });
 
         // Countdown
-        var  countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
+        var countdown = $("#text_cd").countdown({'max': 140, 'plural': '# left', 'singular': '# left'});
 
         // Messages
         var message = (function (message, value) {
-         var messages = {
+        var messages = {
              'option': 'Choose an option.',
              'requiredCheck': 'Accept the Terms of Use.',
              'link': 'Fill in this information. <a href="#double">Chico UI</a>.'
@@ -1652,12 +1646,12 @@
                      console.log(errors);
                  });
 
-        $('.myForm').on('submit', function (event) {
-         console.log('Esto siempre se dispara siempre');
-         if (!form.hasError()) {
-             event.preventDefault();
-             console.log('Ademas hago otra cosa en el submit');
-         }
+        $('.myForm').on('submit.form', function (event) {
+            console.log('Esto siempre se dispara siempre');
+            if (!form.hasError()) {
+                event.preventDefault();
+                console.log('Ademas hago otra cosa en el submit');
+            }
         });
 
         // Validators
@@ -1706,16 +1700,16 @@
              },
              'The number must contain a 2.');
 
-        var  validation6 = $('#url').url()
-        var  validation7 = $('#number').number().and().min(5);
-        var  validation8 = $('#range').min(8).and().max(10);
-        var  validation9 = $('#characters').maxLength(20).and().minLength(6);
-        var  validation10 = $('#select2').required(message('option'));
-        var  validation11 = $('.required-check').required(message('requiredCheck'));
-        var  validation12 = $('.required-option').required(message('option'));
+        var validation6 = $('#url').url()
+        var validation7 = $('#number').number().and().min(5);
+        var validation8 = $('#range').min(8).and().max(10);
+        var validation9 = $('#characters').maxLength(20).and().minLength(6);
+        var validation10 = $('#select2').required(message('option'));
+        var validation11 = $('.required-check').required(message('requiredCheck'));
+        var validation12 = $('.required-option').required(message('option'));
         var validation13 = $('#double').required(message('link'));
         var validation14 = $('#double').number();
-        var  validation15 = $('#double, #textarea2').required();
+        var validation15 = $('#double, #textarea2').required();
 
     </script>
 </body>

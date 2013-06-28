@@ -132,7 +132,7 @@
          * @ignore
          */
 
-        this.$trigger = this.$el
+        this.$trigger = this._$el
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
                 ch.util.prevent(event);
@@ -145,7 +145,7 @@
          * @type {Selector}
          * @ignore
          */
-        this.$container = this._$content = (this._options.container || this.$el.next())
+        this.$container = this._$content = (this._options.container || this._$el.next())
             .addClass(this._options._classNameContainer)
             .attr('aria-expanded', this._shown);
 
@@ -244,6 +244,29 @@
      */
     Expandable.prototype.isShown = function () {
         return this._shown;
+    };
+
+    /**
+     * Destroys an Expandable instance.
+     * @public
+     * @function
+     * @name ch.Expandable#destroy
+     */
+    Expandable.prototype.destroy = function () {
+
+        this.$trigger
+            .off('.expandable')
+            .removeClass('ch-expandable-trigger ch-expandable-ico ch-user-no-select')
+            .removeAttr('aria-controls');
+
+        this.$container
+            .removeClass('ch-expandable-container ch-hide')
+            .removeAttr('aria-expanded')
+            .removeAttr('aria-hidden');
+
+        $document.trigger(ch.onchangelayout);
+
+        parent.destroy.call(this);
     };
 
     ch.factory(Expandable, normalizeOptions);

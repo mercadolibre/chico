@@ -94,7 +94,7 @@
         parent.init.call(this, $el, options);
 
         //TODO: $trigger should be defined in Popover class.
-        this.$trigger = this.$el.addClass('ch-dropdown-trigger');
+        this.$trigger.addClass('ch-dropdown-trigger');
 
         ch.util.avoidTextSelection(this.$trigger);
 
@@ -114,7 +114,7 @@
          * @type {Selector}
          */
         if (this._options.shortcuts) {
-            this._$navigation = this.$el.next().find('a').attr('role', 'menuitem');
+            this._$navigation = this.$trigger.next().find('a').attr('role', 'menuitem');
 
             // Keyboard support initialize
             var selected = 0,
@@ -133,7 +133,10 @@
 
         }
 
-        this._options.content = this.$el.next();
+        this._options.content = this.$trigger.next();
+
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._options.content[0].cloneNode();
 
         return this;
     };
@@ -144,28 +147,29 @@
             arrow,
             optionsLength = this._$navigation.length;
 
-            // Validations
-            if (!this._shown) { return; }
+        // Validations
+        if (!this._shown) { return; }
 
-            // Prevent default behaivor
-            ch.util.prevent(event);
+        // Prevent default behaivor
+        ch.util.prevent(event);
 
-            // Sets the arrow that user press
-            arrow = key.type;
+        // Sets the arrow that user press
+        arrow = key.type;
 
-            // Sets limits behaivor
-            if (this._selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
+        // Sets limits behaivor
+        if (this._selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
 
-            // Unselects current option
-            if (this._selected !== -1) {
-                this._$navigation[this._selected].blur();
-            }
+        // Unselects current option
+        if (this._selected !== -1) {
+            this._$navigation[this._selected].blur();
+        }
 
-            if (arrow === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
+        if (arrow === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
 
-            // Selects new current option
-            this._$navigation[this._selected].focus();
+        // Selects new current option
+        this._$navigation[this._selected].focus();
 
+        return this;
     }
 
     Dropdown.prototype.show = function (content) {
@@ -197,12 +201,25 @@
     };
 
     /**
-     * Turns on keyboard arrows
-     * @protected
-     * @Object
-     * @memberOf ch.dropdown#arrowsOn
-     * @name on
+     * Destroys a Dropdown instance.
+     * @public
+     * @function
+     * @name ch.Dropdown#destroy
      */
+    Dropdown.prototype.destroy = function () {
+
+        this.$trigger
+            .off('.dropdown')
+            .removeClass('ch-dropdown-trigger ch-dropdown-trigger-skin ch-user-no-select ch-btn-skin ch-btn-small')
+            .removeAttr('aria-controls')
+            .after(this._snippet);
+
+        this.$container.off('.dropdown');
+
+        $document.trigger(ch.onchangelayout);
+
+        parent.destroy.call(this);
+    };
 
     ch.factory(Dropdown);
 
