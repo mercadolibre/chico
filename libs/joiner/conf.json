@@ -49,7 +49,6 @@
             "abilities": [
                 "../../src/shared/js/ch.EventEmitter.js",
                 "../../src/shared/js/ch.onImagesLoads.js",
-                "../../src/shared/js/ch.cache.js",
                 "../../src/shared/js/ch.Content.js",
                 "../../src/shared/js/ch.Closable.js",
                 "../../src/shared/js/ch.Collapsible.js",
@@ -57,7 +56,6 @@
                 "../../src/shared/js/ch.Positioner.js"
             ],
             "widgets": [
-                "../../src/shared/js/ch.cache.js",
                 "../../src/shared/js/ch.Widget.js",
                 "../../src/shared/js/ch.Form.js",
                 "../../src/shared/js/ch.Condition.js",
@@ -151,7 +149,6 @@
             "abilities": [
                 "../../src/shared/js/ch.EventEmitter.js",
                 "../../src/mobile/js/ch.routes.js",
-                "../../src/shared/js/ch.cache.js",
                 "../../src/shared/js/ch.Content.js",
                 "../../src/shared/js/ch.Closable.js",
                 "../../src/shared/js/ch.Collapsible.js",
