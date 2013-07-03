@@ -33,6 +33,10 @@
             // ESTo lo deberiamos sacar de aca
             that._options.content = content;
 
+            if (that._options.cache === undefined) {
+                that._options.cache = true;
+            }
+
             if (typeof content === 'string') {
                 // Case 1: AJAX call
                 if (ch.util.isUrl(content)) {
@@ -42,26 +46,21 @@
                 } else {
                     that._$content.html(content);
 
-                    that._options.cache = false;
+                    that._options.cache = true;
 
+                    that.emit('_contentchange');
                     that.emit('contentdone');
 
-                    if (that._options['oncontentdone'] !== undefined) {
-                        that._options['oncontentdone'].call(that);
-                    }
                 }
             // Case 3: DOM element
             } else if (ch.util.is$(content)) {
 
                 that._$content.html(content.remove(null, true).removeClass('ch-hide'));
 
-                that._options.cache = false;
+                that._options.cache = true;
 
+                that.emit('_contentchange');
                 that.emit('contentdone');
-
-                if (that._options['oncontentdone'] !== undefined) {
-                    that._options['oncontentdone'].call(that);
-                }
 
             }
 
@@ -79,12 +78,13 @@
             options = $.extend({
                 'method': 'GET',
                 'params': '',
-                'cache': true,
                 'async': true,
                 'waiting': '<div class="ch-loading-big"></div>'
             }, options || defaults);
 
-            that._options.cache = options.cache;
+            if (options.cache !== undefined) {
+                that._options.cache = options.cache;
+            }
 
             // Set loading
             setAsyncContent({
@@ -97,16 +97,13 @@
                 'url': url,
                 'type': options.method,
                 'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
-                'cache': options.cache,
+                'cache': that._options.cache,
                 'async': options.async,
                 'beforeSend': function (jqXHR) {
                     // Set the AJAX default HTTP headers
                     jqXHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 },
                 'success': function (data) {
-                    // Grab the data on the cache if it's necessary
-                    // if (options.cache) { ch.cache.set(options.input, data); }
-
                     // Send the result data to the client
                     setAsyncContent({
                         'status': 'done',
@@ -139,6 +136,8 @@
             var status = 'content' + event.status;
 
             that._$content.html(event.response);
+
+            that.emit('_contentchange');
 
             that.emit(status, event);
         }

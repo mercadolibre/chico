@@ -1,216 +1,307 @@
+var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="autoComplete{ID}" type="text"></div><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
+    idGenerator = (function(){
+        var count = 0;
+
+        return function(){
+            return count++;
+        }
+    }()),
+    getSnippet = function(selector){
+        var n = idGenerator();
+        var f = $(template.replace(/{ID}/g, n));
+        var snippet = f.find(selector + n);
+        $('body').prepend(f);
+        return snippet;
+    },
+    suggestions = ['Aruba', 'Armenia', 'Argentina'],
+    suggestionsHTML = ['<span class="HTMLAdded">Argentina</span>', '<span class="HTMLAdded">Armenia</span>', '<span class="HTMLAdded">Aruba</span>'],
+    autoComplete = getSnippet('#autoComplete').autoComplete({'fx': false}),
+    autoCompleteHTML = getSnippet('#autoComplete').autoComplete({'html': true}),
+    readyEvent = jasmine.createSpy('readyEvent'),
+    hideEvent = jasmine.createSpy('hideEvent'),
+    typingEvent = jasmine.createSpy('typingEvent');
+
+    autoComplete
+        .on('typing', function () {
+            typingEvent();
+            autoComplete.suggest(suggestions);
+        })
+        .on('ready', function () { readyEvent(); })
+        .el.value = 'ar';
+
+    autoCompleteHTML
+        .on('typing', function () {
+            autoCompleteHTML.suggest(suggestionsHTML);
+        })
+        .el.value = 'ar';
+
+
 describe('ch.AutoComplete', function () {
-	var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="autoComplete{ID}" type="text"></div><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
-		idGenerator = (function(){
-			var count = 0;
 
-			return function(){
-				return count++;
-			}
-		}()),
-		getSnippet = function(selector){
-			var n = idGenerator();
-			var f = $(template.replace(/{ID}/g, n));
-			var snippet = f.find(selector + n);
-			$('body').prepend(f);
-			return snippet;
-		};
+    it('should be defined in ch object', function () {
+        expect(ch.hasOwnProperty('AutoComplete')).toBeTruthy();
+        expect(typeof ch.AutoComplete).toEqual('function');
+    });
 
-	describe('Constructor.', function () {
+    it('should be defined in $ object', function () {
+        expect($.fn.hasOwnProperty('autoComplete')).toBeTruthy();
+        expect(typeof ch.AutoComplete).toEqual('function');
+    });
 
-		it('ch.AutoComplete should be defined as a function.', function () {
-			expect(ch.AutoComplete).toBeDefined();
-			expect(typeof ch.AutoComplete).toEqual('function');
-		});
+    it('should be return a new instance', function () {
+        expect(autoComplete instanceof ch.AutoComplete).toBeTruthy();
+    });
 
-		describe('Returned Object',function(){
-			var input = getSnippet('#autoComplete'),
-				aCallBack = function(options){ autoComplete.suggest(options); };
+    it('should emit the "ready" event when it\'s created', function () {
+        waits(50);
+        runs(function () {
+            expect(readyEvent).toHaveBeenCalled();
+        });
+    });
 
-			window.autoComplete = input.autoComplete({
-				'url': 'http://www.chico-ui.com.ar/suggest?q=',
-				'jsonpCallback': 'aCallBack'
-			});
+    describe('should use the following abilities:', function () {
+        it('EventEmitter', function () {
+            expect(autoComplete.on).not.toEqual(undefined);
+            expect(typeof autoComplete.on).toEqual('function');
+        });
 
-			window.aCallBack = aCallBack;
+        it('Popover', function () {
+            expect(autoComplete._popover).not.toEqual(undefined);
+            expect(autoComplete._popover instanceof ch.Popover).toBeTruthy();
+        });
+    });
 
-			it('should be an object.', function () {
-				expect(typeof autoComplete).toEqual('object');
-			});
+});
 
-			it('has a "element" property and it should be a instanceof a HTMLElement.', function () {
-				expect(autoComplete.element).toBeDefined();
-				expect(autoComplete.element instanceof HTMLElement).toBeTruthy();
-			});
+describe('It should have the following public properties:', function () {
 
-			it('has a "hide" method and it should be a function and return an object.', function () {
-				expect(autoComplete.hide).toBeDefined();
-				expect(typeof autoComplete.hide).toEqual('function');
-				expect(typeof autoComplete.hide()).toEqual('object');
-			});
+    it('.el', function () {
+        expect(autoComplete.el).not.toEqual(undefined);
+        expect(autoComplete.el.nodeType).toEqual(1);
+        expect(autoComplete.el instanceof HTMLInputElement).toBeTruthy();
+    });
 
-			it('has a "off" method and it should be a function and return an object.', function () {
-				expect(autoComplete.off).toBeDefined();
-				expect(typeof autoComplete.off).toEqual('function');
-				expect(typeof autoComplete.off('show', function(){})).toEqual('object');
-			});
+    it('.$el', function () {
+        expect(autoComplete.$el).not.toEqual(undefined);
+        expect(autoComplete.$el instanceof $).toBeTruthy();
+    });
 
-			it('has a "on" method and it should be a function and return an object.', function () {
-				expect(autoComplete.on).toBeDefined();
-				expect(typeof autoComplete.on).toEqual('function');
-				expect(typeof autoComplete.on('show', function(){})).toEqual('object');
-			});
+    it('.name', function () {
+        expect(autoComplete.name).not.toEqual(undefined);
+        expect(typeof autoComplete.name).toEqual('string');
+        expect(autoComplete.name).toEqual('autoComplete');
+    });
 
-			it('has a "once" method and it should be a function and return an object.', function () {
-				expect(autoComplete.once).toBeDefined();
-				expect(typeof autoComplete.once).toEqual('function');
-				expect(typeof autoComplete.once('show', function(){})).toEqual('object');
-			});
+    it('.constructor', function () {
+        expect(autoComplete.constructor).not.toEqual(undefined);
+        expect(typeof autoComplete.constructor).toEqual('function');
+    });
 
-			it('has a "show" method and it should be a function and return an object.', function () {
-				expect(autoComplete.show).toBeDefined();
-				expect(typeof autoComplete.show).toEqual('function');
-				expect(typeof autoComplete.show()).toEqual('object');
-			});
+    it('.uid', function () {
+        expect(autoComplete.uid).not.toEqual(undefined);
+        expect(typeof autoComplete.uid).toEqual('number');
+    });
 
-			it('has a "suggest" method and it should be a function and return an object.', function () {
-				expect(autoComplete.suggest).toBeDefined();
-				expect(typeof autoComplete.suggest).toEqual('function');
-				expect(typeof autoComplete.suggest([])).toEqual('object');
-			});
+});
 
-			it('has a "type" property and it should be autoComplete.', function () {
-				expect(autoComplete.type).toBeDefined();
-				expect(typeof autoComplete.type).toEqual('string');
-				expect(autoComplete.type).toEqual('autoComplete');
-			});
+describe('It should have the following public methods:', function () {
+    var methods = ['init', 'destroy', 'suggest', 'hide', 'isShown', 'enable', 'disable'],
+        i = 0,
+        len = methods.length;
 
-			it('has a "uid" property.', function () {
-				expect(autoComplete.uid).toBeDefined();
-				expect(typeof autoComplete.uid).toEqual('number');
-			});
+    for (i; i < len; i += 1) {
+        (function (i){
+            it('.' + methods[i] + '()', function () {
+                expect(autoComplete[methods[i]]).not.toEqual(undefined);
+                expect(typeof autoComplete[methods[i]]).toEqual('function');
+            });
+        }(i));
+    }
+});
 
-		});
+describe('The input element should have the following WAI-ARIA attributes', function () {
+    var $input = autoComplete.$el,
+        inputID = autoComplete.$container[0].id;
 
-	});
+    it('"aria-haspopup" in "true"', function () {
+       expect($input.attr('aria-haspopup')).toEqual('true');
+    });
 
-	describe('The list of suggestions',function(){
-		var input = getSnippet('#autoComplete'),
-			aCallBack = function(options){ autoComplete2.suggest(options); };
+    it('"aria-autocomplete" in "list"', function () {
+       expect($input.attr('aria-autocomplete')).toEqual('list');
+    });
 
-		window.autoComplete2 = input.autoComplete({
-			'url': 'http://www.chico-ui.com.ar/suggest?q=',
-			'jsonpCallback': "aCallBack2"
-		});
+    it('"aria-owns" in "' + inputID + '"', function () {
+       expect($input.attr('aria-owns')).toEqual(inputID);
+    });
 
-		window.aCallBack2 = aCallBack;
+});
 
+describe('It should have a "$container" property and', function () {
+    var $container = autoComplete.$container;
 
-		input.attr('value', 'ar').focus();
+    it('should exist', function () {
+        expect($container).not.toEqual(undefined);
+        expect($container[0].nodeType).toEqual(1);
+        expect($container instanceof $).toBeTruthy();
+    });
 
-		it('of the first component must not be in the DOM.', function () {
-			var list = $('#' + $(window.autoComplete.element).attr('aria-describedby'));
-			 expect(list.length).toEqual(0);
-		});
+    it('should have the ".ch-autoComplete" class name ', function () {
+        expect($container.hasClass('ch-autoComplete')).toBeTruthy();
+    });
 
-		it('of the second component must be in the DOM.', function () {
-			var container = $('#' + $(autoComplete2.element).attr('aria-describedby'));
-			var list = container.find('.ch-autoComplete-list');
-			var item = list.find('li');
+    it('should be hidden', function () {
+        expect($container.hasClass('ch-hide')).toBeTruthy();
+        expect($container[0].getAttribute('aria-hidden')).toBeTruthy('true');
+    });
 
-			 expect(list.length).toEqual(1);
-			 expect(item.length).toEqual(3);
-			 expect(container.length).toEqual(1);
-		});
-
-		it('must have the correct classes.', function () {
-			var list = $('#' + $(autoComplete2.element).attr('aria-describedby'));
-			 expect(list.hasClass('ch-autoComplete ch-points-ltlb')).toBeTruthy();
-		});
-
-	});
-
-	describe('Methods:', function(){
-		var input = getSnippet('#autoComplete'),
-			aCallBack = function(options){ autoComplete3.suggest(options); };
-
-		window.autoComplete3 = input.autoComplete({
-			'url': 'http://www.chico-ui.com.ar/suggest?q=',
-			'jsonpCallback': 'aCallBack'
-		});
-		window.aCallBack3 = aCallBack;
-
-		it('show', function () {
-
-			autoComplete.show();
-			var list = $('#' + $(autoComplete3.element).attr('aria-describedby'));
-			expect(list.length).toEqual(1);
-
-		});
-
-		it('hide', function () {
-			autoComplete2.hide();
-			waits(475);
-			runs(function () {
-				var list = $('#' + $(autoComplete3.element).attr('aria-describedby'));
-				expect(list.length).toEqual(0);
-			});
-		});
-
-		it('suggest', function () {
-			autoComplete2.suggest(['a','b','c']);
-			var container = $('#' + $(autoComplete3.element).attr('aria-describedby'));
-			var items = container.find('li');
-			expect(items.length).toEqual(3);
-		});
-
-	});
-
-
-	describe('Should execute the following events:', function(){
-		var input = getSnippet('#autoComplete'),
-			aCallBack = function(options){ autoComplete4.suggest(options); },
-			readyEvent,
-			showEvent,
-			hideEvent;
-
-		window.autoComplete4 = input.autoComplete({
-			'url': 'http://www.chico-ui.com.ar/suggest?q=',
-			'jsonpCallback': 'aCallBack'
-		});
-		window.aCallBack4 = aCallBack;
-
-		beforeEach(function () {
-			readyEvent = jasmine.createSpy('readyEvent');
-			showEvent = jasmine.createSpy('showEvent');
-			hideEvent = jasmine.createSpy('hideEvent');
-		});
-
-		autoComplete4.on('ready', function () { readyEvent(); });
-		autoComplete4.on('show', function () { showEvent(); });
-		autoComplete4.on('hide', function () { hideEvent(); });
-
-		it('ready', function () {
-			waits(75);
-			runs(function () {
-				expect(readyEvent).toHaveBeenCalled();
-			});
-		});
-
-		it('show', function () {
-			autoComplete.show();
-			expect(showEvent.callCount).toEqual(1);
-			expect(showEvent).toHaveBeenCalled();
-		});
-
-		it('hide', function () {
-			autoComplete.hide();
-			expect(hideEvent.callCount).toEqual(1);
-			expect(hideEvent).toHaveBeenCalled();
-		});
-	});
-
-
+    it('should have the WAI-ARIA attribute "role" in "dialog"', function () {
+        expect($container.attr('role')).toEqual('dialog');
+    });
 
 });
 
 
+
+describe('It should emits typing event and',function(){
+    autoComplete.el.focus();
+
+    autoComplete.emit('typing', autoComplete.el.value);
+
+    it('should trigger the callback function', function () {
+        expect(typingEvent).toHaveBeenCalled();
+    });
+
+});
+
+describe('Its suggest() method', function () {
+
+    describe('shows the suggetion list', function () {
+        var itemsHighilighted,
+            $suggestionList;
+
+        it('open when suggestions are given', function () {
+            autoComplete.el.focus();
+            autoComplete.emit('typing', autoComplete.el.value);
+            expect(autoComplete.isShown()).toBeTruthy();
+        });
+
+        it('should have hightlighted items', function () {
+            autoComplete.el.focus();
+            autoComplete.emit('typing', autoComplete.el.value);
+            itemsHighilighted = autoComplete.$container.find('strong').length;
+            expect(itemsHighilighted).toEqual(3);
+        });
+
+        it('should show the same number of items as suggestions array have', function () {
+            itemsHighilighted = autoComplete.$container.find('.ch-autoComplete-item').length;
+            expect(suggestions.length).toEqual(3);
+        });
+
+        it('should close the suggestion list if there is no results', function () {
+            autoComplete.suggest([]);
+            expect(autoComplete.isShown()).toBeFalsy();
+        });
+
+    });
+
+});
+
+describe('Its hide() method', function () {
+    var $container = autoComplete.$container,
+        instance;
+
+        autoComplete.on('hide', function () { hideEvent(); })
+
+    it('should add "ch-hide" class name to container', function () {
+        instance = autoComplete.hide();
+        expect($container.hasClass('ch-hide')).toBeTruthy();
+    });
+
+    it('should update the WAI-ARIA attribute "aria-hidden" to "true" on container', function () {
+        expect($container.attr('aria-hidden')).toEqual('true');
+    });
+
+    it('should emit the "hide" event', function () {
+        expect(hideEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(autoComplete);
+    });
+
+});
+
+describe('Its isShown() method', function () {
+    var isShown;
+
+    it('should return "true" when the widget is shown', function () {
+        autoComplete.el.focus();
+        autoComplete.emit('typing', autoComplete.el.value);
+        isShown = autoComplete.isShown();
+
+        expect(typeof isShown).toEqual('boolean');
+        expect(isShown).toBeTruthy();
+    });
+
+    it('should return "false" when the widget is hidden', function () {
+        autoComplete.hide();
+        isShown = autoComplete.isShown();
+
+        expect(typeof isShown).toEqual('boolean');
+        expect(isShown).toBeFalsy();
+    });
+
+    autoComplete.hide();
+});
+
+describe('Its disable() method', function () {
+    var instance,
+        isShown;
+
+    it('should prevent to suggest', function () {
+        autoComplete.el.focus();
+        autoComplete.emit('typing', autoComplete.el.value);
+        instance = autoComplete.disable();
+        expect(autoComplete.isShown()).toBeFalsy();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(autoComplete);
+    });
+});
+
+describe('Its enable() method', function () {
+    var instance,
+        isShown;
+
+    it('should suggest', function () {
+        instance = autoComplete.enable();
+        autoComplete.el.focus();
+        autoComplete.emit('typing', autoComplete.el.value);
+        expect(autoComplete.isShown()).toBeTruthy();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(autoComplete);
+    });
+
+});
+
+describe('Instance an AutoComplete configured to show HTML', function () {
+
+    it('should return the items with the HTML sent', function () {
+
+        autoCompleteHTML.el.focus();
+        autoCompleteHTML.emit('typing', autoCompleteHTML.el.value);
+
+        // this wait is for the focu
+        waits(300);
+        runs(function () {
+            var itemAdded = autoCompleteHTML.$container[0].querySelector('.ch-autoComplete-item .HTMLAdded');
+            expect(itemAdded.nodeType).toEqual(1);
+        });
+
+    });
+
+});

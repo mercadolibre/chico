@@ -1,45 +1,55 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Util Test</title>
-		<link rel="shortcut icon" type="image/png" href="../../libs/jasmine-1.2.0/jasmine_favicon.png">
-		<link rel="stylesheet" type="text/css" href="../../libs/jasmine-1.2.0/jasmine.css">
-		<link rel="stylesheet" type="text/css" href="http://localhost:3040/ui/css">
-	</head>
-	<body>
-	<script type="text/javascript" src="../../libs/jasmine-1.2.0/jasmine.js"></script>
-	<script type="text/javascript" src="../../libs/jasmine-1.2.0/jasmine-html.js"></script>
-	<script type="text/javascript" src="../../vendor/jquery-debug.js"></script>
-	<script type="text/javascript" src="http://localhost:3040/ui/js"></script>
+    <head>
+        <meta charset="utf-8">
+        <title>Custom Test</title>
+        <link rel="stylesheet" type="text/css" href="/ui/css">
+        <link rel="stylesheet" type="text/css" href="/vendor/jasmine/jasmine.css">
+    </head>
+    <body>
+        <form id="form-custom" action="/ajax" class="ch-form">
+            <fieldset>
+                <p class="ch-form-row">
+                    <label for="input_user">User:</label>
+                    <input type="text" id="input_user" name="input_user" size="50">
+                </p>
+                <p class="ch-form-actions">
+                    <input type="submit" name="confirmation" value="Login" class="ch-btn">
+                    <a href="#">Cancel</a>
+                </p>
+            </fieldset>
+        </form>
+        <script src="/vendor/jasmine/jasmine.js"></script>
+        <script src="/vendor/jasmine/jasmine-html.js"></script>
+        <script src="/vendor/jquery-debug.js"></script>
+        <script src="/ui/js"></script>
+        <script src="./spect.js"></script>
+        <script>
+            (function() {
+                var jasmineEnv = jasmine.getEnv();
+                jasmineEnv.updateInterval = 1000;
 
-	<script type="text/javascript" src="spect.js"></script>
-	<script type="text/javascript">
-	(function() {
-		var jasmineEnv = jasmine.getEnv();
-		jasmineEnv.updateInterval = 1000;
+                var htmlReporter = new jasmine.HtmlReporter();
 
-		var htmlReporter = new jasmine.HtmlReporter();
+                jasmineEnv.addReporter(htmlReporter);
 
-		jasmineEnv.addReporter(htmlReporter);
+                jasmineEnv.specFilter = function(spec) {
+                    return htmlReporter.specFilter(spec);
+                };
 
-		jasmineEnv.specFilter = function(spec) {
-			return htmlReporter.specFilter(spec);
-		};
+                var currentWindowOnload = window.onload;
 
-		var currentWindowOnload = window.onload;
+                window.onload = function() {
+                    if (currentWindowOnload) {
+                      currentWindowOnload();
+                    }
+                    execJasmine();
+                };
 
-		window.onload = function() {
-			if (currentWindowOnload) {
-				currentWindowOnload();
-			}
-			execJasmine();
-		};
-
-		function execJasmine() {
-			jasmineEnv.execute();
-		}
-	})();
-	</script>
-	</body>
+                function execJasmine() {
+                    jasmineEnv.execute();
+                }
+            })();
+        </script>
+    </body>
 </html>

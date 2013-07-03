@@ -1,47 +1,51 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Content Test</title>
-		<link rel="shortcut icon" type="image/png" href="/libs/jasmine-1.2.0/jasmine_favicon.png">
-		<link rel="stylesheet" type="text/css" href="/libs/jasmine-1.2.0/jasmine.css">
-		<style>
-			.ch-hide {display: none;}
-		</style>
-	</head>
-	<body>
-		<div id="invisibleContent" class="ch-hide">Some text!</div>
-		<script src="/libs/jasmine-1.2.0/jasmine.js"></script>
-		<script src="/libs/jasmine-1.2.0/jasmine-html.js"></script>
-		<script src="/vendor/jquery-debug.js"></script>
-		<script src="/ui/js"></script>
-		<script src="./spect.js"></script>
-		<script>
-		(function() {
-			var jasmineEnv = jasmine.getEnv();
-			jasmineEnv.updateInterval = 1000;
+    <head>
+        <meta charset="utf-8">
+        <title>Content Test</title>
+        <link rel="stylesheet" type="text/css" href="/ui/css">
+        <link rel="stylesheet" type="text/css" href="/vendor/jasmine/jasmine.css">
+    </head>
+    <body>
+        <h1 id="demo">Content</h1>
+        <div>Some text!</div>
 
-			var htmlReporter = new jasmine.HtmlReporter();
+        <div id="invisible-content" class="ch-hide">
+            <h2>This content is invisible</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
+        </div>
 
-			jasmineEnv.addReporter(htmlReporter);
+        <script src="/vendor/jasmine/jasmine.js"></script>
+        <script src="/vendor/jasmine/jasmine-html.js"></script>
+        <script src="/vendor/jquery-debug.js"></script>
+        <script src="/ui/js"></script>
+        <script src="./spect.js"></script>
+        <script>
+            (function() {
+                var jasmineEnv = jasmine.getEnv();
+                jasmineEnv.updateInterval = 1000;
 
-			jasmineEnv.specFilter = function(spec) {
-				return htmlReporter.specFilter(spec);
-			};
+                var htmlReporter = new jasmine.HtmlReporter();
 
-			var currentWindowOnload = window.onload;
+                jasmineEnv.addReporter(htmlReporter);
 
-			window.onload = function() {
-				if (currentWindowOnload) {
-					currentWindowOnload();
-				}
-				execJasmine();
-			};
+                jasmineEnv.specFilter = function(spec) {
+                    return htmlReporter.specFilter(spec);
+                };
 
-			function execJasmine() {
-				jasmineEnv.execute();
-			}
-		})();
-		</script>
-	</body>
+                var currentWindowOnload = window.onload;
+
+                window.onload = function() {
+                    if (currentWindowOnload) {
+                      currentWindowOnload();
+                    }
+                    execJasmine();
+                };
+
+                function execJasmine() {
+                    jasmineEnv.execute();
+                }
+            })();
+        </script>
+    </body>
 </html>

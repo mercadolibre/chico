@@ -53,19 +53,19 @@
         },
         'price': {
             'fn': function (value) {
-                return (/^(\d+)[.,]?(\d?\d?)$/i).test(value);
+                return (/^([0-9\s]+)[.,]?([0-9]+)$/i).test(value);
             },
             'message': 'Use a valid price such as (1,00).'
         },
         'required': {
             'fn': function (value) {
 
-                var tag = this.$el.hasClass('ch-list-options') ? 'OPTIONS' : this.el.tagName,
+                var tag = this.$trigger.hasClass('ch-list-options') ? 'OPTIONS' : this._el.tagName,
                     validated;
 
                 switch (tag) {
                 case 'OPTIONS':
-                    validated = this.$el.find('input:checked').length !== 0;
+                    validated = this.$trigger.find('input:checked').length !== 0;
                     break;
 
                 case 'SELECT':
@@ -137,22 +137,12 @@
 
         $.extend(this, conditions[condition.name], condition);
 
-
         // replaces the condition default message in the following conditions max, min, minLenght, maxLenght
-        if (!this.message && (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength')) {
-
-            /**
-             * Message defined for this condition
-             * @public
-             * @name ch.Condition#message
-             * @type string
-             */
-            this.message = conditions[this.name].message.replace('{#num#}', this.num);
-
+        if (this.name === 'min' || this.name === 'max' || this.name === 'minLength' || this.name === 'maxLength') {
+            this.message = this.message.replace('{#num#}', this.num);
         }
 
         return this;
-
     }
 
     /**
@@ -206,13 +196,13 @@
      * @name ch.Condition#test
      * @returns boolean
      */
-    Condition.prototype.test = function (value, context) {
+    Condition.prototype.test = function (value, validation) {
 
         if (!this._enabled) {
             return true;
         }
 
-        return this.fn.call(context, value);
+        return this.fn.call(validation, value, this.num);
     };
 
     ch.Condition = Condition;

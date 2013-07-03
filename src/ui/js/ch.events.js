@@ -1,95 +1,80 @@
-(function () {
+    /**
+     * Alphanumeric keys event.
+     * @name onkeyinput
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
 
-	$.extend(ch.events, {
-		/**
-		 * Keryboard event collection.
-		 * @name key
-		 * @namespace
-		 * @memberOf ch.events
-		 */
-		'key': {
+    /**
+     * Tab key event.
+     * @name onkeytab
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeytab = 'tab';
 
-			/**
-			 * Alphanumeric keys event.
-			 * @name INPUT
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'INPUT': ('oninput' in document.createElement('input')) ? 'input' : 'keydown',
+    /**
+     * Enter key event.
+     * @name onkeyenter
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeyenter = 'enter';
 
-			/**
-			 * Tab key event.
-			 * @name TAB
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'TAB': 'tab',
+    /**
+     * Esc key event.
+     * @name onkeyesc
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeyesc = 'esc';
 
-			/**
-			 * Enter key event.
-			 * @name ENTER
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'ENTER': 'enter',
+    /**
+     * Left arrow key event.
+     * @name onkeyleftarrow
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeyleftarrow = 'left_arrow';
 
-			/**
-			 * Esc key event.
-			 * @name ESC
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'ESC': 'esc',
+    /**
+     * Up arrow key event.
+     * @name onkeyuparrow
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeyuparrow = 'up_arrow';
 
-			/**
-			 * Left arrow key event.
-			 * @name LEFT_ARROW
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'LEFT_ARROW': 'left_arrow',
+    /**
+     * Rigth arrow key event.
+     * @name onkeyrightarrow
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeyrightarrow = 'right_arrow';
 
-			/**
-			 * Up arrow key event.
-			 * @name UP_ARROW
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'UP_ARROW': 'up_arrow',
+    /**
+     * Down arrow key event.
+     * @name onkeydownarrow
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeydownarrow = 'down_arrow';
 
-			/**
-			 * Rigth arrow key event.
-			 * @name RIGHT_ARROW
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'RIGHT_ARROW': 'right_arrow',
-
-			/**
-			 * Down arrow key event.
-			 * @name DOWN_ARROW
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'DOWN_ARROW': 'down_arrow',
-
-			/**
-			 * Backspace key event.
-			 * @name BACKSPACE
-			 * @constant
-			 * @memberOf ch.events.key
-			 * @type {String}
-			 */
-			'BACKSPACE': 'backspace'
-		}
-
-	});
-}());
+    /**
+     * Backspace key event.
+     * @name onkeybackspace
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onkeybackspace = 'backspace';

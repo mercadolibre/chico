@@ -1,53 +1,52 @@
+var number = $('#input_user').number('Some text.');
+
 describe('ch.Number', function () {
-	var form = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="validation{ID}" type="text"></div><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
-		idGenerator = (function(){
-			var count = 0;
+    it('should be a function', function () {
+        expect(typeof ch.Number).toEqual('function');
+    });
 
-			return function(){
-				return count++;
-			}
-		}());
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Number')).toBeTruthy();
+        expect(typeof ch.Number).toEqual('function');
+    });
 
-	describe('ch.Number global initialization and returned object.', function () {
-		var n = idGenerator();
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.number(5);
-		$('body').prepend(f);
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('number')).toBeTruthy();
+        expect(typeof $.fn.number).toEqual('function');
+    });
 
-		it('ch.Number should be a function.', function () {
-			expect(typeof ch.Number).toEqual('function');
-		});
+    it('should be return a new instance', function () {
+        expect(number instanceof ch.Validation).toBeTruthy();
+    });
 
-		it('ch.Number should return an object.', function () {
-			expect(typeof validation).toEqual('object');
-		});
+    it('should return an error when the value is not a number', function () {
+        number.$el.val('Some text!');
+        expect(number.hasError()).toBeTruthy();
+    });
 
-	});
+    it('shouldn\'t have got an error when the value is a number', function () {
+        number.$el.val(2);
+        expect(number.hasError()).toBeFalsy();
+    });
 
-	describe('ch.Number working and configuration.', function () {
-		var n = idGenerator();
-		var message = 'This is a new test!.';
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.number(message);
-		$('body').prepend(f);
+    it('should set an error message', function () {
+        expect(number.message('number')).toEqual('Some text.');
+    });
+});
 
-		it('ch.Number should return an error when numbers are set.', function () {
-			input.attr('value', 'abcde');
-			expect(validation.hasError()).toBeTruthy();
-		});
+describe('The test of some values', function () {
+    var condition = number.conditions.number;
 
-		it('ch.Number should return the same text send as a parameter when it was initalized.', function () {
-			expect(validation.validator.conditions.number.message).toEqual(message);
-		});
+    it('should be valid', function () {
+        expect(condition.test(10)).toBeTruthy();
+        expect(condition.test(0)).toBeTruthy();
+        expect(condition.test(10.0)).toBeTruthy();
+        expect(condition.test(-10)).toBeTruthy();
+    });
 
-		it('ch.Number should not return an error when string are set.', function () {
-			input.attr('value', 2);
-			expect(validation.hasError()).toBeFalsy();
-		});
-
-	});
-
-
+    it('should be invalid', function () {
+        expect(condition.test(false)).toBeFalsy();
+        expect(condition.test({})).toBeFalsy();
+        expect(condition.test([])).toBeFalsy();
+    });
 });

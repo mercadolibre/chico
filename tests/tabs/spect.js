@@ -1,277 +1,207 @@
+var tabs1 = $('#tabs-1').tabs(),
+    readyEvent = jasmine.createSpy('readyEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
+    showEvent = jasmine.createSpy('showEvent');
+
+$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+
 describe('Tabs', function () {
-	var tabs1 = $('#tabs-1').tabs(),
-		tabs2 = $('#tabs-2').tabs({'selected': 2}),
+    tabs1
+        .on('ready', function () { readyEvent(); })
+        .on('destroy', function () { destroyEvent(); });
 
-		$el = $(tabs1.element),
-		$tabList = $el.children(':first-child'),
-		$triggers = $tabList.children().children(),
-		$tabsContent = $el.children(':last-child'),
-		$contents = $tabsContent.children(),
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Tabs')).toBeTruthy();
+        expect(typeof ch.Tabs).toEqual('function');
+    });
 
-		selectCallback = jasmine.createSpy('selectCallback'),
-		selectEvent = jasmine.createSpy('selectEvent'),
-		contentLoadCallback = jasmine.createSpy('contentLoadCallback'),
-		contentLoadEvent = jasmine.createSpy('contentLoadEvent'),
-		contentErrorCallback = jasmine.createSpy('contentErrorCallback'),
-		contentErrorEvent = jasmine.createSpy('contentErrorEvent'),
-		readyEvent = jasmine.createSpy('readyEvent'),
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('tabs')).toBeTruthy();
+        expect(typeof $.fn.tabs).toEqual('function');
+    });
 
-		tabs4 = $('#tabs-4').tabs({
-			'onSelect': function () { selectCallback(); },
-			'onContentError': function () { contentErrorCallback(); },
-			'onContentLoad': function () { contentLoadCallback(); }
-		});
+    it('should emit the "ready" event when it\'s created', function () {
+        waits(50);
+        runs(function () {
+            expect(readyEvent).toHaveBeenCalled();
+        });
+    });
 
-	tabs4
-		.on('ready', function () { readyEvent(); })
-		.on('select', function () { selectEvent(); })
-		.on('contentError', function () { contentErrorEvent(); })
-		.on('contentLoad', function () { contentLoadEvent(); });
+    it('with an ajax tab should create a tabpanel', function () {
+        expect($('#ajax', tabs1.$container)[0].nodeType).toEqual(1);
+    });
+});
 
-	it('Should be defined', function () {
-		expect(ch.util.hasOwn(ch, 'Tabs')).toBeTruthy();
-		expect(typeof ch.Tabs).toEqual('function');
-	});
+describe('It should have the following public properties:', function () {
 
-	describe('Shold have the following public properties:', function () {
+    it('.$container', function () {
+        expect(tabs1.$container).not.toEqual(undefined);
+        expect(tabs1.$container[0].nodeType).toEqual(1);
+        expect(tabs1.$container instanceof $).toBeTruthy();
+    });
 
-		it('.element', function () {
-			expect(ch.util.hasOwn(tabs1, 'element')).toBeTruthy();
-			expect(tabs1.element.nodeType).toEqual(1);
-		});
+    it('.name', function () {
+        expect(tabs1.name).not.toEqual(undefined);
+        expect(typeof tabs1.name).toEqual('string');
+        expect(tabs1.name).toEqual('tabs');
+    });
 
-		it('.children', function () {
-			expect(ch.util.hasOwn(tabs1, 'children')).toBeTruthy();
-			expect(ch.util.isArray(tabs1.children)).toBeTruthy();
-		});
+    it('.constructor', function () {
+        expect(tabs1.constructor).not.toEqual(undefined);
+        expect(typeof tabs1.constructor).toEqual('function');
+    });
 
-		it('.type / .name', function () {
-			expect(ch.util.hasOwn(tabs1, 'type')).toBeTruthy();
-			expect(typeof tabs1.type).toEqual('string');
-			expect(tabs1.type).toEqual('tabs');
-		});
+    it('.uid', function () {
+        expect(tabs1.uid).not.toEqual(undefined);
+        expect(typeof tabs1.uid).toEqual('number');
+    });
+});
 
-		it('.constructor', function () {
-			expect(ch.util.hasOwn(tabs1, 'constructor')).toBeTruthy();
-			expect(typeof tabs1.constructor).toEqual('function');
-		});
+describe('It should have the following public methods:', function () {
+    var methods = ['init', 'destroy', 'show', 'getShown', 'enable', 'disable'],
+        i = 0,
+        len = methods.length;
 
-		it('.uid', function () {
-			expect(typeof tabs1.uid).toEqual('number');
-		});
+    for (i; i < len; i += 1) {
+        (function (i){
+            it('.' + methods[i] + '()', function () {
+                expect(tabs1[methods[i]]).not.toEqual(undefined);
+                expect(typeof tabs1[methods[i]]).toEqual('function');
+            });
+        }(i));
+    }
+});
 
-	});
+describe('It should have a wrapper and', function () {
+    var $container = tabs1.$container;
 
-	describe('Shold have the following public methods:', function () {
+    it('should have the ".ch-tabs" class name', function () {
+        expect($container.hasClass('ch-tabs')).toBeTruthy();
+    });
 
-		it('.select()', function () {
-			expect(ch.util.hasOwn(tabs1, 'select')).toBeTruthy();
-			expect(typeof tabs1.select).toEqual('function');
-		});
+});
 
-		it('.off()', function () {
-			expect(ch.util.hasOwn(tabs1, 'off')).toBeTruthy();
-			expect(typeof tabs1.off).toEqual('function');
-		});
+describe('It should have a list of triggers and', function () {
+    var $triggers = tabs1.$triggers,
+        $trigger = $triggers.children(':first-child').children();
 
-		it('.on()', function () {
-			expect(ch.util.hasOwn(tabs1, 'on')).toBeTruthy();
-			expect(typeof tabs1.on).toEqual('function');
-		});
+    it('should exist', function () {
+        expect($triggers).not.toEqual(undefined);
+        expect($triggers[0].nodeType).toEqual(1);
+        expect($triggers instanceof $).toBeTruthy();
+    });
 
-		it('.once()', function () {
-			expect(ch.util.hasOwn(tabs1, 'once')).toBeTruthy();
-			expect(typeof tabs1.once).toEqual('function');
-		});
+    it('should have the WAI-ARIA role "tablist"', function () {
+       expect($triggers.attr('role')).toEqual('tablist');
+    });
 
-		it('.trigger()', function () {
-			expect(ch.util.hasOwn(tabs1, 'trigger')).toBeTruthy();
-			expect(typeof tabs1.trigger).toEqual('function');
-		});
-	});
+    it('should have the "ch-tabs-triggers" class name', function () {
+        expect($triggers.hasClass('ch-tabs-triggers')).toBeTruthy();
+    });
 
-	describe('Shold have the following ID and Classnames:', function () {
-		it('.ch-tabs', function () {
-			expect($el.hasClass('ch-tabs')).toBeTruthy();
-		});
+    describe('its trigger', function () {
+        it('should exist', function () {
+            expect($trigger).not.toEqual(undefined);
+            expect($trigger[0].nodeType).toEqual(1);
+            expect($trigger instanceof $).toBeTruthy();
+        });
 
-		it('.ch-tabs-triggers', function () {
-			expect($tabList.hasClass('ch-tabs-triggers')).toBeTruthy();
-		});
+        it('should have the WAI-ARIA role "tab"', function () {
+            expect($trigger.attr('role')).toEqual('tab');
+        });
 
-		it('.ch-tab-trigger', function () {
-			expect($triggers.hasClass('ch-tab-trigger')).toBeTruthy();
-		});
+        describe('should have the following class name:', function () {
+            it('.ch-tab', function () {
+                expect($trigger.hasClass('ch-tab')).toBeTruthy();
+            });
 
-		it('.ch-box-lite', function () {
-			expect($tabsContent.hasClass('ch-box-lite')).toBeTruthy();
-		});
+            it('.ch-user-no-select', function () {
+                expect($trigger.hasClass('ch-user-no-select')).toBeTruthy();
+            });
+        });
+    });
 
-		it('.ch-tabs-content', function () {
-			expect($tabsContent.hasClass('ch-tabs-content')).toBeTruthy();
-		});
+});
 
-		it('.ch-box-lite', function () {
-			expect($tabsContent.hasClass('ch-box-lite')).toBeTruthy();
-		});
+describe('It should have a list of panels and', function () {
+    var $panel = tabs1.$panel,
+        $tabpanel = tabs1.$panel.children(':first-child');
 
-		it('#tab1-a', function () {
-			expect($contents.eq(0)[0].id).toEqual('tab1-a');
-		});
-	});
+    it('should exist', function () {
+        expect($panel).not.toEqual(undefined);
+        expect($panel[0].nodeType).toEqual(1);
+        expect($panel instanceof $).toBeTruthy();
+    });
 
-	describe('Shold have the following ARIA attributes:', function () {
-		it('role="tablist"', function () {
-			expect($tabList.attr('role')).toEqual('tablist');
-		});
+    it('should have the WAI-ARIA role "presentation"', function () {
+       expect($panel.attr('role')).toEqual('presentation');
+    });
 
-		it('role="tab"', function () {
-			expect($triggers.attr('role')).toEqual('tab');
-		});
+    it('should have the "ch-tabs-panel" class name', function () {
+        expect($panel.hasClass('ch-tabs-panel')).toBeTruthy();
+    });
 
-		it('arial-controls="tab1-a"', function () {
-			expect($triggers.eq(0).attr('arial-controls')).toEqual('tab1-a');
-		});
+    describe('its tabpanel', function () {
 
-		it('role="presentation"', function () {
-			expect($tabsContent.attr('role')).toEqual('presentation');
-		});
+        it('should exist', function () {
+            expect($tabpanel).not.toEqual(undefined);
+            expect($tabpanel[0].nodeType).toEqual(1);
+            expect($tabpanel instanceof $).toBeTruthy();
+        });
 
-		it('role="tabpanel"', function () {
-			expect($contents.attr('role')).toEqual('tabpanel');
-		});
+        it('should have the WAI-ARIA role "tabpanel"', function () {
+            expect($tabpanel.attr('role')).toEqual('tabpanel');
+        });
 
-		it('aria-hidden="false"', function () {
-			expect($contents.attr('aria-hidden')).toEqual('false');
-		});
-	});
+        it('should have the "ch-tabpanel" class name', function () {
+            expect($tabpanel.hasClass('ch-tabpanel')).toBeTruthy();
+        });
+    });
 
-	describe('By defult', function () {
-		it('Should have open the first tab', function () {
-			expect($triggers.eq(0).hasClass('ch-tab-trigger-on')).toBeTruthy();
-		});
+});
 
-		it('Shouldn\'t set a hash on location', function () {
-			expect(window.location.hash).toEqual('');
-		});
-	});
+describe('Its show() method', function () {
+    tabs1.on('show', function () { showEvent(); });
+    var instance = tabs1.show(2);
 
-	describe('Public methods', function () {
-		it('.select()', function () {
-			// Getter
-			var selected = tabs1.select();
-			expect(selected).toEqual(1);
+    it('should set a hash on window location', function () {
+        expect(window.location.hash).not.toEqual('');
+    });
 
-			// Setter
-			tabs1.select(2);
-			selected = tabs1.select();
-			expect(selected).toEqual(2);
-			expect(window.location.hash).toEqual('#!/tab2-a');
-		});
-	});
+    it('should emit the "show" event', function () {
+        expect(showEvent).toHaveBeenCalled();
+    });
 
-	// Bug: Instance configured as selected tab doesn't work if the locations has a hash.
-	describe('Could be instanced with a configuration', function () {
-		it('It has selected any tab by default', function () {
-			var selected = tabs2.select();
-			expect(selected).toEqual(2);
-			expect(window.location.hash).toEqual('#!/tab2-b');
-		});
-	});
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(tabs1);
+    });
+});
 
-	describe('Will load its content by ajax', function () {
-		var tabs3 = $("#tabs-3").tabs({
-				'onContentLoad': function () {
-					var selected = tabs3.select();
-					if (selected === 2) {
-						expect(ch.cache.map['http://ui.ml.com:3040/ajax#ajax']).toBeDefined();
-						expect(selected).toEqual(2);
-						expect(window.location.hash).toEqual('#!/ajax');
-						done();
-					}
-				}
-			}),
-			done = jasmine.createSpy('done'),
-			$ajaxContent = $(tabs3.element).children(':last-child').children(':last-child');
+describe('Its getShown() method', function () {
+    it('should return a number of current shown tab', function () {
+        tabs1.show(1);
+        expect(tabs1.getShown()).toEqual(jasmine.any(Number));
+        expect(tabs1.getShown()).toEqual(1);
+    });
+});
 
-		it('Should create a container', function () {
-			expect($ajaxContent.attr('id')).toEqual('ajax');
-			expect($ajaxContent.hasClass('ch-hide')).toBeTruthy();
-			expect($ajaxContent.html()).toEqual('');
-		});
+describe('Its destroy() method', function () {
 
-		it('and should have ARIA attributes', function () {
-			expect($ajaxContent.attr('role')).toEqual('tabpanel');
-			expect($ajaxContent.attr('aria-hidden')).toEqual('true');
-		});
+    it('should reset the $container', function () {
+        tabs1.destroy();
+        expect(tabs1.$container.parent().length === 0).toBeTruthy();
+    });
 
-		it('Should load its content by ajax async', function () {
-			tabs3.select(2);
-			waitsFor(function() {
-				return done.callCount > 0;
-			});
-		});
-	});
+    it('should remove the instance from the element', function () {
+        expect(tabs1._$el.data('tabs')).toBeUndefined();
+    });
 
-	describe('Should execute the following callbacks:', function () {
+    it('should emit the "changeLayout" event', function () {
+        expect(changeLayoutEvent).toHaveBeenCalled();
+    });
 
-		it('select', function () {
-			tabs4.select(2);
-			expect(selectCallback).toHaveBeenCalled();
-			tabs4.select(1);
-		});
-
-		it('contentLoad', function () {
-			tabs4.select(3);
-			waits(500);
-			runs(function () {
-				expect(contentLoadCallback).toHaveBeenCalled();
-				tabs4.select(1);
-			});
-		});
-
-		it('contentError', function () {
-			tabs4.select(4);
-			waits(500);
-			runs(function () {
-				expect(contentErrorCallback).toHaveBeenCalled();
-				tabs4.select(1);
-			});
-		});
-
-	});
-
-	describe('Should execute the following events:', function () {
-
-		it('ready', function () {
-			waits(50);
-			runs(function () {
-				expect(readyEvent).toHaveBeenCalled();
-			});
-		});
-
-		it('select', function () {
-			tabs4.select(2);
-			expect(selectEvent).toHaveBeenCalled();
-			tabs4.select(1);
-		});
-
-		it('contentLoad', function () {
-			tabs4.select(3);
-			waits(500);
-			runs(function () {
-				expect(contentLoadEvent).toHaveBeenCalled();
-				tabs4.select(1);
-			});
-		});
-
-		it('contentError', function () {
-			tabs4.select(4);
-			waits(500);
-			runs(function () {
-				expect(contentErrorEvent).toHaveBeenCalled();
-				tabs4.select(1);
-			});
-		});
-	});
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
 });

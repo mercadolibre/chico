@@ -1,11 +1,10 @@
-(function () {
     /**
      * Method in change of expose a friendly interface of the Chico constructors.
      * @methodOf ch
      * @param {Object} Klass Direct reference to the constructor from where the $-plugin will be created.
      * @see <a href="http://docs.jquery.com/Plugins/Authoring" target="_blank">http://docs.jquery.com/Plugins/Authoring</a>
      */
-    function factory(Klass, fn) {
+    ch.factory = function (Klass, fn) {
         /**
          * Identification of the constructor, in lowercases.
          * @type {String}
@@ -87,8 +86,4 @@
             // Return the instance/instances of widgets
             return (widgets.length > 1) ? widgets : widgets[0];
         };
-    }
-
-    // Export
-    ch.factory = factory;
-}());
+    };

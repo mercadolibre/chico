@@ -1,326 +1,241 @@
+var form = $('#form-test').form(),
+    readyEvent = jasmine.createSpy('readyEvent'),
+    beforevalidateEvent = jasmine.createSpy('beforevalidateEvent'),
+    successEvent = jasmine.createSpy('successEvent'),
+    errorEvent = jasmine.createSpy('errorEvent'),
+    clearEvent = jasmine.createSpy('clearEvent'),
+    resetEvent = jasmine.createSpy('resetEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
+    validation = $('#input_user').required('This field is required.'),
+    $input = $('#input_user');
+
 describe('Form', function () {
-	var beforeSubmitCallback = jasmine.createSpy('beforeSubmitCallback'),
-		submitCallback = jasmine.createSpy('submitCallback'),
-		afterSubmitCallback = jasmine.createSpy('afterSubmitCallback'),
+    form
+        .on('ready', readyEvent)
+        .on('destroy', destroyEvent)
+        .on('success', function (e) { e.preventDefault(); });
 
-		beforeValidateCallback = jasmine.createSpy('beforeValidateCallback'),
-		validateCallback = jasmine.createSpy('validateCallback'),
-		afterValidateCallback = jasmine.createSpy('afterValidateCallback'),
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Form')).toBeTruthy();
+        expect(typeof ch.Form).toEqual('function');
+    });
 
-		clearCallback = jasmine.createSpy('clearCallback'),
-		resetCallback = jasmine.createSpy('resetCallback'),
-		errorCallback = jasmine.createSpy('errorCallback'),
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('form')).toBeTruthy();
+        expect(typeof $.fn.form).toEqual('function');
+    });
 
-		readyEvent = jasmine.createSpy('readyEvent'),
+    it('should be return a new instance', function () {
+        expect(form instanceof ch.Form).toBeTruthy();
+    });
 
-		beforeSubmitEvent = jasmine.createSpy('beforeSubmitEvent'),
-		submitEvent = jasmine.createSpy('submitEvent'),
-		afterSubmitEvent = jasmine.createSpy('afterSubmitEvent'),
+    it('should have the "ch-form" classname', function () {
+        expect(form.$container.hasClass('ch-form')).toBeTruthy();
+    });
 
-		beforeValidateEvent = jasmine.createSpy('beforeValidateEvent'),
-		validateEvent = jasmine.createSpy('validateCallback'),
-		afterValidateEvent = jasmine.createSpy('afterValidateEvent'),
+    it('should disable HTML5 validations', function () {
+        expect(form.$container.attr('novalidate')).toEqual('novalidate');
+    });
 
-		clearEvent = jasmine.createSpy('clearEvent'),
-		resetEvent = jasmine.createSpy('resetEvent'),
-		errorEvent = jasmine.createSpy('errorEvent'),
+    it('should emit the "ready" event when it\'s created', function () {
+        waits(50);
+        runs(function () {
+            expect(readyEvent).toHaveBeenCalled();
+        });
+    });
 
-		form = $('#form-1').form({
-			'messages': {
-				'required': 'Form: this field is required.'
-			},
+    describe('should use the following abilities:', function () {
+        it('EventEmitter', function () {
+            expect(form.on).not.toEqual(undefined);
+            expect(typeof form.on).toEqual('function');
+        });
+    });
+});
 
-			'beforeSubmit': function () { beforeSubmitCallback() },
-			'onSubmit': function () { submitCallback() },
-			'afterSubmit': function () { afterSubmitCallback() },
+describe('It should have the following public properties:', function () {
 
-			'beforeValidate': function () { beforeValidateCallback() },
-			'onValidate': function () { validateCallback() },
-			'afterValidate': function () { afterValidateCallback() },
+    it('.$container', function () {
+        expect(form.$container).not.toEqual(undefined);
+        expect(form.$container[0].nodeType).toEqual(1);
+        expect(form.$container instanceof $).toBeTruthy();
+    });
 
-			'onClear': function () { clearCallback() },
-			'onReset': function () { resetCallback() },
-			'onError': function () { errorCallback() }
-		}),
-		validation = $('#input_user').required('This field is required.'),
-		$input = $('#input_user');
+    it('.name', function () {
+        expect(form.name).not.toEqual(undefined);
+        expect(typeof form.name).toEqual('string');
+        expect(form.name).toEqual('form');
+    });
 
+    it('.constructor', function () {
+        expect(form.constructor).not.toEqual(undefined);
+        expect(typeof form.constructor).toEqual('function');
+    });
 
-	form
-		.on('ready', function () {
-			readyEvent();
-		})
-		.on('beforeSubmit', function () {
-			beforeSubmitEvent();
-		})
-		.on('submit', function () {
-			submitEvent();
-		})
-		.on('afterSubmit', function () {
-			afterSubmitEvent();
-		})
-		.on('beforeValidate', function () {
-			beforeValidateEvent();
-		})
-		.on('validate', function () {
-			validateEvent();
-		})
-		.on('afterValidate', function () {
-			afterValidateEvent();
-		})
-		.on('clear', function () {
-			clearEvent();
-		})
-		.on('reset', function () {
-			resetEvent();
-		})
-		.on('error', function () {
-			errorEvent();
-		});
+    it('.uid', function () {
+        expect(form.uid).not.toEqual(undefined);
+        expect(typeof form.uid).toEqual('number');
+    });
 
+    it('.errors', function () {
+        expect(form.errors).not.toEqual(undefined);
+        expect(ch.util.isArray(form.errors)).toBeTruthy();
+    });
 
-	it('Should be defined', function () {
-		expect(ch.util.hasOwn(ch, 'Form')).toBeTruthy();
-		expect(typeof ch.Form).toEqual('function');
-	});
+    it('.validations', function () {
+        expect(form.validations).not.toEqual(undefined);
+        expect(ch.util.isArray(form.validations)).toBeTruthy();
+    });
 
-	describe('Shold have the following public properties:', function () {
+});
 
-		it('.children', function () {
-			expect(ch.util.hasOwn(form, 'children')).toBeTruthy();
-			expect(ch.util.isArray(form.children)).toBeTruthy();
-		});
+describe('It should have the following public methods:', function () {
+    var methods = ['init', 'destroy', 'clear', 'hasError', 'reset', 'validate', 'enable', 'disable'],
+        i = 0,
+        len = methods.length;
 
-		it('.element', function () {
-			expect(ch.util.hasOwn(form, 'element')).toBeTruthy();
-			expect(form.element.nodeType).toEqual(1);
-		});
+    for (i; i < len; i += 1) {
+        (function (i){
+            it('.' + methods[i] + '()', function () {
+                expect(form[methods[i]]).not.toEqual(undefined);
+                expect(typeof form[methods[i]]).toEqual('function');
+            });
+        }(i));
+    }
+});
 
-		it('.messages', function () {
-			expect(ch.util.hasOwn(form, 'messages')).toBeTruthy();
-			expect(typeof form.messages).toBe('object');
-		});
+describe('When the form is submited it', function () {
+    it('should run "validate" method', function () {
+        spyOn(form, 'validate').andCallThrough();
+        form.$container.submit();
+        expect(form.validate).toHaveBeenCalled();
+    });
+});
 
-		it('.type / .name', function () {
-			expect(ch.util.hasOwn(form, 'type')).toBeTruthy();
-			expect(typeof form.type).toEqual('string');
-			expect(form.type).toEqual('form');
-		});
+describe('Its validate() method', function () {
+    form
+        .once('beforevalidate', beforevalidateEvent)
+        .once('success', successEvent)
+        .once('error', errorEvent);
 
-		it('.constructor', function () {
-			expect(ch.util.hasOwn(form, 'constructor')).toBeTruthy();
-			expect(typeof form.constructor).toEqual('function');
-		});
+    form.validate();
 
-		it('.uid', function () {
-			expect(typeof form.uid).toEqual('number');
-		});
+    it('should emit "beforevalidate" event', function () {
+        expect(beforevalidateEvent).toHaveBeenCalled();
+    });
 
-	});
+    it('should update errors collection', function () {
+        expect(form.errors.length).not.toEqual(0);
+    });
 
-	describe('Shold have the following public methods:', function () {
+    it('should emit "error" event when it has got errors', function () {
+        expect(errorEvent).toHaveBeenCalledWith(form.errors);
+    });
 
-		it('.clear()', function () {
-			expect(ch.util.hasOwn(form, 'clear')).toBeTruthy();
-			expect(typeof form.clear).toEqual('function');
-		});
+    it('should set focus to the input that has got an error', function () {
+        expect(document.activeElement).toEqual(form.errors[0].$trigger[0]);
+    });
 
-		it('.isValidated()', function () {
-			expect(ch.util.hasOwn(form, 'isValidated')).toBeTruthy();
-			expect(typeof form.isValidated).toEqual('function');
-		});
+    it('should emit "success" event when it has not got errors', function () {
+        $input.val('success');
+        form.$container.submit();
+        expect(successEvent).toHaveBeenCalled();
+        form.reset();
+    });
+});
 
-		it('.off()', function () {
-			expect(ch.util.hasOwn(form, 'off')).toBeTruthy();
-			expect(typeof form.off).toEqual('function');
-		});
+describe('Its hasError() method', function () {
 
-		it('.on()', function () {
-			expect(ch.util.hasOwn(form, 'on')).toBeTruthy();
-			expect(typeof form.on).toEqual('function');
-		});
+    it('should return "false" when it hasn\'t got', function () {
+        $input.val('test');
+        expect(form.hasError()).toBeFalsy();
 
-		it('.once()', function () {
-			expect(ch.util.hasOwn(form, 'once')).toBeTruthy();
-			expect(typeof form.once).toEqual('function');
-		});
+    });
 
-		it('.reset()', function () {
-			expect(ch.util.hasOwn(form, 'reset')).toBeTruthy();
-			expect(typeof form.reset).toEqual('function');
-		});
+    it('should return a boolean "true" when it has got errors', function () {
+        $input.val('');
+        expect(form.hasError()).toBeTruthy();
+    });
+});
 
-		it('.submit()', function () {
-			expect(ch.util.hasOwn(form, 'submit')).toBeTruthy();
-			expect(typeof form.submit).toEqual('function');
-		});
+describe('Its clear() method', function () {
+    form.once('clear', clearEvent);
+    var instance = form.clear();
 
-		it('.trigger()', function () {
-			expect(ch.util.hasOwn(form, 'trigger')).toBeTruthy();
-			expect(typeof form.trigger).toEqual('function');
-		});
+    it('should clear all validations', function () {
+        expect(form.errors[0].isShown()).toBeFalsy();
+    });
 
-		it('.validate()', function () {
-			expect(ch.util.hasOwn(form, 'validate')).toBeTruthy();
-			expect(typeof form.validate).toEqual('function');
-		});
-	});
+    it('should emit "clear" event', function () {
+        expect(clearEvent).toHaveBeenCalled();
+    });
 
-	describe('Public methods', function () {
-		it('.reset()', function () {
-			$input.val('reset');
-			expect($input.val()).toEqual('reset');
-			form.reset();
-			expect($input.val()).toEqual('');
-		});
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(form);
+    });
+});
 
-		it('.submit()', function () {
-			$input.val('submit');
-			form.submit();
-			expect(submitEvent).toHaveBeenCalled();
-		});
+describe('Its reset() method', function () {
+    form.once('reset', resetEvent);
+    var instance = form.reset();
 
-		it('.validate()', function () {
-			form.reset();
-			form.validate();
-			expect(validateEvent).toHaveBeenCalled();
-			expect(validation.isActive()).toBeTruthy();
-		});
+    it('should emit "reset" event', function () {
+        expect(resetEvent).toHaveBeenCalled();
+    });
 
-		it('.clear()', function () {
-			$input.val('clear');
-			form.clear();
-			expect($input.val()).toEqual('clear');
-			expect(validation.isActive()).toBeFalsy();
-			form.reset();
-		});
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(form);
+    });
+});
 
-		it('.isValidated()', function () {
-			form.validate();
-			expect(form.isValidated()).toBeFalsy();
-			$input.val('Validated!');
-			form.validate();
-			expect(form.isValidated()).toBeTruthy();
-			form.clear();
-		});
-	});
+describe('Its disable() method', function () {
+    var instance;
 
+    it('should disable all validations', function () {
+        instance = form.disable();
+        expect(form.hasError()).toBeFalsy();
+    });
 
-	describe('Should execute the following callbacks:', function () {
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(form);
+    });
+});
 
-		it('beforeSubmit', function () {
-			form.submit();
-			expect(beforeSubmitCallback).toHaveBeenCalled();
-			form.clear();
-		});
+describe('Its enable() method', function () {
+    var instance;
 
-		it('submit', function () {
-			$input.val('Submit!');
-			form.submit();
-			expect(submitCallback).toHaveBeenCalled();
-			form.clear();
-		});
+    it('should enable all validations', function () {
+        instance = form.enable();
+        expect(form.hasError()).toBeTruthy();
+    });
 
-		it('afterSubmit', function () {
-			form.submit();
-			expect(afterSubmitCallback).toHaveBeenCalled();
-		});
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(form);
+    });
 
-		it('beforeValidate', function () {
-			form.validate();
-			expect(beforeValidateCallback).toHaveBeenCalled();
-		});
+    form.reset();
 
-		it('validate', function () {
-			form.validate();
-			expect(validateCallback).toHaveBeenCalled();
-		});
+});
 
-		it('afterValidate', function () {
-			form.validate();
-			expect(afterValidateCallback).toHaveBeenCalled();
-			form.reset();
-		});
+describe('Its destroy() method', function () {
 
-		it('error', function () {
-			form.validate();
-			expect(errorCallback).toHaveBeenCalled();
-			form.clear();
-		});
+    it('should reset the $container', function () {
+        form.destroy();
+        expect(form.$container.attr('novalidate')).toBeUndefined();
+    });
 
-		it('clear', function () {
-			form.clear();
-			expect(clearCallback).toHaveBeenCalled();
-		});
+    it('should remove ".form" events', function () {
+        expect($._data(form.$container[0], 'events')).toBeUndefined();
+    });
 
-		it('reset', function () {
-			form.reset();
-			expect(resetCallback).toHaveBeenCalled();
-		});
+    it('should destroy its validations', function () {
+        expect(form.validations[0]._enabled).toBeFalsy();
+    });
 
-	});
+    it('should remove the instance from the element', function () {
+        expect(form._$el.data('form')).toBeUndefined();
+    });
 
-	describe('Should emit the following events:', function () {
-
-		it('ready', function () {
-			waits(50);
-			runs(function () {
-				expect(readyEvent).toHaveBeenCalled();
-			});
-		});
-
-		it('beforeSubmit', function () {
-			form.submit();
-			expect(beforeSubmitEvent).toHaveBeenCalled();
-			form.clear();
-		});
-
-		it('submit', function () {
-			form.submit();
-			expect(submitEvent).toHaveBeenCalled();
-			form.clear();
-		});
-
-		it('afterSubmit', function () {
-			form.submit();
-			expect(afterSubmitEvent).toHaveBeenCalled();
-			form.clear();
-		});
-
-		it('beforeValidate', function () {
-			form.validate();
-			expect(beforeValidateEvent).toHaveBeenCalled();
-			form.clear();
-		});
-
-		it('validate', function () {
-			form.validate();
-			expect(validateEvent).toHaveBeenCalled();
-			form.clear();
-		});
-
-		it('afterValidate', function () {
-			form.validate();
-			expect(afterValidateEvent).toHaveBeenCalled();
-			form.clear();
-		});
-
-		it('error', function () {
-			form.validate();
-			expect(errorEvent).toHaveBeenCalled();
-			form.reset();
-		});
-
-		it('clear', function () {
-			form.clear();
-			expect(clearEvent).toHaveBeenCalled();
-		});
-
-		it('reset', function () {
-			form.reset();
-			expect(resetEvent).toHaveBeenCalled();
-		});
-
-	});
-
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
 });

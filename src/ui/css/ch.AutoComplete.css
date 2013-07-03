@@ -26,6 +26,10 @@
 	border-radius: 5px;
 }
 
+.ch-autoComplete-list .ch-icon-arrow-up {
+	display: none;
+}
+
 /* IE */
 .ch-autoComplete-loading {
 	background: url('../assets/loading-small.gif') no-repeat right center;
