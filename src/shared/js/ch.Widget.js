@@ -1,44 +1,44 @@
 (function (window, $, ch) {
-	'use strict';
+    'use strict';
 
-	if (ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
-	var util = ch.util,
+    var util = ch.util,
 
-		/**
-		 * Global instantiation widget id.
-		 * @private
-		 * @type {Number}
-		 */
-		uid = 0;
+        /**
+         * Global instantiation widget id.
+         * @private
+         * @type {Number}
+         */
+        uid = 0;
 
-	/**
-	 * Represents the abstract class of all widgets.
-	 * @abstract
-	 * @name Widget
-	 * @class Widget
-	 * @memberOf ch
-	 */
-	function Widget($el, options) {
-		this.init($el, options);
+    /**
+     * Represents the abstract class of all widgets.
+     * @abstract
+     * @name Widget
+     * @class Widget
+     * @memberOf ch
+     */
+    function Widget($el, options) {
+        this.init($el, options);
 
-		return this;
-	}
+        return this;
+    }
 
-	ch.util.inherits(Widget, ch.EventEmitter);
+    ch.util.inherits(Widget, ch.EventEmitter);
 
-	Widget.prototype.name = 'widget';
-	Widget.prototype.constructor = Widget;
+    Widget.prototype.name = 'widget';
+    Widget.prototype.constructor = Widget;
 
-	/**
-	 * Initialize the instance and merges the user options with defaults options.
-	 * @public
-	 * @function
-	 * @name ch.Widget#init
-	 */
-	Widget.prototype.init = function ($el, options) {
+    /**
+     * Initialize the instance and merges the user options with defaults options.
+     * @public
+     * @function
+     * @name ch.Widget#init
+     */
+    Widget.prototype.init = function ($el, options) {
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
@@ -76,7 +76,7 @@
         this.uid = (uid += 1);
 
         this._enabled = true;
-	};
+    };
 
 
     /**
