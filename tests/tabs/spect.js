@@ -1,6 +1,7 @@
 var tabs1 = $('#tabs-1').tabs(),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
     showEvent = jasmine.createSpy('showEvent');
 
 $(window.document).on(ch.onchangelayout, changeLayoutEvent);
