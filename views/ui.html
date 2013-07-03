@@ -14,7 +14,7 @@
     <meta http-equiv="cleartype" content="on">
 
     <link rel="stylesheet" href="/ui/css">
-    <link rel="stylesheet" href="/shared/mesh">
+    <link rel="stylesheet" href="/shared/css/mesh">
     <style>
         /**
          * Carousel demo
@@ -1344,9 +1344,6 @@
     <script src="../vendor/jquery-debug.js"></script>
     <script src="/ui/js"></script>
     <script>
-        // Automatic version
-        document.title = document.getElementsByTagName("h1")[0].innerHTML = document.title + " v" + ch.version;
-
         var autocomplete1 = $('.autoComplete').autoComplete({'html': true});
             autocomplete1.$container.prepend('<p>Hi, please choose and option!</p>');
 
@@ -1710,7 +1707,6 @@
         var validation13 = $('#double').required(message('link'));
         var validation14 = $('#double').number();
         var validation15 = $('#double, #textarea2').required();
-
     </script>
 </body>
 </html>
