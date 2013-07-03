@@ -15,10 +15,9 @@
      * @factorized
      * @param {Object} [options] Object with configuration properties.
      * @param {Boolean} [options.pagination] Shows a pagination. By default, the value is false.
-     * @param {Array} [options.asyncData] Defines the content of each item that will be load asnchronously as array.
-     * @param {Function} [options.asyncRender] The function that receives asyncData content and must return a string with result of manipulate that content.
+     * @param {Number} [options.async] Define the number of futures async items to add.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are enabled.
-     * @param {Number} [options.maxItems] (Since 0.10.6) Set the max amount of items to show in each page.
+     * @param {Number} [options.limitPerPage] (Since 0.10.6) Set the max amount of items to show in each page.
      * @param {Number} [options.initialPage] (Since 1.0) Initialize the Carousel in a specified page.
      * @returns itself
      * @exampleDescription Create a Carousel without configuration.
@@ -92,7 +91,7 @@
          * @name ch.Carousel#$list
          * @type jQuery Object
          */
-        this._$list = this._$el.children().addClass('ch-carousel-list');
+        this._$list = this._$el.addClass('ch-carousel').children().addClass('ch-carousel-list');
 
         /**
          * Collection of each child of the list.
@@ -108,7 +107,6 @@
          * @name ch.Carousel#$mask
          * @type jQuery Object
          */
-        // Use .html().appendTo() instead wrapInner() to keep the reference to the mask element
         this._$mask = $('<div class="ch-carousel-mask" role="tabpanel" style="height:' + this._$items.outerHeight() + 'px">')
             .html(this._$list)
             .appendTo(this._$el);
@@ -229,23 +227,7 @@
          * @name ch.Carousel#queue
          * @type Array
          */
-        this._queue = (function () {
-            // No queue
-            if (that._options.asyncData === undefined) { return []; }
-
-            var asyncData = that._options.asyncData,
-                i = asyncData.length,
-                queue = [];
-
-            // Clean the user's asyncData to not contain undefined elements
-            while (i) {
-                if (asyncData[i -= 1] !== undefined) {
-                    queue.unshift(asyncData[i]);
-                }
-            }
-
-            return queue;
-        }());
+        this._queue = this._options.async || 0;
 
         /**
          * DOM element of arrow that moves the Carousel to the previous page.
@@ -275,15 +257,17 @@
             // Get the page from the element
             var page = event.target.getAttribute('data-page');
             // Allow interactions from a valid page of pagination
-            if (page !== null) { that.goTo(window.parseInt(page, 10)); }
+            if (page !== null) { that.select(window.parseInt(page, 10)); }
         });
 
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
         if (!this._options.fx) { this._$list.addClass('ch-carousel-nofx'); }
+
         // Position absolutelly the list when CSS transitions aren't supported
         if (!ch.support.transition) { this._$list.css({'position': 'absolute', 'left': '0'}); }
+
         // If there are a parameter specifying a pagination, add it
         if (this._options.pagination !== undefined) { this._addPagination(); }
 
@@ -292,17 +276,18 @@
 
         // Trigger all calculations to get the functionality measures
         this._maskWidth = this._$mask.outerWidth();
-        // Analizes if next page needs to load items from queue and execute addItems() method
-        this._loadAsyncItems();
+
         // Set WAI-ARIA properties to each item depending on the page in which these are
         this._updateARIA();
+
         // Calculate items per page and calculate pages, only when the amount of items was changed
         this._updateItemsPerPage();
+
         // Update the margin between items and its size
         this._updateDistribution();
 
         // Put Carousel on specified page or at the beginning
-        this.goTo(this._options.initialPage);
+        this.select(this._options.initialPage);
     };
 
     /**
@@ -315,7 +300,8 @@
 
         var that = this,
             // Amount of items when ARIA is updated
-            total = this._$items.length + this._queue.length;
+            total = this._$items.length + this._queue;
+
         // Update ARIA properties on all items
         this._$items.each(function (i, item) {
             // Update page where this item is in
@@ -327,7 +313,9 @@
                 'aria-posinset': i + 1,
                 'aria-label': 'page' + page
             });
+
         });
+
     };
 
     /**
@@ -341,13 +329,13 @@
 
         var that = this,
             // Take the sample from queue
-            sample = that._queue.splice(0, amount),
-            // Function with content processing using asyncRender or not
-            hasTemplate = (that._options.asyncRender !== undefined),
+            sample = [],
             // Index
-            i = 0;
+            i = 0,
+            // It stores the items that will be added to the DOM
+            $items;
 
-        // Replace sample items with Carousel item template)
+        // Replace sample items with Carousel item template
         for (i; i < amount; i += 1) {
             // Replace sample item
             // Add the same margin than all siblings items
@@ -356,26 +344,32 @@
                 '<li',
                 ' class="ch-carousel-item"',
                 ' style="width:' + (that._itemWidth + that._itemExtraWidth) + 'px;margin-right:' + that._itemMargin + 'px"',
-                '>' + (hasTemplate ? that._options.asyncRender(sample[i]) : sample[i]) + '</li>'
+                '></li>'
             ].join('');
         }
 
+        $items = $(sample.join(''));
+
         // Add sample items to the list
-        that._$list.append(sample.join(''));
+        that._$list.append($items);
+
         // Update items collection
         that._$items = that._$list.children();
+
+        that._queue = that._queue - amount;
+
         /**
          * Triggers when component adds items asynchronously from queue.
-         * @name ch.Carousel#itemsAdded
+         * @name ch.Carousel#addeditems
          * @event
          * @public
          * @exampleDescription Using a callback when Carousel add items asynchronously.
          * @example
-         * example.on("itemsAdded", function () {
+         * example.on("addeditems", function ($items) {
          *    alert("Some asynchronous items was added.");
          * });
          */
-        that.emit('itemsdone');
+        that.emit('addeditems', $items);
     };
 
     /**
@@ -386,7 +380,7 @@
      */
     Carousel.prototype._loadAsyncItems = function () {
         // Load only when there are items in queue
-        if (this._queue.length === 0) { return; }
+        if (this._queue === 0) { return; }
 
         // Amount of items from the beginning to current page
         var total = this._currentPage * this._limitPerPage,
@@ -397,9 +391,11 @@
         if (amount < 1) { return; }
 
         // If next page needs less items than it support, then add that amount
-        amount = (this._queue.length < amount) ? this._queue.length : amount;
+        amount = (this._queue < amount) ? this._queue : amount;
+
         // Add these
         this._addItems(amount);
+
     };
 
     /**
@@ -440,8 +436,10 @@
         }
         // Append thumbnails to pagination and append this to Carousel
         that._$pagination.html(thumbs.join('')).appendTo(that._$el);
+
         // Avoid selection on the pagination
         ch.util.avoidTextSelection(that._$pagination);
+
         // Check pagination as created
         that._paginationCreated = true;
     };
@@ -503,14 +501,14 @@
      */
     Carousel.prototype._updateItemsPerPage = function () {
 
-        var max = this._options.maxItems,
+        var max = this._options.limitPerPage,
             // Go to the current first item on the current page to restore if pages amount changes
             firstItemOnPage,
             // The width of each item into the width of the mask
             // Avoid zero items in a page
             itemsPerPage = Math.floor(this._maskWidth / this._itemOuterWidth) || 1;
 
-        // Limit amount of items when user set a maxItems amount
+        // Limit amount of items when user set a limitPerPage amount
         if (max !== undefined && itemsPerPage > max) { itemsPerPage = max; }
 
         // Set data and calculate pages, only when the amount of items was changed
@@ -523,16 +521,22 @@
 
         // Update the amount of total pages
         // The ratio between total amount of items and items in each page
-        this._pages = Math.ceil((this._$items.length + this._queue.length) / itemsPerPage);
+        this._pages = Math.ceil((this._$items.length + this._queue) / itemsPerPage);
+
+        // Get items from queue to the list, if it's necessary
+        this._loadAsyncItems();
 
         // Set WAI-ARIA properties to each item
         this._updateARIA();
+
         // Update arrows (when pages === 1, there is no arrows)
         this._updateArrows();
+
         // Update pagination
         this._updatePagination();
+
         // Go to the current first item page
-        this.goTo(Math.ceil(firstItemOnPage / itemsPerPage));
+        this.select(Math.ceil(firstItemOnPage / itemsPerPage));
     };
 
     /**
@@ -543,9 +547,7 @@
      */
     Carousel.prototype._updateDistribution = function () {
 
-        var that = this,
-            // Grabs if there are MORE THAN ONE item in a page or just one
-            moreThanOne = this._limitPerPage > 1,
+        var moreThanOne = this._limitPerPage > 1,
             // Total space to use as margin into mask
             // It's the difference between mask width and total width of all items
             freeSpace = this._maskWidth - (this._itemOuterWidth * this._limitPerPage),
@@ -576,6 +578,7 @@
         // There is no margin when there are only one item in a page
         // Update global values
         this._itemMargin = moreThanOne ? Math.ceil(freeSpace / spaces / 2) : 0;
+
         // Update distance needed to move ONLY ONE page
         // The width of all items on a page, plus the width of all margins of items
         this._pageWidth = (this._itemOuterWidth + extraWidth + this._itemMargin) * this._limitPerPage;
@@ -753,22 +756,27 @@
      *
      * @public
      * @function
-     * @name ch.Carousel#goTo
+     * @name ch.Carousel#select
      * @returns Chico UI Object
      * @param {Number || String} page Reference of page to go.
      * @since 1.0
      * @exampleDescription Go to second page.
      * @example
-     * foo.goTo(2);
+     * foo.select(2);
      * @exampleDescription Get the current page.
      * @example
-     * foo.goTo();
+     * foo.select();
      */
-    Carousel.prototype.goTo = function (page) {
+    Carousel.prototype.select = function (page) {
         // Set an error when the page is out of range
-        if (window.isNaN(page)) {
-            throw new window.Error('Chico Carousel: Invalid parameter (' + page + ') received in goTo(). Provide a Number between 1 and ' + this._pages + '.');
+        // if (window.isNaN(page)) {
+        //     throw new window.Error('Chico Carousel: Invalid parameter (' + page + ') received in select(). Provide a Number between 1 and ' + this._pages + '.');
+        // }
+
+        if (page === undefined) {
+            return this._currentPage;
         }
+
         // Avoid to select the same page that is selected yet
         if (page === this._currentPage || page < 1 || page > this._pages) {
             return;
@@ -783,6 +791,7 @@
         // Task 4: Check for arrows behavior on first, last and middle pages
         this._updateArrows();
         // Task 5: Get items from queue to the list, if it's necessary
+        // Load only when there are items in queue
         this._loadAsyncItems();
         // Task 6: Set WAI-ARIA properties to each item
         this._updateARIA();
@@ -815,7 +824,7 @@
      * });
      */
     Carousel.prototype.prev = function () {
-        this.goTo(this._currentPage - 1);
+        this.select(this._currentPage - 1);
         this.emit('prev');
         return this;
     };
@@ -832,7 +841,7 @@
      * });
      */
     Carousel.prototype.next = function () {
-        this.goTo(this._currentPage + 1);
+        this.select(this._currentPage + 1);
         this.emit('next');
         return this;
     };
@@ -869,7 +878,7 @@
                 that.next();
             // On last page: Move to first page
             } else {
-                that.goTo(1);
+                that.select(1);
             }
         // Use the setted timing
         }, this._delay);

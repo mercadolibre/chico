@@ -64,15 +64,17 @@
                     var keyCode = event.keyCode.toString(),
                         eventType = codeMap[keyCode],
                         callbacks,
-                        i;
+                        callbacksLenght,
+                        i = 0;
 
                     if (eventType !== undefined && that._active !== null) {
                         callbacks = that._collection[that._active][eventType];
-
+                        callbacksLenght = callbacks.length;
                         event.type = codeMap[keyCode];
 
+                        // TODO: callbacks.length cachear
                         if (callbacks !== undefined) {
-                            for (i = 0; i < callbacks.length; i += 1) {
+                            for (i = 0; i < callbacksLenght; i += 1) {
                                 callbacks[i](event);
                             }
                         }
