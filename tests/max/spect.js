@@ -1,53 +1,50 @@
+var max = $('#input_user').max(10, 'Some text {#num#}.');
+
 describe('ch.Max', function () {
-	var form = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="validation{ID}" type="text"></div><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
-		idGenerator = (function(){
-			var count = 0;
+    it('should be a function', function () {
+        expect(typeof ch.Max).toEqual('function');
+    });
 
-			return function(){
-				return count++;
-			}
-		}());
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Max')).toBeTruthy();
+        expect(typeof ch.Max).toEqual('function');
+    });
 
-	describe('ch.Max global initialization and returned object.', function () {
-		var n = idGenerator();
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.max(5);
-		$('body').prepend(f);
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('max')).toBeTruthy();
+        expect(typeof $.fn.max).toEqual('function');
+    });
 
-		it('ch.Max should be a function.', function () {
-			expect(typeof ch.Max).toEqual('function');
-		});
+    it('should be return a new instance', function () {
+        expect(max instanceof ch.Validation).toBeTruthy();
+    });
 
-		it('ch.Max should return an object.', function () {
-			expect(typeof validation).toEqual('object');
-		});
+    it('should have got an error when the value is a number smaller than "max" number', function () {
+        max.$el.val(22);
+        expect(max.hasError()).toBeTruthy();
+    });
 
-	});
+    it('shouldn\'t have got an error an error when the value is a number higher than "max" number', function () {
+        max.$el.val(6);
+        expect(max.hasError()).toBeFalsy();
+    });
 
-	describe('ch.Max working and configuration.', function () {
-		var n = idGenerator();
-		var message = 'This is a new test!.';
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.max(10,message);
-		$('body').prepend(f);
+    it('should set an error message', function () {
+        expect(max.message('max')).toEqual('Some text 10.');
+    });
+});
 
-		it('ch.Max should return an error when numbers are set.', function () {
-			input.attr('value', 11);
-			expect(validation.hasError()).toBeTruthy();
-		});
+describe('The test of some values', function () {
+    var condition = max.conditions.max;
 
-		it('ch.Max should return the same text send as a parameter when it was initalized.', function () {
-			expect(validation.validator.conditions.max.message).toEqual(message);
-		});
+    it('should be valid', function () {
+        expect(condition.test(5)).toBeTruthy();
+        expect(condition.test('5')).toBeTruthy();
+        expect(condition.test(-5)).toBeTruthy();
+    });
 
-		it('ch.Max should not return an error when string are set.', function () {
-			input.attr('value', 2);
-			expect(validation.hasError()).toBeFalsy();
-		});
-
-	});
-
-
+    it('should be invalid', function () {
+        expect(condition.test('11')).toBeFalsy();
+        expect(condition.test(11)).toBeFalsy();
+    });
 });

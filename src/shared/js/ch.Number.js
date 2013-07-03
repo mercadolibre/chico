@@ -11,30 +11,27 @@
      * @function
      * @returns {Object}
      */
-    function normalizeOptions(num, message) {
+    function normalizeOptions(message) {
         var options,
             condition = {
                 'name': 'number'
             };
 
         // If the first paramater is an object, it creates a condition and append to options
-        if (typeof num === 'object') {
+        if (typeof message === 'object') {
 
             // Stores the current options
-            options = num;
+            options = message;
 
             // Creates condition properties
-            condition.num = options.num;
             condition.message = options.message;
 
             // Removes the keys that has been stored into the condition
-            delete options.num;
             delete options.message;
 
         // Creates an option object if receive more than one parameter
         } else {
             options = {};
-            condition.num = num;
             condition.message = message;
         }
 

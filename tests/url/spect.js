@@ -1,53 +1,89 @@
-describe('ch.URL', function () {
-	var form = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-form-row"><label>Test {ID}</label><input id="validation{ID}" type="text"></div><div class="ch-form-actions"><input type="submit" class="ch-btn"></div></form>',
-		idGenerator = (function(){
-			var count = 0;
+var url = $('#input_user').url('Some text.');
 
-			return function(){
-				return count++;
-			}
-		}());
+describe('ch.Url', function () {
+    it('should be a function', function () {
+        expect(typeof ch.Url).toEqual('function');
+    });
 
-	describe('ch.URL global initialization and returned object.', function () {
-		var n = idGenerator();
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.url();
-		$('body').prepend(f);
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Url')).toBeTruthy();
+        expect(typeof ch.Url).toEqual('function');
+    });
 
-		it('ch.URL should be a function.', function () {
-			expect(typeof ch.URL).toEqual('function');
-		});
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('url')).toBeTruthy();
+        expect(typeof $.fn.url).toEqual('function');
+    });
 
-		it('ch.URL should return an object.', function () {
-			expect(typeof validation).toEqual('object');
-		});
+    it('should be return a new instance', function () {
+        expect(url instanceof ch.Validation).toBeTruthy();
+    });
 
-	});
+    it('should have got an error when the value is not an url', function () {
+        url.$el.val(2);
+        expect(url.hasError()).toBeTruthy();
+    });
 
-	describe('ch.URL working and configuration.', function () {
-		var n = idGenerator();
-		var message = 'This is a new test!.';
-		var f = $(form.replace(/{ID}/g, n));
-		var input = f.find('#validation' + n);
-		var validation = input.url(message);
-		$('body').prepend(f);
+    it('shouldn\'t have got an error when the value is an url', function () {
+        url.$el.val('http://www.chico-ui.com.ar');
+        expect(url.hasError()).toBeFalsy();
+    });
 
-		it('ch.URL should return an error when numbers are set.', function () {
-			input.attr('value', 1234);
-			expect(validation.hasError()).toBeTruthy();
-		});
+    it('should set an error message', function () {
+        expect(url.message('url')).toEqual('Some text.');
+    });
+});
 
-		it('ch.URL should return the same text send as a parameter when it was initalized.', function () {
-			expect(validation.validator.conditions.url.message).toEqual(message);
-		});
+describe('The test of some values', function () {
+    var condition = url.conditions.url;
 
-		it('ch.URL should not return an error when string are set.', function () {
-			input.attr('value', 'http://www.chico-ui.com.ar');
-			expect(validation.hasError()).toBeFalsy();
-		});
+    it('should be valid', function () {
+        expect(condition.test('http://www.foo.bar')).toBeTruthy();
+        expect(condition.test('http://www.foo.bar/foo')).toBeTruthy();
+        expect(condition.test('http://www.foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('http://www.foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('http://www.foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
 
-	});
+        expect(condition.test('ftp://www.foo.bar')).toBeTruthy();
+        expect(condition.test('ftp://www.foo.bar/foo')).toBeTruthy();
+        expect(condition.test('ftp://www.foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('ftp://www.foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('ftp://www.foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
 
+        expect(condition.test('www.foo.bar')).toBeTruthy();
+        expect(condition.test('www.foo.bar/foo')).toBeTruthy();
+        expect(condition.test('www.foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('www.foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('www.foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
 
+        expect(condition.test('foo.bar')).toBeTruthy();
+        expect(condition.test('foo.bar/foo')).toBeTruthy();
+        expect(condition.test('foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('/foo.bar')).toBeTruthy();
+        expect(condition.test('/foo.bar/foo')).toBeTruthy();
+        expect(condition.test('/foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('/foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('/foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('./foo.bar')).toBeTruthy();
+        expect(condition.test('./foo.bar/foo')).toBeTruthy();
+        expect(condition.test('./foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('./foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('./foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+
+        expect(condition.test('../foo.bar')).toBeTruthy();
+        expect(condition.test('../foo.bar/foo')).toBeTruthy();
+        expect(condition.test('../foo.bar/foo?bar=foo')).toBeTruthy();
+        expect(condition.test('../foo.bar/foo?bar=foo&foo=bar')).toBeTruthy();
+        expect(condition.test('../foo.bar/foo?bar=foo&foo=%20bar')).toBeTruthy();
+    });
+
+    it('should be invalid', function () {
+        expect(condition.test('@.foo')).toBeFalsy();
+        expect(condition.test('//wwww')).toBeFalsy();
+        expect(condition.test('wwww//.com')).toBeFalsy();
+    });
 });

@@ -1,44 +1,44 @@
 (function (window, $, ch) {
-	'use strict';
+    'use strict';
 
-	if (ch === undefined) {
-		throw new window.Error('Expected ch namespace defined.');
-	}
+    if (ch === undefined) {
+        throw new window.Error('Expected ch namespace defined.');
+    }
 
-	var util = ch.util,
+    var util = ch.util,
 
-		/**
-		 * Global instantiation widget id.
-		 * @private
-		 * @type {Number}
-		 */
-		uid = 0;
+        /**
+         * Global instantiation widget id.
+         * @private
+         * @type {Number}
+         */
+        uid = 0;
 
-	/**
-	 * Represents the abstract class of all widgets.
-	 * @abstract
-	 * @name Widget
-	 * @class Widget
-	 * @memberOf ch
-	 */
-	function Widget($el, options) {
-		this.init($el, options);
+    /**
+     * Represents the abstract class of all widgets.
+     * @abstract
+     * @name Widget
+     * @class Widget
+     * @memberOf ch
+     */
+    function Widget($el, options) {
+        this.init($el, options);
 
-		return this;
-	}
+        return this;
+    }
 
-	ch.util.inherits(Widget, ch.EventEmitter);
+    ch.util.inherits(Widget, ch.EventEmitter);
 
-	Widget.prototype.name = 'widget';
-	Widget.prototype.constructor = Widget;
+    Widget.prototype.name = 'widget';
+    Widget.prototype.constructor = Widget;
 
-	/**
-	 * Initialize the instance and merges the user options with defaults options.
-	 * @public
-	 * @function
-	 * @name ch.Widget#init
-	 */
-	Widget.prototype.init = function ($el, options) {
+    /**
+     * Initialize the instance and merges the user options with defaults options.
+     * @public
+     * @function
+     * @name ch.Widget#init
+     */
+    Widget.prototype.init = function ($el, options) {
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
@@ -49,10 +49,8 @@
                 this._options = defaults;
 
             } else if (util.is$($el)) {
-                this.$el = $el;
-                this.el = $el[0];
-                // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
-                this._snippet = this.el.cloneNode(true);
+                this._$el = $el;
+                this._el = $el[0];
                 this._options = defaults;
 
             } else if (typeof $el === 'object') {
@@ -66,9 +64,8 @@
                 this._options = $.extend(defaults, options);
 
             } else if (util.is$($el)) {
-                this.$el = $el;
-                this.el = $el[0];
-                this._snippet = this.el.cloneNode(true);
+                this._$el = $el;
+                this._el = $el[0];
                 this._options = $.extend(defaults, options);
             }
 
@@ -78,26 +75,9 @@
 
         this.uid = (uid += 1);
 
-
         this._enabled = true;
-
-        // Gets or creates the klass's instances map
-        ch.instances[this.name] = ch.instances[this.name] || {};
-        ch.instances[this.name][this.uid] = this;
-	};
-
-    /**
-     * Destroys the widget instance and remove data from the element.
-     * @public
-     * @function
-     * @name ch.Widget#destroy
-     */
-    Widget.prototype.destroy = function () {
-
-        this.$el.removeData(this.name);
-
-        delete ch.instances[this.name][this.uid];
     };
+
 
     /**
      * Adds functionality or abilities from other classes.
@@ -166,6 +146,23 @@
         this.emit('disable');
 
         return this;
+    };
+
+    /**
+     * Destroys a widget instance and remove data from its element.
+     * @public
+     * @function
+     * @name ch.Widget#destroy
+     */
+    Widget.prototype.destroy = function () {
+
+        this.disable();
+
+        if (this._el !== undefined) {
+            this._$el.removeData(this.name);
+        }
+
+        this.emit('destroy');
     };
 
     ch.Widget = Widget;

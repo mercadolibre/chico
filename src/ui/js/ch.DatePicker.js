@@ -105,7 +105,9 @@
 
         var that = this;
 
-        this.$trigger = $('<i role="button" class="ch-datePicker-trigger ch-icon-calendar"></i>').insertAfter(this.el);
+        this.field = this._el;
+
+        this.$trigger = $('<i role="button" class="ch-datePicker-trigger ch-icon-calendar"></i>').insertAfter(this.field);
 
         /**
          * Reference to the Calendar component instance.
@@ -124,7 +126,7 @@
         this._popover = this.$trigger.popover({
             '_className': 'ch-datePicker ch-cone',
             'ariaRole': 'tooltip',
-            'content': this._calendar.$el,
+            'content': this._calendar.$container,
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': -1,
@@ -133,17 +135,17 @@
             'close': this._options.close
         });
 
-        this._popover._$content.on(ch.events.pointer.TAP, function (event) {
+        this._popover._$content.on(ch.onpointertap, function (event) {
             that._pick(event.target);
         });
 
-        this.el.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this._popover.uid);
+        this.field.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this._popover.uid);
 
         // Change type of input to "text"
-        this.el.type = 'text';
+        this.field.type = 'text';
 
         // Change value of input if there are a selected date
-        this.el.value = (this._options.selected) ? this._calendar.select() : this.el.value;
+        this.field.value = (this._options.selected) ? this._calendar.select() : this.field.value;
 
         // Hide popover
         this.on('disable', this.hide);
@@ -164,8 +166,7 @@
         }
 
         // Select the day and update input value with selected date
-
-        this.el.value = this._calendar.selectDay(target.innerHTML);
+        this.field.value = this._calendar.selectDay(target.innerHTML);
 
         // Hide float
         if (this._options.close) {
@@ -325,7 +326,7 @@
      */
     DatePicker.prototype.reset = function () {
         // Delete input value
-        this.el.value = '';
+        this.field.value = '';
         this._calendar.reset();
 
         /**
@@ -387,6 +388,25 @@
     while (len) {
         createMethods(methods[len -= 1]);
     }
+
+    /**
+     * Destroys an DatePicker instance.
+     * @public
+     * @function
+     * @name ch.DatePicker#destroy
+     */
+    DatePicker.prototype.destroy = function () {
+
+        this._popover.destroy();
+
+        this.$trigger.remove();
+
+        this._$el
+            .removeClass('ch-expandable-container ch-hide')
+            .removeAttr('aria-describedby');
+
+        parent.destroy.call(this);
+    };
 
     ch.factory(DatePicker);
 

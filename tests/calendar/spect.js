@@ -1,481 +1,408 @@
-describe('The ch.Calendar', function () {
-	var template = '<section><div id="calendar{ID}"></div></section>',
-		idGenerator = (function(){
-			var count = 0;
-
-			return function(){
-				return count++;
-			}
-		}()),
-		getSnippet = function(selector){
-			var n = idGenerator();
-			var f = $(template.replace(/{ID}/g, n));
-			var snippet = f.find(selector + n);
-			$('body').prepend(f);
-			return snippet;
-		},
-		addZero = function(num) {
-			return (parseInt(num, 10) < 10) ? "0" + num : num;
-		},
-		DATE = (function(){
-			var date = new Date(),
-				TODAY =  {
-					'day': addZero(date.getDate()),
-					'month': addZero((date.getMonth() + 1)),
-					'year': date.getFullYear()
-				},
-				FORMAT = {
-					'ddmmyyyy': [TODAY.day, TODAY.month, TODAY.year].join('/'),
-					'yyyymmdd': [TODAY.year, TODAY.month, TODAY.day].join('/')
-				};
-			return {
-				'TODAY': TODAY,
-				'FORMAT': FORMAT
-			}
-		})();
-
-
-
-	describe('constructor', function () {
-
-		it('should be defined as a function', function () {
-			expect(ch.Calendar).toBeDefined();
-			expect(typeof ch.Calendar).toEqual('function');
-		});
-
-		var calendar = getSnippet('#calendar').calendar();
-
-		describe('returns an object',function(){
-
-			it('so it should be an object.', function () {
-				expect(typeof calendar).toEqual('object');
-			});
-
-			describe('with the property',function () {
-
-				it('"el" that it should be a instanceof a HTMLElement', function () {
-					expect(calendar.el).toBeDefined();
-					expect(calendar.el instanceof HTMLElement).toBeTruthy();
-				});
-
-				it('"name" that it should be calendar', function () {
-					expect(calendar.name).toBeDefined();
-					expect(typeof calendar.name).toEqual('string');
-					expect(calendar.name).toEqual('calendar');
-				});
-
-				it('"uid" that should be a number', function () {
-					expect(calendar.uid).toBeDefined();
-					expect(typeof calendar.uid).toEqual('number');
-				});
-
-			});
-
-			describe('with the method', function () {
-
-				it('"from" that it should return an object', function () {
-					expect(calendar.from).toBeDefined();
-					expect(typeof calendar.from).toEqual('function');
-					expect(typeof calendar.from()).toEqual('object');
-				});
-
-				it('"next" that it should return an object', function () {
-					expect(calendar.next).toBeDefined();
-					expect(typeof calendar.next).toEqual('function');
-					expect(typeof calendar.next()).toEqual('object');
-				});
-
-				it('"off" that it should return an object', function () {
-					expect(calendar.off).toBeDefined();
-					expect(typeof calendar.off).toEqual('function');
-					expect(typeof calendar.off('show', function(){})).toEqual('object');
-				});
-
-				it('"on" that it should return an object', function () {
-					expect(calendar.on).toBeDefined();
-					expect(typeof calendar.on).toEqual('function');
-					expect(typeof calendar.on('show', function(){})).toEqual('object');
-				});
-
-				it('"once" that it should return an object', function () {
-					expect(calendar.once).toBeDefined();
-					expect(typeof calendar.once).toEqual('function');
-					expect(typeof calendar.once('show', function(){})).toEqual('object');
-				});
-
-				it('"prev" that it should return an object', function () {
-					expect(calendar.prev).toBeDefined();
-					expect(typeof calendar.prev).toEqual('function');
-					expect(typeof calendar.prev()).toEqual('object');
-				});
-
-				it('"reset" that it should return an object', function () {
-					expect(calendar.reset).toBeDefined();
-					expect(typeof calendar.reset).toEqual('function');
-					expect(typeof calendar.reset()).toEqual('object');
-				});
-
-				it('"select" that it should return a string when a is getter and object when is setter', function () {
-					expect(calendar.select).toBeDefined();
-					expect(typeof calendar.select).toEqual('function');
-					expect(typeof calendar.select('2012/12/7')).toEqual('object');
-					expect(typeof calendar.select()).toEqual('string');
-				});
-
-				it('"selectDay" that it return a string', function () {
-					expect(calendar.selectDay).toBeDefined();
-					expect(typeof calendar.selectDay).toEqual('function');
-					expect(typeof calendar.selectDay(3)).toEqual('string');
-				});
-
-				it('"to" that it should return an object', function () {
-					expect(calendar.to).toBeDefined();
-					expect(typeof calendar.to).toEqual('function');
-					expect(typeof calendar.to()).toEqual('object');
-				});
-
-				it('"today" method and it should return a string', function () {
-					expect(calendar.today).toBeDefined();
-					expect(typeof calendar.today).toEqual('function');
-					expect(typeof calendar.today()).toEqual('string');
-				});
-
-				it('"emit"', function () {
-					expect(calendar.emit).toBeDefined();
-					expect(typeof calendar.emit).toEqual('function');
-				});
-			});
-
-
-		});
-
-	});
-
-
-	describe('method', function () {
-
-		var calendar1 = getSnippet('#calendar').calendar(),
-			calendar1Selector = '#' + calendar1.el.id,
-			calendar2 = getSnippet('#calendar').calendar(),
-			calendar2Selector = '#' + calendar2.el.id,
-			calendar3 = getSnippet('#calendar').calendar({
-				'format': 'YYYY/MM/DD',
-				'selected': '2012/10/08',
-				'from': '2012/10/03',
-				'to': '2012/10/13',
-
-			}),
-			calendar3Selector = '#' + calendar3.el.id,
-			calendar4 = getSnippet('#calendar').calendar(),
-			calendar4Selector = '#' + calendar4.el.id;
-
-		describe('select', function(){
-			it('should return the date pre configured when it was instantiated', function () {
-				expect( calendar3.select() ).toEqual('2012/10/01');
-			});
-
-			it('should set a date as calendar.select(\'2013/01/07\')', function () {
-				calendar2.select('2013/01/07');
-				expect(calendar2.select()).toEqual('07/01/2013');
-			});
-		});
-
-		describe('selectDay', function(){
-			it('should set a date as calendar.select(\'22\'), it returns the complete date as a string', function () {
-				expect(calendar2.selectDay('22')).toEqual(('22/' + DATE.TODAY.month + '/' + DATE.TODAY.year));
-			});
-		});
-
-		describe('from', function(){
-			it('should do dates unselectable with class "ch-calendar-disabled"', function () {
-
-				var day = parseInt(DATE.TODAY.day, 10) - 1,
-					dayFrom = (day > 0)?addZero(day):DATE.TODAY.day,
-					dateFrom = [DATE.TODAY.year, DATE.TODAY.month, dayFrom ].join('/');
-
-				calendar1.select('today');
-				calendar1.from(dateFrom);
-				// This test fails because the is not refreshing the table after the from method is executed
-
-				var days = $(calendar1Selector).find('tbody td');
-
-				days.each(function(i, day){
-					var $day = $(day),
-						dayNum = parseInt($day.text());
-
-					if( dayNum<dayFrom ){
-						expect($day.hasClass('ch-calendar-disabled')).toBeTruthy();
-					}
-
-				});
-			});
-
-			it('should throw an error when date is set as a invalid format calendar.from(\'22/10/2012\').', function () {
-				expect(function(){ calendar4.from('20/10/2012'); }).toThrow();
-			});
-		});
-
-		describe('to', function(){
-			it('should do dates unselectable with class "ch-calendar-disabled".', function () {
-				var day = parseInt(DATE.TODAY.day, 10) + 1,
-					dayTo = (day > 28)?addZero(day):DATE.TODAY.day,
-					dateTo = [DATE.TODAY.year, DATE.TODAY.month, dayTo ].join('/');
-
-				// select the day of tody today
-				calendar1.select('today');
-
-				calendar1.to(dateTo);
-				// This test fails because the is not refreshing the table after the to method is executed
-
-				var days = $(calendar1Selector).find('tbody td');
-
-				days.each(function(i, day){
-					var $day = $(day),
-						dayNum = parseInt($day.text());
-
-					if( dayNum>dayTo ){
-						expect($day.hasClass('ch-calendar-disabled')).toBeTruthy();
-					}
-
-				});
-			});
-
-			it('should throw an error when date is set as a invalid format calendar.to(\'22/10/2012\').', function () {
-				expect(function(){ calendar4.to('25/10/2012'); }).toThrow();
-			});
-		});
-
-		describe('next', function(){
-			it('should show the next month.', function () {
-				var current = $(calendar3Selector).find('caption').text(),
-					next;
-				calendar3.next();
-
-				next = $(calendar3Selector).find('caption').text();
-				expect(current).not.toEqual(next);
-			});
-		});
-
-		describe('prev', function(){
-			it('should show the previous month.', function () {
-				var current = $(calendar3Selector).find('caption').text(),
-					prev;
-				calendar3.prev();
-				next = $(calendar3Selector).find('caption').text();
-				expect(current).not.toEqual(prev);
-			});
-		});
-
-		describe('today', function(){
-			it('should return the current date in the pre configured format DD/MM/YYYY or YYYY/MM/DD', function () {
-				expect(calendar3.today()).toEqual(DATE.FORMAT.yyyymmdd);
-				expect(calendar2.today()).toEqual(DATE.FORMAT.ddmmyyyy);
-			});
-		});
-
-		describe('reset', function(){
-			it('should reset the calendar', function () {
-				expect(calendar3.reset()).toEqual( );
-			});
-		});
-
-	});
-
-
-	describe('class', function(){
-		var calendar = getSnippet('#calendar').calendar(),
-			calendarSelector = '#' + calendar.el.id,
-			$calendar = $(calendarSelector);
-
-		describe('ch-calendar', function () {
-			it('should be added to the element', function () {
-				expect( $calendar.hasClass('ch-calendar') ).toBeTruthy();
-			});
-		});
-
-		describe('ch-calendar-today', function () {
-			it('should be added to one cell', function () {
-				var date = new Date();
-				var todayElement = $('.ch-calendar-today', calendarSelector);
-				expect( todayElement.length ).toEqual(1);
-				expect( parseInt(todayElement.text()) ).toEqual( date.getDate() );
-			});
-		})
-
-		describe('ch-calendar-month', function () {
-			it('should be added to the table element', function () {
-				var month = $calendar.find('.ch-calendar-month');
-				expect( month.length ).toEqual(1);
-			});
-		});
-
-		describe('ch-calendar-next', function () {
-			it('should be added to the next button', function () {
-				var month = $calendar.find('.ch-calendar-next');
-				expect( month.length ).toEqual(1);
-			});
-		});
-
-		describe('ch-calendar-prev', function () {
-			it('should be added to the prev button', function () {
-				var month = $calendar.find('.ch-calendar-prev');
-				expect( month.length ).toEqual(1);
-			});
-		});
-
-		describe('ch-calendar-week', function () {
-			it('should be added to each week of the month', function () {
-				var weeks = $calendar.find('tbody tr');
-				weeks.each(function(i, week){
-					expect( $(week).hasClass('ch-calendar-week') ).toBeTruthy();
-				});
-			});
-		});
-
-		describe('ch-calendar-day', function () {
-			it('should be added to the days, but not empty one', function () {
-				var days = $calendar.find('tbody td');
-				days.each(function(i, day){
-					var $day = $(day);
-					var dayNum = parseInt($day.text());
-					if( !isNaN(dayNum) && (dayNum >= 1 || dayNum <= 31)) {
-						expect( $day.hasClass('ch-calendar-day') ).toBeTruthy();
-					}
-				});
-			});
-		});
-
-	});
-
-
-	describe('WAI-ARIA attribute', function(){
-		var calendar = getSnippet('#calendar').calendar(),
-			calendarSelector = '#' + calendar.el.id,
-			$calendar = $(calendarSelector),
-			$table = $calendar.find('table'),
-			$next = $calendar.find('.ch-calendar-next'),
-			$prev = $calendar.find('.ch-calendar-prev');
-
-		describe('role should be set as', function(){
-
-			it('"button" in the next button control', function () {
-				var role = $next.attr('role');
-				expect(role).toBeDefined();
-				expect(role).toEqual('button');
-			});
-
-			it('"button" in the prev button control', function () {
-				var role = $prev.attr('role');
-				expect(role).toBeDefined();
-				expect(role).toEqual('button');
-			});
-
-			it('"grid" in the table element', function () {
-				var role = $table.attr('role');
-				expect(role).toBeDefined();
-				expect(role).toEqual('grid');
-			});
-
-			it('"row" in each row of the table', function () {
-				var rows = $table.find('tbody tr, thead tr');
-				rows.each(function(i, row){
-					var role = $(row).attr('role');
-					expect(role).toBeDefined();
-					expect(role).toEqual('row');
-				});
-			});
-
-			it('"gridcell" in each cell of days of the month', function () {
-				var cells = $table.find('tbody td'),
-					rows = $table.find('tbody tr'),
-					quantity = 7 * rows.length,
-					gridcell = 0;
-
-				cells.each(function(i, cell){
-					var role = $(cell).attr('role');
-					expect(role).toBeDefined();
-					expect(role).toEqual('gridcell');
-					gridcell += 1;
-				});
-
-				expect(gridcell).toEqual(quantity);
-			});
-
-			it('"columnheader" in each cell of the header of the month', function () {
-				var headers = $table.find('thead th');
-
-				headers.each(function(i, header){
-					var role = $(header).attr('role');
-					expect(role).toBeDefined();
-					expect(role).toEqual('columnheader');
-				});
-			});
-
-		});
-
-		describe('aria-controls', function () {
-			it('should be set with the same value as the value of table ID', function () {
-				var prev = $prev.attr('aria-controls'),
-					next = $next.attr('aria-controls'),
-					id = $table.attr('id');
-
-				expect(prev).toBeDefined();
-				expect(prev).toEqual(id);
-
-				expect(next).toBeDefined();
-				expect(next).toEqual(id);
-			});
-		});
-
-	});
-
-	describe('event', function () {
-		var calendar = getSnippet('#calendar').calendar(),
-			calendarSelector = '#' + calendar.el.id,
-			readyEvent,
-			selectEvent;
-
-			readyEvent = jasmine.createSpy('readyEvent');
-			selectEvent = jasmine.createSpy('selectEvent');
-
-			calendar.on('ready', function(){ readyEvent(); });
-			calendar.on('select', function(){ selectEvent(); });
-
-		it('"ready" should been called', function () {
-			waits(75);
-			runs(function () {
-				expect(readyEvent).toHaveBeenCalled();
-			});
-		});
-
-		it('"select" should been called', function () {
-			calendar.select('2013/01/07');
-			expect(selectEvent).toHaveBeenCalled();
-		});
-	});
-
-	describe('callback', function () {
-		var readyEvent = jasmine.createSpy('readyEvent'),
-			selectEvent = jasmine.createSpy('selectEvent'),
-			calendar = getSnippet('#calendar').calendar({
-				'ready': readyEvent,
-				'onSelect': selectEvent
-			}),
-			calendarSelector = '#' + calendar.el.id;
-
-		it('"ready" should been called', function () {
-			waits(75);
-			runs(function () {
-				expect(readyEvent).toHaveBeenCalled();
-			});
-		});
-
-		it('"select" should been called', function () {
-			calendar.select('2013/01/07');
-			expect(selectEvent).toHaveBeenCalled();
-		});
-	});
+function addZero(num) {
+    return (parseInt(num, 10) < 10) ? "0" + num : num;
+}
+
+var calendar1 = $("#calendar-1").calendar(),
+    readyEvent = jasmine.createSpy('readyEvent'),
+    selectEvent = jasmine.createSpy('selectEvent'),
+    nextmonthEvent = jasmine.createSpy('nextmonthEvent'),
+    prevmonthEvent = jasmine.createSpy('prevmonthEvent'),
+    nextyearEvent = jasmine.createSpy('nextYearEvent'),
+    prevyearEvent = jasmine.createSpy('prevYearEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
+    DATE = (function(){
+        var date = new Date(),
+            TODAY =  {
+                'day': addZero(date.getDate()),
+                'month': addZero((date.getMonth() + 1)),
+                'year': date.getFullYear()
+            },
+            FORMAT = {
+                'ddmmyyyy': [TODAY.day, TODAY.month, TODAY.year].join('/'),
+                'yyyymmdd': [TODAY.year, TODAY.month, TODAY.day].join('/')
+            };
+        return {
+            'TODAY': TODAY,
+            'FORMAT': FORMAT
+        }
+    })();
+
+$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+
+describe('Calendar', function () {
+    calendar1
+        .on('ready', function () { readyEvent(); })
+        .on('select', function () { selectEvent(); })
+        .on('nextmonth', function () { nextmonthEvent(); })
+        .on('prevmonth', function () { prevmonthEvent(); })
+        .on('nextyear', function () { nextyearEvent(); })
+        .on('prevyear', function () { prevyearEvent(); })
+        .on('destroy', function () { destroyEvent(); });
+
+    it('should be defined on ch object', function () {
+        expect(ch.hasOwnProperty('Calendar')).toBeTruthy();
+        expect(typeof ch.Calendar).toEqual('function');
+    });
+
+    it('should be defined on $ object', function () {
+        expect($.fn.hasOwnProperty('calendar')).toBeTruthy();
+        expect(typeof $.fn.calendar).toEqual('function');
+    });
+
+    it('should be return a new instance', function () {
+        expect(calendar1 instanceof ch.Calendar).toBeTruthy();
+    });
+
+    it('should emit the "ready" event when it\'s created', function () {
+        waits(50);
+        runs(function () {
+            expect(readyEvent).toHaveBeenCalled();
+        });
+    });
+
+    describe('should use the following abilities:', function () {
+        it('EventEmitter', function () {
+            expect(calendar1.on).not.toEqual(undefined);
+            expect(typeof calendar1.on).toEqual('function');
+        });
+    });
+});
+
+describe('It should have the following public properties:', function () {
+
+    it('.$container', function () {
+        expect(calendar1.$container).not.toEqual(undefined);
+        expect(calendar1.$container[0].nodeType).toEqual(1);
+        expect(calendar1.$container instanceof $).toBeTruthy();
+    });
+
+    it('.name', function () {
+        expect(calendar1.name).not.toEqual(undefined);
+        expect(typeof calendar1.name).toEqual('string');
+        expect(calendar1.name).toEqual('calendar');
+    });
+
+    it('.constructor', function () {
+        expect(calendar1.constructor).not.toEqual(undefined);
+        expect(typeof calendar1.constructor).toEqual('function');
+    });
+
+    it('.uid', function () {
+        expect(calendar1.uid).not.toEqual(undefined);
+        expect(typeof calendar1.uid).toEqual('number');
+    });
 
 });
 
+describe('It should have the following public methods:', function () {
+    var methods = ['init', 'destroy', 'setFrom', 'setTo', 'nextMonth', 'nextYear', 'prevMonth', 'prevYear', 'select', 'getToday', 'enable', 'disable'],
+        i = 0,
+        len = methods.length;
 
+    for (i; i < len; i += 1) {
+        (function (i){
+            it('.' + methods[i] + '()', function () {
+                expect(calendar1[methods[i]]).not.toEqual(undefined);
+                expect(typeof calendar1[methods[i]]).toEqual('function');
+            });
+        }(i));
+    }
+});
+
+describe('It should have an element/container and', function () {
+    var $container = calendar1.$container;
+
+    describe('should have the following class names:', function () {
+
+        it('.ch-calenaar', function () {
+            expect($container.hasClass('ch-calendar')).toBeTruthy();
+        });
+
+        it('.ch-user-no-select', function () {
+            expect($container.hasClass('ch-user-no-select')).toBeTruthy();
+        });
+    });
+
+    describe('should have got a next button', function () {
+        var $month = $container.find('.ch-calendar-next');
+
+        it('it should have got the ".ch-calendar-next" class name', function () {
+            expect($month.length).toEqual(1);
+        });
+
+        it('it should have got the WAI-ARIA" role "button"', function () {
+            expect($month.attr('role')).toEqual('button');
+        });
+
+        it('should have got the WAI-ARIA attribute "aria-hidden" in "false"', function () {
+           expect($month.attr('aria-hidden')).toEqual('false');
+        });
+
+        it('should have got the WAI-ARIA attribute "aria-controls" in "ch-calendar-grid-1"', function () {
+           expect($month.attr('aria-controls')).toEqual('ch-calendar-grid-1');
+        });
+    });
+
+    describe('should have got a prev button', function () {
+        var $month = $container.find('.ch-calendar-prev');
+
+        it('it should have got the ".ch-calendar-prev" class name', function () {
+            expect($month.length).toEqual(1);
+        });
+
+        it('it should have got the WAI-ARIA" role "button"', function () {
+            expect($month.attr('role')).toEqual('button');
+        });
+
+        it('it should have got the WAI-ARIA attribute "aria-hidden" in "false"', function () {
+           expect($month.attr('aria-hidden')).toEqual('false');
+        });
+
+        it('it should have got the WAI-ARIA attribute "aria-controls" in "ch-calendar-grid-1"', function () {
+           expect($month.attr('aria-controls')).toEqual('ch-calendar-grid-1');
+        });
+    });
+
+    describe('should have got a calendar table', function () {
+
+        var $table = $container.find('.ch-calendar-month');
+
+        it('it should have got the ".ch-calendar-prev" class name', function () {
+            expect($table.length).toEqual(1);
+        });
+
+        it('it should have got the WAI-ARIA" role "grid"', function () {
+            expect($table.attr('role')).toEqual('grid');
+        });
+
+        it('it should have got the weeks of the month', function () {
+            var weeks = $table.find('tbody tr');
+            weeks.each(function(i, week){
+                expect( $(week).hasClass('ch-calendar-week') ).toBeTruthy();
+            });
+        });
+
+        it('it should have got the days', function () {
+            var days = $container.find('tbody td');
+            days.each(function(i, day){
+                var $day = $(day);
+                var dayNum = parseInt($day.text());
+                if( !isNaN(dayNum) && (dayNum >= 1 || dayNum <= 31)) {
+                    expect($day.hasClass('ch-calendar-day')).toBeTruthy();
+                }
+            });
+        });
+
+        it('it should have got the day of today', function () {
+            var date = new Date(),
+                $todayElement = $('.ch-calendar-today', $container);
+            expect($todayElement.length ).toEqual(1);
+            expect(parseInt($todayElement.text())).toEqual(date.getDate());
+        });
+
+    });
+
+});
+
+describe('Its select() method', function () {
+    it('should return "undefined" when it hasn\'t got a date selected', function () {
+        expect(calendar1.select()).not.toBeDefined();
+    });
+
+    it('should set a date as calendar.select(\'yyyy/mm/dd\')', function () {
+        calendar1.select(DATE.FORMAT['yyyymmdd']);
+        expect(calendar1.select()).toEqual(DATE.FORMAT['ddmmyyyy']);
+    });
+
+    it('should emit the "select" event', function () {
+        calendar1.select();
+        expect(selectEvent).toHaveBeenCalled();
+    });
+});
+
+describe('Its nextMonth() method', function(){
+    var instance;
+
+    it('should show the next month', function () {
+        var month = calendar1._dates.current.month,
+            next;
+
+        instance = calendar1.nextMonth();
+        next = calendar1._dates.current.month;
+
+        expect(month + 1).toEqual(next);
+    });
+
+    it('should emit the "nextmonth" event', function () {
+        expect(nextmonthEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
+    });
+});
+
+describe('Its prevMonth() method', function(){
+    var instance;
+
+    it('should show the previous month', function () {
+        var month = calendar1._dates.current.month,
+            prev;
+
+        instance = calendar1.prevMonth();
+        prev = calendar1._dates.current.month;
+
+        expect(month - 1).toEqual(prev);
+    });
+
+    it('should emit the "prevmonth" event', function () {
+        expect(prevmonthEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
+    });
+});
+
+describe('Its nextYear() method', function(){
+    var instance;
+
+    it('should show the next year', function () {
+        var current = calendar1._dates.current.year,
+            next;
+
+        instance = calendar1.nextYear();
+        next = calendar1._dates.current.year;
+
+        expect(current + 1).toEqual(next);
+    });
+
+    it('should emit the "nextyear" event', function () {
+        expect(nextyearEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
+    });
+});
+
+describe('Its prevYear() method', function(){
+    var instance;
+
+    it('should show the previous month', function () {
+        var current = calendar1._dates.current.year,
+            prev;
+
+        instance = calendar1.prevYear();
+        prev = calendar1._dates.current.year;
+
+        expect(current - 1).toEqual(prev);
+    });
+
+    it('should emit the "prevyear" event', function () {
+        expect(prevyearEvent).toHaveBeenCalled();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
+    });
+});
+
+describe('Its setFrom() method', function () {
+    var instance;
+
+    it('should do dates unselectable with class "ch-calendar-disabled"', function () {
+
+        calendar1.select('today');
+
+        instance = calendar1.setFrom(DATE.FORMAT['yyyymmdd']);
+
+        // This test fails because the is not refreshing the table after the from method is executed
+        var days = calendar1.$container.find('tbody td');
+
+        days.each(function (i, day) {
+            var $day = $(day),
+                dayNum = parseInt($day.text());
+
+            if (dayNum < DATE.TODAY.day) {
+                expect($day.hasClass('ch-calendar-disabled')).toBeTruthy();
+            }
+        });
+    });
+
+    it('should remove the "from" date if receive \'auto\' as parameter', function () {
+        calendar1.setFrom('auto');
+        expect(calendar1._hasPrevMonth()).toBeTruthy();
+    });
+
+    it('should throw an error when date is set as a invalid format calendar.from(\'DD/MM/YYYY\').', function () {
+        expect(function(){ calendar4.from('20/10/2012'); }).toThrow();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
+    });
+});
+
+describe('Its setTo() method', function(){
+    var instance;
+
+    it('should do dates unselectable with class "ch-calendar-disabled".', function () {
+
+        // select the day of tody today
+        calendar1.select('today');
+
+        instance = calendar1.setTo(DATE.TODAY.year + 1 + '/' + DATE.TODAY.month + '/' + DATE.TODAY.day);
+
+        calendar1.nextYear();
+        // This test fails because the is not refreshing the table after the to method is executed
+
+        var days = calendar1.$container.find('tbody td');
+
+        days.each(function(i, day){
+            var $day = $(day),
+                dayNum = parseInt($day.text());
+
+            if (dayNum > DATE.TODAY.day) {
+                expect($day.hasClass('ch-calendar-disabled')).toBeTruthy();
+            }
+
+        });
+    });
+
+    it('should remove the "to" date if receive \'auto\' as parameter', function () {
+        calendar1.setTo('auto');
+        expect(calendar1._hasNextMonth()).toBeTruthy();
+    });
+
+    it('should throw an error when date is set as a invalid format calendar.to(\'DD/MM/YYYY\').', function () {
+        expect(function(){ calendar4.to('25/10/2012'); }).toThrow();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(calendar1);
+    });
+});
+
+describe('Its getToday() method', function(){
+    it('should return the current date in the pre configured format DD/MM/YYYY or YYYY/MM/DD', function () {
+        expect(calendar1.getToday()).toEqual(DATE.FORMAT.ddmmyyyy);
+    });
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $container by the original snippet', function () {
+        calendar1.destroy();
+        expect(calendar1.$container.parent().length === 0).toBeTruthy();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(calendar1._$el.data('calendar')).toBeUndefined();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
+});

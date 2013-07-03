@@ -131,10 +131,11 @@
          * @type {Selector}
          * @ignore
          */
-        this.$trigger = this.$el
+
+        this.$trigger = this._$el
             .addClass(this._options._classNameTrigger)
-            .on(ch.events.pointer.TAP + '.' + this.name, function (event) {
-                event.preventDefault();
+            .on(ch.onpointertap + '.' + this.name, function (event) {
+                ch.util.prevent(event);
                 that.show();
             });
 
@@ -144,24 +145,25 @@
          * @type {Selector}
          * @ignore
          */
-        this.$container = this._$content = (this._options.container || this.$el.next())
-            .addClass(this._options._classNameContainer);
+        this.$container = this._$content = (this._options.container || this._$el.next())
+            .addClass(this._options._classNameContainer)
+            .attr('aria-expanded', this._shown);
 
         /**
          * Default behavior
          */
-        if (this._options.content !== undefined) {
-            this.once('show', function () {
-                that.content(this._options.content);
-            });
+        if (this.$container.prop('id') === '') {
+            this.$container.prop('id', 'ch-expandable-' + this.uid);
         }
+
+        this.$trigger.attr('aria-controls', this.$container.prop('id'));
 
         this
             .on('show', function () {
-                $document.trigger(ch.events.layout.CHANGE);
+                $document.trigger(ch.onchangelayout);
             })
             .on('hide', function () {
-                $document.trigger(ch.events.layout.CHANGE);
+                $document.trigger(ch.onchangelayout);
             });
 
         ch.util.avoidTextSelection(this.$trigger);
@@ -183,7 +185,7 @@
      * @example
      * widget.show();
      */
-    Expandable.prototype.show = function (content) {
+    Expandable.prototype.show = function (content, options) {
 
         if (!this._enabled) {
             return this;
@@ -195,9 +197,12 @@
 
         this._show();
 
+        // Update ARIA
+        this.$container.attr('aria-expanded', 'true');
+
         // Set new content
         if (content !== undefined) {
-            this.content(content);
+            this.content(content, options);
         }
 
         return this;
@@ -221,6 +226,8 @@
 
         this._hide();
 
+        this.$container.attr('aria-expanded', 'false');
+
         return this;
     };
 
@@ -237,6 +244,29 @@
      */
     Expandable.prototype.isShown = function () {
         return this._shown;
+    };
+
+    /**
+     * Destroys an Expandable instance.
+     * @public
+     * @function
+     * @name ch.Expandable#destroy
+     */
+    Expandable.prototype.destroy = function () {
+
+        this.$trigger
+            .off('.expandable')
+            .removeClass('ch-expandable-trigger ch-expandable-ico ch-user-no-select')
+            .removeAttr('aria-controls');
+
+        this.$container
+            .removeClass('ch-expandable-container ch-hide')
+            .removeAttr('aria-expanded')
+            .removeAttr('aria-hidden');
+
+        $document.trigger(ch.onchangelayout);
+
+        parent.destroy.call(this);
     };
 
     ch.factory(Expandable, normalizeOptions);

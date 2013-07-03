@@ -6,7 +6,7 @@
  * @requires ch.Expandable
  * @memberOf ch
  * @param {Object} [options] Object with configuration properties.
- * @param {Number} [options.selected] Selects a child that will be open when component was loaded.
+ * @param {Number} [options.shown] Selects a child that will be open when component was loaded.
  * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
  * @returns itself
  * @factorized
@@ -18,7 +18,7 @@
  * @exampleDescription Create a new menu with configuration.
  * @example
  * var widget = $('.example').menu({
- *     'selected': 2,
+ *     'shown': 2,
  *     'fx': true
  * });
  */
@@ -66,7 +66,7 @@
     function createMethods(method) {
         Menu.prototype[method] = function (child) {
             var i,
-                expandable = this._children[child];
+                expandable = this.fold[child];
 
             // enable specific expandable
             if (expandable && expandable.name === 'expandable') {
@@ -75,11 +75,11 @@
 
             } else {
 
-                i = this._children.length;
+                i = this.fold.length;
 
                 while (i) {
 
-                    expandable = this._children[i -= 1];
+                    expandable = this.fold[i -= 1];
 
                     if (expandable.name === 'expandable') {
                         expandable[method]();
@@ -119,8 +119,7 @@
      * @type {Object}
      */
     Menu.prototype._defaults = {
-        'fx': 'slideDown',
-        'accordion': false
+        'fx': 'slideDown'
     };
 
     /**
@@ -132,54 +131,34 @@
         // Call to its parents init method
         parent.init.call(this, $el, options);
 
-        /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
-         * @type {Object}
-         */
-        var that = this;
-
     /**
      * Protected Members
      */
+
+        // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
+        this._snippet = this._el.cloneNode(true);
+
+        this.$container = this._$el
+            .attr('role', 'navigation')
+            .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
 
         /**
          * Collection of expandables.
          * @name ch.Menu#expdanbles
          * @type {Array}
          */
-        that._children = [];
-
-        /**
-         * Stores witch expandable is selected.
-         * @private
-         * @name ch.Menu#_selected
-         * @type number
-         */
-        that._selected = that._options.selected;
+        this.fold = [];
 
         /**
          * Default behavior
          */
 
         // Inits an expandable component on each list inside main HTML code snippet
-        that._createExpandables();
+        this._createExpandables();
 
-        // Accordion behavior
-        if (this._options.accordion) {
-            // Sets the interface main class name for avoid
-            that._configureAccordion();
-
-        } else {
-            // Set the wai-aria for Menu
-            that.$el.attr('role', 'navigation');
-        }
-
-        that.$el.addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
-
-        // Select specific item if there are a "selected" parameter on component configuration object
-        if (that._selected !== undefined) {
-            that.select(that._selected);
+        // Select specific item if there are a "shown" parameter on component configuration object
+        if (this._options.shown !== undefined) {
+            this.show(this._options.shown);
         }
 
         return this;
@@ -212,129 +191,119 @@
 
                 $child.addClass('ch-fold-trigger');
 
-                // Add anchor to that._children
-                that._children.push($child);
+                // Add anchor to that.fold
+                that.fold.push($child);
 
             } else {
 
-                // List inside list, inits an Expandable
+                    // List inside list, inits an Expandable
                 var expandable = $child.expandable({
                     // Show/hide on IE8- instead slideUp/slideDown
-                    'fx': that._options.fx,
-                    'onshow': function () {
-                        // Updates selected when it's opened
-                        that._selected = i + 1;
+                    'fx': that._options.fx
+                });
 
+                expandable
+                    .on('show', function () {
                         /**
-                         * It is triggered when the a fold is selected by the user.
-                         * @name ch.Menu#select
+                         * It is triggered when a children is shown.
+                         * @name ch.Menu#show
                          * @event
                          * @public
-                         * @exampleDescription When the user select
+                         * @exampleDescription
                          * @example
-                         * widget.on('select',function () {
+                         * widget.on('show',function(){
                          *     app.off();
                          * });
                          */
-                        that.emit('select');
-                    }
-                });
+                        that.emit('show', i+1);
+                    })
+                    .on('hide', function () {
+                        /**
+                         * It is triggered when a children is hidden.
+                         * @name ch.Menu#hide
+                         * @event
+                         * @public
+                         * @exampleDescription
+                         * @example
+                         * widget.on('hide',function(){
+                         *     app.off();
+                         * });
+                         */
+                        that.emit('hide');
+                    });
 
-                if (!that._options.accordion) {
-                    $child.next()
-                        .attr('role', 'menu')
-                        .children().attr('role', 'presentation')
-                            .children()
-                                .attr('role', 'menuitem');
-                }
+                $child.next()
+                    .attr('role', 'menu')
+                    .children().attr('role', 'presentation')
+                        .children()
+                            .attr('role', 'menuitem');
 
-                // Add expandable to that._children
-                that._children.push(expandable);
+                // Add expandable to that.fold
+                that.fold.push(expandable);
             }
         }
 
-        $.each(that.$el.children(), createExpandable);
+        $.each(that.$container.children(), createExpandable);
 
         return that;
     };
 
    /**
-    * Selects a specific expandable to be shown or hidden.
+    * Shows a specific child.
     * @public
-    * @name select
-    * @name ch.Menu
-    * @param item The number of the item to be selected
-    * @returns
+    * @name show
+    * @name ch.Menu#show
+    * @param {Number} child - The number of the item to be shown
+    * @returns {Object}
     */
-    Menu.prototype.select = function (child) {
+    Menu.prototype.show = function (child) {
 
         if (!this._enabled) {
             return this;
         }
 
-        // Getter
-        if (child === undefined) {
-            return this._selected;
-        }
+        // Specific item of this.fold list
+        this.fold[child - 1].show();
 
-        // Setter
-        var that = this,
-            // Specific item of that._children list
-            item = that._children[child - 1];
-
-        // Item as expandable
-        if (item instanceof ch.Expandable) {
-
-            if (this._options.accordion && this._selected !== undefined && this._selected !== child) {
-                this._children[this._selected - 1].hide();
-            }
-
-            // Show
-            item.show();
-        }
-
-        // Update selected item
-        that._selected = child;
-
-        /**
-         * It is triggered when the a fold is selected by the user.
-         * @name ch.Menu#select
-         * @event
-         * @public
-         * @exampleDescription When the user select
-         * @example
-         * widget.on('select',function(){
-         *     app.off();
-         * });
-         */
-        that.emit('select');
-
-        return that;
+        return this;
     };
 
     /**
-     * Binds controller's own click to expandable triggers
-     * @private
-     * @function
+     * Hides a specific child.
+     * @public
+     * @name hide
+     * @name ch.Menu
+     * @param {Number} child - The number of the item to be hidden
+     * @returns {Object}
      */
-    Menu.prototype._configureAccordion = function () {
-        var that = this;
+    Menu.prototype.hide = function (child) {
 
-        $.each(that._children, function (i, expandable) {
-            if (expandable instanceof ch.Expandable) {
-                expandable.$el
-                    .off('.expandable')
-                    .on(ch.events.pointer.TAP + '.accordion', function () {
-                        var opened = that._children[that._selected - 1];
+        if (!this._enabled) {
+            return this;
+        }
 
-                        if (that._selected !== undefined && expandable !== opened) {
-                            opened.hide();
-                        }
+        // Specific item of this.fold list
+        this.fold[child - 1].hide();
 
-                        that.select(i + 1);
-                    });
-            }
-        });
+        return this;
+    };
+
+
+    /**
+     *
+     */
+    Menu.prototype.content = function (child, content, options) {
+        if (child === undefined || typeof child !== 'number') {
+            throw new window.Error('Menu.content(child, content, options): Expected number of fold.');
+        }
+
+        if (content === undefined) {
+            return this.fold[child - 1].content();
+        }
+
+        this.fold[child - 1].content(content, options);
+
+        return this;
     };
 
     /**
@@ -361,11 +330,32 @@
 
         if (!window.isNaN(num)) {
             options = {
-                'selected': num
+                'shown': num
             };
         }
 
         return options;
+    };
+
+    /**
+     * Destroys a Menu instance.
+     * @public
+     * @function
+     * @name ch.Menu#destroy
+     */
+    Menu.prototype.destroy = function () {
+
+        $.each(this.fold, function (i, e) {
+            if (e.destroy !== undefined) {
+                e.destroy();
+            }
+        });
+
+        this._el.parentNode.replaceChild(this._snippet, this._el);
+
+        $(window.document).trigger(ch.onchangelayout);
+
+        parent.destroy.call(this);
     };
 
     /**
