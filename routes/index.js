@@ -3,8 +3,7 @@
  */
 
 var app = module.parent.exports,
-    exec = require('child_process').exec,
-    Joiner = require('../libs/joiner').Joiner;
+    exec = require('child_process').exec;
 
 /*
  * Middlewares
