@@ -20,18 +20,12 @@ function isAnotherFile (req, res, next) {
 
 function isView (req, res, next) {
     if (req.params.type === undefined) {
-        exec('grunt dev --target=' + req.params.version, function (error, stdout, stderr) {
-            res.render(req.params.version + '.html');
-        });
-
+        res.render(req.params.version + '.html');
     } else {
         next();
     }
 };
 
-/*
- * Views
- */
 /*
  * Index
  */
@@ -46,6 +40,9 @@ app.get('/m', function (req, res, next) {
     res.redirect('/mobile');
 });
 
+/*
+ * Files generator
+ */
 app.get('/:version/:type?/:file?', isAnotherFile, isView, function (req, res, next) {
     var min = ((req.query.min) ? '.min' : ''),
         filename = req.params.file || 'chico',
@@ -55,5 +52,7 @@ app.get('/:version/:type?/:file?', isAnotherFile, isView, function (req, res, ne
         path = '/src/' + req.params.version + '/' + req.params.type + '/ch.' + filename + '.' + req.params.type;
     }
 
-    res.sendfile(path, {'root': __dirname + '/../'});
+    exec('grunt dev --env=' + req.params.version, function (error, stdout, stderr) {
+        res.sendfile(path, {'root': __dirname + '/../'});
+    });
 });
