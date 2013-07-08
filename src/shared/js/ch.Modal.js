@@ -85,7 +85,8 @@
         'width': '50%',
         'close': 'all',
         'reference': ch.viewport,
-        'waiting': '<div class="ch-loading-big ch-loading-centered"></div>'
+        'waiting': '<div class="ch-loading-big ch-loading-centered"></div>',
+        'positioned': 'fixed'
     });
 
     Modal.prototype.init = function ($el, options) {

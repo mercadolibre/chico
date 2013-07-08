@@ -17,8 +17,8 @@
         scrolled = false;
 
     $window
-        .on('resize', function () { resized = true; })
-        .on('scroll', function () { scrolled = true; });
+        .on('resize.viewport', function () { resized = true; })
+        .on('scroll.viewport', function () { scrolled = true; });
 
     function update() {
         // No changing, exit
@@ -43,6 +43,7 @@
     }
 
     ch.util.inherits(Viewport, ch.EventEmitter);
+
     Viewport.prototype.init = function () {
         var that = this;
 
