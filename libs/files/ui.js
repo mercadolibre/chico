@@ -23,7 +23,6 @@ JS.core = [
  */
 JS.abilities = [
     "src/shared/js/ch.EventEmitter.js",
-    "src/shared/js/ch.onImagesLoads.js",
     "src/shared/js/ch.Content.js",
     "src/shared/js/ch.Closable.js",
     "src/shared/js/ch.Collapsible.js",
@@ -35,6 +34,7 @@ JS.abilities = [
  * JS: Widgets
  */
 JS.widgets = [
+    "src/shared/js/ch.onImagesLoads.js",
     "src/shared/js/ch.Widget.js",
     "src/shared/js/ch.Form.js",
     "src/shared/js/ch.Condition.js",

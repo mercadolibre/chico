@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
     'use strict';
 
-    var env = grunt.option('target') || 'ui',
+    var env = grunt.option('env') || 'ui',
         lib = {
             'mobile': 'Zepto',
             'ui': 'jQuery'
