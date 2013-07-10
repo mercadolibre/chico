@@ -93,7 +93,8 @@
         'open': 'click',
         'close': 'button-only',
         'closeDelay': 400,
-        'waiting': '<div class="ch-loading ch-loading-centered"></div>'
+        'waiting': '<div class="ch-loading ch-loading-centered"></div>',
+        'positioned': 'absolute'
     };
 
     Popover.prototype.init = function ($el, options) {
@@ -147,7 +148,8 @@
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': this._options.offsetX,
-            'offsetY': this._options.offsetY
+            'offsetY': this._options.offsetY,
+            'positioned': this._options.positioned
         });
 
         /**

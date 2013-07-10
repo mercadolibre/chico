@@ -86,7 +86,7 @@
         'side': 'center',
         'align': 'center',
         'reference': ch.viewport,
-        'position': 'fixed'
+        'positioned': 'fixed'
     };
 
     Positioner.prototype.configure = function (options) {
@@ -100,11 +100,7 @@
         this.$reference = options.reference || this.$reference;
         this._reference = this._options.reference;
 
-        if (this._reference !== ch.viewport) {
-            this._options.position = 'absolute';
-        }
-
-        this.$target.css('position', this._options.position);
+        this.$target.css('position', this._options.positioned);
 
         return this;
     };
