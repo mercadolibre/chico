@@ -27,9 +27,6 @@ function isView (req, res, next) {
 };
 
 /*
- * Views
- */
-/*
  * Index
  */
 app.get('/', function (req, res, next) {
@@ -43,6 +40,9 @@ app.get('/m', function (req, res, next) {
     res.redirect('/mobile');
 });
 
+/*
+ * Files generator
+ */
 app.get('/:version/:type?/:file?', isAnotherFile, isView, function (req, res, next) {
     var min = ((req.query.min) ? '.min' : ''),
         filename = req.params.file || 'chico',
@@ -52,7 +52,7 @@ app.get('/:version/:type?/:file?', isAnotherFile, isView, function (req, res, ne
         path = '/src/' + req.params.version + '/' + req.params.type + '/ch.' + filename + '.' + req.params.type;
     }
 
-    exec('grunt dev --target=' + req.params.version, function (error, stdout, stderr) {
+    exec('grunt dev --env=' + req.params.version, function (error, stdout, stderr) {
         res.sendfile(path, {'root': __dirname + '/../'});
     });
 });
