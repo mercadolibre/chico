@@ -287,13 +287,19 @@
          * @returns {Object}
          */
         'getOffset': function (el) {
-            var obj = el.getBoundingClientRect(),
-                scroll = ch.util.getScroll();
+            var rect = el.getBoundingClientRect(),
+                scroll = ch.util.getScroll(),
+                offset = {
+                    'left': rect.left,
+                    'top': rect.top
+                };
 
-            return {
-                'left': obj.left + scroll.left,
-                'top': obj.top + scroll.top
-            };
+            if (ch.util.getStyles(el, 'position') !== 'fixed' && ch.util.getStyles(el.offsetParent, 'position') !== 'fixed') {
+                offset.left += scroll.left;
+                offset.top += scroll.top;
+            }
+
+            return offset;
         },
 
         /**
