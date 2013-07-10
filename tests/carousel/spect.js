@@ -1,5 +1,7 @@
 // The configuration object allows to calculate movements by having always the same amount of pages
-var moveEvent = jasmine.createSpy('moveEvent'),
+var destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
+    moveEvent = jasmine.createSpy('moveEvent'),
     prevEvent = jasmine.createSpy('prevEvent'),
     nextEvent = jasmine.createSpy('nextEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
@@ -54,16 +56,6 @@ describe('Carousel', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.el', function () {
-        expect(carousel1.el).not.toEqual(undefined);
-        expect(carousel1.el.nodeType).toEqual(1);
-    });
-
-    it('.$el', function () {
-        expect(carousel1.$el).not.toEqual(undefined);
-        expect(carousel1.$el instanceof $).toBeTruthy();
-    });
-
     it('.name', function () {
         expect(carousel1.name).not.toEqual(undefined);
         expect(typeof carousel1.name).toEqual('string');
@@ -82,7 +74,8 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['init', 'destroy', 'goTo', 'prev', 'next', 'pause', 'play', 'refresh', 'enable', 'disable'],
+
+    var methods = ['init', 'destroy', 'select', 'prev', 'next', 'pause', 'play', 'refresh', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 
@@ -100,7 +93,7 @@ describe('It should have two navigation controls:', function () {
 
     describe('Previous button', function () {
 
-        var $btn = carousel1.$el.children(':first');
+        var $btn = carousel1._$el.children(':first');
 
         it('should exist', function () {
             expect($btn[0].nodeType).toEqual(1);
@@ -135,7 +128,7 @@ describe('It should have two navigation controls:', function () {
 
     describe('Next button', function () {
 
-        var $btn = carousel1.$el.children(':eq(2)');
+        var $btn = carousel1._$el.children(':eq(2)');
 
         it('should exist', function () {
             expect($btn[0].nodeType).toEqual(1);
@@ -171,7 +164,7 @@ describe('It should have two navigation controls:', function () {
 
 describe('It should have a Mask element that', function () {
 
-    var $mask = carousel1.$el.children().eq(1);
+    var $mask = carousel1._$el.children().eq(1);
 
     it('should exist', function () {
         expect($mask[0].nodeType).toEqual(1);
@@ -245,13 +238,13 @@ describe('It should have a Mask element that', function () {
     });
 });
 
-describe('Its goTo() method', function () {
+describe('Its select() method', function () {
 
     it('should move to a specific page (4)', function () {
 
         expect(carousel1._currentPage).not.toEqual(4);
 
-        carousel1.goTo(4);
+        carousel1.select(4);
 
         expect(carousel1._currentPage).toEqual(4);
     });
@@ -287,7 +280,7 @@ describe('Its prev() method', function () {
 
     it('shouldn\'t move beyond the first page', function () {
 
-        carousel1.goTo(1).prev();
+        carousel1.select(1).prev();
 
         expect(carousel1._currentPage).toEqual(1);
     });
@@ -316,7 +309,7 @@ describe('Its next() method', function () {
 
     it('shouldn\'t move beyond the last page', function () {
 
-        carousel1.goTo(carousel1._pages).next();
+        carousel1.select(carousel1._pages).next();
 
         expect(carousel1._currentPage).toEqual(5);
     });
@@ -334,12 +327,12 @@ describe('Its refresh() method', function () {
 
 describe('Its movement should respect the buttons visibility and abailability', function () {
 
-    var $prevButton = carousel1.$el.children(':first'),
-        $nextButton = carousel1.$el.children(':last');
+    var $prevButton = carousel1._$mask.prev();
+        $nextButton = carousel1._$mask.next();
 
     it('in the middle page', function () {
 
-        carousel1.goTo(3);
+        carousel1.select(3);
 
         expect($prevButton.attr('aria-hidden')).toEqual('false');
         expect($prevButton.hasClass('ch-carousel-disabled')).toBeFalsy();
@@ -350,7 +343,7 @@ describe('Its movement should respect the buttons visibility and abailability', 
 
     it('in the first page', function () {
 
-        carousel1.goTo(1);
+        carousel1.select(1);
 
         expect($prevButton.attr('aria-hidden')).toEqual('true');
         expect($prevButton.hasClass('ch-carousel-disabled')).toBeTruthy();
@@ -361,7 +354,7 @@ describe('Its movement should respect the buttons visibility and abailability', 
 
     it('in the last page', function () {
 
-        carousel1.goTo(carousel1._pages);
+        carousel1.select(carousel1._pages);
 
         expect($prevButton.attr('aria-hidden')).toEqual('false');
         expect($prevButton.hasClass('ch-carousel-disabled')).toBeFalsy();
@@ -373,14 +366,14 @@ describe('Its movement should respect the buttons visibility and abailability', 
 
 describe('Its Next and Prev navigation controls', function () {
     it('shouldn\'t exist when it\'s specified by configuration', function () {
-        expect(carousel2.$el.find('.ch-carousel-prev').length).toEqual(0);
-        expect(carousel2.$el.find('.ch-carousel-next').length).toEqual(0);
+        expect(carousel2._$el.find('.ch-carousel-prev').length).toEqual(0);
+        expect(carousel2._$el.find('.ch-carousel-next').length).toEqual(0);
     });
 });
 
 describe('Its pagination controls', function () {
 
-    var $pages = carousel2.$el.children(':last'),
+    var $pages = carousel2._$el.children(':last'),
         $thumbs = $pages.children();
 
     it('should exist when it\'s specified by configuration', function () {
@@ -457,12 +450,12 @@ describe('Its pagination controls', function () {
 
         it('should change when another page is selected', function () {
 
-            carousel2.goTo(1);
+            carousel2.select(1);
 
             expect($thumbs.eq(0).hasClass('ch-carousel-selected')).toBeTruthy();
             expect($thumbs.eq(2).hasClass('ch-carousel-selected')).toBeFalsy();
 
-            carousel2.goTo(3);
+            carousel2.select(3);
 
             expect($thumbs.eq(0).hasClass('ch-carousel-selected')).toBeFalsy();
             expect($thumbs.eq(2).hasClass('ch-carousel-selected')).toBeTruthy();
@@ -495,5 +488,32 @@ describe('Its asynchronous feature', function () {
         carousel3.select(carousel3._currentPage + move);
 
         expect(carousel3._$items.length).toEqual(expectedItems);
+    });
+});
+
+describe('Its destroy() method', function () {
+
+    carousel3.destroy();
+
+    var $snippet = $('.carousel3');
+
+    it('should reset the _$el', function () {
+        expect($snippet.children().length).toEqual(1);
+    });
+
+    it('should remove ".carousel" events', function () {
+        expect($._data($snippet[0], 'events')).toBeUndefined();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect($snippet.data('carousel')).toBeUndefined();
+    });
+
+    it('should emit the "changeLayout" event', function () {
+        expect(changeLayoutEvent).toHaveBeenCalled();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
     });
 });
