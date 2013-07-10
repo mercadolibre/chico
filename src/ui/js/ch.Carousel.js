@@ -72,6 +72,7 @@
 
     Carousel.prototype._defaults = {
         'async': 0,
+        'arrows': true,
         'pagination': false,
         'initialPage': 1,
         'fx': true
@@ -272,8 +273,8 @@
         // If there are a parameter specifying a pagination, add it
         if (this._options.pagination !== undefined) { this._addPagination(); }
 
-        // Allow to render the arrows over the mask or not
-        this._addArrows();
+        // Allow to render the arrows
+        if (this._options.arrows !== undefined && this._options.arrows !== false) { this._addArrows(); }
 
         // Trigger all calculations to get the functionality measures
         this._maskWidth = this._$mask.outerWidth();
@@ -634,30 +635,12 @@
      * @function
      */
     Carousel.prototype._addArrows = function () {
-        // Check arrows existency
-        if (this._arrowsCreated) { return; }
-        // Add arrows to DOM
-        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
         // Avoid selection on the arrows
         ch.util.avoidTextSelection(this._$prevArrow, this._$nextArrow);
+        // Add arrows to DOM
+        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
         // Check arrows as created
         this._arrowsCreated = true;
-    };
-
-    /**
-     * Delete arrows from DOM, unbind these event and change the flag 'arrowsCreated'.
-     * @private
-     * @name ch.Carousel#removeArrows
-     * @function
-     */
-    Carousel.prototype._removeArrows = function () {
-        // Check arrows existency
-        if (!this._arrowsCreated) { return; }
-        // Delete arrows only from DOM and keep in variables and unbind events too
-        this._$prevArrow.detach();
-        this._$nextArrow.detach();
-        // Check arrows as deleted
-        this._arrowsCreated = false;
     };
 
     /**
