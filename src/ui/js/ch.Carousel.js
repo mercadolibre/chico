@@ -282,7 +282,7 @@
         this._updateARIA();
 
         // Calculate items per page and calculate pages, only when the amount of items was changed
-        this._updateItemsPerPage();
+        this._updateLimitPerPage();
 
         // Update the margin between items and its size
         this._updateDistribution();
@@ -479,29 +479,29 @@
      *
      *
      */
-    Carousel.prototype._updateItemsPerPage = function () {
+    Carousel.prototype._updateLimitPerPage = function () {
 
         var max = this._options.limitPerPage,
             // Go to the current first item on the current page to restore if pages amount changes
             firstItemOnPage,
             // The width of each item into the width of the mask
             // Avoid zero items in a page
-            itemsPerPage = Math.floor(this._maskWidth / this._itemOuterWidth) || 1;
+            limitPerPage = Math.floor(this._maskWidth / this._itemOuterWidth) || 1;
 
         // Limit amount of items when user set a limitPerPage amount
-        if (max !== undefined && itemsPerPage > max) { itemsPerPage = max; }
+        if (max !== undefined && limitPerPage > max) { limitPerPage = max; }
 
         // Set data and calculate pages, only when the amount of items was changed
-        if (itemsPerPage === this._limitPerPage) { return; }
+        if (limitPerPage === this._limitPerPage) { return; }
 
-        // Restore if itemsPerPage is NOT the same after calculations (go to the current first item page)
+        // Restore if limitPerPage is NOT the same after calculations (go to the current first item page)
         firstItemOnPage = ((this._currentPage - 1) * this._limitPerPage) + 1;
         // Update amount of items into a single page (from conf or auto calculations)
-        this._limitPerPage = itemsPerPage;
+        this._limitPerPage = limitPerPage;
 
         // Update the amount of total pages
         // The ratio between total amount of items and items in each page
-        this._pages = Math.ceil((this._$items.length + this._async) / itemsPerPage);
+        this._pages = Math.ceil((this._$items.length + this._async) / limitPerPage);
 
         // Add items to the list, if it's necessary
         this._loadAsyncItems();
@@ -516,7 +516,7 @@
         this._updatePagination();
 
         // Go to the current first item page
-        this.select(Math.ceil(firstItemOnPage / itemsPerPage));
+        this.select(Math.ceil(firstItemOnPage / limitPerPage));
     };
 
     /**
@@ -606,7 +606,7 @@
             // Update the width of the mask
             this._maskWidth = maskWidth;
             // Calculate items per page and calculate pages, only when the amount of items was changed
-            this._updateItemsPerPage();
+            this._updateLimitPerPage();
             // Update the margin between items and its size
             this._updateDistribution();
             /**
