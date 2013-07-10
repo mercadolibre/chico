@@ -18,6 +18,14 @@ var moveEvent = jasmine.createSpy('moveEvent'),
         'limitPerPage': 4,
         'arrows': false,
         'pagination': true
+    }),
+    carousel3 = $('.carousel3').carousel({
+        'limitPerPage': 2,
+        'async': 5
+    }).on('addeditems', function ($items) {
+        $.each($items, function (i, e) {
+            $(e).html(i);
+        });
     });
 
 describe('Carousel', function () {
@@ -459,5 +467,33 @@ describe('Its pagination controls', function () {
             expect($thumbs.eq(0).hasClass('ch-carousel-selected')).toBeFalsy();
             expect($thumbs.eq(2).hasClass('ch-carousel-selected')).toBeTruthy();
         });
+    });
+});
+
+describe('Its asynchronous feature', function () {
+
+    it('should add the next arrow', function () {
+        expect(carousel3._$el.children('.ch-carousel-next').hasClass('ch-carousel-disabled')).toBeFalsy();
+    });
+
+    it('should add two items on next page', function () {
+
+        var items = carousel3._$items.length,
+            expectedItems = items + carousel3._limitPerPage;
+
+        carousel3.next();
+
+        expect(carousel3._$items.length).toEqual(expectedItems);
+    });
+
+    it('should add multiple items on next 2 pages selection (through select() method or pagination)', function () {
+
+        var move = 2, // Amount of pages to move
+            items = carousel3._$items.length,
+            expectedItems = items + (carousel3._limitPerPage * move);
+
+        carousel3.select(carousel3._currentPage + move);
+
+        expect(carousel3._$items.length).toEqual(expectedItems);
     });
 });
