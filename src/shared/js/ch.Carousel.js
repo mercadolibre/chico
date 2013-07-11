@@ -109,9 +109,7 @@
          * @name ch.Carousel#$mask
          * @type jQuery Object
          */
-        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel" style="height:' + this._$items.outerHeight() + 'px">')
-            .html(this._$list)
-            .appendTo(this._$el);
+        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel">').html(this._$list).appendTo(this._$el);
 
         /**
          * Size of the mask. Updated in each refresh.
@@ -135,7 +133,7 @@
          * @name ch.Carousel#itemOuterWidth
          * @type Number
          */
-        this._itemOuterWidth = this._$items.outerWidth();
+        this._itemOuterWidth = ch.util.getOuterDimensions(this._$items[0]).width;
 
         /**
          * Size added to each item to make it responsive.
@@ -277,7 +275,7 @@
         if (this._options.arrows !== undefined && this._options.arrows !== false) { this._addArrows(); }
 
         // Trigger all calculations to get the functionality measures
-        this._maskWidth = this._$mask.outerWidth();
+        this._maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
 
         // Set WAI-ARIA properties to each item depending on the page in which these are
         this._updateARIA();
@@ -580,7 +578,7 @@
         });
 
         // Update the mask height with the list height
-        this._$mask.css('height', this._$list.outerHeight());
+        this._$mask[0].style.height = ch.util.getOuterDimensions(this._$items[0]).height;
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -600,7 +598,7 @@
      */
     Carousel.prototype.refresh = function () {
 
-        var maskWidth = this._$mask.outerWidth();
+        var maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         if (maskWidth !== this._maskWidth) {

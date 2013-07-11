@@ -62,6 +62,7 @@ JS.widgets = [
     "src/shared/js/ch.Custom.js",
     "src/shared/js/ch.Required.js",
     "src/shared/js/ch.Countdown.js",
+    "src/shared/js/ch.Carousel.js",
     "src/shared/js/ch.Calendar.js",
     "src/shared/js/ch.AutoComplete.js"
 ];
@@ -115,6 +116,7 @@ CSS.widgets = [
     "src/shared/css/ch.Bubble.css",
     "src/shared/css/ch.Modal.css",
     "src/shared/css/ch.Transition.css",
+    "src/shared/css/ch.Carousel.css",
     "src/mobile/css/ch.AutoComplete.css",
     "src/shared/css/ch.Dropdown.css",
     "src/shared/css/ch.Calendar.css"
