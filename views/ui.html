@@ -1546,25 +1546,25 @@
 
         var layer2 = $('#layer2').layer({
             'content': 'foo',
-            'open': 'click',
+            'shownby': 'click',
             'close': 'all'
         });
 
         var layer3 = $('#layer3').layer({
             'content': $('#invisible-content-for-layer'),
-            'open': 'click',
+            'shownby': 'click',
             'close': 'none'
         });
 
         var layer4 = $('#layer4').layer({
             'content': 'Static content.',
-            'open': 'click',
+            'shownby': 'click',
             'close': 'button-only'
         });
 
         var layer5 = $('#layer5').layer({
             'content': '/ajax',
-            'open': 'click',
+            'shownby': 'click',
             'close': 'pointers-only'
         });
 
@@ -1575,7 +1575,7 @@
 
         var fixedLayer = $('#components').layer({
             'content': $("#components-list"),
-            'open': 'click',
+            'shownby': 'click',
             'close': 'all',
             'width': '700px',
             'positioned': 'fixed',
