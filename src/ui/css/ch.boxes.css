@@ -6,15 +6,17 @@
 	background-color: #fff;
 }
 
-.ch-box-help,
-.ch-box-help:before {
+/**
+ * Help
+ */
+.ch-box-help {
 	background-color: #f7f7f7;
 }
 
 /**
  * Message boxes IE7
  */
-.lt-ie8 .ch-box-attention,
+.lt-ie8 .ch-box-warning,
 .lt-ie8 .ch-box-error,
 .lt-ie8 .ch-box-help,
 .lt-ie8 .ch-box-information,
@@ -24,7 +26,7 @@
 	background-repeat: no-repeat;
 }
 
-.lt-ie8 .ch-box-attention {
+.lt-ie8 .ch-box-warning {
 	background-position: -20px -84px;
 }
 

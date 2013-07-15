@@ -2,55 +2,74 @@
  * Icons
  */
 @font-face {
-	font-family: 'icons';
-	src: url('../assets/icons.eot');
-	src: url('../assets/icons.eot?#iefix') format('embedded-opentype'),
-		 url('../assets/icons.woff') format('woff'),
-		 url('../assets/icons.ttf') format('truetype'),
-		 url('../assets/icons.svg#icons') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'icons';
+    src: url('../assets/icons.eot');
+    src: url('../assets/icons.eot?#iefix') format('embedded-opentype'),
+         url('../assets/icons.woff') format('woff'),
+         url('../assets/icons.ttf') format('truetype'),
+         url('../assets/icons.svg#icons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class*='ch-icon-'] {
+    text-shadow: none;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: .9em;
+    height: 16px;
+    width: 16px;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.ch-icon-24,
+.ch-icon-32,
+.ch-icon-64 {
+    padding: 10px;
+}
+
+.ch-icon-24 {
+    height: 24px;
+    width: 24px;
+    font-size: 30px;
+}
+
+.ch-icon-32 {
+    height: 32px;
+    width: 32px;
+    font-size: 39px;
+}
+
+.ch-icon-64 {
+    height: 64px;
+    width: 64px;
+    font-size: 80px;
 }
 
 .lt-ie8 [class*='ch-icon-'],
 [class*='ch-icon-']:before,
-.ch-box-attention:before,
-.ch-box-help:before,
-.ch-box-information:before,
-.ch-box-error:before,
-.ch-box-ok:before,
 .ch-list-options li a:after,
 .ch-tag:after {
-	font-family: icons;
-	font-weight: normal;
-	font-style: normal;
-	text-decoration: none;
-	vertical-align: middle;
-	margin-right: 0.2em;
-	line-height: 1em;
-	font-size: 1.429em;
+    font-family: icons;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+    display: inline-block;
 }
 
-[class*='ch-icon-']:before,
+
+[class*='ch-icon-'],
 .ch-list-options li a:after,
 .ch-tag:after {
-	color: #666;
+    color: #666;
 }
 
 .ch-tag:after,
-.ch-icon-attention:before,
-.ch-icon-help:before,
-.ch-icon-information:before,
-.ch-icon-error:before,
-.ch-icon-ok:before,
-.ch-box-attention:before,
-.ch-box-help:before,
-.ch-box-information:before,
-.ch-box-error:before,
-.ch-box-ok:before,
 [class^='ch-icon-']:before,
 [class*=' ch-icon-']:before {
-	left: 0;
+    left: 0;
 }
 
 /*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
@@ -84,7 +103,7 @@
 .ch-icon-minus-sign:before           { content: '\f056'; }
 .ch-icon-remove-sign:before          { content: '\f057'; }
 .ch-icon-ok-sign:before              { content: '\f058'; }
-.ch-icon-question-sign:before        { content: '\f059'; }
+.ch-icon-help-sign:before            { content: '\f059'; }
 .ch-icon-info-sign:before            { content: '\f05a'; }
 .ch-icon-ban-circle:before           { content: '\f05e'; }
 .ch-icon-arrow-left:before           { content: '\f060'; }
@@ -150,7 +169,7 @@
 .lt-ie8 .ch-icon-minus-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf056;&nbsp;');}
 .lt-ie8 .ch-icon-remove-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf057;&nbsp;');}
 .lt-ie8 .ch-icon-ok-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf058;&nbsp;');}
-.lt-ie8 .ch-icon-question-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf059;&nbsp;');}
+.lt-ie8 .ch-icon-help-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf059;&nbsp;');}
 .lt-ie8 .ch-icon-info-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf05a;&nbsp;');}
 .lt-ie8 .ch-icon-ban-circle { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf05e;&nbsp;');}
 .lt-ie8 .ch-icon-arrow-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf060;&nbsp;');}
