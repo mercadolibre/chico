@@ -110,7 +110,7 @@
 	$window.bind("resize scroll", function () { changing = true; });
 
 	// Interval that checks for resizing status and triggers specific events
-	window.setInterval(triggerChange, 350);
+	window.setInterval(triggerChange, 0);
 
 	// Returns Positioner Abstract Component
 	function Positioner(conf) {
