@@ -70,7 +70,7 @@
 
         $body = $('body'),
 
-        $dimmer = $('<div class="ch-dimmer ch-hide">');
+        $dimmer = $('<div class="ch-dimmer ch-hide" tabindex="-1">');
 
     /**
      * Public members
