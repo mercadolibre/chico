@@ -60,33 +60,41 @@
 	}
 
 	var $window = $(window),
-		parseInt = window.parseInt;
+		parseInt = window.parseInt,
+        requestAnimFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        }()),
 
-	/**
-	 * Converts points in className.
-	 * @private
-	 * @name ch.Positioner#classNamePoints
-	 * @function
-	 * @returns String
-	 */
-	var classNamePoints = function (points) {
-		return "ch-points-" + points.replace(" ", "");
-	},
+		/**
+		 * Converts points in className.
+		 * @private
+		 * @name ch.Positioner#classNamePoints
+		 * @function
+		 * @returns String
+		 */
+		classNamePoints = function (points) {
+			return "ch-points-" + points.replace(" ", "");
+		},
 
-	/**
-	 * Reference that allows to know when window is being scrolled or resized.
-	 * @private
-	 * @name ch.Positioner#changing
-	 * @type Boolean
-	 */
+		/**
+		 * Reference that allows to know when window is being scrolled or resized.
+		 * @private
+		 * @name ch.Positioner#changing
+		 * @type Boolean
+		 */
 		changing = false,
 
-	/**
-	 * Checks if window is being scrolled or resized, updates viewport position and triggers internal Change event.
-	 * @private
-	 * @name ch.Positioner#triggerScroll
-	 * @function
-	 */
+		/**
+		 * Checks if window is being scrolled or resized, updates viewport position and triggers internal Change event.
+		 * @private
+		 * @name ch.Positioner#triggerScroll
+		 * @function
+		 */
 		triggerChange = function () {
 			// No changing, no execution
 			if (!changing) { return; }
@@ -109,8 +117,11 @@
 	// Resize and Scroll events binding. These updates respectives boolean variables
 	$window.bind("resize scroll", function () { changing = true; });
 
-	// Interval that checks for resizing status and triggers specific events
-	window.setInterval(triggerChange, 0);
+	// Checks for resizing status and triggers specific events
+    (function updateFrame() {
+        requestAnimFrame(updateFrame);
+        triggerChange();
+    }());
 
 	// Returns Positioner Abstract Component
 	function Positioner(conf) {
