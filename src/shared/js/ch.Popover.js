@@ -90,7 +90,7 @@
         'width': 'auto',
         'height': 'auto',
         'shown': false,
-        'shownby': 'click',
+        'shownby': 'mouseenter',
         'hiddenby': 'button-only',
         'closeDelay': 400,
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
