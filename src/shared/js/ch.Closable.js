@@ -32,6 +32,10 @@
             that.hide();
         }
 
+        function closeTimer() {
+            timeOut = setTimeout(close, 400);
+        }
+
         this._closable = function () {
 
             /**
@@ -50,7 +54,7 @@
                     clearTimeout(timeOut);
                 };
 
-                events[pointerLeave] = close;
+                events[pointerLeave] = closeTimer;
 
                 that.$trigger.on(events);
                 that.$container.on(events);
