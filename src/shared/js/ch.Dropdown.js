@@ -78,7 +78,7 @@
 
     Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
-        'ariaRole': 'menu',
+        'ariaRole': 'combobox',
         'fx': false,
         'shownby': 'click',
         'hiddenby': 'pointers-only',
@@ -93,8 +93,11 @@
 
         parent.init.call(this, $el, options);
 
-        //TODO: $trigger should be defined in Popover class.
-        this.$trigger.addClass('ch-dropdown-trigger');
+        this.activeDescendant = 'ch-dropdown' + this.uid + '-selected';
+
+        this.$trigger
+            .addClass('ch-dropdown-trigger')
+            .prop('aria-activedescendant', this.activeDescendant);
 
         ch.util.avoidTextSelection(this.$trigger);
 
@@ -114,7 +117,7 @@
          * @type {Selector}
          */
         if (this._options.shortcuts) {
-            this._$navigation = this.$trigger.next().find('a').attr('role', 'menuitem');
+            this._$navigation = this.$trigger.next().find('a').prop('role', 'option');
 
             // Keyboard support initialize
             var selected = 0,
@@ -130,7 +133,6 @@
 
             ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) { that._select(event); });
             ch.shortcuts.add(ch.onkeydownarrow, this.uid, function (event) { that._select(event); });
-
         }
 
         this._options.content = this.$trigger.next();
@@ -162,12 +164,14 @@
         // Unselects current option
         if (this._selected !== -1) {
             this._$navigation[this._selected].blur();
+            this._$navigation[this._selected].removeAttribute('id');
         }
 
         if (arrow === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
 
         // Selects new current option
         this._$navigation[this._selected].focus();
+        this._$navigation[this._selected].id = this.activeDescendant;
 
         return this;
     }
