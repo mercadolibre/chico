@@ -26,14 +26,14 @@
 
 
     $window
-        .on('resize.viewport', function () { resized = true; })
-        .on('scroll.viewport', function () { scrolled = true; });
+        .on(ch.onresize + '.viewport', function () { resized = true; })
+        .on(ch.onscroll + '.viewport', function () { scrolled = true; });
 
     function update() {
         // No changing, exit
         if (!resized && !scrolled) { return; }
 
-        var eve = (resized) ? 'resize' : 'scroll';
+        var eve = (resized) ? ch.onresize : ch.onscroll;
 
         // Refresh viewport
         this.refresh();
