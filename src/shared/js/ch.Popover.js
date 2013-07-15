@@ -91,7 +91,7 @@
         'height': 'auto',
         'shown': false,
         'shownby': 'click',
-        'close': 'button-only',
+        'hiddenby': 'button-only',
         'closeDelay': 400,
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
         'positioned': 'absolute'

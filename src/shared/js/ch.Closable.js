@@ -20,7 +20,7 @@
         var that = this,
             setTimeout = window.setTimeout,
             clearTimeout = window.clearTimeout,
-            closableType = this._options.close,
+            closableType = this._options.hiddenby,
             delay = this._options.closeDelay,
             pointerTap = ch.onpointertap + '.' + this.name,
             pointerEnter = ch.onpointerenter + '.' + this.name,

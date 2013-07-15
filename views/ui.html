@@ -688,10 +688,10 @@
         <h2 id="layer">Layer</h2>
         <ul class="ch-list">
             <li><span id="layer1">Default Layer, executed on <strong>mouseenter</strong>.</span></li>
-            <li><span id="layer2">Executed on <strong>click</strong>. <em>(close:all)</em></span></li>
-            <li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(close:none)</em>.</span></li>
-            <li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(close:button-only)</em>.</span></li>
-            <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:pointers-only)</em></span></li>
+            <li><span id="layer2">Executed on <strong>click</strong>. <em>(hiddenby:all)</em></span></li>
+            <li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(hiddenby:none)</em>.</span></li>
+            <li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(hiddenby:button-only)</em>.</span></li>
+            <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(hiddenby:pointers-only)</em></span></li>
         </ul>
         <div id="invisible-content-for-layer" class="ch-hide">
             <h1>This content is invisible</h1>
@@ -1547,25 +1547,25 @@
         var layer2 = $('#layer2').layer({
             'content': 'foo',
             'shownby': 'click',
-            'close': 'all'
+            'hiddenby': 'all'
         });
 
         var layer3 = $('#layer3').layer({
             'content': $('#invisible-content-for-layer'),
             'shownby': 'click',
-            'close': 'none'
+            'hiddenby': 'none'
         });
 
         var layer4 = $('#layer4').layer({
             'content': 'Static content.',
             'shownby': 'click',
-            'close': 'button-only'
+            'hiddenby': 'button-only'
         });
 
         var layer5 = $('#layer5').layer({
             'content': '/ajax',
             'shownby': 'click',
-            'close': 'pointers-only'
+            'hiddenby': 'pointers-only'
         });
 
         var layerX = $.layer({
@@ -1576,7 +1576,7 @@
         var fixedLayer = $('#components').layer({
             'content': $("#components-list"),
             'shownby': 'click',
-            'close': 'all',
+            'hiddenby': 'all',
             'width': '700px',
             'positioned': 'fixed',
             'align': 'center',
