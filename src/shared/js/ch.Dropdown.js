@@ -80,8 +80,8 @@
         '_className': 'ch-dropdown ch-box-lite',
         'ariaRole': 'menu',
         'fx': false,
-        'open': 'click',
-        'close': 'pointers-only',
+        'shownby': 'click',
+        'hiddenby': 'pointers-only',
         'offsetY': -1,
         'skin': false,
         'shortcuts': true

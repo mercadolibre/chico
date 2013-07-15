@@ -90,7 +90,7 @@
         'width': 'auto',
         'height': 'auto',
         'shown': false,
-        'shownby': 'mouseenter',
+        'shownby': 'click',
         'hiddenby': 'button-only',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
         'positioned': 'absolute'
@@ -197,7 +197,7 @@
         this._options.reference = this._options.reference || this._$el;
 
         // Open event when configured as openable
-        if (this._options.shownby !== 'none' && this._options.shownby !== false) {
+        if (this._options.shownby !== 'none') {
             this._$el.on(openEvent[this._options.shownby] + '.' + this.name, function (event) {
                 ch.util.prevent(event);
                 that.show();

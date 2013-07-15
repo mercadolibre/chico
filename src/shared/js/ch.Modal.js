@@ -83,7 +83,7 @@
         '_className': 'ch-modal ch-box-lite',
         'ariaRole': 'dialog',
         'width': '50%',
-        'close': 'all',
+        'hiddenby': 'all',
         'reference': ch.viewport,
         'waiting': '<div class="ch-loading-big ch-loading-centered"></div>',
         'positioned': 'fixed'
@@ -107,10 +107,10 @@
         }
 
         var that = this,
-            close = this._options.close;
+            hiddenby = this._options.hiddenby;
 
         // Add to the dimmer the ability to close the widget only if the closable config. allows
-        if (close === 'all' || close === 'pointers-only' || close === true) {
+        if (hiddenby === 'all' || hiddenby === 'pointers-only') {
             // Allow only one click to analize the config every time
             $dimmer.one(ch.onpointertap, function (event) {
                 // Close dimmer and execute the original hide()
