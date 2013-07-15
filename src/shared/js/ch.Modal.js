@@ -70,7 +70,7 @@
 
         $body = $('body'),
 
-        $dimmer = $('<div class="ch-dimmer ch-hide" tabindex="-1">');
+        $underlay = $('<div class="ch-underlay ch-hide" tabindex="-1">');
 
     /**
      * Public members
@@ -109,22 +109,22 @@
         var that = this,
             hiddenby = this._options.hiddenby;
 
-        // Add to the dimmer the ability to close the widget only if the closable config. allows
+        // Add to the underlay the ability to close the widget only if the closable config. allows
         if (hiddenby === 'all' || hiddenby === 'pointers-only') {
             // Allow only one click to analize the config every time
-            $dimmer.one(ch.onpointertap, function (event) {
-                // Close dimmer and execute the original hide()
+            $underlay.one(ch.onpointertap, function (event) {
+                // Close underlay and execute the original hide()
                 that.hide();
             });
         }
 
-        // Append dimmer element
-        $dimmer.css('z-index', ch.util.zIndex).appendTo($body);
+        // Append underlay element
+        $underlay.css('z-index', ch.util.zIndex).appendTo($body);
 
         if (ch.support.fx) {
-            $dimmer.fadeIn();
+            $underlay.fadeIn();
         } else {
-            $dimmer.removeClass('ch-hide');
+            $underlay.removeClass('ch-hide');
         }
 
         // Execute the original show()
@@ -142,13 +142,13 @@
      * @returns itself
      */
     Modal.prototype.hide = function () {
-        // Delete the dimmer element
+        // Delete the underlay element
         if (ch.support.fx) {
-            $dimmer.fadeOut('normal', function () {
-                $dimmer.remove(null, true);
+            $underlay.fadeOut('normal', function () {
+                $underlay.remove(null, true);
             });
         } else {
-            $dimmer.addClass('ch-hide').remove(null, true);
+            $underlay.addClass('ch-hide').remove(null, true);
         }
         // Execute the original hide()
         parent.hide.call(this);

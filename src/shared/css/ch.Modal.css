@@ -17,9 +17,9 @@
 }
 
 /**
- * Dimmer
+ * Underlay
  */
-.ch-dimmer {
+.ch-underlay {
     position: fixed;
     left: 0;
     top: 0;
