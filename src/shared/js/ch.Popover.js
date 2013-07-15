@@ -198,10 +198,12 @@
 
         // Open event when configured as openable
         if (this._options.shownby !== 'none') {
-            this._$el.on(openEvent[this._options.shownby] + '.' + this.name, function (event) {
-                ch.util.prevent(event);
-                that.show();
-            });
+            this._$el
+                .addClass('ch-shownby-' + this._options.shownby)
+                .on(openEvent[this._options.shownby] + '.' + this.name, function (event) {
+                    ch.util.prevent(event);
+                    that.show();
+                });
         }
 
         // Get a content if it's not defined
