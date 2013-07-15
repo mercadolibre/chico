@@ -92,7 +92,6 @@
         'shown': false,
         'shownby': 'mouseenter',
         'hiddenby': 'button-only',
-        'closeDelay': 400,
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
         'positioned': 'absolute'
     };
