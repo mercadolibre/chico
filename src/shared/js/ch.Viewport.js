@@ -47,8 +47,9 @@
     }
 
     function Viewport() {
-        ch.EventEmitter.call(this);
         this.init();
+
+        return this;
     }
 
     ch.util.inherits(Viewport, ch.EventEmitter);

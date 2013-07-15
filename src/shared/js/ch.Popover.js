@@ -142,7 +142,7 @@
 
         this._closable();
 
-        this.position = new ch.Positioner({
+        this._positioner = new ch.Positioner({
             'target': this.$container,
             'reference': this._options.reference,
             'side': this._options.side,
@@ -156,25 +156,19 @@
          * Bind behaviors
          */
 
-
         /**
-         * Refresh the position of the popover if it's shown.
-         * @protected
-         * @name ch.Popover#$_refreshPosition
-         * TODO: Declare this function on prototye and use bind
-         * $document.on(ch.onchangelayout, this._refreshPosition.bind(this));
+         * TODO: Define this function on prototye and use bind.
+         * $document.on(ch.onchangelayout, this.refreshPosition.bind(this));
          */
-        this._refreshPosition = function () {
-            if (that._shown) {
-                that.position.refresh();
-            }
+        this._refreshPositionListener = function () {
+            return that.refreshPosition();
         };
 
-        $document.on(ch.onchangelayout, this._refreshPosition);
+        $document.on(ch.onchangelayout, this._refreshPositionListener);
 
-        this.on('_contentchange', function () {
-                that.position.refresh();
-            })
+        ch.viewport.on('resize', this._refreshPositionListener);
+
+        this.on('_contentchange', this._refreshPositionListener)
             .on('hide', function () {
                 that.$container.remove(null, true);
             });
@@ -233,12 +227,6 @@
             'aria-haspopup': 'true',
             'role': 'button'
         });
-    };
-
-    Popover.prototype._refreshPosition = function () {
-        if (this._shown) {
-            this.position.refresh();
-        }
     };
 
     /**
@@ -319,6 +307,8 @@
 
         this._options.width = data;
 
+        this.refreshPosition();
+
         return this;
     };
 
@@ -345,6 +335,24 @@
         this.$container.css('height', data);
 
         this._options.height = data;
+
+        this.refreshPosition();
+
+        return this;
+    };
+
+    /**
+     * Refresh the position of the popover if it's shown.
+     * @public
+     * @function
+     * @name ch.Popover#$refreshPosition
+     * @example
+     * widget.refreshPosition();
+     */
+    Popover.prototype.refreshPosition = function (options) {
+        if (this._shown) {
+            this._positioner.refresh(options);
+        }
 
         return this;
     };
@@ -379,6 +387,8 @@
                 .attr('alt', this._snippet.alt)
                 .attr('title', this._snippet.title);
         }
+
+        ch.viewport.off('resize', this._refreshPositionListener);
 
         parent.destroy.call(this);
     };
