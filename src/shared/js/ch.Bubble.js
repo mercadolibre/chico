@@ -51,8 +51,8 @@
     Bubble.prototype._defaults = $.extend(ch.util.clone(ch.Popover.prototype._defaults), {
         '_className': 'ch-bubble ch-box-error ch-cone',
         'ariaRole': 'alert',
-        'open': 'none',
-        'close': 'none',
+        'shownby': 'none',
+        'hiddenby': 'none',
         'side': 'right',
         'align': 'top',
         'offsetX': 10,

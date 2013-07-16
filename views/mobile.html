@@ -49,6 +49,29 @@
         #bubble-box {
             position: relative;
         }
+
+        /**
+         * Carousel demo
+         */
+        .myCarousel .ch-carousel-item {
+            width: 250px;
+            height: 190px;
+        }
+
+        .myCarousel img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .myCarousel .ch-carousel-mask {
+            margin: 0;
+        }
+
+        .myCarousel .ch-carousel-pages span {
+            width: 15px;
+            height: 15px;
+            margin-top: 25px;
+        }
     </style>
 </head>
 <body>
@@ -78,6 +101,7 @@
                 <li><a href="#bubble">Bubble</a></li>
                 <li><a href="#modal">Modal</a></li>
                 <li><a href="#transition">Transition</a></li>
+                <li><a href="#carousel">Carousel</a></li>
                 <li><a href="#expandable">Expandable</a></li>
                 <li><a href="#menu">Menu</a></li>
                 <li><a href="#forms">Forms</a></li>
@@ -477,10 +501,10 @@
                 <h2>Layer</h2>
                 <ul class="ch-list">
                     <li><span id="layer1">Default Layer, executed on <strong>mouseenter</strong>.</span></li>
-                    <li><span id="layer2">Executed on <strong>click</strong>. <em>(close:all)</em></span></li>
-                    <li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(close:none)</em>.</span></li>
-                    <li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(close:button-only)</em>.</span></li>
-                    <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(close:pointers-only)</em></span></li>
+                    <li><span id="layer2">Executed on <strong>click</strong>. <em>(hiddenby:all)</em></span></li>
+                    <li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(hiddenby:none)</em>.</span></li>
+                    <li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(hiddenby:button-only)</em>.</span></li>
+                    <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(hiddenby:pointers-only)</em></span></li>
                 </ul>
                 <div id="invisible-content-for-layer" class="ch-hide">
                     <h1>This content is invisible</h1>
@@ -534,6 +558,20 @@
                 <form action="/ajax">
                     <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Exeute it!">
                 </form>
+            </div>
+
+            <div class="ch-box-lite">
+                <h2 id="carousel">Carousel</h2>
+
+                <div class="myCarousel ch-carousel">
+                    <ul>
+                        <li><img src="http://chico-ui.com.ar/src/assets/ninja.png"></li>
+                        <li><img src="http://chico-ui.com.ar/src/assets/ninja.png"></li>
+                        <li><img src="http://chico-ui.com.ar/src/assets/ninja.png"></li>
+                        <li><img src="http://chico-ui.com.ar/src/assets/ninja.png"></li>
+                        <li><img src="http://chico-ui.com.ar/src/assets/ninja.png"></li>
+                    </ul>
+                </div>
             </div>
 
             <div class="widgets">
@@ -1051,26 +1089,26 @@
 
         var layer2 = $('#layer2').layer({
             'content': 'foo',
-            'open': 'click',
-            'close': 'all'
+            'shownby': 'click',
+            'hiddenby': 'all'
         });
 
         var layer3 = $('#layer3').layer({
             'content': $('#invisible-content-for-layer'),
-            'open': 'click',
-            'close': 'none'
+            'shownby': 'click',
+            'hiddenby': 'none'
         });
 
         var layer4 = $('#layer4').layer({
             'content': 'Static content.',
-            'open': 'click',
-            'close': 'button-only'
+            'shownby': 'click',
+            'hiddenby': 'button-only'
         });
 
         var layer5 = $('#layer5').layer({
             'content': '/ajax',
-            'open': 'click',
-            'close': 'pointers-only'
+            'shownby': 'click',
+            'hiddenby': 'pointers-only'
         });
 
         var layerX = $.layer({
@@ -1115,6 +1153,12 @@
 
         var transitionX = $.transition({
             'content': 'Transition without trigger!'
+        });
+
+        // Carousel
+        var carousel = $('.myCarousel').carousel({
+            'pagination': true,
+            'arrows': false
         });
 
         // Messages

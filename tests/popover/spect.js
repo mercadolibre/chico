@@ -1,6 +1,8 @@
 var showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
+    destroyEvent = jasmine.createSpy('destroyEvent'),
+    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
     popover1 = $('#popover1').popover()
         .on('show', function () { showEvent(); })
         .on('hide', function () { hideEvent(); })
@@ -8,7 +10,8 @@ var showEvent = jasmine.createSpy('showEvent'),
     popover2 = $('#popover2').popover({
         'shown': true,
         'addClass': 'test',
-        'closable': false
+        'closable': false,
+        'shownby': 'mouseenter'
     }),
     $trigger = popover1.$trigger;
 
@@ -59,16 +62,6 @@ describe('Popover', function () {
 });
 
 describe('It should have the following public properties:', function () {
-
-    it('.el', function () {
-        expect(popover1.el).not.toEqual(undefined);
-        expect(popover1.el.nodeType).toEqual(1);
-    });
-
-    it('.$el', function () {
-        expect(popover1.$el).not.toEqual(undefined);
-        expect(popover1.$el instanceof $).toBeTruthy();
-    });
 
     it('.$trigger', function () {
         expect(popover1.$trigger).not.toEqual(undefined);
@@ -291,7 +284,7 @@ describe('Its width() method', function () {
         });
 
         it('should return the same instance than initialized widget', function () {
-            expect(popover1.width(w)).toEqual(popover1);
+            expect(popover1.width(321)).toEqual(popover1);
         });
 	});
 });
@@ -303,7 +296,7 @@ describe('Its height() method', function () {
     });
 
     it('as a getter should return the height of the floated object', function () {
-        expect(popover1.height()).toEqual(popover1.$container.height());
+        expect(popover1.height()).toEqual(popover1.$container[0].style.height);
     });
 
     describe('as a setter', function () {
@@ -320,7 +313,7 @@ describe('Its height() method', function () {
         });
 
         it('should return the same instance than initialized widget', function () {
-            expect(popover1.height(h)).toEqual(popover1);
+            expect(popover1.height(321)).toEqual(popover1);
         });
     });
 });
@@ -332,18 +325,55 @@ describe('Instance a Popover configured', function () {
     });
 
 	it('with custom class names should contain the specified class names in its container', function () {
-		expect(popover2.$container.hasClass('ch-box-lite')).toBeTruthy();
+		expect(popover2.$container.hasClass('ch-popover')).toBeTruthy();
 		expect(popover2.$container.hasClass('test')).toBeTruthy();
 	});
 
-	describe('with "open" preference:', function () {
-
-        it('"mouseenter" should give a default cursor to the trigger', function () {
-			expect(layer1.element.style.cursor).toEqual('default');
-		});
+	describe('with "shownby" preference:', function () {
 
         it('"click" should give a pointer cursor to the trigger', function () {
-            expect(layer1.element.style.cursor).toEqual('pointer');
+            expect(popover1._$el.hasClass('ch-shownby-click')).toBeTruthy();
+            expect(popover1._$el.hasClass('ch-shownby-mouseenter')).toBeFalsy();
         });
+
+        it('"mouseenter" should give a default cursor to the trigger', function () {
+			expect(popover2._$el.hasClass('ch-shownby-mouseenter')).toBeTruthy();
+            expect(popover2._$el.hasClass('ch-shownby-click')).toBeFalsy();
+		});
 	});
+});
+
+describe('Its destroy() method', function () {
+
+    beforeEach(function () {
+        if (popover2) {
+            popover2.destroy();
+            popover2 = undefined;
+        }
+    });
+
+    it('should reset the $trigger', function () {
+
+        var $t = $('#popover2');
+
+        expect($t.hasClass('ch-popover-trigger')).toBeFalsy();
+        expect($t.attr('data-title')).toBeUndefined();
+        expect($t.attr('aria-owns')).toBeUndefined();
+        expect($t.attr('aria-haspopup')).toBeUndefined();
+        expect($t.attr('data-side')).toBeUndefined();
+        expect($t.attr('data-align')).toBeUndefined();
+        expect($t.attr('role')).toBeUndefined();
+    });
+
+    it('should remove ".popover" events', function () {
+        expect($._data($('#popover2')[0], 'events')).toBeUndefined();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect($('#popover2').data('popover')).toBeUndefined();
+    });
+
+    it('should emit the "destroy" event', function () {
+        expect(destroyEvent).toHaveBeenCalled();
+    });
 });

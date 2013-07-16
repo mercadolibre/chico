@@ -90,9 +90,8 @@
         'width': 'auto',
         'height': 'auto',
         'shown': false,
-        'open': 'click',
-        'close': 'button-only',
-        'closeDelay': 400,
+        'shownby': 'click',
+        'hiddenby': 'button-only',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
         'positioned': 'absolute'
     };
@@ -198,11 +197,13 @@
         this._options.reference = this._options.reference || this._$el;
 
         // Open event when configured as openable
-        if (this._options.open !== 'none' && this._options.open !== false) {
-            this._$el.on(openEvent[this._options.open] + '.' + this.name, function (event) {
-                ch.util.prevent(event);
-                that.show();
-            });
+        if (this._options.shownby !== 'none') {
+            this._$el
+                .addClass('ch-shownby-' + this._options.shownby)
+                .on(openEvent[this._options.shownby] + '.' + this.name, function (event) {
+                    ch.util.prevent(event);
+                    that.show();
+                });
         }
 
         // Get a content if it's not defined

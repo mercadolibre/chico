@@ -62,7 +62,7 @@ JS.widgets = [
     "src/shared/js/ch.Calendar.js",
     "src/shared/js/ch.Dropdown.js",
     "src/ui/js/ch.Tabs.js",
-    "src/ui/js/ch.Carousel.js",
+    "src/shared/js/ch.Carousel.js",
     "src/shared/js/ch.Countdown.js",
     "src/ui/js/ch.DatePicker.js",
     "src/shared/js/ch.AutoComplete.js"
@@ -114,7 +114,7 @@ CSS.widgets = [
     "src/ui/css/ch.Zoom.css",
     "src/ui/css/ch.wizard.css",
     "src/shared/css/ch.Calendar.css",
-    "src/ui/css/ch.Carousel.css",
+    "src/shared/css/ch.Carousel.css",
     "src/ui/css/ch.AutoComplete.css",
     "src/ui/css/ch.DatePicker.css",
     "src/shared/css/ch.Dropdown.css",

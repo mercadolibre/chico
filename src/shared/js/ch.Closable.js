@@ -20,8 +20,7 @@
         var that = this,
             setTimeout = window.setTimeout,
             clearTimeout = window.clearTimeout,
-            closableType = this._options.close,
-            delay = this._options.closeDelay,
+            closableType = this._options.hiddenby,
             pointerTap = ch.onpointertap + '.' + this.name,
             pointerEnter = ch.onpointerenter + '.' + this.name,
             pointerLeave = ch.onpointerleave + '.' + this.name,
@@ -34,7 +33,7 @@
         }
 
         function closeTimer() {
-            timeOut = setTimeout(close, delay);
+            timeOut = setTimeout(close, 400);
         }
 
         this._closable = function () {
@@ -49,25 +48,16 @@
              */
             if (closableType === 'mouseleave' && that.$trigger !== undefined) {
 
-                // this.$trigger.on(pointerLeave, close);
-
                 var events = {};
 
-                if (delay === 0) {
+                events[pointerEnter] = function () {
+                    clearTimeout(timeOut);
+                };
 
-                    events[pointerLeave] = close;
-
-                } else {
-                    events[pointerEnter] = function () {
-                        clearTimeout(timeOut);
-                    };
-
-                    events[pointerLeave] = closeTimer;
-
-                    that.$container.on(events);
-                }
+                events[pointerLeave] = closeTimer;
 
                 that.$trigger.on(events);
+                that.$container.on(events);
 
                 return;
             }
