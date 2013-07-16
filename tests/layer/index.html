@@ -1,52 +1,51 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Layer Test</title>
-        <link rel="stylesheet" type="text/css" href="/ui/css">
-        <link rel="stylesheet" type="text/css" href="/vendor/jasmine/jasmine.css">
-    </head>
-    <body>
-        <h1>Layer</h1>
-        <p id="layer1">Layer 1</p>
-        <p id="layer2">Layer 2</p>
-        <p id="layer3">Layer 3</p>
-        <p id="layer4">Layer 4</p>
-        <p id="layer5">Layer 5</p>
+	<head>
+		<meta charset="utf-8">
+		<title>Layer Test</title>
+		<link rel="shortcut icon" type="image/png" href="/vendor/jasmine/jasmine_favicon.png">
+		<link rel="stylesheet" type="text/css" href="/ui/css">
+		<link rel="stylesheet" type="text/css" href="/vendor/jasmine/jasmine.css">
+	</head>
+	<body>
+		<h1>Layer</h1>
 
-        <div id="invisibleContent" class="ch-hide">Some text!</div>
+        <div class="ch-box-information">Also see the <a href="/test/popover">Popover tests</a>.</div>
 
-        <script src="/vendor/jasmine/jasmine.js"></script>
+		<button class="ch-btn" id="layer1">Trigger 1</button>
+        <button class="ch-btn" id="layer2">Trigger 2</button>
+
+		<script src="/vendor/jasmine/jasmine.js"></script>
         <script src="/vendor/jasmine/jasmine-html.js"></script>
         <script src="/vendor/jquery-debug.js"></script>
         <script src="/ui/js"></script>
         <script src="./spect.js"></script>
-        <script>
-            (function() {
-                var jasmineEnv = jasmine.getEnv();
-                jasmineEnv.updateInterval = 1000;
+		<script>
+			(function() {
+				var jasmineEnv = jasmine.getEnv();
+				jasmineEnv.updateInterval = 1000;
 
-                var htmlReporter = new jasmine.HtmlReporter();
+				var htmlReporter = new jasmine.HtmlReporter();
 
-                jasmineEnv.addReporter(htmlReporter);
+				jasmineEnv.addReporter(htmlReporter);
 
-                jasmineEnv.specFilter = function(spec) {
-                    return htmlReporter.specFilter(spec);
-                };
+				jasmineEnv.specFilter = function(spec) {
+					return htmlReporter.specFilter(spec);
+				};
 
-                var currentWindowOnload = window.onload;
+				var currentWindowOnload = window.onload;
 
-                window.onload = function() {
-                    if (currentWindowOnload) {
-                        currentWindowOnload();
-                    }
-                    execJasmine();
-                };
+				window.onload = function() {
+					if (currentWindowOnload) {
+						currentWindowOnload();
+					}
+					execJasmine();
+				};
 
-                function execJasmine() {
-                    jasmineEnv.execute();
-                }
-            })();
-        </script>
-    </body>
+				function execJasmine() {
+					jasmineEnv.execute();
+				}
+			})();
+		</script>
+	</body>
 </html>
