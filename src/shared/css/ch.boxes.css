@@ -23,10 +23,10 @@
 /**
  * Message boxes
  */
-.ch-box-warning,
+.ch-box-warn,
 .ch-box-error,
 .ch-box-help,
-.ch-box-information,
+.ch-box-info,
 .ch-box-ok {
 	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
 }
@@ -43,13 +43,13 @@
 }
 
 /**
- * Warning
+ * Warn
  */
-.ch-icon-warning-sign:before {
+.ch-icon-warning-sign {
 	color: #F5CC00;
 }
 
-.ch-box-warning {
+.ch-box-warn {
 	background-color: #FFF0BA;
 	color: #AA8749;
 }
@@ -78,12 +78,12 @@
 /**
  * Info
  */
-.ch-box-information,
+.ch-box-info,
 .ch-icon-info-sign {
 	color: #3A87AD;
 }
 
-.ch-box-information {
+.ch-box-info {
 	background-color: #D9EDF7;
 }
 

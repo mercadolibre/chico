@@ -17,35 +17,35 @@
     text-align: center;
     display: inline-block;
     vertical-align: middle;
-    line-height: .9em;
+    line-height: 1em;
     height: 16px;
     width: 16px;
-    font-size: 20px;
-    padding: 5px;
+    font-size: 18px;
+    margin: 5px;
 }
 
 .ch-icon-24,
 .ch-icon-32,
 .ch-icon-64 {
-    padding: 10px;
+    margin: 10px;
 }
 
 .ch-icon-24 {
     height: 24px;
     width: 24px;
-    font-size: 30px;
+    font-size: 26px;
 }
 
 .ch-icon-32 {
     height: 32px;
     width: 32px;
-    font-size: 39px;
+    font-size: 34px;
 }
 
 .ch-icon-64 {
     height: 64px;
     width: 64px;
-    font-size: 80px;
+    font-size: 66px;
 }
 
 .lt-ie8 [class*='ch-icon-'],
@@ -71,6 +71,30 @@
 [class*=' ch-icon-']:before {
     left: 0;
 }
+
+/*
+ * Marks
+ */
+[class*='ch-mark'] {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    font-size: 34px;
+    padding: 16px;
+    border-radius: 100%;
+    margin: 10px;
+    color: #FFF;
+    background-color: #F5CC00;
+}
+
+[class*='ch-mark'].ch-icon-warning-sign {
+    color: #FFF;
+}
+
+.ch-mark-skin {
+    background-color: #3A87AD;
+}
+
 
 /*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
     readers do not read off random characters that represent icons */
