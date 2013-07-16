@@ -8,7 +8,7 @@
 	display: none !important;
 }
 
-.ch-popover-content li,
+.ch-autoComplete-list li,
 .ch-autoComplete-selected {
 	margin: 0;
 	padding: 3px 5px;
