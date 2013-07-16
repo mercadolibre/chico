@@ -164,11 +164,19 @@
             return that.refreshPosition();
         };
 
+        // Refersh position on:
+
+        // If the popover hasn't got content, .once('show', this._refreshPositionListener)
+
+        // onchangelayout
         $document.on(ch.onchangelayout, this._refreshPositionListener);
 
-        ch.viewport.on('resize', this._refreshPositionListener);
+        // resize
+        ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
+        // _contentchange
         this.on('_contentchange', this._refreshPositionListener)
+
             .on('hide', function () {
                 that.$container.remove(null, true);
             });
@@ -388,7 +396,8 @@
                 .attr('title', this._snippet.title);
         }
 
-        ch.viewport.off('resize', this._refreshPositionListener);
+        $document.off(ch.onchangelayout, this._refreshPositionListener);
+        ch.viewport.off(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
     };
