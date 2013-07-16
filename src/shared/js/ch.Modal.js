@@ -67,9 +67,7 @@
      * Private members
      */
     var parent = ch.util.inherits(Modal, ch.Popover),
-
         $body = $('body'),
-
         $underlay = $('<div class="ch-underlay ch-hide" tabindex="-1">');
 
     /**
@@ -90,7 +88,27 @@
     });
 
     Modal.prototype.init = function ($el, options) {
+
         parent.init.call(this, $el, options);
+
+        // Determine a specific Show and Hide for the underlay, defined
+        // by the ability (and user's request) to have effects or not
+        if (ch.support.fx && this._options.fx !== false && this._options.fx !== 'none') {
+            this._showUnderlay = function () {
+                $underlay.css('z-index', ch.util.zIndex).appendTo($body).fadeIn();
+            };
+            this._hideUnderlay = function () {
+                $underlay.fadeOut('normal', function () { $underlay.remove(null, true); });
+            };
+        } else {
+            this._showUnderlay = function () {
+                $underlay.css('z-index', ch.util.zIndex).appendTo($body).removeClass('ch-hide');
+            };
+
+            this._hideUnderlay = function () {
+                $underlay.addClass('ch-hide').remove(null, true);
+            };
+        }
     };
 
     /**
@@ -106,30 +124,20 @@
             return this;
         }
 
-        var that = this,
-            hiddenby = this._options.hiddenby;
+        var that = this;
 
         // Add to the underlay the ability to close the widget only if the closable config. allows
-        if (hiddenby === 'all' || hiddenby === 'pointers-only') {
+        if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers-only') {
             // Allow only one click to analize the config every time
-            $underlay.one(ch.onpointertap, function (event) {
-                // Close underlay and execute the original hide()
+            $underlay.one(ch.onpointertap, function () {
                 that.hide();
             });
         }
 
-        // Append underlay element
-        $underlay.css('z-index', ch.util.zIndex).appendTo($body);
-
-        if (ch.support.fx) {
-            $underlay.fadeIn();
-        } else {
-            $underlay.removeClass('ch-hide');
-        }
-
+        // Show the underlay
+        this._showUnderlay();
         // Execute the original show()
         parent.show.call(this, content);
-
         // Return the instance
         return this;
     };
@@ -142,14 +150,10 @@
      * @returns itself
      */
     Modal.prototype.hide = function () {
-        // Delete the underlay element
-        if (ch.support.fx) {
-            $underlay.fadeOut('normal', function () {
-                $underlay.remove(null, true);
-            });
-        } else {
-            $underlay.addClass('ch-hide').remove(null, true);
-        }
+        // Delete the underlay listener
+        $underlay.off(ch.onpointertap);
+        // Hide the underlay element
+        this._hideUnderlay();
         // Execute the original hide()
         parent.hide.call(this);
         // Return the instance
