@@ -75,9 +75,8 @@
         'fx': false,
         'width': '300px',
         'height': '300px',
-        'open': 'mouseenter',
-        'close': 'mouseleave',
-        'closeDelay': 0,
+        'shownby': 'mouseenter',
+        'hiddenby': 'mouseleave',
         'side': 'right',
         'align': 'top',
         'offsetX': 20,
@@ -97,7 +96,7 @@
         bindings[ch.onpointertap] = function (event) { ch.util.prevent(event); };
 
         // Bind move calculations
-        bindings[ch.onpointermove] = function (event) { that.move(event); };
+        bindings[ch.onpointermove] = function (event) { that._move(event); };
 
         //
         this.$trigger.addClass('ch-zoom-trigger').on(bindings);
@@ -273,7 +272,7 @@
      * @name ch.Zoom#move
      * @param {Event} event Mouse event to take the cursor position.
      */
-    Zoom.prototype.move = function (event) {
+    Zoom.prototype._move = function (event) {
 
         //
         if (!this._ready) { return; }

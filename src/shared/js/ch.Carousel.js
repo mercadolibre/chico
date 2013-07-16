@@ -71,6 +71,8 @@
     Carousel.prototype.constructor = Carousel;
 
     Carousel.prototype._defaults = {
+        'async': 0,
+        'arrows': true,
         'pagination': false,
         'initialPage': 1,
         'fx': true
@@ -107,9 +109,7 @@
          * @name ch.Carousel#$mask
          * @type jQuery Object
          */
-        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel" style="height:' + this._$items.outerHeight() + 'px">')
-            .html(this._$list)
-            .appendTo(this._$el);
+        this._$mask = $('<div class="ch-carousel-mask" role="tabpanel">').html(this._$list).appendTo(this._$el);
 
         /**
          * Size of the mask. Updated in each refresh.
@@ -133,7 +133,7 @@
          * @name ch.Carousel#itemOuterWidth
          * @type Number
          */
-        this._itemOuterWidth = this._$items.outerWidth();
+        this._itemOuterWidth = ch.util.getOuterDimensions(this._$items[0]).width;
 
         /**
          * Size added to each item to make it responsive.
@@ -224,10 +224,10 @@
         /**
          * List of items that should be loaded asynchronously on page movement.
          * @private
-         * @name ch.Carousel#queue
+         * @name ch.Carousel#_async
          * @type Array
          */
-        this._queue = this._options.async || 0;
+        this._async = this._options.async;
 
         /**
          * DOM element of arrow that moves the Carousel to the previous page.
@@ -271,17 +271,17 @@
         // If there are a parameter specifying a pagination, add it
         if (this._options.pagination !== undefined) { this._addPagination(); }
 
-        // Allow to render the arrows over the mask or not
-        this._addArrows();
+        // Allow to render the arrows
+        if (this._options.arrows !== undefined && this._options.arrows !== false) { this._addArrows(); }
 
         // Trigger all calculations to get the functionality measures
-        this._maskWidth = this._$mask.outerWidth();
+        this._maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
 
         // Set WAI-ARIA properties to each item depending on the page in which these are
         this._updateARIA();
 
         // Calculate items per page and calculate pages, only when the amount of items was changed
-        this._updateItemsPerPage();
+        this._updateLimitPerPage();
 
         // Update the margin between items and its size
         this._updateDistribution();
@@ -300,66 +300,71 @@
 
         var that = this,
             // Amount of items when ARIA is updated
-            total = this._$items.length + this._queue;
+            total = this._$items.length + this._async,
+            // Page where each item is in
+            page;
 
         // Update ARIA properties on all items
         this._$items.each(function (i, item) {
             // Update page where this item is in
-            var page = Math.floor(i / that._limitPerPage) + 1;
+            page = Math.floor(i / that._limitPerPage) + 1;
             // Update ARIA attributes
             $(item).attr({
-                'aria-hidden': page !== that._currentPage,
+                'aria-hidden': (page !== that._currentPage),
                 'aria-setsize': total,
                 'aria-posinset': i + 1,
                 'aria-label': 'page' + page
             });
-
         });
-
     };
 
     /**
-     * Move items from queue to collection.
+     * Adds items when page/pages needs to load asynchronous items
      * @private
-     * @name ch.Carousel#addItems
+     * @name ch.Carousel#loadAsyncItems
      * @function
-     * @param {Number} amount Amount of items that will be added.
      */
-    Carousel.prototype._addItems = function (amount) {
+    Carousel.prototype._loadAsyncItems = function () {
 
-        var that = this,
-            // Take the sample from queue
-            sample = [],
-            // Index
-            i = 0,
-            // It stores the items that will be added to the DOM
+        // Load only when there are items to load
+        if (this._async === 0) { return; }
+
+        // Amount of items from the beginning to current page
+        var total = this._currentPage * this._limitPerPage,
+            // How many items needs to add to items rendered to complete to this page
+            amount = total - this._$items.length,
+            // Generic <LI> HTML Element to be added to the Carousel
+            item = '<li class="ch-carousel-item" style="width:' + (this._itemWidth + this._itemExtraWidth) + 'px;margin-right:' + this._itemMargin + 'px"></li>',
+            // It stores <LI> that will be added to the DOM collection
+            items = '',
+            // $ version of <LI> elements to give to the user
             $items;
 
-        // Replace sample items with Carousel item template
-        for (i; i < amount; i += 1) {
-            // Replace sample item
-            // Add the same margin than all siblings items
-            // Add content (executing a template, if user specify it) and close the tag
-            sample[i] = [
-                '<li',
-                ' class="ch-carousel-item"',
-                ' style="width:' + (that._itemWidth + that._itemExtraWidth) + 'px;margin-right:' + that._itemMargin + 'px"',
-                '></li>'
-            ].join('');
+        // Load only when there are items to add
+        if (amount < 1) { return; }
+
+        // If next page needs less items than it support, then add that amount
+        amount = (this._async < amount) ? this._async : amount;
+
+        // Add the necessary amount of items
+        while (amount) {
+            items += item;
+            amount -= 1;
         }
 
-        $items = $(sample.join(''));
+        $items = $(items);
 
         // Add sample items to the list
-        that._$list.append($items);
+        this._$list.append($items);
 
         // Update items collection
-        that._$items = that._$list.children();
+        this._$items = this._$list.children();
 
-        that._queue = that._queue - amount;
+        // Update amount of items to add asynchronously
+        this._async -= amount;
 
         /**
-         * Triggers when component adds items asynchronously from queue.
+         * Triggers when component adds items asynchronously.
          * @name ch.Carousel#addeditems
          * @event
          * @public
@@ -369,33 +374,7 @@
          *    alert("Some asynchronous items was added.");
          * });
          */
-        that.emit('addeditems', $items);
-    };
-
-    /**
-     * Analizes if next page needs to load items from queue and execute addItems() method.
-     * @private
-     * @name ch.Carousel#loadAsyncItems
-     * @function
-     */
-    Carousel.prototype._loadAsyncItems = function () {
-        // Load only when there are items in queue
-        if (this._queue === 0) { return; }
-
-        // Amount of items from the beginning to current page
-        var total = this._currentPage * this._limitPerPage,
-        // How many items needs to add to items rendered to complete to this page
-            amount = total - this._$items.length;
-
-        // Load only when there are items to add
-        if (amount < 1) { return; }
-
-        // If next page needs less items than it support, then add that amount
-        amount = (this._queue < amount) ? this._queue : amount;
-
-        // Add these
-        this._addItems(amount);
-
+        this.emit('addeditems', $items);
     };
 
     /**
@@ -499,31 +478,31 @@
      *
      *
      */
-    Carousel.prototype._updateItemsPerPage = function () {
+    Carousel.prototype._updateLimitPerPage = function () {
 
         var max = this._options.limitPerPage,
             // Go to the current first item on the current page to restore if pages amount changes
             firstItemOnPage,
             // The width of each item into the width of the mask
             // Avoid zero items in a page
-            itemsPerPage = Math.floor(this._maskWidth / this._itemOuterWidth) || 1;
+            limitPerPage = Math.floor(this._maskWidth / this._itemOuterWidth) || 1;
 
         // Limit amount of items when user set a limitPerPage amount
-        if (max !== undefined && itemsPerPage > max) { itemsPerPage = max; }
+        if (max !== undefined && limitPerPage > max) { limitPerPage = max; }
 
         // Set data and calculate pages, only when the amount of items was changed
-        if (itemsPerPage === this._limitPerPage) { return; }
+        if (limitPerPage === this._limitPerPage) { return; }
 
-        // Restore if itemsPerPage is NOT the same after calculations (go to the current first item page)
+        // Restore if limitPerPage is NOT the same after calculations (go to the current first item page)
         firstItemOnPage = ((this._currentPage - 1) * this._limitPerPage) + 1;
         // Update amount of items into a single page (from conf or auto calculations)
-        this._limitPerPage = itemsPerPage;
+        this._limitPerPage = limitPerPage;
 
         // Update the amount of total pages
         // The ratio between total amount of items and items in each page
-        this._pages = Math.ceil((this._$items.length + this._queue) / itemsPerPage);
+        this._pages = Math.ceil((this._$items.length + this._async) / limitPerPage);
 
-        // Get items from queue to the list, if it's necessary
+        // Add items to the list, if it's necessary
         this._loadAsyncItems();
 
         // Set WAI-ARIA properties to each item
@@ -536,7 +515,7 @@
         this._updatePagination();
 
         // Go to the current first item page
-        this.select(Math.ceil(firstItemOnPage / itemsPerPage));
+        this.select(Math.ceil(firstItemOnPage / limitPerPage));
     };
 
     /**
@@ -599,7 +578,7 @@
         });
 
         // Update the mask height with the list height
-        this._$mask.css('height', this._$list.outerHeight());
+        this._$mask[0].style.height = ch.util.getOuterDimensions(this._$items[0]).height;
 
         // Suit the page in place
         this._standbyFX(function () {
@@ -619,14 +598,14 @@
      */
     Carousel.prototype.refresh = function () {
 
-        var maskWidth = this._$mask.outerWidth();
+        var maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
 
         // Check for changes on the width of mask, for the elastic carousel
         if (maskWidth !== this._maskWidth) {
             // Update the width of the mask
             this._maskWidth = maskWidth;
             // Calculate items per page and calculate pages, only when the amount of items was changed
-            this._updateItemsPerPage();
+            this._updateLimitPerPage();
             // Update the margin between items and its size
             this._updateDistribution();
             /**
@@ -654,30 +633,12 @@
      * @function
      */
     Carousel.prototype._addArrows = function () {
-        // Check arrows existency
-        if (this._arrowsCreated) { return; }
-        // Add arrows to DOM
-        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
         // Avoid selection on the arrows
         ch.util.avoidTextSelection(this._$prevArrow, this._$nextArrow);
+        // Add arrows to DOM
+        this._$el.prepend(this._$prevArrow).append(this._$nextArrow);
         // Check arrows as created
         this._arrowsCreated = true;
-    };
-
-    /**
-     * Delete arrows from DOM, unbind these event and change the flag 'arrowsCreated'.
-     * @private
-     * @name ch.Carousel#removeArrows
-     * @function
-     */
-    Carousel.prototype._removeArrows = function () {
-        // Check arrows existency
-        if (!this._arrowsCreated) { return; }
-        // Delete arrows only from DOM and keep in variables and unbind events too
-        this._$prevArrow.detach();
-        this._$nextArrow.detach();
-        // Check arrows as deleted
-        this._arrowsCreated = false;
     };
 
     /**
@@ -768,10 +729,6 @@
      * foo.select();
      */
     Carousel.prototype.select = function (page) {
-        // Set an error when the page is out of range
-        // if (window.isNaN(page)) {
-        //     throw new window.Error('Chico Carousel: Invalid parameter (' + page + ') received in select(). Provide a Number between 1 and ' + this._pages + '.');
-        // }
 
         if (page === undefined) {
             return this._currentPage;
@@ -781,6 +738,7 @@
         if (page === this._currentPage || page < 1 || page > this._pages) {
             return;
         }
+
         // Perform these tasks in the following order:
         // Task 1: Move the list from 0 (zero), to page to move (page number beginning in zero)
         this._translate(-this._pageWidth * (page - 1));
@@ -790,8 +748,7 @@
         this._currentPage = page;
         // Task 4: Check for arrows behavior on first, last and middle pages
         this._updateArrows();
-        // Task 5: Get items from queue to the list, if it's necessary
-        // Load only when there are items in queue
+        // Task 5: Add items to the list, if it's necessary
         this._loadAsyncItems();
         // Task 6: Set WAI-ARIA properties to each item
         this._updateARIA();

@@ -57,7 +57,7 @@
     Transition.prototype._defaults = $.extend(ch.util.clone(ch.Modal.prototype._defaults), {
         '_className': 'ch-transition ch-box-lite',
         'ariaRole': 'alert',
-        'close': 'none',
+        'hiddenby': 'none',
         'content': 'Please wait...'
     });
 

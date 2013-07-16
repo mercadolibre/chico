@@ -68,7 +68,7 @@
      */
     var parent = ch.util.inherits(Layer, ch.Popover),
         // Reference to the last widget open. Allows to close and to deny to have 2 widgets open at the same time
-        lastOpen;
+        lastShown;
 
     /**
      * Public members
@@ -80,8 +80,8 @@
     Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
         'ariaRole': 'tooltip',
-        'open': 'mouseenter',
-        'close': 'mouseleave',
+        'shownby': 'mouseenter',
+        'hiddenby': 'mouseleave',
         'side': 'bottom',
         'align': 'left',
         'offsetX': 0,
@@ -107,12 +107,12 @@
         }
 
         // Only hide if there was a widget opened before
-        if (lastOpen !== undefined && lastOpen.name === this.name) {
-            lastOpen.hide();
+        if (lastShown !== undefined && lastShown.name === this.name) {
+            lastShown.hide();
         }
         // Only save to future close if this widget is closable
-        if (this._options.close !== 'none' && this._options.close !== false) {
-            lastOpen = this;
+        if (this._options.hiddenby !== 'none') {
+            lastShown = this;
         }
         // Execute the original show()
         parent.show.call(this, content);
