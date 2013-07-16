@@ -115,8 +115,6 @@ CSS.widgets = [
     "src/ui/css/ch.wizard.css",
     "src/shared/css/ch.Calendar.css",
     "src/ui/css/ch.Carousel.css",
-    "src/ui/css/ch.AutoComplete.css",
-    "src/ui/css/ch.DatePicker.css",
     "src/shared/css/ch.Dropdown.css",
     "src/ui/css/ch.Expandable.css",
     "src/ui/css/ch.Menu.css",
