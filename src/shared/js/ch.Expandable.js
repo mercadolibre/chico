@@ -20,7 +20,6 @@
      * @memberOf ch
      * @augments ch.Navs
      * @param {Object} [options] Object with configuration properties.
-     * @param {Boolean} [options.shown] Shows the Expandable shown when component was loaded. By default, the value is false.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
      * @returns {Object}
      * @exampleDescription Create a new Expandable.
@@ -29,7 +28,6 @@
      * @exampleDescription Create a new Expandable with configuration.
      * @example
      * var widget = $('.example').expandable({
-     *     'shown': true,
      *     'fx': true
      * });
      */
@@ -91,7 +89,6 @@
     Expandable.prototype._defaults = {
         '_classNameTrigger': 'ch-expandable-trigger ch-expandable-ico',
         '_classNameContainer': 'ch-expandable-container ch-hide',
-        'shown': false,
         'fx': false,
         'toggle': true
     };
@@ -147,7 +144,7 @@
          */
         this.$container = this._$content = (this._options.container || this._$el.next())
             .addClass(this._options._classNameContainer)
-            .attr('aria-expanded', this._shown);
+            .attr('aria-expanded', 'false');
 
         /**
          * Default behavior
@@ -168,10 +165,7 @@
 
         ch.util.avoidTextSelection(this.$trigger);
 
-        // Is it shown by default?
-        if (this._options.shown) {
-            this.show();
-        }
+        return this;
 
     };
 
