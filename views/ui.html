@@ -56,11 +56,69 @@
 			display: block;
 			margin:0 auto;
 		}
+
+        body {
+            margin-top: 80px;
+        }
+
+        .ml-header {
+            background-color: #fff;
+            border-bottom: 1px solid #D9D9D9;
+            height: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+        }
+
+        .ml-header h1 {
+            text-align: center;
+            line-height: 1.6em;
+            cursor: pointer;
+        }
 	</style>
 </head>
 
 <body>
-	<h1>Chico UI</h1>
+	<div class="ml-header">
+        <h1 id="components">Chico UI</h1>
+    </div>
+    <ul id="components-list" class="ch-list component-list ch-hide ch-clearfix">
+        <li class="ch-g1-5"><a href="#mesh">Mesh</a></li>
+        <li class="ch-g1-5"><a href="#headers">Headers</a></li>
+        <li class="ch-g1-5"><a href="#headings">Headings</a></li>
+        <li class="ch-g1-5"><a href="#links">Links</a></li>
+        <li class="ch-g1-5"><a href="#buttons">Buttons</a></li>
+        <li class="ch-g1-5"><a href="#autoComplete">AutoComplete</a></li>
+        <li class="ch-g1-5"><a href="#blink">Blink</a></li>
+        <li class="ch-g1-5"><a href="#boxes">Boxes</a></li>
+        <li class="ch-g1-5"><a href="#spinner">Spinners</a></li>
+        <li class="ch-g1-5"><a href="#message-boxes">Message Boxes</a></li>
+        <li class="ch-g1-5"><a href="#big-message-boxes">Big Message Boxes</a></li>
+        <li class="ch-g1-5"><a href="#lists">Lists</a></li>
+        <li class="ch-g1-5"><a href="#list-options">Lists Options</a></li>
+        <li class="ch-g1-5"><a href="#list-options-icon">Lists Options Icons</a></li>
+        <li class="ch-g1-5"><a href="#transitions">Transitions</a></li>
+        <li class="ch-g1-5"><a href="#tags">Tags</a></li>
+        <li class="ch-g1-5"><a href="#pagination">Pagination</a></li>
+        <li class="ch-g1-5"><a href="#tables">Tables</a></li>
+        <li class="ch-g1-5"><a href="#dropdown">Dropdown</a></li>
+        <li class="ch-g1-5"><a href="#tooltip">Tooltip</a></li>
+        <li class="ch-g1-5"><a href="#layer">Layer</a></li>
+        <li class="ch-g1-5"><a href="#bubble">Bubble</a></li>
+        <li class="ch-g1-5"><a href="#modal">Modal</a></li>
+        <li class="ch-g1-5"><a href="#transition">Transition</a></li>
+        <li class="ch-g1-5"><a href="#expandable">Expandable</a></li>
+        <li class="ch-g1-5"><a href="#zoom">Zoom</a></li>
+        <li class="ch-g1-5"><a href="#menu">Menu</a></li>
+        <li class="ch-g1-5"><a href="#forms">Forms</a></li>
+        <li class="ch-g1-5"><a href="#icons">Icons</a></li>
+        <li class="ch-g1-5"><a href="#tabs">Tabs</a></li>
+        <li class="ch-g1-5"><a href="#countdown">Countdown</a></li>
+        <li class="ch-g1-5"><a href="#calendar">Calendar</a></li>
+        <li class="ch-g1-5"><a href="#datePicker">DatePicker</a></li>
+    </ul>
 
 	<div class="ch-clearfix">
 		<h1>Mesh</h1>
@@ -1369,6 +1427,15 @@
 			"content": $("#invisible-content-for-layer"),
 			"width": 500
 		});
+
+        var fixedLayer = $('#components').layer({
+            'content': $("#components-list"),
+            "event": "click",
+            'closable': 'all',
+            'width': 700,
+            'points': 'ct cb',
+            'offsetY': '5px'
+        });
 
 		// Tooltip
 		// Bottom
