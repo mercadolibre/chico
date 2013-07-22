@@ -22,7 +22,7 @@ describe('Layer', function () {
     });
 
     it('should return a new instance of Layer', function () {
-        expect(layer instanceof ch.Layer).toBeTruthy();
+        expect(layer1 instanceof ch.Layer).toBeTruthy();
     });
 });
 

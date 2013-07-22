@@ -93,13 +93,21 @@
             bindings = {};
 
         // Prevent to redirect to href
-        bindings[ch.onpointertap] = function (event) { ch.util.prevent(event); };
+        bindings[ch.onpointertap + '.zoom'] = function (event) { ch.util.prevent(event); };
 
         // Bind move calculations
-        bindings[ch.onpointermove] = function (event) { that._move(event); };
+        bindings[ch.onpointermove + '.zoom'] = function (event) { that._move(event); };
 
         //
         this.$trigger.addClass('ch-zoom-trigger').on(bindings);
+
+        /**
+         *
+         * @private
+         * @name ch.Zoom#_ready
+         * @type {Boolean}
+         */
+        this._ready = false;
 
         /**
          * Element showed before zoomed image is load. It's a transition message and its content can be configured through parameter "message".
@@ -121,7 +129,7 @@
          * @private
          * @name ch.Zoom#_$original
          */
-        this._$original = this.$trigger.children().eq(0);
+        this._$original = this.$trigger.children(':first');
 
         //
         ch.onImagesLoads(this._$original, function () {
@@ -220,15 +228,12 @@
             // Use the zoomed image as content for the floated element
             that.content(that._$zoomed);
 
-            /**
-             *
-             * @private
-             * @name ch.Zoom#_ready
-             * @type {Boolean}
-             */
             that._ready = true;
 
-            that._$loading.addClass('ch-hide');
+            // Make the entire Show process if it tried to show before
+            if (that._shown) {
+                that.show();
+            }
         });
     };
 
@@ -244,12 +249,18 @@
             return this;
         }
 
-        if (!this._ready) { return this._$loading.removeClass('ch-hide'); }
+        if (!this._ready) {
+            this._shown = true;
+            this._$loading.removeClass('ch-hide');
+            return this;
+        }
 
         this._$loading.addClass('ch-hide');
         this._$seeker.removeClass('ch-hide');
 
         parent.show.call(this, content);
+
+        return this;
     };
 
     /**
@@ -263,6 +274,8 @@
         this._$seeker.addClass('ch-hide');
 
         parent.hide.call(this);
+
+        return this;
     };
 
     /**
@@ -274,8 +287,9 @@
      */
     Zoom.prototype._move = function (event) {
 
-        //
-        if (!this._ready) { return; }
+        if (!this._ready) {
+            return;
+        }
 
         var offsetX = event.offsetX || event.layerX,
             offsetY = event.offsetY || event.layerY,
