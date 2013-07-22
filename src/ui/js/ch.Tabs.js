@@ -91,10 +91,13 @@
         /**
         * The actual location hash, is used to know if there's a specific tab shwown.
         * @private
-        * @name ch.Tabs#hash
+        * @name ch.Tabs#_currentHash
         * @type {String}
         */
-        this._initialHash = window.location.hash.replace('#!/', '');
+        this._currentHash = (function () {
+            var hash = window.location.hash.match(/\#!?\/?(.[^\?|\&|\s]+)/);
+            return (hash !== null) ? hash[1] : '';
+        }());
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
@@ -221,7 +224,7 @@
 
         // If hash open that tab
         for (i; i < len; i += 1) {
-            if (this.tab[i]._hash === this._initialHash) {
+            if (this.tab[i]._hash === this._currentHash) {
                 this._shown = i + 1;
                 break;
             }
@@ -275,6 +278,8 @@
             return this;
         }
 
+        var regExp;
+
         // Hides the shown tab
         this.tab[this._shown - 1].hide();
 
@@ -287,7 +292,14 @@
         this._shown = child;
 
         // Update window location hash
-        window.location.hash = '#!/' + this.tab[this._shown - 1]._hash;
+        if (this._currentHash === '') {
+            this._currentHash = '#!/' + this.tab[this._shown - 1]._hash;
+        } else {
+            regExp = new RegExp(window.location.hash.match(/\#!?\/?(.[^\?|\&|\s]+)/)[1]);
+            this._currentHash = window.location.hash.replace(regExp, this.tab[this._shown - 1]._hash);
+        }
+
+        window.location.hash = this._currentHash;
 
         /**
          * Fired when a tab is shown.

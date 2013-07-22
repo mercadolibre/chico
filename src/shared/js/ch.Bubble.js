@@ -38,18 +38,37 @@
      */
     function Bubble($el, options) {
 
-        if (options === undefined && $el !== undefined && !ch.util.is$($el)) {
-            options = $el;
-            $el = undefined;
-        }
+        this.init($el, options);
 
-        options = $.extend(ch.util.clone(this._defaults), options);
+        /**
+         * Reference to a internal component instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this;
 
-        return new ch.Popover($el, options);
+        /**
+         * Triggers when the component is ready to use (Since 0.8.0).
+         * @name ch.Bubble#ready
+         * @event
+         * @public
+         * @since 0.8.0
+         * @exampleDescription Following the first example, using <code>widget</code> as bubble's instance controller:
+         * @example
+         * widget.on("ready",function () {
+         * this.show();
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
+    /**
+     * Private members
+     */
+    var parent = ch.util.inherits(Bubble, ch.Popover);
+
     Bubble.prototype._defaults = $.extend(ch.util.clone(ch.Popover.prototype._defaults), {
-        '_className': 'ch-bubble ch-box-error ch-cone',
+        '_className': 'ch-bubble ch-box-icon ch-box-error ch-cone',
         'ariaRole': 'alert',
         'shownby': 'none',
         'hiddenby': 'none',
@@ -57,11 +76,19 @@
         'align': 'top',
         'offsetX': 10,
         'offsetY': 0,
-        'content': 'Error.'
+        'content': 'Check the information, please.'
     });
 
     Bubble.prototype.name = 'bubble';
     Bubble.prototype.constructor = Bubble;
+
+    Bubble.prototype.init = function ($el, options) {
+        parent.init.call(this, $el, options);
+
+        $('<i class="ch-icon-remove-sign"></i>').prependTo(this.$container);
+
+        return this;
+    };
 
     /**
      * Factory
