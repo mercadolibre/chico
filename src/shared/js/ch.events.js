@@ -9,6 +9,24 @@
 
     /**
      *
+     * @name onresize
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onresize = 'resize';
+
+    /**
+     *
+     * @name onscroll
+     * @constant
+     * @memberOf ch
+     * @type {String}
+     */
+    ch.onscroll = 'scroll';
+
+    /**
+     *
      * @name onpointerdown
      * @constant
      * @memberOf ch

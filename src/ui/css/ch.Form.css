@@ -21,15 +21,15 @@ select[multiple],
 
 /* Inner Icons */
 .ch-form-ico-inner {
-	display: inline-block;
-	left: -25px;
-	top: 1px;
 	position: relative;
+	left: -30px;
+	top: -1px;
 }
 
 /* BigForm Inner Icons */
 .ch-form-big .ch-form-ico-inner {
-	top: 2px;
+	left: -33px;
+	top: -2px;
 }
 
 /* Title module */

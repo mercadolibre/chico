@@ -14,17 +14,26 @@
 
     var $window = $(window),
         resized = false,
-        scrolled = false;
+        scrolled = false,
+        requestAnimFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        }());
+
 
     $window
-        .on('resize.viewport', function () { resized = true; })
-        .on('scroll.viewport', function () { scrolled = true; });
+        .on(ch.onresize + '.viewport', function () { resized = true; })
+        .on(ch.onscroll + '.viewport', function () { scrolled = true; });
 
     function update() {
         // No changing, exit
         if (!resized && !scrolled) { return; }
 
-        var eve = (resized) ? 'resize' : 'scroll';
+        var eve = (resized) ? ch.onresize : ch.onscroll;
 
         // Refresh viewport
         this.refresh();
@@ -38,8 +47,9 @@
     }
 
     function Viewport() {
-        ch.EventEmitter.call(this);
         this.init();
+
+        return this;
     }
 
     ch.util.inherits(Viewport, ch.EventEmitter);
@@ -57,9 +67,10 @@
 
         that.refresh();
 
-        window.setInterval(function () {
+        (function updateFrame() {
+            requestAnimFrame(updateFrame);
             update.call(that);
-        }, 350);
+        }());
     };
 
     /**

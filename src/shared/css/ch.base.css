@@ -55,6 +55,7 @@
 	right: 10px;
 	top: 10px;
 	-webkit-appearance: none;
+	z-index: 1;
 }
 
 .ch-close:before {

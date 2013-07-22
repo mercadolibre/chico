@@ -8,7 +8,6 @@ var expandable1 = $("#expandable-1").expandable(),
         'container': $('#container-2')
     }),
     expandable3 = $("#expandable-3").expandable({
-            'shown': true,
             'toggle': false
         })
         .on('destroy', destroyEvent);
@@ -266,10 +265,6 @@ describe('Instance an Expandable configured', function () {
         expect($container[0].nodeType).toEqual(1);
         expect($container instanceof $).toBeTruthy();
         expect($container).toEqual($('#container-2'));
-    });
-
-    it('shown by default', function () {
-        expect(expandable3.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('without toggle', function () {

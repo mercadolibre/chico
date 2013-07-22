@@ -142,11 +142,11 @@ input[readonly]:focus {
 	opacity: 0.7;
 }
 
-.ch-form-ico-input {
+input.ch-form-ico-input {
 	padding-right: 24px;
 }
 
-.ch-form-ico-input:focus {
+input.ch-form-ico-input:focus {
 	padding-right: 23px;
 }
 
