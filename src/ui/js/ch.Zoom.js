@@ -251,13 +251,16 @@
 
         if (!this._ready) {
             this._shown = true;
-            return this._$loading.removeClass('ch-hide');
+            this._$loading.removeClass('ch-hide');
+            return this;
         }
 
         this._$loading.addClass('ch-hide');
         this._$seeker.removeClass('ch-hide');
 
         parent.show.call(this, content);
+
+        return this;
     };
 
     /**
@@ -271,6 +274,8 @@
         this._$seeker.addClass('ch-hide');
 
         parent.hide.call(this);
+
+        return this;
     };
 
     /**
