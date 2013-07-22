@@ -3,61 +3,30 @@
     <head>
         <meta charset="utf-8">
         <title>Dropdown Test</title>
+        <link rel="shortcut icon" type="image/png" href="/vendor/jasmine/jasmine_favicon.png">
         <link rel="stylesheet" type="text/css" href="/ui/css">
         <link rel="stylesheet" type="text/css" href="/vendor/jasmine/jasmine.css">
     </head>
     <body>
         <h1>Dropdown</h1>
 
-        <div id="dropdown-1">
-            <span>Default</span>
-            <menu label="Links">
-                <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-                <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-                <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-                <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-            </menu>
-        </div>
+        <div class="ch-box-information">Also see the <a href="/test/layer">Layer tests</a>.</div>
 
-        <div id="dropdown-2">
-            <span>Without icon</span>
-            <menu label="Links">
-                <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-                <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-                <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-                <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-            </menu>
-        </div>
+        <span id="dropdown1">Trigger 1</span>
+        <menu class="ch-hide">
+            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        </menu>
 
-        <div id="dropdown-3">
-            <span>Opened</span>
-            <menu label="Links">
-                <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-                <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-                <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-                <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-            </menu>
-        </div>
-
-        <div id="dropdown-4">
-            <span>Dropdown</span>
-            <menu label="Links">
-                <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-                <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-                <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-                <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-            </menu>
-        </div>
-
-        <div id="dropdown-5">
-            <span>Dropdown</span>
-            <menu label="Links">
-                <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
-                <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
-                <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
-                <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
-            </menu>
-        </div>
+        <span id="dropdown2">Trigger 2</span>
+        <menu class="ch-hide">
+            <li><a href="http://www.mercadolibre.com">MercadoLibre</a></li>
+            <li><a href="http://www.mercadopago.com">MercadoPago</a></li>
+            <li><a href="http://www.mercadoshops.com">MercadoShops</a></li>
+            <li><a href="http://www.mercadoclics.com">MercadoClics</a></li>
+        </menu>
 
         <script src="/vendor/jasmine/jasmine.js"></script>
         <script src="/vendor/jasmine/jasmine-html.js"></script>
