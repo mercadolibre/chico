@@ -209,19 +209,6 @@
         this._pageWidth = 0;
 
         /**
-         * Interval used to animate the component autamatically.
-         * @private
-         * @name ch.Carousel#timer
-         * @type Object
-         */
-        this._timer = null;
-
-        /**
-         *
-         */
-        this._delay = 3000;
-
-        /**
          * List of items that should be loaded asynchronously on page movement.
          * @private
          * @name ch.Carousel#_async
@@ -802,63 +789,6 @@
         this.emit('next');
         return this;
     };
-
-    /**
-     * Animates the Carousel automatically. (Since 0.10.6)
-     * @since 0.10.6
-     * @function
-     * @param {Number} t Delay of transition between pages, expressed in milliseconds.
-     * @public
-     * @name ch.Carousel#play
-     * @returns Chico UI Object
-     * @exampleDescription Start automatic animation.
-     * @example
-     * foo.play();
-     * @exampleDescription Start automatic animation with a 5 seconds delay between pages.
-     * @example
-     * foo.play(5000);
-     */
-    Carousel.prototype.play = function (delay) {
-
-        var that = this;
-
-        // User timing over the default
-        if (delay) { this._delay = delay; }
-
-        // Clear the timer
-        this.pause();
-
-        // Set the interval on private property
-        this._timer = setInterval(function () {
-            // Normal behavior: Move to next page
-            if (that._currentPage < that._pages) {
-                that.next();
-            // On last page: Move to first page
-            } else {
-                that.select(1);
-            }
-        // Use the setted timing
-        }, this._delay);
-
-        return this;
-    };
-
-    /**
-     * Pause the Carousel automatic playing. (Since 0.10.6)
-     * @since 0.10.6
-     * @function
-     * @public
-     * @name ch.Carousel#pause
-     * @returns Chico UI Object
-     * @exampleDescription Pause automatic animation.
-     * @example
-     * foo.pause();
-     */
-    Carousel.prototype.pause = function () {
-        window.clearInterval(this._timer);
-        return this;
-    };
-
 
     /**
      * Destroys a Carousel instance.
