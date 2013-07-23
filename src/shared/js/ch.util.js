@@ -145,14 +145,13 @@
             }
 
             $.each(args, function (i, $arg) {
+
                 if (!($arg instanceof $ || $.zepto.isZ($arg))) {
                     throw new Error('"ch.util.avoidTextSelection(selector)": The parameter must be a query selector.');
                 }
 
-                if ($.browser.msie) {
+                if ($html.hasClass('lt-ie10')) {
                     $arg.attr('unselectable', 'on');
-                } else if ($.browser.opera) {
-                    $arg.bind('mousedown', function () { return false; });
                 } else {
                     $arg.addClass('ch-user-no-select');
                 }
