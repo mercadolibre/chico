@@ -233,8 +233,7 @@
          */
         this.$trigger = this._$el.attr({
             'aria-owns': 'ch-' + this.name + '-' + this.uid,
-            'aria-haspopup': 'true',
-            'role': 'button'
+            'aria-haspopup': 'true'
         });
     };
 
