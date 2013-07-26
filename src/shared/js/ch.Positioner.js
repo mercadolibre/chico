@@ -54,13 +54,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
-    var $window = $(window),
-        $html = $('html');
-
     function Positioner(options) {
 
         if (options === undefined) {
@@ -106,6 +99,7 @@
     };
 
     Positioner.prototype.refresh = function (options) {
+
         if (options !== undefined) {
             this.configure(options);
         }
@@ -124,23 +118,20 @@
 
     Positioner.prototype._calculateReference = function () {
 
-        var $reference = this.$reference.attr({
-                'data-side': this._options.side,
-                'data-align': this._options.align
-            }),
-            reference = $reference[0],
-            outer = ch.util.getOuterDimensions(reference),
-            offset = ch.util.getOffset(reference);
+        var reference = this.$reference[0],
+            offset;
 
-        this._reference = {
-            'width': outer.width,
-            'height': outer.height
-        };
+        reference.setAttribute('data-side', this._options.side);
+        reference.setAttribute('data-align', this._options.align);
+
+        this._reference = ch.util.getOuterDimensions(reference);
 
         if (reference.offsetParent === this.$target[0].offsetParent) {
             this._reference.left = reference.offsetLeft;
             this._reference.top = reference.offsetTop;
+
         } else {
+            offset = ch.util.getOffset(reference);
             this._reference.left = offset.left;
             this._reference.top = offset.top;
         }
@@ -150,16 +141,11 @@
 
     Positioner.prototype._calculateTarget = function ($target) {
 
-        var $target = this.$target.attr({
-                'data-side': this._options.side,
-                'data-align': this._options.align
-            }),
-            outer = ch.util.getOuterDimensions($target[0]);
+        var target = this.$target[0];
+        target.setAttribute('data-side', this._options.side);
+        target.setAttribute('data-align', this._options.align);
 
-        this._target = {
-            'width': outer.width,
-            'height': outer.height
-        };
+        this._target = ch.util.getOuterDimensions(target);
 
         return this;
     };
