@@ -163,6 +163,7 @@
 .ch-icon-undo:before                 { content: '\f0e2'; }
 .ch-icon-comment-alt:before          { content: '\f0e5'; }
 .ch-icon-comments-alt:before         { content: '\f0e6'; }
+.ch-icon-phone:before                { content: '\f095'; }
 
 .lt-ie8 .ch-icon-search { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf002;&nbsp;');}
 .lt-ie8 .ch-icon-heart { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf004;&nbsp;');}
@@ -229,3 +230,4 @@
 .lt-ie8 .ch-icon-undo { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e2;&nbsp;');}
 .lt-ie8 .ch-icon-comment-alt { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e5;&nbsp;');}
 .lt-ie8 .ch-icon-comments-alt:before { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e6;&nbsp;');}
+.lt-ie8 .ch-icon-phone:before { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf095;&nbsp;');}
