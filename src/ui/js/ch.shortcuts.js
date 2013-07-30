@@ -69,14 +69,18 @@
 
                     if (eventType !== undefined && that._active !== null) {
                         callbacks = that._collection[that._active][eventType];
-                        callbacksLenght = callbacks.length;
+                        
                         event.type = codeMap[keyCode];
 
                         // TODO: callbacks.length cachear
                         if (callbacks !== undefined) {
+                            
+                            callbacksLenght = callbacks.length;
+
                             for (i = 0; i < callbacksLenght; i += 1) {
                                 callbacks[i](event);
                             }
+                            
                         }
 
                     }
