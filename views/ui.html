@@ -1479,7 +1479,7 @@
 
         // Menu
         var menu = $(".YOUR_SELECTOR_Menu").menu({
-         'selected': 4
+         'shown': 4
         });
 
         // Dropdown
@@ -1700,23 +1700,35 @@
         });
 
         // Validators
-        // var   validation1 = $('#input_ico').validation({
-        //   'conditions': [
-        //       {
-        //           'name': 'required'
-        //       },
-        //       {
-        //           'name': 'guille',
-        //           'fn': function (value) { return value === "guille";},
-        //           'message': 'Esto es un guille!'
-        //       }
-        //   ]
+        // var validation1 = $('#input_ico').validation({
+        //     'conditions': [
+        //         {
+        //             'name': 'required',
+        //             'message': 'Mensaje de requerido.'
+        //         },
+        //         {
+        //             'name': 'guille',
+        //             'fn': function (value) { return value === "guille";},
+        //             'message': 'Esto es un guille!'
+        //         }
+        //     ],
+        //     'offsetX': 0,
+        //     'offsetY': 10,
+        //     'side': 'bottom',
+        //     'align': 'left',
+
         // });
 
-        // var   validation1 = $('#input_ico')
-        //       .required("Mensaje de requerido.").and()
-        //       .custom('guille', function (value) { return value === "guille";}, 'Esto es un guille!').and()
-        //       .custom('lean', function (value) { return value === "lean";}, 'Esto es un lean!');
+        // var validation1 = $('#input_ico')
+        //       .required({
+        //         'offsetX': 0,
+        //         'offsetY': 10,
+        //         'side': 'bottom',
+        //         'align': 'left',
+        //         'message': 'Mensaje de requerido.'
+        //       }).and()
+        //       .custom('guille', function (value) { return value === "guille";}, 'Esto es un guille!')
+        //       .and().custom('lean', function (value) { return value === "lean";}, 'Esto es un lean!');
 
 
 

@@ -30,7 +30,6 @@
                 return that._$content.html();
             }
 
-            // ESTo lo deberiamos sacar de aca
             that._options.content = content;
 
             if (that._options.cache === undefined) {
