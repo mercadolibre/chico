@@ -7,13 +7,14 @@ var showEvent = jasmine.createSpy('showEvent'),
         .on('show', function () { showEvent(); })
         .on('hide', function () { hideEvent(); })
         .on('ready', function () { readyEvent(); }),
+    $trigger = popover1.$trigger,
     popover2 = $('#popover2').popover({
         'shown': true,
         'addClass': 'test',
         'closable': false,
         'shownby': 'mouseenter'
     }),
-    $trigger = popover1.$trigger;
+    popover3 = $.popover();
 
 describe('Popover', function () {
 
@@ -114,10 +115,6 @@ describe('It should have a trigger that', function () {
     });
 
     describe('should have the following WAI-ARIA roles and properties:', function () {
-
-        it('role: button', function () {
-            expect($trigger.attr('role')).toEqual('button');
-        });
 
         it('aria-owns: the id of the popup element', function () {
             expect($trigger.attr('aria-owns')).toEqual('ch-popover-1');
@@ -341,6 +338,22 @@ describe('Instance a Popover configured', function () {
             expect(popover2._$el.hasClass('ch-shownby-click')).toBeFalsy();
 		});
 	});
+});
+
+describe('Instance a Popover without trigger', function () {
+
+    it('should be defined on $ object', function () {
+        expect($.hasOwnProperty('popover')).toBeTruthy();
+        expect(typeof $.popover).toEqual('function');
+    });
+
+    it('should return a new instance', function () {
+        expect(popover3 instanceof ch.Popover).toBeTruthy();
+    });
+
+    it('shouldn\'t have .$trigger', function () {
+        expect(popover3.$trigger).toBeUndefined();
+    });
 });
 
 describe('Its destroy() method', function () {
