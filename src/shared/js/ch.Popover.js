@@ -85,11 +85,10 @@
     Popover.prototype.constructor = Popover;
 
     Popover.prototype._defaults = {
-        'ariaRole': 'dialog',
+        '_ariaRole': 'dialog',
         'fx': 'fadeIn',
         'width': 'auto',
         'height': 'auto',
-        'shown': false,
         'shownby': 'click',
         'hiddenby': 'button-only',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
@@ -113,7 +112,7 @@
         this.$container = $([
             '<div',
             ' class="ch-popover ch-hide ' + (this._options._className || '') + ' ' + (this._options.addClass || '') + '"',
-            ' role="' + this._options.ariaRole + '"',
+            ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
             '>'
@@ -233,8 +232,7 @@
          */
         this.$trigger = this._$el.attr({
             'aria-owns': 'ch-' + this.name + '-' + this.uid,
-            'aria-haspopup': 'true',
-            'role': 'button'
+            'aria-haspopup': 'true'
         });
     };
 

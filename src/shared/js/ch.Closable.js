@@ -19,7 +19,7 @@
         var that = this,
             setTimeout = window.setTimeout,
             clearTimeout = window.clearTimeout,
-            closableType = this._options.hiddenby,
+            hiddenby = this._options.hiddenby,
             pointerTap = ch.onpointertap + '.' + this.name,
             pointerEnter = ch.onpointerenter + '.' + this.name,
             pointerLeave = ch.onpointerleave + '.' + this.name,
@@ -45,10 +45,10 @@
         this._closable = function () {
 
             // Closable none
-            if (closableType === 'none' || !closableType) { return; }
+            if (hiddenby === 'none') { return; }
 
             // Closable by leaving the widget
-            if (closableType === 'mouseleave' && that.$trigger !== undefined) {
+            if (hiddenby === 'mouseleave' && that.$trigger !== undefined) {
 
                 var events = {};
 
@@ -65,13 +65,13 @@
             }
 
             // Closable button-only
-            if (closableType === 'button-only' || closableType === 'all' || closableType === true) {
+            if (hiddenby === 'button-only' || hiddenby === 'all') {
                 // Append a close button
                 $('<a class="ch-close" role="button" aria-label="Close"></a>').on(pointerTap, close).prependTo(that.$container);
             }
 
             // Closable keys-only
-            if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
+            if (hiddenby === 'pointers-only' || hiddenby === 'all') {
 
                 ch.shortcuts.add(ch.onkeyesc, that.uid, function() { that.hide(); });
 
