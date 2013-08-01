@@ -97,7 +97,7 @@
         'format': 'DD/MM/YYYY',
         'side': 'bottom',
         'align': 'center',
-        'close': 'pointers-only'
+        'hiddenby': 'pointers-only'
     };
 
     DatePicker.prototype.init = function ($el, options) {
@@ -125,14 +125,14 @@
          */
         this._popover = this.$trigger.popover({
             '_className': 'ch-datePicker ch-cone',
-            'ariaRole': 'tooltip',
+            '_ariaRole': 'tooltip',
             'content': this._calendar.$container,
             'side': this._options.side,
             'align': this._options.align,
             'offsetX': -1,
             'offsetY': 8,
-            'open': 'click',
-            'close': this._options.close
+            'shownby': 'click',
+            'hiddenby': this._options.hiddenby
         });
 
         this._popover._$content.on(ch.onpointertap, function (event) {
@@ -169,9 +169,7 @@
         this.field.value = this._calendar.selectDay(target.innerHTML);
 
         // Hide float
-        if (this._options.close) {
-            this._popover.hide();
-        }
+        this._popover.hide();
 
         /**
          * Callback function
