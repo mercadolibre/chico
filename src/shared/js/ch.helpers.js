@@ -3,6 +3,7 @@
      * @namespace
      */
     var ch = {},
+
         /**
          * Reference to the window Selector Object.
          * @private
@@ -85,9 +86,8 @@
         /**
          * Reference to the vendor prefix of the current browser.
          * @private
-         * @constant
-         * @type {String}
-         * @see <a href="http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/" target="_blank">http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/</a>
+         * @type {string}
+         * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
          */
         VENDOR_PREFIX = (function () {
 
