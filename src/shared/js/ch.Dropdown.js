@@ -93,11 +93,9 @@
 
         parent.init.call(this, $el, options);
 
-        this.activeDescendant = 'ch-dropdown' + this.uid + '-selected';
-
         this.$trigger
             .addClass('ch-dropdown-trigger')
-            .prop('aria-activedescendant', this.activeDescendant);
+            .prop('aria-activedescendant', 'ch-dropdown' + this.uid + '-selected');
 
         ch.util.avoidTextSelection(this.$trigger);
 
@@ -171,7 +169,7 @@
 
         // Selects new current option
         this._$navigation[this._selected].focus();
-        this._$navigation[this._selected].id = this.activeDescendant;
+        this._$navigation[this._selected].id = 'ch-dropdown' + this.uid + '-selected';
 
         return this;
     }
