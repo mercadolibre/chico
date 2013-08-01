@@ -78,7 +78,7 @@
 
     Dropdown.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-dropdown ch-box-lite',
-        'ariaRole': 'combobox',
+        '_ariaRole': 'combobox',
         'fx': false,
         'shownby': 'click',
         'hiddenby': 'pointers-only',

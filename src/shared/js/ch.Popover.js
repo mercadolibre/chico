@@ -85,11 +85,10 @@
     Popover.prototype.constructor = Popover;
 
     Popover.prototype._defaults = {
-        'ariaRole': 'dialog',
+        '_ariaRole': 'dialog',
         'fx': 'fadeIn',
         'width': 'auto',
         'height': 'auto',
-        'shown': false,
         'shownby': 'click',
         'hiddenby': 'button-only',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',

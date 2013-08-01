@@ -79,7 +79,7 @@
 
     Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
-        'ariaRole': 'tooltip',
+        '_ariaRole': 'tooltip',
         'shownby': 'mouseenter',
         'hiddenby': 'mouseleave',
         'side': 'bottom',

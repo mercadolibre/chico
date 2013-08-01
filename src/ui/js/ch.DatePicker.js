@@ -125,7 +125,7 @@
          */
         this._popover = this.$trigger.popover({
             '_className': 'ch-datePicker ch-cone',
-            'ariaRole': 'tooltip',
+            '_ariaRole': 'tooltip',
             'content': this._calendar.$container,
             'side': this._options.side,
             'align': this._options.align,
