@@ -70,7 +70,7 @@
             }
 
         } else {
-            throw new window.Error('Unexpected parameters were found in the component instantiation.');
+            throw new window.Error('Unexpected parameters were found in the \'' + this.name + '\' instantiation.');
         }
 
         this.uid = (uid += 1);
