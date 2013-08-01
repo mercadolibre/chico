@@ -2,11 +2,10 @@
     'use strict';
 
     /**
-     * Creates a component to manage content through 3 ways: plain text, DOM elements, AJAX requests.
+     * Add a function to manage widgets content.
      * @memberOf ch
-     * @class ch.Content
-     * @require ch.cache
-     * @returns {Object}
+     * @mixin
+     * @returns {Function}
      */
     function Content() {
 
@@ -21,7 +20,8 @@
 
         /**
          * Allows to manage the widgets content.
-         * @namespace
+         * @param {String} content - Description.
+         * @param {Object} [options] - Description.
          */
         function content(content, options) {
 
@@ -136,7 +136,27 @@
 
             that._$content.html(event.response);
 
+            /**
+             * Event emitted when the content change.
+             * @event ch.Content#contentchange
+             * @private
+             */
             that.emit('_contentchange');
+
+            /**
+             * Event emitted if the content is loaded successfully.
+             * @event ch.Content#contentdone
+             */
+
+            /**
+             * Event emitted when the content is loading.
+             * @event ch.Content#contentwaiting
+             */
+
+            /**
+             * Event emitted if the content isn't loaded successfully.
+             * @event ch.Content#contenterror
+             */
 
             that.emit(status, event);
         }

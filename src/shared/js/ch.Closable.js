@@ -1,10 +1,3 @@
-/**
- * The Closable class gives to widgets the ability to be closed.
- * @name Closable
- * @class Closable
- * @standalone
- * @memberOf ch
- */
 (function (window, $, ch) {
     'use strict';
 
@@ -15,6 +8,12 @@
     var $document = $(window.document),
         keyEsc = ch.onkeyesc ? ch.onkeyesc : 'touchend';
 
+     /**
+      * Gives to widgets the ability to be closed.
+      * @memberOf ch
+      * @mixin
+      * @returns {Function}
+      */
     function Closable() {
 
         var that = this,
@@ -36,16 +35,19 @@
             timeOut = setTimeout(close, 400);
         }
 
+
+        /**
+         * Allows to manage the widgets content.
+         * @param {String} content - Description.
+         * @param {Object} [options] - Description.
+         * @private
+         */
         this._closable = function () {
 
-            /**
-             * Closable none
-             */
+            // Closable none
             if (closableType === 'none' || !closableType) { return; }
 
-            /**
-             * Closable by leaving the widget
-             */
+            // Closable by leaving the widget
             if (closableType === 'mouseleave' && that.$trigger !== undefined) {
 
                 var events = {};
@@ -62,17 +64,13 @@
                 return;
             }
 
-            /**
-             * Closable button-only
-             */
+            // Closable button-only
             if (closableType === 'button-only' || closableType === 'all' || closableType === true) {
                 // Append a close button
                 $('<a class="ch-close" role="button" aria-label="Close"></a>').on(pointerTap, close).prependTo(that.$container);
             }
 
-            /**
-             * Closable keys-only
-             */
+            // Closable keys-only
             if (closableType === 'pointers-only' || closableType === 'all' || closableType === true) {
 
                 ch.shortcuts.add(ch.onkeyesc, that.uid, function() { that.hide(); });

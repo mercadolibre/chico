@@ -14,12 +14,15 @@
          */
         uid = 0;
 
+
     /**
-     * Represents the abstract class of all widgets.
-     * @abstract
-     * @name Widget
-     * @class Widget
-     * @memberOf ch
+     * Base class for all widgets.
+     * @memberof ch
+     * @constructor
+     * @augments ch.EventEmitter
+     * @param {Selector} $el Query Selector element.
+     * @param {Object} [options] Configuration options.
+     * @returns {Object}
      */
     function Widget($el, options) {
         this.init($el, options);
@@ -29,14 +32,25 @@
 
     ch.util.inherits(Widget, ch.EventEmitter);
 
+    /**
+     * The name of the widget. All instances are saved into a 'map', grouped by its name. You can reach for any or all of the components from a specific name with 'ch.instances'.
+     * @memberof! ch.Widget.prototype
+     * @type {String}
+     */
     Widget.prototype.name = 'widget';
+
+    /**
+     * Returns a reference to the Constructor function that created the instance's prototype.
+     * @memberof! ch.Widget.prototype
+     * @function
+     */
     Widget.prototype.constructor = Widget;
 
     /**
      * Initialize the instance and merges the user options with defaults options.
-     * @public
+     * @memberof! ch.Widget.prototype
      * @function
-     * @name ch.Widget#init
+     * @returns {instance}
      */
     Widget.prototype.init = function ($el, options) {
 
@@ -73,17 +87,27 @@
             throw new window.Error('Expected 2 parameters or less');
         }
 
+
+        /**
+         * Global instantiation Widget id.
+         * @type {Number}
+         */
         this.uid = (uid += 1);
 
+        /**
+         * Indicates if the widget is enabled.
+         * @type {Boolean}
+         * @private
+         */
         this._enabled = true;
     };
 
 
     /**
      * Adds functionality or abilities from other classes.
-     * @public
+     * @memberof! ch.Widget.prototype
      * @function
-     * @name ch.Widget#require
+     * @returns {instance}
      */
     Widget.prototype.require = function () {
 
@@ -97,23 +121,20 @@
     };
 
     /**
-     * Turn on the Widget.
-     * @public
-     * @name ch.Widget#enable
+     * Turns on the Widget.
+     * @memberof! ch.Widget.prototype
      * @function
-     * @returns itself
+     * @returns {instance}
      */
     Widget.prototype.enable = function () {
         this._enabled = true;
 
         /**
-         * Triggers when the widget is enable.
-         * @name ch.Widget#enable
-         * @event
-         * @public
+         * Emits when the widget is enable.
+         * @event ch.Widget#enable
          * @exampleDescription
          * @example
-         * widget.on("enable", function(){
+         * widget.on('enable', function(){
          *  // Some code here!
          * });
          */
@@ -123,23 +144,20 @@
     };
 
     /**
-     * Turn off the Widget.
-     * @public
-     * @name ch.Widget#disable
+     * Turns off the Widget.
+     * @memberof! ch.Widget.prototype
      * @function
-     * @returns itself
+     * @returns {instance}
      */
     Widget.prototype.disable = function () {
         this._enabled = false;
 
         /**
-         * Triggers when the widget is disable.
-         * @name ch.Widget#disable
-         * @event
-         * @public
+         * Emits when the widget is disable.
+         * @event ch.Widget#disable
          * @exampleDescription
          * @example
-         * widget.on("disable", function(){
+         * widget.on('disable', function(){
          *  // Some code here!
          * });
          */
@@ -150,9 +168,8 @@
 
     /**
      * Destroys a widget instance and remove data from its element.
-     * @public
+     * @memberof! ch.Widget.prototype
      * @function
-     * @name ch.Widget#destroy
      */
     Widget.prototype.destroy = function () {
 
@@ -162,6 +179,15 @@
             this._$el.removeData(this.name);
         }
 
+        /**
+         * Emits when the widget is destroyed.
+         * @event ch.Widget#destroy
+         * @exampleDescription
+         * @example
+         * widget.on('destroy', function(){
+         *  // Some code here!
+         * });
+         */
         this.emit('destroy');
     };
 
