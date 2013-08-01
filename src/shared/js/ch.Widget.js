@@ -70,7 +70,7 @@
             }
 
         } else {
-            throw new window.Error('Expected 2 parameters or less');
+            throw new window.Error('Unexpected parameters were found in the component instantiation.');
         }
 
         this.uid = (uid += 1);
