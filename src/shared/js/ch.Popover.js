@@ -112,7 +112,7 @@
         this.$container = $([
             '<div',
             ' class="ch-popover ch-hide ' + (this._options._className || '') + ' ' + (this._options.addClass || '') + '"',
-            ' role="' + this._options.ariaRole + '"',
+            ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
             '>'
