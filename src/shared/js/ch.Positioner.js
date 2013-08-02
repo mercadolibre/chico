@@ -2,56 +2,57 @@
     'use strict';
 
     /**
-     * Positioner lets you centralize and manage changes related to positioned elements. Positioner returns an utility that resolves positioning for all widget.
+     * The Positioner lets you position elements on the screen and changes its positions.
      * @memberof ch
      * @constructor
-     * @param {Object} options Configuration object with positioning properties.
-     * @param {String} options.element Reference to the DOM Element to be positioned.
-     * @param {String} [options.context] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the viewport.
-     * @param {String} [options.points] Points where element will be positioned, specified by configuration or center by default.
-     * @param {String} [options.offset] Offset in pixels that element will be displaced from original position determined by points. It's specified by configuration or zero by default.
-     * @param {Boolean} [options.reposition] Parameter that enables or disables reposition intelligence. It's disabled by default.
+     * @param {Object} options Configuration object.
+     * @param {Selector} options.target Reference to the element to be positioned.
+     * @param {Selector} [options.context] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed (default).
+     * @requires ch.util
      * @requires ch.Viewport
-     * @see ch.Viewport
-     * @returns {Function} The Positioner returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
-     *
-     * @exampleDescription
-     * Instance the Positioner It requires a little configuration.
-     * The default behavior place an element center into the Viewport.
-     *
+     * @returns {Object} A new intance of Positioner.
      * @example
-     * var positioned = ch.Positioner({
-     *     element: "#element1",
-     * });
-     * @exampleDescription 1. Getting the current configuration properties.
-     * @example
-     * var configuration = positioner()
-     * @exampleDescription 2. Updates the current position with <code>refresh</code> as a parameter.
-     * @example
-     * positioner("refresh");
-     * @exampleDescription 3. Define a new position
-     * @example
-     * positioner({
-     *     element: "#element2",
-     *     context: "#context2",
-     *     points: "lt rt"
-     * });
-     * @exampleDescription <strong>Offset</strong>: The Positioner could be configurated with an offset.
-     * This example show an element displaced horizontally by 10px of defined position.
-     * @example
+     * // Instance the Positioner It requires a little configuration.
+     * // The default behavior place an element center into the Viewport.
      * var positioned = new ch.Positioner({
-     *     element: "#element3",
-     *     context: "#context3",
-     *     points: "lt rt",
-     *     offset: "10 0"
+     *     'target': $('#element1'),
+     *     'reference': $('#element2'),
+     *     'side': 'top',
+     *     'align': 'left',
+     *     'offsetX': 20,
+     *     'offsetY': 10
      * });
-     * @exampleDescription <strong>Reposition</strong>: RePositioner feature moves the postioned element if it can be shown into the viewport.
      * @example
+     * // offsetX: The Positioner could be configurated with an offsetX.
+     * // This example show an element displaced horizontally by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     element: "#element4",
-     *     context: "#context4",
-     *     points: "lt rt",
-     *     reposition: true
+     *     'target': $('#element1'),
+     *     'reference': $('#element2'),
+     *     'side': 'top',
+     *     'align': 'left',
+     *     'offsetX': 10
+     * });
+     * @example
+     * // offsetY: The Positioner could be configurated with an offsetY.
+     * // This example show an element displaced vertically by 10px of defined position.
+     * var positioned = new ch.Positioner({
+     *     'target': $('#element1'),
+     *     'reference': $('#element2'),
+     *     'side': 'top',
+     *     'align': 'left',
+     *     'offsetY': 10
+     * });
+     * @example
+     * // positioned: The positioner could be configured to work with fixed or absolute position value.
+     * var positioned = new ch.Positioner({
+     *     'target': $('#element1'),
+     *     'reference': $('#element2'),
+     *     'positioned': 'fixed'
      * });
      */
     function Positioner(options) {
@@ -64,14 +65,13 @@
         this._options = ch.util.clone(this._defaults);
 
         // Init
-        this.configure(options);
+        this._configure(options);
 
         return this;
     }
 
-
     /**
-     * All instances are saved into a 'map', grouped by its name. You can reach for any or all of the components from a specific name with 'ch.instances'.
+     * The name of the Positioner.
      * @memberof! ch.Positioner.prototype
      * @type {String}
      */
@@ -79,10 +79,11 @@
 
     /**
      * Returns a reference to the Constructor function that created the instance's prototype.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Positioner.prototype
      * @function
+     * @private
      */
-    Positioner.prototype.constructor = Positioner;
+    Positioner.prototype._constructor = Positioner;
 
     /**
      * Configuration by default.
@@ -100,17 +101,31 @@
 
     /**
      * Configures the positioner instance with a given options.
-     * @type {instance}
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @returns {instance}
      * @params {Object} options A configuration object.
+     * @private
      */
-    Positioner.prototype.configure = function (options) {
+    Positioner.prototype._configure = function (options) {
 
         // Merge user options with its options
         $.extend(this._options, options);
 
         this._options.offsetX = parseInt(this._options.offsetX, 10);
         this._options.offsetY = parseInt(this._options.offsetY, 10);
+
+        /**
+         * Reference to the element to be positioned.
+         * @type {Selector}
+         */
         this.$target = options.target || this.$target;
+
+
+        /**
+         * It's a reference to position and size of element that will be considered to carry out the position.
+         * @type {Selector}
+         */
         this.$reference = options.reference || this.$reference;
         this._reference = this._options.reference;
 
@@ -121,13 +136,24 @@
 
     /**
      * Updates the current position with a given options
-     * @type {instance}
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @returns {instance}
      * @params {Object} options A configuration object.
+     * @example
+     * // Updates the current position.
+     * positioned.refresh();
+     * @example
+     * // Updates the current position with new offsetX and offsetY.
+     * positioned.refresh({
+     *     'offestX': 100,
+     *     'offestY': 10
+     * });
      */
     Positioner.prototype.refresh = function (options) {
 
         if (options !== undefined) {
-            this.configure(options);
+            this._configure(options);
         }
 
          if (this._reference !== ch.viewport) {
@@ -143,8 +169,10 @@
     };
 
     /**
-     * Calculates the reference (element or viewport) of the position.
-     * @type {instance}
+     * Calculates the reference (element or ch.viewport) of the position.
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @returns {instance}
      * @private
      */
     Positioner.prototype._calculateReference = function () {
@@ -172,11 +200,12 @@
 
     /**
      * Calculates the positioned element.
-     * @type {instance}
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @returns {instance}
      * @private
-     * @params {Selector} $target A given selector.
      */
-    Positioner.prototype._calculateTarget = function ($target) {
+    Positioner.prototype._calculateTarget = function () {
 
         var target = this.$target[0];
         target.setAttribute('data-side', this._options.side);
@@ -189,7 +218,9 @@
 
     /**
      * Calculates the points.
-     * @type {instance}
+     * @memberof! ch.Positioner.prototype
+     * @function
+     * @returns {instance}
      * @private
      */
     Positioner.prototype._setPoint = function () {

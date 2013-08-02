@@ -12,7 +12,7 @@
       * Gives to widgets the ability to be closed.
       * @memberOf ch
       * @mixin
-      * @returns {Function}
+      * @returns {Function} Returns a private function.
       */
     function Closable() {
 

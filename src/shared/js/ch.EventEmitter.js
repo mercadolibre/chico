@@ -115,12 +115,12 @@
      * Returns all listeners from the collection for a specified event.
      * @memberof! ch.EventEmitter.prototype
      * @function
-     * @param {String} event Event name.
+     * @param {String} event The event name.
      * @returns {Array}
      * @example
-     * me.listeners('ready');
+     * me.getListeners('ready');
      */
-    EventEmitter.prototype.listeners = function (event) {
+    EventEmitter.prototype.getListeners = function (event) {
         if (event === undefined) {
             throw new Error('ch.EventEmitter - "listeners(event)": It should receive an event.');
         }

@@ -12,12 +12,11 @@
         'fadeOut': 'fadeIn'
     };
 
-
     /**
      * The Collapsible class gives to widgets the ability to shown or hidden its container.
      * @memberOf ch
      * @mixin
-     * @returns {Function}
+     * @returns {Function} Returns a private funciton.
      */
     function Collapsible() {
 
@@ -36,6 +35,10 @@
             /**
              * Event emitted when the widget container is shown.
              * @event ch.Collapsible#show
+             * @example
+             * widget.on('show', function () {
+             *  // Some code here!
+             * });
              */
             that.emit('show');
         }
@@ -46,6 +49,10 @@
             /**
              * Event emitted when the widget container.is hidden.
              * @event ch.Collapsible#hide
+             * @example
+             * widget.on('hide', function () {
+             *  // Some code here!
+             * });
              */
             that.emit('hide');
         }
