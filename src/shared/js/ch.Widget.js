@@ -33,24 +33,28 @@
     ch.util.inherits(Widget, ch.EventEmitter);
 
     /**
-     * The name of the widget. All instances are saved into a 'map', grouped by its name. You can reach for any or all of the components from a specific name with 'ch.instances'.
+     * The name of the widget. A new instance is saved into the $el parameter.
      * @memberof! ch.Widget.prototype
      * @type {String}
+     * @expample
+     * // You can reach the instance associated.
+     * var widget = $(selector).data('widget');
      */
     Widget.prototype.name = 'widget';
 
     /**
      * Returns a reference to the Constructor function that created the instance's prototype.
      * @memberof! ch.Widget.prototype
-     * @function
+     * @constructor
+     * @private
      */
-    Widget.prototype.constructor = Widget;
+    Widget.prototype._constructor = Widget;
 
     /**
      * Initialize the instance and merges the user options with defaults options.
      * @memberof! ch.Widget.prototype
      * @function
-     * @returns {instance}
+     * @returns {instance} Returns an instance of Widget.
      */
     Widget.prototype.init = function ($el, options) {
 
@@ -107,7 +111,13 @@
      * Adds functionality or abilities from other classes.
      * @memberof! ch.Widget.prototype
      * @function
-     * @returns {instance}
+     * @returns {instance} Returns an instance of Widget.
+     * @params {...String} var_args The name of the abilities to will be used.
+     * @expample
+     * // You can require some abilitiest to use in your widget.
+     * // For example you should require the collpasible and closable abitliy.
+     * var widget = new Widget(element, options);
+     * widget.require('Collapsible', 'Closable');
      */
     Widget.prototype.require = function () {
 
@@ -118,13 +128,18 @@
                 ch[arg].call(that);
             }
         });
+
+        return this;
     };
 
     /**
-     * Turns on the Widget.
+     * Enables an instance of Widget.
      * @memberof! ch.Widget.prototype
      * @function
-     * @returns {instance}
+     * @returns {instance} Returns an instance of Widget.
+     * @expample
+     * // Enabling an instance of Widget.
+     * widget.enable();
      */
     Widget.prototype.enable = function () {
         this._enabled = true;
@@ -132,9 +147,8 @@
         /**
          * Emits when the widget is enable.
          * @event ch.Widget#enable
-         * @exampleDescription
          * @example
-         * widget.on('enable', function(){
+         * widget.on('enable', function () {
          *  // Some code here!
          * });
          */
@@ -144,10 +158,13 @@
     };
 
     /**
-     * Turns off the Widget.
+     * Disables an instance of Widget.
      * @memberof! ch.Widget.prototype
      * @function
-     * @returns {instance}
+     * @returns {instance} Returns an instance of Widget.
+     * @expample
+     * // Disabling an instance of Widget.
+     * widget.disable();
      */
     Widget.prototype.disable = function () {
         this._enabled = false;
@@ -155,9 +172,8 @@
         /**
          * Emits when the widget is disable.
          * @event ch.Widget#disable
-         * @exampleDescription
          * @example
-         * widget.on('disable', function(){
+         * widget.on('disable', function () {
          *  // Some code here!
          * });
          */
@@ -167,9 +183,12 @@
     };
 
     /**
-     * Destroys a widget instance and remove data from its element.
+     * Destroys an instance of Widget and remove its data from asociated element.
      * @memberof! ch.Widget.prototype
      * @function
+     * @expample
+     * // Destroying an instance of Widget.
+     * widget.destroy();
      */
     Widget.prototype.destroy = function () {
 
@@ -184,7 +203,7 @@
          * @event ch.Widget#destroy
          * @exampleDescription
          * @example
-         * widget.on('destroy', function(){
+         * widget.on('destroy', function () {
          *  // Some code here!
          * });
          */
