@@ -130,11 +130,9 @@
 
         /**
          * Adds CSS rules to disable text selection highlighting.
-         * @param {Object} Selector1 The HTMLElements to disable text selection highlighting.
-         * @param {Object} [Selector2] The HTMLElements to disable text selection highlighting.
-         * @param {Object} [SelectorN] The HTMLElements to disable text selection highlighting.
+         * @param {...Selector} selector The HTMLElements to disable text selection highlighting.
          * @example
-         * ch.util.avoidTextSelection([...,selector]);
+         * ch.util.avoidTextSelection(selector);
          */
         'avoidTextSelection': function () {
             var args = arguments;
