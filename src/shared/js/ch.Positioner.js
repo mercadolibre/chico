@@ -13,9 +13,9 @@
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed (default).
+     * @requires ch.util
      * @requires ch.Viewport
-     * @see ch.Viewport
-     * @returns {Function} A new intance of Positioner.
+     * @returns {Object} A new intance of Positioner.
      * @example
      * // Instance the Positioner It requires a little configuration.
      * // The default behavior place an element center into the Viewport.
@@ -48,7 +48,7 @@
      *     'offsetY': 10
      * });
      * @example
-     * // positioned: The positioner could be configured to work with fixed or absolute position value,
+     * // positioned: The positioner could be configured to work with fixed or absolute position value.
      * var positioned = new ch.Positioner({
      *     'target': $('#element1'),
      *     'reference': $('#element2'),
