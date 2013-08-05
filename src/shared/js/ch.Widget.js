@@ -19,7 +19,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
-     * @param {Selector} $el Query Selector element.
+     * @param {(jQuery Selector | Zepto Selector)} $el jQuery Selector element.
      * @param {Object} [options] Configuration options.
      * @returns {Object}
      */

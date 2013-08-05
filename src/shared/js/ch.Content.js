@@ -51,7 +51,7 @@
                     that.emit('contentdone');
 
                 }
-            // Case 3: DOM element
+            // Case 3: HTMLElement
             } else if (ch.util.is$(content)) {
 
                 that._$content.html(content.remove(null, true).removeClass('ch-hide'));
