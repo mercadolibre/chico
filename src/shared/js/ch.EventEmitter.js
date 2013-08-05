@@ -1,9 +1,3 @@
-/**
-* Event Emitter Class for the browser.
-* @name EventEmitter
-* @class EventEmitter
-* @memberOf ch
-*/
 (function (window, ch) {
     'use strict';
 
@@ -11,23 +5,28 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    /**
+     * Event Emitter Class for the browser.
+     * @memberof ch
+     * @constructor
+     */
     function EventEmitter() {}
 
     /**
      * Adds a listener to the collection for a specified event.
-     * @public
+     * @memberof! ch.EventEmitter.prototype
      * @function
-     * @name EventEmitter#addListener
-     * @param {string} event Event name.
-     * @param {function} listener Listener function.
-     * @param {boolean} once Listener function will be called only one time.
+     * @param {String} event The event name to subscribe.
+     * @param {Function} listener Listener function.
+     * @param {Boolean} once Listener function will be called only one time.
      * @example
-     * // Will add a event listener to the "ready" event
+     * // Will add a event listener to the 'ready' event
+     *
      * var startDoingStuff = function (event, param1, param2, ...) {
      *     // Some code here!
      * };
      *
-     * me.on("ready", startDoingStuff);
+     * me.on('ready', startDoingStuff);
      */
     EventEmitter.prototype.on = function (event, listener, once) {
 
@@ -53,16 +52,15 @@
     };
 
     /**
-     * Adds a one time listener to the collection for a specified event. It will execute only once.
-     * @public
+     * Adds a listener to the collection for a specified event to will execute only once.
+     * @memberof! ch.EventEmitter.prototype
      * @function
-     * @name EventEmitter#once
-     * @param {string} event Event name.
-     * @param {function} listener Listener function.
-     * @returns itself
+     * @param {String} event Event name.
+     * @param {Function} listener Listener function.
+     * @returns {Object}
      * @example
-     * // Will add a event handler to the "contentLoad" event once
-     * me.once("contentLoad", startDoingStuff);
+     * // Will add a event handler to the 'contentLoad' event once
+     * me.once('contentLoad', startDoingStuff);
      */
     EventEmitter.prototype.once = function (event, listener) {
 
@@ -73,21 +71,19 @@
 
     /**
      * Removes a listener from the collection for a specified event.
-     * @public
+     * @memberof! ch.EventEmitter.prototype
      * @function
-     * @name EventEmitter#removeListener
-     * @param {string} event Event name.
-     * @param {function} listener Listener function.
-     * @returns itself
+     * @param {String} event Event name.
+     * @param {Function} listener Listener function.
+     * @returns {Object}
      * @example
-     * // Will remove event handler to the "ready" event
+     * // Will remove event handler to the 'ready' event
+     *
      * var startDoingStuff = function () {
      *     // Some code here!
      * };
      *
-     * me.removeListener("ready", startDoingStuff);
-     * // or
-     * me.off("ready", startDoingStuff);
+     * me.off('ready', startDoingStuff);
      */
     EventEmitter.prototype.off = function (event, listener) {
         if (event === undefined) {
@@ -117,15 +113,14 @@
 
     /**
      * Returns all listeners from the collection for a specified event.
-     * @public
+     * @memberof! ch.EventEmitter.prototype
      * @function
-     * @name EventEmitter#listeners
-     * @param {string} event Event name.
-     * @returns Array
+     * @param {String} event The event name.
+     * @returns {Array}
      * @example
-     * me.listeners("ready");
+     * me.getListeners('ready');
      */
-    EventEmitter.prototype.listeners = function (event) {
+    EventEmitter.prototype.getListeners = function (event) {
         if (event === undefined) {
             throw new Error('ch.EventEmitter - "listeners(event)": It should receive an event.');
         }
@@ -135,14 +130,14 @@
 
     /**
      * Execute each item in the listener collection in order with the specified data.
-     * @name EventEmitter#emit
-     * @public
-     * @protected
-     * @param {string} event The name of the event you want to emit.
-     * @param {...object} var_args Data to pass to the listeners.
+     * @memberof! ch.EventEmitter.prototype
+     * @function
+     * @param {String} event The name of the event you want to emit.
+     * @param {...Object} var_args Data to pass to the listeners.
      * @example
-     * // Will emit the "ready" event with "param1" and "param2" as arguments.
-     * me.emit("ready", "param1", "param2");
+     * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
+     *
+     * me.emit('ready', 'param1', 'param2');
      */
     EventEmitter.prototype.emit = function () {
 
@@ -189,9 +184,7 @@
         return this;
     };
 
-    /**
-     * Expose EventEmitter
-     */
+    // Expose EventEmitter
     ch.EventEmitter = EventEmitter;
 
 }(this, this.ch));

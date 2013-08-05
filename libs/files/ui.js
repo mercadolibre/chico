@@ -2,7 +2,7 @@
  * Files routes objects
  */
 var JS = {},
-	CSS = {};
+    CSS = {};
 
 /*
  * JS: Core

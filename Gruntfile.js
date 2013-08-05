@@ -97,6 +97,37 @@ module.exports = function (grunt) {
                 'failOnError': false, // defaults to true
                 'shebang': true, // ignore shebang lines
             }
+        },
+
+        'jsdoc': {
+            'dist': {
+                'src': [
+                    "src/shared/js/ch.helpers.js",
+                    "src/shared/js/ch.util.js",
+                    "src/shared/js/ch.support.js",
+                    "src/shared/js/ch.events.js",
+                    "src/ui/js/ch.events.js",
+                    "src/shared/js/ch.factory.js",
+                    "src/ui/js/ch.shortcuts.js",
+                    "src/ui/js/ch.init.js",
+
+                    "src/shared/js/ch.EventEmitter.js",
+                    "src/shared/js/ch.Content.js",
+                    "src/shared/js/ch.Closable.js",
+                    "src/shared/js/ch.Collapsible.js",
+                    "src/shared/js/ch.Viewport.js",
+                    "src/shared/js/ch.Positioner.js",
+
+
+                    "src/shared/js/ch.Widget.js",
+                    "src/shared/js/ch.Expandable.js"
+
+                ],
+                'options': {
+                    'destination': './doc',
+                    'private': false
+                }
+            }
         }
     });
 
@@ -106,10 +137,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-jslint');
+    grunt.loadNpmTasks('grunt-jsdoc');
 
     // Resgister task(s).
     grunt.registerTask('default', []);
     grunt.registerTask('lint', ['jslint']);
+    grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('dev', ['concat', 'clean']);
     grunt.registerTask('prod', ['concat', 'uglify', 'cssmin', 'clean']);
 };

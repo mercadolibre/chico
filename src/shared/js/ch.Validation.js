@@ -481,10 +481,10 @@
     Validation.prototype.position = function (options) {
 
         if (options === undefined) {
-            return this.bubble.position;
+            return this.bubble._positioner;
         }
 
-        this.bubble.position.refresh(options);
+        this.bubble.refreshPosition(options);
 
         return this;
     };

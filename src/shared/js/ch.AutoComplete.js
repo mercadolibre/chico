@@ -70,7 +70,7 @@
         'side': 'bottom',
         'align': 'left',
         'keystrokesTime': 1000,
-        'closable': 'none',
+        'hiddenby': 'none',
         'html': false
     };
 
@@ -102,7 +102,7 @@
             'side': this._options.side,
             'align': this._options.align,
             'addClass': 'ch-box-lite ch-autoComplete',
-            'close': this._options.closable,
+            'hiddenby': this._options.hiddenby,
             'width': (this._el.getBoundingClientRect().width - 22) + 'px',
             'fx': this._options.fx
         });

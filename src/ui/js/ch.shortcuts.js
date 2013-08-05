@@ -1,8 +1,7 @@
 /**
 * Shortcuts lets you centralize and manage changes related to positioned elements. Positioner returns an utility that resolves positioning for all widget.
-* @name Shortcuts
-* @class Shortcuts
-* @memberOf ch
+* @name shortcuts
+* @memberof ch
 * @param {Object} conf Configuration object with positioning properties.
 * @param {String} conf.target Reference to the DOM Element to be positioned.
 * @param {String} [conf.activate] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the viewport.
@@ -42,13 +41,6 @@
             '40': ch.onkeydownarrow
         },
 
-        /**
-         * Keyboard event controller utility to know wich keys are begin.
-         * @name Keyboard
-         * @class Keyboard
-         * @memberOf ch
-         * @param event
-         */
         shortcuts = {
 
             '_active': null,
@@ -69,18 +61,18 @@
 
                     if (eventType !== undefined && that._active !== null) {
                         callbacks = that._collection[that._active][eventType];
-                        
+
                         event.type = codeMap[keyCode];
 
                         // TODO: callbacks.length cachear
                         if (callbacks !== undefined) {
-                            
+
                             callbacksLenght = callbacks.length;
 
                             for (i = 0; i < callbacksLenght; i += 1) {
                                 callbacks[i](event);
                             }
-                            
+
                         }
 
                     }
