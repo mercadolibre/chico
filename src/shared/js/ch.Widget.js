@@ -14,7 +14,6 @@
          */
         uid = 0;
 
-
     /**
      * Base class for all widgets.
      * @memberof ch
@@ -90,7 +89,6 @@
         } else {
             throw new window.Error('Expected 2 parameters or less');
         }
-
 
         /**
          * Global instantiation Widget id.
