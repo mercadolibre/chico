@@ -1,34 +1,6 @@
-/**
-* Shortcuts lets you centralize and manage changes related to positioned elements. Positioner returns an utility that resolves positioning for all widget.
-* @name shortcuts
-* @memberof ch
-* @param {Object} conf Configuration object with positioning properties.
-* @param {String} conf.target Reference to the DOM Element to be positioned.
-* @param {String} [conf.activate] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the viewport.
-* @param {String} [conf.deactivate] Points where element will be positioned, specified by configuration or center by default.
-* @returns {Object} The Positioner returns a Function that it works in 3 ways: as a setter, as a getter and with the "refresh" parameter refreshes the position.
-*
-* @exampleDescription
-* Instance the Positioner It requires a little configuration.
-* The default behavior place an element center into the Viewport.
-* @example
-* var navigation = new ch.Shortcuts({
-*     'target': $('.myCarousel'),
-* });
-*
-* $('.myCarousel')
-*     .on(ch.onkeyrightarrow, function () { carousel.next() })
-*     .on(ch.onkeyleftarrow, function () { carousel.prev() });
-*/
-(function () {
+(function (window, $, ch) {
     'use strict';
 
-    /**
-     * Map with references to key codes.
-     * @private
-     * @name ch.Keyboard#codeMap
-     * @type object
-     */
     var $document = $(window.document),
         codeMap = {
             '8': ch.onkeybackspace,
@@ -41,6 +13,11 @@
             '40': ch.onkeydownarrow
         },
 
+        /**
+         * Shortcuts
+         * @memberof ch
+         * @namespace
+         */
         shortcuts = {
 
             '_active': null,
@@ -49,69 +26,60 @@
 
             '_collection': {},
 
-            'init': function () {
-                var that = this;
-
-                $document.on('keydown.shortcuts', function (event) {
-                    var keyCode = event.keyCode.toString(),
-                        eventType = codeMap[keyCode],
-                        callbacks,
-                        callbacksLenght,
-                        i = 0;
-
-                    if (eventType !== undefined && that._active !== null) {
-                        callbacks = that._collection[that._active][eventType];
-
-                        event.type = codeMap[keyCode];
-
-                        // TODO: callbacks.length cachear
-                        if (callbacks !== undefined) {
-
-                            callbacksLenght = callbacks.length;
-
-                            for (i = 0; i < callbacksLenght; i += 1) {
-                                callbacks[i](event);
-                            }
-
-                        }
-
-                    }
-                });
-
-            },
-
-            'add': function (event, name, callback) {
+            /**
+             * Add a callback to a shortcut with given name.
+             * @param {(ch.onkeybackspace | ch.onkeytab | ch.onkeyenter | ch.onkeyesc | ch.onkeyleftarrow | ch.onkeyuparrow | ch.onkeyrightarrow | ch.onkeydownarrow)} shortcut Shortcut to subscribe.
+             * @param {String} name A name to add in the collection.
+             * @param {Function} callback A given function.
+             * @returns {Object} Retuns the ch.shortcuts.
+             * @example
+             * // Add a callback to ESC key with "widget" name.
+             * ch.shortcuts.add(ch.onkeyesc, 'widget', widget.hide);
+             */
+            'add': function (shortcut, name, callback) {
 
                 if (this._collection[name] === undefined) {
                     this._collection[name] = {};
                 }
 
-                if (this._collection[name][event] === undefined) {
-                    this._collection[name][event] = [];
+                if (this._collection[name][shortcut] === undefined) {
+                    this._collection[name][shortcut] = [];
                 }
 
-                this._collection[name][event].push(callback);
+                this._collection[name][shortcut].push(callback);
+
+                return this;
 
             },
 
-            'remove': function (event, name, callback) {
+            /**
+             * Removes a callback from a shortcut with given name.
+             * @param {(ch.onkeybackspace | ch.onkeytab | ch.onkeyenter | ch.onkeyesc | ch.onkeyleftarrow | ch.onkeyuparrow | ch.onkeyrightarrow | ch.onkeydownarrow)} shortcut Shortcut to unsubscribe.
+             * @param {String} name A name to remove from the collection.
+             * @param {Function} callback A given function.
+             * @returns {Object} Retuns the ch.shortcuts.
+             * @example
+             * // Remove a callback from ESC key with "widget" name.
+             * ch.shortcuts.remove(ch.onkeyesc, 'widget', widget.hide);
+             */
+            'remove': function (shortcut, name, callback) {
                 var evt,
                     evtCollection,
                     evtCollectionLenght;
 
-                if (event === undefined) {
-                    throw new Error('Shortcuts - "remove(event, name, callback)": "event" parameter must be defined.');
+                if (shortcut === undefined) {
+                    throw new Error('Shortcuts - "remove(shortcut, name, callback)": "shortcut" parameter must be defined.');
                 }
 
                 if (name === undefined) {
-                    throw new Error('Shortcuts - "remove(event, name, callback)": "name" parameter must be defined.');
+                    throw new Error('Shortcuts - "remove(shortcut, name, callback)": "name" parameter must be defined.');
                 }
 
                 if (callback === undefined) {
-                    delete this._collection[name][event];
+                    delete this._collection[name][shortcut];
                 }
 
-                evtCollection = this._collection[name][event];
+                evtCollection = this._collection[name][shortcut];
 
                 evtCollectionLenght = evtCollection.length;
 
@@ -122,8 +90,18 @@
                     }
                 }
 
+                return this;
+
             },
 
+            /**
+             * Turn on shortcuts associated to a given name.
+             * @param {String} name A given name from the collection.
+             * @returns {Object} Retuns the ch.shortcuts.
+             * @example
+             * // Turn on shortcuts associated to "widget" name.
+             * ch.shortcuts.on('widget');
+             */
             'on': function (name) {
                 var queueLength = this._queue.length,
                     item = queueLength - 1;
@@ -138,8 +116,17 @@
                 this._queue.push(name);
                 this._active = name;
 
+                return this;
             },
 
+            /**
+             * Turn off shortcuts associated to a given name.
+             * @param {String} name A given name from the collection.
+             * @returns {Object} Retuns the ch.shortcuts.
+             * @example
+             * // Turn off shortcuts associated to "widget" name.
+             * ch.shortcuts.off('widget');
+             */
             'off': function (name) {
                 var queueLength = this._queue.length,
                     item = queueLength - 1;
@@ -158,9 +145,37 @@
                         }
                     }
                 }
+
+                return this;
             }
         };
 
+    $document.on('keydown.shortcuts', function (event) {
+        var keyCode = event.keyCode.toString(),
+            shortcut = codeMap[keyCode],
+            callbacks,
+            callbacksLenght,
+            i = 0;
+
+        if (shortcut !== undefined && shortcuts._active !== null) {
+            callbacks = shortcuts._collection[shortcuts._active][shortcut];
+
+            event.type = shortcut;
+
+
+            if (callbacks !== undefined) {
+
+                callbacksLenght = callbacks.length;
+
+                for (i = 0; i < callbacksLenght; i += 1) {
+                    callbacks[i](event);
+                }
+
+            }
+
+        }
+    });
+
     ch.shortcuts = shortcuts;
 
-}());
+}(this, this.$, this.ch));
