@@ -88,6 +88,8 @@
 
         parent.init.call(this, $el, options);
 
+        this.$trigger = this._$el;
+
         this._$suggestionsList = $('<ul class="ch-autoComplete-list"></ul>');
 
         /**
@@ -97,7 +99,7 @@
          * @name ch.AutoComplete#_popover
          */
         this._popover = $.popover({
-            'reference': this._$el,
+            'reference': this.$trigger,
             'content': this._$suggestionsList,
             'side': this._options.side,
             'align': this._options.align,
@@ -272,12 +274,12 @@
         this.on('typing', function (currentQuery) {
             if (that._enabled) {
                 that._currentQuery = currentQuery;
-                that._$el.addClass('ch-autoComplete-loading');
+                that.$trigger.addClass('ch-autoComplete-loading');
             }
         });
 
         // behavior binding
-        this._$el
+        this.$trigger
             .attr({
                 'aria-autocomplete': 'list',
                 'aria-haspopup': 'true',
@@ -288,7 +290,7 @@
                 if (that._enabled) {
                     that._originalQuery = that._el.value;
 
-                    that._$el.on(ch.onkeyinput, function (event) {
+                    that.$trigger.on(ch.onkeyinput, function (event) {
                     // when the user writes
                         window.clearTimeout(that._stopTyping);
                         that._stopTyping = window.setTimeout(function () {
@@ -304,7 +306,7 @@
             .on('blur.' + this.name, function (event) {
                 if (that._enabled) {
                     that.hide();
-                    that._$el.off(ch.onkeyinput);
+                    that.$trigger.off(ch.onkeyinput);
                 }
             });
 
@@ -372,7 +374,7 @@
             $extraItems,
             extraItems = [];
 
-        this._$el.removeClass('ch-autoComplete-loading');
+        this.$trigger.removeClass('ch-autoComplete-loading');
 
         if (query === '') {
             this._el.blur();
@@ -386,8 +388,6 @@
 
         if (!this._popover.isShown() && document.activeElement === this._el) {
             this._show();
-        } else {
-            return this;
         }
 
         this._$suggestionsList[0].innerHTML = '';
@@ -465,10 +465,10 @@
 
         ch.shortcuts.off(this.uid);
 
-        this._$el
+        this.$trigger
             .off('.autoComplete')
-            .removeAttr('aria-autocomplete')
             .removeAttr('autocomplete')
+            .removeAttr('aria-autocomplete')
             .removeAttr('aria-haspopup')
             .removeAttr('aria-owns');
 
