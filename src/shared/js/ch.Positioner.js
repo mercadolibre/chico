@@ -6,8 +6,8 @@
      * @memberof ch
      * @constructor
      * @param {Object} options Configuration object.
-     * @param {(jQuery Selector | Zepto Selector)} options.target Reference to the element to be positioned.
-     * @param {(jQuery Selector | Zepto Selector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {(jQuerySelector | ZeptoSelector)} options.target Reference to the element to be positioned.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
@@ -117,14 +117,14 @@
 
         /**
          * Reference to the element to be positioned.
-         * @type {(jQuery Selector | Zepto Selector)}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this.$target = options.target || this.$target;
 
 
         /**
          * It's a reference to position and size of element that will be considered to carry out the position.
-         * @type {(jQuery Selector | Zepto Selector)}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this.$reference = options.reference || this.$reference;
         this._reference = this._options.reference;

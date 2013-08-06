@@ -130,7 +130,7 @@
 
         /**
          * Adds CSS rules to disable text selection highlighting.
-         * @param {...(jQuery Selector | Zepto Selector)} jQuery or Zepto selector to disable text selection highlighting.
+         * @param {...jQuerySelector} jQuery or Zepto Selector to disable text selection highlighting.
          * @example
          * ch.util.avoidTextSelection($(selector));
          */

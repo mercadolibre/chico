@@ -5,9 +5,9 @@
     var ch = {},
 
         /**
-         * Reference to the window jQuery Selector or Zepto Selector.
+         * Reference to the window jQuery or Zepto Selector.
          * @private
-         * @type {(jQuery Selector | Zepto Selector)}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         $window = $(window),
 
@@ -33,9 +33,9 @@
         document = window.document,
 
         /**
-         * Reference to the document jQuery Selector or Zepto Selector.
+         * Reference to the document jQuery or Zepto Selector.
          * @private
-         * @type {(jQuery Selector | Zepto Selector)}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         $document = $(document),
 
@@ -47,9 +47,9 @@
         body = document.body,
 
         /**
-         * Reference to the body jQuery Selector or Zepto Selector.
+         * Reference to the body jQuery or Zepto Selector.
          * @private
-         * @type {(jQuery Selector | Zepto Selector)}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         $body = $(body),
 
@@ -61,9 +61,9 @@
         html = document.getElementsByTagName('html')[0],
 
         /**
-         * Reference to the html jQuery Selector or Zepto Selector.
+         * Reference to the html jQuery or Zepto Selector.
          * @private
-         * @type {(jQuery Selector | Zepto Selector)}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         $html = $(html),
 

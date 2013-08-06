@@ -178,4 +178,4 @@
 
     ch.shortcuts = shortcuts;
 
-}(this, this.$, this.ch));
+}(this, this.ch.$, this.ch));

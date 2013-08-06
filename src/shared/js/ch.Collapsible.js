@@ -36,6 +36,7 @@
              * Event emitted when the widget container is shown.
              * @event ch.Collapsible#show
              * @example
+             * // Subscribe to "show" event.
              * widget.on('show', function () {
              *  // Some code here!
              * });
@@ -50,6 +51,7 @@
              * Event emitted when the widget container.is hidden.
              * @event ch.Collapsible#hide
              * @example
+             * // Subscribe to "hide" event.
              * widget.on('hide', function () {
              *  // Some code here!
              * });
