@@ -98,8 +98,10 @@
     Expandable.prototype.name = 'expandable';
 
     /**
-     * Returns a reference to the Constructor function that created the instance's prototype.
-     * @function
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Widget.prototype
+     * @constructor
+     * @private
      */
     Expandable.prototype.constructor = Expandable;
 

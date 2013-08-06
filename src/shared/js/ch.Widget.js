@@ -36,7 +36,7 @@
     Widget.prototype.name = 'widget';
 
     /**
-     * Returns a reference to the Constructor function that created the instance's prototype.
+     * Returns a reference to the constructor function that created the instance.
      * @memberof! ch.Widget.prototype
      * @constructor
      * @private
