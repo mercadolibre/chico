@@ -1,5 +1,5 @@
     /**
-     * Every time Chico-UI needs to inform all visual components that layout has been changed, it emits this event.
+     * Every time Chico UI needs to inform all visual components that layout has been changed, it emits this event.
      * @constant
      * @memberof ch
      * @type {String}

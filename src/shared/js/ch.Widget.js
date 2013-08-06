@@ -6,21 +6,14 @@
     }
 
     var util = ch.util,
-
-        /**
-         * Global instantiation widget id.
-         * @private
-         * @type {Number}
-         */
         uid = 0;
-
 
     /**
      * Base class for all widgets.
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
-     * @param {Selector} $el Query Selector element.
+     * @param {(jQuerySelector | ZeptoSelector)} $el jQuery or Zepto Selector.
      * @param {Object} [options] Configuration options.
      * @returns {Object}
      */
@@ -33,12 +26,12 @@
     ch.util.inherits(Widget, ch.EventEmitter);
 
     /**
-     * The name of the widget. A new instance is saved into the $el parameter.
+     * The name of the widget.
      * @memberof! ch.Widget.prototype
      * @type {String}
-     * @expample
+     * @example
      * // You can reach the instance associated.
-     * var widget = $(selector).data('widget');
+     * var widget = $(selector).data(name);
      */
     Widget.prototype.name = 'widget';
 
@@ -51,7 +44,7 @@
     Widget.prototype._constructor = Widget;
 
     /**
-     * Initialize the instance and merges the user options with defaults options.
+     * Initialize a new instance of Widget and merge custom options with defaults options.
      * @memberof! ch.Widget.prototype
      * @function
      * @returns {instance} Returns an instance of Widget.
@@ -91,9 +84,8 @@
             throw new window.Error('Expected 2 parameters or less');
         }
 
-
         /**
-         * Global instantiation Widget id.
+         * A unique id to identify the instance of a widget.
          * @type {Number}
          */
         this.uid = (uid += 1);
@@ -148,6 +140,7 @@
          * Emits when the widget is enable.
          * @event ch.Widget#enable
          * @example
+         * // Subscribe to "enable" event.
          * widget.on('enable', function () {
          *  // Some code here!
          * });
@@ -173,6 +166,7 @@
          * Emits when the widget is disable.
          * @event ch.Widget#disable
          * @example
+         * // Subscribe to "disable" event.
          * widget.on('disable', function () {
          *  // Some code here!
          * });
@@ -203,6 +197,7 @@
          * @event ch.Widget#destroy
          * @exampleDescription
          * @example
+         * // Subscribe to "destroy" event.
          * widget.on('destroy', function () {
          *  // Some code here!
          * });

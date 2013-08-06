@@ -136,7 +136,6 @@
      * @param {...Object} var_args Data to pass to the listeners.
      * @example
      * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
-     *
      * me.emit('ready', 'param1', 'param2');
      */
     EventEmitter.prototype.emit = function () {
