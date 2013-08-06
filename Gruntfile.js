@@ -108,7 +108,6 @@ module.exports = function (grunt) {
                     "src/shared/js/ch.events.js",
                     "src/ui/js/ch.events.js",
                     "src/shared/js/ch.factory.js",
-                    "src/ui/js/ch.shortcuts.js",
                     "src/ui/js/ch.init.js",
 
                     "src/shared/js/ch.EventEmitter.js",
@@ -117,7 +116,7 @@ module.exports = function (grunt) {
                     "src/shared/js/ch.Collapsible.js",
                     "src/shared/js/ch.Viewport.js",
                     "src/shared/js/ch.Positioner.js",
-
+                    "src/ui/js/ch.shortcuts.js",
 
                     "src/shared/js/ch.Widget.js",
                     "src/shared/js/ch.Expandable.js"
