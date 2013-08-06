@@ -5,7 +5,7 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    var toggle = {
+    var toggleEffects = {
         'slideDown': 'slideUp',
         'slideUp': 'slideDown',
         'fadeIn': 'fadeOut',
@@ -97,13 +97,28 @@
 
             // Animate or not
             if (canUseFx) {
-                that.$container[toggle[fx]]('fast', hideCallback);
+                that.$container[toggleEffects[fx]]('fast', hideCallback);
             } else {
                 hideCallback();
             }
 
             return that;
         };
+
+        /**
+         * Shows or hides the widget container.
+         * @private
+         */
+        this._toggle = function () {
+
+            if (that._shown) {
+                that.hide();
+            } else {
+                that.show();
+            }
+
+            return that;
+        }
 
         this.on('disable', this.hide);
     }
