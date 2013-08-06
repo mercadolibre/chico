@@ -32,14 +32,14 @@
      * // Create a new Expandable with defaults options.
      * var widget = $(selector).expandable();
      * @example
-     * // Create a new Expandable with fx enabled.
-     * $(selector).expandable({
-     *     'fx': true
-     * });
-     * @example
      * // Create a new Expandable with toggle disabled.
      * $(selector).expandable({
      *     'toggle': true
+     * });
+     * @example
+     * // Create a new Expandable with fx enabled.
+     * $(selector).expandable({
+     *     'fx': true
      * });
      * @example
      * // Create a new Expandable with a specific container.
@@ -154,8 +154,10 @@
         this.$trigger = this._$el
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
+
                 ch.util.prevent(event);
-                that.show();
+                that._options.toggle ? that._toggle() : that.show();
+
             });
 
         /**
@@ -220,10 +222,6 @@
             return this;
         }
 
-        if (this._shown && this._options.toggle) {
-            return this.hide();
-        }
-
         this._show();
 
         // Update ARIA
@@ -248,7 +246,7 @@
      */
     Expandable.prototype.hide = function () {
 
-        if (!this._shown) {
+        if (!this._enabled) {
             return this;
         }
 
@@ -258,6 +256,7 @@
 
         return this;
     };
+
 
     /**
      * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
