@@ -130,21 +130,21 @@
 
         /**
          * Adds CSS rules to disable text selection highlighting.
-         * @param {...Selector} selector The HTMLElements to disable text selection highlighting.
+         * @param {...jQuerySelector} jQuery or Zepto Selector to disable text selection highlighting.
          * @example
-         * ch.util.avoidTextSelection(selector);
+         * ch.util.avoidTextSelection($(selector));
          */
         'avoidTextSelection': function () {
             var args = arguments;
 
             if (arguments.length < 1) {
-                throw new Error('"ch.util.avoidTextSelection(selector)": The selector parameter is required.');
+                throw new Error('"ch.util.avoidTextSelection(selector);": The selector parameter is required.');
             }
 
             $.each(args, function (i, $arg) {
 
                 if (!($arg instanceof $ || $.zepto.isZ($arg))) {
-                    throw new Error('"ch.util.avoidTextSelection(selector)": The parameter must be a query selector.');
+                    throw new Error('"ch.util.avoidTextSelection(selector);": The parameter must be a jQuery or Zepto selector.');
                 }
 
                 if ($html.hasClass('lt-ie10')) {
@@ -163,7 +163,7 @@
          * @returns {CSSStyleDeclaration}
          * @link http://www.quirksmode.org/dom/getstyles.html
          * @example
-         * ch.util.getStyles(nodeElement, 'color'); // true
+         * ch.util.getStyles(HTMLElement, 'color'); // true
          */
         'getStyles': function (el, prop) {
 
@@ -266,7 +266,7 @@
          * Get the current outer dimensions of an element.
          * @returns {Object}
          * @example
-         * ch.util.getOuterDimensions(nodeElement);
+         * ch.util.getOuterDimensions(HTMLElement);
          */
         'getOuterDimensions': function (el) {
             var obj = el.getBoundingClientRect();
@@ -281,7 +281,7 @@
          * Get the current offset of an element.
          * @returns {Object}
          * @example
-         * ch.util.getOffset(nodeElement);
+         * ch.util.getOffset(HTMLElement);
          */
         'getOffset': function (el) {
             var rect = el.getBoundingClientRect(),

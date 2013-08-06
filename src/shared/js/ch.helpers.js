@@ -5,9 +5,9 @@
     var ch = {},
 
         /**
-         * Reference to the window Selector Object.
+         * Reference to the window jQuery or Zepto Selector.
          * @private
-         * @type {Selector}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         $window = $(window),
 
@@ -33,37 +33,37 @@
         document = window.document,
 
         /**
-         * Reference to the document Selector Object.
+         * Reference to the document jQuery or Zepto Selector.
          * @private
-         * @type {Selector}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         $document = $(document),
 
         /**
          * Reference to the HTMLBodyElement.
          * @private
-         * @type {Object}
+         * @type {HTMLBodyElement}
          */
         body = document.body,
 
         /**
-         * Reference to the body Selector Object.
+         * Reference to the body jQuery or Zepto Selector.
          * @private
-         * @type {Selector}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         $body = $(body),
 
         /**
-         * Reference to the HTMLElement.
+         * Reference to the HTMLhtmlElement.
          * @private
-         * @type {Object}
+         * @type {HTMLhtmlElement}
          */
         html = document.getElementsByTagName('html')[0],
 
         /**
-         * Reference to the html Selector Object.
+         * Reference to the html jQuery or Zepto Selector.
          * @private
-         * @type {Selector}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         $html = $(html),
 
