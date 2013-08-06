@@ -40,7 +40,7 @@
             that.emit('hide');
         }
 
-        this._shown = this._options.shown;
+        this._shown = false;
 
         /**
          * Shows component's container.
