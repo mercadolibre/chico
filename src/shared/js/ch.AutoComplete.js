@@ -1,37 +1,31 @@
-/**
-* AutoComplete lets you suggest anything from an input element. Use a suggestion service or use a collection with the suggestions.
-* @name AutoComplete
-* @class AutoComplete
-* @augments ch.Controls
-* @see ch.Controls
-* @memberOf ch
-* @param {Object} [conf] Object with configuration properties.
-* @param {String} conf.url The url pointing to the suggestions's service.
-* @param {String} [conf.content] It represent the text when no options are shown.
-* @param {Array} [conf.suggestions] The suggestions's collection. If a URL is set at conf.url parametter this will be omitted.
-* @returns itself
-* @factorized
-* @exampleDescription Create a new autoComplete with configuration.
-* @example
-* var widget = $(".example").autoComplete({
-*     "url": "http://site.com/mySuggestions?q=",
-*     "message": "Write..."
-* });
-*/
 (function (window, $, ch) {
     'use strict';
 
     if (window.ch === undefined) {
         throw new window.Error('Expected ch namespace defined.');
     }
-
+    /**
+     * AutoComplete widget shows a list of suggestions when for a HTMLInputElement.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Widget
+     * @param {Object} [conf] Object with configuration properties.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed (default).
+     * @returns {Object}
+     * @example
+     * // Create a new autoComplete with configuration.
+     * var widget = $('.example').autoComplete();
+     */    
     function AutoComplete($el, options) {
 
         /**
         * Reference to a internal component instance, saves all the information and configuration properties.
         * @private
         * @name ch.AutoComplete#that
-        * @type object
         */
         var that = this;
 
@@ -39,12 +33,10 @@
 
         /**
          * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.AutoComplete#ready
-         * @event
-         * @public
-         * @exampleDescription Following the first example, using <code>widget</code> as autoComplete's instance controller:
+         * @event ch.AutoComplete#ready
          * @example
-         * widget.on("ready",function () {
+         * // Following the first example, using <code>widget</code> as autoComplete's instance controller:
+         * widget.on('ready',function () {
          *   this.show();
          * });
          */
@@ -61,9 +53,23 @@
         $document = $(document),
         parent = ch.util.inherits(AutoComplete, ch.Widget);
 
+    /**
+     * The name of the widget. A new instance is saved into the $el parameter.
+     * @memberof! ch.AutoComplete.prototype
+     * @type {String}
+     * @expample
+     * // You can reach the instance associated.
+     * var widget = $(selector).data('autoComplete');
+     */
     AutoComplete.prototype.name = 'autoComplete';
 
-    AutoComplete.prototype.constructor = AutoComplete;
+    /**
+     * Returns a reference to the Constructor function that created the instance's prototype.
+     * @memberof! ch.AutoComplete.prototype
+     * @constructor
+     * @private
+     */
+    AutoComplete.prototype._constructor = AutoComplete;
 
     AutoComplete.prototype._defaults = {
         'loadingClass': 'ch-autoComplete-loading',
@@ -71,9 +77,17 @@
         'align': 'left',
         'keystrokesTime': 1000,
         'hiddenby': 'none',
-        'html': false
+        'html': false,
+        'side': 'bottom',
+        'align': 'left'
     };
 
+    /**
+     * Initialize the instance and merges the user options with defaults options.
+     * @memberof! ch.AutoComplete.prototype
+     * @function
+     * @returns {instance} Returns an instance of ch.AutoComplete.
+     */
     AutoComplete.prototype.init = function ($el, options) {
         var that = this,
             ESC = ch.onkeyesc + '.' + this.name, // UI
@@ -94,7 +108,7 @@
 
         /**
          * The component who shows the suggestions.
-         * @public
+         * @private
          * @type Object
          * @name ch.AutoComplete#_popover
          */
