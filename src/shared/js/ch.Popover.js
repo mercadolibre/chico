@@ -72,7 +72,7 @@
 
         parent = ch.util.inherits(Popover, ch.Widget),
 
-        openEvent = {
+        shownbyEvent = {
             'click': ch.onpointertap,
             'mouseenter': ch.onpointerenter
         };
@@ -201,7 +201,7 @@
         if (this._options.shownby !== 'none') {
             this._$el
                 .addClass('ch-shownby-' + this._options.shownby)
-                .on(openEvent[this._options.shownby] + '.' + this.name, function (event) {
+                .on(shownbyEvent[this._options.shownby] + '.' + this.name, function (event) {
                     ch.util.prevent(event);
                     that.show();
                 });
