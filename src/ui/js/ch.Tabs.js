@@ -25,20 +25,6 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    function normalizeOptions(options) {
-
-        var num = window.parseInt(options, 10);
-
-        if (!window.isNaN(num)) {
-            options = {
-                'shown': num
-            };
-        }
-
-        return options;
-    }
-
-
     function Tabs($el, options) {
 
         this.init($el, options);
@@ -78,10 +64,6 @@
     Tabs.prototype.name = 'tabs';
 
     Tabs.prototype.constructor = Tabs;
-
-    Tabs.prototype._defaults = {
-        'shown': 1
-    };
 
     Tabs.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
@@ -155,7 +137,7 @@
             that._createTab(i, e);
         });
 
-        this._shown = this._options.shown;
+        this._shown = 1;
 
         this._hasHash();
 
@@ -362,6 +344,6 @@
     /**
      * Factory
      */
-    ch.factory(Tabs, normalizeOptions);
+    ch.factory(Tabs);
 
 }(this, this.ch.$, this.ch));
