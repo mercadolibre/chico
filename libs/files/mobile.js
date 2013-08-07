@@ -16,7 +16,6 @@ JS.core = [
     "src/mobile/js/ch.events.js",
     "src/ui/js/ch.events.js",
     "src/shared/js/ch.factory.js",
-    "src/ui/js/ch.shortcuts.js",
     "src/mobile/js/ch.init.js"
 ];
 

@@ -1,8 +1,8 @@
     /**
      * Method in change of expose a friendly interface of the Chico constructors.
-     * @methodOf ch
+     * @memberof ch
      * @param {Object} Klass Direct reference to the constructor from where the $-plugin will be created.
-     * @see <a href="http://docs.jquery.com/Plugins/Authoring" target="_blank">http://docs.jquery.com/Plugins/Authoring</a>
+     * @link http://docs.jquery.com/Plugins/Authoring | Authoring
      */
     ch.factory = function (Klass, fn) {
         /**
@@ -25,6 +25,7 @@
 
         /**
          * The class constructor exposed into the "$" namespace.
+         * @ignore
          * @exampleDescription Creating a widget instance by specifying a query selector and a configuration object.
          * @example
          * $.widget($('#example'), {

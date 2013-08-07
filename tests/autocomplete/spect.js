@@ -27,13 +27,13 @@ var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-f
             autoComplete.suggest(suggestions);
         })
         .on('ready', function () { readyEvent(); })
-        .el.value = 'ar';
+        ._el.value = 'ar';
 
     autoCompleteHTML
         .on('typing', function () {
             autoCompleteHTML.suggest(suggestionsHTML);
         })
-        .el.value = 'ar';
+        ._el.value = 'ar';
 
 
 describe('ch.AutoComplete', function () {
@@ -75,15 +75,15 @@ describe('ch.AutoComplete', function () {
 
 describe('It should have the following public properties:', function () {
 
-    it('.el', function () {
-        expect(autoComplete.el).not.toEqual(undefined);
-        expect(autoComplete.el.nodeType).toEqual(1);
-        expect(autoComplete.el instanceof HTMLInputElement).toBeTruthy();
+    it('._el', function () {
+        expect(autoComplete._el).not.toEqual(undefined);
+        expect(autoComplete._el.nodeType).toEqual(1);
+        expect(autoComplete._el instanceof HTMLInputElement).toBeTruthy();
     });
 
-    it('.$el', function () {
-        expect(autoComplete.$el).not.toEqual(undefined);
-        expect(autoComplete.$el instanceof $).toBeTruthy();
+    it('.$trigger', function () {
+        expect(autoComplete.$trigger).not.toEqual(undefined);
+        expect(autoComplete.$trigger instanceof $).toBeTruthy();
     });
 
     it('.name', function () {
@@ -120,7 +120,7 @@ describe('It should have the following public methods:', function () {
 });
 
 describe('The input element should have the following WAI-ARIA attributes', function () {
-    var $input = autoComplete.$el,
+    var $input = autoComplete.$trigger,
         inputID = autoComplete.$container[0].id;
 
     it('"aria-haspopup" in "true"', function () {
@@ -164,9 +164,9 @@ describe('It should have a "$container" property and', function () {
 
 
 describe('It should emits typing event and',function(){
-    autoComplete.el.focus();
+    autoComplete._el.focus();
 
-    autoComplete.emit('typing', autoComplete.el.value);
+    autoComplete.emit('typing', autoComplete._el.value);
 
     it('should trigger the callback function', function () {
         expect(typingEvent).toHaveBeenCalled();
@@ -181,14 +181,14 @@ describe('Its suggest() method', function () {
             $suggestionList;
 
         it('open when suggestions are given', function () {
-            autoComplete.el.focus();
-            autoComplete.emit('typing', autoComplete.el.value);
+            autoComplete._el.focus();
+            autoComplete.emit('typing', autoComplete._el.value);
             expect(autoComplete.isShown()).toBeTruthy();
         });
 
         it('should have hightlighted items', function () {
-            autoComplete.el.focus();
-            autoComplete.emit('typing', autoComplete.el.value);
+            autoComplete._el.focus();
+            autoComplete.emit('typing', autoComplete._el.value);
             itemsHighilighted = autoComplete.$container.find('strong').length;
             expect(itemsHighilighted).toEqual(3);
         });
@@ -236,8 +236,8 @@ describe('Its isShown() method', function () {
     var isShown;
 
     it('should return "true" when the widget is shown', function () {
-        autoComplete.el.focus();
-        autoComplete.emit('typing', autoComplete.el.value);
+        autoComplete._el.focus();
+        autoComplete.emit('typing', autoComplete._el.value);
         isShown = autoComplete.isShown();
 
         expect(typeof isShown).toEqual('boolean');
@@ -260,8 +260,8 @@ describe('Its disable() method', function () {
         isShown;
 
     it('should prevent to suggest', function () {
-        autoComplete.el.focus();
-        autoComplete.emit('typing', autoComplete.el.value);
+        autoComplete._el.focus();
+        autoComplete.emit('typing', autoComplete._el.value);
         instance = autoComplete.disable();
         expect(autoComplete.isShown()).toBeFalsy();
     });
@@ -277,8 +277,8 @@ describe('Its enable() method', function () {
 
     it('should suggest', function () {
         instance = autoComplete.enable();
-        autoComplete.el.focus();
-        autoComplete.emit('typing', autoComplete.el.value);
+        autoComplete._el.focus();
+        autoComplete.emit('typing', autoComplete._el.value);
         expect(autoComplete.isShown()).toBeTruthy();
     });
 
@@ -292,8 +292,8 @@ describe('Instance an AutoComplete configured to show HTML', function () {
 
     it('should return the items with the HTML sent', function () {
 
-        autoCompleteHTML.el.focus();
-        autoCompleteHTML.emit('typing', autoCompleteHTML.el.value);
+        autoCompleteHTML._el.focus();
+        autoCompleteHTML.emit('typing', autoCompleteHTML._el.value);
 
         // this wait is for the focu
         waits(300);
@@ -302,6 +302,25 @@ describe('Instance an AutoComplete configured to show HTML', function () {
             expect(itemAdded.nodeType).toEqual(1);
         });
 
+    });
+
+});
+
+describe('Its destroy() method', function () {
+
+    it('should reset the $trigger', function () {
+        autoComplete.destroy();
+        expect(autoComplete.$trigger.attr('aria-haspopup')).toBeUndefined();
+        expect(autoComplete.$trigger.attr('aria-owns')).toBeUndefined();
+        expect(autoComplete.$trigger.attr('aria-autocomplete')).toBeUndefined();
+    });
+
+    it('should remove ".autocomplete" events', function () {
+        expect($._data(autoComplete.$trigger[0], 'events')).toBeUndefined();
+    });
+
+    it('should remove the instance from the element', function () {
+        expect(autoComplete._$el.data('autoComplete')).toBeUndefined();
     });
 
 });

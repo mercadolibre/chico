@@ -1,16 +1,15 @@
     /**
      * Provides varies utilities and commons functions that are used across all widgets.
-     * @name ch.util
      * @namespace
      */
     ch.util = {
 
         /**
          * Returns true if an object is an array, false if it is not.
-         * @name isArray
-         * @methodOf ch.util
          * @param {Object} obj The object to be checked.
          * @returns {Boolean}
+         * @example
+         * ch.util.isArray([1, 2, 3]); // true
          */
         'isArray': (function () {
             if (typeof Array.isArray === 'function') {
@@ -28,10 +27,10 @@
 
         /**
          * Checks if the url given is right to load content.
-         * @name isUrl
-         * @methodOf ch.util
          * @param {String} url The url to be checked.
          * @returns {Boolean}
+         * @example
+         * ch.util.isUrl('www.chico-ui.com.ar'); // true
          */
         'isUrl': function (url) {
             if (url === undefined || typeof url !== 'string') {
@@ -112,10 +111,10 @@
 
         /**
          * Determines if a specified element is an instance of $.
-         * @name is$
-         * @methodOf ch.util
          * @param {Object} $el The element to be checked as instance of $.
          * @returns {Boolean}
+         * @example
+         * ch.util.is$($('element')); // true
          */
         'is$': (function () {
             if ($.zepto === undefined) {
@@ -131,23 +130,21 @@
 
         /**
          * Adds CSS rules to disable text selection highlighting.
-         * @name avoidTextSelection
-         * @methodOf ch.util
-         * @param {Object} Selector1 The HTMLElements to disable text selection highlighting.
-         * @param {Object} [Selector2] The HTMLElements to disable text selection highlighting.
-         * @param {Object} [SelectorN] The HTMLElements to disable text selection highlighting.
+         * @param {...jQuerySelector} jQuery or Zepto Selector to disable text selection highlighting.
+         * @example
+         * ch.util.avoidTextSelection($(selector));
          */
         'avoidTextSelection': function () {
             var args = arguments;
 
             if (arguments.length < 1) {
-                throw new Error('"ch.util.avoidTextSelection(selector)": The selector parameter is required.');
+                throw new Error('"ch.util.avoidTextSelection(selector);": The selector parameter is required.');
             }
 
             $.each(args, function (i, $arg) {
 
                 if (!($arg instanceof $ || $.zepto.isZ($arg))) {
-                    throw new Error('"ch.util.avoidTextSelection(selector)": The parameter must be a query selector.');
+                    throw new Error('"ch.util.avoidTextSelection(selector);": The parameter must be a jQuery or Zepto selector.');
                 }
 
                 if ($html.hasClass('lt-ie10')) {
@@ -161,12 +158,12 @@
 
         /**
          * Gives the final used values of all the CSS properties of an element.
-         * @name getStyles
-         * @methodOf ch.util
          * @param {object} el The HTMLElement for which to get the computed style.
          * @param {string} prop The name of the CSS property to test.
          * @returns {CSSStyleDeclaration}
-         * @see Based on: <a href="http://www.quirksmode.org/dom/getstyles.html" target="_blank">http://www.quirksmode.org/dom/getstyles.html</a>
+         * @link http://www.quirksmode.org/dom/getstyles.html
+         * @example
+         * ch.util.getStyles(HTMLElement, 'color'); // true
          */
         'getStyles': function (el, prop) {
 
@@ -190,10 +187,10 @@
 
         /**
          * Returns a shallow-copied clone of the object.
-         * @name clone
-         * @methodOf ch.util
          * @param {Object} obj The object to copy.
          * @returns {Object}
+         * @example
+         * ch.util.clone(object);
          */
         'clone': function (obj) {
             if (obj === undefined || typeof obj !== 'object') {
@@ -214,14 +211,12 @@
 
         /**
          * Inherits the prototype methods from one constructor into another. The parent will be accessible through the obj.super property.
-         * @name inherits
-         * @methodOf ch.util
          * @param {Function} obj The object that have new members.
          * @param {Function} superConstructor The construsctor Class.
          * @returns {Object}
          * @exampleDescription
          * @example
-         * inherit(obj, parent);
+         * ch.util.inherit(obj, parent);
          */
         'inherits': function (obj, superConstructor) {
 
@@ -241,10 +236,10 @@
 
         /**
          * Prevent propagation and default actions.
-         * @name prevent
-         * @methodOf ch.util
          * @param {Event} event The event ot be prevented.
          * @returns {Object}
+         * @example
+         * ch.util.prevent(event);
          */
         prevent: function (event) {
 
@@ -256,8 +251,9 @@
 
         /**
          * Get the current vertical and horizontal positions of the scroll bar.
-         * @name getScroll
          * @returns {Object}
+         * @example
+         * ch.util.getScroll();
          */
         'getScroll': function () {
             return {
@@ -268,8 +264,9 @@
 
         /**
          * Get the current outer dimensions of an element.
-         * @name getOuterDimensions
          * @returns {Object}
+         * @example
+         * ch.util.getOuterDimensions(HTMLElement);
          */
         'getOuterDimensions': function (el) {
             var obj = el.getBoundingClientRect();
@@ -282,8 +279,9 @@
 
         /**
          * Get the current offset of an element.
-         * @name getOffset
          * @returns {Object}
+         * @example
+         * ch.util.getOffset(HTMLElement);
          */
         'getOffset': function (el) {
             var rect = el.getBoundingClientRect(),
@@ -303,11 +301,12 @@
 
         /**
          * Reference to the vendor prefix of the current browser.
-         * @name VENDOR_PREFIX
          * @constant
-         * @methodOf ch.util
+         * @memberof ch.util
          * @type {String}
-         * @see <a href="http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/" target="_blank">http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser/</a>
+         * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
+         * @example
+         * ch.util.VENDOR_PREFIX === 'webkit';
          */
         'VENDOR_PREFIX': (function () {
 
@@ -332,9 +331,9 @@
 
         /**
          * zIndex values.
-         * name zIndex
-         * @methodOf ch.util
          * @type {Number}
+         * @example
+         * ch.util.zIndex += 1;
          */
         'zIndex': 1000
     };

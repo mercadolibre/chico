@@ -1,10 +1,3 @@
-/**
- * The Viewport is a component to ease viewport management. You can get the dimensions of the viewport and beyond, which can be quite helpful to perform some checks with JavaScript.
- * @name Viewport
- * @class Viewport
- * @standalone
- * @memberOf ch
- */
 (function (window, $, ch) {
     'use strict';
 
@@ -24,7 +17,6 @@
                 };
         }());
 
-
     $window
         .on(ch.onresize + '.viewport', function () { resized = true; })
         .on(ch.onscroll + '.viewport', function () { scrolled = true; });
@@ -42,10 +34,39 @@
         resized = false;
         scrolled = false;
 
+        /**
+         * Event emitted when the dimensions of the viewport changes.
+         * @event ch.viewport#resize
+         * @example
+         * ch.viewport.on('resize', function () {
+         *  // Some code here!
+         * });
+         */
+
+        /**
+         * Event emitted when the viewport is scrolled.
+         * @event ch.viewport#scroll
+         * @example
+         * ch.viewport.on('scroll', function () {
+         *  // Some code here!
+         * });
+         */
+
         // Emits the current event
         this.emit(eve);
     }
 
+    /**
+     * The Viewport is a component to ease viewport management. You can get the dimensions of the viewport and beyond, which can be quite helpful to perform some checks with JavaScript.
+     * @memberof ch
+     * @constructor
+     * @augments ch.EventEmitter
+     * @requires ch.util
+     * @returns {Object} A new intance of Viewport.
+     * @example
+     * // Create a new instnace of Viewport into ch namespace.
+     * ch.viewport = new ch.Viewport();
+     */
     function Viewport() {
         this.init();
 
@@ -54,14 +75,20 @@
 
     ch.util.inherits(Viewport, ch.EventEmitter);
 
+
+    /**
+     * Initialize a new instance of ch.Viewport.
+     * @memberof! ch.Viewport.prototype
+     * @function
+     * @returns {instance} Returns an instance of Viewport.
+     */
     Viewport.prototype.init = function () {
         var that = this;
 
         /**
          * Element representing the visible area.
-         * @public
-         * @name ch.Viewport#element
-         * @type Object
+         * @memberof! ch.viewport#element
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         that.$el = $window;
 
@@ -74,124 +101,185 @@
     };
 
     /**
-     * Calculates/updates the dimensions (width and height) of viewport (in pixels).
-     * @public
+     * Calculates/updates the client rects of viewport (in pixels).
+     * @memberof! ch.Viewport.prototype
      * @function
-     * @name ch.Viewport#calculateDimensions
+     * @returns {instance} Returns the instance of the viewport.
+     * @example
+     * // Update the client rects of the viewport.
+     * ch.viewport.calculateClientRect();
+     */
+     Viewport.prototype.calculateClientRect = function () {
+        /**
+         * The current top client rect of the viewport (in pixels).
+         * @public
+         * @name ch.Viewport#top
+         * @type {Number}
+         * @example
+         * // Checks if the top client rect of the viewport is equal to 0.
+         * (ch.viewport.top === 0) ? 'Yes': 'No';
+         */
+
+         /**
+         * The current left client rect of the viewport (in pixels).
+         * @public
+         * @name ch.Viewport#left
+         * @type {Number}
+         * @example
+         * // Checks if the left client rect of the viewport is equal to 0.
+         * (ch.viewport.left === 0) ? 'Yes': 'No';
+         */
+        this.top = this.left = 0;
+
+        /**
+         * The current bottom client rect of the viewport (in pixels).
+         * @public
+         * @name ch.Viewport#bottom
+         * @type {Number}
+         * @example
+         * // Checks if the bottom client rect of the viewport is equal to a number.
+         * (ch.viewport.bottom === 900) ? 'Yes': 'No';
+         */
+        this.bottom = this.$el.height();
+
+        /**
+         * The current right client rect of the viewport (in pixels).
+         * @public
+         * @name ch.Viewport#right
+         * @type {Number}
+         * @example
+         * // Checks if the right client rect of the viewport is equal to a number.
+         * (ch.viewport.bottom === 1200) ? 'Yes': 'No';
+         */
+        this.right = this.$el.width();
+
+        return this;
+     };
+
+    /**
+     * Calculates/updates the dimensions (width and height) of the viewport (in pixels).
+     * @memberof! ch.Viewport.prototype
+     * @function
+     * @returns {instance} Returns the instance of the viewport.
+     * @example
+     * // Update the dimensions values of the viewport.
+     * ch.viewport.calculateDimensions();
      */
     Viewport.prototype.calculateDimensions = function () {
         this.calculateClientRect();
 
         /**
-         * Height of the visible area.
+         * The current height of the viewport (in pixels).
          * @public
          * @name ch.Viewport#height
          * @type Number
+         * @example
+         * // Checks if the height of the viewport is equal to a number.
+         * (ch.viewport.height === 700) ? 'Yes': 'No';
          */
         this.height = this.bottom;
 
         /**
-         * Width of the visible area.
+         * The current width of the viewport (in pixels).
          * @public
          * @name ch.Viewport#width
          * @type Number
+         * @example
+         * // Checks if the height of the viewport is equal to a number.
+         * (ch.viewport.width === 1200) ? 'Yes': 'No';
          */
         this.width = this.right;
+
+        return this;
     };
-
-     Viewport.prototype.calculateClientRect = function () {
-        /**
-         * Top rect.
-         * @public
-         * @name ch.Viewport#top
-         * @type Number
-         */
-
-         /**
-         * Left rect.
-         * @public
-         * @name ch.Viewport#left
-         * @type Number
-         */
-        this.top = this.left = 0;
-
-        /**
-         * Bottom rect.
-         * @public
-         * @name ch.Viewport#bottom
-         * @type Number
-         */
-        this.bottom = this.$el.height();
-
-        /**
-         * Right rect.
-         * @public
-         * @name ch.Viewport#right
-         * @type Number
-         */
-        this.right = this.$el.width();
-     };
 
     /**
      * Calculates/updates the viewport position.
-     * @public
+     * @memberof! ch.Viewport.prototype
      * @function
-     * @name ch.Viewport#calculateOffset
+     * @returns {instance} Returns the instance of the viewport.
+     * @example
+     * // Update the offest values of the viewport.
+     * ch.viewport.calculateOffset();
      */
     Viewport.prototype.calculateOffset = function () {
         var that = this,
             scroll = ch.util.getScroll();
 
         /**
-         * Top offset of the visible area.
-         * @public
-         * @name ch.Viewport#top
-         * @type Number
+         * The offset top of the viewport.
+         * @memberof! ch.Viewport#
+         * @type {Number}
+         * @example
+         * // Checks if the offset top of the viewport is equal to a number.
+         * (ch.viewport.offsetTop === 200) ? 'Yes': 'No';
          */
         this.offsetTop = scroll.top;
 
         /**
-         * Left offset of the visible area.
-         * @public
-         * @name ch.Viewport#left
-         * @type Number
+         * The offset left of the viewport.
+         * @memberof! ch.Viewport#
+         * @type {Number}
+         * @example
+         * // Checks if the offset left of the viewport is equal to a number.
+         * (ch.viewport.offsetLeft === 200) ? 'Yes': 'No';
          */
         this.offsetLeft = scroll.left;
 
         /**
-         * Right offset of the visible area.
-         * @public
-         * @name ch.Viewport#right
-         * @type Number
+         * The offset right of the viewport.
+         * @memberof! ch.Viewport#
+         * @type {Number}
+         * @example
+         * // Checks if the offset right of the viewport is equal to a number.
+         * (ch.viewport.offsetRight === 200) ? 'Yes': 'No';
          */
         this.offsetRight = this.left + this.width;
 
         /**
-         * Bottom offset of the visible area.
-         * @public
-         * @name ch.Viewport#bottom
-         * @type Number
+         * The offset bottom of the viewport.
+         * @memberof! ch.Viewport#
+         * @type {Number}
+         * @example
+         * // Checks if the offset bottom of the viewport is equal to a number.
+         * (ch.viewport.offsetBottom === 200) ? 'Yes': 'No';
          */
         this.offsetBottom = this.offsetTop + this.height;
+
+        return this;
     };
 
     /**
-     * Rertuns the device orientation: landscape or portrait.
-     * @public
+     * Rertuns/updates the viewport orientation: landscape or portrait.
+     * @memberof! ch.Viewport.prototype
      * @function
-     * @name ch.Viewport#calculateOrientation
-     * @returns {String}
+     * @returns {instance} Returns the instance of the viewport.
+     * @example
+     * // Update the dimensions values of the viewport.
+     * ch.viewport.calculateDimensions();
      */
     Viewport.prototype.calculateOrientation = function () {
+        /** The viewport orientation: landscape or portrait.
+         * @memberof! ch.Viewport#
+         * @type {String}
+         * @example
+         * // Checks if the orientation is "landscape".
+         * (ch.viewport.orientation === 'landscape') ? 'Yes': 'No';
+         */
         this.orientation = (Math.abs(this.$el.orientation) === 90) ? 'landscape' : 'portrait';
+
+        return this;
     };
 
     /**
      * Calculates if an element is completely located in the viewport.
-     * @public
+     * @memberof! ch.Viewport.prototype
      * @function
-     * @name ch.Viewport#inViewport
      * @returns {Boolean}
+     * @params {HTMLElement} el A given HMTLElement.
+     * @example
+     * // Checks if an element is in the viewport.
+     * ch.viewport.inViewport(HTMLElement) ? 'Yes': 'No';
      */
     Viewport.prototype.inViewport = function (el) {
         var r = el.getBoundingClientRect();
@@ -201,10 +289,13 @@
 
     /**
      * Calculates if an element is visible in the viewport.
-     * @public
+     * @memberof! ch.Viewport.prototype
      * @function
-     * @name ch.Viewport#isVisible
      * @returns {Boolean}
+     * @params {HTMLElement} el A given HTMLElement.
+     * @example
+     * // Checks if an element is visible.
+     * ch.viewport.isVisisble(HTMLElement) ? 'Yes': 'No';
      */
     Viewport.prototype.isVisible = function (el) {
         var r = el.getBoundingClientRect();
@@ -214,16 +305,22 @@
 
     /**
      * Upadtes the viewport dimension, viewport positions and orietation.
-     * @public
+     * @memberof! ch.Viewport.prototype
      * @function
-     * @name ch.Viewport#refresh
+     * @returns {instance} Returns the instance of the viewport.
+     * @example
+     * // Refreshs the viewport.
+     * ch.viewport.refresh();
      */
     Viewport.prototype.refresh = function () {
         this.calculateDimensions();
         this.calculateOffset();
         this.calculateOrientation();
+
+        return this;
     };
 
+    // The instance of the viewport into ch namespace.
     ch.viewport = new Viewport();
 
 }(this, this.ch.$, this.ch));

@@ -1,10 +1,3 @@
-/**
- * The Collapsible class gives to widgets the ability to shown or hidden its container.
- * @name Collapsible
- * @class Collapsible
- * @standalone
- * @memberOf ch
- */
 (function (window, ch) {
     'use strict';
 
@@ -12,13 +5,19 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    var toggle = {
+    var toggleEffects = {
         'slideDown': 'slideUp',
         'slideUp': 'slideDown',
         'fadeIn': 'fadeOut',
         'fadeOut': 'fadeIn'
     };
 
+    /**
+     * The Collapsible class gives to widgets the ability to shown or hidden its container.
+     * @memberOf ch
+     * @mixin
+     * @returns {Function} Returns a private funciton.
+     */
     function Collapsible() {
 
         var that = this,
@@ -32,21 +31,39 @@
 
         function showCallback() {
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
+
+            /**
+             * Event emitted when the widget container is shown.
+             * @event ch.Collapsible#show
+             * @example
+             * // Subscribe to "show" event.
+             * widget.on('show', function () {
+             *  // Some code here!
+             * });
+             */
             that.emit('show');
         }
 
         function hideCallback() {
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
+
+            /**
+             * Event emitted when the widget container.is hidden.
+             * @event ch.Collapsible#hide
+             * @example
+             * // Subscribe to "hide" event.
+             * widget.on('hide', function () {
+             *  // Some code here!
+             * });
+             */
             that.emit('hide');
         }
 
         this._shown = false;
 
         /**
-         * Shows component's container.
-         * @public
-         * @function
-         * @name that#_show
+         * Shows the widget container.
+         * @private
          */
         this._show = function () {
 
@@ -67,10 +84,8 @@
         };
 
         /**
-         * Hides component's container.
-         * @public
-         * @function
-         * @name that#_hide
+         * Hides the widget container.
+         * @private
          */
         this._hide = function () {
 
@@ -82,13 +97,28 @@
 
             // Animate or not
             if (canUseFx) {
-                that.$container[toggle[fx]]('fast', hideCallback);
+                that.$container[toggleEffects[fx]]('fast', hideCallback);
             } else {
                 hideCallback();
             }
 
             return that;
         };
+
+        /**
+         * Shows or hides the widget container.
+         * @private
+         */
+        this._toggle = function () {
+
+            if (that._shown) {
+                that.hide();
+            } else {
+                that.show();
+            }
+
+            return that;
+        }
 
         this.on('disable', this.hide);
     }
