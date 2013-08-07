@@ -84,7 +84,6 @@
                     if (expandable.name === 'expandable') {
                         expandable[method]();
                     }
-
                 }
 
                 // enable all
@@ -131,10 +130,6 @@
         // Call to its parents init method
         parent.init.call(this, $el, options);
 
-    /**
-     * Protected Members
-     */
-
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
 
@@ -149,17 +144,8 @@
          */
         this.fold = [];
 
-        /**
-         * Default behavior
-         */
-
         // Inits an expandable component on each list inside main HTML code snippet
         this._createExpandables();
-
-        // Select specific item if there are a "shown" parameter on component configuration object
-        if (this._options.shown !== undefined) {
-            this.show(this._options.shown);
-        }
 
         return this;
     };
@@ -173,8 +159,7 @@
     Menu.prototype._createExpandables = function () {
         var that = this,
             $li,
-            $child,
-            $menu;
+            $child;
 
         function createExpandable(i, li) {
             // List element
@@ -185,18 +170,15 @@
 
             // Anchor inside list
             if ($child[0].tagName === 'A') {
-
                 // Add attr role to match wai-aria
                 $li.attr('role', 'presentation');
-
+                //
                 $child.addClass('ch-fold-trigger');
-
                 // Add anchor to that.fold
                 that.fold.push($child);
 
             } else {
-
-                    // List inside list, inits an Expandable
+                // List inside list, inits an Expandable
                 var expandable = $child.expandable({
                     // Show/hide on IE8- instead slideUp/slideDown
                     'fx': that._options.fx
@@ -215,7 +197,7 @@
                          *     app.off();
                          * });
                          */
-                        that.emit('show', i+1);
+                        that.emit('show', i + 1);
                     })
                     .on('hide', function () {
                         /**
@@ -324,19 +306,6 @@
         createMethods(methods[len -= 1]);
     }
 
-    Menu.prototype._normalizeOptions = function (options) {
-
-        var num = window.parseInt(options, 10);
-
-        if (!window.isNaN(num)) {
-            options = {
-                'shown': num
-            };
-        }
-
-        return options;
-    };
-
     /**
      * Destroys a Menu instance.
      * @public
@@ -361,6 +330,6 @@
     /**
      * Factory
      */
-    ch.factory(Menu, Menu.prototype._normalizeOptions);
+    ch.factory(Menu);
 
 }(this, this.ch.$, this.ch));
