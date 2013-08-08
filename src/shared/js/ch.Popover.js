@@ -86,6 +86,9 @@
 
     Popover.prototype._defaults = {
         '_ariaRole': 'dialog',
+        '_className': '',
+        '_hideDelay': 400,
+        'addClass': '',
         'fx': 'fadeIn',
         'width': 'auto',
         'height': 'auto',
@@ -111,12 +114,14 @@
          */
         this.$container = $([
             '<div',
-            ' class="ch-popover ch-hide ' + (this._options._className || '') + ' ' + (this._options.addClass || '') + '"',
+            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
             '>'
-        ].join(''));
+        ].join('')).on(ch.onpointertap + '.' + this.name, function (event) {
+            event.stopPropagation();
+        });
 
         /**
          * Inner reference to content container. Here is where the content will be added.
@@ -137,7 +142,6 @@
         /**
          * Configure abilities
          */
-
         this._closable();
 
         this._positioner = new ch.Positioner({
@@ -159,7 +163,8 @@
          * $document.on(ch.onchangelayout, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
-            return that.refreshPosition();
+            that._positioner.refresh(options);
+            return that;
         };
 
         // Refersh position on:
@@ -189,7 +194,20 @@
      */
     Popover.prototype._configureTrigger = function () {
 
-        var that = this;
+        var that = this,
+            showHandler = (function () {
+                var fn = that._toggle;
+
+                if (that._options.hiddenby === 'none' || that._options.hiddenby === 'button-only') {
+                    fn = function () {
+                         if (!that._shown){
+                            that.show();
+                        }
+                    };
+                }
+
+                return fn;
+            }());
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
@@ -203,7 +221,7 @@
                 .addClass('ch-shownby-' + this._options.shownby)
                 .on(shownbyEvent[this._options.shownby] + '.' + this.name, function (event) {
                     ch.util.prevent(event);
-                    that.show();
+                    showHandler();
                 });
         }
 
@@ -249,13 +267,13 @@
             return this;
         }
 
-        // Do it before content.set, because content.set triggers the position.refresh)
+        // // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
 
         // Open the collapsible
         this._show();
 
-        // Request the content
+        // // Request the content
         if (content !== undefined) {
             this.content(content);
         }
@@ -271,7 +289,6 @@
      * @returns itself
      */
     Popover.prototype.hide = function () {
-
         this._hide();
 
         return this;

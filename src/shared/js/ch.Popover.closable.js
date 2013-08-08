@@ -26,15 +26,17 @@
             escEvent = keyEsc + '.' + this.name,
             timeOut;
 
-        function close(event) {
-            ch.util.prevent(event);
-            that.hide();
+        function hide(event) {
+            if (event.target !== that._el && event.target !== that.$container[0]) {
+                that.hide();
+            }
         }
 
-        function closeTimer() {
-            timeOut = setTimeout(close, 400);
+        function hideTimer() {
+            timeOut = setTimeout(function () {
+                that.hide();
+            }, that._options._hideDelay);
         }
-
 
         /**
          * Allows to manage the widgets content.
@@ -56,38 +58,33 @@
                     clearTimeout(timeOut);
                 };
 
-                events[pointerLeave] = closeTimer;
+                events[pointerLeave] = hideTimer;
 
                 that.$trigger.on(events);
                 that.$container.on(events);
-
-                return;
             }
 
             // Closable button-only
-            if (hiddenby === 'button-only' || hiddenby === 'all') {
+            if (hiddenby === 'button-only' || hiddenby === 'all') {
                 // Append a close button
-                $('<a class="ch-close" role="button" aria-label="Close"></a>').on(pointerTap, close).prependTo(that.$container);
+                $('<i class="ch-close" role="button" aria-label="Close"></i>').on(pointerTap, function () {
+                    that.hide();
+                }).prependTo(that.$container);
             }
 
-            // Closable keys-only
-            if (hiddenby === 'pointers-only' || hiddenby === 'all') {
-
+            if (hiddenby === 'pointers-only' || hiddenby === 'all') {
                 ch.shortcuts.add(ch.onkeyesc, that.uid, function() { that.hide(); });
-
-                that.on('show', function () {
-                    ch.shortcuts.on(that.uid);
-                    $document.one(pointerTap, close);
-                })
-                .on('hide', function () {
-                    ch.shortcuts.off(that.uid);
-                    $document.off(pointerTap, close);
-                })
-                // Avoid to close when user clicks into the component
-                .$container.on(pointerTap, function (event) {
-                    event.stopPropagation();
-                });
+                that
+                    .on('show', function () {
+                        ch.shortcuts.on(that.uid);
+                        $document.on(pointerTap, hide);
+                    })
+                    .on('hide', function () {
+                        ch.shortcuts.off(that.uid);
+                        $document.off(pointerTap, hide);
+                    });
             }
+
         };
     }
 

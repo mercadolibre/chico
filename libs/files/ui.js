@@ -23,7 +23,6 @@ JS.core = [
 JS.abilities = [
     "src/shared/js/ch.EventEmitter.js",
     "src/shared/js/ch.Content.js",
-    "src/shared/js/ch.Closable.js",
     "src/shared/js/ch.Collapsible.js",
     "src/shared/js/ch.Viewport.js",
     "src/shared/js/ch.Positioner.js",
@@ -52,7 +51,7 @@ JS.widgets = [
     "src/shared/js/ch.Required.js",
     "src/shared/js/ch.Expandable.js",
     "src/shared/js/ch.Menu.js",
-    "src/shared/js/ch.Popover.js",
+    "src/shared/js/ch.Popover*",
     "src/shared/js/ch.Layer.js",
     "src/shared/js/ch.Tooltip.js",
     "src/shared/js/ch.Bubble.js",
