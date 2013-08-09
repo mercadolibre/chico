@@ -26,7 +26,6 @@ JS.abilities = [
     "src/shared/js/ch.EventEmitter.js",
     "src/mobile/js/ch.routes.js",
     "src/shared/js/ch.Content.js",
-    "src/shared/js/ch.Closable.js",
     "src/shared/js/ch.Collapsible.js",
     "src/shared/js/ch.Viewport.js",
     "src/shared/js/ch.Positioner.js"

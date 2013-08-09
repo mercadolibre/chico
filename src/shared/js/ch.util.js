@@ -235,17 +235,15 @@
         },
 
         /**
-         * Prevent propagation and default actions.
+         * Prevent default actions of a given event.
          * @param {Event} event The event ot be prevented.
          * @returns {Object}
          * @example
          * ch.util.prevent(event);
          */
         prevent: function (event) {
-
             if (typeof event === 'object') {
                 event.preventDefault();
-                event.stopPropagation();
             }
         },
 
