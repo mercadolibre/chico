@@ -200,7 +200,7 @@
 
                 if (that._options.hiddenby === 'none' || that._options.hiddenby === 'button-only') {
                     fn = function () {
-                         if (!that._shown){
+                        if (!that._shown) {
                             that.show();
                         }
                     };
@@ -397,9 +397,9 @@
             pointerTap = ch.onpointertap + '.' + this.name,
             pointerEnter = ch.onpointerenter + '.' + this.name,
             pointerLeave = ch.onpointerleave + '.' + this.name,
-            keyEsc = ch.onkeyesc ? ch.onkeyesc : 'touchend',
-            escEvent = keyEsc + '.' + this.name,
-            timeOut;
+            escEvent = ch.onkeyesc || 'touchend',
+            timeOut,
+            events;
 
         function hide(event) {
             if (event.target !== that._el && event.target !== that.$container[0]) {
@@ -419,7 +419,7 @@
         // Closable by leaving the widget
         if (hiddenby === 'mouseleave' && that.$trigger !== undefined) {
 
-            var events = {};
+            events = {};
 
             events[pointerEnter] = function () {
                 clearTimeout(timeOut);
@@ -440,7 +440,7 @@
         }
 
         if (hiddenby === 'pointers-only' || hiddenby === 'all') {
-            ch.shortcuts.add(ch.onkeyesc, that.uid, function() { that.hide(); });
+            ch.shortcuts.add(escEvent, that.uid, function () { that.hide(); });
             that
                 .on('show', function () {
                     ch.shortcuts.on(that.uid);
