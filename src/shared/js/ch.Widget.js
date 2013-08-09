@@ -107,9 +107,9 @@
      * @params {...String} var_args The name of the abilities to will be used.
      * @expample
      * // You can require some abilitiest to use in your widget.
-     * // For example you should require the collpasible and closable abitliy.
+     * // For example you should require the collpasible abitliy.
      * var widget = new Widget(element, options);
-     * widget.require('Collapsible', 'Closable');
+     * widget.require('Collapsible');
      */
     Widget.prototype.require = function () {
 
