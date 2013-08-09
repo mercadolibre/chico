@@ -51,7 +51,7 @@ JS.widgets = [
     "src/shared/js/ch.Required.js",
     "src/shared/js/ch.Expandable.js",
     "src/shared/js/ch.Menu.js",
-    "src/shared/js/ch.Popover*",
+    "src/shared/js/ch.Popover.js",
     "src/shared/js/ch.Layer.js",
     "src/shared/js/ch.Tooltip.js",
     "src/shared/js/ch.Bubble.js",
