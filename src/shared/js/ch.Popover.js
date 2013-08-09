@@ -401,6 +401,7 @@
             timeOut,
             events;
 
+
         function hide(event) {
             if (event.target !== that._el && event.target !== that.$container[0]) {
                 that.hide();
