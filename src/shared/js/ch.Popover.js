@@ -261,7 +261,7 @@
      * @function
      * @returns itself
      */
-    Popover.prototype.show = function (content) {
+    Popover.prototype.show = function (content, options) {
 
         if (!this._enabled) {
             return this;
@@ -275,7 +275,7 @@
 
         // // Request the content
         if (content !== undefined) {
-            this.content(content);
+            this.content(content, options);
         }
 
         return this;
