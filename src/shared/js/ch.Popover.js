@@ -198,7 +198,9 @@
             showHandler = (function () {
                 var fn = that._toggle;
 
-                if (that._options.hiddenby === 'none' || that._options.hiddenby === 'button-only') {
+                // When a Popover is shown on pointerenter, it will set a timeout to manage when
+                // to close the widget. Avoid to toggle and let choise when to close to the timer.
+                if (that._options.shownby === 'mouseenter' || that._options.hiddenby === 'none' || that._options.hiddenby === 'button-only') {
                     fn = function () {
                         if (!that._shown) {
                             that.show();
@@ -267,13 +269,13 @@
             return this;
         }
 
-        // // Do it before content.set, because content.set triggers the position.refresh)
+        // Do it before content.set, because content.set triggers the position.refresh)
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
 
         // Open the collapsible
         this._show();
 
-        // // Request the content
+        // Request the content
         if (content !== undefined) {
             this.content(content, options);
         }
@@ -289,6 +291,11 @@
      * @returns itself
      */
     Popover.prototype.hide = function () {
+
+        if (!this._enabled) {
+            return this;
+        }
+
         this._hide();
 
         return this;
@@ -423,6 +430,7 @@
 
             events[pointerEnter] = function () {
                 clearTimeout(timeOut);
+                console.log("timer");
             };
 
             events[pointerLeave] = hideTimer;
