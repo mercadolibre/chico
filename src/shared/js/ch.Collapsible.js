@@ -21,13 +21,9 @@
     function Collapsible() {
 
         var that = this,
-
             triggerClass = 'ch-' + this.name + '-trigger-on',
-
             fx = this._options.fx,
-
-            canUseFx = (ch.support.fx && typeof fx === 'string');
-
+            useEffects = (ch.support.fx && fx !== 'none' && fx !== false);
 
         function showCallback() {
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
@@ -74,7 +70,7 @@
             }
 
             // Animate or not
-            if (canUseFx) {
+            if (useEffects) {
                 that.$container[fx]('fast', showCallback);
             } else {
                 showCallback();
@@ -96,7 +92,7 @@
             }
 
             // Animate or not
-            if (canUseFx) {
+            if (useEffects) {
                 that.$container[toggleEffects[fx]]('fast', hideCallback);
             } else {
                 hideCallback();

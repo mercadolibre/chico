@@ -97,7 +97,7 @@
         'format': 'DD/MM/YYYY',
         'side': 'bottom',
         'align': 'center',
-        'hiddenby': 'pointers-only'
+        'hiddenby': 'pointers'
     };
 
     DatePicker.prototype.init = function ($el, options) {
@@ -131,7 +131,7 @@
             'align': this._options.align,
             'offsetX': -1,
             'offsetY': 8,
-            'shownby': 'click',
+            'shownby': 'pointertap',
             'hiddenby': this._options.hiddenby
         });
 
