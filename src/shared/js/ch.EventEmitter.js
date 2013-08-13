@@ -21,7 +21,6 @@
      * @param {Boolean} once Listener function will be called only one time.
      * @example
      * // Will add a event listener to the 'ready' event
-     *
      * var startDoingStuff = function (event, param1, param2, ...) {
      *     // Some code here!
      * };
