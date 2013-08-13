@@ -77,9 +77,7 @@
         'align': 'left',
         'keystrokesTime': 1000,
         'hiddenby': 'none',
-        'html': false,
-        'side': 'bottom',
-        'align': 'left'
+        'html': false
     };
 
     /**
@@ -308,9 +306,7 @@
                     // when the user writes
                         window.clearTimeout(that._stopTyping);
                         that._stopTyping = window.setTimeout(function () {
-                            if (that._el.value !== '') {
                                 that.emit('typing', that._el.value);
-                            }
                         }, 400);
 
                     });
@@ -390,12 +386,7 @@
 
         this.$trigger.removeClass('ch-autoComplete-loading');
 
-        if (query === '') {
-            this._el.blur();
-            return this;
-        }
-
-        if (suggestions.length === 0) {
+        if (suggestions.length === 0 || query === '') {
             this._popover.hide();
             return this;
         }
