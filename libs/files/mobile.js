@@ -56,7 +56,6 @@ JS.widgets = [
     "src/shared/js/ch.Number.js",
     "src/shared/js/ch.Min.js",
     "src/shared/js/ch.Max.js",
-    "src/shared/js/ch.Price.js",
     "src/shared/js/ch.Custom.js",
     "src/shared/js/ch.Required.js",
     "src/shared/js/ch.Countdown.js",
