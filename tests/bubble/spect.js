@@ -13,8 +13,8 @@ describe('Bubble', function () {
         expect(typeof $.fn.bubble).toEqual('function');
     });
 
-    it('should return a new instance of Popover (because it\'s a facade)', function () {
-        expect(bubble instanceof ch.Popover).toBeTruthy();
+    it('should return a new instance of Bubble', function () {
+        expect(bubble instanceof ch.Bubble).toBeTruthy();
     });
 });
 
