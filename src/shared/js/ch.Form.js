@@ -10,7 +10,7 @@
      * @memberof ch
      * @constructor
      * @augments ch.Widget
-     * @require ch.Validations
+     * @requires ch.Validations
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Form.
      * @param {Object} [options] Options to customize an instance.
      * @param {Object} [options.messages] A collections of validations messages.
@@ -39,6 +39,7 @@
      * });
      */
     function Form($el, options) {
+
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
          * @private
@@ -72,15 +73,14 @@
      */
 
     /**
-     * The name of the widget. All instances are saved into a 'map', grouped by its name. You can reach for any or all of the widgets from a specific name with 'ch.instances'.
-     * @public
+     * The name of the widget.
      * @type {String}
      */
     Form.prototype.name = 'form';
 
     /**
-     * Returns a reference to the Constructor function that created the instance's prototype.
-     * @public
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Widget.prototype
      * @function
      */
     Form.prototype.constructor = Form;
