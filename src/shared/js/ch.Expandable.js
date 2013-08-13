@@ -56,6 +56,7 @@
      * $(selector).expandable('http://ui.ml.com:3040/ajax');
      */
     function Expandable($el, options) {
+
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
          * @private
@@ -100,8 +101,7 @@
     /**
      * Returns a reference to the constructor function that created the instance.
      * @memberof! ch.Widget.prototype
-     * @constructor
-     * @private
+     * @function
      */
     Expandable.prototype.constructor = Expandable;
 
@@ -197,11 +197,11 @@
      * @function
      * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by expandable.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
-     * @param {String} [options.method] - The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
-     * @param {String} [options.params] - Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] - Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async] - Force to sent request asynchronously. By default is true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] - Temporary content to use while the ajax request is loading.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {expandable}
      * @example
      * // Shows a basic expandable.
@@ -262,7 +262,7 @@
      * Returns a Boolean if the widget's core behavior is shown. That means it will return 'true' if the widget is on and it will return false otherwise.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @returns {expandable}
+     * @returns {Boolean}
      * @example
      * // Execute a function if the widget is shown.
      * if (widget.isShown()) {

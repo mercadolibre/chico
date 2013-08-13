@@ -1,23 +1,3 @@
-/**
- * Tabs lets you create tabs for static and dynamic content.
- * @name Tabs
- * @class Tabs
- * @augments ch.Widget
- * @memberOf ch
- * @param {Object} [options] Object with configuration properties.
- * @param {Number} [options.shown] Show a child that will be open when component was loaded. By default, the value is 1.
- * @returns itself
- * @factorized
- * @exampleDescription Create a new Tab Navigator without configuration.
- * @example
- * var widget = $('.example').tabs();
- * @exampleDescription Create a new Tab Navigator with configuration.
- * @example
- * var widget = $('.example').tabs({
- *     'shown': 2
- * });
- * @see ch.Widget
- */
 (function (window, $, ch) {
     'use strict';
 
@@ -25,30 +5,38 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    /**
+     * Tabs lets you create tabs for static and dynamic content.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Widget
+     * @requires ch.Expandable
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tabs.
+     * @returns {tabs} Returns a new instance of ch.Tabs.
+     * @example
+     * // Create a new Tabs.
+     * var widget = $('.example').tabs();
+     */
     function Tabs($el, options) {
 
         this.init($el, options);
 
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @private
          * @type {Object}
          */
         var that = this;
 
         /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.Tabs#ready
-         * @event
-         * @public
-         * @since 0.8.0
+         * Emits the event 'ready' when the widget is ready to use.
+         * @event ch.Tabs#ready
          * @example
-         * // Following the first example, using <code>widget</code> as Tabs's instance controller:
-         * widget.on('ready',function () {
-         *  this.show();
+         * // Subscribe to "ready" event.
+         * tabs.on('ready',function () {
+         *    this.show();
          * });
          */
-        //This avoit to trigger execute after the component was instanciated
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
@@ -59,12 +47,24 @@
     var parent = ch.util.inherits(Tabs, ch.Widget);
 
     /**
-     * Prototype
+     * The name of the widget.
+     * @type {String}
      */
     Tabs.prototype.name = 'tabs';
 
+    /**
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Tabs.prototype
+     * @function
+     */
     Tabs.prototype.constructor = Tabs;
 
+    /**
+     * Initialize a new instance of Tabs and merge custom options with defaults options.
+     * @memberof! ch.Tabs.prototype
+     * @function
+     * @returns {tabs}
+     */
     Tabs.prototype.init = function ($el, options) {
         parent.init.call(this, $el, options);
 
@@ -72,9 +72,8 @@
 
         /**
         * The actual location hash, is used to know if there's a specific tab shwown.
-        * @private
-        * @name ch.Tabs#_currentHash
         * @type {String}
+        * @private
         */
         this._currentHash = (function () {
             var hash = window.location.hash.match(/\#!?\/?(.[^\?|\&|\s]+)/);
@@ -84,71 +83,60 @@
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
 
-        this.$container = this._$el;
+        /**
+         * The tabs container.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        this.$container = this._$el
+            .addClass('ch-tabs');
 
         /**
-         * Children tab instances associated to this controller.
-         * @public
-         * @name ch.Form#tab
+         * The tabs triggers.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        this.$triggers = this.$container.children(':first-child')
+            .addClass('ch-tabs-triggers')
+            .attr('role', 'tablist');
+
+        /**
+         * A collection of tabs children (tab).
          * @type {Array}
          */
         this.tab = [];
 
         /**
-         * The component's triggers.
-         * @protected
-         * @name ch.Tabs#$triggers
-         * @type {jQuery}
+         * The container of tabpanels.
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
-        this.$triggers = this.$container.children(':first-child');
-
-        /**
-         * The component's panel.
-         * @protected
-         * @name ch.Tabs#$panel
-         * @type {jQuery}
-         */
-        this.$panel = this.$container.children(':last-child');
-
-        /**
-         * The tabpanel's containers.
-         * @private
-         * @name ch.Tabs#_$tabsPanels
-         * @type {jQuery}
-         */
-        this._$tabsPanels = this.$panel.children();
-
-        /**
-         * Default behavior
-         */
-
-        this.$container.addClass('ch-tabs');
-
-        this.$triggers
-            .addClass('ch-tabs-triggers')
-            .attr('role', 'tablist');
-
-        this.$panel
+        this.$panel = this.$container.children(':last-child')
             .addClass('ch-tabs-panel ch-box-lite')
             .attr('role', 'presentation');
 
-        // Creates children tab
+        /**
+         * The tabpanel's containers.
+         * @type {jQuery}
+         * @private
+         */
+        this._$tabsPanels = this.$panel.children();
+
+        // Creates tab
         this.$triggers.find('a').each(function (i, e) {
             that._createTab(i, e);
         });
 
+        // Set the default shown tab.
         this._shown = 1;
 
+        // Checks if the url has a hash to shown the associated tab.
         this._hasHash();
 
         return this;
     };
 
     /**
-     * Create controller's children.
-     * @private
-     * @name ch.Tabs#_createTabs
+     * Create tab.
      * @function
+     * @private
      */
     Tabs.prototype._createTab = function (i, e) {
         var that = this,
@@ -199,6 +187,11 @@
         return this;
     };
 
+    /**
+     * Checks if the url has a hash to shown the associated tab.
+     * @function
+     * @private
+     */
     Tabs.prototype._hasHash = function () {
         var i = 0,
             // Shows the first tab if not hash or it's hash and it isn't from the current tab,
@@ -215,10 +208,13 @@
         this.tab[this._shown - 1].show();
 
         /**
-         * Fired when a tab is shown.
-         * @name ch.Tabs#show
-         * @event
-         * @public
+         * Event emitted when the tabs shows a tabpanel.
+         * @event ch.Tabs#show
+         * @example
+         * // Subscribe to "show" event.
+         * widget.on('show', function (shownTab) {
+         *  // Some code here!
+         * });
          */
         this.emit('show', this._shown);
 
@@ -226,37 +222,34 @@
     };
 
     /**
-     * Show a specific tab or get the shown tab.
-     * @public
-     * @name ch.Tabs#show
+     * Shows a specific tab.
+     * @memberof! ch.Tabs.prototype
      * @function
-     * @param {Number} [tab] Tab's child.
-     * @exampleDescription Shows a specific tab
+     * @param {Number} tab
+     * @returns {tabs}
      * @example
-     * widget.show(0);
-     * @exampleDescription Returns the shown tab's child
-     * @example
-     * var shown = widget.show();
+     * // Shows the second tab.
+     * widget.show(2);
      */
-    Tabs.prototype.show = function (child) {
+    Tabs.prototype.show = function (tab) {
 
         // Shows the current tab
-        this.tab[child - 1].show();
+        this.tab[tab - 1].show();
 
         return this;
     };
 
     /**
      * Updates the shown tab, hides the previous tab, changes window location and emits "show" event.
-     * @private
-     * @name ch.Tabs#_updateShown
+     * @memberof! ch.Expandable.prototype
      * @function
-     * @param {Number} [child] Tab's child.
+     * @private
+     * @param {Number} tab - A given number of tab.
      */
-    Tabs.prototype._updateShown = function (child) {
+    Tabs.prototype._updateShown = function (tab) {
 
         // If tab doesn't exist or if it's shown do nothing
-        if (this._shown === child) {
+        if (this._shown === tab) {
             return this;
         }
 
@@ -271,7 +264,7 @@
          * @name ch.Tabs#_shown
          * @type {Number}
          */
-        this._shown = child;
+        this._shown = tab;
 
         // Update window location hash
         if (this._currentHash === '') {
@@ -295,13 +288,12 @@
     }
 
     /**
-     * Returns the number of current Tab.
-     * @name getShown
-     * @methodOf ch.Tabs#getShown
-     * @returns {Number}
-     * @exampleDescription
+     * Returns the number of the shown tab.
+     * @memberof! ch.Tabs.prototype
+     * @function
+     * @returns {Boolean}
      * @example
-     * if (widget.getShown() === 1) {
+     * if (tabs.getShown() === 1) {
      *     fn();
      * }
      */
@@ -310,27 +302,40 @@
     };
 
     /**
-     *
+     * Allows to manage the tabs content.
+     * @param {Number} tab - The number of the tab to change its content.
+     * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a tabpanel.
+     * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
+     * @param {Boolean} [options.async]  Force to sent request asynchronously. By default is true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @example
+     * // Update content with some string.
+     * tabs.content(2, 'http://ajax.com', {});
      */
-    Tabs.prototype.content = function (child, content, options) {
-        if (child === undefined || typeof child !== 'number') {
-            throw new window.Error('Tabs.content(child, content, options): Expected number of tab.');
+    Tabs.prototype.content = function (tab, content, options) {
+        if (tab === undefined || typeof tab !== 'number') {
+            throw new window.Error('Tabs.content(tab, content, options): Expected a number of tab.');
         }
 
         if (content === undefined) {
-            return this.tab[child - 1].content();
+            return this.tab[tab - 1].content();
         }
 
-        this.tab[child - 1].content(content, options);
+        this.tab[tab - 1].content(content, options);
 
         return this;
     };
 
     /**
-     * Destroys a Tabs instance.
-     * @public
+     * Destroys a tabs instance.
+     * @memberof! ch.Tabs.prototype
      * @function
-     * @name ch.Tabs#destroy
+     * @expample
+     * // Destroying an instance of Tabs.
+     * tabs.destroy();
      */
     Tabs.prototype.destroy = function () {
 

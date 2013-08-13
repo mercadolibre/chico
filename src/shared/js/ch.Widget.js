@@ -38,10 +38,9 @@
     /**
      * Returns a reference to the constructor function that created the instance.
      * @memberof! ch.Widget.prototype
-     * @constructor
-     * @private
+     * @function
      */
-    Widget.prototype._constructor = Widget;
+    Widget.prototype.constructor = Widget;
 
     /**
      * Initialize a new instance of Widget and merge custom options with defaults options.
