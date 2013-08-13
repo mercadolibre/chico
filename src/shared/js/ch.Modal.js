@@ -127,7 +127,7 @@
         var that = this;
 
         // Add to the underlay the ability to close the widget only if the closable config. allows
-        if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers-only') {
+        if (this._options.hiddenby === 'all' || this._options.hiddenby === 'pointers') {
             // Allow only one click to analize the config every time
             $underlay.one(ch.onpointertap, function () {
                 that.hide();

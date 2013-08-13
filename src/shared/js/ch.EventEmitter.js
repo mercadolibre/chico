@@ -122,7 +122,7 @@
      */
     EventEmitter.prototype.getListeners = function (event) {
         if (event === undefined) {
-            throw new Error('ch.EventEmitter - "listeners(event)": It should receive an event.');
+            throw new Error('ch.EventEmitter - "getListeners(event)": It should receive an event.');
         }
 
         return this._eventsCollection[event];
