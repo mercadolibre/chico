@@ -20,13 +20,13 @@
 
         /**
          * Allows to manage the widgets content.
-         * @param {(String | jQuerySelector | ZeptoSelector)} content - The content that will be used by a widget.
+         * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a widget.
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
-         * @param {String} [options.method] - The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
-         * @param {String} [options.params] - Params like query string to be sent to the server.
-         * @param {Boolean} [options.cache] - Force to cache the request by the browser. By default is true.
-         * @param {Boolean} [options.async] - Force to sent request asynchronously. By default is true.
-         * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] - Temporary content to use while the ajax request is loading.
+         * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+         * @param {String} [options.params] Params like query string to be sent to the server.
+         * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
+         * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
+         * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
          * widget.content('Some new content here!');
