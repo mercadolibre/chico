@@ -80,8 +80,8 @@
     Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
         '_ariaRole': 'tooltip',
-        'shownby': 'mouseenter',
-        'hiddenby': 'mouseleave',
+        'shownby': 'pointerenter',
+        'hiddenby': 'pointerleave',
         'side': 'bottom',
         'align': 'left',
         'offsetX': 0,
@@ -112,7 +112,7 @@
         }
 
         // Only save to future close if this widget is closable
-        if (this._options.hiddenby !== 'none' && this._options.hiddenby !== 'button-only') {
+        if (this._options.hiddenby !== 'none' && this._options.hiddenby !== 'button') {
             lastShown = this;
         }
 

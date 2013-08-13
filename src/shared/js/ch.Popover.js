@@ -73,8 +73,8 @@
         parent = ch.util.inherits(Popover, ch.Widget),
 
         shownbyEvent = {
-            'click': ch.onpointertap,
-            'mouseenter': ch.onpointerenter
+            'pointertap': ch.onpointertap,
+            'pointerenter': ch.onpointerenter
         };
 
     /**
@@ -92,8 +92,8 @@
         'fx': 'fadeIn',
         'width': 'auto',
         'height': 'auto',
-        'shownby': 'click',
-        'hiddenby': 'button-only',
+        'shownby': 'pointertap',
+        'hiddenby': 'button',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
         'positioned': 'absolute'
     };
@@ -200,7 +200,7 @@
 
                 // When a Popover is shown on pointerenter, it will set a timeout to manage when
                 // to close the widget. Avoid to toggle and let choise when to close to the timer.
-                if (that._options.shownby === 'mouseenter' || that._options.hiddenby === 'none' || that._options.hiddenby === 'button-only') {
+                if (that._options.shownby === 'pointerenter' || that._options.hiddenby === 'none' || that._options.hiddenby === 'button') {
                     fn = function () {
                         if (!that._shown) {
                             that.show();
@@ -424,13 +424,12 @@
         if (hiddenby === 'none') { return; }
 
         // Closable by leaving the widget
-        if (hiddenby === 'mouseleave' && that.$trigger !== undefined) {
+        if (hiddenby === 'pointerleave' && that.$trigger !== undefined) {
 
             events = {};
 
             events[pointerEnter] = function () {
                 clearTimeout(timeOut);
-                console.log("timer");
             };
 
             events[pointerLeave] = hideTimer;
@@ -439,15 +438,15 @@
             that.$container.on(events);
         }
 
-        // Closable button-only
-        if (hiddenby === 'button-only' || hiddenby === 'all') {
+        // Closable by button
+        if (hiddenby === 'button' || hiddenby === 'all') {
             // Append a close button
             $('<i class="ch-close" role="button" aria-label="Close"></i>').on(pointerTap, function () {
                 that.hide();
             }).prependTo(that.$container);
         }
 
-        if (hiddenby === 'pointers-only' || hiddenby === 'all') {
+        if (hiddenby === 'pointers' || hiddenby === 'all') {
             ch.shortcuts.add(escEvent, that.uid, function () { that.hide(); });
             that
                 .on('show', function () {
