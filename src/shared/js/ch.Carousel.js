@@ -74,7 +74,6 @@
         'async': 0,
         'arrows': true,
         'pagination': false,
-        'initialPage': 1,
         'fx': true
     };
 
@@ -272,9 +271,6 @@
 
         // Update the margin between items and its size
         this._updateDistribution();
-
-        // Put Carousel on specified page or at the beginning
-        this.select(this._options.initialPage);
     };
 
     /**

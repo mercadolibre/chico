@@ -80,8 +80,8 @@
     Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
         '_ariaRole': 'tooltip',
-        'shownby': 'mouseenter',
-        'hiddenby': 'mouseleave',
+        'shownby': 'pointerenter',
+        'hiddenby': 'pointerleave',
         'side': 'bottom',
         'align': 'left',
         'offsetX': 0,
@@ -107,15 +107,18 @@
         }
 
         // Only hide if there was a widget opened before
-        if (lastShown !== undefined && lastShown.name === this.name) {
+        if (lastShown !== undefined && lastShown.name === this.name && lastShown !== this) {
             lastShown.hide();
         }
+
         // Only save to future close if this widget is closable
-        if (this._options.hiddenby !== 'none') {
+        if (this._options.hiddenby !== 'none' && this._options.hiddenby !== 'button') {
             lastShown = this;
         }
+
         // Execute the original show()
         parent.show.call(this, content);
+
         // Return the instance
         return this;
     };

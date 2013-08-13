@@ -88,7 +88,7 @@
         /**
          * Element representing the visible area.
          * @memberof! ch.viewport#element
-         * @type {Selector}
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         that.$el = $window;
 
@@ -276,10 +276,10 @@
      * @memberof! ch.Viewport.prototype
      * @function
      * @returns {Boolean}
-     * @params {nodeElement} el A given nodeElement.
+     * @params {HTMLElement} el A given HMTLElement.
      * @example
      * // Checks if an element is in the viewport.
-     * ch.viewport.inViewport(nodeElement) ? 'Yes': 'No';
+     * ch.viewport.inViewport(HTMLElement) ? 'Yes': 'No';
      */
     Viewport.prototype.inViewport = function (el) {
         var r = el.getBoundingClientRect();
@@ -292,10 +292,10 @@
      * @memberof! ch.Viewport.prototype
      * @function
      * @returns {Boolean}
-     * @params {nodeElement} el A given nodeElement.
+     * @params {HTMLElement} el A given HTMLElement.
      * @example
      * // Checks if an element is visible.
-     * ch.viewport.isVisisble(nodeElement) ? 'Yes': 'No';
+     * ch.viewport.isVisisble(HTMLElement) ? 'Yes': 'No';
      */
     Viewport.prototype.isVisible = function (el) {
         var r = el.getBoundingClientRect();

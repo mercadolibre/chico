@@ -21,7 +21,6 @@
      * @param {Boolean} once Listener function will be called only one time.
      * @example
      * // Will add a event listener to the 'ready' event
-     *
      * var startDoingStuff = function (event, param1, param2, ...) {
      *     // Some code here!
      * };
@@ -122,7 +121,7 @@
      */
     EventEmitter.prototype.getListeners = function (event) {
         if (event === undefined) {
-            throw new Error('ch.EventEmitter - "listeners(event)": It should receive an event.');
+            throw new Error('ch.EventEmitter - "getListeners(event)": It should receive an event.');
         }
 
         return this._eventsCollection[event];
@@ -136,7 +135,6 @@
      * @param {...Object} var_args Data to pass to the listeners.
      * @example
      * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
-     *
      * me.emit('ready', 'param1', 'param2');
      */
     EventEmitter.prototype.emit = function () {

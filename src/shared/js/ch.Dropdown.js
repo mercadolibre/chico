@@ -80,8 +80,8 @@
         '_className': 'ch-dropdown ch-box-lite',
         '_ariaRole': 'combobox',
         'fx': false,
-        'shownby': 'click',
-        'hiddenby': 'pointers-only',
+        'shownby': 'pointertap',
+        'hiddenby': 'pointers',
         'offsetY': -1,
         'skin': false,
         'shortcuts': true
@@ -151,7 +151,7 @@
         if (!this._shown) { return; }
 
         // Prevent default behaivor
-        ch.util.prevent(event);
+        ch.util.prevent(key);
 
         // Sets the arrow that user press
         arrow = key.type;
@@ -180,10 +180,6 @@
             return this;
         }
 
-        if (this._shown) {
-            return this.hide();
-        }
-
         parent.show.call(this, content);
 
         // Z-index of trigger over content (secondary / skin dropdown)
@@ -192,12 +188,6 @@
         }
 
         this._selected = -1;
-
-        return this;
-    };
-
-    Dropdown.prototype.hide = function () {
-        parent.hide.call(this);
 
         return this;
     };

@@ -5,7 +5,7 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    var toggle = {
+    var toggleEffects = {
         'slideDown': 'slideUp',
         'slideUp': 'slideDown',
         'fadeIn': 'fadeOut',
@@ -21,13 +21,9 @@
     function Collapsible() {
 
         var that = this,
-
             triggerClass = 'ch-' + this.name + '-trigger-on',
-
             fx = this._options.fx,
-
-            canUseFx = (ch.support.fx && typeof fx === 'string');
-
+            useEffects = (ch.support.fx && fx !== 'none' && fx !== false);
 
         function showCallback() {
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
@@ -36,6 +32,7 @@
              * Event emitted when the widget container is shown.
              * @event ch.Collapsible#show
              * @example
+             * // Subscribe to "show" event.
              * widget.on('show', function () {
              *  // Some code here!
              * });
@@ -50,6 +47,7 @@
              * Event emitted when the widget container.is hidden.
              * @event ch.Collapsible#hide
              * @example
+             * // Subscribe to "hide" event.
              * widget.on('hide', function () {
              *  // Some code here!
              * });
@@ -57,7 +55,7 @@
             that.emit('hide');
         }
 
-        this._shown = this._options.shown;
+        this._shown = false;
 
         /**
          * Shows the widget container.
@@ -72,7 +70,7 @@
             }
 
             // Animate or not
-            if (canUseFx) {
+            if (useEffects) {
                 that.$container[fx]('fast', showCallback);
             } else {
                 showCallback();
@@ -94,14 +92,29 @@
             }
 
             // Animate or not
-            if (canUseFx) {
-                that.$container[toggle[fx]]('fast', hideCallback);
+            if (useEffects) {
+                that.$container[toggleEffects[fx]]('fast', hideCallback);
             } else {
                 hideCallback();
             }
 
             return that;
         };
+
+        /**
+         * Shows or hides the widget container.
+         * @private
+         */
+        this._toggle = function () {
+
+            if (that._shown) {
+                that.hide();
+            } else {
+                that.show();
+            }
+
+            return that;
+        }
 
         this.on('disable', this.hide);
     }

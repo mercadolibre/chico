@@ -72,9 +72,9 @@
 
         parent = ch.util.inherits(Popover, ch.Widget),
 
-        openEvent = {
-            'click': ch.onpointertap,
-            'mouseenter': ch.onpointerenter
+        shownbyEvent = {
+            'pointertap': ch.onpointertap,
+            'pointerenter': ch.onpointerenter
         };
 
     /**
@@ -86,11 +86,14 @@
 
     Popover.prototype._defaults = {
         '_ariaRole': 'dialog',
+        '_className': '',
+        '_hideDelay': 400,
+        'addClass': '',
         'fx': 'fadeIn',
         'width': 'auto',
         'height': 'auto',
-        'shownby': 'click',
-        'hiddenby': 'button-only',
+        'shownby': 'pointertap',
+        'hiddenby': 'button',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
         'positioned': 'absolute'
     };
@@ -101,7 +104,7 @@
 
         parent.init.call(this, $el, options);
 
-        this.require('Collapsible', 'Content', 'Closable');
+        this.require('Collapsible', 'Content');
 
         /**
          * Inner function that resolves the component's layout and returns a static reference.
@@ -111,12 +114,14 @@
          */
         this.$container = $([
             '<div',
-            ' class="ch-popover ch-hide ' + (this._options._className || '') + ' ' + (this._options.addClass || '') + '"',
+            ' class="ch-popover ch-hide ' + this._options._className + ' ' + this._options.addClass + '"',
             ' role="' + this._options._ariaRole + '"',
             ' id="ch-' + this.name + '-' + this.uid + '"',
             ' style="z-index:' + (ch.util.zIndex += 1) + ';width:' + this._options.width + ';height:' + this._options.height + '"',
             '>'
-        ].join(''));
+        ].join('')).on(ch.onpointertap + '.' + this.name, function (event) {
+            event.stopPropagation();
+        });
 
         /**
          * Inner reference to content container. Here is where the content will be added.
@@ -137,7 +142,6 @@
         /**
          * Configure abilities
          */
-
         this._closable();
 
         this._positioner = new ch.Positioner({
@@ -159,7 +163,8 @@
          * $document.on(ch.onchangelayout, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
-            return that.refreshPosition();
+            that._positioner.refresh(options);
+            return that;
         };
 
         // Refersh position on:
@@ -189,7 +194,22 @@
      */
     Popover.prototype._configureTrigger = function () {
 
-        var that = this;
+        var that = this,
+            showHandler = (function () {
+                var fn = that._toggle;
+
+                // When a Popover is shown on pointerenter, it will set a timeout to manage when
+                // to close the widget. Avoid to toggle and let choise when to close to the timer.
+                if (that._options.shownby === 'pointerenter' || that._options.hiddenby === 'none' || that._options.hiddenby === 'button') {
+                    fn = function () {
+                        if (!that._shown) {
+                            that.show();
+                        }
+                    };
+                }
+
+                return fn;
+            }());
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
@@ -201,9 +221,9 @@
         if (this._options.shownby !== 'none') {
             this._$el
                 .addClass('ch-shownby-' + this._options.shownby)
-                .on(openEvent[this._options.shownby] + '.' + this.name, function (event) {
+                .on(shownbyEvent[this._options.shownby] + '.' + this.name, function (event) {
                     ch.util.prevent(event);
-                    that.show();
+                    showHandler();
                 });
         }
 
@@ -243,7 +263,7 @@
      * @function
      * @returns itself
      */
-    Popover.prototype.show = function (content) {
+    Popover.prototype.show = function (content, options) {
 
         if (!this._enabled) {
             return this;
@@ -257,7 +277,7 @@
 
         // Request the content
         if (content !== undefined) {
-            this.content(content);
+            this.content(content, options);
         }
 
         return this;
@@ -271,6 +291,10 @@
      * @returns itself
      */
     Popover.prototype.hide = function () {
+
+        if (!this._enabled) {
+            return this;
+        }
 
         this._hide();
 
@@ -359,6 +383,80 @@
     Popover.prototype.refreshPosition = function (options) {
         if (this._shown) {
             this._positioner.refresh(options);
+        }
+
+        return this;
+    };
+
+
+    /**
+     * Allows to manage the widgets content.
+     * @param {String} content - Description.
+     * @param {Object} [options] - Description.
+     * @private
+     */
+    Popover.prototype._closable = function () {
+
+        var that = this,
+            setTimeout = window.setTimeout,
+            clearTimeout = window.clearTimeout,
+            hiddenby = this._options.hiddenby,
+            pointerTap = ch.onpointertap + '.' + this.name,
+            pointerEnter = ch.onpointerenter + '.' + this.name,
+            pointerLeave = ch.onpointerleave + '.' + this.name,
+            escEvent = ch.onkeyesc || 'touchend',
+            timeOut,
+            events;
+
+        function hide(event) {
+            if (event.target !== that._el && event.target !== that.$container[0]) {
+                that.hide();
+            }
+        }
+
+        function hideTimer() {
+            timeOut = setTimeout(function () {
+                that.hide();
+            }, that._options._hideDelay);
+        }
+
+        // Closable none
+        if (hiddenby === 'none') { return; }
+
+        // Closable by leaving the widget
+        if (hiddenby === 'pointerleave' && that.$trigger !== undefined) {
+
+            events = {};
+
+            events[pointerEnter] = function () {
+                clearTimeout(timeOut);
+            };
+
+            events[pointerLeave] = hideTimer;
+
+            that.$trigger.on(events);
+            that.$container.on(events);
+        }
+
+        // Closable by button
+        if (hiddenby === 'button' || hiddenby === 'all') {
+            // Append a close button
+            $('<i class="ch-close" role="button" aria-label="Close"></i>').on(pointerTap, function () {
+                that.hide();
+            }).prependTo(that.$container);
+        }
+
+        if (hiddenby === 'pointers' || hiddenby === 'all') {
+            ch.shortcuts.add(escEvent, that.uid, function () { that.hide(); });
+            that
+                .on('show', function () {
+                    ch.shortcuts.on(that.uid);
+                    $document.on(pointerTap, hide);
+                })
+                .on('hide', function () {
+                    ch.shortcuts.off(that.uid);
+                    $document.off(pointerTap, hide);
+                });
         }
 
         return this;

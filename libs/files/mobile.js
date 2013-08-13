@@ -16,7 +16,6 @@ JS.core = [
     "src/mobile/js/ch.events.js",
     "src/ui/js/ch.events.js",
     "src/shared/js/ch.factory.js",
-    "src/ui/js/ch.shortcuts.js",
     "src/mobile/js/ch.init.js"
 ];
 
@@ -27,7 +26,6 @@ JS.abilities = [
     "src/shared/js/ch.EventEmitter.js",
     "src/mobile/js/ch.routes.js",
     "src/shared/js/ch.Content.js",
-    "src/shared/js/ch.Closable.js",
     "src/shared/js/ch.Collapsible.js",
     "src/shared/js/ch.Viewport.js",
     "src/shared/js/ch.Positioner.js"

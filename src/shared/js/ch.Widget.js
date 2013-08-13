@@ -6,21 +6,14 @@
     }
 
     var util = ch.util,
-
-        /**
-         * Global instantiation widget id.
-         * @private
-         * @type {Number}
-         */
         uid = 0;
-
 
     /**
      * Base class for all widgets.
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
-     * @param {Selector} $el Query Selector element.
+     * @param {(jQuerySelector | ZeptoSelector)} $el jQuery or Zepto Selector.
      * @param {Object} [options] Configuration options.
      * @returns {Object}
      */
@@ -33,17 +26,17 @@
     ch.util.inherits(Widget, ch.EventEmitter);
 
     /**
-     * The name of the widget. A new instance is saved into the $el parameter.
+     * The name of the widget.
      * @memberof! ch.Widget.prototype
      * @type {String}
-     * @expample
+     * @example
      * // You can reach the instance associated.
-     * var widget = $(selector).data('widget');
+     * var widget = $(selector).data(name);
      */
     Widget.prototype.name = 'widget';
 
     /**
-     * Returns a reference to the Constructor function that created the instance's prototype.
+     * Returns a reference to the constructor function that created the instance.
      * @memberof! ch.Widget.prototype
      * @constructor
      * @private
@@ -51,9 +44,11 @@
     Widget.prototype._constructor = Widget;
 
     /**
-     * Initialize the instance and merges the user options with defaults options.
+     * Initialize a new instance of Widget and merge custom options with defaults options.
      * @memberof! ch.Widget.prototype
      * @function
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Widget.
+     * @param {Object} [options] Options to customize an instance.
      * @returns {instance} Returns an instance of Widget.
      */
     Widget.prototype.init = function ($el, options) {
@@ -88,12 +83,11 @@
             }
 
         } else {
-            throw new window.Error('Expected 2 parameters or less');
+            throw new window.Error('Unexpected parameters were found in the \'' + this.name + '\' instantiation.');
         }
 
-
         /**
-         * Global instantiation Widget id.
+         * A unique id to identify the instance of a widget.
          * @type {Number}
          */
         this.uid = (uid += 1);
@@ -115,9 +109,9 @@
      * @params {...String} var_args The name of the abilities to will be used.
      * @expample
      * // You can require some abilitiest to use in your widget.
-     * // For example you should require the collpasible and closable abitliy.
+     * // For example you should require the collpasible abitliy.
      * var widget = new Widget(element, options);
-     * widget.require('Collapsible', 'Closable');
+     * widget.require('Collapsible');
      */
     Widget.prototype.require = function () {
 
@@ -148,6 +142,7 @@
          * Emits when the widget is enable.
          * @event ch.Widget#enable
          * @example
+         * // Subscribe to "enable" event.
          * widget.on('enable', function () {
          *  // Some code here!
          * });
@@ -173,6 +168,7 @@
          * Emits when the widget is disable.
          * @event ch.Widget#disable
          * @example
+         * // Subscribe to "disable" event.
          * widget.on('disable', function () {
          *  // Some code here!
          * });
@@ -203,6 +199,7 @@
          * @event ch.Widget#destroy
          * @exampleDescription
          * @example
+         * // Subscribe to "destroy" event.
          * widget.on('destroy', function () {
          *  // Some code here!
          * });

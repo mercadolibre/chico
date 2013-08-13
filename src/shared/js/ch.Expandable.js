@@ -15,36 +15,49 @@
     };
 
     /**
-     * Expandable lets you show or hide the container. Expandable needs a pair: the title and the container related to that title.
+     * Expandable lets you show or hide content. Expandable needs a pair: a title and a container related to title.
      * @memberof ch
      * @constructor
      * @augments ch.Widget
      * @mixes ch.Collapsible
      * @mixes ch.Content
-     * @param {Selector} $el Query Selector element.
-     * @param {Object} [options] Configuration options.
-     * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
-     * @param {Boolean} [options.toggle]
-     * @param {Boolean} [options.container]
-     * @param {Boolean} [options.content]
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disabled.
+     * @param {Boolean} [options.toggle] Customize toggle behavior. By default, the toggle is enabled.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. By default, the container will be the next sibling of $el.
+     * @param {String} [options.content] The content to be shown into the expandable container.
      * @returns {expandable} Returns a new instance of ch.Expandable.
      * @example
-     * // Create a new Expandable.
-     *
-     * var widget = $('.example').expandable();
+     * // Create a new Expandable with defaults options.
+     * var widget = $(selector).expandable();
      * @example
-     * // Create a new Expandable with configuration.
-     *
-     * var widget = $('#element').expandable({
-     *     'fx': true,
-     *     'toggle': true,
-     *     'content': 'Some text here!',
-     *     'container': $('#container')
+     * // Create a new Expandable with toggle disabled.
+     * $(selector).expandable({
+     *     'toggle': true
      * });
+     * @example
+     * // Create a new Expandable with fx enabled.
+     * $(selector).expandable({
+     *     'fx': true
+     * });
+     * @example
+     * // Create a new Expandable with a specific container.
+     * $(selector).expandable({
+     *     'container': $(selector)
+     * });
+     * @example
+     * // Create a new Expandable with content loaded by ajax.
+     * $(selector).expandable({
+     *    'content': 'http://ui.ml.com:3040/ajax'
+     * });
+     *
+     * // or you can use the short
+     * $(selector).expandable('http://ui.ml.com:3040/ajax');
      */
     function Expandable($el, options) {
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @private
          * @type {Object}
          */
@@ -53,10 +66,10 @@
         this.init($el, options);
 
         /**
-         * Emits the event 'ready' when the component is ready to use.
+         * Emits the event 'ready' when the widget is ready to use.
          * @event ch.Expandable#ready
-         * @exampleDescription Following the first example, using <code>widget</code> as Expandable's instance controller:
          * @example
+         * // Subscribe to "ready" event.
          * expandable.on('ready',function () {
          *    this.show();
          * });
@@ -79,14 +92,16 @@
      */
 
     /**
-     * The name of the widget. All instances are saved into a 'map', grouped by its name. You can reach for any or all of the components from a specific name with 'ch.instances'.
+     * The name of the widget.
      * @type {String}
      */
     Expandable.prototype.name = 'expandable';
 
     /**
-     * Returns a reference to the Constructor function that created the instance's prototype.
-     * @function
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Widget.prototype
+     * @constructor
+     * @private
      */
     Expandable.prototype.constructor = Expandable;
 
@@ -103,17 +118,17 @@
     };
 
     /**
-     * Constructs a new Expandable.
+     * Initialize a new instance of Expandable and merge custom options with defaults options.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @returns {instance}
+     * @returns {expandable}
      */
     Expandable.prototype.init = function ($el, options) {
         // Call to its parents init method
         parent.init.call(this, $el, options);
 
         /**
-         * Set required abilities
+         * Requires abilities
          */
         this.require('Collapsible', 'Content');
 
@@ -122,7 +137,7 @@
          */
 
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @type {Object}
          * @private
          */
@@ -133,19 +148,21 @@
          */
 
         /**
-         * The component's trigger.
-         * @type {Selector}
+         * The expandable trigger.
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this.$trigger = this._$el
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
+
                 ch.util.prevent(event);
-                that.show();
+                that._options.toggle ? that._toggle() : that.show();
+
             });
 
         /**
-         * The component's container.
-         * @type {Selector}
+         * The expandable container.
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this.$container = this._$content = (this._options.container || this._$el.next())
             .addClass(this._options._classNameContainer)
@@ -175,23 +192,34 @@
     };
 
     /**
-     * Shows component's content.
+     * Shows expandable's content.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @returns {instance}
+     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by expandable.
+     * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] - The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.params] - Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] - Force to cache the request by the browser. By default is true.
+     * @param {Boolean} [options.async] - Force to sent request asynchronously. By default is true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] - Temporary content to use while the ajax request is loading.
+     * @returns {expandable}
      * @example
-     * // Show the Expandable widget.
-     *
+     * // Shows a basic expandable.
      * widget.show();
+     * @example
+     * // Shows an expandable with new content.
+     * widget.show('Some new content here!');
+     * @example
+     * // Shows an expandable with a new content that will be loaded by ajax and some custom options.
+     * widget.show('http://chico-ui.com.ar/ajax', {
+     *     'cache': false,
+     *     'params': 'x-request=true'
+     * });
      */
     Expandable.prototype.show = function (content, options) {
 
         if (!this._enabled) {
             return this;
-        }
-
-        if (this._shown && this._options.toggle) {
-            return this.hide();
         }
 
         this._show();
@@ -208,18 +236,17 @@
     };
 
     /**
-     * Hides component's content.
+     * Hides widget's content.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @returns {instance}
+     * @returns {expandable}
      * @example
-     * // Close the Expandable widget.
-     *
+     * // Close an expandable.
      * widget.hide();
      */
     Expandable.prototype.hide = function () {
 
-        if (!this._shown) {
+        if (!this._enabled) {
             return this;
         }
 
@@ -230,12 +257,14 @@
         return this;
     };
 
+
     /**
-     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
+     * Returns a Boolean if the widget's core behavior is shown. That means it will return 'true' if the widget is on and it will return false otherwise.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @returns {instance}
+     * @returns {expandable}
      * @example
+     * // Execute a function if the widget is shown.
      * if (widget.isShown()) {
      *     fn();
      * }
@@ -245,9 +274,12 @@
     };
 
     /**
-     * Destroys an Expandable instance.
+     * Destroys an expandable instance.
      * @memberof! ch.Expandable.prototype
      * @function
+     * @expample
+     * // Destroying an instance of Expandable.
+     * expandable.destroy();
      */
     Expandable.prototype.destroy = function () {
 

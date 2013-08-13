@@ -9,10 +9,9 @@ var showEvent = jasmine.createSpy('showEvent'),
         .on('ready', function () { readyEvent(); }),
     $trigger = popover1.$trigger,
     popover2 = $('#popover2').popover({
-        'shown': true,
         'addClass': 'test',
         'closable': false,
-        'shownby': 'mouseenter'
+        'shownby': 'pointerenter'
     }),
     popover3 = $.popover();
 
@@ -53,11 +52,6 @@ describe('Popover', function () {
         it('Collapsible', function () {
             expect(popover1._show).not.toEqual(undefined);
             expect(typeof popover1._show).toEqual('function');
-        });
-
-        it('Positioner', function () {
-            expect(popover1.position).not.toEqual(undefined);
-            expect(typeof popover1.position).toEqual('object');
         });
     });
 });
@@ -317,10 +311,6 @@ describe('Its height() method', function () {
 
 describe('Instance a Popover configured', function () {
 
-    it('open by default', function () {
-        expect(popover2.isShown()).toBeTruthy();
-    });
-
 	it('with custom class names should contain the specified class names in its container', function () {
 		expect(popover2.$container.hasClass('ch-popover')).toBeTruthy();
 		expect(popover2.$container.hasClass('test')).toBeTruthy();
@@ -328,14 +318,14 @@ describe('Instance a Popover configured', function () {
 
 	describe('with "shownby" preference:', function () {
 
-        it('"click" should give a pointer cursor to the trigger', function () {
-            expect(popover1._$el.hasClass('ch-shownby-click')).toBeTruthy();
-            expect(popover1._$el.hasClass('ch-shownby-mouseenter')).toBeFalsy();
+        it('"pointertap" should give a pointer cursor to the trigger', function () {
+            expect(popover1._$el.hasClass('ch-shownby-pointertap')).toBeTruthy();
+            expect(popover1._$el.hasClass('ch-shownby-pointerenter')).toBeFalsy();
         });
 
-        it('"mouseenter" should give a default cursor to the trigger', function () {
-			expect(popover2._$el.hasClass('ch-shownby-mouseenter')).toBeTruthy();
-            expect(popover2._$el.hasClass('ch-shownby-click')).toBeFalsy();
+        it('"pointerenter" should give a default cursor to the trigger', function () {
+			expect(popover2._$el.hasClass('ch-shownby-pointerenter')).toBeTruthy();
+            expect(popover2._$el.hasClass('ch-shownby-pointertap')).toBeFalsy();
 		});
 	});
 });

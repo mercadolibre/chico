@@ -694,11 +694,11 @@
     <div class="ch-box-lite">
         <h2 id="layer">Layer</h2>
         <ul class="ch-list">
-            <li><span id="layer1">Default Layer, executed on <strong>mouseenter</strong>.</span></li>
-            <li><span id="layer2">Executed on <strong>click</strong>. <em>(hiddenby:all)</em></span></li>
-            <li><span id="layer3">Executed on <strong>click</strong> with content from DOM. <em>(hiddenby:none)</em>.</span></li>
-            <li><span id="layer4">Executed on <strong>click</strong> with static content. <em>(hiddenby:button-only)</em>.</span></li>
-            <li><span id="layer5">Executed on <strong>click</strong> with AJAX content. <em>(hiddenby:pointers-only)</em></span></li>
+            <li><span id="layer1">Default Layer, executed on <strong>pointerenter</strong>.</span></li>
+            <li><span id="layer2">Executed on <strong>pointertap</strong>. <em>(hiddenby:all)</em></span></li>
+            <li><span id="layer3">Executed on <strong>pointertap</strong> with content from DOM. <em>(hiddenby:none)</em>.</span></li>
+            <li><span id="layer4">Executed on <strong>pointertap</strong> with static content. <em>(hiddenby:button)</em>.</span></li>
+            <li><span id="layer5">Executed on <strong>pointertap</strong> with AJAX content. <em>(hiddenby:pointers)</em></span></li>
         </ul>
         <div id="invisible-content-for-layer" class="ch-hide">
             <h1>This content is invisible</h1>
@@ -1479,9 +1479,7 @@
         });
 
         // Menu
-        var menu = $(".YOUR_SELECTOR_Menu").menu({
-         'shown': 4
-        });
+        var menu = $(".YOUR_SELECTOR_Menu").menu();
 
         // Dropdown
         var dropdown1 = $(".myDropdown").dropdown();
@@ -1564,26 +1562,26 @@
 
         var layer2 = $('#layer2').layer({
             'content': 'foo',
-            'shownby': 'click',
+            'shownby': 'pointertap',
             'hiddenby': 'all'
         });
 
         var layer3 = $('#layer3').layer({
             'content': $('#invisible-content-for-layer'),
-            'shownby': 'click',
+            'shownby': 'pointertap',
             'hiddenby': 'none'
         });
 
         var layer4 = $('#layer4').layer({
             'content': 'Static content.',
-            'shownby': 'click',
-            'hiddenby': 'button-only'
+            'shownby': 'pointertap',
+            'hiddenby': 'button'
         });
 
         var layer5 = $('#layer5').layer({
             'content': '/ajax',
-            'shownby': 'click',
-            'hiddenby': 'pointers-only'
+            'shownby': 'pointertap',
+            'hiddenby': 'pointers'
         });
 
         var layerX = $.layer({
@@ -1593,7 +1591,7 @@
 
         var fixedLayer = $('#components').layer({
             'content': $("#components-list"),
-            'shownby': 'click',
+            'shownby': 'pointertap',
             'hiddenby': 'all',
             'width': '700px',
             'positioned': 'fixed',
@@ -1625,7 +1623,7 @@
         });
 
         var modalX = $.modal({
-            'hiddenby': 'button-only'
+            'hiddenby': 'button'
         });
 
         $('#modal-form').on('submit', function (e) {
@@ -1648,7 +1646,7 @@
 
         // Tabs
         var tabs = $(".YOUR_SELECTOR_Tabs").tabs();
-        var tabs2 = $(".YOUR_SELECTOR_Tabs2").tabs(3);
+        var tabs2 = $(".YOUR_SELECTOR_Tabs2").tabs();
 
         // Date Picker
         var  datePicker = $("#val_date").datePicker({
