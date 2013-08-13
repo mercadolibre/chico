@@ -119,7 +119,8 @@ module.exports = function (grunt) {
                     "src/ui/js/ch.shortcuts.js",
 
                     "src/shared/js/ch.Widget.js",
-                    "src/shared/js/ch.Expandable.js"
+                    "src/shared/js/ch.Expandable.js",
+                    "src/shared/js/ch.Form.js"
 
                 ],
                 'options': {
