@@ -47,6 +47,8 @@
      * Initialize a new instance of Widget and merge custom options with defaults options.
      * @memberof! ch.Widget.prototype
      * @function
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Widget.
+     * @param {Object} [options] Options to customize an instance.
      * @returns {instance} Returns an instance of Widget.
      */
     Widget.prototype.init = function ($el, options) {
