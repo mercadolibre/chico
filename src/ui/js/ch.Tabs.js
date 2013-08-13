@@ -54,7 +54,7 @@
 
     /**
      * Returns a reference to the constructor function that created the instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Tabs.prototype
      * @function
      */
     Tabs.prototype.constructor = Tabs;
