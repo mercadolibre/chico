@@ -51,12 +51,6 @@
             'fn': function (a, b) { return a >= b; },
             'message': 'The amount must be higher than {#num#}.'
         },
-        'price': {
-            'fn': function (value) {
-                return (/^([0-9\s]+)[.,]?([0-9]+)$/i).test(value);
-            },
-            'message': 'Use a valid price such as (1,00).'
-        },
         'required': {
             'fn': function (value) {
 
