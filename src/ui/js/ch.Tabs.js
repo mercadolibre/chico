@@ -57,26 +57,27 @@
 
     function createMethods(method) {
         Tabs.prototype[method] = function (tab) {
-            var i = 0,
-                len;
+            var i;
 
-            // Disable an specifc tab panel
+            // Enables or disables an specifc tab panel
             if (tab !== undefined) {
                 this.tabpanels[tab - 1][method]();
 
-            // Disable all tabs
+            // Enables or disables Tabs
             } else {
-                len = this.tabpanels.length;
-                for (i; i < len; i += 1) {
-                    this.tabpanels[i][method]();
+
+                i = this.tabpanels.length;
+
+                while (i) {
+                    this.tabpanels[i -= 1][method]();
                 }
 
-                // Execute parent method
+                // Executes parent method
                 parent[method].call(this);
-            }
 
-            // Updates "aria-disabled" attribute
-            this._el.setAttribute('aria-disabled', !this._enabled);
+                // Updates "aria-disabled" attribute
+                this._el.setAttribute('aria-disabled', !this._enabled);
+            }
 
             return this;
         };
