@@ -624,6 +624,11 @@
         this._arrowsCreated = true;
     };
 
+    Carousel.prototype._disableArrows = function (prev, next) {
+        this._$prevArrow.attr('aria-disabled', prev)[prev ? 'addClass' : 'removeClass']('ch-carousel-disabled');
+        this._$nextArrow.attr('aria-disabled', next)[next ? 'addClass' : 'removeClass']('ch-carousel-disabled');
+    }
+
     /**
      * Check for arrows behavior on first, last and middle pages, and update class name and ARIA values.
      * @private
@@ -632,23 +637,21 @@
      */
     Carousel.prototype._updateArrows = function () {
         // Check arrows existency
-        if (!this._arrowsCreated) { return; }
+        if (!this._arrowsCreated) {
+            return;
+        }
         // Case 1: Disable both arrows if there are ony one page
         if (this._pages === 1) {
-            this._$prevArrow.attr('aria-hidden', 'true').addClass('ch-carousel-disabled');
-            this._$nextArrow.attr('aria-hidden', 'true').addClass('ch-carousel-disabled');
+            this._disableArrows(true, true);
         // Case 2: "Previous" arrow hidden on first page
         } else if (this._currentPage === 1) {
-            this._$prevArrow.attr('aria-hidden', 'true').addClass('ch-carousel-disabled');
-            this._$nextArrow.attr('aria-hidden', 'false').removeClass('ch-carousel-disabled');
+            this._disableArrows(true, false);
         // Case 3: "Next" arrow hidden on last page
         } else if (this._currentPage === this._pages) {
-            this._$prevArrow.attr('aria-hidden', 'false').removeClass('ch-carousel-disabled');
-            this._$nextArrow.attr('aria-hidden', 'true').addClass('ch-carousel-disabled');
+            this._disableArrows(false, true);
         // Case 4: Enable both arrows on Carousel's middle
         } else {
-            this._$prevArrow.attr('aria-hidden', 'false').removeClass('ch-carousel-disabled');
-            this._$nextArrow.attr('aria-hidden', 'false').removeClass('ch-carousel-disabled');
+            this._disableArrows(false, false);
         }
     };
 
@@ -691,9 +694,9 @@
         // Get all thumbnails of pagination element
         var children = this._$pagination.children();
         // Unselect the thumbnail previously selected
-        children.eq(from - 1).attr('aria-selected', 'false').removeClass('ch-carousel-selected');
+        children.eq(from - 1).attr('aria-selected', false).removeClass('ch-carousel-selected');
         // Select the new thumbnail
-        children.eq(to - 1).attr('aria-selected', 'true').addClass('ch-carousel-selected');
+        children.eq(to - 1).attr('aria-selected', true).addClass('ch-carousel-selected');
     };
 
     /**
@@ -712,14 +715,16 @@
      * foo.select();
      */
     Carousel.prototype.select = function (page) {
-
+        // Getter
         if (page === undefined) {
             return this._currentPage;
         }
 
+        // Avoid to move if it's disabled
         // Avoid to select the same page that is selected yet
-        if (page === this._currentPage || page < 1 || page > this._pages) {
-            return;
+        // Avoid to move beyond first and last pages
+        if (!this._enabled || page === this._currentPage || page < 1 || page > this._pages) {
+            return this;
         }
 
         // Perform these tasks in the following order:
@@ -735,6 +740,7 @@
         this._loadAsyncItems();
         // Task 6: Set WAI-ARIA properties to each item
         this._updateARIA();
+
         /*
          * Since 0.7.9: Triggers when component moves to next or previous page.
          * @name ch.Carousel#select
@@ -784,6 +790,24 @@
         this.select(this._currentPage + 1);
         this.emit('next');
         return this;
+    };
+
+    Carousel.prototype.enable = function () {
+
+        this._el.setAttribute('aria-disabled', false);
+
+        this._disableArrows(false, false);
+
+        parent.enable.call(this);
+    };
+
+    Carousel.prototype.disable = function () {
+
+        this._el.setAttribute('aria-disabled', true);
+
+        this._disableArrows(true, true);
+
+        parent.disable.call(this);
     };
 
     /**
