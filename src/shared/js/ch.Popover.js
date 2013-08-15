@@ -471,6 +471,28 @@
         return options;
     };
 
+    Popover.prototype.enable = function () {
+
+        if (this._el !== undefined) {
+            this._el.setAttribute('aria-disabled', false);
+        }
+
+        parent.enable.call(this);
+    };
+
+    Popover.prototype.disable = function () {
+
+        if (this._el !== undefined) {
+            this._el.setAttribute('aria-disabled', true);
+        }
+
+        if (this._shown) {
+            this.hide();
+        }
+
+        parent.disable.call(this);
+    };
+
     /**
      * Destroys an Popover instance.
      * @public
