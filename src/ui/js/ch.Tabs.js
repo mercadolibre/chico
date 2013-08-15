@@ -40,11 +40,47 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-
     /**
      * Inheritance
      */
-    var parent = ch.util.inherits(Tabs, ch.Widget);
+    var parent = ch.util.inherits(Tabs, ch.Widget),
+
+        location = window.location,
+
+        // Creates methods enable and disable into the prototype.
+        methods = ['enable', 'disable'],
+        len = methods.length,
+
+        // Regular expresion to get hash
+        hashRegExp = new RegExp('\\#!?\\/?(.[^\\?|\\&|\\s]+)');
+
+
+    function createMethods(method) {
+        Tabs.prototype[method] = function (tab) {
+            var i = 0,
+                len;
+
+            // Disable an specifc tab panel
+            if (tab !== undefined) {
+                this.tabpanels[tab - 1][method]();
+
+            // Disable all tabs
+            } else {
+                len = this.tabpanels.length;
+                for (i; i < len; i += 1) {
+                    this.tabpanels[i][method]();
+                }
+
+                // Execute parent method
+                parent[method].call(this);
+            }
+
+            // Updates "aria-disabled" attribute
+            this._el.setAttribute('aria-disabled', !this._enabled);
+
+            return this;
+        };
+    }
 
     /**
      * The name of the widget.
@@ -71,12 +107,12 @@
         var that = this;
 
         /**
-        * The actual location hash, is used to know if there's a specific tab shwown.
+        * The actual location hash, is used to know if there's a specific tab panel shwown.
         * @type {String}
         * @private
         */
         this._currentHash = (function () {
-            var hash = window.location.hash.match(/\#!?\/?(.[^\?|\&|\s]+)/);
+            var hash = location.hash.match(hashRegExp);
             return (hash !== null) ? hash[1] : '';
         }());
 
@@ -99,13 +135,13 @@
             .attr('role', 'tablist');
 
         /**
-         * A collection of tabs children (tab).
+         * A collection of tab panel.
          * @type {Array}
          */
-        this.tab = [];
+        this.tabpanels = [];
 
         /**
-         * The container of tabpanels.
+         * The container of tab panels.
          * @type {(jQuerySelector | ZeptoSelector)}
          */
         this.$panel = this.$container.children(':last-child')
@@ -113,7 +149,7 @@
             .attr('role', 'presentation');
 
         /**
-         * The tabpanel's containers.
+         * The tab panel's containers.
          * @type {jQuery}
          * @private
          */
@@ -134,25 +170,24 @@
     };
 
     /**
-     * Create tab.
+     * Create tab panels.
      * @function
      * @private
      */
     Tabs.prototype._createTab = function (i, e) {
         var that = this,
-            child,
             tab,
 
             $panel = this._$tabsPanels.eq(i),
 
-            // Create Tab's options
+            // Create Tab panel's options
             options = {
                 '_classNameTrigger': 'ch-tab',
                 '_classNameContainer': 'ch-tabpanel ch-hide',
                 'toggle': false
             };
 
-        // Tab async configuration
+        // Tab panel async configuration
         if ($panel[0] === undefined) {
 
             $panel = $('<div id="' + e.href.split('#')[1] + '">').appendTo(this.$panel);
@@ -163,10 +198,10 @@
             options.method = this._options.method;
         }
 
-        // Tab container configuration
+        // Tab panel container configuration
         options.container = $panel;
 
-        // Creates new tab
+        // Creates new Tab panel
         tab = new ch.Expandable($(e), options);
 
         // Creates tab's hash
@@ -181,38 +216,38 @@
             that._updateShown(i + 1);
         });
 
-        // Adds tabs to the collection
-        this.tab.push(tab);
+        // Adds tab panel to the collection
+        this.tabpanels.push(tab);
 
         return this;
     };
 
     /**
-     * Checks if the url has a hash to shown the associated tab.
+     * Checks if the url has a hash to shown the associated tab panel.
      * @function
      * @private
      */
     Tabs.prototype._hasHash = function () {
         var i = 0,
-            // Shows the first tab if not hash or it's hash and it isn't from the current tab,
-            len = this.tab.length;
+            // Shows the first tab panel if not hash or it's hash and it isn't from the current tab panel,
+            len = this.tabpanels.length;
 
-        // If hash open that tab
+        // If hash open that tab panel
         for (i; i < len; i += 1) {
-            if (this.tab[i]._hash === this._currentHash) {
+            if (this.tabpanels[i]._hash === this._currentHash) {
                 this._shown = i + 1;
                 break;
             }
         }
 
-        this.tab[this._shown - 1].show();
+        this.tabpanels[this._shown - 1].show();
 
         /**
-         * Event emitted when the tabs shows a tabpanel.
+         * Event emitted when the tabs shows a tab panel container.
          * @event ch.Tabs#show
          * @example
          * // Subscribe to "show" event.
-         * widget.on('show', function (shownTab) {
+         * tabs.on('show', function (shownTabPanel) {
          *  // Some code here!
          * });
          */
@@ -222,29 +257,29 @@
     };
 
     /**
-     * Shows a specific tab.
+     * Shows a specific tab panel.
      * @memberof! ch.Tabs.prototype
      * @function
-     * @param {Number} tab
+     * @param {Number} tab - A given number of tab panel.
      * @returns {tabs}
      * @example
-     * // Shows the second tab.
+     * // Shows the second tab panel.
      * widget.show(2);
      */
     Tabs.prototype.show = function (tab) {
 
         // Shows the current tab
-        this.tab[tab - 1].show();
+        this.tabpanels[tab - 1].show();
 
         return this;
     };
 
     /**
-     * Updates the shown tab, hides the previous tab, changes window location and emits "show" event.
-     * @memberof! ch.Expandable.prototype
+     * Updates the shown tab panel, hides the previous tab panel, changes window location and emits "show" event.
+     * @memberof! ch.Tabs.prototype
      * @function
+     * @param {Number} tab - A given number of tab panel.
      * @private
-     * @param {Number} tab - A given number of tab.
      */
     Tabs.prototype._updateShown = function (tab) {
 
@@ -253,13 +288,11 @@
             return this;
         }
 
-        var regExp;
-
         // Hides the shown tab
-        this.tab[this._shown - 1].hide();
+        this.tabpanels[this._shown - 1].hide();
 
         /**
-         * Get wich tab is shown.
+         * Get wich tab panel is shown.
          * @private
          * @name ch.Tabs#_shown
          * @type {Number}
@@ -267,28 +300,28 @@
         this._shown = tab;
 
         // Update window location hash
-        if (this._currentHash === '') {
-            this._currentHash = '#!/' + this.tab[this._shown - 1]._hash;
-        } else {
-            regExp = new RegExp(window.location.hash.match(/\#!?\/?(.[^\?|\&|\s]+)/)[1]);
-            this._currentHash = window.location.hash.replace(regExp, this.tab[this._shown - 1]._hash);
-        }
-
-        window.location.hash = this._currentHash;
+        location.hash = this._currentHash = (this._currentHash === '')
+            // If the current hash is empty, create it.
+            ? '#!/' + this.tabpanels[this._shown - 1]._hash
+            // update only the previous hash
+            : location.hash.replace(location.hash.match(hashRegExp)[1], this.tabpanels[this._shown - 1]._hash);
 
         /**
-         * Fired when a tab is shown.
-         * @name ch.Tabs#show
-         * @event
-         * @public
+         * Event emitted when the tabs shows a tab panel container.
+         * @event ch.Tabs#show
+         * @example
+         * // Subscribe to "show" event.
+         * tabs.on('show', function (shownTab) {
+         *  // Some code here!
+         * });
          */
         this.emit('show', this._shown);
 
         return this;
-    }
+    };
 
     /**
-     * Returns the number of the shown tab.
+     * Returns the number of the shown tab panel.
      * @memberof! ch.Tabs.prototype
      * @function
      * @returns {Boolean}
@@ -303,7 +336,7 @@
 
     /**
      * Allows to manage the tabs content.
-     * @param {Number} tab - The number of the tab to change its content.
+     * @param {Number} tab A given tab to change its content.
      * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a tabpanel.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
@@ -312,8 +345,8 @@
      * @param {Boolean} [options.async]  Force to sent request asynchronously. By default is true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
-     * // Update content with some string.
-     * tabs.content(2, 'http://ajax.com', {});
+     * // Updates the content of the second tab with some string.
+     * tabs.content(2, 'http://ajax.com', {'cache': false});
      */
     Tabs.prototype.content = function (tab, content, options) {
         if (tab === undefined || typeof tab !== 'number') {
@@ -324,10 +357,41 @@
             return this.tab[tab - 1].content();
         }
 
-        this.tab[tab - 1].content(content, options);
+        this.tabpanels[tab - 1].content(content, options);
 
         return this;
     };
+
+    /**
+     * Enables an instance of Tabs or an specific tab panel.
+     * @memberof! ch.Tabs.prototype
+     * @function
+     * @param {Number} [tab] - A given number of tab panel to enable.
+     * @returns {tabs} Returns an instance of Tabs.
+     * @expample
+     * // Enabling an instance of Tabs.
+     * tabs.enable();
+     * @expample
+     * // Enabling the second tab panel of a tabs.
+     * tabs.enable(2);
+     */
+
+    /**
+     * Disables an instance of Tabs or an specific tab panel.
+     * @memberof! ch.Tabs.prototype
+     * @function
+     * @param {Number} [tab] - A given number of tab panel to disable.
+     * @returns {tabs} Returns an instance of Tabs.
+     * @expample
+     * // Disabling an instance of Tabs.
+     * tabs.disable();
+     * @expample
+     * // Disabling the second tab panel.
+     * tabs.disable(2);
+     */
+    while (len) {
+        createMethods(methods[len -= 1]);
+    }
 
     /**
      * Destroys a tabs instance.
