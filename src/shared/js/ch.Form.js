@@ -6,32 +6,42 @@
     }
 
     /**
-     * Forms is a Controller of DOM's HTMLFormElement.
-     * @name Form
-     * @class Form
+     * Form is a controller of DOM's HTMLFormElement.
+     * @memberof ch
+     * @constructor
      * @augments ch.Widget
-     * @memberOf ch
-     * @param {Object} [options] Object with configuration properties.
-     * @param {Object} [options.messages]
-     * @see ch.Validation
-     * @see ch.Widget
-     * @returns itself
-     * @factorized
-     * @exampleDescription Create a new Form.
+     * @requires ch.Validations
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Form.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Object} [options.messages] A collections of validations messages.
+     * @param {String} [options.messages.required] A validation message.
+     * @param {String} [options.messages.string] A validation message.
+     * @param {String} [options.messages.url] A validation message.
+     * @param {String} [options.messages.email] A validation message.
+     * @param {String} [options.messages.maxLength] A validation message.
+     * @param {String} [options.messages.minLength] A validation message.
+     * @param {String} [options.messages.custom] A validation message.
+     * @param {String} [options.messages.number] A validation message.
+     * @param {String} [options.messages.min] A validation message.
+     * @param {String} [options.messages.max] A validation message.
+     * @param {String} [options.messages.price] A validation message.
+     * @returns {form} Returns a new instance of ch.Form.
      * @example
-     * var widget = $(".example").form();
-     * @exampleDescription Create a new Form with some messages that will be use the validation engine.
+     * // Create a new Form with defaults options.
+     * var widget = $(selector).form();
      * @example
-     * var widget = $(".example").form({
-     *  "messages": {
-     *      "required": "Error message for all required fields.",
-     *      "email": "Show this message on email format error."
-     *  }
+     * // Create a new Form with custom messages.
+     * $(selector).form({
+     *     'messages': {
+     *          'required': 'Some message!',
+     *          'email': 'Another message!'
+     *      }
      * });
      */
     function Form($el, options) {
+
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @private
          * @type {Object}
          */
@@ -40,13 +50,12 @@
         that.init($el, options);
 
         /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @fires ch.Form#ready
-         * @since 0.8.0
-         * @exampleDescription Following the first example, using <code>widget</code> as form's instance controller:
+         * Emits the event 'ready' when the widget is ready to use.
+         * @event ch.Form#ready
          * @example
-         * widget.on('ready',function () {
-         *  this.show();
+         * // Subscribe to "ready" event.
+         * form.on('ready',function () {
+         *    this.show();
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -64,31 +73,32 @@
      */
 
     /**
-     * The name of the widget. All instances are saved into a 'map', grouped by its name. You can reach for any or all of the components from a specific name with 'ch.instances'.
-     * @public
+     * The name of the widget.
      * @type {String}
      */
     Form.prototype.name = 'form';
 
     /**
-     * Returns a reference to the Constructor function that created the instance's prototype.
-     * @public
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Widget.prototype
      * @function
      */
     Form.prototype.constructor = Form;
 
     /**
-     * Constructs a new Form.
-     * @public
+     * Initialize a new instance of Form and merge custom options with defaults options.
+     * @memberof! ch.Form.prototype
      * @function
+     * @returns {form}
      */
     Form.prototype.init = function ($el, options) {
+        // Call to its parents init method
         parent.init.call(this, $el, options);
 
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -97,32 +107,33 @@
          */
 
         /**
-         * A Boolean property that indicates is exists errors in the form.
-         * @private
-         * @type {Boolean}
-         */
-        that.errors = [];
-
-        /**
-         * Collection of messages defined.
-         * @private
-         * @name ch.Form#_messages
-         * @type {String}
-         */
-        that._messages = that._options.messages || {};
-
-        /**
-         * Collection of validators.
-         * @private
-         * @name ch.Form#validations
+         * A collection of active errors.
          * @type {Array}
          */
-        that.validations = [];
+        this.errors = [];
+
+        /**
+         * Collection of defined messages.
+         * @type {Object}
+         * @private
+         */
+        this._messages = this._options.messages || {};
+
+        /**
+         * A collection of validations instances.
+         * @type {Array}
+         */
+        this.validations = [];
 
         /**
          * Default behavior
          */
-        that.$container = that._$el
+
+        /**
+         * The form container.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        this.$container = this._$el
             // Add classname
             .addClass('ch-form')
             // Disable HTML5 browser-native validations
@@ -133,7 +144,7 @@
                 that.validate(event);
             });
 
-        that.$container
+        this.$container
             // Bind the reset
             .find('input[type="reset"]').on(ch.onpointertap + '.form', function (event) {
                 ch.util.prevent(event);
@@ -143,15 +154,14 @@
         // Clean validations
         this.on('disable', this.clear);
 
-        return that;
+        return this;
     };
 
     /**
-     * Executes all validations, if finds a error will trigger 'error' event, if no error is found will trigger 'success' event.
-     * @public
+     * Executes all validations.
+     * @memberof! ch.Form.prototype
      * @function
-     * @name ch.Form#validate
-     * @returns {Object}
+     * @returns {form}
      */
     Form.prototype.validate = function (event) {
 
@@ -159,6 +169,15 @@
             return this;
         }
 
+        /**
+         * Emits when the form will be validated.
+         * @event ch.Form#beforevalidate
+         * @example
+         * // Subscribe to "beforevalidate" event.
+         * widget.on('beforevalidate', function () {
+         *  // Some code here!
+         * });
+         */
         this.emit('beforevalidate');
 
         var that = this,
@@ -204,14 +223,12 @@
             ch.util.prevent(event);
 
             /**
-             * Fired when the form fall on a error.
-             * @name ch.Form#error
-             * @event
-             * @public
-             * @exampleDescription
+             * Emits when a form has got errors.
+             * @event ch.Form#error
              * @example
-             * widget.on("error",function (chicoEvent, data) {
-             *    console.log(data.errors.length);
+             * // Subscribe to "error" event.
+             * widget.on('error', function (errors) {
+             *  console.log(errors.length);
              * });
              */
             this.emit('error', this.errors);
@@ -219,20 +236,18 @@
         } else {
 
             /**
-             * Fired when submits the form.
-             * @name ch.Form#submit
-             * @event
-             * @public
-             * @exampleDescription
+             * Emits when a form is hasn't got errros.
+             * @event ch.Form#success
              * @example
-             * widget.on("submit",function (chicoEvent, event) {
-             *  this.action();
+             * // Subscribe to "success" event.
+             * form.on("submit",function () {
+             *  // Some code here!
              * });
-             * @exampleDescription
              * @example
-             * widget.on("submit",function (chicoEvent, event) {
+             * // Subscribe to "success" event and prevent the submit event.
+             * form.on("submit",function (event) {
              *  event.preventDefault();
-             *  this.action();
+             *  // Some code here!
              * });
              */
             this.emit('success', event);
@@ -242,11 +257,15 @@
     };
 
     /**
-     * Returns the status value of the form.
-     * @public
+     * Checks if the form has got errors but it doesn't show bubbles.
+     * @memberof! ch.Form.prototype
      * @function
-     * @name ch.Form#hasError
-     * @returns {Object}
+     * @returns {Bollean}
+     * @example
+     * // Checks if a form has errors and do something.
+     * if (form.hasError()) {
+     *     // Some code here!
+     * };
      */
     Form.prototype.hasError = function () {
 
@@ -279,43 +298,44 @@
     };
 
     /**
-     * Use this method to clear al validations.
-     * @public
+     * Clear all active errors.
+     * @memberof! ch.Form.prototype
      * @function
-     * @name ch.Form#clear
-     * @returns {Object}
+     * @returns {form}
+     * @example
+     * // Clear active errors.
+     * form.clear();
      */
     Form.prototype.clear = function () {
-        var that = this,
-            i = 0,
-            j = that.validations.length;
+        var i = 0,
+            j = this.validations.length;
 
         for (i; i < j; i += 1) {
-            that.validations[i].clear();
+            this.validations[i].clear();
         }
 
         /**
-         * Fired when clean the form's data.
-         * @name ch.Form#clear
-         * @event
-         * @public
-         * @exampleDescription
+         * Emits when a form clean its active errors.
+         * @event ch.Form#clear
          * @example
-         * widget.on("clear",function () {
-         *  this.reset();
+         * // Subscribe to "clear" event.
+         * form.on('clear', function () {
+         *  // Some code here!
          * });
          */
-        that.emit('clear');
+        this.emit('clear');
 
-        return that;
+        return this;
     };
 
     /**
-     * Use this method to clear al validations.
-     * @public
+     * Clear all active errors and executes the reset() native mehtod.
+     * @memberof! ch.Form.prototype
      * @function
-     * @name ch.Form#reset
-     * @returns {Object}
+     * @returns {form}
+     * @example
+     * // Resets form fields and clears active errors.
+     * form.reset();
      */
     Form.prototype.reset = function () {
 
@@ -326,14 +346,12 @@
         this._el.reset();
 
         /**
-         * Fired when resets the form.
-         * @name ch.Form#reset
-         * @event
-         * @public
-         * @exampleDescription
+         * Emits when a form resets its fields.
+         * @event ch.Form#reset
          * @example
-         * widget.on("reset",function () {
-         *   sowidget.action();
+         * // Subscribe to "reset" event.
+         * form.on('reset', function () {
+         *  // Some code here!
          * });
          */
         this.emit('reset');
@@ -342,10 +360,12 @@
     };
 
     /**
-     * Destroys a Form instance.
-     * @public
+     * Destroys a form instance.
+     * @memberof! ch.Form.prototype
      * @function
-     * @name ch.Form#destroy
+     * @expample
+     * // Destroying an instance of Form.
+     * form.destroy();
      */
     Form.prototype.destroy = function () {
 

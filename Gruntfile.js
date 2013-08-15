@@ -1,12 +1,13 @@
 module.exports = function (grunt) {
     'use strict';
 
-    var env = grunt.option('env') || 'ui',
+    var environment = grunt.option('env') || 'ui',
+        destination = grunt.option('dest') || 'temp',
         lib = {
             'mobile': 'Zepto',
             'ui': 'jQuery'
         },
-        files = require('./libs/files/' + env);
+        files = require('./libs/files/' + environment);
 
     // Project configuration.
     grunt.initConfig({
@@ -39,15 +40,15 @@ module.exports = function (grunt) {
             'core': {
                 'options': {
                     'banner': '<%= banner.full %>' + "\n\n(function (window, $) {\n\t'use strict';\n\n",
-                    'footer': '\n\twindow.ch = ch;\n}(this, ' + lib[env] + '));'
+                    'footer': '\n\twindow.ch = ch;\n}(this, ' + lib[environment] + '));'
                 },
                 'src': files.JS.core,
-                'dest': 'temp/' + env + '/core.tmp.js'
+                'dest': 'temp/' + environment + '/core.tmp.js'
             },
 
             'js': {
-                'src': ['temp/' + env + '/core.tmp.js'].concat(files.JS.abilities).concat(files.JS.widgets),
-                'dest':'temp/' + env + '/chico.js'
+                'src': ['temp/' + environment + '/core.tmp.js'].concat(files.JS.abilities).concat(files.JS.widgets),
+                'dest': destination + '/' + environment + '/chico.js'
             },
 
             'css': {
@@ -55,20 +56,19 @@ module.exports = function (grunt) {
                     'banner': '<%= banner.full %>'
                 },
                 'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.widgets),
-                'dest':'temp/' + env + '/chico.css'
+                'dest': destination + '/' + environment + '/chico.css'
             }
         },
 
         'uglify': {
             'options': {
                 'mangle': false,
-                'banner': '<%= banner.min %>' + "(function(window,$){'use strict';",
-                'footer': 'window.ch = ch;}(this, ' + lib[env] + '));'
+                'banner': '<%= banner.min %>'
             },
 
             'min': {
                 'src': ['<%= concat.js.dest %>'],
-                'dest':'temp/' + env + '/chico.min.js'
+                'dest': destination + '/' + environment + '/chico.min.js'
             }
         },
 
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 
             'ui-css': {
                 'src': ['<%= concat.css.dest %>'],
-                'dest': 'temp/' + env + '/chico.min.css'
+                'dest': destination + '/' + environment + '/chico.min.css'
             }
         },
 
@@ -119,7 +119,10 @@ module.exports = function (grunt) {
                     "src/ui/js/ch.shortcuts.js",
 
                     "src/shared/js/ch.Widget.js",
-                    "src/shared/js/ch.Expandable.js"
+                    "src/shared/js/ch.Expandable.js",
+                    "src/shared/js/ch.Form.js",
+
+                    "src/ui/js/ch.Tabs.js"
 
                 ],
                 'options': {

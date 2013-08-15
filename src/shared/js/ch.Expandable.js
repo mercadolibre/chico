@@ -22,7 +22,7 @@
      * @mixes ch.Collapsible
      * @mixes ch.Content
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
-     * @param {Object} [options] Options to customize the instance.
+     * @param {Object} [options] Options to customize an instance.
      * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disabled.
      * @param {Boolean} [options.toggle] Customize toggle behavior. By default, the toggle is enabled.
      * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. By default, the container will be the next sibling of $el.
@@ -34,7 +34,7 @@
      * @example
      * // Create a new Expandable with toggle disabled.
      * $(selector).expandable({
-     *     'toggle': true
+     *     'toggle': false
      * });
      * @example
      * // Create a new Expandable with fx enabled.
@@ -56,8 +56,9 @@
      * $(selector).expandable('http://ui.ml.com:3040/ajax');
      */
     function Expandable($el, options) {
+
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @private
          * @type {Object}
          */
@@ -66,7 +67,7 @@
         this.init($el, options);
 
         /**
-         * Emits the event 'ready' when the component is ready to use.
+         * Emits the event 'ready' when the widget is ready to use.
          * @event ch.Expandable#ready
          * @example
          * // Subscribe to "ready" event.
@@ -100,8 +101,7 @@
     /**
      * Returns a reference to the constructor function that created the instance.
      * @memberof! ch.Widget.prototype
-     * @constructor
-     * @private
+     * @function
      */
     Expandable.prototype.constructor = Expandable;
 
@@ -128,7 +128,7 @@
         parent.init.call(this, $el, options);
 
         /**
-         * Set required abilities
+         * Requires abilities
          */
         this.require('Collapsible', 'Content');
 
@@ -137,7 +137,7 @@
          */
 
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @type {Object}
          * @private
          */
@@ -197,11 +197,11 @@
      * @function
      * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by expandable.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
-     * @param {String} [options.method] - The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
-     * @param {String} [options.params] - Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] - Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async] - Force to sent request asynchronously. By default is true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] - Temporary content to use while the ajax request is loading.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {expandable}
      * @example
      * // Shows a basic expandable.
@@ -236,7 +236,7 @@
     };
 
     /**
-     * Hides component's content.
+     * Hides widget's content.
      * @memberof! ch.Expandable.prototype
      * @function
      * @returns {expandable}
@@ -259,10 +259,10 @@
 
 
     /**
-     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
+     * Returns a Boolean if the widget's core behavior is shown. That means it will return 'true' if the widget is on and it will return false otherwise.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @returns {expandable}
+     * @returns {Boolean}
      * @example
      * // Execute a function if the widget is shown.
      * if (widget.isShown()) {
@@ -278,7 +278,7 @@
      * @memberof! ch.Expandable.prototype
      * @function
      * @expample
-     * // Destroying an instance of Widget.
+     * // Destroying an instance of Expandable.
      * expandable.destroy();
      */
     Expandable.prototype.destroy = function () {

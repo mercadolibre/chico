@@ -38,15 +38,16 @@
     /**
      * Returns a reference to the constructor function that created the instance.
      * @memberof! ch.Widget.prototype
-     * @constructor
-     * @private
+     * @function
      */
-    Widget.prototype._constructor = Widget;
+    Widget.prototype.constructor = Widget;
 
     /**
      * Initialize a new instance of Widget and merge custom options with defaults options.
      * @memberof! ch.Widget.prototype
      * @function
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Widget.
+     * @param {Object} [options] Options to customize an instance.
      * @returns {instance} Returns an instance of Widget.
      */
     Widget.prototype.init = function ($el, options) {
