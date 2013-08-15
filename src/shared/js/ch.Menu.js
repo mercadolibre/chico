@@ -68,11 +68,12 @@
             var i,
                 fold = this.fold[child - 1];
 
-            // enable specific expandable
+            // Enables or disables a specific expandable fold
             if (fold && fold.name === 'expandable') {
 
                 fold[method]();
 
+            // Enables or disables Expandable folds
             } else {
 
                 i = this.fold.length;
@@ -86,8 +87,11 @@
                     }
                 }
 
-                // enable all
+                // Executes parent method
                 parent[method].call(this);
+
+                // Updates "aria-disabled" attribute
+                this._el.setAttribute('aria-disabled', !this._enabled);
             }
 
             return this;
@@ -240,12 +244,19 @@
     */
     Menu.prototype.show = function (child) {
 
-        if (!this._enabled) {
-            return this;
-        }
-
         // Specific item of this.fold list
         this.fold[child - 1].show();
+
+        /**
+         * Event emitted when the menu show a fold.
+         * @event ch.Menu#show
+         * @example
+         * // Subscribe to "show" event.
+         * menu.on('show', function (child) {
+         *  // Some code here!
+         * });
+         */
+        this.emit('show', child);
 
         return this;
     };
@@ -260,12 +271,19 @@
      */
     Menu.prototype.hide = function (child) {
 
-        if (!this._enabled) {
-            return this;
-        }
-
         // Specific item of this.fold list
         this.fold[child - 1].hide();
+
+        /**
+         * Event emitted when the menu hide a fold.
+         * @event ch.Menu#hide
+         * @example
+         * // Subscribe to "hide" event.
+         * menu.on('hide', function (child) {
+         *  // Some code here!
+         * });
+         */
+        this.emit('hide', child);
 
         return this;
     };

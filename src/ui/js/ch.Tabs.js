@@ -63,7 +63,7 @@
             if (tab !== undefined) {
                 this.tabpanels[tab - 1][method]();
 
-            // Disable Tabs
+            // Enables or disables Tabs
             } else {
 
                 i = this.tabpanels.length;

@@ -8,8 +8,7 @@ var tabs1 = $('#tabs-1').tabs(),
 $(window.document).on(ch.onchangelayout, changeLayoutEvent);
 
 describe('Tabs', function () {
-    tabs1
-        .on('ready', function () { readyEvent(); });
+    tabs1.on('ready', function () { readyEvent(); });
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Tabs')).toBeTruthy();
