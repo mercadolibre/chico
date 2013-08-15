@@ -1,4 +1,5 @@
 var tabs1 = $('#tabs-1').tabs(),
+    tabs2 = $('#tabs-2').tabs(),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
     changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
@@ -8,8 +9,7 @@ $(window.document).on(ch.onchangelayout, changeLayoutEvent);
 
 describe('Tabs', function () {
     tabs1
-        .on('ready', function () { readyEvent(); })
-        .on('destroy', function () { destroyEvent(); });
+        .on('ready', function () { readyEvent(); });
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Tabs')).toBeTruthy();
@@ -186,15 +186,58 @@ describe('Its getShown() method', function () {
     });
 });
 
+describe('Its disable() method', function () {
+    var instance;
+
+    it('should receive an optional tab to disable', function () {
+        instance = tabs1.disable(3);
+        tabs1.show(3);
+        expect(tabs1.tabpanels[2].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+    });
+
+    it('should prevent to show new tab panels', function () {
+        instance = tabs1.disable();
+        tabs1.show(2);
+        expect(tabs1.tabpanels[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(tabs1);
+    });
+});
+
+describe('Its enable() method', function () {
+    var instance;
+
+    it('should receive an optional tab to enable', function () {
+        instance = tabs1.enable(3);
+        tabs1.show(3);
+        expect(tabs1.tabpanels[2].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+    });
+
+    it('should prevent to show its container', function () {
+        instance = tabs1.enable();
+        tabs1.show(2);
+        expect(tabs1.tabpanels[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(tabs1);
+        tabs1.show(1);
+    });
+
+});
+
 describe('Its destroy() method', function () {
+    tabs2.on('destroy', function () { destroyEvent(); });
 
     it('should reset the $container', function () {
-        tabs1.destroy();
-        expect(tabs1.$container.parent().length === 0).toBeTruthy();
+        tabs2.destroy();
+        expect(tabs2.$container.parent().length === 0).toBeTruthy();
     });
 
     it('should remove the instance from the element', function () {
-        expect(tabs1._$el.data('tabs')).toBeUndefined();
+        expect(tabs2._$el.data('tabs')).toBeUndefined();
     });
 
     it('should emit the "changeLayout" event', function () {
