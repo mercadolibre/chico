@@ -366,6 +366,7 @@
     /**
      * Enables an instance of Tabs or an specific tab panel.
      * @memberof! ch.Tabs.prototype
+     * @name enable
      * @function
      * @param {Number} [tab] - A given number of tab panel to enable.
      * @returns {tabs} Returns an instance of Tabs.
@@ -380,6 +381,7 @@
     /**
      * Disables an instance of Tabs or an specific tab panel.
      * @memberof! ch.Tabs.prototype
+     * @name disable
      * @function
      * @param {Number} [tab] - A given number of tab panel to disable.
      * @returns {tabs} Returns an instance of Tabs.
