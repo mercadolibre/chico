@@ -65,26 +65,29 @@
 
     function createMethods(method) {
         Menu.prototype[method] = function (child) {
-            var i;
+            var i,
+                fold = this.fold[child - 1];
 
-            // Enables or disables an specifc expandable
-            if (child !== unedfined) {
-                this.fold[child - 1][method]();
+            // enable specific expandable
+            if (fold && fold.name === 'expandable') {
 
-            // Disable Menu
+                fold[method]();
+
             } else {
 
                 i = this.fold.length;
 
                 while (i) {
-                    this.fold[i -= 1][method]();
+
+                    fold = this.fold[i -= 1];
+
+                    if (fold.name === 'expandable') {
+                        fold[method]();
+                    }
                 }
 
-                // Executes parent method
+                // enable all
                 parent[method].call(this);
-
-                // Updates "aria-disabled" attribute
-                this._el.setAttribute('aria-disabled', !this._enabled);
             }
 
             return this;
