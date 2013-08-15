@@ -34,7 +34,7 @@
      * @example
      * // Create a new Expandable with toggle disabled.
      * $(selector).expandable({
-     *     'toggle': true
+     *     'toggle': false
      * });
      * @example
      * // Create a new Expandable with fx enabled.
