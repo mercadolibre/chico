@@ -1,4 +1,5 @@
 var menu1 = $("#menu-1").menu({'fx': false}),
+    menu2 = $("#menu-2").menu(),
     readyEvent = jasmine.createSpy('readyEvent'),
     showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
@@ -12,9 +13,7 @@ var menu1 = $("#menu-1").menu({'fx': false}),
 $(window.document).on(ch.onchangelayout, changeLayoutEvent);
 
 describe('Menu', function () {
-    menu1
-        .on('ready', function () { readyEvent(); })
-        .on('destroy', function () { destroyEvent(); });
+    menu1.on('ready', function () { readyEvent(); });
 
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Menu')).toBeTruthy();
@@ -166,15 +165,58 @@ describe('An instance by default', function () {
     });
 });
 
+describe('Its disable() method', function () {
+    var instance;
+
+    it('should receive an optional tab to disable', function () {
+        instance = menu1.disable(1);
+        menu1.show(1);
+        expect(menu1.fold[0].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+    });
+
+    it('should prevent to show new tab panels', function () {
+        instance = menu1.disable();
+        menu1.show(2);
+        expect(menu1.fold[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(menu1);
+    });
+});
+
+describe('Its enable() method', function () {
+    var instance;
+
+    it('should receive an optional tab to enable', function () {
+        instance = menu1.enable(1);
+        menu1.show(1);
+        expect(menu1.fold[0].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+    });
+
+    it('should prevent to show its container', function () {
+        instance = menu1.enable();
+        menu1.show(2);
+        expect(menu1.fold[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+    });
+
+    it('should return the same instance than initialized widget', function () {
+        expect(instance).toEqual(menu1);
+        menu1.show(1);
+    });
+
+});
+
 describe('Its destroy() method', function () {
+    menu2.on('destroy', function () { destroyEvent(); });
 
     it('should reset the $container', function () {
-        menu1.destroy();
-        expect(menu1.$container.parent().length === 0).toBeTruthy();
+        menu2.destroy();
+        expect(menu2.$container.parent().length === 0).toBeTruthy();
     });
 
     it('should remove the instance from the element', function () {
-        expect(menu1._$el.data('menu')).toBeUndefined();
+        expect(menu2._$el.data('menu')).toBeUndefined();
     });
 
     it('should emit the "changeLayout" event', function () {
