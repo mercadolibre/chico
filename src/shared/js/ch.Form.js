@@ -80,7 +80,7 @@
 
     /**
      * Returns a reference to the constructor function that created the instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Form.prototype
      * @function
      */
     Form.prototype.constructor = Form;

@@ -23,7 +23,7 @@
      * @mixes ch.Content
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
      * @param {Object} [options] Options to customize an instance.
-     * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disabled.
+     * @param {String} [options.fx] Enable or disable UI effects. By default, the effects are disabled. You should use: "slideDown", "fadeIn" or "none".
      * @param {Boolean} [options.toggle] Customize toggle behavior. By default, the toggle is enabled.
      * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. By default, the container will be the next sibling of $el.
      * @param {String} [options.content] The content to be shown into the expandable container.
@@ -39,7 +39,7 @@
      * @example
      * // Create a new Expandable with fx enabled.
      * $(selector).expandable({
-     *     'fx': true
+     *     'fx': 'slideDown'
      * });
      * @example
      * // Create a new Expandable with a specific container.
@@ -79,18 +79,10 @@
     }
 
     /**
-     * Private Expandable
-     */
-
-    /**
      * Inheritance
      */
     var $document = $(window.document),
         parent = ch.util.inherits(Expandable, ch.Widget);
-
-    /**
-     * Prototype
-     */
 
     /**
      * The name of the widget.
@@ -100,7 +92,7 @@
 
     /**
      * Returns a reference to the constructor function that created the instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Expandable.prototype
      * @function
      */
     Expandable.prototype.constructor = Expandable;
@@ -127,14 +119,8 @@
         // Call to its parents init method
         parent.init.call(this, $el, options);
 
-        /**
-         * Requires abilities
-         */
+        // Requires abilities
         this.require('Collapsible', 'Content');
-
-        /**
-         * Private Members
-         */
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
