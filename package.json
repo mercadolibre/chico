@@ -24,13 +24,10 @@
     "type": "git",
     "url": "https://github.com/mercadolibre/chico.git"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "express": "3.x",
     "ejs": "*",
-    "uglify-js": "x.x.x",
-    "cssmin": "x.x.x"
-  },
-  "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-jslint": "0.2.6",
     "grunt-contrib-concat": "0.3.0",
