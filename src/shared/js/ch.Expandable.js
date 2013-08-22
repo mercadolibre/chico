@@ -12,7 +12,7 @@
             };
         }
         return options;
-    };
+    }
 
     /**
      * Expandable lets you show or hide content. Expandable needs a pair: a title and a container related to title.
@@ -71,7 +71,7 @@
          * @event ch.Expandable#ready
          * @example
          * // Subscribe to "ready" event.
-         * expandable.on('ready',function () {
+         * expandable.on('ready', function () {
          *    this.show();
          * });
          */
@@ -116,7 +116,7 @@
      * @returns {expandable}
      */
     Expandable.prototype.init = function ($el, options) {
-        // Call to its parents init method
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
         // Requires abilities
@@ -128,10 +128,6 @@
          * @private
          */
         var that = this;
-
-        /**
-         * Public Members
-         */
 
         /**
          * The expandable trigger.

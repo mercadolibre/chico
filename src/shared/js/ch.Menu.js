@@ -40,7 +40,7 @@
          * @event ch.Menu#ready
          * @example
          * // Subscribe to "ready" event.
-         * menu.on('ready',function () {
+         * menu.on('ready', function () {
          *    this.show();
          * });
          */
@@ -120,7 +120,7 @@
      * @returns {menu}
      */
     Menu.prototype.init = function ($el, options) {
-        // Call to its parents init method
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.

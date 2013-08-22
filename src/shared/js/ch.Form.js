@@ -54,7 +54,7 @@
          * @event ch.Form#ready
          * @example
          * // Subscribe to "ready" event.
-         * form.on('ready',function () {
+         * form.on('ready', function () {
          *    this.show();
          * });
          */
@@ -92,7 +92,7 @@
      * @returns {form}
      */
     Form.prototype.init = function ($el, options) {
-        // Call to its parents init method
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
         /**
@@ -101,10 +101,6 @@
          * @private
          */
         var that = this;
-
-        /**
-         * Private Members
-         */
 
         /**
          * A collection of active errors.
