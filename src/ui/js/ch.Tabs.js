@@ -265,7 +265,7 @@
      * @returns {tabs}
      * @example
      * // Shows the second tab panel.
-     * widget.show(2);
+     * tabs.show(2);
      */
     Tabs.prototype.show = function (tab) {
 
@@ -364,7 +364,7 @@
     };
 
     /**
-     * Enables an instance of Tabs or an specific tab panel.
+     * Enables an instance of Tabs or a specific tab panel.
      * @memberof! ch.Tabs.prototype
      * @name enable
      * @function
@@ -379,7 +379,7 @@
      */
 
     /**
-     * Disables an instance of Tabs or an specific tab panel.
+     * Disables an instance of Tabs or a specific tab panel.
      * @memberof! ch.Tabs.prototype
      * @name disable
      * @function
@@ -397,7 +397,7 @@
     }
 
     /**
-     * Destroys a tabs instance.
+     * Destroys a Tabs instance.
      * @memberof! ch.Tabs.prototype
      * @function
      * @expample

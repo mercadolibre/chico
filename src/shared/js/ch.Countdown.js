@@ -5,204 +5,7 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    /**
-     * Countdown counts the maximum of characters that user can enter in a form control. Countdown could limit the possibility to continue inserting charset.
-     * @name Countdown
-     * @class Countdown
-     * @augments ch.Controls
-     * @see ch.Controls
-     * @memberOf ch
-     * @param {Object} conf Object with configuration properties.
-     * @param {Number} conf.max Number of the maximum amount of characters user can input in form control.
-     * @param {String} [conf.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# characters left.".
-     * @param {String} [conf.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# character left.".
-     * @returns itself
-     * @factorized
-     * @exampleDescription Create a simple Countdown. Then <code>widget</code> is a reference to the Countdown instance controller.
-     * @example
-     * var widget = $(".some-form-control").countdown(500);
-     * @exampleDescription Create a Countdown with configuration.
-     * @example
-     * var widget = $(".some-form-control").countdown({
-     *     "max": 500,
-     *     "plural": "Restan # caracteres.",
-     *     "singular": "Resta # caracter."
-     * });
-     */
-    function Countdown($el, options) {
-
-        /**
-         * Reference to an internal component instance, saves all the information and configuration properties.
-         * @private
-         * @name ch.Countdown#that
-         * @type Object
-         */
-        var that = this;
-
-        that.init($el, options);
-
-        /**
-         * Triggers when component is ready to use.
-         * @name ch.Countdown#ready
-         * @event
-         * @public
-         * @exampleDescription Following the first example, using <code>widget</code> as Countdown's instance controller:
-         * @example
-         * widget.on("ready",function () {
-         *   this.el;
-         * });
-         */
-        window.setTimeout(function () { that.emit("ready"); }, 50);
-
-        return that;
-
-    }
-
-    /**
-     *   Private Members
-     */
-        /**
-         * Inheritance
-         */
-
-    var parent = ch.util.inherits(Countdown, ch.Widget);
-
-
-    Countdown.prototype.name = 'countdown';
-
-    Countdown.prototype.constructor = Countdown;
-
-    Countdown.prototype._defaults = {
-        'plural': '# characters left.',
-        'singular': '# character left.',
-        'max': 500
-    };
-
-    Countdown.prototype.init = function ($el, options) {
-
-        parent.init.call(this, $el, options);
-
-        var that = this,
-            messageID = 'ch-countdown-message-' + that.uid,
-            $container = that._$el.parent(),
-            message;
-
-        this.$trigger = this._$el;
-
-        /**
-         * Amount of free characters until full the field.
-         * @private
-         * @name ch.Countdown#_remaining
-         * @type Number
-         */
-        that._remaining = that._options.max - that._contentLength();
-
-        // Singular or Plural message depending on amount of remaining characters
-        message = ((that._remaining === 1) ? that._options.singular : that._options.plural);
-
-        // Create the DOM Element when message will be shown
-        that.$container = $('<p class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>').appendTo($container);
-
-        // Bind process function to element
-        that.$trigger.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown', function () { that._count(); });
-
-        this.on('disable', this._removeError);
-
-        return this;
-    };
-
-    /**
-     * Length of value of form control.
-     * @private
-     * @name ch.Countdown#_contentLength
-     * @type Number
-     */
-    Countdown.prototype._contentLength = function () {
-        return this._el.value.length;
-    };
-
-    /**
-     * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
-     * @public
-     * @name ch.Countdown#_count
-     * @function
-     */
-    Countdown.prototype._count = function () {
-
-        if (!this._enabled) {
-            return this;
-        }
-
-        var that = this,
-            length = that._contentLength(),
-            message;
-
-        that._remaining = that._options.max - length;
-
-        // Limit Count alert the user
-        if (length <= that._options.max) {
-
-            if (that._exceeded) {
-                that._exceeded = false;
-                that._removeError();
-            }
-
-        } else if (length > that._options.max) {
-
-            /**
-             * Triggers when the lenght of characters is exceeded
-             * @name ch.Calendar#exceeded
-             * @event
-             * @public
-             * @exampleDescription If you want to advice the user when it's exceeding the limit.
-             * @example
-             * widget.on("exceeded", function () {
-             *  alert('Hey you are exceeding the limit of this field.');
-             * });
-             */
-            that.emit('exceeded');
-
-            that._exceeded = true;
-
-            that.$trigger
-                .addClass('ch-validation-error')
-                .attr('aria-invalid', 'true');
-
-            that.$container.addClass('ch-countdown-exceeded');
-        }
-
-        // Change visible message of remaining characters
-        // Singular or Plural message depending on amount of remaining characters
-        message = (that._remaining !== 1 ? that._options.plural : that._options.singular).replace(/\#/g, that._remaining);
-
-        // Update DOM text
-        that.$container.text(message);
-
-        return that;
-
-    };
-
-     /**
-     * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
-     * @public
-     * @name ch.Countdown#_count
-     * @function
-     */
-    Countdown.prototype._removeError = function () {
-        this.$trigger
-            .removeClass('ch-validation-error')
-            .attr('aria-invalid', 'false');
-
-        this.$container.removeClass('ch-countdown-exceeded');
-    };
-
-    /**
-     * @borrows ch.Widget#uid as ch.Countdown#uid
-     * @borrows ch.Widget#element as ch.Countdown#element
-     * @borrows ch.Widget#type as ch.Countdown#type
-     */
-
-    Countdown.prototype._normalizeOptions = function (options) {
+    function normalizeOptions (options) {
         var num = window.parseInt(options, 10);
 
         if (!window.isNaN(num)) {
@@ -212,13 +15,235 @@
         }
 
         return options;
+    }
+
+    /**
+     * Countdown counts the maximum of characters that user can enter in a form control. Countdown could limit the possibility to continue inserting charset.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Widget
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Countdown.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control.
+     * @param {String} [options.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# characters left.".
+     * @param {String} [options.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# character left.".
+     * @returns {countdown} Returns a new instance of ch.Countdown.
+     * @example
+     * // Create a new Countdown with defaults options.
+     * var countdown = $(selector).countdown(500);
+     * @example
+     * // Create a new Countdown with custom options.
+     * var countdown = $(selector).countdown({
+     *     'max': 500,
+     *     'plural': 'Restan # caracteres.',
+     *     'singular': 'Resta # caracter.'
+     * });
+     */
+    function Countdown($el, options) {
+
+        /**
+         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this;
+
+        that.init($el, options);
+
+        /**
+         * Event emitted when the widget is ready to use.
+         * @event ch.Countdown#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * countdown.on('ready', function () {
+         *    // Some code here!
+         * });
+         */
+        window.setTimeout(function () { that.emit("ready"); }, 50);
+
+        return this;
+    }
+
+    /**
+     * Inheritance
+     */
+    var parent = ch.util.inherits(Countdown, ch.Widget);
+
+    /**
+     * The name of the widget.
+     * @type {String}
+     */
+    Countdown.prototype.name = 'countdown';
+
+    /**
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Countdown.prototype
+     * @function
+     */
+    Countdown.prototype.constructor = Countdown;
+
+    /**
+     * Configuration by default.
+     * @private
+     * @type {Object}
+     */
+    Countdown.prototype._defaults = {
+        'plural': '# characters left.',
+        'singular': '# character left.',
+        'max': 500
     };
 
     /**
-     * Destroys a Countdown instance.
-     * @public
+     * Initialize a new instance of Countdown and merge custom options with defaults options.
+     * @memberof! ch.Countdown.prototype
      * @function
-     * @name ch.Countdown#destroy
+     * @returns {countdown}
+     */
+    Countdown.prototype.init = function ($el, options) {
+        // Call to its parent init method
+        parent.init.call(this, $el, options);
+
+        /**
+         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * @type {Object}
+         * @private
+         */
+        var that = this,
+
+            /**
+             * Create the "id" attribute.
+             * @type {String}
+             * @private
+             */
+            messageID = 'ch-countdown-message-' + that.uid,
+
+           /**
+             * Singular or Plural message depending on amount of remaining characters.
+             * @type {String}
+             * @private
+             */
+            message;
+
+        /**
+         * The countdown trigger.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown', function () { that._count(); });
+
+        /**
+         * Amount of free characters until full the field.
+         * @type {Number}
+         * @private
+         */
+        that._remaining = that._options.max - that._contentLength();
+
+        // Update the message
+        message = ((that._remaining === 1) ? that._options.singular : that._options.plural);
+
+        /**
+         * The countdown container.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        that.$container = $('<p class="ch-countdown ch-form-hint" id="' + messageID + '">' + message.replace('#', that._remaining) + '</p>').appendTo(that._$el.parent());
+
+        this.on('disable', this._removeError);
+
+        return this;
+    };
+
+    /**
+     * Returns the length of value.
+     * @function
+     * @private
+     * @returns {Number}
+     */
+    Countdown.prototype._contentLength = function () {
+        return this._el.value.length;
+    };
+
+    /**
+     * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
+     * @function
+     * @private
+     * @returns {countdown}
+     */
+    Countdown.prototype._count = function () {
+
+        if (!this._enabled) {
+            return this;
+        }
+
+        var length = this._contentLength(),
+            message;
+
+        this._remaining = this._options.max - length;
+
+        // Limit Count alert the user
+        if (length <= this._options.max) {
+
+            if (this._exceeded) {
+                // Update exceeded flag
+                this._exceeded = false;
+                this._removeError();
+            }
+
+        } else if (length > this._options.max) {
+
+            /**
+             * Event emitted when the lenght of characters is exceeded.
+             * @event ch.Countdown#exceeded
+             * @example
+             * // Subscribe to "exceeded" event.
+             * countdown.on('exceeded', function () {
+             *  // Some code here!
+             * });
+             */
+            this.emit('exceeded');
+
+            // Update exceeded flag
+            this._exceeded = true;
+
+            this.$trigger
+                .addClass('ch-validation-error')
+                .attr('aria-invalid', 'true');
+
+            this.$container.addClass('ch-countdown-exceeded');
+        }
+
+        // Change visible message of remaining characters
+        // Singular or Plural message depending on amount of remaining characters
+        message = (this._remaining !== 1 ? this._options.plural : this._options.singular).replace(/\#/g, this._remaining);
+
+        // Update DOM text
+        this.$container.text(message);
+
+        return this;
+
+    };
+
+     /**
+     * Process input of data on form control and updates remaining amount of characters or limits the content length. Also, change the visible message of remaining characters.
+     * @function
+     * @private
+     * @returns {countdown}
+     */
+    Countdown.prototype._removeError = function () {
+        this.$trigger
+            .removeClass('ch-validation-error')
+            .attr('aria-invalid', 'false');
+
+        this.$container.removeClass('ch-countdown-exceeded');
+
+        return this;
+    };
+
+    /**
+     * Destroys an countdown instance.
+     * @memberof! ch.Countdown.prototype
+     * @function
+     * @expample
+     * // Destroying an instance of Countdown.
+     * countdown.destroy();
      */
     Countdown.prototype.destroy = function () {
 
@@ -231,9 +256,7 @@
         parent.destroy.call(this);
     };
 
-    /**
-     * Factory
-     */
-    ch.factory(Countdown, Countdown.prototype._normalizeOptions);
+    // Factorize
+    ch.factory(Countdown, normalizeOptions);
 
 }(this, this.ch.$, this.ch));

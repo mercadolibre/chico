@@ -12,7 +12,7 @@
             };
         }
         return options;
-    };
+    }
 
     /**
      * Expandable lets you show or hide content. Expandable needs a pair: a title and a container related to title.
@@ -23,7 +23,7 @@
      * @mixes ch.Content
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
      * @param {Object} [options] Options to customize an instance.
-     * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disabled.
+     * @param {String} [options.fx] Enable or disable UI effects. By default, the effects are disabled. You should use: "slideDown", "fadeIn" or "none".
      * @param {Boolean} [options.toggle] Customize toggle behavior. By default, the toggle is enabled.
      * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. By default, the container will be the next sibling of $el.
      * @param {String} [options.content] The content to be shown into the expandable container.
@@ -39,7 +39,7 @@
      * @example
      * // Create a new Expandable with fx enabled.
      * $(selector).expandable({
-     *     'fx': true
+     *     'fx': 'slideDown'
      * });
      * @example
      * // Create a new Expandable with a specific container.
@@ -67,30 +67,24 @@
         this.init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Expandable#ready
          * @example
          * // Subscribe to "ready" event.
-         * expandable.on('ready',function () {
-         *    this.show();
+         * expandable.on('ready', function () {
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
-    }
 
-    /**
-     * Private Expandable
-     */
+        return this;
+    }
 
     /**
      * Inheritance
      */
     var $document = $(window.document),
         parent = ch.util.inherits(Expandable, ch.Widget);
-
-    /**
-     * Prototype
-     */
 
     /**
      * The name of the widget.
@@ -100,7 +94,7 @@
 
     /**
      * Returns a reference to the constructor function that created the instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Expandable.prototype
      * @function
      */
     Expandable.prototype.constructor = Expandable;
@@ -124,17 +118,11 @@
      * @returns {expandable}
      */
     Expandable.prototype.init = function ($el, options) {
-        // Call to its parents init method
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
-        /**
-         * Requires abilities
-         */
+        // Requires abilities
         this.require('Collapsible', 'Content');
-
-        /**
-         * Private Members
-         */
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
@@ -142,10 +130,6 @@
          * @private
          */
         var that = this;
-
-        /**
-         * Public Members
-         */
 
         /**
          * The expandable trigger.
@@ -298,6 +282,7 @@
         parent.destroy.call(this);
     };
 
+    // Factorize
     ch.factory(Expandable, normalizeOptions);
 
 }(this, this.ch.$, this.ch));

@@ -50,12 +50,12 @@
         that.init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Form#ready
          * @example
          * // Subscribe to "ready" event.
-         * form.on('ready',function () {
-         *    this.show();
+         * form.on('ready', function () {
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -80,7 +80,7 @@
 
     /**
      * Returns a reference to the constructor function that created the instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Form.prototype
      * @function
      */
     Form.prototype.constructor = Form;
@@ -92,7 +92,7 @@
      * @returns {form}
      */
     Form.prototype.init = function ($el, options) {
-        // Call to its parents init method
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
         /**
@@ -101,10 +101,6 @@
          * @private
          */
         var that = this;
-
-        /**
-         * Private Members
-         */
 
         /**
          * A collection of active errors.
@@ -380,6 +376,7 @@
         parent.destroy.call(this);
     };
 
+    // Factorize
     ch.factory(Form);
 
 }(this, this.ch.$, this.ch));
