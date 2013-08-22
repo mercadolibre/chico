@@ -51,18 +51,17 @@
         that.init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Countdown#ready
          * @example
          * // Subscribe to "ready" event.
          * countdown.on('ready', function () {
-         *    this.show();
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit("ready"); }, 50);
 
-        return that;
-
+        return this;
     }
 
     /**
@@ -257,6 +256,7 @@
         parent.destroy.call(this);
     };
 
+    // Factorize
     ch.factory(Countdown, normalizeOptions);
 
 }(this, this.ch.$, this.ch));

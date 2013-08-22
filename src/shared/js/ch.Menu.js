@@ -36,15 +36,17 @@
         that.init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Menu#ready
          * @example
          * // Subscribe to "ready" event.
          * menu.on('ready', function () {
-         *    this.show();
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
+
+        return this;
     }
 
     /**
@@ -339,9 +341,7 @@
         parent.destroy.call(this);
     };
 
-    /**
-     * Factory
-     */
+    // Factorize
     ch.factory(Menu);
 
 }(this, this.ch.$, this.ch));

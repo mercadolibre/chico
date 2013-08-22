@@ -67,15 +67,17 @@
         this.init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Expandable#ready
          * @example
          * // Subscribe to "ready" event.
          * expandable.on('ready', function () {
-         *    this.show();
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
+
+        return this;
     }
 
     /**
@@ -280,6 +282,7 @@
         parent.destroy.call(this);
     };
 
+    // Factorize
     ch.factory(Expandable, normalizeOptions);
 
 }(this, this.ch.$, this.ch));

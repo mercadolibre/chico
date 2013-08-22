@@ -50,12 +50,12 @@
         that.init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Form#ready
          * @example
          * // Subscribe to "ready" event.
          * form.on('ready', function () {
-         *    this.show();
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -376,6 +376,7 @@
         parent.destroy.call(this);
     };
 
+    // Factorize
     ch.factory(Form);
 
 }(this, this.ch.$, this.ch));
