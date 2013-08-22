@@ -257,6 +257,6 @@
         parent.destroy.call(this);
     };
 
-    ch.factory(Countdown, Countdown.prototype._normalizeOptions);
+    ch.factory(Countdown, normalizeOptions);
 
 }(this, this.ch.$, this.ch));
