@@ -52,7 +52,7 @@
 
         /**
          * Emits the event 'ready' when the widget is ready to use.
-         * @event ch.Expandable#ready
+         * @event ch.Countdown#ready
          * @example
          * // Subscribe to "ready" event.
          * countdown.on('ready', function () {
