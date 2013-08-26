@@ -5,7 +5,7 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    function normalizeOptions (options) {
+    function normalizeOptions(options) {
         if (typeof options === 'string' || ch.util.isArray(options)) {
             options = {
                 'selected': options
@@ -46,8 +46,8 @@
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
-         * @private
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -79,19 +79,37 @@
 
         /**
          * Map of date formats.
-         * @private
          * @type {Object}
+         * @private
          */
         FORMAT_dates = {
 
+            /**
+             * Converts a given date to "YYYY/MM/DD" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @return {String}
+             */
             'YYYY/MM/DD': function (date) {
                 return [date.year, addZero(date.month), addZero(date.day)].join('/');
             },
 
+            /**
+             * Converts a given date to "DD/MM/YYYY" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @return {String}
+             */
             'DD/MM/YYYY': function (date) {
                 return [addZero(date.day), addZero(date.month), date.year].join('/');
             },
 
+            /**
+             * Converts a given date to "MM/DD/YYYY" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @return {String}
+             */
             'MM/DD/YYYY': function (date) {
                 return [addZero(date.month), addZero(date.day), date.year].join('/');
             }
@@ -99,8 +117,8 @@
 
         /**
          * Creates a JSON Object with reference to day, month and year, from a determinated date.
-         * @private
          * @function
+         * @private
          * @returns {Object}
          */
         createDateObject = function (date) {
@@ -111,75 +129,60 @@
             // Uses date parameter or create a date from today
             date = date ? new Date(date) : new Date();
 
+            /**
+             * Returned custom Date object.
+             * @type {Object}
+             * @private
+             */
             return {
+
                 /**
                  * Number of day.
-                 * @private
-                 * @name day
-                 * @type Number
-                 * @memberOf ch.Calendar#createDateObject
+                 * @type {Number}
                  */
                 'day': date.getDate(),
 
                 /**
                  * Order of day in a week.
-                 * @private
-                 * @name order
-                 * @type Number
-                 * @memberOf ch.Calendar#createDateObject
+                 * @type {Number}
                  */
                 'order': date.getDay(),
 
                 /**
                  * Number of month.
-                 * @private
-                 * @name month
-                 * @type Number
-                 * @memberOf ch.Calendar#createDateObject
+                 * @type {Number}
                  */
                 'month': date.getMonth() + 1,
 
                 /**
                  * Number of full year.
-                 * @private
-                 * @name year
-                 * @type Number
-                 * @memberOf ch.Calendar#createDateObject
+                 * @type {Number}
                  */
                 'year': date.getFullYear()
             };
         },
 
         /**
-         * Handles behavior of arrows to move around months.
+         * Templates of arrows to move around months.
+         * @type {Object}
          * @private
-         * @name ch.Calendar#arrows
-         * @type Object
          */
         arrows = {
 
             /**
-             * Handles behavior of previous arrow to move back in months.
-             * @private
-             * @name prev
-             * @memberOf ch.Calendar#arrows
-             * @type Object
+             * Template of previous arrow.
+             * @type {String}
              */
             'prev': '<div class="ch-calendar-prev" role="button" aria-hidden="false"></div>',
 
             /**
-             * Handles behavior of next arrow to move forward in months.
-             * @private
-             * @name next
-             * @memberOf ch.Calendar#arrows
-             * @type Object
+             * Template of next arrow.
+             * @type {String}
              */
             'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
         },
 
-        /**
-         * Inheritance
-         */
+        // Inheritance
         parent = ch.util.inherits(Calendar, ch.Widget);
 
     /**
@@ -197,8 +200,8 @@
 
     /**
      * Configuration by default.
-     * @private
      * @type {Object}
+     * @private
      */
     Calendar.prototype._defaults = {
         'monthsNames': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -409,11 +412,11 @@
 
                 // Create thead structure
                 var t = ['<thead><tr role="row">'],
-                    day;
+                    dayIndex;
 
                 // Add week names
-                for (day = 0; day < 7; day += 1) {
-                    t.push('<th role="columnheader">' + that._defaults.weekdays[day] + '</th>');
+                for (dayIndex = 0; dayIndex < 7; dayIndex += 1) {
+                    t.push('<th role="columnheader">' + that._defaults.weekdays[dayIndex] + '</th>');
                 }
 
                 // Close thead structure
@@ -430,7 +433,7 @@
                 thead
             ],
 
-        // Total amount of days into month
+            // Total amount of days into month
             cells = (function () {
 
                 // Amount of days of current month
