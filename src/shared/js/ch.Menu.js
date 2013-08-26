@@ -28,8 +28,8 @@
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
-         * @private
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -49,9 +49,7 @@
         return this;
     }
 
-    /**
-     * Inheritance
-     */
+    // Inheritance
     var parent = ch.util.inherits(Menu, ch.Widget),
 
         // Creates methods enable and disable into the prototype.
@@ -108,8 +106,8 @@
 
     /**
      * Configuration by default.
-     * @private
      * @type {Object}
+     * @private
      */
     Menu.prototype._defaults = {
         'fx': 'slideDown'

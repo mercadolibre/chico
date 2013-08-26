@@ -59,6 +59,7 @@
 
         /**
          * Shows the widget container.
+         * @function
          * @private
          */
         this._show = function () {
@@ -81,6 +82,7 @@
 
         /**
          * Hides the widget container.
+         * @function
          * @private
          */
         this._hide = function () {
@@ -103,6 +105,7 @@
 
         /**
          * Shows or hides the widget container.
+         * @function
          * @private
          */
         this._toggle = function () {

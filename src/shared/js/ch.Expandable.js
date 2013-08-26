@@ -59,8 +59,8 @@
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
-         * @private
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -80,9 +80,7 @@
         return this;
     }
 
-    /**
-     * Inheritance
-     */
+    // Inheritance
     var $document = $(window.document),
         parent = ch.util.inherits(Expandable, ch.Widget);
 
@@ -101,8 +99,8 @@
 
     /**
      * Configuration by default.
-     * @private
      * @type {Object}
+     * @private
      */
     Expandable.prototype._defaults = {
         '_classNameTrigger': 'ch-expandable-trigger ch-expandable-ico',

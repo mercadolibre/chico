@@ -23,8 +23,8 @@
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
-         * @private
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -279,8 +279,8 @@
      * Updates the shown tab panel, hides the previous tab panel, changes window location and emits "show" event.
      * @memberof! ch.Tabs.prototype
      * @function
-     * @param {Number} tab - A given number of tab panel.
      * @private
+     * @param {Number} tab - A given number of tab panel.
      */
     Tabs.prototype._updateShown = function (tab) {
 
@@ -294,9 +294,9 @@
 
         /**
          * Get wich tab panel is shown.
-         * @private
          * @name ch.Tabs#_shown
          * @type {Number}
+         * @private
          */
         this._shown = tab;
 
