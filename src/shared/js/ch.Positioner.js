@@ -87,8 +87,8 @@
 
     /**
      * Configuration by default.
-     * @private
      * @type {Object}
+     * @private
      */
     Positioner.prototype._defaults = {
         'offsetX': 0,
@@ -103,9 +103,9 @@
      * Configures the positioner instance with a given options.
      * @memberof! ch.Positioner.prototype
      * @function
+     * @private
      * @returns {instance}
      * @params {Object} options A configuration object.
-     * @private
      */
     Positioner.prototype._configure = function (options) {
 
@@ -172,8 +172,8 @@
      * Calculates the reference (element or ch.viewport) of the position.
      * @memberof! ch.Positioner.prototype
      * @function
-     * @returns {instance}
      * @private
+     * @returns {instance}
      */
     Positioner.prototype._calculateReference = function () {
 
@@ -202,8 +202,8 @@
      * Calculates the positioned element.
      * @memberof! ch.Positioner.prototype
      * @function
-     * @returns {instance}
      * @private
+     * @returns {instance}
      */
     Positioner.prototype._calculateTarget = function () {
 
@@ -220,8 +220,8 @@
      * Calculates the points.
      * @memberof! ch.Positioner.prototype
      * @function
-     * @returns {instance}
      * @private
+     * @returns {instance}
      */
     Positioner.prototype._setPoint = function () {
         var side = this._options.side,

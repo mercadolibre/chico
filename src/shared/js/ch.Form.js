@@ -42,8 +42,8 @@
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
-         * @private
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -63,9 +63,7 @@
         return this;
     }
 
-    /**
-     * Inheritance
-     */
+    // Inheritance
     var parent = ch.util.inherits(Form, ch.Widget);
 
     /**

@@ -43,8 +43,8 @@
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
-         * @private
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -64,9 +64,7 @@
         return this;
     }
 
-    /**
-     * Inheritance
-     */
+    // Inheritance
     var parent = ch.util.inherits(Countdown, ch.Widget);
 
     /**
@@ -84,8 +82,8 @@
 
     /**
      * Configuration by default.
-     * @private
      * @type {Object}
+     * @private
      */
     Countdown.prototype._defaults = {
         'plural': '# characters left.',
