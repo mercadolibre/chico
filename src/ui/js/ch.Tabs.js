@@ -23,8 +23,8 @@
 
         /**
          * Reference to a internal widget instance, saves all the information and configuration properties.
-         * @private
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -57,26 +57,27 @@
 
     function createMethods(method) {
         Tabs.prototype[method] = function (tab) {
-            var i = 0,
-                len;
+            var i;
 
-            // Disable an specifc tab panel
+            // Enables or disables an specifc tab panel
             if (tab !== undefined) {
                 this.tabpanels[tab - 1][method]();
 
-            // Disable all tabs
+            // Enables or disables Tabs
             } else {
-                len = this.tabpanels.length;
-                for (i; i < len; i += 1) {
-                    this.tabpanels[i][method]();
+
+                i = this.tabpanels.length;
+
+                while (i) {
+                    this.tabpanels[i -= 1][method]();
                 }
 
-                // Execute parent method
+                // Executes parent method
                 parent[method].call(this);
-            }
 
-            // Updates "aria-disabled" attribute
-            this._el.setAttribute('aria-disabled', !this._enabled);
+                // Updates "aria-disabled" attribute
+                this._el.setAttribute('aria-disabled', !this._enabled);
+            }
 
             return this;
         };
@@ -264,7 +265,7 @@
      * @returns {tabs}
      * @example
      * // Shows the second tab panel.
-     * widget.show(2);
+     * tabs.show(2);
      */
     Tabs.prototype.show = function (tab) {
 
@@ -278,8 +279,8 @@
      * Updates the shown tab panel, hides the previous tab panel, changes window location and emits "show" event.
      * @memberof! ch.Tabs.prototype
      * @function
-     * @param {Number} tab - A given number of tab panel.
      * @private
+     * @param {Number} tab - A given number of tab panel.
      */
     Tabs.prototype._updateShown = function (tab) {
 
@@ -293,9 +294,9 @@
 
         /**
          * Get wich tab panel is shown.
-         * @private
          * @name ch.Tabs#_shown
          * @type {Number}
+         * @private
          */
         this._shown = tab;
 
@@ -363,8 +364,9 @@
     };
 
     /**
-     * Enables an instance of Tabs or an specific tab panel.
+     * Enables an instance of Tabs or a specific tab panel.
      * @memberof! ch.Tabs.prototype
+     * @name enable
      * @function
      * @param {Number} [tab] - A given number of tab panel to enable.
      * @returns {tabs} Returns an instance of Tabs.
@@ -377,8 +379,9 @@
      */
 
     /**
-     * Disables an instance of Tabs or an specific tab panel.
+     * Disables an instance of Tabs or a specific tab panel.
      * @memberof! ch.Tabs.prototype
+     * @name disable
      * @function
      * @param {Number} [tab] - A given number of tab panel to disable.
      * @returns {tabs} Returns an instance of Tabs.
@@ -394,7 +397,7 @@
     }
 
     /**
-     * Destroys a tabs instance.
+     * Destroys a Tabs instance.
      * @memberof! ch.Tabs.prototype
      * @function
      * @expample

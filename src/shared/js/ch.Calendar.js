@@ -5,28 +5,35 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    function normalizeOptions(options) {
+        if (typeof options === 'string' || ch.util.isArray(options)) {
+            options = {
+                'selected': options
+            };
+        }
+        return options;
+    }
+
     /**
      * Calendar shows months, and lets you move across the months of the year. Calendar lets you set one or many dates as selected.
-     * @name Calendar
-     * @class Calendar
+     * @memberof ch
+     * @constructor
      * @augments ch.Widget
-     * @see ch.Widget
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
-     * @param {String} [conf.selected] Sets a date that should be selected by default. By default is the date of today.
-     * @param {String} [conf.from] Set a maximum selectable date.
-     * @param {String} [conf.to] Set a minimum selectable date.
-     * @param {Array} [conf.monthsNames] By default is ["Enero", ... , "Diciembre"].
-     * @param {Array} [conf.weekdays] By default is ["Dom", ... , "Sab"].
-     * @returns itself
-     * @factorized
-     * @exampleDescription Create a new Calendar with a class name 'example'.
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Calendar.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.format] Sets the date format. By default is "DD/MM/YYYY".
+     * @param {String} [options.selected] Sets a date that should be selected by default. By default is the date of today.
+     * @param {String} [options.from] Set a minimum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @param {Array} [options.monthsNames] By default is ["Enero", ... , "Diciembre"].
+     * @param {Array} [options.weekdays] By default is ["Dom", ... , "Sab"].
+     * @returns {calendar} Returns a new instance of ch.Calendar.
      * @example
-     * var widget = $(".example").calendar();
-     * @exampleDescription Create a new Calendar with configuration.
+     * // Create a new Calendar without options.
+     * var calendar = $(selector).calendar();
      * @example
-     * var widget = $(".example").calendar({
+     * // Create a new Calendar with some options.
+     * var calendar = $(selector).calendar({
      *    "format": "MM/DD/YYYY",
      *    "selected": "2011/12/25",
      *    "from": "2010/12/25",
@@ -36,39 +43,35 @@
      * });
      */
     function Calendar($el, options) {
+
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @type {Object}
+         * @private
          */
         var that = this;
 
         this.init($el, options);
 
         /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @fires ch.Dropdown#ready
-         * @since 0.8.0
-         * @exampleDescription Following the first example, using <code>widget</code> as expandable's instance controller:
+         * Event emitted when the widget is ready to use.
+         * @event ch.Calendar#ready
          * @example
-         * widget.on('ready',function () {
-         *  this.show();
+         * // Subscribe to "ready" event.
+         * calendar.on('ready', function () {
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
+
+        return this;
     }
 
     /**
-     * Private
-     */
-
-    /**
      * Completes with zero the numbers less than 10.
-     * @private
-     * @name ch.Calendar#addZero
      * @function
-     * @param num Number
-     * @returns String
+     * @private
+     * @returns {String}
      */
     var addZero = function (num) {
             return (parseInt(num, 10) < 10) ? '0' + num : num;
@@ -76,20 +79,37 @@
 
         /**
          * Map of date formats.
+         * @type {Object}
          * @private
-         * @name ch.Calendar#FORMAT_dates
-         * @type Object
          */
         FORMAT_dates = {
 
+            /**
+             * Converts a given date to "YYYY/MM/DD" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @return {String}
+             */
             'YYYY/MM/DD': function (date) {
                 return [date.year, addZero(date.month), addZero(date.day)].join('/');
             },
 
+            /**
+             * Converts a given date to "DD/MM/YYYY" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @return {String}
+             */
             'DD/MM/YYYY': function (date) {
                 return [addZero(date.day), addZero(date.month), date.year].join('/');
             },
 
+            /**
+             * Converts a given date to "MM/DD/YYYY" format.
+             * @params {Date} date A given date to convert.
+             * @function
+             * @return {String}
+             */
             'MM/DD/YYYY': function (date) {
                 return [addZero(date.month), addZero(date.day), date.year].join('/');
             }
@@ -97,11 +117,9 @@
 
         /**
          * Creates a JSON Object with reference to day, month and year, from a determinated date.
-         * @private
-         * @name ch.Calendar#createDateObject
          * @function
-         * @param date
-         * @returns Object
+         * @private
+         * @returns {Object}
          */
         createDateObject = function (date) {
 
@@ -111,88 +129,101 @@
             // Uses date parameter or create a date from today
             date = date ? new Date(date) : new Date();
 
+            /**
+             * Returned custom Date object.
+             * @type {Object}
+             * @private
+             */
             return {
+
                 /**
                  * Number of day.
-                 * @private
-                 * @name day
-                 * @type Number
-                 * @memberOf ch.Calendar#createDateObject
+                 * @type {Number}
                  */
                 'day': date.getDate(),
 
                 /**
                  * Order of day in a week.
-                 * @private
-                 * @name order
-                 * @type Number
-                 * @memberOf ch.Calendar#createDateObject
+                 * @type {Number}
                  */
                 'order': date.getDay(),
 
                 /**
                  * Number of month.
-                 * @private
-                 * @name month
-                 * @type Number
-                 * @memberOf ch.Calendar#createDateObject
+                 * @type {Number}
                  */
                 'month': date.getMonth() + 1,
 
                 /**
                  * Number of full year.
-                 * @private
-                 * @name year
-                 * @type Number
-                 * @memberOf ch.Calendar#createDateObject
+                 * @type {Number}
                  */
                 'year': date.getFullYear()
             };
         },
+
         /**
-         * Handles behavior of arrows to move around months.
+         * Templates of arrows to move around months.
+         * @type {Object}
          * @private
-         * @name ch.Calendar#arrows
-         * @type Object
          */
         arrows = {
 
             /**
-             * Handles behavior of previous arrow to move back in months.
-             * @private
-             * @name prev
-             * @memberOf ch.Calendar#arrows
-             * @type Object
+             * Template of previous arrow.
+             * @type {String}
              */
             'prev': '<div class="ch-calendar-prev" role="button" aria-hidden="false"></div>',
 
             /**
-             * Handles behavior of next arrow to move forward in months.
-             * @private
-             * @name next
-             * @memberOf ch.Calendar#arrows
-             * @type Object
+             * Template of next arrow.
+             * @type {String}
              */
             'next': '<div class="ch-calendar-next" role="button" aria-hidden="false"></div>'
         },
-        /**
-         * Inheritance
-         */
+
+        // Inheritance
         parent = ch.util.inherits(Calendar, ch.Widget);
 
+    /**
+     * The name of the widget.
+     * @type {String}
+     */
     Calendar.prototype.name = 'calendar';
 
+    /**
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     */
     Calendar.prototype.constructor = Calendar;
 
+    /**
+     * Configuration by default.
+     * @type {Object}
+     * @private
+     */
     Calendar.prototype._defaults = {
         'monthsNames': ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         'weekdays': ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
         'format': 'DD/MM/YYYY'
     };
 
+    /**
+     * Initialize a new instance of Calendar and merge custom options with defaults options.
+     * @memberof! ch.Calendar.prototype
+     * @function
+     * @returns {calendar}
+     */
     Calendar.prototype.init = function ($el, options) {
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
+        /**
+         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
@@ -200,9 +231,8 @@
 
         /**
          * Object to mange the date and its ranges.
+         * @type {Object}
          * @private
-         * @name ch.Calendar#date
-         * @returns Object
          */
         this._dates = {
             'range': {}
@@ -214,9 +244,8 @@
 
         /**
          * Date of selected day.
+         * @type {Object}
          * @private
-         * @name ch.Calendar-selected
-         * @type Object
          */
         this._dates.selected = (function () {
 
@@ -283,6 +312,10 @@
         this._$prev = $(arrows.prev).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.prevMonth(); });
         this._$next = $(arrows.next).attr('aria-controls', 'ch-calendar-grid-' + this.uid).on(ch.onpointertap + '.' + this.name, function (event) { ch.util.prevent(event); that.nextMonth(); });
 
+        /**
+         * The calendar container.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
         this.$container = this._$el
             .addClass('ch-calendar')
             .prepend(this._$prev)
@@ -294,28 +327,13 @@
         // Avoid selection on the component
         ch.util.avoidTextSelection(that.$container);
 
-        /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.Calendar#ready
-         * @event
-         * @public
-         * @since 0.8.0
-         * @exampleDescription Following the first example, using <code>widget</code> as Calendar's instance controller:
-         * @example
-         * widget.on("ready", function () {
-         *   this.show();
-         * });
-         */
-        window.setTimeout(function () { that.emit('select'); }, 50);
-
+        return this;
     };
 
     /**
      * Checks if it has got a previous month to show depending on "from" limit.
-     * @private
-     * @name _hasPrevMonth
-     * @memberOf ch.Calendar#_hasPrevMonth
      * @function
+     * @private
      */
     Calendar.prototype._hasPrevMonth = function () {
         return this._dates.range.from === undefined || !(this._dates.range.from.month >= this._dates.current.month && this._dates.range.from.year >= this._dates.current.year);
@@ -323,10 +341,8 @@
 
     /**
      * Checks if it has got a next month to show depending on "to" limits.
-     * @private
-     * @name _hasNextMonth
-     * @memberOf ch.Calendar#_hasNextMonth
      * @function
+     * @private
      */
     Calendar.prototype._hasNextMonth = function () {
         return this._dates.range.to === undefined || !(this._dates.range.to.month <= this._dates.current.month && this._dates.range.to.year <= this._dates.current.year);
@@ -334,10 +350,8 @@
 
     /**
      * Refresh arrows visibility depending on "from" and "to" limits.
-     * @private
-     * @name update
-     * @memberOf ch.Calendar#arrows
      * @function
+     * @private
      */
     Calendar.prototype._updateControls = function () {
 
@@ -364,10 +378,8 @@
 
     /**
      * Refresh the structure of Calendar's table with a new date.
-     * @private
      * @function
-     * @name ch.Calendar#updateTable
-     * @param date {String} Date to be selected.
+     * @private
      */
     Calendar.prototype._updateTemplate = function (date) {
         // Update "currentDate" object
@@ -387,11 +399,8 @@
 
     /**
      * Creates a complete month in a table.
-     * @private
      * @function
-     * @name ch.Calendar#createTable
-     * @param date {Object} Date from will be created the entire month.
-     * @return jQuery Object
+     * @private
      */
     Calendar.prototype._createTemplate = function (date) {
         var that = this,
@@ -403,11 +412,11 @@
 
                 // Create thead structure
                 var t = ['<thead><tr role="row">'],
-                    day;
+                    dayIndex;
 
                 // Add week names
-                for (day = 0; day < 7; day += 1) {
-                    t.push('<th role="columnheader">' + that._defaults.weekdays[day] + '</th>');
+                for (dayIndex = 0; dayIndex < 7; dayIndex += 1) {
+                    t.push('<th role="columnheader">' + that._defaults.weekdays[dayIndex] + '</th>');
                 }
 
                 // Close thead structure
@@ -424,7 +433,7 @@
                 thead
             ],
 
-        // Total amount of days into month
+            // Total amount of days into month
             cells = (function () {
 
                 // Amount of days of current month
@@ -512,13 +521,8 @@
 
     /**
      * Indicates if an specific date is selected or not (including date ranges and simple dates).
-     * @private
-     * @name ch.Calendar#_isSelected
      * @function
-     * @param year
-     * @param month
-     * @param day
-     * @return Boolean
+     * @private
      */
     Calendar.prototype._isSelected = function (year, month, day) {
         var yepnope;
@@ -558,24 +562,18 @@
         return yepnope;
     };
 
-/**
-*  Public Members
-*/
-
     /**
-     * @borrows ch.Widget#uid as ch.Menu#uid
-     * @borrows ch.Widget#el as ch.Menu#el
-     * @borrows ch.Widget#type as ch.Menu#type
-     */
-
-    /**
-     * Select a specific date or returns the selected date.
-     * @public
-     * @since 0.9
-     * @name ch.Calendar#select
+     * Selects a specific date or returns the selected date.
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @param {string} "YYYY/MM/DD".
-     * @return itself
+     * @param {String} [date] A given date to select. The format of the given date should be "YYYY/MM/DD".
+     * @return {calendar}
+     * @example
+     * // Returns the selected date.
+     * calendar.select();
+     * @example
+     * // Select a specific date.
+     * calendar.select('2014/05/28');
      */
     Calendar.prototype.select = function (date) {
         // Getter
@@ -594,14 +592,12 @@
         this._updateTemplate(this._dates.selected);
 
         /**
-         * It triggers a callback when a date is selected.
-         * @public
-         * @name ch.Calendar#select
-         * @event
-         * @exampleDescription
+         * Event emitted when a date is selected.
+         * @event ch.Calendar#select
          * @example
-         * widget.on("select",function(){
-         *   widget.action();
+         * // Subscribe to "select" event.
+         * calendar.on('select', function () {
+         *    // Some code here!
          * });
          */
         this.emit('select');
@@ -611,17 +607,18 @@
     };
 
     /**
-     * Select a specific day into current month and year.
-     * @public
-     * @since 0.10.1
-     * @name ch.Calendar#selectDay
+     * Selects a specific day into current month and year.
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @param {string || number}
-     * @return {string} New selected date.
+     * @param {(String | Number)} day A given day to select.
+     * @return {String} New selected date.
+     * @example
+     * // Select a specific day.
+     * calendar.selectDay(28);
      */
     Calendar.prototype.selectDay = function (day) {
 
-        if (!day) {
+        if (day === undefined) {
             throw new window.Error('ch.Calendar.selectDay(day): day parameter is required and must be a number or string.');
         }
 
@@ -635,23 +632,25 @@
 
     /**
      * Returns date of today
-     * @public
-     * @since 0.9
-     * @name ch.Calendar#today
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @return date
+     * @return {String} The date of today
+     * @example
+     * // Get the date of today.
+     * var today = calendar.getToday();
      */
     Calendar.prototype.getToday = function () {
         return FORMAT_dates[this._options.format](this._dates.today);
     };
 
     /**
-     * Move to the next month.
-     * @public
-     * @name ch.Calendar#nextMonth
+     * Moves to the next month.
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @return itself
-     * @default Next month
+     * @return {calendar}
+     * @example
+     * // Moves to the next month.
+     * calendar.nextMonth();
      */
     Calendar.prototype.nextMonth = function () {
         if (!this._enabled || !this._hasNextMonth()) {
@@ -668,14 +667,12 @@
         this._updateTemplate([this._dates.current.year, this._dates.current.month + 1, '01'].join('/'));
 
         /**
-         * It triggers a callback when a next month is shown.
-         * @public
-         * @name ch.Calendar#nextMonth
-         * @event
-         * @exampleDescription
+         * Event emitted when a next month is shown.
+         * @event ch.Calendar#nextmonth
          * @example
-         * widget.on("nextMonth",function(){
-         *   sowidget.action();
+         * // Subscribe to "nextmonth" event.
+         * calendar.on('nextmonth', function () {
+         *    // Some code here!
          * });
          */
         this.emit('nextmonth');
@@ -685,11 +682,12 @@
 
     /**
      * Move to the previous month.
-     * @public
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @name ch.Calendar#prevMonth
-     * @return itself
-     * @default Previous month
+     * @return {calendar}
+     * @example
+     * // Moves to the prev month.
+     * calendar.prevMonth();
      */
     Calendar.prototype.prevMonth = function () {
 
@@ -707,14 +705,12 @@
         this._updateTemplate([this._dates.current.year, this._dates.current.month - 1, '01'].join('/'));
 
         /**
-         * It triggers a callback when a previous month is shown.
-         * @public
-         * @name ch.Calendar#prevMonth
-         * @event
-         * @exampleDescription
+         * Event emitted when a previous month is shown.
+         * @event ch.Calendar#prevmonth
          * @example
-         * widget.on("prevMonth",function(){
-         *   sowidget.action();
+         * // Subscribe to "prevmonth" event.
+         * calendar.on('prevmonth', function () {
+         *    // Some code here!
          * });
          */
         this.emit('prevmonth');
@@ -724,11 +720,12 @@
 
     /**
      * Move to the next year.
-     * @public
-     * @name ch.Calendar#nextYear
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @return itself
-     * @default Next month
+     * @return {calendar}
+     * @example
+     * // Moves to the next year.
+     * calendar.nextYear();
      */
     Calendar.prototype.nextYear = function () {
 
@@ -740,14 +737,12 @@
         this._updateTemplate([this._dates.current.year + 1, this._dates.current.month, '01'].join('/'));
 
         /**
-         * It triggers a callback when a next year is shown.
-         * @public
-         * @name ch.Calendar#nextYear
-         * @event
-         * @exampleDescription
+         * Event emitted when a next year is shown.
+         * @event ch.Calendar#nextyear
          * @example
-         * widget.on("nextYear",function(){
-         *   sowidget.action();
+         * // Subscribe to "nextyear" event.
+         * calendar.on('nextyear', function () {
+         *    // Some code here!
          * });
          */
         this.emit('nextyear');
@@ -757,11 +752,12 @@
 
     /**
      * Move to the previous year.
-     * @public
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @name ch.Calendar#prevYear
-     * @return itself
-     * @default Previous year
+     * @return {calendar}
+     * @example
+     * // Moves to the prev year.
+     * calendar.prevYear();
      */
     Calendar.prototype.prevYear = function () {
 
@@ -773,14 +769,12 @@
         this._updateTemplate([this._dates.current.year - 1, this._dates.current.month, '01'].join('/'));
 
         /**
-         * It triggers a callback when a previous year is shown.
-         * @public
-         * @name ch.Calendar#prevYear
-         * @event
-         * @exampleDescription
+         * Event emitted when a previous year is shown.
+         * @event ch.Calendar#prevyear
          * @example
-         * widget.on("prevYear",function(){
-         *   sowidget.action();
+         * // Subscribe to "prevyear" event.
+         * calendar.on('prevyear', function () {
+         *    // Some code here!
          * });
          */
         this.emit('prevyear');
@@ -790,12 +784,13 @@
 
     /**
      * Set a minimum selectable date.
-     * @public
-     * @since 0.9
-     * @name ch.Calendar#from
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @param {string} "YYYY/MM/DD".
-     * @return itself
+     * @param {String} date A given date to set as minimum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @return {calendar}
+     * @example
+     * // Set a minimum selectable date.
+     * calendar.setFrom('2010/05/28');
      */
     Calendar.prototype.setFrom = function (date) {
         // this from is a reference to the global form
@@ -807,12 +802,13 @@
 
     /**
      * Set a maximum selectable date.
-     * @public
-     * @since 0.9
-     * @name ch.Calendar#to
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @param {string} "YYYY/MM/DD".
-     * @return itself
+     * @param {String} date A given date to set as maximum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @return {calendar}
+     * @example
+     * // Set a maximum selectable date.
+     * calendar.setTo('2014/05/28');
      */
     Calendar.prototype.setTo = function (date) {
         // this to is a reference to the global to
@@ -822,20 +818,13 @@
         return this;
     };
 
-    Calendar.prototype._normalizeOptions = function (options) {
-        if (typeof options === 'string' || ch.util.isArray(options)) {
-            options = {
-                'selected': options
-            };
-        }
-        return options;
-    };
-
     /**
-     * Destroys an Calendar instance.
-     * @public
+     * Destroys an calendar instance.
+     * @memberof! ch.Calendar.prototype
      * @function
-     * @name ch.Calendar#destroy
+     * @expample
+     * // Destroying an instance of Calendar.
+     * calendar.destroy();
      */
     Calendar.prototype.destroy = function () {
 
@@ -846,9 +835,7 @@
         parent.destroy.call(this);
     };
 
-    /**
-     * Factory
-     */
-    ch.factory(Calendar, Calendar.prototype._normalizeOptions);
+    // Factorize
+    ch.factory(Calendar, normalizeOptions);
 
 }(this, this.ch.$, this.ch));

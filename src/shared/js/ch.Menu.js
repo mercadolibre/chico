@@ -1,27 +1,3 @@
-/**
- * Menu lets you organize the links by categories.
- * @name Menu
- * @class Menu
- * @augments ch.Widget
- * @requires ch.Expandable
- * @memberOf ch
- * @param {Object} [options] Object with configuration properties.
- * @param {Number} [options.shown] Selects a child that will be open when component was loaded.
- * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are disable.
- * @returns itself
- * @factorized
- * @see ch.Expandable
- * @see ch.Widget
- * @exampleDescription Create a new menu without configuration.
- * @example
- * var widget = $('.example').menu();
- * @exampleDescription Create a new menu with configuration.
- * @example
- * var widget = $('.example').menu({
- *     'shown': 2,
- *     'fx': true
- * });
- */
 (function (window, $, ch) {
     'use strict';
 
@@ -29,65 +5,86 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
+    /**
+     * Menu lets you organize the links by categories.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Widget
+     * @requires ch.Expandable
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.fx] Enable or disable UI effects. By default, the effect is "slideDown". You should use: "slideDown", "fadeIn" or "none".
+     * @returns {menu} Returns a new instance of ch.Menu.
+     * @example
+     * // Create a new menu without configuration.
+     * var menu = $(selector).menu();
+     * @example
+     * // Create a new menu with configuration.
+     * var menu = $(selector).menu({
+     *     'fx': 'none'
+     * });
+     */
     function Menu($el, options) {
 
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @type {Object}
+         * @private
          */
         var that = this;
 
         that.init($el, options);
 
         /**
-         * Emits the event 'ready' when the component is ready to use.
-         * @fires ch.Menu#ready
-         * @exampleDescription Following the first example, using <code>widget</code> as menu's instance controller:
+         * Event emitted when the widget is ready to use.
+         * @event ch.Menu#ready
          * @example
-         * widget.on('ready',function () {
-         *  this.show();
+         * // Subscribe to "ready" event.
+         * menu.on('ready', function () {
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
+
+        return this;
     }
 
-    /**
-     * Inheritance
-     */
+    // Inheritance
     var parent = ch.util.inherits(Menu, ch.Widget),
 
-    /**
-     * Creates methods enable and disable into the prototype.
-     */
+        // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
 
     function createMethods(method) {
         Menu.prototype[method] = function (child) {
             var i,
-                expandable = this.fold[child];
+                fold = this.folds[child - 1];
 
-            // enable specific expandable
-            if (expandable && expandable.name === 'expandable') {
+            // Enables or disables a specific expandable fold
+            if (fold && fold.name === 'expandable') {
 
-                expandable[method]();
+                fold[method]();
 
+            // Enables or disables Expandable folds
             } else {
 
-                i = this.fold.length;
+                i = this.folds.length;
 
                 while (i) {
 
-                    expandable = this.fold[i -= 1];
+                    fold = this.folds[i -= 1];
 
-                    if (expandable.name === 'expandable') {
-                        expandable[method]();
+                    if (fold.name === 'expandable') {
+                        fold[method]();
                     }
                 }
 
-                // enable all
+                // Executes parent method
                 parent[method].call(this);
+
+                // Updates "aria-disabled" attribute
+                this._el.setAttribute('aria-disabled', !this._enabled);
             }
 
             return this;
@@ -95,54 +92,53 @@
     }
 
     /**
-     * Prototype
-     */
-
-    /**
-     * The name of the widget. All instances are saved into a 'map', grouped by its name. You can reach for any or all of the components from a specific name with 'ch.instances'.
-     * @public
+     * The name of the widget.
      * @type {String}
      */
     Menu.prototype.name = 'menu';
 
     /**
-     * Returns a reference to the Constructor function that created the instance's prototype.
-     * @public
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Menu.prototype
      * @function
      */
     Menu.prototype.constructor = Menu;
 
     /**
      * Configuration by default.
-     * @private
      * @type {Object}
+     * @private
      */
     Menu.prototype._defaults = {
         'fx': 'slideDown'
     };
 
     /**
-     * Constructs a new Menu.
-     * @public
+     * Initialize a new instance of Menu and merge custom options with defaults options.
+     * @memberof! ch.Menu.prototype
      * @function
+     * @returns {menu}
      */
     Menu.prototype.init = function ($el, options) {
-        // Call to its parents init method
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
 
+        /**
+         * The menu container.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
         this.$container = this._$el
             .attr('role', 'navigation')
             .addClass('ch-menu ' + (this._options._className || '') + ' ' + (this._options.addClass || ''));
 
         /**
-         * Collection of expandables.
-         * @name ch.Menu#expdanbles
+         * A collection of folds.
          * @type {Array}
          */
-        this.fold = [];
+        this.folds = [];
 
         // Inits an expandable component on each list inside main HTML code snippet
         this._createExpandables();
@@ -151,10 +147,9 @@
     };
 
     /**
-     * Inits an Expandable component on each list inside main HTML code snippet
-     * @private
-     * @name ch.Menu#_createExpandables
+     * Inits an Expandable component on each list inside main HTML code snippet.
      * @function
+     * @private
      */
     Menu.prototype._createExpandables = function () {
         var that = this,
@@ -175,7 +170,7 @@
                 //
                 $child.addClass('ch-fold-trigger');
                 // Add anchor to that.fold
-                that.fold.push($child);
+                that.folds.push($child);
 
             } else {
                 // List inside list, inits an Expandable
@@ -187,28 +182,24 @@
                 expandable
                     .on('show', function () {
                         /**
-                         * It is triggered when a children is shown.
-                         * @name ch.Menu#show
-                         * @event
-                         * @public
-                         * @exampleDescription
+                         * Event emitted when the menu shows a fold.
+                         * @event ch.Menu#show
                          * @example
-                         * widget.on('show',function(){
-                         *     app.off();
+                         * // Subscribe to "show" event.
+                         * menu.on('show', function (shown) {
+                         *  // Some code here!
                          * });
                          */
                         that.emit('show', i + 1);
                     })
                     .on('hide', function () {
                         /**
-                         * It is triggered when a children is hidden.
-                         * @name ch.Menu#hide
-                         * @event
-                         * @public
-                         * @exampleDescription
+                         * Event emitted when the menu hides a fold.
+                         * @event ch.Menu#hide
                          * @example
-                         * widget.on('hide',function(){
-                         *     app.off();
+                         * // Subscribe to "hide" event.
+                         * menu.on('hide', function () {
+                         *  // Some code here!
                          * });
                          */
                         that.emit('hide');
@@ -221,7 +212,7 @@
                             .attr('role', 'menuitem');
 
                 // Add expandable to that.fold
-                that.fold.push(expandable);
+                that.folds.push(expandable);
             }
         }
 
@@ -230,77 +221,96 @@
         return that;
     };
 
-   /**
-    * Shows a specific child.
-    * @public
-    * @name show
-    * @name ch.Menu#show
-    * @param {Number} child - The number of the item to be shown
-    * @returns {Object}
-    */
+    /**
+     * Shows a specific fold.
+     * @memberof! ch.Menu.prototype
+     * @function
+     * @param {Number} child - A given number of fold.
+     * @returns {menu}
+     * @example
+     * // Shows the second fold.
+     * menu.show(2);
+     */
     Menu.prototype.show = function (child) {
 
-        if (!this._enabled) {
-            return this;
-        }
-
-        // Specific item of this.fold list
-        this.fold[child - 1].show();
+        this.folds[child - 1].show();
 
         return this;
     };
 
     /**
-     * Hides a specific child.
-     * @public
-     * @name hide
-     * @name ch.Menu
-     * @param {Number} child - The number of the item to be hidden
-     * @returns {Object}
+     * Hides a specific fold.
+     * @memberof! ch.Menu.prototype
+     * @function
+     * @param {Number} child - A given number of fold.
+     * @returns {menu}
+     * @example
+     * // Hides the second fold.
+     * menu.hide(2);
      */
     Menu.prototype.hide = function (child) {
 
-        if (!this._enabled) {
-            return this;
-        }
-
-        // Specific item of this.fold list
-        this.fold[child - 1].hide();
+        this.folds[child - 1].hide();
 
         return this;
     };
 
-
     /**
-     *
+     * Allows to manage the menu content.
+     * @param {Number} fold A given fold to change its content.
+     * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a fold.
+     * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
+     * @param {Boolean} [options.async]  Force to sent request asynchronously. By default is true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
+     * @example
+     * // Updates the content of the second fold with some string.
+     * menu.content(2, 'http://ajax.com', {'cache': false});
      */
-    Menu.prototype.content = function (child, content, options) {
-        if (child === undefined || typeof child !== 'number') {
-            throw new window.Error('Menu.content(child, content, options): Expected number of fold.');
+    Menu.prototype.content = function (fold, content, options) {
+        if (fold === undefined || typeof fold !== 'number') {
+            throw new window.Error('Menu.content(fold, content, options): Expected number of fold.');
         }
 
         if (content === undefined) {
-            return this.fold[child - 1].content();
+            return this.folds[fold - 1].content();
         }
 
-        this.fold[child - 1].content(content, options);
+        this.folds[fold - 1].content(content, options);
 
         return this;
     };
 
     /**
-     *
-     * @public
-     * @name ch.Menu#enable
+     * Enables an instance of Menu or a specific fold.
+     * @memberof! ch.Menu.prototype
+     * @name enable
      * @function
-     * @returns itself
+     * @param {Number} [fold] - A given number of fold to enable.
+     * @returns {menu} Returns an instance of Menu.
+     * @expample
+     * // Enabling an instance of Menu.
+     * menu.enable();
+     * @expample
+     * // Enabling the second fold of a menu.
+     * menu.enable(2);
      */
+
     /**
-     *
-     * @public
-     * @name ch.Menu#disable
+     * Disables an instance of Menu or a specific fold.
+     * @memberof! ch.Menu.prototype
+     * @name disable
      * @function
-     * @returns itself
+     * @param {Number} [fold] - A given number of fold to disable.
+     * @returns {menu} Returns an instance of Menu.
+     * @expample
+     * // Disabling an instance of Menu.
+     * menu.disable();
+     * @expample
+     * // Disabling the second fold.
+     * menu.disable(2);
      */
     while (len) {
         createMethods(methods[len -= 1]);
@@ -308,13 +318,15 @@
 
     /**
      * Destroys a Menu instance.
-     * @public
+     * @memberof! ch.Menu.prototype
      * @function
-     * @name ch.Menu#destroy
+     * @expample
+     * // Destroying an instance of Menu.
+     * menu.destroy();
      */
     Menu.prototype.destroy = function () {
 
-        $.each(this.fold, function (i, e) {
+        $.each(this.folds, function (i, e) {
             if (e.destroy !== undefined) {
                 e.destroy();
             }
@@ -327,9 +339,7 @@
         parent.destroy.call(this);
     };
 
-    /**
-     * Factory
-     */
+    // Factorize
     ch.factory(Menu);
 
 }(this, this.ch.$, this.ch));

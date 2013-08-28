@@ -121,8 +121,12 @@ module.exports = function (grunt) {
                     "src/shared/js/ch.Widget.js",
                     "src/shared/js/ch.Expandable.js",
                     "src/shared/js/ch.Form.js",
+                    "src/shared/js/ch.Menu.js",
+                    "src/shared/js/ch.Countdown.js",
+                    "src/shared/js/ch.Calendar.js",
 
                     "src/ui/js/ch.Tabs.js"
+
 
                 ],
                 'options': {
