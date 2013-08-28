@@ -38,7 +38,7 @@
      * }).on('addeditems', function ($items) {
      *     // Inject content into the added <li> elements
      *     $.each($items, function (i, e) {
-     *         $(e).html('Content into one of newly inserted <li> elements.');
+     *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
      *     });
      * });
      */
@@ -350,15 +350,21 @@
         var total = this._currentPage * this._limitPerPage,
             // How many items needs to add to items rendered to complete to this page
             amount = total - this._$items.length,
+            // The new width calculated from current width plus extraWidth
+            width = (this._itemWidth + this._itemExtraWidth),
+            // Get the height using new width and relation between width and height of item (ratio)
+            height = (width * this._itemHeight) / this._itemWidth,
             // Generic <LI> HTML Element to be added to the Carousel
             item = [
                 '<li',
                 ' class="ch-carousel-item"',
-                ' style="width:' + (this._itemWidth + this._itemExtraWidth) + 'px;margin-right:' + this._itemMargin + 'px"',
+                ' style="width:' + width + 'px;height:' + height + 'px;margin-right:' + this._itemMargin + 'px"',
                 '></li>'
             ].join(''),
             // It stores <LI> that will be added to the DOM collection
-            items = '';
+            items = '',
+            // Wrapped items
+            $items;
 
         // Load only when there are items to add
         if (amount < 1) { return; }
@@ -372,8 +378,11 @@
             amount -= 1;
         }
 
+        // Wrap the string elements into jQuery/Zepto
+        $items = $(items);
+
         // Add sample items to the list
-        this._$list.append(items);
+        this._$list.append($items);
 
         // Update items collection
         this._$items = this._$list.children();
@@ -391,11 +400,11 @@
          * }).on('addeditems', function ($items) {
          *     // Inject content into the added <li> elements
          *     $.each($items, function (i, e) {
-         *         $(e).html('Content into one of newly inserted <li> elements.');
+         *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
          *     });
          * });
          */
-        this.emit('addeditems', $(items));
+        this.emit('addeditems', $items);
     };
 
     /**
