@@ -60,6 +60,6 @@
     /**
      * Factory
      */
-    ch.factory(Tooltip, parent._normalizeOptions);
+    ch.factory(Tooltip, ch.Layer.prototype._normalizeOptions);
 
 }(this, this.ch.$, this.ch));
