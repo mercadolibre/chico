@@ -8,8 +8,10 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
     itemsdoneEvent = jasmine.createSpy('itemsdoneEvent'),
     refreshEvent = jasmine.createSpy('refreshEvent'),
     emptyitemsEvent = jasmine.createSpy('emptyitemsEvent'),
-    carousel1 = $('.carousel1').carousel({'limitPerPage': 4})
-        .on('move', function () { moveEvent(); })
+    carousel1 = $('.carousel1').carousel({
+        'limitPerPage': 4,
+        'fx': false,
+    }).on('move', function () { moveEvent(); })
         .on('prev', function () { prevEvent(); })
         .on('next', function () { nextEvent(); })
         .on('ready', function () { readyEvent(); })
@@ -19,14 +21,17 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
     carousel2 = $('.carousel2').carousel({
         'limitPerPage': 4,
         'arrows': false,
-        'pagination': true
+        'pagination': true,
+        'fx': false
     }),
-    carousel3 = $('.carousel3').carousel({
+    carousel3 = $('.carousel3').carousel(),
+    carousel4 = $('.carousel4').carousel({
         'limitPerPage': 2,
-        'async': 5
+        'async': 5,
+        'fx': false
     }).on('addeditems', function ($items) {
         $.each($items, function (i, e) {
-            $(e).html(i);
+            e.innerHTML = 'TESTING ASYNCHRONOUS ITEM Nº' + i;
         });
     });
 
@@ -250,10 +255,7 @@ describe('Its select() method', function () {
     });
 
     it('should emit the "move" event when it\'s translated', function () {
-        waits(400);
-        runs(function () {
-            expect(moveEvent.callCount).toEqual(1);
-        });
+        expect(moveEvent.callCount).toEqual(1);
     });
 });
 
@@ -271,11 +273,8 @@ describe('Its prev() method', function () {
     });
 
     it('should emit the "move" and "prev" events when it\'s translated', function () {
-        waits(400);
-        runs(function () {
-            expect(moveEvent.callCount).toEqual(3);
-            expect(prevEvent.callCount).toEqual(2);
-        });
+        expect(moveEvent.callCount).toEqual(3);
+        expect(prevEvent.callCount).toEqual(2);
     });
 
     it('shouldn\'t move beyond the first page', function () {
@@ -300,11 +299,8 @@ describe('Its next() method', function () {
     });
 
     it('should emit the "move" and "next" events when it\'s translated', function () {
-        waits(400);
-        runs(function () {
-            expect(moveEvent.callCount).toEqual(6);
-            expect(nextEvent.callCount).toEqual(2);
-        });
+        expect(moveEvent.callCount).toEqual(6);
+        expect(nextEvent.callCount).toEqual(2);
     });
 
     it('shouldn\'t move beyond the last page', function () {
@@ -334,10 +330,10 @@ describe('Its movement should respect the buttons visibility and abailability', 
 
         carousel1.select(3);
 
-        expect($prevButton.attr('aria-hidden')).toEqual('false');
+        expect($prevButton.attr('aria-disabled')).toEqual('false');
         expect($prevButton.hasClass('ch-carousel-disabled')).toBeFalsy();
 
-        expect($nextButton.attr('aria-hidden')).toEqual('false');
+        expect($nextButton.attr('aria-disabled')).toEqual('false');
         expect($nextButton.hasClass('ch-carousel-disabled')).toBeFalsy();
     });
 
@@ -345,10 +341,10 @@ describe('Its movement should respect the buttons visibility and abailability', 
 
         carousel1.select(1);
 
-        expect($prevButton.attr('aria-hidden')).toEqual('true');
+        expect($prevButton.attr('aria-disabled')).toEqual('true');
         expect($prevButton.hasClass('ch-carousel-disabled')).toBeTruthy();
 
-        expect($nextButton.attr('aria-hidden')).toEqual('false');
+        expect($nextButton.attr('aria-disabled')).toEqual('false');
         expect($nextButton.hasClass('ch-carousel-disabled')).toBeFalsy();
     });
 
@@ -356,10 +352,10 @@ describe('Its movement should respect the buttons visibility and abailability', 
 
         carousel1.select(carousel1._pages);
 
-        expect($prevButton.attr('aria-hidden')).toEqual('false');
+        expect($prevButton.attr('aria-disabled')).toEqual('false');
         expect($prevButton.hasClass('ch-carousel-disabled')).toBeFalsy();
 
-        expect($nextButton.attr('aria-hidden')).toEqual('true');
+        expect($nextButton.attr('aria-disabled')).toEqual('true');
         expect($nextButton.hasClass('ch-carousel-disabled')).toBeTruthy();
     });
 });
@@ -466,28 +462,28 @@ describe('Its pagination controls', function () {
 describe('Its asynchronous feature', function () {
 
     it('should add the next arrow', function () {
-        expect(carousel3._$el.children('.ch-carousel-next').hasClass('ch-carousel-disabled')).toBeFalsy();
+        expect(carousel4._$el.children('.ch-carousel-next').hasClass('ch-carousel-disabled')).toBeFalsy();
     });
 
     it('should add two items on next page', function () {
 
-        var items = carousel3._$items.length,
-            expectedItems = items + carousel3._limitPerPage;
+        var items = carousel4._$items.length,
+            expectedItems = items + carousel4._limitPerPage;
 
-        carousel3.next();
+        carousel4.next();
 
-        expect(carousel3._$items.length).toEqual(expectedItems);
+        expect(carousel4._$items.length).toEqual(expectedItems);
     });
 
     it('should add multiple items on next 2 pages selection (through select() method or pagination)', function () {
 
         var move = 2, // Amount of pages to move
-            items = carousel3._$items.length,
-            expectedItems = items + (carousel3._limitPerPage * move);
+            items = carousel4._$items.length,
+            expectedItems = items + (carousel4._limitPerPage * move);
 
-        carousel3.select(carousel3._currentPage + move);
+        carousel4.select(carousel4._currentPage + move);
 
-        expect(carousel3._$items.length).toEqual(expectedItems);
+        expect(carousel4._$items.length).toEqual(expectedItems);
     });
 });
 
