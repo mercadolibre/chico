@@ -57,27 +57,18 @@
          * @event ch.Carousel#ready
          * @example
          * // Subscribe to "ready" event.
-         * carousel.on('ready',function () {
+         * carousel.on('ready', function () {
          *     this.select(3);
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    /**
-     * Private Carousel
-     */
     var pointertap = ch.onpointertap + '.carousel',
         Math = window.Math,
         setTimeout = window.setTimeout,
-        /**
-         * Inheritance
-         */
+        // Inheritance
         parent = ch.util.inherits(Carousel, ch.Widget);
-
-    /**
-     * Prototype
-     */
 
     /**
      * The name of the widget.
@@ -87,7 +78,7 @@
 
     /**
      * Returns a reference to the constructor function that created the instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Carousel.prototype
      * @function
      */
     Carousel.prototype.constructor = Carousel;
@@ -110,20 +101,11 @@
      * @function
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
      * @param {Object} [options] Options to customize an instance.
-     * @param {Number} [options.async] Defines the number of future asynchronous items to add to the widget. By default, the async is 0.
-     * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. By default, the arrows will be created.
-     * @param {Boolean} [options.pagination] Defines if a pagination must be created or not at initialization. By default, the pagination will not be created.
-     * @param {Boolean} [options.fx] Enable or disable the slide effect. By default, the effects are enabled.
-     * @param {Number} [options.limitPerPage] Set the maximum amount of items to show in each page.
      * @returns {carousel}
      */
     Carousel.prototype.init = function ($el, options) {
         // Call to its parents init method
         parent.init.call(this, $el, options);
-
-        /**
-         * Private Members
-         */
 
         /**
          * Reference to an internal widget instance, saves all the information and configuration properties.
@@ -844,7 +826,7 @@
 
     /**
      * Enables a Carousel instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Carousel.prototype
      * @function
      * @returns {carousel}
      */
@@ -861,7 +843,7 @@
 
     /**
      * Disables a Carousel instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Carousel.prototype
      * @function
      * @returns {carousel}
      */
@@ -878,7 +860,7 @@
 
     /**
      * Destroys a Carousel instance.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Carousel.prototype
      * @function
      * @returns {carousel}
      */
