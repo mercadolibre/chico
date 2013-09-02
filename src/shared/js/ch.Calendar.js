@@ -88,7 +88,7 @@
              * Converts a given date to "YYYY/MM/DD" format.
              * @params {Date} date A given date to convert.
              * @function
-             * @return {String}
+             * @returns {String}
              */
             'YYYY/MM/DD': function (date) {
                 return [date.year, addZero(date.month), addZero(date.day)].join('/');
@@ -98,7 +98,7 @@
              * Converts a given date to "DD/MM/YYYY" format.
              * @params {Date} date A given date to convert.
              * @function
-             * @return {String}
+             * @returns {String}
              */
             'DD/MM/YYYY': function (date) {
                 return [addZero(date.day), addZero(date.month), date.year].join('/');
@@ -108,7 +108,7 @@
              * Converts a given date to "MM/DD/YYYY" format.
              * @params {Date} date A given date to convert.
              * @function
-             * @return {String}
+             * @returns {String}
              */
             'MM/DD/YYYY': function (date) {
                 return [addZero(date.month), addZero(date.day), date.year].join('/');
@@ -135,6 +135,12 @@
              * @private
              */
             return {
+
+                /**
+                 * Reference to native Date object.
+                 * @type {Date}
+                 */
+                'native': date,
 
                 /**
                  * Number of day.
@@ -192,7 +198,7 @@
     Calendar.prototype.name = 'calendar';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Calendar.prototype
      * @function
      */
@@ -520,6 +526,21 @@
     };
 
     /**
+     * Checks if a given date is into 'from' and 'to' dates.
+     * @function
+     * @private
+     */
+    Calendar.prototype._isInRange = function (date) {
+        var inRange = false;
+
+        if (this._dates.range.from || this._dates.range.to) {
+             inRange = (this._dates.range.from.native < date.native) || (this._dates.range.to && this._dates.range.to.native > date.native);
+        }
+
+        return inRange;
+    };
+
+    /**
      * Indicates if an specific date is selected or not (including date ranges and simple dates).
      * @function
      * @private
@@ -537,6 +558,7 @@
                 yepnope = true;
                 return yepnope;
             }
+
         // Multiple selection (ranges)
         } else {
             $.each(this._dates.selected, function (i, e) {
@@ -585,8 +607,13 @@
         }
 
         // Setter
+        var newDate = createDateObject(date);
+        if (this._isInRange(newDate)) {
+            return this;
+        };
+
         // Update selected date
-        this._dates.selected = (date === 'today') ? this._dates.today : createDateObject(date);
+        this._dates.selected = (date === 'today') ? this._dates.today : newDate;
 
         // Create a new table of selected month
         this._updateTemplate(this._dates.selected);
@@ -607,34 +634,10 @@
     };
 
     /**
-     * Selects a specific day into current month and year.
-     * @memberof! ch.Calendar.prototype
-     * @function
-     * @param {(String | Number)} day A given day to select.
-     * @return {String} New selected date.
-     * @example
-     * // Select a specific day.
-     * calendar.selectDay(28);
-     */
-    Calendar.prototype.selectDay = function (day) {
-
-        if (day === undefined) {
-            throw new window.Error('ch.Calendar.selectDay(day): day parameter is required and must be a number or string.');
-        }
-
-        var date = [this._dates.current.year, this._dates.current.month, day].join('/');
-
-        this.select(date);
-
-        return FORMAT_dates[this._options.format](createDateObject(date));
-
-    };
-
-    /**
      * Returns date of today
      * @memberof! ch.Calendar.prototype
      * @function
-     * @return {String} The date of today
+     * @returns {String} The date of today
      * @example
      * // Get the date of today.
      * var today = calendar.getToday();
@@ -647,7 +650,7 @@
      * Moves to the next month.
      * @memberof! ch.Calendar.prototype
      * @function
-     * @return {calendar}
+     * @returns {calendar}
      * @example
      * // Moves to the next month.
      * calendar.nextMonth();
@@ -684,7 +687,7 @@
      * Move to the previous month.
      * @memberof! ch.Calendar.prototype
      * @function
-     * @return {calendar}
+     * @returns {calendar}
      * @example
      * // Moves to the prev month.
      * calendar.prevMonth();
@@ -722,7 +725,7 @@
      * Move to the next year.
      * @memberof! ch.Calendar.prototype
      * @function
-     * @return {calendar}
+     * @returns {calendar}
      * @example
      * // Moves to the next year.
      * calendar.nextYear();
@@ -754,7 +757,7 @@
      * Move to the previous year.
      * @memberof! ch.Calendar.prototype
      * @function
-     * @return {calendar}
+     * @returns {calendar}
      * @example
      * // Moves to the prev year.
      * calendar.prevYear();
@@ -787,7 +790,7 @@
      * @memberof! ch.Calendar.prototype
      * @function
      * @param {String} date A given date to set as minimum selectable date. The format of the given date should be "YYYY/MM/DD".
-     * @return {calendar}
+     * @returns {calendar}
      * @example
      * // Set a minimum selectable date.
      * calendar.setFrom('2010/05/28');
@@ -805,7 +808,7 @@
      * @memberof! ch.Calendar.prototype
      * @function
      * @param {String} date A given date to set as maximum selectable date. The format of the given date should be "YYYY/MM/DD".
-     * @return {calendar}
+     * @returns {calendar}
      * @example
      * // Set a maximum selectable date.
      * calendar.setTo('2014/05/28');
@@ -819,7 +822,7 @@
     };
 
     /**
-     * Destroys an calendar instance.
+     * Destroys a Calendar instance.
      * @memberof! ch.Calendar.prototype
      * @function
      * @expample
