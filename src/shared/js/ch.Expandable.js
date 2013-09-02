@@ -91,7 +91,7 @@
     Expandable.prototype.name = 'expandable';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Expandable.prototype
      * @function
      */
@@ -256,7 +256,7 @@
     };
 
     /**
-     * Destroys an expandable instance.
+     * Destroys an Expandable instance.
      * @memberof! ch.Expandable.prototype
      * @function
      * @expample
