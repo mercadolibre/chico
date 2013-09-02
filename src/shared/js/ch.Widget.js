@@ -36,7 +36,7 @@
     Widget.prototype.name = 'widget';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Widget.prototype
      * @function
      */
@@ -155,7 +155,7 @@
      * Disables an instance of Widget.
      * @memberof! ch.Widget.prototype
      * @function
-     * @returns {instance} Returns an instance of Widget.
+     * @return {instance} Returns an instance of Widget.
      * @expample
      * // Disabling an instance of Widget.
      * widget.disable();

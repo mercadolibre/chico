@@ -7,74 +7,66 @@
 
     /**
      * Datepicker lets you select dates.
-     * @name DatePicker
-     * @class DatePicker
-     * @augments ch.Controls
+     * @memberof ch
+     * @constructor
+     * @augments ch.Widget
      * @requires ch.Calendar
-     * @see ch.Controls
-     * @see ch.Calendar
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.format] Sets the date format. By default is "DD/MM/YYYY".
-     * @param {String} [conf.selected] Sets a date that should be selected by default. By default is the date of today.
-     * @param {String} [conf.from] Set a maximum selectable date.
-     * @param {String} [conf.to] Set a minimum selectable date.
-     * @param {String} [conf.points] Points to be positioned. See Positioner component. By default is "ct cb".
-     * @param {Array} [conf.monthsNames] By default is ["Enero", ... , "Diciembre"].
-     * @param {Array} [conf.weekdays] By default is ["Dom", ... , "Sab"].
-     * @param {Boolean} [conf.closable] Defines if floated component will be closed when a date is selected or not. By default it's "true".
-     * @returns itself
-     * @factorized
-     * @exampleDescription Create a new datePicker.
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.DatePicker.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.format] Sets the date format. By default is "DD/MM/YYYY".
+     * @param {String} [options.selected] Sets a date that should be selected by default. By default is the date of today.
+     * @param {String} [options.from] Set a minimum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @param {Array} [options.monthsNames] By default is ["Enero", ... , "Diciembre"].
+     * @param {Array} [options.weekdays] By default is ["Dom", ... , "Sab"].
+     * @param {Boolean} [conf.hiddenby] To be defined. By default is "pointers".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center.
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center.
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed.
+     * @returns {datePicker} Returns a new instance of ch.DatePicker.
      * @example
-     * var widget = $(".example").datePicker();
-     * @exampleDescription Create a new Date Picker with configuration.
+     * // Create a new DatePicker without options.
+     * var datepicker = $(selector).datePicker();
      * @example
-     * var widget = $(".example").datePicker({
-     *    "format": "MM/DD/YYYY",
-     *    "selected": "2011/12/25",
-     *    "from": "2010/12/25",
-     *    "to": "2012/12/25",
-     *    "monthsNames": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-     *    "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
+     * // Create a new DatePicker with some options.
+     * var datepicker = $(selector).datePicker({
+     *     "format": "MM/DD/YYYY",
+     *     "selected": "2011/12/25",
+     *     "from": "2010/12/25",
+     *     "to": "2012/12/25",
+     *     "monthsNames": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+     *     "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
      * });
      */
     function DatePicker($el, options) {
 
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
+         * Reference to a internal widget instance, saves all the information and configuration properties.
          * @type {Object}
+         * @private
          */
         var that = this;
 
         this.init($el, options);
 
         /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.DatePicker#ready
-         * @event
-         * @public
-         * @exampleDescription Following the first example, using <code>widget</code> as Date Picker's instance controller:
+         * Event emitted when the widget is ready to use.
+         * @event ch.DatePicker#ready
          * @example
-         * widget.on("ready", function () {
-         *   this.show();
+         * // Subscribe to "ready" event.
+         * datePicker.on('ready', function () {
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    /**
-     *   Private Members
-     */
-    /**
-     *   Inheritance
-     */
+    // Inheritance
     var parent = ch.util.inherits(DatePicker, ch.Widget),
-
-    /**
-     * Creates methods enable and disable into the prototype.
-     */
+        // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
 
@@ -89,10 +81,24 @@
         };
     }
 
+    /**
+     * The name of the widget.
+     * @type {String}
+     */
     DatePicker.prototype.name = 'datePicker';
 
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.DatePicker.prototype
+     * @function
+     */
     DatePicker.prototype.constructor = DatePicker;
 
+    /**
+     * Configuration by default.
+     * @type {Object}
+     * @private
+     */
     DatePicker.prototype._defaults = {
         'format': 'DD/MM/YYYY',
         'side': 'bottom',
@@ -100,28 +106,46 @@
         'hiddenby': 'pointers'
     };
 
+    /**
+     * Initialize a new instance of DatePicker and merge custom options with defaults options.
+     * @memberof! ch.DatePicker.prototype
+     * @function
+     * @returns {datepicker}
+     */
     DatePicker.prototype.init = function ($el, options) {
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
+        /**
+         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
+        /**
+         * The datepicker field.
+         * @type {HTMLElement}
+         */
         this.field = this._el;
 
+        /**
+         * The datepicker trigger.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
         this.$trigger = $('<i role="button" class="ch-datePicker-trigger ch-icon-calendar"></i>').insertAfter(this.field);
 
         /**
-         * Reference to the Calendar component instance.
-         * @protected
-         * @type Object
-         * @name ch.DatePicker#calendar
+         * Reference to the Calendar component instanced.
+         * @type {ch.Calendar}
+         * @private
          */
         this._calendar = $('<div>').calendar(options);
 
         /**
-         * Reference to the Float component instanced.
-         * @protected
-         * @type Object
-         * @name ch.DatePicker#float
+         * Reference to the Popover component instanced.
+         * @type {ch.Popover}
+         * @private
          */
         this._popover = this.$trigger.popover({
             '_className': 'ch-datePicker ch-cone',
@@ -136,7 +160,13 @@
         });
 
         this._popover._$content.on(ch.onpointertap, function (event) {
-            that._pick(event.target);
+            var el = event.target;
+
+            // Day selection
+            if (el.nodeName === 'TD' && el.className.indexOf('ch-calendar-disabled') === -1 && el.className.indexOf('ch-calendar-other') === -1) {
+                that.pick(el.innerHTML);
+            }
+
         });
 
         this.field.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this._popover.uid);
@@ -154,41 +184,13 @@
     };
 
     /**
-     * Pick a date in the Calendar and updates the input data.
-     * @protected
+     * Shows the datepicker.
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @name ch.DatePicker#_pick
-     */
-    DatePicker.prototype._pick = function (target) {
-        // Day selection
-        if (target.nodeName !== 'TD' || target.className.indexOf('ch-calendar-disabled') !== -1 || target.className.indexOf('ch-calendar-other') !== -1) {
-            return;
-        }
-
-        // Select the day and update input value with selected date
-        this.field.value = this._calendar.selectDay(target.innerHTML);
-
-        // Hide float
-        this._popover.hide();
-
-        /**
-         * Callback function
-         * @public
-         * @name ch.DatePicker#select
-         * @event
-         */
-        this.emit('select');
-    };
-
-    /**
-     * Triggers the innerShow method and returns the public scope to keep method chaining.
-     * @public
-     * @name ch.DatePicker#show
-     * @function
-     * @returns itself
-     * @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
+     * @returns {datepicker}
      * @example
-     * widget.show();
+     * // Shows a datepicker.
+     * datepicker.show();
      */
     DatePicker.prototype.show = function () {
 
@@ -199,10 +201,13 @@
         this._popover.show();
 
         /**
-         * Callback function
-         * @public
-         * @name ch.DatePicker#show
-         * @event
+         * Event emitted when a datepicker is shown.
+         * @event ch.DatePicker#show
+         * @example
+         * // Subscribe to "show" event.
+         * datepicker.on('show', function () {
+         *     // Some code here!
+         * });
          */
         this.emit('show');
 
@@ -210,23 +215,25 @@
     };
 
     /**
-     * Triggers the innerHide method and returns the public scope to keep method chaining.
-     * @public
-     * @name ch.DatePicker#show
+     * Hides the datepicker.
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @returns itself
-     * @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
+     * @returns {datepicker}
      * @example
-     * widget.hide();
+     * // Shows a datepicker.
+     * datepicker.hide();
      */
     DatePicker.prototype.hide = function () {
         this._popover.hide();
 
         /**
-         * Callback function
-         * @public
-         * @name ch.DatePicker#hide
-         * @event
+         * Event emitted when a datepicker is hidden.
+         * @event ch.DatePicker#hide
+         * @example
+         * // Subscribe to "hide" event.
+         * datepicker.on('hide', function () {
+         *     // Some code here!
+         * });
          */
         this.emit('hide');
 
@@ -234,21 +241,61 @@
     };
 
     /**
-    * Select a specific date or returns the selected date.
-    * @public
-    * @since 0.9
-    * @name ch.DatePicker#select
-    * @function
-    * @param {string} "YYYY/MM/DD".
-    * @return itself
-    */
-    DatePicker.prototype.select = function (date) {
-        // Select the day and update input value with selected date
+     * Selects a specific day into current month and year.
+     * @memberof! ch.DatePicker.prototype
+     * @function
+     * @private
+     * @param {(String | Number)} day A given day to select.
+     * @returns {datepicker}
+     * @example
+     * // Select a specific day.
+     * datepicker.pick(28);
+     */
+    DatePicker.prototype.pick = function (day) {
 
-        // Setter
+        // Select the day and update input value with selected date
+        this.field.value = [this._calendar._dates.current.year, this._calendar._dates.current.month, day].join('/');
+
+        // Hide float
+        this._popover.hide();
+
+        // Select a date
+        this.select(this.field.value);
+
+        return this;
+    };
+
+    /**
+     * Selects a specific date or returns the selected date.
+     * @memberof! ch.DatePicker.prototype
+     * @function
+     * @param {String} [date] A given date to select. The format of the given date should be "YYYY/MM/DD".
+     * @return {(datepicker | String)}
+     * @example
+     * // Returns the selected date.
+     * datepicker.select();
+     * @example
+     * // Select a specific date.
+     * datepicker.select('2014/05/28');
+     */
+    DatePicker.prototype.select = function (date) {
+
+       // Setter
+       // Select the day and update input value with selected date
         if (date) {
             this._calendar.select(date);
-            this.el.value = this._calendar.select();
+            this.field.value = this._calendar.select();
+
+            /**
+             * Event emitted when a date is selected.
+             * @event ch.DatePicker#select
+             * @example
+             * // Subscribe to "select" event.
+             * datepicker.on('select', function () {
+             *     // Some code here!
+             * });
+             */
+            this.emit('select');
 
             return this;
         }
@@ -259,79 +306,147 @@
 
     /**
      * Returns date of today
-     * @public
-     * @since 0.9
-     * @name ch.DatePicker#today
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @return date
+     * @returns {String} The date of today
+     * @example
+     * // Get the date of today.
+     * var today = datepicker.getToday();
      */
-    DatePicker.prototype.today = function () {
-        return this._calendar.today();
+    DatePicker.prototype.getToday = function () {
+        return this._calendar.getToday();
     };
 
     /**
-     * Move to the next month or year. If it isn't specified, it will be moved to next month.
-     * @public
+     * Moves to the next month.
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @name ch.DatePicker#next
-     * @param {String} time A string that allows specify if it should move to next month or year.
-     * @return itself
-     * @default Next month
+     * @returns {datepicker}
+     * @example
+     * // Moves to the next month.
+     * datepicker.nextMonth();
      */
-    DatePicker.prototype.next = function (time) {
-        this._calendar.next(time);
+    DatePicker.prototype.nextMonth = function () {
+        this._calendar.nextMonth();
 
         /**
-         * Callback function
-         * @public
-         * @name ch.DatePicker#next
-         * @event
+         * Event emitted when a next month is shown.
+         * @event ch.DatePicker#nextmonth
+         * @example
+         * // Subscribe to "nextmonth" event.
+         * datepicker.on('nextmonth', function () {
+         *     // Some code here!
+         * });
          */
-        this.emit('next');
+        this.emit('nextmonth');
 
         return this;
     };
 
     /**
-     * Move to the previous month or year. If it isn't specified, it will be moved to previous month.
-     * @public
+     * Move to the previous month.
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @name ch.DatePicker#prev
-     * @param {String} time A string that allows specify if it should move to previous month or year.
-     * @return itself
-     * @default Previous month
+     * @returns {datepicker}
+     * @example
+     * // Moves to the prev month.
+     * datepicker.prevMonth();
      */
-    DatePicker.prototype.prev = function (time) {
-        this._calendar.prev(time);
+    DatePicker.prototype.prevMonth = function () {
+
+        this._calendar.prevMonth();
 
         /**
-         * Callback function
-         * @public
-         * @name ch.DatePicker#next
-         * @event
+         * Event emitted when a previous month is shown.
+         * @event ch.DatePicker#prevmonth
+         * @example
+         * // Subscribe to "prevmonth" event.
+         * datepicker.on('prevmonth', function () {
+         *     // Some code here!
+         * });
          */
-        this.emit('prev');
+        this.emit('prevmonth');
 
         return this;
     };
 
     /**
-     * Reset the Date Picker to date of today
-     * @public
-     * @name ch.DatePicker#reset
+     * Move to the next year.
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @return itself
+     * @returns {datepicker}
+     * @example
+     * // Moves to the next year.
+     * datepicker.nextYear();
+     */
+    DatePicker.prototype.nextYear = function () {
+
+        this._calendar.nextYear();
+
+        /**
+         * Event emitted when a next year is shown.
+         * @event ch.DatePicker#nextyear
+         * @example
+         * // Subscribe to "nextyear" event.
+         * datepicker.on('nextyear', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('nextyear');
+
+        return this;
+    };
+
+    /**
+     * Move to the previous year.
+     * @memberof! ch.DatePicker.prototype
+     * @function
+     * @returns {datepicker}
+     * @example
+     * // Moves to the prev year.
+     * datepicker.prevYear();
+     */
+    DatePicker.prototype.prevYear = function () {
+
+        this._calendar.prevYear();
+
+        /**
+         * Event emitted when a previous year is shown.
+         * @event ch.DatePicker#prevyear
+         * @example
+         * // Subscribe to "prevyear" event.
+         * datepicker.on('prevyear', function () {
+         *     // Some code here!
+         * });
+         */
+        this.emit('prevyear');
+
+        return this;
+    };
+
+    /**
+     * Reset the DatePicker to date of today
+     * @memberof! ch.DatePicker.prototype
+     * @function
+     * @returns {datepicker}
+     * @example
+     * // Resset the datepicker
+     * datepicker.reset();
      */
     DatePicker.prototype.reset = function () {
+
         // Delete input value
         this.field.value = '';
         this._calendar.reset();
 
         /**
-         * Callback function
-         * @public
-         * @name ch.DatePicker#next
-         * @event
+         * Event emitter when the datepicker is reseted.
+         * @event ch.DatePicker#reset
+         * @example
+         * // Subscribe to "reset" event.
+         * datepicker.on('reset', function () {
+         *     // Some code here!
+         * });
          */
         this.emit('reset');
 
@@ -340,58 +455,66 @@
 
     /**
      * Set a minimum selectable date.
-     * @public
-     * @name ch.DatePicker#from
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @param {string} "YYYY/MM/DD".
-     * @return itself
+     * @param {String} date A given date to set as minimum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @returns {datepicker}
+     * @example
+     * // Set a minimum selectable date.
+     * datepicker.setFrom('2010/05/28');
      */
-    DatePicker.prototype.from = function (date) {
-        this._calendar.from(date);
+    DatePicker.prototype.setFrom = function (date) {
+        this._calendar.setFrom(date);
 
         return this;
     };
 
     /**
      * Set a maximum selectable date.
-     * @public
-     * @name ch.DatePicker#to
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @param {string} "YYYY/MM/DD".
-     * @return itself
+     * @param {String} date A given date to set as maximum selectable date. The format of the given date should be "YYYY/MM/DD".
+     * @returns {datepicker}
+     * @example
+     * // Set a maximum selectable date.
+     * datepicker.setTo('2014/05/28');
      */
-    DatePicker.prototype.to = function (date) {
-        this._calendar.to(date);
+    DatePicker.prototype.setTo = function (date) {
+        this._calendar.setTo(date);
 
         return this;
     };
 
     /**
-     * Turn on DatePicker.
-     * @public
-     * @name ch.DatePicker#enable
+     * Enables an instance of DatePicker.
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @returns itself
-     * @see ch.Condition
+     * @returns {datepicker} Returns an instance of DatePicker.
+     * @expample
+     * // Enabling an instance of DatePicker.
+     * datepicker.enable();
      */
 
     /**
-     * Turn off DatePicker.
-     * @public
-     * @name ch.DatePicker#disable
+     * Disables an instance of DatePicker.
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @returns itself
-     * @see ch.Condition
+     * @returns {datepicker} Returns an instance of DatePicker.
+     * @expample
+     * // Disabling an instance of DatePicker.
+     * datepicker.disable();
      */
     while (len) {
         createMethods(methods[len -= 1]);
     }
 
     /**
-     * Destroys an DatePicker instance.
-     * @public
+     * Destroys a DatePicker instance.
+     * @memberof! ch.DatePicker.prototype
      * @function
-     * @name ch.DatePicker#destroy
+     * @expample
+     * // Destroying an instance of DatePicker.
+     * datepicker.destroy();
      */
     DatePicker.prototype.destroy = function () {
 
@@ -406,6 +529,7 @@
         parent.destroy.call(this);
     };
 
+    // Factorize
     ch.factory(DatePicker);
 
 }(this, this.ch.$, this.ch));

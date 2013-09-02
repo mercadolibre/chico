@@ -77,7 +77,7 @@
     Form.prototype.name = 'form';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Form.prototype
      * @function
      */
@@ -354,7 +354,7 @@
     };
 
     /**
-     * Destroys a form instance.
+     * Destroys a Form instance.
      * @memberof! ch.Form.prototype
      * @function
      * @expample
