@@ -7,69 +7,96 @@
 
     /**
      * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
-     * @name Carousel
-     * @class Carousel
+     * @memberof ch
+     * @constructor
      * @augments ch.Widget
-     * @see ch.Widget
-     * @memberOf ch
-     * @factorized
-     * @param {Object} [options] Object with configuration properties.
-     * @param {Boolean} [options.pagination] Shows a pagination. By default, the value is false.
-     * @param {Number} [options.async] Define the number of futures async items to add.
-     * @param {Boolean} [options.fx] Enable or disable UI effects. By default, the effects are enabled.
-     * @param {Number} [options.limitPerPage] (Since 0.10.6) Set the max amount of items to show in each page.
-     * @param {Number} [options.initialPage] (Since 1.0) Initialize the Carousel in a specified page.
-     * @returns itself
-     * @exampleDescription Create a Carousel without configuration.
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Number} [options.async] Defines the number of future asynchronous items to add to the widget. By default, the async is 0.
+     * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. By default, the arrows will be created.
+     * @param {Boolean} [options.pagination] Defines if a pagination must be created or not at initialization. By default, the pagination will not be created.
+     * @param {Boolean} [options.fx] Enable or disable the slide effect. By default, the effects are enabled.
+     * @param {Number} [options.limitPerPage] Set the maximum amount of items to show in each page.
+     * @returns {carousel} Returns a new instance of ch.Carousel.
      * @example
-     * var foo = $('#example').carousel();
-     * @exampleDescription Create a Carousel with configuration parameters.
+     * // Create a new Carousel with defaults options.
+     * var widget = $(selector).carousel();
      * @example
-     * var foo = $('#example').carousel({
+     * // Create a new Carousel with pagination enabled.
+     * $(selector).carousel({
      *     'pagination': true
      * });
-     * @exampleDescription Create a Carousel with items asynchronously loaded.
      * @example
-     * var foo = $('#example').carousel({
-     *     'asyncData': [
-     *         {'src': 'a.png', 'alt': 'A'},
-     *         {'src': 'b.png', 'alt': 'B'},
-     *         {'src': 'c.png', 'alt': 'C'}
-     *     ],
-     *     'asyncRender': function (data) {
-     *         return '<img src="' + data.src + '" alt="' + data.alt + '"/>';
-     *     }
+     * // Create a new Carousel with fx disabled.
+     * $(selector).carousel({
+     *     'fx': false
+     * });
+     * @example
+     * // Create a new Carousel with items asynchronously loaded.
+     * $(selector).carousel({
+     *     'async': 10
+     * }).on('addeditems', function ($items) {
+     *     // Inject content into the added <li> elements
+     *     $.each($items, function (i, e) {
+     *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
+     *     });
      * });
      */
     function Carousel($el, options) {
+        /**
+         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this;
 
         this.init($el, options);
 
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @protected
-         * @name ch.Carousel#that
-         * @type Object
+         * Emits the event 'ready' when the widget is ready to use.
+         * @event ch.Carousel#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * carousel.on('ready',function () {
+         *     this.select(3);
+         * });
          */
-        var that = this;
-
-        // Shoot the ready event
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
     /**
-     * Private members
+     * Private Carousel
      */
     var pointertap = ch.onpointertap + '.carousel',
         Math = window.Math,
         setTimeout = window.setTimeout,
-        setInterval = window.setInterval,
+        /**
+         * Inheritance
+         */
         parent = ch.util.inherits(Carousel, ch.Widget);
 
+    /**
+     * Prototype
+     */
+
+    /**
+     * The name of the widget.
+     * @type {String}
+     */
     Carousel.prototype.name = 'carousel';
 
+    /**
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Widget.prototype
+     * @function
+     */
     Carousel.prototype.constructor = Carousel;
 
+    /**
+     * Configuration by default.
+     * @private
+     * @type {Object}
+     */
     Carousel.prototype._defaults = {
         'async': 0,
         'arrows': true,
@@ -77,167 +104,174 @@
         'fx': true
     };
 
+    /**
+     * Initialize a new instance of Carousel and merge custom options with defaults options.
+     * @memberof! ch.Carousel.prototype
+     * @function
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Number} [options.async] Defines the number of future asynchronous items to add to the widget. By default, the async is 0.
+     * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. By default, the arrows will be created.
+     * @param {Boolean} [options.pagination] Defines if a pagination must be created or not at initialization. By default, the pagination will not be created.
+     * @param {Boolean} [options.fx] Enable or disable the slide effect. By default, the effects are enabled.
+     * @param {Number} [options.limitPerPage] Set the maximum amount of items to show in each page.
+     * @returns {carousel}
+     */
     Carousel.prototype.init = function ($el, options) {
-
+        // Call to its parents init method
         parent.init.call(this, $el, options);
 
+        /**
+         * Private Members
+         */
+
+        /**
+         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
         var that = this;
 
+        /**
+         * The original and entire element and its state, before initialization.
+         * @private
+         * @type {HTMLDivElement}
+         */
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
 
         /**
-         * Element that moves across component (inside the mask).
+         * Element that moves (slides) across the widget (inside the mask).
          * @private
-         * @name ch.Carousel#$list
-         * @type jQuery Object
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this._$list = this._$el.addClass('ch-carousel').children().addClass('ch-carousel-list');
 
         /**
-         * Collection of each child of the list.
+         * Collection of each child of the slider list.
          * @private
-         * @name ch.Carousel#$items
-         * @type jQuery Object
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this._$items = this._$list.children().addClass('ch-carousel-item');
 
         /**
-         * Element that denies the list overflow.
+         * Element that wraps the list and denies its overflow.
          * @private
-         * @name ch.Carousel#$mask
-         * @type jQuery Object
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this._$mask = $('<div class="ch-carousel-mask" role="tabpanel">').html(this._$list).appendTo(this._$el);
 
         /**
-         * Size of the mask. Updated in each refresh.
+         * Size of the mask (width). Updated in each refresh.
          * @private
-         * @name ch.Carousel#maskWidth
-         * @type Number
+         * @type {Number}
          */
-        this._maskWidth = 0;
+        this._maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
 
         /**
          * The width of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
-         * @name ch.Carousel#itemWidth
-         * @type Number
+         * @type {Number}
          */
         this._itemWidth = this._$items.width();
 
         /**
          * The width of each item, without paddings, margins or borders. Ideal for manipulate CSS width property.
          * @private
-         * @name ch.Carousel#itemOuterWidth
-         * @type Number
+         * @type {Number}
          */
         this._itemOuterWidth = ch.util.getOuterDimensions(this._$items[0]).width;
 
         /**
-         * Size added to each item to make it responsive.
+         * The size added to each item to make it elastic/responsive.
          * @private
-         * @name ch.Carousel#itemExtraWidth
-         * @type Number
+         * @type {Number}
          */
         this._itemExtraWidth = 0;
 
         /**
          * The height of each item, including paddings, margins and borders. Ideal for make calculations.
          * @private
-         * @name ch.Carousel#itemHeight
-         * @type Number
+         * @type {Number}
          */
         this._itemHeight = this._$items.height();
 
         /**
          * The margin of all items. Updated in each refresh only if it's necessary.
          * @private
-         * @name ch.Carousel#itemMargin
-         * @type Number
+         * @type {Number}
          */
         this._itemMargin = 0;
 
         /**
-         * Flag to control when arrows were created before.
+         * Flag to control when arrows were created.
          * @private
-         * @name ch.Carousel#arrowsCreated
-         * @type Boolean
+         * @type {Boolean}
          */
         this._arrowsCreated = false;
 
         /**
-         * Flag to control if pagination was created before.
+         * Flag to control when pagination was created.
          * @private
-         * @name ch.Carousel#paginationCreated
-         * @type Boolean
+         * @type {Boolean}
          */
         this._paginationCreated = false;
 
         /**
-         * (Since 0.7.4) Amount of items in only one page. Updated in each refresh.
+         * Amount of items in each page. Updated in each refresh.
          * @private
-         * @name ch.Carousel#_limitPerPage
-         * @type Number
-         * @since 0.7.4
+         * @type {Number}
          */
         this._limitPerPage = 0;
 
         /**
          * Page currently showed.
          * @private
-         * @name ch.Carousel#currentPage
-         * @type Number
+         * @type {Number}
          */
         this._currentPage = 1;
 
         /**
          * Total amount of pages. Data updated in each refresh.
          * @private
-         * @name ch.Carousel#pages
-         * @type Number
+         * @type {Number}
          */
         this._pages = 0;
 
         /**
-         * Distance needed to move ONLY ONE page. Data updated in each refresh.
+         * Distance needed to move ONLY ONE PAGE. Data updated in each refresh.
          * @private
-         * @name ch.Carousel#pageWidth
-         * @type Number
+         * @type {Number}
          */
         this._pageWidth = 0;
 
         /**
          * List of items that should be loaded asynchronously on page movement.
          * @private
-         * @name ch.Carousel#_async
-         * @type Array
+         * @type {Number}
          */
         this._async = this._options.async;
 
         /**
-         * DOM element of arrow that moves the Carousel to the previous page.
+         * UI element of arrow that moves the Carousel to the previous page.
          * @private
-         * @name ch.Carousel#$prevArrow
-         * @type jQuery Object
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this._$prevArrow = $('<div class="ch-carousel-prev ch-carousel-disabled" role="button" aria-hidden="true">')
             .on(pointertap, function () { that.prev(); });
 
         /**
-         * DOM element of arrow that moves the Carousel to the next page.
+         * UI element of arrow that moves the Carousel to the next page.
          * @private
-         * @name ch.Carousel#$nextArrow
-         * @type jQuery Object
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         that._$nextArrow = $('<div class="ch-carousel-next" role="button" aria-hidden="false">')
             .on(pointertap, function () { that.next(); });
 
         /**
-         * HTML Element that contains all thumbnails for pagination.
+         * UI element that contains all the thumbnails for pagination.
          * @private
-         * @name ch.Carousel#$pagination
-         * @jQuery Object
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this._$pagination = $('<div class="ch-carousel-pages" role="navigation">').on(pointertap, function (event) {
             // Get the page from the element
@@ -246,6 +280,7 @@
             if (page !== null) { that.select(window.parseInt(page, 10)); }
         });
 
+        // Refresh calculation when the viewport resizes
         ch.viewport.on('resize', function () { that.refresh(); });
 
         // If efects aren't needed, avoid transition on list
@@ -260,9 +295,6 @@
         // Allow to render the arrows
         if (this._options.arrows !== undefined && this._options.arrows !== false) { this._addArrows(); }
 
-        // Trigger all calculations to get the functionality measures
-        this._maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
-
         // Set WAI-ARIA properties to each item depending on the page in which these are
         this._updateARIA();
 
@@ -274,37 +306,39 @@
     };
 
     /**
-     * Set WAI-ARIA properties to each item depending on the page in which these are.
+     * Set accesibility properties to each item depending on the page in which these are.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#updateARIA
      * @function
      */
     Carousel.prototype._updateARIA = function () {
-
+        /**
+         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             // Amount of items when ARIA is updated
             total = this._$items.length + this._async,
             // Page where each item is in
             page;
 
-        // Update ARIA properties on all items
-        this._$items.each(function (i, item) {
+        // Update WAI-ARIA properties on all items
+        $.each(this._$items, function (i, item) {
             // Update page where this item is in
             page = Math.floor(i / that._limitPerPage) + 1;
             // Update ARIA attributes
-            $(item).attr({
-                'aria-hidden': (page !== that._currentPage),
-                'aria-setsize': total,
-                'aria-posinset': i + 1,
-                'aria-label': 'page' + page
-            });
+            item.setAttribute('aria-hidden', (page !== that._currentPage));
+            item.setAttribute('aria-setsize', total);
+            item.setAttribute('aria-posinset', (i + 1));
+            item.setAttribute('aria-label', 'page' + page);
         });
     };
 
     /**
-     * Adds items when page/pages needs to load asynchronous items
+     * Adds items when page/pages needs to load it asynchronously.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#loadAsyncItems
      * @function
      */
     Carousel.prototype._loadAsyncItems = function () {
@@ -316,11 +350,20 @@
         var total = this._currentPage * this._limitPerPage,
             // How many items needs to add to items rendered to complete to this page
             amount = total - this._$items.length,
+            // The new width calculated from current width plus extraWidth
+            width = (this._itemWidth + this._itemExtraWidth),
+            // Get the height using new width and relation between width and height of item (ratio)
+            height = (width * this._itemHeight) / this._itemWidth,
             // Generic <LI> HTML Element to be added to the Carousel
-            item = '<li class="ch-carousel-item" style="width:' + (this._itemWidth + this._itemExtraWidth) + 'px;margin-right:' + this._itemMargin + 'px"></li>',
+            item = [
+                '<li',
+                ' class="ch-carousel-item"',
+                ' style="width:' + width + 'px;height:' + height + 'px;margin-right:' + this._itemMargin + 'px"',
+                '></li>'
+            ].join(''),
             // It stores <LI> that will be added to the DOM collection
             items = '',
-            // $ version of <LI> elements to give to the user
+            // Wrapped items
             $items;
 
         // Load only when there are items to add
@@ -335,6 +378,7 @@
             amount -= 1;
         }
 
+        // Wrap the string elements into jQuery/Zepto
         $items = $(items);
 
         // Add sample items to the list
@@ -347,55 +391,63 @@
         this._async -= amount;
 
         /**
-         * Triggers when component adds items asynchronously.
-         * @name ch.Carousel#addeditems
-         * @event
-         * @public
-         * @exampleDescription Using a callback when Carousel add items asynchronously.
+         * Emits the event 'addeditems' when the widget creates new asynchronous empty items.
+         * @event ch.Carousel#addeditems
          * @example
-         * example.on("addeditems", function ($items) {
-         *    alert("Some asynchronous items was added.");
+         * // Create a new Carousel with items asynchronously loaded.
+         * $(selector).carousel({
+         *     'async': 10
+         * }).on('addeditems', function ($items) {
+         *     // Inject content into the added <li> elements
+         *     $.each($items, function (i, e) {
+         *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
+         *     });
          * });
          */
         this.emit('addeditems', $items);
     };
 
     /**
-     * Create the pagination on DOM and change the flag "paginationCreated".
+     * Creates the pagination of the widget.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#addPagination
      * @function
      */
     Carousel.prototype._addPagination = function () {
 
+        // Remove the current pagination if it's necessary to create again
+        if (this._paginationCreated) {
+            this._removePagination();
+        }
+
+        /**
+         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * @type {Object}
+         * @private
+         */
         var that = this,
-            // Collection of thumbnails strings
             thumbs = [],
-            // Index
-            i = 1,
-            j = that._pages + 1,
-            isCurrentPage;
+            page = that._pages,
+            isSelected;
 
         // Generate a thumbnail for each page on Carousel
-        for (i, j; i < j; i += 1) {
+        while (page) {
             // Determine if this thumbnail is selected or not
-            isCurrentPage = (i === that._currentPage);
+            isSelected = (page === that._currentPage);
             // Add string to collection
-            thumbs.push(
-                // Tag opening with ARIA role
-                '<span role="button"',
-                // Selection depends on current page
-                ' aria-selected="' + isCurrentPage + '"',
-                // WAI-ARIA reference to page that this thumbnail controls
-                ' aria-controls="page' + i + '"',
-                // JS reference to page that this thumbnail controls
-                ' data-page="' + i + '"',
-                // Class name to indicate when this thumbnail is selected or not
-                ' class="' + (isCurrentPage ? 'ch-carousel-selected' : '') + '"',
-                // Friendly content and tag close
-                '>' + i + '</span>'
+            thumbs.unshift(
+                '<span',
+                ' role="button"',
+                ' aria-selected="' + isSelected + '"',
+                ' aria-controls="page' + page + '"',
+                ' data-page="' + page + '"',
+                ' class="' + (isSelected ? 'ch-carousel-selected' : '') + '"',
+                '>' + page + '</span>'
             );
+
+            page -= 1;
         }
+
         // Append thumbnails to pagination and append this to Carousel
         that._$pagination.html(thumbs.join('')).appendTo(that._$el);
 
@@ -407,9 +459,9 @@
     };
 
     /**
-     * Delete pagination from DOM and change the flag "paginationCreated".
+     * Deletes the pagination from the widget.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#removePagination
      * @function
      */
     Carousel.prototype._removePagination = function () {
@@ -422,22 +474,19 @@
     };
 
     /**
-     * Executed when total amount of pages change, this refresh the thumbnails.
+     * It stops the slide effect while the list moves.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#updatePagination
      * @function
+     * @param {Function} callback A function to execute after disable the effects.
      */
-    Carousel.prototype._updatePagination = function () {
-        // Avoid to change something that not exists
-        if (!this._paginationCreated) { return; }
-        // Delete thumbnails
-        this._removePagination();
-        // Generate thumbnails
-        this._addPagination();
-    };
-
     Carousel.prototype._standbyFX = function (callback) {
 
+        /**
+         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         // Do it if is required
@@ -456,10 +505,11 @@
         }
     };
 
-
     /**
-     *
-     *
+     * Calculates the correct items per page and calculate pages, only when the amount of items was changed.
+     * @memberof! ch.Carousel.prototype
+     * @private
+     * @function
      */
     Carousel.prototype._updateLimitPerPage = function () {
 
@@ -495,16 +545,16 @@
         this._updateArrows();
 
         // Update pagination
-        this._updatePagination();
+        this._addPagination();
 
         // Go to the current first item page
         this.select(Math.ceil(firstItemOnPage / limitPerPage));
     };
 
     /**
-     * Calculates and set the size of items and its margin to get an adaptive Carousel.
+     * Calculates and set the size of the items and its margin to get an adaptive Carousel.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#updateDistribution
      * @function
      */
     Carousel.prototype._updateDistribution = function () {
@@ -569,50 +619,10 @@
         });
     };
 
-    /*
-     * Trigger all recalculations to get the functionality measures.
-     * @public
-     * @function
-     * @name ch.Carousel#refresh
-     * @returns Chico UI Object
-     * @exampleDescription Refresh the Carousel.
-     * @example
-     * foo.refresh();
-     */
-    Carousel.prototype.refresh = function () {
-
-        var maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
-
-        // Check for changes on the width of mask, for the elastic carousel
-        if (maskWidth !== this._maskWidth) {
-            // Update the width of the mask
-            this._maskWidth = maskWidth;
-            // Calculate items per page and calculate pages, only when the amount of items was changed
-            this._updateLimitPerPage();
-            // Update the margin between items and its size
-            this._updateDistribution();
-            /**
-             * Since 0.10.6: Triggers when component refreshs.
-             * @name ch.Carousel#refresh
-             * @event
-             * @public
-             * @since 0.10.6
-             * @exampleDescription Using a callback when Carousel trigger a new refresh.
-             * @example
-             * example.on("refresh", function () {
-             *    alert("Carousel was refreshed!");
-             * });
-             */
-            this.emit('refresh');
-        }
-
-        return this;
-    };
-
     /**
-     * Add arrows to DOM, bind these event and change the flag 'arrowsCreated'.
+     * Adds arrows to the widget.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#addArrows
      * @function
      */
     Carousel.prototype._addArrows = function () {
@@ -624,15 +634,23 @@
         this._arrowsCreated = true;
     };
 
+    /**
+     * Set as disabled the arrows by adding a classname and a WAI-ARIA property.
+     * @memberof! ch.Carousel.prototype
+     * @private
+     * @function
+     * @param {Boolean} prev Defines if the "previous" arrow must be disabled or not.
+     * @param {Boolean} next Defines if the "next" arrow must be disabled or not.
+     */
     Carousel.prototype._disableArrows = function (prev, next) {
         this._$prevArrow.attr('aria-disabled', prev)[prev ? 'addClass' : 'removeClass']('ch-carousel-disabled');
         this._$nextArrow.attr('aria-disabled', next)[next ? 'addClass' : 'removeClass']('ch-carousel-disabled');
-    }
+    };
 
     /**
-     * Check for arrows behavior on first, last and middle pages, and update class name and ARIA values.
+     * Check for arrows behavior on first, last and middle pages, and update class name and WAI-ARIA values.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#updateArrows
      * @function
      */
     Carousel.prototype._updateArrows = function () {
@@ -657,8 +675,8 @@
 
     /**
      * Moves the list corresponding to specified displacement.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#translate
      * @function
      * @param {Number} displacement Distance to move the list.
      */
@@ -682,8 +700,8 @@
 
     /**
      * Updates the selected page on pagination.
+     * @memberof! ch.Carousel.prototype
      * @private
-     * @name ch.Carousel#switchPagination
      * @function
      * @param {Number} from Page previously selected. It will be unselected.
      * @param {Number} to Page to be selected.
@@ -700,19 +718,43 @@
     };
 
     /**
-     *
-     * @public
+     * Triggers all the necessary recalculations to be up-to-date.
+     * @memberof! ch.Carousel.prototype
      * @function
-     * @name ch.Carousel#select
-     * @returns Chico UI Object
-     * @param {Number || String} page Reference of page to go.
-     * @since 1.0
-     * @exampleDescription Go to second page.
-     * @example
-     * foo.select(2);
-     * @exampleDescription Get the current page.
-     * @example
-     * foo.select();
+     * @returns {carousel}
+     */
+    Carousel.prototype.refresh = function () {
+
+        var maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
+
+        // Check for changes on the width of mask, for the elastic carousel
+        if (maskWidth !== this._maskWidth) {
+            // Update the width of the mask
+            this._maskWidth = maskWidth;
+            // Calculate items per page and calculate pages, only when the amount of items was changed
+            this._updateLimitPerPage();
+            // Update the margin between items and its size
+            this._updateDistribution();
+            /**
+             * Emits the event 'refresh' when the widget triggers all the necessary recalculations to be up-to-date.
+             * @event ch.Carousel#refresh
+             * @example
+             * carousel.on('refresh', function () {
+             *     alert('Carousel was refreshed.');
+             * });
+             */
+            this.emit('refresh');
+        }
+
+        return this;
+    };
+
+    /**
+     * Moves the list to the specified page.
+     * @memberof! ch.Carousel.prototype
+     * @function
+     * @param {Number} page Reference of page where the list has to move.
+     * @returns {carousel}
      */
     Carousel.prototype.select = function (page) {
         // Getter
@@ -741,16 +783,12 @@
         // Task 6: Set WAI-ARIA properties to each item
         this._updateARIA();
 
-        /*
-         * Since 0.7.9: Triggers when component moves to next or previous page.
-         * @name ch.Carousel#select
-         * @event
-         * @public
-         * @since 0.7.9
+        /**
+         * Emits the event 'select' when the widget moves to another page.
+         * @event ch.Carousel#select
          * @example
-         * @exampleDescription Using a callback when Carousel moves to another page.
-         * example.on("select", function () {
-         *    alert("An item was selected!");
+         * carousel.on('select', function () {
+         *     alert('Carousel has moved.');
          * });
          */
         this.emit('select');
@@ -759,39 +797,57 @@
     };
 
     /**
-     * Triggers when component moves to previous page.
-     * @name ch.Carousel#prev
-     * @event
-     * @public
-     * @exampleDescription Using a callback when Carousel moves to the previous page.
-     * @example
-     * example.on("prev", function () {
-     *    alert("Previous!");
-     * });
+     * Moves the list to the previous page.
+     * @memberof! ch.Carousel.prototype
+     * @function
+     * @returns {carousel}
      */
     Carousel.prototype.prev = function () {
+
         this.select(this._currentPage - 1);
+
+        /**
+         * Emits the event 'prev' when the widget moves to the previous page.
+         * @event ch.Carousel#prev
+         * @example
+         * carousel.on('prev', function () {
+         *     alert('Carousel has moved to the previous page.');
+         * });
+         */
         this.emit('prev');
+
         return this;
     };
 
     /**
-     * Triggers when component moves to next page.
-     * @name ch.Carousel#next
-     * @event
-     * @public
-     * @exampleDescription Using a callback when Carousel moves to the next page.
-     * @example
-     * example.on('next', function () {
-     *    alert("Next!");
-     * });
+     * Moves the list to the next page.
+     * @memberof! ch.Carousel.prototype
+     * @function
+     * @returns {carousel}
      */
     Carousel.prototype.next = function () {
+
         this.select(this._currentPage + 1);
+
+        /**
+         * Emits the event 'next' when the widget moves to the next page.
+         * @event ch.Carousel#next
+         * @example
+         * carousel.on('next', function () {
+         *     alert('Carousel has moved to the next page.');
+         * });
+         */
         this.emit('next');
+
         return this;
     };
 
+    /**
+     * Enables a Carousel instance.
+     * @memberof! ch.Widget.prototype
+     * @function
+     * @returns {carousel}
+     */
     Carousel.prototype.enable = function () {
 
         this._el.setAttribute('aria-disabled', false);
@@ -799,8 +855,16 @@
         this._disableArrows(false, false);
 
         parent.enable.call(this);
+
+        return this;
     };
 
+    /**
+     * Disables a Carousel instance.
+     * @memberof! ch.Widget.prototype
+     * @function
+     * @returns {carousel}
+     */
     Carousel.prototype.disable = function () {
 
         this._el.setAttribute('aria-disabled', true);
@@ -808,13 +872,15 @@
         this._disableArrows(true, true);
 
         parent.disable.call(this);
+
+        return this;
     };
 
     /**
      * Destroys a Carousel instance.
-     * @public
+     * @memberof! ch.Widget.prototype
      * @function
-     * @name ch.Carousel#destroy
+     * @returns {carousel}
      */
     Carousel.prototype.destroy = function () {
 
@@ -823,6 +889,8 @@
         $(window.document).trigger(ch.onchangelayout);
 
         parent.destroy.call(this);
+
+        return this;
     };
 
     ch.factory(Carousel);
