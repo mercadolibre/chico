@@ -6,84 +6,94 @@
     }
 
     /**
-     * Popover improves the native popovers. Popover uses the 'alt' and 'title' attributes to grab its content.
-     * @name Popover
-     * @class Popover
-     * @augments ch.Floats
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
-     * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
-     * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-     * @returns itself
-     * @factorized
-     * @see ch.Modal
-     * @see ch.Popover
-     * @see ch.Zoom
-     * @see ch.Flaots
-     * @exampleDescription Create a popover.
+     * Popover is the basic unit of a dialog window.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Widget
+     * @mixes ch.Collapsible
+     * @mixes ch.Content
+     * @requires ch.Positioner
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Popover.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". By default, the effect is "fadeIn".
+     * @param {String} [options.width] Set a width for the container. By default is "auto".
+     * @param {String} [options.height] Set a height for the container. By default is "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap" (default) or "pointerenter".
+     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button" (default), "pointers", "all" or "none".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" (default) or "fixed".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. By default it is '<div class="ch-loading ch-loading-centered"></div>'.
+     * @returns {popover} Returns a new instance of ch.Popover.
      * @example
-     * var widget = $(".some-element").popover();
-     * @exampleDescription Create a new popover with configuration.
+     * // Create a new Popover with defaults options.
+     * var widget = $(selector).popover();
      * @example
-     * var widget = $("a.example").popover({
-     *     "fx": false,
-     *     "offset": "10 -10",
-     *     "points": "lt rt"
+     * // Create a new Popover without trigger.
+     * var widget = $.popover();
+     * @example
+     * // Create a new Popover with fx disabled.
+     * $(selector).popover({
+     *     'fx': 'none'
      * });
-     * @exampleDescription
-     * Now <code>widget</code> is a reference to the popover instance controller.
-     * You can set a new content by using <code>widget</code> like this:
-     * @example
-     * widget.width(300);
      */
     function Popover($el, options) {
-
-        this.init($el, options);
-
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
+         * Reference to an internal widget instance, saves all the information and configuration properties.
          * @private
          * @type {Object}
          */
         var that = this;
 
+        this.init($el, options);
+
         /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.Popover#ready
-         * @event
-         * @public
-         * @since 0.8.0
-         * @exampleDescription Following the first example, using <code>widget</code> as popover's instance controller:
+         * Emits the event 'ready' when the widget is ready to use.
+         * @event ch.Popover#ready
          * @example
-         * widget.on("ready",function () {
-         * this.show();
+         * // Subscribe to "ready" event.
+         * popover.on('ready', function () {
+         *     alert('Widget ready!');
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    /**
-     * Private members
-     */
     var $document = $(window.document),
-
         $body = $('body'),
-
+        // Inheritance
         parent = ch.util.inherits(Popover, ch.Widget),
-
         shownbyEvent = {
             'pointertap': ch.onpointertap,
             'pointerenter': ch.onpointerenter
         };
 
     /**
-     * Public members
+     * The name of the widget.
+     * @type {String}
      */
     Popover.prototype.name = 'popover';
 
+    /**
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Popover.prototype
+     * @function
+     */
     Popover.prototype.constructor = Popover;
 
+    /**
+     * Configuration by default.
+     * @private
+     * @type {Object}
+     */
     Popover.prototype._defaults = {
         '_ariaRole': 'dialog',
         '_className': '',
@@ -98,19 +108,31 @@
         'positioned': 'absolute'
     };
 
+    /**
+     * Initialize a new instance of Popover and merge custom options with defaults options.
+     * @memberof! ch.Popover.prototype
+     * @function
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Popover.
+     * @param {Object} [options] Options to customize an instance.
+     * @returns {popover}
+     */
     Popover.prototype.init = function ($el, options) {
-
-        var that = this;
-
+        // Call to its parents init method
         parent.init.call(this, $el, options);
 
+        // Requires abilities
         this.require('Collapsible', 'Content');
 
         /**
-         * Inner function that resolves the component's layout and returns a static reference.
-         * @protected
-         * @name ch.Floats#$container
-         * @type jQuery
+         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this;
+
+        /**
+         * The popover container. It's the element that will be shown and hidden.
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this.$container = $([
             '<div',
@@ -124,25 +146,16 @@
         });
 
         /**
-         * Inner reference to content container. Here is where the content will be added.
-         * @protected
-         * @name ch.Floats#$content
-         * @type jQuery
-         * @see ch.Content
+         * Element where the content will be added.
+         * @private
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
         this._$content = $('<div class="ch-popover-content">').appendTo(this.$container);
 
-        /**
-         * Trigger: Add functionality to the trigger if it exists
-         */
-        if (this._el !== undefined) {
-            this._configureTrigger();
-        }
-
-        /**
-         * Configure abilities
-         */
-        this._closable();
+        // Add functionality to the trigger if it exists
+        this._configureTrigger();
+        // Configure the way it hides
+        this._configureHiding();
 
         this._positioner = new ch.Positioner({
             'target': this.$container,
@@ -155,31 +168,27 @@
         });
 
         /**
-         * Bind behaviors
-         */
-
-        /**
-         * TODO: Define this function on prototye and use bind.
-         * $document.on(ch.onchangelayout, this.refreshPosition.bind(this));
+         * Handler to execute the positioner refresh() method on layout changes.
+         * @private
+         * @type {Function}
+         * @todo Define this function on prototype and use bind(): $document.on(ch.onchangelayout, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
             that._positioner.refresh(options);
             return that;
         };
 
-        // Refersh position on:
-
-        // If the popover hasn't got content, .once('show', this._refreshPositionListener)
-
-        // onchangelayout
+        // Refresh position:
+        // on layout change
         $document.on(ch.onchangelayout, this._refreshPositionListener);
-
-        // resize
+        // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
-        // _contentchange
-        this.on('_contentchange', this._refreshPositionListener)
-
+        this
+            .once('_show', this._refreshPositionListener)
+            // on content change
+            .on('_contentchange', this._refreshPositionListener)
+            // Remove from DOM the widget container after hide
             .on('hide', function () {
                 that.$container.remove(null, true);
             });
@@ -187,19 +196,31 @@
         return this;
     };
 
-
     /**
-     *
-     *
+     * Adds functionality to the trigger. When a non-trigger popover is initialized, this method isn't executed.
+     * @memberof! ch.Popover.prototype
+     * @private
+     * @function
      */
     Popover.prototype._configureTrigger = function () {
 
-        var that = this,
-            showHandler = (function () {
-                var fn = that._toggle;
+        if (this._el === undefined) {
+            return;
+        }
 
+        /**
+         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this,
+            // It will be triggered on pointertap/pointerenter of the $trigger
+            // It can toggle, show, or do nothing (in specific cases)
+            showHandler = (function () {
+                // Toggle as default
+                var fn = that._toggle;
                 // When a Popover is shown on pointerenter, it will set a timeout to manage when
-                // to close the widget. Avoid to toggle and let choise when to close to the timer.
+                // to close the widget. Avoid to toggle and let choise when to close to the timer
                 if (that._options.shownby === 'pointerenter' || that._options.hiddenby === 'none' || that._options.hiddenby === 'button') {
                     fn = function () {
                         if (!that._shown) {
@@ -211,13 +232,18 @@
                 return fn;
             }());
 
+        /**
+         * The original and entire element and its state, before initialization.
+         * @private
+         * @type {HTMLDivElement}
+         */
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
 
         // Use the trigger as the positioning reference
         this._options.reference = this._options.reference || this._$el;
 
-        // Open event when configured as openable
+        // Open event when configured as able to shown anyway
         if (this._options.shownby !== 'none') {
             this._$el
                 .addClass('ch-shownby-' + this._options.shownby)
@@ -244,32 +270,130 @@
             }
         }
 
+        // Set WAI-ARIA
+        this._el.setAttribute('aria-owns', 'ch-' + this.name + '-' + this.uid);
+        this._el.setAttribute('aria-haspopup', 'true');
+
         /**
-         *
-         * @protected
-         * @name ch.Floats#
-         * @type jQuery
+         * The popover trigger. It's the element that will show and hide the container.
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
-        this.$trigger = this._$el.attr({
-            'aria-owns': 'ch-' + this.name + '-' + this.uid,
-            'aria-haspopup': 'true'
-        });
+        this.$trigger = this._$el;
     };
 
     /**
-     * Inner show method. Attach the component layout to the DOM tree.
-     * @protected
-     * @name ch.Popover#innerShow
+     * Determines how to hide the widget.
+     * @memberof! ch.Popover.prototype
+     * @private
      * @function
-     * @returns itself
+     */
+    Popover.prototype._configureHiding = function () {
+        /**
+         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * @private
+         * @type {Object}
+         */
+        var that = this,
+            hiddenby = this._options.hiddenby,
+            pointertap = ch.onpointertap + '.' + this.name,
+            timeout,
+            events = {};
+
+        function hide(event) {
+            if (event.target !== that._el && event.target !== that.$container[0]) {
+                that.hide();
+            }
+        }
+
+        function hideTimer() {
+            timeout = window.setTimeout(function () {
+                that.hide();
+            }, that._options._hideDelay);
+        }
+
+        // Don't hide anytime
+        if (hiddenby === 'none') { return; }
+
+        // Hide by leaving the widget
+        if (hiddenby === 'pointerleave' && this.$trigger !== undefined) {
+
+            events[ch.onpointerenter + '.' + this.name] = function () {
+                window.clearTimeout(timeout);
+            };
+
+            events[ch.onpointerleave + '.' + this.name] = hideTimer;
+
+            this.$trigger.on(events);
+            this.$container.on(events);
+        }
+
+        // Hide with the button Close
+        if (hiddenby === 'button' || hiddenby === 'all') {
+            $('<i class="ch-close" role="button" aria-label="Close"></i>').on(pointertap, function () {
+                that.hide();
+            }).prependTo(this.$container);
+        }
+
+        if (hiddenby === 'pointers' || hiddenby === 'all') {
+
+            ch.shortcuts.add((ch.onkeyesc || 'touchend'), this.uid, function () { that.hide(); });
+
+            this
+                .on('show', function () {
+                    ch.shortcuts.on(that.uid);
+                    $document.on(pointertap, hide);
+                })
+                .on('hide', function () {
+                    ch.shortcuts.off(that.uid);
+                    $document.off(pointertap, hide);
+                });
+        }
+    };
+
+    /**
+     * Creates an options object from the parameters arriving to the constructor method.
+     * @memberof! ch.Popover.prototype
+     * @private
+     * @function
+     * @example
+     */
+    Popover.prototype._normalizeOptions = function (options) {
+        if (typeof options === 'string' || ch.util.is$(options)) {
+            options = {
+                'content': options
+            };
+        }
+        return options;
+    };
+
+    /**
+     * Shows the popover container and appends it to the body.
+     * @memberof! ch.Popover.prototype
+     * @function
+     * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by popover.
+     * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @returns {popover}
+     * @example
+     * // Shows a basic popover.
+     * widget.show();
+     * @example
+     * // Shows a popover with new content.
+     * widget.show('Some new content here!');
+     * @example
+     * // Shows a popover with a new content that will be loaded by ajax and some custom options.
+     * widget.show('http://chico-ui.com.ar/ajax', {
+     *     'cache': false,
+     *     'params': 'x-request=true'
+     * });
      */
     Popover.prototype.show = function (content, options) {
-
+        // Don't execute when it's disabled
         if (!this._enabled) {
             return this;
         }
 
-        // Do it before content.set, because content.set triggers the position.refresh)
+        // Increase z-index and append to body
+        // Do it before set content because when content sets, it triggers the position refresh
         this.$container.css('z-index', (ch.util.zIndex += 1)).appendTo($body);
 
         // Open the collapsible
@@ -284,49 +408,58 @@
     };
 
     /**
-     * Inner hide method. Hides the component and detach it from DOM tree.
-     * @protected
-     * @name ch.Popover#innerHide
+     * Hides the popover container and deletes it from the body.
+     * @memberof! ch.Popover.prototype
      * @function
-     * @returns itself
+     * @returns {popover}
+     * @example
+     * // Close a popover.
+     * widget.hide();
      */
     Popover.prototype.hide = function () {
-
+        // Don't execute when it's disabled
         if (!this._enabled) {
             return this;
         }
 
+        // Close the collapsible
         this._hide();
 
         return this;
     };
 
     /**
-     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
-     * @public
+     * Returns a Boolean specifying if the container is shown or not.
+     * @memberof! ch.Popover.prototype
      * @function
-     * @name ch.Floats#isShown
-     * @returns boolean
+     * @returns {Boolean}
+     * @example
+     * // Check the popover status after an user action
+     * var foo = $.popover();
+     * $(button).on(ch.onpointertap, function () {
+     *     if (foo.isShown()) {
+     *         alert('Popover: visible');
+     *     } else {
+     *         alert('Popover: not visible');
+     *     }
+     * });
      */
     Popover.prototype.isShown = function () {
         return this._shown;
     };
 
     /**
-     * Sets or gets the width property of the component's layout. Use it without arguments to get the value. To set a new value pass an argument, could be a Number or CSS value like '300' or '300px'.
-     * @public
+     * Sets or gets the width of the container.
+     * @memberof! ch.Popover.prototype
      * @function
-     * @name ch.Floats#width
-     * @param {Number|String} [width]
-     * @returns itself
-     * @see ch.Zarasa#size
-     * @see ch.Floats#size
-     * @exampleDescription to set the width
+     * @param {String} [data] Set a width for the container.
+     * @returns {(Number | popover)}
      * @example
-     * widget.width(700);
-     * @exampleDescription to get the width
+     * // Set a new popover width.
+     * widget.width('300px');
      * @example
-     * widget.width() // 700
+     * // Get the popover width.
+     * widget.width(); // '300px'
      */
     Popover.prototype.width = function (data) {
 
@@ -344,18 +477,17 @@
     };
 
     /**
-     * Sets or gets the height of the Float element.
-     * @public
+     * Sets or gets the hight of the container.
+     * @memberof! ch.Popover.prototype
      * @function
-     * @name ch.Floats#height
-     * @returns itself
-     * @see ch.Floats#size
-     * @exampleDescription to set the height
+     * @param {String} [data] Set a height for the container.
+     * @returns {(Number | popover)}
      * @example
-     * widget.height(300);
-     * @exampleDescription to get the height
+     * // Set a new popover height.
+     * widget.height('300px');
      * @example
-     * widget.height // 300
+     * // Get the popover height.
+     * widget.height(); // '300px'
      */
     Popover.prototype.height = function (data) {
 
@@ -373,14 +505,23 @@
     };
 
     /**
-     * Refresh the position of the popover if it's shown.
-     * @public
+     * Updates the current position of the container with given options or defaults.
+     * @memberof! ch.Popover.prototype
      * @function
-     * @name ch.Popover#$refreshPosition
+     * @params {Object} [options] A configuration object.
+     * @returns {popover}
      * @example
-     * widget.refreshPosition();
+     * // Updates the current position.
+     * popover.refreshPosition();
+     * @example
+     * // Updates the current position with new offsetX and offsetY.
+     * popover.refresh({
+     *     'offestX': 100,
+     *     'offestY': 10
+     * });
      */
     Popover.prototype.refreshPosition = function (options) {
+
         if (this._shown) {
             this._positioner.refresh(options);
         }
@@ -388,89 +529,12 @@
         return this;
     };
 
-
     /**
-     * Allows to manage the widgets content.
-     * @param {String} content - Description.
-     * @param {Object} [options] - Description.
-     * @private
+     * Enables a Popover instance.
+     * @memberof! ch.Popover.prototype
+     * @function
+     * @returns {popover}
      */
-    Popover.prototype._closable = function () {
-
-        var that = this,
-            setTimeout = window.setTimeout,
-            clearTimeout = window.clearTimeout,
-            hiddenby = this._options.hiddenby,
-            pointerTap = ch.onpointertap + '.' + this.name,
-            pointerEnter = ch.onpointerenter + '.' + this.name,
-            pointerLeave = ch.onpointerleave + '.' + this.name,
-            escEvent = ch.onkeyesc || 'touchend',
-            timeOut,
-            events;
-
-        function hide(event) {
-            if (event.target !== that._el && event.target !== that.$container[0]) {
-                that.hide();
-            }
-        }
-
-        function hideTimer() {
-            timeOut = setTimeout(function () {
-                that.hide();
-            }, that._options._hideDelay);
-        }
-
-        // Closable none
-        if (hiddenby === 'none') { return; }
-
-        // Closable by leaving the widget
-        if (hiddenby === 'pointerleave' && that.$trigger !== undefined) {
-
-            events = {};
-
-            events[pointerEnter] = function () {
-                clearTimeout(timeOut);
-            };
-
-            events[pointerLeave] = hideTimer;
-
-            that.$trigger.on(events);
-            that.$container.on(events);
-        }
-
-        // Closable by button
-        if (hiddenby === 'button' || hiddenby === 'all') {
-            // Append a close button
-            $('<i class="ch-close" role="button" aria-label="Close"></i>').on(pointerTap, function () {
-                that.hide();
-            }).prependTo(that.$container);
-        }
-
-        if (hiddenby === 'pointers' || hiddenby === 'all') {
-            ch.shortcuts.add(escEvent, that.uid, function () { that.hide(); });
-            that
-                .on('show', function () {
-                    ch.shortcuts.on(that.uid);
-                    $document.on(pointerTap, hide);
-                })
-                .on('hide', function () {
-                    ch.shortcuts.off(that.uid);
-                    $document.off(pointerTap, hide);
-                });
-        }
-
-        return this;
-    };
-
-    Popover.prototype._normalizeOptions = function (options) {
-        if (typeof options === 'string' || ch.util.is$(options)) {
-            options = {
-                'content': options
-            };
-        }
-        return options;
-    };
-
     Popover.prototype.enable = function () {
 
         if (this._el !== undefined) {
@@ -478,8 +542,16 @@
         }
 
         parent.enable.call(this);
+
+        return this;
     };
 
+    /**
+     * Disables a Popover instance.
+     * @memberof! ch.Popover.prototype
+     * @function
+     * @returns {popover}
+     */
     Popover.prototype.disable = function () {
 
         if (this._el !== undefined) {
@@ -491,13 +563,15 @@
         }
 
         parent.disable.call(this);
+
+        return this;
     };
 
     /**
-     * Destroys an Popover instance.
-     * @public
+     * Destroys a Popover instance.
+     * @memberof! ch.Popover.prototype
      * @function
-     * @name ch.Popover#destroy
+     * @returns {popover}
      */
     Popover.prototype.destroy = function () {
 
@@ -516,14 +590,14 @@
         }
 
         $document.off(ch.onchangelayout, this._refreshPositionListener);
+
         ch.viewport.off(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
+
+        return this;
     };
 
-    /**
-     * Factory
-     */
     ch.factory(Popover, Popover.prototype._normalizeOptions);
 
 }(this, this.ch.$, this.ch));
