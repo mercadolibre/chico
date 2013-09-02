@@ -7,12 +7,12 @@
      * @constructor
      * @param {Object} options Configuration object.
      * @param {(jQuerySelector | ZeptoSelector)} options.target Reference to the element to be positioned.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed (default).
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" or "fixed" (default).
      * @requires ch.util
      * @requires ch.Viewport
      * @returns {Object} A new intance of Positioner.
