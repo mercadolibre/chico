@@ -19,6 +19,114 @@
             };
 
         /**
+         * Set async content into widget's container and emits the current event.
+         * @private
+         */
+        function setAsyncContent(event) {
+
+            var status = 'content' + event.status;
+
+            that._$content.html(event.response);
+
+            /**
+             * Event emitted when the content change.
+             * @event ch.Content#contentchange
+             * @private
+             */
+            that.emit('_contentchange');
+
+            /**
+             * Event emitted if the content is loaded successfully.
+             * @event ch.Content#contentdone
+             * @example
+             * // Subscribe to "contentdone" event.
+             * widget.on('contentdone', function (event) {
+             *  // Some code here!
+             * });
+             */
+
+            /**
+             * Event emitted when the content is loading.
+             * @event ch.Content#contentwaiting
+             * @example
+             * // Subscribe to "contentwaiting" event.
+             * widget.on('contentwaiting', function (event) {
+             *  // Some code here!
+             * });
+             */
+
+            /**
+             * Event emitted if the content isn't loaded successfully.
+             * @event ch.Content#contenterror
+             * @example
+             * // Subscribe to "contenterror" event.
+             * widget.on('contenterror', function (event) {
+             *  // Some code here!
+             * });
+             */
+
+            that.emit(status, event);
+        }
+
+        /**
+         * Get async content with given URL.
+         * @private
+         */
+        function getAsyncContent(url, options) {
+            // Initial options to be merged with the user's options
+            options = $.extend({
+                'method': 'GET',
+                'params': '',
+                'async': true,
+                'waiting': '<div class="ch-loading-big"></div>'
+            }, options || defaults);
+
+            if (options.cache !== undefined) {
+                that._options.cache = options.cache;
+            }
+
+            // Set loading
+            setAsyncContent({
+                'status': 'waiting',
+                'response': options.waiting
+            });
+
+            // Make async request
+            $.ajax({
+                'url': url,
+                'type': options.method,
+                'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
+                'cache': that._options.cache,
+                'async': options.async,
+                'beforeSend': function (jqXHR) {
+                    // Set the AJAX default HTTP headers
+                    jqXHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                },
+                'success': function (data) {
+                    // Send the result data to the client
+                    setAsyncContent({
+                        'status': 'done',
+                        'response': data
+                    });
+                },
+                'error': function (jqXHR, textStatus, errorThrown) {
+                    // Send a defined error message
+                    setAsyncContent({
+                        'status': 'error',
+                        'response': '<p>Error on ajax call.</p>',
+
+                         // Grab all the parameters into a JSON to send to the client
+                        'data': {
+                            'jqXHR': jqXHR,
+                            'textStatus': textStatus,
+                            'errorThrown': errorThrown
+                        }
+                    });
+                }
+            });
+        }
+
+        /**
          * Allows to manage the widgets content.
          * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a widget.
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
@@ -83,114 +191,6 @@
         that.content = content;
 
         /**
-         * Get async content with given URL.
-         * @private
-         */
-        function getAsyncContent(url, options) {
-            // Initial options to be merged with the user's options
-            options = $.extend({
-                'method': 'GET',
-                'params': '',
-                'async': true,
-                'waiting': '<div class="ch-loading-big"></div>'
-            }, options || defaults);
-
-            if (options.cache !== undefined) {
-                that._options.cache = options.cache;
-            }
-
-            // Set loading
-            setAsyncContent({
-                'status': 'waiting',
-                'response': options.waiting
-            });
-
-            // Make async request
-            $.ajax({
-                'url': url,
-                'type': options.method,
-                'data': 'x=x' + ((options.params !== '') ? '&' + options.params : ''),
-                'cache': that._options.cache,
-                'async': options.async,
-                'beforeSend': function (jqXHR) {
-                    // Set the AJAX default HTTP headers
-                    jqXHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                },
-                'success': function (data) {
-                    // Send the result data to the client
-                    setAsyncContent({
-                        'status': 'done',
-                        'response': data
-                    });
-                },
-                'error': function (jqXHR, textStatus, errorThrown) {
-                    // Send a defined error message
-                    setAsyncContent({
-                        'status': 'error',
-                        'response': '<p>Error on ajax call.</p>',
-
-                         // Grab all the parameters into a JSON to send to the client
-                        'data': {
-                            'jqXHR': jqXHR,
-                            'textStatus': textStatus,
-                            'errorThrown': errorThrown
-                        }
-                    });
-                }
-            });
-        }
-
-        /**
-         * Set async content into widget's container and emits the current event.
-         * @private
-         */
-        function setAsyncContent(event) {
-
-            var status = 'content' + event.status;
-
-            that._$content.html(event.response);
-
-            /**
-             * Event emitted when the content change.
-             * @event ch.Content#contentchange
-             * @private
-             */
-            that.emit('_contentchange');
-
-            /**
-             * Event emitted if the content is loaded successfully.
-             * @event ch.Content#contentdone
-             * @example
-             * // Subscribe to "contentdone" event.
-             * widget.on('contentdone', function (event) {
-             *  // Some code here!
-             * });
-             */
-
-            /**
-             * Event emitted when the content is loading.
-             * @event ch.Content#contentwaiting
-             * @example
-             * // Subscribe to "contentwaiting" event.
-             * widget.on('contentwaiting', function (event) {
-             *  // Some code here!
-             * });
-             */
-
-            /**
-             * Event emitted if the content isn't loaded successfully.
-             * @event ch.Content#contenterror
-             * @example
-             * // Subscribe to "contenterror" event.
-             * widget.on('contenterror', function (event) {
-             *  // Some code here!
-             * });
-             */
-
-            that.emit(status, event);
-        }
-
-        /**
          * Loads content once. If the cache is disabled the content loads in each show.
          * @private
          */
@@ -204,7 +204,7 @@
             });
         }
 
-        that.once('show', showContent);
+        that.once('_show', showContent);
     }
 
     ch.Content = Content;
