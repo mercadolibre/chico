@@ -74,7 +74,7 @@
     Countdown.prototype.name = 'countdown';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Countdown.prototype
      * @function
      */
@@ -236,7 +236,7 @@
     };
 
     /**
-     * Destroys an countdown instance.
+     * Destroys a Countdown instance.
      * @memberof! ch.Countdown.prototype
      * @function
      * @expample

@@ -90,7 +90,7 @@
     Tabs.prototype.name = 'tabs';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Tabs.prototype
      * @function
      */
