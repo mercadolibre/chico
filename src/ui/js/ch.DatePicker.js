@@ -124,7 +124,7 @@
         var that = this;
 
         /**
-         * The datepicker field.
+         * The datepicker input field.
          * @type {HTMLElement}
          */
         this.field = this._el;
@@ -153,8 +153,8 @@
             'content': this._calendar.$container,
             'side': this._options.side,
             'align': this._options.align,
-            'offsetX': -1,
-            'offsetY': 8,
+            'offsetX': 1,
+            'offsetY': 10,
             'shownby': 'pointertap',
             'hiddenby': this._options.hiddenby
         });

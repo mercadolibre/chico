@@ -528,13 +528,18 @@
      * @private
      */
     Calendar.prototype._isInRange = function (date) {
-        var inRange = false;
+        var inRangeFrom = true,
+            inRangeTo = true;
 
-        if (this._dates.range.from || this._dates.range.to) {
-             inRange = (this._dates.range.from.native < date.native) || (this._dates.range.to && this._dates.range.to.native > date.native);
+        if (this._dates.range.from) {
+             inRangeFrom = (this._dates.range.from.native > date.native);
         }
 
-        return inRange;
+        if (this._dates.range.to) {
+             inRangeTo = (this._dates.range.to.native < date.native);
+        }
+
+        return inRangeFrom && inRangeTo;
     };
 
     /**
