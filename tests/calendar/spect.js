@@ -216,7 +216,7 @@ describe('Its select() method', function () {
     });
 
     it('should emit the "select" event', function () {
-        calendar1.select();
+        calendar1.select('2012/05/28');
         expect(selectEvent).toHaveBeenCalled();
     });
 });
