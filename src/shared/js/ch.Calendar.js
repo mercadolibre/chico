@@ -532,11 +532,11 @@
             inRangeTo = true;
 
         if (this._dates.range.from) {
-             inRangeFrom = (this._dates.range.from.native > date.native);
+             inRangeFrom = (this._dates.range.from.native <= date.native);
         }
 
         if (this._dates.range.to) {
-             inRangeTo = (this._dates.range.to.native < date.native);
+             inRangeTo = (this._dates.range.to.native >= date.native);
         }
 
         return inRangeFrom && inRangeTo;
@@ -611,7 +611,8 @@
         // Setter
         var newDate = createDateObject(date);
 
-        if (this._isInRange(newDate)) {
+
+        if (!this._isInRange(newDate)) {
             return this;
         };
 
