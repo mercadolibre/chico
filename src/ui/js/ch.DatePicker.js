@@ -522,9 +522,8 @@
 
         this.$trigger.remove();
 
-        this._$el
-            .removeClass('ch-expandable-container ch-hide')
-            .removeAttr('aria-describedby');
+        this._el.removeAttribute('aria-describedby');
+        this._el.type = 'date';
 
         parent.destroy.call(this);
     };
