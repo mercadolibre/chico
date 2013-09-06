@@ -249,7 +249,7 @@
 		 */
 			zoomed = (function () {
 				// Define the content source
-				var $img = $("<img src=\"" + that.element.href + "\" class=\"ch-hide\">").appendTo(that.$element);
+				var $img = $("<img class=\"ch-hide\">").appendTo(that.$element);
 
 				if (isIE) { $img.css('visibility', 'hidden').removeClass('ch-hide'); }
 
@@ -364,7 +364,7 @@
 
 				// Move seeker
 				seeker.$shape.css({"left": x, "top": y});
-				
+
 				// Move zoomed image
 				zoomed.$image.css({"left": (-ratio.width * x), "top": (-ratio.height * y)});
 
@@ -386,6 +386,7 @@
 			// If the component isn't loaded, show loading transition
 			if (!zoomed.ready) {
 				$loading.removeClass("ch-hide");
+                zoomed.$image[0].src = that.element.href;
 				return that;
 			}
 

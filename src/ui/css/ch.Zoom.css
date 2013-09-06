@@ -5,7 +5,7 @@
 .ch-zoom-trigger {
 	position: relative;
 	overflow: hidden;
-	display: block;
+	display: inline-block;
 	cursor: crosshair;
 }
 
@@ -25,6 +25,7 @@
 	font-size: 11px;
 	color: #333;
 	text-align: center;
+    background-image: url('../assets/loading-big.gif');
 }
 
 /* Seeker shape */
@@ -58,4 +59,9 @@
 /* IE */
 .lt-ie9 .ch-zoom-trigger .ch-zoom-seeker {
 	cursor: crosshair;
+}
+
+.lt-ie8 .ch-zoom-trigger {
+    display: inline;
+    zoom: 1;
 }

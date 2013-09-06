@@ -742,9 +742,15 @@
 
 	<div class="ch-box-lite">
 		<h2>Zoom</h2>
-		<a id="YOUR_SELECTOR_Zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+		<a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
 			<img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
 		</a>
+        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+        </a>
+        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+        </a>
 	</div>
 
 	<div class="ch-box-lite">
@@ -1505,7 +1511,7 @@
 		var transition = $(".YOUR_SELECTOR_Transition").transition();
 
 		// Zoom
-		var zoom = $("#YOUR_SELECTOR_Zoom").zoom();
+		var zoom = $('.zoom').zoom();
 
 		// expandable
 		var expandable = $(".YOUR_SELECTOR_expandable").expandable();
