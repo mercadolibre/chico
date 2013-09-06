@@ -287,7 +287,12 @@
 					// Change zoomed image status to Ready
 					zoomed.ready = true;
 
-					// TODO: MAGIC here! if mouse is over image show seeker and make all that innerShow do
+                    that.trigger('imageload');
+
+					// Make the entire Show process if it tried to show before
+                    if (!$loading.hasClass('ch-hide')) {
+                        that.innerShow();
+                    }
 				});
 
 				return {
@@ -374,6 +379,10 @@
 	 * Protected Members
 	 */
 
+        that.loadImage = function () {
+            zoomed.$image[0].src = that.element.href;
+        };
+
 		/**
 		 * Inner show method. Attach the component's layout to the DOM tree and load defined content.
 		 * @protected
@@ -386,7 +395,7 @@
 			// If the component isn't loaded, show loading transition
 			if (!zoomed.ready) {
 				$loading.removeClass("ch-hide");
-                zoomed.$image[0].src = that.element.href;
+                that.loadImage();
 				return that;
 			}
 
@@ -475,6 +484,8 @@
 		 * @borrows ch.Floats#height as ch.Zoom#height
 		 * @borrows ch.Floats#position as ch.Zoom#position
 		 */
+
+        that["public"].loadImage = that.loadImage;
 
 	/**
 	 * Default event delegation

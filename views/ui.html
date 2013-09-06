@@ -751,6 +751,7 @@
         <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
             <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
         </a>
+        <strong>← Preloaded</strong>
 	</div>
 
 	<div class="ch-box-lite">
@@ -1512,6 +1513,7 @@
 
 		// Zoom
 		var zoom = $('.zoom').zoom();
+        zoom[2].loadImage();
 
 		// expandable
 		var expandable = $(".YOUR_SELECTOR_expandable").expandable();
