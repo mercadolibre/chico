@@ -27,31 +27,31 @@
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @param {Array} [options.monthsNames] By default is ["Enero", ... , "Diciembre"].
      * @param {Array} [options.weekdays] By default is ["Dom", ... , "Sab"].
-     * @returns {calendar} Returns a new instance of ch.Calendar.
+     * @returns {calendar} Returns a new instance of Calendar.
      * @example
      * // Create a new Calendar without options.
      * var calendar = $(selector).calendar();
      * @example
      * // Create a new Calendar with some options.
      * var calendar = $(selector).calendar({
-     *    "format": "MM/DD/YYYY",
-     *    "selected": "2011/12/25",
-     *    "from": "2010/12/25",
-     *    "to": "2012/12/25",
-     *    "monthsNames": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-     *    "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
+     *     'format': 'MM/DD/YYYY',
+     *     'selected': '2011/12/25',
+     *     'from': '2010/12/25',
+     *     'to': '2012/12/25',
+     *     'monthsNames': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+     *     'weekdays': ['Su', 'Mo', 'Tu', 'We', 'Thu', 'Fr', 'Sa']
      * });
      */
     function Calendar($el, options) {
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Event emitted when the widget is ready to use.
@@ -59,7 +59,7 @@
          * @example
          * // Subscribe to "ready" event.
          * calendar.on('ready', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -216,14 +216,15 @@
      * Initialize a new instance of Calendar and merge custom options with defaults options.
      * @memberof! ch.Calendar.prototype
      * @function
+     * @private
      * @returns {calendar}
      */
-    Calendar.prototype.init = function ($el, options) {
+    Calendar.prototype._init = function ($el, options) {
         // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -406,6 +407,12 @@
      * @private
      */
     Calendar.prototype._createTemplate = function (date) {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             cell,
             positive,
@@ -628,7 +635,7 @@
          * @example
          * // Subscribe to "select" event.
          * calendar.on('select', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('select');
@@ -679,7 +686,7 @@
          * @example
          * // Subscribe to "nextmonth" event.
          * calendar.on('nextmonth', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('nextmonth');
@@ -717,7 +724,7 @@
          * @example
          * // Subscribe to "prevmonth" event.
          * calendar.on('prevmonth', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('prevmonth');
@@ -749,7 +756,7 @@
          * @example
          * // Subscribe to "nextyear" event.
          * calendar.on('nextyear', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('nextyear');
@@ -781,7 +788,7 @@
          * @example
          * // Subscribe to "prevyear" event.
          * calendar.on('prevyear', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('prevyear');

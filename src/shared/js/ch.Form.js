@@ -25,7 +25,7 @@
      * @param {String} [options.messages.min] A validation message.
      * @param {String} [options.messages.max] A validation message.
      * @param {String} [options.messages.price] A validation message.
-     * @returns {form} Returns a new instance of ch.Form.
+     * @returns {form} Returns a new instance of Form.
      * @example
      * // Create a new Form with defaults options.
      * var widget = $(selector).form();
@@ -35,27 +35,27 @@
      *     'messages': {
      *          'required': 'Some message!',
      *          'email': 'Another message!'
-     *      }
+     *     }
      * });
      */
     function Form($el, options) {
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
 
-        that.init($el, options);
+        that._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * It emits an event when the form is ready to use.
          * @event ch.Form#ready
          * @example
          * // Subscribe to "ready" event.
          * form.on('ready', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -87,14 +87,15 @@
      * Initialize a new instance of Form and merge custom options with defaults options.
      * @memberof! ch.Form.prototype
      * @function
+     * @private
      * @returns {form}
      */
-    Form.prototype.init = function ($el, options) {
+    Form.prototype._init = function ($el, options) {
         // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -118,10 +119,6 @@
          * @type {Array}
          */
         this.validations = [];
-
-        /**
-         * Default behavior
-         */
 
         /**
          * The form container.
@@ -164,7 +161,7 @@
         }
 
         /**
-         * Emits when the form will be validated.
+         * It emits an event when the form will be validated.
          * @event ch.Form#beforevalidate
          * @example
          * // Subscribe to "beforevalidate" event.
@@ -174,6 +171,11 @@
          */
         this.emit('beforevalidate');
 
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             i = 0,
             j = that.validations.length,
@@ -217,11 +219,11 @@
             ch.util.prevent(event);
 
             /**
-             * Emits when a form has got errors.
+             * It emits an event when a form has got errors.
              * @event ch.Form#error
              * @example
              * // Subscribe to "error" event.
-             * widget.on('error', function (errors) {
+             * form.on('error', function (errors) {
              *  console.log(errors.length);
              * });
              */
@@ -230,7 +232,7 @@
         } else {
 
             /**
-             * Emits when a form is hasn't got errros.
+             * It emits an event when a form hasn't got errors.
              * @event ch.Form#success
              * @example
              * // Subscribe to "success" event.
@@ -309,7 +311,7 @@
         }
 
         /**
-         * Emits when a form clean its active errors.
+         * It emits an event when the form is cleaned.
          * @event ch.Form#clear
          * @example
          * // Subscribe to "clear" event.
@@ -340,7 +342,7 @@
         this._el.reset();
 
         /**
-         * Emits when a form resets its fields.
+         * It emits an event when a form resets its fields.
          * @event ch.Form#reset
          * @example
          * // Subscribe to "reset" event.
@@ -372,6 +374,8 @@
         });
 
         parent.destroy.call(this);
+
+        return;
     };
 
     // Factorize

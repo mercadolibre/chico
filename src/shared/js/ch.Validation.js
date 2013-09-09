@@ -49,13 +49,13 @@
     function Validation($el, options) {
 
         /**
-         * Reference to an internal validation instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * It emits an event when a validation is ready to use.
@@ -130,18 +130,19 @@
      * Initialize a new instance of Validation and merge custom options with defaults options.
      * @memberof! ch.Validation.prototype
      * @function
+     * @private
      * @returns {validation}
      */
-    Validation.prototype.init = function ($el, options) {
+    Validation.prototype._init = function ($el, options) {
 
         /**
-         * Reference to an internal validation instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
 
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         /**
          * The validation trigger.
@@ -269,6 +270,12 @@
      * @private
      */
     Validation.prototype._error = function () {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             previousValue;
 

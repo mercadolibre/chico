@@ -15,7 +15,7 @@
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" or "fixed" (default).
      * @requires ch.util
      * @requires ch.Viewport
-     * @returns {Object} A new intance of Positioner.
+     * @returns {positioner} Returns a new instance of Positioner.
      * @example
      * // Instance the Positioner It requires a little configuration.
      * // The default behavior place an element center into the Viewport.

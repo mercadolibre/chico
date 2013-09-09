@@ -20,6 +20,11 @@
      */
     function Collapsible() {
 
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             triggerClass = 'ch-' + this.name + '-trigger-on',
             fx = this._options.fx,

@@ -12,17 +12,17 @@
      * @augments ch.Widget
      * @requires ch.Expandable
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tabs.
-     * @returns {tabs} Returns a new instance of ch.Tabs.
+     * @returns {tabs} Returns a new instance of Tabs.
      * @example
      * // Create a new Tabs.
      * var widget = $('.example').tabs();
      */
     function Tabs($el, options) {
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -34,7 +34,7 @@
          * @example
          * // Subscribe to "ready" event.
          * tabs.on('ready',function () {
-         *    this.show();
+         *     this.show();
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -100,11 +100,17 @@
      * Initialize a new instance of Tabs and merge custom options with defaults options.
      * @memberof! ch.Tabs.prototype
      * @function
+     * @private
      * @returns {tabs}
      */
-    Tabs.prototype.init = function ($el, options) {
-        parent.init.call(this, $el, options);
+    Tabs.prototype._init = function ($el, options) {
+        parent._init.call(this, $el, options);
 
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         /**
@@ -176,6 +182,12 @@
      * @private
      */
     Tabs.prototype._createTab = function (i, e) {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             tab,
 

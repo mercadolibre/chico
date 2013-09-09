@@ -27,7 +27,7 @@
      * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control.
      * @param {String} [options.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# characters left.".
      * @param {String} [options.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# character left.".
-     * @returns {countdown} Returns a new instance of ch.Countdown.
+     * @returns {countdown} Returns a new instance of Countdown.
      * @example
      * // Create a new Countdown with defaults options.
      * var countdown = $(selector).countdown(500);
@@ -42,13 +42,13 @@
     function Countdown($el, options) {
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
 
-        that.init($el, options);
+        that._init($el, options);
 
         /**
          * Event emitted when the widget is ready to use.
@@ -56,7 +56,7 @@
          * @example
          * // Subscribe to "ready" event.
          * countdown.on('ready', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit("ready"); }, 50);
@@ -95,14 +95,15 @@
      * Initialize a new instance of Countdown and merge custom options with defaults options.
      * @memberof! ch.Countdown.prototype
      * @function
+     * @private
      * @returns {countdown}
      */
-    Countdown.prototype.init = function ($el, options) {
+    Countdown.prototype._init = function ($el, options) {
         // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */

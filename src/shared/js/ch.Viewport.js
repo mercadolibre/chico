@@ -62,13 +62,13 @@
      * @constructor
      * @augments ch.EventEmitter
      * @requires ch.util
-     * @returns {Object} A new intance of Viewport.
+     * @returns {viewport} Returns a new instance of Viewport.
      * @example
      * // Create a new instnace of Viewport into ch namespace.
      * ch.viewport = new ch.Viewport();
      */
     function Viewport() {
-        this.init();
+        this._init();
 
         return this;
     }
@@ -80,9 +80,16 @@
      * Initialize a new instance of ch.Viewport.
      * @memberof! ch.Viewport.prototype
      * @function
+     * @private
      * @returns {instance} Returns an instance of Viewport.
      */
-    Viewport.prototype.init = function () {
+    Viewport.prototype._init = function () {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         /**
@@ -203,6 +210,12 @@
      * ch.viewport.calculateOffset();
      */
     Viewport.prototype.calculateOffset = function () {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             scroll = ch.util.getScroll();
 

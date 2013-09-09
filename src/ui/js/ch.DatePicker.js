@@ -26,7 +26,7 @@
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed.
-     * @returns {datePicker} Returns a new instance of ch.DatePicker.
+     * @returns {datePicker} Returns a new instance of DatePicker.
      * @example
      * // Create a new DatePicker without options.
      * var datepicker = $(selector).datePicker();
@@ -44,13 +44,13 @@
     function DatePicker($el, options) {
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Event emitted when the widget is ready to use.
@@ -110,14 +110,15 @@
      * Initialize a new instance of DatePicker and merge custom options with defaults options.
      * @memberof! ch.DatePicker.prototype
      * @function
+     * @private
      * @returns {datepicker}
      */
-    DatePicker.prototype.init = function ($el, options) {
+    DatePicker.prototype._init = function ($el, options) {
         // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
