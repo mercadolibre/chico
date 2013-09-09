@@ -6,35 +6,41 @@
     }
 
     /**
-     *
-     * @name Bubble
-     * @class Bubble
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
-     * @param {String} [conf.points] Sets the points where component will be positioned, specified by configuration or centered by default: "cm cm".
-     * @param {String} [conf.offset] Sets the offset in pixels that component will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-     * @returns itself
-     * @factorized
-     * @see ch.Modal
-     * @see ch.Layer
-     * @see ch.Zoom
-     * @see ch.Flaots
-     * @exampleDescription Create a bubble.
+     * Bubble is a dialog window with alert/error skin.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Popover
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Bubble.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". By default, the effect is "fadeIn".
+     * @param {String} [options.width] Set a width for the container. By default is "auto".
+     * @param {String} [options.height] Set a height for the container. By default is "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none" (default).
+     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none" (default).
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right (default), top, bottom or center.
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top (default), bottom or center.
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 10.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" (default) or "fixed".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. By default it is '<div class="ch-loading ch-loading-centered"></div>'.
+     * @returns {bubble} Returns a new instance of ch.Bubble.
      * @example
-     * var widget = $(".some-element").bubble();
-     * @exampleDescription Create a new bubble with configuration.
+     * // Create a new Bubble with defaults options.
+     * var widget = $(selector).bubble();
      * @example
-     * var widget = $("a.example").bubble({
-     *     "fx": false,
-     *     "offset": "10 -10",
-     *     "points": "lt rt"
+     * // Create a new Bubble without trigger.
+     * var widget = $.bubble();
+     * @example
+     * // Create a new Bubble with fx disabled.
+     * $(selector).bubble({
+     *     'fx': 'none'
      * });
-     * @exampleDescription
-     * Now <code>widget</code> is a reference to the bubble instance controller.
-     * You can set a new content by using <code>widget</code> like this:
-     * @example
-     * widget.width(300);
      */
     function Bubble($el, options) {
 
@@ -62,12 +68,28 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    /**
-     * Private members
-     */
+    // Inheritance
     var parent = ch.util.inherits(Bubble, ch.Popover);
 
-    Bubble.prototype._defaults = $.extend(ch.util.clone(ch.Popover.prototype._defaults), {
+    /**
+     * The name of the widget.
+     * @type {String}
+     */
+    Bubble.prototype.name = 'bubble';
+
+    /**
+     * Returns a reference to the constructor function that created the instance.
+     * @memberof! ch.Bubble.prototype
+     * @function
+     */
+    Bubble.prototype.constructor = Bubble;
+
+    /**
+     * Configuration by default.
+     * @private
+     * @type {Object}
+     */
+    Bubble.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-bubble ch-box-icon ch-box-error ch-cone',
         '_ariaRole': 'alert',
         'shownby': 'none',
@@ -75,14 +97,19 @@
         'side': 'right',
         'align': 'top',
         'offsetX': 10,
-        'offsetY': 0,
         'content': 'Check the information, please.'
     });
 
-    Bubble.prototype.name = 'bubble';
-    Bubble.prototype.constructor = Bubble;
-
+    /**
+     * Initialize a new instance of Bubble and merge custom options with default options.
+     * @memberof! ch.Bubble.prototype
+     * @function
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Bubble.
+     * @param {Object} [options] Options to customize an instance.
+     * @returns {bubble}
+     */
     Bubble.prototype.init = function ($el, options) {
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
         $('<i class="ch-icon-remove-sign"></i>').prependTo(this.$container);
@@ -90,9 +117,6 @@
         return this;
     };
 
-    /**
-     * Factory
-     */
     ch.factory(Bubble, parent._normalizeOptions);
 
 }(this, this.ch.$, this.ch));
