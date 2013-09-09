@@ -402,7 +402,7 @@
     Zoom.prototype.hide = function () {
         // Avoid unnecessary execution
         if (!this._loaded) {
-            ..........this._$loading.addClass('ch-hide');
+            this._$loading.addClass('ch-hide');
             return this;
         }
 
