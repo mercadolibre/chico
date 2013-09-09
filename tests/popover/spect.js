@@ -12,7 +12,7 @@ var showEvent = jasmine.createSpy('showEvent'),
         'addClass': 'test',
         'closable': false,
         'shownby': 'pointerenter'
-    }),
+    }).on('destroy', function () { destroyEvent(); }),
     popover3 = $.popover();
 
 describe('Popover', function () {
@@ -175,7 +175,13 @@ describe('Its show() method', function () {
 	});
 
     it('should emit the "show" event', function () {
-        expect(showEvent).toHaveBeenCalled();
+        popover1.show();
+
+        waits(500);
+
+        runs(function () {
+            expect(showEvent).toHaveBeenCalled();
+        });
     });
 
     it('should return the same instance than initialized widget', function () {

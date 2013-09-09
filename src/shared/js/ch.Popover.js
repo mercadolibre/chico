@@ -185,6 +185,7 @@
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
         this
+            .once('_show', this._refreshPositionListener)
             // on content change
             .on('_contentchange', this._refreshPositionListener)
             // Remove from DOM the widget container after hide

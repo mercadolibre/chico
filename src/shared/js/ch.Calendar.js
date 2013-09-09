@@ -123,11 +123,8 @@
          */
         createDateObject = function (date) {
 
-            if (!/^\d{4}\/((0?[1-9])|(1?[0-2]))\/([0-2]?[0-9]|3[0-1])$/.test(date) && date !== undefined) {
-                throw new window.Error('The date "' + date + '" is not valid format. It must follow this format YYYY/MM/DD.');
-            }
             // Uses date parameter or create a date from today
-            date = date ? new Date(date) : new Date();
+            date = (date === 'today') ? new Date : new Date(date);
 
             /**
              * Returned custom Date object.
@@ -244,7 +241,7 @@
             'range': {}
         };
 
-        this._dates.today = createDateObject();
+        this._dates.today = createDateObject('today');
 
         this._dates.current = this._dates.today;
 
@@ -290,7 +287,7 @@
         }());
 
         // Today's date object
-        this._dates.today = createDateObject();
+        this._dates.today = createDateObject('today');
 
         // Minimum selectable date
         this._dates.range.from = (function () {
@@ -531,13 +528,18 @@
      * @private
      */
     Calendar.prototype._isInRange = function (date) {
-        var inRange = false;
+        var inRangeFrom = true,
+            inRangeTo = true;
 
-        if (this._dates.range.from || this._dates.range.to) {
-             inRange = (this._dates.range.from.native < date.native) || (this._dates.range.to && this._dates.range.to.native > date.native);
+        if (this._dates.range.from) {
+             inRangeFrom = (this._dates.range.from.native <= date.native);
         }
 
-        return inRange;
+        if (this._dates.range.to) {
+             inRangeTo = (this._dates.range.to.native >= date.native);
+        }
+
+        return inRangeFrom && inRangeTo;
     };
 
     /**
@@ -608,7 +610,9 @@
 
         // Setter
         var newDate = createDateObject(date);
-        if (this._isInRange(newDate)) {
+
+
+        if (!this._isInRange(newDate)) {
             return this;
         };
 

@@ -2,83 +2,82 @@
  * Date Picker
  */
 .ch-datePicker {
-	background-image: none;
-	position: absolute;
-	z-index: 300;
-	background-color: #fff;
-	border: 1px solid #EDEDED;
-	min-width: 240px;
+    background-image: none;
+    position: absolute;
+    z-index: 300;
+    background-color: #fff;
+    border: 1px solid #EDEDED;
+    min-width: 240px;
 }
 
 .ch-datePicker-trigger {
-	margin-left: 5px;
-	display: inline-block;
-	cursor: pointer;
+    margin-top: 0;
+    cursor: pointer;
 }
 
 .ch-datePicker .ch-calendar {
-	display: block;
+    display: block;
 }
 
 .ch-datePicker .ch-calendar caption {
-	-webkit-box-shadow: none;
-	box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 .ch-datePicker .ch-calendar caption,
 .ch-datePicker .ch-calendar thead {
-	border: none;
+    border: none;
 }
 
 .ch-datePicker .ch-calendar caption {
-	border-bottom: 1px solid #EDEDED;
-	margin: 0;
+    border-bottom: 1px solid #EDEDED;
+    margin: 0;
 }
 
 .ch-datePicker .ch-calendar tbody td:first-child {
-	border-left: none;
+    border-left: none;
 }
 
 .ch-datePicker .ch-calendar-prev span,
 .ch-datePicker .ch-calendar-next span {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 .ch-datePicker .ch-calendar-day:hover {
-	background-color: #F7F7F7;
-	color: #333;
-	font-weight: normal;
-	cursor:pointer;
+    background-color: #F7F7F7;
+    color: #333;
+    font-weight: normal;
+    cursor:pointer;
 }
 
 .ch-datePicker .ch-calendar-day.ch-calendar-disabled:hover {
-	background-color: white;
-	color: #C6C6C6;
-	cursor: not-allowed;
+    background-color: white;
+    color: #C6C6C6;
+    cursor: not-allowed;
 }
 
 .ie9 .ch-datePicker-trigger {
-	line-height: 1.2em;
+    line-height: 1.2em;
 }
 
 .lt-ie8 .ch-datePicker-trigger {
-	position: relative;
-	top: -4px;
+    position: relative;
+    top: -4px;
 }
 
 .lt-ie8 .ch-datePicker {
-	width: 240px;
+    width: 240px;
 }
 
 .lt-ie9 .ch-datePicker-cone:before {
-	width: auto;
-	height: auto;
+    width: auto;
+    height: auto;
 }
 
 .lt-ie8 .ch-datePicker-cone {
-	background-image: url("../assets/shapes.png");
-	display: block;
-	position: absolute;
-	width: 16px;
-	height: 8px;
+    background-image: url("../assets/shapes.png");
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 8px;
 }

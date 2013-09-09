@@ -77,6 +77,8 @@
                 showCallback();
             }
 
+            that.emit('_show');
+
             return that;
         };
 
@@ -117,7 +119,7 @@
             }
 
             return that;
-        }
+        };
 
         this.on('disable', this.hide);
     }
