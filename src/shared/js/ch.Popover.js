@@ -19,8 +19,8 @@
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". By default, the effect is "fadeIn".
      * @param {String} [options.width] Set a width for the container. By default is "auto".
      * @param {String} [options.height] Set a height for the container. By default is "auto".
-     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap" (default) or "pointerenter".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button" (default), "pointers", "all" or "none".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap" (default), "pointerenter" or "none".
+     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button" (default), "pointers", "pointerleave", "all" or "none".
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
@@ -109,7 +109,7 @@
     };
 
     /**
-     * Initialize a new instance of Popover and merge custom options with defaults options.
+     * Initialize a new instance of Popover and merge custom options with default options.
      * @memberof! ch.Popover.prototype
      * @function
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Popover.
@@ -117,10 +117,10 @@
      * @returns {popover}
      */
     Popover.prototype.init = function ($el, options) {
-        // Call to its parents init method
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
-        // Requires abilities
+        // Require abilities
         this.require('Collapsible', 'Content');
 
         /**
