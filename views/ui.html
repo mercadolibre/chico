@@ -20,8 +20,8 @@
          * Carousel demo
          */
         .myCarousel .ch-carousel-item {
-            width: 250px;
-            height: 190px;
+            width: 350px;
+            height: 200px;
         }
 
         .myCarousel img {
@@ -753,9 +753,16 @@
 
     <div class="ch-box-lite">
         <h2 id="zoom">Zoom</h2>
-        <a id="zoom1" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
             <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
         </a>
+        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+        </a>
+        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+        </a>
+        <strong>← Preloaded</strong>
     </div>
 
     <div class="ch-box-lite">
@@ -1639,7 +1646,9 @@
         });
 
         // Zoom
-        var zoom = $('#zoom1').zoom();
+        var zoom = $('.zoom').zoom();
+        // Preload the third augmented image
+        zoom[2].loadImage();
 
         // Carousel
         var carousel = $(".myCarousel").carousel({"pagination": true});
