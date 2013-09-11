@@ -33,7 +33,7 @@
      * var calendar = $(selector).calendar();
      * @example
      * // Create a new Calendar with some options.
-     * var calendar = $(selector).calendar({
+     * var calendar =  $(selector).calendar({
      *     'format': 'MM/DD/YYYY',
      *     'selected': '2011/12/25',
      *     'from': '2010/12/25',
@@ -63,8 +63,6 @@
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
-
-        return this;
     }
 
     /**

@@ -19,8 +19,6 @@
      */
     function Widget($el, options) {
         this._init($el, options);
-
-        return this;
     }
 
     ch.util.inherits(Widget, ch.EventEmitter);

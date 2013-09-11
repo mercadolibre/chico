@@ -66,8 +66,6 @@
 
         // Init
         this._configure(options);
-
-        return this;
     }
 
     /**

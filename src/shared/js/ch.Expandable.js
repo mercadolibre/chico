@@ -76,8 +76,6 @@
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
-
-        return this;
     }
 
     // Inheritance

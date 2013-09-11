@@ -69,8 +69,6 @@
      */
     function Viewport() {
         this._init();
-
-        return this;
     }
 
     ch.util.inherits(Viewport, ch.EventEmitter);
