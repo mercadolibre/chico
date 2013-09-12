@@ -1,0 +1,17 @@
+<?js
+var data = obj,
+    shortname = (name.split("#")[1] !== undefined) ? name.split("#")[1] : name;
+?>
+
+<h4><code class=" language-markup"><?js= shortname + (data.signature ? data.signature : '') ?></code></h4>
+<?js if (data.description) { ?>
+    <p><?js= data.description ?></p>
+<?js } ?>
+
+<?js if (data.params && params.length) { ?>
+    <?js= this.partial('params.tmpl', params) ?>
+<?js } ?>
+
+<?js if (data.examples && examples.length) { ?>
+    <?js= this.partial('examples.tmpl', examples) ?>
+<?js } ?>

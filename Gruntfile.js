@@ -130,6 +130,7 @@ module.exports = function (grunt) {
                     "src/ui/js/ch.Tabs.js"
                 ],
                 'options': {
+                    'template': './libs/doc-template',
                     'destination': './doc',
                     'private': false
                 }
