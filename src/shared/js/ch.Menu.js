@@ -14,7 +14,7 @@
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.fx] Enable or disable UI effects. By default, the effect is "slideDown". You should use: "slideDown", "fadeIn" or "none".
-     * @returns {menu} Returns a new instance of ch.Menu.
+     * @returns {menu} Returns a new instance of Menu.
      * @example
      * // Create a new menu without configuration.
      * var menu = $(selector).menu();
@@ -27,13 +27,13 @@
     function Menu($el, options) {
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
 
-        that.init($el, options);
+        that._init($el, options);
 
         /**
          * Event emitted when the widget is ready to use.
@@ -41,12 +41,10 @@
          * @example
          * // Subscribe to "ready" event.
          * menu.on('ready', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
-
-        return this;
     }
 
     // Inheritance
@@ -117,11 +115,12 @@
      * Initialize a new instance of Menu and merge custom options with defaults options.
      * @memberof! ch.Menu.prototype
      * @function
+     * @private
      * @returns {menu}
      */
-    Menu.prototype.init = function ($el, options) {
+    Menu.prototype._init = function ($el, options) {
         // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
@@ -152,6 +151,12 @@
      * @private
      */
     Menu.prototype._createExpandables = function () {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             $li,
             $child;

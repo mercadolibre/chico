@@ -50,7 +50,7 @@
          */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Emits the event 'ready' when the widget is ready to use.

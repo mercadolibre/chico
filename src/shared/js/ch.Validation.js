@@ -6,68 +6,72 @@
     }
 
     /**
-     * Validation is a engine for HTML forms elements.
-     * @name Validation
-     * @class Validation
-     * @augments ch.Controls
-     * @requires ch.Form
+     * Validation is an engine for HTML forms elements.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Widget
      * @requires ch.Condition
-     * @requires ch.Required
-     * @requires ch.String
-     * @requires ch.Number
-     * @requires ch.Custom
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.message] Validation message.
-     * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
-     * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-     * @param {String} [conf.context] It's a reference to position the validation-bubble.
-     * @returns itself
-     * @factorized
-     * @see ch.Controls
-     * @see ch.Form
-     * @see ch.Condition
-     * @see ch.Required
-     * @see ch.String
-     * @see ch.Number
-     * @see ch.Custom
+     * @requires ch.Form
+     * @requires ch.Bubble
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Array} [options.conditions] A collection of conditions to validate.
+     * @param {String} [options.conditions.name] The name of the condition.
+     * @param {String} [options.conditions.message] The given error message to the condition.
+     * @param {String} [options.conditions.fn] The method to validate a given condition.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {String} [options.side] The side option where the target element will be positioned.
+     * @param {String} [options.align] The align options where the target element will be positioned.
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used.
+     * @returns {validation} Returns a new instance of Validation.
+     * @example
+     * // Create a validation with two conditions: required and custom.
+     * var validation = new ch.Validation($('#email'), {
+     *     'conditions': [
+     *         {
+     *             'name': 'required',
+     *             'message': 'Please, fill in this information.'
+     *         },
+     *         {
+     *             'name': 'custom-email',
+     *             'fn': function (value) { return value === "customail@custom.com"; },
+     *             'message': 'Use a valid e-mail such as name@custom.com.'
+     *         }
+     *     ],
+     *     'offsetX': 0,
+     *     'offsetY': 10,
+     *     'side': 'bottom',
+     *     'align': 'left'
+     * });
      */
     function Validation($el, options) {
+
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @protected
-         * @name ch.Validation#that
-         * @type itself
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
          */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
-         * Triggers when the component is ready to use.
-         * @name ch.Validation#ready
-         * @event
-         * @public
-         * @exampleDescription Following the first example, using <code>widget</code> as modal's instance controller:
+         * It emits an event when a validation is ready to use.
+         * @event ch.Validation#ready
          * @example
-         * widget.on("ready",function(){
-         *   this.show();
+         * // Subscribe to "ready" event.
+         * validation.on('ready', function () {
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
-
-        return this;
-
     }
 
-    /**
-     * Inheritance
-     */
+    // Inheritance
     var parent = ch.util.inherits(Validation, ch.Widget),
-
-    /**
-     * Creates methods enable and disable into the prototype.
-     */
+        // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
 
@@ -97,15 +101,23 @@
     }
 
     /**
-     * This public property defines the component type. All instances are saved into a 'map', grouped by its type. You can reach for any or all of the components from a specific type with 'ch.instances'.
-     * @public
-     * @name ch.Validation#name
-     * @type string
+     * The name of the widget.
+     * @type {String}
      */
-    Validation.prototype.name = "validation"; // Everything is a "validation" type, no matter what interface is used
+    Validation.prototype.name = 'validation';
 
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Validation.prototype
+     * @function
+     */
     Validation.prototype.constructor = Validation;
 
+    /**
+     * Configuration by default.
+     * @type {Object}
+     * @private
+     */
     Validation.prototype._defaults = {
         'offsetX': 10,
         'side': 'right',
@@ -113,42 +125,47 @@
     };
 
     /**
-     * Constructs a new Validation.
-     * @public
+     * Initialize a new instance of Validation and merge custom options with defaults options.
+     * @memberof! ch.Validation.prototype
      * @function
+     * @private
+     * @returns {validation}
      */
-    Validation.prototype.init = function ($el, options) {
+    Validation.prototype._init = function ($el, options) {
 
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
+        /**
+         * The validation trigger.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
         this.$trigger = this._$el;
 
+        /**
+         * The collection of conditions.
+         * @type {Object}
+         */
         this.conditions = {};
 
+        // Merge conditions
         this._mergeConditions(options.conditions);
 
         /**
          * Flag that let you know if there's a validation going on.
-         * @private
-         * @name ch.Validation#_shown
          * @type {Boolean}
+         * @private
          */
         this._shown = false;
 
         /**
-         * Flag that let you know if the validations is enabled or not.
-         * @private
-         * @name ch.Validation#_enabled
-         * @type {Boolean}
-         */
-        this._enabled = true;
-
-        /**
-         *
-         * @public
-         * @name ch.Validation#error
+         * The current error. If the validations has not error is "null".
          * @type {Object}
          */
         this.error = null;
@@ -161,23 +178,16 @@
             .on('disable', this.clear);
 
         /**
-         * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
-         * @public
-         * @name ch.Validation#form
-         * @type ch.Form
-         * @see ch.Form
+         * Reference to a Form instance. If there isn't any, the Validation instance will create one.
+         * @type {(jQuerySelector | ZeptoSelector)}
          */
-        // Reference to a Form instance. If there isn't any, the Validation instance will create one.
         this.form = that.$trigger.parents('form').form().validations.push(this);
 
         /**
-         * Is the little sign that floats showing the validation message. Is a Float component, so you can change it's content, width or height and change its visibility state.
-         * @public
-         * @name ch.Validation#bubble
-         * @type ch.Helper
-         * @see ch.Floats
+         * Is the little sign that popover showing the validation message. It's a Popover widget, so you can change it's content, width or height and change its visibility state.
+         * @type {Bubble}
+         * @see ch.Bubble
          */
-
         this.bubble = $.bubble({
             'reference': (function () {
                 var reference,
@@ -212,9 +222,8 @@
         });
 
         /**
-         * Validation event
+         * Set a validation event to add listeners.
          * @private
-         * @name ch.Validation#_validationEvent
          */
         this._validationEvent = (this.$trigger.hasClass('ch-list-options') || this._el.tagName === 'SELECT' || (this._el.tagName === 'INPUT' && this._el.type === 'range')) ? 'change' : 'blur';
 
@@ -222,11 +231,9 @@
     };
 
     /**
-     * Merges the conditions collection with given conditions.
-     * @private
-     * @name ch.Validation#_mergeConditions
+     * Merges the collection of conditions with a given conditions.
      * @function
-     * @returns {Object}
+     * @private
      */
     Validation.prototype._mergeConditions = function (conditions) {
         var i = 0,
@@ -240,11 +247,10 @@
     };
 
     /**
-     * Run all configured validations.
-     * @public
+     * Validates the value of $el.
+     * @memberof! ch.Validation.prototype
      * @function
-     * @name ch.Validation#validate
-     * @returns {Boolean}
+     * @returns {validation}
      */
     Validation.prototype.validate = function () {
 
@@ -258,13 +264,16 @@
     };
 
     /**
-     *
+     * If the validation has got an error executes this function.
      * @private
-     * @function
-     * @name ch.Validation#_error
-     * @returns boolean
      */
     Validation.prototype._error = function () {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             previousValue;
 
@@ -304,14 +313,12 @@
             that._shown = true;
 
             /**
-             * Triggers when an error occurs on the validation process.
-             * @name ch.Validation#error
-             * @event
-             * @public
-             * @exampleDescription
+             * It emits an event when a validation hasn't got an error.
+             * @event ch.Validation#error
              * @example
-             * widget.on("error",function(event, condition){
-             *  errorModal.show();
+             * // Subscribe to "error" event.
+             * validation.on('error', function (errors) {
+             *     console.log(errors.length);
              * });
              */
             that.emit('error', that.error);
@@ -325,11 +332,8 @@
     };
 
     /**
-     *
+     * If the validation hasn't got an error executes this function.
      * @private
-     * @function
-     * @name ch.Validation#_success
-     * @returns boolean
      */
     Validation.prototype._success = function () {
 
@@ -345,17 +349,30 @@
 
         this.bubble.hide(); // uncoment when bubble were done
 
+        /**
+         * It emits an event when a validation hasn't got an error.
+         * @event ch.Validation#success
+         * @example
+         * // Subscribe to "success" event.
+         * validation.on("submit",function () {
+         *     // Some code here!
+         * });
+         */
         this.emit('success');
 
         return this;
     };
 
     /**
-     *
-     * @private
+     * Checks if the validation has got errors but it doesn't show bubbles.
+     * @memberof! ch.Validation.prototype
      * @function
-     * @name ch.Validation#hasError
-     * @returns {Boolean}
+     * @returns {Bollean}
+     * @example
+     * // Checks if a validation has errors and do something.
+     * if (validation.hasError()) {
+     *     // Some code here!
+     * };
      */
     Validation.prototype.hasError = function () {
 
@@ -377,8 +394,6 @@
         /**
          * Stores the previous error object
          * @private
-         * @type Object
-         * @name ch.Validation#_previousError
          */
         this._previousError = ch.util.clone(this.error);
 
@@ -401,16 +416,18 @@
         // Update the error object
         this.error = null;
 
-        // Has got an error? Nop
+        // Has got an error? No
         return false;
     };
 
     /**
-     * Clear all shown validations.
-     * @public
-     * @name ch.Validation#clear
+     * Clear active error.
+     * @memberof! ch.Validation.prototype
      * @function
-     * @returns itself
+     * @returns {validation}
+     * @example
+     * // Clear active error.
+     * validation.clear();
      */
     Validation.prototype.clear = function () {
 
@@ -425,14 +442,12 @@
         this._shown = false;
 
         /**
-         * Triggers when al validations are cleared.
-         * @name ch.Validation#clear
-         * @event
-         * @public
-         * @exampleDescription Title
+         * It emits an event when a validation is cleaned.
+         * @event ch.Validation#clear
          * @example
-         * widget.on("clear",function(){
-         *  submitButton.enable();
+         * // Subscribe to "clear" event.
+         * validation.on('clear', function () {
+         *     // Some code here!
          * });
          */
         this.emit('clear');
@@ -441,23 +456,28 @@
     };
 
     /**
-     * Let you keep chaining methods.
-     * @public
-     * @name ch.Validation#and
+     * Returns the jQuerySelector or ZeptoSelector to chaining more validations.
+     * @memberof! ch.Validation.prototype
      * @function
-     * @returns jQuery Object
+     * @returns {(jQuerySelector | ZeptoSelector)}
+     * @example
+     * // Concatenates another validation.
+     * validation.and().validation();
      */
     Validation.prototype.and = function () {
         return this.$trigger;
     };
 
     /**
-     * Turn off Validation and a specific condition.
-     * @public
-     * @name ch.Validation#isShown
+     * Indicates if the validation is shown.
+     * @memberof! ch.Validation.prototype
      * @function
-     * @returns boolean
-     * @see ch.Condition
+     * @returns {Boolean}
+     * @example
+     * // Execute a function if the validation is shown.
+     * if (validation.isShown()) {
+     *     fn();
+     * }
      */
     Validation.prototype.isShown = function () {
         return this._shown;
@@ -465,23 +485,21 @@
 
     /**
      * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
-     * @public
-     * @since 0.10.4
-     * @name ch.Validation#position
+     * @memberof! ch.Validation.prototype
      * @function
-     * @returns itself
-     * @exampleDescription Change validaton bubble's position.
+     * @returns {validation}
      * @example
-     * validation.position({
-     *    offsetY: -10,
-     *    side: "top",
-     *    align: "left"
+     * // Change validaton bubble's position.
+     * validation.refreshPosition({
+     *     offsetY: -10,
+     *     side: 'top',
+     *     align: 'left'
      * });
      */
-    Validation.prototype.position = function (options) {
+    Validation.prototype.refreshPosition = function (options) {
 
         if (options === undefined) {
-            return this.bubble._positioner;
+            return this.bubble._position;
         }
 
         this.bubble.refreshPosition(options);
@@ -490,23 +508,21 @@
     };
 
     /**
-     * Sets or gets conditions messages
-     * @public
-     * @since 0.10.4
-     * @name ch.Validation#message
+     * Sets or gets messages to specifics conditions.
+     * @memberof! ch.Validation.prototype
      * @function
-     * @returns itself
-     * @exampleDescription Sets a new message
+     * @returns {(validation | String)}
      * @example
-     * validation.message("required", "New message for required validation");
-     * @exampleDescription Gets a message from a condition
+     * // Gets a message from a condition
+     * validation.message('required');
      * @example
-     * validation.message("required");
+     * // Sets a new message
+     * validation.message('required', 'New message for required validation');
      */
     Validation.prototype.message = function (condition, message) {
 
         if (condition === undefined) {
-            throw new Error("validation.message(condition, message): Please, give me a condition as parameter.");
+            throw new Error('validation.message(condition, message): Please, a condition parameter is required.');
         }
 
         // Get a new message from a condition
@@ -524,23 +540,34 @@
         return this;
     };
 
-
     /**
-     * Turn on Validation and a specific condition.
-     * @public
-     * @name ch.Validation#enable
+     * Enables an instance of validation or a specific condition.
+     * @memberof! ch.Validation.prototype
+     * @name enable
      * @function
-     * @returns itself
-     * @see ch.Condition
+     * @param {String} [condition] - A given number of fold to enable.
+     * @returns {validation} Returns an instance of Validation.
+     * @expample
+     * // Enabling an instance of Validation.
+     * validation.enable();
+     * @expample
+     * // Enabling the "max" condition.
+     * validation.enable('max');
      */
 
     /**
-     * Turn off Validation and a specific Condition.
-     * @public
-     * @name ch.Validation#disable
+     * Disables an instance of a validation or a specific condition.
+     * @memberof! ch.Validation.prototype
+     * @name disable
      * @function
-     * @returns itself
-     * @see ch.Condition
+     * @param {String} [condition] - A given number of fold to disable.
+     * @returns {validation} Returns an instance of Validation.
+     * @expample
+     * // Disabling an instance of Validation.
+     * validation.disable();
+     * @expample
+     * // Disabling the "email" condition.
+     * validation.disable('email');
      */
     while (len) {
         createMethods(methods[len -= 1]);
@@ -548,9 +575,11 @@
 
     /**
      * Destroys a Validation instance.
-     * @public
+     * @memberof! ch.Validation.prototype
      * @function
-     * @name ch.Validation#destroy
+     * @expample
+     * // Destroying an instance of Validation.
+     * validation.destroy();
      */
     Validation.prototype.destroy = function () {
 
@@ -563,11 +592,10 @@
 
         parent.destroy.call(this);
 
+        return;
     };
 
-    /**
-     * Factory
-     */
+    // Factorize
     ch.factory(Validation);
 
 }(this, this.ch.$, this.ch));

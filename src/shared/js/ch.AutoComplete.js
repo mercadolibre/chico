@@ -19,7 +19,7 @@
      * @example
      * // Create a new autoComplete with configuration.
      * var widget = $('.example').autoComplete();
-     */    
+     */
     function AutoComplete($el, options) {
 
         /**
@@ -29,7 +29,7 @@
         */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Triggers when the component is ready to use (Since 0.8.0).
@@ -81,12 +81,13 @@
     };
 
     /**
-     * Initialize the instance and merges the user options with defaults options.
+     * Initialize a new instance of AutoComplete and merge custom options with defaults options.
      * @memberof! ch.AutoComplete.prototype
      * @function
-     * @returns {instance} Returns an instance of ch.AutoComplete.
+     * @private
+     * @returns {autoComplete}
      */
-    AutoComplete.prototype.init = function ($el, options) {
+    AutoComplete.prototype._init = function ($el, options) {
         var that = this,
             ESC = ch.onkeyesc + '.' + this.name, // UI
             UP_ARROW = ch.onkeyuparrow + '.' + this.name, // UI
@@ -98,7 +99,7 @@
             MOUSEENTER = 'mouseover' + '.' + this.name,
             keyboard = {};
 
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         this.$trigger = this._$el;
 

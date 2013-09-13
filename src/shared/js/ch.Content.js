@@ -9,6 +9,11 @@
      */
     function Content() {
 
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             defaults = {
                 'method': this._options.method,

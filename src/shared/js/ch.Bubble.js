@@ -44,7 +44,7 @@
      */
     function Bubble($el, options) {
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Reference to a internal component instance, saves all the information and configuration properties.
@@ -101,16 +101,15 @@
     });
 
     /**
-     * Initialize a new instance of Bubble and merge custom options with default options.
+     * Initialize a new instance of Bubble and merge custom options with defaults options.
      * @memberof! ch.Bubble.prototype
      * @function
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Bubble.
-     * @param {Object} [options] Options to customize an instance.
+     * @private
      * @returns {bubble}
      */
-    Bubble.prototype.init = function ($el, options) {
+    Bubble.prototype._init = function ($el, options) {
         // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         $('<i class="ch-icon-remove-sign"></i>').prependTo(this.$container);
 
