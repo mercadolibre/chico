@@ -1,0 +1,61 @@
+<?js
+    var params = obj;
+
+    /* sort subparams under their parent params (like opts.classname) */
+    var parentParam = null;
+    params.forEach(function(param, i) {
+        if (!param) { return; }
+        if ( parentParam && param.name && param.name.indexOf(parentParam.name + '.') === 0 ) {
+            param.name = param.name.substr(parentParam.name.length+1);
+            parentParam.subparams = parentParam.subparams || [];
+            parentParam.subparams.push(param);
+            params[i] = null;
+        }
+        else {
+            parentParam = param;
+        }
+    });
+
+    /* determine if we need extra columns, "attributes" and "default" */
+    params.hasAttributes = false;
+    params.hasDefault = false;
+    params.hasName = false;
+
+    params.forEach(function(param) {
+        if (!param) { return; }
+
+        if (param.optional || param.nullable || param.variable) {
+            params.hasAttributes = true;
+        }
+
+        if (param.name) {
+            params.hasName = true;
+        }
+
+        if (typeof param.defaultvalue !== 'undefined') {
+            params.hasDefault = true;
+        }
+    });
+?>
+
+<ul class="ch-list parameters">
+	<?js
+        var self = this;
+	    params.forEach(function(param) {
+	        if (!param) { return; }
+	?>
+        <li>
+            <?js if (params.hasName) {?>
+            <code class="language-markup"><?js= param.name ?></code>
+             - <?js } ?>
+            <?js if (param.type && param.type.names) {?>
+                <?js= self.partial('type.tmpl', param.type.names) ?>
+            <?js } ?>
+            : <?js= param.description ?>
+
+            <?js if (param.subparams) { ?>
+                <?js= self.partial('params.tmpl', param.subparams) ?>
+            <?js } ?>
+        </li>
+	<?js }); ?>
+</ul>

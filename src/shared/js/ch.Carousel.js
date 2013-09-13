@@ -50,7 +50,7 @@
          */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Emits the event 'ready' when the widget is ready to use.
@@ -99,13 +99,12 @@
      * Initialize a new instance of Carousel and merge custom options with defaults options.
      * @memberof! ch.Carousel.prototype
      * @function
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
-     * @param {Object} [options] Options to customize an instance.
+     * @private
      * @returns {carousel}
      */
-    Carousel.prototype.init = function ($el, options) {
+    Carousel.prototype._init = function ($el, options) {
         // Call to its parents init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         /**
          * Reference to an internal widget instance, saves all the information and configuration properties.

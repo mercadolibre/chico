@@ -15,12 +15,10 @@
      * @augments ch.EventEmitter
      * @param {(jQuerySelector | ZeptoSelector)} $el jQuery or Zepto Selector.
      * @param {Object} [options] Configuration options.
-     * @returns {Object}
+     * @returns {widget} Returns a new instance of Widget.
      */
     function Widget($el, options) {
-        this.init($el, options);
-
-        return this;
+        this._init($el, options);
     }
 
     ch.util.inherits(Widget, ch.EventEmitter);
@@ -46,11 +44,10 @@
      * Initialize a new instance of Widget and merge custom options with defaults options.
      * @memberof! ch.Widget.prototype
      * @function
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Widget.
-     * @param {Object} [options] Options to customize an instance.
+     * @private
      * @returns {instance} Returns an instance of Widget.
      */
-    Widget.prototype.init = function ($el, options) {
+    Widget.prototype._init = function ($el, options) {
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
@@ -114,6 +111,11 @@
      */
     Widget.prototype.require = function () {
 
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         $.each(arguments, function (i, arg) {

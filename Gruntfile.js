@@ -124,11 +124,13 @@ module.exports = function (grunt) {
                     "src/shared/js/ch.Menu.js",
                     "src/shared/js/ch.Countdown.js",
                     "src/shared/js/ch.Calendar.js",
+                    "src/shared/js/ch.Validation.js",
 
                     "src/ui/js/ch.DatePicker.js",
                     "src/ui/js/ch.Tabs.js"
                 ],
                 'options': {
+                    'template': './libs/doc-template',
                     'destination': './doc',
                     'private': false
                 }

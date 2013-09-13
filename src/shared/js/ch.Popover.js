@@ -53,7 +53,7 @@
          */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Emits the event 'ready' when the widget is ready to use.
@@ -109,16 +109,15 @@
     };
 
     /**
-     * Initialize a new instance of Popover and merge custom options with default options.
+     * Initialize a new instance of Popover and merge custom options with defaults options.
      * @memberof! ch.Popover.prototype
      * @function
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Popover.
-     * @param {Object} [options] Options to customize an instance.
+     * @private
      * @returns {popover}
      */
-    Popover.prototype.init = function ($el, options) {
+    Popover.prototype._init = function ($el, options) {
         // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         // Require abilities
         this.require('Collapsible', 'Content');
