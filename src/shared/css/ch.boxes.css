@@ -2,22 +2,22 @@
  * Boxes
  */
 [class*='ch-box'] {
-	-webkit-border-radius: 5px; /* Android 2.1 */
-	border-radius: 5px;
-	padding: 10px;
-	margin: 0 0 10px 0;
+    -webkit-border-radius: 5px; /* Android 2.1 */
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0 0 10px 0;
 }
 
 .ch-box-lite,
 .ch-box {
-	border: 1px solid #ededed;
+    border: 1px solid #ededed;
 }
 
 .ch-box {
-	background-image: -webkit-linear-gradient(#eee, #fff 25px);
-	background-image: -moz-linear-gradient(#eee, #fff 25px);
-	background-image: -o-linear-gradient(#eee, #fff 25px);
-	background-image: linear-gradient(#eee, #fff 25px);
+    background-image: -webkit-linear-gradient(#eee, #fff 25px);
+    background-image: -moz-linear-gradient(#eee, #fff 25px);
+    background-image: -o-linear-gradient(#eee, #fff 25px);
+    background-image: linear-gradient(#eee, #fff 25px);
 }
 
 /**
@@ -28,30 +28,30 @@
 .ch-box-help,
 .ch-box-info,
 .ch-box-ok {
-	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .ch-box-icon {
-	position: relative;
-	padding-left: 32px;
+    position: relative;
+    padding-left: 32px;
 }
 
 .ch-box-icon [class*='ch-icon-'] {
-	position: absolute;
-	top: 6px;
-	left: 5px;
+    position: absolute;
+    top: 6px;
+    left: 5px;
 }
 
 /**
  * Warn
  */
 .ch-icon-warning-sign {
-	color: #F5CC00;
+    color: #F5CC00;
 }
 
 .ch-box-warn {
-	background-color: #FFF0BA;
-	color: #AA8749;
+    background-color: #FFF0BA;
+    color: #AA8749;
 }
 
 
@@ -60,11 +60,11 @@
  */
 .ch-box-error,
 .ch-icon-remove-sign {
-	color: #B94A48;
+    color: #B94A48;
 }
 
 .ch-box-error {
-	background-color: #F2DEDE;
+    background-color: #F2DEDE;
 }
 
 /**
@@ -72,7 +72,8 @@
  */
 .ch-box-help,
 .ch-icon-help-sign {
-	color: #999999;
+    color: #999999;
+    background-color: #f7f7f7;
 }
 
 /**
@@ -80,11 +81,11 @@
  */
 .ch-box-info,
 .ch-icon-info-sign {
-	color: #3A87AD;
+    color: #3A87AD;
 }
 
 .ch-box-info {
-	background-color: #D9EDF7;
+    background-color: #D9EDF7;
 }
 
 /**
@@ -92,9 +93,9 @@
  */
 .ch-box-ok,
 .ch-icon-ok-sign  {
-	color: #468847;
+    color: #468847;
 }
 
 .ch-box-ok {
-	background-color: #DFF0D8;
+    background-color: #DFF0D8;
 }
