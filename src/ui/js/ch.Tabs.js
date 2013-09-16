@@ -12,21 +12,21 @@
      * @augments ch.Widget
      * @requires ch.Expandable
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tabs.
-     * @returns {tabs} Returns a new instance of ch.Tabs.
+     * @returns {tabs} Returns a new instance of Tabs.
      * @example
      * // Create a new Tabs.
-     * var widget = $('.example').tabs();
+     * var tabs = $(selector).Tabs();
      */
     function Tabs($el, options) {
 
-        this.init($el, options);
-
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
+
+        this._init($el, options);
 
         /**
          * Emits the event 'ready' when the widget is ready to use.
@@ -34,7 +34,7 @@
          * @example
          * // Subscribe to "ready" event.
          * tabs.on('ready',function () {
-         *    this.show();
+         *     this.show();
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -100,11 +100,17 @@
      * Initialize a new instance of Tabs and merge custom options with defaults options.
      * @memberof! ch.Tabs.prototype
      * @function
+     * @private
      * @returns {tabs}
      */
-    Tabs.prototype.init = function ($el, options) {
-        parent.init.call(this, $el, options);
+    Tabs.prototype._init = function ($el, options) {
+        parent._init.call(this, $el, options);
 
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         /**
@@ -176,6 +182,12 @@
      * @private
      */
     Tabs.prototype._createTab = function (i, e) {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this,
             tab,
 
@@ -340,10 +352,10 @@
      * @param {Number} tab A given tab to change its content.
      * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a tabpanel.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
-     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async]  Force to sent request asynchronously. By default is true.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async]  Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second tab with some string.

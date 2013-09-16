@@ -27,7 +27,7 @@
      * @param {Boolean} [options.toggle] Customize toggle behavior. By default, the toggle is enabled.
      * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. By default, the container will be the next sibling of $el.
      * @param {String} [options.content] The content to be shown into the expandable container.
-     * @returns {expandable} Returns a new instance of ch.Expandable.
+     * @returns {expandable} Returns a new instance of Expandable.
      * @example
      * // Create a new Expandable with defaults options.
      * var widget = $(selector).expandable();
@@ -49,7 +49,7 @@
      * @example
      * // Create a new Expandable with content loaded by ajax.
      * $(selector).expandable({
-     *    'content': 'http://ui.ml.com:3040/ajax'
+     *     'content': 'http://ui.ml.com:3040/ajax'
      * });
      *
      * // or you can use the short
@@ -58,13 +58,13 @@
     function Expandable($el, options) {
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Event emitted when the widget is ready to use.
@@ -72,12 +72,10 @@
          * @example
          * // Subscribe to "ready" event.
          * expandable.on('ready', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
-
-        return this;
     }
 
     // Inheritance
@@ -113,17 +111,18 @@
      * Initialize a new instance of Expandable and merge custom options with defaults options.
      * @memberof! ch.Expandable.prototype
      * @function
+     * @private
      * @returns {expandable}
      */
-    Expandable.prototype.init = function ($el, options) {
+    Expandable.prototype._init = function ($el, options) {
         // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         // Requires abilities
         this.require('Collapsible', 'Content');
 
         /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -247,7 +246,7 @@
      * @returns {Boolean}
      * @example
      * // Execute a function if the widget is shown.
-     * if (widget.isShown()) {
+     * if (expandable.isShown()) {
      *     fn();
      * }
      */

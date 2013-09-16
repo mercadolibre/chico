@@ -26,7 +26,7 @@
         */
         var that = this;
 
-        this.init($el, options);
+        this._init($el, options);
 
         /**
          * Event emitted when the widget is ready to use.
@@ -77,18 +77,13 @@
     };
 
     /**
-     * Initialize the instance and merges the user options with defaults options.
+     * Initialize a new instance of AutoComplete and merge custom options with defaults options.
      * @memberof! ch.AutoComplete.prototype
      * @function
-     * @returns {autocomplete}
+     * @returns {autoComplete}
      */
-    AutoComplete.prototype.init = function ($el, options) {
 
-        /**
-         * Reference to a internal widget instance, saves all the information and configuration properties.
-         * @type {Object}
-         * @private
-         */
+    AutoComplete.prototype._init = function ($el, options) {
         var that = this,
             ESC = ch.onkeyesc + '.' + this.name,
             UP_ARROW = ch.onkeyuparrow + '.' + this.name,
@@ -99,8 +94,7 @@
             MOUSEDOWN = 'mousedown' + '.' + this.name,
             MOUSEENTER = 'mouseover' + '.' + this.name;
 
-        // Call to its parent init method
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         this.$trigger = this._$el;
 

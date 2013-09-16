@@ -43,7 +43,7 @@
          */
         var that = this;
 
-        that.init($el, options);
+        that._init($el, options);
 
         /**
          * Triggers when the component is ready to use (Since 0.8.0).
@@ -87,11 +87,18 @@
         'shortcuts': true
     });
 
-    Dropdown.prototype.init = function ($el, options) {
+    /**
+     * Initialize a new instance of Dropdown and merge custom options with defaults options.
+     * @memberof! ch.Dropdown.prototype
+     * @function
+     * @private
+     * @returns {dropdown}
+     */
+    Dropdown.prototype._init = function ($el, options) {
 
         var that = this;
 
-        parent.init.call(this, $el, options);
+        parent._init.call(this, $el, options);
 
         this.$trigger
             .addClass('ch-dropdown-trigger')

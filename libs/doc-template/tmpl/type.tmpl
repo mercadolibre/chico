@@ -1,0 +1,9 @@
+<?js
+    var data = obj,
+        types = [],
+        self = this;
+    data.forEach(function(name, i) {
+        types.push(self.linkto(name, self.htmlsafe(name)));
+    });
+?>
+<em class="param-type"><?js= types.join(' | ') ?></em>
