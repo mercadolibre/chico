@@ -1,11 +1,8 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
     /**
-     * AutoComplete widget shows a list of suggestions when for a HTMLInputElement.
+     * AutoComplete widget shows a list of suggestions for a HTMLInputElement.
      * @memberof ch
      * @constructor
      * @augments ch.Widget
@@ -15,29 +12,29 @@
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed (default).
-     * @returns {Object}
+     * @returns {autocomplete}
      * @example
      * // Create a new autoComplete with configuration.
-     * var widget = $('.example').autoComplete();
-     */    
+     * var autocomplete = $el.autoComplete();
+     */
     function AutoComplete($el, options) {
 
         /**
         * Reference to a internal component instance, saves all the information and configuration properties.
+        * @type {Object}
         * @private
-        * @name ch.AutoComplete#that
         */
         var that = this;
 
         this.init($el, options);
 
         /**
-         * Triggers when the component is ready to use (Since 0.8.0).
+         * Event emitted when the widget is ready to use.
          * @event ch.AutoComplete#ready
          * @example
-         * // Following the first example, using <code>widget</code> as autoComplete's instance controller:
-         * widget.on('ready',function () {
-         *   this.show();
+         * // Subscribe to "ready" event.
+         * autocomplete.on('ready',function () {
+         *    // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -46,31 +43,30 @@
 
     }
 
-    /**
-     * Inheritance
-     */
+    // Inheritance
     var document = window.document,
         $document = $(document),
         parent = ch.util.inherits(AutoComplete, ch.Widget);
 
     /**
-     * The name of the widget. A new instance is saved into the $el parameter.
-     * @memberof! ch.AutoComplete.prototype
+     * The name of the widget.
      * @type {String}
-     * @expample
-     * // You can reach the instance associated.
-     * var widget = $(selector).data('autoComplete');
      */
     AutoComplete.prototype.name = 'autoComplete';
 
     /**
      * Returns a reference to the Constructor function that created the instance's prototype.
      * @memberof! ch.AutoComplete.prototype
-     * @constructor
+     * @function
+     */
+    AutoComplete.prototype.constructor = AutoComplete;
+
+    /**
+     * Configuration by default.
+     * @memberof! ch.AutoComplete.prototype
+     * @type {Object}
      * @private
      */
-    AutoComplete.prototype._constructor = AutoComplete;
-
     AutoComplete.prototype._defaults = {
         'loadingClass': 'ch-autoComplete-loading',
         'side': 'bottom',
@@ -84,20 +80,26 @@
      * Initialize the instance and merges the user options with defaults options.
      * @memberof! ch.AutoComplete.prototype
      * @function
-     * @returns {instance} Returns an instance of ch.AutoComplete.
+     * @returns {autocomplete}
      */
     AutoComplete.prototype.init = function ($el, options) {
+
+        /**
+         * Reference to a internal widget instance, saves all the information and configuration properties.
+         * @type {Object}
+         * @private
+         */
         var that = this,
-            ESC = ch.onkeyesc + '.' + this.name, // UI
-            UP_ARROW = ch.onkeyuparrow + '.' + this.name, // UI
-            DOWN_ARROW = ch.onkeydownarrow + '.' + this.name, // UI
+            ESC = ch.onkeyesc + '.' + this.name,
+            UP_ARROW = ch.onkeyuparrow + '.' + this.name,
+            DOWN_ARROW = ch.onkeydownarrow + '.' + this.name,
             ENTER = ch.onkeyenter + '.' + this.name,
             BACKSPACE = ch.onkeybackspace + '.' + this.name,
             MOUSEDOWN = ch.onpointertap + '.' + this.name,
             MOUSEDOWN = 'mousedown' + '.' + this.name,
-            MOUSEENTER = 'mouseover' + '.' + this.name,
-            keyboard = {};
+            MOUSEENTER = 'mouseover' + '.' + this.name;
 
+        // Call to its parent init method
         parent.init.call(this, $el, options);
 
         this.$trigger = this._$el;
@@ -107,8 +109,7 @@
         /**
          * The component who shows the suggestions.
          * @private
-         * @type Object
-         * @name ch.AutoComplete#_popover
+         * @type {Object}
          */
         this._popover = $.popover({
             'reference': this.$trigger,
@@ -123,20 +124,10 @@
 
         this.$container = this._popover.$container.attr('aria-hidden', 'true');
 
-        /**
-         * The number of the selected item.
-         * @private
-         * @type Number
-         * @name ch.AutoComplete#_selected
-         */
+        // The number of the selected item.
         this._selected = null;
 
-        /**
-         * Collection of suggestions to be shown.
-         * @private
-         * @type Array
-         * @name ch.AutoComplete#_suggestions
-         */
+        // Collection of suggestions to be shown.
         this._suggestions = [];
 
         // the user can set an array with suggestions in the configuration object
@@ -144,12 +135,7 @@
             this.suggest(this._options.suggestions);
         }
 
-        /**
-         * It stores the query that the user did.
-         * @private
-         * @type String
-         * @name ch.AutoComplete#_query
-         */
+        // To use then to show when the user cancel the suggestions
         this._originalQuery = this._currentQuery = this._el.value;
 
         ch.shortcuts.add(ch.onkeybackspace, this.uid, function () {
@@ -161,31 +147,25 @@
         });
 
         ch.shortcuts.add(ch.onkeyenter, this.uid, function (event) {
-        // apply the highlighted item
             that._setQuery(event);
         });
 
-        ch.shortcuts.add(ch.onkeyesc, this.uid, function (event) {
-        // back the value to the inputs previous value
+        ch.shortcuts.add(ch.onkeyesc, this.uid, function () {
             that.hide();
             that._el.value = that._originalQuery;
         });
 
-        ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
+        ch.shortcuts.add(ch.onkeyuparrow, this.uid, function () {
             var value;
 
+            // change the selected value & stores the future HTMLInputElement value
             if (that._selected === null) {
-
                 that._selected = that._suggestionsQuantity -1;
                 value = that._suggestions[that._selected];
-
             } else if (that._selected <= 0) {
-
                 that._selected = null;
                 value = that._currentQuery;
-
             } else {
-                // dafault
                 that._selected -= 1;
                 value = that._suggestions[that._selected];
             }
@@ -195,35 +175,28 @@
             if (!that._options.html) {
                 that._el.value = value;
             }
-
         });
 
-        ch.shortcuts.add(ch.onkeydownarrow, this.uid, function (event) {
-            var current,
-                value;
+        ch.shortcuts.add(ch.onkeydownarrow, this.uid, function () {
+            var value;
 
+            // change the selected value & stores the future HTMLInputElement value
             if (that._selected === null) {
-                // re init
                 that._selected = 0;
                 value = that._suggestions[that._selected];
-
             } else if (that._selected >= that._suggestionsQuantity - 1) {
-                // reset to the current query
                 that._selected = null;
                 value = that._currentQuery;
-
             } else {
-                // dafault
                 that._selected += 1;
                 value = that._suggestions[that._selected];
             }
 
-            that._toogleSelection(current);
+            that._toogleSelection();
 
             if (!that._options.html) {
                 that._el.value = value;
             }
-
         });
 
         var mousedownHandler = function (event) {
@@ -286,7 +259,7 @@
         this.on('typing', function (currentQuery) {
             if (that._enabled) {
                 that._currentQuery = currentQuery;
-                that.$trigger.addClass('ch-autoComplete-loading');
+                that.$trigger.addClass(that._options.loadingClass);
             }
         });
 
@@ -325,9 +298,9 @@
 
     /**
      * It sets to the input the selected query. It emits a 'select' event.
-     * @private
+     * @memberof! ch.AutoComplete.prototype
      * @function
-     * @name ch.AutoComplete#_setQuery
+     * @private
      */
     AutoComplete.prototype._setQuery = function (event) {
 
@@ -351,9 +324,9 @@
 
     /**
      * It highlight items adding the 'ch-autoComplete-selected' to the class attribute.
-     * @private
+     * @memberof! ch.AutoComplete.prototype
      * @function
-     * @name ch.AutoComplete#_select
+     * @private
      */
 
     AutoComplete.prototype._toogleSelection = function () {
@@ -368,12 +341,25 @@
     }
 
     /**
-    * Add suggestions to be shown.
-    * @public
-    * @name ch.AutoComplete#replace
-    * @function
-    * @returns itself
-    */
+     * Shows component's content.
+     * @memberof! ch.AutoComplete.prototype
+     * @function
+     * @private
+     * @returns itself
+     */
+    AutoComplete.prototype._show = function () {
+        this._popover.show();
+        this.emit('show');
+        return this;
+    };
+
+    /**
+     * Add suggestions to be shown.
+     * @memberof! ch.AutoComplete.prototype
+     * @public
+     * @function
+     * @returns itself
+     */
     AutoComplete.prototype.suggest = function (suggestions) {
 
         var that = this,
@@ -384,7 +370,7 @@
             $extraItems,
             extraItems = [];
 
-        this.$trigger.removeClass('ch-autoComplete-loading');
+        this.$trigger.removeClass(that._options.loadingClass);
 
         if (suggestions.length === 0 || query === '') {
             this._popover.hide();
@@ -422,22 +408,9 @@
     };
 
     /**
-     * Shows component's content.
-     * @private
-     * @name ch.AutoComplete-_show
-     * @function
-     * @returns itself
-     */
-    AutoComplete.prototype._show = function () {
-        this._popover.show();
-        this.emit('show');
-        return this;
-    };
-
-    /**
      * Hides component's content.
+     * @memberof! ch.AutoComplete.prototype
      * @public
-     * @name ch.AutoComplete#hide
      * @function
      * @returns itself
      */
@@ -449,10 +422,10 @@
 
     /**
      * Hides component's content.
+     * @memberof! ch.AutoComplete.prototype
      * @public
-     * @name ch.AutoComplete#isShown
      * @function
-     * @returns itself
+     * @returns {Boolean}
      */
     AutoComplete.prototype.isShown = function () {
         return this._popover.isShown();
@@ -462,7 +435,6 @@
      * Destroys an AutoComplete instance.
      * @public
      * @function
-     * @name ch.AutoComplete#destroy
      */
     AutoComplete.prototype.destroy = function () {
 
