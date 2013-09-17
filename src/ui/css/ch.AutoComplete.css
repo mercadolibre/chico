@@ -9,7 +9,7 @@
 }
 
 .ch-autoComplete-list li,
-.ch-autoComplete-selected {
+.ch-autoComplete-highlighted {
 	margin: 0;
 	padding: 3px 5px;
 	cursor: pointer;
@@ -21,7 +21,7 @@
 	list-style: none;
 }
 
-.ch-autoComplete-selected {
+.ch-autoComplete-highlighted {
 	background-color: #FDF9D5;
 	border-radius: 5px;
 }
@@ -30,11 +30,9 @@
 	display: none;
 }
 
-/* IE */
 .ch-autoComplete-loading {
 	background: url('../assets/loading-small.gif') no-repeat right center;
 	background-size: 16px;
-
 }
 
 .lt-ie8 .ch-autoComplete {
