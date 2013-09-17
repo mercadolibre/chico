@@ -27,8 +27,14 @@
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used.
      * @returns {validation} Returns a new instance of Validation.
      * @example
+     * // Create a new Validation.
+     * var expandable = new ch.Validation($el, [options]);
+     * @example
+     * // Create a new Validation with jQuery or Zepto.
+     * var expandable = $(selector).validation([options]);
+     * @example
      * // Create a validation with two conditions: required and custom.
-     * var validation = new ch.Validation($('#email'), {
+     * var validation = $(selector).validation({
      *     'conditions': [
      *         {
      *             'name': 'required',
@@ -102,6 +108,7 @@
 
     /**
      * The name of the widget.
+     * @memberof! ch.Validation.prototype
      * @type {String}
      */
     Validation.prototype.name = 'validation';

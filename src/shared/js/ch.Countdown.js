@@ -5,7 +5,7 @@
         throw new window.Error('Expected ch namespace defined.');
     }
 
-    function normalizeOptions (options) {
+    function normalizeOptions(options) {
         var num = window.parseInt(options, 10);
 
         if (!window.isNaN(num)) {
@@ -24,20 +24,23 @@
      * @augments ch.Widget
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Countdown.
      * @param {Object} [options] Options to customize an instance.
-     * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control.
-     * @param {String} [options.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# characters left.".
-     * @param {String} [options.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. By default this parameter is "# character left.".
+     * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control. Default: 500.
+     * @param {String} [options.plural] Message of remaining amount of characters, when it's different to 1. The variable that represents the number to be replaced, should be a hash. Default: "# characters left.".
+     * @param {String} [options.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. Default: "# character left.".
      * @returns {countdown} Returns a new instance of Countdown.
      * @example
      * // Create a new Countdown with defaults options.
-     * var countdown = $(selector).countdown(500);
+     * var countdown = $(selector).countdown();
      * @example
      * // Create a new Countdown with custom options.
      * var countdown = $(selector).countdown({
-     *     'max': 500,
-     *     'plural': 'Restan # caracteres.',
-     *     'singular': 'Resta # caracter.'
+     *     'max': 250,
+     *     'plural': 'Left: # characters.',
+     *     'singular': 'Left: # character.'
      * });
+     * @example
+     * // Create a new Countdown using the shorthand way (max as parameter).
+     * $(selector).countdown(500);
      */
     function Countdown($el, options) {
 

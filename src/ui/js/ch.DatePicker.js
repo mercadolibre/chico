@@ -17,15 +17,15 @@
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: "today".
      * @param {String} [options.from] Set a minimum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
-     * @param {Array} [options.monthsNames] Default: ["Enero", ... , "Diciembre"].
-     * @param {Array} [options.weekdays] Default: ["Dom", ... , "Sab"].
+     * @param {Array} [options.monthsNames] A collection of months names. By default is ["Enero", ... , "Diciembre"].
+     * @param {Array} [options.weekdays] A collection of weekdays. By default is ["Dom", ... , "Sab"].
      * @param {Boolean} [conf.hiddenby] To be defined. Default: "pointers".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
-     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center.
-     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "bottom".
+     * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed. Default: "absolute".
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
      * @returns {datePicker} Returns a new instance of DatePicker.
      * @example
      * // Create a new DatePicker without options.
