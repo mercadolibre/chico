@@ -6,7 +6,7 @@
 	position: relative;
 	overflow: hidden;
 	display: inline-block;
-	cursor: crosshair;
+    cursor: crosshair;
 }
 
 /* Loading transition */
@@ -57,11 +57,6 @@
 }
 
 /* IE */
-.lt-ie9 .ch-zoom-trigger .ch-zoom-seeker {
+.lt-ie9 .ch-zoom-seeker {
 	cursor: crosshair;
-}
-
-.lt-ie8 .ch-zoom-trigger {
-    display: inline;
-    zoom: 1;
 }

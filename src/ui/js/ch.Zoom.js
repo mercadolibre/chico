@@ -372,7 +372,6 @@
 
 				// Move zoomed image
 				zoomed.$image.css({"left": (-ratio.width * x), "top": (-ratio.height * y)});
-
 			};
 
 	/**
@@ -381,6 +380,7 @@
 
         that.loadImage = function () {
             zoomed.$image[0].src = that.element.href;
+            return that;
         };
 
 		/**
@@ -403,7 +403,7 @@
 			offset = that.$element.offset();
 
 			// Bind move calculations
-			that.$element.bind("mousemove", function (event) { move(event); });
+			that.$element.on('mousemove.zoom', function (event) { move(event); });
 
 			// Show seeker
 			seeker.$shape.removeClass("ch-hide");
@@ -430,7 +430,7 @@
 			}
 
 			// Unbind move calculations
-			that.$element.unbind("mousemove");
+			that.$element.off('mousemove.zoom');
 
 			// Hide seeker
 			seeker.$shape.addClass("ch-hide");
@@ -485,21 +485,23 @@
 		 * @borrows ch.Floats#position as ch.Zoom#position
 		 */
 
-        that["public"].loadImage = that.loadImage;
+        that["public"].loadImage = function () {
+            that.loadImage();
+            return that['public'];
+        };
 
-	/**
-	 * Default event delegation
-	 */
 
-		// Anchor
-		that.$element
-			.addClass("ch-zoom-trigger")
-			// Prevent click
-			.bind("click", function (event) { ch.util.prevent(event); })
+    	// Default event delegation
+		that.$element.addClass('ch-zoom-trigger').on({
 			// Show component or loading transition
-			.bind("mouseenter", that.innerShow)
+			'mouseenter.zoom': that.innerShow,
 			// Hide component or loading transition
-			.bind("mouseleave", that.innerHide);
+			'mouseleave.zoom': that.innerHide,
+            // Prevent or custom action
+            'click.zoom': function (event) {
+                ch.util.prevent(event);
+            }
+        });
 
 		/**
 		 * Triggers when component is visible.

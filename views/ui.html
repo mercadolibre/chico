@@ -740,18 +740,22 @@
 		</form>
 	</div>
 
-	<div class="ch-box-lite">
+	<div class="ch-box-lite ch-clearfix">
 		<h2>Zoom</h2>
-		<a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
-			<img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
-		</a>
-        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
-            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
-        </a>
-        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
-            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
-        </a>
-        <strong>← Preloaded</strong>
+
+        <div class="ch-g1-4">
+            <h3>Default behavior</h3>
+    		<a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+    			<img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+    		</a>
+        </div>
+
+        <div class="ch-g1-4">
+            <h3>Preloaded image</h3>
+            <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+                <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+            </a>
+        </div>
 	</div>
 
 	<div class="ch-box-lite">
@@ -1513,7 +1517,8 @@
 
 		// Zoom
 		var zoom = $('.zoom').zoom();
-        zoom[2].loadImage();
+        // Preload image
+        zoom[1].loadImage();
 
 		// expandable
 		var expandable = $(".YOUR_SELECTOR_expandable").expandable();
