@@ -3,45 +3,12 @@
  */
 .ch-box-lite,
 .ch-box {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 /**
  * Help
  */
 .ch-box-help {
-	background-color: #f7f7f7;
-}
-
-/**
- * Message boxes IE7
- */
-.lt-ie8 .ch-box-warning,
-.lt-ie8 .ch-box-error,
-.lt-ie8 .ch-box-help,
-.lt-ie8 .ch-box-information,
-.lt-ie8 .ch-box-ok {
-	position: static;
-	background-image: url('../assets/icons.png');
-	background-repeat: no-repeat;
-}
-
-.lt-ie8 .ch-box-warning {
-	background-position: -20px -84px;
-}
-
-.lt-ie8 .ch-box-error {
-	background-position: -117px 13px;
-}
-
-.lt-ie8 .ch-box-help {
-	background-position: -85px -19px;
-}
-
-.lt-ie8 .ch-box-information {
-	background-position: -53px -51px;
-}
-
-.lt-ie8 .ch-box-ok {
-	background-position: 10px -114px;
+    background-color: #f7f7f7;
 }
