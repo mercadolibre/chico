@@ -87,6 +87,7 @@ CSS.core = [
     "src/shared/css/ch.base.css",
     "src/ui/css/ch.base.css",
     "src/shared/css/ch.icons.css",
+    "src/ui/css/ch.badges.css",
     "src/shared/css/ch.boxes.css",
     "src/ui/css/ch.boxes.css",
     "src/shared/css/ch.loading.css"

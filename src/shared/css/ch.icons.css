@@ -24,10 +24,10 @@
     text-align: center;
     display: inline-block;
     vertical-align: middle;
-    line-height: 1em;
+    line-height: .9em;
     height: 16px;
     width: 16px;
-    font-size: 18px;
+    font-size: 19px;
     margin: 5px;
 }
 
@@ -150,26 +150,3 @@
 .ch-icon-comment-alt:before          { content: '\f0e5'; }
 .ch-icon-comments-alt:before         { content: '\f0e6'; }
 .ch-icon-phone:before                { content: '\f095'; }
-
-/*
- * Marks
- */
-[class*='ch-badge'] {
-    display: inline-block;
-    height: 32px;
-    width: 32px;
-    font-size: 34px;
-    padding: 16px;
-    border-radius: 100%;
-    margin: 10px;
-    color: #FFF;
-    background-color: #F5CC00;
-}
-
-[class*='ch-badge'].ch-icon-warning-sign {
-    color: #FFF;
-}
-
-.ch-badge-skin {
-    background-color: #3A87AD;
-}
