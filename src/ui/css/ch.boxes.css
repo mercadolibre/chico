@@ -1,14 +1,14 @@
 /**
  * Boxes
  */
+.ch-box {
+    background-image: -webkit-linear-gradient(#eee, #fff 25px);
+    background-image: -moz-linear-gradient(#eee, #fff 25px);
+    background-image: -o-linear-gradient(#eee, #fff 25px);
+    background-image: linear-gradient(#eee, #fff 25px);
+}
+
 .ch-box-lite,
 .ch-box {
     background-color: #fff;
-}
-
-/**
- * Help
- */
-.ch-box-help {
-    background-color: #f7f7f7;
 }

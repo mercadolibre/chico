@@ -1,12 +1,3 @@
-.ch-box {
-	background-image: none;
-}
-
 .ch-box-lite {
 	background-color: #f4f4f4;
-}
-
-.ch-box-help,
-.ch-box-help:before {
-	background-color: #fff;
 }
