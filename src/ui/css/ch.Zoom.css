@@ -27,7 +27,6 @@
 /* Seeker shape */
 .ch-zoom-seeker {
     cursor: crosshair;
-    pointer-events: none;
     background-color: rgba(240, 240, 240, 0.4);
 }
 
@@ -48,4 +47,15 @@
 /* Zoomed image */
 .ch-zoom img {
 	position: absolute;
+}
+
+/* IE8- */
+.lt-ie9 .ch-zoom-loading {
+    background-color: #f0f0f0;
+    filter: alpha(opacity=90);
+}
+
+.lt-ie9 .ch-zoom-seeker {
+    background-color: #f0f0f0;
+    filter: alpha(opacity=50);
 }

@@ -115,8 +115,7 @@
          * @private
          * @type {Object}
          */
-        var that = this,
-            bindings = {};
+        var that = this;
 
         /**
          * Flag to control when zoomed image is loaded.
@@ -138,11 +137,18 @@
         this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-big"></div><p>' + this._options.waiting + '</p></div>').appendTo(this.$trigger);
 
         /**
-         * Shape with visual feedback to the relative size of the zoomed area.
+         * jQuery/Zepto Element shape with visual feedback to the relative size of the zoomed area.
          * @private
          * @type {(jQuerySelector | ZeptoSelector)}
          */
         this._$seeker = $('<div class="ch-zoom-seeker ch-hide">').appendTo(this.$trigger);
+
+        /**
+         * HTML Element shape with visual feedback to the relative size of the zoomed area.
+         * @private
+         * @type {HTMLDivElement}
+         */
+        this._seeker = this._$seeker[0];
 
         /**
          * The main specified image with original size (not zoomed).
@@ -156,27 +162,33 @@
          * @private
          * @type {(jQuerySelector | ZeptoSelector)}
          */
-        this._$zoomed = this._options.content = $('<img class="ch-hide">');
-
-        // Prevent to redirect to the href
-        bindings[ch.onpointertap + '.zoom'] = function (event) { ch.util.prevent(event); };
-
-        // Bind move calculations
-        bindings[ch.onpointermove + '.zoom'] = function (event) { that._move(event); };
-
-        // Bind those events
-        this.$trigger.addClass('ch-zoom-trigger').on(bindings);
+        // Use a new Image instead $('<img ...>') to calculate the
+        // size before append the image to DOM, in ALL browsers.
+        this._zoomed = new window.Image();
 
         // Assign event handlers to the original image
         ch.onImagesLoads(this._$original, function () {
-            // THIS is the loaded image
-            that._originalLoaded(this);
+            that._originalLoaded();
         });
 
-        // Assign event handlers to the original image
-        ch.onImagesLoads(this._$zoomed, function () {
-            // THIS is the loaded image
-            that._zoomedLoaded(this);
+        // Assign event handlers to the zoomed image
+        ch.onImagesLoads($(this._zoomed), function () {
+            that._zoomedLoaded();
+        });
+
+        // Make the entire Show process if it tried to show before
+        this.on('imageloaded', function () {
+            if (!that._$loading.hasClass('ch-hide')) {
+                that.show();
+            }
+        });
+
+        // Assign event handlers to the anchor
+        this.$trigger.addClass('ch-zoom-trigger').on({
+            // Prevent to redirect to the href
+            'click.zoom': function (event) { ch.util.prevent(event); },
+            // Bind move calculations
+            'mousemove.zoom': function (event) { that._move(event); }
         });
     };
 
@@ -187,10 +199,11 @@
      * @function
      * @param {(jQuerySelector | ZeptoSelector)} $img Reference to the loaded image (the original).
      */
-    Zoom.prototype._originalLoaded = function ($img) {
+    Zoom.prototype._originalLoaded = function () {
 
-        var width = $img[0].width,
-            height = $img[0].height;
+        var width = this._$original[0].width,
+            height = this._$original[0].height,
+            offset = ch.util.getOffset(this._el);
 
         // Set the wrapper anchor size (same as image)
         this.$trigger.css({
@@ -217,6 +230,20 @@
          * @type {Number}
          */
         this._originalHeight = height;
+
+        /**
+         * Left position of the original specified anchor/image.
+         * @private
+         * @type {Number}
+         */
+        this._originalOffsetLeft = offset.left;
+
+        /**
+         * Top position of the original specified anchor/image.
+         * @private
+         * @type {Number}
+         */
+        this._originalOffsetTop = offset.top;
     };
 
     /**
@@ -226,21 +253,21 @@
      * @function
      * @param {(jQuerySelector | ZeptoSelector)} $img Reference to the loaded image (the zoomed).
      */
-    Zoom.prototype._zoomedLoaded = function ($img) {
+    Zoom.prototype._zoomedLoaded = function () {
 
         /**
          * Relation between the zoomed and the original image width.
          * @private
          * @type {Number}
          */
-        this._ratioX = $img[0].width / this._originalWidth;
+        this._ratioX = (this._zoomed.width / this._originalWidth);
 
         /**
          * Relation between the zoomed and the original image height.
          * @private
          * @type {Number}
          */
-        this._ratioY = $img[0].height / this._originalHeight;
+        this._ratioY = (this._zoomed.height / this._originalHeight);
 
         /**
          * Width of the Seeker, calculated from ratio.
@@ -261,24 +288,20 @@
          * @private
          * @type {Number}
          */
-        this._seekerHalfWidth = this._seekerWidth / 2;
+        this._seekerHalfWidth = window.Math.floor(this._seekerWidth / 2);
 
         /**
          * Half of the height of the Seeker. Used to position it.
          * @private
          * @type {Number}
          */
-        this._seekerHalfHeight = this._seekerHeight / 2;
+        this._seekerHalfHeight = window.Math.floor(this._seekerHeight / 2);
 
         // Set size of the Seeker
-        this._$seeker.css({
-            'width': this._seekerWidth,
-            'height': this._seekerHeight
-        });
+        this._seeker.style.cssText = 'width:' + this._seekerWidth + 'px;height:' + this._seekerHeight + 'px';
 
         // Use the zoomed image as content for the floated element
-        // Use "this._$zoomed" instead "$img" to don't loose reference to the element
-        this.content(this._$zoomed);
+        this.content(this._zoomed);
 
         // Update the flag to allow to zoom
         this._loaded = true;
@@ -293,11 +316,6 @@
          * });
          */
         this.emit('imageloaded');
-
-        // Make the entire Show process if it tried to show before
-        if (!this._$loading.hasClass('ch-hide')) {
-            this.show();
-        }
     };
 
     /**
@@ -313,38 +331,39 @@
             return;
         }
 
-        var offsetX = event.offsetX || event.layerX,
-            offsetY = event.offsetY || event.layerY,
+        // By defining these variables in here, it avoids to make
+        // the substraction twice if it's a free movement
+        var seekerLeft = event.pageX - this._seekerHalfWidth,
+            seekerTop = event.pageY - this._seekerHalfHeight,
             x,
             y;
 
         // Left side of seeker LESS THAN left side of image
-        if (offsetX - this._seekerHalfWidth < 0) {
+        if (seekerLeft <= this._originalOffsetLeft) {
             x = 0;
         // Right side of seeker GREATER THAN right side of image
-        } else if (offsetX + this._seekerHalfWidth > this._originalWidth) {
+        } else if (event.pageX + this._seekerHalfWidth > this._originalWidth + this._originalOffsetLeft) {
             x = this._originalWidth - this._seekerWidth - 2;
         // Free move
         } else {
-            x = offsetX - this._seekerHalfWidth;
+            x = seekerLeft - this._originalOffsetLeft;
         }
 
         // Top side of seeker LESS THAN top side of image
-        if (offsetY - this._seekerHalfHeight < 0) {
+        if (seekerTop <= this._originalOffsetTop) {
             y = 0;
         // Bottom side of seeker GREATER THAN bottom side of image
-        } else if (offsetY + this._seekerHalfHeight > this._originalHeight) {
+        } else if (event.pageY + this._seekerHalfHeight > this._originalHeight + this._originalOffsetTop) {
             y = this._originalHeight - this._seekerHeight - 2;
         // Free move
         } else {
-            y = offsetY - this._seekerHalfHeight;
+            y = seekerTop - this._originalOffsetTop;
         }
 
-        // Move seeker
-        this._$seeker.css({'left': x, 'top': y});
-
-        // Move zoomed image
-        this._$zoomed.css({'left': (-this._ratioX * x), 'top': (-this._ratioY * y)});
+        // Move seeker and the zoomed image
+        this._seeker.style.left = x + 'px';
+        this._seeker.style.top = y + 'px';
+        this._zoomed.style.cssText = 'left:' + (-this._ratioX * x) + 'px;top:' + (-this._ratioY * y) + 'px';
     };
 
     /**
@@ -423,7 +442,7 @@
      * widget.loadImage();
      */
     Zoom.prototype.loadImage = function () {
-        this._$zoomed[0].src = this._el.href;
+        this._zoomed.src = this._el.href;
         return this;
     };
 
