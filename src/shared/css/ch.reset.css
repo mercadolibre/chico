@@ -11,8 +11,8 @@ b, u, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, audio, bb, canvas, datagrid,
-datalist, details, dialog, eventsource, figure, footer,
+article, aside, audio, canvas,
+datalist, details, dialog, figure, footer,
 header, mark, menu, meter, nav, output,
 progress, section, time, video {
     margin: 0;
