@@ -15,7 +15,6 @@ abbr, article, aside, audio, bb, canvas, datagrid,
 datalist, details, dialog, eventsource, figure, footer,
 header, hgroup, mark, menu, meter, nav, output,
 progress, section, time, video {
-	background: transparent;
 	margin: 0;
 	padding: 0;
 	border: 0;
