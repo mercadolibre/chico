@@ -4,7 +4,7 @@ var self = this;
 ?>
 
 <h4>
-    <code class=" language-markup"><?js= name ?></code>
+    <code class=" language-markup"><?js= '.' + name ?></code>
     <?js if (data.type) { ?>
     <?js= self.partial('type.tmpl', data.type.names) ?>
     <?js } ?>

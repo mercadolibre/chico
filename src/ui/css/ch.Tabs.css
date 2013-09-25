@@ -1,67 +1,66 @@
 /**
  * Tab Navigator
  */
-/* tabs container */
 .ch-tabs {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 
 /* Triggers container */
 .ch-tabs .ch-tabs-triggers {
-	position: relative;
-	top: 1px;
-	z-index: 10;
-	padding: 0;
-	margin: 0 0 0 10px;
-	list-style: none;
-	overflow: hidden;
+    position: relative;
+    top: 1px;
+    z-index: 10;
+    padding: 0;
+    margin: 0 0 0 10px;
+    list-style: none;
+    overflow: hidden;
 }
 
 .ch-tabs-triggers li{
-	cursor: pointer;
-	display: inline;
-	margin-right: 0;
+    cursor: pointer;
+    display: inline;
+    margin-right: 0;
 }
 
 /* Triggers */
 .ch-tab {
-	border: 1px solid #EDEDED;
-	display: inline-block;
-	padding: 3px 12px;
-	margin-right: 2px;
-	text-decoration: none !important;
-	color: #333333 !important;
-	background-color: #fff;
-	border-radius: 5px 5px 0 0;
+    border: 1px solid #EDEDED;
+    display: inline-block;
+    padding: 3px 12px;
+    margin-right: 2px;
+    text-decoration: none !important;
+    color: #333333 !important;
+    background-color: #fff;
+    border-radius: 5px 5px 0 0;
 }
 
 /* Hover and active */
 .ch-tab:hover,
 .ch-tab:active {
-	background-color: #F7F7F7;
+    background-color: #F7F7F7;
 }
 
 
 /* Trigger ON */
 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EEEEEE), color-stop(100%, #FFFFFF));
-	background-image: -webkit-linear-gradient(#EEEEEE, #FFFFFF 25px);
-	background-image: -moz-linear-gradient(#EEEEEE, #FFFFFF 25px);
-	background-image: -o-linear-gradient(#EEEEEE, #FFFFFF 25px);
-	background-image: linear-gradient(#EEEEEE, #FFFFFF 25px);
-	border-bottom: 1px solid #FFFFFF;
-	cursor: default;
-	font-weight: bold;
-	text-shadow: 2px 0 2px rgba(255, 255, 255, .5);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EEEEEE), color-stop(100%, #FFFFFF));
+    background-image: -webkit-linear-gradient(#EEEEEE, #FFFFFF 25px);
+    background-image: -moz-linear-gradient(#EEEEEE, #FFFFFF 25px);
+    background-image: -o-linear-gradient(#EEEEEE, #FFFFFF 25px);
+    background-image: linear-gradient(#EEEEEE, #FFFFFF 25px);
+    border-bottom: 1px solid #FFFFFF;
+    cursor: default;
+    font-weight: bold;
+    text-shadow: 2px 0 2px rgba(255, 255, 255, .5);
 }
 
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#FFFFFF');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#FFFFFF');
 }
 
 /* Container */
 .ch-tabs .ch-box-lite {
- 	border-radius: 0;
+    border-radius: 0;
 }

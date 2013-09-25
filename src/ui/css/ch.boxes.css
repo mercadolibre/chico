@@ -1,7 +1,9 @@
 /**
  * Boxes
  */
-.ch-box-lite,
 .ch-box {
-    background-color: #fff;
+    background-image: -webkit-linear-gradient(#eee, #fff 25px, #fff);
+    background-image: -moz-linear-gradient(#eee, #fff 25px, #fff);
+    background-image: -o-linear-gradient(#eee, #fff 25px, #fff);
+    background-image: linear-gradient(#eee, #fff 25px, #fff);
 }

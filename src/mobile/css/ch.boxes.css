@@ -1,7 +1,6 @@
+/**
+ * Boxes
+ */
 .ch-box {
-    background-image: none;
-}
-
-.ch-box-lite {
     background-color: #f4f4f4;
 }

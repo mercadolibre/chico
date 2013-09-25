@@ -60,24 +60,7 @@
     line-height: 1.2em;
 }
 
-.lt-ie8 .ch-datePicker-trigger {
-    position: relative;
-    top: -4px;
-}
-
-.lt-ie8 .ch-datePicker {
-    width: 240px;
-}
-
 .lt-ie9 .ch-datePicker-cone:before {
     width: auto;
     height: auto;
-}
-
-.lt-ie8 .ch-datePicker-cone {
-    background-image: url("../assets/shapes.png");
-    display: block;
-    position: absolute;
-    width: 16px;
-    height: 8px;
 }

@@ -298,12 +298,6 @@
             timeout,
             events = {};
 
-        function hide(event) {
-            if (event.target !== that._el && event.target !== that.$container[0]) {
-                that.hide();
-            }
-        }
-
         function hideTimer() {
             timeout = window.setTimeout(function () {
                 that.hide();
@@ -333,20 +327,10 @@
             }).prependTo(this.$container);
         }
 
-        if (hiddenby === 'pointers' || hiddenby === 'all') {
-
-            ch.shortcuts.add((ch.onkeyesc || 'touchend'), this.uid, function () { that.hide(); });
-
-            this
-                .on('show', function () {
-                    ch.shortcuts.on(that.uid);
-                    $document.on(pointertap, hide);
-                })
-                .on('hide', function () {
-                    ch.shortcuts.off(that.uid);
-                    $document.off(pointertap, hide);
-                });
+        if ((hiddenby === 'pointers' || hiddenby === 'all') && this._hidingShortcuts !== undefined) {
+            this._hidingShortcuts();
         }
+
     };
 
     /**

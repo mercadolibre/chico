@@ -507,27 +507,27 @@ exports.publish = function(taffyData, opts, tutorials) {
         if ( hasOwnProp.call(helper.longnameToUrl, longname) ) {
             var myClasses = helper.find(classes, {longname: longname});
             if (myClasses.length) {
-                generate('ch.' + myClasses[0].name + ' <small>(Class)</small> → {' + myClasses[0].name.toLowerCase() + '}', myClasses, helper.longnameToUrl[longname]);
+                generate('ch.' + myClasses[0].name, myClasses, helper.longnameToUrl[longname]);
             }
 
             var myModules = helper.find(modules, {longname: longname});
             if (myModules.length) {
-                generate(myModules[0].name + ' <small>(Module)</small>', myModules, helper.longnameToUrl[longname]);
+                generate('<small>Module</small> ' + myModules[0].name, myModules, helper.longnameToUrl[longname]);
             }
 
             var myNamespaces = helper.find(namespaces, {longname: longname});
             if (myNamespaces.length) {
-                generate(myNamespaces[0].name + ' <small>(Namespace)</small>', myNamespaces, helper.longnameToUrl[longname]);
+                generate('<small>Namespace</small> ' + myNamespaces[0].name, myNamespaces, helper.longnameToUrl[longname]);
             }
 
             var myMixins = helper.find(mixins, {longname: longname});
             if (myMixins.length) {
-                generate(myMixins[0].name + ' <small>(Mixins)</small>', myMixins, helper.longnameToUrl[longname]);
+                generate('<small>Mixins</small> ' + myMixins[0].name, myMixins, helper.longnameToUrl[longname]);
             }
 
             var myExternals = helper.find(externals, {longname: longname});
             if (myExternals.length) {
-                generate(myExternals[0].name + ' <small>(External)</small>', myExternals, helper.longnameToUrl[longname]);
+                generate('<small>External</small> ' + myExternals[0].name, myExternals, helper.longnameToUrl[longname]);
             }
         }
     }

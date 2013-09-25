@@ -1,91 +1,91 @@
 /* IMPORTANT: .ch-hide class allows components to be shown and hidden */
 [hidden],
 .ch-hide {
-	display: none;
+    display: none;
 }
 
 .ch-hidden {
-	visibility: hidden;
-	position: absolute !important;
-	top: -9999px !important;
+    visibility: hidden;
+    position: absolute !important;
+    top: -9999px !important;
 }
 
 .ch-ellipsis {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .ch-actions {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .ch-actions a {
-	margin-left: 15px;
+    margin-left: 15px;
 }
 
 /* do not select text */
 .ch-user-no-select {
-	-o-user-select: none;
-	-ms-user-select: none;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* Close*/
 .ch-close,
 .ch-close:visited,
 .ch-close:focus {
-	background-color: transparent;
-	background-image: -webkit-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-	background-image: -moz-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-	background-image: -o-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-	background-image: linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-	border: 1px solid #EDEDED;
-	border-radius: 3px;
-	cursor: pointer;
-	display: inline-block;
-	padding: 0;
-	text-indent: 1px;
-	color: #CCCCCC;
-	font-family: Arial;
-	font-style: normal;
-	text-align:center;
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	-webkit-appearance: none;
-	z-index: 1;
+    background-color: transparent;
+    background-image: -webkit-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
+    background-image: -moz-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
+    background-image: -o-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
+    background-image: linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
+    border: 1px solid #EDEDED;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0;
+    text-indent: 1px;
+    color: #CCCCCC;
+    font-family: Arial;
+    font-style: normal;
+    text-align:center;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    -webkit-appearance: none;
+    z-index: 1;
 }
 
 .ch-close:before {
-	content: "\00D7";
+    content: "\00D7";
 }
 
 .ch-close:hover,
 .ch-close:focus,
 .ch-close:active {
-	text-shadow: 0 1px 0 rgba(0,0,0,.5);
-	border: none;
+    text-shadow: 0 1px 0 rgba(0,0,0,.5);
+    border: none;
 }
 
 .ch-close:hover,
 .ch-close:focus {
-	color: #FFFFFF;
-	background-color: #FA5900;
-	background-image: -webkit-linear-gradient(#FA5900, #CA0C02);
-	background-image: -moz-linear-gradient(#FA5900, #CA0C02);
-	background-image: -o-linear-gradient(#FA5900, #CA0C02);
-	background-image: linear-gradient(#FA5900, #CA0C02);
-	text-decoration: none;
+    color: #FFFFFF;
+    background-color: #FA5900;
+    background-image: -webkit-linear-gradient(#FA5900, #CA0C02);
+    background-image: -moz-linear-gradient(#FA5900, #CA0C02);
+    background-image: -o-linear-gradient(#FA5900, #CA0C02);
+    background-image: linear-gradient(#FA5900, #CA0C02);
+    text-decoration: none;
 }
 
 .ch-close:active {
-	color: #FFFFFF;
-	background-color:#BF0602;
-	background-image: -webkit-linear-gradient(#BF0602, #8F2F00);
-	background-image: -moz-linear-gradient(#BF0602, #8F2F00);
-	background-image: -o-linear-gradient(#BF0602, #8F2F00);
-	background-image: linear-gradient(#BF0602, #8F2F00);
+    color: #FFFFFF;
+    background-color:#BF0602;
+    background-image: -webkit-linear-gradient(#BF0602, #8F2F00);
+    background-image: -moz-linear-gradient(#BF0602, #8F2F00);
+    background-image: -o-linear-gradient(#BF0602, #8F2F00);
+    background-image: linear-gradient(#BF0602, #8F2F00);
 }

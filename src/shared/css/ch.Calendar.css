@@ -1,147 +1,120 @@
 .ch-calendar {
-	position:relative;
-	display:inline-block;
+    position:relative;
+    display:inline-block;
 }
 
 .ch-calendar-month {
-	font-size: 12px;
-	text-align: center;
-	width: 240px;
+    font-size: 12px;
+    text-align: center;
+    width: 240px;
 }
 
 .ch-calendar caption,
 .ch-calendar thead,
 .ch-calendar td {
-	border: 1px solid #EDEDED;
+    border: 1px solid #EDEDED;
 }
 
 .ch-calendar caption {
-	background-color: #EEEEEE;
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #EEEEEE));
-	background: -webkit-linear-gradient(#FFFFFF, #EEEEEE);
-	background: -moz-linear-gradient(#FFFFFF, #EEEEEE);
-	background: -o-linear-gradient(#FFFFFF, #EEEEEE);
-	background: linear-gradient(#FFFFFF, #EEEEEE);
-	font-size: 13px;
-	line-height: 28px;
-	text-shadow: 0 1px 0 #FFFFFF;
-	border-bottom: none;
+    background-color: #EEEEEE;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #EEEEEE));
+    background: -webkit-linear-gradient(#FFFFFF, #EEEEEE);
+    background: -moz-linear-gradient(#FFFFFF, #EEEEEE);
+    background: -o-linear-gradient(#FFFFFF, #EEEEEE);
+    background: linear-gradient(#FFFFFF, #EEEEEE);
+    font-size: 13px;
+    line-height: 28px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    border-bottom: none;
 }
 
 .lt-ie10 .ch-calendar caption {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#EEEEEE');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#EEEEEE');
 }
 
 .ch-calendar thead {
-	border-weight: 0 1px;
+    border-weight: 0 1px;
 }
 
 .ch-calendar th {
-	font-size: 11px;
-	font-weight: normal;
-	width: 14.28%;
+    font-size: 11px;
+    font-weight: normal;
+    width: 14.28%;
 }
 
 .ch-calendar td {
-	cursor: default;
-	height: 26px;
-	line-height: 26px;
-	width: 14.28%;
+    cursor: default;
+    height: 26px;
+    line-height: 26px;
+    width: 14.28%;
 }
 
 .ch-calendar-today {
-	background-color: #FEFBD6;
+    background-color: #FEFBD6;
 }
 
 .ch-calendar-other {
-	color: #C6C6C6;
-	cursor: default !important;
-	overflow: hidden;
-	text-indent: -99px;
+    color: #C6C6C6;
+    cursor: default !important;
+    overflow: hidden;
+    text-indent: -99px;
 }
 
 .ch-calendar-disabled,
 .ch-calendar-disabled:hover {
-	background-color: #FFF;
-	color: #C6C6C6;
-	cursor: not-allowed;
+    background-color: #FFF;
+    color: #C6C6C6;
+    cursor: not-allowed;
 }
 
 
 .ch-calendar-selected,
 .ch-calendar-selected:hover,
 .ch-calendar-selected.ch-today {
-	background-color: #A9A9A9 !important;
-	color: #FFF !important;
-	font-weight: bold !important;
+    background-color: #A9A9A9 !important;
+    color: #FFF !important;
+    font-weight: bold !important;
 }
 
 .ch-calendar-prev,
 .ch-calendar-next {
-	cursor: pointer;
-	position: absolute;
-	padding: 0px 20px;
-	height: 28px;
-	line-height: 18px;
-	font-size: .9em;
+    cursor: pointer;
+    position: absolute;
+    padding: 0px 20px;
+    height: 28px;
+    line-height: 18px;
+    font-size: .9em;
 }
 
 .ch-calendar-prev {
-	left: 0;
+    left: 0;
 }
 
 .ch-calendar-next {
-	right: 0;
+    right: 0;
 }
 
 .ch-calendar-prev:after,
 .ch-calendar-next:after {
-	font-family: icons;
-	position: absolute;
-	top: 7px;
-	color: #666666;
-	text-shadow: 0 1px #FFFFFF;
+    font-family: icons;
+    position: absolute;
+    top: 7px;
+    color: #666666;
+    text-shadow: 0 1px #FFFFFF;
 }
 
 .ch-calendar-prev:after {
-	content: "\f053";
-	left: 15px;
+    content: "\f053";
+    left: 15px;
 }
 
 .ch-calendar-next:after {
-	content: "\f054";
-	right: 15px;
+    content: "\f054";
+    right: 15px;
 }
 
 /* IE */
 .ie9 .ch-calendar caption,
 .ie8 .ch-calendar caption {
-	margin:0;
-}
-
-.ie7 .ch-calendar {
-	display:inline;
-	zoom:1;
-}
-
-.ie7 .ch-calendar-month {
-	border: 1px solid #EDEDED;
-}
-
-.lt-ie8 .ch-calendar-prev span,
-.lt-ie8 .ch-calendar-next span {
-	background-image: url("../assets/shapes.png");
-	overflow: hidden;
-	display: block;
-	width: 4px;
-	height: 7px;
-	margin-top: 12px;
-}
-
-.lt-ie8 .ch-calendar-prev span{
-	background-position: 0 -48px;
-}
-
-.lt-ie8 .ch-calendar-next span{
-	background-position: -3px -48px;
+    margin:0;
 }

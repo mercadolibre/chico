@@ -1,40 +1,33 @@
-Chico UI
-========
+# Chico UI - Get things done, quickly.
 
-http://chico-ui.com.ar
+Chico UI is a free and open source collection of easy-to-use web tools for designers and developers.
 
-Get things done, quickly
-------------------------
-Chico UI is a free and open source collection of easy-to-use web tools for developers and designers.
+## Features
 
-Features
--------------
 - UI Widgets
-- Chico Mesh: Fast and simple layouts
+- Grids
 
-Get in touch
-------------
-- e-mail: chico (at) mercadolibre.com
-- Twitter: @chicoui
-- IRC: irc.freenode.net, room: #chicoui
-- Google group: http://groups.google.com/group/chico-ui
-- Ninja Blog: http://blog.chico-ui.com.ar/
+## Get in touch
 
-The team
---------
-- Hernan Mammana (Frontender), @hmammana
-- Leandro Linares (Frontender), @lean8086
-- Guillermo Paz (Frontender), @pazguille
+- E-mail: [chico at mecadolibre](mailto:chico@mercadolibre.com)
+- Twitter: [@chicoui](https://twitter.com/chicoui)
+- Web: http://chico-ui.com.ar/
 
-Thanks to
----------
-- Natan Santolo (@natos). Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
-- Natalia Devalle (UX Designer), @taly
+## The team
 
-Credits
--------
-![MercadoLibre](http://static.mlstatic.com/org-img/chico/img/logo-mercadolibre.png)
+- Her Mammana (Frontender), [@hmammana](https://twitter.com/hmammana)
+- Lean Linares (Frontender), [@lean8086](https://twitter.com/lean8086)
+- Guille Paz (Frontender), [@pazguille](https://twitter.com/pazguille)
 
-License
--------
-http://chico-ui.com.ar/license
+## Thanks to
+
+- Natan Santolo. Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
+- Nati Devalle (UX designer), [@taly](https://twitter.com/taly)
+
+## Credits
+
+![MercadoLibre](http://static.mlstatic.com/org-img/chico/img/logo-mercadolibre-new.png)
+
+## License
+Licensed under the MIT license.
+Copyright (c) 2013 MercadoLibre, http://www.mercadolibre.com/
