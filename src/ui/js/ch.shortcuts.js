@@ -54,25 +54,25 @@
 
             /**
              * Removes a callback from a shortcut with given name.
-             * @param {(ch.onkeybackspace | ch.onkeytab | ch.onkeyenter | ch.onkeyesc | ch.onkeyleftarrow | ch.onkeyuparrow | ch.onkeyrightarrow | ch.onkeydownarrow)} shortcut Shortcut to unsubscribe.
              * @param {String} name A name to remove from the collection.
+             * @param {(ch.onkeybackspace | ch.onkeytab | ch.onkeyenter | ch.onkeyesc | ch.onkeyleftarrow | ch.onkeyuparrow | ch.onkeyrightarrow | ch.onkeydownarrow)} [shortcut] Shortcut to unsubscribe.
              * @param {Function} callback A given function.
              * @returns {Object} Retuns the ch.shortcuts.
              * @example
              * // Remove a callback from ESC key with "widget" name.
              * ch.shortcuts.remove(ch.onkeyesc, 'widget', widget.hide);
              */
-            'remove': function (shortcut, name, callback) {
+            'remove': function (name, shortcut, callback) {
                 var evt,
                     evtCollection,
                     evtCollectionLenght;
 
-                if (shortcut === undefined) {
-                    throw new Error('Shortcuts - "remove(shortcut, name, callback)": "shortcut" parameter must be defined.');
-                }
-
                 if (name === undefined) {
                     throw new Error('Shortcuts - "remove(shortcut, name, callback)": "name" parameter must be defined.');
+                }
+
+                if (shortcut === undefined) {
+                    delete this._collection[name];
                 }
 
                 if (callback === undefined) {
