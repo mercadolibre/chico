@@ -20,12 +20,12 @@ describe('ch.Url', function () {
     });
 
     it('should have got an error when the value is not an url', function () {
-        url.$el.val(2);
+        url.$trigger.val(2);
         expect(url.hasError()).toBeTruthy();
     });
 
     it('shouldn\'t have got an error when the value is an url', function () {
-        url.$el.val('http://www.chico-ui.com.ar');
+        url.$trigger.val('http://www.chico-ui.com.ar');
         expect(url.hasError()).toBeFalsy();
     });
 

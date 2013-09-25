@@ -69,8 +69,9 @@ describe('It should have the following public properties:', function () {
     });
 
     it('.bubble', function () {
+        console.log(validation1.bubble);
         expect(validation1.bubble).not.toEqual(undefined);
-        expect(validation1.bubble instanceof ch.Popover).toBeTruthy();
+        expect(validation1.bubble instanceof ch.Bubble).toBeTruthy();
     });
 
     it('.conditions', function () {
@@ -92,7 +93,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['init', 'destroy', 'and', 'clear', 'hasError', 'isShown', 'position', 'validate', 'message', 'enable', 'disable'],
+    var methods = ['destroy', 'and', 'clear', 'hasError', 'isShown', 'refreshPosition', 'validate', 'message', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 
@@ -143,7 +144,7 @@ describe('Its validate() method', function () {
         });
 
         it('should add the ARIA attribute "aria-label" to the element', function () {
-            expect(validation1.$trigger.attr('aria-label')).toEqual('ch-popover-' + validation1.bubble.uid);
+            expect(validation1.$trigger.attr('aria-label')).toEqual('ch-bubble-' + validation1.bubble.uid);
         });
 
         it('should show a message', function () {

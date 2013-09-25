@@ -20,12 +20,12 @@ describe('ch.String', function () {
     });
 
     it('should have got an error when the value is not a string', function () {
-        string.$el.val(2);
+        string.$trigger.val(2);
         expect(string.hasError()).toBeTruthy();
     });
 
     it('shouldn\'t have got an error when the value is a string', function () {
-        string.$el.val('Some value');
+        string.$trigger.val('Some value');
         expect(string.hasError()).toBeFalsy();
     });
 
