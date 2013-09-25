@@ -26,6 +26,9 @@
             .on('hide', function () {
                 ch.shortcuts.off(that.uid);
                 $document.off(pointertap, hide);
+            })
+            .once('destroy', function () {
+                ch.shortcuts.remove(ch.onkeyesc, that.uid);
             });
     };
 

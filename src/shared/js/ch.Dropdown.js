@@ -121,6 +121,15 @@
          * @protected
          * @type {Selector}
          */
+        this._$navigation = this.$trigger.next().find('a').prop('role', 'option');
+
+        // Item selected by mouseover
+        $.each(this._$navigation, function (i, e) {
+            $(e).on('mouseenter.dropdown', function () {
+                that._$navigation[that._selected = i].focus();
+            });
+        });
+
         if (this._options.shortcuts && this._navigationShortcuts !== undefined) {
             this._navigationShortcuts();
         }
@@ -201,6 +210,10 @@
         this.$container.off('.dropdown');
 
         $document.trigger(ch.onchangelayout);
+
+        $.each(this._$navigation, function (i, e) {
+            $(e).off('mouseenter.dropdown');
+        });
 
         parent.destroy.call(this);
     };
