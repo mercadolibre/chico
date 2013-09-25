@@ -69,6 +69,7 @@
      */
     AutoComplete.prototype._defaults = {
         'loadingClass': 'ch-autoComplete-loading',
+        'highlightedClass': 'ch-autoComplete-highlighted',
         'side': 'bottom',
         'align': 'left',
         'keystrokesTime': 1000,
@@ -80,19 +81,14 @@
      * Initialize a new instance of AutoComplete and merge custom options with defaults options.
      * @memberof! ch.AutoComplete.prototype
      * @function
-     * @returns {autoComplete}
+     * @private
+     * @returns {autocomplete}
      */
-
     AutoComplete.prototype._init = function ($el, options) {
         var that = this,
-            ESC = ch.onkeyesc + '.' + this.name,
-            UP_ARROW = ch.onkeyuparrow + '.' + this.name,
-            DOWN_ARROW = ch.onkeydownarrow + '.' + this.name,
-            ENTER = ch.onkeyenter + '.' + this.name,
-            BACKSPACE = ch.onkeybackspace + '.' + this.name,
-            MOUSEDOWN = ch.onpointertap + '.' + this.name,
-            MOUSEDOWN = 'mousedown' + '.' + this.name,
-            MOUSEENTER = 'mouseover' + '.' + this.name;
+            POINTERDOWN = 'mousedown' + '.' + this.name,
+            MOUSEENTER = 'mouseover' + '.' + this.name,
+            highlightSuggestion;
 
         parent._init.call(this, $el, options);
 
@@ -100,11 +96,7 @@
 
         this._$suggestionsList = $('<ul class="ch-autoComplete-list"></ul>');
 
-        /**
-         * The component who shows the suggestions.
-         * @private
-         * @type {Object}
-         */
+        // The component who shows and manage the suggestions.
         this._popover = $.popover({
             'reference': this.$trigger,
             'content': this._$suggestionsList,
@@ -118,83 +110,29 @@
 
         this.$container = this._popover.$container.attr('aria-hidden', 'true');
 
-        // The number of the selected item.
+        // The number of the selected item or null when no selected item is.
         this._selected = null;
 
         // Collection of suggestions to be shown.
         this._suggestions = [];
 
-        // the user can set an array with suggestions in the configuration object
-        if (this._options.suggestions !== undefined && this._options.suggestions.length > 0) {
-            this.suggest(this._options.suggestions);
-        }
-
-        // To use then to show when the user cancel the suggestions
+        // Used to show when the user cancel the suggestions
         this._originalQuery = this._currentQuery = this._el.value;
 
-        ch.shortcuts.add(ch.onkeybackspace, this.uid, function () {
-            // hides and clear the list
-            if (that._el.value.length <= 1) {
-                that._$suggestionsList[0].innerHTML = '';
-                that._popover.hide();
-            }
+        // there is no mouseenter to highlight the item, so it happens when the user do mousedown
+        if (ch.support.touch) {
+            highlightSuggestion = POINTERDOWN;
+        } else {
+            highlightSuggestion = MOUSEENTER;
+        }
+
+        that._popover.$container.on(highlightSuggestion, function (event) {
+            that._select($(event.target));
         });
 
-        ch.shortcuts.add(ch.onkeyenter, this.uid, function (event) {
-            that._setQuery(event);
-        });
+        that._popover.$container.on(POINTERDOWN, function (event) {
 
-        ch.shortcuts.add(ch.onkeyesc, this.uid, function () {
-            that.hide();
-            that._el.value = that._originalQuery;
-        });
-
-        ch.shortcuts.add(ch.onkeyuparrow, this.uid, function () {
-            var value;
-
-            // change the selected value & stores the future HTMLInputElement value
-            if (that._selected === null) {
-                that._selected = that._suggestionsQuantity -1;
-                value = that._suggestions[that._selected];
-            } else if (that._selected <= 0) {
-                that._selected = null;
-                value = that._currentQuery;
-            } else {
-                that._selected -= 1;
-                value = that._suggestions[that._selected];
-            }
-
-            that._toogleSelection();
-
-            if (!that._options.html) {
-                that._el.value = value;
-            }
-        });
-
-        ch.shortcuts.add(ch.onkeydownarrow, this.uid, function () {
-            var value;
-
-            // change the selected value & stores the future HTMLInputElement value
-            if (that._selected === null) {
-                that._selected = 0;
-                value = that._suggestions[that._selected];
-            } else if (that._selected >= that._suggestionsQuantity - 1) {
-                that._selected = null;
-                value = that._currentQuery;
-            } else {
-                that._selected += 1;
-                value = that._suggestions[that._selected];
-            }
-
-            that._toogleSelection();
-
-            if (!that._options.html) {
-                that._el.value = value;
-            }
-        });
-
-        var mousedownHandler = function (event) {
-
+            // completes the value, it is a shortcut to avoid write the complete word
             if (event.target.nodeName === 'I' && !that._options.html) {
                 ch.util.prevent(event);
                 that._el.value = that._suggestions[that._selected];
@@ -203,51 +141,15 @@
             }
 
             if ((event.target.nodeName === 'LI' && event.target.className.indexOf('ch-autoComplete-item') !== -1) || (event.target.parentElement.nodeName === 'LI' && event.target.parentElement.className.indexOf('ch-autoComplete-item') !== -1)) {
-                that._setQuery(event);
+                that._setQuery();
             }
-        };
-
-        var mouseenterHandler = function (event) {
-            var $target = $(event.target),
-                $item;
-
-            ch.util.prevent(event);
-
-            $item = $target.attr('aria-posinset') ? $target : $target.parents('li[aria-posinset]');
-
-            if ($item[0] !== undefined) {
-                that._selected = (parseInt($item.attr('aria-posinset'), 10) - 1);
-            } else {
-                that._selected = null;
-            }
-
-            that._toogleSelection();
-
-        };
-
-        if (window.jQuery !== undefined) {
-            that._popover.$container
-                .on(MOUSEDOWN, mousedownHandler)
-                .on(MOUSEENTER, mouseenterHandler);
-        } else if (window.Zepto !== undefined) {
-            that._popover.$container
-                .on(MOUSEDOWN, function (event) {
-                    mouseenterHandler(event);
-                    mousedownHandler(event);
-                });
-        }
-
-        this._popover.on('show', function () { ch.shortcuts.on(that.uid); });
-
-        this._popover.on('hide', function () { ch.shortcuts.off(that.uid); });
+        });
 
         this.on('disable', function () {
-
             if (that.isShown()) {
                 that.hide();
                 that._el.blur();
             }
-
         });
 
         this.on('typing', function (currentQuery) {
@@ -257,7 +159,7 @@
             }
         });
 
-        // behavior binding
+        // behavior binded to the HTMLInputElement
         this.$trigger
             .attr({
                 'aria-autocomplete': 'list',
@@ -287,16 +189,21 @@
                 }
             });
 
+        if (ch.shortcuts !== undefined) {
+            this._configureShortcuts();
+        }
+
         return this;
     };
 
+
     /**
-     * It sets to the input the selected query. It emits a 'select' event.
+     * It sets to the HTMLInputElement the selected query and it emits a 'select' event.
      * @memberof! ch.AutoComplete.prototype
-     * @function
      * @private
+     * @function
      */
-    AutoComplete.prototype._setQuery = function (event) {
+    AutoComplete.prototype._setQuery = function () {
 
         window.clearTimeout(this._stopTyping);
 
@@ -304,42 +211,66 @@
             return this;
         }
 
-        ch.util.prevent(event);
-
         if (!this._options.html) {
             this._el.value = this._suggestions[this._selected];
         }
 
-        this.emit('select', event);
+        this.emit('select');
         this._el.blur();
 
         return this;
     };
 
     /**
-     * It highlight items adding the 'ch-autoComplete-selected' to the class attribute.
+     * It highlights the item adding the <code>ch-autoComplete-highlighted</code> class or the class that you configured in <code>options.highlightedClass</code>
      * @memberof! ch.AutoComplete.prototype
-     * @function
      * @private
+     * @function
+     * @returns {autocomplete}
      */
-
-    AutoComplete.prototype._toogleSelection = function () {
+    AutoComplete.prototype._toogleHighlighted = function () {
         var id = '#' + this.$container[0].id,
+            // null is when is not a selected item but,
+            // increments 1 _selected because aria-posinset starts in 1 instead 0 as the collection that stores the data
             current = (this._selected === null) ? null : (this._selected + 1);
 
-        $(id + ' [aria-posinset].ch-autoComplete-selected').removeClass('ch-autoComplete-selected');
-        $(id + ' [aria-posinset="'+ current +'"]').addClass('ch-autoComplete-selected');
+        // background the highlighted item
+        $(id + ' [aria-posinset].' + this._options.highlightedClass).removeClass(this._options.highlightedClass);
+        // highlight the selected item
+        $(id + ' [aria-posinset="'+ current +'"]').addClass(this._options.highlightedClass);
 
         return this;
-
     }
 
     /**
-     * Shows component's content.
+     * Selects the items
      * @memberof! ch.AutoComplete.prototype
-     * @function
      * @private
-     * @returns itself
+     * @function
+     * @returns {autocomplete}
+     */
+    AutoComplete.prototype._select = function ($target) {
+        var $item;
+
+        $item = $target.attr('aria-posinset') ? $target : $target.parents('li[aria-posinset]');
+
+        if ($item[0] !== undefined) {
+            this._selected = (parseInt($item.attr('aria-posinset'), 10) - 1);
+        } else {
+            this._selected = null;
+        }
+
+        this._toogleHighlighted();
+
+        return this;
+    };
+
+    /**
+     * Show the list of suggestions and emits the <code>show</code> event
+     * @memberof! ch.AutoComplete.prototype
+     * @private
+     * @function
+     * @returns {autocomplete}
      */
     AutoComplete.prototype._show = function () {
         this._popover.show();
@@ -350,9 +281,8 @@
     /**
      * Add suggestions to be shown.
      * @memberof! ch.AutoComplete.prototype
-     * @public
      * @function
-     * @returns itself
+     * @returns {autocomplete}
      */
     AutoComplete.prototype.suggest = function (suggestions) {
 
@@ -404,9 +334,8 @@
     /**
      * Hides component's content.
      * @memberof! ch.AutoComplete.prototype
-     * @public
      * @function
-     * @returns itself
+     * @returns {autocomplete}
      */
     AutoComplete.prototype.hide = function () {
         this.emit('hide');
@@ -417,7 +346,6 @@
     /**
      * Hides component's content.
      * @memberof! ch.AutoComplete.prototype
-     * @public
      * @function
      * @returns {Boolean}
      */
@@ -427,7 +355,6 @@
 
     /**
      * Destroys an AutoComplete instance.
-     * @public
      * @function
      */
     AutoComplete.prototype.destroy = function () {
@@ -444,6 +371,8 @@
             .removeAttr('aria-owns');
 
         parent.destroy.call(this);
+
+        return ;
     };
 
     ch.factory(AutoComplete);
