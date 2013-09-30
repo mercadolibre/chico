@@ -38,6 +38,7 @@ JS.widgets = [
     "src/shared/js/ch.Form.js",
     "src/shared/js/ch.Condition.js",
     "src/shared/js/ch.Validation.js",
+    "src/ui/js/ch.Validation.js",
     "src/shared/js/ch.String.js",
     "src/shared/js/ch.MaxLength.js",
     "src/shared/js/ch.MinLength.js",
