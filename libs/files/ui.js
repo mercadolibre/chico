@@ -66,7 +66,7 @@ JS.widgets = [
     "src/shared/js/ch.Countdown.js",
     "src/ui/js/ch.DatePicker.js",
     "src/shared/js/ch.AutoComplete.js",
-    "src/ui/js/ch.autoComplete.shortcuts.js"
+    "src/ui/js/ch.AutoComplete.js"
 ];
 
 
