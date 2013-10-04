@@ -4,10 +4,6 @@
     border-top: none;
 }
 
-.ch-autoComplete .ch-autoComplete-cone {
-    display: none !important;
-}
-
 .ch-autoComplete-list li,
 .ch-autoComplete-highlighted {
     margin: 0;
