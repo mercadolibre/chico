@@ -1,6 +1,5 @@
 (function (window, AutoComplete, ch) {
     'use strict';
-console.log('lalalla');
     /**
      * Congfigure shortcuts to navigate and set values, or cancel the typed text
      * @memberof! ch.AutoComplete.prototype

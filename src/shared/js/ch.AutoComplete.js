@@ -189,7 +189,7 @@
                 }
             });
 
-        if (ch.shortcuts !== undefined) {
+        if (this._configureShortcuts !== undefined) {
             this._configureShortcuts();
         }
 
