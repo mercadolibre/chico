@@ -28,10 +28,10 @@
      * @returns {validation} Returns a new instance of Validation.
      * @example
      * // Create a new Validation.
-     * var expandable = new ch.Validation($el, [options]);
+     * var validation = new ch.Validation($el, [options]);
      * @example
      * // Create a new Validation with jQuery or Zepto.
-     * var expandable = $(selector).validation([options]);
+     * var validation = $(selector).validation([options]);
      * @example
      * // Create a validation with two conditions: required and custom.
      * var validation = $(selector).validation({
@@ -156,6 +156,12 @@
         this.$trigger = this._$el;
 
         /**
+         * The validation container.
+         * @type {(jQuerySelector | ZeptoSelector)}
+         */
+        this._configureContainer();
+
+        /**
          * The collection of conditions.
          * @type {Object}
          */
@@ -189,44 +195,6 @@
          * @type {(jQuerySelector | ZeptoSelector)}
          */
         this.form = that.$trigger.parents('form').form().validations.push(this);
-
-        /**
-         * Is the little sign that popover showing the validation message. It's a Popover widget, so you can change it's content, width or height and change its visibility state.
-         * @type {Bubble}
-         * @see ch.Bubble
-         */
-        this.bubble = $.bubble({
-            'reference': (function () {
-                var reference,
-                    $trigger = that.$trigger,
-                    h4;
-                // CHECKBOX, RADIO
-                // TODO: when old forms be deprecated we must only support ch-list-options class
-                if ($trigger.hasClass('ch-list-options')) {
-                // Helper reference from will be fired
-                // H4
-                    if ($trigger.find('h4').length > 0) {
-                        h4 = $trigger.find('h4'); // Find h4
-                        h4.wrapInner('<span>'); // Wrap content with inline element
-                        reference = h4.children(); // Inline element in h4 like helper reference
-                    // Legend
-                    } else if ($trigger.prev().prop('tagName') === 'LEGEND') {
-                        reference = $trigger.prev(); // Legend like helper reference
-                    } else {
-                        reference = $($trigger.find('label')[0]);
-                    }
-                // INPUT, SELECT, TEXTAREA
-                } else {
-                    reference = $trigger;
-                }
-
-                return reference;
-            }()),
-            'align': that._options.align,
-            'side': that._options.side,
-            'offsetY': that._options.offsetY,
-            'offsetX': that._options.offsetX
-        });
 
         /**
          * Set a validation event to add listeners.
@@ -308,13 +276,11 @@
                     that.$trigger.addClass('ch-validation-error');
                 }
 
-                that.bubble.show(that.error.message || 'Error');
+                that._showErrorMessage(that.error.message || 'Error');
             }
 
             if (that.error.condition !== that._previousError.condition) {
-                that.bubble.content((that.error.message || that.form._messages[that.error.condition] || 'Error'));
-                // the aria-label attr should get the message element id, but is not public
-                that.$trigger.attr('aria-label', 'ch-' + that.bubble.name + '-' + that.bubble.uid);
+                that._showErrorMessage(that.error.message || that.form._messages[that.error.condition] || 'Error');
             }
 
             that._shown = true;
@@ -354,7 +320,7 @@
             .removeClass('ch-validation-error')
             .removeAttr('aria-label');
 
-        this.bubble.hide(); // uncoment when bubble were done
+        this._hideErrorMessage();
 
         /**
          * It emits an event when a validation hasn't got an error.
@@ -444,7 +410,7 @@
 
         this.error = null;
 
-        this.bubble.hide();
+        this._hideErrorMessage();
 
         this._shown = false;
 
@@ -491,30 +457,6 @@
     };
 
     /**
-     * Sets or gets positioning configuration. Use it without arguments to get actual configuration. Pass an argument to define a new positioning configuration.
-     * @memberof! ch.Validation.prototype
-     * @function
-     * @returns {validation}
-     * @example
-     * // Change validaton bubble's position.
-     * validation.refreshPosition({
-     *     offsetY: -10,
-     *     side: 'top',
-     *     align: 'left'
-     * });
-     */
-    Validation.prototype.refreshPosition = function (options) {
-
-        if (options === undefined) {
-            return this.bubble._position;
-        }
-
-        this.bubble.refreshPosition(options);
-
-        return this;
-    };
-
-    /**
      * Sets or gets messages to specifics conditions.
      * @memberof! ch.Validation.prototype
      * @function
@@ -541,7 +483,7 @@
         this.conditions[condition].message = message;
 
         if (this.isShown() && this.error.condition === condition) {
-            this.bubble.content(message);
+            this._showErrorMessage(message);
         }
 
         return this;
@@ -594,8 +536,6 @@
             .off('.validation')
             .removeAttr('data-side')
             .removeAttr('data-align');
-
-        this.bubble.destroy();
 
         parent.destroy.call(this);
 

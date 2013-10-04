@@ -200,7 +200,7 @@
         if (that.errors.length > 0) {
             firstError = that.errors[0];
 
-            firstError.bubble.$container[0].scrollIntoView();
+            firstError.$trigger[0].scrollIntoView();
 
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error

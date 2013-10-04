@@ -20,12 +20,12 @@ describe('ch.Max', function () {
     });
 
     it('should have got an error when the value is a number smaller than "max" number', function () {
-        max.$el.val(22);
+        max.$trigger.val(22);
         expect(max.hasError()).toBeTruthy();
     });
 
     it('shouldn\'t have got an error an error when the value is a number higher than "max" number', function () {
-        max.$el.val(6);
+        max.$trigger.val(6);
         expect(max.hasError()).toBeFalsy();
     });
 

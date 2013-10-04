@@ -20,12 +20,12 @@ describe('ch.Min', function () {
     });
 
     it('should return an error when the value is a number smaller than "min" number', function () {
-        min.$el.val(6);
+        min.$trigger.val(6);
         expect(min.hasError()).toBeTruthy();
     });
 
     it('shouldn\'t have got an error when the value is a number higher than "min" number', function () {
-        min.$el.val(22);
+        min.$trigger.val(22);
         expect(min.hasError()).toBeFalsy();
     });
 

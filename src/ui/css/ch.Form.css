@@ -20,14 +20,14 @@ select[multiple],
 }
 
 /* Inner Icons */
-.ch-form-ico-inner {
+.ch-form-icon-inner {
     position: relative;
     left: -30px;
     top: -1px;
 }
 
 /* BigForm Inner Icons */
-.ch-form-big .ch-form-ico-inner {
+.ch-form-big .ch-form-icon-inner {
     left: -33px;
     top: -2px;
 }
@@ -61,7 +61,7 @@ select[multiple],
 }
 
 /* Help bottom line that helps the user */
-.ch-form-row .ch-form-hint {
+.ch-form-hint {
     margin-left: 145px;
 }
 
