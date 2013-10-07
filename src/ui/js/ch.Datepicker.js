@@ -11,7 +11,7 @@
      * @constructor
      * @augments ch.Widget
      * @requires ch.Calendar
-     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.DatePicker.
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Datepicker.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. Default: "DD/MM/YYYY".
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: "today".
@@ -26,13 +26,13 @@
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
-     * @returns {datePicker} Returns a new instance of DatePicker.
+     * @returns {datepicker} Returns a new instance of Datepicker.
      * @example
-     * // Create a new DatePicker without options.
-     * var datepicker = $(selector).datePicker();
+     * // Create a new Datepicker without options.
+     * var datepicker = $(selector).datepicker();
      * @example
-     * // Create a new DatePicker with some options.
-     * var datepicker = $(selector).datePicker({
+     * // Create a new Datepicker with some options.
+     * var datepicker = $(selector).datepicker({
      *     "format": "MM/DD/YYYY",
      *     "selected": "2011/12/25",
      *     "from": "2010/12/25",
@@ -41,7 +41,7 @@
      *     "weekdays": ["Su", "Mo", "Tu", "We", "Thu", "Fr", "Sa"]
      * });
      */
-    function DatePicker($el, options) {
+    function Datepicker($el, options) {
 
         /**
          * Reference to context of an instance.
@@ -54,10 +54,10 @@
 
         /**
          * Event emitted when the widget is ready to use.
-         * @event ch.DatePicker#ready
+         * @event ch.Datepicker#ready
          * @example
          * // Subscribe to "ready" event.
-         * datePicker.on('ready', function () {
+         * datepicker.on('ready', function () {
          *     // Some code here!
          * });
          */
@@ -65,13 +65,13 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(DatePicker, ch.Widget),
+    var parent = ch.util.inherits(Datepicker, ch.Widget),
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
 
     function createMethods(method) {
-        DatePicker.prototype[method] = function () {
+        Datepicker.prototype[method] = function () {
 
             this._popover[method]();
 
@@ -85,21 +85,21 @@
      * The name of the widget.
      * @type {String}
      */
-    DatePicker.prototype.name = 'datePicker';
+    Datepicker.prototype.name = 'datepicker';
 
     /**
      * Returns a reference to the constructor function.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      */
-    DatePicker.prototype.constructor = DatePicker;
+    Datepicker.prototype.constructor = Datepicker;
 
     /**
      * Configuration by default.
      * @type {Object}
      * @private
      */
-    DatePicker.prototype._defaults = {
+    Datepicker.prototype._defaults = {
         'format': 'DD/MM/YYYY',
         'side': 'bottom',
         'align': 'center',
@@ -107,13 +107,13 @@
     };
 
     /**
-     * Initialize a new instance of DatePicker and merge custom options with defaults options.
-     * @memberof! ch.DatePicker.prototype
+     * Initialize a new instance of Datepicker and merge custom options with defaults options.
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @private
      * @returns {datepicker}
      */
-    DatePicker.prototype._init = function ($el, options) {
+    Datepicker.prototype._init = function ($el, options) {
         // Call to its parent init method
         parent._init.call(this, $el, options);
 
@@ -134,7 +134,7 @@
          * The datepicker trigger.
          * @type {(jQuerySelector | ZeptoSelector)}
          */
-        this.$trigger = $('<i role="button" class="ch-datePicker-trigger ch-icon-calendar"></i>').insertAfter(this.field);
+        this.$trigger = $('<i role="button" class="ch-datepicker-trigger ch-icon-calendar"></i>').insertAfter(this.field);
 
         /**
          * Reference to the Calendar component instanced.
@@ -149,7 +149,7 @@
          * @private
          */
         this._popover = this.$trigger.popover({
-            '_className': 'ch-datePicker ch-cone',
+            '_className': 'ch-datepicker ch-cone',
             '_ariaRole': 'tooltip',
             'content': this._calendar.$container,
             'side': this._options.side,
@@ -186,14 +186,14 @@
 
     /**
      * Shows the datepicker.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker}
      * @example
      * // Shows a datepicker.
      * datepicker.show();
      */
-    DatePicker.prototype.show = function () {
+    Datepicker.prototype.show = function () {
 
         if (!this._enabled) {
             return this;
@@ -203,7 +203,7 @@
 
         /**
          * Event emitted when a datepicker is shown.
-         * @event ch.DatePicker#show
+         * @event ch.Datepicker#show
          * @example
          * // Subscribe to "show" event.
          * datepicker.on('show', function () {
@@ -217,19 +217,19 @@
 
     /**
      * Hides the datepicker.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker}
      * @example
      * // Shows a datepicker.
      * datepicker.hide();
      */
-    DatePicker.prototype.hide = function () {
+    Datepicker.prototype.hide = function () {
         this._popover.hide();
 
         /**
          * Event emitted when a datepicker is hidden.
-         * @event ch.DatePicker#hide
+         * @event ch.Datepicker#hide
          * @example
          * // Subscribe to "hide" event.
          * datepicker.on('hide', function () {
@@ -243,7 +243,7 @@
 
     /**
      * Selects a specific day into current month and year.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @private
      * @param {(String | Number)} day A given day to select.
@@ -252,7 +252,7 @@
      * // Select a specific day.
      * datepicker.pick(28);
      */
-    DatePicker.prototype.pick = function (day) {
+    Datepicker.prototype.pick = function (day) {
 
         // Select the day and update input value with selected date
         this.field.value = [this._calendar._dates.current.year, this._calendar._dates.current.month, day].join('/');
@@ -268,7 +268,7 @@
 
     /**
      * Selects a specific date or returns the selected date.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @param {String} [date] A given date to select. The format of the given date should be "YYYY/MM/DD".
      * @return {(datepicker | String)}
@@ -279,7 +279,7 @@
      * // Select a specific date.
      * datepicker.select('2014/05/28');
      */
-    DatePicker.prototype.select = function (date) {
+    Datepicker.prototype.select = function (date) {
 
        // Setter
        // Select the day and update input value with selected date
@@ -289,7 +289,7 @@
 
             /**
              * Event emitted when a date is selected.
-             * @event ch.DatePicker#select
+             * @event ch.Datepicker#select
              * @example
              * // Subscribe to "select" event.
              * datepicker.on('select', function () {
@@ -307,32 +307,32 @@
 
     /**
      * Returns date of today
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {String} The date of today
      * @example
      * // Get the date of today.
      * var today = datepicker.getToday();
      */
-    DatePicker.prototype.getToday = function () {
+    Datepicker.prototype.getToday = function () {
         return this._calendar.getToday();
     };
 
     /**
      * Moves to the next month.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker}
      * @example
      * // Moves to the next month.
      * datepicker.nextMonth();
      */
-    DatePicker.prototype.nextMonth = function () {
+    Datepicker.prototype.nextMonth = function () {
         this._calendar.nextMonth();
 
         /**
          * Event emitted when a next month is shown.
-         * @event ch.DatePicker#nextmonth
+         * @event ch.Datepicker#nextmonth
          * @example
          * // Subscribe to "nextmonth" event.
          * datepicker.on('nextmonth', function () {
@@ -346,20 +346,20 @@
 
     /**
      * Move to the previous month.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker}
      * @example
      * // Moves to the prev month.
      * datepicker.prevMonth();
      */
-    DatePicker.prototype.prevMonth = function () {
+    Datepicker.prototype.prevMonth = function () {
 
         this._calendar.prevMonth();
 
         /**
          * Event emitted when a previous month is shown.
-         * @event ch.DatePicker#prevmonth
+         * @event ch.Datepicker#prevmonth
          * @example
          * // Subscribe to "prevmonth" event.
          * datepicker.on('prevmonth', function () {
@@ -373,20 +373,20 @@
 
     /**
      * Move to the next year.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker}
      * @example
      * // Moves to the next year.
      * datepicker.nextYear();
      */
-    DatePicker.prototype.nextYear = function () {
+    Datepicker.prototype.nextYear = function () {
 
         this._calendar.nextYear();
 
         /**
          * Event emitted when a next year is shown.
-         * @event ch.DatePicker#nextyear
+         * @event ch.Datepicker#nextyear
          * @example
          * // Subscribe to "nextyear" event.
          * datepicker.on('nextyear', function () {
@@ -400,20 +400,20 @@
 
     /**
      * Move to the previous year.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker}
      * @example
      * // Moves to the prev year.
      * datepicker.prevYear();
      */
-    DatePicker.prototype.prevYear = function () {
+    Datepicker.prototype.prevYear = function () {
 
         this._calendar.prevYear();
 
         /**
          * Event emitted when a previous year is shown.
-         * @event ch.DatePicker#prevyear
+         * @event ch.Datepicker#prevyear
          * @example
          * // Subscribe to "prevyear" event.
          * datepicker.on('prevyear', function () {
@@ -426,15 +426,15 @@
     };
 
     /**
-     * Reset the DatePicker to date of today
-     * @memberof! ch.DatePicker.prototype
+     * Reset the Datepicker to date of today
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker}
      * @example
      * // Resset the datepicker
      * datepicker.reset();
      */
-    DatePicker.prototype.reset = function () {
+    Datepicker.prototype.reset = function () {
 
         // Delete input value
         this.field.value = '';
@@ -442,7 +442,7 @@
 
         /**
          * Event emitter when the datepicker is reseted.
-         * @event ch.DatePicker#reset
+         * @event ch.Datepicker#reset
          * @example
          * // Subscribe to "reset" event.
          * datepicker.on('reset', function () {
@@ -456,7 +456,7 @@
 
     /**
      * Set a minimum selectable date.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @param {String} date A given date to set as minimum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @returns {datepicker}
@@ -464,7 +464,7 @@
      * // Set a minimum selectable date.
      * datepicker.setFrom('2010/05/28');
      */
-    DatePicker.prototype.setFrom = function (date) {
+    Datepicker.prototype.setFrom = function (date) {
         this._calendar.setFrom(date);
 
         return this;
@@ -472,7 +472,7 @@
 
     /**
      * Set a maximum selectable date.
-     * @memberof! ch.DatePicker.prototype
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @param {String} date A given date to set as maximum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @returns {datepicker}
@@ -480,29 +480,29 @@
      * // Set a maximum selectable date.
      * datepicker.setTo('2014/05/28');
      */
-    DatePicker.prototype.setTo = function (date) {
+    Datepicker.prototype.setTo = function (date) {
         this._calendar.setTo(date);
 
         return this;
     };
 
     /**
-     * Enables an instance of DatePicker.
-     * @memberof! ch.DatePicker.prototype
+     * Enables an instance of Datepicker.
+     * @memberof! ch.Datepicker.prototype
      * @function
-     * @returns {datepicker} Returns an instance of DatePicker.
+     * @returns {datepicker} Returns an instance of Datepicker.
      * @expample
-     * // Enabling an instance of DatePicker.
+     * // Enabling an instance of Datepicker.
      * datepicker.enable();
      */
 
     /**
-     * Disables an instance of DatePicker.
-     * @memberof! ch.DatePicker.prototype
+     * Disables an instance of Datepicker.
+     * @memberof! ch.Datepicker.prototype
      * @function
-     * @returns {datepicker} Returns an instance of DatePicker.
+     * @returns {datepicker} Returns an instance of Datepicker.
      * @expample
-     * // Disabling an instance of DatePicker.
+     * // Disabling an instance of Datepicker.
      * datepicker.disable();
      */
     while (len) {
@@ -510,14 +510,14 @@
     }
 
     /**
-     * Destroys a DatePicker instance.
-     * @memberof! ch.DatePicker.prototype
+     * Destroys a Datepicker instance.
+     * @memberof! ch.Datepicker.prototype
      * @function
      * @expample
-     * // Destroying an instance of DatePicker.
+     * // Destroying an instance of Datepicker.
      * datepicker.destroy();
      */
-    DatePicker.prototype.destroy = function () {
+    Datepicker.prototype.destroy = function () {
 
         this._popover.destroy();
 
@@ -530,6 +530,6 @@
     };
 
     // Factorize
-    ch.factory(DatePicker);
+    ch.factory(Datepicker);
 
 }(this, this.ch.$, this.ch));
