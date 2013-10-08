@@ -48,6 +48,7 @@ JS.widgets = [
     "src/shared/js/ch.Form.js",
     "src/shared/js/ch.Condition.js",
     "src/shared/js/ch.Validation.js",
+    "src/mobile/js/ch.Validation.js",
     "src/shared/js/ch.String.js",
     "src/shared/js/ch.MaxLength.js",
     "src/shared/js/ch.MinLength.js",
@@ -114,6 +115,7 @@ CSS.widgets = [
     "src/shared/css/ch.Modal.css",
     "src/shared/css/ch.Transition.css",
     "src/shared/css/ch.Carousel.css",
+    "src/shared/css/ch.AutoComplete.css",
     "src/mobile/css/ch.AutoComplete.css",
     "src/shared/css/ch.Dropdown.css",
     "src/shared/css/ch.Calendar.css"

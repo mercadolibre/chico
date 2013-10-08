@@ -2,18 +2,18 @@
  * Bubble
  */
 .ch-bubble {
-	font-size: .929em;
-	padding: 2px 5px 2px 25px;
+    font-size: .929em;
+    padding: 2px 5px 2px 25px;
 }
 
 /* Error icon */
 .ch-bubble .ch-icon-remove-sign {
-	top: -1px;
-	left: 0px;
+    top: -1px;
+    left: 0px;
 }
 
 .ch-bubble a:visited {
-	color: #0637B3;
+    color: #0637B3;
 }
 
 /**

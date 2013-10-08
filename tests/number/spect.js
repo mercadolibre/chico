@@ -20,12 +20,12 @@ describe('ch.Number', function () {
     });
 
     it('should return an error when the value is not a number', function () {
-        number.$el.val('Some text!');
+        number.$trigger.val('Some text!');
         expect(number.hasError()).toBeTruthy();
     });
 
     it('shouldn\'t have got an error when the value is a number', function () {
-        number.$el.val(2);
+        number.$trigger.val(2);
         expect(number.hasError()).toBeFalsy();
     });
 

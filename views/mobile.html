@@ -225,12 +225,12 @@
                     <p>Do you need any help?</p>
                 </div>
 
-                <div class="ch-box-information">
+                <div class="ch-box-info">
                     <h2>Box Info</h2>
                     <p>Here's more information</p>
                 </div>
 
-                <div class="ch-box-warning">
+                <div class="ch-box-warn">
                     <h2>Box Warning</h2>
                     <p>Warning! something might be wrong</p>
                 </div>
@@ -254,8 +254,8 @@
                 </div>
                 <div class="ch-box-icon ch-box-error"><i class="ch-icon-remove-sign"></i>Oops, something wrong happened</div>
                 <div class="ch-box-icon ch-box-help"><i class="ch-icon-help-sign"></i>Do you need any help?</div>
-                <div class="ch-box-icon ch-box-information"><i class="ch-icon-info-sign"></i> Here's more information</div>
-                <div class="ch-box-icon ch-box-warning"><i class="ch-icon-warning-sign"></i> Warning! something might be wrong</div>
+                <div class="ch-box-icon ch-box-info"><i class="ch-icon-info-sign"></i> Here's more information</div>
+                <div class="ch-box-icon ch-box-warn"><i class="ch-icon-warning-sign"></i> Warning! something might be wrong</div>
                 <div class="ch-box-icon ch-box-ok"><i class="ch-icon-ok-sign"></i> Everything is great!</div>
             </div>
 
@@ -263,18 +263,18 @@
                 <h2 id="lists">Lists</h2>
                 <h3>Unstyled</h3>
                 <ul>
-                    <li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
-                    <li><a href="#" data-categ-id="1459">Inmuebles</a></li>
-                    <li><a href="#" data-categ-id="1540">Servicios</a></li>
+                    <li><a href="#">Autos, Motos y Otros</a></li>
+                    <li><a href="#">Inmuebles</a></li>
+                    <li><a href="#">Servicios</a></li>
                     <li>Computación</li>
                     <li>Hogar</li>
                 </ul>
 
                 <h3>Unordered</h3>
                 <ul class="ch-list">
-                    <li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
-                    <li><a href="#" data-categ-id="1459">Inmuebles</a></li>
-                    <li><a href="#" data-categ-id="1540">Servicios</a></li>
+                    <li><a href="#">Autos, Motos y Otros</a></li>
+                    <li><a href="#">Inmuebles</a></li>
+                    <li><a href="#">Servicios</a></li>
                     <li>Computación</li>
                     <li>Hogar</li>
                 </ul>
@@ -388,13 +388,12 @@
 
             <div class="widgets">
                 <h2 id="expandable">Expandable</h2>
-                <h3 class="categories">Expandable</h3>
                 <ul class="ch-list-options">
                     <li><a href="#" data-categ-id="1743">Autos, Motos y Otros</a></li>
                     <li><a href="#" data-categ-id="1459">Inmuebles</a></li>
                     <li><a href="#" data-categ-id="1540">Servicios</a></li>
                 </ul>
-                <br>
+
                 <h3 class="categories">Expandable</h3>
                 <div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus.</p>
@@ -612,8 +611,8 @@
                                 <label for="input_ico_inside">
                                     Icon inside:
                                 </label>
-                                <input class="ch-form-ico-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
-                                <i class="ch-form-ico-inner ch-icon-question-sign"></i>
+                                <input class="ch-form-icon-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
+                                <i class="ch-form-icon-inner ch-icon-question-sign"></i>
                             </div>
                             <p class="ch-form-row">
                                 <label for="input_button">
@@ -950,8 +949,7 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet purus in sapien luctus sodales. Curabitur dui velit, cursus in sagittis aliquam, dictum at neque. Ut gravida scelerisque lorem non pulvinar. Pellentesque et urna vitae nisl porta imperdiet sed nec ipsum. Sed non sem velit. Cras id consectetur tellus. Vestibulum posuere purus non enim pharetra vel vulputate eros hendrerit. Ut pulvinar placerat risus quis interdum. Mauris eget tempus risus. Aenean accumsan dolor in lorem elementum ac tincidunt urna rutrum. Sed sit amet nunc velit, vitae tincidunt ipsum. Fusce mattis elementum justo, et lacinia odio pharetra a. Donec egestas imperdiet eros a interdum. Suspendisse sodales, ligula vitae pulvinar aliquam, elit justo pretium urna, ut hendrerit arcu dolor vitae ipsum.</p>
     </div>
 
-    <script src="/vendor/zepto.js"></script>
-    <script src="/vendor/zepto.data.js"></script>
+    <script src="/vendor/zepto-data-fx_methods.js"></script>
     <script src="/mobile/js"></script>
     <script>
 
@@ -1204,24 +1202,25 @@
         var validation1 = $('#input_ico').required().and().string();
         var validation2 = $('#input_ico_inside').required().and().string();
         var validation4 = $('#email').required().and().email();
-        var validation5 = $('#custom').required().and().custom(function (v) {
-
-            var value1 = v.toString().indexOf("1") > -1;
-            var value2 = v.toString().indexOf("2") > -1;
-
-            if (value1 && value2) { return true; }
-
-            if (!value1) {
-                this.message('custom', message('The number needs a {#num#}.', 1));
-                return false;
-            }
-
-            if (!value2) {
-                this.message('custom', message('The number must contain a {#num#}.', 2));
-                return false;
-            }
-
-        });
+        var validation5 = $('#custom').required().and()
+            .custom('myCustom1',
+                 function (v) {
+                     if (v.toString().indexOf("1") > -1) {
+                         return true;
+                     }
+                     return false;
+                 },
+                 'The number must contain a 1.')
+             .and()
+             .custom(
+                 'myCustom2',
+                 function (v) {
+                     if (v.toString().indexOf("2") > -1) {
+                         return true;
+                     }
+                     return false;
+                 },
+                 'The number must contain a 2.');
         var validation6 = $('#url').url();
         var validation7 = $('#number').number().and().min(5);
         var validation8 = $('#range').min(8).and().max(10);

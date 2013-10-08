@@ -20,12 +20,12 @@ describe('ch.Custom', function () {
     });
 
     it('should return an error when the value is diferent to "jasmine"', function () {
-        custom.$el.val('Test');
+        custom.$trigger.val('Test');
         expect(custom.hasError()).toBeTruthy();
     });
 
     it('should remove the error when the value is "jasmine"', function () {
-        custom.$el.val('jasmine');
+        custom.$trigger.val('jasmine');
         expect(custom.hasError()).toBeFalsy();
     });
 

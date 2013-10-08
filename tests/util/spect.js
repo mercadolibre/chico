@@ -248,61 +248,6 @@ describe('Util', function () {
 
     });
 
-    describe('.use() method', function () {
-
-        var Foo,
-            Bar,
-            Foobar;
-
-        beforeEach(function () {
-
-            Bar = function () {
-                this.bar = function () {};
-            };
-
-            Foobar = function () {
-                this.foobar = "foobar";
-            };
-
-            Foo = function () {};
-        });
-
-        it('Should be defined and it should be a function', function () {
-            expect(util.use).toBeDefined();
-            expect(typeof util.use).toEqual('function');
-        });
-
-        it('The method must receive two parameters', function () {
-
-            expect(function () {
-                util.use();
-            }).toThrow();
-
-            expect(function () {
-                util.use({});
-            }).toThrow();
-
-            expect(function () {
-                util.use(Foo, Bar);
-            }).not.toThrow();
-
-            expect(function () {
-                util.use(Foo, [Bar]);
-            }).not.toThrow();
-
-        });
-
-        it('The first parameter must have the properties of the collection parameter into prototype', function () {
-            expect(Foo.prototype.bar).not.toBeDefined();
-            expect(Foo.prototype.foobar).not.toBeDefined();
-
-            util.use(Foo, [Bar, Foobar]);
-            expect(Foo.prototype.bar).toBeDefined();
-            expect(Foo.prototype.foobar).toBeDefined();
-        });
-
-    });
-
     describe('.VENDOR_PREFIX property', function () {
 
         it('Should be defined and it should be a string', function () {

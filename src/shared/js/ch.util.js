@@ -135,25 +135,28 @@
          * ch.util.avoidTextSelection($(selector));
          */
         'avoidTextSelection': function () {
-            var args = arguments;
+            var args = arguments,
+                len = arguments.length,
+                i = 0;
 
             if (arguments.length < 1) {
                 throw new Error('"ch.util.avoidTextSelection(selector);": The selector parameter is required.');
             }
 
-            $.each(args, function (i, $arg) {
+            for (i; i < len; i += 1) {
 
-                if (!($arg instanceof $ || $.zepto.isZ($arg))) {
+                if (!(args[i] instanceof $ || $.zepto.isZ(args[i]))) {
                     throw new Error('"ch.util.avoidTextSelection(selector);": The parameter must be a jQuery or Zepto selector.');
                 }
 
                 if ($html.hasClass('lt-ie10')) {
-                    $arg.attr('unselectable', 'on');
+                    args[i].attr('unselectable', 'on');
+
                 } else {
-                    $arg.addClass('ch-user-no-select');
+                    args[i].addClass('ch-user-no-select');
                 }
 
-            });
+            }
         },
 
         /**

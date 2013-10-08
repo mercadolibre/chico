@@ -1,0 +1,66 @@
+/**
+ * Date Picker
+ */
+.ch-datepicker {
+    background-image: none;
+    position: absolute;
+    z-index: 300;
+    background-color: #fff;
+    border: 1px solid #EDEDED;
+    min-width: 240px;
+}
+
+.ch-datepicker-trigger {
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.ch-datepicker .ch-calendar {
+    display: block;
+}
+
+.ch-datepicker .ch-calendar caption {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.ch-datepicker .ch-calendar caption,
+.ch-datepicker .ch-calendar thead {
+    border: none;
+}
+
+.ch-datepicker .ch-calendar caption {
+    border-bottom: 1px solid #EDEDED;
+    margin: 0;
+}
+
+.ch-datepicker .ch-calendar tbody td:first-child {
+    border-left: none;
+}
+
+.ch-datepicker .ch-calendar-prev span,
+.ch-datepicker .ch-calendar-next span {
+    margin-top: 10px;
+}
+
+.ch-datepicker .ch-calendar-day:hover {
+    background-color: #F7F7F7;
+    color: #333;
+    font-weight: normal;
+    cursor:pointer;
+}
+
+.ch-datepicker .ch-calendar-day.ch-calendar-disabled:hover {
+    background-color: white;
+    color: #C6C6C6;
+    cursor: not-allowed;
+}
+
+.ie9 .ch-datepicker-trigger {
+    line-height: 1.2em;
+}
+
+.lt-ie9 .ch-datepicker-cone:before {
+    width: auto;
+    height: auto;
+}
