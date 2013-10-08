@@ -1,14 +1,11 @@
-(function (window, ch) {
+(function (ch) {
     'use strict';
-
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
 
     /**
      * Event Emitter Class for the browser.
      * @memberof ch
      * @constructor
+     * @returns {Object} Returns a new instance of EventEmitter.
      */
     function EventEmitter() {}
 
@@ -20,12 +17,8 @@
      * @param {Function} listener Listener function.
      * @param {Boolean} once Listener function will be called only one time.
      * @example
-     * // Will add a event listener to the 'ready' event
-     * var startDoingStuff = function (event, param1, param2, ...) {
-     *     // Some code here!
-     * };
-     *
-     * me.on('ready', startDoingStuff);
+     * // Will add an event listener to 'ready' event.
+     * widget.on('ready', listener);
      */
     EventEmitter.prototype.on = function (event, listener, once) {
 
@@ -58,8 +51,8 @@
      * @param {Function} listener Listener function.
      * @returns {Object}
      * @example
-     * // Will add a event handler to the 'contentLoad' event once
-     * me.once('contentLoad', startDoingStuff);
+     * // Will add an event handler to 'contentLoad' event once.
+     * widget.once('contentLoad', listener);
      */
     EventEmitter.prototype.once = function (event, listener) {
 
@@ -76,13 +69,8 @@
      * @param {Function} listener Listener function.
      * @returns {Object}
      * @example
-     * // Will remove event handler to the 'ready' event
-     *
-     * var startDoingStuff = function () {
-     *     // Some code here!
-     * };
-     *
-     * me.off('ready', startDoingStuff);
+     * // Will remove event listener to 'ready' event.
+     * widget.off('ready', listener);
      */
     EventEmitter.prototype.off = function (event, listener) {
 
@@ -118,7 +106,8 @@
      * @param {String} event The event name.
      * @returns {Array}
      * @example
-     * me.getListeners('ready');
+     * // Returns listeners from 'ready' event.
+     * widget.getListeners('ready');
      */
     EventEmitter.prototype.getListeners = function (event) {
         if (event === undefined) {
@@ -136,7 +125,7 @@
      * @param {...Object} var_args Data to pass to the listeners.
      * @example
      * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
-     * me.emit('ready', 'param1', 'param2');
+     * widget.emit('ready', 'param1', 'param2');
      */
     EventEmitter.prototype.emit = function () {
 
@@ -179,4 +168,4 @@
     // Expose EventEmitter
     ch.EventEmitter = EventEmitter;
 
-}(this, this.ch));
+}(this.ch));

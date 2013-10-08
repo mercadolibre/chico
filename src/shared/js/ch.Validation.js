@@ -1,9 +1,5 @@
-(function (window, $, ch) {
+(function (window, ch) {
     'use strict';
-
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
 
     /**
      * Validation is an engine for HTML forms elements.
@@ -255,7 +251,7 @@
         // It must happen only once.
         this.$trigger.on(this._validationEvent + '.validation', function () {
 
-            if (that.conditions['required'] !== undefined) {
+            if (that.conditions.required !== undefined) {
 
                 if (previousValue !== this.value || that._validationEvent === 'change') {
                     previousValue = this.value;
@@ -545,4 +541,4 @@
     // Factorize
     ch.factory(Validation);
 
-}(this, this.ch.$, this.ch));
+}(this, this.ch));

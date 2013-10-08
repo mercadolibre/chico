@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     var util = ch.util,
         uid = 0;
 
@@ -111,18 +107,17 @@
      */
     Widget.prototype.require = function () {
 
-        /**
-         * Reference to context of an instance.
-         * @type {Object}
-         * @private
-         */
-        var that = this;
+        var arg,
+            i = 0,
+            len = arguments.length;
 
-        $.each(arguments, function (i, arg) {
-            if (that[arg.toLowerCase()] === undefined) {
-                ch[arg].call(that);
+        for (i; i < len; i += 1) {
+            arg = arguments[i];
+
+            if (this[arg.toLowerCase()] === undefined) {
+                ch[arg].call(this);
             }
-        });
+        }
 
         return this;
     };

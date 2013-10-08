@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     function normalizeOptions(options) {
         var num = window.parseInt(options, 10);
 
@@ -29,7 +25,10 @@
      * @param {String} [options.singular] Message of remaining amount of characters, when it's only 1. The variable that represents the number to be replaced, should be a hash. Default: "# character left.".
      * @returns {countdown} Returns a new instance of Countdown.
      * @example
-     * // Create a new Countdown with defaults options.
+     * // Create a new Countdown.
+     * var countdown = new ch.Countdown($el, [options]);
+     * @example
+     * // Create a new Countdown with jQuery or Zepto.
      * var countdown = $(selector).countdown();
      * @example
      * // Create a new Countdown with custom options.

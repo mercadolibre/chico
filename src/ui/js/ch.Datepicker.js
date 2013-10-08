@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Datepicker lets you select dates.
      * @memberof ch
@@ -28,7 +24,10 @@
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
      * @returns {datepicker} Returns a new instance of Datepicker.
      * @example
-     * // Create a new Datepicker without options.
+     * // Create a new Datepicker.
+     * var datepicker = new ch.Datepicker($el, [options]);
+     * @example
+     * // Create a new Datepicker with jQuery or Zepto.
      * var datepicker = $(selector).datepicker();
      * @example
      * // Create a new Datepicker with some options.

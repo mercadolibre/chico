@@ -154,7 +154,7 @@
             this._configure(options);
         }
 
-         if (this._reference !== ch.viewport) {
+        if (this._reference !== ch.viewport) {
             this._calculateReference();
         }
 
@@ -248,7 +248,7 @@
             coors = {
                 'top': oritentationMap[side],
                 'left': oritentationMap[this._options.align]
-            }
+            };
 
         } else {
             // calculates the coordinates related to the right or left side to locate the target
@@ -263,7 +263,7 @@
             coors = {
                 'top': oritentationMap[this._options.align],
                 'left': oritentationMap[side]
-            }
+            };
         }
 
         coors.top += this._options.offsetY;

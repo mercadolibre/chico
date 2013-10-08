@@ -1,9 +1,5 @@
-(function (window, ch) {
+(function (ch) {
     'use strict';
-
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
 
     var toggleEffects = {
         'slideDown': 'slideUp',
@@ -131,4 +127,4 @@
 
     ch.Collapsible = Collapsible;
 
-}(this, this.ch));
+}(this.ch));

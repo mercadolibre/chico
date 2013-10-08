@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     function normalizeOptions(options) {
         if (typeof options === 'string' || ch.util.is$(options)) {
             options = {
@@ -131,8 +127,12 @@
             .on(ch.onpointertap + '.' + this.name, function (event) {
 
                 ch.util.prevent(event);
-                that._options.toggle ? that._toggle() : that.show();
 
+                if (that._options.toggle) {
+                    that._toggle();
+                } else {
+                    that.show();
+                }
             });
 
         /**
