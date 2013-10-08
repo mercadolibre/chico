@@ -1,23 +1,4 @@
-.ch-autoComplete {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    border-top: none;
-}
-
-.ch-autoComplete-list li,
-.ch-autoComplete-highlighted {
-    margin: 0;
-    padding: 3px 5px;
-    cursor: pointer;
-}
-
-.ch-autoComplete-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.ch-autoComplete-list li {
+.ch-autoComplete-item {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -51,9 +32,4 @@
     overflow: hidden;
     line-height: 50px;
     text-indent: 10px;
-}
-
-.ch-autoComplete-highlighted {
-    background-color: #FDF9D5;
-    border-radius: 5px;
 }

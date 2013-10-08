@@ -123,6 +123,7 @@ CSS.widgets = [
     "src/ui/css/ch.Menu.css",
     "src/ui/css/ch.Tabs.css",
     "src/ui/css/ch.DatePicker.css",
+    "src/shared/css/ch.AutoComplete.css",
     "src/ui/css/ch.AutoComplete.css"
 ];
 
