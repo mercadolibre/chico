@@ -68,15 +68,17 @@
                     evtCollectionLenght;
 
                 if (name === undefined) {
-                    throw new Error('Shortcuts - "remove(shortcut, name, callback)": "name" parameter must be defined.');
+                    throw new Error('Shortcuts - "remove(name, shortcut, callback)": "name" parameter must be defined.');
                 }
 
                 if (shortcut === undefined) {
                     delete this._collection[name];
+                    return this;
                 }
 
                 if (callback === undefined) {
                     delete this._collection[name][shortcut];
+                    return this;
                 }
 
                 evtCollection = this._collection[name][shortcut];
