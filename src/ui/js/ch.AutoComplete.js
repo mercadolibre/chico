@@ -29,7 +29,8 @@
             that._el.value = that._originalQuery;
         });
 
-        ch.shortcuts.add(ch.onkeyuparrow, this.uid, function () {
+        ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
+            ch.util.prevent(event);
             var value;
 
             // change the selected value & stores the future HTMLInputElement value
