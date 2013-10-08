@@ -169,7 +169,7 @@
 
         });
 
-        this.field.setAttribute('aria-describedby', 'ch-' + this.name + '-' + this._popover.uid);
+        this.field.setAttribute('aria-describedby', 'ch-popover-' + this._popover.uid);
 
         // Change type of input to "text"
         this.field.type = 'text';

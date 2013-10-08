@@ -98,7 +98,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['show', 'hide', 'pick', 'getToday', 'setFrom', 'setTo', 'nextMonth', 'nextYear', 'prevMonth', 'prevYear', 'select', 'reset', 'enable', 'disable', 'destroy'],
+    var methods = ['destroy', 'show', 'hide', 'pick', 'getToday', 'setFrom', 'setTo', 'nextMonth', 'nextYear', 'prevMonth', 'prevYear', 'select', 'reset', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 
@@ -120,7 +120,7 @@ describe('It should have a input field associated', function () {
     });
 
      it('should have got the WAI-ARIA attribute "aria-describedby"', function () {
-        expect(field.getAttribute('aria-describedby')).toEqual('ch-datepicker-3');
+        expect(field.getAttribute('aria-describedby')).toEqual('ch-popover-3');
     });
 });
 
@@ -257,18 +257,17 @@ describe('Its getToday() method', function(){
 });
 
 describe('Its destroy() method', function () {
-    datepicker2.destroy();
+
+    beforeEach(function () {
+        datepicker2.destroy();
+    });
 
     it('should update the field type attribute to "date"', function () {
-        expect(datepicker2.field.type).toEqual('date');
+        expect($('#datepicker-2')[0].type).toEqual('date');
     });
 
     it('should remove the calendar icon', function () {
-        expect(datepicker2.$trigger[0].parent).toBeUndefined();
-    });
-
-    it('should remove the instance from the element', function () {
-        expect(datepicker2._$el.data('datepicker')).toBeUndefined();
+        expect($('#datepicker-2 + i').length).toEqual(0);
     });
 
     it('should emit the "destroy" event', function () {
