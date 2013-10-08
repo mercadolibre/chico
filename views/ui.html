@@ -1391,10 +1391,14 @@
     <script src="../vendor/jquery-debug.js"></script>
     <script src="/ui/js"></script>
     <script>
+        var extraSuggestions = ['<ul>',
+            '<li class="ch-autoComplete-item" data-autocomplete="Static option">Static option</li>',
+            '<li class="ch-autoComplete-item" data-autocomplete="Other Static option">Other static option</li>',
+            '</ul>'].join('');
+
         var autocomplete1 = $('.autoComplete').autoComplete({'html': true});
             autocomplete1.$container.prepend('<p>Hi, please choose and option!</p>');
-
-            autocomplete1.$container.append('<div><ul data-js="extraSuggestions"><li class="ch-autoComplete-item">Other options</li><li class="ch-autoComplete-item">Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>');
+            autocomplete1.$container.append(extraSuggestions);
 
         var parseResults = function (results) {
             var data = results.slice(0),
@@ -1422,29 +1426,38 @@
         });
 
         var autocomplete2 = $('.autoComplete2').autoComplete();
-        autocomplete2.$container.append('<button class="ch-btn-skin ch-btn-small">Don\'t show again</button>');
+        autocomplete2.$container
+            .prepend(extraSuggestions)
+            .append(extraSuggestions)
+            .append('<button class="ch-btn-skin ch-btn-small">Don\'t show again</button>');
 
         autocomplete2.on('typing', function (userInput) {
             $.ajax({
-                'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=autocomplete2.suggest',
+                'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=parseCountries',
                 'dataType': 'jsonp',
                 'cache': false,
                 'global': true,
                 'context': window,
-                'jsonp': 'autocomplete2.suggest',
+                'jsonp': 'parseCountries',
                 'crossDomain': true
             });
         });
+
+        function parseCountries(data){
+            autocomplete2.suggest(data);
+        }
 
         var autocomplete3 = $('.autoComplete3').autoComplete();
 
         var parseMLAPIResults = function (results) {
             var data = [];
-            results[2].suggested_queries.forEach(function (e, i) {
-                data.push(e.q);
-            });
+            if (results[2].suggested_queries !== undefined) {
+                results[2].suggested_queries.forEach(function (e, i) {
+                    data.push(e.q);
+                });
 
-            autocomplete3.suggest(data);
+                autocomplete3.suggest(data);
+            }
         }
 
         autocomplete3.on('typing', function (userInput) {
