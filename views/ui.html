@@ -694,11 +694,11 @@
     <div class="ch-box-lite">
         <h2 id="layer">Layer</h2>
         <ul class="ch-list">
-            <li><span id="layer1">Default Layer, executed on <strong>pointerenter</strong>.</span></li>
-            <li><span id="layer2">Executed on <strong>pointertap</strong>. <em>(hiddenby:all)</em></span></li>
-            <li><span id="layer3">Executed on <strong>pointertap</strong> with content from DOM. <em>(hiddenby:none)</em>.</span></li>
-            <li><span id="layer4">Executed on <strong>pointertap</strong> with static content. <em>(hiddenby:button)</em>.</span></li>
-            <li><span id="layer5">Executed on <strong>pointertap</strong> with AJAX content. <em>(hiddenby:pointers)</em></span></li>
+            <li><span id="layer1">Executed on: <strong>pointerenter</strong>, Content: <strong>unique parameter</strong>.</span></li>
+            <li><span id="layer2">Executed on: <strong>pointertap</strong>, Content: <strong>HTML Element</strong>, Hidden by: <strong>all</strong>.</span></li>
+            <li><span id="layer3">Executed on: <strong>pointertap</strong>, Content: <strong>element in DOM</strong>, Hidden by: <strong>none</strong>.</span></li>
+            <li><span id="layer4">Executed on: <strong>pointertap</strong>, Content: <strong>plain text</strong>, Hidden by: <strong>button</strong>.</span></li>
+            <li><span id="layer5">Executed on: <strong>pointertap</strong>, Content: <strong>AJAX</strong>, Hidden by: <strong>pointers</strong>.</span></li>
         </ul>
         <div id="invisible-content-for-layer" class="ch-hide">
             <h1>This content is invisible</h1>
@@ -1571,8 +1571,11 @@
         // Layer
         var layer1 = $('#layer1').layer('foo');
 
+        var layerContent = document.createElement('p');
+            layerContent.innerHTML = 'This is an HTML P Element as content.';
+
         var layer2 = $('#layer2').layer({
-            'content': 'foo',
+            'content': layerContent,
             'shownby': 'pointertap',
             'hiddenby': 'all'
         });
@@ -1584,7 +1587,7 @@
         });
 
         var layer4 = $('#layer4').layer({
-            'content': 'Static content.',
+            'content': 'Plain text.',
             'shownby': 'pointertap',
             'hiddenby': 'button'
         });
