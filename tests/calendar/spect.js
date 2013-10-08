@@ -96,7 +96,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['init', 'destroy', 'setFrom', 'setTo', 'nextMonth', 'nextYear', 'prevMonth', 'prevYear', 'select', 'getToday', 'enable', 'disable'],
+    var methods = ['destroy', 'setFrom', 'setTo', 'nextMonth', 'nextYear', 'prevMonth', 'prevYear', 'select', 'getToday', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 

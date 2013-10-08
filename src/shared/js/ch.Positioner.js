@@ -8,11 +8,11 @@
      * @param {Object} options Configuration object.
      * @param {(jQuerySelector | ZeptoSelector)} options.target Reference to the element to be positioned.
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
-     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" or "fixed" (default).
+     * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 0.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
      * @requires ch.util
      * @requires ch.Viewport
      * @returns {positioner} Returns a new instance of Positioner.
@@ -20,8 +20,8 @@
      * // Instance the Positioner It requires a little configuration.
      * // The default behavior place an element center into the Viewport.
      * var positioned = new ch.Positioner({
-     *     'target': $('#element1'),
-     *     'reference': $('#element2'),
+     *     'target': $(selector),
+     *     'reference': $(selector),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 20,
@@ -31,8 +31,8 @@
      * // offsetX: The Positioner could be configurated with an offsetX.
      * // This example show an element displaced horizontally by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': $('#element1'),
-     *     'reference': $('#element2'),
+     *     'target': $(selector),
+     *     'reference': $(selector),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 10
@@ -41,8 +41,8 @@
      * // offsetY: The Positioner could be configurated with an offsetY.
      * // This example show an element displaced vertically by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': $('#element1'),
-     *     'reference': $('#element2'),
+     *     'target': $(selector),
+     *     'reference': $(selector),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetY': 10
@@ -50,8 +50,8 @@
      * @example
      * // positioned: The positioner could be configured to work with fixed or absolute position value.
      * var positioned = new ch.Positioner({
-     *     'target': $('#element1'),
-     *     'reference': $('#element2'),
+     *     'target': $(selector),
+     *     'reference': $(selector),
      *     'positioned': 'fixed'
      * });
      */
@@ -154,7 +154,7 @@
             this._configure(options);
         }
 
-         if (this._reference !== ch.viewport) {
+        if (this._reference !== ch.viewport) {
             this._calculateReference();
         }
 
@@ -248,7 +248,7 @@
             coors = {
                 'top': oritentationMap[side],
                 'left': oritentationMap[this._options.align]
-            }
+            };
 
         } else {
             // calculates the coordinates related to the right or left side to locate the target
@@ -263,7 +263,7 @@
             coors = {
                 'top': oritentationMap[this._options.align],
                 'left': oritentationMap[side]
-            }
+            };
         }
 
         coors.top += this._options.offsetY;

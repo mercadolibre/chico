@@ -7,7 +7,7 @@ var menu1 = $("#menu-1").menu({'fx': false}),
     changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
     $container = menu1.$container,
     $children = menu1.$container.children(),
-    $expandable = menu1.fold[0],
+    $expandable = menu1.folds[0],
     $bellows = menu1.$container.children(':last-child');
 
 $(window.document).on(ch.onchangelayout, changeLayoutEvent);
@@ -69,7 +69,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['init', 'destroy', 'show', 'hide', 'content', 'enable', 'disable'],
+    var methods = ['destroy', 'show', 'hide', 'content', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 
@@ -168,16 +168,16 @@ describe('An instance by default', function () {
 describe('Its disable() method', function () {
     var instance;
 
-    it('should receive an optional tab to disable', function () {
+    it('should receive an optional fold to disable', function () {
         instance = menu1.disable(1);
         menu1.show(1);
-        expect(menu1.fold[0].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(menu1.folds[0].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
     });
 
-    it('should prevent to show new tab panels', function () {
+    it('should prevent to show new folds', function () {
         instance = menu1.disable();
         menu1.show(2);
-        expect(menu1.fold[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
+        expect(menu1.folds[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
     });
 
     it('should return the same instance than initialized widget', function () {
@@ -188,16 +188,16 @@ describe('Its disable() method', function () {
 describe('Its enable() method', function () {
     var instance;
 
-    it('should receive an optional tab to enable', function () {
+    it('should receive an optional fold to enable', function () {
         instance = menu1.enable(1);
         menu1.show(1);
-        expect(menu1.fold[0].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(menu1.folds[0].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('should prevent to show its container', function () {
         instance = menu1.enable();
         menu1.show(2);
-        expect(menu1.fold[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
+        expect(menu1.folds[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
     });
 
     it('should return the same instance than initialized widget', function () {

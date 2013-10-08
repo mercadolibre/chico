@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Bubble is a dialog window with alert/error skin.
      * @memberof ch

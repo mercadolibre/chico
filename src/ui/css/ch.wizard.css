@@ -1,4 +1,8 @@
+/**
+ * Wizard
+ */
 .ch-wizard {
+    background-color: #fff;
     border: 1px solid #EDEDED;
     border-bottom: none;
     border-radius: 5px;
@@ -9,6 +13,7 @@
     background-color: #f2f2f2;
     border-top: 1px solid #EDEDED;
     padding: 10px 20px;
+    border-radius: 0 0 5px 5px;
 }
 
 .ch-wizard-breadcrumb {
@@ -114,18 +119,6 @@
 }
 
 /* IE */
-.ie7 .ch-steps-four li {
-    width: 24.9%;
-}
-
-.ie7 .ch-steps-six li {
-    width: 16.65%;
-}
-
-.ie7 .ch-wizard-breadcrumb li {
-    border-right: 1px solid #ededed;
-}
-
 .ie8 .ch-wizard-breadcrumb li a {
     position: relative;
     zoom: 1;

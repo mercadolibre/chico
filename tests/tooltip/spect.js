@@ -1,6 +1,6 @@
 var tooltip = $('#tooltip').tooltip({
         'content': 'test',
-        'fx': false
+        'fx': 'none'
     }).show(),
     $t = tooltip.$trigger,
     $c = tooltip.$container;

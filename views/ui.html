@@ -116,7 +116,7 @@
         <li class="ch-g1-5"><a href="#tabs">Tabs</a></li>
         <li class="ch-g1-5"><a href="#countdown">Countdown</a></li>
         <li class="ch-g1-5"><a href="#calendar">Calendar</a></li>
-        <li class="ch-g1-5"><a href="#datePicker">DatePicker</a></li>
+        <li class="ch-g1-5"><a href="#datepicker">Datepicker</a></li>
     </ul>
 
     <div class="ch-clearfix">
@@ -694,11 +694,11 @@
     <div class="ch-box-lite">
         <h2 id="layer">Layer</h2>
         <ul class="ch-list">
-            <li><span id="layer1">Default Layer, executed on <strong>pointerenter</strong>.</span></li>
-            <li><span id="layer2">Executed on <strong>pointertap</strong>. <em>(hiddenby:all)</em></span></li>
-            <li><span id="layer3">Executed on <strong>pointertap</strong> with content from DOM. <em>(hiddenby:none)</em>.</span></li>
-            <li><span id="layer4">Executed on <strong>pointertap</strong> with static content. <em>(hiddenby:button)</em>.</span></li>
-            <li><span id="layer5">Executed on <strong>pointertap</strong> with AJAX content. <em>(hiddenby:pointers)</em></span></li>
+            <li><span id="layer1">Executed on: <strong>pointerenter</strong>, Content: <strong>unique parameter</strong>.</span></li>
+            <li><span id="layer2">Executed on: <strong>pointertap</strong>, Content: <strong>HTML Element</strong>, Hidden by: <strong>all</strong>.</span></li>
+            <li><span id="layer3">Executed on: <strong>pointertap</strong>, Content: <strong>element in DOM</strong>, Hidden by: <strong>none</strong>.</span></li>
+            <li><span id="layer4">Executed on: <strong>pointertap</strong>, Content: <strong>plain text</strong>, Hidden by: <strong>button</strong>.</span></li>
+            <li><span id="layer5">Executed on: <strong>pointertap</strong>, Content: <strong>AJAX</strong>, Hidden by: <strong>pointers</strong>.</span></li>
         </ul>
         <div id="invisible-content-for-layer" class="ch-hide">
             <h1>This content is invisible</h1>
@@ -751,18 +751,22 @@
         </form>
     </div>
 
-    <div class="ch-box-lite">
-        <h2 id="zoom">Zoom</h2>
-        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
-            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
-        </a>
-        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
-            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
-        </a>
-        <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
-            <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
-        </a>
-        <strong>← Preloaded</strong>
+    <div class="ch-box-lite ch-clearfix">
+        <h2>Zoom</h2>
+
+        <div class="ch-g1-4">
+            <h3>Default behavior</h3>
+            <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+                <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+            </a>
+        </div>
+
+        <div class="ch-g1-4">
+            <h3>Preloaded image</h3>
+            <a class="zoom" href="http://www.w3.org/html/logo/downloads/HTML5_Logo_512.png" target="_blank">
+                <img src="http://www.w3.org/html/logo/downloads/HTML5_Logo_128.png" alt="HTML5"/>
+            </a>
+        </div>
     </div>
 
     <div class="ch-box-lite">
@@ -843,9 +847,9 @@
     </div>
 
     <div class="ch-box-lite">
-        <h2 id="icons">Marks</h2>
-        <i class="ch-mark ch-icon-camera"></i>
-        <i class="ch-mark-skin ch-icon-map-marker"></i>
+        <h2 id="icons">Badges</h2>
+        <i class="ch-badge ch-icon-camera"></i>
+        <i class="ch-badge-skin ch-icon-map-marker"></i>
     </div>
 
     <div class="ch-box-lite clearfix">
@@ -930,19 +934,19 @@
     </div>
 
     <div class="ch-box-lite">
-        <h2 id="datePicker">Date Picker</h2>
-        <form action="./ajax.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
+        <h2 id="datepicker">Date Picker</h2>
+        <form action="./ajax.html" class="YOUR_SELECTOR_FormDatepicker ch-form">
             <p class="ch-form-row">
                 <label for="val_date">
                     Date:
                 </label>
-                <input type="date" id="val_date" class="myDatePicker" placeholder="DD/MM/YYYY">
+                <input type="date" id="val_date" class="myDatepicker" placeholder="DD/MM/YYYY">
             </p>
             <p class="ch-form-row">
                 <label for="val_date2">
                     Date:
                 </label>
-                <input type="date" id="val_date2" class="myDatePicker2" placeholder="DD/MM/YYYY">
+                <input type="date" id="val_date2" class="myDatepicker2" placeholder="DD/MM/YYYY">
             </p>
         </form>
     </div>
@@ -969,14 +973,14 @@
                         Icon:
                     </label>
                     <input type="text" id="input_ico" name="input_ico" size="30" placeholder="">
-                    <i class="ch-form-ico ch-icon-help-sign"></i>
+                    <i class="ch-form-icon ch-icon-help-sign"></i>
                 </div>
                 <div class="ch-form-row">
                     <label for="input_ico_inside">
                         Icon inside:
                     </label>
-                    <input class="ch-form-ico-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
-                    <i class="ch-form-ico-inner ch-icon-help-sign"></i>
+                    <input class="ch-form-icon-input" type="text" id="input_ico_inside" name="input_ico" size="30" placeholder="">
+                    <i class="ch-form-icon-inner ch-icon-help-sign"></i>
                 </div>
                 <div class="ch-form-row">
                     <label for="input_button">
@@ -1370,13 +1374,14 @@
                 <legend>Big inputs</legend>
                 <div class="ch-form-row">
                     <label for="input_user">User:</label>
-                    <input class="ch-form-ico-input" type="text" id="input_user" name="input_user" size="50">
-                    <i class="ch-form-ico-inner ch-icon-user"></i>
+                    <input class="ch-form-icon-input" type="text" id="input_user" name="input_user" size="50">
+                    <i class="ch-form-icon-inner ch-icon-user"></i>
+                    <div class="ch-validation-message">Fill in this information.</div>
                 </div>
                 <div class="ch-form-row">
                     <label for="input_pass">Password:</label>
-                    <input class="ch-form-ico-input" type="password" id="input_pass" name="input_pass" size="50">
-                    <i class="ch-form-ico-inner ch-icon-lock"></i>
+                    <input class="ch-form-icon-input" type="password" id="input_pass" name="input_pass" size="50">
+                    <i class="ch-form-icon-inner ch-icon-lock"></i>
                 </div>
                 <div class="ch-form-actions">
                     <input type="submit" name="confirmation" value="Login" class="ch-btn">
@@ -1390,10 +1395,14 @@
     <script src="../vendor/jquery-debug.js"></script>
     <script src="/ui/js"></script>
     <script>
+        var extraSuggestions = ['<ul>',
+            '<li class="ch-autoComplete-item" data-autocomplete="Static option">Static option</li>',
+            '<li class="ch-autoComplete-item" data-autocomplete="Other Static option">Other static option</li>',
+            '</ul>'].join('');
+
         var autocomplete1 = $('.autoComplete').autoComplete({'html': true});
             autocomplete1.$container.prepend('<p>Hi, please choose and option!</p>');
-
-            autocomplete1.$container.append('<div><ul data-js="extraSuggestions"><li class="ch-autoComplete-item">Other options</li><li class="ch-autoComplete-item">Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>');
+            autocomplete1.$container.append(extraSuggestions);
 
         var parseResults = function (results) {
             var data = results.slice(0),
@@ -1421,29 +1430,38 @@
         });
 
         var autocomplete2 = $('.autoComplete2').autoComplete();
-        autocomplete2.$container.append('<button class="ch-btn-skin ch-btn-small">Don\'t show again</button>');
+        autocomplete2.$container
+            .prepend(extraSuggestions)
+            .append(extraSuggestions)
+            .append('<button class="ch-btn-skin ch-btn-small">Don\'t show again</button>');
 
         autocomplete2.on('typing', function (userInput) {
             $.ajax({
-                'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=autocomplete2.suggest',
+                'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=parseCountries',
                 'dataType': 'jsonp',
                 'cache': false,
                 'global': true,
                 'context': window,
-                'jsonp': 'autocomplete2.suggest',
+                'jsonp': 'parseCountries',
                 'crossDomain': true
             });
         });
+
+        function parseCountries(data){
+            autocomplete2.suggest(data);
+        }
 
         var autocomplete3 = $('.autoComplete3').autoComplete();
 
         var parseMLAPIResults = function (results) {
             var data = [];
-            results[2].suggested_queries.forEach(function (e, i) {
-                data.push(e.q);
-            });
+            if (results[2].suggested_queries !== undefined) {
+                results[2].suggested_queries.forEach(function (e, i) {
+                    data.push(e.q);
+                });
 
-            autocomplete3.suggest(data);
+                autocomplete3.suggest(data);
+            }
         }
 
         autocomplete3.on('typing', function (userInput) {
@@ -1567,8 +1585,11 @@
         // Layer
         var layer1 = $('#layer1').layer('foo');
 
+        var layerContent = document.createElement('p');
+            layerContent.innerHTML = 'This is an HTML P Element as content.';
+
         var layer2 = $('#layer2').layer({
-            'content': 'foo',
+            'content': layerContent,
             'shownby': 'pointertap',
             'hiddenby': 'all'
         });
@@ -1580,7 +1601,7 @@
         });
 
         var layer4 = $('#layer4').layer({
-            'content': 'Static content.',
+            'content': 'Plain text.',
             'shownby': 'pointertap',
             'hiddenby': 'button'
         });
@@ -1647,8 +1668,8 @@
 
         // Zoom
         var zoom = $('.zoom').zoom();
-        // Preload the third augmented image
-        zoom[2].loadImage();
+        // Preload image
+        zoom[1].loadImage();
 
         // Carousel
         var carousel = $(".myCarousel").carousel({"pagination": true});
@@ -1658,12 +1679,12 @@
         var tabs2 = $(".YOUR_SELECTOR_Tabs2").tabs();
 
         // Date Picker
-        var  datePicker = $("#val_date").datePicker({
+        var datepicker = $("#val_date").datepicker({
          "selected": "2011/11/15",
          "to": "today"
         });
 
-        var  datePicker2 = $("#val_date2").datePicker({
+        var  datepicker2 = $("#val_date2").datepicker({
          "selected": "2011/11/15",
          "to": "today"
         });

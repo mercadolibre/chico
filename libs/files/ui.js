@@ -38,6 +38,7 @@ JS.widgets = [
     "src/shared/js/ch.Form.js",
     "src/shared/js/ch.Condition.js",
     "src/shared/js/ch.Validation.js",
+    "src/ui/js/ch.Validation.js",
     "src/shared/js/ch.String.js",
     "src/shared/js/ch.MaxLength.js",
     "src/shared/js/ch.MinLength.js",
@@ -51,6 +52,7 @@ JS.widgets = [
     "src/shared/js/ch.Expandable.js",
     "src/shared/js/ch.Menu.js",
     "src/shared/js/ch.Popover.js",
+    "src/ui/js/ch.Popover.js",
     "src/shared/js/ch.Layer.js",
     "src/shared/js/ch.Tooltip.js",
     "src/shared/js/ch.Bubble.js",
@@ -59,11 +61,13 @@ JS.widgets = [
     "src/ui/js/ch.Zoom.js",
     "src/shared/js/ch.Calendar.js",
     "src/shared/js/ch.Dropdown.js",
+    "src/ui/js/ch.Dropdown.js",
     "src/ui/js/ch.Tabs.js",
     "src/shared/js/ch.Carousel.js",
     "src/shared/js/ch.Countdown.js",
     "src/ui/js/ch.DatePicker.js",
-    "src/shared/js/ch.AutoComplete.js"
+    "src/shared/js/ch.AutoComplete.js",
+    "src/ui/js/ch.AutoComplete.js"
 ];
 
 
@@ -87,6 +91,7 @@ CSS.core = [
     "src/shared/css/ch.base.css",
     "src/ui/css/ch.base.css",
     "src/shared/css/ch.icons.css",
+    "src/ui/css/ch.badges.css",
     "src/shared/css/ch.boxes.css",
     "src/ui/css/ch.boxes.css",
     "src/shared/css/ch.loading.css"
@@ -118,6 +123,7 @@ CSS.widgets = [
     "src/ui/css/ch.Menu.css",
     "src/ui/css/ch.Tabs.css",
     "src/ui/css/ch.DatePicker.css",
+    "src/shared/css/ch.AutoComplete.css",
     "src/ui/css/ch.AutoComplete.css"
 ];
 

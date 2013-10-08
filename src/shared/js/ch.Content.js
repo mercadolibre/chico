@@ -29,8 +29,6 @@
          */
         function setAsyncContent(event) {
 
-            var status = 'content' + event.status;
-
             that._$content.html(event.response);
 
             /**
@@ -46,7 +44,7 @@
              * @example
              * // Subscribe to "contentdone" event.
              * widget.on('contentdone', function (event) {
-             *  // Some code here!
+             *     // Some code here!
              * });
              */
 
@@ -56,7 +54,7 @@
              * @example
              * // Subscribe to "contentwaiting" event.
              * widget.on('contentwaiting', function (event) {
-             *  // Some code here!
+             *     // Some code here!
              * });
              */
 
@@ -66,11 +64,40 @@
              * @example
              * // Subscribe to "contenterror" event.
              * widget.on('contenterror', function (event) {
-             *  // Some code here!
+             *     // Some code here!
              * });
              */
 
-            that.emit(status, event);
+            that.emit('content' + event.status, event);
+        }
+
+        /**
+         * Set content into widget's container and emits the contentdone event.
+         * @private
+         */
+        function setContent(content) {
+
+            that._$content.html(content);
+
+            that._options.cache = true;
+
+            /**
+             * Event emitted when the content change.
+             * @event ch.Content#contentchange
+             * @private
+             */
+            that.emit('_contentchange');
+
+            /**
+             * Event emitted if the content is loaded successfully.
+             * @event ch.Content#contentdone
+             * @example
+             * // Subscribe to "contentdone" event.
+             * widget.on('contentdone', function (event) {
+             *     // Some code here!
+             * });
+             */
+            that.emit('contentdone');
         }
 
         /**
@@ -135,10 +162,10 @@
          * Allows to manage the widgets content.
          * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a widget.
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
-         * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+         * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
          * @param {String} [options.params] Params like query string to be sent to the server.
-         * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-         * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
+         * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+         * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
          * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
@@ -150,7 +177,7 @@
          *     'params': 'x-request=true'
          * });
          */
-        function content(content, options) {
+        this.content = function (content, options) {
 
             // Returns the last updated content.
             if (content === undefined) {
@@ -167,39 +194,21 @@
                 // Case 1: AJAX call
                 if (ch.util.isUrl(content)) {
                     getAsyncContent(content, options);
-
                 // Case 2: Plain text
                 } else {
-                    that._$content.html(content);
-
-                    that._options.cache = true;
-
-                    that.emit('_contentchange');
-                    that.emit('contentdone');
-
+                    setContent(content);
                 }
-            // Case 3: HTMLElement
-            } else if (ch.util.is$(content)) {
-
-                that._$content.html(content.remove(null, true).removeClass('ch-hide'));
-
-                that._options.cache = true;
-
-                that.emit('_contentchange');
-                that.emit('contentdone');
-
+            // Case 3: jQuery/Zepto/HTML Element
+            } else if (ch.util.is$(content) || content.nodeType !== undefined) {
+                setContent($(content).remove(null, true).removeClass('ch-hide'));
             }
 
             return that;
-        }
+        };
 
-        that.content = content;
+        // Loads content once. If the cache is disabled the content loads in each show.
+        this.once('_show', function () {
 
-        /**
-         * Loads content once. If the cache is disabled the content loads in each show.
-         * @private
-         */
-        function showContent() {
             that.content(that._options.content);
 
             that.on('show', function () {
@@ -207,9 +216,7 @@
                     that.content(that._options.content);
                 }
             });
-        }
-
-        that.once('_show', showContent);
+        });
     }
 
     ch.Content = Content;

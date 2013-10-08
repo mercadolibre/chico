@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Menu lets you organize the links by categories.
      * @memberof ch
@@ -13,10 +9,13 @@
      * @requires ch.Expandable
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.fx] Enable or disable UI effects. By default, the effect is "slideDown". You should use: "slideDown", "fadeIn" or "none".
+     * @param {String} [options.fx] Enable or disable UI effects. You should use: "slideDown", "fadeIn" or "none". Default: "slideDown".
      * @returns {menu} Returns a new instance of Menu.
      * @example
-     * // Create a new menu without configuration.
+     * // Create a new Menu.
+     * var menu = new ch.Menu($el, [options]);
+     * @example
+     * // Create a new Menu with jQuery or Zepto.
      * var menu = $(selector).menu();
      * @example
      * // Create a new menu with configuration.
