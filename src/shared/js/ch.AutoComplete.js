@@ -70,11 +70,14 @@
     AutoComplete.prototype._defaults = {
         'loadingClass': 'ch-autoComplete-loading',
         'highlightedClass': 'ch-autoComplete-highlighted',
+        'itemClass': 'ch-autoComplete-item',
+        'addClass': 'ch-box-lite ch-autoComplete',
         'side': 'bottom',
         'align': 'left',
-        'keystrokesTime': 1000,
+        'keystrokesTime': 400,
         'hiddenby': 'none',
-        'html': false
+        'html': false,
+        'itemTemplate': '<li class="{{itemClass}}"{{autocompleteData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autoComplete-complete-query"></i></li>'
     };
 
     /**
@@ -92,6 +95,9 @@
 
         parent._init.call(this, $el, options);
 
+        // creates the basic item template for this instance
+        this._options.itemTemplate = this._options.itemTemplate.replace('{{itemClass}}', this._options.itemClass);
+
         this.$trigger = this._$el;
 
         this._$suggestionsList = $('<ul class="ch-autoComplete-list"></ul>');
@@ -102,7 +108,7 @@
             'content': this._$suggestionsList,
             'side': this._options.side,
             'align': this._options.align,
-            'addClass': 'ch-box-lite ch-autoComplete',
+            'addClass': this._options.addClass,
             'hiddenby': this._options.hiddenby,
             'width': (this._el.getBoundingClientRect().width - 22) + 'px',
             'fx': this._options.fx
@@ -140,7 +146,7 @@
                 return ;
             }
 
-            if ((event.target.nodeName === 'LI' && event.target.className.indexOf('ch-autoComplete-item') !== -1) || (event.target.parentElement.nodeName === 'LI' && event.target.parentElement.className.indexOf('ch-autoComplete-item') !== -1)) {
+            if ((event.target.nodeName === 'LI' && event.target.className.indexOf(that._options.itemClass) !== -1) || (event.target.parentElement.nodeName === 'LI' && event.target.parentElement.className.indexOf(that._options.itemClass) !== -1)) {
                 that._setQuery();
             }
         });
@@ -176,7 +182,7 @@
                         window.clearTimeout(that._stopTyping);
                         that._stopTyping = window.setTimeout(function () {
                                 that.emit('typing', that._el.value);
-                        }, 400);
+                        }, that._options.keystrokesTime);
 
                     });
                 }
@@ -285,48 +291,70 @@
      * @returns {autocomplete}
      */
     AutoComplete.prototype.suggest = function (suggestions) {
-
         var that = this,
             items = [],
             query = this._el.value.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1"),
             matchedRegExp = new RegExp('(' + query + ')', 'ig'),
             totalItems = 0,
-            $extraItems,
-            extraItems = [];
+            $items,
+            itemTemplate = this._options.itemTemplate,
+            suggestedItem,
+            term,
+            suggestionsLength = suggestions.length,
+            el;
 
+        // hide the loading feedback
         this.$trigger.removeClass(that._options.loadingClass);
 
+        // hides the suggestions list
         if (suggestions.length === 0 || query === '') {
             this._popover.hide();
             return this;
         }
 
+        // shows the suggestions list when the is closed and the element is withs focus
         if (!this._popover.isShown() && document.activeElement === this._el) {
             this._show();
         }
 
-        this._$suggestionsList[0].innerHTML = '';
-        this._suggestions = suggestions;
+        // remove the class from the extra added items
+        $('.' + this._options.highlightedClass, this.$container).removeClass(this._options.highlightedClass);
 
-        $extraItems = this.$container.find('.ch-autoComplete-item').removeClass('ch-autoComplete-selected');
+        // add each suggested item to the suggestion list
+        for(suggestedItem = 0; suggestedItem < suggestionsLength; suggestedItem++) {
+            // get the term to be replaced
+            term = suggestions[suggestedItem];
 
-        totalItems = ($extraItems.length > 0) ? (totalItems + $extraItems.length - 1) : this._suggestions.length;
-
-        this._suggestions.forEach(function (term, i) {
+            // for the html configured widget doesn't highlight the term matched it must be done by the user
             if (!that._options.html) {
                 term = term.replace(matchedRegExp, '<strong>$1</strong>');
+                itemTemplate = this._options.itemTemplate.replace('{{autocompleteData}}', ' data-autocomplete="' + suggestions[suggestedItem] + '"');
             }
-            items.push('<li aria-setsize="' + totalItems + '" aria-posinset="' + (i + 1) + '" class="ch-autoComplete-item">' + term + '<i class="ch-icon-arrow-up" data-js="ch-autoComplete-complete-query"></i></li>');
-        });
 
-        $extraItems.each(function (index, e) {
-            extraItems.push(e.setAttribute('aria-posinset', (that._suggestions.length + index + 1)));
-        });
+            items.push(itemTemplate.replace('{{term}}', term));
+        }
+
+        this._$suggestionsList[0].innerHTML = items.join('');
+
+        $items = $('.' + this._options.itemClass, this.$container);
+
+        // with this we set the aria-setsize value that counts the total
+        totalItems = $items.length;
+
+        this._suggestions = [];
+
+        for (suggestedItem = 0; suggestedItem < totalItems; suggestedItem++) {
+            el = $items[suggestedItem];
+            // add the data to the suggestions collection
+            that._suggestions.push(el.getAttribute('data-autocomplete'));
+
+            el.setAttribute('aria-posinset', that._suggestions.length);
+            el.setAttribute('aria-setsize', totalItems);
+        }
 
         this._selected = null;
-        this._suggestionsList = items.concat(extraItems);
-        this._$suggestionsList[0].innerHTML = items.join('');
-        this._suggestionsQuantity = this._suggestionsList.length;
+
+        this._suggestionsQuantity = this._suggestions.length;
 
         return this;
     };
@@ -359,10 +387,6 @@
      */
     AutoComplete.prototype.destroy = function () {
 
-        this._popover.destroy();
-
-        ch.shortcuts.off(this.uid);
-
         this.$trigger
             .off('.autoComplete')
             .removeAttr('autocomplete')
@@ -370,6 +394,7 @@
             .removeAttr('aria-haspopup')
             .removeAttr('aria-owns');
 
+        this._popover.destroy();
         parent.destroy.call(this);
 
         return ;
