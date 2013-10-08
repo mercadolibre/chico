@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     function normalizeOptions(options) {
         if (typeof options === 'string' || ch.util.is$(options)) {
             options = {
@@ -23,7 +19,7 @@
      * @mixes ch.Content
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none". Default: "none".
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {Boolean} [options.toggle] Customize toggle behavior. Default: true.
      * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. Default: the next sibling of $el.
      * @param {(jQuerySelector | ZeptoSelector | String)} [options.content] The content to be shown into the expandable container.
@@ -131,8 +127,12 @@
             .on(ch.onpointertap + '.' + this.name, function (event) {
 
                 ch.util.prevent(event);
-                that._options.toggle ? that._toggle() : that.show();
 
+                if (that._options.toggle) {
+                    that._toggle();
+                } else {
+                    that.show();
+                }
             });
 
         /**

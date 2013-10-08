@@ -116,7 +116,7 @@
         <li class="ch-g1-5"><a href="#tabs">Tabs</a></li>
         <li class="ch-g1-5"><a href="#countdown">Countdown</a></li>
         <li class="ch-g1-5"><a href="#calendar">Calendar</a></li>
-        <li class="ch-g1-5"><a href="#datePicker">DatePicker</a></li>
+        <li class="ch-g1-5"><a href="#datepicker">Datepicker</a></li>
     </ul>
 
     <div class="ch-clearfix">
@@ -930,19 +930,19 @@
     </div>
 
     <div class="ch-box-lite">
-        <h2 id="datePicker">Date Picker</h2>
-        <form action="./ajax.html" class="YOUR_SELECTOR_FormdatePicker ch-form">
+        <h2 id="datepicker">Date Picker</h2>
+        <form action="./ajax.html" class="YOUR_SELECTOR_FormDatepicker ch-form">
             <p class="ch-form-row">
                 <label for="val_date">
                     Date:
                 </label>
-                <input type="date" id="val_date" class="myDatePicker" placeholder="DD/MM/YYYY">
+                <input type="date" id="val_date" class="myDatepicker" placeholder="DD/MM/YYYY">
             </p>
             <p class="ch-form-row">
                 <label for="val_date2">
                     Date:
                 </label>
-                <input type="date" id="val_date2" class="myDatePicker2" placeholder="DD/MM/YYYY">
+                <input type="date" id="val_date2" class="myDatepicker2" placeholder="DD/MM/YYYY">
             </p>
         </form>
     </div>
@@ -1672,12 +1672,12 @@
         var tabs2 = $(".YOUR_SELECTOR_Tabs2").tabs();
 
         // Date Picker
-        var  datePicker = $("#val_date").datePicker({
+        var datepicker = $("#val_date").datepicker({
          "selected": "2011/11/15",
          "to": "today"
         });
 
-        var  datePicker2 = $("#val_date2").datePicker({
+        var  datepicker2 = $("#val_date2").datepicker({
          "selected": "2011/11/15",
          "to": "today"
         });

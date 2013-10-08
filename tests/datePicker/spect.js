@@ -2,8 +2,8 @@ function addZero(num) {
     return (parseInt(num, 10) < 10) ? "0" + num : num;
 }
 
-var datepicker1 = $("#datepicker-1").datePicker(),
-    datepicker2 = $("#datepicker-2").datePicker(),
+var datepicker1 = $("#datepicker-1").datepicker(),
+    datepicker2 = $("#datepicker-2").datepicker(),
     readyEvent = jasmine.createSpy('readyEvent'),
     showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
@@ -30,7 +30,7 @@ var datepicker1 = $("#datepicker-1").datePicker(),
         }
     })();
 
-describe('DatePicker', function () {
+describe('Datepicker', function () {
     datepicker1
         .on('ready', function () { readyEvent(); })
         .on('show', function () { showEvent(); })
@@ -44,17 +44,17 @@ describe('DatePicker', function () {
     datepicker2.on('destroy', function () { destroyEvent(); });
 
     it('should be defined on ch object', function () {
-        expect(ch.hasOwnProperty('DatePicker')).toBeTruthy();
-        expect(typeof ch.DatePicker).toEqual('function');
+        expect(ch.hasOwnProperty('Datepicker')).toBeTruthy();
+        expect(typeof ch.Datepicker).toEqual('function');
     });
 
     it('should be defined on $ object', function () {
-        expect($.fn.hasOwnProperty('datePicker')).toBeTruthy();
-        expect(typeof $.fn.datePicker).toEqual('function');
+        expect($.fn.hasOwnProperty('datepicker')).toBeTruthy();
+        expect(typeof $.fn.datepicker).toEqual('function');
     });
 
     it('should be return a new instance', function () {
-        expect(datepicker1 instanceof ch.DatePicker).toBeTruthy();
+        expect(datepicker1 instanceof ch.Datepicker).toBeTruthy();
     });
 
     it('should emit the "ready" event when it\'s created', function () {
@@ -82,7 +82,7 @@ describe('It should have the following public properties:', function () {
     it('.name', function () {
         expect(datepicker1.name).not.toEqual(undefined);
         expect(typeof datepicker1.name).toEqual('string');
-        expect(datepicker1.name).toEqual('datePicker');
+        expect(datepicker1.name).toEqual('datepicker');
     });
 
     it('.constructor', function () {
@@ -98,7 +98,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['init', 'destroy', 'show', 'hide', 'pick', 'getToday', 'setFrom', 'setTo', 'nextMonth', 'nextYear', 'prevMonth', 'prevYear', 'select', 'reset', 'enable', 'disable', 'destroy'],
+    var methods = ['show', 'hide', 'pick', 'getToday', 'setFrom', 'setTo', 'nextMonth', 'nextYear', 'prevMonth', 'prevYear', 'select', 'reset', 'enable', 'disable', 'destroy'],
         i = 0,
         len = methods.length;
 
@@ -120,7 +120,7 @@ describe('It should have a input field associated', function () {
     });
 
      it('should have got the WAI-ARIA attribute "aria-describedby"', function () {
-        expect(field.getAttribute('aria-describedby')).toEqual('ch-datePicker-3');
+        expect(field.getAttribute('aria-describedby')).toEqual('ch-datepicker-3');
     });
 });
 
@@ -135,8 +135,8 @@ describe('It should create a trigger and', function () {
 
     describe('should have the following class names:', function () {
 
-        it('.ch-datePicker-trigger', function () {
-            expect($trigger.hasClass('ch-datePicker-trigger')).toBeTruthy();
+        it('.ch-datepicker-trigger', function () {
+            expect($trigger.hasClass('ch-datepicker-trigger')).toBeTruthy();
         });
 
         it('.ch-icon-calendar', function () {
@@ -268,7 +268,7 @@ describe('Its destroy() method', function () {
     });
 
     it('should remove the instance from the element', function () {
-        expect(datepicker2._$el.data('datePicker')).toBeUndefined();
+        expect(datepicker2._$el.data('datepicker')).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {

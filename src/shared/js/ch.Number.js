@@ -1,10 +1,6 @@
 (function (window, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Normalizes and creates an options object
      * @private
@@ -53,7 +49,7 @@
      * @param {String} [conf.content] Validation message.
      * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
      * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-     * @param {String} [conf.context] It's a reference to position the validation-bubble
+     * @param {String} [conf.context] It's a reference to position the validation-bubble.
      * @returns itself
      * @factorized
      * @see ch.Validation

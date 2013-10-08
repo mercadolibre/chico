@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Tabs lets you create tabs for static and dynamic content.
      * @memberof ch
@@ -15,6 +11,9 @@
      * @returns {tabs} Returns a new instance of Tabs.
      * @example
      * // Create a new Tabs.
+     * var tabs = new ch.Tabs($el);
+     * @example
+     * // Create a new Tabs with jQuery or Zepto.
      * var tabs = $(selector).Tabs();
      */
     function Tabs($el, options) {
@@ -243,10 +242,10 @@
     Tabs.prototype._hasHash = function () {
         var i = 0,
             // Shows the first tab panel if not hash or it's hash and it isn't from the current tab panel,
-            len = this.tabpanels.length;
+            l = this.tabpanels.length;
 
         // If hash open that tab panel
-        for (i; i < len; i += 1) {
+        for (i; i < l; i += 1) {
             if (this.tabpanels[i]._hash === this._currentHash) {
                 this._shown = i + 1;
                 break;

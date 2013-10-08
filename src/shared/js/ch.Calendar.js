@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     function normalizeOptions(options) {
         if (typeof options === 'string' || ch.util.isArray(options)) {
             options = {
@@ -22,14 +18,17 @@
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Calendar.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. You must use "DD/MM/YYYY", "MM/DD/YYYY" or "YYYY/MM/DD". Default: "DD/MM/YYYY".
-     * @param {String} [options.selected] Sets a date that should be selected by default. By default is the date of today.
+     * @param {String} [options.selected] Sets a date that should be selected by default. Default: The date of today.
      * @param {String} [options.from] Set a minimum selectable date. The format of the given date should be YYYY/MM/DD.
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be YYYY/MM/DD.
      * @param {Array} [options.monthsNames] A collection of months names. Default: ["Enero", ... , "Diciembre"].
      * @param {Array} [options.weekdays] A collection of weekdays. Default: ["Dom", ... , "Sab"].
      * @returns {calendar} Returns a new instance of Calendar.
      * @example
-     * // Create a new Calendar without options.
+     * // Create a new Calendar.
+     * var calendar = new ch.Calendar($el, [options]);
+     * @example
+     * // Create a new Calendar with jQuery or Zepto.
      * var calendar = $(selector).calendar();
      * @example
      * // Creates a new Calendar with some options.
@@ -125,7 +124,7 @@
         createDateObject = function (date) {
 
             // Uses date parameter or create a date from today
-            date = (date === 'today') ? new Date : new Date(date);
+            date = (date === 'today') ? new Date() : new Date(date);
 
             /**
              * Returned custom Date object.
@@ -545,11 +544,11 @@
             inRangeTo = true;
 
         if (this._dates.range.from) {
-             inRangeFrom = (this._dates.range.from.native <= date.native);
+            inRangeFrom = (this._dates.range.from.native <= date.native);
         }
 
         if (this._dates.range.to) {
-             inRangeTo = (this._dates.range.to.native >= date.native);
+            inRangeTo = (this._dates.range.to.native >= date.native);
         }
 
         return inRangeFrom && inRangeTo;
@@ -627,7 +626,7 @@
 
         if (!this._isInRange(newDate)) {
             return this;
-        };
+        }
 
         // Update selected date
         this._dates.selected = (date === 'today') ? this._dates.today : newDate;

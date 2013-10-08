@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     var util = ch.util,
         uid = 0;
 
@@ -24,7 +20,7 @@
     ch.util.inherits(Widget, ch.EventEmitter);
 
     /**
-     * The name of the widget.
+     * The name of a widget.
      * @memberof! ch.Widget.prototype
      * @type {String}
      * @example
@@ -89,7 +85,7 @@
         this.uid = (uid += 1);
 
         /**
-         * Indicates if the widget is enabled.
+         * Indicates if a widget is enabled.
          * @type {Boolean}
          * @private
          */
@@ -111,18 +107,17 @@
      */
     Widget.prototype.require = function () {
 
-        /**
-         * Reference to context of an instance.
-         * @type {Object}
-         * @private
-         */
-        var that = this;
+        var arg,
+            i = 0,
+            len = arguments.length;
 
-        $.each(arguments, function (i, arg) {
-            if (that[arg.toLowerCase()] === undefined) {
-                ch[arg].call(that);
+        for (i; i < len; i += 1) {
+            arg = arguments[i];
+
+            if (this[arg.toLowerCase()] === undefined) {
+                ch[arg].call(this);
             }
-        });
+        }
 
         return this;
     };
@@ -140,7 +135,7 @@
         this._enabled = true;
 
         /**
-         * Emits when the widget is enable.
+         * Emits when a widget is enable.
          * @event ch.Widget#enable
          * @example
          * // Subscribe to "enable" event.
@@ -166,7 +161,7 @@
         this._enabled = false;
 
         /**
-         * Emits when the widget is disable.
+         * Emits when a widget is disable.
          * @event ch.Widget#disable
          * @example
          * // Subscribe to "disable" event.
@@ -196,7 +191,7 @@
         }
 
         /**
-         * Emits when the widget is destroyed.
+         * Emits when a widget is destroyed.
          * @event ch.Widget#destroy
          * @exampleDescription
          * @example

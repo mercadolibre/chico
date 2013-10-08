@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     var $window = $(window),
         resized = false,
         scrolled = false,
@@ -25,7 +21,7 @@
         // No changing, exit
         if (!resized && !scrolled) { return; }
 
-        var eve = (resized) ? ch.onresize : ch.onscroll;
+        var eve = resized ? ch.onresize : ch.onscroll;
 
         // Refresh viewport
         this.refresh();
@@ -63,9 +59,6 @@
      * @augments ch.EventEmitter
      * @requires ch.util
      * @returns {viewport} Returns a new instance of Viewport.
-     * @example
-     * // Create a new instnace of Viewport into ch namespace.
-     * ch.viewport = new ch.Viewport();
      */
     function Viewport() {
         this._init();
@@ -73,13 +66,12 @@
 
     ch.util.inherits(Viewport, ch.EventEmitter);
 
-
     /**
      * Initialize a new instance of ch.Viewport.
      * @memberof! ch.Viewport.prototype
      * @function
      * @private
-     * @returns {instance} Returns an instance of Viewport.
+     * @returns {viewport} Returns an instance of Viewport.
      */
     Viewport.prototype._init = function () {
 
@@ -109,12 +101,12 @@
      * Calculates/updates the client rects of viewport (in pixels).
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {instance} Returns the instance of the viewport.
+     * @returns {viewport} Returns the instance of the viewport.
      * @example
      * // Update the client rects of the viewport.
      * ch.viewport.calculateClientRect();
      */
-     Viewport.prototype.calculateClientRect = function () {
+    Viewport.prototype.calculateClientRect = function () {
         /**
          * The current top client rect of the viewport (in pixels).
          * @public
@@ -159,13 +151,13 @@
         this.right = this.$el.width();
 
         return this;
-     };
+    };
 
     /**
      * Calculates/updates the dimensions (width and height) of the viewport (in pixels).
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {instance} Returns the instance of the viewport.
+     * @returns {viewport} Returns the instance of the viewport.
      * @example
      * // Update the dimensions values of the viewport.
      * ch.viewport.calculateDimensions();
@@ -202,7 +194,7 @@
      * Calculates/updates the viewport position.
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {instance} Returns the instance of the viewport.
+     * @returns {viewport} Returns the instance of the viewport.
      * @example
      * // Update the offest values of the viewport.
      * ch.viewport.calculateOffset();
@@ -214,12 +206,11 @@
          * @type {Object}
          * @private
          */
-        var that = this,
-            scroll = ch.util.getScroll();
+        var scroll = ch.util.getScroll();
 
         /**
          * The offset top of the viewport.
-         * @memberof! ch.Viewport#
+         * @memberof! ch.Viewport#offsetTop
          * @type {Number}
          * @example
          * // Checks if the offset top of the viewport is equal to a number.
@@ -229,7 +220,7 @@
 
         /**
          * The offset left of the viewport.
-         * @memberof! ch.Viewport#
+         * @memberof! ch.Viewport#offsetLeft
          * @type {Number}
          * @example
          * // Checks if the offset left of the viewport is equal to a number.
@@ -239,7 +230,7 @@
 
         /**
          * The offset right of the viewport.
-         * @memberof! ch.Viewport#
+         * @memberof! ch.Viewport#offsetRight
          * @type {Number}
          * @example
          * // Checks if the offset right of the viewport is equal to a number.
@@ -249,7 +240,7 @@
 
         /**
          * The offset bottom of the viewport.
-         * @memberof! ch.Viewport#
+         * @memberof! ch.Viewport#offsetBottom
          * @type {Number}
          * @example
          * // Checks if the offset bottom of the viewport is equal to a number.
@@ -264,14 +255,14 @@
      * Rertuns/updates the viewport orientation: landscape or portrait.
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {instance} Returns the instance of the viewport.
+     * @returns {viewport} Returns the instance of the viewport.
      * @example
      * // Update the dimensions values of the viewport.
      * ch.viewport.calculateDimensions();
      */
     Viewport.prototype.calculateOrientation = function () {
         /** The viewport orientation: landscape or portrait.
-         * @memberof! ch.Viewport#
+         * @memberof! ch.Viewport#orientation
          * @type {String}
          * @example
          * // Checks if the orientation is "landscape".
@@ -318,7 +309,7 @@
      * Upadtes the viewport dimension, viewport positions and orietation.
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {instance} Returns the instance of the viewport.
+     * @returns {viewport} Returns the instance of the viewport.
      * @example
      * // Refreshs the viewport.
      * ch.viewport.refresh();
@@ -331,7 +322,7 @@
         return this;
     };
 
-    // The instance of the viewport into ch namespace.
+    // Creates an instance of the Viewport into ch namespace.
     ch.viewport = new Viewport();
 
 }(this, this.ch.$, this.ch));
