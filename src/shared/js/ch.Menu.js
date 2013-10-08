@@ -13,7 +13,7 @@
      * @requires ch.Expandable
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.fx] Enable or disable UI effects. By default, the effect is "slideDown". You should use: "slideDown", "fadeIn" or "none".
+     * @param {String} [options.fx] Enable or disable UI effects. You should use: "slideDown", "fadeIn" or "none". Default: "slideDown".
      * @returns {menu} Returns a new instance of Menu.
      * @example
      * // Create a new menu without configuration.

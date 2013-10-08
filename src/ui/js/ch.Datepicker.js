@@ -17,8 +17,8 @@
      * @param {String} [options.selected] Sets a date that should be selected by default. Default: "today".
      * @param {String} [options.from] Set a minimum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
-     * @param {Array} [options.monthsNames] A collection of months names. By default is ["Enero", ... , "Diciembre"].
-     * @param {Array} [options.weekdays] A collection of weekdays. By default is ["Dom", ... , "Sab"].
+     * @param {Array} [options.monthsNames] A collection of months names. Default: ["Enero", ... , "Diciembre"].
+     * @param {Array} [options.weekdays] A collection of weekdays. Default: ["Dom", ... , "Sab"].
      * @param {Boolean} [conf.hiddenby] To be defined. Default: "pointers".
      * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "bottom".

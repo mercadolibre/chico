@@ -12,7 +12,7 @@
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 0.
      * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
      * @requires ch.util
      * @requires ch.Viewport
      * @returns {positioner} Returns a new instance of Positioner.
@@ -20,8 +20,8 @@
      * // Instance the Positioner It requires a little configuration.
      * // The default behavior place an element center into the Viewport.
      * var positioned = new ch.Positioner({
-     *     'target': $('#element1'),
-     *     'reference': $('#element2'),
+     *     'target': $(selector),
+     *     'reference': $(selector),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 20,
@@ -31,8 +31,8 @@
      * // offsetX: The Positioner could be configurated with an offsetX.
      * // This example show an element displaced horizontally by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': $('#element1'),
-     *     'reference': $('#element2'),
+     *     'target': $(selector),
+     *     'reference': $(selector),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetX': 10
@@ -41,8 +41,8 @@
      * // offsetY: The Positioner could be configurated with an offsetY.
      * // This example show an element displaced vertically by 10px of defined position.
      * var positioned = new ch.Positioner({
-     *     'target': $('#element1'),
-     *     'reference': $('#element2'),
+     *     'target': $(selector),
+     *     'reference': $(selector),
      *     'side': 'top',
      *     'align': 'left',
      *     'offsetY': 10
@@ -50,8 +50,8 @@
      * @example
      * // positioned: The positioner could be configured to work with fixed or absolute position value.
      * var positioned = new ch.Positioner({
-     *     'target': $('#element1'),
-     *     'reference': $('#element2'),
+     *     'target': $(selector),
+     *     'reference': $(selector),
      *     'positioned': 'fixed'
      * });
      */

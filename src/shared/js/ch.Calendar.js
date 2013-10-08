@@ -22,7 +22,7 @@
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Calendar.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. You must use "DD/MM/YYYY", "MM/DD/YYYY" or "YYYY/MM/DD". Default: "DD/MM/YYYY".
-     * @param {String} [options.selected] Sets a date that should be selected by default. By default is the date of today.
+     * @param {String} [options.selected] Sets a date that should be selected by default. Default: The date of today.
      * @param {String} [options.from] Set a minimum selectable date. The format of the given date should be YYYY/MM/DD.
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be YYYY/MM/DD.
      * @param {Array} [options.monthsNames] A collection of months names. Default: ["Enero", ... , "Diciembre"].

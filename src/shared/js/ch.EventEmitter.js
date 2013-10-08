@@ -85,6 +85,7 @@
      * me.off('ready', startDoingStuff);
      */
     EventEmitter.prototype.off = function (event, listener) {
+
         if (event === undefined) {
             throw new Error('EventEmitter - "off(event, listener)": It should receive an event.');
         }
@@ -143,9 +144,7 @@
             event = args.shift(), // Store and remove events from args
             listeners,
             i = 0,
-            len,
-            // TODO: The widget should add this event - on('on' + event, this._options['on' + event]);
-            fn = (this._options) ? this._options['on' + event] : undefined;
+            len;
 
         if (event === undefined) {
             throw new Error('ch.EventEmitter - "emit(event)": It should receive an event.');
@@ -172,11 +171,6 @@
                     i -= 1;
                 }
             }
-        }
-
-        // TODO: The widget should add this event - on('on' + event, this._options['on' + event]);
-        if (fn !== undefined) {
-            fn.call(this._options.controller || this, args);
         }
 
         return this;
