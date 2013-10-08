@@ -1,6 +1,6 @@
 var modal = $('#modal').modal({
         'content': 'test',
-        'fx': false
+        'fx': 'none'
     }).show(),
     $t = modal.$trigger,
     $c = modal.$container;

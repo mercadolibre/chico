@@ -1,5 +1,5 @@
 var transition = $('#transition').transition({
-        'fx': false
+        'fx': 'none'
     }).show(),
     $t = transition.$trigger,
     $c = transition.$container;

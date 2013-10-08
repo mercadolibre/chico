@@ -15,7 +15,7 @@ var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-f
     },
     suggestions = ['Aruba', 'Armenia', 'Argentina'],
     suggestionsHTML = ['<span class="HTMLAdded">Argentina</span>', '<span class="HTMLAdded">Armenia</span>', '<span class="HTMLAdded">Aruba</span>'],
-    autoComplete = getSnippet('#autoComplete').autoComplete({'fx': false}),
+    autoComplete = getSnippet('#autoComplete').autoComplete({'fx': 'none'}),
     autoCompleteHTML = getSnippet('#autoComplete').autoComplete({'html': true}),
     readyEvent = jasmine.createSpy('readyEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
@@ -105,7 +105,7 @@ describe('It should have the following public properties:', function () {
 });
 
 describe('It should have the following public methods:', function () {
-    var methods = ['init', 'destroy', 'suggest', 'hide', 'isShown', 'enable', 'disable'],
+    var methods = ['destroy', 'suggest', 'hide', 'isShown', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 

@@ -1,7 +1,7 @@
 // The configuration object allows to calculate movements by having always the same amount of pages
 var destroyEvent = jasmine.createSpy('destroyEvent'),
     changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
-    moveEvent = jasmine.createSpy('moveEvent'),
+    selectEvent = jasmine.createSpy('selectEvent'),
     prevEvent = jasmine.createSpy('prevEvent'),
     nextEvent = jasmine.createSpy('nextEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
@@ -11,12 +11,13 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
     carousel1 = $('.carousel1').carousel({
         'limitPerPage': 4,
         'fx': false,
-    }).on('move', function () { moveEvent(); })
+    }).on('select', function () { selectEvent(); })
         .on('prev', function () { prevEvent(); })
         .on('next', function () { nextEvent(); })
         .on('ready', function () { readyEvent(); })
         .on('itemsdone', function () { itemsdoneEvent(); })
         .on('refresh', function () { refreshEvent(); })
+        .on('destroy', function () { destroyEvent(); })
         .on('emptyitems', function () { emptyitemsEvent(); }),
     carousel2 = $('.carousel2').carousel({
         'limitPerPage': 4,
@@ -24,8 +25,7 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
         'pagination': true,
         'fx': false
     }),
-    carousel3 = $('.carousel3').carousel(),
-    carousel4 = $('.carousel4').carousel({
+    carousel3 = $('.carousel3').carousel({
         'limitPerPage': 2,
         'async': 5,
         'fx': false
@@ -80,7 +80,7 @@ describe('It should have the following public properties:', function () {
 
 describe('It should have the following public methods:', function () {
 
-    var methods = ['init', 'destroy', 'select', 'prev', 'next', 'refresh', 'enable', 'disable'],
+    var methods = ['destroy', 'select', 'prev', 'next', 'refresh', 'enable', 'disable'],
         i = 0,
         len = methods.length;
 
@@ -254,8 +254,8 @@ describe('Its select() method', function () {
         expect(carousel1._currentPage).toEqual(4);
     });
 
-    it('should emit the "move" event when it\'s translated', function () {
-        expect(moveEvent.callCount).toEqual(1);
+    it('should emit the "select" event when it\'s translated', function () {
+        expect(selectEvent.callCount).toEqual(1);
     });
 });
 
@@ -272,8 +272,8 @@ describe('Its prev() method', function () {
         expect(carousel1._currentPage).toEqual(2);
     });
 
-    it('should emit the "move" and "prev" events when it\'s translated', function () {
-        expect(moveEvent.callCount).toEqual(3);
+    it('should emit the "select" and "prev" events when it\'s translated', function () {
+        expect(selectEvent.callCount).toEqual(3);
         expect(prevEvent.callCount).toEqual(2);
     });
 
@@ -298,8 +298,8 @@ describe('Its next() method', function () {
         expect(carousel1._currentPage).toEqual(3);
     });
 
-    it('should emit the "move" and "next" events when it\'s translated', function () {
-        expect(moveEvent.callCount).toEqual(6);
+    it('should emit the "select" and "next" events when it\'s translated', function () {
+        expect(selectEvent.callCount).toEqual(6);
         expect(nextEvent.callCount).toEqual(2);
     });
 
@@ -312,6 +312,11 @@ describe('Its next() method', function () {
 });
 
 describe('Its refresh() method', function () {
+
+    beforeEach(function () {
+        carousel1.refresh();
+    });
+
     it('should emit the "refresh" event when it\'s refreshed on initialization', function () {
         expect(refreshEvent).toHaveBeenCalled();
     });
@@ -462,51 +467,50 @@ describe('Its pagination controls', function () {
 describe('Its asynchronous feature', function () {
 
     it('should add the next arrow', function () {
-        expect(carousel4._$el.children('.ch-carousel-next').hasClass('ch-carousel-disabled')).toBeFalsy();
+        expect(carousel3._$el.children('.ch-carousel-next').hasClass('ch-carousel-disabled')).toBeFalsy();
     });
 
     it('should add two items on next page', function () {
 
-        var items = carousel4._$items.length,
-            expectedItems = items + carousel4._limitPerPage;
+        var items = carousel3._$items.length,
+            expectedItems = items + carousel3._limitPerPage;
 
-        carousel4.next();
+        carousel3.next();
 
-        expect(carousel4._$items.length).toEqual(expectedItems);
+        expect(carousel3._$items.length).toEqual(expectedItems);
     });
 
     it('should add multiple items on next 2 pages selection (through select() method or pagination)', function () {
 
         var move = 2, // Amount of pages to move
-            items = carousel4._$items.length,
-            expectedItems = items + (carousel4._limitPerPage * move);
+            items = carousel3._$items.length,
+            expectedItems = items + (carousel3._limitPerPage * move);
 
-        carousel4.select(carousel4._currentPage + move);
+        carousel3.select(carousel3._currentPage + move);
 
-        expect(carousel4._$items.length).toEqual(expectedItems);
+        expect(carousel3._$items.length).toEqual(expectedItems);
     });
 });
 
 describe('Its destroy() method', function () {
 
-    carousel3.destroy();
-
-    var $snippet = $('.carousel3');
+    beforeEach(function () {
+        if (carousel3) {
+            carousel3.destroy();
+            carousel3 = undefined;
+        }
+    });
 
     it('should reset the _$el', function () {
-        expect($snippet.children().length).toEqual(1);
+        expect($('.carousel3 li').length).toEqual(2);
     });
 
     it('should remove ".carousel" events', function () {
-        expect($._data($snippet[0], 'events')).toBeUndefined();
+        expect($._data($('.carousel3')[0], 'events')).toBeUndefined();
     });
 
     it('should remove the instance from the element', function () {
-        expect($snippet.data('carousel')).toBeUndefined();
-    });
-
-    it('should emit the "changeLayout" event', function () {
-        expect(changeLayoutEvent).toHaveBeenCalled();
+        expect($('.carousel3').data('carousel')).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {

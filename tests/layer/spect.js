@@ -1,12 +1,12 @@
 var layer1 = $('#layer1').layer({
         'content': 'test',
-        'fx': false
+        'fx': 'none'
     }).show(),
     $t = layer1.$trigger,
     $c = layer1.$container,
     layer2 = $('#layer2').layer({
         'content': 'test',
-        'fx': false
+        'fx': 'none'
     });
 
 describe('Layer', function () {
