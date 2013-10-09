@@ -1,10 +1,6 @@
 (function (window, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     function normalizeOptions(message) {
         var options,
             condition = {

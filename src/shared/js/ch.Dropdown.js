@@ -121,23 +121,17 @@
          * @protected
          * @type {Selector}
          */
-        if (this._options.shortcuts) {
-            this._$navigation = this.$trigger.next().find('a').prop('role', 'option');
+        this._$navigation = this.$trigger.next().find('a').prop('role', 'option');
 
-            // Keyboard support initialize
-            var selected = 0,
-
-                optionsLength = this._$navigation.length;
-
-            // Item selected by mouseover
-            $.each(this._$navigation, function (i, e) {
-                $(e).on('mouseenter.dropdown', function () {
-                    that._$navigation[that._selected = i].focus();
-                });
+        // Item selected by mouseover
+        $.each(this._$navigation, function (i, e) {
+            $(e).on('mouseenter.dropdown', function () {
+                that._$navigation[that._selected = i].focus();
             });
+        });
 
-            ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) { that._select(event); });
-            ch.shortcuts.add(ch.onkeydownarrow, this.uid, function (event) { that._select(event); });
+        if (this._options.shortcuts && this._navigationShortcuts !== undefined) {
+            this._navigationShortcuts();
         }
 
         this._options.content = this.$trigger.next();
@@ -216,6 +210,10 @@
         this.$container.off('.dropdown');
 
         $document.trigger(ch.onchangelayout);
+
+        $.each(this._$navigation, function (i, e) {
+            $(e).off('mouseenter.dropdown');
+        });
 
         parent.destroy.call(this);
     };

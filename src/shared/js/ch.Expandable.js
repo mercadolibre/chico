@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     function normalizeOptions(options) {
         if (typeof options === 'string' || ch.util.is$(options)) {
             options = {
@@ -23,37 +19,28 @@
      * @mixes ch.Content
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.fx] Enable or disable UI effects. By default, the effects are disabled. You should use: "slideDown", "fadeIn" or "none".
-     * @param {Boolean} [options.toggle] Customize toggle behavior. By default, the toggle is enabled.
-     * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. By default, the container will be the next sibling of $el.
-     * @param {String} [options.content] The content to be shown into the expandable container.
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
+     * @param {Boolean} [options.toggle] Customize toggle behavior. Default: true.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.container] The container where the expanbdale puts its content. Default: the next sibling of $el.
+     * @param {(jQuerySelector | ZeptoSelector | String)} [options.content] The content to be shown into the expandable container.
      * @returns {expandable} Returns a new instance of Expandable.
      * @example
-     * // Create a new Expandable with defaults options.
-     * var widget = $(selector).expandable();
+     * // Create a new Expandable.
+     * var expandable = new ch.Expandable($el, [options]);
+     * @example
+     * // Create a new Expandable with jQuery or Zepto.
+     * var expandable = $(selector).expandable([options]);
      * @example
      * // Create a new Expandable with toggle disabled.
-     * $(selector).expandable({
-     *     'toggle': false
-     * });
-     * @example
-     * // Create a new Expandable with fx enabled.
-     * $(selector).expandable({
-     *     'fx': 'slideDown'
-     * });
-     * @example
-     * // Create a new Expandable with a specific container.
-     * $(selector).expandable({
-     *     'container': $(selector)
-     * });
-     * @example
-     * // Create a new Expandable with content loaded by ajax.
-     * $(selector).expandable({
+     * var expandable = $(selector).expandable({
+     *     'container': $(selector),
+     *     'toggle': false,
+     *     'fx': 'slideDown',
      *     'content': 'http://ui.ml.com:3040/ajax'
      * });
-     *
-     * // or you can use the short
-     * $(selector).expandable('http://ui.ml.com:3040/ajax');
+     * @example
+     * // Create a new Expandable using the shorthand way (content as parameter).
+     * var expandable = $(selector).expandable('http://ui.ml.com:3040/ajax');
      */
     function Expandable($el, options) {
 
@@ -131,19 +118,29 @@
         /**
          * The expandable trigger.
          * @type {(jQuerySelector | ZeptoSelector)}
+         * @example
+         * // Gets the expandable trigegr.
+         * expandable.$trigger;
          */
         this.$trigger = this._$el
             .addClass(this._options._classNameTrigger)
             .on(ch.onpointertap + '.' + this.name, function (event) {
 
                 ch.util.prevent(event);
-                that._options.toggle ? that._toggle() : that.show();
 
+                if (that._options.toggle) {
+                    that._toggle();
+                } else {
+                    that.show();
+                }
             });
 
         /**
          * The expandable container.
          * @type {(jQuerySelector | ZeptoSelector)}
+         * @example
+         * // Gets the expandable container.
+         * expandable.$container;
          */
         this.$container = this._$content = (this._options.container || this._$el.next())
             .addClass(this._options._classNameContainer)

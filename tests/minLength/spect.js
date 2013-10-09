@@ -20,12 +20,12 @@ describe('ch.MinLength', function () {
     });
 
     it('should return an error when the value is higher than "minLength" number', function () {
-        minLength.$el.val('The string length is higher than minLength number.');
+        minLength.$trigger.val('The string length is higher than minLength number.');
         expect(minLength.hasError()).toBeFalsy();
     });
 
     it('shouldn\'t have got an error when the value is smaller than "minLength" number', function () {
-        minLength.$el.val('String');
+        minLength.$trigger.val('String');
         expect(minLength.hasError()).toBeTruthy();
     });
 

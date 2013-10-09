@@ -1,10 +1,6 @@
 (function (window, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Normalizes and creates an options object
      * @private

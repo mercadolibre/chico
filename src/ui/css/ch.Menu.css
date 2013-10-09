@@ -2,91 +2,80 @@
  * Menu
  */
 .ch-menu {
-	max-width: 300px;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	list-style: none;
-	-webkit-box-shadow: 0 8px 4px -4px #eee;
-	box-shadow: 0 8px 4px -4px #eee;
+    max-width: 300px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+    -webkit-box-shadow: 0 8px 4px -4px #eee;
+    box-shadow: 0 8px 4px -4px #eee;
 }
 
 .ch-accordion {
-	max-width: none;
+    max-width: none;
 }
 
 .ch-menu .ch-expandable {
-	margin: 5px 0;
+    margin: 5px 0;
 }
 
 /* L1 and L2 items */
 .ch-fold-trigger,
 .ch-menu .ch-expandable-trigger,
 .ch-menu .ch-expandable-container a {
-	cursor: pointer;
-	text-decoration: none!important;
-	color: #333!important;
-	display: block;
-	padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none!important;
+    color: #333!important;
+    display: block;
+    padding: 5px 10px;
 }
 
 /* L1 and L2 items hover */
 .ch-fold-trigger:hover,
 .ch-menu .ch-expandable-trigger:hover,
 .ch-menu .ch-expandable-container a:hover {
-	background-color: #FDF9D5;
-	border-radius: 5px;
+    background-color: #FDF9D5;
+    border-radius: 5px;
 }
 
 /* L1 items */
 .ch-fold-trigger,
 .ch-menu .ch-expandable-trigger,
 .ch-menu .ch-expandable-container {
-	position: relative;
+    position: relative;
 }
 
 /* L1 items icon */
 .ch-menu .ch-expandable-trigger:after {
-	top: 50%;
-	margin-top: -8px;
-	right: 10px;
-	left: auto;
+    top: 50%;
+    margin-top: -8px;
+    right: 10px;
+    left: auto;
 }
 
 /* L2 items list */
 .ch-menu .ch-expandable-container {
-	font-size: 0.9em;
-	margin: 10px 0;
+    font-size: 0.9em;
+    margin: 10px 0;
 }
 
 /* L2 items */
 .ch-menu .ch-expandable-container a {
-	padding: 2px 15px;
-	/*
-		Fix based on David Baron comment on the Firefox bug:
-		https://bugzilla.mozilla.org/show_bug.cgi?id=36854#c7
-	 */
-	list-style: disc inside;
-	display: list-item;
+    padding: 2px 15px;
+    /*
+        Fix based on David Baron comment on the Firefox bug:
+        https://bugzilla.mozilla.org/show_bug.cgi?id=36854#c7
+     */
+    list-style: disc inside;
+    display: list-item;
 }
 
 /* Selected child */
 .ch-menu .ch-expandable-trigger-on {
-	background-color: #F7F7F7;
-	border-radius: 5px;
+    background-color: #F7F7F7;
+    border-radius: 5px;
 }
 
 .ch-menu-on {
-	font-weight: bold;
-}
-
-/* IE */
-.lt-ie8 .ch-menu .ch-expandable-trigger .ch-expandable-ico {
-	right: 5px;
-	top: 8px;
-	left: auto;
-}
-
-.lt-ie8 .ch-menu .ch-expandable-trigger-on .ch-expandable-ico {
-	top: 10px;
+    font-weight: bold;
 }

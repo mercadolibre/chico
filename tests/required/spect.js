@@ -24,7 +24,7 @@ describe('ch.Required', function () {
     });
 
     it('shouldn\'t have got an error when the value is set', function () {
-        required.$el.val('Some value!');
+        required.$trigger.val('Some value!');
         expect(required.hasError()).toBeFalsy();
     });
 

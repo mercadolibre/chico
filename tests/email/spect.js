@@ -20,12 +20,12 @@ describe('ch.Email', function () {
     });
 
     it('should return an error when the value is diferent to a valid email', function () {
-        email.$el.val('Test');
+        email.$trigger.val('Test');
         expect(email.hasError()).toBeTruthy();
     });
 
     it('should remove the error when the value is a valid email', function () {
-        email.$el.val('chico@mercadolibre.com');
+        email.$trigger.val('chico@mercadolibre.com');
         expect(email.hasError()).toBeFalsy();
     });
 

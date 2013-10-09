@@ -20,12 +20,12 @@ describe('ch.MaxLength', function () {
     });
 
     it('should return an error when the value is higher than "maxLength" number', function () {
-        maxLength.$el.val('The string length is higher than maxLength number.');
+        maxLength.$trigger.val('The string length is higher than maxLength number.');
         expect(maxLength.hasError()).toBeTruthy();
     });
 
     it('shouldn\'t have got an error when the value is smaller than "maxLength" number', function () {
-        maxLength.$el.val('String');
+        maxLength.$trigger.val('String');
         expect(maxLength.hasError()).toBeFalsy();
     });
 

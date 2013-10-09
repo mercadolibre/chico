@@ -7,32 +7,32 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: normal;
-	margin: 10px 0;
+    font-weight: normal;
+    margin: 10px 0;
 }
 
 h1 {
-	font-size: 22px;
+    font-size: 22px;
 }
 
 h2 {
-	font-size: 20px;
+    font-size: 20px;
 }
 
 h3 {
-	font-size: 18px;
+    font-size: 18px;
 }
 
 h4 {
-	font-size: 16px;
+    font-size: 16px;
 }
 
 h5 {
-	font-size: 15px;
+    font-size: 15px;
 }
 
 h6 {
-	font-size: 14px;
+    font-size: 14px;
 }
 
 /**
@@ -44,52 +44,52 @@ h6 {
 [class*="ch-box"] h4,
 [class*="ch-box"] h5,
 [class*="ch-box"] h6 {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 /**
  * Links
  */
 a {
-	color: #0637B3;
-	text-decoration: none;
+    color: #0637B3;
+    text-decoration: none;
 }
 
 a:active {
-	color: #0000DD;
+    color: #0000DD;
 }
 
 a:visited {
-	color: #800080;
+    color: #800080;
 }
 
 a:hover,
 a:focus {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 /**
  * Price
  */
 .ch-price {
-	color: #900;
-	font-size: 16px;
-	font-weight: bold;
+    color: #900;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .ch-price sup {
-	font-size: 10px;
-	vertical-align: text-top;
-	line-height: 1em;
+    font-size: 10px;
+    vertical-align: text-top;
+    line-height: 1em;
 }
 
 .ch-price span {
-	color: #999;
-	font-size: 13px;
-	font-weight: normal
+    color: #999;
+    font-size: 13px;
+    font-weight: normal
 }
 
 /* IE */
 .lt-ie9 .ch-price sup {
-	font-size: 12px;
+    font-size: 12px;
 }

@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (window.ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Form is a controller of DOM's HTMLFormElement.
      * @memberof ch
@@ -27,11 +23,14 @@
      * @param {String} [options.messages.price] A validation message.
      * @returns {form} Returns a new instance of Form.
      * @example
-     * // Create a new Form with defaults options.
-     * var widget = $(selector).form();
+     * // Create a new Form.
+     * var form = new ch.Form($el, [options]);
+     * @example
+     * // Create a new Form with jQuery or Zepto.
+     * var form = $(selector).form();
      * @example
      * // Create a new Form with custom messages.
-     * $(selector).form({
+     * var form = $(selector).form({
      *     'messages': {
      *          'required': 'Some message!',
      *          'email': 'Another message!'
@@ -200,7 +199,7 @@
         if (that.errors.length > 0) {
             firstError = that.errors[0];
 
-            firstError.bubble.$container[0].scrollIntoView();
+            firstError.$trigger[0].scrollIntoView();
 
             // Issue UI-332: On validation must focus the first field with errors.
             // Doc: http://wiki.ml.com/display/ux/Mensajes+de+error

@@ -1,15 +1,15 @@
 /* ==========================================================================
-	 Forms
-	 ========================================================================== */
+     Forms
+     ========================================================================== */
 
 /*
  * Define consistent border, margin, and padding.
  */
 
 fieldset {
-	border: none;
-	margin: 0;
-	padding: 0;
+    border: none;
+    margin: 0;
+    padding: 0;
 }
 
 /*
@@ -18,8 +18,8 @@ fieldset {
  */
 
 legend {
-	border: 0; /* 1 */
-	padding: 0; /* 2 */
+    border: 0; /* 1 */
+    padding: 0; /* 2 */
 }
 
 /*
@@ -32,9 +32,9 @@ button,
 input,
 select,
 textarea {
-	font-family: inherit; /* 1 */
-	font-size: 100%; /* 2 */
-	margin: 0; /* 3 */
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 2 */
+    margin: 0; /* 3 */
 }
 
 /*
@@ -44,7 +44,7 @@ textarea {
 
 button,
 input {
-	line-height: normal;
+    line-height: normal;
 }
 
 /*
@@ -61,8 +61,8 @@ input[type="search"]{
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Generic input & textarea */
@@ -82,11 +82,11 @@ input[type="password"],
 textarea,
 select[multiple],
 .ch-form-select-multiple {
-	border: 1px solid #CDCDCD;
-	border-radius: 3px;
-	-webkit-box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
-	box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
-	padding: 6px;
+    border: 1px solid #CDCDCD;
+    border-radius: 3px;
+    -webkit-box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
+    box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.3) inset;
+    padding: 6px;
 }
 
 input[type="text"]:focus,
@@ -105,10 +105,10 @@ input[type="password"]:focus,
 textarea:focus,
 select[multiple]:focus,
 .ch-form-select-multiple:focus {
-	border: 2px solid #9A9A9A;
-	padding: 5px;
-	outline: 0;
-	-webkit-box-shadow: none;
+    border: 2px solid #9A9A9A;
+    padding: 5px;
+    outline: 0;
+    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
@@ -117,196 +117,197 @@ input[type="checkbox"]:focus,
 input[type="radio"]:focus,
 input[type="range"]:focus,
 select:focus {
-	outline: 1px dotted #9A9A9A;
+    outline: 1px dotted #9A9A9A;
 }
 
 input[readonly],
 input[readonly]:focus {
-	border: none;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	color: #999999;
-	padding: 5px 0;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #999999;
+    padding: 5px 0;
 }
 
 /* Icons */
-.ch-form-ico {
-	margin-left: 5px;
+.ch-form-icon {
+    margin-top: 0;
+    margin-left: 0;
 }
 
-.ch-form-ico-inner {
-	opacity: 0.3;
+.ch-form-icon-inner {
+    opacity: 0.3;
 }
 
-.ch-form-ico-input:focus + .ch-form-ico-inner {
-	opacity: 0.7;
+.ch-form-icon-input:focus + .ch-form-icon-inner {
+    opacity: 0.7;
 }
 
-input.ch-form-ico-input {
-	padding-right: 24px;
+input.ch-form-icon-input {
+    padding-right: 24px;
 }
 
-input.ch-form-ico-input:focus {
-	padding-right: 23px;
+input.ch-form-icon-input:focus {
+    padding-right: 23px;
 }
 
-.ch-form-big .ch-form-row .ch-form-ico-input {
-	padding-right: 30px;
+.ch-form-big .ch-form-row .ch-form-icon-input {
+    padding-right: 30px;
 }
 
-.ch-form-big .ch-form-row .ch-form-ico-input:focus {
-	padding-right: 29px;
+.ch-form-big .ch-form-row .ch-form-icon-input:focus {
+    padding-right: 29px;
 }
 
 /* Module */
 .ch-form fieldset {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-	/* Title module */
-	.ch-form legend {
-		color: #dc7b1c;
-		font-weight: bold;
-	}
+    /* Title module */
+    .ch-form legend {
+        color: #dc7b1c;
+        font-weight: bold;
+    }
 
-	.ch-form-subtitle {
-		font-size: 13px;
-		font-weight: bold;
-	}
+    .ch-form-subtitle {
+        font-size: 13px;
+        font-weight: bold;
+    }
 
 /* Required specification or another */
 .ch-form-hint {
-	color: #999999;
-	font-size: 12px;
-	line-height: 12px;
+    color: #999999;
+    font-size: 12px;
+    line-height: 12px;
 }
 
 /* Basic wrapper for horizontal view */
 .ch-form-row {
-	margin-bottom: 0;
-	padding: 5px 0;
-	position: relative;
+    margin-bottom: 0;
+    padding: 5px 0;
+    position: relative;
 }
 
 /* Label */
 .ch-form-row label {
-	display:inline-block;
-	position:relative;
-	padding: 7px 11px 5px 0;
+    display:inline-block;
+    position:relative;
+    padding: 7px 11px 5px 0;
 }
 
 /* Label inline not used yet */
-	.ch-form-row input + label,
-	.ch-form-row select + label,
-	.ch-label-inline {
-		text-align: left;
-		width: auto;
-		padding-right: 0;
-		font-weight: normal;
-		margin-left: 0;
-	}
+    .ch-form-row input + label,
+    .ch-form-row select + label,
+    .ch-label-inline {
+        text-align: left;
+        width: auto;
+        padding-right: 0;
+        font-weight: normal;
+        margin-left: 0;
+    }
 
 /* Label required **/
-	.ch-form-required label {
-		font-weight: bold;
-	}
+    .ch-form-required label {
+        font-weight: bold;
+    }
 
-	.ch-form-required.ch-list-options label {
-		font-weight: normal;
-		z-index: 1;
-	}
+    .ch-form-required.ch-list-options label {
+        font-weight: normal;
+        z-index: 1;
+    }
 
 /* Icon indication of required */
-	.ch-form-required em {
-		display: block;
-		position: absolute;
-		right: 3px;
-		top: 3px;
-	}
+    .ch-form-required em {
+        display: block;
+        position: absolute;
+        right: 3px;
+        top: 3px;
+    }
 /* Icon indication of required in options */
-	.ch-form-required.ch-list-options em {
-		display: inline;
-		position: relative;
-		vertical-align: super;
-		top: auto;
-		right: auto;
-	}
+    .ch-form-required.ch-list-options em {
+        display: inline;
+        position: relative;
+        vertical-align: super;
+        top: auto;
+        right: auto;
+    }
 
 /* Checkbox inline
 .ch-form-row input + input[type=checkbox],*/
 .ch-form-checkbox-inline {
-	margin-right: 0;
-	border: none;
+    margin-right: 0;
+    border: none;
 }
 
 /* Range
 input[type=range],*/
 .ch-form-range {
-	padding: 4px;
-	vertical-align: middle;
+    padding: 4px;
+    vertical-align: middle;
 }
 
 /* Select Multiple */
 .ch-form-row select[multiple],
 .ch-form-select-multiple {
-	vertical-align: top;
-	margin-top: 10px;
+    vertical-align: top;
+    margin-top: 10px;
 }
 
 /* Textarea */
 .ch-form-row textarea {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 /* Help bottom line that helps the user */
 .ch-form-row .ch-form-hint {
-	display: block;
+    display: block;
 }
 
 /* Options */
 .ch-list-options {
-	margin: 0 0 15px 20px;
+    margin: 0 0 15px 20px;
 }
 
 /* Subtitle in options */
 .ch-list-options .ch-form-subtitle {
-	margin-bottom: 15px;
-	margin-left: -20px;
+    margin-bottom: 15px;
+    margin-left: -20px;
 }
 
 /* Subtitle in options & required */
 .ch-list-options.ch-form-required .ch-form-subtitle{
-	font-weight:bold;
+    font-weight:bold;
 }
 
 /* Label in options */
 .ch-list-options label {
-	margin: 0;
+    margin: 0;
 }
 
 .ch-list-options input[type="radio"],
 .ch-list-options input[type="checkbox"] {
-	position: absolute;
-	top: 50%;
-	margin: -8px 0 0 0;
+    position: absolute;
+    top: 50%;
+    margin: -8px 0 0 0;
 }
 
 /* Disabled status */
 .ch-form-disabled label {
-	color: #999999;
+    color: #999999;
 }
 
 .ch-form-disabled input,
 .ch-form-disabled input[disabled],
 .ch-form-disabled textarea,
 .ch-form-disabled textarea[disabled] {
-	background-color: #F2F2F2;
-	cursor: not-allowed;
+    background-color: #F2F2F2;
+    cursor: not-allowed;
 }
 
 /* Actions */
 .ch-form-actions {
-	text-align: left;
+    text-align: left;
 }
 
 /* Big inputs */
@@ -326,9 +327,9 @@ input[type=range],*/
 .ch-form-big textarea,
 .ch-form-big select[multiple],
 .ch-form-big .ch-form-select-multiple {
-	border-radius: 3px;
-	padding: 12px 10px;
-	margin: 5px 0;
+    border-radius: 3px;
+    padding: 12px 10px;
+    margin: 5px 0;
 }
 
 .ch-form-big input[type="text"]:focus,
@@ -347,7 +348,7 @@ input[type=range],*/
 .ch-form-big textarea:focus,
 .ch-form-big select[multiple]:focus,
 .ch-form-big .ch-form-select-multiple:focus {
-	padding: 11px 9px;
+    padding: 11px 9px;
 }
 
 /**
@@ -355,15 +356,11 @@ input[type=range],*/
  */
 
 .ch-form input.ch-validation-error,
-.ch-form textarea.ch-validation-error {
+.ch-form textarea.ch-validation-error,
+.ch-countdown-exceeded {
     border-color: #f99;
 }
 
 .ch-validation-error:focus {
     border-width: 2px;
-}
-
-.ch-countdown-exceeded {
-    color: #B94A48;
-    color: #f99;
 }

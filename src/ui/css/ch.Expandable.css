@@ -3,75 +3,46 @@
  */
 /* Trigger */
 .ch-expandable-trigger {
-	color: #0637B3;
-	cursor: pointer;
-	position: relative;
-	padding-left: 16px;
-	font-size: 1em;
+    color: #0637B3;
+    cursor: pointer;
+    position: relative;
+    padding-left: 16px;
+    font-size: 1em;
 }
 
 /* Active trigger */
 .ch-expandable-trigger:active {
-	color: #00D;
+    color: #00D;
 }
 
 /* Visited trigger */
 .ch-expandable-trigger:visited{
-	color: #800080;
+    color: #800080;
 }
 
 /* Hover trigger */
 .ch-expandable-trigger:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 /* Trigger icon */
 .ch-expandable-trigger.ch-expandable-ico:after {
-	font-family: icons;
-	content: "\f0da";
-	position:absolute;
-	top: 2px;
-	left: 5px;
-	color: #999999;
-	text-decoration: none;
+    font-family: icons;
+    content: "\f0da";
+    position:absolute;
+    top: 2px;
+    left: 5px;
+    color: #999999;
+    text-decoration: none;
 }
 
 /* Trigger icon on */
 .ch-expandable-trigger-on.ch-expandable-ico:after {
-	content: "\f0d7";
-	left: 2px;
+    content: "\f0d7";
+    left: 2px;
 }
 
 /* Content */
 .ch-expandable-container {
-	margin: 0 0 5px 16px;
-}
-
-/* IE */
-.ie7 .ch-expandable-trigger{
-	font-size: 13px;
-}
-
-/* Trigger icon */
-.lt-ie8 .ch-expandable-trigger .ch-expandable-ico {
-	background-image: url('../assets/shapes.png');
-	display: block;
-	position: absolute;
-	overflow: hidden;
-	text-indent: 14px;
-	background-position: -3px -48px;
-	width: 4px;
-	height: 7px;
-	top: 5px;
-	left: 5px;
-}
-
-/* Trigger icon on */
-.lt-ie8 .ch-expandable-trigger-on .ch-expandable-ico,
-.lt-ie8 .ch-expandable-trigger-on:hover .ch-expandable-ico {
-	background-position: 0 -51px;
-	width: 7px;
-	height: 4px;
-	top: 7px;
-	left: 3px;
+    margin: 0 0 5px 16px;
 }

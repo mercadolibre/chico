@@ -3,6 +3,13 @@
  */
 @font-face {
     font-family: 'icons';
+    /*
+     * IE9 Compat Modes
+     * IE6-IE8
+     * Modern Browsers
+     * Safari, Android, iOS
+     * Legacy iOS
+     */
     src: url('../assets/icons.eot');
     src: url('../assets/icons.eot?#iefix') format('embedded-opentype'),
          url('../assets/icons.woff') format('woff'),
@@ -17,13 +24,16 @@
     text-align: center;
     display: inline-block;
     vertical-align: middle;
-    line-height: 1em;
+    line-height: .9em;
     height: 16px;
     width: 16px;
-    font-size: 18px;
+    font-size: 19px;
     margin: 5px;
 }
 
+/**
+ * Icons Size
+ */
 .ch-icon-24,
 .ch-icon-32,
 .ch-icon-64 {
@@ -48,7 +58,6 @@
     font-size: 66px;
 }
 
-.lt-ie8 [class*='ch-icon-'],
 [class*='ch-icon-']:before,
 .ch-list-options li a:after,
 .ch-tag:after {
@@ -72,32 +81,9 @@
     left: 0;
 }
 
-/*
- * Marks
+/**
+ * Icons content
  */
-[class*='ch-mark'] {
-    display: inline-block;
-    height: 32px;
-    width: 32px;
-    font-size: 34px;
-    padding: 16px;
-    border-radius: 100%;
-    margin: 10px;
-    color: #FFF;
-    background-color: #F5CC00;
-}
-
-[class*='ch-mark'].ch-icon-warning-sign {
-    color: #FFF;
-}
-
-.ch-mark-skin {
-    background-color: #3A87AD;
-}
-
-
-/*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
-    readers do not read off random characters that represent icons */
 .ch-icon-search:before               { content: '\f002'; }
 .ch-icon-heart:before                { content: '\f004'; }
 .ch-icon-star:before                 { content: '\f005'; }
@@ -164,70 +150,3 @@
 .ch-icon-comment-alt:before          { content: '\f0e5'; }
 .ch-icon-comments-alt:before         { content: '\f0e6'; }
 .ch-icon-phone:before                { content: '\f095'; }
-
-.lt-ie8 .ch-icon-search { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf002;&nbsp;');}
-.lt-ie8 .ch-icon-heart { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf004;&nbsp;');}
-.lt-ie8 .ch-icon-star { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf005;&nbsp;');}
-.lt-ie8 .ch-icon-star-empty { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf006;&nbsp;');}
-.lt-ie8 .ch-icon-user { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf007;&nbsp;');}
-.lt-ie8 .ch-icon-th-large { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf009;&nbsp;');}
-.lt-ie8 .ch-icon-th { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf00a;&nbsp;');}
-.lt-ie8 .ch-icon-th-list { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf00b;&nbsp;');}
-.lt-ie8 .ch-icon-ok { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf00c;&nbsp;');}
-.lt-ie8 .ch-icon-remove { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf00d;&nbsp;');}
-.lt-ie8 .ch-icon-zoom-in { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf00e;&nbsp;');}
-.lt-ie8 .ch-icon-zoom-out { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf010;&nbsp;');}
-.lt-ie8 .ch-icon-cog { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf013;&nbsp;');}
-.lt-ie8 .ch-icon-trash { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf014;&nbsp;');}
-.lt-ie8 .ch-icon-time { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf017;&nbsp;');}
-.lt-ie8 .ch-icon-repeat { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf01e;&nbsp;');}
-/* \f020 is not a valid unicode character. all shifted one down */
-.lt-ie8 .ch-icon-refresh { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf021;&nbsp;');}
-.lt-ie8 .ch-icon-print { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf02f;&nbsp;');}
-.lt-ie8 .ch-icon-camera { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf030;&nbsp;');}
-.lt-ie8 .ch-icon-pencil { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf040;&nbsp;');}
-.lt-ie8 .ch-icon-map-marker { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf041;&nbsp;');}
-.lt-ie8 .ch-icon-move { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf047;&nbsp;');}
-.lt-ie8 .ch-icon-chevron-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf053;&nbsp;');}
-.lt-ie8 .ch-icon-chevron-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf054;&nbsp;');}
-.lt-ie8 .ch-icon-plus-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf055;&nbsp;');}
-.lt-ie8 .ch-icon-minus-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf056;&nbsp;');}
-.lt-ie8 .ch-icon-remove-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf057;&nbsp;');}
-.lt-ie8 .ch-icon-ok-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf058;&nbsp;');}
-.lt-ie8 .ch-icon-help-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf059;&nbsp;');}
-.lt-ie8 .ch-icon-info-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf05a;&nbsp;');}
-.lt-ie8 .ch-icon-ban-circle { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf05e;&nbsp;');}
-.lt-ie8 .ch-icon-arrow-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf060;&nbsp;');}
-.lt-ie8 .ch-icon-arrow-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf061;&nbsp;');}
-.lt-ie8 .ch-icon-arrow-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf062;&nbsp;');}
-.lt-ie8 .ch-icon-arrow-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf063;&nbsp;');}
-.lt-ie8 .ch-icon-plus { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf067;&nbsp;');}
-.lt-ie8 .ch-icon-minus { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf068;&nbsp;');}
-.lt-ie8 .ch-icon-exclamation-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf06a;&nbsp;');}
-.lt-ie8 .ch-icon-warning-sign { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf071;&nbsp;');}
-.lt-ie8 .ch-icon-calendar { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf073;&nbsp;');}
-.lt-ie8 .ch-icon-comment { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf075;&nbsp;');}
-.lt-ie8 .ch-icon-chevron-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf077;&nbsp;');}
-.lt-ie8 .ch-icon-chevron-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf078;&nbsp;');}
-.lt-ie8 .ch-icon-key { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf084;&nbsp;');}
-.lt-ie8 .ch-icon-comments { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf086;&nbsp;');}
-.lt-ie8 .ch-icon-lock:before { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf023;&nbsp;');}
-.lt-ie8 .ch-icon-unlock { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf09c;&nbsp;');}
-.lt-ie8 .ch-icon-wrench { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0ad;&nbsp;');}
-.lt-ie8 .ch-icon-group { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0c0;&nbsp;');}
-.lt-ie8 .ch-icon-copy { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0c5;&nbsp;');}
-.lt-ie8 .ch-icon-paper-clip { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0c6;&nbsp;');}
-.lt-ie8 .ch-icon-reorder { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0c9;&nbsp;');}
-.lt-ie8 .ch-icon-truck { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0d1;&nbsp;');}
-.lt-ie8 .ch-icon-caret-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0d7;&nbsp;');}
-.lt-ie8 .ch-icon-caret-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0d8;&nbsp;');}
-.lt-ie8 .ch-icon-caret-left { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0d9;&nbsp;');}
-.lt-ie8 .ch-icon-caret-right { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0da;&nbsp;');}
-.lt-ie8 .ch-icon-sort { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0dc;&nbsp;');}
-.lt-ie8 .ch-icon-sort-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0dd;&nbsp;');}
-.lt-ie8 .ch-icon-sort-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0de;&nbsp;');}
-.lt-ie8 .ch-icon-envelope-alt { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e0;&nbsp;');}
-.lt-ie8 .ch-icon-undo { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e2;&nbsp;');}
-.lt-ie8 .ch-icon-comment-alt { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e5;&nbsp;');}
-.lt-ie8 .ch-icon-comments-alt:before { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf0e6;&nbsp;');}
-.lt-ie8 .ch-icon-phone:before { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf095;&nbsp;');}
