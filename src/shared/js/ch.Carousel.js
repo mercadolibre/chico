@@ -334,7 +334,7 @@
             // The new width calculated from current width plus extraWidth
             width = (this._itemWidth + this._itemExtraWidth),
             // Get the height using new width and relation between width and height of item (ratio)
-            height = (width * this._itemHeight) / this._itemWidth,
+            height = ((width * this._itemHeight) / this._itemWidth).toFixed(3),
             // Generic <LI> HTML Element to be added to the Carousel
             item = [
                 '<li',
@@ -367,6 +367,9 @@
 
         // Update items collection
         this._$items = this._$list.children();
+
+        // Set WAI-ARIA properties to each item
+        this._updateARIA();
 
         // Update amount of items to add asynchronously
         this._async -= amount;
@@ -487,6 +490,26 @@
     };
 
     /**
+     * Calculates the total amount of pages and executes internal methods to load asynchronous items, update WAI-ARIA, update the arrows and update pagination.
+     * @memberof! ch.Carousel.prototype
+     * @private
+     * @function
+     */
+    Carousel.prototype._updatePages = function () {
+        // Update the amount of total pages
+        // The ratio between total amount of items and items in each page
+        this._pages = Math.ceil((this._$items.length + this._async) / this._limitPerPage);
+        // Add items to the list, if it's necessary
+        this._loadAsyncItems();
+        // Set WAI-ARIA properties to each item
+        this._updateARIA();
+        // Update arrows (when pages === 1, there is no arrows)
+        this._updateArrows();
+        // Update pagination
+        this._addPagination();
+    };
+
+    /**
      * Calculates the correct items per page and calculate pages, only when the amount of items was changed.
      * @memberof! ch.Carousel.prototype
      * @private
@@ -511,23 +534,8 @@
         firstItemOnPage = ((this._currentPage - 1) * this._limitPerPage) + 1;
         // Update amount of items into a single page (from conf or auto calculations)
         this._limitPerPage = limitPerPage;
-
-        // Update the amount of total pages
-        // The ratio between total amount of items and items in each page
-        this._pages = Math.ceil((this._$items.length + this._async) / limitPerPage);
-
-        // Add items to the list, if it's necessary
-        this._loadAsyncItems();
-
-        // Set WAI-ARIA properties to each item
-        this._updateARIA();
-
-        // Update arrows (when pages === 1, there is no arrows)
-        this._updateArrows();
-
-        // Update pagination
-        this._addPagination();
-
+        // Calculates the total amount of pages and executes internal methods
+        this._updatePages();
         // Go to the current first item page
         this.select(Math.ceil(firstItemOnPage / limitPerPage));
     };
@@ -587,7 +595,7 @@
         // Get the height using new width and relation between width and height of item (ratio)
         this._$items.css({
             'width': width,
-            'height': (width * this._itemHeight) / this._itemWidth,
+            'height': ((width * this._itemHeight) / this._itemWidth).toFixed(3),
             'margin-right': this._itemMargin
         });
 
@@ -706,16 +714,44 @@
      */
     Carousel.prototype.refresh = function () {
 
-        var maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
+        var that = this,
+            maskWidth = ch.util.getOuterDimensions(this._$mask[0]).width;
 
         // Check for changes on the width of mask, for the elastic carousel
+        // Update the width of the mask
         if (maskWidth !== this._maskWidth) {
-            // Update the width of the mask
+            // Update the global reference to the with of the mask
             this._maskWidth = maskWidth;
             // Calculate items per page and calculate pages, only when the amount of items was changed
             this._updateLimitPerPage();
             // Update the margin between items and its size
             this._updateDistribution();
+
+            /**
+             * Emits the event 'refresh' when the widget triggers all the necessary recalculations to be up-to-date.
+             * @event ch.Carousel#refresh
+             * @example
+             * carousel.on('refresh', function () {
+             *     alert('Carousel was refreshed.');
+             * });
+             */
+            this.emit('refresh');
+        }
+
+        // Check for a change in the total amount of items
+        // Update items collection
+        if (this._$list.children().length !== this._$items.length) {
+            // Update the entire reference to items
+            this._$items = this._$list.children();
+            // Calculates the total amount of pages and executes internal methods
+            this._updatePages();
+            // Go to the last page in case that the current page no longer exists
+            if (this._currentPage > this._pages) {
+                this._standbyFX(function () {
+                    that.select(that._pages);
+                });
+            }
+
             /**
              * Emits the event 'refresh' when the widget triggers all the necessary recalculations to be up-to-date.
              * @event ch.Carousel#refresh
@@ -761,8 +797,6 @@
         this._updateArrows();
         // Task 5: Add items to the list, if it's necessary
         this._loadAsyncItems();
-        // Task 6: Set WAI-ARIA properties to each item
-        this._updateARIA();
 
         /**
          * Emits the event 'select' when the widget moves to another page.
