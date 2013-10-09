@@ -251,14 +251,12 @@
         // It must happen only once.
         this.$trigger.on(this._validationEvent + '.validation', function () {
 
-            if (that.conditions.required !== undefined) {
+            if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
+                previousValue = this.value;
+                that.validate();
+            }
 
-                if (previousValue !== this.value || that._validationEvent === 'change') {
-                    previousValue = this.value;
-                    that.validate();
-                }
-
-            } else if (this.value === '') {
+            if (that.conditions.required === undefined && this.value === '') {
                 that.clear();
             }
 
