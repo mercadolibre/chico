@@ -188,7 +188,7 @@
 
         /**
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
-         * @type {(jQuerySelector | ZeptoSelector)}
+         * @type {form}
          */
         this.form = that.$trigger.parents('form').form().validations.push(this);
 
@@ -251,14 +251,12 @@
         // It must happen only once.
         this.$trigger.on(this._validationEvent + '.validation', function () {
 
-            if (that.conditions.required !== undefined) {
+            if (previousValue !== this.value || that._validationEvent === 'change' && that.isShown()) {
+                previousValue = this.value;
+                that.validate();
+            }
 
-                if (previousValue !== this.value || that._validationEvent === 'change') {
-                    previousValue = this.value;
-                    that.validate();
-                }
-
-            } else if (this.value === '') {
+            if (that.conditions.required === undefined && this.value === '') {
                 that.clear();
             }
 
@@ -492,10 +490,10 @@
      * @function
      * @param {String} [condition] - A given number of fold to enable.
      * @returns {validation} Returns an instance of Validation.
-     * @expample
+     * @example
      * // Enabling an instance of Validation.
      * validation.enable();
-     * @expample
+     * @example
      * // Enabling the "max" condition.
      * validation.enable('max');
      */
@@ -507,10 +505,10 @@
      * @function
      * @param {String} [condition] - A given number of fold to disable.
      * @returns {validation} Returns an instance of Validation.
-     * @expample
+     * @example
      * // Disabling an instance of Validation.
      * validation.disable();
-     * @expample
+     * @example
      * // Disabling the "email" condition.
      * validation.disable('email');
      */
@@ -522,7 +520,7 @@
      * Destroys a Validation instance.
      * @memberof! ch.Validation.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Validation.
      * validation.destroy();
      */

@@ -841,7 +841,7 @@
      * Destroys a Calendar instance.
      * @memberof! ch.Calendar.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Calendar.
      * calendar.destroy();
      */

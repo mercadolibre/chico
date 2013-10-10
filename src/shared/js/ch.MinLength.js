@@ -42,37 +42,57 @@
 
     /**
      * MinLength validates a minimun amount of characters.
-     * @name MinLength
-     * @class MinLength
-     * @interface
-     * @augments ch.Controls
+     * @memberof ch
+     * @constructor
      * @augments ch.Validation
-     * @requires ch.Validation
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.content] Validation message.
-     * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
-     * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-     * @param {String} [conf.context] It's a reference to position the validation-bubble
-     * @param {Number} num Minimun number characters.
-     * @returns itself
-     * @factorized
-     * @see ch.Validation
-     * @see ch.Required
-     * @see ch.Custom
-     * @see ch.Number
-     * @see ch.Validator
-     * @see ch.Condition
-     * @exampleDescription Create a minLength validation
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Number} [options.num] A given minimun amount of characters.
+     * @param {String} [options.message] The given error message to the condition.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
+     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: "10px".
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: "0px".
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Default: "absolute".
+     * @returns {validation} Returns a new instance of Validation.
      * @example
-     * $("input").minLength(10, "At least 10 characters..");
+     * // Create a new MinLength Validation.
+     * var minValidation = new ch.MinLength($el, [options]);
+     * @example
+     * // Create a new MinLength validation with jQuery or Zepto.
+     * var minValidation = $(selector).minLength([options]);
+     * @example
+     * // Create a new MinLength validation with custom options.
+     * var minValidation = $(selector).minLength({
+     *     'num': 10,
+     *     'message': 'At least 10 characters.',
+     *     'offsetX': 0,
+     *     'offsetY': 10,
+     *     'side': 'bottom',
+     *     'align': 'left'
+     * });
+     * @example
+     * // Create a new MinLength validation using the shorthand way (number and message as parameters).
+     * var minValidation = $(selector).minLength('At least 10 characters.');
      */
     function MinLength($el, options) {
-        return $el.validation(options);
+        return new ch.Validation($el, options);
     }
 
+    /**
+     * The name of the widget.
+     * @memberof! ch.MinLength.prototype
+     * @type {String}
+     */
     MinLength.prototype.name = 'minLength';
-    MinLength.prototype.constructor = MinLength;
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.MinLength.prototype
+     * @function
+     */
+    MinLength.prototype.constructor = ch.Validation;
 
     ch.factory(MinLength, normalizeOptions);
 

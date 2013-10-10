@@ -99,7 +99,7 @@
      * @function
      * @returns {instance} Returns an instance of Widget.
      * @params {...String} var_args The name of the abilities to will be used.
-     * @expample
+     * @example
      * // You can require some abilitiest to use in your widget.
      * // For example you should require the collpasible abitliy.
      * var widget = new Widget(element, options);
@@ -127,7 +127,7 @@
      * @memberof! ch.Widget.prototype
      * @function
      * @returns {instance} Returns an instance of Widget.
-     * @expample
+     * @example
      * // Enabling an instance of Widget.
      * widget.enable();
      */
@@ -153,7 +153,7 @@
      * @memberof! ch.Widget.prototype
      * @function
      * @return {instance} Returns an instance of Widget.
-     * @expample
+     * @example
      * // Disabling an instance of Widget.
      * widget.disable();
      */
@@ -178,7 +178,7 @@
      * Destroys an instance of Widget and remove its data from asociated element.
      * @memberof! ch.Widget.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Widget.
      * widget.destroy();
      */

@@ -1,4 +1,4 @@
-(function (window, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -39,37 +39,56 @@
 
     /**
      * Url validates URL syntax.
-     * @name Url
-     * @class Url
-     * @interface
-     * @augments ch.Controls
+     * @memberof ch
+     * @constructor
      * @augments ch.Validation
-     * @requires ch.Validation
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.content] Validation message.
-     * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
-     * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-     * @param {String} [conf.context] It's a reference to position the validation-bubble
-     * @returns itself
-     * @factorized
-     * @see ch.Validation
-     * @see ch.Required
-     * @see ch.Custom
-     * @see ch.Number
-     * @see ch.Validator
-     * @see ch.Condition
-     * @exampleDescription Create a URL validation
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.message] The given error message to the condition.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
+     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: "10px".
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: "0px".
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Default: "absolute".
+     * @returns {validation} Returns a new instance of Validation.
      * @example
-     * $("input").url("This field must be a valid URL.");
+     * // Create a new URL Validation.
+     * var urlValidation = new ch.Url($el, [options]);
+     * @example
+     * // Create a new URL validation with jQuery or Zepto.
+     * var urlValidation = $(selector).url([options]);
+     * @example
+     * // Create a new URL validation with custom options.
+     * var urlValidation = $(selector).url({
+     *     'message': 'This field must be a valid URL.',
+     *     'offsetX': 0,
+     *     'offsetY': 10,
+     *     'side': 'bottom',
+     *     'align': 'left'
+     * });
+     * @example
+     * // Create a new URL validation using the shorthand way (message as parameter).
+     * var urlValidation = $(selector).url('This field must be a valid URL.');
      */
     function URL($el, options) {
-        return $el.validation(options);
+        return new ch.Validation($el, options);
     }
 
+    /**
+     * The name of the widget.
+     * @memberof! ch.Url.prototype
+     * @type {String}
+     */
     URL.prototype.name = 'url';
-    URL.prototype.constructor = URL;
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Url.prototype
+     * @function
+     */
+    URL.prototype.constructor = ch.Validation;
 
     ch.factory(URL, normalizeOptions);
 
-}(this, this.ch));
+}(this.ch));

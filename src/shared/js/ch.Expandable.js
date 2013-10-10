@@ -255,7 +255,7 @@
      * Destroys an Expandable instance.
      * @memberof! ch.Expandable.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Expandable.
      * expandable.destroy();
      */

@@ -124,7 +124,18 @@ module.exports = function (grunt) {
                     "src/shared/js/ch.Menu.js",
                     "src/shared/js/ch.Countdown.js",
                     "src/shared/js/ch.Calendar.js",
+
                     "src/shared/js/ch.Validation.js",
+                    "src/shared/js/ch.String.js",
+                    "src/shared/js/ch.URL.js",
+                    "src/shared/js/ch.Email.js",
+                    "src/shared/js/ch.MaxLength.js",
+                    "src/shared/js/ch.MinLength.js",
+                    "src/shared/js/ch.Number.js",
+                    "src/shared/js/ch.Min.js",
+                    "src/shared/js/ch.Max.js",
+                    "src/shared/js/ch.Required.js",
+                    "src/shared/js/ch.Custom.js",
 
                     "src/ui/js/ch.DatePicker.js",
                     "src/ui/js/ch.Tabs.js"

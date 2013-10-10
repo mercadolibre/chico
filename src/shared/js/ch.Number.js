@@ -1,4 +1,4 @@
-(function (window, ch) {
+(function (ch) {
     'use strict';
 
     /**
@@ -39,36 +39,57 @@
 
     /**
      * Number validates a given number.
-     * @name Number
-     * @class Number
-     * @interface
-     * @augments ch.Controls
+     * @memberof ch
+     * @name ch.Number
+     * @constructor
      * @augments ch.Validation
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.content] Validation message.
-     * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
-     * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-     * @param {String} [conf.context] It's a reference to position the validation-bubble.
-     * @returns itself
-     * @factorized
-     * @see ch.Validation
-     * @see ch.Required
-     * @see ch.Custom
-     * @see ch.String
-     * @see ch.Validator
-     * @see ch.Condition
-     * @exampleDescription Create a number validation
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.message] The given error message to the condition.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
+     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: "10px".
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: "0px".
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Default: "absolute".
+     * @returns {validation} Returns a new instance of Validation.
      * @example
-     * $("input").number("This field must be a number.");
+     * // Create a new Number Validation.
+     * var numValidation = new ch.Number($el, [options]);
+     * @example
+     * // Create a new Number validation with jQuery or Zepto.
+     * var numValidation = $(selector).number([options]);
+     * @example
+     * // Create a new Number validation with custom options.
+     * var numValidation = $(selector).number({
+     *     'message': 'This field must be a number.',
+     *     'offsetX': 0,
+     *     'offsetY': 10,
+     *     'side': 'bottom',
+     *     'align': 'left'
+     * });
+     * @example
+     * // Create a new Number validation using the shorthand way (message as parameter).
+     * var numValidation = $(selector).number('This field must be a number.');
      */
-    function Number($el, options) {
-        return $el.validation(options);
+    function Num($el, options) {
+        return new ch.Validation($el, options);
     }
 
-    Number.prototype.name = 'number';
-    Number.prototype.constructor = Number;
+    /**
+     * The name of the widget.
+     * @memberof! ch.Number.prototype
+     * @type {String}
+     */
+    Num.prototype.name = 'number';
 
-    ch.factory(Number, normalizeOptions);
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Number.prototype
+     * @function
+     */
+    Num.prototype.constructor = ch.Validation;
 
-}(this, this.ch));
+    ch.factory(Num, normalizeOptions);
+
+}(this.ch));

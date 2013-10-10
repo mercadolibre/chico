@@ -294,10 +294,10 @@
      * @function
      * @param {Number} [fold] - A given number of fold to enable.
      * @returns {menu} Returns an instance of Menu.
-     * @expample
+     * @example
      * // Enabling an instance of Menu.
      * menu.enable();
-     * @expample
+     * @example
      * // Enabling the second fold of a menu.
      * menu.enable(2);
      */
@@ -309,10 +309,10 @@
      * @function
      * @param {Number} [fold] - A given number of fold to disable.
      * @returns {menu} Returns an instance of Menu.
-     * @expample
+     * @example
      * // Disabling an instance of Menu.
      * menu.disable();
-     * @expample
+     * @example
      * // Disabling the second fold.
      * menu.disable(2);
      */
@@ -324,7 +324,7 @@
      * Destroys a Menu instance.
      * @memberof! ch.Menu.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Menu.
      * menu.destroy();
      */
