@@ -240,7 +240,7 @@
      * Destroys a Countdown instance.
      * @memberof! ch.Countdown.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Countdown.
      * countdown.destroy();
      */

@@ -42,37 +42,57 @@
 
     /**
      * Max validates a number with a maximun value.
-     * @name Max
-     * @class Max
-     * @interface
-     * @augments ch.Controls
+     * @memberof ch
+     * @constructor
      * @augments ch.Validation
-     * @requires ch.Validation
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.content] Validation message.
-     * @param {String} [conf.points] Sets the points where validation-bubble will be positioned.
-     * @param {String} [conf.offset] Sets the offset in pixels that validation-bubble will be displaced from original position determined by points. It's specified by configuration or zero by default: "0 0".
-     * @param {String} [conf.context] It's a reference to position the validation-bubble
-     * @param {Number} value Minimun number value.
-     * @returns itself
-     * @factorized
-     * @see ch.Validation
-     * @see ch.Required
-     * @see ch.Custom
-     * @see ch.String
-     * @see ch.Validator
-     * @see ch.Condition
-     * @exampleDescription
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Validation.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {Number} [options.num] A given maximun value.
+     * @param {String} [options.message] The given error message to the condition.
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position.
+     * @param {String} [options.side] The side option where the target element will be positioned. Default: "right".
+     * @param {String} [options.align] The align options where the target element will be positioned. Default: "top".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: "10px".
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: "0px".
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Default: "absolute".
+     * @returns {validation} Returns a new instance of Validation.
      * @example
-     * $("input").max(10, "Write a number smaller than 10");
+     * // Create a new Max Validation.
+     * var maxValidation = new ch.Max($el, [options]);
+     * @example
+     * // Create a new Max validation with jQuery or Zepto.
+     * var maxValidation = $(selector).max([options]);
+     * @example
+     * // Create a new Max validation with custom options.
+     * var maxValidation = $(selector).max({
+     *     'num': 10,
+     *     'message': 'Write a number smaller than 10.',
+     *     'offsetX': 0,
+     *     'offsetY': 10,
+     *     'side': 'bottom',
+     *     'align': 'left'
+     * });
+     * @example
+     * // Create a new Max validation using the shorthand way (number and message as parameters).
+     * var maxValidation = $(selector).max(10, 'Write a number smaller than 10.');
      */
     function Max($el, options) {
-        return $el.validation(options);
+        return new ch.Validation($el, options);
     }
 
+    /**
+     * The name of the widget.
+     * @memberof! ch.Max.prototype
+     * @type {String}
+     */
     Max.prototype.name = 'max';
-    Max.prototype.constructor = Max;
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Max.prototype
+     * @function
+     */
+    Max.prototype.constructor = ch.Validation;
 
     ch.factory(Max, normalizeOptions);
 

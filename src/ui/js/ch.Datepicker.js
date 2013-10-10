@@ -490,7 +490,7 @@
      * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker} Returns an instance of Datepicker.
-     * @expample
+     * @example
      * // Enabling an instance of Datepicker.
      * datepicker.enable();
      */
@@ -500,7 +500,7 @@
      * @memberof! ch.Datepicker.prototype
      * @function
      * @returns {datepicker} Returns an instance of Datepicker.
-     * @expample
+     * @example
      * // Disabling an instance of Datepicker.
      * datepicker.disable();
      */
@@ -512,7 +512,7 @@
      * Destroys a Datepicker instance.
      * @memberof! ch.Datepicker.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Datepicker.
      * datepicker.destroy();
      */
