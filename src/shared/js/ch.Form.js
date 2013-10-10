@@ -356,7 +356,7 @@
      * Destroys a Form instance.
      * @memberof! ch.Form.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Form.
      * form.destroy();
      */

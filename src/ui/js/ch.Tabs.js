@@ -381,10 +381,10 @@
      * @function
      * @param {Number} [tab] - A given number of tab panel to enable.
      * @returns {tabs} Returns an instance of Tabs.
-     * @expample
+     * @example
      * // Enabling an instance of Tabs.
      * tabs.enable();
-     * @expample
+     * @example
      * // Enabling the second tab panel of a tabs.
      * tabs.enable(2);
      */
@@ -396,10 +396,10 @@
      * @function
      * @param {Number} [tab] - A given number of tab panel to disable.
      * @returns {tabs} Returns an instance of Tabs.
-     * @expample
+     * @example
      * // Disabling an instance of Tabs.
      * tabs.disable();
-     * @expample
+     * @example
      * // Disabling the second tab panel.
      * tabs.disable(2);
      */
@@ -411,7 +411,7 @@
      * Destroys a Tabs instance.
      * @memberof! ch.Tabs.prototype
      * @function
-     * @expample
+     * @example
      * // Destroying an instance of Tabs.
      * tabs.destroy();
      */

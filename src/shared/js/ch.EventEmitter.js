@@ -6,6 +6,12 @@
      * @memberof ch
      * @constructor
      * @returns {Object} Returns a new instance of EventEmitter.
+     * @example
+     * // Create a new instance of EventEmitter.
+     * var emitter = new ch.EventEmitter();
+     * @example
+     * // Inheriting from EventEmitter.
+     * ch.util.inherits(Widget, ch.EventEmitter);
      */
     function EventEmitter() {}
 
@@ -15,7 +21,7 @@
      * @function
      * @param {String} event The event name to subscribe.
      * @param {Function} listener Listener function.
-     * @param {Boolean} once Listener function will be called only one time.
+     * @param {Boolean} once Indicate if a listener function will be called only one time.
      * @example
      * // Will add an event listener to 'ready' event.
      * widget.on('ready', listener);
