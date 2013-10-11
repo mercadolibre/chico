@@ -31,7 +31,7 @@
      * // Create a new Expandable with jQuery or Zepto.
      * var expandable = $(selector).expandable([options]);
      * @example
-     * // Create a new Expandable with toggle disabled.
+     * // Create a new Expandable with custom options.
      * var expandable = $(selector).expandable({
      *     'container': $(selector),
      *     'toggle': false,

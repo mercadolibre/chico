@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * Validation is an engine for HTML forms elements.
+     * Validation is an engine to validate HTML forms elements.
      * @memberof ch
      * @constructor
      * @augments ch.Widget
@@ -29,7 +29,7 @@
      * // Create a new Validation with jQuery or Zepto.
      * var validation = $(selector).validation([options]);
      * @example
-     * // Create a validation with two conditions: required and custom.
+     * // Create a validation with with custom options.
      * var validation = $(selector).validation({
      *     'conditions': [
      *         {
