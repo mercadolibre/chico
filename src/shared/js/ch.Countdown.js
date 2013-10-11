@@ -190,14 +190,14 @@
 
             /**
              * Event emitted when the lenght of characters is exceeded.
-             * @event ch.Countdown#exceeded
+             * @event ch.Countdown#exceed
              * @example
-             * // Subscribe to "exceeded" event.
-             * countdown.on('exceeded', function () {
+             * // Subscribe to "exceed" event.
+             * countdown.on('exceed', function () {
              *  // Some code here!
              * });
              */
-            this.emit('exceeded');
+            this.emit('exceed');
 
             // Update exceeded flag
             this._exceeded = true;

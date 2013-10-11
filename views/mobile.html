@@ -971,7 +971,7 @@
             autocomplete1.suggest(data);
         }
 
-        autocomplete1.on('typing', function (userInput) {
+        autocomplete1.on('type', function (userInput) {
              $.ajax({
                  'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=parseResults&parseResults=?',
                  'dataType': 'jsonp',
@@ -986,7 +986,7 @@
         var autocomplete2 = $('.autoComplete2').autoComplete();
         autocomplete2.$container.append('<button class="ch-btn-skin ch-btn-small">Don\'t show again</button>');
 
-        autocomplete2.on('typing', function (userInput) {
+        autocomplete2.on('type', function (userInput) {
             $.ajax({
                 'url': 'http://www.chico-ui.com.ar/suggest?q=' + userInput + '&callback=autocomplete2.suggest&autocomplete2.suggest=?',
                 'dataType': 'jsonp',
@@ -1011,7 +1011,7 @@
             autocomplete3.suggest(data);
         }
 
-        autocomplete3.on('typing', function (userInput) {
+        autocomplete3.on('type', function (userInput) {
              $.ajax({
                  'url': 'http://suggestgz.mlapps.com/sites/MLA/autosuggest?q='+ userInput +'&v=1&callback=parseMLAPIResults',
                  'dataType': 'jsonp',
