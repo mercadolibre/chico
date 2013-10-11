@@ -40,15 +40,15 @@
             line-height: 2em;
         }
 
-        .autoComplete {
+        .autocomplete {
             width: 250px;
         }
 
-        .autoComplete2 {
+        .autocomplete2 {
             width: 350px;
         }
 
-        .autoComplete3 {
+        .autocomplete3 {
             width: 450px;
         }
 
@@ -91,7 +91,7 @@
         <li class="ch-g1-5"><a href="#headings">Headings</a></li>
         <li class="ch-g1-5"><a href="#links">Links</a></li>
         <li class="ch-g1-5"><a href="#buttons">Buttons</a></li>
-        <li class="ch-g1-5"><a href="#autoComplete">AutoComplete</a></li>
+        <li class="ch-g1-5"><a href="#autocomplete">Autocomplete</a></li>
         <li class="ch-g1-5"><a href="#boxes">Boxes</a></li>
         <li class="ch-g1-5"><a href="#spinner">Spinners</a></li>
         <li class="ch-g1-5"><a href="#message-boxes">Message Boxes</a></li>
@@ -386,31 +386,31 @@
     </div>
 
     <div class="ch-box-lite">
-        <h2 id="autoComplete">AutoComplete</h2>
+        <h2 id="autocomplete">Autocomplete</h2>
         <form method="get" action="/" id="asForm" class="ch-form">
             <div class="ch-form-row">
                 <label for="autocomplete">
                     Fill your country:
                 </label>
-                <input type="text" name="autocomplete1" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
+                <input type="text" name="autocomplete1" class="autocomplete" id="autocomplete" placeholder="Write a country name" />
                 <p class="ch-form-hint">This is configured to use HTML</p>
             </div>
             <div class="ch-form-row">
                 <label for="autocomplete2">
                     Fill your country:
                 </label>
-                <input type="text" name="autocomplete2" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
+                <input type="text" name="autocomplete2" class="autocomplete2" id="autocomplete2" placeholder="Write a country name" />
                 <p class="ch-form-hint">This is the default</p>
             </div>
             <div class="ch-form-row">
                 <label for="autocomplete3">
                     Find on MercadoLibre:
                 </label>
-                <input type="text" name="autocomplete3" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
+                <input type="text" name="autocomplete3" class="autocomplete3" id="autocomplete3" placeholder="Write a country name" />
                 <p class="ch-form-hint">This is working with the MercadoLibre API</p>
             </div>
             <p class="ch-form-actions">
-                <input type="submit" name="autoCompleteSubmit" class="ch-btn">
+                <input type="submit" name="autocompleteSubmit" class="ch-btn">
             </p>
         </form>
     </div>
@@ -1396,11 +1396,11 @@
     <script src="/ui/js"></script>
     <script>
         var extraSuggestions = ['<ul>',
-            '<li class="ch-autoComplete-item" data-autocomplete="Static option">Static option</li>',
-            '<li class="ch-autoComplete-item" data-autocomplete="Other Static option">Other static option</li>',
+            '<li class="ch-autocomplete-item" data-autocomplete="Static option">Static option</li>',
+            '<li class="ch-autocomplete-item" data-autocomplete="Other Static option">Other static option</li>',
             '</ul>'].join('');
 
-        var autocomplete1 = $('.autoComplete').autoComplete({'html': true});
+        var autocomplete1 = $('.autocomplete').autocomplete({'html': true});
             autocomplete1.$container.prepend('<p>Hi, please choose and option!</p>');
             autocomplete1.$container.append(extraSuggestions);
 
@@ -1429,7 +1429,7 @@
              });
         });
 
-        var autocomplete2 = $('.autoComplete2').autoComplete();
+        var autocomplete2 = $('.autocomplete2').autocomplete();
         autocomplete2.$container
             .prepend(extraSuggestions)
             .append(extraSuggestions)
@@ -1451,7 +1451,7 @@
             autocomplete2.suggest(data);
         }
 
-        var autocomplete3 = $('.autoComplete3').autoComplete();
+        var autocomplete3 = $('.autocomplete3').autocomplete();
 
         var parseMLAPIResults = function (results) {
             var data = [];
