@@ -1,7 +1,7 @@
 var countdown = $('#input_user').countdown(),
     countdown2 = $('#input_location').countdown(10),
     readyEvent = jasmine.createSpy('readyEvent'),
-    exceededEvent = jasmine.createSpy('exceededEvent'),
+    exceedEvent = jasmine.createSpy('exceedEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
     changeLayoutEvent = jasmine.createSpy('changeLayoutEvent');
 
@@ -12,7 +12,7 @@ describe('Countdown', function () {
         .once('ready', readyEvent);
 
     countdown2
-        .on('exceeded', exceededEvent)
+        .on('exceed', exceedEvent)
         .on('destroy', destroyEvent);
 
     it('should be defined on ch object', function () {
@@ -131,8 +131,8 @@ describe('It should update the number on the message', function () {
         });
     });
 
-    it('and should emit the \'exceeded\' event', function () {
-        expect(exceededEvent).toHaveBeenCalled();
+    it('and should emit the \'exceed\' event', function () {
+        expect(exceedEvent).toHaveBeenCalled();
     });
 
 
