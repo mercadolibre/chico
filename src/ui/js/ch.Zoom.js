@@ -177,7 +177,7 @@
         });
 
         // Make the entire Show process if it tried to show before
-        this.on('imageloaded', function () {
+        this.on('imageload', function () {
             if (!that._$loading.hasClass('ch-hide')) {
                 that.show();
             }
@@ -307,15 +307,15 @@
         this._loaded = true;
 
         /**
-         * Emits the event 'imageloaded' when the zoomed image is downloaded.
-         * @event ch.Zoom#imageloaded
+         * Emits the event 'imageload' when the zoomed image is downloaded.
+         * @event ch.Zoom#imageload
          * @example
-         * // Subscribe to "imageloaded" event.
-         * zoom.on('imageloaded', function () {
+         * // Subscribe to "imageload" event.
+         * zoom.on('imageload', function () {
          *     alert('Zoomed image ready!');
          * });
          */
-        this.emit('imageloaded');
+        this.emit('imageload');
     };
 
     /**
