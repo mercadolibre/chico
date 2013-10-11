@@ -49,7 +49,7 @@ app.get('/:version/:type?/:file?', isAnotherFile, isView, function (req, res, ne
         path = '/temp/' + req.params.version + '/' + filename + min + '.' + req.params.type;
 
     if (filename !== 'chico') {
-        path = '/src/' + req.params.version + '/' + req.params.type + '/ch.' + filename + '.' + req.params.type;
+        path = '/src/' + req.params.version + '/' + req.params.type + '/' + filename + '.' + req.params.type;
     }
 
     exec('grunt dev --env=' + req.params.version, function (error, stdout, stderr) {

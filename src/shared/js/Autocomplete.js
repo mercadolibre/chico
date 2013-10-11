@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * AutoComplete widget shows a list of suggestions for a HTMLInputElement.
+     * Autocomplete widget shows a list of suggestions for a HTMLInputElement.
      * @memberof ch
      * @constructor
      * @augments ch.Widget
@@ -14,10 +14,10 @@
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed (default).
      * @returns {autocomplete}
      * @example
-     * // Create a new autoComplete with configuration.
-     * var autocomplete = $el.autoComplete();
+     * // Create a new AutoComplete with configuration.
+     * var autocomplete = $el.autocomplete();
      */
-    function AutoComplete($el, options) {
+    function Autocomplete($el, options) {
 
         /**
         * Reference to a internal component instance, saves all the information and configuration properties.
@@ -30,7 +30,7 @@
 
         /**
          * Event emitted when the widget is ready to use.
-         * @event ch.AutoComplete#ready
+         * @event ch.Autocomplete#ready
          * @example
          * // Subscribe to "ready" event.
          * autocomplete.on('ready',function () {
@@ -46,48 +46,48 @@
     // Inheritance
     var document = window.document,
         $document = $(document),
-        parent = ch.util.inherits(AutoComplete, ch.Widget);
+        parent = ch.util.inherits(Autocomplete, ch.Widget);
 
     /**
      * The name of the widget.
      * @type {String}
      */
-    AutoComplete.prototype.name = 'autoComplete';
+    Autocomplete.prototype.name = 'autocomplete';
 
     /**
      * Returns a reference to the Constructor function that created the instance's prototype.
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @function
      */
-    AutoComplete.prototype.constructor = AutoComplete;
+    Autocomplete.prototype.constructor = Autocomplete;
 
     /**
      * Configuration by default.
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @type {Object}
      * @private
      */
-    AutoComplete.prototype._defaults = {
-        'loadingClass': 'ch-autoComplete-loading',
-        'highlightedClass': 'ch-autoComplete-highlighted',
-        'itemClass': 'ch-autoComplete-item',
-        'addClass': 'ch-box-lite ch-autoComplete',
+    Autocomplete.prototype._defaults = {
+        'loadingClass': 'ch-autocomplete-loading',
+        'highlightedClass': 'ch-autocomplete-highlighted',
+        'itemClass': 'ch-autocomplete-item',
+        'addClass': 'ch-box-lite ch-autocomplete',
         'side': 'bottom',
         'align': 'left',
         'keystrokesTime': 400,
         'hiddenby': 'none',
         'html': false,
-        'itemTemplate': '<li class="{{itemClass}}"{{autocompleteData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autoComplete-complete-query"></i></li>'
+        'itemTemplate': '<li class="{{itemClass}}"{{autocompleteData}}>{{term}}<i class="ch-icon-arrow-up" data-js="ch-autocomplete-complete-query"></i></li>'
     };
 
     /**
-     * Initialize a new instance of AutoComplete and merge custom options with defaults options.
-     * @memberof! ch.AutoComplete.prototype
+     * Initialize a new instance of Autocomplete and merge custom options with defaults options.
+     * @memberof! ch.Autocomplete.prototype
      * @function
      * @private
      * @returns {autocomplete}
      */
-    AutoComplete.prototype._init = function ($el, options) {
+    Autocomplete.prototype._init = function ($el, options) {
         var that = this,
             POINTERDOWN = 'mousedown' + '.' + this.name,
             MOUSEENTER = 'mouseover' + '.' + this.name,
@@ -100,7 +100,7 @@
 
         this.$trigger = this._$el;
 
-        this._$suggestionsList = $('<ul class="ch-autoComplete-list"></ul>');
+        this._$suggestionsList = $('<ul class="ch-autocomplete-list"></ul>');
 
         // The component who shows and manage the suggestions.
         this._popover = $.popover({
@@ -205,11 +205,11 @@
 
     /**
      * It sets to the HTMLInputElement the selected query and it emits a 'select' event.
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @private
      * @function
      */
-    AutoComplete.prototype._setQuery = function () {
+    Autocomplete.prototype._setQuery = function () {
 
         window.clearTimeout(this._stopTyping);
 
@@ -228,13 +228,13 @@
     };
 
     /**
-     * It highlights the item adding the <code>ch-autoComplete-highlighted</code> class or the class that you configured in <code>options.highlightedClass</code>
-     * @memberof! ch.AutoComplete.prototype
+     * It highlights the item adding the <code>ch-autocomplete-highlighted</code> class or the class that you configured in <code>options.highlightedClass</code>
+     * @memberof! ch.Autocomplete.prototype
      * @private
      * @function
      * @returns {autocomplete}
      */
-    AutoComplete.prototype._toogleHighlighted = function () {
+    Autocomplete.prototype._toogleHighlighted = function () {
         var id = '#' + this.$container[0].id,
             // null is when is not a selected item but,
             // increments 1 _selected because aria-posinset starts in 1 instead 0 as the collection that stores the data
@@ -250,12 +250,12 @@
 
     /**
      * Selects the items
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @private
      * @function
      * @returns {autocomplete}
      */
-    AutoComplete.prototype._select = function ($target) {
+    Autocomplete.prototype._select = function ($target) {
         var $item;
 
         $item = $target.attr('aria-posinset') ? $target : $target.parents('li[aria-posinset]');
@@ -273,12 +273,12 @@
 
     /**
      * Show the list of suggestions and emits the <code>show</code> event
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @private
      * @function
      * @returns {autocomplete}
      */
-    AutoComplete.prototype._show = function () {
+    Autocomplete.prototype._show = function () {
         this._popover.show();
         this.emit('show');
         return this;
@@ -286,11 +286,11 @@
 
     /**
      * Add suggestions to be shown.
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @function
      * @returns {autocomplete}
      */
-    AutoComplete.prototype.suggest = function (suggestions) {
+    Autocomplete.prototype.suggest = function (suggestions) {
         var that = this,
             items = [],
             query = this._el.value.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1"),
@@ -361,11 +361,11 @@
 
     /**
      * Hides component's content.
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @function
      * @returns {autocomplete}
      */
-    AutoComplete.prototype.hide = function () {
+    Autocomplete.prototype.hide = function () {
         this.emit('hide');
         this._popover.hide();
         return this;
@@ -373,22 +373,22 @@
 
     /**
      * Hides component's content.
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @function
      * @returns {Boolean}
      */
-    AutoComplete.prototype.isShown = function () {
+    Autocomplete.prototype.isShown = function () {
         return this._popover.isShown();
     };
 
     /**
-     * Destroys an AutoComplete instance.
+     * Destroys an Autocomplete instance.
      * @function
      */
-    AutoComplete.prototype.destroy = function () {
+    Autocomplete.prototype.destroy = function () {
 
         this.$trigger
-            .off('.autoComplete')
+            .off('.autocomplete')
             .removeAttr('autocomplete')
             .removeAttr('aria-autocomplete')
             .removeAttr('aria-haspopup')
@@ -400,6 +400,6 @@
         return ;
     };
 
-    ch.factory(AutoComplete);
+    ch.factory(Autocomplete);
 
 }(this, this.ch.$, this.ch));

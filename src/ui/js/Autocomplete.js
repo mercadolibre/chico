@@ -1,13 +1,13 @@
-(function (window, AutoComplete, ch) {
+(function (window, Autocomplete, ch) {
     'use strict';
     /**
      * Congfigure shortcuts to navigate and set values, or cancel the typed text
-     * @memberof! ch.AutoComplete.prototype
+     * @memberof! ch.Autocomplete.prototype
      * @function
      * @private
      * @returns {autocomplete}
      */
-    AutoComplete.prototype._configureShortcuts = function () {
+    Autocomplete.prototype._configureShortcuts = function () {
         var that = this;
 
         // Shortcuts
@@ -87,4 +87,4 @@
         return this;
     };
 
-}(this, this.ch.AutoComplete, this.ch));
+}(this, this.ch.Autocomplete, this.ch));
