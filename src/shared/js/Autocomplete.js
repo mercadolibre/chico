@@ -142,7 +142,7 @@
             if (event.target.nodeName === 'I' && !that._options.html) {
                 ch.util.prevent(event);
                 that._el.value = that._suggestions[that._selected];
-                that.emit('typing', that._el.value);
+                that.emit('type', that._el.value);
                 return ;
             }
 
@@ -158,7 +158,7 @@
             }
         });
 
-        this.on('typing', function (currentQuery) {
+        this.on('type', function (currentQuery) {
             if (that._enabled) {
                 that._currentQuery = currentQuery;
                 that.$trigger.addClass(that._options.loadingClass);
@@ -181,7 +181,7 @@
                     // when the user writes
                         window.clearTimeout(that._stopTyping);
                         that._stopTyping = window.setTimeout(function () {
-                                that.emit('typing', that._el.value);
+                                that.emit('type', that._el.value);
                         }, that._options.keystrokesTime);
 
                     });

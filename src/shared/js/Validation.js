@@ -180,7 +180,7 @@
         this.error = null;
 
         this
-            .on('exists', function (data) {
+            .on('exist', function (data) {
                 this._mergeConditions(data.conditions);
             })
             // Clean the validation if is shown;

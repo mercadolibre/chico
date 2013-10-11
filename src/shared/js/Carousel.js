@@ -35,7 +35,7 @@
      * // Create a new Carousel with items asynchronously loaded.
      * $(selector).carousel({
      *     'async': 10
-     * }).on('addeditems', function ($items) {
+     * }).on('itemsadd', function ($items) {
      *     // Inject content into the added <li> elements
      *     $.each($items, function (i, e) {
      *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
@@ -375,20 +375,20 @@
         this._async -= amount;
 
         /**
-         * Emits the event 'addeditems' when the widget creates new asynchronous empty items.
-         * @event ch.Carousel#addeditems
+         * Emits the event 'itemsadd' when the widget creates new asynchronous empty items.
+         * @event ch.Carousel#itemsadd
          * @example
          * // Create a new Carousel with items asynchronously loaded.
          * $(selector).carousel({
          *     'async': 10
-         * }).on('addeditems', function ($items) {
+         * }).on('itemsadd', function ($items) {
          *     // Inject content into the added <li> elements
          *     $.each($items, function (i, e) {
          *         e.innerHTML = 'Content into one of newly inserted <li> elements.';
          *     });
          * });
          */
-        this.emit('addeditems', $items);
+        this.emit('itemsadd', $items);
     };
 
     /**

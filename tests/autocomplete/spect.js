@@ -22,7 +22,7 @@ var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-f
     typingEvent = jasmine.createSpy('typingEvent');
 
     autoComplete
-        .on('typing', function () {
+        .on('type', function () {
             typingEvent();
             autoComplete.suggest(suggestions);
         })
@@ -30,7 +30,7 @@ var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-f
         ._el.value = 'ar';
 
     autoCompleteHTML
-        .on('typing', function () {
+        .on('type', function () {
             autoCompleteHTML.suggest(suggestionsHTML);
         })
         ._el.value = 'ar';
@@ -166,7 +166,7 @@ describe('It should have a "$container" property and', function () {
 describe('It should emits typing event and',function(){
     autoComplete._el.focus();
 
-    autoComplete.emit('typing', autoComplete._el.value);
+    autoComplete.emit('type', autoComplete._el.value);
 
     it('should trigger the callback function', function () {
         expect(typingEvent).toHaveBeenCalled();
@@ -182,13 +182,13 @@ describe('Its suggest() method', function () {
 
         it('open when suggestions are given', function () {
             autoComplete._el.focus();
-            autoComplete.emit('typing', autoComplete._el.value);
+            autoComplete.emit('type', autoComplete._el.value);
             expect(autoComplete.isShown()).toBeTruthy();
         });
 
         it('should have hightlighted items', function () {
             autoComplete._el.focus();
-            autoComplete.emit('typing', autoComplete._el.value);
+            autoComplete.emit('type', autoComplete._el.value);
             itemsHighilighted = autoComplete.$container.find('strong').length;
             expect(itemsHighilighted).toEqual(3);
         });
@@ -237,7 +237,7 @@ describe('Its isShown() method', function () {
 
     it('should return "true" when the widget is shown', function () {
         autoComplete._el.focus();
-        autoComplete.emit('typing', autoComplete._el.value);
+        autoComplete.emit('type', autoComplete._el.value);
         isShown = autoComplete.isShown();
 
         expect(typeof isShown).toEqual('boolean');
@@ -261,7 +261,7 @@ describe('Its disable() method', function () {
 
     it('should prevent to suggest', function () {
         autoComplete._el.focus();
-        autoComplete.emit('typing', autoComplete._el.value);
+        autoComplete.emit('type', autoComplete._el.value);
         instance = autoComplete.disable();
         expect(autoComplete.isShown()).toBeFalsy();
     });
@@ -278,7 +278,7 @@ describe('Its enable() method', function () {
     it('should suggest', function () {
         instance = autoComplete.enable();
         autoComplete._el.focus();
-        autoComplete.emit('typing', autoComplete._el.value);
+        autoComplete.emit('type', autoComplete._el.value);
         expect(autoComplete.isShown()).toBeTruthy();
     });
 
@@ -293,7 +293,7 @@ describe('Instance an AutoComplete configured to show HTML', function () {
     it('should return the items with the HTML sent', function () {
 
         autoCompleteHTML._el.focus();
-        autoCompleteHTML.emit('typing', autoCompleteHTML._el.value);
+        autoCompleteHTML.emit('type', autoCompleteHTML._el.value);
 
         // this wait is for the focu
         waits(300);

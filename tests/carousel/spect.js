@@ -29,7 +29,7 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
         'limitPerPage': 2,
         'async': 5,
         'fx': false
-    }).on('addeditems', function ($items) {
+    }).on('itemsadd', function ($items) {
         $.each($items, function (i, e) {
             e.innerHTML = 'TESTING ASYNCHRONOUS ITEM Nº' + i;
         });
