@@ -75,7 +75,7 @@
                 } else {
 
                     if (data.emit !== undefined) {
-                        data.emit('exists', options);
+                        data.emit('exist', options);
                     }
                 }
 
