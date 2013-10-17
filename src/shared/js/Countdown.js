@@ -250,7 +250,7 @@
 
         this.$container.remove();
 
-        $(window.document).trigger(ch.onchangelayout);
+        $(window.document).trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
     };

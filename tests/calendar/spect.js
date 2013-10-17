@@ -10,7 +10,7 @@ var calendar1 = $("#calendar-1").calendar(),
     nextyearEvent = jasmine.createSpy('nextYearEvent'),
     prevyearEvent = jasmine.createSpy('prevYearEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
+    layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
     DATE = (function(){
         var date = new Date(),
             TODAY =  {
@@ -28,7 +28,7 @@ var calendar1 = $("#calendar-1").calendar(),
         }
     })();
 
-$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
 
 describe('Calendar', function () {
     calendar1

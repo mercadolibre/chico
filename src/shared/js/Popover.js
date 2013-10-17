@@ -176,7 +176,7 @@
          * Handler to execute the positioner refresh() method on layout changes.
          * @private
          * @type {Function}
-         * @todo Define this function on prototype and use bind(): $document.on(ch.onchangelayout, this.refreshPosition.bind(this));
+         * @todo Define this function on prototype and use bind(): $document.on(ch.onlayoutchange, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
             that._positioner.refresh(options);
@@ -185,7 +185,7 @@
 
         // Refresh position:
         // on layout change
-        $document.on(ch.onchangelayout, this._refreshPositionListener);
+        $document.on(ch.onlayoutchange, this._refreshPositionListener);
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -591,7 +591,7 @@
                 .attr('title', this._snippet.title);
         }
 
-        $document.off(ch.onchangelayout, this._refreshPositionListener);
+        $document.off(ch.onlayoutchange, this._refreshPositionListener);
 
         ch.viewport.off(ch.onresize, this._refreshPositionListener);
 

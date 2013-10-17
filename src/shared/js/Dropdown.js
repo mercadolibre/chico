@@ -209,7 +209,7 @@
 
         this.$container.off('.dropdown');
 
-        $document.trigger(ch.onchangelayout);
+        $document.trigger(ch.onlayoutchange);
 
         $.each(this._$navigation, function (i, e) {
             $(e).off('mouseenter.dropdown');

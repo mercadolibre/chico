@@ -2,10 +2,10 @@ var tabs1 = $('#tabs-1').tabs(),
     tabs2 = $('#tabs-2').tabs(),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
+    layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
     showEvent = jasmine.createSpy('showEvent');
 
-$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
 
 describe('Tabs', function () {
     tabs1.on('ready', function () { readyEvent(); });
@@ -239,8 +239,8 @@ describe('Its destroy() method', function () {
         expect(tabs2._$el.data('tabs')).toBeUndefined();
     });
 
-    it('should emit the "changeLayout" event', function () {
-        expect(changeLayoutEvent).toHaveBeenCalled();
+    it('should emit the "layoutchange" event', function () {
+        expect(layoutChangeEvent).toHaveBeenCalled();
     });
 
     it('should emit the "destroy" event', function () {
