@@ -3,7 +3,7 @@ var expandable1 = $("#expandable-1").expandable(),
     hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
+    layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
     expandable2 = $("#expandable-2").expandable({
         'container': $('#container-2')
     }),
@@ -12,7 +12,7 @@ var expandable1 = $("#expandable-1").expandable(),
         })
         .on('destroy', destroyEvent);
 
-$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
 
 describe('Expandable', function () {
     expandable1
@@ -298,8 +298,8 @@ describe('Its destroy() method', function () {
         expect(expandable3._$el.data('expandable')).toBeUndefined();
     });
 
-    it('should emit the "changeLayout" event', function () {
-        expect(changeLayoutEvent).toHaveBeenCalled();
+    it('should emit the "layoutchange" event', function () {
+        expect(layoutChangeEvent).toHaveBeenCalled();
     });
 
     it('should emit the "destroy" event', function () {

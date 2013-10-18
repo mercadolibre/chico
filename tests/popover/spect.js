@@ -2,7 +2,6 @@ var showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     readyEvent = jasmine.createSpy('readyEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
     popover1 = $('#popover1').popover()
         .on('show', function () { showEvent(); })
         .on('hide', function () { hideEvent(); })

@@ -1,29 +1,27 @@
 (function (window, Carousel) {
     'use strict';
 
-    if (Carousel === undefined) {
-        throw new window.Error('Expected ch.Carousel constructor defined.');
-    }
-
     var pointertap = window.ch.onpointertap + '.carousel';
 
     /**
-     * Animates the Carousel automatically. (Since 0.10.6)
-     * @since 0.10.6
+     * Animates the Carousel automatically.
+     * @memberof! ch.Carousel.prototype
      * @function
-     * @param {Number} t Delay of transition between pages, expressed in milliseconds.
-     * @public
-     * @name ch.Carousel#play
-     * @returns Chico UI Object
-     * @exampleDescription Start automatic animation.
+     * @param {Number} delay Delay of transition between pages, expressed in milliseconds.
+     * @returns {carousel}
      * @example
-     * foo.play();
-     * @exampleDescription Start automatic animation with a 5 seconds delay between pages.
+     * // Start automatic animation
+     * carousel.play();
      * @example
-     * foo.play(5000);
+     * // Start automatic animation with a 5 seconds delay between pages
+     * carousel.play(5000);
      */
     Carousel.prototype.play = function (delay) {
-
+        /**
+         * Reference to the context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         // Clear the timer if it's in use
@@ -37,10 +35,9 @@
         });
 
         /**
-         * Interval used to animate the component autamatically.
+         * Interval used to animate the widget autamatically.
          * @private
-         * @name ch.Carousel#_timer
-         * @type Object
+         * @type {Number}
          */
         this._timer = window.setInterval(function () {
             // Normal behavior: Move to next page
@@ -57,15 +54,13 @@
     };
 
     /**
-     * Pause the Carousel automatic playing. (Since 0.10.6)
-     * @since 0.10.6
+     * Stops the Carousel auto sliding.
+     * @memberof! ch.Carousel.prototype
      * @function
-     * @public
-     * @name ch.Carousel#pause
-     * @returns Chico UI Object
-     * @exampleDescription Pause automatic animation.
+     * @returns {carousel}
      * @example
-     * foo.pause();
+     * // Stop automatic animation
+     * carousel.stop();
      */
     Carousel.prototype.pause = function () {
         window.clearInterval(this._timer);

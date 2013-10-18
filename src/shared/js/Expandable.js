@@ -157,10 +157,10 @@
 
         this
             .on('show', function () {
-                $document.trigger(ch.onchangelayout);
+                $document.trigger(ch.onlayoutchange);
             })
             .on('hide', function () {
-                $document.trigger(ch.onchangelayout);
+                $document.trigger(ch.onlayoutchange);
             });
 
         ch.util.avoidTextSelection(this.$trigger);
@@ -271,7 +271,7 @@
             .removeAttr('aria-expanded')
             .removeAttr('aria-hidden');
 
-        $document.trigger(ch.onchangelayout);
+        $document.trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
     };

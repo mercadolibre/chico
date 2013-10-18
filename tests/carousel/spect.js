@@ -1,6 +1,5 @@
 // The configuration object allows to calculate movements by having always the same amount of pages
 var destroyEvent = jasmine.createSpy('destroyEvent'),
-    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
     selectEvent = jasmine.createSpy('selectEvent'),
     prevEvent = jasmine.createSpy('prevEvent'),
     nextEvent = jasmine.createSpy('nextEvent'),

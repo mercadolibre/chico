@@ -1,44 +1,46 @@
-(function (window, $, ch) {
+(function ($, ch) {
     'use strict';
-
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
 
     /**
      * Transition lets you give feedback to the users when their have to wait for an action.
-     * @name Transition
-     * @class Transition
-     * @interface
-     * @augments ch.Floats
-     * @requires ch.Modal
-     * @memberOf ch
-     * @param {Object} [conf] Object with configuration properties.
-     * @param {String} [conf.content] Sets content by: static content, DOM selector or URL. By default, the content is the href attribute value  or form's action attribute.
-     * @param {Number || String} [conf.width] Sets width property of the component's layout. By default, the width is "500px".
-     * @param {Number || String} [conf.height] Sets height property of the component's layout. By default, the height is elastic.
-     * @param {Boolean} [conf.fx] Enable or disable UI effects. By default, the effects are enable.
-     * @param {Boolean} [conf.cache] Enable or disable the content cache. By default, the cache is enable.
-     * @param {String} [conf.closable] Sets the way (true, "button" or false) the Transition close. By default, the transition close true.
-     * @returns itself
-     * @factorized
-     * @see ch.Tooltip
-     * @see ch.Layer
-     * @see ch.Zoom
-     * @see ch.Modal
-     * @see ch.Floats
-     * @exampleDescription Create a transition.
+     * @memberof ch
+     * @constructor
+     * @augments ch.Popover
+     * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Transition.
+     * @param {Object} [options] Options to customize an instance.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "50%".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
+     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 0.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value must be "absolute" or "fixed". Default: "fixed".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading-big ch-loading-centered"></div>'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
+     * @returns {transition} Returns a new instance of ch.Transition.
      * @example
-     * var widget = $("a.example").transition();
-     * @exampleDescription Create a transition with configuration.
+     * // Create a new Transition.
+     * var transition = new ch.Transition($el, [options]);
      * @example
-     * var widget = $("a.example").transition({
-     *     "content": "Some content here!",
-     *     "width": "500px",
-     *     "height": 350,
-     *     "cache": false,
-     *     "fx": false
+     * // Create a new Transition with jQuery or Zepto.
+     * var transition = $(selector).transition([options]);
+     * @example
+     * // Create a new Transition with disabled effects.
+     * var transition = $(selector).transition({
+     *     'fx': 'none'
      * });
+     * @example
+     * // Create a new Transition using the shorthand way (content as parameter).
+     * var transition = $(selector).transition('http://ui.ml.com:3040/ajax');
      */
     function Transition($el, options) {
 
@@ -54,6 +56,26 @@
         return new ch.Modal($el, options);
     }
 
+    /**
+     * The name of the widget.
+     * @memberof! ch.Transition.prototype
+     * @type {String}
+     */
+    Transition.prototype.name = 'transition';
+
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Transition.prototype
+     * @function
+     */
+    Transition.prototype.constructor = Transition;
+
+    /**
+     * Configuration by default.
+     * @memberof! ch.Transition.prototype
+     * @type {Object}
+     * @private
+     */
     Transition.prototype._defaults = $.extend(ch.util.clone(ch.Modal.prototype._defaults), {
         '_className': 'ch-transition ch-box-lite',
         '_ariaRole': 'alert',
@@ -61,12 +83,6 @@
         'content': 'Please wait...'
     });
 
-    Transition.prototype.name = 'transition';
-    Transition.prototype.constructor = Transition;
-
-    /**
-     * Factory
-     */
     ch.factory(Transition, ch.Modal.prototype._normalizeOptions);
 
-}(this, this.ch.$, this.ch));
+}(this.ch.$, this.ch));

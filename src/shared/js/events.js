@@ -4,7 +4,7 @@
      * @memberof ch
      * @type {String}
      */
-    ch.onchangelayout = 'changeLayout';
+    ch.onlayoutchange = 'layoutchange';
 
     /**
      *
