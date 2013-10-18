@@ -1,8 +1,17 @@
-(function ($, ch) {
+(function (ch) {
     'use strict';
 
+    /**
+     * Add handlers to manage the keyboard on Dropdown navigation.
+     * @function
+     * @private
+     */
     ch.Dropdown.prototype._navigationShortcuts = function () {
-
+        /**
+         * Reference to the context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) { that._select(event); });
@@ -14,4 +23,4 @@
         });
     };
 
-}(this.ch.$, this.ch));
+}(this.ch));

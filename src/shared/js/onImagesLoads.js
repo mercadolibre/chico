@@ -1,22 +1,16 @@
-/**
- * OnImagesLoads executes a callback function when the images of a query selection loads.
- * @name onImagesLoads
- * @class onImagesLoads
- * @memberOf ch
- * @param callback function The function that the component will fire after the images load.
- * @returns jQuery
- * @factorized
- * @exampleDescription
- * @example
- * $("img").onImagesLoads(callback);
- */
 (function (window, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
+    /**
+     * Executes a callback function when the images of a query selection loads.
+     * @memberof! ch
+     * @param $el An image or a collection of images.
+     * @param callback The handler the component will fire after the images loads.
+     * @example
+     * $('selector').onImagesLoads(function () {
+     *     console.log('The size of the loaded image is ' + this.width);
+     * });
+     */
     function onImagesLoads($el, callback) {
 
         $el

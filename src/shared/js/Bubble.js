@@ -5,60 +5,63 @@
      * Bubble is a dialog window with alert/error skin.
      * @memberof ch
      * @constructor
-     * @augments ch.Popover
+     * @augments ch.Widget
+     * @mixes ch.Collapsible
+     * @mixes ch.Content
+     * @requires ch.Positioner
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Bubble.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
-     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". By default, the effect is "fadeIn".
-     * @param {String} [options.width] Set a width for the container. By default is "auto".
-     * @param {String} [options.height] Set a height for the container. By default is "auto".
-     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none" (default).
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none" (default).
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
-     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right (default), top, bottom or center.
-     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top (default), bottom or center.
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 10.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" (default) or "fixed".
-     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "auto".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "none".
+     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 10.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value must be "absolute" or "fixed". Default: "absolute".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. By default it is '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Bubble container. Default: "Check the information, please."
      * @returns {bubble} Returns a new instance of ch.Bubble.
      * @example
-     * // Create a new Bubble with defaults options.
-     * var widget = $(selector).bubble();
+     * // Create a new Bubble.
+     * var bubble = new ch.Bubble($el, [options]);
      * @example
-     * // Create a new Bubble without trigger.
-     * var widget = $.bubble();
+     * // Create a new Bubble with jQuery or Zepto.
+     * var bubble = $(selector).bubble([options]);
      * @example
-     * // Create a new Bubble with fx disabled.
-     * $(selector).bubble({
+     * // Create a new Bubble with disabled effects.
+     * var bubble = $(selector).bubble({
      *     'fx': 'none'
      * });
+     * @example
+     * // Create a new Bubble using the shorthand way (content as parameter).
+     * var bubble = $(selector).bubble('http://ui.ml.com:3040/ajax');
      */
     function Bubble($el, options) {
+        /**
+         * Reference to the context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
 
         this._init($el, options);
 
         /**
-         * Reference to a internal component instance, saves all the information and configuration properties.
-         * @private
-         * @type {Object}
-         */
-        var that = this;
-
-        /**
-         * Triggers when the component is ready to use (Since 0.8.0).
-         * @name ch.Bubble#ready
-         * @event
-         * @public
-         * @since 0.8.0
-         * @exampleDescription Following the first example, using <code>widget</code> as bubble's instance controller:
+         * Event emitted when the widget is ready to use.
+         * @event ch.Bubble#ready
          * @example
-         * widget.on("ready",function () {
-         * this.show();
+         * // Subscribe to "ready" event.
+         * bubble.on('ready', function () {
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -69,12 +72,13 @@
 
     /**
      * The name of the widget.
+     * @memberof! ch.Bubble.prototype
      * @type {String}
      */
     Bubble.prototype.name = 'bubble';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Bubble.prototype
      * @function
      */
@@ -82,8 +86,9 @@
 
     /**
      * Configuration by default.
-     * @private
+     * @memberof! ch.Bubble.prototype
      * @type {Object}
+     * @private
      */
     Bubble.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-bubble ch-box-icon ch-box-error ch-cone',
