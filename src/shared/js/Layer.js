@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Layer is a dialog window that can be shown one at a time.
      * @memberof ch
@@ -13,70 +9,76 @@
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Layer.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
-     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". By default, the effect is "fadeIn".
-     * @param {String} [options.width] Set a width for the container. By default is "auto".
-     * @param {String} [options.height] Set a height for the container. By default is "auto".
-     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" (default) or "none".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave" (default), "all" or "none".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
-     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" (default) or "fixed".
-     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "auto".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
+     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 0.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 10.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value must be "absolute" or "fixed". Default: "absolute".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. By default it is '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Layer container.
      * @returns {layer} Returns a new instance of ch.Layer.
      * @example
-     * // Create a new Layer with defaults options.
-     * var widget = $(selector).layer();
+     * // Create a new Layer.
+     * var layer = new ch.Layer($el, [options]);
      * @example
-     * // Create a new Layer without trigger.
-     * var widget = $.layer();
+     * // Create a new Layer with jQuery or Zepto.
+     * var layer = $(selector).layer([options]);
      * @example
-     * // Create a new Layer with fx disabled.
-     * $(selector).layer({
+     * // Create a new Layer with disabled effects.
+     * var layer = $(selector).layer({
      *     'fx': 'none'
      * });
+     * @example
+     * // Create a new Layer using the shorthand way (content as parameter).
+     * var layer = $(selector).layer('http://ui.ml.com:3040/ajax');
      */
     function Layer($el, options) {
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to the context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this;
 
         this._init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Layer#ready
          * @example
          * // Subscribe to "ready" event.
          * layer.on('ready', function () {
-         *     alert('Widget ready!');
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    // Reference to the last widget open. Allows to close and to deny to have 2 widgets open at the same time
+    // Reference to the last widget open. Allows to close and to deny to
+    // have 2 widgets open at the same time
     var lastShown,
         // Inheritance
         parent = ch.util.inherits(Layer, ch.Popover);
 
     /**
      * The name of the widget.
+     * @memberof! ch.Layer.prototype
      * @type {String}
      */
     Layer.prototype.name = 'layer';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Layer.prototype
      * @function
      */
@@ -84,8 +86,9 @@
 
     /**
      * Configuration by default.
-     * @private
+     * @memberof! ch.Layer.prototype
      * @type {Object}
+     * @private
      */
     Layer.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-layer ch-box-lite ch-cone',
@@ -108,13 +111,13 @@
      * @returns {layer}
      * @example
      * // Shows a basic layer.
-     * widget.show();
+     * layer.show();
      * @example
-     * // Shows a layer with new content.
-     * widget.show('Some new content here!');
+     * // Shows a layer with new content
+     * layer.show('Some new content here!');
      * @example
-     * // Shows a layer with a new content that will be loaded by ajax and some custom options.
-     * widget.show('http://chico-ui.com.ar/ajax', {
+     * // Shows a layer with a new content that will be loaded by ajax with some custom options
+     * layer.show('http://domain.com/ajax/url', {
      *     'cache': false,
      *     'params': 'x-request=true'
      * });

@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Modal is a dialog window with an underlay.
      * @memberof ch
@@ -13,52 +9,56 @@
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Modal.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
-     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". By default, the effect is "fadeIn".
-     * @param {String} [options.width] Set a width for the container. By default is "50%".
-     * @param {String} [options.height] Set a height for the container. By default is "auto".
-     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap" (default), "pointerenter" or "none".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" (default) or "none".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
-     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" or "fixed" (default).
-     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "50%".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
+     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "all".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: ch.viewport.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 0.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value must be "absolute" or "fixed". Default: "fixed".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. By default it is '<div class="ch-loading-big ch-loading-centered"></div>'.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading-big ch-loading-centered"></div>'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Modal container.
      * @returns {modal} Returns a new instance of ch.Modal.
      * @example
-     * // Create a new Modal with defaults options.
-     * var widget = $(selector).modal();
+     * // Create a new Modal.
+     * var modal = new ch.Modal($el, [options]);
      * @example
-     * // Create a new Modal without trigger.
-     * var widget = $.modal();
+     * // Create a new Modal with jQuery or Zepto.
+     * var modal = $(selector).modal([options]);
      * @example
-     * // Create a new Modal with fx disabled.
-     * $(selector).modal({
+     * // Create a new Modal with disabled effects.
+     * var modal = $(selector).modal({
      *     'fx': 'none'
      * });
+     * @example
+     * // Create a new Modal using the shorthand way (content as parameter).
+     * var modal = $(selector).modal('http://ui.ml.com:3040/ajax');
      */
     function Modal($el, options) {
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to the context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this;
 
         this._init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Modal#ready
          * @example
          * // Subscribe to "ready" event.
          * modal.on('ready', function () {
-         *     alert('Widget ready!');
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -71,12 +71,13 @@
 
     /**
      * The name of the widget.
+     * @memberof! ch.Modal.prototype
      * @type {String}
      */
     Modal.prototype.name = 'modal';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Modal.prototype
      * @function
      */
@@ -84,8 +85,9 @@
 
     /**
      * Configuration by default.
-     * @private
+     * @memberof! ch.Modal.prototype
      * @type {Object}
+     * @private
      */
     Modal.prototype._defaults = $.extend(ch.util.clone(parent._defaults), {
         '_className': 'ch-modal ch-box-lite',
@@ -100,8 +102,8 @@
     /**
      * Shows the Modal underlay.
      * @memberof! ch.Modal.prototype
-     * @private
      * @function
+     * @private
      */
     Modal.prototype._showUnderlay = function () {
 
@@ -117,8 +119,8 @@
     /**
      * Hides the Modal underlay.
      * @memberof! ch.Modal.prototype
-     * @private
      * @function
+     * @private
      */
     Modal.prototype._hideUnderlay = function () {
         if (this._options.fx !== 'none') {
@@ -137,13 +139,13 @@
      * @returns {modal}
      * @example
      * // Shows a basic modal.
-     * widget.show();
+     * modal.show();
      * @example
-     * // Shows a modal with new content.
-     * widget.show('Some new content here!');
+     * // Shows a modal with new content
+     * modal.show('Some new content here!');
      * @example
-     * // Shows a modal with a new content that will be loaded by ajax and some custom options.
-     * widget.show('http://chico-ui.com.ar/ajax', {
+     * // Shows a modal with a new content that will be loaded by ajax with some custom options
+     * modal.show('http://domain.com/ajax/url', {
      *     'cache': false,
      *     'params': 'x-request=true'
      * });
@@ -155,9 +157,9 @@
         }
 
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to the context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -183,8 +185,8 @@
      * @function
      * @returns {modal}
      * @example
-     * // Close a modal.
-     * widget.hide();
+     * // Close a modal
+     * modal.hide();
      */
     Modal.prototype.hide = function () {
         // Delete the underlay listener

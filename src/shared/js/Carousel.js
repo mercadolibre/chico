@@ -1,39 +1,32 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
      * @param {Object} [options] Options to customize an instance.
-     * @param {Number} [options.async] Defines the number of future asynchronous items to add to the widget. By default, the async is 0.
-     * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. By default, the arrows will be created.
-     * @param {Boolean} [options.pagination] Defines if a pagination must be created or not at initialization. By default, the pagination will not be created.
-     * @param {Boolean} [options.fx] Enable or disable the slide effect. By default, the effects are enabled.
+     * @param {Number} [options.async] Defines the number of future asynchronous items to add to the widget. Default: 0.
+     * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. Default: true.
+     * @param {Boolean} [options.pagination] Defines if a pagination must be created or not at initialization. Default: false.
+     * @param {Boolean} [options.fx] Enable or disable the slide effect. Default: true.
      * @param {Number} [options.limitPerPage] Set the maximum amount of items to show in each page.
      * @returns {carousel} Returns a new instance of ch.Carousel.
      * @example
-     * // Create a new Carousel with defaults options.
-     * var widget = $(selector).carousel();
+     * // Create a new carousel.
+     * var carousel = new ch.Carousel($el, [options]);
      * @example
-     * // Create a new Carousel with pagination enabled.
-     * $(selector).carousel({
-     *     'pagination': true
-     * });
+     * // Create a new Carousel with jQuery or Zepto.
+     * var carousel = $(selector).carousel([options]);
      * @example
-     * // Create a new Carousel with fx disabled.
-     * $(selector).carousel({
+     * // Create a new Carousel with disabled effects.
+     * var carousel = $(selector).carousel({
      *     'fx': false
      * });
      * @example
      * // Create a new Carousel with items asynchronously loaded.
-     * $(selector).carousel({
+     * var carousel = $(selector).carousel({
      *     'async': 10
      * }).on('itemsadd', function ($items) {
      *     // Inject content into the added <li> elements
@@ -44,21 +37,21 @@
      */
     function Carousel($el, options) {
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to the context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this;
 
         this._init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Carousel#ready
          * @example
          * // Subscribe to "ready" event.
          * carousel.on('ready', function () {
-         *     this.select(3);
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -72,12 +65,13 @@
 
     /**
      * The name of the widget.
+     * @memberof! ch.Carousel.prototype
      * @type {String}
      */
     Carousel.prototype.name = 'carousel';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Carousel.prototype
      * @function
      */
@@ -85,8 +79,9 @@
 
     /**
      * Configuration by default.
-     * @private
+     * @memberof! ch.Carousel.prototype
      * @type {Object}
+     * @private
      */
     Carousel.prototype._defaults = {
         'async': 0,
@@ -107,16 +102,16 @@
         parent._init.call(this, $el, options);
 
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to the context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this;
 
         /**
          * The original and entire element and its state, before initialization.
-         * @private
          * @type {HTMLDivElement}
+         * @private
          */
         // cloneNode(true) > parameters is required. Opera & IE throws and internal error. Opera mobile breaks.
         this._snippet = this._el.cloneNode(true);
@@ -375,11 +370,11 @@
         this._async -= amount;
 
         /**
-         * Emits the event 'itemsadd' when the widget creates new asynchronous empty items.
+         * Event emitted when the widget creates new asynchronous empty items.
          * @event ch.Carousel#itemsadd
          * @example
          * // Create a new Carousel with items asynchronously loaded.
-         * $(selector).carousel({
+         * var carousel = $(selector).carousel({
          *     'async': 10
          * }).on('itemsadd', function ($items) {
          *     // Inject content into the added <li> elements
@@ -398,14 +393,13 @@
      * @function
      */
     Carousel.prototype._addPagination = function () {
-
         // Remove the current pagination if it's necessary to create again
         if (this._paginationCreated) {
             this._removePagination();
         }
 
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -465,9 +459,8 @@
      * @param {Function} callback A function to execute after disable the effects.
      */
     Carousel.prototype._standbyFX = function (callback) {
-
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -482,7 +475,6 @@
             // Restore efects to list
             // Use a setTimeout to be sure to do this AFTER changes
             setTimeout(function () { that._$list.removeClass('ch-carousel-nofx'); }, 0);
-
         // Avoid to add/remove classes if it hasn't effects
         } else {
             callback.call(this);
@@ -728,9 +720,10 @@
             this._updateDistribution();
 
             /**
-             * Emits the event 'refresh' when the widget triggers all the necessary recalculations to be up-to-date.
+             * Event emitted when the widget makes all the necessary recalculations to be up-to-date.
              * @event ch.Carousel#refresh
              * @example
+             * // Subscribe to "refresh" event.
              * carousel.on('refresh', function () {
              *     alert('Carousel was refreshed.');
              * });
@@ -753,9 +746,10 @@
             }
 
             /**
-             * Emits the event 'refresh' when the widget triggers all the necessary recalculations to be up-to-date.
+             * Event emitted when the widget makes all the necessary recalculations to be up-to-date.
              * @event ch.Carousel#refresh
              * @example
+             * // Subscribe to "refresh" event.
              * carousel.on('refresh', function () {
              *     alert('Carousel was refreshed.');
              * });
@@ -799,11 +793,12 @@
         this._loadAsyncItems();
 
         /**
-         * Emits the event 'select' when the widget moves to another page.
+         * Event emitted when the widget moves to another page.
          * @event ch.Carousel#select
          * @example
+         * // Subscribe to "select" event.
          * carousel.on('select', function () {
-         *     alert('Carousel has moved.');
+         *     alert('Carousel was refreshed.');
          * });
          */
         this.emit('select');
@@ -822,7 +817,7 @@
         this.select(this._currentPage - 1);
 
         /**
-         * Emits the event 'prev' when the widget moves to the previous page.
+         * Event emitted when the widget moves to the previous page.
          * @event ch.Carousel#prev
          * @example
          * carousel.on('prev', function () {
@@ -845,7 +840,7 @@
         this.select(this._currentPage + 1);
 
         /**
-         * Emits the event 'next' when the widget moves to the next page.
+         * Event emitted when the widget moves to the next page.
          * @event ch.Carousel#next
          * @example
          * carousel.on('next', function () {
@@ -895,17 +890,16 @@
      * Destroys a Carousel instance.
      * @memberof! ch.Carousel.prototype
      * @function
-     * @returns {carousel}
      */
     Carousel.prototype.destroy = function () {
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onchangelayout);
+        $(window.document).trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
 
-        return this;
+        return;
     };
 
     ch.factory(Carousel);

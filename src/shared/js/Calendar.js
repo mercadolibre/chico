@@ -849,7 +849,7 @@
 
         this._el.parentNode.replaceChild(this._snippet, this._el);
 
-        $(window.document).trigger(ch.onchangelayout);
+        $(window.document).trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
     };

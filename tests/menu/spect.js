@@ -4,13 +4,13 @@ var menu1 = $("#menu-1").menu({'fx': false}),
     showEvent = jasmine.createSpy('showEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent'),
+    layoutChangeEvent = jasmine.createSpy('layoutChangeEvent'),
     $container = menu1.$container,
     $children = menu1.$container.children(),
     $expandable = menu1.folds[0],
     $bellows = menu1.$container.children(':last-child');
 
-$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
 
 describe('Menu', function () {
     menu1.on('ready', function () { readyEvent(); });
@@ -219,8 +219,8 @@ describe('Its destroy() method', function () {
         expect(menu2._$el.data('menu')).toBeUndefined();
     });
 
-    it('should emit the "changeLayout" event', function () {
-        expect(changeLayoutEvent).toHaveBeenCalled();
+    it('should emit the "layoutchange" event', function () {
+        expect(layoutChangeEvent).toHaveBeenCalled();
     });
 
     it('should emit the "destroy" event', function () {

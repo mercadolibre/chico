@@ -3,9 +3,9 @@ var countdown = $('#input_user').countdown(),
     readyEvent = jasmine.createSpy('readyEvent'),
     exceedEvent = jasmine.createSpy('exceedEvent'),
     destroyEvent = jasmine.createSpy('destroyEvent'),
-    changeLayoutEvent = jasmine.createSpy('changeLayoutEvent');
+    layoutChangeEvent = jasmine.createSpy('layoutChangeEvent');
 
-$(window.document).on(ch.onchangelayout, changeLayoutEvent);
+$(window.document).on(ch.onlayoutchange, layoutChangeEvent);
 
 describe('Countdown', function () {
     countdown
@@ -161,8 +161,8 @@ describe('Its destroy() method', function () {
         expect(countdown2._$el.data('countdown')).toBeUndefined();
     });
 
-    it('should emit the "changeLayout" event', function () {
-        expect(changeLayoutEvent).toHaveBeenCalled();
+    it('should emit the "layoutchange" event', function () {
+        expect(layoutChangeEvent).toHaveBeenCalled();
     });
 
     it('should emit the "destroy" event', function () {

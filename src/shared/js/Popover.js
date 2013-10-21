@@ -1,10 +1,6 @@
 (function (window, $, ch) {
     'use strict';
 
-    if (ch === undefined) {
-        throw new window.Error('Expected ch namespace defined.');
-    }
-
     /**
      * Popover is the basic unit of a dialog window.
      * @memberof ch
@@ -16,52 +12,56 @@
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Popover.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
-     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". By default, the effect is "fadeIn".
-     * @param {String} [options.width] Set a width for the container. By default is "auto".
-     * @param {String} [options.height] Set a height for the container. By default is "auto".
-     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap" (default), "pointerenter" or "none".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button" (default), "pointers", "pointerleave", "all" or "none".
-     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
-     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: "absolute" (default) or "fixed".
-     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
+     * @param {String} [options.width] Set a width for the container. Default: "auto".
+     * @param {String} [options.height] Set a height for the container. Default: "auto".
+     * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
+     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "button".
+     * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
+     * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
+     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 0.
+     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 0.
+     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value must be "absolute" or "fixed". Default: "absolute".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. By default it is '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
+     * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Popover container.
      * @returns {popover} Returns a new instance of ch.Popover.
      * @example
-     * // Create a new Popover with defaults options.
-     * var widget = $(selector).popover();
+     * // Create a new Popover.
+     * var popover = new ch.Popover($el, [options]);
      * @example
-     * // Create a new Popover without trigger.
-     * var widget = $.popover();
+     * // Create a new Popover with jQuery or Zepto.
+     * var popover = $(selector).popover([options]);
      * @example
-     * // Create a new Popover with fx disabled.
-     * $(selector).popover({
+     * // Create a new Popover with disabled effects.
+     * var popover = $(selector).popover({
      *     'fx': 'none'
      * });
+     * @example
+     * // Create a new Popover using the shorthand way (content as parameter).
+     * var popover = $(selector).popover('http://ui.ml.com:3040/ajax');
      */
     function Popover($el, options) {
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to the context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this;
 
         this._init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Popover#ready
          * @example
          * // Subscribe to "ready" event.
          * popover.on('ready', function () {
-         *     alert('Widget ready!');
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -78,12 +78,13 @@
 
     /**
      * The name of the widget.
+     * @memberof! ch.Popover.prototype
      * @type {String}
      */
     Popover.prototype.name = 'popover';
 
     /**
-     * Returns a reference to the constructor function that created the instance.
+     * Returns a reference to the constructor function.
      * @memberof! ch.Popover.prototype
      * @function
      */
@@ -91,8 +92,9 @@
 
     /**
      * Configuration by default.
-     * @private
+     * @memberof! ch.Popover.prototype
      * @type {Object}
+     * @private
      */
     Popover.prototype._defaults = {
         '_ariaRole': 'dialog',
@@ -123,9 +125,9 @@
         this.require('Collapsible', 'Content');
 
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to the context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this;
 
@@ -170,7 +172,7 @@
          * Handler to execute the positioner refresh() method on layout changes.
          * @private
          * @type {Function}
-         * @todo Define this function on prototype and use bind(): $document.on(ch.onchangelayout, this.refreshPosition.bind(this));
+         * @todo Define this function on prototype and use bind(): $document.on(ch.onlayoutchange, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
             that._positioner.refresh(options);
@@ -179,7 +181,7 @@
 
         // Refresh position:
         // on layout change
-        $document.on(ch.onchangelayout, this._refreshPositionListener);
+        $document.on(ch.onlayoutchange, this._refreshPositionListener);
         // on resize
         ch.viewport.on(ch.onresize, this._refreshPositionListener);
 
@@ -208,9 +210,9 @@
         }
 
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this,
             // It will be triggered on pointertap/pointerenter of the $trigger
@@ -288,9 +290,9 @@
      */
     Popover.prototype._configureHiding = function () {
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
-         * @private
+         * Reference to context of an instance.
          * @type {Object}
+         * @private
          */
         var that = this,
             hiddenby = this._options.hiddenby,
@@ -358,13 +360,13 @@
      * @returns {popover}
      * @example
      * // Shows a basic popover.
-     * widget.show();
+     * popover.show();
      * @example
-     * // Shows a popover with new content.
-     * widget.show('Some new content here!');
+     * // Shows a popover with new content
+     * popover.show('Some new content here!');
      * @example
-     * // Shows a popover with a new content that will be loaded by ajax and some custom options.
-     * widget.show('http://chico-ui.com.ar/ajax', {
+     * // Shows a popover with a new content that will be loaded by ajax with some custom options
+     * popover.show('http://domain.com/ajax/url', {
      *     'cache': false,
      *     'params': 'x-request=true'
      * });
@@ -396,8 +398,8 @@
      * @function
      * @returns {popover}
      * @example
-     * // Close a popover.
-     * widget.hide();
+     * // Close a popover
+     * popover.hide();
      */
     Popover.prototype.hide = function () {
         // Don't execute when it's disabled
@@ -417,10 +419,12 @@
      * @function
      * @returns {Boolean}
      * @example
+     * // Check the popover status
+     * popover.isShown();
+     * @example
      * // Check the popover status after an user action
-     * var foo = $.popover();
-     * $(button).on(ch.onpointertap, function () {
-     *     if (foo.isShown()) {
+     * $(window).on(ch.onpointertap, function () {
+     *     if (popover.isShown()) {
      *         alert('Popover: visible');
      *     } else {
      *         alert('Popover: not visible');
@@ -438,10 +442,10 @@
      * @param {String} [data] Set a width for the container.
      * @returns {(Number | popover)}
      * @example
-     * // Set a new popover width.
+     * // Set a new popover width
      * widget.width('300px');
      * @example
-     * // Get the popover width.
+     * // Get the current popover width
      * widget.width(); // '300px'
      */
     Popover.prototype.width = function (data) {
@@ -460,16 +464,16 @@
     };
 
     /**
-     * Sets or gets the hight of the container.
+     * Sets or gets the height of the container.
      * @memberof! ch.Popover.prototype
      * @function
      * @param {String} [data] Set a height for the container.
      * @returns {(Number | popover)}
      * @example
-     * // Set a new popover height.
+     * // Set a new popover height
      * widget.height('300px');
      * @example
-     * // Get the popover height.
+     * // Get the current popover height
      * widget.height(); // '300px'
      */
     Popover.prototype.height = function (data) {
@@ -494,11 +498,11 @@
      * @params {Object} [options] A configuration object.
      * @returns {popover}
      * @example
-     * // Updates the current position.
+     * // Update the current position
      * popover.refreshPosition();
      * @example
-     * // Updates the current position with new offsetX and offsetY.
-     * popover.refresh({
+     * // Update the current position with a new offsetX and offsetY
+     * popover.refreshPosition({
      *     'offestX': 100,
      *     'offestY': 10
      * });
@@ -517,6 +521,9 @@
      * @memberof! ch.Popover.prototype
      * @function
      * @returns {popover}
+     * @example
+     * // Enable a popover
+     * popover.enable();
      */
     Popover.prototype.enable = function () {
 
@@ -534,6 +541,9 @@
      * @memberof! ch.Popover.prototype
      * @function
      * @returns {popover}
+     * @example
+     * // Disable a popover
+     * popover.disable();
      */
     Popover.prototype.disable = function () {
 
@@ -555,6 +565,11 @@
      * @memberof! ch.Popover.prototype
      * @function
      * @returns {popover}
+     * @example
+     * // Destroy a popover
+     * popover.destroy();
+     * // Empty the popover reference
+     * popover = undefined;
      */
     Popover.prototype.destroy = function () {
 
@@ -572,13 +587,13 @@
                 .attr('title', this._snippet.title);
         }
 
-        $document.off(ch.onchangelayout, this._refreshPositionListener);
+        $document.off(ch.onlayoutchange, this._refreshPositionListener);
 
         ch.viewport.off(ch.onresize, this._refreshPositionListener);
 
         parent.destroy.call(this);
 
-        return this;
+        return;
     };
 
     ch.factory(Popover, Popover.prototype._normalizeOptions);
