@@ -21,6 +21,8 @@
             ch.shortcuts.remove(ch.onkeyuparrow, that.uid);
             ch.shortcuts.remove(ch.onkeydownarrow, that.uid);
         });
+
+        return this;
     };
 
 }(this.ch));

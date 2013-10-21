@@ -18,7 +18,7 @@
      * // Create a new Menu with jQuery or Zepto.
      * var menu = $(selector).menu();
      * @example
-     * // Create a new menu with configuration.
+     * // Create a new Menu with custom options.
      * var menu = $(selector).menu({
      *     'fx': 'none'
      * });

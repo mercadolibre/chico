@@ -31,7 +31,7 @@
      * // Create a new Calendar with jQuery or Zepto.
      * var calendar = $(selector).calendar();
      * @example
-     * // Creates a new Calendar with some options.
+     * // Creates a new Calendar with custom options.
      * var calendar =  $(selector).calendar({
      *     'format': 'MM/DD/YYYY',
      *     'selected': '2011/12/25',

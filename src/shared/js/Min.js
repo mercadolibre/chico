@@ -41,7 +41,7 @@
     }
 
     /**
-     * Min validates a number with a minimun value.
+     * Min creates a new instance of Validation to validate a number with a minimun value.
      * @memberof ch
      * @constructor
      * @augments ch.Validation

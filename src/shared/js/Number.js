@@ -38,7 +38,7 @@
     }
 
     /**
-     * Number validates a given number.
+     * Number creates a new instance of Validation to validate a given value as number.
      * @memberof ch
      * @name ch.Number
      * @constructor

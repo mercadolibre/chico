@@ -41,7 +41,7 @@
     }
 
     /**
-     * MaxLength validates a maximun amount of characters.
+     * MaxLength creates a new instance of Validation to validate a maximun amount of characters.
      * @memberof ch
      * @constructor
      * @augments ch.Validation

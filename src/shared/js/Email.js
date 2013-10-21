@@ -24,7 +24,7 @@
     }
 
     /**
-     * Email validates a correct email syntax.
+     * Email creates a new instance of Validation to validate a correct email syntax.
      * @memberof ch
      * @constructor
      * @augments ch.Validation

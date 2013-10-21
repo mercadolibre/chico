@@ -24,7 +24,7 @@
     }
 
     /**
-     * Required validates that a must be filled.
+     * Required creates a new instance of Validation to validate required values.
      * @memberof ch
      * @constructor
      * @augments ch.Validation

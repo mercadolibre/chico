@@ -38,7 +38,7 @@
     }
 
     /**
-     * String validates a given text as string.
+     * String creates a new instance of Validation to validate a given value as string.
      * @memberof ch
      * @name ch.String
      * @constructor
