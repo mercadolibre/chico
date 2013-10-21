@@ -41,7 +41,7 @@
     }
 
     /**
-     * MinLength validates a minimun amount of characters.
+     * MinLength creates a new instance of Validation to validate a minimun amount of characters.
      * @memberof ch
      * @constructor
      * @augments ch.Validation

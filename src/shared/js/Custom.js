@@ -42,7 +42,7 @@
     }
 
     /**
-     * Custom creates a validation interface for validation engine.
+     * Custom creates a new instance of Validation to validate a custom condition.
      * @memberof ch
      * @constructor
      * @augments ch.Validation

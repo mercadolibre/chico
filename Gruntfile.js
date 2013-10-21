@@ -126,6 +126,7 @@ module.exports = function (grunt) {
                     "src/shared/js/Calendar.js",
 
                     "src/shared/js/Validation.js",
+                    "src/ui/js/Validation.js",
                     "src/shared/js/String.js",
                     "src/shared/js/URL.js",
                     "src/shared/js/Email.js",

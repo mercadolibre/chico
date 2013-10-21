@@ -41,7 +41,7 @@
     }
 
     /**
-     * Max validates a number with a maximun value.
+     * Max creates a new instance of Validation to validate a number with a maximun value.
      * @memberof ch
      * @constructor
      * @augments ch.Validation

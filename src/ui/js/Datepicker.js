@@ -30,7 +30,7 @@
      * // Create a new Datepicker with jQuery or Zepto.
      * var datepicker = $(selector).datepicker();
      * @example
-     * // Create a new Datepicker with some options.
+     * // Create a new Datepicker with custom options.
      * var datepicker = $(selector).datepicker({
      *     "format": "MM/DD/YYYY",
      *     "selected": "2011/12/25",
