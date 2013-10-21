@@ -9,9 +9,9 @@
      * @param {Object} [conf] Object with configuration properties.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: left, right, top, bottom or center (default).
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Its value by default is 0.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Its value by default is 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value can be: absolute or fixed (default).
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Its value by default is 0.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Its value by default is 0.
+     * @param {String} [options.position] The type of positioning used. Its value can be: absolute or fixed (default).
      * @returns {autocomplete}
      * @example
      * // Create a new AutoComplete with configuration.

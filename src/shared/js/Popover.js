@@ -20,9 +20,9 @@
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 0.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. Its value must be "absolute" or "fixed". Default: "absolute".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
+     * @param {String} [options.position] The type of positioning used. Its value must be "absolute" or "fixed". Default: "absolute".
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
@@ -107,7 +107,7 @@
         'shownby': 'pointertap',
         'hiddenby': 'button',
         'waiting': '<div class="ch-loading ch-loading-centered"></div>',
-        'positioned': 'absolute'
+        'position': 'absolute'
     };
 
     /**
@@ -165,7 +165,7 @@
             'align': this._options.align,
             'offsetX': this._options.offsetX,
             'offsetY': this._options.offsetY,
-            'positioned': this._options.positioned
+            'position': this._options.position
         });
 
         /**
