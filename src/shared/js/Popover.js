@@ -577,14 +577,11 @@
             this.$trigger
                 .off('.' + this.name)
                 .removeClass('ch-' + this.name + '-trigger')
-                .removeAttr('data-title')
-                .removeAttr('aria-owns')
-                .removeAttr('aria-haspopup')
-                .removeAttr('data-side')
-                .removeAttr('data-align')
-                .removeAttr('role')
-                .attr('alt', this._snippet.alt)
-                .attr('title', this._snippet.title);
+                .removeAttr('data-title aria-owns aria-haspopup data-side data-align role')
+                .attr({
+                    'alt': this._snippet.alt,
+                    'title': this._snippet.title
+                });
         }
 
         $document.off(ch.onlayoutchange, this._refreshPositionListener);
