@@ -101,50 +101,10 @@ module.exports = function (grunt) {
 
         'jsdoc': {
             'dist': {
-                'src': [
-                    "src/shared/js/helpers.js",
-                    "src/shared/js/util.js",
-                    "src/shared/js/support.js",
-                    "src/shared/js/events.js",
-                    "src/ui/js/events.js",
-                    "src/shared/js/factory.js",
-                    "src/ui/js/init.js",
-
-                    "src/shared/js/EventEmitter.js",
-                    "src/shared/js/Content.js",
-                    "src/shared/js/Closable.js",
-                    "src/shared/js/Collapsible.js",
-                    "src/shared/js/Viewport.js",
-                    "src/shared/js/Positioner.js",
-                    "src/ui/js/shortcuts.js",
-
-                    "src/shared/js/Widget.js",
-                    "src/shared/js/Expandable.js",
-                    "src/shared/js/Form.js",
-                    "src/shared/js/Menu.js",
-                    "src/shared/js/Countdown.js",
-                    "src/shared/js/Calendar.js",
-                    "src/shared/js/Autocomplete.js",
-
-                    "src/shared/js/Validation.js",
-                    "src/ui/js/Validation.js",
-                    "src/shared/js/String.js",
-                    "src/shared/js/URL.js",
-                    "src/shared/js/Email.js",
-                    "src/shared/js/MaxLength.js",
-                    "src/shared/js/MinLength.js",
-                    "src/shared/js/Number.js",
-                    "src/shared/js/Min.js",
-                    "src/shared/js/Max.js",
-                    "src/shared/js/Required.js",
-                    "src/shared/js/Custom.js",
-
-                    "src/ui/js/DatePicker.js",
-                    "src/ui/js/Tabs.js"
-                ],
+                'src': files.JS.core.concat(files.JS.abilities).concat(files.JS.widgets),
                 'options': {
                     'template': './libs/doc-template',
-                    'destination': './doc',
+                    'destination': './doc/' + environment,
                     'private': false
                 }
             }
