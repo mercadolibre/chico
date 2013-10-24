@@ -80,7 +80,6 @@
      * Condition utility.
      * @memberof ch
      * @constructor
-     * @private
      * @requires ch.Validation
      * @param {Array} [condition] A conditions to validate.
      * @param {String} [condition.name] The name of the condition.
@@ -187,7 +186,7 @@
      * Enables an instance of condition.
      * @memberof! ch.Condition.prototype
      * @function
-     * @param {String || Number} value - A given value.
+     * @param {(String | Number)} value - A given value.
      * @param {condition} validation - A given validation to execute.
      * @example
      * // Testing a condition.
