@@ -126,6 +126,9 @@
         /**
          * The countdown trigger.
          * @type {(jQuerySelector | ZeptoSelector)}
+         * @example
+         * // Gets the countdown trigger.
+         * countdown.$trigger;
          */
         this.$trigger = this._$el.on('keyup.countdown keypress.countdown keydown.countdown paste.countdown cut.countdown', function () { that._count(); });
 

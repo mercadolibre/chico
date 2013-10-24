@@ -119,7 +119,7 @@
          * The expandable trigger.
          * @type {(jQuerySelector | ZeptoSelector)}
          * @example
-         * // Gets the expandable trigegr.
+         * // Gets the expandable trigger.
          * expandable.$trigger;
          */
         this.$trigger = this._$el
@@ -214,13 +214,13 @@
     };
 
     /**
-     * Hides widget's content.
+     * Hides widget's container.
      * @memberof! ch.Expandable.prototype
      * @function
      * @returns {expandable}
      * @example
      * // Close an expandable.
-     * widget.hide();
+     * expandable.hide();
      */
     Expandable.prototype.hide = function () {
 
@@ -268,8 +268,7 @@
 
         this.$container
             .removeClass('ch-expandable-container ch-hide')
-            .removeAttr('aria-expanded')
-            .removeAttr('aria-hidden');
+            .removeAttr('aria-expanded aria-hidden');
 
         $document.trigger(ch.onlayoutchange);
 
