@@ -160,6 +160,8 @@
 
         /**
          * Allows to manage the widgets content.
+         * @function
+         * @memberof! ch.Content#
          * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a widget.
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
          * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
