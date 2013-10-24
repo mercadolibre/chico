@@ -1,4 +1,4 @@
-(function (window, Autocomplete, ch) {
+(function (Autocomplete, ch) {
     'use strict';
     /**
      * Congfigure shortcuts to navigate and set values, or cancel the typed text
@@ -8,20 +8,18 @@
      * @returns {autocomplete}
      */
     Autocomplete.prototype._configureShortcuts = function () {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
         var that = this;
 
         // Shortcuts
-        ch.shortcuts.add(ch.onkeybackspace, this.uid, function () {
-            // hides and clear the list
-            if (that._el.value.length <= 1) {
-                that._$suggestionsList[0].innerHTML = '';
-                that._popover.hide();
-            }
-        });
-
         ch.shortcuts.add(ch.onkeyenter, this.uid, function (event) {
             ch.util.prevent(event);
-            that._setQuery();
+            that._selectSuggestion();
         });
 
         ch.shortcuts.add(ch.onkeyesc, this.uid, function () {
@@ -31,18 +29,25 @@
 
         ch.shortcuts.add(ch.onkeyuparrow, this.uid, function (event) {
             ch.util.prevent(event);
+
             var value;
 
             // change the selected value & stores the future HTMLInputElement value
-            if (that._selected === null) {
-                that._selected = that._suggestionsQuantity -1;
-                value = that._suggestions[that._selected];
-            } else if (that._selected <= 0) {
-                that._selected = null;
+            if (that._highlighted === null) {
+
+                that._highlighted = that._suggestionsQuantity - 1;
+                value = that._suggestions[that._highlighted];
+
+            } else if (that._highlighted <= 0) {
+
+                this._prevHighlighted = this._currentHighlighted = null;
                 value = that._currentQuery;
+
             } else {
-                that._selected -= 1;
-                value = that._suggestions[that._selected];
+
+                that._highlighted -= 1;
+                value = that._suggestions[that._highlighted];
+
             }
 
             that._toogleHighlighted();
@@ -50,21 +55,29 @@
             if (!that._options.html) {
                 that._el.value = value;
             }
+
         });
 
         ch.shortcuts.add(ch.onkeydownarrow, this.uid, function () {
             var value;
 
             // change the selected value & stores the future HTMLInputElement value
-            if (that._selected === null) {
-                that._selected = 0;
-                value = that._suggestions[that._selected];
-            } else if (that._selected >= that._suggestionsQuantity - 1) {
-                that._selected = null;
+            if (that._highlighted === null) {
+
+                that._highlighted = 0;
+
+                value = that._suggestions[that._highlighted];
+
+            } else if (that._highlighted >= that._suggestionsQuantity - 1) {
+
+                that._highlighted = null;
                 value = that._currentQuery;
+
             } else {
-                that._selected += 1;
-                value = that._suggestions[that._selected];
+
+                that._highlighted += 1;
+                value = that._suggestions[that._highlighted];
+
             }
 
             that._toogleHighlighted();
@@ -72,6 +85,7 @@
             if (!that._options.html) {
                 that._el.value = value;
             }
+
         });
 
         // Activate the shortcuts for this instance
@@ -87,4 +101,4 @@
         return this;
     };
 
-}(this, this.ch.Autocomplete, this.ch));
+}(this.ch.Autocomplete, this.ch));

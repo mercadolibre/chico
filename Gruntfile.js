@@ -124,6 +124,7 @@ module.exports = function (grunt) {
                     "src/shared/js/Menu.js",
                     "src/shared/js/Countdown.js",
                     "src/shared/js/Calendar.js",
+                    "src/shared/js/Autocomplete.js",
 
                     "src/shared/js/Validation.js",
                     "src/ui/js/Validation.js",
