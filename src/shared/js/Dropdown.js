@@ -169,35 +169,6 @@
         return this;
     };
 
-    Dropdown.prototype._select = function (key) {
-
-        var arrow,
-            optionsLength = this._$navigation.length;
-
-        if (!this._shown) { return; }
-
-        // Prevent default behavior
-        ch.util.prevent(key);
-
-        // Sets the arrow that user press
-        arrow = key.type;
-
-        // Sets limits behavior
-        if (this._selected === (arrow === 'down_arrow' ? optionsLength - 1 : 0)) { return; }
-
-        // Unselects current option
-        if (this._selected !== -1) {
-            this._$navigation[this._selected].blur();
-            this._$navigation[this._selected].removeAttribute('id');
-        }
-
-        if (arrow === 'down_arrow') { this._selected += 1; } else { this._selected -= 1; }
-
-        // Selects new current option
-        this._$navigation[this._selected].focus();
-        this._$navigation[this._selected].id = 'ch-dropdown' + this.uid + '-selected';
-    };
-
     /**
      * Shows the dropdown container.
      * @memberof! ch.Dropdown.prototype
