@@ -1,4 +1,4 @@
-.ch-autoComplete-item {
+.ch-autocomplete-item {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -9,7 +9,7 @@
     position: relative;
 }
 
-.ch-autoComplete-list .ch-icon-arrow-up[data-js="ch-autoComplete-complete-query"] {
+.ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"] {
     content: '';
     display: block;
     position: absolute;
@@ -22,7 +22,7 @@
     height: 40px;
 }
 
-.ch-autoComplete-list .ch-icon-arrow-up[data-js="ch-autoComplete-complete-query"]:before {
+.ch-autocomplete-list .ch-icon-arrow-up[data-js="ch-autocomplete-complete-query"]:before {
     color: #F4F4F4;
     display: block;
     transform: rotate(-45deg);

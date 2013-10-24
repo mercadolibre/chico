@@ -1,28 +1,28 @@
-.ch-autoComplete {
+.ch-autocomplete {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
     border-top: none;
 }
 
-.ch-autoComplete-item,
-.ch-autoComplete-highlighted {
+.ch-autocomplete-item,
+.ch-autocomplete-highlighted {
     margin: 0;
     padding: 3px 5px;
     cursor: pointer;
 }
 
-.ch-autoComplete-list {
+.ch-autocomplete-list {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.ch-autoComplete-highlighted {
+.ch-autocomplete-highlighted {
     background-color: #FDF9D5;
     border-radius: 5px;
 }
 
-.ch-autoComplete-loading {
+.ch-autocomplete-loading {
     background: url('../assets/loading-small.gif') no-repeat right center;
     background-size: 16px;
 }

@@ -45,7 +45,7 @@
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
 
             /**
-             * Event emitted when the widget container.is hidden.
+             * Event emitted when the widget container is hidden.
              * @event ch.Collapsible#hide
              * @example
              * // Subscribe to "hide" event.

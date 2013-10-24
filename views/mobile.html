@@ -84,7 +84,7 @@
                 <li><a href="#headings">Headings</a></li>
                 <li><a href="#links">Links</a></li>
                 <li><a href="#buttons">Buttons</a></li>
-                <li><a href="#autoComplete">AutoComplete</a></li>
+                <li><a href="#autocomplete">Autocomplete</a></li>
                 <li><a href="#boxes">Boxes</a></li>
                 <li><a href="#message-boxes">Message Boxes</a></li>
                 <li><a href="#lists">Lists</a></li>
@@ -169,32 +169,32 @@
             </div>
 
             <div class="ch-box-lite">
-                <h2 id="autoComplete">AutoComplete</h2>
+                <h2 id="autocomplete">autocomplete</h2>
                 <form method="get" action="/" id="asForm" class="ch-form">
                     <div class="ch-form-row">
 
                         <label for="autocomplete">
                             Fill your country:
                         </label>
-                        <input type="text" name="autocomplete1" class="autoComplete" id="autocomplete" placeholder="Write a country name" />
+                        <input type="text" name="autocomplete1" class="autocomplete" id="autocomplete" placeholder="Write a country name" />
                         <p class="ch-form-hint">This is configured to use HTML</p>
                     </div>
                     <div class="ch-form-row">
                         <label for="autocomplete2">
                             Fill your country:
                         </label>
-                        <input type="text" name="autocomplete2" class="autoComplete2" id="autocomplete2" placeholder="Write a country name" />
+                        <input type="text" name="autocomplete2" class="autocomplete2" id="autocomplete2" placeholder="Write a country name" />
                         <p class="ch-form-hint">This is the default</p>
                     </div>
                     <div class="ch-form-row">
                         <label for="autocomplete3">
                             Find on MercadoLibre:
                         </label>
-                        <input type="text" name="autocomplete3" class="autoComplete3" id="autocomplete3" placeholder="Write a country name" />
+                        <input type="text" name="autocomplete3" class="autocomplete3" id="autocomplete3" placeholder="Write a country name" />
                         <p class="ch-form-hint">This is working with the MercadoLibre API</p>
                     </div>
                     <p class="ch-form-actions">
-                        <input type="submit" name="autoCompleteSubmit" class="ch-btn">
+                        <input type="submit" name="autocompleteSubmit" class="ch-btn">
                     </p>
                 </form>
             </div>
@@ -953,10 +953,10 @@
     <script src="/mobile/js"></script>
     <script>
 
-        var autocomplete1 = $('.autoComplete').autoComplete({'html': true});
+        var autocomplete1 = $('.autocomplete').autocomplete({'html': true});
             autocomplete1.$container.prepend('<p>Hi, please choose and option!</p>');
 
-            autocomplete1.$container.append('<div><ul data-js="extraSuggestions"><li class="ch-autoComplete-item">Other options</li><li class="ch-autoComplete-item">Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>');
+            autocomplete1.$container.append('<div><ul data-js="extraSuggestions"><li class="ch-autocomplete-item">Other options</li><li class="ch-autocomplete-item">Another options</li></ul><p><a href="/">Hide Suggestions</a></p></div>');
 
         var parseResults = function (results) {
             var data = results.slice(0),
@@ -983,7 +983,7 @@
              });
         });
 
-        var autocomplete2 = $('.autoComplete2').autoComplete();
+        var autocomplete2 = $('.autocomplete').autocomplete();
         autocomplete2.$container.append('<button class="ch-btn-skin ch-btn-small">Don\'t show again</button>');
 
         autocomplete2.on('type', function (userInput) {
@@ -1000,7 +1000,7 @@
 
 
 
-        var autocomplete3 = $('.autoComplete3').autoComplete();
+        var autocomplete3 = $('.autocomplete3').autocomplete();
 
         var parseMLAPIResults = function (results) {
             var data = [];

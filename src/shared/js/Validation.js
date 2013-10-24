@@ -528,8 +528,7 @@
 
         this.$trigger
             .off('.validation')
-            .removeAttr('data-side')
-            .removeAttr('data-align');
+            .removeAttr('data-side data-align');
 
         parent.destroy.call(this);
 
