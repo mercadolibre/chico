@@ -10,9 +10,9 @@
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. If it isn't defined through configuration, it will be the ch.viewport.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally. Default: 0.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically. Default: 0.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally. Default: 0.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically. Default: 0.
+     * @param {String} [options.position] Thethe type of positioning used. You must use: "absolute" or "fixed". Default: "fixed".
      * @requires ch.util
      * @requires ch.Viewport
      * @returns {positioner} Returns a new instance of Positioner.
@@ -52,7 +52,7 @@
      * var positioned = new ch.Positioner({
      *     'target': $(selector),
      *     'reference': $(selector),
-     *     'positioned': 'fixed'
+     *     'position': 'fixed'
      * });
      */
     function Positioner(options) {
@@ -94,7 +94,7 @@
         'side': 'center',
         'align': 'center',
         'reference': ch.viewport,
-        'positioned': 'fixed'
+        'position': 'fixed'
     };
 
     /**
@@ -127,7 +127,7 @@
         this.$reference = options.reference || this.$reference;
         this._reference = this._options.reference;
 
-        this.$target.css('position', this._options.positioned);
+        this.$target.css('position', this._options.position);
 
         return this;
     };

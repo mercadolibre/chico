@@ -19,9 +19,9 @@
      * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
-     * @param {Number} [options.offsetX] The offsetX option specifies a distance to displace the target horitontally.
-     * @param {Number} [options.offsetY] The offsetY option specifies a distance to displace the target vertically.
-     * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
+     * @param {Number} [options.offsetX] Distance to displace the target horizontally.
+     * @param {Number} [options.offsetY] Distance to displace the target vertically.
+     * @param {String} [options.position] The type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
      * @returns {datepicker} Returns a new instance of Datepicker.
      * @example
      * // Create a new Datepicker.
