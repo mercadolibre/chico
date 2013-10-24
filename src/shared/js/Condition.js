@@ -1,9 +1,7 @@
-(function (window, $, ch) {
+(function ($, ch) {
     'use strict';
 
-    /**
-    * Private Members
-    */
+    // Private Members
     var conditions = {
         'string': {
             'fn': function (value) {
@@ -80,34 +78,32 @@
 
     /**
      * Condition utility.
-     * @name Condition
-     * @class Condition
-     * @memberOf ch
-     * @param {Object} condition Object with configuration properties.
-     * @param {String} condition.name
-     * @param {Object} [condition.patt]
-     * @param {Function} [condition.expr]
-     * @param {Function} [condition.fn]
-     * @param {Number || String} [condition.value]
-     * @param {String} condition.message Validation message
-     * @returns itself
-     * @exampleDescription Create a new condition object with patt.
+     * @memberof ch
+     * @constructor
+     * @private
+     * @requires ch.Validation
+     * @param {Array} [condition] A conditions to validate.
+     * @param {String} [condition.name] The name of the condition.
+     * @param {String} [condition.message] The given error message to the condition.
+     * @param {String} [condition.fn] The method to validate a given condition.
+     * @returns {condition} Returns a new instance of Condition.
      * @example
+     * // Create a new condition object with patt.
      * var widget = ch.condition({
      *     "name": "string",
      *     "patt": /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
      *     "message": "Some message here!"
      * });
-     * @exampleDescription Create a new condition object with expr.
      * @example
+     * //Create a new condition object with expr.
      * var widget = ch.condition({
      *     "name": "maxLength",
      *     "patt": function(a,b) { return a.length <= b },
      *     "message": "Some message here!",
      *     "value": 4
      * });
-     * @exampleDescription Create a new condition object with func.
      * @example
+     * // Create a new condition object with func.
      * var widget = ch.condition({
      *     "name": "custom",
      *     "patt": function (value) {
@@ -132,33 +128,36 @@
             this.message = this.message.replace('{#num#}', this.num);
         }
 
+        this._enabled = true;
+
         return this;
     }
 
     /**
-     * Flag that let you know if the all conditions are enabled or not.
-     * @public
-     * @name ch.Condition#name
-     * @type string
+     * The name of the component.
+     * @memberof! ch.Condition.prototype
+     * @type {String}
      */
     Condition.prototype.name = 'condition';
 
+    /**
+     * Returns a reference to the constructor function.
+     * @memberof! ch.Condition.prototype
+     * @function
+     */
     Condition.prototype.constructor = Condition;
 
     /**
-     * Flag that let you know if the condition is enabled or not.
-     * @private
-     * @name ch.Condition-enabled
-     * @type boolean
-     */
-    Condition.prototype._enabled = true;
-
-    /**
-     * Turn on condition.
-     * @public
-     * @name ch.Condition#enable
+     * Enables an instance of condition.
+     * @memberof! ch.Condition.prototype
      * @function
-     * @returns itself
+     * @returns {condition} Returns an instance of Condition.
+     * @example
+     * // Enabling an instance of Condition.
+     * condition.enable();
+     * @example
+     * // Enabling a condition.
+     * condition.enable();
      */
     Condition.prototype.enable = function () {
         this._enabled = true;
@@ -167,11 +166,16 @@
     };
 
     /**
-     * Turn off condition.
-     * @public
-     * @name ch.Condition#disable
+     * Disables an instance of a condition.
+     * @memberof! ch.Condition.prototype
      * @function
-     * @returns itself
+     * @returns {condition} Returns an instance of Condition.
+     * @example
+     * // Disabling an instance of Condition.
+     * condition.disable();
+     * @example
+     * // Disabling a condition.
+     * condition.disable();
      */
     Condition.prototype.disable = function () {
         this._enabled = false;
@@ -180,11 +184,14 @@
     };
 
     /**
-     * Run configured condition
-     * @public
+     * Enables an instance of condition.
+     * @memberof! ch.Condition.prototype
      * @function
-     * @name ch.Condition#test
-     * @returns boolean
+     * @param {String || Number} value - A given value.
+     * @param {condition} validation - A given validation to execute.
+     * @example
+     * // Testing a condition.
+     * condition.test('foobar', validationA);
      */
     Condition.prototype.test = function (value, validation) {
 
@@ -197,4 +204,4 @@
 
     ch.Condition = Condition;
 
-}(this, this.ch.$, this.ch));
+}(this.ch.$, this.ch));
