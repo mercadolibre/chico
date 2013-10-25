@@ -1,13 +1,6 @@
 /*
 *   General Styles
 */
-
-/* Layout behavior */
-html, body, .ch-layout {
-    margin: 0 auto;
-    width: 1000px;
-}
-
 a:visited {
     color: #0637B3;
 }
