@@ -92,7 +92,15 @@
      * @memberof! ch.Min.prototype
      * @function
      */
-    Min.prototype.constructor = ch.Validation;
+    Min.prototype.constructor = Min;
+
+    /**
+     * The preset name.
+     * @memberof! ch.Min.prototype
+     * @type {String}
+     * @private
+     */
+    Min.prototype._preset = 'validation';
 
     ch.factory(Min, normalizeOptions);
 

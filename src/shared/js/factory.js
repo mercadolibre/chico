@@ -9,7 +9,13 @@
          * Identification of the constructor, in lowercases.
          * @type {String}
          */
-        var name = Klass.prototype.name;
+        var name = Klass.prototype.name,
+
+            /**
+             * Reference to the class name. When it's a preset, take its constructor name via the "preset" property.
+             * @type {String}
+             */
+            constructorName = Klass.prototype._preset || name;
 
         /**
          * The class constructor exposed directly into the "ch" namespace.
@@ -64,13 +70,14 @@
                 // Get into the "$" scope
                 var $el = $(this),
                     // Try to get the "data" reference to this widget related to the element
-                    data = $el.data(name);
+                    data = $el.data(constructorName);
 
                 // When this widget isn't related to the element via data, create a new instance and save
                 if (data === undefined) {
+
                     // Save the reference to this instance into the element data
                     data = new Klass($el, options);
-                    $el.data(name, data);
+                    $el.data(constructorName, data);
 
                 } else {
 
