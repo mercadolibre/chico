@@ -1,12 +1,4 @@
     /**
-     * Alphanumeric keys event.
-     * @constant
-     * @memberof ch
-     * @type {String}
-     */
-    ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';
-
-    /**
      * Tab key event.
      * @constant
      * @memberof ch
