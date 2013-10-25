@@ -92,7 +92,15 @@
      * @memberof! ch.Max.prototype
      * @function
      */
-    Max.prototype.constructor = ch.Validation;
+    Max.prototype.constructor = Max;
+
+    /**
+     * The preset name.
+     * @memberof! ch.Max.prototype
+     * @type {String}
+     * @private
+     */
+    Max.prototype._preset = 'validation';
 
     ch.factory(Max, normalizeOptions);
 

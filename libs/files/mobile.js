@@ -36,12 +36,12 @@ JS.widgets = [
     "src/shared/js/Expandable.js",
     "src/shared/js/Menu.js",
     "src/shared/js/Popover.js",
-    "src/shared/js/Layer.js",
-    "src/shared/js/Tooltip.js",
-    "src/shared/js/Bubble.js",
-    "src/shared/js/Modal.js",
-    "src/shared/js/Transition.js",
-    "src/shared/js/Dropdown.js",
+    // "src/shared/js/Layer.js",
+    // "src/shared/js/Tooltip.js",
+    // "src/shared/js/Bubble.js",
+    // "src/shared/js/Modal.js",
+    // "src/shared/js/Transition.js",
+    // "src/shared/js/Dropdown.js",
     "src/shared/js/Form.js",
     "src/shared/js/Condition.js",
     "src/shared/js/Validation.js",
@@ -58,7 +58,7 @@ JS.widgets = [
     "src/shared/js/Required.js",
     "src/shared/js/Countdown.js",
     "src/shared/js/Carousel.js",
-    "src/shared/js/Calendar.js",
+    // "src/shared/js/Calendar.js",
     "src/shared/js/Autocomplete.js"
 ];
 
@@ -107,15 +107,16 @@ CSS.widgets = [
     "src/shared/css/Form.css",
     "src/mobile/css/Form.css",
     "src/shared/css/Popover.css",
-    "src/shared/css/Tooltip.css",
-    "src/shared/css/Bubble.css",
-    "src/shared/css/Modal.css",
-    "src/shared/css/Transition.css",
+    // "src/shared/css/Tooltip.css",
+    // "src/shared/css/Bubble.css",
+    // "src/shared/css/Modal.css",
+    // "src/shared/css/Transition.css",
+    // "src/shared/css/Dropdown.css",
     "src/shared/css/Carousel.css",
+    // "src/shared/css/Calendar.css",
     "src/shared/css/Autocomplete.css",
-    "src/mobile/css/Autocomplete.css",
-    "src/shared/css/Dropdown.css",
-    "src/shared/css/Calendar.css"
+    "src/mobile/css/Autocomplete.css"
+
 ];
 
 CSS.compatible = [

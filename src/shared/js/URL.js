@@ -87,7 +87,15 @@
      * @memberof! ch.Url.prototype
      * @function
      */
-    URL.prototype.constructor = ch.Validation;
+    URL.prototype.constructor = URL;
+
+    /**
+     * The preset name.
+     * @memberof! ch.URL.prototype
+     * @type {String}
+     * @private
+     */
+    URL.prototype._preset = 'validation';
 
     ch.factory(URL, normalizeOptions);
 

@@ -73,7 +73,15 @@
      * @memberof! ch.Email.prototype
      * @function
      */
-    Email.prototype.constructor = ch.Validation;
+    Email.prototype.constructor = Email;
+
+    /**
+     * The preset name.
+     * @memberof! ch.Email.prototype
+     * @type {String}
+     * @private
+     */
+    Email.prototype._preset = 'validation';
 
     ch.factory(Email, normalizeOptions);
 

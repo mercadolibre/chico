@@ -73,7 +73,15 @@
      * @memberof! ch.Required.prototype
      * @function
      */
-    Required.prototype.constructor = ch.Validation;
+    Required.prototype.constructor = Required;
+
+    /**
+     * The preset name.
+     * @memberof! ch.Required.prototype
+     * @type {String}
+     * @private
+     */
+    Required.prototype._preset = 'validation';
 
     ch.factory(Required, normalizeOptions);
 

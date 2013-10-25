@@ -99,7 +99,15 @@
      * @memberof! ch.Custom.prototype
      * @function
      */
-    Custom.prototype.constructor = ch.Validation;
+    Custom.prototype.constructor = Custom;
+
+    /**
+     * The preset name.
+     * @memberof! ch.Custom.prototype
+     * @type {String}
+     * @private
+     */
+    Custom.prototype._preset = 'validation';
 
     ch.factory(Custom, normalizeOptions);
 
