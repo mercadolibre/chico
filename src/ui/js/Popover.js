@@ -9,7 +9,8 @@
             pointertap = ch.onpointertap + '.' + this.name;
 
         function hide(event) {
-            if (event.target !== that._el && event.target !== that.$container[0]) {
+            // event.button === 0: Fix issue #933 Right click closes it on Firefox.
+            if (event.target !== that._el && event.target !== that.$container[0] && event.button === 0) {
                 that.hide();
             }
         }
