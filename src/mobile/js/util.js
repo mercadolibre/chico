@@ -1,8 +1,10 @@
     /**
      * Reference to the index page
      * @name $mainView
-     * @memberOf ch.util
-     * @type {Selector}
+     * @memberof ch.util
+     * @returns {ZeptoSelector}
+     * @example
+     * ch.util.$mainView;
      */
     ch.util.$mainView = (function () {
         var $view = $('div[data-page=index]');
@@ -18,7 +20,7 @@
     /**
      * Fixes the broken iPad/iPhone form label click issue.
      * @name fixLabels
-     * @methodOf ch.util
+     * @memberof ch.util
      * @see Based on: <a href="http://www.quirksmode.org/dom/getstyles.html" target="_blank">http://www.quirksmode.org/dom/getstyles.html</a>
      */
     ch.util.fixLabels = function () {
@@ -46,7 +48,7 @@
     /*!
      * MBP - Mobile boilerplate helper functions
      * @name MBP
-     * @memberOf ch.util
+     * @memberof ch.util
      * @namespace
      * @see View on <a href="https://github.com/h5bp/mobile-boilerplate" target="_blank">https://github.com/h5bp/mobile-boilerplate</a>
      */

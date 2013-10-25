@@ -1,8 +1,13 @@
-(function (window, $, ch) {
+(function ($, ch) {
     'use strict';
 
-    var $document = $(window.document);
-
+    /**
+     * Creates a bubble to show the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
     ch.Validation.prototype._configureContainer = function () {
 
         var that = this;
@@ -47,14 +52,32 @@
 
     };
 
+    /**
+     * Shows the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
     ch.Validation.prototype._showErrorMessage = function (message) {
         this.bubble.show(message);
         this.$trigger.attr('aria-label', 'ch-' + this.bubble.name + '-' + this.bubble.uid);
+
+        return this;
     };
 
+    /**
+     * Hides the validation message.
+     * @memberof! ch.Validation.prototype
+     * @function
+     * @private
+     * @returns {validation}
+     */
     ch.Validation.prototype._hideErrorMessage = function () {
         this.bubble.hide();
         this.$trigger.removeAttr('aria-label');
+
+        return this;
     };
 
     /**
@@ -81,4 +104,4 @@
         return this;
     };
 
-}(this, this.ch.$, this.ch));
+}(this.ch.$, this.ch));
