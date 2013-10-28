@@ -13,15 +13,10 @@
                 };
         }());
 
-    $window
-        .on(ch.onresize + '.viewport', function () { resized = true; })
-        .on(ch.onscroll + '.viewport', function () { scrolled = true; });
-
     function update() {
-        // No changing, exit
-        if (!resized && !scrolled) { return; }
 
         var eve = resized ? ch.onresize : ch.onscroll;
+        console.log('yay');
 
         // Refresh viewport
         this.refresh();
@@ -87,14 +82,37 @@
          * @memberof! ch.viewport#element
          * @type {(jQuerySelector | ZeptoSelector)}
          */
-        that.$el = $window;
+        this.$el = $window;
 
-        that.refresh();
+        this.refresh();
 
-        (function updateFrame() {
-            requestAnimFrame(updateFrame);
-            update.call(that);
-        }());
+        $window
+            .on(ch.onresize + '.viewport', function () {
+                // No changing, exit
+                if (!resized) {
+                    resized = true;
+
+                    /**
+                     * requestAnimationFrame
+                     */
+                    requestAnimFrame(function updateResize() {
+                        update.call(that);
+                    });
+                }
+            })
+            .on(ch.onscroll + '.viewport', function () {
+                // No changing, exit
+                if (!scrolled) {
+                    scrolled = true;
+
+                    /**
+                     * requestAnimationFrame
+                     */
+                    requestAnimFrame(function updateScroll() {
+                        update.call(that);
+                    });
+                }
+            });
     };
 
     /**
