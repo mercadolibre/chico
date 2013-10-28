@@ -22,8 +22,23 @@
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
      * @returns {autocomplete}
      * @example
+     * // Create a new AutoComplete.
+     * var autocomplete = new AutoComplete($el, [options]);
+     * @example
      * // Create a new AutoComplete with configuration.
-     * var autocomplete = $el.autocomplete();
+     * var autocomplete = new AutoComplete($el, {
+     *  'loadingClass': 'custom-loading',
+     *  'highlightedClass': 'custom-highlighted',
+     *  'itemClass': 'custom-item',
+     *  'addClass': 'carousel-cities',
+     *  'keystrokesTime': 600,
+     *  'html': true,
+     *  'side': 'center',
+     *  'align': 'center',
+     *  'offsetX': 0,
+     *  'offsetY': 0,
+     *  'positioned': 'fixed'
+     });
      */
     function Autocomplete($el, options) {
 
@@ -133,8 +148,8 @@
          * The autocomplete container.
          * @type {(jQuerySelector | ZeptoSelector)}
          * @example
-         * // Gets the autocomplete container.
-         * autocomplete.$container;
+         * // Gets the autocomplete container to append or prepend content.
+         * autocomplete.$container.append('<button>Hide Suggestions</button>');
          */
         this.$container = this._popover.$container.attr('aria-hidden', 'true')
             .on(highlightEvent, function (event) {
@@ -197,7 +212,7 @@
     };
 
     /**
-     *
+     * Turns on the ability off listen the keystrokes
      * @memberof! ch.Autocomplete.prototype
      * @function
      * @private
@@ -237,7 +252,7 @@
     };
 
     /**
-     *
+     * Turns off the ability off listen the keystrokes
      * @memberof! ch.Autocomplete.prototype
      * @function
      * @private
