@@ -92,7 +92,16 @@
      * @memberof! ch.MinLength.prototype
      * @function
      */
-    MinLength.prototype.constructor = ch.Validation;
+    MinLength.prototype.constructor = ch.MinLength;
+
+    /**
+     * The preset name.
+     * @memberof! ch.MinLength.prototype
+     * @type {String}
+     * @private
+     */
+    MinLength.prototype._preset = 'validation';
+
 
     ch.factory(MinLength, normalizeOptions);
 

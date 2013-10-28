@@ -92,7 +92,15 @@
      * @memberof! ch.MaxLength.prototype
      * @function
      */
-    MaxLength.prototype.constructor = ch.Validation;
+    MaxLength.prototype.constructor = ch.MaxLength;
+
+    /**
+     * The preset name.
+     * @memberof! ch.MaxLength.prototype
+     * @type {String}
+     * @private
+     */
+    MaxLength.prototype._preset = 'validation';
 
     ch.factory(MaxLength, normalizeOptions);
 

@@ -75,3 +75,11 @@
      * @link http://www.w3.org/TR/2013/WD-pointerevents-20130115/#dfn-pointerleave | Pointer Events W3C Working Draft
      */
     ch.onpointerleave = (ch.support.touch) ? 'touchend' : 'mouseleave';
+
+    /**
+     * Alphanumeric keys event.
+     * @constant
+     * @memberof ch
+     * @type {String}
+     */
+    ch.onkeyinput = ('oninput' in document.createElement('input')) ? 'input' : 'keydown';

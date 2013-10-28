@@ -88,7 +88,15 @@
      * @memberof! ch.Number.prototype
      * @function
      */
-    Num.prototype.constructor = ch.Validation;
+    Num.prototype.constructor = Num;
+
+    /**
+     * The preset name.
+     * @memberof! ch.Num.prototype
+     * @type {String}
+     * @private
+     */
+    Num.prototype._preset = 'validation';
 
     ch.factory(Num, normalizeOptions);
 

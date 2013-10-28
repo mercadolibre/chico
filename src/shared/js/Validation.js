@@ -190,7 +190,8 @@
          * Reference to a Form instance. If there isn't any, the Validation instance will create one.
          * @type {form}
          */
-        this.form = that.$trigger.parents('form').form().validations.push(this);
+        this.form = (that.$trigger.parents('form').data('form') || that.$trigger.parents('form').form())
+            .validations.push(this);
 
         /**
          * Set a validation event to add listeners.
