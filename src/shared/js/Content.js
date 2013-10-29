@@ -41,11 +41,7 @@
             /**
              * Event emitted if the content is loaded successfully.
              * @event ch.Content#contentdone
-             * @example
-             * // Subscribe to "contentdone" event.
-             * component.on('contentdone', function (event) {
-             *     // Some code here!
-             * });
+             * @ignore
              */
 
             /**

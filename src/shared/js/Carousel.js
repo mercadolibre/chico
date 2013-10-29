@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * Carousel is a large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
+     * A large list of elements. Some elements will be shown in a preset area, and others will be hidden waiting for the user interaction to show it.
      * @memberof ch
      * @constructor
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
@@ -12,7 +12,7 @@
      * @param {Boolean} [options.pagination] Defines if a pagination must be created or not at initialization. Default: false.
      * @param {Boolean} [options.fx] Enable or disable the slide effect. Default: true.
      * @param {Number} [options.limitPerPage] Set the maximum amount of items to show in each page.
-     * @returns {carousel} Returns a new instance of ch.Carousel.
+     * @returns {carousel} Returns a new instance of Carousel.
      * @example
      * // Create a new carousel.
      * var carousel = new ch.Carousel($el, [options]);
@@ -37,7 +37,7 @@
      */
     function Carousel($el, options) {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -67,6 +67,9 @@
      * The name of the component.
      * @memberof! ch.Carousel.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var carousel = $(selector).data('carousel');
      */
     Carousel.prototype.name = 'carousel';
 
@@ -102,7 +105,7 @@
         parent._init.call(this, $el, options);
 
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -279,6 +282,8 @@
 
         // Update the margin between items and its size
         this._updateDistribution();
+
+        return this;
     };
 
     /**
@@ -748,11 +753,7 @@
             /**
              * Event emitted when the component makes all the necessary recalculations to be up-to-date.
              * @event ch.Carousel#refresh
-             * @example
-             * // Subscribe to "refresh" event.
-             * carousel.on('refresh', function () {
-             *     alert('Carousel was refreshed.');
-             * });
+             * @ignore
              */
             this.emit('refresh');
         }
@@ -798,7 +799,7 @@
          * @example
          * // Subscribe to "select" event.
          * carousel.on('select', function () {
-         *     alert('Carousel was refreshed.');
+         *     alert('Carousel was moved.');
          * });
          */
         this.emit('select');

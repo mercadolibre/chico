@@ -39,9 +39,7 @@
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
-    /**
-     * Inheritance
-     */
+    // Inheritance
     var parent = ch.util.inherits(Tabs, ch.Component),
 
         location = window.location,
@@ -84,7 +82,11 @@
 
     /**
      * The name of the component.
+     * @memberof! ch.Tabs.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var tabs = $(selector).data('tabs');
      */
     Tabs.prototype.name = 'tabs';
 
@@ -257,11 +259,7 @@
         /**
          * Event emitted when the tabs shows a tab panel container.
          * @event ch.Tabs#show
-         * @example
-         * // Subscribe to "show" event.
-         * tabs.on('show', function (shownTabPanel) {
-         *  // Some code here!
-         * });
+         * @ignore
          */
         this.emit('show', this._shown);
 
@@ -324,7 +322,7 @@
          * @example
          * // Subscribe to "show" event.
          * tabs.on('show', function (shownTab) {
-         *  // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('show', this._shown);
@@ -354,7 +352,7 @@
      * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
-     * @param {Boolean} [options.async]  Force to sent request asynchronously. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second tab with some string.

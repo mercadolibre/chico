@@ -58,13 +58,13 @@
      * @returns {validation} Returns a new instance of Validation.
      * @example
      * // Create a new MaxLength Validation.
-     * var maxValidation = new ch.MaxLength($el, [options]);
+     * var maxLengthValidation = new ch.MaxLength($el, [options]);
      * @example
      * // Create a new MaxLength validation with jQuery or Zepto.
-     * var maxValidation = $(selector).maxLength([options]);
+     * var maxLengthValidation = $(selector).maxLength([options]);
      * @example
      * // Create a new MaxLength validation with custom options.
-     * var maxValidation = $(selector).maxLength({
+     * var maxLengthValidation = $(selector).maxLength({
      *     'num': 10,
      *     'message': 'No more than 10 characters.',
      *     'offsetX': 0,
@@ -74,7 +74,7 @@
      * });
      * @example
      * // Create a new MaxLength validation using the shorthand way (number and message as parameters).
-     * var maxValidation = $(selector).maxLength(10, 'No more than 10 characters.');
+     * var maxLengthValidation = $(selector).maxLength(10, 'No more than 10 characters.');
      */
     function MaxLength($el, options) {
         return new ch.Validation($el, options);
@@ -84,6 +84,9 @@
      * The name of the component.
      * @memberof! ch.MaxLength.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var maxLengthValidation = $(selector).data('validation');
      */
     MaxLength.prototype.name = 'maxLength';
 

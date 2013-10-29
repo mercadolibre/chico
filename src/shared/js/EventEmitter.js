@@ -22,6 +22,7 @@
      * @param {String} event The event name to subscribe.
      * @param {Function} listener Listener function.
      * @param {Boolean} once Indicate if a listener function will be called only one time.
+     * @returns {component}
      * @example
      * // Will add an event listener to 'ready' event.
      * component.on('ready', listener);
@@ -55,7 +56,7 @@
      * @function
      * @param {String} event Event name.
      * @param {Function} listener Listener function.
-     * @returns {Object}
+     * @returns {component}
      * @example
      * // Will add an event handler to 'contentLoad' event once.
      * component.once('contentLoad', listener);
@@ -73,7 +74,7 @@
      * @function
      * @param {String} event Event name.
      * @param {Function} listener Listener function.
-     * @returns {Object}
+     * @returns {component}
      * @example
      * // Will remove event listener to 'ready' event.
      * component.off('ready', listener);
@@ -129,6 +130,7 @@
      * @function
      * @param {String} event The name of the event you want to emit.
      * @param {...Object} var_args Data to pass to the listeners.
+     * @returns {component}
      * @example
      * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
      * component.emit('ready', 'param1', 'param2');

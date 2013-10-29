@@ -82,7 +82,11 @@
 
     /**
      * The name of the component.
+     * @memberof! ch.Datepicker.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var datepicker = $(selector).data('datepicker');
      */
     Datepicker.prototype.name = 'datepicker';
 
@@ -270,7 +274,7 @@
      * @memberof! ch.Datepicker.prototype
      * @function
      * @param {String} [date] A given date to select. The format of the given date should be "YYYY/MM/DD".
-     * @return {(datepicker | String)}
+     * @returns {(datepicker | String)}
      * @example
      * // Returns the selected date.
      * datepicker.select();

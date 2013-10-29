@@ -26,7 +26,7 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-big ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Transition container. Default: "Please wait..."
-     * @returns {transition} Returns a new instance of ch.Transition.
+     * @returns {transition} Returns a new instance of Transition.
      * @example
      * // Create a new Transition.
      * var transition = new ch.Transition($el, [options]);
@@ -60,6 +60,9 @@
      * The name of the component.
      * @memberof! ch.Transition.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var transition = $(selector).data('transition');
      */
     Transition.prototype.name = 'transition';
 

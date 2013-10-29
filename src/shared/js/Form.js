@@ -64,12 +64,12 @@
     var parent = ch.util.inherits(Form, ch.Component);
 
     /**
-     * Prototype
-     */
-
-    /**
      * The name of the component.
+     * @memberof! ch.Form.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var form = $(selector).data('form');
      */
     Form.prototype.name = 'form';
 
@@ -221,7 +221,7 @@
              * @example
              * // Subscribe to "error" event.
              * form.on('error', function (errors) {
-             *  console.log(errors.length);
+             *     console.log(errors.length);
              * });
              */
             this.emit('error', this.errors);
@@ -234,13 +234,13 @@
              * @example
              * // Subscribe to "success" event.
              * form.on("submit",function () {
-             *  // Some code here!
+             *     // Some code here!
              * });
              * @example
              * // Subscribe to "success" event and prevent the submit event.
              * form.on("submit",function (event) {
-             *  event.preventDefault();
-             *  // Some code here!
+             *     event.preventDefault();
+             *     // Some code here!
              * });
              */
             this.emit('success', event);
@@ -253,7 +253,7 @@
      * Checks if the form has got errors but it doesn't show bubbles.
      * @memberof! ch.Form.prototype
      * @function
-     * @returns {Bollean}
+     * @returns {Boolean}
      * @example
      * // Checks if a form has errors and do something.
      * if (form.hasError()) {
@@ -313,7 +313,7 @@
          * @example
          * // Subscribe to "clear" event.
          * form.on('clear', function () {
-         *  // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('clear');
@@ -344,7 +344,7 @@
          * @example
          * // Subscribe to "reset" event.
          * form.on('reset', function () {
-         *  // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('reset');
@@ -357,8 +357,10 @@
      * @memberof! ch.Form.prototype
      * @function
      * @example
-     * // Destroying an instance of Form.
+     * // Destroy a form
      * form.destroy();
+     * // Empty the form reference
+     * form = undefined;
      */
     Form.prototype.destroy = function () {
 

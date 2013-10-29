@@ -69,7 +69,11 @@
 
     /**
      * The name of the component.
+     * @memberof! ch.Countdown.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var countdown = $(selector).data('countdown');
      */
     Countdown.prototype.name = 'countdown';
 
@@ -197,7 +201,7 @@
              * @example
              * // Subscribe to "exceed" event.
              * countdown.on('exceed', function () {
-             *  // Some code here!
+             *     // Some code here!
              * });
              */
             this.emit('exceed');
@@ -244,8 +248,10 @@
      * @memberof! ch.Countdown.prototype
      * @function
      * @example
-     * // Destroying an instance of Countdown.
+     * // Destroy a countdown
      * countdown.destroy();
+     * // Empty the countdown reference
+     * countdown = undefined;
      */
     Countdown.prototype.destroy = function () {
 
@@ -256,6 +262,8 @@
         $(window.document).trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
+
+        return;
     };
 
     // Factorize

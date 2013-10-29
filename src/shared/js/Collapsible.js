@@ -12,7 +12,7 @@
      * The Collapsible class gives to components the ability to shown or hidden its container.
      * @memberOf ch
      * @mixin
-     * @returns {Function} Returns a private funciton.
+     * @returns {Function} Returns a private function.
      */
     function Collapsible() {
 
@@ -34,7 +34,7 @@
              * @event ch.Collapsible#show
              * @example
              * // Subscribe to "show" event.
-             * component.on('show', function () {
+             * collapsible.on('show', function () {
              *     // Some code here!
              * });
              */
@@ -49,8 +49,8 @@
              * @event ch.Collapsible#hide
              * @example
              * // Subscribe to "hide" event.
-             * component.on('hide', function () {
-             *  // Some code here!
+             * collapsible.on('hide', function () {
+             *     // Some code here!
              * });
              */
             that.emit('hide');

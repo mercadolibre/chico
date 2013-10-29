@@ -27,7 +27,7 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
-     * @returns {zoom} Returns a new instance of ch.Zoom.
+     * @returns {zoom} Returns a new instance of Zoom.
      * @example
      * // Create a new Zoom.
      * var zoom = new ch.Zoom($el, [options]);
@@ -42,7 +42,7 @@
      */
     function Zoom($el, options) {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -69,6 +69,9 @@
      * The name of the component.
      * @memberof! ch.Zoom.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var zoom = $(selector).data('zoom');
      */
     Zoom.prototype.name = 'zoom';
 
@@ -111,7 +114,7 @@
         parent._init.call(this, $el, options);
 
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -372,6 +375,11 @@
      * @function
      * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by dropdown.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {zoom}
      * @example
      * // Shows a basic zoom.

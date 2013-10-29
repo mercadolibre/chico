@@ -91,6 +91,9 @@
      * The name of the component.
      * @memberof! ch.Custom.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var custom = $(selector).data('custom');
      */
     Custom.prototype.name = 'custom';
 

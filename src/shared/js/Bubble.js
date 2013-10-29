@@ -2,12 +2,10 @@
     'use strict';
 
     /**
-     * Bubble is a dialog window with alert/error skin.
+     * Dialog window with an error skin.
      * @memberof ch
      * @constructor
      * @augments ch.Component
-     * @mixes ch.Collapsible
-     * @mixes ch.Content
      * @requires ch.Positioner
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Bubble.
      * @param {Object} [options] Options to customize an instance.
@@ -29,7 +27,7 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Bubble container. Default: "Check the information, please."
-     * @returns {bubble} Returns a new instance of ch.Bubble.
+     * @returns {bubble} Returns a new instance of Bubble.
      * @example
      * // Create a new Bubble.
      * var bubble = new ch.Bubble($el, [options]);
@@ -47,7 +45,7 @@
      */
     function Bubble($el, options) {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -74,6 +72,9 @@
      * The name of the component.
      * @memberof! ch.Bubble.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var bubble = $(selector).data('bubble');
      */
     Bubble.prototype.name = 'bubble';
 

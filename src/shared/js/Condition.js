@@ -88,25 +88,25 @@
      * @returns {condition} Returns a new instance of Condition.
      * @example
      * // Create a new condition object with patt.
-     * var component = ch.condition({
-     *     "name": "string",
-     *     "patt": /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
-     *     "message": "Some message here!"
+     * var condition = ch.Condition({
+     *     'name': 'string',
+     *     'patt': /^([a-zA-Z\u00C0-\u00C4\u00C8-\u00CF\u00D2-\u00D6\u00D9-\u00DC\u00E0-\u00E4\u00E8-\u00EF\u00F2-\u00F6\u00E9-\u00FC\u00C7\u00E7\s]*)$/,
+     *     'message': 'Some message here!'
      * });
      * @example
      * //Create a new condition object with expr.
-     * var component = ch.condition({
-     *     "name": "maxLength",
-     *     "patt": function(a,b) { return a.length <= b },
-     *     "message": "Some message here!",
-     *     "value": 4
+     * var condition = ch.Condition({
+     *     'name': 'maxLength',
+     *     'patt': function(a,b) { return a.length <= b },
+     *     'message': 'Some message here!',
+     *     'value': 4
      * });
      * @example
      * // Create a new condition object with func.
-     * var component = ch.condition({
-     *     "name": "custom",
-     *     "patt": function (value) {
-     *         if (value === "ChicoUI") {
+     * var condition = ch.Condition({
+     *     'name': 'custom',
+     *     'patt': function (value) {
+     *         if (value === 'ChicoUI') {
      *
      *             // Some code here!
      *
@@ -115,7 +115,7 @@
      *
      *         return false;
      *     },
-     *     "message": "Your message here!"
+     *     'message': 'Your message here!'
      * });
      */
     function Condition(condition) {
@@ -136,6 +136,9 @@
      * The name of the component.
      * @memberof! ch.Condition.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var condition = $(selector).data('condition');
      */
     Condition.prototype.name = 'condition';
 
@@ -150,7 +153,7 @@
      * Enables an instance of condition.
      * @memberof! ch.Condition.prototype
      * @function
-     * @returns {condition} Returns an instance of Condition.
+     * @returns {condition}
      * @example
      * // Enabling an instance of Condition.
      * condition.enable();
@@ -168,7 +171,7 @@
      * Disables an instance of a condition.
      * @memberof! ch.Condition.prototype
      * @function
-     * @returns {condition} Returns an instance of Condition.
+     * @returns {condition}
      * @example
      * // Disabling an instance of Condition.
      * condition.disable();
@@ -186,8 +189,9 @@
      * Enables an instance of condition.
      * @memberof! ch.Condition.prototype
      * @function
-     * @param {(String | Number)} value - A given value.
-     * @param {condition} validation - A given validation to execute.
+     * @param {(String | Number)} value A given value.
+     * @param {condition} validation A given validation to execute.
+     * @returns {Boolean} Returns a boolean indicating whether the condition fails or not.
      * @example
      * // Testing a condition.
      * condition.test('foobar', validationA);

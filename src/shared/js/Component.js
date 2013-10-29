@@ -24,7 +24,7 @@
      * @memberof! ch.Component.prototype
      * @type {String}
      * @example
-     * // You can reach the instance associated.
+     * // You can reach the associated instance.
      * var component = $(selector).data(name);
      */
     Component.prototype.name = 'component';
@@ -41,7 +41,7 @@
      * @memberof! ch.Component.prototype
      * @function
      * @private
-     * @returns {instance} Returns an instance of Component.
+     * @returns {component}
      */
     Component.prototype._init = function ($el, options) {
 
@@ -97,7 +97,7 @@
      * Adds functionality or abilities from other classes.
      * @memberof! ch.Component.prototype
      * @function
-     * @returns {instance} Returns an instance of Component.
+     * @returns {component}
      * @params {...String} var_args The name of the abilities to will be used.
      * @example
      * // You can require some abilitiest to use in your component.
@@ -126,7 +126,7 @@
      * Enables an instance of Component.
      * @memberof! ch.Component.prototype
      * @function
-     * @returns {instance} Returns an instance of Component.
+     * @returns {component}
      * @example
      * // Enabling an instance of Component.
      * component.enable();
@@ -135,7 +135,7 @@
         this._enabled = true;
 
         /**
-         * Emits when a component is enable.
+         * Emits when a component is enabled.
          * @event ch.Component#enable
          * @example
          * // Subscribe to "enable" event.
@@ -152,7 +152,7 @@
      * Disables an instance of Component.
      * @memberof! ch.Component.prototype
      * @function
-     * @return {instance} Returns an instance of Component.
+     * @returns {component}
      * @example
      * // Disabling an instance of Component.
      * component.disable();
@@ -179,8 +179,10 @@
      * @memberof! ch.Component.prototype
      * @function
      * @example
-     * // Destroying an instance of Component.
+     * // Destroy a component
      * component.destroy();
+     * // Empty the component reference
+     * component = undefined;
      */
     Component.prototype.destroy = function () {
 
@@ -201,6 +203,8 @@
          * });
          */
         this.emit('destroy');
+
+        return;
     };
 
     ch.Component = Component;

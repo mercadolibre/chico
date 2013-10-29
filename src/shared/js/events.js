@@ -7,7 +7,7 @@
     ch.onlayoutchange = 'layoutchange';
 
     /**
-     *
+     * Equivalent to 'resize'.
      * @constant
      * @memberof ch
      * @type {String}
@@ -15,7 +15,7 @@
     ch.onresize = 'resize';
 
     /**
-     *
+     * Equivalent to 'scroll'.
      * @constant
      * @memberof ch
      * @type {String}
@@ -23,7 +23,7 @@
     ch.onscroll = 'scroll';
 
     /**
-     *
+     * Equivalent to 'touchstart' or 'mousedown', depending on device capabilities.
      * @constant
      * @memberof ch
      * @type {String}
@@ -32,7 +32,7 @@
     ch.onpointerdown = (ch.support.touch) ? 'touchstart' : 'mousedown';
 
     /**
-     *
+     * Equivalent to 'touchend' or 'mouseup', depending on device capabilities.
      * @constant
      * @memberof ch
      * @type {String}
@@ -41,7 +41,7 @@
     ch.onpointerup = (ch.support.touch) ? 'touchend' : 'mouseup';
 
     /**
-     *
+     * Equivalent to 'touchmove' or 'mousemove', depending on device capabilities.
      * @constant
      * @memberof ch
      * @type {String}
@@ -50,7 +50,7 @@
     ch.onpointermove = (ch.support.touch) ? 'touchmove' : 'mousemove';
 
     /**
-     *
+     * Equivalent to 'touchend' or 'click', depending on device capabilities.
      * @constant
      * @memberof ch
      * @type {String}
@@ -59,7 +59,7 @@
     ch.onpointertap = (ch.support.touch) ? 'touchend' : 'click';
 
     /**
-     *
+     * Equivalent to 'touchstart' or 'mouseenter', depending on device capabilities.
      * @constant
      * @memberof ch
      * @type {String}
@@ -68,7 +68,7 @@
     ch.onpointerenter = (ch.support.touch) ? 'touchstart' : 'mouseenter';
 
     /**
-     *
+     * Equivalent to 'touchend' or 'mouseleave', depending on device capabilities.
      * @constant
      * @memberof ch
      * @type {String}
