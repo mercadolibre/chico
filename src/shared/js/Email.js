@@ -62,7 +62,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Email.prototype
      * @type {String}
      */

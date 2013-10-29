@@ -229,7 +229,7 @@ function buildNav(members) {
         });
 
         if (classNav !== '') {
-            nav += '<h2>Widgets</h2><ul>';
+            nav += '<h2>Components</h2><ul>';
             nav += classNav;
             nav += '</ul>';
         }

@@ -172,7 +172,7 @@ describe('Its show() method', function () {
         expect(showEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(tabs1);
     });
 });
@@ -200,7 +200,7 @@ describe('Its disable() method', function () {
         expect(tabs1.tabpanels[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(tabs1);
     });
 });
@@ -220,7 +220,7 @@ describe('Its enable() method', function () {
         expect(tabs1.tabpanels[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(tabs1);
         tabs1.show(1);
     });

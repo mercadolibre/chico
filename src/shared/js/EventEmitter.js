@@ -11,7 +11,7 @@
      * var emitter = new ch.EventEmitter();
      * @example
      * // Inheriting from EventEmitter.
-     * ch.util.inherits(Widget, ch.EventEmitter);
+     * ch.util.inherits(Component, ch.EventEmitter);
      */
     function EventEmitter() {}
 
@@ -24,7 +24,7 @@
      * @param {Boolean} once Indicate if a listener function will be called only one time.
      * @example
      * // Will add an event listener to 'ready' event.
-     * widget.on('ready', listener);
+     * component.on('ready', listener);
      */
     EventEmitter.prototype.on = function (event, listener, once) {
 
@@ -58,7 +58,7 @@
      * @returns {Object}
      * @example
      * // Will add an event handler to 'contentLoad' event once.
-     * widget.once('contentLoad', listener);
+     * component.once('contentLoad', listener);
      */
     EventEmitter.prototype.once = function (event, listener) {
 
@@ -76,7 +76,7 @@
      * @returns {Object}
      * @example
      * // Will remove event listener to 'ready' event.
-     * widget.off('ready', listener);
+     * component.off('ready', listener);
      */
     EventEmitter.prototype.off = function (event, listener) {
 
@@ -113,7 +113,7 @@
      * @returns {Array}
      * @example
      * // Returns listeners from 'ready' event.
-     * widget.getListeners('ready');
+     * component.getListeners('ready');
      */
     EventEmitter.prototype.getListeners = function (event) {
         if (event === undefined) {
@@ -131,7 +131,7 @@
      * @param {...Object} var_args Data to pass to the listeners.
      * @example
      * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
-     * widget.emit('ready', 'param1', 'param2');
+     * component.emit('ready', 'param1', 'param2');
      */
     EventEmitter.prototype.emit = function () {
 

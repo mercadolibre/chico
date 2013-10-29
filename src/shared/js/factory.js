@@ -19,9 +19,9 @@
 
         /**
          * The class constructor exposed directly into the "ch" namespace.
-         * @exampleDescription Creating a widget instance by specifying a query selector and a configuration object.
+         * @exampleDescription Creating a component instance by specifying a query selector and a configuration object.
          * @example
-         * ch.Widget($('#example'), {
+         * ch.Component($('#example'), {
          *     'key': 'value'
          * });
          */
@@ -32,22 +32,22 @@
         /**
          * The class constructor exposed into the "$" namespace.
          * @ignore
-         * @exampleDescription Creating a widget instance by specifying a query selector and a configuration object.
+         * @exampleDescription Creating a component instance by specifying a query selector and a configuration object.
          * @example
-         * $.widget($('#example'), {
+         * $.component($('#example'), {
          *     'key': 'value'
          * });
-         * @exampleDescription Creating a widget instance by specifying only a query selector. The default options of each widget will be used.
+         * @exampleDescription Creating a component instance by specifying only a query selector. The default options of each component will be used.
          * @example
-         * $.widget($('#example')});
-         * @exampleDescription Creating a widget instance by specifying only a cofiguration object. It only works on compatible widgets, when those doesn't depends on a element to be created.
+         * $.component($('#example')});
+         * @exampleDescription Creating a component instance by specifying only a cofiguration object. It only works on compatible components, when those doesn't depends on a element to be created.
          * @example
-         * $.widget({
+         * $.component({
          *     'key': 'value'
          * });
-         * @exampleDescription Creating a widget instance by no specifying parameters. It only works on compatible widgets, when those doesn't depends on a element to be created. The default options of each widget will be used.
+         * @exampleDescription Creating a component instance by no specifying parameters. It only works on compatible components, when those doesn't depends on a element to be created. The default options of each component will be used.
          * @example
-         * $.widget();
+         * $.component();
          */
         $[name] = function ($el, options) {
             // Create a new instance of the constructor and return it
@@ -59,8 +59,8 @@
          */
         $.fn[name] = function (options) {
 
-            // Collection with each instanced widget
-            var widgets = [];
+            // Collection with each instanced component
+            var components = [];
 
             // Normalize options
             options = (fn !== undefined) ? fn.apply(this, arguments) : options;
@@ -69,10 +69,10 @@
             $.each(this, function () {
                 // Get into the "$" scope
                 var $el = $(this),
-                    // Try to get the "data" reference to this widget related to the element
+                    // Try to get the "data" reference to this component related to the element
                     data = $el.data(constructorName);
 
-                // When this widget isn't related to the element via data, create a new instance and save
+                // When this component isn't related to the element via data, create a new instance and save
                 if (data === undefined) {
 
                     // Save the reference to this instance into the element data
@@ -86,12 +86,12 @@
                     }
                 }
 
-                // Add the widget reference to the final collection
-                widgets.push(data);
+                // Add the component reference to the final collection
+                components.push(data);
 
             });
 
-            // Return the instance/instances of widgets
-            return (widgets.length > 1) ? widgets : widgets[0];
+            // Return the instance/instances of components
+            return (components.length > 1) ? components : components[0];
         };
     };

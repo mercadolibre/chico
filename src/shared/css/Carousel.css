@@ -13,7 +13,7 @@
     margin: 0 50px;
 }
 
-/* Both are the same elements, but it can apply styles before the widget initialization */
+/* Both are the same elements, but it can apply styles before the component initialization */
 .ch-carousel > ul,
 .ch-carousel-list {
     overflow: hidden;
@@ -32,7 +32,7 @@
     transition: none;
 }
 
-/* Both are the same elements, but it can apply styles before the widget initialization */
+/* Both are the same elements, but it can apply styles before the component initialization */
 .ch-carousel > ul > li,
 .ch-carousel-item {
     display: inline-block;

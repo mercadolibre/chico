@@ -2,17 +2,17 @@
     'use strict';
 
     /**
-     * Autocomplete widget shows a list of suggestions for a HTMLInputElement.
+     * Autocomplete Component shows a list of suggestions for a HTMLInputElement.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @requires ch.Popover
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Autocomplete.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.loadingClass] Default: "ch-autocomplete-loading".
      * @param {String} [options.highlightedClass] Default: "ch-autocomplete-highlighted".
      * @param {String} [options.itemClass] Default: "ch-autocomplete-item".
-     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization. Default: "ch-box-lite ch-autocomplete".
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization. Default: "ch-box-lite ch-autocomplete".
      * @param {Number} [options.keystrokesTime] Default: 150.
      * @param {Boolean} [options.html] Default: false.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "bottom".
@@ -37,7 +37,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Autocomplete#ready
          * @example
          * // Subscribe to "ready" event.
@@ -52,10 +52,10 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Autocomplete, ch.Widget);
+    var parent = ch.util.inherits(Autocomplete, ch.Component);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @type {String}
      */
     Autocomplete.prototype.name = 'autocomplete';
@@ -378,7 +378,7 @@
             // get the term to be replaced
             term = suggestions[suggestedItem];
 
-            // for the html configured widget doesn't highlight the term matched it must be done by the user
+            // for the html configured component doesn't highlight the term matched it must be done by the user
             if (!that._options.html) {
                 term = term.replace(matchedRegExp, '<strong>$1</strong>');
                 itemTemplate = this._options._itemTemplate.replace('{{suggestedData}}', ' data-suggested="' + suggestions[suggestedItem] + '"');
@@ -415,7 +415,7 @@
     };
 
     /**
-     * Hides widget's container.
+     * Hides component's container.
      * @memberof! ch.Autocomplete.prototype
      * @function
      * @returns {autocomplete}
@@ -446,12 +446,12 @@
     };
 
     /**
-     * Returns a Boolean if the widget's core behavior is shown. That means it will return 'true' if the widget is on and it will return false otherwise.
+     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
      * @memberof! ch.Autocomplete.prototype
      * @function
      * @returns {Boolean}
      * @example
-     * // Execute a function if the widget is shown.
+     * // Execute a function if the component is shown.
      * if (autocomplete.isShown()) {
      *     fn();
      * }

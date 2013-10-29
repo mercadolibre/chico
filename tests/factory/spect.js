@@ -1,21 +1,21 @@
-var widget,
-    widget2;
+var component,
+    component2;
 
-function WidgetTest ($el, options) {
+function ComponentTest ($el, options) {
     this.$el = $el;
     this.options = options;
 
     return this;
 }
-WidgetTest.prototype.name = 'widgetTest';
-WidgetTest.prototype.constructor = WidgetTest;
+ComponentTest.prototype.name = 'componentTest';
+ComponentTest.prototype.constructor = ComponentTest;
 
-ch.factory(WidgetTest);
+ch.factory(ComponentTest);
 
 describe('Factory', function () {
 
     beforeEach(function () {
-        widget = undefined;
+        component = undefined;
     });
 
     it('should be defined', function () {
@@ -23,75 +23,75 @@ describe('Factory', function () {
         expect(typeof ch.factory).toEqual('function');
     });
 
-    it('should export \'WidgetTest\' class into ch namespace', function () {
-        expect(ch.WidgetTest).toBeDefined();
+    it('should export \'ComponentTest\' class into ch namespace', function () {
+        expect(ch.ComponentTest).toBeDefined();
     });
 
-    it('should attach \'.widgetTest()\' function property to the $ object', function () {
-        expect($.widgetTest).toBeDefined();
+    it('should attach \'.componentTest()\' function property to the $ object', function () {
+        expect($.componentTest).toBeDefined();
     });
 
-    it('should add \'.widgetTest()\' function property to the $.fn object (create a plugin)', function () {
-        expect($.fn.widgetTest).toBeDefined();
+    it('should add \'.componentTest()\' function property to the $.fn object (create a plugin)', function () {
+        expect($.fn.componentTest).toBeDefined();
     });
 
-    it('should create a new instance using new \'ch.WidgetTest\' method', function () {
-        expect(widget).not.toBeDefined();
+    it('should create a new instance using new \'ch.ComponentTest\' method', function () {
+        expect(component).not.toBeDefined();
 
         expect(function () {
-            widget = new ch.WidgetTest($('body'), {'foo': 'bar'});
+            component = new ch.ComponentTest($('body'), {'foo': 'bar'});
         }).not.toThrow();
 
-        expect(widget).toBeDefined();
+        expect(component).toBeDefined();
 
-        expect(widget instanceof WidgetTest).toBeTruthy();
+        expect(component instanceof ComponentTest).toBeTruthy();
     });
 
-    it('should create a new instance using \'$.widgetTest\' jQuery/Zepto method', function () {
-        expect(widget).not.toBeDefined();
+    it('should create a new instance using \'$.componentTest\' jQuery/Zepto method', function () {
+        expect(component).not.toBeDefined();
 
         expect(function () {
-            widget = $.widgetTest($('body'), {'foo': 'bar'});
+            component = $.componentTest($('body'), {'foo': 'bar'});
         }).not.toThrow();
 
-        expect(widget).toBeDefined();
+        expect(component).toBeDefined();
 
-        expect(widget instanceof WidgetTest).toBeTruthy();
+        expect(component instanceof ComponentTest).toBeTruthy();
     });
 
     it('should create a new instance using the jQuery/Zepto plugin', function () {
-        expect(widget).not.toBeDefined();
+        expect(component).not.toBeDefined();
 
         expect(function () {
-            widget = $('body').widgetTest({'foo': 'bar'});
+            component = $('body').componentTest({'foo': 'bar'});
         }).not.toThrow();
 
-        expect(widget).toBeDefined();
+        expect(component).toBeDefined();
 
-        expect(widget instanceof WidgetTest).toBeTruthy();
+        expect(component instanceof ComponentTest).toBeTruthy();
     });
 
     it('should create a new instance for each query selector and return a collection of instances', function () {
 
-        widget = $('body, div').widgetTest({'foo': 'bar'});
+        component = $('body, div').componentTest({'foo': 'bar'});
 
-        expect(Array.isArray(widget)).toBeTruthy();
-        expect(widget[0] instanceof WidgetTest).toBeTruthy();
-        expect(widget[0] !== widget[1]).toBeTruthy();
+        expect(Array.isArray(component)).toBeTruthy();
+        expect(component[0] instanceof ComponentTest).toBeTruthy();
+        expect(component[0] !== component[1]).toBeTruthy();
 
     });
 
     it('should return the same intance for the same DOMElement', function () {
-        widget = $('body').widgetTest({'foo': 'bar'});
-        widget2 = $('body').widgetTest({'foo': 'bar'});
+        component = $('body').componentTest({'foo': 'bar'});
+        component2 = $('body').componentTest({'foo': 'bar'});
 
-        expect(widget).toBeDefined();
-        expect(widget2).toBeDefined();
-        expect(widget).toEqual(widget2);
+        expect(component).toBeDefined();
+        expect(component2).toBeDefined();
+        expect(component).toEqual(component2);
     });
 
     it('should save the intance into the DOMElement', function () {
-        widget = $('body').widgetTest();
-        expect(widget).toEqual($('body').data('widgetTest'));
+        component = $('body').componentTest();
+        expect(component).toEqual($('body').data('componentTest'));
     });
 });

@@ -16,7 +16,6 @@
     function update() {
 
         var eve = resized ? ch.onresize : ch.onscroll;
-        console.log('yay');
 
         // Refresh viewport
         this.refresh();
