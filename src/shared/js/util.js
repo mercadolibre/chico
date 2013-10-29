@@ -1,5 +1,5 @@
     /**
-     * Provides varies utilities and commons functions that are used across all widgets.
+     * Provides varies utilities and commons functions that are used across all components.
      * @namespace
      */
     ch.util = {

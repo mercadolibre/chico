@@ -63,7 +63,7 @@
     var classes = self.find({kind: 'class', memberof: doc.longname});
     if (doc.kind !== 'globalobj' && classes && classes.length) {
 ?>
-    <h2 class="api-title">Widgets</h2>
+    <h2 class="api-title">Components</h2>
 
     <dl><?js classes.forEach(function(c) { ?>
         <dt><?js= self.linkto(c.longname, c.name) ?></dt>

@@ -2,21 +2,19 @@
     'use strict';
 
     /**
-     * Bubble is a dialog window with alert/error skin.
+     * Dialog window with an error skin.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
-     * @mixes ch.Collapsible
-     * @mixes ch.Content
+     * @augments ch.Component
      * @requires ch.Positioner
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Bubble.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
      * @param {String} [options.width] Set a width for the container. Default: "auto".
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "none".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "none".
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
@@ -29,7 +27,7 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Bubble container. Default: "Check the information, please."
-     * @returns {bubble} Returns a new instance of ch.Bubble.
+     * @returns {bubble} Returns a new instance of Bubble.
      * @example
      * // Create a new Bubble.
      * var bubble = new ch.Bubble($el, [options]);
@@ -47,7 +45,7 @@
      */
     function Bubble($el, options) {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -56,7 +54,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Bubble#ready
          * @example
          * // Subscribe to "ready" event.
@@ -71,9 +69,12 @@
     var parent = ch.util.inherits(Bubble, ch.Popover);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Bubble.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var bubble = $(selector).data('bubble');
      */
     Bubble.prototype.name = 'bubble';
 

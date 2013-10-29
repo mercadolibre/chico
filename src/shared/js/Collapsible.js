@@ -9,10 +9,10 @@
     };
 
     /**
-     * The Collapsible class gives to widgets the ability to shown or hidden its container.
+     * The Collapsible class gives to components the ability to shown or hidden its container.
      * @memberOf ch
      * @mixin
-     * @returns {Function} Returns a private funciton.
+     * @returns {Function} Returns a private function.
      */
     function Collapsible() {
 
@@ -30,12 +30,12 @@
             that.$container.removeClass('ch-hide').attr('aria-hidden', 'false');
 
             /**
-             * Event emitted when the widget container is shown.
+             * Event emitted when the component container is shown.
              * @event ch.Collapsible#show
              * @example
              * // Subscribe to "show" event.
-             * widget.on('show', function () {
-             *  // Some code here!
+             * collapsible.on('show', function () {
+             *     // Some code here!
              * });
              */
             that.emit('show');
@@ -45,12 +45,12 @@
             that.$container.addClass('ch-hide').attr('aria-hidden', 'true');
 
             /**
-             * Event emitted when the widget container is hidden.
+             * Event emitted when the component container is hidden.
              * @event ch.Collapsible#hide
              * @example
              * // Subscribe to "hide" event.
-             * widget.on('hide', function () {
-             *  // Some code here!
+             * collapsible.on('hide', function () {
+             *     // Some code here!
              * });
              */
             that.emit('hide');
@@ -59,7 +59,7 @@
         this._shown = false;
 
         /**
-         * Shows the widget container.
+         * Shows the component container.
          * @function
          * @private
          */
@@ -84,7 +84,7 @@
         };
 
         /**
-         * Hides the widget container.
+         * Hides the component container.
          * @function
          * @private
          */
@@ -107,7 +107,7 @@
         };
 
         /**
-         * Shows or hides the widget container.
+         * Shows or hides the component container.
          * @function
          * @private
          */

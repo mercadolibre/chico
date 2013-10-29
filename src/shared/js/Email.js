@@ -62,9 +62,12 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Email.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var emailValidation = $(selector).data('email');
      */
     Email.prototype.name = 'email';
 

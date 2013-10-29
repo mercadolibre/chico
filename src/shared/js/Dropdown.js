@@ -8,12 +8,12 @@
      * @augments ch.Layer
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Dropdown.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {String} [options.width] Set a width for the container. Default: "auto".
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
@@ -28,7 +28,7 @@
      * @param {Boolean} [options.skin] Sets a CSS class name to the trigger and container to get a variation of Dropdown. Default: false.
      * @param {Boolean} [options.shortcuts] Configures navigation shortcuts. Default: true.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Dropdown container.
-     * @returns {dropdown} Returns a new instance of ch.Dropdown.
+     * @returns {dropdown} Returns a new instance of Dropdown.
      * @example
      * // Create a new Dropdown.
      * var dropdown = new ch.Dropdown($el, [options]);
@@ -43,7 +43,7 @@
      */
     function Dropdown($el, options) {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -52,7 +52,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Dropdown#ready
          * @example
          * // Subscribe to "ready" event.
@@ -69,9 +69,12 @@
         parent = ch.util.inherits(Dropdown, ch.Layer);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Dropdown.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var dropdown = $(selector).data('dropdown');
      */
     Dropdown.prototype.name = 'dropdown';
 
@@ -111,7 +114,7 @@
         parent._init.call(this, $el, options);
 
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -139,7 +142,7 @@
         }
 
         /**
-         * A list of links with the navigation options of the widget.
+         * A list of links with the navigation options of the component.
          * @type {(jQuerySelector | ZeptoSelector)}
          * @private
          */
@@ -175,6 +178,11 @@
      * @function
      * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by dropdown.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {dropdown}
      * @example
      * // Shows a basic dropdown.
@@ -212,7 +220,6 @@
      * Destroys a Dropdown instance.
      * @memberof! ch.Dropdown.prototype
      * @function
-     * @returns {dropdown}
      * @example
      * // Destroy a dropdown
      * dropdown.destroy();

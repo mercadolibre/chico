@@ -9,12 +9,12 @@
      * @requires ch.OnImagesLoads
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Zoom.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {String} [options.width] Set a width for the container. Default: "300px".
      * @param {String} [options.height] Set a height for the container. Default: "300px".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
@@ -27,7 +27,7 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: 'Loading zoom...'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Zoom container.
-     * @returns {zoom} Returns a new instance of ch.Zoom.
+     * @returns {zoom} Returns a new instance of Zoom.
      * @example
      * // Create a new Zoom.
      * var zoom = new ch.Zoom($el, [options]);
@@ -42,7 +42,7 @@
      */
     function Zoom($el, options) {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -51,7 +51,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Zoom#ready
          * @example
          * // Subscribe to "ready" event.
@@ -66,9 +66,12 @@
     var parent = ch.util.inherits(Zoom, ch.Layer);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Zoom.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var zoom = $(selector).data('zoom');
      */
     Zoom.prototype.name = 'zoom';
 
@@ -111,7 +114,7 @@
         parent._init.call(this, $el, options);
 
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -372,6 +375,11 @@
      * @function
      * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by dropdown.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {zoom}
      * @example
      * // Shows a basic zoom.
@@ -439,7 +447,7 @@
      * @returns {zoom}
      * @example
      * // Load the zoomed image on demand.
-     * widget.loadImage();
+     * component.loadImage();
      */
     Zoom.prototype.loadImage = function () {
 

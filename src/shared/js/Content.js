@@ -2,7 +2,7 @@
     'use strict';
 
     /**
-     * Add a function to manage widgets content.
+     * Add a function to manage components content.
      * @memberOf ch
      * @mixin
      * @returns {Function}
@@ -24,7 +24,7 @@
             };
 
         /**
-         * Set async content into widget's container and emits the current event.
+         * Set async content into component's container and emits the current event.
          * @private
          */
         function setAsyncContent(event) {
@@ -41,11 +41,7 @@
             /**
              * Event emitted if the content is loaded successfully.
              * @event ch.Content#contentdone
-             * @example
-             * // Subscribe to "contentdone" event.
-             * widget.on('contentdone', function (event) {
-             *     // Some code here!
-             * });
+             * @ignore
              */
 
             /**
@@ -53,7 +49,7 @@
              * @event ch.Content#contentwaiting
              * @example
              * // Subscribe to "contentwaiting" event.
-             * widget.on('contentwaiting', function (event) {
+             * component.on('contentwaiting', function (event) {
              *     // Some code here!
              * });
              */
@@ -63,7 +59,7 @@
              * @event ch.Content#contenterror
              * @example
              * // Subscribe to "contenterror" event.
-             * widget.on('contenterror', function (event) {
+             * component.on('contenterror', function (event) {
              *     // Some code here!
              * });
              */
@@ -72,7 +68,7 @@
         }
 
         /**
-         * Set content into widget's container and emits the contentdone event.
+         * Set content into component's container and emits the contentdone event.
          * @private
          */
         function setContent(content) {
@@ -93,7 +89,7 @@
              * @event ch.Content#contentdone
              * @example
              * // Subscribe to "contentdone" event.
-             * widget.on('contentdone', function (event) {
+             * component.on('contentdone', function (event) {
              *     // Some code here!
              * });
              */
@@ -159,10 +155,10 @@
         }
 
         /**
-         * Allows to manage the widgets content.
+         * Allows to manage the components content.
          * @function
          * @memberof! ch.Content#
-         * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a widget.
+         * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a component.
          * @param {Object} [options] A custom options to be used with content loaded by ajax.
          * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
          * @param {String} [options.params] Params like query string to be sent to the server.
@@ -171,10 +167,10 @@
          * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
          * @example
          * // Update content with some string.
-         * widget.content('Some new content here!');
+         * component.content('Some new content here!');
          * @example
          * // Update content that will be loaded by ajax with custom options.
-         * widget.content('http://chico-ui.com.ar/ajax', {
+         * component.content('http://chico-ui.com.ar/ajax', {
          *     'cache': false,
          *     'params': 'x-request=true'
          * });

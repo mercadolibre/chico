@@ -183,7 +183,7 @@ describe('Its show() method', function () {
         });
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(popover1.show()).toEqual(popover1);
     });
 });
@@ -214,7 +214,7 @@ describe('Its hide() method', function () {
         expect(hideEvent).toHaveBeenCalled();
     });
 
-	it('should return the same instance than initialized widget', function () {
+	it('should return the same instance than initialized component', function () {
 		expect(popover1.hide()).toEqual(popover1);
 	});
 });
@@ -225,18 +225,18 @@ describe('Its isShown() method', function () {
         expect(typeof popover1.isShown()).toEqual('boolean');
     });
 
-    it('should return "true" when the widget is shown', function () {
+    it('should return "true" when the component is shown', function () {
         expect(popover1.show().isShown()).toBeTruthy();
     });
 
-    it('should return "false" when the widget is hidden', function () {
+    it('should return "false" when the component is hidden', function () {
         expect(popover1.hide().isShown()).toBeFalsy();
     });
 });
 
 describe('Its disable() method', function () {
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(popover1.disable()).toEqual(popover1);
     });
 
@@ -247,7 +247,7 @@ describe('Its disable() method', function () {
 
 describe('Its enable() method', function () {
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(popover1.enable()).toEqual(popover1);
     });
 
@@ -279,7 +279,7 @@ describe('Its width() method', function () {
             expect(popover1.width()).toEqual(w);
         });
 
-        it('should return the same instance than initialized widget', function () {
+        it('should return the same instance than initialized component', function () {
             expect(popover1.width(321)).toEqual(popover1);
         });
 	});
@@ -308,7 +308,7 @@ describe('Its height() method', function () {
             expect(popover1.height()).toEqual(h);
         });
 
-        it('should return the same instance than initialized widget', function () {
+        it('should return the same instance than initialized component', function () {
             expect(popover1.height(321)).toEqual(popover1);
         });
     });

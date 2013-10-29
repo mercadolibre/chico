@@ -77,9 +77,12 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.String.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var strValidation = $(selector).data('validation');
      */
     Str.prototype.name = 'string';
 

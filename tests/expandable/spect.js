@@ -173,7 +173,7 @@ describe('Its show() method', function () {
         expect(showEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(expandable1);
     });
 });
@@ -200,7 +200,7 @@ describe('Its hide() method', function () {
         expect(showEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(expandable1);
     });
 });
@@ -208,7 +208,7 @@ describe('Its hide() method', function () {
 describe('Its isShown() method', function () {
     var isShown;
 
-    it('should return "true" when the widget is shown', function () {
+    it('should return "true" when the component is shown', function () {
         expandable1.show();
         isShown = expandable1.isShown();
 
@@ -216,7 +216,7 @@ describe('Its isShown() method', function () {
         expect(isShown).toBeTruthy();
     });
 
-    it('should return "false" when the widget is hidden', function () {
+    it('should return "false" when the component is hidden', function () {
         expandable1.hide();
         isShown = expandable1.isShown();
 
@@ -236,7 +236,7 @@ describe('Its disable() method', function () {
         expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(expandable1);
     });
 });
@@ -250,7 +250,7 @@ describe('Its enable() method', function () {
         expect(expandable1.$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(expandable1);
     });
 

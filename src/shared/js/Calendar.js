@@ -11,10 +11,10 @@
     }
 
     /**
-     * Calendar shows months, and lets you move across the months of the year. Calendar lets you set one or many dates as selected.
+     * It lets you move across the months of the year and allow to set dates as selected.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Calendar.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. You must use "DD/MM/YYYY", "MM/DD/YYYY" or "YYYY/MM/DD". Default: "DD/MM/YYYY".
@@ -45,7 +45,6 @@
      * var calendar = $(selector).calendar('2011/12/25');
      */
     function Calendar($el, options) {
-
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -56,7 +55,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Calendar#ready
          * @example
          * // Subscribe to "ready" event.
@@ -191,11 +190,15 @@
         },
 
         // Inheritance
-        parent = ch.util.inherits(Calendar, ch.Widget);
+        parent = ch.util.inherits(Calendar, ch.Component);
 
     /**
-     * The name of the widget.
+     * The name of the component.
+     * @memberof! ch.Calendar.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var calendar = $(selector).data('calendar');
      */
     Calendar.prototype.name = 'calendar';
 
@@ -603,7 +606,7 @@
      * @memberof! ch.Calendar.prototype
      * @function
      * @param {String} [date] A given date to select. The format of the given date should be "YYYY/MM/DD".
-     * @return {calendar}
+     * @returns {calendar}
      * @example
      * // Returns the selected date.
      * calendar.select();
@@ -646,7 +649,6 @@
         this.emit('select');
 
         return this;
-
     };
 
     /**
@@ -842,8 +844,10 @@
      * @memberof! ch.Calendar.prototype
      * @function
      * @example
-     * // Destroying an instance of Calendar.
+     * // Destroy a calendar
      * calendar.destroy();
+     * // Empty the calendar reference
+     * calendar = undefined;
      */
     Calendar.prototype.destroy = function () {
 
@@ -852,6 +856,8 @@
         $(window.document).trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
+
+        return;
     };
 
     // Factorize

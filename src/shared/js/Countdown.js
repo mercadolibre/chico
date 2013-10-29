@@ -17,7 +17,7 @@
      * Countdown counts the maximum of characters that user can enter in a form control. Countdown could limit the possibility to continue inserting charset.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Countdown.
      * @param {Object} [options] Options to customize an instance.
      * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control. Default: 500.
@@ -53,7 +53,7 @@
         that._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Countdown#ready
          * @example
          * // Subscribe to "ready" event.
@@ -65,11 +65,15 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Countdown, ch.Widget);
+    var parent = ch.util.inherits(Countdown, ch.Component);
 
     /**
-     * The name of the widget.
+     * The name of the component.
+     * @memberof! ch.Countdown.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var countdown = $(selector).data('countdown');
      */
     Countdown.prototype.name = 'countdown';
 
@@ -197,7 +201,7 @@
              * @example
              * // Subscribe to "exceed" event.
              * countdown.on('exceed', function () {
-             *  // Some code here!
+             *     // Some code here!
              * });
              */
             this.emit('exceed');
@@ -244,8 +248,10 @@
      * @memberof! ch.Countdown.prototype
      * @function
      * @example
-     * // Destroying an instance of Countdown.
+     * // Destroy a countdown
      * countdown.destroy();
+     * // Empty the countdown reference
+     * countdown = undefined;
      */
     Countdown.prototype.destroy = function () {
 
@@ -256,6 +262,8 @@
         $(window.document).trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
+
+        return;
     };
 
     // Factorize

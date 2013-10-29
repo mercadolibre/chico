@@ -29,10 +29,10 @@ JS.abilities = [
 ];
 
 /*
- * JS: Widgets
+ * JS: Components
  */
-JS.widgets = [
-    "src/shared/js/Widget.js",
+JS.components = [
+    "src/shared/js/Component.js",
     "src/shared/js/Expandable.js",
     "src/shared/js/Menu.js",
     "src/shared/js/Popover.js",
@@ -90,9 +90,9 @@ CSS.core = [
 ];
 
 /*
- * CSS: Widgets
+ * CSS: Components
  */
-CSS.widgets = [
+CSS.components = [
     "src/shared/css/buttons.css",
     "src/mobile/css/buttons.css",
     "src/shared/css/datagrid.css",

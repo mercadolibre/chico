@@ -76,9 +76,12 @@
     }
 
     /**
-     * The name of the widget.
-     * @memberof! ch.Url.prototype
+     * The name of the component.
+     * @memberof! ch.URL.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var urlValidation = $(selector).data('validation');
      */
     URL.prototype.name = 'url';
 

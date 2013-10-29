@@ -197,7 +197,7 @@ describe('Its nextMonth() method', function(){
         expect(nextmonthEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(datepicker1);
     });
 });
@@ -209,7 +209,7 @@ describe('Its prevMonth() method', function(){
         expect(prevmonthEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(datepicker1);
     });
 });
@@ -221,7 +221,7 @@ describe('Its nextYear() method', function(){
         expect(nextyearEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(datepicker1);
     });
 });
@@ -233,19 +233,19 @@ describe('Its prevYear() method', function(){
         expect(prevyearEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(datepicker1);
     });
 });
 
 describe('Its setFrom() method', function () {
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(datepicker1.setFrom(DATE.FORMAT['yyyymmdd'])).toEqual(datepicker1);
     });
 });
 
 describe('Its setTo() method', function(){
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(datepicker1.setTo(DATE.TODAY.year + 1 + '/' + DATE.TODAY.month + '/' + DATE.TODAY.day)).toEqual(datepicker1);
     });
 });

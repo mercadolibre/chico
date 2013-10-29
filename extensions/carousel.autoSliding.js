@@ -29,13 +29,13 @@
             this.pause();
         }
 
-        // Stop the automatic movement when the user interacts with the widget
+        // Stop the automatic movement when the user interacts with the component
         this._$el.one(pointertap, function () {
             that.pause();
         });
 
         /**
-         * Interval used to animate the widget autamatically.
+         * Interval used to animate the component autamatically.
          * @private
          * @type {Number}
          */

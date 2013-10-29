@@ -169,7 +169,7 @@ describe('Its clear() method', function () {
         expect(clearEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(form);
     });
 });
@@ -182,7 +182,7 @@ describe('Its reset() method', function () {
         expect(resetEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(form);
     });
 });
@@ -195,7 +195,7 @@ describe('Its disable() method', function () {
         expect(form.hasError()).toBeFalsy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(form);
     });
 });
@@ -208,7 +208,7 @@ describe('Its enable() method', function () {
         expect(form.hasError()).toBeTruthy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(form);
     });
 

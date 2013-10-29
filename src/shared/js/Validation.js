@@ -5,7 +5,7 @@
      * Validation is an engine to validate HTML forms elements.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @requires ch.Condition
      * @requires ch.Form
      * @requires ch.Bubble
@@ -49,7 +49,6 @@
      * });
      */
     function Validation($el, options) {
-
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -60,19 +59,19 @@
         this._init($el, options);
 
         /**
-         * It emits an event when a validation is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Validation#ready
          * @example
          * // Subscribe to "ready" event.
          * validation.on('ready', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Validation, ch.Widget),
+    var parent = ch.util.inherits(Validation, ch.Component),
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -103,9 +102,12 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Validation.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var validation = $(selector).data('validation');
      */
     Validation.prototype.name = 'validation';
 
@@ -335,7 +337,7 @@
      * Checks if the validation has got errors but it doesn't show bubbles.
      * @memberof! ch.Validation.prototype
      * @function
-     * @returns {Bollean}
+     * @returns {Boolean}
      * @example
      * // Checks if a validation has errors and do something.
      * if (validation.hasError()) {

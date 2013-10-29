@@ -81,9 +81,12 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Min.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var minValidation = $(selector).data('validation');
      */
     Min.prototype.name = 'min';
 

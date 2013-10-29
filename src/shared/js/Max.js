@@ -81,9 +81,12 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Max.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var maxValidation = $(selector).data('validation');
      */
     Max.prototype.name = 'max';
 

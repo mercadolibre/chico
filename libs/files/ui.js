@@ -30,11 +30,11 @@ JS.abilities = [
 ];
 
 /*
- * JS: Widgets
+ * JS: Components
  */
-JS.widgets = [
+JS.components = [
     "src/shared/js/onImagesLoads.js",
-    "src/shared/js/Widget.js",
+    "src/shared/js/Component.js",
     "src/shared/js/Form.js",
     "src/shared/js/Condition.js",
     "src/shared/js/Validation.js",
@@ -98,9 +98,9 @@ CSS.core = [
 ];
 
 /*
- * CSS: Widgets
+ * CSS: Components
  */
-CSS.widgets = [
+CSS.components = [
     "src/shared/css/buttons.css",
     "src/ui/css/buttons.css",
     "src/shared/css/datagrid.css",

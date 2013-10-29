@@ -5,18 +5,18 @@
      * Popover is the basic unit of a dialog window.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @mixes ch.Collapsible
      * @mixes ch.Content
      * @requires ch.Positioner
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Popover.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "fadeIn".
      * @param {String} [options.width] Set a width for the container. Default: "auto".
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "button".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "button".
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "center".
@@ -29,7 +29,7 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Popover container.
-     * @returns {popover} Returns a new instance of ch.Popover.
+     * @returns {popover} Returns a new instance of Popover.
      * @example
      * // Create a new Popover.
      * var popover = new ch.Popover($el, [options]);
@@ -47,7 +47,7 @@
      */
     function Popover($el, options) {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -56,7 +56,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Popover#ready
          * @example
          * // Subscribe to "ready" event.
@@ -70,16 +70,19 @@
     var $document = $(window.document),
         $body = $('body'),
         // Inheritance
-        parent = ch.util.inherits(Popover, ch.Widget),
+        parent = ch.util.inherits(Popover, ch.Component),
         shownbyEvent = {
             'pointertap': ch.onpointertap,
             'pointerenter': ch.onpointerenter
         };
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Popover.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var popover = $(selector).data('popover');
      */
     Popover.prototype.name = 'popover';
 
@@ -125,7 +128,7 @@
         this.require('Collapsible', 'Content');
 
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -171,7 +174,7 @@
         /**
          * Handler to execute the positioner refresh() method on layout changes.
          * @private
-         * @type {Function}
+         * @function
          * @todo Define this function on prototype and use bind(): $document.on(ch.onlayoutchange, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
@@ -189,7 +192,7 @@
             .once('_show', this._refreshPositionListener)
             // on content change
             .on('_contentchange', this._refreshPositionListener)
-            // Remove from DOM the widget container after hide
+            // Remove from DOM the component container after hide
             .on('hide', function () {
                 that.$container.remove(null, true);
             });
@@ -221,7 +224,7 @@
                 // Toggle as default
                 var fn = that._toggle;
                 // When a Popover is shown on pointerenter, it will set a timeout to manage when
-                // to close the widget. Avoid to toggle and let choise when to close to the timer
+                // to close the component. Avoid to toggle and let choise when to close to the timer
                 if (that._options.shownby === 'pointerenter' || that._options.hiddenby === 'none' || that._options.hiddenby === 'button') {
                     fn = function () {
                         if (!that._shown) {
@@ -283,7 +286,7 @@
     };
 
     /**
-     * Determines how to hide the widget.
+     * Determines how to hide the component.
      * @memberof! ch.Popover.prototype
      * @private
      * @function
@@ -309,7 +312,7 @@
         // Don't hide anytime
         if (hiddenby === 'none') { return; }
 
-        // Hide by leaving the widget
+        // Hide by leaving the component
         if (hiddenby === 'pointerleave' && this.$trigger !== undefined) {
 
             events[ch.onpointerenter + '.' + this.name] = function () {
@@ -356,6 +359,11 @@
      * @function
      * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by popover.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {popover}
      * @example
      * // Shows a basic popover.
@@ -442,10 +450,10 @@
      * @returns {(Number | popover)}
      * @example
      * // Set a new popover width
-     * widget.width('300px');
+     * component.width('300px');
      * @example
      * // Get the current popover width
-     * widget.width(); // '300px'
+     * component.width(); // '300px'
      */
     Popover.prototype.width = function (data) {
 
@@ -470,10 +478,10 @@
      * @returns {(Number | popover)}
      * @example
      * // Set a new popover height
-     * widget.height('300px');
+     * component.height('300px');
      * @example
      * // Get the current popover height
-     * widget.height(); // '300px'
+     * component.height(); // '300px'
      */
     Popover.prototype.height = function (data) {
 

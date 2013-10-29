@@ -77,9 +77,12 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Number.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var numValidation = $(selector).data('validation');
      */
     Num.prototype.name = 'number';
 
