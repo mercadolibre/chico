@@ -81,7 +81,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.MinLength.prototype
      * @type {String}
      */

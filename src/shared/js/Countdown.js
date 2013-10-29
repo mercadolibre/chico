@@ -17,7 +17,7 @@
      * Countdown counts the maximum of characters that user can enter in a form control. Countdown could limit the possibility to continue inserting charset.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Countdown.
      * @param {Object} [options] Options to customize an instance.
      * @param {Number} [options.max] Number of the maximum amount of characters user can input in form control. Default: 500.
@@ -53,7 +53,7 @@
         that._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Countdown#ready
          * @example
          * // Subscribe to "ready" event.
@@ -65,10 +65,10 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Countdown, ch.Widget);
+    var parent = ch.util.inherits(Countdown, ch.Component);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @type {String}
      */
     Countdown.prototype.name = 'countdown';

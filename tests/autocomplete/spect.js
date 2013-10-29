@@ -226,7 +226,7 @@ describe('Its hide() method', function () {
         expect(hideEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(autoComplete);
     });
 
@@ -235,7 +235,7 @@ describe('Its hide() method', function () {
 describe('Its isShown() method', function () {
     var isShown;
 
-    it('should return "true" when the widget is shown', function () {
+    it('should return "true" when the component is shown', function () {
         autoComplete._el.focus();
         autoComplete.emit('type', autoComplete._el.value);
         isShown = autoComplete.isShown();
@@ -244,7 +244,7 @@ describe('Its isShown() method', function () {
         expect(isShown).toBeTruthy();
     });
 
-    it('should return "false" when the widget is hidden', function () {
+    it('should return "false" when the component is hidden', function () {
         autoComplete.hide();
         isShown = autoComplete.isShown();
 
@@ -266,7 +266,7 @@ describe('Its disable() method', function () {
         expect(autoComplete.isShown()).toBeFalsy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(autoComplete);
     });
 });
@@ -282,7 +282,7 @@ describe('Its enable() method', function () {
         expect(autoComplete.isShown()).toBeTruthy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(autoComplete);
     });
 

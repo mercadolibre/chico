@@ -5,7 +5,7 @@
      * Datepicker lets you select dates.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @requires ch.Calendar
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Datepicker.
      * @param {Object} [options] Options to customize an instance.
@@ -15,7 +15,7 @@
      * @param {String} [options.to] Set a maximum selectable date. The format of the given date should be "YYYY/MM/DD".
      * @param {Array} [options.monthsNames] A collection of months names. Default: ["Enero", ... , "Diciembre"].
      * @param {Array} [options.weekdays] A collection of weekdays. Default: ["Dom", ... , "Sab"].
-     * @param {Boolean} [conf.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
+     * @param {Boolean} [conf.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
      * @param {(jQuerySelector | ZeptoSelector)} [options.context] It's a reference to position and size of element that will be considered to carry out the position.
      * @param {String} [options.side] The side option where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. You must use: "left", "right", "top", "bottom" or "center". Default: "center".
@@ -52,7 +52,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Datepicker#ready
          * @example
          * // Subscribe to "ready" event.
@@ -64,7 +64,7 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Datepicker, ch.Widget),
+    var parent = ch.util.inherits(Datepicker, ch.Component),
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -81,7 +81,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @type {String}
      */
     Datepicker.prototype.name = 'datepicker';

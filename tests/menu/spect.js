@@ -135,7 +135,7 @@ describe('Its show() method', function () {
         expect(showEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(menu1);
     });
 });
@@ -154,7 +154,7 @@ describe('Its hide() method', function () {
         expect(hideEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(menu1);
     });
 });
@@ -180,7 +180,7 @@ describe('Its disable() method', function () {
         expect(menu1.folds[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeFalsy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(menu1);
     });
 });
@@ -200,7 +200,7 @@ describe('Its enable() method', function () {
         expect(menu1.folds[1].$trigger.hasClass('ch-expandable-trigger-on')).toBeTruthy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(menu1);
         menu1.show(1);
     });

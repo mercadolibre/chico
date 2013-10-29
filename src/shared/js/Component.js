@@ -5,45 +5,45 @@
         uid = 0;
 
     /**
-     * Base class for all widgets.
+     * Base class for all components.
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
      * @param {(jQuerySelector | ZeptoSelector)} $el jQuery or Zepto Selector.
      * @param {Object} [options] Configuration options.
-     * @returns {widget} Returns a new instance of Widget.
+     * @returns {component} Returns a new instance of Component.
      */
-    function Widget($el, options) {
+    function Component($el, options) {
         this._init($el, options);
     }
 
-    ch.util.inherits(Widget, ch.EventEmitter);
+    ch.util.inherits(Component, ch.EventEmitter);
 
     /**
-     * The name of a widget.
-     * @memberof! ch.Widget.prototype
+     * The name of a component.
+     * @memberof! ch.Component.prototype
      * @type {String}
      * @example
      * // You can reach the instance associated.
-     * var widget = $(selector).data(name);
+     * var component = $(selector).data(name);
      */
-    Widget.prototype.name = 'widget';
+    Component.prototype.name = 'component';
 
     /**
      * Returns a reference to the constructor function.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Component.prototype
      * @function
      */
-    Widget.prototype.constructor = Widget;
+    Component.prototype.constructor = Component;
 
     /**
-     * Initialize a new instance of Widget and merge custom options with defaults options.
-     * @memberof! ch.Widget.prototype
+     * Initialize a new instance of Component and merge custom options with defaults options.
+     * @memberof! ch.Component.prototype
      * @function
      * @private
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {instance} Returns an instance of Component.
      */
-    Widget.prototype._init = function ($el, options) {
+    Component.prototype._init = function ($el, options) {
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
@@ -79,13 +79,13 @@
         }
 
         /**
-         * A unique id to identify the instance of a widget.
+         * A unique id to identify the instance of a component.
          * @type {Number}
          */
         this.uid = (uid += 1);
 
         /**
-         * Indicates if a widget is enabled.
+         * Indicates if a component is enabled.
          * @type {Boolean}
          * @private
          */
@@ -95,17 +95,17 @@
 
     /**
      * Adds functionality or abilities from other classes.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Component.prototype
      * @function
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {instance} Returns an instance of Component.
      * @params {...String} var_args The name of the abilities to will be used.
      * @example
-     * // You can require some abilitiest to use in your widget.
+     * // You can require some abilitiest to use in your component.
      * // For example you should require the collpasible abitliy.
-     * var widget = new Widget(element, options);
-     * widget.require('Collapsible');
+     * var component = new Component(element, options);
+     * component.require('Collapsible');
      */
-    Widget.prototype.require = function () {
+    Component.prototype.require = function () {
 
         var arg,
             i = 0,
@@ -123,24 +123,24 @@
     };
 
     /**
-     * Enables an instance of Widget.
-     * @memberof! ch.Widget.prototype
+     * Enables an instance of Component.
+     * @memberof! ch.Component.prototype
      * @function
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {instance} Returns an instance of Component.
      * @example
-     * // Enabling an instance of Widget.
-     * widget.enable();
+     * // Enabling an instance of Component.
+     * component.enable();
      */
-    Widget.prototype.enable = function () {
+    Component.prototype.enable = function () {
         this._enabled = true;
 
         /**
-         * Emits when a widget is enable.
-         * @event ch.Widget#enable
+         * Emits when a component is enable.
+         * @event ch.Component#enable
          * @example
          * // Subscribe to "enable" event.
-         * widget.on('enable', function () {
-         *  // Some code here!
+         * component.on('enable', function () {
+         *     // Some code here!
          * });
          */
         this.emit('enable');
@@ -149,24 +149,24 @@
     };
 
     /**
-     * Disables an instance of Widget.
-     * @memberof! ch.Widget.prototype
+     * Disables an instance of Component.
+     * @memberof! ch.Component.prototype
      * @function
-     * @return {instance} Returns an instance of Widget.
+     * @return {instance} Returns an instance of Component.
      * @example
-     * // Disabling an instance of Widget.
-     * widget.disable();
+     * // Disabling an instance of Component.
+     * component.disable();
      */
-    Widget.prototype.disable = function () {
+    Component.prototype.disable = function () {
         this._enabled = false;
 
         /**
-         * Emits when a widget is disable.
-         * @event ch.Widget#disable
+         * Emits when a component is disable.
+         * @event ch.Component#disable
          * @example
          * // Subscribe to "disable" event.
-         * widget.on('disable', function () {
-         *  // Some code here!
+         * component.on('disable', function () {
+         *     // Some code here!
          * });
          */
         this.emit('disable');
@@ -175,14 +175,14 @@
     };
 
     /**
-     * Destroys an instance of Widget and remove its data from asociated element.
-     * @memberof! ch.Widget.prototype
+     * Destroys an instance of Component and remove its data from asociated element.
+     * @memberof! ch.Component.prototype
      * @function
      * @example
-     * // Destroying an instance of Widget.
-     * widget.destroy();
+     * // Destroying an instance of Component.
+     * component.destroy();
      */
-    Widget.prototype.destroy = function () {
+    Component.prototype.destroy = function () {
 
         this.disable();
 
@@ -191,18 +191,18 @@
         }
 
         /**
-         * Emits when a widget is destroyed.
-         * @event ch.Widget#destroy
+         * Emits when a component is destroyed.
+         * @event ch.Component#destroy
          * @exampleDescription
          * @example
          * // Subscribe to "destroy" event.
-         * widget.on('destroy', function () {
-         *  // Some code here!
+         * component.on('destroy', function () {
+         *     // Some code here!
          * });
          */
         this.emit('destroy');
     };
 
-    ch.Widget = Widget;
+    ch.Component = Component;
 
 }(this, this.ch.$, this.ch));

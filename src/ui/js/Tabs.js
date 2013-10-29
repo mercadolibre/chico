@@ -5,7 +5,7 @@
      * Tabs lets you create tabs for static and dynamic content.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @requires ch.Expandable
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Tabs.
      * @returns {tabs} Returns a new instance of Tabs.
@@ -28,7 +28,7 @@
         this._init($el, options);
 
         /**
-         * Emits the event 'ready' when the widget is ready to use.
+         * Emits the event 'ready' when the component is ready to use.
          * @event ch.Tabs#ready
          * @example
          * // Subscribe to "ready" event.
@@ -42,7 +42,7 @@
     /**
      * Inheritance
      */
-    var parent = ch.util.inherits(Tabs, ch.Widget),
+    var parent = ch.util.inherits(Tabs, ch.Component),
 
         location = window.location,
 
@@ -83,7 +83,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @type {String}
      */
     Tabs.prototype.name = 'tabs';

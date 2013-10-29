@@ -88,7 +88,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Custom.prototype
      * @type {String}
      */

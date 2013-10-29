@@ -524,23 +524,23 @@ nav .ch-rightcolumn ul {
 }
 
 /*
-*   CSS Widgets
+*   CSS Components
 */
 
-#heading-widget h1,
-#heading-widget h2,
-#heading-widget h3,
-#heading-widget h4,
-#heading-widget h5,
-#heading-widget h6 {
+#heading-component h1,
+#heading-component h2,
+#heading-component h3,
+#heading-component h4,
+#heading-component h5,
+#heading-component h6 {
     font-family: Arial;
     margin: 1em 0 0.5em 0;
 }
 
-#heading-widget h1 { font-size: 20px; }
-#heading-widget h2 { font-size: 18px; }
-#heading-widget h3 { font-size: 16px; }
-#heading-widget h4 { font-size: 14px; }
+#heading-component h1 { font-size: 20px; }
+#heading-component h2 { font-size: 18px; }
+#heading-component h3 { font-size: 16px; }
+#heading-component h4 { font-size: 14px; }
 section.main h4.ch-form-subtitle { font-size: 13px; }
 
 /* Demo forms */

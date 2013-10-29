@@ -230,7 +230,7 @@ describe('Its clear() method', function () {
         expect(clearEvent).toHaveBeenCalled();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(validation1);
     });
 });
@@ -267,7 +267,7 @@ describe('Its message() method', function () {
         expect(validation1.bubble.content()).toEqual(msg);
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(validation1);
     });
 });
@@ -280,7 +280,7 @@ describe('Its disable() method', function () {
         expect(validation1.hasError()).toBeFalsy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(validation1);
     });
 });
@@ -293,7 +293,7 @@ describe('Its enable() method', function () {
         expect(validation1.hasError()).toBeTruthy();
     });
 
-    it('should return the same instance than initialized widget', function () {
+    it('should return the same instance than initialized component', function () {
         expect(instance).toEqual(validation1);
     });
 

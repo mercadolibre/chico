@@ -14,7 +14,7 @@
      * Expandable lets you show or hide content. Expandable needs a pair: a title and a container related to title.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @mixes ch.Collapsible
      * @mixes ch.Content
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Expandable.
@@ -54,7 +54,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Expandable#ready
          * @example
          * // Subscribe to "ready" event.
@@ -67,10 +67,10 @@
 
     // Inheritance
     var $document = $(window.document),
-        parent = ch.util.inherits(Expandable, ch.Widget);
+        parent = ch.util.inherits(Expandable, ch.Component);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @type {String}
      */
     Expandable.prototype.name = 'expandable';
@@ -183,13 +183,13 @@
      * @returns {expandable}
      * @example
      * // Shows a basic expandable.
-     * widget.show();
+     * component.show();
      * @example
      * // Shows an expandable with new content.
-     * widget.show('Some new content here!');
+     * component.show('Some new content here!');
      * @example
      * // Shows an expandable with a new content that will be loaded by ajax and some custom options.
-     * widget.show('http://chico-ui.com.ar/ajax', {
+     * component.show('http://chico-ui.com.ar/ajax', {
      *     'cache': false,
      *     'params': 'x-request=true'
      * });
@@ -214,7 +214,7 @@
     };
 
     /**
-     * Hides widget's container.
+     * Hides component's container.
      * @memberof! ch.Expandable.prototype
      * @function
      * @returns {expandable}
@@ -237,12 +237,12 @@
 
 
     /**
-     * Returns a Boolean if the widget's core behavior is shown. That means it will return 'true' if the widget is on and it will return false otherwise.
+     * Returns a Boolean if the component's core behavior is shown. That means it will return 'true' if the component is on and it will return false otherwise.
      * @memberof! ch.Expandable.prototype
      * @function
      * @returns {Boolean}
      * @example
-     * // Execute a function if the widget is shown.
+     * // Execute a function if the component is shown.
      * if (expandable.isShown()) {
      *     fn();
      * }
