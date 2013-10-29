@@ -58,13 +58,13 @@
      * @returns {validation} Returns a new instance of Validation.
      * @example
      * // Create a new MinLength Validation.
-     * var minValidation = new ch.MinLength($el, [options]);
+     * var minLengthValidation = new ch.MinLength($el, [options]);
      * @example
      * // Create a new MinLength validation with jQuery or Zepto.
-     * var minValidation = $(selector).minLength([options]);
+     * var minLengthValidation = $(selector).minLength([options]);
      * @example
      * // Create a new MinLength validation with custom options.
-     * var minValidation = $(selector).minLength({
+     * var minLengthValidation = $(selector).minLength({
      *     'num': 10,
      *     'message': 'At least 10 characters.',
      *     'offsetX': 0,
@@ -74,7 +74,7 @@
      * });
      * @example
      * // Create a new MinLength validation using the shorthand way (number and message as parameters).
-     * var minValidation = $(selector).minLength('At least 10 characters.');
+     * var minLengthValidation = $(selector).minLength('At least 10 characters.');
      */
     function MinLength($el, options) {
         return new ch.Validation($el, options);
@@ -84,6 +84,9 @@
      * The name of the widget.
      * @memberof! ch.MinLength.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var minLengthValidation = $(selector).data('validation');
      */
     MinLength.prototype.name = 'minLength';
 

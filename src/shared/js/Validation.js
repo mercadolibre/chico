@@ -49,7 +49,6 @@
      * });
      */
     function Validation($el, options) {
-
         /**
          * Reference to context of an instance.
          * @type {Object}
@@ -60,12 +59,12 @@
         this._init($el, options);
 
         /**
-         * It emits an event when a validation is ready to use.
+         * Event emitted when the widget is ready to use.
          * @event ch.Validation#ready
          * @example
          * // Subscribe to "ready" event.
          * validation.on('ready', function () {
-         *    // Some code here!
+         *     // Some code here!
          * });
          */
         window.setTimeout(function () { that.emit('ready'); }, 50);
@@ -106,6 +105,9 @@
      * The name of the widget.
      * @memberof! ch.Validation.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var validation = $(selector).data('validation');
      */
     Validation.prototype.name = 'validation';
 
@@ -335,7 +337,7 @@
      * Checks if the validation has got errors but it doesn't show bubbles.
      * @memberof! ch.Validation.prototype
      * @function
-     * @returns {Bollean}
+     * @returns {Boolean}
      * @example
      * // Checks if a validation has errors and do something.
      * if (validation.hasError()) {

@@ -69,7 +69,7 @@
     }
 
     /**
-     * The name of the Positioner.
+     * The name of the widget.
      * @memberof! ch.Positioner.prototype
      * @type {String}
      */
@@ -102,7 +102,7 @@
      * @memberof! ch.Positioner.prototype
      * @function
      * @private
-     * @returns {instance}
+     * @returns {positioner}
      * @params {Object} options A configuration object.
      */
     Positioner.prototype._configure = function (options) {
@@ -136,7 +136,7 @@
      * Updates the current position with a given options
      * @memberof! ch.Positioner.prototype
      * @function
-     * @returns {instance}
+     * @returns {positioner}
      * @params {Object} options A configuration object.
      * @example
      * // Updates the current position.
@@ -171,7 +171,7 @@
      * @memberof! ch.Positioner.prototype
      * @function
      * @private
-     * @returns {instance}
+     * @returns {positioner}
      */
     Positioner.prototype._calculateReference = function () {
 
@@ -201,7 +201,7 @@
      * @memberof! ch.Positioner.prototype
      * @function
      * @private
-     * @returns {instance}
+     * @returns {positioner}
      */
     Positioner.prototype._calculateTarget = function () {
 
@@ -219,7 +219,7 @@
      * @memberof! ch.Positioner.prototype
      * @function
      * @private
-     * @returns {instance}
+     * @returns {positioner}
      */
     Positioner.prototype._setPoint = function () {
         var side = this._options.side,

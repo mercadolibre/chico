@@ -35,7 +35,7 @@
      */
     ch.Dropdown.prototype._navigationShortcuts = function () {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */

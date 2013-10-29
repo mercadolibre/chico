@@ -90,7 +90,11 @@
 
     /**
      * The name of the widget.
+     * @memberof! ch.Menu.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var menu = $(selector).data('menu');
      */
     Menu.prototype.name = 'menu';
 
@@ -191,7 +195,7 @@
                          * @example
                          * // Subscribe to "show" event.
                          * menu.on('show', function (shown) {
-                         *  // Some code here!
+                         *     // Some code here!
                          * });
                          */
                         that.emit('show', i + 1);
@@ -203,7 +207,7 @@
                          * @example
                          * // Subscribe to "hide" event.
                          * menu.on('hide', function () {
-                         *  // Some code here!
+                         *     // Some code here!
                          * });
                          */
                         that.emit('hide');
@@ -211,7 +215,8 @@
 
                 $child.next()
                     .attr('role', 'menu')
-                    .children().attr('role', 'presentation')
+                    .children()
+                        .attr('role', 'presentation')
                         .children()
                             .attr('role', 'menuitem');
 
@@ -220,9 +225,9 @@
             }
         }
 
-        $.each(that.$container.children(), createExpandable);
+        $.each(this.$container.children(), createExpandable);
 
-        return that;
+        return this;
     };
 
     /**
@@ -264,10 +269,10 @@
      * @param {Number} fold A given fold to change its content.
      * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a fold.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
-     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async]  Force to sent request asynchronously. By default is true.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second fold with some string.
@@ -287,35 +292,6 @@
         return this;
     };
 
-    /**
-     * Enables an instance of Menu or a specific fold.
-     * @memberof! ch.Menu.prototype
-     * @name enable
-     * @function
-     * @param {Number} [fold] - A given number of fold to enable.
-     * @returns {menu} Returns an instance of Menu.
-     * @example
-     * // Enabling an instance of Menu.
-     * menu.enable();
-     * @example
-     * // Enabling the second fold of a menu.
-     * menu.enable(2);
-     */
-
-    /**
-     * Disables an instance of Menu or a specific fold.
-     * @memberof! ch.Menu.prototype
-     * @name disable
-     * @function
-     * @param {Number} [fold] - A given number of fold to disable.
-     * @returns {menu} Returns an instance of Menu.
-     * @example
-     * // Disabling an instance of Menu.
-     * menu.disable();
-     * @example
-     * // Disabling the second fold.
-     * menu.disable(2);
-     */
     while (len) {
         createMethods(methods[len -= 1]);
     }
@@ -325,8 +301,10 @@
      * @memberof! ch.Menu.prototype
      * @function
      * @example
-     * // Destroying an instance of Menu.
+     * // Destroy a menu
      * menu.destroy();
+     * // Empty the menu reference
+     * menu = undefined;
      */
     Menu.prototype.destroy = function () {
 
@@ -341,9 +319,10 @@
         $(window.document).trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
+
+        return;
     };
 
-    // Factorize
     ch.factory(Menu);
 
 }(this, this.ch.$, this.ch));

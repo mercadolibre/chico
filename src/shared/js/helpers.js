@@ -70,23 +70,22 @@
         /**
          * Reference to the Object Contructor.
          * @private
-         * @function
-         * @type {Function}
+         * @constructor
          */
         Object = window.Object,
 
         /**
          * Reference to the Array Contructor.
          * @private
-         * @function
-         * @type {Function}
+         * @constructor
          */
         Array = window.Array,
 
         /**
          * Reference to the vendor prefix of the current browser.
+         * @constant
          * @private
-         * @type {string}
+         * @type {String}
          * @link http://lea.verou.me/2009/02/find-the-vendor-prefix-of-the-current-browser
          */
         VENDOR_PREFIX = (function () {

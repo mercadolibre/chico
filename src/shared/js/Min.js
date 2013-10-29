@@ -84,6 +84,9 @@
      * The name of the widget.
      * @memberof! ch.Min.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var minValidation = $(selector).data('validation');
      */
     Min.prototype.name = 'min';
 

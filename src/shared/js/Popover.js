@@ -29,7 +29,7 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Popover container.
-     * @returns {popover} Returns a new instance of ch.Popover.
+     * @returns {popover} Returns a new instance of Popover.
      * @example
      * // Create a new Popover.
      * var popover = new ch.Popover($el, [options]);
@@ -47,7 +47,7 @@
      */
     function Popover($el, options) {
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -80,6 +80,9 @@
      * The name of the widget.
      * @memberof! ch.Popover.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var popover = $(selector).data('popover');
      */
     Popover.prototype.name = 'popover';
 
@@ -125,7 +128,7 @@
         this.require('Collapsible', 'Content');
 
         /**
-         * Reference to the context of an instance.
+         * Reference to context of an instance.
          * @type {Object}
          * @private
          */
@@ -171,7 +174,7 @@
         /**
          * Handler to execute the positioner refresh() method on layout changes.
          * @private
-         * @type {Function}
+         * @function
          * @todo Define this function on prototype and use bind(): $document.on(ch.onlayoutchange, this.refreshPosition.bind(this));
          */
         this._refreshPositionListener = function () {
@@ -356,6 +359,11 @@
      * @function
      * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by popover.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
+     * @param {String} [options.params] Params like query string to be sent to the server.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {popover}
      * @example
      * // Shows a basic popover.

@@ -26,7 +26,7 @@
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '<div class="ch-loading ch-loading-centered"></div>'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Tooltip container.
-     * @returns {tooltip} Returns a new instance of ch.Tooltip.
+     * @returns {tooltip} Returns a new instance of Tooltip.
      * @example
      * // Create a new Tooltip.
      * var tooltip = new ch.Tooltip($el, [options]);
@@ -58,6 +58,9 @@
      * The name of the widget.
      * @memberof! ch.Tooltip.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var tooltip = $(selector).data('tooltip');
      */
     Tooltip.prototype.name = 'tooltip';
 

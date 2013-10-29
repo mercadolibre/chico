@@ -71,7 +71,11 @@
 
     /**
      * The name of the widget.
+     * @memberof! ch.Expandable.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var expandable = $(selector).data('expandable');
      */
     Expandable.prototype.name = 'expandable';
 
@@ -166,7 +170,6 @@
         ch.util.avoidTextSelection(this.$trigger);
 
         return this;
-
     };
 
     /**
@@ -175,10 +178,10 @@
      * @function
      * @param {(String | jQuerySelector | ZeptoSelector)} [content] The content that will be used by expandable.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
-     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async] Force to sent request asynchronously. By default is true.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @returns {expandable}
      * @example
@@ -237,7 +240,7 @@
 
 
     /**
-     * Returns a Boolean if the widget's core behavior is shown. That means it will return 'true' if the widget is on and it will return false otherwise.
+     * Returns a Boolean specifying if the widget's core behavior is shown. That means it will return 'true' if the widget is on, and it will return false otherwise.
      * @memberof! ch.Expandable.prototype
      * @function
      * @returns {Boolean}
@@ -256,8 +259,10 @@
      * @memberof! ch.Expandable.prototype
      * @function
      * @example
-     * // Destroying an instance of Expandable.
+     * // Destroy an expandable
      * expandable.destroy();
+     * // Empty the expandable reference
+     * expandable = undefined;
      */
     Expandable.prototype.destroy = function () {
 
@@ -273,6 +278,8 @@
         $document.trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
+
+        return;
     };
 
     // Factorize

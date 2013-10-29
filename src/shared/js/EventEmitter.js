@@ -22,6 +22,7 @@
      * @param {String} event The event name to subscribe.
      * @param {Function} listener Listener function.
      * @param {Boolean} once Indicate if a listener function will be called only one time.
+     * @returns {widget}
      * @example
      * // Will add an event listener to 'ready' event.
      * widget.on('ready', listener);
@@ -55,10 +56,10 @@
      * @function
      * @param {String} event Event name.
      * @param {Function} listener Listener function.
-     * @returns {Object}
+     * @returns {widget}
      * @example
-     * // Will add an event handler to 'contentLoad' event once.
-     * widget.once('contentLoad', listener);
+     * // Will add an event handler to 'contentload' event once.
+     * widget.once('contentload', listener);
      */
     EventEmitter.prototype.once = function (event, listener) {
 
@@ -73,7 +74,7 @@
      * @function
      * @param {String} event Event name.
      * @param {Function} listener Listener function.
-     * @returns {Object}
+     * @returns {widget}
      * @example
      * // Will remove event listener to 'ready' event.
      * widget.off('ready', listener);
@@ -129,6 +130,7 @@
      * @function
      * @param {String} event The name of the event you want to emit.
      * @param {...Object} var_args Data to pass to the listeners.
+     * @returns {widget}
      * @example
      * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
      * widget.emit('ready', 'param1', 'param2');

@@ -65,6 +65,9 @@
      * The name of the widget.
      * @memberof! ch.Required.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var reqValidation = $(selector).data('validation');
      */
     Required.prototype.name = 'required';
 

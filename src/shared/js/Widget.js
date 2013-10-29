@@ -24,7 +24,7 @@
      * @memberof! ch.Widget.prototype
      * @type {String}
      * @example
-     * // You can reach the instance associated.
+     * // You can reach the associated instance.
      * var widget = $(selector).data(name);
      */
     Widget.prototype.name = 'widget';
@@ -41,7 +41,7 @@
      * @memberof! ch.Widget.prototype
      * @function
      * @private
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {widget}
      */
     Widget.prototype._init = function ($el, options) {
 
@@ -97,7 +97,7 @@
      * Adds functionality or abilities from other classes.
      * @memberof! ch.Widget.prototype
      * @function
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {widget}
      * @params {...String} var_args The name of the abilities to will be used.
      * @example
      * // You can require some abilitiest to use in your widget.
@@ -126,7 +126,7 @@
      * Enables an instance of Widget.
      * @memberof! ch.Widget.prototype
      * @function
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {widget}
      * @example
      * // Enabling an instance of Widget.
      * widget.enable();
@@ -135,12 +135,12 @@
         this._enabled = true;
 
         /**
-         * Emits when a widget is enable.
+         * Emits when a widget is enabled.
          * @event ch.Widget#enable
          * @example
          * // Subscribe to "enable" event.
          * widget.on('enable', function () {
-         *  // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('enable');
@@ -152,7 +152,7 @@
      * Disables an instance of Widget.
      * @memberof! ch.Widget.prototype
      * @function
-     * @return {instance} Returns an instance of Widget.
+     * @returns {widget}
      * @example
      * // Disabling an instance of Widget.
      * widget.disable();
@@ -166,7 +166,7 @@
          * @example
          * // Subscribe to "disable" event.
          * widget.on('disable', function () {
-         *  // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('disable');
@@ -179,8 +179,10 @@
      * @memberof! ch.Widget.prototype
      * @function
      * @example
-     * // Destroying an instance of Widget.
+     * // Destroy a widget
      * widget.destroy();
+     * // Empty the widget reference
+     * widget = undefined;
      */
     Widget.prototype.destroy = function () {
 
@@ -197,10 +199,12 @@
          * @example
          * // Subscribe to "destroy" event.
          * widget.on('destroy', function () {
-         *  // Some code here!
+         *     // Some code here!
          * });
          */
         this.emit('destroy');
+
+        return;
     };
 
     ch.Widget = Widget;
