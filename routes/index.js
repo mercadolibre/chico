@@ -3,7 +3,8 @@
  */
 
 var app = module.parent.exports,
-    exec = require('child_process').exec;
+    exec = require('child_process').exec,
+    countries = require("../libs/countries").countries;
 
 /*
  * Middlewares
@@ -38,6 +39,34 @@ app.get('/', function (req, res, next) {
  */
 app.get('/m', function (req, res, next) {
     res.redirect('/mobile');
+});
+
+/*
+ * Country Service
+ */
+app.get('/countries', function (req, res, next) {
+    var result = [],
+        i = countries.length,
+        response,
+        contentType;
+
+    while (i -= 1) {
+        if (!countries[i].toLowerCase().search(req.query.q.toLowerCase())) {
+            result.push(countries[i]);
+        }
+    }
+
+    if (req.query.callback) {
+        result.forEach(function(e,i){ result[i] = '"' + e + '"';});
+        response = req.query.callback + '([' + result.toString() + ']);';
+        contentType = 'application/json';
+    } else {
+        response = result;
+        contentType = 'application/javascript';
+    }
+
+    res.header('Content-Type', contentType);
+    res.send(response);
 });
 
 /*
