@@ -5,7 +5,7 @@
      * Form is a controller of DOM's HTMLFormElement.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @requires ch.Validations
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Form.
      * @param {Object} [options] Options to customize an instance.
@@ -61,10 +61,10 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Form, ch.Widget);
+    var parent = ch.util.inherits(Form, ch.Component);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Form.prototype
      * @type {String}
      * @example
@@ -162,7 +162,7 @@
          * @event ch.Form#beforevalidate
          * @example
          * // Subscribe to "beforevalidate" event.
-         * widget.on('beforevalidate', function () {
+         * component.on('beforevalidate', function () {
          *     // Some code here!
          * });
          */

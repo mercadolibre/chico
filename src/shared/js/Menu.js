@@ -5,7 +5,7 @@
      * Menu lets you organize the links by categories.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @requires ch.Expandable
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
      * @param {Object} [options] Options to customize an instance.
@@ -35,7 +35,7 @@
         that._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Menu#ready
          * @example
          * // Subscribe to "ready" event.
@@ -47,7 +47,7 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Menu, ch.Widget),
+    var parent = ch.util.inherits(Menu, ch.Component),
 
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
@@ -89,7 +89,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Menu.prototype
      * @type {String}
      * @example

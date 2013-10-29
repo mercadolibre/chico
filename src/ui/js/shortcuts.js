@@ -33,8 +33,8 @@
              * @param {Function} callback A given function.
              * @returns {Object} Retuns the ch.shortcuts.
              * @example
-             * // Add a callback to ESC key with "widget" name.
-             * ch.shortcuts.add(ch.onkeyesc, 'widget', widget.hide);
+             * // Add a callback to ESC key with "component" name.
+             * ch.shortcuts.add(ch.onkeyesc, 'component', component.hide);
              */
             'add': function (shortcut, name, callback) {
 
@@ -59,8 +59,8 @@
              * @param {Function} callback A given function.
              * @returns {Object} Retuns the ch.shortcuts.
              * @example
-             * // Remove a callback from ESC key with "widget" name.
-             * ch.shortcuts.remove(ch.onkeyesc, 'widget', widget.hide);
+             * // Remove a callback from ESC key with "component" name.
+             * ch.shortcuts.remove(ch.onkeyesc, 'component', component.hide);
              */
             'remove': function (name, shortcut, callback) {
                 var evt,
@@ -101,8 +101,8 @@
              * @param {String} name A given name from the collection.
              * @returns {Object} Retuns the ch.shortcuts.
              * @example
-             * // Turn on shortcuts associated to "widget" name.
-             * ch.shortcuts.on('widget');
+             * // Turn on shortcuts associated to "component" name.
+             * ch.shortcuts.on('component');
              */
             'on': function (name) {
                 var queueLength = this._queue.length,
@@ -126,8 +126,8 @@
              * @param {String} name A given name from the collection.
              * @returns {Object} Retuns the ch.shortcuts.
              * @example
-             * // Turn off shortcuts associated to "widget" name.
-             * ch.shortcuts.off('widget');
+             * // Turn off shortcuts associated to "component" name.
+             * ch.shortcuts.off('component');
              */
             'off': function (name) {
                 var queueLength = this._queue.length,

@@ -9,12 +9,12 @@
      * @requires ch.OnImagesLoads
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Zoom.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {String} [options.width] Set a width for the container. Default: "300px".
      * @param {String} [options.height] Set a height for the container. Default: "300px".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointerenter".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointerleave".
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "right".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "top".
@@ -51,7 +51,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Zoom#ready
          * @example
          * // Subscribe to "ready" event.
@@ -66,7 +66,7 @@
     var parent = ch.util.inherits(Zoom, ch.Layer);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Zoom.prototype
      * @type {String}
      * @example
@@ -447,7 +447,7 @@
      * @returns {zoom}
      * @example
      * // Load the zoomed image on demand.
-     * widget.loadImage();
+     * component.loadImage();
      */
     Zoom.prototype.loadImage = function () {
 

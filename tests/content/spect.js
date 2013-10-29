@@ -8,7 +8,7 @@ describe('Content', function () {
         expect(typeof ch.Content).toEqual('function');
     });
 
-    it('should be into test widget', function () {
+    it('should be into test component', function () {
         expect(test).toBeDefined();
         expect(test.hasOwnProperty('content')).toBeTruthy();
     });

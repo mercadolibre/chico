@@ -62,7 +62,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Required.prototype
      * @type {String}
      * @example

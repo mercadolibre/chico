@@ -13,7 +13,7 @@
         var that = this;
 
         /**
-         * Is the little sign that popover showing the validation message. It's a Popover widget, so you can change it's content, width or height and change its visibility state.
+         * Is the little sign that popover showing the validation message. It's a Popover component, so you can change it's content, width or height and change its visibility state.
          * @type {Bubble}
          * @see ch.Bubble
          */

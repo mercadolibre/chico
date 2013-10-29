@@ -14,7 +14,7 @@
      * It lets you move across the months of the year and allow to set dates as selected.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Calendar.
      * @param {Object} [options] Options to customize an instance.
      * @param {String} [options.format] Sets the date format. You must use "DD/MM/YYYY", "MM/DD/YYYY" or "YYYY/MM/DD". Default: "DD/MM/YYYY".
@@ -55,7 +55,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Calendar#ready
          * @example
          * // Subscribe to "ready" event.
@@ -190,10 +190,10 @@
         },
 
         // Inheritance
-        parent = ch.util.inherits(Calendar, ch.Widget);
+        parent = ch.util.inherits(Calendar, ch.Component);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Calendar.prototype
      * @type {String}
      * @example

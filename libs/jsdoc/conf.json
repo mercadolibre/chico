@@ -8,7 +8,7 @@
 		"../../src/ui/js/ch.support.js",
 		"../../src/ui/js/ch.keyboard.js",
 		"../../src/shared/js/ch.factory.js",
-		"../../src/shared/js/ch.Widget.js",
+		"../../src/shared/js/ch.Component.js",
 		"../../src/shared/js/ch.exports.js",
 		"../../src/ui/js/ch.init.js"
 	],
@@ -20,7 +20,7 @@
 		"../../src/shared/js/ch.events.js",
 		"../../src/mobile/js/ch.events.js",
 		"../../src/shared/js/ch.factory.js",
-		"../../src/shared/js/ch.Widget.js",
+		"../../src/shared/js/ch.Component.js",
 		"../../src/shared/js/ch.exports.js",
 		"../../src/mobile/js/ch.init.js"
 	],

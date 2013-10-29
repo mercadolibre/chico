@@ -7,7 +7,7 @@
      * @constructor
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Carousel.
      * @param {Object} [options] Options to customize an instance.
-     * @param {Number} [options.async] Defines the number of future asynchronous items to add to the widget. Default: 0.
+     * @param {Number} [options.async] Defines the number of future asynchronous items to add to the component. Default: 0.
      * @param {Boolean} [options.arrows] Defines if the arrow-buttons must be created or not at initialization. Default: true.
      * @param {Boolean} [options.pagination] Defines if a pagination must be created or not at initialization. Default: false.
      * @param {Boolean} [options.fx] Enable or disable the slide effect. Default: true.
@@ -46,7 +46,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Carousel#ready
          * @example
          * // Subscribe to "ready" event.
@@ -61,10 +61,10 @@
         Math = window.Math,
         setTimeout = window.setTimeout,
         // Inheritance
-        parent = ch.util.inherits(Carousel, ch.Widget);
+        parent = ch.util.inherits(Carousel, ch.Component);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Carousel.prototype
      * @type {String}
      * @example
@@ -120,7 +120,7 @@
         this._snippet = this._el.cloneNode(true);
 
         /**
-         * Element that moves (slides) across the widget (inside the mask).
+         * Element that moves (slides) across the component (inside the mask).
          * @private
          * @type {(jQuerySelector | ZeptoSelector)}
          */
@@ -294,7 +294,7 @@
      */
     Carousel.prototype._updateARIA = function () {
         /**
-         * Reference to an internal widget instance, saves all the information and configuration properties.
+         * Reference to an internal component instance, saves all the information and configuration properties.
          * @type {Object}
          * @private
          */
@@ -375,7 +375,7 @@
         this._async -= amount;
 
         /**
-         * Event emitted when the widget creates new asynchronous empty items.
+         * Event emitted when the component creates new asynchronous empty items.
          * @event ch.Carousel#itemsadd
          * @example
          * // Create a new Carousel with items asynchronously loaded.
@@ -392,7 +392,7 @@
     };
 
     /**
-     * Creates the pagination of the widget.
+     * Creates the pagination of the component.
      * @memberof! ch.Carousel.prototype
      * @private
      * @function
@@ -442,7 +442,7 @@
     };
 
     /**
-     * Deletes the pagination from the widget.
+     * Deletes the pagination from the component.
      * @memberof! ch.Carousel.prototype
      * @private
      * @function
@@ -606,7 +606,7 @@
     };
 
     /**
-     * Adds arrows to the widget.
+     * Adds arrows to the component.
      * @memberof! ch.Carousel.prototype
      * @private
      * @function
@@ -725,7 +725,7 @@
             this._updateDistribution();
 
             /**
-             * Event emitted when the widget makes all the necessary recalculations to be up-to-date.
+             * Event emitted when the component makes all the necessary recalculations to be up-to-date.
              * @event ch.Carousel#refresh
              * @example
              * // Subscribe to "refresh" event.
@@ -751,7 +751,7 @@
             }
 
             /**
-             * Event emitted when the widget makes all the necessary recalculations to be up-to-date.
+             * Event emitted when the component makes all the necessary recalculations to be up-to-date.
              * @event ch.Carousel#refresh
              * @ignore
              */
@@ -794,7 +794,7 @@
         this._loadAsyncItems();
 
         /**
-         * Event emitted when the widget moves to another page.
+         * Event emitted when the component moves to another page.
          * @event ch.Carousel#select
          * @example
          * // Subscribe to "select" event.
@@ -818,7 +818,7 @@
         this.select(this._currentPage - 1);
 
         /**
-         * Event emitted when the widget moves to the previous page.
+         * Event emitted when the component moves to the previous page.
          * @event ch.Carousel#prev
          * @example
          * carousel.on('prev', function () {
@@ -841,7 +841,7 @@
         this.select(this._currentPage + 1);
 
         /**
-         * Event emitted when the widget moves to the next page.
+         * Event emitted when the component moves to the next page.
          * @event ch.Carousel#next
          * @example
          * carousel.on('next', function () {

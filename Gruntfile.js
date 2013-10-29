@@ -47,7 +47,7 @@ module.exports = function (grunt) {
             },
 
             'js': {
-                'src': ['temp/' + environment + '/core.tmp.js'].concat(files.JS.abilities).concat(files.JS.widgets),
+                'src': ['temp/' + environment + '/core.tmp.js'].concat(files.JS.abilities).concat(files.JS.components),
                 'dest': destination + '/' + environment + '/chico.js'
             },
 
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
                 'options': {
                     'banner': '<%= banner.full %>'
                 },
-                'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.widgets),
+                'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.components),
                 'dest': destination + '/' + environment + '/chico.css'
             }
         },
@@ -87,7 +87,7 @@ module.exports = function (grunt) {
         'clean': ["temp/**/*.tmp.js"],
 
         'jslint': { // configure the task
-            'files': files.JS.abilities.concat(files.JS.widgets),
+            'files': files.JS.abilities.concat(files.JS.components),
             'directives': {
                 'nomen': true,
                 'todo': true
@@ -101,7 +101,7 @@ module.exports = function (grunt) {
 
         'jsdoc': {
             'dist': {
-                'src': files.JS.core.concat(files.JS.abilities).concat(files.JS.widgets),
+                'src': files.JS.core.concat(files.JS.abilities).concat(files.JS.components),
                 'options': {
                     'template': './libs/doc-template',
                     'destination': './doc/' + environment,

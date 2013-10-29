@@ -133,7 +133,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Condition.prototype
      * @type {String}
      * @example

@@ -8,12 +8,12 @@
      * @augments ch.Layer
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Dropdown.
      * @param {Object} [options] Options to customize an instance.
-     * @param {String} [options.addClass] CSS class names that will be added to the container on the widget initialization.
+     * @param {String} [options.addClass] CSS class names that will be added to the container on the component initialization.
      * @param {String} [options.fx] Enable or disable UI effects. You must use: "slideDown", "fadeIn" or "none". Default: "none".
      * @param {String} [options.width] Set a width for the container. Default: "auto".
      * @param {String} [options.height] Set a height for the container. Default: "auto".
      * @param {String} [options.shownby] Determines how to interact with the trigger to show the container. You must use: "pointertap", "pointerenter" or "none". Default: "pointertap".
-     * @param {String} [options.hiddenby] Determines how to hide the widget. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
+     * @param {String} [options.hiddenby] Determines how to hide the component. You must use: "button", "pointers", "pointerleave", "all" or "none". Default: "pointers".
      * @param {(jQuerySelector | ZeptoSelector)} [options.reference] It's a reference to position and size of element that will be considered to carry out the position. Default: the trigger element.
      * @param {String} [options.side] The side option where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "bottom".
      * @param {String} [options.align] The align options where the target element will be positioned. Its value can be: "left", "right", "top", "bottom" or "center". Default: "left".
@@ -52,7 +52,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Dropdown#ready
          * @example
          * // Subscribe to "ready" event.
@@ -69,7 +69,7 @@
         parent = ch.util.inherits(Dropdown, ch.Layer);
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Dropdown.prototype
      * @type {String}
      * @example
@@ -142,7 +142,7 @@
         }
 
         /**
-         * A list of links with the navigation options of the widget.
+         * A list of links with the navigation options of the component.
          * @type {(jQuerySelector | ZeptoSelector)}
          * @private
          */

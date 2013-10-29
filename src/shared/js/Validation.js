@@ -5,7 +5,7 @@
      * Validation is an engine to validate HTML forms elements.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @requires ch.Condition
      * @requires ch.Form
      * @requires ch.Bubble
@@ -59,7 +59,7 @@
         this._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Validation#ready
          * @example
          * // Subscribe to "ready" event.
@@ -71,7 +71,7 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Validation, ch.Widget),
+    var parent = ch.util.inherits(Validation, ch.Component),
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
         len = methods.length;
@@ -102,7 +102,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.Validation.prototype
      * @type {String}
      * @example

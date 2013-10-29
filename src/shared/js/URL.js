@@ -76,7 +76,7 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
      * @memberof! ch.URL.prototype
      * @type {String}
      * @example
