@@ -22,8 +22,23 @@
      * @param {String} [options.positioned] The positioned option specifies the type of positioning used. You must use: "absolute" or "fixed". Default: "absolute".
      * @returns {autocomplete}
      * @example
+     * // Create a new AutoComplete.
+     * var autocomplete = new AutoComplete($el, [options]);
+     * @example
      * // Create a new AutoComplete with configuration.
-     * var autocomplete = $el.autocomplete();
+     * var autocomplete = new AutoComplete($el, {
+     *  'loadingClass': 'custom-loading',
+     *  'highlightedClass': 'custom-highlighted',
+     *  'itemClass': 'custom-item',
+     *  'addClass': 'carousel-cities',
+     *  'keystrokesTime': 600,
+     *  'html': true,
+     *  'side': 'center',
+     *  'align': 'center',
+     *  'offsetX': 0,
+     *  'offsetY': 0,
+     *  'positioned': 'fixed'
+     * });
      */
     function Autocomplete($el, options) {
 
@@ -133,8 +148,8 @@
          * The autocomplete container.
          * @type {(jQuerySelector | ZeptoSelector)}
          * @example
-         * // Gets the autocomplete container.
-         * autocomplete.$container;
+         * // Gets the autocomplete container to append or prepend content.
+         * autocomplete.$container.append('&lt;button&gt;Hide Suggestions&lt;/button&gt;');
          */
         this.$container = this._popover.$container.attr('aria-hidden', 'true')
             .on(highlightEvent, function (event) {
@@ -197,7 +212,7 @@
     };
 
     /**
-     *
+     * Turns on the ability off listen the keystrokes
      * @memberof! ch.Autocomplete.prototype
      * @function
      * @private
@@ -227,6 +242,34 @@
 
             that._stopTyping = window.setTimeout(function () {
                 that.$trigger.addClass(that._options.loadingClass);
+                /**
+                 * Event emitted when the user is typing.
+                 * @event ch.Autocomplete#type
+                 * @example
+                 * // Subscribe to "type" event with ajax call
+                 * autocomplete.on('type', function (userInput) {
+                 *      $.ajax({
+                 *          'url': '/countries?q=' + userInput,
+                 *          'dataType': 'json',
+                 *          'success': function (response) {
+                 *              autocomplete.suggest(response);
+                 *          }
+                 *      });
+                 * });
+                 * @example
+                 * // Subscribe to "type" event with jsonp
+                 * autocomplete.on('type', function (userInput) {
+                 *       $.ajax({
+                 *           'url': '/countries?q='+ userInput +'&callback=parseResults',
+                 *           'dataType': 'jsonp',
+                 *           'cache': false,
+                 *           'global': true,
+                 *           'context': window,
+                 *           'jsonp': 'parseResults',
+                 *           'crossDomain': true
+                 *       });
+                 * });
+                 */
                 that.emit('type', that._currentQuery);
             }, that._options.keystrokesTime);
 
@@ -237,7 +280,7 @@
     };
 
     /**
-     *
+     * Turns off the ability off listen the keystrokes
      * @memberof! ch.Autocomplete.prototype
      * @function
      * @private
@@ -336,6 +379,16 @@
      * @memberof! ch.Autocomplete.prototype
      * @function
      * @returns {autocomplete}
+     * @example
+     * // The suggest method needs an Array of strings to work with default configuration
+     * autocomplete.suggest(['Aruba','Armenia','Argentina']);
+     * @example
+     * // To work with html configuration, it needs an Array of strings. Each string must to be as you wish you watch it
+     * autocomplete.suggest([
+     *  '<strong>Ar</strong>uba <i class="flag-aruba"></i>',
+     *  '<strong>Ar</strong>menia <i class="flag-armenia"></i>',
+     *  '<strong>Ar</strong>gentina <i class="flag-argentina"></i>'
+     * ]);
      */
     Autocomplete.prototype.suggest = function (suggestions) {
 
@@ -420,7 +473,7 @@
      * @function
      * @returns {autocomplete}
      * @example
-     * // Hides an autocomplete.
+     * // Hides the autocomplete.
      * autocomplete.hide();
      */
     Autocomplete.prototype.hide = function () {
