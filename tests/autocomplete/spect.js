@@ -15,8 +15,8 @@ var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-f
     },
     suggestions = ['Aruba', 'Armenia', 'Argentina'],
     suggestionsHTML = ['<span class="HTMLAdded">Argentina</span>', '<span class="HTMLAdded">Armenia</span>', '<span class="HTMLAdded">Aruba</span>'],
-    autoComplete = getSnippet('#autoComplete').autoComplete({'fx': 'none'}),
-    autoCompleteHTML = getSnippet('#autoComplete').autoComplete({'html': true}),
+    autoComplete = getSnippet('#autoComplete').autocomplete({'fx': 'none'}),
+    autoCompleteHTML = getSnippet('#autoComplete').autocomplete({'html': true}),
     readyEvent = jasmine.createSpy('readyEvent'),
     hideEvent = jasmine.createSpy('hideEvent'),
     typingEvent = jasmine.createSpy('typingEvent');
@@ -36,20 +36,20 @@ var template = '<form id="form{ID}" action="./" class="ch-form"><div class="ch-f
         ._el.value = 'ar';
 
 
-describe('ch.AutoComplete', function () {
+describe('ch.Autocomplete', function () {
 
     it('should be defined in ch object', function () {
-        expect(ch.hasOwnProperty('AutoComplete')).toBeTruthy();
-        expect(typeof ch.AutoComplete).toEqual('function');
+        expect(ch.hasOwnProperty('Autocomplete')).toBeTruthy();
+        expect(typeof ch.Autocomplete).toEqual('function');
     });
 
     it('should be defined in $ object', function () {
-        expect($.fn.hasOwnProperty('autoComplete')).toBeTruthy();
-        expect(typeof ch.AutoComplete).toEqual('function');
+        expect($.fn.hasOwnProperty('autocomplete')).toBeTruthy();
+        expect(typeof ch.Autocomplete).toEqual('function');
     });
 
     it('should be return a new instance', function () {
-        expect(autoComplete instanceof ch.AutoComplete).toBeTruthy();
+        expect(autoComplete instanceof ch.Autocomplete).toBeTruthy();
     });
 
     it('should emit the "ready" event when it\'s created', function () {
@@ -89,7 +89,7 @@ describe('It should have the following public properties:', function () {
     it('.name', function () {
         expect(autoComplete.name).not.toEqual(undefined);
         expect(typeof autoComplete.name).toEqual('string');
-        expect(autoComplete.name).toEqual('autoComplete');
+        expect(autoComplete.name).toEqual('autocomplete');
     });
 
     it('.constructor', function () {
@@ -146,8 +146,8 @@ describe('It should have a "$container" property and', function () {
         expect($container instanceof $).toBeTruthy();
     });
 
-    it('should have the ".ch-autoComplete" class name ', function () {
-        expect($container.hasClass('ch-autoComplete')).toBeTruthy();
+    it('should have the ".ch-autocomplete" class name ', function () {
+        expect($container.hasClass('ch-autocomplete')).toBeTruthy();
     });
 
     it('should be hidden', function () {
@@ -194,7 +194,7 @@ describe('Its suggest() method', function () {
         });
 
         it('should show the same number of items as suggestions array have', function () {
-            itemsHighilighted = autoComplete.$container.find('.ch-autoComplete-item').length;
+            itemsHighilighted = autoComplete.$container.find('.ch-autocomplete-item').length;
             expect(suggestions.length).toEqual(3);
         });
 
@@ -298,7 +298,7 @@ describe('Instance an AutoComplete configured to show HTML', function () {
         // this wait is for the focu
         waits(300);
         runs(function () {
-            var itemAdded = autoCompleteHTML.$container[0].querySelector('.ch-autoComplete-item .HTMLAdded');
+            var itemAdded = autoCompleteHTML.$container[0].querySelector('.ch-autocomplete-item .HTMLAdded');
             expect(itemAdded.nodeType).toEqual(1);
         });
 
