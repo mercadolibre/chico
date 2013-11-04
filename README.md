@@ -42,7 +42,7 @@ Please read through our code style guides:
 
 ## API Doc
 
-You can read our [API Doc](http://chico.mercadolibre.com).
+You can read our [API Doc](http://chico.mercadolibre.com/api) (coming soon).
 
 The API doc may also be run locally by running:
 
@@ -57,7 +57,7 @@ Navigate `./doc` directory and enjoy!
 
 ## Get in touch
 
-- E-mail: [chico at mecadolibre](mailto:chico@mercadolibre.com)
+- E-mail: [chico at mercadolibre dot com](mailto:chico@mercadolibre.com)
 - Twitter: [@chicoui](https://twitter.com/chicoui)
 - Web: http://chico-ui.com.ar/
 
@@ -69,8 +69,8 @@ Navigate `./doc` directory and enjoy!
 
 ## Thanks to
 
-- Natan Santolo. Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
-- Nati Devalle (UX designer), [@taly](https://twitter.com/taly)
+- Natan Santolo ([@natos](https://twitter.com/natos)). Creator and former leader, now traveling around the world, drinking beer and looking for the secret of eternal life.
+- Nati Devalle ([@taly](https://twitter.com/taly)). Because we love her. She is awesome!
 
 ## Credits
 
