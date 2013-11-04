@@ -2,10 +2,58 @@
 
 Chico UI is a free and open source collection of easy-to-use web components for designers and developers.
 
-## Features
+## Features
 
 - UI Components
 - Grids
+
+## Development setup
+1. Install [Git](http://git-scm.com/) and [NodeJS](http://nodejs.org/).
+2. Open your terminal and clone `mercadolibre/chico` by running:
+
+        $ git clone git@github.com:mercadolibre/chico.git
+
+3. Now go to the project's folder:
+
+        $ cd chico
+
+4. Install its dependencies:
+
+        $ npm install
+
+5. Install `grunt-cli`:
+
+        $ npm install grunt-cli -g
+
+6. Run a local web server:
+
+        $ npm start
+
+    Navigate [http://localhost:3040](http://localhost:3040/) and [http://localhost:3040/mobile](http://localhost:3040/mobile).
+
+7. Develop! :)
+
+**NOTE**
+
+Please read through our code style guides:
+- [HTML](https://github.com/mercadolibre/html-style-guide)
+- [CSS](https://github.com/mercadolibre/css-style-guide)
+- [JavaScript](https://github.com/mercadolibre/javascript-style-guide)
+
+## API Doc
+
+You can read our [API Doc](http://chico.mercadolibre.com).
+
+The API doc may also be run locally by running:
+
+    grunt doc -env=ui
+    grunt doc -env=mobile
+
+Navigate `./doc` directory and enjoy!
+
+## Tests
+
+[TODO]
 
 ## Get in touch
 
@@ -13,11 +61,11 @@ Chico UI is a free and open source collection of easy-to-use web components for 
 - Twitter: [@chicoui](https://twitter.com/chicoui)
 - Web: http://chico-ui.com.ar/
 
-## The team
+## Maintained by
 
-- Her Mammana (Frontender), [@hmammana](https://twitter.com/hmammana)
-- Lean Linares (Frontender), [@lean8086](https://twitter.com/lean8086)
-- Guille Paz (Frontender), [@pazguille](https://twitter.com/pazguille)
+- Her Mammana ([@hmammana](https://twitter.com/hmammana))
+- Lean Linares ([@lean8086](https://twitter.com/lean8086))
+- Guille Paz ([@pazguille](https://twitter.com/pazguille))
 
 ## Thanks to
 
@@ -30,4 +78,5 @@ Chico UI is a free and open source collection of easy-to-use web components for 
 
 ## License
 Licensed under the MIT license.
-Copyright (c) 2013 MercadoLibre, http://www.mercadolibre.com/
+
+Copyright (c) 2013 [MercadoLibre](http://github.com/mercadolibre).
