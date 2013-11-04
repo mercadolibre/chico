@@ -4,8 +4,16 @@ module.exports = function (grunt) {
     var environment = grunt.option('env') || 'ui',
         destination = grunt.option('dest') || 'dist',
         lib = {
-            'mobile': 'Zepto',
-            'ui': 'jQuery'
+            'mobile': {
+                'name': 'Zepto',
+                'prod': 'zepto-data-fx_methods.js',
+                'dev': 'zepto-data-fx_methods.dev.js'
+            },
+            'ui': {
+                'name': 'jQuery',
+                'prod': 'jquery.js',
+                'dev': 'jquery.dev.js'
+            }
         },
         files = require('./libs/files/' + environment);
 
@@ -40,7 +48,7 @@ module.exports = function (grunt) {
             'core': {
                 'options': {
                     'banner': '<%= banner.full %>' + "\n\n(function (window, $) {\n\t'use strict';\n\n",
-                    'footer': '\n\twindow.ch = ch;\n}(this, ' + lib[environment] + '));'
+                    'footer': '\n\twindow.ch = ch;\n}(this, ' + lib[environment].name + '));'
                 },
                 'src': files.JS.core,
                 'dest': 'temp/' + environment + '/core.tmp.js'
@@ -60,13 +68,13 @@ module.exports = function (grunt) {
             },
 
             '$': {
-                'src': ['vendor/' + lib[environment].toLowerCase() + '.js'].concat(['<%= concat.js.dest %>']),
-                'dest': destination + '/' + environment + '/chico-' + lib[environment].toLowerCase() + '.js'
+                'src': ['vendor/' + lib[environment].dev].concat(['<%= concat.js.dest %>']),
+                'dest': destination + '/' + environment + '/chico-' + lib[environment].name.toLowerCase() + '.js'
             },
 
             '$min': {
-                'src': ['vendor/' + lib[environment].toLowerCase() + '.js'].concat(['<%= uglify.min.dest %>']),
-                'dest': destination + '/' + environment + '/chico-' + lib[environment].toLowerCase() + '.min.js'
+                'src': ['vendor/' + lib[environment].prod].concat(['<%= uglify.min.dest %>']),
+                'dest': destination + '/' + environment + '/chico-' + lib[environment].name.toLowerCase() + '.min.js'
             },
 
             'mesh': {
