@@ -512,22 +512,22 @@ exports.publish = function(taffyData, opts, tutorials) {
 
             var myModules = helper.find(modules, {longname: longname});
             if (myModules.length) {
-                generate('<small>Module</small> ' + myModules[0].name, myModules, helper.longnameToUrl[longname]);
+                generate(myModules[0].name + ' (Module)', myModules, helper.longnameToUrl[longname]);
             }
 
             var myNamespaces = helper.find(namespaces, {longname: longname});
             if (myNamespaces.length) {
-                generate('<small>Namespace</small> ' + myNamespaces[0].name, myNamespaces, helper.longnameToUrl[longname]);
+                generate(myNamespaces[0].name + ' (Namespace)', myNamespaces, helper.longnameToUrl[longname]);
             }
 
             var myMixins = helper.find(mixins, {longname: longname});
             if (myMixins.length) {
-                generate('<small>Mixins</small> ' + myMixins[0].name, myMixins, helper.longnameToUrl[longname]);
+                generate(myMixins[0].name + ' (Mixins)', myMixins, helper.longnameToUrl[longname]);
             }
 
             var myExternals = helper.find(externals, {longname: longname});
             if (myExternals.length) {
-                generate('<small>External</small> ' + myExternals[0].name, myExternals, helper.longnameToUrl[longname]);
+                generate(myExternals[0].name + ' (External)', myExternals, helper.longnameToUrl[longname]);
             }
         }
     }
