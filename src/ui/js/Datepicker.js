@@ -522,12 +522,12 @@
      */
     Datepicker.prototype.destroy = function () {
 
-        this._popover.destroy();
-
         this.$trigger.remove();
 
         this._el.removeAttribute('aria-describedby');
         this._el.type = 'date';
+
+        this._popover.destroy();
 
         parent.destroy.call(this);
     };
