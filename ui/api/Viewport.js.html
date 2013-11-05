@@ -43,15 +43,9 @@
                 };
         }());
 
-    $window
-        .on(ch.onresize + '.viewport', function () { resized = true; })
-        .on(ch.onscroll + '.viewport', function () { scrolled = true; });
-
     function update() {
-        // No changing, exit
-        if (!resized && !scrolled) { return; }
 
-        var eve = resized ? ch.onresize : ch.onscroll;
+        var eve = (resized ? ch.onresize : ch.onscroll);
 
         // Refresh viewport
         this.refresh();
@@ -65,7 +59,7 @@
          * @event ch.viewport#resize
          * @example
          * ch.viewport.on('resize', function () {
-         *  // Some code here!
+         *     // Some code here!
          * });
          */
 
@@ -74,7 +68,7 @@
          * @event ch.viewport#scroll
          * @example
          * ch.viewport.on('scroll', function () {
-         *  // Some code here!
+         *     // Some code here!
          * });
          */
 
@@ -97,11 +91,11 @@
     ch.util.inherits(Viewport, ch.EventEmitter);
 
     /**
-     * Initialize a new instance of ch.Viewport.
+     * Initialize a new instance of Viewport.
      * @memberof! ch.Viewport.prototype
      * @function
      * @private
-     * @returns {viewport} Returns an instance of Viewport.
+     * @returns {viewport}
      */
     Viewport.prototype._init = function () {
 
@@ -117,21 +111,44 @@
          * @memberof! ch.viewport#element
          * @type {(jQuerySelector | ZeptoSelector)}
          */
-        that.$el = $window;
+        this.$el = $window;
 
-        that.refresh();
+        this.refresh();
 
-        (function updateFrame() {
-            requestAnimFrame(updateFrame);
-            update.call(that);
-        }());
+        $window
+            .on(ch.onresize + '.viewport', function () {
+                // No changing, exit
+                if (!resized) {
+                    resized = true;
+
+                    /**
+                     * requestAnimationFrame
+                     */
+                    requestAnimFrame(function updateResize() {
+                        update.call(that);
+                    });
+                }
+            })
+            .on(ch.onscroll + '.viewport', function () {
+                // No changing, exit
+                if (!scrolled) {
+                    scrolled = true;
+
+                    /**
+                     * requestAnimationFrame
+                     */
+                    requestAnimFrame(function updateScroll() {
+                        update.call(that);
+                    });
+                }
+            });
     };
 
     /**
      * Calculates/updates the client rects of viewport (in pixels).
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {viewport} Returns the instance of the viewport.
+     * @returns {viewport}
      * @example
      * // Update the client rects of the viewport.
      * ch.viewport.calculateClientRect();
@@ -187,7 +204,7 @@
      * Calculates/updates the dimensions (width and height) of the viewport (in pixels).
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {viewport} Returns the instance of the viewport.
+     * @returns {viewport}
      * @example
      * // Update the dimensions values of the viewport.
      * ch.viewport.calculateDimensions();
@@ -224,7 +241,7 @@
      * Calculates/updates the viewport position.
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {viewport} Returns the instance of the viewport.
+     * @returns {viewport}
      * @example
      * // Update the offest values of the viewport.
      * ch.viewport.calculateOffset();
@@ -285,7 +302,7 @@
      * Rertuns/updates the viewport orientation: landscape or portrait.
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {viewport} Returns the instance of the viewport.
+     * @returns {viewport}
      * @example
      * // Update the dimensions values of the viewport.
      * ch.viewport.calculateDimensions();
@@ -339,7 +356,7 @@
      * Upadtes the viewport dimension, viewport positions and orietation.
      * @memberof! ch.Viewport.prototype
      * @function
-     * @returns {viewport} Returns the instance of the viewport.
+     * @returns {viewport}
      * @example
      * // Refreshs the viewport.
      * ch.viewport.refresh();
@@ -367,7 +384,7 @@
 
             <aside class="ch-g1-4">
                 <nav class="ch-rightcolumn">
-                    <h2>Widgets</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Widget.html">Widget</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
                 </nav>
             </aside>
 
@@ -375,7 +392,7 @@
 
         <footer>
             <p class="updated">
-                Documentation updated on Fri Oct 25 2013 12:58:46 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+                Documentation updated on Tue Nov 05 2013 14:29:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
             </p>
         </footer>
 

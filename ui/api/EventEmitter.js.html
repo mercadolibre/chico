@@ -41,7 +41,7 @@
      * var emitter = new ch.EventEmitter();
      * @example
      * // Inheriting from EventEmitter.
-     * ch.util.inherits(Widget, ch.EventEmitter);
+     * ch.util.inherits(Component, ch.EventEmitter);
      */
     function EventEmitter() {}
 
@@ -52,9 +52,10 @@
      * @param {String} event The event name to subscribe.
      * @param {Function} listener Listener function.
      * @param {Boolean} once Indicate if a listener function will be called only one time.
+     * @returns {component}
      * @example
      * // Will add an event listener to 'ready' event.
-     * widget.on('ready', listener);
+     * component.on('ready', listener);
      */
     EventEmitter.prototype.on = function (event, listener, once) {
 
@@ -85,10 +86,10 @@
      * @function
      * @param {String} event Event name.
      * @param {Function} listener Listener function.
-     * @returns {Object}
+     * @returns {component}
      * @example
      * // Will add an event handler to 'contentLoad' event once.
-     * widget.once('contentLoad', listener);
+     * component.once('contentLoad', listener);
      */
     EventEmitter.prototype.once = function (event, listener) {
 
@@ -103,10 +104,10 @@
      * @function
      * @param {String} event Event name.
      * @param {Function} listener Listener function.
-     * @returns {Object}
+     * @returns {component}
      * @example
      * // Will remove event listener to 'ready' event.
-     * widget.off('ready', listener);
+     * component.off('ready', listener);
      */
     EventEmitter.prototype.off = function (event, listener) {
 
@@ -143,7 +144,7 @@
      * @returns {Array}
      * @example
      * // Returns listeners from 'ready' event.
-     * widget.getListeners('ready');
+     * component.getListeners('ready');
      */
     EventEmitter.prototype.getListeners = function (event) {
         if (event === undefined) {
@@ -159,9 +160,10 @@
      * @function
      * @param {String} event The name of the event you want to emit.
      * @param {...Object} var_args Data to pass to the listeners.
+     * @returns {component}
      * @example
      * // Will emit the 'ready' event with 'param1' and 'param2' as arguments.
-     * widget.emit('ready', 'param1', 'param2');
+     * component.emit('ready', 'param1', 'param2');
      */
     EventEmitter.prototype.emit = function () {
 
@@ -216,7 +218,7 @@
 
             <aside class="ch-g1-4">
                 <nav class="ch-rightcolumn">
-                    <h2>Widgets</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Widget.html">Widget</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
                 </nav>
             </aside>
 
@@ -224,7 +226,7 @@
 
         <footer>
             <p class="updated">
-                Documentation updated on Fri Oct 25 2013 12:58:46 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+                Documentation updated on Tue Nov 05 2013 14:29:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
             </p>
         </footer>
 

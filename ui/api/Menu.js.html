@@ -35,7 +35,7 @@
      * Menu lets you organize the links by categories.
      * @memberof ch
      * @constructor
-     * @augments ch.Widget
+     * @augments ch.Component
      * @requires ch.Expandable
      * @param {(jQuerySelector | ZeptoSelector)} $el A jQuery or Zepto Selector to create an instance of ch.Menu.
      * @param {Object} [options] Options to customize an instance.
@@ -65,7 +65,7 @@
         that._init($el, options);
 
         /**
-         * Event emitted when the widget is ready to use.
+         * Event emitted when the component is ready to use.
          * @event ch.Menu#ready
          * @example
          * // Subscribe to "ready" event.
@@ -77,7 +77,7 @@
     }
 
     // Inheritance
-    var parent = ch.util.inherits(Menu, ch.Widget),
+    var parent = ch.util.inherits(Menu, ch.Component),
 
         // Creates methods enable and disable into the prototype.
         methods = ['enable', 'disable'],
@@ -119,8 +119,12 @@
     }
 
     /**
-     * The name of the widget.
+     * The name of the component.
+     * @memberof! ch.Menu.prototype
      * @type {String}
+     * @example
+     * // You can reach the associated instance.
+     * var menu = $(selector).data('menu');
      */
     Menu.prototype.name = 'menu';
 
@@ -221,7 +225,7 @@
                          * @example
                          * // Subscribe to "show" event.
                          * menu.on('show', function (shown) {
-                         *  // Some code here!
+                         *     // Some code here!
                          * });
                          */
                         that.emit('show', i + 1);
@@ -233,7 +237,7 @@
                          * @example
                          * // Subscribe to "hide" event.
                          * menu.on('hide', function () {
-                         *  // Some code here!
+                         *     // Some code here!
                          * });
                          */
                         that.emit('hide');
@@ -241,7 +245,8 @@
 
                 $child.next()
                     .attr('role', 'menu')
-                    .children().attr('role', 'presentation')
+                    .children()
+                        .attr('role', 'presentation')
                         .children()
                             .attr('role', 'menuitem');
 
@@ -250,9 +255,9 @@
             }
         }
 
-        $.each(that.$container.children(), createExpandable);
+        $.each(this.$container.children(), createExpandable);
 
-        return that;
+        return this;
     };
 
     /**
@@ -294,10 +299,10 @@
      * @param {Number} fold A given fold to change its content.
      * @param {(String | jQuerySelector | ZeptoSelector)} content The content that will be used by a fold.
      * @param {Object} [options] A custom options to be used with content loaded by ajax.
-     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. By default is "GET".
+     * @param {String} [options.method] The type of request ("POST" or "GET") to load content by ajax. Default: "GET".
      * @param {String} [options.params] Params like query string to be sent to the server.
-     * @param {Boolean} [options.cache] Force to cache the request by the browser. By default is true.
-     * @param {Boolean} [options.async]  Force to sent request asynchronously. By default is true.
+     * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
+     * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
      * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading.
      * @example
      * // Updates the content of the second fold with some string.
@@ -317,35 +322,6 @@
         return this;
     };
 
-    /**
-     * Enables an instance of Menu or a specific fold.
-     * @memberof! ch.Menu.prototype
-     * @name enable
-     * @function
-     * @param {Number} [fold] - A given number of fold to enable.
-     * @returns {menu} Returns an instance of Menu.
-     * @example
-     * // Enabling an instance of Menu.
-     * menu.enable();
-     * @example
-     * // Enabling the second fold of a menu.
-     * menu.enable(2);
-     */
-
-    /**
-     * Disables an instance of Menu or a specific fold.
-     * @memberof! ch.Menu.prototype
-     * @name disable
-     * @function
-     * @param {Number} [fold] - A given number of fold to disable.
-     * @returns {menu} Returns an instance of Menu.
-     * @example
-     * // Disabling an instance of Menu.
-     * menu.disable();
-     * @example
-     * // Disabling the second fold.
-     * menu.disable(2);
-     */
     while (len) {
         createMethods(methods[len -= 1]);
     }
@@ -355,8 +331,10 @@
      * @memberof! ch.Menu.prototype
      * @function
      * @example
-     * // Destroying an instance of Menu.
+     * // Destroy a menu
      * menu.destroy();
+     * // Empty the menu reference
+     * menu = undefined;
      */
     Menu.prototype.destroy = function () {
 
@@ -371,9 +349,10 @@
         $(window.document).trigger(ch.onlayoutchange);
 
         parent.destroy.call(this);
+
+        return;
     };
 
-    // Factorize
     ch.factory(Menu);
 
 }(this, this.ch.$, this.ch));
@@ -389,7 +368,7 @@
 
             <aside class="ch-g1-4">
                 <nav class="ch-rightcolumn">
-                    <h2>Widgets</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Widget.html">Widget</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
                 </nav>
             </aside>
 
@@ -397,7 +376,7 @@
 
         <footer>
             <p class="updated">
-                Documentation updated on Fri Oct 25 2013 12:58:46 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+                Documentation updated on Tue Nov 05 2013 14:29:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
             </p>
         </footer>
 

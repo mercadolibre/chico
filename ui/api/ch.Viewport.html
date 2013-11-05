@@ -195,7 +195,7 @@
 
 
 
-<h4><code class=" language-markup">.emit<span class="signature">(event, var_args)</span><span class="type-signature"></span></code></h4>
+<h4><code class=" language-markup">.emit<span class="signature">(event, var_args)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
 <pre></pre>
 
     <p>Execute each item in the listener collection in order with the specified data.</p>
@@ -238,7 +238,7 @@
 
     
     <pre><code class="language-javascript">// Will emit the 'ready' event with 'param1' and 'param2' as arguments.
-widget.emit('ready', 'param1', 'param2');</code></pre>
+component.emit('ready', 'param1', 'param2');</code></pre>
 
 
 
@@ -277,7 +277,7 @@ widget.emit('ready', 'param1', 'param2');</code></pre>
 
     
     <pre><code class="language-javascript">// Returns listeners from 'ready' event.
-widget.getListeners('ready');</code></pre>
+component.getListeners('ready');</code></pre>
 
 
 
@@ -286,7 +286,7 @@ widget.getListeners('ready');</code></pre>
 
 
 
-<h4><code class=" language-markup">.off<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<h4><code class=" language-markup">.off<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
 <pre></pre>
 
     <p>Removes a listener from the collection for a specified event.</p>
@@ -329,7 +329,7 @@ widget.getListeners('ready');</code></pre>
 
     
     <pre><code class="language-javascript">// Will remove event listener to 'ready' event.
-widget.off('ready', listener);</code></pre>
+component.off('ready', listener);</code></pre>
 
 
 
@@ -338,7 +338,7 @@ widget.off('ready', listener);</code></pre>
 
 
 
-<h4><code class=" language-markup">.on<span class="signature">(event, listener, once)</span><span class="type-signature"></span></code></h4>
+<h4><code class=" language-markup">.on<span class="signature">(event, listener, once)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
 <pre></pre>
 
     <p>Adds a listener to the collection for a specified event.</p>
@@ -394,7 +394,7 @@ widget.off('ready', listener);</code></pre>
 
     
     <pre><code class="language-javascript">// Will add an event listener to 'ready' event.
-widget.on('ready', listener);</code></pre>
+component.on('ready', listener);</code></pre>
 
 
 
@@ -403,7 +403,7 @@ widget.on('ready', listener);</code></pre>
 
 
 
-<h4><code class=" language-markup">.once<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {Object}</span></code></h4>
+<h4><code class=" language-markup">.once<span class="signature">(event, listener)</span><span class="type-signature"> &rarr; {component}</span></code></h4>
 <pre></pre>
 
     <p>Adds a listener to the collection for a specified event to will execute only once.</p>
@@ -446,7 +446,7 @@ widget.on('ready', listener);</code></pre>
 
     
     <pre><code class="language-javascript">// Will add an event handler to 'contentLoad' event once.
-widget.once('contentLoad', listener);</code></pre>
+component.once('contentLoad', listener);</code></pre>
 
 
 
@@ -606,7 +606,7 @@ ch.viewport.refresh();</code></pre>
 
             <aside class="ch-g1-4">
                 <nav class="ch-rightcolumn">
-                    <h2>Widgets</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Widget.html">Widget</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
                 </nav>
             </aside>
 
@@ -614,7 +614,7 @@ ch.viewport.refresh();</code></pre>
 
         <footer>
             <p class="updated">
-                Documentation updated on Fri Oct 25 2013 12:58:52 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+                Documentation updated on Tue Nov 05 2013 14:29:39 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
             </p>
         </footer>
 

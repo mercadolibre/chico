@@ -6,7 +6,7 @@
     <head>
         <script></script>
         <meta charset="utf-8">
-        <title>Chico UI | <small>Mixins</small> Content - API Documentation</title>
+        <title>Chico UI | Content (Mixins) - API Documentation</title>
         <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
         <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
         <link rel="stylesheet" href="css/prism.css">
@@ -21,7 +21,7 @@
         <section class="main">
             <article class="ch-g3-4">
                 <div class="ch-leftcolumn">
-                    <h1><small>Mixins</small> Content</h1>
+                    <h1>Content (Mixins)</h1>
                     
 
 
@@ -32,7 +32,7 @@
 
     
         <h2 class="api-title">Description</h2>
-        <p>Add a function to manage widgets content.</p>
+        <p>Add a function to manage components content.</p>
     
 
     
@@ -59,7 +59,7 @@
 <h4><code class=" language-markup">.this.content<span class="signature">(content, <span class="optional">options</span>)</span><span class="type-signature"></span></code></h4>
 <pre></pre>
 
-    <p>Allows to manage the widgets content.</p>
+    <p>Allows to manage the components content.</p>
 
 
 
@@ -75,7 +75,7 @@
                 
 <em class="param-type">String | jQuerySelector | ZeptoSelector</em>
             
-            : The content that will be used by a widget.
+            : The content that will be used by a component.
 
             
         </li>
@@ -170,10 +170,10 @@
 
     
     <pre><code class="language-javascript">// Update content with some string.
-widget.content('Some new content here!');</code></pre>
+component.content('Some new content here!');</code></pre>
 
     <pre><code class="language-javascript">// Update content that will be loaded by ajax with custom options.
-widget.content('http://chico-ui.com.ar/ajax', {
+component.content('http://chico-ui.com.ar/ajax', {
     'cache': false,
     'params': 'x-request=true'
 });</code></pre>
@@ -204,29 +204,7 @@ widget.content('http://chico-ui.com.ar/ajax', {
 
     
     <pre><code class="language-javascript">// Subscribe to "contentdone" event.
-widget.on('contentdone', function (event) {
-    // Some code here!
-});</code></pre>
-
-
-
-    
-        
-
-
-
-<h4><code class=" language-markup">'contentdone'</code></h4>
-<pre></pre>
-
-    <p>Event emitted if the content is loaded successfully.</p>
-
-
-
-
-
-    
-    <pre><code class="language-javascript">// Subscribe to "contentdone" event.
-widget.on('contentdone', function (event) {
+component.on('contentdone', function (event) {
     // Some code here!
 });</code></pre>
 
@@ -248,7 +226,7 @@ widget.on('contentdone', function (event) {
 
     
     <pre><code class="language-javascript">// Subscribe to "contenterror" event.
-widget.on('contenterror', function (event) {
+component.on('contenterror', function (event) {
     // Some code here!
 });</code></pre>
 
@@ -270,7 +248,7 @@ widget.on('contenterror', function (event) {
 
     
     <pre><code class="language-javascript">// Subscribe to "contentwaiting" event.
-widget.on('contentwaiting', function (event) {
+component.on('contentwaiting', function (event) {
     // Some code here!
 });</code></pre>
 
@@ -288,7 +266,7 @@ widget.on('contentwaiting', function (event) {
 
             <aside class="ch-g1-4">
                 <nav class="ch-rightcolumn">
-                    <h2>Widgets</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Widget.html">Widget</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
                 </nav>
             </aside>
 
@@ -296,7 +274,7 @@ widget.on('contentwaiting', function (event) {
 
         <footer>
             <p class="updated">
-                Documentation updated on Fri Oct 25 2013 12:58:48 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+                Documentation updated on Tue Nov 05 2013 14:29:35 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
             </p>
         </footer>
 

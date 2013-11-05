@@ -6,7 +6,7 @@
     <head>
         <script></script>
         <meta charset="utf-8">
-        <title>Chico UI | Source: shared/js/Widget.js - API Documentation</title>
+        <title>Chico UI | Source: shared/js/Component.js - API Documentation</title>
         <link rel="shortcut icon" href="http://chico-ui.com.ar/src/assets/ninja.ico">
         <link rel="stylesheet" href="http://static.mlstatic.com/org-img/ch/ui/1.0.0-rc.4/chico-mesh.min.css">
         <link rel="stylesheet" href="css/prism.css">
@@ -21,7 +21,7 @@
         <section class="main">
             <article class="ch-g3-4">
                 <div class="ch-leftcolumn">
-                    <h1>Source: shared/js/Widget.js</h1>
+                    <h1>Source: shared/js/Component.js</h1>
                     
 
 
@@ -35,45 +35,45 @@
         uid = 0;
 
     /**
-     * Base class for all widgets.
+     * Base class for all components.
      * @memberof ch
      * @constructor
      * @augments ch.EventEmitter
      * @param {(jQuerySelector | ZeptoSelector)} $el jQuery or Zepto Selector.
      * @param {Object} [options] Configuration options.
-     * @returns {widget} Returns a new instance of Widget.
+     * @returns {component} Returns a new instance of Component.
      */
-    function Widget($el, options) {
+    function Component($el, options) {
         this._init($el, options);
     }
 
-    ch.util.inherits(Widget, ch.EventEmitter);
+    ch.util.inherits(Component, ch.EventEmitter);
 
     /**
-     * The name of a widget.
-     * @memberof! ch.Widget.prototype
+     * The name of a component.
+     * @memberof! ch.Component.prototype
      * @type {String}
      * @example
-     * // You can reach the instance associated.
-     * var widget = $(selector).data(name);
+     * // You can reach the associated instance.
+     * var component = $(selector).data(name);
      */
-    Widget.prototype.name = 'widget';
+    Component.prototype.name = 'component';
 
     /**
      * Returns a reference to the constructor function.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Component.prototype
      * @function
      */
-    Widget.prototype.constructor = Widget;
+    Component.prototype.constructor = Component;
 
     /**
-     * Initialize a new instance of Widget and merge custom options with defaults options.
-     * @memberof! ch.Widget.prototype
+     * Initialize a new instance of Component and merge custom options with defaults options.
+     * @memberof! ch.Component.prototype
      * @function
      * @private
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {component}
      */
-    Widget.prototype._init = function ($el, options) {
+    Component.prototype._init = function ($el, options) {
 
         // Clones defaults or creates a defaults object
         var defaults = (this._defaults) ? util.clone(this._defaults) : {};
@@ -109,13 +109,13 @@
         }
 
         /**
-         * A unique id to identify the instance of a widget.
+         * A unique id to identify the instance of a component.
          * @type {Number}
          */
         this.uid = (uid += 1);
 
         /**
-         * Indicates if a widget is enabled.
+         * Indicates if a component is enabled.
          * @type {Boolean}
          * @private
          */
@@ -125,17 +125,17 @@
 
     /**
      * Adds functionality or abilities from other classes.
-     * @memberof! ch.Widget.prototype
+     * @memberof! ch.Component.prototype
      * @function
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {component}
      * @params {...String} var_args The name of the abilities to will be used.
      * @example
-     * // You can require some abilitiest to use in your widget.
+     * // You can require some abilitiest to use in your component.
      * // For example you should require the collpasible abitliy.
-     * var widget = new Widget(element, options);
-     * widget.require('Collapsible');
+     * var component = new Component(element, options);
+     * component.require('Collapsible');
      */
-    Widget.prototype.require = function () {
+    Component.prototype.require = function () {
 
         var arg,
             i = 0,
@@ -153,24 +153,24 @@
     };
 
     /**
-     * Enables an instance of Widget.
-     * @memberof! ch.Widget.prototype
+     * Enables an instance of Component.
+     * @memberof! ch.Component.prototype
      * @function
-     * @returns {instance} Returns an instance of Widget.
+     * @returns {component}
      * @example
-     * // Enabling an instance of Widget.
-     * widget.enable();
+     * // Enabling an instance of Component.
+     * component.enable();
      */
-    Widget.prototype.enable = function () {
+    Component.prototype.enable = function () {
         this._enabled = true;
 
         /**
-         * Emits when a widget is enable.
-         * @event ch.Widget#enable
+         * Emits when a component is enabled.
+         * @event ch.Component#enable
          * @example
          * // Subscribe to "enable" event.
-         * widget.on('enable', function () {
-         *  // Some code here!
+         * component.on('enable', function () {
+         *     // Some code here!
          * });
          */
         this.emit('enable');
@@ -179,24 +179,24 @@
     };
 
     /**
-     * Disables an instance of Widget.
-     * @memberof! ch.Widget.prototype
+     * Disables an instance of Component.
+     * @memberof! ch.Component.prototype
      * @function
-     * @return {instance} Returns an instance of Widget.
+     * @returns {component}
      * @example
-     * // Disabling an instance of Widget.
-     * widget.disable();
+     * // Disabling an instance of Component.
+     * component.disable();
      */
-    Widget.prototype.disable = function () {
+    Component.prototype.disable = function () {
         this._enabled = false;
 
         /**
-         * Emits when a widget is disable.
-         * @event ch.Widget#disable
+         * Emits when a component is disable.
+         * @event ch.Component#disable
          * @example
          * // Subscribe to "disable" event.
-         * widget.on('disable', function () {
-         *  // Some code here!
+         * component.on('disable', function () {
+         *     // Some code here!
          * });
          */
         this.emit('disable');
@@ -205,14 +205,16 @@
     };
 
     /**
-     * Destroys an instance of Widget and remove its data from asociated element.
-     * @memberof! ch.Widget.prototype
+     * Destroys an instance of Component and remove its data from asociated element.
+     * @memberof! ch.Component.prototype
      * @function
      * @example
-     * // Destroying an instance of Widget.
-     * widget.destroy();
+     * // Destroy a component
+     * component.destroy();
+     * // Empty the component reference
+     * component = undefined;
      */
-    Widget.prototype.destroy = function () {
+    Component.prototype.destroy = function () {
 
         this.disable();
 
@@ -221,19 +223,21 @@
         }
 
         /**
-         * Emits when a widget is destroyed.
-         * @event ch.Widget#destroy
+         * Emits when a component is destroyed.
+         * @event ch.Component#destroy
          * @exampleDescription
          * @example
          * // Subscribe to "destroy" event.
-         * widget.on('destroy', function () {
-         *  // Some code here!
+         * component.on('destroy', function () {
+         *     // Some code here!
          * });
          */
         this.emit('destroy');
+
+        return;
     };
 
-    ch.Widget = Widget;
+    ch.Component = Component;
 
 }(this, this.ch.$, this.ch));</code></pre>
         </article>
@@ -247,7 +251,7 @@
 
             <aside class="ch-g1-4">
                 <nav class="ch-rightcolumn">
-                    <h2>Widgets</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Widget.html">Widget</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
+                    <h2>Components</h2><ul><li><a href="ch.Autocomplete.html">Autocomplete</a></li><li><a href="ch.Bubble.html">Bubble</a></li><li><a href="ch.Calendar.html">Calendar</a></li><li><a href="ch.Carousel.html">Carousel</a></li><li><a href="ch.Component.html">Component</a></li><li><a href="ch.Condition.html">Condition</a></li><li><a href="ch.Countdown.html">Countdown</a></li><li><a href="ch.Custom.html">Custom</a></li><li><a href="ch.Datepicker.html">Datepicker</a></li><li><a href="ch.Dropdown.html">Dropdown</a></li><li><a href="ch.Email.html">Email</a></li><li><a href="ch.EventEmitter.html">EventEmitter</a></li><li><a href="ch.Expandable.html">Expandable</a></li><li><a href="ch.Form.html">Form</a></li><li><a href="ch.Layer.html">Layer</a></li><li><a href="ch.Max.html">Max</a></li><li><a href="ch.MaxLength.html">MaxLength</a></li><li><a href="ch.Menu.html">Menu</a></li><li><a href="ch.Min.html">Min</a></li><li><a href="ch.MinLength.html">MinLength</a></li><li><a href="ch.Modal.html">Modal</a></li><li><a href="ch.Number.html">Number</a></li><li><a href="ch.Popover.html">Popover</a></li><li><a href="ch.Positioner.html">Positioner</a></li><li><a href="ch.Required.html">Required</a></li><li><a href="ch.String.html">String</a></li><li><a href="ch.Tabs.html">Tabs</a></li><li><a href="ch.Tooltip.html">Tooltip</a></li><li><a href="ch.Transition.html">Transition</a></li><li><a href="ch.URL.html">URL</a></li><li><a href="ch.Validation.html">Validation</a></li><li><a href="ch.Viewport.html">Viewport</a></li><li><a href="ch.Zoom.html">Zoom</a></li></ul><h2>Namespaces</h2><ul><li><a href="ch.html">ch</a></li><li><a href="ch.shortcuts.html">shortcuts</a></li><li><a href="ch.support.html">support</a></li><li><a href="ch.util.html">util</a></li></ul><h2>Mixins</h2><ul><li><a href="ch.Collapsible.html">Collapsible</a></li><li><a href="ch.Content.html">Content</a></li></ul>
                 </nav>
             </aside>
 
@@ -255,7 +259,7 @@
 
         <footer>
             <p class="updated">
-                Documentation updated on Fri Oct 25 2013 12:58:46 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
+                Documentation updated on Tue Nov 05 2013 14:29:33 GMT-0300 (GMT-03:00), generated by <a href="https://github.com/jsdoc3/jsdoc" target="_blank">JSDoc</a>.
             </p>
         </footer>
 
