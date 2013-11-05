@@ -20,7 +20,6 @@
      * @param {String} [options.messages.number] A validation message.
      * @param {String} [options.messages.min] A validation message.
      * @param {String} [options.messages.max] A validation message.
-     * @param {String} [options.messages.price] A validation message.
      * @returns {form} Returns a new instance of Form.
      * @example
      * // Create a new Form.
