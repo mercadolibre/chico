@@ -2,11 +2,6 @@
 
 Chico UI is a free and open source collection of easy-to-use web components for designers and developers.
 
-## Features
-
-- UI Components
-- Grids
-
 ## Development setup
 1. Install [Git](http://git-scm.com/) and [NodeJS](http://nodejs.org/).
 2. Open your terminal and clone `mercadolibre/chico` by running:
