@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 
     var environment = grunt.option('env') || 'ui',
         destination = grunt.option('dest') || 'dist',
-        lib = {
+        vendor = {
             'mobile': 'Zepto',
             'ui': 'jQuery'
         },
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
             'core': {
                 'options': {
                     'banner': '<%= banner.full %>' + "\n\n(function (window, $) {\n\t'use strict';\n\n",
-                    'footer': '\n\twindow.ch = ch;\n}(this, ' + lib[environment] + '));'
+                    'footer': '\n\twindow.ch = ch;\n}(this, ' + vendor[environment] + '));'
                 },
                 'src': files.JS.core,
                 'dest': 'temp/' + environment + '/core.tmp.js'
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
 
             'js': {
                 'src': ['temp/' + environment + '/core.tmp.js'].concat(files.JS.abilities).concat(files.JS.components),
-                'dest': destination + '/' + environment + '/chico.js'
+                'dest': destination + '/' + environment + '/<%= pkg.name %>.js'
             },
 
             'css': {
@@ -56,17 +56,7 @@ module.exports = function (grunt) {
                     'banner': '<%= banner.full %>'
                 },
                 'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.components),
-                'dest': destination + '/' + environment + '/chico.css'
-            },
-
-            '$': {
-                'src': ['vendor/' + lib[environment].toLowerCase() + '.js'].concat(['<%= concat.js.dest %>']),
-                'dest': destination + '/' + environment + '/chico-' + lib[environment].toLowerCase() + '.js'
-            },
-
-            '$min': {
-                'src': ['vendor/' + lib[environment].toLowerCase() + '.js'].concat(['<%= uglify.min.dest %>']),
-                'dest': destination + '/' + environment + '/chico-' + lib[environment].toLowerCase() + '.min.js'
+                'dest': destination + '/' + environment + '/<%= pkg.name %>.css'
             },
 
             'mesh': {
@@ -82,9 +72,9 @@ module.exports = function (grunt) {
                 'banner': '<%= banner.min %>'
             },
 
-            'min': {
-                'src': ['<%= concat.js.src %>'],
-                'dest': destination + '/' + environment + '/chico.min.js'
+            'js': {
+                'src': ['<%= concat.js.dest %>'],
+                'dest': destination + '/' + environment + '/<%= pkg.name %>.min.js'
             }
 
         },
@@ -96,8 +86,8 @@ module.exports = function (grunt) {
             },
 
             'chico': {
-                'src': ['<%= concat.css.src %>'],
-                'dest': destination + '/' + environment + '/chico.min.css'
+                'src': ['<%= concat.css.dest %>'],
+                'dest': destination + '/' + environment + '/<%= pkg.name %>.min.css'
             },
 
             'mesh': {
@@ -106,7 +96,7 @@ module.exports = function (grunt) {
             }
         },
 
-        'clean': ["temp/**/*"],
+        'clean': ['temp'],
 
         'jslint': { // configure the task
             'files': files.JS.abilities.concat(files.JS.components),
@@ -145,6 +135,6 @@ module.exports = function (grunt) {
     grunt.registerTask('default', []);
     grunt.registerTask('lint', ['jslint']);
     grunt.registerTask('doc', ['jsdoc']);
-    grunt.registerTask('dev', ['concat:core', 'concat:js', 'concat:css', 'clean']);
-    grunt.registerTask('prod', ['concat', 'uglify', 'cssmin', 'clean']);
+    grunt.registerTask('dev', ['concat', 'clean']);
+    grunt.registerTask('dist', ['concat', 'uglify', 'cssmin', 'clean']);
 };
