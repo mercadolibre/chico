@@ -920,9 +920,10 @@
         <h2>Calendar</h2>
         <div class="YOUR_SELECTOR_calendar"></div>
     </div-->
-    <script src="/vendor/zepto-data-fx_methods.min.js"></script>
+    <script src="/vendor/zepto-data-fx_methods-touch.js"></script>
     <script src="/mobile/js"></script>
     <script>
+
         var extraSuggestions = ['<ul>',
             '<li class="ch-autocomplete-item" data-suggested="Static option">Static option</li>',
             '<li class="ch-autocomplete-item" data-suggested="Other Static option">Other static option</li>',
@@ -1161,6 +1162,21 @@
 
         var expado = $(".categories").expandable();
         var menu = $(".myMenu").menu();
+
+        // Exnted carousel
+        ch.Carousel.prototype.initialize = function () {
+            var that = this;
+
+            this._$list.swipeLeft(function () {
+                that.next();
+            });
+
+            this._$list.swipeRight(function () {
+                that.prev();
+            });
+
+            return this;
+        }
 
     </script>
 </body>
