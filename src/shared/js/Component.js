@@ -14,7 +14,35 @@
      * @returns {component} Returns a new instance of Component.
      */
     function Component($el, options) {
+
+        /**
+         * Reference to context of an instance.
+         * @type {Object}
+         * @private
+         */
+        var that = this;
+
         this._init($el, options);
+
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Expandable is created.
+             * @memberof! ch.Expandable.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
+        /**
+         * Event emitted when the component is ready to use.
+         * @event ch.Component#ready
+         * @example
+         * // Subscribe to "ready" event.
+         * component.on('ready', function () {
+         *     // Some code here!
+         * });
+         */
+        window.setTimeout(function () { that.emit('ready'); }, 50);
     }
 
     ch.util.inherits(Component, ch.EventEmitter);

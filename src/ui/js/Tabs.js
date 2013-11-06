@@ -27,6 +27,15 @@
 
         this._init($el, options);
 
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Tabs is created.
+             * @memberof! ch.Tabs.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
         /**
          * Emits the event 'ready' when the component is ready to use.
          * @event ch.Tabs#ready

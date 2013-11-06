@@ -52,6 +52,15 @@
 
         that._init($el, options);
 
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Countdown is created.
+             * @memberof! ch.Countdown.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
         /**
          * Event emitted when the component is ready to use.
          * @event ch.Countdown#ready

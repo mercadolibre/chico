@@ -47,6 +47,15 @@
 
         that._init($el, options);
 
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Form is created.
+             * @memberof! ch.Form.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
         /**
          * It emits an event when the form is ready to use.
          * @event ch.Form#ready
