@@ -49,7 +49,7 @@ describe('Util', function () {
             expect(util.isUrl('../../mercado/')).toBeTruthy();
             expect(util.isUrl('www.mercadolibre.com?siteId=MLA&categId=1744&buyingMode=buy_it_now&listingTypeId=bronze')).toBeTruthy();
             expect(util.isUrl('www.mercado-libre.com')).toBeTruthy();
-            expect(util.isUrl('http://ui.ml.com:8080/ajax.html')).toBeTruthy();
+            expect(util.isUrl('http://localhost:3040/static/ajax.html')).toBeTruthy();
             //expect(util.isUrl('http://shipping-frontend.mercadolidesa.com.br:8080/envios/showShipments?status=handling%2Cready_to_ship&totalQuantity=&welcomeFlag=true')).toBeTruthy();
 
         });
@@ -78,7 +78,7 @@ describe('Util', function () {
             expect(util.isUrl('/:pepe')).toBeFalsy();
             expect(util.isUrl('dadadas.pepe')).toBeFalsy();
             expect(util.isUrl('qdasdasda')).toBeFalsy();
-            expect(util.isUrl('http://ui.ml.com:8080:8080/ajax.html')).toBeFalsy();
+            expect(util.isUrl('http://localhost:3040:3040/static/ajax.html')).toBeFalsy();
 
         });
 
