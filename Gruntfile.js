@@ -57,11 +57,6 @@ module.exports = function (grunt) {
                 },
                 'src': files.CSS.resetML.concat(files.CSS.core).concat(files.CSS.components),
                 'dest': destination + '/' + environment + '/<%= pkg.name %>.css'
-            },
-
-            'mesh': {
-                'src': ['./src/shared/css/mesh.css'],
-                'dest': destination + '/' + environment + '/mesh.css'
             }
 
         },
@@ -88,11 +83,6 @@ module.exports = function (grunt) {
             'chico': {
                 'src': ['<%= concat.css.dest %>'],
                 'dest': destination + '/' + environment + '/<%= pkg.name %>.min.css'
-            },
-
-            'mesh': {
-                'src': ['./src/shared/css/mesh.css'],
-                'dest': destination + '/' + environment + '/mesh.min.css'
             }
         },
 
