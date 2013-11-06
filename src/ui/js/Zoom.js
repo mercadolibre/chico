@@ -50,6 +50,15 @@
 
         this._init($el, options);
 
+        if (this.initialize !== undefined) {
+            /**
+             * If you define an initialize method, it will be executed when a new Zoom is created.
+             * @memberof! ch.Zoom.prototype
+             * @function
+             */
+            this.initialize();
+        }
+
         /**
          * Event emitted when the component is ready to use.
          * @event ch.Zoom#ready
