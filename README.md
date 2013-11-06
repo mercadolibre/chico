@@ -1,6 +1,8 @@
-# Chico UI - Get things done, quickly.
+# Chico UI
 
-Chico UI is a free and open source collection of easy-to-use web components for designers and developers.
+Chico UI is a free and open source collection of easy-to-use UI components for designers and developers.
+
+Get things done, quickly.
 
 ## Development setup
 1. Install [Git](http://git-scm.com/) and [NodeJS](http://nodejs.org/).
