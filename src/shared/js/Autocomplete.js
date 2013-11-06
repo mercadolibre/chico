@@ -126,6 +126,11 @@
         // creates the basic item template for this instance
         this._options._itemTemplate = this._options._itemTemplate.replace('{{itemClass}}', this._options.itemClass);
 
+        if (this._options.html) {
+            // remove the suggested data space when html is configured
+            this._options._itemTemplate = this._options._itemTemplate.replace('{{suggestedData}}', '');
+        }
+
         /**
          * The autocomplete suggestion list.
          * @type {(jQuerySelector | ZeptoSelector)}
@@ -196,13 +201,6 @@
 
         // Used to show when the user cancel the suggestions
         this._originalQuery = this._currentQuery = this._el.value;
-
-        this.on('disable', function () {
-            if (that.isShown()) {
-                that.hide();
-                that._el.blur();
-            }
-        });
 
         if (this._configureShortcuts !== undefined) {
             this._configureShortcuts();
@@ -511,6 +509,17 @@
      */
     Autocomplete.prototype.isShown = function () {
         return this._popover.isShown();
+    };
+
+    Autocomplete.prototype.disable = function () {
+        if (this.isShown()) {
+            this.hide();
+            this._el.blur();
+        }
+
+        parent.disable.call(this);
+
+        return this;
     };
 
     /**
