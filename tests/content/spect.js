@@ -58,7 +58,7 @@ describe('If content is loaded async', function () {
             doneEvent();
         });
 
-        test.content('http://localhost:3040/ajax');
+        test.content('http://localhost:3040/static/ajax.html');
 
         waitsFor(function() {
             return doneEvent.callCount > 0;
@@ -84,7 +84,7 @@ describe('If content is loaded async', function () {
 
         });
 
-        test.content('http://localhost:3040/ajaxFail');
+        test.content('http://localhost:3040/static/ajaxFail');
 
         waitsFor(function() {
             return fail.callCount > 0;
@@ -101,7 +101,7 @@ describe('Load content without cache', function () {
             doneCache();
         });
 
-        test.content('http://localhost:3040/ajax', {'cache': false});
+        test.content('http://localhost:3040/static/ajax.html', {'cache': false});
 
         waitsFor(function() {
             test.show().hide();

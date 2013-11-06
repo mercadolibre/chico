@@ -16,7 +16,6 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
         .on('ready', function () { readyEvent(); })
         .on('itemsdone', function () { itemsdoneEvent(); })
         .on('refresh', function () { refreshEvent(); })
-        .on('destroy', function () { destroyEvent(); })
         .on('emptyitems', function () { emptyitemsEvent(); }),
     carousel2 = $('.carousel2').carousel({
         'limitPerPage': 4,
@@ -32,7 +31,8 @@ var destroyEvent = jasmine.createSpy('destroyEvent'),
         $.each($items, function (i, e) {
             e.innerHTML = 'TESTING ASYNCHRONOUS ITEM Nº' + i;
         });
-    });
+    }),
+    carousel4 = $('.carousel4').carousel().on('destroy', function () { destroyEvent(); });
 
 describe('Carousel', function () {
 
@@ -235,7 +235,7 @@ describe('It should have a Mask element that', function () {
                 });
 
                 it('aria-label: "page5", because it\s in the last page', function () {
-                    expect($lastItem.attr('aria-label')).toEqual('page5');
+                    expect($lastItem.attr('aria-label')).toEqual('page' + carousel1._pages);
                 });
             });
         });
@@ -306,22 +306,17 @@ describe('Its next() method', function () {
 
         carousel1.select(carousel1._pages).next();
 
-        expect(carousel1._currentPage).toEqual(5);
+        expect(carousel1._currentPage).toEqual(carousel1._pages);
     });
 });
 
 describe('Its refresh() method', function () {
 
-    beforeEach(function () {
+    it('should emit the "refresh" event when the public method "refresh" is executed and the amount of items changes', function () {
+        expect(refreshEvent.callCount).toEqual(0);
+        carousel1._$items.eq(0).remove();
         carousel1.refresh();
-    });
-
-    it('should emit the "refresh" event when it\'s refreshed on initialization', function () {
-        expect(refreshEvent).toHaveBeenCalled();
-    });
-
-    it('should emit the "refresh" event when the public method "refresh" is executed', function () {
-        expect(refreshEvent.callCount).toEqual(2);
+        expect(refreshEvent.callCount).toEqual(1);
     });
 });
 
@@ -398,7 +393,7 @@ describe('Its pagination controls', function () {
     describe('should have thumbnails:', function () {
 
         it('The same amount of thumbs than total amount of items in the Carousel', function () {
-            expect($thumbs.length).toEqual(5);
+            expect($thumbs.length).toEqual(carousel1._pages);
         });
 
         describe('First thumb (a selected thumb)', function () {
@@ -434,7 +429,7 @@ describe('Its pagination controls', function () {
             var $thumb = $thumbs.eq(-1);
 
             it('should have the data-page attribute with the value "5"', function () {
-                expect($thumb.attr('data-page')).toEqual('5');
+                expect($thumb.attr('data-page')).toEqual(carousel1._pages.toString());
             });
 
             it('shouldn\'t have the "ch-carousel-selected" classname, because it isn\'t selected right now', function () {
@@ -493,23 +488,20 @@ describe('Its asynchronous feature', function () {
 
 describe('Its destroy() method', function () {
 
-    beforeEach(function () {
-        if (carousel3) {
-            carousel3.destroy();
-            carousel3 = undefined;
-        }
-    });
+    var itemsAmount = $('.carousel4 li').length;
+
+    carousel4.destroy();
 
     it('should reset the _$el', function () {
-        expect($('.carousel3 li').length).toEqual(2);
+        expect($('.carousel4 li').length).toEqual(itemsAmount);
     });
 
     it('should remove ".carousel" events', function () {
-        expect($._data($('.carousel3')[0], 'events')).toBeUndefined();
+        expect($._data($('.carousel4')[0], 'events')).toBeUndefined();
     });
 
     it('should remove the instance from the element', function () {
-        expect($('.carousel3').data('carousel')).toBeUndefined();
+        expect($('.carousel4').data('carousel')).toBeUndefined();
     });
 
     it('should emit the "destroy" event', function () {
