@@ -3,8 +3,7 @@
  */
 
 var app = module.parent.exports,
-    exec = require('child_process').exec,
-    countries = require("../libs/countries").countries;
+    exec = require('child_process').exec;
 
 /*
  * Middlewares
@@ -12,7 +11,7 @@ var app = module.parent.exports,
 
 function isAnotherFile (req, res, next) {
     var folder = req.params.version;
-    if (folder === 'assets' || folder === 'vendor' || folder === 'test' || folder === 'libs') {
+    if (folder === 'static' || folder === 'assets' || folder === 'vendor' || folder === 'test' || folder === 'libs') {
         next('route');
     } else {
         next();
@@ -39,34 +38,6 @@ app.get('/', function (req, res, next) {
  */
 app.get('/m', function (req, res, next) {
     res.redirect('/mobile');
-});
-
-/*
- * Country Service
- */
-app.get('/countries', function (req, res, next) {
-    var result = [],
-        i = countries.length,
-        response,
-        contentType;
-
-    while (i -= 1) {
-        if (!countries[i].toLowerCase().search(req.query.q.toLowerCase())) {
-            result.push(countries[i]);
-        }
-    }
-
-    if (req.query.callback) {
-        result.forEach(function(e,i){ result[i] = '"' + e + '"';});
-        response = req.query.callback + '([' + result.toString() + ']);';
-        contentType = 'application/json';
-    } else {
-        response = result;
-        contentType = 'application/javascript';
-    }
-
-    res.header('Content-Type', contentType);
-    res.send(response);
 });
 
 /*
