@@ -186,9 +186,10 @@ describe('Its suggest() method', function () {
             expect(autoComplete.isShown()).toBeTruthy();
         });
 
-        it('should have hightlighted items', function () {
+        it('should have hightlighted keywords', function () {
             autoComplete._el.focus();
-            autoComplete.emit('type', autoComplete._el.value);
+            autoComplete._currentQuery = 'ar';
+            autoComplete.suggest(suggestions);
             itemsHighilighted = autoComplete.$container.find('strong').length;
             expect(itemsHighilighted).toEqual(3);
         });
