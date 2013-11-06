@@ -29,7 +29,7 @@
                 $document.off(pointertap, hide);
             })
             .once('destroy', function () {
-                ch.shortcuts.remove(ch.onkeyesc, that.uid);
+                ch.shortcuts.remove(that.uid, ch.onkeyesc);
             });
     };
 

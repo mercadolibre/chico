@@ -41,8 +41,6 @@ describe('Datepicker', function () {
         .on('nextyear', function () { nextyearEvent(); })
         .on('prevyear', function () { prevyearEvent(); });
 
-    datepicker2.on('destroy', function () { destroyEvent(); });
-
     it('should be defined on ch object', function () {
         expect(ch.hasOwnProperty('Datepicker')).toBeTruthy();
         expect(typeof ch.Datepicker).toEqual('function');
@@ -258,9 +256,8 @@ describe('Its getToday() method', function(){
 
 describe('Its destroy() method', function () {
 
-    beforeEach(function () {
-        datepicker2.destroy();
-    });
+    datepicker2.on('destroy', function () { destroyEvent(); });
+    datepicker2.destroy();
 
     it('should update the field type attribute to "date"', function () {
         expect($('#datepicker-2')[0].type).toEqual('date');
