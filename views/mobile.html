@@ -54,8 +54,9 @@
          * Carousel demo
          */
         .myCarousel .ch-carousel-item {
-            width: 160px;
-            height: 190px;
+            width: 425px;
+            height: 290px;
+            text-align: center;
         }
 
         .myCarousel img {
@@ -924,6 +925,21 @@
     <script src="/mobile/js"></script>
     <script>
 
+        // Exnted carousel
+        ch.Carousel.prototype.initialize = function () {
+            var that = this;
+
+            this._$list.swipeLeft(function () {
+                that.next();
+            });
+
+            this._$list.swipeRight(function () {
+                that.prev();
+            });
+
+            return this;
+        }
+
         var extraSuggestions = ['<ul>',
             '<li class="ch-autocomplete-item" data-suggested="Static option">Static option</li>',
             '<li class="ch-autocomplete-item" data-suggested="Other Static option">Other static option</li>',
@@ -1162,22 +1178,6 @@
 
         var expado = $(".categories").expandable();
         var menu = $(".myMenu").menu();
-
-        // Exnted carousel
-        ch.Carousel.prototype.initialize = function () {
-            var that = this;
-
-            this._$list.swipeLeft(function () {
-                that.next();
-            });
-
-            this._$list.swipeRight(function () {
-                that.prev();
-            });
-
-            return this;
-        }
-
     </script>
 </body>
 </html>
