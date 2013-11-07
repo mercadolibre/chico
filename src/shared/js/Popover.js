@@ -269,11 +269,12 @@
         // Get a content if it's not defined
         if (this._options.content === undefined) {
             // Content from anchor href
-            if (this._el.href) {
+            // IE defines the href attribute equal to src attribute on images.
+            if (this._el.nodeName === 'A' && this._el.href !== '') {
                 this._options.content = this._el.href;
 
             // Content from title or alt
-            } else if (this._el.title || this._el.alt) {
+            } else if (this._el.title !== '' || this._el.alt !== '') {
                 // Set the configuration parameter
                 this._options.content = this._el.title || this._el.alt;
                 // Keep the attributes content into the element for possible usage
