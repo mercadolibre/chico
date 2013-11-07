@@ -606,7 +606,7 @@
         });
 
         // Update the mask height with the list height
-        this._$mask[0].style.height = ch.util.getOuterDimensions(this._$items[0]).height;
+        this._$mask[0].style.height = ch.util.getOuterDimensions(this._$items[0]).height + 'px';
 
         // Suit the page in place
         this._standbyFX(function () {
