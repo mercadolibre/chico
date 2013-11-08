@@ -49,8 +49,15 @@ The API doc may also be run locally by running:
 Navigate `./doc` directory and enjoy!
 
 ## Tests
+You can run our tests in your browser:
 
-[TODO]
+1. Run the local web server:
+
+        $ npm start
+
+2. Navigate `http://localhost:3040/test/:component`
+
+**We are going to automate it! :)**
 
 ## Get in touch
 
