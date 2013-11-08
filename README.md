@@ -39,7 +39,7 @@ Please read through our code style guides:
 
 ## API Doc
 
-You can read our [API Doc](http://pazguille.github.io/chico-doc/).
+You can read our [API Doc](http://chico.mercadolibre.com/).
 
 The API doc may also be run locally by running:
 
