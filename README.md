@@ -55,7 +55,7 @@ You can run our tests in your browser:
 
         $ npm start
 
-2. Navigate [http://localhost:3040/:component](http://localhost:3040/test/:component).
+2. Navigate `http://localhost:3040/test/:component`
 
 **We are going to automate it! :)**
 
