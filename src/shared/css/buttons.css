@@ -24,26 +24,6 @@ button:focus {
     outline-offset: -2px;
 }
 
-/* Colors 
-.ch-btn,
-.ch-btn:focus,
-.ch-btn:visited {
-    border: 1px solid;
-}
-
-.ch-btn-skin,
-.ch-btn-skin:focus,
-.ch-btn-skin:visited {
-    border: 1px solid;
-}
-
-.ch-btn-action,
-.ch-btn-action:focus,
-.ch-btn-action:visited {
-    border: 1px solid;
-}
-*/
-
 /* Hover */
 .ch-btn:hover,
 .ch-btn-skin:hover {
