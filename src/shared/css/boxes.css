@@ -20,14 +20,6 @@
 /**
  * Message boxes
  */
-.ch-box-warn,
-.ch-box-error,
-.ch-box-help,
-.ch-box-info,
-.ch-box-ok {
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
-}
-
 .ch-box-icon {
     position: relative;
     padding-left: 32px;
@@ -47,7 +39,7 @@
 }
 
 .ch-box-warn {
-    background-color: #FFF0BA;
+    background-color: #FFF3C8;
     color: #AA8749;
 }
 
@@ -61,7 +53,7 @@
 }
 
 .ch-box-error {
-    background-color: #F2DEDE;
+    background-color: #F5E6E6;
 }
 
 /**
@@ -69,11 +61,11 @@
  */
 .ch-box-help,
 .ch-icon-help-sign {
-    color: #999999;
+    color: #888888;
 }
 
 .ch-box-help {
-    background-color: #f7f7f7;
+    background-color: #F0F0F0;
 }
 
 /**
@@ -97,5 +89,5 @@
 }
 
 .ch-box-ok {
-    background-color: #DFF0D8;
+    background-color: #E9F4E4;
 }

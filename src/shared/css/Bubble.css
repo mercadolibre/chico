@@ -25,7 +25,7 @@
 }
 
 .ch-bubble.ch-cone[data-side=bottom] .ch-popover-content:after {
-    border-bottom-color: #F2DEDE;
+    border-bottom-color: #F5E6E6;
 }
 
 /**
@@ -37,7 +37,7 @@
 }
 
 .ch-bubble.ch-cone[data-side=top] .ch-popover-content:after {
-    border-top-color: #F2DEDE;
+    border-top-color: #F5E6E6;
 }
 
 /**
@@ -49,7 +49,7 @@
 }
 
 .ch-bubble.ch-cone[data-side=right] .ch-popover-content:after {
-    border-right-color: #F2DEDE;
+    border-right-color: #F5E6E6;
 }
 
 /**
@@ -61,5 +61,5 @@
 }
 
 .ch-bubble.ch-cone[data-side=left] .ch-popover-content:after {
-    border-left-color: #F2DEDE;
+    border-left-color: #F5E6E6;
 }
