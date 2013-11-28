@@ -50,17 +50,15 @@ h6 {
 /**
  * Links
  */
-a {
-    color: #0637B3;
+a,
+a:active,
+a:link {
+    color: #0033BB;
     text-decoration: none;
 }
 
-a:active {
-    color: #0000DD;
-}
-
 a:visited {
-    color: #800080;
+    color: #880099;
 }
 
 a:hover,
