@@ -1,13 +1,13 @@
 /**
  * Transitions
  */
-.ch-loading-big,
+.ch-loading-large,
 .ch-loading {
     margin: 20px auto;
     display: block;
 }
 
-.ch-loading-big {
+.ch-loading-large {
     background-image: url('../assets/loading-big.gif');
     width: 36px;
     height: 36px;
@@ -32,7 +32,7 @@
     left: 50%;
 }
 
-.ch-loading-big.ch-loading-centered {
+.ch-loading-large.ch-loading-centered {
     margin-top: -18px;
     margin-left: -18px;
 }

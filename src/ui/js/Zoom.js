@@ -146,7 +146,7 @@
          *     'waiting': 'My custom message'
          * });
          */
-        this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-big"></div><p>' + this._options.waiting + '</p></div>').appendTo(this.$trigger);
+        this._$loading = $('<div class="ch-zoom-loading ch-hide"><div class="ch-loading-large"></div><p>' + this._options.waiting + '</p></div>').appendTo(this.$trigger);
 
         /**
          * jQuery/Zepto Element (shape) with visual feedback to the relative size of the zoomed area.
