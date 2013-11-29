@@ -122,7 +122,9 @@
         $underlay.css('z-index', ch.util.zIndex).appendTo($body);
 
         if (this._options.fx !== 'none') {
-            $underlay.fadeIn();
+            $underlay.fadeIn(function () {
+                $underlay.removeClass('ch-hide');
+            });
         } else {
             $underlay.removeClass('ch-hide');
         }
