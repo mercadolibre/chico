@@ -15,11 +15,24 @@
     max-width: none;
 }
 
+/* Hides the folds */
+.no-js .ch-menu > li > ul {
+    display: none;
+}
+
+/* Show the folds */
+.no-js .ch-menu > li:hover ul {
+    display: block;
+}
+
 .ch-menu .ch-expandable {
     margin: 5px 0;
 }
 
 /* L1 and L2 items */
+.no-js .ch-menu > li span,
+.no-js .ch-menu > li ul a,
+.no-js .ch-menu > li a,
 .ch-fold-trigger,
 .ch-menu .ch-expandable-trigger,
 .ch-menu .ch-expandable-container a {
@@ -31,6 +44,8 @@
 }
 
 /* L1 and L2 items hover */
+.no-js .ch-menu > li:hover span:hover,
+.no-js .ch-menu > li a:hover,
 .ch-fold-trigger:hover,
 .ch-menu .ch-expandable-trigger:hover,
 .ch-menu .ch-expandable-container a:hover {
@@ -39,6 +54,9 @@
 }
 
 /* L1 items */
+.no-js .ch-menu > li span,
+.no-js .ch-menu > li ul,
+.no-js .ch-menu > li a,
 .ch-fold-trigger,
 .ch-menu .ch-expandable-trigger,
 .ch-menu .ch-expandable-container {
@@ -46,6 +64,7 @@
 }
 
 /* L1 items icon */
+.no-js .ch-menu > li span:after,
 .ch-menu .ch-expandable-trigger:after {
     top: 50%;
     margin-top: -8px;
@@ -54,12 +73,14 @@
 }
 
 /* L2 items list */
+.no-js .ch-menu > li ul,
 .ch-menu .ch-expandable-container {
     font-size: 0.9em;
     margin: 10px 0;
 }
 
 /* L2 items */
+.no-js .ch-menu > li ul li a,
 .ch-menu .ch-expandable-container a {
     padding: 2px 15px;
     /*
@@ -71,6 +92,7 @@
 }
 
 /* Selected child */
+.no-js .ch-menu > li:hover span,
 .ch-menu .ch-expandable-trigger-on {
     background-color: #F7F7F7;
     border-radius: 5px;
