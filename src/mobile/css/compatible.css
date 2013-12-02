@@ -92,14 +92,14 @@ select[multiple] {
 * Buttons
 */
 .ch-btn,
-.ch-btn-big,
-.ch-btn-big:focus {
+.ch-btn-large,
+.ch-btn-large:focus {
 	padding-left:0;
 	padding-right:0;
 }
 
-.ch-btn-big,
-.ch-btn-big:focus {
+.ch-btn-large,
+.ch-btn-large:focus {
 	width: 99%;
 }
 

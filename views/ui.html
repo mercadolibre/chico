@@ -6,7 +6,7 @@
 <head>
     <script></script>
     <meta charset="utf-8" />
-    <title>Chico UI v1.0.0</title>
+    <title>Chico UI v1.1.0</title>
 
     <!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
     <meta name="HandheldFriendly" content="True">
@@ -71,7 +71,7 @@
 
 <body>
     <div class="ml-header">
-        <h1 id="components">Chico UI v1.0.0</h1>
+        <h1 id="components">Chico UI v1.1.0</h1>
     </div>
     <ul id="components-list" class="ch-list component-list ch-hide m-clearfix">
         <li class="m-g1-5"><a href="#headers">Headers</a></li>
@@ -214,7 +214,7 @@
     </div>
 
     <h2 id="#wizard">Wizard</h2>
-    <div class="ch-wizard">
+    <form action="/" class="ch-wizard">
         <ol class="ch-wizard-breadcrumb ch-steps-four">
             <li><a href="#1">Step 1</a></li>
             <li><a href="#2">Step 2</a></li>
@@ -228,17 +228,17 @@
         </div>
 
         <div class="ch-actions">
-            <button class="ch-btn">Primary Action</button>
+            <button type="submit" class="ch-btn">Primary Action</button>
             <a href="#">Secondary Action</a>
         </div>
-    </div>
+    </form>
 
 
     <div class="ch-box-lite">
         <h2 id="#spinner">Spinner control</h2>
         <span class="ch-loading-small"></span>
         <span class="ch-loading"></span>
-        <span class="ch-loading-big"></span>
+        <span class="ch-loading-large"></span>
     </div>
 
     <div class="ch-box-lite">
@@ -248,7 +248,7 @@
             <p>This is a big warning message, be careful!</p>
         </div>
         <div class="ch-box-icon">
-            <i class="ch-icon-info-sign"></i>
+            <i class="ch-icon-warning-sign"></i>
             <h2>Warning!</h2>
             <p>This is a big warning message, be careful!</p>
         </div>
@@ -263,9 +263,8 @@
         <div class="m-g1-2">
             <div class="m-leftcolumn">
                 <h2 id="buttons">Buttons</h2>
-                <p><a href="" class="ch-btn ch-btn-big">Link button</a></p>
-                <p><input type="button" class="ch-btn ch-btn-big" value="Big button"></p>
-                <p><input type="button" class="ch-btn" value="Default button"></p>
+                <p><input type="button" class="ch-btn ch-btn-large" value="Big button"></p>
+                <p><input type="button" class="ch-btn" value="Button"></p>
                 <p><input type="button" class="ch-btn ch-btn-small" value="Small button"></p>
                 <p><input type="button" class="ch-btn-skin ch-btn-small" value="Skin button"></p>
             </div>
@@ -273,9 +272,8 @@
         <div class="m-g1-2">
             <div class="m-rightcolumn">
                 <h2>Disabled Buttons</h2>
-                <p><a href="" class="ch-btn ch-btn-big ch-btn-disabled">Link button disabled</a></p>
-                <p><input type="button" class="ch-btn ch-btn-big ch-btn-disabled" value="Big button disabled"></p>
-                <p><input type="button" class="ch-btn ch-btn-disabled" value="Default button disabled"></p>
+                <p><input type="button" class="ch-btn ch-btn-large ch-btn-disabled" value="Big button disabled"></p>
+                <p><input type="button" class="ch-btn ch-btn-disabled" value="Button disabled"></p>
                 <p><input type="button" class="ch-btn ch-btn-small ch-btn-disabled" value="Small button disabled"></p>
                 <p><input type="button" class="ch-btn-skin ch-btn-small ch-btn-disabled" value="Skin button disabled"></p>
             </div>
@@ -703,10 +701,10 @@
 
     <div class="ch-box-lite clearfix">
         <h2 id="icons">Icons</h2>
-        <i class="ch-icon-camera ch-icon-64" title="64x64"></i>
-        <i class="ch-icon-camera ch-icon-32" title="32x32"></i>
-        <i class="ch-icon-camera ch-icon-24" title="24x24"></i>
-        <i class="ch-icon-camera" title="16x16"></i>
+        <i class="ch-icon-camera ch-icon-xx-large"></i>
+        <i class="ch-icon-camera ch-icon-x-large"></i>
+        <i class="ch-icon-camera ch-icon-large"></i>
+        <i class="ch-icon-camera"></i>
 
         <ul class="showroomIcons">
             <li><i class="ch-icon-search"></i> ch-icon-search</li>
@@ -768,9 +766,9 @@
             <li><i class="ch-icon-caret-right"></i> ch-icon-caret-right</li>
             <li><i class="ch-icon-sort"></i> ch-icon-sort</li>
             <li><i class="ch-icon-sort-down"></i> ch-icon-sort-down</li>
-            <li><i class="ch-icon-sort-down"></i> ch-icon-sort-up</li>
+            <li><i class="ch-icon-sort-up"></i> ch-icon-sort-up</li>
             <li><i class="ch-icon-envelope-alt"></i> ch-icon-envelope-alt</li>
-            <li><i class="ch-icon-undo"></i> ch-icon-undo</li>
+            <li><i class="ch-icon-undo ch-ico"></i> ch-icon-undo</li>
             <li><i class="ch-icon-comment-alt"></i> ch-icon-comment-alt</li>
             <li><i class="ch-icon-comments-alt"></i> ch-icon-comments-alt</li>
             <li><i class="ch-icon-phone"></i> ch-icon-phone</li>

@@ -20,7 +20,6 @@
 }
 
 [class*='ch-icon-'] {
-    text-shadow: none;
     text-align: center;
     display: inline-block;
     vertical-align: middle;
@@ -34,25 +33,25 @@
 /**
  * Icons Size
  */
-.ch-icon-24,
-.ch-icon-32,
-.ch-icon-64 {
+.ch-icon-large,
+.ch-icon-x-large,
+.ch-icon-xx-large {
     margin: 10px;
 }
 
-.ch-icon-24 {
+.ch-icon-large {
     height: 24px;
     width: 24px;
     font-size: 26px;
 }
 
-.ch-icon-32 {
+.ch-icon-x-large {
     height: 32px;
     width: 32px;
     font-size: 34px;
 }
 
-.ch-icon-64 {
+.ch-icon-xx-large {
     height: 64px;
     width: 64px;
     font-size: 66px;

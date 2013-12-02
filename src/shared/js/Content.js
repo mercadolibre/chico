@@ -106,7 +106,7 @@
                 'method': 'GET',
                 'params': '',
                 'async': true,
-                'waiting': '<div class="ch-loading-big"></div>'
+                'waiting': '<div class="ch-loading-large"></div>'
             }, options || defaults);
 
             if (options.cache !== undefined) {

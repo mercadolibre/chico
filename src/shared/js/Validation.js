@@ -133,9 +133,7 @@
      * @private
      */
     Validation.prototype._defaults = {
-        'offsetX': 10,
-        'side': 'right',
-        'align': 'top'
+        'offsetX': 10
     };
 
     /**

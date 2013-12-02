@@ -106,7 +106,7 @@
         'shownby': 'none',
         'hiddenby': 'none',
         'side': 'right',
-        'align': 'top',
+        'align': 'center',
         'offsetX': 10,
         'content': 'Check the information, please.'
     });
