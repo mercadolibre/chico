@@ -18,7 +18,7 @@
          * @see ch.Bubble
          */
         this.bubble = this._container = $.bubble({
-            'reference': (function () {
+            'reference': that._options.reference || (function () {
                 var reference,
                     $trigger = that.$trigger,
                     h4;
