@@ -803,6 +803,7 @@ ch.factory = function (Klass, fn) {
 
     // Exposse private $ (Zepto) into ch.$
     ch.$ = $;
+	ch.version = '1.1.0';
 	window.ch = ch;
 }(this, Zepto));
 (function (ch) {
@@ -3364,7 +3365,12 @@ ch.factory = function (Klass, fn) {
     Popover.prototype.refreshPosition = function (options) {
 
         if (this._shown) {
+            // Refresh its position.
             this._positioner.refresh(options);
+
+        } else {
+            // Update its options. It will update position the next time to be shown.
+            this._positioner._configure(options);
         }
 
         return this;
