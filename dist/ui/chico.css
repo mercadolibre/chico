@@ -2530,8 +2530,13 @@ select[multiple],
 }
 
 /* Content */
+.no-js .ch-expandable-trigger + .ch-hide,
 .ch-expandable-container {
     margin: 0 0 5px 16px;
+}
+
+.no-js .ch-expandable-trigger + .ch-hide {
+    display: block;
 }
 .ch-menu {
     max-width: 300px;
