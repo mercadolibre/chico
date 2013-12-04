@@ -9,5 +9,5 @@ experiment
 node_modules
 npm-debug.log
 temp
-dist
+build
 doc

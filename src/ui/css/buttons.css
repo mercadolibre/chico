@@ -9,15 +9,15 @@
     padding: 5px 10px;
 }
 
-/* Big h: ~39px */
-.ch-btn-big,
-.ch-btn-big:focus {
+/* Large h: ~39px */
+.ch-btn-large,
+.ch-btn-large:focus {
     line-height: 1.25em; /* ~23px */
     padding: 6px 12px;
 }
 
-a.ch-btn-big,
-a.ch-btn-big:focus {
+a.ch-btn-large,
+a.ch-btn-large:focus {
     display: inline-block;
 }
 

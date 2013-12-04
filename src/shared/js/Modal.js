@@ -24,7 +24,7 @@
      * @param {String} [options.params] Params like query string to be sent to the server.
      * @param {Boolean} [options.cache] Force to cache the request by the browser. Default: true.
      * @param {Boolean} [options.async] Force to sent request asynchronously. Default: true.
-     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-big ch-loading-centered"&gt;&lt;/div&gt;'.
+     * @param {(String | jQuerySelector | ZeptoSelector)} [options.waiting] Temporary content to use while the ajax request is loading. Default: '&lt;div class="ch-loading-large ch-loading-centered"&gt;&lt;/div&gt;'.
      * @param {(jQuerySelector | ZeptoSelector | HTMLElement | String)} [options.content] The content to be shown into the Modal container.
      * @returns {modal} Returns a new instance of Modal.
      * @example
@@ -107,7 +107,7 @@
         'width': '50%',
         'hiddenby': 'all',
         'reference': ch.viewport,
-        'waiting': '<div class="ch-loading-big ch-loading-centered"></div>',
+        'waiting': '<div class="ch-loading-large ch-loading-centered"></div>',
         'position': 'fixed'
     });
 
@@ -122,7 +122,9 @@
         $underlay.css('z-index', ch.util.zIndex).appendTo($body);
 
         if (this._options.fx !== 'none') {
-            $underlay.fadeIn();
+            $underlay.fadeIn(function () {
+                $underlay.removeClass('ch-hide');
+            });
         } else {
             $underlay.removeClass('ch-hide');
         }
