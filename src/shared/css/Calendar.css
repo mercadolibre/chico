@@ -12,16 +12,16 @@
 .ch-calendar caption,
 .ch-calendar thead,
 .ch-calendar td {
-    border: 1px solid #EDEDED;
+    border: 1px solid #DEDEDE;
 }
 
 .ch-calendar caption {
-    background-color: #EEEEEE;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #EEEEEE));
-    background: -webkit-linear-gradient(#FFFFFF, #EEEEEE);
-    background: -moz-linear-gradient(#FFFFFF, #EEEEEE);
-    background: -o-linear-gradient(#FFFFFF, #EEEEEE);
-    background: linear-gradient(#FFFFFF, #EEEEEE);
+    background-color: #F0F0F0;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #F0F0F0));
+    background: -webkit-linear-gradient(#FFFFFF, #F0F0F0);
+    background: -moz-linear-gradient(#FFFFFF, #F0F0F0);
+    background: -o-linear-gradient(#FFFFFF, #F0F0F0);
+    background: linear-gradient(#FFFFFF, #F0F0F0);
     font-size: 13px;
     line-height: 28px;
     text-shadow: 0 1px 0 #FFFFFF;
@@ -29,7 +29,7 @@
 }
 
 .lt-ie10 .ch-calendar caption {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#EEEEEE');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#F0F0F0');
 }
 
 .ch-calendar thead {

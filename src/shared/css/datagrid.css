@@ -4,7 +4,6 @@
 table {
     border-collapse: collapse;
     border-spacing: 0;
-
     margin: 0;
     padding: 0;
     border: 0;
@@ -15,7 +14,7 @@ table {
 .ch-datagrid-controls,
 .ch-datagrid {
     width: 100%;
-    border: 1px solid #EDEDED;
+    border: 1px solid #DEDEDE;
     text-align: left;
 }
 
@@ -29,14 +28,14 @@ table {
 
 .ch-datagrid-controls thead tr,
 .ch-datagrid thead tr {
-    border-top: 1px solid #EDEDED;
+    border-top: 1px solid #DEDEDE;
 }
 
 .ch-datagrid-controls th,
 .ch-datagrid th {
-    background-color: #F7F7F7;
-    border-bottom: 1px solid #EDEDED;
-    border-left: 1px solid #EDEDED;
+    background-color: #F0F0F0;
+    border-bottom: 1px solid #DEDEDE;
+    border-left: 1px solid #DEDEDE;
     font-size: 11px;
     line-height: 26px;
     padding: 0 10px;
@@ -99,7 +98,7 @@ table {
 
 .ch-datagrid-controls tr,
 .ch-datagrid tr {
-    border-top: 1px solid #EDEDED;
+    border-top: 1px solid #DEDEDE;
 }
 
 
@@ -130,14 +129,14 @@ table {
 
 .lt-ie9 .ch-datagrid-controls thead tr,
 .lt-ie9 .ch-datagrid thead tr {
-    border: 1px solid #EDEDED;
+    border: 1px solid #DEDEDE;
 }
 
 .lt-ie10 .ch-datagrid-selected {
-    border: 1px solid #EDEDED;
+    border: 1px solid #DEDEDE;
 }
 
 .lt-ie10 .ch-datagrid-controls td,
 .lt-ie10 .ch-datagrid td {
-    border-top: 1px solid #EDEDED;
+    border-top: 1px solid #DEDEDE;
 }

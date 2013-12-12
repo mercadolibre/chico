@@ -3,16 +3,20 @@
  */
 .ch-wizard {
     background-color: #fff;
-    border: 1px solid #EDEDED;
+    border: 1px solid #DEDEDE;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
 .ch-wizard .ch-actions {
-    background-color: #f2f2f2;
-    border-top: 1px solid #EDEDED;
+    border-top: 1px solid #DEDEDE;
     padding: 10px 20px;
     border-radius: 0 0 5px 5px;
+}
+
+.ch-wizard .ch-actions,
+.ch-wizard-breadcrumb a {
+    background: #F0F0F0;
 }
 
 .ch-wizard-breadcrumb {
@@ -52,13 +56,9 @@
 .ch-wizard-breadcrumb a,
 .ch-wizard-current,
 .ch-wizard-step {
-    border-bottom: 1px solid #EDEDED;
+    border-bottom: 1px solid #DEDEDE;
     display: block;
     line-height: 42px;
-}
-
-.ch-wizard-breadcrumb a {
-    background: #f2f2f2;
 }
 
 .ch-wizard-breadcrumb .ch-wizard-current {
@@ -96,11 +96,11 @@
 
 .ch-wizard-breadcrumb li a:before {
     border-width: 23px 11px;
-    border-left-color: #E5E5E5;
+    border-left-color: #DEDEDE;
 }
 
 .ch-wizard-breadcrumb li a:after {
-    border-left-color: #f2f2f2;
+    border-left-color: #F0F0F0;
     border-width: 24px 12px;
     top: -2px;
 }

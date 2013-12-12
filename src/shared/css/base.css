@@ -41,7 +41,7 @@
     background-image: -moz-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
     background-image: -o-linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
     background-image: linear-gradient(transparent 15%, rgba(100, 100, 100, 0.1));
-    border: 1px solid #EDEDED;
+    border: 1px solid #DEDEDE;
     border-radius: 3px;
     cursor: pointer;
     display: inline-block;

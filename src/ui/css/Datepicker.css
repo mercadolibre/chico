@@ -6,7 +6,7 @@
     position: absolute;
     z-index: 300;
     background-color: #fff;
-    border: 1px solid #EDEDED;
+    border: 1px solid #DEDEDE;
     min-width: 240px;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .ch-datepicker .ch-calendar caption {
-    border-bottom: 1px solid #EDEDED;
+    border-bottom: 1px solid #DEDEDE;
     margin: 0;
 }
 

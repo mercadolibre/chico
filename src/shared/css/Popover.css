@@ -53,7 +53,7 @@
 }
 
 .ch-cone[data-side=bottom] .ch-popover-content:before {
-    border-bottom-color: #E5E5E5;
+    border-bottom-color: #DDD;
 }
 
 .ch-cone[data-side=bottom] .ch-popover-content:after {
@@ -71,7 +71,7 @@
 }
 
 .ch-cone[data-side=top] .ch-popover-content:before {
-    border-top-color: #E5E5E5;
+    border-top-color: #DDD;
 }
 
 .ch-cone[data-side=top] .ch-popover-content:after {
@@ -89,7 +89,7 @@
 }
 
 .ch-cone[data-side=right] .ch-popover-content:before {
-    border-right-color: #E5E5E5;
+    border-right-color: #DDD;
 }
 
 .ch-cone[data-side=right] .ch-popover-content:after {
@@ -107,7 +107,7 @@
 }
 
 .ch-cone[data-side=left] .ch-popover-content:before {
-    border-left-color: #E5E5E5;
+    border-left-color: #DDD;
 }
 
 .ch-cone[data-side=left] .ch-popover-content:after {
