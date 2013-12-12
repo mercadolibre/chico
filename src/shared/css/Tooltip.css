@@ -3,7 +3,7 @@
  */
 .ch-tooltip {
     background-color: #FCF8E3;
-    border-color: #FBEED5;
+    border: 1px solid #FBEED5;
     color: #AA8749;
     padding: 8px 10px;
     border-radius: 5px;
