@@ -90,6 +90,7 @@ select[multiple],
 }
 
 .ch-list-options input[type=radio] {
+    top: 1.125em;
     margin-top: -9px;
 }
 

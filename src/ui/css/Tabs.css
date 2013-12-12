@@ -16,7 +16,7 @@
     overflow: hidden;
 }
 
-.ch-tabs-triggers li{
+.ch-tabs-triggers li {
     cursor: pointer;
     display: inline;
     margin-right: 0;
@@ -24,7 +24,7 @@
 
 /* Triggers */
 .ch-tab {
-    border: 1px solid #EDEDED;
+    border: 1px solid #DEDEDE;
     display: inline-block;
     padding: 3px 12px;
     margin-right: 2px;
@@ -37,18 +37,18 @@
 /* Hover and active */
 .ch-tab:hover,
 .ch-tab:active {
-    background-color: #F7F7F7;
+    background-color: #F0F0F0;
 }
 
 
 /* Trigger ON */
 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EEEEEE), color-stop(100%, #FFFFFF));
-    background-image: -webkit-linear-gradient(#EEEEEE, #FFFFFF 25px);
-    background-image: -moz-linear-gradient(#EEEEEE, #FFFFFF 25px);
-    background-image: -o-linear-gradient(#EEEEEE, #FFFFFF 25px);
-    background-image: linear-gradient(#EEEEEE, #FFFFFF 25px);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F0F0F0), color-stop(100%, #FFFFFF));
+    background-image: -webkit-linear-gradient(#F0F0F0, #FFFFFF 25px);
+    background-image: -moz-linear-gradient(#F0F0F0, #FFFFFF 25px);
+    background-image: -o-linear-gradient(#F0F0F0, #FFFFFF 25px);
+    background-image: linear-gradient(#F0F0F0, #FFFFFF 25px);
     border-bottom: 1px solid #FFFFFF;
     cursor: default;
     font-weight: bold;
@@ -57,7 +57,7 @@
 
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on,
 .lt-ie10 .ch-tabs .ch-tab.ch-expandable-trigger-on:hover {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EEEEEE', endColorstr='#FFFFFF');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F0F0F0', endColorstr='#FFFFFF');
 }
 
 /* Container */
