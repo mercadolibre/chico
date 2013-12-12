@@ -357,6 +357,8 @@ input[type=range],*/
 
 .ch-form input.ch-validation-error,
 .ch-form textarea.ch-validation-error,
+.ch-form input.ch-bubble-trigger-on,
+.ch-form textarea.ch-bubble-trigger-on,
 .ch-countdown-exceeded {
     border-color: #f99;
 }
