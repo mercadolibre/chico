@@ -87,11 +87,15 @@ select[multiple],
     display: block;
     width: 16px;
     height: 16px;
+    top: 1.125em;
 }
 
 .ch-list-options input[type=radio] {
-    top: 1.125em;
     margin-top: -9px;
+}
+
+.ch-list-options input[type=checkbox] {
+    margin-top: -8px;
 }
 
 /* Disabled status */
@@ -110,4 +114,12 @@ select[multiple],
 /* Actions */
 .ch-form-actions {
     margin-left: 145px;
+}
+
+.lt-ie10 .ch-list-options input[type=radio] {
+    margin-top: -11px;
+}
+
+.lt-ie10 .ch-list-options input[type=checkbox]  {
+    margin-top: -11px;
 }

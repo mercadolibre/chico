@@ -196,7 +196,6 @@ input.ch-form-icon-input:focus {
     .ch-label-inline {
         text-align: left;
         width: auto;
-        padding-right: 0;
         font-weight: normal;
         margin-left: 0;
     }
