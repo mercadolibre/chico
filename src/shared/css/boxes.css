@@ -56,6 +56,10 @@
     background-color: #F5E6E6;
 }
 
+.ch-box-error a:visited {
+    color: #0637B3;
+}
+
 /**
  * Help
  */
