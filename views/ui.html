@@ -200,7 +200,7 @@
 
     <div class="ch-box-info">
         <h2>Box Info</h2>
-        <p>Here's more information</p>
+        <p>Here's more information <a href="#">Foobar</a></p>
     </div>
 
     <div class="ch-box-warn">
@@ -1588,9 +1588,8 @@
         var validation10 = $('#select2').required(message('option'));
         var validation11 = $('.required-check').required(message('requiredCheck'));
         var validation12 = $('.required-option').required(message('option'));
-        var validation13 = $('#double').required(message('link'));
-        var validation14 = $('#double').number();
-        var validation15 = $('#double, #textarea2').required();
+        var validation13 = $('#double').required(message('link')).and().number();
+        var validation14 = $('#textarea2').required();
     </script>
 </body>
 </html>

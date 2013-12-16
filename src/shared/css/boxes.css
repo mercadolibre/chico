@@ -80,6 +80,10 @@
     background-color: #D9EDF7;
 }
 
+.ch-box-info a {
+    text-decoration: underline;
+}
+
 /**
  * Ok
  */
