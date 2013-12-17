@@ -31,10 +31,10 @@
 .ch-pagination .ch-pagination-current a:hover {
     border: 1px solid #DEDEDE;
     background-color: #DEDEDE;
-    color: #0637b3;
+    color: #0033BB;
 }
 
 .ch-pagination a[type="prev"]:hover,
 .ch-pagination a[type="next"]:hover {
-    border-color: #0637b3;
+    border-color: #0033BB;
 }
