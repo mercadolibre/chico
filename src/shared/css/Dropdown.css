@@ -79,7 +79,7 @@
     border: 1px solid transparent;
     border-width: 0 1px;
     border-radius: 0;
-    color: #0637B3;
+    color: #0033BB;
     text-decoration: none;
     padding: 0 28px 0 13px;
 }
@@ -130,7 +130,7 @@
 
 .ch-dropdown-skin menu a {
     background: none;
-    color: #0637B3;
+    color: #0033BB;
     display: inline;
     line-height: 20px;
     padding: 0;
