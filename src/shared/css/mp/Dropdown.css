@@ -1,0 +1,17 @@
+/* Trigger Actived */
+.ch-dropdown-trigger-on,
+.ch-dropdown-trigger-on:hover {
+    background-color: #A9DBF7;
+    background-image: -webkit-linear-gradient(#A9DBF7, #A3D0EE);
+    background-image: -moz-linear-gradient(#A9DBF7, #A3D0EE);
+    background-image: -o-linear-gradient(#A9DBF7, #A3D0EE);
+    background-image: linear-gradient(#A9DBF7, #A3D0EE);
+    -webkit-box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+    box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+    border-color: #79B0D9;
+}
+
+/* Interaction of list */
+.ch-dropdown menu a:focus {
+    background-color: #E8F6FD;
+}

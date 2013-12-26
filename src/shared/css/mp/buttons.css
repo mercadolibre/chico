@@ -1,0 +1,76 @@
+/* Colors */
+.ch-btn,
+.ch-btn:focus,
+.ch-btn:visited {
+    background-color: #36A1F1;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4055A5), color-stop(100%, #283077));
+    background-image: -webkit-linear-gradient(#36A1F1, #0F79C9);
+    background-image: -moz-linear-gradient(#36A1F1, #0F79C9);
+    background-image: -o-linear-gradient(#36A1F1, #0F79C9);
+    background-image: linear-gradient(#36A1F1, #0F79C9);
+    -webkit-box-shadow: inset 0 1px #8EA2DF;
+    box-shadow: inset 0 1px #97DCFF;
+    border: 1px solid #0F79C9;
+}
+
+.ch-btn-skin,
+.ch-btn-skin:focus,
+.ch-btn-skin:visited {
+    background-color: #DAF1FC;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #DAF1FC), color-stop(100%, #C2E2F3));
+    background-image: -webkit-linear-gradient(#DAF1FC, #C2E2F3);
+    background-image: -moz-linear-gradient(#DAF1FC, #C2E2F3);
+    background-image: -o-linear-gradient(#DAF1FC, #C2E2F3);
+    background-image: linear-gradient(#DAF1FC, #C2E2F3);
+    border: 1px solid #79B0D9;
+    -webkit-box-shadow: inset 0 1px #EFF7FD;
+    box-shadow: inset 0 1px #EFF7FD;
+    color: #295D8F;
+}
+
+/* Colors on Hover */
+.ch-btn:hover {
+    background-color: #4CBFF8;
+    background-image: -webkit-linear-gradient(#4CBFF8, #1699DF);
+    background-image: -moz-linear-gradient(#4CBFF8, #1699DF);
+    background-image: -o-linear-gradient(#4CBFF8, #1699DF);
+    background-image: linear-gradient(#4CBFF8, #1699DF);
+    -webkit-box-shadow: inset 0 1px #B6EBFF;
+    box-shadow: inset 0 1px #B6EBFF;
+}
+
+.ch-btn-skin:hover {
+    background-color: #EAF7FE;
+    background-image: -webkit-linear-gradient(#EAF7FE, #D9EDF8);
+    background-image: -moz-linear-gradient(#EAF7FE, #D9EDF8);
+    background-image: -o-linear-gradient(#EAF7FE, #D9EDF8);
+    background-image: linear-gradient(#EAF7FE, #D9EDF8);
+    -webkit-box-shadow: inset 0 1px #F7FAFE;
+    box-shadow: inset 0 1px #F7FAFE;
+}
+
+
+/* Colors on Active */
+.ch-btn:active {
+    background-color: #A9DBF7;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #A9DBF7), color-stop(100%, #A3D0EE));
+    background-image: -webkit-linear-gradient(#A9DBF7, #A3D0EE);
+    background-image: -moz-linear-gradient(#A9DBF7, #A3D0EE);
+    background-image: -o-linear-gradient(#A9DBF7, #A3D0EE);
+    background-image: linear-gradient(#A9DBF7, #A3D0EE);
+    -webkit-box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+    box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+    border-color: #79B0D9;
+}
+
+.ch-btn-skin:active {
+    background-color: #7AB6DC;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #A2C9E1), color-stop(100%, #7AB6DC));
+    background-image: -webkit-linear-gradient(#A2C9E1, #7AB6DC);
+    background-image: -moz-linear-gradient(#A2C9E1, #7AB6DC);
+    background-image: -o-linear-gradient(#A2C9E1, #7AB6DC);
+    background-image: linear-gradient(#A2C9E1, #7AB6DC);
+    -webkit-box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+    box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+    border-color: #79A8C7;
+}

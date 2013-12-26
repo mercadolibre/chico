@@ -41,14 +41,6 @@
 /* Trigger Actived */
 .ch-dropdown-trigger-on,
 .ch-dropdown-trigger-on:hover {
-    background-color: #7AB6DC;
-    background-image: -webkit-linear-gradient(#A2C9E1, #7AB6DC);
-    background-image: -moz-linear-gradient(#A2C9E1, #7AB6DC);
-    background-image: -o-linear-gradient(#A2C9E1, #7AB6DC);
-    background-image: linear-gradient(#A2C9E1, #7AB6DC);
-    -webkit-box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
-    box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
-    border-color: #79A8C7;
     border-radius: 3px 3px 0 0;
 }
 
@@ -66,7 +58,6 @@
 
 /* Interaction of list */
 .ch-dropdown menu a:focus {
-    background-color: #fefbd6;
     outline: none;
 }
 
