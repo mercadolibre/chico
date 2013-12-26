@@ -33,21 +33,21 @@ button:focus {
 
 /* Size */
 input.ch-btn::-moz-focus-inner,
-input.ch-btn-big::-moz-focus-inner,
+input.ch-btn-large::-moz-focus-inner,
 input.ch-btn-small::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
 
-/* Big */
-.ch-btn-big,
-.ch-btn-big:focus {
+/* Large */
+.ch-btn-large,
+.ch-btn-large:focus {
     font-size: 20px;
     text-align: center;
 }
 
 input.ch-btn::-moz-focus-inner,
-input.ch-btn-big::-moz-focus-inner,
+input.ch-btn-large::-moz-focus-inner,
 input.ch-btn-small::-moz-focus-inner {
     border: 0;
     padding: 0;
