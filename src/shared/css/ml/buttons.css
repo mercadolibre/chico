@@ -1,0 +1,75 @@
+/* Colors */
+.ch-btn,
+.ch-btn:focus,
+.ch-btn:visited {
+    background-color: #3E52A1;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4055A5), color-stop(100%, #283077));
+    background-image: -webkit-linear-gradient(#3E52A1, #2D3277);
+    background-image: -moz-linear-gradient(#3E52A1, #2D3277);
+    background-image: -o-linear-gradient(#3E52A1, #2D3277);
+    background-image: linear-gradient(#3E52A1, #2D3277);
+    -webkit-box-shadow: inset 0 1px #8EA2DF;
+    box-shadow: inset 0 1px #8EA2DF;
+    border: 1px solid #2D3277;
+}
+
+.ch-btn-skin,
+.ch-btn-skin:focus,
+.ch-btn-skin:visited {
+    background-color: #CCE3F7;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #CCE3F7), color-stop(100%, #AAD0EF));
+    background-image: -webkit-linear-gradient(#CCE3F7, #AAD0EF);
+    background-image: -moz-linear-gradient(#CCE3F7, #AAD0EF);
+    background-image: -o-linear-gradient(#CCE3F7, #AAD0EF);
+    background-image: linear-gradient(#CCE3F7, #AAD0EF);
+    border: 1px solid #79A8C7;
+    -webkit-box-shadow: inset 0 1px #E5F2FC;
+    box-shadow: inset 0 1px #E5F2FC;
+    color: #476274;
+}
+
+/* Colors on Hover */
+.ch-btn:hover {
+    background-color: #4355D2;
+    background-image: -webkit-linear-gradient(#4355D2, #2F33AE);
+    background-image: -moz-linear-gradient(#4355D2, #2F33AE);
+    background-image: -o-linear-gradient(#4355D2, #2F33AE);
+    background-image: linear-gradient(#4355D2, #2F33AE);
+    -webkit-box-shadow: inset 0 1px #7A89E8;
+    box-shadow: inset 0 1px #7A89E8;
+}
+
+.ch-btn-skin:hover {
+    background-color: #DCECFB;
+    background-image: -webkit-linear-gradient(#DCECFB, #C5DFF5);
+    background-image: -moz-linear-gradient(#DCECFB, #C5DFF5);
+    background-image: -o-linear-gradient(#DCECFB, #C5DFF5);
+    background-image: linear-gradient(#DCECFB, #C5DFF5);
+    -webkit-box-shadow: inset 0 1px #ECF5FD;
+    box-shadow: inset 0 1px #ECF5FD;
+}
+
+/* Colors on Active */
+.ch-btn:active {
+    background-color: #292F66;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #292F66), color-stop(100%, #202388));
+    background-image: -webkit-linear-gradient(#292F66, #202388);
+    background-image: -moz-linear-gradient(#292F66, #202388);
+    background-image: -o-linear-gradient(#292F66, #202388);
+    background-image: linear-gradient(#292F66, #202388);
+    -webkit-box-shadow: inset 0 1px 6px #141452;
+    box-shadow: inset 0 1px 6px #141452;
+    border-color: #181E39;
+}
+
+.ch-btn-skin:active {
+    background-color: #7AB6DC;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #A2C9E1), color-stop(100%, #7AB6DC));
+    background-image: -webkit-linear-gradient(#A2C9E1, #7AB6DC);
+    background-image: -moz-linear-gradient(#A2C9E1, #7AB6DC);
+    background-image: -o-linear-gradient(#A2C9E1, #7AB6DC);
+    background-image: linear-gradient(#A2C9E1, #7AB6DC);
+    -webkit-box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+    box-shadow: inset 0 1px 6px rgba(71, 98, 116, .6);
+    border-color: #79A8C7;
+}

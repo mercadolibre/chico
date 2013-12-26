@@ -81,7 +81,8 @@ JS.components = [
 CSS.resetML = [
     "src/shared/css/reset.css",
     "src/ui/css/reset.css",
-    "src/shared/css/typography.css"
+    "src/shared/css/typography.css",
+    "src/shared/css/mp/typography.css"
 ];
 
 /*
@@ -102,6 +103,7 @@ CSS.core = [
  */
 CSS.components = [
     "src/shared/css/buttons.css",
+    "src/shared/css/mp/buttons.css",
     "src/ui/css/buttons.css",
     "src/shared/css/datagrid.css",
     "src/shared/css/lists.css",
@@ -119,6 +121,7 @@ CSS.components = [
     "src/shared/css/Calendar.css",
     "src/shared/css/Carousel.css",
     "src/shared/css/Dropdown.css",
+    "src/shared/css/mp/Dropdown.css",
     "src/ui/css/Expandable.css",
     "src/ui/css/Menu.css",
     "src/ui/css/Tabs.css",
