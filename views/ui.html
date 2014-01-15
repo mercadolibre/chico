@@ -188,7 +188,7 @@
 
     <div class="ch-box-error">
         <h2>Box Error</h2>
-        <p>Oops, something wrong happened.</p>
+        <p>Oops, something wrong happened. <a href="#">Click Here!</a></p>
     </div>
 
     <div class="ch-box-help">
@@ -198,7 +198,7 @@
 
     <div class="ch-box-info">
         <h2>Box Info</h2>
-        <p>Here's more information</p>
+        <p>Here's more information <a href="#">Click Here!</a></p>
     </div>
 
     <div class="ch-box-warn">
@@ -615,7 +615,7 @@
     <div class="ch-box-lite">
         <h2 id="transition-window">Transition window</h2>
         <form action="static/ajax.html">
-            <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Exeute it!">
+            <input type="submit" id="transition" class="ch-btn ch-btn-small" value="Execute it!">
         </form>
     </div>
 
@@ -901,7 +901,7 @@
                 </div>
                 <div class="ch-form-row">
                     <label for="double">
-                        It's a input text with double line:
+                        It's an input text with double line:
                     </label>
                     <input type="text" id="double">
                 </div>
@@ -1578,9 +1578,8 @@
         var validation10 = $('#select2').required(message('option'));
         var validation11 = $('.required-check').required(message('requiredCheck'));
         var validation12 = $('.required-option').required(message('option'));
-        var validation13 = $('#double').required(message('link'));
-        var validation14 = $('#double').number();
-        var validation15 = $('#double, #textarea2').required();
+        var validation13 = $('#double').required(message('link')).and().number();
+        var validation14 = $('#textarea2').required();
     </script>
 </body>
 </html>

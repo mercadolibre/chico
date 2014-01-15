@@ -56,6 +56,10 @@
     background-color: #F5E6E6;
 }
 
+.ch-box-error a:visited {
+    color: #0033BB;
+}
+
 /**
  * Help
  */
@@ -77,7 +81,11 @@
 }
 
 .ch-box-info {
-    background-color: #D9EDF7;
+    background-color: #E4F2F9;
+}
+
+.ch-box-info a {
+    text-decoration: underline;
 }
 
 /**

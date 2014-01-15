@@ -61,7 +61,7 @@ select[multiple],
 }
 
 /* Help bottom line that helps the user */
-.ch-form-hint {
+.ch-form-row .ch-form-hint {
     margin-left: 145px;
 }
 
